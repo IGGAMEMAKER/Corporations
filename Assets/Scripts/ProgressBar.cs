@@ -10,14 +10,19 @@ public class ProgressBar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("Increment", 2.0f, 0.5f);
-	}
+        //InvokeRepeating("Increment", 2.0f, 0.5f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         slider = GetComponent<Slider>();
         slider.value = value / 100;
 	}
+
+    void Draw ()
+    {
+        Debug.Log("I am drawing! " + Time.time);
+    }
 
     public void Refresh (float val)
     {
