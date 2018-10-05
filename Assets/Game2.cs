@@ -20,7 +20,7 @@ public class Game2 : MonoBehaviour {
         {
             me
         };
-        Project p = new Project(featureCount, workers);
+        Project p = new Project(featureCount, workers, new TeamResource(100, 100, 100, 10, 5000));
 
         Projects = new List<Project>{
             p
@@ -67,20 +67,65 @@ public class Game2 : MonoBehaviour {
 
     public class TeamResource
     {
-        int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
+        int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money;
 
-        public TeamResource (int programmingPoints, int managerPoints, int salesPoints, int ideaPoints)
+        public TeamResource (int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, int money)
         {
             ProgrammingPoints = programmingPoints;
             ManagerPoints = managerPoints;
             SalesPoints = salesPoints;
             IdeaPoints = ideaPoints;
+            Money = money;
         }
 
         static bool IsEnoughResources (TeamResource Need)
         {
             Debug.LogError("IsEnoughResources not implemented");
+
             return false;
+        }
+    }
+
+    const int RELEVANCY_RELEVANT = 0;
+    const int RELEVANCY_SLIGHTLY_OUTDATED = -1;
+    const int RELEVANCY_VASTLY_OUTDATED = -2;
+
+    enum FeatureStatus
+    {
+        NeedsExploration,
+        Explored
+    }
+
+    class Feature
+    {
+        int Relevancy;
+        FeatureStatus Status;
+
+        public Feature (int relevancy, FeatureStatus status)
+        {
+            Status = status;
+            Relevancy = relevancy;
+        }
+
+        public void Explore ()
+        {
+            Status = FeatureStatus.Explored;
+        }
+
+        public void Update ()
+        {
+            Status = FeatureStatus.NeedsExploration;
+            Relevancy = RELEVANCY_RELEVANT;
+        }
+
+        public void Outdate ()
+        {
+            if (Relevancy == RELEVANCY_RELEVANT)
+                Relevancy = RELEVANCY_SLIGHTLY_OUTDATED;
+            else
+                Relevancy = RELEVANCY_VASTLY_OUTDATED;
+
+            Status = FeatureStatus.NeedsExploration;
         }
     }
 
@@ -88,12 +133,19 @@ public class Game2 : MonoBehaviour {
     {
         List<int> Features;
         List<Human> Workers;
-        TeamResource resource;
+        TeamResource teamResource;
 
-        public Project (int featureCount, List<Human> workers)
+        public Project (int featureCount, List<Human> workers, TeamResource resource)
         {
             Features = Enumerable.Repeat(0, featureCount).ToList();
             Workers = workers;
+            teamResource = resource;
+        }
+
+        void UpgradeFeature (int featureID)
+        {
+
+            Features[featureID]++;
         }
 
         void PrintFeatures()
