@@ -11,16 +11,20 @@ namespace Assets.Classes
         Explored
     }
 
+    enum RelevancyStatus
+    {
+        Innovative,
+        Relevant,
+        Outdated,
+        Dinosaur
+    }
+
     class Feature
     {
-        const int RELEVANCY_RELEVANT = 0;
-        const int RELEVANCY_SLIGHTLY_OUTDATED = -1;
-        const int RELEVANCY_VASTLY_OUTDATED = -2;
-
-        int Relevancy;
+        RelevancyStatus Relevancy;
         FeatureStatus Status;
 
-        public Feature(int relevancy, FeatureStatus status)
+        public Feature(RelevancyStatus relevancy, FeatureStatus status)
         {
             Status = status;
             Relevancy = relevancy;
@@ -34,22 +38,28 @@ namespace Assets.Classes
         public void Update ()
         {
             Status = FeatureStatus.NeedsExploration;
-            Relevancy = RELEVANCY_RELEVANT;
+
+            if (Relevancy == RelevancyStatus.Relevant)
+                Relevancy = RelevancyStatus.Innovative;
+            else
+                Relevancy = RelevancyStatus.Relevant;
         }
 
         public void Outdate ()
         {
-            if (Relevancy == RELEVANCY_RELEVANT)
-                Relevancy = RELEVANCY_SLIGHTLY_OUTDATED;
+            if (Relevancy == RelevancyStatus.Innovative)
+                Relevancy = RelevancyStatus.Relevant;
+            else if (Relevancy == RelevancyStatus.Relevant)
+                Relevancy = RelevancyStatus.Outdated;
             else
-                Relevancy = RELEVANCY_VASTLY_OUTDATED;
+                Relevancy = RelevancyStatus.Dinosaur;
 
             Status = FeatureStatus.NeedsExploration;
         }
 
-        public bool IsRelevant ()
+        public bool IsNotOutdated ()
         {
-            return Relevancy == RELEVANCY_RELEVANT;
+            return Relevancy == RelevancyStatus.Relevant || Relevancy == RelevancyStatus.Innovative;
         }
     }
 }

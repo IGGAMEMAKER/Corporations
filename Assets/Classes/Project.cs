@@ -2,39 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Classes
 {
     class Project
     {
-        List<int> Features;
+        List<Feature> Features;
         List<Human> Workers;
-        TeamResource teamResource;
+        TeamResource Resource;
 
         public Project(int featureCount, List<Human> workers, TeamResource resource)
         {
-            Features = Enumerable.Repeat(0, featureCount).ToList();
+            Features = Enumerable.Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount).ToList();
             Workers = workers;
-            teamResource = resource;
+            Resource = resource;
         }
 
-        void UpgradeFeature(int featureID)
+        public void UpgradeFeature(int featureID)
         {
-
-            Features[featureID]++;
+            Features[featureID].Update();
+            SpendResources(new TeamResource(50, 0, 0, 10, 0));
         }
 
-        void SpendResources(TeamResource resource)
+        public void ExploreFeature (int featureID)
         {
-            teamResource.Spend(resource);
+            Features[featureID].Explore();
+            SpendResources(new TeamResource(0, 0, 0, 10, 0));
         }
 
-        void PrintFeatures()
+        public void SpendResources(TeamResource resource)
         {
-            Debug.Log("Printing elements!");
+            Resource.Spend(resource);
+        }
+
+        public void PrintFeatures()
+        {
+            Debug.Log("Printing features!");
+
             for (int i = 0; i < Features.Count; i++)
             {
-                Debug.Log("Printing element[" + i + "]: " + Features[i]);
+                Debug.Log("Printing feature[" + i + "]: ");
+                Debug.Log(Features[i]);
+                Debug.Log("---------------------");
             }
         }
     }

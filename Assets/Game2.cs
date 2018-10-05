@@ -10,6 +10,7 @@ public class Game2 : MonoBehaviour {
     public int maxAmountOfTraits = 3;
 
     List<Project> Projects;
+    List<Market> Markets;
 
     // Use this for initialization
     void Start () {
@@ -17,15 +18,12 @@ public class Game2 : MonoBehaviour {
         int[] myTraits = new int[] { };
         Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
 
-        List<Human> workers = new List<Human>
-        {
-            me
-        };
+        List<Human> workers = new List<Human>{ me };
         Project p = new Project(featureCount, workers, new TeamResource(100, 100, 100, 10, 5000));
 
-        Projects = new List<Project>{
-            p
-        };
+        Projects = new List<Project>{ p };
+
+        Projects[0].PrintFeatures();
     }
 	
 	// Update is called once per frame
