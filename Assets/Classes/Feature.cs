@@ -30,12 +30,12 @@ namespace Assets.Classes
             Relevancy = relevancy;
         }
 
-        public void Explore ()
+        public void Explore()
         {
             Status = FeatureStatus.Explored;
         }
 
-        public void Update ()
+        public void Update()
         {
             Status = FeatureStatus.NeedsExploration;
 
@@ -45,7 +45,7 @@ namespace Assets.Classes
                 Relevancy = RelevancyStatus.Relevant;
         }
 
-        public void Outdate ()
+        public void Outdate()
         {
             if (Relevancy == RelevancyStatus.Innovative)
                 Relevancy = RelevancyStatus.Relevant;
@@ -57,7 +57,7 @@ namespace Assets.Classes
             Status = FeatureStatus.NeedsExploration;
         }
 
-        public bool IsNotOutdated ()
+        public bool IsNotOutdated()
         {
             return Relevancy == RelevancyStatus.Relevant || Relevancy == RelevancyStatus.Innovative;
         }

@@ -7,9 +7,23 @@ namespace Assets.Classes
 {
     class Market
     {
-        public Market ()
-        {
+        int BaseTechCost;
+        int BaseEngagement;
+        int BasePaymentAbility;
+        int BaseMarketingCost;
+        int ChangePeriod; // 
+        int AmountOfFeatures;
 
+        public Market (int baseTechCost, int baseEngagement, int basePaymentAbility, int baseMarketingCost, int changePeriod, int amountOfFeatures)
+        {
+            BaseTechCost = baseTechCost;
+            BaseEngagement = baseEngagement;
+            BasePaymentAbility = basePaymentAbility;
+            BaseMarketingCost = baseMarketingCost;
+            ChangePeriod = changePeriod;
+            AmountOfFeatures = amountOfFeatures;
         }
+
+
     }
 }

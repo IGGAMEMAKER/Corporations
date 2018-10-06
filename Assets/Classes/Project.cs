@@ -12,14 +12,16 @@ namespace Assets.Classes
         List<Human> Workers;
         TeamResource Resource;
 
-        public Project(int featureCount, List<Human> workers, TeamResource resource)
+        public Project (int featureCount, List<Human> workers, TeamResource resource)
         {
-            Features = Enumerable.Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount).ToList();
+            Features = Enumerable
+                .Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount)
+                .ToList();
             Workers = workers;
             Resource = resource;
         }
 
-        public void UpgradeFeature(int featureID)
+        public void UpgradeFeature (int featureID)
         {
             Features[featureID].Update();
             SpendResources(new TeamResource(50, 0, 0, 10, 0));
@@ -31,7 +33,7 @@ namespace Assets.Classes
             SpendResources(new TeamResource(0, 0, 0, 10, 0));
         }
 
-        public void SpendResources(TeamResource resource)
+        public void SpendResources (TeamResource resource)
         {
             Resource.Spend(resource);
         }
