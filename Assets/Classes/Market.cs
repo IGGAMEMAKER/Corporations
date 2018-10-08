@@ -11,17 +11,19 @@ namespace Assets.Classes
         int BaseEngagement;
         int BasePaymentAbility;
         int BaseMarketingCost;
-        int ChangePeriod; // 
         int AmountOfFeatures;
 
-        public Market (int baseTechCost, int baseEngagement, int basePaymentAbility, int baseMarketingCost, int changePeriod, int amountOfFeatures)
+        int ChangePeriod; // 
+
+        public Market (int baseTechCost, int baseEngagement, int basePaymentAbility, int baseMarketingCost, int amountOfFeatures, int changePeriod)
         {
             BaseTechCost = baseTechCost;
             BaseEngagement = baseEngagement;
             BasePaymentAbility = basePaymentAbility;
             BaseMarketingCost = baseMarketingCost;
-            ChangePeriod = changePeriod;
             AmountOfFeatures = amountOfFeatures;
+
+            ChangePeriod = changePeriod;
         }
 
 
