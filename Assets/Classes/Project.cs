@@ -15,7 +15,9 @@ namespace Assets.Classes
 
         public Project(int featureCount, List<Human> workers, TeamResource resource)
         {
-            Features = Enumerable.Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount).ToList();
+            Features = Enumerable
+                .Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount)
+                .ToList();
             Workers = workers;
             Resource = resource;
         }
@@ -40,6 +42,11 @@ namespace Assets.Classes
         public void SellShareToNewInvestor(int share, int price, Investor investor)
         {
             shareholderInfo.AddShareholder(share, investor, price);
+        }
+
+        public void PrintResources ()
+        {
+            Resource.Print();
         }
     }
 }

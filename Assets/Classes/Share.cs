@@ -8,8 +8,8 @@ namespace Assets.Classes
     class ShareInfo
     {
         int Share;
-        Investor Shareholder;
         int Investments;
+        Investor Shareholder;
 
         public ShareInfo (int share, Investor investor, int investments)
         {

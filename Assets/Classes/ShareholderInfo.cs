@@ -9,7 +9,6 @@ namespace Assets.Classes
     {
         List<ShareInfo> Shareholders;
 
-
         public ShareholderInfo (List<ShareInfo> shareholders)
         {
             Shareholders = shareholders;

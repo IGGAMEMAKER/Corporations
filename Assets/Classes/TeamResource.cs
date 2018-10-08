@@ -34,5 +34,16 @@ namespace Assets.Classes
             IdeaPoints -= spendable.IdeaPoints;
             Money -= spendable.Money;
         }
+
+        public void Print()
+        {
+            Debug.Log(
+                "PP: " + ProgrammingPoints +
+                " MP: " + ManagerPoints +
+                " SP: " + SalesPoints +
+                " i: " + IdeaPoints +
+                " $$$: " + Money
+                );
+        }
     }
 }
