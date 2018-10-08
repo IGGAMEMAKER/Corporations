@@ -1,4 +1,4 @@
-﻿using System;
+﻿//using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +11,9 @@ namespace Assets.Classes
         int MaxClients;
         int Clients;
         int Engagement; // 0.01 ... 0.05
-        Dictionary<string, ChannelInfo> ChannelInfos; // string - projectID
+        Dictionary<int, ChannelInfo> ChannelInfos; // string - projectID
 
-        public Channel(int engagement, int maxClients, int clients, Dictionary<string, ChannelInfo> channelInfos)
+        public Channel(int engagement, int maxClients, int clients, Dictionary<int, ChannelInfo> channelInfos)
         {
             MaxClients = maxClients;
             Clients = clients;
@@ -21,9 +21,9 @@ namespace Assets.Classes
             ChannelInfos = channelInfos;
         }
 
-        public int InvokeAdCampaign(string projectID, float effeciency)
+        public int InvokeAdCampaign(int projectID, float effeciency)
         {
-            int clients = (int)Mathf.Floor(Engagement * effeciency * Clients * UnityEngine.Random.Range(1, 2));
+            int clients = (int)Mathf.Floor(Engagement * effeciency * Clients * Random.Range(1, 2));
             Debug.Log("added " + clients.ToString() + " clients to " + projectID + " via last campaign");
 
             if (ChannelInfos[projectID] == null)

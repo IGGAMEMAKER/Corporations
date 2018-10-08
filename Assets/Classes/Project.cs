@@ -15,9 +15,11 @@ namespace Assets.Classes
 
         public Project(int featureCount, List<Human> workers, TeamResource resource)
         {
-            Features = Enumerable
-                .Repeat(new Feature (RelevancyStatus.Relevant, FeatureStatus.NeedsExploration), featureCount)
-                .ToList();
+            Features = new List<Feature>();
+            for (var i = 0; i < featureCount; i++)
+            {
+                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration));
+            }
             Workers = workers;
             Resource = resource;
         }
@@ -25,7 +27,7 @@ namespace Assets.Classes
         public void UpgradeFeature(int featureID)
         {
             Features[featureID].Update();
-            SpendResources(new TeamResource(50, 0, 0, 10, 0));
+            SpendResources(new TeamResource(50, 0, 0, 0, 0));
         }
 
         public void ExploreFeature(int featureID)
@@ -42,6 +44,14 @@ namespace Assets.Classes
         public void SellShareToNewInvestor(int share, int price, Investor investor)
         {
             shareholderInfo.AddShareholder(share, investor, price);
+        }
+
+        public void PrintTechnologies ()
+        {            
+            for (var i = 0; i < Features.Count; i++)
+            {
+                Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
+            }
         }
 
         public void PrintResources ()

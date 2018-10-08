@@ -61,5 +61,34 @@ namespace Assets.Classes
         {
             return Relevancy == RelevancyStatus.Relevant || Relevancy == RelevancyStatus.Innovative;
         }
+
+        string GetLiteralRelevancy()
+        {
+            switch (Relevancy)
+            {
+                case RelevancyStatus.Dinosaur: return "Dinosaur";
+                case RelevancyStatus.Innovative: return "Innovative";
+                case RelevancyStatus.Outdated: return "Outdated";
+                case RelevancyStatus.Relevant: return "Relevant";
+
+                default: return "Unknown";
+            }
+        }
+
+        string GetLiteralStatus()
+        {
+            switch (Status)
+            {
+                case FeatureStatus.Explored: return "Explored";
+                case FeatureStatus.NeedsExploration: return "Needs Exploration";
+
+                default: return "Unknown";
+            }
+        }
+
+        public string GetLiteralFeatureStatus()
+        {
+            return GetLiteralRelevancy() + " " + GetLiteralStatus();
+        }
     }
 }

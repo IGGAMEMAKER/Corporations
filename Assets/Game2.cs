@@ -11,10 +11,24 @@ public class Game2 : MonoBehaviour {
     void Start () {
         world = new World();
 
-        world.PrintResources(0);
-        world.ExploreFeature(0, 0);
-        world.UpgradeFeature(0, 0);
-        world.PrintResources(0);
+        int projectId = 0;
+        int featureId = 0;
+        int channelId = 0;
+
+        world.PrintResources(projectId);
+        world.ExploreFeature(projectId, featureId);
+        world.UpgradeFeature(projectId, featureId);
+        world.PrintResources(projectId);
+        world.PrintTechnologies(projectId);
+
+
+        //world.PrintChannelInfo(projectId, channelId);
+        //world.PrepareAd(projectId, channelId);
+        //world.StartAd(projectId, channelId);
+        //world.PrintChannelInfo(projectId, channelId);
+
+
+        //world.PeriodTick(projectId);
     }
 	
 	// Update is called once per frame

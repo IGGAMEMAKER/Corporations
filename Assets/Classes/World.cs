@@ -27,6 +27,31 @@ namespace Assets.Classes
             Projects = new List<Project> { p };
         }
 
+        public void PrintTechnologies(int projectId)
+        {
+            GetProjectById(projectId).PrintTechnologies();
+        }
+
+        internal void PrintChannelInfo(int projectId, int channelId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void PeriodTick(int projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void StartAd(int projectId, int channelId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void PrepareAd(int projectId, int channelId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Project GetProjectById (int projectId)
         {
             return Projects[projectId];
