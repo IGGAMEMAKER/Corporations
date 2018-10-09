@@ -22,17 +22,20 @@ public class Game2 : MonoBehaviour {
         world.PrintTechnologies(projectId);
 
 
-        //world.PrintChannelInfo(projectId, channelId);
+        world.PrintProjectInfo(projectId, channelId);
         //world.PrepareAd(projectId, channelId);
-        //world.StartAd(projectId, channelId);
-        //world.PrintChannelInfo(projectId, channelId);
+        world.StartAd(projectId, channelId);
+        world.StartAd(projectId, channelId);
+        world.StartAd(projectId, channelId);
+        world.StartAd(projectId, channelId);
+        world.PrintProjectInfo(projectId, channelId);
 
 
         //world.PeriodTick(projectId);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

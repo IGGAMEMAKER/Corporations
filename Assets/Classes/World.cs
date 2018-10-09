@@ -13,18 +13,26 @@ namespace Assets.Classes
 
         List<Project> Projects;
         List<Market> Markets;
+        List<Channel> Channels;
 
 
-        public World ()
+        public World()
         {
+            int projectId = 0;
             int[] mySkills = new int[] { 1, 7, 3 };
             int[] myTraits = new int[] { };
+            TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
+
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
-
             List<Human> workers = new List<Human> { me };
-            Project p = new Project(featureCount, workers, new TeamResource(100, 100, 100, 10, 5000));
 
+            Project p = new Project(featureCount, workers, teamResource);
             Projects = new List<Project> { p };
+
+            Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord> ();
+            projectRecords.Add(projectId, new ProjectRecord());
+
+            Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
         }
 
         public void PrintTechnologies(int projectId)
@@ -32,9 +40,9 @@ namespace Assets.Classes
             GetProjectById(projectId).PrintTechnologies();
         }
 
-        internal void PrintChannelInfo(int projectId, int channelId)
+        internal void PrintProjectInfo(int projectId, int channelId)
         {
-            throw new NotImplementedException();
+            Channels[channelId].PrintProjectInfo(projectId);
         }
 
         internal void PeriodTick(int projectId)
@@ -44,12 +52,12 @@ namespace Assets.Classes
 
         internal void StartAd(int projectId, int channelId)
         {
-            throw new NotImplementedException();
+            Channels[channelId].InvokeAdCampaign(projectId);
         }
 
-        internal void PrepareAd(int projectId, int channelId)
+        internal void PrepareAd(int projectId, int channelId, int duration)
         {
-            throw new NotImplementedException();
+            Channels[channelId].PrepareAd(projectId, duration);
         }
 
         public Project GetProjectById (int projectId)
