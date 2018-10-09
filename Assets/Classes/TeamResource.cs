@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    class TeamResource
+    struct TeamResource
     {
         int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money;
 
@@ -37,13 +37,13 @@ namespace Assets.Classes
 
         public void Print()
         {
-            Debug.Log(
-                "PP: " + ProgrammingPoints +
-                " MP: " + ManagerPoints +
-                " SP: " + SalesPoints +
-                " i: " + IdeaPoints +
-                " $$$: " + Money
-                );
+            Debug.Log(String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
+                ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money));
+        }
+
+        internal void AddMoney(int money)
+        {
+            Money += money;
         }
     }
 }

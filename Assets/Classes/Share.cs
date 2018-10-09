@@ -7,14 +7,15 @@ namespace Assets.Classes
 {
     class ShareInfo
     {
-        int Share;
-        int Investments;
-        Investor Shareholder;
+        public int Share { get; set; }
+        public int Investments { get; set; }
+        public int Benefit { get; set; }
+        int Shareholder;
 
-        public ShareInfo (int share, Investor investor, int investments)
+        public ShareInfo (int share, int investorId, int investments)
         {
             Share = share;
-            Shareholder = investor;
+            Shareholder = investorId;
             Investments = investments;
         }
 

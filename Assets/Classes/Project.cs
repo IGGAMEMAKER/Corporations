@@ -10,10 +10,10 @@ namespace Assets.Classes
     {
         List<Feature> Features;
         List<Human> Workers;
-        ShareholderInfo shareholderInfo;
+        ShareholderInfo Shareholders;
         TeamResource Resource;
 
-        public Project(int featureCount, List<Human> workers, TeamResource resource)
+        public Project(int featureCount, List<Human> workers, TeamResource resource, ShareholderInfo shareholderInfo)
         {
             Features = new List<Feature>();
             for (var i = 0; i < featureCount; i++)
@@ -22,6 +22,7 @@ namespace Assets.Classes
             }
             Workers = workers;
             Resource = resource;
+            Shareholders = shareholderInfo;
         }
 
         public void UpgradeFeature(int featureID)
@@ -41,9 +42,11 @@ namespace Assets.Classes
             Resource.Spend(resource);
         }
 
-        public void SellShareToNewInvestor(int share, int price, Investor investor)
+        public void SellShareToNewInvestor(int share, int price, int buyerInvestorId)
         {
-            shareholderInfo.AddShareholder(share, investor, price);
+            Shareholders.AddShareholder(buyerInvestorId);
+            Shareholders.EditShare(share, 0, buyerInvestorId, price);
+            Resource.AddMoney(price);
         }
 
         public void PrintTechnologies ()
@@ -52,6 +55,11 @@ namespace Assets.Classes
             {
                 Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
             }
+        }
+
+        public void PrintShareholderInfo ()
+        {
+            Shareholders.PrintAllShareholders();
         }
 
         public void PrintResources ()

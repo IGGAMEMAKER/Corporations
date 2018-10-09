@@ -9,12 +9,16 @@ namespace Assets.Classes
     {
         public static int featureCount = 4;
         public int baseTechCost = 50;
-        public int maxAmountOfTraits = 3;
 
         List<Project> Projects;
         List<Market> Markets;
         List<Channel> Channels;
+        List<Investor> Investors;
 
+        public Project GetProjectById(int projectId)
+        {
+            return Projects[projectId];
+        }
 
         public World()
         {
@@ -23,16 +27,51 @@ namespace Assets.Classes
             int[] myTraits = new int[] { };
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
+            Investors = GenerateInvestorPool();
+
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
             List<Human> workers = new List<Human> { me };
 
-            Project p = new Project(featureCount, workers, teamResource);
+            List<ShareInfo> shareholders = new List<ShareInfo>
+            {
+                new ShareInfo(100, 0, 0)
+            };
+
+            Project p = new Project(featureCount, workers, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
 
             Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord> ();
             projectRecords.Add(projectId, new ProjectRecord());
 
             Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
+
+        }
+
+        internal void PrintShareholders(int projectId)
+        {
+            GetProjectById(projectId).PrintShareholderInfo();
+        }
+
+        List<Investor> GenerateInvestorPool ()
+        {
+            List<Investor> list = new List<Investor>();
+            int investorAmount = UnityEngine.Random.Range(3, 10);
+
+            for (var i = 0; i < investorAmount; i++)
+            {
+                int rich = UnityEngine.Random.Range(1, 100);
+                int money = rich * 100000;
+                InvestorType investorType = rich < 60 ? InvestorType.Speculant : InvestorType.WantsDividends;
+
+                list.Add(new Investor(money, investorType));
+            }
+
+            return list;
+        }
+
+        internal void RaiseInvestments(int projectId, int share, int price)
+        {
+            GetProjectById(projectId).SellShareToNewInvestor(share, price, 1);
         }
 
         public void PrintTechnologies(int projectId)
@@ -50,19 +89,14 @@ namespace Assets.Classes
             throw new NotImplementedException();
         }
 
-        internal void StartAd(int projectId, int channelId)
+        internal void StartAdCampaign(int projectId, int channelId)
         {
-            Channels[channelId].InvokeAdCampaign(projectId);
+            Channels[channelId].StartAdCampaign(projectId);
         }
 
         internal void PrepareAd(int projectId, int channelId, int duration)
         {
             Channels[channelId].PrepareAd(projectId, duration);
-        }
-
-        public Project GetProjectById (int projectId)
-        {
-            return Projects[projectId];
         }
 
         public void UpgradeFeature (int projectId, int featureId)

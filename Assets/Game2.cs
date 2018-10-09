@@ -14,6 +14,7 @@ public class Game2 : MonoBehaviour {
         int projectId = 0;
         int featureId = 0;
         int channelId = 0;
+        int adCampaignDuration = 10;
 
         world.PrintResources(projectId);
         world.ExploreFeature(projectId, featureId);
@@ -23,14 +24,15 @@ public class Game2 : MonoBehaviour {
 
 
         world.PrintProjectInfo(projectId, channelId);
-        //world.PrepareAd(projectId, channelId);
-        world.StartAd(projectId, channelId);
-        world.StartAd(projectId, channelId);
-        world.StartAd(projectId, channelId);
-        world.StartAd(projectId, channelId);
+        world.PrepareAd(projectId, channelId, adCampaignDuration);
+        world.StartAdCampaign(projectId, channelId);
+        world.StartAdCampaign(projectId, channelId);
+        world.StartAdCampaign(projectId, channelId);
+        world.StartAdCampaign(projectId, channelId);
         world.PrintProjectInfo(projectId, channelId);
 
-
+        world.RaiseInvestments(projectId, 20, 150000);
+        world.PrintShareholders(projectId);
         //world.PeriodTick(projectId);
     }
 

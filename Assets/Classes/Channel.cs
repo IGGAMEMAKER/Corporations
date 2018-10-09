@@ -10,7 +10,7 @@ namespace Assets.Classes
     {
         int MaxClients;
         int Clients;
-        int Engagement; // 0.01 ... 0.05
+        int Engagement; // 1 ... 5
 
         Dictionary<int, ProjectRecord> ProjectRecords; // int - projectID
 
@@ -28,26 +28,28 @@ namespace Assets.Classes
                 ProjectRecords[projectId] = new ProjectRecord(0, 0, 0);
         }
 
-        public int InvokeAdCampaign(int projectId)
+        public int StartAdCampaign(int projectId)
         {
-            float effeciency = ProjectRecords[projectId].AdEffeciency / 100f;
-            float dice = UnityEngine.Random.Range(100, 175) / 100f;
-            int clients = (int) (Engagement * effeciency * Clients * dice);
+            CreateProjectRecord(projectId);
+
+            float adEffeciency = ProjectRecords[projectId].AdEffeciency / 100f;
+            float dice = UnityEngine.Random.Range(Balance.advertClientsRangeMin, Balance.advertClientsRangeMax) / 100f;
+            int clients = (int) (Engagement * adEffeciency * Clients * dice / 100);
 
             string info = String.Format("added {0} clients (possible: {1} . {2} dice {3} effeciency {4}) to {5} via last campaign",
-                clients, Clients, Engagement, dice, effeciency, projectId);
+                clients, Clients, Engagement, dice, adEffeciency, projectId);
             Debug.Log(info);
 
-            CreateProjectRecord(projectId);
             ProjectRecords[projectId].AddClients(clients);
 
             return clients;
-        }        
+        }
 
         internal void PrepareAd(int projectId, int duration)
         {
             CreateProjectRecord(projectId);
-            ProjectRecords[projectId].UpdateAd(duration);
+
+            ProjectRecords[projectId].PrepareAd(duration);
         }
 
         public void PrintProjectInfo(int projectId)
@@ -59,7 +61,7 @@ namespace Assets.Classes
     class ProjectRecord
     {
         public int Clients { get; set; }
-        public int AdEffeciency { get; set; }
+        public int AdEffeciency { get; set; } 
         public int AdDuraion { get; set; }
         public bool IsRunningCampaign { get; set; }
 
@@ -75,9 +77,9 @@ namespace Assets.Classes
             Clients += clients;
         }
 
-        public void UpdateAd(int duration)
+        public void PrepareAd(int duration)
         {
-            AdEffeciency = UnityEngine.Random.Range(10, 100);
+            AdEffeciency = UnityEngine.Random.Range(Balance.advertEffeciencyRangeMin, Balance.advertEffeciencyRangeMax);
             AdDuraion = duration;
             IsRunningCampaign = false;
         }
