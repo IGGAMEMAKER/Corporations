@@ -37,7 +37,9 @@ namespace Assets.Classes
             Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord> ();
             projectRecords.Add(projectId, new ProjectRecord());
 
-            Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
+            Channels = new List<Channel> {
+                new Channel(10, 10000, 10000, projectRecords)
+            };
 
             schedule = new ScheduleManager(new List<Task> {
                 new Task(Task.TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
@@ -62,12 +64,7 @@ namespace Assets.Classes
             }
         }
 
-        internal void PrintShareholders(int projectId)
-        {
-            GetProjectById(projectId).PrintShareholderInfo();
-        }
-
-        List<Investor> GenerateInvestorPool ()
+        List<Investor> GenerateInvestorPool()
         {
             List<Investor> list = new List<Investor>();
             int investorAmount = UnityEngine.Random.Range(3, 10);
@@ -82,6 +79,11 @@ namespace Assets.Classes
             }
 
             return list;
+        }
+
+        internal void PrintShareholders(int projectId)
+        {
+            GetProjectById(projectId).PrintShareholderInfo();
         }
 
         internal void RaiseInvestments(int projectId, int share, int price)
