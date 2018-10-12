@@ -33,7 +33,7 @@ public class Game2 : MonoBehaviour {
 
         world.RaiseInvestments(projectId, 20, 150000);
         world.PrintShareholders(projectId);
-        //world.PeriodTick(projectId);
+        world.PeriodTick(15);
     }
 
     // Update is called once per frame

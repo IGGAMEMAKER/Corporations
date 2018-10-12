@@ -14,6 +14,7 @@ namespace Assets.Classes
         List<Market> Markets;
         List<Channel> Channels;
         List<Investor> Investors;
+        ScheduleManager schedule;
 
         public World()
         {
@@ -40,6 +41,9 @@ namespace Assets.Classes
 
             Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
 
+            schedule = new ScheduleManager(new List<Task> {
+                new Task(Task.TaskType.ExploreFeature, 10, 0, new Dictionary<string, object>(), 1, 11)
+            }, 0);
         }
 
         public Project GetProjectById(int projectId)
@@ -50,6 +54,14 @@ namespace Assets.Classes
         public Channel GetChannelById(int channelId)
         {
             return Channels[channelId];
+        }
+
+        public void PeriodTick(int count = 1)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                schedule.PeriodTick();
+            }
         }
 
         internal void PrintShareholders(int projectId)
@@ -87,11 +99,6 @@ namespace Assets.Classes
         internal void PrintProjectInfo(int projectId, int channelId)
         {
             GetChannelById(channelId).PrintProjectInfo(projectId);
-        }
-
-        internal void PeriodTick(int projectId)
-        {
-            throw new NotImplementedException();
         }
 
         internal void StartAdCampaign(int projectId, int channelId)

@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    public class Schedule
+    public class ScheduleManager
     {
         List<Task> Tasks;
+        int GameDate;
 
-        public Schedule (List<Task> tasks)
+        public ScheduleManager (List<Task> tasks, int gameDate)
         {
             Tasks = tasks;
+            GameDate = gameDate;
         }
 
         public void AddTask (Task task)
@@ -20,8 +22,11 @@ namespace Assets.Classes
             Tasks.Add(task);
         }
 
-        public void CheckTasks ()
+        public void PeriodTick ()
         {
+            string phrase = Tasks.Count > 0 ? String.Format("{0} tasks undone", Tasks.Count) : "No tasks";
+            Debug.LogFormat("Starting day {0} ... {1}", GameDate, phrase);
+
             for (int i = 0; i < Tasks.Count; i++)
             {
                 Tasks[i].Tick();
@@ -36,6 +41,8 @@ namespace Assets.Classes
             }
 
             Tasks.RemoveAll(T => T.IsFinished());
+            //Debug.LogFormat("Finished day {0} ...", GameDate);
+            GameDate++;
         }
 
         void InvokeEvent (Task task)
