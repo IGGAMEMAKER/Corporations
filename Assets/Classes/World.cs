@@ -21,17 +21,15 @@ namespace Assets.Classes
             int projectId = 0;
             int[] mySkills = new int[] { 1, 7, 3 };
             int[] myTraits = new int[] { };
+            Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
+            ShareInfo shareInfo = new ShareInfo(100, 0, 0);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
             Investors = GenerateInvestorPool();
 
-            Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
             List<Human> workers = new List<Human> { me };
 
-            List<ShareInfo> shareholders = new List<ShareInfo>
-            {
-                new ShareInfo(100, 0, 0)
-            };
+            List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
 
             Project p = new Project(featureCount, workers, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
