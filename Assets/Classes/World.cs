@@ -15,11 +15,6 @@ namespace Assets.Classes
         List<Channel> Channels;
         List<Investor> Investors;
 
-        public Project GetProjectById(int projectId)
-        {
-            return Projects[projectId];
-        }
-
         public World()
         {
             int projectId = 0;
@@ -45,6 +40,16 @@ namespace Assets.Classes
 
             Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
 
+        }
+
+        public Project GetProjectById(int projectId)
+        {
+            return Projects[projectId];
+        }
+
+        public Channel GetChannelById(int channelId)
+        {
+            return Channels[channelId];
         }
 
         internal void PrintShareholders(int projectId)
@@ -81,7 +86,7 @@ namespace Assets.Classes
 
         internal void PrintProjectInfo(int projectId, int channelId)
         {
-            Channels[channelId].PrintProjectInfo(projectId);
+            GetChannelById(channelId).PrintProjectInfo(projectId);
         }
 
         internal void PeriodTick(int projectId)
@@ -91,15 +96,15 @@ namespace Assets.Classes
 
         internal void StartAdCampaign(int projectId, int channelId)
         {
-            Channels[channelId].StartAdCampaign(projectId);
+            GetChannelById(channelId).StartAdCampaign(projectId);
         }
 
         internal void PrepareAd(int projectId, int channelId, int duration)
         {
-            Channels[channelId].PrepareAd(projectId, duration);
+            GetChannelById(channelId).PrepareAd(projectId, duration);
         }
 
-        public void UpgradeFeature (int projectId, int featureId)
+        public void UpgradeFeature(int projectId, int featureId)
         {
             GetProjectById(projectId).UpgradeFeature(featureId);
         }
@@ -109,7 +114,7 @@ namespace Assets.Classes
             GetProjectById(projectId).ExploreFeature(featureId);
         }
 
-        public void PrintResources (int projectId)
+        public void PrintResources(int projectId)
         {
             GetProjectById(projectId).PrintResources();
         }
