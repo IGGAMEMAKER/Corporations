@@ -34,16 +34,20 @@ namespace Assets.Classes
             Project p = new Project(featureCount, workers, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
 
-            Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord> ();
-            projectRecords.Add(projectId, new ProjectRecord());
-
-            Channels = new List<Channel> {
+            Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord>
+            {
+                { projectId, new ProjectRecord() }
+            };
+            Channels = new List<Channel>
+            {
                 new Channel(10, 10000, 10000, projectRecords)
             };
 
-            schedule = new ScheduleManager(new List<Task> {
+            List<Task> tasks = new List<Task>
+            {
                 new Task(Task.TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
-            }, 0);
+            };
+            schedule = new ScheduleManager(tasks, 0);
         }
 
         public Project GetProjectById(int projectId)
@@ -81,24 +85,10 @@ namespace Assets.Classes
             return list;
         }
 
-        internal void PrintShareholders(int projectId)
-        {
-            GetProjectById(projectId).PrintShareholderInfo();
-        }
 
         internal void RaiseInvestments(int projectId, int share, int price)
         {
             GetProjectById(projectId).SellShareToNewInvestor(share, price, 1);
-        }
-
-        public void PrintTechnologies(int projectId)
-        {
-            GetProjectById(projectId).PrintTechnologies();
-        }
-
-        internal void PrintProjectInfo(int projectId, int channelId)
-        {
-            GetChannelById(channelId).PrintProjectInfo(projectId);
         }
 
         internal void StartAdCampaign(int projectId, int channelId)
@@ -119,6 +109,22 @@ namespace Assets.Classes
         public void ExploreFeature(int projectId, int featureId)
         {
             GetProjectById(projectId).ExploreFeature(featureId);
+        }
+
+        // Debugging
+
+        internal void PrintShareholders(int projectId)
+        {
+            GetProjectById(projectId).PrintShareholderInfo();
+        }
+        public void PrintTechnologies(int projectId)
+        {
+            GetProjectById(projectId).PrintTechnologies();
+        }
+
+        internal void PrintProjectInfo(int projectId, int channelId)
+        {
+            GetChannelById(channelId).PrintProjectInfo(projectId);
         }
 
         public void PrintResources(int projectId)
