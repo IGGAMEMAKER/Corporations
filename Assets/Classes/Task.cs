@@ -42,7 +42,7 @@ namespace Assets.Classes
 
         public bool IsFinished()
         {
-            return Progress == 0;
+            return Progress <= 0;
         }
     }
 }

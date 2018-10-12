@@ -41,7 +41,6 @@ namespace Assets.Classes
             }
 
             Tasks.RemoveAll(T => T.IsFinished());
-            //Debug.LogFormat("Finished day {0} ...", GameDate);
             GameDate++;
         }
 

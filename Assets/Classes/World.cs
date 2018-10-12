@@ -42,7 +42,7 @@ namespace Assets.Classes
             Channels = new List<Channel> { new Channel(10, 10000, 10000, projectRecords) };
 
             schedule = new ScheduleManager(new List<Task> {
-                new Task(Task.TaskType.ExploreFeature, 10, 0, new Dictionary<string, object>(), 1, 11)
+                new Task(Task.TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
             }, 0);
         }
 
