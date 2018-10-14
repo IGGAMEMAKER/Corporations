@@ -8,9 +8,10 @@ namespace Assets.Classes
 {
     struct TeamResource
     {
-        int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money;
+        int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
+        long Money;
 
-        public TeamResource(int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, int money)
+        public TeamResource(int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, long money)
         {
             ProgrammingPoints = programmingPoints;
             ManagerPoints = managerPoints;
@@ -41,9 +42,10 @@ namespace Assets.Classes
                 ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money));
         }
 
-        internal void AddMoney(int money)
+        internal TeamResource AddMoney(long money)
         {
             Money += money;
+            return this;
         }
 
         // Add all team resources except money

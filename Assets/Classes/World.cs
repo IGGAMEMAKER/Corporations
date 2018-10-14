@@ -35,7 +35,11 @@ namespace Assets.Classes
 
             List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
 
-            Project p = new Project(featureCount, 0, 0, workers, teamResource, new ShareholderInfo(shareholders));
+            Audience audience = new Audience(0, 0, 1);
+
+            Team team = new Team(workers);
+
+            Project p = new Project(featureCount, audience, team, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
 
             Dictionary<int, Advert> adverts = new Dictionary<int, Advert>

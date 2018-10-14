@@ -9,25 +9,23 @@ namespace Assets.Classes
     class Project
     {
         List<Feature> Features;
-        List<Human> Workers;
-        ShareholderInfo Shareholders;
         TeamResource Resource;
 
-        uint clients;
-        uint customers;
+        ShareholderInfo Shareholders;
+        Audience audience;
+        Team team;
 
-        public Project(int featureCount, uint clients, uint customers, List<Human> workers, TeamResource resource, ShareholderInfo shareholderInfo)
+        public Project(int featureCount, Audience audience, Team team, TeamResource resource, ShareholderInfo shareholderInfo)
         {
             Features = new List<Feature>();
 
             for (var i = 0; i < featureCount; i++)
                 Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
 
-            Workers = workers;
-            Resource = resource;
-            Shareholders = shareholderInfo;
-            this.clients = clients;
-            this.customers = customers;
+            this.Resource = resource;
+            this.Shareholders = shareholderInfo;
+            this.audience = audience;
+            this.team = team;
         }
 
         public void UpgradeFeature(int featureID)
@@ -56,84 +54,25 @@ namespace Assets.Classes
 
         public int GetProgrammingPointsProductionValue ()
         {
-            return 100;
+            return team.GetProgrammingPointsProduction();
         }
         public int GetManagerPointsProductionValue ()
         {
-            return 100;
+            return team.GetManagerPointsProduction();
         }
         public int GetSalesPointsProductionValue ()
         {
-            return 100;
+            return team.GetSalesPointsProduction();
         }
+
         public int GetIdeaPointsProductionValue ()
         {
-            return 100;
-        }
-
-
-        public float GetConversionRate ()
-        {
-            return 0.05f;
-        }
-
-        public float GetChurnRate()
-        {
-            return 0.05f;
-        }
-
-        public uint NewCustomersAmount ()
-        {
-            return (uint) Math.Floor(clients * GetConversionRate());
-        }
-
-        public int CustomerAnalyticsModifier ()
-        {
-            if (customers > 100000)
-                return 6;
-            else if (customers > 10000)
-                return 5;
-            else if (customers > 1000)
-                return 4;
-            else if (customers > 100)
-                return 3;
-            else
-                return 2;
-        }
-
-        public int ClientAnalyticsModifier ()
-        {
-            if (clients > 1000000)
-                return 6;
-            else if (clients > 100000)
-                return 5;
-            else if (clients > 10000)
-                return 4;
-            else if (clients > 1000)
-                return 3;
-            else
-                return 2;
-        }
-
-        public int IdeaGainModifier()
-        {
-            int modifier = 0;
-
-            int amountOfTests = 1; // it depends on client amount. 100, 1000, 100000
-            int analyticsQuality = 2;
-            int headBonus = 2;
-
-            modifier = amountOfTests + analyticsQuality + headBonus;
-
-            return modifier;
+            return team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
         }
 
         internal void ProduceMonthlyResources()
         {
-            TeamResource teamResource = new TeamResource()
-                .SetProgrammingPoints(GetProgrammingPointsProductionValue())
-                .SetManagerPoints(GetManagerPointsProductionValue())
-                .SetSalesPoints(GetSalesPointsProductionValue())
+            TeamResource teamResource = team.ProduceMonthlyResources()
                 .SetIdeaPoints(GetIdeaPointsProductionValue());
 
             Resource.AddTeamPoints(teamResource);
@@ -142,30 +81,31 @@ namespace Assets.Classes
         internal void RecomputeMoney()
         {
             long income = GetMonthlyIncome();
+            long expenses = GetMonthlyExpense();
+
+            long difference = income - expenses;
+
+            Resource.AddMoney(difference);
+        }
+
+        long GetMonthlyExpense()
+        {
+            return 1000;
         }
 
         private long GetMonthlyIncome()
         {
-            return customers * 100;
+            return audience.customers * 100;
         }
 
         internal uint ChurnClients()
         {
-            var churnRate = GetChurnRate();
-            uint churnClients = (uint)(churnRate * clients);
-
-            clients -= churnClients;
-
-            return churnClients;
+            return audience.RemoveChurnClients();
         }
 
-        internal void ConvertClientsToCustomers()
+        internal uint ConvertClientsToCustomers()
         {
-            var conversionRate = GetConversionRate();
-            uint newCustomers = (uint) (conversionRate * clients);
-
-            customers += newCustomers;
-            clients -= newCustomers;
+            return audience.ConvertClientsToCustomers();
         }
 
         // Debugging
