@@ -23,11 +23,13 @@ namespace Assets.Classes
     {
         RelevancyStatus Relevancy;
         FeatureStatus Status;
+        bool IsImplemented;
 
-        public Feature(RelevancyStatus relevancy, FeatureStatus status)
+        public Feature(RelevancyStatus relevancy, FeatureStatus status, bool isImplemented)
         {
             Status = status;
             Relevancy = relevancy;
+            IsImplemented = isImplemented;
         }
 
         public void Explore()
@@ -37,6 +39,7 @@ namespace Assets.Classes
 
         public void Update()
         {
+            IsImplemented = true;
             Status = FeatureStatus.NeedsExploration;
 
             if (Relevancy == RelevancyStatus.Relevant)

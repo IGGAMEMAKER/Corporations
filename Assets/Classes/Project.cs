@@ -21,7 +21,7 @@ namespace Assets.Classes
             Features = new List<Feature>();
 
             for (var i = 0; i < featureCount; i++)
-                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration));
+                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
 
             Workers = workers;
             Resource = resource;

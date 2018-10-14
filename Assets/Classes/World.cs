@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Classes
 {
@@ -34,7 +35,7 @@ namespace Assets.Classes
 
             List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
 
-            Project p = new Project(featureCount, 0, workers, teamResource, new ShareholderInfo(shareholders));
+            Project p = new Project(featureCount, 0, 0, workers, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
 
             Dictionary<int, Advert> adverts = new Dictionary<int, Advert>
@@ -89,6 +90,8 @@ namespace Assets.Classes
 
         public void CalculatePeriodChanges ()
         {
+            Debug.Log("Month tick!");
+
             for (var i = 0; i < Projects.Count; i++)
             {
                 // recompute resources: money and team points
@@ -104,6 +107,8 @@ namespace Assets.Classes
         {
             GetProjectById(projectId).ProduceMonthlyResources();
             GetProjectById(projectId).RecomputeMoney();
+
+            PrintResources(projectId);
         }
 
         void UpdateCustomers (int projectId)
@@ -113,7 +118,9 @@ namespace Assets.Classes
 
         void UpdateClients (int projectId)
         {
-            GetProjectById(projectId).ChurnClients();
+            uint churn = GetProjectById(projectId).ChurnClients();
+
+            Debug.Log("//TODO UpdateClients: return churn clients to Channels");
         }
 
         List<Investor> GenerateInvestorPool()
