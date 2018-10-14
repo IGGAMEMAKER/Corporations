@@ -61,7 +61,7 @@ namespace Assets.Classes
 
             List<Task> tasks = new List<Task>
             {
-                new Task(Task.TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
+                new Task(TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
             };
             schedule = new ScheduleManager(tasks, 0);
         }

@@ -26,15 +26,6 @@ namespace Assets.Classes
             FinishDate = finishDate;
         }
 
-        public enum TaskType
-        {
-            UpgradeFeature,
-            ExploreFeature,
-            MakeAd,
-            StartAdCampaign,
-            RaiseInvestments
-        }
-
         internal void Tick()
         {
             Progress--;
@@ -44,5 +35,14 @@ namespace Assets.Classes
         {
             return Progress <= 0;
         }
+    }
+
+    public enum TaskType
+    {
+        UpgradeFeature,
+        ExploreFeature,
+        MakeAd,
+        StartAdCampaign,
+        RaiseInvestments
     }
 }

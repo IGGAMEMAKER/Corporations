@@ -104,14 +104,15 @@ namespace Assets.Classes
                 AmountOfTests = max;
         }
 
+
+
         public int IdeaGainModifier()
         {
             int modifier = 0;
 
             int analyticsQuality = 2;
-            int headBonus = 2;
 
-            modifier = AmountOfTests + analyticsQuality + headBonus;
+            modifier = AmountOfTests + analyticsQuality;
 
             return modifier;
         }
