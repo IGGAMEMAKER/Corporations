@@ -22,13 +22,14 @@ public class Game2 : MonoBehaviour {
         world.PrintResources(projectId);
         world.PrintTechnologies(projectId);
 
-
         world.PrintProjectInfo(projectId, channelId);
         world.PrepareAd(projectId, channelId, adCampaignDuration);
+
         world.StartAdCampaign(projectId, channelId);
         world.StartAdCampaign(projectId, channelId);
         world.StartAdCampaign(projectId, channelId);
         world.StartAdCampaign(projectId, channelId);
+
         world.PrintProjectInfo(projectId, channelId);
 
         world.RaiseInvestments(projectId, 20, 150000);

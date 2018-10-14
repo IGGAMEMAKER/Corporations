@@ -11,28 +11,30 @@ namespace Assets.Classes
         int MaxClients;
         int Clients;
         int Engagement; // 1 ... 5
+        int marketId;
 
-        Dictionary<int, ProjectRecord> ProjectRecords; // int - projectID
+        Dictionary<int, Advert> Adverts; // int - projectID
 
-        public Channel(int engagement, int maxClients, int clients, Dictionary<int, ProjectRecord> records)
+        public Channel(int engagement, int maxClients, int clients, Dictionary<int, Advert> adverts, int marketId)
         {
             MaxClients = maxClients;
             Clients = clients;
             Engagement = engagement;
-            ProjectRecords = records;
+            Adverts = adverts;
+            this.marketId = marketId;
         }
 
-        void CreateProjectRecord (int projectId)
+        void CreateAdIfNotExist (int projectId)
         {
-            if (ProjectRecords[projectId] == null)
-                ProjectRecords[projectId] = new ProjectRecord(0, 0, 0);
+            if (Adverts[projectId] == null)
+                Adverts[projectId] = new Advert(0, 0);
         }
 
         public int StartAdCampaign(int projectId)
         {
-            CreateProjectRecord(projectId);
+            CreateAdIfNotExist(projectId);
 
-            float adEffeciency = ProjectRecords[projectId].AdEffeciency / 100f;
+            float adEffeciency = Adverts[projectId].AdEffeciency / 100f;
             float dice = UnityEngine.Random.Range(Balance.advertClientsRangeMin, Balance.advertClientsRangeMax) / 100f;
             int clients = (int) (Engagement * adEffeciency * Clients * dice / 100);
 
@@ -40,53 +42,21 @@ namespace Assets.Classes
                 clients, Clients, Engagement, dice, adEffeciency, projectId);
             Debug.Log(info);
 
-            ProjectRecords[projectId].AddClients(clients);
+            Clients -= clients;
 
             return clients;
         }
 
         internal void PrepareAd(int projectId, int duration)
         {
-            CreateProjectRecord(projectId);
+            CreateAdIfNotExist(projectId);
 
-            ProjectRecords[projectId].PrepareAd(duration);
+            Adverts[projectId].PrepareAd(duration);
         }
 
         public void PrintProjectInfo(int projectId)
         {
-            Debug.Log("Clients: " + ProjectRecords[projectId].Clients);
+            Debug.Log("Clients: PrintProjectInfo Useless");
         }
-    }
-
-    class ProjectRecord
-    {
-        public int Clients { get; set; }
-        public int AdEffeciency { get; set; } 
-        public int AdDuraion { get; set; }
-        public bool IsRunningCampaign { get; set; }
-
-        public ProjectRecord(int clients = 0, int adEffeciency = 0, int adDuration = 0)
-        {
-            Clients = clients;
-            AdEffeciency = adEffeciency;
-            AdDuraion = adDuration;
-        }
-
-        public void AddClients(int clients)
-        {
-            Clients += clients;
-        }
-
-        public void PrepareAd(int duration)
-        {
-            AdEffeciency = UnityEngine.Random.Range(Balance.advertEffeciencyRangeMin, Balance.advertEffeciencyRangeMax);
-            AdDuraion = duration;
-            IsRunningCampaign = false;
-        }
-    }
-
-    class ChannelSettings
-    {
-        //public ChannelSettings ()
     }
 }

@@ -45,5 +45,40 @@ namespace Assets.Classes
         {
             Money += money;
         }
+
+        // Add all team resources except money
+        internal void AddTeamPoints(TeamResource increase)
+        {
+            ProgrammingPoints += increase.ProgrammingPoints;
+            ManagerPoints += increase.ManagerPoints;
+            SalesPoints += increase.SalesPoints;
+            IdeaPoints += increase.IdeaPoints;
+        }
+
+        internal TeamResource SetProgrammingPoints(int points)
+        {
+            ProgrammingPoints = points;
+            return this;
+        }
+        internal TeamResource SetManagerPoints(int points)
+        {
+            ManagerPoints = points;
+            return this;
+        }
+        internal TeamResource SetSalesPoints(int points)
+        {
+            SalesPoints = points;
+            return this;
+        }
+        internal TeamResource SetIdeaPoints(int points)
+        {
+            IdeaPoints = points;
+            return this;
+        }
+        internal TeamResource SetMoney(int points)
+        {
+            Money = points;
+            return this;
+        }
     }
 }

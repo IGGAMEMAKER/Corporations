@@ -7,25 +7,43 @@ namespace Assets.Classes
 {
     class Market
     {
-        int BaseTechCost;
-        int BaseEngagement;
-        int BasePaymentAbility;
-        int BaseMarketingCost;
-        int AmountOfFeatures;
+        MarketSettings marketSettings;
+        MarketInfo marketInfo;
 
-        int ChangePeriod; // 
-
-        public Market (int baseTechCost, int baseEngagement, int basePaymentAbility, int baseMarketingCost, int amountOfFeatures, int changePeriod)
+        public Market (MarketInfo marketInfo, MarketSettings marketSettings)
         {
-            BaseTechCost = baseTechCost;
-            BaseEngagement = baseEngagement;
-            BasePaymentAbility = basePaymentAbility;
-            BaseMarketingCost = baseMarketingCost;
-            AmountOfFeatures = amountOfFeatures;
-
-            ChangePeriod = changePeriod;
+            this.marketInfo = marketInfo;
+            this.marketSettings = marketSettings;
         }
+    }
 
+    // market dynamics
+    public class MarketSettings
+    {
+        int ChangePeriod;
 
+        public MarketSettings (int ChangePeriod)
+        {
+            this.ChangePeriod = ChangePeriod;
+        }
+    }
+
+    // current market info
+    public class MarketInfo
+    {
+        int baseTechCost;
+        int baseEngagement;
+        int basePaymentAbility;
+        int baseMarketingCost;
+        int amountOfFeatures;
+
+        public MarketInfo(int baseTechCost, int baseEngagement, int basePaymentAbility, int baseMarketingCost, int amountOfFeatures)
+        {
+            this.baseTechCost = baseTechCost;
+            this.baseEngagement = baseEngagement;
+            this.basePaymentAbility = basePaymentAbility;
+            this.baseMarketingCost = baseMarketingCost;
+            this.amountOfFeatures = amountOfFeatures;
+        }
     }
 }

@@ -11,8 +11,10 @@ namespace Assets.Classes
         public int baseTechCost = 50;
 
         List<Project> Projects;
+
         List<Market> Markets;
         List<Channel> Channels;
+
         List<Investor> Investors;
         ScheduleManager schedule;
 
@@ -23,6 +25,7 @@ namespace Assets.Classes
             int[] myTraits = new int[] { };
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
             ShareInfo shareInfo = new ShareInfo(100, 0, 0);
+            MarketInfo marketInfo = new MarketInfo(baseTechCost, 1, 1, 50, featureCount);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
             Investors = GenerateInvestorPool();
@@ -31,17 +34,25 @@ namespace Assets.Classes
 
             List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
 
-            Project p = new Project(featureCount, workers, teamResource, new ShareholderInfo(shareholders));
+            Project p = new Project(featureCount, 0, workers, teamResource, new ShareholderInfo(shareholders));
             Projects = new List<Project> { p };
 
-            Dictionary<int, ProjectRecord> projectRecords = new Dictionary<int, ProjectRecord>
+            Dictionary<int, Advert> adverts = new Dictionary<int, Advert>
             {
-                { projectId, new ProjectRecord() }
+                { projectId, new Advert() }
             };
+
+            Markets = new List<Market>
+            {
+                new Market(marketInfo, new MarketSettings(10))
+            };
+
+            int marketId = 0;
             Channels = new List<Channel>
             {
-                new Channel(10, 10000, 10000, projectRecords)
+                new Channel(10, 10000, 10000, adverts, marketId)
             };
+
 
             List<Task> tasks = new List<Task>
             {
@@ -65,7 +76,44 @@ namespace Assets.Classes
             for (var i = 0; i < count; i++)
             {
                 schedule.PeriodTick();
+
+                if (schedule.IsPeriodEnd())
+                    CalculatePeriodChanges();
             }
+        }
+
+        public string GetFormattedDate ()
+        {
+            return schedule.GetFormattedDate();
+        }
+
+        public void CalculatePeriodChanges ()
+        {
+            for (var i = 0; i < Projects.Count; i++)
+            {
+                // recompute resources: money and team points
+                UpdateResources(i);
+                // recompute customers
+                UpdateCustomers(i);
+                // recompute clients: churn and ad campaigns
+                UpdateClients(i);
+            }
+        }
+
+        void UpdateResources (int projectId)
+        {
+            GetProjectById(projectId).ProduceMonthlyResources();
+            GetProjectById(projectId).RecomputeMoney();
+        }
+
+        void UpdateCustomers (int projectId)
+        {
+            GetProjectById(projectId).ConvertClientsToCustomers();
+        }
+
+        void UpdateClients (int projectId)
+        {
+            GetProjectById(projectId).ChurnClients();
         }
 
         List<Investor> GenerateInvestorPool()
@@ -77,6 +125,7 @@ namespace Assets.Classes
             {
                 int rich = UnityEngine.Random.Range(1, 100);
                 int money = rich * 100000;
+
                 InvestorType investorType = rich < 60 ? InvestorType.Speculant : InvestorType.WantsDividends;
 
                 list.Add(new Investor(money, investorType));

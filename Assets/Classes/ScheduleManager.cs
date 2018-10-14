@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using UnityEngine;
 
 namespace Assets.Classes
@@ -9,12 +10,17 @@ namespace Assets.Classes
     public class ScheduleManager
     {
         List<Task> Tasks;
-        int GameDate;
+        public int date;
 
         public ScheduleManager (List<Task> tasks, int gameDate)
         {
             Tasks = tasks;
-            GameDate = gameDate;
+            date = gameDate;
+        }
+
+        public string GetFormattedDate ()
+        {
+            return date.ToString();
         }
 
         public void AddTask (Task task)
@@ -22,10 +28,15 @@ namespace Assets.Classes
             Tasks.Add(task);
         }
 
+        public bool IsPeriodEnd ()
+        {
+            return date % 30 == 0;
+        }
+
         public void PeriodTick ()
         {
             string phrase = Tasks.Count > 0 ? String.Format("{0} tasks undone", Tasks.Count) : "No tasks";
-            Debug.LogFormat("Starting day {0} ... {1}", GameDate, phrase);
+            Debug.LogFormat("Starting day {0} ... {1}", date, phrase);
 
             for (int i = 0; i < Tasks.Count; i++)
             {
@@ -41,12 +52,25 @@ namespace Assets.Classes
             }
 
             Tasks.RemoveAll(T => T.IsFinished());
-            GameDate++;
+            date++;
         }
+
+        public delegate void MyEventHandler(object source, EventArgs eventArgs);
+
+        public void OnEventFired (object source, EventArgs eventArgs)
+        {
+            Debug.Log("EventFired!");
+        }
+
+        event MyEventHandler ev;
 
         void InvokeEvent (Task task)
         {
             Debug.Log(String.Format("Write event invoke for {0}", task.type));
+
+
+            ev += OnEventFired;
+            ev.Invoke(this, EventArgs.Empty);
         }
     }
 }
