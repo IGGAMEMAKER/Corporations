@@ -36,7 +36,8 @@ namespace Assets.Classes
         public void PeriodTick ()
         {
             string phrase = Tasks.Count > 0 ? String.Format("{0} tasks undone", Tasks.Count) : "No tasks";
-            Debug.LogFormat("Starting day {0} ... {1}", date, phrase);
+            if (Tasks.Count > 0)
+                Debug.LogFormat("Starting day {0} ... {1}", date, phrase);
 
             for (int i = 0; i < Tasks.Count; i++)
             {

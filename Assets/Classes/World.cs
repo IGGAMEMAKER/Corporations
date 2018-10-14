@@ -104,13 +104,15 @@ namespace Assets.Classes
                 UpdateCustomers(i);
                 // recompute clients: churn and ad campaigns
                 UpdateClients(i);
+
+                PrintProjectInfo(i);
             }
         }
 
         void UpdateResources (int projectId)
         {
-            GetProjectById(projectId).ProduceMonthlyResources();
-            GetProjectById(projectId).RecomputeMoney();
+            GetProjectById(projectId).UpdateMonthlyResources();
+            GetProjectById(projectId).UpdateMonthlyMoney();
 
             PrintResources(projectId);
         }
@@ -153,7 +155,8 @@ namespace Assets.Classes
 
         internal void StartAdCampaign(int projectId, int channelId)
         {
-            GetChannelById(channelId).StartAdCampaign(projectId);
+            uint clients = GetChannelById(channelId).StartAdCampaign(projectId);
+            GetProjectById(projectId).StartAdCampaign(clients);
         }
 
         internal void PrepareAd(int projectId, int channelId, int duration)
@@ -182,9 +185,9 @@ namespace Assets.Classes
             GetProjectById(projectId).PrintTechnologies();
         }
 
-        internal void PrintProjectInfo(int projectId, int channelId)
+        internal void PrintProjectInfo(int projectId)
         {
-            GetChannelById(channelId).PrintProjectInfo(projectId);
+            GetProjectById(projectId).PrintProjectInfo();
         }
 
         public void PrintResources(int projectId)

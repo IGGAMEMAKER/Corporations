@@ -22,7 +22,7 @@ public class Game2 : MonoBehaviour {
         world.PrintResources(projectId);
         world.PrintTechnologies(projectId);
 
-        world.PrintProjectInfo(projectId, channelId);
+        world.PrintProjectInfo(projectId);
         world.PrepareAd(projectId, channelId, adCampaignDuration);
 
         world.StartAdCampaign(projectId, channelId);
@@ -30,11 +30,11 @@ public class Game2 : MonoBehaviour {
         world.StartAdCampaign(projectId, channelId);
         world.StartAdCampaign(projectId, channelId);
 
-        world.PrintProjectInfo(projectId, channelId);
+        world.PrintProjectInfo(projectId);
 
         world.RaiseInvestments(projectId, 20, 150000);
         world.PrintShareholders(projectId);
-        world.PeriodTick(131);
+        world.PeriodTick(32);
     }
 
     // Update is called once per frame

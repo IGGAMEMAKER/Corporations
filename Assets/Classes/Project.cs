@@ -31,54 +31,54 @@ namespace Assets.Classes
         public void UpgradeFeature(int featureID)
         {
             Features[featureID].Update();
-            SpendResources(new TeamResource(50, 0, 0, 0, 0));
+            Resource.Spend(new TeamResource(50, 0, 0, 0, 0));
         }
 
         public void ExploreFeature(int featureID)
         {
             Features[featureID].Explore();
-            SpendResources(new TeamResource(0, 0, 0, 10, 0));
-        }
-
-        public void SpendResources(TeamResource resource)
-        {
-            Resource.Spend(resource);
+            Resource.Spend(new TeamResource(0, 0, 0, 10, 0));
         }
 
         public void SellShareToNewInvestor(int share, int price, int buyerInvestorId)
         {
+            // get human player share
+            int sellerId = 0;
+
             Shareholders.AddShareholder(buyerInvestorId);
-            Shareholders.EditShare(share, 0, buyerInvestorId, price);
+            Shareholders.EditShare(share, sellerId, buyerInvestorId, price);
             Resource.AddMoney(price);
         }
 
-        public int GetProgrammingPointsProductionValue ()
+        public int GetProgrammingPointsProductionValue()
         {
             return team.GetProgrammingPointsProduction();
         }
-        public int GetManagerPointsProductionValue ()
+
+        public int GetManagerPointsProductionValue()
         {
             return team.GetManagerPointsProduction();
         }
-        public int GetSalesPointsProductionValue ()
+
+        public int GetSalesPointsProductionValue()
         {
             return team.GetSalesPointsProduction();
         }
 
-        public int GetIdeaPointsProductionValue ()
+        public int GetIdeaPointsProductionValue()
         {
             return team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
         }
 
-        internal void ProduceMonthlyResources()
+        internal void UpdateMonthlyResources()
         {
-            TeamResource teamResource = team.ProduceMonthlyResources()
+            TeamResource teamResource = team.GetMonthlyResources()
                 .SetIdeaPoints(GetIdeaPointsProductionValue());
 
             Resource.AddTeamPoints(teamResource);
         }
 
-        internal void RecomputeMoney()
+        internal void UpdateMonthlyMoney()
         {
             long income = GetMonthlyIncome();
             long expenses = GetMonthlyExpense();
@@ -90,7 +90,7 @@ namespace Assets.Classes
 
         long GetMonthlyExpense()
         {
-            return 1000;
+            return team.GetExpenses();
         }
 
         private long GetMonthlyIncome()
@@ -108,6 +108,11 @@ namespace Assets.Classes
             return audience.ConvertClientsToCustomers();
         }
 
+        internal void StartAdCampaign(uint clients)
+        {
+            audience.AddClients(clients);
+        }
+
         // Debugging
         public void PrintTechnologies()
         {
@@ -123,6 +128,11 @@ namespace Assets.Classes
         public void PrintResources()
         {
             Resource.Print();
+        }
+
+        internal void PrintProjectInfo()
+        {
+            Debug.LogFormat("Project info: {0} customers, {1} clients", audience.customers, audience.clients);
         }
     }
 }

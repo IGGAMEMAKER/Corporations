@@ -8,14 +8,14 @@ namespace Assets.Classes
 {
     class Channel
     {
-        int MaxClients;
-        int Clients;
+        uint MaxClients;
+        uint Clients;
         int Engagement; // 1 ... 5
         int marketId;
 
         Dictionary<int, Advert> Adverts; // int - projectID
 
-        public Channel(int engagement, int maxClients, int clients, Dictionary<int, Advert> adverts, int marketId)
+        public Channel(int engagement, uint maxClients, uint clients, Dictionary<int, Advert> adverts, int marketId)
         {
             MaxClients = maxClients;
             Clients = clients;
@@ -30,13 +30,13 @@ namespace Assets.Classes
                 Adverts[projectId] = new Advert(0, 0);
         }
 
-        public int StartAdCampaign(int projectId)
+        public uint StartAdCampaign(int projectId)
         {
             CreateAdIfNotExist(projectId);
 
             float adEffeciency = Adverts[projectId].AdEffeciency / 100f;
             float dice = UnityEngine.Random.Range(Balance.advertClientsRangeMin, Balance.advertClientsRangeMax) / 100f;
-            int clients = (int) (Engagement * adEffeciency * Clients * dice / 100);
+            uint clients = (uint) (Engagement * adEffeciency * Clients * dice / 100);
 
             string info = String.Format("added {0} clients (possible: {1} . {2} dice {3} effeciency {4}) to {5} via last campaign",
                 clients, Clients, Engagement, dice, adEffeciency, projectId);

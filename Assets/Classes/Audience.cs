@@ -51,7 +51,7 @@ namespace Assets.Classes
 
         public uint NewCustomersAmount()
         {
-            return (uint)Math.Floor(clients * GetConversionRate());
+            return (uint) Math.Floor(clients * GetConversionRate());
         }
 
         public int CustomerAnalyticsCap()
@@ -86,7 +86,7 @@ namespace Assets.Classes
         {
             int max = ClientAnalyticsCap() + CustomerAnalyticsCap();
 
-            if (max > AmountOfTests)
+            if (AmountOfTests < max)
                 AmountOfTests++;
         }
 
@@ -104,8 +104,6 @@ namespace Assets.Classes
                 AmountOfTests = max;
         }
 
-
-
         public int IdeaGainModifier()
         {
             int modifier = 0;
@@ -115,6 +113,11 @@ namespace Assets.Classes
             modifier = AmountOfTests + analyticsQuality;
 
             return modifier;
+        }
+
+        internal void AddClients(uint clients)
+        {
+            this.clients += clients;
         }
     }
 }

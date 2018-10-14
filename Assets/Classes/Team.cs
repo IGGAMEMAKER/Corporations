@@ -31,12 +31,17 @@ namespace Assets.Classes
             return 100;
         }
 
-        internal TeamResource ProduceMonthlyResources()
+        internal TeamResource GetMonthlyResources()
         {
             return new TeamResource()
                 .SetProgrammingPoints(GetProgrammingPointsProduction())
                 .SetManagerPoints(GetManagerPointsProduction())
                 .SetSalesPoints(GetSalesPointsProduction());
+        }
+
+        internal long GetExpenses()
+        {
+            return (Workers.Count + 1) * 1000;
         }
     }
 }
