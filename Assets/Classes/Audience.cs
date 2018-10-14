@@ -46,7 +46,7 @@ namespace Assets.Classes
 
         public float GetChurnRate()
         {
-            return 0.05f;
+            return 0.15f;
         }
 
         public uint NewCustomersAmount()

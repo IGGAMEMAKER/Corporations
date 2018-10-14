@@ -126,7 +126,7 @@ namespace Assets.Classes
         {
             uint churn = GetProjectById(projectId).ChurnClients();
 
-            Debug.Log("//TODO UpdateClients: return churn clients to Channels");
+            Debug.LogFormat("//TODO UpdateClients: return churn clients to Channels. {0}", churn);
         }
 
         List<Investor> GenerateInvestorPool()

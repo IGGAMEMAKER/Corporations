@@ -37,7 +37,7 @@ namespace Assets.Classes
         {
             string phrase = Tasks.Count > 0 ? String.Format("{0} tasks undone", Tasks.Count) : "No tasks";
             if (Tasks.Count > 0)
-                Debug.LogFormat("Starting day {0} ... {1}", date, phrase);
+                //Debug.LogFormat("Starting day {0} ... {1}", date, phrase);
 
             for (int i = 0; i < Tasks.Count; i++)
             {
