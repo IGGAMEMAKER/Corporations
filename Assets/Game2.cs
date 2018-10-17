@@ -70,10 +70,10 @@ public class Game2 : MonoBehaviour {
         {
             for (int x = 0; x < 5; x++)
             {
-                Vector3 pos = new Vector3(x, 0, (y - Cell)) * spacing;
+                Vector3 pos = new Vector3(x, (y - Cell), 0) * spacing;
                 GameObject g = Instantiate(DangerInterrupt, pos, Quaternion.identity);
 
-                g.transform.SetParent(Canvas.transform);
+                g.transform.SetParent(Canvas.transform, false);
             }
         }
     }
