@@ -15,11 +15,15 @@ public class Game2 : MonoBehaviour {
     GameObject Canvas;
     int Cell;
 
+    List<GameObject> Interrupts;
+
     // Use this for initialization
     void Start () {
         world = new World();
         DangerInterrupt = GameObject.Find("DangerInterrupt");
         Canvas = GameObject.Find("Canvas");
+
+        Interrupts = new List<GameObject>();
 
         Cell = 0;
 
@@ -74,7 +78,16 @@ public class Game2 : MonoBehaviour {
                 GameObject g = Instantiate(DangerInterrupt, pos, Quaternion.identity);
 
                 g.transform.SetParent(Canvas.transform, false);
+
+                Interrupts.Add(g);
             }
         }
+
+        for (int i = 0; i < 4; i++)
+        {
+            var g = Interrupts[i];
+            Destroy(g);
+        }
+        Interrupts.RemoveRange(0, 4);
     }
 }
