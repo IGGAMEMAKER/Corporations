@@ -13,28 +13,19 @@ namespace Assets.Classes
         int Engagement; // 1 ... 5
         int marketId;
 
-        Dictionary<int, Advert> Adverts; // int - projectID
+        //Dictionary<int, Advert> Adverts; // int - projectID
 
-        public Channel(int engagement, uint maxClients, uint clients, Dictionary<int, Advert> adverts, int marketId)
+        public Channel(int engagement, uint maxClients, uint clients, int marketId)
         {
             MaxClients = maxClients;
             Clients = clients;
             Engagement = engagement;
-            Adverts = adverts;
             this.marketId = marketId;
         }
 
-        void CreateAdIfNotExist (int projectId)
+        public uint StartAdCampaign(int projectId, Advert advert)
         {
-            if (Adverts[projectId] == null)
-                Adverts[projectId] = new Advert(0, 0);
-        }
-
-        public uint StartAdCampaign(int projectId)
-        {
-            CreateAdIfNotExist(projectId);
-
-            float adEffeciency = Adverts[projectId].AdEffeciency / 100f;
+            float adEffeciency = advert.AdEffeciency / 100f;
             float dice = UnityEngine.Random.Range(Balance.advertClientsRangeMin, Balance.advertClientsRangeMax) / 100f;
             uint clients = (uint) (Engagement * adEffeciency * Clients * dice / 100);
 
@@ -45,13 +36,6 @@ namespace Assets.Classes
             Clients -= clients;
 
             return clients;
-        }
-
-        internal void PrepareAd(int projectId, int duration)
-        {
-            CreateAdIfNotExist(projectId);
-
-            Adverts[projectId].PrepareAd(duration);
         }
 
         public void PrintProjectInfo(int projectId)

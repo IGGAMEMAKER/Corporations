@@ -11,9 +11,8 @@ namespace Assets.Classes
         public static int featureCount = 4;
         public int baseTechCost = 50;
 
-        List<Project> Projects;
-
         List<Market> Markets;
+        List<Project> Projects;
         List<Channel> Channels;
 
         List<Investor> Investors;
@@ -29,21 +28,9 @@ namespace Assets.Classes
             Projects = new List<Project>();
             FillProjects();
 
-
-            InitializeMarkets();
-
-            Dictionary<int, Advert> adverts = new Dictionary<int, Advert>();
-            adverts[projectId] = new Advert();
-
-            Channels = new List<Channel>();
-            Channels.Add(new Channel(10, 10000, 10000, adverts, marketId));
+            InitializeMarkets(marketId);
 
             InitializeScheduleManager();
-        }
-
-        void InitializeChannels()
-        {
-
         }
 
         void InitializeShareholders()
@@ -70,13 +57,15 @@ namespace Assets.Classes
             Projects.Add(p);
         }
 
-        void InitializeMarkets()
+        void InitializeMarkets(int marketId)
         {
+            Markets = new List<Market>();
+            Channels = new List<Channel>();
+
             MarketInfo marketInfo = new MarketInfo(baseTechCost, 1, 1, 50, featureCount);
-            Markets = new List<Market>
-            {
-                new Market(marketInfo, new MarketSettings(10))
-            };
+            Markets.Add(new Market(marketInfo, new MarketSettings(10)));
+
+            Channels.Add(new Channel(10, 10000, 10000, marketId));
         }
 
         void InitializeScheduleManager()
