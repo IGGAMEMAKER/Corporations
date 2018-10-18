@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    class Channel
+    public class Channel
     {
         uint MaxClients;
         uint Clients;

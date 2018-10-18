@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    class Team
+    public class Team
     {
         List<Human> Workers;
 

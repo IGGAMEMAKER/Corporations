@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    class World
+    public class World
     {
         public static int featureCount = 4;
         public int baseTechCost = 50;
@@ -22,43 +22,65 @@ namespace Assets.Classes
         public World()
         {
             int projectId = 0;
+            int marketId = 0;
+
+            InitializeShareholders();
+
+            Projects = new List<Project>();
+            FillProjects();
+
+
+            InitializeMarkets();
+
+            Dictionary<int, Advert> adverts = new Dictionary<int, Advert>();
+            adverts[projectId] = new Advert();
+
+            Channels = new List<Channel>();
+            Channels.Add(new Channel(10, 10000, 10000, adverts, marketId));
+
+            InitializeScheduleManager();
+        }
+
+        void InitializeChannels()
+        {
+
+        }
+
+        void InitializeShareholders()
+        {
+            Investors = GenerateInvestorPool();
+            ShareInfo shareInfo = new ShareInfo(100, 0, 0);
+            List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
+        }
+
+        void FillProjects()
+        {
             int[] mySkills = new int[] { 1, 7, 3 };
             int[] myTraits = new int[] { };
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
-            ShareInfo shareInfo = new ShareInfo(100, 0, 0);
-            MarketInfo marketInfo = new MarketInfo(baseTechCost, 1, 1, 50, featureCount);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
-            Investors = GenerateInvestorPool();
-
             List<Human> workers = new List<Human> { me };
-
-            List<ShareInfo> shareholders = new List<ShareInfo> { shareInfo };
 
             Audience audience = new Audience(0, 0, 1);
 
             Team team = new Team(workers);
 
-            Project p = new Project(featureCount, audience, team, teamResource, new ShareholderInfo(shareholders));
-            Projects = new List<Project> { p };
+            Project p = new Project(featureCount, audience, team, teamResource);
+            Projects.Add(p);
+        }
 
-            Dictionary<int, Advert> adverts = new Dictionary<int, Advert>
-            {
-                { projectId, new Advert() }
-            };
-
+        void InitializeMarkets()
+        {
+            MarketInfo marketInfo = new MarketInfo(baseTechCost, 1, 1, 50, featureCount);
             Markets = new List<Market>
             {
                 new Market(marketInfo, new MarketSettings(10))
             };
+        }
 
-            int marketId = 0;
-            Channels = new List<Channel>
-            {
-                new Channel(10, 10000, 10000, adverts, marketId)
-            };
-
-
+        void InitializeScheduleManager()
+        {
             List<Task> tasks = new List<Task>
             {
                 new Task(TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
@@ -100,8 +122,10 @@ namespace Assets.Classes
             {
                 // recompute resources: money and team points
                 UpdateResources(i);
+                
                 // recompute customers
                 UpdateCustomers(i);
+                
                 // recompute clients: churn and ad campaigns
                 UpdateClients(i);
 
@@ -148,11 +172,6 @@ namespace Assets.Classes
         }
 
 
-        internal void RaiseInvestments(int projectId, int share, int price)
-        {
-            GetProjectById(projectId).SellShareToNewInvestor(share, price, 1);
-        }
-
         internal void StartAdCampaign(int projectId, int channelId)
         {
             uint clients = GetChannelById(channelId).StartAdCampaign(projectId);
@@ -176,10 +195,6 @@ namespace Assets.Classes
 
         // Debugging
 
-        internal void PrintShareholders(int projectId)
-        {
-            GetProjectById(projectId).PrintShareholderInfo();
-        }
         public void PrintTechnologies(int projectId)
         {
             GetProjectById(projectId).PrintTechnologies();

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    class ShareholderInfo
+    public class ShareholderInfo
     {
         List<ShareInfo> Shareholders;
 

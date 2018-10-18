@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    class ShareInfo
+    public class ShareInfo
     {
         public int Share { get; set; }
         public int Investments { get; set; }

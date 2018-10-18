@@ -1,6 +1,6 @@
 ﻿namespace Assets.Classes
 {
-    class Advert
+    public class Advert
     {
         public int AdEffeciency { get; set; }
         public int AdDuraion { get; set; }

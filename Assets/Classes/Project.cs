@@ -6,16 +6,15 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    class Project
+    public class Project
     {
         List<Feature> Features;
         TeamResource Resource;
 
-        ShareholderInfo Shareholders;
         Audience audience;
         Team team;
 
-        public Project(int featureCount, Audience audience, Team team, TeamResource resource, ShareholderInfo shareholderInfo)
+        public Project(int featureCount, Audience audience, Team team, TeamResource resource)
         {
             Features = new List<Feature>();
 
@@ -23,7 +22,6 @@ namespace Assets.Classes
                 Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
 
             this.Resource = resource;
-            this.Shareholders = shareholderInfo;
             this.audience = audience;
             this.team = team;
         }
@@ -38,13 +36,6 @@ namespace Assets.Classes
         {
             Features[featureID].Explore();
             Resource.Spend(new TeamResource(0, 0, 0, 10, 0));
-        }
-
-        public void SellShareToNewInvestor(int share, int price, int buyerInvestorId, int sellerId = 0)
-        {
-            Shareholders.AddShareholder(buyerInvestorId);
-            Shareholders.EditShare(share, sellerId, buyerInvestorId, price);
-            Resource.AddMoney(price);
         }
 
         public int GetProgrammingPointsProductionValue()
@@ -115,11 +106,6 @@ namespace Assets.Classes
         {
             for (var i = 0; i < Features.Count; i++)
                 Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
-        }
-
-        public void PrintShareholderInfo()
-        {
-            Shareholders.PrintAllShareholders();
         }
 
         public void PrintResources()

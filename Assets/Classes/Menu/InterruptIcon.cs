@@ -10,12 +10,6 @@ namespace Assets.Classes.Menu
         InterruptImportance Importance;
         InterruptInfo Info;
 
-        public InterruptIcon (InterruptInfo info, InterruptImportance importance)
-        {
-            Importance = importance;
-            Info = info;
-        }
-
         public string PrefabName
         {
             get
@@ -33,6 +27,26 @@ namespace Assets.Classes.Menu
                 }
             }
         }
+
+        public string Icon
+        {
+            get
+            {
+                switch (Info)
+                {
+                    case InterruptInfo.CanUpgradeFeature:
+                        return "CanUpgradeFeature";
+                    default:
+                        return "UnknownIcon";
+                }
+            }
+        }
+
+        public InterruptIcon (InterruptInfo info, InterruptImportance importance)
+        {
+            Importance = importance;
+            Info = info;
+        }
     }
 
     public enum InterruptImportance
@@ -44,6 +58,7 @@ namespace Assets.Classes.Menu
 
     public enum InterruptInfo
     {
+        CanUpgradeFeature,
 
     }
 }

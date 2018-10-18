@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
-    struct TeamResource
+    public struct TeamResource
     {
         int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
         long Money;

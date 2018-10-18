@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    class Balance
+    public class Balance
     {
         public static int advertClientsRangeMin = 100; // percent
         internal static float advertClientsRangeMax = 175;

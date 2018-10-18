@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    class Human
+    public class Human
     {
         string Name;
         string Surname;

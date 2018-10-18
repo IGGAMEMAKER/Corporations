@@ -18,8 +18,8 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        
+    }
 
     public void AddInterrupt(InterruptImportance importance, string prefabName, string linkToMenu)
     {

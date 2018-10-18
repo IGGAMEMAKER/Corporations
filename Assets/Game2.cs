@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine;
 
 public class Game2 : MonoBehaviour {
-    World world;
+    public World world;
+    public string TTT;
 
     // Use this for initialization
     void Start () {
@@ -32,8 +33,6 @@ public class Game2 : MonoBehaviour {
 
         world.PrintProjectInfo(projectId);
 
-        world.RaiseInvestments(projectId, 20, 150000);
-        world.PrintShareholders(projectId);
         world.PeriodTick(32);
 
 
