@@ -40,11 +40,8 @@ namespace Assets.Classes
             Resource.Spend(new TeamResource(0, 0, 0, 10, 0));
         }
 
-        public void SellShareToNewInvestor(int share, int price, int buyerInvestorId)
+        public void SellShareToNewInvestor(int share, int price, int buyerInvestorId, int sellerId = 0)
         {
-            // get human player share
-            int sellerId = 0;
-
             Shareholders.AddShareholder(buyerInvestorId);
             Shareholders.EditShare(share, sellerId, buyerInvestorId, price);
             Resource.AddMoney(price);
