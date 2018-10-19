@@ -53,7 +53,14 @@ namespace Assets.Classes
 
             Team team = new Team(workers);
 
-            Project p = new Project(featureCount, audience, team, teamResource);
+            var Features = new List<Feature>();
+
+            for (var i = 0; i < featureCount; i++)
+                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
+
+            Dictionary<int, Advert> Ads = new Dictionary<int, Advert>();
+
+            Project p = new Project(Features, audience, team, teamResource, Ads);
             Projects.Add(p);
         }
 
@@ -163,13 +170,14 @@ namespace Assets.Classes
 
         internal void StartAdCampaign(int projectId, int channelId)
         {
-            uint clients = GetChannelById(channelId).StartAdCampaign(projectId);
+            Advert advert = GetProjectById(projectId).GetAdByChannelId(channelId);
+            uint clients = GetChannelById(channelId).StartAdCampaign(projectId, advert);
             GetProjectById(projectId).StartAdCampaign(clients);
         }
 
         internal void PrepareAd(int projectId, int channelId, int duration)
         {
-            GetChannelById(channelId).PrepareAd(projectId, duration);
+            GetProjectById(projectId).PrepareAd(duration, channelId);
         }
 
         public void UpgradeFeature(int projectId, int featureId)

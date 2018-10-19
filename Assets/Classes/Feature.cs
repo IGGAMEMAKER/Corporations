@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    enum FeatureStatus
+    public enum FeatureStatus
     {
         NeedsExploration,
         Explored
     }
 
-    enum RelevancyStatus
+    public enum RelevancyStatus
     {
         Innovative,
         Relevant,
@@ -19,7 +19,7 @@ namespace Assets.Classes
         Dinosaur
     }
 
-    class Feature
+    public class Feature
     {
         RelevancyStatus Relevancy;
         FeatureStatus Status;

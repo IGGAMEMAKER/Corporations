@@ -8,22 +8,21 @@ namespace Assets.Classes
 {
     public class Project
     {
-        List<Feature> Features;
+        public List<Feature> Features;
         TeamResource Resource;
 
+        Dictionary<int, Advert> Ads;
+
         Audience audience;
-        Team team;
+        Team Team;
 
-        public Project(int featureCount, Audience audience, Team team, TeamResource resource)
+        public Project(List<Feature> Features, Audience audience, Team Team, TeamResource resource, Dictionary<int, Advert> Ads)
         {
-            Features = new List<Feature>();
-
-            for (var i = 0; i < featureCount; i++)
-                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
-
+            this.Features = Features;
             this.Resource = resource;
             this.audience = audience;
-            this.team = team;
+            this.Team = Team;
+            this.Ads = Ads;
         }
 
         public void UpgradeFeature(int featureID)
@@ -40,27 +39,27 @@ namespace Assets.Classes
 
         public int GetProgrammingPointsProductionValue()
         {
-            return team.GetProgrammingPointsProduction();
+            return Team.GetProgrammingPointsProduction();
         }
 
         public int GetManagerPointsProductionValue()
         {
-            return team.GetManagerPointsProduction();
+            return Team.GetManagerPointsProduction();
         }
 
         public int GetSalesPointsProductionValue()
         {
-            return team.GetSalesPointsProduction();
+            return Team.GetSalesPointsProduction();
         }
 
         public int GetIdeaPointsProductionValue()
         {
-            return team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
+            return Team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
         }
 
         internal void UpdateMonthlyResources()
         {
-            TeamResource teamResource = team.GetMonthlyResources()
+            TeamResource teamResource = Team.GetMonthlyResources()
                 .SetIdeaPoints(GetIdeaPointsProductionValue());
 
             Resource.AddTeamPoints(teamResource);
@@ -78,7 +77,7 @@ namespace Assets.Classes
 
         long GetMonthlyExpense()
         {
-            return team.GetExpenses();
+            return Team.GetExpenses();
         }
 
         private long GetMonthlyIncome()
@@ -116,6 +115,27 @@ namespace Assets.Classes
         internal void PrintProjectInfo()
         {
             Debug.LogFormat("Project info: {0} customers, {1} clients", audience.customers, audience.clients);
+        }
+
+        void AddAdvertIfNotExist(int channelId)
+        {
+            if (Ads[channelId] == null)
+                Ads[channelId] = new Advert(0, 0);
+        }
+
+        internal Advert GetAdByChannelId(int channelId)
+        {
+            AddAdvertIfNotExist(channelId);
+
+            return Ads[channelId];
+        }
+
+        internal void PrepareAd(int duration, int channelId)
+        {
+            if (Ads[channelId] == null)
+                Ads[channelId] = new Advert(0, duration);
+
+            Ads[channelId].PrepareAd(duration);
         }
     }
 }
