@@ -27,7 +27,7 @@ public class TestingScript : MonoBehaviour {
 
         Cell = 0;
 
-        PlayCoinSound();
+        //PlayCoinSound();
     }
 
     // Update is called once per frame

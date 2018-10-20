@@ -29,7 +29,7 @@ public class UIAvailable : MonoBehaviour {
 
     float GetNewWidth (float width)
     {
-        return width + 5f;
+        return width + 6f;
     }
 
     void ShrinkWidth ()
