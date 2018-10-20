@@ -27,12 +27,7 @@ public class TestingScript : MonoBehaviour {
 
         Cell = 0;
 
-        // sounds
-        audioData = this.gameObject.AddComponent<AudioSource>();
-        audioData.clip = Resources.Load<AudioClip>("Sounds/Coin");
-
-        audioData.Play();
-        //audioData.loop = true;
+        PlayCoinSound();
     }
 
     // Update is called once per frame
@@ -46,6 +41,16 @@ public class TestingScript : MonoBehaviour {
             totalTime = interval;
             Cell++;
         }
+    }
+
+    void PlayCoinSound()
+    {
+        // sounds
+        audioData = this.gameObject.AddComponent<AudioSource>();
+        audioData.clip = Resources.Load<AudioClip>("Sounds/Coin");
+
+        audioData.Play();
+        //audioData.loop = true;
     }
 
     public void UpdateLevelTimer(float totalSeconds)

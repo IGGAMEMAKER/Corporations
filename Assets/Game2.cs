@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Game2 : MonoBehaviour {
     public World world;
-    public string TTT;
 
     // Use this for initialization
     void Start () {
