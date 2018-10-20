@@ -15,6 +15,9 @@ public class TestingScript : MonoBehaviour {
     List<GameObject> Interrupts;
 
 
+    AudioSource audioData;
+
+
     // Use this for initialization
     void Start () {
         DangerInterrupt = GameObject.Find("DangerInterrupt");
@@ -23,10 +26,17 @@ public class TestingScript : MonoBehaviour {
         Interrupts = new List<GameObject>();
 
         Cell = 0;
+
+        // sounds
+        audioData = this.gameObject.AddComponent<AudioSource>();
+        audioData.clip = Resources.Load<AudioClip>("Sounds/Coin");
+
+        audioData.Play();
+        //audioData.loop = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         totalTime -= Time.deltaTime;
 
         if (totalTime < 0)

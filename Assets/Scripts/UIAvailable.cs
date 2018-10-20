@@ -11,6 +11,7 @@ public class UIAvailable : MonoBehaviour {
     GameObject image;
     Canvas c;
 
+
     // Use this for initialization
     void Start () {
         image = new GameObject("background");
@@ -28,7 +29,7 @@ public class UIAvailable : MonoBehaviour {
 
     float GetNewWidth (float width)
     {
-        return width + 15f;
+        return width + 5f;
     }
 
     void ShrinkWidth ()
