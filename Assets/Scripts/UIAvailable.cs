@@ -3,49 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Canvas))]
+[RequireComponent(typeof(RectTransform))]
 public class UIAvailable : MonoBehaviour {
-	
+    // Dirty hacks
+    int ticks = 5;
+    GameObject image;
+    Canvas c;
+
     // Use this for initialization
-	void Start () {
-        GameObject image = new GameObject("background");
+    void Start () {
+        image = new GameObject("background");
         Image background = image.AddComponent<Image>();
-        Canvas c = image.AddComponent<Canvas>();
+        c = image.AddComponent<Canvas>();
 
-        image.SetActive(true);
-
-        c.overrideSorting = true;
         c.sortingOrder = -1;
 
-        var parent = this.gameObject;
-        image.transform.SetParent(parent.transform, false);
+        image.transform.SetParent(this.gameObject.transform, false);
 
-        RectTransform parentTransform = parent.GetComponent<RectTransform>();
-        float width = parentTransform.rect.width + 100f;
-        float height = parentTransform.rect.height + 100f;
-
-        RectTransform rect = image.GetComponent<RectTransform>();
-        rect.rect.Set(0, 0, width, height);
-
-        Debug.LogFormat("Start UIAvailable {0}, {1}, {2}", image.activeInHierarchy, image.activeSelf, parent.activeInHierarchy);
-
+        ShrinkWidth();
 
         background.sprite = Resources.Load<Sprite>("interrupt-danger");
     }
 
-    void OverrideSortingOrder ()
+    float GetNewWidth (float width)
     {
-
+        return width + 15f;
     }
 
-    private void OnEnable()
+    void ShrinkWidth ()
     {
-        Debug.Log("OnEnable UIAvailable");
+        RectTransform parentTransform = this.gameObject.GetComponent<RectTransform>();
+        float width = GetNewWidth(parentTransform.sizeDelta.x);
+        float height = GetNewWidth(parentTransform.sizeDelta.y);
 
-        Canvas c = this.gameObject.GetComponentInChildren<Canvas>();
+        RectTransform rect = image.GetComponent<RectTransform>();
+        //rect.rect.Set(0, 0, width, height);
+        rect.sizeDelta = new Vector2(width, height);
+    }
+
+    void OverrideSortingOrder ()
+    {
         c.overrideSorting = true;
     }
 
     // Update is called once per frame
     void Update () {
+        if (ticks > 0)
+        {
+            OverrideSortingOrder();
+            ticks--;
+        }
+
+        ShrinkWidth();
 	}
 }
