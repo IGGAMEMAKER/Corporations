@@ -11,6 +11,8 @@ public class UIAvailable : MonoBehaviour {
         Image background = image.AddComponent<Image>();
         Canvas c = image.AddComponent<Canvas>();
 
+        image.SetActive(true);
+
         c.overrideSorting = true;
         c.sortingOrder = -1;
 
@@ -24,11 +26,26 @@ public class UIAvailable : MonoBehaviour {
         RectTransform rect = image.GetComponent<RectTransform>();
         rect.rect.Set(0, 0, width, height);
 
+        Debug.LogFormat("Start UIAvailable {0}, {1}, {2}", image.activeInHierarchy, image.activeSelf, parent.activeInHierarchy);
+
+
         background.sprite = Resources.Load<Sprite>("interrupt-danger");
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    void OverrideSortingOrder ()
+    {
+
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable UIAvailable");
+
+        Canvas c = this.gameObject.GetComponentInChildren<Canvas>();
+        c.overrideSorting = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
 	}
 }

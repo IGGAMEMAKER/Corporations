@@ -17,23 +17,23 @@ public class Game2 : MonoBehaviour {
         int channelId = 0;
         int adCampaignDuration = 10;
 
-        world.PrintResources(projectId);
-        world.ExploreFeature(projectId, featureId);
-        world.UpgradeFeature(projectId, featureId);
-        world.PrintResources(projectId);
-        world.PrintTechnologies(projectId);
+        //world.PrintResources(projectId);
+        //world.ExploreFeature(projectId, featureId);
+        //world.UpgradeFeature(projectId, featureId);
+        //world.PrintResources(projectId);
+        //world.PrintTechnologies(projectId);
 
-        world.PrintProjectInfo(projectId);
-        world.PrepareAd(projectId, channelId, adCampaignDuration);
+        //world.PrintProjectInfo(projectId);
+        //world.PrepareAd(projectId, channelId, adCampaignDuration);
 
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
 
-        world.PrintProjectInfo(projectId);
+        //world.PrintProjectInfo(projectId);
 
-        world.PeriodTick(32);
+        //world.PeriodTick(32);
 
 
     }
