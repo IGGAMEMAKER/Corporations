@@ -9,6 +9,17 @@ public class UIAvailable : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        UpdateAll();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateAll();
+    }
+
+    void UpdateAll()
+    {
         ResetPosition();
         ShrinkWidth();
     }
@@ -31,12 +42,6 @@ public class UIAvailable : MonoBehaviour {
         float height = GetNewWidth(parentTransform.sizeDelta.y);
 
         RectTransform rect = gameObject.GetComponent<RectTransform>();
-        //rect.rect.Set(0, 0, width, height);
         rect.sizeDelta = new Vector2(width, height);
-    }
-
-    // Update is called once per frame
-    void Update () {
-        ShrinkWidth();
     }
 }
