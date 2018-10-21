@@ -6,15 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(RectTransform))]
 public class UIAvailable : MonoBehaviour {
-    // Dirty hacks
-    int ticks = 5;
 
     // Use this for initialization
     void Start () {
-        //image = new GameObject("background");
-        //Image background = image.AddComponent<Image>();
-
-        //image.transform.SetParent(this.gameObject.transform, false);
         ResetPosition();
         ShrinkWidth();
     }
@@ -31,12 +25,12 @@ public class UIAvailable : MonoBehaviour {
 
     void ShrinkWidth ()
     {
-        GameObject parent = this.gameObject.transform.parent.gameObject;
+        GameObject parent = gameObject.transform.parent.gameObject;
         RectTransform parentTransform = parent.GetComponent<RectTransform>();
         float width = GetNewWidth(parentTransform.sizeDelta.x);
         float height = GetNewWidth(parentTransform.sizeDelta.y);
 
-        RectTransform rect = this.gameObject.GetComponent<RectTransform>();
+        RectTransform rect = gameObject.GetComponent<RectTransform>();
         //rect.rect.Set(0, 0, width, height);
         rect.sizeDelta = new Vector2(width, height);
     }
