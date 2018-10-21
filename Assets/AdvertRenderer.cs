@@ -30,10 +30,15 @@ public abstract class ListRenderer : MonoBehaviour
 
     public abstract int itemsPerLine { get; set; }
 
+    private void Awake()
+    {
+        gameObjects = new List<GameObject>();
+    }
+
     // Use this for initialization
     void Start()
     {
-        gameObjects = new List<GameObject>();
+
     }
 
     // Update is called once per frame
