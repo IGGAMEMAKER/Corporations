@@ -11,18 +11,23 @@ namespace Assets.Classes
         public List<Feature> Features;
         TeamResource Resource;
 
-        Dictionary<int, Advert> Ads;
+        public List<Advert> Ads { get; set; }
 
         Audience audience;
         Team Team;
 
-        public Project(List<Feature> Features, Audience audience, Team Team, TeamResource resource, Dictionary<int, Advert> Ads)
+        public Project(List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
         {
             this.Features = Features;
             this.Resource = resource;
             this.audience = audience;
             this.Team = Team;
             this.Ads = Ads;
+        }
+
+        internal List<Advert> GetAds()
+        {
+            return Ads;
         }
 
         public void UpgradeFeature(int featureID)

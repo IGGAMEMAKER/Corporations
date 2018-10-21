@@ -2,53 +2,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AdvertRenderer : MonoBehaviour {
-    List<GameObject> advertViews;
+public class AdvertRenderer : ListRenderer {
+    int ADS_PER_LINE = 5;
 
-    [Header("Advert Prefab Instance")]
-    public GameObject advertInstance;
-
-	// Use this for initialization
-	void Start () {
-        advertViews = new List<GameObject>();
-	}
-
-    void RemoveCurrentObjects ()
+    public override void UpdateObject<Advert>(GameObject gameObject, Advert ModelName)
     {
-        for (int i = 0; i < advertViews.Count; i++)
-        {
-            Destroy(advertViews[i]);
-        }
+        itemsPerLine = ADS_PER_LINE;
 
-        advertViews.Clear();
+        GameObject image = gameObject.transform.GetChild(0).gameObject;
+        GameObject text = gameObject.transform.GetChild(1).gameObject;
+        text.GetComponent<Text>().text = "Instantiated text";
+
+        GameObject Button = gameObject.transform.GetChild(2).gameObject;
+    }
+}
+
+public abstract class ListRenderer : MonoBehaviour
+{
+    public GameObject PrefabInstance;
+    public List<GameObject> gameObjects;
+
+    public int itemsPerLine;
+
+    // Use this for initialization
+    void Start()
+    {
+
     }
 
-    public void UpdateAds(List<Advert> adverts)
+    // Update is called once per frame
+    void Update()
     {
-        // remove all objects
-        RemoveCurrentObjects();
 
+    }
+
+    void RemoveCurrentObjects()
+    {
+        for (int i = 0; i < gameObjects.Count; i++)
+            Destroy(gameObjects[i]);
+
+        gameObjects.Clear();
+    }
+
+    GameObject InstantiateObject(int x, int y)
+    {
         float spacing = 50f;
 
-        int ADS_PER_LINE = 5;
+        Vector3 pos = new Vector3(x, y, 0) * spacing;
+        GameObject g = Instantiate(PrefabInstance, pos, Quaternion.identity);
 
-        for (var i = 0; i < adverts.Count; i++)
+        g.transform.SetParent(this.gameObject.transform, false);
+
+        gameObjects.Add(g);
+
+        return g;
+    }
+
+    abstract public void UpdateObject<T>(GameObject gameObject, T ModelName);
+
+    public void UpdateList<T> (List<T> objects)
+    {
+        RemoveCurrentObjects();
+
+        for (var i = 0; i < gameObjects.Count; i++)
         {
-            int x = i % ADS_PER_LINE;
-            int y = i / ADS_PER_LINE;
+            int x = i % itemsPerLine;
+            int y = i / itemsPerLine;
 
-            Vector3 pos = new Vector3(x, y, 0) * spacing;
-            GameObject g = Instantiate(advertInstance, pos, Quaternion.identity);
-
-            g.transform.SetParent(this.gameObject.transform, false);
-
-            advertViews.Add(g);
+            GameObject g = InstantiateObject(x, y);
+            UpdateObject(g, objects);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -58,7 +58,10 @@ namespace Assets.Classes
             for (var i = 0; i < featureCount; i++)
                 Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
 
-            Dictionary<int, Advert> Ads = new Dictionary<int, Advert>();
+            List<Advert> Ads = new List<Advert>();
+
+            // Add test ad
+            Ads.Add(new Advert(0, 0, 0));
 
             Project p = new Project(Features, audience, team, teamResource, Ads);
             Projects.Add(p);
