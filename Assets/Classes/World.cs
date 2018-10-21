@@ -171,7 +171,9 @@ namespace Assets.Classes
         internal void StartAdCampaign(int projectId, int channelId)
         {
             Advert advert = GetProjectById(projectId).GetAdByChannelId(channelId);
+
             uint clients = GetChannelById(channelId).StartAdCampaign(projectId, advert);
+
             GetProjectById(projectId).StartAdCampaign(clients);
         }
 
