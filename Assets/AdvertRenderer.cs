@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class AdvertRenderer : MonoBehaviour {
     List<GameObject> advertViews;
+
+    [Header("Advert Prefab Instance")]
     public GameObject advertInstance;
 
 	// Use this for initialization
