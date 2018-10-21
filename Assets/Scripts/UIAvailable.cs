@@ -11,6 +11,10 @@ public class UIAvailable : MonoBehaviour {
     GameObject image;
     Canvas c;
 
+    private void OnEnable()
+    {
+        OverrideSortingOrder();
+    }
 
     // Use this for initialization
     void Start () {
@@ -50,11 +54,12 @@ public class UIAvailable : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (ticks > 0)
-        {
-            OverrideSortingOrder();
-            ticks--;
-        }
+        //if (ticks > 0)
+        //{
+        //    OverrideSortingOrder();
+        //    ticks--;
+        //}
+        OverrideSortingOrder();
 
         ShrinkWidth();
 	}

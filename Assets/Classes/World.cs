@@ -62,6 +62,7 @@ namespace Assets.Classes
 
             // Add test ad
             Ads.Add(new Advert(0, 0, 0));
+            Ads.Add(new Advert(1, 0, 0));
 
             Project p = new Project(Features, audience, team, teamResource, Ads);
             Projects.Add(p);

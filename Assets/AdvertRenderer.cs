@@ -52,7 +52,7 @@ public abstract class ListRenderer : MonoBehaviour
 
     GameObject InstantiateObject(int x, int y)
     {
-        float spacing = 50f;
+        float spacing = 150f;
 
         Vector3 pos = new Vector3(x, y, 0) * spacing;
         GameObject g = Instantiate(PrefabInstance, pos, Quaternion.identity);
