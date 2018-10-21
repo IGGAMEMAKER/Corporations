@@ -5,11 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AdvertRenderer : ListRenderer {
-    int ADS_PER_LINE = 5;
+    public override int itemsPerLine
+    {
+        get { return 5; }
+        set { }
+    }
 
     public override void UpdateObject<Advert>(GameObject gameObject, Advert ModelName)
     {
-        itemsPerLine = ADS_PER_LINE;
+        Debug.Log("UpdateObject Advert");
 
         GameObject image = gameObject.transform.GetChild(0).gameObject;
         GameObject text = gameObject.transform.GetChild(1).gameObject;
@@ -22,14 +26,14 @@ public class AdvertRenderer : ListRenderer {
 public abstract class ListRenderer : MonoBehaviour
 {
     public GameObject PrefabInstance;
-    public List<GameObject> gameObjects;
+    List<GameObject> gameObjects;
 
-    public int itemsPerLine;
+    public abstract int itemsPerLine { get; set; }
 
     // Use this for initialization
     void Start()
     {
-
+        gameObjects = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -66,7 +70,7 @@ public abstract class ListRenderer : MonoBehaviour
     {
         RemoveCurrentObjects();
 
-        for (var i = 0; i < gameObjects.Count; i++)
+        for (var i = 0; i < objects.Count; i++)
         {
             int x = i % itemsPerLine;
             int y = i / itemsPerLine;
