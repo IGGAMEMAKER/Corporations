@@ -7,6 +7,6 @@ namespace Assets.Classes
 {
     public class Commands
     {
-        public static string AD_CAMPAIGN_START = "AD_CAMPAIGN_START";
+        public const string AD_CAMPAIGN_START = "AD_CAMPAIGN_START";
     }
 }

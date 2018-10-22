@@ -60,12 +60,12 @@ namespace Assets.Classes
 
             List<Advert> Ads = new List<Advert>();
 
-            // Add test ad
-            Ads.Add(new Advert(0, 0, 0));
-            Ads.Add(new Advert(1, 0, 0));
-
-            Project p = new Project(Features, audience, team, teamResource, Ads);
+            Project p = new Project(0, Features, audience, team, teamResource, Ads);
             Projects.Add(p);
+
+            // Add test ads
+            p.PrepareAd(0, 0);
+            p.PrepareAd(0, 1);
         }
 
         void InitializeMarkets(int marketId)

@@ -8,6 +8,7 @@ namespace Assets.Classes
 {
     public class Project
     {
+        public int id { get; set; }
         public List<Feature> Features;
         TeamResource Resource;
 
@@ -16,13 +17,14 @@ namespace Assets.Classes
         Audience audience;
         Team Team;
 
-        public Project(List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
+        public Project(int id, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
         {
             this.Features = Features;
             this.Resource = resource;
             this.audience = audience;
             this.Team = Team;
             this.Ads = Ads;
+            this.id = id;
         }
 
         internal List<Advert> GetAds()
@@ -125,7 +127,7 @@ namespace Assets.Classes
         void AddAdvertIfNotExist(int channelId)
         {
             if (Ads[channelId] == null)
-                Ads[channelId] = new Advert(0, 0);
+                Ads[channelId] = new Advert(channelId, id, 0, 0);
         }
 
         internal Advert GetAdByChannelId(int channelId)
@@ -138,7 +140,7 @@ namespace Assets.Classes
         internal void PrepareAd(int duration, int channelId)
         {
             if (Ads[channelId] == null)
-                Ads[channelId] = new Advert(0, duration);
+                Ads[channelId] = new Advert(channelId, id, 0, duration);
 
             Ads[channelId].PrepareAd(duration);
         }
