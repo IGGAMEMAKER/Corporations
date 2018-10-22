@@ -11,9 +11,11 @@ public class AdvertRenderer : ListRenderer {
         set { }
     }
 
-    public override void UpdateObject<Advert>(GameObject gameObject, Advert advert, int index)
+    public override void RenderObject(GameObject gameObject, object advertObject, int index)
     {
         Debug.Log("UpdateObject Advert");
+
+        Advert advert = (Advert)advertObject;
 
         GameObject image = gameObject.transform.GetChild(0).gameObject;
         GameObject text = gameObject.transform.GetChild(1).gameObject;
@@ -24,6 +26,7 @@ public class AdvertRenderer : ListRenderer {
 
         Dictionary<string, object> dictionary = new Dictionary<string, object>();
         dictionary["advert"] = advert;
+        advert.Print();
         dictionary["id"] = index;
 
         b.onClick.AddListener(delegate { BaseController.SendCommand(Commands.AD_CAMPAIGN_START, dictionary); });

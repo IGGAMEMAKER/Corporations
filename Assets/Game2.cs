@@ -12,13 +12,12 @@ public class Game2 : MonoBehaviour {
     void Start () {
         world = new World();
 
-        AdvertRenderer advertRenderer = AdvertRendererManager.GetComponent<AdvertRenderer>();
-
         int projectId = 0;
         int featureId = 0;
         int channelId = 0;
         int adCampaignDuration = 10;
 
+        AdvertRenderer advertRenderer = AdvertRendererManager.GetComponent<AdvertRenderer>();
         advertRenderer.UpdateList(world.GetProjectById(projectId).GetAds());
     }
 

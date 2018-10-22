@@ -124,25 +124,33 @@ namespace Assets.Classes
             Debug.LogFormat("Project info: {0} customers, {1} clients", audience.customers, audience.clients);
         }
 
-        void AddAdvertIfNotExist(int channelId)
+        Advert FindAdByChannelId(int channelId)
         {
-            if (Ads[channelId] == null)
-                Ads[channelId] = new Advert(channelId, id, 0, 0);
+            return Ads.Find(a => a.Channel == channelId);
         }
 
-        internal Advert GetAdByChannelId(int channelId)
+        void AddAdvertIfNotExist(int channelId)
+        {
+            Advert ad = FindAdByChannelId(channelId);
+
+            if (ad == null)
+                Ads.Add(new Advert(channelId, id, 0, 0));
+        }
+
+        public Advert GetAdByChannelId(int channelId)
         {
             AddAdvertIfNotExist(channelId);
 
-            return Ads[channelId];
+            return FindAdByChannelId(channelId);
         }
 
         internal void PrepareAd(int duration, int channelId)
         {
-            if (Ads[channelId] == null)
-                Ads[channelId] = new Advert(channelId, id, 0, duration);
+            Debug.LogFormat("PrepareAd ads: {0} for {1} days in channel {2}", Ads.Count, duration, channelId);
 
-            Ads[channelId].PrepareAd(duration);
+            GetAdByChannelId(channelId).PrepareAd(duration);
+
+            Debug.LogFormat("PrepareAd ads: {0} for {1} days in channel {2}", Ads.Count, duration, channelId);
         }
     }
 }
