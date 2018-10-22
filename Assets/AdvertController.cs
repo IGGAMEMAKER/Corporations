@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AdvertController : MonoBehaviour, CommandHandler {
-    
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    World world;
+
+    // Use this for initialization
+    void Start () {
+        world = gameObject.GetComponent<Model>().GetWorld();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
-    void StartCampaign(Advert advert)
+    void StartCampaign(Advert advert, int duration)
     {
-
+        world.PrepareAd(advert.Project, advert.Channel, duration);
     }
 
     public void HandleCommand(string eventName, Dictionary<string, object> parameters)
@@ -28,8 +29,9 @@ public class AdvertController : MonoBehaviour, CommandHandler {
         {
             case Commands.AD_CAMPAIGN_START:
                 Advert ad = (Advert) parameters["advert"];
+                int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
 
-                StartCampaign(ad);
+                StartCampaign(ad, duration);
                 break;
         }
     }

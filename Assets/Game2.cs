@@ -5,12 +5,12 @@ using System.Linq;
 using UnityEngine;
 
 public class Game2 : MonoBehaviour {
-    public World world;
+    World world;
     public GameObject AdvertRendererManager;
 
     // Use this for initialization
     void Start () {
-        world = new World();
+        world = gameObject.GetComponent<Model>().GetWorld();
 
         int projectId = 0;
         int featureId = 0;
