@@ -122,6 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 38464179}
   - component: {fileID: 38464180}
+  - component: {fileID: 38464181}
+  - component: {fileID: 38464182}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -151,6 +153,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f41363d2db5ba8469f256424b9f9243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &38464181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38464178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038933494c55540459464e04361fb11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AdvertRendererManager: {fileID: 1340174926}
+--- !u!114 &38464182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38464178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bf43ba6244c8c45892776afd62492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &134131510 stripped
@@ -677,7 +702,6 @@ GameObject:
   - component: {fileID: 1029372334}
   - component: {fileID: 1029372333}
   - component: {fileID: 1029372337}
-  - component: {fileID: 1029372338}
   - component: {fileID: 1029372339}
   m_Layer: 5
   m_Name: Canvas
@@ -778,18 +802,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyText: {fileID: 1251356400}
   progressBar: {fileID: 699158227}
---- !u!114 &1029372338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1029372332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 038933494c55540459464e04361fb11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AdvertRendererManager: {fileID: 1340174926}
 --- !u!114 &1029372339
 MonoBehaviour:
   m_ObjectHideFlags: 0
