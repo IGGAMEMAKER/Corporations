@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class AdvertRenderer : ListRenderer {
         set { }
     }
 
-    public override void UpdateObject<Advert>(GameObject gameObject, Advert ModelName)
+    public override void UpdateObject<Advert>(GameObject gameObject, Advert advert, int index)
     {
         Debug.Log("UpdateObject Advert");
 
@@ -18,6 +19,13 @@ public class AdvertRenderer : ListRenderer {
         GameObject text = gameObject.transform.GetChild(1).gameObject;
         text.GetComponent<Text>().text = "Instantiated text";
 
-        GameObject Button = gameObject.transform.GetChild(2).gameObject;
+        GameObject button = gameObject.transform.GetChild(2).gameObject;
+        Button b = button.GetComponent<Button>();
+
+        Dictionary<string, object> dictionary = new Dictionary<string, object>();
+        dictionary["advert"] = advert;
+        dictionary["id"] = index;
+
+        b.onClick.AddListener(delegate { BaseController.SendCommand(Commands.AD_CAMPAIGN_START, dictionary); });
     }
 }

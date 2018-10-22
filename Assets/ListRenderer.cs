@@ -47,7 +47,7 @@ public abstract class ListRenderer : MonoBehaviour
         return g;
     }
 
-    abstract public void UpdateObject<T>(GameObject gameObject, T ModelName);
+    abstract public void UpdateObject<T>(GameObject gameObject, T item, int index);
 
     public void UpdateList<T> (List<T> objects)
     {
@@ -59,7 +59,7 @@ public abstract class ListRenderer : MonoBehaviour
             int y = i / itemsPerLine;
 
             GameObject g = InstantiateObject(x, y);
-            UpdateObject(g, objects);
+            UpdateObject(g, objects, i);
         }
     }
 }

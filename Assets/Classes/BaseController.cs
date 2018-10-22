@@ -8,9 +8,9 @@ namespace Assets.Classes
 {
     public static class BaseController
     {
-        static void SendCommand(string eventName, Dictionary<string, object> parameters)
+        public static void SendCommand(string eventName, Dictionary<string, object> parameters)
         {
-            GameObject core = GameObject.Find("core");
+            GameObject core = GameObject.Find("Core");
             EventBus controller = core.GetComponent<EventBus>();
 
             controller.SendCommand(eventName, parameters);

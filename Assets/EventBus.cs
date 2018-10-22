@@ -11,7 +11,8 @@ public class EventBus : MonoBehaviour {
 
     public void SendCommand(string eventName, Dictionary<string, object> parameters)
     {
-
+        AdvertController advertController = GetComponent<AdvertController>();
+        advertController.HandleCommand(eventName, parameters);
     }
 	
 	// Update is called once per frame
