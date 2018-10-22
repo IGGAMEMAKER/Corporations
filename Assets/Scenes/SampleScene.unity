@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 38464179}
   - component: {fileID: 38464180}
+  - component: {fileID: 38464184}
   - component: {fileID: 38464181}
   - component: {fileID: 38464182}
   - component: {fileID: 38464183}
@@ -188,6 +189,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87868829def3e1f4fb793ea8b1f38cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &38464184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38464178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2e5d959e6b28449b28fedf4f91edb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &134131510 stripped
@@ -645,7 +657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1029372337}
+      - m_Target: {fileID: 0}
         m_MethodName: MakeMoney
         m_Mode: 1
         m_Arguments:
@@ -713,8 +725,6 @@ GameObject:
   - component: {fileID: 1029372335}
   - component: {fileID: 1029372334}
   - component: {fileID: 1029372333}
-  - component: {fileID: 1029372337}
-  - component: {fileID: 1029372339}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -801,30 +811,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1029372337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1029372332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca7d676b5a98494b8e2cca4f604473f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 1251356400}
-  progressBar: {fileID: 699158227}
---- !u!114 &1029372339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1029372332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def93da6519526b40a2181b819d202af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1045746618 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224112053096064990, guid: b14144deaad045d49a14c47561dbb54a,
@@ -1869,6 +1855,8 @@ GameObject:
   - component: {fileID: 2028300962}
   - component: {fileID: 2028300961}
   - component: {fileID: 2028300960}
+  - component: {fileID: 2028300964}
+  - component: {fileID: 2028300963}
   m_Layer: 5
   m_Name: Experimental
   m_TagString: Untagged
@@ -1952,6 +1940,30 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2028300963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028300958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def93da6519526b40a2181b819d202af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2028300964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2028300958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca7d676b5a98494b8e2cca4f604473f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 1251356400}
+  progressBar: {fileID: 699158227}
 --- !u!4 &2030659189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4835337699786430, guid: 90881041f13d2b145b0dcb2a2923777d,
