@@ -98,15 +98,22 @@ namespace Assets.Classes
             return Channels[channelId];
         }
 
-        public void PeriodTick(int count = 1)
+        public bool PeriodTick(int count = 1)
         {
+            bool redraw = false;
+
             for (var i = 0; i < count; i++)
             {
                 schedule.PeriodTick();
 
                 if (schedule.IsPeriodEnd())
+                {
                     CalculatePeriodChanges();
+                    redraw = true;
+                }
             }
+
+            return redraw;
         }
 
         public string GetFormattedDate ()

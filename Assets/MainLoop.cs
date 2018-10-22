@@ -4,21 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Game2 : MonoBehaviour {
+public class MainLoop : MonoBehaviour {
+    public GameObject AdvertRendererObject;
+    public GameObject MenuRendererObject;
+    public int projectId = 0;
+
     World world;
-    public GameObject AdvertRendererManager;
+
+    int adCampaignDuration = 10;
 
     // Use this for initialization
     void Start () {
         world = gameObject.GetComponent<Model>().GetWorld();
 
-        int projectId = 0;
-        int featureId = 0;
-        int channelId = 0;
-        int adCampaignDuration = 10;
+        RedrawAds();
+    }
 
-        AdvertRenderer advertRenderer = AdvertRendererManager.GetComponent<AdvertRenderer>();
+    void RedrawAds ()
+    {
+        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
         advertRenderer.UpdateList(world.GetProjectById(projectId).GetAds());
+    }
+
+    void RedrawMenu()
+    {
+
     }
 
     void TestBasicThings(int projectId = 0, int featureId = 0, int channelId = 0, int adCampaignDuration = 10)
