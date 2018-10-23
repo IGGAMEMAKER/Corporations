@@ -27,6 +27,12 @@ namespace Assets.Classes
             this.id = id;
         }
 
+        public TeamResource resources
+        {
+            get { return Resource; }
+            set {}
+        }
+
         internal List<Advert> GetAds()
         {
             return Ads;

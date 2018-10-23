@@ -8,6 +8,9 @@ public class Model : MonoBehaviour {
     public Application application;
 
     public GameObject AdvertRendererObject;
+    public GameObject MoneyResourceView;
+    public GameObject ProgrammingPorintsResourceView;
+
     public int projectId = 0;
 
     int adCampaignDuration = 10;
@@ -20,6 +23,7 @@ public class Model : MonoBehaviour {
         application = new Application(world);
 
         RedrawAds();
+        RedrawResources();
     }
 
     // Update is called once per frame
@@ -27,13 +31,21 @@ public class Model : MonoBehaviour {
 		
 	}
 
+    void RedrawResources()
+    {
+        ResourceView moneyView = MoneyResourceView.GetComponent<ResourceView>();
+        moneyView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.money);
+
+        ResourceView ppView = ProgrammingPorintsResourceView.GetComponent<ResourceView>();
+        ppView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.programmingPoints);
+    }
+
     void RedrawAds()
     {
         Debug.Log("RedrawAds()");
         AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
 
-        World w = application.world;
-        Project p = w.GetProjectById(projectId);
+        Project p = application.world.GetProjectById(projectId);
         advertRenderer.UpdateList(p.GetAds());
     }
 

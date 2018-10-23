@@ -11,6 +11,36 @@ namespace Assets.Classes
         int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
         long Money;
 
+        public long money
+        {
+            get { return Money; }
+            set { }
+        }
+
+        public int programmingPoints
+        {
+            get { return ProgrammingPoints; }
+            set { }
+        }
+
+        public int managerPoints
+        {
+            get { return ManagerPoints; }
+            set { }
+        }
+
+        public int salesPoints
+        {
+            get { return SalesPoints; }
+            set { }
+        }
+
+        public int ideaPoints
+        {
+            get { return IdeaPoints; }
+            set { }
+        }
+
         public TeamResource(int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, long money)
         {
             ProgrammingPoints = programmingPoints;
