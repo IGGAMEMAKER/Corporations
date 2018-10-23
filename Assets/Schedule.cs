@@ -6,7 +6,7 @@ using UnityEngine;
 public class Schedule : MonoBehaviour {
     public GameObject MenuObject;
     int day;
-    World world;
+    Application application;
 
     bool IsTimerRunning = false;
 
@@ -16,7 +16,7 @@ public class Schedule : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        world = gameObject.GetComponent<Model>().GetWorld();
+        application = gameObject.GetComponent<Model>().GetWorld();
     }
 
     void CheckPressedButtons()
@@ -31,7 +31,7 @@ public class Schedule : MonoBehaviour {
 
     void UpdateWorld()
     {
-        bool needsRedraw = world.PeriodTick(1);
+        bool needsRedraw = application.PeriodTick(1);
 
         if (needsRedraw)
         {

@@ -6,55 +6,30 @@ using UnityEngine;
 
 public class MainLoop : MonoBehaviour {
     public GameObject AdvertRendererObject;
-    public GameObject MenuRendererObject;
     public int projectId = 0;
 
-    World world;
+    Application application;
 
     int adCampaignDuration = 10;
 
-    // Use this for initialization
-    void Start () {
-        world = gameObject.GetComponent<Model>().GetWorld();
-
-        RedrawAds();
-    }
-
-    void RedrawAds ()
-    {
-        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
-        advertRenderer.UpdateList(world.GetProjectById(projectId).GetAds());
-    }
-
-    void RedrawMenu()
-    {
-
-    }
-
     void TestBasicThings(int projectId = 0, int featureId = 0, int channelId = 0, int adCampaignDuration = 10)
     {
-        world.PrintResources(projectId);
-        world.ExploreFeature(projectId, featureId);
-        world.UpgradeFeature(projectId, featureId);
-        world.PrintResources(projectId);
-        world.PrintTechnologies(projectId);
+        //world.PrintResources(projectId);
+        //world.ExploreFeature(projectId, featureId);
+        //world.UpgradeFeature(projectId, featureId);
+        //world.PrintResources(projectId);
+        //world.PrintTechnologies(projectId);
 
-        world.PrintProjectInfo(projectId);
-        world.PrepareAd(projectId, channelId, adCampaignDuration);
+        //world.PrintProjectInfo(projectId);
+        //world.PrepareAd(projectId, channelId, adCampaignDuration);
 
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
-        world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
+        //world.StartAdCampaign(projectId, channelId);
 
-        world.PrintProjectInfo(projectId);
+        //world.PrintProjectInfo(projectId);
 
-        world.PeriodTick(32);
+        //world.PeriodTick(32);
     }
-
-    // Update is called once per frame
-    void Update () {
-
-    }
-
 }

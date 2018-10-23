@@ -5,10 +5,21 @@ using UnityEngine;
 
 public class Model : MonoBehaviour {
     public World world;
+    public Application application;
+
+    public GameObject AdvertRendererObject;
+    public int projectId = 0;
+
+    int adCampaignDuration = 10;
 
     // Use this for initialization
     void Start () {
+        Debug.Log("Start Model.cs");
+
         world = new World();
+        application = new Application(world);
+
+        RedrawAds();
     }
 
     // Update is called once per frame
@@ -16,8 +27,53 @@ public class Model : MonoBehaviour {
 		
 	}
 
-    public World GetWorld()
+    void RedrawAds()
     {
-        return world;
+        Debug.Log("RedrawAds()");
+        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
+
+        World w = application.world;
+        Project p = w.GetProjectById(projectId);
+        advertRenderer.UpdateList(p.GetAds());
+    }
+
+    public Application GetWorld()
+    {
+        return application;
+    }
+}
+
+public class Application
+{
+    public World world;
+
+    public Application(World world)
+    {
+        this.world = world;
+    }
+
+    public void ExploreFeature(int projectId, int featureId)
+    {
+        world.ExploreFeature(projectId, featureId);
+    }
+
+    public bool PeriodTick(int count)
+    {
+        return world.PeriodTick(count);
+    }
+
+    public void PrepareAd(int projectId, int channelId, int duration)
+    {
+        world.PrepareAd(projectId, channelId, duration);
+    }
+
+    public void StartAdCampaign(int projectId, int channelId)
+    {
+        world.StartAdCampaign(projectId, channelId);
+    }
+
+    public void UpgradeFeature(int projectId, int featureId)
+    {
+        world.UpgradeFeature(projectId, featureId);
     }
 }

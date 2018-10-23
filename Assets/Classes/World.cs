@@ -178,8 +178,7 @@ namespace Assets.Classes
             return list;
         }
 
-
-        internal void StartAdCampaign(int projectId, int channelId)
+        public void StartAdCampaign(int projectId, int channelId)
         {
             Advert advert = GetProjectById(projectId).GetAdByChannelId(channelId);
 
@@ -188,7 +187,7 @@ namespace Assets.Classes
             GetProjectById(projectId).StartAdCampaign(clients);
         }
 
-        internal void PrepareAd(int projectId, int channelId, int duration)
+        public void PrepareAd(int projectId, int channelId, int duration)
         {
             GetProjectById(projectId).PrepareAd(duration, channelId);
         }
