@@ -11,10 +11,10 @@ public class Model : MonoBehaviour {
     
     // resources
     public GameObject MoneyResourceView;
-    public GameObject ProgrammingPorintsResourceView;
-    public GameObject SalesPorintsResourceView;
-    public GameObject ManagerPorintsResourceView;
-    public GameObject IdeaPorintsResourceView;
+    public GameObject ProgrammingPointsResourceView;
+    public GameObject SalesPointsResourceView;
+    public GameObject ManagerPointsResourceView;
+    public GameObject IdeaPointsResourceView;
 
     public int projectId = 0;
 
@@ -39,16 +39,16 @@ public class Model : MonoBehaviour {
         ResourceView moneyView = MoneyResourceView.GetComponent<ResourceView>();
         moneyView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.money);
 
-        ResourceView ppView = ProgrammingPorintsResourceView.GetComponent<ResourceView>();
+        ResourceView ppView = ProgrammingPointsResourceView.GetComponent<ResourceView>();
         ppView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.programmingPoints);
 
-        ResourceView mpView = SalesPorintsResourceView.GetComponent<ResourceView>();
+        ResourceView mpView = SalesPointsResourceView.GetComponent<ResourceView>();
         mpView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.managerPoints);
 
-        ResourceView spView = ManagerPorintsResourceView.GetComponent<ResourceView>();
+        ResourceView spView = ManagerPointsResourceView.GetComponent<ResourceView>();
         spView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.salesPoints);
 
-        ResourceView ipView = IdeaPorintsResourceView.GetComponent<ResourceView>();
+        ResourceView ipView = IdeaPointsResourceView.GetComponent<ResourceView>();
         ipView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.ideaPoints);
     }
 
