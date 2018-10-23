@@ -16,8 +16,6 @@ public class Model : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Start Model.cs");
-
         world = new World();
         application = new Application(world);
 
@@ -38,10 +36,9 @@ public class Model : MonoBehaviour {
 
     void RedrawAds()
     {
-        Debug.Log("RedrawAds()");
-        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
-
         Project p = application.world.GetProjectById(projectId);
+
+        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
         advertRenderer.UpdateList(p.GetAds());
     }
 

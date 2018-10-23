@@ -77,6 +77,7 @@ namespace Assets.Classes
             Markets.Add(new Market(marketInfo, new MarketSettings(10)));
 
             Channels.Add(new Channel(10, 10000, 10000, marketId));
+            Channels.Add(new Channel(10, 100000, 100000, marketId));
         }
 
         void InitializeScheduleManager()
