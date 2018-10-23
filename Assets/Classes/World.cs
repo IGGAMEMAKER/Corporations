@@ -20,7 +20,6 @@ namespace Assets.Classes
 
         public World()
         {
-            int projectId = 0;
             int marketId = 0;
 
             InitializeShareholders();

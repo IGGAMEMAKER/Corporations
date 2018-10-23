@@ -14,7 +14,6 @@ public class Model : MonoBehaviour {
     // resources
     public GameObject MenuResourceViewObject;
 
-    public int projectId = 0;
 
     // Use this for initialization
     void Start () {
@@ -34,14 +33,12 @@ public class Model : MonoBehaviour {
 
     void RedrawResources()
     {
-        TeamResource teamResource = application.world.GetProjectById(projectId).resources;
-        application.ViewManager.RedrawResources(teamResource);
+        application.RedrawResources();
     }
 
     void RedrawAds()
     {
-        Project p = application.world.GetProjectById(projectId);
-        application.ViewManager.RedrawAds(p.GetAds());
+        application.RedrawAds();
     }
 
     public Application GetWorld()
@@ -86,6 +83,8 @@ public class Application
     public World world;
     public ViewManager ViewManager;
 
+    public int projectId = 0;
+
     public Application(World world, ViewManager ViewManager)
     {
         this.world = world;
@@ -105,6 +104,8 @@ public class Application
     public void PrepareAd(int projectId, int channelId, int duration)
     {
         world.PrepareAd(projectId, channelId, duration);
+        RedrawResources();
+        RedrawAds();
     }
 
     public void StartAdCampaign(int projectId, int channelId)
@@ -115,5 +116,19 @@ public class Application
     public void UpgradeFeature(int projectId, int featureId)
     {
         world.UpgradeFeature(projectId, featureId);
+    }
+
+
+    // rendering
+    public void RedrawResources()
+    {
+        TeamResource teamResource = world.GetProjectById(projectId).resources;
+        ViewManager.RedrawResources(teamResource);
+    }
+
+    public void RedrawAds()
+    {
+        Project p = world.GetProjectById(projectId);
+        ViewManager.RedrawAds(p.GetAds());
     }
 }

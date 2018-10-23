@@ -5,13 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 public class MainLoop : MonoBehaviour {
-    public GameObject AdvertRendererObject;
-    public int projectId = 0;
-
-    Application application;
-
-    int adCampaignDuration = 10;
-
     void TestBasicThings(int projectId = 0, int featureId = 0, int channelId = 0, int adCampaignDuration = 10)
     {
         //world.PrintResources(projectId);
