@@ -8,6 +8,8 @@ public class Model : MonoBehaviour {
     public Application application;
 
     public GameObject AdvertRendererObject;
+    
+    // resources
     public GameObject MoneyResourceView;
     public GameObject ProgrammingPorintsResourceView;
     public GameObject SalesPorintsResourceView;
@@ -15,8 +17,6 @@ public class Model : MonoBehaviour {
     public GameObject IdeaPorintsResourceView;
 
     public int projectId = 0;
-
-    int adCampaignDuration = 10;
 
     // Use this for initialization
     void Start () {

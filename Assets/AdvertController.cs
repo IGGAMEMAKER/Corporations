@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdvertController : MonoBehaviour, CommandHandler {
+public class AdvertController : MonoBehaviour, ICommandHandler {
     // Use this for initialization
     void Start () {
 
