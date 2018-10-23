@@ -48,9 +48,9 @@ public class Application
     {
         TeamResource teamResource = world.GetProjectById(projectId).resources;
 
-        uint clients = world.GetProjectById(projectId).Clients;
+        Audience audience = world.GetProjectById(projectId).audience;
 
-        ViewManager.RedrawResources(teamResource, clients);
+        ViewManager.RedrawResources(teamResource, audience);
     }
 
     public void RedrawAds()

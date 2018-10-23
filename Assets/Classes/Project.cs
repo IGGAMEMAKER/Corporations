@@ -14,7 +14,7 @@ namespace Assets.Classes
 
         public List<Advert> Ads { get; set; }
 
-        Audience audience;
+        public Audience audience;
         Team Team;
 
         public Project(int id, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
@@ -100,7 +100,7 @@ namespace Assets.Classes
 
         private long GetMonthlyIncome()
         {
-            return audience.customers * 100;
+            return audience.paidClients * 100;
         }
 
         internal uint ChurnClients()
@@ -132,7 +132,7 @@ namespace Assets.Classes
 
         internal void PrintProjectInfo()
         {
-            Debug.LogFormat("Project info: {0} customers, {1} clients", audience.customers, audience.clients);
+            Debug.LogFormat("Project info: {0} customers, {1} clients", audience.paidClients, audience.clients);
         }
 
         Advert FindAdByChannelId(int channelId)

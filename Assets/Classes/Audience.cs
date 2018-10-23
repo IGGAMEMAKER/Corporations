@@ -8,13 +8,13 @@ namespace Assets.Classes
     public class Audience
     {
         public uint clients;
-        public uint customers;
+        public uint paidClients;
 
         int AmountOfTests = 1;
 
         public Audience(uint clients, uint customers, int AmountOfTests = 1) {
             this.clients = clients;
-            this.customers = customers;
+            this.paidClients = customers;
             this.AmountOfTests = AmountOfTests;
         }
 
@@ -23,7 +23,7 @@ namespace Assets.Classes
             var conversionRate = GetConversionRate();
             uint newCustomers = (uint)(conversionRate * clients);
 
-            customers += newCustomers;
+            paidClients += newCustomers;
             clients -= newCustomers;
 
             return newCustomers;
@@ -56,13 +56,13 @@ namespace Assets.Classes
 
         public int CustomerAnalyticsCap()
         {
-            if (customers > 100000)
+            if (paidClients > 100000)
                 return 6;
-            else if (customers > 10000)
+            else if (paidClients > 10000)
                 return 5;
-            else if (customers > 1000)
+            else if (paidClients > 1000)
                 return 4;
-            else if (customers > 100)
+            else if (paidClients > 100)
                 return 3;
             else
                 return 2;
