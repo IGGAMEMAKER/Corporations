@@ -7,6 +7,8 @@ public class Model : MonoBehaviour {
     public World world;
     public Application application;
 
+    public ViewManager ViewManager;
+
     public GameObject AdvertRendererObject;
     
     // resources
@@ -17,7 +19,8 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start () {
         world = new World();
-        application = new Application(world);
+        ViewManager = new ViewManager(AdvertRendererObject, MenuResourceViewObject);
+        application = new Application(world, ViewManager);
 
         RedrawAds();
         RedrawResources();
@@ -25,21 +28,20 @@ public class Model : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        RedrawAds();
+        RedrawResources();
 	}
 
     void RedrawResources()
     {
-        MenuResourceView menuView = MenuResourceViewObject.GetComponent<MenuResourceView>();
-        menuView.RedrawResources(application.world.GetProjectById(projectId).resources);
+        TeamResource teamResource = application.world.GetProjectById(projectId).resources;
+        application.ViewManager.RedrawResources(teamResource);
     }
 
     void RedrawAds()
     {
         Project p = application.world.GetProjectById(projectId);
-
-        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
-        advertRenderer.UpdateList(p.GetAds());
+        application.ViewManager.RedrawAds(p.GetAds());
     }
 
     public Application GetWorld()
@@ -48,13 +50,46 @@ public class Model : MonoBehaviour {
     }
 }
 
+public class ViewManager : MonoBehaviour
+{
+    public GameObject AdvertRendererObject;
+
+    // resources
+    public GameObject MenuResourceViewObject;
+
+    public ViewManager()
+    {
+
+    }
+
+    public ViewManager(GameObject advertRendererObject, GameObject menuResourceViewObject)
+    {
+        AdvertRendererObject = advertRendererObject;
+        MenuResourceViewObject = menuResourceViewObject;
+    }
+
+    public void RedrawResources(TeamResource resources)
+    {
+        MenuResourceView menuView = MenuResourceViewObject.GetComponent<MenuResourceView>();
+        menuView.RedrawResources(resources);
+    }
+
+    public void RedrawAds(List<Advert> adverts)
+    {
+        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
+        advertRenderer.UpdateList(adverts);
+    }
+}
+
 public class Application
 {
     public World world;
+    public ViewManager ViewManager;
 
-    public Application(World world)
+    public Application(World world, ViewManager ViewManager)
     {
         this.world = world;
+        this.ViewManager = ViewManager;
     }
 
     public void ExploreFeature(int projectId, int featureId)

@@ -25,7 +25,7 @@ namespace Assets.Classes
 
         public uint StartAdCampaign(int projectId, Advert advert)
         {
-            float adEffeciency = advert.AdEffeciency / 100f;
+            float adEffeciency = advert.Effeciency / 100f;
             float dice = UnityEngine.Random.Range(Balance.advertClientsRangeMin, Balance.advertClientsRangeMax) / 100f;
             uint clients = (uint) (Engagement * adEffeciency * Clients * dice / 100);
 

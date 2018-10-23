@@ -8,5 +8,6 @@ namespace Assets.Classes
     public class Commands
     {
         public const string AD_CAMPAIGN_START = "AD_CAMPAIGN_START";
+        public const string AD_CAMPAIGN_PREPARE = "AD_CAMPAIGN_PREPARE";
     }
 }

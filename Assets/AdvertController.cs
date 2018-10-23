@@ -11,17 +11,6 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
 		model = gameObject.GetComponent<Model>();
     }
 
-    // Update is called once per frame
-    void Update () {
-
-    }
-
-    void StartCampaign(Advert advert, int duration)
-    {
-        Application Application = model.GetWorld();
-        Application.StartAdCampaign(advert.Project, advert.Channel);
-    }
-
     public void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
         Debug.LogFormat("Handle command! AdvertController {0} {1}", eventName, parameters["advert"].ToString());
@@ -29,11 +18,37 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
         switch (eventName)
         {
             case Commands.AD_CAMPAIGN_START:
-                Advert ad = (Advert) parameters["advert"];
-                int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
+                StartCampaign(parameters);
+                break;
 
-                StartCampaign(ad, duration);
+            case Commands.AD_CAMPAIGN_PREPARE:
+                PrepareAd(parameters);
                 break;
         }
     }
+
+    Application GetApplication()
+    {
+        return model.GetWorld();
+    }
+
+    void StartCampaign(Dictionary<string, object> parameters)
+    {
+        Advert advert = (Advert)parameters["advert"];
+        int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
+
+        GetApplication().StartAdCampaign(advert.Project, advert.Channel);
+    }
+
+    void PrepareAd(Dictionary<string, object> parameters)
+    {
+        Advert advert = (Advert)parameters["advert"];
+
+        int projectId = advert.Project; // (int)parameters["projectId"];
+        int channelId = advert.Channel; // (int)parameters["channelId"];
+        int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
+
+        GetApplication().PrepareAd(projectId, channelId, duration);
+    }
+
 }

@@ -8,30 +8,30 @@ namespace Assets.Classes
 {
     public class Advert: object
     {
-        public int AdEffeciency { get; set; }
-        public int AdDuraion { get; set; }
+        public int Effeciency { get; set; }
+        public int Duration { get; set; }
         public bool IsRunningCampaign { get; set; }
         public int Channel { get; set; }
         public int Project { get; set; }
 
         public Advert(int channelId, int projectId, int adEffeciency = 0, int adDuration = 0)
         {
-            AdEffeciency = adEffeciency;
-            AdDuraion = adDuration;
+            Effeciency = adEffeciency;
+            Duration = adDuration;
             Channel = channelId;
             Project = projectId;
         }
 
         public void PrepareAd(int duration)
         {
-            AdEffeciency = UnityEngine.Random.Range(Balance.advertEffeciencyRangeMin, Balance.advertEffeciencyRangeMax);
-            AdDuraion = duration;
+            Effeciency = UnityEngine.Random.Range(Balance.advertEffeciencyRangeMin, Balance.advertEffeciencyRangeMax);
+            Duration = duration;
             IsRunningCampaign = false;
         }
 
         string FormatAd()
         {
-            return String.Format("Advert of Project {0} on channel {1} with effeciency {2} and duration: {3}", Project, Channel, AdEffeciency, AdDuraion);
+            return String.Format("Advert of Project {0} on channel {1} with effeciency {2} and duration: {3}", Project, Channel, Effeciency, Duration);
         }
 
         public void Print()
@@ -41,7 +41,7 @@ namespace Assets.Classes
 
         public override string ToString()
         {
-            return String.Format("Advert of Project {0} on channel {1} with effeciency {2} and duration: {3}", Project, Channel, AdEffeciency, AdDuraion);
+            return String.Format("Advert of Project {0} on channel {1} with effeciency {2} and duration: {3}", Project, Channel, Effeciency, Duration);
         }
     }
 }
