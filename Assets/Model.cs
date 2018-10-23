@@ -10,6 +10,9 @@ public class Model : MonoBehaviour {
     public GameObject AdvertRendererObject;
     public GameObject MoneyResourceView;
     public GameObject ProgrammingPorintsResourceView;
+    public GameObject SalesPorintsResourceView;
+    public GameObject ManagerPorintsResourceView;
+    public GameObject IdeaPorintsResourceView;
 
     public int projectId = 0;
 
@@ -38,6 +41,15 @@ public class Model : MonoBehaviour {
 
         ResourceView ppView = ProgrammingPorintsResourceView.GetComponent<ResourceView>();
         ppView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.programmingPoints);
+
+        ResourceView mpView = SalesPorintsResourceView.GetComponent<ResourceView>();
+        mpView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.managerPoints);
+
+        ResourceView spView = ManagerPorintsResourceView.GetComponent<ResourceView>();
+        spView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.salesPoints);
+
+        ResourceView ipView = IdeaPorintsResourceView.GetComponent<ResourceView>();
+        ipView.UpdateResourceValue(application.world.GetProjectById(projectId).resources.ideaPoints);
     }
 
     void RedrawAds()
