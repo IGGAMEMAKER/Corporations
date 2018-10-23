@@ -20,10 +20,10 @@ public class ViewManager : MonoBehaviour
         MenuResourceViewObject = menuResourceViewObject;
     }
 
-    public void RedrawResources(TeamResource resources)
+    public void RedrawResources(TeamResource resources, uint clients)
     {
         MenuResourceView menuView = MenuResourceViewObject.GetComponent<MenuResourceView>();
-        menuView.RedrawResources(resources);
+        menuView.RedrawResources(resources, clients);
     }
 
     public void RedrawAds(List<Advert> adverts)

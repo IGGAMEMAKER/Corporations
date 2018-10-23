@@ -33,6 +33,8 @@ public class Application
     public void StartAdCampaign(int projectId, int channelId)
     {
         world.StartAdCampaign(projectId, channelId);
+        RedrawResources();
+        RedrawAds();
     }
 
     public void UpgradeFeature(int projectId, int featureId)
@@ -45,7 +47,10 @@ public class Application
     public void RedrawResources()
     {
         TeamResource teamResource = world.GetProjectById(projectId).resources;
-        ViewManager.RedrawResources(teamResource);
+
+        uint clients = world.GetProjectById(projectId).Clients;
+
+        ViewManager.RedrawResources(teamResource, clients);
     }
 
     public void RedrawAds()

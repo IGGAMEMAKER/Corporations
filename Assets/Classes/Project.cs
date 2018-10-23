@@ -33,6 +33,11 @@ namespace Assets.Classes
             set {}
         }
 
+        public uint Clients {
+            get { return audience.clients; }
+            internal set { }
+        }
+
         internal List<Advert> GetAds()
         {
             return Ads;
