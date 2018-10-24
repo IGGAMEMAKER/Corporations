@@ -34,6 +34,7 @@ public class Application
 
     public void PrepareAd(int projectId, int channelId, int duration)
     {
+        audioManager.PlayPrepareAdSound();
         world.PrepareAd(projectId, channelId, duration);
         RedrawResources();
         RedrawAds();
@@ -41,6 +42,7 @@ public class Application
 
     public void StartAdCampaign(int projectId, int channelId)
     {
+        audioManager.PlayStartAdSound();
         world.StartAdCampaign(projectId, channelId);
         RedrawResources();
         RedrawAds();

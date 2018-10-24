@@ -23,7 +23,7 @@ public class Schedule : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
             isTimerRunning = !isTimerRunning;
 
-        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 5)
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 7)
             currentSpeed++;
 
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)

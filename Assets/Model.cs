@@ -7,8 +7,8 @@ public class Model : MonoBehaviour {
     public World world;
     public Application application;
 
-    public ViewManager ViewManager;
-    public AudioManager audioManager;
+    ViewManager ViewManager;
+    AudioManager audioManager;
 
     public GameObject AdvertRendererObject;
     

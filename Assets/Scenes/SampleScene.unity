@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinSound: {fileID: 8300000, guid: ccdc970126694154484db04c47148d87, type: 3}
+  standardClickSound: {fileID: 8300000, guid: 4f2ca161f35441946b44efb0aa41e60b, type: 3}
 --- !u!114 &38464182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2e5d959e6b28449b28fedf4f91edb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewManager: {fileID: 0}
-  audioManager: {fileID: 0}
   AdvertRendererObject: {fileID: 1340174926}
   MenuResourceViewObject: {fileID: 1181506599}
 --- !u!114 &38464185
@@ -488,7 +487,7 @@ Prefab:
     - target: {fileID: 224887741436809756, guid: 3b5e3e3fc14c18c40b077ed30b49f08b,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -412
+      value: -393
       objectReference: {fileID: 0}
     - target: {fileID: 224887741436809756, guid: 3b5e3e3fc14c18c40b077ed30b49f08b,
         type: 2}
@@ -869,34 +868,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1698003606}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &545595078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 545595079}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &545595079
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 545595078}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 436.31857, y: 245.94978, z: 1.125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &568567259 stripped
 Transform:

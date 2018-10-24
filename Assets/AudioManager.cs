@@ -11,6 +11,7 @@ namespace Assets
         AudioSource audioData;
 
         public AudioClip coinSound;
+        public AudioClip standardClickSound;
 
         void Start()
         {
@@ -28,6 +29,16 @@ namespace Assets
         public void PlayCoinSound()
         {
             Play(coinSound);
+        }
+
+        internal void PlayPrepareAdSound()
+        {
+            Play(standardClickSound);
+        }
+
+        internal void PlayStartAdSound()
+        {
+            Play(standardClickSound);
         }
     }
 }
