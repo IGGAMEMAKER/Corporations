@@ -1,16 +1,20 @@
-﻿using Assets.Classes;
+﻿using Assets;
+using Assets.Classes;
 
 public class Application
 {
     public World world;
     public ViewManager ViewManager;
+    AudioManager audioManager;
+
 
     public int projectId = 0;
 
-    public Application(World world, ViewManager ViewManager)
+    public Application(World world, ViewManager ViewManager, AudioManager audioManager)
     {
         this.world = world;
         this.ViewManager = ViewManager;
+        this.audioManager = audioManager;
     }
 
     public void ExploreFeature(int projectId, int featureId)
@@ -20,7 +24,12 @@ public class Application
 
     public bool PeriodTick(int count)
     {
-        return world.PeriodTick(count);
+        bool isMonthTick = world.PeriodTick(count);
+
+        if (isMonthTick)
+            audioManager.PlayCoinSound();
+
+        return isMonthTick;
     }
 
     public void PrepareAd(int projectId, int channelId, int duration)

@@ -1,4 +1,5 @@
-﻿using Assets.Classes;
+﻿using Assets;
+using Assets.Classes;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Model : MonoBehaviour {
     public Application application;
 
     public ViewManager ViewManager;
+    public AudioManager audioManager;
 
     public GameObject AdvertRendererObject;
     
@@ -17,8 +19,9 @@ public class Model : MonoBehaviour {
     // Use this for initialization
     void Start () {
         world = new World();
+        audioManager = gameObject.GetComponent<AudioManager>();
         ViewManager = new ViewManager(AdvertRendererObject, MenuResourceViewObject);
-        application = new Application(world, ViewManager);
+        application = new Application(world, ViewManager, audioManager);
 
         RedrawAds();
         RedrawResources();

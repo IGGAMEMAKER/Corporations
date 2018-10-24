@@ -10,7 +10,7 @@ public class Schedule : MonoBehaviour {
 
     bool IsTimerRunning = false;
 
-    public const float interval = 2f;
+    public const float interval = 0.35f;
 
     float totalTime = interval;
 

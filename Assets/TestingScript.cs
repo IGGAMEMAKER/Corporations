@@ -50,7 +50,7 @@ public class TestingScript : MonoBehaviour {
         audioData.clip = Resources.Load<AudioClip>("Sounds/Coin");
 
         audioData.Play();
-        //audioData.loop = true;
+        audioData.loop = true;
     }
 
     public void UpdateLevelTimer(float totalSeconds)
