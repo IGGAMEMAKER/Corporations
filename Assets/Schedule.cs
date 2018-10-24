@@ -5,34 +5,29 @@ using UnityEngine;
 
 public class Schedule : MonoBehaviour {
     public GameObject MenuObject;
-    int day;
     Application application;
 
-    bool IsTimerRunning = false;
+    bool isTimerRunning = false;
 
-    public const float interval = 0.35f;
-
-    float totalTime = interval;
+    float totalTime;
+    float currentSpeed = 1;
 
     // Use this for initialization
     void Start () {
         application = gameObject.GetComponent<Model>().GetWorld();
-    }
-
-    void TogglePause()
-    {
-        Debug.Log("Toggle Pause");
-        IsTimerRunning = !IsTimerRunning;
+        totalTime = GetTimerLimit();
     }
 
     void CheckPressedButtons()
     {
-        // we need to stop game asap if it is running
-        //if (Input.GetKeyDown(KeyCode.Space) && IsTimerRunning)
-        //IsTimerRunning = false;
-
         if (Input.GetKeyUp(KeyCode.Space))
-            TogglePause();
+            isTimerRunning = !isTimerRunning;
+
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 5)
+            currentSpeed++;
+
+        if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)
+            currentSpeed--;
     }
 
     void UpdateWorld()
@@ -41,14 +36,19 @@ public class Schedule : MonoBehaviour {
         application.RedrawResources();
     }
 
+    float GetTimerLimit()
+    {
+        return 0.5f / currentSpeed;
+    }
+
     // Update is called once per frame
     void Update () {
         CheckPressedButtons();
 
         totalTime -= Time.deltaTime;
-        if (totalTime < 0 && IsTimerRunning)
+        if (totalTime < 0 && isTimerRunning)
         {
-            totalTime = interval;
+            totalTime = GetTimerLimit();
             UpdateWorld();
         }
     }
