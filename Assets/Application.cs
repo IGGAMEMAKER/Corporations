@@ -50,7 +50,9 @@ public class Application
 
         Audience audience = world.GetProjectById(projectId).audience;
 
-        ViewManager.RedrawResources(teamResource, audience);
+        string formattedDate = world.GetFormattedDate();
+
+        ViewManager.RedrawResources(teamResource, audience, formattedDate);
     }
 
     public void RedrawAds()

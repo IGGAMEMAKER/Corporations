@@ -10,7 +10,7 @@ public class Schedule : MonoBehaviour {
 
     bool IsTimerRunning = false;
 
-    public const float interval = 5f;
+    public const float interval = 2f;
 
     float totalTime = interval;
 
@@ -19,36 +19,37 @@ public class Schedule : MonoBehaviour {
         application = gameObject.GetComponent<Model>().GetWorld();
     }
 
+    void TogglePause()
+    {
+        Debug.Log("Toggle Pause");
+        IsTimerRunning = !IsTimerRunning;
+    }
+
     void CheckPressedButtons()
     {
         // we need to stop game asap if it is running
-        if (Input.GetKeyDown(KeyCode.Space) && IsTimerRunning)
-            IsTimerRunning = false;
+        //if (Input.GetKeyDown(KeyCode.Space) && IsTimerRunning)
+        //IsTimerRunning = false;
 
         if (Input.GetKeyUp(KeyCode.Space))
-            IsTimerRunning = !IsTimerRunning;
+            TogglePause();
     }
 
     void UpdateWorld()
     {
-        bool needsRedraw = application.PeriodTick(1);
-
-        if (needsRedraw)
-        {
-
-        }
+        application.PeriodTick(1);
+        application.RedrawResources();
     }
 
     // Update is called once per frame
     void Update () {
-        totalTime -= Time.deltaTime;
+        CheckPressedButtons();
 
-        if (totalTime < 0)
+        totalTime -= Time.deltaTime;
+        if (totalTime < 0 && IsTimerRunning)
         {
             totalTime = interval;
-
-            if (IsTimerRunning)
-                UpdateWorld();
+            UpdateWorld();
         }
     }
 }

@@ -11,6 +11,7 @@ public class MenuResourceView : MonoBehaviour {
     GameObject IdeaPointsResourceView;
     GameObject ClientResourceView;
     GameObject CustomerResourceView;
+    GameObject ScheduleResourceView;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +22,7 @@ public class MenuResourceView : MonoBehaviour {
         IdeaPointsResourceView = gameObject.transform.GetChild(4).gameObject;
         CustomerResourceView = gameObject.transform.GetChild(5).gameObject;
         ClientResourceView = gameObject.transform.GetChild(6).gameObject;
+        ScheduleResourceView = gameObject.transform.GetChild(7).gameObject;
     }
 	
 	// Update is called once per frame
@@ -28,7 +30,7 @@ public class MenuResourceView : MonoBehaviour {
 		
 	}
 
-    public void RedrawResources(TeamResource teamResource, Audience audience)
+    public void RedrawResources(TeamResource teamResource, Audience audience, string currentDate)
     {
         ResourceView moneyView = MoneyResourceView.GetComponent<ResourceView>();
         moneyView.UpdateResourceValue(teamResource.money);
@@ -50,5 +52,8 @@ public class MenuResourceView : MonoBehaviour {
 
         ResourceView customerView = CustomerResourceView.GetComponent<ResourceView>();
         customerView.UpdateResourceValue(audience.paidClients);
+
+        ResourceView scheduleView = ScheduleResourceView.GetComponent<ResourceView>();
+        scheduleView.UpdateResourceValue(currentDate);
     }
 }
