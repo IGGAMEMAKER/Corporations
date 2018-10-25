@@ -19,13 +19,15 @@ namespace Assets.Scripts
             hintChild.SetHintObject(hint);
         }
 
-        public void SetHint(GameObject hint) {
-            hintChild.SetHintObject(hint);
-        }
-
         void OnMouseEnter()
         {
             Debug.Log("OnMouseEnter");
+            hintChild.OnHover();
+        }
+
+        void OnMouseOver()
+        {
+            Debug.Log("OnMouseOver");
             hintChild.OnHover();
         }
 
