@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuResourceView : MonoBehaviour {
+    bool loaded = false;
     GameObject MoneyResourceView;
     GameObject ProgrammingPointsResourceView;
     GameObject SalesPointsResourceView;
@@ -15,6 +16,10 @@ public class MenuResourceView : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+    }
+
+    void LoadViews()
+    {
         MoneyResourceView = gameObject.transform.GetChild(0).gameObject;
         ProgrammingPointsResourceView = gameObject.transform.GetChild(1).gameObject;
         SalesPointsResourceView = gameObject.transform.GetChild(2).gameObject;
@@ -23,6 +28,7 @@ public class MenuResourceView : MonoBehaviour {
         CustomerResourceView = gameObject.transform.GetChild(5).gameObject;
         ClientResourceView = gameObject.transform.GetChild(6).gameObject;
         ScheduleResourceView = gameObject.transform.GetChild(7).gameObject;
+        loaded = true;
     }
 	
 	// Update is called once per frame
@@ -32,6 +38,9 @@ public class MenuResourceView : MonoBehaviour {
 
     public void RedrawResources(TeamResource teamResource, Audience audience, string currentDate)
     {
+        if (!loaded)
+            LoadViews();
+
         ResourceView moneyView = MoneyResourceView.GetComponent<ResourceView>();
         moneyView.UpdateResourceValue(teamResource.money);
 
