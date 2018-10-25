@@ -19,6 +19,16 @@ namespace Assets.Scripts
             hintChild.SetHintObject(hint);
         }
 
+        void Start()
+        {
+            
+        }
+
+        void Update()
+        {
+            Debug.Log("UIHintControl is updating");
+        }
+
         void OnMouseEnter()
         {
             Debug.Log("OnMouseEnter");
@@ -33,6 +43,7 @@ namespace Assets.Scripts
 
         void OnMouseExit()
         {
+            Debug.Log("OnMouseExit");
             hintChild.OnExit();
         }
     }
