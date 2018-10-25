@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
     class UIHintControl: MonoBehaviour
+        //, IPointerClickHandler // 2
+     //, IDragHandler
+     , IPointerEnterHandler
+     , IPointerExitHandler
     {
         public UIHintable hintChild;
 
@@ -21,30 +26,49 @@ namespace Assets.Scripts
 
         void Start()
         {
-            
+
         }
 
         void Update()
         {
-            Debug.Log("UIHintControl is updating");
+
         }
 
         void OnMouseEnter()
         {
-            Debug.Log("OnMouseEnter");
-            hintChild.OnHover();
+            EnableHint();
         }
 
         void OnMouseOver()
         {
-            Debug.Log("OnMouseOver");
-            hintChild.OnHover();
+            EnableHint();
         }
 
         void OnMouseExit()
         {
+            DisableHint();
+        }
+
+        void EnableHint()
+        {
+            Debug.Log("OnMouseIn");
+            hintChild.OnHover();
+        }
+
+        void DisableHint()
+        {
             Debug.Log("OnMouseExit");
             hintChild.OnExit();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            EnableHint();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            DisableHint();
         }
     }
 }
