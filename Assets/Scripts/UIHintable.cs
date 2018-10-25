@@ -40,7 +40,7 @@ public class UIHintable: MonoBehaviour {
 
     void UpdatePosition()
     {
-        var offset = new Vector3(50, 0);
+        var offset = new Vector3(20, 0);
 
         //gameObject.transform.SetParent(gameObject.transform.parent, false);
         gameObject.transform.position = Input.mousePosition + offset;
