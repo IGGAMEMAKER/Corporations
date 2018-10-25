@@ -7,23 +7,21 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 public class UIHintable: MonoBehaviour {
-    GameObject hint;
     bool isHover = false;
     public string text;
 
     // Use this for initialization
     void Start () {
-        hint = gameObject;
         UpdateAll();
 
-        //BoxCollider2D b = gameObject.transform.parent.gameObject.AddComponent<BoxCollider2D>();
-        //b.isTrigger = true;
-        //UIHintControl c = gameObject.transform.parent.gameObject.AddComponent<UIHintControl>();
-        //c.SetHintableChild(this);
+        UIHintControl c = gameObject.transform.parent.gameObject.AddComponent<UIHintControl>();
+        c.SetHintableChild(this);
 
         //SetHintObject(text);
         if (text.Length > 0)
             SetHintObject(text);
+
+        Disable();
     }
 
     // Update is called once per frame
@@ -43,7 +41,7 @@ public class UIHintable: MonoBehaviour {
 
         //gameObject.transform.SetParent(gameObject.transform.parent, false);
         gameObject.transform.position = Input.mousePosition + offset;
-        SetHintObject(String.Format("Current Time: {0}", DateTime.Now));
+        //SetHintObject(String.Format("Current Time: {0}", DateTime.Now));
     }
 
     public void SetHintObject(string s)
@@ -51,13 +49,22 @@ public class UIHintable: MonoBehaviour {
         gameObject.GetComponent<Text>().text = s;
     }
 
-    public void OnHover()
+    void Enable()
     {
         gameObject.SetActive(true);
+    }
+    void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void OnHover()
+    {
+        Enable();
     }
 
     public void OnExit()
     {
-        gameObject.SetActive(false);
+        Disable();
     }
 }
