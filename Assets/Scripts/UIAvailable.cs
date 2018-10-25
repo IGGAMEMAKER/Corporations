@@ -30,7 +30,7 @@ public class UIAvailable : MonoBehaviour {
 
     void ResetPosition()
     {
-        this.gameObject.transform.SetParent(this.gameObject.transform.parent, false);
+        gameObject.transform.SetParent(gameObject.transform.parent, false);
     }
 
     void ShrinkWidth ()
