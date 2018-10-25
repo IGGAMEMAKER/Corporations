@@ -16,7 +16,6 @@ namespace Assets
         void Start()
         {
             audioData = gameObject.AddComponent<AudioSource>();
-            //coinSound = Resources.Load<AudioClip>("Sounds/Coin");
         }
 
         void Play(AudioClip clip)

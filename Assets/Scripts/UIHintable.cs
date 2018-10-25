@@ -13,9 +13,11 @@ public class UIHintable: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        hint = gameObject;
         UpdateAll();
 
-        BoxCollider b = gameObject.transform.parent.gameObject.AddComponent<BoxCollider>();
+        BoxCollider2D b = gameObject.transform.parent.gameObject.AddComponent<BoxCollider2D>();
+        b.isTrigger = true;
         UIHintControl c = gameObject.transform.parent.gameObject.AddComponent<UIHintControl>();
         c.SetHintableChild(this);
 
@@ -53,18 +55,13 @@ public class UIHintable: MonoBehaviour {
     {
         var offset = new Vector3(100, 0);
 
-        gameObject.transform.SetParent(gameObject.transform.parent, false);
+        //gameObject.transform.SetParent(gameObject.transform.parent, false);
         gameObject.transform.position = Input.mousePosition + offset;
     }
 
     public void SetHintObject(string s)
     {
-        Destroy(hint);
-        hint = new GameObject(hint + s);
-        hint.AddComponent<Text>().text = s;
-        hint.AddComponent<Canvas>().sortingOrder = 1;
-
-        hint.transform.SetParent(gameObject.transform.parent, false);
+        gameObject.GetComponent<Text>().text = s;
     }
 
     public void SetHintObject(GameObject hint)

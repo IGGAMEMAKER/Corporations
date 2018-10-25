@@ -25,6 +25,7 @@ namespace Assets.Scripts
 
         void OnMouseEnter()
         {
+            Debug.Log("OnMouseEnter");
             hintChild.OnHover();
         }
 
