@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// if this will crash read
+// https://answers.unity.com/questions/1095047/detect-mouse-events-for-ui-canvas.html
+
 [RequireComponent(typeof(RectTransform))]
 public class UIHintable: MonoBehaviour {
     bool isHover = false;
@@ -19,7 +22,7 @@ public class UIHintable: MonoBehaviour {
 
         //SetHintObject(text);
         if (text.Length > 0)
-            SetHintObject(text);
+            SetHintObject(text.Replace("\\n", "\n"));
 
         Disable();
     }
