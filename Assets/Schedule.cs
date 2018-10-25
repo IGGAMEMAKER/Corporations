@@ -23,7 +23,7 @@ public class Schedule : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
             isTimerRunning = !isTimerRunning;
 
-        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 7)
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 3)
             currentSpeed++;
 
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)
@@ -38,7 +38,7 @@ public class Schedule : MonoBehaviour {
 
     float GetTimerLimit()
     {
-        return 0.5f / currentSpeed;
+        return 0.25f / currentSpeed;
     }
 
     // Update is called once per frame
