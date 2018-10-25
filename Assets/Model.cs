@@ -11,6 +11,8 @@ public class Model : MonoBehaviour {
     AudioManager audioManager;
 
     public GameObject AdvertRendererObject;
+    public GameObject TechnologyScreen;
+    public GameObject ManagerScreen;
     
     // resources
     public GameObject MenuResourceViewObject;
@@ -20,7 +22,7 @@ public class Model : MonoBehaviour {
     void Start () {
         world = new World();
         audioManager = gameObject.GetComponent<AudioManager>();
-        ViewManager = new ViewManager(AdvertRendererObject, MenuResourceViewObject);
+        ViewManager = new ViewManager(MenuResourceViewObject);
         application = new Application(world, ViewManager, audioManager);
 
         RedrawAds();
@@ -29,8 +31,20 @@ public class Model : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
+        ToggleScreensIfNecessary();
 	}
+
+    void ToggleScreensIfNecessary()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            application.ViewManager.RenderMarketingScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            application.ViewManager.RenderTechnologyScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            application.ViewManager.RenderManagerScreen();
+    }
 
     void RedrawResources()
     {

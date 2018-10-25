@@ -24,40 +24,13 @@ namespace Assets.Scripts
             hintChild.SetHintObject(hint);
         }
 
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
-
-        void OnMouseEnter()
-        {
-            EnableHint();
-        }
-
-        void OnMouseOver()
-        {
-            EnableHint();
-        }
-
-        void OnMouseExit()
-        {
-            DisableHint();
-        }
-
         void EnableHint()
         {
-            Debug.Log("OnMouseIn");
             hintChild.OnHover();
         }
 
         void DisableHint()
         {
-            Debug.Log("OnMouseExit");
             hintChild.OnExit();
         }
 

@@ -2,22 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    TechnologyScreen,
+    MarketingScreen,
+    ManagementScreen,
+    StatsScreen
+}
+
 public class ViewManager : MonoBehaviour
 {
-    public GameObject AdvertRendererObject;
-
     // resources
     public GameObject MenuResourceViewObject;
 
-    public ViewManager()
-    {
+    GameState menu = GameState.MarketingScreen;
 
+    Dictionary<GameState, GameObject> Screens;
+
+    public ViewManager(GameObject menuResourceViewObject)
+    {
+        MenuResourceViewObject = menuResourceViewObject;
+        Screens = new Dictionary<GameState, GameObject>();
+
+        Debug.LogFormat("get screens");
+
+        Screens[GameState.MarketingScreen] = GameObject.Find("AdvertScreen");
+        Screens[GameState.TechnologyScreen] = GameObject.Find("TechnologyScreen");
+        Screens[GameState.ManagementScreen] = GameObject.Find("ManagerScreen");        
     }
 
-    public ViewManager(GameObject advertRendererObject, GameObject menuResourceViewObject)
+    void DisableScreen(GameState gameState)
     {
-        AdvertRendererObject = advertRendererObject;
-        MenuResourceViewObject = menuResourceViewObject;
+        if (Screens.ContainsKey(gameState))
+            Screens[gameState].SetActive(false);
+    }
+
+    void EnableScreen(GameState gameState)
+    {
+        DisableAllScreens();
+        menu = gameState;
+
+        if (Screens.ContainsKey(gameState))
+            Screens[gameState].SetActive(true);
     }
 
     public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
@@ -28,7 +54,30 @@ public class ViewManager : MonoBehaviour
 
     public void RedrawAds(List<Advert> adverts)
     {
-        AdvertRenderer advertRenderer = AdvertRendererObject.GetComponent<AdvertRenderer>();
+        AdvertRenderer advertRenderer = Screens[GameState.MarketingScreen].GetComponent<AdvertRenderer>();
         advertRenderer.UpdateList(adverts);
+    }
+
+    void DisableAllScreens()
+    {
+        DisableScreen(GameState.ManagementScreen);
+        DisableScreen(GameState.MarketingScreen);
+        DisableScreen(GameState.StatsScreen);
+        DisableScreen(GameState.TechnologyScreen);
+    }
+
+    public void RenderMarketingScreen()
+    {
+        EnableScreen(GameState.MarketingScreen);
+    }
+
+    public void RenderTechnologyScreen()
+    {
+        EnableScreen(GameState.TechnologyScreen);
+    }
+
+    public void RenderManagerScreen()
+    {
+        EnableScreen(GameState.ManagementScreen);
     }
 }
