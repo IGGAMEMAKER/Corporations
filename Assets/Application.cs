@@ -22,6 +22,7 @@ public class Application
     public void ExploreFeature(int projectId, int featureId)
     {
         world.ExploreFeature(projectId, featureId);
+        RedrawFeatures();
     }
 
     public bool PeriodTick(int count)
@@ -53,6 +54,7 @@ public class Application
     public void UpgradeFeature(int projectId, int featureId)
     {
         world.UpgradeFeature(projectId, featureId);
+        RedrawFeatures();
     }
 
 

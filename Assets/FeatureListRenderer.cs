@@ -45,11 +45,16 @@ public class FeatureListRenderer : ListRenderer
 
         button.onClick.RemoveAllListeners();
 
-        string text;
+        string text = "";
         if (feature.Status == FeatureStatus.NeedsExploration)
         {
-            text = "Explore feature";
-            button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
+
+            if (!feature.IsInnovative)
+            {
+                text = "Explore feature";
+                button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
+            } else
+                ButtonObject.SetActive(false);
         }
         else
         {
@@ -60,9 +65,9 @@ public class FeatureListRenderer : ListRenderer
             } else if (feature.IsCanMakeBreakthrough())
             {
                 text = "Make breakthrough";
+                button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_UPGRADE, dictionary); });
             } else
             {
-                text = "";
                 button.interactable = false;
             }
         }

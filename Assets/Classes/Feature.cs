@@ -27,6 +27,8 @@ namespace Assets.Classes
             get;
             internal set;
         }
+        public bool IsInnovative { get { return Relevancy == RelevancyStatus.Innovative; } internal set { } }
+
         bool IsImplemented;
 
         public string name;
