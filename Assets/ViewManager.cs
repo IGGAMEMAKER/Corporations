@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class ViewManager : MonoBehaviour
     // resources
     public GameObject MenuResourceViewObject;
 
-    GameState menu = GameState.MarketingScreen;
+    GameState menu = GameState.TechnologyScreen;
 
     Dictionary<GameState, GameObject> Screens;
 
@@ -24,11 +25,11 @@ public class ViewManager : MonoBehaviour
         MenuResourceViewObject = menuResourceViewObject;
         Screens = new Dictionary<GameState, GameObject>();
 
-        Debug.LogFormat("get screens");
-
         Screens[GameState.MarketingScreen] = GameObject.Find("AdvertScreen");
         Screens[GameState.TechnologyScreen] = GameObject.Find("TechnologyScreen");
-        Screens[GameState.ManagementScreen] = GameObject.Find("ManagerScreen");        
+        Screens[GameState.ManagementScreen] = GameObject.Find("ManagerScreen");
+
+        EnableScreen(menu);
     }
 
     void DisableScreen(GameState gameState)
@@ -39,11 +40,13 @@ public class ViewManager : MonoBehaviour
 
     void EnableScreen(GameState gameState)
     {
-        DisableAllScreens();
         menu = gameState;
+        DisableAllScreens();
 
         if (Screens.ContainsKey(gameState))
+        {
             Screens[gameState].SetActive(true);
+        }
     }
 
     public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
@@ -54,8 +57,12 @@ public class ViewManager : MonoBehaviour
 
     public void RedrawAds(List<Advert> adverts)
     {
-        AdvertRenderer advertRenderer = Screens[GameState.MarketingScreen].GetComponent<AdvertRenderer>();
-        advertRenderer.UpdateList(adverts);
+        Screens[GameState.MarketingScreen].GetComponent<AdvertRenderer>().UpdateList(adverts);
+    }
+
+    public void RedrawFeatures(List<Feature> features)
+    {
+        Screens[GameState.TechnologyScreen].GetComponent<TechnologyScreenRenderer>().RenderFeatures(features);
     }
 
     void DisableAllScreens()

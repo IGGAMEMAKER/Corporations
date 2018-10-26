@@ -55,7 +55,7 @@ namespace Assets.Classes
             var Features = new List<Feature>();
 
             for (var i = 0; i < featureCount; i++)
-                Features.Add(new Feature(RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
+                Features.Add(new Feature(String.Format("Feature {0}", i), RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
 
             List<Advert> Ads = new List<Advert>();
 

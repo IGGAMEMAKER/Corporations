@@ -34,21 +34,42 @@ public class Model : MonoBehaviour {
         ToggleScreensIfNecessary();
 	}
 
+    void RenderMarketingScreen()
+    {
+        application.ViewManager.RenderMarketingScreen();
+    }
+
+    void RenderTechnologyScreen()
+    {
+        application.ViewManager.RenderTechnologyScreen();
+        RedrawFeatures();
+    }
+
+    void RenderManagerScreen()
+    {
+        application.ViewManager.RenderManagerScreen();
+    }
+
     void ToggleScreensIfNecessary()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            application.ViewManager.RenderMarketingScreen();
+            RenderMarketingScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            application.ViewManager.RenderTechnologyScreen();
+            RenderTechnologyScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            application.ViewManager.RenderManagerScreen();
+            RenderManagerScreen();
     }
 
     void RedrawResources()
     {
         application.RedrawResources();
+    }
+
+    void RedrawFeatures()
+    {
+        application.RedrawFeatures();
     }
 
     void RedrawAds()

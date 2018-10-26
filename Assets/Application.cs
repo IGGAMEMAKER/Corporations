@@ -73,4 +73,10 @@ public class Application
         Project p = world.GetProjectById(projectId);
         ViewManager.RedrawAds(p.GetAds());
     }
+
+    public void RedrawFeatures()
+    {
+        Project p = world.GetProjectById(projectId);
+        ViewManager.RedrawFeatures(p.Features);
+    }
 }

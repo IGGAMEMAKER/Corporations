@@ -13,6 +13,8 @@ public class AdvertRenderer : ListRenderer {
 
     public override void RenderObject(GameObject gameObject, object advertObject, int index)
     {
+        Advert advert = (Advert) advertObject;
+
         GameObject image = gameObject.transform.GetChild(0).gameObject;
         GameObject text = gameObject.transform.GetChild(1).gameObject;
         GameObject prepareAdButton = gameObject.transform.GetChild(2).gameObject;
@@ -21,8 +23,6 @@ public class AdvertRenderer : ListRenderer {
         Button p = prepareAdButton.GetComponent<Button>();
         Button s = startAdButton.GetComponent<Button>();
         Text TextComponent = text.GetComponent<Text>();
-
-        Advert advert = (Advert) advertObject;
 
         TextComponent.text = string.Format("Ad for channel {0}", advert.Channel);
 

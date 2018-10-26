@@ -25,11 +25,14 @@ namespace Assets.Classes
         FeatureStatus Status;
         bool IsImplemented;
 
-        public Feature(RelevancyStatus relevancy, FeatureStatus status, bool isImplemented)
+        public string name;
+
+        public Feature(string name, RelevancyStatus relevancy, FeatureStatus status, bool isImplemented)
         {
             Status = status;
             Relevancy = relevancy;
             IsImplemented = isImplemented;
+            this.name = name;
         }
 
         public void Explore()
