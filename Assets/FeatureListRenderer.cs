@@ -8,7 +8,13 @@ public class FeatureListRenderer : ListRenderer
 {
     public override int itemsPerLine
     {
-        get { return 3; }
+        get { return 2; }
+        set { }
+    }
+
+    public override Vector2 spacing
+    {
+        get { return new Vector2(300f, 175f); }
         set { }
     }
 

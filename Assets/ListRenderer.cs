@@ -7,6 +7,7 @@ public abstract class ListRenderer : MonoBehaviour
     List<GameObject> gameObjects;
 
     public abstract int itemsPerLine { get; set; }
+    public abstract Vector2 spacing { get; set; }
 
     private void Awake()
     {
@@ -35,9 +36,7 @@ public abstract class ListRenderer : MonoBehaviour
 
     GameObject InstantiateObject(int x, int y)
     {
-        float spacing = 150f;
-
-        Vector3 pos = new Vector3(x, y, 0) * spacing;
+        Vector3 pos = new Vector3(x * spacing.x, -y * spacing.y, 0);
         GameObject g = Instantiate(PrefabInstance, pos, Quaternion.identity);
 
         g.transform.SetParent(this.gameObject.transform, false);

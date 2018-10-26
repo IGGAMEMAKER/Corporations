@@ -10,6 +10,11 @@ public class AdvertRenderer : ListRenderer {
         get { return 5; }
         set { }
     }
+    public override Vector2 spacing
+    {
+        get { return new Vector2(150f, 50f); }
+        set { }
+    }
 
     public override void RenderObject(GameObject gameObject, object advertObject, int index)
     {

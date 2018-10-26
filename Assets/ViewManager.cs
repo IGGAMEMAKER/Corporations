@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
+public enum ScreenMode
 {
     TechnologyScreen,
     MarketingScreen,
@@ -15,32 +15,28 @@ public class ViewManager : MonoBehaviour
 {
     // resources
     public GameObject MenuResourceViewObject;
-
-    GameState menu = GameState.TechnologyScreen;
-
-    Dictionary<GameState, GameObject> Screens;
+    Dictionary<ScreenMode, GameObject> Screens;
 
     public ViewManager(GameObject menuResourceViewObject)
     {
         MenuResourceViewObject = menuResourceViewObject;
-        Screens = new Dictionary<GameState, GameObject>();
+        Screens = new Dictionary<ScreenMode, GameObject>();
 
-        Screens[GameState.MarketingScreen] = GameObject.Find("AdvertScreen");
-        Screens[GameState.TechnologyScreen] = GameObject.Find("TechnologyScreen");
-        Screens[GameState.ManagementScreen] = GameObject.Find("ManagerScreen");
+        Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
+        Screens[ScreenMode.TechnologyScreen] = GameObject.Find("TechnologyScreen");
+        Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
 
-        EnableScreen(menu);
+        EnableScreen(ScreenMode.TechnologyScreen);
     }
 
-    void DisableScreen(GameState gameState)
+    void DisableScreen(ScreenMode gameState)
     {
         if (Screens.ContainsKey(gameState))
             Screens[gameState].SetActive(false);
     }
 
-    void EnableScreen(GameState gameState)
+    void EnableScreen(ScreenMode gameState)
     {
-        menu = gameState;
         DisableAllScreens();
 
         if (Screens.ContainsKey(gameState))
@@ -49,42 +45,45 @@ public class ViewManager : MonoBehaviour
         }
     }
 
+    void DisableAllScreens()
+    {
+        DisableScreen(ScreenMode.ManagementScreen);
+        DisableScreen(ScreenMode.MarketingScreen);
+        DisableScreen(ScreenMode.StatsScreen);
+        DisableScreen(ScreenMode.TechnologyScreen);
+    }
+
+
     public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
     {
-        MenuResourceView menuView = MenuResourceViewObject.GetComponent<MenuResourceView>();
-        menuView.RedrawResources(resources, audience, formattedDate);
+        MenuResourceViewObject.GetComponent<MenuResourceView>()
+            .RedrawResources(resources, audience, formattedDate);
     }
 
     public void RedrawAds(List<Advert> adverts)
     {
-        Screens[GameState.MarketingScreen].GetComponent<AdvertRenderer>().UpdateList(adverts);
+        Screens[ScreenMode.MarketingScreen].GetComponent<AdvertRenderer>()
+            .UpdateList(adverts);
     }
 
     public void RedrawFeatures(List<Feature> features)
     {
-        Screens[GameState.TechnologyScreen].GetComponent<TechnologyScreenRenderer>().RenderFeatures(features);
-    }
-
-    void DisableAllScreens()
-    {
-        DisableScreen(GameState.ManagementScreen);
-        DisableScreen(GameState.MarketingScreen);
-        DisableScreen(GameState.StatsScreen);
-        DisableScreen(GameState.TechnologyScreen);
+        Screens[ScreenMode.TechnologyScreen].GetComponent<TechnologyScreenRenderer>()
+            .RenderFeatures(features);
     }
 
     public void RenderMarketingScreen()
     {
-        EnableScreen(GameState.MarketingScreen);
+        EnableScreen(ScreenMode.MarketingScreen);
     }
 
     public void RenderTechnologyScreen()
     {
-        EnableScreen(GameState.TechnologyScreen);
+        EnableScreen(ScreenMode.TechnologyScreen);
     }
 
     public void RenderManagerScreen()
     {
-        EnableScreen(GameState.ManagementScreen);
+        EnableScreen(ScreenMode.ManagementScreen);
     }
 }
