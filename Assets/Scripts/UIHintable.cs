@@ -13,12 +13,16 @@ public class UIHintable: MonoBehaviour {
     bool isHover = false;
     public string text;
 
+    Canvas canvas;
+
     // Use this for initialization
     void Start () {
         UpdateAll();
 
         UIHintControl c = gameObject.transform.parent.gameObject.AddComponent<UIHintControl>();
         c.SetHintableChild(this);
+
+        canvas = GetComponent<Canvas>();
 
         //SetHintObject(text);
         if (text.Length > 0)
@@ -54,11 +58,13 @@ public class UIHintable: MonoBehaviour {
 
     void Enable()
     {
-        gameObject.SetActive(true);
+        canvas.enabled = true;
+        //gameObject.SetActive(true);
     }
     void Disable()
     {
-        gameObject.SetActive(false);
+        canvas.enabled = false;
+        //gameObject.SetActive(false);
     }
 
     public void OnHover()

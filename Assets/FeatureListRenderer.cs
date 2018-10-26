@@ -46,7 +46,7 @@ public class FeatureListRenderer : ListRenderer
 
         gameObject.transform.Find("Title").gameObject.GetComponent<Text>().text = feature.name;
         GameObject RelevancyStatusObject = gameObject.transform.Find("RelevancyStatus").gameObject;
-        RelevancyStatusObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
+        RelevancyStatusObject.GetComponent<Text>().text = GetRelevancyHintText(feature); // feature.GetLiteralRelevancy();
 
         GameObject hintObject = RelevancyStatusObject.transform.GetChild(0).gameObject;
         Debug.Log("got hint Object");
