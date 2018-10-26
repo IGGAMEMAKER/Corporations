@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
-    class UIHintControl: MonoBehaviour
+    public class UIHintControl: MonoBehaviour
         //, IPointerClickHandler // 2
      //, IDragHandler
      , IPointerEnterHandler

@@ -1,4 +1,6 @@
 ﻿using Assets.Classes;
+using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +20,24 @@ public class FeatureListRenderer : ListRenderer
         set { }
     }
 
+    string GetRelevancyHintText (Feature feature)
+    {
+        string relevancy = feature.GetLiteralRelevancy();
+        switch (feature.Relevancy)
+        {
+            case RelevancyStatus.Dinosaur:
+                return String.Format("Feature is <b>TERRIBLE</b>\n\nWe lose 5 <b>loyalty</b> each month\nUpgrade it as soon as possible!");
+            case RelevancyStatus.Outdated:
+                return String.Format("Feature is <b>{0}</b>\n\nWe lose 2 <b>loyalty</b> each month", relevancy);
+            case RelevancyStatus.Relevant:
+                return String.Format("Feature is <b>{0}</b>\n\nWe get 3 <b>loyalty</b> each month\n\nWe can make <b>technological breakthrough</b>", relevancy);
+            case RelevancyStatus.Innovative:
+                return String.Format("Feature is <b>{0}</b>\n\nWe get 6 <b>loyalty</b> each month\n\nOur competitors are behind us, but this will not last long", relevancy);
+            default:
+                return String.Format("Feature is <b>{0}</b>\n\nSome error occured! Take a screenshot and send it to gamedeveloper", relevancy);
+        }
+    }
+
     public override void RenderObject(GameObject gameObject, object item, int index)
     {
         Feature feature = (Feature)item;
@@ -25,7 +45,21 @@ public class FeatureListRenderer : ListRenderer
         bool isWorkInProgress = false;
 
         gameObject.transform.Find("Title").gameObject.GetComponent<Text>().text = feature.name;
-        gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
+        GameObject RelevancyStatusObject = gameObject.transform.Find("RelevancyStatus").gameObject;
+        RelevancyStatusObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
+
+        GameObject hintObject = RelevancyStatusObject.transform.GetChild(0).gameObject;
+        Debug.Log("got hint Object");
+        
+        UIHintable hint = hintObject.GetComponent<UIHintable>();
+
+        //if (hint)
+        hint.SetHintObject(GetRelevancyHintText(feature));
+
+
+        //UIHintControl hint = gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<UIHintControl>();
+        //if (hint)
+        //    hint.SetHint(GetRelevancyHintText(feature));
 
 
         // if we are already upgrading or exploring feature - show ProgressBar

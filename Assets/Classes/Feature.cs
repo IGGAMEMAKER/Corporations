@@ -21,7 +21,11 @@ namespace Assets.Classes
 
     public class Feature
     {
-        RelevancyStatus Relevancy;
+        public RelevancyStatus Relevancy
+        {
+            get;
+            internal set;
+        }
         public FeatureStatus Status
         {
             get;
