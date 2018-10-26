@@ -22,10 +22,24 @@ namespace Assets.Classes
     public class Feature
     {
         RelevancyStatus Relevancy;
-        FeatureStatus Status;
+        public FeatureStatus Status
+        {
+            get;
+            internal set;
+        }
         bool IsImplemented;
 
         public string name;
+
+        public bool IsNeedToUpgrade()
+        {
+            return Relevancy == RelevancyStatus.Dinosaur || Relevancy == RelevancyStatus.Outdated;
+        }
+
+        public bool IsCanMakeBreakthrough()
+        {
+            return Relevancy == RelevancyStatus.Relevant;
+        }
 
         public Feature(string name, RelevancyStatus relevancy, FeatureStatus status, bool isImplemented)
         {
@@ -68,7 +82,7 @@ namespace Assets.Classes
             return Relevancy == RelevancyStatus.Relevant || Relevancy == RelevancyStatus.Innovative;
         }
 
-        string GetLiteralRelevancy()
+        public string GetLiteralRelevancy()
         {
             switch (Relevancy)
             {

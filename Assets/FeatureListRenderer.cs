@@ -23,8 +23,54 @@ public class FeatureListRenderer : ListRenderer
         Debug.LogFormat("Render Feature!");
         Feature feature = (Feature)item;
 
+        bool isWorkInProgress = false;
+
         gameObject.transform.Find("Title").gameObject.GetComponent<Text>().text = feature.name;
-        gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<Text>().text = feature.GetLiteralFeatureStatus();
+        gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
+
+        // if we are already upgrading or exploring feature - show ProgressBar
+        gameObject.transform.Find("ProgressBar").gameObject.SetActive(isWorkInProgress);
+
+        GameObject ButtonObject = gameObject.transform.Find("Action").gameObject;
+        Text actionText = ButtonObject.transform.GetChild(0).GetComponent<Text>();
+        Button button = ButtonObject.GetComponent<Button>();
+
+        ButtonObject.SetActive(!isWorkInProgress);
+
+        button.interactable = true;
+
+        Debug.Log("setting dictionary");
+
+        Dictionary<string, object> dictionary = new Dictionary<string, object>();
+        dictionary["featureId"] = index;
+        dictionary["projectId"] = 0;
+        Debug.Log("setting done");
+
+        button.onClick.RemoveAllListeners();
+
+        string text;
+        if (feature.Status == FeatureStatus.NeedsExploration)
+        {
+            text = "Explore feature";
+            button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
+        }
+        else
+        {
+            if (feature.IsNeedToUpgrade())
+            {
+                text = "Upgrade feature";
+                button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_UPGRADE, dictionary); });
+            } else if (feature.IsCanMakeBreakthrough())
+            {
+                text = "Make breakthrough";
+            } else
+            {
+                text = "";
+                button.interactable = false;
+            }
+        }
+
+        actionText.text = text;
     }
 
     // Use this for initialization

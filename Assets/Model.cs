@@ -50,6 +50,7 @@ public class Model : MonoBehaviour {
     void RenderMarketingScreen()
     {
         application.ViewManager.RenderMarketingScreen();
+        RedrawAds();
     }
 
     void RenderTechnologyScreen()
