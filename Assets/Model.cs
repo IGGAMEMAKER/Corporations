@@ -27,12 +27,25 @@ public class Model : MonoBehaviour {
 
         RedrawAds();
         RedrawResources();
+        RedrawFeatures();
     }
 
     // Update is called once per frame
     void Update () {
         ToggleScreensIfNecessary();
 	}
+
+    void ToggleScreensIfNecessary()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            RenderMarketingScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            RenderTechnologyScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            RenderManagerScreen();
+    }
 
     void RenderMarketingScreen()
     {
@@ -48,18 +61,6 @@ public class Model : MonoBehaviour {
     void RenderManagerScreen()
     {
         application.ViewManager.RenderManagerScreen();
-    }
-
-    void ToggleScreensIfNecessary()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            RenderMarketingScreen();
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            RenderTechnologyScreen();
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            RenderManagerScreen();
     }
 
     void RedrawResources()
