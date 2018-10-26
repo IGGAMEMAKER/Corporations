@@ -19,11 +19,7 @@ public class Application
         this.audioManager = audioManager;
     }
 
-    public void ExploreFeature(int projectId, int featureId)
-    {
-        world.ExploreFeature(projectId, featureId);
-        RedrawFeatures();
-    }
+
 
     public bool PeriodTick(int count)
     {
@@ -51,8 +47,16 @@ public class Application
         RedrawAds();
     }
 
+    public void ExploreFeature(int projectId, int featureId)
+    {
+        audioManager.PlayClickSound();
+        world.ExploreFeature(projectId, featureId);
+        RedrawFeatures();
+    }
+
     public void UpgradeFeature(int projectId, int featureId)
     {
+        audioManager.PlayClickSound();
         world.UpgradeFeature(projectId, featureId);
         RedrawFeatures();
     }

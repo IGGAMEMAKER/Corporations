@@ -27,21 +27,42 @@ namespace Assets.Classes
             get;
             internal set;
         }
-        public bool IsInnovative { get { return Relevancy == RelevancyStatus.Innovative; } internal set { } }
+
+        public bool IsInnovative
+        {
+            get
+            {
+                return Relevancy == RelevancyStatus.Innovative;
+            }
+        }
+        public bool NeedsToUpgrade
+        {
+            get
+            {
+                return Relevancy == RelevancyStatus.Dinosaur || Relevancy == RelevancyStatus.Outdated;
+            }
+        }
+        public bool CanMakeBreakthrough
+        {
+            get
+            {
+                return Relevancy == RelevancyStatus.Relevant;
+            }
+        }
+
+        public bool NeedsExploration
+        {
+            get
+            {
+                return Status == FeatureStatus.NeedsExploration;
+            }
+        }
 
         bool IsImplemented;
 
         public string name;
 
-        public bool IsNeedToUpgrade()
-        {
-            return Relevancy == RelevancyStatus.Dinosaur || Relevancy == RelevancyStatus.Outdated;
-        }
 
-        public bool IsCanMakeBreakthrough()
-        {
-            return Relevancy == RelevancyStatus.Relevant;
-        }
 
         public Feature(string name, RelevancyStatus relevancy, FeatureStatus status, bool isImplemented)
         {

@@ -30,6 +30,11 @@ namespace Assets
             Play(coinSound);
         }
 
+        internal void PlayClickSound()
+        {
+            Play(standardClickSound);
+        }
+
         internal void PlayPrepareAdSound()
         {
             Play(standardClickSound);

@@ -20,13 +20,13 @@ public class FeatureListRenderer : ListRenderer
 
     public override void RenderObject(GameObject gameObject, object item, int index)
     {
-        Debug.LogFormat("Render Feature!");
         Feature feature = (Feature)item;
 
         bool isWorkInProgress = false;
 
         gameObject.transform.Find("Title").gameObject.GetComponent<Text>().text = feature.name;
         gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
+
 
         // if we are already upgrading or exploring feature - show ProgressBar
         gameObject.transform.Find("ProgressBar").gameObject.SetActive(isWorkInProgress);
@@ -46,42 +46,29 @@ public class FeatureListRenderer : ListRenderer
         button.onClick.RemoveAllListeners();
 
         string text = "";
-        if (feature.Status == FeatureStatus.NeedsExploration)
+        if (feature.NeedsExploration)
         {
 
-            if (!feature.IsInnovative)
+            if (feature.IsInnovative)
+                ButtonObject.SetActive(false);
+            else
             {
                 text = "Explore feature";
                 button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
-            } else
-                ButtonObject.SetActive(false);
+            }
         }
         else
         {
-            if (feature.IsNeedToUpgrade())
-            {
+            if (feature.NeedsToUpgrade)
                 text = "Upgrade feature";
-                button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_UPGRADE, dictionary); });
-            } else if (feature.IsCanMakeBreakthrough())
-            {
+            else if (feature.CanMakeBreakthrough)
                 text = "Make breakthrough";
-                button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_UPGRADE, dictionary); });
-            } else
-            {
+            else
                 button.interactable = false;
-            }
+
+            button.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_UPGRADE, dictionary); });
         }
 
         actionText.text = text;
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
