@@ -8,6 +8,7 @@ public enum ScreenMode
     TechnologyScreen,
     MarketingScreen,
     ManagementScreen,
+    TeamScreen,
     StatsScreen
 }
 
@@ -25,6 +26,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
         Screens[ScreenMode.TechnologyScreen] = GameObject.Find("TechnologyScreen");
         Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
+        Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
 
         EnableScreen(ScreenMode.TechnologyScreen);
     }
@@ -53,7 +55,6 @@ public class ViewManager : MonoBehaviour
         DisableScreen(ScreenMode.TechnologyScreen);
     }
 
-
     public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
     {
         MenuResourceViewObject.GetComponent<MenuResourceView>()
@@ -70,6 +71,11 @@ public class ViewManager : MonoBehaviour
     {
         Screens[ScreenMode.TechnologyScreen].GetComponent<TechnologyScreenRenderer>()
             .RenderFeatures(features);
+    }
+
+    public void RenderTeamScreen()
+    {
+        EnableScreen(ScreenMode.TeamScreen);
     }
 
     public void RenderMarketingScreen()

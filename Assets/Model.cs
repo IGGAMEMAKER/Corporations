@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.Classes;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -45,6 +46,14 @@ public class Model : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             RenderManagerScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            RenderTeamScreen();
+    }
+
+    void RenderTeamScreen()
+    {
+        application.ViewManager.RenderTeamScreen();
     }
 
     void RenderMarketingScreen()

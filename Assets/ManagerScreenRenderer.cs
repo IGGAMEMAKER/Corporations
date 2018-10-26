@@ -1,16 +1,14 @@
-﻿using System.Collections;
+﻿using Assets.Classes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ManagerScreenRenderer : MonoBehaviour {
+    GameObject screen;
+    public void RenderFeatures(List<Feature> features)
+    {
+        //screen = gameObject.transform.Find("FeatureRenderer").gameObject;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        //screen.GetComponent<WorkerListRenderer>().UpdateList(features);
+    }
 }
