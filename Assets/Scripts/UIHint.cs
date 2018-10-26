@@ -24,7 +24,6 @@ public class UIHint: MonoBehaviour {
 
         canvas = GetComponent<Canvas>();
 
-        //SetHintObject(text);
         if (text.Length > 0)
             SetHintObject(text.Replace("\\n", "\n"));
 
@@ -40,6 +39,12 @@ public class UIHint: MonoBehaviour {
     void UpdateAll()
     {
         UpdatePosition();
+        UpdateText();
+    }
+
+    void UpdateText()
+    {
+        gameObject.GetComponent<Text>().text = text;
     }
 
     void UpdatePosition()
@@ -53,9 +58,7 @@ public class UIHint: MonoBehaviour {
 
     public void SetHintObject(string s)
     {
-        Debug.Log("SetHintObject");
-        Debug.Log(s);
-        gameObject.GetComponent<Text>().text = s;
+        text = s;
     }
 
     void Enable()

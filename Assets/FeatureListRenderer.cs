@@ -46,19 +46,10 @@ public class FeatureListRenderer : ListRenderer
 
         gameObject.transform.Find("Title").gameObject.GetComponent<Text>().text = feature.name;
         GameObject RelevancyStatusObject = gameObject.transform.Find("RelevancyStatus").gameObject;
-        RelevancyStatusObject.GetComponent<Text>().text = GetRelevancyHintText(feature); // feature.GetLiteralRelevancy();
+        RelevancyStatusObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
 
-        GameObject hintObject = RelevancyStatusObject.transform.GetChild(0).gameObject;
-        Debug.Log("got hint Object");
-        
-        UIHint hint = hintObject.GetComponent<UIHint>();
-        hint.SetHintObject(GetRelevancyHintText(feature));
-
-
-        //UIHintControl hint = gameObject.transform.Find("RelevancyStatus").gameObject.GetComponent<UIHintControl>();
-        //if (hint)
-        //    hint.SetHint(GetRelevancyHintText(feature));
-
+        GameObject HintObject = gameObject.transform.Find("Hint").gameObject;
+        HintObject.GetComponent<UIHint>().SetHintObject(GetRelevancyHintText(feature));
 
         // if we are already upgrading or exploring feature - show ProgressBar
         gameObject.transform.Find("ProgressBar").gameObject.SetActive(isWorkInProgress);
