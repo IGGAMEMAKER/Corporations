@@ -48,7 +48,7 @@ public class FeatureListRenderer : ListRenderer
         GameObject RelevancyStatusObject = gameObject.transform.Find("RelevancyStatus").gameObject;
         RelevancyStatusObject.GetComponent<Text>().text = feature.GetLiteralRelevancy();
 
-        GameObject HintObject = gameObject.transform.Find("Hint").gameObject;
+        GameObject HintObject = RelevancyStatusObject.transform.Find("Hint").gameObject;
         HintObject.GetComponent<UIHint>().SetHintObject(GetRelevancyHintText(feature));
 
         // if we are already upgrading or exploring feature - show ProgressBar
