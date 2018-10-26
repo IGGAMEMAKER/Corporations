@@ -51,9 +51,7 @@ public class FeatureListRenderer : ListRenderer
         GameObject hintObject = RelevancyStatusObject.transform.GetChild(0).gameObject;
         Debug.Log("got hint Object");
         
-        UIHintable hint = hintObject.GetComponent<UIHintable>();
-
-        //if (hint)
+        UIHint hint = hintObject.GetComponent<UIHint>();
         hint.SetHintObject(GetRelevancyHintText(feature));
 
 

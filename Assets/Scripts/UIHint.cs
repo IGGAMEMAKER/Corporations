@@ -9,7 +9,7 @@ using UnityEngine.UI;
 // https://answers.unity.com/questions/1095047/detect-mouse-events-for-ui-canvas.html
 
 [RequireComponent(typeof(RectTransform))]
-public class UIHintable: MonoBehaviour {
+public class UIHint: MonoBehaviour {
     bool isHover = false;
     public string text;
 
@@ -53,6 +53,8 @@ public class UIHintable: MonoBehaviour {
 
     public void SetHintObject(string s)
     {
+        Debug.Log("SetHintObject");
+        Debug.Log(s);
         gameObject.GetComponent<Text>().text = s;
     }
 

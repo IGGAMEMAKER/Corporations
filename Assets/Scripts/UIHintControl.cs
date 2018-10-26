@@ -13,9 +13,9 @@ namespace Assets.Scripts
      , IPointerEnterHandler
      , IPointerExitHandler
     {
-        public UIHintable hintChild;
+        public UIHint hintChild;
 
-        public void SetHintableChild(UIHintable hintChild)
+        public void SetHintableChild(UIHint hintChild)
         {
             this.hintChild = hintChild;
         }
