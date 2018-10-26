@@ -13,8 +13,6 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
 
     public void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
-        Debug.LogFormat("Handle command! AdvertController {0} {1}", eventName, parameters["advert"].ToString());
-
         switch (eventName)
         {
             case Commands.AD_CAMPAIGN_START:

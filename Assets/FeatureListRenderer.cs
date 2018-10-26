@@ -39,12 +39,9 @@ public class FeatureListRenderer : ListRenderer
 
         button.interactable = true;
 
-        Debug.Log("setting dictionary");
-
         Dictionary<string, object> dictionary = new Dictionary<string, object>();
         dictionary["featureId"] = index;
         dictionary["projectId"] = 0;
-        Debug.Log("setting done");
 
         button.onClick.RemoveAllListeners();
 

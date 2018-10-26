@@ -14,10 +14,6 @@ public class FeatureController : MonoBehaviour, ICommandHandler {
 
     public void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
-        Debug.Log("Handle command! FeatureController");
-        Debug.LogFormat("Handle command! FeatureController {0} {1}", eventName, "featureId", "projectId");
-        Debug.LogFormat("Handle command! FeatureController {0} {1}", eventName, parameters["featureId"], parameters["projectId"]);
-
         switch (eventName)
         {
             case Commands.FEATURE_EXPLORE:
