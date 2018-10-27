@@ -28,7 +28,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
         Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
 
-        EnableScreen(ScreenMode.TechnologyScreen);
+        EnableScreen(ScreenMode.TeamScreen);
     }
 
     void DisableScreen(ScreenMode gameState)

@@ -51,6 +51,17 @@ namespace Assets.Classes
             internal set;
         }
 
+        public Skill GetBySpecialisation(WorkerSpecialisation specialisation)
+        {
+            if (specialisation == WorkerSpecialisation.Programmer)
+                return Programming;
+
+            if (specialisation == WorkerSpecialisation.Marketer)
+                return Marketing;
+
+            return Management;
+        }
+
         public Skillset()
         {
             Programming = new Skill();
@@ -128,6 +139,29 @@ namespace Assets.Classes
             internal set;
         }
         public Skillset Skills { get { return Skillset; } internal set { } }
+
+        public string GetLiteralSpecialisation()
+        {
+            switch (Specialisation)
+            {
+                case WorkerSpecialisation.Manager:
+                    return "Manager";
+                case WorkerSpecialisation.Marketer:
+                    return "Marketer";
+                case WorkerSpecialisation.Programmer:
+                    return "Programmer";
+                default:
+                    return "Error";
+            }
+        }
+
+        public int BaseProduction
+        {
+            get
+            {
+                return Skillset.GetBySpecialisation(Specialisation).Effeciency;
+            }
+        }
 
         public Human(string name, string surname, Skillset skillset, int[] character, WorkerSpecialisation specialisation, int salary)
         {

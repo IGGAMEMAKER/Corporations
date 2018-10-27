@@ -25,19 +25,23 @@ public class WorkerView : MonoBehaviour {
         GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
         MoraleBar.GetComponent<ProgressBar>().SetValue(human.Morale);
 
-        GameObject Avatar = gameObject.transform.Find("ProgressBar").gameObject;
+        GameObject Avatar = gameObject.transform.Find("Name").gameObject;
         UIHint SkillsetHint = Avatar.GetComponentInChildren<UIHint>();
 
         string hintText = String.Format(
-            "          Competence       \n\n" + 
+            "          {3}         \n\n" + 
             "<b>Management</b>  - {0} LVL \n" +
             "<b>Programming</b> - {1} LVL \n" +
             "<b>Marketing</b>   - {2} LVL \n",
             human.Skills.Management.Level,
             human.Skills.Programming.Level,
-            human.Skills.Marketing.Level
+            human.Skills.Marketing.Level,
+            human.GetLiteralSpecialisation()
         );
 
         SkillsetHint.SetHintObject(hintText);
+
+        GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
+        Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
     }
 }
