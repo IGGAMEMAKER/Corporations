@@ -29,6 +29,11 @@ public class ProgressBar : MonoBehaviour {
         value = val;
     }
 
+    public void SetValue (float val)
+    {
+        Refresh(val);
+    }
+
     void Increment ()
     {
         Debug.Log("Refresh " + v);

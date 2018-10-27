@@ -16,10 +16,13 @@ public class WorkerView : MonoBehaviour {
 		
 	}
 
-    public void UpdateView(Human human)
+    public void UpdateView(Human human, int index)
     {
         GameObject NameObject = gameObject.transform.Find("Name").gameObject;
         NameObject.GetComponent<Text>().text = human.FullName;
+
+        GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
+        MoraleBar.GetComponent<ProgressBar>().SetValue(human.Morale);
 
 
     }

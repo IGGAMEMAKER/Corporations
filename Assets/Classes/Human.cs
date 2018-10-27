@@ -5,6 +5,94 @@ using System.Text;
 
 namespace Assets.Classes
 {
+    public class Skill
+    {
+        int xp;
+        public int Level
+        {
+            get { return xp / 1000; }
+            set
+            {
+                xp = value * 1000;
+            }
+        }
+
+        public int Effeciency
+        {
+            get { return Level * 15; }
+        }
+
+        public Skill ()
+        {
+
+        }
+
+        public Skill (int XP)
+        {
+            xp = XP;
+        }
+    }
+
+    public class Skillset
+    {
+        Skill Programming;
+        Skill Management;
+        Skill Marketing;
+
+        public Skillset()
+        {
+
+        }
+
+        public Skillset SetProgrammingLevel(int level)
+        {
+            Programming.Level = level;
+            return this;
+        }
+
+        public Skillset SetMarketingLevel(int level)
+        {
+            Marketing.Level = level;
+            return this;
+        }
+
+        public Skillset SetManagementLevel(int level)
+        {
+            Management.Level = level;
+            return this;
+        }
+
+        public void Upgrade(WorkerSpecialisation specialisation)
+        {
+            switch (specialisation)
+            {
+                case WorkerSpecialisation.Manager:
+                    SetManagementLevel(Management.Level + 1);
+                    break;
+                case WorkerSpecialisation.Marketer:
+                    SetMarketingLevel(Marketing.Level + 1);
+                    break;
+                case WorkerSpecialisation.Programmer:
+                    SetProgrammingLevel(Programming.Level + 1);
+                    break;
+            }
+        }
+
+        public Skillset(Skill programming, Skill management, Skill marketing)
+        {
+            Programming = programming;
+            Management = management;
+            Marketing = marketing;
+        }
+    }
+
+    public enum WorkerSpecialisation
+    {
+        Programmer,
+        Marketer,
+        Manager
+    }
+
     public class Human
     {
         string Name;
@@ -15,27 +103,32 @@ namespace Assets.Classes
             get { return Name + " " + Surname; }
         }
 
-        int[] Skills;
-        int[] Character;
-        int Specialisation;
-        int Salary;
-        int Loyalty;
+        Skillset Skillset;
 
-        public Human(string name, string surname, int[] skills, int[] character, int specialisation, int salary)
+        int[] Character;
+        WorkerSpecialisation Specialisation;
+        int Salary;
+
+        public int Morale {
+            get;
+            internal set;
+        }
+
+        public Human(string name, string surname, Skillset skillset, int[] character, WorkerSpecialisation specialisation, int salary)
         {
             Name = name;
             Surname = surname;
-            Skills = skills;
+            Skillset = skillset;
             Character = character;
             Specialisation = specialisation;
             Salary = salary;
 
-            Loyalty = 100;
+            Morale = 100;
         }
 
-        void UpgradeSkill(int skill)
+        void UpgradeSkill(WorkerSpecialisation specialisation)
         {
-            Skills[skill]++;
+            Skillset.Upgrade(specialisation);
         }
 
         void UpgradeBestSkill()

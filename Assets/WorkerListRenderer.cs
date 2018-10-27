@@ -22,7 +22,6 @@ public class WorkerListRenderer : ListRenderer
 
     public override void RenderObject(GameObject gameObject, object item, int index)
     {
-        WorkerView workerView = gameObject.GetComponent<WorkerView>();
-        workerView.UpdateView((Human)item);
+        gameObject.GetComponent<WorkerView>().UpdateView((Human)item, index);
     }
 }
