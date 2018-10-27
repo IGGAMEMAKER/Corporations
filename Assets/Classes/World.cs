@@ -41,9 +41,13 @@ namespace Assets.Classes
 
         void FillProjects()
         {
-            int[] mySkills = new int[] { 1, 7, 3 };
+            Skillset mySkills = new Skillset()
+                .SetManagementLevel(3)
+                .SetMarketingLevel(1)
+                .SetProgrammingLevel(7);
+
             int[] myTraits = new int[] { };
-            Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, 1, 500);
+            Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, WorkerSpecialisation.Programmer, 500);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
             List<Human> workers = new List<Human> { me };

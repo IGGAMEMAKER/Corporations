@@ -35,13 +35,27 @@ namespace Assets.Classes
 
     public class Skillset
     {
-        Skill Programming;
-        Skill Management;
-        Skill Marketing;
+        public Skill Programming
+        {
+            get;
+            internal set;
+        }
+        public Skill Management
+        {
+            get;
+            internal set;
+        }
+        public Skill Marketing
+        {
+            get;
+            internal set;
+        }
 
         public Skillset()
         {
-
+            Programming = new Skill();
+            Marketing = new Skill();
+            Management = new Skill();
         }
 
         public Skillset SetProgrammingLevel(int level)
@@ -113,6 +127,7 @@ namespace Assets.Classes
             get;
             internal set;
         }
+        public Skillset Skills { get { return Skillset; } internal set { } }
 
         public Human(string name, string surname, Skillset skillset, int[] character, WorkerSpecialisation specialisation, int salary)
         {
