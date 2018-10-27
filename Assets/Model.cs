@@ -29,6 +29,7 @@ public class Model : MonoBehaviour {
         RedrawAds();
         RedrawResources();
         RedrawFeatures();
+        RedrawTeam();
     }
 
     // Update is called once per frame
@@ -54,6 +55,7 @@ public class Model : MonoBehaviour {
     void RenderTeamScreen()
     {
         application.ViewManager.RenderTeamScreen();
+        RedrawTeam();
     }
 
     void RenderMarketingScreen()
@@ -71,6 +73,11 @@ public class Model : MonoBehaviour {
     void RenderManagerScreen()
     {
         application.ViewManager.RenderManagerScreen();
+    }
+
+    void RedrawTeam()
+    {
+        application.RedrawTeam();
     }
 
     void RedrawResources()

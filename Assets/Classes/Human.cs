@@ -9,6 +9,12 @@ namespace Assets.Classes
     {
         string Name;
         string Surname;
+
+        public string FullName
+        {
+            get { return Name + " " + Surname; }
+        }
+
         int[] Skills;
         int[] Character;
         int Specialisation;

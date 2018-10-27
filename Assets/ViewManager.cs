@@ -53,6 +53,7 @@ public class ViewManager : MonoBehaviour
         DisableScreen(ScreenMode.MarketingScreen);
         DisableScreen(ScreenMode.StatsScreen);
         DisableScreen(ScreenMode.TechnologyScreen);
+        DisableScreen(ScreenMode.TeamScreen);
     }
 
     public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
@@ -65,6 +66,12 @@ public class ViewManager : MonoBehaviour
     {
         Screens[ScreenMode.MarketingScreen].GetComponent<AdvertRenderer>()
             .UpdateList(adverts);
+    }
+
+    public void RedrawTeam(Team team)
+    {
+        Screens[ScreenMode.TeamScreen].GetComponent<TeamScreenRenderer>()
+            .RenderTeam(team);
     }
 
     public void RedrawFeatures(List<Feature> features)

@@ -7,7 +7,7 @@ namespace Assets.Classes
 {
     public class Team
     {
-        List<Human> Workers;
+        public List<Human> Workers;
 
         public Team (List<Human> workers)
         {

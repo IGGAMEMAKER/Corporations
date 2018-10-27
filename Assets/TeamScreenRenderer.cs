@@ -6,10 +6,10 @@ using UnityEngine;
 public class TeamScreenRenderer : MonoBehaviour
 {
     GameObject screen;
-    public void RenderFeatures(List<Feature> features)
+    public void RenderTeam(Team team)
     {
-        screen = gameObject.transform.Find("FeatureRenderer").gameObject;
+        screen = gameObject.transform.Find("TeamRenderer").gameObject;
 
-        screen.GetComponent<WorkerListRenderer>().UpdateList(features);
+        screen.GetComponent<WorkerListRenderer>().UpdateList(team.Workers);
     }
 }

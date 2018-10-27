@@ -15,14 +15,14 @@ namespace Assets.Classes
         public List<Advert> Ads { get; set; }
 
         public Audience audience;
-        Team Team;
+        Team team;
 
         public Project(int id, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
         {
             this.Features = Features;
             this.Resource = resource;
             this.audience = audience;
-            this.Team = Team;
+            this.team = Team;
             this.Ads = Ads;
             this.id = id;
         }
@@ -37,6 +37,8 @@ namespace Assets.Classes
             get { return audience.clients; }
             internal set { }
         }
+
+        public Team Team { get { return team; } internal set { } }
 
         internal List<Advert> GetAds()
         {
@@ -57,27 +59,27 @@ namespace Assets.Classes
 
         public int GetProgrammingPointsProductionValue()
         {
-            return Team.GetProgrammingPointsProduction();
+            return team.GetProgrammingPointsProduction();
         }
 
         public int GetManagerPointsProductionValue()
         {
-            return Team.GetManagerPointsProduction();
+            return team.GetManagerPointsProduction();
         }
 
         public int GetSalesPointsProductionValue()
         {
-            return Team.GetSalesPointsProduction();
+            return team.GetSalesPointsProduction();
         }
 
         public int GetIdeaPointsProductionValue()
         {
-            return Team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
+            return team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
         }
 
         internal void UpdateMonthlyResources()
         {
-            TeamResource teamResource = Team.GetMonthlyResources()
+            TeamResource teamResource = team.GetMonthlyResources()
                 .SetIdeaPoints(GetIdeaPointsProductionValue());
 
             Resource.AddTeamPoints(teamResource);
@@ -95,7 +97,7 @@ namespace Assets.Classes
 
         long GetMonthlyExpense()
         {
-            return Team.GetExpenses();
+            return team.GetExpenses();
         }
 
         private long GetMonthlyIncome()

@@ -72,6 +72,12 @@ public class Application
         ViewManager.RedrawResources(teamResource, audience, formattedDate);
     }
 
+    public void RedrawTeam()
+    {
+        Project p = world.GetProjectById(projectId);
+        ViewManager.RedrawTeam(p.Team);
+    }
+
     public void RedrawAds()
     {
         Project p = world.GetProjectById(projectId);
