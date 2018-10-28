@@ -29,7 +29,7 @@ public class WorkerView : MonoBehaviour {
         UIHint SkillsetHint = Avatar.GetComponentInChildren<UIHint>();
 
         string hintText = String.Format(
-            "          {3}         \n\n" + 
+            "          {3}         \n\n" +
             "<b>Management</b>  - {0} LVL \n" +
             "<b>Programming</b> - {1} LVL \n" +
             "<b>Marketing</b>   - {2} LVL \n",

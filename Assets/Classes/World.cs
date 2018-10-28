@@ -46,11 +46,17 @@ namespace Assets.Classes
                 .SetMarketingLevel(1)
                 .SetProgrammingLevel(7);
 
+            Skillset skillset = new Skillset()
+                .SetManagementLevel(2)
+                .SetMarketingLevel(7)
+                .SetProgrammingLevel(0);
+
             int[] myTraits = new int[] { };
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, WorkerSpecialisation.Programmer, 500);
+            Human someoneElse = new Human("John", "Stones", skillset, myTraits, WorkerSpecialisation.Marketer, 1500);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
-            List<Human> workers = new List<Human> { me };
+            List<Human> workers = new List<Human> { me, someoneElse };
 
             Audience audience = new Audience(0, 0, 1);
 

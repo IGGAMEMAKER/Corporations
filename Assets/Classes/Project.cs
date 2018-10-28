@@ -6,6 +6,19 @@ using UnityEngine;
 
 namespace Assets.Classes
 {
+    public struct TeamMoraleData
+    {
+        public bool isMakingMoney;
+        public bool isTopCompany;
+        public bool isTeam;
+        public bool isInnovative;
+        
+        public TeamMoraleData()
+        {
+
+        }
+        
+    }
     public class Project
     {
         public int id { get; set; }
@@ -26,6 +39,8 @@ namespace Assets.Classes
             this.Ads = Ads;
             this.id = id;
         }
+
+        public object moraleData { get; internal set; }
 
         public TeamResource resources
         {

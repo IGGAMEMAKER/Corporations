@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class TeamScreenRenderer : MonoBehaviour
 {
-    GameObject screen;
+    GameObject Workers;
+    GameObject TeamMorale;
     public void RenderTeam(Team team)
     {
-        screen = gameObject.transform.Find("TeamRenderer").gameObject;
+        Workers = gameObject.transform.Find("Workers").gameObject;
+        Workers.GetComponent<WorkerListRenderer>().UpdateList(team.Workers);
 
-        screen.GetComponent<WorkerListRenderer>().UpdateList(team.Workers);
+        TeamMorale = gameObject.transform.Find("Morale").gameObject;
+        TeamMorale.GetComponent<TeamMoraleView>().Redraw(team.moraleData);
     }
 }
