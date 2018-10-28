@@ -21,19 +21,19 @@ namespace Assets.Classes
             get
             {
                 // set base value
-                int value = 30;
+                int value = Balance.MORALE_BONUS_BASE;
 
                 if (isMakingMoney)
-                    value += 10;
+                    value += Balance.MORALE_BONUS_IS_PROFITABLE;
 
                 if (isTopCompany)
-                    value += 5;
+                    value += Balance.MORALE_BONUS_IS_PRESTIGEOUS_COMPANY;
 
                 if (isInnovative)
-                    value += 10;
+                    value += Balance.MORALE_BONUS_IS_INNOVATIVE;
 
                 if (isTeam)
-                    value += 10;
+                    value += Balance.MORALE_BONUS_IS_TEAM;
 
                 value += salaries;
                 value -= teamSizePenalty;
