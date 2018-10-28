@@ -75,7 +75,7 @@ public class Application
     public void RedrawTeam()
     {
         Project p = world.GetProjectById(projectId);
-        ViewManager.RedrawTeam(p.Team);
+        ViewManager.RedrawTeam(p);
     }
 
     public void RedrawAds()

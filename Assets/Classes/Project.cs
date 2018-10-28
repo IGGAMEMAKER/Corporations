@@ -12,12 +12,46 @@ namespace Assets.Classes
         public bool isTopCompany;
         public bool isTeam;
         public bool isInnovative;
-        
-        public TeamMoraleData()
-        {
 
+        public int teamSizePenalty;
+        public int salaries;
+
+        public int Morale
+        {
+            get
+            {
+                // set base value
+                int value = 30;
+
+                if (isMakingMoney)
+                    value += 10;
+
+                if (isTopCompany)
+                    value += 5;
+
+                if (isInnovative)
+                    value += 10;
+
+                if (isTeam)
+                    value += 10;
+
+                value += salaries;
+                value -= teamSizePenalty;
+
+                return value;
+            }
         }
         
+        public TeamMoraleData (bool isMakingMoney, bool isTopCompany, bool isTeam, bool isInnovative, int teamSizePenalty, int salaries)
+        {
+            this.isMakingMoney = isMakingMoney;
+            this.isTopCompany = isTopCompany;
+            this.isTeam = isTeam;
+            this.isInnovative = isInnovative;
+
+            this.teamSizePenalty = teamSizePenalty;
+            this.salaries = salaries;
+        }
     }
     public class Project
     {
@@ -40,7 +74,21 @@ namespace Assets.Classes
             this.id = id;
         }
 
-        public object moraleData { get; internal set; }
+        public TeamMoraleData moraleData {
+            get
+            {
+                TeamMoraleData morale = new TeamMoraleData();
+                morale.isMakingMoney = MoneyChange() > 0;
+                morale.isTeam = team.Workers.Count > 1;
+                morale.isTopCompany = false;
+                morale.isInnovative = false;
+                morale.salaries = 30;
+                morale.teamSizePenalty = team.Workers.Count * 3;
+
+                return morale;
+            }
+            internal set {}
+        }
 
         public TeamResource resources
         {
@@ -100,12 +148,17 @@ namespace Assets.Classes
             Resource.AddTeamPoints(teamResource);
         }
 
-        internal void UpdateMonthlyMoney()
+        long MoneyChange()
         {
             long income = GetMonthlyIncome();
             long expenses = GetMonthlyExpense();
 
-            long difference = income - expenses;
+            return income - expenses;
+        }
+
+        internal void UpdateMonthlyMoney()
+        {
+            long difference = MoneyChange();
 
             Resource.AddMoney(difference);
         }

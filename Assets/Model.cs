@@ -11,19 +11,11 @@ public class Model : MonoBehaviour {
     ViewManager ViewManager;
     AudioManager audioManager;
 
-    public GameObject AdvertRendererObject;
-    public GameObject TechnologyScreen;
-    public GameObject ManagerScreen;
-    
-    // resources
-    public GameObject MenuResourceViewObject;
-
-
     // Use this for initialization
     void Start () {
         world = new World();
         audioManager = gameObject.GetComponent<AudioManager>();
-        ViewManager = new ViewManager(MenuResourceViewObject);
+        ViewManager = new ViewManager();
         application = new Application(world, ViewManager, audioManager);
 
         RedrawAds();

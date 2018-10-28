@@ -18,6 +18,6 @@ public class TeamMoraleView : MonoBehaviour {
 
     internal void Redraw(TeamMoraleData moraleData)
     {
-        throw new NotImplementedException();
+        Debug.Log("RedrawTeamMorale");
     }
 }

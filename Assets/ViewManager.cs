@@ -18,9 +18,9 @@ public class ViewManager : MonoBehaviour
     public GameObject MenuResourceViewObject;
     Dictionary<ScreenMode, GameObject> Screens;
 
-    public ViewManager(GameObject menuResourceViewObject)
+    public ViewManager()
     {
-        MenuResourceViewObject = menuResourceViewObject;
+        MenuResourceViewObject = GameObject.Find("Resources");
         Screens = new Dictionary<ScreenMode, GameObject>();
 
         Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
@@ -68,10 +68,10 @@ public class ViewManager : MonoBehaviour
             .UpdateList(adverts);
     }
 
-    public void RedrawTeam(Team team)
+    public void RedrawTeam(Project p)
     {
         Screens[ScreenMode.TeamScreen].GetComponent<TeamScreenRenderer>()
-            .RenderTeam(team);
+            .RenderTeam(p);
     }
 
     public void RedrawFeatures(List<Feature> features)

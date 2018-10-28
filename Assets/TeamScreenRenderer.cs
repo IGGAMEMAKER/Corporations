@@ -7,12 +7,13 @@ public class TeamScreenRenderer : MonoBehaviour
 {
     GameObject Workers;
     GameObject TeamMorale;
-    public void RenderTeam(Team team)
+    public void RenderTeam(Project p)
     {
+        Team team = p.Team;
         Workers = gameObject.transform.Find("Workers").gameObject;
         Workers.GetComponent<WorkerListRenderer>().UpdateList(team.Workers);
 
-        TeamMorale = gameObject.transform.Find("Morale").gameObject;
-        TeamMorale.GetComponent<TeamMoraleView>().Redraw(team.moraleData);
+        TeamMorale = gameObject.transform.Find("TeamMorale").gameObject;
+        TeamMorale.GetComponent<TeamMoraleView>().Redraw(p.moraleData);
     }
 }
