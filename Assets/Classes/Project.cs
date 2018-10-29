@@ -55,7 +55,7 @@ namespace Assets.Classes
     }
     public class Project
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public List<Feature> Features;
         TeamResource Resource;
 
@@ -71,19 +71,21 @@ namespace Assets.Classes
             this.audience = audience;
             this.team = Team;
             this.Ads = Ads;
-            this.id = id;
+            this.Id = id;
         }
 
         public TeamMoraleData moraleData {
             get
             {
-                TeamMoraleData morale = new TeamMoraleData();
-                morale.isMakingMoney = MoneyChange() > 0;
-                morale.isTeam = team.Workers.Count > 1;
-                morale.isTopCompany = false;
-                morale.isInnovative = false;
-                morale.salaries = 30;
-                morale.teamSizePenalty = team.Workers.Count * 3;
+                TeamMoraleData morale = new TeamMoraleData
+                {
+                    isMakingMoney = MoneyChange() > 0,
+                    isTeam = team.Workers.Count > 1,
+                    isTopCompany = false,
+                    isInnovative = false,
+                    salaries = 30,
+                    teamSizePenalty = team.Workers.Count * 3
+                };
 
                 return morale;
             }
@@ -215,7 +217,7 @@ namespace Assets.Classes
             Advert ad = FindAdByChannelId(channelId);
 
             if (ad == null)
-                Ads.Add(new Advert(channelId, id, 0, 0));
+                Ads.Add(new Advert(channelId, Id, 0, 0));
         }
 
         public Advert GetAdByChannelId(int channelId)
@@ -227,11 +229,7 @@ namespace Assets.Classes
 
         internal void PrepareAd(int duration, int channelId)
         {
-            Debug.LogFormat("PrepareAd ads: {0} for {1} days in channel {2}", Ads.Count, duration, channelId);
-
             GetAdByChannelId(channelId).PrepareAd(duration);
-
-            Debug.LogFormat("PrepareAd ads: {0} for {1} days in channel {2}", Ads.Count, duration, channelId);
         }
     }
 }

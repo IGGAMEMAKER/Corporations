@@ -17,16 +17,21 @@ public class TeamMoraleView : MonoBehaviour {
 		
 	}
 
+    string DescribeMoraleBonus(bool isBonus, int bonus)
+    {
+        if (isBonus)
+            return "YES   +" + bonus;
+
+        return "NO";
+    }
+
     internal void Redraw(TeamMoraleData moraleData)
     {
-        Debug.Log("RedrawTeamMorale");
-
         GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
         ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
 
         GameObject LoyaltyHint = ProgressBar.transform.Find("Hint").gameObject;
         LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleData.Morale + "");
-
 
         GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
         MoraleDescription.GetComponent<Text>().text = "Morale: " + moraleData.Morale;
@@ -34,10 +39,23 @@ public class TeamMoraleView : MonoBehaviour {
         GameObject MoraleHint = MoraleDescription.transform.Find("Hint").gameObject;
 
         string moraleHint = String.Format(
-            "Is team: {0}  {1}",
-            moraleData.isTeam
-            );
+            "Base value: {4}\n" +
+            "Is team: {0}\n" +
+            "Is making money: {1}\n" +
+            "Is innovative: {2}\n" +
+            "Is top company: {3}\n" + 
+            "Salaries: {5}\n" +
+            "Team Size: -{6}" ,
+            DescribeMoraleBonus(moraleData.isTeam, Balance.MORALE_BONUS_IS_TEAM),
+            DescribeMoraleBonus(moraleData.isMakingMoney, Balance.MORALE_BONUS_IS_PROFITABLE),
+            DescribeMoraleBonus(moraleData.isInnovative, Balance.MORALE_BONUS_IS_INNOVATIVE),
+            DescribeMoraleBonus(moraleData.isTopCompany, Balance.MORALE_BONUS_IS_PRESTIGEOUS_COMPANY),
+            "+" + Balance.MORALE_BONUS_BASE,
+            "+" + moraleData.salaries,
+            moraleData.teamSizePenalty
+        );
 
-        MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
+        //MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
+        LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleHint);
     }
 }
