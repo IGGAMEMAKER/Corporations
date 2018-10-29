@@ -30,8 +30,8 @@ public class TeamMoraleView : MonoBehaviour {
         GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
         ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
 
-        GameObject LoyaltyHint = ProgressBar.transform.Find("Hint").gameObject;
-        LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleData.Morale + "");
+        //GameObject LoyaltyHint = ProgressBar.transform.Find("Hint").gameObject;
+        //LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleData.Morale + "");
 
         GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
         MoraleDescription.GetComponent<Text>().text = "Morale: " + moraleData.Morale;
@@ -43,9 +43,9 @@ public class TeamMoraleView : MonoBehaviour {
             "Is team: {0}\n" +
             "Is making money: {1}\n" +
             "Is innovative: {2}\n" +
-            "Is top company: {3}\n" + 
+            "Is top company: {3}\n" +
             "Salaries: {5}\n" +
-            "Team Size: -{6}" ,
+            "Team Size: -{6}",
             DescribeMoraleBonus(moraleData.isTeam, Balance.MORALE_BONUS_IS_TEAM),
             DescribeMoraleBonus(moraleData.isMakingMoney, Balance.MORALE_BONUS_IS_PROFITABLE),
             DescribeMoraleBonus(moraleData.isInnovative, Balance.MORALE_BONUS_IS_INNOVATIVE),
@@ -55,7 +55,7 @@ public class TeamMoraleView : MonoBehaviour {
             moraleData.teamSizePenalty
         );
 
-        //MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
-        LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleHint);
+        MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
+        //LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleHint);
     }
 }
