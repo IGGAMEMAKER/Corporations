@@ -36,7 +36,7 @@ namespace Assets.Classes
                     value += Balance.MORALE_BONUS_IS_TEAM;
 
                 value += salaries;
-                value -= teamSizePenalty;
+                value += teamSizePenalty;
 
                 return value;
             }

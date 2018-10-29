@@ -30,9 +30,6 @@ public class TeamMoraleView : MonoBehaviour {
         GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
         ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
 
-        //GameObject LoyaltyHint = ProgressBar.transform.Find("Hint").gameObject;
-        //LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleData.Morale + "");
-
         GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
         MoraleDescription.GetComponent<Text>().text = "Morale: " + moraleData.Morale;
 
@@ -56,6 +53,5 @@ public class TeamMoraleView : MonoBehaviour {
         );
 
         MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
-        //LoyaltyHint.GetComponent<UIHint>().SetHintObject(moraleHint);
     }
 }
