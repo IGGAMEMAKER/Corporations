@@ -20,8 +20,8 @@ public class WorkerListRenderer : ListRenderer
         set { }
     }
 
-    public override void RenderObject(GameObject gameObject, object item, int index)
+    public override void RenderObject(GameObject obj, object item, int index, Dictionary<string, object> parameters)
     {
-        gameObject.GetComponent<WorkerView>().UpdateView((Human)item, index);
+        obj.GetComponent<WorkerView>().UpdateView((Human)item, index, parameters);
     }
 }

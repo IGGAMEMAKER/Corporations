@@ -38,7 +38,7 @@ public class FeatureListRenderer : ListRenderer
         }
     }
 
-    public override void RenderObject(GameObject gameObject, object item, int index)
+    public override void RenderObject(GameObject gameObject, object item, int index, Dictionary<string, object> parameters)
     {
         Feature feature = (Feature)item;
 

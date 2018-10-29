@@ -46,9 +46,9 @@ public abstract class ListRenderer : MonoBehaviour
         return g;
     }
 
-    abstract public void RenderObject(GameObject gameObject, object item, int index);
+    abstract public void RenderObject(GameObject obj, object item, int index, Dictionary<string, object> parameters);
 
-    public void UpdateList<T> (List<T> objects)
+    public void UpdateList<T> (List<T> objects, Dictionary<string, object> parameters = null)
     {
         RemoveCurrentObjects();
 
@@ -58,7 +58,7 @@ public abstract class ListRenderer : MonoBehaviour
             int y = i / itemsPerLine;
 
             GameObject g = InstantiateObject(x, y);
-            RenderObject(g, objects[i], i);
+            RenderObject(g, objects[i], i, parameters);
         }
     }
 }

@@ -40,12 +40,12 @@ public class TeamMoraleView : MonoBehaviour {
 
         string moraleHint = String.Format(
             "Base value: {4}\n" +
+            "Salaries: {5}\n" +
+            "Team Size: {6}\n\n" +
             "Is team: {0}\n" +
             "Is making money: {1}\n" +
             "Is innovative: {2}\n" +
-            "Is top company: {3}\n" +
-            "Salaries: {5}\n" +
-            "Team Size: -{6}",
+            "Is top company: {3}\n",
             DescribeMoraleBonus(moraleData.isTeam, Balance.MORALE_BONUS_IS_TEAM),
             DescribeMoraleBonus(moraleData.isMakingMoney, Balance.MORALE_BONUS_IS_PROFITABLE),
             DescribeMoraleBonus(moraleData.isInnovative, Balance.MORALE_BONUS_IS_INNOVATIVE),

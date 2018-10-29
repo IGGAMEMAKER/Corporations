@@ -84,7 +84,7 @@ namespace Assets.Classes
                     isTopCompany = false,
                     isInnovative = false,
                     salaries = 30,
-                    teamSizePenalty = team.Workers.Count * 3
+                    teamSizePenalty = team.Workers.Count * Balance.MORALE_PENALTY_COST_PER_WORKER
                 };
 
                 return morale;

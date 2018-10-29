@@ -16,7 +16,7 @@ public class AdvertRenderer : ListRenderer {
         set { }
     }
 
-    public override void RenderObject(GameObject gameObject, object advertObject, int index)
+    public override void RenderObject(GameObject gameObject, object advertObject, int index, Dictionary<string, object> parameters)
     {
         Advert advert = (Advert) advertObject;
 
