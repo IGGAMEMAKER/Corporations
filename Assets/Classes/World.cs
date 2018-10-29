@@ -57,7 +57,7 @@ namespace Assets.Classes
             Human someoneElse1 = new Human("John", "Stones", skillset, myTraits, WorkerSpecialisation.Marketer, 1500);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
-            List<Human> workers = new List<Human> { me, someoneElse, someoneElse, someoneElse1, someoneElse, me, me };
+            List<Human> workers = new List<Human> { me };
 
             Audience audience = new Audience(0, 0, 1);
 

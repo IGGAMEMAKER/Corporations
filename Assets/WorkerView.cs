@@ -6,17 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkerView : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     void RenderMorale (int morale)
     {
         GameObject MoraleValue = gameObject.transform.Find("MoraleValue").gameObject;
