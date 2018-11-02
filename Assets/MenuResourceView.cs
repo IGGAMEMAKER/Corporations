@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class MenuResourceView : MonoBehaviour {
     GameObject ManagerPointsResourceView;
     GameObject IdeaPointsResourceView;
     GameObject ClientResourceView;
-    GameObject CustomerResourceView;
+    GameObject PaidClientsView;
     GameObject ScheduleResourceView;
 
     // Use this for initialization
@@ -21,14 +22,14 @@ public class MenuResourceView : MonoBehaviour {
 
     void LoadViews()
     {
-        MoneyResourceView = gameObject.transform.GetChild(0).gameObject;
-        ProgrammingPointsResourceView = gameObject.transform.GetChild(1).gameObject;
-        SalesPointsResourceView = gameObject.transform.GetChild(2).gameObject;
-        ManagerPointsResourceView = gameObject.transform.GetChild(3).gameObject;
-        IdeaPointsResourceView = gameObject.transform.GetChild(4).gameObject;
-        CustomerResourceView = gameObject.transform.GetChild(5).gameObject;
-        ClientResourceView = gameObject.transform.GetChild(6).gameObject;
-        ScheduleResourceView = gameObject.transform.GetChild(7).gameObject;
+        MoneyResourceView = gameObject.transform.Find("Money").gameObject;
+        ProgrammingPointsResourceView = gameObject.transform.Find("ProgrammingPoints").gameObject;
+        SalesPointsResourceView = gameObject.transform.Find("SalesPoints").gameObject;
+        ManagerPointsResourceView = gameObject.transform.Find("ManagerPoints").gameObject;
+        IdeaPointsResourceView = gameObject.transform.Find("IdeaPoints").gameObject;
+        PaidClientsView = gameObject.transform.Find("PaidClients").gameObject;
+        ClientResourceView = gameObject.transform.Find("Clients").gameObject;
+        ScheduleResourceView = gameObject.transform.Find("Date").gameObject;
         loaded = true;
     }
 	
@@ -37,32 +38,57 @@ public class MenuResourceView : MonoBehaviour {
 		
 	}
 
+    string GetHint<T> (T value)
+    {
+        string valueSigned = "";
+        if (long.Parse(value.ToString()) > 0)
+            valueSigned = "+" + value.ToString();
+
+        valueSigned = value.ToString();
+
+        return String.Format("Monthly change \n\n {0}", valueSigned);
+    }
+
     public void RedrawResources(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, string currentDate)
     {
         if (!loaded)
             LoadViews();
 
+        string hint;
+
+        // resources
         ResourceView moneyView = MoneyResourceView.GetComponent<ResourceView>();
-        moneyView.UpdateResourceValue(teamResource.money);
+        hint = GetHint(resourceMonthChanges.money);
+        moneyView.UpdateResourceValue(teamResource.money, hint);
 
         ResourceView ppView = ProgrammingPointsResourceView.GetComponent<ResourceView>();
-        ppView.UpdateResourceValue(teamResource.programmingPoints);
+        hint = GetHint(resourceMonthChanges.programmingPoints);
+        ppView.UpdateResourceValue(teamResource.programmingPoints, hint);
 
-        ResourceView mpView = SalesPointsResourceView.GetComponent<ResourceView>();
+        ResourceView mpView = ManagerPointsResourceView.GetComponent<ResourceView>();
+        hint = GetHint(resourceMonthChanges.managerPoints);
         mpView.UpdateResourceValue(teamResource.managerPoints);
 
-        ResourceView spView = ManagerPointsResourceView.GetComponent<ResourceView>();
-        spView.UpdateResourceValue(teamResource.salesPoints);
+        ResourceView spView = SalesPointsResourceView.GetComponent<ResourceView>();
+        hint = GetHint(resourceMonthChanges.salesPoints);
+        spView.UpdateResourceValue(teamResource.salesPoints, hint);
 
         ResourceView ipView = IdeaPointsResourceView.GetComponent<ResourceView>();
-        ipView.UpdateResourceValue(teamResource.ideaPoints);
+        hint = GetHint(resourceMonthChanges.ideaPoints);
+        ipView.UpdateResourceValue(teamResource.ideaPoints, hint);
+
+
+        // audience
+        ClientChangeInfo info = audience.GetMonthChange();
 
         ResourceView clientView = ClientResourceView.GetComponent<ResourceView>();
-        clientView.UpdateResourceValue(audience.clients);
+        hint = "";
+        clientView.UpdateResourceValue(audience.clients, hint);
 
-        ResourceView customerView = CustomerResourceView.GetComponent<ResourceView>();
-        customerView.UpdateResourceValue(audience.paidClients);
+        ResourceView customerView = PaidClientsView.GetComponent<ResourceView>();
+        customerView.UpdateResourceValue(audience.paidClients, hint);
 
+        // date
         ResourceView scheduleView = ScheduleResourceView.GetComponent<ResourceView>();
         scheduleView.UpdateResourceValue(currentDate);
     }

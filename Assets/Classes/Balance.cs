@@ -13,15 +13,15 @@ namespace Assets.Classes
         internal static int advertEffeciencyRangeMax = 100;
         internal static int maxAmountOfTraits = 3;
 
-
-        public static int MORALE_BONUS_IS_TEAM = 10;
+        // Team morale bonuses
         public static int MORALE_BONUS_BASE = 30;
+        public static int MORALE_BONUS_IS_TEAM = 10;
         public static int MORALE_BONUS_IS_PROFITABLE = 10;
         public static int MORALE_BONUS_IS_PRESTIGEOUS_COMPANY = 5;
         public static int MORALE_BONUS_IS_INNOVATIVE = 10;
-
-        public static int MORALE_PERSONAL_BASE = -50;
-
         public static int MORALE_PENALTY_COST_PER_WORKER = -3;
+
+        // personal bonuses
+        public static int MORALE_PERSONAL_BASE = -50;
     }
 }

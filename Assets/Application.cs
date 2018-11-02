@@ -66,7 +66,7 @@ public class Application
         TeamResource teamResource = world.GetProjectById(projectId).resources;
         TeamResource resourceMonthChanges = world.GetProjectById(projectId).resourceMonthChanges;
 
-       Audience audience = world.GetProjectById(projectId).audience;
+        Audience audience = world.GetProjectById(projectId).audience;
 
         string formattedDate = world.GetFormattedDate();
 
