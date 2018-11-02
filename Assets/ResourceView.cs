@@ -15,29 +15,32 @@ public class ResourceView : MonoBehaviour {
 		
 	}
 
-    void SetResourceAndTheHint<T>(T value, string hint)
+    void SetResourceAndTheHint<T>(string name, T value, string hint)
     {
         GameObject text = gameObject.transform.GetChild(0).gameObject;
         text.GetComponent<Text>().text = value.ToString();
 
         text.GetComponentInChildren<UIHint>().SetHintObject(hint);
+
+        GameObject icon = gameObject.transform.GetChild(1).gameObject;
+        icon.GetComponentInChildren<UIHint>().SetHintObject(name);
     }
 
     // only set the value
-    public void UpdateResourceValue<T>(T value)
+    public void UpdateResourceValue<T>(string name, T value)
     {
-        SetResourceAndTheHint(value, "");
+        SetResourceAndTheHint(name, value, "");
     }
 
     // set both the value and value month(period) change in hint
-    public void UpdateResourceValue<T>(T value, T valueChange)
+    public void UpdateResourceValue<T>(string name, T value, T valueChange)
     {
-        SetResourceAndTheHint(value, valueChange.ToString());
+        SetResourceAndTheHint(name, value, valueChange.ToString());
     }
 
     // set both the value and value month(period) change in hint
-    public void UpdateResourceValue<T>(T value, string valueChange)
+    public void UpdateResourceValue<T>(string name, T value, string valueChange)
     {
-        SetResourceAndTheHint(value, valueChange);
+        SetResourceAndTheHint(name, value, valueChange);
     }
 }

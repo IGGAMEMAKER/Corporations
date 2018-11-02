@@ -58,23 +58,23 @@ public class MenuResourceView : MonoBehaviour {
         // resources
         hint = GetHint(resourceMonthChanges.money);
         MoneyView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.money, hint);
+            .UpdateResourceValue("Money", teamResource.money, hint);
 
         hint = GetHint(resourceMonthChanges.programmingPoints);
         ProgrammingView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.programmingPoints, hint);
+            .UpdateResourceValue("Programming Points", teamResource.programmingPoints, hint);
 
         hint = GetHint(resourceMonthChanges.managerPoints);
         ManagerView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.managerPoints, hint);
+            .UpdateResourceValue("Manager Points", teamResource.managerPoints, hint);
 
         hint = GetHint(resourceMonthChanges.salesPoints);
         MarketingView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.salesPoints, hint);
+            .UpdateResourceValue("Marketing points", teamResource.salesPoints, hint);
 
         hint = GetHint(resourceMonthChanges.ideaPoints);
         IdeaView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.ideaPoints, hint);
+            .UpdateResourceValue("Ideas", teamResource.ideaPoints, hint);
 
 
         // audience
@@ -84,10 +84,10 @@ public class MenuResourceView : MonoBehaviour {
             (int) (audience.GetChurnRate() * 100)
         );
         ClientView.GetComponent<ResourceView>()
-            .UpdateResourceValue(audience.clients, hint);
+            .UpdateResourceValue("Clients", audience.clients, hint);
 
         // date
         ScheduleView.GetComponent<ResourceView>()
-            .UpdateResourceValue(currentDate);
+            .UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate);
     }
 }
