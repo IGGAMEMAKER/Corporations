@@ -66,7 +66,7 @@ public class MenuResourceView : MonoBehaviour {
 
         hint = GetHint(resourceMonthChanges.managerPoints);
         ManagerView.GetComponent<ResourceView>()
-            .UpdateResourceValue(teamResource.managerPoints);
+            .UpdateResourceValue(teamResource.managerPoints, hint);
 
         hint = GetHint(resourceMonthChanges.salesPoints);
         MarketingView.GetComponent<ResourceView>()
@@ -78,7 +78,11 @@ public class MenuResourceView : MonoBehaviour {
 
 
         // audience
-        hint = String.Format("We lose {0} clients monthly due to:\n\n Churn rate: {1}%", audience.GetChurnClients(), (int) (audience.GetChurnRate() * 100));
+        hint = String.Format(
+            "We lose {0} clients monthly due to:\n\n Churn rate: {1}%",
+            audience.GetChurnClients(),
+            (int) (audience.GetChurnRate() * 100)
+        );
         ClientView.GetComponent<ResourceView>()
             .UpdateResourceValue(audience.clients, hint);
 
