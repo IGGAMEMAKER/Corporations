@@ -5,21 +5,6 @@ using System.Text;
 
 namespace Assets.Classes
 {
-    public struct ClientChangeInfo
-    {
-        public uint churnClients;
-        public uint convertedClients;
-        public float churnRate;
-        public float conversionRate;
-
-        public ClientChangeInfo(uint churnClients, uint convertedClients, float churnRate, float conversionRate)
-        {
-            this.churnClients = churnClients;
-            this.convertedClients = convertedClients;
-            this.churnRate = churnRate;
-            this.conversionRate = conversionRate;
-        }
-    }
     public class Audience
     {
         public uint clients;
@@ -27,39 +12,16 @@ namespace Assets.Classes
 
         int AmountOfTests = 1;
 
-        public ClientChangeInfo GetMonthChange()
-        {
-            return new ClientChangeInfo(GetChurnClients(), GetNewPaidClients(), GetChurnRate(), GetConversionRate());
-        }
-
-        public Audience(uint clients, uint customers, int AmountOfTests = 1) {
+        public Audience(uint clients, int AmountOfTests = 1) {
             this.clients = clients;
-            this.paidClients = customers;
             this.AmountOfTests = AmountOfTests;
         }
 
-        uint GetNewPaidClients ()
-        {
-            var conversionRate = GetConversionRate();
-
-            return (uint)(conversionRate * clients);
-        }
-
-        uint GetChurnClients ()
+        public uint GetChurnClients ()
         {
             var churnRate = GetChurnRate();
 
             return (uint)(churnRate * clients);
-        }
-
-        internal uint ConvertClientsToCustomers()
-        {
-            uint newPaidClients = GetNewPaidClients();
-
-            paidClients += newPaidClients;
-            clients -= newPaidClients;
-
-            return newPaidClients;
         }
 
         internal uint RemoveChurnClients()
@@ -71,19 +33,9 @@ namespace Assets.Classes
             return churnClients;
         }
 
-        public float GetConversionRate()
-        {
-            return 0.05f;
-        }
-
         public float GetChurnRate()
         {
             return 0.15f;
-        }
-
-        public uint NewCustomersAmount()
-        {
-            return (uint) Math.Floor(clients * GetConversionRate());
         }
 
         public int CustomerAnalyticsCap()

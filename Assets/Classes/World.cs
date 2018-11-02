@@ -59,7 +59,7 @@ namespace Assets.Classes
 
             List<Human> workers = new List<Human> { me };
 
-            Audience audience = new Audience(0, 0, 1);
+            Audience audience = new Audience(0, 1);
 
             Team team = new Team(workers);
 
@@ -141,9 +141,6 @@ namespace Assets.Classes
                 // recompute resources: money and team points
                 UpdateResources(i);
                 
-                // recompute customers
-                UpdateCustomers(i);
-                
                 // recompute clients: churn and ad campaigns
                 UpdateClients(i);
 
@@ -157,11 +154,6 @@ namespace Assets.Classes
             GetProjectById(projectId).UpdateMonthlyMoney();
 
             PrintResources(projectId);
-        }
-
-        void UpdateCustomers (int projectId)
-        {
-            GetProjectById(projectId).ConvertClientsToCustomers();
         }
 
         void UpdateClients (int projectId)

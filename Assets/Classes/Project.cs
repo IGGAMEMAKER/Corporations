@@ -186,17 +186,12 @@ namespace Assets.Classes
 
         private long GetMonthlyIncome()
         {
-            return audience.paidClients * 100;
+            return audience.clients * 100;
         }
 
         internal uint ChurnClients()
         {
             return audience.RemoveChurnClients();
-        }
-
-        internal uint ConvertClientsToCustomers()
-        {
-            return audience.ConvertClientsToCustomers();
         }
 
         internal void StartAdCampaign(uint clients)
