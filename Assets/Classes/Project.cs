@@ -92,6 +92,16 @@ namespace Assets.Classes
             internal set {}
         }
 
+        public TeamResource resourceMonthChanges
+        {
+            get
+            {
+                return MonthResourceChange()
+                    .AddMoney(MoneyChange());
+            }
+            internal set { }
+        }
+
         public TeamResource resources
         {
             get { return Resource; }
@@ -104,6 +114,7 @@ namespace Assets.Classes
         }
 
         public Team Team { get { return team; } internal set { } }
+
 
         internal List<Advert> GetAds()
         {
@@ -142,12 +153,15 @@ namespace Assets.Classes
             return team.GetIdeaPointsProduction() * audience.IdeaGainModifier();
         }
 
+        TeamResource MonthResourceChange()
+        {
+            return team.GetMonthlyResources()
+                .SetIdeaPoints(GetIdeaPointsProductionValue());
+        }
+
         internal void UpdateMonthlyResources()
         {
-            TeamResource teamResource = team.GetMonthlyResources()
-                .SetIdeaPoints(GetIdeaPointsProductionValue());
-
-            Resource.AddTeamPoints(teamResource);
+            Resource.AddTeamPoints(MonthResourceChange());
         }
 
         long MoneyChange()

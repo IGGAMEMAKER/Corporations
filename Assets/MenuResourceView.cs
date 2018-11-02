@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MenuResourceView : MonoBehaviour {
     bool loaded = false;
+
     GameObject MoneyResourceView;
     GameObject ProgrammingPointsResourceView;
     GameObject SalesPointsResourceView;
@@ -36,7 +37,7 @@ public class MenuResourceView : MonoBehaviour {
 		
 	}
 
-    public void RedrawResources(TeamResource teamResource, Audience audience, string currentDate)
+    public void RedrawResources(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, string currentDate)
     {
         if (!loaded)
             LoadViews();

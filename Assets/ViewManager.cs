@@ -56,10 +56,10 @@ public class ViewManager : MonoBehaviour
         DisableScreen(ScreenMode.TeamScreen);
     }
 
-    public void RedrawResources(TeamResource resources, Audience audience, string formattedDate)
+    public void RedrawResources(TeamResource resources, TeamResource resourceMonthChanges, Audience audience, string formattedDate)
     {
         MenuResourceViewObject.GetComponent<MenuResourceView>()
-            .RedrawResources(resources, audience, formattedDate);
+            .RedrawResources(resources, resourceMonthChanges, audience, formattedDate);
     }
 
     public void RedrawAds(List<Advert> adverts)

@@ -64,12 +64,13 @@ public class Application
     public void RedrawResources()
     {
         TeamResource teamResource = world.GetProjectById(projectId).resources;
+        TeamResource resourceMonthChanges = world.GetProjectById(projectId).resourceMonthChanges;
 
-        Audience audience = world.GetProjectById(projectId).audience;
+       Audience audience = world.GetProjectById(projectId).audience;
 
         string formattedDate = world.GetFormattedDate();
 
-        ViewManager.RedrawResources(teamResource, audience, formattedDate);
+        ViewManager.RedrawResources(teamResource, resourceMonthChanges, audience, formattedDate);
     }
 
     public void RedrawTeam()
