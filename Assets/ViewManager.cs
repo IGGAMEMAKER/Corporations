@@ -16,11 +16,13 @@ public class ViewManager : MonoBehaviour
 {
     // resources
     public GameObject MenuResourceViewObject;
+    public GameObject Notifier;
     Dictionary<ScreenMode, GameObject> Screens;
 
     public ViewManager()
     {
         MenuResourceViewObject = GameObject.Find("Resources");
+
         Screens = new Dictionary<ScreenMode, GameObject>();
 
         Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
@@ -42,9 +44,7 @@ public class ViewManager : MonoBehaviour
         DisableAllScreens();
 
         if (Screens.ContainsKey(gameState))
-        {
             Screens[gameState].SetActive(true);
-        }
     }
 
     void DisableAllScreens()

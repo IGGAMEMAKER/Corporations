@@ -10,12 +10,14 @@ public class Model : MonoBehaviour {
 
     ViewManager ViewManager;
     AudioManager audioManager;
+    Notifier notifier;
 
     // Use this for initialization
     void Start () {
         world = new World();
         audioManager = gameObject.GetComponent<AudioManager>();
         ViewManager = new ViewManager();
+        notifier = new Notifier();
         application = new Application(world, ViewManager, audioManager);
 
         RedrawAds();

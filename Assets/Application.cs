@@ -1,4 +1,5 @@
-﻿using Assets;
+﻿using System;
+using Assets;
 using Assets.Classes;
 
 public class Application
@@ -6,7 +7,7 @@ public class Application
     public World world;
     public ViewManager ViewManager;
     AudioManager audioManager;
-
+    Notifier Notifier;
 
     public int projectId = 0;
 
@@ -43,6 +44,11 @@ public class Application
         world.StartAdCampaign(projectId, channelId);
         RedrawResources();
         RedrawAds();
+    }
+
+    internal void Notify(string v)
+    {
+        throw new NotImplementedException();
     }
 
     public void ExploreFeature(int projectId, int featureId)

@@ -12,6 +12,8 @@ public class Schedule : MonoBehaviour {
     float totalTime;
     float currentSpeed = 1;
 
+    int count = 0;
+
     // Use this for initialization
     void Start () {
         application = gameObject.GetComponent<Model>().GetWorld();
@@ -33,6 +35,7 @@ public class Schedule : MonoBehaviour {
     void UpdateWorld()
     {
         application.PeriodTick(1);
+        application.Notify("You rock " + count + " times!");
         application.RedrawResources();
     }
 

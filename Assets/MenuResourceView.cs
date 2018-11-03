@@ -79,7 +79,7 @@ public class MenuResourceView : MonoBehaviour {
 
         // audience
         hint = String.Format(
-            "We lose {0} clients monthly due to:\n\n Churn rate: {1}%",
+            "We will lose {0} clients this month due to:\n\n Churn rate: {1}%",
             audience.GetChurnClients(),
             (int) (audience.GetChurnRate() * 100)
         );
