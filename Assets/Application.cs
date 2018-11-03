@@ -16,6 +16,8 @@ public class Application
         this.world = world;
         this.ViewManager = ViewManager;
         this.audioManager = audioManager;
+
+        Notifier = new Notifier();
     }
 
 
@@ -46,9 +48,9 @@ public class Application
         RedrawAds();
     }
 
-    internal void Notify(string v)
+    internal void Notify(string message)
     {
-        throw new NotImplementedException();
+        Notifier.Notify(message);
     }
 
     public void ExploreFeature(int projectId, int featureId)

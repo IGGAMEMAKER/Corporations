@@ -35,7 +35,7 @@ public class Schedule : MonoBehaviour {
     void UpdateWorld()
     {
         application.PeriodTick(1);
-        application.Notify("You rock " + count + " times!");
+        application.Notify("You rock " + count++ + " times!");
         application.RedrawResources();
     }
 
