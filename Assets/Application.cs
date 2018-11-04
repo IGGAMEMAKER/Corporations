@@ -51,6 +51,7 @@ public class Application
     internal void Notify(string message)
     {
         Notifier.Notify(message);
+        audioManager.PlayNotificationSound();
     }
 
     public void ExploreFeature(int projectId, int featureId)

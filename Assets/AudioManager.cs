@@ -12,6 +12,7 @@ namespace Assets
 
         public AudioClip coinSound;
         public AudioClip standardClickSound;
+        public AudioClip notificationSound;
 
         void Start()
         {
@@ -22,7 +23,6 @@ namespace Assets
         {
             audioData.clip = clip;
             audioData.Play();
-            //audioData.loop = true;
         }
 
         public void PlayCoinSound()
@@ -43,6 +43,11 @@ namespace Assets
         internal void PlayStartAdSound()
         {
             Play(standardClickSound);
+        }
+
+        internal void PlayNotificationSound()
+        {
+            Play(notificationSound);
         }
     }
 }
