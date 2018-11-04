@@ -18,6 +18,11 @@ namespace Assets.Classes
         List<Investor> Investors;
         ScheduleManager schedule;
 
+        internal List<Project> projects {
+            get { return Projects; }
+            set {}
+        }
+
         public World()
         {
             int marketId = 0;

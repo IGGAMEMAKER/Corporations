@@ -12,12 +12,10 @@ public class Schedule : MonoBehaviour {
     float totalTime;
     float currentSpeed = 1;
 
-    int count = 0;
-
     // Use this for initialization
     void Start () {
         application = gameObject.GetComponent<Model>().GetWorld();
-        totalTime = GetTimerLimit();
+        ResetTimer();
     }
 
     void CheckPressedButtons()
@@ -38,9 +36,9 @@ public class Schedule : MonoBehaviour {
         application.RedrawResources();
     }
 
-    float GetTimerLimit()
+    void ResetTimer()
     {
-        return 0.25f / currentSpeed;
+        totalTime = 0.25f / currentSpeed;
     }
 
     // Update is called once per frame
@@ -50,7 +48,7 @@ public class Schedule : MonoBehaviour {
         totalTime -= Time.deltaTime;
         if (totalTime < 0 && isTimerRunning)
         {
-            totalTime = GetTimerLimit();
+            ResetTimer();
             UpdateWorld();
         }
     }

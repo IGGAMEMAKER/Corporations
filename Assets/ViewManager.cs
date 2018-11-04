@@ -29,8 +29,14 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.TechnologyScreen] = GameObject.Find("TechnologyScreen");
         Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
         Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
+        Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
 
         EnableScreen(ScreenMode.TeamScreen);
+    }
+
+    internal void HighlightMonthTick()
+    {
+        GameObject.Find("Date").GetComponentInChildren<TextBlink>().Reset();
     }
 
     void DisableScreen(ScreenMode gameState)
@@ -49,11 +55,8 @@ public class ViewManager : MonoBehaviour
 
     void DisableAllScreens()
     {
-        DisableScreen(ScreenMode.ManagementScreen);
-        DisableScreen(ScreenMode.MarketingScreen);
-        DisableScreen(ScreenMode.StatsScreen);
-        DisableScreen(ScreenMode.TechnologyScreen);
-        DisableScreen(ScreenMode.TeamScreen);
+        foreach (ScreenMode screen in (ScreenMode[])Enum.GetValues(typeof(ScreenMode)))
+            DisableScreen(screen);
     }
 
     public void RedrawResources(TeamResource resources, TeamResource resourceMonthChanges, Audience audience, string formattedDate)
@@ -80,6 +83,12 @@ public class ViewManager : MonoBehaviour
             .RenderFeatures(features);
     }
 
+    public void RedrawCompanies(List<Project> projects)
+    {
+        Screens[ScreenMode.StatsScreen].GetComponent<StatsScreenView>()
+            .Redraw(projects);
+    }
+
     public void RenderTeamScreen()
     {
         EnableScreen(ScreenMode.TeamScreen);
@@ -98,5 +107,10 @@ public class ViewManager : MonoBehaviour
     public void RenderManagerScreen()
     {
         EnableScreen(ScreenMode.ManagementScreen);
+    }
+
+    public void RenderStatsScreen()
+    {
+        EnableScreen(ScreenMode.StatsScreen);
     }
 }

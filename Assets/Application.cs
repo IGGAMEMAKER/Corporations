@@ -27,7 +27,10 @@ public class Application
         bool isMonthTick = world.PeriodTick(count);
 
         if (isMonthTick)
+        {
             audioManager.PlayCoinSound();
+            ViewManager.HighlightMonthTick();
+        }
 
         return isMonthTick;
     }
@@ -86,6 +89,11 @@ public class Application
     {
         Project p = world.GetProjectById(projectId);
         ViewManager.RedrawTeam(p);
+    }
+
+    internal void RedrawCompanies()
+    {
+        ViewManager.RedrawCompanies(world.projects);
     }
 
     public void RedrawAds()

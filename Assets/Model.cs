@@ -24,6 +24,12 @@ public class Model : MonoBehaviour {
         RedrawResources();
         RedrawFeatures();
         RedrawTeam();
+        RedrawCompanies();
+    }
+
+    public Application GetWorld()
+    {
+        return application;
     }
 
     // Update is called once per frame
@@ -44,6 +50,15 @@ public class Model : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
             RenderTeamScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            RenderStatsScreen();
+    }
+
+    // Screens
+    void RenderStatsScreen()
+    {
+        application.ViewManager.RenderStatsScreen();
     }
 
     void RenderTeamScreen()
@@ -69,6 +84,7 @@ public class Model : MonoBehaviour {
         application.ViewManager.RenderManagerScreen();
     }
 
+    // Redraw methods
     void RedrawTeam()
     {
         application.RedrawTeam();
@@ -89,8 +105,8 @@ public class Model : MonoBehaviour {
         application.RedrawAds();
     }
 
-    public Application GetWorld()
+    void RedrawCompanies()
     {
-        return application;
+        application.RedrawCompanies();
     }
 }
