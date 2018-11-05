@@ -14,10 +14,21 @@ namespace Assets
         public AudioClip standardClickSound;
         public AudioClip notificationSound;
         public AudioClip toggleScreenSound;
+        public AudioClip toggleButtonSound;
 
         void Start()
         {
             audioData = gameObject.AddComponent<AudioSource>();
+        }
+
+        internal void PlayToggleButtonSound()
+        {
+            Play(toggleButtonSound);
+        }
+
+        internal void PlayOnHintHoverSound()
+        {
+            Play(toggleButtonSound);
         }
 
         void Play(AudioClip clip)

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts;
+﻿using Assets;
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ public class UIHint: MonoBehaviour {
 
     Canvas canvas;
 
+    SoundManager soundManager;
+
     // Use this for initialization
     void Start () {
         UpdateAll();
@@ -28,6 +31,8 @@ public class UIHint: MonoBehaviour {
             SetHintObject(text.Replace("\\n", "\n"));
 
         Disable();
+
+        soundManager = new SoundManager();
     }
 
     // Update is called once per frame
@@ -63,6 +68,7 @@ public class UIHint: MonoBehaviour {
 
     void Enable()
     {
+        soundManager.PlayOnHintHoverSound();
         canvas.enabled = true;
         //gameObject.SetActive(true);
     }
