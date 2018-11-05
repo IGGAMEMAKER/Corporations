@@ -75,12 +75,17 @@ namespace Assets.Classes
 
             List<Advert> Ads = new List<Advert>();
 
-            Project p = new Project(0, Features, audience, team, teamResource, Ads);
+            Project p = new Project(0, "IG Games", Features, audience, team, teamResource, Ads);
+            Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
             Projects.Add(p);
+            Projects.Add(p1);
 
             // Add test ads
             p.PrepareAd(0, 0);
             p.PrepareAd(0, 1);
+
+            p1.PrepareAd(0, 0);
+            p1.PrepareAd(0, 1);
         }
 
         void InitializeMarkets(int marketId)

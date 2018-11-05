@@ -18,6 +18,6 @@ public class StatsScreenView : MonoBehaviour {
 
     internal void Redraw(List<Project> projects)
     {
-        throw new NotImplementedException();
+        gameObject.GetComponentInChildren<CompanyListRenderer>().UpdateList(projects);
     }
 }

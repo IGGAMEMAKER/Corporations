@@ -56,6 +56,7 @@ namespace Assets.Classes
     public class Project
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public List<Feature> Features;
         TeamResource Resource;
 
@@ -64,7 +65,7 @@ namespace Assets.Classes
         public Audience audience;
         Team team;
 
-        public Project(int id, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
+        public Project(int id, string Name, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
         {
             this.Features = Features;
             this.Resource = resource;
@@ -72,6 +73,7 @@ namespace Assets.Classes
             this.team = Team;
             this.Ads = Ads;
             this.Id = id;
+            this.Name = Name;
         }
 
         public TeamMoraleData moraleData {
@@ -199,23 +201,6 @@ namespace Assets.Classes
             audience.AddClients(clients);
         }
 
-        // Debugging
-        public void PrintTechnologies()
-        {
-            for (var i = 0; i < Features.Count; i++)
-                Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
-        }
-
-        public void PrintResources()
-        {
-            Resource.Print();
-        }
-
-        internal void PrintProjectInfo()
-        {
-            Debug.LogFormat("Project info: {0} customers, {1} clients", audience.paidClients, audience.clients);
-        }
-
         Advert FindAdByChannelId(int channelId)
         {
             return Ads.Find(a => a.Channel == channelId);
@@ -239,6 +224,23 @@ namespace Assets.Classes
         internal void PrepareAd(int duration, int channelId)
         {
             GetAdByChannelId(channelId).PrepareAd(duration);
+        }
+
+        // Debugging
+        public void PrintTechnologies()
+        {
+            for (var i = 0; i < Features.Count; i++)
+                Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
+        }
+
+        public void PrintResources()
+        {
+            Resource.Print();
+        }
+
+        internal void PrintProjectInfo()
+        {
+            Debug.LogFormat("Project info: {0} customers, {1} clients", audience.paidClients, audience.clients);
         }
     }
 }
