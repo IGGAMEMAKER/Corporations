@@ -88,6 +88,6 @@ public class MenuResourceView : MonoBehaviour {
 
         // date
         ScheduleView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate);
+            .UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate, "Day");
     }
 }

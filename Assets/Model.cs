@@ -9,16 +9,16 @@ public class Model : MonoBehaviour {
     public Application application;
 
     ViewManager ViewManager;
-    AudioManager audioManager;
+    AudioManager AudioManager;
     Notifier notifier;
 
     // Use this for initialization
     void Start () {
         world = new World();
-        audioManager = gameObject.GetComponent<AudioManager>();
+        AudioManager = gameObject.GetComponent<AudioManager>();
         ViewManager = new ViewManager();
         notifier = new Notifier();
-        application = new Application(world, ViewManager, audioManager);
+        application = new Application(world, ViewManager, AudioManager);
 
         RedrawAds();
         RedrawResources();
@@ -58,30 +58,35 @@ public class Model : MonoBehaviour {
     // Screens
     void RenderStatsScreen()
     {
-        application.ViewManager.RenderStatsScreen();
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderStatsScreen();
     }
 
     void RenderTeamScreen()
     {
-        application.ViewManager.RenderTeamScreen();
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderTeamScreen();
         RedrawTeam();
     }
 
     void RenderMarketingScreen()
     {
-        application.ViewManager.RenderMarketingScreen();
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderMarketingScreen();
         RedrawAds();
     }
 
     void RenderTechnologyScreen()
     {
-        application.ViewManager.RenderTechnologyScreen();
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderTechnologyScreen();
         RedrawFeatures();
     }
 
     void RenderManagerScreen()
     {
-        application.ViewManager.RenderManagerScreen();
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderManagerScreen();
     }
 
     // Redraw methods

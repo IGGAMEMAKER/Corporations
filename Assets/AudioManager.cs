@@ -13,6 +13,7 @@ namespace Assets
         public AudioClip coinSound;
         public AudioClip standardClickSound;
         public AudioClip notificationSound;
+        public AudioClip toggleScreenSound;
 
         void Start()
         {
@@ -48,6 +49,11 @@ namespace Assets
         internal void PlayNotificationSound()
         {
             Play(notificationSound);
+        }
+
+        internal void PlayToggleScreenSound()
+        {
+            Play(toggleScreenSound);
         }
     }
 }

@@ -53,6 +53,8 @@ namespace Assets.Classes
             this.salaries = salaries;
         }
     }
+
+
     public class Project
     {
         public int Id { get; set; }
@@ -79,7 +81,7 @@ namespace Assets.Classes
         public TeamMoraleData moraleData {
             get
             {
-                TeamMoraleData morale = new TeamMoraleData
+                return new TeamMoraleData
                 {
                     isMakingMoney = MoneyChange() > 0,
                     isTeam = team.Workers.Count > 1,
@@ -88,8 +90,6 @@ namespace Assets.Classes
                     salaries = 30,
                     teamSizePenalty = team.Workers.Count * Balance.MORALE_PENALTY_COST_PER_WORKER
                 };
-
-                return morale;
             }
             internal set {}
         }
@@ -98,8 +98,7 @@ namespace Assets.Classes
         {
             get
             {
-                return MonthResourceChange()
-                    .AddMoney(MoneyChange());
+                return MonthResourceChange().AddMoney(MoneyChange());
             }
             internal set { }
         }
