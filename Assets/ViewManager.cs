@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ScreenMode
 {
@@ -19,6 +20,8 @@ public class ViewManager : MonoBehaviour
     public GameObject Notifier;
     Dictionary<ScreenMode, GameObject> Screens;
 
+    GameObject Title;
+
     public ViewManager()
     {
         MenuResourceViewObject = GameObject.Find("Resources");
@@ -34,6 +37,27 @@ public class ViewManager : MonoBehaviour
         EnableScreen(ScreenMode.TeamScreen);
     }
 
+    void SetTitle(ScreenMode gameState)
+    {
+        string name;
+
+        switch (gameState)
+        {
+            case ScreenMode.ManagementScreen: name = "Management"; break;
+            case ScreenMode.MarketingScreen: name = "Marketing"; break;
+            case ScreenMode.StatsScreen: name = "Companies"; break;
+            case ScreenMode.TeamScreen: name = "Team"; break;
+            case ScreenMode.TechnologyScreen: name = "Technologies"; break;
+
+            default:
+                name = "WUT?";
+                break;
+        }
+
+        Title = GameObject.Find("ScreenTitle");
+        Title.GetComponent<Text>().text = name;
+    }
+
     internal void HighlightMonthTick()
     {
         GameObject.Find("Date").GetComponentInChildren<TextBlink>().Reset();
@@ -47,6 +71,7 @@ public class ViewManager : MonoBehaviour
 
     void EnableScreen(ScreenMode gameState)
     {
+        SetTitle(gameState);
         DisableAllScreens();
 
         if (Screens.ContainsKey(gameState))

@@ -36,6 +36,7 @@ public class TeamMoraleView : MonoBehaviour {
         GameObject MoraleHint = MoraleDescription.transform.Find("Hint").gameObject;
 
         string moraleHint = String.Format(
+            "Shows team's desire to continue working in your company\n\n" +
             "Base value: {4}\n" +
             "Salaries: {5}\n" +
             "Team Size: {6}\n\n" +
