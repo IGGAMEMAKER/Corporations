@@ -12,7 +12,7 @@ public class CompanyListRenderer : ListRenderer
     }
 
     public override Vector2 spacing {
-        get { return new Vector2(280f, 215f); }
+        get { return new Vector2(280f, 220f); }
         set { }
     }
 

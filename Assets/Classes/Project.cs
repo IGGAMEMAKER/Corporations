@@ -66,6 +66,7 @@ namespace Assets.Classes
 
         public Audience audience;
         Team team;
+        public List<Human> Employees { get; set; }
         internal int stealingPotential;
 
         public Project(int id, string Name, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
@@ -77,6 +78,45 @@ namespace Assets.Classes
             this.Ads = Ads;
             this.Id = id;
             this.Name = Name;
+
+            CreateEmployeeList();
+        }
+
+        public int ProgrammerAverageLevel()
+        {
+            return Team.GetProgrammerAverageLevel();
+        }
+
+        public Human CreateEmployee()
+        {
+            Skillset skillset = new Skillset()
+                .SetManagementLevel(Team.GetManagerAverageLevel() + 1)
+                .SetMarketingLevel(Team.GetMarketerAverageLevel() + 1)
+                .SetProgrammingLevel(Team.GetProgrammerAverageLevel() + 1);
+
+            int[] character = null;
+            int salary = 0;
+
+            Human h = new Human("SSS", "DDD", skillset, character, WorkerSpecialisation.Programmer, salary);
+            salary = h.SalaryExpectations;
+
+            h.SetSalary(salary);
+
+            return h;
+        }
+
+        public void CreateEmployeeList()
+        {
+            int numberOfEmployees = 6;
+
+            List<Human> candidates = new List<Human>();
+
+            for (var i = 0; i < numberOfEmployees; i++)
+            {
+                candidates.Add(CreateEmployee());
+            }
+
+            Employees = candidates;
         }
 
         public TeamMoraleData moraleData {

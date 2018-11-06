@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyView : MonoBehaviour {
-    bool toggle = true;
     SoundManager soundManager;
 	
     // Use this for initialization
@@ -19,21 +18,10 @@ public class CompanyView : MonoBehaviour {
 	void Update () {
     }
 
-    public void ToggleActionPanel()
-    {
-        toggle = !toggle;
-        soundManager.PlayToggleSound();
-    }
-
-    public void RenderActionPanel(Project project)
-    {
-    }
-
     public struct CompanyInfo
     {
         public long Cost;
         public List<ShareInfo> Shareholders;
-        //public 
     }
 
     public void RenderBasePanel(Project project)
@@ -60,8 +48,6 @@ public class CompanyView : MonoBehaviour {
     public void Render(Project project)
     {
         RenderBasePanel(project);
-
-        RenderActionPanel(project);
     }
 
     private string GetShareHint(Project project)

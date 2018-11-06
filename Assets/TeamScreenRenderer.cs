@@ -1,4 +1,5 @@
-﻿using Assets.Classes;
+﻿using Assets;
+using Assets.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,14 @@ public class TeamScreenRenderer : MonoBehaviour
     GameObject Employees;
     GameObject TeamMorale;
     GameObject ToggleButton;
+
+    SoundManager soundManager;
+
+    // Use this for initialization
+    void Start()
+    {
+        soundManager = new SoundManager();
+    }
 
     void RenderWorkers(List<Human> workers, Dictionary<string, object> parameters)
     {
@@ -50,6 +59,7 @@ public class TeamScreenRenderer : MonoBehaviour
     {
         isTeamView = !isTeamView;
         RenderToggleButton();
+        soundManager.PlayToggleSound();
     }
 
     public void RenderTeam(Project p)
@@ -59,7 +69,7 @@ public class TeamScreenRenderer : MonoBehaviour
         parameters["teamMorale"] = p.moraleData.Morale;
 
         RenderWorkers(team.Workers, parameters);
-        RenderEmployees(team.Workers, parameters);
+        RenderEmployees(p.Employees, parameters);
 
         RenderToggleButton();
 
