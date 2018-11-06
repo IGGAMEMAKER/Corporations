@@ -7,12 +7,12 @@ public class CompanyListRenderer : ListRenderer
 {
     public override int itemsPerLine
     {
-        get { return 1; }
+        get { return 3; }
         set { }
     }
 
     public override Vector2 spacing {
-        get { return new Vector2(300f, 175f); }
+        get { return new Vector2(280f, 215f); }
         set { }
     }
 

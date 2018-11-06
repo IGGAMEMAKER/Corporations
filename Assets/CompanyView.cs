@@ -17,8 +17,6 @@ public class CompanyView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GameObject actionsPanel = gameObject.transform.GetChild(1).gameObject;
-        actionsPanel.SetActive(!toggle);
     }
 
     public void ToggleActionPanel()
@@ -29,8 +27,13 @@ public class CompanyView : MonoBehaviour {
 
     public void RenderActionPanel(Project project)
     {
-        GameObject actionsPanel = gameObject.transform.GetChild(1).gameObject;
-        actionsPanel.SetActive(!toggle);
+    }
+
+    public struct CompanyInfo
+    {
+        public long Cost;
+        public List<ShareInfo> Shareholders;
+        //public 
     }
 
     public void RenderBasePanel(Project project)
@@ -41,9 +44,14 @@ public class CompanyView : MonoBehaviour {
         GameObject CompanyCost = panel.transform.Find("CompanyCost").gameObject;
         GameObject CompanyName = panel.transform.Find("CompanyName").gameObject;
 
-        Button button = panel.transform.Find("Button").gameObject.GetComponentInChildren<Button>();
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { ToggleActionPanel(); });
+        GameObject Steal = panel.transform.Find("Steal").gameObject;
+        GameObject Coaching = panel.transform.Find("Coaching").gameObject;
+
+        Button StealButton = Steal.GetComponent<Button>();
+        Button CoachingButton = Coaching.GetComponent<Button>();
+
+        StealButton.onClick.RemoveAllListeners();
+        CoachingButton.onClick.RemoveAllListeners();
 
         Share.GetComponentInChildren<UIHint>().SetHintObject(GetShareHint(project));
         CompanyName.GetComponent<Text>().text = project.Name;

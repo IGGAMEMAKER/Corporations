@@ -8,8 +8,10 @@ namespace Assets.Classes
 {
     public struct TeamResource
     {
-        int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
-        long Money;
+        private int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
+        private long Money;
+
+        public const int pointCap = 1000;
 
         public long money
         {
@@ -20,25 +22,33 @@ namespace Assets.Classes
         public int programmingPoints
         {
             get { return ProgrammingPoints; }
-            set { }
+            set {
+                ProgrammingPoints = value > pointCap ? pointCap : value;
+            }
         }
 
         public int managerPoints
         {
             get { return ManagerPoints; }
-            set { }
+            set {
+                ManagerPoints = value > pointCap ? pointCap : value;
+            }
         }
 
         public int salesPoints
         {
             get { return SalesPoints; }
-            set { }
+            set {
+                SalesPoints = value > pointCap ? pointCap : value;
+            }
         }
 
         public int ideaPoints
         {
             get { return IdeaPoints; }
-            set { }
+            set {
+                IdeaPoints = value > pointCap ? pointCap : value;
+            }
         }
 
         public TeamResource(int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, long money)
@@ -111,6 +121,11 @@ namespace Assets.Classes
         {
             Money = points;
             return this;
+        }
+
+        internal void AddIdeas(int stealableIdeas)
+        {
+            IdeaPoints += stealableIdeas;
         }
     }
 }

@@ -66,6 +66,7 @@ namespace Assets.Classes
 
         public Audience audience;
         Team team;
+        internal int stealingPotential;
 
         public Project(int id, string Name, List<Feature> Features, Audience audience, Team Team, TeamResource resource, List<Advert> Ads)
         {
@@ -225,12 +226,20 @@ namespace Assets.Classes
             GetAdByChannelId(channelId).PrepareAd(duration);
         }
 
+        internal void ReceiveIdeas(int stealableIdeas)
+        {
+            Resource.AddIdeas(stealableIdeas);
+        }
+
+
+
         // Debugging
         public void PrintTechnologies()
         {
             for (var i = 0; i < Features.Count; i++)
                 Debug.Log("----- TECH " + i + ": " + Features[i].GetLiteralFeatureStatus());
         }
+
 
         public void PrintResources()
         {

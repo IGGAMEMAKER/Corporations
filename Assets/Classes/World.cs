@@ -62,7 +62,7 @@ namespace Assets.Classes
             Human someoneElse1 = new Human("John", "Stones", skillset, myTraits, WorkerSpecialisation.Marketer, 1500);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
-            List<Human> workers = new List<Human> { me };
+            List<Human> workers = new List<Human> { me, someoneElse, someoneElse1 };
 
             Audience audience = new Audience(0, 1);
 
@@ -75,17 +75,19 @@ namespace Assets.Classes
 
             List<Advert> Ads = new List<Advert>();
 
-            Project p = new Project(0, "IG Games", Features, audience, team, teamResource, Ads);
+            Project p = new Project(0, "Startup Manager", Features, audience, team, teamResource, Ads);
             Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
+            Project p2 = new Project(2, "Super Football", Features, audience, team, teamResource, Ads);
+            Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
+
             Projects.Add(p);
             Projects.Add(p1);
+            Projects.Add(p2);
+            Projects.Add(p3);
 
             // Add test ads
             p.PrepareAd(0, 0);
             p.PrepareAd(0, 1);
-
-            p1.PrepareAd(0, 0);
-            p1.PrepareAd(0, 1);
         }
 
         void InitializeMarkets(int marketId)
@@ -189,6 +191,16 @@ namespace Assets.Classes
             }
 
             return list;
+        }
+
+        public void StealIdeas(int projectId, int targetProjectId)
+        {
+            Project reciever = GetProjectById(projectId);
+            Project target = GetProjectById(targetProjectId);
+
+            int stealableIdeas = target.stealingPotential;
+
+            reciever.ReceiveIdeas(stealableIdeas);
         }
 
         public void StartAdCampaign(int projectId, int channelId)
