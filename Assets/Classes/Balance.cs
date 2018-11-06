@@ -23,5 +23,7 @@ namespace Assets.Classes
 
         // personal bonuses
         public static int MORALE_PERSONAL_BASE = -50;
+
+        public static int SKILL_MAX_LEVEL = 10;
     }
 }
