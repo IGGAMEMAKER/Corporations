@@ -24,6 +24,20 @@ public class CompanyView : MonoBehaviour {
         public List<ShareInfo> Shareholders;
     }
 
+    void RenderShareButtons(GameObject panel)
+    {
+        GameObject SellButton = panel.transform.Find("SellShare").gameObject;
+        GameObject BuyButton = panel.transform.Find("BuyShare").gameObject;
+
+        Button sell = SellButton.GetComponent<Button>();
+        Button buy = BuyButton.GetComponent<Button>();
+
+        sell.onClick.RemoveAllListeners();
+        buy.onClick.RemoveAllListeners();
+
+
+    }
+
     public void RenderBasePanel(Project project)
     {
         GameObject panel = gameObject.transform.GetChild(0).gameObject;

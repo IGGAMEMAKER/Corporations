@@ -46,10 +46,7 @@ public class TeamScreenRenderer : MonoBehaviour
         ToggleButton.onClick.RemoveAllListeners();
         ToggleButton.onClick.AddListener(delegate { Toggle(); });
 
-        if (isTeamView)
-            ToggleObject.GetComponentInChildren<Text>().text = "Hire workers";
-        else
-            ToggleObject.GetComponentInChildren<Text>().text = "Show team";
+        ToggleObject.GetComponentInChildren<Text>().text = isTeamView ? "Hire workers" : "Show team";
 
         Employees.SetActive(!isTeamView);
         Workers.SetActive(isTeamView);
