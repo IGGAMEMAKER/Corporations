@@ -16,8 +16,11 @@ public class StatsScreenView : MonoBehaviour {
 		
 	}
 
-    internal void Redraw(List<Project> projects)
+    internal void Redraw(List<Project> projects, int myCompanyId)
     {
-        gameObject.GetComponentInChildren<CompanyListRenderer>().UpdateList(projects);
+        Dictionary<string, object> parameters = new Dictionary<string, object>();
+        parameters["myCompanyId"] = myCompanyId;
+
+        gameObject.GetComponentInChildren<CompanyListRenderer>().UpdateList(projects, parameters);
     }
 }

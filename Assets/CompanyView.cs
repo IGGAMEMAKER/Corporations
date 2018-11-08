@@ -24,20 +24,38 @@ public class CompanyView : MonoBehaviour {
         public List<ShareInfo> Shareholders;
     }
 
-    void RenderShareButtons(GameObject panel)
+    void RenderSellShareButton(GameObject panel, int myCompanyId, int thisCompanyId)
     {
         GameObject SellButton = panel.transform.Find("SellShare").gameObject;
-        GameObject BuyButton = panel.transform.Find("BuyShare").gameObject;
-
         Button sell = SellButton.GetComponent<Button>();
-        Button buy = BuyButton.GetComponent<Button>();
 
         sell.onClick.RemoveAllListeners();
+
+        Dictionary<string, object> parameters = new Dictionary<string, object>();
+        parameters["sellerId"] = myCompanyId;
+        parameters["buyerId"] = Balance.BASE_INVESTOR_ID;
+        parameters["share"] = 1;
+        sell.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_SELL, parameters); });
+    }
+
+    void RenderBuyShareButton(GameObject panel, int myCompanyId, int thisCompanyId)
+    {
+        GameObject BuyButton = panel.transform.Find("BuyShare").gameObject;
+        Button buy = BuyButton.GetComponent<Button>();
+
         buy.onClick.RemoveAllListeners();
 
+        Dictionary<string, object> parameters = new Dictionary<string, object>();
+        parameters["sellerId"] = Balance.BASE_INVESTOR_ID;
+        parameters["buyerId"] = myCompanyId;
+        parameters["share"] = 1;
+        buy.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_BUY, parameters); });
+    }
 
-        Dictionary<string, object> dictionary = null;
-        buy.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
+    void RenderShareButtons(GameObject panel, int myCompanyId, int thisCompanyId)
+    {
+        RenderSellShareButton(panel, myCompanyId, thisCompanyId);
+        RenderBuyShareButton(panel, myCompanyId, thisCompanyId);
     }
 
     public void RenderBasePanel(Project project, int myCompanyId, int thisCompanyId)
@@ -56,6 +74,8 @@ public class CompanyView : MonoBehaviour {
 
         StealButton.onClick.RemoveAllListeners();
         CoachingButton.onClick.RemoveAllListeners();
+
+        RenderShareButtons(panel, myCompanyId, thisCompanyId);
 
         Share.GetComponentInChildren<UIHint>().SetHintObject(GetShareHint(project));
         CompanyName.GetComponent<Text>().text = project.Name;

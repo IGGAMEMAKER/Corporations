@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets;
 using Assets.Classes;
 
@@ -9,7 +10,7 @@ public class Application
     AudioManager audioManager;
     Notifier Notifier;
 
-    public int projectId = 0;
+    public int myProjectId = 0;
 
     public Application(World world, ViewManager ViewManager, AudioManager audioManager)
     {
@@ -33,6 +34,13 @@ public class Application
         }
 
         return isMonthTick;
+    }
+
+    internal void ExchangeShare(int sellerId, int buyerId, int share)
+    {
+        audioManager.PlayCoinSound();
+        world.ExchangeShare(sellerId, buyerId, share);
+        RedrawCompanies();
     }
 
     public void PrepareAd(int projectId, int channelId, int duration)
@@ -75,10 +83,10 @@ public class Application
     // rendering
     public void RedrawResources()
     {
-        TeamResource teamResource = world.GetProjectById(projectId).resources;
-        TeamResource resourceMonthChanges = world.GetProjectById(projectId).resourceMonthChanges;
+        TeamResource teamResource = world.GetProjectById(myProjectId).resources;
+        TeamResource resourceMonthChanges = world.GetProjectById(myProjectId).resourceMonthChanges;
 
-        Audience audience = world.GetProjectById(projectId).audience;
+        Audience audience = world.GetProjectById(myProjectId).audience;
 
         string formattedDate = world.GetFormattedDate();
 
@@ -87,24 +95,24 @@ public class Application
 
     public void RedrawTeam()
     {
-        Project p = world.GetProjectById(projectId);
+        Project p = world.GetProjectById(myProjectId);
         ViewManager.RedrawTeam(p);
     }
 
     internal void RedrawCompanies()
     {
-        ViewManager.RedrawCompanies(world.projects);
+        ViewManager.RedrawCompanies(world.projects, myProjectId);
     }
 
     public void RedrawAds()
     {
-        Project p = world.GetProjectById(projectId);
+        Project p = world.GetProjectById(myProjectId);
         ViewManager.RedrawAds(p.GetAds());
     }
 
     public void RedrawFeatures()
     {
-        Project p = world.GetProjectById(projectId);
+        Project p = world.GetProjectById(myProjectId);
         ViewManager.RedrawFeatures(p.Features);
     }
 }

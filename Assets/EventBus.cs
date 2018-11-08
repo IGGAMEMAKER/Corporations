@@ -16,6 +16,9 @@ public class EventBus : MonoBehaviour {
 
         FeatureController featureController = GetComponent<FeatureController>();
         featureController.HandleCommand(eventName, parameters);
+
+        ShareController shareController = GetComponent<ShareController>();
+        shareController.HandleCommand(eventName, parameters);
     }
 	
 	// Update is called once per frame

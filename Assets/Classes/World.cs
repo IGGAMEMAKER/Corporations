@@ -55,6 +55,12 @@ namespace Assets.Classes
             return list;
         }
 
+        internal void ExchangeShare(int sellerId, int buyerId, int share)
+        {
+            Debug.LogFormat("ExchangeShare: (sellerId: {0}, buyerId: {1}, share: {2}%)", sellerId, buyerId, share);
+            //throw new NotImplementedException();
+        }
+
         void InitializeShareholders()
         {
             Investors = GenerateInvestorPool();

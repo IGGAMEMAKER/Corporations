@@ -108,10 +108,10 @@ public class ViewManager : MonoBehaviour
             .RenderFeatures(features);
     }
 
-    public void RedrawCompanies(List<Project> projects)
+    public void RedrawCompanies(List<Project> projects, int myCompanyId)
     {
         Screens[ScreenMode.StatsScreen].GetComponent<StatsScreenView>()
-            .Redraw(projects);
+            .Redraw(projects, myCompanyId);
     }
 
     public void RenderTeamScreen()
