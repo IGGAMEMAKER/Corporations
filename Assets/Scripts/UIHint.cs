@@ -54,7 +54,7 @@ public class UIHint: MonoBehaviour {
 
     void UpdatePosition()
     {
-        var offset = new Vector3(20, 0);
+        var offset = new Vector3(40, -35);
 
         //gameObject.transform.SetParent(gameObject.transform.parent, false);
         gameObject.transform.position = Input.mousePosition + offset;

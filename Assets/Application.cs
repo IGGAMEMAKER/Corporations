@@ -38,7 +38,7 @@ public class Application
 
     internal void ExchangeShare(int sellerId, int buyerId, int share)
     {
-        audioManager.PlayCoinSound();
+        audioManager.PlayToggleScreenSound();
         world.ExchangeShare(sellerId, buyerId, share);
         RedrawCompanies();
     }
