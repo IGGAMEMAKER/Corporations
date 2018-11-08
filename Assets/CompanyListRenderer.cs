@@ -19,7 +19,8 @@ public class CompanyListRenderer : ListRenderer
     public override void RenderObject(GameObject obj, object item, int index, Dictionary<string, object> parameters)
     {
         Project project = (Project)item;
-        obj.GetComponentInChildren<CompanyView>().Render(project);
+        int myCompanyId = (int)parameters["myCompanyId"];
+        obj.GetComponentInChildren<CompanyView>().Render(project, myCompanyId);
     }
 
     // Use this for initialization

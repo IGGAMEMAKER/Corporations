@@ -36,9 +36,11 @@ public class CompanyView : MonoBehaviour {
         buy.onClick.RemoveAllListeners();
 
 
+        Dictionary<string, object> dictionary = null;
+        buy.onClick.AddListener(delegate { BaseController.SendCommand(Commands.FEATURE_EXPLORE, dictionary); });
     }
 
-    public void RenderBasePanel(Project project)
+    public void RenderBasePanel(Project project, int myCompanyId, int thisCompanyId)
     {
         GameObject panel = gameObject.transform.GetChild(0).gameObject;
 
@@ -59,9 +61,9 @@ public class CompanyView : MonoBehaviour {
         CompanyName.GetComponent<Text>().text = project.Name;
     }
     
-    public void Render(Project project)
+    public void Render(Project project, int myCompanyId)
     {
-        RenderBasePanel(project);
+        RenderBasePanel(project, myCompanyId, project.Id);
     }
 
     private string GetShareHint(Project project)

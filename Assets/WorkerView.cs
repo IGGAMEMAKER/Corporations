@@ -33,10 +33,7 @@ public class WorkerView : MonoBehaviour {
         GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
 
         // hide progressBar if morale is negative
-        if (morale < 0)
-            MoraleBar.SetActive(true);
-        else
-            MoraleBar.SetActive(false);
+        MoraleBar.SetActive(morale < 0);
     }
 
     string GetSignedValue (int value)
@@ -62,7 +59,7 @@ public class WorkerView : MonoBehaviour {
         MoraleHint.SetHintObject(hintText);
     }
 
-    void ShowSkills(Human human)
+    void RenderSkills(Human human)
     {
         GameObject Avatar = gameObject.transform.Find("Name").gameObject;
         UIHint SkillsetHint = Avatar.GetComponentInChildren<UIHint>();
@@ -81,20 +78,28 @@ public class WorkerView : MonoBehaviour {
         SkillsetHint.SetHintObject(hintText);
     }
 
-    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    void RenderEffeciency(Human human)
+    {
+        GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
+        Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
+    }
+
+    void RenderName(Human human)
     {
         GameObject NameObject = gameObject.transform.Find("Name").gameObject;
         NameObject.GetComponent<Text>().text = human.FullName;
+    }
 
-        int morale = (int)parameters["teamMorale"] + Balance.MORALE_PERSONAL_BASE;
+    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    {
+        RenderName(human);
+        RenderSkills(human);
+        RenderEffeciency(human);
 
-        RenderMorale(morale);
+        int teamMorale = (int)parameters["teamMorale"];
 
-        RedrawMoraleHint(human, (int)parameters["teamMorale"]);
+        RenderMorale(teamMorale + Balance.MORALE_PERSONAL_BASE);
 
-        ShowSkills(human);
-
-        GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
-        Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
+        RedrawMoraleHint(human, teamMorale);
     }
 }

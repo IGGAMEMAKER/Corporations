@@ -37,6 +37,24 @@ namespace Assets.Classes
             InitializeScheduleManager();
         }
 
+        List<Investor> GenerateInvestorPool()
+        {
+            List<Investor> list = new List<Investor>();
+            int investorAmount = UnityEngine.Random.Range(3, 10);
+
+            for (var i = 0; i < investorAmount; i++)
+            {
+                int rich = UnityEngine.Random.Range(1, 100);
+                int money = rich * 100000;
+
+                InvestorType investorType = rich < 60 ? InvestorType.Speculant : InvestorType.WantsDividends;
+
+                list.Add(new Investor(money, investorType));
+            }
+
+            return list;
+        }
+
         void InitializeShareholders()
         {
             Investors = GenerateInvestorPool();
@@ -155,42 +173,19 @@ namespace Assets.Classes
                 
                 // recompute clients: churn and ad campaigns
                 UpdateClients(i);
-
-                PrintProjectInfo(i);
             }
         }
 
-        void UpdateResources (int projectId)
+
+        void UpdateResources(int projectId)
         {
             GetProjectById(projectId).UpdateMonthlyResources();
             GetProjectById(projectId).UpdateMonthlyMoney();
-
-            PrintResources(projectId);
         }
 
-        void UpdateClients (int projectId)
+        void UpdateClients(int projectId)
         {
-            uint churn = GetProjectById(projectId).ChurnClients();
-
-            Debug.LogFormat("//TODO UpdateClients: return churn clients to Channels. {0}", churn);
-        }
-
-        List<Investor> GenerateInvestorPool()
-        {
-            List<Investor> list = new List<Investor>();
-            int investorAmount = UnityEngine.Random.Range(3, 10);
-
-            for (var i = 0; i < investorAmount; i++)
-            {
-                int rich = UnityEngine.Random.Range(1, 100);
-                int money = rich * 100000;
-
-                InvestorType investorType = rich < 60 ? InvestorType.Speculant : InvestorType.WantsDividends;
-
-                list.Add(new Investor(money, investorType));
-            }
-
-            return list;
+            GetProjectById(projectId).RemoveChurnClients();
         }
 
         public void StealIdeas(int projectId, int targetProjectId)

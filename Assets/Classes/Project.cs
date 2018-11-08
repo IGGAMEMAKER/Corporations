@@ -220,7 +220,7 @@ namespace Assets.Classes
             return audience.clients * 100;
         }
 
-        internal uint ChurnClients()
+        internal uint RemoveChurnClients()
         {
             return audience.RemoveChurnClients();
         }
