@@ -169,12 +169,17 @@ namespace Assets.Classes
         {
             Features[featureID].Update();
             Resource.Spend(new TeamResource(50, 0, 0, 0, 0));
+
+            UpgradeProgrammers(1);
         }
 
         public void ExploreFeature(int featureID)
         {
             Features[featureID].Explore();
             Resource.Spend(new TeamResource(0, 0, 0, 10, 0));
+
+            UpgradeManagers(1);
+            UpgradeProgrammers(1);
         }
 
         public int GetProgrammingPointsProductionValue()
@@ -223,6 +228,21 @@ namespace Assets.Classes
             Resource.AddMoney(difference);
         }
 
+        void UpgradeMarketers(float xpRatio = 1f)
+        {
+            Team.UpgradeMarketers(xpRatio);
+        }
+
+        void UpgradeProgrammers(float xpRatio = 1f)
+        {
+            Team.UpgradeProgrammers(xpRatio);
+        }
+
+        void UpgradeManagers(float xpRatio = 1f)
+        {
+            Team.UpgradeManagers(xpRatio);
+        }
+
         long GetMonthlyExpense()
         {
             return team.GetExpenses();
@@ -241,6 +261,15 @@ namespace Assets.Classes
         internal void StartAdCampaign(uint clients)
         {
             audience.AddClients(clients);
+
+            UpgradeMarketers();
+        }
+
+        internal void PrepareAd(int duration, int channelId)
+        {
+            GetAdByChannelId(channelId).PrepareAd(duration);
+
+            UpgradeMarketers(2);
         }
 
         Advert FindAdByChannelId(int channelId)
@@ -263,10 +292,6 @@ namespace Assets.Classes
             return FindAdByChannelId(channelId);
         }
 
-        internal void PrepareAd(int duration, int channelId)
-        {
-            GetAdByChannelId(channelId).PrepareAd(duration);
-        }
 
         internal void ReceiveIdeas(int stealableIdeas)
         {

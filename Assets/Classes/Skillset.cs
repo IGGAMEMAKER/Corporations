@@ -1,4 +1,6 @@
-﻿namespace Assets.Classes
+﻿using System;
+
+namespace Assets.Classes
 {
     public class Skillset
     {
@@ -75,6 +77,11 @@
             Programming = programming;
             Management = management;
             Marketing = marketing;
+        }
+
+        public void GainXP(int experience, WorkerSpecialisation specialisation)
+        {
+            GetBySpecialisation(specialisation).Upgrade(experience);
         }
     }
 }

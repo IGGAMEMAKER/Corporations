@@ -71,6 +71,7 @@ namespace Assets.Classes
 
         internal long GetExpenses()
         {
+            //Workers.Sum(h => h.salary)
             return (Workers.Count + 1) * 1000;
         }
 
@@ -114,6 +115,26 @@ namespace Assets.Classes
         internal void Fire(int workerId)
         {
             Workers.RemoveAt(workerId);
+        }
+
+
+
+        internal void UpgradeMarketers(float xpRatio)
+        {
+            int experience = (int)(xpRatio * 100);
+            Marketers.ForEach(m => m.Skills.GainXP(experience, m.Specialisation));
+        }
+
+        internal void UpgradeProgrammers(float xpRatio)
+        {
+            int experience = (int)(xpRatio * 100);
+            Programmers.ForEach(m => m.Skills.GainXP(experience, m.Specialisation));
+        }
+
+        internal void UpgradeManagers(float xpRatio)
+        {
+            int experience = (int)(xpRatio * 100);
+            Managers.ForEach(m => m.Skills.GainXP(experience, m.Specialisation));
         }
     }
 }

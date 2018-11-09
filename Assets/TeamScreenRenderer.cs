@@ -86,6 +86,5 @@ public class TeamScreenRenderer : MonoBehaviour
 
         RenderTeamMorale(p);
         RenderTeamStrength(team);
-
     }
 }

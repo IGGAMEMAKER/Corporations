@@ -12,6 +12,11 @@
             }
         }
 
+        public void Upgrade(int experience)
+        {
+            xp += experience;
+        }
+
         public int Effeciency
         {
             get { return Level * 15; }

@@ -75,11 +75,6 @@ namespace Assets.Classes
                 .SetMarketingLevel(1)
                 .SetProgrammingLevel(7);
 
-            Skillset skillset = new Skillset()
-                .SetManagementLevel(2)
-                .SetMarketingLevel(7)
-                .SetProgrammingLevel(0);
-
             int[] myTraits = new int[] { };
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, WorkerSpecialisation.Programmer, 500);
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
