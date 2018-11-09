@@ -4,15 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeatureController : MonoBehaviour, ICommandHandler {
-    Model model;
-
-    // Use this for initialization
-    void Start () {
-		model = gameObject.GetComponent<Model>();
-    }
-
-    public void HandleCommand(string eventName, Dictionary<string, object> parameters)
+public class FeatureController : BaseCommandHandler
+{
+    public override void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
         switch (eventName)
         {
@@ -31,7 +25,7 @@ public class FeatureController : MonoBehaviour, ICommandHandler {
         int projectId = (int)parameters["projectId"];
         int featureId = (int)parameters["featureId"];
 
-        GetApplication().UpgradeFeature(projectId, featureId);
+        application.UpgradeFeature(projectId, featureId);
     }
 
     private void ExploreFeature(Dictionary<string, object> parameters)
@@ -39,12 +33,6 @@ public class FeatureController : MonoBehaviour, ICommandHandler {
         int projectId = (int) parameters["projectId"];
         int featureId = (int) parameters["featureId"];
 
-        GetApplication().ExploreFeature(projectId, featureId);
+        application.ExploreFeature(projectId, featureId);
     }
-
-    Application GetApplication()
-    {
-        return model.GetApplication();
-    }
-
 }

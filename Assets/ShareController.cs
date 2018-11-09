@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShareController : MonoBehaviour, ICommandHandler
+public class ShareController : BaseCommandHandler
 {
-    Model model;
-
-    public void HandleCommand(string eventName, Dictionary<string, object> parameters)
+    public override void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
         switch (eventName)
         {
@@ -27,21 +25,6 @@ public class ShareController : MonoBehaviour, ICommandHandler
         int buyerId = (int)parameters["buyerId"];
         int share = (int)parameters["share"];
 
-        GetApplication().ExchangeShare(sellerId, buyerId, share);
-    }
-
-    // Use this for initialization
-    void Start () {
-		model = gameObject.GetComponent<Model>();
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
-    Application GetApplication()
-    {
-        return model.GetApplication();
+        application.ExchangeShare(sellerId, buyerId, share);
     }
 }

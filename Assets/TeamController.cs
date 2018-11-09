@@ -30,11 +30,9 @@ public class TeamController : BaseCommandHandler
 
     private void Hire(Dictionary<string, object> parameters)
     {
-        int workerId = (int) parameters["workerId"];
-        int projectId = (int) parameters["projectId"];
+        int workerId = (int)parameters["workerId"];
+        int projectId = (int)parameters["projectId"];
 
         application.Hire(projectId, workerId);
     }
-
-
 }

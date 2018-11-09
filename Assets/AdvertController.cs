@@ -3,15 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdvertController : MonoBehaviour, ICommandHandler {
-    Model model;
-
-    // Use this for initialization
-    void Start () {
-		model = gameObject.GetComponent<Model>();
-    }
-
-    public void HandleCommand(string eventName, Dictionary<string, object> parameters)
+public class AdvertController : BaseCommandHandler
+{
+    public override void HandleCommand(string eventName, Dictionary<string, object> parameters)
     {
         switch (eventName)
         {
@@ -25,17 +19,12 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
         }
     }
 
-    Application GetApplication()
-    {
-        return model.GetApplication();
-    }
-
     void StartCampaign(Dictionary<string, object> parameters)
     {
         Advert advert = (Advert)parameters["advert"];
         int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
 
-        GetApplication().StartAdCampaign(advert.Project, advert.Channel);
+        application.StartAdCampaign(advert.Project, advert.Channel);
     }
 
     void PrepareAd(Dictionary<string, object> parameters)
@@ -46,7 +35,7 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
         int channelId = advert.Channel; // (int)parameters["channelId"];
         int duration = parameters.ContainsKey("duration") ? (int)parameters["duration"] : 10;
 
-        GetApplication().PrepareAd(projectId, channelId, duration);
+        application.PrepareAd(projectId, channelId, duration);
     }
 
 }
