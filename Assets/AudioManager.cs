@@ -15,12 +15,13 @@ namespace Assets
         public AudioClip notificationSound;
         public AudioClip toggleScreenSound;
         public AudioClip toggleButtonSound;
+        public AudioClip monthlyMoneySound;
 
         void Start()
         {
             sources = new Dictionary<AudioClip, AudioSource>();
             
-            AddSound(coinSound);
+            AddSound(monthlyMoneySound);
             AddSound(standardClickSound);
             AddSound(notificationSound);
             AddSound(toggleScreenSound);
@@ -52,7 +53,7 @@ namespace Assets
 
         internal void PlayCoinSound()
         {
-            Play(coinSound);
+            Play(monthlyMoneySound);
         }
 
         internal void PlayClickSound()
@@ -82,7 +83,7 @@ namespace Assets
 
         internal void PlayWaterSplashSound()
         {
-            Play(notificationSound);
+            Play(standardClickSound);
         }
     }
 }

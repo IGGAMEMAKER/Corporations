@@ -51,7 +51,10 @@ namespace Assets.Utils
 
         public static string GetSurname()
         {
-            return GetName();
+            List<string> names = new List<string> { "Sanders", "Stockes", "Ching", "Kumar", "Blackfish", "Fox", "Waters", "Martinez", "Isaakson", "Svenson", "O'Farell" };
+            int rand = UnityEngine.Random.Range(0, names.Count);
+
+            return names[rand];
         }
 
         public static Human Generate(Team Team)
