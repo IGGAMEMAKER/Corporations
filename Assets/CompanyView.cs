@@ -34,6 +34,7 @@ public class CompanyView : MonoBehaviour {
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["sellerId"] = myCompanyId;
         parameters["buyerId"] = Balance.BASE_INVESTOR_ID;
+        parameters["projectId"] = thisCompanyId;
         parameters["share"] = 1;
         sell.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_SELL, parameters); });
     }
@@ -48,6 +49,7 @@ public class CompanyView : MonoBehaviour {
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["sellerId"] = Balance.BASE_INVESTOR_ID;
         parameters["buyerId"] = myCompanyId;
+        parameters["projectId"] = thisCompanyId;
         parameters["share"] = 1;
         buy.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_BUY, parameters); });
     }

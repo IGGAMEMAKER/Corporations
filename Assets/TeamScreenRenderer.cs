@@ -30,7 +30,7 @@ public class TeamScreenRenderer : MonoBehaviour
     void RenderEmployees(List<Human> employees, Dictionary<string, object> parameters)
     {
         Employees = gameObject.transform.Find("Employees").gameObject;
-        Employees.GetComponent<WorkerListRenderer>().UpdateList(employees, parameters);
+        Employees.GetComponent<EmployeeListRenderer>().UpdateList(employees, parameters);
     }
 
     void RenderTeamMorale(Project p)

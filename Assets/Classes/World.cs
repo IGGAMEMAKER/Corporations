@@ -179,9 +179,16 @@ namespace Assets.Classes
                 
                 // recompute clients: churn and ad campaigns
                 UpdateClients(i);
+
+                // New workers
+                UpdateEmployees(i);
             }
         }
 
+        private void UpdateEmployees(int projectId)
+        {
+            GetProjectById(projectId).UpdatdeEmployeeList();
+        }
 
         void UpdateResources(int projectId)
         {

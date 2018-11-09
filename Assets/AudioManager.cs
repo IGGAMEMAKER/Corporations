@@ -45,7 +45,7 @@ namespace Assets
             Play(toggleButtonSound);
         }
 
-        internal void PlayOnHintHoverSound()
+        public void PlayOnHintHoverSound()
         {
             Play(toggleButtonSound);
         }

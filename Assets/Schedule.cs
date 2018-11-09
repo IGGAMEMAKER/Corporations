@@ -34,6 +34,7 @@ public class Schedule : MonoBehaviour {
     {
         application.PeriodTick(1);
         application.RedrawResources();
+        application.RedrawTeam();
     }
 
     void ResetTimer()
