@@ -84,10 +84,10 @@ public class WorkerView : MonoBehaviour {
         Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
     }
 
-    void RenderLevel(Human human)
+    void RenderAvatar(Human human)
     {
-        Text text = gameObject.transform.Find("Avatar").GetComponentInChildren<Text>();
-        text.text = human.Level.ToString();
+        var avatar = gameObject.transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
+        avatar.SetAvatar(human.Level, human.Specialisation);
     }
 
     void RenderName(Human human)
@@ -107,7 +107,7 @@ public class WorkerView : MonoBehaviour {
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
     {
         RenderName(human);
-        RenderLevel(human);
+        RenderAvatar(human);
         RenderSkills(human);
         RenderEffeciency(human);
 

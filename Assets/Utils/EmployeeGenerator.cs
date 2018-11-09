@@ -29,21 +29,36 @@ namespace Assets.Utils
 
         public static WorkerSpecialisation GetSpecialisation()
         {
-            int rand = UnityEngine.Random.Range(0, 3);
+            int rand = UnityEngine.Random.Range(0, 5);
             Debug.Log("rand = " + rand);
 
             if (rand < 2)
                 return WorkerSpecialisation.Programmer;
 
-            if (rand == 2)
-                return WorkerSpecialisation.Manager;
+            if (rand < 4)
+                return WorkerSpecialisation.Marketer;
 
-            return WorkerSpecialisation.Marketer;
+            return WorkerSpecialisation.Manager;
+        }
+
+        public static string GetName()
+        {
+            List<string> names = new List<string> { "John", "Alexander", "Tim", "Jarvis", "Lee", "Raja", "Sergio", "Samantha", "Elisabeth", "Sonya", "Diana" };
+            int rand = UnityEngine.Random.Range(0, names.Count);
+
+            return names[rand];
+        }
+
+        public static string GetSurname()
+        {
+            return GetName();
         }
 
         public static Human Generate(Team Team)
         {
             WorkerSpecialisation specialisation = GetSpecialisation();
+
+            Debug.LogFormat("Specialisation: {0}", specialisation);
 
             bool isManager = specialisation == WorkerSpecialisation.Manager;
             bool isProgrammer = specialisation == WorkerSpecialisation.Programmer;
@@ -61,7 +76,7 @@ namespace Assets.Utils
             int[] character = null;
             int salary = 0;
 
-            Human h = new Human("SSS", "DDD", skillset, character, specialisation, salary);
+            Human h = new Human(GetName(), GetSurname(), skillset, character, specialisation, salary);
             salary = h.GetSalaryExpectations();
 
             h.SetSalary(salary);

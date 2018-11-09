@@ -19,7 +19,10 @@ namespace Assets.Classes
         Skillset Skillset;
 
         int[] Character;
-        WorkerSpecialisation Specialisation;
+        public WorkerSpecialisation Specialisation {
+            get;
+            internal set;
+        }
         int Salary;
 
         public string FullName
