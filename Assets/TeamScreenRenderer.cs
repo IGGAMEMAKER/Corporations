@@ -52,6 +52,19 @@ public class TeamScreenRenderer : MonoBehaviour
         Workers.SetActive(isTeamView);
     }
 
+    void RenderTeamStrength(Team team)
+    {
+        GameObject TeamStrength = gameObject.transform.Find("TeamStrength").gameObject;
+
+        Transform coding = TeamStrength.transform.Find("Coding");
+        Transform management = TeamStrength.transform.Find("Management");
+        Transform marketing = TeamStrength.transform.Find("Marketing");
+
+        coding.GetComponent<ResourceView>().UpdateResourceValue("Programming", team.GetProgrammerAverageLevel());
+        management.GetComponent<ResourceView>().UpdateResourceValue("Management", team.GetManagerAverageLevel());
+        marketing.GetComponent<ResourceView>().UpdateResourceValue("Marketing", team.GetMarketerAverageLevel());
+    }
+
     void Toggle()
     {
         isTeamView = !isTeamView;
@@ -72,5 +85,7 @@ public class TeamScreenRenderer : MonoBehaviour
         RenderToggleButton();
 
         RenderTeamMorale(p);
+        RenderTeamStrength(team);
+
     }
 }

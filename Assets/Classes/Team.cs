@@ -46,15 +46,15 @@ namespace Assets.Classes
 
         public int GetProgrammingPointsProduction()
         {
-            return 100;
+            return Programmers.Sum(p => p.BaseProduction);
         }
         public int GetManagerPointsProduction()
         {
-            return 100;
+            return Managers.Sum(p => p.BaseProduction);
         }
         public int GetSalesPointsProduction()
         {
-            return 100;
+            return Marketers.Sum(p => p.BaseProduction);
         }
         public int GetIdeaPointsProduction()
         {
@@ -76,44 +76,34 @@ namespace Assets.Classes
 
         internal int GetProgrammerAverageLevel()
         {
-            int val = 0;
+            int val = Programmers.Sum(p => p.Skills.Programming.Level);
             int count = Programmers.Count;
 
-            if (count == 0)
-                return 1;
-
-            for (var i = 0; i < count; i++)
-                val += Programmers[i].Skills.Programming.Level;
-
-            return val / count;
+            return Ceil(val, count);
         }
 
         internal int GetManagerAverageLevel()
         {
-            int val = 0;
+            int val = Managers.Sum(m => m.Skills.Management.Level);
             int count = Managers.Count;
 
-            if (count == 0)
-                return 1;
-
-            for (var i = 0; i < count; i++)
-                val += Managers[i].Skills.Management.Level;
-
-            return val / count;
+            return Ceil(val, count);
         }
 
         internal int GetMarketerAverageLevel()
         {
-            int val = 0;
+            int val = Marketers.Sum(m => m.Skills.Marketing.Level);
             int count = Marketers.Count;
 
+            return Ceil(val, count);
+        }
+
+        int Ceil(int sum, int count)
+        {
             if (count == 0)
                 return 1;
 
-            for (var i = 0; i < count; i++)
-                val += Marketers[i].Skills.Marketing.Level;
-
-            return val / count;
+            return (int)Math.Ceiling((decimal)sum / count);
         }
 
         internal void Join(Human employee)
