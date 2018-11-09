@@ -96,6 +96,14 @@ public class WorkerView : MonoBehaviour {
         NameObject.GetComponent<Text>().text = human.FullName;
     }
 
+    void RenderHireButton(int workerId, int projectId)
+    {
+        Button button = gameObject.transform.Find("Fire").gameObject.GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+
+        button.onClick.AddListener(delegate { BaseController.FireWorker(workerId, projectId); });
+    }
+
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
     {
         RenderName(human);
@@ -103,10 +111,13 @@ public class WorkerView : MonoBehaviour {
         RenderSkills(human);
         RenderEffeciency(human);
 
+        int projectId = (int)parameters["projectId"];
+
+        RenderHireButton(index, projectId);
+
         int teamMorale = (int)parameters["teamMorale"];
 
         RenderMorale(teamMorale + Balance.MORALE_PERSONAL_BASE);
-
         RedrawMoraleHint(human, teamMorale);
     }
 }

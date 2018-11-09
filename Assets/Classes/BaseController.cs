@@ -18,12 +18,20 @@ namespace Assets.Classes
 
         internal static void HireWorker(int workerId, int projectId)
         {
-            Debug.LogFormat("Hire worker " + projectId + " " + workerId);
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters["projectId"] = projectId;
             parameters["workerId"] = workerId;
 
             SendCommand(Commands.TEAM_WORKERS_HIRE, parameters);
+        }
+
+        internal static void FireWorker(int workerId, int projectId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["projectId"] = projectId;
+            parameters["workerId"] = workerId;
+
+            SendCommand(Commands.TEAM_WORKERS_FIRE, parameters);
         }
 
         internal static void PrepareAdCampaign(Advert advert)
