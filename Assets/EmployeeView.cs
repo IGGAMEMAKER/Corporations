@@ -52,11 +52,22 @@ public class EmployeeView : MonoBehaviour {
         NameObject.GetComponent<Text>().text = human.FullName + " \n " + human.Level + "lvl";
     }
 
+    void RenderHireButton(int workerId, int projectId)
+    {
+        Button button = gameObject.transform.Find("Hire").gameObject.GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+
+        button.onClick.AddListener(delegate { BaseController.HireWorker(workerId, projectId); });
+    }
+
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
     {
         RenderName(human);
         RenderLevel(human);
         RenderSkills(human);
         RenderEffeciency(human);
+
+        int projectId = (int)parameters["projectId"];
+        RenderHireButton(index, projectId);
     }
 }

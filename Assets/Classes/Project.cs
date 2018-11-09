@@ -147,6 +147,14 @@ namespace Assets.Classes
             Employees = candidates;
         }
 
+        internal void HireEmployee(int workerId)
+        {
+            Human employee = Employees[workerId];
+            Team.Join(employee);
+
+            Employees.RemoveAt(workerId);
+        }
+
         internal List<Advert> GetAds()
         {
             return Ads;

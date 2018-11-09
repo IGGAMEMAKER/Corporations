@@ -79,5 +79,10 @@ namespace Assets
         {
             Play(toggleScreenSound);
         }
+
+        internal void PlayWaterSplashSound()
+        {
+            Play(notificationSound);
+        }
     }
 }

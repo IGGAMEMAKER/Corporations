@@ -11,6 +11,7 @@ public class Application
     Notifier Notifier;
 
     public int myProjectId = 0;
+    public int myHumanId = 0;
 
     public Application(World world, ViewManager ViewManager, AudioManager audioManager)
     {
@@ -70,6 +71,13 @@ public class Application
         audioManager.PlayClickSound();
         world.ExploreFeature(projectId, featureId);
         RedrawFeatures();
+    }
+
+    public void Hire(int projectId, int workerId)
+    {
+        audioManager.PlayWaterSplashSound();
+        world.Hire(projectId, workerId);
+        RedrawTeam();
     }
 
     public void UpgradeFeature(int projectId, int featureId)

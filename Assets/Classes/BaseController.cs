@@ -15,6 +15,31 @@ namespace Assets.Classes
 
             controller.SendCommand(eventName, parameters);
         }
+
+        internal static void HireWorker(int workerId, int projectId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["projectId"] = projectId;
+            parameters["workerId"] = workerId;
+
+            SendCommand(Commands.TEAM_WORKERS_HIRE, parameters);
+        }
+
+        internal static void PrepareAdCampaign(Advert advert)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["advert"] = advert;
+
+            SendCommand(Commands.AD_CAMPAIGN_PREPARE, parameters);
+        }
+
+        internal static void StartAdCampaign(Advert advert)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["advert"] = advert;
+
+            SendCommand(Commands.AD_CAMPAIGN_START, parameters);
+        }
     }
 
 }

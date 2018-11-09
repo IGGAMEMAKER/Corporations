@@ -115,5 +115,10 @@ namespace Assets.Classes
 
             return val / count;
         }
+
+        internal void Join(Human employee)
+        {
+            Workers.Add(employee);
+        }
     }
 }

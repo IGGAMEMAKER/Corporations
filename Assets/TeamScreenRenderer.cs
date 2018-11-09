@@ -64,6 +64,7 @@ public class TeamScreenRenderer : MonoBehaviour
         Team team = p.Team;
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["teamMorale"] = p.moraleData.Morale;
+        parameters["projectId"] = p.Id;
 
         RenderWorkers(team.Workers, parameters);
         RenderEmployees(p.Employees, parameters);

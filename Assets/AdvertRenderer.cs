@@ -16,30 +16,17 @@ public class AdvertRenderer : ListRenderer {
         set { }
     }
 
-    public override void RenderObject(GameObject gameObject, object advertObject, int index, Dictionary<string, object> parameters)
+    void RenderButtons(Advert advert, GameObject prepareAdButton, GameObject startAdButton)
     {
-        Advert advert = (Advert) advertObject;
-
-        GameObject image = gameObject.transform.GetChild(0).gameObject;
-        GameObject text = gameObject.transform.GetChild(1).gameObject;
-        GameObject prepareAdButton = gameObject.transform.GetChild(2).gameObject;
-        GameObject startAdButton = gameObject.transform.GetChild(3).gameObject;
-
         Button p = prepareAdButton.GetComponent<Button>();
-        Button s = startAdButton.GetComponent<Button>();
-        Text TextComponent = text.GetComponent<Text>();
-
-        TextComponent.text = string.Format("Ad for channel {0}", advert.Channel);
-
-        Dictionary<string, object> dictionary = new Dictionary<string, object>();
-        dictionary["advert"] = advert;
-
         p.onClick.RemoveAllListeners();
-        s.onClick.RemoveAllListeners();
-        p.onClick.AddListener(delegate { BaseController.SendCommand(Commands.AD_CAMPAIGN_PREPARE, dictionary); });
-        s.onClick.AddListener(delegate { BaseController.SendCommand(Commands.AD_CAMPAIGN_START, dictionary); });
+        p.onClick.AddListener(delegate { BaseController.PrepareAdCampaign(advert); });
 
-        if (advert.Duration == 0)
+        Button s = startAdButton.GetComponent<Button>();
+        s.onClick.RemoveAllListeners();
+        s.onClick.AddListener(delegate { BaseController.StartAdCampaign(advert); });
+
+        if (advert.NeedsPreparation)
         {
             prepareAdButton.SetActive(true);
             startAdButton.SetActive(false);
@@ -49,5 +36,25 @@ public class AdvertRenderer : ListRenderer {
             prepareAdButton.SetActive(false);
             startAdButton.SetActive(true);
         }
+    }
+
+    void RenderAdvertName(Advert advert, GameObject text)
+    {
+        Text TextComponent = text.GetComponent<Text>();
+
+        TextComponent.text = string.Format("Ad for channel {0}", advert.Channel);
+    }
+
+    public override void RenderObject(GameObject gameObject, object advertObject, int index, Dictionary<string, object> parameters)
+    {
+        Advert advert = (Advert) advertObject;
+
+        GameObject image = gameObject.transform.GetChild(0).gameObject;
+        GameObject text = gameObject.transform.GetChild(1).gameObject;
+        GameObject prepareAdButton = gameObject.transform.GetChild(2).gameObject;
+        GameObject startAdButton = gameObject.transform.GetChild(3).gameObject;
+
+        RenderAdvertName(advert, text);
+        RenderButtons(advert, prepareAdButton, startAdButton);
     }
 }

@@ -29,6 +29,14 @@ namespace Assets.Classes
             IsRunningCampaign = false;
         }
 
+        public bool NeedsPreparation
+        {
+            get
+            {
+                return Duration == 0;
+            }
+        }
+
         string FormatAd()
         {
             return String.Format("Advert of Project {0} on channel {1} with effeciency {2} and duration: {3}", Project, Channel, Effeciency, Duration);
