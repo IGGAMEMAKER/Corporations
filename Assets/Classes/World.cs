@@ -114,6 +114,11 @@ namespace Assets.Classes
             p.PrepareAd(0, 1);
         }
 
+        internal void Fire(int projectId, int workerId)
+        {
+            GetProjectById(projectId).FireWorker(workerId);
+        }
+
         internal void Hire(int projectId, int workerId)
         {
             GetProjectById(projectId).HireEmployee(workerId);

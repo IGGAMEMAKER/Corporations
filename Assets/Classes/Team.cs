@@ -120,5 +120,10 @@ namespace Assets.Classes
         {
             Workers.Add(employee);
         }
+
+        internal void Fire(int workerId)
+        {
+            Workers.RemoveAt(workerId);
+        }
     }
 }

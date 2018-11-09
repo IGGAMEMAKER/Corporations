@@ -27,7 +27,7 @@ public class AdvertController : MonoBehaviour, ICommandHandler {
 
     Application GetApplication()
     {
-        return model.GetWorld();
+        return model.GetApplication();
     }
 
     void StartCampaign(Dictionary<string, object> parameters)

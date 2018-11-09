@@ -73,6 +73,13 @@ public class Application
         RedrawFeatures();
     }
 
+    public void Fire(int projectId, int workerId)
+    {
+        audioManager.PlayWaterSplashSound();
+        world.Fire(projectId, workerId);
+        RedrawTeam();
+    }
+
     public void Hire(int projectId, int workerId)
     {
         audioManager.PlayWaterSplashSound();

@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EventBus : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-
     public void SendCommand(string eventName, Dictionary<string, object> parameters)
     {
         AdvertController advertController = GetComponent<AdvertController>();
@@ -19,10 +13,8 @@ public class EventBus : MonoBehaviour {
 
         ShareController shareController = GetComponent<ShareController>();
         shareController.HandleCommand(eventName, parameters);
+
+        TeamController teamController = GetComponent<TeamController>();
+        teamController.HandleCommand(eventName, parameters);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

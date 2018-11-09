@@ -42,6 +42,6 @@ public class ShareController : MonoBehaviour, ICommandHandler
 
     Application GetApplication()
     {
-        return model.GetWorld();
+        return model.GetApplication();
     }
 }

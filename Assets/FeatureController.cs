@@ -44,7 +44,7 @@ public class FeatureController : MonoBehaviour, ICommandHandler {
 
     Application GetApplication()
     {
-        return model.GetWorld();
+        return model.GetApplication();
     }
 
 }

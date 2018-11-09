@@ -147,6 +147,11 @@ namespace Assets.Classes
             Employees = candidates;
         }
 
+        internal void FireWorker(int workerId)
+        {
+            Team.Fire(workerId);
+        }
+
         internal void HireEmployee(int workerId)
         {
             Human employee = Employees[workerId];

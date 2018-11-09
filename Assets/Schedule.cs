@@ -14,7 +14,7 @@ public class Schedule : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        application = gameObject.GetComponent<Model>().GetWorld();
+        application = gameObject.GetComponent<Model>().GetApplication();
         ResetTimer();
     }
 

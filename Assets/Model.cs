@@ -27,7 +27,7 @@ public class Model : MonoBehaviour {
         RedrawCompanies();
     }
 
-    public Application GetWorld()
+    public Application GetApplication()
     {
         return application;
     }
