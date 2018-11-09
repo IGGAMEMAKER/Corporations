@@ -40,15 +40,22 @@ public class EmployeeView : MonoBehaviour {
         Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
     }
 
+    void RenderLevel(Human human)
+    {
+        Text text = gameObject.transform.Find("Avatar").GetComponentInChildren<Text>();
+        text.text = human.Level.ToString();
+    }
+
     void RenderName(Human human)
     {
         GameObject NameObject = gameObject.transform.Find("Name").gameObject;
-        NameObject.GetComponent<Text>().text = human.FullName;
+        NameObject.GetComponent<Text>().text = human.FullName + " \n " + human.Level + "lvl";
     }
 
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
     {
         RenderName(human);
+        RenderLevel(human);
         RenderSkills(human);
         RenderEffeciency(human);
     }
