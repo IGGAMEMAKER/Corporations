@@ -30,7 +30,6 @@ namespace Assets.Utils
         public static WorkerSpecialisation GetSpecialisation()
         {
             int rand = UnityEngine.Random.Range(0, 5);
-            Debug.Log("rand = " + rand);
 
             if (rand < 2)
                 return WorkerSpecialisation.Programmer;
@@ -60,8 +59,6 @@ namespace Assets.Utils
         public static Human Generate(Team Team)
         {
             WorkerSpecialisation specialisation = GetSpecialisation();
-
-            Debug.LogFormat("Specialisation: {0}", specialisation);
 
             bool isManager = specialisation == WorkerSpecialisation.Manager;
             bool isProgrammer = specialisation == WorkerSpecialisation.Programmer;
