@@ -56,6 +56,9 @@ namespace Assets.Classes
 
                 if (value > Balance.MORALE_PERSONAL_MAX)
                     morale = Balance.MORALE_PERSONAL_MAX;
+
+                if (value < 0)
+                    morale = 0;
             }
         }
         public Skillset Skills { get { return Skillset; } internal set { } }
@@ -75,13 +78,18 @@ namespace Assets.Classes
             }
         }
 
-        public void UpdateMorale(int teamMorale)
+        public int GetMoraleChange(int teamMorale)
         {
             int ownMorale = BaseLoyalty + Balance.MORALE_PERSONAL_BASE;
             int change = teamMorale + ownMorale;
-            Debug.LogFormat("team {0} own {1}, actual {2} (change {3})", teamMorale, ownMorale, Morale, change);
+            //Debug.LogFormat("team {0} own {1}, actual {2} (change {3})", teamMorale, ownMorale, Morale, change);
 
-            Morale += change;
+            return change;
+        }
+
+        public void UpdateMorale(int teamMorale)
+        {
+            Morale += GetMoraleChange(teamMorale);
         }
 
         public int DesireToLeave
@@ -96,7 +104,7 @@ namespace Assets.Classes
         {
             get
             {
-                return Morale < 0;
+                return Morale <= 0;
             }
         }
 

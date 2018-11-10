@@ -98,9 +98,9 @@ namespace Assets.Classes
             Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
 
             Projects.Add(p);
-            Projects.Add(p1);
-            Projects.Add(p2);
-            Projects.Add(p3);
+            //Projects.Add(p1);
+            //Projects.Add(p2);
+            //Projects.Add(p3);
 
             // Add test ads
             p.PrepareAd(0, 0);

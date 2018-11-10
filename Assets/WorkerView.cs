@@ -30,7 +30,7 @@ public class WorkerView : MonoBehaviour {
         component.text = text + " (" + morale + ")";
     }
 
-    void RenderMoraleProgressBar(Human human, int workerMorale)
+    void RenderMoraleProgressBar(Human human, int workerMorale, int teamMorale)
     {
         GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
 
@@ -40,7 +40,13 @@ public class WorkerView : MonoBehaviour {
         ProgressBar progressBar = MoraleBar.GetComponent<ProgressBar>();
         progressBar.SetValue(human.DesireToLeave);
 
-        string hint = String.Format("Desire to leave {0}", human.DesireToLeave);
+        int moraleChange = human.GetMoraleChange(teamMorale);
+
+        int monthsToDemoralize = moraleChange < 0 ? (Balance.MORALE_PERSONAL_MAX - human.DesireToLeave) / moraleChange : 100000;
+
+        string hint = String.Format("Desire to leave increases by {0} each month" +
+            "\nThis worker will stop working" +
+            "\nin {1} months", moraleChange, monthsToDemoralize);
 
         MoraleBar.GetComponentInChildren<UIHint>().SetHintObject(hint);
     }
@@ -61,7 +67,7 @@ public class WorkerView : MonoBehaviour {
         string hintText = String.Format(
             "Base Morale: {0} \n\n"+
             "Team Morale: {1} \n"+
-            "Random attitude: {2} \n",
+            "Individual attitude: {2} \n",
             Balance.MORALE_PERSONAL_BASE,
             GetSignedValue(teamMorale),
             GetSignedValue(human.BaseLoyalty)
@@ -92,7 +98,14 @@ public class WorkerView : MonoBehaviour {
     void RenderEffeciency(Human human)
     {
         GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
-        Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
+
+        string text;
+        if (human.IsCompletelyDemoralised)
+            text = "STOPPED WORKING";
+        else
+            text = String.Format("+{0} points monthly", human.BaseProduction);
+
+        Effeciency.GetComponent<Text>().text = text;
     }
 
     void RenderAvatar(Human human)
@@ -160,6 +173,6 @@ public class WorkerView : MonoBehaviour {
         RenderMorale(workerMorale);
         RedrawMoraleHint(human, teamMorale);
 
-        RenderMoraleProgressBar(human, workerMorale);
+        RenderMoraleProgressBar(human, workerMorale, teamMorale);
     }
 }

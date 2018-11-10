@@ -44,17 +44,22 @@ namespace Assets.Classes
             get { return Workers.FindAll(IsManager); }
         }
 
+        int SumPointProduction(List<Human> workers)
+        {
+            return workers.Sum(p => p.IsCompletelyDemoralised ? 0 : p.BaseProduction);
+        }
+
         public int GetProgrammingPointsProduction()
         {
-            return Programmers.Sum(p => p.BaseProduction);
+            return SumPointProduction(Programmers);
         }
         public int GetManagerPointsProduction()
         {
-            return Managers.Sum(p => p.BaseProduction);
+            return SumPointProduction(Managers);
         }
         public int GetSalesPointsProduction()
         {
-            return Marketers.Sum(p => p.BaseProduction);
+            return SumPointProduction(Marketers);
         }
         public int GetIdeaPointsProduction()
         {
@@ -139,7 +144,9 @@ namespace Assets.Classes
 
         internal void UpdateMorale(TeamMoraleData moraleData)
         {
-            Workers.ForEach(w => w.UpdateMorale(moraleData.Morale));
+            for (var i = 0; i < Workers.Count; i++)
+                Workers[i].UpdateMorale(moraleData.Morale);
+            //Workers.ForEach(w => w.UpdateMorale(moraleData.Morale));
         }
     }
 }
