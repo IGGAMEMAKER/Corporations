@@ -27,5 +27,10 @@ namespace Assets.Classes
         public static int SKILL_MAX_LEVEL = 10;
 
         public static int BASE_INVESTOR_ID = 1;
+
+        public static int WORKER_LOYALTY_MAX = 10;
+        public static int WORKER_LOYALTY_MIN = -10;
+
+        public static int MORALE_PERSONAL_MAX = 100;
     }
 }

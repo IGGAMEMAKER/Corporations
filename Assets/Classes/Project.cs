@@ -225,6 +225,11 @@ namespace Assets.Classes
             Resource.AddMoney(difference);
         }
 
+        internal void UpdateMorales()
+        {
+            Team.UpdateMorale(moraleData);
+        }
+
         void UpgradeMarketers(float xpRatio = 1f)
         {
             Team.UpgradeMarketers(xpRatio);

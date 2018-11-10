@@ -84,7 +84,15 @@ namespace Assets.Utils
 
             h.SetSalary(salary);
 
+            int loyalty = GetRandomLoyalty();
+            h.SetLoyalty(loyalty);
+
             return h;
+        }
+
+        private static int GetRandomLoyalty()
+        {
+            return UnityEngine.Random.Range(Balance.WORKER_LOYALTY_MIN, Balance.WORKER_LOYALTY_MAX);
         }
     }
 }

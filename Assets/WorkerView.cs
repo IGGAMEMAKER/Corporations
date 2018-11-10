@@ -28,12 +28,21 @@ public class WorkerView : MonoBehaviour {
         }
 
         component.text = text + " (" + morale + ")";
+    }
 
-        
+    void RenderMoraleProgressBar(Human human, int workerMorale)
+    {
         GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
 
         // hide progressBar if morale is negative
-        MoraleBar.SetActive(morale < 0);
+        MoraleBar.SetActive(workerMorale < 0);
+
+        ProgressBar progressBar = MoraleBar.GetComponent<ProgressBar>();
+        progressBar.SetValue(human.DesireToLeave);
+
+        string hint = String.Format("Desire to leave {0}", human.DesireToLeave);
+
+        MoraleBar.GetComponentInChildren<UIHint>().SetHintObject(hint);
     }
 
     string GetSignedValue (int value)
@@ -50,10 +59,12 @@ public class WorkerView : MonoBehaviour {
         UIHint MoraleHint = MoraleValue.GetComponentInChildren<UIHint>();
 
         string hintText = String.Format(
-            "Base Morale: {1} \n"+
-            "Team Morale: {0}",
+            "Base Morale: {0} \n\n"+
+            "Team Morale: {1} \n"+
+            "Random attitude: {2} \n",
+            Balance.MORALE_PERSONAL_BASE,
             GetSignedValue(teamMorale),
-            Balance.MORALE_PERSONAL_BASE
+            GetSignedValue(human.BaseLoyalty)
         );
 
         MoraleHint.SetHintObject(hintText);
@@ -144,7 +155,11 @@ public class WorkerView : MonoBehaviour {
 
         int teamMorale = (int)parameters["teamMorale"];
 
-        RenderMorale(teamMorale + Balance.MORALE_PERSONAL_BASE);
+        int workerMorale = teamMorale + Balance.MORALE_PERSONAL_BASE + human.BaseLoyalty;
+
+        RenderMorale(workerMorale);
         RedrawMoraleHint(human, teamMorale);
+
+        RenderMoraleProgressBar(human, workerMorale);
     }
 }

@@ -47,8 +47,6 @@ namespace Assets.Classes
             get {
                 float progress = (xp - CurrentLevelBaseXP) * 100 / (NextLevelXP - CurrentLevelBaseXP);
 
-                //Debug.LogFormat("NextLevel {0} CurrentLevel {1}, currently {2}, progress: {3}%", NextLevelXP, CurrentLevelBaseXP, xp, progress);
-
                 return progress;
             }
         }

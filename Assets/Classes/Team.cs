@@ -136,5 +136,10 @@ namespace Assets.Classes
             int experience = (int)(xpRatio * 100);
             Managers.ForEach(m => m.Skills.GainXP(experience, m.Specialisation));
         }
+
+        internal void UpdateMorale(TeamMoraleData moraleData)
+        {
+            Workers.ForEach(w => w.UpdateMorale(moraleData.Morale));
+        }
     }
 }

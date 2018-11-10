@@ -185,7 +185,15 @@ namespace Assets.Classes
 
                 // New workers
                 UpdateEmployees(i);
+
+                // update Worker morale
+                UpdateWorkerLoyalties(i);
             }
+        }
+
+        private void UpdateWorkerLoyalties(int projectId)
+        {
+            GetProjectById(projectId).UpdateMorales();
         }
 
         private void UpdateEmployees(int projectId)

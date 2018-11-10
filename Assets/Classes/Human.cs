@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Classes
 {
@@ -17,6 +18,14 @@ namespace Assets.Classes
         string Name;
         string Surname;
         Skillset Skillset;
+
+        int morale;
+
+        public int BaseLoyalty
+        {
+            get;
+            internal set;
+        }
 
         int[] Character;
         int Salary;
@@ -37,8 +46,17 @@ namespace Assets.Classes
 
 
         public int Morale {
-            get;
-            internal set;
+            get
+            {
+                return morale;
+            }
+            private set
+            {
+                morale = value;
+
+                if (value > Balance.MORALE_PERSONAL_MAX)
+                    morale = Balance.MORALE_PERSONAL_MAX;
+            }
         }
         public Skillset Skills { get { return Skillset; } internal set { } }
 
@@ -54,6 +72,31 @@ namespace Assets.Classes
                     return "Programmer";
                 default:
                     return "Error";
+            }
+        }
+
+        public void UpdateMorale(int teamMorale)
+        {
+            int ownMorale = BaseLoyalty + Balance.MORALE_PERSONAL_BASE;
+            int change = teamMorale + ownMorale;
+            Debug.LogFormat("team {0} own {1}, actual {2} (change {3})", teamMorale, ownMorale, Morale, change);
+
+            Morale += change;
+        }
+
+        public int DesireToLeave
+        {
+            get
+            {
+                return Balance.MORALE_PERSONAL_MAX - Morale;
+            }
+        }
+
+        public bool IsCompletelyDemoralised
+        {
+            get
+            {
+                return Morale < 0;
             }
         }
 
@@ -89,7 +132,7 @@ namespace Assets.Classes
             Specialisation = specialisation;
             Salary = salary;
 
-            Morale = 100;
+            Morale = Balance.MORALE_PERSONAL_MAX;
         }
 
 
@@ -121,6 +164,11 @@ namespace Assets.Classes
         internal bool IsManager()
         {
             return Specialisation == WorkerSpecialisation.Manager;
+        }
+
+        internal void SetLoyalty(int loyalty)
+        {
+            BaseLoyalty = loyalty;
         }
     }
 }
