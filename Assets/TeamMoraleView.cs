@@ -27,8 +27,8 @@ public class TeamMoraleView : MonoBehaviour {
 
     internal void Redraw(TeamMoraleData moraleData)
     {
-        GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
-        ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
+        //GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
+        //ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
 
         GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
         MoraleDescription.GetComponent<Text>().text = "Morale: " + moraleData.Morale;
