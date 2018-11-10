@@ -17,6 +17,9 @@ namespace Assets.Classes
         public void Upgrade(int experience)
         {
             xp += experience;
+
+            if (Level > Balance.SKILL_MAX_LEVEL)
+                Level = Balance.SKILL_MAX_LEVEL;
         }
 
         public int Effeciency
