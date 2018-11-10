@@ -14,34 +14,34 @@ namespace Assets.Classes
             Workers = workers;
         }
 
-        bool isProgrammer(Human human)
+        bool IsProgrammer(Human human)
         {
-            return human.isProgrammer();
+            return human.IsProgrammer();
         }
 
-        bool isMarketer(Human human)
+        bool IsMarketer(Human human)
         {
-            return human.isMarketer();
+            return human.IsMarketer();
         }
 
-        bool isManager(Human human)
+        bool IsManager(Human human)
         {
-            return human.isManager();
+            return human.IsManager();
         }
 
         List<Human> Programmers
         {
-            get { return Workers.FindAll(isProgrammer); }
+            get { return Workers.FindAll(IsProgrammer); }
         }
 
         List<Human> Marketers
         {
-            get { return Workers.FindAll(isMarketer); }
+            get { return Workers.FindAll(IsMarketer); }
         }
 
         List<Human> Managers
         {
-            get { return Workers.FindAll(isManager); }
+            get { return Workers.FindAll(IsManager); }
         }
 
         public int GetProgrammingPointsProduction()

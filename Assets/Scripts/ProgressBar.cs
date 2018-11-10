@@ -31,6 +31,7 @@ public class ProgressBar : MonoBehaviour {
 
     public void SetValue (float val)
     {
+        // val from 0 to 100f
         Refresh(val);
     }
 

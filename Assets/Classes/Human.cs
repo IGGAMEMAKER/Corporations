@@ -19,11 +19,11 @@ namespace Assets.Classes
         Skillset Skillset;
 
         int[] Character;
+        int Salary;
         public WorkerSpecialisation Specialisation {
             get;
             internal set;
         }
-        int Salary;
 
         public string FullName
         {
@@ -61,7 +61,7 @@ namespace Assets.Classes
         {
             get
             {
-                return Skillset.GetBySpecialisation(Specialisation).Effeciency;
+                return SpecialisationSkill.Effeciency;
             }
         }
 
@@ -69,9 +69,17 @@ namespace Assets.Classes
         {
             get
             {
-                return Skillset.GetBySpecialisation(Specialisation).Level;
+                return SpecialisationSkill.Level;
             }
         }
+
+        public Skill SpecialisationSkill {
+            get
+            {
+                return Skillset.GetBySpecialisation(Specialisation);
+            }
+        }
+
         public Human(string name, string surname, Skillset skillset, int[] character, WorkerSpecialisation specialisation, int salary)
         {
             Name = name;
@@ -100,17 +108,17 @@ namespace Assets.Classes
             UpgradeSkill(Specialisation);
         }
 
-        internal bool isProgrammer()
+        internal bool IsProgrammer()
         {
             return Specialisation == WorkerSpecialisation.Programmer;
         }
 
-        internal bool isMarketer()
+        internal bool IsMarketer()
         {
             return Specialisation == WorkerSpecialisation.Marketer;
         }
 
-        internal bool isManager()
+        internal bool IsManager()
         {
             return Specialisation == WorkerSpecialisation.Manager;
         }

@@ -104,10 +104,37 @@ public class WorkerView : MonoBehaviour {
         button.onClick.AddListener(delegate { BaseController.FireWorker(workerId, projectId); });
     }
 
+    private void RenderSkillProgression(Human human)
+    {
+        GameObject progressBar = gameObject.transform.Find("SkillProgressBar").gameObject;
+
+        if (human.Level == Balance.SKILL_MAX_LEVEL)
+            progressBar.SetActive(false);
+
+        progressBar.GetComponent<ProgressBar>().SetValue(human.SpecialisationSkill.ProgressToNextLevel);
+
+        string hint = String.Format("     Progress {0}%\n\n" +
+            "need {1} more XP to levelup \n\n" +
+            "Workers get XP when they:\n" +
+            "\t * upgrade features\n" +
+            "\t * make ad campaigns\n" +
+            "\t * e.t.c.",
+            human.SpecialisationSkill.ProgressToNextLevel,
+            human.SpecialisationSkill.RequiredXP
+            );
+
+        UIHint uIHint = progressBar.GetComponentInChildren<UIHint>();
+        uIHint.SetHintObject(hint);
+        uIHint.Rotate(-90);
+    }
+
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
     {
         RenderName(human);
         RenderAvatar(human);
+
+        RenderSkillProgression(human);
+
         RenderSkills(human);
         RenderEffeciency(human);
 

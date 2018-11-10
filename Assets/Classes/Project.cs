@@ -93,19 +93,16 @@ namespace Assets.Classes
             {
                 return MonthResourceChange().AddMoney(MoneyChange());
             }
-            internal set { }
         }
 
         public TeamResource resources
         {
             get { return Resource; }
-            set { }
         }
 
         public uint Clients
         {
             get { return audience.clients; }
-            internal set { }
         }
 
         public Team Team { get { return team; } internal set { } }
@@ -235,7 +232,7 @@ namespace Assets.Classes
 
         void UpgradeProgrammers(float xpRatio = 1f)
         {
-            Team.UpgradeProgrammers(xpRatio);
+            Team.UpgradeProgrammers(xpRatio * 2);
         }
 
         void UpgradeManagers(float xpRatio = 1f)

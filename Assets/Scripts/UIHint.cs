@@ -87,4 +87,9 @@ public class UIHint: MonoBehaviour {
     {
         Disable();
     }
+
+    internal void Rotate(float angle)
+    {
+        gameObject.transform.Rotate(new Vector3(0, 0, angle));
+    }
 }
