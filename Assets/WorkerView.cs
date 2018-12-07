@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkerView : MonoBehaviour {
+    public ProgressBar MoraleProgressBar;
+    public UIHint MoraleProgressHint;
+
     void RenderMorale (int morale)
     {
         GameObject MoraleValue = gameObject.transform.Find("MoraleValue").gameObject;
@@ -32,13 +35,14 @@ public class WorkerView : MonoBehaviour {
 
     void RenderMoraleProgressBar(Human human, int workerMorale, int teamMorale)
     {
-        GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
+        //GameObject MoraleBar = gameObject.transform.Find("ProgressBar").gameObject;
 
         // hide progressBar if morale is negative
-        MoraleBar.SetActive(workerMorale < 0);
+        MoraleProgressBar.enabled = workerMorale < 0;
+        //MoraleBar.SetActive(workerMorale < 0);
 
-        ProgressBar progressBar = MoraleBar.GetComponent<ProgressBar>();
-        progressBar.SetValue(human.DesireToLeave);
+        //ProgressBar progressBar = MoraleBar.GetComponent<ProgressBar>();
+        MoraleProgressBar.SetValue(human.DesireToLeave);
 
         int moraleChange = human.GetMoraleChange(teamMorale);
 
@@ -48,7 +52,8 @@ public class WorkerView : MonoBehaviour {
             "\nThis worker will stop working" +
             "\nin {1} months", moraleChange, monthsToDemoralize);
 
-        MoraleBar.GetComponentInChildren<UIHint>().SetHintObject(hint);
+        //MoraleProgressBar.gameObject.GetComponentInChildren<UIHint>().SetHintObject(hint);
+        MoraleProgressHint.SetHintObject(hint);
     }
 
     string GetSignedValue (int value)
@@ -61,7 +66,7 @@ public class WorkerView : MonoBehaviour {
 
     void RedrawMoraleHint(Human human, int teamMorale)
     {
-        GameObject MoraleValue = gameObject.transform.Find("MoraleValue").gameObject;
+        GameObject MoraleValue = transform.Find("MoraleValue").gameObject;
         UIHint MoraleHint = MoraleValue.GetComponentInChildren<UIHint>();
 
         string hintText = String.Format(
@@ -78,7 +83,7 @@ public class WorkerView : MonoBehaviour {
 
     void RenderSkills(Human human)
     {
-        GameObject Avatar = gameObject.transform.Find("Name").gameObject;
+        GameObject Avatar = transform.Find("Name").gameObject;
         UIHint SkillsetHint = Avatar.GetComponentInChildren<UIHint>();
 
         string hintText = String.Format(
@@ -97,7 +102,7 @@ public class WorkerView : MonoBehaviour {
 
     void RenderEffeciency(Human human)
     {
-        GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
+        GameObject Effeciency = transform.Find("Effeciency").gameObject;
 
         string text;
         if (human.IsCompletelyDemoralised)
@@ -110,19 +115,19 @@ public class WorkerView : MonoBehaviour {
 
     void RenderAvatar(Human human)
     {
-        var avatar = gameObject.transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
+        var avatar = transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
         avatar.SetAvatar(human.Level, human.Specialisation);
     }
 
     void RenderName(Human human)
     {
-        GameObject NameObject = gameObject.transform.Find("Name").gameObject;
+        GameObject NameObject = transform.Find("Name").gameObject;
         NameObject.GetComponent<Text>().text = human.FullName;
     }
 
     void RenderHireButton(int workerId, int projectId)
     {
-        Button button = gameObject.transform.Find("Fire").gameObject.GetComponent<Button>();
+        Button button = transform.Find("Fire").gameObject.GetComponent<Button>();
         button.onClick.RemoveAllListeners();
 
         button.onClick.AddListener(delegate { BaseController.FireWorker(workerId, projectId); });

@@ -9,47 +9,46 @@ using UnityEngine.UI;
 // if this will crash read
 // https://answers.unity.com/questions/1095047/detect-mouse-events-for-ui-canvas.html
 
-[RequireComponent(typeof(RectTransform))]
+//[RequireComponent(typeof(RectTransform))]
+//[RequireComponent(typeof(Text))]
+//[RequireComponent(typeof(Mask))]
 public class UIHint: MonoBehaviour {
-    bool isHover = false;
     public string text;
 
     Canvas canvas;
+
+    Text Text;
 
     SoundManager soundManager;
 
     // Use this for initialization
     void Start () {
-        UpdateAll();
-
-        UIHintControl c = gameObject.transform.parent.gameObject.AddComponent<UIHintControl>();
-        c.SetHintableChild(this);
-
         canvas = GetComponent<Canvas>();
-
-        if (text.Length > 0)
-            SetHintObject(text.Replace("\\n", "\n"));
-
-        Disable();
+        //Text = GetComponent<Text>();
 
         soundManager = new SoundManager();
+
+        SetHintObject(text);
+
+        // attach this script to parent object, so we can handle mouse movement events
+        UIHintControl c = transform.parent.gameObject.AddComponent<UIHintControl>();
+        c.SetHintableChild(this);
+
+        Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateAll();
-    }
-
-    void UpdateAll()
-    {
         UpdatePosition();
-        UpdateText();
     }
 
-    void UpdateText()
+    void RenderText()
     {
-        gameObject.GetComponent<Text>().text = text;
+        if (!Text)
+            Text = GetComponent<Text>();
+
+        Text.text = text;
     }
 
     void UpdatePosition()
@@ -57,29 +56,35 @@ public class UIHint: MonoBehaviour {
         var offset = new Vector3(40, -35);
 
         //gameObject.transform.SetParent(gameObject.transform.parent, false);
-        gameObject.transform.position = Input.mousePosition + offset;
+        transform.position = Input.mousePosition + offset;
         //SetHintObject(String.Format("Current Time: {0}", DateTime.Now));
+    }
+
+    void SetText(string s)
+    {
+        text = s.Replace("\\n", "\n");
     }
 
     public void SetHintObject(string s)
     {
-        text = s;
+        SetText(s);
+
+        RenderText();
     }
 
     void Enable()
     {
-        soundManager.PlayOnHintHoverSound();
         canvas.enabled = true;
-        //gameObject.SetActive(true);
     }
+
     void Disable()
     {
         canvas.enabled = false;
-        //gameObject.SetActive(false);
     }
 
     public void OnHover()
     {
+        soundManager.PlayOnHintHoverSound();
         Enable();
     }
 
@@ -90,6 +95,6 @@ public class UIHint: MonoBehaviour {
 
     internal void Rotate(float angle)
     {
-        gameObject.transform.Rotate(new Vector3(0, 0, angle));
+        transform.Rotate(new Vector3(0, 0, angle));
     }
 }

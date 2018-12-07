@@ -5,22 +5,18 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour {
     List<GameObject> Interrupts;
-    GameObject DangerInterrupt;
-    GameObject Canvas;
+
+    public GameObject DangerInterrupt;
+    public GameObject InterruptPanel;
 
     // Use this for initialization
     void Start () {
-        DangerInterrupt = GameObject.Find("DangerInterrupt");
-        Canvas = GameObject.Find("Canvas");
+        //DangerInterrupt = GameObject.Find("DangerInterrupt");
+        //Canvas = GameObject.Find("Canvas");
 
         Interrupts = new List<GameObject>();
     }
 	
-	// Update is called once per frame
-	void Update () {
-        
-    }
-
     public void AddInterrupt(InterruptImportance importance, string prefabName, string linkToMenu)
     {
         float spacing = 50f;
@@ -30,7 +26,7 @@ public class Menu : MonoBehaviour {
         Vector3 pos = new Vector3(x, y, 0) * spacing;
         GameObject g = Instantiate(DangerInterrupt, pos, Quaternion.identity);
 
-        g.transform.SetParent(Canvas.transform, false);
+        g.transform.SetParent(InterruptPanel.transform, false);
 
         Interrupts.Add(g);
     }

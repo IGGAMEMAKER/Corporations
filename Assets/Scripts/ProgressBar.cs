@@ -7,31 +7,28 @@ public class ProgressBar : MonoBehaviour {
     float progress;
     Slider slider;
 
-    Text Text;
+    public Text Text;
 
 	// Use this for initialization
 	void Start () {
-        //InvokeRepeating("Increment", 2.0f, 0.5f);
         progress = 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
     public void SetValue (float val)
     {
         // val from 0 to 100f
         progress = val;
 
-        if (slider == null)
+        if (!slider)
             slider = GetComponent<Slider>();
+
         slider.value = progress / 100;
 
-        if (Text == null)
-            Text = GetComponentInChildren<Text>();
+        Debug.Log("set value: " + val);
 
-        if (Text)
-            Text.text = progress + "%";
+        //if (!Text)
+        //    Text = GetComponent<Text>();
+
+        //Text.text = progress + "%";
     }
 }
