@@ -11,9 +11,6 @@ public class Menu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //DangerInterrupt = GameObject.Find("DangerInterrupt");
-        //Canvas = GameObject.Find("Canvas");
-
         Interrupts = new List<GameObject>();
     }
 	
