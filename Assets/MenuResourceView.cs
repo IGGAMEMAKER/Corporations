@@ -15,10 +15,6 @@ public class MenuResourceView : MonoBehaviour {
     GameObject ClientView;
     GameObject ScheduleView;
 
-    // Use this for initialization
-    void Start () {
-    }
-
     void LoadViews()
     {
         MoneyView = gameObject.transform.Find("Money").gameObject;
@@ -31,11 +27,6 @@ public class MenuResourceView : MonoBehaviour {
         loaded = true;
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     string GetHint<T> (T value)
     {
         string valueSigned = "";

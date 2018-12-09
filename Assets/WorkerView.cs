@@ -15,6 +15,11 @@ public class WorkerView : MonoBehaviour {
 
     public Hint SkillProgressionHint;
 
+    private void Start()
+    {
+        
+    }
+
     void RenderMorale (int morale)
     {
         string text;

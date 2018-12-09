@@ -30,10 +30,6 @@ public class UIHint: MonoBehaviour {
 
         SetHintObject(text);
 
-        // attach this script to parent object, so we can handle mouse movement events
-        UIHintControl c = transform.parent.gameObject.AddComponent<UIHintControl>();
-        c.SetHintableChild(this);
-
         Disable();
     }
 

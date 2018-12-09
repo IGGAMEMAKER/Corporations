@@ -18,7 +18,7 @@ public class EmployeeView : MonoBehaviour {
     void RenderSkills(Human human)
     {
         GameObject Avatar = gameObject.transform.Find("Name").gameObject;
-        UIHint SkillsetHint = Avatar.GetComponentInChildren<UIHint>();
+        Hint SkillsetHint = Avatar.GetComponent<Hint>();
 
         string hintText = String.Format(
             "          {3}         \n\n" +

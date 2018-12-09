@@ -16,6 +16,24 @@ namespace Assets.Classes
             controller.SendCommand(eventName, parameters);
         }
 
+        internal static void ExploreFeature(int featureId, int projectId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["projectId"] = projectId;
+            parameters["featureId"] = featureId;
+
+            SendCommand(Commands.FEATURE_EXPLORE, parameters);
+        }
+
+        internal static void UpgradeFeature(int featureId, int projectId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters["projectId"] = projectId;
+            parameters["featureId"] = featureId;
+
+            SendCommand(Commands.FEATURE_UPGRADE, parameters);
+        }
+
         internal static void HireWorker(int workerId, int projectId)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();

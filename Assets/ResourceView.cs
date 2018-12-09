@@ -46,10 +46,10 @@ public class ResourceView : MonoBehaviour {
         GameObject text = gameObject.transform.GetChild(0).gameObject;
         text.GetComponent<Text>().text = ShortenValue(value);
 
-        text.GetComponentInChildren<UIHint>().SetHintObject(hint);
+        text.GetComponentInChildren<Hint>().SetHintObject(hint);
 
         GameObject icon = gameObject.transform.GetChild(1).gameObject;
-        icon.GetComponentInChildren<UIHint>().SetHintObject(name);
+        icon.GetComponentInChildren<Hint>().SetHintObject(name);
     }
 
     // only set the value
