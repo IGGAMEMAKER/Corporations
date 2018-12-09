@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TeamMoraleView : MonoBehaviour {
+    public Hint MoraleHint;
+    public Text MoraleDescription;
+
     string DescribeMoraleBonus(bool hasBonus, int bonus)
     {
         if (hasBonus)
@@ -14,14 +17,9 @@ public class TeamMoraleView : MonoBehaviour {
         return "NO";
     }
 
-    internal void Redraw(TeamMoraleData moraleData)
+    string GetMoraleHint(TeamMoraleData moraleData)
     {
-        GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
-        MoraleDescription.GetComponent<Text>().text = "Team Morale: " + moraleData.Morale;
-
-        GameObject MoraleHint = MoraleDescription.transform.Find("Hint").gameObject;
-
-        string moraleHint = String.Format(
+        return String.Format(
             "Shows team's desire to continue working in your company\n\n" +
             "Base value: {4}\n" +
             "Salaries: {5}\n" +
@@ -38,7 +36,12 @@ public class TeamMoraleView : MonoBehaviour {
             "+" + moraleData.salaries,
             moraleData.teamSizePenalty
         );
+    }
 
-        MoraleHint.GetComponent<UIHint>().SetHintObject(moraleHint);
+    internal void Redraw(TeamMoraleData moraleData)
+    {
+        MoraleDescription.text = "Team Morale: " + moraleData.Morale;
+
+        MoraleHint.SetHintObject(GetMoraleHint(moraleData));
     }
 }

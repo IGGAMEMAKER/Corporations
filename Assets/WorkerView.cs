@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class WorkerView : MonoBehaviour {
     public ProgressBar DemoralisationProgressBar;
-    public UIHint DemoralisationHint;
+    public Hint DemoralisationHint;
 
     public Text MoraleText;
-    public UIHint MoraleHint;
-    public UIHint SkillsetHint;
+    public Hint MoraleHint;
+    public Hint SkillsetHint;
 
-    public UIHint SkillProgressionHint;
+    public Hint SkillProgressionHint;
 
     void RenderMorale (int morale)
     {

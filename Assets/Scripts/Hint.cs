@@ -21,9 +21,19 @@ public class Hint : MonoBehaviour
         SetHint(Text);
     }
 
+    public void SetHintObject(string text)
+    {
+        SetHint(text);
+    }
+
     public void SetHint(string text)
     {
         hint.SetHintObject(Text);
+    }
+
+    public void Rotate(float angle)
+    {
+        hint.Rotate(angle);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
