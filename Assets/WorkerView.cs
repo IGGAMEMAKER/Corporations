@@ -72,7 +72,7 @@ public class WorkerView : MonoBehaviour {
         string hintText = String.Format(
             "Base Morale: {0} \n\n"+
             "Team Morale: {1} \n"+
-            "Individual attitude: {2} \n",
+            "Individual Morale: {2} \n",
             Balance.MORALE_PERSONAL_BASE,
             GetSignedValue(teamMorale),
             GetSignedValue(human.BaseLoyalty)

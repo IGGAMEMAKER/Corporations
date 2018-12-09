@@ -42,6 +42,7 @@ public class TeamScreenRenderer : MonoBehaviour
     void RenderToggleButton()
     {
         GameObject ToggleObject = gameObject.transform.Find("Toggle").gameObject;
+
         Button ToggleButton = ToggleObject.GetComponent<Button>();
         ToggleButton.onClick.RemoveAllListeners();
         ToggleButton.onClick.AddListener(delegate { Toggle(); });
@@ -75,6 +76,7 @@ public class TeamScreenRenderer : MonoBehaviour
     public void RenderTeam(Project p)
     {
         Team team = p.Team;
+
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["teamMorale"] = p.moraleData.Morale;
         parameters["projectId"] = p.Id;

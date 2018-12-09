@@ -6,20 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TeamMoraleView : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    string DescribeMoraleBonus(bool isBonus, int bonus)
+    string DescribeMoraleBonus(bool hasBonus, int bonus)
     {
-        if (isBonus)
+        if (hasBonus)
             return "YES   +" + bonus;
 
         return "NO";
@@ -27,11 +16,8 @@ public class TeamMoraleView : MonoBehaviour {
 
     internal void Redraw(TeamMoraleData moraleData)
     {
-        //GameObject ProgressBar = gameObject.transform.Find("ProgressBar").gameObject;
-        //ProgressBar.GetComponent<ProgressBar>().SetValue(moraleData.Morale);
-
         GameObject MoraleDescription = gameObject.transform.Find("TeamMoraleStatus").gameObject;
-        MoraleDescription.GetComponent<Text>().text = "Morale: " + moraleData.Morale;
+        MoraleDescription.GetComponent<Text>().text = "Team Morale: " + moraleData.Morale;
 
         GameObject MoraleHint = MoraleDescription.transform.Find("Hint").gameObject;
 

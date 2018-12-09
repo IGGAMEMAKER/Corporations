@@ -463,6 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 244740525}
   - component: {fileID: 244740526}
+  - component: {fileID: 244740527}
   m_Layer: 5
   m_Name: Workers
   m_TagString: Untagged
@@ -485,7 +486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -364, y: 27}
+  m_AnchoredPosition: {x: -458, y: 27}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244740526
@@ -501,6 +502,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabInstance: {fileID: 1956747649843318, guid: 9eddc987c0cd30a47961197e67ec4385,
     type: 2}
+--- !u!114 &244740527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 244740524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 250, y: 100}
+  m_Spacing: {x: 75, y: 20}
+  m_Constraint: 1
+  m_ConstraintCount: 3
 --- !u!1 &255944426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1141,11 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 223739328589798252, guid: 5a24567cc87847f43b0f8ceea5abf271,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471609958694128, guid: 5a24567cc87847f43b0f8ceea5abf271,
         type: 2}
       propertyPath: m_Enabled
       value: 1
@@ -1993,7 +2022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
