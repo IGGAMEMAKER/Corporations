@@ -17,9 +17,6 @@ public class Hint : MonoBehaviour
     bool isHovered;
 
     void Start () {
-        //HintSpawner = GameObject.Find("HintSpawner").GetComponent<HintSpawner>();
-        //hint = HintSpawner.Spawn(gameObject).GetComponent<UIHint>();
-
         SetHint(Text);
     }
 
