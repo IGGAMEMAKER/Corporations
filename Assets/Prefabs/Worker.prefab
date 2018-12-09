@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 114991058416220484}
   - component: {fileID: 114897343648394162}
   m_Layer: 5
-  m_Name: ProgressBar
+  m_Name: DemoralisationProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1581,8 +1581,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5c30c8b3d5a9a4490337a0660306f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoraleProgressBar: {fileID: 114897343648394162}
-  MoraleProgressHint: {fileID: 114810299618355360}
+  DemoralisationProgressBar: {fileID: 114897343648394162}
+  DemoralisationHint: {fileID: 114810299618355360}
+  MoraleText: {fileID: 114452186763993506}
+  MoraleHint: {fileID: 114498133084622360}
+  SkillsetHint: {fileID: 114462053660815498}
+  SkillProgressionHint: {fileID: 114827925873908974}
 --- !u!114 &114897343648394162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2104,7 +2108,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224821165533287426}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -2196,7 +2200,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224821165533287426}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2364,7 +2368,7 @@ RectTransform:
   m_Children:
   - {fileID: 224558145910771578}
   m_Father: {fileID: 224821165533287426}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -2513,10 +2517,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 224876542822607404}
   - {fileID: 224036582400881352}
   - {fileID: 224516722329307718}
   - {fileID: 224201130266996478}
-  - {fileID: 224876542822607404}
   m_Father: {fileID: 224848615159836114}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -2564,9 +2568,9 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -383, y: 113}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125, y: -50}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224876542822607404
@@ -2581,7 +2585,7 @@ RectTransform:
   m_Children:
   - {fileID: 224190553524330438}
   m_Father: {fileID: 224821165533287426}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
