@@ -12,11 +12,15 @@ public class Hint : MonoBehaviour
 
     HintSpawner HintSpawner;
 
+    SoundManager soundManager;
+
     UIHint hint;
 
     bool isHovered;
 
     void Start () {
+        soundManager = new SoundManager();
+
         SetHint(Text);
     }
 
@@ -69,6 +73,7 @@ public class Hint : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        soundManager.PlayOnHintHoverSound();
         //hint.OnHover();
         isHovered = true;
     }
