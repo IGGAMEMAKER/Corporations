@@ -55,9 +55,7 @@ public class UIHint: MonoBehaviour {
     {
         var offset = new Vector3(40, -35);
 
-        //gameObject.transform.SetParent(gameObject.transform.parent, false);
         transform.position = Input.mousePosition + offset;
-        //SetHintObject(String.Format("Current Time: {0}", DateTime.Now));
     }
 
     void SetText(string s)

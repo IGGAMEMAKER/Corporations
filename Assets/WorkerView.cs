@@ -91,17 +91,19 @@ public class WorkerView : MonoBehaviour {
         SkillsetHint.SetHintObject(hintText);
     }
 
+    string GetEffeciency(Human human)
+    {
+        if (human.IsCompletelyDemoralised)
+            return "STOPPED WORKING";
+
+        return String.Format("+{0} points monthly", human.BaseProduction);
+    }
+
     void RenderEffeciency(Human human)
     {
         GameObject Effeciency = transform.Find("Effeciency").gameObject;
 
-        string text;
-        if (human.IsCompletelyDemoralised)
-            text = "STOPPED WORKING";
-        else
-            text = String.Format("+{0} points monthly", human.BaseProduction);
-
-        Effeciency.GetComponent<Text>().text = text;
+        Effeciency.GetComponent<Text>().text = GetEffeciency(human);
     }
 
     void RenderAvatar(Human human)
@@ -133,7 +135,8 @@ public class WorkerView : MonoBehaviour {
 
         progressBar.GetComponent<ProgressBar>().SetValue(human.SpecialisationSkill.ProgressToNextLevel);
 
-        string hint = String.Format("     Progress {0}%\n\n" +
+        string hint = String.Format(
+            "     Progress {0}%\n\n" +
             "need {1} more XP to levelup \n\n" +
             "Workers get XP when they:\n" +
             "\t * upgrade features\n" +
@@ -143,7 +146,6 @@ public class WorkerView : MonoBehaviour {
             human.SpecialisationSkill.RequiredXP
             );
 
-        //UIHint uIHint = progressBar.GetComponentInChildren<UIHint>();
         SkillProgressionHint.SetHintObject(hint);
         SkillProgressionHint.Rotate(-90);
     }

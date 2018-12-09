@@ -14,10 +14,6 @@ public class CompanyView : MonoBehaviour {
         soundManager = new SoundManager();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-    }
-
     public struct CompanyInfo
     {
         public long Cost;
