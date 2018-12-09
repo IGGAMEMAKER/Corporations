@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class TeamScreenRenderer : MonoBehaviour
 {
     bool isTeamView = true;
-    GameObject Workers;
+    public GameObject Workers;
     GameObject Employees;
     GameObject TeamMorale;
     GameObject ToggleButton;
@@ -23,7 +23,7 @@ public class TeamScreenRenderer : MonoBehaviour
 
     void RenderWorkers(List<Human> workers, Dictionary<string, object> parameters)
     {
-        Workers = gameObject.transform.Find("Workers").gameObject;
+        //Workers = gameObject.transform.Find("Workers").gameObject;
         Workers.GetComponent<WorkerListRenderer>().UpdateList(workers, parameters);
     }
 

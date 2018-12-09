@@ -152,7 +152,6 @@ public class WorkerView : MonoBehaviour {
             );
 
         SkillProgressionHint.SetHintObject(hint);
-        SkillProgressionHint.Rotate(-90);
     }
 
     public void UpdateView(Human human, int index, Dictionary<string, object> parameters)

@@ -10,11 +10,7 @@ public class Hint : MonoBehaviour
 {
     public string Text;
 
-    HintSpawner HintSpawner;
-
     SoundManager soundManager;
-
-    UIHint hint;
 
     bool isHovered;
 
@@ -62,25 +58,17 @@ public class Hint : MonoBehaviour
 
     public void SetHint(string text)
     {
-        //hint.SetHintObject(Text);
         Text = text;
-    }
-
-    public void Rotate(float angle)
-    {
-        //hint.Rotate(angle);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         soundManager.PlayOnHintHoverSound();
-        //hint.OnHover();
         isHovered = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //hint.OnExit();
         isHovered = false;
     }
 }
