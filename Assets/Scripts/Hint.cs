@@ -23,36 +23,34 @@ public class Hint : MonoBehaviour
         SetHint(Text);
     }
 
-
+    //float GetContentWidth(string text)
+    //{
+    //    text.Split('\n',);
+    //}
 
     private void OnGUI()
     {
         if (isHovered)
         {
-            //GUI.Button(new Rect(10, 10, 100, 20), new GUIContent("Click me", "This is the tooltip"));
-            ////GUI.Label(new Rect(10, 40, 100, 40), GUI.tooltip);
-            //GUI.Label(new Rect(10, 40, 100, 40), new GUIContent();
-
-            ////var offset = new Vector3(40, -35);
-            //Debug.Log("Tooltip: " + Text);
-            ////transform.position = Input.mousePosition + offset;
-            ////GUI.Label(new Rect(10, 40, 200, 40), GUI.tooltip);
-
-            //Rect rect = new Rect(Input.mousePosition.x + 40, Input.mousePosition.y - 35f, 150f, 150f);
-            Debug.Log(Input.mousePosition.y);
+            if (Text.Length == 0)
+                return;
 
             float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y;
+            float mouseY = Screen.height - Input.mousePosition.y;
 
-            Rect content = new Rect(mouseX, 150f, 150f, 150f);
-            Rect wrapper = new Rect(mouseX - 15f, 150f, 150f, 150f);
+            float offsetX = 15f;
+            float offsetY = 15f;
+
+            float width = 225f;
+            float height = 225f;
+
+            Rect content = new Rect(mouseX + offsetX, mouseY, width, height);
+            Rect wrapper = new Rect(mouseX - offsetX, mouseY - offsetY, width + offsetX, height + offsetY);
 
             GUI.color = Color.white;
 
-            GUI.Box(wrapper, "");
             GUI.Label(content, Text);
-            //GUI.Label(rect, Text, GUI.tooltip);
-
+            GUI.Box(wrapper, "");
         }
     }
 
