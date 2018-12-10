@@ -65,9 +65,6 @@ public class TeamScreenRenderer : MonoBehaviour
 
     void RenderToggleButton()
     {
-        WorkerEmployeeToggle.onClick.RemoveAllListeners();
-        WorkerEmployeeToggle.onClick.AddListener(delegate { Toggle(); });
-
         WorkerEmployeeToggle.GetComponentInChildren<Text>().text = isTeamView ? "Hire workers" : "Show team";
 
         if (isTeamView)
@@ -81,7 +78,7 @@ public class TeamScreenRenderer : MonoBehaviour
         TeamLevelView.SetData(team);
     }
 
-    void Toggle()
+    public void Toggle()
     {
         isTeamView = !isTeamView;
         RenderToggleButton();

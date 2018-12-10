@@ -14,6 +14,7 @@ public class GridNavigation : MonoBehaviour {
     public void UpdateLinks()
     {
         Debug.Log("Update Links");
+
         int columns = group.constraintCount;
         Debug.Log("Columns: " + columns);
 
