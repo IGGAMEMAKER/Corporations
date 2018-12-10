@@ -15,11 +15,6 @@ public class WorkerView : MonoBehaviour {
 
     public Hint SkillProgressionHint;
 
-    private void Start()
-    {
-        
-    }
-
     void RenderMorale (int morale)
     {
         string text;
@@ -154,7 +149,7 @@ public class WorkerView : MonoBehaviour {
         SkillProgressionHint.SetHintObject(hint);
     }
 
-    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    public void Render(Human human, int index, int projectId, int teamMorale)
     {
         RenderName(human);
         RenderAvatar(human);
@@ -164,11 +159,9 @@ public class WorkerView : MonoBehaviour {
         RenderSkills(human);
         RenderEffeciency(human);
 
-        int projectId = (int)parameters["projectId"];
 
         RenderHireButton(index, projectId);
 
-        int teamMorale = (int)parameters["teamMorale"];
 
         int workerMorale = teamMorale + Balance.MORALE_PERSONAL_BASE + human.BaseLoyalty;
 
@@ -176,5 +169,13 @@ public class WorkerView : MonoBehaviour {
         RedrawMoraleHint(human, teamMorale);
 
         RenderMoraleProgressBar(human, workerMorale, teamMorale);
+    }
+
+    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    {
+        int projectId = (int)parameters["projectId"];
+        int teamMorale = (int)parameters["teamMorale"];
+
+        Render(human, index, projectId, teamMorale);
     }
 }

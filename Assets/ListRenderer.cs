@@ -14,18 +14,6 @@ public abstract class ListRenderer : MonoBehaviour
         gameObjects = new List<GameObject>();
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void RemoveCurrentObjects()
     {
         for (int i = 0; i < gameObjects.Count; i++)
@@ -36,10 +24,11 @@ public abstract class ListRenderer : MonoBehaviour
 
     GameObject InstantiateObject(int x, int y)
     {
-        Vector3 pos = new Vector3(x * spacing.x, -y * spacing.y, 0);
-        GameObject g = Instantiate(PrefabInstance, pos, Quaternion.identity);
+        //Vector3 pos = new Vector3(x * spacing.x, -y * spacing.y, 0);
+        //GameObject g = Instantiate(PrefabInstance, pos, Quaternion.identity);
+        GameObject g = Instantiate(PrefabInstance, transform);
 
-        g.transform.SetParent(this.gameObject.transform, false);
+        //g.transform.SetParent(this.gameObject.transform, false);
 
         gameObjects.Add(g);
 

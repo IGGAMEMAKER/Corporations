@@ -6,22 +6,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EmployeeListRenderer : ListRenderer
+public class EmployeeListRenderer : MonoBehaviour
 {
-    public override int itemsPerLine
-    {
-        get { return 3; }
-        set { }
-    }
+    public GameObject Prefab;
 
-    public override Vector2 spacing
+    public void Render(List<Human> workers, int projectId)
     {
-        get { return new Vector2(300f, 175f); }
-        set { }
-    }
+        for (int i = 0; i < workers.Count; i++)
+        {
+            GameObject v = Instantiate(Prefab, transform);
 
-    public override void RenderObject(GameObject obj, object item, int index, Dictionary<string, object> parameters)
-    {
-        obj.GetComponent<EmployeeView>().UpdateView((Human)item, index, parameters);
+            v.GetComponent<EmployeeView>().Render(workers[i], i, projectId);
+        }
     }
 }

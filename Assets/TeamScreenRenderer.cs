@@ -7,63 +7,69 @@ using UnityEngine.UI;
 
 public class TeamScreenRenderer : MonoBehaviour
 {
-    bool isTeamView = true;
-    public GameObject Workers;
-    GameObject Employees;
-    GameObject TeamMorale;
-    GameObject ToggleButton;
+    public WorkerListRenderer Workers;
+    public EmployeeListRenderer Employees;
+    public TeamMoraleView TeamMoraleView;
+    public TeamLevelView TeamLevelView;
+    public Button WorkerEmployeeToggle;
+    public GameObject Content;
 
+
+    bool isTeamView = true;
     SoundManager soundManager;
 
-    // Use this for initialization
+
+    List<Human> workers;
+    List<Human> employees;
+    int teamMorale;
+    int projectId;
+
     void Start()
     {
         soundManager = new SoundManager();
     }
 
-    void RenderWorkers(List<Human> workers, Dictionary<string, object> parameters)
+    void ClearWorkerContent()
     {
-        //Workers = gameObject.transform.Find("Workers").gameObject;
-        Workers.GetComponent<WorkerListRenderer>().UpdateList(workers, parameters);
+        foreach (Transform child in Content.transform)
+            Destroy(child.gameObject);
     }
 
-    void RenderEmployees(List<Human> employees, Dictionary<string, object> parameters)
+    void RenderWorkers(List<Human> workers, int teamMorale, int projectId)
     {
-        Employees = gameObject.transform.Find("Employees").gameObject;
-        Employees.GetComponent<EmployeeListRenderer>().UpdateList(employees, parameters);
+        ClearWorkerContent();
+
+        Workers.Render(workers, teamMorale, projectId);
+    }
+
+    void RenderEmployees(List<Human> employees, int projectId)
+    {
+        ClearWorkerContent();
+
+        Employees.Render(employees, projectId);
     }
 
     void RenderTeamMorale(Project p)
     {
-        TeamMorale = gameObject.transform.Find("TeamMorale").gameObject;
-        TeamMorale.GetComponent<TeamMoraleView>().Redraw(p.moraleData);
+        TeamMoraleView.Redraw(p.moraleData);
     }
 
     void RenderToggleButton()
     {
-        GameObject ToggleObject = gameObject.transform.Find("Toggle").gameObject;
+        WorkerEmployeeToggle.onClick.RemoveAllListeners();
+        WorkerEmployeeToggle.onClick.AddListener(delegate { Toggle(); });
 
-        Button ToggleButton = ToggleObject.GetComponent<Button>();
-        ToggleButton.onClick.RemoveAllListeners();
-        ToggleButton.onClick.AddListener(delegate { Toggle(); });
+        WorkerEmployeeToggle.GetComponentInChildren<Text>().text = isTeamView ? "Hire workers" : "Show team";
 
-        ToggleObject.GetComponentInChildren<Text>().text = isTeamView ? "Hire workers" : "Show team";
-
-        Employees.SetActive(!isTeamView);
-        Workers.SetActive(isTeamView);
+        if (isTeamView)
+            RenderWorkers(workers, teamMorale, projectId);
+        else
+            RenderEmployees(employees, projectId);
     }
 
     void RenderTeamStrength(Team team)
     {
-        GameObject TeamStrength = gameObject.transform.Find("TeamStrength").gameObject;
-
-        Transform coding = TeamStrength.transform.Find("Coding");
-        Transform management = TeamStrength.transform.Find("Management");
-        Transform marketing = TeamStrength.transform.Find("Marketing");
-
-        coding.GetComponent<ResourceView>().UpdateResourceValue("Programming", team.GetProgrammerAverageLevel());
-        management.GetComponent<ResourceView>().UpdateResourceValue("Management", team.GetManagerAverageLevel());
-        marketing.GetComponent<ResourceView>().UpdateResourceValue("Marketing", team.GetMarketerAverageLevel());
+        TeamLevelView.SetData(team);
     }
 
     void Toggle()
@@ -77,12 +83,14 @@ public class TeamScreenRenderer : MonoBehaviour
     {
         Team team = p.Team;
 
-        Dictionary<string, object> parameters = new Dictionary<string, object>();
-        parameters["teamMorale"] = p.moraleData.Morale;
-        parameters["projectId"] = p.Id;
+        int teamMorale = p.moraleData.Morale;
+        int projectId = p.Id;
 
-        RenderWorkers(team.Workers, parameters);
-        RenderEmployees(p.Employees, parameters);
+
+        workers = team.Workers;
+        employees = p.Employees;
+        this.teamMorale = teamMorale;
+        this.projectId = projectId;
 
         RenderToggleButton();
 

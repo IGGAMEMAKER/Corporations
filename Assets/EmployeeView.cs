@@ -60,14 +60,20 @@ public class EmployeeView : MonoBehaviour {
         button.onClick.AddListener(delegate { BaseController.HireWorker(workerId, projectId); });
     }
 
-    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    public void Render(Human human, int index, int projectId)
     {
         RenderName(human);
         RenderAvatar(human);
         RenderSkills(human);
         RenderEffeciency(human);
 
-        int projectId = (int)parameters["projectId"];
         RenderHireButton(index, projectId);
+    }
+
+    public void UpdateView(Human human, int index, Dictionary<string, object> parameters)
+    {
+        int projectId = (int)parameters["projectId"];
+
+        Render(human, index, projectId);
     }
 }
