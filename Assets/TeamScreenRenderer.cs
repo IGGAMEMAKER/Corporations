@@ -67,7 +67,7 @@ public class TeamScreenRenderer : MonoBehaviour
             RenderEmployees(employees, projectId);
     }
 
-    void RenderTeamStrength(Team team)
+    void RenderTeamLevel(Team team)
     {
         TeamLevelView.SetData(team);
     }
@@ -83,18 +83,15 @@ public class TeamScreenRenderer : MonoBehaviour
     {
         Team team = p.Team;
 
-        int teamMorale = p.moraleData.Morale;
-        int projectId = p.Id;
-
+        teamMorale = p.moraleData.Morale;
+        projectId = p.Id;
+        employees = p.Employees;
 
         workers = team.Workers;
-        employees = p.Employees;
-        this.teamMorale = teamMorale;
-        this.projectId = projectId;
 
         RenderToggleButton();
 
         RenderTeamMorale(p);
-        RenderTeamStrength(team);
+        RenderTeamLevel(team);
     }
 }
