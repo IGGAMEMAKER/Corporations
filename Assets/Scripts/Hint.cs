@@ -32,6 +32,12 @@ public class Hint : MonoBehaviour
             if (Text.Length == 0)
                 return;
 
+            //GUIStyle guiStyle = new GUIStyle();
+            //Font font = new Font();
+            //font
+            //guiStyle.font = font;
+            //guiStyle.fontSize = 20;
+
             float mouseX = Input.mousePosition.x;
             float mouseY = Screen.height - Input.mousePosition.y;
 
@@ -44,7 +50,7 @@ public class Hint : MonoBehaviour
             Rect content = new Rect(mouseX + offsetX, mouseY, width, height);
             Rect wrapper = new Rect(mouseX - offsetX, mouseY - offsetY, width + offsetX, height + offsetY);
 
-            GUI.color = Color.white;
+            GUI.color = Color.red;
 
             GUI.Label(content, Text);
             GUI.Box(wrapper, "");

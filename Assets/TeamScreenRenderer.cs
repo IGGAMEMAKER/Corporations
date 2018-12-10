@@ -14,6 +14,8 @@ public class TeamScreenRenderer : MonoBehaviour
     public Button WorkerEmployeeToggle;
     public GameObject Content;
 
+    public GridNavigation GridNavigation;
+
     bool isTeamView = true;
     SoundManager soundManager;
 
@@ -27,6 +29,11 @@ public class TeamScreenRenderer : MonoBehaviour
         soundManager = new SoundManager();
     }
 
+    void UpdateLinks()
+    {
+        GridNavigation.UpdateLinks();
+    }
+
     void ClearWorkerContent()
     {
         foreach (Transform child in Content.transform)
@@ -38,6 +45,8 @@ public class TeamScreenRenderer : MonoBehaviour
         ClearWorkerContent();
 
         Workers.Render(workers, teamMorale, projectId);
+
+        UpdateLinks();
     }
 
     void RenderEmployees(List<Human> employees, int projectId)
@@ -45,6 +54,8 @@ public class TeamScreenRenderer : MonoBehaviour
         ClearWorkerContent();
 
         Employees.Render(employees, projectId);
+
+        UpdateLinks();
     }
 
     void RenderTeamMorale(Project p)
