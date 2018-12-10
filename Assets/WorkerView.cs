@@ -15,6 +15,8 @@ public class WorkerView : MonoBehaviour {
 
     public Hint SkillProgressionHint;
 
+    public Hint FireWorkerHint;
+
     void RenderMorale (int morale)
     {
         string text;
@@ -118,6 +120,11 @@ public class WorkerView : MonoBehaviour {
         NameObject.GetComponent<Text>().text = human.FullName;
     }
 
+    void RenderFireHint(Human human)
+    {
+        FireWorkerHint.SetHintObject("Fire " + human.FullName + "!");
+    }
+
     void RenderHireButton(int workerId, int projectId)
     {
         Button button = transform.Find("Fire").gameObject.GetComponent<Button>();
@@ -161,6 +168,8 @@ public class WorkerView : MonoBehaviour {
 
 
         RenderHireButton(index, projectId);
+
+        RenderFireHint(human);
 
 
         int workerMorale = teamMorale + Balance.MORALE_PERSONAL_BASE + human.BaseLoyalty;
