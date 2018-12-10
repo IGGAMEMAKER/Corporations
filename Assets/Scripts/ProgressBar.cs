@@ -24,8 +24,6 @@ public class ProgressBar : MonoBehaviour {
 
         slider.value = progress / 100;
 
-        Debug.Log("set value: " + val);
-
         //if (!Text)
         //    Text = GetComponent<Text>();
 

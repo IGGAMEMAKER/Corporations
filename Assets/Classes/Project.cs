@@ -134,7 +134,7 @@ namespace Assets.Classes
 
         public void UpdatdeEmployeeList()
         {
-            int numberOfEmployees = 6;
+            int numberOfEmployees = 16;
 
             List<Human> candidates = new List<Human>();
 

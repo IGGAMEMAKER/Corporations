@@ -14,10 +14,8 @@ public class TeamScreenRenderer : MonoBehaviour
     public Button WorkerEmployeeToggle;
     public GameObject Content;
 
-
     bool isTeamView = true;
     SoundManager soundManager;
-
 
     List<Human> workers;
     List<Human> employees;
