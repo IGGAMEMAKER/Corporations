@@ -8,9 +8,13 @@ public class StaffListController : MonoBehaviour {
     public GameObject EmployeePrefab;
     public ListContentManager ListContentManager;
 
+
+
     public void Render(List<Human> workers, List<Human> employees, int teamMorale, int projectId)
     {
         List<GameObject> items = new List<GameObject>();
+
+        workers.Sort((h1, h2) => h2.Level - h1.Level);
 
         for (int i = 0; i < workers.Count; i++)
         {
@@ -22,6 +26,7 @@ public class StaffListController : MonoBehaviour {
         }
 
         // add Hire button here
+        employees.Sort((h1, h2) => h2.Level - h1.Level);
 
         for (int i = 0; i < employees.Count; i++)
         {

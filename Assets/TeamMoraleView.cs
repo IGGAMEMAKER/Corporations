@@ -38,7 +38,7 @@ public class TeamMoraleView : MonoBehaviour {
         );
     }
 
-    internal void Redraw(TeamMoraleData moraleData)
+    internal void Render(TeamMoraleData moraleData)
     {
         MoraleDescription.text = "Team Morale: " + moraleData.Morale;
 

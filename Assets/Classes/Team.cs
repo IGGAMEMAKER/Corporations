@@ -29,17 +29,17 @@ namespace Assets.Classes
             return human.IsManager();
         }
 
-        List<Human> Programmers
+        public List<Human> Programmers
         {
             get { return Workers.FindAll(IsProgrammer); }
         }
 
-        List<Human> Marketers
+        public List<Human> Marketers
         {
             get { return Workers.FindAll(IsMarketer); }
         }
 
-        List<Human> Managers
+        public List<Human> Managers
         {
             get { return Workers.FindAll(IsManager); }
         }

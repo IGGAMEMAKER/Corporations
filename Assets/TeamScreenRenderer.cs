@@ -7,18 +7,15 @@ using UnityEngine.UI;
 
 public class TeamScreenRenderer : MonoBehaviour
 {
-    public WorkerListRenderer Workers;
-    public EmployeeListRenderer Employees;
+    public StaffListController Managers;
+    public StaffListController Programmers;
+    public StaffListController Marketers;
+
     public TeamMoraleView TeamMoraleView;
-    public TeamLevelView TeamLevelView;
-    public Button WorkerEmployeeToggle;
-    public GameObject Content;
 
     bool isTeamView = true;
     SoundManager soundManager;
 
-    List<Human> workers;
-    List<Human> employees;
     int teamMorale;
     int projectId;
 
@@ -27,66 +24,30 @@ public class TeamScreenRenderer : MonoBehaviour
         soundManager = new SoundManager();
     }
 
-    void ClearWorkerContent()
-    {
-        foreach (Transform child in Content.transform)
-            Destroy(child.gameObject);
-    }
-
-    void RenderWorkers(List<Human> workers, int teamMorale, int projectId)
-    {
-        ClearWorkerContent();
-
-        Workers.Render(workers, teamMorale, projectId);
-    }
-
-    void RenderEmployees(List<Human> employees, int projectId)
-    {
-        ClearWorkerContent();
-
-        Employees.Render(employees, projectId);
-    }
-
     void RenderTeamMorale(Project p)
     {
-        TeamMoraleView.Redraw(p.moraleData);
-    }
-
-    void RenderToggleButton()
-    {
-        WorkerEmployeeToggle.GetComponentInChildren<Text>().text = isTeamView ? "Hire workers" : "Show team";
-
-        if (isTeamView)
-            RenderWorkers(workers, teamMorale, projectId);
-        else
-            RenderEmployees(employees, projectId);
-    }
-
-    void RenderTeamLevel(Team team)
-    {
-        //TeamLevelView.SetData(team);
-    }
-
-    public void Toggle()
-    {
-        isTeamView = !isTeamView;
-        RenderToggleButton();
-        soundManager.PlayToggleSound();
+        TeamMoraleView.Render(p.moraleData);
     }
 
     public void RenderTeam(Project p)
     {
         Team team = p.Team;
 
+        List<Human> employees = p.Employees;
+        List<Human> programmerEmployees = employees.FindAll(h => h.IsProgrammer());
+        List<Human> managerEmployees = employees.FindAll(h => h.IsManager());
+        List<Human> marketerEmployees = employees.FindAll(h => h.IsMarketer());
+
         teamMorale = p.moraleData.Morale;
         projectId = p.Id;
-        employees = p.Employees;
 
-        workers = team.Workers;
+        Debug.Log("Programmers: " + team.Programmers.Count);
 
-        RenderToggleButton();
+        Managers.Render(team.Managers, managerEmployees, teamMorale, projectId);
+        Programmers.Render(team.Programmers, programmerEmployees, teamMorale, projectId);
+        Marketers.Render(team.Marketers, marketerEmployees, teamMorale, projectId);
+
 
         RenderTeamMorale(p);
-        RenderTeamLevel(team);
     }
 }
