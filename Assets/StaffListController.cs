@@ -8,8 +8,6 @@ public class StaffListController : MonoBehaviour {
     public GameObject EmployeePrefab;
     public ListContentManager ListContentManager;
 
-
-
     public void Render(List<Human> workers, List<Human> employees, int teamMorale, int projectId)
     {
         List<GameObject> items = new List<GameObject>();

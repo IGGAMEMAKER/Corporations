@@ -1,9 +1,7 @@
 ﻿using Assets;
 using Assets.Classes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TeamScreenRenderer : MonoBehaviour
 {
@@ -13,7 +11,6 @@ public class TeamScreenRenderer : MonoBehaviour
 
     public TeamMoraleView TeamMoraleView;
 
-    bool isTeamView = true;
     SoundManager soundManager;
 
     int teamMorale;
@@ -33,20 +30,17 @@ public class TeamScreenRenderer : MonoBehaviour
     {
         Team team = p.Team;
 
+        teamMorale = p.moraleData.Morale;
+        projectId = p.Id;
+
         List<Human> employees = p.Employees;
         List<Human> programmerEmployees = employees.FindAll(h => h.IsProgrammer());
         List<Human> managerEmployees = employees.FindAll(h => h.IsManager());
         List<Human> marketerEmployees = employees.FindAll(h => h.IsMarketer());
 
-        teamMorale = p.moraleData.Morale;
-        projectId = p.Id;
-
-        Debug.Log("Programmers: " + team.Programmers.Count);
-
         Managers.Render(team.Managers, managerEmployees, teamMorale, projectId);
         Programmers.Render(team.Programmers, programmerEmployees, teamMorale, projectId);
         Marketers.Render(team.Marketers, marketerEmployees, teamMorale, projectId);
-
 
         RenderTeamMorale(p);
     }
