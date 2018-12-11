@@ -34,6 +34,8 @@ namespace Assets.Classes
             internal set;
         }
 
+
+        
         public string FullName
         {
             get { return Name + " " + Surname; }

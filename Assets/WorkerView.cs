@@ -111,7 +111,7 @@ public class WorkerView : MonoBehaviour {
     void RenderAvatar(Human human)
     {
         var avatar = transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
-        avatar.SetAvatar(human.Level, human.Specialisation);
+        avatar.Render(human.FullName, human.Level, human.Specialisation);
     }
 
     void RenderName(Human human)

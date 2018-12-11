@@ -43,7 +43,7 @@ public class EmployeeView : MonoBehaviour {
     void RenderAvatar(Human human)
     {
         var avatar = gameObject.transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
-        avatar.SetAvatar(human.Level, human.Specialisation);
+        //avatar.RenderAvatar(human.Level, human.Specialisation);
     }
 
     void RenderName(Human human)

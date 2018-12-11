@@ -16,7 +16,7 @@ public class EmployeeListRenderer : MonoBehaviour
         {
             GameObject v = Instantiate(Prefab, transform);
 
-            v.GetComponent<EmployeeView>().Render(workers[i], i, projectId);
+            v.GetComponent<WorkerPreview>().Render(workers[i], i, projectId, 100);
         }
     }
 }

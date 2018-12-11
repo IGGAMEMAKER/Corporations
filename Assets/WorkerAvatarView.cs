@@ -5,16 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkerAvatarView : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Text LevelText;
+    public Image SpecialisationImage;
+    public Text Name;
 
     Sprite GetSpecialisationSprite(WorkerSpecialisation specialisation)
     {
@@ -28,14 +21,14 @@ public class WorkerAvatarView : MonoBehaviour {
 
             default:
                 return Resources.Load<Sprite>("Coding");
-
         }
     }
 
-    public void SetAvatar (int level, WorkerSpecialisation specialisation)
+    public void Render(string fullName, int level, WorkerSpecialisation specialisation)
     {
-        gameObject.GetComponentInChildren<Text>().text = level.ToString();
+        LevelText.text = level.ToString();
+        SpecialisationImage.sprite = GetSpecialisationSprite(specialisation);
 
-        gameObject.transform.Find("Specialisation").gameObject.GetComponent<Image>().sprite = GetSpecialisationSprite(specialisation);
+        Name.text = fullName;
     }
 }
