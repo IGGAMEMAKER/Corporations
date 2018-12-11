@@ -64,7 +64,7 @@ public class TeamScreenRenderer : MonoBehaviour
 
     void RenderTeamLevel(Team team)
     {
-        TeamLevelView.SetData(team);
+        //TeamLevelView.SetData(team);
     }
 
     public void Toggle()

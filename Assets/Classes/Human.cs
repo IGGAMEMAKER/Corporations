@@ -35,7 +35,6 @@ namespace Assets.Classes
         }
 
 
-        
         public string FullName
         {
             get { return Name + " " + Surname; }

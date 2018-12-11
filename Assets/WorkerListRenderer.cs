@@ -1,10 +1,6 @@
 ﻿using Assets.Classes;
-using Assets.Scripts;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WorkerListRenderer: MonoBehaviour
 {
