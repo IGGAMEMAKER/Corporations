@@ -13,8 +13,6 @@ public class ListContentManager : MonoBehaviour {
 
     public void SetContent(List<GameObject> items)
     {
-        Debug.Log("Set Content. Amount (" + items.Count + ")");
-
         ClearWorkerContent();
 
         for (int i = 0; i < items.Count; i++)
