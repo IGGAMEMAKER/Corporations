@@ -50,7 +50,7 @@ public class Hint : MonoBehaviour
             Rect content = new Rect(mouseX + offsetX, mouseY, width, height);
             Rect wrapper = new Rect(mouseX - offsetX, mouseY - offsetY, width + offsetX, height + offsetY);
 
-            GUI.color = Color.red;
+            GUI.color = Color.white;
 
             GUI.Label(content, Text);
             GUI.Box(wrapper, "");

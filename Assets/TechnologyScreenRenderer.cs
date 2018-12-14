@@ -6,6 +6,7 @@ using UnityEngine;
 public class TechnologyScreenRenderer : MonoBehaviour
 {
     GameObject screen;
+
     public void RenderFeatures(List<Feature> features)
     {
         screen = gameObject.transform.Find("FeatureRenderer").gameObject;
