@@ -32,7 +32,6 @@ public class Model : MonoBehaviour {
         return application;
     }
 
-    // Update is called once per frame
     void Update () {
         ToggleScreensIfNecessary();
 	}
