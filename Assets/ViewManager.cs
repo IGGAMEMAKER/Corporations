@@ -15,9 +15,7 @@ public enum ScreenMode
 
 public class ViewManager : MonoBehaviour
 {
-    // resources
     public GameObject MenuResourceViewObject;
-    public GameObject Notifier;
 
     Dictionary<ScreenMode, GameObject> Screens;
 
@@ -109,7 +107,7 @@ public class ViewManager : MonoBehaviour
     {
         Screens[ScreenMode.TechnologyScreen]
             .GetComponent<TechnologyScreenRenderer>()
-            .RenderFeatures(features);
+            .Render(features);
     }
 
     public void RedrawCompanies(List<Project> projects, int myCompanyId)

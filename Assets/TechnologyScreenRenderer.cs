@@ -5,12 +5,23 @@ using UnityEngine;
 
 public class TechnologyScreenRenderer : MonoBehaviour
 {
-    GameObject screen;
+    public GameObject FeaturePrefab;
+    public ListContentManager FeatureList;
 
-    public void RenderFeatures(List<Feature> features)
+    public void Render(List<Feature> features)
     {
-        screen = gameObject.transform.Find("FeatureRenderer").gameObject;
+        List<GameObject> items = new List<GameObject>();
 
-        screen.GetComponent<FeatureListRenderer>().UpdateList(features);
+        for (int i = 0; i < features.Count; i++)
+        {
+            Debug.Log("rendering features : " + i);
+            GameObject v = Instantiate(FeaturePrefab, transform);
+
+            v.GetComponent<FeatureView>().Render(features[i], i);
+
+            items.Add(v);
+        }
+
+        FeatureList.SetContent(items);
     }
 }

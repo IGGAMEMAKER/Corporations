@@ -18,6 +18,6 @@ public class FeatureListRenderer : ListRenderer
 
     public override void RenderObject(GameObject obj, object item, int index, Dictionary<string, object> parameters)
     {
-        obj.GetComponent<FeatureView>().Render((Feature)item, index, parameters);
+        //obj.GetComponent<FeatureView>().Render((Feature)item, index, parameters);
     }
 }

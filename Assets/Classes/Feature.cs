@@ -62,7 +62,7 @@ namespace Assets.Classes
             }
         }
 
-        bool IsImplemented;
+        public bool IsImplemented { get; internal set; }
 
         public string name;
 
