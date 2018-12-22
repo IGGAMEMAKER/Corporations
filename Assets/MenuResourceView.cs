@@ -7,27 +7,15 @@ using UnityEngine;
 public class MenuResourceView : MonoBehaviour {
     bool loaded = false;
 
-    GameObject MoneyView;
-    GameObject ProgrammingView;
-    GameObject MarketingView;
-    GameObject ManagerView;
-    GameObject IdeaView;
-    GameObject ClientView;
-    GameObject ScheduleView;
-
-    void LoadViews()
-    {
-        MoneyView = gameObject.transform.Find("Money").gameObject;
-        ProgrammingView = gameObject.transform.Find("ProgrammingPoints").gameObject;
-        MarketingView = gameObject.transform.Find("SalesPoints").gameObject;
-        ManagerView = gameObject.transform.Find("ManagerPoints").gameObject;
-        IdeaView = gameObject.transform.Find("Ideas").gameObject;
-        ClientView = gameObject.transform.Find("Clients").gameObject;
-        ScheduleView = gameObject.transform.Find("Date").gameObject;
-        loaded = true;
-    }
+    public ResourceView MoneyView;
+    public ResourceView ProgrammingView;
+    public ResourceView MarketingView;
+    public ResourceView ManagerView;
+    public ResourceView IdeaView;
+    public ResourceView ClientView;
+    public ResourceView ScheduleView;
 	
-    string GetHint<T> (T value)
+    string GetHintText<T> (T value)
     {
         string valueSigned = "";
 
@@ -39,33 +27,25 @@ public class MenuResourceView : MonoBehaviour {
         return String.Format("Monthly change \n\n {0}", valueSigned);
     }
 
-    public void RedrawResources(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, string currentDate)
+    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, string currentDate)
     {
-        if (!loaded)
-            LoadViews();
-
         string hint;
 
         // resources
-        hint = GetHint(resourceMonthChanges.money);
-        MoneyView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Money", teamResource.money, hint);
+        hint = GetHintText(resourceMonthChanges.money);
+        MoneyView.UpdateResourceValue("Money", teamResource.money, hint);
 
-        hint = GetHint(resourceMonthChanges.programmingPoints);
-        ProgrammingView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Programming Points", teamResource.programmingPoints, hint);
+        hint = GetHintText(resourceMonthChanges.programmingPoints);
+        ProgrammingView.UpdateResourceValue("Programming Points", teamResource.programmingPoints, hint);
 
-        hint = GetHint(resourceMonthChanges.managerPoints);
-        ManagerView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Manager Points", teamResource.managerPoints, hint);
+        hint = GetHintText(resourceMonthChanges.managerPoints);
+        ManagerView.UpdateResourceValue("Manager Points", teamResource.managerPoints, hint);
 
-        hint = GetHint(resourceMonthChanges.salesPoints);
-        MarketingView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Marketing points", teamResource.salesPoints, hint);
+        hint = GetHintText(resourceMonthChanges.salesPoints);
+        MarketingView.UpdateResourceValue("Marketing points", teamResource.salesPoints, hint);
 
-        hint = GetHint(resourceMonthChanges.ideaPoints);
-        IdeaView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Ideas", teamResource.ideaPoints, hint);
+        hint = GetHintText(resourceMonthChanges.ideaPoints);
+        IdeaView.UpdateResourceValue("Ideas", teamResource.ideaPoints, hint);
 
 
         // audience
@@ -74,11 +54,10 @@ public class MenuResourceView : MonoBehaviour {
             audience.GetChurnClients(),
             (int) (audience.GetChurnRate() * 100)
         );
-        ClientView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Clients", audience.clients, hint);
+
+        ClientView.UpdateResourceValue("Clients", audience.clients, hint);
 
         // date
-        ScheduleView.GetComponent<ResourceView>()
-            .UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate, "Day");
+        ScheduleView.UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate, "Day");
     }
 }

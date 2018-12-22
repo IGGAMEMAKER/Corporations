@@ -18,6 +18,7 @@ public class ViewManager : MonoBehaviour
     // resources
     public GameObject MenuResourceViewObject;
     public GameObject Notifier;
+
     Dictionary<ScreenMode, GameObject> Screens;
 
     GameObject Title;
@@ -37,25 +38,24 @@ public class ViewManager : MonoBehaviour
         EnableScreen(ScreenMode.MarketingScreen);
     }
 
-    void SetTitle(ScreenMode gameState)
+    string GetScreenTitle (ScreenMode screen)
     {
-        string name;
-
-        switch (gameState)
+        switch (screen)
         {
-            case ScreenMode.ManagementScreen: name = "Management"; break;
-            case ScreenMode.MarketingScreen: name = "Marketing"; break;
-            case ScreenMode.StatsScreen: name = "Companies"; break;
-            case ScreenMode.TeamScreen: name = "Team"; break;
-            case ScreenMode.TechnologyScreen: name = "Technologies"; break;
+            case ScreenMode.ManagementScreen: return "Management";
+            case ScreenMode.MarketingScreen: return "Marketing";
+            case ScreenMode.StatsScreen: return "Companies";
+            case ScreenMode.TeamScreen: return "Team";
+            case ScreenMode.TechnologyScreen: return "Technologies";
 
-            default:
-                name = "WUT?";
-                break;
+            default: return "WUT?";
         }
+    }
 
+    void SetTitle(ScreenMode screen)
+    {
         Title = GameObject.Find("ScreenTitle");
-        Title.GetComponent<Text>().text = name;
+        Title.GetComponent<Text>().text = GetScreenTitle(screen);
     }
 
     internal void HighlightMonthTick()
@@ -63,19 +63,19 @@ public class ViewManager : MonoBehaviour
         GameObject.Find("Date").GetComponentInChildren<TextBlink>().Reset();
     }
 
-    void DisableScreen(ScreenMode gameState)
+    void DisableScreen(ScreenMode screen)
     {
-        if (Screens.ContainsKey(gameState))
-            Screens[gameState].SetActive(false);
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(false);
     }
 
-    void EnableScreen(ScreenMode gameState)
+    void EnableScreen(ScreenMode screen)
     {
-        SetTitle(gameState);
+        SetTitle(screen);
         DisableAllScreens();
 
-        if (Screens.ContainsKey(gameState))
-            Screens[gameState].SetActive(true);
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(true);
     }
 
     void DisableAllScreens()
@@ -86,31 +86,36 @@ public class ViewManager : MonoBehaviour
 
     public void RedrawResources(TeamResource resources, TeamResource resourceMonthChanges, Audience audience, string formattedDate)
     {
-        MenuResourceViewObject.GetComponent<MenuResourceView>()
-            .RedrawResources(resources, resourceMonthChanges, audience, formattedDate);
+        MenuResourceViewObject
+            .GetComponent<MenuResourceView>()
+            .Render(resources, resourceMonthChanges, audience, formattedDate);
     }
 
     public void RedrawAds(List<Advert> adverts)
     {
-        Screens[ScreenMode.MarketingScreen].GetComponent<AdvertRenderer>()
+        Screens[ScreenMode.MarketingScreen]
+            .GetComponent<AdvertRenderer>()
             .UpdateList(adverts);
     }
 
     public void RedrawTeam(Project p)
     {
-        Screens[ScreenMode.TeamScreen].GetComponent<TeamScreenRenderer>()
+        Screens[ScreenMode.TeamScreen]
+            .GetComponent<TeamScreenRenderer>()
             .RenderTeam(p);
     }
 
     public void RedrawFeatures(List<Feature> features)
     {
-        Screens[ScreenMode.TechnologyScreen].GetComponent<TechnologyScreenRenderer>()
+        Screens[ScreenMode.TechnologyScreen]
+            .GetComponent<TechnologyScreenRenderer>()
             .RenderFeatures(features);
     }
 
     public void RedrawCompanies(List<Project> projects, int myCompanyId)
     {
-        Screens[ScreenMode.StatsScreen].GetComponent<StatsScreenView>()
+        Screens[ScreenMode.StatsScreen]
+            .GetComponent<StatsScreenView>()
             .Redraw(projects, myCompanyId);
     }
 
