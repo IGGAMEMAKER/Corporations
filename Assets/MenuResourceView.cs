@@ -1,12 +1,8 @@
 ﻿using Assets.Classes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuResourceView : MonoBehaviour {
-    bool loaded = false;
-
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
     public ResourceView MarketingView;
