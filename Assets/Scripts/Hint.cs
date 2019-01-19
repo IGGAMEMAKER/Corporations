@@ -44,11 +44,17 @@ public class Hint : MonoBehaviour
             float offsetX = 15f;
             float offsetY = 15f;
 
-            float width = 225f;
-            float height = 225f;
 
-            Rect content = new Rect(mouseX + offsetX, mouseY, width, height);
-            Rect wrapper = new Rect(mouseX - offsetX, mouseY - offsetY, width + offsetX, height + offsetY);
+            float contentWidth = 225f;
+            float contentHeight = 225f;
+
+            float rightSideOfScreenOffset = 0;
+
+            if (mouseX > Screen.width  - contentWidth)
+                rightSideOfScreenOffset = contentWidth;
+
+            Rect content = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY, contentWidth, contentHeight);
+            Rect wrapper = new Rect(mouseX - offsetX - rightSideOfScreenOffset, mouseY - offsetY, contentWidth + offsetX, contentHeight + offsetY);
 
             GUI.color = Color.white;
 
