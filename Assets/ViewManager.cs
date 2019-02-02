@@ -33,7 +33,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
         Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
 
-        EnableScreen(ScreenMode.TechnologyScreen);
+        EnableScreen(ScreenMode.ManagementScreen);
     }
 
     string GetScreenTitle (ScreenMode screen)

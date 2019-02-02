@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Assets;
 using Assets.Classes;
 
-public class Application
+public class Application2
 {
     public World world;
     public ViewManager ViewManager;
@@ -13,7 +13,7 @@ public class Application
     public int myProjectId = 0;
     public int myHumanId = 0;
 
-    public Application(World world, ViewManager ViewManager, AudioManager audioManager)
+    public Application2(World world, ViewManager ViewManager, AudioManager audioManager)
     {
         this.world = world;
         this.ViewManager = ViewManager;

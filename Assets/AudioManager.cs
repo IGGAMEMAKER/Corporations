@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets
 {
+    public enum Sound
+    {
+        None,
+        Hover,
+        Action,
+        MoneyIncome,
+        StandardClick,
+        Notification
+    }
+
     public class AudioManager: MonoBehaviour
     {
         Dictionary<AudioClip, AudioSource> sources;
+        Dictionary<Sound, AudioClip> sounds;
 
         public AudioClip coinSound;
         public AudioClip standardClickSound;
@@ -20,70 +28,80 @@ namespace Assets
         void Start()
         {
             sources = new Dictionary<AudioClip, AudioSource>();
+            sounds = new Dictionary<Sound, AudioClip>();
             
-            AddSound(monthlyMoneySound);
-            AddSound(standardClickSound);
-            AddSound(notificationSound);
-            AddSound(toggleScreenSound);
-            AddSound(toggleButtonSound);
+            AddSound(monthlyMoneySound, Sound.MoneyIncome);
+            AddSound(standardClickSound, Sound.StandardClick);
+            AddSound(notificationSound, Sound.Notification);
+            AddSound(toggleScreenSound, Sound.Action);
+            AddSound(toggleButtonSound, Sound.Hover);
         }
 
-        void AddSound(AudioClip audioClip)
+        void AddSound(AudioClip audioClip, Sound sound = Sound.None)
         {
             AudioSource audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.clip = audioClip;
 
             sources[audioClip] = audioSource;
+            sounds[sound] = audioClip;
         }
 
-        void Play(AudioClip clip)
+        void PlayClip(AudioClip clip)
         {
             sources[clip].Play();
         }
 
+        public void Play(Sound sound)
+        {
+            if (sounds.ContainsKey(sound))
+                PlayClip(sounds[sound]);
+            else
+                Debug.LogFormat("Sound {0} doesn't exist in AudioManager", sound);
+        }
+
         internal void PlayToggleButtonSound()
         {
-            Play(toggleButtonSound);
+            PlayClip(toggleButtonSound);
         }
 
         public void PlayOnHintHoverSound()
         {
-            Play(toggleButtonSound);
+            PlayClip(toggleButtonSound);
         }
 
         internal void PlayCoinSound()
         {
-            Play(monthlyMoneySound);
+            PlayClip(monthlyMoneySound);
         }
 
         internal void PlayClickSound()
         {
-            Play(standardClickSound);
+            PlayClip(standardClickSound);
         }
 
         internal void PlayPrepareAdSound()
         {
-            Play(standardClickSound);
+            PlayClip(standardClickSound);
         }
 
         internal void PlayStartAdSound()
         {
-            Play(standardClickSound);
+            PlayClip(standardClickSound);
         }
 
         internal void PlayNotificationSound()
         {
-            Play(notificationSound);
+            PlayClip(notificationSound);
         }
 
         internal void PlayToggleScreenSound()
         {
-            Play(toggleScreenSound);
+            PlayClip(toggleScreenSound);
         }
 
         internal void PlayWaterSplashSound()
         {
-            Play(standardClickSound);
+            PlayClip(standardClickSound);
         }
     }
 }

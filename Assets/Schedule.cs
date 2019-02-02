@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Schedule : MonoBehaviour {
     public GameObject MenuObject;
-    Application application;
+    Application2 application;
 
     bool isTimerRunning = false;
 

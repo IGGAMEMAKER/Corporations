@@ -15,7 +15,7 @@ public class BaseCommandHandler : MonoBehaviour, ICommandHandler
 
     }
 
-    public Application application
+    public Application2 application
     {
         get
         {
@@ -23,7 +23,7 @@ public class BaseCommandHandler : MonoBehaviour, ICommandHandler
         }
     }
 
-    public Application GetApplication()
+    public Application2 GetApplication()
     {
         return model.GetApplication();
     }

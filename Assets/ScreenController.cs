@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScreenController : MonoBehaviour {
     float height;
@@ -13,7 +11,7 @@ public class ScreenController : MonoBehaviour {
         height = 768f;
 
         width = 1024f;
-        positionY = 80f;
+        positionY = -80f;
 
         Render();
     }

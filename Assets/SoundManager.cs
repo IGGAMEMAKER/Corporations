@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets
 {
@@ -13,6 +9,12 @@ namespace Assets
         void PickAudioManager()
         {
             AudioManager = GameObject.Find("Core").GetComponent<AudioManager>();
+        }
+
+        public void Play(Sound sound)
+        {
+            PickAudioManager();
+            AudioManager.Play(sound);
         }
 
         public void PlayToggleSound()

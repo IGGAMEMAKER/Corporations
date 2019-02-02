@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Model : MonoBehaviour {
     public World world;
-    public Application application;
+    public Application2 application;
 
     ViewManager ViewManager;
     AudioManager AudioManager;
@@ -18,7 +18,7 @@ public class Model : MonoBehaviour {
         AudioManager = gameObject.GetComponent<AudioManager>();
         ViewManager = new ViewManager();
         Notifier = new Notifier();
-        application = new Application(world, ViewManager, AudioManager);
+        application = new Application2(world, ViewManager, AudioManager);
 
         RedrawAds();
         RedrawResources();
@@ -27,7 +27,7 @@ public class Model : MonoBehaviour {
         RedrawCompanies();
     }
 
-    public Application GetApplication()
+    public Application2 GetApplication()
     {
         return application;
     }
