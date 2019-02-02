@@ -78,8 +78,14 @@ public class Hint : MonoBehaviour
             //GUI.Label(content, Text);
             //GUI.Box(wrapper, "");
 
-            GUI.Box(wrapper, "", currentStyle);
-            GUI.Label(content, Text);
+
+            GUI.skin.box.alignment = TextAnchor.UpperLeft;
+
+            int horizontalOffset = 20;
+            int verticalOffset = 15;
+            GUI.skin.box.padding = new RectOffset(horizontalOffset, horizontalOffset, verticalOffset, verticalOffset);
+            GUI.Box(wrapper, Text, currentStyle);
+            //GUI.Label(content, Text);
         }
     }
 
@@ -90,6 +96,7 @@ public class Hint : MonoBehaviour
         if (currentStyle == null)
         {
             currentStyle = new GUIStyle(GUI.skin.box);
+            currentStyle.wordWrap = true;
             currentStyle.normal.background = BackgroundTexture;
         }
     }
