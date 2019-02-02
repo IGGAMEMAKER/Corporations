@@ -1,7 +1,5 @@
 ﻿using Assets;
 using Assets.Classes;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,7 +73,6 @@ public class CompanyView : MonoBehaviour {
 
         RenderShareButtons(panel, myCompanyId, thisCompanyId);
 
-        //Share.GetComponentInChildren<Hint>().SetHintObject(GetShareHint(project));
         CompanyName.GetComponent<Text>().text = project.Name;
     }
     

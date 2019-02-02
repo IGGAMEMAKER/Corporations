@@ -16,7 +16,7 @@ public class SoundController : MonoBehaviour
 
         Button = GetComponent<Button>();
 
-        Button.onClick.AddListener(() => PlaySound());
+        Button.onClick.AddListener(PlaySound);
     }
 
     void PlaySound()
@@ -26,6 +26,6 @@ public class SoundController : MonoBehaviour
 
     void Destroy()
     {
-        Button.onClick.RemoveListener(() => PlaySound());
+        Button.onClick.RemoveListener(PlaySound);
     }
 }
