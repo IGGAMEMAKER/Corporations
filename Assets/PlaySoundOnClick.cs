@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundController : MonoBehaviour
+public class PlaySoundOnClick : MonoBehaviour
 {
     public Sound Sound;
     Button Button;
