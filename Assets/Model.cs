@@ -39,7 +39,7 @@ public class Model : MonoBehaviour {
     void ToggleScreensIfNecessary()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            RenderMarketingScreen();
+            RenderInvestmentScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             RenderTechnologyScreen();
@@ -52,9 +52,18 @@ public class Model : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
             RenderStatsScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            RenderMarketingScreen();
     }
 
     // Screens
+    void RenderInvestmentScreen()
+    {
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderInvestmentsScreen();
+    }
+
     void RenderStatsScreen()
     {
         AudioManager.PlayToggleScreenSound();
