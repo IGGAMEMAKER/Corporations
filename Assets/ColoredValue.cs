@@ -33,7 +33,7 @@ public abstract class ColoredValue : MonoBehaviour
 
     float ShowNDigitsAfterComma(float val, float digits)
     {
-        if (digits < 0)
+        if (digits <= 0)
             return Mathf.Floor(val);
 
         float multiplier = Mathf.Pow(10, digits);
@@ -46,7 +46,7 @@ public abstract class ColoredValue : MonoBehaviour
         string text = "" + (Prettify ? ShowNDigitsAfterComma(value, DigitsAfterComma) : value);
 
         if (ShowSign && value > 0)
-            text = "+" + value;
+            text = "+" + text;
 
         return text + "%";
     }

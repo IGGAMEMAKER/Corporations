@@ -22,6 +22,7 @@ public class ShareholderView : MonoBehaviour
     public Text Motivation;
     public Text Goal;
     public ColoredValuePositiveOrNegative Loyalty;
+    public ColoredValuePositiveOrNegative LoyaltyChange;
     public Text Share;
     public Image Icon;
 
@@ -32,6 +33,7 @@ public class ShareholderView : MonoBehaviour
         Motivation.text = "TOP1 Corporation";
         Share.text = "100%";
 
+        LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
         Loyalty.UpdateValue(Random.Range(0, 80f));
     }
 }

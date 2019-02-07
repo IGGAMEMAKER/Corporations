@@ -39,10 +39,10 @@ public class Model : MonoBehaviour {
     void ToggleScreensIfNecessary()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            RenderInvestmentScreen();
+            RenderTechnologyScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            RenderTechnologyScreen();
+            RenderInvestmentScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             RenderManagerScreen();
