@@ -9,7 +9,6 @@ public class PlaySoundOnClick : MonoBehaviour
 
     SoundManager SoundManager;
     
-    // Start is called before the first frame update
     void Start()
     {
         SoundManager = new SoundManager();

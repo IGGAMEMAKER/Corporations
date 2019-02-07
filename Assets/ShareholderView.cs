@@ -21,16 +21,17 @@ public class ShareholderView : MonoBehaviour
     public Text Name;
     public Text Motivation;
     public Text Goal;
-    public Text Loyalty;
+    public ColoredValuePositiveOrNegative Loyalty;
     public Text Share;
     public Image Icon;
 
     void Start()
     {
         Name.text = "You";
+        Goal.text = "Company Cost 50.000.000$";
         Motivation.text = "TOP1 Corporation";
-        Goal.text = "+10 positions in Forbes";
-        Loyalty.text = "100%";
         Share.text = "100%";
+
+        Loyalty.UpdateValue(Random.Range(0, 80f));
     }
 }

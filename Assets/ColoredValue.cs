@@ -14,6 +14,10 @@ public abstract class ColoredValue : MonoBehaviour
     public float value;
     public bool ShowSign;
 
+    [Space(20)]
+    public bool Prettify = true;
+    public int DigitsAfterComma = 0;
+
     public MeasurementUnit unit;
 
     Text Text;
@@ -27,9 +31,19 @@ public abstract class ColoredValue : MonoBehaviour
 
     public abstract Color GetColor();
 
+    float ShowNDigitsAfterComma(float val, float digits)
+    {
+        if (digits < 0)
+            return Mathf.Floor(val);
+
+        float multiplier = Mathf.Pow(10, digits);
+
+        return (Mathf.Floor(val * multiplier)) / multiplier;
+    }
+
     string GetFormattedText()
     {
-        string text = value.ToString();
+        string text = "" + (Prettify ? ShowNDigitsAfterComma(value, DigitsAfterComma) : value);
 
         if (ShowSign && value > 0)
             text = "+" + value;
@@ -52,9 +66,4 @@ public abstract class ColoredValue : MonoBehaviour
 
         Render();
     }
-
-    //public void Update()
-    //{
-    //    Render();
-    //}
 }
