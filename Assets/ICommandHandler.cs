@@ -33,10 +33,4 @@ public class BaseCommandHandler : MonoBehaviour, ICommandHandler
     {
         model = gameObject.GetComponent<Model>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

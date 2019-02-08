@@ -7,10 +7,13 @@ public class TextBlink : MonoBehaviour
     float duration;
     bool active;
 
+    Text Text;
+
     void Start()
     {
+        Text = GetComponent<Text>();
         active = false;
-        size = GetComponent<Text>().fontSize;
+        size = Text.fontSize;
         duration = 1;
     }
 
@@ -19,7 +22,7 @@ public class TextBlink : MonoBehaviour
         if (!active)
             return;
 
-        GetComponent<Text>().fontSize = (int) (size * (1 + 0.85f * duration));
+        Text.fontSize = (int) (size * (1 + 0.85f * duration));
         duration -= Time.deltaTime;
 
         if (duration < 0)

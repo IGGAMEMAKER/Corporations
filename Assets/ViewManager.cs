@@ -35,7 +35,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
         Screens[ScreenMode.InvesmentsScreen] = GameObject.Find("EconomyScreen");
 
-        EnableScreen(ScreenMode.InvesmentsScreen);
+        EnableScreen(ScreenMode.ManagementScreen);
     }
 
     string GetScreenTitle (ScreenMode screen)
