@@ -11,7 +11,8 @@ public enum ScreenMode
     ManagementScreen,
     TeamScreen,
     StatsScreen,
-    InvesmentsScreen
+    InvesmentsScreen,
+    BusinessScreen
 }
 
 public class ViewManager : MonoBehaviour
@@ -34,6 +35,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
         Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
         Screens[ScreenMode.InvesmentsScreen] = GameObject.Find("EconomyScreen");
+        Screens[ScreenMode.BusinessScreen] = GameObject.Find("BusinessScreen");
 
         EnableScreen(ScreenMode.ManagementScreen);
     }
@@ -48,6 +50,7 @@ public class ViewManager : MonoBehaviour
             case ScreenMode.TeamScreen: return "Team";
             case ScreenMode.TechnologyScreen: return "Technologies";
             case ScreenMode.InvesmentsScreen: return "Investments";
+            case ScreenMode.BusinessScreen: return "Business";
 
             default: return "WUT?";
         }
@@ -123,6 +126,11 @@ public class ViewManager : MonoBehaviour
     public void RenderTeamScreen()
     {
         EnableScreen(ScreenMode.TeamScreen);
+    }
+
+    public void RenderBusinessScreen()
+    {
+        EnableScreen(ScreenMode.BusinessScreen);
     }
 
     public void RenderMarketingScreen()

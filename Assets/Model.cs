@@ -55,6 +55,9 @@ public class Model : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
             RenderMarketingScreen();
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+            RenderBusinessScreen();
     }
 
     // Screens
@@ -68,6 +71,12 @@ public class Model : MonoBehaviour {
     {
         AudioManager.PlayToggleScreenSound();
         ViewManager.RenderStatsScreen();
+    }
+
+    void RenderBusinessScreen()
+    {
+        AudioManager.PlayToggleScreenSound();
+        ViewManager.RenderBusinessScreen();
     }
 
     void RenderTeamScreen()
