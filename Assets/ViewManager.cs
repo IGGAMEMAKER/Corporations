@@ -109,13 +109,6 @@ public class ViewManager : MonoBehaviour
             .RenderTeam(p);
     }
 
-    public void RedrawFeatures(List<Feature> features)
-    {
-        Screens[ScreenMode.TechnologyScreen]
-            .GetComponent<TechnologyScreenRenderer>()
-            .Render(features);
-    }
-
     public void RedrawCompanies(List<Project> projects, int myCompanyId)
     {
         Screens[ScreenMode.StatsScreen]

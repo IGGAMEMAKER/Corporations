@@ -22,7 +22,6 @@ public class Model : MonoBehaviour {
 
         RedrawAds();
         RedrawResources();
-        RedrawFeatures();
         RedrawTeam();
         RedrawCompanies();
     }
@@ -97,7 +96,6 @@ public class Model : MonoBehaviour {
     {
         AudioManager.PlayToggleScreenSound();
         ViewManager.RenderTechnologyScreen();
-        RedrawFeatures();
     }
 
     void RenderManagerScreen()
@@ -115,11 +113,6 @@ public class Model : MonoBehaviour {
     void RedrawResources()
     {
         application.RedrawResources();
-    }
-
-    void RedrawFeatures()
-    {
-        application.RedrawFeatures();
     }
 
     void RedrawAds()

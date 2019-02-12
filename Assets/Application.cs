@@ -70,7 +70,6 @@ public class Application2
     {
         audioManager.PlayClickSound();
         world.ExploreFeature(projectId, featureId);
-        RedrawFeatures();
     }
 
     public void Fire(int projectId, int workerId)
@@ -91,7 +90,6 @@ public class Application2
     {
         audioManager.PlayClickSound();
         world.UpgradeFeature(projectId, featureId);
-        RedrawFeatures();
     }
 
 
@@ -123,11 +121,5 @@ public class Application2
     {
         Project p = world.GetProjectById(myProjectId);
         ViewManager.RedrawAds(p.GetAds());
-    }
-
-    public void RedrawFeatures()
-    {
-        Project p = world.GetProjectById(myProjectId);
-        ViewManager.RedrawFeatures(p.Features);
     }
 }

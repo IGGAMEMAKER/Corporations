@@ -10,7 +10,11 @@ namespace Assets
         Action,
         MoneyIncome,
         StandardClick,
-        Notification
+        Notification,
+        Selected,
+
+        Tweak,
+        Upgrade
     }
 
     public class AudioManager: MonoBehaviour
@@ -23,18 +27,24 @@ namespace Assets
         public AudioClip notificationSound;
         public AudioClip toggleScreenSound;
         public AudioClip toggleButtonSound;
+        public AudioClip hintSound;
         public AudioClip monthlyMoneySound;
+        public AudioClip itemSelectedSound;
 
         void Start()
         {
             sources = new Dictionary<AudioClip, AudioSource>();
             sounds = new Dictionary<Sound, AudioClip>();
             
-            AddSound(monthlyMoneySound, Sound.MoneyIncome);
             AddSound(standardClickSound, Sound.StandardClick);
             AddSound(notificationSound, Sound.Notification);
             AddSound(toggleScreenSound, Sound.Action);
-            AddSound(toggleButtonSound, Sound.Hover);
+            AddSound(hintSound, Sound.Hover);
+            AddSound(monthlyMoneySound, Sound.MoneyIncome);
+            AddSound(itemSelectedSound, Sound.Selected);
+
+            AddSound(toggleScreenSound, Sound.Upgrade);
+            AddSound(itemSelectedSound, Sound.Tweak);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)
@@ -48,7 +58,10 @@ namespace Assets
 
         void PlayClip(AudioClip clip)
         {
-            sources[clip].Play();
+            if (sources.ContainsKey(clip))
+                sources[clip].Play();
+            else
+                Debug.LogErrorFormat("Clip {0} doesn't exist in AudioManager", clip);
         }
 
         public void Play(Sound sound)
@@ -56,7 +69,7 @@ namespace Assets
             if (sounds.ContainsKey(sound))
                 PlayClip(sounds[sound]);
             else
-                Debug.LogFormat("Sound {0} doesn't exist in AudioManager", sound);
+                Debug.LogErrorFormat("Sound {0} doesn't exist in AudioManager", sound);
         }
 
         internal void PlayToggleButtonSound()
@@ -66,7 +79,7 @@ namespace Assets
 
         public void PlayOnHintHoverSound()
         {
-            PlayClip(toggleButtonSound);
+            Play(Sound.Hover);
         }
 
         internal void PlayCoinSound()
