@@ -23,6 +23,15 @@ public class MenuController : MonoBehaviour
 
     public Text ScreenTitle;
 
+    public GameObject MarketingScreen;
+    public GameObject TechnologyScreen;
+    public GameObject ManagementScreen;
+    public GameObject TeamScreen;
+    public GameObject StatsScreen;
+    public GameObject InvesmentsScreen;
+    public GameObject BusinessScreen;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,16 +39,15 @@ public class MenuController : MonoBehaviour
 
         Screens = new Dictionary<ScreenMode, GameObject>();
 
-        Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
-        Screens[ScreenMode.TechnologyScreen] = GameObject.Find("TechnologyScreen");
-        Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
-        Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
-        Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
-        Screens[ScreenMode.InvesmentsScreen] = GameObject.Find("EconomyScreen");
-        Screens[ScreenMode.BusinessScreen] = GameObject.Find("BusinessScreen");
+        Screens[ScreenMode.MarketingScreen] = MarketingScreen;
+        Screens[ScreenMode.TechnologyScreen] = TechnologyScreen;
+        Screens[ScreenMode.ManagementScreen] = ManagementScreen;
+        Screens[ScreenMode.TeamScreen] = TeamScreen;
+        Screens[ScreenMode.StatsScreen] = StatsScreen;
+        Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
+        Screens[ScreenMode.BusinessScreen] = BusinessScreen;
 
-        DisableAllScreens();
-        //EnableScreen(ScreenMode.TechnologyScreen);
+        EnableScreen(ScreenMode.TechnologyScreen);
     }
 
     void Update()
@@ -81,13 +89,14 @@ public class MenuController : MonoBehaviour
 
     void EnableScreen(ScreenMode screen)
     {
-        SoundManager.Play(Sound.Hover);
-
         SetTitle(screen);
         DisableAllScreens();
 
         if (Screens.ContainsKey(screen))
+        {
+            //SoundManager.Play(Sound.Hover);
             Screens[screen].SetActive(true);
+        }
     }
 
     void DisableAllScreens()
