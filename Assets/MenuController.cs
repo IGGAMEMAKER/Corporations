@@ -1,17 +1,45 @@
 ﻿using Assets;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum ScreenMode
+{
+    TechnologyScreen,
+    MarketingScreen,
+    ManagementScreen,
+    TeamScreen,
+    StatsScreen,
+    InvesmentsScreen,
+    BusinessScreen
+}
 
 public class MenuController : MonoBehaviour
 {
-    AudioManager AudioManager;
-    ViewManager ViewManager;
+    SoundManager SoundManager;
 
+    Dictionary<ScreenMode, GameObject> Screens;
+
+    public Text ScreenTitle;
 
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager = gameObject.GetComponent<AudioManager>();
-        ViewManager = new ViewManager();
+        SoundManager = new SoundManager();
+
+        Screens = new Dictionary<ScreenMode, GameObject>();
+
+        Screens[ScreenMode.MarketingScreen] = GameObject.Find("AdvertScreen");
+        Screens[ScreenMode.TechnologyScreen] = GameObject.Find("TechnologyScreen");
+        Screens[ScreenMode.ManagementScreen] = GameObject.Find("ManagerScreen");
+        Screens[ScreenMode.TeamScreen] = GameObject.Find("TeamScreen");
+        Screens[ScreenMode.StatsScreen] = GameObject.Find("StatsScreen");
+        Screens[ScreenMode.InvesmentsScreen] = GameObject.Find("EconomyScreen");
+        Screens[ScreenMode.BusinessScreen] = GameObject.Find("BusinessScreen");
+
+        DisableAllScreens();
+        //EnableScreen(ScreenMode.TechnologyScreen);
     }
 
     void Update()
@@ -19,75 +47,76 @@ public class MenuController : MonoBehaviour
         ToggleScreensIfNecessary();
     }
 
+    string GetScreenTitle(ScreenMode screen)
+    {
+        switch (screen)
+        {
+            case ScreenMode.ManagementScreen: return "Management";
+            case ScreenMode.MarketingScreen: return "Marketing";
+            case ScreenMode.StatsScreen: return "Companies";
+            case ScreenMode.TeamScreen: return "Team";
+            case ScreenMode.TechnologyScreen: return "Technologies";
+            case ScreenMode.InvesmentsScreen: return "Investments";
+            case ScreenMode.BusinessScreen: return "Business";
+
+            default: return "WUT?";
+        }
+    }
+
+    void SetTitle(ScreenMode screen)
+    {
+        ScreenTitle.text = GetScreenTitle(screen);
+    }
+
+    internal void HighlightMonthTick()
+    {
+        //GameObject.Find("Date").GetComponentInChildren<TextBlink>().Reset();
+    }
+
+    void DisableScreen(ScreenMode screen)
+    {
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(false);
+    }
+
+    void EnableScreen(ScreenMode screen)
+    {
+        SoundManager.Play(Sound.Hover);
+
+        SetTitle(screen);
+        DisableAllScreens();
+
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(true);
+    }
+
+    void DisableAllScreens()
+    {
+        foreach (ScreenMode screen in (ScreenMode[])Enum.GetValues(typeof(ScreenMode)))
+            DisableScreen(screen);
+    }
+
     void ToggleScreensIfNecessary()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            RenderTechnologyScreen();
+            EnableScreen(ScreenMode.TechnologyScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            RenderInvestmentScreen();
+            EnableScreen(ScreenMode.InvesmentsScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            RenderBusinessScreen();
+            EnableScreen(ScreenMode.BusinessScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            RenderTeamScreen();
+            EnableScreen(ScreenMode.TeamScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
-            RenderStatsScreen();
+            EnableScreen(ScreenMode.StatsScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha6))
-            RenderMarketingScreen();
+            EnableScreen(ScreenMode.MarketingScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
-            RenderManagerScreen();
-    }
-
-    void PlayToggleScreenSound()
-    {
-        AudioManager.PlayToggleScreenSound();
-    }
-
-    // Screens
-    void RenderInvestmentScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderInvestmentsScreen();
-    }
-
-    void RenderStatsScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderStatsScreen();
-    }
-
-    void RenderBusinessScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderBusinessScreen();
-    }
-
-    void RenderTeamScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderTeamScreen();
-    }
-
-    void RenderMarketingScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderMarketingScreen();
-    }
-
-    void RenderTechnologyScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderTechnologyScreen();
-    }
-
-    void RenderManagerScreen()
-    {
-        PlayToggleScreenSound();
-        ViewManager.RenderManagerScreen();
+            EnableScreen(ScreenMode.ManagementScreen);
     }
 }

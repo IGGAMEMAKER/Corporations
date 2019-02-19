@@ -7,18 +7,30 @@ public class WorkerAvatarView : MonoBehaviour {
     public Image SpecialisationImage;
     public Text Name;
 
+    public Sprite ManagerIcon;
+    public Sprite MarketerIcon;
+    public Sprite ProgrammerIcon;
+
+    private void Start()
+    {
+        ManagerIcon = Resources.Load<Sprite>("collaboration");
+        MarketerIcon = Resources.Load<Sprite>("promotion");
+        ProgrammerIcon = Resources.Load<Sprite>("Coding");
+    }
+
     Sprite GetSpecialisationSprite(WorkerSpecialisation specialisation)
     {
         switch (specialisation)
         {
             case WorkerSpecialisation.Manager:
-                return Resources.Load<Sprite>("collaboration");
-
+                return ManagerIcon;
             case WorkerSpecialisation.Marketer:
-                return Resources.Load<Sprite>("promotion");
+                return MarketerIcon;
+            case WorkerSpecialisation.Programmer:
+                return ProgrammerIcon;
 
             default:
-                return Resources.Load<Sprite>("Coding");
+                return ProgrammerIcon;
         }
     }
 
