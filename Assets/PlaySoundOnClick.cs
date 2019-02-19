@@ -8,12 +8,8 @@ public class PlaySoundOnClick : MonoBehaviour
     public Sound Sound;
     Button Button;
 
-    SoundManager SoundManager;
-    
     void Start()
     {
-        SoundManager = new SoundManager();
-
         Button = GetComponent<Button>();
 
         Button.onClick.AddListener(PlaySound);

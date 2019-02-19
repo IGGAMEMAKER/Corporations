@@ -5,13 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyView : MonoBehaviour {
-    SoundManager soundManager;
-	
-    // Use this for initialization
-	void Start () {
-        soundManager = new SoundManager();
-	}
-	
     public struct CompanyInfo
     {
         public long Cost;

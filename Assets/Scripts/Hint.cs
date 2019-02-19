@@ -8,8 +8,6 @@ public class Hint : MonoBehaviour
 {
     public string Text;
 
-    SoundManager soundManager;
-
     bool isHovered;
     private int fontSize = 27;
     int renderingDepth = 50;
@@ -19,8 +17,6 @@ public class Hint : MonoBehaviour
     private GUIStyle currentStyle = null;
 
     void Start () {
-        soundManager = new SoundManager();
-
         SetHint(Text);
 
         BackgroundTexture = MakeTex(2, 2, new Color(0f, 1f, 0f, 1f));
@@ -125,7 +121,7 @@ public class Hint : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        soundManager.PlayOnHintHoverSound();
+        SoundManager.PlayOnHintHoverSound();
         isHovered = true;
     }
 

@@ -17,8 +17,6 @@ public enum ScreenMode
 
 public class MenuController : MonoBehaviour
 {
-    SoundManager SoundManager;
-
     Dictionary<ScreenMode, GameObject> Screens;
 
     public Text ScreenTitle;
@@ -35,8 +33,6 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager = new SoundManager();
-
         Screens = new Dictionary<ScreenMode, GameObject>();
 
         Screens[ScreenMode.MarketingScreen] = MarketingScreen;
@@ -94,7 +90,7 @@ public class MenuController : MonoBehaviour
 
         if (Screens.ContainsKey(screen))
         {
-            //SoundManager.Play(Sound.Hover);
+            SoundManager.Play(Sound.Hover);
             Screens[screen].SetActive(true);
         }
     }

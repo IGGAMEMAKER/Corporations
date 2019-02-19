@@ -19,8 +19,8 @@ namespace Assets
 
     public class AudioManager: MonoBehaviour
     {
-        Dictionary<AudioClip, AudioSource> sources;
-        Dictionary<Sound, AudioClip> sounds;
+        Dictionary<AudioClip, AudioSource> sources = new Dictionary<AudioClip, AudioSource>();
+        Dictionary<Sound, AudioClip> sounds = new Dictionary<Sound, AudioClip>();
 
         public AudioClip coinSound;
         public AudioClip standardClickSound;
@@ -33,8 +33,10 @@ namespace Assets
 
         void Start()
         {
-            sources = new Dictionary<AudioClip, AudioSource>();
-            sounds = new Dictionary<Sound, AudioClip>();
+            Debug.Log("AudioManager Start()");
+            //sources = new Dictionary<AudioClip, AudioSource>();
+            //sounds = new Dictionary<Sound, AudioClip>();
+            Debug.Log("AudioManager Start()... sounds");
             
             AddSound(standardClickSound, Sound.StandardClick);
             AddSound(notificationSound, Sound.Notification);

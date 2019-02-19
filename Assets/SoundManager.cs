@@ -2,31 +2,18 @@
 
 namespace Assets
 {
-    public class SoundManager : MonoBehaviour
+    public static class SoundManager
     {
-        AudioManager AudioManager;
-
-        void PickAudioManager()
+        public static void Play(Sound sound)
         {
-            AudioManager = GameObject.Find("Core").GetComponent<AudioManager>();
-        }
+            AudioManager AudioManager = GameObject.FindObjectOfType<AudioManager>();
 
-        public void Play(Sound sound)
-        {
-            PickAudioManager();
             AudioManager.Play(sound);
         }
 
-        public void PlayToggleSound()
+        internal static void PlayOnHintHoverSound()
         {
-            PickAudioManager();
-            AudioManager.PlayToggleButtonSound();
-        }
-
-        public void PlayOnHintHoverSound()
-        {
-            PickAudioManager();
-            AudioManager.PlayOnHintHoverSound();
+            Play(Sound.Hover);
         }
     }
 }

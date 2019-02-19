@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Classes;
+﻿using Assets.Classes;
 using UnityEngine;
 
 public class TeamLevelView : MonoBehaviour {
