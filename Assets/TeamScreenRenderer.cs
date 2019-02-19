@@ -11,15 +11,8 @@ public class TeamScreenRenderer : MonoBehaviour
 
     public TeamMoraleView TeamMoraleView;
 
-    SoundManager soundManager;
-
     int teamMorale;
     int projectId;
-
-    void Start()
-    {
-        soundManager = new SoundManager();
-    }
 
     void RenderTeamMorale(Project p)
     {

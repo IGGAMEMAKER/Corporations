@@ -23,6 +23,8 @@ namespace Assets.Classes
 
         public World()
         {
+            //EventManager.Send(new EventFireWorker(projectId, workerId));
+
             int marketId = 0;
 
             InitializeShareholders();
@@ -51,12 +53,6 @@ namespace Assets.Classes
             }
 
             return list;
-        }
-
-        internal void ExchangeShare(int sellerId, int buyerId, int share)
-        {
-            Debug.LogFormat("ExchangeShare: (sellerId: {0}, buyerId: {1}, share: {2}%)", sellerId, buyerId, share);
-            //throw new NotImplementedException();
         }
 
         void InitializeShareholders()
@@ -103,16 +99,6 @@ namespace Assets.Classes
             p.PrepareAd(0, 1);
         }
 
-        internal void Fire(int projectId, int workerId)
-        {
-            GetProjectById(projectId).FireWorker(workerId);
-        }
-
-        internal void Hire(int projectId, int workerId)
-        {
-            GetProjectById(projectId).HireEmployee(workerId);
-        }
-
         void InitializeMarkets(int marketId)
         {
             Markets = new List<Market>();
@@ -132,6 +118,22 @@ namespace Assets.Classes
                 new Task(TaskType.ExploreFeature, 10, 10, new Dictionary<string, object>(), 1, 11)
             };
             schedule = new ScheduleManager(tasks, 0);
+        }
+
+        internal void ExchangeShare(int sellerId, int buyerId, int share)
+        {
+            Debug.LogFormat("ExchangeShare: (sellerId: {0}, buyerId: {1}, share: {2}%)", sellerId, buyerId, share);
+            //throw new NotImplementedException();
+        }
+
+        internal void Fire(int projectId, int workerId)
+        {
+            GetProjectById(projectId).FireWorker(workerId);
+        }
+
+        internal void Hire(int projectId, int workerId)
+        {
+            GetProjectById(projectId).HireEmployee(workerId);
         }
 
         public Project GetProjectById(int projectId)

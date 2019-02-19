@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-public class Schedule : MonoBehaviour {
+public class ScheduleController : MonoBehaviour {
     public GameObject MenuObject;
-    Application2 application;
 
     bool isTimerRunning = false;
 
@@ -11,7 +10,6 @@ public class Schedule : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        application = gameObject.GetComponent<Model>().GetApplication();
         ResetTimer();
     }
 
@@ -38,9 +36,8 @@ public class Schedule : MonoBehaviour {
 
     void UpdateWorld()
     {
-        application.PeriodTick(1);
-        application.RedrawResources();
-        application.RedrawTeam();
+        //application.PeriodTick(1);
+        Debug.Log("timer++");
     }
 
     void ResetTimer()
@@ -49,9 +46,15 @@ public class Schedule : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         CheckPressedButtons();
 
+        UpdateTimer();
+    }
+
+    private void UpdateTimer()
+    {
         totalTime -= Time.deltaTime;
         if (totalTime < 0 && isTimerRunning)
         {
