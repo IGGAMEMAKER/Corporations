@@ -1,7 +1,4 @@
-﻿using Assets.Classes;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Schedule : MonoBehaviour {
     public GameObject MenuObject;
@@ -18,10 +15,19 @@ public class Schedule : MonoBehaviour {
         ResetTimer();
     }
 
+    void ToggleTimer ()
+    {
+        isTimerRunning = !isTimerRunning;
+    }
+
     void CheckPressedButtons()
     {
+        // on right click
+        if (Input.GetMouseButtonUp(1))
+            ToggleTimer();
+
         if (Input.GetKeyUp(KeyCode.Space))
-            isTimerRunning = !isTimerRunning;
+            ToggleTimer();
 
         if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 3)
             currentSpeed++;

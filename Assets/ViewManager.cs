@@ -37,7 +37,7 @@ public class ViewManager : MonoBehaviour
         Screens[ScreenMode.InvesmentsScreen] = GameObject.Find("EconomyScreen");
         Screens[ScreenMode.BusinessScreen] = GameObject.Find("BusinessScreen");
 
-        EnableScreen(ScreenMode.ManagementScreen);
+        EnableScreen(ScreenMode.TechnologyScreen);
     }
 
     string GetScreenTitle (ScreenMode screen)
@@ -88,34 +88,6 @@ public class ViewManager : MonoBehaviour
             DisableScreen(screen);
     }
 
-    public void RedrawResources(TeamResource resources, TeamResource resourceMonthChanges, Audience audience, string formattedDate)
-    {
-        MenuResourceViewObject
-            .GetComponent<MenuResourceView>()
-            .Render(resources, resourceMonthChanges, audience, formattedDate);
-    }
-
-    public void RedrawAds(List<Advert> adverts)
-    {
-        Screens[ScreenMode.MarketingScreen]
-            .GetComponent<AdvertRenderer>()
-            .UpdateList(adverts);
-    }
-
-    public void RedrawTeam(Project p)
-    {
-        Screens[ScreenMode.TeamScreen]
-            .GetComponent<TeamScreenRenderer>()
-            .RenderTeam(p);
-    }
-
-    public void RedrawCompanies(List<Project> projects, int myCompanyId)
-    {
-        Screens[ScreenMode.StatsScreen]
-            .GetComponent<StatsScreenView>()
-            .Redraw(projects, myCompanyId);
-    }
-
     public void RenderTeamScreen()
     {
         EnableScreen(ScreenMode.TeamScreen);
@@ -149,5 +121,34 @@ public class ViewManager : MonoBehaviour
     public void RenderInvestmentsScreen()
     {
         EnableScreen(ScreenMode.InvesmentsScreen);
+    }
+
+
+    public void RedrawResources(TeamResource resources, TeamResource resourceMonthChanges, Audience audience, string formattedDate)
+    {
+        MenuResourceViewObject
+            .GetComponent<MenuResourceView>()
+            .Render(resources, resourceMonthChanges, audience, formattedDate);
+    }
+
+    public void RedrawAds(List<Advert> adverts)
+    {
+        Screens[ScreenMode.MarketingScreen]
+            .GetComponent<AdvertRenderer>()
+            .UpdateList(adverts);
+    }
+
+    public void RedrawTeam(Project p)
+    {
+        Screens[ScreenMode.TeamScreen]
+            .GetComponent<TeamScreenRenderer>()
+            .RenderTeam(p);
+    }
+
+    public void RedrawCompanies(List<Project> projects, int myCompanyId)
+    {
+        Screens[ScreenMode.StatsScreen]
+            .GetComponent<StatsScreenView>()
+            .Redraw(projects, myCompanyId);
     }
 }

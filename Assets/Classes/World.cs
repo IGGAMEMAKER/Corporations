@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Classes
@@ -99,8 +97,6 @@ namespace Assets.Classes
 
             Projects.Add(p);
             //Projects.Add(p1);
-            //Projects.Add(p2);
-            //Projects.Add(p3);
 
             // Add test ads
             p.PrepareAd(0, 0);

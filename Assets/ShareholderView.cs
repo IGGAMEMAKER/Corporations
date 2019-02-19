@@ -13,7 +13,6 @@ public class Shareholder
 {
     public string Name;
     public MotivationType Motivation;
-
 }
 
 public class ShareholderView : MonoBehaviour

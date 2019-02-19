@@ -1,7 +1,5 @@
 ﻿using Assets;
 using Assets.Classes;
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class Model : MonoBehaviour {
@@ -44,7 +42,7 @@ public class Model : MonoBehaviour {
             RenderInvestmentScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            RenderManagerScreen();
+            RenderBusinessScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
             RenderTeamScreen();
@@ -56,7 +54,7 @@ public class Model : MonoBehaviour {
             RenderMarketingScreen();
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
-            RenderBusinessScreen();
+            RenderManagerScreen();
     }
 
     // Screens
