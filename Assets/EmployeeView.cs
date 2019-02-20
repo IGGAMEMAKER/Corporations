@@ -1,6 +1,5 @@
 ﻿using Assets.Classes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +16,7 @@ public class EmployeeView : MonoBehaviour {
 
     void RenderSkills(Human human)
     {
-        GameObject Avatar = gameObject.transform.Find("Name").gameObject;
+        GameObject Avatar = transform.Find("Name").gameObject;
         Hint SkillsetHint = Avatar.GetComponent<Hint>();
 
         string hintText = String.Format(
@@ -36,28 +35,28 @@ public class EmployeeView : MonoBehaviour {
 
     void RenderEffeciency(Human human)
     {
-        GameObject Effeciency = gameObject.transform.Find("Effeciency").gameObject;
+        GameObject Effeciency = transform.Find("Effeciency").gameObject;
         Effeciency.GetComponent<Text>().text = String.Format("+{0} points monthly", human.BaseProduction);
     }
 
     void RenderAvatar(Human human)
     {
-        var avatar = gameObject.transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
+        var avatar = transform.Find("Avatar").GetComponentInChildren<WorkerAvatarView>();
         //avatar.RenderAvatar(human.Level, human.Specialisation);
     }
 
     void RenderName(Human human)
     {
-        GameObject NameObject = gameObject.transform.Find("Name").gameObject;
+        GameObject NameObject = transform.Find("Name").gameObject;
         NameObject.GetComponent<Text>().text = human.FullName + " \n " + human.Level + "lvl";
     }
 
     void RenderHireButton(int workerId, int projectId)
     {
-        Button button = gameObject.transform.Find("Hire").gameObject.GetComponent<Button>();
+        Button button = transform.Find("Hire").gameObject.GetComponent<Button>();
         button.onClick.RemoveAllListeners();
 
-        button.onClick.AddListener(delegate { BaseController.HireWorker(workerId, projectId); });
+        //button.onClick.AddListener(delegate { EventManager.SendCommand; });
     }
 
     public void Render(Human human, int index, int projectId)

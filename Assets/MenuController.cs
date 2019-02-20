@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.Classes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,16 @@ public class MenuController : MonoBehaviour
         Screens[ScreenMode.BusinessScreen] = BusinessScreen;
 
         EnableScreen(ScreenMode.TechnologyScreen);
+
+
+        EventManager.StartListening(typeof(HirePersonEvent), listener);
+    }
+
+    private void listener(GameEvent gameEvent)
+    {
+        HirePersonEvent hirePersonEvent = (HirePersonEvent)gameEvent;
+
+        Debug.LogFormat("EmployeeView listener {0}", hirePersonEvent.workerId);
     }
 
     void Update()
@@ -70,11 +81,6 @@ public class MenuController : MonoBehaviour
     void SetTitle(ScreenMode screen)
     {
         ScreenTitle.text = GetScreenTitle(screen);
-    }
-
-    internal void HighlightMonthTick()
-    {
-        //GameObject.Find("Date").GetComponentInChildren<TextBlink>().Reset();
     }
 
     void DisableScreen(ScreenMode screen)
@@ -115,13 +121,16 @@ public class MenuController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
             EnableScreen(ScreenMode.TeamScreen);
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-            EnableScreen(ScreenMode.StatsScreen);
+        if (Input.GetKeyDown(KeyCode.Q))
+            EventManager.TriggerEvent(new HirePersonEvent(0, 0));
 
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-            EnableScreen(ScreenMode.MarketingScreen);
+        //if (Input.GetKeyDown(KeyCode.Alpha5))
+        //    EnableScreen(ScreenMode.StatsScreen);
 
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-            EnableScreen(ScreenMode.ManagementScreen);
+        //if (Input.GetKeyDown(KeyCode.Alpha6))
+        //    EnableScreen(ScreenMode.MarketingScreen);
+
+        //if (Input.GetKeyDown(KeyCode.Alpha7))
+        //    EnableScreen(ScreenMode.ManagementScreen);
     }
 }

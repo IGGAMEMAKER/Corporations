@@ -130,7 +130,7 @@ public class WorkerView : MonoBehaviour {
         Button button = transform.Find("Fire").gameObject.GetComponent<Button>();
         button.onClick.RemoveAllListeners();
 
-        button.onClick.AddListener(delegate { BaseController.FireWorker(workerId, projectId); });
+        //button.onClick.AddListener(delegate { EventManager.FireWorker(workerId, projectId); });
     }
 
     private void RenderSkillProgression(Human human)

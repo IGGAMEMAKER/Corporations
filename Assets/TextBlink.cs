@@ -12,7 +12,7 @@ public class TextBlink : MonoBehaviour
     void Start()
     {
         Text = GetComponent<Text>();
-        active = false;
+        active = true;
         size = Text.fontSize;
         duration = 1;
     }
@@ -26,12 +26,6 @@ public class TextBlink : MonoBehaviour
         duration -= Time.deltaTime;
 
         if (duration < 0)
-            active = false;
-    }
-
-    internal void Reset()
-    {
-        duration = 1;
-        active = true;
+            Destroy(this);
     }
 }

@@ -22,7 +22,7 @@ public class CompanyView : MonoBehaviour {
         parameters["buyerId"] = Balance.BASE_INVESTOR_ID;
         parameters["projectId"] = thisCompanyId;
         parameters["share"] = 1;
-        sell.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_SELL, parameters); });
+        sell.onClick.AddListener(delegate { EventManager.SendCommand(Commands.SHARES_SELL, parameters); });
     }
 
     void RenderBuyShareButton(GameObject panel, int myCompanyId, int thisCompanyId)
@@ -37,7 +37,7 @@ public class CompanyView : MonoBehaviour {
         parameters["buyerId"] = myCompanyId;
         parameters["projectId"] = thisCompanyId;
         parameters["share"] = 1;
-        buy.onClick.AddListener(delegate { BaseController.SendCommand(Commands.SHARES_BUY, parameters); });
+        buy.onClick.AddListener(delegate { EventManager.SendCommand(Commands.SHARES_BUY, parameters); });
     }
 
     void RenderShareButtons(GameObject panel, int myCompanyId, int thisCompanyId)
