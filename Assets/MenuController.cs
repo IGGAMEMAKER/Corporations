@@ -46,15 +46,14 @@ public class MenuController : MonoBehaviour
 
         EnableScreen(ScreenMode.TechnologyScreen);
 
-
-        EventManager.StartListening(typeof(HirePersonEvent), listener);
+        EventManager.StartListening(typeof(UpgradedFeatureEvent), listener);
     }
 
     private void listener(GameEvent gameEvent)
     {
-        HirePersonEvent hirePersonEvent = (HirePersonEvent)gameEvent;
+        UpgradedFeatureEvent hirePersonEvent = (UpgradedFeatureEvent)gameEvent;
 
-        Debug.LogFormat("EmployeeView listener {0}", hirePersonEvent.workerId);
+        Debug.LogFormat("UpgradedFeatureEvent listener {0}", hirePersonEvent.projectId);
     }
 
     void Update()
@@ -122,7 +121,7 @@ public class MenuController : MonoBehaviour
             EnableScreen(ScreenMode.TeamScreen);
 
         if (Input.GetKeyDown(KeyCode.Q))
-            EventManager.TriggerEvent(new HirePersonEvent(0, 0));
+            EventManager.NotifyFeatureUpgraded(0, 0);
 
         //if (Input.GetKeyDown(KeyCode.Alpha5))
         //    EnableScreen(ScreenMode.StatsScreen);

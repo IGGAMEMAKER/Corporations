@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 namespace Assets.Classes
 {
-    public class Balance
+    public static class Balance
     {
         public static int advertClientsRangeMin = 100; // percent
         internal static float advertClientsRangeMax = 175;

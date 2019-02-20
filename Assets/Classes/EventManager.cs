@@ -9,14 +9,14 @@ namespace Assets.Classes
 
     }
 
-    public class HirePersonEvent : GameEvent
+    public class UpgradedFeatureEvent : GameEvent
     {
-        public int workerId;
+        public int featureId;
         public int projectId;
 
-        public HirePersonEvent(int workerId, int projectId)
+        public UpgradedFeatureEvent(int featureId, int projectId)
         {
-            this.workerId = workerId;
+            this.featureId = featureId;
             this.projectId = projectId;
         }
     }
@@ -101,12 +101,9 @@ namespace Assets.Classes
         }
 
 
-        public static void SendCommand(string eventName, Dictionary<string, object> parameters)
+        internal static void NotifyFeatureUpgraded(int featureId, int projectId)
         {
-            //GameObject core = GameObject.Find("Core");
-            //EventBus controller = core.GetComponent<EventBus>();
-
-            //controller.SendCommand(eventName, parameters);
+            TriggerEvent(new UpgradedFeatureEvent(featureId, projectId));
         }
     }
 

@@ -23,8 +23,6 @@ namespace Assets.Classes
 
         public World()
         {
-            //EventManager.Send(new EventFireWorker(projectId, workerId));
-
             int marketId = 0;
 
             InitializeShareholders();
