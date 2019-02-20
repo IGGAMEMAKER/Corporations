@@ -2,16 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseController: MonoBehaviour
+public abstract class BaseController: MonoBehaviour
 {
     public World model;
 
     public WorldModel WorldModel;
-    void Start()
+    void Awake()
     {
         Debug.Log("Loading model...");
         LoadModel();
     }
+
+    //abstract void Load();
 
     public void LoadModel()
     {

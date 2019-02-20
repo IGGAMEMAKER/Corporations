@@ -59,11 +59,8 @@ namespace Assets.Classes
             }
         }
 
-        //public static void StartListening(GameEvent gameEvent, MyEventHandler listener)
         public static void StartListening (Type type, MyEventHandler listener)
         {
-            //Type type = gameEvent.GetType();
-
             MyEventHandler thisEvent = null;
             if (instance.eventDictionary.TryGetValue(type, out thisEvent))
             {
@@ -76,11 +73,8 @@ namespace Assets.Classes
             }
         }
 
-        //public static void StopListening(GameEvent gameEvent, MyEventHandler listener)
         public static void StopListening(Type type, MyEventHandler listener)
         {
-            //Type type = gameEvent.GetType();
-
             if (eventManager == null) return;
             MyEventHandler thisEvent = null;
             if (instance.eventDictionary.TryGetValue(type, out thisEvent))
