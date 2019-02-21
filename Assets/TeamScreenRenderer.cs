@@ -16,25 +16,25 @@ public class TeamScreenRenderer : MonoBehaviour
 
     void RenderTeamMorale(Project p)
     {
-        TeamMoraleView.Render(p.moraleData);
+        //TeamMoraleView.Render(p.moraleData);
     }
 
     public void RenderTeam(Project p)
     {
-        Team team = p.Team;
+        //Team team = p.Team;
 
-        teamMorale = p.moraleData.Morale;
-        projectId = p.Id;
+        //teamMorale = p.moraleData.Morale;
+        //projectId = p.Id;
 
-        List<Human> employees = p.Employees;
-        List<Human> programmerEmployees = employees.FindAll(h => h.IsProgrammer());
-        List<Human> managerEmployees = employees.FindAll(h => h.IsManager());
-        List<Human> marketerEmployees = employees.FindAll(h => h.IsMarketer());
+        //List<Human> employees = p.Employees;
+        //List<Human> programmerEmployees = employees.FindAll(h => h.IsProgrammer());
+        //List<Human> managerEmployees = employees.FindAll(h => h.IsManager());
+        //List<Human> marketerEmployees = employees.FindAll(h => h.IsMarketer());
 
-        Managers.Render(team.Managers, managerEmployees, teamMorale, projectId);
-        Programmers.Render(team.Programmers, programmerEmployees, teamMorale, projectId);
-        Marketers.Render(team.Marketers, marketerEmployees, teamMorale, projectId);
+        //Managers.Render(team.Managers, managerEmployees, teamMorale, projectId);
+        //Programmers.Render(team.Programmers, programmerEmployees, teamMorale, projectId);
+        //Marketers.Render(team.Marketers, marketerEmployees, teamMorale, projectId);
 
-        RenderTeamMorale(p);
+        //RenderTeamMorale(p);
     }
 }

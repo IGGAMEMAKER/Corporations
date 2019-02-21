@@ -47,7 +47,6 @@ public class UpgradeFeatureController : BaseController
     void UpgradeFeature()
     {
         LoadModel();
-        model.UpgradeFeature(0, 0);
 
         EventManager.NotifyFeatureUpgraded(0, 0);
     }

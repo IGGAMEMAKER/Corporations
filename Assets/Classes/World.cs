@@ -84,17 +84,12 @@ namespace Assets.Classes
 
             List<Advert> Ads = new List<Advert>();
 
-            Project p = new Project(0, "Startup Manager", Features, audience, team, teamResource, Ads);
-            Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
-            Project p2 = new Project(2, "Super Football", Features, audience, team, teamResource, Ads);
-            Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
+            //Project p = new Project(0, "Startup Manager", Features, audience, team, teamResource, Ads);
+            //Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
+            //Project p2 = new Project(2, "Super Football", Features, audience, team, teamResource, Ads);
+            //Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
 
-            Projects.Add(p);
-            //Projects.Add(p1);
-
-            // Add test ads
-            p.PrepareAd(0, 0);
-            p.PrepareAd(0, 1);
+            //Projects.Add(p);
         }
 
         void InitializeMarkets(int marketId)
@@ -124,16 +119,6 @@ namespace Assets.Classes
             //throw new NotImplementedException();
         }
 
-        internal void Fire(int projectId, int workerId)
-        {
-            GetProjectById(projectId).FireWorker(workerId);
-        }
-
-        internal void Hire(int projectId, int workerId)
-        {
-            GetProjectById(projectId).HireEmployee(workerId);
-        }
-
         public Project GetProjectById(int projectId)
         {
             return Projects[projectId];
@@ -154,7 +139,7 @@ namespace Assets.Classes
 
                 if (schedule.IsPeriodEnd())
                 {
-                    CalculatePeriodChanges();
+                    //CalculatePeriodChanges();
                     redraw = true;
                 }
             }
@@ -165,98 +150,6 @@ namespace Assets.Classes
         public string GetFormattedDate ()
         {
             return schedule.GetFormattedDate();
-        }
-
-        public void CalculatePeriodChanges ()
-        {
-            Debug.Log("Month tick!");
-
-            for (var i = 0; i < Projects.Count; i++)
-            {
-                // recompute resources: money and team points
-                UpdateResources(i);
-                
-                // recompute clients: churn and ad campaigns
-                UpdateClients(i);
-
-                // New workers
-                UpdateEmployees(i);
-
-                // update Worker morale
-                UpdateWorkerLoyalties(i);
-            }
-        }
-
-        private void UpdateWorkerLoyalties(int projectId)
-        {
-            GetProjectById(projectId).UpdateMorales();
-        }
-
-        private void UpdateEmployees(int projectId)
-        {
-            GetProjectById(projectId).UpdatdeEmployeeList();
-        }
-
-        void UpdateResources(int projectId)
-        {
-            GetProjectById(projectId).UpdateMonthlyResources();
-            GetProjectById(projectId).UpdateMonthlyMoney();
-        }
-
-        void UpdateClients(int projectId)
-        {
-            GetProjectById(projectId).RemoveChurnClients();
-        }
-
-        public void StealIdeas(int projectId, int targetProjectId)
-        {
-            Project reciever = GetProjectById(projectId);
-            Project target = GetProjectById(targetProjectId);
-
-            int stealableIdeas = target.stealingPotential;
-
-            reciever.ReceiveIdeas(stealableIdeas);
-        }
-
-        public void StartAdCampaign(int projectId, int channelId)
-        {
-            Advert advert = GetProjectById(projectId).GetAdByChannelId(channelId);
-
-            uint clients = GetChannelById(channelId).StartAdCampaign(projectId, advert);
-
-            GetProjectById(projectId).StartAdCampaign(clients);
-        }
-
-        public void PrepareAd(int projectId, int channelId, int duration)
-        {
-            GetProjectById(projectId).PrepareAd(duration, channelId);
-        }
-
-        public void UpgradeFeature(int projectId, int featureId)
-        {
-            GetProjectById(projectId).UpgradeFeature(featureId);
-        }
-
-        public void ExploreFeature(int projectId, int featureId)
-        {
-            GetProjectById(projectId).ExploreFeature(featureId);
-        }
-
-        // Debugging
-
-        public void PrintTechnologies(int projectId)
-        {
-            GetProjectById(projectId).PrintTechnologies();
-        }
-
-        internal void PrintProjectInfo(int projectId)
-        {
-            GetProjectById(projectId).PrintProjectInfo();
-        }
-
-        public void PrintResources(int projectId)
-        {
-            GetProjectById(projectId).PrintResources();
         }
     }
 }
