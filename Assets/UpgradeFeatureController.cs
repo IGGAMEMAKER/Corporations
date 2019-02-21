@@ -7,6 +7,7 @@ public abstract class BaseController: MonoBehaviour
     public World model;
 
     public WorldModel WorldModel;
+
     void Awake()
     {
         Debug.Log("Loading model...");
