@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Entities;
 
-public class IsPlayerControlled : MonoBehaviour
+public struct IsPlayerControlled : IComponentData
 {
 
 }
