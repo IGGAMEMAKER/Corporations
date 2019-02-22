@@ -11,10 +11,8 @@ public abstract class BaseController: MonoBehaviour
     void Awake()
     {
         Debug.Log("Loading model...");
-        LoadModel();
+        //LoadModel();
     }
-
-    //abstract void Load();
 
     public void LoadModel()
     {
@@ -46,7 +44,7 @@ public class UpgradeFeatureController : BaseController
 
     void UpgradeFeature()
     {
-        LoadModel();
+        //LoadModel();
 
         EventManager.NotifyFeatureUpgraded(0, 0);
     }

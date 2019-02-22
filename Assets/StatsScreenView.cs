@@ -5,7 +5,7 @@ using Assets.Classes;
 using UnityEngine;
 
 public class StatsScreenView : MonoBehaviour {
-    internal void Redraw(List<Project> projects, int myCompanyId)
+    internal void Redraw(List<Product> projects, int myCompanyId)
     {
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["myCompanyId"] = myCompanyId;

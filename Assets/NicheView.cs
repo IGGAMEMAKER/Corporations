@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Niche : MonoBehaviour
+public class NicheView : MonoBehaviour
 {
     RectTransform RectTransform;
 

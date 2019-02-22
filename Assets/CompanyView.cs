@@ -46,7 +46,7 @@ public class CompanyView : MonoBehaviour {
         RenderBuyShareButton(panel, myCompanyId, thisCompanyId);
     }
 
-    public void RenderBasePanel(Project project, int myCompanyId, int thisCompanyId)
+    public void RenderBasePanel(Product project, int myCompanyId, int thisCompanyId)
     {
         GameObject panel = gameObject.transform.GetChild(0).gameObject;
 
@@ -65,15 +65,15 @@ public class CompanyView : MonoBehaviour {
 
         RenderShareButtons(panel, myCompanyId, thisCompanyId);
 
-        CompanyName.GetComponent<Text>().text = project.Name;
+        //CompanyName.GetComponent<Text>().text = project.Name;
     }
     
-    public void Render(Project project, int myCompanyId)
+    public void Render(Product project, int myCompanyId)
     {
-        RenderBasePanel(project, myCompanyId, project.Id);
+        //RenderBasePanel(project, myCompanyId, project.Id);
     }
 
-    private string GetShareHint(Project project)
+    private string GetShareHint(Product project)
     {
         return "ProjectId";
     }

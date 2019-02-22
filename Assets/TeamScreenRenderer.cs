@@ -14,12 +14,12 @@ public class TeamScreenRenderer : MonoBehaviour
     int teamMorale;
     int projectId;
 
-    void RenderTeamMorale(Project p)
+    void RenderTeamMorale(Product p)
     {
         //TeamMoraleView.Render(p.moraleData);
     }
 
-    public void RenderTeam(Project p)
+    public void RenderTeam(Product p)
     {
         //Team team = p.Team;
 

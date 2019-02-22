@@ -10,13 +10,13 @@ namespace Assets.Classes
         public int baseTechCost = 50;
 
         List<Market> Markets;
-        List<Project> Projects;
+        List<Product> Projects;
         List<Channel> Channels;
 
         List<Investor> Investors;
         ScheduleManager schedule;
 
-        internal List<Project> projects {
+        internal List<Product> projects {
             get { return Projects; }
             set {}
         }
@@ -27,7 +27,7 @@ namespace Assets.Classes
 
             InitializeShareholders();
 
-            Projects = new List<Project>();
+            Projects = new List<Product>();
             FillProjects();
 
             InitializeMarkets(marketId);
@@ -119,7 +119,7 @@ namespace Assets.Classes
             //throw new NotImplementedException();
         }
 
-        public Project GetProjectById(int projectId)
+        public Product GetProjectById(int projectId)
         {
             return Projects[projectId];
         }
