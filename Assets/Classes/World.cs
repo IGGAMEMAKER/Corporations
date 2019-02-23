@@ -69,7 +69,6 @@ namespace Assets.Classes
 
             int[] myTraits = new int[] { };
             Human me = new Human("Gaga", "Iosebashvili", mySkills, myTraits, WorkerSpecialisation.Programmer, 500);
-            TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
             List<Human> workers = new List<Human> { me };
 
@@ -84,12 +83,28 @@ namespace Assets.Classes
 
             List<Advert> Ads = new List<Advert>();
 
-            //Project p = new Project(0, "Startup Manager", Features, audience, team, teamResource, Ads);
+            Product p = ProductGenerator("Startup Manager");
             //Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
             //Project p2 = new Project(2, "Super Football", Features, audience, team, teamResource, Ads);
             //Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
 
             //Projects.Add(p);
+        }
+
+        Product ProductGenerator (string name)
+        {
+            TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
+
+            return new Product {
+                Id = 0, Name = name, Ads = new List<Advert>(),
+                Analytics = 0,
+                BrandPower = 100,
+                Clients = 100,
+                ExperimentCount = 1, ExplorationLevel = 0, Level = 1,
+                Managers = 1, Marketers = 1, Programmers = 1,
+                Niche = Niche.Messenger,
+                Resources = teamResource
+            };
         }
 
         void InitializeMarkets(int marketId)
