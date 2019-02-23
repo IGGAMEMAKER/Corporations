@@ -10,13 +10,13 @@ namespace Assets.Classes
         public int baseTechCost = 50;
 
         List<Market> Markets;
-        List<Product> Projects;
+        List<ProductComponent> Projects;
         List<Channel> Channels;
 
         List<Investor> Investors;
         ScheduleManager schedule;
 
-        internal List<Product> projects {
+        internal List<ProductComponent> projects {
             get { return Projects; }
             set {}
         }
@@ -27,7 +27,7 @@ namespace Assets.Classes
 
             InitializeShareholders();
 
-            Projects = new List<Product>();
+            Projects = new List<ProductComponent>();
             FillProjects();
 
             InitializeMarkets(marketId);
@@ -76,14 +76,9 @@ namespace Assets.Classes
 
             Team team = new Team(workers);
 
-            var Features = new List<Feature>();
-
-            for (var i = 0; i < featureCount; i++)
-                Features.Add(new Feature(String.Format("Feature {0}", i), RelevancyStatus.Relevant, FeatureStatus.NeedsExploration, true));
-
             List<Advert> Ads = new List<Advert>();
 
-            Product p = ProductGenerator("Startup Manager");
+            ProductComponent p = ProductGenerator("Startup Manager");
             //Project p1 = new Project(1, "Online Tournaments", Features, audience, team, teamResource, Ads);
             //Project p2 = new Project(2, "Super Football", Features, audience, team, teamResource, Ads);
             //Project p3 = new Project(3, "Medieval RPG", Features, audience, team, teamResource, Ads);
@@ -91,11 +86,11 @@ namespace Assets.Classes
             //Projects.Add(p);
         }
 
-        Product ProductGenerator (string name)
+        ProductComponent ProductGenerator (string name)
         {
             TeamResource teamResource = new TeamResource(100, 100, 100, 10, 5000);
 
-            return new Product {
+            return new ProductComponent {
                 Id = 0, Name = name, Ads = new List<Advert>(),
                 Analytics = 0,
                 BrandPower = 100,
@@ -134,7 +129,7 @@ namespace Assets.Classes
             //throw new NotImplementedException();
         }
 
-        public Product GetProjectById(int projectId)
+        public ProductComponent GetProjectById(int projectId)
         {
             return Projects[projectId];
         }

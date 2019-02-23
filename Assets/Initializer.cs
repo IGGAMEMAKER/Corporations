@@ -1,18 +1,11 @@
-﻿using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Initializer: MonoBehaviour
 {
     public int amountOfCompanies;
 
-    public GameObject EmptyPrefab;
-
-    internal EntityManager Manager;
-
     private void Start()
     {
-        Manager = World.Active.GetOrCreateManager<EntityManager>();
-
         CreateProducts();
 
         CreateNiches();
@@ -39,11 +32,6 @@ public class Initializer: MonoBehaviour
     {
         for (var i = 0; i < amountOfCompanies; i++)
         {
-            Entity AI = Manager.CreateEntity(
-                ComponentType.Create<Product>()
-            );
-
-            
             //Manager.SetComponentData(AI, new Product
             //{
             //    Id = 0,

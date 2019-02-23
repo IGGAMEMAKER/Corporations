@@ -24,10 +24,10 @@ public class FeatureView : MonoBehaviour {
 
         Name.text = feature.name;
 
-        if (feature.IsImplemented)
-            RenderNormalMode(feature);
-        else
-            RenderExplorationMode(feature);
+        //if (feature.IsImplemented)
+        //    RenderNormalMode(feature);
+        //else
+        //    RenderExplorationMode(feature);
 
         //if (feature.NeedsExploration)
         //    RenderExplorationMode(feature);

@@ -7,7 +7,7 @@ public enum Niche
     Messenger
 }
 
-public class Product
+public class ProductComponent
 {
     public int Id;
     public string Name;
