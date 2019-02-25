@@ -6,5 +6,6 @@ public class TutorialSystems : Feature
     {
         Add(new HelloWorldSystem(contexts));
         Add(new DebugMessageSystem(contexts));
+        Add(new LogMouseClickSystem(contexts));
     }
 }

@@ -64,9 +64,9 @@ namespace Assets.Utils
             bool isProgrammer = specialisation == WorkerSpecialisation.Programmer;
             bool isMarketer = specialisation == WorkerSpecialisation.Marketer;
 
-            int management = GetRandomLevel(isManager, Team.GetManagerAverageLevel());
-            int marketing = GetRandomLevel(isMarketer, Team.GetMarketerAverageLevel());
-            int programming = GetRandomLevel(isProgrammer, Team.GetProgrammerAverageLevel());
+            int management = GetRandomLevel(isManager, 155);
+            int marketing = GetRandomLevel(isMarketer, 155);
+            int programming = GetRandomLevel(isProgrammer, 155);
 
             Skillset skillset = new Skillset()
                 .SetManagementLevel(management)

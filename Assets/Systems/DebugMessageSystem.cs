@@ -30,5 +30,6 @@ public class DebugMessageSystem : ReactiveSystem<GameEntity>
             // then grab the string data and print it
             Debug.Log(e.debugMessage.message);
         }
+        //throw new System.NotImplementedException();
     }
 }
