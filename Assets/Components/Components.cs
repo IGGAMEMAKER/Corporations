@@ -33,10 +33,6 @@ public interface IViewController
     void DestroyView();
 }
 
-//public class Services : {
-
-//}
-
 public class UnityViewService : IViewService
 {
     // now returns void instead of IViewController

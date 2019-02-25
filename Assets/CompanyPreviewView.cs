@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Classes;
 using Entitas;
 using UnityEngine;
@@ -12,13 +11,18 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
 
     public void RegisterListeners(IEntity entity)
     {
+        Debug.Log($"RegisterListeners");
         _entity = (GameEntity)entity;
         _entity.AddProductListener(this);
+
+        Text = GetComponent<Text>();
     }
 
     public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, WorkerGroup team, TeamResource resources, int analytics, int experimentCount, uint clients, int brandPower, List<Advert> ads)
     {
-        //Text.text = name;
-        GetComponent<Text>().text = name;
+        Debug.Log($"OnProduct");
+        Text.text = name;
     }
 }
+
+
