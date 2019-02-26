@@ -69,13 +69,6 @@ public class PositionComponent : IComponent
     public float y;
 }
 
-public struct WorkerGroup
-{
-    public int Programmers;
-    public int Managers;
-    public int Marketers;
-}
-
 [Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {
@@ -86,12 +79,24 @@ public class ProductComponent: IComponent
     public int ProductLevel;
     public int ExplorationLevel;
 
-    public WorkerGroup Team;
-
     public TeamResource Resources;
+}
 
+[Game, Event(EventTarget.Self)]
+public class AnalyticsComponent: IComponent
+{
     public int Analytics;
     public int ExperimentCount;
+}
+
+[Game, Event(EventTarget.Self)]
+public class TeamComponent: IComponent
+{
+    public int Programmers;
+    public int Managers;
+    public int Marketers;
+
+    public int Morale;
 }
 
 [Game, Event(EventTarget.Self)]

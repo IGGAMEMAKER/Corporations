@@ -6,6 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public interface IProductListener {
-    void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, Assets.Classes.TeamResource resources);
+public interface IAnalyticsListener {
+    void OnAnalytics(GameEntity entity, int analytics, int experimentCount);
 }

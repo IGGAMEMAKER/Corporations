@@ -17,7 +17,7 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
         Text = GetComponent<Text>();
     }
 
-    public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, WorkerGroup team, TeamResource resources, int analytics, int experimentCount)
+    public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, TeamResource resources)
     {
         Debug.Log($"OnProduct");
         Text.text = name;

@@ -8,18 +8,24 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int DebugMessage = 0;
-    public const int IsPlayerControlled = 1;
-    public const int Marketing = 2;
-    public const int MarketingListener = 3;
-    public const int Position = 4;
-    public const int PositionListener = 5;
-    public const int Product = 6;
-    public const int ProductListener = 7;
+    public const int Analytics = 0;
+    public const int AnalyticsListener = 1;
+    public const int DebugMessage = 2;
+    public const int IsPlayerControlled = 3;
+    public const int Marketing = 4;
+    public const int MarketingListener = 5;
+    public const int Position = 6;
+    public const int PositionListener = 7;
+    public const int Product = 8;
+    public const int ProductListener = 9;
+    public const int Team = 10;
+    public const int TeamListener = 11;
 
-    public const int TotalComponents = 8;
+    public const int TotalComponents = 12;
 
     public static readonly string[] componentNames = {
+        "Analytics",
+        "AnalyticsListener",
         "DebugMessage",
         "IsPlayerControlled",
         "Marketing",
@@ -27,10 +33,14 @@ public static class GameComponentsLookup {
         "Position",
         "PositionListener",
         "Product",
-        "ProductListener"
+        "ProductListener",
+        "Team",
+        "TeamListener"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AnalyticsComponent),
+        typeof(AnalyticsListenerComponent),
         typeof(DebugMessageComponent),
         typeof(IsPlayerControlled),
         typeof(MarketingComponent),
@@ -38,6 +48,8 @@ public static class GameComponentsLookup {
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
         typeof(ProductComponent),
-        typeof(ProductListenerComponent)
+        typeof(ProductListenerComponent),
+        typeof(TeamComponent),
+        typeof(TeamListenerComponent)
     };
 }

@@ -11,7 +11,7 @@ public partial class GameEntity {
     public ProductComponent product { get { return (ProductComponent)GetComponent(GameComponentsLookup.Product); } }
     public bool hasProduct { get { return HasComponent(GameComponentsLookup.Product); } }
 
-    public void AddProduct(int newId, string newName, Niche newNiche, int newProductLevel, int newExplorationLevel, WorkerGroup newTeam, Assets.Classes.TeamResource newResources, int newAnalytics, int newExperimentCount) {
+    public void AddProduct(int newId, string newName, Niche newNiche, int newProductLevel, int newExplorationLevel, Assets.Classes.TeamResource newResources) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
@@ -19,14 +19,11 @@ public partial class GameEntity {
         component.Niche = newNiche;
         component.ProductLevel = newProductLevel;
         component.ExplorationLevel = newExplorationLevel;
-        component.Team = newTeam;
         component.Resources = newResources;
-        component.Analytics = newAnalytics;
-        component.ExperimentCount = newExperimentCount;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduct(int newId, string newName, Niche newNiche, int newProductLevel, int newExplorationLevel, WorkerGroup newTeam, Assets.Classes.TeamResource newResources, int newAnalytics, int newExperimentCount) {
+    public void ReplaceProduct(int newId, string newName, Niche newNiche, int newProductLevel, int newExplorationLevel, Assets.Classes.TeamResource newResources) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
@@ -34,10 +31,7 @@ public partial class GameEntity {
         component.Niche = newNiche;
         component.ProductLevel = newProductLevel;
         component.ExplorationLevel = newExplorationLevel;
-        component.Team = newTeam;
         component.Resources = newResources;
-        component.Analytics = newAnalytics;
-        component.ExperimentCount = newExperimentCount;
         ReplaceComponent(index, component);
     }
 

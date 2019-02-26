@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class ProductEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class TeamEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<IProductListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<ITeamListener> _listenerBuffer;
 
-    public ProductEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<IProductListener>();
+    public TeamEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<ITeamListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Product)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Team)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasProduct && entity.hasProductListener;
+        return entity.hasTeam && entity.hasTeamListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            var component = e.product;
+            var component = e.team;
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.productListener.value);
+            _listenerBuffer.AddRange(e.teamListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnProduct(e, component.Id, component.Name, component.Niche, component.ProductLevel, component.ExplorationLevel, component.Resources);
+                listener.OnTeam(e, component.Programmers, component.Managers, component.Marketers, component.Morale);
             }
         }
     }

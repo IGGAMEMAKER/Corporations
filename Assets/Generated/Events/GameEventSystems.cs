@@ -9,8 +9,10 @@
 public sealed class GameEventSystems : Feature {
 
     public GameEventSystems(Contexts contexts) {
+        Add(new AnalyticsEventSystem(contexts)); // priority: 0
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new PositionEventSystem(contexts)); // priority: 0
         Add(new ProductEventSystem(contexts)); // priority: 0
+        Add(new TeamEventSystem(contexts)); // priority: 0
     }
 }

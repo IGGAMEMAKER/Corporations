@@ -21,7 +21,7 @@ public class UpgradeProductSystem : IExecuteSystem
                 var p = e.product;
 
                 Debug.Log($"update {e.product.Name}");
-                e.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, p.ExplorationLevel, p.Team, p.Resources, p.Analytics + 1, p.ExperimentCount);
+                e.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel + 1, p.ExplorationLevel, p.Resources);
             }
         }
     }
@@ -40,7 +40,7 @@ public class LogProductChangesSystem : ReactiveSystem<GameEntity>
     {
         foreach (var entity in entities)
         {
-            Debug.Log($"{entity.product.Name}.analytics updated to {entity.product.Analytics}");
+            Debug.Log($"{entity.product.Name}.ProductLevel updated to {entity.product.ProductLevel}");
         }
     }
 
@@ -59,17 +59,6 @@ public class ProductInitializerSystem : IInitializeSystem
 {
     readonly GameContext _context;
 
-    //private void ObserveChanges()
-    //{
-    //    _context.GetGroup(GameMatcher.Product).OnEntityUpdated += (group, entity, index, previous, current) =>
-    //    {
-    //        ProductComponent prev = (ProductComponent)previous;
-    //        ProductComponent curr = (ProductComponent)current;
-
-    //        //Debug.Log($"{entity.product.Name}.analytics updated from {prev.Analytics} to {curr.Analytics}");
-    //    };
-    //}
-
     public ProductInitializerSystem(Contexts contexts)
     {
         _context = contexts.game;
@@ -77,7 +66,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void GenerateCompany(string name, Niche niche, int id)
     {
-        WorkerGroup workers = new WorkerGroup { Managers = 0, Marketers = 0, Programmers = 1 };
+        //WorkerGroup workers = new WorkerGroup { Managers = 0, Marketers = 0, Programmers = 1 };
         var resources = new Assets.Classes.TeamResource(0, 0, 0, 0, 10000);
 
         uint clients = 0;
@@ -90,7 +79,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int explorationLevel = productLevel;
 
         var e = _context.CreateEntity();
-        e.AddProduct(id, name, niche, productLevel, explorationLevel, workers, resources, analyticsLevel, experiments);
+        e.AddProduct(id, name, niche, productLevel, explorationLevel, resources);
         e.AddMarketing(clients, brandPower);
     }
 
@@ -107,7 +96,5 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateCompany("mySpace", Niche.SocialNetwork);
         GenerateCompany("twitter", Niche.SocialNetwork);
         GenerateCompany("vk", Niche.SocialNetwork);
-
-        //ObserveChanges();
     }
 }
