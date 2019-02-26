@@ -59,16 +59,16 @@ public class ProductInitializerSystem : IInitializeSystem
 {
     readonly GameContext _context;
 
-    private void ObserveChanges()
-    {
-        _context.GetGroup(GameMatcher.Product).OnEntityUpdated += (group, entity, index, previous, current) =>
-        {
-            ProductComponent prev = (ProductComponent)previous;
-            ProductComponent curr = (ProductComponent)current;
+    //private void ObserveChanges()
+    //{
+    //    _context.GetGroup(GameMatcher.Product).OnEntityUpdated += (group, entity, index, previous, current) =>
+    //    {
+    //        ProductComponent prev = (ProductComponent)previous;
+    //        ProductComponent curr = (ProductComponent)current;
 
-            //Debug.Log($"{entity.product.Name}.analytics updated from {prev.Analytics} to {curr.Analytics}");
-        };
-    }
+    //        //Debug.Log($"{entity.product.Name}.analytics updated from {prev.Analytics} to {curr.Analytics}");
+    //    };
+    //}
 
     public ProductInitializerSystem(Contexts contexts)
     {
@@ -108,6 +108,6 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateCompany("twitter", Niche.SocialNetwork);
         GenerateCompany("vk", Niche.SocialNetwork);
 
-        ObserveChanges();
+        //ObserveChanges();
     }
 }
