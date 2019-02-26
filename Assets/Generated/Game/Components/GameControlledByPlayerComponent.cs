@@ -8,18 +8,18 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly IsPlayerControlled isPlayerControlledComponent = new IsPlayerControlled();
+    static readonly ControlledByPlayerComponent controlledByPlayerComponent = new ControlledByPlayerComponent();
 
-    public bool isIsPlayerControlled {
-        get { return HasComponent(GameComponentsLookup.IsPlayerControlled); }
+    public bool isControlledByPlayer {
+        get { return HasComponent(GameComponentsLookup.ControlledByPlayer); }
         set {
-            if (value != isIsPlayerControlled) {
-                var index = GameComponentsLookup.IsPlayerControlled;
+            if (value != isControlledByPlayer) {
+                var index = GameComponentsLookup.ControlledByPlayer;
                 if (value) {
                     var componentPool = GetComponentPool(index);
                     var component = componentPool.Count > 0
                             ? componentPool.Pop()
-                            : isPlayerControlledComponent;
+                            : controlledByPlayerComponent;
 
                     AddComponent(index, component);
                 } else {
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherIsPlayerControlled;
+    static Entitas.IMatcher<GameEntity> _matcherControlledByPlayer;
 
-    public static Entitas.IMatcher<GameEntity> IsPlayerControlled {
+    public static Entitas.IMatcher<GameEntity> ControlledByPlayer {
         get {
-            if (_matcherIsPlayerControlled == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.IsPlayerControlled);
+            if (_matcherControlledByPlayer == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.ControlledByPlayer);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherIsPlayerControlled = matcher;
+                _matcherControlledByPlayer = matcher;
             }
 
-            return _matcherIsPlayerControlled;
+            return _matcherControlledByPlayer;
         }
     }
 }

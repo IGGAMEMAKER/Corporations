@@ -29,6 +29,11 @@ public class ProductInitializerSystem : IInitializeSystem
         e.AddAnalytics(analyticsLevel, experiments);
     }
 
+    void SetPlayerControlledCompany(int id)
+    {
+        _context.GetEntities(GameMatcher.Product)[id].isControlledByPlayer = true;
+    }
+
     void GenerateCompany(string name, Niche niche)
     {
         int id = _context.GetEntities(GameMatcher.Product).Length;
@@ -42,5 +47,7 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateCompany("mySpace", Niche.SocialNetwork);
         GenerateCompany("twitter", Niche.SocialNetwork);
         GenerateCompany("vk", Niche.SocialNetwork);
+
+        SetPlayerControlledCompany(2);
     }
 }

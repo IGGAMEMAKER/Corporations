@@ -57,8 +57,10 @@ public class UnityViewService : IViewService
     }
 }
 
-public struct IsPlayerControlled : IComponent
+[Game]
+public struct ControlledByPlayerComponent : IComponent
 {
+
 }
 
 [Game, Event(EventTarget.Self)]

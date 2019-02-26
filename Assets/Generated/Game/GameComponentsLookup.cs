@@ -10,8 +10,8 @@ public static class GameComponentsLookup {
 
     public const int Analytics = 0;
     public const int AnalyticsListener = 1;
-    public const int DebugMessage = 2;
-    public const int IsPlayerControlled = 3;
+    public const int ControlledByPlayer = 2;
+    public const int DebugMessage = 3;
     public const int Marketing = 4;
     public const int MarketingListener = 5;
     public const int Position = 6;
@@ -26,8 +26,8 @@ public static class GameComponentsLookup {
     public static readonly string[] componentNames = {
         "Analytics",
         "AnalyticsListener",
+        "ControlledByPlayer",
         "DebugMessage",
-        "IsPlayerControlled",
         "Marketing",
         "MarketingListener",
         "Position",
@@ -41,8 +41,8 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(AnalyticsComponent),
         typeof(AnalyticsListenerComponent),
+        typeof(ControlledByPlayerComponent),
         typeof(DebugMessageComponent),
-        typeof(IsPlayerControlled),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(PositionComponent),
