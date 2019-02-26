@@ -1,7 +1,6 @@
 ﻿using Assets.Classes;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum Niche
