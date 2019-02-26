@@ -1,8 +1,4 @@
-﻿using Assets;
-using Assets.Classes;
-using Unity.Entities;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class UpgradeAnalyticsController : ButtonController
 {

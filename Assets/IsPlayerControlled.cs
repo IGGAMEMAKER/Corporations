@@ -1,6 +1,6 @@
-﻿using Unity.Entities;
+﻿using Entitas;
 
-public struct IsPlayerControlled : IComponentData
+public struct IsPlayerControlled : IComponent
 {
 
 }
