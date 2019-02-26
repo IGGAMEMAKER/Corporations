@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
 public class UpgradeProductSystem : IExecuteSystem
@@ -14,19 +15,43 @@ public class UpgradeProductSystem : IExecuteSystem
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GameEntity[] entities = _context.GetEntities(
-                GameMatcher
-                .AllOf(GameMatcher.Product)
-                );
+            GameEntity[] entities = _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
 
-            foreach(var e in _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product))) {
+            foreach(var e in entities) {
                 var p = e.product;
 
                 Debug.Log($"update {e.product.Name}");
-                e.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, p.ExplorationLevel, p.Team, p.Resources, p.Analytics, p.ExperimentCount, p.Clients + 1, p.BrandPower);
+                e.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, p.ExplorationLevel, p.Team, p.Resources, p.Analytics + 1, p.ExperimentCount);
             }
         }
+    }
+}
 
+public class LogProductChangesSystem : ReactiveSystem<GameEntity>
+{
+    private Contexts contexts;
+
+    public LogProductChangesSystem(Contexts contexts) : base(contexts.game)
+    {
+        this.contexts = contexts;
+    }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        foreach (var entity in entities)
+        {
+            Debug.Log($"{entity.product.Name}.analytics updated to {entity.product.Analytics}");
+        }
+    }
+
+    protected override bool Filter(GameEntity entity)
+    {
+        return entity.hasProduct && entity.product.Id == 0;
+    }
+
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    {
+        return context.CreateCollector(GameMatcher.Product);
     }
 }
 
@@ -41,7 +66,7 @@ public class ProductInitializerSystem : IInitializeSystem
             ProductComponent prev = (ProductComponent)previous;
             ProductComponent curr = (ProductComponent)current;
 
-            //Debug.Log($"{entity.product.Name}.clients updated from {prev.Clients} to {curr.Clients}");
+            //Debug.Log($"{entity.product.Name}.analytics updated from {prev.Analytics} to {curr.Analytics}");
         };
     }
 
@@ -64,7 +89,9 @@ public class ProductInitializerSystem : IInitializeSystem
         int productLevel = 0;
         int explorationLevel = productLevel;
 
-        _context.CreateEntity().AddProduct(id, name, niche, productLevel, explorationLevel, workers, resources, analyticsLevel, experiments, clients, brandPower);
+        var e = _context.CreateEntity();
+        e.AddProduct(id, name, niche, productLevel, explorationLevel, workers, resources, analyticsLevel, experiments);
+        e.AddMarketing(clients, brandPower);
     }
 
     void GenerateCompany(string name, Niche niche)

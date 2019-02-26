@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class ProductEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class MarketingEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<IProductListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<IMarketingListener> _listenerBuffer;
 
-    public ProductEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<IProductListener>();
+    public MarketingEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<IMarketingListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Product)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Marketing)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasProduct && entity.hasProductListener;
+        return entity.hasMarketing && entity.hasMarketingListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            var component = e.product;
+            var component = e.marketing;
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.productListener.value);
+            _listenerBuffer.AddRange(e.marketingListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnProduct(e, component.Id, component.Name, component.Niche, component.ProductLevel, component.ExplorationLevel, component.Team, component.Resources, component.Analytics, component.ExperimentCount);
+                listener.OnMarketing(e, component.Clients, component.BrandPower);
             }
         }
     }

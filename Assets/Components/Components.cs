@@ -92,7 +92,11 @@ public class ProductComponent: IComponent
 
     public int Analytics;
     public int ExperimentCount;
+}
 
+[Game, Event(EventTarget.Self)]
+public class MarketingComponent : IComponent
+{
     public uint Clients;
     public int BrandPower;
 }

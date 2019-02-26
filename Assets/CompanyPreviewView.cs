@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Classes;
+﻿using Assets.Classes;
 using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +17,7 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
         Text = GetComponent<Text>();
     }
 
-    public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, WorkerGroup team, TeamResource resources, int analytics, int experimentCount, uint clients, int brandPower)
+    public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, WorkerGroup team, TeamResource resources, int analytics, int experimentCount)
     {
         Debug.Log($"OnProduct");
         Text.text = name;
