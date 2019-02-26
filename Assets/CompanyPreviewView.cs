@@ -8,12 +8,6 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
     GameEntity _entity;
     public Text Text;
 
-    public void Start()
-    {
-        Text = GetComponent<Text>();
-
-    }
-
     public void RegisterListeners(IEntity entity)
     {
         Debug.Log($"RegisterListeners");
@@ -24,7 +18,7 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
     void Update()
     {
         GameEntity[] entities = Contexts.sharedInstance.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
-
+        
         Text.text = entities[0].product.Name;
     }
 
