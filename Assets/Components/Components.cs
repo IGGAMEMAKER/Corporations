@@ -58,6 +58,10 @@ public class UnityViewService : IViewService
     }
 }
 
+public struct IsPlayerControlled : IComponent
+{
+}
+
 [Game, Event(EventTarget.Self)]
 public class PositionComponent : IComponent
 {
@@ -72,7 +76,7 @@ public struct WorkerGroup
     public int Marketers;
 }
 
-[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
+[Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {
     public int Id;
@@ -91,8 +95,6 @@ public class ProductComponent: IComponent
 
     public uint Clients;
     public int BrandPower;
-
-    public List<Advert> Ads;
 }
 
 

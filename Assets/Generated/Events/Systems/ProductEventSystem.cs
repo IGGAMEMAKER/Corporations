@@ -30,7 +30,7 @@ public sealed class ProductEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.productListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnProduct(e, component.Id, component.Name, component.Niche, component.ProductLevel, component.ExplorationLevel, component.Team, component.Resources, component.Analytics, component.ExperimentCount, component.Clients, component.BrandPower, component.Ads);
+                listener.OnProduct(e, component.Id, component.Name, component.Niche, component.ProductLevel, component.ExplorationLevel, component.Team, component.Resources, component.Analytics, component.ExperimentCount, component.Clients, component.BrandPower);
             }
         }
     }

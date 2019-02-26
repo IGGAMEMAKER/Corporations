@@ -40,9 +40,9 @@ public class GameController : MonoBehaviour
             .Add(new TutorialSystems(contexts))
             .Add(new ProductSystems(contexts));
 
-        var _services = new Services(
-            new UnityViewService() // responsible for creating gameobjects for views
-        );
+        //var _services = new Services(
+        //    new UnityViewService() // responsible for creating gameobjects for views
+        //);
 
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
