@@ -6,7 +6,7 @@ public class UpgradeProductComponent : ButtonController
     {
         ProductComponent product = ControlledProduct;
 
-        SendEvent().AddEventUpgradeProduct(ControlledProduct.Id, ControlledProduct.ProductLevel);
+        SendEvent().AddEventUpgradeProduct(product.Id, product.ProductLevel);
     }
 
     public override void Execute() => OnUpgradeProduct();

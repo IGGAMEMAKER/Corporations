@@ -14,13 +14,16 @@ public abstract class ButtonController : MonoBehaviour
     private void Awake()
     {
         GameContext = Contexts.sharedInstance.game;
+    }
+
+    private void Update()
+    {
         ControlledProduct = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
     }
 
     public GameEntity SendEvent()
     {
         // you can attach events to this object
-
         return GameContext.CreateEntity();
     }
 
