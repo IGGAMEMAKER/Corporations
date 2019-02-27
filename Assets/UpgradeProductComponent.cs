@@ -2,16 +2,12 @@
 
 public class UpgradeProductComponent : ButtonController
 {
-    public override void Execute()
+    void OnUpgradeProduct()
     {
-        ProductComponent product = GameContext.GetEntities(GameMatcher.AnyOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
+        ProductComponent product = ControlledProduct;
 
-        AddEvent().AddEventUpgradeProduct(product.Id, product.ProductLevel);
+        SendEvent().AddEventUpgradeProduct(ControlledProduct.Id, ControlledProduct.ProductLevel);
     }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        GameContext = Contexts.sharedInstance.game;
-    }
+    public override void Execute() => OnUpgradeProduct();
 }

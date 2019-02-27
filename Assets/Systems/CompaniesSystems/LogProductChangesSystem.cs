@@ -14,9 +14,7 @@ public class LogProductChangesSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var entity in entities)
-        {
-            Debug.Log($"Our {entity.product.Name}.ProductLevel updated to {entity.product.ProductLevel}");
-        }
+            Debug.Log($"Our {entity.product.Name} changed!");
     }
 
     protected override bool Filter(GameEntity entity)
@@ -33,29 +31,25 @@ public class LogProductChangesSystem : ReactiveSystem<GameEntity>
 public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
 {
     private Contexts contexts;
+    IGroup<GameEntity> products;
 
     public ProductUpgradeEventHandler(Contexts contexts) : base(contexts.game)
     {
         this.contexts = contexts;
+        products = contexts.game.GetGroup(GameMatcher.Product);
     }
 
     GameEntity GetProductById(int id)
     {
-        GameEntity[] entities = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
-        Debug.Log($"Searching entity by productId. Found {entities.Length} possible candidates");
+        //GameEntity[] entities = contexts.game.GetEntities(GameMatcher.Product);
+        
 
-        foreach (var e in entities)
+        foreach (var e in products)
         {
             if (e.product.Id == id)
-            {
-                Debug.Log($"found entity with productComponent.id={id}");
-
-                
                 return e;
-            }
         }
 
-        Debug.Log("Entities not found in GetProductById");
         return null;
     }
 
@@ -64,24 +58,23 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
         Debug.Log($"found {entities.Count} ProductUpgradeEvent");
         foreach (var e in entities)
         {
-            var ev = e.eventUpgradeProduct;
-            Debug.Log($"trying to update {ev.productId}");
+            var eventUpgradeProductComponent = e.eventUpgradeProduct;
+            GameEntity p = GetProductById(eventUpgradeProductComponent.productId);
 
-            GameEntity p = GetProductById(ev.productId);
-            ProductComponent product = p.product;
+            if (p != null)
+            {
+                p.ReplaceProduct(
+                    eventUpgradeProductComponent.productId,
+                    p.product.Name,
+                    p.product.Niche,
+                    eventUpgradeProductComponent.previousLevel + 1,
+                    p.product.ExplorationLevel,
+                    p.product.Resources
+                    );
 
-            Debug.Log($"Found entity with product: {p.ToString()}");
-            Debug.Log($"Found product with fields: {product.ToString()}");
-
-            p.ReplaceProduct(
-                ev.productId,
-                product.Name,
-                product.Niche,
-                ev.previousLevel + 1,
-                product.ExplorationLevel,
-                product.Resources
-                );
-            Debug.Log($"upgraded product {ev.productId} to lvl {ev.previousLevel + 1}");
+                Debug.Log($"upgraded product {eventUpgradeProductComponent.productId}" +
+                    $" to lvl {eventUpgradeProductComponent.previousLevel + 1}");
+            }
         }
     }
 

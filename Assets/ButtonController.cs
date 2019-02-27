@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Entitas;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public abstract class ButtonController : MonoBehaviour
 {
     public GameContext GameContext;
+    public ProductComponent ControlledProduct;
     Button Button;
 
     public abstract void Execute();
@@ -12,10 +14,13 @@ public abstract class ButtonController : MonoBehaviour
     private void Awake()
     {
         GameContext = Contexts.sharedInstance.game;
+        ControlledProduct = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
     }
 
-    public GameEntity AddEvent()
+    public GameEntity SendEvent()
     {
+        // you can attach events to this object
+
         return GameContext.CreateEntity();
     }
 
