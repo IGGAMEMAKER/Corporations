@@ -14,7 +14,7 @@ public class UpgradeProductSystem : IExecuteSystem
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GameEntity[] entities = _context.GetEntities(GameMatcher.AnyOf(GameMatcher.Product));
+            GameEntity[] entities = _context.GetEntities(GameMatcher.Product);
 
             foreach(var e in entities) {
                 var p = e.product;
