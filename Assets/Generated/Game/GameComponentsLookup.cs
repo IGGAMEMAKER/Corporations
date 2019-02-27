@@ -13,16 +13,20 @@ public static class GameComponentsLookup {
     public const int ControlledByPlayer = 2;
     public const int DebugMessage = 3;
     public const int Event = 4;
-    public const int Marketing = 5;
-    public const int MarketingListener = 6;
-    public const int Position = 7;
-    public const int PositionListener = 8;
-    public const int Product = 9;
-    public const int ProductListener = 10;
-    public const int Team = 11;
-    public const int TeamListener = 12;
+    public const int EventMarketingEnableTargeting = 5;
+    public const int EventStaffHireProgrammer = 6;
+    public const int EventUpgradeAnalytics = 7;
+    public const int EventUpgradeProduct = 8;
+    public const int Marketing = 9;
+    public const int MarketingListener = 10;
+    public const int Position = 11;
+    public const int PositionListener = 12;
+    public const int Product = 13;
+    public const int ProductListener = 14;
+    public const int Team = 15;
+    public const int TeamListener = 16;
 
-    public const int TotalComponents = 13;
+    public const int TotalComponents = 17;
 
     public static readonly string[] componentNames = {
         "Analytics",
@@ -30,6 +34,10 @@ public static class GameComponentsLookup {
         "ControlledByPlayer",
         "DebugMessage",
         "Event",
+        "EventMarketingEnableTargeting",
+        "EventStaffHireProgrammer",
+        "EventUpgradeAnalytics",
+        "EventUpgradeProduct",
         "Marketing",
         "MarketingListener",
         "Position",
@@ -46,6 +54,10 @@ public static class GameComponentsLookup {
         typeof(ControlledByPlayerComponent),
         typeof(DebugMessageComponent),
         typeof(EventComponent),
+        typeof(EventMarketingEnableTargetingComponent),
+        typeof(EventStaffHireProgrammerComponent),
+        typeof(EventUpgradeAnalyticsComponent),
+        typeof(EventUpgradeProductComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(PositionComponent),

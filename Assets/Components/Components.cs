@@ -104,9 +104,6 @@ public class MarketingComponent : IComponent
     public int BrandPower;
 }
 
-
-
-
 [Game]
 public class DebugMessageComponent : IComponent
 {
