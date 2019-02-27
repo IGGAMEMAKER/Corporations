@@ -58,10 +58,7 @@ public class UnityViewService : IViewService
 }
 
 [Game]
-public struct ControlledByPlayerComponent : IComponent
-{
-
-}
+public struct ControlledByPlayerComponent : IComponent {}
 
 [Game, Event(EventTarget.Self)]
 public class PositionComponent : IComponent

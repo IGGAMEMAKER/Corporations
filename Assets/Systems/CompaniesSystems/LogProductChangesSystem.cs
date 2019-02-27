@@ -29,3 +29,4 @@ public class LogProductChangesSystem : ReactiveSystem<GameEntity>
         return context.CreateCollector(GameMatcher.Product);
     }
 }
+

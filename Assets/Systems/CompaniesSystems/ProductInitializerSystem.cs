@@ -23,15 +23,25 @@ public class ProductInitializerSystem : IInitializeSystem
         int explorationLevel = productLevel;
 
         var e = _context.CreateEntity();
-        e.AddTeam(1, 0, 0, 100);
         e.AddProduct(id, name, niche, productLevel, explorationLevel, resources);
+        e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower);
         e.AddAnalytics(analyticsLevel, experiments);
     }
 
+    GameEntity GetProductById (int id)
+    {
+        return _context.GetEntities(GameMatcher.Product)[id];
+    }
+
     void SetPlayerControlledCompany(int id)
     {
-        _context.GetEntities(GameMatcher.Product)[id].isControlledByPlayer = true;
+        GetProductById(id).isControlledByPlayer = true;
+    }
+
+    void RemovePlayerControlledCompany(int id)
+    {
+        GetProductById(id).isControlledByPlayer = false;
     }
 
     void GenerateCompany(string name, Niche niche)

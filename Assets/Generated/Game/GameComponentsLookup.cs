@@ -12,22 +12,24 @@ public static class GameComponentsLookup {
     public const int AnalyticsListener = 1;
     public const int ControlledByPlayer = 2;
     public const int DebugMessage = 3;
-    public const int Marketing = 4;
-    public const int MarketingListener = 5;
-    public const int Position = 6;
-    public const int PositionListener = 7;
-    public const int Product = 8;
-    public const int ProductListener = 9;
-    public const int Team = 10;
-    public const int TeamListener = 11;
+    public const int Event = 4;
+    public const int Marketing = 5;
+    public const int MarketingListener = 6;
+    public const int Position = 7;
+    public const int PositionListener = 8;
+    public const int Product = 9;
+    public const int ProductListener = 10;
+    public const int Team = 11;
+    public const int TeamListener = 12;
 
-    public const int TotalComponents = 12;
+    public const int TotalComponents = 13;
 
     public static readonly string[] componentNames = {
         "Analytics",
         "AnalyticsListener",
         "ControlledByPlayer",
         "DebugMessage",
+        "Event",
         "Marketing",
         "MarketingListener",
         "Position",
@@ -43,6 +45,7 @@ public static class GameComponentsLookup {
         typeof(AnalyticsListenerComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DebugMessageComponent),
+        typeof(EventComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(PositionComponent),

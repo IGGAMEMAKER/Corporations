@@ -19,7 +19,7 @@ public class UpgradeProductSystem : IExecuteSystem
             foreach(var e in entities) {
                 var p = e.product;
 
-                Debug.Log($"update {e.product.Name}");
+                Debug.Log($"update {p.Name}");
                 e.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel + 1, p.ExplorationLevel, p.Resources);
             }
         }
