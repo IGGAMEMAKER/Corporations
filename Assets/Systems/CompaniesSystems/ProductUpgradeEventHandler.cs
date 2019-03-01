@@ -26,6 +26,20 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
         return null;
     }
 
+    void UpgradeProduct (GameEntity p, EventUpgradeProductComponent eventUpgradeProductComponent) {
+        p.ReplaceProduct(
+            eventUpgradeProductComponent.productId,
+            p.product.Name,
+            p.product.Niche,
+            eventUpgradeProductComponent.previousLevel + 1,
+            p.product.ExplorationLevel,
+            p.product.Resources
+            );
+
+        Debug.Log($"upgraded product {eventUpgradeProductComponent.productId}({p.product.Name})" +
+            $" to lvl {eventUpgradeProductComponent.previousLevel + 1}");
+    }
+
     protected override void Execute(List<GameEntity> entities)
     {
         Debug.Log($"found {entities.Count}/{UpgradeProductEvents.count} ProductUpgradeEvent");
@@ -35,19 +49,7 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
             GameEntity p = GetProductById(eventUpgradeProductComponent.productId);
 
             if (p != null)
-            {
-                p.ReplaceProduct(
-                    eventUpgradeProductComponent.productId,
-                    p.product.Name,
-                    p.product.Niche,
-                    eventUpgradeProductComponent.previousLevel + 1,
-                    p.product.ExplorationLevel,
-                    p.product.Resources
-                    );
-
-                Debug.Log($"upgraded product {eventUpgradeProductComponent.productId}({p.product.Name})" +
-                    $" to lvl {eventUpgradeProductComponent.previousLevel + 1}");
-            }
+                UpgradeProduct(p, eventUpgradeProductComponent);
         }
     }
 
