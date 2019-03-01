@@ -67,6 +67,15 @@ public class PositionComponent : IComponent
     public float y;
 }
 
+public class TaskComponent: IComponent
+{
+    public TaskType TaskType;
+    public int StartTime;
+    public int Duration;
+    public int EndTime;
+    //public TeamResource ResourcesSpent;
+}
+
 [Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {
