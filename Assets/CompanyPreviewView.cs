@@ -23,11 +23,6 @@ public class CompanyPreviewView : View, IEventListener, IProductListener
 
     void Update()
     {
-        //GameEntity[] controlled = Contexts.sharedInstance.game
-        //    .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
-
-        //RenderCompanyName(controlled[0].product.Name);
-
         RenderCompanyName(myProduct.Name);
     }
 

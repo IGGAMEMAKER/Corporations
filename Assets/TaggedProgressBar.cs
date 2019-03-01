@@ -12,6 +12,8 @@ public class TaggedProgressBar : View
     ProgressBar ProgressBar;
     public int CurrentDate = 5;
 
+
+
     private void Awake()
     {
         ProgressBar = GetComponent<ProgressBar>();
@@ -24,9 +26,7 @@ public class TaggedProgressBar : View
 
         if (gameEntities.Length == 0)
         {
-            TaskComponent taskComponent = GetTask(TaskType);
-
-            taskComponent = new TaskComponent
+            TaskComponent taskComponent = new TaskComponent
             {
                 Duration = 10,
                 StartTime = 5

@@ -12,14 +12,14 @@ public class View : MonoBehaviour
         }
     }
 
-    //public int CurrentIntDate
-    //{
-    //    get
-    //    {
-    //        return Contexts.sharedInstance.game
-    //            .GetEntities(GameMatcher.Schedule)[0]
-    //    }
-    //}
+    public int CurrentIntDate
+    {
+        get
+        {
+            return Contexts.sharedInstance.game
+                .GetEntities(GameMatcher.Date)[0].date.Date;
+        }
+    }
 }
 
 public class ProductInfoView : View
