@@ -14,20 +14,21 @@ public static class GameComponentsLookup {
     public const int DebugMessage = 3;
     public const int Event = 4;
     public const int EventMarketingEnableTargeting = 5;
-    public const int EventStaffHireProgrammer = 6;
-    public const int EventUpgradeAnalytics = 7;
-    public const int EventUpgradeProduct = 8;
-    public const int Marketing = 9;
-    public const int MarketingListener = 10;
-    public const int Position = 11;
-    public const int PositionListener = 12;
-    public const int Product = 13;
-    public const int ProductListener = 14;
-    public const int Task = 15;
-    public const int Team = 16;
-    public const int TeamListener = 17;
+    public const int EventSimplifyProduct = 6;
+    public const int EventStaffHireProgrammer = 7;
+    public const int EventUpgradeAnalytics = 8;
+    public const int EventUpgradeProduct = 9;
+    public const int Marketing = 10;
+    public const int MarketingListener = 11;
+    public const int Position = 12;
+    public const int PositionListener = 13;
+    public const int Product = 14;
+    public const int ProductListener = 15;
+    public const int Task = 16;
+    public const int Team = 17;
+    public const int TeamListener = 18;
 
-    public const int TotalComponents = 18;
+    public const int TotalComponents = 19;
 
     public static readonly string[] componentNames = {
         "Analytics",
@@ -36,6 +37,7 @@ public static class GameComponentsLookup {
         "DebugMessage",
         "Event",
         "EventMarketingEnableTargeting",
+        "EventSimplifyProduct",
         "EventStaffHireProgrammer",
         "EventUpgradeAnalytics",
         "EventUpgradeProduct",

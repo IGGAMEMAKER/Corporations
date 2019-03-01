@@ -1,6 +1,4 @@
 ﻿using Entitas;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum TaskType
@@ -11,11 +9,12 @@ public enum TaskType
 public class TaggedProgressBar : View
 {
     public TaskType TaskType;
+    ProgressBar ProgressBar;
+    public int CurrentDate = 5;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        ProgressBar = GetComponent<ProgressBar>();
     }
 
     TaskComponent GetTask(TaskType taskType)
@@ -24,7 +23,21 @@ public class TaggedProgressBar : View
             .GetEntities(GameMatcher.AllOf(GameMatcher.Task));
 
         if (gameEntities.Length == 0)
+        {
+            TaskComponent taskComponent = GetTask(TaskType);
+
+            taskComponent = new TaskComponent
+            {
+                Duration = 10,
+                StartTime = 5
+            };
+            taskComponent.EndTime = taskComponent.StartTime + taskComponent.Duration;
+
+            return taskComponent;
             return null;
+        }
+
+        Debug.Log("Make proper TaskType filter in TaskedProgressBar!");
 
         return gameEntities[0].task;
     }
@@ -32,6 +45,13 @@ public class TaggedProgressBar : View
     // Update is called once per frame
     void Update()
     {
-        
+        TaskComponent taskComponent = GetTask(TaskType);
+
+        if (taskComponent == null)
+            return;
+
+        int duration = CurrentDate - taskComponent.StartTime;
+
+        ProgressBar.SetValue(duration * 100f / taskComponent.Duration);
     }
 }

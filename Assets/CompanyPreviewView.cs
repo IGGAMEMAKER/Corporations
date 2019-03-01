@@ -3,7 +3,7 @@ using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListener
+public class CompanyPreviewView : View, IEventListener, IProductListener
 {
     GameEntity _entity;
     public Text Text;
@@ -23,15 +23,17 @@ public class CompanyPreviewView : MonoBehaviour, IEventListener, IProductListene
 
     void Update()
     {
-        GameEntity[] controlled = Contexts.sharedInstance.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
+        //GameEntity[] controlled = Contexts.sharedInstance.game
+        //    .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
 
-        RenderCompanyName(controlled[0].product.Name);
+        //RenderCompanyName(controlled[0].product.Name);
+
+        RenderCompanyName(myProduct.Name);
     }
 
     public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, TeamResource resources)
     {
-        Debug.Log($"OnProduct");
+        Debug.Log($"OnProduct.");
 
         RenderCompanyName(name);
     }

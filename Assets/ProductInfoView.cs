@@ -11,6 +11,15 @@ public class View : MonoBehaviour
                 .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
         }
     }
+
+    //public int CurrentIntDate
+    //{
+    //    get
+    //    {
+    //        return Contexts.sharedInstance.game
+    //            .GetEntities(GameMatcher.Schedule)[0]
+    //    }
+    //}
 }
 
 public class ProductInfoView : View
@@ -24,12 +33,17 @@ public class ProductInfoView : View
         return myProduct.ProductLevel + 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Render()
     {
         Level.text = myProduct.ProductLevel + "";
         MarketRequirements.text = GetMarketRequirements() + "";
 
-        ProgressBar.enabled = false;
+        //ProgressBar.enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Render();
     }
 }

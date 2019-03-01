@@ -1,6 +1,4 @@
-﻿using Entitas;
-
-public class UpgradeProductController : ButtonController
+﻿public class UpgradeProductController : ButtonController
 {
     void OnUpgradeProduct()
     {
