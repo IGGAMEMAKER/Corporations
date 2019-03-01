@@ -14,8 +14,16 @@ public interface IEventListener
     void RegisterListeners(IEntity entity);
 }
 
+[Game, Unique]
+public class DateComponent : IComponent
+{
+    public int Date;
+}
+
 [Game]
-public struct ControlledByPlayerComponent : IComponent {}
+public struct ControlledByPlayerComponent : IComponent {
+
+}
 
 [Game, Event(EventTarget.Self)]
 public class PositionComponent : IComponent

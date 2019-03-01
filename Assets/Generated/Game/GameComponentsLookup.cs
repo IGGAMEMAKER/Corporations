@@ -11,10 +11,10 @@ public static class GameComponentsLookup {
     public const int Analytics = 0;
     public const int AnalyticsListener = 1;
     public const int ControlledByPlayer = 2;
-    public const int DebugMessage = 3;
-    public const int Event = 4;
-    public const int EventMarketingEnableTargeting = 5;
-    public const int EventSimplifyProduct = 6;
+    public const int Date = 3;
+    public const int DebugMessage = 4;
+    public const int Event = 5;
+    public const int EventMarketingEnableTargeting = 6;
     public const int EventStaffHireProgrammer = 7;
     public const int EventUpgradeAnalytics = 8;
     public const int EventUpgradeProduct = 9;
@@ -34,10 +34,10 @@ public static class GameComponentsLookup {
         "Analytics",
         "AnalyticsListener",
         "ControlledByPlayer",
+        "Date",
         "DebugMessage",
         "Event",
         "EventMarketingEnableTargeting",
-        "EventSimplifyProduct",
         "EventStaffHireProgrammer",
         "EventUpgradeAnalytics",
         "EventUpgradeProduct",
@@ -56,6 +56,7 @@ public static class GameComponentsLookup {
         typeof(AnalyticsComponent),
         typeof(AnalyticsListenerComponent),
         typeof(ControlledByPlayerComponent),
+        typeof(DateComponent),
         typeof(DebugMessageComponent),
         typeof(EventComponent),
         typeof(EventMarketingEnableTargetingComponent),

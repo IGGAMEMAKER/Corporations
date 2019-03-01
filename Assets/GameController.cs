@@ -37,8 +37,8 @@ public class GameController : MonoBehaviour
 
         // create the systems by creating individual features
         _systems = new Feature("Systems")
-            .Add(new TutorialSystems(contexts))
-            .Add(new ProductSystems(contexts));
+            //.Add(new TutorialSystems(contexts))
+            .Add(new MainSystem(contexts));
 
         //var _services = new Services(
         //    new UnityViewService() // responsible for creating gameobjects for views

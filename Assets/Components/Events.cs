@@ -3,6 +3,8 @@
 [Game]
 public class EventComponent : IComponent { }
 
+
+
 #region Product specific events
 
 [Game]
