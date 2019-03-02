@@ -18,6 +18,11 @@ public class ResourceView : MonoBehaviour {
         Hint.SetHint(hint);
     }
 
+    public void UpdateResourceValue<T>(string hint, T value)
+    {
+        SetValue(value, hint);
+    }
+
     string ShortenValue <T> (T value)
     {
         //return value.ToString();
@@ -43,10 +48,5 @@ public class ResourceView : MonoBehaviour {
             return (int)(val / thousand) + "k";
 
         return val.ToString();
-    }
-
-    public void UpdateResourceValue<T>(string hint, T value)
-    {
-        SetValue(value, hint);
     }
 }
