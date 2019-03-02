@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using UnityEngine;
 
 public enum TaskType
 {
@@ -20,8 +19,6 @@ public class TaggedProgressBar : View
     {
         GameEntity[] gameEntities = Contexts.sharedInstance.game.GetEntities(GameMatcher.Task);
         // TODO: add filtering tasks, which are done by other players!
-
-        //Debug.Log($"Amount of tasks: {gameEntities.Length}");
 
         if (gameEntities.Length == 0)
             return null;

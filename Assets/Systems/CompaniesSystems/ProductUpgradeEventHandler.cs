@@ -17,8 +17,6 @@ public class ProductProcessUpgradeEvent : IExecuteSystem
         {
             if (e.task.isCompleted)
             {
-                Debug.Log("e.task.isCompleted in ProductUpgradeEventHandler");
-
                 UpgradeProduct(e);
                 e.RemoveEventUpgradeProduct();
                 e.RemoveTask();
@@ -66,7 +64,7 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
 
     void AddTask(GameEntity gameEventEntity)
     {
-        TaskComponent task = GenerateTaskComponent(TaskType.UpgradeProduct, 10);
+        TaskComponent task = GenerateTaskComponent(TaskType.UpgradeProduct, 5);
 
         gameEventEntity.AddTask(task.isCompleted, task.TaskType, task.StartTime, task.Duration, task.EndTime);
     }

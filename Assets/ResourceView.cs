@@ -1,7 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Hint))]
 public class ResourceView : MonoBehaviour {
+    Text Text;
+    Hint Hint;
+
+    private void Awake()
+    {
+        Text = GetComponent<Text>();
+        Hint = GetComponent<Hint>();
+    }
+
+    void SetValue<T> (T value, string hint)
+    {
+        Text.text = ShortenValue(value);
+        Hint.SetHint(hint);
+    }
+
     string ShortenValue <T> (T value)
     {
         return value.ToString();
@@ -29,32 +45,8 @@ public class ResourceView : MonoBehaviour {
         return val.ToString();
     }
 
-    void SetResourceAndTheHint<T>(string name, T value, string hint)
+    public void UpdateResourceValue<T>(string hint, T value)
     {
-        GameObject text = gameObject.transform.GetChild(0).gameObject;
-        text.GetComponent<Text>().text = ShortenValue(value);
-
-        text.GetComponentInChildren<Hint>().SetHintObject(hint);
-
-        GameObject icon = gameObject.transform.GetChild(1).gameObject;
-        icon.GetComponentInChildren<Hint>().SetHintObject(name);
-    }
-
-    // only set the value
-    public void UpdateResourceValue<T>(string name, T value)
-    {
-        SetResourceAndTheHint(name, value, "");
-    }
-
-    // set both the value and value month(period) change in hint
-    public void UpdateResourceValue<T>(string name, T value, T valueChange)
-    {
-        SetResourceAndTheHint(name, value, valueChange.ToString());
-    }
-
-    // set both the value and value month(period) change in hint
-    public void UpdateResourceValue<T>(string name, T value, string valueChange)
-    {
-        SetResourceAndTheHint(name, value, valueChange);
+        SetValue(value, hint);
     }
 }

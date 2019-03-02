@@ -40,8 +40,6 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     {
         ResetTimer();
 
-        Debug.Log("timer++");
-
         DateEntity.ReplaceDate(DateEntity.date.Date + 1);
     }
 

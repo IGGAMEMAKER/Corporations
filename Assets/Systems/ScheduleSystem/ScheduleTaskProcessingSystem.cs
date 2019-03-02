@@ -13,9 +13,11 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
 
     void ProcessTasks(DateComponent date)
     {
-        Debug.Log("Process tasks");
 
         GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
+
+        if (tasks.Length > 0)
+            Debug.Log("Process tasks");
 
         foreach (var t in tasks)
         {
