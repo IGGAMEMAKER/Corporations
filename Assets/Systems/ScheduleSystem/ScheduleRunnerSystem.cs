@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class ScheduleInitializerSystem : IInitializeSystem, IExecuteSystem
+public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 {
     readonly GameContext _context;
     bool isTimerRunning = false;
@@ -11,7 +11,7 @@ public class ScheduleInitializerSystem : IInitializeSystem, IExecuteSystem
 
     GameEntity DateEntity;
 
-    public ScheduleInitializerSystem(Contexts contexts)
+    public ScheduleRunnerSystem(Contexts contexts)
     {
         _context = contexts.game;
     }
@@ -36,17 +36,6 @@ public class ScheduleInitializerSystem : IInitializeSystem, IExecuteSystem
         isTimerRunning = !isTimerRunning;
     }
 
-    void ProcessTasks()
-    {
-        GameEntity[] tasks = _context.GetEntities(GameMatcher.Task);
-
-        foreach (var t in tasks)
-        {
-            if (t.task.EndTime >= DateEntity.date.Date)
-                t.ReplaceTask(true, t.task.TaskType, t.task.StartTime, t.task.Duration, t.task.EndTime);
-        }
-    }
-
     void UpdateWorld()
     {
         ResetTimer();
@@ -54,8 +43,6 @@ public class ScheduleInitializerSystem : IInitializeSystem, IExecuteSystem
         Debug.Log("timer++");
 
         DateEntity.ReplaceDate(DateEntity.date.Date + 1);
-
-        ProcessTasks();
     }
 
     void ResetTimer()

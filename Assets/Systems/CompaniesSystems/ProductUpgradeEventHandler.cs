@@ -2,20 +2,32 @@
 using Entitas;
 using UnityEngine;
 
-public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
+public class ProductProcessUpgradeEvent : IExecuteSystem
 {
-    private Contexts contexts;
-    IGroup<GameEntity> products;
-    IGroup<GameEntity> UpgradeProductEvents;
+    readonly GameContext _context;
 
-    public ProductUpgradeEventHandler(Contexts contexts) : base(contexts.game)
+    public ProductProcessUpgradeEvent(Contexts contexts)
     {
-        this.contexts = contexts;
-        products = contexts.game.GetGroup(GameMatcher.Product);
-        UpgradeProductEvents = contexts.game.GetGroup(GameMatcher.EventUpgradeProduct);
+        _context = contexts.game;
     }
 
-    void UpgradeProduct (GameEntity e) {
+    public void Execute()
+    {
+        foreach (var e in _context.GetEntities(GameMatcher.EventUpgradeProduct))
+        {
+            if (e.task.isCompleted)
+            {
+                Debug.Log("e.task.isCompleted in ProductUpgradeEventHandler");
+
+                UpgradeProduct(e);
+                e.RemoveEventUpgradeProduct();
+                e.RemoveTask();
+            }
+        }
+    }
+
+    void UpgradeProduct(GameEntity e)
+    {
         e.ReplaceProduct(
             e.product.Id,
             e.product.Name,
@@ -25,8 +37,17 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
             e.product.Resources
             );
 
-        Debug.Log($"upgraded product {e.eventUpgradeProduct.productId}({e.product.Name})" +
-            $" to lvl {e.eventUpgradeProduct.previousLevel + 1}");
+        Debug.Log($"upgraded product {e.product.Id}({e.product.Name}) to lvl {e.eventUpgradeProduct.previousLevel + 1}");
+    }
+}
+
+public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
+{
+    private readonly Contexts contexts;
+
+    public ProductUpgradeEventHandler(Contexts contexts) : base(contexts.game)
+    {
+        this.contexts = contexts;
     }
 
     TaskComponent GenerateTaskComponent(TaskType taskType, int duration)
@@ -52,26 +73,13 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //Debug.Log($"found {entities.Count}/{UpgradeProductEvents.count} ProductUpgradeEvent");
         foreach (var e in entities)
-        {
-            if (!e.hasTask)
-                AddTask(e);
-            else if (e.task.isCompleted)
-            {
-                UpgradeProduct(e);
-                e.RemoveEventUpgradeProduct();
-                e.RemoveTask();
-                // Cleanup
-                //RemoveTask()...
-                //RemoveUpgradeEvent
-            }
-        }
+            AddTask(e);
     }
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasEventUpgradeProduct && entity.hasProduct;
+        return entity.hasEventUpgradeProduct && entity.hasProduct && !entity.hasTask;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

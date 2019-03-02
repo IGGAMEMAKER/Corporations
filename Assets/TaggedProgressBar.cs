@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using UnityEngine;
 
 public enum TaskType
 {
@@ -17,8 +18,10 @@ public class TaggedProgressBar : View
 
     TaskComponent GetTask(TaskType taskType)
     {
-        GameEntity[] gameEntities = Contexts.sharedInstance.game.GetEntities(GameMatcher.Task); 
+        GameEntity[] gameEntities = Contexts.sharedInstance.game.GetEntities(GameMatcher.Task);
         // TODO: add filtering tasks, which are done by other players!
+
+        //Debug.Log($"Amount of tasks: {gameEntities.Length}");
 
         if (gameEntities.Length == 0)
             return null;
@@ -30,11 +33,13 @@ public class TaggedProgressBar : View
     {
         TaskComponent taskComponent = GetTask(TaskType);
 
+        float progress;
+
         if (taskComponent == null)
-            return;
+            progress = 0;
+        else
+            progress = (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
 
-        int duration = CurrentIntDate - taskComponent.StartTime;
-
-        ProgressBar.SetValue(duration * 100f / taskComponent.Duration);
+        ProgressBar.SetValue(progress);
     }
 }
