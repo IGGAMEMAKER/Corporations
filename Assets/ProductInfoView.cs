@@ -5,10 +5,19 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    public ProductComponent myProduct { get
+    public GameEntity myProductEntity
+    {
+        get
         {
             return Contexts.sharedInstance.game
-                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
+                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
+        }
+    }
+
+    public ProductComponent myProduct {
+        get
+        {
+            return myProductEntity.product;
         }
     }
 

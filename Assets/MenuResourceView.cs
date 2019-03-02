@@ -24,7 +24,7 @@ public class MenuResourceView : View {
 
     private void Update()
     {
-        Render(new TeamResource(), new TeamResource(), new Audience(1000, 0), CurrentIntDate);
+        Render(myProductEntity.product.Resources, new TeamResource(), new Audience(1000, 0), CurrentIntDate);
     }
 
     public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, int currentDate)
