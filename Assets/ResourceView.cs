@@ -20,7 +20,7 @@ public class ResourceView : MonoBehaviour {
 
     string ShortenValue <T> (T value)
     {
-        return value.ToString();
+        //return value.ToString();
 
         long val = 0;
         long.TryParse(value.ToString(), out val);
