@@ -5,6 +5,5 @@
         Add(new ProductInitializerSystem(contexts));
         Add(new LogProductChangesSystem(contexts));
         Add(new ProductUpgradeEventHandler(contexts));
-        //Add(new UpgradeProductSystem(contexts));
     }
 }

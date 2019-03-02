@@ -7,6 +7,7 @@ public abstract class ButtonController : MonoBehaviour
 {
     public GameContext GameContext;
     public ProductComponent ControlledProduct;
+    public GameEntity ControlledProductEntity;
     Button Button;
 
     public abstract void Execute();
@@ -18,7 +19,13 @@ public abstract class ButtonController : MonoBehaviour
 
     private void Update()
     {
-        ControlledProduct = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0].product;
+        ControlledProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
+        ControlledProduct = ControlledProductEntity.product;
+    }
+
+    public GameEntity StartTask()
+    {
+        return ControlledProductEntity;
     }
 
     public GameEntity SendEvent()

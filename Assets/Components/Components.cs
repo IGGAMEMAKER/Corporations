@@ -1,6 +1,7 @@
 ﻿using Assets.Classes;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Niche
@@ -25,6 +26,18 @@ public struct ControlledByPlayerComponent : IComponent {
 
 }
 
+//public interface ITaskManager
+//{
+//    void AddTask();
+//    void 
+//}
+
+[Game]
+public class TaskManagerComponent : IComponent
+{
+    public List<GameEntity> Tasks;
+}
+
 [Game, Event(EventTarget.Self)]
 public class PositionComponent : IComponent
 {
@@ -34,6 +47,7 @@ public class PositionComponent : IComponent
 
 public class TaskComponent: IComponent
 {
+    public bool isCompleted;
     public TaskType TaskType;
     public int StartTime;
     public int Duration;

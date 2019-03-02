@@ -4,7 +4,7 @@
     {
         ProductComponent product = ControlledProduct;
 
-        SendEvent().AddEventUpgradeProduct(product.Id, product.ProductLevel);
+        StartTask().AddEventUpgradeProduct(product.Id, product.ProductLevel);
     }
 
     public override void Execute() => OnUpgradeProduct();

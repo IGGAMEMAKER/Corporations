@@ -11,9 +11,10 @@ public partial class GameEntity {
     public TaskComponent task { get { return (TaskComponent)GetComponent(GameComponentsLookup.Task); } }
     public bool hasTask { get { return HasComponent(GameComponentsLookup.Task); } }
 
-    public void AddTask(TaskType newTaskType, int newStartTime, int newDuration, int newEndTime) {
+    public void AddTask(bool newIsCompleted, TaskType newTaskType, int newStartTime, int newDuration, int newEndTime) {
         var index = GameComponentsLookup.Task;
         var component = (TaskComponent)CreateComponent(index, typeof(TaskComponent));
+        component.isCompleted = newIsCompleted;
         component.TaskType = newTaskType;
         component.StartTime = newStartTime;
         component.Duration = newDuration;
@@ -21,9 +22,10 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceTask(TaskType newTaskType, int newStartTime, int newDuration, int newEndTime) {
+    public void ReplaceTask(bool newIsCompleted, TaskType newTaskType, int newStartTime, int newDuration, int newEndTime) {
         var index = GameComponentsLookup.Task;
         var component = (TaskComponent)CreateComponent(index, typeof(TaskComponent));
+        component.isCompleted = newIsCompleted;
         component.TaskType = newTaskType;
         component.StartTime = newStartTime;
         component.Duration = newDuration;

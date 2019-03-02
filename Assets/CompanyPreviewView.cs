@@ -33,5 +33,3 @@ public class CompanyPreviewView : View, IEventListener, IProductListener
         RenderCompanyName(name);
     }
 }
-
-

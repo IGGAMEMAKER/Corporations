@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public class MenuResourceView : MonoBehaviour {
+public class MenuResourceView : View {
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
     public ResourceView MarketingView;
@@ -23,8 +23,14 @@ public class MenuResourceView : MonoBehaviour {
         return String.Format("Monthly change \n\n {0}", valueSigned);
     }
 
+    private void Update()
+    {
+        ScheduleView.UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", CurrentIntDate, "Day");
+    }
+
     public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, string currentDate)
     {
+        Debug.Log("MenuResourceView RENDER RESOURCES");
         string hint;
 
         // resources

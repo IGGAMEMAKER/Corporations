@@ -1,9 +1,15 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class ScheduleInitializerSystem : IInitializeSystem
+public class ScheduleInitializerSystem : IInitializeSystem, IExecuteSystem
 {
     readonly GameContext _context;
+    bool isTimerRunning = false;
+
+    float totalTime;
+    float currentSpeed = 1;
+
+    GameEntity DateEntity;
 
     public ScheduleInitializerSystem(Contexts contexts)
     {
@@ -12,26 +18,57 @@ public class ScheduleInitializerSystem : IInitializeSystem
 
     public void Initialize()
     {
-        _context.CreateEntity().AddDate(0);
-    }
-}
+        DateEntity = _context.CreateEntity();
+        DateEntity.AddDate(0);
 
-public class ScheduleTickingSystem : IExecuteSystem
-{
-    bool isTimerRunning = false;
-
-    float totalTime;
-    float currentSpeed = 1;
-
-    // Use this for initialization
-    void Start()
-    {
         ResetTimer();
+    }
+
+    public void Execute()
+    {
+        CheckPressedButtons();
+
+        UpdateTimer();
     }
 
     void ToggleTimer()
     {
         isTimerRunning = !isTimerRunning;
+    }
+
+    void ProcessTasks()
+    {
+        GameEntity[] tasks = _context.GetEntities(GameMatcher.Task);
+
+        foreach (var t in tasks)
+        {
+            if (t.task.EndTime >= DateEntity.date.Date)
+                t.ReplaceTask(true, t.task.TaskType, t.task.StartTime, t.task.Duration, t.task.EndTime);
+        }
+    }
+
+    void UpdateWorld()
+    {
+        ResetTimer();
+
+        Debug.Log("timer++");
+
+        DateEntity.ReplaceDate(DateEntity.date.Date + 1);
+
+        ProcessTasks();
+    }
+
+    void ResetTimer()
+    {
+        totalTime = 0.25f / currentSpeed;
+    }
+
+    private void UpdateTimer()
+    {
+        totalTime -= Time.deltaTime;
+
+        if (totalTime < 0 && isTimerRunning)
+            UpdateWorld();
     }
 
     void CheckPressedButtons()
@@ -49,34 +86,4 @@ public class ScheduleTickingSystem : IExecuteSystem
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)
             currentSpeed--;
     }
-
-    void UpdateWorld()
-    {
-        //application.PeriodTick(1);
-        Debug.Log("timer++");
-    }
-
-    void ResetTimer()
-    {
-        totalTime = 0.25f / currentSpeed;
-    }
-
-    private void UpdateTimer()
-    {
-        totalTime -= Time.deltaTime;
-        if (totalTime < 0 && isTimerRunning)
-        {
-            ResetTimer();
-            UpdateWorld();
-        }
-    }
-
-    public void Execute()
-    {
-        CheckPressedButtons();
-
-        UpdateTimer();
-    }
 }
-
-
