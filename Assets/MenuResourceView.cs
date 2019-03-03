@@ -8,6 +8,7 @@ public class MenuResourceView : View {
     public ResourceView ManagerView;
     public ResourceView IdeaView;
     public ResourceView ClientView;
+    public ResourceView BrandView;
     public ResourceView ScheduleView;
 	
     string GetHintText<T> (T value)
@@ -24,10 +25,10 @@ public class MenuResourceView : View {
 
     private void Update()
     {
-        Render(myProductEntity.product.Resources, new TeamResource(), new Audience(1000, 0), CurrentIntDate);
+        Render(myProductEntity.product.Resources, new TeamResource(), myProductEntity.marketing, CurrentIntDate);
     }
 
-    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, Audience audience, int currentDate)
+    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing, int currentDate)
     {
         string hint;
 
@@ -49,13 +50,15 @@ public class MenuResourceView : View {
 
 
         // audience
-        hint = String.Format(
-            "We will lose {0} clients this month due to:\n\n Churn rate: {1}%",
-            audience.GetChurnClients(),
-            (int) (audience.GetChurnRate() * 100)
-        );
+        //hint = String.Format(
+        //    "We will lose {0} clients this month due to:\n\n Churn rate: {1}%",
+        //    audience.GetChurnClients(),
+        //    (int) (audience.GetChurnRate() * 100)
+        //);
 
-        //ClientView.UpdateResourceValue("Clients", audience.clients, hint);
+        ClientView.UpdateResourceValue("Clients", marketing.Clients);
+
+        BrandView.UpdateResourceValue("", marketing.BrandPower);
 
         // date
         ScheduleView.UpdateResourceValue("", currentDate);

@@ -13,7 +13,6 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
 
     void ProcessTasks(DateComponent date)
     {
-
         GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
 
         if (tasks.Length > 0)

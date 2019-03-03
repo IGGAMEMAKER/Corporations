@@ -2,7 +2,6 @@
 using Entitas;
 using UnityEngine;
 
-
 public class ProductUpgradeSystems : Feature
 {
     public ProductUpgradeSystems(Contexts contexts) : base("Product Upgade Systems")
