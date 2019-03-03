@@ -1,35 +1,6 @@
-﻿using Entitas;
-using UnityEngine;
-using UnityEngine.UI;
-
-
-public class View : MonoBehaviour
-{
-    public GameEntity myProductEntity
-    {
-        get
-        {
-            return Contexts.sharedInstance.game
-                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
-        }
-    }
-
-    public ProductComponent myProduct {
-        get
-        {
-            return myProductEntity.product;
-        }
-    }
-
-    public int CurrentIntDate
-    {
-        get
-        {
-            return Contexts.sharedInstance.game
-                .GetEntities(GameMatcher.Date)[0].date.Date;
-        }
-    }
-}
+﻿using UnityEngine.UI;
+using Entitas;
+using System;
 
 public class ProductInfoView : View
 {
@@ -39,7 +10,18 @@ public class ProductInfoView : View
 
     int GetMarketRequirements()
     {
-        return myProduct.ProductLevel + 1;
+        var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
+        var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == myProduct.Niche);
+
+        int level = 0;
+
+        foreach (var p in myNicheProducts)
+        {
+            if (p.product.ProductLevel > level)
+                level = p.product.ProductLevel;
+        }
+
+        return level;
     }
 
     void Render()
