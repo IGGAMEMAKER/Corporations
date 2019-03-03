@@ -1,8 +1,19 @@
 ﻿using Entitas;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
+    public void AnimateIfValueChanged(Text text, string value)
+    {
+        if (!String.Equals(text.text, value))
+        {
+            text.text = value;
+            text.gameObject.AddComponent<TextBlink>();
+        }
+    }
+
     public GameEntity myProductEntity
     {
         get
