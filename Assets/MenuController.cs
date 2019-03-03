@@ -5,17 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ScreenMode
-{
-    TechnologyScreen,
-    MarketingScreen,
-    ManagementScreen,
-    TeamScreen,
-    StatsScreen,
-    InvesmentsScreen,
-    BusinessScreen
-}
-
 public class MenuController : MonoBehaviour
 {
     Dictionary<ScreenMode, GameObject> Screens;
@@ -119,9 +108,6 @@ public class MenuController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
             EnableScreen(ScreenMode.TeamScreen);
-
-        if (Input.GetKeyDown(KeyCode.Q))
-            EventManager.NotifyFeatureUpgraded(0, 0);
 
         //if (Input.GetKeyDown(KeyCode.Alpha5))
         //    EnableScreen(ScreenMode.StatsScreen);

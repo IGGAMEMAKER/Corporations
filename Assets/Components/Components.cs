@@ -45,6 +45,22 @@ public class PositionComponent : IComponent
     public float y;
 }
 
+public enum ScreenMode
+{
+    TechnologyScreen,
+    MarketingScreen,
+    ManagementScreen,
+    TeamScreen,
+    StatsScreen,
+    InvesmentsScreen,
+    BusinessScreen
+}
+
+public class MenuComponent : IComponent
+{
+    public ScreenMode ScreenMode;
+}
+
 public class TaskComponent: IComponent
 {
     public bool isCompleted;

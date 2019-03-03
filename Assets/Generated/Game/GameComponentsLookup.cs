@@ -20,16 +20,17 @@ public static class GameComponentsLookup {
     public const int EventUpgradeProduct = 9;
     public const int Marketing = 10;
     public const int MarketingListener = 11;
-    public const int Position = 12;
-    public const int PositionListener = 13;
-    public const int Product = 14;
-    public const int ProductListener = 15;
-    public const int Task = 16;
-    public const int TaskManager = 17;
-    public const int Team = 18;
-    public const int TeamListener = 19;
+    public const int Menu = 12;
+    public const int Position = 13;
+    public const int PositionListener = 14;
+    public const int Product = 15;
+    public const int ProductListener = 16;
+    public const int Task = 17;
+    public const int TaskManager = 18;
+    public const int Team = 19;
+    public const int TeamListener = 20;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 21;
 
     public static readonly string[] componentNames = {
         "Analytics",
@@ -44,6 +45,7 @@ public static class GameComponentsLookup {
         "EventUpgradeProduct",
         "Marketing",
         "MarketingListener",
+        "Menu",
         "Position",
         "PositionListener",
         "Product",
@@ -67,6 +69,7 @@ public static class GameComponentsLookup {
         typeof(EventUpgradeProductComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
+        typeof(MenuComponent),
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
         typeof(ProductComponent),

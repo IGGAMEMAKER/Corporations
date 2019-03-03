@@ -1,6 +1,6 @@
-﻿public class ScheduleSystem : Feature
+﻿public class ScheduleSystems : Feature
 {
-    public ScheduleSystem(Contexts contexts) : base("Schedule Systems")
+    public ScheduleSystems(Contexts contexts) : base("Schedule Systems")
     {
         Add(new ScheduleRunnerSystem(contexts));
         Add(new ScheduleTaskProcessingSystem(contexts));
