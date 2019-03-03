@@ -7,8 +7,13 @@ public class ProgressBar : MonoBehaviour {
 
     public Text Text;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        
+    }
+
+    // Use this for initialization
+    void Start () {
         progress = 0;
     }
 
@@ -25,6 +30,6 @@ public class ProgressBar : MonoBehaviour {
         //if (!Text)
         //    Text = GetComponent<Text>();
 
-        //Text.text = progress + "%";
+        Text.text = progress + "%";
     }
 }

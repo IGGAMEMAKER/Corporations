@@ -24,10 +24,22 @@ public class ProductInfoView : View
         return level;
     }
 
+    void AnimateIfValueChanged(Text text, string value)
+    {
+        if (!String.Equals(text.text, value))
+        {
+            text.text = value;
+            text.gameObject.AddComponent<TextBlink>();
+        }
+    }
+
     void Render()
     {
-        Level.text = myProduct.ProductLevel + "";
-        MarketRequirements.text = GetMarketRequirements() + "";
+        if (myProduct != null)
+        {
+            AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
+            AnimateIfValueChanged(MarketRequirements, GetMarketRequirements() + "");
+        }
 
         //ProgressBar.enabled = false;
     }
@@ -36,5 +48,10 @@ public class ProductInfoView : View
     void Update()
     {
         Render();
+    }
+
+    public void RegisterListeners(IEntity entity)
+    {
+        throw new NotImplementedException();
     }
 }

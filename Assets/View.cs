@@ -7,8 +7,12 @@ public class View : MonoBehaviour
     {
         get
         {
-            return GameContext
-                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
+            var products =  GameContext
+                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
+
+            if (products.Length == 1) return products[0];
+
+            return null;
         }
     }
 
@@ -23,7 +27,7 @@ public class View : MonoBehaviour
     public ProductComponent myProduct {
         get
         {
-            return myProductEntity.product;
+            return myProductEntity == null ? null : myProductEntity.product;
         }
     }
 
