@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -13,7 +14,7 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         var resources = new Assets.Classes.TeamResource(0, 0, 0, 0, 10000);
 
-        uint clients = 0;
+        uint clients = (uint) Random.Range(0, 10000);
         int brandPower = 0;
 
         int analyticsLevel = 0;

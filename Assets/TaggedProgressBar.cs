@@ -1,19 +1,18 @@
 ﻿using Entitas;
+using UnityEngine.UI;
 
 public enum TaskType
 {
     UpgradeProduct,
+    ExploreProduct
 }
 
 public class TaggedProgressBar : View
 {
     public TaskType TaskType;
-    ProgressBar ProgressBar;
+    public Text ProgressBarDescription; // task description
 
-    private void Awake()
-    {
-        ProgressBar = GetComponent<ProgressBar>();
-    }
+    public ProgressBar ProgressBar;
 
     TaskComponent GetTask(TaskType taskType)
     {
@@ -26,17 +25,40 @@ public class TaggedProgressBar : View
         return gameEntities[0].task;
     }
 
+    void HideProgressBar()
+    {
+        ProgressBar.gameObject.SetActive(false);
+        ProgressBarDescription.gameObject.SetActive(false);
+    }
+
     void Update()
     {
         TaskComponent taskComponent = GetTask(TaskType);
 
-        float progress;
-
         if (taskComponent == null)
-            progress = 0;
-        else
-            progress = (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+        {
+            HideProgressBar();
+            return;
+        }
 
+        ProgressBar.gameObject.SetActive(true);
+        ProgressBarDescription.gameObject.SetActive(true);
+
+        float progress = (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+
+        ProgressBarDescription.text = GetDescriptionByTask(taskComponent.TaskType);
         ProgressBar.SetValue(progress);
+    }
+
+    private string GetDescriptionByTask(TaskType taskType)
+    {
+        switch (taskType)
+        {
+            case TaskType.UpgradeProduct:
+                return "Upgrading product...";
+
+            default:
+                return $"progressbar fail {taskType}";
+        }
     }
 }
