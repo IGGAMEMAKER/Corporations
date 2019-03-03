@@ -29,6 +29,7 @@ public class Services
 public class GameController : MonoBehaviour
 {
     Systems _systems;
+    public Canvas Canvas;
 
     void Start()
     {
@@ -46,6 +47,8 @@ public class GameController : MonoBehaviour
 
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
+
+        Canvas.gameObject.SetActive(true);
     }
 
     void Update()
