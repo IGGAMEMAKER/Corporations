@@ -41,14 +41,14 @@ internal class MenuInputSystem : IExecuteSystem, IInitializeSystem
 
     public void Execute()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            EnableScreen(ScreenMode.TechnologyScreen);
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //    EnableScreen(ScreenMode.TechnologyScreen);
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            EnableScreen(ScreenMode.InvesmentsScreen);
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //    EnableScreen(ScreenMode.InvesmentsScreen);
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.BusinessScreen);
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //    EnableScreen(ScreenMode.BusinessScreen);
     }
 
     public void Initialize()

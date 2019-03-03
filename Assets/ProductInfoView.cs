@@ -36,7 +36,7 @@ public class ProductInfoView : View
     void Render()
     {
         AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
-        AnimateIfValueChanged(MarketRequirements, GetMarketRequirements() + "");
+        //AnimateIfValueChanged(MarketRequirements, GetMarketRequirements() + "");
 
         //ProgressBar.enabled = false;
     }
