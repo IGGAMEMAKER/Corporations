@@ -26,7 +26,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener
         RenderCompanyName(myProduct.Name);
     }
 
-    public void OnProduct(GameEntity entity, int id, string name, Niche niche, int productLevel, int explorationLevel, TeamResource resources)
+    public void OnProduct(GameEntity entity, int id, string name, Niche niche, Industry industry, int productLevel, int explorationLevel, TeamResource resources)
     {
         Debug.Log($"OnProduct.");
 

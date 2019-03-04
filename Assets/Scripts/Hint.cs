@@ -82,8 +82,11 @@ public class Hint : MonoBehaviour
     {
         if (isHovered)
         {
-            if (Text.Length > 0)
+            if (Text.Length > 1)
+            {
                 ShowHint();
+                //Debug.Log("ONGUI HINT " + Text.Length);
+            }
         }
     }
 

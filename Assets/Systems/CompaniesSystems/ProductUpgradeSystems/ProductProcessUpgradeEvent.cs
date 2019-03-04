@@ -29,6 +29,7 @@ public class ProductProcessUpgradeEvent : IExecuteSystem
             e.product.Id,
             e.product.Name,
             e.product.Niche,
+            e.product.Industry,
             e.eventUpgradeProduct.previousLevel + 1,
             e.product.ExplorationLevel,
             e.product.Resources

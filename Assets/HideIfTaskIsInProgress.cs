@@ -1,31 +1,23 @@
 ﻿using Entitas;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Hides start action buttons for player convenience
-public class HideIfTaskIsInProgress : MonoBehaviour
+public class HideIfTaskIsInProgress : View
 {
     public TaskType TaskType;
     public GameObject GameObject;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     bool HasTask(TaskType taskType)
     {
-        GameEntity[] gameEntities = Contexts.sharedInstance.game.GetEntities(GameMatcher.Task);
-        // TODO: add filtering tasks, which are done by other players!
-
-        return gameEntities.Length > 0;
+        return GetTask(taskType) != null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject.SetActive(HasTask(TaskType));
+        GameObject.SetActive(!HasTask(TaskType));
     }
 }

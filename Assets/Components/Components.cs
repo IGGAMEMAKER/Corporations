@@ -10,6 +10,11 @@ public enum Niche
     Messenger
 }
 
+public enum Industry
+{
+    Communications
+}
+
 public interface IEventListener
 {
     void RegisterListeners(IEntity entity);
@@ -77,6 +82,7 @@ public class ProductComponent: IComponent
     public int Id;
     public string Name;
     public Niche Niche;
+    public Industry Industry;
 
     public int ProductLevel;
     public int ExplorationLevel;
