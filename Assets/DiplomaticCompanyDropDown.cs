@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEngine.UI;
 
 public enum GroupCompaniesBy
@@ -23,17 +20,14 @@ public class DiplomaticCompanyDropDown : View
     void Start()
     {
         Dropdown = GetComponent<Dropdown>();
+    }
+
+    void UpdateList()
+    {
+        gameEntities = GetProperList();
 
         Dropdown.ClearOptions();
-
-        List<string> vs = new List<string>();
-
-        vs.Add("Option 1");
-        vs.Add("Option 2");
-
-        //Dropdown.AddOptions(GetProperList());
-
-        //gameEntities = GameContext.GetEntities(GameMatcher.Product)
+        Dropdown.AddOptions(GetCompanyList(gameEntities));
     }
 
     List<string> GetCompanyList(GameEntity[] entities)
@@ -41,31 +35,34 @@ public class DiplomaticCompanyDropDown : View
         List<string> list = new List<string>();
 
         foreach (var e in entities)
-            list.Add(e.product.Name);
+            list.Add(GetCompanyName(e));
 
         return list;
     }
 
-    List<string> GetProperList()
+    string GetCompanyName(GameEntity e)
     {
         switch (FilterBy)
         {
-            case GroupCompaniesBy.Niche:
-                return GetCompanyList(GetCompetitors());
-                break;
-
-            case GroupCompaniesBy.Neighbours:
-                return GetCompanyList(GetNeighbours());
-                break;
-
-            default:
-                return GetCompanyList(GetNeighbours());
+            case GroupCompaniesBy.Niche: return $"{e.product.Name} ({e.product.ProductLevel})";
+            case GroupCompaniesBy.Neighbours: return $"{e.product.Name} ({e.marketing.Clients})";
+            default: return $"{e.product.Name} ({e.marketing.Clients})";
+        }
+    }
+    
+    GameEntity[] GetProperList()
+    {
+        switch (FilterBy)
+        {
+            case GroupCompaniesBy.Niche: return GetCompetitors();
+            case GroupCompaniesBy.Neighbours: return GetNeighbours();
+            default: return GetNeighbours();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateList();
     }
 }

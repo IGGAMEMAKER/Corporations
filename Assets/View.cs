@@ -16,11 +16,14 @@ public class View : MonoBehaviour
 
     GameEntity[] GetProductsNotControlledByPlayer()
     {
-        return GameContext
-            .GetEntities(GameMatcher
-                .AllOf(GameMatcher.Product)
-                .NoneOf(GameMatcher.ControlledByPlayer)
-                );
+        GameEntity[] entities = GameContext
+            .GetEntities(
+                GameMatcher
+                    .AllOf(GameMatcher.Product)
+                    .NoneOf(GameMatcher.ControlledByPlayer)
+                    );
+
+        return entities;
     }
 
     public GameEntity[] GetCompetitors()
