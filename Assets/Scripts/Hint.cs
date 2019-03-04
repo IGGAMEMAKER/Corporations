@@ -10,6 +10,7 @@ public class Hint : MonoBehaviour
 
     bool isHovered;
     private int fontSize = 27;
+    private int textSize = 18;
     int renderingDepth = 50;
 
 
@@ -29,9 +30,6 @@ public class Hint : MonoBehaviour
 
     void ShowHint()
     {
-        if (Text.Length == 0)
-            return;
-
         InitStyles();
 
         //GUIStyle guiStyle = new GUIStyle();
@@ -43,7 +41,7 @@ public class Hint : MonoBehaviour
         float mouseX = Input.mousePosition.x;
         float mouseY = Screen.height - Input.mousePosition.y;
 
-        float offsetX = 15f;
+        float offsetX = 25f;
         float offsetY = 15f;
 
 
@@ -84,7 +82,8 @@ public class Hint : MonoBehaviour
     {
         if (isHovered)
         {
-            ShowHint();
+            if (Text.Length > 0)
+                ShowHint();
         }
     }
 
@@ -96,6 +95,7 @@ public class Hint : MonoBehaviour
         {
             currentStyle = new GUIStyle(GUI.skin.box);
             currentStyle.wordWrap = true;
+            currentStyle.fontSize = textSize;
             currentStyle.normal.background = BackgroundTexture;
         }
     }
@@ -121,7 +121,7 @@ public class Hint : MonoBehaviour
 
     public void SetHint(string text)
     {
-        Text = text.Replace("\\n", "\n");
+        Text = "\n" + text.Replace("\\n", "\n");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

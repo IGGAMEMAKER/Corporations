@@ -4,7 +4,11 @@ using UnityEngine.UI;
 public enum TaskType
 {
     UpgradeProduct,
-    ExploreProduct
+    //ExploreProduct,
+    StealIdeas,
+    ShareExpertise,
+    ImproveRelations,
+    CrossPromotion,
 }
 
 public class TaggedProgressBar : View
@@ -56,6 +60,15 @@ public class TaggedProgressBar : View
         {
             case TaskType.UpgradeProduct:
                 return "Upgrading product...";
+
+            case TaskType.StealIdeas:
+                return "Analysing competitor...";
+
+            case TaskType.ShareExpertise:
+                return "Exchanging expertise...";
+
+            case TaskType.CrossPromotion:
+                return "Exchanging users...";
 
             default:
                 return $"progressbar fail {taskType}";
