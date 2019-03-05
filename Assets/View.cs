@@ -10,7 +10,10 @@ public class View : MonoBehaviour
         if (!String.Equals(text.text, value))
         {
             text.text = value;
-            text.gameObject.AddComponent<TextBlink>();
+
+            // only add this component if there is any
+            if (text.gameObject.GetComponent<TextBlink>() == null)
+                text.gameObject.AddComponent<TextBlink>();
         }
     }
 
