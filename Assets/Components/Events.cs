@@ -20,6 +20,12 @@ public class EventUpgradeProductComponent : IComponent
 }
 
 [Game]
+public class EventMarketingStartSimpleCampaign : IComponent
+{
+    public int productId;
+}
+
+[Game]
 public class EventUpgradeAnalyticsComponent : IComponent
 {
     public int productId;

@@ -60,11 +60,20 @@ namespace Assets.Classes
             Money = money;
         }
 
-        static bool IsEnoughResources(TeamResource Need)
+        public bool IsEnoughResources(TeamResource Need)
         {
-            Debug.LogError("IsEnoughResources not implemented");
+            return IsEnoughResources(Need, this);
+        }
 
-            return false;
+        static bool IsEnoughResources(TeamResource Need, TeamResource Have)
+        {
+            if (Have.money < Need.money) return false;
+            if (Have.ideaPoints < Need.ideaPoints) return false;
+            if (Have.managerPoints < Need.managerPoints) return false;
+            if (Have.programmingPoints < Need.programmingPoints) return false;
+            if (Have.salesPoints < Need.salesPoints) return false;
+
+            return true;
         }
 
         public void Spend(TeamResource spendable)
@@ -76,10 +85,15 @@ namespace Assets.Classes
             Money -= spendable.Money;
         }
 
+        public override string ToString()
+        {
+            return String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
+                ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money);
+        }
+
         public void Print()
         {
-            Debug.Log(String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
-                ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money));
+            Debug.Log(ToString());
         }
 
         internal TeamResource AddMoney(long money)
