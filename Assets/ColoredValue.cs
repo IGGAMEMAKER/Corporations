@@ -7,6 +7,14 @@ public enum MeasurementUnit
     Normal
 }
 
+public enum CycleLength
+{
+    No,
+    Monthly,
+    Weekly,
+    Daily
+}
+
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Text))]
 public abstract class ColoredValue : MonoBehaviour
@@ -19,6 +27,7 @@ public abstract class ColoredValue : MonoBehaviour
     public int DigitsAfterComma = 0;
 
     public MeasurementUnit unit;
+    public CycleLength cycleLength = CycleLength.No;
 
     Text Text;
 
@@ -41,6 +50,18 @@ public abstract class ColoredValue : MonoBehaviour
         return (Mathf.Floor(val * multiplier)) / multiplier;
     }
 
+    string GetCycleString()
+    {
+        switch (cycleLength)
+        {
+            case CycleLength.Monthly: return "/m";
+            case CycleLength.Daily: return "daily";
+            case CycleLength.Weekly: return "/w";
+
+            default: return "";
+        }
+    }
+
     string GetFormattedText()
     {
         string text = "" + (Prettify ? ShowNDigitsAfterComma(value, DigitsAfterComma) : value);
@@ -48,7 +69,10 @@ public abstract class ColoredValue : MonoBehaviour
         if (ShowSign && value > 0)
             text = "+" + text;
 
-        return text + "%";
+        string cycleString = GetCycleString();
+        string measuringUnits = unit == MeasurementUnit.Normal ? "" : "%";
+
+        return $"{text}{measuringUnits} {cycleString}";
     }
 
     void Render()
