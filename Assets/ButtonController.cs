@@ -58,6 +58,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public void TriggerEventTargetingToggle(int productId)
     {
+        Debug.Log("TriggerEventTargetingToggle");
         ControlledProductEntity.AddEventMarketingEnableTargeting(productId);
     }
 }
