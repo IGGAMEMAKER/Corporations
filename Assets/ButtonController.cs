@@ -2,8 +2,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface IEventGenerator
+{
+    void TriggerEventUpgradeProduct(int productId, int ProductLevel);
+    void TriggerEventUpgradeAnalytics(int productId);
+    void TriggerEventTargetingToggle(int productId);
+}
+
 [RequireComponent(typeof(Button))]
-public abstract class ButtonController : MonoBehaviour
+public abstract class ButtonController : MonoBehaviour, IEventGenerator
 {
     public GameContext GameContext;
     public ProductComponent ControlledProduct;
@@ -23,16 +30,16 @@ public abstract class ButtonController : MonoBehaviour
         ControlledProduct = ControlledProductEntity.product;
     }
 
-    public GameEntity StartTask()
-    {
-        return ControlledProductEntity;
-    }
+    //public GameEntity StartTask()
+    //{
+    //    return ControlledProductEntity;
+    //}
 
-    public GameEntity SendEvent()
-    {
-        // you can attach events to this object
-        return GameContext.CreateEntity();
-    }
+    //public GameEntity SendEvent()
+    //{
+    //    // you can attach events to this object
+    //    return GameContext.CreateEntity();
+    //}
 
     void Start()
     {

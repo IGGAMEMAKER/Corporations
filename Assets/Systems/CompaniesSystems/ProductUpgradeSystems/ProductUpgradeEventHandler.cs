@@ -12,7 +12,7 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
 
     TaskComponent GenerateTaskComponent(TaskType taskType, int duration)
     {
-        int currentDate = Contexts.sharedInstance.game.GetEntities(GameMatcher.Date)[0].date.Date;
+        int currentDate = contexts.game.GetEntities(GameMatcher.Date)[0].date.Date;
 
         return new TaskComponent
         {

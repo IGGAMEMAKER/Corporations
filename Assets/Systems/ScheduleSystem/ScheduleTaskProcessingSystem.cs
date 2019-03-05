@@ -22,7 +22,6 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
         {
             if (date.Date >= t.task.EndTime)
             {
-                //Debug.Log($"Task {t.task.TaskType} is completed");
                 t.ReplaceTask(true, t.task.TaskType, t.task.StartTime, t.task.Duration, t.task.EndTime);
                 
                 // TODO: play sounds for some taskTypes maybe??

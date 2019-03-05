@@ -13,6 +13,7 @@ public sealed class GameEventSystems : Feature {
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new PositionEventSystem(contexts)); // priority: 0
         Add(new ProductEventSystem(contexts)); // priority: 0
+        Add(new TargetingEventSystem(contexts)); // priority: 0
         Add(new TeamEventSystem(contexts)); // priority: 0
     }
 }

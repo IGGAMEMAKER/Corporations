@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class MarketingEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class TargetingEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<IMarketingListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<ITargetingListener> _listenerBuffer;
 
-    public MarketingEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<IMarketingListener>();
+    public TargetingEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<ITargetingListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Marketing)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Targeting)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasMarketing && entity.hasMarketingListener;
+        return entity.isTargeting && entity.hasTargetingListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            var component = e.marketing;
+            
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.marketingListener.value);
+            _listenerBuffer.AddRange(e.targetingListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnMarketing(e, component.Clients, component.BrandPower, component.isTargetingEnabled);
+                listener.OnTargeting(e);
             }
         }
     }

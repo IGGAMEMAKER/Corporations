@@ -26,7 +26,7 @@ public class ProductInitializerSystem : IInitializeSystem
         var e = _context.CreateEntity();
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
         e.AddTeam(1, 0, 0, 100);
-        e.AddMarketing(clients, brandPower);
+        e.AddMarketing(clients, brandPower, false);
         e.AddAnalytics(analyticsLevel, experiments);
     }
 

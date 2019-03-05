@@ -6,6 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public interface IMarketingListener {
-    void OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled);
+public interface ITargetingListener {
+    void OnTargeting(GameEntity entity);
 }

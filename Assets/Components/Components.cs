@@ -112,6 +112,14 @@ public class MarketingComponent : IComponent
 {
     public uint Clients;
     public int BrandPower;
+
+    public bool isTargetingEnabled;
+}
+
+[Game, Event(EventTarget.Self)]
+public class TargetingComponent : IComponent
+{
+
 }
 
 [Game]

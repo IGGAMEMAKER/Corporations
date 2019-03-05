@@ -78,11 +78,16 @@ public class Hint : MonoBehaviour
         //GUI.Label(content, Text);
     }
 
+    bool HasText ()
+    {
+        return Text.Length > 1;
+    }
+
     private void OnGUI()
     {
         if (isHovered)
         {
-            if (Text.Length > 1)
+            if (HasText())
             {
                 ShowHint();
                 //Debug.Log("ONGUI HINT " + Text.Length);
@@ -129,7 +134,8 @@ public class Hint : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.PlayOnHintHoverSound();
+        if (HasText())
+            SoundManager.PlayOnHintHoverSound();
         isHovered = true;
     }
 
