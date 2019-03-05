@@ -5,8 +5,9 @@ using System;
 public class MostPopularApplicationView : View
 {
     Text MarketRequirements;
+    Hint Hint;
 
-    GameEntity GetBestApplicationProduct()
+    GameEntity GetLeaderApp()
     {
         var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
         var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == myProduct.Niche);
@@ -24,14 +25,17 @@ public class MostPopularApplicationView : View
 
     void Render()
     {
-        var bestApp = GetBestApplicationProduct();
+        var bestApp = GetLeaderApp();
 
-        AnimateIfValueChanged(MarketRequirements, $"{bestApp.product.Name} ({bestApp.marketing.Clients} clients)");
+        AnimateIfValueChanged(MarketRequirements, bestApp.product.Name);
+
+        Hint.SetHint($"{bestApp.marketing.Clients} clients");
     }
 
     private void Start()
     {
         MarketRequirements = GetComponent<Text>();
+        Hint = GetComponent<Hint>();
     }
 
     // Update is called once per frame
