@@ -2,13 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IEventGenerator
-{
-    void TriggerEventUpgradeProduct(int productId, int ProductLevel);
-    void TriggerEventUpgradeAnalytics(int productId);
-    void TriggerEventTargetingToggle(int productId);
-}
-
 [RequireComponent(typeof(Button))]
 public abstract class ButtonController : MonoBehaviour, IEventGenerator
 {
@@ -51,5 +44,20 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     private void OnDestroy()
     {
         Button.onClick.RemoveListener(Execute);
+    }
+
+    public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
+    {
+        ControlledProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
+    }
+
+    public void TriggerEventUpgradeAnalytics(int productId)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public void TriggerEventTargetingToggle(int productId)
+    {
+        ControlledProductEntity.AddEventMarketingEnableTargeting(productId);
     }
 }

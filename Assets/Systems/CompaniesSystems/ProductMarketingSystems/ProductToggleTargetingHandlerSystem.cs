@@ -13,13 +13,10 @@ public class ProductToggleTargetingHandlerSystem : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        Debug.Log("ProductToggleTargetingHandlerSystem ReactiveSystem!");
-
         foreach (var e in entities)
         {
-            Debug.Log("Toggle Targeting!");
-
-            e.isTargeting = true;
+            e.isTargeting = !e.isTargeting;
+            e.RemoveEventMarketingEnableTargeting();
         }
     }
 

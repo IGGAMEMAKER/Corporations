@@ -6,5 +6,6 @@
         Add(new LogProductChangesSystem(contexts));
 
         Add(new ProductUpgradeSystems(contexts));
+        Add(new ProductMarketingSystems(contexts));
     }
 }

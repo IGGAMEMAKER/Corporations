@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Assets.Classes;
 using Entitas;
-using UnityEngine;
 
 class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
 {
@@ -15,19 +15,18 @@ class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] Products = contexts.game
-            .GetEntities(GameMatcher
-                .AllOf(GameMatcher.Marketing, GameMatcher.Targeting));
+            .GetEntities(GameMatcher.AllOf(GameMatcher.Marketing, GameMatcher.Targeting));
 
         uint baseForNiche = 100;
+        long adCost = 10000;
         // TODO Calculate proper base value!
 
         foreach (var e in Products)
         {
             uint brandModifier = (uint) e.marketing.BrandPower * 20;
-
-            Debug.Log("Grabbing more clients! brand modifier: " + brandModifier + "%");
-
+            
             e.marketing.Clients += baseForNiche * (100 + brandModifier) / 100;
+            e.product.Resources.Spend(new TeamResource(0, 0, 0, 0, adCost));
         }
     }
 

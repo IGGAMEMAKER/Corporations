@@ -1,15 +1,11 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UpgradeAnalyticsController : ButtonController
 {
-    void OnUpgradeAnalytics()
+    public override void Execute()
     {
-        ProductComponent product = ControlledProduct;
+        //ProductComponent product = ControlledProduct;
         
-        SendEvent().AddEventUpgradeAnalytics(product.Id);
-        Debug.Log("OnUpgradeAnalytics");
+        //SendEvent().AddEventUpgradeAnalytics(product.Id);
     }
-
-    public override void Execute() => OnUpgradeAnalytics();
 }

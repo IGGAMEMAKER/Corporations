@@ -1,11 +1,9 @@
 ﻿public class UpgradeProductController : ButtonController
 {
-    void OnUpgradeProduct()
+    public override void Execute()
     {
         ProductComponent product = ControlledProduct;
 
-        StartTask().AddEventUpgradeProduct(product.Id, product.ProductLevel);
+        TriggerEventUpgradeProduct(product.Id, product.ProductLevel);
     }
-
-    public override void Execute() => OnUpgradeProduct();
 }
