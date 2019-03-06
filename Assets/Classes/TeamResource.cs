@@ -43,6 +43,12 @@ namespace Assets.Classes
             }
         }
 
+        internal void Add(TeamResource resources)
+        {
+            AddTeamPoints(resources);
+            AddMoney(resources.money);
+        }
+
         public int ideaPoints
         {
             get { return IdeaPoints; }

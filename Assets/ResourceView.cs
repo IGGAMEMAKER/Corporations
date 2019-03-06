@@ -25,10 +25,9 @@ public class ResourceView : MonoBehaviour {
 
     string ShortenValue <T> (T value)
     {
-        //return value.ToString();
+        return value.ToString();
 
-        long val = 0;
-        long.TryParse(value.ToString(), out val);
+        long.TryParse(value.ToString(), out long val);
 
         long trillion = 1000000000000;
         long billion = 1000000000;
@@ -44,7 +43,7 @@ public class ResourceView : MonoBehaviour {
         if (val > million)
             return (int)(val / million) + "M";
 
-        if (val > thousand)
+        if (val > thousand * 10)
             return (int)(val / thousand) + "k";
 
         return val.ToString();

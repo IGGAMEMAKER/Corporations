@@ -7,5 +7,7 @@
 
         Add(new ProductUpgradeSystems(contexts));
         Add(new ProductMarketingSystems(contexts));
+
+        Add(new ProductResourceSystems(contexts));
     }
 }
