@@ -27,9 +27,7 @@ public class BestApplicationView : View
     {
         var bestApp = GetLeaderApp();
 
-        AnimateIfValueChanged(MarketRequirements, bestApp.product.Name);
-
-        Hint.SetHint($"{bestApp.product.ProductLevel}lvl");
+        AnimateIfValueChanged(MarketRequirements, bestApp.product.Name + " (" + bestApp.product.ProductLevel + "lvl)");
     }
 
     private void Start()

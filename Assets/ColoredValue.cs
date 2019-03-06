@@ -90,4 +90,9 @@ public abstract class ColoredValue : MonoBehaviour
 
         Render();
     }
+
+    private void Update()
+    {
+        Render();
+    }
 }
