@@ -27,9 +27,9 @@ public class ShareholderView : MonoBehaviour
 
     void Start()
     {
-        Name.text = "You";
+        Name.text = "Venture investor";
         Goal.text = "Company Cost 50.000.000$";
-        Motivation.text = "TOP1 Corporation";
+        Motivation.text = "20% growth";
         Share.text = "100%";
 
         LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));

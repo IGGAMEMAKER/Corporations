@@ -58,7 +58,7 @@ public class MenuController : MonoBehaviour
             case ScreenMode.MarketingScreen: return "Marketing";
             case ScreenMode.StatsScreen: return "Companies";
             case ScreenMode.TeamScreen: return "Team";
-            case ScreenMode.TechnologyScreen: return "Technologies";
+            case ScreenMode.TechnologyScreen: return "Development";
             case ScreenMode.InvesmentsScreen: return "Investments";
             case ScreenMode.BusinessScreen: return "Business";
 

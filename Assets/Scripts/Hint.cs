@@ -7,6 +7,8 @@ public class Hint : MonoBehaviour
     , IPointerExitHandler
 {
     public string Text;
+    [Tooltip("Will play sound only if this hint is attached to action button")]
+    public bool isActionHint;
 
     bool isHovered;
     private int fontSize = 27;
@@ -134,7 +136,7 @@ public class Hint : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (HasText())
+        if (HasText() && isActionHint)
             SoundManager.PlayOnHintHoverSound();
         isHovered = true;
     }
