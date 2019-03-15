@@ -54,9 +54,9 @@ public abstract class ColoredValue : MonoBehaviour
     {
         switch (cycleLength)
         {
-            case CycleLength.Monthly: return "monthly";
+            case CycleLength.Monthly: return "/month";
             case CycleLength.Daily: return "daily";
-            case CycleLength.Weekly: return "weekly";
+            case CycleLength.Weekly: return "/week";
 
             default: return "";
         }

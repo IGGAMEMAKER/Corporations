@@ -43,6 +43,11 @@ public class View : MonoBehaviour
         }
     }
 
+    public float GetTaskCompletionPercentage(TaskComponent taskComponent)
+    {
+        return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+    }
+
     public void AnimateIfValueChanged(Text text, string value)
     {
         if (!String.Equals(text.text, value))

@@ -37,7 +37,7 @@ public class TaggedProgressBar : View
         ProgressBar.gameObject.SetActive(true);
         ProgressBarDescription.gameObject.SetActive(true);
 
-        float progress = (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+        float progress = GetTaskCompletionPercentage(taskComponent); // (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.TaskType);
         ProgressBar.SetValue(progress);
