@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Classes;
+﻿using Assets.Classes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,28 +23,6 @@ public class RequiresResourcesButtonController : View
     {
         RequiredResources = teamResource;
     }
-
-    //TeamResource LackingResources(TeamResource resources, TeamResource required)
-    //{
-    //    TeamResource lacking = new TeamResource();
-
-    //    if (required.ideaPoints > resources.ideaPoints)
-    //        lacking.ideaPoints = required.ideaPoints - resources.ideaPoints;
-
-    //    if (required.managerPoints > resources.managerPoints)
-    //        lacking.managerPoints = required.managerPoints - resources.managerPoints;
-
-    //    if (required.programmingPoints > resources.programmingPoints)
-    //        lacking.programmingPoints = required.programmingPoints - resources.programmingPoints;
-
-    //    if (required.money > resources.money)
-    //        lacking.money = required.money - resources.money;
-
-    //    if (required.salesPoints > resources.salesPoints)
-    //        lacking.salesPoints = required.salesPoints - resources.salesPoints;
-
-    //    return lacking;
-    //}
 
     bool IsEnoughResources(TeamResource resources, TeamResource required)
     {
@@ -104,10 +81,7 @@ public class RequiresResourcesButtonController : View
         string programmer = RequiredResourceSpec(RequiredResources.programmingPoints, resources.programmingPoints, "programming points");
         string sales = RequiredResourceSpec(RequiredResources.salesPoints, resources.salesPoints, "marketing points");
 
-        string hint = String.Format(
-            "This task costs\n" +
-            money + idea + manager + programmer + sales
-            );
+        string hint = "This task costs\n" + money + idea + manager + programmer + sales;
 
         Hint.SetHint(hint);
     }
