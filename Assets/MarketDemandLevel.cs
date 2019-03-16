@@ -1,21 +1,18 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MarketingFinancingController : MonoBehaviour
+public class MarketDemandLevel : View
 {
+    // Start is called before the first frame update
     void Start()
     {
-    }
-
-    void UpdateList()
-    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //UpdateList();
+        
     }
 }
