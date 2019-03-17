@@ -32,10 +32,6 @@ class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
                 e.marketing.Clients += baseForNiche * (100 + brandModifier) / 100;
                 e.product.Resources.Spend(need);
             }
-            //else
-            //{
-            //    e.isTargeting = false;
-            //}
         }
     }
 
