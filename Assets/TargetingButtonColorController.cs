@@ -1,26 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-
-
-public class TargetingButtonColorController : View
+﻿public class TargetingButtonColorController : View
 {
-    Image Image;
-
-    private void Start()
-    {
-        Image = GetComponent<Image>();
-    }
-
     void Update()
     {
         if (myProductEntity.isTargeting)
         {
-            Image.color = Color.blue;
+            if (gameObject.GetComponent<IsChosenComponent>() == null)
+                gameObject.AddComponent<IsChosenComponent>();
         }
         else
         {
-            Image.color = Color.white;
+            var c = gameObject.GetComponent<IsChosenComponent>();
+
+            if (c != null)
+                Destroy(c);
         }
     }
 }
