@@ -10,11 +10,16 @@ public class ProductProcessUpgradeEvent : IExecuteSystem
         _context = contexts.game;
     }
 
+    GameEntity[] GetProductsWithUpgradeProductTask()
+    {
+        return _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.EventUpgradeProduct, GameMatcher.Task));
+    }
+
     public void Execute()
     {
-        foreach (var e in _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.EventUpgradeProduct, GameMatcher.Task)))
+        foreach (var e in GetProductsWithUpgradeProductTask())
         {
-            if (e.hasTask && e.task.isCompleted)
+            if (e.task.isCompleted)
             {
                 UpgradeProduct(e);
                 e.RemoveEventUpgradeProduct();

@@ -29,6 +29,16 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         return Mathf.Pow(loyalty, 0.5f);
     }
 
+    long GetIncome(GameEntity e)
+    {
+        int basePayments = 15;
+        int pricing = 1;
+        int price = basePayments * pricing;
+        long payments = price;
+
+        return e.marketing.Clients * payments;
+    }
+
     void AddResources(GameEntity[] Products)
     {
         foreach (var e in Products)
@@ -38,12 +48,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
             var baseProduction = 15;
             var ideas = 100;
 
-            int basePayments = 15;
-            int pricing = 1;
-            int price = basePayments * pricing;
-            long payments = price;
-
-            long money = e.marketing.Clients * payments;
+            long money = GetIncome(e);
 
             var resources = new TeamResource(
                 team.Programmers * baseProduction,

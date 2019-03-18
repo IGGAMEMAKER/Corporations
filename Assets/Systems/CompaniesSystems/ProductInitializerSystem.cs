@@ -12,10 +12,10 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void GenerateCompany(string name, Niche niche, Industry industry, int id)
     {
-        var resources = new Assets.Classes.TeamResource(0, 0, 0, 0, 10000);
+        var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
         uint clients = (uint) Random.Range(0, 10000);
-        int brandPower = 0;
+        int brandPower = Random.Range(0, 15);
 
         int analyticsLevel = 0;
         int experiments = 0;
