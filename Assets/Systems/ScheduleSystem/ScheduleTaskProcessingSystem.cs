@@ -16,14 +16,18 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
         GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
 
         if (tasks.Length > 0)
-            Debug.Log("Process tasks");
+            Debug.Log("Process tasks: " + tasks.Length);
+
+        //Debug.Log("date: " + date.Date);
 
         foreach (var t in tasks)
         {
+            //Debug.Log("Task t: " + t.task.EndTime);
+
             if (date.Date >= t.task.EndTime)
             {
                 t.ReplaceTask(true, t.task.TaskType, t.task.StartTime, t.task.Duration, t.task.EndTime);
-                
+                Debug.Log("Complete task");
                 // TODO: play sounds for some taskTypes maybe??
             }
         }

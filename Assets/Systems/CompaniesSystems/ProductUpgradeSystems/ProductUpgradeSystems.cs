@@ -5,6 +5,8 @@
         // Adds task when upgrade product button is pressed
         Add(new ProductUpgradeEventHandler(contexts));
 
+        Add(new ProductDevelopmentSystem(contexts));
+
         // updates product data
         Add(new ProductProcessUpgradeEvent(contexts));
     }

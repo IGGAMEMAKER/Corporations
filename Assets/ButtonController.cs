@@ -51,14 +51,8 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         ControlledProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
     }
 
-    public void TriggerEventUpgradeAnalytics(int productId)
-    {
-        //throw new System.NotImplementedException();
-    }
-
     public void TriggerEventTargetingToggle(int productId)
     {
-        Debug.Log("TriggerEventTargetingToggle");
         ControlledProductEntity.AddEventMarketingEnableTargeting(productId);
     }
 }

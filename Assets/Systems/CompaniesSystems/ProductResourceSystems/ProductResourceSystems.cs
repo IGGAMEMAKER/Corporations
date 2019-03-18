@@ -18,6 +18,17 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         return dateComponent.Date % 30 == 0 && dateComponent.Date > 0;
     }
 
+    float GetConversion(GameEntity e)
+    {
+        int productLoyalty = e.product.ProductLevel * 5;
+        int bugsPenalty = 0;
+        int pricingPenalty = 0;
+
+        int loyalty = productLoyalty - bugsPenalty - pricingPenalty;
+
+        return Mathf.Pow(loyalty, 0.5f);
+    }
+
     void AddResources(GameEntity[] Products)
     {
         foreach (var e in Products)
@@ -27,14 +38,20 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
             var baseProduction = 15;
             var ideas = 100;
 
-            long money = e.marketing.Clients * 50 / 1000;
+            int basePayments = 15;
+            int pricing = 1;
+            int price = basePayments * pricing;
+            long payments = price;
+
+            long money = e.marketing.Clients * payments;
 
             var resources = new TeamResource(
                 team.Programmers * baseProduction,
                 team.Managers * baseProduction,
                 team.Marketers * baseProduction,
                 ideas,
-                money);
+                money
+                );
 
             e.product.Resources.Add(resources);
         }
@@ -48,7 +65,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         Debug.Log("Execute resource system");
 
         GameEntity[] Products = contexts.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Marketing));
+            .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
 
         AddResources(Products);
     }

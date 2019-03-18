@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
 {
@@ -27,6 +28,8 @@ public class ProductUpgradeEventHandler : ReactiveSystem<GameEntity>
     void AddTask(GameEntity gameEventEntity)
     {
         TaskComponent task = GenerateTaskComponent(TaskType.UpgradeProduct, 5);
+
+        Debug.Log("AddTask ProductUpgradeEventHandler: " + gameEventEntity.product.Id);
 
         gameEventEntity.AddTask(task.isCompleted, task.TaskType, task.StartTime, task.Duration, task.EndTime);
     }

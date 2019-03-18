@@ -3,7 +3,6 @@
 public interface IEventGenerator
 {
     void TriggerEventUpgradeProduct(int productId, int ProductLevel);
-    void TriggerEventUpgradeAnalytics(int productId);
     void TriggerEventTargetingToggle(int productId);
 }
 

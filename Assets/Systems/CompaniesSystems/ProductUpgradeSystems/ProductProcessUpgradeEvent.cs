@@ -12,9 +12,9 @@ public class ProductProcessUpgradeEvent : IExecuteSystem
 
     public void Execute()
     {
-        foreach (var e in _context.GetEntities(GameMatcher.EventUpgradeProduct))
+        foreach (var e in _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.EventUpgradeProduct, GameMatcher.Task)))
         {
-            if (e.task.isCompleted)
+            if (e.hasTask && e.task.isCompleted)
             {
                 UpgradeProduct(e);
                 e.RemoveEventUpgradeProduct();
