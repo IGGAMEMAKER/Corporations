@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Classes;
+using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
@@ -31,12 +32,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
 
     long GetIncome(GameEntity e)
     {
-        int basePayments = 15;
-        int pricing = 1;
-        int price = basePayments * pricing;
-        long payments = price;
-
-        return e.marketing.Clients * payments;
+        return ProductEconomicsUtils.GetIncome(e);
     }
 
     void AddResources(GameEntity[] Products)

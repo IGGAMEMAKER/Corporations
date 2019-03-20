@@ -10,7 +10,7 @@ public class ProductInitializerSystem : IInitializeSystem
         _context = contexts.game;
     }
 
-    void GenerateCompany(string name, Niche niche, Industry industry, int id)
+    void GenerateProduct(string name, Niche niche, Industry industry, int id)
     {
         var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
@@ -45,19 +45,19 @@ public class ProductInitializerSystem : IInitializeSystem
         GetProductById(id).isControlledByPlayer = false;
     }
 
-    void GenerateCompany(string name, Niche niche, Industry industry)
+    void GenerateProduct(string name, Niche niche, Industry industry)
     {
         int id = _context.GetEntities(GameMatcher.Product).Length;
 
-        GenerateCompany(name, niche, industry, id);
+        GenerateProduct(name, niche, industry, id);
     }
 
     public void Initialize()
     {
-        GenerateCompany("facebook", Niche.SocialNetwork, Industry.Communications);
-        GenerateCompany("mySpace", Niche.SocialNetwork, Industry.Communications);
-        GenerateCompany("twitter", Niche.SocialNetwork, Industry.Communications);
-        GenerateCompany("vk", Niche.SocialNetwork, Industry.Communications);
+        GenerateProduct("facebook", Niche.SocialNetwork, Industry.Communications);
+        GenerateProduct("mySpace", Niche.SocialNetwork, Industry.Communications);
+        GenerateProduct("twitter", Niche.SocialNetwork, Industry.Communications);
+        GenerateProduct("vk", Niche.SocialNetwork, Industry.Communications);
 
         SetPlayerControlledCompany(2);
     }

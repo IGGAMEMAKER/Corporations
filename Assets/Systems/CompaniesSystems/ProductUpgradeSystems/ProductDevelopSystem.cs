@@ -16,7 +16,7 @@ class ProductDevelopmentSystem : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] Products = contexts.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Product));
+            .GetEntities(GameMatcher.Product);
 
         int basePPForNiche = 1;
         // TODO Calculate proper base value!

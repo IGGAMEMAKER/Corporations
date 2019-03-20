@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public enum MeasurementUnit
 {
     Percent,
-    Normal
+    Normal,
+    Dollars
 }
 
 public enum CycleLength
@@ -62,6 +63,16 @@ public abstract class ColoredValue : MonoBehaviour
         }
     }
 
+    string GetMeasuringUnitString(MeasurementUnit unit)
+    {
+        switch (unit)
+        {
+            case MeasurementUnit.Normal: return "";
+            case MeasurementUnit.Percent: return "%";
+            default: return "";
+        }
+    }
+
     string GetFormattedText()
     {
         string text = "" + (Prettify ? ShowNDigitsAfterComma(value, DigitsAfterComma) : value);
@@ -70,7 +81,8 @@ public abstract class ColoredValue : MonoBehaviour
             text = "+" + text;
 
         string cycleString = GetCycleString();
-        string measuringUnits = unit == MeasurementUnit.Normal ? "" : "%";
+        string measuringUnits = GetMeasuringUnitString(unit);
+        
 
         return $"{text}{measuringUnits} {cycleString}";
     }
