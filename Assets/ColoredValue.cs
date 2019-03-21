@@ -69,6 +69,7 @@ public abstract class ColoredValue : MonoBehaviour
         {
             case MeasurementUnit.Normal: return "";
             case MeasurementUnit.Percent: return "%";
+            case MeasurementUnit.Dollars: return "$";
             default: return "";
         }
     }

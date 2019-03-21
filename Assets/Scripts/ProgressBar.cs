@@ -27,9 +27,6 @@ public class ProgressBar : MonoBehaviour {
 
         slider.value = progress / 100;
 
-        //if (!Text)
-        //    Text = GetComponent<Text>();
-
-        Text.text = progress + "%";
+        Text.text = (int)progress + "%";
     }
 }

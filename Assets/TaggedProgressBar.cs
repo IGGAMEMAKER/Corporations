@@ -1,4 +1,4 @@
-﻿using Entitas;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public enum TaskType
@@ -33,6 +33,8 @@ public class TaggedProgressBar : View
             HideProgressBar();
             return;
         }
+
+        Debug.Log("There is the task " + taskComponent.StartTime);
 
         ProgressBar.gameObject.SetActive(true);
         ProgressBarDescription.gameObject.SetActive(true);

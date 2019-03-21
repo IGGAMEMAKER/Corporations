@@ -17,9 +17,6 @@ public class ProductInitializerSystem : IInitializeSystem
         uint clients = (uint) Random.Range(0, 10000);
         int brandPower = Random.Range(0, 15);
 
-        int analyticsLevel = 0;
-        int experiments = 0;
-
         int productLevel = 0;
         int explorationLevel = productLevel;
 
@@ -27,7 +24,6 @@ public class ProductInitializerSystem : IInitializeSystem
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
         e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower, false);
-        e.AddAnalytics(analyticsLevel, experiments);
     }
 
     GameEntity GetProductById (int id)

@@ -30,26 +30,20 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         return Mathf.Pow(loyalty, 0.5f);
     }
 
-    long GetIncome(GameEntity e)
-    {
-        return ProductEconomicsUtils.GetIncome(e);
-    }
-
     void AddResources(GameEntity[] Products)
     {
         foreach (var e in Products)
         {
             var team = e.team;
 
-            var baseProduction = 15;
             var ideas = 100;
 
-            long money = GetIncome(e);
+            long money = ProductEconomicsUtils.GetIncome(e);
 
             var resources = new TeamResource(
-                team.Programmers * baseProduction,
-                team.Managers * baseProduction,
-                team.Marketers * baseProduction,
+                team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER,
+                team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER,
+                team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER,
                 ideas,
                 money
                 );

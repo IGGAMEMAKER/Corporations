@@ -30,13 +30,19 @@ public class ProductProcessUpgradeEvent : IExecuteSystem
 
     void UpgradeProduct(GameEntity e)
     {
+        int explorationLevel = e.product.ExplorationLevel;
+        int newLevel = e.eventUpgradeProduct.previousLevel + 1;
+
+        if (explorationLevel < newLevel)
+            explorationLevel = newLevel;
+
         e.ReplaceProduct(
             e.product.Id,
             e.product.Name,
             e.product.Niche,
             e.product.Industry,
-            e.eventUpgradeProduct.previousLevel + 1,
-            e.product.ExplorationLevel,
+            newLevel,
+            explorationLevel,
             e.product.Resources
             );
 
