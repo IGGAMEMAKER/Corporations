@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Classes;
+using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
@@ -18,13 +19,10 @@ class ProductDevelopmentSystem : OnDateChange
         GameEntity[] Products = contexts.game
             .GetEntities(GameMatcher.Product);
 
-        int basePPForNiche = 1;
-        // TODO Calculate proper base value!
-
-        TeamResource need = new TeamResource(basePPForNiche, 0, 0, 0, 0);
-
         foreach (var e in Products)
         {
+            TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(e);
+
             if (e.product.Resources.IsEnoughResources(need) && !e.hasEventUpgradeProduct)
             {
                 e.AddEventUpgradeProduct(e.product.Id, e.product.ProductLevel);

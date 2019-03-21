@@ -866,12 +866,12 @@ PrefabInstance:
     - target: {fileID: 2730162351593521300, guid: e56d8f428489d44458aad6f4bf3ed18a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 144.1
+      value: 148.8
       objectReference: {fileID: 0}
     - target: {fileID: 2730162351593521300, guid: e56d8f428489d44458aad6f4bf3ed18a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -39.1
+      value: -44.3
       objectReference: {fileID: 0}
     - target: {fileID: 2730162351593521300, guid: e56d8f428489d44458aad6f4bf3ed18a,
         type: 3}
@@ -2923,6 +2923,8 @@ GameObject:
   - component: {fileID: 361252248}
   - component: {fileID: 361252251}
   - component: {fileID: 361252250}
+  - component: {fileID: 361252252}
+  - component: {fileID: 361252249}
   m_Layer: 0
   m_Name: TeamFocus (4)
   m_TagString: Untagged
@@ -2949,6 +2951,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &361252249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361252247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c90dbbab173f536498b263dd4d99ccf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &361252250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2991,6 +3005,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361252247}
   m_CullTransparentMesh: 0
+--- !u!114 &361252252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361252247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &369193503
 GameObject:
   m_ObjectHideFlags: 0
@@ -6790,7 +6818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120.5, y: -50.200073}
+  m_AnchoredPosition: {x: 120.5, y: -40.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846781461
@@ -6813,8 +6841,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 80, y: 35}
-  m_Spacing: {x: 0, y: -12}
+  m_CellSize: {x: 80, y: 50}
+  m_Spacing: {x: 0, y: -22}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1001 &862574706
@@ -8758,6 +8786,8 @@ GameObject:
   - component: {fileID: 1226593945}
   - component: {fileID: 1226593947}
   - component: {fileID: 1226593946}
+  - component: {fileID: 1226593949}
+  - component: {fileID: 1226593948}
   m_Layer: 0
   m_Name: TeamFocus (5)
   m_TagString: Untagged
@@ -8826,6 +8856,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226593944}
   m_CullTransparentMesh: 0
+--- !u!114 &1226593948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226593944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e203952c5cc9a5c47ac1e949dbf5ddbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1226593949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226593944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &1228870535
 GameObject:
   m_ObjectHideFlags: 0
@@ -10622,12 +10678,12 @@ PrefabInstance:
     - target: {fileID: 882220799827312925, guid: f101aad5458a7f1438f1f14a901f78c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 142.9
+      value: 147.59998
       objectReference: {fileID: 0}
     - target: {fileID: 882220799827312925, guid: f101aad5458a7f1438f1f14a901f78c1,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -62.9
+      value: -75.7
       objectReference: {fileID: 0}
     - target: {fileID: 882220799827312925, guid: f101aad5458a7f1438f1f14a901f78c1,
         type: 3}
