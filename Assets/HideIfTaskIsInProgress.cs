@@ -1,8 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Hides start action buttons for player convenience
 public class HideIfTaskIsInProgress : View

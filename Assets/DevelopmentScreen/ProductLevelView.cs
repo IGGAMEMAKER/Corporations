@@ -2,7 +2,12 @@
 
 public class ProductInfoView : View
 {
-    public Text Level;
+    Text Level;
+
+    private void Start()
+    {
+        Level = GetComponent<Text>();
+    }
 
     void Render()
     {
