@@ -8,29 +8,29 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public FinianceComponent finiance { get { return (FinianceComponent)GetComponent(GameComponentsLookup.Finiance); } }
-    public bool hasFiniance { get { return HasComponent(GameComponentsLookup.Finiance); } }
+    public FinanceComponent finance { get { return (FinanceComponent)GetComponent(GameComponentsLookup.Finance); } }
+    public bool hasFinance { get { return HasComponent(GameComponentsLookup.Finance); } }
 
-    public void AddFiniance(int newPrice, int newMarketingFinancing, int newSalaries) {
-        var index = GameComponentsLookup.Finiance;
-        var component = (FinianceComponent)CreateComponent(index, typeof(FinianceComponent));
+    public void AddFinance(int newPrice, int newMarketingFinancing, int newSalaries) {
+        var index = GameComponentsLookup.Finance;
+        var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;
         component.marketingFinancing = newMarketingFinancing;
         component.salaries = newSalaries;
         AddComponent(index, component);
     }
 
-    public void ReplaceFiniance(int newPrice, int newMarketingFinancing, int newSalaries) {
-        var index = GameComponentsLookup.Finiance;
-        var component = (FinianceComponent)CreateComponent(index, typeof(FinianceComponent));
+    public void ReplaceFinance(int newPrice, int newMarketingFinancing, int newSalaries) {
+        var index = GameComponentsLookup.Finance;
+        var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;
         component.marketingFinancing = newMarketingFinancing;
         component.salaries = newSalaries;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveFiniance() {
-        RemoveComponent(GameComponentsLookup.Finiance);
+    public void RemoveFinance() {
+        RemoveComponent(GameComponentsLookup.Finance);
     }
 }
 
@@ -44,17 +44,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherFiniance;
+    static Entitas.IMatcher<GameEntity> _matcherFinance;
 
-    public static Entitas.IMatcher<GameEntity> Finiance {
+    public static Entitas.IMatcher<GameEntity> Finance {
         get {
-            if (_matcherFiniance == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Finiance);
+            if (_matcherFinance == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Finance);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherFiniance = matcher;
+                _matcherFinance = matcher;
             }
 
-            return _matcherFiniance;
+            return _matcherFinance;
         }
     }
 }

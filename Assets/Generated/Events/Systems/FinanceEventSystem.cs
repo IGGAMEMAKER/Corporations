@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class FinianceEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class FinanceEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<IFinianceListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<IFinanceListener> _listenerBuffer;
 
-    public FinianceEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<IFinianceListener>();
+    public FinanceEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<IFinanceListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Finiance)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.Finance)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.hasFiniance && entity.hasFinianceListener;
+        return entity.hasFinance && entity.hasFinanceListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            var component = e.finiance;
+            var component = e.finance;
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.finianceListener.value);
+            _listenerBuffer.AddRange(e.financeListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnFiniance(e, component.price, component.marketingFinancing, component.salaries);
+                listener.OnFinance(e, component.price, component.marketingFinancing, component.salaries);
             }
         }
     }

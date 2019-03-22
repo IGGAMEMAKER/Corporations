@@ -91,7 +91,7 @@ public class ProductComponent: IComponent
 }
 
 [Game, Event(EventTarget.Self)]
-public class FinianceComponent: IComponent
+public class FinanceComponent: IComponent
 {
     public int price;
     public int marketingFinancing;

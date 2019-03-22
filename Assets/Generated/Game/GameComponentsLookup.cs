@@ -20,8 +20,8 @@ public static class GameComponentsLookup {
     public const int EventStaffHireProgrammer = 9;
     public const int EventUpgradeAnalytics = 10;
     public const int EventUpgradeProduct = 11;
-    public const int Finiance = 12;
-    public const int FinianceListener = 13;
+    public const int Finance = 12;
+    public const int FinanceListener = 13;
     public const int Marketing = 14;
     public const int MarketingListener = 15;
     public const int Menu = 16;
@@ -51,8 +51,8 @@ public static class GameComponentsLookup {
         "EventStaffHireProgrammer",
         "EventUpgradeAnalytics",
         "EventUpgradeProduct",
-        "Finiance",
-        "FinianceListener",
+        "Finance",
+        "FinanceListener",
         "Marketing",
         "MarketingListener",
         "Menu",
@@ -81,8 +81,8 @@ public static class GameComponentsLookup {
         typeof(EventStaffHireProgrammerComponent),
         typeof(EventUpgradeAnalyticsComponent),
         typeof(EventUpgradeProductComponent),
-        typeof(FinianceComponent),
-        typeof(FinianceListenerComponent),
+        typeof(FinanceComponent),
+        typeof(FinanceListenerComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),
