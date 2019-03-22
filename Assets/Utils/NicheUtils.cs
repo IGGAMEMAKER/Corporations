@@ -21,8 +21,6 @@ namespace Assets.Utils
 
         public static IEnumerable<string> GetCompetitorInfo(GameEntity e, GameContext context)
         {
-            // + c.marketing.Clients + " clients"
-
             var names = GetCompetitors(e, context)
                 .Select(c => c.product.ProductLevel + "lvl - " + ProlongNameToNDigits(c.product.Name, 10));
 

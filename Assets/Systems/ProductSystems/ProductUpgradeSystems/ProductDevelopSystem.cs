@@ -9,7 +9,6 @@ class ProductDevelopmentSystem : OnDateChange
 
     public ProductDevelopmentSystem(Contexts contexts) : base(contexts)
     {
-        // TODO: Add proper IGroups!
         //this.contexts = contexts;
     }
 

@@ -1489,6 +1489,7 @@ GameObject:
   - component: {fileID: 159480843}
   - component: {fileID: 159480845}
   - component: {fileID: 159480844}
+  - component: {fileID: 159480846}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1557,6 +1558,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159480842}
   m_CullTransparentMesh: 0
+--- !u!114 &159480846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159480842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: Gives you clients everyday if enabled
+  isActionHint: 0
 --- !u!1 &195155232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,8 +4176,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
-    m_FontStyle: 1
+    m_FontSize: 14
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -6527,7 +6542,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Leaders
+  m_Text: Stats
 --- !u!224 &818609670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17997,6 +18012,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   Hint: {fileID: 0}
 --- !u!114 &3304520039548293333
 MonoBehaviour:
@@ -19349,7 +19378,7 @@ GameObject:
   - component: {fileID: 5530359945491534863}
   - component: {fileID: 3508144234164049432}
   m_Layer: 5
-  m_Name: Leaders
+  m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19706,7 +19735,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Your awesome app
+  m_Text: 4
 --- !u!114 &5887377522441891279
 MonoBehaviour:
   m_ObjectHideFlags: 0

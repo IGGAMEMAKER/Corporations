@@ -1,11 +1,11 @@
 ﻿using Entitas;
 using UnityEngine;
 
-public class ProductProcessUpgradeEvent : IExecuteSystem
+public class ProductExecuteUpgradeEvent : IExecuteSystem
 {
     readonly GameContext _context;
 
-    public ProductProcessUpgradeEvent(Contexts contexts)
+    public ProductExecuteUpgradeEvent(Contexts contexts)
     {
         _context = contexts.game;
     }

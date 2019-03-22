@@ -30,6 +30,13 @@ public class EventUpgradeAnalyticsComponent : IComponent
     public int productId;
 }
 
+public class EventFinancePricingChangeComponent : IComponent
+{
+    public int productId;
+    public int level;
+    public int change;
+}
+
 [Game]
 public class EventMarketingEnableTargetingComponent : IComponent
 {

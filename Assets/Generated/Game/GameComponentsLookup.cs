@@ -14,25 +14,29 @@ public static class GameComponentsLookup {
     public const int Date = 3;
     public const int DebugMessage = 4;
     public const int Event = 5;
-    public const int EventMarketingEnableTargeting = 6;
-    public const int EventStaffHireProgrammer = 7;
-    public const int EventUpgradeAnalytics = 8;
-    public const int EventUpgradeProduct = 9;
-    public const int Marketing = 10;
-    public const int MarketingListener = 11;
-    public const int Menu = 12;
-    public const int Position = 13;
-    public const int PositionListener = 14;
-    public const int Product = 15;
-    public const int ProductListener = 16;
-    public const int Targeting = 17;
-    public const int TargetingListener = 18;
-    public const int Task = 19;
-    public const int TaskManager = 20;
-    public const int Team = 21;
-    public const int TeamListener = 22;
+    public const int EventFinancePricingChange = 6;
+    public const int EventMarketingEnableTargeting = 7;
+    public const int EventMarketingStartSimpleCampaign = 8;
+    public const int EventStaffHireProgrammer = 9;
+    public const int EventUpgradeAnalytics = 10;
+    public const int EventUpgradeProduct = 11;
+    public const int Finiance = 12;
+    public const int FinianceListener = 13;
+    public const int Marketing = 14;
+    public const int MarketingListener = 15;
+    public const int Menu = 16;
+    public const int Position = 17;
+    public const int PositionListener = 18;
+    public const int Product = 19;
+    public const int ProductListener = 20;
+    public const int Targeting = 21;
+    public const int TargetingListener = 22;
+    public const int Task = 23;
+    public const int TaskManager = 24;
+    public const int Team = 25;
+    public const int TeamListener = 26;
 
-    public const int TotalComponents = 23;
+    public const int TotalComponents = 27;
 
     public static readonly string[] componentNames = {
         "Analytics",
@@ -41,10 +45,14 @@ public static class GameComponentsLookup {
         "Date",
         "DebugMessage",
         "Event",
+        "EventFinancePricingChange",
         "EventMarketingEnableTargeting",
+        "EventMarketingStartSimpleCampaign",
         "EventStaffHireProgrammer",
         "EventUpgradeAnalytics",
         "EventUpgradeProduct",
+        "Finiance",
+        "FinianceListener",
         "Marketing",
         "MarketingListener",
         "Menu",
@@ -67,10 +75,14 @@ public static class GameComponentsLookup {
         typeof(DateComponent),
         typeof(DebugMessageComponent),
         typeof(EventComponent),
+        typeof(EventFinancePricingChangeComponent),
         typeof(EventMarketingEnableTargetingComponent),
+        typeof(EventMarketingStartSimpleCampaign),
         typeof(EventStaffHireProgrammerComponent),
         typeof(EventUpgradeAnalyticsComponent),
         typeof(EventUpgradeProductComponent),
+        typeof(FinianceComponent),
+        typeof(FinianceListenerComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),
