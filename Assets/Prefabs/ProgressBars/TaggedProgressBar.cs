@@ -24,7 +24,7 @@ public class TaggedProgressBar : View
         ProgressBarDescription.gameObject.SetActive(false);
     }
 
-    void Update()
+    void Render()
     {
         TaskComponent taskComponent = GetTask(TaskType);
 
@@ -34,7 +34,7 @@ public class TaggedProgressBar : View
             return;
         }
 
-        Debug.Log("There is the task " + taskComponent.StartTime);
+        //Debug.Log("There is the task " + taskComponent.StartTime);
 
         ProgressBar.gameObject.SetActive(true);
         ProgressBarDescription.gameObject.SetActive(true);
@@ -43,6 +43,11 @@ public class TaggedProgressBar : View
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.TaskType);
         ProgressBar.SetValue(progress);
+    }
+
+    void Update()
+    {
+        Render();
     }
 
     private string GetDescriptionByTask(TaskType taskType)

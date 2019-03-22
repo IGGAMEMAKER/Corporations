@@ -15,6 +15,7 @@ public class TeamSizeView : View
         Marketers.text = team.Marketers.ToString();
 
         MaxSize.text = (team.Managers + 1) * 7 + "";
+
         int size = team.Managers + team.Marketers + team.Programmers + 1;
         CurrentSize.text = size.ToString(); // 1 - CEO
     }
