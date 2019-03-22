@@ -14,7 +14,10 @@ public abstract class ParameterView : View
     void Render()
     {
         Text.text = RenderValue();
-        Hint.SetHint(RenderHint());
+        string hint = RenderHint();
+
+        if (hint.Length > 0)
+            Hint.SetHint(hint);
     }
 
     void Update()

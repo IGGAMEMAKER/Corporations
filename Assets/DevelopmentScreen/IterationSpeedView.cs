@@ -6,10 +6,12 @@ public class IterationSpeedView : ParameterView
     {
         string hint = "Base Value: " + ProductDevelopmentUtils.BaseIterationTime(myProductEntity) + " days";
 
-        hint += "\n Product Complexity Modifier: +" + ProductDevelopmentUtils.IterationTimeComplexityModifier(myProductEntity) + "%";
+        int modifier = ProductDevelopmentUtils.IterationTimeComplexityModifier(myProductEntity) * 100;
+
+        hint += "\n\n* Product Complexity Modifier: +" + modifier + "%";
 
         if (ProductDevelopmentUtils.IsCrunching(myProductEntity))
-            hint += "\n Is Crunching: -" + Constants.DEVELOPMENT_CRUNCH_BONUS + "%";
+            hint += "\n\n Is Crunching: -" + Constants.DEVELOPMENT_CRUNCH_BONUS + "%";
 
         return hint;
     }

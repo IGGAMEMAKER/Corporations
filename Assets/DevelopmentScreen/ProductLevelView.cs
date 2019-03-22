@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public class ProductInfoView : View
+public class ProductLevelView : View
 {
     Text Level;
 
