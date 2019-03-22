@@ -14,7 +14,6 @@ public class ProductLevelView : View
         AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
     }
 
-    // Update is called once per frame
     void Update()
     {
         Render();

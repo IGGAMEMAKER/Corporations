@@ -11,7 +11,6 @@ public class HideIfTaskIsInProgress : View
         return GetTask(taskType) != null;
     }
 
-    // Update is called once per frame
     void Update()
     {
         GameObject.SetActive(!HasTask(TaskType));

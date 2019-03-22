@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PotentialLevelView : ParameterView
+﻿public class PotentialLevelView : ParameterView
 {
     public override string RenderHint()
     {
