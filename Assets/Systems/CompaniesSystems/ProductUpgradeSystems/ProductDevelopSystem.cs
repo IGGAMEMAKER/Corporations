@@ -2,7 +2,6 @@
 using Assets.Classes;
 using Assets.Utils;
 using Entitas;
-using UnityEngine;
 
 class ProductDevelopmentSystem : OnDateChange
 {
@@ -26,7 +25,7 @@ class ProductDevelopmentSystem : OnDateChange
             if (e.product.Resources.IsEnoughResources(need) && !e.hasEventUpgradeProduct)
             {
                 e.AddEventUpgradeProduct(e.product.Id, e.product.ProductLevel);
-            
+
                 e.product.Resources.Spend(need);
             }
         }

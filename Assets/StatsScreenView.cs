@@ -9,7 +9,5 @@ public class StatsScreenView : MonoBehaviour {
     {
         Dictionary<string, object> parameters = new Dictionary<string, object>();
         parameters["myCompanyId"] = myCompanyId;
-
-        gameObject.GetComponentInChildren<CompanyListRenderer>().UpdateList(projects, parameters);
     }
 }
