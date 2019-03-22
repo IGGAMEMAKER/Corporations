@@ -22,7 +22,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
         var e = _context.CreateEntity();
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
-        e.AddFinance(0, 0, 0);
+        e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower, false);
     }

@@ -30,7 +30,7 @@ public sealed class FinanceEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.financeListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnFinance(e, component.price, component.marketingFinancing, component.salaries);
+                listener.OnFinance(e, component.price, component.marketingFinancing, component.salaries, component.basePrice);
             }
         }
     }

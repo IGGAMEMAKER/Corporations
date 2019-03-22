@@ -11,21 +11,23 @@ public partial class GameEntity {
     public FinanceComponent finance { get { return (FinanceComponent)GetComponent(GameComponentsLookup.Finance); } }
     public bool hasFinance { get { return HasComponent(GameComponentsLookup.Finance); } }
 
-    public void AddFinance(int newPrice, int newMarketingFinancing, int newSalaries) {
+    public void AddFinance(int newPrice, int newMarketingFinancing, int newSalaries, float newBasePrice) {
         var index = GameComponentsLookup.Finance;
         var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;
         component.marketingFinancing = newMarketingFinancing;
         component.salaries = newSalaries;
+        component.basePrice = newBasePrice;
         AddComponent(index, component);
     }
 
-    public void ReplaceFinance(int newPrice, int newMarketingFinancing, int newSalaries) {
+    public void ReplaceFinance(int newPrice, int newMarketingFinancing, int newSalaries, float newBasePrice) {
         var index = GameComponentsLookup.Finance;
         var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;
         component.marketingFinancing = newMarketingFinancing;
         component.salaries = newSalaries;
+        component.basePrice = newBasePrice;
         ReplaceComponent(index, component);
     }
 

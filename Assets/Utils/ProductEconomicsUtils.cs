@@ -2,14 +2,25 @@
 {
     public static class ProductEconomicsUtils
     {
+        public static float GetBasePrice(GameEntity e)
+        {
+            return e.finance.basePrice;
+        }
+
+        public static float GetProductPrice(GameEntity e)
+        {
+            if (e.finance.price <= 0) return 0;
+
+            float price = 10 + (e.finance.price - 1);
+
+            return GetBasePrice(e) * price / 10;
+        }
+
         public static long GetIncome(GameEntity e)
         {
-            int basePayments = 15;
-            int pricing = 1;
-            int price = basePayments * pricing;
-            long payments = price;
+            float income = e.marketing.Clients * GetProductPrice(e);
 
-            return e.marketing.Clients * payments;
+            return System.Convert.ToInt64(income);
         }
 
         internal static long GetBalance(GameEntity e)

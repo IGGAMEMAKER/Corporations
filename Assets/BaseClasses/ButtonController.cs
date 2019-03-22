@@ -55,4 +55,21 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     {
         ControlledProductEntity.AddEventMarketingEnableTargeting(productId);
     }
+
+    public void TriggerEventIncreasePrice(int productId)
+    {
+        TriggerEventChangePrice(productId, 1);
+    }
+
+    public void TriggerEventDecreasePrice(int productId)
+    {
+        TriggerEventChangePrice(productId, -1);
+    }
+
+    void TriggerEventChangePrice(int productId, int change)
+    {
+        int price = ControlledProductEntity.finance.price;
+
+        ControlledProductEntity.AddEventFinancePricingChange(productId, price, change);
+    }
 }

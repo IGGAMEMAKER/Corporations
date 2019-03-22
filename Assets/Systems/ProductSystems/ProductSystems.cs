@@ -9,6 +9,8 @@
         Add(new ProductUpgradeSystems(contexts));
         Add(new ProductMarketingSystems(contexts));
 
+        Add(new ProductFinanceSystems(contexts));
+
         Add(new ProductResourceSystems(contexts));
     }
 }

@@ -15,8 +15,8 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
     {
         GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
 
-        if (tasks.Length > 0)
-            Debug.Log("Process tasks: " + tasks.Length);
+        //if (tasks.Length > 0)
+        //    Debug.Log("Process tasks: " + tasks.Length);
 
         foreach (var t in tasks)
         {

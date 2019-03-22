@@ -1,13 +1,10 @@
-﻿public class ProductUpgradeSystems : Feature
+﻿public class ProductFinanceSystems : Feature
 {
-    public ProductUpgradeSystems(Contexts contexts) : base("Product Upgade Systems")
+    public ProductFinanceSystems(Contexts contexts) : base("Product Finance Systems")
     {
-        // Adds task when upgrade product button is pressed
-        Add(new ProductRegisterUpgradeEvent(contexts));
+        //// Adds task when upgrade product button is pressed
+        //Add(new ProductRegisterUpgradeEvent(contexts));
 
-        Add(new ProductDevelopmentSystem(contexts));
-
-        // updates product data
-        Add(new ProductExecuteUpgradeEvent(contexts));
+        Add(new ProductExecutePriceChangeEvent(contexts));
     }
 }

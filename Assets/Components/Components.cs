@@ -96,6 +96,7 @@ public class FinanceComponent: IComponent
     public int price;
     public int marketingFinancing;
     public int salaries;
+    public float basePrice;
 }
 
 [Game, Event(EventTarget.Self)]
