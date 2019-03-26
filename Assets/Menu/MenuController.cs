@@ -1,5 +1,4 @@
 ﻿using Assets;
-using Assets.Classes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +10,11 @@ public class MenuController : MonoBehaviour
 
     public Text ScreenTitle;
 
-    public GameObject MarketingScreen;
     public GameObject TechnologyScreen;
-    public GameObject ManagementScreen;
-    public GameObject TeamScreen;
-    public GameObject StatsScreen;
-    public GameObject InvesmentsScreen;
+    public GameObject ProjectScreen;
     public GameObject BusinessScreen;
+    public GameObject InvesmentsScreen;
+    public GameObject MarketScreen;
 
 
     // Start is called before the first frame update
@@ -25,24 +22,13 @@ public class MenuController : MonoBehaviour
     {
         Screens = new Dictionary<ScreenMode, GameObject>();
 
-        Screens[ScreenMode.MarketingScreen] = MarketingScreen;
-        Screens[ScreenMode.TechnologyScreen] = TechnologyScreen;
-        Screens[ScreenMode.ManagementScreen] = ManagementScreen;
-        Screens[ScreenMode.TeamScreen] = TeamScreen;
-        Screens[ScreenMode.StatsScreen] = StatsScreen;
-        Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
+        Screens[ScreenMode.DevelopmentScreen] = TechnologyScreen;
+        Screens[ScreenMode.ProjectScreen] = ProjectScreen;
         Screens[ScreenMode.BusinessScreen] = BusinessScreen;
+        Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
+        Screens[ScreenMode.MarketScreen] = MarketScreen;
 
-        EnableScreen(ScreenMode.TechnologyScreen);
-
-        EventManager.StartListening(typeof(UpgradedFeatureEvent), listener);
-    }
-
-    private void listener(GameEvent gameEvent)
-    {
-        UpgradedFeatureEvent hirePersonEvent = (UpgradedFeatureEvent)gameEvent;
-
-        Debug.LogFormat("UpgradedFeatureEvent listener {0}", hirePersonEvent.projectId);
+        EnableScreen(ScreenMode.DevelopmentScreen);
     }
 
     void Update()
@@ -54,13 +40,15 @@ public class MenuController : MonoBehaviour
     {
         switch (screen)
         {
-            case ScreenMode.ManagementScreen: return "Management";
-            case ScreenMode.MarketingScreen: return "Marketing";
-            case ScreenMode.StatsScreen: return "Companies";
-            case ScreenMode.TeamScreen: return "Team";
-            case ScreenMode.TechnologyScreen: return "Development";
-            case ScreenMode.InvesmentsScreen: return "Investments";
+            // global screens
             case ScreenMode.BusinessScreen: return "Business";
+            case ScreenMode.MarketScreen: return "Market resarch";
+
+            // project based screens
+            case ScreenMode.ProjectScreen: return "Project";
+            case ScreenMode.DevelopmentScreen: return "Development";
+
+            case ScreenMode.InvesmentsScreen: return "Investments";
 
             default: return "WUT?";
         }
@@ -98,24 +86,15 @@ public class MenuController : MonoBehaviour
     void ToggleScreensIfNecessary()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            EnableScreen(ScreenMode.TechnologyScreen);
+            EnableScreen(ScreenMode.DevelopmentScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             EnableScreen(ScreenMode.InvesmentsScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.BusinessScreen);
+            EnableScreen(ScreenMode.MarketScreen);
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            EnableScreen(ScreenMode.TeamScreen);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha5))
-        //    EnableScreen(ScreenMode.StatsScreen);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha6))
-        //    EnableScreen(ScreenMode.MarketingScreen);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha7))
-        //    EnableScreen(ScreenMode.ManagementScreen);
+            EnableScreen(ScreenMode.BusinessScreen);
     }
 }

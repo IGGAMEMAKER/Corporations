@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CooldownView : View
@@ -48,7 +46,6 @@ public class CooldownView : View
             AnimateButtonBackground(t);
     }
 
-    // Update is called once per frame
     void Update()
     {
         ResetColor();

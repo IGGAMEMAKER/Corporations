@@ -53,6 +53,6 @@ internal class MenuInputSystem : IExecuteSystem, IInitializeSystem
 
     public void Initialize()
     {
-        context.CreateEntity().AddMenu(ScreenMode.TechnologyScreen);
+        context.CreateEntity().AddMenu(ScreenMode.DevelopmentScreen);
     }
 }

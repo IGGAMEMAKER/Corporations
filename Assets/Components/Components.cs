@@ -52,13 +52,14 @@ public class PositionComponent : IComponent
 
 public enum ScreenMode
 {
-    TechnologyScreen,
+    DevelopmentScreen,
     MarketingScreen,
-    ManagementScreen,
+    ProjectScreen,
+    BusinessScreen,
     TeamScreen,
     StatsScreen,
     InvesmentsScreen,
-    BusinessScreen
+    MarketScreen
 }
 
 public class MenuComponent : IComponent
