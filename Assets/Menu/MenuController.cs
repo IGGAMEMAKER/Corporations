@@ -1,4 +1,6 @@
 ﻿using Assets;
+using Assets.Utils;
+using Entitas;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +18,7 @@ public class MenuController : MonoBehaviour
     public GameObject InvesmentsScreen;
     public GameObject MarketScreen;
 
+    ScreenMode screen;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,8 @@ public class MenuController : MonoBehaviour
         Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
         Screens[ScreenMode.MarketScreen] = MarketScreen;
 
-        EnableScreen(ScreenMode.DevelopmentScreen);
+        screen = ScreenMode.DevelopmentScreen;
+        EnableScreen(screen);
     }
 
     void Update()
@@ -85,16 +89,14 @@ public class MenuController : MonoBehaviour
 
     void ToggleScreensIfNecessary()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            EnableScreen(ScreenMode.DevelopmentScreen);
+        GameEntity e = MenuUtils.Menu(Contexts.sharedInstance.game);
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            EnableScreen(ScreenMode.InvesmentsScreen);
+        ScreenMode currentScreen = e.menu.ScreenMode;
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.MarketScreen);
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            EnableScreen(ScreenMode.BusinessScreen);
+        if (screen != currentScreen)
+        {
+            screen = currentScreen;
+            EnableScreen(screen);
+        } 
     }
 }

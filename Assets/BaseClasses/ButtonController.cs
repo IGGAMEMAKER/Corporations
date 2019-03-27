@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,11 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     private void OnDestroy()
     {
         Button.onClick.RemoveListener(Execute);
+    }
+
+    public void Navigate(ScreenMode screenMode)
+    {
+        MenuUtils.Menu(GameContext).ReplaceMenu(screenMode);
     }
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
