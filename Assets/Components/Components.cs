@@ -31,6 +31,13 @@ public struct ControlledByPlayerComponent : IComponent {
 
 }
 
+[Game]
+public struct SelectedComponent : IComponent {
+
+}
+
+
+
 //public interface ITaskManager
 //{
 //    void AddTask();
