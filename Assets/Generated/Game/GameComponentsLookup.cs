@@ -98,7 +98,6 @@ public static class GameComponentsLookup {
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(SelectedCompanyComponent),
-        typeof(SelectedComponent),
         typeof(TargetingComponent),
         typeof(TargetingListenerComponent),
         typeof(TaskComponent),

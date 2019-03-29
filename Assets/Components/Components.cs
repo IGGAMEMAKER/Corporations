@@ -44,11 +44,6 @@ public struct ControlledByPlayerComponent : IComponent {
 }
 
 [Game]
-public struct SelectedComponent : IComponent {
-
-}
-
-[Game]
 public struct CompanyComponent : IComponent
 {
     public int Id;

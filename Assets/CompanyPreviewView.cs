@@ -1,13 +1,20 @@
 ﻿using Assets.Classes;
+using Assets.Utils;
 using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CompanyPreviewView : View, IEventListener, IProductListener
+public class CompanyPreviewView : View, IEventListener, IProductListener, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
     public GameEntity _entity;
     public Text CompanyNameLabel;
     public Text CompanyTypeLabel;
+
+    public ColoredValuePositiveOrNegative IncomeLabel;
+    public Text ShareCostLabel;
+
+    public LinkToProjectView LinkToProjectView;
 
     public void RegisterListeners(IEntity entity)
     {
@@ -21,19 +28,70 @@ public class CompanyPreviewView : View, IEventListener, IProductListener
     {
         _entity = entity;
 
-        RenderCompanyName(_entity.product.Name);
+        Render(_entity);
     }
 
-    void RenderCompanyName(string companyName)
+    void RenderCompanyType(GameEntity entity)
     {
-        CompanyNameLabel.text = companyName;
-        CompanyTypeLabel.text = "Product company";
+        string text;
+
+        switch (entity.company.CompanyType)
+        {
+            case CompanyType.Product: text = "Product Company"; break;
+            case CompanyType.Holding: text = "Holding"; break;
+            case CompanyType.Corporation: text = "Corporation"; break;
+            case CompanyType.FinancialGroup: text = "Financial Group"; break;
+            case CompanyType.Group: text = "Group of companies"; break;
+            default: text = "WUT"; break;
+        }
+
+        CompanyTypeLabel.text = text;
+    }
+
+    void RenderCompanyName(GameEntity entity)
+    {
+        CompanyNameLabel.text = entity.company.Name;
+
+        RenderCompanyType(entity);
+    }
+
+    void RenderIncome(GameEntity entity)
+    {
+        IncomeLabel.value = CompanyEconomyUtils.GetIncome(entity, GameContext);
+    }
+
+    void Render(GameEntity e)
+    {
+        RenderCompanyName(e);
+        RenderIncome(e);
+
+        LinkToProjectView.CompanyId = e.company.Id;
     }
 
     public void OnProduct(GameEntity entity, int id, string name, Niche niche, Industry industry, int productLevel, int explorationLevel, TeamResource resources)
     {
         Debug.Log($"OnProduct.");
 
-        RenderCompanyName(name);
+        Render(entity);
+    }
+
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    void IDragHandler.OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
+    }
+
+    void IEndDragHandler.OnEndDrag(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Hovering company " + _entity.company.Name);
     }
 }

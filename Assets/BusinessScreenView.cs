@@ -4,7 +4,6 @@ using UnityEngine;
 public class BusinessScreenView : View
 {
     public GameObject Companies;
-    GameEntity SelectedEntity;
 
     // Start is called before the first frame update
     void Awake()
@@ -15,9 +14,19 @@ public class BusinessScreenView : View
 
     void Render()
     {
-        //SelectedEntity = GameContext.GetEntities(GameMatcher.Selected)[0];
+        int index = 0;
 
-        //Companies.transform.GetChild(0).GetComponent<CompanyPreviewView>().SetEntity(SelectedEntity);
+        var companies = GameContext.GetEntities(GameMatcher.Company);
+
+        Debug.Log("Amount of companies " + companies.Length);
+
+        foreach (var e in companies)
+        {
+            Companies.transform.GetChild(index).GetComponent<CompanyPreviewView>().SetEntity(e);
+            index++;
+        }
+
+        //Companies.transform.GetChild(index).GetComponent<CompanyPreviewView>().SetEntity(myProductEntity);
     }
 
     // Update is called once per frame

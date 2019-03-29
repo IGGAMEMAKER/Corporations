@@ -18,6 +18,19 @@ public class View : MonoBehaviour
         }
     }
 
+    public GameEntity SelectedCompany
+    {
+        get
+        {
+            var products = GameContext
+                .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.SelectedCompany));
+
+            if (products.Length == 1) return products[0];
+
+            return null;
+        }
+    }
+
     public GameContext GameContext
     {
         get

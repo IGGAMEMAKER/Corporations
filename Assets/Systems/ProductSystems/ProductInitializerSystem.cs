@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProductInitializerSystem : IInitializeSystem
 {
     readonly GameContext _context;
+    int currentId;
 
     public ProductInitializerSystem(Contexts contexts)
     {
@@ -44,11 +45,23 @@ public class ProductInitializerSystem : IInitializeSystem
         GetProductById(id).isControlledByPlayer = false;
     }
 
+    int GenerateId()
+    {
+        //int id = _context.GetEntities(GameMatcher.Product).Length;
+        return currentId++;
+    }
+
     void GenerateProduct(string name, Niche niche, Industry industry)
     {
-        int id = _context.GetEntities(GameMatcher.Product).Length;
+        int id = GenerateId();
 
         GenerateProduct(name, niche, industry, id);
+    }
+
+    void GenerateFinancialGroup(string name)
+    {
+        var e = _context.CreateEntity();
+        e.AddCompany(GenerateId(), name, CompanyType.FinancialGroup);
     }
 
     public void Initialize()
@@ -57,6 +70,9 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateProduct("mySpace", Niche.SocialNetwork, Industry.Communications);
         GenerateProduct("twitter", Niche.SocialNetwork, Industry.Communications);
         GenerateProduct("vk", Niche.SocialNetwork, Industry.Communications);
+
+        GenerateFinancialGroup("Morgan Stanley");
+        GenerateFinancialGroup("Goldman Sachs");
 
         SetPlayerControlledCompany(2);
     }

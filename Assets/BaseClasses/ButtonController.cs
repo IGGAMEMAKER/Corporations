@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,5 +78,14 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         int price = ControlledProductEntity.finance.price;
 
         ControlledProductEntity.AddEventFinancePricingChange(productId, price, change);
+    }
+
+    public void SetSelectedCompany(int companyId)
+    {
+        GameContext.GetEntities(GameMatcher.SelectedCompany)[0].isSelectedCompany = false;
+
+        var company = Array.Find(GameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
+
+        company.isSelectedCompany = true;
     }
 }
