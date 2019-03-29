@@ -15,6 +15,17 @@ public enum Industry
     Communications
 }
 
+public enum CompanyType
+{
+    Product,
+
+    FinancialGroup,
+
+    Group,
+    Holding,
+    Corporation
+}
+
 public interface IEventListener
 {
     void RegisterListeners(IEntity entity);
@@ -26,6 +37,7 @@ public class DateComponent : IComponent
     public int Date;
 }
 
+// only entity - Player can be CEO of only one company at time
 [Game]
 public struct ControlledByPlayerComponent : IComponent {
 
@@ -33,6 +45,20 @@ public struct ControlledByPlayerComponent : IComponent {
 
 [Game]
 public struct SelectedComponent : IComponent {
+
+}
+
+[Game]
+public struct CompanyComponent : IComponent
+{
+    public int Id;
+    public string Name;
+    public CompanyType CompanyType;
+}
+
+// only entity
+[Game]
+public struct SelectedCompanyComponent : IComponent {
 
 }
 

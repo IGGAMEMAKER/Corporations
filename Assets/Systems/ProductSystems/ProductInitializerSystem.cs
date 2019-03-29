@@ -21,6 +21,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int explorationLevel = productLevel;
 
         var e = _context.CreateEntity();
+        e.AddCompany(id, name, CompanyType.Product);
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
         e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
@@ -35,6 +36,7 @@ public class ProductInitializerSystem : IInitializeSystem
     void SetPlayerControlledCompany(int id)
     {
         GetProductById(id).isControlledByPlayer = true;
+        GetProductById(id).isSelectedCompany = true;
     }
 
     void RemovePlayerControlledCompany(int id)

@@ -10,37 +10,41 @@ public static class GameComponentsLookup {
 
     public const int Analytics = 0;
     public const int AnalyticsListener = 1;
-    public const int ControlledByPlayer = 2;
-    public const int Date = 3;
-    public const int DebugMessage = 4;
-    public const int Event = 5;
-    public const int EventFinancePricingChange = 6;
-    public const int EventMarketingEnableTargeting = 7;
-    public const int EventMarketingStartSimpleCampaign = 8;
-    public const int EventStaffHireProgrammer = 9;
-    public const int EventUpgradeAnalytics = 10;
-    public const int EventUpgradeProduct = 11;
-    public const int Finance = 12;
-    public const int FinanceListener = 13;
-    public const int Marketing = 14;
-    public const int MarketingListener = 15;
-    public const int Menu = 16;
-    public const int Position = 17;
-    public const int PositionListener = 18;
-    public const int Product = 19;
-    public const int ProductListener = 20;
-    public const int Targeting = 21;
-    public const int TargetingListener = 22;
-    public const int Task = 23;
-    public const int TaskManager = 24;
-    public const int Team = 25;
-    public const int TeamListener = 26;
+    public const int Company = 2;
+    public const int ControlledByPlayer = 3;
+    public const int Date = 4;
+    public const int DebugMessage = 5;
+    public const int Event = 6;
+    public const int EventFinancePricingChange = 7;
+    public const int EventMarketingEnableTargeting = 8;
+    public const int EventMarketingStartSimpleCampaign = 9;
+    public const int EventStaffHireProgrammer = 10;
+    public const int EventUpgradeAnalytics = 11;
+    public const int EventUpgradeProduct = 12;
+    public const int Finance = 13;
+    public const int FinanceListener = 14;
+    public const int Marketing = 15;
+    public const int MarketingListener = 16;
+    public const int Menu = 17;
+    public const int Position = 18;
+    public const int PositionListener = 19;
+    public const int Product = 20;
+    public const int ProductListener = 21;
+    public const int SelectedCompany = 22;
+    public const int Selected = 23;
+    public const int Targeting = 24;
+    public const int TargetingListener = 25;
+    public const int Task = 26;
+    public const int TaskManager = 27;
+    public const int Team = 28;
+    public const int TeamListener = 29;
 
-    public const int TotalComponents = 27;
+    public const int TotalComponents = 30;
 
     public static readonly string[] componentNames = {
         "Analytics",
         "AnalyticsListener",
+        "Company",
         "ControlledByPlayer",
         "Date",
         "DebugMessage",
@@ -60,6 +64,8 @@ public static class GameComponentsLookup {
         "PositionListener",
         "Product",
         "ProductListener",
+        "SelectedCompany",
+        "Selected",
         "Targeting",
         "TargetingListener",
         "Task",
@@ -71,6 +77,7 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(AnalyticsComponent),
         typeof(AnalyticsListenerComponent),
+        typeof(CompanyComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DateComponent),
         typeof(DebugMessageComponent),
@@ -90,6 +97,8 @@ public static class GameComponentsLookup {
         typeof(PositionListenerComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
+        typeof(SelectedCompanyComponent),
+        typeof(SelectedComponent),
         typeof(TargetingComponent),
         typeof(TargetingListenerComponent),
         typeof(TaskComponent),

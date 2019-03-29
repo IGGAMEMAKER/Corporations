@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class CompanyPreviewView : View, IEventListener, IProductListener
 {
-    GameEntity _entity;
-    public Text Text;
+    public GameEntity _entity;
+    public Text CompanyNameLabel;
+    public Text CompanyTypeLabel;
 
     public void RegisterListeners(IEntity entity)
     {
@@ -16,14 +17,17 @@ public class CompanyPreviewView : View, IEventListener, IProductListener
         _entity.AddProductListener(this);
     }
 
-    void RenderCompanyName(string companyName)
+    public void SetEntity(GameEntity entity)
     {
-        Text.text = companyName;
+        _entity = entity;
+
+        RenderCompanyName(_entity.product.Name);
     }
 
-    void Update()
+    void RenderCompanyName(string companyName)
     {
-        RenderCompanyName(myProduct.Name);
+        CompanyNameLabel.text = companyName;
+        CompanyTypeLabel.text = "Product company";
     }
 
     public void OnProduct(GameEntity entity, int id, string name, Niche niche, Industry industry, int productLevel, int explorationLevel, TeamResource resources)
