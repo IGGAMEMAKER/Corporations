@@ -25,6 +25,34 @@ public class ValueAmplifierAnimation : MonoBehaviour
         SetValue(500);
     }
 
+    void Update()
+    {
+        totalTime -= Time.deltaTime;
+
+        Render();
+    }
+
+    void Render()
+    {
+        if (animationDone)
+            return;
+
+        float result;
+
+        if (totalTime >= 0)
+        {
+            float x = (interval - totalTime) / interval;
+            result = Mathf.RoundToInt(previous + x * (current - previous));
+        }
+        else
+        {
+            result = current;
+            animationDone = true;
+        }
+
+        Text.text = result.ToString() + MeasuringUnit;
+    }
+
     void SetValue(float val)
     {
         totalTime = interval;
@@ -32,28 +60,5 @@ public class ValueAmplifierAnimation : MonoBehaviour
 
         previous = current;
         current = val;
-    }
-
-    void Update()
-    {
-        totalTime -= Time.deltaTime;
-        
-        if (!animationDone)
-        {
-            float result;
-
-            if (totalTime >= 0)
-            {
-                float x = (interval - totalTime) / interval;
-                result = Mathf.RoundToInt(previous + x * (current - previous));
-            }
-            else
-            {
-                result = current;
-                animationDone = true;
-            }
-
-            Text.text = result.ToString() + MeasuringUnit;
-        }
     }
 }

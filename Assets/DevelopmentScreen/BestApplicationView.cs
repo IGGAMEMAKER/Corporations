@@ -7,6 +7,17 @@ public class BestApplicationView : View
     Text MarketRequirements;
     Hint Hint;
 
+    void Start()
+    {
+        MarketRequirements = GetComponent<Text>();
+        Hint = GetComponent<Hint>();
+    }
+
+    void Update()
+    {
+        Render();
+    }
+
     GameEntity GetLeaderApp()
     {
         var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
@@ -28,17 +39,5 @@ public class BestApplicationView : View
         var bestApp = GetLeaderApp();
 
         AnimateIfValueChanged(MarketRequirements, bestApp.product.Name + " (" + bestApp.product.ProductLevel + "lvl)");
-    }
-
-    private void Start()
-    {
-        MarketRequirements = GetComponent<Text>();
-        Hint = GetComponent<Hint>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Render();
     }
 }

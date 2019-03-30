@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public enum TaskType
 {
     UpgradeProduct,
-    //ExploreProduct,
     StealIdeas,
     ShareExpertise,
     ImproveRelations,
@@ -17,6 +15,11 @@ public class TaggedProgressBar : View
     public Text ProgressBarDescription; // task description
 
     public ProgressBar ProgressBar;
+
+    void Update()
+    {
+        Render();
+    }
 
     void HideProgressBar()
     {
@@ -43,11 +46,6 @@ public class TaggedProgressBar : View
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.TaskType);
         ProgressBar.SetValue(progress);
-    }
-
-    void Update()
-    {
-        Render();
     }
 
     private string GetDescriptionByTask(TaskType taskType)

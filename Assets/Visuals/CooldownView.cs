@@ -7,11 +7,15 @@ public class CooldownView : View
     Button Target;
     Color BaseColor;
 
-    // Start is called before the first frame update
     void Start()
     {
         Target = GetComponent<Button>();
         BaseColor = Target.colors.disabledColor;
+    }
+
+    void Update()
+    {
+        ResetColor();
     }
 
     void SetDisabledColor(Color color)
@@ -44,10 +48,5 @@ public class CooldownView : View
             ResetButton();
         else
             AnimateButtonBackground(t);
-    }
-
-    void Update()
-    {
-        ResetColor();
     }
 }

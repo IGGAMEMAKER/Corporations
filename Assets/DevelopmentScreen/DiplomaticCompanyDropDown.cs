@@ -22,6 +22,11 @@ public class DiplomaticCompanyDropDown : View
         Dropdown = GetComponent<Dropdown>();
     }
 
+    void Update()
+    {
+        UpdateList();
+    }
+
     void UpdateList()
     {
         gameEntities = GetProperList();
@@ -58,11 +63,5 @@ public class DiplomaticCompanyDropDown : View
             case GroupCompaniesBy.Neighbours: return GetNeighbours();
             default: return GetNeighbours();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateList();
     }
 }

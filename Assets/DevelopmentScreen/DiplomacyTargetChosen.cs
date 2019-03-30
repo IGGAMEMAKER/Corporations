@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public interface IButtonInteractable
@@ -13,10 +11,17 @@ public class ButtonInteractivityController : MonoBehaviour
     IButtonInteractable[] buttonInteractables;
     Button Button;
 
-    private void Start()
+    void Start()
     {
         buttonInteractables = GetComponents<IButtonInteractable>();
         Button = GetComponent<Button>();
+    }
+
+    void Update()
+    {
+        bool interactable = CheckInteractability();
+
+        Button.interactable = interactable;
     }
 
     bool CheckInteractability()
@@ -25,13 +30,6 @@ public class ButtonInteractivityController : MonoBehaviour
             if (!c.Interactable()) return false;
 
         return true;
-    }
-
-    void Update()
-    {
-        bool interactable = CheckInteractability();
-
-        Button.interactable = interactable;
     }
 }
 
@@ -42,17 +40,5 @@ public class DiplomacyTargetChosen : MonoBehaviour, IButtonInteractable
     public bool Interactable()
     {
         return true;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

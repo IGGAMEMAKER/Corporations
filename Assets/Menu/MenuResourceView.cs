@@ -10,7 +10,12 @@ public class MenuResourceView : View {
     public ResourceView ClientView;
     public ResourceView BrandView;
     public ResourceView ScheduleView;
-	
+
+    void Update()
+    {
+        Render(myProductEntity.product.Resources, new TeamResource(), myProductEntity.marketing, CurrentIntDate);
+    }
+
     string GetHintText<T> (T value)
     {
         string valueSigned = "";
@@ -21,11 +26,6 @@ public class MenuResourceView : View {
             valueSigned = value.ToString();
 
         return String.Format("Monthly change \n\n {0}", valueSigned);
-    }
-
-    private void Update()
-    {
-        Render(myProductEntity.product.Resources, new TeamResource(), myProductEntity.marketing, CurrentIntDate);
     }
 
     public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing, int currentDate)

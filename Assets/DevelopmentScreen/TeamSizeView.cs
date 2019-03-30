@@ -8,6 +8,11 @@ public class TeamSizeView : View
     public Text MaxSize;
     public Text CurrentSize;
 
+    void Update()
+    {
+        Render(myProductEntity.team);
+    }
+
     void Render(TeamComponent team)
     {
         Programmers.text = team.Programmers.ToString();
@@ -18,10 +23,5 @@ public class TeamSizeView : View
 
         int size = team.Managers + team.Marketers + team.Programmers + 1;
         CurrentSize.text = size.ToString(); // 1 - CEO
-    }
-
-    void Update()
-    {
-        Render(myProductEntity.team);
     }
 }

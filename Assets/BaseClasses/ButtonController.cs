@@ -14,12 +14,24 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public abstract void Execute();
 
-    private void Awake()
+    void Awake()
     {
         GameContext = Contexts.sharedInstance.game;
     }
 
-    private void Update()
+    void Start()
+    {
+        Button = GetComponent<Button>();
+
+        Button.onClick.AddListener(Execute);
+    }
+
+    void Update()
+    {
+        UpdateControlledProductEntity();
+    }
+
+    void UpdateControlledProductEntity()
     {
         ControlledProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
         ControlledProduct = ControlledProductEntity.product;
@@ -35,13 +47,6 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     //    // you can attach events to this object
     //    return GameContext.CreateEntity();
     //}
-
-    void Start()
-    {
-        Button = GetComponent<Button>();
-
-        Button.onClick.AddListener(Execute);
-    }
 
     private void OnDestroy()
     {

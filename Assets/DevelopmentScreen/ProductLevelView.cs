@@ -9,13 +9,13 @@ public class ProductLevelView : View
         Level = GetComponent<Text>();
     }
 
-    void Render()
-    {
-        AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
-    }
-
     void Update()
     {
         Render();
+    }
+
+    void Render()
+    {
+        AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
     }
 }

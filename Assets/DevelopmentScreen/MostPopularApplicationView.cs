@@ -7,6 +7,17 @@ public class MostPopularApplicationView : View
     Text MarketRequirements;
     Hint Hint;
 
+    void Start()
+    {
+        MarketRequirements = GetComponent<Text>();
+        Hint = GetComponent<Hint>();
+    }
+
+    void Update()
+    {
+        Render();
+    }
+
     GameEntity GetLeaderApp()
     {
         var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
@@ -30,17 +41,5 @@ public class MostPopularApplicationView : View
         AnimateIfValueChanged(MarketRequirements, bestApp.product.Name);
 
         Hint.SetHint($"{bestApp.marketing.Clients} clients");
-    }
-
-    private void Start()
-    {
-        MarketRequirements = GetComponent<Text>();
-        Hint = GetComponent<Hint>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Render();
     }
 }

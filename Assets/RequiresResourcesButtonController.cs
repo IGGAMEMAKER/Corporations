@@ -10,13 +10,26 @@ public class RequiresResourcesButtonController : View
     Hint Hint;
     public TeamResource RequiredResources;
 
-    // Start is called before the first frame update
     void Start()
     {
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
 
         RequiredResources = new TeamResource(0, 0, 0, 0, 0);
+    }
+
+    void Update()
+    {
+        if (isEnoughResources)
+        {
+            RemoveHint();
+            Button.interactable = true;
+        }
+        else
+        {
+            SetHint();
+            Button.interactable = false;
+        }
     }
 
     public void SetRequiredResources(TeamResource teamResource)
@@ -41,20 +54,6 @@ public class RequiresResourcesButtonController : View
         get
         {
             return IsEnoughResources(myProduct.Resources, RequiredResources);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isEnoughResources)
-        {
-            RemoveHint();
-            Button.interactable = true;
-        } else
-        {
-            SetHint();
-            Button.interactable = false;
         }
     }
 
