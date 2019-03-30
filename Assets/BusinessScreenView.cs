@@ -8,11 +8,15 @@ public class BusinessScreenView : View
     public GameObject CompnayPrefab;
     public Text CompanyNameLabel;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if (myProductEntity == null)
             Debug.Log("no companies controlled");
+    }
+
+    void Update()
+    {
+        Render();
     }
 
     void RenderSelectedCompanyName()
@@ -43,10 +47,5 @@ public class BusinessScreenView : View
             c.gameObject.GetComponent<CompanyPreviewView>().SetEntity(e);
             index++;
         }
-    }
-
-    void Update()
-    {
-        Render();
     }
 }
