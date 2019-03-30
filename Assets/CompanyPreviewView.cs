@@ -19,14 +19,6 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
 
     public static GameObject itemBeingDragged;
 
-    public void RegisterListeners(IEntity entity)
-    {
-        Debug.Log($"RegisterListeners CompanyPreviewView");
-
-        _entity = (GameEntity)entity;
-        _entity.AddProductListener(this);
-    }
-
     public void SetEntity(GameEntity entity)
     {
         _entity = entity;
@@ -54,8 +46,6 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
     void RenderCompanyName(GameEntity entity)
     {
         CompanyNameLabel.text = entity.company.Name;
-
-        RenderCompanyType(entity);
     }
 
     void RenderIncome(GameEntity entity)
@@ -66,6 +56,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
     void Render(GameEntity e)
     {
         RenderCompanyName(e);
+        RenderCompanyType(e);
         RenderIncome(e);
 
         LinkToProjectView.CompanyId = e.company.Id;
@@ -101,5 +92,13 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
 
         if (itemBeingDragged != null && itemBeingDragged != gameObject)
             gameObject.AddComponent<DroppableAnimation>();
+    }
+
+    void IEventListener.RegisterListeners(IEntity entity)
+    {
+        Debug.Log($"RegisterListeners CompanyPreviewView");
+
+        _entity = (GameEntity)entity;
+        _entity.AddProductListener(this);
     }
 }
