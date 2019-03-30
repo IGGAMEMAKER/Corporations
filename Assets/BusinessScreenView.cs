@@ -1,9 +1,13 @@
 ﻿using Entitas;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BusinessScreenView : View
 {
     public GameObject Companies;
+    public GameObject CompnayPrefab;
+    public Text CompanyNameLabel;
 
     // Start is called before the first frame update
     void Awake()
@@ -12,24 +16,33 @@ public class BusinessScreenView : View
             Debug.Log("no companies controlled");
     }
 
+    void RenderSelectedCompanyName()
+    {
+        CompanyNameLabel.text = SelectedCompany.company.Name;
+    }
+
     void Render()
     {
+        RenderSelectedCompanyName();
+
         int index = 0;
 
         var companies = GameContext.GetEntities(GameMatcher.Company);
 
-        Debug.Log("Amount of companies " + companies.Length);
-
         foreach (var e in companies)
         {
-            Companies.transform.GetChild(index).GetComponent<CompanyPreviewView>().SetEntity(e);
+            Transform c;
+
+            if (index < Companies.transform.childCount - 2)
+                c = Companies.transform.GetChild(index + 2);
+            else
+                c = Instantiate(CompnayPrefab, Companies.transform, false).transform;
+
+            c.gameObject.GetComponent<CompanyPreviewView>().SetEntity(e);
             index++;
         }
-
-        //Companies.transform.GetChild(index).GetComponent<CompanyPreviewView>().SetEntity(myProductEntity);
     }
 
-    // Update is called once per frame
     void Update()
     {
         Render();

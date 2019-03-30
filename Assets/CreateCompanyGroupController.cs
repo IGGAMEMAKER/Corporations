@@ -1,7 +1,10 @@
-﻿public class CreateCompanyGroupController : ButtonController
+﻿using Assets.Utils;
+
+public class CreateCompanyGroupController : ButtonController
 {
     public override void Execute()
     {
-        //throw new System.NotImplementedException();
+        GameContext.CreateEntity()
+            .AddCompany(CompanyUtils.GenerateCompanyId(GameContext), "New Company Group", CompanyType.Group);
     }
 }

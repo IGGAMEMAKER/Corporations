@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
@@ -47,8 +48,8 @@ public class ProductInitializerSystem : IInitializeSystem
 
     int GenerateId()
     {
-        //int id = _context.GetEntities(GameMatcher.Product).Length;
-        return currentId++;
+        return CompanyUtils.GenerateCompanyId(_context);
+        //return currentId++;
     }
 
     void GenerateProduct(string name, Niche niche, Industry industry)
