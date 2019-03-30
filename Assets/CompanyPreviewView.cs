@@ -86,12 +86,13 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
-        //itemBeingDragged = gameObject;
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
-        
+        itemBeingDragged = null;
+
+        Debug.Log("OnEndDrag");
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
