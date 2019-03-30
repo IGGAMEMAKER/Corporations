@@ -36,8 +36,5 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             EnableScreen(ScreenMode.BusinessScreen);
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            EnableScreen(ScreenMode.MarketScreen);
     }
 }
