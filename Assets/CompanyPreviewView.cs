@@ -4,6 +4,7 @@ using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Assets.Visuals;
 
 public class CompanyPreviewView : View, IEventListener, IProductListener, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
@@ -15,6 +16,8 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
     public Text ShareCostLabel;
 
     public LinkToProjectView LinkToProjectView;
+
+    public static GameObject itemBeingDragged;
 
     public void RegisterListeners(IEntity entity)
     {
@@ -77,21 +80,25 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
+        itemBeingDragged = gameObject;
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
+        //itemBeingDragged = gameObject;
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
+        
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("Hovering company " + _entity.company.Name);
+
+        if (itemBeingDragged != null && itemBeingDragged != gameObject)
+            gameObject.AddComponent<DroppableAnimation>();
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ProductInitializerSystem : IInitializeSystem
 {
     readonly GameContext _context;
-    int currentId;
 
     public ProductInitializerSystem(Contexts contexts)
     {
@@ -28,6 +27,8 @@ public class ProductInitializerSystem : IInitializeSystem
         e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower, false);
+
+        var c = _context.CreateEntity();
     }
 
     GameEntity GetProductById (int id)
@@ -49,7 +50,6 @@ public class ProductInitializerSystem : IInitializeSystem
     int GenerateId()
     {
         return CompanyUtils.GenerateCompanyId(_context);
-        //return currentId++;
     }
 
     void GenerateProduct(string name, Niche niche, Industry industry)
