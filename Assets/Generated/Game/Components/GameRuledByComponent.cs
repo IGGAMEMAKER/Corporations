@@ -11,17 +11,19 @@ public partial class GameEntity {
     public RuledByComponent ruledBy { get { return (RuledByComponent)GetComponent(GameComponentsLookup.RuledBy); } }
     public bool hasRuledBy { get { return HasComponent(GameComponentsLookup.RuledBy); } }
 
-    public void AddRuledBy(HumanComponent newHuman) {
+    public void AddRuledBy(HumanComponent newHuman, int newCompanyId) {
         var index = GameComponentsLookup.RuledBy;
         var component = (RuledByComponent)CreateComponent(index, typeof(RuledByComponent));
         component.human = newHuman;
+        component.CompanyId = newCompanyId;
         AddComponent(index, component);
     }
 
-    public void ReplaceRuledBy(HumanComponent newHuman) {
+    public void ReplaceRuledBy(HumanComponent newHuman, int newCompanyId) {
         var index = GameComponentsLookup.RuledBy;
         var component = (RuledByComponent)CreateComponent(index, typeof(RuledByComponent));
         component.human = newHuman;
+        component.CompanyId = newCompanyId;
         ReplaceComponent(index, component);
     }
 

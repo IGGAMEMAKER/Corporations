@@ -74,6 +74,7 @@ public class HumanComponent : IComponent
 public class RuledByComponent : IComponent
 {
     public HumanComponent human;
+    public int CompanyId;
 }
 
 // is attached to CompanyComponent
@@ -102,13 +103,6 @@ public struct SelectedCompanyComponent : IComponent {
 
 }
 
-
-
-//public interface ITaskManager
-//{
-//    void AddTask();
-//    void 
-//}
 
 [Game]
 public class TaskManagerComponent : IComponent
