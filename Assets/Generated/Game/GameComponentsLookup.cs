@@ -23,23 +23,27 @@ public static class GameComponentsLookup {
     public const int EventUpgradeProduct = 12;
     public const int Finance = 13;
     public const int FinanceListener = 14;
-    public const int Marketing = 15;
-    public const int MarketingListener = 16;
-    public const int Menu = 17;
-    public const int Position = 18;
-    public const int PositionListener = 19;
-    public const int Product = 20;
-    public const int ProductListener = 21;
-    public const int SelectedCompany = 22;
-    public const int Selected = 23;
-    public const int Targeting = 24;
-    public const int TargetingListener = 25;
-    public const int Task = 26;
-    public const int TaskManager = 27;
-    public const int Team = 28;
-    public const int TeamListener = 29;
+    public const int Human = 15;
+    public const int Marketing = 16;
+    public const int MarketingListener = 17;
+    public const int Menu = 18;
+    public const int NavigationHistory = 19;
+    public const int Position = 20;
+    public const int PositionListener = 21;
+    public const int Product = 22;
+    public const int ProductListener = 23;
+    public const int RuledBy = 24;
+    public const int SelectedCompany = 25;
+    public const int Shareholder = 26;
+    public const int Shareholders = 27;
+    public const int Targeting = 28;
+    public const int TargetingListener = 29;
+    public const int Task = 30;
+    public const int TaskManager = 31;
+    public const int Team = 32;
+    public const int TeamListener = 33;
 
-    public const int TotalComponents = 30;
+    public const int TotalComponents = 34;
 
     public static readonly string[] componentNames = {
         "Analytics",
@@ -57,15 +61,19 @@ public static class GameComponentsLookup {
         "EventUpgradeProduct",
         "Finance",
         "FinanceListener",
+        "Human",
         "Marketing",
         "MarketingListener",
         "Menu",
+        "NavigationHistory",
         "Position",
         "PositionListener",
         "Product",
         "ProductListener",
+        "RuledBy",
         "SelectedCompany",
-        "Selected",
+        "Shareholder",
+        "Shareholders",
         "Targeting",
         "TargetingListener",
         "Task",
@@ -90,14 +98,19 @@ public static class GameComponentsLookup {
         typeof(EventUpgradeProductComponent),
         typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
+        typeof(HumanComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),
+        typeof(NavigationHistoryComponent),
         typeof(PositionComponent),
         typeof(PositionListenerComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
+        typeof(RuledByComponent),
         typeof(SelectedCompanyComponent),
+        typeof(ShareholderComponent),
+        typeof(ShareholdersComponent),
         typeof(TargetingComponent),
         typeof(TargetingListenerComponent),
         typeof(TaskComponent),

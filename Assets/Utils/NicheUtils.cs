@@ -33,5 +33,20 @@ namespace Assets.Utils
 
             return GetCompetitors(e, context).Count();
         }
+
+        public static Industry GetIndustry(Niche niche)
+        {
+            Dictionary<Niche, Industry> Converter = new Dictionary<Niche, Industry>();
+
+            Converter[Niche.OSCommonPurpose] = Industry.OS;
+            Converter[Niche.OSSciencePurpose] = Industry.OS;
+
+            Converter[Niche.Messenger] = Industry.Communications;
+            Converter[Niche.SocialNetwork] = Industry.Communications;
+
+            Converter[Niche.SearchEngine] = Industry.Search;
+
+            return Converter[niche];
+        }
     }
 }

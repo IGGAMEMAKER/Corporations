@@ -44,7 +44,9 @@ public class BusinessScreenView : View
             Transform c;
 
             if (index < Companies.transform.childCount - 2)
+            {
                 c = Companies.transform.GetChild(index);
+            }
             else
             {
                 c = Instantiate(CompnayPrefab, Companies.transform, false).transform;

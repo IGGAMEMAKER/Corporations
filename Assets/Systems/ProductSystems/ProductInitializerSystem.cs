@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
@@ -11,8 +12,10 @@ public class ProductInitializerSystem : IInitializeSystem
         _context = contexts.game;
     }
 
-    void GenerateProduct(string name, Niche niche, Industry industry, int id)
+    void GenerateProduct(string name, Niche niche, int id)
     {
+        Industry industry = NicheUtils.GetIndustry(niche);
+
         var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
         uint clients = (uint) Random.Range(0, 10000);
@@ -21,8 +24,15 @@ public class ProductInitializerSystem : IInitializeSystem
         int productLevel = 0;
         int explorationLevel = productLevel;
 
+        List<int> shareholders = new List<int>();
+
+        var s = 0; // new ShareholderComponent { Id = CompanyUtils.GenerateShareholderId(), Money = 100000, Name = "Iosebashvili Gaga" };
+
+        shareholders.Add(s);
+
         var e = _context.CreateEntity();
         e.AddCompany(id, name, CompanyType.Product);
+        e.AddShareholders(shareholders);
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
         e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
@@ -52,28 +62,29 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.GenerateCompanyId(_context);
     }
 
-    void GenerateProduct(string name, Niche niche, Industry industry)
+    void GenerateProduct(string name, Niche niche)
     {
         int id = GenerateId();
 
-        GenerateProduct(name, niche, industry, id);
+        GenerateProduct(name, niche, id);
     }
 
-    void GenerateFinancialGroup(string name)
+    void GenerateInvestmentFunds(string name)
     {
         var e = _context.CreateEntity();
+
         e.AddCompany(GenerateId(), name, CompanyType.FinancialGroup);
     }
 
     public void Initialize()
     {
-        GenerateProduct("facebook", Niche.SocialNetwork, Industry.Communications);
-        GenerateProduct("mySpace", Niche.SocialNetwork, Industry.Communications);
-        GenerateProduct("twitter", Niche.SocialNetwork, Industry.Communications);
-        GenerateProduct("vk", Niche.SocialNetwork, Industry.Communications);
+        GenerateInvestmentFunds("Morgan Stanley");
+        GenerateInvestmentFunds("Goldman Sachs");
 
-        GenerateFinancialGroup("Morgan Stanley");
-        GenerateFinancialGroup("Goldman Sachs");
+        GenerateProduct("facebook", Niche.SocialNetwork);
+        GenerateProduct("mySpace", Niche.SocialNetwork);
+        GenerateProduct("twitter", Niche.SocialNetwork);
+        GenerateProduct("vk", Niche.SocialNetwork);
 
         SetPlayerControlledCompany(2);
     }

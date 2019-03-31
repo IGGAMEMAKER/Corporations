@@ -7,12 +7,20 @@ using UnityEngine;
 public enum Niche
 {
     SocialNetwork,
-    Messenger
+    Messenger,
+
+    SearchEngine,
+
+    OSCommonPurpose,
+    OSSciencePurpose,
 }
 
 public enum Industry
 {
-    Communications
+    Communications,
+    Search,
+    OS,
+    Clouds
 }
 
 public enum CompanyType
@@ -49,6 +57,43 @@ public struct CompanyComponent : IComponent
     public int Id;
     public string Name;
     public CompanyType CompanyType;
+}
+
+
+[Game]
+public class HumanComponent : IComponent
+{
+    public int Id;
+    public string Name;
+    public string Surname;
+
+    // skillset, character and perks later
+}
+
+[Game]
+public class RuledByComponent : IComponent
+{
+    public HumanComponent human;
+}
+
+// is attached to CompanyComponent
+[Game]
+public class ShareholdersComponent : IComponent
+{
+    public List<int> Shareholders;
+}
+
+public class ShareholderComponent : IComponent
+{
+    public int Id;
+    public string Name;
+    public long Money;
+}
+
+[Game]
+public class NavigationHistoryComponent : IComponent
+{
+
 }
 
 // only entity
