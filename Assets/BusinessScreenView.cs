@@ -30,13 +30,14 @@ public class BusinessScreenView : View
         CompanyNameLabel.text = SelectedCompany.company.Name;
     }
 
-    void Render()
+    GameEntity[] GetDaughterCompanies()
     {
-        RenderSelectedCompanyName();
+        return GameContext.GetEntities(GameMatcher.Company);
+    }
 
+    void RenderDaughterCompanies(GameEntity[] companies)
+    {
         int index = 0;
-
-        var companies = GameContext.GetEntities(GameMatcher.Company);
 
         foreach (var e in companies)
         {
@@ -53,5 +54,14 @@ public class BusinessScreenView : View
             c.gameObject.GetComponent<CompanyPreviewView>().SetEntity(e);
             index++;
         }
+    }
+
+    void Render()
+    {
+        RenderSelectedCompanyName();
+
+        var companies = GetDaughterCompanies();
+
+        RenderDaughterCompanies(companies);
     }
 }
