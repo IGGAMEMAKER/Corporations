@@ -7,11 +7,17 @@ public class BusinessScreenView : View
     public GameObject Companies;
     public GameObject CompnayPrefab;
     public Text CompanyNameLabel;
+    public LinkToProjectView LinkToProjectView;
 
     void Awake()
     {
         if (myProductEntity == null)
             Debug.Log("no companies controlled");
+    }
+
+    void Start()
+    {
+        LinkToProjectView.CompanyId = SelectedCompany.company.Id;
     }
 
     void Update()

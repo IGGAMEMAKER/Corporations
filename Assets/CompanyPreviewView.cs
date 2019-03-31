@@ -15,7 +15,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
     public ColoredValuePositiveOrNegative IncomeLabel;
     public Text ShareCostLabel;
 
-    public LinkToProjectView LinkToProjectView;
+    public LinkToCompanyPreview LinkToCompanyPreview;
 
     public static GameObject itemBeingDragged;
 
@@ -59,7 +59,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
         RenderCompanyType(e);
         RenderIncome(e);
 
-        LinkToProjectView.CompanyId = e.company.Id;
+        LinkToCompanyPreview.CompanyId = e.company.Id;
     }
 
     public void OnProduct(GameEntity entity, int id, string name, Niche niche, Industry industry, int productLevel, int explorationLevel, TeamResource resources)
