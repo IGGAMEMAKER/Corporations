@@ -1,15 +1,16 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
-    readonly GameContext _context;
+    readonly GameContext GameContext;
 
     public ProductInitializerSystem(Contexts contexts)
     {
-        _context = contexts.game;
+        GameContext = contexts.game;
     }
 
     void GenerateProduct(string name, Niche niche, int id)
@@ -18,8 +19,8 @@ public class ProductInitializerSystem : IInitializeSystem
 
         var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
-        uint clients = (uint) Random.Range(0, 10000);
-        int brandPower = Random.Range(0, 15);
+        uint clients = (uint)UnityEngine.Random.Range(0, 10000);
+        int brandPower = UnityEngine.Random.Range(0, 15);
 
         int productLevel = 0;
         int explorationLevel = productLevel;
@@ -30,50 +31,81 @@ public class ProductInitializerSystem : IInitializeSystem
 
         shareholders[shareholderId] = 100;
 
-        var e = _context.CreateEntity();
+        var e = GameContext.CreateEntity();
         e.AddCompany(id, name, CompanyType.Product);
-        e.AddShareholders(shareholders);
+
+        // product specific components
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
         e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower, false);
 
-        var c = _context.CreateEntity();
+        e.AddShareholders(shareholders);
+
+        var c = GameContext.CreateEntity();
+        // shareholders?
     }
 
-    GameEntity GetProductById (int id)
+    GameEntity GetCompanyById (int id)
     {
-        return _context.GetEntities(GameMatcher.Product)[id];
+        return Array.Find(GameContext.GetEntities(GameMatcher.Company), c => c.company.Id == id);
     }
 
     void SetPlayerControlledCompany(int id)
     {
-        GetProductById(id).isControlledByPlayer = true;
-        GetProductById(id).isSelectedCompany = true;
+        GetCompanyById(id).isControlledByPlayer = true;
+        GetCompanyById(id).isSelectedCompany = true;
     }
 
     void RemovePlayerControlledCompany(int id)
     {
-        GetProductById(id).isControlledByPlayer = false;
+        GetCompanyById(id).isControlledByPlayer = false;
     }
 
     int GenerateId()
     {
-        return CompanyUtils.GenerateCompanyId(_context);
+        return CompanyUtils.GenerateCompanyId(GameContext);
     }
 
-    void GenerateProduct(string name, Niche niche)
+    int GenerateProduct(string name, Niche niche)
     {
         int id = GenerateId();
 
         GenerateProduct(name, niche, id);
+
+        return id;
     }
 
     void GenerateInvestmentFunds(string name)
     {
-        var e = _context.CreateEntity();
+        var e = GameContext.CreateEntity();
 
         e.AddCompany(GenerateId(), name, CompanyType.FinancialGroup);
+    }
+
+    int GenerateHoldingCompany(string name)
+    {
+        var e = GameContext.CreateEntity();
+
+        int id = GenerateId();
+
+        e.AddCompany(id, name, CompanyType.Holding);
+
+        return id;
+    }
+
+    void AttachCompany(int parent, int subsidiary)
+    {
+        var p = GetCompanyById(parent);
+        var s = GetCompanyById(subsidiary);
+
+        Dictionary<int, int> shareholders = new Dictionary<int, int>();
+        shareholders.Add(parent, 100);
+
+        if (s.hasShareholders)
+            s.ReplaceShareholders(shareholders);
+        else
+            s.AddShareholders(shareholders);
     }
 
     public void Initialize()
@@ -81,11 +113,21 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateInvestmentFunds("Morgan Stanley");
         GenerateInvestmentFunds("Goldman Sachs");
 
+        int myCompany;
+
         GenerateProduct("facebook", Niche.SocialNetwork);
         GenerateProduct("mySpace", Niche.SocialNetwork);
         GenerateProduct("twitter", Niche.SocialNetwork);
         GenerateProduct("vk", Niche.SocialNetwork);
 
-        SetPlayerControlledCompany(2);
+        int google = GenerateProduct("google", Niche.SearchEngine);
+
+        int alphabet = GenerateHoldingCompany("Alphabet");
+
+        AttachCompany(alphabet, google);
+
+        myCompany = google;
+
+        SetPlayerControlledCompany(myCompany);
     }
 }
