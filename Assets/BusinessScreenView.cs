@@ -34,23 +34,40 @@ public class BusinessScreenView : View
     {
         int index = 0;
 
+        ProvideEnoughInstances(companies, Container);
+
         foreach (var e in companies)
         {
-            Transform c;
+            Container.transform
+                .GetChild(index)
+                .GetComponent<CompanyPreviewView>()
+                .SetEntity(e);
 
-            if (index < Container.transform.childCount - 2)
-            {
-                c = Container.transform.GetChild(index);
-            }
-            else
-            {
-                c = Instantiate(CompnayPrefab, Container.transform, false).transform;
-                c.SetSiblingIndex(index);
-            }
-
-            c.gameObject.GetComponent<CompanyPreviewView>().SetEntity(e);
             index++;
         }
+    }
+
+    void RemoveInstances(int amount)
+    {
+        // Remove useless gameobjects
+    }
+
+    void SpawnInstances(int amount, GameObject Container)
+    {
+        for (var i = 0; i < amount; i++)
+            Instantiate(CompnayPrefab, Container.transform, false);
+    }
+
+    void ProvideEnoughInstances(GameEntity[] list, GameObject Container)
+    {
+        int childCount = Container.transform.childCount;
+
+        int listCount = list.Length;
+
+        if (listCount < childCount)
+            RemoveInstances(childCount - listCount);
+        else
+            SpawnInstances(listCount - childCount, Container);
     }
 
     void Render()

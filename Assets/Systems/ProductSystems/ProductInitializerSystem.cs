@@ -163,11 +163,9 @@ public class ProductInitializerSystem : IInitializeSystem
         int investor = GenerateInvestmentFund("Morgan Stanley", 1000000);
         int investorId = GetCompanyById(investor).shareholder.Id;
 
-        //int alphabet = GenerateHoldingCompany("Alphabet");
-        //AttachCompany(alphabet, google);
+        int alphabet = GenerateHoldingCompany("Alphabet");
+        AttachCompany(alphabet, google);
 
-
-        //AddShareholders(alphabet, investorId, 100);
-        AddShareholders(google, investorId, 100);
+        AddShareholders(alphabet, investorId, 100);
     }
 }

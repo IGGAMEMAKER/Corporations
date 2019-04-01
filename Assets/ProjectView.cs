@@ -57,14 +57,14 @@ public class ProjectView : View
             Instantiate(ShareholderPreviewPrefab, Container.transform, false);
     }
 
-    void ProvideEnoughInstances(Dictionary<int, int> shareholders, GameObject Container)
+    void ProvideEnoughInstances(Dictionary<int, int> list, GameObject Container)
     {
         int childCount = Container.transform.childCount;
 
-        if (shareholders.Count < childCount)
-            RemoveInstances(childCount - shareholders.Count);
+        if (list.Count < childCount)
+            RemoveInstances(childCount - list.Count);
         else
-            SpawnInstances(shareholders.Count - childCount, Container);
+            SpawnInstances(list.Count - childCount, Container);
     }
 
     void RenderShareholders(Dictionary<int, int> shareholders, GameObject Container)
@@ -77,10 +77,11 @@ public class ProjectView : View
 
         foreach (var e in shareholders)
         {
-            Container.transform.GetChild(index)
-                .gameObject
+            Container.transform
+                .GetChild(index)
                 .GetComponent<ShareholderPreviewView>()
                 .SetEntity(e.Key, e.Value, totalShares);
+
             index++;
         }
     }
