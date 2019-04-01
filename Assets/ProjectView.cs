@@ -23,12 +23,17 @@ public class ProjectView : View
 
         LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
 
+        RenderShareholders(GetShareholders(), ShareholderContainer);
+    }
+
+    Dictionary<int, int> GetShareholders()
+    {
         Dictionary<int, int> shareholders = new Dictionary<int, int>();
 
         if (SelectedCompany.hasShareholders)
             shareholders = SelectedCompany.shareholders.Shareholders;
 
-        RenderShareholders(shareholders, ShareholderContainer);
+        return shareholders;
     }
 
     int GetTotalShares(Dictionary<int, int> shareholders)
