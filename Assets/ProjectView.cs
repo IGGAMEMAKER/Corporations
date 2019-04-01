@@ -23,12 +23,12 @@ public class ProjectView : View
 
         LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
 
-        RenderShareholders(SelectedCompany.shareholders.Shareholders, ShareholderContainer);
-    }
+        Dictionary<int, int> shareholders = new Dictionary<int, int>();
 
-    private ShareholdersComponent GetShareholders()
-    {
-        return SelectedCompany.shareholders;
+        if (SelectedCompany.hasShareholders)
+            shareholders = SelectedCompany.shareholders.Shareholders;
+
+        RenderShareholders(shareholders, ShareholderContainer);
     }
 
     void RenderShareholders(Dictionary<int, int> shareholders, GameObject Container)
@@ -41,8 +41,6 @@ public class ProjectView : View
         {
             totalShares += e.Value;
         }
-
-        //Debug.Log("")
 
         foreach (var e in shareholders)
         {
@@ -57,10 +55,9 @@ public class ProjectView : View
             else
             {
                 c = Instantiate(ShareholderPreviewPrefab, Container.transform, false).transform;
-                c.SetSiblingIndex(index);
             }
 
-            //c.gameObject.GetComponent<ShareholderPreviewView>().SetEntity(e.Key, e.Value, totalShares);
+            c.gameObject.GetComponent<ShareholderPreviewView>().SetEntity(e.Key, e.Value, totalShares);
             index++;
         }
     }

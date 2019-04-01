@@ -150,10 +150,10 @@ public class ProductInitializerSystem : IInitializeSystem
     public void Initialize()
     {
         // products
-        GenerateProduct("facebook", Niche.SocialNetwork);
-        GenerateProduct("mySpace", Niche.SocialNetwork);
-        GenerateProduct("twitter", Niche.SocialNetwork);
-        GenerateProduct("vk", Niche.SocialNetwork);
+        //GenerateProduct("facebook", Niche.SocialNetwork);
+        //GenerateProduct("mySpace", Niche.SocialNetwork);
+        //GenerateProduct("twitter", Niche.SocialNetwork);
+        //GenerateProduct("vk", Niche.SocialNetwork);
 
         int google = GenerateProduct("google", Niche.SearchEngine);
 
@@ -163,10 +163,11 @@ public class ProductInitializerSystem : IInitializeSystem
         int investor = GenerateInvestmentFund("Morgan Stanley", 1000000);
         int investorId = GetCompanyById(investor).shareholder.Id;
 
-        int alphabet = GenerateHoldingCompany("Alphabet");
-        AttachCompany(alphabet, google);
+        //int alphabet = GenerateHoldingCompany("Alphabet");
+        //AttachCompany(alphabet, google);
 
 
-        AddShareholders(alphabet, investorId, 100);
+        //AddShareholders(alphabet, investorId, 100);
+        AddShareholders(google, investorId, 100);
     }
 }

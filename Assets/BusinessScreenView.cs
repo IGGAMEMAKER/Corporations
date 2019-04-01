@@ -15,11 +15,6 @@ public class BusinessScreenView : View
             Debug.Log("no companies controlled");
     }
 
-    void Start()
-    {
-        LinkToProjectView.CompanyId = SelectedCompany.company.Id;
-    }
-
     void Update()
     {
         Render();
@@ -60,6 +55,8 @@ public class BusinessScreenView : View
 
     void Render()
     {
+        LinkToProjectView.CompanyId = SelectedCompany.company.Id;
+
         RenderSelectedCompanyName();
 
         var companies = GetDaughterCompanies();
