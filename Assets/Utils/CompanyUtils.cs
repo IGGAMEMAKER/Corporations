@@ -1,5 +1,4 @@
-﻿using System;
-using Entitas;
+﻿using Entitas;
 
 namespace Assets.Utils
 {
@@ -10,9 +9,9 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Company).Length;
         }
 
-        internal static int GenerateShareholderId()
+        public static int GenerateShareholderId(GameContext context)
         {
-            throw new NotImplementedException();
+            return context.GetEntities(GameMatcher.Shareholder).Length;
         }
     }
 }

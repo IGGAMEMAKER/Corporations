@@ -35,7 +35,7 @@ public class BusinessScreenView : View
         return GameContext.GetEntities(GameMatcher.Company);
     }
 
-    void RenderDaughterCompanies(GameEntity[] companies)
+    void RenderDaughterCompanies(GameEntity[] companies, GameObject Container)
     {
         int index = 0;
 
@@ -43,13 +43,13 @@ public class BusinessScreenView : View
         {
             Transform c;
 
-            if (index < Companies.transform.childCount - 2)
+            if (index < Container.transform.childCount - 2)
             {
-                c = Companies.transform.GetChild(index);
+                c = Container.transform.GetChild(index);
             }
             else
             {
-                c = Instantiate(CompnayPrefab, Companies.transform, false).transform;
+                c = Instantiate(CompnayPrefab, Container.transform, false).transform;
                 c.SetSiblingIndex(index);
             }
 
@@ -64,6 +64,6 @@ public class BusinessScreenView : View
 
         var companies = GetDaughterCompanies();
 
-        RenderDaughterCompanies(companies);
+        RenderDaughterCompanies(companies, Companies);
     }
 }

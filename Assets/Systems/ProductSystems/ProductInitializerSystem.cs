@@ -2,7 +2,6 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -25,12 +24,6 @@ public class ProductInitializerSystem : IInitializeSystem
         int productLevel = 0;
         int explorationLevel = productLevel;
 
-        Dictionary<int, int> shareholders = new Dictionary<int, int>();
-
-        int shareholderId = 0;
-
-        shareholders[shareholderId] = 100;
-
         var e = GameContext.CreateEntity();
         e.AddCompany(id, name, CompanyType.Product);
 
@@ -39,11 +32,6 @@ public class ProductInitializerSystem : IInitializeSystem
         e.AddFinance(0, 0, 0, 5f);
         e.AddTeam(1, 0, 0, 100);
         e.AddMarketing(clients, brandPower, false);
-
-        e.AddShareholders(shareholders);
-
-        var c = GameContext.CreateEntity();
-        // shareholders?
     }
 
     GameEntity GetCompanyById (int id)
@@ -76,11 +64,35 @@ public class ProductInitializerSystem : IInitializeSystem
         return id;
     }
 
-    void GenerateInvestmentFunds(string name)
+    int GenerateInvestmentFund(string name, long money)
     {
         var e = GameContext.CreateEntity();
 
-        e.AddCompany(GenerateId(), name, CompanyType.FinancialGroup);
+        int id = GenerateId();
+        int investorId = GenerateInvestorId();
+
+        e.AddCompany(id, name, CompanyType.FinancialGroup);
+        BecomeInvestor(e, money);
+
+        return id;
+    }
+
+    int BecomeInvestor(GameEntity e, long money)
+    {
+        int investorId = GenerateInvestorId();
+
+        string name = "Investor?";
+
+        // company
+        if (e.hasCompany)
+            name = e.company.Name;
+
+        // or human
+        // TODO turn human to investor
+
+        e.AddShareholder(investorId, name, money);
+
+        return investorId;
     }
 
     int GenerateHoldingCompany(string name)
@@ -96,7 +108,6 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void AttachCompany(int parent, int subsidiary)
     {
-        var p = GetCompanyById(parent);
         var s = GetCompanyById(subsidiary);
 
         Dictionary<int, int> shareholders = new Dictionary<int, int>();
@@ -108,13 +119,37 @@ public class ProductInitializerSystem : IInitializeSystem
             s.AddShareholders(shareholders);
     }
 
+    int GenerateInvestorId()
+    {
+        return CompanyUtils.GenerateShareholderId(GameContext);
+    }
+
+
+
+    void AddShareholders(int companyId, int investorId, int shares)
+    {
+        var c = GetCompanyById(companyId);
+
+        Dictionary<int, int> shareholders;
+
+        if (!c.hasShareholders)
+        {
+            shareholders = new Dictionary<int, int>();
+            shareholders[investorId] = shares;
+
+            c.AddShareholders(shareholders);
+        } else
+        {
+            shareholders = c.shareholders.Shareholders;
+            shareholders[investorId] = shares;
+
+            c.ReplaceShareholders(shareholders);
+        }
+    }
+
     public void Initialize()
     {
-        GenerateInvestmentFunds("Morgan Stanley");
-        GenerateInvestmentFunds("Goldman Sachs");
-
-        int myCompany;
-
+        // products
         GenerateProduct("facebook", Niche.SocialNetwork);
         GenerateProduct("mySpace", Niche.SocialNetwork);
         GenerateProduct("twitter", Niche.SocialNetwork);
@@ -122,12 +157,16 @@ public class ProductInitializerSystem : IInitializeSystem
 
         int google = GenerateProduct("google", Niche.SearchEngine);
 
-        int alphabet = GenerateHoldingCompany("Alphabet");
+        SetPlayerControlledCompany(google);
 
+        // investors
+        int investor = GenerateInvestmentFund("Morgan Stanley", 1000000);
+        int investorId = GetCompanyById(investor).shareholder.Id;
+
+        int alphabet = GenerateHoldingCompany("Alphabet");
         AttachCompany(alphabet, google);
 
-        myCompany = google;
 
-        SetPlayerControlledCompany(myCompany);
+        AddShareholders(alphabet, investorId, 100);
     }
 }
