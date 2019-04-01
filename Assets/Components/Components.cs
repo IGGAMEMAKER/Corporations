@@ -81,7 +81,7 @@ public class RuledByComponent : IComponent
 [Game]
 public class ShareholdersComponent : IComponent
 {
-    public List<int> Shareholders;
+    public Dictionary<int, int> Shareholders; // investorId => amountOfShares
 }
 
 public class ShareholderComponent : IComponent

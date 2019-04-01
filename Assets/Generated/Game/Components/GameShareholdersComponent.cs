@@ -11,14 +11,14 @@ public partial class GameEntity {
     public ShareholdersComponent shareholders { get { return (ShareholdersComponent)GetComponent(GameComponentsLookup.Shareholders); } }
     public bool hasShareholders { get { return HasComponent(GameComponentsLookup.Shareholders); } }
 
-    public void AddShareholders(System.Collections.Generic.List<int> newShareholders) {
+    public void AddShareholders(System.Collections.Generic.Dictionary<int, int> newShareholders) {
         var index = GameComponentsLookup.Shareholders;
         var component = (ShareholdersComponent)CreateComponent(index, typeof(ShareholdersComponent));
         component.Shareholders = newShareholders;
         AddComponent(index, component);
     }
 
-    public void ReplaceShareholders(System.Collections.Generic.List<int> newShareholders) {
+    public void ReplaceShareholders(System.Collections.Generic.Dictionary<int, int> newShareholders) {
         var index = GameComponentsLookup.Shareholders;
         var component = (ShareholdersComponent)CreateComponent(index, typeof(ShareholdersComponent));
         component.Shareholders = newShareholders;

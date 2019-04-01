@@ -24,11 +24,11 @@ public class ProductInitializerSystem : IInitializeSystem
         int productLevel = 0;
         int explorationLevel = productLevel;
 
-        List<int> shareholders = new List<int>();
+        Dictionary<int, int> shareholders = new Dictionary<int, int>();
 
-        var s = 0; // new ShareholderComponent { Id = CompanyUtils.GenerateShareholderId(), Money = 100000, Name = "Iosebashvili Gaga" };
+        int shareholderId = 0;
 
-        shareholders.Add(s);
+        shareholders[shareholderId] = 100;
 
         var e = _context.CreateEntity();
         e.AddCompany(id, name, CompanyType.Product);
