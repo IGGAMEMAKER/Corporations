@@ -31,33 +31,51 @@ public class ProjectView : View
         RenderShareholders(shareholders, ShareholderContainer);
     }
 
+    int GetTotalShares(Dictionary<int, int> shareholders)
+    {
+        int totalShares = 0;
+
+        foreach (var e in shareholders)
+            totalShares += e.Value;
+
+        return totalShares;
+    }
+
+    void RemoveInstances(int amount)
+    {
+        // Remove useless gameobjects
+    }
+
+    void SpawnInstances(int amount, GameObject Container)
+    {
+        for (var i = 0; i < amount; i++)
+            Instantiate(ShareholderPreviewPrefab, Container.transform, false);
+    }
+
+    void ProvideEnoughInstances(Dictionary<int, int> shareholders, GameObject Container)
+    {
+        int childCount = Container.transform.childCount;
+
+        if (shareholders.Count < childCount)
+            RemoveInstances(childCount - shareholders.Count);
+        else
+            SpawnInstances(shareholders.Count - childCount, Container);
+    }
+
     void RenderShareholders(Dictionary<int, int> shareholders, GameObject Container)
     {
         int index = 0;
 
-        int totalShares = 0;
+        int totalShares = GetTotalShares(shareholders);
+
+        ProvideEnoughInstances(shareholders, Container);
 
         foreach (var e in shareholders)
         {
-            totalShares += e.Value;
-        }
-
-        foreach (var e in shareholders)
-        {
-            Transform c;
-
-            Debug.Log("Shareholder: " + e.Key + " - " + e.Value);
-
-            if (index < Container.transform.childCount)
-            {
-                c = Container.transform.GetChild(index);
-            }
-            else
-            {
-                c = Instantiate(ShareholderPreviewPrefab, Container.transform, false).transform;
-            }
-
-            c.gameObject.GetComponent<ShareholderPreviewView>().SetEntity(e.Key, e.Value, totalShares);
+            Container.transform.GetChild(index)
+                .gameObject
+                .GetComponent<ShareholderPreviewView>()
+                .SetEntity(e.Key, e.Value, totalShares);
             index++;
         }
     }
