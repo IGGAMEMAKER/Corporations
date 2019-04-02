@@ -74,7 +74,7 @@ public class ProductInitializerSystem : IInitializeSystem
         e.AddCompany(id, name, CompanyType.FinancialGroup);
         BecomeInvestor(e, money);
 
-        return id;
+        return investorId;
     }
 
     int BecomeInvestor(GameEntity e, long money)
@@ -107,7 +107,7 @@ public class ProductInitializerSystem : IInitializeSystem
         return id;
     }
 
-    void AttachCompany(int parent, int subsidiary)
+    void AttachToHolding(int parent, int subsidiary)
     {
         var p = GetCompanyById(parent);
         var s = GetCompanyById(subsidiary);
@@ -125,8 +125,6 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         return CompanyUtils.GenerateShareholderId(GameContext);
     }
-
-
 
     void AddShareholders(int companyId, int investorId, int shares)
     {
@@ -162,12 +160,13 @@ public class ProductInitializerSystem : IInitializeSystem
         SetPlayerControlledCompany(google);
 
         // investors
-        int investor = GenerateInvestmentFund("Morgan Stanley", 1000000);
-        int investorId = GetCompanyById(investor).shareholder.Id;
+        int investorId = GenerateInvestmentFund("Morgan Stanley", 1000000);
+        int investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
 
         int alphabet = GenerateHoldingCompany("Alphabet");
-        AttachCompany(alphabet, google);
+        AttachToHolding(alphabet, google);
 
         AddShareholders(alphabet, investorId, 100);
+        AddShareholders(alphabet, investorId2, 200);
     }
 }
