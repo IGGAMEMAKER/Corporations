@@ -12,6 +12,8 @@
     
     // all child niches will try to be the next big thing
     // this means that clients will move from one niche to another
+    //
+    // NOTE: this sets parent AND its nearest childs as competing
     void SetChildsAsCompetingNiches(Niche parent);
 
     // This means, that this niche will not outgrow sourceNiche by number of clients
