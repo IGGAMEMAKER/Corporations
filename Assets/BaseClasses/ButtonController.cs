@@ -58,7 +58,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public void Navigate(ScreenMode screenMode)
     {
-        MenuUtils.Menu(GameContext).ReplaceMenu(screenMode);
+        MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode);
     }
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)

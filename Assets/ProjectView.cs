@@ -71,7 +71,7 @@ public class ProjectView : View
         Niche niche = SelectedCompany.product.Niche;
 
         NicheName.text = niche.ToString();
-        //NicheName.gameObject.GetComponent<LinkToNiche>().SetNiche(niche);
+        NicheName.gameObject.GetComponent<LinkToNiche>().SetNiche(niche);
     }
 
     Dictionary<int, int> GetShareholders()

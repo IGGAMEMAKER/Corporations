@@ -91,7 +91,7 @@ public class MenuController : MonoBehaviour
 
     void ToggleScreensIfNecessary()
     {
-        GameEntity e = MenuUtils.Menu(Contexts.sharedInstance.game);
+        GameEntity e = MenuUtils.GetMenu(Contexts.sharedInstance.game);
 
         ScreenMode currentScreen = e.menu.ScreenMode;
 

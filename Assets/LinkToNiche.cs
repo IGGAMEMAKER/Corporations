@@ -9,7 +9,7 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.IndustryScreen);
+        Navigate(ScreenMode.NicheScreen);
 
         SetSelectedNiche(Niche);
     }

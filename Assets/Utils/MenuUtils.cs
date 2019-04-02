@@ -9,7 +9,7 @@ namespace Assets.Utils
 {
     public static class MenuUtils
     {
-        public static GameEntity Menu (GameContext gameContext)
+        public static GameEntity GetMenu (GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Menu)[0];
         }
