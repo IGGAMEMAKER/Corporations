@@ -25,7 +25,7 @@ public class BusinessScreenView : View
         CompanyNameLabel.text = SelectedCompany.company.Name;
     }
 
-    GameEntity[] GetDaughterCompanies()
+    GameEntity[] GetOwnings()
     {
         return GameContext.GetEntities(GameMatcher.Company);
     }
@@ -47,9 +47,11 @@ public class BusinessScreenView : View
         }
     }
 
-    void RemoveInstances(int amount)
+    void RemoveInstances(int amount, GameObject Container)
     {
         // Remove useless gameobjects
+        for (var i = 0; i < amount; i++)
+            Destroy(Container.transform.GetChild(Container.transform.childCount - 1).gameObject);
     }
 
     void SpawnInstances(int amount, GameObject Container)
@@ -65,7 +67,7 @@ public class BusinessScreenView : View
         int listCount = list.Length;
 
         if (listCount < childCount)
-            RemoveInstances(childCount - listCount);
+            RemoveInstances(childCount - listCount, Container);
         else
             SpawnInstances(listCount - childCount, Container);
     }
@@ -76,7 +78,7 @@ public class BusinessScreenView : View
 
         RenderSelectedCompanyName();
 
-        var companies = GetDaughterCompanies();
+        var companies = GetOwnings();
 
         RenderDaughterCompanies(companies, Companies);
     }

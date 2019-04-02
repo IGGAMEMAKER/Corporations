@@ -46,9 +46,11 @@ public class ProjectView : View
         return totalShares;
     }
 
-    void RemoveInstances(int amount)
+    void RemoveInstances(int amount, GameObject Container)
     {
         // Remove useless gameobjects
+        for (var i = 0; i < amount; i++)
+            Destroy(Container.transform.GetChild(Container.transform.childCount - 1).gameObject);
     }
 
     void SpawnInstances(int amount, GameObject Container)
@@ -62,7 +64,7 @@ public class ProjectView : View
         int childCount = Container.transform.childCount;
 
         if (list.Count < childCount)
-            RemoveInstances(childCount - list.Count);
+            RemoveInstances(childCount - list.Count, Container);
         else
             SpawnInstances(list.Count - childCount, Container);
     }
