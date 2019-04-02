@@ -15,7 +15,8 @@ public class MenuController : MonoBehaviour
     public GameObject ProjectScreen;
     public GameObject BusinessScreen;
     public GameObject InvesmentsScreen;
-    public GameObject MarketScreen;
+    public GameObject IndustryScreen;
+    public GameObject NicheScreen;
 
     ScreenMode screen;
 
@@ -28,7 +29,8 @@ public class MenuController : MonoBehaviour
         Screens[ScreenMode.ProjectScreen] = ProjectScreen;
         Screens[ScreenMode.BusinessScreen] = BusinessScreen;
         Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
-        Screens[ScreenMode.MarketScreen] = MarketScreen;
+        Screens[ScreenMode.IndustryScreen] = IndustryScreen;
+        Screens[ScreenMode.NicheScreen] = NicheScreen;
 
         screen = ScreenMode.DevelopmentScreen;
         EnableScreen(screen);
@@ -45,7 +47,8 @@ public class MenuController : MonoBehaviour
         {
             // global screens
             case ScreenMode.BusinessScreen: return "Business";
-            case ScreenMode.MarketScreen: return "Market resarch";
+            case ScreenMode.IndustryScreen: return "Market resarch";
+            case ScreenMode.NicheScreen: return "Niche";
 
             // project based screens
             case ScreenMode.ProjectScreen: return "Project";

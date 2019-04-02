@@ -2,6 +2,6 @@
 {
     public override void Execute()
     {
-        Navigate(ScreenMode.MarketScreen);
+        Navigate(ScreenMode.IndustryScreen);
     }
 }

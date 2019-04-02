@@ -126,7 +126,8 @@ public enum ScreenMode
     TeamScreen,
     StatsScreen,
     InvesmentsScreen,
-    MarketScreen
+    IndustryScreen,
+    NicheScreen
 }
 
 public class MenuComponent : IComponent
