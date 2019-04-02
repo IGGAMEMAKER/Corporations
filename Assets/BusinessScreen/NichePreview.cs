@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public enum Risk
 {
     UltraConservative,
@@ -18,7 +17,7 @@ public class NichePreview : MonoBehaviour
     public Text MarketPotential;
     public Text Risk;
 
-    void Awake()
+    void OnEnable()
     {
         SetNiche(Niche.SearchEngine);
     }
@@ -26,6 +25,9 @@ public class NichePreview : MonoBehaviour
     public void SetNiche(Niche niche)
     {
         Niche = niche;
+
+        GetComponent<LinkToNiche>().SetNiche(niche);
+        GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
 
         Render();
     }
