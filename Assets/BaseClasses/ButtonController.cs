@@ -10,6 +10,9 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     public GameContext GameContext;
     public ProductComponent ControlledProduct;
     public GameEntity ControlledProductEntity;
+
+    public Niche SelectedNiche;
+
     Button Button;
 
     public abstract void Execute();
@@ -92,5 +95,10 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         var company = Array.Find(GameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
 
         company.isSelectedCompany = true;
+    }
+
+    public void SetSelectedNiche(Niche niche)
+    {
+        SelectedNiche = niche;
     }
 }

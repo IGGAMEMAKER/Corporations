@@ -5,17 +5,11 @@ public class EnlargeOnHover : MonoBehaviour
     , IPointerEnterHandler
     , IPointerExitHandler
 {
-    float duration;
+    readonly float animationDuration = 0.15f;
+    readonly float amplification = 0.2f;
 
+    float duration = 0;
     bool hovered;
-
-    float animationDuration = 0.15f;
-    float amplification = 0.2f;
-
-    void Start()
-    {
-        duration = 0;
-    }
 
     void Update()
     {
@@ -24,9 +18,6 @@ public class EnlargeOnHover : MonoBehaviour
 
     void Render()
     {
-        float scale = (1 + amplification * duration / animationDuration);
-        transform.localScale = new Vector3(scale, scale, 1);
-
         if (hovered)
             duration += Time.deltaTime;
         else
@@ -37,6 +28,10 @@ public class EnlargeOnHover : MonoBehaviour
 
         if (duration > animationDuration)
             duration = animationDuration;
+
+        float scale = (1 + amplification * duration / animationDuration);
+
+        transform.localScale = new Vector3(scale, scale, 1);
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

@@ -44,6 +44,7 @@ public class ShareholderPreviewView : View
             return;
 
         GameObject o = NameLabel.gameObject;
+
         if (o.GetComponent<LinkToCompanyPreview>() == null)
             LinkToCompanyPreview = o.AddComponent<LinkToCompanyPreview>();
                 
