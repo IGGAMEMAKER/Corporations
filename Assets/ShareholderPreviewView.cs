@@ -1,8 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class ShareholderPreviewView : View
@@ -19,11 +16,13 @@ public class ShareholderPreviewView : View
 
     public void SetEntity(int shareholderId, int shares, int totalShares)
     {
+        var investorGroup = GameContext.GetEntities(GameMatcher.Shareholder);
+
         ShareholderId = shareholderId;
         Shares = shares;
         TotalShares = totalShares;
 
-        Shareholder = Array.Find(GameContext.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == shareholderId);
+        Shareholder = Array.Find(investorGroup, s => s.shareholder.Id == shareholderId);
 
         Render();
     }

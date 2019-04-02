@@ -102,16 +102,18 @@ public class ProductInitializerSystem : IInitializeSystem
         int id = GenerateId();
 
         e.AddCompany(id, name, CompanyType.Holding);
+        BecomeInvestor(e, 0);
 
         return id;
     }
 
     void AttachCompany(int parent, int subsidiary)
     {
+        var p = GetCompanyById(parent);
         var s = GetCompanyById(subsidiary);
 
         Dictionary<int, int> shareholders = new Dictionary<int, int>();
-        shareholders.Add(parent, 100);
+        shareholders.Add(p.shareholder.Id, 100);
 
         if (s.hasShareholders)
             s.ReplaceShareholders(shareholders);
@@ -155,7 +157,7 @@ public class ProductInitializerSystem : IInitializeSystem
         //GenerateProduct("twitter", Niche.SocialNetwork);
         //GenerateProduct("vk", Niche.SocialNetwork);
 
-        int google = GenerateProduct("google", Niche.SearchEngine);
+        int google = GenerateProduct("Google", Niche.SearchEngine);
 
         SetPlayerControlledCompany(google);
 
