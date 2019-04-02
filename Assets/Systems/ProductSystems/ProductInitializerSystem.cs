@@ -25,7 +25,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int explorationLevel = productLevel;
 
         var e = GameContext.CreateEntity();
-        e.AddCompany(id, name, CompanyType.Product);
+        e.AddCompany(id, name, CompanyType.ProductCompany);
 
         // product specific components
         e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);

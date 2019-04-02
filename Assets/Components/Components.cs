@@ -25,7 +25,7 @@ public enum Industry
 
 public enum CompanyType
 {
-    Product,
+    ProductCompany,
 
     FinancialGroup,
 

@@ -4,7 +4,7 @@
     {
         public static long GetIncome(GameEntity e, GameContext context)
         {
-            if (e.company.CompanyType == CompanyType.Product)
+            if (e.company.CompanyType == CompanyType.ProductCompany)
                 return ProductEconomicsUtils.GetIncome(e);
 
             return 1000000;

@@ -5,25 +5,70 @@ using UnityEngine.UI;
 public class ProjectView : View
 {
     public Text CompanyName;
-    public Text CompanyDescription;
+    public Text CompanyTypeLabel;
     public LinkToCompanyPreview LinkToCompanyPreview;
     public GameObject ShareholderPreviewPrefab;
     public GameObject ShareholderContainer;
+
+    public GameObject NicheLabel;
+    public Text NicheName;
+    public GameObject NicheExpectations;
 
     void Update()
     {
         Render();
     }
 
+    void SetCompanyId()
+    {
+        LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
+    }
+
     void Render()
     {
         CompanyName.text = SelectedCompany.company.Name;
 
-        CompanyDescription.text = SelectedCompany.company.CompanyType.ToString();
+        CompanyTypeLabel.text = SelectedCompany.company.CompanyType.ToString();
 
-        LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
+        RenderPerspectives();
+
+        SetCompanyId();
 
         RenderShareholders(GetShareholders(), ShareholderContainer);
+    }
+
+    void RenderPerspectives()
+    {
+        if (SelectedCompany.company.CompanyType == CompanyType.ProductCompany)
+            RenderNicheTab();
+        else
+            RenderCorporateGroup();
+    }
+
+    void ToggleNicheObjects(bool show)
+    {
+        NicheLabel.SetActive(show);
+        NicheExpectations.SetActive(show);
+        NicheName.gameObject.SetActive(show);
+    }
+
+    void ToggleCorporateGroupObjects(bool show)
+    {
+
+    }
+
+    private void RenderCorporateGroup()
+    {
+        ToggleNicheObjects(false);
+        ToggleCorporateGroupObjects(true);
+    }
+
+    private void RenderNicheTab()
+    {
+        ToggleCorporateGroupObjects(false);
+        ToggleNicheObjects(true);
+
+        NicheName.text = SelectedCompany.product.Niche.ToString();
     }
 
     Dictionary<int, int> GetShareholders()
