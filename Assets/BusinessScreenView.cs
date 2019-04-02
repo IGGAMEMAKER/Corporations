@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +28,14 @@ public class BusinessScreenView : View
 
     GameEntity[] GetOwnings()
     {
-        return GameContext.GetEntities(GameMatcher.Company);
+        if (!SelectedCompany.hasShareholder)
+            return new GameEntity[0];
+
+        var investableCompanies = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+
+        int shareholderId = SelectedCompany.shareholder.Id;
+
+        return Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
     }
 
     void RenderDaughterCompanies(GameEntity[] companies, GameObject Container)

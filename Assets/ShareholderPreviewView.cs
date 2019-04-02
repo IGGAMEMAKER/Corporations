@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ShareholderPreviewView : View
@@ -12,7 +13,9 @@ public class ShareholderPreviewView : View
     public Text SharesLabel;
     public Hint SharesAmountHint;
 
-    GameEntity Shareholder;
+    public LinkToCompanyPreview LinkToCompanyPreview;
+
+    GameEntity ShareholderEntity;
 
     public void SetEntity(int shareholderId, int shares, int totalShares)
     {
@@ -22,15 +25,37 @@ public class ShareholderPreviewView : View
         Shares = shares;
         TotalShares = totalShares;
 
-        Shareholder = Array.Find(investorGroup, s => s.shareholder.Id == shareholderId);
+        ShareholderEntity = Array.Find(investorGroup, s => s.shareholder.Id == shareholderId);
 
         Render();
     }
 
+    int GetCompanyIdByInvestorId(int shareholderId)
+    {
+        return Array.Find(GameContext.GetEntities(GameMatcher.Shareholder), e => e.shareholder.Id == shareholderId).company.Id;
+    }
+
+    void AddLinkIfPossible()
+    {
+        if (ShareholderEntity == null)
+            return;
+
+        if (!ShareholderEntity.hasCompany)
+            return;
+
+        GameObject o = NameLabel.gameObject;
+        if (o.GetComponent<LinkToCompanyPreview>() == null)
+            LinkToCompanyPreview = o.AddComponent<LinkToCompanyPreview>();
+                
+        LinkToCompanyPreview.CompanyId = GetCompanyIdByInvestorId(ShareholderId);
+    }
+
     void Render()
     {
-        NameLabel.text = Shareholder.shareholder.Name;
+        NameLabel.text = ShareholderEntity.shareholder.Name;
         SharesLabel.text = Shares * 100 / TotalShares + "%";
         SharesAmountHint.SetHint("");
+
+        AddLinkIfPossible();
     }
 }
