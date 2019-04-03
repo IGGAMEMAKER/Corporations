@@ -25,10 +25,7 @@ public class MarketInitializerSystem : IInitializeSystem
     void InitializeIndustries()
     {
         foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-        {
-            var e = GameContext.CreateEntity();
-            e.AddIndustry(industry);
-        }
+            GameContext.CreateEntity().AddIndustry(industry);
     }
 
     void InitializeNiches()
