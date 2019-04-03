@@ -4,6 +4,7 @@
     {
         // Start point of all our systems
 
+        Add(new MarketSystems(contexts));
         Add(new ProductSystems(contexts));
         Add(new AISystems(contexts));
         Add(new ScheduleSystems(contexts));

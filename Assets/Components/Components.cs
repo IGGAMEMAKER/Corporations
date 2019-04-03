@@ -6,6 +6,8 @@ using UnityEngine;
 
 public enum NicheType
 {
+    None,
+
     SocialNetwork,
     Messenger,
 
@@ -57,6 +59,7 @@ public class MenuComponent : IComponent
     public object Data;
 }
 
+// only entity
 [Game]
 public class NavigationHistoryComponent : IComponent
 {
@@ -77,6 +80,31 @@ public struct CompanyComponent : IComponent
     public string Name;
     public CompanyType CompanyType;
 }
+
+[Game]
+public class IndustryComponent : IComponent
+{
+    public IndustryType IndustryType;
+}
+
+
+public struct MarketCompatibility
+{
+    public NicheType NicheType;
+    public int Compatibility;
+}
+
+[Game]
+public class NicheComponent : IComponent
+{
+    public NicheType NicheType;
+    public IndustryType IndustryType;
+    public List<MarketCompatibility> MarketCompatibilities;
+    public List<NicheType> CompetingNiches;
+    public NicheType Parent;
+    public int OpenDate;
+}
+
 
 
 [Game]
