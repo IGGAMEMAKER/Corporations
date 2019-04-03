@@ -18,13 +18,10 @@ public class NicheScreenView : View
     void Render()
     {
         NicheType = (NicheType)MenuUtils.GetMenu(GameContext).menu.Data;
-
-        Debug.Log("" + NicheType.ToString());
-
-        NicheName.text = "Niche: " + NicheType.ToString();
         IndustryType industryType = NicheUtils.GetIndustry(NicheType);
 
-        IndustryName.text = "Is part of " + industryType.ToString();
+        NicheName.text = "Niche: " + NicheType.ToString();
+        IndustryName.text = "Is part of " + industryType.ToString() + " industry";
 
         LinkToIndustryView.SetIndustry(industryType);
     }
