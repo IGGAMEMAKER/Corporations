@@ -12,10 +12,10 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
         context = contexts.game;
     }
 
-    void EnableScreen(ScreenMode screenMode)
+    void EnableScreen(ScreenMode screenMode, object data)
     {
         screen = screenMode;
-        menu.ReplaceMenu(screen);
+        menu.ReplaceMenu(screen, data);
     }
 
     public void Initialize()
@@ -23,18 +23,18 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
         menu = context.CreateEntity();
         screen = ScreenMode.DevelopmentScreen;
 
-        menu.AddMenu(screen);
+        menu.AddMenu(screen, null);
     }
 
     public void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            EnableScreen(ScreenMode.DevelopmentScreen);
+            EnableScreen(ScreenMode.DevelopmentScreen, null);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            EnableScreen(ScreenMode.InvesmentsScreen);
+            EnableScreen(ScreenMode.InvesmentsScreen, null);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.BusinessScreen);
+            EnableScreen(ScreenMode.BusinessScreen, null);
     }
 }

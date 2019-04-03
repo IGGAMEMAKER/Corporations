@@ -10,6 +10,17 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Menu)[0];
         }
 
+
+        //public static void GetSelectedCompany(GameContext gameContext)
+        //{
+        //    var data = GetMenu(gameContext).menu.Data;
+
+        //    if (data == null)
+        //        return myProductEntity;
+
+        //    return CompanyUtils.GetCompanyById(GameContext, (int)data);
+        //}
+
         public static void SetSelectedCompany(int companyId, GameContext gameContext)
         {
             gameContext.GetEntities(GameMatcher.SelectedCompany)[0].isSelectedCompany = false;

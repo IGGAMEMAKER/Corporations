@@ -51,8 +51,24 @@ public struct ControlledByPlayerComponent : IComponent {
 
 }
 
-//[Game]
-//public class NavigationComponent
+public class MenuComponent : IComponent
+{
+    public ScreenMode ScreenMode;
+    public object Data;
+}
+
+[Game]
+public class NavigationHistoryComponent : IComponent
+{
+
+}
+
+// only entity
+[Game]
+public struct SelectedCompanyComponent : IComponent
+{
+
+}
 
 [Game]
 public struct CompanyComponent : IComponent
@@ -94,18 +110,6 @@ public class ShareholderComponent : IComponent
     public long Money;
 }
 
-[Game]
-public class NavigationHistoryComponent : IComponent
-{
-
-}
-
-// only entity
-[Game]
-public struct SelectedCompanyComponent : IComponent {
-
-}
-
 
 [Game]
 public class TaskManagerComponent : IComponent
@@ -131,11 +135,6 @@ public enum ScreenMode
     InvesmentsScreen,
     IndustryScreen,
     NicheScreen
-}
-
-public class MenuComponent : IComponent
-{
-    public ScreenMode ScreenMode;
 }
 
 public class TaskComponent: IComponent

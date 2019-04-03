@@ -149,7 +149,7 @@ public class ProductInitializerSystem : IInitializeSystem
         }
     }
 
-    public void Initialize()
+    void IInitializeSystem.Initialize()
     {
         // products
         //GenerateProduct("facebook", Niche.SocialNetwork);

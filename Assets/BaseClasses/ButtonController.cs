@@ -65,13 +65,11 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     public void NavigateToBusinessScreen(int companyId)
     {
         Navigate(ScreenMode.BusinessScreen, companyId);
-
-        SetSelectedCompany(companyId);
     }
 
     public void Navigate(ScreenMode screenMode, object data)
     {
-        MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode);
+        MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode, data);
     }
 
     public void SetSelectedCompany(int companyId)

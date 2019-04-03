@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,14 +23,27 @@ public class View : MonoBehaviour
     {
         get
         {
-            var products = GameContext
-                .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.SelectedCompany));
+            var data = MenuUtils.GetMenu(GameContext).menu.Data;
 
-            if (products.Length == 1) return products[0];
+            if (data == null)
+                return myProductEntity;
 
-            return null;
+            return CompanyUtils.GetCompanyById(GameContext, (int)data);
         }
     }
+
+    //public GameEntity SelectedCompany
+    //{
+    //    get
+    //    {
+    //        var products = GameContext
+    //            .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.SelectedCompany));
+
+    //        if (products.Length == 1) return products[0];
+
+    //        return null;
+    //    }
+    //}
 
     public GameContext GameContext
     {
