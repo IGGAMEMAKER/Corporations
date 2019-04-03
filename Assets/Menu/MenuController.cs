@@ -19,9 +19,7 @@ public class MenuController : MonoBehaviour
     public GameObject NicheScreen;
 
     ScreenMode screen;
-    object data;
 
-    // Start is called before the first frame update
     void Start()
     {
         Screens = new Dictionary<ScreenMode, GameObject>
@@ -34,7 +32,6 @@ public class MenuController : MonoBehaviour
             [ScreenMode.NicheScreen] = NicheScreen
         };
 
-        data = null;
         EnableScreen(ScreenMode.DevelopmentScreen);
     }
 
@@ -93,14 +90,11 @@ public class MenuController : MonoBehaviour
     {
         GameEntity e = MenuUtils.GetMenu(Contexts.sharedInstance.game);
 
-        ScreenMode currentScreen = e.menu.ScreenMode;
-        object currentData = e.menu.Data;
+        ScreenMode newScreen = e.menu.ScreenMode;
 
-        bool needsUpdate =
-            screen != currentScreen; // ||
-            //data != currentData;
+        bool needsUpdate = screen != newScreen;
 
         if (needsUpdate)
-            EnableScreen(screen);
+            EnableScreen(newScreen);
     }
 }
