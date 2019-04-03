@@ -9,5 +9,7 @@
         Add(new AISystems(contexts));
         Add(new ScheduleSystems(contexts));
         Add(new MenuSystems(contexts));
+
+        Add(new GameEventSystems(contexts));
     }
 }

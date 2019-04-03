@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuController : MonoBehaviour
+public class MenuController : MonoBehaviour, IMenuListener
 {
     Dictionary<ScreenMode, GameObject> Screens;
 
@@ -17,8 +17,6 @@ public class MenuController : MonoBehaviour
     public GameObject InvesmentsScreen;
     public GameObject IndustryScreen;
     public GameObject NicheScreen;
-
-    ScreenMode screen;
 
     void Start()
     {
@@ -33,11 +31,10 @@ public class MenuController : MonoBehaviour
         };
 
         EnableScreen(ScreenMode.DevelopmentScreen);
-    }
 
-    void Update()
-    {
-        ToggleScreensIfNecessary();
+        GameEntity e = MenuUtils.GetMenu(Contexts.sharedInstance.game);
+
+        e.AddMenuListener(this);
     }
 
     string GetScreenTitle(ScreenMode screen)
@@ -66,17 +63,15 @@ public class MenuController : MonoBehaviour
             Screens[screen].SetActive(false);
     }
 
-    void EnableScreen(ScreenMode newScreen)
+    void EnableScreen(ScreenMode screen)
     {
-        screen = newScreen;
-
-        SetTitle(newScreen);
+        SetTitle(screen);
         DisableAllScreens();
 
-        if (Screens.ContainsKey(newScreen))
+        if (Screens.ContainsKey(screen))
         {
             SoundManager.Play(Sound.Hover);
-            Screens[newScreen].SetActive(true);
+            Screens[screen].SetActive(true);
         }
     }
 
@@ -86,15 +81,8 @@ public class MenuController : MonoBehaviour
             DisableScreen(screen);
     }
 
-    void ToggleScreensIfNecessary()
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        GameEntity e = MenuUtils.GetMenu(Contexts.sharedInstance.game);
-
-        ScreenMode newScreen = e.menu.ScreenMode;
-
-        bool needsUpdate = screen != newScreen;
-
-        if (needsUpdate)
-            EnableScreen(newScreen);
+        EnableScreen(screenMode);
     }
 }

@@ -53,6 +53,7 @@ public struct ControlledByPlayerComponent : IComponent {
 
 }
 
+[Game, Event(EventTarget.Self)]
 public class MenuComponent : IComponent
 {
     public ScreenMode ScreenMode;
