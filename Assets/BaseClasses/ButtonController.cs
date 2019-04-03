@@ -11,7 +11,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     public ProductComponent ControlledProduct;
     public GameEntity ControlledProductEntity;
 
-    public Niche SelectedNiche;
+    public NicheType SelectedNiche;
 
     Button Button;
 
@@ -34,6 +34,11 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         UpdateControlledProductEntity();
     }
 
+    void OnDestroy()
+    {
+        RemoveListener();
+    }
+
     void UpdateControlledProductEntity()
     {
         ControlledProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
@@ -51,7 +56,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     //    return GameContext.CreateEntity();
     //}
 
-    private void OnDestroy()
+    void RemoveListener()
     {
         Button.onClick.RemoveListener(Execute);
     }
@@ -97,7 +102,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         company.isSelectedCompany = true;
     }
 
-    public void SetSelectedNiche(Niche niche)
+    public void SetSelectedNiche(NicheType niche)
     {
         SelectedNiche = niche;
     }

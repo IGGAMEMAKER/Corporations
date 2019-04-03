@@ -68,7 +68,7 @@ public class ProjectView : View
         ToggleCorporateGroupObjects(false);
         ToggleNicheObjects(true);
 
-        Niche niche = SelectedCompany.product.Niche;
+        NicheType niche = SelectedCompany.product.Niche;
 
         NicheName.text = niche.ToString();
         NicheName.gameObject.GetComponent<LinkToNiche>().SetNiche(niche);

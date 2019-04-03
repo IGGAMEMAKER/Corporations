@@ -1,8 +1,8 @@
 ﻿public class LinkToNiche : ButtonController
 {
-    Niche Niche;
+    NicheType Niche;
 
-    public void SetNiche(Niche niche)
+    public void SetNiche(NicheType niche)
     {
         Niche = niche;
     }

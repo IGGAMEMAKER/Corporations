@@ -4,25 +4,24 @@ using UnityEngine.UI;
 
 public enum Risk
 {
-    UltraConservative,
     Guaranteed,
     Risky,
-    TooRisky,
+    TooRisky
 }
 
 public class NichePreview : MonoBehaviour
 {
-    Niche Niche;
+    NicheType Niche;
 
     public Text MarketPotential;
     public Text Risk;
 
     void OnEnable()
     {
-        SetNiche(Niche.SearchEngine);
+        SetNiche(NicheType.SearchEngine);
     }
 
-    public void SetNiche(Niche niche)
+    public void SetNiche(NicheType niche)
     {
         Niche = niche;
 
@@ -32,10 +31,8 @@ public class NichePreview : MonoBehaviour
         Render();
     }
 
-    string FormatMarketPotential (int value)
+    string FormatMarketPotential(int value)
     {
-        Debug.Log("potential: " + value);
-
         string val = ValueFormatter.Shorten(value);
         
         return "$" + val;

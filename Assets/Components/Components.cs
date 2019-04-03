@@ -4,7 +4,7 @@ using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Niche
+public enum NicheType
 {
     SocialNetwork,
     Messenger,
@@ -15,7 +15,7 @@ public enum Niche
     OSSciencePurpose,
 }
 
-public enum Industry
+public enum IndustryType
 {
     Communications,
     Search,
@@ -150,8 +150,8 @@ public class ProductComponent: IComponent
 {
     public int Id;
     public string Name;
-    public Niche Niche;
-    public Industry Industry;
+    public NicheType Niche;
+    public IndustryType Industry;
 
     public int ProductLevel;
     public int ExplorationLevel;

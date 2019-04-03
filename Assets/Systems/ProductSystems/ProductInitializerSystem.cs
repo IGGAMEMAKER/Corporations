@@ -12,9 +12,9 @@ public class ProductInitializerSystem : IInitializeSystem
         GameContext = contexts.game;
     }
 
-    void GenerateProduct(string name, Niche niche, int id)
+    void GenerateProduct(string name, NicheType niche, int id)
     {
-        Industry industry = NicheUtils.GetIndustry(niche);
+        IndustryType industry = NicheUtils.GetIndustry(niche);
 
         var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
@@ -41,8 +41,10 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void SetPlayerControlledCompany(int id)
     {
-        GetCompanyById(id).isControlledByPlayer = true;
-        GetCompanyById(id).isSelectedCompany = true;
+        var c = GetCompanyById(id);
+
+        c.isControlledByPlayer = true;
+        c.isSelectedCompany = true;
     }
 
     void RemovePlayerControlledCompany(int id)
@@ -55,7 +57,7 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.GenerateCompanyId(GameContext);
     }
 
-    int GenerateProduct(string name, Niche niche)
+    int GenerateProduct(string name, NicheType niche)
     {
         int id = GenerateId();
 
@@ -155,7 +157,7 @@ public class ProductInitializerSystem : IInitializeSystem
         //GenerateProduct("twitter", Niche.SocialNetwork);
         //GenerateProduct("vk", Niche.SocialNetwork);
 
-        int google = GenerateProduct("Google", Niche.SearchEngine);
+        int google = GenerateProduct("Google", NicheType.SearchEngine);
 
         SetPlayerControlledCompany(google);
 

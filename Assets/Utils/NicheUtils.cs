@@ -6,15 +6,15 @@ namespace Assets.Utils
 {
     public class NicheConstants
     {
-        public static Dictionary<Niche, Industry> NicheMap = new Dictionary<Niche, Industry>
+        public static Dictionary<NicheType, IndustryType> NicheMap = new Dictionary<NicheType, IndustryType>
         {
-            [Niche.OSCommonPurpose] = Industry.OS,
-            [Niche.OSSciencePurpose] = Industry.OS,
+            [NicheType.OSCommonPurpose] = IndustryType.OS,
+            [NicheType.OSSciencePurpose] = IndustryType.OS,
 
-            [Niche.Messenger] = Industry.Communications,
-            [Niche.SocialNetwork] = Industry.Communications,
+            [NicheType.Messenger] = IndustryType.Communications,
+            [NicheType.SocialNetwork] = IndustryType.Communications,
 
-            [Niche.SearchEngine] = Industry.Search
+            [NicheType.SearchEngine] = IndustryType.Search
         };
     }
 
@@ -48,16 +48,9 @@ namespace Assets.Utils
             return GetPlayersOnMarket(e, context).Count();
         }
 
-        public static Industry GetIndustry(Niche niche)
+        public static IndustryType GetIndustry(NicheType niche)
         {
             return NicheConstants.NicheMap[niche];
         }
-    }
-}
-
-public class MarketGenerator: IMarketGenerator
-{
-    public MarketGenerator()
-    {
     }
 }

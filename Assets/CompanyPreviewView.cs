@@ -62,7 +62,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
         LinkToCompanyPreview.CompanyId = e.company.Id;
     }
 
-    public void OnProduct(GameEntity entity, int id, string name, Niche niche, Industry industry, int productLevel, int explorationLevel, TeamResource resources)
+    public void OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)
     {
         Debug.Log($"OnProduct.");
 
