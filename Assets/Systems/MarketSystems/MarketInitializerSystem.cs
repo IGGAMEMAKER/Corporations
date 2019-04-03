@@ -1,5 +1,4 @@
-﻿using Assets.Utils;
-using Entitas;
+﻿using Entitas;
 using System;
 using System.Collections.Generic;
 
@@ -36,6 +35,8 @@ public class MarketInitializerSystem : IInitializeSystem
     {
         foreach (NicheType niche in (NicheType[])Enum.GetValues(typeof(NicheType)))
         {
+            if (niche == NicheType.None) continue;
+
             var e = GameContext.CreateEntity();
 
             e.AddNiche(

@@ -24,18 +24,18 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screens = new Dictionary<ScreenMode, GameObject>();
+        Screens = new Dictionary<ScreenMode, GameObject>
+        {
+            [ScreenMode.DevelopmentScreen] = TechnologyScreen,
+            [ScreenMode.ProjectScreen] = ProjectScreen,
+            [ScreenMode.BusinessScreen] = BusinessScreen,
+            [ScreenMode.InvesmentsScreen] = InvesmentsScreen,
+            [ScreenMode.IndustryScreen] = IndustryScreen,
+            [ScreenMode.NicheScreen] = NicheScreen
+        };
 
-        Screens[ScreenMode.DevelopmentScreen] = TechnologyScreen;
-        Screens[ScreenMode.ProjectScreen] = ProjectScreen;
-        Screens[ScreenMode.BusinessScreen] = BusinessScreen;
-        Screens[ScreenMode.InvesmentsScreen] = InvesmentsScreen;
-        Screens[ScreenMode.IndustryScreen] = IndustryScreen;
-        Screens[ScreenMode.NicheScreen] = NicheScreen;
-
-        screen = ScreenMode.DevelopmentScreen;
         data = null;
-        EnableScreen(screen);
+        EnableScreen(ScreenMode.DevelopmentScreen);
     }
 
     void Update()
@@ -47,15 +47,11 @@ public class MenuController : MonoBehaviour
     {
         switch (screen)
         {
-            // global screens
             case ScreenMode.BusinessScreen: return "Business";
             case ScreenMode.IndustryScreen: return "Market resarch";
             case ScreenMode.NicheScreen: return "Niche";
-
-            // project based screens
             case ScreenMode.ProjectScreen: return "Project";
             case ScreenMode.DevelopmentScreen: return "Development";
-
             case ScreenMode.InvesmentsScreen: return "Investments";
 
             default: return "WUT?";
@@ -73,15 +69,17 @@ public class MenuController : MonoBehaviour
             Screens[screen].SetActive(false);
     }
 
-    void EnableScreen(ScreenMode screen)
+    void EnableScreen(ScreenMode newScreen)
     {
-        SetTitle(screen);
+        screen = newScreen;
+
+        SetTitle(newScreen);
         DisableAllScreens();
 
-        if (Screens.ContainsKey(screen))
+        if (Screens.ContainsKey(newScreen))
         {
             SoundManager.Play(Sound.Hover);
-            Screens[screen].SetActive(true);
+            Screens[newScreen].SetActive(true);
         }
     }
 
@@ -103,9 +101,6 @@ public class MenuController : MonoBehaviour
             //data != currentData;
 
         if (needsUpdate)
-        {
-            screen = currentScreen;
             EnableScreen(screen);
-        } 
     }
 }

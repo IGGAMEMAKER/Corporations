@@ -24,7 +24,7 @@ public class IndustryScreenView : View
         }
     }
 
-    Predicate<GameEntity> FilterIndustries(IndustryType industry)
+    Predicate<GameEntity> FilterNichesByIndustries(IndustryType industry)
     {
         return n => n.niche.IndustryType == industry && n.niche.NicheType != NicheType.None;
     }
@@ -33,8 +33,9 @@ public class IndustryScreenView : View
     {
         var industry = MenuUtils.GetIndustry(GameContext);
 
+        var niches = GameContext.GetEntities(GameMatcher.Niche);
 
-        return Array.FindAll(GameContext.GetEntities(GameMatcher.Niche), FilterIndustries(industry));
+        return Array.FindAll(niches, FilterNichesByIndustries(industry));
     }
 
     void Update()
