@@ -4,8 +4,6 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.ProjectScreen);
-
-        SetSelectedCompany(CompanyId);
+        NavigateToProjectScreen(CompanyId);
     }
 }

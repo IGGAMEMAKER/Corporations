@@ -9,8 +9,6 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.NicheScreen);
-
-        SetSelectedNiche(Niche);
+        NavigateToNiche(Niche);
     }
 }

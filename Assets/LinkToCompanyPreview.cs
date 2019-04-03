@@ -4,9 +4,7 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.BusinessScreen);
-
-        SetSelectedCompany(CompanyId);
+        NavigateToBusinessScreen(CompanyId);
     }
 }
 

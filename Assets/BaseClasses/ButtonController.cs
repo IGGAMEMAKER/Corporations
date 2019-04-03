@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Entitas;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +9,6 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     public GameContext GameContext;
     public ProductComponent ControlledProduct;
     public GameEntity ControlledProductEntity;
-
-    public NicheType SelectedNiche;
 
     Button Button;
 
@@ -45,25 +42,46 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         ControlledProduct = ControlledProductEntity.product;
     }
 
-    //public GameEntity StartTask()
-    //{
-    //    return ControlledProductEntity;
-    //}
-
-    //public GameEntity SendEvent()
-    //{
-    //    // you can attach events to this object
-    //    return GameContext.CreateEntity();
-    //}
-
     void RemoveListener()
     {
         Button.onClick.RemoveListener(Execute);
     }
 
-    public void Navigate(ScreenMode screenMode)
+    public void NavigateToNiche(NicheType niche)
+    {
+        Navigate(ScreenMode.NicheScreen, niche);
+    }
+
+    public void NavigateToProjectScreen(int companyId)
+    {
+        Navigate(ScreenMode.ProjectScreen, companyId);
+    }
+
+    public void NavigateToIndustry(IndustryType industry)
+    {
+        Navigate(ScreenMode.IndustryScreen, industry);
+    }
+
+    public void NavigateToBusinessScreen(int companyId)
+    {
+        Navigate(ScreenMode.BusinessScreen, companyId);
+
+        SetSelectedCompany(companyId);
+    }
+
+    public void Navigate(ScreenMode screenMode, object data)
     {
         MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode);
+    }
+
+    public void SetSelectedCompany(int companyId)
+    {
+        MenuUtils.SetSelectedCompany(companyId, GameContext);
+    }
+
+    public void SetSelectedNiche(NicheType niche)
+    {
+        MenuUtils.SetSelectedNiche(niche, GameContext);
     }
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
@@ -91,19 +109,5 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         int price = ControlledProductEntity.finance.price;
 
         ControlledProductEntity.AddEventFinancePricingChange(productId, price, change);
-    }
-
-    public void SetSelectedCompany(int companyId)
-    {
-        GameContext.GetEntities(GameMatcher.SelectedCompany)[0].isSelectedCompany = false;
-
-        var company = Array.Find(GameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
-
-        company.isSelectedCompany = true;
-    }
-
-    public void SetSelectedNiche(NicheType niche)
-    {
-        SelectedNiche = niche;
     }
 }
