@@ -10,16 +10,15 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Menu)[0];
         }
 
+        public static IndustryType GetIndustry(GameContext gameContext)
+        {
+            return (IndustryType)GetMenu(gameContext).menu.Data;
+        }
 
-        //public static void GetSelectedCompany(GameContext gameContext)
-        //{
-        //    var data = GetMenu(gameContext).menu.Data;
-
-        //    if (data == null)
-        //        return myProductEntity;
-
-        //    return CompanyUtils.GetCompanyById(GameContext, (int)data);
-        //}
+        public static NicheType GetNiche(GameContext gameContext)
+        {
+            return (NicheType)GetMenu(gameContext).menu.Data;
+        }
 
         public static void SetSelectedCompany(int companyId, GameContext gameContext)
         {
@@ -28,11 +27,6 @@ namespace Assets.Utils
             var company = Array.Find(gameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
 
             company.isSelectedCompany = true;
-        }
-
-        public static void SetSelectedNiche(NicheType niche, GameContext gameContext)
-        {
-            
         }
     }
 }

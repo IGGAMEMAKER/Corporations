@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class NicheScreenView : View
@@ -17,7 +16,7 @@ public class NicheScreenView : View
 
     void Render()
     {
-        NicheType = (NicheType)MenuUtils.GetMenu(GameContext).menu.Data;
+        NicheType = MenuUtils.GetNiche(GameContext);
         IndustryType industryType = NicheUtils.GetIndustry(NicheType);
 
         NicheName.text = "Niche: " + NicheType.ToString();

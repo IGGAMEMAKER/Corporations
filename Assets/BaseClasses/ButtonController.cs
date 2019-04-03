@@ -77,11 +77,6 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         MenuUtils.SetSelectedCompany(companyId, GameContext);
     }
 
-    public void SetSelectedNiche(NicheType niche)
-    {
-        MenuUtils.SetSelectedNiche(niche, GameContext);
-    }
-
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
     {
         ControlledProductEntity.AddEventUpgradeProduct(productId, ProductLevel);

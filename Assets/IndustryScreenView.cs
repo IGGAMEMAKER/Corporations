@@ -3,17 +3,14 @@ using UnityEngine.UI;
 
 public class IndustryScreenView : View
 {
-    IndustryType IndustryType;
+    IndustryType industryType;
 
     public Text IndustryName;
 
-    public Button NextIndustry;
-    public Button PreviousIndustry;
-
     void Update()
     {
-        IndustryType = (IndustryType)MenuUtils.GetMenu(GameContext).menu.Data;
+        industryType = MenuUtils.GetIndustry(GameContext);
 
-        IndustryName.text = IndustryType.ToString() + " Industry";
+        IndustryName.text = industryType.ToString() + " Industry";
     }
 }
