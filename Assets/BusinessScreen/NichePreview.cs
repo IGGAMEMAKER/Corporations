@@ -18,7 +18,7 @@ public class NichePreview : MonoBehaviour
 
     void OnEnable()
     {
-        SetNiche(NicheType.SearchEngine);
+        SetNiche(RandomEnum<NicheType>.GenerateValue());
     }
 
     public void SetNiche(NicheType niche)

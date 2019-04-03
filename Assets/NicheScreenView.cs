@@ -1,18 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class NicheScreenView : MonoBehaviour
+public class NicheScreenView : View
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    NicheType NicheType;
 
-    // Update is called once per frame
+    public Text NicheName;
+    public Text IndustryName;
+    public LinkToResearchView LinkToIndustryView;
+
     void Update()
     {
-        
+        Render();
+    }
+
+    void Render()
+    {
+        NicheType = (NicheType)MenuUtils.GetMenu(GameContext).menu.Data;
+
+        Debug.Log("" + NicheType.ToString());
+
+        NicheName.text = "Niche: " + NicheType.ToString();
+        IndustryType industryType = NicheUtils.GetIndustry(NicheType);
+
+        IndustryName.text = "Is part of " + industryType.ToString();
+
+        LinkToIndustryView.SetIndustry(industryType);
     }
 }

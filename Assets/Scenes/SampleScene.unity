@@ -5671,7 +5671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16.310036, y: -0.0000022558488}
+  m_AnchoredPosition: {x: 0.000015258789, y: -0.0000022558488}
   m_SizeDelta: {x: -16.309998, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &325988951
@@ -15379,6 +15379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9890c8d4a8515924b981394b11225ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NicheName: {fileID: 784439426}
+  IndustryName: {fileID: 1474479149}
+  LinkToIndustryView: {fileID: 1474479151}
 --- !u!1 &1006259367
 GameObject:
   m_ObjectHideFlags: 0
@@ -15470,6 +15473,7 @@ GameObject:
   - component: {fileID: 1028289760}
   - component: {fileID: 1028289759}
   - component: {fileID: 1028289757}
+  - component: {fileID: 1028289758}
   m_Layer: 5
   m_Name: IndustryScreen
   m_TagString: Untagged
@@ -15513,6 +15517,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c846278690b739740adbb45f5348f552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1028289758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028289755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7304ad9e4a29e464d8c9dbe673a82d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IndustryName: {fileID: 623461863}
+  NextIndustry: {fileID: 1817588773}
+  PreviousIndustry: {fileID: 1438502560}
 --- !u!114 &1028289759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22465,6 +22484,8 @@ GameObject:
   - component: {fileID: 1474479148}
   - component: {fileID: 1474479150}
   - component: {fileID: 1474479149}
+  - component: {fileID: 1474479152}
+  - component: {fileID: 1474479151}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -22524,7 +22545,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Total market size: 800.000.000$'
+  m_Text: 'Industry: Search'
 --- !u!222 &1474479150
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22533,6 +22554,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474479147}
   m_CullTransparentMesh: 0
+--- !u!114 &1474479151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474479147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0de3340a5d6d94cb1d0788fc4c1257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1474479152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474479147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1474479149}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1474637638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23736,7 +23811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 37.91619}
+  m_AnchoredPosition: {x: 0, y: 0.000052796975}
   m_SizeDelta: {x: 0, y: 223}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1603068836
@@ -23935,7 +24010,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 733751925}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
