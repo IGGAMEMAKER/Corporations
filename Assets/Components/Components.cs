@@ -51,6 +51,9 @@ public struct ControlledByPlayerComponent : IComponent {
 
 }
 
+//[Game]
+//public class NavigationComponent
+
 [Game]
 public struct CompanyComponent : IComponent
 {

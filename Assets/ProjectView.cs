@@ -127,8 +127,7 @@ public class ProjectView : View
 
         foreach (var e in shareholders)
         {
-            Container.transform
-                .GetChild(index)
+            Container.transform.GetChild(index)
                 .GetComponent<ShareholderPreviewView>()
                 .SetEntity(e.Key, e.Value, totalShares);
 
