@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class EnlargeOnHover : MonoBehaviour
@@ -36,6 +37,9 @@ public class EnlargeOnHover : MonoBehaviour
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
+        if (!hovered)
+            SoundManager.PlayOnHintHoverSound();
+
         hovered = true;
     }
 
