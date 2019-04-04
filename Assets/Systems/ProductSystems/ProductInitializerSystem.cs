@@ -166,6 +166,8 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateProduct("Bing", NicheType.SearchEngine);
         GenerateProduct("Yandex", NicheType.SearchEngine);
 
+        GenerateProduct("Microsoft", NicheType.OSCommonPurpose);
+
         SetPlayerControlledCompany(google);
 
         // investors

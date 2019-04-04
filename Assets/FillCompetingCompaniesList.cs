@@ -39,6 +39,8 @@ public class FillCompetingCompaniesList : View, IMenuListener
 
         GameEntity[] entities = GetProductsOnNiche(niche);
 
+        Debug.Log("Will print " + entities.Length + " products");
+
         CompetingCompaniesListView.SetItems(entities);
     }
 }

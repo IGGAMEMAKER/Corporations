@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Classes;
-using UnityEngine;
+﻿using Assets.Classes;
 using UnityEngine.UI;
 
 public class ProductCompanyCompetingPreview : View, IProductListener
