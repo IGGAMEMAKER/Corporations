@@ -87,6 +87,11 @@ public class View : MonoBehaviour
         }
     }
 
+    public void ListenMenuChanges(IMenuListener menuListener)
+    {
+        MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
+    }
+
     GameEntity[] GetProductsNotControlledByPlayer()
     {
         GameEntity[] entities = GameContext

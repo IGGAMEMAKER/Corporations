@@ -28,6 +28,11 @@ public abstract class ListView : MonoBehaviour
 
     void ProvideEnoughInstances(GameEntity[] list, GameObject Container)
     {
+        //foreach (Transform child in Container.transform)
+        //    Destroy(child.gameObject);
+
+        //SpawnInstances(list.Length - 1, Container);
+
         int childCount = Container.transform.childCount;
 
         int listCount = list.Length;

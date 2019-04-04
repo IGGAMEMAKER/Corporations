@@ -10,13 +10,10 @@ public class NicheScreenView : View, IMenuListener
 
     void Start()
     {
-        MenuUtils.GetMenu(GameContext).AddMenuListener(this);
-    }
+        ListenMenuChanges(this);
 
-    //void Update()
-    //{
-    //    Render();
-    //}
+        Render();
+    }
 
     void Render()
     {

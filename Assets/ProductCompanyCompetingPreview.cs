@@ -12,12 +12,6 @@ public class ProductCompanyCompetingPreview : View, IProductListener
     public Text Clients;
     public Text Level;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void SetEntity(GameEntity entity)
     {
         Company = entity;
