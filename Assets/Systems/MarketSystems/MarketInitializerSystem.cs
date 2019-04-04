@@ -1,6 +1,8 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class MarketInitializerSystem : IInitializeSystem
     //, IMarketGenerator
@@ -12,6 +14,15 @@ public class MarketInitializerSystem : IInitializeSystem
         GameContext = contexts.game;
     }
 
+    void CheckIndustriesWithZeroNiches()
+    {
+        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
+        {
+            if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
+                Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
+        }
+    }
+
     void IInitializeSystem.Initialize()
     {
         InitializeIndustries();
@@ -20,6 +31,8 @@ public class MarketInitializerSystem : IInitializeSystem
         InitializeSearchIndustry();
         InitializeOSIndustry();
         InitializeCommunicationsIndustry();
+
+        CheckIndustriesWithZeroNiches();
     }
 
     void InitializeIndustries()
