@@ -15,9 +15,6 @@ public class IndustryScreenView : View
     private void OnEnable()
     {
         var niches = GetNiches();
-
-        foreach (var n in niches)
-            Debug.Log("niche: " + n.niche.NicheType);
     }
 
     Predicate<GameEntity> FilterNichesByIndustries(IndustryType industry)

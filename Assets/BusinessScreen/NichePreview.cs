@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class NichePreview : View
 
     public Text MarketPotential;
     public Text Risk;
+    public TextMeshProUGUI NicheName;
 
     void OnEnable()
     {
@@ -34,12 +36,33 @@ public class NichePreview : View
         return "$" + val;
     }
 
+    string GetFormattedNicheName(NicheType niche)
+    {
+        //return niche.ToString();
+
+        switch (niche)
+        {
+            case NicheType.CloudComputing: return "Cloud\nComputing";
+            case NicheType.Messenger: return "Messengers";
+            case NicheType.SocialNetwork: return "Social\nNetworks";
+            case NicheType.OSSciencePurpose: return "Science\nPurpose";
+            case NicheType.OSCommonPurpose: return "Desktop";
+            case NicheType.SearchEngine: return "Search\nEngines";
+
+            default: return "Unknown niche " + niche.ToString();
+        }
+    }
+
     void Render()
     {
         GetComponent<LinkToNiche>().SetNiche(Niche);
-        GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
+        //GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
 
-        int potential = Random.Range(1000000, 100000000);
+        NicheName.text = GetFormattedNicheName(Niche);
+
+        int million = 1000000;
+
+        int potential = Random.Range(million, 2000 * million);
 
         MarketPotential.text = FormatMarketPotential(potential);
 
