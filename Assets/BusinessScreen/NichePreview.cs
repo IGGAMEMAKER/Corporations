@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +38,7 @@ public class NichePreview : View
     {
         LinkToNiche.SetNiche(Niche);
 
-        NicheName.text = Assets.Utils.Formatting.MarketFormattingUtils.GetFormattedNicheName(Niche);
+        NicheName.text = MarketFormattingUtils.GetFormattedNicheName(Niche);
 
         int million = 1000000;
 
