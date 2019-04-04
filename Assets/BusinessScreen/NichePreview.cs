@@ -27,11 +27,18 @@ public class NichePreview : View
         Render();
     }
 
-    string FormatMarketPotential(int value)
+    int GetMarketPotential()
     {
-        string val = ValueFormatter.Shorten(value);
-        
-        return "$" + val;
+        int million = 1000000;
+
+        return Random.Range(million, 2000 * million);
+    }
+
+    string GetFormattedMarketPotential()
+    {
+        int potential = GetMarketPotential();
+
+        return "$" + ValueFormatter.Shorten(potential);
     }
 
     void Render()
@@ -40,11 +47,7 @@ public class NichePreview : View
 
         NicheName.text = MarketFormattingUtils.GetFormattedNicheName(Niche);
 
-        int million = 1000000;
-
-        int potential = Random.Range(million, 2000 * million);
-
-        MarketPotential.text = FormatMarketPotential(potential);
+        MarketPotential.text = GetFormattedMarketPotential();
 
         Risk.text = RandomEnum<Risk>.GenerateValue().ToString();
     }
