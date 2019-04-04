@@ -5,6 +5,8 @@ public abstract class ListView : MonoBehaviour
     public GameObject Prefab;
     GameEntity[] Entities;
 
+    public abstract void SetItem(Transform t, GameEntity entity);
+
     public void SetItems(GameEntity[] entities)
     {
         Entities = entities;
@@ -36,18 +38,11 @@ public abstract class ListView : MonoBehaviour
             SpawnInstances(listCount - childCount, Container);
     }
 
-    public abstract void SetData(Transform t);
-
     void Render(GameEntity[] entities, GameObject Container)
     {
-        int index = 0;
-
         ProvideEnoughInstances(entities, Container);
 
-        foreach (var e in entities)
-        {
-            SetData(Container.transform.GetChild(index));
-            index++;
-        }
+        for (int i = 0; i < entities.Length; i++)
+            SetItem(Container.transform.GetChild(i), entities[i]);
     }
 }

@@ -17,16 +17,13 @@ public class NichePreview : View
     public Text MarketPotential;
     public Text Risk;
     public TextMeshProUGUI NicheName;
+    public LinkToNiche LinkToNiche;
 
-    void OnEnable()
+    public void SetNiche(GameEntity nicheEntity)
     {
-        Debug.Log("OnEnable NichePreview");
-
-        IndustryType i = MenuUtils.GetIndustry(GameContext);
-        Niche = RandomEnum<GameEntity>.PickRandomItem(NicheUtils.GetNichesInIndustry(i, GameContext)).niche.NicheType;
+        Niche = nicheEntity.niche.NicheType;
 
         Render();
-        //RandomEnum<NicheType>.GenerateValue(NicheType.None)
     }
 
     string FormatMarketPotential(int value)
@@ -36,29 +33,11 @@ public class NichePreview : View
         return "$" + val;
     }
 
-    string GetFormattedNicheName(NicheType niche)
-    {
-        //return niche.ToString();
-
-        switch (niche)
-        {
-            case NicheType.CloudComputing: return "Cloud\nComputing";
-            case NicheType.Messenger: return "Messengers";
-            case NicheType.SocialNetwork: return "Social\nNetworks";
-            case NicheType.OSSciencePurpose: return "Science\nPurpose";
-            case NicheType.OSCommonPurpose: return "Desktop";
-            case NicheType.SearchEngine: return "Search\nEngines";
-
-            default: return "Unknown niche " + niche.ToString();
-        }
-    }
-
     void Render()
     {
-        GetComponent<LinkToNiche>().SetNiche(Niche);
-        //GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
+        LinkToNiche.SetNiche(Niche);
 
-        NicheName.text = GetFormattedNicheName(Niche);
+        NicheName.text = Assets.Utils.Formatting.MarketFormattingUtils.GetFormattedNicheName(Niche);
 
         int million = 1000000;
 

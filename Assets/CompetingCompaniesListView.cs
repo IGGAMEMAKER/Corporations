@@ -2,10 +2,8 @@
 
 public class CompetingCompaniesListView : ListView
 {
-    public override void SetData(Transform t)
+    public override void SetItem(Transform t, GameEntity entity)
     {
-        //t.GetComponent<>
-
         //t.GetComponent<CompanyPreviewView>()
         //.SetEntity(e);
     }

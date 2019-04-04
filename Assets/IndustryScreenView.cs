@@ -9,12 +9,13 @@ public class IndustryScreenView : View
     IndustryType industryType;
 
     public Text IndustryName;
-    public GameObject NichePrefab;
-    public GameObject LinkPrefab;
+    public NicheListView NicheListView;
 
     private void OnEnable()
     {
         var niches = GetNiches();
+
+        NicheListView.SetItems(niches);
     }
 
     Predicate<GameEntity> FilterNichesByIndustries(IndustryType industry)
