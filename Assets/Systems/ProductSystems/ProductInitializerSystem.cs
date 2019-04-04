@@ -14,7 +14,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void GenerateProduct(string name, NicheType niche, int id)
     {
-        IndustryType industry = NicheUtils.GetIndustry(niche);
+        IndustryType industry = NicheUtils.GetIndustry(niche, GameContext);
 
         var resources = new Assets.Classes.TeamResource(100, 100, 100, 100, 10000);
 
@@ -152,12 +152,19 @@ public class ProductInitializerSystem : IInitializeSystem
     void IInitializeSystem.Initialize()
     {
         // products
-        //GenerateProduct("facebook", Niche.SocialNetwork);
-        //GenerateProduct("mySpace", Niche.SocialNetwork);
-        //GenerateProduct("twitter", Niche.SocialNetwork);
-        //GenerateProduct("vk", Niche.SocialNetwork);
+        GenerateProduct("facebook", NicheType.SocialNetwork);
+        GenerateProduct("mySpace", NicheType.SocialNetwork);
+        GenerateProduct("twitter", NicheType.SocialNetwork);
+        GenerateProduct("vk", NicheType.SocialNetwork);
+
+        GenerateProduct("telegram", NicheType.Messenger);
+        GenerateProduct("whatsapp", NicheType.Messenger);
+        GenerateProduct("snapchat", NicheType.Messenger);
 
         int google = GenerateProduct("Google", NicheType.SearchEngine);
+        GenerateProduct("Yahoo", NicheType.SearchEngine);
+        GenerateProduct("Bing", NicheType.SearchEngine);
+        GenerateProduct("Yandex", NicheType.SearchEngine);
 
         SetPlayerControlledCompany(google);
 

@@ -9,7 +9,7 @@ public enum Risk
     TooRisky
 }
 
-public class NichePreview : MonoBehaviour
+public class NichePreview : View
 {
     NicheType Niche;
 
@@ -18,17 +18,13 @@ public class NichePreview : MonoBehaviour
 
     void OnEnable()
     {
-        SetNiche(RandomEnum<NicheType>.GenerateValue(NicheType.None));
-    }
+        Debug.Log("OnEnable NichePreview");
 
-    public void SetNiche(NicheType niche)
-    {
-        Niche = niche;
-
-        GetComponent<LinkToNiche>().SetNiche(niche);
-        GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
+        IndustryType i = MenuUtils.GetIndustry(GameContext);
+        Niche = RandomEnum<GameEntity>.PickRandomItem(NicheUtils.GetNichesInIndustry(i, GameContext)).niche.NicheType;
 
         Render();
+        //RandomEnum<NicheType>.GenerateValue(NicheType.None)
     }
 
     string FormatMarketPotential(int value)
@@ -40,6 +36,9 @@ public class NichePreview : MonoBehaviour
 
     void Render()
     {
+        GetComponent<LinkToNiche>().SetNiche(Niche);
+        GetComponent<Hint>().SetHint("\n\nNiche: " + Niche.ToString());
+
         int potential = Random.Range(1000000, 100000000);
 
         MarketPotential.text = FormatMarketPotential(potential);

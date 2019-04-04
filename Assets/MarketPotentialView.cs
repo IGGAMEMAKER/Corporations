@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,14 @@ public class MarketPotentialView : View
 
     public GameObject CompetingCompanyPrefab;
 
+    GameEntity[] GetProductsOnNiche(NicheType niche)
+    {
+        return Array.FindAll(
+            GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Product)),
+            c => c.product.Niche == niche
+            );
+    }
+
     public void SetEntity(NicheType niche)
     {
         NicheType = niche;
@@ -24,7 +33,7 @@ public class MarketPotentialView : View
 
         IterationCost.text = "100";
 
-        GameEntity[] entities = GameContext.GetEntities(GameMatcher.Company);
+        GameEntity[] entities = GetProductsOnNiche(niche);
 
         CompetitorsContainer.SetItems(entities);
     }

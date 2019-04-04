@@ -21,7 +21,7 @@ namespace Assets.Utils
             return PickRandomItem(array);
         }
 
-        static T PickRandomItem(Array array)
+        public static T PickRandomItem(Array array)
         {
             int id = UnityEngine.Random.Range(0, array.Length);
 

@@ -1,24 +1,10 @@
 ﻿using Entitas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Utils
 {
-    public class NicheConstants
-    {
-        public static Dictionary<NicheType, IndustryType> NicheMap = new Dictionary<NicheType, IndustryType>
-        {
-            [NicheType.OSCommonPurpose] = IndustryType.OS,
-            [NicheType.OSSciencePurpose] = IndustryType.OS,
-
-            [NicheType.Messenger] = IndustryType.Communications,
-            [NicheType.SocialNetwork] = IndustryType.Communications,
-
-            [NicheType.SearchEngine] = IndustryType.Search
-        };
-    }
-
-
     public static class NicheUtils
     {
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameEntity e, GameContext context)
@@ -48,9 +34,14 @@ namespace Assets.Utils
             return GetPlayersOnMarket(e, context).Count();
         }
 
-        public static IndustryType GetIndustry(NicheType niche)
+        public static IndustryType GetIndustry(NicheType niche, GameContext context)
         {
-            return NicheConstants.NicheMap[niche];
+            return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
+        }
+
+        public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
+        {
+            return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
     }
 }

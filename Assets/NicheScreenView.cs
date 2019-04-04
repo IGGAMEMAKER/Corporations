@@ -16,7 +16,7 @@ public class NicheScreenView : View
     void Render()
     {
         NicheType NicheType = MenuUtils.GetNiche(GameContext);
-        IndustryType industryType = NicheUtils.GetIndustry(NicheType);
+        IndustryType industryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
         NicheName.text = "Niche: " + NicheType.ToString();
         IndustryName.text = "Is part of " + industryType.ToString() + " industry";
