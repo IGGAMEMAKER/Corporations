@@ -1,17 +1,22 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class NicheScreenView : View
+public class NicheScreenView : View, IMenuListener
 {
     public Text NicheName;
     public Text IndustryName;
     public LinkToResearchView LinkToIndustryView;
     public MarketPotentialView MarketPotentialView;
 
-    void Update()
+    void Start()
     {
-        Render();
+        MenuUtils.GetMenu(GameContext).AddMenuListener(this);
     }
+
+    //void Update()
+    //{
+    //    Render();
+    //}
 
     void Render()
     {
@@ -23,5 +28,11 @@ public class NicheScreenView : View
 
         LinkToIndustryView.SetIndustry(industryType);
         MarketPotentialView.SetEntity(NicheType);
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    {
+        if (screenMode == ScreenMode.NicheScreen)
+            Render();
     }
 }
