@@ -31,6 +31,7 @@ public class MarketInitializerSystem : IInitializeSystem
         InitializeSearchIndustry();
         InitializeOSIndustry();
         InitializeCommunicationsIndustry();
+        InitializeCloudsIndustry();
 
         CheckIndustriesWithZeroNiches();
     }
@@ -51,7 +52,7 @@ public class MarketInitializerSystem : IInitializeSystem
 
             e.AddNiche(
                 niche,
-                IndustryType.Clouds,
+                IndustryType.CloudComputing,
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
                 NicheType.None,
@@ -63,6 +64,13 @@ public class MarketInitializerSystem : IInitializeSystem
     GameEntity GetNicheEntity(NicheType nicheType)
     {
         return Array.Find(GameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+    }
+
+    void InitializeCloudsIndustry()
+    {
+        IndustryType industry = IndustryType.CloudComputing;
+
+        AttachNicheToIndustry(NicheType.CloudComputing, industry);
     }
 
     void InitializeOSIndustry()
