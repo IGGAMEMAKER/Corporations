@@ -1,47 +1,52 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using Entitas;
 using System;
-using UnityEngine;
 using UnityEngine.UI;
 
-public class IndustryScreenView : View
+public class IndustryScreenView : View, IMenuListener
 {
     IndustryType industryType;
 
     public Text IndustryName;
     public NicheListView NicheListView;
 
-    private void OnEnable()
+    void Start()
     {
-        var niches = GetNiches();
-
-        NicheListView.SetItems(niches);
+        MenuUtils.GetMenu(GameContext).AddMenuListener(this);
     }
 
-    Predicate<GameEntity> FilterNichesByIndustries(IndustryType industry)
+    void OnEnable()
+    {
+        Render();
+    }
+
+    Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
     {
         return n => n.niche.IndustryType == industry && n.niche.NicheType != NicheType.None;
     }
 
     GameEntity[] GetNiches()
     {
-        var industry = MenuUtils.GetIndustry(GameContext);
-
         var niches = GameContext.GetEntities(GameMatcher.Niche);
 
-        return Array.FindAll(niches, FilterNichesByIndustries(industry));
-    }
-
-    void Update()
-    {
-        Render();
+        return Array.FindAll(niches, FilterNichesByIndustry(industryType));
     }
 
     void Render()
     {
         industryType = MenuUtils.GetIndustry(GameContext);
 
-        IndustryName.text = industryType.ToString() + " Industry";
+        var niches = GetNiches();
+
+        NicheListView.SetItems(niches);
+
+        IndustryName.text = MarketFormattingUtils.GetFormattedIndustryName(industryType) + " Industry";
     }
 
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    {
+        if (screenMode == ScreenMode.IndustryScreen)
+            Render();
+    }
 }
