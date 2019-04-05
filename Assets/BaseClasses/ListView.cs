@@ -3,7 +3,6 @@
 public abstract class ListView : MonoBehaviour
 {
     public GameObject Prefab;
-    GameEntity[] Entities;
 
     public abstract void SetItem(Transform t, GameEntity entity);
     public virtual void DebugEntity(GameEntity entity)
@@ -13,9 +12,7 @@ public abstract class ListView : MonoBehaviour
 
     public void SetItems(GameEntity[] entities)
     {
-        Entities = entities;
-        
-        Render(Entities, gameObject);
+        Render(entities, gameObject);
     }
 
     void Render(GameEntity[] entities, GameObject Container)
@@ -23,7 +20,6 @@ public abstract class ListView : MonoBehaviour
         // remove all objects in this list
         foreach (Transform child in transform)
             Destroy(child.gameObject);
-
 
         for (int i = 0; i < entities.Length; i++)
         {
