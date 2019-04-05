@@ -33,11 +33,6 @@ namespace Assets
 
         void Start()
         {
-            Debug.Log("AudioManager Start()");
-            //sources = new Dictionary<AudioClip, AudioSource>();
-            //sounds = new Dictionary<Sound, AudioClip>();
-            Debug.Log("AudioManager Start()... sounds");
-            
             AddSound(standardClickSound, Sound.StandardClick);
             AddSound(notificationSound, Sound.Notification);
             AddSound(toggleScreenSound, Sound.Action);

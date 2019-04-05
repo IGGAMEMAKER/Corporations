@@ -27,11 +27,6 @@ public class ProjectView : View, IMenuListener
         LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
     }
 
-    //void Update()
-    //{
-    //    Render();
-    //}
-
     void Render()
     {
         CompanyName.text = SelectedCompany.company.Name;

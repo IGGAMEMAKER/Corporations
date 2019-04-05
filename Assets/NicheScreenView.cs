@@ -5,7 +5,6 @@ public class NicheScreenView : View, IMenuListener
 {
     public Text NicheName;
     public Text IndustryName;
-    public LinkToResearchView LinkToIndustryView;
     public MarketPotentialView MarketPotentialView;
 
     void Start()
@@ -21,7 +20,6 @@ public class NicheScreenView : View, IMenuListener
         NicheName.text = "Niche: " + NicheType.ToString();
         IndustryName.text = "Is part of " + industryType.ToString() + " industry";
 
-        LinkToIndustryView.SetIndustry(industryType);
         MarketPotentialView.SetEntity(NicheType);
     }
 
