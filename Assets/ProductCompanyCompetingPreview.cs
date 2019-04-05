@@ -11,14 +11,6 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     public Text Level;
     public Image Panel;
 
-    Color baseColor;
-    Color ourCompanyColor;
-
-    void SetPanelColor(Color32 c)
-    {
-        Panel.color = c;
-    }
-
     void OnDestroy()
     {
         Company.RemoveProductListener(this);
@@ -28,17 +20,14 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     public void SetEntity(GameEntity entity)
     {
         Company = entity;
+
         Company.AddProductListener(this);
         Company.AddMarketingListener(this);
 
-        if (ColorUtility.TryParseHtmlString("#FFAB04", out ourCompanyColor))
-
-        baseColor = Panel.color;
+        if (ColorUtility.TryParseHtmlString("#FFAB04", out Color ourCompanyColor))
 
         if (entity.company.Id == myProductEntity.company.Id)
-            SetPanelColor(ourCompanyColor);
-        else
-            SetPanelColor(baseColor);
+            Panel.color = ourCompanyColor;
 
         Render();
     }
@@ -50,7 +39,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
 
     void RenderProductInfo(string name, int level)
     {
-        Name.text = name; // + "(id=" + Company.company.Id + ")";
+        Name.text = name;
         Level.text = level + "";
     }
 
