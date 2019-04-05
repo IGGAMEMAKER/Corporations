@@ -11,8 +11,6 @@ public class NicheScreenView : View, IMenuListener
     void Start()
     {
         ListenMenuChanges(this);
-
-        Render();
     }
 
     void Render()

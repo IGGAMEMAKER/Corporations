@@ -6,6 +6,10 @@ public abstract class ListView : MonoBehaviour
     GameEntity[] Entities;
 
     public abstract void SetItem(Transform t, GameEntity entity);
+    public virtual void DebugEntity(GameEntity entity)
+    {
+
+    }
 
     public void SetItems(GameEntity[] entities)
     {
@@ -14,53 +18,22 @@ public abstract class ListView : MonoBehaviour
         Render(Entities, gameObject);
     }
 
-    void RemoveInstances(int amount, GameObject Container)
-    {
-        //foreach (Transform child in Container.transform)
-        //    Destroy(child.gameObject);
-
-        //SpawnInstances(list.Length - 1, Container);
-
-        for (var i = 0; i < amount; i++)
-        {
-            Debug.Log("Removing instance " + i + "/" + amount);
-
-            //Destroy(Container.transform.GetChild(0).gameObject);
-            Destroy(Container.transform.GetChild(Container.transform.childCount - 1).gameObject);
-        }
-    }
-
-    void SpawnInstances(int amount, GameObject Container)
-    {
-        Debug.Log("SpawnInstances " + amount);
-
-        for (var i = 0; i < amount; i++)
-            Instantiate(Prefab, Container.transform, false);
-    }
-
-    void ProvideEnoughInstances(GameEntity[] list, GameObject Container)
-    {
-        int childCount = Container.transform.childCount;
-
-        int listCount = list.Length;
-
-        Debug.Log("We need to print " + listCount + " objects , but we have " + childCount + " already");
-
-        if (listCount < childCount)
-            RemoveInstances(childCount - listCount, Container);
-        else
-            SpawnInstances(listCount - childCount, Container);
-    }
-
     void Render(GameEntity[] entities, GameObject Container)
     {
-        ProvideEnoughInstances(entities, Container);
+        // remove all objects in this list
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+
 
         for (int i = 0; i < entities.Length; i++)
         {
-            Debug.Log("Setting item " + i + " ");
+            var e = entities[i];
 
-            SetItem(Container.transform.GetChild(i), entities[i]);
+            DebugEntity(e);
+
+            var o = Instantiate(Prefab, transform, false);
+
+            SetItem(o.transform, e);
         }
     }
 }

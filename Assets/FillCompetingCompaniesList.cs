@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class FillCompetingCompaniesList : View, IMenuListener
@@ -22,17 +23,12 @@ public class FillCompetingCompaniesList : View, IMenuListener
         ListenMenuChanges(this);
     }
 
-    void OnEnable()
-    {
-        Debug.Log("OnEnable FillCompetingCompaniesList");
-
-        Render();
-    }
-
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
         if (screenMode == ScreenMode.NicheScreen)
+        {
             Render();
+        }
     }
 
     void Render()
@@ -41,7 +37,11 @@ public class FillCompetingCompaniesList : View, IMenuListener
 
         GameEntity[] entities = GetProductsOnNiche(niche);
 
-        Debug.Log("Will print " + entities.Length + " products");
+        string names = String.Join(",", entities.Select(e => e.product.Name).ToArray());
+
+        Debug.Log("Rendering companies: " + names);
+
+        //Debug.Log("Will print " + entities.Length + " products");
 
         CompetingCompaniesListView.SetItems(entities);
     }
