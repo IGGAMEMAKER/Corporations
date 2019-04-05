@@ -24,6 +24,8 @@ public class FillCompetingCompaniesList : View, IMenuListener
 
     void OnEnable()
     {
+        Debug.Log("OnEnable FillCompetingCompaniesList");
+
         Render();
     }
 

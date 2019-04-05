@@ -2,6 +2,8 @@
 using Assets.Utils.Formatting;
 using Entitas;
 using System;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class IndustryScreenView : View, IMenuListener
@@ -13,12 +15,7 @@ public class IndustryScreenView : View, IMenuListener
 
     void Start()
     {
-        MenuUtils.GetMenu(GameContext).AddMenuListener(this);
-    }
-
-    void OnEnable()
-    {
-        Render();
+        ListenMenuChanges(this);
     }
 
     Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
@@ -36,8 +33,13 @@ public class IndustryScreenView : View, IMenuListener
     void Render()
     {
         industryType = MenuUtils.GetIndustry(GameContext);
+        Debug.Log("IndustryScreen Render " + industryType.ToString());
 
         var niches = GetNiches();
+
+        string concat = String.Join(",", niches.Select(e => e.niche.NicheType.ToString()).ToArray());
+
+        Debug.Log("Found niches: " + concat);
 
         NicheListView.SetItems(niches);
 

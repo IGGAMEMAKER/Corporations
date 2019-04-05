@@ -16,28 +16,30 @@ public abstract class ListView : MonoBehaviour
 
     void RemoveInstances(int amount, GameObject Container)
     {
+        //foreach (Transform child in Container.transform)
+        //    Destroy(child.gameObject);
+
+        //SpawnInstances(list.Length - 1, Container);
+
         for (var i = 0; i < amount; i++)
         {
             Debug.Log("Removing instance " + i + "/" + amount);
-            Destroy(Container.transform.GetChild(0).gameObject);
-            //Destroy(Container.transform.GetChild(Container.transform.childCount - 1).gameObject);
+
+            //Destroy(Container.transform.GetChild(0).gameObject);
+            Destroy(Container.transform.GetChild(Container.transform.childCount - 1).gameObject);
         }
     }
 
     void SpawnInstances(int amount, GameObject Container)
     {
         Debug.Log("SpawnInstances " + amount);
+
         for (var i = 0; i < amount; i++)
             Instantiate(Prefab, Container.transform, false);
     }
 
     void ProvideEnoughInstances(GameEntity[] list, GameObject Container)
     {
-        //foreach (Transform child in Container.transform)
-        //    Destroy(child.gameObject);
-
-        //SpawnInstances(list.Length - 1, Container);
-
         int childCount = Container.transform.childCount;
 
         int listCount = list.Length;
@@ -55,6 +57,10 @@ public abstract class ListView : MonoBehaviour
         ProvideEnoughInstances(entities, Container);
 
         for (int i = 0; i < entities.Length; i++)
+        {
+            Debug.Log("Setting item " + i + " ");
+
             SetItem(Container.transform.GetChild(i), entities[i]);
+        }
     }
 }
