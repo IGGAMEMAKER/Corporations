@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProjectView : View
+public class ProjectView : View, IMenuListener
 {
     public Text CompanyName;
     public Text CompanyTypeLabel;
@@ -10,12 +10,15 @@ public class ProjectView : View
     public GameObject ShareholderPreviewPrefab;
     public GameObject ShareholderContainer;
 
+    public LinkToNiche LinkToNiche;
     public GameObject NicheLabel;
     public Text NicheName;
     public GameObject NicheExpectations;
 
-    void Update()
+    void Start()
     {
+        ListenMenuChanges(this);
+
         Render();
     }
 
@@ -23,6 +26,11 @@ public class ProjectView : View
     {
         LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
     }
+
+    //void Update()
+    //{
+    //    Render();
+    //}
 
     void Render()
     {
@@ -69,6 +77,8 @@ public class ProjectView : View
         ToggleNicheObjects(true);
 
         NicheType niche = SelectedCompany.product.Niche;
+
+        LinkToNiche.SetNiche(niche);
 
         NicheName.text = niche.ToString();
         NicheName.gameObject.GetComponent<LinkToNiche>().SetNiche(niche);
@@ -132,6 +142,17 @@ public class ProjectView : View
                 .SetEntity(e.Key, e.Value, totalShares);
 
             index++;
+        }
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    {
+        Debug.Log("OnMenu Check in ProjectView.cs " + screenMode.ToString());
+        if (screenMode == ScreenMode.ProjectScreen)
+        {
+            Debug.Log("render projectScreen");
+
+            Render();
         }
     }
 }
