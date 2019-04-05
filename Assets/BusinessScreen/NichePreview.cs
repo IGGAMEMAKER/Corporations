@@ -16,7 +16,7 @@ public class NichePreview : View
     NicheType Niche;
 
     public Text MarketPotential;
-    public Text Risk;
+    //public Text Risk;
     public TextMeshProUGUI NicheName;
     public LinkToNiche LinkToNiche;
 
@@ -49,6 +49,6 @@ public class NichePreview : View
 
         MarketPotential.text = GetFormattedMarketPotential();
 
-        Risk.text = RandomEnum<Risk>.GenerateValue().ToString();
+        //Risk.text = RandomEnum<Risk>.GenerateValue().ToString();
     }
 }

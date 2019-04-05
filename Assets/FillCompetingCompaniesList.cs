@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class FillCompetingCompaniesList : View, IMenuListener
 {
-    public CompetingCompaniesListView CompetingCompaniesListView;
-
     GameEntity[] GetProductsOnNiche(NicheType niche)
     {
         Debug.Log("GetProductsOnNiche " + niche.ToString());
@@ -41,8 +39,6 @@ public class FillCompetingCompaniesList : View, IMenuListener
 
         Debug.Log("Rendering companies: " + names);
 
-        //Debug.Log("Will print " + entities.Length + " products");
-
-        CompetingCompaniesListView.SetItems(entities);
+        GetComponent<CompetingCompaniesListView>().SetItems(entities);
     }
 }

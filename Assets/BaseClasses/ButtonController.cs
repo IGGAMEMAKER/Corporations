@@ -44,7 +44,10 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     void RemoveListener()
     {
-        Button.onClick.RemoveListener(Execute);
+        if (Button)
+            Button.onClick.RemoveListener(Execute);
+        else
+            Debug.Log("This component is not assigned to Button. It is assigned to" + gameObject.name);
     }
 
     public void NavigateToNiche(NicheType niche)

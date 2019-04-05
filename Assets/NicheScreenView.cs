@@ -1,15 +1,15 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class NicheScreenView : View, IMenuListener
+public class NicheScreenView : View
 {
     public Text NicheName;
     public Text IndustryName;
     public MarketPotentialView MarketPotentialView;
 
-    void Start()
+    void OnEnable()
     {
-        ListenMenuChanges(this);
+        Render();
     }
 
     void Render()
@@ -21,11 +21,5 @@ public class NicheScreenView : View, IMenuListener
         IndustryName.text = "Is part of " + IndustryType.ToString() + " industry";
 
         MarketPotentialView.SetEntity(NicheType);
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        if (screenMode == ScreenMode.NicheScreen)
-            Render();
     }
 }

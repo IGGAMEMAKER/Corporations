@@ -11,12 +11,6 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     public Text Level;
     public Image Panel;
 
-    void OnDestroy()
-    {
-        Company.RemoveProductListener(this);
-        Company.RemoveMarketingListener(this);
-    }
-
     public void SetEntity(GameEntity entity)
     {
         Company = entity;
@@ -52,11 +46,13 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)
     {
+        Debug.Log("OnProduct Competing preview");
         RenderProductInfo(name, productLevel);
     }
 
     void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
     {
+        Debug.Log("OnMarketing Competing preview");
         RenderClients(clients);
     }
 }
