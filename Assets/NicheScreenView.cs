@@ -15,10 +15,10 @@ public class NicheScreenView : View, IMenuListener
     void Render()
     {
         NicheType NicheType = MenuUtils.GetNiche(GameContext);
-        IndustryType industryType = NicheUtils.GetIndustry(NicheType, GameContext);
+        IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
         NicheName.text = "Niche: " + NicheType.ToString();
-        IndustryName.text = "Is part of " + industryType.ToString() + " industry";
+        IndustryName.text = "Is part of " + IndustryType.ToString() + " industry";
 
         MarketPotentialView.SetEntity(NicheType);
     }
