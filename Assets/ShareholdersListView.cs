@@ -7,15 +7,7 @@ public class ShareholdersListView : ListView
     {
         var e = (KeyValuePair<int, int>) (object) entity;
 
-        if (t != null)
-        {
-            var c = t.GetComponent<ShareholderPreviewView>();
-
-            c.SetEntity(e.Key, e.Value);
-        }
-        else
-        {
-            Debug.Log("T is null in ShareholdersListView");
-        }
+        t.GetComponent<ShareholderPreviewView>()
+            .SetEntity(e.Key, e.Value);
     }
 }
