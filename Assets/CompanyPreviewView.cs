@@ -1,6 +1,5 @@
 ﻿using Assets.Classes;
 using Assets.Utils.Formatting;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyPreviewView : View,
@@ -15,9 +14,6 @@ public class CompanyPreviewView : View,
     public void SetEntity(GameEntity entity)
     {
         _entity = entity;
-
-        Debug.Log($"RegisterListeners CompanyPreviewView");
-
         _entity.AddProductListener(this);
 
         Render(_entity);

@@ -21,10 +21,10 @@
         {
             switch (industry)
             {
-                case IndustryType.CloudComputing: return "Cloud computing";
-                case IndustryType.Communications: return "Communications";
                 case IndustryType.OS: return "Operation Systems";
                 case IndustryType.Search: return "Search Engines";
+                case IndustryType.CloudComputing: return "Cloud computing";
+                case IndustryType.Communications: return "Communications";
 
                 default: return "Unknown Industry: " + industry.ToString();
             }
