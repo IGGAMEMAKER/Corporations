@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -18,6 +19,129 @@ namespace Assets.Utils
         public static int GenerateShareholderId(GameContext context)
         {
             return context.GetEntities(GameMatcher.Shareholder).Length;
+        }
+
+        public static void GenerateProduct(GameContext context, string name, NicheType niche, int id)
+        {
+            IndustryType industry = NicheUtils.GetIndustry(niche, context);
+
+            var resources = new Classes.TeamResource(100, 100, 100, 100, 10000);
+
+            uint clients = (uint)UnityEngine.Random.Range(0, 10000);
+            int brandPower = UnityEngine.Random.Range(0, 15);
+
+            int productLevel = 0;
+            int explorationLevel = productLevel;
+
+            var e = context.CreateEntity();
+            e.AddCompany(id, name, CompanyType.ProductCompany);
+
+            // product specific components
+            e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
+            e.AddFinance(0, 0, 0, 5f);
+            e.AddTeam(1, 0, 0, 100);
+            e.AddMarketing(clients, brandPower, false);
+        }
+
+        public static int GenerateProduct(GameContext context, string name, NicheType niche)
+        {
+            int id = GenerateCompanyId(context); // GenerateId();
+
+            GenerateProduct(context, name, niche, id);
+
+            return id;
+        }
+
+        public static void SetPlayerControlledCompany(GameContext context, int id)
+        {
+            var c = GetCompanyById(context, id);
+
+            c.isControlledByPlayer = true;
+            c.isSelectedCompany = true;
+        }
+
+        public static void RemovePlayerControlledCompany(GameContext context, int id)
+        {
+            GetCompanyById(context, id).isControlledByPlayer = false;
+        }
+
+        public static int GenerateInvestmentFund(GameContext context, string name, long money)
+        {
+            var e = context.CreateEntity();
+
+            int id = GenerateCompanyId(context); // GenerateId();
+            int investorId = GenerateShareholderId(context);
+
+            e.AddCompany(id, name, CompanyType.FinancialGroup);
+            BecomeInvestor(context, e, money);
+
+            return investorId;
+        }
+
+        public static int BecomeInvestor(GameContext context, GameEntity e, long money)
+        {
+            int investorId = GenerateShareholderId(context); // GenerateInvestorId();
+
+            string name = "Investor?";
+
+            // company
+            if (e.hasCompany)
+                name = e.company.Name;
+
+            // or human
+            // TODO turn human to investor
+
+            e.AddShareholder(investorId, name, money);
+
+            return investorId;
+        }
+
+        public static int GenerateHoldingCompany(GameContext context, string name)
+        {
+            var e = context.CreateEntity();
+
+            int id = GenerateCompanyId(context); // GenerateId();
+
+            e.AddCompany(id, name, CompanyType.Holding);
+            BecomeInvestor(context, e, 0);
+
+            return id;
+        }
+
+        public static void AttachToHolding(GameContext context, int parent, int subsidiary)
+        {
+            var p = GetCompanyById(context, parent);
+            var s = GetCompanyById(context, subsidiary);
+
+            Dictionary<int, int> shareholders = new Dictionary<int, int>();
+            shareholders.Add(p.shareholder.Id, 100);
+
+            if (s.hasShareholders)
+                s.ReplaceShareholders(shareholders);
+            else
+                s.AddShareholders(shareholders);
+        }
+
+        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            Dictionary<int, int> shareholders;
+
+            if (!c.hasShareholders)
+            {
+                shareholders = new Dictionary<int, int>();
+                shareholders[investorId] = shares;
+
+                c.AddShareholders(shareholders);
+            }
+            else
+            {
+                shareholders = c.shareholders.Shareholders;
+                shareholders[investorId] = shares;
+
+                c.ReplaceShareholders(shareholders);
+            }
         }
     }
 }
