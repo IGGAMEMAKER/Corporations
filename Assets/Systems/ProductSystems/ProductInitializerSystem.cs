@@ -10,6 +10,11 @@ public class ProductInitializerSystem : IInitializeSystem
         GameContext = contexts.game;
     }
 
+    void IInitializeSystem.Initialize()
+    {
+        Initialize();
+    }
+
     int GenerateProduct (string name, NicheType nicheType)
     {
         return CompanyUtils.GenerateProduct(GameContext, name, nicheType);
@@ -40,7 +45,7 @@ public class ProductInitializerSystem : IInitializeSystem
         CompanyUtils.SetPlayerControlledCompany(GameContext, companyId);
     }
 
-    void IInitializeSystem.Initialize()
+    void Initialize()
     {
         // products
         GenerateProduct("facebook", NicheType.SocialNetwork);

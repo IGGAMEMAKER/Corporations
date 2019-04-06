@@ -21,7 +21,7 @@ namespace Assets.Utils
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
         }
 
-        public static int GenerateShareholderId(GameContext context)
+        public static int GenerateInvestorId(GameContext context)
         {
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
@@ -75,7 +75,7 @@ namespace Assets.Utils
             var e = context.CreateEntity();
 
             int id = GenerateCompanyId(context); // GenerateId();
-            int investorId = GenerateShareholderId(context);
+            int investorId = GenerateInvestorId(context);
 
             e.AddCompany(id, name, CompanyType.FinancialGroup);
             BecomeInvestor(context, e, money);
@@ -85,7 +85,7 @@ namespace Assets.Utils
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {
-            int investorId = GenerateShareholderId(context); // GenerateInvestorId();
+            int investorId = GenerateInvestorId(context); // GenerateInvestorId();
 
             string name = "Investor?";
 

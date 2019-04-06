@@ -1,8 +1,11 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 
 public class FillCompanyOwnings : View
     ,IMenuListener
+    ,IAnyShareholdersListener
+    //,IShareholdersListener
 {
     void Start()
     {
@@ -11,12 +14,31 @@ public class FillCompanyOwnings : View
         Render();
     }
 
+    void OnEnable()
+    {
+        if (!SelectedCompany.hasAnyShareholdersListener)
+            SelectedCompany.AddAnyShareholdersListener(this);
+
+        Render();
+    }
+
+    void OnDisable()
+    {
+        if (SelectedCompany.hasAnyShareholdersListener)
+            SelectedCompany.RemoveAnyShareholdersListener(this);
+    }
+
+    GameEntity[] GetInvestableCompanies()
+    {
+        return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+    }
+
     GameEntity[] GetOwnings()
     {
         if (!SelectedCompany.hasShareholder)
             return new GameEntity[0];
 
-        var investableCompanies = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+        var investableCompanies = GetInvestableCompanies();
 
         int shareholderId = SelectedCompany.shareholder.Id;
 
@@ -34,5 +56,10 @@ public class FillCompanyOwnings : View
     {
         if (screenMode == ScreenMode.BusinessScreen)
             Render();
+    }
+
+    void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, int> shareholders)
+    {
+        Render();
     }
 }

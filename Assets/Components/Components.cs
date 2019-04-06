@@ -38,6 +38,19 @@ public enum CompanyType
     Corporation
 }
 
+public enum ScreenMode
+{
+    DevelopmentScreen,
+    MarketingScreen,
+    ProjectScreen,
+    BusinessScreen,
+    TeamScreen,
+    StatsScreen,
+    InvesmentsScreen,
+    IndustryScreen,
+    NicheScreen
+}
+
 public interface IEventListener
 {
     void RegisterListeners(IEntity entity);
@@ -128,7 +141,7 @@ public class RuledByComponent : IComponent
 }
 
 // is attached to CompanyComponent
-[Game]
+[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class ShareholdersComponent : IComponent
 {
     public Dictionary<int, int> Shareholders; // investorId => amountOfShares
@@ -153,19 +166,6 @@ public class PositionComponent : IComponent
 {
     public float x;
     public float y;
-}
-
-public enum ScreenMode
-{
-    DevelopmentScreen,
-    MarketingScreen,
-    ProjectScreen,
-    BusinessScreen,
-    TeamScreen,
-    StatsScreen,
-    InvesmentsScreen,
-    IndustryScreen,
-    NicheScreen
 }
 
 public class TaskComponent: IComponent
