@@ -33,7 +33,7 @@ public class CompanyPreviewView : View, IEventListener, IProductListener, IBegin
         switch (entity.company.CompanyType)
         {
             case CompanyType.ProductCompany: text = "Product Company"; break;
-            case CompanyType.Holding: text = "Holding"; break;
+            case CompanyType.Holding: text = "Holding Company"; break;
             case CompanyType.Corporation: text = "Corporation"; break;
             case CompanyType.FinancialGroup: text = "Financial Group"; break;
             case CompanyType.Group: text = "Group of companies"; break;
