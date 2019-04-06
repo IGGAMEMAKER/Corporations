@@ -1,4 +1,5 @@
-﻿using Assets.Visuals;
+﻿using Assets.Utils;
+using Assets.Visuals;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,14 +29,25 @@ public class CompanyDragController : View,
         transform.position = Input.mousePosition;
     }
 
+    int GetCompanyIdByGameObject(GameObject obj)
+    {
+        return obj.GetComponent<LinkToCompanyPreview>().CompanyId;
+    }
+
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
+        if (targetItem)
+        {
+            Debug.Log("We will merge companies!");
+
+            int parent = GetCompanyIdByGameObject(targetItem);
+            int subsidiary = GetCompanyIdByGameObject(itemBeingDragged);
+
+            CompanyUtils.AttachToHolding(GameContext, parent, subsidiary);
+        }
+
         itemBeingDragged = null;
         Debug.Log("OnEndDrag " + GetCompanyName());
-
-        if (targetItem)
-            Debug.Log("We need to merge companies!");
-
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

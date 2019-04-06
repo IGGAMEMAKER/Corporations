@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -129,6 +130,8 @@ namespace Assets.Utils
         {
             var p = GetCompanyById(context, parent);
             var s = GetCompanyById(context, subsidiary);
+
+            Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
 
             Dictionary<int, int> shareholders = new Dictionary<int, int>();
             shareholders.Add(p.shareholder.Id, 100);
