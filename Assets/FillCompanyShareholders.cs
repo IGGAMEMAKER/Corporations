@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
-public class FillCompanyShareholders : View
+public class FillCompanyShareholders : View, IMenuListener
 {
-    ShareholdersListView ShareholdersListView;
-
-    private void OnEnable()
+    void Start()
     {
+        ListenMenuChanges(this);
+
         Render();
     }
 
     void Render()
     {
-        //var shareholders = GetShareholders();
+        var shareholders = GetShareholders();
 
-        //int totalShares = GetTotalShares(shareholders);
-
-        //ShareholdersListView = GetComponent<ShareholdersListView>();
-        //ShareholdersListView.SetItems(shareholders, totalShares);
+        GetComponent
+            <ShareholdersListView>()
+            .SetItems(shareholders.ToArray());
     }
 
     Dictionary<int, int> GetShareholders()
@@ -29,12 +29,9 @@ public class FillCompanyShareholders : View
         return shareholders;
     }
 
-    int GetTotalShares(Dictionary<int, int> shareholders)
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        int totalShares = 0;
-        foreach (var e in shareholders)
-            totalShares += e.Value;
-
-        return totalShares;
+        if (screenMode == ScreenMode.ProjectScreen)
+            Render();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,26 +14,39 @@ public class ShareholderPreviewView : View
     public Text SharesLabel;
     public Hint SharesAmountHint;
 
-    public LinkToCompanyPreview LinkToCompanyPreview;
+    LinkToCompanyPreview LinkToCompanyPreview;
 
     GameEntity ShareholderEntity;
 
-    public void SetEntity(int shareholderId, int shares, int totalShares)
+    public void SetEntity(int shareholderId, int shares)
     {
         var investorGroup = GameContext.GetEntities(GameMatcher.Shareholder);
 
         ShareholderId = shareholderId;
         Shares = shares;
-        TotalShares = totalShares;
+
+        TotalShares = GetTotalShares(SelectedCompany.shareholders.Shareholders);
 
         ShareholderEntity = Array.Find(investorGroup, s => s.shareholder.Id == shareholderId);
 
         Render();
     }
 
+    int GetTotalShares(Dictionary<int, int> shareholders)
+    {
+        int totalShares = 0;
+        foreach (var e in shareholders)
+            totalShares += e.Value;
+
+        return totalShares;
+    }
+
     int GetCompanyIdByInvestorId(int shareholderId)
     {
-        return Array.Find(GameContext.GetEntities(GameMatcher.Shareholder), e => e.shareholder.Id == shareholderId).company.Id;
+        return Array.Find(
+            GameContext.GetEntities(GameMatcher.Shareholder),
+            e => e.shareholder.Id == shareholderId
+            ).company.Id;
     }
 
     void AddLinkIfPossible()

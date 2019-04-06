@@ -8,10 +8,7 @@ public abstract class ListView : MonoBehaviour
     // but you can use other data types if you need
 
     public abstract void SetItem<T>(Transform t, T entity, object data = null);
-    public virtual void DebugEntity<T>(T entity)
-    {
-
-    }
+    //public virtual void DebugEntity<T>(T entity) { }
 
     public void SetItems<T>(T[] entities, object data = null)
     {
@@ -28,10 +25,6 @@ public abstract class ListView : MonoBehaviour
             //for (int i = 0; i < entities.Length; i++)
         foreach (var e in entities)
         {
-            //var e = entities[i];
-
-            DebugEntity(e);
-
             var o = Instantiate(Prefab, transform, false);
 
             SetItem(o.transform, e, data);

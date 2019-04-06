@@ -18,7 +18,6 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
 
     void Render()
     {
-        Debug.Log("RenderNicheInfoInProjectScreen:" + SelectedCompany.company.Name + " " + SelectedCompany.company.CompanyType.ToString());
         bool canRenderNiche = SelectedCompany.company.CompanyType == CompanyType.ProductCompany;
 
         ToggleNicheObjects(canRenderNiche);
@@ -34,8 +33,6 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
 
     private void RenderNicheTab()
     {
-        Debug.Log("RenderNicheTab");
-
         NicheType niche = SelectedCompany.product.Niche;
 
         NicheName.text = MarketFormattingUtils.GetFormattedNicheName(niche);
