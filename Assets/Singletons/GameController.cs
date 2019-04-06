@@ -31,8 +31,14 @@ public class GameController : MonoBehaviour
     Systems _systems;
     public Canvas Canvas;
 
+    private void OnEnable()
+    {
+        Canvas.gameObject.SetActive(false);
+    }
+
     void Start()
     {
+
         // get a reference to the contexts
         var contexts = Contexts.sharedInstance;
 

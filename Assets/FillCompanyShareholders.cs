@@ -32,7 +32,6 @@ public class FillCompanyShareholders : View
     int GetTotalShares(Dictionary<int, int> shareholders)
     {
         int totalShares = 0;
-
         foreach (var e in shareholders)
             totalShares += e.Value;
 

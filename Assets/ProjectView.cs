@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class ProjectView : View, IMenuListener
 {
@@ -21,8 +20,6 @@ public class ProjectView : View, IMenuListener
 
     void Render()
     {
-        //Debug.Log("render projectScreen");
-
         CompanyName.text = SelectedCompany.company.Name;
 
         CompanyTypeLabel.text = SelectedCompany.company.CompanyType.ToString();
@@ -32,7 +29,6 @@ public class ProjectView : View, IMenuListener
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        //Debug.Log("OnMenu Check in ProjectView.cs " + screenMode.ToString());
         if (screenMode == ScreenMode.ProjectScreen)
             Render();
     }
