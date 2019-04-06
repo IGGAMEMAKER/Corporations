@@ -2,8 +2,8 @@
 
 public class NicheListView : ListView
 {
-    public override void SetItem(Transform t, GameEntity gameEntity)
+    public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<NichePreview>().SetNiche(gameEntity);
+        t.GetComponent<NichePreview>().SetNiche(entity as GameEntity);
     }
 }

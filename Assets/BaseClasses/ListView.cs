@@ -4,32 +4,37 @@ public abstract class ListView : MonoBehaviour
 {
     public GameObject Prefab;
 
-    public abstract void SetItem(Transform t, GameEntity entity);
-    public virtual void DebugEntity(GameEntity entity)
+    // T is gameEntity in most cases
+    // but you can use other data types if you need
+
+    public abstract void SetItem<T>(Transform t, T entity, object data = null);
+    public virtual void DebugEntity<T>(T entity)
     {
 
     }
 
-    public void SetItems(GameEntity[] entities)
+    public void SetItems<T>(T[] entities, object data = null)
     {
         Render(entities, gameObject);
     }
 
-    void Render(GameEntity[] entities, GameObject Container)
+    void Render<T>(T[] entities, GameObject Container, object data = null)
     {
         // remove all objects in this list
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
-        for (int i = 0; i < entities.Length; i++)
+
+            //for (int i = 0; i < entities.Length; i++)
+        foreach (var e in entities)
         {
-            var e = entities[i];
+            //var e = entities[i];
 
             DebugEntity(e);
 
             var o = Instantiate(Prefab, transform, false);
 
-            SetItem(o.transform, e);
+            SetItem(o.transform, e, data);
         }
     }
 }

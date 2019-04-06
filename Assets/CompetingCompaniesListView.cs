@@ -2,9 +2,11 @@
 
 public class CompetingCompaniesListView : ListView
 {
-    public override void SetItem(Transform t, GameEntity entity)
+    public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponentInChildren<LinkToCompanyPreview>().CompanyId = entity.company.Id;
-        t.GetComponentInChildren<ProductCompanyCompetingPreview>().SetEntity(entity);
+        var e = entity as GameEntity;
+
+        t.GetComponentInChildren<LinkToCompanyPreview>().CompanyId = e.company.Id;
+        t.GetComponentInChildren<ProductCompanyCompetingPreview>().SetEntity(e);
     }
 }
