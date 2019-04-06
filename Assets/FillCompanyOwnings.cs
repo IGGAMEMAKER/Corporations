@@ -7,6 +7,8 @@ public class FillCompanyOwnings : View
     ,IAnyShareholdersListener
     //,IShareholdersListener
 {
+    bool SortingOrder = false;
+
     void Start()
     {
         ListenMenuChanges(this);
@@ -33,6 +35,13 @@ public class FillCompanyOwnings : View
         return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
     }
 
+    public void ToggleSortingOrder()
+    {
+        SortingOrder = !SortingOrder;
+
+        Render();
+    }
+
     GameEntity[] GetOwnings()
     {
         if (!SelectedCompany.hasShareholder)
@@ -42,7 +51,12 @@ public class FillCompanyOwnings : View
 
         int shareholderId = SelectedCompany.shareholder.Id;
 
-        return Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
+        var arr = Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
+
+        if (SortingOrder)
+            Array.Reverse(arr);
+
+        return arr;
     }
 
     void Render()
