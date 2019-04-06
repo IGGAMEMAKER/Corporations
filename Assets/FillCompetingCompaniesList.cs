@@ -19,6 +19,8 @@ public class FillCompetingCompaniesList : View, IMenuListener
     void Start()
     {
         ListenMenuChanges(this);
+
+        Render();
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
