@@ -4,7 +4,8 @@ public class CreateCompanyGroupController : ButtonController
 {
     public override void Execute()
     {
-        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, "New Company Group");
+        int newGroupName = CompanyUtils.GenerateCompanyId(GameContext);
+        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, "Company Group " + newGroupName);
 
         int investorId = CompanyUtils.GetCompanyByName(GameContext, "Alphabet").shareholder.Id;
 

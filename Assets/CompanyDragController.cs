@@ -6,9 +6,17 @@ public class CompanyDragController : View,
     IBeginDragHandler,
     IDragHandler,
     IEndDragHandler,
-    IPointerEnterHandler
+    IPointerEnterHandler,
+    IPointerUpHandler,
+    IPointerExitHandler
 {
     public static GameObject itemBeingDragged;
+    public static GameObject targetItem;
+
+    string GetCompanyName()
+    {
+        return GetComponent<CompanyPreviewView>()._entity.company.Name;
+    }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
@@ -23,17 +31,33 @@ public class CompanyDragController : View,
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
         itemBeingDragged = null;
+        Debug.Log("OnEndDrag " + GetCompanyName());
 
-        Debug.Log("OnEndDrag");
+        if (targetItem)
+            Debug.Log("We need to merge companies!");
+
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        string name = GetComponent<CompanyPreviewView>()._entity.company.Name;
-
-        Debug.Log("Hovering company " + name);
+        Debug.Log("Hovering company " + GetCompanyName());
 
         if (itemBeingDragged != null && itemBeingDragged != gameObject)
+        {
             gameObject.AddComponent<DroppableAnimation>();
+            targetItem = gameObject;
+        }
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("OnPointerExit " + GetCompanyName());
+
+        targetItem = null;
+    }
+
+    void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log("OnPointerUp " + GetCompanyName());
     }
 }
