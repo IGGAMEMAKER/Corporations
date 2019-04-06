@@ -128,7 +128,7 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.GenerateShareholderId(GameContext);
     }
 
-    void AddShareholders(int companyId, int investorId, int shares)
+    void AddShareholder(int companyId, int investorId, int shares)
     {
         var c = GetCompanyById(companyId);
 
@@ -177,7 +177,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
 
-        AddShareholders(alphabet, investorId, 100);
-        AddShareholders(alphabet, investorId2, 200);
+        AddShareholder(alphabet, investorId, 100);
+        AddShareholder(alphabet, investorId2, 200);
     }
 }

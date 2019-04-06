@@ -14,8 +14,7 @@ public class FillCompanyShareholders : View, IMenuListener
     {
         var shareholders = GetShareholders();
 
-        GetComponent
-            <ShareholdersListView>()
+        GetComponent<ShareholdersListView>()
             .SetItems(shareholders.ToArray());
     }
 
