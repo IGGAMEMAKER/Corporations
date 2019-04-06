@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils.Formatting
 {
-    public static class MarketFormattingUtils
+    public static class EnumFormattingUtils
     {
         public static string GetFormattedNicheName(NicheType niche)
         {
@@ -27,6 +27,20 @@
                 case IndustryType.Search: return "Search Engines";
 
                 default: return "Unknown Industry: " + industry.ToString();
+            }
+        }
+
+        public static string GetFormattedCompanyType(CompanyType companyType)
+        {
+            switch (companyType)
+            {
+                case CompanyType.ProductCompany: return "Product Company";
+                case CompanyType.Holding: return "Holding Company";
+                case CompanyType.Corporation: return "Corporation";
+                case CompanyType.FinancialGroup: return "Financial Group";
+                case CompanyType.Group: return "Group of companies";
+
+                default: return "WUT " + companyType.ToString();
             }
         }
     }

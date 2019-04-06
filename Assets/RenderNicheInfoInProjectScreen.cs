@@ -35,7 +35,7 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
     {
         NicheType niche = SelectedCompany.product.Niche;
 
-        NicheName.text = MarketFormattingUtils.GetFormattedNicheName(niche);
+        NicheName.text = EnumFormattingUtils.GetFormattedNicheName(niche);
 
         LinkToNiche.SetNiche(niche);
     }

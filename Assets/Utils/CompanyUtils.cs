@@ -19,7 +19,5 @@ namespace Assets.Utils
         {
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
-
-
     }
 }

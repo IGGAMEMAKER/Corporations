@@ -20,7 +20,7 @@ public class IndustryScreenView : View, IMenuListener
     {
         industryType = MenuUtils.GetIndustry(GameContext);
 
-        IndustryName.text = MarketFormattingUtils.GetFormattedIndustryName(industryType) + " Industry";
+        IndustryName.text = EnumFormattingUtils.GetFormattedIndustryName(industryType) + " Industry";
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)

@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using Assets.Utils.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,33 +16,16 @@ public class CompanyPreviewView : View,
     {
         _entity = entity;
 
-        Render(_entity);
-    }
-
-    void Start()
-    {
         Debug.Log($"RegisterListeners CompanyPreviewView");
 
         _entity.AddProductListener(this);
-    }
 
-    string FormatCompanyType(CompanyType companyType)
-    {
-        switch (companyType)
-        {
-            case CompanyType.ProductCompany: return "Product Company";
-            case CompanyType.Holding: return "Holding Company";
-            case CompanyType.Corporation: return "Corporation";
-            case CompanyType.FinancialGroup: return "Financial Group";
-            case CompanyType.Group: return "Group of companies";
-
-            default: return "WUT " + companyType.ToString();
-        }
+        Render(_entity);
     }
 
     void RenderCompanyType(GameEntity entity)
     {
-        CompanyTypeLabel.text = FormatCompanyType(entity.company.CompanyType);
+        CompanyTypeLabel.text = EnumFormattingUtils.GetFormattedCompanyType(entity.company.CompanyType);
     }
 
     void RenderCompanyName(GameEntity entity)
