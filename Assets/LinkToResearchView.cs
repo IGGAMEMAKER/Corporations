@@ -1,4 +1,6 @@
-﻿public class LinkToResearchView : ButtonController
+﻿using UnityEngine;
+
+public class LinkToResearchView : ButtonController
 {
     IndustryType IndustryType;
 
@@ -9,6 +11,7 @@
 
     public override void Execute()
     {
+        Debug.Log("Navigate to industry " + IndustryType.ToString());
         NavigateToIndustry(IndustryType);
     }
 }

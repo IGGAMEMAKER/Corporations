@@ -173,5 +173,29 @@ namespace Assets.Utils
                 c.ReplaceShareholders(shareholders);
             }
         }
+
+        public static int GetCompanyIdByInvestorId(GameContext context, int shareholderId)
+        {
+            return Array.Find(
+                context.GetEntities(GameMatcher.Shareholder),
+                e => e.shareholder.Id == shareholderId
+                ).company.Id;
+        }
+
+        public static GameEntity GetInvestorById(GameContext context, int investorId)
+        {
+            var investorGroup = context.GetEntities(GameMatcher.Shareholder);
+
+            return Array.Find(investorGroup, s => s.shareholder.Id == investorId);
+        }
+
+        public static int GetTotalShares(Dictionary<int, int> shareholders)
+        {
+            int totalShares = 0;
+            foreach (var e in shareholders)
+                totalShares += e.Value;
+
+            return totalShares;
+        }
     }
 }

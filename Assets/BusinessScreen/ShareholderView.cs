@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public enum MotivationType
 {
@@ -15,7 +14,7 @@ public class Shareholder
     public MotivationType Motivation;
 }
 
-public class ShareholderView : MonoBehaviour
+public class ShareholderView : View
 {
     public Text Name;
     public Text Motivation;
@@ -24,15 +23,25 @@ public class ShareholderView : MonoBehaviour
     public ColoredValuePositiveOrNegative LoyaltyChange;
     public Text Share;
     public Image Icon;
+    public Image Panel;
 
-    void Start()
+    GameEntity entity;
+
+    public void SetEntity(GameEntity entity)
     {
-        Name.text = "Venture investor";
+        this.entity = entity;
+
+        Render();
+    }
+
+    void Render()
+    {
+        Name.text = entity.shareholder.Name;
         Goal.text = "Company Cost 50.000.000$";
         Motivation.text = "20% growth";
         Share.text = "100%";
 
-        LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
-        Loyalty.UpdateValue(Random.Range(0, 80f));
+        //LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
+        //Loyalty.UpdateValue(Random.Range(0, 80f));
     }
 }

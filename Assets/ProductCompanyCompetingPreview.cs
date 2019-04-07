@@ -18,7 +18,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         Company.AddProductListener(this);
         Company.AddMarketingListener(this);
 
-        if (ColorUtility.TryParseHtmlString("#FFAB04", out Color ourCompanyColor))
+        ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
         if (entity.company.Id == myProductEntity.company.Id)
             Panel.color = ourCompanyColor;

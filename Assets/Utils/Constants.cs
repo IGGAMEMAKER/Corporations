@@ -6,3 +6,8 @@
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 15;
     public const int DEVELOPMENT_PRODUCTION_MANAGER = 15;
 }
+
+public class VisualConstants
+{
+    public const string COLOR_COMPANY_WHERE_I_AM_CEO = "#FFAB04";
+}

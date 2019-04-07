@@ -26,10 +26,7 @@ public abstract class ColoredValue : MonoBehaviour
     void Start()
     {
         Text = GetComponent<Text>();
-    }
 
-    void Update()
-    {
         Render();
     }
 
