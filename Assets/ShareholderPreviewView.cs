@@ -22,7 +22,6 @@ public class ShareholderPreviewView : View
         Shares = shares;
 
         TotalShares = CompanyUtils.GetTotalShares(SelectedCompany.shareholders.Shareholders);
-
         ShareholderEntity = CompanyUtils.GetInvestorById(GameContext, shareholderId);
 
         Render();

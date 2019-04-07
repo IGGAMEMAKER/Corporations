@@ -1,4 +1,6 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine;
+using UnityEngine.UI;
 
 public enum MotivationType
 {
@@ -6,12 +8,6 @@ public enum MotivationType
     Dividends,
     Capture,
     FriendlyCapture,
-}
-
-public class Shareholder
-{
-    public string Name;
-    public MotivationType Motivation;
 }
 
 public class ShareholderView : View
@@ -25,21 +21,24 @@ public class ShareholderView : View
     public Image Icon;
     public Image Panel;
 
-    GameEntity entity;
+    GameEntity shareholder;
 
-    public void SetEntity(GameEntity entity)
+    public void SetEntity(int shareholderId, int shares)
     {
-        this.entity = entity;
+        var ourCompany = myProductEntity;
 
-        Render();
+        int totalShares = CompanyUtils.GetTotalShares(ourCompany.shareholders.Shareholders);
+        shareholder = CompanyUtils.GetInvestorById(GameContext, shareholderId);
+
+        Render(shareholder.shareholder.Name, shares, totalShares);
     }
 
-    void Render()
+    void Render(string name, int shares, int totalShares)
     {
-        Name.text = entity.shareholder.Name;
+        Name.text = name;
         Goal.text = "Company Cost 50.000.000$";
         Motivation.text = "20% growth";
-        Share.text = "100%";
+        Share.text = shares * 100 / totalShares + "%";
 
         //LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
         //Loyalty.UpdateValue(Random.Range(0, 80f));

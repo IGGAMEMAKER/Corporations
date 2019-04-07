@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class FullShareholdersListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data)
     {
-        var e = entity as GameEntity;
+        var e = (KeyValuePair<int, int>)(object)entity;
 
         t.GetComponent<ShareholderView>()
-            .SetEntity(e);
+            .SetEntity(e.Key, e.Value);
     }
 }

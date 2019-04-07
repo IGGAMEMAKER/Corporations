@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class FillFullShareholdersList : View, IMenuListener
 {
@@ -13,6 +15,10 @@ public class FillFullShareholdersList : View, IMenuListener
     void Render()
     {
         var shareholders = GetShareholders();
+
+        //string concat = String.Join(",", entities.Select(e => e.product.Name).ToArray());
+
+        //Debug.Log("FillFull : " + concat shareholders.ToArray())
 
         GetComponent<FullShareholdersListView>()
             .SetItems(shareholders.ToArray());
