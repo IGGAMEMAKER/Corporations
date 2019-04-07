@@ -16,12 +16,17 @@ public class TextBlink : MonoBehaviour
         duration = 1;
     }
 
-    void Update()
+    void Render()
     {
-        Text.fontSize = (int) (size * (1 + 0.85f * duration));
+        Text.fontSize = (int)(size * (1 + 0.85f * duration));
         duration -= Time.deltaTime;
 
         if (duration < 0)
             Destroy(this);
+    }
+
+    void Update()
+    {
+        Render();
     }
 }

@@ -17,6 +17,8 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject InvesmentsScreen;
     public GameObject IndustryScreen;
     public GameObject NicheScreen;
+    public GameObject CharacterScreen;
+    public GameObject GroupManagementScreen;
 
     void Start()
     {
@@ -27,7 +29,9 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.BusinessScreen] = BusinessScreen,
             [ScreenMode.InvesmentsScreen] = InvesmentsScreen,
             [ScreenMode.IndustryScreen] = IndustryScreen,
-            [ScreenMode.NicheScreen] = NicheScreen
+            [ScreenMode.NicheScreen] = NicheScreen,
+            [ScreenMode.CharacterScreen] = CharacterScreen,
+            [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
         };
 
         DisableAllScreens();
@@ -48,6 +52,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.ProjectScreen: return "Project";
             case ScreenMode.DevelopmentScreen: return "Development";
             case ScreenMode.InvesmentsScreen: return "Investments";
+            case ScreenMode.CharacterScreen: return "Your Stats";
+            case ScreenMode.GroupManagementScreen: return "Managing companies";
 
             default: return "WUT?";
         }

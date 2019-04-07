@@ -11,7 +11,7 @@ namespace Assets.Visuals
             duration = 1;
         }
 
-        void Update()
+        void Render()
         {
             float scale = (1 + 0.85f * duration);
             transform.localScale = new Vector3(scale, scale, 1);
@@ -20,6 +20,11 @@ namespace Assets.Visuals
 
             if (duration < 0)
                 Destroy(this);
+        }
+
+        void Update()
+        {
+            Render();
         }
     }
 }

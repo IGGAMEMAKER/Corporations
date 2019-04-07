@@ -46,6 +46,8 @@ public enum ScreenMode
     BusinessScreen,
     TeamScreen,
     StatsScreen,
+    CharacterScreen,
+    GroupManagementScreen,
     InvesmentsScreen,
     IndustryScreen,
     NicheScreen
@@ -56,13 +58,13 @@ public interface IEventListener
     void RegisterListeners(IEntity entity);
 }
 
-[Game, Unique]
+[Game, Unique, Event(EventTarget.Any)]
 public class DateComponent : IComponent
 {
     public int Date;
 }
 
-// only entity - Player can be CEO of only one company at time
+// only entity - Player can be CEO of only one product company at time
 [Game]
 public struct ControlledByPlayerComponent : IComponent {
 
@@ -79,7 +81,7 @@ public class MenuComponent : IComponent
 [Game]
 public class NavigationHistoryComponent : IComponent
 {
-
+    public List<MenuComponent> Queries;
 }
 
 // only entity
@@ -161,13 +163,6 @@ public class TaskManagerComponent : IComponent
     public List<GameEntity> Tasks;
 }
 
-[Game, Event(EventTarget.Self)]
-public class PositionComponent : IComponent
-{
-    public float x;
-    public float y;
-}
-
 public class TaskComponent: IComponent
 {
     public bool isCompleted;
@@ -231,6 +226,15 @@ public class MarketingComponent : IComponent
 public class TargetingComponent : IComponent
 {
 
+}
+
+
+
+[Game, Event(EventTarget.Self)]
+public class PositionComponent : IComponent
+{
+    public float x;
+    public float y;
 }
 
 [Game]

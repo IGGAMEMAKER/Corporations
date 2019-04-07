@@ -36,5 +36,11 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             EnableScreen(ScreenMode.BusinessScreen, null);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            EnableScreen(ScreenMode.CharacterScreen, null);
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            EnableScreen(ScreenMode.GroupManagementScreen, null);
     }
 }

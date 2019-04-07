@@ -6,6 +6,10 @@ public class OwningsListView : ListView
     {
         var e = entity as GameEntity;
 
+        var obj = t.gameObject;
+
+        obj.AddComponent<CompanyDragController>();
+
         t.GetComponent<CompanyPreviewView>()
             .SetEntity(e);
     }

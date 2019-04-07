@@ -49,28 +49,6 @@ namespace Assets.Utils
             e.AddMarketing(clients, brandPower, false);
         }
 
-        public static int GenerateProduct(GameContext context, string name, NicheType niche)
-        {
-            int id = GenerateCompanyId(context); // GenerateId();
-
-            GenerateProduct(context, name, niche, id);
-
-            return id;
-        }
-
-        public static void SetPlayerControlledCompany(GameContext context, int id)
-        {
-            var c = GetCompanyById(context, id);
-
-            c.isControlledByPlayer = true;
-            c.isSelectedCompany = true;
-        }
-
-        public static void RemovePlayerControlledCompany(GameContext context, int id)
-        {
-            GetCompanyById(context, id).isControlledByPlayer = false;
-        }
-
         public static int GenerateInvestmentFund(GameContext context, string name, long money)
         {
             var e = context.CreateEntity();
@@ -80,24 +58,6 @@ namespace Assets.Utils
 
             e.AddCompany(id, name, CompanyType.FinancialGroup);
             BecomeInvestor(context, e, money);
-
-            return investorId;
-        }
-
-        public static int BecomeInvestor(GameContext context, GameEntity e, long money)
-        {
-            int investorId = GenerateInvestorId(context); // GenerateInvestorId();
-
-            string name = "Investor?";
-
-            // company
-            if (e.hasCompany)
-                name = e.company.Name;
-
-            // or human
-            // TODO turn human to investor
-
-            e.AddShareholder(investorId, name, money);
 
             return investorId;
         }
@@ -124,6 +84,56 @@ namespace Assets.Utils
             BecomeInvestor(context, e, 0);
 
             return id;
+        }
+
+        public static int GenerateProduct(GameContext context, string name, NicheType niche)
+        {
+            int id = GenerateCompanyId(context); // GenerateId();
+
+            GenerateProduct(context, name, niche, id);
+
+            return id;
+        }
+
+        //public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
+        //{
+        //    var c = GetCompanyById(context, companyId);
+
+        //    int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group");
+        //    AttachToHolding(context, companyGroupId, companyId);
+
+        //    return companyGroupId;
+        //}
+
+        public static void SetPlayerControlledCompany(GameContext context, int id)
+        {
+            var c = GetCompanyById(context, id);
+
+            c.isControlledByPlayer = true;
+            c.isSelectedCompany = true;
+        }
+
+        public static void RemovePlayerControlledCompany(GameContext context, int id)
+        {
+            GetCompanyById(context, id).isControlledByPlayer = false;
+        }
+
+        public static int BecomeInvestor(GameContext context, GameEntity e, long money)
+        {
+            int investorId = GenerateInvestorId(context); // GenerateInvestorId();
+
+            string name = "Investor?";
+
+            // company
+            if (e.hasCompany)
+                name = e.company.Name;
+
+            // or human
+            // TODO turn human to investor
+
+            e.AddShareholder(investorId, name, money);
+
+            return investorId;
         }
 
         public static void AttachToHolding(GameContext context, int parent, int subsidiary)

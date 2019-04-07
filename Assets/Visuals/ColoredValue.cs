@@ -8,14 +8,6 @@ public enum MeasurementUnit
     Dollars
 }
 
-public enum CycleLength
-{
-    No,
-    Monthly,
-    Weekly,
-    Daily
-}
-
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Text))]
 public abstract class ColoredValue : MonoBehaviour
@@ -28,7 +20,6 @@ public abstract class ColoredValue : MonoBehaviour
     public int DigitsAfterComma = 0;
 
     public MeasurementUnit unit;
-    public CycleLength cycleLength = CycleLength.No;
 
     Text Text;
 
@@ -54,18 +45,6 @@ public abstract class ColoredValue : MonoBehaviour
         return (Mathf.Floor(val * multiplier)) / multiplier;
     }
 
-    string GetCycleString()
-    {
-        switch (cycleLength)
-        {
-            case CycleLength.Monthly: return "/month";
-            case CycleLength.Daily: return "daily";
-            case CycleLength.Weekly: return "/week";
-
-            default: return "";
-        }
-    }
-
     string GetMeasuringUnitString(MeasurementUnit unit)
     {
         switch (unit)
@@ -84,11 +63,10 @@ public abstract class ColoredValue : MonoBehaviour
         if (ShowSign && value > 0)
             text = "+" + text;
 
-        string cycleString = GetCycleString();
         string measuringUnits = GetMeasuringUnitString(unit);
         
 
-        return $"{text}{measuringUnits} {cycleString}";
+        return $"{text}{measuringUnits}";
     }
 
     void Render()

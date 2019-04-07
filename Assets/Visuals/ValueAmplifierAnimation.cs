@@ -27,13 +27,13 @@ public class ValueAmplifierAnimation : MonoBehaviour
 
     void Update()
     {
-        totalTime -= Time.deltaTime;
-
         Render();
     }
 
     void Render()
     {
+        totalTime -= Time.deltaTime;
+
         if (animationDone)
             return;
 
