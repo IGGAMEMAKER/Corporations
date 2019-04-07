@@ -16,10 +16,6 @@ public class FillFullShareholdersList : View, IMenuListener
     {
         var shareholders = GetShareholders();
 
-        //string concat = String.Join(",", entities.Select(e => e.product.Name).ToArray());
-
-        //Debug.Log("FillFull : " + concat shareholders.ToArray())
-
         GetComponent<FullShareholdersListView>()
             .SetItems(shareholders.ToArray());
     }
