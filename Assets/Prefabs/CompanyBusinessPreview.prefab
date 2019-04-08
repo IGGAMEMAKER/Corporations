@@ -425,6 +425,7 @@ RectTransform:
   - {fileID: 4220433387265233296}
   - {fileID: 7283158937784406960}
   - {fileID: 7283158936930233991}
+  - {fileID: 2936669992847185114}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -447,6 +448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CompanyNameLabel: {fileID: 7283158938033144618}
   CompanyTypeLabel: {fileID: 3976602660998284393}
+  Panel: {fileID: 3990305887197340410}
+  CEOLabel: {fileID: 6710300915889019420}
   ShareCostLabel: {fileID: 7283158936930233990}
 --- !u!114 &727643251743428953
 MonoBehaviour:
@@ -503,3 +506,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CompanyId: 0
+--- !u!1 &8806587608104027630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2936669992847185114}
+  - component: {fileID: 7099240063712715314}
+  - component: {fileID: 6710300915889019420}
+  m_Layer: 5
+  m_Name: CEOLabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2936669992847185114
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806587608104027630}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3049619, w: 0.95236456}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7283158938356188383}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35.512}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -79.4, y: 37.7}
+  m_SizeDelta: {x: 160, y: 28.51}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7099240063712715314
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806587608104027630}
+  m_CullTransparentMesh: 0
+--- !u!114 &6710300915889019420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806587608104027630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 3
+    m_BestFit: 1
+    m_MinSize: 2
+    m_MaxSize: 20
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: CEO
