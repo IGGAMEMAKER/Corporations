@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Classes
+﻿namespace Assets.Classes
 {
     public class Skill
     {

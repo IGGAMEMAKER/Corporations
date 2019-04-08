@@ -6,7 +6,7 @@ namespace Assets
     [DisallowMultipleComponent]
     public class DataManager: MonoBehaviour
     {
-        public World world;
+        //public World world;
 
         private static DataManager dataManager;
 
@@ -24,7 +24,7 @@ namespace Assets
                     }
                     else
                     {
-                        dataManager.Init();
+                        //dataManager.Init();
                     }
                 }
 
@@ -32,9 +32,9 @@ namespace Assets
             }
         }
 
-        void Init()
-        {
-            instance.world = new World();
-        }
+        //void Init()
+        //{
+        //    instance.world = new World();
+        //}
     }
 }

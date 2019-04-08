@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 using UnityEngine.UI;
 
 public enum MotivationType
