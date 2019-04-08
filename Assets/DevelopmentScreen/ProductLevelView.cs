@@ -16,6 +16,6 @@ public class ProductLevelView : View
 
     void Render()
     {
-        AnimateIfValueChanged(Level, myProduct.ProductLevel + "");
+        AnimateIfValueChanged(Level, MyProduct.ProductLevel + "");
     }
 }

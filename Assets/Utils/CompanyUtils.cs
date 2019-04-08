@@ -98,6 +98,15 @@ namespace Assets.Utils
             return GetPlayerControlledProductCompany(context);
         }
 
+        public static GameEntity[] GetMyNeighbours(GameContext context)
+        {
+            GameEntity[] products = GetProductsNotControlledByPlayer(context);
+
+            var myProduct = GetPlayerControlledProductCompany(context).product;
+
+            return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
+        }
+
         public static GameEntity GetCompanyByName(GameContext context, string name)
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
@@ -105,6 +114,9 @@ namespace Assets.Utils
 
         public static GameEntity GetPlayerControlledProductCompany(GameContext context)
         {
+            // TODO check all use cases! 
+            // Most of them simply use MyControlledProductCompany, when we may need GetMyGroupCompany instead!
+
             var matcher = GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer);
 
             var products = context.GetEntities(matcher);

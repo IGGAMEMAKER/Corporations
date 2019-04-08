@@ -21,7 +21,7 @@ public class MostPopularApplicationView : View
     GameEntity GetLeaderApp()
     {
         var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
-        var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == myProduct.Niche);
+        var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == MyProduct.Niche);
 
         GameEntity best = myProductEntity;
 

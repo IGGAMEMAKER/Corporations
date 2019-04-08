@@ -35,7 +35,7 @@ public class View : MonoBehaviour
         }
     }
 
-    public ProductComponent myProduct
+    public ProductComponent MyProduct
     {
         get
         {
@@ -51,39 +51,24 @@ public class View : MonoBehaviour
         }
     }
 
-    public float GetTaskCompletionPercentage(TaskComponent taskComponent)
-    {
-        return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
-    }
-
-    public void AnimateIfValueChanged(Text text, string value)
-    {
-        if (!String.Equals(text.text, value))
-        {
-            text.text = value;
-
-            // only add this component if there is any
-            if (text.gameObject.GetComponent<TextBlink>() == null)
-                text.gameObject.AddComponent<TextBlink>();
-        }
-    }
-
-    public void ListenMenuChanges(IMenuListener menuListener)
-    {
-        MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
-    }
-
     public GameEntity[] GetCompetitors()
     {
         return CompanyUtils.GetMyCompetitors(GameContext);
     }
 
-    //public GameEntity[] GetNeighbours()
-    //{
-    //    GameEntity[] products = GetProductsNotControlledByPlayer();
+    public GameEntity[] GetNeighbours()
+    {
+        GameEntity[] products = CompanyUtils.GetProductsNotControlledByPlayer(GameContext);
 
-    //    return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
-    //}
+        return Array.FindAll(products, e => e.product.Niche != MyProduct.Niche && e.product.Industry == MyProduct.Industry);
+    }
+
+
+    public float GetTaskCompletionPercentage(TaskComponent taskComponent)
+    {
+        return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+    }
+
 
 
     GameEntity[] GetTasks(TaskType taskType)
@@ -104,5 +89,23 @@ public class View : MonoBehaviour
             return null;
 
         return tasks[0].task;
+    }
+
+
+    public void AnimateIfValueChanged(Text text, string value)
+    {
+        if (!String.Equals(text.text, value))
+        {
+            text.text = value;
+
+            // only add this component if there is any
+            if (text.gameObject.GetComponent<TextBlink>() == null)
+                text.gameObject.AddComponent<TextBlink>();
+        }
+    }
+
+    public void ListenMenuChanges(IMenuListener menuListener)
+    {
+        MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
     }
 }
