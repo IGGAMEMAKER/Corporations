@@ -93,12 +93,17 @@ namespace Assets.Utils
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
         }
 
+        public static GameEntity GetAnyOfControlledCompanies(GameContext context)
+        {
+            return GetPlayerControlledProductCompany(context);
+        }
+
         public static GameEntity GetCompanyByName(GameContext context, string name)
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
         }
 
-        public static GameEntity GetPlayerControlledProductCompany(GameContext context, int playerId)
+        public static GameEntity GetPlayerControlledProductCompany(GameContext context)
         {
             var matcher = GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer);
 
@@ -113,7 +118,7 @@ namespace Assets.Utils
         {
             GameEntity[] products = GetProductsNotControlledByPlayer(context);
 
-            GameEntity myProductEntity = GetPlayerControlledProductCompany(context, 0);
+            GameEntity myProductEntity = GetPlayerControlledProductCompany(context);
 
             return Array.FindAll(products, e => e.product.Niche == myProductEntity.product.Niche);
         }

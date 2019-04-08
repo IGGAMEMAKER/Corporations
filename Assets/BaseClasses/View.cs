@@ -10,12 +10,7 @@ public class View : MonoBehaviour
     {
         get
         {
-            var products = GameContext
-                .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
-
-            if (products.Length == 1) return products[0];
-
-            return null;
+            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
         }
     }
 
@@ -26,7 +21,7 @@ public class View : MonoBehaviour
             var data = MenuUtils.GetMenu(GameContext).menu.Data;
 
             if (data == null)
-                return myProductEntity;
+                return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
 
             return CompanyUtils.GetCompanyById(GameContext, (int)data);
         }
@@ -44,7 +39,7 @@ public class View : MonoBehaviour
     {
         get
         {
-            return myProductEntity == null ? null : myProductEntity.product;
+            return myProductEntity?.product;
         }
     }
 
