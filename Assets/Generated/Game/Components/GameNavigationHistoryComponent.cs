@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly NavigationHistoryComponent navigationHistoryComponent = new NavigationHistoryComponent();
+    public NavigationHistoryComponent navigationHistory { get { return (NavigationHistoryComponent)GetComponent(GameComponentsLookup.NavigationHistory); } }
+    public bool hasNavigationHistory { get { return HasComponent(GameComponentsLookup.NavigationHistory); } }
 
-    public bool isNavigationHistory {
-        get { return HasComponent(GameComponentsLookup.NavigationHistory); }
-        set {
-            if (value != isNavigationHistory) {
-                var index = GameComponentsLookup.NavigationHistory;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : navigationHistoryComponent;
+    public void AddNavigationHistory(System.Collections.Generic.List<MenuComponent> newQueries) {
+        var index = GameComponentsLookup.NavigationHistory;
+        var component = (NavigationHistoryComponent)CreateComponent(index, typeof(NavigationHistoryComponent));
+        component.Queries = newQueries;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceNavigationHistory(System.Collections.Generic.List<MenuComponent> newQueries) {
+        var index = GameComponentsLookup.NavigationHistory;
+        var component = (NavigationHistoryComponent)CreateComponent(index, typeof(NavigationHistoryComponent));
+        component.Queries = newQueries;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveNavigationHistory() {
+        RemoveComponent(GameComponentsLookup.NavigationHistory);
     }
 }
 

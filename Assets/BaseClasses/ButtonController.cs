@@ -77,7 +77,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public void Navigate(ScreenMode screenMode, object data)
     {
-        MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode, data);
+        MenuUtils.Navigate(GameContext, screenMode, data);
     }
 
     public void ReNavigate()

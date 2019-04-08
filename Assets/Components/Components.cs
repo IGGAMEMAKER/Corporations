@@ -64,7 +64,7 @@ public class DateComponent : IComponent
     public int Date;
 }
 
-// only entity - Player can be CEO of only one product and one group company at time
+// only entity - Player can be CEO of only one product and one company group at time
 [Game]
 public struct ControlledByPlayerComponent : IComponent {
 
@@ -195,13 +195,6 @@ public class FinanceComponent: IComponent
 }
 
 [Game, Event(EventTarget.Self)]
-public class AnalyticsComponent: IComponent
-{
-    public int Analytics;
-    public int ExperimentCount;
-}
-
-[Game, Event(EventTarget.Self)]
 public class TeamComponent: IComponent
 {
     public int Programmers;
@@ -224,19 +217,4 @@ public class MarketingComponent : IComponent
 public class TargetingComponent : IComponent
 {
 
-}
-
-
-
-[Game, Event(EventTarget.Self)]
-public class PositionComponent : IComponent
-{
-    public float x;
-    public float y;
-}
-
-[Game]
-public class DebugMessageComponent : IComponent
-{
-    public string message;
 }

@@ -28,5 +28,10 @@ namespace Assets.Utils
 
             company.isSelectedCompany = true;
         }
+
+        public static void Navigate(GameContext context, ScreenMode screenMode, object data)
+        {
+            GetMenu(context).ReplaceMenu(screenMode, data);
+        }
     }
 }
