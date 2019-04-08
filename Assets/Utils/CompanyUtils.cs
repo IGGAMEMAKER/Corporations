@@ -65,16 +65,13 @@ namespace Assets.Utils
             return id;
         }
 
-        public static int GenerateCompanyGroup(GameContext context, string name)
+        public static int GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders)
         {
-            var e = context.CreateEntity();
+            var e = CreateCompanyEntity(context, name, CompanyType.Group, founders);
 
-            int id = GenerateCompanyId(context); // GenerateId();
-
-            e.AddCompany(id, name, CompanyType.Group);
             BecomeInvestor(context, e, 0);
 
-            return id;
+            return e.company.Id;
         }
 
         public static int GenerateProductCompany(GameContext context, string name, NicheType niche)
@@ -86,13 +83,17 @@ namespace Assets.Utils
             return id;
         }
 
-        public static GameEntity CreateCompanyEntity(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders)
+        public static GameEntity CreateCompanyEntity(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
         {
             var e = context.CreateEntity();
 
             int id = GenerateCompanyId(context);
 
             e.AddCompany(id, name, companyType);
+
+            if (founders == null)
+                founders = new Dictionary<int, int>();
+
             e.AddShareholders(founders);
 
             return e;
@@ -107,15 +108,6 @@ namespace Assets.Utils
         public static GameEntity GetAnyOfControlledCompanies(GameContext context)
         {
             return GetPlayerControlledProductCompany(context);
-        }
-
-        public static GameEntity[] GetMyNeighbours(GameContext context)
-        {
-            GameEntity[] products = GetProductsNotControlledByPlayer(context);
-
-            var myProduct = GetPlayerControlledProductCompany(context).product;
-
-            return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
         }
 
         public static GameEntity GetCompanyByName(GameContext context, string name)
@@ -146,6 +138,15 @@ namespace Assets.Utils
             if (companies.Length == 1) return companies[0];
 
             return null;
+        }
+
+        public static GameEntity[] GetMyNeighbours(GameContext context)
+        {
+            GameEntity[] products = GetProductsNotControlledByPlayer(context);
+
+            var myProduct = GetPlayerControlledProductCompany(context).product;
+
+            return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
         }
 
         public static GameEntity[] GetMyCompetitors(GameContext context)
@@ -193,15 +194,17 @@ namespace Assets.Utils
         }
 
         // Update
-        //public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
-        //{
-        //    var c = GetCompanyById(context, companyId);
+        public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
+        {
+            var c = GetCompanyById(context, companyId);
 
-        //    int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group");
-        //    AttachToHolding(context, companyGroupId, companyId);
+            Dictionary<int, int> founders = c.shareholders.Shareholders;
 
-        //    return companyGroupId;
-        //}
+            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", founders);
+            AttachToHolding(context, companyGroupId, companyId);
+
+            return companyGroupId;
+        }
 
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {

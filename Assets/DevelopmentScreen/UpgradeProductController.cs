@@ -2,6 +2,6 @@
 {
     public override void Execute()
     {
-        TriggerEventUpgradeProduct(ControlledProduct.Id, ControlledProduct.ProductLevel);
+        TriggerEventUpgradeProduct(MyProduct.Id, MyProduct.ProductLevel);
     }
 }

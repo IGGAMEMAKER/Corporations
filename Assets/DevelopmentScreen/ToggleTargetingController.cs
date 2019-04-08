@@ -2,6 +2,6 @@
 {
     public override void Execute()
     {
-        TriggerEventTargetingToggle(ControlledProduct.Id);
+        TriggerEventTargetingToggle(MyProduct.Id);
     }
 }

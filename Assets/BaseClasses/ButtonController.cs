@@ -6,17 +6,19 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public abstract class ButtonController : MonoBehaviour, IEventGenerator
 {
-    public GameContext GameContext;
-    public ProductComponent ControlledProduct;
-    public GameEntity ControlledProductEntity;
+    public ProductComponent MyProduct;
+    public GameEntity MyProductEntity;
 
     Button Button;
 
     public abstract void Execute();
 
-    void Awake()
+    public GameContext GameContext
     {
-        GameContext = Contexts.sharedInstance.game;
+        get
+        {
+            return Contexts.sharedInstance.game;
+        }
     }
 
     void Start()
@@ -38,8 +40,8 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     void UpdateControlledProductEntity()
     {
-        ControlledProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
-        ControlledProduct = ControlledProductEntity.product;
+        MyProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
+        MyProduct = MyProductEntity.product;
     }
 
     void RemoveListener()
@@ -75,6 +77,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode, data);
     }
 
+
     public void SetSelectedCompany(int companyId)
     {
         MenuUtils.SetSelectedCompany(companyId, GameContext);
@@ -82,12 +85,12 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
     {
-        ControlledProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
+        MyProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
     }
 
     public void TriggerEventTargetingToggle(int productId)
     {
-        ControlledProductEntity.AddEventMarketingEnableTargeting(productId);
+        MyProductEntity.AddEventMarketingEnableTargeting(productId);
     }
 
     public void TriggerEventIncreasePrice(int productId)
@@ -102,8 +105,8 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     void TriggerEventChangePrice(int productId, int change)
     {
-        int price = ControlledProductEntity.finance.price;
+        int price = MyProductEntity.finance.price;
 
-        ControlledProductEntity.AddEventFinancePricingChange(productId, price, change);
+        MyProductEntity.AddEventFinancePricingChange(productId, price, change);
     }
 }

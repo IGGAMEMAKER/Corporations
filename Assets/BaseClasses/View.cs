@@ -30,7 +30,7 @@ public class View : MonoBehaviour
 
             if (data == null)
             {
-                Debug.LogError("SelectedCompany does not exist!");
+                //Debug.LogError("SelectedCompany does not exist!");
 
                 return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
             }

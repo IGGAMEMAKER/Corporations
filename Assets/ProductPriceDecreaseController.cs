@@ -2,6 +2,6 @@
 {
     public override void Execute()
     {
-        TriggerEventDecreasePrice(ControlledProduct.Id);
+        TriggerEventDecreasePrice(MyProduct.Id);
     }
 }
