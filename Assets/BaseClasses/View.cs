@@ -6,22 +6,6 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    public GameEntity MyProductEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
-        }
-    }
-
-    public GameEntity MyGroupEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-        }
-    }
-
     public GameEntity SelectedCompany
     {
         get
@@ -36,6 +20,22 @@ public class View : MonoBehaviour
             }
 
             return CompanyUtils.GetCompanyById(GameContext, (int)data);
+        }
+    }
+
+    public GameEntity MyProductEntity
+    {
+        get
+        {
+            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+        }
+    }
+
+    public GameEntity MyGroupEntity
+    {
+        get
+        {
+            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
         }
     }
     

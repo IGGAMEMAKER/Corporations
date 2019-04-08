@@ -1,24 +1,7 @@
-﻿public class ShowGroupCompanyView : View, IMenuListener
+﻿public class ShowGroupCompanyView : ShowControlledCompany
 {
-    public CompanyPreviewView CompanyPreviewView;
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    public override GameEntity GetControlledEntity()
     {
-        if (screenMode == ScreenMode.CharacterScreen)
-            Render();
-    }
-
-    void Render()
-    {
-        // TODO replace myProductEntity by company group
-        CompanyPreviewView.SetEntity(MyProductEntity);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ListenMenuChanges(this);
-
-        Render();
+        return MyGroupEntity;
     }
 }

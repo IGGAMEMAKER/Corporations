@@ -1,19 +1,13 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 
 public class CreateCompanyGroupController : ButtonController
 {
     public override void Execute()
     {
-        Debug.Log("Nothing happened in CreateCompanyGroupController");
+        string name = "Company Group #" + CompanyUtils.GenerateCompanyId(GameContext);
 
-        return;
+        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, name);
 
-        //int newGroupName = CompanyUtils.GenerateCompanyId(GameContext);
-        //int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, "Company Group " + newGroupName);
-
-        //int investorId = CompanyUtils.GetCompanyByName(GameContext, "Alphabet").shareholder.Id;
-
-        //CompanyUtils.AddShareholder(GameContext, groupId, investorId, 100);
+        CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, groupId);
     }
 }

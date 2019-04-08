@@ -65,7 +65,7 @@ namespace Assets.Utils
             return id;
         }
 
-        public static int GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders)
+        public static int GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders = null)
         {
             var e = CreateCompanyEntity(context, name, CompanyType.Group, founders);
 
@@ -201,7 +201,7 @@ namespace Assets.Utils
             Dictionary<int, int> founders = c.shareholders.Shareholders;
 
             int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", founders);
-            AttachToHolding(context, companyGroupId, companyId);
+            AttachToGroup(context, companyGroupId, companyId);
 
             return companyGroupId;
         }
@@ -237,9 +237,28 @@ namespace Assets.Utils
             return investorId;
         }
 
-        public static void AttachToHolding(GameContext context, int parent, int subsidiary)
+        public static bool IsCompanyGroupLike(GameContext context, int companyId)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            return IsCompanyGroupLike(c);
+        }
+
+        public static bool IsCompanyGroupLike(GameEntity gameEntity)
+        {
+            if (gameEntity.company.CompanyType == CompanyType.ProductCompany)
+                return false;
+
+            return true;
+        }
+
+        public static void AttachToGroup(GameContext context, int parent, int subsidiary)
         {
             var p = GetCompanyById(context, parent);
+
+            if (!IsCompanyGroupLike(p))
+                return;
+
             var s = GetCompanyById(context, subsidiary);
 
             Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
@@ -273,6 +292,14 @@ namespace Assets.Utils
 
                 c.ReplaceShareholders(shareholders);
             }
+        }
+
+        // it is done for player only!
+        internal static void LeaveCEOChair(GameContext gameContext, int companyId)
+        {
+            RemovePlayerControlledCompany(gameContext, companyId);
+
+            // update company ceo component
         }
     }
 }

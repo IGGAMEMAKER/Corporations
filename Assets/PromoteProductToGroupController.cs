@@ -7,6 +7,9 @@ public class PromoteProductToGroupController : ButtonController
     {
         int groupId = CompanyUtils.PromoteProductCompanyToGroup(GameContext, MyProductEntity.company.Id);
 
+        if (MyGroupEntity == null)
+            CompanyUtils.SetPlayerControlledCompany(GameContext, groupId);
+
         NavigateToBusinessScreen(groupId);
 
         Debug.Log("Make a notification maybe?");

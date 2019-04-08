@@ -64,7 +64,7 @@ public class DateComponent : IComponent
     public int Date;
 }
 
-// only entity - Player can be CEO of only one product company at time
+// only entity - Player can be CEO of only one product and one group company at time
 [Game]
 public struct ControlledByPlayerComponent : IComponent {
 
@@ -122,8 +122,6 @@ public class NicheComponent : IComponent
     public NicheType Parent;
     public int OpenDate;
 }
-
-
 
 [Game]
 public class HumanComponent : IComponent

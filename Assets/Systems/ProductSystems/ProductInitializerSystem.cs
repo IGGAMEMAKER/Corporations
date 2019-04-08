@@ -32,7 +32,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void AttachToHolding(int parent, int child)
     {
-        CompanyUtils.AttachToHolding(GameContext, parent, child);
+        CompanyUtils.AttachToGroup(GameContext, parent, child);
     }
 
     void AddShareholder(int companyId, int investorId, int shares)

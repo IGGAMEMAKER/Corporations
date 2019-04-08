@@ -1,17 +1,31 @@
 ﻿using Assets.Utils;
-using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public abstract class ButtonController : MonoBehaviour, IEventGenerator
 {
-    public ProductComponent MyProduct;
-    public GameEntity MyProductEntity;
-
     Button Button;
 
     public abstract void Execute();
+
+    public ProductComponent MyProduct;
+
+    public GameEntity MyProductEntity
+    {
+        get
+        {
+            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+        }
+    }
+
+    public GameEntity MyGroupEntity
+    {
+        get
+        {
+            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
+        }
+    }
 
     public GameContext GameContext
     {
@@ -28,20 +42,9 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         Button.onClick.AddListener(Execute);
     }
 
-    void Update()
-    {
-        UpdateControlledProductEntity();
-    }
-
     void OnDestroy()
     {
         RemoveListener();
-    }
-
-    void UpdateControlledProductEntity()
-    {
-        MyProductEntity = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer))[0];
-        MyProduct = MyProductEntity.product;
     }
 
     void RemoveListener()
@@ -75,6 +78,13 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
     public void Navigate(ScreenMode screenMode, object data)
     {
         MenuUtils.GetMenu(GameContext).ReplaceMenu(screenMode, data);
+    }
+
+    public void ReNavigate()
+    {
+        var m = MenuUtils.GetMenu(GameContext);
+
+        m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
     }
 
 
