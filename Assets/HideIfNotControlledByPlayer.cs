@@ -10,7 +10,7 @@ public class HideIfNotControlledByPlayer : View, IMenuListener
             Render();
     }
 
-    private void Awake()
+    private void Start()
     {
         ListenMenuChanges(this);
 
@@ -19,6 +19,8 @@ public class HideIfNotControlledByPlayer : View, IMenuListener
 
     void Render()
     {
+        //Debug.Log("HideIfNotControlledByPlayer: selected=" + SelectedCompany.company.Name + " product=" + MyProductEntity.company.Name + " group=" + MyGroupEntity?.company.Name);
+
         bool visible = (SelectedCompany == MyGroupEntity || SelectedCompany == MyProductEntity);
 
         target.SetActive(visible);
