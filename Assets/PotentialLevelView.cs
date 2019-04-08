@@ -7,6 +7,6 @@
 
     public override string RenderValue()
     {
-        return myProductEntity.product.ExplorationLevel + "";
+        return MyProductEntity.product.ExplorationLevel + "";
     }
 }

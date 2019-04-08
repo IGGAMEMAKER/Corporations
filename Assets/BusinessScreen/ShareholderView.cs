@@ -24,7 +24,7 @@ public class ShareholderView : View
 
     public void SetEntity(int shareholderId, int shares)
     {
-        var ourCompany = myProductEntity;
+        var ourCompany = MyProductEntity;
 
         int totalShares = CompanyUtils.GetTotalShares(ourCompany.shareholders.Shareholders);
         shareholder = CompanyUtils.GetInvestorById(GameContext, shareholderId);

@@ -11,7 +11,7 @@
     void Render()
     {
         // TODO replace myProductEntity by company group
-        CompanyPreviewView.SetEntity(myProductEntity);
+        CompanyPreviewView.SetEntity(MyProductEntity);
     }
 
     // Start is called before the first frame update

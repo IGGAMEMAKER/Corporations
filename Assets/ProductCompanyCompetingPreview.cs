@@ -20,7 +20,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
 
         ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
-        if (entity.company.Id == myProductEntity.company.Id)
+        if (entity.company.Id == MyProductEntity.company.Id)
             Panel.color = ourCompanyColor;
 
         Render();

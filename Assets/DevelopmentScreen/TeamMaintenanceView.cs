@@ -13,6 +13,6 @@ public class TeamMaintenanceView : View
     // Update is called once per frame
     void Update()
     {
-        Text.text = ValueFormatter.ShortenValue(ProductEconomicsUtils.GetTeamMaintenance(myProductEntity)) + "$";
+        Text.text = ValueFormatter.ShortenValue(ProductEconomicsUtils.GetTeamMaintenance(MyProductEntity)) + "$";
     }
 }

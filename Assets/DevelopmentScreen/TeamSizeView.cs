@@ -10,7 +10,7 @@ public class TeamSizeView : View
 
     void Update()
     {
-        Render(myProductEntity.team);
+        Render(MyProductEntity.team);
     }
 
     void Render(TeamComponent team)

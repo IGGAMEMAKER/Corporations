@@ -2,6 +2,6 @@
 {
     private void OnEnable()
     {
-        GetComponent<LinkToNiche>().SetNiche(myProductEntity.product.Niche);
+        GetComponent<LinkToNiche>().SetNiche(MyProductEntity.product.Niche);
     }
 }

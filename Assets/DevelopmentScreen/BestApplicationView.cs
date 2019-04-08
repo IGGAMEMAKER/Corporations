@@ -23,7 +23,7 @@ public class BestApplicationView : View
         var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
         var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == MyProduct.Niche);
 
-        GameEntity best = myProductEntity;
+        GameEntity best = MyProductEntity;
 
         foreach (var p in myNicheProducts)
         {

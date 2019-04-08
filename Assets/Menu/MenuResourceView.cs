@@ -13,7 +13,7 @@ public class MenuResourceView : View {
 
     void Update()
     {
-        Render(myProductEntity.product.Resources, new TeamResource(), myProductEntity.marketing, CurrentIntDate);
+        Render(MyProductEntity.product.Resources, new TeamResource(), MyProductEntity.marketing, CurrentIntDate);
     }
 
     string GetHintText<T> (T value)

@@ -2,7 +2,7 @@
 {
     void Update()
     {
-        if (myProductEntity.isTargeting)
+        if (MyProductEntity.isTargeting)
         {
             if (gameObject.GetComponent<IsChosenComponent>() == null)
                 gameObject.AddComponent<IsChosenComponent>();

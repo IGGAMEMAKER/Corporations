@@ -86,6 +86,17 @@ namespace Assets.Utils
             return id;
         }
 
+        public static GameEntity CreateCompanyEntity(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders)
+        {
+            var e = context.CreateEntity();
+
+            int id = GenerateCompanyId(context);
+
+            e.AddCompany(id, name, companyType);
+            e.AddShareholders(founders);
+
+            return e;
+        }
 
         // Read
         public static GameEntity GetCompanyById(GameContext context, int companyId)
@@ -119,9 +130,20 @@ namespace Assets.Utils
 
             var matcher = GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer);
 
-            var products = context.GetEntities(matcher);
+            var companies = context.GetEntities(matcher);
 
-            if (products.Length == 1) return products[0];
+            if (companies.Length == 1) return companies[0];
+
+            return null;
+        }
+
+        public static GameEntity GetPlayerControlledGroupCompany(GameContext context)
+        {
+            var matcher = GameMatcher.AllOf(GameMatcher.ControlledByPlayer).NoneOf(GameMatcher.Product);
+
+            var companies = context.GetEntities(matcher);
+
+            if (companies.Length == 1) return companies[0];
 
             return null;
         }

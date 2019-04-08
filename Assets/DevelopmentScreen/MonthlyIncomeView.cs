@@ -13,6 +13,6 @@ public class MonthlyIncomeView : View
     // Update is called once per frame
     void Update()
     {
-        Text.text = ValueFormatter.ShortenValue(ProductEconomicsUtils.GetIncome(myProductEntity)) + "$";
+        Text.text = ValueFormatter.ShortenValue(ProductEconomicsUtils.GetIncome(MyProductEntity)) + "$";
     }
 }

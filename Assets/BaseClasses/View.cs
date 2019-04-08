@@ -6,11 +6,19 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    public GameEntity myProductEntity
+    public GameEntity MyProductEntity
     {
         get
         {
             return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+        }
+    }
+
+    public GameEntity MyGroupEntity
+    {
+        get
+        {
+            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
         }
     }
 
@@ -21,7 +29,11 @@ public class View : MonoBehaviour
             var data = MenuUtils.GetMenu(GameContext).menu.Data;
 
             if (data == null)
+            {
+                Debug.LogError("SelectedCompany does not exist!");
+
                 return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
+            }
 
             return CompanyUtils.GetCompanyById(GameContext, (int)data);
         }
@@ -39,7 +51,7 @@ public class View : MonoBehaviour
     {
         get
         {
-            return myProductEntity?.product;
+            return MyProductEntity?.product;
         }
     }
 
@@ -51,17 +63,6 @@ public class View : MonoBehaviour
         }
     }
 
-    public GameEntity[] GetCompetitors()
-    {
-        return CompanyUtils.GetMyCompetitors(GameContext);
-    }
-
-    public GameEntity[] GetNeighbours()
-    {
-        GameEntity[] products = CompanyUtils.GetProductsNotControlledByPlayer(GameContext);
-
-        return Array.FindAll(products, e => e.product.Niche != MyProduct.Niche && e.product.Industry == MyProduct.Industry);
-    }
 
 
     public float GetTaskCompletionPercentage(TaskComponent taskComponent)

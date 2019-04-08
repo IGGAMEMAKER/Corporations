@@ -13,6 +13,6 @@ public class MonthlyBalanceView : View
     // Update is called once per frame
     void Update()
     {
-        Text.value = ProductEconomicsUtils.GetBalance(myProductEntity);
+        Text.value = ProductEconomicsUtils.GetBalance(MyProductEntity);
     }
 }

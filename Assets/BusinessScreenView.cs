@@ -8,7 +8,7 @@ public class BusinessScreenView : View
 
     void Awake()
     {
-        if (myProductEntity == null)
+        if (MyProductEntity == null)
             Debug.Log("no companies controlled");
     }
 

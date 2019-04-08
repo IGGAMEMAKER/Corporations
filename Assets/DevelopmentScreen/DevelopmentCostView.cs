@@ -4,9 +4,9 @@ public class DevelopmentCostView : ParameterView
 {
     public override string RenderHint()
     {
-        string hint = "Base Cost: " + ProductDevelopmentUtils.BaseDevCost(myProductEntity);
+        string hint = "Base Cost: " + ProductDevelopmentUtils.BaseDevCost(MyProductEntity);
 
-        if (ProductDevelopmentUtils.IsInnovating(myProductEntity))
+        if (ProductDevelopmentUtils.IsInnovating(MyProductEntity))
             hint += "\n Is Innovating: +" + Constants.DEVELOPMENT_INNOVATION_PENALTY + "%";
 
         return hint;
@@ -14,6 +14,6 @@ public class DevelopmentCostView : ParameterView
 
     public override string RenderValue()
     {
-        return ProductDevelopmentUtils.GetDevelopmentCost(myProductEntity).programmingPoints + "";
+        return ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity).programmingPoints + "";
     }
 }
