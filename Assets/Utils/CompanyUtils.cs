@@ -86,7 +86,7 @@ namespace Assets.Utils
             return id;
         }
 
-        public static int GenerateProduct(GameContext context, string name, NicheType niche)
+        public static int GenerateProductCompany(GameContext context, string name, NicheType niche)
         {
             int id = GenerateCompanyId(context); // GenerateId();
 
@@ -104,6 +104,11 @@ namespace Assets.Utils
 
         //    return companyGroupId;
         //}
+
+        public static GameEntity GetPlayerControlledProductCompany(GameContext context, )
+        {
+
+        }
 
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {

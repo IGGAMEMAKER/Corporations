@@ -31,20 +31,7 @@ public class View : MonoBehaviour
             return CompanyUtils.GetCompanyById(GameContext, (int)data);
         }
     }
-
-    //public GameEntity SelectedCompany
-    //{
-    //    get
-    //    {
-    //        var products = GameContext
-    //            .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.SelectedCompany));
-
-    //        if (products.Length == 1) return products[0];
-
-    //        return null;
-    //    }
-    //}
-
+    
     public GameContext GameContext
     {
         get

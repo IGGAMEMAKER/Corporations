@@ -17,7 +17,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     int GenerateProduct (string name, NicheType nicheType)
     {
-        return CompanyUtils.GenerateProduct(GameContext, name, nicheType);
+        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
     }
 
     int GenerateInvestmentFund(string name, long money)
