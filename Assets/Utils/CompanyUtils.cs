@@ -12,16 +12,6 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Company).Length;
         }
 
-        public static GameEntity GetCompanyById(GameContext context, int companyId)
-        {
-            return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
-        }
-
-        public static GameEntity GetCompanyByName(GameContext context, string name)
-        {
-            return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
-        }
-
         public static int GenerateInvestorId(GameContext context)
         {
             return context.GetEntities(GameMatcher.Shareholder).Length;
@@ -95,6 +85,72 @@ namespace Assets.Utils
             return id;
         }
 
+        public static GameEntity GetCompanyById(GameContext context, int companyId)
+        {
+            return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
+        }
+
+        public static GameEntity GetCompanyByName(GameContext context, string name)
+        {
+            return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
+        }
+
+        public static GameEntity GetPlayerControlledProductCompany(GameContext context, int playerId)
+        {
+            var matcher = GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer);
+
+            var products = context.GetEntities(matcher);
+
+            if (products.Length == 1) return products[0];
+
+            return null;
+        }
+
+        public static GameEntity[] GetMyCompetitors(GameContext context)
+        {
+            GameEntity[] products = GetProductsNotControlledByPlayer(context);
+
+            GameEntity myProductEntity = GetPlayerControlledProductCompany(context, 0);
+
+            return Array.FindAll(products, e => e.product.Niche == myProductEntity.product.Niche);
+        }
+
+        public static GameEntity[] GetProductsNotControlledByPlayer(GameContext context)
+        {
+            var matcher = GameMatcher
+                        .AllOf(GameMatcher.Product)
+                        .NoneOf(GameMatcher.ControlledByPlayer);
+
+            GameEntity[] entities = context.GetEntities(matcher);
+
+            return entities;
+        }
+
+        public static int GetCompanyIdByInvestorId(GameContext context, int shareholderId)
+        {
+            return Array.Find(
+                context.GetEntities(GameMatcher.Shareholder),
+                e => e.shareholder.Id == shareholderId
+                ).company.Id;
+        }
+
+        public static GameEntity GetInvestorById(GameContext context, int investorId)
+        {
+            var investorGroup = context.GetEntities(GameMatcher.Shareholder);
+
+            return Array.Find(investorGroup, s => s.shareholder.Id == investorId);
+        }
+
+        public static int GetTotalShares(Dictionary<int, int> shareholders)
+        {
+            int totalShares = 0;
+            foreach (var e in shareholders)
+                totalShares += e.Value;
+
+            return totalShares;
+        }
+
+        // set
         //public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         //{
         //    var c = GetCompanyById(context, companyId);
@@ -104,11 +160,6 @@ namespace Assets.Utils
 
         //    return companyGroupId;
         //}
-
-        public static GameEntity GetPlayerControlledProductCompany(GameContext context, )
-        {
-
-        }
 
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
@@ -177,30 +228,6 @@ namespace Assets.Utils
 
                 c.ReplaceShareholders(shareholders);
             }
-        }
-
-        public static int GetCompanyIdByInvestorId(GameContext context, int shareholderId)
-        {
-            return Array.Find(
-                context.GetEntities(GameMatcher.Shareholder),
-                e => e.shareholder.Id == shareholderId
-                ).company.Id;
-        }
-
-        public static GameEntity GetInvestorById(GameContext context, int investorId)
-        {
-            var investorGroup = context.GetEntities(GameMatcher.Shareholder);
-
-            return Array.Find(investorGroup, s => s.shareholder.Id == investorId);
-        }
-
-        public static int GetTotalShares(Dictionary<int, int> shareholders)
-        {
-            int totalShares = 0;
-            foreach (var e in shareholders)
-                totalShares += e.Value;
-
-            return totalShares;
         }
     }
 }

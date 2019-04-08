@@ -52,8 +52,7 @@ public class View : MonoBehaviour
     {
         get
         {
-            return GameContext
-                .GetEntities(GameMatcher.Date)[0].date.Date;
+            return ScheduleUtils.GetCurrentDate(GameContext);
         }
     }
 
@@ -79,31 +78,17 @@ public class View : MonoBehaviour
         MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
     }
 
-    GameEntity[] GetProductsNotControlledByPlayer()
-    {
-        GameEntity[] entities = GameContext
-            .GetEntities(
-                GameMatcher
-                    .AllOf(GameMatcher.Product)
-                    .NoneOf(GameMatcher.ControlledByPlayer)
-                    );
-
-        return entities;
-    }
-
     public GameEntity[] GetCompetitors()
     {
-        GameEntity[] products = GetProductsNotControlledByPlayer();
-
-        return Array.FindAll(products, e => e.product.Niche == myProduct.Niche);
+        return CompanyUtils.GetMyCompetitors(GameContext);
     }
 
-    public GameEntity[] GetNeighbours()
-    {
-        GameEntity[] products = GetProductsNotControlledByPlayer();
+    //public GameEntity[] GetNeighbours()
+    //{
+    //    GameEntity[] products = GetProductsNotControlledByPlayer();
 
-        return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
-    }
+    //    return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
+    //}
 
 
     GameEntity[] GetTasks(TaskType taskType)
