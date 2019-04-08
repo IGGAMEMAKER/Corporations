@@ -13,18 +13,11 @@ public class ProjectView : View, IMenuListener
         Render();
     }
 
-    void SetLinkToCompanyPreview()
-    {
-        LinkToCompanyPreview.CompanyId = SelectedCompany.company.Id;
-    }
-
     void Render()
     {
         CompanyName.text = SelectedCompany.company.Name;
 
         CompanyTypeLabel.text = SelectedCompany.company.CompanyType.ToString();
-
-        SetLinkToCompanyPreview();
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)

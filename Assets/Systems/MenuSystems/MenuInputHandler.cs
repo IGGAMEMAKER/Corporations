@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using UnityEngine;
 
 class MenuInputSystem : IExecuteSystem, IInitializeSystem
@@ -15,7 +16,9 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
     void EnableScreen(ScreenMode screenMode, object data)
     {
         screen = screenMode;
-        menu.ReplaceMenu(screen, data);
+        //menu.ReplaceMenu(screen, data);
+
+        MenuUtils.Navigate(context, screenMode, data);
     }
 
     public void Initialize()
@@ -23,6 +26,7 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
         menu = context.CreateEntity();
         screen = ScreenMode.DevelopmentScreen;
 
+        menu.AddNavigationHistory(new System.Collections.Generic.List<MenuComponent>());
         menu.AddMenu(screen, null);
     }
 
