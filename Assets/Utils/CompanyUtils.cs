@@ -7,6 +7,7 @@ namespace Assets.Utils
 {
     public static class CompanyUtils
     {
+        // Create
         public static int GenerateCompanyId(GameContext context)
         {
             return context.GetEntities(GameMatcher.Company).Length;
@@ -85,6 +86,8 @@ namespace Assets.Utils
             return id;
         }
 
+
+        // Read
         public static GameEntity GetCompanyById(GameContext context, int companyId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
@@ -150,7 +153,7 @@ namespace Assets.Utils
             return totalShares;
         }
 
-        // set
+        // Update
         //public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         //{
         //    var c = GetCompanyById(context, companyId);
