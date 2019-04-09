@@ -1,9 +1,13 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 
-public abstract class AbandonCompanyController : ButtonController
+public class AbandonCompanyController : ButtonController
 {
-    public abstract GameEntity GetCompany();
+    public GameEntity GetCompany()
+    {
+        int id = (int)MenuUtils.GetMenu(GameContext).menu.Data;
+
+        return CompanyUtils.GetCompanyById(GameContext, id);
+    }
 
     public override void Execute()
     {

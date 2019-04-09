@@ -9,6 +9,23 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public abstract void Execute();
 
+    public GameEntity SelectedCompany
+    {
+        get
+        {
+            var data = MenuUtils.GetMenu(GameContext).menu.Data;
+
+            if (data == null)
+            {
+                //Debug.LogError("SelectedCompany does not exist!");
+
+                return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
+            }
+
+            return CompanyUtils.GetCompanyById(GameContext, (int)data);
+        }
+    }
+
     public ProductComponent MyProduct
     {
         get

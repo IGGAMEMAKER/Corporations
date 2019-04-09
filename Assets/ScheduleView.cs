@@ -1,9 +1,4 @@
-﻿using Assets.Classes;
-using Assets.Utils;
-using System;
-using UnityEngine;
-
-public class ScheduleView : View
+﻿public class ScheduleView : View
 {
     public ResourceView ScheduleResourceView;
 
