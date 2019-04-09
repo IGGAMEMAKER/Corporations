@@ -48,7 +48,10 @@ public class CompanyPreviewView : View,
         RenderCompanyName(e);
         RenderCompanyType(e);
 
-        GetComponent<LinkToCompanyPreview>().CompanyId = e.company.Id;
+        var link = GetComponent<LinkToCompanyPreview>();
+
+        if (link != null)
+            link.CompanyId = e.company.Id;
     }
 
     public void OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)

@@ -1,13 +1,17 @@
 ﻿using Entitas;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class FillCompanyOwnings : View
+public abstract class FillCompanyOwnings : View
     ,IMenuListener
     ,IAnyShareholdersListener
     //,IShareholdersListener
 {
     bool SortingOrder = false;
+    GameEntity ObservableCompany;
+
+    public abstract GameEntity GetObservableCompany();
 
     void Start()
     {
@@ -18,16 +22,18 @@ public class FillCompanyOwnings : View
 
     void OnEnable()
     {
-        if (!SelectedCompany.hasAnyShareholdersListener)
-            SelectedCompany.AddAnyShareholdersListener(this);
+        ObservableCompany = GetObservableCompany();
+
+        if (!ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.AddAnyShareholdersListener(this);
 
         Render();
     }
 
     void OnDisable()
     {
-        if (SelectedCompany.hasAnyShareholdersListener)
-            SelectedCompany.RemoveAnyShareholdersListener(this);
+        if (ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.RemoveAnyShareholdersListener(this);
     }
 
     GameEntity[] GetInvestableCompanies()
@@ -44,12 +50,12 @@ public class FillCompanyOwnings : View
 
     GameEntity[] GetOwnings()
     {
-        if (!SelectedCompany.hasShareholder)
+        if (!ObservableCompany.hasShareholder)
             return new GameEntity[0];
 
         var investableCompanies = GetInvestableCompanies();
 
-        int shareholderId = SelectedCompany.shareholder.Id;
+        int shareholderId = ObservableCompany.shareholder.Id;
 
         var arr = Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
 
@@ -75,5 +81,7 @@ public class FillCompanyOwnings : View
     void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, int> shareholders)
     {
         Render();
+
+        Debug.Log("FillCompanyOwnings OnAnyShareholders");
     }
 }
