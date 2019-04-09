@@ -3,8 +3,6 @@
 public abstract class ShowControlledCompany : View, IMenuListener
 {
     public CompanyPreviewView CompanyPreviewView;
-    public GameObject Container;
-    public GameObject LeaveCEOButton;
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
@@ -20,7 +18,7 @@ public abstract class ShowControlledCompany : View, IMenuListener
 
         bool visible = e != null;
 
-        Container.SetActive(visible);
+        CompanyPreviewView.gameObject.SetActive(visible);
 
         if (visible)
             CompanyPreviewView.SetEntity(e);
