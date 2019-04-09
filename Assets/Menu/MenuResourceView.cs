@@ -1,7 +1,13 @@
 ﻿using Assets.Classes;
+using Assets.Utils;
 using System;
+using UnityEngine;
 
-public class MenuResourceView : View {
+public class MenuResourceView : View
+    ,IMenuListener
+    ,IProductListener
+    ,IMarketingListener
+{
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
     public ResourceView MarketingView;
@@ -9,11 +15,20 @@ public class MenuResourceView : View {
     public ResourceView IdeaView;
     public ResourceView ClientView;
     public ResourceView BrandView;
-    public ResourceView ScheduleView;
 
-    void Update()
+    public GameObject Container;
+
+    private void Start()
     {
-        Render(MyProductEntity.product.Resources, new TeamResource(), MyProductEntity.marketing, CurrentIntDate);
+        ListenMenuChanges(this);
+
+        if (MyProductEntity != null)
+        {
+            MyProductEntity.AddProductListener(this);
+            MyProductEntity.AddMarketingListener(this);
+        }
+
+        Render(ScreenMode.DevelopmentScreen);
     }
 
     string GetHintText<T> (T value)
@@ -28,25 +43,45 @@ public class MenuResourceView : View {
         return String.Format("Monthly change \n\n {0}", valueSigned);
     }
 
-    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing, int currentDate)
+    void Hide()
     {
+        Container.SetActive(false);
+    }
+
+    void Render()
+    {
+        Render(MenuUtils.GetMenu(GameContext).menu.ScreenMode);
+    }
+
+    public void Render(ScreenMode screenMode)
+    {
+        if (screenMode == ScreenMode.DevelopmentScreen || screenMode == ScreenMode.TeamScreen)
+            Render(MyProductEntity.product.Resources, new TeamResource(), MyProductEntity.marketing);
+        else
+            Hide();
+    }
+
+    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing)
+    {
+        Container.SetActive(true);
+
         string hint;
 
         // resources
         hint = GetHintText(resourceMonthChanges.money);
-        MoneyView.UpdateResourceValue(hint, teamResource.money);
+        MoneyView.SetPrettifiedValue(hint, teamResource.money);
 
         hint = GetHintText(resourceMonthChanges.programmingPoints);
-        ProgrammingView.UpdateResourceValue(hint, teamResource.programmingPoints);
+        ProgrammingView.SetPrettifiedValue(hint, teamResource.programmingPoints);
 
         hint = GetHintText(resourceMonthChanges.managerPoints);
-        ManagerView.UpdateResourceValue(hint, teamResource.managerPoints);
+        ManagerView.SetPrettifiedValue(hint, teamResource.managerPoints);
 
         hint = GetHintText(resourceMonthChanges.salesPoints);
-        MarketingView.UpdateResourceValue(hint, teamResource.salesPoints);
+        MarketingView.SetPrettifiedValue(hint, teamResource.salesPoints);
 
         hint = GetHintText(resourceMonthChanges.ideaPoints);
-        IdeaView.UpdateResourceValue(hint, teamResource.ideaPoints);
+        IdeaView.SetPrettifiedValue(hint, teamResource.ideaPoints);
 
 
         // audience
@@ -56,12 +91,23 @@ public class MenuResourceView : View {
         //    (int) (audience.GetChurnRate() * 100)
         //);
 
-        ClientView.UpdateResourceValue("Clients", marketing.Clients);
+        ClientView.SetPrettifiedValue("Clients", marketing.Clients);
 
-        BrandView.UpdateResourceValue("", marketing.BrandPower);
+        BrandView.SetPrettifiedValue("", marketing.BrandPower);
+    }
 
-        // date
-        ScheduleView.UpdateResourceValue("", currentDate);
-        //ScheduleView.UpdateResourceValue("Space: Pause/Unpause\n\n +/-: Faster/Slower", currentDate, "Day");
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    {
+        Render();
+    }
+
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)
+    {
+        Render();
+    }
+
+    void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
+    {
+        Render();
     }
 }

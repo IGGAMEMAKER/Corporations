@@ -2,7 +2,7 @@
 {
     public static class ValueFormatter
     {
-        public static string ShortenValue<T>(T value)
+        public static string ShortenValueMockup<T>(T value)
         {
             return value.ToString();
 

@@ -22,14 +22,10 @@ public abstract class ShowControlledCompany : View, IMenuListener
 
         Container.SetActive(visible);
 
-        //CompanyPreviewView.gameObject.SetActive(visible);
-        //LeaveCEOButton.SetActive(visible);
-
         if (visible)
             CompanyPreviewView.SetEntity(e);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         ListenMenuChanges(this);

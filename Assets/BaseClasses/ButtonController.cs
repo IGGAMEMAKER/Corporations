@@ -9,7 +9,13 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public abstract void Execute();
 
-    public ProductComponent MyProduct;
+    public ProductComponent MyProduct
+    {
+        get
+        {
+            return MyProductEntity?.product;
+        }
+    }
 
     public GameEntity MyProductEntity
     {

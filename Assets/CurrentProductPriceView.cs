@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 
 public class CurrentProductPriceView : ParameterView
+    //, IFinanceListener
 {
     public override string RenderHint()
     {
@@ -14,4 +15,21 @@ public class CurrentProductPriceView : ParameterView
     {
         return ProductEconomicsUtils.GetProductPrice(MyProductEntity) + "$";
     }
+
+    //void OnEnable()
+    //{
+    //    MyProductEntity.AddFinanceListener(this);
+
+    //    Render();
+    //}
+
+    //void OnDisable()
+    //{
+    //    MyProductEntity.RemoveFinanceListener(this);
+    //}
+
+    //void IFinanceListener.OnFinance(GameEntity entity, int price, int marketingFinancing, int salaries, float basePrice)
+    //{
+    //    Render();
+    //}
 }

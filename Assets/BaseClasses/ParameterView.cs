@@ -11,7 +11,7 @@ public abstract class ParameterView : View
         Hint = GetComponent<Hint>();
     }
 
-    void Render()
+    public void Render()
     {
         Text.text = RenderValue();
         string hint = RenderHint();
