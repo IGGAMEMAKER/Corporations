@@ -6,6 +6,7 @@ public class NicheScreenView : View
     public Text NicheName;
     public Text IndustryName;
     public MarketPotentialView MarketPotentialView;
+    public Text AmountOfCompetitors;
 
     void OnEnable()
     {
@@ -21,5 +22,6 @@ public class NicheScreenView : View
         IndustryName.text = "Is part of " + IndustryType.ToString() + " industry";
 
         MarketPotentialView.SetEntity(NicheType);
+        AmountOfCompetitors.text = NicheUtils.GetCompetitorsAmount(NicheType, GameContext).ToString();
     }
 }

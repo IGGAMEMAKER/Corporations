@@ -151,6 +151,7 @@ namespace Assets.Utils
 
         public static GameEntity[] GetMyCompetitors(GameContext context)
         {
+            //return NicheUtils.GetPlayersOnMarket(GetPlayerControlledProductCompany(context), context);
             GameEntity[] products = GetProductsNotControlledByPlayer(context);
 
             GameEntity myProductEntity = GetPlayerControlledProductCompany(context);

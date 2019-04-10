@@ -12,6 +12,11 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == e.product.Niche);
         }
 
+        public static IEnumerable<GameEntity> GetPlayersOnMarket(NicheType niche, GameContext context)
+        {
+            return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == niche);
+        }
+
         static string ProlongNameToNDigits(string name, int n)
         {
             if (name.Length >= n) return name.Substring(0, n - 3) + "...";
@@ -32,6 +37,13 @@ namespace Assets.Utils
             // returns amount of competitors on specific niche
 
             return GetPlayersOnMarket(e, context).Count();
+        }
+
+        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
+        {
+            // returns amount of competitors on specific niche
+
+            return GetPlayersOnMarket(niche, context).Count();
         }
 
         public static IndustryType GetIndustry(NicheType niche, GameContext context)
