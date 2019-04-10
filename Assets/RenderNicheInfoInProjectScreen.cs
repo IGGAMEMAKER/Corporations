@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RenderNicheInfoInProjectScreen : View, IMenuListener
+public class RenderNicheInfoInProjectScreen : View
+    //, IMenuListener
 {
     public Text NicheName;
     public GameObject NicheRoot;
@@ -10,8 +11,13 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
 
     void Start()
     {
-        ListenMenuChanges(this);
+        //ListenMenuChanges(this);
 
+        Render();
+    }
+
+    void OnEnable()
+    {
         Render();
     }
 
@@ -43,24 +49,9 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
         LinkToNiche.SetNiche(niche);
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        if (screenMode == ScreenMode.ProjectScreen)
-            Render();
-    }
-}
-
-public static class VisualFormattingUtils
-{
-    public static string Link(string text)
-    {
-        return $"<i><b><color=blue>{text}</color></b></i>";
-    }
-
-    public static Color Color(string color)
-    {
-        ColorUtility.TryParseHtmlString(color, out Color c);
-
-        return c;
-    }
+    //void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    //{
+    //    if (screenMode == ScreenMode.ProjectScreen)
+    //        Render();
+    //}
 }
