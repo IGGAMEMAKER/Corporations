@@ -2,17 +2,14 @@
 using Assets.Utils.Formatting;
 using UnityEngine.UI;
 
-public class IndustryScreenView : View, IMenuListener
+public class IndustryScreenView : View
 {
     IndustryType industryType;
 
     public Text IndustryName;
-    public NicheListView NicheListView;
 
-    void Start()
+    void OnEnable()
     {
-        ListenMenuChanges(this);
-
         Render();
     }
 
@@ -21,11 +18,5 @@ public class IndustryScreenView : View, IMenuListener
         industryType = MenuUtils.GetIndustry(GameContext);
 
         IndustryName.text = EnumFormattingUtils.GetFormattedIndustryName(industryType) + " Industry";
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        if (screenMode == ScreenMode.IndustryScreen)
-            Render();
     }
 }

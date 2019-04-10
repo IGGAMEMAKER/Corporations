@@ -2,12 +2,10 @@
 using Entitas;
 using System;
 
-public class FillNicheListView : View, IMenuListener
+public class FillNicheListView : View
 {
-    void Start()
+    void OnEnable()
     {
-        ListenMenuChanges(this);
-
         Render();
     }
 
@@ -30,10 +28,5 @@ public class FillNicheListView : View, IMenuListener
         var niches = GetNiches();
 
         GetComponent<NicheListView>().SetItems(niches);
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        Render();
     }
 }
