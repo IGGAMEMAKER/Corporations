@@ -12,12 +12,12 @@ namespace Assets.Utils
 
         public static IndustryType GetIndustry(GameContext gameContext)
         {
-            return (IndustryType)GetMenu(gameContext).menu.Data;
+            return (IndustryType)GetMenu(gameContext)?.menu?.Data;
         }
 
         public static NicheType GetNiche(GameContext gameContext)
         {
-            return (NicheType)GetMenu(gameContext).menu.Data;
+            return (NicheType)GetMenu(gameContext)?.menu?.Data;
         }
 
         public static void SetSelectedCompany(int companyId, GameContext gameContext)

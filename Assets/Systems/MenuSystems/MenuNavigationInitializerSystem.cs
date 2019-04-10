@@ -1,5 +1,4 @@
-﻿using System;
-using Entitas;
+﻿using Entitas;
 
 public class MenuNavigationInitializerSystem : IInitializeSystem
 {

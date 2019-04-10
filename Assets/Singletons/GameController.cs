@@ -35,6 +35,8 @@ public class GameController : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("GameController OnEnable(). Deactivate everything");
+
         SetViewsActivation(false);
     }
 
@@ -46,6 +48,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("GameController starts systems...");
 
         // get a reference to the contexts
         var contexts = Contexts.sharedInstance;
@@ -61,6 +64,7 @@ public class GameController : MonoBehaviour
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
 
+        Debug.Log("Activate everything");
         SetViewsActivation(true);
     }
 

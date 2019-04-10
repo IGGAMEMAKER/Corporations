@@ -2,7 +2,9 @@
 using Entitas;
 using UnityEngine;
 
-class MenuInputSystem : IExecuteSystem, IInitializeSystem
+class MenuInputSystem :
+    IExecuteSystem,
+    IInitializeSystem
 {
     readonly GameContext context;
     public ScreenMode screen;
@@ -16,35 +18,31 @@ class MenuInputSystem : IExecuteSystem, IInitializeSystem
     void EnableScreen(ScreenMode screenMode, object data)
     {
         screen = screenMode;
-        //menu.ReplaceMenu(screen, data);
 
         MenuUtils.Navigate(context, screenMode, data);
     }
 
-    public void Initialize()
+    void IInitializeSystem.Initialize()
     {
         menu = context.CreateEntity();
         screen = ScreenMode.DevelopmentScreen;
 
         menu.AddNavigationHistory(new System.Collections.Generic.List<MenuComponent>());
-        menu.AddMenu(screen, null);
+        menu.AddMenu(screen, 1);
     }
 
-    public void Execute()
+    void IExecuteSystem.Execute()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             EnableScreen(ScreenMode.DevelopmentScreen, null);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            EnableScreen(ScreenMode.InvesmentsScreen, null);
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.BusinessScreen, null);
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
             EnableScreen(ScreenMode.CharacterScreen, null);
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-            EnableScreen(ScreenMode.GroupManagementScreen, null);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            EnableScreen(ScreenMode.IndustryScreen, IndustryType.Search);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            EnableScreen(ScreenMode.BusinessScreen, null);
     }
 }

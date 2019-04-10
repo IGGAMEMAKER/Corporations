@@ -4,6 +4,17 @@
 
     public override void Execute()
     {
-        Navigate(TargetMenu, null);
+        switch (TargetMenu)
+        {
+            case ScreenMode.CharacterScreen:
+                Navigate(TargetMenu, null);
+                break;
+            case ScreenMode.IndustryScreen:
+                Navigate(TargetMenu, IndustryType.Search);
+                break;
+            default:
+                Navigate(TargetMenu, null);
+                break;
+        }
     }
 }
