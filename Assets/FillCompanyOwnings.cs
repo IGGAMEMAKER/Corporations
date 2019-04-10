@@ -22,6 +22,29 @@ public class FillCompanyOwnings : View
         ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
     }
 
+    void OnEnable()
+    {
+        SetObservableCompany();
+
+        if (!ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.AddAnyShareholdersListener(this);
+
+        Render();
+    }
+
+    void OnDisable()
+    {
+        if (ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.RemoveAnyShareholdersListener(this);
+    }
+
+    void Render()
+    {
+        var ownings = GetOwnings();
+
+        GetComponent<OwningsListView>().SetItems(ownings);
+    }
+
     public void ToggleSortingOrder()
     {
         SortingOrder = !SortingOrder;
@@ -51,32 +74,9 @@ public class FillCompanyOwnings : View
         return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
     }
 
-    void OnEnable()
-    {
-        SetObservableCompany();
-
-        if (!ObservableCompany.hasAnyShareholdersListener)
-            ObservableCompany.AddAnyShareholdersListener(this);
-
-        Render();
-    }
-
-    void OnDisable()
-    {
-        if (ObservableCompany.hasAnyShareholdersListener)
-            ObservableCompany.RemoveAnyShareholdersListener(this);
-    }
-
-    void Render()
-    {
-        var ownings = GetOwnings();
-
-        GetComponent<OwningsListView>().SetItems(ownings);
-    }
-
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        if (screenMode == ScreenMode.BusinessScreen || screenMode == ScreenMode.BusinessScreen)
+        if (screenMode == ScreenMode.BusinessScreen || screenMode == ScreenMode.GroupManagementScreen)
             Render();
     }
 

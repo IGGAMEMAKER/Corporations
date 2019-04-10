@@ -29,11 +29,19 @@ public class Services
 public class GameController : MonoBehaviour
 {
     Systems _systems;
+
     public Canvas Canvas;
+    public GameObject Gameplay;
 
     private void OnEnable()
     {
-        Canvas.gameObject.SetActive(false);
+        SetViewsActivation(false);
+    }
+
+    void SetViewsActivation(bool show)
+    {
+        Canvas.gameObject.SetActive(show);
+        Gameplay.SetActive(show);
     }
 
     void Start()
@@ -53,7 +61,7 @@ public class GameController : MonoBehaviour
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
 
-        Canvas.gameObject.SetActive(true);
+        SetViewsActivation(true);
     }
 
     void Update()

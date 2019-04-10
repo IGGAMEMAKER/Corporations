@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class RenderNicheInfoInProjectScreen : View, IMenuListener
 {
-    public GameObject NicheLabel;
     public Text NicheName;
     public GameObject NicheRoot;
     public LinkToNiche LinkToNiche;
@@ -18,7 +17,9 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
 
     void Render()
     {
-        bool canRenderNiche = SelectedCompany.company.CompanyType == CompanyType.ProductCompany;
+        CompanyType companyType = SelectedCompany.company.CompanyType;
+
+        bool canRenderNiche = companyType == CompanyType.ProductCompany;
 
         ToggleNicheObjects(canRenderNiche);
 
