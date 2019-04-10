@@ -10,6 +10,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     public Text Clients;
     public Text Level;
     public Image Panel;
+    public Text IsNewCompanyLabel;
 
     public void SetEntity(GameEntity entity)
     {
@@ -43,6 +44,8 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         RenderProductInfo(Company.product.Name, Company.product.ProductLevel);
 
         RenderClients(Company.marketing.Clients);
+
+        IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)

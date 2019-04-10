@@ -83,6 +83,13 @@ namespace Assets.Utils
             return id;
         }
 
+        public static void Rename(GameContext context, int companyId, string name)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            c.ReplaceCompany(c.company.Id, name, c.company.CompanyType);
+        }
+
         public static GameEntity CreateCompanyEntity(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
         {
             var e = context.CreateEntity();

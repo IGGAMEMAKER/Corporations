@@ -36,11 +36,30 @@ public class FillCompetingCompaniesList : View
             Render();
     }
 
+    int SortCompanies(GameEntity p1, GameEntity p2)
+    {
+        if (p1.isControlledByPlayer)
+            return -1;
+
+        if (p2.isControlledByPlayer)
+            return 1;
+
+        if (p1.product.ProductLevel == 0)
+            return -1;
+
+        if (p2.product.ProductLevel == 0)
+            return 1;
+
+        return 0;
+    }
+
     void Render()
     {
         NicheType niche = MenuUtils.GetNiche(GameContext);
 
         GameEntity[] entities = GetProductsOnNiche(niche);
+
+        Array.Sort(entities, SortCompanies);
 
         string names = String.Join(",", entities.Select(e => e.product.Name).ToArray());
 

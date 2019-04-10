@@ -36,7 +36,9 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
     {
         NicheType niche = SelectedCompany.product.Niche;
 
-        NicheName.text = EnumFormattingUtils.GetFormattedNicheName(niche);
+        string text = EnumFormattingUtils.GetFormattedNicheName(niche);
+
+        NicheName.text = VisualFormattingUtils.Link(text);
 
         LinkToNiche.SetNiche(niche);
     }
@@ -45,5 +47,20 @@ public class RenderNicheInfoInProjectScreen : View, IMenuListener
     {
         if (screenMode == ScreenMode.ProjectScreen)
             Render();
+    }
+}
+
+public static class VisualFormattingUtils
+{
+    public static string Link(string text)
+    {
+        return $"<i><b><color=blue>{text}</color></b></i>";
+    }
+
+    public static Color Color(string color)
+    {
+        ColorUtility.TryParseHtmlString(color, out Color c);
+
+        return c;
     }
 }

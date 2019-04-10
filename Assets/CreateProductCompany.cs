@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Assets.Utils.Formatting;
 
 public class CreateProductCompany : ButtonController
 {
@@ -9,7 +7,10 @@ public class CreateProductCompany : ButtonController
     {
         NicheType nicheType = MenuUtils.GetNiche(GameContext);
 
-        var companyID = CompanyUtils.GenerateProductCompany(GameContext, "New Company", nicheType);
+        string name = "New Company " + CompanyUtils.GenerateCompanyId(GameContext);
+
+        var companyID = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+        var c = CompanyUtils.GetCompanyById(GameContext, companyID);
 
         if (MyProductEntity == null)
         {
@@ -17,11 +18,15 @@ public class CreateProductCompany : ButtonController
         }
         else if (MyGroupEntity != null)
         {
-            SetToGroup(companyID);
+            AttachToGroup(companyID);
+
+            name = MyGroupEntity.company.Name + " " + EnumFormattingUtils.GetFormattedNicheName(nicheType);
+
+            CompanyUtils.Rename(GameContext, companyID, name);
         }
     }
 
-    void SetToGroup(int companyID)
+    void AttachToGroup(int companyID)
     {
         CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, companyID);
     }

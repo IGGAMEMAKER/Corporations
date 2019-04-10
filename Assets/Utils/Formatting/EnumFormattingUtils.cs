@@ -9,8 +9,8 @@
                 case NicheType.CloudComputing: return "Cloud\nComputing";
                 case NicheType.Messenger: return "Messengers";
                 case NicheType.SocialNetwork: return "Social\nNetworks";
-                case NicheType.OSSciencePurpose: return "Science\nPurpose";
-                case NicheType.OSCommonPurpose: return "Desktop";
+                case NicheType.OSSciencePurpose: return "Science\nPurpose OS";
+                case NicheType.OSCommonPurpose: return "Desktop OS";
                 case NicheType.SearchEngine: return "Search\nEngines";
 
                 default: return "Unknown niche: " + niche.ToString();
