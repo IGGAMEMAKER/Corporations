@@ -206,6 +206,11 @@ namespace Assets.Utils
             return companyGroupId;
         }
 
+        internal static void BecomeCEO(GameContext gameContext, int companyID)
+        {
+            SetPlayerControlledCompany(gameContext, companyID);
+        }
+
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
             var c = GetCompanyById(context, id);

@@ -91,6 +91,7 @@ public struct SelectedCompanyComponent : IComponent
 
 }
 
+//[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 [Game]
 public struct CompanyComponent : IComponent
 {

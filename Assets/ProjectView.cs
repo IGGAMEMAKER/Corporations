@@ -6,6 +6,8 @@ public class ProjectView : View
     public Text CompanyTypeLabel;
     public Text CompanyNameLabel;
 
+    public Text CEONameLabel;
+
     private void OnEnable()
     {
         Render();
@@ -17,5 +19,7 @@ public class ProjectView : View
 
         CompanyTypeLabel.text = EnumFormattingUtils.GetFormattedCompanyType(companyType);
         CompanyNameLabel.text = SelectedCompany.company.Name;
+
+        CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : "Sundar Pichai");
     }
 }
