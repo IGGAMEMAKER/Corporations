@@ -4,7 +4,9 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class FillCompetingCompaniesList : View, IMenuListener
+public class FillCompetingCompaniesList : View
+    , IMenuListener
+    , IAnyCompanyListener
 {
     GameEntity[] GetProductsOnNiche(NicheType niche)
     {
@@ -23,12 +25,15 @@ public class FillCompetingCompaniesList : View, IMenuListener
         Render();
     }
 
+    void OnEnable()
+    {
+        GetUniversalListener.AddAnyCompanyListener(this);
+    }
+
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
         if (screenMode == ScreenMode.NicheScreen)
-        {
             Render();
-        }
     }
 
     void Render()
@@ -42,5 +47,10 @@ public class FillCompetingCompaniesList : View, IMenuListener
         Debug.Log("Rendering companies: " + names);
 
         GetComponent<CompetingCompaniesListView>().SetItems(entities);
+    }
+
+    void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
+    {
+        Render();
     }
 }

@@ -8,54 +8,54 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int AnyDateListener = 0;
-    public const int AnyShareholdersListener = 1;
-    public const int Company = 2;
-    public const int ControlledByPlayer = 3;
-    public const int Date = 4;
-    public const int DebugMessage = 5;
-    public const int Event = 6;
-    public const int EventFinancePricingChange = 7;
-    public const int EventMarketingEnableTargeting = 8;
-    public const int EventMarketingStartSimpleCampaign = 9;
-    public const int EventStaffHireProgrammer = 10;
-    public const int EventUpgradeAnalytics = 11;
-    public const int EventUpgradeProduct = 12;
-    public const int Finance = 13;
-    public const int FinanceListener = 14;
-    public const int Human = 15;
-    public const int Industry = 16;
-    public const int Marketing = 17;
-    public const int MarketingListener = 18;
-    public const int Menu = 19;
-    public const int MenuListener = 20;
-    public const int NavigationHistory = 21;
-    public const int Niche = 22;
-    public const int Position = 23;
-    public const int PositionListener = 24;
-    public const int Product = 25;
-    public const int ProductListener = 26;
-    public const int RuledBy = 27;
-    public const int SelectedCompany = 28;
-    public const int Shareholder = 29;
-    public const int Shareholders = 30;
-    public const int ShareholdersListener = 31;
-    public const int Targeting = 32;
-    public const int TargetingListener = 33;
-    public const int Task = 34;
-    public const int TaskManager = 35;
-    public const int Team = 36;
-    public const int TeamListener = 37;
+    public const int AnyCompanyListener = 0;
+    public const int AnyDateListener = 1;
+    public const int AnyShareholdersListener = 2;
+    public const int Company = 3;
+    public const int CompanyListener = 4;
+    public const int ControlledByPlayer = 5;
+    public const int Date = 6;
+    public const int Event = 7;
+    public const int EventFinancePricingChange = 8;
+    public const int EventMarketingEnableTargeting = 9;
+    public const int EventMarketingStartSimpleCampaign = 10;
+    public const int EventStaffHireProgrammer = 11;
+    public const int EventUpgradeAnalytics = 12;
+    public const int EventUpgradeProduct = 13;
+    public const int Finance = 14;
+    public const int FinanceListener = 15;
+    public const int Human = 16;
+    public const int Industry = 17;
+    public const int Marketing = 18;
+    public const int MarketingListener = 19;
+    public const int Menu = 20;
+    public const int MenuListener = 21;
+    public const int NavigationHistory = 22;
+    public const int Niche = 23;
+    public const int Product = 24;
+    public const int ProductListener = 25;
+    public const int RuledBy = 26;
+    public const int SelectedCompany = 27;
+    public const int Shareholder = 28;
+    public const int Shareholders = 29;
+    public const int ShareholdersListener = 30;
+    public const int Targeting = 31;
+    public const int TargetingListener = 32;
+    public const int Task = 33;
+    public const int TaskManager = 34;
+    public const int Team = 35;
+    public const int TeamListener = 36;
 
-    public const int TotalComponents = 38;
+    public const int TotalComponents = 37;
 
     public static readonly string[] componentNames = {
+        "AnyCompanyListener",
         "AnyDateListener",
         "AnyShareholdersListener",
         "Company",
+        "CompanyListener",
         "ControlledByPlayer",
         "Date",
-        "DebugMessage",
         "Event",
         "EventFinancePricingChange",
         "EventMarketingEnableTargeting",
@@ -73,8 +73,6 @@ public static class GameComponentsLookup {
         "MenuListener",
         "NavigationHistory",
         "Niche",
-        "Position",
-        "PositionListener",
         "Product",
         "ProductListener",
         "RuledBy",
@@ -91,9 +89,11 @@ public static class GameComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AnyCompanyListenerComponent),
         typeof(AnyDateListenerComponent),
         typeof(AnyShareholdersListenerComponent),
         typeof(CompanyComponent),
+        typeof(CompanyListenerComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DateComponent),
         typeof(EventComponent),
@@ -113,7 +113,6 @@ public static class GameComponentsLookup {
         typeof(MenuListenerComponent),
         typeof(NavigationHistoryComponent),
         typeof(NicheComponent),
-        typeof(PositionListenerComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(RuledByComponent),

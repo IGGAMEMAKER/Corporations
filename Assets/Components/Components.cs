@@ -91,8 +91,8 @@ public struct SelectedCompanyComponent : IComponent
 
 }
 
-//[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
-[Game]
+//[Game]
+[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent
 {
     public int Id;

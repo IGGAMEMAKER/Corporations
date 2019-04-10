@@ -63,7 +63,13 @@ public class View : MonoBehaviour
         }
     }
 
-
+    public GameEntity GetUniversalListener
+    {
+        get
+        {
+            return MenuUtils.GetMenu(GameContext);
+        }
+    }
 
     public float GetTaskCompletionPercentage(TaskComponent taskComponent)
     {
