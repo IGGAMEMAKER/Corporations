@@ -1,44 +1,25 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public abstract class FillCompanyOwnings : View
+public class FillCompanyOwnings : View
     ,IMenuListener
     ,IAnyShareholdersListener
-    //,IShareholdersListener
 {
     bool SortingOrder = false;
     GameEntity ObservableCompany;
 
-    public abstract GameEntity GetObservableCompany();
-
     void Start()
     {
         ListenMenuChanges(this);
-
-        Render();
     }
 
-    void OnEnable()
+    public void SetObservableCompany()
     {
-        ObservableCompany = GetObservableCompany();
+        var screenMode = MenuUtils.GetMenu(GameContext).menu.ScreenMode;
 
-        if (!ObservableCompany.hasAnyShareholdersListener)
-            ObservableCompany.AddAnyShareholdersListener(this);
-
-        Render();
-    }
-
-    void OnDisable()
-    {
-        if (ObservableCompany.hasAnyShareholdersListener)
-            ObservableCompany.RemoveAnyShareholdersListener(this);
-    }
-
-    GameEntity[] GetInvestableCompanies()
-    {
-        return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+        ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
     }
 
     public void ToggleSortingOrder()
@@ -65,6 +46,27 @@ public abstract class FillCompanyOwnings : View
         return arr;
     }
 
+    GameEntity[] GetInvestableCompanies()
+    {
+        return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+    }
+
+    void OnEnable()
+    {
+        SetObservableCompany();
+
+        if (!ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.AddAnyShareholdersListener(this);
+
+        Render();
+    }
+
+    void OnDisable()
+    {
+        if (ObservableCompany.hasAnyShareholdersListener)
+            ObservableCompany.RemoveAnyShareholdersListener(this);
+    }
+
     void Render()
     {
         var ownings = GetOwnings();
@@ -74,14 +76,12 @@ public abstract class FillCompanyOwnings : View
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        if (screenMode == ScreenMode.BusinessScreen)
+        if (screenMode == ScreenMode.BusinessScreen || screenMode == ScreenMode.BusinessScreen)
             Render();
     }
 
     void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, int> shareholders)
     {
         Render();
-
-        Debug.Log("FillCompanyOwnings OnAnyShareholders");
     }
 }
