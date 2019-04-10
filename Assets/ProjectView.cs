@@ -4,7 +4,6 @@ public class ProjectView : View, IMenuListener
 {
     public Text CompanyName;
     public Text CompanyTypeLabel;
-    public LinkToCompanyPreview LinkToCompanyPreview;
 
     void Start()
     {
