@@ -8,10 +8,10 @@ public class TeamSizeView : View
     public Text MaxSize;
     public Text CurrentSize;
 
-    void Update()
-    {
-        Render(MyProductEntity.team);
-    }
+    //void Update()
+    //{
+    //    Render(MyProductEntity.team);
+    //}
 
     void Render(TeamComponent team)
     {

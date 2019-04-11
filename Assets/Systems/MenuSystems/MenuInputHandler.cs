@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Entitas;
-using UnityEngine;
 
 class MenuInputSystem :
     IExecuteSystem,

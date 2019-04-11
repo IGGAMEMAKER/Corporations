@@ -6,11 +6,19 @@ public class OwningsListView : ListView
     {
         var e = entity as GameEntity;
 
-        var obj = t.gameObject;
-
-        obj.AddComponent<CompanyDragController>();
-
         t.GetComponent<CompanyPreviewView>()
             .SetEntity(e);
+    }
+}
+
+public class SelectCompanyController : ButtonController
+{
+    public int companyId;
+    //bool selected;
+
+    public override void Execute()
+    {
+        //selected = true;
+        SetSelectedCompany(companyId);
     }
 }
