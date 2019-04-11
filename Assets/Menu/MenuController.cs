@@ -19,6 +19,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject NicheScreen;
     public GameObject CharacterScreen;
     public GameObject GroupManagementScreen;
+    public GameObject TeamScreen;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.NicheScreen] = NicheScreen,
             [ScreenMode.CharacterScreen] = CharacterScreen,
             [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
+            [ScreenMode.TeamScreen] = TeamScreen
         };
 
         DisableAllScreens();
@@ -54,6 +56,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.InvesmentsScreen: return "Investments";
             case ScreenMode.CharacterScreen: return "Your Stats";
             case ScreenMode.GroupManagementScreen: return "Managing companies";
+            case ScreenMode.TeamScreen: return "Management";
 
             default: return "WUT?";
         }

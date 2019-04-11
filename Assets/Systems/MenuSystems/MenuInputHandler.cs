@@ -33,16 +33,16 @@ class MenuInputSystem :
 
     void IExecuteSystem.Execute()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            EnableScreen(ScreenMode.DevelopmentScreen, null);
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //    EnableScreen(ScreenMode.DevelopmentScreen, null);
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            EnableScreen(ScreenMode.CharacterScreen, null);
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //    EnableScreen(ScreenMode.CharacterScreen, null);
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            EnableScreen(ScreenMode.IndustryScreen, IndustryType.Search);
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //    EnableScreen(ScreenMode.IndustryScreen, IndustryType.Search);
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            EnableScreen(ScreenMode.BusinessScreen, null);
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //    EnableScreen(ScreenMode.BusinessScreen, null);
     }
 }
