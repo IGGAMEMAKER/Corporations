@@ -13,7 +13,7 @@ public class SetGroupCompanyAsSelected : View
     public Text SelectedCompanyIncome;
     public Text SelectedCompanyMaintenance;
     public Text SelectedCompanyChange;
-    public Text SelectedCompanyROI;
+    public ColoredValuePositiveOrNegative SelectedCompanyROI;
 
     private void OnEnable()
     {
@@ -34,13 +34,19 @@ public class SetGroupCompanyAsSelected : View
         Render();
     }
 
+    void RenderROI()
+    {
+        //int ROI = CompanyUtils.
+        //SelectedCompanyROI.UpdateValue()
+    }
+
     void Render()
     {
         var c = CompanyUtils.GetCompanyById(GameContext, SelectedCompany.company.Id);
 
         SelectedCompanyName.text = c.company.Name;
 
-
+        RenderROI();
     }
 
     void Start()

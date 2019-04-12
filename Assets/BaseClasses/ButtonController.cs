@@ -113,7 +113,7 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
 
     public void SetSelectedCompany(int companyId)
     {
-        MenuUtils.SetSelectedCompany(companyId, GameContext);
+        MenuUtils.SetSelectedCompany(GameContext, companyId);
     }
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)

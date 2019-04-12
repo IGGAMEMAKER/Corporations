@@ -18,14 +18,24 @@
 
         public static long GetIncome(GameEntity e)
         {
-            float income = e.marketing.Clients * GetProductPrice(e);
+            if (e.company.CompanyType == CompanyType.ProductCompany)
+            {
+                float income = e.marketing.Clients * GetProductPrice(e);
 
-            return System.Convert.ToInt64(income);
+                return System.Convert.ToInt64(income);
+            }
+
+            return 1000000;
         }
 
         internal static long GetBalance(GameEntity e)
         {
-            return GetIncome(e) - GetTeamMaintenance(e);
+            return GetIncome(e) - GetMaintenance(e);
+        }
+
+        public static long GetMaintenance(GameEntity e)
+        {
+            return GetTeamMaintenance(e);
         }
 
         public static long GetTeamMaintenance(GameEntity e)
