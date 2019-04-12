@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using Assets.Utils;
 using Assets.Utils.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,18 +16,25 @@ public class CompanyPreviewView : View,
 
     public GameEntity _entity;
 
+    Color baseColor;
+
+    void Awake()
+    {
+        baseColor = Panel.color;
+    }
+
     public void SetEntity(GameEntity entity)
     {
         _entity = entity;
 
         entity.AddProductListener(this);
 
-        ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
+        ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_SELECTED, out Color selectedCompanyColor);
 
-        //if (entity.isControlledByPlayer)
-        //{
-        //    Panel.color = ourCompanyColor;
-        //}
+        if (entity == SelectedCompany && MenuUtils.GetMenu(GameContext).menu.ScreenMode == ScreenMode.GroupManagementScreen)
+            Panel.color = selectedCompanyColor;
+        else
+            Panel.color = baseColor;
 
         CEOLabel.gameObject.SetActive(entity.isControlledByPlayer);
 
@@ -43,15 +51,20 @@ public class CompanyPreviewView : View,
         CompanyNameLabel.text = entity.company.Name;
     }
 
+    void UpdateLinkToCompany(GameEntity e)
+    {
+        var link = GetComponent<LinkToCompanyPreview>();
+
+        if (link != null)
+            link.CompanyId = e.company.Id;
+    }
+
     void Render(GameEntity e)
     {
         RenderCompanyName(e);
         RenderCompanyType(e);
 
-        var link = GetComponent<LinkToCompanyPreview>();
-
-        if (link != null)
-            link.CompanyId = e.company.Id;
+        UpdateLinkToCompany(e);
     }
 
     public void OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)

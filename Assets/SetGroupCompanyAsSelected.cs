@@ -29,7 +29,7 @@ public class SetGroupCompanyAsSelected : View
         CompanyPreviewView.SetEntity(MyGroupEntity);
 
         GroupBalance.text = ValueFormatter.Shorten(MyGroupEntity.companyResource.Resources.money);
-        GroupName.text = MyGroupEntity.company.Name;
+        //GroupName.text = MyGroupEntity.company.Name;
 
         Render();
     }

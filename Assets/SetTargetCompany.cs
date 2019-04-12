@@ -26,6 +26,16 @@ public class SetTargetCompany : View
                 companyId = SelectedCompany.company.Id;
                 break;
         }
+
+        UpdateLinks();
+    }
+
+    void UpdateLinks()
+    {
+        var l = GetComponent<LinkToCompanyPreview>();
+
+        if (l != null)
+            l.CompanyId = companyId;
     }
 
     void OnEnable()

@@ -2,8 +2,6 @@
 
 public class ManageableOwningsListView : OwningsListView
 {
-    public SetGroupCompanyAsSelected SetGroupCompanyAsSelected;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         //base.SetItem(t, entity, data);
