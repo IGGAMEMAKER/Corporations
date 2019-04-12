@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using System;
 
-namespace Assets.Utils.Companies
+namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
