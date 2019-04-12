@@ -16,14 +16,14 @@ namespace Assets.Utils
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Name.Equals(name));
         }
 
-        public static int GetCompanyIdByInvestorId(GameContext context, int shareholderId)
-        {
-            return Array.Find(context.GetEntities(GameMatcher.Shareholder), e => e.shareholder.Id == shareholderId).company.Id;
-        }
-
         public static GameEntity GetInvestorById(GameContext context, int investorId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);
+        }
+
+        public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
+        {
+            return GetInvestorById(context, investorId).company.Id;
         }
 
         public static bool IsCompanyGroupLike(GameContext context, int companyId)

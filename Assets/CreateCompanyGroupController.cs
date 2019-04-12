@@ -6,7 +6,7 @@ public class CreateCompanyGroupController : ButtonController
     {
         string name = "Company Group #" + CompanyUtils.GenerateCompanyId(GameContext);
 
-        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, name);
+        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, name).company.Id;
 
         CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, groupId);
     }

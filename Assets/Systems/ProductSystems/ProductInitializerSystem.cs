@@ -22,7 +22,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     int GenerateInvestmentFund(string name, long money)
     {
-        return CompanyUtils.GenerateInvestmentFund(GameContext, name, money);
+        return CompanyUtils.GenerateInvestmentFund(GameContext, name, money).shareholder.Id;
     }
 
     int GenerateHoldingCompany(string name)
