@@ -15,9 +15,9 @@ public class ProductInitializerSystem : IInitializeSystem
         Initialize();
     }
 
-    int GenerateProduct (string name, NicheType nicheType)
+    int GenerateProduct(string name, NicheType nicheType)
     {
-        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType).company.Id;
     }
 
     int GenerateInvestmentFund(string name, long money)
@@ -27,7 +27,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     int GenerateHoldingCompany(string name)
     {
-        return CompanyUtils.GenerateHoldingCompany(GameContext, name);
+        return CompanyUtils.GenerateHoldingCompany(GameContext, name).company.Id;
     }
 
     void AttachToHolding(int parent, int child)

@@ -12,7 +12,7 @@ namespace Assets.Utils
 
             Dictionary<int, int> founders = c.shareholders.Shareholders;
 
-            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", founders);
+            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", founders).company.Id;
             AttachToGroup(context, companyGroupId, companyId);
 
             return companyGroupId;
@@ -54,6 +54,15 @@ namespace Assets.Utils
                 s.ReplaceShareholders(shareholders);
             else
                 s.AddShareholders(shareholders);
+        }
+
+        public static GameEntity TurnToHolding(GameContext context, int companyId)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            c.ReplaceCompany(c.company.Id, c.company.Name, CompanyType.Holding);
+
+            return c;
         }
     }
 }

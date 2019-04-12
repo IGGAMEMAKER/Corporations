@@ -9,8 +9,9 @@ public class CreateProductCompany : ButtonController
 
         string name = "New Company " + CompanyUtils.GenerateCompanyId(GameContext);
 
-        var companyID = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
-        var c = CompanyUtils.GetCompanyById(GameContext, companyID);
+        var c = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+
+        var companyID = c.company.Id;
 
         if (MyProductEntity == null)
         {

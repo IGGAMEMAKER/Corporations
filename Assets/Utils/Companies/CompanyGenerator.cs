@@ -17,7 +17,7 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
-        public static GameEntity CreateCompanyEntity(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
+        public static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
         {
             var e = context.CreateEntity();
 
@@ -34,50 +34,39 @@ namespace Assets.Utils
             return e;
         }
 
-        public static int GenerateInvestmentFund(GameContext context, string name, long money)
+        public static GameEntity GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders = null)
         {
-            var e = context.CreateEntity();
+            var c = CreateCompany(context, name, CompanyType.Group, founders);
 
-            int id = GenerateCompanyId(context); // GenerateId();
-            int investorId = GenerateInvestorId(context);
+            BecomeInvestor(context, c, 0);
 
-            e.AddCompany(id, name, CompanyType.FinancialGroup);
-            BecomeInvestor(context, e, money);
-
-            return investorId;
+            return c;
         }
 
-        public static int GenerateHoldingCompany(GameContext context, string name)
+        public static GameEntity GenerateInvestmentFund(GameContext context, string name, long money)
         {
-            var e = context.CreateEntity();
+            var c = CreateCompany(context, name, CompanyType.FinancialGroup, null);
 
-            int id = GenerateCompanyId(context); // GenerateId();
+            BecomeInvestor(context, c, money);
 
-            e.AddCompany(id, name, CompanyType.Holding);
-            BecomeInvestor(context, e, 0);
-
-            return id;
+            return c;
         }
 
-        public static int GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders = null)
+        public static GameEntity GenerateHoldingCompany(GameContext context, string name)
         {
-            var e = CreateCompanyEntity(context, name, CompanyType.Group, founders);
+            var c = GenerateCompanyGroup(context, name, null);
 
-            BecomeInvestor(context, e, 0);
-
-            return e.company.Id;
+            return TurnToHolding(context, c.company.Id);
         }
 
-        public static int GenerateProductCompany(GameContext context, string name, NicheType niche)
+        public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType niche)
         {
-            int id = GenerateCompanyId(context); // GenerateId();
+            var c = CreateCompany(context, name, CompanyType.ProductCompany, null);
 
-            GenerateProduct(context, name, niche, id);
-
-            return id;
+            return GenerateProduct(context, c, name, niche);
         }
 
-        public static void GenerateProduct(GameContext context, string name, NicheType niche, int id)
+        public static GameEntity GenerateProduct(GameContext context, GameEntity company, string name, NicheType niche)
         {
             IndustryType industry = NicheUtils.GetIndustry(niche, context);
 
@@ -89,15 +78,13 @@ namespace Assets.Utils
             int productLevel = 0;
             int explorationLevel = productLevel;
 
-            var e = context.CreateEntity();
-            e.AddCompany(id, name, CompanyType.ProductCompany);
-
             // product specific components
-            e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
-            e.AddFinance(0, 0, 0, 5f);
-            e.AddTeam(1, 0, 0, 100);
-            e.AddMarketing(clients, brandPower, false);
-            e.AddCompanyResource(new TeamResource());
+            company.AddProduct(company.company.Id, name, niche, industry, productLevel, explorationLevel, resources);
+            company.AddFinance(0, 0, 0, 5f);
+            company.AddTeam(1, 0, 0, 100);
+            company.AddMarketing(clients, brandPower, false);
+
+            return company;
         }
     }
 }
