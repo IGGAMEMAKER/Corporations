@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static class ProductEconomicsUtils
     {
@@ -31,6 +33,16 @@
         internal static long GetBalance(GameEntity e)
         {
             return GetIncome(e) - GetMaintenance(e);
+        }
+
+        internal static string GetIncomeDescription(GameEntity company)
+        {
+            return $"Income of this company equals {GetIncome(company)}";
+        }
+
+        internal static string GetMaintenanceDescription(GameEntity company)
+        {
+            return $"Maintenance of this company equals {GetMaintenance(company)}";
         }
 
         public static long GetMaintenance(GameEntity e)

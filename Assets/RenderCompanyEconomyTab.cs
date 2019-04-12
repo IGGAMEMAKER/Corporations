@@ -7,6 +7,9 @@ public class RenderCompanyEconomyTab : View
     public Text Maintenance;
     public ColoredValuePositiveOrNegative Change;
 
+    public Hint IncomeHint;
+    public Hint MaintenanceHint;
+
     void Render()
     {
         int companyId = GetComponent<SetTargetCompany>().companyId;
@@ -17,6 +20,9 @@ public class RenderCompanyEconomyTab : View
         Maintenance.text = ValueFormatter.ShortenValueMockup(ProductEconomicsUtils.GetMaintenance(company)) + "$";
 
         Change.UpdateValue(ProductEconomicsUtils.GetBalance(company));
+
+        IncomeHint.SetHint(ProductEconomicsUtils.GetIncomeDescription(company));
+        MaintenanceHint.SetHint(ProductEconomicsUtils.GetMaintenanceDescription(company));
     }
 
     private void Update()

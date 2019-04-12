@@ -68,6 +68,8 @@ MonoBehaviour:
   Income: {fileID: 2195840215921515749}
   Maintenance: {fileID: 2195840216001797252}
   Change: {fileID: 2195840214657742574}
+  IncomeHint: {fileID: 3573437357842679929}
+  MaintenanceHint: {fileID: 3451266024162695838}
 --- !u!1 &2195840214657742568
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +514,7 @@ GameObject:
   - component: {fileID: 2195840215921515749}
   - component: {fileID: 2195840215921515739}
   - component: {fileID: 2195840215921515736}
+  - component: {fileID: 3573437357842679929}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -604,6 +607,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114e5cb61762a9448ab0eccd05b7ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3573437357842679929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2195840215921515751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &2195840216001797254
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +634,7 @@ GameObject:
   - component: {fileID: 2195840216001797252}
   - component: {fileID: 2195840216001797242}
   - component: {fileID: 2195840216001797243}
+  - component: {fileID: 3451266024162695838}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -709,6 +727,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb92a46e9e70d884cb1d0ee4f0dd4995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3451266024162695838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2195840216001797254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &2195840216177003854
 GameObject:
   m_ObjectHideFlags: 0
