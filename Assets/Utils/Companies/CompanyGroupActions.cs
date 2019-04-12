@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    partial class CompanyUtils
     {
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {

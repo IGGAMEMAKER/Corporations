@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
@@ -13,6 +10,11 @@ namespace Assets.Utils
         internal static void BecomeCEO(GameContext gameContext, int companyID)
         {
             SetPlayerControlledCompany(gameContext, companyID);
+        }
+
+        public static void SetCEO(GameContext context, int companyId, int humanId)
+        {
+
         }
 
         public static void SetPlayerControlledCompany(GameContext context, int id)

@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    partial class CompanyUtils
     {
         public static GameEntity GetAnyOfControlledCompanies(GameContext context)
         {
@@ -12,13 +12,7 @@ namespace Assets.Utils
 
         public static GameEntity[] GetProductsNotControlledByPlayer(GameContext context)
         {
-            var matcher = GameMatcher
-                        .AllOf(GameMatcher.Product)
-                        .NoneOf(GameMatcher.ControlledByPlayer);
-
-            GameEntity[] entities = context.GetEntities(matcher);
-
-            return entities;
+            return context.GetEntities(GameMatcher.AllOf(GameMatcher.Product).NoneOf(GameMatcher.ControlledByPlayer));
         }
 
         public static GameEntity GetPlayerControlledProductCompany(GameContext context)
@@ -26,9 +20,8 @@ namespace Assets.Utils
             // TODO check all use cases! 
             // Most of them simply use MyControlledProductCompany, when we may need GetMyGroupCompany instead!
 
-            var matcher = GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer);
-
-            var companies = context.GetEntities(matcher);
+            var companies =
+                context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
 
             if (companies.Length == 1) return companies[0];
 
@@ -37,9 +30,8 @@ namespace Assets.Utils
 
         public static GameEntity GetPlayerControlledGroupCompany(GameContext context)
         {
-            var matcher = GameMatcher.AllOf(GameMatcher.ControlledByPlayer).NoneOf(GameMatcher.Product);
-
-            var companies = context.GetEntities(matcher);
+            var companies =
+                context.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer).NoneOf(GameMatcher.Product));
 
             if (companies.Length == 1) return companies[0];
 

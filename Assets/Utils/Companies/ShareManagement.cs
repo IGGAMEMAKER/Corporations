@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    partial class CompanyUtils
     {
         public static int GetTotalShares(Dictionary<int, int> shareholders)
         {

@@ -34,29 +34,6 @@ namespace Assets.Utils
             return e;
         }
 
-        public static void GenerateProduct(GameContext context, string name, NicheType niche, int id)
-        {
-            IndustryType industry = NicheUtils.GetIndustry(niche, context);
-
-            var resources = new TeamResource(100, 100, 100, 100, 10000);
-
-            uint clients = (uint)UnityEngine.Random.Range(0, 10000);
-            int brandPower = UnityEngine.Random.Range(0, 15);
-
-            int productLevel = 0;
-            int explorationLevel = productLevel;
-
-            var e = context.CreateEntity();
-            e.AddCompany(id, name, CompanyType.ProductCompany);
-
-            // product specific components
-            e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
-            e.AddFinance(0, 0, 0, 5f);
-            e.AddTeam(1, 0, 0, 100);
-            e.AddMarketing(clients, brandPower, false);
-            e.AddCompanyResource(new TeamResource());
-        }
-
         public static int GenerateInvestmentFund(GameContext context, string name, long money)
         {
             var e = context.CreateEntity();
@@ -98,6 +75,29 @@ namespace Assets.Utils
             GenerateProduct(context, name, niche, id);
 
             return id;
+        }
+
+        public static void GenerateProduct(GameContext context, string name, NicheType niche, int id)
+        {
+            IndustryType industry = NicheUtils.GetIndustry(niche, context);
+
+            var resources = new TeamResource(100, 100, 100, 100, 10000);
+
+            uint clients = (uint)UnityEngine.Random.Range(0, 10000);
+            int brandPower = UnityEngine.Random.Range(0, 15);
+
+            int productLevel = 0;
+            int explorationLevel = productLevel;
+
+            var e = context.CreateEntity();
+            e.AddCompany(id, name, CompanyType.ProductCompany);
+
+            // product specific components
+            e.AddProduct(id, name, niche, industry, productLevel, explorationLevel, resources);
+            e.AddFinance(0, 0, 0, 5f);
+            e.AddTeam(1, 0, 0, 100);
+            e.AddMarketing(clients, brandPower, false);
+            e.AddCompanyResource(new TeamResource());
         }
     }
 }
