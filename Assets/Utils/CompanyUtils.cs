@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Classes;
+using Entitas;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace Assets.Utils
             e.AddFinance(0, 0, 0, 5f);
             e.AddTeam(1, 0, 0, 100);
             e.AddMarketing(clients, brandPower, false);
+            e.AddCompanyResource(new TeamResource());
         }
 
         public static int GenerateInvestmentFund(GameContext context, string name, long money)
@@ -97,6 +99,7 @@ namespace Assets.Utils
             int id = GenerateCompanyId(context);
 
             e.AddCompany(id, name, companyType);
+            e.AddCompanyResource(new TeamResource());
 
             if (founders == null)
                 founders = new Dictionary<int, int>();
@@ -224,7 +227,25 @@ namespace Assets.Utils
             var c = GetCompanyById(context, id);
 
             c.isControlledByPlayer = true;
-            c.isSelectedCompany = true;
+            //c.isSelectedCompany = true;
+        }
+
+        public static void RedistributeMoneyBetweenCompaniesIfPossible(GameContext context, int giverId, int acceptorId, int amount)
+        {
+            var giver = GetCompanyById(context, giverId);
+            var acceptor = GetCompanyById(context, acceptorId);
+
+            var transfer = new TeamResource(amount);
+            var receiving = new TeamResource(-amount);
+
+            if (!TeamResource.IsEnoughResources(transfer, giver.companyResource.Resources))
+                return;
+
+            var newGiverResources = TeamResource.Difference(giver.companyResource.Resources, transfer);
+            var newAcceptorResources = TeamResource.Difference(acceptor.companyResource.Resources, receiving);
+
+            giver.ReplaceCompanyResource(newGiverResources);
+            acceptor.ReplaceCompanyResource(newAcceptorResources);
         }
 
         public static void RemovePlayerControlledCompany(GameContext context, int id)

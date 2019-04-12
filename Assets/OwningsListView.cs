@@ -10,15 +10,3 @@ public class OwningsListView : ListView
             .SetEntity(e);
     }
 }
-
-public class SelectCompanyController : ButtonController
-{
-    public int companyId;
-    //bool selected;
-
-    public override void Execute()
-    {
-        //selected = true;
-        SetSelectedCompany(companyId);
-    }
-}

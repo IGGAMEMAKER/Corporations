@@ -54,6 +54,15 @@ namespace Assets.Classes
             }
         }
 
+        public TeamResource(long money)
+        {
+            ProgrammingPoints = 0;
+            ManagerPoints = 0;
+            SalesPoints = 0;
+            IdeaPoints = 0;
+            Money = money;
+        }
+
         public TeamResource(int programmingPoints, int managerPoints, int salesPoints, int ideaPoints, long money)
         {
             ProgrammingPoints = programmingPoints;
@@ -68,7 +77,7 @@ namespace Assets.Classes
             return IsEnoughResources(Need, this);
         }
 
-        static bool IsEnoughResources(TeamResource Need, TeamResource Have)
+        public static bool IsEnoughResources(TeamResource Need, TeamResource Have)
         {
             if (Have.money < Need.money) return false;
             if (Have.ideaPoints < Need.ideaPoints) return false;
@@ -77,6 +86,17 @@ namespace Assets.Classes
             if (Have.salesPoints < Need.salesPoints) return false;
 
             return true;
+        }
+
+        public static TeamResource Difference(TeamResource source, TeamResource spendable)
+        {
+            return new TeamResource(
+                source.programmingPoints - spendable.programmingPoints,
+                source.managerPoints - spendable.managerPoints,
+                source.salesPoints - spendable.salesPoints,
+                source.ideaPoints - spendable.ideaPoints,
+                source.money - spendable.money
+                );
         }
 
         public void Spend(TeamResource spendable)

@@ -22,11 +22,13 @@ namespace Assets.Utils
 
         public static void SetSelectedCompany(int companyId, GameContext gameContext)
         {
-            gameContext.GetEntities(GameMatcher.SelectedCompany)[0].isSelectedCompany = false;
+            var menu = GetMenu(gameContext);
+            menu.ReplaceMenu(menu.menu.ScreenMode, companyId);
+            //gameContext.GetEntities(GameMatcher.SelectedCompany)[0].isSelectedCompany = false;
 
-            var company = Array.Find(gameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
+            //var company = Array.Find(gameContext.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
 
-            company.isSelectedCompany = true;
+            //company.isSelectedCompany = true;
         }
 
         public static GameEntity GetNavigationHistory(GameContext context)
