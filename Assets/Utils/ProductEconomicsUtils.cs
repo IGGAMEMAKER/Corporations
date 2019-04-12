@@ -24,7 +24,7 @@ namespace Assets.Utils
             {
                 float income = e.marketing.Clients * GetProductPrice(e);
 
-                return System.Convert.ToInt64(income);
+                return Convert.ToInt64(income);
             }
 
             return 1000000;

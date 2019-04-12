@@ -52,5 +52,46 @@ namespace Assets.Utils
                 c.ReplaceShareholders(shareholders);
             }
         }
+
+        public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            var shareholders = c.shareholders.Shareholders;
+
+            if (shareholders.TryGetValue(buyerInvestorId, out int newBuyerShares))
+                newBuyerShares += amountOfShares;
+
+            if (shareholders.TryGetValue(buyerInvestorId, out int newSellerShares))
+                newSellerShares -= amountOfShares;
+
+
+            shareholders[sellerInvestorId] = newSellerShares;
+            if (newSellerShares == 0)
+                shareholders.Remove(sellerInvestorId);
+
+            shareholders[buyerInvestorId] = newBuyerShares;
+
+            c.ReplaceShareholders(shareholders);
+        }
+
+        //public static bool IsCanBuyShares(GameContext context, int )
+
+        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
+        {
+            TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
+
+            var buyer = GetInvestorById(context, buyerInvestorId);
+            var seller = GetInvestorById(context, sellerInvestorId);
+
+            var buyerResources = buyer.companyResource.Resources;
+            var sellerResources = seller.companyResource.Resources;
+
+            buyerResources.AddMoney(-bid);
+            sellerResources.AddMoney(bid);
+
+            buyer.ReplaceCompanyResource(buyerResources);
+            seller.ReplaceCompanyResource(sellerResources);
+        }
     }
 }

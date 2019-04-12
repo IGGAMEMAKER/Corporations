@@ -38,7 +38,7 @@ namespace Assets.Utils
         {
             var c = CreateCompany(context, name, CompanyType.Group, founders);
 
-            BecomeInvestor(context, c, 0);
+            BecomeInvestor(context, c, 10000000);
 
             return c;
         }
