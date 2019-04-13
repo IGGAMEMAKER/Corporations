@@ -39,8 +39,10 @@ public class ShareholderView : View
     {
         Name.text = name;
         Goal.text = "Company Cost 50.000.000$";
-        Motivation.SetHint("20% growth");
+        Motivation.SetHint("Motivation: 20% growth");
         Share.text = CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
+
+        BuyShares.gameObject.SetActive(investorId != MyGroupEntity.shareholder.Id);
 
         BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
         BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);

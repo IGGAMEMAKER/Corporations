@@ -871,8 +871,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143.1, y: 0}
-  m_SizeDelta: {x: 57.7, y: 75}
+  m_AnchoredPosition: {x: -159.53, y: 0}
+  m_SizeDelta: {x: 105.94, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8390581618132357365
 CanvasRenderer:
@@ -906,9 +906,9 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 22
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1117,6 +1117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8390581618714403234}
   - component: {fileID: 825274361745006557}
+  - component: {fileID: 5523597209428497534}
   m_Layer: 5
   m_Name: Shareholder
   m_TagString: Untagged
@@ -1166,6 +1167,20 @@ MonoBehaviour:
   Panel: {fileID: 8892861131925928734}
   BuyShares: {fileID: 2670183886539746333}
   SellShares: {fileID: 5701765627434072980}
+--- !u!114 &5523597209428497534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390581618714403245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566b5377a4ed8f142bdc6fad23af8478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 0.15
+  amplification: 0.2
 --- !u!1 &8390581618943775280
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,5 +13,7 @@ public class BuyShares : ButtonController
         long bid = CompanyUtils.GetSharesCost(GameContext, companyId, ShareholderId);
 
         CompanyUtils.BuyShares(GameContext, companyId, MyGroupEntity.shareholder.Id, ShareholderId, amountOfShares, bid);
+
+        ReNavigate();
     }
 }

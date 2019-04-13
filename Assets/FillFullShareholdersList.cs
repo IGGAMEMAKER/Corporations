@@ -32,7 +32,7 @@ public class FillFullShareholdersList : View, IMenuListener
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        if (screenMode == ScreenMode.ProjectScreen)
+        if (screenMode == ScreenMode.InvesmentsScreen)
             Render();
     }
 }
