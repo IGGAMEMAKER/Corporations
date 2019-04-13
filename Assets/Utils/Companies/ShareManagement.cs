@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -11,6 +12,31 @@ namespace Assets.Utils
                 totalShares += e.Value;
 
             return totalShares;
+        }
+
+        public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
+        {
+            return GetCompanyById(context, companyId).shareholders.Shareholders[investorId];
+        }
+
+        public static int GetShareSize(GameContext context, int companyId, int investorId)
+        {
+            return GetAmountOfShares(context, companyId, investorId) * 100 / GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
+        }
+
+        public static long GetSharesCost(GameContext context, int companyId, int investorId)
+        {
+            var c = GetCompanyById(context, companyId);
+            int amountOfShares = c.shareholders.Shareholders[investorId];
+
+            int totalShares = GetTotalShares(c.shareholders.Shareholders);
+
+            return GetCompanyCost(context, c.company.Id) * amountOfShares / totalShares;
+        }
+
+        internal static long GetCompanyCost(GameContext gameContext, int companyId)
+        {
+            return 500000;
         }
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
@@ -65,7 +91,6 @@ namespace Assets.Utils
             if (shareholders.TryGetValue(buyerInvestorId, out int newSellerShares))
                 newSellerShares -= amountOfShares;
 
-
             shareholders[sellerInvestorId] = newSellerShares;
             if (newSellerShares == 0)
                 shareholders.Remove(sellerInvestorId);
@@ -75,23 +100,21 @@ namespace Assets.Utils
             c.ReplaceShareholders(shareholders);
         }
 
-        //public static bool IsCanBuyShares(GameContext context, int )
-
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
             TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
 
-            var buyer = GetInvestorById(context, buyerInvestorId);
-            var seller = GetInvestorById(context, sellerInvestorId);
+            AddMoneyToInvestor(context, buyerInvestorId, -bid);
+            AddMoneyToInvestor(context, sellerInvestorId, bid);
+        }
 
-            var buyerResources = buyer.companyResource.Resources;
-            var sellerResources = seller.companyResource.Resources;
+        public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
+        {
+            var investor = GetInvestorById(context, investorId);
 
-            buyerResources.AddMoney(-bid);
-            sellerResources.AddMoney(bid);
+            var shareholder = investor.shareholder;
 
-            buyer.ReplaceCompanyResource(buyerResources);
-            seller.ReplaceCompanyResource(sellerResources);
+            investor.ReplaceShareholder(shareholder.Id, shareholder.Name, shareholder.Money + sum);
         }
     }
 }

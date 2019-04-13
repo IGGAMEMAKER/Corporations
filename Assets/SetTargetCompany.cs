@@ -36,6 +36,11 @@ public class SetTargetCompany : View
 
         if (l != null)
             l.CompanyId = companyId;
+
+        var i = GetComponent<LinkToInvestmentTab>();
+
+        if (i != null)
+            i.CompanyId = companyId;
     }
 
     void OnEnable()

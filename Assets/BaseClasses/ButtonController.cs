@@ -26,6 +26,14 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         }
     }
 
+    public ScreenMode CurrentScreen
+    {
+        get
+        {
+            return MenuUtils.GetMenu(GameContext).menu.ScreenMode;
+        }
+    }
+
     public ProductComponent MyProduct
     {
         get
