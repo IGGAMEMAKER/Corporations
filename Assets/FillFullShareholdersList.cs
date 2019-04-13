@@ -22,7 +22,7 @@ public class FillFullShareholdersList : View, IMenuListener
     {
         Dictionary<int, int> shareholders = new Dictionary<int, int>();
 
-        var companyEntity = MyProductEntity;
+        var companyEntity = SelectedCompany;
 
         if (companyEntity.hasShareholders)
             shareholders = companyEntity.shareholders.Shareholders;

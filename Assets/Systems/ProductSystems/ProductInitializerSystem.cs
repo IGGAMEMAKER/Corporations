@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -15,7 +16,7 @@ public class ProductInitializerSystem : IInitializeSystem
         Initialize();
     }
 
-    int GenerateProduct(string name, NicheType nicheType)
+    int GenerateProductCompany(string name, NicheType nicheType)
     {
         return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType).company.Id;
     }
@@ -37,6 +38,8 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void AddShareholder(int companyId, int investorId, int shares)
     {
+        Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
+
         CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
     }
 
@@ -45,35 +48,48 @@ public class ProductInitializerSystem : IInitializeSystem
         CompanyUtils.SetPlayerControlledCompany(GameContext, companyId);
     }
 
+    int PromoteToGroup(int companyId)
+    {
+        return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
+    }
+
     void Initialize()
     {
         // products
-        GenerateProduct("facebook", NicheType.SocialNetwork);
-        GenerateProduct("mySpace", NicheType.SocialNetwork);
-        GenerateProduct("twitter", NicheType.SocialNetwork);
-        GenerateProduct("vk", NicheType.SocialNetwork);
+        GenerateProductCompany("facebook", NicheType.SocialNetwork);
+        GenerateProductCompany("mySpace", NicheType.SocialNetwork);
+        GenerateProductCompany("twitter", NicheType.SocialNetwork);
+        GenerateProductCompany("vk", NicheType.SocialNetwork);
 
-        GenerateProduct("telegram", NicheType.Messenger);
-        GenerateProduct("whatsapp", NicheType.Messenger);
-        GenerateProduct("snapchat", NicheType.Messenger);
+        GenerateProductCompany("telegram", NicheType.Messenger);
+        GenerateProductCompany("whatsapp", NicheType.Messenger);
+        GenerateProductCompany("snapchat", NicheType.Messenger);
 
-        int google = GenerateProduct("Google", NicheType.SearchEngine);
-        GenerateProduct("Yahoo", NicheType.SearchEngine);
-        GenerateProduct("Bing", NicheType.SearchEngine);
-        GenerateProduct("Yandex", NicheType.SearchEngine);
+        int google = GenerateProductCompany("Google", NicheType.SearchEngine);
+        int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine);
+        GenerateProductCompany("Bing", NicheType.SearchEngine);
+        GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
-        GenerateProduct("Microsoft", NicheType.OSCommonPurpose);
+        GenerateProductCompany("Microsoft", NicheType.OSCommonPurpose);
 
         SetPlayerControlledCompany(google);
 
         // investors
         int investorId = GenerateInvestmentFund("Morgan Stanley", 1000000);
         int investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
+        int investorId3 = GenerateInvestmentFund("Morgan J.P.", 3000000);
 
         int alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
 
         AddShareholder(alphabet, investorId, 100);
         AddShareholder(alphabet, investorId2, 200);
+
+        int googleGroupId = PromoteToGroup(google);
+        SetPlayerControlledCompany(googleGroupId);
+
+        AddShareholder(yahoo, investorId2, 500);
+        AddShareholder(yahoo, investorId3, 1500);
+        AddShareholder(yahoo, investorId, 100);
     }
 }

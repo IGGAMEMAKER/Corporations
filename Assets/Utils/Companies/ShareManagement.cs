@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -16,22 +17,32 @@ namespace Assets.Utils
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
         {
-            return GetCompanyById(context, companyId).shareholders.Shareholders[investorId];
+            Debug.Log($"GetAmountOfShares company-{companyId}, investor-{GetInvestorById(context, investorId)}");
+            var c = GetCompanyById(context, companyId);
+
+            var shareholders = c.shareholders.Shareholders;
+
+            return shareholders.ContainsKey(investorId) ? shareholders[investorId] : 0;
         }
 
         public static int GetShareSize(GameContext context, int companyId, int investorId)
         {
-            return GetAmountOfShares(context, companyId, investorId) * 100 / GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
+            var c = GetCompanyById(context, companyId);
+
+            int shares = GetAmountOfShares(context, companyId, investorId);
+            int total = GetTotalShares(c.shareholders.Shareholders);
+
+            return shares * 100 / total;
         }
 
         public static long GetSharesCost(GameContext context, int companyId, int investorId)
         {
             var c = GetCompanyById(context, companyId);
-            int amountOfShares = c.shareholders.Shareholders[investorId];
 
-            int totalShares = GetTotalShares(c.shareholders.Shareholders);
+            int shares = GetAmountOfShares(context, companyId, investorId);
+            int total = GetTotalShares(c.shareholders.Shareholders);
 
-            return GetCompanyCost(context, c.company.Id) * amountOfShares / totalShares;
+            return GetCompanyCost(context, c.company.Id) * shares / total;
         }
 
         internal static long GetCompanyCost(GameContext gameContext, int companyId)
@@ -85,11 +96,8 @@ namespace Assets.Utils
 
             var shareholders = c.shareholders.Shareholders;
 
-            if (shareholders.TryGetValue(buyerInvestorId, out int newBuyerShares))
-                newBuyerShares += amountOfShares;
-
-            if (shareholders.TryGetValue(buyerInvestorId, out int newSellerShares))
-                newSellerShares -= amountOfShares;
+            int newBuyerShares = GetAmountOfShares(context, companyId, buyerInvestorId) + amountOfShares;
+            int newSellerShares = GetAmountOfShares(context, companyId, sellerInvestorId) - amountOfShares;
 
             shareholders[sellerInvestorId] = newSellerShares;
             if (newSellerShares == 0)
@@ -100,8 +108,17 @@ namespace Assets.Utils
             c.ReplaceShareholders(shareholders);
         }
 
+        public static string GetInvestorName(GameContext context, int investorId)
+        {
+            return GetInvestorById(context, investorId).shareholder.Name;
+        }
+
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
+            Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
+            Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
+            Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
+
             TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
 
             AddMoneyToInvestor(context, buyerInvestorId, -bid);

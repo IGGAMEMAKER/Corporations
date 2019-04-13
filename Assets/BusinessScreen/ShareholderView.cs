@@ -40,9 +40,10 @@ public class ShareholderView : View
         Name.text = name;
         Goal.text = "Company Cost 50.000.000$";
         Motivation.SetHint("20% growth");
-        Share.text = shares * 100 / totalShares + "%";
+        Share.text = CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
 
-        //Bu
+        BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
+        BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);
 
         //LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
         //Loyalty.UpdateValue(Random.Range(0, 80f));
