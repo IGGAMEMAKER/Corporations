@@ -154,15 +154,16 @@ namespace Assets.Classes
             IdeaPoints = points;
             return this;
         }
-        internal TeamResource SetMoney(int points)
+        internal TeamResource SetMoney(long money)
         {
-            Money = points;
+            Money = money;
             return this;
         }
 
-        internal void AddIdeas(int stealableIdeas)
+        internal TeamResource AddIdeas(int stealableIdeas)
         {
             IdeaPoints += stealableIdeas;
+            return this;
         }
     }
 }
