@@ -21,12 +21,8 @@ public abstract class ColoredValue : MonoBehaviour
 
     public MeasurementUnit unit;
 
-    Text Text;
-
     void Start()
     {
-        Text = GetComponent<Text>();
-
         Render();
     }
 
@@ -68,6 +64,8 @@ public abstract class ColoredValue : MonoBehaviour
 
     void Render()
     {
+        Text Text = GetComponent<Text>();
+
         Color color = GetColor();
         Text.color = color;
 

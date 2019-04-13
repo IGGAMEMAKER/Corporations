@@ -4400,7 +4400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000022888184, y: -0.0000022558488}
+  m_AnchoredPosition: {x: 16.309982, y: -0.0000022558488}
   m_SizeDelta: {x: -16.309998, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &268407994
@@ -5620,7 +5620,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: -0.0000022558488}
+  m_AnchoredPosition: {x: 16.310036, y: -0.0000022558488}
   m_SizeDelta: {x: -16.309998, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &325988951
@@ -22056,6 +22056,8 @@ GameObject:
   - component: {fileID: 1321700243}
   - component: {fileID: 1321700242}
   - component: {fileID: 1321700240}
+  - component: {fileID: 1321700245}
+  - component: {fileID: 1321700241}
   m_Layer: 5
   m_Name: GroupManagementScreen
   m_TagString: Untagged
@@ -22109,7 +22111,41 @@ MonoBehaviour:
   CompanyPreviewView: {fileID: 282402826}
   SelectedCompanyName: {fileID: 988599421}
   SelectedCompanyBalance: {fileID: 751279399}
-  SelectedCompanyROI: {fileID: 0}
+  SelectedCompanyROI: {fileID: 1454025054}
+--- !u!114 &1321700241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321700238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!114 &1321700242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22160,6 +22196,14 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!222 &1321700245
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321700238}
+  m_CullTransparentMesh: 0
 --- !u!224 &1331176573 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4164639885316756178, guid: e168f9487a268c141bff1f00aae951a2,
@@ -23789,6 +23833,7 @@ GameObject:
   - component: {fileID: 1454025051}
   - component: {fileID: 1454025053}
   - component: {fileID: 1454025052}
+  - component: {fileID: 1454025054}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -23857,6 +23902,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454025050}
   m_CullTransparentMesh: 0
+--- !u!114 &1454025054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454025050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9919c4b68a79aad4a9826700c4a9c79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  ShowSign: 1
+  Prettify: 1
+  DigitsAfterComma: 0
+  unit: 0
+  neutralValue: 0
 --- !u!1001 &1459364765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23997,7 +24060,7 @@ PrefabInstance:
     - target: {fileID: 4728789988146300977, guid: 691404a1a9e24394685701da6e6b913b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000027418137
+      value: 26.743124
       objectReference: {fileID: 0}
     - target: {fileID: 4728789988146300977, guid: 691404a1a9e24394685701da6e6b913b,
         type: 3}
@@ -26403,7 +26466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00005340576, y: 0}
+  m_AnchoredPosition: {x: -0.00005340576, y: 130}
   m_SizeDelta: {x: 0, y: 130}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1619795864

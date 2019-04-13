@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SetGroupCompanyAsSelected : View
@@ -33,8 +34,17 @@ public class SetGroupCompanyAsSelected : View
 
     void RenderROI()
     {
-        //int ROI = CompanyUtils.
-        //SelectedCompanyROI.UpdateValue()
+        if (CompanyEconomyUtils.IsROICounable(SelectedCompany, GameContext))
+        {
+            long ROI = CompanyEconomyUtils.GetBalanceROI(SelectedCompany, GameContext);
+
+            Debug.Log("RENDER ROI " + ROI);
+
+            SelectedCompanyROI.UpdateValue(ROI);
+        } else
+        {
+            SelectedCompanyROI.GetComponent<Text>().text = "???";
+        }
     }
 
     void Render()

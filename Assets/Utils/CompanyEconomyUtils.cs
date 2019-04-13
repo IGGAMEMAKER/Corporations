@@ -10,6 +10,29 @@
             return 1000000;
         }
 
+        internal static long GetMaintenance(GameEntity c, GameContext gameContext)
+        {
+            return ProductEconomicsUtils.GetMaintenance(c);
+        }
+
+        internal static long GetBalanceChange(GameEntity c, GameContext context)
+        {
+            return ProductEconomicsUtils.GetBalance(c);
+        }
+
+        internal static bool IsROICounable(GameEntity c, GameContext context)
+        {
+            return GetMaintenance(c, context) > 0;
+        }
+
+        internal static long GetBalanceROI(GameEntity c, GameContext context)
+        {
+            long maintenance = GetMaintenance(c, context);
+            long change = GetBalanceChange(c, context);
+
+            return change * 100 / maintenance;
+        }
+
         public static GameEntity[] GetDaughterCompanies(GameEntity e, GameContext context)
         {
             return new GameEntity[] { e };
