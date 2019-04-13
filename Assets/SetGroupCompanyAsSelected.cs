@@ -10,9 +10,6 @@ public class SetGroupCompanyAsSelected : View
 
     public Text SelectedCompanyName;
     public Text SelectedCompanyBalance;
-    public Text SelectedCompanyIncome;
-    public Text SelectedCompanyMaintenance;
-    public Text SelectedCompanyChange;
     public ColoredValuePositiveOrNegative SelectedCompanyROI;
 
     private void OnEnable()

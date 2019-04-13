@@ -47,7 +47,10 @@ namespace Assets.Utils
 
         public static long GetMaintenance(GameEntity e)
         {
-            return GetTeamMaintenance(e);
+            if (e.hasTeam)
+                return GetTeamMaintenance(e);
+            else
+                return 0;
         }
 
         public static long GetTeamMaintenance(GameEntity e)
