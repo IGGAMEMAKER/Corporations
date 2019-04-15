@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SetGroupCompanyAsSelected : View
+public class GroupManagementScreen : View
     , IMenuListener
 {
     public Text GroupBalance;
@@ -12,6 +12,12 @@ public class SetGroupCompanyAsSelected : View
     public Text SelectedCompanyName;
     public Text SelectedCompanyBalance;
     public ColoredValuePositiveOrNegative SelectedCompanyROI;
+
+    public Text ControlValue;
+
+    public Button InvestButton;
+    public Button IncreaseDividends;
+    public Button DecreaseDividends;
 
     private void OnEnable()
     {
@@ -32,6 +38,25 @@ public class SetGroupCompanyAsSelected : View
         Render();
     }
 
+    void ToggleCEOButtons(bool show)
+    {
+        InvestButton.interactable = show;
+        DecreaseDividends.interactable = show;
+        IncreaseDividends.interactable = show;
+    }
+
+    void RenderCEOButtons()
+    {
+        if (IsDomineering())
+        {
+            ToggleCEOButtons(true);
+        }
+        else
+        {
+            ToggleCEOButtons(false);
+        }
+    }
+
     void RenderROI()
     {
         if (CompanyEconomyUtils.IsROICounable(SelectedCompany, GameContext))
@@ -47,6 +72,24 @@ public class SetGroupCompanyAsSelected : View
         }
     }
 
+    int GetSizeOfShares()
+    {
+        return CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
+    }
+
+    bool IsDomineering()
+    {
+        return GetSizeOfShares() > 50;
+    }
+
+    void RenderControlValue()
+    {
+        if (SelectedCompany == MyGroupEntity)
+            ControlValue.text = "---";
+        else
+            ControlValue.text = GetSizeOfShares() + "%";
+    }
+
     void Render()
     {
         var c = CompanyUtils.GetCompanyById(GameContext, SelectedCompany.company.Id);
@@ -54,6 +97,13 @@ public class SetGroupCompanyAsSelected : View
         SelectedCompanyName.text = c.company.Name;
 
         RenderROI();
+
+        RenderControlValue();
+
+        if (SelectedCompany != MyGroupEntity)
+            RenderCEOButtons();
+        else
+            ToggleCEOButtons(false);
     }
 
     void Start()
