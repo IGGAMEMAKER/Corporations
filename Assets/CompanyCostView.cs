@@ -1,11 +1,10 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyCostView : View
 {
+    public Text CompanyCost;
+
     public Text BaseCost;
     public Text AudienceCost;
     public Text IncomeBasedCost;
@@ -61,6 +60,8 @@ public class CompanyCostView : View
     {
         var c = SelectedCompany;
         var companyId = c.company.Id;
+
+        CompanyCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
 
         RenderBaseCosts(companyId, c);
     }
