@@ -49,6 +49,7 @@ public enum ScreenMode
     CharacterScreen,
     GroupManagementScreen,
     InvesmentsScreen,
+    InvesmentProposalScreen,
     IndustryScreen,
     NicheScreen
 }

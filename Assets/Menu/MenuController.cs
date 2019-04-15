@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject ProjectScreen;
     public GameObject BusinessScreen;
     public GameObject InvesmentsScreen;
+    public GameObject InvesmentProposalScreen;
     public GameObject IndustryScreen;
     public GameObject NicheScreen;
     public GameObject CharacterScreen;
@@ -29,6 +30,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.ProjectScreen] = ProjectScreen,
             [ScreenMode.BusinessScreen] = BusinessScreen,
             [ScreenMode.InvesmentsScreen] = InvesmentsScreen,
+            [ScreenMode.InvesmentProposalScreen] = InvesmentProposalScreen,
             [ScreenMode.IndustryScreen] = IndustryScreen,
             [ScreenMode.NicheScreen] = NicheScreen,
             [ScreenMode.CharacterScreen] = CharacterScreen,
@@ -54,8 +56,9 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.ProjectScreen: return "Project";
             case ScreenMode.DevelopmentScreen: return "Development";
             case ScreenMode.InvesmentsScreen: return "Investments";
-            case ScreenMode.CharacterScreen: return "Your Stats";
-            case ScreenMode.GroupManagementScreen: return "Managing companies";
+            case ScreenMode.InvesmentProposalScreen: return "Raise money";
+            case ScreenMode.CharacterScreen: return "My Stats";
+            case ScreenMode.GroupManagementScreen: return "My companies";
             case ScreenMode.TeamScreen: return "Management";
 
             default: return "WUT?";
