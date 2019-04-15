@@ -17,7 +17,7 @@ namespace Assets.Utils
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
         {
-            Debug.Log($"GetAmountOfShares company-{companyId}, investor-{GetInvestorById(context, investorId)}");
+            //Debug.Log($"GetAmountOfShares company-{companyId}, investor-{GetInvestorById(context, investorId)}");
             var c = GetCompanyById(context, companyId);
 
             var shareholders = c.shareholders.Shareholders;
@@ -50,6 +50,10 @@ namespace Assets.Utils
             return CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
         }
 
+        public static string GetInvestorName(GameContext context, int investorId)
+        {
+            return GetInvestorById(context, investorId).shareholder.Name;
+        }
 
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
@@ -108,11 +112,6 @@ namespace Assets.Utils
             shareholders[buyerInvestorId] = newBuyerShares;
 
             c.ReplaceShareholders(shareholders);
-        }
-
-        public static string GetInvestorName(GameContext context, int investorId)
-        {
-            return GetInvestorById(context, investorId).shareholder.Name;
         }
 
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
