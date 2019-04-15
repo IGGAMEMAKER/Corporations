@@ -33,12 +33,19 @@ namespace Assets.Utils
             return IsCompanyGroupLike(c);
         }
 
+        public static bool IsProductCompany(GameEntity gameEntity)
+        {
+            return gameEntity.company.CompanyType == CompanyType.ProductCompany;
+        }
+
+        public static bool IsProductCompany(GameContext context, int companyId)
+        {
+            return IsProductCompany(GetCompanyById(context, companyId));
+        }
+
         public static bool IsCompanyGroupLike(GameEntity gameEntity)
         {
-            if (gameEntity.company.CompanyType == CompanyType.ProductCompany)
-                return false;
-
-            return true;
+            return !IsProductCompany(gameEntity);
         }
 
         public static GameEntity[] GetDaughterCompaniesRecursively(GameContext context, int companyId)

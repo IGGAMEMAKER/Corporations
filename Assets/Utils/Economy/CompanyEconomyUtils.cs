@@ -1,16 +1,13 @@
-﻿using System;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
-    public static class CompanyEconomyUtils
+    public static partial class CompanyEconomyUtils
     {
         public static long GetCompanyIncome(GameEntity e, GameContext context)
         {
-            if (e.company.CompanyType == CompanyType.ProductCompany)
+            if (CompanyUtils.IsProductCompany(e))
                 return ProductEconomicsUtils.GetIncome(e);
 
-            return 1000000;
+            return GetGroupIncome(context, e);
         }
 
         public static long GetCompanyCost(GameContext context, int companyId)
@@ -18,29 +15,21 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             if (CompanyUtils.IsCompanyGroupLike(c))
-                return GetGroupOfCompaniesCost();
-            else
-                return GetProductCompanyCost(context, companyId);
+                return GetGroupOfCompaniesCost(context, c);
+
+            return GetProductCompanyCost(context, companyId);
         }
 
-        private static long GetGroupOfCompaniesCost()
+        public static long GetCompanyCostEnthusiasm()
         {
-            return 3200000;
+            return 15;
         }
 
-        private static long GetProductCompanyCost(GameContext context, int companyId)
+        public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            long audienceCost = c.marketing.Clients * 100;
-            long profitCost = GetCompanyIncome(c, context) * 15;
-
-            return audienceCost + profitCost;
-        }
-
-        public static int GetCompanyRating(int companyId)
-        {
-            return UnityEngine.Random.Range(1, 6);
+            return GetCompanyIncome(c, context) * GetCompanyCostEnthusiasm();
         }
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
@@ -80,6 +69,11 @@ namespace Assets.Utils
 
             c.ReplaceCompanyResource(c.companyResource.Resources.SetMoney(balance));
             c.ReplaceShareholder(c.shareholder.Id, c.shareholder.Name, investments);
+        }
+
+        public static int GetCompanyRating(int companyId)
+        {
+            return UnityEngine.Random.Range(1, 6);
         }
     }
 }
