@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Utils
 {
     public static class CompanyEconomyUtils
     {
-        public static long GetIncome(GameEntity e, GameContext context)
+        public static long GetCompanyIncome(GameEntity e, GameContext context)
         {
             if (e.company.CompanyType == CompanyType.ProductCompany)
                 return ProductEconomicsUtils.GetIncome(e);
@@ -12,14 +13,34 @@ namespace Assets.Utils
             return 1000000;
         }
 
-        public static long GetCompanyCost(int companyId)
+        public static long GetCompanyCost(GameContext context, int companyId)
         {
-            return 1000000000;
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            if (CompanyUtils.IsCompanyGroupLike(c))
+                return GetGroupOfCompaniesCost();
+            else
+                return GetProductCompanyCost(context, companyId);
+        }
+
+        private static long GetGroupOfCompaniesCost()
+        {
+            return 3200000;
+        }
+
+        private static long GetProductCompanyCost(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            long audienceCost = c.marketing.Clients * 100;
+            long profitCost = GetCompanyIncome(c, context) * 15;
+
+            return audienceCost + profitCost;
         }
 
         public static int GetCompanyRating(int companyId)
         {
-            return Random.Range(1, 6);
+            return UnityEngine.Random.Range(1, 6);
         }
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
@@ -43,11 +64,6 @@ namespace Assets.Utils
             long change = GetBalanceChange(c, context);
 
             return change * 100 / maintenance;
-        }
-
-        public static GameEntity[] GetDaughterCompanies(GameEntity e, GameContext context)
-        {
-            return new GameEntity[] { e };
         }
 
         public static void RestructureFinances(GameContext context, int percent, int companyId)

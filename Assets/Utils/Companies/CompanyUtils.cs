@@ -41,6 +41,35 @@ namespace Assets.Utils
             return true;
         }
 
+        public static GameEntity[] GetDaughterCompaniesRecursively(GameContext context, int companyId)
+        {
+            return GetDaughterCompanies(context, companyId);
+        }
+
+        public static GameEntity[] GetInvestableCompanies(GameContext context)
+        {
+            return context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
+        }
+
+        public static GameEntity[] GetInvestments(GameContext context, int investorId)
+        {
+            return Array.FindAll(
+                GetInvestableCompanies(context),
+                c => c.shareholders.Shareholders.ContainsKey(investorId)
+                );
+        }
+
+        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId)
+        {
+            var c = GetCompanyById(context, companyId);
+            int investorId = c.shareholder.Id;
+
+            if (!c.hasShareholder)
+                return new GameEntity[0];
+
+            return GetInvestments(context, investorId);
+        }
+
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {

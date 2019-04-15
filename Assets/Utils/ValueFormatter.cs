@@ -47,7 +47,7 @@
                 return (int)(val / million) + "M";
 
             if (val > thousand * 10)
-                return (int)(val / thousand) + "k";
+                return (int)(val / thousand) + "K";
 
             return val.ToString();
         }

@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using Entitas;
 using System;
 using System.Collections.Generic;
 
@@ -54,24 +53,13 @@ public class FillCompanyOwnings : View
 
     GameEntity[] GetOwnings()
     {
-        if (!ObservableCompany.hasShareholder)
-            return new GameEntity[0];
-
-        var investableCompanies = GetInvestableCompanies();
-
-        int shareholderId = ObservableCompany.shareholder.Id;
-
-        var arr = Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
+        var arr = CompanyUtils.GetDaughterCompanies(GameContext, ObservableCompany.company.Id);
+        // Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
 
         if (SortingOrder)
             Array.Reverse(arr);
 
         return arr;
-    }
-
-    GameEntity[] GetInvestableCompanies()
-    {
-        return GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)

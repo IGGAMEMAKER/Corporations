@@ -26,7 +26,7 @@ public class ProjectView : View
 
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : "Sundar Pichai");
 
-        CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(SelectedCompany.company.Id));
-        CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetIncome(SelectedCompany, GameContext));
+        CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
+        CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
     }
 }

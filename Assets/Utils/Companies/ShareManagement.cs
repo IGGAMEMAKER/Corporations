@@ -47,8 +47,10 @@ namespace Assets.Utils
 
         internal static long GetCompanyCost(GameContext gameContext, int companyId)
         {
-            return 500000;
+            return CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
         }
+
+
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {
