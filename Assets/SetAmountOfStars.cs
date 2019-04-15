@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 
 public class SetAmountOfStars : View
 {
-    private void OnEnable()
+    public GameEntity company;
+
+    public void SetEntity(GameEntity companyEntity)
     {
-        int amountOfStars = Random.Range(1, 6);
+        company = companyEntity;
+
+        Render();
+    }
+
+    void Render()
+    {
+        int amountOfStars = CompanyEconomyUtils.GetCompanyRating(company.company.Id);
 
         foreach (Transform child in transform)
             child.gameObject.SetActive(child.GetSiblingIndex() < amountOfStars);
+    }
+
+    private void OnEnable()
+    {
+        company = SelectedCompany;
+
+        Render();
     }
 }

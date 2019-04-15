@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static class CompanyEconomyUtils
     {
@@ -15,7 +17,12 @@
             return 1000000000;
         }
 
-        internal static long GetMaintenance(GameEntity c, GameContext gameContext)
+        public static int GetCompanyRating(int companyId)
+        {
+            return Random.Range(1, 6);
+        }
+
+        internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
         {
             return ProductEconomicsUtils.GetMaintenance(c);
         }
@@ -27,12 +34,12 @@
 
         internal static bool IsROICounable(GameEntity c, GameContext context)
         {
-            return GetMaintenance(c, context) > 0;
+            return GetCompanyMaintenance(c, context) > 0;
         }
 
         internal static long GetBalanceROI(GameEntity c, GameContext context)
         {
-            long maintenance = GetMaintenance(c, context);
+            long maintenance = GetCompanyMaintenance(c, context);
             long change = GetBalanceChange(c, context);
 
             return change * 100 / maintenance;
