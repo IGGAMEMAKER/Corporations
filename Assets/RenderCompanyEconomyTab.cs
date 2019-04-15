@@ -16,8 +16,8 @@ public class RenderCompanyEconomyTab : View
 
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
 
-        Income.text = ValueFormatter.ShortenValueMockup(ProductEconomicsUtils.GetIncome(company)) + "$";
-        Maintenance.text = ValueFormatter.ShortenValueMockup(ProductEconomicsUtils.GetMaintenance(company)) + "$";
+        Income.text = "$" + ValueFormatter.Shorten(ProductEconomicsUtils.GetIncome(company));
+        Maintenance.text = "$" + ValueFormatter.Shorten(ProductEconomicsUtils.GetMaintenance(company));
 
         Change.UpdateValue(ProductEconomicsUtils.GetBalance(company));
 

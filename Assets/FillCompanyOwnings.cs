@@ -54,7 +54,6 @@ public class FillCompanyOwnings : View
     GameEntity[] GetOwnings()
     {
         var arr = CompanyUtils.GetDaughterCompanies(GameContext, ObservableCompany.company.Id);
-        // Array.FindAll(investableCompanies, e => e.shareholders.Shareholders.ContainsKey(shareholderId));
 
         if (SortingOrder)
             Array.Reverse(arr);

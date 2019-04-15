@@ -28,12 +28,9 @@ public class GroupManagementScreen : View
             return;
         }
 
-        //MenuUtils.SetSelectedCompany(MyGroupEntity.company.Id, GameContext);
-
         CompanyPreviewView.SetEntity(MyGroupEntity);
 
         GroupBalance.text = ValueFormatter.Shorten(MyGroupEntity.companyResource.Resources.money);
-        //GroupName.text = MyGroupEntity.company.Name;
 
         Render();
     }
@@ -45,9 +42,14 @@ public class GroupManagementScreen : View
         IncreaseDividends.interactable = show;
     }
 
+    bool IsHasShares()
+    {
+        return CompanyUtils.GetTotalShares(SelectedCompany.shareholders.Shareholders) > 0;
+    }
+
     void RenderCEOButtons()
     {
-        if (IsDomineering())
+        if (IsHasShares() && IsDomineering())
         {
             ToggleCEOButtons(true);
         }
@@ -84,7 +86,7 @@ public class GroupManagementScreen : View
 
     void RenderControlValue()
     {
-        if (SelectedCompany == MyGroupEntity)
+        if (SelectedCompany == MyGroupEntity || !IsHasShares())
             ControlValue.text = "---";
         else
             ControlValue.text = GetSizeOfShares() + "%";

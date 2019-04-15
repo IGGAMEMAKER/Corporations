@@ -12,6 +12,9 @@
             case ScreenMode.IndustryScreen:
                 Navigate(TargetMenu, IndustryType.Search);
                 break;
+            case ScreenMode.InvesmentProposalScreen:
+                Navigate(TargetMenu, SelectedCompany.company.Id);
+                break;
             default:
                 Navigate(TargetMenu, null);
                 break;
