@@ -10,6 +10,11 @@
             return 1000000;
         }
 
+        public static long GetCompanyCost(int companyId)
+        {
+            return 1000000000;
+        }
+
         internal static long GetMaintenance(GameEntity c, GameContext gameContext)
         {
             return ProductEconomicsUtils.GetMaintenance(c);

@@ -16,8 +16,8 @@ public class BusinessButtonsController : View
         bool isGroupCEOAlready = MyGroupEntity != null;
 
         // controlled company buttons
-        ManageCompanyButton.SetActive(c.isControlledByPlayer);
 
+        // is independent company
         PromoteToGroupButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
