@@ -69,10 +69,11 @@ namespace Assets.Utils
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId)
         {
             var c = GetCompanyById(context, companyId);
-            int investorId = c.shareholder.Id;
 
             if (!c.hasShareholder)
                 return new GameEntity[0];
+
+            int investorId = c.shareholder.Id;
 
             return GetInvestments(context, investorId);
         }
