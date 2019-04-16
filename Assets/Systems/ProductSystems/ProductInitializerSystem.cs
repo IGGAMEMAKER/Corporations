@@ -59,82 +59,26 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
     }
 
-    //string Capitalize(string word)
-    //{
-    //    word.
-    //}
-
-    public string RandomString(int size, bool lowerCase)
-    {
-        StringBuilder builder = new StringBuilder();
-        System.Random random = new System.Random();
-
-        char ch;
-        for (int i = 0; i < size; i++)
-        {
-            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-            builder.Append(ch);
-        }
-        if (lowerCase)
-            return builder.ToString().ToLower();
-        return builder.ToString();
-    }
-
-    string GenerateRandomCompanyName()
-    {
-        string[] names = new string[] { "Investments", "Capitals", "Funds", "and partners" };
-
-        int index = UnityEngine.Random.Range(0, names.Length);
-
-        int length = UnityEngine.Random.Range(4, 8);
-
-        return "The " + RandomString(length, true) + " " + names[index];
-    }
-
     void SpawnInvestmentFund(int amountOfFunds, long investmentMin, long investmentMax)
     {
         for (var i = 0; i < amountOfFunds; i++)
-            GenerateInvestmentFund(GenerateRandomCompanyName(), 10000000);
+            GenerateInvestmentFund(CompanyUtils.GenerateInvestmentCompanyName(), 10000000);
     }
 
     int GetRandomInvestmentFund()
     {
-        var funds = CompanyUtils.GetFinancialCompanies(GameContext);
-
-        var index = UnityEngine.Random.Range(0, funds.Length);
-
-        return funds[index].shareholder.Id;
+        return CompanyUtils.GetRandomInvestmentFund(GameContext);
     }
 
     private void AutoFillProposals()
     {
-        var companies = CompanyUtils.GetNonFinancialCompanies(GameContext);
-
-        foreach (var c in companies)
-            SpawnProposals(c.company.Id);
-    }
-
-    void SpawnProposals(int companyId)
-    {
-        int amount = UnityEngine.Random.Range(1, 5);
-
-        long cost = CompanyUtils.GetCompanyCost(GameContext, companyId);
-
-        for (var i = 0; i < amount; i++)
-        {
-            long valuation = cost * (5 + UnityEngine.Random.Range(0, 10)) / 10;
-
-            var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = GetRandomInvestmentFund() };
-
-            CompanyUtils.AddInvestmentProposal(GameContext, companyId, p);
-        }
+        foreach (var c in CompanyUtils.GetNonFinancialCompanies(GameContext))
+            CompanyUtils.SpawnProposals(GameContext, c.company.Id);
     }
 
     void AutoFillNonFilledShareholders()
     {
-        var companiesWithZeroShareholders = CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext);
-
-        foreach (var c in companiesWithZeroShareholders)
+        foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
         {
             int investorId = GetRandomInvestmentFund();
             // Set CEO

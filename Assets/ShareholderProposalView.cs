@@ -32,9 +32,10 @@ public class ShareholderProposalView : View
     void SetButtons(int investorId)
     {
         AcceptProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
+        RejectProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
 
-        AcceptProposal.GetComponent<BuyShares>().ShareholderId = investorId;
-        AcceptProposal.GetComponent<CanBuySharesController>().Render(investorId);
+        AcceptProposal.GetComponent<AcceptInvestmentProposalController>().InvestorId = investorId;
+        RejectProposal.GetComponent<RejectInvestmentProposalController>().InvestorId = investorId;
     }
 
     void Render(string name, InvestmentProposal proposal)

@@ -1,6 +1,8 @@
 ﻿using Assets.Classes;
 using Entitas;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Assets.Utils
 {
@@ -86,6 +88,38 @@ namespace Assets.Utils
             company.AddMarketing(clients, brandPower, false);
 
             return company;
+        }
+
+        // -------
+
+        public static string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            //System.Random random = new System.Random();
+
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                //ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                ch = Convert.ToChar(Convert.ToInt32(65 + UnityEngine.Random.Range(0, 26)));
+                builder.Append(ch);
+            }
+
+            if (lowerCase)
+                return builder.ToString().ToLower();
+
+            return builder.ToString();
+        }
+
+        public static string GenerateInvestmentCompanyName()
+        {
+            string[] names = new string[] { "Investments", "Capitals", "Funds", "and partners" };
+
+            int index = UnityEngine.Random.Range(0, names.Length);
+
+            int length = UnityEngine.Random.Range(4, 8);
+
+            return "The " + RandomString(length, true) + " " + names[index];
         }
     }
 }

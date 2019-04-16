@@ -7,6 +7,13 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
+        public static int GetTotalShares(GameContext context, int companyId)
+        {
+            return GetTotalShares(
+                GetCompanyById(context, companyId).shareholders.Shareholders
+                );
+        }
+
         public static int GetTotalShares(Dictionary<int, int> shareholders)
         {
             int totalShares = 0;
@@ -34,6 +41,22 @@ namespace Assets.Utils
             int total = GetTotalShares(c.shareholders.Shareholders);
 
             return shares * 100 / total;
+        }
+
+        public static void SpawnProposals(GameContext context, int companyId)
+        {
+            int amount = UnityEngine.Random.Range(1, 5);
+
+            long cost = CompanyUtils.GetCompanyCost(context, companyId);
+
+            for (var i = 0; i < amount; i++)
+            {
+                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
+
+                var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = CompanyUtils.GetRandomInvestmentFund(context) };
+
+                CompanyUtils.AddInvestmentProposal(context, companyId, p);
+            }
         }
 
         public static long GetSharesCost(GameContext context, int companyId, int investorId)
@@ -101,29 +124,7 @@ namespace Assets.Utils
             return investorId;
         }
 
-        internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
-        {
-            var c = GetCompanyById(gameContext, companyId);
 
-            var p = c.investmentProposals.Proposals;
-
-            p.Add(proposal);
-
-            c.ReplaceInvestmentProposals(p);
-        }
-
-        internal static void RejectProposal(GameContext gameContext, int companyId, int investorId)
-        {
-            var c = GetCompanyById(gameContext, companyId);
-
-            var proposals = GetInvestmentProposals(gameContext, companyId);
-
-            proposals.RemoveAll(p => p.ShareholderId == investorId);
-
-            c.ReplaceInvestmentProposals(proposals);
-        }
-
-        //internal static void AcceptProposal()
 
         public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
         {
@@ -141,7 +142,11 @@ namespace Assets.Utils
             else
             {
                 shareholders = c.shareholders.Shareholders;
-                shareholders[investorId] = shares;
+
+                if (shareholders.ContainsKey(investorId))
+                    shareholders[investorId] += shares;
+                else
+                    shareholders[investorId] = shares;
 
                 c.ReplaceShareholders(shareholders);
             }
