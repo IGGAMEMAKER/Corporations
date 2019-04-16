@@ -17,15 +17,32 @@ namespace Assets.Utils
             return GetInvestmentProposals(context, companyId).Find(p => p.ShareholderId == investorId);
         }
 
+        public static int GetInvestmentProposalIndex(GameContext context, int companyId, int investorId)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            return GetInvestmentProposals(context, companyId).FindIndex(p => p.ShareholderId == investorId);
+        }
+
         internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
         {
             var c = GetCompanyById(gameContext, companyId);
 
-            var p = c.investmentProposals.Proposals;
+            var proposals = c.investmentProposals.Proposals;
 
-            p.Add(proposal);
+            var curr = GetInvestmentProposal(gameContext, companyId, proposal.ShareholderId);
 
-            c.ReplaceInvestmentProposals(p);
+            if (curr == null)
+            {
+                proposals.Add(proposal);
+            }
+            else
+            {
+                var index = GetInvestmentProposalIndex(gameContext, companyId, proposal.ShareholderId);
+                proposals[index] = proposal;
+            }
+
+            c.ReplaceInvestmentProposals(proposals);
         }
 
 
