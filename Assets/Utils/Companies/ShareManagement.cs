@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entitas;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,6 +49,22 @@ namespace Assets.Utils
         internal static long GetCompanyCost(GameContext gameContext, int companyId)
         {
             return CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
+        }
+
+        internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
+        {
+            return Array.FindAll(
+                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
+                e => e.shareholders.Shareholders.Count == 0 && e.company.CompanyType != CompanyType.FinancialGroup
+            );
+        }
+
+        internal static GameEntity[] GetFinancialCompanies(GameContext gameContext)
+        {
+            return Array.FindAll(
+                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholder)),
+                e => e.company.CompanyType == CompanyType.FinancialGroup
+            );
         }
 
         public static string GetInvestorName(GameContext context, int investorId)

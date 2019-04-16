@@ -1,5 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
+using System.Text;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
@@ -14,6 +16,9 @@ public class ProductInitializerSystem : IInitializeSystem
     void IInitializeSystem.Initialize()
     {
         Initialize();
+
+        SpawnInvestmentFund(5, 10000000, 100000000);
+        AutoFillNonFilledShareholders();
     }
 
     int GenerateProductCompany(string name, NicheType nicheType)
@@ -51,6 +56,59 @@ public class ProductInitializerSystem : IInitializeSystem
     int PromoteToGroup(int companyId)
     {
         return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
+    }
+
+    public string RandomString(int size, bool lowerCase)
+    {
+        StringBuilder builder = new StringBuilder();
+        System.Random random = new System.Random();
+
+        char ch;
+        for (int i = 0; i < size; i++)
+        {
+            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+            builder.Append(ch);
+        }
+        if (lowerCase)
+            return builder.ToString().ToLower();
+        return builder.ToString();
+    }
+
+    string GenerateRandomCompanyName()
+    {
+        string[] names = new string[] { "Investments", "Capitals", "Funds", "and partners" };
+
+        int index = UnityEngine.Random.Range(0, names.Length);
+
+        return RandomString(10, false) + " " + names[index];
+    }
+
+    void SpawnInvestmentFund(int amountOfFunds, long investmentMin, long investmentMax)
+    {
+        for (var i = 0; i < amountOfFunds; i++)
+            GenerateInvestmentFund(GenerateRandomCompanyName(), 10000000);
+    }
+
+    int GetRandomInvestmentFund()
+    {
+        var funds = CompanyUtils.GetFinancialCompanies(GameContext);
+
+        var index = UnityEngine.Random.Range(0, funds.Length);
+
+        return funds[index].shareholder.Id;
+        return CompanyUtils.GetCompanyByName(GameContext, "Morgan J.P.").shareholder.Id;
+    }
+
+    void AutoFillNonFilledShareholders()
+    {
+        var companiesWithZeroShareholders = CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext);
+
+        foreach (var c in companiesWithZeroShareholders)
+        {
+            int investorId = GetRandomInvestmentFund();
+            // Set CEO
+            AddShareholder(c.company.Id, investorId, 100);
+        }
     }
 
     void Initialize()
