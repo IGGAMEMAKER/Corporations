@@ -37,7 +37,7 @@
                 case CompanyType.ProductCompany: return "Product Company";
                 case CompanyType.Holding: return "Holding Company";
                 case CompanyType.Corporation: return "Corporation";
-                case CompanyType.FinancialGroup: return "Financial Group";
+                case CompanyType.FinancialGroup: return "Investment Company";
                 case CompanyType.Group: return "Group of companies";
 
                 default: return "WUT " + companyType.ToString();

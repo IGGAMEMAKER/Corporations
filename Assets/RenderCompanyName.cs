@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.UI;
 
-public class RenderCompanyName : MonoBehaviour
+public class RenderCompanyName : View
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<Text>().text = SelectedCompany.company.Name;
     }
 }
