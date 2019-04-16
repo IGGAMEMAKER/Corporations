@@ -55,6 +55,15 @@
             return change * 100 / maintenance;
         }
 
+        public static void IncreaseCompanyBalance(GameContext context, int companyId, long sum)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            long balance = c.companyResource.Resources.money + sum;
+
+            c.ReplaceCompanyResource(c.companyResource.Resources.SetMoney(balance));
+        }
+
         public static void RestructureFinances(GameContext context, int percent, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);

@@ -72,6 +72,8 @@ namespace Assets.Utils
 
             AddShareholder(gameContext, companyId, investorId, shares);
 
+            CompanyEconomyUtils.IncreaseCompanyBalance(gameContext, companyId, p.Offer);
+
             RemoveProposal(gameContext, companyId, investorId);
         }
     }
