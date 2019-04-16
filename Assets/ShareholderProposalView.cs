@@ -1,18 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Utils;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ShareholderProposalView : MonoBehaviour
+public class ShareholderProposalView : View
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image Panel;
+    public Text Name;
+    public Image Icon;
+
+    public Hint Motivation;
+    public Text InvestorType;
+
+    public Text Offer;
+
+    public GameObject AcceptProposal;
+    public GameObject RejectProposal;
+
+    public Text Valuation;
+
+    GameEntity shareholder;
+    GameEntity company;
+
+    public void SetEntity(InvestmentProposal proposal)
     {
-        
+        shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.ShareholderId);
+        company = SelectedCompany;
+
+        Render(shareholder.shareholder.Name, proposal.ShareholderId);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetButtons(int investorId)
     {
-        
+        AcceptProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
+
+        AcceptProposal.GetComponent<BuyShares>().ShareholderId = investorId;
+        AcceptProposal.GetComponent<CanBuySharesController>().Render(investorId);
+    }
+
+    void Render(string name, int investorId)
+    {
+        Name.text = name;
+        InvestorType.text = "Venture investor";
+        Motivation.SetHint("Motivation: 20% growth");
+
+
+        Offer.text = $"$20M (5%)"; // CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
+        long valuation = 5000000;
+        Valuation.text = "$" + ValueFormatter.Shorten(valuation);
+
+        SetButtons(investorId);
     }
 }

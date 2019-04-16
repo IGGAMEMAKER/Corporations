@@ -28,27 +28,28 @@ public static class GameComponentsLookup {
     public const int FinanceListener = 17;
     public const int Human = 18;
     public const int Industry = 19;
-    public const int Marketing = 20;
-    public const int MarketingListener = 21;
-    public const int Menu = 22;
-    public const int MenuListener = 23;
-    public const int NavigationHistory = 24;
-    public const int Niche = 25;
-    public const int Product = 26;
-    public const int ProductListener = 27;
-    public const int RuledBy = 28;
-    public const int SelectedCompany = 29;
-    public const int Shareholder = 30;
-    public const int Shareholders = 31;
-    public const int ShareholdersListener = 32;
-    public const int Targeting = 33;
-    public const int TargetingListener = 34;
-    public const int Task = 35;
-    public const int TaskManager = 36;
-    public const int Team = 37;
-    public const int TeamListener = 38;
+    public const int InvestmentProposals = 20;
+    public const int Marketing = 21;
+    public const int MarketingListener = 22;
+    public const int Menu = 23;
+    public const int MenuListener = 24;
+    public const int NavigationHistory = 25;
+    public const int Niche = 26;
+    public const int Product = 27;
+    public const int ProductListener = 28;
+    public const int RuledBy = 29;
+    public const int SelectedCompany = 30;
+    public const int Shareholder = 31;
+    public const int Shareholders = 32;
+    public const int ShareholdersListener = 33;
+    public const int Targeting = 34;
+    public const int TargetingListener = 35;
+    public const int Task = 36;
+    public const int TaskManager = 37;
+    public const int Team = 38;
+    public const int TeamListener = 39;
 
-    public const int TotalComponents = 39;
+    public const int TotalComponents = 40;
 
     public static readonly string[] componentNames = {
         "AnyCompanyListener",
@@ -71,6 +72,7 @@ public static class GameComponentsLookup {
         "FinanceListener",
         "Human",
         "Industry",
+        "InvestmentProposals",
         "Marketing",
         "MarketingListener",
         "Menu",
@@ -113,6 +115,7 @@ public static class GameComponentsLookup {
         typeof(FinanceListenerComponent),
         typeof(HumanComponent),
         typeof(IndustryComponent),
+        typeof(InvestmentProposalsComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),

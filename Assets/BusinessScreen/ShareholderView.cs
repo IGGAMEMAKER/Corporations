@@ -24,12 +24,13 @@ public class ShareholderView : View
     public Button SellShares;
 
     GameEntity shareholder;
+    GameEntity company;
 
     public void SetEntity(int shareholderId, int shares)
     {
-        var ourCompany = MyProductEntity;
+        company = SelectedCompany;
 
-        int totalShares = CompanyUtils.GetTotalShares(ourCompany.shareholders.Shareholders);
+        int totalShares = CompanyUtils.GetTotalShares(company.shareholders.Shareholders);
         shareholder = CompanyUtils.GetInvestorById(GameContext, shareholderId);
 
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);
@@ -40,7 +41,7 @@ public class ShareholderView : View
         Name.text = name;
         Goal.text = "Company Cost 50.000.000$";
         Motivation.SetHint("Motivation: 20% growth");
-        Share.text = CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
+        Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 
         BuyShares.gameObject.SetActive(investorId != MyGroupEntity.shareholder.Id);
 

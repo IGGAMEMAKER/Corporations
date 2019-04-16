@@ -157,6 +157,20 @@ public class ShareholderComponent : IComponent
     public long Money;
 }
 
+public class InvestmentProposal
+{
+    public int ShareholderId;
+    public long Valuation;
+    public long Offer;
+}
+
+
+[Game]
+public class InvestmentProposalsComponent : IComponent
+{
+    public List<InvestmentProposal> Proposals;
+}
+
 
 [Game]
 public class TaskManagerComponent : IComponent

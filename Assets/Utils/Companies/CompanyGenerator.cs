@@ -30,6 +30,7 @@ namespace Assets.Utils
                 founders = new Dictionary<int, int>();
 
             e.AddShareholders(founders);
+            e.AddInvestmentProposals(new List<InvestmentProposal>());
 
             return e;
         }
