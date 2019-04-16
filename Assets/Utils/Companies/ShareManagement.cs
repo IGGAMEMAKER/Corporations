@@ -51,11 +51,21 @@ namespace Assets.Utils
             return CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
         }
 
+
+
         internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
         {
             return Array.FindAll(
                 gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
                 e => e.shareholders.Shareholders.Count == 0 && e.company.CompanyType != CompanyType.FinancialGroup
+            );
+        }
+
+        internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
+        {
+            return Array.FindAll(
+                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals)),
+                e => e.company.CompanyType != CompanyType.FinancialGroup
             );
         }
 
@@ -90,6 +100,30 @@ namespace Assets.Utils
 
             return investorId;
         }
+
+        internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            var p = c.investmentProposals.Proposals;
+
+            p.Add(proposal);
+
+            c.ReplaceInvestmentProposals(p);
+        }
+
+        internal static void RejectProposal(GameContext gameContext, int companyId, int investorId)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            var proposals = GetInvestmentProposals(gameContext, companyId);
+
+            proposals.RemoveAll(p => p.ShareholderId == investorId);
+
+            c.ReplaceInvestmentProposals(proposals);
+        }
+
+        //internal static void AcceptProposal()
 
         public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
         {

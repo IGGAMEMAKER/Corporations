@@ -19,6 +19,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
         SpawnInvestmentFund(5, 10000000, 100000000);
         AutoFillNonFilledShareholders();
+        AutoFillProposals();
     }
 
     int GenerateProductCompany(string name, NicheType nicheType)
@@ -58,6 +59,11 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
     }
 
+    //string Capitalize(string word)
+    //{
+    //    word.
+    //}
+
     public string RandomString(int size, bool lowerCase)
     {
         StringBuilder builder = new StringBuilder();
@@ -80,7 +86,9 @@ public class ProductInitializerSystem : IInitializeSystem
 
         int index = UnityEngine.Random.Range(0, names.Length);
 
-        return RandomString(10, false) + " " + names[index];
+        int length = UnityEngine.Random.Range(4, 8);
+
+        return "The " + RandomString(length, true) + " " + names[index];
     }
 
     void SpawnInvestmentFund(int amountOfFunds, long investmentMin, long investmentMax)
@@ -96,7 +104,30 @@ public class ProductInitializerSystem : IInitializeSystem
         var index = UnityEngine.Random.Range(0, funds.Length);
 
         return funds[index].shareholder.Id;
-        return CompanyUtils.GetCompanyByName(GameContext, "Morgan J.P.").shareholder.Id;
+    }
+
+    private void AutoFillProposals()
+    {
+        var companies = CompanyUtils.GetNonFinancialCompanies(GameContext);
+
+        foreach (var c in companies)
+            SpawnProposals(c.company.Id);
+    }
+
+    void SpawnProposals(int companyId)
+    {
+        int amount = UnityEngine.Random.Range(1, 5);
+
+        long cost = CompanyUtils.GetCompanyCost(GameContext, companyId);
+
+        for (var i = 0; i < amount; i++)
+        {
+            long valuation = cost * (5 + UnityEngine.Random.Range(0, 10)) / 10;
+
+            var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = GetRandomInvestmentFund() };
+
+            CompanyUtils.AddInvestmentProposal(GameContext, companyId, p);
+        }
     }
 
     void AutoFillNonFilledShareholders()
@@ -149,5 +180,7 @@ public class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
+
+
     }
 }

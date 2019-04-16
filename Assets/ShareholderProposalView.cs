@@ -26,7 +26,7 @@ public class ShareholderProposalView : View
         shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.ShareholderId);
         company = SelectedCompany;
 
-        Render(shareholder.shareholder.Name, proposal.ShareholderId);
+        Render(shareholder.shareholder.Name, proposal);
     }
 
     void SetButtons(int investorId)
@@ -37,17 +37,23 @@ public class ShareholderProposalView : View
         AcceptProposal.GetComponent<CanBuySharesController>().Render(investorId);
     }
 
-    void Render(string name, int investorId)
+    void Render(string name, InvestmentProposal proposal)
     {
         Name.text = name;
         InvestorType.text = "Venture investor";
         Motivation.SetHint("Motivation: 20% growth");
 
+        long Cost = CompanyUtils.GetCompanyCost(GameContext, company.company.Id);
 
-        Offer.text = $"$20M (5%)"; // CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
-        long valuation = 5000000;
+        long offer = proposal.Offer;
+        long futureShareSize = offer * 100 / (offer + Cost);
+
+
+        Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)"; // CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
+
+        long valuation = proposal.Valuation;
         Valuation.text = "$" + ValueFormatter.Shorten(valuation);
 
-        SetButtons(investorId);
+        SetButtons(proposal.ShareholderId);
     }
 }
