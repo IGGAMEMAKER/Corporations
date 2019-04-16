@@ -2,6 +2,8 @@
 {
     public ScreenMode TargetMenu;
 
+    //public int CompanyId;
+
     public override void Execute()
     {
         switch (TargetMenu)
@@ -13,6 +15,9 @@
                 Navigate(TargetMenu, IndustryType.Search);
                 break;
             case ScreenMode.InvesmentProposalScreen:
+                Navigate(TargetMenu, SelectedCompany.company.Id);
+                break;
+            case ScreenMode.ProjectScreen:
                 Navigate(TargetMenu, SelectedCompany.company.Id);
                 break;
             default:

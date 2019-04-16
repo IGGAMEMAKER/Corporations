@@ -41,6 +41,11 @@ public class SetTargetCompany : View
 
         if (i != null)
             i.CompanyId = companyId;
+
+        //var n = GetComponent<LinkTo>();
+
+        //if (n != null)
+        //    n
     }
 
     void OnEnable()

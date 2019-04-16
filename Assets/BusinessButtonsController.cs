@@ -2,7 +2,6 @@
 
 public class BusinessButtonsController : View
 {
-    public GameObject ManageCompanyButton;
     public GameObject PromoteToGroupButton;
     public GameObject PivotButton;
     public GameObject LeaveCEOButton;
