@@ -33,6 +33,7 @@ namespace Assets.Utils
 
             e.AddShareholders(founders);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
+            e.AddMetricsHistory(new List<MetricsInfo>());
 
             return e;
         }

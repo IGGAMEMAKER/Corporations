@@ -164,6 +164,20 @@ public class InvestmentProposal
     public long Offer;
 }
 
+public struct MetricsInfo
+{
+    public int Date;
+    public long Income;
+    public long Valuation;
+    public long Profit; // balance change
+    public uint AudienceSize;
+}
+
+[Game]
+public class MetricsHistoryComponent : IComponent
+{
+    public List<MetricsInfo> Metrics;
+}
 
 [Game]
 public class InvestmentProposalsComponent : IComponent

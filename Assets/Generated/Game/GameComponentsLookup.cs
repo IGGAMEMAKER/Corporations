@@ -33,23 +33,24 @@ public static class GameComponentsLookup {
     public const int MarketingListener = 22;
     public const int Menu = 23;
     public const int MenuListener = 24;
-    public const int NavigationHistory = 25;
-    public const int Niche = 26;
-    public const int Product = 27;
-    public const int ProductListener = 28;
-    public const int RuledBy = 29;
-    public const int SelectedCompany = 30;
-    public const int Shareholder = 31;
-    public const int Shareholders = 32;
-    public const int ShareholdersListener = 33;
-    public const int Targeting = 34;
-    public const int TargetingListener = 35;
-    public const int Task = 36;
-    public const int TaskManager = 37;
-    public const int Team = 38;
-    public const int TeamListener = 39;
+    public const int MetricsHistory = 25;
+    public const int NavigationHistory = 26;
+    public const int Niche = 27;
+    public const int Product = 28;
+    public const int ProductListener = 29;
+    public const int RuledBy = 30;
+    public const int SelectedCompany = 31;
+    public const int Shareholder = 32;
+    public const int Shareholders = 33;
+    public const int ShareholdersListener = 34;
+    public const int Targeting = 35;
+    public const int TargetingListener = 36;
+    public const int Task = 37;
+    public const int TaskManager = 38;
+    public const int Team = 39;
+    public const int TeamListener = 40;
 
-    public const int TotalComponents = 40;
+    public const int TotalComponents = 41;
 
     public static readonly string[] componentNames = {
         "AnyCompanyListener",
@@ -77,6 +78,7 @@ public static class GameComponentsLookup {
         "MarketingListener",
         "Menu",
         "MenuListener",
+        "MetricsHistory",
         "NavigationHistory",
         "Niche",
         "Product",
@@ -120,6 +122,7 @@ public static class GameComponentsLookup {
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),
         typeof(MenuListenerComponent),
+        typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
         typeof(NicheComponent),
         typeof(ProductComponent),
