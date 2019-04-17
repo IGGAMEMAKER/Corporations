@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -65,9 +64,7 @@ public class DiplomaticCompanyDropDown : View
 
     public GameEntity[] GetNeighbours()
     {
-        GameEntity[] products = CompanyUtils.GetProductsNotControlledByPlayer(GameContext);
-
-        return Array.FindAll(products, e => e.product.Niche != MyProduct.Niche && e.product.Industry == MyProduct.Industry);
+        return CompanyUtils.GetMyNeighbours(GameContext);
     }
 
     GameEntity[] GetProperList()

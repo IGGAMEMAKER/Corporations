@@ -48,7 +48,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
                 money
                 );
 
-            e.product.Resources.Add(resources);
+            e.companyResource.Resources.Add(resources);
         }
     }
 

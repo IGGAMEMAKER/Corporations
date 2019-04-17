@@ -193,12 +193,12 @@ public class ProductComponent: IComponent
     public int Id;
     public string Name;
     public NicheType Niche;
-    public IndustryType Industry;
+    //public IndustryType Industry;
 
     public int ProductLevel;
-    public int ExplorationLevel;
+    //public int ExplorationLevel;
 
-    public TeamResource Resources;
+    //public TeamResource Resources;
 }
 
 [Game, Event(EventTarget.Self)]

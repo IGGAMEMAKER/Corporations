@@ -1,4 +1,6 @@
-﻿public class PotentialLevelView : ParameterView
+﻿using Assets.Utils;
+
+public class PotentialLevelView : ParameterView
 {
     public override string RenderHint()
     {
@@ -7,6 +9,6 @@
 
     public override string RenderValue()
     {
-        return MyProductEntity.product.ExplorationLevel + "";
+        return ProductDevelopmentUtils.GetMarketRequirementsInNiche(GameContext, MyProduct.Niche) + "";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -30,8 +31,10 @@ namespace Assets.Utils
 
         public static GameEntity GetPlayerControlledGroupCompany(GameContext context)
         {
-            var companies =
-                context.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer).NoneOf(GameMatcher.Product));
+            var companies = context
+                .GetEntities(GameMatcher
+                .AllOf(GameMatcher.ControlledByPlayer)
+                .NoneOf(GameMatcher.Product));
 
             if (companies.Length == 1) return companies[0];
 
@@ -44,7 +47,9 @@ namespace Assets.Utils
 
             var myProduct = GetPlayerControlledProductCompany(context).product;
 
-            return Array.FindAll(products, e => e.product.Niche != myProduct.Niche && e.product.Industry == myProduct.Industry);
+            Debug.Log("GetMyNeighbours returns false data! it does not count products in same niche");
+
+            return Array.FindAll(products, e => e.product.Niche != myProduct.Niche);
         }
 
         public static GameEntity[] GetMyCompetitors(GameContext context)

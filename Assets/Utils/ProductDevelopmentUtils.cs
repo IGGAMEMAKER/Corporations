@@ -5,9 +5,9 @@ namespace Assets.Utils
 {
     public static class ProductDevelopmentUtils
     {
-        public static TeamResource GetDevelopmentCost(GameEntity e)
+        public static TeamResource GetDevelopmentCost(GameEntity e, GameContext context)
         {
-            int innovationPenalty = IsInnovating(e) ? Constants.DEVELOPMENT_INNOVATION_PENALTY : 0;
+            int innovationPenalty = IsInnovating(e, context) ? Constants.DEVELOPMENT_INNOVATION_PENALTY : 0;
 
             int modifier = 100 + innovationPenalty;
 
@@ -22,9 +22,14 @@ namespace Assets.Utils
             return false;
         }
 
-        public static bool IsInnovating(GameEntity e)
+        public static int GetMarketRequirementsInNiche(GameContext context, NicheType nicheType)
         {
-            return e.product.ProductLevel >= e.product.ExplorationLevel;
+            return 10;
+        }
+
+        public static bool IsInnovating(GameEntity e, GameContext context)
+        {
+            return e.product.ProductLevel >= GetMarketRequirementsInNiche(context, e.product.Niche);
         }
 
         public static int IterationTimeComplexityModifier(GameEntity e)

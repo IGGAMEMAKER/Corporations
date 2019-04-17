@@ -25,12 +25,12 @@ class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
 
         foreach (var e in Products)
         {
-            if (e.product.Resources.IsEnoughResources(need))
+            if (e.companyResource.Resources.IsEnoughResources(need))
             {
                 uint brandModifier = (uint) e.marketing.BrandPower * 20;
             
                 e.marketing.Clients += baseForNiche * (100 + brandModifier) / 100;
-                e.product.Resources.Spend(need);
+                e.companyResource.Resources.Spend(need);
             }
         }
     }

@@ -1,5 +1,5 @@
-﻿using Entitas;
-using UnityEngine;
+﻿using Assets.Utils;
+using Entitas;
 
 public class ProductExecuteUpgradeEvent : IExecuteSystem
 {
@@ -30,7 +30,7 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
 
     void UpgradeProduct(GameEntity e)
     {
-        int explorationLevel = e.product.ExplorationLevel;
+        int explorationLevel = ProductDevelopmentUtils.GetMarketRequirementsInNiche(_context, e.product.Niche);
         int newLevel = e.eventUpgradeProduct.previousLevel + 1;
 
         if (explorationLevel < newLevel)
@@ -40,10 +40,7 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
             e.product.Id,
             e.product.Name,
             e.product.Niche,
-            e.product.Industry,
-            newLevel,
-            explorationLevel,
-            e.product.Resources
+            newLevel
             );
 
         //Debug.Log($"upgraded product {e.product.Id}({e.product.Name}) to lvl {e.eventUpgradeProduct.previousLevel + 1}");

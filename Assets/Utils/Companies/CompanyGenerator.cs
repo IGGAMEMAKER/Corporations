@@ -82,7 +82,7 @@ namespace Assets.Utils
             int explorationLevel = productLevel;
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, industry, productLevel, explorationLevel, resources);
+            company.AddProduct(company.company.Id, name, niche, productLevel);
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(1, 0, 0, 100);
             company.AddMarketing(clients, brandPower, false);

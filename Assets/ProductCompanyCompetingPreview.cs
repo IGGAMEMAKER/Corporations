@@ -1,5 +1,4 @@
-﻿using Assets.Classes;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ProductCompanyCompetingPreview : View, IProductListener, IMarketingListener
@@ -21,7 +20,6 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
 
         ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
-        //if (entity.company.Id == MyProductEntity.company.Id)
         if (entity.isControlledByPlayer)
             Panel.color = ourCompanyColor;
 
@@ -48,7 +46,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
     {
         RenderProductInfo(name, productLevel);
     }

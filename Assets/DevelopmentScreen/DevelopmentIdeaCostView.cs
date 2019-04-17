@@ -6,7 +6,7 @@ public class DevelopmentIdeaCostView : ParameterView
     {
         string hint = "Base Cost: " + ProductDevelopmentUtils.BaseIdeaCost(MyProductEntity);
 
-        if (ProductDevelopmentUtils.IsInnovating(MyProductEntity))
+        if (ProductDevelopmentUtils.IsInnovating(MyProductEntity, GameContext))
             hint += "\n Is Innovating: +" + Constants.DEVELOPMENT_INNOVATION_PENALTY + "%";
 
         return hint;
@@ -14,6 +14,6 @@ public class DevelopmentIdeaCostView : ParameterView
 
     public override string RenderValue()
     {
-        return ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity).ideaPoints + "";
+        return ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext).ideaPoints + "";
     }
 }

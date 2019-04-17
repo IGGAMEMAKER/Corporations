@@ -14,18 +14,17 @@ class ProductDevelopmentSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] Products = contexts.game
-            .GetEntities(GameMatcher.Product);
+        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.CompanyResource));
 
         foreach (var e in Products)
         {
-            TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(e);
+            TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(e, gameContext);
 
-            if (e.product.Resources.IsEnoughResources(need) && !e.hasEventUpgradeProduct)
+            if (e.companyResource.Resources.IsEnoughResources(need) && !e.hasEventUpgradeProduct)
             {
                 e.AddEventUpgradeProduct(e.product.Id, e.product.ProductLevel);
 
-                e.product.Resources.Spend(need);
+                e.companyResource.Resources.Spend(need);
             }
         }
     }

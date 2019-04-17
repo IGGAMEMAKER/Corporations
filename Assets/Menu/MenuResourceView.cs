@@ -56,7 +56,7 @@ public class MenuResourceView : View
     public void Render(ScreenMode screenMode)
     {
         if (screenMode == ScreenMode.DevelopmentScreen || screenMode == ScreenMode.TeamScreen)
-            Render(MyProductEntity.product.Resources, new TeamResource(), MyProductEntity.marketing);
+            Render(MyProductEntity.companyResource.Resources, new TeamResource(), MyProductEntity.marketing);
         else
             Hide();
     }
@@ -101,7 +101,7 @@ public class MenuResourceView : View
         Render();
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, IndustryType industry, int productLevel, int explorationLevel, TeamResource resources)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
     {
         Render();
     }

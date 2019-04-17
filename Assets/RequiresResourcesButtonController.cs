@@ -53,7 +53,7 @@ public class RequiresResourcesButtonController : View
     {
         get
         {
-            return IsEnoughResources(MyProduct.Resources, RequiredResources);
+            return IsEnoughResources(MyProductEntity.companyResource.Resources, RequiredResources);
         }
     }
 
@@ -72,7 +72,7 @@ public class RequiresResourcesButtonController : View
 
     private void SetHint()
     {
-        TeamResource resources = MyProduct.Resources;
+        TeamResource resources = MyProductEntity.companyResource.Resources;
 
         string idea = RequiredResourceSpec(RequiredResources.ideaPoints, resources.ideaPoints, "ideas");
         string money = RequiredResourceSpec((int) RequiredResources.money, (int) resources.money, "$");
