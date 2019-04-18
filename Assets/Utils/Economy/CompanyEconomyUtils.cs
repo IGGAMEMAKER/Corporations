@@ -1,4 +1,7 @@
-﻿namespace Assets.Utils
+﻿using System;
+using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class CompanyEconomyUtils
     {
@@ -33,6 +36,8 @@
             else
                 cost = GetGroupOfCompaniesCost(context, c);
 
+            Debug.Log($"Get CompanyCost of {c.company.Name} = {cost}");
+
             return cost + capital;
         }
 
@@ -43,6 +48,7 @@
             if (CompanyUtils.IsProductCompany(c))
                 return GetProductCompanyIncomeDescription(c);
 
+            return GetGroupIncomeDescription(context, companyId);
             return "Cannot descdribe group income :(";
         }
 
@@ -53,6 +59,7 @@
             if (CompanyUtils.IsProductCompany(c))
                 return GetProductCompanyMaintenanceDescription(c);
 
+            return GetGroupMaintenanceDescription(context, companyId);
             return "Cannot descdribe group maintenance :(";
         }
 
@@ -81,7 +88,17 @@
             if (CompanyUtils.IsProductCompany(c))
                 return GetProductCompanyMaintenance(c);
 
-            return 1;
+            return GetGroupMaintenance(gameContext, c.company.Id);
+        }
+
+        internal static long GetCompanyMaintenance(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyMaintenance(c);
+            else
+                return GetGroupMaintenance(gameContext, companyId);
         }
 
         internal static long GetBalanceChange(GameEntity c, GameContext context)

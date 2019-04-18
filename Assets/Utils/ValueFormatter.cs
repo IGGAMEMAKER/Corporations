@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static class ValueFormatter
     {
@@ -6,6 +8,13 @@
         {
             return NoFormatting(value);
             return Shorten(value);
+        }
+
+        private static string ShowMeaningfulValue(long value, long divisor, string litera)
+        {
+            int shortened = Convert.ToInt32(value * 10 / divisor);
+
+            return "" + shortened / 10f + litera;
         }
 
         public static string Shorten<T>(T value)
@@ -18,16 +27,16 @@
             long trillion = 1000 * billion;
 
             if (val >= trillion)
-                return (int)(val / trillion) + "T";
+                return ShowMeaningfulValue(val, trillion, "T");
 
             if (val >= billion)
-                return (int)(val / billion) + "B";
+                return ShowMeaningfulValue(val, billion, "B");
 
             if (val >= million)
-                return (int)(val / million) + "M";
+                return ShowMeaningfulValue(val, million, "M");
 
-            if (val >= thousand * 10)
-                return (int)(val / thousand) + "K";
+            if (val >= thousand / 100)
+                return ShowMeaningfulValue(val, thousand, "K");
 
             return val.ToString();
         }
