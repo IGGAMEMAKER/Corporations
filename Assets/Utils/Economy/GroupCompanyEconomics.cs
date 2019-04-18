@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         private static long GetGroupOfCompaniesCost(GameContext context, GameEntity e)
         {
-            return GetGroupIncome(context, e) * GetCompanyCostEnthusiasm();
+            return GetGroupCost(context, e.company.Id);
         }
 
         static long GetHoldingIncome(GameContext context, List<CompanyHolding> holdings)
