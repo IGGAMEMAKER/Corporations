@@ -32,7 +32,7 @@ public class SetTargetCompany : View
 
     void UpdateLinks()
     {
-        var l = GetComponent<LinkToCompanyPreview>();
+        var l = GetComponent<LinkToProjectView>();
 
         if (l != null)
             l.CompanyId = companyId;

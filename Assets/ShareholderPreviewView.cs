@@ -12,7 +12,7 @@ public class ShareholderPreviewView : View
     public Text SharesLabel;
     public Hint SharesAmountHint;
 
-    LinkToCompanyPreview LinkToCompanyPreview;
+    LinkToProjectView LinkToCompanyPreview;
 
     GameEntity ShareholderEntity;
 
@@ -42,8 +42,8 @@ public class ShareholderPreviewView : View
 
         GameObject o = NameLabel.gameObject;
 
-        if (o.GetComponent<LinkToCompanyPreview>() == null)
-            LinkToCompanyPreview = o.AddComponent<LinkToCompanyPreview>();
+        if (o.GetComponent<LinkToProjectView>() == null)
+            LinkToCompanyPreview = o.AddComponent<LinkToProjectView>();
                 
         LinkToCompanyPreview.CompanyId = GetCompanyIdByInvestorId(ShareholderId);
     }

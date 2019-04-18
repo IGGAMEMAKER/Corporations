@@ -112,7 +112,7 @@ public class GroupManagementScreen : View
     {
         ListenMenuChanges(this);
 
-        Destroy(CompanyPreviewView.GetComponent<LinkToCompanyPreview>());
+        Destroy(CompanyPreviewView.GetComponent<LinkToProjectView>());
         CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
     }
 

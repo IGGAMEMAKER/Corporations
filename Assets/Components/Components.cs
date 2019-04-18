@@ -43,7 +43,7 @@ public enum ScreenMode
     DevelopmentScreen,
     MarketingScreen,
     ProjectScreen,
-    BusinessScreen,
+    //BusinessScreen,
     TeamScreen,
     StatsScreen,
     CharacterScreen,

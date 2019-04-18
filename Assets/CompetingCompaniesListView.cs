@@ -6,7 +6,7 @@ public class CompetingCompaniesListView : ListView
     {
         var e = entity as GameEntity;
 
-        t.GetComponentInChildren<LinkToCompanyPreview>().CompanyId = e.company.Id;
+        t.GetComponentInChildren<LinkToProjectView>().CompanyId = e.company.Id;
         t.GetComponentInChildren<ProductCompanyCompetingPreview>().SetEntity(e);
     }
 }

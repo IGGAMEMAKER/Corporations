@@ -63,7 +63,7 @@ public class FillCompanyOwnings : View
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
-        if (screenMode == ScreenMode.BusinessScreen || screenMode == ScreenMode.GroupManagementScreen)
+        if (screenMode == ScreenMode.GroupManagementScreen)
             Render();
     }
 

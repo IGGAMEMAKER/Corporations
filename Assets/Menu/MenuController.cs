@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour, IMenuListener
 
     public GameObject TechnologyScreen;
     public GameObject ProjectScreen;
-    public GameObject BusinessScreen;
+    //public GameObject BusinessScreen;
     public GameObject InvesmentsScreen;
     public GameObject InvesmentProposalScreen;
     public GameObject IndustryScreen;
@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour, IMenuListener
         {
             [ScreenMode.DevelopmentScreen] = TechnologyScreen,
             [ScreenMode.ProjectScreen] = ProjectScreen,
-            [ScreenMode.BusinessScreen] = BusinessScreen,
+            //[ScreenMode.BusinessScreen] = BusinessScreen,
             [ScreenMode.InvesmentsScreen] = InvesmentsScreen,
             [ScreenMode.InvesmentProposalScreen] = InvesmentProposalScreen,
             [ScreenMode.IndustryScreen] = IndustryScreen,
@@ -50,7 +50,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     {
         switch (screen)
         {
-            case ScreenMode.BusinessScreen: return "Business";
+            //case ScreenMode.BusinessScreen: return "Business";
             case ScreenMode.IndustryScreen: return "Market resarch";
             case ScreenMode.NicheScreen: return "Niche";
             case ScreenMode.ProjectScreen: return "Project";

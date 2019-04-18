@@ -52,7 +52,7 @@ public class CompanyPreviewView : View,
 
     void UpdateLinkToCompany(GameEntity e)
     {
-        var link = GetComponent<LinkToCompanyPreview>();
+        var link = GetComponent<LinkToProjectView>();
 
         if (link != null)
             link.CompanyId = e.company.Id;

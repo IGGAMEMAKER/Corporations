@@ -4,7 +4,7 @@ public class RemoveLink : MonoBehaviour
 {
     void Start()
     {
-        var link = GetComponent<LinkToCompanyPreview>();
+        var link = GetComponent<LinkToProjectView>();
 
         if (link)
             Destroy(link);

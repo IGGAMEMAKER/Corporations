@@ -101,10 +101,10 @@ public abstract class ButtonController : MonoBehaviour, IEventGenerator
         Navigate(ScreenMode.IndustryScreen, industry);
     }
 
-    public void NavigateToBusinessScreen(int companyId)
-    {
-        Navigate(ScreenMode.BusinessScreen, companyId);
-    }
+    //public void NavigateToBusinessScreen(int companyId)
+    //{
+    //    Navigate(ScreenMode.BusinessScreen, companyId);
+    //}
 
     public void Navigate(ScreenMode screenMode, object data)
     {

@@ -11,7 +11,7 @@ public class ManageableOwningsListView : OwningsListView
         var obj = t.gameObject;
 
         //obj.AddComponent<CompanyDragController>();
-        Destroy(obj.GetComponent<LinkToCompanyPreview>());
+        Destroy(obj.GetComponent<LinkToProjectView>());
 
         obj.AddComponent<SelectCompanyController>().companyId = e.company.Id;
 

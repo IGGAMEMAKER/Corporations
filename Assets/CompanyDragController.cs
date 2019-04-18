@@ -31,7 +31,7 @@ public class CompanyDragController : View,
 
     int GetCompanyIdByGameObject(GameObject obj)
     {
-        return obj.GetComponent<LinkToCompanyPreview>().CompanyId;
+        return obj.GetComponent<LinkToProjectView>().CompanyId;
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
