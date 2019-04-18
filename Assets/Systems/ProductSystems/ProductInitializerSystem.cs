@@ -42,7 +42,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
     void AddShareholder(int companyId, int investorId, int shares)
     {
-        Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
+        //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
 
         CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
     }
@@ -115,23 +115,28 @@ public class ProductInitializerSystem : IInitializeSystem
 
         int alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
+        AttachToHolding(alphabet, yahoo);
 
         AddShareholder(alphabet, investorId, 100);
         AddShareholder(alphabet, investorId2, 200);
 
         int googleGroupId = PromoteToGroup(google);
-        SetPlayerControlledCompany(googleGroupId);
+        SetPlayerControlledCompany(alphabet);
 
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
 
+
+
         var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
+        var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);
 
-        //googleProduct.finance.price = 3;
+        googleProduct.finance.price = 3;
+        yandexProduct.finance.price = 4;
 
-        var income = CompanyEconomyUtils.GetCompanyIncome(CompanyUtils.GetCompanyById(GameContext, googleGroupId), GameContext);
+        var income = CompanyEconomyUtils.GetCompanyIncome(CompanyUtils.GetCompanyById(GameContext, alphabet), GameContext);
 
-        Debug.Log("Group income = " + income);
+        Debug.Log("Alphabet income = " + income);
     }
 }
