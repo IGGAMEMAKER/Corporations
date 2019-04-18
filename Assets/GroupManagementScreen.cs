@@ -16,8 +16,6 @@ public class GroupManagementScreen : View
     public Text ControlValue;
 
     public Button InvestButton;
-    public Button IncreaseDividends;
-    public Button DecreaseDividends;
 
     private void OnEnable()
     {
@@ -38,8 +36,6 @@ public class GroupManagementScreen : View
     void ToggleCEOButtons(bool show)
     {
         InvestButton.interactable = show;
-        DecreaseDividends.interactable = show;
-        IncreaseDividends.interactable = show;
     }
 
     bool IsHasShares()
@@ -84,12 +80,38 @@ public class GroupManagementScreen : View
         return GetSizeOfShares() > 50;
     }
 
+    string GetShareholderStatus(int sharesPercent)
+    {
+        if (sharesPercent < 1)
+            return "Non voting";
+
+        if (sharesPercent < 10)
+            return "Voting";
+
+        if (sharesPercent < 25)
+            return "Majority";
+
+        if (sharesPercent < 50)
+            return "Blocking";
+
+        if (sharesPercent < 100)
+            return "Controling";
+
+        return "Owner";
+    }
+
     void RenderControlValue()
     {
         if (SelectedCompany == MyGroupEntity || !IsHasShares())
             ControlValue.text = "---";
         else
-            ControlValue.text = GetSizeOfShares() + "%";
+        {
+            int size = GetSizeOfShares();
+
+            string shareholderStatus = GetShareholderStatus(size);
+
+            ControlValue.text = $"{size}% ({shareholderStatus})";
+        }
     }
 
     void Render()
