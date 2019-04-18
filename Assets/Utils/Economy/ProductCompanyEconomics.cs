@@ -42,32 +42,27 @@ namespace Assets.Utils
             return Convert.ToInt64(income);
         }
 
-        internal static long GetBalance(GameEntity e)
-        {
-            return GetProductCompanyIncome(e) - GetProductCompanyMaintenance(e);
-        }
-
         private static string GetProductCompanyIncomeDescription(GameEntity gameEntity)
         {
             return $"Income of this company equals {GetProductCompanyIncome(gameEntity)}";
         }
 
-        internal static string GetMaintenanceDescription(GameEntity company)
+        internal static string GetProductCompanyMaintenanceDescription(GameEntity company)
         {
             return $"Maintenance of this company equals {GetProductCompanyMaintenance(company)}";
         }
 
-        public static long GetProductCompanyMaintenance(GameEntity e)
+        private static long GetProductCompanyMaintenance(GameEntity e)
         {
-            if (e.hasTeam)
-                return GetTeamMaintenance(e);
-            else
-                return 1;
+            return GetTeamMaintenance(e);
         }
 
         public static long GetTeamMaintenance(GameEntity e)
         {
-            return (e.team.Managers + e.team.Marketers + e.team.Programmers) * 2000;
+            if (e.hasTeam)
+                return (e.team.Managers + e.team.Marketers + e.team.Programmers) * 2000;
+
+            return 1;
         }
     }
 }

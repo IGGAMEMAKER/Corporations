@@ -21,8 +21,8 @@ public class RenderCompanyEconomyTab : View
 
         Change.UpdateValue(CompanyEconomyUtils.GetBalanceChange(company, GameContext));
 
-        IncomeHint.SetHint(CompanyEconomyUtils.GetIncomeDescription(company));
-        MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(company));
+        IncomeHint.SetHint(CompanyEconomyUtils.GetIncomeDescription(GameContext, companyId));
+        MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
     }
 
     private void Update()

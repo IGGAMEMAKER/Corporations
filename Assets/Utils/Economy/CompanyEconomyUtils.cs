@@ -22,10 +22,10 @@
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            if (CompanyUtils.IsCompanyGroupLike(c))
-                return GetGroupOfCompaniesCost(context, c);
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyCost(context, companyId);
 
-            return GetProductCompanyCost(context, companyId);
+            return GetGroupOfCompaniesCost(context, c);
         }
 
         internal static string GetIncomeDescription(GameContext context, int companyId)
@@ -36,7 +36,16 @@
                 return GetProductCompanyIncomeDescription(c);
 
             return "Cannot descdribe group income :(";
-            //return GetGroupOfCompaniesCost(context, c);
+        }
+
+        internal static string GetMaintenanceDescription(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyMaintenanceDescription(c);
+
+            return "Cannot descdribe group maintenance :(";
         }
 
         public static long GetCompanyCostEnthusiasm()
@@ -53,8 +62,10 @@
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
         {
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyMaintenance(c);
 
-            return GetProductCompanyMaintenance(c);
+            return 1;
         }
 
         internal static long GetBalanceChange(GameEntity c, GameContext context)

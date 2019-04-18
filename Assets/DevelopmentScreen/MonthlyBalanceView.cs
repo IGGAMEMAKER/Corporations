@@ -12,6 +12,6 @@ public class MonthlyBalanceView : View
     // Update is called once per frame
     void Update()
     {
-        Text.value = CompanyEconomyUtils.GetBalance(MyProductEntity);
+        Text.value = CompanyEconomyUtils.GetBalanceChange(MyProductEntity, GameContext);
     }
 }
