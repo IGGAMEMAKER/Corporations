@@ -63,6 +63,13 @@ namespace Assets.Utils
             return "Cannot descdribe group maintenance :(";
         }
 
+        public static long GetTeamMaintenance(GameContext gameContext, int companyId)
+        {
+            return GetTeamMaintenance(
+                CompanyUtils.GetCompanyById(gameContext, companyId)
+                );
+        }
+
         public static long GetTeamMaintenance(GameEntity e)
         {
             if (e.hasTeam)
@@ -87,8 +94,8 @@ namespace Assets.Utils
         {
             if (CompanyUtils.IsProductCompany(c))
                 return GetProductCompanyMaintenance(c);
-
-            return GetGroupMaintenance(gameContext, c.company.Id);
+            else
+                return GetGroupMaintenance(gameContext, c.company.Id);
         }
 
         internal static long GetCompanyMaintenance(GameContext gameContext, int companyId)

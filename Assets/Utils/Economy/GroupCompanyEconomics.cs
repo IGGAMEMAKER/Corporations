@@ -84,7 +84,7 @@ namespace Assets.Utils
         {
             var holdings = CompanyUtils.GetCompanyHoldings(gameContext, companyId, true);
 
-            return GetHoldingMaintenance(gameContext, holdings);
+            return GetHoldingMaintenance(gameContext, holdings) + GetTeamMaintenance(gameContext, companyId);
         }
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
