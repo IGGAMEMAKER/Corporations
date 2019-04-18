@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Exit : MonoBehaviour
+public class Exit : View
 {
     void Update()
     {
@@ -12,6 +12,13 @@ public class Exit : MonoBehaviour
             #else
                  Application.Quit();
             #endif
+        }
+
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            string time = System.DateTime.UtcNow.ToString("dd MMMM yyyy, HH-mm-ss");
+
+            ScreenCapture.CaptureScreenshot($"C://Users/Gaga/Desktop/Screenshots/save {time}.png");
         }
     }
 }

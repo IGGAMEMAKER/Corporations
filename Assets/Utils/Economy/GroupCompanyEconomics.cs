@@ -29,7 +29,6 @@ namespace Assets.Utils
             var sum = GetHoldingIncome(context, holdings);
 
             return sum;
-            return 10000000;
         }
     }
 }
