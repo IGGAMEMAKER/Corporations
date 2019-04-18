@@ -10,6 +10,13 @@
             return GetGroupIncome(context, e);
         }
 
+        public static long GetCompanyIncome(int companyId, GameContext context)
+        {
+            var e = CompanyUtils.GetCompanyById(context, companyId);
+
+            return GetCompanyIncome(e, context);
+        }
+
         public static long GetCompanyCost(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
@@ -39,7 +46,7 @@
 
         internal static long GetBalanceChange(GameEntity c, GameContext context)
         {
-            return ProductEconomicsUtils.GetBalance(c);
+            return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
         }
 
         internal static bool IsROICounable(GameEntity c, GameContext context)

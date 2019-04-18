@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
 using Entitas;
-using System;
-using System.Text;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
@@ -128,6 +126,12 @@ public class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
 
+        var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
 
+        //googleProduct.finance.price = 3;
+
+        var income = CompanyEconomyUtils.GetCompanyIncome(CompanyUtils.GetCompanyById(GameContext, googleGroupId), GameContext);
+
+        Debug.Log("Group income = " + income);
     }
 }

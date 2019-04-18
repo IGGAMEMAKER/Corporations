@@ -4,6 +4,7 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
+// TODO replace with OnMonthChange!
 class ProductResourceSystems : ReactiveSystem<GameEntity>
 {
     private readonly Contexts contexts;

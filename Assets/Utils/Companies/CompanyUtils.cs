@@ -48,11 +48,6 @@ namespace Assets.Utils
             return !IsProductCompany(gameEntity);
         }
 
-        public static GameEntity[] GetDaughterCompaniesRecursively(GameContext context, int companyId)
-        {
-            return GetDaughterCompanies(context, companyId);
-        }
-
         public static GameEntity[] GetInvestableCompanies(GameContext context)
         {
             return context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
@@ -73,18 +68,6 @@ namespace Assets.Utils
             var index = UnityEngine.Random.Range(0, funds.Length);
 
             return funds[index].shareholder.Id;
-        }
-
-        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId)
-        {
-            var c = GetCompanyById(context, companyId);
-
-            if (!c.hasShareholder)
-                return new GameEntity[0];
-
-            int investorId = c.shareholder.Id;
-
-            return GetInvestments(context, investorId);
         }
 
         // Update

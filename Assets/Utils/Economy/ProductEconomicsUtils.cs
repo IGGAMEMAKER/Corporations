@@ -20,14 +20,9 @@ namespace Assets.Utils
 
         public static long GetIncome(GameEntity e)
         {
-            if (e.company.CompanyType == CompanyType.ProductCompany)
-            {
-                float income = e.marketing.Clients * GetProductPrice(e);
+            float income = e.marketing.Clients * GetProductPrice(e);
 
-                return Convert.ToInt64(income);
-            }
-
-            return 1000000;
+            return Convert.ToInt64(income);
         }
 
         internal static long GetBalance(GameEntity e)
