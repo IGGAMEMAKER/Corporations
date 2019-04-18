@@ -3,9 +3,9 @@ using Assets.Utils.Economy;
 using Entitas;
 using System.Collections.Generic;
 
-class CompanyGrowthInfoSystem : OnMonthChange
+class CompanyReportSystem : OnMonthChange
 {
-    public CompanyGrowthInfoSystem(Contexts contexts) : base(contexts)
+    public CompanyReportSystem(Contexts contexts) : base(contexts)
     {
 
     }

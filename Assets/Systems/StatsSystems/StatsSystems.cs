@@ -2,6 +2,6 @@
 {
     public StatsSystems(Contexts contexts) : base("Stats Systems")
     {
-        Add(new CompanyGrowthInfoSystem(contexts));
+        Add(new CompanyReportSystem(contexts));
     }
 }
