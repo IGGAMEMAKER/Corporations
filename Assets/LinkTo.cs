@@ -2,8 +2,6 @@
 {
     public ScreenMode TargetMenu;
 
-    //public int CompanyId;
-
     public override void Execute()
     {
         switch (TargetMenu)
@@ -16,6 +14,9 @@
                 break;
             case ScreenMode.GroupManagementScreen:
                 Navigate(TargetMenu, MyGroupEntity.company.Id);
+                break;
+            case ScreenMode.NicheScreen:
+                Navigate(TargetMenu, NicheType.SearchEngine);
                 break;
             case ScreenMode.InvesmentsScreen:
                 Navigate(TargetMenu, SelectedCompany.company.Id);
