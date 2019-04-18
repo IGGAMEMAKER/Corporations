@@ -22,10 +22,18 @@
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyCost(context, companyId);
+            long capital = c.companyResource.Resources.money;
 
-            return GetGroupOfCompaniesCost(context, c);
+            if (c.hasShareholder)
+                capital += c.shareholder.Money;
+
+            long cost;
+            if (CompanyUtils.IsProductCompany(c))
+                cost = GetProductCompanyCost(context, companyId);
+            else
+                cost = GetGroupOfCompaniesCost(context, c);
+
+            return cost + capital;
         }
 
         internal static string GetIncomeDescription(GameContext context, int companyId)
@@ -46,6 +54,14 @@
                 return GetProductCompanyMaintenanceDescription(c);
 
             return "Cannot descdribe group maintenance :(";
+        }
+
+        public static long GetTeamMaintenance(GameEntity e)
+        {
+            if (e.hasTeam)
+                return (e.team.Managers + e.team.Marketers + e.team.Programmers) * 2000;
+
+            return 1;
         }
 
         public static long GetCompanyCostEnthusiasm()

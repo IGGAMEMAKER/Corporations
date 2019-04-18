@@ -56,13 +56,5 @@ namespace Assets.Utils
         {
             return GetTeamMaintenance(e);
         }
-
-        public static long GetTeamMaintenance(GameEntity e)
-        {
-            if (e.hasTeam)
-                return (e.team.Managers + e.team.Marketers + e.team.Programmers) * 2000;
-
-            return 1;
-        }
     }
 }
