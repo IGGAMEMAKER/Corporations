@@ -39,7 +39,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
 
             var ideas = 100;
 
-            long money = ProductEconomicsUtils.GetIncome(e);
+            long money = CompanyEconomyUtils.GetProductCompanyIncome(e);
 
             var resources = new TeamResource(
                 team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER,

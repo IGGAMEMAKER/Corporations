@@ -8,28 +8,12 @@ public class CurrentProductPriceView : ParameterView
         if (MyProductEntity.finance.price == 0)
             return "This product is FREE. Increase prices to start making money!";
 
-        return "Base price: " + ProductEconomicsUtils.GetBasePrice(MyProductEntity) + "$ \n]nWe increased price by" + (MyProductEntity.finance.price - 1) * 10 + "%";
+        return "Base price: " + CompanyEconomyUtils.GetBaseProductPrice(MyProductEntity)
+            + "$ \n]nWe increased price by" + (MyProductEntity.finance.price - 1) * 10 + "%";
     }
 
     public override string RenderValue()
     {
-        return ProductEconomicsUtils.GetProductPrice(MyProductEntity) + "$";
+        return CompanyEconomyUtils.GetProductPrice(MyProductEntity) + "$";
     }
-
-    //void OnEnable()
-    //{
-    //    MyProductEntity.AddFinanceListener(this);
-
-    //    Render();
-    //}
-
-    //void OnDisable()
-    //{
-    //    MyProductEntity.RemoveFinanceListener(this);
-    //}
-
-    //void IFinanceListener.OnFinance(GameEntity entity, int price, int marketingFinancing, int salaries, float basePrice)
-    //{
-    //    Render();
-    //}
 }
