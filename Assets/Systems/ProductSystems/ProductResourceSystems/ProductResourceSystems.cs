@@ -39,7 +39,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
 
             var ideas = 100;
 
-            long money = CompanyEconomyUtils.GetProductCompanyIncome(e);
+            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game);
 
             var resources = new TeamResource(
                 team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER,
@@ -58,10 +58,7 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         if (!IsMonthEnd(entities[0].date))
             return;
 
-        Debug.Log("Execute resource system");
-
-        GameEntity[] Products = contexts.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
+        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
 
         AddResources(Products);
     }

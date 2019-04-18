@@ -35,7 +35,7 @@ namespace Assets.Utils
             return GetBaseProductPrice(e) * price / 10;
         }
 
-        public static long GetProductCompanyIncome(GameEntity e)
+        private static long GetProductCompanyIncome(GameEntity e)
         {
             float income = e.marketing.Clients * GetProductPrice(e);
 
@@ -47,9 +47,9 @@ namespace Assets.Utils
             return GetProductCompanyIncome(e) - GetProductCompanyMaintenance(e);
         }
 
-        internal static string GetIncomeDescription(GameEntity company)
+        private static string GetProductCompanyIncomeDescription(GameEntity gameEntity)
         {
-            return $"Income of this company equals {GetProductCompanyIncome(company)}";
+            return $"Income of this company equals {GetProductCompanyIncome(gameEntity)}";
         }
 
         internal static string GetMaintenanceDescription(GameEntity company)

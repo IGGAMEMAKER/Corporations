@@ -28,6 +28,17 @@
             return GetProductCompanyCost(context, companyId);
         }
 
+        internal static string GetIncomeDescription(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyIncomeDescription(c);
+
+            return "Cannot descdribe group income :(";
+            //return GetGroupOfCompaniesCost(context, c);
+        }
+
         public static long GetCompanyCostEnthusiasm()
         {
             return 15;
@@ -42,6 +53,7 @@
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
         {
+
             return GetProductCompanyMaintenance(c);
         }
 
