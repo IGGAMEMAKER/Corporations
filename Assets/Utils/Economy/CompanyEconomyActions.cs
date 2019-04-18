@@ -17,6 +17,16 @@ namespace Assets.Utils
             c.ReplaceCompanyResource(c.companyResource.Resources.SetMoney(balance));
         }
 
+        public static void DecreaseInvestmentFunds(GameContext context, int investorId, long sum)
+        {
+            var investor = CompanyUtils.GetInvestorById(context, investorId);
+
+            var resources = investor.companyResource;
+            resources.Resources.Spend(new Classes.TeamResource(sum));
+
+            investor.ReplaceCompanyResource(resources.Resources);
+        }
+
         public static void RestructureFinances(GameContext context, int percent, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);

@@ -30,6 +30,8 @@ public class ResetApplyButtonInInvestmentsGroup : View
         investments = total * percent / 100;
         balance = total - investments;
 
-        Hint.SetHint($"Money will be redistributed\n\n Balance: ${balance}\nInvestments: ${investments}");
+        Hint.SetHint($"Money will be redistributed\n\n Balance: " +
+            $"${ValueFormatter.Shorten(balance)}" +
+            $"\nInvestments: ${ValueFormatter.Shorten(investments)}");
     }
 }
