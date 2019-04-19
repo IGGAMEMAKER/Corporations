@@ -9,6 +9,6 @@ public class InvestmentFundResources : ParameterView
 
     public override string RenderValue()
     {
-        return ValueFormatter.Shorten(MyGroupEntity.shareholder.Money);
+        return ValueFormatter.Shorten(MyGroupEntity.companyResource.Resources.money);
     }
 }

@@ -154,7 +154,7 @@ public class ShareholderComponent : IComponent
 {
     public int Id;
     public string Name;
-    public long Money;
+    //public long Money;
 }
 
 public class InvestmentProposal

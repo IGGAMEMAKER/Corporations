@@ -13,7 +13,7 @@ public class CanBuySharesController : View
         Debug.Log($"cost of company {companyId}: {cost}");
 
         // TODO we don't always buy companies as Company Group. We can do it as human too!
-        var have = MyGroupEntity.shareholder.Money;
+        var have = MyGroupEntity.companyResource.Resources.money;
 
 
         GetComponent<Button>().interactable = have >= cost;

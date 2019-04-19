@@ -22,13 +22,9 @@ public class TweakCompanyFinancing : View
 
         var c = CompanyUtils.GetCompanyById(GameContext, MyGroupEntity.company.Id);
 
-        var balance = c.companyResource.Resources.money;
-        var investments = c.shareholder.Money;
+        var total = c.companyResource.Resources.money;
 
-        var total = balance;
-
-        investments = total * percent / 100;
-        balance = total - investments;
+        var investments = total * percent / 100;
 
         Hint.SetHint($"We will invest ${investments}\nOur share size will increase");
     }

@@ -11,21 +11,19 @@ public partial class GameEntity {
     public ShareholderComponent shareholder { get { return (ShareholderComponent)GetComponent(GameComponentsLookup.Shareholder); } }
     public bool hasShareholder { get { return HasComponent(GameComponentsLookup.Shareholder); } }
 
-    public void AddShareholder(int newId, string newName, long newMoney) {
+    public void AddShareholder(int newId, string newName) {
         var index = GameComponentsLookup.Shareholder;
         var component = (ShareholderComponent)CreateComponent(index, typeof(ShareholderComponent));
         component.Id = newId;
         component.Name = newName;
-        component.Money = newMoney;
         AddComponent(index, component);
     }
 
-    public void ReplaceShareholder(int newId, string newName, long newMoney) {
+    public void ReplaceShareholder(int newId, string newName) {
         var index = GameComponentsLookup.Shareholder;
         var component = (ShareholderComponent)CreateComponent(index, typeof(ShareholderComponent));
         component.Id = newId;
         component.Name = newName;
-        component.Money = newMoney;
         ReplaceComponent(index, component);
     }
 

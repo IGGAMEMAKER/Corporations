@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyEconomyUtils
     {
@@ -25,22 +19,6 @@ namespace Assets.Utils
             resources.Resources.Spend(new Classes.TeamResource(sum));
 
             investor.ReplaceCompanyResource(resources.Resources);
-        }
-
-        public static void RestructureFinances(GameContext context, int percent, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
-
-            var balance = c.companyResource.Resources.money;
-            var investments = c.shareholder.Money;
-
-            var total = balance + investments;
-
-            investments = total * percent / 100;
-            balance = total - investments;
-
-            c.ReplaceCompanyResource(c.companyResource.Resources.SetMoney(balance));
-            c.ReplaceShareholder(c.shareholder.Id, c.shareholder.Name, investments);
         }
     }
 }

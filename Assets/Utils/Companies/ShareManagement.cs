@@ -9,9 +9,7 @@ namespace Assets.Utils
     {
         public static int GetTotalShares(GameContext context, int companyId)
         {
-            return GetTotalShares(
-                GetCompanyById(context, companyId).shareholders.Shareholders
-                );
+            return GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
         }
 
         public static int GetTotalShares(Dictionary<int, int> shareholders)
@@ -41,22 +39,6 @@ namespace Assets.Utils
             int total = GetTotalShares(c.shareholders.Shareholders);
 
             return shares * 100 / total;
-        }
-
-        public static void SpawnProposals(GameContext context, int companyId)
-        {
-            int amount = UnityEngine.Random.Range(1, 5);
-
-            long cost = CompanyUtils.GetCompanyCost(context, companyId);
-
-            for (var i = 0; i < amount; i++)
-            {
-                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
-
-                var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = CompanyUtils.GetRandomInvestmentFund(context) };
-
-                CompanyUtils.AddInvestmentProposal(context, companyId, p);
-            }
         }
 
         public static long GetSharesCost(GameContext context, int companyId, int investorId)
@@ -119,12 +101,11 @@ namespace Assets.Utils
             // or human
             // TODO turn human to investor
 
-            e.AddShareholder(investorId, name, money);
+            e.AddShareholder(investorId, name);
+            AddMoneyToInvestor(context, investorId, money);
 
             return investorId;
         }
-
-
 
         public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
         {
@@ -188,7 +169,10 @@ namespace Assets.Utils
 
             var shareholder = investor.shareholder;
 
-            investor.ReplaceShareholder(shareholder.Id, shareholder.Name, shareholder.Money + sum);
+            var companyResource = investor.companyResource;
+            companyResource.Resources.AddMoney(sum);
+
+            investor.ReplaceCompanyResource(companyResource.Resources);
         }
     }
 }

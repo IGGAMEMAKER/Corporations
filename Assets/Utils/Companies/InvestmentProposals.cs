@@ -77,5 +77,21 @@ namespace Assets.Utils
 
             RemoveProposal(gameContext, companyId, investorId);
         }
+
+        public static void SpawnProposals(GameContext context, int companyId)
+        {
+            int amount = UnityEngine.Random.Range(1, 5);
+
+            long cost = CompanyUtils.GetCompanyCost(context, companyId);
+
+            for (var i = 0; i < amount; i++)
+            {
+                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
+
+                var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = CompanyUtils.GetRandomInvestmentFund(context) };
+
+                CompanyUtils.AddInvestmentProposal(context, companyId, p);
+            }
+        }
     }
 }

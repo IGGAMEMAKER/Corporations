@@ -27,9 +27,6 @@ namespace Assets.Utils
 
             long capital = c.companyResource.Resources.money;
 
-            if (c.hasShareholder)
-                capital += c.shareholder.Money;
-
             long cost;
             if (CompanyUtils.IsProductCompany(c))
                 cost = GetProductCompanyCost(context, companyId);
