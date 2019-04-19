@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class CompanyCostView : View
 {
     public Text CompanyCost;
+    public Hint CompanyCostHint;
 
     public Text BaseCost;
     public Text AudienceCost;
