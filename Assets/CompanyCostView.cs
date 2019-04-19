@@ -11,7 +11,7 @@ public class CompanyCostView : View
     public Text IncomeBasedCost;
     public Text IncomeBasedCostLabel;
 
-    public Text TotalCostModifiers;
+    public ColoredValueGradient TotalCostModifiers;
     public Text MarketGrowthModifier;
     public Text DividendsModifier;
     public Text Risks;
@@ -54,7 +54,7 @@ public class CompanyCostView : View
 
     void RenderModifiers(int companyId)
     {
-
+        TotalCostModifiers.value = NicheUtils.GetCompanyRisk(GameContext, companyId);
     }
 
     void Render()

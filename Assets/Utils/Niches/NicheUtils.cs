@@ -5,9 +5,8 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    public static class NicheUtils
+    public static partial class NicheUtils
     {
-
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
@@ -64,71 +63,10 @@ namespace Assets.Utils
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
 
-        public static int GetMonetisationRisk(GameContext gameContext, NicheType nicheType)
-        {
-            return 33;
-        }
-
-        public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
-        {
-            // amount of users/niche fame
-            return 33;
-        }
-
-        public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
-        {
-            return 33;
-        }
-
-        public static int GetNewPlayerRiskOnNiche(GameContext gameContext, NicheType nicheType)
-        {
-            // based on competitors level and amount
-            return 33;
-        }
-
-        public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
-        {
-            return
-                GetMonetisationRisk(gameContext, nicheType) +
-                GetMarketDemandRisk(gameContext, nicheType) +
-                GetNewPlayerRiskOnNiche(gameContext, nicheType);
-        }
-
-        public static Risk ShowRiskStatus(int risk)
-        {
-            if (risk < 10)
-                return Risk.Guaranteed;
-
-            if (risk < 50)
-                return Risk.Risky;
-
-            return Risk.TooRisky;
-        }
-
-        public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
-        {
-            int risk = GetStartupRiskOnNiche(gameContext, nicheType);
-            string text = ShowRiskStatus(risk).ToString();
-
-            int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int paymentAbility = GetMonetisationRisk(gameContext, nicheType);
-            int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
-
-            return $"Current risk is {risk}%! ({text})" +
-            $"\nUnknown demand: +{demand}%" +
-            $"\nUnknown payments: +{paymentAbility}%" +
-            $"\nStrong competitors: +{competitors}%";
-        }
-
         public static bool IsBestAppOnNiche(GameContext gameContext, int companyId)
         {
             return GetLeaderApp(gameContext, companyId).company.Id == companyId;
         }
-
-        //public static bool IsBestAppOnNiche(GameContext gameContext, int companyId)
-        //{
-        //    return GetLeaderApp(gameContext, companyId).company.Id == companyId;
-        //}
 
         private static GameEntity GetBestApp(IEnumerable<GameEntity> apps)
         {
