@@ -11,13 +11,6 @@ public class CompanyCostView : View
     public Text IncomeBasedCost;
     public Text IncomeBasedCostLabel;
 
-    public ColoredValueGradient TotalCostModifiers;
-    public Text MarketGrowthModifier;
-    public Text DividendsModifier;
-    public Text Risks;
-    public Hint RisksHint;
-    public Text ProductPotential;
-
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -29,14 +22,9 @@ public class CompanyCostView : View
         return "$" + ValueFormatter.Shorten(cost);
     }
 
-    string RenderModifier(int modifier)
-    {
-        return modifier.ToString();
-    }
-
     void RenderBaseCosts(int companyId, GameEntity c)
     {
-        BaseCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
+        BaseCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyBaseCost(GameContext, companyId));
 
         if (CompanyUtils.IsProductCompany(c))
         {
@@ -52,11 +40,6 @@ public class CompanyCostView : View
         IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostNicheMultiplier()}";
     }
 
-    void RenderModifiers(int companyId)
-    {
-        TotalCostModifiers.value = NicheUtils.GetCompanyRisk(GameContext, companyId);
-    }
-
     void Render()
     {
         var c = SelectedCompany;
@@ -65,5 +48,6 @@ public class CompanyCostView : View
         CompanyCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
 
         RenderBaseCosts(companyId, c);
+
     }
 }

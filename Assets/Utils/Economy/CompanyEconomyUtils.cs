@@ -78,11 +78,26 @@ namespace Assets.Utils
             return 15;
         }
 
+        public static long GetCompanyBaseCost(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            if (CompanyUtils.IsProductCompany(c))
+                return GetProductCompanyBaseCost(context, companyId);
+
+            return GetCompanyCost(context, companyId);
+        }
+
         public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             return GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
+        }
+
+        public static bool IsCompanyProfitable(GameContext gameContext, int companyId)
+        {
+            return GetBalanceChange(gameContext, companyId) > 0;
         }
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
@@ -105,6 +120,13 @@ namespace Assets.Utils
 
         internal static long GetBalanceChange(GameEntity c, GameContext context)
         {
+            return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
+        }
+
+        internal static long GetBalanceChange(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
             return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
         }
 

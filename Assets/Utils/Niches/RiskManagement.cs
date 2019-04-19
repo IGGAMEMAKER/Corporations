@@ -1,26 +1,47 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
         internal static int GetCompanyRisk(GameContext gameContext, int companyId)
         {
-            return -85;
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return
+                GetMonetisationRisk(gameContext, c.company.Id) +
+                GetMarketDemandRisk(gameContext, companyId) +
+                GetCompetititiveRiskOnNiche(gameContext, companyId);
         }
 
-        public static int GetMonetisationRisk(GameContext gameContext, NicheType nicheType)
+        public static bool IsMarketingSelfPaying(GameContext gameContext, int companyId)
         {
-            return 33;
+            return true;
         }
+
+        public static int GetMonetisationRisk(GameContext gameContext, int companyId)
+        {
+            int num = Constants.RISKS_MONETISATION_MAX;
+
+            if (IsMarketingSelfPaying(gameContext, companyId))
+                num -= Constants.RISKS_MONETISATION_ADS_REPAYABLE;
+
+            if (CompanyEconomyUtils.IsCompanyProfitable(gameContext, companyId))
+                num -= Constants.RISKS_MONETISATION_IS_PROFITABLE;
+
+            return num;
+        }
+
 
         public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
         {
             // amount of users/niche fame
-            return 33;
+            return 45;
+        }
+
+        public static int GetMarketDemandRisk(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return GetMarketDemandRisk(gameContext, c.product.Niche);
         }
 
         public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
@@ -37,7 +58,7 @@ namespace Assets.Utils
         public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             return
-                GetMonetisationRisk(gameContext, nicheType) +
+                Constants.RISKS_MONETISATION_MAX + 
                 GetMarketDemandRisk(gameContext, nicheType) +
                 GetNewPlayerRiskOnNiche(gameContext, nicheType);
         }
@@ -59,12 +80,10 @@ namespace Assets.Utils
             string text = ShowRiskStatus(risk).ToString();
 
             int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int paymentAbility = GetMonetisationRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
             return $"Current risk is {risk}%! ({text})" +
             $"\nUnknown demand: +{demand}%" +
-            $"\nUnknown payments: +{paymentAbility}%" +
             $"\nStrong competitors: +{competitors}%";
         }
     }

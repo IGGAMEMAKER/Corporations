@@ -7,6 +7,12 @@ public class Constants
     public const int DEVELOPMENT_PRODUCTION_MARKETER = 15;
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 15;
     public const int DEVELOPMENT_PRODUCTION_MANAGER = 15;
+
+    public const int RISKS_MONETISATION_ADS_REPAYABLE = 35;
+    public const int RISKS_MONETISATION_IS_PROFITABLE = 15;
+    public const int RISKS_MONETISATION_MAX = RISKS_MONETISATION_ADS_REPAYABLE + RISKS_MONETISATION_IS_PROFITABLE;
+
+    public const int RISKS_DEMAND_MAX = 45;
 }
 
 public class VisualConstants
