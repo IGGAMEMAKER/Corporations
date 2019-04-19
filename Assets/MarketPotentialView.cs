@@ -9,8 +9,15 @@ public class MarketPotentialView : View
     public Text PotentialAudienceSize;
     public Text PotentialIncomeSize;
     public Text IterationCost;
-    public Text Risk;
+    public Text RiskLabel;
     public Hint RiskHint;
+
+    private void OnEnable()
+    {
+        var niche = MenuUtils.GetNiche(GameContext);
+
+        SetEntity(niche);
+    }
 
     public void SetEntity(NicheType niche)
     {
@@ -22,13 +29,10 @@ public class MarketPotentialView : View
 
         IterationCost.text = "100";
 
-        string text = RandomEnum<Risk>.GenerateValue().ToString();
+        int risk = NicheUtils.GetStartupRiskOnNiche(GameContext, NicheType);
+        string riskText = NicheUtils.GetStartupRiskOnNicheDescription(GameContext, NicheType);
 
-        Risk.text = text;
-        RiskHint.SetHint("Current risk is 66%! (" + text + ")" +
-            "\nUnknown demand: +33%" +
-            "\nUnknown payments: +33%" +
-            "\nStrong competitors: +33%"
-            );
+        RiskLabel.text = NicheUtils.ShowRiskStatus(risk).ToString();
+        RiskHint.SetHint(riskText);
     }
 }

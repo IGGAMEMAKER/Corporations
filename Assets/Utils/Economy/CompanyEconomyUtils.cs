@@ -46,7 +46,6 @@ namespace Assets.Utils
                 return GetProductCompanyIncomeDescription(c);
 
             return GetGroupIncomeDescription(context, companyId);
-            return "Cannot descdribe group income :(";
         }
 
         internal static string GetMaintenanceDescription(GameContext context, int companyId)
@@ -57,7 +56,6 @@ namespace Assets.Utils
                 return GetProductCompanyMaintenanceDescription(c);
 
             return GetGroupMaintenanceDescription(context, companyId);
-            return "Cannot descdribe group maintenance :(";
         }
 
         public static long GetTeamMaintenance(GameContext gameContext, int companyId)

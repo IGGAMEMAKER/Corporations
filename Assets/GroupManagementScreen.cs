@@ -61,8 +61,6 @@ public class GroupManagementScreen : View
         {
             long ROI = CompanyEconomyUtils.GetBalanceROI(SelectedCompany, GameContext);
 
-            Debug.Log("RENDER ROI " + ROI);
-
             SelectedCompanyROI.UpdateValue(ROI);
         } else
         {

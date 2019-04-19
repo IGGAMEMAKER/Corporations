@@ -6,9 +6,7 @@
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            long balance = c.companyResource.Resources.money + sum;
-
-            c.ReplaceCompanyResource(c.companyResource.Resources.SetMoney(balance));
+            c.ReplaceCompanyResource(c.companyResource.Resources.AddMoney(sum));
         }
 
         public static void DecreaseInvestmentFunds(GameContext context, int investorId, long sum)
