@@ -16,7 +16,7 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             long audienceCost = GetClientBaseCost(context, companyId);
-            long profitCost = GetCompanyIncome(c, context) * 15;
+            long profitCost = GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
 
             return audienceCost + profitCost;
         }

@@ -29,6 +29,15 @@ namespace Assets.Utils
             return sum;
         }
 
+        public static long GetHoldingCost(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
+
+            return GetHoldingCost(context, holdings);
+        }
+
         static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
         {
             long sum = 0;

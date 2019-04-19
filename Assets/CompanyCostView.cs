@@ -7,11 +7,18 @@ public class CompanyCostView : View
     public Hint CompanyCostHint;
 
     public Text BaseCost;
+
     public Text AudienceCost;
+    public Text AudienceLabel;
+
     public Text IncomeBasedCost;
     public Text IncomeBasedCostLabel;
+    public Text CapitalSize;
 
-    // Start is called before the first frame update
+    public Text HoldingCost;
+    public Text HoldingLabel;
+
+
     void OnEnable()
     {
         Render();
@@ -22,22 +29,42 @@ public class CompanyCostView : View
         return "$" + ValueFormatter.Shorten(cost);
     }
 
+    void ShowGroupLabels(bool show)
+    {
+        HoldingCost.gameObject.SetActive(show);
+        HoldingLabel.gameObject.SetActive(show);
+    }
+
+    void ShowProductCompanyLabels(bool show)
+    {
+        IncomeBasedCost.gameObject.SetActive(show);
+        IncomeBasedCostLabel.gameObject.SetActive(show);
+
+        AudienceCost.gameObject.SetActive(show);
+        AudienceLabel.gameObject.SetActive(show);
+    }
+
     void RenderBaseCosts(int companyId, GameEntity c)
     {
         BaseCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyBaseCost(GameContext, companyId));
+        CapitalSize.text = RenderCosts(c.companyResource.Resources.money);
 
         if (CompanyUtils.IsProductCompany(c))
         {
-            AudienceCost.gameObject.SetActive(true);
+            ShowProductCompanyLabels(true);
+            ShowGroupLabels(false);
+
             AudienceCost.text = RenderCosts(CompanyEconomyUtils.GetClientBaseCost(GameContext, companyId));
+            IncomeBasedCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyIncomeBasedCost(GameContext, companyId));
+            IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostNicheMultiplier()}";
         }
         else
         {
-            AudienceCost.gameObject.SetActive(false);
-        }
+            ShowProductCompanyLabels(false);
+            ShowGroupLabels(true);
 
-        IncomeBasedCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyIncomeBasedCost(GameContext, companyId));
-        IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostNicheMultiplier()}";
+            HoldingCost.text = RenderCosts(CompanyEconomyUtils.GetHoldingCost(GameContext, companyId));
+        }
     }
 
     void Render()

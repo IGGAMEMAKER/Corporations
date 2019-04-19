@@ -1,6 +1,4 @@
 ﻿using UnityEngine.UI;
-using Entitas;
-using System;
 using Assets.Utils;
 
 public class BestApplicationView : View

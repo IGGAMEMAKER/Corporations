@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class RisksView : View
 {
+    public GameObject RiskContainer;
+
     public GameObject TotalRisk;
     public GameObject NicheDemandRisk;
     public GameObject MonetisationRisk;
@@ -17,6 +19,15 @@ public class RisksView : View
     void Render()
     {
         var c = SelectedCompany;
+
+        if (CompanyUtils.IsCompanyGroupLike(c))
+        {
+            RiskContainer.SetActive(false);
+            return;
+        }
+
+        RiskContainer.SetActive(true);
+
         var companyId = c.company.Id;
 
         var niche = c.product.Niche;
