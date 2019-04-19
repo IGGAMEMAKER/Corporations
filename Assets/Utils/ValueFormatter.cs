@@ -35,7 +35,7 @@ namespace Assets.Utils
             if (val >= million)
                 return ShowMeaningfulValue(val, million, "M");
 
-            if (val >= thousand / 100)
+            if (val >= thousand)
                 return ShowMeaningfulValue(val, thousand, "K");
 
             return val.ToString();
