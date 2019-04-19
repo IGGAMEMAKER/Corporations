@@ -58,7 +58,7 @@
         public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             return
-                Constants.RISKS_MONETISATION_MAX + 
+                Constants.RISKS_MONETISATION_MAX +
                 GetMarketDemandRisk(gameContext, nicheType) +
                 GetNewPlayerRiskOnNiche(gameContext, nicheType);
         }
