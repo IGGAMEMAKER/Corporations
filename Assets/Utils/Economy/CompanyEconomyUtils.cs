@@ -73,7 +73,7 @@ namespace Assets.Utils
             return 1;
         }
 
-        public static long GetCompanyCostEnthusiasm()
+        public static long GetCompanyCostNicheMultiplier()
         {
             return 15;
         }
@@ -82,7 +82,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return GetCompanyIncome(c, context) * GetCompanyCostEnthusiasm();
+            return GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
         }
 
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)

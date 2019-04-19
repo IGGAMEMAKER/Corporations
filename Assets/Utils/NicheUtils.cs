@@ -25,6 +25,20 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == niche);
         }
 
+        public static int GetCompetitorsAmount(GameEntity e, GameContext context)
+        {
+            // returns amount of competitors on specific niche
+
+            return GetPlayersOnMarket(context, e).Count();
+        }
+
+        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
+        {
+            // returns amount of competitors on specific niche
+
+            return GetPlayersOnMarket(context, niche).Count();
+        }
+
         static string ProlongNameToNDigits(string name, int n)
         {
             if (name.Length >= n) return name.Substring(0, n - 3) + "...";
@@ -40,20 +54,6 @@ namespace Assets.Utils
             return names;
         }
 
-        public static int GetCompetitorsAmount(GameEntity e, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetPlayersOnMarket(context, e).Count();
-        }
-
-        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetPlayersOnMarket(context, niche).Count();
-        }
-
         public static IndustryType GetIndustry(NicheType niche, GameContext context)
         {
             return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
@@ -64,7 +64,7 @@ namespace Assets.Utils
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
 
-        public static int GetPaymentAbilityRisk(GameContext gameContext, NicheType nicheType)
+        public static int GetMonetisationRisk(GameContext gameContext, NicheType nicheType)
         {
             return 33;
         }
@@ -72,6 +72,11 @@ namespace Assets.Utils
         public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
         {
             // amount of users/niche fame
+            return 33;
+        }
+
+        public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
+        {
             return 33;
         }
 
@@ -84,7 +89,7 @@ namespace Assets.Utils
         public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             return
-                GetPaymentAbilityRisk(gameContext, nicheType) +
+                GetMonetisationRisk(gameContext, nicheType) +
                 GetMarketDemandRisk(gameContext, nicheType) +
                 GetNewPlayerRiskOnNiche(gameContext, nicheType);
         }
@@ -106,7 +111,7 @@ namespace Assets.Utils
             string text = ShowRiskStatus(risk).ToString();
 
             int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int paymentAbility = GetPaymentAbilityRisk(gameContext, nicheType);
+            int paymentAbility = GetMonetisationRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
             return $"Current risk is {risk}%! ({text})" +
@@ -125,21 +130,13 @@ namespace Assets.Utils
         //    return GetLeaderApp(gameContext, companyId).company.Id == companyId;
         //}
 
-        public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
-        {
-            return 33;
-        }
-
         private static GameEntity GetBestApp(IEnumerable<GameEntity> apps)
         {
             GameEntity best = null;
 
             foreach (var p in apps)
             {
-                if (best == null)
-                    best = p;
-
-                if (p.product.ProductLevel > best.product.ProductLevel)
+                if (best == null || p.product.ProductLevel > best.product.ProductLevel)
                     best = p;
             }
 

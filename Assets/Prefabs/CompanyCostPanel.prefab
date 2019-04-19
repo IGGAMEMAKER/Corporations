@@ -158,7 +158,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +30%
+  m_Text: -90%
 --- !u!114 &6226210849328809098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,13 +171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8ac748d8d2d5243904d0a3f88804bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 30
+  value: -90
   ShowSign: 1
   Prettify: 1
   DigitsAfterComma: 0
   unit: 0
-  minValue: -150
-  maxValue: 150
+  minValue: -100
+  maxValue: 0
   reversed: 0
 --- !u!1 &6226210849496510257
 GameObject:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: 
+  Text: Growth\nTechnology\n
   isActionHint: 0
 --- !u!114 &7263098147943591776
 MonoBehaviour:
@@ -658,7 +658,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Market Growth:'
+  m_Text: 'Niche Demand:'
 --- !u!1 &6226210849991739774
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,7 +737,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cost modifiers:'
+  m_Text: 'Risks:'
 --- !u!1 &6226210850011984202
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +895,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Product Potential:'
+  m_Text: 'Monetisation:'
 --- !u!1 &6226210850253768917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,7 +1212,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 40.000.000$
+  m_Text: 20.000.000$
 --- !u!114 &3784924349985944598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,7 +1415,8 @@ GameObject:
   - component: {fileID: 6226210850742863937}
   - component: {fileID: 6226210850742863967}
   - component: {fileID: 6226210850742863966}
-  - component: {fileID: 6226210850742863964}
+  - component: {fileID: 7535075644381332959}
+  - component: {fileID: 7664822338479223773}
   m_Layer: 5
   m_Name: PotentialModifier
   m_TagString: Untagged
@@ -1483,8 +1484,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +50%
---- !u!114 &6226210850742863964
+  m_Text: -35%
+--- !u!114 &7535075644381332959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1493,15 +1494,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6226210850742863936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9919c4b68a79aad4a9826700c4a9c79d, type: 3}
+  m_Script: {fileID: 11500000, guid: fb92a46e9e70d884cb1d0ee4f0dd4995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 50
-  ShowSign: 1
-  Prettify: 1
-  DigitsAfterComma: 0
-  unit: 0
-  neutralValue: 0
+--- !u!114 &7664822338479223773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6226210850742863936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: -35% unit economy, -15% profitable
+  isActionHint: 0
 --- !u!1 &6226210850748377763
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,7 +1522,8 @@ GameObject:
   - component: {fileID: 6226210850748377760}
   - component: {fileID: 6226210850748377790}
   - component: {fileID: 6226210850748377761}
-  - component: {fileID: 6226210850748377791}
+  - component: {fileID: 9063851808905924456}
+  - component: {fileID: 7839997391496865530}
   m_Layer: 5
   m_Name: MarketGrowthModifier
   m_TagString: Untagged
@@ -1581,8 +1591,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +70%
---- !u!114 &6226210850748377791
+  m_Text: -60%
+--- !u!114 &9063851808905924456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1591,17 +1601,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6226210850748377763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a8ac748d8d2d5243904d0a3f88804bf, type: 3}
+  m_Script: {fileID: 11500000, guid: fb92a46e9e70d884cb1d0ee4f0dd4995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 70
-  ShowSign: 1
-  Prettify: 1
-  DigitsAfterComma: 0
-  unit: 0
-  minValue: -100
-  maxValue: 100
-  reversed: 0
+--- !u!114 &7839997391496865530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6226210850748377763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: Demand risk
+  isActionHint: 0
 --- !u!1 &6226210850835892041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,7 +1696,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Competitors:'
+  m_Text: Competitors
 --- !u!1 &6226210850867250652
 GameObject:
   m_ObjectHideFlags: 0

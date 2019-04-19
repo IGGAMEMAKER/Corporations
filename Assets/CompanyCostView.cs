@@ -49,7 +49,7 @@ public class CompanyCostView : View
         }
 
         IncomeBasedCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyIncomeBasedCost(GameContext, companyId));
-        IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostEnthusiasm()}";
+        IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostNicheMultiplier()}";
     }
 
     void RenderModifiers(int companyId)
