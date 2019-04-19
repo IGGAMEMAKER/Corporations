@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using Entitas;
 using System;
+using Assets.Utils;
 
 public class BestApplicationView : View
 {
@@ -18,26 +19,12 @@ public class BestApplicationView : View
         Render();
     }
 
-    GameEntity GetLeaderApp()
-    {
-        var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
-        var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == MyProduct.Niche);
-
-        GameEntity best = MyProductEntity;
-
-        foreach (var p in myNicheProducts)
-        {
-            if (p.product.ProductLevel > best.product.ProductLevel)
-                best = p;
-        }
-
-        return best;
-    }
-
     void Render()
     {
-        var bestApp = GetLeaderApp();
+        var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
 
-        AnimateIfValueChanged(MarketRequirements, bestApp.product.Name + " (" + bestApp.product.ProductLevel + "lvl)");
+        Hint.SetHint($"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})");
+
+        AnimateIfValueChanged(MarketRequirements, bestApp.product.ProductLevel.ToString());
     }
 }
