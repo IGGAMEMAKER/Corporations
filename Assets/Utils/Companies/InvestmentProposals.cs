@@ -66,7 +66,7 @@ namespace Assets.Utils
         {
             var p = GetInvestmentProposal(gameContext, companyId, investorId);
 
-            long cost = GetCompanyCost(gameContext, companyId);
+            long cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
 
             int shares = Convert.ToInt32(GetTotalShares(gameContext, companyId) * p.Offer / cost);
 
@@ -78,19 +78,30 @@ namespace Assets.Utils
             RemoveProposal(gameContext, companyId, investorId);
         }
 
+        public static int GetInvestmentAttractiveness(GameContext context, int companyId)
+        {
+            return UnityEngine.Random.Range(1, 5);
+        }
+
         public static void SpawnProposals(GameContext context, int companyId)
         {
-            int amount = UnityEngine.Random.Range(1, 5);
+            int attractiveness = GetInvestmentAttractiveness(context, companyId);
 
-            long cost = CompanyUtils.GetCompanyCost(context, companyId);
+            int amount = attractiveness;
+
+            long cost = CompanyEconomyUtils.GetCompanyCost(context, companyId);
 
             for (var i = 0; i < amount; i++)
             {
                 long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
 
-                var p = new InvestmentProposal { Valuation = valuation, Offer = valuation / 10, ShareholderId = CompanyUtils.GetRandomInvestmentFund(context) };
+                var p = new InvestmentProposal {
+                    Valuation = valuation,
+                    Offer = valuation / 10,
+                    ShareholderId = GetRandomInvestmentFund(context)
+                };
 
-                CompanyUtils.AddInvestmentProposal(context, companyId, p);
+                AddInvestmentProposal(context, companyId, p);
             }
         }
     }

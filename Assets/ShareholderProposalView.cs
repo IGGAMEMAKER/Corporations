@@ -44,7 +44,7 @@ public class ShareholderProposalView : View
         InvestorType.text = "Venture investor";
         Motivation.SetHint("Motivation: 20% growth");
 
-        long Cost = CompanyUtils.GetCompanyCost(GameContext, company.company.Id);
+        long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, company.company.Id);
 
         long offer = proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);

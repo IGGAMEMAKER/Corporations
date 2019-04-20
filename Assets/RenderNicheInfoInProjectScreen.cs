@@ -48,10 +48,4 @@ public class RenderNicheInfoInProjectScreen : View
 
         LinkToNiche.SetNiche(niche);
     }
-
-    //void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    //{
-    //    if (screenMode == ScreenMode.ProjectScreen)
-    //        Render();
-    //}
 }
