@@ -21,7 +21,7 @@ public class ProjectView : View
     {
         CompanyType companyType = SelectedCompany.company.CompanyType;
 
-        CompanyTypeLabel.text = EnumFormattingUtils.GetFormattedCompanyType(companyType);
+        CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(companyType);
         //CompanyNameLabel.text = SelectedCompany.company.Name;
 
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : "Sundar Pichai");

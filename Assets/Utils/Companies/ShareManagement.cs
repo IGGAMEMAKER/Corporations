@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils.Formatting;
+using Entitas;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,28 @@ namespace Assets.Utils
                 totalShares += e.Value;
 
             return totalShares;
+        }
+
+        public static bool IsAreSharesSellable(GameContext context, int companyId)
+        {
+            var c = GetCompanyById(context, companyId);
+
+            if (c.investmentRounds.IsPublic || c.investmentRounds.IsActive)
+                return true;
+
+            return false;
+        }
+
+        public static void StartInvestmentRound(GameContext gameContext, int companyId)
+        {
+            if (!IsAreSharesSellable(gameContext, companyId))
+                return;
+
+            var c = GetCompanyById(gameContext, companyId);
+
+            var round = EnumUtils.Next(c.investmentRounds.InvestmentRound);
+
+            c.ReplaceInvestmentRounds(c.investmentRounds.IsPublic, round, Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS, true);
         }
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)

@@ -42,7 +42,7 @@ public class RenderNicheInfoInProjectScreen : View
     {
         NicheType niche = SelectedCompany.product.Niche;
 
-        string text = EnumFormattingUtils.GetFormattedNicheName(niche);
+        string text = EnumUtils.GetFormattedNicheName(niche);
 
         NicheName.text = VisualFormattingUtils.Link(text);
 

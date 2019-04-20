@@ -44,7 +44,7 @@ public class NichePreview : View
     {
         LinkToNiche.SetNiche(Niche);
 
-        NicheName.text = EnumFormattingUtils.GetFormattedNicheName(Niche);
+        NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
         MarketPotential.text = GetFormattedMarketPotential();
     }

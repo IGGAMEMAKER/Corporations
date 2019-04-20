@@ -21,7 +21,7 @@ public class CreateProductCompany : ButtonController
         {
             AttachToGroup(companyID);
 
-            name = MyGroupEntity.company.Name + " " + EnumFormattingUtils.GetFormattedNicheName(nicheType);
+            name = MyGroupEntity.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
 
             CompanyUtils.Rename(GameContext, companyID, name);
         }

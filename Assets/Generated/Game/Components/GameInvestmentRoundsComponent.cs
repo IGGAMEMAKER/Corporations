@@ -11,19 +11,23 @@ public partial class GameEntity {
     public InvestmentRoundsComponent investmentRounds { get { return (InvestmentRoundsComponent)GetComponent(GameComponentsLookup.InvestmentRounds); } }
     public bool hasInvestmentRounds { get { return HasComponent(GameComponentsLookup.InvestmentRounds); } }
 
-    public void AddInvestmentRounds(bool newIsPublic, InvestmentRound newInvestmentRound) {
+    public void AddInvestmentRounds(bool newIsPublic, InvestmentRound newInvestmentRound, float newActiveFor, bool newIsActive) {
         var index = GameComponentsLookup.InvestmentRounds;
         var component = (InvestmentRoundsComponent)CreateComponent(index, typeof(InvestmentRoundsComponent));
         component.IsPublic = newIsPublic;
         component.InvestmentRound = newInvestmentRound;
+        component.ActiveFor = newActiveFor;
+        component.IsActive = newIsActive;
         AddComponent(index, component);
     }
 
-    public void ReplaceInvestmentRounds(bool newIsPublic, InvestmentRound newInvestmentRound) {
+    public void ReplaceInvestmentRounds(bool newIsPublic, InvestmentRound newInvestmentRound, float newActiveFor, bool newIsActive) {
         var index = GameComponentsLookup.InvestmentRounds;
         var component = (InvestmentRoundsComponent)CreateComponent(index, typeof(InvestmentRoundsComponent));
         component.IsPublic = newIsPublic;
         component.InvestmentRound = newInvestmentRound;
+        component.ActiveFor = newActiveFor;
+        component.IsActive = newIsActive;
         ReplaceComponent(index, component);
     }
 

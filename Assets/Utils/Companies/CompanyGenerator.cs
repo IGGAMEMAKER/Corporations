@@ -42,7 +42,7 @@ namespace Assets.Utils
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddMetricsHistory(new List<MetricsInfo>());
 
-            e.AddInvestmentRounds(false, InvestmentRound.Preseed);
+            e.AddInvestmentRounds(false, InvestmentRound.Preseed, 0, false);
             e.isIndependentCompany = true;
 
             return e;

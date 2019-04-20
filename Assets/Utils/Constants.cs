@@ -13,6 +13,8 @@ public class Constants
     public const int RISKS_MONETISATION_MAX = RISKS_MONETISATION_ADS_REPAYABLE + RISKS_MONETISATION_IS_PROFITABLE;
 
     public const int RISKS_DEMAND_MAX = 45;
+
+    public static float INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
 }
 
 public class VisualConstants
