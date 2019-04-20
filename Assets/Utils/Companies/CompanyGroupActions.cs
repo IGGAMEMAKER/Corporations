@@ -12,7 +12,8 @@ namespace Assets.Utils
 
             Dictionary<int, int> founders = c.shareholders.Shareholders;
 
-            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", founders).company.Id;
+            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", companyId).company.Id;
+
             AttachToGroup(context, companyGroupId, companyId);
 
             return companyGroupId;

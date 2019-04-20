@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
 using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
@@ -74,6 +75,11 @@ public class ProductInitializerSystem : IInitializeSystem
             CompanyUtils.SpawnProposals(GameContext, c.company.Id);
     }
 
+    public static void SetRandomCEO()
+    {
+
+    }
+
     void AutoFillNonFilledShareholders()
     {
         foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
@@ -83,6 +89,8 @@ public class ProductInitializerSystem : IInitializeSystem
             {
                 int investorId = GetRandomInvestmentFund();
                 AddShareholder(c.company.Id, investorId, 100);
+
+
             }
         }
     }
@@ -132,11 +140,6 @@ public class ProductInitializerSystem : IInitializeSystem
         var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
         var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);
 
-        googleProduct.finance.price = 3;
         yandexProduct.finance.price = 4;
-
-        var income = CompanyEconomyUtils.GetCompanyIncome(CompanyUtils.GetCompanyById(GameContext, alphabet), GameContext);
-
-        Debug.Log("Alphabet income = " + income);
     }
 }

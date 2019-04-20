@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class GroupManagementScreen : View
@@ -33,14 +32,17 @@ public class GroupManagementScreen : View
         Render();
     }
 
+    void Start()
+    {
+        ListenMenuChanges(this);
+
+        Destroy(CompanyPreviewView.GetComponent<LinkToProjectView>());
+        CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
+    }
+
     void ToggleCEOButtons(bool show)
     {
         InvestButton.interactable = show;
-    }
-
-    bool IsHasShares()
-    {
-        return CompanyUtils.GetTotalShares(SelectedCompany.shareholders.Shareholders) > 0;
     }
 
     void RenderCEOButtons()
@@ -66,36 +68,6 @@ public class GroupManagementScreen : View
         {
             SelectedCompanyROI.GetComponent<Text>().text = "???";
         }
-    }
-
-    int GetSizeOfShares()
-    {
-        return CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
-    }
-
-    bool IsDomineering()
-    {
-        return GetSizeOfShares() > 50;
-    }
-
-    string GetShareholderStatus(int sharesPercent)
-    {
-        if (sharesPercent < 1)
-            return "Non voting";
-
-        if (sharesPercent < 10)
-            return "Voting";
-
-        if (sharesPercent < 25)
-            return "Majority";
-
-        if (sharesPercent < 50)
-            return "Blocking";
-
-        if (sharesPercent < 100)
-            return "Controling";
-
-        return "Owner";
     }
 
     void RenderControlValue()
@@ -128,12 +100,24 @@ public class GroupManagementScreen : View
             ToggleCEOButtons(false);
     }
 
-    void Start()
+    bool IsHasShares()
     {
-        ListenMenuChanges(this);
+        return CompanyUtils.GetTotalShares(SelectedCompany.shareholders.Shareholders) > 0;
+    }
 
-        Destroy(CompanyPreviewView.GetComponent<LinkToProjectView>());
-        CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
+    int GetSizeOfShares()
+    {
+        return CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
+    }
+
+    bool IsDomineering()
+    {
+        return GetSizeOfShares() > 50;
+    }
+
+    string GetShareholderStatus(int percent)
+    {
+        return CompanyUtils.GetShareholderStatus(percent);
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)

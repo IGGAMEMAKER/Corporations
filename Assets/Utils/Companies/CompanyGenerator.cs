@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using Assets.Utils.Humans;
 using Entitas;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
-        public static InvestorGoal GetInvestorGoal(GameContext context, int investorId)
+        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
         {
-            return InvestorGoal.GrowCompanyCost;
+            int humanId = HumanUtils.GenerateHuman(context);
+
+            return CreateCompany(context, name, companyType, new Dictionary<int, int>(), humanId);
         }
 
-        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
+        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders, int CeoID)
         {
             var e = context.CreateEntity();
 
@@ -35,9 +38,6 @@ namespace Assets.Utils
 
             Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>();
 
-            if (founders == null)
-                founders = new Dictionary<int, int>();
-
             e.AddShareholders(founders, goals);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddMetricsHistory(new List<MetricsInfo>());
@@ -45,21 +45,42 @@ namespace Assets.Utils
             e.AddInvestmentRounds(false, InvestmentRound.Preseed, 0, false);
             e.isIndependentCompany = true;
 
+            e.AddCEO(0, CeoID);
+
             return e;
         }
 
-        public static GameEntity GenerateCompanyGroup(GameContext context, string name, Dictionary<int, int> founders = null)
+        public static void CopyShareholders(GameContext gameContext, int from, int to)
         {
-            var c = CreateCompany(context, name, CompanyType.Group, founders);
+            var source = GetCompanyById(gameContext, from).shareholders;
 
-            BecomeInvestor(context, c, 10000000);
+            GetCompanyById(gameContext, to).ReplaceShareholders(source.Shareholders, source.Goals);
+        }
+
+
+
+        public static GameEntity GenerateCompanyGroup(GameContext context, string name, int FormerProductCompany)
+        {
+            var c = GenerateCompanyGroup(context, name);
+
+            CopyShareholders(context, FormerProductCompany, c.company.Id);
+
+            return c;
+        }
+
+
+        public static GameEntity GenerateCompanyGroup(GameContext context, string name)
+        {
+            var c = CreateCompany(context, name, CompanyType.Group);
+
+            BecomeInvestor(context, c, 0);
 
             return c;
         }
 
         public static GameEntity GenerateInvestmentFund(GameContext context, string name, long money)
         {
-            var c = CreateCompany(context, name, CompanyType.FinancialGroup, null);
+            var c = CreateCompany(context, name, CompanyType.FinancialGroup);
 
             BecomeInvestor(context, c, money);
 
@@ -68,14 +89,14 @@ namespace Assets.Utils
 
         public static GameEntity GenerateHoldingCompany(GameContext context, string name)
         {
-            var c = GenerateCompanyGroup(context, name, null);
+            var c = GenerateCompanyGroup(context, name);
 
             return TurnToHolding(context, c.company.Id);
         }
 
         public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType niche)
         {
-            var c = CreateCompany(context, name, CompanyType.ProductCompany, null);
+            var c = CreateCompany(context, name, CompanyType.ProductCompany);
 
             return GenerateProduct(context, c, name, niche);
         }
@@ -122,15 +143,20 @@ namespace Assets.Utils
             return builder.ToString();
         }
 
+        public static T RandomItem<T>(T[] items)
+        {
+            int index = UnityEngine.Random.Range(0, items.Length);
+
+            return items[index];
+        }
+
         public static string GenerateInvestmentCompanyName()
         {
             string[] names = new string[] { "Investments", "Capitals", "Funds", "and partners" };
 
-            int index = UnityEngine.Random.Range(0, names.Length);
-
             int length = UnityEngine.Random.Range(4, 8);
 
-            return "The " + RandomString(length, true) + " " + names[index];
+            return "The " + RandomString(length, true) + " " + RandomItem(names);
         }
     }
 }

@@ -2,12 +2,18 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Utils
 {
     partial class CompanyUtils
     {
+        public static InvestorGoal GetInvestorGoal(GameContext context, int investorId)
+        {
+            return InvestorGoal.GrowCompanyCost;
+        }
+
         public static int GetTotalShares(GameContext context, int companyId)
         {
             return GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
@@ -34,8 +40,8 @@ namespace Assets.Utils
 
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
         {
-            if (!IsAreSharesSellable(gameContext, companyId))
-                return;
+            //if (!IsAreSharesSellable(gameContext, companyId))
+            //    return;
 
             var c = GetCompanyById(gameContext, companyId);
 
@@ -110,6 +116,19 @@ namespace Assets.Utils
             return GetInvestorById(context, investorId).shareholder.Name;
         }
 
+        public static int GetBiggestShareholder(GameContext gameContext, int companyId)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            var list = c.shareholders.Shareholders.OrderBy(key => key.Value);
+
+            return list.First().Key;
+        }
+
+        public static string GetBiggestShareholderName(GameContext gameContext, int companyId)
+        {
+            return GetInvestorName(gameContext, GetBiggestShareholder(gameContext, companyId));
+        }
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {
@@ -232,6 +251,26 @@ namespace Assets.Utils
             companyResource.Resources.AddMoney(sum);
 
             investor.ReplaceCompanyResource(companyResource.Resources);
+        }
+
+        public static string GetShareholderStatus(int sharesPercent)
+        {
+            if (sharesPercent < 1)
+                return "Non voting";
+
+            if (sharesPercent < 10)
+                return "Voting";
+
+            if (sharesPercent < 25)
+                return "Majority";
+
+            if (sharesPercent < 50)
+                return "Blocking";
+
+            if (sharesPercent < 100)
+                return "Controling";
+
+            return "Owner";
         }
     }
 }
