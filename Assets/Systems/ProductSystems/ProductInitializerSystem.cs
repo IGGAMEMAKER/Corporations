@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
 using Entitas;
-using System;
-using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -61,7 +59,7 @@ public class ProductInitializerSystem : IInitializeSystem
     void SpawnInvestmentFund(int amountOfFunds, long investmentMin, long investmentMax)
     {
         for (var i = 0; i < amountOfFunds; i++)
-            GenerateInvestmentFund(CompanyUtils.GenerateInvestmentCompanyName(), 10000000);
+            GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), 10000000);
     }
 
     int GetRandomInvestmentFund()
@@ -99,17 +97,14 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         // products
         GenerateProductCompany("facebook", NicheType.SocialNetwork);
-        GenerateProductCompany("mySpace", NicheType.SocialNetwork);
         GenerateProductCompany("twitter", NicheType.SocialNetwork);
         GenerateProductCompany("vk", NicheType.SocialNetwork);
 
         GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
-        GenerateProductCompany("snapchat", NicheType.Messenger);
 
         int google = GenerateProductCompany("Google", NicheType.SearchEngine);
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine);
-        GenerateProductCompany("Bing", NicheType.SearchEngine);
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
         GenerateProductCompany("Microsoft", NicheType.OSCommonPurpose);

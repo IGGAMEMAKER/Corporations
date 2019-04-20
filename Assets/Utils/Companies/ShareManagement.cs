@@ -40,9 +40,6 @@ namespace Assets.Utils
 
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
         {
-            //if (!IsAreSharesSellable(gameContext, companyId))
-            //    return;
-
             var c = GetCompanyById(gameContext, companyId);
 
             var round = EnumUtils.Next(c.investmentRounds.InvestmentRound);
@@ -52,7 +49,6 @@ namespace Assets.Utils
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
         {
-            //Debug.Log($"GetAmountOfShares company-{companyId}, investor-{GetInvestorById(context, investorId)}");
             var c = GetCompanyById(context, companyId);
 
             var shareholders = c.shareholders.Shareholders;
@@ -77,14 +73,8 @@ namespace Assets.Utils
             int shares = GetAmountOfShares(context, companyId, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
 
-            return GetCompanyCost(context, c.company.Id) * shares / total;
+            return CompanyEconomyUtils.GetCompanyCost(context, c.company.Id) * shares / total;
         }
-
-        internal static long GetCompanyCost(GameContext gameContext, int companyId)
-        {
-            return CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
-        }
-
 
 
         internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
@@ -130,9 +120,37 @@ namespace Assets.Utils
             return GetInvestorName(gameContext, GetBiggestShareholder(gameContext, companyId));
         }
 
+        public static string GetShareholderStatus(int sharesPercent)
+        {
+            if (sharesPercent < 1)
+                return "Non voting";
+
+            if (sharesPercent < 10)
+                return "Voting";
+
+            if (sharesPercent < 25)
+                return "Majority";
+
+            if (sharesPercent < 50)
+                return "Blocking";
+
+            if (sharesPercent < 100)
+                return "Controling";
+
+            return "Owner";
+        }
+
+        // update
+        public static void CopyShareholders(GameContext gameContext, int from, int to)
+        {
+            var source = GetCompanyById(gameContext, from).shareholders;
+
+            GetCompanyById(gameContext, to).ReplaceShareholders(source.Shareholders, source.Goals);
+        }
+
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {
-            int investorId = GenerateInvestorId(context); // GenerateInvestorId();
+            int investorId = GenerateInvestorId(context);
 
             string name = "Investor?";
 
@@ -154,12 +172,12 @@ namespace Assets.Utils
             }
             else if (e.hasHuman)
             {
+                // or human
+                // TODO turn human to investor
+
                 name = e.human.Name + " " + e.human.Surname;
                 investorType = InvestorType.Founder;
             }
-
-            // or human
-            // TODO turn human to investor
 
             e.AddShareholder(investorId, name, investorType);
             AddMoneyToInvestor(context, investorId, money);
@@ -251,26 +269,6 @@ namespace Assets.Utils
             companyResource.Resources.AddMoney(sum);
 
             investor.ReplaceCompanyResource(companyResource.Resources);
-        }
-
-        public static string GetShareholderStatus(int sharesPercent)
-        {
-            if (sharesPercent < 1)
-                return "Non voting";
-
-            if (sharesPercent < 10)
-                return "Voting";
-
-            if (sharesPercent < 25)
-                return "Majority";
-
-            if (sharesPercent < 50)
-                return "Blocking";
-
-            if (sharesPercent < 100)
-                return "Controling";
-
-            return "Owner";
         }
     }
 }
