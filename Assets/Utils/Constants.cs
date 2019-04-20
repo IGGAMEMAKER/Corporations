@@ -14,7 +14,7 @@ public class Constants
 
     public const int RISKS_DEMAND_MAX = 45;
 
-    public static float INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
+    public static int INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
 }
 
 public class VisualConstants

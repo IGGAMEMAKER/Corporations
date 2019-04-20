@@ -7,6 +7,7 @@
         Add(new MenuSystems(contexts));
         Add(new MarketSystems(contexts));
         Add(new ProductSystems(contexts));
+        Add(new InvestmentsSystems(contexts));
         Add(new AISystems(contexts));
         Add(new ScheduleSystems(contexts));
 

@@ -34,6 +34,8 @@ public class ProjectView : View
         CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
         CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
 
-        PublicityStatus.text = SelectedCompany.investmentRounds.IsPublic ? "Is public company" : "Is private company";
+        bool isPublic = true;
+
+        PublicityStatus.text = isPublic ? "Is public company" : "Is private company";
     }
 }

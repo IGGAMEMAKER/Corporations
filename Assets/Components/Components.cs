@@ -195,20 +195,21 @@ public class ShareholdersComponent : IComponent
     public Dictionary<int, InvestorGoal> Goals;
 }
 
+// is IPOed
+// in future you will be able to switch public/private whenever you want
+public class PublicCompanyComponent : IComponent {}
 
-public class InvestmentRoundsComponent : IComponent
+public class AcceptsInvestmentsComponent : IComponent
 {
-    // is IPOed
-    // in future you will be able to switch public/private whenever you want
-    public bool IsPublic;
-    public InvestmentRound InvestmentRound;
-
     // set this to 60
     // and decrement everyday
     // once it hits 0 - deactivate
-    public float ActiveFor;
-    // accepts investments (round started!)
-    public bool IsActive;
+    public int DaysLeft;
+}
+
+public class InvestmentRoundsComponent : IComponent
+{
+    public InvestmentRound InvestmentRound;
 }
 
 
@@ -217,10 +218,7 @@ public class InvestmentRoundsComponent : IComponent
 
 // if independent, you can promote prouct company to group
 // only independent companies can IPO
-public class IndependentCompanyComponent : IComponent
-{
-
-}
+public class IndependentCompanyComponent : IComponent { }
 
 public class ShareholderComponent : IComponent
 {

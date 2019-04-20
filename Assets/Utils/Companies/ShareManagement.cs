@@ -32,7 +32,7 @@ namespace Assets.Utils
         {
             var c = GetCompanyById(context, companyId);
 
-            if (c.investmentRounds.IsPublic || c.investmentRounds.IsActive)
+            if (c.isPublicCompany || c.hasAcceptsInvestments)
                 return true;
 
             return false;
@@ -44,7 +44,8 @@ namespace Assets.Utils
 
             var round = EnumUtils.Next(c.investmentRounds.InvestmentRound);
 
-            c.ReplaceInvestmentRounds(c.investmentRounds.IsPublic, round, Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS, true);
+            c.ReplaceInvestmentRounds(round);
+            c.AddAcceptsInvestments(Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
         }
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)

@@ -42,7 +42,7 @@ namespace Assets.Utils
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddMetricsHistory(new List<MetricsInfo>());
 
-            e.AddInvestmentRounds(false, InvestmentRound.Preseed, 0, false);
+            e.AddInvestmentRounds(InvestmentRound.Preseed);
             e.isIndependentCompany = true;
 
             e.AddCEO(0, CeoID);

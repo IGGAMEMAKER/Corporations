@@ -2,6 +2,6 @@
 {
     public InvestmentsSystems(Contexts contexts) : base("Investments Systems")
     {
-        //Add(new MarketInitializerSystem(contexts));
+        Add(new InvestmentRoundExecutionSystem(contexts));
     }
 }

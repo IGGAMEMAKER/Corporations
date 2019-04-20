@@ -12,10 +12,16 @@ public class InestmentProposalScreen : View
 
     void Render()
     {
-        var round = SelectedCompany.investmentRounds;
-        int days = (int) round.ActiveFor;
+        bool isActive = SelectedCompany.hasAcceptsInvestments;
 
-        StartRoundButton.interactable = !round.IsActive;
-        RoundCounter.text = round.IsActive ? "This round will be active for " + days + " days" : "";
+        StartRoundButton.interactable = !isActive;
+
+        if (isActive)
+        {
+            int days = SelectedCompany.acceptsInvestments.DaysLeft;
+            RoundCounter.text = "This round will be active for " + days + " days";
+        }
+        else
+            RoundCounter.text = "";
     }
 }
