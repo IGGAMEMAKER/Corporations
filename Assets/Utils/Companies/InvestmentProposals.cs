@@ -78,11 +78,6 @@ namespace Assets.Utils
             RemoveProposal(gameContext, companyId, investorId);
         }
 
-        public static int GetInvestmentAttractiveness(GameContext context, int companyId)
-        {
-            return UnityEngine.Random.Range(1, 5);
-        }
-
         public static void SpawnProposals(GameContext context, int companyId)
         {
             int attractiveness = GetInvestmentAttractiveness(context, companyId);
