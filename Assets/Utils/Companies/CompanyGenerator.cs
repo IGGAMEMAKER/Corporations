@@ -19,7 +19,12 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
-        public static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
+        public static InvestorGoal GetInvestorGoal(GameContext context, int investorId)
+        {
+            return InvestorGoal.GrowCompanyCost;
+        }
+
+        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders = null)
         {
             var e = context.CreateEntity();
 
@@ -28,12 +33,17 @@ namespace Assets.Utils
             e.AddCompany(id, name, companyType);
             e.AddCompanyResource(new TeamResource());
 
+            Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>();
+
             if (founders == null)
                 founders = new Dictionary<int, int>();
 
-            e.AddShareholders(founders);
+            e.AddShareholders(founders, goals);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddMetricsHistory(new List<MetricsInfo>());
+
+            e.AddInvestmentRounds(false, InvestmentRound.Preseed);
+            e.isIndependentCompany = true;
 
             return e;
         }
@@ -76,7 +86,7 @@ namespace Assets.Utils
 
             var resources = new TeamResource(100, 100, 100, 100, 10000);
 
-            uint clients = (uint)UnityEngine.Random.Range(0, 10000);
+            uint clients = (uint)UnityEngine.Random.Range(15, 100);
             int brandPower = UnityEngine.Random.Range(0, 15);
 
             int productLevel = 0;

@@ -40,18 +40,18 @@ public enum CompanyType
 
 public enum ScreenMode
 {
-    DevelopmentScreen,
-    MarketingScreen,
-    ProjectScreen,
+    DevelopmentScreen = 0,
+    MarketingScreen = 1,
+    ProjectScreen = 2,
     //BusinessScreen,
-    TeamScreen,
-    StatsScreen,
-    CharacterScreen,
-    GroupManagementScreen,
-    InvesmentsScreen,
-    InvesmentProposalScreen,
-    IndustryScreen,
-    NicheScreen
+    TeamScreen = 3,
+    StatsScreen = 4,
+    CharacterScreen = 5,
+    GroupManagementScreen = 6,
+    InvesmentsScreen = 7,
+    InvesmentProposalScreen = 8,
+    IndustryScreen = 9,
+    NicheScreen = 10
 }
 
 public interface IEventListener
@@ -135,11 +135,54 @@ public class HumanComponent : IComponent
     // skillset, character and perks later
 }
 
-[Game]
-public class RuledByComponent : IComponent
+public class CEOComponent : IComponent
 {
-    public HumanComponent human;
-    public int CompanyId;
+    // if you fail investor tasks you lose reputation
+    public float Reputation;
+    public int HumanId;
+}
+
+public enum InvestorType
+{
+    // both value long term solutions
+    // aka team effeciency
+    // product quality
+    // branding
+    // Founder - human with strategic goals, Strategic - company with strategic goals
+    Founder,
+    Strategic,
+
+    // gives less money and wants more investors to come (aka rounds)
+    VentureInvestor,
+
+    // wants dividends
+    SmallInvestor
+}
+
+public enum InvestorGoal
+{
+    GrowCompanyCost,
+    GrowProfit,
+    //GrowClientBase,
+
+    //ImproveManagement,
+    //ImproveBranding
+}
+
+public enum InvestmentRound
+{
+    Preseed,
+    Seed,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J
 }
 
 // is attached to CompanyComponent
@@ -148,13 +191,34 @@ public class ShareholdersComponent : IComponent
 {
     // investorId => amountOfShares
     public Dictionary<int, int> Shareholders;
+    // investorId => goal
+    public Dictionary<int, InvestorGoal> Goals;
+}
+
+public class InvestmentRoundsComponent : IComponent
+{
+    // is IPOed
+    // in future you will be able to switch public/private whenever you want
+    public bool IsPublic;
+    public InvestmentRound InvestmentRound;
+}
+
+
+// if Founder + investment companies shares > Group/Holding/Corp
+// or Groups have less than 25%
+
+// if independent, you can promote prouct company to group
+// only independent companies can IPO
+public class IndependentCompanyComponent : IComponent
+{
+
 }
 
 public class ShareholderComponent : IComponent
 {
     public int Id;
     public string Name;
-    //public long Money;
+    public InvestorType InvestorType;
 }
 
 public class InvestmentProposal

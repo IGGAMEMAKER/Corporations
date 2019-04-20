@@ -38,6 +38,8 @@ namespace Assets.Utils
 
         public static void AttachToGroup(GameContext context, int parent, int subsidiary)
         {
+            // TODO only possible if independent!
+
             var p = GetCompanyById(context, parent);
 
             if (!IsCompanyGroupLike(p))
@@ -47,13 +49,22 @@ namespace Assets.Utils
 
             Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
 
-            Dictionary<int, int> shareholders = new Dictionary<int, int>();
-            shareholders.Add(p.shareholder.Id, 100);
+            Dictionary<int, int> shareholders = new Dictionary<int, int>
+            {
+                { p.shareholder.Id, 100 }
+            };
+
+            Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>
+            {
+                { p.shareholder.Id, InvestorGoal.GrowCompanyCost }
+            };
 
             if (s.hasShareholders)
-                s.ReplaceShareholders(shareholders);
+                s.ReplaceShareholders(shareholders, s.shareholders.Goals);
             else
-                s.AddShareholders(shareholders);
+                s.AddShareholders(shareholders, goals);
+
+            p.isIndependentCompany = false;
         }
 
         public static GameEntity TurnToHolding(GameContext context, int companyId)

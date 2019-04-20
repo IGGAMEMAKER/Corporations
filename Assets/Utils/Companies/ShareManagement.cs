@@ -94,14 +94,32 @@ namespace Assets.Utils
 
             string name = "Investor?";
 
+            InvestorType investorType = InvestorType.VentureInvestor;
+
             // company
             if (e.hasCompany)
+            {
                 name = e.company.Name;
+
+                if (e.company.CompanyType == CompanyType.FinancialGroup)
+                {
+                    investorType = InvestorType.VentureInvestor;
+                }
+                else
+                {
+                    investorType = InvestorType.Strategic;
+                }
+            }
+            else if (e.hasHuman)
+            {
+                name = e.human.Name + " " + e.human.Surname;
+                investorType = InvestorType.Founder;
+            }
 
             // or human
             // TODO turn human to investor
 
-            e.AddShareholder(investorId, name);
+            e.AddShareholder(investorId, name, investorType);
             AddMoneyToInvestor(context, investorId, money);
 
             return investorId;
@@ -112,24 +130,39 @@ namespace Assets.Utils
             var c = GetCompanyById(context, companyId);
 
             Dictionary<int, int> shareholders;
+            Dictionary<int, InvestorGoal> goals;
+
+            InvestorGoal goal = GetInvestorGoal(context, investorId);
 
             if (!c.hasShareholders)
             {
-                shareholders = new Dictionary<int, int>();
-                shareholders[investorId] = shares;
+                shareholders = new Dictionary<int, int>
+                {
+                    [investorId] = shares
+                };
+                goals = new Dictionary<int, InvestorGoal>
+                {
+                    [investorId] = goal
+                };
 
-                c.AddShareholders(shareholders);
+                c.AddShareholders(shareholders, goals);
             }
             else
             {
                 shareholders = c.shareholders.Shareholders;
+                goals = c.shareholders.Goals;
 
                 if (shareholders.ContainsKey(investorId))
+                {
                     shareholders[investorId] += shares;
+                }
                 else
+                {
                     shareholders[investorId] = shares;
+                    goals[investorId] = goal;
+                }
 
-                c.ReplaceShareholders(shareholders);
+                c.ReplaceShareholders(shareholders, goals);
             }
         }
 
@@ -144,11 +177,14 @@ namespace Assets.Utils
 
             shareholders[sellerInvestorId] = newSellerShares;
             if (newSellerShares == 0)
+            {
                 shareholders.Remove(sellerInvestorId);
+                c.shareholders.Goals.Remove(sellerInvestorId);
+            }
 
             shareholders[buyerInvestorId] = newBuyerShares;
 
-            c.ReplaceShareholders(shareholders);
+            c.ReplaceShareholders(shareholders, c.shareholders.Goals);
         }
 
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)

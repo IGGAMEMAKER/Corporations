@@ -11,51 +11,54 @@ public static class GameComponentsLookup {
     public const int AnyCompanyListener = 0;
     public const int AnyDateListener = 1;
     public const int AnyShareholdersListener = 2;
-    public const int Company = 3;
-    public const int CompanyListener = 4;
-    public const int CompanyResource = 5;
-    public const int CompanyResourceListener = 6;
-    public const int ControlledByPlayer = 7;
-    public const int Date = 8;
-    public const int Event = 9;
-    public const int EventFinancePricingChange = 10;
-    public const int EventMarketingEnableTargeting = 11;
-    public const int EventMarketingStartSimpleCampaign = 12;
-    public const int EventStaffHireProgrammer = 13;
-    public const int EventUpgradeAnalytics = 14;
-    public const int EventUpgradeProduct = 15;
-    public const int Finance = 16;
-    public const int FinanceListener = 17;
-    public const int Human = 18;
-    public const int Industry = 19;
-    public const int InvestmentProposals = 20;
-    public const int Marketing = 21;
-    public const int MarketingListener = 22;
-    public const int Menu = 23;
-    public const int MenuListener = 24;
-    public const int MetricsHistory = 25;
-    public const int NavigationHistory = 26;
-    public const int Niche = 27;
-    public const int Product = 28;
-    public const int ProductListener = 29;
-    public const int RuledBy = 30;
-    public const int SelectedCompany = 31;
-    public const int Shareholder = 32;
-    public const int Shareholders = 33;
-    public const int ShareholdersListener = 34;
-    public const int Targeting = 35;
-    public const int TargetingListener = 36;
-    public const int Task = 37;
-    public const int TaskManager = 38;
-    public const int Team = 39;
-    public const int TeamListener = 40;
+    public const int CEO = 3;
+    public const int Company = 4;
+    public const int CompanyListener = 5;
+    public const int CompanyResource = 6;
+    public const int CompanyResourceListener = 7;
+    public const int ControlledByPlayer = 8;
+    public const int Date = 9;
+    public const int Event = 10;
+    public const int EventFinancePricingChange = 11;
+    public const int EventMarketingEnableTargeting = 12;
+    public const int EventMarketingStartSimpleCampaign = 13;
+    public const int EventStaffHireProgrammer = 14;
+    public const int EventUpgradeAnalytics = 15;
+    public const int EventUpgradeProduct = 16;
+    public const int Finance = 17;
+    public const int FinanceListener = 18;
+    public const int Human = 19;
+    public const int IndependentCompany = 20;
+    public const int Industry = 21;
+    public const int InvestmentProposals = 22;
+    public const int InvestmentRounds = 23;
+    public const int Marketing = 24;
+    public const int MarketingListener = 25;
+    public const int Menu = 26;
+    public const int MenuListener = 27;
+    public const int MetricsHistory = 28;
+    public const int NavigationHistory = 29;
+    public const int Niche = 30;
+    public const int Product = 31;
+    public const int ProductListener = 32;
+    public const int SelectedCompany = 33;
+    public const int Shareholder = 34;
+    public const int Shareholders = 35;
+    public const int ShareholdersListener = 36;
+    public const int Targeting = 37;
+    public const int TargetingListener = 38;
+    public const int Task = 39;
+    public const int TaskManager = 40;
+    public const int Team = 41;
+    public const int TeamListener = 42;
 
-    public const int TotalComponents = 41;
+    public const int TotalComponents = 43;
 
     public static readonly string[] componentNames = {
         "AnyCompanyListener",
         "AnyDateListener",
         "AnyShareholdersListener",
+        "CEO",
         "Company",
         "CompanyListener",
         "CompanyResource",
@@ -72,8 +75,10 @@ public static class GameComponentsLookup {
         "Finance",
         "FinanceListener",
         "Human",
+        "IndependentCompany",
         "Industry",
         "InvestmentProposals",
+        "InvestmentRounds",
         "Marketing",
         "MarketingListener",
         "Menu",
@@ -83,7 +88,6 @@ public static class GameComponentsLookup {
         "Niche",
         "Product",
         "ProductListener",
-        "RuledBy",
         "SelectedCompany",
         "Shareholder",
         "Shareholders",
@@ -100,6 +104,7 @@ public static class GameComponentsLookup {
         typeof(AnyCompanyListenerComponent),
         typeof(AnyDateListenerComponent),
         typeof(AnyShareholdersListenerComponent),
+        typeof(CEOComponent),
         typeof(CompanyComponent),
         typeof(CompanyListenerComponent),
         typeof(CompanyResourceComponent),
@@ -116,8 +121,10 @@ public static class GameComponentsLookup {
         typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
         typeof(HumanComponent),
+        typeof(IndependentCompanyComponent),
         typeof(IndustryComponent),
         typeof(InvestmentProposalsComponent),
+        typeof(InvestmentRoundsComponent),
         typeof(MarketingComponent),
         typeof(MarketingListenerComponent),
         typeof(MenuComponent),
@@ -127,7 +134,6 @@ public static class GameComponentsLookup {
         typeof(NicheComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
-        typeof(RuledByComponent),
         typeof(SelectedCompanyComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),

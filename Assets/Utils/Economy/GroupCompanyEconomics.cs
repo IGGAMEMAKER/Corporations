@@ -48,6 +48,28 @@ namespace Assets.Utils
             return sum;
         }
 
+        private static long GetGroupMaintenance(GameContext gameContext, int companyId)
+        {
+            var holdings = CompanyUtils.GetCompanyHoldings(gameContext, companyId, true);
+
+            return GetHoldingMaintenance(gameContext, holdings) + GetTeamMaintenance(gameContext, companyId);
+        }
+
+        private static long GetGroupIncome(GameContext context, GameEntity e)
+        {
+            var holdings = CompanyUtils.GetCompanyHoldings(context, e.company.Id, true);
+
+            return GetHoldingIncome(context, holdings);
+        }
+
+        private static long GetGroupCost(GameContext context, int companyId)
+        {
+            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
+
+            return GetHoldingCost(context, holdings);
+        }
+
+
         private static string GetGroupIncomeDescription(GameContext context, int companyId)
         {
             string description = "Group income:\n";
@@ -88,26 +110,5 @@ namespace Assets.Utils
             return description;
         }
 
-
-        private static long GetGroupMaintenance(GameContext gameContext, int companyId)
-        {
-            var holdings = CompanyUtils.GetCompanyHoldings(gameContext, companyId, true);
-
-            return GetHoldingMaintenance(gameContext, holdings) + GetTeamMaintenance(gameContext, companyId);
-        }
-
-        private static long GetGroupIncome(GameContext context, GameEntity e)
-        {
-            var holdings = CompanyUtils.GetCompanyHoldings(context, e.company.Id, true);
-
-            return GetHoldingIncome(context, holdings);
-        }
-
-        private static long GetGroupCost(GameContext context, int companyId)
-        {
-            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
-
-            return GetHoldingCost(context, holdings);
-        }
     }
 }
