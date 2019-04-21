@@ -1,9 +1,15 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class InestmentProposalScreen : View
 {
     public Button StartRoundButton;
     public Text RoundCounter;
+
+    public GameObject IPOLabel;
+    public GameObject IPOButton;
+    //public GameObject ProposalsLabel;
 
     void Update()
     {
@@ -23,5 +29,22 @@ public class InestmentProposalScreen : View
         }
         else
             RoundCounter.text = "";
+
+        RenderActionButtons();
+    }
+
+    void RenderMyInvestmentActions(bool show)
+    {
+        StartRoundButton.gameObject.SetActive(show);
+        IPOButton.SetActive(show);
+        IPOLabel.SetActive(show);
+        //ProposalsLabel.SetActive(show);
+    }
+
+    void RenderActionButtons()
+    {
+        bool controllable = IsUnderPlayerControl(SelectedCompany.company.Id);
+
+        RenderMyInvestmentActions(controllable);
     }
 }

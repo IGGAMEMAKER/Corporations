@@ -15,6 +15,9 @@ public class Constants
     public const int RISKS_DEMAND_MAX = 45;
 
     public static int INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
+
+    internal static long IPO_REQUIREMENTS_COMPANY_COST = 500000000;
+    internal static long IPO_REQUIREMENTS_COMPANY_PROFIT = 10000000;
 }
 
 public class VisualConstants

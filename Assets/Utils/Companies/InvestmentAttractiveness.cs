@@ -7,6 +7,17 @@
             return "Because";
         }
 
+        public static bool IsMeetsIPORequirements(GameContext gameContext, int companyId)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            bool meetsCostRequirement = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_COST;
+            bool meetsProfitRequirement = CompanyEconomyUtils.GetBalanceChange(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_PROFIT;
+            bool meetsShareholderRequirement = c.shareholders.Shareholders.Count >= 3;
+
+            return meetsCostRequirement && meetsProfitRequirement && meetsShareholderRequirement;
+        }
+
         static int RestrictValue(int value, int min, int max)
         {
             if (value > max)

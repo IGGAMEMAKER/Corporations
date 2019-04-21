@@ -5,7 +5,7 @@ public class ShowInvestmentAttractiveness : View
 {
     void Update()
     {
-        //Render();
+        Render();
     }
 
     private void OnEnable()
@@ -26,7 +26,7 @@ public class ShowInvestmentAttractiveness : View
         }
         else
         {
-            text = "Noone wants to invest in our company(";
+            text = "Noone wants to invest in this company(";
         }
 
         GetComponent<Text>().text = text;

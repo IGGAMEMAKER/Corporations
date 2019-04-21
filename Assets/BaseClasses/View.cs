@@ -23,6 +23,13 @@ public class View : MonoBehaviour
         }
     }
 
+    public bool IsUnderPlayerControl(int companyId)
+    {
+        var c = CompanyUtils.GetCompanyById(GameContext, companyId);
+
+        return c.isControlledByPlayer;
+    }
+
     public GameEntity MyProductEntity
     {
         get
