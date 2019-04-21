@@ -10,7 +10,7 @@ public class ScreenController : MonoBehaviour {
 	void Start () {
         height = 768f;
 
-        width = 1024f;
+        width = 0; // 1024f;
         positionY = -80f;
 
         Render();

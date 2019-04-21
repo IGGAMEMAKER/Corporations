@@ -21,9 +21,7 @@ public class CanBuySharesController : View
 
         int percentage = CompanyUtils.GetShareSize(GameContext, companyId, investorId);
 
-        string sellablePhrase = sellable ? "" : "We cannot buy shares now!Wait until next investment round or IPO\n\n";
-
-        string hint = $"{sellablePhrase}Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) ${cost}\n We have ${have}";
+        string hint = $"Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) ${cost}\n We have ${have}";
 
         GetComponent<Hint>().SetHint(hint);
         // They don't plan selling their shares

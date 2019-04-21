@@ -47,8 +47,5 @@ public class ShareholderView : View
 
         BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
         BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);
-
-        //LoyaltyChange.UpdateValue(Random.Range(-10f, 10f));
-        //Loyalty.UpdateValue(Random.Range(0, 80f));
     }
 }

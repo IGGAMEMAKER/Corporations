@@ -4,9 +4,10 @@ using System;
 using UnityEngine;
 
 public class MenuResourceView : View
-    ,IMenuListener
-    ,IProductListener
-    ,IMarketingListener
+    //,IMenuListener
+    //,IProductListener
+    //,IMarketingListener
+    //,ICompanyResourceListener
 {
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
@@ -20,13 +21,14 @@ public class MenuResourceView : View
 
     private void Start()
     {
-        ListenMenuChanges(this);
+        //ListenMenuChanges(this);
 
-        if (MyProductEntity != null)
-        {
-            MyProductEntity.AddProductListener(this);
-            MyProductEntity.AddMarketingListener(this);
-        }
+        //if (MyProductEntity != null)
+        //{
+        //    MyProductEntity.AddProductListener(this);
+        //    MyProductEntity.AddMarketingListener(this);
+        //    MyProductEntity.AddCompanyResourceListener(this);
+        //}
 
         Render(ScreenMode.DevelopmentScreen);
     }
@@ -96,18 +98,28 @@ public class MenuResourceView : View
         BrandView.SetPrettifiedValue("", marketing.BrandPower);
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    void Update()
     {
         Render();
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
-    {
-        Render();
-    }
+    //void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    //{
+    //    Render();
+    //}
 
-    void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
-    {
-        Render();
-    }
+    //void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
+    //{
+    //    Render();
+    //}
+
+    //void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
+    //{
+    //    Render();
+    //}
+
+    //void ICompanyResourceListener.OnCompanyResource(GameEntity entity, TeamResource resources)
+    //{
+    //    Render();
+    //}
 }
