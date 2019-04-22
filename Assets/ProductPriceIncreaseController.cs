@@ -1,7 +1,9 @@
 ﻿public class ProductPriceIncreaseController : ButtonController
 {
+    public int priceLevel;
+
     public override void Execute()
     {
-        TriggerEventIncreasePrice(MyProduct.Id);
+        TriggerEventSetPrice(MyProduct.Id, priceLevel);
     }
 }
