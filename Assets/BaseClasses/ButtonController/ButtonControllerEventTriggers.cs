@@ -1,15 +1,4 @@
-﻿using Assets.Utils;
-using UnityEngine;
-using UnityEngine.UI;
-
-
-public interface IEventGenerator
-{
-    void TriggerEventUpgradeProduct(int productId, int ProductLevel);
-    void TriggerEventTargetingToggle(int productId);
-}
-
-public abstract partial class ButtonController : IEventGenerator
+﻿public abstract partial class ButtonController
 {
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
     {

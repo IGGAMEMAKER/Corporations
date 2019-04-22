@@ -19,15 +19,15 @@ public static class GameComponentsLookup {
     public const int CompanyResourceListener = 8;
     public const int ControlledByPlayer = 9;
     public const int Date = 10;
-    public const int Event = 11;
-    public const int EventFinancePricingChange = 12;
-    public const int EventMarketingEnableTargeting = 13;
-    public const int EventMarketingStartSimpleCampaign = 14;
-    public const int EventStaffHireProgrammer = 15;
-    public const int EventUpgradeAnalytics = 16;
-    public const int EventUpgradeProduct = 17;
-    public const int Finance = 18;
-    public const int FinanceListener = 19;
+    public const int EventFinancePricingChange = 11;
+    public const int EventMarketingEnableTargeting = 12;
+    public const int EventMarketingStartSimpleCampaign = 13;
+    public const int EventStaffHireProgrammer = 14;
+    public const int EventUpgradeAnalytics = 15;
+    public const int EventUpgradeProduct = 16;
+    public const int Finance = 17;
+    public const int FinanceListener = 18;
+    public const int Following = 19;
     public const int Human = 20;
     public const int IndependentCompany = 21;
     public const int Industry = 22;
@@ -40,21 +40,23 @@ public static class GameComponentsLookup {
     public const int MetricsHistory = 29;
     public const int NavigationHistory = 30;
     public const int Niche = 31;
-    public const int Product = 32;
-    public const int ProductListener = 33;
-    public const int PublicCompany = 34;
-    public const int SelectedCompany = 35;
-    public const int Shareholder = 36;
-    public const int Shareholders = 37;
-    public const int ShareholdersListener = 38;
-    public const int Targeting = 39;
-    public const int TargetingListener = 40;
-    public const int Task = 41;
-    public const int TaskManager = 42;
-    public const int Team = 43;
-    public const int TeamListener = 44;
+    public const int NotificationMessage = 32;
+    public const int Notifications = 33;
+    public const int Product = 34;
+    public const int ProductListener = 35;
+    public const int PublicCompany = 36;
+    public const int SelectedCompany = 37;
+    public const int Shareholder = 38;
+    public const int Shareholders = 39;
+    public const int ShareholdersListener = 40;
+    public const int Targeting = 41;
+    public const int TargetingListener = 42;
+    public const int Task = 43;
+    public const int TaskManager = 44;
+    public const int Team = 45;
+    public const int TeamListener = 46;
 
-    public const int TotalComponents = 45;
+    public const int TotalComponents = 47;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -68,7 +70,6 @@ public static class GameComponentsLookup {
         "CompanyResourceListener",
         "ControlledByPlayer",
         "Date",
-        "Event",
         "EventFinancePricingChange",
         "EventMarketingEnableTargeting",
         "EventMarketingStartSimpleCampaign",
@@ -77,6 +78,7 @@ public static class GameComponentsLookup {
         "EventUpgradeProduct",
         "Finance",
         "FinanceListener",
+        "Following",
         "Human",
         "IndependentCompany",
         "Industry",
@@ -89,6 +91,8 @@ public static class GameComponentsLookup {
         "MetricsHistory",
         "NavigationHistory",
         "Niche",
+        "NotificationMessage",
+        "Notifications",
         "Product",
         "ProductListener",
         "PublicCompany",
@@ -124,6 +128,7 @@ public static class GameComponentsLookup {
         typeof(EventUpgradeProductComponent),
         typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
+        typeof(FollowingComponent),
         typeof(HumanComponent),
         typeof(IndependentCompanyComponent),
         typeof(IndustryComponent),
@@ -136,6 +141,8 @@ public static class GameComponentsLookup {
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
         typeof(NicheComponent),
+        typeof(NotificationMessageComponent),
+        typeof(NotificationsComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(PublicCompanyComponent),

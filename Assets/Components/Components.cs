@@ -85,6 +85,9 @@ public class NavigationHistoryComponent : IComponent
     public List<MenuComponent> Queries;
 }
 
+[Game]
+public class FollowingComponent : IComponent { }
+
 // only entity
 [Game]
 public struct SelectedCompanyComponent : IComponent
