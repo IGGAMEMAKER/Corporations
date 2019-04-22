@@ -11,7 +11,7 @@ public class ScreenController : MonoBehaviour {
         height = 768f;
 
         width = 0; // 1024f;
-        positionY = -80f;
+        positionY = -110f;
 
         Render();
     }
