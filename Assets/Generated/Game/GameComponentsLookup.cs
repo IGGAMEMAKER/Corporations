@@ -116,7 +116,6 @@ public static class GameComponentsLookup {
         typeof(CompanyResourceListenerComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DateComponent),
-        typeof(EventComponent),
         typeof(EventFinancePricingChangeComponent),
         typeof(EventMarketingEnableTargetingComponent),
         typeof(EventMarketingStartSimpleCampaign),
