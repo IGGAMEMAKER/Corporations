@@ -45,6 +45,6 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
             newLevel
             );
 
-        //Debug.Log($"upgraded product {e.product.Id}({e.product.Name}) to lvl {e.eventUpgradeProduct.previousLevel + 1}");
+        //Debug.Log();
     }
 }
