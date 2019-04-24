@@ -1,7 +1,6 @@
 ﻿using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 [Game, Event(EventTarget.Any)]
 public class NotificationsComponent : IComponent
@@ -52,5 +51,19 @@ public class NotificationBuyingCompany : NotificationMessage
         this.CompanyId = CompanyId;
         this.Bid = Bid;
         this.BuyerInvestorId = BuyerInvestorId;
+    }
+}
+
+public class NotificationLevelUp : NotificationMessage
+{
+    public int CompanyId;
+    public int Level;
+
+    public NotificationLevelUp(int CompanyId, int Level)
+    {
+        NotificationType = NotificationType.LevelUp;
+
+        this.CompanyId = CompanyId;
+        this.Level = Level;
     }
 }

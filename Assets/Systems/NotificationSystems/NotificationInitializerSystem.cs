@@ -19,7 +19,17 @@ public class NotificationInitializerSystem : IInitializeSystem
         var notifications = new List<NotificationMessage>
         {
             new NotificationBankruptcy(2),
-            new NotificationBuyingCompany(102000000, 3, 2)
+            //new NotificationBuyingCompany(102000000, 3, 2),
+            //new NotificationBankruptcy(2),
+            //new NotificationBuyingCompany(102000000, 3, 2),
+            //new NotificationBankruptcy(2),
+            //new NotificationBuyingCompany(102000000, 3, 2),
+            //new NotificationBankruptcy(2),
+            //new NotificationBuyingCompany(102000000, 3, 2),
+            //new NotificationBankruptcy(2),
+            //new NotificationBuyingCompany(102000000, 3, 2),
+            //new NotificationBankruptcy(2),
+            //new NotificationBuyingCompany(102000000, 3, 2)
         };
 
         e.AddNotifications(notifications);

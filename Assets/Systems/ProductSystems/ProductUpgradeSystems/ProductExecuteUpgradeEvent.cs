@@ -24,6 +24,8 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
                 UpgradeProduct(e);
                 e.RemoveEventUpgradeProduct();
                 e.RemoveTask();
+
+                NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
             }
         }
     }
