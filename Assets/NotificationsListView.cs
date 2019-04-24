@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Utils;
 using UnityEngine;
 
 public class NotificationsListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        throw new System.NotImplementedException();
+        t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage);
     }
 
     void Start()
@@ -16,19 +15,8 @@ public class NotificationsListView : ListView
 
     void Render()
     {
-        //var shareholders = GetShareholders();
+        var notifications = NotificationUtils.GetNotifications(GameContext);
 
-        //GetComponent<ShareholdersListView>()
-        //    .SetItems(shareholders.ToArray());
+        SetItems(notifications.ToArray());
     }
-
-    //Dictionary<int, int> GetShareholders()
-    //{
-    //    Dictionary<int, int> shareholders = new Dictionary<int, int>();
-
-    //    if (SelectedCompany.hasShareholders)
-    //        shareholders = SelectedCompany.shareholders.Shareholders;
-
-    //    return shareholders;
-    //}
 }

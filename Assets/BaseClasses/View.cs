@@ -14,9 +14,9 @@ public class View : MonoBehaviour
 
             if (data == null)
             {
-                //Debug.LogError("SelectedCompany does not exist!");
-
-                return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
+                Debug.LogError("SelectedCompany does not exist!");
+                return null;
+                //return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
             }
 
             return CompanyUtils.GetCompanyById(GameContext, (int)data);

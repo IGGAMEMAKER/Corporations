@@ -4,6 +4,7 @@
     {
         // Start point of all our systems
 
+        Add(new NotificationSystems(contexts));
         Add(new MenuSystems(contexts));
         Add(new MarketSystems(contexts));
         Add(new ProductSystems(contexts));

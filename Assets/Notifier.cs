@@ -6,7 +6,7 @@ namespace Assets
     {
         public void Notify(string message)
         {
-            GameObject.Find("Notifications").GetComponent<NotificationView>().UpateMessage(message);
+            //GameObject.Find("Notifications").GetComponent<NotificationView>().UpateMessage(message);
         }
     }
 }
