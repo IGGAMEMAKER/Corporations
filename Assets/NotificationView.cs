@@ -1,11 +1,15 @@
-﻿using System;
-using Assets.Utils;
-using UnityEngine;
+﻿using Assets.Utils;
 using UnityEngine.UI;
 
 public class NotificationView : View {
+    public CloseNotificationButton CloseNotificationButton;
+
     public void SetMessage(NotificationMessage notificationMessage)
     {
+        int notificationId = transform.GetSiblingIndex();
+
+        //CloseNotificationButton.NotificationId = notificationId;
+
         GetComponent<Text>().text = RenderNotificationText(notificationMessage);
     }
 

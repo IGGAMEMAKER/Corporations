@@ -105,6 +105,11 @@ public class View : MonoBehaviour
         return tasks[0].task;
     }
 
+    public void Animate(Text text)
+    {
+        if (text.gameObject.GetComponent<TextBlink>() == null)
+            text.gameObject.AddComponent<TextBlink>();
+    }
 
     public void AnimateIfValueChanged(Text text, string value)
     {
@@ -112,9 +117,7 @@ public class View : MonoBehaviour
         {
             text.text = value;
 
-            // only add this component if there is any
-            if (text.gameObject.GetComponent<TextBlink>() == null)
-                text.gameObject.AddComponent<TextBlink>();
+            Animate(text);
         }
     }
 

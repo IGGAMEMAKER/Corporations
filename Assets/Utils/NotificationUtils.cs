@@ -33,7 +33,17 @@ namespace Assets.Utils
             n.ReplaceNotifications(notys);
         }
 
-        public static void ClearMessages(GameContext gameContext)
+        internal static void ClearNotification(GameContext gameContext, int notificationId)
+        {
+            var n = GetNotificationsComponent(gameContext);
+
+            var l = n.notifications.Notifications;
+            l.RemoveAt(notificationId);
+
+            n.ReplaceNotifications(l);
+        }
+
+        public static void ClearNotifications(GameContext gameContext)
         {
             var n = GetNotificationsComponent(gameContext);
 

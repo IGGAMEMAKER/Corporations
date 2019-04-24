@@ -1,9 +1,7 @@
 ﻿using Assets.Classes;
 using Assets.Utils.Humans;
 using Entitas;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Assets.Utils
 {
