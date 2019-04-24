@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class ListView : MonoBehaviour
+public abstract class ListView : View // MonoBehaviour
 {
     public GameObject Prefab;
 

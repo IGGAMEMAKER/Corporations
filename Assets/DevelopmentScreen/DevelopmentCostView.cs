@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class DevelopmentCostView : ParameterView
+public class DevelopmentCostView : SimpleParameterView
 {
     public override string RenderHint()
     {

@@ -1,7 +1,7 @@
 ﻿using Assets.Utils;
 using System;
 
-public class CompetitorsAmountView : ParameterView
+public class CompetitorsAmountView : SimpleParameterView
 {
     public override string RenderHint()
     {

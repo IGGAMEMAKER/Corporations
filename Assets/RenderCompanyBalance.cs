@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class RenderCompanyBalance : ParameterView
+public class RenderCompanyBalance : SimpleParameterView
 {
     public override string RenderHint()
     {

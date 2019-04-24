@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public abstract class ParameterView : View
+public abstract class SimpleParameterView : View
 {
     internal Text Text;
     internal Hint Hint;

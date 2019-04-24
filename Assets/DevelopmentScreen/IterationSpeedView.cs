@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class IterationSpeedView : ParameterView
+public class IterationSpeedView : SimpleParameterView
 {
     public override string RenderHint()
     {

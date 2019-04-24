@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class PotentialLevelView : ParameterView
+public class PotentialLevelView : SimpleParameterView
 {
     public override string RenderHint()
     {

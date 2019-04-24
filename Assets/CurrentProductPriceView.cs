@@ -1,13 +1,15 @@
 ﻿using Assets.Utils;
 using System.Text;
 
-public class CurrentProductPriceView : ParameterView
+public class CurrentProductPriceView : SimpleParameterView
     //, IFinanceListener
 {
+    const string freeString = "This product is FREE. Increase prices to start making money!";
+
     public override string RenderHint()
     {
         if (IsFree)
-            return "This product is FREE. Increase prices to start making money!";
+            return freeString;
 
         int price = (MyProductEntity.finance.price - 1) * 10;
 

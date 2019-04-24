@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class InvestmentFundResources : ParameterView
+public class InvestmentFundResources : SimpleParameterView
 {
     public override string RenderHint()
     {

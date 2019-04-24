@@ -11,36 +11,36 @@ public static class GameComponentsLookup {
     public const int AcceptsInvestments = 0;
     public const int AnyCompanyListener = 1;
     public const int AnyDateListener = 2;
-    public const int AnyShareholdersListener = 3;
-    public const int CEO = 4;
-    public const int Company = 5;
-    public const int CompanyListener = 6;
-    public const int CompanyResource = 7;
-    public const int CompanyResourceListener = 8;
-    public const int ControlledByPlayer = 9;
-    public const int Date = 10;
-    public const int EventFinancePricingChange = 11;
-    public const int EventMarketingEnableTargeting = 12;
-    public const int EventMarketingStartSimpleCampaign = 13;
-    public const int EventStaffHireProgrammer = 14;
-    public const int EventUpgradeAnalytics = 15;
-    public const int EventUpgradeProduct = 16;
-    public const int Finance = 17;
-    public const int FinanceListener = 18;
-    public const int Following = 19;
-    public const int Human = 20;
-    public const int IndependentCompany = 21;
-    public const int Industry = 22;
-    public const int InvestmentProposals = 23;
-    public const int InvestmentRounds = 24;
-    public const int Marketing = 25;
-    public const int MarketingListener = 26;
-    public const int Menu = 27;
-    public const int MenuListener = 28;
-    public const int MetricsHistory = 29;
-    public const int NavigationHistory = 30;
-    public const int Niche = 31;
-    public const int NotificationMessage = 32;
+    public const int AnyNotificationsListener = 3;
+    public const int AnyShareholdersListener = 4;
+    public const int CEO = 5;
+    public const int Company = 6;
+    public const int CompanyListener = 7;
+    public const int CompanyResource = 8;
+    public const int CompanyResourceListener = 9;
+    public const int ControlledByPlayer = 10;
+    public const int Date = 11;
+    public const int EventFinancePricingChange = 12;
+    public const int EventMarketingEnableTargeting = 13;
+    public const int EventMarketingStartSimpleCampaign = 14;
+    public const int EventStaffHireProgrammer = 15;
+    public const int EventUpgradeAnalytics = 16;
+    public const int EventUpgradeProduct = 17;
+    public const int Finance = 18;
+    public const int FinanceListener = 19;
+    public const int Following = 20;
+    public const int Human = 21;
+    public const int IndependentCompany = 22;
+    public const int Industry = 23;
+    public const int InvestmentProposals = 24;
+    public const int InvestmentRounds = 25;
+    public const int Marketing = 26;
+    public const int MarketingListener = 27;
+    public const int Menu = 28;
+    public const int MenuListener = 29;
+    public const int MetricsHistory = 30;
+    public const int NavigationHistory = 31;
+    public const int Niche = 32;
     public const int Notifications = 33;
     public const int Product = 34;
     public const int ProductListener = 35;
@@ -62,6 +62,7 @@ public static class GameComponentsLookup {
         "AcceptsInvestments",
         "AnyCompanyListener",
         "AnyDateListener",
+        "AnyNotificationsListener",
         "AnyShareholdersListener",
         "CEO",
         "Company",
@@ -91,7 +92,6 @@ public static class GameComponentsLookup {
         "MetricsHistory",
         "NavigationHistory",
         "Niche",
-        "NotificationMessage",
         "Notifications",
         "Product",
         "ProductListener",
@@ -112,6 +112,7 @@ public static class GameComponentsLookup {
         typeof(AcceptsInvestmentsComponent),
         typeof(AnyCompanyListenerComponent),
         typeof(AnyDateListenerComponent),
+        typeof(AnyNotificationsListenerComponent),
         typeof(AnyShareholdersListenerComponent),
         typeof(CEOComponent),
         typeof(CompanyComponent),
@@ -141,7 +142,6 @@ public static class GameComponentsLookup {
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
         typeof(NicheComponent),
-        typeof(NotificationMessageComponent),
         typeof(NotificationsComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
