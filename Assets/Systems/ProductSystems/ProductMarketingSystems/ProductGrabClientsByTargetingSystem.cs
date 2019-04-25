@@ -17,7 +17,7 @@ class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
         GameEntity[] Products = contexts.game
             .GetEntities(GameMatcher.AllOf(GameMatcher.Marketing, GameMatcher.Targeting));
 
-        uint baseForNiche = 100;
+        long baseForNiche = 100;
         long adCost = 700;
         // TODO Calculate proper base value!
 
@@ -27,7 +27,7 @@ class ProductGrabClientsByTargetingSystem : ReactiveSystem<GameEntity>
         {
             if (e.companyResource.Resources.IsEnoughResources(need))
             {
-                uint brandModifier = (uint) e.marketing.BrandPower * 20;
+                long brandModifier = e.marketing.BrandPower * 20;
             
                 e.marketing.Clients += baseForNiche * (100 + brandModifier) / 100;
                 e.companyResource.Resources.Spend(need);

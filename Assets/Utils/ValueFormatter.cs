@@ -7,7 +7,7 @@ namespace Assets.Utils
         public static string ShortenValueMockup<T>(T value)
         {
             return NoFormatting(value);
-            return Shorten(value);
+            //return Shorten(value);
         }
 
         private static string ShowMeaningfulValue(long value, long divisor, string litera)

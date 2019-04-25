@@ -12,7 +12,7 @@ namespace Assets.Utils
             int id = GenerateCompanyId(context);
 
             e.AddCompany(id, name, companyType);
-            e.AddCompanyResource(new TeamResource());
+            e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 0));
 
             Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>();
 
@@ -34,14 +34,14 @@ namespace Assets.Utils
 
             var resources = new TeamResource(100, 100, 100, 100, 10000);
 
-            uint clients = (uint)UnityEngine.Random.Range(15, 100);
+            long clients = UnityEngine.Random.Range(15, 100);
             int brandPower = UnityEngine.Random.Range(0, 15);
 
             int productLevel = 0;
             int explorationLevel = productLevel;
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, productLevel);
+            company.AddProduct(company.company.Id, name, niche, productLevel, 0);
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(1, 0, 0, 100);
             company.AddMarketing(clients, brandPower, false);

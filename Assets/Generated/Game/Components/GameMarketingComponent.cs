@@ -11,7 +11,7 @@ public partial class GameEntity {
     public MarketingComponent marketing { get { return (MarketingComponent)GetComponent(GameComponentsLookup.Marketing); } }
     public bool hasMarketing { get { return HasComponent(GameComponentsLookup.Marketing); } }
 
-    public void AddMarketing(uint newClients, int newBrandPower, bool newIsTargetingEnabled) {
+    public void AddMarketing(long newClients, long newBrandPower, bool newIsTargetingEnabled) {
         var index = GameComponentsLookup.Marketing;
         var component = (MarketingComponent)CreateComponent(index, typeof(MarketingComponent));
         component.Clients = newClients;
@@ -20,7 +20,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceMarketing(uint newClients, int newBrandPower, bool newIsTargetingEnabled) {
+    public void ReplaceMarketing(long newClients, long newBrandPower, bool newIsTargetingEnabled) {
         var index = GameComponentsLookup.Marketing;
         var component = (MarketingComponent)CreateComponent(index, typeof(MarketingComponent));
         component.Clients = newClients;

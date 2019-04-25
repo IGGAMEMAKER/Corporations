@@ -4,8 +4,8 @@
     public long ValuationGrowth;
     public bool ValuationIsGrowthComputable;
 
-    public uint AudienceDiff;
-    public uint AudienceGrowth;
+    public long AudienceDiff;
+    public long AudienceGrowth;
     public bool AudienceIsGrowthComputable;
 
     public long IncomeDiff;

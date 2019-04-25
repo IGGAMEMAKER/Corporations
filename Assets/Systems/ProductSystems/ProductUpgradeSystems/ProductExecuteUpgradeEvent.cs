@@ -42,9 +42,8 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
             e.product.Id,
             e.product.Name,
             e.product.Niche,
-            newLevel
+            newLevel,
+            e.product.ImprovementPoints + 1
             );
-
-        //Debug.Log();
     }
 }

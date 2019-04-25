@@ -122,8 +122,10 @@ public class NicheComponent : IComponent
 {
     public NicheType NicheType;
     public IndustryType IndustryType;
+
     public List<MarketCompatibility> MarketCompatibilities;
     public List<NicheType> CompetingNiches;
+
     public NicheType Parent;
     public int OpenDate;
 }
@@ -243,7 +245,7 @@ public struct MetricsInfo
     public long Income;
     public long Valuation;
     public long Profit; // balance change
-    public uint AudienceSize;
+    public long AudienceSize;
 }
 
 [Game]
@@ -280,12 +282,9 @@ public class ProductComponent: IComponent
     public int Id;
     public string Name;
     public NicheType Niche;
-    //public IndustryType Industry;
 
     public int ProductLevel;
-    //public int ExplorationLevel;
-
-    //public TeamResource Resources;
+    public int ImprovementPoints;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -316,8 +315,8 @@ public class TeamComponent: IComponent
 [Game, Event(EventTarget.Self)]
 public class MarketingComponent : IComponent
 {
-    public uint Clients;
-    public int BrandPower;
+    public long Clients;
+    public long BrandPower;
 
     public bool isTargetingEnabled;
 }

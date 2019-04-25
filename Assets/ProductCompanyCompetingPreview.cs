@@ -26,7 +26,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         Render();
     }
 
-    void RenderClients(uint clients)
+    void RenderClients(long clients)
     {
         Clients.text = clients.ToString();
     }
@@ -46,12 +46,12 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvements)
     {
         RenderProductInfo(name, productLevel);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
+    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled)
     {
         RenderClients(clients);
     }

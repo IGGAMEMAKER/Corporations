@@ -16,10 +16,7 @@ public class NotificationInitializerSystem : IInitializeSystem
     {
         var e = GameContext.CreateEntity();
 
-        var notifications = new List<NotificationMessage>
-        {
-            new NotificationBankruptcy(2),
-        };
+        var notifications = new List<NotificationMessage>();
 
         e.AddNotifications(notifications);
     }
