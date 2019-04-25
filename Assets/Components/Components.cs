@@ -276,6 +276,11 @@ public class TaskComponent: IComponent
     public int EndTime;
 }
 
+struct SegmentInfo
+{
+
+}
+
 [Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {

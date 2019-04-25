@@ -8,6 +8,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     float totalTime;
     float currentSpeed = 1;
+    float baseSpeed = 0.5f;
 
     GameEntity DateEntity;
 
@@ -45,7 +46,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     void ResetTimer()
     {
-        totalTime = 0.25f / currentSpeed;
+        totalTime = baseSpeed / currentSpeed;
     }
 
     private void UpdateTimer()
