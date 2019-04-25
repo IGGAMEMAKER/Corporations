@@ -38,14 +38,14 @@ public class NotificationView : View {
         return CompanyUtils.GetInvestorName(GameContext, investorId);
     }
 
-    string Prettify(long sum)
-    {
-        return "$" + ValueFormatter.Shorten(sum);
-    }
-
     string GetProductName(int companyId)
     {
         return CompanyUtils.GetCompanyById(GameContext, companyId).product.Name;
+    }
+
+    string Prettify(long sum)
+    {
+        return $"${ValueFormatter.Shorten(sum)}";
     }
 
     private string RenderLevelUpText(NotificationLevelUp notificationLevelUp)

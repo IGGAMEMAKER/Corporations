@@ -17,11 +17,11 @@ public class BusinessButtonsController : View
         // controlled company buttons
 
         // is independent company
-        PromoteToGroupButton.SetActive(c.isControlledByPlayer && isProductCompany);
+        PromoteToGroupButton.SetActive(false && c.isControlledByPlayer && isProductCompany);
 
-        PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
+        PivotButton.SetActive(false && c.isControlledByPlayer && isProductCompany);
 
-        LeaveCEOButton.SetActive(c.isControlledByPlayer);
+        LeaveCEOButton.SetActive(false && c.isControlledByPlayer);
 
         // not controlled
         NominateAsCEO.SetActive(!c.isControlledByPlayer && !isGroupCEOAlready);

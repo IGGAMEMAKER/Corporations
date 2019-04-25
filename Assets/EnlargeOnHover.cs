@@ -14,6 +14,9 @@ public class EnlargeOnHover : MonoBehaviour
 
     void Update()
     {
+        if (!hovered && duration == 0)
+            return;
+
         Render();
     }
 
