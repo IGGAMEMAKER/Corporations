@@ -15,6 +15,7 @@ namespace Assets.Utils
 
             return bugs;
         }
+
         public static int GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
@@ -22,8 +23,9 @@ namespace Assets.Utils
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int app = GetAppLoyaltyBonus(gameContext, companyId);
             int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
+            int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
 
-            return app + improvements - bugs;
+            return app + improvements - bugs - pricing;
         }
 
         public static int GetSegmentImprovementsBonus(GameContext gameContext, int companyId, UserType userType)
@@ -40,6 +42,13 @@ namespace Assets.Utils
             return c.product.ProductLevel * 4;
         }
 
+        public static int GetPricingLoyaltyPenalty(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return 0;
+        }
+
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
@@ -49,10 +58,13 @@ namespace Assets.Utils
             int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
-            
+
             // market situation?
 
-            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\n{EnumUtils.GetFormattedUserType(userType)} improvements: +{improvements}\n\nBugs: -{bugs}";
+            // pricing?
+            int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
+
+            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\n{EnumUtils.GetFormattedUserType(userType)} improvements: +{improvements}\n\nBugs: -{bugs}\nPricing: -{pricing}";
         }
 
         public static long GetClients(GameEntity company)

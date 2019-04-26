@@ -52,22 +52,22 @@ namespace Assets.Utils
             return Convert.ToInt64(income);
         }
 
-        internal static float GetSegmentPrice(GameContext gameContext, NicheType nicheType)
+        internal static float GetSegmentPrice(GameContext gameContext, UserType userType)
         {
             return 5f;
         }
 
         internal static long GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
         {
-            return 0;
+            //return 0;
 
-            //var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            //long clients = c.marketing.Segments[userType];
+            long clients = c.marketing.Segments[userType];
 
-            //float price = GetSegmentPrice(gameContext, userType) * GetProductPrice(c, gameContext);
+            float price = GetSegmentPrice(gameContext, userType) * GetProductPrice(c, gameContext);
 
-            //return clients * Convert.ToInt64(price);
+            return clients * Convert.ToInt64(price);
         }
 
 
