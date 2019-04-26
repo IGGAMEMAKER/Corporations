@@ -1,6 +1,6 @@
 ﻿public class ProductPriceIncreaseController : ButtonController
 {
-    public int priceLevel;
+    public Pricing priceLevel;
 
     public override void Execute()
     {

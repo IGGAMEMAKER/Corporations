@@ -310,10 +310,18 @@ public class CompanyResourceComponent : IComponent
     public TeamResource Resources;
 }
 
+public enum Pricing
+{
+    Free = 0,
+    Low = 120,
+    Medium = 170,
+    High = 200
+}
+
 [Game, Event(EventTarget.Self)]
 public class FinanceComponent: IComponent
 {
-    public int price;
+    public Pricing price;
     public int marketingFinancing;
     public int salaries;
     public float basePrice;

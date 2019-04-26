@@ -46,7 +46,17 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return 0;
+            var pricing = c.finance.price;
+
+            switch (pricing)
+            {
+                case Pricing.Free: return 0;
+                case Pricing.Low: return 5;
+                case Pricing.Medium: return 22;
+                case Pricing.High: return 30;
+
+                default: return 1000;
+            }
         }
 
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
@@ -64,7 +74,7 @@ namespace Assets.Utils
             // pricing?
             int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
 
-            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\n{EnumUtils.GetFormattedUserType(userType)} improvements: +{improvements}\n\nBugs: -{bugs}\nPricing: -{pricing}";
+            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\nImprovements: +{improvements}\nBugs: -{bugs}\nPricing: -{pricing}";
         }
 
         public static long GetClients(GameEntity company)

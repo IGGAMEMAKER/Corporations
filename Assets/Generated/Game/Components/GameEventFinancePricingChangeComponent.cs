@@ -11,7 +11,7 @@ public partial class GameEntity {
     public EventFinancePricingChangeComponent eventFinancePricingChange { get { return (EventFinancePricingChangeComponent)GetComponent(GameComponentsLookup.EventFinancePricingChange); } }
     public bool hasEventFinancePricingChange { get { return HasComponent(GameComponentsLookup.EventFinancePricingChange); } }
 
-    public void AddEventFinancePricingChange(int newProductId, int newLevel) {
+    public void AddEventFinancePricingChange(int newProductId, Pricing newLevel) {
         var index = GameComponentsLookup.EventFinancePricingChange;
         var component = (EventFinancePricingChangeComponent)CreateComponent(index, typeof(EventFinancePricingChangeComponent));
         component.productId = newProductId;
@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceEventFinancePricingChange(int newProductId, int newLevel) {
+    public void ReplaceEventFinancePricingChange(int newProductId, Pricing newLevel) {
         var index = GameComponentsLookup.EventFinancePricingChange;
         var component = (EventFinancePricingChangeComponent)CreateComponent(index, typeof(EventFinancePricingChangeComponent));
         component.productId = newProductId;

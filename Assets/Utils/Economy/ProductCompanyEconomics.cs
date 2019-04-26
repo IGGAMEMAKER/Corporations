@@ -35,11 +35,11 @@ namespace Assets.Utils
 
         public static float GetProductPrice(GameEntity e, GameContext context)
         {
-            if (e.finance.price <= 0) return 0;
+            if (e.finance.price == Pricing.Free) return 0;
 
-            float price = 10 + (e.finance.price - 1);
+            float price = (float)e.finance.price;
 
-            return GetBaseProductPrice(e, context) * price / 10;
+            return GetBaseProductPrice(e, context) * price / 100;
         }
 
         private static long GetProductCompanyIncome(GameEntity e, GameContext context)
@@ -52,20 +52,29 @@ namespace Assets.Utils
             return Convert.ToInt64(income);
         }
 
-        internal static float GetSegmentPrice(GameContext gameContext, UserType userType)
+        internal static float GetSegmentPrice(GameContext gameContext, int companyId, UserType userType)
         {
-            return 5f;
+            float modifier = 0;
+
+            switch (userType)
+            {
+                case UserType.Newbie: modifier = 0.1f; break;
+                case UserType.Regular: modifier = 0.6f; break;
+                case UserType.Core: modifier = 2f; break;
+            }
+
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return modifier * GetBaseProductPrice(c, gameContext);
         }
 
         internal static long GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
         {
-            //return 0;
-
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             long clients = c.marketing.Segments[userType];
 
-            float price = GetSegmentPrice(gameContext, userType) * GetProductPrice(c, gameContext);
+            float price = GetSegmentPrice(gameContext, companyId, userType) * GetProductPrice(c, gameContext);
 
             return clients * Convert.ToInt64(price);
         }

@@ -10,7 +10,7 @@
         MyProductEntity.AddEventMarketingEnableTargeting(productId);
     }
 
-    public void TriggerEventSetPrice(int productId, int level)
+    public void TriggerEventSetPrice(int productId, Pricing level)
     {
         MyProductEntity.AddEventFinancePricingChange(productId, level);
     }

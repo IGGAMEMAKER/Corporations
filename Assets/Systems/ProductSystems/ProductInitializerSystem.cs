@@ -132,6 +132,6 @@ public class ProductInitializerSystem : IInitializeSystem
         var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
         var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);
 
-        yandexProduct.finance.price = 4;
+        yandexProduct.finance.price = Pricing.Medium;
     }
 }

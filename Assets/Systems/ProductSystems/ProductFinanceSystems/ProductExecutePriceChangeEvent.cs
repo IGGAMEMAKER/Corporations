@@ -25,10 +25,7 @@ public class ProductExecutePriceChangeEvent : IExecuteSystem
 
     void ChangePrice(GameEntity e)
     {
-        int newPrice = e.eventFinancePricingChange.level;
-
-        if (newPrice < 0) newPrice = 0;
-        if (newPrice > 11) newPrice = 11;
+        var newPrice = e.eventFinancePricingChange.level;
 
         e.ReplaceFinance(newPrice, e.finance.marketingFinancing, e.finance.salaries, e.finance.basePrice);
     }

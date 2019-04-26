@@ -11,7 +11,7 @@ public class CurrentProductPriceView : SimpleParameterView
         if (IsFree)
             return freeString;
 
-        int price = (MyProductEntity.finance.price - 1) * 10;
+        int price = (int)MyProductEntity.finance.price - 100;
 
         StringBuilder text = new StringBuilder();
 
@@ -30,9 +30,7 @@ public class CurrentProductPriceView : SimpleParameterView
 
     public override string RenderValue()
     {
-        if (IsFree)
-            return "Free";
-
-        return CompanyEconomyUtils.GetProductPrice(MyProductEntity, GameContext) + "$";
+        return MyProductEntity.finance.price.ToString();
+        // CompanyEconomyUtils.GetProductPrice(MyProductEntity, GameContext) + "$";
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine;
 public class SegmentListView : ListView
     , IMarketingListener
     , IProductListener
+    , IFinanceListener
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -31,6 +32,7 @@ public class SegmentListView : ListView
     {
         MyProductEntity.AddMarketingListener(this);
         MyProductEntity.AddProductListener(this);
+        MyProductEntity.AddFinanceListener(this);
     }
 
     void OnEnable()
@@ -44,6 +46,11 @@ public class SegmentListView : ListView
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
+    {
+        Render();
+    }
+
+    void IFinanceListener.OnFinance(GameEntity entity, Pricing price, int marketingFinancing, int salaries, float basePrice)
     {
         Render();
     }
