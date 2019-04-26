@@ -56,7 +56,8 @@ public class MarketInitializerSystem : IInitializeSystem
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
                 NicheType.None,
-                0
+                0,
+                10f
                 );
         }
     }
@@ -106,7 +107,8 @@ public class MarketInitializerSystem : IInitializeSystem
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
             e.niche.Parent,
-            e.niche.OpenDate
+            e.niche.OpenDate,
+            e.niche.BasePrice
             );
     }
 
@@ -120,7 +122,8 @@ public class MarketInitializerSystem : IInitializeSystem
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
             parent,
-            e.niche.OpenDate
+            e.niche.OpenDate,
+            e.niche.BasePrice
             );
     }
 
@@ -141,7 +144,7 @@ public class MarketInitializerSystem : IInitializeSystem
 
         list.Add(new MarketCompatibility { Compatibility = compatibility, NicheType = niche });
 
-        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent, n.OpenDate);
+        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent, n.OpenDate, n.BasePrice);
     }
 
     void SetNichesAsSynergic(NicheType niche1, NicheType niche2, int compatibility)

@@ -57,15 +57,17 @@ namespace Assets.Utils
             return 5f;
         }
 
-        internal static long GetIncomeBySegment(GameContext gameContext, int companyId, NicheType nicheType)
+        internal static long GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            return 0;
 
-            long clients = c.marketing.Segments[nicheType];
+            //var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            float price = GetSegmentPrice(gameContext, nicheType) * GetProductPrice(c, gameContext);
+            //long clients = c.marketing.Segments[userType];
 
-            return clients * Convert.ToInt64(price);
+            //float price = GetSegmentPrice(gameContext, userType) * GetProductPrice(c, gameContext);
+
+            //return clients * Convert.ToInt64(price);
         }
 
 

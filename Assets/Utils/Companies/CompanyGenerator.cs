@@ -40,14 +40,18 @@ namespace Assets.Utils
             int productLevel = 0;
             int improvements = 0;
 
-            Dictionary<NicheType, long> Segments = new Dictionary<NicheType, long>
+            var Segments = new Dictionary<UserType, long>
             {
-                [niche] = clients
+                [UserType.Newbie] = clients,
+                [UserType.Core] = 0,
+                [UserType.Regular] = 0
             };
 
-            Dictionary<NicheType, int> SegmentsFeatures = new Dictionary<NicheType, int>
+            var SegmentsFeatures = new Dictionary<UserType, int>
             {
-                [niche] = productLevel
+                [UserType.Newbie] = productLevel,
+                [UserType.Core] = productLevel,
+                [UserType.Regular] = productLevel
             };
 
             // product specific components

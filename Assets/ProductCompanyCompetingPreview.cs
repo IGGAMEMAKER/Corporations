@@ -47,13 +47,13 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled, Dictionary<NicheType, long> segments)
+    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled, Dictionary<UserType, long> segments)
     {
         if (CurrentScreen == ScreenMode.NicheScreen)
             RenderClients(clients);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<NicheType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
     {
         if (CurrentScreen == ScreenMode.NicheScreen)
             RenderProductInfo(name, productLevel);

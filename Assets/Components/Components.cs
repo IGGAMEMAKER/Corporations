@@ -283,6 +283,13 @@ public class TaskComponent: IComponent
 // messenger
 // blogs
 
+public enum UserType
+{
+    Newbie,
+    Regular,
+    Core
+}
+
 [Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {
@@ -294,7 +301,7 @@ public class ProductComponent: IComponent
     public int ProductLevel;
     public int ImprovementPoints;
 
-    public Dictionary<NicheType, int> Segments;
+    public Dictionary<UserType, int> Segments;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -329,7 +336,7 @@ public class MarketingComponent : IComponent
     public long BrandPower;
 
     public bool isTargetingEnabled;
-    public Dictionary<NicheType, long> Segments;
+    public Dictionary<UserType, long> Segments;
 }
 
 [Game, Event(EventTarget.Self)]

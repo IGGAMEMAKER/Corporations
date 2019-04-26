@@ -13,26 +13,23 @@ public class ClientSegmentView : View
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
-    public void Render(NicheType nicheType, int companyId)
+    public void Render(UserType userType, int companyId)
     {
         var c = CompanyUtils.GetCompanyById(GameContext, companyId);
 
-        int loyalty = MarketingUtils.GetClientLoyalty(GameContext, companyId, nicheType);
-        int level = c.product.Segments[nicheType];
+        int loyalty = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
+        int level = c.product.Segments[userType];
 
         LoyaltyLabel.value = loyalty;
         LevelLabel.text = $"{level}LVL";
 
-        long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, nicheType);
+        long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
         Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
 
-        string formattedSegmentName = EnumUtils.GetFormattedNicheName(nicheType);
-        bool isPrimary = c.product.Niche == nicheType;
+        string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
 
-        IsSelectedNiche.enabled = !isPrimary;
-
-        SegmentHint.SetHint($"Segment ({formattedSegmentName})\n");
+        SegmentHint.SetHint($"{formattedSegmentName}\n");
         LoyaltyHint.SetHint($"Negative loyalty drastically inceases churn rate of clients in this segment!");
     }
 }
