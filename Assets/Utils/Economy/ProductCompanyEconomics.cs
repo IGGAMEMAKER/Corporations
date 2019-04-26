@@ -25,7 +25,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return c.marketing.Clients * 100;
+            return MarketingUtils.GetClients(c) * 100;
         }
 
         public static float GetBaseProductPrice(GameEntity e, GameContext context)

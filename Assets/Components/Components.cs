@@ -332,11 +332,15 @@ public class TeamComponent: IComponent
 [Game, Event(EventTarget.Self)]
 public class MarketingComponent : IComponent
 {
-    public long Clients;
     public long BrandPower;
 
-    public bool isTargetingEnabled;
     public Dictionary<UserType, long> Segments;
+}
+
+[Game]
+public class TargetUserTypeComponent : IComponent
+{
+    public UserType UserType;
 }
 
 [Game, Event(EventTarget.Self)]

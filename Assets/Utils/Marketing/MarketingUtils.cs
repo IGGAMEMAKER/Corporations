@@ -12,5 +12,15 @@ namespace Assets.Utils
         {
             return UnityEngine.Random.Range(-5, 25);
         }
+
+        public static long GetClients(GameEntity company)
+        {
+            long amount = 0;
+
+            foreach (var p in company.marketing.Segments)
+                amount += p.Value;
+
+            return amount;
+        }
     }
 }

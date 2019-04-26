@@ -93,7 +93,7 @@ public class MenuResourceView : View
         //    (int) (audience.GetChurnRate() * 100)
         //);
 
-        ClientView.SetPrettifiedValue("Clients", marketing.Clients);
+        ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyProductEntity));
 
         BrandView.SetPrettifiedValue("", marketing.BrandPower);
     }

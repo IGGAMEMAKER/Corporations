@@ -20,14 +20,15 @@ public class ClientSegmentView : View
         int loyalty = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
         int level = c.product.Segments[userType];
 
-        LoyaltyLabel.value = loyalty;
-        LevelLabel.text = $"{level}LVL";
-
         long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
-        Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
-
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
+
+        IsSelectedNiche.enabled = c.targetUserType.UserType == userType;
+
+        LoyaltyLabel.value = loyalty;
+        LevelLabel.text = $"{level}LVL";
+        Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
 
         SegmentHint.SetHint($"{formattedSegmentName}\n");
         LoyaltyHint.SetHint($"Negative loyalty drastically inceases churn rate of clients in this segment!");

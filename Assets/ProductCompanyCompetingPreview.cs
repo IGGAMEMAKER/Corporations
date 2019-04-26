@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,9 +28,9 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         Render();
     }
 
-    void RenderClients(long clients)
+    void RenderClients(GameEntity company)
     {
-        Clients.text = clients.ToString();
+        Clients.text = MarketingUtils.GetClients(company).ToString();
     }
 
     void RenderProductInfo(string name, int level)
@@ -42,15 +43,15 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     {
         RenderProductInfo(Company.product.Name, Company.product.ProductLevel);
 
-        RenderClients(Company.marketing.Clients);
+        RenderClients(Company);
 
         IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled, Dictionary<UserType, long> segments)
+    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
     {
         if (CurrentScreen == ScreenMode.NicheScreen)
-            RenderClients(clients);
+            RenderClients(entity);
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)

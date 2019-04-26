@@ -41,7 +41,7 @@ class CompanyReportSystem : OnMonthChange
     {
         CompanyStatisticsUtils.AddMetrics(gameContext, e.company.Id, new MetricsInfo
         {
-            AudienceSize = e.marketing.Clients,
+            AudienceSize = MarketingUtils.GetClients(e),
             Date = date,
             Income = CompanyEconomyUtils.GetCompanyIncome(e, gameContext),
             Profit = CompanyEconomyUtils.GetBalanceChange(e, gameContext),

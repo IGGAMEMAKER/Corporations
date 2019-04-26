@@ -30,7 +30,7 @@ public sealed class MarketingEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.marketingListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnMarketing(e, component.Clients, component.BrandPower, component.isTargetingEnabled, component.Segments);
+                listener.OnMarketing(e, component.BrandPower, component.Segments);
             }
         }
     }

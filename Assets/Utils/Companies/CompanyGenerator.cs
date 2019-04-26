@@ -58,7 +58,8 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(1, 0, 0, 100);
-            company.AddMarketing(clients, brandPower, false, Segments);
+            company.AddMarketing(brandPower, Segments);
+            company.AddTargetUserType(UserType.Core);
 
             return company;
         }

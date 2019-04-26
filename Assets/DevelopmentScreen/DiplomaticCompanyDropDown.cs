@@ -51,8 +51,8 @@ public class DiplomaticCompanyDropDown : View
         switch (FilterBy)
         {
             case GroupCompaniesBy.Niche: return $"{e.product.Name} ({e.product.ProductLevel})";
-            case GroupCompaniesBy.Neighbours: return $"{e.product.Name} ({e.marketing.Clients})";
-            default: return $"{e.product.Name} ({e.marketing.Clients})";
+            case GroupCompaniesBy.Neighbours: return $"{e.product.Name} ({MarketingUtils.GetClients(e)})";
+            default: return $"{e.product.Name} ({MarketingUtils.GetClients(e)})";
         }
     }
 

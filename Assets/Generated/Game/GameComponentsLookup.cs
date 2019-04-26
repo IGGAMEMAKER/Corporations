@@ -51,12 +51,13 @@ public static class GameComponentsLookup {
     public const int ShareholdersListener = 40;
     public const int Targeting = 41;
     public const int TargetingListener = 42;
-    public const int Task = 43;
-    public const int TaskManager = 44;
-    public const int Team = 45;
-    public const int TeamListener = 46;
+    public const int TargetUserType = 43;
+    public const int Task = 44;
+    public const int TaskManager = 45;
+    public const int Team = 46;
+    public const int TeamListener = 47;
 
-    public const int TotalComponents = 47;
+    public const int TotalComponents = 48;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -102,6 +103,7 @@ public static class GameComponentsLookup {
         "ShareholdersListener",
         "Targeting",
         "TargetingListener",
+        "TargetUserType",
         "Task",
         "TaskManager",
         "Team",
@@ -152,6 +154,7 @@ public static class GameComponentsLookup {
         typeof(ShareholdersListenerComponent),
         typeof(TargetingComponent),
         typeof(TargetingListenerComponent),
+        typeof(TargetUserTypeComponent),
         typeof(TaskComponent),
         typeof(TaskManagerComponent),
         typeof(TeamComponent),

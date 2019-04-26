@@ -15,6 +15,8 @@ public class SegmentListView : ListView
 
         t.GetComponent<ClientSegmentView>()
             .Render(e.Key, MyProductEntity.company.Id);
+
+        t.GetComponent<SetTargetUserType>().UserType = e.Key;
     }
 
     void Render()
@@ -22,17 +24,11 @@ public class SegmentListView : ListView
         if (MyProductEntity == null)
             return;
 
-        int companyId = MyProductEntity.company.Id;
-
-        var c = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        SetItems(c.marketing.Segments.ToArray());
+        SetItems(MyProductEntity.marketing.Segments.ToArray());
     }
 
     void Start()
     {
-        Debug.Log("Start SegListView");
-
         MyProductEntity.AddMarketingListener(this);
         MyProductEntity.AddProductListener(this);
     }
@@ -42,7 +38,7 @@ public class SegmentListView : ListView
         Render();
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled, Dictionary<UserType, long> segments)
+    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
     {
         Render();
     }

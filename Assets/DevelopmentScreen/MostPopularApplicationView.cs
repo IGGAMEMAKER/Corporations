@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using Entitas;
 using System;
+using Assets.Utils;
 
 public class MostPopularApplicationView : View
 {
@@ -27,7 +28,7 @@ public class MostPopularApplicationView : View
 
         foreach (var p in myNicheProducts)
         {
-            if (p.marketing.Clients > best.marketing.Clients)
+            if (MarketingUtils.GetClients(p) > MarketingUtils.GetClients(best))
                 best = p;
         }
 
@@ -40,6 +41,6 @@ public class MostPopularApplicationView : View
 
         AnimateIfValueChanged(MarketRequirements, bestApp.product.Name);
 
-        Hint.SetHint($"{bestApp.marketing.Clients} clients");
+        Hint.SetHint($"{MarketingUtils.GetClients(bestApp)} clients");
     }
 }
