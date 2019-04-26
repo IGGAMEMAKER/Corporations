@@ -15,7 +15,7 @@ public class CurrentProductPriceView : SimpleParameterView
 
         StringBuilder text = new StringBuilder();
 
-        text.AppendFormat("Base price: {0}$ \n\nWe increased price by {1}%", CompanyEconomyUtils.GetBaseProductPrice(MyProductEntity), price);
+        text.AppendFormat("Base price: {0}$ \n\nWe increased price by {1}%", CompanyEconomyUtils.GetBaseProductPrice(MyProductEntity, GameContext), price);
 
         return text.ToString();
     }
@@ -33,6 +33,6 @@ public class CurrentProductPriceView : SimpleParameterView
         if (IsFree)
             return "Free";
 
-        return CompanyEconomyUtils.GetProductPrice(MyProductEntity) + "$";
+        return CompanyEconomyUtils.GetProductPrice(MyProductEntity, GameContext) + "$";
     }
 }

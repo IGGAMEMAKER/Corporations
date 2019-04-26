@@ -28,30 +28,50 @@ namespace Assets.Utils
             return c.marketing.Clients * 100;
         }
 
-        public static float GetBaseProductPrice(GameEntity e)
+        public static float GetBaseProductPrice(GameEntity e, GameContext context)
         {
             return e.finance.basePrice;
         }
 
-        public static float GetProductPrice(GameEntity e)
+        public static float GetProductPrice(GameEntity e, GameContext context)
         {
             if (e.finance.price <= 0) return 0;
 
             float price = 10 + (e.finance.price - 1);
 
-            return GetBaseProductPrice(e) * price / 10;
+            return GetBaseProductPrice(e, context) * price / 10;
         }
 
-        private static long GetProductCompanyIncome(GameEntity e)
+        private static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
-            float income = e.marketing.Clients * GetProductPrice(e);
+            float income = 0;
+
+            foreach (var pair in e.marketing.Segments)
+                income += GetIncomeBySegment(context, e.company.Id, pair.Key);
 
             return Convert.ToInt64(income);
         }
 
-        private static string GetProductCompanyIncomeDescription(GameEntity gameEntity)
+        internal static float GetSegmentPrice(GameContext gameContext, NicheType nicheType)
         {
-            return $"Income of this company equals {GetProductCompanyIncome(gameEntity)}";
+            return 5f;
+        }
+
+        internal static long GetIncomeBySegment(GameContext gameContext, int companyId, NicheType nicheType)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            long clients = c.marketing.Segments[nicheType];
+
+            float price = GetSegmentPrice(gameContext, nicheType) * GetProductPrice(c, gameContext);
+
+            return clients * Convert.ToInt64(price);
+        }
+
+
+        private static string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
+        {
+            return $"Income of this company equals {GetProductCompanyIncome(gameEntity, gameContext)}";
         }
 
         internal static string GetProductCompanyMaintenanceDescription(GameEntity company)

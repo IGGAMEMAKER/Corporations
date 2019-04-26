@@ -123,11 +123,14 @@ public class NicheComponent : IComponent
     public NicheType NicheType;
     public IndustryType IndustryType;
 
+    // cross promotions
     public List<MarketCompatibility> MarketCompatibilities;
     public List<NicheType> CompetingNiches;
 
     public NicheType Parent;
     public int OpenDate;
+
+    public float BasePrice;
 }
 
 [Game]
@@ -276,10 +279,9 @@ public class TaskComponent: IComponent
     public int EndTime;
 }
 
-struct SegmentInfo
-{
-
-}
+// social network
+// messenger
+// blogs
 
 [Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
@@ -288,8 +290,11 @@ public class ProductComponent: IComponent
     public string Name;
     public NicheType Niche;
 
+    // platform level
     public int ProductLevel;
     public int ImprovementPoints;
+
+    public Dictionary<NicheType, int> Segments;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -324,6 +329,7 @@ public class MarketingComponent : IComponent
     public long BrandPower;
 
     public bool isTargetingEnabled;
+    public Dictionary<NicheType, long> Segments;
 }
 
 [Game, Event(EventTarget.Self)]

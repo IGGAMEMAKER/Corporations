@@ -30,6 +30,14 @@ public class View : MonoBehaviour
         return c.isControlledByPlayer;
     }
 
+    public ScreenMode CurrentScreen
+    {
+        get
+        {
+            return MenuUtils.GetMenu(GameContext).menu.ScreenMode;
+        }
+    }
+
     public GameEntity MyProductEntity
     {
         get

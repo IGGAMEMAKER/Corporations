@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ProductCompanyCompetingPreview : View, IProductListener, IMarketingListener
@@ -34,7 +35,7 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
     void RenderProductInfo(string name, int level)
     {
         Name.text = name;
-        Level.text = level + "";
+        Level.text = level.ToString();
     }
 
     void Render()
@@ -46,13 +47,15 @@ public class ProductCompanyCompetingPreview : View, IProductListener, IMarketing
         IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvements)
+    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled, Dictionary<NicheType, long> segments)
     {
-        RenderProductInfo(name, productLevel);
+        if (CurrentScreen == ScreenMode.NicheScreen)
+            RenderClients(clients);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, long brandPower, bool isTargetingEnabled)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<NicheType, int> segments)
     {
-        RenderClients(clients);
+        if (CurrentScreen == ScreenMode.NicheScreen)
+            RenderProductInfo(name, productLevel);
     }
 }

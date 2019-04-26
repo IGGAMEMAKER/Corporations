@@ -38,13 +38,23 @@ namespace Assets.Utils
             int brandPower = UnityEngine.Random.Range(0, 15);
 
             int productLevel = 0;
-            int explorationLevel = productLevel;
+            int improvements = 0;
+
+            Dictionary<NicheType, long> Segments = new Dictionary<NicheType, long>
+            {
+                [niche] = clients
+            };
+
+            Dictionary<NicheType, int> SegmentsFeatures = new Dictionary<NicheType, int>
+            {
+                [niche] = productLevel
+            };
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, productLevel, 0);
+            company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(1, 0, 0, 100);
-            company.AddMarketing(clients, brandPower, false);
+            company.AddMarketing(clients, brandPower, false, Segments);
 
             return company;
         }

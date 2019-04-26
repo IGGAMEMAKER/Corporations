@@ -11,7 +11,7 @@ public partial class GameEntity {
     public ProductComponent product { get { return (ProductComponent)GetComponent(GameComponentsLookup.Product); } }
     public bool hasProduct { get { return HasComponent(GameComponentsLookup.Product); } }
 
-    public void AddProduct(int newId, string newName, NicheType newNiche, int newProductLevel, int newImprovementPoints) {
+    public void AddProduct(int newId, string newName, NicheType newNiche, int newProductLevel, int newImprovementPoints, System.Collections.Generic.Dictionary<NicheType, int> newSegments) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
@@ -19,10 +19,11 @@ public partial class GameEntity {
         component.Niche = newNiche;
         component.ProductLevel = newProductLevel;
         component.ImprovementPoints = newImprovementPoints;
+        component.Segments = newSegments;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduct(int newId, string newName, NicheType newNiche, int newProductLevel, int newImprovementPoints) {
+    public void ReplaceProduct(int newId, string newName, NicheType newNiche, int newProductLevel, int newImprovementPoints, System.Collections.Generic.Dictionary<NicheType, int> newSegments) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
@@ -30,6 +31,7 @@ public partial class GameEntity {
         component.Niche = newNiche;
         component.ProductLevel = newProductLevel;
         component.ImprovementPoints = newImprovementPoints;
+        component.Segments = newSegments;
         ReplaceComponent(index, component);
     }
 

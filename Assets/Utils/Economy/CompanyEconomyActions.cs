@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static partial class CompanyEconomyUtils
     {

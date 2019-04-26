@@ -43,7 +43,8 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
             e.product.Name,
             e.product.Niche,
             newLevel,
-            e.product.ImprovementPoints + 1
+            e.product.ImprovementPoints + 1,
+            e.product.Segments
             );
     }
 }

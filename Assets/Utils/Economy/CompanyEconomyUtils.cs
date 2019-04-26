@@ -8,7 +8,7 @@ namespace Assets.Utils
         public static long GetCompanyIncome(GameEntity e, GameContext context)
         {
             if (CompanyUtils.IsProductCompany(e))
-                return GetProductCompanyIncome(e);
+                return GetProductCompanyIncome(e, context);
 
             return GetGroupIncome(context, e);
         }
@@ -33,7 +33,7 @@ namespace Assets.Utils
             else
                 cost = GetGroupOfCompaniesCost(context, c);
 
-            Debug.Log($"Get CompanyCost of {c.company.Name} = {cost}");
+            //Debug.Log($"Get CompanyCost of {c.company.Name} = {cost}");
 
             return cost + capital;
         }
@@ -43,7 +43,7 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyIncomeDescription(c);
+                return GetProductCompanyIncomeDescription(c, context);
 
             return GetGroupIncomeDescription(context, companyId);
         }

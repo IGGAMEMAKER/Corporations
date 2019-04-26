@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using System.Collections.Generic;
+using Assets.Utils;
 using Assets.Utils.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,7 +76,7 @@ public class CompanyPreviewView : View,
         ShareCostLabel.text = $"${ValueFormatter.Shorten(cost)}";
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<NicheType, int> segments)
     {
         Render(entity);
     }
