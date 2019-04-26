@@ -398,7 +398,7 @@ MonoBehaviour:
   LoyaltyLabel: {fileID: 5167582424723228279}
   LevelLabel: {fileID: 7836679810082372832}
   Income: {fileID: 7701303453547526725}
-  SegmentHint: {fileID: 4368431711801181860}
+  SegmentHint: {fileID: 4159048114035325331}
   LoyaltyHint: {fileID: 3950365464403359489}
 --- !u!1 &4066153599191708139
 GameObject:
@@ -411,6 +411,8 @@ GameObject:
   - component: {fileID: 7684144366016811668}
   - component: {fileID: 9003814967459818590}
   - component: {fileID: 4654660644776543044}
+  - component: {fileID: 4159048114035325331}
+  - component: {fileID: 1135702992232277741}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -474,6 +476,32 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &4159048114035325331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066153599191708139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 1
+--- !u!114 &1135702992232277741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066153599191708139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37b7599ff19e074ba1e6f711e86fd67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6558310670213020253
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,8 +513,6 @@ GameObject:
   - component: {fileID: 2994840036364006063}
   - component: {fileID: 844673480709509302}
   - component: {fileID: 7476827951372262517}
-  - component: {fileID: 4368431711801181860}
-  - component: {fileID: 8866552173331875647}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -550,32 +576,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &4368431711801181860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6558310670213020253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: 
-  isActionHint: 1
---- !u!114 &8866552173331875647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6558310670213020253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37b7599ff19e074ba1e6f711e86fd67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9085628188009876210
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,15 +43,15 @@ namespace Assets.Utils
             var Segments = new Dictionary<UserType, long>
             {
                 [UserType.Newbie] = clients,
+                [UserType.Regular] = 0,
                 [UserType.Core] = 0,
-                [UserType.Regular] = 0
             };
 
             var SegmentsFeatures = new Dictionary<UserType, int>
             {
                 [UserType.Newbie] = productLevel,
+                [UserType.Regular] = productLevel,
                 [UserType.Core] = productLevel,
-                [UserType.Regular] = productLevel
             };
 
             // product specific components
