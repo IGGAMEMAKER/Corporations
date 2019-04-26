@@ -71,10 +71,27 @@ namespace Assets.Utils
 
             // market situation?
 
+            int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
+
+            string marketSituationDescription;
+
+
+
             // pricing?
             int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
 
-            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\nImprovements: +{improvements}\nBugs: -{bugs}\nPricing: -{pricing}";
+            return $"Current loyalty is {loyalty} due to:\nApp level: +{app}\nImprovements: +{improvements}\nBugs: -{bugs}\nPricing: -{pricing}\n{marketSituationDescription}";
+        }
+
+        private static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
+        {
+            var best = NicheUtils.GetLeaderApp(gameContext, companyId);
+
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var diff = best.product.ProductLevel - c.product.ProductLevel;
+
+            return 10 - 10 * diff;
         }
 
         public static long GetClients(GameEntity company)
