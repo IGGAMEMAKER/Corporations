@@ -20,8 +20,24 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
+            int app = GetAppLoyaltyBonus(gameContext, companyId);
+            int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
 
-            return c.product.ProductLevel * 4 + c.product.Segments[userType] * 3 - bugs;
+            return app + improvements - bugs;
+        }
+
+        public static int GetSegmentImprovementsBonus(GameContext gameContext, int companyId, UserType userType)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return c.product.Segments[userType] * 3;
+        }
+
+        public static int GetAppLoyaltyBonus(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return c.product.ProductLevel * 4;
         }
 
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
@@ -29,8 +45,8 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             int loyalty = GetClientLoyalty(gameContext, companyId, userType);
-            int app = c.product.ProductLevel;
-            int improvements = c.product.Segments[userType];
+            int app = GetSegmentImprovementsBonus(gameContext, companyId, userType);
+            int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             

@@ -26,6 +26,26 @@ class ProductDevelopmentSystem : OnDateChange
 
                 e.companyResource.Resources.Spend(need);
             }
+
+            if (e.product.ImprovementPoints > 0)
+            {
+                // auto-upgrade target user too
+
+                var targetUser = e.targetUserType.UserType;
+
+                var segments = e.product.Segments;
+
+                segments[targetUser] += e.product.ImprovementPoints;
+
+                e.ReplaceProduct(
+                    e.product.Id,
+                    e.product.Name,
+                    e.product.Niche,
+                    e.product.ProductLevel,
+                    0,
+                    segments
+                    );
+            }
         }
     }
 }
