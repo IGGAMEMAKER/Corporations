@@ -31,6 +31,6 @@ public class ClientSegmentView : View
         Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
 
         SegmentHint.SetHint($"{formattedSegmentName}\n");
-        LoyaltyHint.SetHint($"Negative loyalty drastically inceases churn rate of clients in this segment!");
+        LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
     }
 }

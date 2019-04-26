@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Utils.Formatting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,34 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
+        public static int GetClientLoyaltyBugPenalty(GameContext gameContext, int companyId)
+        {
+            int bugs = 15;
+
+            return bugs;
+        }
         public static int GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
         {
-            return UnityEngine.Random.Range(-5, 25);
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
+
+            return c.product.ProductLevel * 4 + c.product.Segments[userType] * 3 - bugs;
+        }
+
+        public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            int loyalty = GetClientLoyalty(gameContext, companyId, userType);
+            int app = c.product.ProductLevel;
+            int improvements = c.product.Segments[userType];
+
+            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
+            
+            // market situation?
+
+            return $"Current loyalty is {loyalty} due to:\n\nApp level: +{app}\n{EnumUtils.GetFormattedUserType(userType)} improvements: +{improvements}\n\nBugs: -{bugs}";
         }
 
         public static long GetClients(GameEntity company)
