@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 public class ProductToggleTargetingHandlerSystem : ReactiveSystem<GameEntity>
 {
@@ -14,7 +15,10 @@ public class ProductToggleTargetingHandlerSystem : ReactiveSystem<GameEntity>
     {
         foreach (var e in entities)
         {
+            Debug.Log("Toggle targeting: Execute Start" + e.isTargeting);
+
             e.isTargeting = !e.isTargeting;
+            Debug.Log("Toggle targeting: Execute End" + e.isTargeting);
             e.RemoveEventMarketingEnableTargeting();
         }
     }

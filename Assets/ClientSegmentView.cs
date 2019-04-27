@@ -24,13 +24,17 @@ public class ClientSegmentView : View
 
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
 
-        IsSelectedNiche.enabled = c.targetUserType.UserType == userType;
+        bool isSelected = c.targetUserType.UserType == userType;
+
+        IsSelectedNiche.enabled = isSelected;
 
         LoyaltyLabel.value = loyalty;
         LevelLabel.text = $"{level}LVL";
         Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
 
-        SegmentHint.SetHint($"{formattedSegmentName}\n");
+        string actionString = isSelected ? formattedSegmentName + " will receive improvements automatically, when platform updates" : $"Focus on {formattedSegmentName} and your app will be better for them";
+
+        SegmentHint.SetHint($"{formattedSegmentName}\n{actionString}");
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
     }
 }

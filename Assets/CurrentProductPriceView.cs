@@ -24,13 +24,12 @@ public class CurrentProductPriceView : SimpleParameterView
     {
         get
         {
-            return MyProductEntity.finance.price == 0;
+            return MyProductEntity.finance.price == Pricing.Free;
         }
     }
 
     public override string RenderValue()
     {
         return MyProductEntity.finance.price.ToString();
-        // CompanyEconomyUtils.GetProductPrice(MyProductEntity, GameContext) + "$";
     }
 }

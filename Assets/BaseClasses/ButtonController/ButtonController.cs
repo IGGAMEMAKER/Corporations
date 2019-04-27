@@ -71,7 +71,11 @@ public abstract partial class ButtonController : MonoBehaviour
         Button = GetComponent<Button>();
 
         Button.onClick.AddListener(Execute);
+
+        ButtonStart();
     }
+
+    public virtual void ButtonStart() {}
 
     void OnDestroy()
     {

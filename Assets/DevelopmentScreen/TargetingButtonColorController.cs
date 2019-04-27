@@ -1,18 +1,13 @@
 ﻿public class TargetingButtonColorController : View
+    , ITargetingListener
 {
-    void Update()
+    void Start()
     {
-        if (MyProductEntity.isTargeting)
-        {
-            if (gameObject.GetComponent<IsChosenComponent>() == null)
-                gameObject.AddComponent<IsChosenComponent>();
-        }
-        else
-        {
-            var c = gameObject.GetComponent<IsChosenComponent>();
+        MyProductEntity.AddTargetingListener(this);
+    }
 
-            if (c != null)
-                Destroy(c);
-        }
+    void ITargetingListener.OnTargeting(GameEntity entity)
+    {
+        GetComponent<IsChosenComponent>().enabled = MyProductEntity.isTargeting;
     }
 }

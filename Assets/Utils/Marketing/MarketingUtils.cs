@@ -24,8 +24,9 @@ namespace Assets.Utils
             int app = GetAppLoyaltyBonus(gameContext, companyId);
             int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
             int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
+            int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
 
-            return app + improvements - bugs - pricing;
+            return app + improvements - bugs - pricing + marketSituation;
         }
 
         public static int GetSegmentImprovementsBonus(GameContext gameContext, int companyId, UserType userType)
@@ -69,18 +70,42 @@ namespace Assets.Utils
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
 
-            // market situation?
 
             int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
 
-            string marketSituationDescription;
+            string marketSituationDescription = GetMarketSituationLoyaltyDescription(gameContext, companyId);
 
-
-
-            // pricing?
             int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
 
-            return $"Current loyalty is {loyalty} due to:\nApp level: +{app}\nImprovements: +{improvements}\nBugs: -{bugs}\nPricing: -{pricing}\n{marketSituationDescription}";
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendFormat("Current loyalty is {0} due to:", loyalty);
+            stringBuilder.AppendFormat("\nApp level: +{0}", app);
+            stringBuilder.AppendFormat("\nImprovements: +{0}", improvements);
+            stringBuilder.AppendFormat("\n{0}", marketSituationDescription);
+            stringBuilder.AppendFormat("\nBugs: -{0}", bugs);
+            stringBuilder.AppendFormat("\nPricing: -{0}", pricing);
+
+            return stringBuilder.ToString();
+        }
+
+        private static string GetMarketSituationLoyaltyDescription(GameContext gameContext, int companyId)
+        {
+            var best = NicheUtils.GetLeaderApp(gameContext, companyId);
+
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var diff = best.product.ProductLevel - c.product.ProductLevel;
+
+            var loyaltyBonus = GetMarketSituationLoyaltyBonus(gameContext, companyId);
+
+            if (diff == 0)
+                return $"Is Innovative: +{loyaltyBonus}";
+
+            if (diff == 1)
+                return "";
+
+            return $"Out of market by {diff}LVL: {loyaltyBonus}";
         }
 
         private static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)

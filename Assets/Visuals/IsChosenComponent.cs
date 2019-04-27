@@ -25,10 +25,20 @@ public class IsChosenComponent : MonoBehaviour
         Text.color = Color.white;
     }
 
-    private void OnDestroy()
+    void RestoreDefaultColor()
     {
         // Restore default color
         Image.color = BackgroundColor;
         Text.color = TextColor;
+    }
+
+    private void OnDisable()
+    {
+        RestoreDefaultColor();
+    }
+
+    private void OnDestroy()
+    {
+        RestoreDefaultColor();
     }
 }
