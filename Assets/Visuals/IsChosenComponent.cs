@@ -28,8 +28,12 @@ public class IsChosenComponent : MonoBehaviour
     void RestoreDefaultColor()
     {
         // Restore default color
-        Image.color = BackgroundColor;
-        Text.color = TextColor;
+
+        if (Image != null)
+            Image.color = BackgroundColor;
+
+        if (Text != null)
+            Text.color = TextColor;
     }
 
     private void OnDisable()
