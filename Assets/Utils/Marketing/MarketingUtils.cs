@@ -89,7 +89,7 @@ namespace Assets.Utils
             return stringBuilder.ToString();
         }
 
-        private static string GetMarketSituationLoyaltyDescription(GameContext gameContext, int companyId)
+        public static string GetMarketSituationLoyaltyDescription(GameContext gameContext, int companyId)
         {
             var best = NicheUtils.GetLeaderApp(gameContext, companyId);
 
@@ -108,13 +108,18 @@ namespace Assets.Utils
             return $"Out of market by {diff}LVL: {loyaltyBonus}";
         }
 
-        private static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
+        public static int GetMarketDiff(GameContext gameContext, int companyId)
         {
             var best = NicheUtils.GetLeaderApp(gameContext, companyId);
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var diff = best.product.ProductLevel - c.product.ProductLevel;
+            return best.product.ProductLevel - c.product.ProductLevel;
+        }
+
+        public static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
+        {
+            int diff = GetMarketDiff(gameContext, companyId);
 
             return 10 - 10 * diff;
         }

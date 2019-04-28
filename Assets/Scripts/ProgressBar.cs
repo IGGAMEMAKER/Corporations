@@ -5,16 +5,26 @@ public class ProgressBar : MonoBehaviour {
     float progress;
     Slider slider;
 
+    float required = 100;
+
     public Text Text;
 
-    private void Awake()
-    {
+    //private void Awake()
+    //{
         
-    }
+    //}
 
-    // Use this for initialization
     void Start () {
         progress = 0;
+    }
+
+    public void SetValue(float have, float requirement)
+    {
+        required = requirement;
+
+        SetValue(have);
+
+        Text.text = $"{have} / {requirement}";
     }
 
     public void SetValue (float val)
@@ -25,7 +35,7 @@ public class ProgressBar : MonoBehaviour {
         if (!slider)
             slider = GetComponent<Slider>();
 
-        slider.value = progress / 100;
+        slider.value = progress / required;
 
         Text.text = (int)progress + "%";
     }

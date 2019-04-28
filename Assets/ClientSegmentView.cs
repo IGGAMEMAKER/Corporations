@@ -17,24 +17,43 @@ public class ClientSegmentView : View
     {
         var c = CompanyUtils.GetCompanyById(GameContext, companyId);
 
-        int loyalty = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
-        int level = c.product.Segments[userType];
-
-        long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
-
-        string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
-
         bool isSelected = c.targetUserType.UserType == userType;
 
         IsSelectedNiche.enabled = isSelected;
 
-        LoyaltyLabel.value = loyalty;
-        LevelLabel.text = $"{level}LVL";
+
+        LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
+
+        LevelLabel.text = $"{c.product.Segments[userType]}LVL";
+
+        RenderSegmentIncome(companyId, userType);
+
+        RenderSegmentHint(isSelected, userType);
+
+        RenderLoyaltyHint(companyId, userType);
+    }
+
+    void RenderSegmentIncome(int companyId, UserType userType)
+    {
+        long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
+
         Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
+    }
 
-        string actionString = isSelected ? formattedSegmentName + " will receive improvements automatically, when platform updates" : $"Focus on {formattedSegmentName} and your app will be better for them";
-
-        SegmentHint.SetHint($"{formattedSegmentName}\n{actionString}");
+    void RenderLoyaltyHint(int companyId, UserType userType)
+    {
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
+    }
+
+    void RenderSegmentHint(bool isSelected, UserType userType)
+    {
+        string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
+
+        string actionString = isSelected ?
+            formattedSegmentName + " will receive improvements automatically, when platform updates"
+            :
+            $"Focus on {formattedSegmentName} and your app will be better for them";
+
+        SegmentHint.SetHint($"{formattedSegmentName}\n\n{actionString}");
     }
 }

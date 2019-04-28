@@ -12,21 +12,17 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
 
     GameEntity[] GetProductsWithUpgradeProductTask()
     {
-        return _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.EventUpgradeProduct, GameMatcher.Task));
+        return _context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.EventUpgradeProduct));
     }
 
     public void Execute()
     {
         foreach (var e in GetProductsWithUpgradeProductTask())
         {
-            if (e.task.isCompleted)
-            {
-                UpgradeProduct(e);
-                e.RemoveEventUpgradeProduct();
-                e.RemoveTask();
+            UpgradeProduct(e);
+            e.RemoveEventUpgradeProduct();
 
-                NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
-            }
+            NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
         }
     }
 

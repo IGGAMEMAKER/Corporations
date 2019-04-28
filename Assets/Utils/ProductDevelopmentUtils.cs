@@ -32,27 +32,6 @@ namespace Assets.Utils
             return e.product.ProductLevel >= GetMarketRequirementsInNiche(context, e.product.Niche);
         }
 
-        public static int IterationTimeComplexityModifier(GameEntity e)
-        {
-            return (int)Math.Log(e.product.ProductLevel + 2, 2);
-        }
-
-        internal static int GetIterationTime(GameEntity e)
-        {
-            return BaseIterationTime(e) * IterationTimeComplexityModifier(e);
-        }
-
-
-        // niche based values
-        // replace them with e.niche.devCost or e.iteration.devCost
-        // and
-        // replace them with e.niche.ideaCost
-
-        public static int BaseIterationTime(GameEntity e)
-        {
-            return 7;
-        }
-
         public static int BaseDevCost(GameEntity e)
         {
             int baseDevCost = 15;
