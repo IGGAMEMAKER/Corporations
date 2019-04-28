@@ -1,9 +1,4 @@
-﻿using Assets.Utils.Formatting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Assets.Utils
 {
@@ -62,29 +57,14 @@ namespace Assets.Utils
 
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            int loyalty = GetClientLoyalty(gameContext, companyId, userType);
-            int app = GetSegmentImprovementsBonus(gameContext, companyId, userType);
-            int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
-
-            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
-
-
-            int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
-
-            string marketSituationDescription = GetMarketSituationLoyaltyDescription(gameContext, companyId);
-
-            int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
-
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendFormat("Current loyalty is {0} due to:", loyalty);
-            stringBuilder.AppendFormat("\nApp level: +{0}", app);
-            stringBuilder.AppendFormat("\nImprovements: +{0}", improvements);
-            stringBuilder.AppendFormat("\n{0}", marketSituationDescription);
-            stringBuilder.AppendFormat("\nBugs: -{0}", bugs);
-            stringBuilder.AppendFormat("\nPricing: -{0}", pricing);
+            stringBuilder.AppendFormat("Current loyalty is {0} due to:", GetClientLoyalty(gameContext, companyId, userType));
+            stringBuilder.AppendFormat("\nApp level: +{0}", GetAppLoyaltyBonus(gameContext, companyId));
+            stringBuilder.AppendFormat("\nImprovements: +{0}", GetSegmentImprovementsBonus(gameContext, companyId, userType));
+            stringBuilder.AppendFormat("\n{0}", GetMarketSituationLoyaltyDescription(gameContext, companyId));
+            stringBuilder.AppendFormat("\nBugs: -{0}", GetClientLoyaltyBugPenalty(gameContext, companyId));
+            stringBuilder.AppendFormat("\nPricing: -{0}", GetPricingLoyaltyPenalty(gameContext, companyId));
 
             return stringBuilder.ToString();
         }
