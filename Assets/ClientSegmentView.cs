@@ -10,6 +10,9 @@ public class ClientSegmentView : View
     public Text LevelLabel;
     public Text Income;
 
+    public Text AudienceSize;
+    public ColoredValueGradient ChurnRate;
+
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
@@ -25,6 +28,9 @@ public class ClientSegmentView : View
         LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
 
         LevelLabel.text = $"{c.product.Segments[userType]}LVL";
+
+        AudienceSize.text = $"{ValueFormatter.Shorten(c.marketing.Segments[userType])}";
+        ChurnRate.value = -5;
 
         RenderSegmentIncome(companyId, userType);
 
