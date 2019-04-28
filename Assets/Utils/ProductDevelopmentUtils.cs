@@ -17,6 +17,13 @@ namespace Assets.Utils
             return new TeamResource(devCost, 0, 0, ideaCost, 0);
         }
 
+        internal static void ToggleDevelopment(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            c.isDevelopmentActive = !c.isDevelopmentActive;
+        }
+
         public static bool IsCrunching(GameEntity e)
         {
             return false;

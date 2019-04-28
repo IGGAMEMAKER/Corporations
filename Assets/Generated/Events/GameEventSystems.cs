@@ -13,6 +13,7 @@ public sealed class GameEventSystems : Feature {
         Add(new AnyCompanyEventSystem(contexts)); // priority: 0
         Add(new CompanyResourceEventSystem(contexts)); // priority: 0
         Add(new AnyDateEventSystem(contexts)); // priority: 0
+        Add(new DevelopmentActiveEventSystem(contexts)); // priority: 0
         Add(new FinanceEventSystem(contexts)); // priority: 0
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new MenuEventSystem(contexts)); // priority: 0

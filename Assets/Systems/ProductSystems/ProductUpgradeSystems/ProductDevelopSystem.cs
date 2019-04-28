@@ -11,7 +11,7 @@ class ProductDevelopmentSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.CompanyResource));
+        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.CompanyResource, GameMatcher.DevelopmentActive));
 
         foreach (var e in Products)
         {

@@ -25,18 +25,7 @@ public class ToggleTargetingController : ButtonController
 
     void Render()
     {
-        if (MyProductEntity.isTargeting)
-        {
-            if (gameObject.GetComponent<IsChosenComponent>() == null)
-                gameObject.AddComponent<IsChosenComponent>();
-        }
-        else
-        {
-            var c = gameObject.GetComponent<IsChosenComponent>();
-
-            if (c != null)
-                Destroy(c);
-        }
+        AddIsChosenComponent(MyProductEntity.isTargeting);
     }
 
     public override void Execute()

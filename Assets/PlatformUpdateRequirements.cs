@@ -8,8 +8,12 @@ public class PlatformUpdateRequirements : View
     public ProgressBar IdeaProgressBar;
     public ProgressBar ProgrammingProgressBar;
 
-    // Update is called once per frame
     void Update()
+    {
+        Render();
+    }
+
+    void Render()
     {
         var devCost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext);
         var have = MyProductEntity.companyResource;

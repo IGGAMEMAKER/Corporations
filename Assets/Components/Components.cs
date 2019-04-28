@@ -291,6 +291,12 @@ public enum UserType
 }
 
 [Game, Event(EventTarget.Self)]
+public class DevelopmentActiveComponent : IComponent
+{
+
+}
+
+[Game, Event(EventTarget.Self)]
 public class ProductComponent: IComponent
 {
     public int Id;

@@ -20,44 +20,46 @@ public static class GameComponentsLookup {
     public const int CompanyResourceListener = 9;
     public const int ControlledByPlayer = 10;
     public const int Date = 11;
-    public const int EventFinancePricingChange = 12;
-    public const int EventMarketingEnableTargeting = 13;
-    public const int EventMarketingStartSimpleCampaign = 14;
-    public const int EventStaffHireProgrammer = 15;
-    public const int EventUpgradeAnalytics = 16;
-    public const int EventUpgradeProduct = 17;
-    public const int Finance = 18;
-    public const int FinanceListener = 19;
-    public const int Following = 20;
-    public const int Human = 21;
-    public const int IndependentCompany = 22;
-    public const int Industry = 23;
-    public const int InvestmentProposals = 24;
-    public const int InvestmentRounds = 25;
-    public const int Marketing = 26;
-    public const int MarketingListener = 27;
-    public const int Menu = 28;
-    public const int MenuListener = 29;
-    public const int MetricsHistory = 30;
-    public const int NavigationHistory = 31;
-    public const int Niche = 32;
-    public const int Notifications = 33;
-    public const int Product = 34;
-    public const int ProductListener = 35;
-    public const int PublicCompany = 36;
-    public const int SelectedCompany = 37;
-    public const int Shareholder = 38;
-    public const int Shareholders = 39;
-    public const int ShareholdersListener = 40;
-    public const int Targeting = 41;
-    public const int TargetingListener = 42;
-    public const int TargetUserType = 43;
-    public const int Task = 44;
-    public const int TaskManager = 45;
-    public const int Team = 46;
-    public const int TeamListener = 47;
+    public const int DevelopmentActive = 12;
+    public const int DevelopmentActiveListener = 13;
+    public const int EventFinancePricingChange = 14;
+    public const int EventMarketingEnableTargeting = 15;
+    public const int EventMarketingStartSimpleCampaign = 16;
+    public const int EventStaffHireProgrammer = 17;
+    public const int EventUpgradeAnalytics = 18;
+    public const int EventUpgradeProduct = 19;
+    public const int Finance = 20;
+    public const int FinanceListener = 21;
+    public const int Following = 22;
+    public const int Human = 23;
+    public const int IndependentCompany = 24;
+    public const int Industry = 25;
+    public const int InvestmentProposals = 26;
+    public const int InvestmentRounds = 27;
+    public const int Marketing = 28;
+    public const int MarketingListener = 29;
+    public const int Menu = 30;
+    public const int MenuListener = 31;
+    public const int MetricsHistory = 32;
+    public const int NavigationHistory = 33;
+    public const int Niche = 34;
+    public const int Notifications = 35;
+    public const int Product = 36;
+    public const int ProductListener = 37;
+    public const int PublicCompany = 38;
+    public const int SelectedCompany = 39;
+    public const int Shareholder = 40;
+    public const int Shareholders = 41;
+    public const int ShareholdersListener = 42;
+    public const int Targeting = 43;
+    public const int TargetingListener = 44;
+    public const int TargetUserType = 45;
+    public const int Task = 46;
+    public const int TaskManager = 47;
+    public const int Team = 48;
+    public const int TeamListener = 49;
 
-    public const int TotalComponents = 48;
+    public const int TotalComponents = 50;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -72,6 +74,8 @@ public static class GameComponentsLookup {
         "CompanyResourceListener",
         "ControlledByPlayer",
         "Date",
+        "DevelopmentActive",
+        "DevelopmentActiveListener",
         "EventFinancePricingChange",
         "EventMarketingEnableTargeting",
         "EventMarketingStartSimpleCampaign",
@@ -123,6 +127,8 @@ public static class GameComponentsLookup {
         typeof(CompanyResourceListenerComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DateComponent),
+        typeof(DevelopmentActiveComponent),
+        typeof(DevelopmentActiveListenerComponent),
         typeof(EventFinancePricingChangeComponent),
         typeof(EventMarketingEnableTargetingComponent),
         typeof(EventMarketingStartSimpleCampaign),

@@ -75,6 +75,22 @@ public abstract partial class ButtonController : MonoBehaviour
         ButtonStart();
     }
 
+    internal void AddIsChosenComponent(bool isChosen)
+    {
+        if (isChosen)
+        {
+            if (gameObject.GetComponent<IsChosenComponent>() == null)
+                gameObject.AddComponent<IsChosenComponent>();
+        }
+        else
+        {
+            var c = gameObject.GetComponent<IsChosenComponent>();
+
+            if (c != null)
+                Destroy(c);
+        }
+    }
+
     public virtual void ButtonStart() {}
 
     void OnDestroy()
