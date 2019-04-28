@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System.Text;
 using UnityEngine.UI;
 
 public class ClientSegmentView : View
@@ -11,7 +12,7 @@ public class ClientSegmentView : View
     public Text Income;
 
     public Text AudienceSize;
-    public ColoredValueGradient ChurnRate;
+    public Hint AudienceHint;
 
     public Hint SegmentHint;
     public Hint LoyaltyHint;
@@ -29,14 +30,26 @@ public class ClientSegmentView : View
 
         LevelLabel.text = $"{c.product.Segments[userType]}LVL";
 
-        AudienceSize.text = $"{ValueFormatter.Shorten(c.marketing.Segments[userType])}";
-        ChurnRate.value = -5;
-
+        RenderAudience(userType, c);
+        
         RenderSegmentIncome(companyId, userType);
 
         RenderSegmentHint(isSelected, userType);
 
         RenderLoyaltyHint(companyId, userType);
+    }
+
+    void RenderAudience(UserType userType, GameEntity c)
+    {
+        AudienceSize.text = $"{ValueFormatter.Shorten(c.marketing.Segments[userType])}";
+
+        StringBuilder hint = new StringBuilder();
+
+        hint.AppendLine("Due to 5% churn rate");
+        hint.AppendLine("We lose 500 clients each month");
+        hint.AppendLine("And 35 of them are promoted to next segment");
+
+        AudienceHint.SetHint(hint.ToString());
     }
 
     void RenderSegmentIncome(int companyId, UserType userType)
