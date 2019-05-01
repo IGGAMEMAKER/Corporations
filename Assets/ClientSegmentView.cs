@@ -46,8 +46,8 @@ public class ClientSegmentView : View
         StringBuilder hint = new StringBuilder();
 
         hint.AppendLine("Due to 5% churn rate");
-        hint.AppendLine("We lose 500 clients each month");
-        hint.AppendLine("And 35 of them are promoted to next segment");
+        hint.AppendLine("We lose 500 clients each month\n");
+        hint.AppendLine("Also, 35 clients are promoted to next segment");
 
         AudienceHint.SetHint(hint.ToString());
     }

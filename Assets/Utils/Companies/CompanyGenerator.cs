@@ -32,7 +32,7 @@ namespace Assets.Utils
         {
             IndustryType industry = NicheUtils.GetIndustry(niche, context);
 
-            var resources = new TeamResource(100, 100, 100, 100, 10000);
+            var resources = new TeamResource(100, 100, 100, 10, 10000);
 
             long clients = UnityEngine.Random.Range(15, 100);
             int brandPower = UnityEngine.Random.Range(0, 15);
@@ -56,6 +56,7 @@ namespace Assets.Utils
 
             // product specific components
             company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
+            company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(1, 0, 0, 100);
             company.AddMarketing(brandPower, Segments);

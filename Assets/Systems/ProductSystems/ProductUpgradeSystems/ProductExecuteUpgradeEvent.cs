@@ -21,25 +21,28 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
         {
             UpgradeProduct(e);
             e.RemoveEventUpgradeProduct();
-
-            NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
         }
     }
 
     void UpgradeProduct(GameEntity e)
     {
-        int explorationLevel = ProductDevelopmentUtils.GetMarketRequirementsInNiche(_context, e.product.Niche);
+        int explorationLevel = NicheUtils.GetLeaderApp(_context, e.company.Id).product.ProductLevel;
+
         int newLevel = e.eventUpgradeProduct.previousLevel + 1;
 
         if (explorationLevel < newLevel)
+        {
             explorationLevel = newLevel;
+
+            NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
+        }
 
         e.ReplaceProduct(
             e.product.Id,
             e.product.Name,
             e.product.Niche,
             newLevel,
-            e.product.ImprovementPoints + 1,
+            e.product.ImprovementPoints,
             e.product.Segments
             );
     }

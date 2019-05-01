@@ -50,7 +50,7 @@ public class SegmentListView : ListView
         Render();
     }
 
-    void IFinanceListener.OnFinance(GameEntity entity, Pricing price, int marketingFinancing, int salaries, float basePrice)
+    void IFinanceListener.OnFinance(GameEntity entity, Pricing price, MarketingFinancing marketingFinancing, int salaries, float basePrice)
     {
         Render();
     }

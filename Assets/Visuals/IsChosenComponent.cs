@@ -21,8 +21,7 @@ public class IsChosenComponent : MonoBehaviour
         BackgroundColor = Image.color;
         TextColor = Text.color;
 
-        Image.color = Color.blue;
-        Text.color = Color.white;
+        PaintIt();
     }
 
     void RestoreDefaultColor()
@@ -34,6 +33,20 @@ public class IsChosenComponent : MonoBehaviour
 
         if (Text != null)
             Text.color = TextColor;
+    }
+
+    private void OnEnable()
+    {
+        PaintIt();
+    }
+
+    void PaintIt()
+    {
+        if (Image == null || Text == null)
+            return;
+
+        Image.color = Color.blue;
+        Text.color = Color.white;
     }
 
     private void OnDisable()

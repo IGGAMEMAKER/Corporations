@@ -6,31 +6,31 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed class DevelopmentActiveEventSystem : Entitas.ReactiveSystem<GameEntity> {
+public sealed class DevelopmentFocusEventSystem : Entitas.ReactiveSystem<GameEntity> {
 
-    readonly System.Collections.Generic.List<IDevelopmentActiveListener> _listenerBuffer;
+    readonly System.Collections.Generic.List<IDevelopmentFocusListener> _listenerBuffer;
 
-    public DevelopmentActiveEventSystem(Contexts contexts) : base(contexts.game) {
-        _listenerBuffer = new System.Collections.Generic.List<IDevelopmentActiveListener>();
+    public DevelopmentFocusEventSystem(Contexts contexts) : base(contexts.game) {
+        _listenerBuffer = new System.Collections.Generic.List<IDevelopmentFocusListener>();
     }
 
     protected override Entitas.ICollector<GameEntity> GetTrigger(Entitas.IContext<GameEntity> context) {
         return Entitas.CollectorContextExtension.CreateCollector(
-            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.DevelopmentActive)
+            context, Entitas.TriggerOnEventMatcherExtension.Added(GameMatcher.DevelopmentFocus)
         );
     }
 
     protected override bool Filter(GameEntity entity) {
-        return entity.isDevelopmentActive && entity.hasDevelopmentActiveListener;
+        return entity.hasDevelopmentFocus && entity.hasDevelopmentFocusListener;
     }
 
     protected override void Execute(System.Collections.Generic.List<GameEntity> entities) {
         foreach (var e in entities) {
-            
+            var component = e.developmentFocus;
             _listenerBuffer.Clear();
-            _listenerBuffer.AddRange(e.developmentActiveListener.value);
+            _listenerBuffer.AddRange(e.developmentFocusListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnDevelopmentActive(e);
+                listener.OnDevelopmentFocus(e, component.Focus);
             }
         }
     }

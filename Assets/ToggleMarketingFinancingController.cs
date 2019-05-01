@@ -1,18 +1,24 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToggleMarketingFinancingController : MonoBehaviour
+public class ToggleMarketingFinancingController : ButtonController
 {
-    // Start is called before the first frame update
-    void Start()
+    public MarketingFinancing marketingFinancing;
+
+    public override void Execute()
     {
-        
+        MarketingUtils.SetFinancing(GameContext, MyProductEntity.company.Id, marketingFinancing);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void RareUpdate()
     {
-        
+        Render();
+    }
+
+    void Render()
+    {
+        AddIsChosenComponent(MyProductEntity.finance.marketingFinancing == marketingFinancing);
     }
 }

@@ -291,9 +291,8 @@ public enum UserType
 }
 
 [Game, Event(EventTarget.Self)]
-public class DevelopmentActiveComponent : IComponent
-{
-
+public class DevelopmentFocusComponent : IComponent {
+    public DevelopmentFocus Focus;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -319,16 +318,23 @@ public class CompanyResourceComponent : IComponent
 public enum Pricing
 {
     Free = 0,
-    Low = 120,
+    Low = 100,
     Medium = 170,
     High = 200
+}
+
+public enum MarketingFinancing
+{
+    Low,
+    Medium,
+    High
 }
 
 [Game, Event(EventTarget.Self)]
 public class FinanceComponent: IComponent
 {
     public Pricing price;
-    public int marketingFinancing;
+    public MarketingFinancing marketingFinancing;
     public int salaries;
     public float basePrice;
 }

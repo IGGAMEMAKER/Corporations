@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace Assets.Utils
 {
@@ -22,6 +23,15 @@ namespace Assets.Utils
             int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
 
             return app + improvements - bugs - pricing + marketSituation;
+        }
+
+        internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var f = c.finance;
+
+            c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
         }
 
         public static int GetSegmentImprovementsBonus(GameContext gameContext, int companyId, UserType userType)

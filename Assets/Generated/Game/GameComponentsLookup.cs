@@ -20,8 +20,8 @@ public static class GameComponentsLookup {
     public const int CompanyResourceListener = 9;
     public const int ControlledByPlayer = 10;
     public const int Date = 11;
-    public const int DevelopmentActive = 12;
-    public const int DevelopmentActiveListener = 13;
+    public const int DevelopmentFocus = 12;
+    public const int DevelopmentFocusListener = 13;
     public const int EventFinancePricingChange = 14;
     public const int EventMarketingEnableTargeting = 15;
     public const int EventMarketingStartSimpleCampaign = 16;
@@ -74,8 +74,8 @@ public static class GameComponentsLookup {
         "CompanyResourceListener",
         "ControlledByPlayer",
         "Date",
-        "DevelopmentActive",
-        "DevelopmentActiveListener",
+        "DevelopmentFocus",
+        "DevelopmentFocusListener",
         "EventFinancePricingChange",
         "EventMarketingEnableTargeting",
         "EventMarketingStartSimpleCampaign",
@@ -127,8 +127,8 @@ public static class GameComponentsLookup {
         typeof(CompanyResourceListenerComponent),
         typeof(ControlledByPlayerComponent),
         typeof(DateComponent),
-        typeof(DevelopmentActiveComponent),
-        typeof(DevelopmentActiveListenerComponent),
+        typeof(DevelopmentFocusComponent),
+        typeof(DevelopmentFocusListenerComponent),
         typeof(EventFinancePricingChangeComponent),
         typeof(EventMarketingEnableTargetingComponent),
         typeof(EventMarketingStartSimpleCampaign),

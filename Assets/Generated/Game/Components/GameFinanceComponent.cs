@@ -11,7 +11,7 @@ public partial class GameEntity {
     public FinanceComponent finance { get { return (FinanceComponent)GetComponent(GameComponentsLookup.Finance); } }
     public bool hasFinance { get { return HasComponent(GameComponentsLookup.Finance); } }
 
-    public void AddFinance(Pricing newPrice, int newMarketingFinancing, int newSalaries, float newBasePrice) {
+    public void AddFinance(Pricing newPrice, MarketingFinancing newMarketingFinancing, int newSalaries, float newBasePrice) {
         var index = GameComponentsLookup.Finance;
         var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;
@@ -21,7 +21,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceFinance(Pricing newPrice, int newMarketingFinancing, int newSalaries, float newBasePrice) {
+    public void ReplaceFinance(Pricing newPrice, MarketingFinancing newMarketingFinancing, int newSalaries, float newBasePrice) {
         var index = GameComponentsLookup.Finance;
         var component = (FinanceComponent)CreateComponent(index, typeof(FinanceComponent));
         component.price = newPrice;

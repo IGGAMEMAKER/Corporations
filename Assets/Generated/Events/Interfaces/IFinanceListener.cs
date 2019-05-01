@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IFinanceListener {
-    void OnFinance(GameEntity entity, Pricing price, int marketingFinancing, int salaries, float basePrice);
+    void OnFinance(GameEntity entity, Pricing price, MarketingFinancing marketingFinancing, int salaries, float basePrice);
 }

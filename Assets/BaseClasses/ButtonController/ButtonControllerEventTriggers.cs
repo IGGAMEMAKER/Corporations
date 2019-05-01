@@ -14,4 +14,14 @@
     {
         MyProductEntity.AddEventFinancePricingChange(productId, level);
     }
+
+    public virtual void RareUpdate()
+    {
+
+    }
+
+    public void Update()
+    {
+        RareUpdate();
+    }
 }

@@ -1,7 +1,9 @@
 ﻿public class ToggleTargetingController : ButtonController
 {
-    public void OnEnable()
+    public override void RareUpdate()
     {
+        base.RareUpdate();
+
         Render();
     }
 
@@ -13,7 +15,5 @@
     public override void Execute()
     {
         TriggerEventTargetingToggle(MyProduct.Id);
-
-        Render();
     }
 }
