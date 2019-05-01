@@ -1,13 +1,6 @@
 ﻿using Assets.Utils;
 
-public enum WorkerType
-{
-    Programmer,
-    Manager,
-    Marketer
-}
-
-public class Hire : ButtonController
+public class Fire : ButtonController
 {
     public WorkerType worker;
 
@@ -16,13 +9,13 @@ public class Hire : ButtonController
         switch (worker)
         {
             case WorkerType.Manager:
-                TeamUtils.HireManager(MyProductEntity);
+                TeamUtils.FireManager(MyProductEntity);
                 break;
             case WorkerType.Marketer:
-                TeamUtils.HireMarketer(MyProductEntity);
+                TeamUtils.FireMarketer(MyProductEntity);
                 break;
             case WorkerType.Programmer:
-                TeamUtils.HireProgrammer(MyProductEntity);
+                TeamUtils.FireProgrammer(MyProductEntity);
                 break;
         }
     }
