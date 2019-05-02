@@ -58,7 +58,7 @@ public class Hint : MonoBehaviour
         Rect content = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY, contentWidth, contentHeight);
         Rect wrapper = new Rect(mouseX - offsetX - rightSideOfScreenOffset, mouseY - offsetY, contentWidth + offsetX, contentHeight + offsetY);
 
-        GUI.color = Color.red;
+        GUI.color = Color.white;
 
         GUI.backgroundColor = Color.black;
 

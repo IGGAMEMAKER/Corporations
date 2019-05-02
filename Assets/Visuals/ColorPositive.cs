@@ -5,6 +5,6 @@ public class ColorPositive : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Text>().color = Color.green;
+        GetComponent<Text>().color = VisualFormattingUtils.Color(VisualConstants.COLOR_POSITIVE);
     }
 }

@@ -25,5 +25,8 @@ public class VisualConstants
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = "#FFAB04";
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
+    public const string COLOR_POSITIVE = "#00FF00";
+    public const string COLOR_NEGATIVE = "#FF0000";
+
     public const string COLOR_LINK = "#FFAB04";
 }
