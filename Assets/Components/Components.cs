@@ -279,10 +279,6 @@ public class TaskComponent: IComponent
     public int EndTime;
 }
 
-// social network
-// messenger
-// blogs
-
 public enum UserType
 {
     Newbie,

@@ -65,15 +65,29 @@ public class ClientSegmentView : View
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
     }
 
-    void RenderSegmentHint(bool isSelected, UserType userType)
+    string GetSegmentHint(bool isSelected, UserType userType)
     {
+        StringBuilder hint = new StringBuilder();
+
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
 
-        string actionString = isSelected ?
-            formattedSegmentName + " will receive improvements automatically, when platform updates"
-            :
-            $"Focus on {formattedSegmentName} and your app will be better for them";
+        hint.AppendLine(formattedSegmentName);
+        hint.AppendLine();
 
-        SegmentHint.SetHint($"{formattedSegmentName}\n\n{actionString}");
+        if (isSelected)
+        {
+            hint.AppendFormat("{0} will receive improvements automatically, when platform updates", formattedSegmentName);
+        }
+        else
+        {
+            hint.AppendFormat("Focus on {0} and your app will be better for them", formattedSegmentName);
+        }
+
+        return hint.ToString();
+    }
+
+    void RenderSegmentHint(bool isSelected, UserType userType)
+    {
+        SegmentHint.SetHint(GetSegmentHint(isSelected, userType));
     }
 }

@@ -27,15 +27,15 @@ public class MarketSituationDescriptionView : View
         if (diff == 0)
         {
             Text.text = "We are in trends";
-            Text.color = Color.green; // new Color(255, 255, 0);
+            Text.color = VisualFormattingUtils.Color(VisualConstants.COLOR_POSITIVE);
         } else if (diff == 1)
         {
             Text.text = "We need some improvements";
-            Text.color = Color.white;
+            Text.color = VisualFormattingUtils.Color(VisualConstants.COLOR_NEUTRAL);
         } else
         {
             Text.text = $"We are out of market (-{diff}lvl)";
-            Text.color = Color.red;
+            Text.color = VisualFormattingUtils.Color(VisualConstants.COLOR_NEGATIVE);
         }
     }
 }

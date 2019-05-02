@@ -27,6 +27,7 @@ public class VisualConstants
 
     public const string COLOR_POSITIVE = "#00FF00";
     public const string COLOR_NEGATIVE = "#FF0000";
+    public const string COLOR_NEUTRAL = "#FFFFFF";
 
     public const string COLOR_LINK = "#FFAB04";
 }
