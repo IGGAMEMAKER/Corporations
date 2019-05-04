@@ -47,13 +47,14 @@ public class ClientSegmentView : View
 
         if (userType != UserType.Core)
         {
-            UserType next = UserType.Core;
+            UserType next = userType == UserType.Newbie ? UserType.Regular : UserType.Core;
 
-            if (userType == UserType.Newbie)
-                next = UserType.Regular;
-
-            hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>", VisualConstants.COLOR_POSITIVE, EnumUtils.GetFormattedUserType(next), 35);
+            hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>",
+                VisualConstants.COLOR_POSITIVE,
+                EnumUtils.GetFormattedUserType(next),
+                35);
         }
+
         hint.AppendLine();
 
         AudienceHint.SetHint(hint.ToString());
