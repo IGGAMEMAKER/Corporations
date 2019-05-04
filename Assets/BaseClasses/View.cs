@@ -133,4 +133,9 @@ public class View : MonoBehaviour
     {
         MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
     }
+
+    public void ListenDateChanges(IAnyDateListener dateListener)
+    {
+        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+    }
 }

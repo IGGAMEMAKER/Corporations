@@ -5,10 +5,24 @@ public class CooldownView : View
     , IAnyDateListener
 {
     public CooldownType CooldownType;
+
+    public Image Panel;
+    public GameObject ScheduleIcon;
+    public Text Text;
     
     void Start()
     {
         Render();
+
+        ListenDateChanges(this);
+    }
+
+    GameEntity Observable
+    {
+        get
+        {
+            return MyProductEntity;
+        }
     }
 
     void OnEnable()
@@ -16,19 +30,30 @@ public class CooldownView : View
 
     }
 
+    void Toggle(bool show)
+    {
+        Panel.enabled = show;
+        ScheduleIcon.SetActive(show);
+        Text.gameObject.SetActive(show);
+    }
+
     void Hide()
     {
-
+        Toggle(false);
     }
 
     void Show(Cooldown cooldown)
     {
-        
+        Toggle(true);
+
+        int remaining = cooldown.EndDate - CurrentIntDate;
+
+        Text.text = remaining.ToString();
     }
 
     void Render()
     {
-        var cooldowns = MyProductEntity.cooldowns.Cooldowns;
+        var cooldowns = Observable.cooldowns.Cooldowns;
 
         if (cooldowns.ContainsKey(CooldownType))
             Show(cooldowns[CooldownType]);

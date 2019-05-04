@@ -81,7 +81,7 @@ public struct SelectedCompanyComponent : IComponent
 
 public enum CooldownType
 {
-
+    TargetingActivity
 }
 
 public struct Cooldown

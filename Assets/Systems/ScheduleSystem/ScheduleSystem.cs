@@ -4,5 +4,6 @@
     {
         Add(new ScheduleRunnerSystem(contexts));
         Add(new ScheduleTaskProcessingSystem(contexts));
+        Add(new ScheduleCooldownProcessingSystem(contexts));
     }
 }

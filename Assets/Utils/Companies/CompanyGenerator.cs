@@ -15,6 +15,9 @@ namespace Assets.Utils
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 0));
 
             Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>();
+            Dictionary<CooldownType, Cooldown> cooldowns = new Dictionary<CooldownType, Cooldown>();
+
+            cooldowns[CooldownType.TargetingActivity] = new Cooldown { EndDate = 10 };
 
             e.AddShareholders(founders, goals);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
@@ -25,7 +28,7 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
-            e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
+            e.AddCooldowns(cooldowns);
 
             return e;
         }
