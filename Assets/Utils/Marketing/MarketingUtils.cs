@@ -18,11 +18,10 @@ namespace Assets.Utils
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int app = GetAppLoyaltyBonus(gameContext, companyId);
-            int improvements = GetSegmentImprovementsBonus(gameContext, companyId, userType);
             int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
-            int marketSituation = GetMarketSituationLoyaltyBonus(gameContext, companyId);
+            int marketRequirement = GetMarketSituationLoyaltyBonus(gameContext, companyId);
 
-            return app + improvements - bugs - pricing + marketSituation;
+            return app - bugs - pricing - marketRequirement;
         }
 
         internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)
@@ -34,18 +33,16 @@ namespace Assets.Utils
             c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
         }
 
-        public static int GetSegmentImprovementsBonus(GameContext gameContext, int companyId, UserType userType)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            return c.product.Segments[userType] * 3;
-        }
-
         public static int GetAppLoyaltyBonus(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             return c.product.ProductLevel * 4;
+        }
+
+        public static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
+        {
+            return 10 * 4;
         }
 
         public static int GetPricingLoyaltyPenalty(GameContext gameContext, int companyId)
@@ -71,31 +68,11 @@ namespace Assets.Utils
 
             stringBuilder.AppendFormat("Current loyalty is {0} due to:", GetClientLoyalty(gameContext, companyId, userType));
             stringBuilder.AppendFormat("\nApp level: +{0}", GetAppLoyaltyBonus(gameContext, companyId));
-            stringBuilder.AppendFormat("\nImprovements: +{0}", GetSegmentImprovementsBonus(gameContext, companyId, userType));
-            stringBuilder.AppendFormat("\n{0}", GetMarketSituationLoyaltyDescription(gameContext, companyId));
+            stringBuilder.AppendFormat("\nMarket demand: -{0}", GetMarketSituationLoyaltyBonus(gameContext, companyId));
             stringBuilder.AppendFormat("\nBugs: -{0}", GetClientLoyaltyBugPenalty(gameContext, companyId));
             stringBuilder.AppendFormat("\nPricing: -{0}", GetPricingLoyaltyPenalty(gameContext, companyId));
 
             return stringBuilder.ToString();
-        }
-
-        public static string GetMarketSituationLoyaltyDescription(GameContext gameContext, int companyId)
-        {
-            var best = NicheUtils.GetLeaderApp(gameContext, companyId);
-
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            var diff = best.product.ProductLevel - c.product.ProductLevel;
-
-            var loyaltyBonus = GetMarketSituationLoyaltyBonus(gameContext, companyId);
-
-            if (diff == 0)
-                return $"Is Innovative: +{loyaltyBonus}";
-
-            if (diff == 1)
-                return "";
-
-            return $"Out of market by {diff}LVL: {loyaltyBonus}";
         }
 
         public static int GetMarketDiff(GameContext gameContext, int companyId)
@@ -105,13 +82,6 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             return best.product.ProductLevel - c.product.ProductLevel;
-        }
-
-        public static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
-        {
-            int diff = GetMarketDiff(gameContext, companyId);
-
-            return 10 - 10 * diff;
         }
 
         public static long GetClients(GameEntity company)
