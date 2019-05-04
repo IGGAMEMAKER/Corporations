@@ -8,7 +8,7 @@ class ProductResourceSystems : OnDateChange
 {
     int period = 7;
 
-    protected ProductResourceSystems(Contexts contexts) : base(contexts)
+    public ProductResourceSystems(Contexts contexts) : base(contexts)
     {
     }
 
