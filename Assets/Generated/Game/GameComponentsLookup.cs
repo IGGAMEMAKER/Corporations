@@ -19,47 +19,48 @@ public static class GameComponentsLookup {
     public const int CompanyResource = 8;
     public const int CompanyResourceListener = 9;
     public const int ControlledByPlayer = 10;
-    public const int Date = 11;
-    public const int DevelopmentFocus = 12;
-    public const int DevelopmentFocusListener = 13;
-    public const int EventFinancePricingChange = 14;
-    public const int EventMarketingEnableTargeting = 15;
-    public const int EventMarketingStartSimpleCampaign = 16;
-    public const int EventStaffHireProgrammer = 17;
-    public const int EventUpgradeAnalytics = 18;
-    public const int EventUpgradeProduct = 19;
-    public const int Finance = 20;
-    public const int FinanceListener = 21;
-    public const int Following = 22;
-    public const int Human = 23;
-    public const int IndependentCompany = 24;
-    public const int Industry = 25;
-    public const int InvestmentProposals = 26;
-    public const int InvestmentRounds = 27;
-    public const int Marketing = 28;
-    public const int MarketingListener = 29;
-    public const int Menu = 30;
-    public const int MenuListener = 31;
-    public const int MetricsHistory = 32;
-    public const int NavigationHistory = 33;
-    public const int Niche = 34;
-    public const int Notifications = 35;
-    public const int Product = 36;
-    public const int ProductListener = 37;
-    public const int PublicCompany = 38;
-    public const int SelectedCompany = 39;
-    public const int Shareholder = 40;
-    public const int Shareholders = 41;
-    public const int ShareholdersListener = 42;
-    public const int Targeting = 43;
-    public const int TargetingListener = 44;
-    public const int TargetUserType = 45;
-    public const int Task = 46;
-    public const int TaskManager = 47;
-    public const int Team = 48;
-    public const int TeamListener = 49;
+    public const int Cooldowns = 11;
+    public const int Date = 12;
+    public const int DevelopmentFocus = 13;
+    public const int DevelopmentFocusListener = 14;
+    public const int EventFinancePricingChange = 15;
+    public const int EventMarketingEnableTargeting = 16;
+    public const int EventMarketingStartSimpleCampaign = 17;
+    public const int EventStaffHireProgrammer = 18;
+    public const int EventUpgradeAnalytics = 19;
+    public const int EventUpgradeProduct = 20;
+    public const int Finance = 21;
+    public const int FinanceListener = 22;
+    public const int Following = 23;
+    public const int Human = 24;
+    public const int IndependentCompany = 25;
+    public const int Industry = 26;
+    public const int InvestmentProposals = 27;
+    public const int InvestmentRounds = 28;
+    public const int Marketing = 29;
+    public const int MarketingListener = 30;
+    public const int Menu = 31;
+    public const int MenuListener = 32;
+    public const int MetricsHistory = 33;
+    public const int NavigationHistory = 34;
+    public const int Niche = 35;
+    public const int Notifications = 36;
+    public const int Product = 37;
+    public const int ProductListener = 38;
+    public const int PublicCompany = 39;
+    public const int SelectedCompany = 40;
+    public const int Shareholder = 41;
+    public const int Shareholders = 42;
+    public const int ShareholdersListener = 43;
+    public const int Targeting = 44;
+    public const int TargetingListener = 45;
+    public const int TargetUserType = 46;
+    public const int Task = 47;
+    public const int TaskManager = 48;
+    public const int Team = 49;
+    public const int TeamListener = 50;
 
-    public const int TotalComponents = 50;
+    public const int TotalComponents = 51;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -73,6 +74,7 @@ public static class GameComponentsLookup {
         "CompanyResource",
         "CompanyResourceListener",
         "ControlledByPlayer",
+        "Cooldowns",
         "Date",
         "DevelopmentFocus",
         "DevelopmentFocusListener",
@@ -126,6 +128,7 @@ public static class GameComponentsLookup {
         typeof(CompanyResourceComponent),
         typeof(CompanyResourceListenerComponent),
         typeof(ControlledByPlayerComponent),
+        typeof(CooldownsComponent),
         typeof(DateComponent),
         typeof(DevelopmentFocusComponent),
         typeof(DevelopmentFocusListenerComponent),

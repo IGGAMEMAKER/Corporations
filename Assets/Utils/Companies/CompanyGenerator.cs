@@ -25,6 +25,8 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
+            e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
+
             return e;
         }
 

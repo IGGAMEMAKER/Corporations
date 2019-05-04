@@ -79,6 +79,21 @@ public struct SelectedCompanyComponent : IComponent
 
 }
 
+public enum CooldownType
+{
+
+}
+
+public struct Cooldown
+{
+    public int EndDate;
+}
+
+public class CooldownsComponent : IComponent
+{
+    public Dictionary<CooldownType, Cooldown> Cooldowns;
+}
+
 //[Game]
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent

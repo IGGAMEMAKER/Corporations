@@ -16,7 +16,7 @@ public class ClientSegmentView : View
     public Text AudienceSize;
     public Hint AudienceHint;
 
-    public Text Churn;
+    public ColoredValueGradient Churn;
     public Hint ChurnHint;
 
     public Hint SegmentHint;
@@ -56,14 +56,16 @@ public class ClientSegmentView : View
     private void RenderChurn(UserType userType, GameEntity c)
     {
         int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
-
-        Churn.text = $"{churn}%";
-
         int baseValue = MarketingUtils.GetUserTypeBaseValue(userType);
         int fromLoyalty = MarketingUtils.GetChurnRateLoyaltyPart(GameContext, c.company.Id, userType);
 
+        Churn.minValue = baseValue;
+        Churn.maxValue = baseValue + 10;
+        Churn.value = churn;
+
         ChurnHint.SetHint(
-            $"Base value for {EnumUtils.GetFormattedUserType(userType)} is {baseValue}%" +
+            $"Current churn rate is {churn}%" +
+            $"\n\nBase value for {EnumUtils.GetFormattedUserType(userType)} is {baseValue}%" +
             $"\nFrom loyalty: {fromLoyalty}%"
             );
     }

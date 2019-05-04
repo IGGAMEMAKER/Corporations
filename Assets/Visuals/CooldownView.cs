@@ -2,51 +2,42 @@
 using UnityEngine.UI;
 
 public class CooldownView : View
+    , IAnyDateListener
 {
-    public TaskType TaskType;
-    Button Target;
-    Color BaseColor;
-
+    public CooldownType CooldownType;
+    
     void Start()
     {
-        Target = GetComponent<Button>();
-        BaseColor = Target.colors.disabledColor;
+        Render();
     }
 
-    void Update()
+    void OnEnable()
     {
-        ResetColor();
+
     }
 
-    void SetDisabledColor(Color color)
+    void Hide()
     {
-        ColorBlock cb = Target.colors;
-        cb.disabledColor = color;
-        Target.colors = cb;
+
     }
 
-    void AnimateButtonBackground(TaskComponent taskComponent)
+    void Show(Cooldown cooldown)
     {
-        float part = GetTaskCompletionPercentage(taskComponent) / 100f;
-        Color color = new Color(255, 255, 255, 0.2f + 0.3f * part);
-
-        SetDisabledColor(color);
-        Target.interactable = false;
+        
     }
 
-    void ResetButton()
+    void Render()
     {
-        Target.interactable = true;
-        SetDisabledColor(BaseColor);
-    }
+        var cooldowns = MyProductEntity.cooldowns.Cooldowns;
 
-    void ResetColor()
-    {
-        var t = GetTask(TaskType);
-
-        if (t == null)
-            ResetButton();
+        if (cooldowns.ContainsKey(CooldownType))
+            Show(cooldowns[CooldownType]);
         else
-            AnimateButtonBackground(t);
+            Hide();
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
