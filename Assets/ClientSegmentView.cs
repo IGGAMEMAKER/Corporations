@@ -79,7 +79,7 @@ public class ClientSegmentView : View
         int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
 
         hint.AppendFormat("Due to our churn rate ({0}%)", churn);
-        hint.AppendFormat("\nWe lose <color={0}>{1}</color> clients each month\n", VisualConstants.COLOR_NEGATIVE, 500);
+        hint.AppendFormat(" we lose <color={0}>{1}</color> clients each month\n", VisualConstants.COLOR_NEGATIVE, 500);
 
         if (userType != UserType.Core)
         {

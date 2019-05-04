@@ -32,9 +32,7 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
         GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
 
         foreach (var c in cooldowns)
-        {
             ProcessTasks(c.cooldowns.Cooldowns, c, entities[0].date.Date);
-        }
     }
 
     protected override bool Filter(GameEntity entity)
