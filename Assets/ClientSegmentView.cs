@@ -17,13 +17,17 @@ public class ClientSegmentView : View
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
+    public SetTargetUserType SetTargetUserType;
+
     public void Render(UserType userType, int companyId)
     {
         var c = CompanyUtils.GetCompanyById(GameContext, companyId);
 
         bool isSelected = c.targetUserType.UserType == userType;
 
-        IsSelectedNiche.enabled = isSelected;
+        //IsSelectedNiche.enabled = isSelected;
+
+        SetTargetUserType.SetUserType(userType);
 
 
         LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
@@ -67,23 +71,23 @@ public class ClientSegmentView : View
 
     string GetSegmentHint(bool isSelected, UserType userType)
     {
-        StringBuilder hint = new StringBuilder();
-
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
 
-        hint.AppendLine(formattedSegmentName);
-        hint.AppendLine();
+        //StringBuilder hint = new StringBuilder();
 
-        if (isSelected)
-        {
-            hint.AppendFormat("{0} will receive improvements automatically, when platform updates", formattedSegmentName);
-        }
-        else
-        {
-            hint.AppendFormat("Focus on {0} and your app will be better for them", formattedSegmentName);
-        }
+        //hint.AppendLine(formattedSegmentName);
+        //hint.AppendLine();
 
-        return hint.ToString();
+        //if (isSelected)
+        //{
+        //    hint.AppendFormat("{0} will receive improvements automatically, when platform updates", formattedSegmentName);
+        //}
+        //else
+        //{
+        //    hint.AppendFormat("Focus on {0} and your app will be better for them", formattedSegmentName);
+        //}
+
+        return $"{formattedSegmentName}\n";
     }
 
     void RenderSegmentHint(bool isSelected, UserType userType)

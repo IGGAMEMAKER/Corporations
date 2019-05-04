@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 5384231092752594791}
   - component: {fileID: 7361493505951464339}
   - component: {fileID: 3580036756546902955}
+  - component: {fileID: 4867731353113527614}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -325,6 +326,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4867731353113527614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120343874194027698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4764300d96db36449f80d151efc572a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UserType: 0
 --- !u!114 &8723797965717411011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +474,6 @@ GameObject:
   - component: {fileID: 3703065457458389968}
   - component: {fileID: 5261050478402154292}
   - component: {fileID: 8685078229833932877}
-  - component: {fileID: 5229078681074831944}
   m_Layer: 5
   m_Name: ClientSegment
   m_TagString: Untagged
@@ -554,6 +567,7 @@ MonoBehaviour:
   AudienceHint: {fileID: 6156917112287376331}
   SegmentHint: {fileID: 4159048114035325331}
   LoyaltyHint: {fileID: 3950365464403359489}
+  SetTargetUserType: {fileID: 4867731353113527614}
 --- !u!114 &8685078229833932877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,19 +610,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &5229078681074831944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3703065457458389966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4764300d96db36449f80d151efc572a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UserType: 0
 --- !u!1 &4066153599191708139
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +647,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 66, y: 66}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9003814967459818590
 CanvasRenderer:
@@ -840,7 +841,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 66, y: 66}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &844673480709509302
 CanvasRenderer:
@@ -957,7 +958,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Improve
+  m_Text: Focus
 --- !u!1 &9085628188009876210
 GameObject:
   m_ObjectHideFlags: 0

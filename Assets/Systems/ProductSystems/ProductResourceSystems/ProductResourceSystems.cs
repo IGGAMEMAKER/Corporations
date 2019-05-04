@@ -37,9 +37,9 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         {
             var team = e.team;
 
-            var ideas = 100;
+            var ideas = 3;
 
-            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game);
+            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game) / 30;
 
             var resources = new TeamResource(
                 team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER,
@@ -55,8 +55,8 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        if (!IsMonthEnd(entities[0].date))
-            return;
+        //if (!IsMonthEnd(entities[0].date))
+        //    return;
 
         GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
 

@@ -27,6 +27,13 @@
             case ScreenMode.ProjectScreen:
                 Navigate(TargetMenu, SelectedCompany.company.Id);
                 break;
+
+            case ScreenMode.TeamScreen:
+                Navigate(TargetMenu, MyProductEntity.company.Id);
+                break;
+            case ScreenMode.DevelopmentScreen:
+                Navigate(TargetMenu, MyProductEntity.company.Id);
+                break;
             default:
                 Navigate(TargetMenu, null);
                 break;

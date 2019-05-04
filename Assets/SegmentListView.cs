@@ -16,8 +16,6 @@ public class SegmentListView : ListView
 
         t.GetComponent<ClientSegmentView>()
             .Render(e.Key, MyProductEntity.company.Id);
-
-        t.GetComponent<SetTargetUserType>().UserType = e.Key;
     }
 
     void Render()

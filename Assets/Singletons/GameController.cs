@@ -18,9 +18,9 @@ public class GameController : MonoBehaviour
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
 
-        //SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }
 
     void Update()
@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
         // call Execute() on all the IExecuteSystems and 
         // ReactiveSystems that were triggered last frame
         _systems.Execute();
+
         // call cleanup() on all the ICleanupSystems
         _systems.Cleanup();
     }

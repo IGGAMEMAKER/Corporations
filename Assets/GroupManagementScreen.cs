@@ -48,13 +48,9 @@ public class GroupManagementScreen : View
     void RenderCEOButtons()
     {
         if (IsHasShares() && IsDomineering())
-        {
             ToggleCEOButtons(true);
-        }
         else
-        {
             ToggleCEOButtons(false);
-        }
     }
 
     void RenderROI()
@@ -86,7 +82,9 @@ public class GroupManagementScreen : View
 
     void Render()
     {
-        var c = CompanyUtils.GetCompanyById(GameContext, SelectedCompany.company.Id);
+        var company = SelectedCompany ?? MyGroupEntity;
+
+        var c = CompanyUtils.GetCompanyById(GameContext, company.company.Id);
 
         SelectedCompanyName.text = c.company.Name;
 
