@@ -17,15 +17,9 @@ public class ClientSegmentView : View
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
-    //public SetTargetUserType SetTargetUserType;
-
     public void Render(UserType userType, int companyId)
     {
         var c = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        bool isSelected = c.targetUserType.UserType == userType;
-
-        //SetTargetUserType.SetUserType(userType);
 
         UserTypeLabel.text = EnumUtils.GetFormattedUserType(userType);
 
@@ -37,7 +31,7 @@ public class ClientSegmentView : View
         
         RenderSegmentIncome(companyId, userType);
 
-        RenderSegmentHint(isSelected, userType);
+        RenderSegmentHint(userType);
 
         RenderLoyaltyHint(companyId, userType);
     }
@@ -68,7 +62,7 @@ public class ClientSegmentView : View
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
     }
 
-    string GetSegmentHint(bool isSelected, UserType userType)
+    string GetSegmentHint(UserType userType)
     {
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
 
@@ -89,8 +83,8 @@ public class ClientSegmentView : View
         return $"{formattedSegmentName}\n";
     }
 
-    void RenderSegmentHint(bool isSelected, UserType userType)
+    void RenderSegmentHint(UserType userType)
     {
-        SegmentHint.SetHint(GetSegmentHint(isSelected, userType));
+        SegmentHint.SetHint(GetSegmentHint(userType));
     }
 }

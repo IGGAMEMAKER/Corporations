@@ -52,7 +52,7 @@ public class MenuController : MonoBehaviour, IMenuListener
         {
             //case ScreenMode.BusinessScreen: return "Business";
             case ScreenMode.IndustryScreen: return "Market resarch";
-            case ScreenMode.NicheScreen: return "Niche";
+            case ScreenMode.NicheScreen: return "Market";
             case ScreenMode.ProjectScreen: return "Project";
             case ScreenMode.DevelopmentScreen: return "Development";
             case ScreenMode.InvesmentsScreen: return "Investments";
