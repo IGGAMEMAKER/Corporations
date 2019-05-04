@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Services
 {
@@ -33,13 +34,6 @@ public class GameController : MonoBehaviour
     public Canvas Canvas;
     public GameObject Gameplay;
 
-    private void OnEnable()
-    {
-        Debug.Log("GameController OnEnable(). Deactivate everything");
-
-        SetViewsActivation(false);
-    }
-
     void SetViewsActivation(bool show)
     {
         Canvas.gameObject.SetActive(show);
@@ -63,6 +57,8 @@ public class GameController : MonoBehaviour
 
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
+
+        //SceneManager.LoadSceneAsync(1);
 
         Debug.Log("Activate everything");
         SetViewsActivation(true);
