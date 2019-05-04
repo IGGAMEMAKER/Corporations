@@ -13,8 +13,8 @@ public class MainLinksController : View
 
     void Render()
     {
-        LinkToDevelopment.SetActive(MyProductEntity != null);
-        LinkToGroup.SetActive(MyGroupEntity != null);
+        //LinkToDevelopment.SetActive(MyProductEntity != null);
+        //LinkToGroup.SetActive(MyGroupEntity != null);
     }
 
     // Start is called before the first frame update
