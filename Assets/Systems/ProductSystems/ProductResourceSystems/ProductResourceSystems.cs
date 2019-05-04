@@ -2,17 +2,19 @@
 using Assets.Classes;
 using Assets.Utils;
 using Entitas;
-using UnityEngine;
 
 // TODO replace with OnMonthChange!
-class ProductResourceSystems : ReactiveSystem<GameEntity>
+class ProductResourceSystems : OnDateChange
 {
-    private readonly Contexts contexts;
+    int period = 7;
 
-    public ProductResourceSystems(Contexts contexts) : base(contexts.game)
+    protected ProductResourceSystems(Contexts contexts) : base(contexts)
     {
-        // TODO: Add proper IGroups!
-        this.contexts = contexts;
+    }
+
+    bool IsPeriodEnd(DateComponent dateComponent)
+    {
+        return dateComponent.Date % period == 0 && dateComponent.Date > 0;
     }
 
     bool IsMonthEnd(DateComponent dateComponent)
@@ -20,15 +22,9 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         return dateComponent.Date % 30 == 0 && dateComponent.Date > 0;
     }
 
-    float GetConversion(GameEntity e)
+    bool IsWeekEnd(DateComponent dateComponent)
     {
-        int productLoyalty = e.product.ProductLevel * 5;
-        int bugsPenalty = 0;
-        int pricingPenalty = 0;
-
-        int loyalty = productLoyalty - bugsPenalty - pricingPenalty;
-
-        return Mathf.Pow(loyalty, 0.5f);
+        return dateComponent.Date % 7 == 0 && dateComponent.Date > 0;
     }
 
     void AddResources(GameEntity[] Products)
@@ -37,14 +33,14 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
         {
             var team = e.team;
 
-            var ideas = 3;
+            var ideas = 3 * period;
 
-            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game) / 30;
+            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game) * period / 30;
 
             var resources = new TeamResource(
-                team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER,
-                team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER,
-                team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER,
+                team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * period,
+                team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER * period,
+                team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER * period,
                 ideas,
                 money
                 );
@@ -55,8 +51,8 @@ class ProductResourceSystems : ReactiveSystem<GameEntity>
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //if (!IsMonthEnd(entities[0].date))
-        //    return;
+        if (!IsPeriodEnd(entities[0].date))
+            return;
 
         GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
 
