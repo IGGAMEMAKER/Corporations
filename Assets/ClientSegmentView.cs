@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class ClientSegmentView : View
 
     public Text AudienceSize;
     public Hint AudienceHint;
+
+    public Text Churn;
+    public Hint ChurnHint;
 
     public Hint SegmentHint;
     public Hint LoyaltyHint;
@@ -34,6 +38,8 @@ public class ClientSegmentView : View
         LevelLabel.text = $"{c.product.Segments[userType]}LVL";
 
         RenderAudience(userType, c);
+
+        RenderChurn(userType, c);
         
         RenderSegmentIncome(companyId, userType);
 
@@ -47,14 +53,31 @@ public class ClientSegmentView : View
         SegmentBonus.text = $"+25";
     }
 
+    private void RenderChurn(UserType userType, GameEntity c)
+    {
+        int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
+
+        Churn.text = $"{churn}%";
+
+        int baseValue = MarketingUtils.GetUserTypeBaseValue(userType);
+        int fromLoyalty = MarketingUtils.GetChurnRateLoyaltyPart(GameContext, c.company.Id, userType);
+
+        ChurnHint.SetHint(
+            $"Base value for {EnumUtils.GetFormattedUserType(userType)} is {baseValue}%" +
+            $"\nFrom loyalty: {fromLoyalty}%"
+            );
+    }
+
     void RenderAudience(UserType userType, GameEntity c)
     {
         AudienceSize.text = $"{ValueFormatter.Shorten(c.marketing.Segments[userType])}";
 
         StringBuilder hint = new StringBuilder();
 
-        hint.AppendLine("Due to 5% churn rate");
-        hint.AppendFormat("We lose <color={0}>500</color> clients each month\n", VisualConstants.COLOR_NEGATIVE);
+        int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
+
+        hint.AppendFormat("Due to our churn rate ({0}%)", churn);
+        hint.AppendFormat("\nWe lose <color={0}>{1}</color> clients each month\n", VisualConstants.COLOR_NEGATIVE, 500);
 
         if (userType != UserType.Core)
         {
