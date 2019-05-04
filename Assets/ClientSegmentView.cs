@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ClientSegmentView : View
 {
-    public Image IsSelectedNiche;
+    public Text UserTypeLabel;
 
     public ColoredValuePositiveOrNegative LoyaltyLabel;
     public Text LevelLabel;
@@ -17,7 +17,7 @@ public class ClientSegmentView : View
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
-    public SetTargetUserType SetTargetUserType;
+    //public SetTargetUserType SetTargetUserType;
 
     public void Render(UserType userType, int companyId)
     {
@@ -25,10 +25,9 @@ public class ClientSegmentView : View
 
         bool isSelected = c.targetUserType.UserType == userType;
 
-        //IsSelectedNiche.enabled = isSelected;
+        //SetTargetUserType.SetUserType(userType);
 
-        SetTargetUserType.SetUserType(userType);
-
+        UserTypeLabel.text = EnumUtils.GetFormattedUserType(userType);
 
         LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
 
