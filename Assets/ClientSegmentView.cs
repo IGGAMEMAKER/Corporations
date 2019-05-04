@@ -43,8 +43,17 @@ public class ClientSegmentView : View
         StringBuilder hint = new StringBuilder();
 
         hint.AppendLine("Due to 5% churn rate");
-        hint.AppendLine("We lose 500 clients each month\n");
-        hint.AppendFormat("<color={0}>Also, 35 clients will be promoted</color>", VisualConstants.COLOR_POSITIVE);
+        hint.AppendFormat("We lose <color={0}>500</color> clients each month\n", VisualConstants.COLOR_NEGATIVE);
+
+        if (userType != UserType.Core)
+        {
+            UserType next = UserType.Core;
+
+            if (userType == UserType.Newbie)
+                next = UserType.Regular;
+
+            hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>", VisualConstants.COLOR_POSITIVE, EnumUtils.GetFormattedUserType(next), 35);
+        }
         hint.AppendLine();
 
         AudienceHint.SetHint(hint.ToString());
@@ -65,20 +74,6 @@ public class ClientSegmentView : View
     string GetSegmentHint(UserType userType)
     {
         string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
-
-        //StringBuilder hint = new StringBuilder();
-
-        //hint.AppendLine(formattedSegmentName);
-        //hint.AppendLine();
-
-        //if (isSelected)
-        //{
-        //    hint.AppendFormat("{0} will receive improvements automatically, when platform updates", formattedSegmentName);
-        //}
-        //else
-        //{
-        //    hint.AppendFormat("Focus on {0} and your app will be better for them", formattedSegmentName);
-        //}
 
         return $"{formattedSegmentName}\n";
     }

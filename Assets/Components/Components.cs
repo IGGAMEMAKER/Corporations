@@ -38,22 +38,6 @@ public enum CompanyType
     Corporation
 }
 
-public enum ScreenMode
-{
-    DevelopmentScreen = 0,
-    MarketingScreen = 1,
-    ProjectScreen = 2,
-    //BusinessScreen,
-    TeamScreen = 3,
-    StatsScreen = 4,
-    CharacterScreen = 5,
-    GroupManagementScreen = 6,
-    InvesmentsScreen = 7,
-    InvesmentProposalScreen = 8,
-    IndustryScreen = 9,
-    NicheScreen = 10
-}
-
 public interface IEventListener
 {
     void RegisterListeners(IEntity entity);

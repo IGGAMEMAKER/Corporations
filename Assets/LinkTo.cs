@@ -31,6 +31,9 @@
             case ScreenMode.TeamScreen:
                 Navigate(TargetMenu, MyProductEntity.company.Id);
                 break;
+            case ScreenMode.EconomyScreen:
+                Navigate(TargetMenu, MyProductEntity.company.Id);
+                break;
             case ScreenMode.DevelopmentScreen:
                 Navigate(TargetMenu, MyProductEntity.company.Id);
                 break;

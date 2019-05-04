@@ -4,7 +4,7 @@
     {
         Add(new ProductDevelopmentSystem(contexts));
 
-        Add(new ProductDevelopmentSegmentSystem(contexts));
+        //Add(new ProductDevelopmentSegmentSystem(contexts));
 
         // updates product data
         Add(new ProductExecuteUpgradeEvent(contexts));

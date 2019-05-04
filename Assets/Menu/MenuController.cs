@@ -5,6 +5,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ScreenMode
+{
+    DevelopmentScreen = 0,
+    MarketingScreen = 1,
+    ProjectScreen = 2,
+    //BusinessScreen,
+    TeamScreen = 3,
+    StatsScreen = 4,
+    CharacterScreen = 5,
+    GroupManagementScreen = 6,
+    InvesmentsScreen = 7,
+    InvesmentProposalScreen = 8,
+    IndustryScreen = 9,
+    NicheScreen = 10,
+    EconomyScreen = 11,
+}
+
 public class MenuController : MonoBehaviour, IMenuListener
 {
     Dictionary<ScreenMode, GameObject> Screens;
@@ -13,7 +30,6 @@ public class MenuController : MonoBehaviour, IMenuListener
 
     public GameObject TechnologyScreen;
     public GameObject ProjectScreen;
-    //public GameObject BusinessScreen;
     public GameObject InvesmentsScreen;
     public GameObject InvesmentProposalScreen;
     public GameObject IndustryScreen;
@@ -21,6 +37,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject CharacterScreen;
     public GameObject GroupManagementScreen;
     public GameObject TeamScreen;
+    public GameObject EconomyScreen;
 
     void Start()
     {
@@ -35,7 +52,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.NicheScreen] = NicheScreen,
             [ScreenMode.CharacterScreen] = CharacterScreen,
             [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
-            [ScreenMode.TeamScreen] = TeamScreen
+            [ScreenMode.TeamScreen] = TeamScreen,
+            [ScreenMode.EconomyScreen] = EconomyScreen
         };
 
         DisableAllScreens();
@@ -50,7 +68,6 @@ public class MenuController : MonoBehaviour, IMenuListener
     {
         switch (screen)
         {
-            //case ScreenMode.BusinessScreen: return "Business";
             case ScreenMode.IndustryScreen: return "Market resarch";
             case ScreenMode.NicheScreen: return "Market";
             case ScreenMode.ProjectScreen: return "Project";
@@ -60,6 +77,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.CharacterScreen: return "My Stats";
             case ScreenMode.GroupManagementScreen: return "My companies";
             case ScreenMode.TeamScreen: return "Management";
+            case ScreenMode.EconomyScreen: return "Finances";
 
             default: return "WUT?";
         }

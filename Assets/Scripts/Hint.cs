@@ -51,12 +51,16 @@ public class Hint : MonoBehaviour
         float contentHeight = 225f;
 
         float rightSideOfScreenOffset = 0;
+        float verticalScreenOffset = 0;
 
         if (mouseX > Screen.width - contentWidth)
             rightSideOfScreenOffset = contentWidth;
 
-        Rect content = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY, contentWidth, contentHeight);
-        Rect wrapper = new Rect(mouseX - offsetX - rightSideOfScreenOffset, mouseY - offsetY, contentWidth + offsetX, contentHeight + offsetY);
+        if (mouseY > Screen.height - contentHeight)
+            verticalScreenOffset = contentHeight;
+
+        Rect content = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY - verticalScreenOffset, contentWidth, contentHeight);
+        Rect wrapper = new Rect(mouseX - offsetX - rightSideOfScreenOffset, mouseY - offsetY - verticalScreenOffset, contentWidth + offsetX, contentHeight + offsetY);
 
         GUI.color = Color.white;
 
