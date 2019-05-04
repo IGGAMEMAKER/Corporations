@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
 using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClientSegmentView : View
@@ -16,6 +17,11 @@ public class ClientSegmentView : View
 
     public Hint SegmentHint;
     public Hint LoyaltyHint;
+
+    public GameObject IdeaIcon;
+    public GameObject BrandIcon;
+
+    public Text SegmentBonus;
 
     public void Render(UserType userType, int companyId)
     {
@@ -34,6 +40,11 @@ public class ClientSegmentView : View
         RenderSegmentHint(userType);
 
         RenderLoyaltyHint(companyId, userType);
+
+        IdeaIcon.SetActive(userType != UserType.Regular);
+        BrandIcon.SetActive(userType == UserType.Regular);
+
+        SegmentBonus.text = $"+25";
     }
 
     void RenderAudience(UserType userType, GameEntity c)
