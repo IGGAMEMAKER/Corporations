@@ -1,40 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &779532371805009910
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5787852481568126654}
-  m_Layer: 5
-  m_Name: GameObject (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5787852481568126654
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779532371805009910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8433593044661741183}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &842817353862578036
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +125,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842817353862578036}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4764300d96db36449f80d151efc572a, type: 3}
   m_Name: 
@@ -386,13 +351,14 @@ GameObject:
   - component: {fileID: 7361493505951464339}
   - component: {fileID: 3580036756546902955}
   - component: {fileID: 4867731353113527614}
+  - component: {fileID: 7112016125443966484}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7646148304258987348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -411,7 +377,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -96}
-  m_SizeDelta: {x: 70, y: 40}
+  m_SizeDelta: {x: 90, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5384231092752594791
 CanvasRenderer:
@@ -505,6 +471,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserType: 0
+--- !u!114 &7112016125443966484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120343874194027698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: Focus on this segment to make more benefit from them
+  isActionHint: 1
 --- !u!1 &1538904004561180859
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +594,7 @@ RectTransform:
   m_Children:
   - {fileID: 755159803634016693}
   - {fileID: 4633545811277775779}
-  - {fileID: 5787852481568126654}
+  - {fileID: 7967927356100986598}
   - {fileID: 6163112952964350467}
   - {fileID: 5260294573820819928}
   - {fileID: 5388289574532664306}
@@ -656,6 +636,85 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 5}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!1 &2609089920842266686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7967927356100986598}
+  - component: {fileID: 7382618540708617098}
+  - component: {fileID: 6906467575956336064}
+  m_Layer: 5
+  m_Name: Churn label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7967927356100986598
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609089920842266686}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8433593044661741183}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7382618540708617098
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609089920842266686}
+  m_CullTransparentMesh: 0
+--- !u!114 &6906467575956336064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609089920842266686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Churn:'
 --- !u!1 &2801605816774329171
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,11 +1045,11 @@ MonoBehaviour:
   AudienceHint: {fileID: 8998823984930238326}
   Churn: {fileID: 3852771867484292470}
   ChurnHint: {fileID: 4466109347459961214}
-  SegmentHint: {fileID: 4159048114035325331}
+  SegmentHint: {fileID: 6890363289308645022}
   LoyaltyHint: {fileID: 3950365464403359489}
   IdeaIcon: {fileID: 4471043525879592482}
   BrandIcon: {fileID: 7137691409898660561}
-  SetTargetUserType: {fileID: 2261412257380989611}
+  SetTargetUserType: {fileID: 4867731353113527614}
   SegmentBonus: {fileID: 4939460075431005507}
 --- !u!1 &3760999085982929902
 GameObject:
@@ -1054,7 +1113,7 @@ GameObject:
   - component: {fileID: 7684144366016811668}
   - component: {fileID: 9003814967459818590}
   - component: {fileID: 4654660644776543044}
-  - component: {fileID: 4159048114035325331}
+  - component: {fileID: 6890363289308645022}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1118,7 +1177,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &4159048114035325331
+--- !u!114 &6890363289308645022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1130,8 +1189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: Focus on this segment to make more benefit from them
-  isActionHint: 1
+  Text: 
+  isActionHint: 0
 --- !u!1 &5115774696264568156
 GameObject:
   m_ObjectHideFlags: 0

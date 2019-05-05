@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class MonthlyBalanceView : View
+public class MonthlyBalanceView : DailyUpdateableView
 {
     ColoredValuePositiveOrNegative Text;
 
@@ -9,8 +9,7 @@ public class MonthlyBalanceView : View
         Text = GetComponent<ColoredValuePositiveOrNegative>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Render()
     {
         Text.value = CompanyEconomyUtils.GetBalanceChange(MyProductEntity, GameContext);
     }
