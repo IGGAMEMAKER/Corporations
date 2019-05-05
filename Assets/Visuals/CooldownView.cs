@@ -17,6 +17,11 @@ public class CooldownView : View
         ListenDateChanges(this);
     }
 
+    void OnEnable()
+    {
+        Render();
+    }
+
     GameEntity Observable
     {
         get
@@ -25,15 +30,11 @@ public class CooldownView : View
         }
     }
 
-    void OnEnable()
-    {
-
-    }
 
     void Toggle(bool show)
     {
         Panel.enabled = show;
-        ScheduleIcon.SetActive(show);
+        //ScheduleIcon.SetActive(show);
         Text.gameObject.SetActive(show);
     }
 
@@ -48,7 +49,7 @@ public class CooldownView : View
 
         int remaining = cooldown.EndDate - CurrentIntDate;
 
-        Text.text = remaining.ToString();
+        Text.text = $"{remaining} days";
     }
 
     void Render()
