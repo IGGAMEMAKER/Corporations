@@ -14,8 +14,12 @@ public class SegmentListView : ListView
     {
         var e = (KeyValuePair<UserType, long>)(object)entity;
 
-        t.GetComponent<ClientSegmentView>()
-            .Render(e.Key, MyProductEntity.company.Id);
+
+        if (t.GetComponent<ClientSegmentView>() != null)
+            t.GetComponent<ClientSegmentView>().Render(e.Key, MyProductEntity.company.Id);
+
+        if (t.GetComponent<ClientSegmentPreview>() != null)
+            t.GetComponent<ClientSegmentPreview>().Render(e.Key, MyProductEntity.company.Id);
     }
 
     void Render()
