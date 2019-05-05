@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlatformUpdateRequirements : View
 {
@@ -16,10 +13,10 @@ public class PlatformUpdateRequirements : View
     void Render()
     {
         var devCost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext);
-        var have = MyProductEntity.companyResource;
+        var have = MyProductEntity.companyResource.Resources;
 
-        IdeaProgressBar.SetValue(have.Resources.ideaPoints, devCost.ideaPoints);
+        IdeaProgressBar.SetValue(have.ideaPoints, devCost.ideaPoints);
 
-        ProgrammingProgressBar.SetValue(have.Resources.programmingPoints, devCost.programmingPoints);
+        ProgrammingProgressBar.SetValue(have.programmingPoints, devCost.programmingPoints);
     }
 }

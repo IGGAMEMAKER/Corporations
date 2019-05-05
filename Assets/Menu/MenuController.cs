@@ -38,6 +38,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject GroupManagementScreen;
     public GameObject TeamScreen;
     public GameObject EconomyScreen;
+    public GameObject MarketingScreen;
 
     void Start()
     {
@@ -45,7 +46,6 @@ public class MenuController : MonoBehaviour, IMenuListener
         {
             [ScreenMode.DevelopmentScreen] = TechnologyScreen,
             [ScreenMode.ProjectScreen] = ProjectScreen,
-            //[ScreenMode.BusinessScreen] = BusinessScreen,
             [ScreenMode.InvesmentsScreen] = InvesmentsScreen,
             [ScreenMode.InvesmentProposalScreen] = InvesmentProposalScreen,
             [ScreenMode.IndustryScreen] = IndustryScreen,
@@ -53,7 +53,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.CharacterScreen] = CharacterScreen,
             [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
             [ScreenMode.TeamScreen] = TeamScreen,
-            [ScreenMode.EconomyScreen] = EconomyScreen
+            [ScreenMode.EconomyScreen] = EconomyScreen,
+            [ScreenMode.MarketingScreen] = MarketingScreen
         };
 
         DisableAllScreens();
@@ -78,6 +79,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.GroupManagementScreen: return "My companies";
             case ScreenMode.TeamScreen: return "Management";
             case ScreenMode.EconomyScreen: return "Finances";
+            case ScreenMode.MarketingScreen: return "Marketing";
 
             default: return "WUT?";
         }

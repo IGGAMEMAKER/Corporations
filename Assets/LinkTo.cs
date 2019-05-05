@@ -37,6 +37,9 @@
             case ScreenMode.DevelopmentScreen:
                 Navigate(TargetMenu, MyProductEntity.company.Id);
                 break;
+            case ScreenMode.MarketingScreen:
+                Navigate(TargetMenu, MyProductEntity.company.Id);
+                break;
             default:
                 Navigate(TargetMenu, null);
                 break;
