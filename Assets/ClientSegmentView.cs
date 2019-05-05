@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +24,8 @@ public class ClientSegmentView : View
     public GameObject IdeaIcon;
     public GameObject BrandIcon;
 
+    public SetTargetUserType SetTargetUserType;
+
     public Text SegmentBonus;
 
     public void Render(UserType userType, int companyId)
@@ -34,6 +35,8 @@ public class ClientSegmentView : View
         UserTypeLabel.text = EnumUtils.GetFormattedUserType(userType);
 
         LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
+
+        SetTargetUserType.SetUserType(userType);
 
         LevelLabel.text = $"{c.product.Segments[userType]}LVL";
 

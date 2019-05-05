@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CooldownView : View
@@ -9,13 +10,33 @@ public class CooldownView : View
     public Image Panel;
     public GameObject ScheduleIcon;
     public Text Text;
-    
+
+    //bool wasPositionUpdated = false;
+
     void Start()
     {
+        Debug.Log("Render cooldown");
         Render();
 
+        Debug.Log("Listen changes");
         ListenDateChanges(this);
+
+        Debug.Log("Update position");
+        //UpdatePosition();
     }
+
+    ////IEnumerator UpdatePosition()
+    //void UpdatePosition()
+    //{
+    //    if (wasPositionUpdated)
+    //        return;
+
+    //    wasPositionUpdated = true;
+    //    //yield return new WaitForSeconds(0.21f);
+
+    //    transform.SetParent(transform.parent.parent);
+    //    transform.SetAsLastSibling();
+    //}
 
     void OnEnable()
     {
@@ -34,6 +55,9 @@ public class CooldownView : View
     void Toggle(bool show)
     {
         Panel.enabled = show;
+
+        //Panel.GetComponent<RectTransform>().lo
+
         //ScheduleIcon.SetActive(show);
         Text.gameObject.SetActive(show);
     }
@@ -54,6 +78,11 @@ public class CooldownView : View
 
     void Render()
     {
+        if (Observable == null)
+            return;
+
+        //UpdatePosition();
+
         var cooldowns = Observable.cooldowns.Cooldowns;
 
         if (cooldowns.ContainsKey(CooldownType))

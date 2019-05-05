@@ -7,6 +7,16 @@ public static class VisualFormattingUtils
         return $"<i><b><color=blue>{text}</color></b></i>";
     }
 
+    public static string Positive(string text)
+    {
+        return Colorize(text, VisualConstants.COLOR_POSITIVE);
+    }
+
+    public static string Colorize(string text, string colorHTML)
+    {
+        return $"<color={colorHTML}>{text}</color>";
+    }
+
     public static Color Color(string color)
     {
         ColorUtility.TryParseHtmlString(color, out Color c);

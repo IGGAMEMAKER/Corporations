@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 public enum NicheType
 {
     None,
@@ -40,7 +35,13 @@ public enum CompanyType
 
 public enum CooldownType
 {
-    TargetingActivity
+    TargetingActivity,
+    
+    // fame or loyalty
+    MarketingFocus,
+
+    // loyalty, ideas, 
+    ProductFocus,
 }
 
 public struct Cooldown
