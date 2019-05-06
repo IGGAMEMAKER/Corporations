@@ -17,6 +17,16 @@ namespace Assets.Utils
             return "" + shortened / 10f + litera;
         }
 
+        public static string ShortenSigned<T>(T value)
+        {
+            long.TryParse(value.ToString(), out long val);
+
+            if (val <= 0)
+                return Shorten(value);
+
+            return $"+{Shorten(value)}";
+        }
+
         public static string Shorten<T>(T value)
         {
             long.TryParse(value.ToString(), out long val);

@@ -19,14 +19,4 @@
     {
         return MyProductEntity;
     }
-
-    //public virtual void RareUpdate()
-    //{
-
-    //}
-
-    //public void Update()
-    //{
-    //    RareUpdate();
-    //}
 }
