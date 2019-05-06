@@ -2,17 +2,27 @@
 using UnityEngine.UI;
 
 public class TeamMaintenanceView : View
+    , ITeamListener
 {
     Text Text;
-    // Start is called before the first frame update
+
     void Start()
     {
         Text = GetComponent<Text>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
+    {
+        ListenProductChanges()
+    }
+    
+    void Render()
     {
         Text.text = ValueFormatter.ShortenValueMockup(CompanyEconomyUtils.GetTeamMaintenance(MyProductEntity)) + "$";
+    }
+
+    void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale)
+    {
+        throw new System.NotImplementedException();
     }
 }

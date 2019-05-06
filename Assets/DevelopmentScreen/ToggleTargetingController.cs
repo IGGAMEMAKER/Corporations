@@ -1,8 +1,9 @@
 ﻿public class ToggleTargetingController : ButtonController
+    , ITargetingListener
 {
-    public override void RareUpdate()
+    void OnEnable()
     {
-        base.RareUpdate();
+        ListenProductChanges().AddTargetingListener(this);
 
         Render();
     }
@@ -15,5 +16,10 @@
     public override void Execute()
     {
         TriggerEventTargetingToggle(MyProduct.Id);
+    }
+
+    void ITargetingListener.OnTargeting(GameEntity entity)
+    {
+        Render();
     }
 }

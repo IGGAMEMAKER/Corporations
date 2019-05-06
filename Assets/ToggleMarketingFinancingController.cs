@@ -12,11 +12,6 @@ public class ToggleMarketingFinancingController : ButtonController
         MarketingUtils.SetFinancing(GameContext, MyProductEntity.company.Id, marketingFinancing);
     }
 
-    public override void RareUpdate()
-    {
-        Render();
-    }
-
     void Render()
     {
         AddIsChosenComponent(MyProductEntity.finance.marketingFinancing == marketingFinancing);

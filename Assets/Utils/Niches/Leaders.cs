@@ -38,5 +38,21 @@ namespace Assets.Utils
 
             return best;
         }
+
+        //public static GameEntity GetMostPopularApp()
+        //{
+        //    var allProducts = GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product));
+        //    var myNicheProducts = Array.FindAll(allProducts, p => p.product.Niche == MyProduct.Niche);
+
+        //    GameEntity best = MyProductEntity;
+
+        //    foreach (var p in myNicheProducts)
+        //    {
+        //        if (MarketingUtils.GetClients(p) > MarketingUtils.GetClients(best))
+        //            best = p;
+        //    }
+
+        //    return best;
+        //}
     }
 }

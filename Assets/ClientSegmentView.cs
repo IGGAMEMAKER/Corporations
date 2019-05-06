@@ -75,7 +75,7 @@ public class ClientSegmentView : View
 
     void RenderAudience(UserType userType, GameEntity c)
     {
-        AudienceSize.text = $"{ValueFormatter.Shorten(c.marketing.Segments[userType])}";
+        AudienceSize.text = ValueFormatter.Shorten(c.marketing.Segments[userType]);
 
         StringBuilder hint = new StringBuilder();
 

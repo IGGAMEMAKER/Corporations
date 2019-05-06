@@ -15,13 +15,18 @@
         MyProductEntity.AddEventFinancePricingChange(productId, level);
     }
 
-    public virtual void RareUpdate()
+    public GameEntity ListenProductChanges()
     {
-
+        return MyProductEntity;
     }
 
-    public void Update()
-    {
-        RareUpdate();
-    }
+    //public virtual void RareUpdate()
+    //{
+
+    //}
+
+    //public void Update()
+    //{
+    //    RareUpdate();
+    //}
 }

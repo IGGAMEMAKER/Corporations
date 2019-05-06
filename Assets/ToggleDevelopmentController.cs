@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 public class ToggleDevelopmentController : ButtonController
+    , IDevelopmentFocusListener
 {
     public DevelopmentFocus DevelopmentFocus;
 
@@ -15,12 +16,12 @@ public class ToggleDevelopmentController : ButtonController
     public void OnEnable()
     {
         Render();
+
+        ListenProductChanges().AddDevelopmentFocusListener(this);
     }
 
-    public override void RareUpdate()
+    void IDevelopmentFocusListener.OnDevelopmentFocus(GameEntity entity, DevelopmentFocus focus)
     {
-        base.RareUpdate();
-
         Render();
     }
 

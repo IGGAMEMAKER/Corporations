@@ -41,3 +41,6 @@ public class TargetUserTypeComponent : IComponent
 
 [Game, Event(EventTarget.Self)]
 public class TargetingComponent : IComponent { }
+
+[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
+public class TechnologyLeaderComponent : IComponent { }
