@@ -4,6 +4,7 @@ public class DevelopmentCostView : SimpleParameterView
 {
     public override string RenderHint()
     {
+        return "";
         string hint = "Base Cost: " + ProductDevelopmentUtils.BaseDevCost(MyProductEntity);
 
         if (ProductDevelopmentUtils.IsInnovating(MyProductEntity, GameContext))

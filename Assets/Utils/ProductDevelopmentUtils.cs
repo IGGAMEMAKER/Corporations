@@ -16,7 +16,7 @@ namespace Assets.Utils
         {
             int innovationPenalty = IsInnovating(e, context) ? Constants.DEVELOPMENT_INNOVATION_PENALTY : 0;
 
-            int modifier = 100 + innovationPenalty;
+            int modifier = 100; // + innovationPenalty;
 
             int devCost = BaseDevCost(e) * modifier / 100;
             int ideaCost = BaseIdeaCost(e) * modifier / 100;

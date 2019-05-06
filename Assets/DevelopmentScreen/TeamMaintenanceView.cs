@@ -9,20 +9,19 @@ public class TeamMaintenanceView : View
     void Start()
     {
         Text = GetComponent<Text>();
+
+        MyProductEntity.AddTeamListener(this);
+
+        Render();
     }
 
-    void OnEnable()
-    {
-        ListenProductChanges()
-    }
-    
     void Render()
     {
-        Text.text = ValueFormatter.ShortenValueMockup(CompanyEconomyUtils.GetTeamMaintenance(MyProductEntity)) + "$";
+        Text.text = $"${ValueFormatter.Shorten(CompanyEconomyUtils.GetTeamMaintenance(MyProductEntity))}";
     }
 
     void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale)
     {
-        throw new System.NotImplementedException();
+        Render();
     }
 }

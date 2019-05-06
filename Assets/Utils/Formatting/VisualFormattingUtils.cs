@@ -4,7 +4,7 @@ public static class VisualFormattingUtils
 {
     public static string Link(string text)
     {
-        return $"<i><b><color=blue>{text}</color></b></i>";
+        return $"<i><b><color=magenta>{text}</color></b></i>";
     }
 
     public static string Positive(string text)

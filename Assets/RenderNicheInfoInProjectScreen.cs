@@ -9,6 +9,8 @@ public class RenderNicheInfoInProjectScreen : View
     public GameObject NicheRoot;
     public LinkToNiche LinkToNiche;
 
+    public StealIdeasController StealIdeasController;
+
     void Start()
     {
         //ListenMenuChanges(this);
@@ -21,12 +23,16 @@ public class RenderNicheInfoInProjectScreen : View
         Render();
     }
 
+    bool canRenderNiche
+    {
+        get
+        {
+            return SelectedCompany.company.CompanyType == CompanyType.ProductCompany;
+        }
+    }
+
     void Render()
     {
-        CompanyType companyType = SelectedCompany.company.CompanyType;
-
-        bool canRenderNiche = companyType == CompanyType.ProductCompany;
-
         ToggleNicheObjects(canRenderNiche);
 
         if (canRenderNiche)
@@ -36,6 +42,9 @@ public class RenderNicheInfoInProjectScreen : View
     void ToggleNicheObjects(bool show)
     {
         NicheRoot.SetActive(show);
+
+        if (StealIdeasController != null)
+            StealIdeasController.gameObject.SetActive(show);
     }
 
     private void RenderNicheTab()
