@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct GoalViewInfo
+{
+    public int importance;
+    public string goal;
+
+    public long have;
+    public long need;
+}
+
 public class InvestmentGoalView : MonoBehaviour
 {
     public Text Importance;

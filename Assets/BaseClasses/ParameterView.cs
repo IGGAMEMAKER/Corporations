@@ -14,6 +14,7 @@ public abstract class SimpleParameterView : View
     public void Render()
     {
         Text.text = RenderValue();
+
         string hint = RenderHint();
 
         if (hint.Length > 0)
