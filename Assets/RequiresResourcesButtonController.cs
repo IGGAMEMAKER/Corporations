@@ -2,7 +2,7 @@
 
 public class RequiresResourcesButtonController : ResourceChecker
 {
-    void Update()
+    void Start()
     {
         SetRequiredResources(new TeamResource(10, 0, 0, 0, 0));
     }

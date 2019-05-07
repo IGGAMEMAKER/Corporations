@@ -1,13 +1,14 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuResourceView : View
-    //,IMenuListener
-    //,IProductListener
-    //,IMarketingListener
-    //,ICompanyResourceListener
+    , IMenuListener
+    , IProductListener
+    , IMarketingListener
+    , ICompanyResourceListener
 {
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
@@ -19,18 +20,18 @@ public class MenuResourceView : View
 
     public GameObject Container;
 
-    private void Start()
+    void OnEnable()
     {
-        //ListenMenuChanges(this);
+        ListenMenuChanges(this);
 
-        //if (MyProductEntity != null)
-        //{
-        //    MyProductEntity.AddProductListener(this);
-        //    MyProductEntity.AddMarketingListener(this);
-        //    MyProductEntity.AddCompanyResourceListener(this);
-        //}
+        if (MyProductEntity != null)
+        {
+            MyProductEntity.AddProductListener(this);
+            MyProductEntity.AddMarketingListener(this);
+            MyProductEntity.AddCompanyResourceListener(this);
+        }
 
-        Render(ScreenMode.DevelopmentScreen);
+        Render();
     }
 
     string GetHintText<T> (T value)
@@ -50,14 +51,12 @@ public class MenuResourceView : View
         Container.SetActive(false);
     }
 
-    void Render()
+    public void Render()
     {
-        Render(MenuUtils.GetMenu(GameContext).menu.ScreenMode);
-    }
-
-    public void Render(ScreenMode screenMode)
-    {
-        if (screenMode == ScreenMode.DevelopmentScreen || screenMode == ScreenMode.TeamScreen)
+        if (CurrentScreen == ScreenMode.DevelopmentScreen ||
+            CurrentScreen == ScreenMode.TeamScreen ||
+            CurrentScreen == ScreenMode.MarketingScreen
+            )
             Render(MyProductEntity.companyResource.Resources, new TeamResource(), MyProductEntity.marketing);
         else
             Hide();
@@ -98,28 +97,23 @@ public class MenuResourceView : View
         BrandView.SetPrettifiedValue("", marketing.BrandPower);
     }
 
-    void Update()
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
     {
         Render();
     }
 
-    //void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    //{
-    //    Render();
-    //}
+    void ICompanyResourceListener.OnCompanyResource(GameEntity entity, TeamResource resources)
+    {
+        Render();
+    }
 
-    //void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel)
-    //{
-    //    Render();
-    //}
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
+    {
+        Render();
+    }
 
-    //void IMarketingListener.OnMarketing(GameEntity entity, uint clients, int brandPower, bool isTargetingEnabled)
-    //{
-    //    Render();
-    //}
-
-    //void ICompanyResourceListener.OnCompanyResource(GameEntity entity, TeamResource resources)
-    //{
-    //    Render();
-    //}
+    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
+    {
+        Render();
+    }
 }
