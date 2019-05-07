@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +11,8 @@ public struct GoalViewInfo
     public long need;
 }
 
-public class InvestmentGoalView : MonoBehaviour
+public class InvestmentGoalView : View
+    , IAnyDateListener
 {
     public Text Importance;
     public Text Goal;
@@ -21,12 +21,42 @@ public class InvestmentGoalView : MonoBehaviour
     void Start()
     {
         Render();
+
+        ListenDateChanges(this);
+    }
+
+    GoalViewInfo GetGoalViewInfo()
+    {
+        var me = MyProductEntity;
+        var best = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.product.Niche);
+
+        return new GoalViewInfo
+        {
+            importance = 58,
+            have = me.product.ProductLevel,
+            need = best.product.ProductLevel,
+            goal = "Become market fit"
+        };
     }
 
     void Render()
     {
-        Importance.text = "58%";
-        Goal.text = VisualFormattingUtils.Colorize("Become market fit", VisualConstants.COLOR_POSITIVE);
-        ProgressBar.SetValue(7, 8);
+        var goalinfo = GetGoalViewInfo();
+
+        Importance.text = goalinfo.importance + "%";
+
+        string col = goalinfo.have >= goalinfo.need ?
+            VisualConstants.COLOR_POSITIVE
+            :
+            VisualConstants.COLOR_NEGATIVE;
+
+        Goal.text = VisualFormattingUtils.Colorize(goalinfo.goal, col);
+
+        ProgressBar.SetValue(goalinfo.have, goalinfo.need);
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
