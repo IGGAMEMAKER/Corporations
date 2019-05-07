@@ -2,8 +2,10 @@
 
 public class RequiresResourcesButtonController : ResourceChecker
 {
-    void Start()
+    new void Start()
     {
+        base.Start();
+
         SetRequiredResources(new TeamResource(10, 0, 0, 0, 0));
     }
 }

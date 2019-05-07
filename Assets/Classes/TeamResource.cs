@@ -40,18 +40,18 @@ namespace Assets.Classes
             }
         }
 
-        internal void Add(TeamResource resources)
-        {
-            AddTeamPoints(resources);
-            AddMoney(resources.money);
-        }
-
         public int ideaPoints
         {
             get { return IdeaPoints; }
             set {
                 IdeaPoints = value > pointCap ? pointCap : value;
             }
+        }
+        
+        internal void Add(TeamResource resources)
+        {
+            AddTeamPoints(resources);
+            AddMoney(resources.money);
         }
 
         public TeamResource(long money)

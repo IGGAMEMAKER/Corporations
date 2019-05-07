@@ -17,7 +17,7 @@ public class InvestmentGoalView : MonoBehaviour
     void Render()
     {
         Importance.text = "58%";
-        Goal.text = VisualFormattingUtils.Colorize("Become market fit", VisualConstants.COLOR_NEGATIVE);
+        Goal.text = VisualFormattingUtils.Colorize("Become market fit", VisualConstants.COLOR_POSITIVE);
         ProgressBar.SetValue(7, 8);
     }
 }

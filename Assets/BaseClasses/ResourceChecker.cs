@@ -10,7 +10,7 @@ public abstract class ResourceChecker : View
     internal Hint Hint;
     public TeamResource RequiredResources;
 
-    void Start()
+    public void Start()
     {
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
@@ -20,7 +20,7 @@ public abstract class ResourceChecker : View
 
     void Render()
     {
-        if (isEnoughResources)
+        if (IsEnoughResources)
         {
             RemoveHint();
             Button.interactable = true;
@@ -39,22 +39,12 @@ public abstract class ResourceChecker : View
         Render();
     }
 
-    bool isEnoughResources
+    bool IsEnoughResources
     {
         get
         {
             return TeamResource.IsEnoughResources(MyProductEntity.companyResource.Resources, RequiredResources);
         }
-    }
-
-
-
-    string RequiredResourceSpec(int req, int res, string literal)
-    {
-        if (req > 0)
-            return VisualFormattingUtils.Colorize($"{req} {literal}", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
-
-        return "";
     }
 
     private void SetHint()
@@ -70,6 +60,14 @@ public abstract class ResourceChecker : View
         string hint = $"This task costs\n\n{money}{idea}{manager}{programmer}{sales}";
 
         Hint.SetHint(hint);
+    }
+
+    string RequiredResourceSpec(int req, int res, string literal)
+    {
+        if (req > 0)
+            return VisualFormattingUtils.Colorize($"{req} {literal}", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
+
+        return "";
     }
 
     private void RemoveHint()
