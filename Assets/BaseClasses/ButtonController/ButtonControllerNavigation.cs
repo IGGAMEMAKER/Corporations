@@ -20,11 +20,6 @@ public abstract partial class ButtonController : MonoBehaviour
         Navigate(ScreenMode.IndustryScreen, industry);
     }
 
-    //public void NavigateToBusinessScreen(int companyId)
-    //{
-    //    Navigate(ScreenMode.BusinessScreen, companyId);
-    //}
-
     public void Navigate(ScreenMode screenMode, object data)
     {
         MenuUtils.Navigate(GameContext, screenMode, data);

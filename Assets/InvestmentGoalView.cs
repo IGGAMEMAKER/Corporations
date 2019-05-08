@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public struct GoalViewInfo
 {
-    public int importance;
+    public int expires;
     public string goal;
 
     public long have;
@@ -14,7 +14,7 @@ public struct GoalViewInfo
 public class InvestmentGoalView : View
     , IAnyDateListener
 {
-    public Text Importance;
+    public Text Expires;
     public Text Goal;
     public ProgressBar ProgressBar;
 
@@ -32,7 +32,7 @@ public class InvestmentGoalView : View
 
         return new GoalViewInfo
         {
-            importance = 58,
+            expires = 58,
             have = me.product.ProductLevel,
             need = best.product.ProductLevel,
             goal = "Become market fit"
@@ -43,7 +43,7 @@ public class InvestmentGoalView : View
     {
         var goalinfo = GetGoalViewInfo();
 
-        Importance.text = goalinfo.importance + "%";
+        Expires.text = goalinfo.expires + " days";
 
         string col = goalinfo.have >= goalinfo.need ?
             VisualConstants.COLOR_POSITIVE
