@@ -4,16 +4,6 @@ using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// Player can be CEO of only one product and one company group at time
-[Game]
-public struct ControlledByPlayerComponent : IComponent { }
-
-// only entity
-[Game]
-public struct SelectedCompanyComponent : IComponent { }
-
-
 //[Game]
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent
@@ -39,8 +29,6 @@ public class ShareholdersComponent : IComponent
 {
     // investorId => amountOfShares
     public Dictionary<int, BlockOfShares> Shareholders;
-    //// investorId => goal
-    //public Dictionary<int, InvestorGoal> Goals;
 }
 
 // is IPOed
@@ -102,6 +90,11 @@ public class InvestmentProposalsComponent : IComponent
 
 [Game]
 public class FollowingComponent : IComponent { }
+
+
+// Player can be CEO of only one product and one company group at time
+[Game]
+public struct ControlledByPlayerComponent : IComponent { }
 
 public class CEOComponent : IComponent
 {

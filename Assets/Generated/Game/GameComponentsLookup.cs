@@ -49,21 +49,20 @@ public static class GameComponentsLookup {
     public const int Product = 38;
     public const int ProductListener = 39;
     public const int PublicCompany = 40;
-    public const int SelectedCompany = 41;
-    public const int Shareholder = 42;
-    public const int Shareholders = 43;
-    public const int ShareholdersListener = 44;
-    public const int Targeting = 45;
-    public const int TargetingListener = 46;
-    public const int TargetUserType = 47;
-    public const int Task = 48;
-    public const int TaskManager = 49;
-    public const int Team = 50;
-    public const int TeamListener = 51;
-    public const int TechnologyLeader = 52;
-    public const int TechnologyLeaderListener = 53;
+    public const int Shareholder = 41;
+    public const int Shareholders = 42;
+    public const int ShareholdersListener = 43;
+    public const int Targeting = 44;
+    public const int TargetingListener = 45;
+    public const int TargetUserType = 46;
+    public const int Task = 47;
+    public const int TaskManager = 48;
+    public const int Team = 49;
+    public const int TeamListener = 50;
+    public const int TechnologyLeader = 51;
+    public const int TechnologyLeaderListener = 52;
 
-    public const int TotalComponents = 54;
+    public const int TotalComponents = 53;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -107,7 +106,6 @@ public static class GameComponentsLookup {
         "Product",
         "ProductListener",
         "PublicCompany",
-        "SelectedCompany",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -164,7 +162,6 @@ public static class GameComponentsLookup {
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(PublicCompanyComponent),
-        typeof(SelectedCompanyComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),
