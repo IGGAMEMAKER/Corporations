@@ -5,7 +5,7 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, int> founders, int CeoID)
+        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, BlockOfShares> founders, int CeoID)
         {
             var e = context.CreateEntity();
 
@@ -14,12 +14,7 @@ namespace Assets.Utils
             e.AddCompany(id, name, companyType);
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 0));
 
-            Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>();
-            Dictionary<CooldownType, Cooldown> cooldowns = new Dictionary<CooldownType, Cooldown>();
-
-            cooldowns[CooldownType.TargetingActivity] = new Cooldown { EndDate = 10 };
-
-            e.AddShareholders(founders, goals);
+            e.AddShareholders(founders);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddMetricsHistory(new List<MetricsInfo>());
 
@@ -28,6 +23,10 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
+
+            Dictionary<CooldownType, Cooldown> cooldowns = new Dictionary<CooldownType, Cooldown>();
+
+            cooldowns[CooldownType.TargetingActivity] = new Cooldown { EndDate = 10 };
             e.AddCooldowns(cooldowns);
 
             return e;

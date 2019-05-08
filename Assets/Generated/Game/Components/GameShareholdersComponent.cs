@@ -11,19 +11,17 @@ public partial class GameEntity {
     public ShareholdersComponent shareholders { get { return (ShareholdersComponent)GetComponent(GameComponentsLookup.Shareholders); } }
     public bool hasShareholders { get { return HasComponent(GameComponentsLookup.Shareholders); } }
 
-    public void AddShareholders(System.Collections.Generic.Dictionary<int, int> newShareholders, System.Collections.Generic.Dictionary<int, InvestorGoal> newGoals) {
+    public void AddShareholders(System.Collections.Generic.Dictionary<int, BlockOfShares> newShareholders) {
         var index = GameComponentsLookup.Shareholders;
         var component = (ShareholdersComponent)CreateComponent(index, typeof(ShareholdersComponent));
         component.Shareholders = newShareholders;
-        component.Goals = newGoals;
         AddComponent(index, component);
     }
 
-    public void ReplaceShareholders(System.Collections.Generic.Dictionary<int, int> newShareholders, System.Collections.Generic.Dictionary<int, InvestorGoal> newGoals) {
+    public void ReplaceShareholders(System.Collections.Generic.Dictionary<int, BlockOfShares> newShareholders) {
         var index = GameComponentsLookup.Shareholders;
         var component = (ShareholdersComponent)CreateComponent(index, typeof(ShareholdersComponent));
         component.Shareholders = newShareholders;
-        component.Goals = newGoals;
         ReplaceComponent(index, component);
     }
 

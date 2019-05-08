@@ -35,7 +35,7 @@ public sealed class AnyShareholdersEventSystem : Entitas.ReactiveSystem<GameEnti
                 _listenerBuffer.Clear();
                 _listenerBuffer.AddRange(listenerEntity.anyShareholdersListener.value);
                 foreach (var listener in _listenerBuffer) {
-                    listener.OnAnyShareholders(e, component.Shareholders, component.Goals);
+                    listener.OnAnyShareholders(e, component.Shareholders);
                 }
             }
         }

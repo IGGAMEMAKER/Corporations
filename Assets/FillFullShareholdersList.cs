@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Utils;
 using System.Linq;
 
 public class FillFullShareholdersList : View, IMenuListener
@@ -12,22 +12,10 @@ public class FillFullShareholdersList : View, IMenuListener
 
     void Render()
     {
-        var shareholders = GetShareholders();
+        var shareholders = CompanyUtils.GetCompanyShares(SelectedCompany);
 
         GetComponent<FullShareholdersListView>()
             .SetItems(shareholders.ToArray());
-    }
-
-    Dictionary<int, int> GetShareholders()
-    {
-        Dictionary<int, int> shareholders = new Dictionary<int, int>();
-
-        var companyEntity = SelectedCompany;
-
-        if (companyEntity.hasShareholders)
-            shareholders = companyEntity.shareholders.Shareholders;
-
-        return shareholders;
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)

@@ -25,8 +25,12 @@ public struct CompanyComponent : IComponent
 
 public struct BlockOfShares
 {
-    public int expires;
+    public int amount;
+
     public InvestorGoal InvestorGoal;
+    public int expires;
+
+    public int shareholderLoyalty;
 }
 
 // is attached to CompanyComponent
@@ -35,8 +39,8 @@ public class ShareholdersComponent : IComponent
 {
     // investorId => amountOfShares
     public Dictionary<int, BlockOfShares> Shareholders;
-    // investorId => goal
-    public Dictionary<int, InvestorGoal> Goals;
+    //// investorId => goal
+    //public Dictionary<int, InvestorGoal> Goals;
 }
 
 // is IPOed

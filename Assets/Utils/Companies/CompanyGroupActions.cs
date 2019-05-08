@@ -10,7 +10,7 @@ namespace Assets.Utils
         {
             var c = GetCompanyById(context, companyId);
 
-            Dictionary<int, int> founders = c.shareholders.Shareholders;
+            var founders = c.shareholders.Shareholders;
 
             int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", companyId).company.Id;
 
@@ -50,9 +50,18 @@ namespace Assets.Utils
 
             Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
 
-            Dictionary<int, int> shareholders = new Dictionary<int, int>
+            var shareholders = new Dictionary<int, BlockOfShares>
             {
-                { p.shareholder.Id, 100 }
+                {
+                    p.shareholder.Id,
+                    new BlockOfShares
+                    {
+                        amount = 100,
+                        expires = -1,
+                        InvestorGoal = InvestorGoal.GrowCompanyCost,
+                        shareholderLoyalty = 100
+                    }
+                }
             };
 
             Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>
@@ -61,9 +70,9 @@ namespace Assets.Utils
             };
 
             if (s.hasShareholders)
-                s.ReplaceShareholders(shareholders, s.shareholders.Goals);
+                s.ReplaceShareholders(shareholders);
             else
-                s.AddShareholders(shareholders, goals);
+                s.AddShareholders(shareholders);
 
             p.isIndependentCompany = false;
         }

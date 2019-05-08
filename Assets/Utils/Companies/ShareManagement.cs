@@ -19,11 +19,11 @@ namespace Assets.Utils
             return GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
         }
 
-        public static int GetTotalShares(Dictionary<int, int> shareholders)
+        public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
         {
             int totalShares = 0;
             foreach (var e in shareholders)
-                totalShares += e.Value;
+                totalShares += e.Value.amount;
 
             return totalShares;
         }
@@ -36,6 +36,16 @@ namespace Assets.Utils
                 return true;
 
             return false;
+        }
+
+        public static Dictionary<int, BlockOfShares> GetCompanyShares(GameEntity company)
+        {
+            var shareholders = new Dictionary<int, BlockOfShares>();
+
+            if (company.hasShareholders)
+                shareholders = company.shareholders.Shareholders;
+
+            return shareholders;
         }
 
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
@@ -54,7 +64,7 @@ namespace Assets.Utils
 
             var shareholders = c.shareholders.Shareholders;
 
-            return shareholders.ContainsKey(investorId) ? shareholders[investorId] : 0;
+            return shareholders.ContainsKey(investorId) ? shareholders[investorId].amount : 0;
         }
 
         public static int GetShareSize(GameContext context, int companyId, int investorId)
@@ -144,9 +154,15 @@ namespace Assets.Utils
         // update
         public static void CopyShareholders(GameContext gameContext, int from, int to)
         {
-            var source = GetCompanyById(gameContext, from).shareholders;
+            var cFrom = GetCompanyById(gameContext, from);
+            var cTo = GetCompanyById(gameContext, to);
 
-            GetCompanyById(gameContext, to).ReplaceShareholders(source.Shareholders, source.Goals);
+            ReplaceShareholders(cTo, cFrom.shareholders.Shareholders);
+        }
+
+        public static void ReplaceShareholders(GameEntity company, Dictionary<int, BlockOfShares> shareholders)
+        {
+            company.ReplaceShareholders(shareholders);
         }
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
@@ -163,13 +179,9 @@ namespace Assets.Utils
                 name = e.company.Name;
 
                 if (e.company.CompanyType == CompanyType.FinancialGroup)
-                {
                     investorType = InvestorType.VentureInvestor;
-                }
                 else
-                {
                     investorType = InvestorType.Strategic;
-                }
             }
             else if (e.hasHuman)
             {
@@ -186,45 +198,42 @@ namespace Assets.Utils
             return investorId;
         }
 
-        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
+        public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
         {
             var c = GetCompanyById(context, companyId);
 
-            Dictionary<int, int> shareholders;
-            Dictionary<int, InvestorGoal> goals;
+            var shareholders = c.shareholders.Shareholders;
 
-            InvestorGoal goal = GetInvestorGoal(context, investorId);
+            BlockOfShares b;
 
-            if (!c.hasShareholders)
+            if (shareholders.ContainsKey(investorId))
             {
-                shareholders = new Dictionary<int, int>
-                {
-                    [investorId] = shares
-                };
-                goals = new Dictionary<int, InvestorGoal>
-                {
-                    [investorId] = goal
-                };
-
-                c.AddShareholders(shareholders, goals);
+                b = shareholders[investorId];
+                b.amount += block.amount;
             }
             else
             {
-                shareholders = c.shareholders.Shareholders;
-                goals = c.shareholders.Goals;
-
-                if (shareholders.ContainsKey(investorId))
-                {
-                    shareholders[investorId] += shares;
-                }
-                else
-                {
-                    shareholders[investorId] = shares;
-                    goals[investorId] = goal;
-                }
-
-                c.ReplaceShareholders(shareholders, goals);
+                b = block;
             }
+
+            shareholders[investorId] = b;
+
+            ReplaceShareholders(c, shareholders);
+        }
+
+        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
+        {
+            var b = new BlockOfShares
+            {
+                amount = shares,
+                
+                // no time limit
+                expires = -1,
+                InvestorGoal = GetInvestorGoal(context, investorId),
+                shareholderLoyalty = 100
+            };
+
+            AddShareholder(context, companyId, investorId, b);
         }
 
         public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
@@ -233,19 +242,19 @@ namespace Assets.Utils
 
             var shareholders = c.shareholders.Shareholders;
 
-            int newBuyerShares = GetAmountOfShares(context, companyId, buyerInvestorId) + amountOfShares;
-            int newSellerShares = GetAmountOfShares(context, companyId, sellerInvestorId) - amountOfShares;
+            int newSellerSharesAmount = GetAmountOfShares(context, companyId, sellerInvestorId) - amountOfShares;
 
-            shareholders[sellerInvestorId] = newSellerShares;
-            if (newSellerShares == 0)
-            {
+            var SellerBlockOfShares = shareholders[sellerInvestorId];
+            SellerBlockOfShares.amount = newSellerSharesAmount;
+
+            if (newSellerSharesAmount == 0)
                 shareholders.Remove(sellerInvestorId);
-                c.shareholders.Goals.Remove(sellerInvestorId);
-            }
 
-            shareholders[buyerInvestorId] = newBuyerShares;
 
-            c.ReplaceShareholders(shareholders, c.shareholders.Goals);
+            var BuyerBlockOfShares = shareholders[buyerInvestorId];
+            BuyerBlockOfShares.amount = GetAmountOfShares(context, companyId, buyerInvestorId) + amountOfShares;
+
+            ReplaceShareholders(c, shareholders);
         }
 
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
@@ -263,8 +272,6 @@ namespace Assets.Utils
         public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
         {
             var investor = GetInvestorById(context, investorId);
-
-            var shareholder = investor.shareholder;
 
             var companyResource = investor.companyResource;
             companyResource.Resources.AddMoney(sum);

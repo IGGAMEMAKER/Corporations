@@ -22,7 +22,7 @@ namespace Assets.Utils
         {
             int humanId = HumanUtils.GenerateHuman(context);
 
-            return CreateCompany(context, name, companyType, new Dictionary<int, int>(), humanId);
+            return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), humanId);
         }
 
         public static GameEntity GenerateCompanyGroup(GameContext context, string name, int FormerProductCompany)

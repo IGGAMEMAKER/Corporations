@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IAnyShareholdersListener {
-    void OnAnyShareholders(GameEntity entity, System.Collections.Generic.Dictionary<int, int> shareholders, System.Collections.Generic.Dictionary<int, InvestorGoal> goals);
+    void OnAnyShareholders(GameEntity entity, System.Collections.Generic.Dictionary<int, BlockOfShares> shareholders);
 }

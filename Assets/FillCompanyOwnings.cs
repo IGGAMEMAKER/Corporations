@@ -67,7 +67,7 @@ public class FillCompanyOwnings : View
             Render();
     }
 
-    void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, int> shareholders, Dictionary<int, InvestorGoal> goals)
+    void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, BlockOfShares> shareholders)
     {
         Render();
     }
