@@ -70,6 +70,7 @@ public enum InvestorType
 public enum InvestorGoal
 {
     BecomeMarketFit,
+    BecomeProfitable,
     BecomeBestByTech,
 
     ProceedToNextRound,
@@ -77,9 +78,6 @@ public enum InvestorGoal
     GrowCompanyCost,
     GrowProfit,
     GrowClientBase,
-
-    //ImproveManagement,
-    //ImproveBranding
 }
 
 public enum InvestmentRound

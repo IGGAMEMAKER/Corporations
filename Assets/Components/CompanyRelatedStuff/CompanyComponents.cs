@@ -14,11 +14,6 @@ public struct ControlledByPlayerComponent : IComponent { }
 public struct SelectedCompanyComponent : IComponent { }
 
 
-public class CooldownsComponent : IComponent
-{
-    public Dictionary<CooldownType, Cooldown> Cooldowns;
-}
-
 //[Game]
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent
@@ -28,12 +23,10 @@ public struct CompanyComponent : IComponent
     public CompanyType CompanyType;
 }
 
-
-public class CEOComponent : IComponent
+public struct BlockOfShares
 {
-    // if you fail investor tasks you lose reputation
-    public float Reputation;
-    public int HumanId;
+    public int expires;
+    public InvestorGoal InvestorGoal;
 }
 
 // is attached to CompanyComponent
@@ -41,7 +34,7 @@ public class CEOComponent : IComponent
 public class ShareholdersComponent : IComponent
 {
     // investorId => amountOfShares
-    public Dictionary<int, int> Shareholders;
+    public Dictionary<int, BlockOfShares> Shareholders;
     // investorId => goal
     public Dictionary<int, InvestorGoal> Goals;
 }
@@ -78,6 +71,14 @@ public class CompanyResourceComponent : IComponent
     public TeamResource Resources;
 }
 
+public class Team
+{
+    public int Programmers;
+    public int Managers;
+    public int Marketers;
+
+    public int Morale;
+}
 
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
@@ -97,3 +98,15 @@ public class InvestmentProposalsComponent : IComponent
 
 [Game]
 public class FollowingComponent : IComponent { }
+
+public class CEOComponent : IComponent
+{
+    // if you fail investor tasks you lose reputation
+    public float Reputation;
+    public int HumanId;
+}
+
+public class CooldownsComponent : IComponent
+{
+    public Dictionary<CooldownType, Cooldown> Cooldowns;
+}
