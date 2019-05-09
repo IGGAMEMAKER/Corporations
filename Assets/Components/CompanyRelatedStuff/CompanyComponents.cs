@@ -107,3 +107,12 @@ public class CooldownsComponent : IComponent
 {
     public Dictionary<CooldownType, Cooldown> Cooldowns;
 }
+
+public class CompanyPhaseComponent : IComponent
+{
+    public bool becameMarketFit;
+    public bool becameProfitable;
+    public bool startedCorporativeChanges;
+    public bool raisedInvestments;
+    public bool IPOed;
+}

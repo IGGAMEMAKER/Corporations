@@ -14,7 +14,7 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         Initialize();
 
-        SpawnInvestmentFund(5, 10000000, 100000000);
+        SpawnInvestmentFunds(5, 10000000, 100000000);
         AutoFillNonFilledShareholders();
         AutoFillProposals();
     }
@@ -56,7 +56,7 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
     }
 
-    void SpawnInvestmentFund(int amountOfFunds, long investmentMin, long investmentMax)
+    void SpawnInvestmentFunds(int amountOfFunds, long investmentMin, long investmentMax)
     {
         for (var i = 0; i < amountOfFunds; i++)
             GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), 10000000);

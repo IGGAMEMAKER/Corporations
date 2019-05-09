@@ -64,7 +64,12 @@ public enum InvestorType
     VentureInvestor,
 
     // wants dividends
-    SmallInvestor
+    SmallInvestor,
+
+    Angel,
+
+    // friends family fools
+    FFF
 }
 
 public enum InvestorGoal

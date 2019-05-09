@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 public class RenderCompanyEconomyTab : View
+    , IAnyDateListener
 {
     public Text Income;
     public Text Maintenance;
@@ -9,6 +10,13 @@ public class RenderCompanyEconomyTab : View
 
     public Hint IncomeHint;
     public Hint MaintenanceHint;
+
+    private void OnEnable()
+    {
+        Render();
+
+        ListenDateChanges(this);
+    }
 
     void Render()
     {
@@ -25,7 +33,7 @@ public class RenderCompanyEconomyTab : View
         MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
     }
 
-    private void Update()
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
     {
         Render();
     }
