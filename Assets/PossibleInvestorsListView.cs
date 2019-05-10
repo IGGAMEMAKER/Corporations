@@ -13,7 +13,6 @@ public class PossibleInvestorsListView : ListView
             .SetEntity(investor);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         var list = CompanyUtils.GetPossibleInvestors(GameContext, SelectedCompany.company.Id);

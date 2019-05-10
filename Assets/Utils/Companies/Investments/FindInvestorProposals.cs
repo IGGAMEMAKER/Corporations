@@ -11,6 +11,8 @@ namespace Assets.Utils
 
             var c = GetCompanyById(gameContext, companyId);
 
+            return totalShareholders;
+
             return Array.FindAll(totalShareholders, s => IsInvestorSuitable(s.shareholder, c));
         }
 
@@ -31,7 +33,7 @@ namespace Assets.Utils
                     return shareholderType == InvestorType.Strategic;
 
                 case InvestorGoal.GrowProfit:
-                    return shareholderType == InvestorType.SmallInvestor;
+                    return shareholderType == InvestorType.StockExchange;
 
                 default:
                     return shareholderType == InvestorType.FFF;

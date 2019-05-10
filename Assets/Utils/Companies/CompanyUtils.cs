@@ -18,12 +18,12 @@ namespace Assets.Utils
 
         public static GameEntity GetInvestorById(GameContext context, int investorId)
         {
-            return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);
+            return InvestmentUtils.GetInvestorById(context, investorId);
         }
 
         public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
         {
-            return GetInvestorById(context, investorId).company.Id;
+            return InvestmentUtils.GetCompanyIdByInvestorId(context, investorId);
         }
 
         public static bool IsCompanyGroupLike(GameContext context, int companyId)

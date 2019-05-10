@@ -1,5 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
+using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -15,6 +17,8 @@ public class ProductInitializerSystem : IInitializeSystem
         Initialize();
 
         SpawnInvestmentFunds(5, 10000000, 100000000);
+        SpawnInvestors(10, 1000000, 10000000);
+
         AutoFillNonFilledShareholders();
         AutoFillProposals();
     }
@@ -56,15 +60,41 @@ public class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
     }
 
-    void SpawnInvestmentFunds(int amountOfFunds, long investmentMin, long investmentMax)
+    long GetRandomFundSize (int min, int max)
+    {
+        int value = UnityEngine.Random.Range(min, max);
+
+        return Convert.ToInt64(value);
+    }
+
+    void SpawnInvestmentFunds(int amountOfFunds, int investmentMin, int investmentMax)
     {
         for (var i = 0; i < amountOfFunds; i++)
-            GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), 10000000);
+            GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), GetRandomFundSize(investmentMin, investmentMax));
+    }
+
+    void GenerateEarlyInvestor()
+    {
+
+    }
+
+    void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
+    {
+        for (var i = 0; i < amountOfInvestors; i++)
+        {
+            InvestmentUtils.GenerateAngel(GameContext);
+        }
+
     }
 
     int GetRandomInvestmentFund()
     {
         return CompanyUtils.GetRandomInvestmentFund(GameContext);
+    }
+
+    int GetRandomInvestorId()
+    {
+        return GetRandomInvestmentFund();
     }
 
     private void AutoFillProposals()

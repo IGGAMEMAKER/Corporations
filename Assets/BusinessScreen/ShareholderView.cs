@@ -1,13 +1,13 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public enum MotivationType
-{
-    Cost,
-    Dividends,
-    Capture,
-    FriendlyCapture,
-}
+//public enum MotivationType
+//{
+//    Cost,
+//    Dividends,
+//    Capture,
+//    FriendlyCapture,
+//}
 
 public class ShareholderView : View
 {
@@ -26,7 +26,7 @@ public class ShareholderView : View
     GameEntity shareholder;
     GameEntity company;
 
-    public void SetEntity(int shareholderId, int shares)
+    public void SetEntity(int shareholderId, BlockOfShares shares)
     {
         company = SelectedCompany;
 
@@ -36,11 +36,73 @@ public class ShareholderView : View
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);
     }
 
-    void Render(string name, int shares, int totalShares, int investorId)
+    string GetInvestorGoalDescription(BlockOfShares shares)
+    {
+        switch (shares.InvestorGoal)
+        {
+            case InvestorGoal.BecomeBestByTech:
+                return "Become technology leader";
+
+            case InvestorGoal.BecomeMarketFit:
+                return "Become market fit";
+
+            case InvestorGoal.BecomeProfitable:
+                return "Become profitable";
+
+            case InvestorGoal.GrowClientBase:
+                return "Grow client base";
+
+            case InvestorGoal.GrowCompanyCost:
+                return "Grow company cost";
+
+            case InvestorGoal.GrowProfit:
+                return "Grow profit";
+
+            case InvestorGoal.ProceedToNextRound:
+                return "Proceed to next investment round";
+
+            default:
+                return shares.InvestorGoal.ToString();
+        }
+    }
+
+    string GetInvestorGoal(BlockOfShares shares)
+    {
+        switch (shares.InvestorGoal)
+        {
+            case InvestorGoal.BecomeBestByTech:
+                return "Become technology leader";
+
+            case InvestorGoal.BecomeMarketFit:
+                return "Become market fit";
+
+            case InvestorGoal.BecomeProfitable:
+                return "Become profitable";
+
+            case InvestorGoal.GrowClientBase:
+                return "Grow client base";
+
+            case InvestorGoal.GrowCompanyCost:
+                return "Grow company cost";
+
+            case InvestorGoal.GrowProfit:
+                return "Grow profit";
+
+            case InvestorGoal.ProceedToNextRound:
+                return "Proceed to next investment round";
+
+            default:
+                return shares.InvestorGoal.ToString();
+        }
+    }
+
+    void Render(string name, BlockOfShares shares, int totalShares, int investorId)
     {
         Name.text = name;
-        Goal.text = "Company Cost 50.000.000$";
-        Motivation.SetHint("Motivation: 20% growth");
+        
+        Goal.text = GetInvestorGoal(shares);
+        Motivation.SetHint($"Motivation: {GetInvestorGoalDescription(shares)}");
+
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 
         BuyShares.gameObject.SetActive(investorId != MyGroupEntity.shareholder.Id);

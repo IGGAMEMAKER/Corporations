@@ -20,14 +20,14 @@ namespace Assets.Utils.Humans
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
-        public static int GenerateHuman(GameContext gameContext)
+        public static GameEntity GenerateHuman(GameContext gameContext)
         {
             int id = GenerateHumanId(gameContext);
 
             var e = gameContext.CreateEntity();
             e.AddHuman(id, "Tom", "Stokes " + id);
 
-            return id;
+            return e;
         }
     }
 }

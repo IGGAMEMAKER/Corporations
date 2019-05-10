@@ -15,12 +15,12 @@ namespace Assets.Utils
 
         public static int GenerateInvestorId(GameContext context)
         {
-            return context.GetEntities(GameMatcher.Shareholder).Length;
+            return InvestmentUtils.GenerateInvestorId(context);
         }
 
         private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
         {
-            int humanId = HumanUtils.GenerateHuman(context);
+            int humanId = HumanUtils.GenerateHuman(context).human.Id;
 
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), humanId);
         }

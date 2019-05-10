@@ -58,17 +58,20 @@ public enum InvestorType
     // branding
     // Founder - human with strategic goals, Strategic - company with strategic goals
     Founder,
+
+    // round d
     Strategic,
 
-    // gives less money and wants more investors to come (aka rounds)
+    // gives money and wants more investors to come (aka rounds) round a, b, c
     VentureInvestor,
 
     // wants dividends
-    SmallInvestor,
+    StockExchange,
 
+    // seed
     Angel,
 
-    // friends family fools
+    // friends family fools - preseed
     FFF
 }
 
@@ -77,12 +80,13 @@ public enum InvestorGoal
     BecomeMarketFit,
     BecomeProfitable,
     BecomeBestByTech,
+    GrowClientBase,
 
     ProceedToNextRound,
 
-    GrowCompanyCost,
     GrowProfit,
-    GrowClientBase,
+
+    GrowCompanyCost,
 }
 
 public enum InvestmentRound
@@ -93,12 +97,7 @@ public enum InvestmentRound
     B,
     C,
     D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J
+    E
 }
 
 

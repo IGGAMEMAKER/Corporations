@@ -35,35 +35,7 @@ namespace Assets.Utils
 
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {
-            int investorId = GenerateInvestorId(context);
-
-            string name = "Investor?";
-
-            InvestorType investorType = InvestorType.VentureInvestor;
-
-            // company
-            if (e.hasCompany)
-            {
-                name = e.company.Name;
-
-                if (e.company.CompanyType == CompanyType.FinancialGroup)
-                    investorType = InvestorType.VentureInvestor;
-                else
-                    investorType = InvestorType.Strategic;
-            }
-            else if (e.hasHuman)
-            {
-                // or human
-                // TODO turn human to investor
-
-                name = e.human.Name + " " + e.human.Surname;
-                investorType = InvestorType.Founder;
-            }
-
-            e.AddShareholder(investorId, name, investorType);
-            AddMoneyToInvestor(context, investorId, money);
-
-            return investorId;
+            return InvestmentUtils.BecomeInvestor(context, e, money);
         }
 
         public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
@@ -139,12 +111,7 @@ namespace Assets.Utils
 
         public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
         {
-            var investor = GetInvestorById(context, investorId);
-
-            var companyResource = investor.companyResource;
-            companyResource.Resources.AddMoney(sum);
-
-            investor.ReplaceCompanyResource(companyResource.Resources);
+            InvestmentUtils.AddMoneyToInvestor(context, investorId, sum);
         }
     }
 }
