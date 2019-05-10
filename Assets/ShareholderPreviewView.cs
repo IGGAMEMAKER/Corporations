@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ShareholderPreviewView : View
 {
     int ShareholderId;
-    int Shares;
+    BlockOfShares Shares;
     int TotalShares;
 
     public Text NameLabel;
@@ -16,7 +16,7 @@ public class ShareholderPreviewView : View
 
     GameEntity ShareholderEntity;
 
-    public void SetEntity(int shareholderId, int shares)
+    public void SetEntity(int shareholderId, BlockOfShares shares)
     {
         ShareholderId = shareholderId;
         Shares = shares;
@@ -51,7 +51,7 @@ public class ShareholderPreviewView : View
     void Render()
     {
         NameLabel.text = ShareholderEntity.shareholder.Name;
-        SharesLabel.text = Shares * 100 / TotalShares + "%";
+        SharesLabel.text = Shares.amount * 100 / TotalShares + "%";
         SharesAmountHint.SetHint("");
 
         AddLinkIfPossible();
