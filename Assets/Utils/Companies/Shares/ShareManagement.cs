@@ -100,9 +100,14 @@ namespace Assets.Utils
             );
         }
 
+        public static string GetInvestorName(GameEntity investor)
+        {
+            return investor.shareholder.Name;
+        }
+
         public static string GetInvestorName(GameContext context, int investorId)
         {
-            return GetInvestorById(context, investorId).shareholder.Name;
+            return GetInvestorName(GetInvestorById(context, investorId));
         }
 
         public static int GetBiggestShareholder(GameContext gameContext, int companyId)
