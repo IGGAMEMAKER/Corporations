@@ -108,6 +108,11 @@ public class CooldownsComponent : IComponent
     public Dictionary<CooldownType, Cooldown> Cooldowns;
 }
 
+public class CompanyGoalComponent : IComponent
+{
+    public InvestorGoal InvestorGoal;
+}
+
 public class CompanyPhaseComponent : IComponent
 {
     public bool becameMarketFit;
