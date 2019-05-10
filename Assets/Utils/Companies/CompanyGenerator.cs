@@ -21,6 +21,8 @@ namespace Assets.Utils
             e.AddInvestmentRounds(InvestmentRound.Preseed);
             e.isIndependentCompany = true;
 
+            e.AddCompanyGoal(InvestorGoal.GrowProfit);
+
             e.AddCEO(0, CeoID);
 
 
@@ -65,6 +67,8 @@ namespace Assets.Utils
             company.AddTeam(1, 0, 0, 100);
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
+
+            company.ReplaceCompanyGoal(InvestorGoal.BecomeMarketFit);
 
             return company;
         }
