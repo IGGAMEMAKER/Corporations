@@ -7,15 +7,23 @@ public static class VisualFormattingUtils
         return $"<i><b><color=magenta>{text}</color></b></i>";
     }
 
+    public static string Colorize(string text, string colorHTML)
+    {
+        return $"<color={colorHTML}>{text}</color>";
+    }
+
+    public static string Colorize(string text, bool isPositive)
+    {
+        string col = isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+
+        return Colorize(text, col);
+    }
+
     public static string Positive(string text)
     {
         return Colorize(text, VisualConstants.COLOR_POSITIVE);
     }
 
-    public static string Colorize(string text, string colorHTML)
-    {
-        return $"<color={colorHTML}>{text}</color>";
-    }
 
     public static Color Color(string color)
     {

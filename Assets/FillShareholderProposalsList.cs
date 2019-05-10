@@ -9,7 +9,7 @@ public class FillShareholderProposalsList : View
 
     void Render()
     {
-        var proposals = CompanyUtils.GetInvestmentProposals(GameContext, SelectedCompany.company.Id); // GetProposals();
+        var proposals = CompanyUtils.GetInvestmentProposals(GameContext, SelectedCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
             .SetItems(proposals.ToArray(), SelectedCompany);
