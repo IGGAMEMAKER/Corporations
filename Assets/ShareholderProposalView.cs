@@ -40,8 +40,10 @@ public class ShareholderProposalView : View
 
     void Render(string name, InvestmentProposal proposal)
     {
+        var investor = InvestmentUtils.GetInvestorById(GameContext, proposal.ShareholderId);
+
         Name.text = name;
-        InvestorType.text = "Venture investor";
+        InvestorType.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
         Motivation.SetHint("Motivation: 20% growth");
 
         long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, company.company.Id);

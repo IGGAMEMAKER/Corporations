@@ -14,6 +14,8 @@ public class ProjectView : View
 
     public Text PublicityStatus;
 
+    public Text CompanyGoal;
+
     private void OnEnable()
     {
         Render();
@@ -37,5 +39,7 @@ public class ProjectView : View
         bool isPublic = SelectedCompany.isPublicCompany;
 
         PublicityStatus.text = isPublic ? "Is public company" : "Is private company";
+
+        CompanyGoal.text = $"Company Goal: {InvestmentUtils.GetInvestorGoal(SelectedCompany.companyGoal.InvestorGoal)}";
     }
 }

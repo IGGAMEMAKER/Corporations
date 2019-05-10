@@ -11,7 +11,7 @@ namespace Assets.Utils
 
             var c = GetCompanyById(gameContext, companyId);
 
-            return totalShareholders;
+            //return totalShareholders;
 
             return Array.FindAll(totalShareholders, s => IsInvestorSuitable(s.shareholder, c));
         }

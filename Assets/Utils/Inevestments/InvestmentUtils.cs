@@ -86,5 +86,87 @@ namespace Assets.Utils
         {
             return GetInvestorById(context, investorId).company.Id;
         }
+
+        public static string GetFormattedInvestorType(InvestorType investorType)
+        {
+            switch (investorType)
+            {
+                case InvestorType.Angel: return "Angel";
+                case InvestorType.FFF: return "Family friends fools";
+                case InvestorType.Founder: return "Founder";
+                case InvestorType.StockExchange: return "Stock Exchange";
+                case InvestorType.Strategic: return "Strategic";
+                case InvestorType.VentureInvestor: return "Venture investor";
+            }
+
+            return investorType.ToString();
+        }
+
+        public static string GetInvestorGoalDescription(BlockOfShares shares)
+        {
+            return GetInvestorGoal(shares.InvestorGoal);
+
+            switch (shares.InvestorGoal)
+            {
+                case InvestorGoal.BecomeBestByTech:
+                    return "Become technology leader";
+
+                case InvestorGoal.BecomeMarketFit:
+                    return "Become market fit";
+
+                case InvestorGoal.BecomeProfitable:
+                    return "Become profitable";
+
+                case InvestorGoal.GrowClientBase:
+                    return "Grow client base";
+
+                case InvestorGoal.GrowCompanyCost:
+                    return "Grow company cost";
+
+                case InvestorGoal.GrowProfit:
+                    return "Grow profit";
+
+                case InvestorGoal.ProceedToNextRound:
+                    return "Proceed to next investment round";
+
+                default:
+                    return shares.InvestorGoal.ToString();
+            }
+        }
+
+        public static string GetInvestorGoal(InvestorGoal investorGoal)
+        {
+            switch (investorGoal)
+            {
+                case InvestorGoal.BecomeBestByTech:
+                    return "Become technology leader";
+
+                case InvestorGoal.BecomeMarketFit:
+                    return "Become market fit";
+
+                case InvestorGoal.BecomeProfitable:
+                    return "Become profitable";
+
+                case InvestorGoal.GrowClientBase:
+                    return "Grow client base";
+
+                case InvestorGoal.GrowCompanyCost:
+                    return "Grow company cost";
+
+                case InvestorGoal.GrowProfit:
+                    return "Grow profit";
+
+                case InvestorGoal.ProceedToNextRound:
+                    return "Proceed to next investment round";
+
+                default:
+                    return investorGoal.ToString();
+            }
+        }
+
+        public static string GetInvestorGoal(BlockOfShares shares)
+        {
+            return GetInvestorGoal(shares.InvestorGoal);
+        }
     }
 }

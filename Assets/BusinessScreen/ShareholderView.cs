@@ -1,14 +1,6 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-//public enum MotivationType
-//{
-//    Cost,
-//    Dividends,
-//    Capture,
-//    FriendlyCapture,
-//}
-
 public class ShareholderView : View
 {
     public Text Name;
@@ -36,72 +28,12 @@ public class ShareholderView : View
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);
     }
 
-    string GetInvestorGoalDescription(BlockOfShares shares)
-    {
-        switch (shares.InvestorGoal)
-        {
-            case InvestorGoal.BecomeBestByTech:
-                return "Become technology leader";
-
-            case InvestorGoal.BecomeMarketFit:
-                return "Become market fit";
-
-            case InvestorGoal.BecomeProfitable:
-                return "Become profitable";
-
-            case InvestorGoal.GrowClientBase:
-                return "Grow client base";
-
-            case InvestorGoal.GrowCompanyCost:
-                return "Grow company cost";
-
-            case InvestorGoal.GrowProfit:
-                return "Grow profit";
-
-            case InvestorGoal.ProceedToNextRound:
-                return "Proceed to next investment round";
-
-            default:
-                return shares.InvestorGoal.ToString();
-        }
-    }
-
-    string GetInvestorGoal(BlockOfShares shares)
-    {
-        switch (shares.InvestorGoal)
-        {
-            case InvestorGoal.BecomeBestByTech:
-                return "Become technology leader";
-
-            case InvestorGoal.BecomeMarketFit:
-                return "Become market fit";
-
-            case InvestorGoal.BecomeProfitable:
-                return "Become profitable";
-
-            case InvestorGoal.GrowClientBase:
-                return "Grow client base";
-
-            case InvestorGoal.GrowCompanyCost:
-                return "Grow company cost";
-
-            case InvestorGoal.GrowProfit:
-                return "Grow profit";
-
-            case InvestorGoal.ProceedToNextRound:
-                return "Proceed to next investment round";
-
-            default:
-                return shares.InvestorGoal.ToString();
-        }
-    }
-
     void Render(string name, BlockOfShares shares, int totalShares, int investorId)
     {
         Name.text = name;
         
-        Goal.text = GetInvestorGoal(shares);
-        Motivation.SetHint($"Motivation: {GetInvestorGoalDescription(shares)}");
+        Goal.text = InvestmentUtils.GetInvestorGoal(shares);
+        Motivation.SetHint($"Motivation: {InvestmentUtils.GetInvestorGoalDescription(shares)}");
 
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 

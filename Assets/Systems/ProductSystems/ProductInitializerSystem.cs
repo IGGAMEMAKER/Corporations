@@ -115,6 +115,7 @@ public class ProductInitializerSystem : IInitializeSystem
             for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
             {
                 int investorId = GetRandomInvestmentFund();
+
                 AddShareholder(c.company.Id, investorId, 100);
             }
         }

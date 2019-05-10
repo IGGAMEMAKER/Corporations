@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.UI;
 
-public class LinkStyling : MonoBehaviour
+public class LinkStyling : View
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
+        Render();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Render()
     {
-        
+        Text Text = GetComponent<Text>();
+
+        Text.text = VisualFormattingUtils.Link(Text.text);
     }
 }
