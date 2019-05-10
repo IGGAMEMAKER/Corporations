@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InestmentProposalScreen : View
+    , IAnyDateListener
 {
     public Button StartRoundButton;
     public Text RoundCounter;
@@ -11,24 +12,39 @@ public class InestmentProposalScreen : View
     public GameObject IPOButton;
     //public GameObject ProposalsLabel;
 
-    void Update()
+    public GameObject InvestmentProposals;
+    public GameObject PossibleInvestors;
+
+    void OnEnable()
     {
+        ListenDateChanges(this);
+
         Render();
+    }
+
+    void ToggleInvestors(bool isRoundActive)
+    {
+        InvestmentProposals.SetActive(isRoundActive);
+        PossibleInvestors.SetActive(!isRoundActive);
     }
 
     void Render()
     {
-        bool isActive = SelectedCompany.hasAcceptsInvestments;
+        bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
 
-        StartRoundButton.interactable = !isActive;
+        StartRoundButton.interactable = !isRoundActive;
 
-        if (isActive)
+        if (isRoundActive)
         {
             int days = SelectedCompany.acceptsInvestments.DaysLeft;
             RoundCounter.text = "This round will be active for " + days + " days";
         }
         else
+        {
             RoundCounter.text = "";
+        }
+
+        ToggleInvestors(isRoundActive);
 
         RenderActionButtons();
     }
@@ -46,5 +62,10 @@ public class InestmentProposalScreen : View
         bool controllable = IsUnderPlayerControl(SelectedCompany.company.Id);
 
         RenderMyInvestmentActions(controllable);
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
