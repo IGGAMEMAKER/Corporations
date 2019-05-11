@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public static class VisualFormattingUtils
+public static class VisualUtils
 {
     public static string Link(string text)
     {
@@ -54,7 +54,7 @@ public static class VisualFormattingUtils
         return Negative(text + ": " + value);
     }
 
-    public static string DescribeBonus(string text, int value)
+    public static string Bonus(string text, int value)
     {
         return "\n" + Describe(text, value);
     }

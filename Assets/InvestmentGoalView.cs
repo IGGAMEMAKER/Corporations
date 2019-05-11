@@ -49,7 +49,7 @@ public class InvestmentGoalView : View
             :
             VisualConstants.COLOR_NEGATIVE;
 
-        Goal.text = VisualFormattingUtils.Colorize(goalinfo.goal, col);
+        Goal.text = VisualUtils.Colorize(goalinfo.goal, col);
 
         ProgressBar.SetValue(goalinfo.have, goalinfo.need);
     }

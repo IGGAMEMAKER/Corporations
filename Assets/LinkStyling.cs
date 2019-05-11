@@ -11,6 +11,6 @@ public class LinkStyling : View
     {
         Text Text = GetComponent<Text>();
 
-        Text.text = VisualFormattingUtils.Link(Text.text);
+        Text.text = VisualUtils.Link(Text.text);
     }
 }
