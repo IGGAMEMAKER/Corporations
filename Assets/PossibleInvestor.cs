@@ -27,6 +27,5 @@ public class PossibleInvestor : View
 
         Opinion.value = InvestmentUtils.GetInvestorOpinion(GameContext, SelectedCompany, investor);
         OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, investor));
-        //InvestorGoalText.text = InvestorGoal.BecomeMarketFit.ToString();
     }
 }

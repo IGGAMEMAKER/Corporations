@@ -168,7 +168,7 @@ namespace Assets.Utils
 
         public static string GetInvestorGoalDescription(BlockOfShares shares)
         {
-            return GetInvestorGoal(shares.InvestorGoal);
+            //return GetInvestorGoal(shares.InvestorGoal);
 
             switch (shares.InvestorGoal)
             {

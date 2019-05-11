@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ShareholderView : View
 {
     public Text Name;
+    public Text Type;
     public Hint Motivation;
     public Text Goal;
     public ColoredValuePositiveOrNegative Loyalty;
@@ -34,6 +35,8 @@ public class ShareholderView : View
         
         Goal.text = InvestmentUtils.GetInvestorGoalDescription(shares);
         Motivation.SetHint($"Motivation: {InvestmentUtils.GetInvestorGoal(shares)}");
+
+        Type.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 

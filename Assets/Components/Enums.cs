@@ -1,4 +1,7 @@
-﻿
+﻿// advice
+// foreach (InvestorGoal goal in (InvestorGoal[])Enum.GetValues(typeof(InvestorGoal)))
+
+
 public enum NicheType
 {
     None,
@@ -77,16 +80,16 @@ public enum InvestorType
 
 public enum InvestorGoal
 {
-    BecomeMarketFit,
-    BecomeProfitable,
-    BecomeBestByTech,
-    GrowClientBase,
+    BecomeMarketFit = 0,
+    BecomeProfitable = 1,
+    BecomeBestByTech = 2,
+    GrowClientBase = 3,
 
-    ProceedToNextRound,
+    ProceedToNextRound = 4,
 
-    GrowProfit,
+    GrowProfit = 5,
 
-    GrowCompanyCost,
+    GrowCompanyCost = 6,
 }
 
 public enum InvestmentRound
