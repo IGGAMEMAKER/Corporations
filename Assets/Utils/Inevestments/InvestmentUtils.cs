@@ -93,7 +93,7 @@ namespace Assets.Utils
 
             if (company.hasProduct)
             {
-                int marketSituation = NicheUtils.GetCompanyMarketPositionBonus(company);
+                int marketSituation = NicheUtils.GetProductCompetitivenessBonus(company);
 
                 opinion += marketSituation;
             }
@@ -115,9 +115,9 @@ namespace Assets.Utils
 
             if (company.hasProduct)
             {
-                int marketPositionBonus = NicheUtils.GetCompanyMarketPositionBonus(company);
+                int marketPositionBonus = NicheUtils.GetProductCompetitivenessBonus(company);
 
-                text += "\n" + VisualFormattingUtils.Colorize($"Market position bonus: {marketPositionBonus}", marketPositionBonus > 0);
+                text += "\n" + VisualFormattingUtils.Colorize($"Product competitiveness: {marketPositionBonus}", marketPositionBonus > 0);
             }
 
             text += VisualFormattingUtils.Positive($"\nSame goals: +25");

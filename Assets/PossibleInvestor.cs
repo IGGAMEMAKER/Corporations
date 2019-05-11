@@ -28,7 +28,7 @@ public class PossibleInvestor : View
         InvestorName.text = investor.shareholder.Name;
         InvestorType.text = investor.shareholder.InvestorType.ToString();
 
-        InvestorPossibleOffer.text = "~$20M";
+        //InvestorPossibleOffer.text = "~$20M";
 
         Opinion.value = 25;
         OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, investor));

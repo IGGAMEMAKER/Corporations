@@ -89,7 +89,7 @@ namespace Assets.Utils
             $"\nStrong competitors: +{competitors}%";
         }
 
-        internal static int GetCompanyMarketPositionBonus(GameEntity company)
+        internal static int GetProductCompetitivenessBonus(GameEntity company)
         {
             int marketLevel = 10;
 

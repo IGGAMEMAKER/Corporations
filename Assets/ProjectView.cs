@@ -34,7 +34,7 @@ public class ProjectView : View
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : name);
 
         CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
-        CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
+        //CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
 
         bool isPublic = SelectedCompany.isPublicCompany;
 
