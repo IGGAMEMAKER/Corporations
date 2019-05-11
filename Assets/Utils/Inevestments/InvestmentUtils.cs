@@ -60,6 +60,67 @@ namespace Assets.Utils
             return investorId;
         }
 
+        static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
+        {
+            switch (goal)
+            {
+                case InvestorGoal.BecomeMarketFit:
+                    return shareholderType == InvestorType.Angel;
+
+                case InvestorGoal.BecomeProfitable:
+                    return shareholderType == InvestorType.VentureInvestor;
+
+                case InvestorGoal.GrowClientBase:
+                    return shareholderType == InvestorType.VentureInvestor;
+
+                case InvestorGoal.GrowCompanyCost:
+                    return shareholderType == InvestorType.Strategic;
+
+                case InvestorGoal.GrowProfit:
+                    return shareholderType == InvestorType.StockExchange;
+
+                default:
+                    return shareholderType == InvestorType.FFF;
+            }
+        }
+
+        public static int GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
+        {
+            int opinion = 0;
+
+            int goalComparison = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal) ? 25 : -1000;
+
+            if (company.hasProduct)
+            {
+                
+            }
+
+            opinion = goalComparison;
+
+            return opinion;
+        }
+
+        internal static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
+        {
+            int opinion = GetInvestorOpinion(gameContext, company, investor);
+
+            string text = opinion > 0 ?
+                VisualFormattingUtils.Positive("They will invest in this company if asked")
+                :
+                VisualFormattingUtils.Negative("They will not invest");
+
+            text += "\n\n";
+
+            if (company.hasProduct)
+            {
+                
+            }
+
+            text += VisualFormattingUtils.Positive($"Same goals: +");
+
+            return text;
+        }
+
         public static void TurnToAngel(GameContext gameContext, int investorId)
         {
             var investor = GetInvestorById(gameContext, investorId);

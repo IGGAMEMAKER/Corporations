@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class VisualFormattingUtils
 {
@@ -30,5 +31,10 @@ public static class VisualFormattingUtils
         ColorUtility.TryParseHtmlString(color, out Color c);
 
         return c;
+    }
+
+    internal static string Negative(string text)
+    {
+        return Colorize(text, VisualConstants.COLOR_NEGATIVE);
     }
 }

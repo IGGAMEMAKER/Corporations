@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class PossibleInvestor : View
     public Text InvestorPossibleOffer;
     public ColoredValuePositiveOrNegative Opinion;
     public Text InvestorGoalText;
+
+    public Hint OpinionHint;
 
     public void SetEntity(GameEntity gameEntity)
     {
@@ -28,6 +31,7 @@ public class PossibleInvestor : View
         InvestorPossibleOffer.text = "~$20M";
 
         Opinion.value = 25;
-        InvestorGoalText.text = InvestorGoal.BecomeMarketFit.ToString();
+        OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, investor));
+        //InvestorGoalText.text = InvestorGoal.BecomeMarketFit.ToString();
     }
 }
