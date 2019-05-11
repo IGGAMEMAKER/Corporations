@@ -44,7 +44,6 @@ public class ShareholderProposalView : View
 
         Name.text = name;
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
-        //Motivation.SetHint("Motivation: 20% growth");
 
         long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, company.company.Id);
 
@@ -52,7 +51,7 @@ public class ShareholderProposalView : View
         long futureShareSize = offer * 100 / (offer + Cost);
 
 
-        Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)"; // CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "%";
+        Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
 
         long valuation = proposal.Valuation;
         Valuation.text = "$" + ValueFormatter.Shorten(valuation);

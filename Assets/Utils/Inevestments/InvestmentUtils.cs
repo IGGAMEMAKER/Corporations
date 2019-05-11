@@ -98,7 +98,6 @@ namespace Assets.Utils
                 opinion += marketSituation;
             }
 
-
             return opinion;
         }
 
@@ -156,11 +155,11 @@ namespace Assets.Utils
         {
             switch (investorType)
             {
-                case InvestorType.Angel: return "Angel";
+                case InvestorType.Angel: return "Angel investor";
                 case InvestorType.FFF: return "Family friends fools";
                 case InvestorType.Founder: return "Founder";
                 case InvestorType.StockExchange: return "Stock Exchange";
-                case InvestorType.Strategic: return "Strategic";
+                case InvestorType.Strategic: return "Strategic investor";
                 case InvestorType.VentureInvestor: return "Venture investor";
             }
 
