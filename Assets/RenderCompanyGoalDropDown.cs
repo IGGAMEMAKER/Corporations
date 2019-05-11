@@ -23,11 +23,9 @@ public class RenderCompanyGoalDropDown : View
 
     private void UpdateCompanyGoal(int arg0)
     {
-        //var investorGoal = (InvestorGoal) Enum.Parse(typeof(InvestorGoal), arg0.ToString());
         var investorGoal = (InvestorGoal) arg0;
 
-
-        MyProductEntity.ReplaceCompanyGoal(investorGoal);
+        CompanyUtils.SetCompanyGoal(MyProductEntity, investorGoal);
     }
 }
 

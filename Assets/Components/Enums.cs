@@ -1,6 +1,10 @@
-﻿// advice
+﻿// advices
+
+// iterate
 // foreach (InvestorGoal goal in (InvestorGoal[])Enum.GetValues(typeof(InvestorGoal)))
 
+// cast
+// var investorGoal = (InvestorGoal) Enum.Parse(typeof(InvestorGoal), arg0.ToString());
 
 public enum NicheType
 {

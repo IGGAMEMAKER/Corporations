@@ -20,5 +20,10 @@ namespace Assets.Utils
 
             return isSuitableByGoal;
         }
+
+        internal static void SetCompanyGoal(GameEntity company, InvestorGoal investorGoal)
+        {
+            company.ReplaceCompanyGoal(investorGoal);
+        }
     }
 }
