@@ -60,7 +60,7 @@ namespace Assets.Utils
             return investorId;
         }
 
-        static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
+        public static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
         {
             switch (goal)
             {
@@ -89,13 +89,15 @@ namespace Assets.Utils
             int opinion = 0;
 
             int goalComparison = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal) ? 25 : -1000;
+            opinion += goalComparison;
 
             if (company.hasProduct)
             {
-                
+                int marketSituation = NicheUtils.GetCompanyMarketPositionBonus(company);
+
+                opinion += marketSituation;
             }
 
-            opinion = goalComparison;
 
             return opinion;
         }
@@ -109,14 +111,16 @@ namespace Assets.Utils
                 :
                 VisualFormattingUtils.Negative("They will not invest");
 
-            text += "\n\n";
+            text += "\n";
 
             if (company.hasProduct)
             {
-                
+                int marketPositionBonus = NicheUtils.GetCompanyMarketPositionBonus(company);
+
+                text += "\n" + VisualFormattingUtils.Colorize($"Market position bonus: {marketPositionBonus}", marketPositionBonus > 0);
             }
 
-            text += VisualFormattingUtils.Positive($"Same goals: +");
+            text += VisualFormattingUtils.Positive($"\nSame goals: +25");
 
             return text;
         }

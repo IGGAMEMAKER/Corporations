@@ -269,6 +269,7 @@ MonoBehaviour:
   InvestorPossibleOffer: {fileID: 4318211538956226204}
   Opinion: {fileID: 7718495674252030850}
   InvestorGoalText: {fileID: 4318211539522402811}
+  OpinionHint: {fileID: 7233344875442939686}
 --- !u!1 &4318211539522402809
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +544,7 @@ GameObject:
   - component: {fileID: 3237862001991260447}
   - component: {fileID: 2495613584430584874}
   - component: {fileID: 7718495674252030850}
+  - component: {fileID: 7233344875442939686}
   m_Layer: 5
   m_Name: Opinion
   m_TagString: Untagged
@@ -627,8 +629,22 @@ MonoBehaviour:
   ShowSign: 0
   Prettify: 1
   DigitsAfterComma: 0
-  unit: 0
+  unit: 1
   neutralValue: 0
+--- !u!114 &7233344875442939686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785664967576825130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &7467737856770281246
 GameObject:
   m_ObjectHideFlags: 0

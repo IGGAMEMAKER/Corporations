@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
@@ -85,6 +87,17 @@
             return $"Current risk is {risk}%! ({text})" +
             $"\nUnknown demand: +{demand}%" +
             $"\nStrong competitors: +{competitors}%";
+        }
+
+        internal static int GetCompanyMarketPositionBonus(GameEntity company)
+        {
+            int marketLevel = 10;
+
+            int productLevel = company.product.ProductLevel;
+
+            int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
+
+            return productLevel - marketLevel + techLeadershipBonus;
         }
     }
 }
