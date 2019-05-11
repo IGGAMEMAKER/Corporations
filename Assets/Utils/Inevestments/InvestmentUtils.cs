@@ -105,10 +105,10 @@ namespace Assets.Utils
         {
             int opinion = GetInvestorOpinion(gameContext, company, investor);
 
-            string text = opinion > 0 ?
-                VisualFormattingUtils.Positive("They will invest in this company if asked")
-                :
-                VisualFormattingUtils.Negative("They will not invest");
+            string text = VisualFormattingUtils.Describe(
+                "They will invest in this company if asked",
+                "They will not invest",
+                opinion);
 
             text += "\n";
 
@@ -116,10 +116,10 @@ namespace Assets.Utils
             {
                 int marketPositionBonus = NicheUtils.GetProductCompetitivenessBonus(company);
 
-                text += "\n" + VisualFormattingUtils.Colorize($"Product competitiveness: {marketPositionBonus}", marketPositionBonus > 0);
+                text += VisualFormattingUtils.DescribeBonus("Product competitiveness", marketPositionBonus);
             }
 
-            text += VisualFormattingUtils.Positive($"\nSame goals: +25");
+            text += VisualFormattingUtils.DescribeBonus("Same goals", 25);
 
             return text;
         }

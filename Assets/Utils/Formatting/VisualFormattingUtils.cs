@@ -25,6 +25,11 @@ public static class VisualFormattingUtils
         return Colorize(text, VisualConstants.COLOR_POSITIVE);
     }
 
+    public static string Neutral(string text)
+    {
+        return Colorize(text, VisualConstants.COLOR_NEUTRAL);
+    }
+
 
     public static Color Color(string color)
     {
@@ -36,5 +41,32 @@ public static class VisualFormattingUtils
     internal static string Negative(string text)
     {
         return Colorize(text, VisualConstants.COLOR_NEGATIVE);
+    }
+
+    public static string Describe(string text, int value)
+    {
+        if (value > 0)
+            return Positive(text + ": +" + value);
+
+        if (value == 0)
+            return Neutral(text + ": 0");
+
+        return Negative(text + ": " + value);
+    }
+
+    public static string DescribeBonus(string text, int value)
+    {
+        return "\n" + Describe(text, value);
+    }
+
+    public static string Describe(string positiveText, string negativeText, int value)
+    {
+        if (value > 0)
+            return Positive(positiveText + ": +" + value);
+
+        if (value == 0)
+            return "";
+
+        return Negative(negativeText + ": " + value);
     }
 }

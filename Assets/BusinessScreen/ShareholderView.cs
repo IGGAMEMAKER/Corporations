@@ -32,8 +32,8 @@ public class ShareholderView : View
     {
         Name.text = name;
         
-        Goal.text = InvestmentUtils.GetInvestorGoal(shares);
-        Motivation.SetHint($"Motivation: {InvestmentUtils.GetInvestorGoalDescription(shares)}");
+        Goal.text = InvestmentUtils.GetInvestorGoalDescription(shares);
+        Motivation.SetHint($"Motivation: {InvestmentUtils.GetInvestorGoal(shares)}");
 
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 
