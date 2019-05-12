@@ -78,11 +78,11 @@ namespace Assets.Utils
                 case InvestorGoal.BecomeProfitable:
                     return shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoal.GrowClientBase:
+                case InvestorGoal.GrowCompanyCost:
                     return shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoal.GrowCompanyCost:
-                    return shareholderType == InvestorType.Strategic;
+                case InvestorGoal.IPO:
+                    return shareholderType == InvestorType.Strategic || shareholderType == InvestorType.VentureInvestor;
 
                 case InvestorGoal.GrowProfit:
                     return shareholderType == InvestorType.StockExchange;
@@ -177,40 +177,13 @@ namespace Assets.Utils
 
         public static string GetInvestorGoalDescription(BlockOfShares shares)
         {
-            switch (shares.InvestorGoal)
-            {
-                case InvestorGoal.BecomeBestByTech:
-                    return "Become technology leader";
-
-                case InvestorGoal.BecomeMarketFit:
-                    return "Become market fit";
-
-                case InvestorGoal.BecomeProfitable:
-                    return "Become profitable";
-
-                case InvestorGoal.GrowClientBase:
-                    return "Grow client base";
-
-                case InvestorGoal.GrowCompanyCost:
-                    return "Grow company cost";
-
-                case InvestorGoal.GrowProfit:
-                    return "Grow profit";
-
-                case InvestorGoal.ProceedToNextRound:
-                    return "Proceed to next round";
-
-                default:
-                    return shares.InvestorGoal.ToString();
-            }
+            return GetFormattedInvestorGoal(shares.InvestorGoal);
         }
 
         public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)
         {
             switch (investorGoal)
             {
-                case InvestorGoal.BecomeBestByTech:
-                    return "Become technology leader";
 
                 case InvestorGoal.BecomeMarketFit:
                     return "Become market fit";
@@ -218,17 +191,23 @@ namespace Assets.Utils
                 case InvestorGoal.BecomeProfitable:
                     return "Become profitable";
 
-                case InvestorGoal.GrowClientBase:
-                    return "Grow client base";
+                //case InvestorGoal.BecomeBestByTech:
+                //    return "Become technology leader";
+
+                //case InvestorGoal.GrowClientBase:
+                //    return "Grow client base";
+
+                //case InvestorGoal.ProceedToNextRound:
+                //    return "Proceed to next investment round";
 
                 case InvestorGoal.GrowCompanyCost:
-                    return "Grow company cost";
+                    return "Grow company cost by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
 
                 case InvestorGoal.GrowProfit:
-                    return "Grow profit";
+                    return "Grow profit by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH + "%";
 
-                case InvestorGoal.ProceedToNextRound:
-                    return "Proceed to next investment round";
+                case InvestorGoal.IPO:
+                    return "IPO";
 
                 default:
                     return investorGoal.ToString();

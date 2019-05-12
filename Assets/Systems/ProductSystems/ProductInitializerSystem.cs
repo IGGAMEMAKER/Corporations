@@ -144,15 +144,15 @@ public class ProductInitializerSystem : IInitializeSystem
         int investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
         int investorId3 = GenerateInvestmentFund("Morgan J.P.", 3000000);
 
-        int alphabet = GenerateHoldingCompany("Alphabet");
-        AttachToHolding(alphabet, google);
-        AttachToHolding(alphabet, yahoo);
+        //int alphabet = GenerateHoldingCompany("Alphabet");
+        //AttachToHolding(alphabet, google);
+        //AttachToHolding(alphabet, yahoo);
 
-        AddShareholder(alphabet, investorId, 100);
-        AddShareholder(alphabet, investorId2, 200);
+        //AddShareholder(alphabet, investorId, 100);
+        //AddShareholder(alphabet, investorId2, 200);
 
-        int googleGroupId = PromoteToGroup(google);
-        SetPlayerControlledCompany(alphabet);
+        //int googleGroupId = PromoteToGroup(google);
+        //SetPlayerControlledCompany(alphabet);
 
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);

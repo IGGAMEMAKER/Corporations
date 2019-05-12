@@ -39,12 +39,7 @@ public class InvestmentGoalView : View
 
         Expires.text = goalinfo.expires + " days";
 
-        string col = requirements.have >= requirements.need ?
-            VisualConstants.COLOR_POSITIVE
-            :
-            VisualConstants.COLOR_NEGATIVE;
-
-        Goal.text = VisualUtils.Colorize(goalinfo.goal, col);
+        Goal.text = VisualUtils.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
 
         ProgressBar.SetValue(requirements.have, requirements.need);
     }

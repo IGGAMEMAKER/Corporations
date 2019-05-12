@@ -15,7 +15,7 @@ public class SetTargetCompany : View
         switch (TargetCompany)
         {
             case TargetCompany.Group:
-                companyId = MyGroupEntity.company.Id;
+                companyId = MyGroupEntity != null ? MyGroupEntity.company.Id : 0;
                 break;
 
             case TargetCompany.Product:

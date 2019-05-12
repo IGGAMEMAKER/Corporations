@@ -19,6 +19,9 @@ public class Constants
 
     internal static long IPO_REQUIREMENTS_COMPANY_COST = 500000000;
     internal static long IPO_REQUIREMENTS_COMPANY_PROFIT = 10000000;
+
+    public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST = 20;
+    public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH = 5;
 }
 
 public class VisualConstants

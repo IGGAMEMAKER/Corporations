@@ -1,8 +1,4 @@
-﻿using Assets.Utils.Humans;
-using Entitas;
-using System;
-
-public struct GoalRequirements
+﻿public struct GoalRequirements
 {
     public long have;
     public long need;
@@ -12,6 +8,13 @@ namespace Assets.Utils
 {
     public static partial class InvestmentUtils
     {
+        public static bool IsGoalCompleted (GameEntity company, GameContext gameContext)
+        {
+            var r = GetGoalViewRequirementsInfo(company, gameContext);
+
+            return r.have >= r.need;
+        }
+
         public static GoalRequirements GetGoalViewRequirementsInfo(GameEntity company, GameContext gameContext)
         {
             var goal = company.companyGoal;
@@ -21,10 +24,20 @@ namespace Assets.Utils
                 case InvestorGoal.BecomeMarketFit: return GoalMarketFit(company, gameContext);
                 case InvestorGoal.BecomeProfitable: return GoalProfitable(company, gameContext);
                 case InvestorGoal.GrowCompanyCost: return GoalCompanyCost(company, gameContext);
+                case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
                 case InvestorGoal.IPO: return GoalIPO(company, gameContext);
 
-                default: return new GoalRequirements { need = 1000000, have = 0 };
+                default: return new GoalRequirements { need = 12000000, have = 0 };
             }
+        }
+
+        public static GoalRequirements GoalGrowProfit(GameEntity company, GameContext gameContext)
+        {
+            return new GoalRequirements
+            {
+                have = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id),
+                need = company.companyGoal.MeasurableGoal
+            };
         }
 
         private static GoalRequirements GoalCompanyCost(GameEntity company, GameContext gameContext)
@@ -32,8 +45,8 @@ namespace Assets.Utils
             return new GoalRequirements
             {
                 have = CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id),
-                need = 
-            }
+                need = company.companyGoal.MeasurableGoal
+            };
         }
 
         private static GoalRequirements GoalIPO(GameEntity company, GameContext gameContext)
@@ -64,7 +77,5 @@ namespace Assets.Utils
                 need = best.product.ProductLevel
             };
         }
-
-
     }
 }

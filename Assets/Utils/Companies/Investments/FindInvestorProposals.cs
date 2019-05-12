@@ -19,9 +19,28 @@ namespace Assets.Utils
             return InvestmentUtils.IsInvestorSuitable(shareholder, company);
         }
 
-        internal static void SetCompanyGoal(GameEntity company, InvestorGoal investorGoal, int expires)
+
+
+        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoal investorGoal, int expires)
         {
-            company.ReplaceCompanyGoal(investorGoal, expires, 0);
+            long measurableGoal = 5000;
+
+            switch (investorGoal)
+            {
+                // scum goals. they don't count
+                case InvestorGoal.BecomeMarketFit: measurableGoal = -1; break;
+                case InvestorGoal.BecomeProfitable: measurableGoal = 0; break;
+                case InvestorGoal.IPO: measurableGoal = 1; break;
+
+                case InvestorGoal.GrowCompanyCost:
+                    measurableGoal = CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id) * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
+                    break;
+                case InvestorGoal.GrowProfit:
+                    measurableGoal = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id) * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH) / 100;
+                    break;
+            }
+
+            company.ReplaceCompanyGoal(investorGoal, expires, measurableGoal);
         }
     }
 }

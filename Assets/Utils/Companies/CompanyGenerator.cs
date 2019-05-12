@@ -68,7 +68,8 @@ namespace Assets.Utils
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
 
-            SetCompanyGoal(company, InvestorGoal.BecomeMarketFit, 365);
+            // TODO SEND PROPER CONTEXT
+            SetCompanyGoal(Contexts.sharedInstance.game, company, InvestorGoal.BecomeMarketFit, 365);
 
             return company;
         }
