@@ -111,6 +111,9 @@ public class CooldownsComponent : IComponent
 public class CompanyGoalComponent : IComponent
 {
     public InvestorGoal InvestorGoal;
+
+    public int Expires;
+    public long MeasurableGoal;
 }
 
 public class CompanyPhaseComponent : IComponent

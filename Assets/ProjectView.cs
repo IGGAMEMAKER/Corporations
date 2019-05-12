@@ -40,6 +40,6 @@ public class ProjectView : View
 
         PublicityStatus.text = isPublic ? "Is public company" : "Is private company";
 
-        CompanyGoal.text = $"Company Goal: {InvestmentUtils.GetInvestorGoal(SelectedCompany.companyGoal.InvestorGoal)}";
+        CompanyGoal.text = $"Company Goal: {InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal)}";
     }
 }

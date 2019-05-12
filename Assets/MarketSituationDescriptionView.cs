@@ -28,7 +28,7 @@ public class MarketSituationDescriptionView : View
 
         if (diff == 0)
         {
-            Text.text = "We are in trends";
+            Text.text = "Market fit";
             Text.color = VisualUtils.Color(VisualConstants.COLOR_POSITIVE);
         } else if (diff == 1)
         {

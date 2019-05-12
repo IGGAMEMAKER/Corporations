@@ -86,14 +86,15 @@ public enum InvestorGoal
 {
     BecomeMarketFit = 0,
     BecomeProfitable = 1,
-    BecomeBestByTech = 2,
+    BecomeBestByTech = 2, // 
     GrowClientBase = 3,
 
-    ProceedToNextRound = 4,
+    ProceedToNextRound = 4, // 
 
     GrowProfit = 5,
 
     GrowCompanyCost = 6,
+    IPO = 7
 }
 
 public enum InvestmentRound

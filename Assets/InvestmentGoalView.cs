@@ -1,13 +1,10 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public struct GoalViewInfo
+struct GoalViewInfo
 {
     public int expires;
     public string goal;
-
-    public long have;
-    public long need;
 }
 
 public class InvestmentGoalView : View
@@ -26,32 +23,30 @@ public class InvestmentGoalView : View
 
     GoalViewInfo GetGoalViewInfo()
     {
-        var me = MyProductEntity;
-        var best = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.product.Niche);
+        var goal = MyProductEntity.companyGoal;
 
         return new GoalViewInfo
         {
-            expires = 58,
-            have = me.product.ProductLevel,
-            need = best.product.ProductLevel,
-            goal = "Become market fit"
+            expires = goal.Expires - CurrentIntDate,
+            goal = InvestmentUtils.GetFormattedInvestorGoal(goal.InvestorGoal)
         };
     }
 
     void Render()
     {
         var goalinfo = GetGoalViewInfo();
+        var requirements = InvestmentUtils.GetGoalViewRequirementsInfo(MyProductEntity, GameContext);
 
         Expires.text = goalinfo.expires + " days";
 
-        string col = goalinfo.have >= goalinfo.need ?
+        string col = requirements.have >= requirements.need ?
             VisualConstants.COLOR_POSITIVE
             :
             VisualConstants.COLOR_NEGATIVE;
 
         Goal.text = VisualUtils.Colorize(goalinfo.goal, col);
 
-        ProgressBar.SetValue(goalinfo.have, goalinfo.need);
+        ProgressBar.SetValue(requirements.have, requirements.need);
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)

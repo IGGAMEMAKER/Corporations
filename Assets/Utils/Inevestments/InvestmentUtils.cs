@@ -4,7 +4,7 @@ using System;
 
 namespace Assets.Utils
 {
-    public static class InvestmentUtils
+    public static partial class InvestmentUtils
     {
         public static int GenerateInvestorId(GameContext context)
         {
@@ -60,6 +60,14 @@ namespace Assets.Utils
             return investorId;
         }
 
+        public static bool IsInvestorSuitable(ShareholderComponent shareholder, GameEntity company)
+        {
+            bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.InvestorType, company.companyGoal.InvestorGoal);
+            bool isInvestorSuitableByNiche = true;
+
+            return isSuitableByGoal && isInvestorSuitableByNiche;
+        }
+
         public static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
         {
             switch (goal)
@@ -108,7 +116,8 @@ namespace Assets.Utils
             string text = VisualUtils.Describe(
                 "They will invest in this company if asked",
                 "They will not invest",
-                opinion);
+                opinion
+            );
 
             text += "\n";
 
@@ -168,8 +177,6 @@ namespace Assets.Utils
 
         public static string GetInvestorGoalDescription(BlockOfShares shares)
         {
-            //return GetInvestorGoal(shares.InvestorGoal);
-
             switch (shares.InvestorGoal)
             {
                 case InvestorGoal.BecomeBestByTech:
@@ -191,14 +198,14 @@ namespace Assets.Utils
                     return "Grow profit";
 
                 case InvestorGoal.ProceedToNextRound:
-                    return "Proceed to next investment round";
+                    return "Proceed to next round";
 
                 default:
                     return shares.InvestorGoal.ToString();
             }
         }
 
-        public static string GetInvestorGoal(InvestorGoal investorGoal)
+        public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)
         {
             switch (investorGoal)
             {
@@ -230,7 +237,7 @@ namespace Assets.Utils
 
         public static string GetInvestorGoal(BlockOfShares shares)
         {
-            return GetInvestorGoal(shares.InvestorGoal);
+            return GetFormattedInvestorGoal(shares.InvestorGoal);
         }
     }
 }

@@ -16,14 +16,12 @@ namespace Assets.Utils
 
         public static bool IsInvestorSuitable(ShareholderComponent shareholder, GameEntity company)
         {
-            bool isSuitableByGoal = InvestmentUtils.IsInvestorSuitableByGoal(shareholder.InvestorType, company.companyGoal.InvestorGoal);
-
-            return isSuitableByGoal;
+            return InvestmentUtils.IsInvestorSuitable(shareholder, company);
         }
 
-        internal static void SetCompanyGoal(GameEntity company, InvestorGoal investorGoal)
+        internal static void SetCompanyGoal(GameEntity company, InvestorGoal investorGoal, int expires)
         {
-            company.ReplaceCompanyGoal(investorGoal);
+            company.ReplaceCompanyGoal(investorGoal, expires, 0);
         }
     }
 }
