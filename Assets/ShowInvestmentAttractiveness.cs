@@ -2,15 +2,18 @@
 using UnityEngine.UI;
 
 public class ShowInvestmentAttractiveness : View
+    , IAnyDateListener
 {
-    void Update()
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
     {
         Render();
     }
 
     private void OnEnable()
     {
-        //Render();
+        LazyUpdate(this);
+
+        Render();
     }
 
     void Render()
