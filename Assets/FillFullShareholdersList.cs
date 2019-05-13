@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System.Collections.Generic;
 using System.Linq;
 
 public class FillFullShareholdersList : View, IMenuListener
@@ -18,7 +19,7 @@ public class FillFullShareholdersList : View, IMenuListener
             .SetItems(shareholders.ToArray());
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         if (screenMode == ScreenMode.InvesmentsScreen)
             Render();

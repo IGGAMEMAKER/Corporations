@@ -61,14 +61,14 @@ public class FillCompanyOwnings : View
         return arr;
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        if (screenMode == ScreenMode.GroupManagementScreen)
-            Render();
-    }
-
     void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, BlockOfShares> shareholders)
     {
         Render();
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
+    {
+        if (screenMode == ScreenMode.GroupManagementScreen)
+            Render();
     }
 }

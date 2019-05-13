@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -28,12 +29,6 @@ public class FillCompetingCompaniesList : View
     void OnEnable()
     {
         GetUniversalListener.AddAnyCompanyListener(this);
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        if (screenMode == ScreenMode.NicheScreen)
-            Render();
     }
 
     int SortCompanies(GameEntity p1, GameEntity p2)
@@ -71,5 +66,11 @@ public class FillCompetingCompaniesList : View
     void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
     {
         Render();
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
+    {
+        if (screenMode == ScreenMode.NicheScreen)
+            Render();
     }
 }

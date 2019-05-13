@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using System.Collections.Generic;
+using Assets.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -119,7 +120,7 @@ public class GroupManagementScreen : View
         return CompanyUtils.GetShareholderStatus(percent);
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         if (screenMode == ScreenMode.GroupManagementScreen)
         {

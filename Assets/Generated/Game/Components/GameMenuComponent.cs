@@ -11,17 +11,19 @@ public partial class GameEntity {
     public MenuComponent menu { get { return (MenuComponent)GetComponent(GameComponentsLookup.Menu); } }
     public bool hasMenu { get { return HasComponent(GameComponentsLookup.Menu); } }
 
-    public void AddMenu(ScreenMode newScreenMode, object newData) {
+    public void AddMenu(ScreenMode newScreenMode, System.Collections.Generic.Dictionary<string, object> newData) {
         var index = GameComponentsLookup.Menu;
         var component = (MenuComponent)CreateComponent(index, typeof(MenuComponent));
         component.ScreenMode = newScreenMode;
+        component.Data = newData;
         AddComponent(index, component);
     }
 
-    public void ReplaceMenu(ScreenMode newScreenMode, object newData) {
+    public void ReplaceMenu(ScreenMode newScreenMode, System.Collections.Generic.Dictionary<string, object> newData) {
         var index = GameComponentsLookup.Menu;
         var component = (MenuComponent)CreateComponent(index, typeof(MenuComponent));
         component.ScreenMode = newScreenMode;
+        component.Data = newData;
         ReplaceComponent(index, component);
     }
 

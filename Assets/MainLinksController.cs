@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class MainLinksController : View
     , IMenuListener
@@ -6,7 +7,7 @@ public class MainLinksController : View
     public GameObject LinkToDevelopment;
     public GameObject LinkToGroup;
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         Render();
     }

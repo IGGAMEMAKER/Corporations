@@ -28,7 +28,13 @@ class MenuInputSystem :
         screen = ScreenMode.DevelopmentScreen;
 
         menu.AddNavigationHistory(new List<MenuComponent>());
-        menu.AddMenu(screen, 1);
+
+        var dictionary = new Dictionary<string, object>
+        {
+            [Constants.MENU_SELECTED_COMPANY] = 1
+        };
+
+        menu.AddMenu(screen, dictionary);
     }
 
     void IExecuteSystem.Execute()

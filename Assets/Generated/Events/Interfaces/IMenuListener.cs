@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IMenuListener {
-    void OnMenu(GameEntity entity, ScreenMode screenMode, object data);
+    void OnMenu(GameEntity entity, ScreenMode screenMode, System.Collections.Generic.Dictionary<string, object> data);
 }

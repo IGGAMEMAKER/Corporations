@@ -114,7 +114,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             DisableScreen(screen);
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         EnableScreen(screenMode);
     }

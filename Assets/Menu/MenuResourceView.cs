@@ -97,11 +97,6 @@ public class MenuResourceView : View
         BrandView.SetPrettifiedValue("", marketing.BrandPower);
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, object data)
-    {
-        Render();
-    }
-
     void ICompanyResourceListener.OnCompanyResource(GameEntity entity, TeamResource resources)
     {
         Render();
@@ -113,6 +108,11 @@ public class MenuResourceView : View
     }
 
     void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
+    {
+        Render();
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         Render();
     }

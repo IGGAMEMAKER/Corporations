@@ -44,20 +44,28 @@ namespace Assets.Utils
         {
             var menu = GetMenu(gameContext);
 
-            menu.ReplaceMenu(menu.menu.ScreenMode, companyId);
+            var data = menu.menu.Data;
+
+            data[Constants.MENU_SELECTED_COMPANY] = companyId;
+
+            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }
 
+        public static void ReplaceMenu(GameContext gameContext, ScreenMode screenMode, Dictionary<string, object> data)
+        {
+            var menu = GetMenu(gameContext);
+
+            menu.ReplaceMenu(screenMode, data);
+        }
 
         public static GameEntity GetNavigationHistory(GameContext context)
         {
             return context.GetEntities(GameMatcher.NavigationHistory)[0];
         }
 
-        public static void UpdateScreen(GameContext context, ScreenMode screenMode, object data)
+        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
-            var menu = GetMenu(context);
-
-            menu.ReplaceMenu(screenMode, data);
+            ReplaceMenu(context, screenMode, data);
         }
 
         public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
