@@ -1,24 +1,44 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
-    public static class MenuUtils
+    public static class ScreenUtils
     {
         public static GameEntity GetMenu(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Menu)[0];
         }
 
-        public static IndustryType GetIndustry(GameContext gameContext)
+        public static Dictionary<string, object> GetScreenData(GameContext context)
         {
-            return (IndustryType)GetMenu(gameContext)?.menu?.Data;
+            return GetMenu(context).menu.Data;
         }
 
-        public static NicheType GetNiche(GameContext gameContext)
+        public static ScreenMode GetScreenMode(GameContext context)
         {
-            return (NicheType)GetMenu(gameContext)?.menu?.Data;
+            return GetMenu(context).menu.ScreenMode;
         }
+
+        public static GameEntity GetSelectedCompany(GameContext gameContext)
+        {
+            int companyId = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_COMPANY];
+
+            return CompanyUtils.GetCompanyById(gameContext, companyId);
+        }
+
+        public static IndustryType GetSelectedIndustry(GameContext gameContext)
+        {
+            return (IndustryType)GetScreenData(gameContext)[Constants.MENU_SELECTED_INDUSTRY];
+        }
+
+        public static NicheType GetSelectedNiche(GameContext gameContext)
+        {
+            return (NicheType)GetScreenData(gameContext)[Constants.MENU_SELECTED_NICHE];
+        }
+
+
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
@@ -26,6 +46,7 @@ namespace Assets.Utils
 
             menu.ReplaceMenu(menu.menu.ScreenMode, companyId);
         }
+
 
         public static GameEntity GetNavigationHistory(GameContext context)
         {
@@ -39,7 +60,7 @@ namespace Assets.Utils
             menu.ReplaceMenu(screenMode, data);
         }
 
-        public static void UpdateHistory(GameContext context, ScreenMode screenMode, object data)
+        public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
             var history = GetNavigationHistory(context);
 
@@ -49,13 +70,27 @@ namespace Assets.Utils
             history.ReplaceNavigationHistory(q);
         }
 
-        public static void Navigate(GameContext context, ScreenMode screenMode, object data)
+        public static void Navigate(GameContext context, ScreenMode newScreen, Dictionary<string, object> newData)
         {
             var menu = GetMenu(context);
 
             UpdateHistory(context, menu.menu.ScreenMode, menu.menu.Data);
+            UpdateScreen(context, newScreen, newData);
+        }
 
-            UpdateScreen(context, screenMode, data);
+        public static void Navigate(GameContext context, ScreenMode screenMode)
+        {
+            // only changes screen
+            Navigate(context, screenMode, GetScreenData(context));
+        }
+
+        public static void Navigate(GameContext context, ScreenMode screenMode, string field, object data)
+        {
+            var screenData = GetScreenData(context);
+
+            screenData[field] = data;
+
+            Navigate(context, screenMode, screenData);
         }
 
         public static void NavigateBack(GameContext context)

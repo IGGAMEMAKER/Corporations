@@ -7,7 +7,7 @@ public abstract class IndustryNavigator: ButtonController
 
     public override void Execute()
     {
-        IndustryType industryType = MenuUtils.GetIndustry(GameContext);
+        IndustryType industryType = ScreenUtils.GetSelectedIndustry(GameContext);
 
         var c = Enum.GetValues(typeof(IndustryType));
 
@@ -21,6 +21,6 @@ public abstract class IndustryNavigator: ButtonController
         if (next < 0)
             next = c.Length - 1;
 
-        Navigate(ScreenMode.IndustryScreen, c.GetValue(next));
+        NavigateToIndustry((IndustryType) c.GetValue(next));
     }
 }

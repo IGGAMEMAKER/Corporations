@@ -35,7 +35,7 @@ public class InvestmentGoalView : View
     void Render()
     {
         var goalinfo = GetGoalViewInfo();
-        var requirements = InvestmentUtils.GetGoalViewRequirementsInfo(MyProductEntity, GameContext);
+        var requirements = InvestmentUtils.GetGoalRequirements(MyProductEntity, GameContext);
 
         Expires.text = goalinfo.expires + " days";
 

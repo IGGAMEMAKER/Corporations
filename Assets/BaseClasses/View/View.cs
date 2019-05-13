@@ -4,23 +4,11 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class View : MonoBehaviour
+public class View : BaseClass
 {
-    public GameEntity SelectedCompany
+    public float GetTaskCompletionPercentage(TaskComponent taskComponent)
     {
-        get
-        {
-            var data = MenuUtils.GetMenu(GameContext).menu.Data;
-
-            if (data == null)
-            {
-                Debug.LogError("SelectedCompany does not exist!");
-                return null;
-                //return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
-            }
-
-            return CompanyUtils.GetCompanyById(GameContext, (int)data);
-        }
+        return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
     }
 
     public bool IsUnderPlayerControl(int companyId)
@@ -29,69 +17,6 @@ public class View : MonoBehaviour
 
         return c.isControlledByPlayer;
     }
-
-    public ScreenMode CurrentScreen
-    {
-        get
-        {
-            return MenuUtils.GetMenu(GameContext).menu.ScreenMode;
-        }
-    }
-
-    public GameEntity MyProductEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
-        }
-    }
-
-    public GameEntity MyGroupEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-        }
-    }
-    
-    public GameContext GameContext
-    {
-        get
-        {
-            return Contexts.sharedInstance.game;
-        }
-    }
-
-    public ProductComponent MyProduct
-    {
-        get
-        {
-            return MyProductEntity?.product;
-        }
-    }
-
-    public int CurrentIntDate
-    {
-        get
-        {
-            return ScheduleUtils.GetCurrentDate(GameContext);
-        }
-    }
-
-    public GameEntity GetUniversalListener
-    {
-        get
-        {
-            return MenuUtils.GetMenu(GameContext);
-        }
-    }
-
-    public float GetTaskCompletionPercentage(TaskComponent taskComponent)
-    {
-        return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
-    }
-
-
 
     GameEntity[] GetTasks(TaskType taskType)
     {
@@ -131,7 +56,7 @@ public class View : MonoBehaviour
 
     public void ListenMenuChanges(IMenuListener menuListener)
     {
-        MenuUtils.GetMenu(GameContext).AddMenuListener(menuListener);
+        ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);
     }
 
     public void ListenDateChanges(IAnyDateListener dateListener)

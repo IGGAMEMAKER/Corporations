@@ -6,11 +6,9 @@ public class LinkToManagingScreen : ButtonController
 {
     public override void Execute()
     {
-        //  MyGroupEntity.company.Id
-
         if (SelectedCompany == MyGroupEntity)
-            Navigate(ScreenMode.GroupManagementScreen, null);
+            Navigate(ScreenMode.GroupManagementScreen);
         else if (SelectedCompany == MyProductEntity)
-            Navigate(ScreenMode.DevelopmentScreen, null);
+            Navigate(ScreenMode.DevelopmentScreen);
     }
 }

@@ -21,7 +21,7 @@ public class GroupManagementScreen : View
     {
         if (MyGroupEntity == null)
         {
-            MenuUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, null);
+            ScreenUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, null);
 
             return;
         }

@@ -19,7 +19,7 @@ public class DateComponent : IComponent
 public class MenuComponent : IComponent
 {
     public ScreenMode ScreenMode;
-    public object Data;
+    public Dictionary<string, object> Data;
 }
 
 // only entity

@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System.Collections.Generic;
 
 class MenuInputSystem :
     IExecuteSystem,
@@ -14,11 +15,11 @@ class MenuInputSystem :
         context = contexts.game;
     }
 
-    void EnableScreen(ScreenMode screenMode, object data)
+    void EnableScreen(ScreenMode screenMode, Dictionary<string, object> data)
     {
         screen = screenMode;
 
-        MenuUtils.Navigate(context, screenMode, data);
+        ScreenUtils.Navigate(context, screenMode, data);
     }
 
     void IInitializeSystem.Initialize()
@@ -26,7 +27,7 @@ class MenuInputSystem :
         menu = context.CreateEntity();
         screen = ScreenMode.DevelopmentScreen;
 
-        menu.AddNavigationHistory(new System.Collections.Generic.List<MenuComponent>());
+        menu.AddNavigationHistory(new List<MenuComponent>());
         menu.AddMenu(screen, 1);
     }
 

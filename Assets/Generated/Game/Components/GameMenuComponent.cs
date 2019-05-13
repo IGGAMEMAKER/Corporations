@@ -15,7 +15,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Menu;
         var component = (MenuComponent)CreateComponent(index, typeof(MenuComponent));
         component.ScreenMode = newScreenMode;
-        component.Data = newData;
         AddComponent(index, component);
     }
 
@@ -23,7 +22,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Menu;
         var component = (MenuComponent)CreateComponent(index, typeof(MenuComponent));
         component.ScreenMode = newScreenMode;
-        component.Data = newData;
         ReplaceComponent(index, component);
     }
 

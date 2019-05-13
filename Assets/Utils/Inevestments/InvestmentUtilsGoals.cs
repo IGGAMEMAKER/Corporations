@@ -10,12 +10,12 @@ namespace Assets.Utils
     {
         public static bool IsGoalCompleted (GameEntity company, GameContext gameContext)
         {
-            var r = GetGoalViewRequirementsInfo(company, gameContext);
+            var r = GetGoalRequirements(company, gameContext);
 
             return r.have >= r.need;
         }
 
-        public static GoalRequirements GetGoalViewRequirementsInfo(GameEntity company, GameContext gameContext)
+        public static GoalRequirements GetGoalRequirements(GameEntity company, GameContext gameContext)
         {
             var goal = company.companyGoal;
 

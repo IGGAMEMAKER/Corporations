@@ -22,6 +22,11 @@ public class Constants
 
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST = 20;
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH = 5;
+
+    public const string MENU_SELECTED_COMPANY = "SelectedCompany";
+    public const string MENU_SELECTED_INDUSTRY = "SelectedIndustry";
+    public const string MENU_SELECTED_NICHE = "SelectedNiche";
+    public const string MENU_SELECTED_HUMAN = "SelectedHuman";
 }
 
 public class VisualConstants

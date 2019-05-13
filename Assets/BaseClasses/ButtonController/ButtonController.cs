@@ -3,68 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public abstract partial class ButtonController : MonoBehaviour
+public abstract class ButtonController : BaseClass
 {
     Button Button;
 
     public abstract void Execute();
-
-    public GameEntity SelectedCompany
-    {
-        get
-        {
-            var data = MenuUtils.GetMenu(GameContext).menu.Data;
-
-            if (data == null)
-            {
-                //Debug.LogError("SelectedCompany does not exist!");
-
-                return CompanyUtils.GetAnyOfControlledCompanies(GameContext);
-            }
-
-            return CompanyUtils.GetCompanyById(GameContext, (int)data);
-        }
-    }
-
-    public ScreenMode CurrentScreen
-    {
-        get
-        {
-            return MenuUtils.GetMenu(GameContext).menu.ScreenMode;
-        }
-    }
-
-    public ProductComponent MyProduct
-    {
-        get
-        {
-            return MyProductEntity?.product;
-        }
-    }
-
-    public GameEntity MyProductEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
-        }
-    }
-
-    public GameEntity MyGroupEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-        }
-    }
-
-    public GameContext GameContext
-    {
-        get
-        {
-            return Contexts.sharedInstance.game;
-        }
-    }
+    public virtual void ButtonStart() { }
 
     void Start()
     {
@@ -74,6 +18,43 @@ public abstract partial class ButtonController : MonoBehaviour
 
         ButtonStart();
     }
+
+
+    void OnDestroy()
+    {
+        RemoveListener();
+    }
+
+    void RemoveListener()
+    {
+        if (Button)
+            Button.onClick.RemoveListener(Execute);
+        else
+            Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
+    }
+
+    public GameEntity ListenProductChanges()
+    {
+        return MyProductEntity;
+    }
+
+    // trigger events
+
+    public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
+    {
+        MyProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
+    }
+
+    public void TriggerEventTargetingToggle(int productId)
+    {
+        MyProductEntity.AddEventMarketingEnableTargeting(productId);
+    }
+
+    public void TriggerEventSetPrice(int productId, Pricing level)
+    {
+        MyProductEntity.AddEventFinancePricingChange(productId, level);
+    }
+
 
     internal void AddIsChosenComponent(bool isChosen)
     {
@@ -91,23 +72,46 @@ public abstract partial class ButtonController : MonoBehaviour
         }
     }
 
-    public virtual void ButtonStart() {}
-
-    void OnDestroy()
-    {
-        RemoveListener();
-    }
-
-    void RemoveListener()
-    {
-        if (Button)
-            Button.onClick.RemoveListener(Execute);
-        else
-            Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
-    }
-
     public void SetSelectedCompany(int companyId)
     {
-        MenuUtils.SetSelectedCompany(GameContext, companyId);
+        ScreenUtils.SetSelectedCompany(GameContext, companyId);
+    }
+
+    // navigate
+    public void Navigate(ScreenMode screenMode, string field, object data)
+    {
+        ScreenUtils.Navigate(GameContext, screenMode, field, data);
+    }
+
+    public void Navigate(ScreenMode screenMode)
+    {
+        ScreenUtils.Navigate(GameContext, screenMode);
+    }
+
+    public void NavigateToNiche(NicheType niche)
+    {
+        Navigate(ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, niche);
+    }
+
+    public void NavigateToIndustry(IndustryType industry)
+    {
+        Navigate(ScreenMode.IndustryScreen, Constants.MENU_SELECTED_INDUSTRY, industry);
+    }
+
+    public void NavigateToCompany(ScreenMode screenMode, int companyId)
+    {
+        Navigate(screenMode, Constants.MENU_SELECTED_COMPANY, companyId);
+    }
+
+    public void NavigateToProjectScreen(int companyId)
+    {
+        NavigateToCompany(ScreenMode.ProjectScreen, companyId);
+    }
+
+    public void ReNavigate()
+    {
+        var m = ScreenUtils.GetMenu(GameContext);
+
+        m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
     }
 }

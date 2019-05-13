@@ -14,7 +14,7 @@ public class MarketPotentialView : View
 
     private void OnEnable()
     {
-        var niche = MenuUtils.GetNiche(GameContext);
+        var niche = ScreenUtils.GetSelectedNiche(GameContext);
 
         SetEntity(niche);
     }

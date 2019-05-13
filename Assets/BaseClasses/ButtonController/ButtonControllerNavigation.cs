@@ -1,34 +1,10 @@
 ﻿using Assets.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public abstract partial class ButtonController : MonoBehaviour
-{
-    public void NavigateToNiche(NicheType niche)
-    {
-        Navigate(ScreenMode.NicheScreen, niche);
-    }
+//[RequireComponent(typeof(Button))]
+//public abstract partial class ButtonController : MonoBehaviour
+//{
 
-    public void NavigateToProjectScreen(int companyId)
-    {
-        Navigate(ScreenMode.ProjectScreen, companyId);
-    }
-
-    public void NavigateToIndustry(IndustryType industry)
-    {
-        Navigate(ScreenMode.IndustryScreen, industry);
-    }
-
-    public void Navigate(ScreenMode screenMode, object data)
-    {
-        MenuUtils.Navigate(GameContext, screenMode, data);
-    }
-
-    public void ReNavigate()
-    {
-        var m = MenuUtils.GetMenu(GameContext);
-
-        m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
-    }
-}
+//}

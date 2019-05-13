@@ -60,7 +60,7 @@ public class MenuController : MonoBehaviour, IMenuListener
         DisableAllScreens();
         EnableScreen(ScreenMode.DevelopmentScreen);
 
-        GameEntity e = MenuUtils.GetMenu(Contexts.sharedInstance.game);
+        GameEntity e = ScreenUtils.GetMenu(Contexts.sharedInstance.game);
 
         e.AddMenuListener(this);
     }

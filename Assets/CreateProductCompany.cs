@@ -5,7 +5,7 @@ public class CreateProductCompany : ButtonController
 {
     public override void Execute()
     {
-        NicheType nicheType = MenuUtils.GetNiche(GameContext);
+        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
 
         string name = "New Company " + CompanyUtils.GenerateCompanyId(GameContext);
 

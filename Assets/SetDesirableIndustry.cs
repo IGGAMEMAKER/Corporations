@@ -4,7 +4,7 @@ public class SetDesirableIndustry : View
 {
     void OnEnable()
     {
-        var industry = NicheUtils.GetIndustry(MenuUtils.GetNiche(GameContext), GameContext);
+        var industry = NicheUtils.GetIndustry(ScreenUtils.GetSelectedNiche(GameContext), GameContext);
 
         GetComponent<LinkToResearchView>().SetIndustry(industry);
     }

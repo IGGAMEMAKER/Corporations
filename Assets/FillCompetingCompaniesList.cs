@@ -55,7 +55,7 @@ public class FillCompetingCompaniesList : View
 
     void Render()
     {
-        NicheType niche = MenuUtils.GetNiche(GameContext);
+        NicheType niche = ScreenUtils.GetSelectedNiche(GameContext);
 
         GameEntity[] entities = GetProductsOnNiche(niche);
 

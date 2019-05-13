@@ -7,6 +7,6 @@
         if (CurrentScreen == ScreenMode.DevelopmentScreen)
             CompanyId = MyProductEntity.company.Id;
 
-        Navigate(ScreenMode.InvesmentsScreen, CompanyId);
+        NavigateToCompany(ScreenMode.InvesmentsScreen, CompanyId);
     }
 }

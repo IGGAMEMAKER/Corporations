@@ -4,6 +4,6 @@ public class GoBackButton : ButtonController
 {
     public override void Execute()
     {
-        MenuUtils.NavigateBack(GameContext);
+        ScreenUtils.NavigateBack(GameContext);
     }
 }

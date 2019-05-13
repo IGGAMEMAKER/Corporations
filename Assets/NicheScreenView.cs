@@ -23,14 +23,14 @@ public class NicheScreenView : View
 
     void RenderAmountOfCompanies()
     {
-        NicheType NicheType = MenuUtils.GetNiche(GameContext);
+        NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
 
         AmountOfCompetitors.text = "(" + NicheUtils.GetCompetitorsAmount(NicheType, GameContext) + ")";
     }
 
     void Render()
     {
-        NicheType NicheType = MenuUtils.GetNiche(GameContext);
+        NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
         IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
         NicheName.text = "Niche: " + NicheType.ToString();

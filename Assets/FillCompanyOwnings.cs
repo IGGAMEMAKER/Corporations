@@ -16,7 +16,7 @@ public class FillCompanyOwnings : View
 
     public void SetObservableCompany()
     {
-        var screenMode = MenuUtils.GetMenu(GameContext).menu.ScreenMode;
+        var screenMode = ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
         ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
     }

@@ -18,7 +18,7 @@ public class FillNicheListView : View
     {
         var niches = GameContext.GetEntities(GameMatcher.Niche);
 
-        IndustryType industryType = MenuUtils.GetIndustry(GameContext);
+        IndustryType industryType = ScreenUtils.GetSelectedIndustry(GameContext);
 
         return Array.FindAll(niches, FilterNichesByIndustry(industryType));
     }

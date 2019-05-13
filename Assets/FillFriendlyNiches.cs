@@ -15,7 +15,7 @@ public class FillFriendlyNiches : View
 
     void Render()
     {
-        NicheType niche = MenuUtils.GetNiche(GameContext);
+        NicheType niche = ScreenUtils.GetSelectedNiche(GameContext);
 
         GameEntity[] entities = GetFriendlyNiches(niche);
 

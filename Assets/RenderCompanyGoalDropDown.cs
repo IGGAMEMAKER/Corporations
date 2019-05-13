@@ -7,7 +7,6 @@ public class RenderCompanyGoalDropDown : View
 {
     public Dropdown Dropdown;
 
-    // Start is called before the first frame update
     void Start()
     {
         var options = new List<Dropdown.OptionData>();
