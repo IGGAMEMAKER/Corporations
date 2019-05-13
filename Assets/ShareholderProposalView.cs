@@ -53,8 +53,7 @@ public class ShareholderProposalView : View
 
         Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
 
-        long valuation = proposal.Valuation;
-        Valuation.text = "$" + ValueFormatter.Shorten(valuation);
+        Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
 
         SetButtons(proposal.ShareholderId);
     }

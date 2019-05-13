@@ -11,8 +11,6 @@ public class IsChosenComponent : MonoBehaviour
     Color BackgroundColor;
     Color TextColor;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Image = GetComponent<Image>();
@@ -22,6 +20,21 @@ public class IsChosenComponent : MonoBehaviour
         TextColor = Text.color;
 
         PaintIt();
+    }
+
+    private void OnEnable()
+    {
+        PaintIt();
+    }
+
+    private void OnDisable()
+    {
+        RestoreDefaultColor();
+    }
+
+    private void OnDestroy()
+    {
+        RestoreDefaultColor();
     }
 
     void RestoreDefaultColor()
@@ -35,11 +48,6 @@ public class IsChosenComponent : MonoBehaviour
             Text.color = TextColor;
     }
 
-    private void OnEnable()
-    {
-        PaintIt();
-    }
-
     void PaintIt()
     {
         if (Image == null || Text == null)
@@ -47,15 +55,5 @@ public class IsChosenComponent : MonoBehaviour
 
         Image.color = Color.blue;
         Text.color = Color.white;
-    }
-
-    private void OnDisable()
-    {
-        RestoreDefaultColor();
-    }
-
-    private void OnDestroy()
-    {
-        RestoreDefaultColor();
     }
 }

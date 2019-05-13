@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour {
@@ -24,7 +25,7 @@ public class ProgressBar : MonoBehaviour {
 
         SetValue(have);
 
-        Text.text = $"{have} / {requirement}";
+        Text.text = $"{ValueFormatter.Shorten(have)} / {ValueFormatter.Shorten(requirement)}";
     }
 
     public void SetValue (float val)

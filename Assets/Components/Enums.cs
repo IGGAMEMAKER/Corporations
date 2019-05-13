@@ -4,6 +4,7 @@
 // foreach (InvestorGoal goal in (InvestorGoal[])Enum.GetValues(typeof(InvestorGoal)))
 
 // cast
+// https://stackoverflow.com/questions/29482/cast-int-to-enum-in-c-sharp
 // var investorGoal = (InvestorGoal) Enum.Parse(typeof(InvestorGoal), arg0.ToString());
 
 public enum NicheType
