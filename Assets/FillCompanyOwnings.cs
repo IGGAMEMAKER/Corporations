@@ -14,13 +14,6 @@ public class FillCompanyOwnings : View
         ListenMenuChanges(this);
     }
 
-    public void SetObservableCompany()
-    {
-        var screenMode = ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
-
-        ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
-    }
-
     void OnEnable()
     {
         SetObservableCompany();
@@ -35,6 +28,13 @@ public class FillCompanyOwnings : View
     {
         if (ObservableCompany.hasAnyShareholdersListener)
             ObservableCompany.RemoveAnyShareholdersListener(this);
+    }
+
+    public void SetObservableCompany()
+    {
+        var screenMode = ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
+
+        ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
     }
 
     void Render()

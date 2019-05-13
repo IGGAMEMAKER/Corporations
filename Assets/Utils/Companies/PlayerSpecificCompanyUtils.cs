@@ -47,7 +47,8 @@ namespace Assets.Utils
 
             var myProduct = GetPlayerControlledProductCompany(context).product;
 
-            Debug.Log("GetMyNeighbours returns false data! it does not count products in same niche");
+            // TODO GetMyNeighbours
+            Debug.Log("GetMyNeighbours returns false data! it does not count products in same industry/niche?");
 
             return Array.FindAll(products, e => e.product.Niche != myProduct.Niche);
         }

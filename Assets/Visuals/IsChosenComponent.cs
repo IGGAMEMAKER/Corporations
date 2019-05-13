@@ -11,6 +11,14 @@ public class IsChosenComponent : MonoBehaviour
     Color BackgroundColor;
     Color TextColor;
 
+    public void Toggle(bool isChosen)
+    {
+        if (isChosen)
+            PaintIt();
+        else
+            RestoreDefaultColor();
+    }
+
     void Start()
     {
         Image = GetComponent<Image>();
@@ -19,28 +27,11 @@ public class IsChosenComponent : MonoBehaviour
         BackgroundColor = Image.color;
         TextColor = Text.color;
 
-        PaintIt();
-    }
-
-    private void OnEnable()
-    {
-        PaintIt();
-    }
-
-    private void OnDisable()
-    {
-        RestoreDefaultColor();
-    }
-
-    private void OnDestroy()
-    {
-        RestoreDefaultColor();
+        Toggle(false);
     }
 
     void RestoreDefaultColor()
     {
-        // Restore default color
-
         if (Image != null)
             Image.color = BackgroundColor;
 

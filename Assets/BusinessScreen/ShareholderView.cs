@@ -40,7 +40,8 @@ public class ShareholderView : View
 
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 
-        BuyShares.gameObject.SetActive(investorId != MyGroupEntity.shareholder.Id);
+
+        BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 
         BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
         BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);

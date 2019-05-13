@@ -58,18 +58,7 @@ public abstract class ButtonController : BaseClass
 
     internal void AddIsChosenComponent(bool isChosen)
     {
-        if (isChosen)
-        {
-            if (gameObject.GetComponent<IsChosenComponent>() == null)
-                gameObject.AddComponent<IsChosenComponent>();
-        }
-        else
-        {
-            var c = gameObject.GetComponent<IsChosenComponent>();
-
-            if (c != null)
-                Destroy(c);
-        }
+        gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
     }
 
     public void SetSelectedCompany(int companyId)

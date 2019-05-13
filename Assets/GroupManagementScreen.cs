@@ -38,8 +38,10 @@ public class GroupManagementScreen : View
     {
         ListenMenuChanges(this);
 
+        // TODO GROUP MANAGEMENT SCREEN
+
         Destroy(CompanyPreviewView.GetComponent<LinkToProjectView>());
-        CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
+        //CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
     }
 
     void ToggleCEOButtons(bool show)
@@ -58,14 +60,9 @@ public class GroupManagementScreen : View
     void RenderROI()
     {
         if (CompanyEconomyUtils.IsROICounable(SelectedCompany, GameContext))
-        {
-            long ROI = CompanyEconomyUtils.GetBalanceROI(SelectedCompany, GameContext);
-
-            SelectedCompanyROI.UpdateValue(ROI);
-        } else
-        {
+            SelectedCompanyROI.UpdateValue(CompanyEconomyUtils.GetBalanceROI(SelectedCompany, GameContext));
+        else
             SelectedCompanyROI.GetComponent<Text>().text = "???";
-        }
     }
 
     void RenderControlValue()
