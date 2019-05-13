@@ -1,5 +1,4 @@
-﻿using Assets.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class InestmentProposalScreen : View
@@ -10,7 +9,6 @@ public class InestmentProposalScreen : View
 
     public GameObject IPOLabel;
     public GameObject IPOButton;
-    //public GameObject ProposalsLabel;
 
     public GameObject InvestmentProposals;
     public GameObject PossibleInvestors;

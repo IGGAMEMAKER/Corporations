@@ -22,6 +22,8 @@ public class ScreenController : MonoBehaviour {
         rect.sizeDelta = new Vector2(width, height);
 
         transform.localPosition = new Vector3(0, positionY, 0);
+
+        transform.localScale = Vector3.one;
     }
 
     public void OnEnable()

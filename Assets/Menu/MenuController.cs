@@ -10,7 +10,6 @@ public enum ScreenMode
     DevelopmentScreen = 0,
     MarketingScreen = 1,
     ProjectScreen = 2,
-    //BusinessScreen,
     TeamScreen = 3,
     StatsScreen = 4,
     CharacterScreen = 5,
@@ -40,6 +39,9 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject EconomyScreen;
     public GameObject MarketingScreen;
 
+
+    public GameObject Gameplay;
+
     void Start()
     {
         Screens = new Dictionary<ScreenMode, GameObject>
@@ -56,6 +58,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.EconomyScreen] = EconomyScreen,
             [ScreenMode.MarketingScreen] = MarketingScreen
         };
+
+        Gameplay.SetActive(true);
 
         DisableAllScreens();
         EnableScreen(ScreenMode.DevelopmentScreen);

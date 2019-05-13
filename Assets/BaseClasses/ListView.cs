@@ -25,6 +25,11 @@ public abstract class ListView : View // MonoBehaviour
             //for (int i = 0; i < entities.Length; i++)
         foreach (var e in entities)
         {
+            if (Prefab == null)
+            {
+                Debug.Log("No prefab given!");
+                return;
+            }
             var o = Instantiate(Prefab, transform, false);
 
             SetItem(o.transform, e, data);
