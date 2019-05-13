@@ -2,6 +2,7 @@
 using Assets.Utils;
 
 public class BestApplicationView : View
+    , IAnyDateListener
 {
     Text MarketRequirements;
     Hint Hint;
@@ -10,10 +11,13 @@ public class BestApplicationView : View
     {
         MarketRequirements = GetComponent<Text>();
         Hint = GetComponent<Hint>();
+
+        ListenDateChanges(this);
     }
 
-    void Update()
+    void OnEnable()
     {
+        // TODO Update
         Render();
     }
 
@@ -24,5 +28,10 @@ public class BestApplicationView : View
         Hint.SetHint($"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})");
 
         AnimateIfValueChanged(MarketRequirements, bestApp.product.ProductLevel.ToString());
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
