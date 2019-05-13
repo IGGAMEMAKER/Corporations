@@ -71,8 +71,8 @@ public class MenuController : MonoBehaviour, IMenuListener
         {
             case ScreenMode.IndustryScreen: return "Market resarch";
             case ScreenMode.NicheScreen: return "Market";
-            case ScreenMode.ProjectScreen: return "Project";
-            case ScreenMode.DevelopmentScreen: return "Development";
+            case ScreenMode.ProjectScreen: return "Company Overview";
+            case ScreenMode.DevelopmentScreen: return "Product Overview";
             case ScreenMode.InvesmentsScreen: return "Investments";
             case ScreenMode.InvesmentProposalScreen: return "Raise money";
             case ScreenMode.CharacterScreen: return "My Stats";
