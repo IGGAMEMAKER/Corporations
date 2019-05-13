@@ -10,14 +10,18 @@ public enum TaskType
 }
 
 public class TaggedProgressBar : View
+    , IAnyDateListener
 {
     public TaskType TaskType;
     public Text ProgressBarDescription; // task description
 
     public ProgressBar ProgressBar;
 
-    void Update()
+    void OnEnable()
     {
+        // TODO Update/Unsub
+        ListenDateChanges(this);
+
         Render();
     }
 
@@ -67,5 +71,10 @@ public class TaggedProgressBar : View
             default:
                 return $"progressbar fail {taskType}";
         }
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
