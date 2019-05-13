@@ -8,10 +8,7 @@ public class PossibleInvestor : View
     public Text InvestorName;
     public Text InvestorType;
     public Text InvestorPossibleOffer;
-    public ColoredValuePositiveOrNegative Opinion;
     public Text InvestorGoalText;
-
-    public Hint OpinionHint;
 
     public void SetEntity(GameEntity gameEntity)
     {
@@ -24,8 +21,5 @@ public class PossibleInvestor : View
     {
         InvestorName.text = investor.shareholder.Name;
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
-
-        Opinion.value = InvestmentUtils.GetInvestorOpinion(GameContext, SelectedCompany, investor);
-        OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, investor));
     }
 }

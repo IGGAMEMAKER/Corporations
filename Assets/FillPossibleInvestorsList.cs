@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class FillPossibleInvestorsList : View
     , IAnyDateListener
@@ -22,7 +19,7 @@ public class FillPossibleInvestorsList : View
     {
         var list = CompanyUtils.GetPossibleInvestors(GameContext, SelectedCompany.company.Id);
 
-        GetComponent<PossibleInvestorsListView>()
+        GetComponent<ShareholderProposalsListView>()
             .SetItems(list);
     }
 }

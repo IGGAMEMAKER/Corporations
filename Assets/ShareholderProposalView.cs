@@ -18,43 +18,50 @@ public class ShareholderProposalView : View
 
     public Text Valuation;
 
-    GameEntity shareholder;
-    GameEntity company;
+    public ColoredValuePositiveOrNegative Opinion;
+    public Hint OpinionHint;
 
-    public void SetEntity(InvestmentProposal proposal)
+    GameEntity shareholder;
+
+    public void SetEntity(GameEntity proposal)
     {
-        shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.ShareholderId);
-        company = SelectedCompany;
+        shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.shareholder.Id);
 
         Render(shareholder.shareholder.Name, proposal);
     }
 
     void SetButtons(int investorId)
     {
-        AcceptProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
-        RejectProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
+        //AcceptProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
+        //RejectProposal.SetActive(investorId != MyGroupEntity.shareholder.Id);
 
-        AcceptProposal.GetComponent<AcceptInvestmentProposalController>().InvestorId = investorId;
-        RejectProposal.GetComponent<RejectInvestmentProposalController>().InvestorId = investorId;
+        //AcceptProposal.GetComponent<AcceptInvestmentProposalController>().InvestorId = investorId;
+        //RejectProposal.GetComponent<RejectInvestmentProposalController>().InvestorId = investorId;
     }
 
-    void Render(string name, InvestmentProposal proposal)
+    void Render(string name, GameEntity proposal)
     {
-        var investor = InvestmentUtils.GetInvestorById(GameContext, proposal.ShareholderId);
+        int shareholderId = shareholder.shareholder.Id;
+
+        var investor = InvestmentUtils.GetInvestorById(GameContext, shareholderId);
 
         Name.text = name;
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
 
-        long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, company.company.Id);
+        long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
-        long offer = proposal.Offer;
+        long offer = 1000000; // proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);
 
 
         Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
 
-        Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
+        long valuation = offer * 10;
+        Valuation.text = "$" + ValueFormatter.Shorten(valuation);
 
-        SetButtons(proposal.ShareholderId);
+        SetButtons(shareholderId);
+
+        Opinion.value = InvestmentUtils.GetInvestorOpinion(GameContext, SelectedCompany, investor);
+        OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, investor));
     }
 }

@@ -10,20 +10,11 @@ public class InestmentProposalScreen : View
     public GameObject IPOLabel;
     public GameObject IPOButton;
 
-    public GameObject InvestmentProposals;
-    public GameObject PossibleInvestors;
-
     void OnEnable()
     {
         ListenDateChanges(this);
 
         Render();
-    }
-
-    void ToggleInvestors(bool isRoundActive)
-    {
-        InvestmentProposals.SetActive(isRoundActive);
-        PossibleInvestors.SetActive(!isRoundActive);
     }
 
     void Render()
@@ -42,8 +33,6 @@ public class InestmentProposalScreen : View
             RoundCounter.text = "";
         }
 
-        ToggleInvestors(isRoundActive);
-
         RenderActionButtons();
     }
 
@@ -52,7 +41,6 @@ public class InestmentProposalScreen : View
         StartRoundButton.gameObject.SetActive(show);
         IPOButton.SetActive(show);
         IPOLabel.SetActive(show);
-        //ProposalsLabel.SetActive(show);
     }
 
     void RenderActionButtons()
