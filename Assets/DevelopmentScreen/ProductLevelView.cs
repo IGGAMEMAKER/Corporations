@@ -8,7 +8,7 @@ public class ProductLevelView : View
     void OnEnable()
     {
         // TODO Update
-        ListenDateChanges(this);
+        LazyUpdate(this);
 
         Render();
     }
