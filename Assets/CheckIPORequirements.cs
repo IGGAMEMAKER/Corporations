@@ -24,7 +24,7 @@ public class CheckIPORequirements : View
 
     void Render()
     {
-        IPOButton.interactable = IsCanGoPublic(GameContext, SelectedCompany.company.Id);
+        IPOButton.interactable = CompanyUtils.IsCanGoPublic(GameContext, SelectedCompany.company.Id);
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
