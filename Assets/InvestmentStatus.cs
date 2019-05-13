@@ -1,10 +1,14 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class InvestmentStatus : View
+public class InvestmentStatus : View,
+    IAnyDateListener
 {
-    private void Update()
+    private void OnEnable()
     {
+        LazyUpdate(this);
+
+        // TODO Update/Unsub
         Render();
     }
 
@@ -15,5 +19,10 @@ public class InvestmentStatus : View
         string sellablePhrase = sellable ? "" : "We cannot buy shares now! Wait until next investment round or IPO\n\n";
 
         GetComponent<Text>().text = sellablePhrase;
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }

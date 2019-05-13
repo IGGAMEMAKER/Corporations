@@ -62,4 +62,9 @@ public class View : BaseClass
     {
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
+
+    public void LazyUpdate(IAnyDateListener dateListener)
+    {
+        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+    }
 }
