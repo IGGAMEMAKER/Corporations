@@ -5,22 +5,17 @@ public class ProductLevelView : View
 {
     Text Level;
 
-    private void Start()
-    {
-        Level = GetComponent<Text>();
-
-        ListenDateChanges(this);
-    }
-
     void OnEnable()
     {
         // TODO Update
+        ListenDateChanges(this);
 
         Render();
     }
 
     void Render()
     {
+        Level = GetComponent<Text>();
         AnimateIfValueChanged(Level, MyProduct.ProductLevel + " LVL");
     }
 

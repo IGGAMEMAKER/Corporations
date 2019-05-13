@@ -45,7 +45,7 @@ public class View : BaseClass
 
     public void AnimateIfValueChanged(Text text, string value)
     {
-        if (!String.Equals(text.text, value))
+        if (text != null && !String.Equals(text.text, value))
         {
             text.text = value;
 
