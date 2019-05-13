@@ -1,14 +1,22 @@
 ﻿public class ScheduleView : View
+    , IAnyDateListener
 {
     public ResourceView ScheduleResourceView;
 
-    private void Update()
+    private void OnEnable()
     {
+        ListenDateChanges(this);
+
         Render();
     }
 
     public void Render()
     {
-        ScheduleResourceView.UpdateResourceValue("", CurrentIntDate);
+        ScheduleResourceView.UpdateResourceValue("Date", CurrentIntDate);
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
