@@ -14,7 +14,6 @@ public class SetRequiredResources : MonoBehaviour
         RequiresResourcesButtonController = GetComponent<RequiresResourcesButtonController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         RequiresResourcesButtonController.RequiredResources = new TeamResource(ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money);
