@@ -2,23 +2,28 @@
 using UnityEngine.UI;
 
 public class MarketSituationDescriptionView : View
+    , IAnyDateListener
 {
     Text Text;
     Hint Hint;
 
-    void Start()
+    void PickComponents()
     {
         Text = GetComponent<Text>();
         Hint = GetComponent<Hint>();
     }
 
-    void Update()
+    void OnEnable()
     {
+        LazyUpdate(this);
+
         Render();
     }
 
     void Render()
     {
+        PickComponents();
+
         int diff = MarketingUtils.GetMarketDiff(GameContext, MyProductEntity.company.Id);
 
         //"We are out of trends We follow trends We are leading trends!"
@@ -39,5 +44,10 @@ public class MarketSituationDescriptionView : View
             Text.text = $"We are out of market by {diff} levels";
             Text.color = VisualUtils.Color(VisualConstants.COLOR_NEGATIVE);
         }
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
     }
 }
