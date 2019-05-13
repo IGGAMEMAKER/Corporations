@@ -52,9 +52,4 @@ public class SetTargetCompany : View
     {
         UpdateTargetCompany();
     }
-
-    void Update()
-    {
-        UpdateTargetCompany();
-    }
 }
