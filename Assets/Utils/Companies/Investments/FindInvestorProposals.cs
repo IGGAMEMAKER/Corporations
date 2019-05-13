@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -34,10 +35,14 @@ namespace Assets.Utils
 
                 case InvestorGoal.GrowCompanyCost:
                     measurableGoal = CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id) * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
+                    Debug.Log("Set Grow companyCost: " + measurableGoal);
                     break;
-                case InvestorGoal.GrowProfit:
-                    measurableGoal = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id) * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH) / 100;
-                    break;
+
+                //case InvestorGoal.GrowProfit:
+                //    long change = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id);
+                //    measurableGoal = change < * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH) / 100;
+                //    Debug.Log("Set Grow GrowProfit: " + measurableGoal);
+                //    break;
             }
 
             company.ReplaceCompanyGoal(investorGoal, expires, measurableGoal);

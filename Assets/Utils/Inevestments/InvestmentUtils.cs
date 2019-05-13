@@ -84,8 +84,8 @@ namespace Assets.Utils
                 case InvestorGoal.IPO:
                     return shareholderType == InvestorType.Strategic || shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoal.GrowProfit:
-                    return shareholderType == InvestorType.StockExchange;
+                //case InvestorGoal.GrowProfit:
+                //    return shareholderType == InvestorType.StockExchange;
 
                 default:
                     return shareholderType == InvestorType.FFF;
@@ -184,12 +184,20 @@ namespace Assets.Utils
         {
             switch (investorGoal)
             {
-
                 case InvestorGoal.BecomeMarketFit:
                     return "Become market fit";
 
                 case InvestorGoal.BecomeProfitable:
                     return "Become profitable";
+
+                case InvestorGoal.GrowCompanyCost:
+                    return "Grow company cost by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
+
+                //case InvestorGoal.GrowProfit:
+                //    return "Grow profit by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH + "%";
+
+                case InvestorGoal.IPO:
+                    return "IPO";
 
                 //case InvestorGoal.BecomeBestByTech:
                 //    return "Become technology leader";
@@ -199,16 +207,6 @@ namespace Assets.Utils
 
                 //case InvestorGoal.ProceedToNextRound:
                 //    return "Proceed to next investment round";
-
-                case InvestorGoal.GrowCompanyCost:
-                    return "Grow company cost by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
-
-                case InvestorGoal.GrowProfit:
-                    return "Grow profit by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH + "%";
-
-                case InvestorGoal.IPO:
-                    return "IPO";
-
                 default:
                     return investorGoal.ToString();
             }

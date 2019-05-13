@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class RenderCompanyGoalDropDown : View
@@ -17,10 +18,10 @@ public class RenderCompanyGoalDropDown : View
         Dropdown.ClearOptions();
         Dropdown.AddOptions(options);
 
-        Dropdown.onValueChanged.AddListener(UpdateCompanyGoal);
+        Dropdown.onValueChanged.AddListener(SetCompanyGoal);
     }
 
-    private void UpdateCompanyGoal(int arg0)
+    private void SetCompanyGoal(int arg0)
     {
         var investorGoal = (InvestorGoal) arg0;
 

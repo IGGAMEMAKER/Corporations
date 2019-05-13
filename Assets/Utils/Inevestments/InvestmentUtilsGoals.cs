@@ -24,7 +24,7 @@ namespace Assets.Utils
                 case InvestorGoal.BecomeMarketFit: return GoalMarketFit(company, gameContext);
                 case InvestorGoal.BecomeProfitable: return GoalProfitable(company, gameContext);
                 case InvestorGoal.GrowCompanyCost: return GoalCompanyCost(company, gameContext);
-                case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
+                //case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
                 case InvestorGoal.IPO: return GoalIPO(company, gameContext);
 
                 default: return new GoalRequirements { need = 12000000, have = 0 };

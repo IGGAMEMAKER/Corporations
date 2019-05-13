@@ -21,7 +21,7 @@ namespace Assets.Utils
             e.AddInvestmentRounds(InvestmentRound.Preseed);
             e.isIndependentCompany = true;
 
-            e.AddCompanyGoal(InvestorGoal.GrowProfit, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
+            e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
 
             e.AddCEO(0, CeoID);
 
@@ -64,7 +64,7 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
-            company.AddTeam(1, 0, 0, 100);
+            company.AddTeam(3, 0, 0, 100);
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
 
