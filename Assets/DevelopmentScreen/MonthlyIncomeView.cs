@@ -2,17 +2,30 @@
 using UnityEngine.UI;
 
 public class MonthlyIncomeView : View
+    , IAnyDateListener
 {
     Text Text;
-    // Start is called before the first frame update
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
+    }
+
     void Start()
     {
         Text = GetComponent<Text>();
+
+        ListenDateChanges(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
+        Render();
+    }
+
+    void Render()
+    {
+        // TODO Update
         Text.text = ValueFormatter.ShortenValueMockup(CompanyEconomyUtils.GetCompanyIncome(MyProductEntity, GameContext)) + "$";
     }
 }
