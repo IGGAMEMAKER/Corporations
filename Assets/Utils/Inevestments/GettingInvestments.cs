@@ -6,12 +6,12 @@ namespace Assets.Utils
     {
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
-            bool isInvestorAlready = IsInvestsInThisCompany(shareholder, company);
             bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
-            bool isInvestorSuitableByNiche = true;
-            bool isInvestorSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
+            bool isSuitableByNiche = true;
+            bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
+            bool isInvestorAlready = IsInvestsInThisCompany(shareholder, company);
 
-            return isSuitableByGoal && isInvestorSuitableByNiche && isInvestorSuitableByCompanySize && !isInvestorAlready;
+            return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize && !isInvestorAlready;
         }
 
         private static bool IsInvestsInThisCompany(GameEntity shareholder, GameEntity company)
