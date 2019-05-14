@@ -14,6 +14,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public bool IsMyCompetitor
+    {
+        get
+        {
+            return SelectedCompany.hasProduct ? SelectedCompany.product.Niche == MyProduct.Niche : false;
+        }
+    }
+
     public ScreenMode CurrentScreen
     {
         get
