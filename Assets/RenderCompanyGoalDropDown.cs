@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class RenderCompanyGoalDropDown : View
 {
     public Dropdown Dropdown;
+    public GameObject ChooseGoalLabel;
 
     void Start()
     {
@@ -19,6 +20,14 @@ public class RenderCompanyGoalDropDown : View
         Dropdown.AddOptions(options);
 
         Dropdown.onValueChanged.AddListener(SetCompanyGoal);
+    }
+
+    void OnEnable()
+    {
+        bool isControlled = IsUnderPlayerControl(SelectedCompany.company.Id);
+
+        Dropdown.gameObject.SetActive(isControlled);
+        ChooseGoalLabel.SetActive(isControlled);
     }
 
     private void SetCompanyGoal(int arg0)

@@ -31,6 +31,8 @@ public class Constants
 
 public class VisualConstants
 {
+    const string COLOR_BACKGROUND = "#2B2E34";
+
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = "#FFAB04";
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
