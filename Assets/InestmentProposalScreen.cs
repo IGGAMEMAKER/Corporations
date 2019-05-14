@@ -45,9 +45,7 @@ public class InestmentProposalScreen : View
 
     void RenderActionButtons()
     {
-        bool controllable = IsUnderPlayerControl(SelectedCompany.company.Id);
-
-        RenderMyInvestmentActions(controllable);
+        RenderMyInvestmentActions(SelectedCompany.isControlledByPlayer);
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)

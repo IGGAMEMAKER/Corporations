@@ -24,7 +24,7 @@ public class RenderCompanyGoalDropDown : View
 
     void OnEnable()
     {
-        bool isControlled = IsUnderPlayerControl(SelectedCompany.company.Id);
+        bool isControlled = SelectedCompany.isControlledByPlayer;
 
         Dropdown.gameObject.SetActive(isControlled);
         ChooseGoalLabel.SetActive(isControlled);

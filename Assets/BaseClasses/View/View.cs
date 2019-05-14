@@ -10,14 +10,6 @@ public class View : BaseClass
         return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
     }
 
-    public bool IsUnderPlayerControl(int companyId)
-    {
-        var c = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        return c.isControlledByPlayer;
-    }
-
-
     GameEntity[] GetTasks(TaskType taskType)
     {
         // TODO: add filtering tasks, which are done by other players!
