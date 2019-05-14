@@ -17,7 +17,7 @@ public class FillPossibleInvestorsList : View
 
     void Render()
     {
-        var list = CompanyUtils.GetPossibleInvestors(GameContext, SelectedCompany.company.Id);
+        var list = CompanyUtils.GetPotentialInvestors(GameContext, SelectedCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
             .SetItems(list);

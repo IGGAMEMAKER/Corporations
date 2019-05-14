@@ -6,7 +6,7 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static GameEntity[] GetPossibleInvestors(GameContext gameContext, int companyId)
+        public static GameEntity[] GetPotentialInvestors(GameContext gameContext, int companyId)
         {
             var investors = gameContext.GetEntities(GameMatcher.Shareholder);
 
