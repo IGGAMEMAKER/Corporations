@@ -38,7 +38,9 @@ public class ProductCompanyCompetingPreview : View,
     void RenderProductInfo(string name, int level)
     {
         Name.text = name;
-        Level.text = level.ToString();
+
+        if (Level != null)
+            Level.text = level.ToString();
     }
 
     void Render()
