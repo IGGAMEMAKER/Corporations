@@ -17,8 +17,8 @@ public class CreateCompanyController : View
         }
         else
         {
-            SetActions(false, "You cannot start another startup while you have one already!\n" +
-                "Promote it to group if you want to start new project");
+            SetActions(false, "You have one startup already!\n" +
+                "Promote it to group of companies or sell it if you want to start new project");
         }
     }
 
