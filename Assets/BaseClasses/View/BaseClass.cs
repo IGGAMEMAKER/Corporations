@@ -1,8 +1,5 @@
 ﻿using Assets.Utils;
-using Entitas;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BaseClass : MonoBehaviour
 {
@@ -18,7 +15,9 @@ public class BaseClass : MonoBehaviour
     {
         get
         {
-            return SelectedCompany.hasProduct ? SelectedCompany.product.Niche == MyProduct.Niche : false;
+            bool isNotMyCompany = MyProductEntity.company.Id != SelectedCompany.company.Id;
+            
+            return SelectedCompany.hasProduct ? SelectedCompany.product.Niche == MyProduct.Niche && isNotMyCompany : false;
         }
     }
 
