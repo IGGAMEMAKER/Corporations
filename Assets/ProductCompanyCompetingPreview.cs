@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProductCompanyCompetingPreview : View, IProductListener, IMarketingListener
+public class ProductCompanyCompetingPreview : View,
+    IProductListener,
+    IMarketingListener
 {
     GameEntity Company;
 

@@ -34,7 +34,6 @@ public class ShareholderView : View
         Name.text = name;
         
         Goal.text = InvestmentUtils.GetInvestorGoalDescription(shares);
-        //Motivation.SetHint($"Motivation: {InvestmentUtils.GetInvestorGoal(shares)}");
 
         Type.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 

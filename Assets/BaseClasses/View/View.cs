@@ -17,12 +17,12 @@ public class View : BaseClass
         return c.isControlledByPlayer;
     }
 
+
     GameEntity[] GetTasks(TaskType taskType)
     {
         // TODO: add filtering tasks, which are done by other players!
 
-        GameEntity[] gameEntities = GameContext
-            .GetEntities(GameMatcher.Task);
+        GameEntity[] gameEntities = GameContext.GetEntities(GameMatcher.Task);
 
         return Array.FindAll(gameEntities, e => e.task.TaskType == taskType);
     }
@@ -36,6 +36,7 @@ public class View : BaseClass
 
         return tasks[0].task;
     }
+
 
     public void Animate(Text text)
     {
@@ -53,6 +54,24 @@ public class View : BaseClass
         }
     }
 
+    public void ListenMenuChanges(IMenuListener menuListener)
+    {
+        ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);
+    }
+
+    public void ListenDateChanges(IAnyDateListener dateListener)
+    {
+        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+    }
+
+    public void LazyUpdate(IAnyDateListener dateListener)
+    {
+        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+    }
+}
+
+public class Controller : BaseClass
+{
     public void ListenMenuChanges(IMenuListener menuListener)
     {
         ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);

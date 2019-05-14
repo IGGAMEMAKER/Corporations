@@ -1,22 +1,25 @@
 ﻿using Assets.Utils;
-using Entitas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class FillCompetingCompaniesList : View
     , IMenuListener
     , IAnyCompanyListener
 {
-    GameEntity[] GetProductsOnNiche(NicheType niche)
+    GameEntity[] GetProductsOnNiche()
     {
-        Debug.Log("GetProductsOnNiche " + niche.ToString());
+        var niche = ScreenUtils.GetSelectedNiche(GameContext);
 
-        return Array.FindAll(
-            GameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Product)),
-            c => c.product.Niche == niche
-            );
+        var list = NicheUtils.GetPlayersOnMarket(GameContext, niche).ToArray();
+
+        Array.Sort(list, SortCompanies);
+
+        //string names = String.Join(",", list.Select(e => e.product.Name).ToArray());
+
+        //Debug.Log("Rendering companies: " + names);
+
+        return list;
     }
 
     void Start()
@@ -29,6 +32,8 @@ public class FillCompetingCompaniesList : View
     void OnEnable()
     {
         GetUniversalListener.AddAnyCompanyListener(this);
+
+        Render();
     }
 
     int SortCompanies(GameEntity p1, GameEntity p2)
@@ -50,17 +55,7 @@ public class FillCompetingCompaniesList : View
 
     void Render()
     {
-        NicheType niche = ScreenUtils.GetSelectedNiche(GameContext);
-
-        GameEntity[] entities = GetProductsOnNiche(niche);
-
-        Array.Sort(entities, SortCompanies);
-
-        string names = String.Join(",", entities.Select(e => e.product.Name).ToArray());
-
-        Debug.Log("Rendering companies: " + names);
-
-        GetComponent<CompetingCompaniesListView>().SetItems(entities);
+        GetComponent<CompetingCompaniesListView>().SetItems(GetProductsOnNiche());
     }
 
     void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
