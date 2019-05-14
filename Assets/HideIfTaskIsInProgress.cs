@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 
 // Hides start action buttons for player convenience
 public class HideIfTaskIsInProgress : View
@@ -13,6 +14,8 @@ public class HideIfTaskIsInProgress : View
 
     bool HasTask(TaskType taskType)
     {
-        return GetTask(taskType) != null;
+        // TODO
+
+        return ScheduleUtils.GetTask(GameContext, taskType) != null;
     }
 }

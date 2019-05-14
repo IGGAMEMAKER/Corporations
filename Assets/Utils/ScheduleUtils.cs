@@ -32,5 +32,31 @@ namespace Assets.Utils
         {
             GetDateContainer(gameContext).AddAnyDateListener(menuListener);
         }
+
+        public static float GetTaskCompletionPercentage(GameContext gameContext, TaskComponent taskComponent)
+        {
+            int CurrentIntDate = GetCurrentDate(gameContext);
+
+            return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+        }
+
+        static GameEntity[] GetTasks(GameContext gameContext, TaskType taskType)
+        {
+            // TODO: add filtering tasks, which are done by other players!
+
+            GameEntity[] gameEntities = gameContext.GetEntities(GameMatcher.Task);
+
+            return Array.FindAll(gameEntities, e => e.task.TaskType == taskType);
+        }
+
+        public static TaskComponent GetTask(GameContext gameContext, TaskType taskType)
+        {
+            GameEntity[] tasks = GetTasks(gameContext, taskType);
+
+            if (tasks.Length == 0)
+                return null;
+
+            return tasks[0].task;
+        }
     }
 }

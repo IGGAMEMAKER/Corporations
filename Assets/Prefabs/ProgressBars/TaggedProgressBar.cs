@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine.UI;
 
 public enum TaskType
 {
@@ -33,7 +34,7 @@ public class TaggedProgressBar : View
 
     void Render()
     {
-        TaskComponent taskComponent = GetTask(TaskType);
+        TaskComponent taskComponent = ScheduleUtils.GetTask(GameContext, TaskType);
 
         if (taskComponent == null)
         {
@@ -46,7 +47,7 @@ public class TaggedProgressBar : View
         ProgressBar.gameObject.SetActive(true);
         ProgressBarDescription.gameObject.SetActive(true);
 
-        float progress = GetTaskCompletionPercentage(taskComponent); // (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
+        float progress = ScheduleUtils.GetTaskCompletionPercentage(GameContext, taskComponent);
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.TaskType);
         ProgressBar.SetValue(progress);
