@@ -70,7 +70,7 @@ public class MenuController : MonoBehaviour, IMenuListener
         switch (screen)
         {
             case ScreenMode.IndustryScreen: return "Market resarch";
-            case ScreenMode.NicheScreen: return "Market";
+            case ScreenMode.NicheScreen: return "Niche";
             case ScreenMode.ProjectScreen: return "Company Overview";
             case ScreenMode.DevelopmentScreen: return "Product Overview";
             case ScreenMode.InvesmentsScreen: return "Investments";

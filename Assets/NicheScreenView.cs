@@ -36,7 +36,8 @@ public class NicheScreenView : View
         NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
         IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
-        NicheName.text = "Niche: " + EnumUtils.GetFormattedNicheName(NicheType);
+        // "Niche: " + 
+        NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
         IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
         //IndustryLink.
 

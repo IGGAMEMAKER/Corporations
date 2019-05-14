@@ -30,12 +30,12 @@ namespace Assets.Utils.Formatting
         {
             switch (niche)
             {
-                case NicheType.CloudComputing: return "Cloud\nComputing";
+                case NicheType.CloudComputing: return "Cloud Computing";
                 case NicheType.Messenger: return "Messengers";
-                case NicheType.SocialNetwork: return "Social\nNetworks";
-                case NicheType.OSSciencePurpose: return "Science\nPurpose OS";
+                case NicheType.SocialNetwork: return "Social Networks";
+                case NicheType.OSSciencePurpose: return "Science Purpose OS";
                 case NicheType.OSCommonPurpose: return "Desktop OS";
-                case NicheType.SearchEngine: return "Search\nEngines";
+                case NicheType.SearchEngine: return "Search Engines";
 
                 default: return "Unknown niche: " + niche.ToString();
             }
