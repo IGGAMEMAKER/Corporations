@@ -30,7 +30,7 @@ public class ShareholderProposalView : View
         Render(proposal);
     }
 
-    bool canAcceptInvestments
+    bool CanAcceptInvestments
     {
         get
         {
@@ -38,7 +38,7 @@ public class ShareholderProposalView : View
         }
     }
 
-    bool isInvestmentRoundActive
+    bool IsInvestmentRoundActive
     {
         get
         {
@@ -48,7 +48,7 @@ public class ShareholderProposalView : View
 
     void SetButtons(int investorId)
     {
-        bool visible = canAcceptInvestments && SelectedCompany.isControlledByPlayer;
+        bool visible = CanAcceptInvestments && SelectedCompany.isControlledByPlayer;
 
         AcceptProposal.SetActive(visible);
         RejectProposal.SetActive(visible);
@@ -67,7 +67,7 @@ public class ShareholderProposalView : View
 
     void RenderOffer()
     {
-        if (!isInvestmentRoundActive)
+        if (!IsInvestmentRoundActive)
         {
             Offer.text = "???";
             return;
@@ -93,7 +93,7 @@ public class ShareholderProposalView : View
     {
         long valuation;
 
-        if (isInvestmentRoundActive)
+        if (IsInvestmentRoundActive)
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
