@@ -8,7 +8,6 @@ public class NicheScreenView : View
 {
     public Text NicheName;
     public Text IndustryName;
-    public LinkTo IndustryLink;
     public MarketPotentialView MarketPotentialView;
     public Text AmountOfCompetitors;
 
@@ -36,10 +35,8 @@ public class NicheScreenView : View
         NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
         IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
-        // "Niche: " + 
         NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
         IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
-        //IndustryLink.
 
         MarketPotentialView.SetEntity(NicheType);
         RenderAmountOfCompanies();
