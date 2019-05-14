@@ -75,9 +75,6 @@ public class ShareholderProposalView : View
 
         var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-        //if (proposal == null)
-        //    return;
-
         long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
         long offer = proposal.Offer;
@@ -100,16 +97,13 @@ public class ShareholderProposalView : View
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-            //if (proposal == null)
-            //    return;
-
             valuation = proposal.Valuation;
         }
         else
         {
             long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
-            valuation = Cost * 12 / 10;
+            valuation = Cost;
         }
 
         Valuation.text = "$" + ValueFormatter.Shorten(valuation);
