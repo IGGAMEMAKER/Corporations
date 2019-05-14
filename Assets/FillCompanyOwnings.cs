@@ -30,6 +30,17 @@ public class FillCompanyOwnings : View
             ObservableCompany.RemoveAnyShareholdersListener(this);
     }
 
+    void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, BlockOfShares> shareholders)
+    {
+        Render();
+    }
+
+    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
+    {
+        if (screenMode == ScreenMode.GroupManagementScreen)
+            Render();
+    }
+
     public void SetObservableCompany()
     {
         var screenMode = ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
@@ -59,16 +70,5 @@ public class FillCompanyOwnings : View
             Array.Reverse(arr);
 
         return arr;
-    }
-
-    void IAnyShareholdersListener.OnAnyShareholders(GameEntity entity, Dictionary<int, BlockOfShares> shareholders)
-    {
-        Render();
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
-    {
-        if (screenMode == ScreenMode.GroupManagementScreen)
-            Render();
     }
 }
