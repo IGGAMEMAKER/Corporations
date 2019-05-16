@@ -79,16 +79,18 @@ namespace Assets.Utils
         public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
         {
             int risk = GetStartupRiskOnNiche(gameContext, nicheType);
-            string text = ShowRiskStatus(risk).ToString();
 
+            int baseValue = Constants.RISKS_MONETISATION_MAX;
             int demand = GetMarketDemandRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
             BonusContainer bonusContainer = new BonusContainer("Startup risk", risk);
 
+            bonusContainer.Append("Base value", baseValue);
             bonusContainer.Append("Unknown demand", demand);
             bonusContainer.Append("Strong competitors", competitors);
 
+            string text = ShowRiskStatus(risk).ToString();
             return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
         }
 
