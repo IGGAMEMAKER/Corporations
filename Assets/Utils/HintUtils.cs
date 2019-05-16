@@ -17,13 +17,18 @@ public class BonusContainer
     public List<BonusDescription> bonusDescriptions;
     public BonusDescription parameter;
 
-    public BonusContainer(BonusDescription bonusDescription) {
+    public bool renderTitle;
+
+    public BonusContainer(BonusDescription bonusDescription, bool renderTitle = false) {
         bonusDescriptions = new List<BonusDescription>();
+        this.renderTitle = renderTitle;
+
         parameter = bonusDescription;
     }
 
-    public BonusContainer(string bonusName, long bonusDescription) {
+    public BonusContainer(string bonusName, long bonusDescription, bool renderTitle = false) {
         bonusDescriptions = new List<BonusDescription>();
+        this.renderTitle = renderTitle;
 
         parameter = new BonusDescription { Name = bonusName, Value = bonusDescription };
     }
@@ -61,7 +66,7 @@ public class BonusContainer
     {
         StringBuilder str = new StringBuilder();
 
-        str.AppendLine("* Due to:");
+        str.AppendLine("\n* Due to:");
 
         Build();
 

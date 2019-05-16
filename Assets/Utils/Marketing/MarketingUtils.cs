@@ -94,15 +94,14 @@ namespace Assets.Utils
 
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            BonusContainer bonusContainer = new BonusContainer("Client loyalty is", GetClientLoyalty(gameContext, companyId, userType));
 
-            stringBuilder.AppendFormat("Current loyalty is {0} due to:", GetClientLoyalty(gameContext, companyId, userType));
-            stringBuilder.AppendFormat("\nApp level: +{0}", GetAppLoyaltyBonus(gameContext, companyId));
-            stringBuilder.AppendFormat("\nMarket demand: -{0}", GetMarketSituationLoyaltyBonus(gameContext, companyId));
-            stringBuilder.AppendFormat("\nBugs: -{0}", GetClientLoyaltyBugPenalty(gameContext, companyId));
-            stringBuilder.AppendFormat("\nPricing: -{0}", GetPricingLoyaltyPenalty(gameContext, companyId));
+            bonusContainer.Append("App level", GetAppLoyaltyBonus(gameContext, companyId));
+            bonusContainer.Append("Market demand", GetMarketSituationLoyaltyBonus(gameContext, companyId));
+            bonusContainer.Append("Bugs", GetClientLoyaltyBugPenalty(gameContext, companyId));
+            bonusContainer.Append("Pricing", GetPricingLoyaltyPenalty(gameContext, companyId));
 
-            return stringBuilder.ToString();
+            return bonusContainer.ToString();
         }
 
         public static int GetMarketDiff(GameContext gameContext, int companyId)
