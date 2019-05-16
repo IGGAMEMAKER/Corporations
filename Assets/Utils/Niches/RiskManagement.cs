@@ -84,9 +84,12 @@ namespace Assets.Utils
             int demand = GetMarketDemandRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
-            return $"Current risk is {risk}%! ({text})" +
-            $"\nUnknown demand: +{demand}%" +
-            $"\nStrong competitors: +{competitors}%";
+            BonusContainer bonusContainer = new BonusContainer("Startup risk", risk);
+
+            bonusContainer.Append("Unknown demand", demand);
+            bonusContainer.Append("Strong competitors", competitors);
+
+            return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
         }
 
         internal static int GetProductCompetitivenessBonus(GameEntity company)

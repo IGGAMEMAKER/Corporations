@@ -47,7 +47,7 @@ public class BonusContainer
         foreach (var bonus in bonusDescriptions)
             sum += bonus.Value;
 
-        var unknown = new BonusDescription { Name = "UNKNOWN DATA", HideIfZero = true, Value = sum - parameter.Value };
+        var unknown = new BonusDescription { Name = "UNKNOWN DATA", HideIfZero = true, Value = parameter.Value - sum };
 
         if (unknown.Value > 0)
             Debug.Log("UNKNOWN DATA in " + parameter.Name);
@@ -57,18 +57,18 @@ public class BonusContainer
         return this;
     }
 
-    public override string ToString()
+    public string ToString(bool positiveIsNegative = false)
     {
         StringBuilder str = new StringBuilder();
 
-        str.AppendLine();
+        str.AppendLine("* Due to:");
 
         Build();
 
         foreach (var bonus in bonusDescriptions)
         {
-            if (!bonus.HideIfZero)
-                str.AppendLine(VisualUtils.Describe(bonus));
+            if (!(bonus.HideIfZero && bonus.Value == 0))
+                str.AppendLine(VisualUtils.Describe(bonus, positiveIsNegative));
         }
 
         return str.ToString();

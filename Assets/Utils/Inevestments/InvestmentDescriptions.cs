@@ -18,8 +18,11 @@
                 description.Append("Product competitiveness", NicheUtils.GetProductCompetitivenessBonus(company));
 
             description.Append("Same goals", 25);
+            description.Append("Same goals2", 0);
+            description.Append("Same goals3", 0);
+            description.Append("Same goals4", 0);
 
-            return title + "\n" + description;
+            return title + "\n" + description.ToString();
         }
 
         public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)

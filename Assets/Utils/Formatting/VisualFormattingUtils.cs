@@ -59,41 +59,61 @@ public static class VisualUtils
     //    return Negative(bonusName + ": " + value);
     //}
 
-    //public static string Describe(string bonusName, int value)
-    //{
-    //    if (value > 0)
-    //        return Positive(bonusName + ": +" + value);
-
-    //    if (value == 0)
-    //        return Neutral(bonusName + ": 0");
-
-    //    return Negative(bonusName + ": " + value);
-    //}
-
-    public static string Describe(string bonusName, long value)
+    static string Sign(long value)
     {
-        if (value > 0)
-            return Positive(bonusName + ": +" + value);
+        return value > 0 ? $"+{value}" : value.ToString();
+    }
 
+    static string DescribeNormally(string text, long value)
+    {
         if (value == 0)
-            return Neutral(bonusName + ": 0");
+            return Neutral(text);
 
-        return Negative(bonusName + ": " + value);
+        if (value > 0)
+            return Positive(text);
+
+        return Negative(text);
+    }
+
+    static string DescribeReversed(string text, long value)
+    {
+        if (value == 0)
+            return Neutral(text);
+
+        if (value > 0)
+            return Negative(text);
+
+        return Positive(text);
+    }
+
+    public static string Describe(string bonusName, long value, bool flipColors)
+    {
+        var text = $"{bonusName}: {Sign(value)}";
+
+        if (!flipColors)
+            return DescribeNormally(text, value);
+        else
+            return DescribeReversed(text, value);
+    }
+
+    public static string Describe(BonusDescription bonus, bool flipColors)
+    {
+        return Describe(bonus.Name, bonus.Value, flipColors);
     }
 
     public static string Describe(BonusDescription bonus)
     {
-        return Describe(bonus.Name, bonus.Value);
+        return Describe(bonus.Name, bonus.Value, false);
     }
 
     public static string Describe(string positiveText, string negativeText, int value)
     {
-        if (value > 0)
-            return Positive(positiveText + ": +" + value);
-
         if (value == 0)
             return "";
 
-        return Negative(negativeText + ": " + value);
+        if (value > 0)
+            return Positive(positiveText);
+
+        return Negative(negativeText);
     }
 }
