@@ -4,24 +4,22 @@
     {
         internal static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
         {
-            string text = VisualUtils.Describe(
+            int opinion = GetInvestorOpinion(gameContext, company, investor);
+
+            string title = VisualUtils.Describe(
                 "They will invest in this company if asked",
                 "They will not invest",
-                GetInvestorOpinion(gameContext, company, investor)
+                opinion
             );
 
-            text += "\n";
+            var description = new BonusContainer("Investor opinion", opinion);
 
             if (company.hasProduct)
-            {
-                int marketPositionBonus = NicheUtils.GetProductCompetitivenessBonus(company);
+                description.Append("Product competitiveness", NicheUtils.GetProductCompetitivenessBonus(company));
 
-                text += VisualUtils.Bonus("Product competitiveness", marketPositionBonus);
-            }
+            description.Append("Same goals", 25);
 
-            text += VisualUtils.Bonus("Same goals", 25);
-
-            return text;
+            return title + "\n" + description;
         }
 
         public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)

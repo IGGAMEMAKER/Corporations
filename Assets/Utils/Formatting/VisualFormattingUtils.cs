@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public static class VisualUtils
@@ -43,20 +44,46 @@ public static class VisualUtils
         return Colorize(text, VisualConstants.COLOR_NEGATIVE);
     }
 
-    public static string Describe(string text, int value)
+    //public static string Describe<T>(string bonusName, T value) where T : IComparable
+    //{
+    //    //  Comparer.Default.Compare(value, 0)
+    //    int val = value.CompareTo(0);
+
+    //    //if (value > 0)
+    //    if (val > 0)
+    //        return Positive(bonusName + ": +" + value);
+
+    //    if (val == 0)
+    //        return Neutral(bonusName + ": 0");
+
+    //    return Negative(bonusName + ": " + value);
+    //}
+
+    //public static string Describe(string bonusName, int value)
+    //{
+    //    if (value > 0)
+    //        return Positive(bonusName + ": +" + value);
+
+    //    if (value == 0)
+    //        return Neutral(bonusName + ": 0");
+
+    //    return Negative(bonusName + ": " + value);
+    //}
+
+    public static string Describe(string bonusName, long value)
     {
         if (value > 0)
-            return Positive(text + ": +" + value);
+            return Positive(bonusName + ": +" + value);
 
         if (value == 0)
-            return Neutral(text + ": 0");
+            return Neutral(bonusName + ": 0");
 
-        return Negative(text + ": " + value);
+        return Negative(bonusName + ": " + value);
     }
 
-    public static string Bonus(string text, int value)
+    public static string Describe(BonusDescription bonus)
     {
-        return "\n" + Describe(text, value);
+        return Describe(bonus.Name, bonus.Value);
     }
 
     public static string Describe(string positiveText, string negativeText, int value)

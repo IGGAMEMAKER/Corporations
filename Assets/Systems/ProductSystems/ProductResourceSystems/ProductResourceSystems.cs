@@ -6,7 +6,7 @@ using Entitas;
 // TODO replace with OnMonthChange!
 class ProductResourceSystems : OnDateChange
 {
-    int period = 7;
+    int period = 1;
 
     public ProductResourceSystems(Contexts contexts) : base(contexts)
     {
@@ -14,6 +14,9 @@ class ProductResourceSystems : OnDateChange
 
     bool IsPeriodEnd(DateComponent dateComponent)
     {
+        if (period == 1)
+            return true;
+
         return dateComponent.Date % period == 0 && dateComponent.Date > 0;
     }
 
@@ -26,6 +29,8 @@ class ProductResourceSystems : OnDateChange
     {
         return dateComponent.Date % 7 == 0 && dateComponent.Date > 0;
     }
+
+
 
     void AddResources(GameEntity[] Products)
     {
