@@ -14,11 +14,6 @@ namespace Assets.Utils
                 GetCompetititiveRiskOnNiche(gameContext, companyId);
         }
 
-        public static bool IsMarketingSelfPaying(GameContext gameContext, int companyId)
-        {
-            return true;
-        }
-
         public static int GetMonetisationRisk(GameContext gameContext, int companyId)
         {
             int num = Constants.RISKS_MONETISATION_MAX;
@@ -63,6 +58,11 @@ namespace Assets.Utils
                 Constants.RISKS_MONETISATION_MAX +
                 GetMarketDemandRisk(gameContext, nicheType) +
                 GetNewPlayerRiskOnNiche(gameContext, nicheType);
+        }
+
+        public static bool IsMarketingSelfPaying(GameContext gameContext, int companyId)
+        {
+            return true;
         }
 
         public static Risk ShowRiskStatus(int risk)

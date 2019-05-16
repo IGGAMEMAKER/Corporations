@@ -11,8 +11,8 @@ namespace Assets.Utils
 
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int app = GetAppLoyaltyBonus(gameContext, companyId);
-            int pricing = GetPricingLoyaltyPenalty(gameContext, companyId);
-            int marketRequirement = GetMarketSituationLoyaltyBonus(gameContext, companyId);
+            int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
+            int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
 
             return app - bugs - pricing - marketRequirement;
         }
@@ -22,9 +22,9 @@ namespace Assets.Utils
             BonusContainer bonusContainer = new BonusContainer("Client loyalty is", GetClientLoyalty(gameContext, companyId, userType));
 
             bonusContainer.Append("App level", GetAppLoyaltyBonus(gameContext, companyId));
-            bonusContainer.Append("Market demand", -GetMarketSituationLoyaltyBonus(gameContext, companyId));
+            bonusContainer.Append("Market demand", -GetClientLoyaltyMarketSituationBonus(gameContext, companyId));
             bonusContainer.Append("Bugs", -GetClientLoyaltyBugPenalty(gameContext, companyId));
-            bonusContainer.Append("Pricing", -GetPricingLoyaltyPenalty(gameContext, companyId));
+            bonusContainer.Append("Pricing", -GetClientLoyaltyPricingPenalty(gameContext, companyId));
 
             return bonusContainer.ToString();
         }
@@ -43,12 +43,12 @@ namespace Assets.Utils
             return c.product.ProductLevel * 4;
         }
 
-        public static int GetMarketSituationLoyaltyBonus(GameContext gameContext, int companyId)
+        public static int GetClientLoyaltyMarketSituationBonus(GameContext gameContext, int companyId)
         {
             return 10 * 4;
         }
 
-        public static int GetPricingLoyaltyPenalty(GameContext gameContext, int companyId)
+        public static int GetClientLoyaltyPricingPenalty(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
