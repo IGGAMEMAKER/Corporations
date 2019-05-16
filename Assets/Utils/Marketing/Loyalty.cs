@@ -33,7 +33,7 @@ namespace Assets.Utils
         {
             int bugs = 15;
 
-            return bugs;
+            return 0;
         }
 
         public static int GetAppLoyaltyBonus(GameContext gameContext, int companyId)
