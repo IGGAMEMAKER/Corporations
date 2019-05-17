@@ -9,18 +9,30 @@
             var description = new BonusContainer("Investor opinion", opinion);
 
             if (company.hasProduct)
-                description.Append("Product competitiveness", NicheUtils.GetProductCompetitivenessBonus(company));
+                AppendProductBonuses(description, company);
+            else
+                AppendCompanyGroupBonuses(description, company);
 
             description.Append("Same goals", 25);
 
 
             string title = VisualUtils.Describe(
+                opinion,
                 "They will invest in this company if asked",
-                "They will not invest",
-                opinion
+                "They will not invest"
             );
 
             return title + "\n" + description.ToString();
+        }
+
+        private static void AppendCompanyGroupBonuses(BonusContainer bonusContainer, GameEntity company)
+        {
+
+        }
+
+        private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company)
+        {
+            bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitivenessBonus(company));
         }
 
         public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)
@@ -47,15 +59,27 @@
         {
             switch (investorType)
             {
-                case InvestorType.Angel: return "Angel investor";
-                case InvestorType.FFF: return "Family friends fools";
-                case InvestorType.Founder: return "Founder";
-                case InvestorType.StockExchange: return "Stock Exchange";
-                case InvestorType.Strategic: return "Strategic investor";
-                case InvestorType.VentureInvestor: return "Venture investor";
+                case InvestorType.Angel:
+                    return "Angel investor";
+
+                case InvestorType.FFF:
+                    return "Family, friends & fools";
+
+                case InvestorType.Founder:
+                    return "Founder";
+
+                case InvestorType.StockExchange:
+                    return "Stock Exchange";
+
+                case InvestorType.Strategic:
+                    return "Strategic investor";
+
+                case InvestorType.VentureInvestor:
+                    return "Venture investor";
+                default:
+                    return investorType.ToString();
             }
 
-            return investorType.ToString();
         }
     }
 }
