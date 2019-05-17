@@ -56,12 +56,8 @@ class ProductResourceSystems : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        if (!IsPeriodEnd(entities[0].date))
-            return;
-
-        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Marketing));
-
-        AddResources(Products);
+        if (IsPeriodEnd(entities[0].date))
+            AddResources(contexts.game.GetEntities(GameMatcher.Product));
     }
 
     protected override bool Filter(GameEntity entity)
