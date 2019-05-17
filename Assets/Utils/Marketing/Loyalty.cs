@@ -9,8 +9,8 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int app = GetAppLoyaltyBonus(gameContext, companyId);
+            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
             int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
 
@@ -19,12 +19,17 @@ namespace Assets.Utils
 
         public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
         {
+            int app = GetAppLoyaltyBonus(gameContext, companyId);
+            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
+            int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
+            int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
+
             BonusContainer bonusContainer = new BonusContainer("Client loyalty is", GetClientLoyalty(gameContext, companyId, userType));
 
-            bonusContainer.Append("App level", GetAppLoyaltyBonus(gameContext, companyId));
-            bonusContainer.Append("Market demand", -GetClientLoyaltyMarketSituationBonus(gameContext, companyId));
-            bonusContainer.Append("Bugs", -GetClientLoyaltyBugPenalty(gameContext, companyId));
-            bonusContainer.Append("Pricing", -GetClientLoyaltyPricingPenalty(gameContext, companyId));
+            bonusContainer.Append("App level", app);
+            bonusContainer.Append("Market demand", -marketRequirement);
+            bonusContainer.Append("Bugs", -bugs);
+            bonusContainer.Append("Pricing", -pricing);
 
             return bonusContainer.ToString();
         }
