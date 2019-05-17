@@ -36,6 +36,13 @@ public abstract class OnDateChange : ReactiveSystem<GameEntity>
     }
 }
 
+//public abstract class OnWeekChange : OnDateChange
+//{
+//    protected OnWeekChange(Contexts contexts) : base(contexts)
+//    {
+//    }
+//}
+
 public abstract class OnMonthChange : ReactiveSystem<GameEntity>
 {
     public readonly Contexts contexts;

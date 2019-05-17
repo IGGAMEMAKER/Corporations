@@ -44,6 +44,11 @@ public static class VisualUtils
         return Colorize(text, VisualConstants.COLOR_NEGATIVE);
     }
 
+    static string Sign(long value)
+    {
+        return value > 0 ? $"+{value}" : value.ToString();
+    }
+
     //public static string Describe<T>(string bonusName, T value) where T : IComparable
     //{
     //    //  Comparer.Default.Compare(value, 0)
@@ -58,11 +63,6 @@ public static class VisualUtils
 
     //    return Negative(bonusName + ": " + value);
     //}
-
-    static string Sign(long value)
-    {
-        return value > 0 ? $"+{value}" : value.ToString();
-    }
 
     static string DescribeNormally(string text, long value)
     {
