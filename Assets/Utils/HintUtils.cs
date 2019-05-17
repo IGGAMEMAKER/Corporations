@@ -66,7 +66,7 @@ public class BonusContainer
     {
         StringBuilder str = new StringBuilder();
 
-        str.AppendLine("\n* Due to:");
+        str.AppendLine("\n** Based on **");
 
         Build();
 
@@ -77,12 +77,5 @@ public class BonusContainer
         }
 
         return str.ToString();
-    }
-}
-
-namespace Assets.Utils
-{
-    public static class HintUtils
-    {
     }
 }
