@@ -25,6 +25,7 @@ public class RisksView : View
         if (CompanyUtils.IsCompanyGroupLike(c))
         {
             RiskContainer.SetActive(false);
+
             return;
         }
 
