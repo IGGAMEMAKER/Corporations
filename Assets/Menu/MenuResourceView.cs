@@ -57,7 +57,7 @@ public class MenuResourceView : View
     {
         long val = long.Parse(value.ToString());
 
-        return String.Format("{1} we get \n\n {0}", VisualUtils.Sign(val), GetFormattedPeriod());
+        return String.Format("{1} we get: \n\n {0}", VisualUtils.Sign(val), GetFormattedPeriod());
     }
 
     void Hide()
