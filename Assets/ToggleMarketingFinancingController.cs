@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class ToggleMarketingFinancingController : ButtonController
     , IFinanceListener
@@ -12,6 +9,9 @@ public class ToggleMarketingFinancingController : ButtonController
     {
         MarketingUtils.SetFinancing(GameContext, MyProductEntity.company.Id, marketingFinancing);
     }
+
+
+
 
     void OnEnable()
     {

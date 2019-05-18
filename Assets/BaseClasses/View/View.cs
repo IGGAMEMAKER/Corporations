@@ -3,7 +3,7 @@ using Entitas;
 using System;
 using UnityEngine.UI;
 
-public class View : BaseClass
+public abstract class View : BaseClass
 {
     public void Animate(Text text)
     {
@@ -35,9 +35,14 @@ public class View : BaseClass
     {
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
+
+    public virtual void ViewRender()
+    {
+
+    }
 }
 
-public class Controller : BaseClass
+public abstract class Controller : BaseClass
 {
     public void ListenMenuChanges(IMenuListener menuListener)
     {
@@ -53,4 +58,22 @@ public class Controller : BaseClass
     {
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
+
+    void OnEnable()
+    {
+        AttachListeners();
+
+        foreach (var view in GetComponents<View>())
+        {
+            
+        }
+    }
+
+    private void OnDisable()
+    {
+        DetachListeners();
+    }
+
+    public abstract void AttachListeners();
+    public abstract void DetachListeners();
 }
