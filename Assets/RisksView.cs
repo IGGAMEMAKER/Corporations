@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RisksView : View
+    , IAnyDateListener
 {
     public GameObject RiskContainer;
 
@@ -14,6 +15,8 @@ public class RisksView : View
     void OnEnable()
     {
         Render();
+
+        LazyUpdate(this);
     }
 
     void Render()
@@ -30,11 +33,9 @@ public class RisksView : View
 
         var companyId = c.company.Id;
 
-        var niche = c.product.Niche;
-
         int risk = NicheUtils.GetCompanyRisk(GameContext, companyId);
 
-        TotalRisk.GetComponent<ColoredValueGradient>().value = -risk;
+        TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
         TotalRisk.GetComponent<Hint>().SetHint($"This reduces base cost by {risk}%");
 
         NicheDemandRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetMarketDemandRisk(GameContext, companyId));
@@ -47,4 +48,8 @@ public class RisksView : View
         return modifier + "%";
     }
 
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    {
+        Render();
+    }
 }
