@@ -77,11 +77,6 @@ namespace Assets.Utils
                 GetNewPlayerRiskOnNiche(gameContext, nicheType);
         }
 
-        public static bool IsMarketingSelfPaying(GameContext gameContext, int companyId)
-        {
-            return true;
-        }
-
         public static Risk ShowRiskStatus(int risk)
         {
             if (risk < 10)
