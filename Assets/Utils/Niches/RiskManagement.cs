@@ -108,6 +108,7 @@ namespace Assets.Utils
             bonusContainer.Append("Strong competitors", competitors);
 
             string text = ShowRiskStatus(risk).ToString();
+
             return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
         }
 
