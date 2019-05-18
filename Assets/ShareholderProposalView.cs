@@ -62,7 +62,6 @@ public class ShareholderProposalView : View
         Name.text = shareholder.shareholder.Name;
 
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
-        //Motivation.SetHint(InvestmentUtils.);
     }
 
     void RenderOffer()
@@ -91,24 +90,16 @@ public class ShareholderProposalView : View
 
     void RenderValuation()
     {
-        long valuation;
-
         if (IsInvestmentRoundActive)
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-            valuation = proposal.Valuation;
+            Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
         }
         else
         {
-            long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
             Valuation.text = "???";
-
-            return;
-            //valuation = "???";
         }
-
-        Valuation.text = "$" + ValueFormatter.Shorten(valuation);
     }
 
     void Render(GameEntity proposal)

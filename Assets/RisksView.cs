@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RisksView : View
     , IAnyDateListener
@@ -35,10 +34,9 @@ public class RisksView : View
 
         int risk = NicheUtils.GetCompanyRisk(GameContext, companyId);
 
-        TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
-
         var text = $"This reduces base company cost by {risk}%\n {NicheUtils.GetCompanyRiskDescription(GameContext, companyId)}";
 
+        TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
         TotalRisk.GetComponent<Hint>().SetHint(text);
     }
 
