@@ -27,6 +27,6 @@ public class ToggleDevelopmentController : ButtonController
 
     void Render()
     {
-        AddIsChosenComponent(MyProductEntity.developmentFocus.Focus == DevelopmentFocus);
+        ToggleIsChosenComponent(MyProductEntity.developmentFocus.Focus == DevelopmentFocus);
     }
 }

@@ -56,11 +56,6 @@ public abstract class ButtonController : BaseClass
     }
 
 
-    internal void AddIsChosenComponent(bool isChosen)
-    {
-        gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
-    }
-
     public void SetSelectedCompany(int companyId)
     {
         ScreenUtils.SetSelectedCompany(GameContext, companyId);

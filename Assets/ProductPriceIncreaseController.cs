@@ -11,6 +11,6 @@
 
     void Render()
     {
-        AddIsChosenComponent(MyProductEntity.finance.price == priceLevel);
+        ToggleIsChosenComponent(MyProductEntity.finance.price == priceLevel);
     }
 }

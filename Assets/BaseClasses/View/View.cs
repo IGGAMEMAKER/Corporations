@@ -59,14 +59,17 @@ public abstract class Controller : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
+    public void Render()
+    {
+        foreach (var view in GetComponents<View>())
+            view.ViewRender();
+    }
+
     void OnEnable()
     {
         AttachListeners();
 
-        foreach (var view in GetComponents<View>())
-        {
-            
-        }
+        Render();
     }
 
     private void OnDisable()

@@ -10,7 +10,7 @@ public class SetTargetUserType : ButtonController
     {
         UserType = userType;
 
-        AddIsChosenComponent(MyProductEntity.targetUserType.UserType == UserType);
+        ToggleIsChosenComponent(MyProductEntity.targetUserType.UserType == UserType);
     }
 
     public override void Execute()

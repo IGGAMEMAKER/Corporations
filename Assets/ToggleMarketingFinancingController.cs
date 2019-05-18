@@ -1,7 +1,7 @@
 ﻿using Assets.Utils;
 
 public class ToggleMarketingFinancingController : ButtonController
-    , IFinanceListener
+    //, IFinanceListener
 {
     public MarketingFinancing marketingFinancing;
 
@@ -13,20 +13,20 @@ public class ToggleMarketingFinancingController : ButtonController
 
 
 
-    void OnEnable()
-    {
-        MyProductEntity.AddFinanceListener(this);
+    //void OnEnable()
+    //{
+    //    MyProductEntity.AddFinanceListener(this);
 
-        Render();
-    }
+    //    Render();
+    //}
 
-    void Render()
-    {
-        AddIsChosenComponent(MyProductEntity.finance.marketingFinancing == marketingFinancing);
-    }
+    //void Render()
+    //{
+    //    ToggleIsChosenComponent(MyProductEntity.finance.marketingFinancing == marketingFinancing);
+    //}
 
-    void IFinanceListener.OnFinance(GameEntity entity, Pricing price, MarketingFinancing marketingFinancing, int salaries, float basePrice)
-    {
-        Render();
-    }
+    //void IFinanceListener.OnFinance(GameEntity entity, Pricing price, MarketingFinancing marketingFinancing, int salaries, float basePrice)
+    //{
+    //    Render();
+    //}
 }

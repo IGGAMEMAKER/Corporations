@@ -76,4 +76,11 @@ public class BaseClass : MonoBehaviour
             return ScreenUtils.GetMenu(GameContext);
         }
     }
+
+
+
+    internal void ToggleIsChosenComponent(bool isChosen)
+    {
+        gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
+    }
 }

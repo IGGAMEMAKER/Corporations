@@ -10,7 +10,7 @@
 
     void Render()
     {
-        AddIsChosenComponent(MyProductEntity.isTargeting);
+        ToggleIsChosenComponent(MyProductEntity.isTargeting);
     }
 
     public override void Execute()
