@@ -12,7 +12,7 @@ namespace Assets.Utils
             int id = GenerateCompanyId(context);
 
             e.AddCompany(id, name, companyType);
-            e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 0));
+            e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 100000));
 
             e.AddShareholders(founders);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
@@ -37,8 +37,6 @@ namespace Assets.Utils
         public static GameEntity GenerateProduct(GameContext context, GameEntity company, string name, NicheType niche)
         {
             IndustryType industry = NicheUtils.GetIndustry(niche, context);
-
-            var resources = new TeamResource(100, 100, 100, 10, 10000);
 
             long clients = UnityEngine.Random.Range(15, 100);
             int brandPower = UnityEngine.Random.Range(0, 15);

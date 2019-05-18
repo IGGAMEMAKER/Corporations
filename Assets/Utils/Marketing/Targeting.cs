@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -54,6 +55,8 @@ namespace Assets.Utils
 
         public static long GetTargetingEffeciency(GameContext gameContext, GameEntity e)
         {
+            Debug.Log("You don't count niche capacity when making ads!");
+
             long baseForNiche = 100;
 
             long brandModifier = e.marketing.BrandPower / 2;
