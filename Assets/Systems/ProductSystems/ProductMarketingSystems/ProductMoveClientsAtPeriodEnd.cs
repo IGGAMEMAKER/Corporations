@@ -17,24 +17,21 @@ class ProductMoveClientsAtPeriodEnd : OnMonthChange
 
         foreach (var e in Products)
         {
-            var Segments = e.marketing.Segments;
+            var Segments = new Dictionary<UserType, long>();
 
-            foreach (var s in Segments)
+            foreach (var s in e.marketing.Segments)
             {
                 UserType userType = s.Key;
-                Debug.Log("Client progression: " + e.company.Name + " " + userType);
 
                 var churnClients = MarketingUtils.GetChurnClients(contexts.game, e.company.Id, userType);
                 var promotionClients = MarketingUtils.GetPromotionClients(contexts.game, e.company.Id, userType);
 
-                Segments[userType] = Segments[userType] + promoted - churnClients - promotionClients;
+                Segments[userType] = s.Value + promoted - churnClients - promotionClients;
 
                 promoted = promotionClients;
             }
 
-            Debug.Log("Replace marketing...");
             e.ReplaceMarketing(e.marketing.BrandPower, Segments);
-            Debug.Log("Done...");
         }
     }
 }
