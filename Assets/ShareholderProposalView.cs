@@ -102,8 +102,10 @@ public class ShareholderProposalView : View
         else
         {
             long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+            Valuation.text = "???";
 
-            valuation = Cost;
+            return;
+            //valuation = "???";
         }
 
         Valuation.text = "$" + ValueFormatter.Shorten(valuation);
