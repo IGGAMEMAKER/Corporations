@@ -36,8 +36,5 @@ public abstract class View : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
-    public virtual void ViewRender()
-    {
-
-    }
+    public virtual void ViewRender() { }
 }
