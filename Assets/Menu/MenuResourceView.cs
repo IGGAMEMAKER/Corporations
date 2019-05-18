@@ -9,6 +9,7 @@ public class MenuResourceView : View
     , IProductListener
     , IMarketingListener
     , ICompanyResourceListener
+    , IAnyDateListener
 {
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
@@ -29,26 +30,44 @@ public class MenuResourceView : View
             MyProductEntity.AddProductListener(this);
             MyProductEntity.AddMarketingListener(this);
             MyProductEntity.AddCompanyResourceListener(this);
+
         }
+        LazyUpdate(this);
 
         Render();
     }
 
+    string GetFormattedPeriod()
+    {
+        int period = CompanyEconomyUtils.GetPeriodDuration();
+
+        if (period == 1)
+            return "Everyday";
+
+        if (period == 7)
+            return "Each week";
+
+        if (period == 30)
+            return "Every month";
+
+        return "Every " + period + " day(s)";
+    }
+
     string GetHintText<T> (T value)
     {
-        string valueSigned = "";
+        long val = long.Parse(value.ToString());
 
-        if (long.Parse(value.ToString()) > 0)
-            valueSigned = "+" + value.ToString();
-        else
-            valueSigned = value.ToString();
-
-        return String.Format("Monthly change \n\n {0}", valueSigned);
+        return String.Format("{1} we get \n\n {0}", VisualUtils.Sign(val), GetFormattedPeriod());
     }
 
     void Hide()
     {
         Container.SetActive(false);
+    }
+
+    TeamResource GetCompanyResourcePeriodChange()
+    {
+        return CompanyEconomyUtils.GetResourceChange(MyProductEntity, GameContext);
     }
 
     public void Render()
@@ -57,7 +76,7 @@ public class MenuResourceView : View
             CurrentScreen == ScreenMode.TeamScreen ||
             CurrentScreen == ScreenMode.MarketingScreen
             )
-            Render(MyProductEntity.companyResource.Resources, new TeamResource(), MyProductEntity.marketing);
+            Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
         else
             Hide();
     }
@@ -113,6 +132,11 @@ public class MenuResourceView : View
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
+    {
+        Render();
+    }
+
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
     {
         Render();
     }

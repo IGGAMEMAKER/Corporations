@@ -10,6 +10,8 @@ public struct BonusDescription
     public string Name;
 
     public bool HideIfZero;
+
+    public string Dimension;
 }
 
 public class BonusContainer

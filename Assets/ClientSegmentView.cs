@@ -66,11 +66,11 @@ public class ClientSegmentView : View
         Churn.maxValue = baseValue + 10;
         Churn.value = churn;
 
-        ChurnHint.SetHint(
-            $"Current churn rate is {churn}%" +
-            $"\n\nBase value for {EnumUtils.GetFormattedUserType(userType)} is {baseValue}%" +
-            $"\nFrom loyalty: {fromLoyalty}%"
-            );
+        BonusContainer bonus = new BonusContainer(new BonusDescription { Name = "Churn rate", Value = churn }, true);
+        bonus.Append(new BonusDescription { Name = $"Base for {EnumUtils.GetFormattedUserType(userType)}", Value = baseValue, Dimension = "%" });
+        bonus.Append(new BonusDescription { Name = "From loyalty", Value = fromLoyalty, Dimension = "%" });
+
+        ChurnHint.SetHint(bonus.ToString(true));
     }
 
     void RenderAudience(UserType userType, GameEntity c)

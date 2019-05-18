@@ -44,7 +44,7 @@ public static class VisualUtils
         return Colorize(text, VisualConstants.COLOR_NEGATIVE);
     }
 
-    static string Sign(long value)
+    public static string Sign(long value)
     {
         return value > 0 ? $"+{value}" : value.ToString();
     }
@@ -86,9 +86,9 @@ public static class VisualUtils
         return Positive(text);
     }
 
-    public static string Describe(string bonusName, long value, bool flipColors)
+    public static string Describe(string bonusName, long value, string dimension, bool flipColors)
     {
-        var text = $"{bonusName}: {Sign(value)}";
+        var text = $"{bonusName}: {Sign(value)}{dimension}";
 
         if (!flipColors)
             return DescribeNormally(text, value);
@@ -98,12 +98,12 @@ public static class VisualUtils
 
     public static string Describe(BonusDescription bonus, bool flipColors)
     {
-        return Describe(bonus.Name, bonus.Value, flipColors);
+        return Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors);
     }
 
     public static string Describe(BonusDescription bonus)
     {
-        return Describe(bonus.Name, bonus.Value, false);
+        return Describe(bonus.Name, bonus.Value, bonus.Dimension, false);
     }
 
     public static string Describe(int value, string positiveText, string negativeText)

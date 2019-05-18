@@ -6,14 +6,14 @@ using Entitas;
 // TODO replace with OnMonthChange!
 class ProductResourceSystems : OnDateChange
 {
-    int period = 1;
-
     public ProductResourceSystems(Contexts contexts) : base(contexts)
     {
     }
 
     bool IsPeriodEnd(DateComponent dateComponent)
     {
+        int period = CompanyEconomyUtils.GetPeriodDuration();
+
         if (period == 1)
             return true;
 
@@ -36,19 +36,7 @@ class ProductResourceSystems : OnDateChange
     {
         foreach (var e in Products)
         {
-            var team = e.team;
-
-            var ideas = 3 * period;
-
-            long money = CompanyEconomyUtils.GetCompanyIncome(e, contexts.game) * period / 30;
-
-            var resources = new TeamResource(
-                team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * period,
-                team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER * period,
-                team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER * period,
-                ideas,
-                money
-                );
+            var resources = CompanyEconomyUtils.GetResourceChange(e, contexts.game);
 
             e.companyResource.Resources.Add(resources);
         }

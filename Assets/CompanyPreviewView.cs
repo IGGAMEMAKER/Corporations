@@ -73,7 +73,8 @@ public class CompanyPreviewView : View,
     {
         var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, e.company.Id);
 
-        ShareCostLabel.text = $"${ValueFormatter.Shorten(cost)}";
+        if (ShareCostLabel)
+            ShareCostLabel.text = $"${ValueFormatter.Shorten(cost)}";
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
