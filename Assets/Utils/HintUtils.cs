@@ -20,6 +20,7 @@ public class BonusContainer
     public BonusDescription parameter;
 
     public bool renderTitle;
+    public string dimension;
 
     public BonusContainer(BonusDescription bonusDescription, bool renderTitle = false) {
         bonusDescriptions = new List<BonusDescription>();
@@ -35,6 +36,13 @@ public class BonusContainer
         parameter = new BonusDescription { Name = bonusName, Value = bonusDescription };
     }
 
+    public BonusContainer SetDimension(string dim)
+    {
+        dimension = dim;
+
+        return this;
+    }
+
     public BonusContainer Append(BonusDescription bonus)
     {
         bonusDescriptions.Add(bonus);
@@ -42,9 +50,9 @@ public class BonusContainer
         return this;
     }
 
-    public BonusContainer Append(string bonusName, long value)
+    public BonusContainer Append(string bonusName, long value, string dimension = "")
     {
-        return Append(new BonusDescription { Name = bonusName, Value = value });
+        return Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
     }
 
     public BonusContainer Build()
@@ -75,7 +83,7 @@ public class BonusContainer
         foreach (var bonus in bonusDescriptions)
         {
             if (!(bonus.HideIfZero && bonus.Value == 0))
-                str.AppendLine(VisualUtils.Describe(bonus, positiveIsNegative));
+                str.AppendLine(VisualUtils.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative));
         }
 
         return str.ToString();

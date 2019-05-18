@@ -36,16 +36,14 @@ public class RisksView : View
         int risk = NicheUtils.GetCompanyRisk(GameContext, companyId);
 
         TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
-        TotalRisk.GetComponent<Hint>().SetHint($"This reduces base cost by {risk}%");
 
-        NicheDemandRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetMarketDemandRisk(GameContext, companyId));
-        MonetisationRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetMonetisationRisk(GameContext, companyId));
-        CompetitorsRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetCompetititiveRiskOnNiche(GameContext, companyId));
-    }
+        var text = $"This reduces base company cost by {risk}%\n {NicheUtils.GetCompanyRiskDescription(GameContext, companyId)}";
 
-    string RenderRisk(int modifier)
-    {
-        return modifier + "%";
+        TotalRisk.GetComponent<Hint>().SetHint(text);
+
+        //NicheDemandRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetMarketDemandRisk(GameContext, companyId));
+        //MonetisationRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetMonetisationRisk(GameContext, companyId));
+        //CompetitorsRisk.GetComponent<Text>().text = RenderRisk(NicheUtils.GetCompetititiveRiskOnNiche(GameContext, companyId));
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)

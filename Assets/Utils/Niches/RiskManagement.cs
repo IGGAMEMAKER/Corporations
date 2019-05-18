@@ -8,18 +8,35 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return
-                GetMonetisationRisk(gameContext, c.company.Id) +
-                GetMarketDemandRisk(gameContext, companyId) +
-                GetCompetititiveRiskOnNiche(gameContext, companyId);
+            int monetisation = GetMonetisationRisk(gameContext, companyId);
+            int marketDemand = GetMarketDemandRisk(gameContext, companyId);
+            int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
+
+            return monetisation + marketDemand + competitiveness;
+        }
+
+        public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)
+        {
+            int risk = GetCompanyRisk(gameContext, companyId);
+
+            int monetisation = GetMonetisationRisk(gameContext, companyId);
+            int marketDemand = GetMarketDemandRisk(gameContext, companyId);
+            int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
+
+            BonusContainer description = new BonusContainer("Total risk", risk);
+
+            description
+                .SetDimension("%")
+                .Append("Monetisation risk", monetisation)
+                .Append("Niche demand risk", marketDemand)
+                .Append("Competitors risk", competitiveness);
+
+            return description.ToString(true);
         }
 
         public static int GetMonetisationRisk(GameContext gameContext, int companyId)
         {
             int num = Constants.RISKS_MONETISATION_MAX;
-
-            if (IsMarketingSelfPaying(gameContext, companyId))
-                num -= Constants.RISKS_MONETISATION_ADS_REPAYABLE;
 
             if (CompanyEconomyUtils.IsCompanyProfitable(gameContext, companyId))
                 num -= Constants.RISKS_MONETISATION_IS_PROFITABLE;
