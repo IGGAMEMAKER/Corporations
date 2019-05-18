@@ -29,6 +29,7 @@ public class MarketingComponent : IComponent
 {
     public long BrandPower;
 
+    // long clients
     public Dictionary<UserType, long> Segments;
 }
 

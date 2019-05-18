@@ -43,7 +43,7 @@ public class ClientSegmentPreview : View
         int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
 
         hint.AppendFormat("Due to our churn rate ({0}%)", churn);
-        hint.AppendFormat(" we lose <color={0}>{1}</color> clients each month\n", VisualConstants.COLOR_NEGATIVE, 500);
+        hint.AppendFormat(" we lose <color={0}>{1}</color> clients each month\n", VisualConstants.COLOR_NEGATIVE, MarketingUtils.GetChurnClients(GameContext, c.company.Id, userType));
 
         if (userType != UserType.Core)
         {
@@ -52,7 +52,8 @@ public class ClientSegmentPreview : View
             hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>",
                 VisualConstants.COLOR_POSITIVE,
                 EnumUtils.GetFormattedUserType(next),
-                35);
+                MarketingUtils.GetPromotionClients(GameContext, c.company.Id, userType)
+                );
         }
 
         hint.AppendLine();

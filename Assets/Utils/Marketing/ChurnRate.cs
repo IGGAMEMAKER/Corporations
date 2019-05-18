@@ -15,12 +15,36 @@ namespace Assets.Utils
             return (50 - loyalty) / 10;
         }
 
+
         public static int GetChurnRate(GameContext gameContext, int companyId, UserType userType)
         {
             int baseValue = GetUserTypeBaseValue(userType);
             int fromLoyalty = GetChurnRateLoyaltyPart(gameContext, companyId, userType);
 
             return baseValue + fromLoyalty;
+        }
+
+        public static float GetPromotionRate(GameContext gameContext, int companyId, UserType userType)
+        {
+            return GetChurnRate(gameContext, companyId, userType) / 10f;
+        }
+
+        public static long GetPromotionClients(GameContext gameContext, int companyId, UserType userType)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            long promotionRate = GetChurnRate(gameContext, companyId, userType);
+
+            return c.marketing.Segments[userType] * promotionRate / 10 / 100;
+        }
+
+        public static long GetChurnClients(GameContext gameContext, int companyId, UserType userType)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var churn = GetChurnRate(gameContext, companyId, userType);
+
+            return c.marketing.Segments[userType] * churn / 100;
         }
 
         internal static int GetUserTypeBaseValue(UserType userType)

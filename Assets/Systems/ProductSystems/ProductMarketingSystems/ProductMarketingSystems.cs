@@ -8,5 +8,8 @@ public class ProductMarketingSystems : Feature
 
         // gives you clients if you have targeting enabled
         Add(new ProductGrabClientsByTargetingSystem(contexts));
+
+        // promote and leave clients
+        Add(new ProductMoveClientsAtPeriodEnd(contexts));
     }
 }
