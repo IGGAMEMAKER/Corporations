@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ListenProductFinancingController : Controller
+﻿public class ListenProductFinancingController : Controller
     , IFinanceListener
 {
     public override void AttachListeners()
