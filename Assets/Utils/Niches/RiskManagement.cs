@@ -45,17 +45,17 @@ namespace Assets.Utils
         }
 
 
-        public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
-        {
-            // amount of users/niche fame
-            return 45;
-        }
-
         public static int GetMarketDemandRisk(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             return GetMarketDemandRisk(gameContext, c.product.Niche);
+        }
+
+        public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
+        {
+            // amount of users/niche fame
+            return 45;
         }
 
         public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
