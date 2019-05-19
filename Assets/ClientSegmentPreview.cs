@@ -2,6 +2,7 @@
 using Assets.Utils.Formatting;
 using System;
 using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClientSegmentPreview : View
@@ -17,21 +18,39 @@ public class ClientSegmentPreview : View
     public Hint SegmentHint;
     public Hint LoyaltyHint;
 
-    public void Render(UserType userType, int companyId)
+    UserType UserType;
+    int CompanyId;
+
+    public void SetEntity(UserType userType, int companyId)
     {
-        var c = CompanyUtils.GetCompanyById(GameContext, companyId);
+        UserType = userType;
+        CompanyId = companyId;
 
-        UserTypeLabel.text = EnumUtils.GetFormattedUserType(userType);
+        Render();
+    }
 
-        LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, companyId, userType);
+    public override void ViewRender()
+    {
+        base.ViewRender();
 
-        RenderAudience(userType, c);
+        Render();
+    }
 
-        RenderSegmentIncome(companyId, userType);
+    public void Render()
+    {
+        var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
 
-        RenderSegmentHint(userType);
+        UserTypeLabel.text = EnumUtils.GetFormattedUserType(UserType);
 
-        RenderLoyaltyHint(companyId, userType);
+        LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, CompanyId, UserType);
+
+        RenderAudience(UserType, c);
+
+        RenderSegmentIncome(CompanyId, UserType);
+
+        RenderSegmentHint(UserType);
+
+        RenderLoyaltyHint(CompanyId, UserType);
     }
 
     void RenderAudience(UserType userType, GameEntity c)
@@ -73,15 +92,8 @@ public class ClientSegmentPreview : View
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
     }
 
-    string GetSegmentHint(UserType userType)
-    {
-        string formattedSegmentName = EnumUtils.GetFormattedUserType(userType);
-
-        return $"{formattedSegmentName}\n";
-    }
-
     void RenderSegmentHint(UserType userType)
     {
-        SegmentHint.SetHint(GetSegmentHint(userType));
+        SegmentHint.SetHint($"{EnumUtils.GetFormattedUserType(userType)}\n");
     }
 }
