@@ -42,7 +42,7 @@ public class ClientSegmentPreview : View
 
         UserTypeLabel.text = EnumUtils.GetFormattedUserType(UserType);
 
-        LoyaltyLabel.value = MarketingUtils.GetClientLoyalty(GameContext, CompanyId, UserType);
+        LoyaltyLabel.UpdateValue(MarketingUtils.GetClientLoyalty(GameContext, CompanyId, UserType));
 
         RenderAudience(UserType, c);
 
