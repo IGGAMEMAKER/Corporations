@@ -1,12 +1,10 @@
-﻿public class ListenProductFinancingController : Controller
+﻿public class ListenProductFinancingChanges : Controller
     , IFinanceListener
 {
     public override void AttachListeners()
     {
         if (MyProductEntity != null)
             MyProductEntity.AddFinanceListener(this);
-
-        Render();
     }
 
     public override void DetachListeners()

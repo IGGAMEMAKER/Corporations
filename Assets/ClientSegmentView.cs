@@ -29,7 +29,18 @@ public class ClientSegmentView : View
 
     public Text SegmentBonus;
 
-    public void Render(UserType userType, int companyId)
+    UserType userType;
+    int companyId;
+
+    public void SetEntity(UserType userType, int companyId)
+    {
+        this.userType = userType;
+        this.companyId = companyId;
+
+        Render();
+    }
+
+    public void Render()
     {
         var c = CompanyUtils.GetCompanyById(GameContext, companyId);
 
@@ -56,6 +67,8 @@ public class ClientSegmentView : View
 
         SegmentBonus.text = $"+25";
     }
+
+
 
     private void RenderChurn(UserType userType, GameEntity c)
     {
