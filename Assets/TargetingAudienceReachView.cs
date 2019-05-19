@@ -1,27 +1,11 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 
 public class TargetingAudienceReachView : View
-    , IFinanceListener
 {
-    void OnEnable()
+    public override void ViewRender()
     {
-        if (MyProductEntity != null)
-            MyProductEntity.AddFinanceListener(this);
+        base.ViewRender();
 
-        Render();
-    }
-
-    void Render()
-    {
-        if (MyProductEntity != null)
-            GetComponent<ColoredValue>().UpdateValue(MarketingUtils.GetTargetingEffeciency(GameContext, MyProductEntity));
-    }
-
-    void IFinanceListener.OnFinance(GameEntity entity, Pricing price, MarketingFinancing marketingFinancing, int salaries, float basePrice)
-    {
-        Debug.Log("OnFinance");
-
-        Render();
+        GetComponent<ColoredValue>().UpdateValue(MarketingUtils.GetTargetingEffeciency(GameContext, MyProductEntity));
     }
 }

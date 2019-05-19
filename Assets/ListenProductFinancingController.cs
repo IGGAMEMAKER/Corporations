@@ -5,6 +5,8 @@
     {
         if (MyProductEntity != null)
             MyProductEntity.AddFinanceListener(this);
+
+        Render();
     }
 
     public override void DetachListeners()

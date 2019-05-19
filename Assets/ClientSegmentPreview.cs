@@ -2,7 +2,6 @@
 using Assets.Utils.Formatting;
 using System;
 using System.Text;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class ClientSegmentPreview : View
