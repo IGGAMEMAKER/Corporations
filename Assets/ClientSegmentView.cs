@@ -60,7 +60,7 @@ public class ClientSegmentView : View
 
         Churn.minValue = baseValue;
         Churn.maxValue = baseValue + 10;
-        Churn.value = churn;
+        Churn.UpdateValue(churn);
 
         BonusContainer bonus = new BonusContainer(new BonusDescription { Name = "Churn rate", Value = churn }, true);
         bonus.Append(new BonusDescription { Name = $"Base for {EnumUtils.GetFormattedUserType(userType)}", Value = baseValue, Dimension = "%" });
