@@ -14,7 +14,6 @@ public class ShareholderProposalView : View
     public Text Offer;
 
     public GameObject AcceptProposal;
-    public GameObject RejectProposal;
 
     public Text Valuation;
 
@@ -51,10 +50,8 @@ public class ShareholderProposalView : View
         bool visible = CanAcceptInvestments && SelectedCompany.isControlledByPlayer;
 
         AcceptProposal.SetActive(visible);
-        RejectProposal.SetActive(visible);
 
         AcceptProposal.GetComponent<AcceptInvestmentProposalController>().InvestorId = investorId;
-        RejectProposal.GetComponent<RejectInvestmentProposalController>().InvestorId = investorId;
     }
 
     void RenderBasicInfo()
