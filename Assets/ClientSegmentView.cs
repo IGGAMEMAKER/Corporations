@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -101,7 +102,7 @@ public class ClientSegmentView : View
 
     void RenderSegmentIncome(int companyId, UserType userType)
     {
-        long segmentIncome = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
+        long segmentIncome = Convert.ToInt64(CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType));
 
         Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
     }

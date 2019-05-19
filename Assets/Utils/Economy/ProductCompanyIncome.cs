@@ -14,7 +14,7 @@ namespace Assets.Utils
             return Convert.ToInt64(income);
         }
 
-        internal static long GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
+        internal static float GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
@@ -22,7 +22,7 @@ namespace Assets.Utils
 
             float price = GetSegmentPrice(gameContext, companyId, userType);
 
-            return clients * Convert.ToInt64(price);
+            return clients * price;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, int companyId, UserType userType)
