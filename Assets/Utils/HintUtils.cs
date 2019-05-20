@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 public struct BonusDescription
 {
@@ -17,25 +15,16 @@ public struct BonusDescription
 public class BonusContainer
 {
     public List<BonusDescription> bonusDescriptions;
-    public BonusDescription parameter;
+    public string parameter;
 
     public bool renderTitle;
     public string dimension;
 
-
-
-    public BonusContainer(BonusDescription bonusDescription, bool renderTitle = false) {
+    public BonusContainer(string bonusName, bool renderTitle = false) {
         bonusDescriptions = new List<BonusDescription>();
         this.renderTitle = renderTitle;
 
-        parameter = bonusDescription;
-    }
-
-    public BonusContainer(string bonusName, long bonusDescription, bool renderTitle = false) {
-        bonusDescriptions = new List<BonusDescription>();
-        this.renderTitle = renderTitle;
-
-        parameter = new BonusDescription { Name = bonusName, Value = bonusDescription };
+        parameter = bonusName;
     }
 
     public BonusContainer SetDimension(string dim)
@@ -72,27 +61,11 @@ public class BonusContainer
         return sum;
     }
 
-    public BonusContainer Build()
-    {
-        var sum = Sum();
-
-        var unknown = new BonusDescription { Name = "UNKNOWN DATA", HideIfZero = true, Value = parameter.Value - sum };
-
-        if (unknown.Value > 0)
-            Debug.Log("UNKNOWN DATA in " + parameter.Name);
-
-        bonusDescriptions.Insert(0, unknown);
-
-        return this;
-    }
-
     public string ToString(bool positiveIsNegative = false)
     {
         StringBuilder str = new StringBuilder();
 
         str.AppendLine("\n** Based on **");
-
-        Build();
 
         foreach (var bonus in bonusDescriptions)
         {

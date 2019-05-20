@@ -10,11 +10,9 @@ namespace Assets.Utils
             int demand = GetMarketDemandRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
-            int risk = baseValue + demand + competitors;
-
-            return new BonusContainer("Startup risk", risk)
+            return new BonusContainer("Startup risk")
                 .SetDimension("%")
-                .Append("Base value", baseValue)
+                .Append("Is not profitable", baseValue)
                 .Append("Unknown demand", demand)
                 .Append("Strong competitors", competitors);
         }

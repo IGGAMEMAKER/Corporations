@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Formatting;
-using System;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,17 +51,13 @@ public class ClientSegmentView : View
 
     private void RenderChurn(UserType userType, GameEntity c)
     {
-        int churn = MarketingUtils.GetChurnRate(GameContext, c.company.Id, userType);
+        var bonus = MarketingUtils.GetChurnBonus(GameContext, c.company.Id, userType);
+
         int baseValue = MarketingUtils.GetUserTypeBaseValue(userType);
-        int fromLoyalty = MarketingUtils.GetChurnRateLoyaltyPart(GameContext, c.company.Id, userType);
 
         Churn.minValue = baseValue;
         Churn.maxValue = baseValue + 10;
-        Churn.UpdateValue(churn);
-
-        BonusContainer bonus = new BonusContainer(new BonusDescription { Name = "Churn rate", Value = churn }, true);
-        bonus.Append(new BonusDescription { Name = $"Base for {EnumUtils.GetFormattedUserType(userType)}", Value = baseValue, Dimension = "%" });
-        bonus.Append(new BonusDescription { Name = "From loyalty", Value = fromLoyalty, Dimension = "%" });
+        Churn.UpdateValue(bonus.Sum());
 
         ChurnHint.SetHint(bonus.ToString(true));
     }

@@ -10,9 +10,7 @@ namespace Assets.Utils
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
 
-            int risk = monetisation + marketDemand + competitiveness;
-
-            return new BonusContainer("Total risk", risk)
+            return new BonusContainer("Total risk")
                 .SetDimension("%")
                 .Append("Is profitable?", monetisation)
                 .Append("Niche demand risk", marketDemand)
