@@ -11,6 +11,6 @@ public class MonthlyBalanceView : DailyUpdateableView
 
     public override void Render()
     {
-        Text.value = CompanyEconomyUtils.GetBalanceChange(MyProductEntity, GameContext);
+        Text.UpdateValue(CompanyEconomyUtils.GetBalanceChange(MyProductEntity, GameContext));
     }
 }
