@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Hint))]
 public class ResourceView : MonoBehaviour {
-    Text Text;
-    Hint Hint;
+    //Text Text;
+    //Hint Hint;
 
-    private void Awake()
-    {
-        Text = GetComponent<Text>();
-        Hint = GetComponent<Hint>();
-    }
+    //private void Awake()
+    //{
+    //    Text = ;
+    //    Hint = ;
+    //}
 
     void SetValue<T> (T value, string hint)
     {
@@ -20,8 +20,8 @@ public class ResourceView : MonoBehaviour {
 
     void Set(string text, string hint)
     {
-        Text.text = text;
-        Hint.SetHint(hint);
+        GetComponent<Text>().text = text;
+        GetComponent<Hint>().SetHint(hint);
     }
 
     public void UpdateResourceValue<T>(string hint, T value)

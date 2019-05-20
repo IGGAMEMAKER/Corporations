@@ -3,13 +3,13 @@
 {
     public override void AttachListeners()
     {
-        if (MyProductEntity != null)
+        if (HasProductCompany)
             MyProductEntity.AddFinanceListener(this);
     }
 
     public override void DetachListeners()
     {
-        if (MyProductEntity != null)
+        if (HasProductCompany)
             MyProductEntity.RemoveFinanceListener(this);
     }
 

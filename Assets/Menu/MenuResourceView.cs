@@ -1,15 +1,9 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuResourceView : View
-    , IMenuListener
-    , IProductListener
-    , IMarketingListener
-    , ICompanyResourceListener
-    , IAnyDateListener
 {
     public ResourceView MoneyView;
     public ResourceView ProgrammingView;
@@ -20,22 +14,6 @@ public class MenuResourceView : View
     public ResourceView BrandView;
 
     public GameObject Container;
-
-    void OnEnable()
-    {
-        ListenMenuChanges(this);
-
-        if (MyProductEntity != null)
-        {
-            MyProductEntity.AddProductListener(this);
-            MyProductEntity.AddMarketingListener(this);
-            MyProductEntity.AddCompanyResourceListener(this);
-
-        }
-        LazyUpdate(this);
-
-        Render();
-    }
 
     string GetFormattedPeriod()
     {
@@ -60,22 +38,26 @@ public class MenuResourceView : View
         return String.Format("{1} we get: \n\n {0}", VisualUtils.Sign(val), GetFormattedPeriod());
     }
 
-    void Hide()
-    {
-        Container.SetActive(false);
-    }
-
     TeamResource GetCompanyResourcePeriodChange()
     {
         return CompanyEconomyUtils.GetResourceChange(MyProductEntity, GameContext);
     }
 
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
+    }
+
+    void Hide()
+    {
+        Container.SetActive(false);
+    }
+
     public void Render()
     {
-        if (CurrentScreen == ScreenMode.DevelopmentScreen ||
-            CurrentScreen == ScreenMode.TeamScreen ||
-            CurrentScreen == ScreenMode.MarketingScreen
-            )
+        if (CurrentScreen == ScreenMode.DevelopmentScreen || CurrentScreen == ScreenMode.TeamScreen || CurrentScreen == ScreenMode.MarketingScreen)
             Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
         else
             Hide();
@@ -103,41 +85,8 @@ public class MenuResourceView : View
         hint = GetHintText(resourceMonthChanges.ideaPoints);
         IdeaView.SetPrettifiedValue(hint, teamResource.ideaPoints);
 
-
-        // audience
-        //hint = String.Format(
-        //    "We will lose {0} clients this month due to:\n\n Churn rate: {1}%",
-        //    audience.GetChurnClients(),
-        //    (int) (audience.GetChurnRate() * 100)
-        //);
-
         ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyProductEntity));
 
-        BrandView.SetPrettifiedValue("", marketing.BrandPower);
-    }
-
-    void ICompanyResourceListener.OnCompanyResource(GameEntity entity, TeamResource resources)
-    {
-        Render();
-    }
-
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
-    {
-        Render();
-    }
-
-    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
-    {
-        Render();
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
-    {
-        Render();
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
+        BrandView.SetPrettifiedValue("Brand power makes your ads more effective", marketing.BrandPower);
     }
 }

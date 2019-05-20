@@ -17,7 +17,6 @@ public abstract class Controller : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
-
     public void Render()
     {
         foreach (var view in GetComponents<View>())

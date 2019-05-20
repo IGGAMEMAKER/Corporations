@@ -5,13 +5,13 @@ public class ListenProductMarketingChanges : Controller
 {
     public override void AttachListeners()
     {
-        if (MyProductEntity != null)
+        if (HasProductCompany)
             MyProductEntity.AddMarketingListener(this);
     }
 
     public override void DetachListeners()
     {
-        if (MyProductEntity != null)
+        if (HasProductCompany)
             MyProductEntity.RemoveMarketingListener(this);
     }
 
