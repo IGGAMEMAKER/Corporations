@@ -4,7 +4,7 @@
     {
         static BonusContainer GetClientLoyaltyBonus(GameContext gameContext, int companyId, UserType userType)
         {
-            int app = GetAppLoyaltyBonus(gameContext, companyId);
+            int app = GetClientLoyaltyAppPart(gameContext, companyId);
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
             int marketRequirement = GetClientLoyaltyMarketRequirementsPenalty(gameContext, companyId);
@@ -33,7 +33,7 @@
             return 0;
         }
 
-        public static int GetAppLoyaltyBonus(GameContext gameContext, int companyId)
+        public static int GetClientLoyaltyAppPart(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 

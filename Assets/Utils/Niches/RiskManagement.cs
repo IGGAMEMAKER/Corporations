@@ -4,7 +4,7 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        static BonusContainer GetCompanyRiskBonusContainer(GameContext gameContext, int companyId)
+        static BonusContainer GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
             int monetisation = GetMonetisationRisk(gameContext, companyId);
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
@@ -19,12 +19,12 @@ namespace Assets.Utils
 
         internal static long GetCompanyRisk(GameContext gameContext, int companyId)
         {
-            return GetCompanyRiskBonusContainer(gameContext, companyId).Sum();
+            return GetCompanyRiskBonus(gameContext, companyId).Sum();
         }
 
         public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)
         {
-            return GetCompanyRiskBonusContainer(gameContext, companyId).ToString(true);
+            return GetCompanyRiskBonus(gameContext, companyId).ToString(true);
         }
 
         public static int GetMonetisationRisk(GameContext gameContext, int companyId)
