@@ -4,6 +4,21 @@ namespace Assets.Utils
 {
     public static partial class InvestmentUtils
     {
+        public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
+        {
+            long opinion = 0;
+
+            bool isSuitableByGoal = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal);
+
+            var goalComparison = isSuitableByGoal ? 25 : -1000;
+            opinion += goalComparison;
+
+            if (company.hasProduct)
+                opinion += GetProductCompanyOpinion(company, gameContext);
+
+            return opinion;
+        }
+
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
             bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
@@ -50,21 +65,6 @@ namespace Assets.Utils
             var marketSituation = NicheUtils.GetProductCompetitiveness(company, gameContext);
 
             return marketSituation;
-        }
-
-        public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
-        {
-            long opinion = 0;
-
-            bool isSuitableByGoal = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal);
-
-            var goalComparison = isSuitableByGoal ? 25 : -1000;
-            opinion += goalComparison;
-
-            if (company.hasProduct)
-                opinion += GetProductCompanyOpinion(company, gameContext);
-
-            return opinion;
         }
     }
 }

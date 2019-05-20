@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 
 public class MarketSituationDescriptionView : View
-    , IAnyDateListener
 {
     Text Text;
     Hint Hint;
@@ -13,15 +12,10 @@ public class MarketSituationDescriptionView : View
         Hint = GetComponent<Hint>();
     }
 
-    void OnEnable()
+    public override void ViewRender()
     {
-        LazyUpdate(this);
+        base.ViewRender();
 
-        Render();
-    }
-
-    void Render()
-    {
         PickComponents();
 
         int diff = MarketingUtils.GetMarketDiff(GameContext, MyProductEntity.company.Id);
@@ -29,7 +23,12 @@ public class MarketSituationDescriptionView : View
         //"We are out of trends We follow trends We are leading trends!"
         var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
 
-        Hint.SetHint($"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})");
+
+
+        var hint = $"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})" +
+            $"\n{NicheUtils.GetProductCompetitivenessBonus(MyProductEntity, GameContext).ToString()}";
+
+        Hint.SetHint(hint);
 
         if (diff == 0)
         {
@@ -44,10 +43,5 @@ public class MarketSituationDescriptionView : View
             Text.text = $"We are out of market by {diff} levels";
             Text.color = VisualUtils.Color(VisualConstants.COLOR_NEGATIVE);
         }
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }

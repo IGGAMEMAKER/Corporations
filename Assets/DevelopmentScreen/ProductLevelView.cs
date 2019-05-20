@@ -1,26 +1,13 @@
 ﻿using UnityEngine.UI;
 
 public class ProductLevelView : View
-    , IAnyDateListener
 {
-    Text Level;
-
-    void OnEnable()
+    public override void ViewRender()
     {
-        // TODO Update
-        LazyUpdate(this);
+        base.ViewRender();
 
-        Render();
-    }
+        var Text = GetComponent<Text>();
 
-    void Render()
-    {
-        Level = GetComponent<Text>();
-        AnimateIfValueChanged(Level, MyProduct.ProductLevel + " LVL");
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
+        AnimateIfValueChanged(Text, MyProduct.ProductLevel + " LVL");
     }
 }

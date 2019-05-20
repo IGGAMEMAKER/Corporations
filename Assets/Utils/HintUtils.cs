@@ -20,9 +20,8 @@ public class BonusContainer
     public bool renderTitle;
     public string dimension;
 
-    public BonusContainer(string bonusName, bool renderTitle = false) {
+    public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
-        this.renderTitle = renderTitle;
 
         parameter = bonusName;
     }
@@ -71,6 +70,11 @@ public class BonusContainer
     public string ToString(bool positiveIsNegative = false)
     {
         StringBuilder str = new StringBuilder();
+
+        long val = Sum();
+
+        if (renderTitle)
+            str.AppendFormat("{0} is {1}", parameter, val);
 
         str.AppendLine("\n** Based on **");
 

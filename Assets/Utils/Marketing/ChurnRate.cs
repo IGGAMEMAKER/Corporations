@@ -21,7 +21,8 @@ namespace Assets.Utils
             var baseValue = GetUserTypeBaseValue(userType);
             var fromLoyalty = GetChurnRateLoyaltyPart(gameContext, companyId, userType);
 
-            return new BonusContainer("Churn rate", true)
+            return new BonusContainer("Churn rate")
+                .RenderTitle()
                 .SetDimension("%")
                 .Append($"Base for {EnumUtils.GetFormattedUserType(userType)}", baseValue)
                 .Append("From loyalty", fromLoyalty);

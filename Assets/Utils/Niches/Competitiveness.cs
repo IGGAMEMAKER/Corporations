@@ -13,6 +13,7 @@ namespace Assets.Utils
             int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
 
             return new BonusContainer("Product Competitiveness")
+                .RenderTitle()
                 .Append("Product Level", productLevel)
                 .Append("Market Requirements", -marketLevel)
                 .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
