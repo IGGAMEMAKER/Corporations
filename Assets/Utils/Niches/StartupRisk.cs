@@ -4,30 +4,31 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
+        static BonusContainer GetRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             int baseValue = Constants.RISKS_MONETISATION_MAX;
             int demand = GetMarketDemandRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
-            return baseValue + demand + competitors;
-        }
+            int risk = baseValue + demand + competitors;
 
-        public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
-        {
-            int risk = GetStartupRiskOnNiche(gameContext, nicheType);
-
-            int baseValue = Constants.RISKS_MONETISATION_MAX;
-            int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
-
-            BonusContainer bonusContainer = new BonusContainer("Startup risk", risk);
-
-            bonusContainer
+            return new BonusContainer("Startup risk", risk)
                 .SetDimension("%")
                 .Append("Base value", baseValue)
                 .Append("Unknown demand", demand)
                 .Append("Strong competitors", competitors);
+        }
+
+        public static long GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
+        {
+            return GetRiskOnNiche(gameContext, nicheType).Sum();
+        }
+
+        public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
+        {
+            var bonusContainer = GetRiskOnNiche(gameContext, nicheType);
+
+            var risk = bonusContainer.Sum();
 
             string text = ShowRiskStatus(risk).ToString();
 
@@ -40,7 +41,7 @@ namespace Assets.Utils
             return 33;
         }
 
-        public static Risk ShowRiskStatus(int risk)
+        public static Risk ShowRiskStatus(long risk)
         {
             if (risk < 10)
                 return Risk.Guaranteed;

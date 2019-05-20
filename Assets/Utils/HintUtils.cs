@@ -22,6 +22,8 @@ public class BonusContainer
     public bool renderTitle;
     public string dimension;
 
+
+
     public BonusContainer(BonusDescription bonusDescription, bool renderTitle = false) {
         bonusDescriptions = new List<BonusDescription>();
         this.renderTitle = renderTitle;
@@ -48,6 +50,11 @@ public class BonusContainer
         bonusDescriptions.Add(bonus);
 
         return this;
+    }
+
+    public BonusContainer AppendAndHideIfZero(string bonusName, long value, string dimension = "")
+    {
+        return Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
     }
 
     public BonusContainer Append(string bonusName, long value, string dimension = "")

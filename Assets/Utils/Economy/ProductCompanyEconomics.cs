@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     partial class CompanyEconomyUtils
     {
