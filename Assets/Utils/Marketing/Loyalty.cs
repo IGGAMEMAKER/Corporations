@@ -9,14 +9,11 @@
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
             int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
 
-            BonusContainer bonusContainer = new BonusContainer("Client loyalty is");
-
-            bonusContainer.Append("App level", app);
-            bonusContainer.Append("Market demand", -marketRequirement);
-            bonusContainer.Append("Bugs", -bugs);
-            bonusContainer.Append("Pricing", -pricing);
-
-            return bonusContainer;
+            return new BonusContainer("Client loyalty is")
+                .Append("App level", app)
+                .Append("Market demand", -marketRequirement)
+                .Append("Bugs", -bugs)
+                .Append("Pricing", -pricing);
         }
 
         public static long GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
