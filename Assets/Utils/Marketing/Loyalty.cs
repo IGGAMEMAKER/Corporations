@@ -7,11 +7,11 @@
             int app = GetAppLoyaltyBonus(gameContext, companyId);
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
-            int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
+            int marketRequirement = GetClientLoyaltyMarketRequirementsPenalty(gameContext, companyId);
 
             return new BonusContainer("Client loyalty is")
                 .Append("Product level", app)
-                .Append("Niche requirements", -marketRequirement)
+                .Append("Market requirements", -marketRequirement)
                 .Append("Bugs", -bugs)
                 .Append("Pricing", -pricing);
         }
@@ -40,7 +40,7 @@
             return c.product.ProductLevel * 4;
         }
 
-        public static int GetClientLoyaltyMarketSituationBonus(GameContext gameContext, int companyId)
+        public static int GetClientLoyaltyMarketRequirementsPenalty(GameContext gameContext, int companyId)
         {
             return 10 * 4;
         }

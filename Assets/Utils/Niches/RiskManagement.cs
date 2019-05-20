@@ -12,9 +12,9 @@ namespace Assets.Utils
 
             return new BonusContainer("Total risk")
                 .SetDimension("%")
-                .Append("Is profitable?", monetisation)
                 .Append("Niche demand risk", marketDemand)
-                .Append("Competitors risk", competitiveness);
+                .Append("Competitors risk", competitiveness)
+                .Append("Is profitable?", monetisation);
         }
 
         internal static long GetCompanyRisk(GameContext gameContext, int companyId)
