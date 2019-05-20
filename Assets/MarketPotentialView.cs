@@ -29,7 +29,7 @@ public class MarketPotentialView : View
 
         IterationCost.text = "100";
 
-        int risk = NicheUtils.GetStartupRiskOnNiche(GameContext, NicheType);
+        var risk = NicheUtils.GetStartupRiskOnNiche(GameContext, NicheType);
         string riskText = NicheUtils.GetStartupRiskOnNicheDescription(GameContext, NicheType);
 
         RiskLabel.text = NicheUtils.ShowRiskStatus(risk).ToString();

@@ -1,37 +1,32 @@
-﻿using System;
-using System.Text;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
-        public static int GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            int app = GetAppLoyaltyBonus(gameContext, companyId);
-            int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
-            int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
-            int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
-
-            return app - bugs - pricing - marketRequirement;
-        }
-
-        public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
+        static BonusContainer GetClientLoyaltyBonus(GameContext gameContext, int companyId, UserType userType)
         {
             int app = GetAppLoyaltyBonus(gameContext, companyId);
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
             int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
 
-            BonusContainer bonusContainer = new BonusContainer("Client loyalty is", GetClientLoyalty(gameContext, companyId, userType));
+            BonusContainer bonusContainer = new BonusContainer("Client loyalty is");
 
             bonusContainer.Append("App level", app);
             bonusContainer.Append("Market demand", -marketRequirement);
             bonusContainer.Append("Bugs", -bugs);
             bonusContainer.Append("Pricing", -pricing);
 
-            return bonusContainer.ToString();
+            return bonusContainer;
+        }
+
+        public static long GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
+        {
+            return GetClientLoyaltyBonus(gameContext, companyId, userType).Sum();
+        }
+
+        public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
+        {
+            return GetClientLoyaltyBonus(gameContext, companyId, userType).ToString();
         }
 
         public static int GetClientLoyaltyBugPenalty(GameContext gameContext, int companyId)

@@ -6,7 +6,7 @@
         {
             var opinion = GetInvestorOpinion(gameContext, company, investor);
 
-            var description = new BonusContainer("Investor opinion", opinion);
+            var description = new BonusContainer("Investor opinion");
 
             if (company.hasProduct)
                 AppendProductBonuses(description, company, gameContext);
@@ -27,7 +27,6 @@
 
         private static void AppendCompanyGroupBonuses(BonusContainer bonusContainer, GameEntity company)
         {
-
         }
 
         private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company, GameContext gameContext)

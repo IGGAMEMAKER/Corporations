@@ -34,6 +34,13 @@ public class BonusContainer
         return this;
     }
 
+    public BonusContainer RenderTitle()
+    {
+        renderTitle = true;
+
+        return this;
+    }
+
     public BonusContainer Append(BonusDescription bonus)
     {
         bonusDescriptions.Add(bonus);

@@ -6,7 +6,7 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
-        public static int GetChurnRateLoyaltyPart(GameContext gameContext, int companyId, UserType userType)
+        public static long GetChurnRateLoyaltyPart(GameContext gameContext, int companyId, UserType userType)
         {
             var loyalty = GetClientLoyalty(gameContext, companyId, userType);
 
@@ -18,8 +18,8 @@ namespace Assets.Utils
 
         public static BonusContainer GetChurnBonus(GameContext gameContext, int companyId, UserType userType)
         {
-            int baseValue = GetUserTypeBaseValue(userType);
-            int fromLoyalty = GetChurnRateLoyaltyPart(gameContext, companyId, userType);
+            var baseValue = GetUserTypeBaseValue(userType);
+            var fromLoyalty = GetChurnRateLoyaltyPart(gameContext, companyId, userType);
 
             return new BonusContainer("Churn rate", true)
                 .SetDimension("%")
@@ -27,7 +27,7 @@ namespace Assets.Utils
                 .Append("From loyalty", fromLoyalty);
         }
 
-        public static int GetChurnRate(GameContext gameContext, int companyId, UserType userType)
+        public static long GetChurnRate(GameContext gameContext, int companyId, UserType userType)
         {
             return GetChurnBonus(gameContext, companyId, userType).Sum();
         }
