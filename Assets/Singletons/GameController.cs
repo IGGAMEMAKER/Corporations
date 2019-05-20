@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }
 
     void Update()
