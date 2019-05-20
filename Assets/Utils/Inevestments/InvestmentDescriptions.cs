@@ -4,12 +4,12 @@
     {
         internal static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
         {
-            int opinion = GetInvestorOpinion(gameContext, company, investor);
+            var opinion = GetInvestorOpinion(gameContext, company, investor);
 
             var description = new BonusContainer("Investor opinion", opinion);
 
             if (company.hasProduct)
-                AppendProductBonuses(description, company);
+                AppendProductBonuses(description, company, gameContext);
             else
                 AppendCompanyGroupBonuses(description, company);
 
@@ -30,9 +30,9 @@
 
         }
 
-        private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company)
+        private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company, GameContext gameContext)
         {
-            bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitivenessBonus(company));
+            bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitiveness(company, gameContext));
         }
 
         public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)

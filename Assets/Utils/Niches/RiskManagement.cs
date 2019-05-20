@@ -4,34 +4,29 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        internal static int GetCompanyRisk(GameContext gameContext, int companyId)
+        static BonusContainer GetCompanyRiskBonusContainer(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
             int monetisation = GetMonetisationRisk(gameContext, companyId);
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
 
-            return monetisation + marketDemand + competitiveness;
+            int risk = monetisation + marketDemand + competitiveness;
+
+            return new BonusContainer("Total risk", risk)
+                .SetDimension("%")
+                .Append("Is profitable?", monetisation)
+                .Append("Niche demand risk", marketDemand)
+                .Append("Competitors risk", competitiveness);
+        }
+
+        internal static long GetCompanyRisk(GameContext gameContext, int companyId)
+        {
+            return GetCompanyRiskBonusContainer(gameContext, companyId).Sum();
         }
 
         public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)
         {
-            int risk = GetCompanyRisk(gameContext, companyId);
-
-            int monetisation = GetMonetisationRisk(gameContext, companyId);
-            int marketDemand = GetMarketDemandRisk(gameContext, companyId);
-            int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
-
-            BonusContainer description = new BonusContainer("Total risk", risk);
-
-            description
-                .SetDimension("%")
-                .Append("Monetisation risk", monetisation)
-                .Append("Niche demand risk", marketDemand)
-                .Append("Competitors risk", competitiveness);
-
-            return description.ToString(true);
+            return GetCompanyRiskBonusContainer(gameContext, companyId).ToString(true);
         }
 
         public static int GetMonetisationRisk(GameContext gameContext, int companyId)
@@ -61,61 +56,6 @@ namespace Assets.Utils
         public static int GetCompetititiveRiskOnNiche(GameContext gameContext, int companyId)
         {
             return 33;
-        }
-
-        public static int GetNewPlayerRiskOnNiche(GameContext gameContext, NicheType nicheType)
-        {
-            // based on competitors level and amount
-            return 33;
-        }
-
-        public static int GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
-        {
-            return
-                Constants.RISKS_MONETISATION_MAX +
-                GetMarketDemandRisk(gameContext, nicheType) +
-                GetNewPlayerRiskOnNiche(gameContext, nicheType);
-        }
-
-        public static Risk ShowRiskStatus(int risk)
-        {
-            if (risk < 10)
-                return Risk.Guaranteed;
-
-            if (risk < 50)
-                return Risk.Risky;
-
-            return Risk.TooRisky;
-        }
-
-        public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
-        {
-            int risk = GetStartupRiskOnNiche(gameContext, nicheType);
-
-            int baseValue = Constants.RISKS_MONETISATION_MAX;
-            int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
-
-            BonusContainer bonusContainer = new BonusContainer("Startup risk", risk);
-
-            bonusContainer.Append("Base value", baseValue);
-            bonusContainer.Append("Unknown demand", demand);
-            bonusContainer.Append("Strong competitors", competitors);
-
-            string text = ShowRiskStatus(risk).ToString();
-
-            return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
-        }
-
-        internal static int GetProductCompetitivenessBonus(GameEntity company)
-        {
-            int marketLevel = 10;
-
-            int productLevel = company.product.ProductLevel;
-
-            int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
-
-            return productLevel - marketLevel + techLeadershipBonus;
         }
     }
 }

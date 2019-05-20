@@ -45,22 +45,22 @@ namespace Assets.Utils
             }
         }
 
-        public static int GetProductCompanyOpinion(GameEntity company)
+        public static long GetProductCompanyOpinion(GameEntity company, GameContext gameContext)
         {
-            int marketSituation = NicheUtils.GetProductCompetitivenessBonus(company);
+            var marketSituation = NicheUtils.GetProductCompetitiveness(company, gameContext);
 
             return marketSituation;
         }
 
-        public static int GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
+        public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
         {
-            int opinion = 0;
+            long opinion = 0;
 
-            int goalComparison = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal) ? 25 : -1000;
+            var goalComparison = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal) ? 25 : -1000;
             opinion += goalComparison;
 
             if (company.hasProduct)
-                opinion += GetProductCompanyOpinion(company);
+                opinion += GetProductCompanyOpinion(company, gameContext);
 
             return opinion;
         }

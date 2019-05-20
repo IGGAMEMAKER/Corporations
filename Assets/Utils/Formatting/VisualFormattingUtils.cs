@@ -106,7 +106,7 @@ public static class VisualUtils
         return Describe(bonus.Name, bonus.Value, bonus.Dimension, false);
     }
 
-    public static string Describe(int value, string positiveText, string negativeText)
+    public static string Describe(long value, string positiveText, string negativeText)
     {
         if (value == 0)
             return "";

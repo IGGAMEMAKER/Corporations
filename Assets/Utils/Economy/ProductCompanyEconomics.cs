@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         private static long GetProductCompanyCost(GameContext context, int companyId)
         {
-            int risks = NicheUtils.GetCompanyRisk(context, companyId);
+            var risks = NicheUtils.GetCompanyRisk(context, companyId);
 
             return GetProductCompanyBaseCost(context, companyId) * (100 - risks) / 100;
         }

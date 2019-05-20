@@ -33,7 +33,7 @@ public class RisksView : View
 
         var companyId = c.company.Id;
 
-        int risk = NicheUtils.GetCompanyRisk(GameContext, companyId);
+        var risk = NicheUtils.GetCompanyRisk(GameContext, companyId);
 
         var text = $"This reduces base company cost by {risk}%\n {NicheUtils.GetCompanyRiskDescription(GameContext, companyId)}";
 

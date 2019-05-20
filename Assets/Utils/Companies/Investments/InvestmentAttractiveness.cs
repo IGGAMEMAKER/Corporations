@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
@@ -56,14 +58,16 @@
 
         public static int GetInvestmentAttractiveness(GameContext context, int companyId)
         {
+            Debug.Log("//TODO GetInvestmentAttractiveness");
+            return 0;
             var c = GetCompanyById(context, companyId);
 
             if (IsProductCompany(c))
             {
                 //UnityEngine.Random.Range(0, 3)
-                int risk = NicheUtils.GetCompanyRisk(context, companyId);
+                var risk = NicheUtils.GetCompanyRisk(context, companyId);
 
-                return ProjectRange(100 - risk, 0, 100, 0, 10);
+                //return ProjectRange(100 - risk, 0, 100, 0, 10);
             } else
             {
                 int ROI = System.Convert.ToInt32(CompanyEconomyUtils.GetBalanceROI(c, context));

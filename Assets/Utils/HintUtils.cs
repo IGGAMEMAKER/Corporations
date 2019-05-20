@@ -55,12 +55,19 @@ public class BonusContainer
         return Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
     }
 
-    public BonusContainer Build()
+    public long Sum()
     {
         long sum = 0;
 
         foreach (var bonus in bonusDescriptions)
             sum += bonus.Value;
+
+        return sum;
+    }
+
+    public BonusContainer Build()
+    {
+        var sum = Sum();
 
         var unknown = new BonusDescription { Name = "UNKNOWN DATA", HideIfZero = true, Value = parameter.Value - sum };
 

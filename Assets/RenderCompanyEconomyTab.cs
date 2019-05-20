@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 
 public class RenderCompanyEconomyTab : View
-    , IAnyDateListener
 {
     public Text Income;
     public Text Maintenance;
@@ -11,30 +10,20 @@ public class RenderCompanyEconomyTab : View
     public Hint IncomeHint;
     public Hint MaintenanceHint;
 
-    private void OnEnable()
+    public override void ViewRender()
     {
-        Render();
+        base.ViewRender();
 
-        ListenDateChanges(this);
-    }
-
-    void Render()
-    {
         int companyId = GetComponent<SetTargetCompany>().companyId;
 
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
 
         Income.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(company, GameContext));
+        IncomeHint.SetHint(CompanyEconomyUtils.GetIncomeDescription(GameContext, companyId));
+
         Maintenance.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyMaintenance(company, GameContext));
+        MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
 
         Change.UpdateValue(CompanyEconomyUtils.GetBalanceChange(company, GameContext));
-
-        IncomeHint.SetHint(CompanyEconomyUtils.GetIncomeDescription(GameContext, companyId));
-        MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }
