@@ -17,7 +17,7 @@
 
 
             string title = VisualUtils.Describe(
-                opinion,
+                description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest"
             );

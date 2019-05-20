@@ -22,10 +22,5 @@ namespace Assets.Utils
         {
             return GetProductCompetitivenessBonus(company, gameContext).Sum();
         }
-
-        //public static string GetProductCompetitivenessDescription(GameEntity company, GameContext gameContext)
-        //{
-
-        //}
     }
 }

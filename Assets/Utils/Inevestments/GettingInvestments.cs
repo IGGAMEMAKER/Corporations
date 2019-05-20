@@ -56,7 +56,9 @@ namespace Assets.Utils
         {
             long opinion = 0;
 
-            var goalComparison = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal) ? 25 : -1000;
+            bool isSuitableByGoal = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal);
+
+            var goalComparison = isSuitableByGoal ? 25 : -1000;
             opinion += goalComparison;
 
             if (company.hasProduct)

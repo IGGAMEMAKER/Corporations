@@ -10,8 +10,8 @@
             int marketRequirement = GetClientLoyaltyMarketSituationBonus(gameContext, companyId);
 
             return new BonusContainer("Client loyalty is")
-                .Append("App level", app)
-                .Append("Market demand", -marketRequirement)
+                .Append("Product level", app)
+                .Append("Niche requirements", -marketRequirement)
                 .Append("Bugs", -bugs)
                 .Append("Pricing", -pricing);
         }
