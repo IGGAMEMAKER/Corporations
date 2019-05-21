@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarketInitializerSystem : IInitializeSystem
+public partial class MarketInitializerSystem : IInitializeSystem
     //, IMarketGenerator
 {
     readonly GameContext GameContext;
@@ -65,36 +65,6 @@ public class MarketInitializerSystem : IInitializeSystem
     GameEntity GetNicheEntity(NicheType nicheType)
     {
         return Array.Find(GameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
-    }
-
-    void InitializeCloudsIndustry()
-    {
-        IndustryType industry = IndustryType.CloudComputing;
-
-        AttachNicheToIndustry(NicheType.CloudComputing, industry);
-    }
-
-    void InitializeOSIndustry()
-    {
-        IndustryType industry = IndustryType.OS;
-
-        AttachNicheToIndustry(NicheType.OSSciencePurpose, industry);
-        AttachNicheToIndustry(NicheType.OSCommonPurpose, industry);
-    }
-
-    void InitializeCommunicationsIndustry()
-    {
-        IndustryType industry = IndustryType.Communications;
-
-        AttachNicheToIndustry(NicheType.Messenger, industry);
-        AttachNicheToIndustry(NicheType.SocialNetwork, industry);
-    }
-
-    private void InitializeSearchIndustry()
-    {
-        IndustryType industry = IndustryType.Search;
-
-        AttachNicheToIndustry(NicheType.SearchEngine, industry);
     }
 
     void AttachNicheToIndustry(NicheType niche, IndustryType industry)
