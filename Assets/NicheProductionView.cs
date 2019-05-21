@@ -5,6 +5,8 @@ public class NicheProductionView : View
 {
     public Text IdeasCost;
     public Text TechCost;
+    public Text SalesCost;
+    public Text AdCost;
 
     public override void ViewRender()
     {
@@ -14,7 +16,10 @@ public class NicheProductionView : View
 
         var costs = NicheUtils.GetNicheEntity(GameContext, niche).nicheCosts;
 
-        IdeasCost.text = costs.IdeaCost.ToString();
-        TechCost.text = costs.TechCost.ToString();
+        IdeasCost.text = ValueFormatter.Shorten(costs.IdeaCost);
+        TechCost.text = ValueFormatter.Shorten(costs.TechCost);
+        SalesCost.text = ValueFormatter.Shorten(costs.MarketingCost);
+
+        AdCost.text = ValueFormatter.Shorten(costs.AdCost);
     }
 }
