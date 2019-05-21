@@ -7,6 +7,11 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
+        public static GameEntity GetNicheEntity(GameContext gameContext, NicheType nicheType)
+        {
+            return Array.Find(gameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+        }
+
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);

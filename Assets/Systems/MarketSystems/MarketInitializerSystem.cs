@@ -79,7 +79,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity GetNicheEntity(NicheType nicheType)
     {
-        return Array.Find(GameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+        return NicheUtils.GetNicheEntity(GameContext, nicheType);
     }
 
     GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)
