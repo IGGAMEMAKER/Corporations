@@ -7,6 +7,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         IndustryType industry = IndustryType.CloudComputing;
 
         AttachNicheToIndustry(NicheType.CloudComputing, industry);
+        SetNicheCosts(NicheType.CloudComputing, 1, 100, 100, 50, 35, 1000);
     }
 
     void InitializeOSIndustry()

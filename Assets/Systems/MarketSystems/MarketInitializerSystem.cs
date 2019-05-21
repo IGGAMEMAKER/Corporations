@@ -58,8 +58,23 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 0
                 );
 
-            e.AddNicheCosts(10f, 50, 15, 15, 15, 100);
+            e.AddNicheCosts(1, 1, 1, 1, 1, 1);
+            e.AddNicheState(new int[5]);
         }
+    }
+
+    GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost)
+    {
+        e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newIdeaCost, newMarketingCost, newAdCost);
+
+        return e;
+    }
+
+    GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost)
+    {
+        var e = GetNicheEntity(niche);
+
+        return SetNicheCosts(e, newBasePrice, newClientBatch, newTechCost, newIdeaCost, newMarketingCost, newAdCost);
     }
 
     GameEntity GetNicheEntity(NicheType nicheType)
@@ -67,7 +82,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Array.Find(GameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
     }
 
-    void AttachNicheToIndustry(NicheType niche, IndustryType industry)
+    GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)
     {
         var e = GetNicheEntity(niche);
 
@@ -79,9 +94,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
             e.niche.Parent,
             e.niche.OpenDate
             );
+
+        return e;
     }
 
-    void ForkNiche(NicheType parent, NicheType child)
+    GameEntity ForkNiche(NicheType parent, NicheType child)
     {
         var e = GetNicheEntity(child);
 
@@ -93,6 +110,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
             parent,
             e.niche.OpenDate
             );
+
+        return e;
     }
 
     void SetChildsAsCompetingNiches(NicheType parent)
