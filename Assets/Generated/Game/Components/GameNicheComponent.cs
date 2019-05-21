@@ -11,7 +11,7 @@ public partial class GameEntity {
     public NicheComponent niche { get { return (NicheComponent)GetComponent(GameComponentsLookup.Niche); } }
     public bool hasNiche { get { return HasComponent(GameComponentsLookup.Niche); } }
 
-    public void AddNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate, float newBasePrice) {
+    public void AddNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate) {
         var index = GameComponentsLookup.Niche;
         var component = (NicheComponent)CreateComponent(index, typeof(NicheComponent));
         component.NicheType = newNicheType;
@@ -20,11 +20,10 @@ public partial class GameEntity {
         component.CompetingNiches = newCompetingNiches;
         component.Parent = newParent;
         component.OpenDate = newOpenDate;
-        component.BasePrice = newBasePrice;
         AddComponent(index, component);
     }
 
-    public void ReplaceNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate, float newBasePrice) {
+    public void ReplaceNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate) {
         var index = GameComponentsLookup.Niche;
         var component = (NicheComponent)CreateComponent(index, typeof(NicheComponent));
         component.NicheType = newNicheType;
@@ -33,7 +32,6 @@ public partial class GameEntity {
         component.CompetingNiches = newCompetingNiches;
         component.Parent = newParent;
         component.OpenDate = newOpenDate;
-        component.BasePrice = newBasePrice;
         ReplaceComponent(index, component);
     }
 

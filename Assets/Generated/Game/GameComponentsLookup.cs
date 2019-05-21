@@ -47,24 +47,26 @@ public static class GameComponentsLookup {
     public const int MetricsHistory = 36;
     public const int NavigationHistory = 37;
     public const int Niche = 38;
-    public const int Notifications = 39;
-    public const int Product = 40;
-    public const int ProductListener = 41;
-    public const int PublicCompany = 42;
-    public const int Shareholder = 43;
-    public const int Shareholders = 44;
-    public const int ShareholdersListener = 45;
-    public const int Targeting = 46;
-    public const int TargetingListener = 47;
-    public const int TargetUserType = 48;
-    public const int Task = 49;
-    public const int TaskManager = 50;
-    public const int Team = 51;
-    public const int TeamListener = 52;
-    public const int TechnologyLeader = 53;
-    public const int TechnologyLeaderListener = 54;
+    public const int NicheCosts = 39;
+    public const int NicheState = 40;
+    public const int Notifications = 41;
+    public const int Product = 42;
+    public const int ProductListener = 43;
+    public const int PublicCompany = 44;
+    public const int Shareholder = 45;
+    public const int Shareholders = 46;
+    public const int ShareholdersListener = 47;
+    public const int Targeting = 48;
+    public const int TargetingListener = 49;
+    public const int TargetUserType = 50;
+    public const int Task = 51;
+    public const int TaskManager = 52;
+    public const int Team = 53;
+    public const int TeamListener = 54;
+    public const int TechnologyLeader = 55;
+    public const int TechnologyLeaderListener = 56;
 
-    public const int TotalComponents = 55;
+    public const int TotalComponents = 57;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -106,6 +108,8 @@ public static class GameComponentsLookup {
         "MetricsHistory",
         "NavigationHistory",
         "Niche",
+        "NicheCosts",
+        "NicheState",
         "Notifications",
         "Product",
         "ProductListener",
@@ -164,6 +168,8 @@ public static class GameComponentsLookup {
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
         typeof(NicheComponent),
+        typeof(NicheCostsComponent),
+        typeof(NicheStateComponent),
         typeof(NotificationsComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),

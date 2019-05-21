@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class MarketInitializerSystem : IInitializeSystem
-    //, IMarketGenerator
 {
     readonly GameContext GameContext;
 
@@ -56,9 +55,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
                 NicheType.None,
-                0,
-                10f
+                0
                 );
+
+            e.AddNicheCosts(10f, 50, 15, 15, 15, 100);
         }
     }
 
@@ -77,8 +77,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
             e.niche.Parent,
-            e.niche.OpenDate,
-            e.niche.BasePrice
+            e.niche.OpenDate
             );
     }
 
@@ -92,8 +91,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
             parent,
-            e.niche.OpenDate,
-            e.niche.BasePrice
+            e.niche.OpenDate
             );
     }
 
@@ -114,7 +112,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         list.Add(new MarketCompatibility { Compatibility = compatibility, NicheType = niche });
 
-        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent, n.OpenDate, n.BasePrice);
+        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent, n.OpenDate);
     }
 
     void SetNichesAsSynergic(NicheType niche1, NicheType niche2, int compatibility)

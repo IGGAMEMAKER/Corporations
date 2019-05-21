@@ -1,8 +1,5 @@
-﻿using Assets.Classes;
-using Entitas;
-using Entitas.CodeGeneration.Attributes;
+﻿using Entitas;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 [Game]
@@ -30,6 +27,23 @@ public class NicheComponent : IComponent
 
     public NicheType Parent;
     public int OpenDate;
+}
 
+[Game]
+public class NicheCostsComponent : IComponent
+{
     public float BasePrice;
+    public long ClientBatch;
+
+    public int TechCost;
+    public int IdeaCost;
+    public int MarketingCost;
+    public int AdCost;
+}
+
+[Game]
+public class NicheStateComponent : IComponent
+{
+    public int[] Growth;
+
 }
