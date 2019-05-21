@@ -2,7 +2,6 @@
 using UnityEngine;
 
 public class RisksView : View
-    , IAnyDateListener
 {
     public GameObject RiskContainer;
 
@@ -11,15 +10,10 @@ public class RisksView : View
     public GameObject MonetisationRisk;
     public GameObject CompetitorsRisk;
 
-    void OnEnable()
+    public override void ViewRender()
     {
-        Render();
+        base.ViewRender();
 
-        LazyUpdate(this);
-    }
-
-    void Render()
-    {
         var c = SelectedCompany;
 
         if (CompanyUtils.IsCompanyGroupLike(c))
@@ -39,10 +33,5 @@ public class RisksView : View
 
         TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
         TotalRisk.GetComponent<Hint>().SetHint(text);
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }

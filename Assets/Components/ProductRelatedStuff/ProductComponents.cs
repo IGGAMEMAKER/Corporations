@@ -33,6 +33,15 @@ public class MarketingComponent : IComponent
     public Dictionary<UserType, long> Segments;
 }
 
+[Game, Event(EventTarget.Self)]
+public class FinanceComponent : IComponent
+{
+    public Pricing price;
+    public MarketingFinancing marketingFinancing;
+    public int salaries;
+    public float basePrice;
+}
+
 [Game]
 public class TargetUserTypeComponent : IComponent
 {

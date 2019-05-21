@@ -1,22 +1,17 @@
-﻿public class ScheduleView : View
-    , IAnyDateListener
+﻿using Assets.Utils;
+using UnityEngine.UI;
+
+public class ScheduleView : View
 {
     public ResourceView ScheduleResourceView;
+    public Text PauseStatus;
 
-    private void OnEnable()
+    public override void ViewRender()
     {
-        ListenDateChanges(this);
+        base.ViewRender();
 
-        Render();
-    }
-
-    public void Render()
-    {
         ScheduleResourceView.UpdateResourceValue("Date", CurrentIntDate);
-    }
 
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
+        PauseStatus.gameObject.SetActive(!ScheduleUtils.IsTimerRunning(GameContext));
     }
 }

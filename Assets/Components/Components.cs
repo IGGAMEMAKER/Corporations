@@ -55,24 +55,6 @@ public class InvestmentProposal
     public long Offer;
 }
 
-public struct MetricsInfo
-{
-    public int Date;
-    public long Income;
-    public long Valuation;
-    
-    // balance change
-    public long Profit;
-    public long AudienceSize;
-}
-
-[Game]
-public class MetricsHistoryComponent : IComponent
-{
-    public List<MetricsInfo> Metrics;
-}
-
-
 [Game]
 public class TaskManagerComponent : IComponent
 {
@@ -88,11 +70,5 @@ public class TaskComponent: IComponent
     public int EndTime;
 }
 
-[Game, Event(EventTarget.Self)]
-public class FinanceComponent : IComponent
-{
-    public Pricing price;
-    public MarketingFinancing marketingFinancing;
-    public int salaries;
-    public float basePrice;
-}
+[Game]
+public class TimerRunningComponent : IComponent { }

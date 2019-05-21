@@ -124,3 +124,20 @@ public class CompanyPhaseComponent : IComponent
     public bool raisedInvestments;
     public bool IPOed;
 }
+
+public struct MetricsInfo
+{
+    public int Date;
+    public long Income;
+    public long Valuation;
+
+    // balance change
+    public long Profit;
+    public long AudienceSize;
+}
+
+[Game]
+public class MetricsHistoryComponent : IComponent
+{
+    public List<MetricsInfo> Metrics;
+}

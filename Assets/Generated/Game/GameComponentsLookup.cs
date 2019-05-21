@@ -65,8 +65,9 @@ public static class GameComponentsLookup {
     public const int TeamListener = 54;
     public const int TechnologyLeader = 55;
     public const int TechnologyLeaderListener = 56;
+    public const int TimerRunning = 57;
 
-    public const int TotalComponents = 57;
+    public const int TotalComponents = 58;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -125,7 +126,8 @@ public static class GameComponentsLookup {
         "Team",
         "TeamListener",
         "TechnologyLeader",
-        "TechnologyLeaderListener"
+        "TechnologyLeaderListener",
+        "TimerRunning"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -185,6 +187,7 @@ public static class GameComponentsLookup {
         typeof(TeamComponent),
         typeof(TeamListenerComponent),
         typeof(TechnologyLeaderComponent),
-        typeof(TechnologyLeaderListenerComponent)
+        typeof(TechnologyLeaderListenerComponent),
+        typeof(TimerRunningComponent)
     };
 }

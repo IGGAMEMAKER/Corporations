@@ -21,6 +21,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     {
         DateEntity = _context.CreateEntity();
         DateEntity.AddDate(0);
+        DateEntity.isTimerRunning = false;
 
         ResetTimer();
     }
@@ -35,6 +36,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     void ToggleTimer()
     {
         isTimerRunning = !isTimerRunning;
+        DateEntity.isTimerRunning = isTimerRunning;
     }
 
     void UpdateWorld()
