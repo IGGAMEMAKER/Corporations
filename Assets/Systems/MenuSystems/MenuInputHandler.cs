@@ -3,7 +3,6 @@ using Entitas;
 using System.Collections.Generic;
 
 class MenuInputSystem :
-    IExecuteSystem,
     IInitializeSystem
 {
     readonly GameContext context;
@@ -37,20 +36,5 @@ class MenuInputSystem :
         };
 
         menu.AddMenu(screen, dictionary);
-    }
-
-    void IExecuteSystem.Execute()
-    {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //    EnableScreen(ScreenMode.DevelopmentScreen, null);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //    EnableScreen(ScreenMode.CharacterScreen, null);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //    EnableScreen(ScreenMode.IndustryScreen, IndustryType.Search);
-
-        //if (Input.GetKeyDown(KeyCode.Alpha4))
-        //    EnableScreen(ScreenMode.BusinessScreen, null);
     }
 }
