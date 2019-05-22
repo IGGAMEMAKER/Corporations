@@ -30,7 +30,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeSearchIndustry();
         InitializeOSIndustry();
         InitializeCommunicationsIndustry();
-        InitializeCloudsIndustry();
 
         CheckIndustriesWithZeroNiches();
     }
@@ -51,7 +50,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             e.AddNiche(
                 niche,
-                IndustryType.CloudComputing,
+                IndustryType.Communications,
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
                 NicheType.None,

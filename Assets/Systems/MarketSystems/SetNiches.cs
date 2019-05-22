@@ -1,21 +1,25 @@
 ﻿using Entitas;
 
+public struct NicheSettings
+{
+    public IndustryType IndustryType;
+    public NicheType NicheType;
+    public float BaseProductPrice;
+    public long ClientBatch;
+
+    public int IdeaCost;
+    public int TechCost;
+    public int MarketingCost;
+    public int AdsCost;
+}
+
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    void InitializeCloudsIndustry()
-    {
-        IndustryType industry = IndustryType.CloudComputing;
-
-        AttachNicheToIndustry(NicheType.CloudComputing, industry);
-        SetNicheCosts(NicheType.CloudComputing, 1, 100, 100, 50, 35, 1000);
-    }
-
     void InitializeOSIndustry()
     {
         IndustryType industry = IndustryType.OS;
 
-        AttachNicheToIndustry(NicheType.OSSciencePurpose, industry);
-        AttachNicheToIndustry(NicheType.OSCommonPurpose, industry);
+        AttachNicheToIndustry(NicheType.OSDesktop, industry);
     }
 
     void InitializeCommunicationsIndustry()

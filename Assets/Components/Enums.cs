@@ -18,8 +18,8 @@ public enum NicheType
 
     CloudComputing,
 
-    OSCommonPurpose,
-    OSSciencePurpose,
+    OSDesktop,
+    //OSSciencePurpose,
 }
 
 public enum IndustryType
@@ -27,7 +27,7 @@ public enum IndustryType
     Communications,
     Search,
     OS,
-    CloudComputing
+    //CloudComputing
 }
 
 public enum CompanyType

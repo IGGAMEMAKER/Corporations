@@ -135,7 +135,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine);
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
-        GenerateProductCompany("Microsoft", NicheType.OSCommonPurpose);
+        GenerateProductCompany("Microsoft", NicheType.OSDesktop);
 
         SetPlayerControlledCompany(google);
 

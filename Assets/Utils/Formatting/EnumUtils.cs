@@ -33,8 +33,7 @@ namespace Assets.Utils.Formatting
                 case NicheType.CloudComputing: return "Cloud Computing";
                 case NicheType.Messenger: return "Messengers";
                 case NicheType.SocialNetwork: return "Social Networks";
-                case NicheType.OSSciencePurpose: return "Science Purpose OS";
-                case NicheType.OSCommonPurpose: return "Desktop OS";
+                case NicheType.OSDesktop: return "Desktop OS";
                 case NicheType.SearchEngine: return "Search Engines";
 
                 default: return "Unknown niche: " + niche.ToString();
@@ -47,7 +46,6 @@ namespace Assets.Utils.Formatting
             {
                 case IndustryType.OS: return "Operation Systems";
                 case IndustryType.Search: return "Search Engines";
-                case IndustryType.CloudComputing: return "Cloud computing";
                 case IndustryType.Communications: return "Communications";
 
                 default: return "Unknown Industry: " + industry.ToString();
