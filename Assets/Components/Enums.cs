@@ -26,7 +26,7 @@ public enum IndustryType
 {
     Communications,
     Search,
-    OS,
+    //OS,
     //CloudComputing
 }
 
