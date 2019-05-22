@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
@@ -12,6 +14,13 @@
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             c.isCrunching = !c.isCrunching;
+        }
+
+        internal static int GetPerformance(GameContext gameContext, GameEntity company)
+        {
+            int crunchingModifier = company.isCrunching ? 40 : 0;
+
+            return 100 + crunchingModifier;
         }
 
         public static int GetTeamMaxSize(GameEntity company)

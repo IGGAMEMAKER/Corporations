@@ -5,9 +5,10 @@ public class Constants
     public const int DEVELOPMENT_INNOVATION_PENALTY = 700; // 00;
     public const int DEVELOPMENT_CRUNCH_BONUS = 20;
 
-    public const int DEVELOPMENT_PRODUCTION_MARKETER = 1;
-    public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 1;
-    public const int DEVELOPMENT_PRODUCTION_MANAGER = 1;
+    public const int DEVELOPMENT_PRODUCTION_MARKETER = 10;
+    public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 10;
+    public const int DEVELOPMENT_PRODUCTION_MANAGER = 10;
+    public const int DEVELOPMENT_PRODUCTION_IDEAS = 30;
 
     public const int RISKS_MONETISATION_ADS_REPAYABLE = 35;
     public const int RISKS_MONETISATION_IS_PROFITABLE = 15;
