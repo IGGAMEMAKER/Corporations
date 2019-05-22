@@ -31,7 +31,7 @@ public class RisksView : View
 
         var text = $"This reduces base company cost by {risk}%\n {NicheUtils.GetCompanyRiskDescription(GameContext, companyId)}";
 
-        TotalRisk.GetComponent<ColoredValueGradient>().value = risk;
+        TotalRisk.GetComponent<ColoredValueGradient>().UpdateValue(risk);
         TotalRisk.GetComponent<Hint>().SetHint(text);
     }
 }
