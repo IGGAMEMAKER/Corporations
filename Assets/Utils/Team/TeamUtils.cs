@@ -1,13 +1,17 @@
-﻿using Entitas;
-using System;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
         private static void ReplaceTeam(GameEntity gameEntity, TeamComponent t)
         {
             gameEntity.ReplaceTeam(t.Programmers, t.Managers, t.Marketers, t.Morale);
+        }
+
+        internal static void ToggleCrunching(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            c.isCrunching = !c.isCrunching;
         }
 
         public static int GetTeamMaxSize(GameEntity company)
