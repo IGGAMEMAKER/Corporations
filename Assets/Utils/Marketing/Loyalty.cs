@@ -1,4 +1,7 @@
-﻿namespace Assets.Utils
+﻿using System;
+using System.Linq;
+
+namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -9,9 +12,13 @@
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
             int marketRequirement = GetClientLoyaltyMarketRequirementsPenalty(gameContext, companyId);
 
+            bool isOnlyPlayer = NicheUtils.GetPlayersOnMarket(gameContext, companyId).Count() == 1;
+            int onlyPlayerBonus = isOnlyPlayer ? 35 : 0;
+
             return new BonusContainer("Client loyalty is")
                 .Append("Product level", app)
                 .Append("Market requirements", -marketRequirement)
+                .AppendAndHideIfZero("Is only company", onlyPlayerBonus)
                 .Append("Bugs", -bugs)
                 .Append("Pricing", -pricing);
         }

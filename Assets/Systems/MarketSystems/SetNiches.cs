@@ -32,7 +32,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         AttachNicheToIndustry(NicheType.Messenger, industry);
         AttachNicheToIndustry(NicheType.SocialNetwork, industry);
 
-        SetNicheCosts(NicheType.Messenger,      2, 100, 75, 100, 100, 1000);
+        SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
         SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
     }
 

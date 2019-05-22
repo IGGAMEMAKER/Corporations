@@ -1,55 +1,35 @@
 ﻿using Assets.Utils;
-using UnityEngine.UI;
 
-public class MarketSituationDescriptionView : View
+public class MarketSituationDescriptionView : UpgradedParameterView
 {
-    Text Text;
-    Hint Hint;
-
-    void PickComponents()
+    public override string RenderValue()
     {
-        Text = GetComponent<Text>();
-        Hint = GetComponent<Hint>();
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        PickComponents();
-
         int diff = MarketingUtils.GetMarketDiff(GameContext, MyProductEntity.company.Id);
 
         //"We are out of trends We follow trends We are leading trends!"
         var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
 
-
-
-        var hint = $"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})" +
-            $"\n{NicheUtils.GetProductCompetitivenessBonus(MyProductEntity, GameContext).ToString()}";
-
-        Hint.SetHint(hint);
+        if (MyProductEntity.isTechnologyLeader)
+        {
+            Colorize(VisualConstants.COLOR_BEST);
+            return "We are best!";
+        }
 
         if (diff == 0)
         {
-            if (MyProductEntity.isTechnologyLeader)
-            {
-                Text.text = "We are best";
-                Text.color = VisualUtils.Color(VisualConstants.COLOR_BEST);
-            }
-            else
-            {
-                Text.text = "Market fit";
-                Text.color = VisualUtils.Color(VisualConstants.COLOR_POSITIVE);
-            }
-        } else if (diff == 1)
-        {
-            Text.text = "We need some improvements";
-            Text.color = VisualUtils.Color(VisualConstants.COLOR_NEUTRAL);
-        } else
-        {
-            Text.text = $"We are out of market by {diff} levels";
-            Text.color = VisualUtils.Color(VisualConstants.COLOR_NEGATIVE);
+            Colorize(VisualConstants.COLOR_POSITIVE);
+            return "Market fit";
         }
+
+        Colorize(VisualConstants.COLOR_NEGATIVE);
+        return $"We are out of market by {diff} levels";
+    }
+
+    public override string RenderHint()
+    {
+        var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
+
+        return $"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})" +
+            $"\n{NicheUtils.GetProductCompetitivenessBonus(MyProductEntity, GameContext).ToString()}";
     }
 }

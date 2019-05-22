@@ -55,6 +55,11 @@ public abstract class UpgradedParameterView : View
             Hint.SetHint(hint);
     }
 
+    public void Colorize(string color)
+    {
+        Text.color = VisualUtils.Color(color);
+    }
+
     public abstract string RenderValue();
     public abstract string RenderHint();
 }
