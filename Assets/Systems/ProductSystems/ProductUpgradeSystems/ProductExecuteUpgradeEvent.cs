@@ -20,22 +20,42 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
         foreach (var e in GetProductsWithUpgradeProductTask())
         {
             UpgradeProduct(e);
+
             e.RemoveEventUpgradeProduct();
         }
     }
 
+    void UpdateTechLeader(GameEntity e, int level, GameEntity nicheStateEntity)
+    {
+        e.isTechnologyLeader = true;
+
+        nicheStateEntity.ReplaceNicheState(nicheStateEntity.nicheState.Growth, level);
+
+        NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
+    }
+
+    void RemoveTechLeaders(GameEntity e)
+    {
+        var niche = e.product.Niche;
+
+        var competitors = NicheUtils.GetPlayersOnMarket(_context, niche);
+
+        foreach (var c in competitors)
+            c.isTechnologyLeader = false;
+    }
+
     void UpgradeProduct(GameEntity e)
     {
-        int explorationLevel = NicheUtils.GetLeaderApp(_context, e.company.Id).product.ProductLevel;
+        var niche = NicheUtils.GetNicheEntity(_context, e.product.Niche);
+
+        int explorationLevel = niche.nicheState.Level;
 
         int newLevel = e.eventUpgradeProduct.previousLevel + 1;
 
-        if (explorationLevel < newLevel)
-        {
-            explorationLevel = newLevel;
-
-            NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
-        }
+        if (newLevel > explorationLevel)
+            UpdateTechLeader(e, newLevel, niche);
+        else if (newLevel == explorationLevel)
+            RemoveTechLeaders(e);
 
         e.ReplaceProduct(
             e.product.Id,

@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class DevelopmentCostView : SimpleParameterView
+public class DevelopmentCostView : UpgradedParameterView
 {
     public override string RenderHint()
     {
@@ -9,7 +9,8 @@ public class DevelopmentCostView : SimpleParameterView
 
     public override string RenderValue()
     {
-        return ProductDevelopmentUtils
-            .GetDevelopmentCost(MyProductEntity, GameContext).programmingPoints.ToString();
+        var cost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext).programmingPoints;
+
+        return ValueFormatter.Shorten(cost);
     }
 }

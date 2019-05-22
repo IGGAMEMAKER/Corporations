@@ -46,4 +46,6 @@ public class NicheStateComponent : IComponent
 {
     public int[] Growth;
 
+    // when someone innovates, increment this
+    public int Level;
 }

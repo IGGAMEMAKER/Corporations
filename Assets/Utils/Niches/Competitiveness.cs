@@ -19,6 +19,13 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
         }
 
+        public static int GetMarketDemand(GameContext gameContext, NicheType nicheType)
+        {
+            var nicheState = GetNicheEntity(gameContext, nicheType).nicheState;
+
+            return nicheState.Level;
+        }
+
         internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
         {
             return GetProductCompetitivenessBonus(company, gameContext).Sum();

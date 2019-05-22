@@ -13,7 +13,7 @@ namespace Assets.Utils
     {
         public static TeamResource GetDevelopmentCost(GameEntity e, GameContext context)
         {
-            return new TeamResource(BaseDevCost(e), 0, 0, BaseIdeaCost(e), 0);
+            return new TeamResource(BaseDevCost(e, context), 0, 0, BaseIdeaCost(e, context), 0);
         }
 
         public static TeamResource GetSegmentImprovementCost(GameEntity e, GameContext gameContext)
@@ -44,26 +44,26 @@ namespace Assets.Utils
 
         public static int GetMarketRequirementsInNiche(GameContext context, NicheType nicheType)
         {
-            return 10;
-        }
+            var niche = NicheUtils.GetNicheEntity(context, nicheType).nicheState;
 
-        public static bool IsInnovating(GameEntity e, GameContext context)
-        {
-            return e.product.ProductLevel >= GetMarketRequirementsInNiche(context, e.product.Niche);
+            return niche.Level;
         }
-
 
         // niche based values
-        public static int BaseIdeaCost(GameEntity e)
+        public static int BaseIdeaCost(GameEntity e, GameContext gameContext)
         {
-            int baseIdeaCost = 15;
+            var costs = NicheUtils.GetNicheEntity(gameContext, e.product.Niche).nicheCosts;
+
+            int baseIdeaCost = costs.IdeaCost;
 
             return baseIdeaCost;
         }
 
-        public static int BaseDevCost(GameEntity e)
+        public static int BaseDevCost(GameEntity e, GameContext gameContext)
         {
-            int baseDevCost = 25;
+            var costs = NicheUtils.GetNicheEntity(gameContext, e.product.Niche).nicheCosts;
+
+            int baseDevCost = costs.TechCost;
 
             return baseDevCost;
         }

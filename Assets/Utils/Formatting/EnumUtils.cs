@@ -44,7 +44,7 @@ namespace Assets.Utils.Formatting
         {
             switch (industry)
             {
-                case IndustryType.OS: return "Operation Systems";
+                //case IndustryType.OS: return "Operation Systems";
                 case IndustryType.Search: return "Search Engines";
                 case IndustryType.Communications: return "Communications";
 

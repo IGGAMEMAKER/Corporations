@@ -37,12 +37,14 @@
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return c.product.ProductLevel * 4;
+            return c.product.ProductLevel * 5;
         }
 
         public static int GetClientLoyaltyMarketRequirementsPenalty(GameContext gameContext, int companyId)
         {
-            return 10 * 4;
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return NicheUtils.GetMarketDemand(gameContext, c.product.Niche) * 4;
         }
 
         public static int GetClientLoyaltyPricingPenalty(GameContext gameContext, int companyId)

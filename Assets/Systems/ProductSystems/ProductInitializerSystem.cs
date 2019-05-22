@@ -1,7 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
-using UnityEngine;
 
 public class ProductInitializerSystem : IInitializeSystem
 {
@@ -128,7 +127,7 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateProductCompany("twitter", NicheType.SocialNetwork);
         GenerateProductCompany("vk", NicheType.SocialNetwork);
 
-        GenerateProductCompany("telegram", NicheType.Messenger);
+        int tg = GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
 
         int google = GenerateProductCompany("Google", NicheType.SearchEngine);
@@ -136,8 +135,6 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
         GenerateProductCompany("Microsoft", NicheType.OSDesktop);
-
-        SetPlayerControlledCompany(google);
 
         // investors
         int investorId = GenerateInvestmentFund("Morgan Stanley", 1000000);
@@ -154,11 +151,11 @@ public class ProductInitializerSystem : IInitializeSystem
         int googleGroupId = PromoteToGroup(google);
         //SetPlayerControlledCompany(alphabet);
 
+        SetPlayerControlledCompany(tg);
+
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
-
-
 
         var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
         var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);

@@ -27,8 +27,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeIndustries();
         InitializeNiches();
 
-        InitializeSearchIndustry();
         //InitializeOSIndustry();
+        InitializeSearchIndustry();
         InitializeCommunicationsIndustry();
 
         CheckIndustriesWithZeroNiches();
@@ -58,7 +58,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 );
 
             e.AddNicheCosts(1, 1, 1, 1, 1, 1);
-            e.AddNicheState(new int[5]);
+            e.AddNicheState(new int[5], 1);
         }
     }
 
