@@ -15,11 +15,16 @@ namespace Assets.Utils
             bool isOnlyPlayer = NicheUtils.GetPlayersOnMarket(gameContext, companyId).Count() == 1;
             int onlyPlayerBonus = isOnlyPlayer ? 35 : 0;
 
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            int SegmentFocus = c.targetUserType.UserType == userType ? 15 : 0;
+
             return new BonusContainer("Client loyalty is")
                 .Append("Product level", app)
                 .Append("Market requirements", -marketRequirement)
+                .AppendAndHideIfZero("We are focusing on them", SegmentFocus)
                 .AppendAndHideIfZero("Is only company", onlyPlayerBonus)
-                .Append("Bugs", -bugs)
+                .AppendAndHideIfZero("Bugs", -bugs)
                 .Append("Pricing", -pricing);
         }
 
