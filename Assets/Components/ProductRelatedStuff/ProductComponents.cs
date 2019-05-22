@@ -42,7 +42,7 @@ public class FinanceComponent : IComponent
     public float basePrice;
 }
 
-[Game]
+[Game, Event(EventTarget.Self)]
 public class TargetUserTypeComponent : IComponent
 {
     public UserType UserType;
