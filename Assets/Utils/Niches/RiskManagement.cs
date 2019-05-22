@@ -6,9 +6,9 @@ namespace Assets.Utils
     {
         static BonusContainer GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
-            int monetisation = GetMonetisationRisk(gameContext, companyId);
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int competitiveness = GetCompetititiveRiskOnNiche(gameContext, companyId);
+            int monetisation = GetMonetisationRisk(gameContext, companyId);
 
             return new BonusContainer("Total risk")
                 .SetDimension("%")

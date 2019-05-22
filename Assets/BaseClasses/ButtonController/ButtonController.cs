@@ -10,7 +10,8 @@ public abstract class ButtonController : BaseClass
     public abstract void Execute();
     public virtual void ButtonStart() { }
 
-    void Start()
+    // start
+    void OnEnable()
     {
         Button = GetComponent<Button>();
 
@@ -19,8 +20,8 @@ public abstract class ButtonController : BaseClass
         ButtonStart();
     }
 
-
-    void OnDestroy()
+    // destroy
+    void OnDisable()
     {
         RemoveListener();
     }

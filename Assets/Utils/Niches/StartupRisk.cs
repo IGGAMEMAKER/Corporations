@@ -13,7 +13,7 @@ namespace Assets.Utils
             return new BonusContainer("Startup risk")
                 .SetDimension("%")
                 .Append("Is not profitable", baseValue)
-                .Append("Unknown demand", demand)
+                .Append("Niche demand risk", demand)
                 .Append("Strong competitors", competitors);
         }
 

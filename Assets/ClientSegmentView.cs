@@ -38,6 +38,7 @@ public class ClientSegmentView : View
         var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
 
         SetTargetUserType.SetUserType(UserType);
+        SetTargetUserType.gameObject.GetComponent<RenderFocusSegmentButtonView>().ViewRender();
 
         LevelLabel.text = $"{c.product.Segments[UserType]}LVL";
 
