@@ -1,6 +1,4 @@
-﻿using System;
-
-public enum WorkerRoles {
+﻿public enum WorkerRoles {
     Programmer,
     Manager,
     Marketer,
@@ -11,6 +9,8 @@ public enum WorkerRoles {
     MarketingDirector,
     CEO
 }
+
+
 
 namespace Assets.Utils
 {
