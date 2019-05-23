@@ -3,7 +3,5 @@
     public override void Execute()
     {
         TriggerEventTargetingToggle(MyProduct.Id);
-
-        ReNavigate();
     }
 }

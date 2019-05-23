@@ -8,7 +8,7 @@ public class AbandonCompanyController : ButtonController
         {
             CompanyUtils.LeaveCEOChair(GameContext, SelectedCompany.company.Id);
 
-            ReNavigate();
+            //ReNavigate();
         }
     }
 }

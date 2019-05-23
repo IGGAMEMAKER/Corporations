@@ -7,6 +7,6 @@ public class StartInvestmentRoundController : ButtonController
         CompanyUtils.StartInvestmentRound(GameContext, SelectedCompany.company.Id);
         CompanyUtils.SpawnProposals(GameContext, SelectedCompany.company.Id);
 
-        ReNavigate();
+        //ReNavigate();
     }
 }

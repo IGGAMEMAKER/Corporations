@@ -7,6 +7,6 @@ public class RejectInvestmentProposalController : ButtonController
     public override void Execute()
     {
         CompanyUtils.RejectProposal(GameContext, SelectedCompany.company.Id, InvestorId);
-        ReNavigate();
+        //ReNavigate();
     }
 }

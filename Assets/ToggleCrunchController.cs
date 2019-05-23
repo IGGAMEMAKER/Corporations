@@ -6,6 +6,6 @@ public class ToggleCrunchController : ButtonController
     {
         TeamUtils.ToggleCrunching(GameContext, MyProductEntity.company.Id);
 
-        ReNavigate();
+        //ReNavigate();
     }
 }

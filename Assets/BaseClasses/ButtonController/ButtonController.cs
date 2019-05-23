@@ -7,6 +7,13 @@ public abstract class ButtonController : BaseClass
 {
     Button Button;
 
+    void ExecuteAndUpdate()
+    {
+        Execute();
+
+        ReNavigate();
+    }
+
     public abstract void Execute();
     public virtual void ButtonStart() { }
 
@@ -15,7 +22,7 @@ public abstract class ButtonController : BaseClass
     {
         Button = GetComponent<Button>();
 
-        Button.onClick.AddListener(Execute);
+        Button.onClick.AddListener(ExecuteAndUpdate);
 
         ButtonStart();
     }
@@ -29,7 +36,7 @@ public abstract class ButtonController : BaseClass
     void RemoveListener()
     {
         if (Button)
-            Button.onClick.RemoveListener(Execute);
+            Button.onClick.RemoveListener(ExecuteAndUpdate);
         else
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
     }
