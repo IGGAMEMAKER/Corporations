@@ -1,5 +1,9 @@
 ﻿using System;
 
+public enum WorkerRoles {
+
+}
+
 namespace Assets.Utils
 {
     public static partial class TeamUtils
