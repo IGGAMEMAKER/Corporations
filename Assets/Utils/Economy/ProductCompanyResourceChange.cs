@@ -11,6 +11,8 @@ namespace Assets.Utils
             return 1;
         }
 
+
+
         public static TeamResource GetResourceChange(GameEntity productCompany, GameContext gameContext)
         {
             var team = productCompany.team;
@@ -19,15 +21,13 @@ namespace Assets.Utils
 
             int performance = TeamUtils.GetPerformance(gameContext, productCompany);
 
-            var ideas = 3 * period * performance / 100;
-
             long money = GetCompanyIncome(productCompany, gameContext) * period * performance / 100 / 30;
 
             return new TeamResource(
                 team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * period * performance / 100,
                 team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER * period * performance / 100,
                 team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER * period * performance / 100,
-                ideas,
+                Constants.DEVELOPMENT_PRODUCTION_IDEAS * period * performance / 100,
                 money
                 );
         }

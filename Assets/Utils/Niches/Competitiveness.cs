@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
-            int marketLevel = 10;
+            int marketLevel = GetMarketDemand(gameContext, company.product.Niche);
 
             int productLevel = company.product.ProductLevel;
 

@@ -7,10 +7,12 @@ namespace Assets.Utils
     {
         public static TeamResource GetTargetingCost(GameContext gameContext, int companyId)
         {
-            long adCost = 700;
-            // TODO Calculate proper base value!
-
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            // TODO Calculate proper base value!
+            var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
+
+            long adCost = niche.nicheCosts.AdCost;
 
             var financing = GetMarketingFinancingPriceModifier(c.finance.marketingFinancing);
 
