@@ -1,7 +1,15 @@
 ﻿using System;
 
 public enum WorkerRoles {
+    Programmer,
+    Manager,
+    Marketer,
 
+    ProductManager,
+    ProjectManager,
+    TechDirector,
+    MarketingDirector,
+    CEO
 }
 
 namespace Assets.Utils
@@ -40,6 +48,8 @@ namespace Assets.Utils
         {
             return GetTeamSize(company) + 1 < GetTeamMaxSize(company);
         }
+
+
 
         public static void HireManager(GameEntity company)
         {
