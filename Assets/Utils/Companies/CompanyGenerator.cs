@@ -25,10 +25,7 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
-
-            Dictionary<CooldownType, Cooldown> cooldowns = new Dictionary<CooldownType, Cooldown>();
-
-            e.AddCooldowns(cooldowns);
+            e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
 
             return e;
         }
@@ -37,7 +34,10 @@ namespace Assets.Utils
         {
             var c = company.cooldowns.Cooldowns;
 
-            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) };
+            if (c.ContainsKey(cooldownType))
+                return;
+
+            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration };
 
             company.ReplaceCooldowns(c);
         }
@@ -74,7 +74,6 @@ namespace Assets.Utils
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
 
-            // TODO SEND PROPER CONTEXT
             SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 
             return company;

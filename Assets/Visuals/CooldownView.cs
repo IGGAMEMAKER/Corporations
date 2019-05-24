@@ -1,47 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CooldownView : View
-    , IAnyDateListener
 {
     public CooldownType CooldownType;
 
     public Image Panel;
     public GameObject ScheduleIcon;
     public Text Text;
-
-    //bool wasPositionUpdated = false;
-
-    void Start()
-    {
-        Debug.Log("Render cooldown");
-        Render();
-
-        Debug.Log("Listen changes");
-        ListenDateChanges(this);
-
-        Debug.Log("Update position");
-        //UpdatePosition();
-    }
-
-    ////IEnumerator UpdatePosition()
-    //void UpdatePosition()
-    //{
-    //    if (wasPositionUpdated)
-    //        return;
-
-    //    wasPositionUpdated = true;
-    //    //yield return new WaitForSeconds(0.21f);
-
-    //    transform.SetParent(transform.parent.parent);
-    //    transform.SetAsLastSibling();
-    //}
-
-    void OnEnable()
-    {
-        Render();
-    }
 
     GameEntity Observable
     {
@@ -56,9 +22,6 @@ public class CooldownView : View
     {
         Panel.enabled = show;
 
-        //Panel.GetComponent<RectTransform>().lo
-
-        //ScheduleIcon.SetActive(show);
         Text.gameObject.SetActive(show);
     }
 
@@ -76,12 +39,12 @@ public class CooldownView : View
         Text.text = $"{remaining} days";
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         if (Observable == null)
             return;
-
-        //UpdatePosition();
 
         var cooldowns = Observable.cooldowns.Cooldowns;
 
@@ -89,10 +52,5 @@ public class CooldownView : View
             Show(cooldowns[CooldownType]);
         else
             Hide();
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }
