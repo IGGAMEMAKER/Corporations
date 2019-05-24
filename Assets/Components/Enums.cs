@@ -50,6 +50,10 @@ public enum CooldownType
 
     // loyalty, ideas, 
     ProductFocus,
+
+    // ads
+    BrandingCampaign,
+    TestCampaign
 }
 
 public struct Cooldown

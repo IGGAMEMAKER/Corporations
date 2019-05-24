@@ -14,11 +14,7 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
         foreach (var val in cooldowns)
         {
             if (date >= val.Value.EndDate)
-            {
                 toRemove.Add(val.Key);
-                //cooldowns.Remove(val.Key);
-                //cooldowns[val.Key] = null;
-            }
         }
 
         foreach (var t in toRemove)

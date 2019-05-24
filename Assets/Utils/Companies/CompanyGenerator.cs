@@ -28,10 +28,18 @@ namespace Assets.Utils
 
             Dictionary<CooldownType, Cooldown> cooldowns = new Dictionary<CooldownType, Cooldown>();
 
-            cooldowns[CooldownType.TargetingActivity] = new Cooldown { EndDate = 10 };
             e.AddCooldowns(cooldowns);
 
             return e;
+        }
+
+        public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
+        {
+            var c = company.cooldowns.Cooldowns;
+
+            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) };
+
+            company.ReplaceCooldowns(c);
         }
 
         public static GameEntity GenerateProduct(GameContext context, GameEntity company, string name, NicheType niche)
@@ -67,7 +75,7 @@ namespace Assets.Utils
             company.AddTargetUserType(UserType.Core);
 
             // TODO SEND PROPER CONTEXT
-            SetCompanyGoal(Contexts.sharedInstance.game, company, InvestorGoal.BecomeMarketFit, 365);
+            SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 
             return company;
         }
