@@ -1,6 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
+public enum BonusType
+{
+    Additive,
+    Multiplicative
+}
+
 public struct BonusDescription
 {
     public long Value;
@@ -8,6 +14,8 @@ public struct BonusDescription
     public string Name;
 
     public bool HideIfZero;
+
+    public BonusType BonusType;
 
     public string Dimension;
 }
@@ -42,6 +50,15 @@ public class BonusContainer
 
     public BonusContainer Append(BonusDescription bonus)
     {
+        bonus.BonusType = BonusType.Additive;
+        bonusDescriptions.Add(bonus);
+
+        return this;
+    }
+
+    public BonusContainer Multiply(BonusDescription bonus)
+    {
+        bonus.BonusType = BonusType.Multiplicative;
         bonusDescriptions.Add(bonus);
 
         return this;
