@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 1485431617481465578}
   - component: {fileID: 1485431617481465580}
   - component: {fileID: 1485431617481465581}
-  - component: {fileID: 1485431617481465583}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -178,20 +177,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Targeting
---- !u!114 &1485431617481465583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485431617481465579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: Gives you clients everyday if enabled
-  isActionHint: 0
 --- !u!1 &1485431617962578179
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +343,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -512, y: -384}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1485431618174093951
 CanvasRenderer:
@@ -484,7 +469,6 @@ GameObject:
   - component: {fileID: 4770824970137393750}
   - component: {fileID: 1772837645430232194}
   - component: {fileID: 9012550728711384637}
-  - component: {fileID: 7657757215914337107}
   m_Layer: 5
   m_Name: Text (3)
   m_TagString: Untagged
@@ -508,8 +492,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.46, y: -38.6}
-  m_SizeDelta: {x: 235.08, y: 22.01}
+  m_AnchoredPosition: {x: 2.99, y: -38.6}
+  m_SizeDelta: {x: 226.14, y: 22.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1772837645430232194
 CanvasRenderer:
@@ -543,7 +527,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -553,20 +537,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Gives you clients everyday if enabled
---- !u!114 &7657757215914337107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8173188112004666447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: Gives you clients everyday if enabled
-  isActionHint: 0
 --- !u!1001 &1485431618441814279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -907,7 +877,7 @@ PrefabInstance:
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
