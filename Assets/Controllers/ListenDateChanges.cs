@@ -10,7 +10,7 @@ public class ListenDateChanges : Controller
 
     public override void DetachListeners()
     {
-        Debug.Log("Detach date listeners!");
+        UnListenDateChanges(this);
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)

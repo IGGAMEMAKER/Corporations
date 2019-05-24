@@ -43,18 +43,6 @@ namespace Assets.Utils
             }
         }
 
-        public static int GetMarketingFinancingBrandPowerGainModifier(MarketingFinancing financing)
-        {
-            switch (financing)
-            {
-                case MarketingFinancing.Low: return 1;
-                case MarketingFinancing.Medium: return 2;
-                case MarketingFinancing.High: return 5;
-
-                default: return 0;
-            }
-        }
-
         public static long GetTargetingEffeciency(GameContext gameContext, GameEntity e)
         {
             Debug.Log("You don't count niche capacity when making ads!");

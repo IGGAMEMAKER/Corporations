@@ -38,6 +38,11 @@ namespace Assets.Utils
             GetDateContainer(gameContext).AddAnyDateListener(menuListener);
         }
 
+        internal static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        {
+            GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
+        }
+
         public static float GetTaskCompletionPercentage(GameContext gameContext, TaskComponent taskComponent)
         {
             int CurrentIntDate = GetCurrentDate(gameContext);

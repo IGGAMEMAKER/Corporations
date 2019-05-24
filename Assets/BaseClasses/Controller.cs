@@ -12,6 +12,11 @@ public abstract class Controller : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
+    public void UnListenDateChanges(IAnyDateListener dateListener)
+    {
+        ScheduleUtils.UnsubscribeFromDateChanges(GameContext, dateListener);
+    }
+
     public void LazyUpdate(IAnyDateListener dateListener)
     {
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
