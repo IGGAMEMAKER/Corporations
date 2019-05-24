@@ -32,7 +32,8 @@ public class ProductCompanyCompetingPreview : View,
 
     void RenderClients(GameEntity company)
     {
-        Clients.text = ValueFormatter.Shorten(MarketingUtils.GetClients(company));
+        if (Clients != null)
+            Clients.text = ValueFormatter.Shorten(MarketingUtils.GetClients(company));
     }
 
     void RenderProductInfo(string name, int level)
