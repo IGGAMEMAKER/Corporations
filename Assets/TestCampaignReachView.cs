@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Utils;
 
-public class TestCampaignReachView : MonoBehaviour
+public class TestCampaignReachView : View
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void ViewRender()
     {
-        
-    }
+        base.ViewRender();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var gain = MarketingUtils.GetTestCampaignClientGain(GameContext, MyProductEntity);
+
+        GetComponent<ColoredValuePositiveOrNegative>().UpdateValue(gain);
     }
 }
