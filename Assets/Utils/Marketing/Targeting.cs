@@ -47,9 +47,9 @@ namespace Assets.Utils
         {
             switch (financing)
             {
-                case MarketingFinancing.Low: return 0;
-                case MarketingFinancing.Medium: return 1;
-                case MarketingFinancing.High: return 4;
+                case MarketingFinancing.Low: return 1;
+                case MarketingFinancing.Medium: return 2;
+                case MarketingFinancing.High: return 5;
 
                 default: return 0;
             }
@@ -59,7 +59,7 @@ namespace Assets.Utils
         {
             Debug.Log("You don't count niche capacity when making ads!");
 
-            long baseForNiche = 100;
+            long baseForNiche = 257;
 
             long brandModifier = e.marketing.BrandPower / 2;
             long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
