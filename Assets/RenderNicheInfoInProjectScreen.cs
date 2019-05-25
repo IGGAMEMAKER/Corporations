@@ -1,4 +1,5 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
 

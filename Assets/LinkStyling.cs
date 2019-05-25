@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine.UI;
 
 public class LinkStyling : View
 {

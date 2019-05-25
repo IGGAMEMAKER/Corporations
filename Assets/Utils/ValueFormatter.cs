@@ -21,10 +21,12 @@ namespace Assets.Utils
         {
             long.TryParse(value.ToString(), out long val);
 
-            if (val <= 0)
-                return Shorten(value);
+            return Sign(val);
+        }
 
-            return $"+{Shorten(value)}";
+        public static string Sign(long value)
+        {
+            return value > 0 ? $"+{value}" : value.ToString();
         }
 
         public static string Shorten<T>(T value)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Utils;
+using System.Collections.Generic;
 using System.Text;
 
 public enum BonusType
@@ -91,7 +92,7 @@ public class BonusContainer
         long val = Sum();
 
         if (renderTitle)
-            str.AppendFormat("{0} is {1}", parameter, val);
+            str.AppendFormat("{0} is {1}", parameter, ValueFormatter.Sign(val));
 
         str.AppendLine("\n** Based on **");
 
