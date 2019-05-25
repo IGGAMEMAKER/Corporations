@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class VisualUtils
 {
@@ -49,20 +47,6 @@ public static class VisualUtils
         return value > 0 ? $"+{value}" : value.ToString();
     }
 
-    //public static string Describe<T>(string bonusName, T value) where T : IComparable
-    //{
-    //    //  Comparer.Default.Compare(value, 0)
-    //    int val = value.CompareTo(0);
-
-    //    //if (value > 0)
-    //    if (val > 0)
-    //        return Positive(bonusName + ": +" + value);
-
-    //    if (val == 0)
-    //        return Neutral(bonusName + ": 0");
-
-    //    return Negative(bonusName + ": " + value);
-    //}
 
     static string DescribeNormally(string text, long value)
     {
@@ -86,9 +70,14 @@ public static class VisualUtils
         return Positive(text);
     }
 
-    public static string Describe(string bonusName, long value, string dimension, bool flipColors)
+    public static string Describe(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
     {
-        var text = $"{bonusName}: {Sign(value)}{dimension}";
+        var text = "";
+
+        if (bonusType == BonusType.Multiplicative)
+            text = "Multiplied by ";
+
+        text += $"{bonusName}: {Sign(value)}{dimension}";
 
         if (!flipColors)
             return DescribeNormally(text, value);
@@ -98,12 +87,12 @@ public static class VisualUtils
 
     public static string Describe(BonusDescription bonus, bool flipColors)
     {
-        return Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors);
+        return Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
     }
 
     public static string Describe(BonusDescription bonus)
     {
-        return Describe(bonus.Name, bonus.Value, bonus.Dimension, false);
+        return Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
     }
 
     public static string Describe(long value, string positiveText, string negativeText)

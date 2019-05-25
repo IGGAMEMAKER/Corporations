@@ -21,24 +21,42 @@ public class ProjectView : View
         Render();
     }
 
-    void Render()
+    void RenderCompanyType()
     {
         CompanyType companyType = SelectedCompany.company.CompanyType;
 
         CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(companyType);
-        //CompanyNameLabel.text = SelectedCompany.company.Name;
+    }
 
+    void RenderCEO()
+    {
         var human = HumanUtils.GetHumanById(GameContext, SelectedCompany.cEO.HumanId).human;
         string name = human.Name + " " + human.Surname;
 
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : name);
+    }
 
+    void RenderCompanyStatus()
+    {
+        PublicityStatus.text = SelectedCompany.isPublicCompany ? "Is public company" : "Is private company";
+    }
+
+    void RenderCompanyEconomy()
+    {
         CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
         //CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
+    }
 
-        bool isPublic = SelectedCompany.isPublicCompany;
+    void Render()
+    {
+        RenderCompanyType();
+        //CompanyNameLabel.text = SelectedCompany.company.Name;
 
-        PublicityStatus.text = isPublic ? "Is public company" : "Is private company";
+        RenderCompanyStatus();
+
+        RenderCEO();
+
+        RenderCompanyEconomy();
 
         CompanyGoal.text = $"Company Goal: {InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal)}";
     }
