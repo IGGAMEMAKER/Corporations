@@ -32,6 +32,12 @@ namespace Assets.Utils
             }
 
             company.ReplaceCompanyGoal(investorGoal, expires, measurableGoal);
+            LockCompanyGoal(gameContext, company);
+        }
+
+        public static void LockCompanyGoal(GameContext gameContext, GameEntity company)
+        {
+            AddCooldown(gameContext, company, CooldownType.CompanyGoal, 365);
         }
 
         public static bool IsCanGoPublic(GameContext gameContext, int companyId)

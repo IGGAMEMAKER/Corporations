@@ -76,7 +76,7 @@ namespace Assets.Utils
 
             SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 
-            AddCooldown(context, company, CooldownType.CompanyGoal, 365);
+            LockCompanyGoal(context, company);
 
             return company;
         }
