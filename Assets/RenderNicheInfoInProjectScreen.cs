@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RenderNicheInfoInProjectScreen : View
-    //, IMenuListener
 {
     public Text NicheName;
     public GameObject NicheRoot;
@@ -12,32 +11,22 @@ public class RenderNicheInfoInProjectScreen : View
 
     public StealIdeasController StealIdeasController;
 
-    void Start()
+    public override void ViewRender()
     {
-        //ListenMenuChanges(this);
+        base.ViewRender();
 
-        Render();
+        ToggleNicheObjects(CanRenderNiche);
+
+        if (CanRenderNiche)
+            RenderNicheTab();
     }
 
-    void OnEnable()
-    {
-        Render();
-    }
-
-    bool canRenderNiche
+    bool CanRenderNiche
     {
         get
         {
             return SelectedCompany.company.CompanyType == CompanyType.ProductCompany;
         }
-    }
-
-    void Render()
-    {
-        ToggleNicheObjects(canRenderNiche);
-
-        if (canRenderNiche)
-            RenderNicheTab();
     }
 
     void ToggleNicheObjects(bool show)

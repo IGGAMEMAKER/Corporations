@@ -13,7 +13,8 @@ public class NicheScreenView : View
 
     void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
     {
-        RenderAmountOfCompanies();
+        if (entity.hasProduct)
+            RenderAmountOfCompanies(entity.product.Niche);
     }
 
     void OnEnable()
@@ -23,10 +24,8 @@ public class NicheScreenView : View
         GetUniversalListener.AddAnyCompanyListener(this);
     }
 
-    void RenderAmountOfCompanies()
+    void RenderAmountOfCompanies(NicheType NicheType)
     {
-        NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
-
         AmountOfCompetitors.text = "(" + NicheUtils.GetCompetitorsAmount(NicheType, GameContext) + ")";
     }
 
@@ -39,6 +38,6 @@ public class NicheScreenView : View
         IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
 
         MarketPotentialView.SetEntity(NicheType);
-        RenderAmountOfCompanies();
+        RenderAmountOfCompanies(NicheType);
     }
 }
