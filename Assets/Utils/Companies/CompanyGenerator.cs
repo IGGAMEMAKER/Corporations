@@ -70,11 +70,13 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
-            company.AddTeam(3, 0, 0, 100);
+            company.AddTeam(1, 0, 0, 100);
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
 
             SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
+
+            AddCooldown(context, company, CooldownType.CompanyGoal, 365);
 
             return company;
         }

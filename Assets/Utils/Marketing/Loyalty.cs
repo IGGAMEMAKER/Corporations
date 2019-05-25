@@ -12,11 +12,11 @@ namespace Assets.Utils
             int marketRequirement = GetClientLoyaltyMarketRequirementsPenalty(gameContext, companyId);
 
             bool isOnlyPlayer = NicheUtils.GetPlayersOnMarket(gameContext, companyId).Count() == 1;
-            int onlyPlayerBonus = isOnlyPlayer ? 35 : 0;
+            int onlyPlayerBonus = isOnlyPlayer ? 30 : 0;
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            int SegmentFocus = c.targetUserType.UserType == userType ? 15 : 0;
+            int SegmentFocus = c.targetUserType.UserType == userType ? 3 : 0;
 
             return new BonusContainer("Client loyalty is")
                 .Append("Product level", app)
@@ -48,14 +48,14 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return c.product.ProductLevel * 5;
+            return c.product.ProductLevel;
         }
 
         public static int GetClientLoyaltyMarketRequirementsPenalty(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return NicheUtils.GetMarketDemand(gameContext, c.product.Niche) * 4;
+            return NicheUtils.GetMarketDemand(gameContext, c.product.Niche);
         }
 
         public static int GetClientLoyaltyPricingPenalty(GameContext gameContext, int companyId)

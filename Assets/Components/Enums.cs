@@ -53,7 +53,9 @@ public enum CooldownType
 
     // ads
     BrandingCampaign,
-    TestCampaign
+    TestCampaign,
+
+    CompanyGoal,
 }
 
 public struct Cooldown
