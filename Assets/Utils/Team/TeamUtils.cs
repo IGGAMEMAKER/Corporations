@@ -1,4 +1,4 @@
-﻿public enum WorkerRoles {
+﻿public enum WorkerRole {
     Programmer,
     Manager,
     Marketer,

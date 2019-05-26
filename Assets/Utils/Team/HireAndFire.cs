@@ -2,7 +2,10 @@
 {
     public static partial class TeamUtils
     {
-        
+        public static void HireWorker(GameEntity company, WorkerRole workerRole)
+        {
+            
+        }
 
         public static void HireManager(GameEntity company)
         {
