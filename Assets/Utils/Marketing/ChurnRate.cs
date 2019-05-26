@@ -25,7 +25,8 @@ namespace Assets.Utils
                 .RenderTitle()
                 .SetDimension("%")
                 .Append($"Base for {EnumUtils.GetFormattedUserType(userType)}", baseValue)
-                .Append("From loyalty", fromLoyalty);
+                .Append("From loyalty", fromLoyalty)
+                .AppendAndHideIfZero("From negative loyalty", fromLoyalty < 0 ? 15 : 0);
         }
 
         public static long GetChurnRate(GameContext gameContext, int companyId, UserType userType)
@@ -61,9 +62,9 @@ namespace Assets.Utils
             int multiplier = 1;
 
             if (userType == UserType.Regular)
-                multiplier = 4;
+                multiplier = 8;
             if (userType == UserType.Newbie)
-                multiplier = 9;
+                multiplier = 30;
 
             return multiplier;
         }
