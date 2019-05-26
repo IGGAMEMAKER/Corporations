@@ -2,6 +2,8 @@
 {
     public static partial class TeamUtils
     {
+        
+
         public static void HireManager(GameEntity company)
         {
             var t = company.team;
@@ -26,6 +28,8 @@
 
             ReplaceTeam(company, t);
         }
+
+
 
         public static void FireManager(GameEntity company)
         {

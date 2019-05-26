@@ -19,20 +19,20 @@ public class MarketPotentialView : View
         SetEntity(niche);
     }
 
-    public void SetEntity(NicheType niche)
+    public void SetEntity(NicheType nicheType)
     {
-        var nicheType1 = NicheUtils.GetNicheEntity(GameContext, niche);
+        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
 
-        NicheType = niche;
+        NicheType = nicheType;
 
         PotentialMarketSize.text = "10M ... 100M";
         PotentialAudienceSize.text = "10M ... 100M";
         PotentialIncomeSize.text = "1$ ... 10$";
 
-        var risk = NicheUtils.GetStartupRiskOnNiche(GameContext, NicheType);
-        string riskText = NicheUtils.GetStartupRiskOnNicheDescription(GameContext, NicheType);
+        var risk = NicheUtils.GetMarketDemandRisk(GameContext, NicheType);
+        string riskText = NicheUtils.ShowRiskStatus(risk).ToString();
 
-        RiskLabel.text = NicheUtils.ShowRiskStatus(risk).ToString();
-        RiskHint.SetHint(riskText);
+        RiskLabel.text = $"{risk}% ({NicheUtils.ShowRiskStatus(risk)})";
+        //RiskHint.SetHint(riskText);
     }
 }

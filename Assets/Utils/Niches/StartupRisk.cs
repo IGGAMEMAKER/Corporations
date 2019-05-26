@@ -14,7 +14,7 @@ namespace Assets.Utils
                 .SetDimension("%")
                 .Append("Is not profitable", baseValue)
                 .Append("Niche demand risk", demand)
-                .Append("Strong competitors", competitors);
+                .Append("Competitors", competitors);
         }
 
         public static long GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
