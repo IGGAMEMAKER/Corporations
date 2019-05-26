@@ -47,7 +47,7 @@ public class ClientSegmentPreview : View
 
         RenderSegmentIncome(CompanyId, UserType);
 
-        RenderSegmentHint(UserType);
+        //RenderSegmentHint(UserType);
 
         RenderLoyaltyHint(CompanyId, UserType);
     }
