@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class NicheScreenView : View
@@ -37,7 +36,7 @@ public class NicheScreenView : View
         NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
         IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
 
-        MarketPotentialView.Render(NicheType);
+        MarketPotentialView.Render();
         RenderAmountOfCompanies(NicheType);
     }
 }
