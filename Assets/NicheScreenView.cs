@@ -37,7 +37,7 @@ public class NicheScreenView : View
         NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
         IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
 
-        MarketPotentialView.SetEntity(NicheType);
+        MarketPotentialView.Render(NicheType);
         RenderAmountOfCompanies(NicheType);
     }
 }

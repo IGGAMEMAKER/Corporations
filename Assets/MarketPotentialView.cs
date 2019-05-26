@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class MarketPotentialView : View
 {
-    NicheType NicheType;
-
     public Text PotentialMarketSize;
     public Text PotentialAudienceSize;
     public Text PotentialIncomeSize;
@@ -14,22 +12,19 @@ public class MarketPotentialView : View
 
     private void OnEnable()
     {
-        var niche = ScreenUtils.GetSelectedNiche(GameContext);
-
-        SetEntity(niche);
+        Render();
     }
 
-    public void SetEntity(NicheType nicheType)
+    public void Render()
     {
+        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
-
-        NicheType = nicheType;
 
         PotentialMarketSize.text = "10M ... 100M";
         PotentialAudienceSize.text = "10M ... 100M";
         PotentialIncomeSize.text = "1$ ... 10$";
 
-        var risk = NicheUtils.GetMarketDemandRisk(GameContext, NicheType);
+        var risk = NicheUtils.GetMarketDemandRisk(GameContext, nicheType);
         string riskText = NicheUtils.ShowRiskStatus(risk).ToString();
 
         RiskLabel.text = $"{risk}% ({NicheUtils.ShowRiskStatus(risk)})";
