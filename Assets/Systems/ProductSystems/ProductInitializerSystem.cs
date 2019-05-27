@@ -153,6 +153,8 @@ public class ProductInitializerSystem : IInitializeSystem
 
         SetPlayerControlledCompany(tg);
 
+
+
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
