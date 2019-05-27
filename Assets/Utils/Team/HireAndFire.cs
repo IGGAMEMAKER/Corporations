@@ -10,7 +10,6 @@
         public static void HireManager(GameEntity company)
         {
             var t = company.team;
-
             t.Managers++;
 
             ReplaceTeam(company, t);
