@@ -24,9 +24,9 @@ namespace Assets.Utils
             long money = GetCompanyIncome(productCompany, gameContext) * period * performance / 100 / 30;
 
             return new TeamResource(
-                team.Programmers * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * period * performance / 100,
-                team.Managers * Constants.DEVELOPMENT_PRODUCTION_MANAGER * period * performance / 100,
-                team.Marketers * Constants.DEVELOPMENT_PRODUCTION_MARKETER * period * performance / 100,
+                TeamUtils.GetProgrammers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * period * performance / 100,
+                TeamUtils.GetManagers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MANAGER * period * performance / 100,
+                TeamUtils.GetMarketers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MARKETER * period * performance / 100,
                 Constants.DEVELOPMENT_PRODUCTION_IDEAS * period * performance / 100,
                 money
                 );

@@ -74,9 +74,7 @@ namespace Assets.Utils
         public static GameEntity SetRole(GameEntity worker, WorkerRole workerRole)
         {
             if (!worker.hasWorker)
-            {
                 worker.AddWorker(workerRole);
-            }
 
             var roles = worker.humanSkills.Roles;
 

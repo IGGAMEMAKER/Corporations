@@ -70,7 +70,7 @@ namespace Assets.Utils
             if (!e.hasTeam)
                 return 1;
 
-            return (TeamUtils.GetManagers(e) + e.team.Marketers + e.team.Programmers) * 2000;
+            return (TeamUtils.GetManagers(e) + TeamUtils.GetMarketers(e) + TeamUtils.GetProgrammers(e)) * 2000;
         }
 
         public static long GetCompanyCostNicheMultiplier()

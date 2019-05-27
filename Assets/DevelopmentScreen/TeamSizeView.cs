@@ -12,6 +12,6 @@ public class TeamSizeView : View
 
         int size = TeamUtils.GetTeamMaxSize(MyProductEntity);
 
-        CurrentSize.text = size.ToString(); // 1 - CEO
+        CurrentSize.text = size.ToString();
     }
 }
