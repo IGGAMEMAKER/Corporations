@@ -37,7 +37,8 @@ public class RenderSkills : View
 
     void Roles(Text text, int value)
     {
-        text.text = $": {value}LVL";
+        text.color = Visuals.GetGradientColor(0, 100, value);
+        text.text = value.ToString();
     }
 
     void Render()
