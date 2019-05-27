@@ -14,7 +14,6 @@ public class ClientSegmentPreview : View
     public Text AudienceSize;
     public Hint AudienceHint;
 
-    public Hint SegmentHint;
     public Hint LoyaltyHint;
 
     UserType UserType;
@@ -46,8 +45,6 @@ public class ClientSegmentPreview : View
         RenderAudience(UserType, c);
 
         RenderSegmentIncome(CompanyId, UserType);
-
-        //RenderSegmentHint(UserType);
 
         RenderLoyaltyHint(CompanyId, UserType);
     }
@@ -89,10 +86,5 @@ public class ClientSegmentPreview : View
     void RenderLoyaltyHint(int companyId, UserType userType)
     {
         LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
-    }
-
-    void RenderSegmentHint(UserType userType)
-    {
-        SegmentHint.SetHint($"{EnumUtils.GetFormattedUserType(userType)}\n");
     }
 }
