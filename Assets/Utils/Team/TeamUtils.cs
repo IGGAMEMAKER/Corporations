@@ -16,7 +16,7 @@ namespace Assets.Utils
     {
         private static void ReplaceTeam(GameEntity gameEntity, TeamComponent t)
         {
-            gameEntity.ReplaceTeam(t.Programmers, t.Managers, t.Marketers, t.Morale, t.Workers);
+            gameEntity.ReplaceTeam(t.Morale, t.Workers);
         }
 
         internal static void ToggleCrunching(GameContext context, int companyId)
@@ -35,11 +35,28 @@ namespace Assets.Utils
 
         public static int GetTeamMaxSize(GameEntity company)
         {
-            return company.team.Managers * 7;
+            return 228;
+            //return company.team.Managers * 7;
+        }
+
+        public static int GetProgrammers(GameEntity company)
+        {
+            return 1;
+        }
+
+        public static int GetManagers(GameEntity company)
+        {
+            return 1;
+        }
+
+        public static int GetMarketers(GameEntity company)
+        {
+            return 1;
         }
 
         public static int GetTeamSize(GameEntity company) {
-            return company.team.Managers + company.team.Marketers + company.team.Programmers;
+
+            return GetProgrammers(company) + GetManagers(company) + GetMarketers(company);
         }
 
         public static bool IsWillNotOverextendTeam(GameEntity company)

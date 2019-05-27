@@ -30,7 +30,7 @@ namespace Assets.Utils
 
         static int GetRandomXP()
         {
-
+            return UnityEngine.Random.Range(0, MaxXP);
         }
 
         static int GetRandomTrait()
@@ -73,13 +73,18 @@ namespace Assets.Utils
 
         public static GameEntity SetRole(GameEntity worker, WorkerRole workerRole)
         {
-            if (!worker.isWorker)
-                worker.isWorker = true;
+            if (!worker.hasWorker)
+            {
+                worker.AddWorker(workerRole);
+            }
 
             var roles = worker.humanSkills.Roles;
 
             if (!roles.ContainsKey(workerRole))
-                roles[workerRole] = 
+                roles[workerRole] = GetRandomXP();
+
+            worker.ReplaceHumanSkills(roles, worker.humanSkills.Traits, worker.humanSkills.Expertise);
+
             return worker;
         }
     }

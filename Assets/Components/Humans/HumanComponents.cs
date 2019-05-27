@@ -21,7 +21,9 @@ public enum TraitType
     Vision
 }
 
-public class WorkerComponent : IComponent { }
+public class WorkerComponent : IComponent {
+    public WorkerRole WorkerRole;
+}
 
 [Game]
 public class HumanSkillsComponent : IComponent

@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine.UI;
 
 public class TeamSizeView : View
 {
@@ -7,9 +8,10 @@ public class TeamSizeView : View
 
     void Render(TeamComponent team)
     {
-        MaxSize.text = (team.Managers + 1) * 7 + "";
+        MaxSize.text = TeamUtils.GetTeamSize(MyProductEntity) + "";
 
-        int size = team.Managers + team.Marketers + team.Programmers + 1;
+        int size = TeamUtils.GetTeamMaxSize(MyProductEntity);
+
         CurrentSize.text = size.ToString(); // 1 - CEO
     }
 }

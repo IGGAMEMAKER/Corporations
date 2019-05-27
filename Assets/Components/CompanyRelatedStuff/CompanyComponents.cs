@@ -74,9 +74,9 @@ public class Team
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
 {
-    public int Programmers;
-    public int Managers;
-    public int Marketers;
+    //public int Programmers;
+    //public int Managers;
+    //public int Marketers;
 
     public int Morale;
 

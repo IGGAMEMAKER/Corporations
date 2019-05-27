@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly WorkerComponent workerComponent = new WorkerComponent();
+    public WorkerComponent worker { get { return (WorkerComponent)GetComponent(GameComponentsLookup.Worker); } }
+    public bool hasWorker { get { return HasComponent(GameComponentsLookup.Worker); } }
 
-    public bool isWorker {
-        get { return HasComponent(GameComponentsLookup.Worker); }
-        set {
-            if (value != isWorker) {
-                var index = GameComponentsLookup.Worker;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : workerComponent;
+    public void AddWorker(WorkerRole newWorkerRole) {
+        var index = GameComponentsLookup.Worker;
+        var component = (WorkerComponent)CreateComponent(index, typeof(WorkerComponent));
+        component.WorkerRole = newWorkerRole;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceWorker(WorkerRole newWorkerRole) {
+        var index = GameComponentsLookup.Worker;
+        var component = (WorkerComponent)CreateComponent(index, typeof(WorkerComponent));
+        component.WorkerRole = newWorkerRole;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveWorker() {
+        RemoveComponent(GameComponentsLookup.Worker);
     }
 }
 

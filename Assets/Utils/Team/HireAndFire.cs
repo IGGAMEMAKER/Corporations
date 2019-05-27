@@ -6,68 +6,33 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
-            var workers = company.team.Workers;
+            var team = company.team;
 
-            workers.Add(worker.human.Id);
+            team.Workers.Add(worker.human.Id);
 
+            HumanUtils.SetRole(worker, workerRole);
 
+            ReplaceTeam(company, team);
         }
 
         public static void HireManager(GameEntity company)
         {
-            var t = company.team;
-            t.Managers++;
-
-            ReplaceTeam(company, t);
+            HireWorker(company, WorkerRole.Manager);
         }
 
         public static void HireProgrammer(GameEntity company)
         {
-            var t = company.team;
-            t.Programmers++;
-
-            ReplaceTeam(company, t);
+            HireWorker(company, WorkerRole.Programmer);
         }
 
         public static void HireMarketer(GameEntity company)
         {
-            var t = company.team;
-            t.Marketers++;
-
-            ReplaceTeam(company, t);
+            HireWorker(company, WorkerRole.Marketer);
         }
 
-
-
-        public static void FireManager(GameEntity company)
+        public static void FireWorker()
         {
-            var t = company.team;
 
-            if (t.Managers > 0)
-                t.Managers--;
-
-            ReplaceTeam(company, t);
         }
-
-        public static void FireProgrammer(GameEntity company)
-        {
-            var t = company.team;
-
-            if (t.Programmers > 0)
-                t.Programmers--;
-
-            ReplaceTeam(company, t);
-        }
-
-        public static void FireMarketer(GameEntity company)
-        {
-            var t = company.team;
-
-            if (t.Marketers > 0)
-                t.Marketers--;
-
-            ReplaceTeam(company, t);
-        }
-
     }
 }

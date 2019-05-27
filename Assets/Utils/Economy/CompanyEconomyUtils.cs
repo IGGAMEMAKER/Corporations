@@ -67,10 +67,10 @@ namespace Assets.Utils
 
         public static long GetTeamMaintenance(GameEntity e)
         {
-            if (e.hasTeam)
-                return (e.team.Managers + e.team.Marketers + e.team.Programmers) * 2000;
+            if (!e.hasTeam)
+                return 1;
 
-            return 1;
+            return (TeamUtils.GetManagers(e) + e.team.Marketers + e.team.Programmers) * 2000;
         }
 
         public static long GetCompanyCostNicheMultiplier()
