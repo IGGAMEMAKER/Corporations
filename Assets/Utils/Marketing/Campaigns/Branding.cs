@@ -7,12 +7,11 @@ namespace Assets.Utils
     {
         public static void StartBrandingCampaign(GameContext gameContext, GameEntity company)
         {
-            int brandingGain = GetBrandingPowerGain(gameContext, company);
-
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
 
             var marketing = company.marketing;
 
+            int brandingGain = GetBrandingPowerGain(gameContext, company);
             company.ReplaceMarketing(marketing.BrandPower + brandingGain, marketing.Segments);
 
             var resources = GetBrandingCost(gameContext, company);

@@ -46,8 +46,9 @@ namespace Assets.Utils
         public static long GetTargetingEffeciency(GameContext gameContext, GameEntity e)
         {
             Debug.Log("You don't count niche capacity when making ads!");
+            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
 
-            long baseForNiche = 257;
+            long baseForNiche = niche.nicheCosts.ClientBatch;
 
             long brandModifier = e.marketing.BrandPower / 2;
             long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);

@@ -9,7 +9,6 @@ namespace Assets.Utils
         {
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 45);
 
-
             var marketing = company.marketing;
 
             var clientGain = GetTestCampaignClientGain(gameContext, company);
