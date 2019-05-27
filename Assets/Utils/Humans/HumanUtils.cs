@@ -24,18 +24,18 @@ namespace Assets.Utils
         public static int MaxXP {
             get
             {
-                return 1000000;
+                return 100;
             }
         }
 
         static int GetRandomXP()
         {
-            return UnityEngine.Random.Range(0, MaxXP);
+            return UnityEngine.Random.Range(0, 50);
         }
 
         static int GetRandomTrait()
         {
-            return UnityEngine.Random.Range(0, 100);
+            return UnityEngine.Random.Range(15, 85);
         }
 
 
@@ -63,12 +63,27 @@ namespace Assets.Utils
 
             e.AddHuman(id, "Tom", "Stokes " + id);
             e.AddHumanSkills(
-                new Dictionary<WorkerRole, int>(),
+                new Dictionary<WorkerRole, int> {
+                    [WorkerRole.CEO] = GetRandomXP(),
+                    [WorkerRole.Manager] = GetRandomXP(),
+                    [WorkerRole.Marketer] = GetRandomXP(),
+                    [WorkerRole.Programmer] = 0,
+                },
                 GenerateRandomTraits(),
                 new Dictionary<NicheType, int>()
                 );
 
             return e;
+        }
+
+        public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
+        {
+            var roles = worker.humanSkills.Roles;
+            roles[workerRole] = level;
+
+            worker.ReplaceHumanSkills(roles, worker.humanSkills.Traits, worker.humanSkills.Expertise);
+
+            return worker;
         }
 
         public static GameEntity SetRole(GameContext context, int humanId, WorkerRole workerRole)
@@ -82,13 +97,8 @@ namespace Assets.Utils
         {
             if (!worker.hasWorker)
                 worker.AddWorker(workerRole);
-
-            var roles = worker.humanSkills.Roles;
-
-            if (!roles.ContainsKey(workerRole))
-                roles[workerRole] = GetRandomXP();
-
-            worker.ReplaceHumanSkills(roles, worker.humanSkills.Traits, worker.humanSkills.Expertise);
+            else
+                worker.ReplaceWorker(workerRole);
 
             return worker;
         }

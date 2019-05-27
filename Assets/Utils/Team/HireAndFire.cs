@@ -12,6 +12,9 @@
 
             HumanUtils.SetRole(worker, workerRole);
 
+            if (workerRole == WorkerRole.Programmer)
+                HumanUtils.SetSkill(worker, workerRole, UnityEngine.Random.Range(15, 100));
+
             ReplaceTeam(company, team);
         }
 
