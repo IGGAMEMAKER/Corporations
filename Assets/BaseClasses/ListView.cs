@@ -27,7 +27,7 @@ public abstract class ListView : View // MonoBehaviour
         {
             if (Prefab == null)
             {
-                Debug.Log("No prefab given!");
+                Debug.Log("No prefab given! " + gameObject.name);
                 return;
             }
             var o = Instantiate(Prefab, transform, false);
