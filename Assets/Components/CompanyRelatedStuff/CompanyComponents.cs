@@ -4,7 +4,6 @@ using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[Game]
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent
 {
@@ -80,6 +79,8 @@ public class TeamComponent : IComponent
     public int Marketers;
 
     public int Morale;
+
+    public List<int> Workers;
 }
 
 [Game]
@@ -140,9 +141,4 @@ public struct MetricsInfo
 public class MetricsHistoryComponent : IComponent
 {
     public List<MetricsInfo> Metrics;
-}
-
-public class StaffComponent : IComponent
-{
-    //public List<>
 }

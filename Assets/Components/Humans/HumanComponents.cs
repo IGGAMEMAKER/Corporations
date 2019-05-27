@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System.Collections.Generic;
 
 [Game]
 public class HumanComponent : IComponent
@@ -13,5 +14,5 @@ public class HumanComponent : IComponent
 [Game]
 public class HumanSkillsComponent : IComponent
 {
-
+    //public Dictionary<>
 }
