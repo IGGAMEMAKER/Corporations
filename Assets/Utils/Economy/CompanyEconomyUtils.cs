@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyEconomyUtils
     {
@@ -20,12 +17,9 @@ namespace Assets.Utils
             return GetCompanyIncome(e, context);
         }
 
-
         public static long GetCompanyCost(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
-
-            long capital = c.companyResource.Resources.money;
 
             long cost;
             if (CompanyUtils.IsProductCompany(c))
@@ -34,6 +28,8 @@ namespace Assets.Utils
                 cost = GetGroupOfCompaniesCost(context, c);
 
             //Debug.Log($"Get CompanyCost of {c.company.Name} = {cost}");
+
+            long capital = c.companyResource.Resources.money;
 
             return cost + capital;
         }

@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Entitas;
 using UnityEngine;
 
 public class BaseClass : MonoBehaviour
@@ -26,6 +27,14 @@ public class BaseClass : MonoBehaviour
         get
         {
             return ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
+        }
+    }
+
+    public GameEntity Me
+    {
+        get
+        {
+            return GameContext.GetEntities(GameMatcher.Player)[0];
         }
     }
 

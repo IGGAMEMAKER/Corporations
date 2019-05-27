@@ -80,10 +80,7 @@ public class ProductInitializerSystem : IInitializeSystem
     void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
     {
         for (var i = 0; i < amountOfInvestors; i++)
-        {
             InvestmentUtils.GenerateAngel(GameContext);
-        }
-
     }
 
     int GetRandomInvestmentFund()
@@ -120,6 +117,17 @@ public class ProductInitializerSystem : IInitializeSystem
         }
     }
 
+    void PlayAs(int companyId)
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+
+        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
+
+        SetPlayerControlledCompany(companyId);
+
+        human.isPlayer = true;
+    }
+
     void Initialize()
     {
         // products
@@ -136,6 +144,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
         GenerateProductCompany("Microsoft", NicheType.OSDesktop);
 
+
         // investors
         int investorId = GenerateInvestmentFund("Morgan Stanley", 1000000);
         int investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
@@ -149,10 +158,8 @@ public class ProductInitializerSystem : IInitializeSystem
         AddShareholder(alphabet, investorId2, 200);
 
         int googleGroupId = PromoteToGroup(google);
-        //SetPlayerControlledCompany(alphabet);
 
-        SetPlayerControlledCompany(tg);
-
+        PlayAs(tg);
 
 
         AddShareholder(yahoo, investorId2, 500);

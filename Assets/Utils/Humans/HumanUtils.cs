@@ -71,6 +71,13 @@ namespace Assets.Utils
             return e;
         }
 
+        public static GameEntity SetRole(GameContext context, int humanId, WorkerRole workerRole)
+        {
+            var human = GetHumanById(context, humanId);
+
+            return SetRole(human, workerRole);
+        }
+
         public static GameEntity SetRole(GameEntity worker, WorkerRole workerRole)
         {
             if (!worker.hasWorker)

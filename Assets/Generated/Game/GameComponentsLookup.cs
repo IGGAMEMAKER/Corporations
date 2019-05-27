@@ -54,26 +54,27 @@ public static class GameComponentsLookup {
     public const int NicheCosts = 43;
     public const int NicheState = 44;
     public const int Notifications = 45;
-    public const int Product = 46;
-    public const int ProductListener = 47;
-    public const int PublicCompany = 48;
-    public const int Shareholder = 49;
-    public const int Shareholders = 50;
-    public const int ShareholdersListener = 51;
-    public const int Targeting = 52;
-    public const int TargetingListener = 53;
-    public const int TargetUserType = 54;
-    public const int TargetUserTypeListener = 55;
-    public const int Task = 56;
-    public const int TaskManager = 57;
-    public const int Team = 58;
-    public const int TeamListener = 59;
-    public const int TechnologyLeader = 60;
-    public const int TechnologyLeaderListener = 61;
-    public const int TimerRunning = 62;
-    public const int Worker = 63;
+    public const int Player = 46;
+    public const int Product = 47;
+    public const int ProductListener = 48;
+    public const int PublicCompany = 49;
+    public const int Shareholder = 50;
+    public const int Shareholders = 51;
+    public const int ShareholdersListener = 52;
+    public const int Targeting = 53;
+    public const int TargetingListener = 54;
+    public const int TargetUserType = 55;
+    public const int TargetUserTypeListener = 56;
+    public const int Task = 57;
+    public const int TaskManager = 58;
+    public const int Team = 59;
+    public const int TeamListener = 60;
+    public const int TechnologyLeader = 61;
+    public const int TechnologyLeaderListener = 62;
+    public const int TimerRunning = 63;
+    public const int Worker = 64;
 
-    public const int TotalComponents = 64;
+    public const int TotalComponents = 65;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -122,6 +123,7 @@ public static class GameComponentsLookup {
         "NicheCosts",
         "NicheState",
         "Notifications",
+        "Player",
         "Product",
         "ProductListener",
         "PublicCompany",
@@ -189,6 +191,7 @@ public static class GameComponentsLookup {
         typeof(NicheCostsComponent),
         typeof(NicheStateComponent),
         typeof(NotificationsComponent),
+        typeof(PlayerComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(PublicCompanyComponent),

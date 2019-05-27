@@ -95,6 +95,11 @@ public abstract class ButtonController : BaseClass
         Navigate(screenMode, Constants.MENU_SELECTED_COMPANY, companyId);
     }
 
+    public void NavigateToHuman(int humanId)
+    {
+        Navigate(ScreenMode.CharacterScreen, Constants.MENU_SELECTED_HUMAN, humanId);
+    }
+
     public void NavigateToProjectScreen(int companyId)
     {
         NavigateToCompany(ScreenMode.ProjectScreen, companyId);

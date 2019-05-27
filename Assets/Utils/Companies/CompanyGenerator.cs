@@ -25,6 +25,8 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
+            HumanUtils.SetRole(context, CeoID, WorkerRole.CEO);
+
             e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
 
             return e;

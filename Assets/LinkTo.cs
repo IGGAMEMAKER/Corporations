@@ -7,7 +7,7 @@
         switch (TargetMenu)
         {
             case ScreenMode.CharacterScreen:
-                Navigate(TargetMenu);
+                NavigateToHuman(Me.human.Id);
                 break;
             case ScreenMode.IndustryScreen:
                 NavigateToIndustry(IndustryType.Search);

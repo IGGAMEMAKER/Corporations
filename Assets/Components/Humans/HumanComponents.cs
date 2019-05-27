@@ -40,3 +40,5 @@ public class HumanCompanyRelationshipComponent : IComponent
     public int Adapted;
     public int Morale;
 }
+
+public class PlayerComponent : IComponent { }

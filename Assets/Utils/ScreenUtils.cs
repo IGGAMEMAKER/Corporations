@@ -39,7 +39,9 @@ namespace Assets.Utils
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
-            return (GameEntity)GetScreenData(gameContext)[Constants.MENU_SELECTED_HUMAN];
+            var humanId = (int) GetScreenData(gameContext)[Constants.MENU_SELECTED_HUMAN];
+
+            return HumanUtils.GetHumanById(gameContext, humanId);
         }
 
 
