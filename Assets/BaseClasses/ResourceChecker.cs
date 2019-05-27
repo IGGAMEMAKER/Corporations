@@ -66,7 +66,7 @@ public abstract class ResourceChecker : View
     string RequiredResourceSpec(int req, int res, string literal)
     {
         if (req > 0)
-            return VisualUtils.Colorize($"{req} {literal}", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
+            return Visuals.Colorize($"{req} {literal}", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
 
         return "";
     }

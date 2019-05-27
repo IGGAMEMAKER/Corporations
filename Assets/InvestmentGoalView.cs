@@ -77,7 +77,7 @@ public class InvestmentGoalView : View
 
         Expires.text = goalinfo.expires + " days";
 
-        Goal.text = VisualUtils.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
+        Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
 
         RenderProgress(requirements);
     }

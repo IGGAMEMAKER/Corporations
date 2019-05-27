@@ -34,7 +34,7 @@ public class NicheScreenView : View
         IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
-        IndustryName.text = VisualUtils.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
+        IndustryName.text = Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
 
         MarketPotentialView.Render();
         RenderAmountOfCompanies(NicheType);

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    public static class VisualUtils
+    public static class Visuals
     {
         public static string Link(string text)
         {

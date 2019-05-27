@@ -16,7 +16,7 @@
             description.Append("Same goals", 25);
 
 
-            string title = VisualUtils.Describe(
+            string title = Visuals.Describe(
                 description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest"

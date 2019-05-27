@@ -29,10 +29,10 @@ public class ProductExpectations : View
 
         if (change >= 0)
         {
-            Text.text = VisualUtils.Positive("We are making money!");
+            Text.text = Visuals.Positive("We are making money!");
         } else
         {
-            Text.text = VisualUtils.Colorize($"We will be bankrupt in {balance * -1 / change} months!", false);
+            Text.text = Visuals.Colorize($"We will be bankrupt in {balance * -1 / change} months!", false);
         }
 
         Text.text += $" {balance} {change}";

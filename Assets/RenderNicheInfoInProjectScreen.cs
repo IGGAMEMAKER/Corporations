@@ -42,7 +42,7 @@ public class RenderNicheInfoInProjectScreen : View
 
         string text = EnumUtils.GetFormattedNicheName(niche);
 
-        NicheName.text = VisualUtils.Link(text);
+        NicheName.text = Visuals.Link(text);
 
         LinkToNiche.SetNiche(niche);
     }

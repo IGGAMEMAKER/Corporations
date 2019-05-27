@@ -99,7 +99,7 @@ public class BonusContainer
         foreach (var bonus in bonusDescriptions)
         {
             if (!(bonus.HideIfZero && bonus.Value == 0))
-                str.AppendLine(VisualUtils.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType));
+                str.AppendLine(Visuals.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType));
         }
 
         return str.ToString();

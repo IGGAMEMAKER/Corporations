@@ -6,6 +6,6 @@ public class ColorNegative : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Text>().color = VisualUtils.Color(VisualConstants.COLOR_NEGATIVE);
+        GetComponent<Text>().color = Visuals.Color(VisualConstants.COLOR_NEGATIVE);
     }
 }
