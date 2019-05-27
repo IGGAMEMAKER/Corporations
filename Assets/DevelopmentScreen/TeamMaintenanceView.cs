@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using System.Collections.Generic;
+using Assets.Utils;
 using UnityEngine.UI;
 
 public class TeamMaintenanceView : View
@@ -20,7 +21,7 @@ public class TeamMaintenanceView : View
         Text.text = $"${ValueFormatter.Shorten(CompanyEconomyUtils.GetTeamMaintenance(MyProductEntity))}";
     }
 
-    void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale)
+    void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale, List<int> workers)
     {
         Render();
     }

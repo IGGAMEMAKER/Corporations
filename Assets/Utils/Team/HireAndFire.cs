@@ -6,6 +6,10 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
+            var workers = company.team.Workers;
+
+            workers.Add(worker.human.Id);
+
 
         }
 

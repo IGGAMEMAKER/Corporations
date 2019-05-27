@@ -70,7 +70,7 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
-            company.AddTeam(1, 0, 0, 100);
+            company.AddTeam(1, 0, 0, 100, new List<int>());
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
 

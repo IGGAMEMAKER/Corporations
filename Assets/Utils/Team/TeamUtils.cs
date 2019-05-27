@@ -16,7 +16,7 @@ namespace Assets.Utils
     {
         private static void ReplaceTeam(GameEntity gameEntity, TeamComponent t)
         {
-            gameEntity.ReplaceTeam(t.Programmers, t.Managers, t.Marketers, t.Morale);
+            gameEntity.ReplaceTeam(t.Programmers, t.Managers, t.Marketers, t.Morale, t.Workers);
         }
 
         internal static void ToggleCrunching(GameContext context, int companyId)

@@ -11,7 +11,7 @@ public class HumanComponent : IComponent
     // skillset, character and perks later
 }
 
-public enum SkillType
+public enum TraitType
 {
     Charisma,
     Will,
@@ -28,7 +28,7 @@ public class HumanSkillsComponent : IComponent
 {
     // int - XP, convert it to lvl
     public Dictionary<WorkerRole, int> Roles;
-    public Dictionary<SkillType, int> Skills;
+    public Dictionary<TraitType, int> Traits;
 
     public Dictionary<NicheType, int> Expertise;
 }

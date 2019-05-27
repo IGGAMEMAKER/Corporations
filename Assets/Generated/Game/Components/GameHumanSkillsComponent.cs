@@ -8,25 +8,29 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly HumanSkillsComponent humanSkillsComponent = new HumanSkillsComponent();
+    public HumanSkillsComponent humanSkills { get { return (HumanSkillsComponent)GetComponent(GameComponentsLookup.HumanSkills); } }
+    public bool hasHumanSkills { get { return HasComponent(GameComponentsLookup.HumanSkills); } }
 
-    public bool isHumanSkills {
-        get { return HasComponent(GameComponentsLookup.HumanSkills); }
-        set {
-            if (value != isHumanSkills) {
-                var index = GameComponentsLookup.HumanSkills;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : humanSkillsComponent;
+    public void AddHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.Dictionary<TraitType, int> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
+        var index = GameComponentsLookup.HumanSkills;
+        var component = (HumanSkillsComponent)CreateComponent(index, typeof(HumanSkillsComponent));
+        component.Roles = newRoles;
+        component.Traits = newTraits;
+        component.Expertise = newExpertise;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.Dictionary<TraitType, int> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
+        var index = GameComponentsLookup.HumanSkills;
+        var component = (HumanSkillsComponent)CreateComponent(index, typeof(HumanSkillsComponent));
+        component.Roles = newRoles;
+        component.Traits = newTraits;
+        component.Expertise = newExpertise;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveHumanSkills() {
+        RemoveComponent(GameComponentsLookup.HumanSkills);
     }
 }
 

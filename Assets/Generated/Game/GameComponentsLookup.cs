@@ -37,29 +37,29 @@ public static class GameComponentsLookup {
     public const int Finance = 26;
     public const int FinanceListener = 27;
     public const int Following = 28;
-    public const int Human = 29;
-    public const int HumanSkills = 30;
-    public const int IndependentCompany = 31;
-    public const int Industry = 32;
-    public const int InvestmentProposals = 33;
-    public const int InvestmentRounds = 34;
-    public const int Marketing = 35;
-    public const int MarketingListener = 36;
-    public const int Menu = 37;
-    public const int MenuListener = 38;
-    public const int MetricsHistory = 39;
-    public const int NavigationHistory = 40;
-    public const int Niche = 41;
-    public const int NicheCosts = 42;
-    public const int NicheState = 43;
-    public const int Notifications = 44;
-    public const int Product = 45;
-    public const int ProductListener = 46;
-    public const int PublicCompany = 47;
-    public const int Shareholder = 48;
-    public const int Shareholders = 49;
-    public const int ShareholdersListener = 50;
-    public const int Staff = 51;
+    public const int HumanCompanyRelationship = 29;
+    public const int Human = 30;
+    public const int HumanSkills = 31;
+    public const int IndependentCompany = 32;
+    public const int Industry = 33;
+    public const int InvestmentProposals = 34;
+    public const int InvestmentRounds = 35;
+    public const int Marketing = 36;
+    public const int MarketingListener = 37;
+    public const int Menu = 38;
+    public const int MenuListener = 39;
+    public const int MetricsHistory = 40;
+    public const int NavigationHistory = 41;
+    public const int Niche = 42;
+    public const int NicheCosts = 43;
+    public const int NicheState = 44;
+    public const int Notifications = 45;
+    public const int Product = 46;
+    public const int ProductListener = 47;
+    public const int PublicCompany = 48;
+    public const int Shareholder = 49;
+    public const int Shareholders = 50;
+    public const int ShareholdersListener = 51;
     public const int Targeting = 52;
     public const int TargetingListener = 53;
     public const int TargetUserType = 54;
@@ -71,8 +71,9 @@ public static class GameComponentsLookup {
     public const int TechnologyLeader = 60;
     public const int TechnologyLeaderListener = 61;
     public const int TimerRunning = 62;
+    public const int Worker = 63;
 
-    public const int TotalComponents = 63;
+    public const int TotalComponents = 64;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -104,6 +105,7 @@ public static class GameComponentsLookup {
         "Finance",
         "FinanceListener",
         "Following",
+        "HumanCompanyRelationship",
         "Human",
         "HumanSkills",
         "IndependentCompany",
@@ -126,7 +128,6 @@ public static class GameComponentsLookup {
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
-        "Staff",
         "Targeting",
         "TargetingListener",
         "TargetUserType",
@@ -137,7 +138,8 @@ public static class GameComponentsLookup {
         "TeamListener",
         "TechnologyLeader",
         "TechnologyLeaderListener",
-        "TimerRunning"
+        "TimerRunning",
+        "Worker"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -170,6 +172,7 @@ public static class GameComponentsLookup {
         typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
         typeof(FollowingComponent),
+        typeof(HumanCompanyRelationshipComponent),
         typeof(HumanComponent),
         typeof(HumanSkillsComponent),
         typeof(IndependentCompanyComponent),
@@ -202,6 +205,7 @@ public static class GameComponentsLookup {
         typeof(TeamListenerComponent),
         typeof(TechnologyLeaderComponent),
         typeof(TechnologyLeaderListenerComponent),
-        typeof(TimerRunningComponent)
+        typeof(TimerRunningComponent),
+        typeof(WorkerComponent)
     };
 }

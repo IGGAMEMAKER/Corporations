@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class RenderWorkerAmount : View
@@ -30,7 +28,7 @@ public class RenderWorkerAmount : View
         Marketers.text = t.Marketers.ToString();
     }
 
-    void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale)
+    void ITeamListener.OnTeam(GameEntity entity, int programmers, int managers, int marketers, int morale, List<int> workers)
     {
         Render();
     }
