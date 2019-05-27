@@ -38,6 +38,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public GameEntity SelectedHuman
+    {
+        get
+        {
+            return ScreenUtils.GetSelectedHuman(GameContext);
+        }
+    }
+
     public GameEntity MyProductEntity
     {
         get
