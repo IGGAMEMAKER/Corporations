@@ -141,3 +141,8 @@ public class MetricsHistoryComponent : IComponent
 {
     public List<MetricsInfo> Metrics;
 }
+
+public class StaffComponent : IComponent
+{
+    //public List<>
+}
