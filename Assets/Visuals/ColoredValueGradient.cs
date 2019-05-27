@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 
 public class ColoredValueGradient : ColoredValue
 {
@@ -12,21 +13,7 @@ public class ColoredValueGradient : ColoredValue
 
     Color GetGradientColor()
     {
-        float percent = (value - minValue) / (maxValue - minValue);
-
-        if (percent < 0)
-            percent = 0;
-
-        if (percent > 1)
-            percent = 1;
-
-        if (reversed)
-            percent = 1 - percent;
-
-        float r = 1f - percent;
-        float g = percent;
-
-        return new Color(r, g, 0, 1);
+        return Visuals.GetGradientColor(minValue, maxValue, value, reversed);
     }
 
     public override Color GetColor()

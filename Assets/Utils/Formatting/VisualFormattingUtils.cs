@@ -27,6 +27,45 @@ namespace Assets.Utils
             return Colorize(text, VisualConstants.COLOR_POSITIVE);
         }
 
+        #region gradient
+
+        internal static string Gradient(int min, int max, int value, string text)
+        {
+            var color = GetGradientColor(min, max, value, false);
+
+            var colorName = GetGradientStringName(color);
+
+            return $"<color={colorName}>{text}</color>";
+        }
+
+
+        public static Color GetGradientColor(float min, float max, float val, bool reversed = false)
+        {
+            float percent = (val - min) / (max - min);
+
+            if (percent < 0)
+                percent = 0;
+
+            if (percent > 1)
+                percent = 1;
+
+            if (reversed)
+                percent = 1 - percent;
+
+            float r = 1f - percent;
+            float g = percent;
+
+            return new Color(r, g, 0, 1);
+        }
+
+        static string GetGradientStringName(Color color)
+        {
+            return VisualConstants.COLOR_POSITIVE;
+        }
+
+        #endregion
+
+
         public static string Neutral(string text)
         {
             return Colorize(text, VisualConstants.COLOR_NEUTRAL);

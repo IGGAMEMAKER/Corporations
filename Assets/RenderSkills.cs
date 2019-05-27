@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +30,9 @@ public class RenderSkills : View
 
     void Trait(Text text, int value)
     {
-        text.text = $": {value}LVL";
+        //text.text = $": {value}LVL";
+        text.color = Visuals.GetGradientColor(0, 100, value);
+        text.text = value.ToString();
     }
 
     void Roles(Text text, int value)
