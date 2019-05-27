@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using System;
 using System.Collections.Generic;
 
 namespace Assets.Utils
@@ -38,6 +37,10 @@ namespace Assets.Utils
             return (NicheType)GetScreenData(gameContext)[Constants.MENU_SELECTED_NICHE];
         }
 
+        public static GameEntity GetSelectedHuman(GameContext gameContext)
+        {
+            return (GameEntity)GetScreenData(gameContext)[Constants.MENU_SELECTED_HUMAN];
+        }
 
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)

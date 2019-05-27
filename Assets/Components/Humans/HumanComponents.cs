@@ -11,8 +11,30 @@ public class HumanComponent : IComponent
     // skillset, character and perks later
 }
 
+public enum SkillType
+{
+    Charisma,
+    Will,
+    Discipline,
+    Ambitions,
+    Education,
+    Vision
+}
+
+public class WorkerComponent : IComponent { }
+
 [Game]
 public class HumanSkillsComponent : IComponent
 {
-    //public Dictionary<>
+    // int - XP, convert it to lvl
+    public Dictionary<WorkerRole, int> Roles;
+    public Dictionary<SkillType, int> Skills;
+
+    public Dictionary<NicheType, int> Expertise;
+}
+
+public class HumanCompanyRelationshipComponent : IComponent
+{
+    public int Adapted;
+    public int Morale;
 }
