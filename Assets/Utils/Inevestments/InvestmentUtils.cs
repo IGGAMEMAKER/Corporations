@@ -1,5 +1,4 @@
-﻿using Assets.Utils.Humans;
-using Entitas;
+﻿using Entitas;
 using System;
 
 namespace Assets.Utils

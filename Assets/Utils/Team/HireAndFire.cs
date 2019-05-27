@@ -4,7 +4,9 @@
     {
         public static void HireWorker(GameEntity company, WorkerRole workerRole)
         {
-            
+            var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
+
+
         }
 
         public static void HireManager(GameEntity company)

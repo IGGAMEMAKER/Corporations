@@ -1,6 +1,4 @@
-﻿using Assets.Classes;
-using Assets.Utils.Humans;
-using Entitas;
+﻿using Entitas;
 using System.Collections.Generic;
 
 namespace Assets.Utils

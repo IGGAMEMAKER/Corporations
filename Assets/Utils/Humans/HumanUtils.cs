@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using System;
 
-namespace Assets.Utils.Humans
+namespace Assets.Utils
 {
     public static partial class HumanUtils
     {
@@ -28,6 +28,11 @@ namespace Assets.Utils.Humans
             e.AddHuman(id, "Tom", "Stokes " + id);
 
             return e;
+        }
+
+        public static GameEntity SetRole(GameEntity worker, WorkerRole workerRole)
+        {
+            return worker;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using Assets.Utils.Humans;
 using UnityEngine.UI;
 
 public class ProjectView : View
@@ -31,7 +30,7 @@ public class ProjectView : View
     void RenderCEO()
     {
         var human = HumanUtils.GetHumanById(GameContext, SelectedCompany.cEO.HumanId).human;
-        string name = human.Name + " " + human.Surname;
+        string name = $"{human.Name} {human.Surname}";
 
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : name);
     }
