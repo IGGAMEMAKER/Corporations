@@ -35,15 +35,17 @@ public class Constants
 public class VisualConstants
 {
     const string COLOR_BACKGROUND = "#2B2E34";
+    public const string COLOR_GOLD = "#FFAB04";
 
-    public const string COLOR_COMPANY_WHERE_I_AM_CEO = "#FFAB04";
+    public const string COLOR_COMPANY_WHERE_I_AM_CEO = COLOR_GOLD;
     public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = "#FFFFFF";
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
     public const string COLOR_POSITIVE = "#00FF00";
     public const string COLOR_NEGATIVE = "#FF0000";
     public const string COLOR_NEUTRAL = "#FFFFFF";
-    public const string COLOR_BEST = "#FFD100"; // "#FFA0FF";
+    public const string COLOR_BEST = COLOR_GOLD; // "#FFD100"; // "#FFA0FF";
+
 
     public const string COLOR_LINK = "#FFAB04";
 }
