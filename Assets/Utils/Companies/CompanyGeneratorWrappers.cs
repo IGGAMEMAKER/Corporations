@@ -18,9 +18,11 @@ namespace Assets.Utils
 
         private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
         {
-            int humanId = HumanUtils.GenerateHuman(context).human.Id;
+            int CEOId = HumanUtils.GenerateHuman(context).human.Id;
 
-            return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), humanId);
+
+
+            return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEOId);
         }
 
         public static GameEntity GenerateCompanyGroup(GameContext context, string name, int FormerProductCompany)

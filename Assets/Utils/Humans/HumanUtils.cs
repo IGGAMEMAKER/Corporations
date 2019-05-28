@@ -64,7 +64,7 @@ namespace Assets.Utils
             e.AddHuman(id, "Tom", "Stokes " + id);
             e.AddHumanSkills(
                 new Dictionary<WorkerRole, int> {
-                    [WorkerRole.CEO] = GetRandomXP(),
+                    [WorkerRole.Business] = GetRandomXP(),
                     [WorkerRole.Manager] = GetRandomXP(),
                     [WorkerRole.Marketer] = GetRandomXP(),
                     [WorkerRole.Programmer] = 0,
@@ -101,6 +101,29 @@ namespace Assets.Utils
                 worker.ReplaceWorker(workerRole);
 
             return worker;
+        }
+
+        public static int GetOverallRating (GameEntity worker)
+        {
+            var role = worker.worker.WorkerRole;
+            var skills = worker.humanSkills.Roles;
+
+            var marketing = skills[WorkerRole.Marketer];
+            var business = skills[WorkerRole.Business];
+            var coding = skills[WorkerRole.Programmer];
+            var management = skills[WorkerRole.Manager];
+            var vision = worker.humanSkills.Traits[TraitType.Vision];
+
+            switch (role)
+            {
+                case WorkerRole.MarketingDirector: return (marketing * 4 + business * 1 + management * 5) / 30;
+                case WorkerRole.TechDirector: return (coding * 4 + business * 1 + management * 5) / 30;
+                case WorkerRole.ProductManager: return (vision * 5 + business * 2 + management * 3) / 30;
+                case WorkerRole.ProjectManager: return (vision * 2 + business * 3 + management * 5) / 30;
+                case WorkerRole.Business: return (vision * 3 + business * 7) / 20;
+
+                default: return skills[role];
+            }
         }
     }
 }

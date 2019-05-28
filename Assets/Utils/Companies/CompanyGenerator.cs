@@ -25,7 +25,7 @@ namespace Assets.Utils
 
             e.AddCEO(0, CeoID);
 
-            HumanUtils.SetRole(context, CeoID, WorkerRole.CEO);
+            HumanUtils.SetRole(context, CeoID, WorkerRole.Business);
 
             e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
 
@@ -75,6 +75,10 @@ namespace Assets.Utils
             company.AddTeam(100, new List<int>());
             company.AddMarketing(brandPower, Segments);
             company.AddTargetUserType(UserType.Core);
+
+
+            TeamUtils.AttachToTeam(company, company.cEO.HumanId);
+
 
             SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 

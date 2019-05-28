@@ -6,14 +6,19 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
-            var team = company.team;
-
-            team.Workers.Add(worker.human.Id);
+            AttachToTeam(company, worker.human.Id);
 
             HumanUtils.SetRole(worker, workerRole);
 
             if (workerRole == WorkerRole.Programmer)
                 HumanUtils.SetSkill(worker, workerRole, UnityEngine.Random.Range(15, 100));
+        }
+
+        public static void AttachToTeam(GameEntity company, int humanId)
+        {
+            var team = company.team;
+
+            team.Workers.Add(humanId);
 
             ReplaceTeam(company, team);
         }

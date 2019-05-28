@@ -7,7 +7,7 @@
     ProjectManager,
     TechDirector,
     MarketingDirector,
-    CEO
+    Business
 }
 
 namespace Assets.Utils
