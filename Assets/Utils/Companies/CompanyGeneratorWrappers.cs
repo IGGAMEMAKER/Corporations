@@ -20,8 +20,6 @@ namespace Assets.Utils
         {
             int CEOId = HumanUtils.GenerateHuman(context).human.Id;
 
-
-
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEOId);
         }
 
