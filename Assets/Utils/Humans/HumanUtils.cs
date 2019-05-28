@@ -125,5 +125,22 @@ namespace Assets.Utils
                 default: return skills[role];
             }
         }
+
+        public static string GetFormattedRole(WorkerRole role)
+        {
+            switch (role)
+            {
+                case WorkerRole.Business: return "CEO";
+                case WorkerRole.Manager: return "Manager";
+                case WorkerRole.Marketer: return "Marketer";
+                case WorkerRole.MarketingDirector: return "Marketing Director";
+                case WorkerRole.ProductManager: return "Product Manager";
+                case WorkerRole.Programmer: return "Programmer";
+                case WorkerRole.ProjectManager: return "Project Manager";
+                case WorkerRole.TechDirector: return "Tech Director";
+
+                default: return role.ToString();
+            }
+        }
     }
 }

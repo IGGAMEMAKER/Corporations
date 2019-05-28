@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class HumanPreview : View
@@ -25,28 +22,11 @@ public class HumanPreview : View
         Overall.text = overall.ToString();
 
 
-        var role = GetFormattedRole(human.worker.WorkerRole);
+        var role = HumanUtils.GetFormattedRole(human.worker.WorkerRole);
 
         var description = $"{role}\n{human.human.Surname} {human.human.Name.Substring(0, 1)}.";
 
         Description.text = description;
-    }
-
-    public static string GetFormattedRole(WorkerRole role)
-    {
-        switch (role)
-        {
-            case WorkerRole.Business: return "CEO";
-            case WorkerRole.Manager: return "Manager";
-            case WorkerRole.Marketer: return "Marketer";
-            case WorkerRole.MarketingDirector: return "Marketing Director";
-            case WorkerRole.ProductManager: return "Product Manager";
-            case WorkerRole.Programmer: return "Programmer";
-            case WorkerRole.ProjectManager: return "Project Manager";
-            case WorkerRole.TechDirector: return "Tech Director";
-
-            default: return role.ToString();
-        }
     }
 
     public void SetEntity(int humanId)
