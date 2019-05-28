@@ -116,11 +116,11 @@ namespace Assets.Utils
 
             switch (role)
             {
-                case WorkerRole.MarketingDirector: return (marketing * 4 + business * 1 + management * 5) / 30;
-                case WorkerRole.TechDirector: return (coding * 4 + business * 1 + management * 5) / 30;
-                case WorkerRole.ProductManager: return (vision * 5 + business * 2 + management * 3) / 30;
-                case WorkerRole.ProjectManager: return (vision * 2 + business * 3 + management * 5) / 30;
-                case WorkerRole.Business: return (vision * 3 + business * 7) / 20;
+                case WorkerRole.MarketingDirector: return (marketing * 4 + business * 1 + management * 5) / 10;
+                case WorkerRole.TechDirector: return (coding * 4 + business * 1 + management * 5) / 10;
+                case WorkerRole.ProductManager: return (vision * 5 + business * 2 + management * 3) / 10;
+                case WorkerRole.ProjectManager: return (vision * 2 + business * 3 + management * 5) / 10;
+                case WorkerRole.Business: return (vision * 3 + business * 7) / 10;
 
                 default: return skills[role];
             }
