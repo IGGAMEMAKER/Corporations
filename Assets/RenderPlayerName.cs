@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class RenderPlayerName : View
@@ -9,6 +10,25 @@ public class RenderPlayerName : View
 
         var human = ScreenUtils.GetSelectedHuman(GameContext).human;
 
-        GetComponent<Text>().text = human.Name + " " + human.Surname;
+        var Text = GetComponent<Text>();
+        var text = $"{human.Name} {human.Surname}";
+
+        if (isMe)
+            text += " (YOU)";
+
+        Text.text = text;
+
+        if (isMe)
+            Text.color = Visuals.Color(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+        else
+            Text.color = Color.white;
+    }
+
+    bool isMe
+    {
+        get
+        {
+            return ScreenUtils.GetSelectedHuman(GameContext).human.Id == Me.human.Id;
+        }
     }
 }
