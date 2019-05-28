@@ -9,6 +9,7 @@
         this.humanId = humanId;
 
         GetComponent<LinkToHuman>().SetHumanId(humanId);
+
         HumanPreview.SetEntity(humanId);
     }
 }
