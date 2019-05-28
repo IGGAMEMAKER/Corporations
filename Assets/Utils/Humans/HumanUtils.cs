@@ -35,7 +35,7 @@ namespace Assets.Utils
 
         static int GetRandomTrait()
         {
-            return UnityEngine.Random.Range(15, 85);
+            return UnityEngine.Random.Range(35, 85);
         }
 
 
