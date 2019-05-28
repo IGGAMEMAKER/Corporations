@@ -30,7 +30,7 @@ namespace Assets.Utils
 
         static int GetRandomXP()
         {
-            return UnityEngine.Random.Range(0, 50);
+            return UnityEngine.Random.Range(40, 75);
         }
 
         static int GetRandomTrait()
