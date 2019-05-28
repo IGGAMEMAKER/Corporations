@@ -24,7 +24,7 @@ public class HumanPreview : View
 
         var role = HumanUtils.GetFormattedRole(human.worker.WorkerRole);
 
-        var description = $"{role}\n{human.human.Surname} {human.human.Name.Substring(0, 1)}.";
+        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}\n{role}";
 
         Description.text = description;
     }
