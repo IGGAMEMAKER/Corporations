@@ -38,7 +38,10 @@ namespace Assets.Utils
             return UnityEngine.Random.Range(35, 85);
         }
 
-
+        public static int GetRandomProgrammingSkill()
+        {
+            return UnityEngine.Random.Range(40, 75);
+        }
 
         public static Dictionary<TraitType, int> GenerateRandomTraits ()
         {
