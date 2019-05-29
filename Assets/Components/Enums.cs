@@ -118,7 +118,7 @@ public enum InvestmentRound
 
 public enum UserType
 {
-    Newbie,
+    //Newbie,
     Regular,
     Core
 }

@@ -46,13 +46,11 @@ namespace Assets.Utils
             hint.AppendFormat("Due to our churn rate ({0}%)", churn);
             hint.AppendFormat(" we lose {0} clients each month\n", Visuals.Negative(churnClients.ToString()));
 
-            if (userType != UserType.Core)
+            if (userType == UserType.Regular)
             {
-                UserType next = userType == UserType.Newbie ? UserType.Regular : UserType.Core;
-
                 hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>",
                     VisualConstants.COLOR_POSITIVE,
-                    EnumUtils.GetFormattedUserType(next),
+                    EnumUtils.GetFormattedUserType(UserType.Core),
                     promoted
                     );
             }

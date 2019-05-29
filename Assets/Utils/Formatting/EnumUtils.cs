@@ -19,7 +19,6 @@ namespace Assets.Utils.Formatting
             switch (userType)
             {
                 case UserType.Core: return "Core users";
-                case UserType.Newbie: return "New users";
                 case UserType.Regular: return "Regular users";
 
                 default: return userType.ToString();

@@ -50,7 +50,6 @@ namespace Assets.Utils
         {
             switch (userType)
             {
-                case UserType.Newbie: return 0.1f;
                 case UserType.Regular: return 0.6f;
                 case UserType.Core: return 2f;
 

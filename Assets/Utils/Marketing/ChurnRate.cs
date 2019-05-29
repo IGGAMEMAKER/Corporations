@@ -63,8 +63,6 @@ namespace Assets.Utils
 
             if (userType == UserType.Regular)
                 multiplier = 8;
-            if (userType == UserType.Newbie)
-                multiplier = 30;
 
             return multiplier;
         }
