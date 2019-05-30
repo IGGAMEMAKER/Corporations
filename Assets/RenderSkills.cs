@@ -12,10 +12,9 @@ public class RenderSkills : View
     public Text Ambitions;
     public Text Intelligence;
     public Text Discipline;
-    public Text Vision;
 
-    //[Space(20f)]
     [Header("Roles")]
+    public Text Vision;
     public Text Business;
     public Text Management;
     public Text Marketing;
@@ -53,8 +52,8 @@ public class RenderSkills : View
         Trait(Ambitions, traits[TraitType.Ambitions]);
         Trait(Intelligence, traits[TraitType.Education]);
         Trait(Discipline, traits[TraitType.Discipline]);
-        Trait(Vision, traits[TraitType.Vision]);
 
+        Roles(Vision, traits[TraitType.Vision]);
         Roles(Business, roles[WorkerRole.Business]);
         Roles(Management, roles[WorkerRole.Manager]);
         Roles(Marketing, roles[WorkerRole.Marketer]);
