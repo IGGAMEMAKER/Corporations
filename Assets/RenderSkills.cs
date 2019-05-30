@@ -31,7 +31,7 @@ public class RenderSkills : View
     {
         //text.text = $": {value}LVL";
         text.color = Visuals.GetGradientColor(0, 100, value);
-        text.text = value.ToString();
+        text.text = $"{value}    {Visuals.Negative("-2")}";
     }
 
     void Roles(Text text, int value)
