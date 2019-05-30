@@ -40,7 +40,7 @@ namespace Assets.Utils
 
         public static int GetRandomProgrammingSkill()
         {
-            return UnityEngine.Random.Range(40, 75);
+            return GetRandomXP();
         }
 
         public static Dictionary<TraitType, int> GenerateRandomTraits ()
@@ -109,6 +109,12 @@ namespace Assets.Utils
         public static int GetOverallRating (GameEntity worker)
         {
             var role = worker.worker.WorkerRole;
+
+            return GetWorkerRatingInRole(worker, role);
+        }
+
+        public static int GetWorkerRatingInRole (GameEntity worker, WorkerRole workerRole)
+        {
             var skills = worker.humanSkills.Roles;
 
             var marketing = skills[WorkerRole.Marketer];
@@ -117,7 +123,7 @@ namespace Assets.Utils
             var management = skills[WorkerRole.Manager];
             var vision = worker.humanSkills.Traits[TraitType.Vision];
 
-            switch (role)
+            switch (workerRole)
             {
                 case WorkerRole.MarketingDirector: return (marketing * 4 + business * 1 + management * 5) / 10;
                 case WorkerRole.TechDirector: return (coding * 4 + business * 1 + management * 5) / 10;
@@ -125,7 +131,7 @@ namespace Assets.Utils
                 case WorkerRole.ProjectManager: return (vision * 2 + business * 3 + management * 5) / 10;
                 case WorkerRole.Business: return (vision * 3 + business * 7) / 10;
 
-                default: return skills[role];
+                default: return skills[workerRole];
             }
         }
 

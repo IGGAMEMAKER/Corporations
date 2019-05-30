@@ -29,8 +29,8 @@ namespace Assets.Utils
         public static long GetSegmentDevelopmentLoyaltyBonus(GameContext gameContext, int companyId, UserType userType)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-            //c.product.
-            return 8;
+
+            return c.product.Segments[userType];
         }
 
         public static long GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)

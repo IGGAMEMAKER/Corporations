@@ -20,7 +20,7 @@ public class SegmentListView : ListView
         if (MyProductEntity == null)
             return;
 
-        SetItems(MyProductEntity.marketing.Segments.ToArray());
+        SetItems(MyProductEntity.marketing.Segments.Where(pair => pair.Value > 0).ToArray());
     }
 
 
