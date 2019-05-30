@@ -7,7 +7,8 @@
     ProjectManager,
     TechDirector,
     MarketingDirector,
-    Business
+    Business,
+    Universal
 }
 
 namespace Assets.Utils

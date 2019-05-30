@@ -50,14 +50,15 @@ public class AddRoleButtons : View
 
         Items.Add(b);
 
-        AddButton(WorkerRole.Business);
-        AddButton(WorkerRole.TechDirector);
-        AddButton(WorkerRole.ProjectManager);
-        AddButton(WorkerRole.MarketingDirector);
-        AddButton(WorkerRole.ProductManager);
-        AddButton(WorkerRole.Manager);
-        AddButton(WorkerRole.Marketer);
-        AddButton(WorkerRole.Programmer);
+        AddButton(WorkerRole.Business, "Leader of the project. Requires Excelent Business and Vision.");
+        AddButton(WorkerRole.TechDirector, "Increases you programmers effeciency. Requires Management, Programming and Business skills"); // , plus unlocks Infrastructure Improvements
+        AddButton(WorkerRole.ProjectManager, "Increases total effeciency. Requires Management, Business and Vision");
+        AddButton(WorkerRole.MarketingDirector, "Increases marketing effeciency. Requires Management, Marketing, Business and Vision");
+        AddButton(WorkerRole.ProductManager, "Requires Vision, Management and Business");
+        AddButton(WorkerRole.Manager, "Produces Manager points");
+        AddButton(WorkerRole.Marketer, "Produces Marketing points");
+        AddButton(WorkerRole.Programmer, "Produces Programmer points");
+        AddButton(WorkerRole.Universal, "Produces All types of points with 30% penalty. Better to set another role if possible");
 
         RenderText();
 
@@ -75,7 +76,7 @@ public class AddRoleButtons : View
         }
     }
 
-    void AddButton(WorkerRole role)
+    void AddButton(WorkerRole role, string text)
     {
         var b = Instantiate(ButtonPrefab, Container.transform, true);
 
@@ -89,5 +90,8 @@ public class AddRoleButtons : View
 
 
         controller.SetRole(role);
+
+        var hint = b.AddComponent<Hint>();
+        hint.SetHint(text);
     }
 }
