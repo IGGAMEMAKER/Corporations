@@ -9,16 +9,17 @@ public class AddRoleButtons : View
     public GameObject ButtonPrefab;
     public GameObject Container;
 
-    Dictionary<WorkerRole, GameObject> Buttons;
+    Dictionary<WorkerRole, GameObject> Buttons = new Dictionary<WorkerRole, GameObject>();
 
     void Start()
     {
-        Buttons = new Dictionary<WorkerRole, GameObject>();
+        var separator = Instantiate(new GameObject());
+        separator.AddComponent<RectTransform>();
 
-        var b = Instantiate(new GameObject(), Container.transform, true);
+        var b = Instantiate(separator, Container.transform, true);
         b.transform.SetSiblingIndex(1);
 
-        b = Instantiate(new GameObject(), Container.transform, true);
+        b = Instantiate(separator, Container.transform, true);
         b.transform.SetSiblingIndex(1);
 
         AddButton(WorkerRole.Business);
@@ -54,10 +55,12 @@ public class AddRoleButtons : View
         var b = Instantiate(ButtonPrefab, Container.transform, true);
 
         b.transform.SetSiblingIndex(2);
+        b.GetComponent<PlaySoundOnClick>().Sound = Assets.Sound.Tweak;
 
         Buttons[role] = b;
 
         var controller = b.AddComponent<SetWorkerRoleButton>();
+
 
         controller.SetRole(role);
     }
