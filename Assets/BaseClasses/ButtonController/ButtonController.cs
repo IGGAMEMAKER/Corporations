@@ -11,7 +11,16 @@ public abstract class ButtonController : BaseClass
     {
         Execute();
 
+        // TODO RENAVIGATE
+        if (Contains<ToggleRoleButtons>())
+            return;
+
         ReNavigate();
+    }
+
+    bool Contains<T>()
+    {
+        return gameObject.GetComponent<T>() != null;
     }
 
     public abstract void Execute();

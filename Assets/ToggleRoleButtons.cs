@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ToggleRoleButtons : ButtonController
 {
-    bool active;
-
+    public AddRoleButtons AddRoleButtons;
 
     public override void Execute()
     {
-        
+        AddRoleButtons.ToggleButtons();
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class PlaySoundOnClick : MonoBehaviour
+public class PlaySoundOnClick : View
 {
     public Sound Sound;
     Button Button;
@@ -17,6 +17,12 @@ public class PlaySoundOnClick : MonoBehaviour
 
     void PlaySound()
     {
+        if (Sound == Sound.None)
+        {
+            Debug.Log("no sound specified at " + CurrentScreen.ToString() + " " + gameObject.name);
+            return;
+        }
+
         SoundManager.Play(Sound);
     }
 

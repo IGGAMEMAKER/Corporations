@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,32 @@ public class AddRoleButtons : View
     public GameObject ButtonPrefab;
     public GameObject Container;
 
-    Dictionary<WorkerRole, GameObject> Buttons = new Dictionary<WorkerRole, GameObject>();
+    readonly Dictionary<WorkerRole, GameObject> Buttons = new Dictionary<WorkerRole, GameObject>();
+    List<GameObject> Items = new List<GameObject>();
+
+    bool toggle;
+
+    internal void ToggleButtons()
+    {
+        toggle = !toggle;
+
+        SetVisibility(toggle);
+    }
+
+    void SetVisibility(bool visibility)
+    {
+        toggle = visibility;
+
+        foreach (var o in Items)
+            o.SetActive(visibility);
+    }
+
+    private void OnEnable()
+    {
+        RenderText();
+
+        SetVisibility(false);
+    }
 
     void Start()
     {
@@ -19,8 +43,12 @@ public class AddRoleButtons : View
         var b = Instantiate(separator, Container.transform, true);
         b.transform.SetSiblingIndex(1);
 
+        Items.Add(b);
+
         b = Instantiate(separator, Container.transform, true);
         b.transform.SetSiblingIndex(1);
+
+        Items.Add(b);
 
         AddButton(WorkerRole.Business);
         AddButton(WorkerRole.TechDirector);
@@ -32,6 +60,8 @@ public class AddRoleButtons : View
         AddButton(WorkerRole.Programmer);
 
         RenderText();
+
+        SetVisibility(false);
     }
 
     void RenderText()
@@ -45,11 +75,6 @@ public class AddRoleButtons : View
         }
     }
 
-    private void OnEnable()
-    {
-        RenderText();
-    }
-
     void AddButton(WorkerRole role)
     {
         var b = Instantiate(ButtonPrefab, Container.transform, true);
@@ -58,6 +83,7 @@ public class AddRoleButtons : View
         b.GetComponent<PlaySoundOnClick>().Sound = Assets.Sound.Tweak;
 
         Buttons[role] = b;
+        Items.Add(b);
 
         var controller = b.AddComponent<SetWorkerRoleButton>();
 
