@@ -56,7 +56,7 @@ namespace Assets.Utils
 
             var Segments = new Dictionary<UserType, long>
             {
-                [UserType.Core] = clients,
+                [UserType.Core] = 0,
                 [UserType.Regular] = 0,
             };
 
