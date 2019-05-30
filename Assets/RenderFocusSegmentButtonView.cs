@@ -4,8 +4,8 @@
     {
         base.ViewRender();
 
-        var UserType = GetComponent<SetTargetUserType>().UserType;
+        //var UserType = GetComponent<SetTargetUserType>().UserType;
 
-        ToggleIsChosenComponent(MyProductEntity.targetUserType.UserType == UserType);
+        //ToggleIsChosenComponent(MyProductEntity.targetUserType.UserType == UserType);
     }
 }

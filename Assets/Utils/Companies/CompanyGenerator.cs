@@ -56,14 +56,14 @@ namespace Assets.Utils
 
             var Segments = new Dictionary<UserType, long>
             {
-                [UserType.Regular] = clients,
                 [UserType.Core] = 0,
+                [UserType.Regular] = clients,
             };
 
             var SegmentsFeatures = new Dictionary<UserType, int>
             {
-                [UserType.Regular] = productLevel,
                 [UserType.Core] = productLevel,
+                [UserType.Regular] = productLevel,
             };
 
             // product specific components
@@ -72,7 +72,6 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
             company.AddTeam(100, new List<int>());
             company.AddMarketing(brandPower, Segments);
-            company.AddTargetUserType(UserType.Core);
 
 
             TeamUtils.AttachToTeam(company, company.cEO.HumanId);

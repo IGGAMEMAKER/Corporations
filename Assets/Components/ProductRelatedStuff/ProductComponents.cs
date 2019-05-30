@@ -42,11 +42,11 @@ public class FinanceComponent : IComponent
     public float basePrice;
 }
 
-[Game, Event(EventTarget.Self)]
-public class TargetUserTypeComponent : IComponent
-{
-    public UserType UserType;
-}
+//[Game, Event(EventTarget.Self)]
+//public class TargetUserTypeComponent : IComponent
+//{
+//    public UserType UserType;
+//}
 
 [Game, Event(EventTarget.Self)]
 public class TargetingComponent : IComponent { }

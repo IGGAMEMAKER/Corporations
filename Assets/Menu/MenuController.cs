@@ -18,7 +18,6 @@ public enum ScreenMode
     InvesmentProposalScreen = 8,
     IndustryScreen = 9,
     NicheScreen = 10,
-    EconomyScreen = 11,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -36,7 +35,6 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject CharacterScreen;
     public GameObject GroupManagementScreen;
     public GameObject TeamScreen;
-    public GameObject EconomyScreen;
     public GameObject MarketingScreen;
 
 
@@ -53,7 +51,6 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.CharacterScreen] = CharacterScreen,
             [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
             [ScreenMode.TeamScreen] = TeamScreen,
-            [ScreenMode.EconomyScreen] = EconomyScreen,
             [ScreenMode.MarketingScreen] = MarketingScreen
         };
 
@@ -70,7 +67,7 @@ public class MenuController : MonoBehaviour, IMenuListener
         switch (screen)
         {
             case ScreenMode.IndustryScreen: return "Market resarch";
-            case ScreenMode.NicheScreen: return "Niche";
+            case ScreenMode.NicheScreen: return "Market";
             case ScreenMode.ProjectScreen: return "Company Overview";
             case ScreenMode.DevelopmentScreen: return "Product Overview";
             case ScreenMode.InvesmentsScreen: return "Investments";
@@ -78,7 +75,6 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.CharacterScreen: return "Profile";
             case ScreenMode.GroupManagementScreen: return "My companies";
             case ScreenMode.TeamScreen: return "Management";
-            case ScreenMode.EconomyScreen: return "Finances";
             case ScreenMode.MarketingScreen: return "Marketing";
 
             default: return "WUT?";

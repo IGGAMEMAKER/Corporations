@@ -118,9 +118,8 @@ public enum InvestmentRound
 
 public enum UserType
 {
-    //Newbie,
+    Core,
     Regular,
-    Core
 }
 
 public enum Pricing

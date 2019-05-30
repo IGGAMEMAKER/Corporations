@@ -29,13 +29,15 @@ namespace Assets.Utils
 
         #region gradient
 
-        internal static string Gradient(int min, int max, int value, string text)
+        internal static string Gradient(int min, int max, int value, string text = "")
         {
             var color = GetGradientColor(min, max, value, false);
 
             var colorName = GetGradientStringName(color);
 
-            return $"<color={colorName}>{text}</color>";
+            return Colorize(text.Length == 0 ? value.ToString() : text, colorName);
+
+            //return $"<color={colorName}>{()}</color>";
         }
 
 

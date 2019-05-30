@@ -70,7 +70,7 @@ namespace Assets.Utils
                     [WorkerRole.Business] = GetRandomXP(),
                     [WorkerRole.Manager] = GetRandomXP(),
                     [WorkerRole.Marketer] = GetRandomXP(),
-                    [WorkerRole.Programmer] = 0,
+                    [WorkerRole.Programmer] = 10,
                 },
                 GenerateRandomTraits(),
                 new Dictionary<NicheType, int>()

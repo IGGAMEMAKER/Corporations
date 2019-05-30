@@ -15,13 +15,11 @@ namespace Assets.Utils
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            int SegmentFocus = c.targetUserType.UserType == userType ? 3 : 0;
             var SegmentBonus = GetSegmentDevelopmentLoyaltyBonus(gameContext, companyId, userType);
 
             return new BonusContainer("Client loyalty is")
                 .Append("Product Competitiveness", app)
-                .AppendAndHideIfZero("We are focusing on them", SegmentFocus)
-                .Append("Segment Development", SegmentBonus)
+                .Append("Improvements", SegmentBonus)
                 .AppendAndHideIfZero("Is only company", onlyPlayerBonus)
                 .Append("Pricing", -pricing)
                 .AppendAndHideIfZero("Bugs", -bugs)

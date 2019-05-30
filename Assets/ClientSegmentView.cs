@@ -11,8 +11,6 @@ public class ClientSegmentView : View
     public GameObject IdeaIcon;
     public GameObject BrandIcon;
 
-    public SetTargetUserType SetTargetUserType;
-
     public Text SegmentBonus;
 
     UserType UserType;
@@ -36,9 +34,6 @@ public class ClientSegmentView : View
     public void Render()
     {
         var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
-
-        SetTargetUserType.SetUserType(UserType);
-        SetTargetUserType.gameObject.GetComponent<RenderFocusSegmentButtonView>().ViewRender();
 
         LevelLabel.text = $"{c.product.Segments[UserType]}LVL";
 

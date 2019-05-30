@@ -19,8 +19,8 @@ public class HumanPreview : View
     {
         var overall = HumanUtils.GetOverallRating(human);
 
-        Overall.text = overall.ToString();
-
+        Overall.text = $"{overall}";
+        //Overall.color = Visuals.GetGradientColor(0, 100, overall);
 
         var role = HumanUtils.GetFormattedRole(human.worker.WorkerRole);
 
