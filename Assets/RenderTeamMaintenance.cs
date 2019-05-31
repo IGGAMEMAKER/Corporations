@@ -2,7 +2,7 @@
 
 public class RenderTeamMaintenance : UpgradedParameterView
 {
-    long maintenance
+    long Maintenance
     {
         get
         {
@@ -21,18 +21,19 @@ public class RenderTeamMaintenance : UpgradedParameterView
         var topManagers = TeamUtils.GetTopManagers(company);
 
         var bonus = new BonusContainer("Maintenance")
-            .Append("CEO", 0)
+            .AppendAndHideIfZero("CEO", 0)
             .AppendAndHideIfZero("Universals", universals)
-            .Append("Programmers", programmers)
-            .Append("Marketers", marketers)
+            .AppendAndHideIfZero("Programmers", programmers)
+            .AppendAndHideIfZero("Marketers", marketers)
+            .AppendAndHideIfZero("Top Management", topManagers)
             .AppendAndHideIfZero("Managers", managers)
-            .AppendAndHideIfZero("Top Management", topManagers);
+            ;
 
         return bonus.ToString();
     }
 
     public override string RenderValue()
     {
-        return $"${ValueFormatter.Shorten(maintenance)}";
+        return $"${ValueFormatter.Shorten(Maintenance)}";
     }
 }
