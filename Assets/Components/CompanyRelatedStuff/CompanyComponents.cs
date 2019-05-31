@@ -80,7 +80,7 @@ public class TeamComponent : IComponent
 
     public int Morale;
 
-    public List<int> Workers;
+    public Dictionary<int, WorkerRole> Workers;
 }
 
 [Game]

@@ -9,7 +9,7 @@ public class SetWorkerRoleButton : ButtonController
 
     public override void Execute()
     {
-        HumanUtils.SetRole(SelectedHuman, WorkerRole);
+        TeamUtils.SetRole(MyProductEntity, SelectedHuman.human.Id, WorkerRole);
     }
 
     public void SetRole(WorkerRole workerRole)

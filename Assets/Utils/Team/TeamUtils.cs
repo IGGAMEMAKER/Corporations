@@ -1,4 +1,6 @@
-﻿public enum WorkerRole {
+﻿using System.Linq;
+
+public enum WorkerRole {
     Programmer,
     Manager,
     Marketer,
@@ -40,19 +42,33 @@ namespace Assets.Utils
             //return company.team.Managers * 7;
         }
 
+        static int CountSpecialists(GameEntity company, WorkerRole workerRole)
+        {
+            return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
+        }
+
         public static int GetProgrammers(GameEntity company)
         {
-            return 1;
+            return CountSpecialists(company, WorkerRole.Programmer);
         }
 
         public static int GetManagers(GameEntity company)
         {
-            return 1;
+            return CountSpecialists(company, WorkerRole.Manager);
         }
 
         public static int GetMarketers(GameEntity company)
         {
-            return 1;
+            return CountSpecialists(company, WorkerRole.Marketer);
+        }
+
+        public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole)
+        {
+            var workers = company.team.Workers;
+
+            workers[humanId] = workerRole;
+
+            company.ReplaceTeam(company.team.Morale, workers);
         }
 
         public static int GetTeamSize(GameEntity company) {

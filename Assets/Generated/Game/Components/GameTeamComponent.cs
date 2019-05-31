@@ -11,7 +11,7 @@ public partial class GameEntity {
     public TeamComponent team { get { return (TeamComponent)GetComponent(GameComponentsLookup.Team); } }
     public bool hasTeam { get { return HasComponent(GameComponentsLookup.Team); } }
 
-    public void AddTeam(int newMorale, System.Collections.Generic.List<int> newWorkers) {
+    public void AddTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceTeam(int newMorale, System.Collections.Generic.List<int> newWorkers) {
+    public void ReplaceTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;

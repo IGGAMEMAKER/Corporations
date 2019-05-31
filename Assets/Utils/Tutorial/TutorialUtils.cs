@@ -4,7 +4,7 @@ namespace Assets.Utils.Tutorial
 {
     public static class TutorialUtils
     {
-        public static GameEntity GetProgression(GameContext gameContext)
+        static GameEntity GetProgression(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Tutorial)[0];
         }

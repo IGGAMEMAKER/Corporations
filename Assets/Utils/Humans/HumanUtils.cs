@@ -89,21 +89,12 @@ namespace Assets.Utils
             return worker;
         }
 
-        public static GameEntity SetRole(GameContext context, int humanId, WorkerRole workerRole)
-        {
-            var human = GetHumanById(context, humanId);
-
-            return SetRole(human, workerRole);
-        }
-
-        public static GameEntity SetRole(GameEntity worker, WorkerRole workerRole)
+        public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
         {
             if (!worker.hasWorker)
                 worker.AddWorker(workerRole);
             else
                 worker.ReplaceWorker(workerRole);
-
-            return worker;
         }
 
         public static int GetOverallRating (GameEntity worker)

@@ -4,7 +4,7 @@
 
     public HumanPreview HumanPreview;
 
-    public void SetEntity(int humanId)
+    public void SetEntity(int humanId, WorkerRole workerRole)
     {
         this.humanId = humanId;
 

@@ -68,8 +68,6 @@ public class ClickOnMeIfNeverClicked : View
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Unlocked Tutorial Functionality " + TutorialFunctionality);
-
         TutorialUtils.Unlock(GameContext, TutorialFunctionality);
     }
 }

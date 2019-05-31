@@ -6,19 +6,19 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
-            AttachToTeam(company, worker.human.Id);
+            AttachToTeam(company, worker.human.Id, workerRole);
 
-            HumanUtils.SetRole(worker, workerRole);
+            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
 
             if (workerRole == WorkerRole.Programmer)
                 HumanUtils.SetSkill(worker, workerRole, HumanUtils.GetRandomProgrammingSkill());
         }
 
-        public static void AttachToTeam(GameEntity company, int humanId)
+        public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
         {
             var team = company.team;
 
-            team.Workers.Add(humanId);
+            team.Workers[humanId] = role;
 
             ReplaceTeam(company, team);
         }

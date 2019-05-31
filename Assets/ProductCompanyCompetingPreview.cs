@@ -25,7 +25,11 @@ public class ProductCompanyCompetingPreview : View,
         ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
         if (entity.isControlledByPlayer)
+        {
             Panel.color = ourCompanyColor;
+
+            Destroy(GetComponent<ClickOnMeIfNeverClicked>());
+        }
 
         Render();
     }
