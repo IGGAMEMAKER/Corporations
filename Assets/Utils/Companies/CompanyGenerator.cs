@@ -5,7 +5,7 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, BlockOfShares> founders, int CeoID)
+        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, BlockOfShares> founders, GameEntity CEO)
         {
             var e = context.CreateEntity();
 
@@ -23,11 +23,13 @@ namespace Assets.Utils
 
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
 
+            int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
 
             e.AddTeam(100, new Dictionary<int, WorkerRole>());
 
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
+            HumanUtils.AttachToCompany(CEO, id);
 
             e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
 
