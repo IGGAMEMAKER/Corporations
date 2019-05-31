@@ -89,17 +89,26 @@ namespace Assets.Utils
             return worker;
         }
 
-        public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
+        public static void AttachToCompany(GameEntity worker, int companyId)
         {
             if (!worker.hasWorker)
-                worker.AddWorker(workerRole);
+                worker.AddWorker(companyId);
             else
-                worker.ReplaceWorker(workerRole);
+                worker.ReplaceWorker(companyId);
         }
 
-        public static int GetOverallRating (GameEntity worker)
+        public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
         {
-            var role = worker.worker.WorkerRole;
+            var companyId = worker.worker.companyId;
+
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return c.team.Workers[worker.human.Id];
+        }
+
+        public static int GetOverallRating (GameEntity worker, GameContext gameContext)
+        {
+            var role = GetRole(gameContext, worker);
 
             return GetWorkerRatingInRole(worker, role);
         }

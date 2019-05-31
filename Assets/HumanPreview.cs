@@ -17,14 +17,15 @@ public class HumanPreview : View
 
     public void Render()
     {
-        var overall = HumanUtils.GetOverallRating(human);
+        var overall = HumanUtils.GetOverallRating(human, GameContext);
 
         Overall.text = $"{overall}";
-        //Overall.color = Visuals.GetGradientColor(0, 100, overall);
 
-        var role = HumanUtils.GetFormattedRole(human.worker.WorkerRole);
+        var role = HumanUtils.GetRole(GameContext, human);
 
-        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}\n{role}";
+        var formattedRole = HumanUtils.GetFormattedRole(role);
+
+        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}\n{formattedRole}";
 
         Description.text = description;
     }

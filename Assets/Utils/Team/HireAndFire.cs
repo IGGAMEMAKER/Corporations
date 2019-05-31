@@ -8,7 +8,7 @@
 
             AttachToTeam(company, worker.human.Id, workerRole);
 
-            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
+            HumanUtils.AttachToCompany(worker, company.company.Id);
 
             if (workerRole == WorkerRole.Programmer)
                 HumanUtils.SetSkill(worker, workerRole, HumanUtils.GetRandomProgrammingSkill());
