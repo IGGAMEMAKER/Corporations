@@ -39,29 +39,29 @@ public class AddRoleButtons : View
     {
         var teamStatus = MyProductEntity.team.TeamStatus;
 
-        if (teamStatus >= TeamStatus.BigTeam)
-        {
+        //if (teamStatus >= TeamStatus.BigTeam)
+        //{
             AddButton(WorkerRole.Manager, "Produces Manager points");
-        }
+        //}
 
-        if (teamStatus >= TeamStatus.Department)
-        {
+        //if (teamStatus >= TeamStatus.Department)
+        //{
             AddButton(WorkerRole.TechDirector, "Increases you programmers effeciency. Requires Management, Programming and Business skills"); // , plus unlocks Infrastructure Improvements
             AddButton(WorkerRole.MarketingDirector, "Increases marketing effeciency. Requires Management, Marketing, Business and Vision");
             AddButton(WorkerRole.ProjectManager, "Increases total effeciency. Requires Management, Business and Vision");
-        }
+        //}
 
-        if (teamStatus >= TeamStatus.SmallTeam)
-        {
+        //if (teamStatus >= TeamStatus.SmallTeam)
+        //{
             AddButton(WorkerRole.ProductManager, "Requires Vision, Management and Business");
             AddButton(WorkerRole.Business, "Leader of the project. Requires Excelent Business and Vision.");
-        }
+        //}
 
-        if (teamStatus >= TeamStatus.Pair)
-        {
+        //if (teamStatus >= TeamStatus.Pair)
+        //{
             AddButton(WorkerRole.Marketer, "Produces Marketing points");
             AddButton(WorkerRole.Programmer, "Produces Programmer points");
-        }
+        //}
 
         AddButton(WorkerRole.Universal, "Produces All types of points with 30% penalty. Better to set another role if possible");
     }
