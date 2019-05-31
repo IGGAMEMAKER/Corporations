@@ -71,6 +71,15 @@ public class Team
     public int Morale;
 }
 
+public enum TeamStatus
+{
+    Solo,
+    Pair,
+    SmallTeam,
+    Department,
+    BigTeam
+}
+
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
 {
@@ -81,6 +90,8 @@ public class TeamComponent : IComponent
     public int Morale;
 
     public Dictionary<int, WorkerRole> Workers;
+
+    public TeamStatus TeamStatus;
 }
 
 [Game]

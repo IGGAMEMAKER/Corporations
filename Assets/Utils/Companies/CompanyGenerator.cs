@@ -26,7 +26,7 @@ namespace Assets.Utils
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
 
-            e.AddTeam(100, new Dictionary<int, WorkerRole>());
+            e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
 
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
             HumanUtils.AttachToCompany(CEO, id);

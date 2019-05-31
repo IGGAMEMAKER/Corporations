@@ -20,7 +20,7 @@ namespace Assets.Utils
     {
         private static void ReplaceTeam(GameEntity gameEntity, TeamComponent t)
         {
-            gameEntity.ReplaceTeam(t.Morale, t.Workers);
+            gameEntity.ReplaceTeam(t.Morale, t.Workers, t.TeamStatus);
         }
 
         internal static void ToggleCrunching(GameContext context, int companyId)
@@ -28,6 +28,11 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             c.isCrunching = !c.isCrunching;
+        }
+
+        internal static int GetTopManagers(GameEntity company)
+        {
+            return 0;
         }
 
         internal static int GetPerformance(GameContext gameContext, GameEntity company)
@@ -46,6 +51,13 @@ namespace Assets.Utils
         static int CountSpecialists(GameEntity company, WorkerRole workerRole)
         {
             return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
+        }
+
+
+
+        internal static int GetUniversals(GameEntity company)
+        {
+            return CountSpecialists(company, WorkerRole.Universal);
         }
 
         public static int GetProgrammers(GameEntity company)
@@ -69,7 +81,7 @@ namespace Assets.Utils
 
             workers[humanId] = workerRole;
 
-            company.ReplaceTeam(company.team.Morale, workers);
+            company.ReplaceTeam(company.team.Morale, workers, company.team.TeamStatus);
         }
 
         public static int GetTeamSize(GameEntity company) {

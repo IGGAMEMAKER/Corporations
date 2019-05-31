@@ -11,19 +11,21 @@ public partial class GameEntity {
     public TeamComponent team { get { return (TeamComponent)GetComponent(GameComponentsLookup.Team); } }
     public bool hasTeam { get { return HasComponent(GameComponentsLookup.Team); } }
 
-    public void AddTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers) {
+    public void AddTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers, TeamStatus newTeamStatus) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
         component.Workers = newWorkers;
+        component.TeamStatus = newTeamStatus;
         AddComponent(index, component);
     }
 
-    public void ReplaceTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers) {
+    public void ReplaceTeam(int newMorale, System.Collections.Generic.Dictionary<int, WorkerRole> newWorkers, TeamStatus newTeamStatus) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
         component.Workers = newWorkers;
+        component.TeamStatus = newTeamStatus;
         ReplaceComponent(index, component);
     }
 
