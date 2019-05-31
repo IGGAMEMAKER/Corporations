@@ -30,6 +30,15 @@ public class Constants
     public const string MENU_SELECTED_INDUSTRY = "SelectedIndustry";
     public const string MENU_SELECTED_NICHE = "SelectedNiche";
     public const string MENU_SELECTED_HUMAN = "SelectedHuman";
+
+    public static int SALARIES_MANAGER = 2000;
+    public static int SALARIES_PROGRAMMER = 2000;
+    public static int SALARIES_MARKETER = 2000;
+    public static int SALARIES_UNIVERSAL = 2000;
+    public static int SALARIES_CEO = 0;
+    public static int SALARIES_FOUNDER = 0;
+    public static int SALARIES_DIRECTOR = 3500;
+    public static int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
 }
 
 public class VisualConstants

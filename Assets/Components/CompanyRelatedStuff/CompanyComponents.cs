@@ -83,10 +83,6 @@ public enum TeamStatus
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
 {
-    //public int Programmers;
-    //public int Managers;
-    //public int Marketers;
-
     public int Morale;
 
     public Dictionary<int, WorkerRole> Workers;

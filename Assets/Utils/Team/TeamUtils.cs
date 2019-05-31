@@ -30,11 +30,6 @@ namespace Assets.Utils
             c.isCrunching = !c.isCrunching;
         }
 
-        internal static int GetTopManagers(GameEntity company)
-        {
-            return 0;
-        }
-
         internal static int GetPerformance(GameContext gameContext, GameEntity company)
         {
             int crunchingModifier = company.isCrunching ? 40 : 0;
@@ -48,7 +43,7 @@ namespace Assets.Utils
             //return company.team.Managers * 7;
         }
 
-        static int CountSpecialists(GameEntity company, WorkerRole workerRole)
+        public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
         {
             return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
         }
@@ -58,6 +53,11 @@ namespace Assets.Utils
         internal static int GetUniversals(GameEntity company)
         {
             return CountSpecialists(company, WorkerRole.Universal);
+        }
+
+        internal static int GetTopManagers(GameEntity company)
+        {
+            return 0;
         }
 
         public static int GetProgrammers(GameEntity company)
@@ -74,6 +74,8 @@ namespace Assets.Utils
         {
             return CountSpecialists(company, WorkerRole.Marketer);
         }
+
+
 
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole)
         {

@@ -61,12 +61,56 @@
                 );
         }
 
+        public static int GetManagersMaintenance(GameEntity e)
+        {
+            return TeamUtils.GetManagers(e) * Constants.SALARIES_MANAGER;
+        }
+
+        public static int GetMarketersMaintenance(GameEntity e)
+        {
+            return TeamUtils.GetMarketers(e) * Constants.SALARIES_MARKETER;
+        }
+
+        public static int GetUniversalsMaintenance(GameEntity e)
+        {
+            return TeamUtils.GetUniversals(e) * Constants.SALARIES_UNIVERSAL;
+        }
+
+        public static int GetProgrammersMaintenance(GameEntity e)
+        {
+            return TeamUtils.GetProgrammers(e) * Constants.SALARIES_PROGRAMMER;
+        }
+
+        public static int GetCEOMaintenance(GameEntity e)
+        {
+            return TeamUtils.CountSpecialists(e, WorkerRole.Business) * Constants.SALARIES_CEO;
+        }
+
+        public static int GetTopManagersMaintenance(GameEntity e)
+        {
+            var directors = (
+                TeamUtils.CountSpecialists(e, WorkerRole.MarketingDirector) +
+                TeamUtils.CountSpecialists(e, WorkerRole.TechDirector)
+            ) * Constants.SALARIES_DIRECTOR;
+
+            var midManagers = (
+                TeamUtils.CountSpecialists(e, WorkerRole.ProjectManager) +
+                TeamUtils.CountSpecialists(e, WorkerRole.ProductManager)
+                ) * Constants.SALARIES_PRODUCT_PROJECT_MANAGER;
+
+            return directors + midManagers;
+        }
+
+
         public static long GetTeamMaintenance(GameEntity e)
         {
-            if (!e.hasTeam)
-                return 1;
-
-            return (TeamUtils.GetManagers(e) + TeamUtils.GetMarketers(e) + TeamUtils.GetProgrammers(e)) * 2000;
+            return
+                GetCEOMaintenance(e) +
+                GetUniversalsMaintenance(e) +
+                GetManagersMaintenance(e) +
+                GetMarketersMaintenance(e) +
+                GetProgrammersMaintenance(e) +
+                GetTopManagersMaintenance(e);
         }
 
         public static long GetCompanyCostNicheMultiplier()

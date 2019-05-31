@@ -12,20 +12,22 @@ public class RenderTeamMaintenance : UpgradedParameterView
 
     public override string RenderHint()
     {
-        var company = MyProductEntity;
+        var e = MyProductEntity;
 
-        var programmers = TeamUtils.GetProgrammers(company);
-        var managers = TeamUtils.GetManagers(company);
-        var marketers = TeamUtils.GetMarketers(company);
-        var universals = TeamUtils.GetUniversals(company);
-        var topManagers = TeamUtils.GetTopManagers(company);
+        var universals = CompanyEconomyUtils.GetUniversalsMaintenance(e);
+        var programmers = CompanyEconomyUtils.GetProgrammersMaintenance(e);
+        var marketers = CompanyEconomyUtils.GetMarketersMaintenance(e);
+        var managers = CompanyEconomyUtils.GetManagersMaintenance(e);
+        var topManagers = CompanyEconomyUtils.GetTopManagersMaintenance(e);
+
+        var CEO = CompanyEconomyUtils.GetCEOMaintenance(e);
 
         var bonus = new BonusContainer("Maintenance")
-            .AppendAndHideIfZero("CEO", 0)
+            .AppendAndHideIfZero("CEO", CEO)
+            .AppendAndHideIfZero("Top Management", topManagers)
             .AppendAndHideIfZero("Universals", universals)
             .AppendAndHideIfZero("Programmers", programmers)
             .AppendAndHideIfZero("Marketers", marketers)
-            .AppendAndHideIfZero("Top Management", topManagers)
             .AppendAndHideIfZero("Managers", managers)
             ;
 
