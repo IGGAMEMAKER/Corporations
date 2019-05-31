@@ -2,8 +2,6 @@
 
 public class Fire : ButtonController
 {
-    public WorkerType worker;
-
     public override void Execute()
     {
         //switch (worker)

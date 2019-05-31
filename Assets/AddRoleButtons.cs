@@ -35,6 +35,37 @@ public class AddRoleButtons : View
         SetVisibility(false);
     }
 
+    void AddButtons()
+    {
+        var teamStatus = MyProductEntity.team.TeamStatus;
+
+        if (teamStatus > TeamStatus.Department)
+        {
+            AddButton(WorkerRole.Manager, "Produces Manager points");
+        }
+
+        if (teamStatus > TeamStatus.SmallTeam)
+        {
+            AddButton(WorkerRole.TechDirector, "Increases you programmers effeciency. Requires Management, Programming and Business skills"); // , plus unlocks Infrastructure Improvements
+            AddButton(WorkerRole.MarketingDirector, "Increases marketing effeciency. Requires Management, Marketing, Business and Vision");
+            AddButton(WorkerRole.ProjectManager, "Increases total effeciency. Requires Management, Business and Vision");
+        }
+
+        if (teamStatus > TeamStatus.Pair)
+        {
+            AddButton(WorkerRole.ProductManager, "Requires Vision, Management and Business");
+            AddButton(WorkerRole.Business, "Leader of the project. Requires Excelent Business and Vision.");
+        }
+
+        if (teamStatus > TeamStatus.Solo)
+        {
+            AddButton(WorkerRole.Marketer, "Produces Marketing points");
+            AddButton(WorkerRole.Programmer, "Produces Programmer points");
+        }
+
+        AddButton(WorkerRole.Universal, "Produces All types of points with 30% penalty. Better to set another role if possible");
+    }
+
     void Start()
     {
         var separator = Instantiate(new GameObject());
@@ -50,15 +81,7 @@ public class AddRoleButtons : View
 
         Items.Add(b);
 
-        AddButton(WorkerRole.Business, "Leader of the project. Requires Excelent Business and Vision.");
-        AddButton(WorkerRole.TechDirector, "Increases you programmers effeciency. Requires Management, Programming and Business skills"); // , plus unlocks Infrastructure Improvements
-        AddButton(WorkerRole.ProjectManager, "Increases total effeciency. Requires Management, Business and Vision");
-        AddButton(WorkerRole.MarketingDirector, "Increases marketing effeciency. Requires Management, Marketing, Business and Vision");
-        AddButton(WorkerRole.ProductManager, "Requires Vision, Management and Business");
-        AddButton(WorkerRole.Manager, "Produces Manager points");
-        AddButton(WorkerRole.Marketer, "Produces Marketing points");
-        AddButton(WorkerRole.Programmer, "Produces Programmer points");
-        AddButton(WorkerRole.Universal, "Produces All types of points with 30% penalty. Better to set another role if possible");
+        AddButtons();
 
         RenderText();
 
