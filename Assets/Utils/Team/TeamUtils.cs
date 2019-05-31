@@ -8,10 +8,15 @@ public enum WorkerRole {
 
     ProductManager,
     ProjectManager,
+
+    TeamLead,
+    MarketingLead,
+
     TechDirector,
     MarketingDirector,
+
     Business,
-    Universal
+    Universal,
 }
 
 namespace Assets.Utils
@@ -39,8 +44,19 @@ namespace Assets.Utils
 
         public static int GetTeamMaxSize(GameEntity company)
         {
-            return 228;
-            //return company.team.Managers * 7;
+            switch (company.team.TeamStatus)
+            {
+                case TeamStatus.Solo:
+                    return 1;
+
+                case TeamStatus.Pair: return 2;
+
+                case TeamStatus.SmallTeam: return 5;
+
+                case TeamStatus.Department: return 11;
+
+                default: return 11 + GetManagers(company);
+            }
         }
 
         public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
@@ -94,6 +110,25 @@ namespace Assets.Utils
         public static bool IsWillNotOverextendTeam(GameEntity company)
         {
             return GetTeamSize(company) + 1 < GetTeamMaxSize(company);
+        }
+
+        internal static void Promote(GameEntity company)
+        {
+            var team = company.team;
+
+            TeamStatus newTeamStatus;
+
+            switch (team.TeamStatus)
+            {
+                case TeamStatus.Solo: newTeamStatus = TeamStatus.Pair; break;
+                case TeamStatus.Pair: newTeamStatus = TeamStatus.SmallTeam; break;
+                case TeamStatus.SmallTeam: newTeamStatus = TeamStatus.Department; break;
+                case TeamStatus.Department: newTeamStatus = TeamStatus.BigTeam; break;
+
+                default: newTeamStatus = TeamStatus.BigTeam; break;
+            }
+
+            company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
         }
     }
 }
