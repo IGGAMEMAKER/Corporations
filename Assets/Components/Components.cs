@@ -60,3 +60,11 @@ public class TaskComponent: IComponent
 
 [Game]
 public class TimerRunningComponent : IComponent { }
+
+
+
+[Game]
+public class TutorialComponent : IComponent
+{
+    public Dictionary<TutorialFunctionality, bool> progress;
+}

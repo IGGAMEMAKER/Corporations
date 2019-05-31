@@ -23,6 +23,15 @@
             ReplaceTeam(company, team);
         }
 
+        public static void FireWorker(GameEntity company, int humanId)
+        {
+            var team = company.team;
+
+            team.Workers.Remove(humanId);
+
+            ReplaceTeam(company, team);
+        }
+
         public static void HireManager(GameEntity company)
         {
             HireWorker(company, WorkerRole.Manager);
@@ -36,11 +45,6 @@
         public static void HireMarketer(GameEntity company)
         {
             HireWorker(company, WorkerRole.Marketer);
-        }
-
-        public static void FireWorker()
-        {
-
         }
     }
 }
