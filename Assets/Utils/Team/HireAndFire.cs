@@ -10,8 +10,7 @@
 
             HumanUtils.AttachToCompany(worker, company.company.Id);
 
-            if (workerRole == WorkerRole.Programmer)
-                HumanUtils.SetSkill(worker, workerRole, HumanUtils.GetRandomProgrammingSkill());
+            HumanUtils.SetSkills(worker, workerRole);
         }
 
         public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
@@ -39,21 +38,6 @@
             var human = HumanUtils.GetHumanById(gameContext, humanId);
 
             FireWorker(company, human);
-        }
-
-        public static void HireManager(GameEntity company)
-        {
-            HireWorker(company, WorkerRole.Manager);
-        }
-
-        public static void HireProgrammer(GameEntity company)
-        {
-            HireWorker(company, WorkerRole.Programmer);
-        }
-
-        public static void HireMarketer(GameEntity company)
-        {
-            HireWorker(company, WorkerRole.Marketer);
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 
 public enum WorkerRole {
+    // base
     Programmer,
+    // base
     Manager,
+    // base
     Marketer,
 
     ProductManager,
@@ -14,7 +17,10 @@ public enum WorkerRole {
     TechDirector,
     MarketingDirector,
 
+    // base
     Business,
+
+
     Universal,
 }
 
