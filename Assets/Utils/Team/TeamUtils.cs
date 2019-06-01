@@ -55,7 +55,7 @@ namespace Assets.Utils
 
                 case TeamStatus.Department: return 11;
 
-                default: return 11 + GetManagers(company);
+                default: return 11 + GetManagers(company) * 7;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Assets.Utils
 
         public static int GetTeamSize(GameEntity company) {
 
-            return GetProgrammers(company) + GetManagers(company) + GetMarketers(company);
+            return company.team.Workers.Count();
         }
 
         public static bool IsWillNotOverextendTeam(GameEntity company)

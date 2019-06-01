@@ -28,7 +28,7 @@ public class RenderWorkerRole : View
 
             var role = HumanUtils.GetRole(GameContext, human);
 
-            text = Visuals.Link( $"{HumanUtils.GetFormattedRole(role)} in {c.company.Name}" );
+            text = Visuals.Link( $"{HumanUtils.GetFormattedRole(role)} ({HumanUtils.GetOverallRating(human, GameContext)}LVL) in {c.company.Name}" );
             Link.enabled = true;
             Link.CompanyId = companyId;
         }
