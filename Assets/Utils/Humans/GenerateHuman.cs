@@ -29,7 +29,7 @@ namespace Assets.Utils
 
         static void SetPrimaryTrait(GameEntity worker, TraitType traitType)
         {
-            int level = UnityEngine.Random.Range(65, 85);
+            int level = UnityEngine.Random.Range(70, 85);
 
             SetTrait(worker, traitType, level);
         }

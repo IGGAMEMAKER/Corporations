@@ -13,6 +13,8 @@
             HumanUtils.SetSkills(worker, workerRole);
         }
 
+
+
         public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
         {
             var team = company.team;

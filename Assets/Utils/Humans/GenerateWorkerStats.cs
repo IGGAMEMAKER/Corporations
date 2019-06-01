@@ -41,22 +41,5 @@ namespace Assets.Utils
                     break;
             }
         }
-
-        //static void ReplaceSkills(GameEntity worker, int Business, int Management, int Programming, int Marketing)
-        //{
-        //    var dict = new Dictionary<WorkerRole, int>
-        //    {
-        //        //[WorkerRole.Business] = Bus
-        //    };
-
-        //    worker.ReplaceHumanSkills(dict, worker.humanSkills.Traits, worker.humanSkills.Expertise);
-        //}
-
-        //static void ReplaceTraits(GameEntity worker)
-        //{
-        //    var dict = new Dictionary<TraitType, int>();
-
-        //    worker.ReplaceHumanSkills(worker.humanSkills.Roles, dict, worker.humanSkills.Expertise);
-        //}
     }
 }

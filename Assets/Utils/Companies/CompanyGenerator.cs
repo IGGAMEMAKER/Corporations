@@ -29,6 +29,9 @@ namespace Assets.Utils
             e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
 
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
+
+            HumanUtils.SetSkills(CEO, WorkerRole.Business);
+
             HumanUtils.AttachToCompany(CEO, id);
 
             e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
