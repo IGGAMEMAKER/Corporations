@@ -23,13 +23,22 @@
             ReplaceTeam(company, team);
         }
 
-        public static void FireWorker(GameEntity company, int humanId)
+        public static void FireWorker(GameEntity company, GameEntity worker)
         {
+            HumanUtils.LeaveCompany(worker);
+
             var team = company.team;
 
-            team.Workers.Remove(humanId);
+            team.Workers.Remove(worker.human.Id);
 
             ReplaceTeam(company, team);
+        }
+
+        public static void FireWorker(GameEntity company, int humanId, GameContext gameContext)
+        {
+            var human = HumanUtils.GetHumanById(gameContext, humanId);
+
+            FireWorker(company, human);
         }
 
         public static void HireManager(GameEntity company)

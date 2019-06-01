@@ -4,17 +4,8 @@ public class Fire : ButtonController
 {
     public override void Execute()
     {
-        //switch (worker)
-        //{
-        //    case WorkerType.Manager:
-        //        TeamUtils.FireManager(MyProductEntity);
-        //        break;
-        //    case WorkerType.Marketer:
-        //        TeamUtils.FireMarketer(MyProductEntity);
-        //        break;
-        //    case WorkerType.Programmer:
-        //        TeamUtils.FireProgrammer(MyProductEntity);
-        //        break;
-        //}
+        TeamUtils.FireWorker(MyProductEntity, SelectedHuman);
+
+        //GoBackButton
     }
 }

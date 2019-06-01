@@ -97,6 +97,18 @@ namespace Assets.Utils
                 worker.ReplaceWorker(companyId);
         }
 
+        internal static void LeaveCompany(GameContext gameContext, int humanId)
+        {
+            var human = GetHumanById(gameContext, humanId);
+
+            LeaveCompany(human);
+        }
+
+        internal static void LeaveCompany(GameEntity human)
+        {
+            human.RemoveWorker();
+        }
+
         public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
         {
             var companyId = worker.worker.companyId;
