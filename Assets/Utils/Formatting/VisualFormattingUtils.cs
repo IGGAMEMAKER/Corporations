@@ -139,15 +139,10 @@ namespace Assets.Utils
             return Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
         }
 
-        public static string Describe(long value, string positiveText, string negativeText, bool hideIfZero)
+        public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")
         {
             if (value == 0)
-            {
-                if (hideIfZero)
-                    return "";
-                else
-                    return Neutral("0");
-            }
+                return Neutral(neutralText);
 
             if (value > 0)
                 return Positive(positiveText);

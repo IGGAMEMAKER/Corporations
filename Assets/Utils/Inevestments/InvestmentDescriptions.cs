@@ -20,7 +20,7 @@
                 description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest",
-                true
+                ""
             );
 
             return title + "\n" + description.ToString();
