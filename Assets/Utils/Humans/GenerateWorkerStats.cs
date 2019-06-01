@@ -40,9 +40,6 @@ namespace Assets.Utils
 
                     break;
             }
-
-            //if (workerRole == WorkerRole.Programmer)
-            //    HumanUtils.SetSkill(worker, workerRole, HumanUtils.GetRandomProgrammingSkill());
         }
 
         //static void ReplaceSkills(GameEntity worker, int Business, int Management, int Programming, int Marketing)

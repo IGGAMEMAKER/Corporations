@@ -22,17 +22,16 @@ namespace Assets.Utils
 
         static void SetPrimarySkill(GameEntity worker, WorkerRole role)
         {
+            int level = UnityEngine.Random.Range(65, 85);
 
+            SetSkill(worker, role, level);
         }
 
         static void SetPrimaryTrait(GameEntity worker, TraitType traitType)
         {
+            int level = UnityEngine.Random.Range(65, 85);
 
-        }
-
-        public static int GetRandomProgrammingSkill()
-        {
-            return UnityEngine.Random.Range(50, 80);
+            SetTrait(worker, traitType, level);
         }
 
         public static Dictionary<TraitType, int> GenerateRandomTraits()

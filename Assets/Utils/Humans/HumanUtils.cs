@@ -49,6 +49,16 @@ namespace Assets.Utils
             return worker;
         }
 
+        public static GameEntity SetTrait(GameEntity worker, TraitType traitType, int level)
+        {
+            var traits = worker.humanSkills.Traits;
+            traits[traitType] = level;
+
+            worker.ReplaceHumanSkills(worker.humanSkills.Roles, traits, worker.humanSkills.Expertise);
+
+            return worker;
+        }
+
         public static void AttachToCompany(GameEntity worker, int companyId)
         {
             if (!worker.hasWorker)
