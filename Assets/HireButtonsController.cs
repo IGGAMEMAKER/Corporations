@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class HireButtonsController : View
 {
-    //public Button[] HireIfSolo;
     public Button[] HireIfPair;
     public Button[] HireIfSmallTeam;
     public Button[] HireIfDepartment;
