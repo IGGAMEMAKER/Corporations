@@ -9,7 +9,6 @@ namespace Assets.Utils
             switch (workerRole)
             {
                 case WorkerRole.Business:
-                    
                     break;
             }
 
@@ -17,9 +16,12 @@ namespace Assets.Utils
             //    HumanUtils.SetSkill(worker, workerRole, HumanUtils.GetRandomProgrammingSkill());
         }
 
-        static void ReplaceSkills(GameEntity worker)
+        static void ReplaceSkills(GameEntity worker, int Business, int Management, int Programming, int Marketing)
         {
-            var dict = new Dictionary<WorkerRole, int>();
+            var dict = new Dictionary<WorkerRole, int>
+            {
+                //[WorkerRole.Business] = Bus
+            };
 
             worker.ReplaceHumanSkills(dict, worker.humanSkills.Traits, worker.humanSkills.Expertise);
         }

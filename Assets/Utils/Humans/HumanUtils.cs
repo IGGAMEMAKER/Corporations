@@ -21,6 +21,24 @@ namespace Assets.Utils
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
+        public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
+        {
+            var companyId = worker.worker.companyId;
+
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return c.team.Workers[worker.human.Id];
+        }
+
+        public static int GetOverallRating(GameEntity worker, GameContext gameContext)
+        {
+            var role = GetRole(gameContext, worker);
+
+            return GetWorkerRatingInRole(worker, role);
+        }
+
+
+
         public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
         {
             var roles = worker.humanSkills.Roles;
@@ -49,22 +67,6 @@ namespace Assets.Utils
         internal static void LeaveCompany(GameEntity human)
         {
             human.RemoveWorker();
-        }
-
-        public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
-        {
-            var companyId = worker.worker.companyId;
-
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            return c.team.Workers[worker.human.Id];
-        }
-
-        public static int GetOverallRating (GameEntity worker, GameContext gameContext)
-        {
-            var role = GetRole(gameContext, worker);
-
-            return GetWorkerRatingInRole(worker, role);
         }
 
         public static string GetFormattedRole(WorkerRole role)

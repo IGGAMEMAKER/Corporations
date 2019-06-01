@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-public enum WorkerRole {
+﻿public enum WorkerRole {
     // base
     Programmer,
     // base
@@ -28,9 +26,9 @@ namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
-        private static void ReplaceTeam(GameEntity gameEntity, TeamComponent t)
+        private static void ReplaceTeam(GameEntity company, TeamComponent t)
         {
-            gameEntity.ReplaceTeam(t.Morale, t.Workers, t.TeamStatus);
+            company.ReplaceTeam(t.Morale, t.Workers, t.TeamStatus);
         }
 
         internal static void ToggleCrunching(GameContext context, int companyId)
@@ -47,54 +45,6 @@ namespace Assets.Utils
             return 100 + crunchingModifier;
         }
 
-        public static int GetTeamMaxSize(GameEntity company)
-        {
-            switch (company.team.TeamStatus)
-            {
-                case TeamStatus.Solo:
-                    return 1;
-
-                case TeamStatus.Pair: return 2;
-
-                case TeamStatus.SmallTeam: return 5;
-
-                case TeamStatus.Department: return 20;
-
-                default: return 11 + GetManagers(company) * 7;
-            }
-        }
-
-        public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
-        {
-            return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
-        }
-
-
-
-        internal static int GetUniversals(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Universal);
-        }
-
-        internal static int GetTopManagers(GameEntity company)
-        {
-            return 0;
-        }
-
-        public static int GetProgrammers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Programmer);
-        }
-
-        public static int GetManagers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Manager);
-        }
-
-        public static int GetMarketers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Marketer);
-        }
 
 
 
@@ -105,16 +55,6 @@ namespace Assets.Utils
             workers[humanId] = workerRole;
 
             company.ReplaceTeam(company.team.Morale, workers, company.team.TeamStatus);
-        }
-
-        public static int GetTeamSize(GameEntity company) {
-
-            return company.team.Workers.Count();
-        }
-
-        public static bool IsWillNotOverextendTeam(GameEntity company)
-        {
-            return GetTeamSize(company) + 1 < GetTeamMaxSize(company);
         }
 
         internal static void Promote(GameEntity company)
