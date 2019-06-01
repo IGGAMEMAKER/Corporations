@@ -7,7 +7,8 @@ public enum TutorialFunctionality
 {
     MarketingMenu,
     CompetitorView,
-    PossibleInvestors
+    PossibleInvestors,
+    LinkToProjectViewInInvestmentRounds
 }
 
 public class ClickOnMeIfNeverClicked : View
