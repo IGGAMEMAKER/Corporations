@@ -53,7 +53,7 @@ namespace Assets.Utils
 
                 case TeamStatus.SmallTeam: return 5;
 
-                case TeamStatus.Department: return 11;
+                case TeamStatus.Department: return 20;
 
                 default: return 11 + GetManagers(company) * 7;
             }
