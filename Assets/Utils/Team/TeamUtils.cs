@@ -1,4 +1,6 @@
-﻿public enum WorkerRole {
+﻿using Assets.Classes;
+
+public enum WorkerRole {
     // base
     Programmer,
     // base
@@ -45,9 +47,6 @@ namespace Assets.Utils
             return 100 + crunchingModifier;
         }
 
-
-
-
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole, GameContext gameContext)
         {
             var workers = company.team.Workers;
@@ -57,6 +56,21 @@ namespace Assets.Utils
             company.ReplaceTeam(company.team.Morale, workers, company.team.TeamStatus);
 
             HumanUtils.SetRole(gameContext, humanId, workerRole);
+        }
+
+        public static TeamResource GetTeamPromotionCost(GameEntity company)
+        {
+            var managerPoints = 100;
+
+            switch (company.team.TeamStatus)
+            {
+                case TeamStatus.Solo: managerPoints = 100; break;
+                case TeamStatus.Pair: managerPoints = 225; break;
+                case TeamStatus.SmallTeam: managerPoints = 350; break;
+                case TeamStatus.Department: managerPoints = 700; break;
+            }
+
+            return new TeamResource(0, managerPoints, 0, 0, 0);
         }
 
         internal static void Promote(GameEntity company)
