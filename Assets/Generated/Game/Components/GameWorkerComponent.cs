@@ -11,17 +11,19 @@ public partial class GameEntity {
     public WorkerComponent worker { get { return (WorkerComponent)GetComponent(GameComponentsLookup.Worker); } }
     public bool hasWorker { get { return HasComponent(GameComponentsLookup.Worker); } }
 
-    public void AddWorker(int newCompanyId) {
+    public void AddWorker(int newCompanyId, WorkerRole newWorkerRole) {
         var index = GameComponentsLookup.Worker;
         var component = (WorkerComponent)CreateComponent(index, typeof(WorkerComponent));
         component.companyId = newCompanyId;
+        component.WorkerRole = newWorkerRole;
         AddComponent(index, component);
     }
 
-    public void ReplaceWorker(int newCompanyId) {
+    public void ReplaceWorker(int newCompanyId, WorkerRole newWorkerRole) {
         var index = GameComponentsLookup.Worker;
         var component = (WorkerComponent)CreateComponent(index, typeof(WorkerComponent));
         component.companyId = newCompanyId;
+        component.WorkerRole = newWorkerRole;
         ReplaceComponent(index, component);
     }
 

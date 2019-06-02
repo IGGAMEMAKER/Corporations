@@ -23,6 +23,7 @@ namespace Assets.Utils
 
         public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
         {
+            return worker.worker.WorkerRole;
             var companyId = worker.worker.companyId;
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
@@ -59,12 +60,12 @@ namespace Assets.Utils
             return worker;
         }
 
-        public static void AttachToCompany(GameEntity worker, int companyId)
+        public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
         {
             if (!worker.hasWorker)
-                worker.AddWorker(companyId);
+                worker.AddWorker(companyId, workerRole);
             else
-                worker.ReplaceWorker(companyId);
+                worker.ReplaceWorker(companyId, workerRole);
         }
 
         internal static void LeaveCompany(GameContext gameContext, int humanId)

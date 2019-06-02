@@ -8,7 +8,7 @@
 
             AttachToTeam(company, worker.human.Id, workerRole);
 
-            HumanUtils.AttachToCompany(worker, company.company.Id);
+            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
 
             HumanUtils.SetSkills(worker, workerRole);
         }

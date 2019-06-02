@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System;
+
+namespace Assets.Utils
 {
     public static partial class HumanUtils
     {
@@ -40,6 +42,14 @@
 
                     break;
             }
+        }
+
+        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
+        {
+            var human = GetHumanById(gameContext, humanId);
+
+            if (human.hasWorker)
+                human.ReplaceWorker(human.worker.companyId, workerRole);
         }
     }
 }

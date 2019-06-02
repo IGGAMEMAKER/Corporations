@@ -32,7 +32,7 @@ namespace Assets.Utils
 
             HumanUtils.SetSkills(CEO, WorkerRole.Business);
 
-            HumanUtils.AttachToCompany(CEO, id);
+            HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
             e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
 
