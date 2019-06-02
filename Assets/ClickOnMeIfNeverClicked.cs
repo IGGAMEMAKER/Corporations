@@ -8,7 +8,8 @@ public enum TutorialFunctionality
     MarketingMenu,
     CompetitorView,
     PossibleInvestors,
-    LinkToProjectViewInInvestmentRounds
+    LinkToProjectViewInInvestmentRounds,
+    FirstAdCampaign
 }
 
 public class ClickOnMeIfNeverClicked : View
