@@ -10,6 +10,9 @@ public class Constants
     public const int DEVELOPMENT_PRODUCTION_MANAGER = 10;
     public const int DEVELOPMENT_PRODUCTION_IDEAS = 30;
 
+    public static int DEVELOPMENT_PRODUCTION_UNIVERSALS = 2;
+
+
     public const int RISKS_MONETISATION_ADS_REPAYABLE = 35;
     public const int RISKS_MONETISATION_IS_PROFITABLE = 15;
     public const int RISKS_MONETISATION_MAX = RISKS_MONETISATION_IS_PROFITABLE;
@@ -39,6 +42,7 @@ public class Constants
     public static int SALARIES_FOUNDER = 0;
     public static int SALARIES_DIRECTOR = 3500;
     public static int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
+
 }
 
 public class VisualConstants
