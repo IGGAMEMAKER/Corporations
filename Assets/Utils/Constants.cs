@@ -8,7 +8,7 @@ public class Constants
     public const int DEVELOPMENT_PRODUCTION_MARKETER = 10;
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 10;
     public const int DEVELOPMENT_PRODUCTION_MANAGER = 10;
-    public const int DEVELOPMENT_PRODUCTION_IDEAS = 30;
+    public const int DEVELOPMENT_PRODUCTION_IDEAS = 10;
 
     public static int DEVELOPMENT_PRODUCTION_UNIVERSALS = 2;
 

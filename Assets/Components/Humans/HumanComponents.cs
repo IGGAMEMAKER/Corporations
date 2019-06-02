@@ -23,6 +23,7 @@ public enum TraitType
 
 public class WorkerComponent : IComponent {
     public int companyId;
+    public WorkerRole WorkerRole;
 }
 
 [Game]

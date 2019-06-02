@@ -52,6 +52,9 @@ namespace Assets.Utils
 
         static int GetIdeas(GameEntity productCompany)
         {
+            //var productManager = TeamUtils.GetManagers
+            //var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
+
             return Constants.DEVELOPMENT_PRODUCTION_IDEAS;
         }
 
@@ -59,7 +62,7 @@ namespace Assets.Utils
         {
             int performance = TeamUtils.GetPerformance(gameContext, productCompany);
 
-            long money = Normalize(GetCompanyIncome(productCompany, gameContext), 1) / 30;
+            long money = GetBalanceChange(productCompany, gameContext) * GetPeriodDuration() / 30;
 
             return new TeamResource(
                 Normalize(GetPP(productCompany), performance),

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class HumanUtils
     {
@@ -37,6 +35,8 @@ namespace Assets.Utils
 
                 case WorkerRole.ProductManager:
                     SetPrimaryTrait(worker, TraitType.Vision);
+                    SetPrimarySkill(worker, WorkerRole.Manager);
+
 
                     break;
             }

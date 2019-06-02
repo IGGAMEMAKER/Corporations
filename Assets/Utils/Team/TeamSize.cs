@@ -21,6 +21,11 @@ namespace Assets.Utils
             }
         }
 
+        //public static GameEntity[] GetSpecialistsByRole(GameEntity company, WorkerRole workerRole, GameContext gameContext)
+        //{
+        //    company.team.Workers.Values.ToArray().Where(w => w == workerRole);
+        //}
+
         public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
         {
             return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
