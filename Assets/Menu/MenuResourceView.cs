@@ -57,6 +57,9 @@ public class MenuResourceView : View
 
     public void Render()
     {
+        Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
+
+        return;
         if (CurrentScreen == ScreenMode.DevelopmentScreen || CurrentScreen == ScreenMode.TeamScreen || CurrentScreen == ScreenMode.MarketingScreen)
             Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
         else

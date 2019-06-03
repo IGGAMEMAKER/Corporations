@@ -83,7 +83,7 @@ namespace Assets.Utils
 
         internal static string Sign(long val)
         {
-            throw new NotImplementedException();
+            return ValueFormatter.Sign(val);
         }
 
         internal static string Negative(string text)
@@ -137,6 +137,17 @@ namespace Assets.Utils
         public static string Describe(BonusDescription bonus)
         {
             return Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
+        }
+
+        public static string PositiveOrNegative(long value)
+        {
+            if (value > 0)
+                return Positive(Sign(value));
+
+            if (value == 0)
+                return "";
+
+            return Negative(value.ToString());
         }
 
         public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")

@@ -34,10 +34,7 @@ namespace Assets.Utils
         {
             var investor = GetInvestorById(context, investorId);
 
-            var companyResource = investor.companyResource;
-            companyResource.Resources.AddMoney(sum);
-
-            investor.ReplaceCompanyResource(companyResource.Resources);
+            CompanyUtils.AddResources(investor, new Classes.TeamResource(sum));
         }
 
         public static GameEntity GetInvestorById(GameContext context, int investorId)

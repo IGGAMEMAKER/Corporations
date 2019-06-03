@@ -8,7 +8,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            c.ReplaceCompanyResource(c.companyResource.Resources.AddMoney(sum));
+            CompanyUtils.AddResources(c, new Classes.TeamResource(sum));
         }
 
         public static void DecreaseInvestmentFunds(GameContext context, int investorId, long sum)

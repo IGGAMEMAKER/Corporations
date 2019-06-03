@@ -11,6 +11,13 @@ namespace Assets.Utils
             company.ReplaceCompanyResource(company.companyResource.Resources);
         }
 
+        public static void AddResources(GameEntity company, TeamResource resource)
+        {
+            company.companyResource.Resources.Add(resource);
+
+            company.ReplaceCompanyResource(company.companyResource.Resources);
+        }
+
         public static bool IsEnoughResources(GameEntity company, TeamResource resource)
         {
             return company.companyResource.Resources.IsEnoughResources(resource);

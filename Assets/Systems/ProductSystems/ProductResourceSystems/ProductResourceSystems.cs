@@ -37,7 +37,7 @@ class ProductResourceSystems : OnDateChange
         {
             var resources = CompanyEconomyUtils.GetResourceChange(e, contexts.game);
 
-            e.companyResource.Resources.Add(resources);
+            CompanyUtils.AddResources(e, resources);
         }
     }
 
