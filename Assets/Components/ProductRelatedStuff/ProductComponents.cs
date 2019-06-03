@@ -42,6 +42,7 @@ public class FinanceComponent : IComponent
     public float basePrice;
 }
 
+[Game, Event(EventTarget.Self)]
 public class ReleaseComponent : IComponent { }
 
 //[Game, Event(EventTarget.Self)]

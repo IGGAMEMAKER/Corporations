@@ -20,6 +20,7 @@ public sealed class GameEventSystems : Feature {
         Add(new MenuEventSystem(contexts)); // priority: 0
         Add(new AnyNotificationsEventSystem(contexts)); // priority: 0
         Add(new ProductEventSystem(contexts)); // priority: 0
+        Add(new ReleaseEventSystem(contexts)); // priority: 0
         Add(new ShareholdersEventSystem(contexts)); // priority: 0
         Add(new AnyShareholdersEventSystem(contexts)); // priority: 0
         Add(new TargetingEventSystem(contexts)); // priority: 0
