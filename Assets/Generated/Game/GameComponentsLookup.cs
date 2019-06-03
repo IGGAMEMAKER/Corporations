@@ -58,22 +58,23 @@ public static class GameComponentsLookup {
     public const int Product = 47;
     public const int ProductListener = 48;
     public const int PublicCompany = 49;
-    public const int Shareholder = 50;
-    public const int Shareholders = 51;
-    public const int ShareholdersListener = 52;
-    public const int Targeting = 53;
-    public const int TargetingListener = 54;
-    public const int Task = 55;
-    public const int TaskManager = 56;
-    public const int Team = 57;
-    public const int TeamListener = 58;
-    public const int TechnologyLeader = 59;
-    public const int TechnologyLeaderListener = 60;
-    public const int TimerRunning = 61;
-    public const int Tutorial = 62;
-    public const int Worker = 63;
+    public const int Release = 50;
+    public const int Shareholder = 51;
+    public const int Shareholders = 52;
+    public const int ShareholdersListener = 53;
+    public const int Targeting = 54;
+    public const int TargetingListener = 55;
+    public const int Task = 56;
+    public const int TaskManager = 57;
+    public const int Team = 58;
+    public const int TeamListener = 59;
+    public const int TechnologyLeader = 60;
+    public const int TechnologyLeaderListener = 61;
+    public const int TimerRunning = 62;
+    public const int Tutorial = 63;
+    public const int Worker = 64;
 
-    public const int TotalComponents = 64;
+    public const int TotalComponents = 65;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -126,6 +127,7 @@ public static class GameComponentsLookup {
         "Product",
         "ProductListener",
         "PublicCompany",
+        "Release",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -193,6 +195,7 @@ public static class GameComponentsLookup {
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
         typeof(PublicCompanyComponent),
+        typeof(ReleaseComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),

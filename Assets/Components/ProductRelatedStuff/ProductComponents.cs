@@ -42,6 +42,8 @@ public class FinanceComponent : IComponent
     public float basePrice;
 }
 
+public class ReleaseComponent : IComponent { }
+
 //[Game, Event(EventTarget.Self)]
 //public class TargetUserTypeComponent : IComponent
 //{
