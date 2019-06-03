@@ -17,9 +17,10 @@ public class ProductComponent : IComponent
     public string Name;
     public NicheType Niche;
 
-    // platform level
+    // concept level
     public int ProductLevel;
 
+    // features
     public Dictionary<UserType, int> Segments;
 }
 
