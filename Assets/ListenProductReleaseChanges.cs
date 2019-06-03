@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ListenProductReleaseChanges : Controller
+﻿public class ListenProductReleaseChanges : Controller
     , IReleaseListener
 {
     public override void AttachListeners()
