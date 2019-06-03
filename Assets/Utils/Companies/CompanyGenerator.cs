@@ -67,17 +67,5 @@ namespace Assets.Utils
 
             return company;
         }
-
-        public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
-        {
-            var c = company.cooldowns.Cooldowns;
-
-            if (c.ContainsKey(cooldownType))
-                return;
-
-            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration };
-
-            company.ReplaceCooldowns(c);
-        }
     }
 }

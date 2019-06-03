@@ -1,6 +1,4 @@
-﻿using Assets.Classes;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
@@ -30,16 +28,6 @@ namespace Assets.Utils
             RemovePlayerControlledCompany(gameContext, companyId);
 
             // update company ceo component
-        }
-    }
-
-    public static partial class CompanyUtils
-    {
-        public static void SpendResources(GameEntity company, TeamResource resource)
-        {
-            company.companyResource.Resources.Spend(resource);
-
-            //company.ReplaceCompanyResource()
         }
     }
 }

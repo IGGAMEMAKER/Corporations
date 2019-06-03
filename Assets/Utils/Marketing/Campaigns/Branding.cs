@@ -1,5 +1,4 @@
 ﻿using Assets.Classes;
-using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -7,6 +6,11 @@ namespace Assets.Utils
     {
         public static void StartBrandingCampaign(GameContext gameContext, GameEntity company)
         {
+            var resources = GetBrandingCost(gameContext, company);
+
+            if (!CompanyUtils.IsEnoughResources(company, resources) || CompanyUtils.HasCooldown(company, CooldownType.BrandingCampaign))
+                return;
+
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
 
             var marketing = company.marketing;
@@ -14,9 +18,7 @@ namespace Assets.Utils
             int brandingGain = GetBrandingPowerGain(gameContext, company);
             company.ReplaceMarketing(marketing.BrandPower + brandingGain, marketing.Segments);
 
-            var resources = GetBrandingCost(gameContext, company);
-
-            Debug.Log("Spend Branding campaign resources");
+            CompanyUtils.SpendResources(company, resources);
         }
 
         public static TeamResource GetBrandingCost(GameContext gameContext, GameEntity company)
