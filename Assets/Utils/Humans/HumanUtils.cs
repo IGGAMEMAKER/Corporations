@@ -24,11 +24,6 @@ namespace Assets.Utils
         public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
         {
             return worker.worker.WorkerRole;
-            var companyId = worker.worker.companyId;
-
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            return c.team.Workers[worker.human.Id];
         }
 
         public static int GetOverallRating(GameEntity worker, GameContext gameContext)
