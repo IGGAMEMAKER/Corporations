@@ -1,18 +1,23 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine.UI;
 
-public abstract class SimpleParameterView : View
+public abstract class UpgradedParameterView : View
 {
     internal Text Text;
     internal Hint Hint;
 
-    void Start()
+    void PickComponents()
     {
         Text = GetComponent<Text>();
         Hint = GetComponent<Hint>();
     }
 
-    public void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
+        PickComponents();
+
         Text.text = RenderValue();
 
         string hint = RenderHint();
@@ -21,9 +26,9 @@ public abstract class SimpleParameterView : View
             Hint.SetHint(hint);
     }
 
-    void Update()
+    public void Colorize(string color)
     {
-        Render();
+        Text.color = Visuals.Color(color);
     }
 
     public abstract string RenderValue();
