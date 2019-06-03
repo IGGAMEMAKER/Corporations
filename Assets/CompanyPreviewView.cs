@@ -77,7 +77,7 @@ public class CompanyPreviewView : View,
             ShareCostLabel.text = $"${ValueFormatter.Shorten(cost)}";
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
     {
         Render(entity);
     }

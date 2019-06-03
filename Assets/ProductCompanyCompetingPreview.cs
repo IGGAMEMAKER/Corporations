@@ -63,7 +63,7 @@ public class ProductCompanyCompetingPreview : View,
             RenderClients(entity);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, int improvementPoints, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
     {
         if (CurrentScreen == ScreenMode.NicheScreen)
             RenderProductInfo(name, productLevel);

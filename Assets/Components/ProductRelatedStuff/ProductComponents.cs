@@ -19,7 +19,6 @@ public class ProductComponent : IComponent
 
     // platform level
     public int ProductLevel;
-    public int ImprovementPoints;
 
     public Dictionary<UserType, int> Segments;
 }

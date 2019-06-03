@@ -39,27 +39,9 @@ namespace Assets.Utils
             return e;
         }
 
-        public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
-        {
-            var c = company.cooldowns.Cooldowns;
-
-            if (c.ContainsKey(cooldownType))
-                return;
-
-            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration };
-
-            company.ReplaceCooldowns(c);
-        }
-
         public static GameEntity GenerateProduct(GameContext context, GameEntity company, string name, NicheType niche)
         {
-            IndustryType industry = NicheUtils.GetIndustry(niche, context);
-
-            long clients = UnityEngine.Random.Range(15, 100);
             int brandPower = UnityEngine.Random.Range(0, 15);
-
-            int productLevel = 0;
-            int improvements = 0;
 
             var Segments = new Dictionary<UserType, long>
             {
@@ -74,7 +56,7 @@ namespace Assets.Utils
             };
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, productLevel, improvements, SegmentsFeatures);
+            company.AddProduct(company.company.Id, name, niche, 1, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);
@@ -84,6 +66,18 @@ namespace Assets.Utils
             LockCompanyGoal(context, company);
 
             return company;
+        }
+
+        public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
+        {
+            var c = company.cooldowns.Cooldowns;
+
+            if (c.ContainsKey(cooldownType))
+                return;
+
+            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration };
+
+            company.ReplaceCooldowns(c);
         }
     }
 }
