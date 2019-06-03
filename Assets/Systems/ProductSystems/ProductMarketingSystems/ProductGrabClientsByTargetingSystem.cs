@@ -21,7 +21,8 @@ class ProductGrabClientsByTargetingSystem : OnDateChange
             if (e.companyResource.Resources.IsEnoughResources(need))
             {
                 e.marketing.Segments[UserType.Regular] += MarketingUtils.GetTargetingEffeciency(contexts.game, e);
-                e.companyResource.Resources.Spend(need);
+
+                CompanyUtils.SpendResources(e, need);
             }
         }
     }

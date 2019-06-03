@@ -1,4 +1,5 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Classes;
+using Assets.Utils.Formatting;
 using System.Text;
 
 namespace Assets.Utils
@@ -58,6 +59,20 @@ namespace Assets.Utils
             hint.AppendLine();
 
             return hint.ToString();
+        }
+
+        public static void ReleaseApp(GameEntity product)
+        {
+            var need = new TeamResource(0, 0, 500, 0, 1000);
+
+            bool enoughResources = true;
+
+            if (!product.isRelease && enoughResources)
+            {
+                CompanyUtils.SpendResources(product, need);
+                product.isRelease = true;
+                product.ReplaceMarketing(product.marketing.BrandPower + 20, product.marketing.Segments);
+            }
         }
     }
 }

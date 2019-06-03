@@ -22,7 +22,7 @@ class ProductDevelopmentSystem : OnDateChange
             {
                 e.AddEventUpgradeProduct(e.product.Id, e.product.ProductLevel);
 
-                e.companyResource.Resources.Spend(need);
+                CompanyUtils.SpendResources(e, need);
             }
         }
     }

@@ -15,10 +15,7 @@ namespace Assets.Utils
         {
             var investor = CompanyUtils.GetInvestorById(context, investorId);
 
-            var resources = investor.companyResource;
-            resources.Resources.Spend(new Classes.TeamResource(sum));
-
-            investor.ReplaceCompanyResource(resources.Resources);
+            CompanyUtils.SpendResources(investor, new Classes.TeamResource(sum));
         }
     }
 }
