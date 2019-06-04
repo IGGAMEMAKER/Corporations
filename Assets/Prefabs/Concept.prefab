@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.75, y: -48}
-  m_SizeDelta: {x: 255.82, y: 30}
+  m_AnchoredPosition: {x: 0, y: -45}
+  m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1057301636571735176
 CanvasRenderer:
@@ -194,7 +194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 257, y: -268}
+  m_AnchoredPosition: {x: 246, y: -268}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057301637633796020
@@ -290,8 +290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.7499, y: 25.35}
-  m_SizeDelta: {x: 255.82, y: 49.3}
+  m_AnchoredPosition: {x: 0, y: 25}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1057301638014142268
 CanvasRenderer:
@@ -363,18 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90dbbab173f536498b263dd4d99ccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1206966671250010189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374282003468010108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c30bed05175cb4aa9e1095b5cdc35c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1057301637818090732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +373,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e203952c5cc9a5c47ac1e949dbf5ddbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1206966671250010189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374282003468010108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c30bed05175cb4aa9e1095b5cdc35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1057301637793518893
@@ -486,8 +486,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.75, y: -15.979963}
-  m_SizeDelta: {x: 255.82, y: 30}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &210003416428206525
 CanvasRenderer:
@@ -591,6 +591,11 @@ PrefabInstance:
     - target: {fileID: 1718834943447756, guid: 28438315aadcecc4f95c6a860d3b5ebb, type: 3}
       propertyPath: m_Name
       value: ProgressBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224670170356742520, guid: 28438315aadcecc4f95c6a860d3b5ebb,
         type: 3}
@@ -696,11 +701,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28438315aadcecc4f95c6a860d3b5ebb, type: 3}
@@ -1004,6 +1004,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224670170356742520, guid: 28438315aadcecc4f95c6a860d3b5ebb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1108,11 +1113,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28438315aadcecc4f95c6a860d3b5ebb, type: 3}
@@ -1519,6 +1519,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProgressBar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224670170356742520, guid: 28438315aadcecc4f95c6a860d3b5ebb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1623,11 +1628,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224533937755410202, guid: 28438315aadcecc4f95c6a860d3b5ebb,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28438315aadcecc4f95c6a860d3b5ebb, type: 3}
