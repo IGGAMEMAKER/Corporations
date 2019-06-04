@@ -1,7 +1,5 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +55,7 @@ public class AnimateResourceChanges : View
 
             // render value
             var val = Instantiate(ResourceTextPrefab, transform);
-            val.transform.localPosition = new Vector3(25.77f + offset, 0, 0);
+            val.transform.localPosition = new Vector3(25f + offset, 0, 0);
 
             val.AddComponent<AnimateResourceChange>();
             val.GetComponent<Text>().text = Visuals.PositiveOrNegative(change);

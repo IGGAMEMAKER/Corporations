@@ -26,7 +26,7 @@ public class ProductCompanyCompetingPreview : View,
 
         if (entity.isControlledByPlayer)
         {
-            Panel.color = ourCompanyColor;
+            Name.color = ourCompanyColor;
 
             Destroy(GetComponent<ClickOnMeIfNeverClicked>());
         }
@@ -45,7 +45,8 @@ public class ProductCompanyCompetingPreview : View,
         Name.text = name;
 
         if (Level != null)
-            Level.text = level.ToString();
+            AnimateIfValueChanged(Level, $"{level} ()");
+        //Level.text = level.ToString();
     }
 
     void Render()
@@ -59,13 +60,13 @@ public class ProductCompanyCompetingPreview : View,
 
     void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
     {
-        if (CurrentScreen == ScreenMode.NicheScreen)
-            RenderClients(entity);
+        //if (CurrentScreen == ScreenMode.NicheScreen)
+        RenderClients(entity);
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
     {
-        if (CurrentScreen == ScreenMode.NicheScreen)
-            RenderProductInfo(name, productLevel);
+        //if (CurrentScreen == ScreenMode.NicheScreen)
+        RenderProductInfo(name, productLevel);
     }
 }

@@ -22,7 +22,7 @@ public class MarketSituationDescriptionView : UpgradedParameterView
         }
 
         Colorize(VisualConstants.COLOR_NEGATIVE);
-        return $"We are out of market by {diff} levels";
+        return $"Out of market by {diff} levels";
     }
 
     public override string RenderHint()
