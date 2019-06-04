@@ -22,9 +22,9 @@ public class ProductInitializerSystem : IInitializeSystem
         AutoFillProposals();
     }
 
-    int GenerateProductCompany(string name, NicheType nicheType)
+    GameEntity GenerateProductCompany(string name, NicheType nicheType)
     {
-        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType).company.Id;
+        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
     }
 
     int GenerateInvestmentFund(string name, long money)
@@ -135,11 +135,11 @@ public class ProductInitializerSystem : IInitializeSystem
         GenerateProductCompany("twitter", NicheType.SocialNetwork);
         GenerateProductCompany("vk", NicheType.SocialNetwork);
 
-        int tg = GenerateProductCompany("telegram", NicheType.Messenger);
+        var tg = GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
 
-        int google = GenerateProductCompany("Google", NicheType.SearchEngine);
-        int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine);
+        int google = GenerateProductCompany("Google", NicheType.SearchEngine).company.Id;
+        int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
         GenerateProductCompany("Microsoft", NicheType.OSDesktop);
@@ -159,7 +159,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
         int googleGroupId = PromoteToGroup(google);
 
-        PlayAs(tg);
+        PlayAs(tg.company.Id);
 
 
         AddShareholder(yahoo, investorId2, 500);
@@ -170,5 +170,7 @@ public class ProductInitializerSystem : IInitializeSystem
         var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);
 
         yandexProduct.finance.price = Pricing.Medium;
+
+        ScreenUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, Constants.MENU_SELECTED_NICHE, tg.product.Niche);
     }
 }

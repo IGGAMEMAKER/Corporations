@@ -12,14 +12,19 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public bool IsMyCompetitor
+    public bool SelectedCompanyIsMyCompetitor
     {
         get
         {
-            bool isNotMyCompany = MyProductEntity.company.Id != SelectedCompany.company.Id;
-            
-            return SelectedCompany.hasProduct ? SelectedCompany.product.Niche == MyProduct.Niche && isNotMyCompany : false;
+            return IsMyCompetitor(SelectedCompany);
         }
+    }
+
+    public bool IsMyCompetitor(GameEntity company)
+    {
+        bool isNotMyCompany = MyProductEntity.company.Id != company.company.Id;
+
+        return company.hasProduct ? company.product.Niche == MyProduct.Niche && isNotMyCompany : false;
     }
 
     public ScreenMode CurrentScreen
