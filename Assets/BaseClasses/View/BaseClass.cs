@@ -12,14 +12,6 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public bool SelectedCompanyIsMyCompetitor
-    {
-        get
-        {
-            return IsMyCompetitor(SelectedCompany);
-        }
-    }
-
     public bool IsMyCompetitor(GameEntity company)
     {
         bool isNotMyCompany = MyProductEntity.company.Id != company.company.Id;

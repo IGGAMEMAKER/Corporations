@@ -33,7 +33,7 @@ public class RenderNicheInfoInProjectScreen : View
     {
         NicheRoot.SetActive(show);
 
-        StealIdeasController.gameObject.SetActive(show && SelectedCompanyIsMyCompetitor);
+        StealIdeasController.gameObject.SetActive(show && IsMyCompetitor(SelectedCompany));
     }
 
     private void RenderNicheTab()
