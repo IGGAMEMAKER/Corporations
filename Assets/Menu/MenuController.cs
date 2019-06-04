@@ -68,13 +68,14 @@ public class MenuController : MonoBehaviour, IMenuListener
         {
             case ScreenMode.IndustryScreen: return "Market resarch";
             case ScreenMode.NicheScreen: return "Market";
-            case ScreenMode.ProjectScreen: return "Company Overview";
-            case ScreenMode.DevelopmentScreen: return "Competitors";
-            case ScreenMode.InvesmentsScreen: return "Investments";
-            case ScreenMode.InvesmentProposalScreen: return "Possible investments";
-            case ScreenMode.CharacterScreen: return "Profile";
             case ScreenMode.GroupManagementScreen: return "My companies";
-            case ScreenMode.TeamScreen: return "Management";
+
+            case ScreenMode.ProjectScreen: return "Company Overview";
+            case ScreenMode.DevelopmentScreen: return "Development";
+            case ScreenMode.InvesmentsScreen: return "Funding";
+            case ScreenMode.InvesmentProposalScreen: return "Potential investments";
+            case ScreenMode.CharacterScreen: return "Profile";
+            case ScreenMode.TeamScreen: return "Team";
             case ScreenMode.MarketingScreen: return "Marketing";
 
             default: return "WUT?";
