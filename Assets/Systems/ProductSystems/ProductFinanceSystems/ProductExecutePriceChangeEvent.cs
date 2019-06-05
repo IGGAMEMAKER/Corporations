@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 
 public class ProductExecutePriceChangeEvent : IExecuteSystem
 {
@@ -27,6 +28,6 @@ public class ProductExecutePriceChangeEvent : IExecuteSystem
     {
         var newPrice = e.eventFinancePricingChange.level;
 
-        e.ReplaceFinance(newPrice, e.finance.marketingFinancing, e.finance.salaries, e.finance.basePrice);
+        CompanyUtils.SetPrice(e, newPrice);
     }
 }
