@@ -111,15 +111,16 @@ public class AIProductSystems : OnDateChange
         // ---- Product ----
         // improve segments                         pp, ip
         // monetisation                             ip
-        // increase prices if possible              cooldown
+        // increase prices if possible              -cooldown
+        // steal ideas                              cooldown
         
         // ---- Marketing ----
         // grab clients                             sp, money
-        // increase marketing budget if possible    cooldown?
+        // increase marketing budget if possible
 
         
         // ---- Business ----
-        // start round                              mp
+        // start round                              ????
         // accept investments
         // flip goal                                cooldown
     }
