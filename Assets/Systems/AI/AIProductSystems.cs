@@ -1,6 +1,16 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System.Collections.Generic;
+using System.Linq;
+
+public enum ProductCompanyGoals
+{
+    Survive,
+    FixClientLoyalty,
+    CompleteCompanyGoal,
+    Develop,
+    TakeTechLeadership
+}
 
 public class AIProductSystems : OnDateChange
 {
@@ -44,16 +54,78 @@ public class AIProductSystems : OnDateChange
 
     long GetCompanyGoalScoring(GameEntity product)
     {
+        //var requirements = InvestmentUtils.GetGoalRequirements(product, gameContext);
 
+        var goalCompleted = InvestmentUtils.IsGoalCompleted(product, gameContext);
+
+        return goalCompleted ? 0 : Constants.COMPANY_SCORING_COMPANY_GOAL;
+    }
+
+    long GetDevelopmentScoring(GameEntity product)
+    {
+        return 100;
     }
 
     void ChooseGoal(GameEntity product)
     {
-        // threats
-        var bankruptcy = GetBankruptcyScoring(product);
-        var badLoyalty = GetBadLoyaltyScoring(product);
+        var goals = new Dictionary<ProductCompanyGoals, long>
+        {
+            // threats
+            [ProductCompanyGoals.Survive] = GetBankruptcyScoring(product),
+            [ProductCompanyGoals.FixClientLoyalty] = GetBadLoyaltyScoring(product),
 
-        // company goal
-        var companyGoal = GetCompanyGoalScoring(product);
+            // company goal
+            [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalScoring(product),
+
+            // development
+            [ProductCompanyGoals.Develop] = GetDevelopmentScoring(product),
+            [ProductCompanyGoals.TakeTechLeadership] = GetDevelopmentScoring(product),
+        };
+    }
+
+    void Survive(GameEntity product)
+    {
+        // we cannot earn money fast, we need to reduce company maintenance!
+
+        // shrink team
+        // increase prices
+        // crunch
+    }
+
+    void FixLoyalty(GameEntity product)
+    {
+        // decrease prices
+        // improve segments
+        // match market requirements
+        //  // focus on ideas?
+    }
+
+    void Develop(GameEntity product)
+    {
+        // ---- Team ----
+        // stop crunches                            cooldown
+        // hire someone                             money, mp
+        // upgrade team                             mp
+        
+        
+        // ---- Product ----
+        // improve segments                         pp, ip
+        // monetisation                             ip
+        // increase prices if possible              cooldown
+        
+        // ---- Marketing ----
+        // grab clients                             sp, money
+        // increase marketing budget if possible    cooldown?
+
+        
+        // ---- Business ----
+        // start round                              mp
+        // flip goal                                cooldown
+    }
+
+    void TakeLeadership(GameEntity product)
+    {
+        // focus on ideas
+        // crunch
     }
 }

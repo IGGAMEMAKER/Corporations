@@ -45,7 +45,7 @@ public class Constants
 
     public static long COMPANY_SCORING_BANKRUPTCY = 10000;
     public static long COMPANY_SCORING_LOYALTY = 5000;
-
+    public static long COMPANY_SCORING_COMPANY_GOAL = 3000;
 }
 
 public class VisualConstants
