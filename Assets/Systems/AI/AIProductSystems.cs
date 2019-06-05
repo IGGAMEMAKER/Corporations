@@ -120,6 +120,7 @@ public class AIProductSystems : OnDateChange
         
         // ---- Business ----
         // start round                              mp
+        // accept investments
         // flip goal                                cooldown
     }
 
