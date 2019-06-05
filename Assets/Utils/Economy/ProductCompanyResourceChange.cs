@@ -55,7 +55,10 @@ namespace Assets.Utils
             //var productManager = TeamUtils.GetManagers
             //var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
 
-            return Constants.DEVELOPMENT_PRODUCTION_IDEAS;
+            var focusModifier = productCompany.developmentFocus.Focus == DevelopmentFocus.Concept
+                ? Constants.DEVELOPMENT_FOCUS_IDEAS : 0;
+
+            return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (100 + focusModifier) / 100;
         }
 
         public static TeamResource GetResourceChange(GameEntity productCompany, GameContext gameContext)

@@ -13,6 +13,8 @@ public class ClientSegmentView : View
 
     public Text SegmentBonus;
 
+    public UpdateSegmentController UpdateSegmentController;
+
     UserType UserType;
     int CompanyId;
 
@@ -43,6 +45,8 @@ public class ClientSegmentView : View
         BrandIcon.SetActive(UserType == UserType.Regular);
 
         SegmentBonus.text = $"+25";
+
+        UpdateSegmentController.SetSegment(UserType);
     }
 
     private void RenderChurn(UserType userType, GameEntity c)

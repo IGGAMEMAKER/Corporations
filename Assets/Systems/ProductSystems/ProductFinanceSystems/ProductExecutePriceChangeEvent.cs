@@ -28,6 +28,6 @@ public class ProductExecutePriceChangeEvent : IExecuteSystem
     {
         var newPrice = e.eventFinancePricingChange.level;
 
-        CompanyUtils.SetPrice(e, newPrice);
+        ProductUtils.SetPrice(e, newPrice);
     }
 }

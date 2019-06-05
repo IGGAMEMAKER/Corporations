@@ -34,7 +34,14 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
+            var hasCooldown = c.cooldowns.Cooldowns.ContainsKey(CooldownType.ProductFocus);
+
+            if (hasCooldown)
+                return;
+
             c.ReplaceDevelopmentFocus(developmentFocus);
+
+            CompanyUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
         }
 
         public static bool IsCrunching(GameEntity e)
