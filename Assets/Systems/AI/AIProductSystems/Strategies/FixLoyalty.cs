@@ -28,7 +28,7 @@ public partial class AIProductSystems : OnDateChange
 
     void UpgradeSegment(GameEntity product, UserType userType)
     {
-
+        ProductUtils.UpdateSegment(product, gameContext, userType);
     }
 
     void CatchMarketRequirements(GameEntity product)
