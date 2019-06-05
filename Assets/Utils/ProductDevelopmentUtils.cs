@@ -44,11 +44,6 @@ namespace Assets.Utils
             CompanyUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
         }
 
-        public static bool IsCrunching(GameEntity e)
-        {
-            return false;
-        }
-
         public static int GetMarketRequirementsInNiche(GameContext context, NicheType nicheType)
         {
             var niche = NicheUtils.GetNicheEntity(context, nicheType).nicheState;

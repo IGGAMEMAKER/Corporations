@@ -31,12 +31,13 @@ public enum ProductCompanyActions
 
 public partial class AIProductSystems : OnDateChange
 {
-    void Develop(GameEntity product)
+    void Develop(GameEntity company)
     {
         // ---- Team ----
         // +- stop crunches                            cooldown
         // hire someone                             money, mp
         // upgrade team                             mp
+        ExpandTeam(company);
 
 
         // ---- Product ----
@@ -44,6 +45,7 @@ public partial class AIProductSystems : OnDateChange
         // n improve segments                         pp, ip
         // n steal ideas                              cooldown
         // increase prices if possible              -cooldown
+        IncreasePrices(company);
 
         // ---- Marketing ----
         // grab clients                             sp, money
@@ -54,5 +56,18 @@ public partial class AIProductSystems : OnDateChange
         // start round                              ????
         // accept investments
         // flip goal                                cooldown
+    }
+
+    void ExpandTeam(GameEntity company)
+    {
+        if (TeamUtils.IsWillNotOverextendTeam(company))
+            TeamUtils.HireWorker(company, GetProperWorkerRole(company));
+        else
+            UpgradeTeam(company);
+    }
+
+    void UpgradeTeam(GameEntity company)
+    {
+
     }
 }

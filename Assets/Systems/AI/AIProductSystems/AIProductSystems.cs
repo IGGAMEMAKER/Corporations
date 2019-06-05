@@ -45,17 +45,18 @@ public partial class AIProductSystems : OnDateChange
             [ProductCompanyGoals.TakeTechLeadership] = GetDevelopmentScoring(product),
         };
 
-        var goal = PickUrgentGoal(goals);
+        //var goal = PickUrgentGoal(goals);
+        var goal = PickMostImportantValue(goals);
 
         ExecuteGoal(goal, product);
     }
 
-    ProductCompanyGoals PickUrgentGoal(Dictionary<ProductCompanyGoals, long> goals)
+    static T PickMostImportantValue<T> (Dictionary<T, long> values)
     {
         long value = 0;
-        ProductCompanyGoals goal = ProductCompanyGoals.Survive;
+        T goal = default;
 
-        foreach (var pair in goals)
+        foreach (var pair in values)
         {
             if (pair.Value > value)
             {
@@ -66,6 +67,23 @@ public partial class AIProductSystems : OnDateChange
 
         return goal;
     }
+
+    //ProductCompanyGoals PickUrgentGoal(Dictionary<ProductCompanyGoals, long> goals)
+    //{
+    //    long value = 0;
+    //    ProductCompanyGoals goal = ProductCompanyGoals.Survive;
+
+    //    foreach (var pair in goals)
+    //    {
+    //        if (pair.Value > value)
+    //        {
+    //            value = pair.Value;
+    //            goal = pair.Key;
+    //        }
+    //    }
+
+    //    return goal;
+    //}
 
     void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
     {
