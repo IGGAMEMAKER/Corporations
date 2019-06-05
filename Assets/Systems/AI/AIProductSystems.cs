@@ -81,6 +81,39 @@ public class AIProductSystems : OnDateChange
             [ProductCompanyGoals.Develop] = GetDevelopmentScoring(product),
             [ProductCompanyGoals.TakeTechLeadership] = GetDevelopmentScoring(product),
         };
+
+        long value = 0;
+        ProductCompanyGoals goal = ProductCompanyGoals.Survive;
+
+        foreach (var pair in goals)
+        {
+            if (pair.Value > value)
+            {
+                value = pair.Value;
+                goal = pair.Key;
+            }
+        }
+
+        ExecuteGoal(goal, product);
+    }
+
+    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
+    {
+        switch (goal)
+        {
+            case ProductCompanyGoals.Survive: Survive(product); break;
+            case ProductCompanyGoals.FixClientLoyalty: FixLoyalty(product); break;
+            case ProductCompanyGoals.CompleteCompanyGoal: CompleteCompanyGoal(product); break;
+            case ProductCompanyGoals.TakeTechLeadership: TakeLeadership(product); break;
+
+            default: Develop(product); break;
+        }
+    }
+
+
+    void CompleteCompanyGoal(GameEntity product)
+    {
+
     }
 
     void Survive(GameEntity product)
