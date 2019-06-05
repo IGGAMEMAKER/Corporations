@@ -43,6 +43,9 @@ public class Constants
     public static int SALARIES_DIRECTOR = 3500;
     public static int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
 
+    public static long COMPANY_SCORING_BANKRUPTCY = 10000;
+    public static long COMPANY_SCORING_LOYALTY = 5000;
+
 }
 
 public class VisualConstants
