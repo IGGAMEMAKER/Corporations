@@ -1,5 +1,34 @@
 ﻿using Assets.Utils;
 
+public enum ProductActionGoal
+{
+    IncreaseLoyalty,
+    IncreaseIncome,
+
+    DecreaseMaintenance,
+
+    StayInTech
+}
+
+public enum ProductCompanyActions
+{
+    // Product
+    UpgradeConcept,
+
+    // IncreaseLoyalty
+    UpgradeSegment,
+    DecreasePrice,
+    BecomeTechLeader,
+
+    // IncreaseIncome
+    DisableTargeting,
+    UpgradeMonetisation,
+    IncreasePrice,
+
+    // DecreaseMaintenance
+
+}
+
 public partial class AIProductSystems : OnDateChange
 {
     void Develop(GameEntity product)
