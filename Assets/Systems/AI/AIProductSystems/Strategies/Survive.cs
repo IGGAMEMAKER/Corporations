@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using Entitas;
-using System.Collections.Generic;
-using System.Linq;
 
 public partial class AIProductSystems : OnDateChange
 {
