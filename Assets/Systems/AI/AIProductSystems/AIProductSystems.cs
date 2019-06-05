@@ -12,7 +12,7 @@ public enum ProductCompanyGoals
     TakeTechLeadership
 }
 
-public class AIProductSystems : OnDateChange
+public partial class AIProductSystems : OnDateChange
 {
     public AIProductSystems(Contexts contexts) : base(contexts) {}
 
@@ -54,6 +54,7 @@ public class AIProductSystems : OnDateChange
 
     long GetCompanyGoalScoring(GameEntity product)
     {
+        return 0;
         //var requirements = InvestmentUtils.GetGoalRequirements(product, gameContext);
 
         var goalCompleted = InvestmentUtils.IsGoalCompleted(product, gameContext);
@@ -114,15 +115,6 @@ public class AIProductSystems : OnDateChange
     void CompleteCompanyGoal(GameEntity product)
     {
 
-    }
-
-    void Survive(GameEntity product)
-    {
-        // we cannot earn money fast, we need to reduce company maintenance!
-
-        // shrink team
-        // increase prices
-        // crunch
     }
 
     void FixLoyalty(GameEntity product)
