@@ -2,7 +2,7 @@
 
 public partial class AIProductSystems : OnDateChange
 {
-    long GetBankruptcyScoring(GameEntity product)
+    long GetBankruptcyUrgency(GameEntity product)
     {
         var change = CompanyEconomyUtils.GetBalanceChange(gameContext, product.company.Id);
         var balance = product.companyResource.Resources.money;
@@ -10,27 +10,26 @@ public partial class AIProductSystems : OnDateChange
         if (change >= 0)
             return 0;
 
-        var timeToBankruptcy = balance / (-change);
+        var timeToBankruptcy = balance / -change;
 
-        return Constants.COMPANY_SCORING_BANKRUPTCY / (1 + timeToBankruptcy * timeToBankruptcy);
+        long urgency = 0;
+
+        if (timeToBankruptcy < 4)
+            urgency = 0;
+        else if (timeToBankruptcy < 7)
+            urgency = 5;
+        else
+            urgency = timeToBankruptcy * timeToBankruptcy;
+
+        return Constants.COMPANY_SCORING_BANKRUPTCY / (1 + urgency);
     }
 
-    long GetCompanyGoalScoring(GameEntity product)
+    long GetCompanyGoalUrgency(GameEntity product)
     {
         return Constants.COMPANY_SCORING_COMPANY_GOAL;
-        //var requirements = InvestmentUtils.GetGoalRequirements(product, gameContext);
-
-        var goalCompleted = InvestmentUtils.IsGoalCompleted(product, gameContext);
-
-        return goalCompleted ? 0 : Constants.COMPANY_SCORING_COMPANY_GOAL;
     }
 
-    long GetDevelopmentScoring(GameEntity product)
-    {
-        return 100;
-    }
-
-    long GetBadLoyaltyScoring(GameEntity product)
+    long GetLoyaltyUrgency(GameEntity product)
     {
         var coreLoyalty = MarketingUtils.GetClientLoyalty(gameContext, product.company.Id, UserType.Core);
         var regularsLoyalty = MarketingUtils.GetClientLoyalty(gameContext, product.company.Id, UserType.Regular);

@@ -34,11 +34,11 @@ public partial class AIProductSystems : OnDateChange
         var goals = new Dictionary<ProductCompanyGoals, long>
         {
             // threats
-            [ProductCompanyGoals.Survive] = GetBankruptcyScoring(product),
-            [ProductCompanyGoals.FixClientLoyalty] = GetBadLoyaltyScoring(product),
+            [ProductCompanyGoals.Survive] = GetBankruptcyUrgency(product),
+            [ProductCompanyGoals.FixClientLoyalty] = GetLoyaltyUrgency(product),
 
             // company goal
-            [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalScoring(product),
+            [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalUrgency(product),
         };
 
         //var goal = PickUrgentGoal(goals);

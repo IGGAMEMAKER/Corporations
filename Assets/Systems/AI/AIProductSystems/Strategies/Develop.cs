@@ -47,17 +47,10 @@ public partial class AIProductSystems : OnDateChange
     {
         switch (company.companyGoal.InvestorGoal)
         {
-            case InvestorGoal.BecomeMarketFit:
-                break;
-
-            case InvestorGoal.BecomeProfitable:
-                break;
-
-            case InvestorGoal.GrowCompanyCost:
-                break;
-
-            case InvestorGoal.IPO:
-                break;
+            case InvestorGoal.BecomeMarketFit: BecomeMarketFit(company); break;
+            case InvestorGoal.BecomeProfitable: break;
+            case InvestorGoal.GrowCompanyCost: break;
+            case InvestorGoal.IPO: break;
         }
 
 
@@ -85,8 +78,6 @@ public partial class AIProductSystems : OnDateChange
         // accept investments
         // flip goal                                cooldown
     }
-
-    //bool NeedsTeamExpansion
 
     void ExpandTeam(GameEntity company)
     {
