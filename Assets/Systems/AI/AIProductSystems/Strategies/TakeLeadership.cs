@@ -8,10 +8,10 @@ public partial class AIProductSystems : OnDateChange
         FocusOnIdeas(product);
 
         // crunch
-        SetCrunch(product);
+        Crunch(product);
     }
 
-    void SetCrunch(GameEntity product)
+    void Crunch(GameEntity product)
     {
         if (!product.isCrunching)
             TeamUtils.ToggleCrunching(gameContext, product.company.Id);

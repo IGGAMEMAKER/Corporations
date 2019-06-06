@@ -3,15 +3,38 @@ using System.Collections.Generic;
 
 public partial class AIProductSystems : OnDateChange
 {
+    long NeedsToUpgradeTeam(GameEntity company)
+    {
+        return 0;
+    }
+
     long GetProgrammerNecessity(GameEntity company)
     {
         var conceptCost = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
 
         var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
 
+        var ideaCompletionTime = conceptCost.ideaPoints / change.ideaPoints;
+        var programmingCompletionTime = conceptCost.programmingPoints / change.programmingPoints;
 
+        var necessity = programmingCompletionTime > ideaCompletionTime;
 
-        return 500;
+        var programmerNecessity = necessity ? Constants.COMPANY_SCORING_HIRE_PROGRAMMER : 0;
+
+        return GetConceptUpgradeUrgency(company) + programmerNecessity;
+    }
+
+    long GetConceptUpgradeUrgency(GameEntity company)
+    {
+        var diff = MarketingUtils.GetMarketDiff(gameContext, company);
+
+        if (diff == 0)
+            return 0;
+
+        if (diff == 1)
+            return Constants.COMPANY_SCORING_CONCEPT_URGENCY;
+
+        return Constants.COMPANY_SCORING_CONCEPT_TOO_URGENT;
     }
 
     long GetMarketerNecessity(GameEntity company)
@@ -42,13 +65,5 @@ public partial class AIProductSystems : OnDateChange
         };
 
         return PickMostImportantValue(workerVariants);
-
-        var conceptCost = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
-
-        var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
-
-        var ideaGenerationSpeed = change.ideaPoints;
-        var ppGenerationSpeed = change.programmingPoints;
-        var spGenerationSpeed = change.salesPoints;
     }
 }

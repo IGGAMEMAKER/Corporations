@@ -17,11 +17,16 @@ namespace Assets.Utils
 
         public static int GetMarketDiff(GameContext gameContext, int companyId)
         {
-            var best = NicheUtils.GetLeaderApp(gameContext, companyId);
-
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return best.product.ProductLevel - c.product.ProductLevel;
+            return GetMarketDiff(gameContext, c);
+        }
+
+        public static int GetMarketDiff(GameContext gameContext, GameEntity productCompany)
+        {
+            var best = NicheUtils.GetLeaderApp(gameContext, productCompany.company.Id);
+
+            return best.product.ProductLevel - productCompany.product.ProductLevel;
         }
 
         public static long GetClients(GameEntity company)

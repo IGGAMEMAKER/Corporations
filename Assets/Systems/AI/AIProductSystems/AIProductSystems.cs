@@ -39,10 +39,6 @@ public partial class AIProductSystems : OnDateChange
 
             // company goal
             [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalScoring(product),
-
-            // development
-            [ProductCompanyGoals.Develop] = GetDevelopmentScoring(product),
-            [ProductCompanyGoals.TakeTechLeadership] = GetDevelopmentScoring(product),
         };
 
         //var goal = PickUrgentGoal(goals);
@@ -91,10 +87,8 @@ public partial class AIProductSystems : OnDateChange
         {
             case ProductCompanyGoals.Survive: Survive(product); break;
             case ProductCompanyGoals.FixClientLoyalty: FixLoyalty(product); break;
-            case ProductCompanyGoals.CompleteCompanyGoal: CompleteCompanyGoal(product); break;
-            case ProductCompanyGoals.TakeTechLeadership: TakeLeadership(product); break;
 
-            default: Develop(product); break;
+            default: CompleteCompanyGoal(product); break;
         }
     }
 }

@@ -17,7 +17,7 @@ public partial class AIProductSystems : OnDateChange
 
     long GetCompanyGoalScoring(GameEntity product)
     {
-        return 0;
+        return Constants.COMPANY_SCORING_COMPANY_GOAL;
         //var requirements = InvestmentUtils.GetGoalRequirements(product, gameContext);
 
         var goalCompleted = InvestmentUtils.IsGoalCompleted(product, gameContext);
