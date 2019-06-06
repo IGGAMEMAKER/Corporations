@@ -15,6 +15,10 @@ public partial class AIProductSystems : OnDateChange
         var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
 
         var ideaCompletionTime = conceptCost.ideaPoints / change.ideaPoints;
+
+        if (change.programmingPoints == 0)
+            return GetConceptUpgradeUrgency(company) + Constants.COMPANY_SCORING_HIRE_PROGRAMMER;
+
         var programmingCompletionTime = conceptCost.programmingPoints / change.programmingPoints;
 
         var necessity = programmingCompletionTime > ideaCompletionTime;

@@ -15,10 +15,7 @@ public class WorkerListView : ListView
 
     void Render()
     {
-        if (MyProductEntity == null)
-            return;
-
-        SetItems(MyProductEntity.team.Workers.ToArray());
+        SetItems(SelectedCompany.team.Workers.ToArray());
     }
 
     void OnEnable()

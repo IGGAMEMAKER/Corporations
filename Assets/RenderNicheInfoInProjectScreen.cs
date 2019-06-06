@@ -11,6 +11,9 @@ public class RenderNicheInfoInProjectScreen : View
 
     public StealIdeasController StealIdeasController;
 
+    public Text Staff;
+    public Text StaffLabel;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -45,5 +48,7 @@ public class RenderNicheInfoInProjectScreen : View
         NicheName.text = Visuals.Link(text);
 
         LinkToNiche.SetNiche(niche);
+
+        Staff.text = TeamUtils.GetTeamSize(SelectedCompany).ToString();
     }
 }
