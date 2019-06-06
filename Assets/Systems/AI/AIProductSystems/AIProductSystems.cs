@@ -40,8 +40,7 @@ public partial class AIProductSystems : OnDateChange
             // company goal
             [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalUrgency(product),
         };
-
-        //var goal = PickUrgentGoal(goals);
+        
         var goal = PickMostImportantValue(goals);
 
         ExecuteGoal(goal, product);
