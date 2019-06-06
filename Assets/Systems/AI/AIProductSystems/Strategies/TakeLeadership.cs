@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -19,6 +20,12 @@ public partial class AIProductSystems : OnDateChange
 
     void FocusOnIdeas(GameEntity product)
     {
+
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
+    }
+
+    void Print(string action, GameEntity company)
+    {
+        Debug.Log($"{action} : {company.company.Name}");
     }
 }

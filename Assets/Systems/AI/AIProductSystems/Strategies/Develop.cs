@@ -53,6 +53,8 @@ public partial class AIProductSystems : OnDateChange
             case InvestorGoal.IPO: break;
         }
 
+        return;
+
 
         // ---- Team ----
         // +- stop crunches                            cooldown
@@ -81,14 +83,21 @@ public partial class AIProductSystems : OnDateChange
 
     void ExpandTeam(GameEntity company)
     {
-        if (TeamUtils.IsWillNotOverextendTeam(company))
-        {
-            TeamUtils.HireWorker(company, GetProperWorkerRole(company));
-        }
-        else
+        if (TeamUtils.IsWillOverextendTeam(company))
         {
             UpgradeTeam(company);
         }
+        else
+        {
+            HireWorker(company, GetProperWorkerRole(company));
+        }
+    }
+
+    void HireWorker(GameEntity company, WorkerRole workerRole)
+    {
+        TeamUtils.HireWorker(company, workerRole);
+
+        Print($"Hire {workerRole.ToString()}", company);
     }
 
     void UpgradeTeam(GameEntity company)
@@ -97,8 +106,12 @@ public partial class AIProductSystems : OnDateChange
 
         TeamUtils.Promote(company);
 
+        Print($"Upgrade team from {status.ToString()}", company);
+
         if (status == TeamStatus.Pair)
         {
+            Print($"Set universal worker as CEO", company);
+
             TeamUtils.SetRole(company, company.cEO.HumanId, WorkerRole.Business, gameContext);
         }
 

@@ -62,9 +62,9 @@ namespace Assets.Utils
             return company.team.Workers.Count();
         }
 
-        public static bool IsWillNotOverextendTeam(GameEntity company)
+        public static bool IsWillOverextendTeam(GameEntity company)
         {
-            return GetTeamSize(company) + 1 < GetTeamMaxSize(company);
+            return GetTeamSize(company) == GetTeamMaxSize(company);
         }
     }
 }
