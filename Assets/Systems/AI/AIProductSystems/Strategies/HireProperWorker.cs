@@ -58,18 +58,9 @@ public partial class AIProductSystems : OnDateChange
 
     long GetProgrammerNecessity(GameEntity company)
     {
-        var conceptCost = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+        var necessity = IsNeedsMoreProgrammersToMatchIdeaGenerationSpeed(company);
 
-        var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
 
-        var ideaCompletionTime = conceptCost.ideaPoints / change.ideaPoints;
-
-        if (change.programmingPoints == 0)
-            return GetConceptUpgradeUrgency(company) + Constants.COMPANY_SCORING_HIRE_PROGRAMMER;
-
-        var programmingCompletionTime = conceptCost.programmingPoints / change.programmingPoints;
-
-        var necessity = programmingCompletionTime > ideaCompletionTime;
 
         var programmerNecessity = necessity ? Constants.COMPANY_SCORING_HIRE_PROGRAMMER : 0;
 
