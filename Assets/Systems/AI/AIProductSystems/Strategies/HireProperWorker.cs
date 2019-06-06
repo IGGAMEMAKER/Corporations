@@ -5,6 +5,12 @@ public partial class AIProductSystems : OnDateChange
 {
     long GetProgrammerNecessity(GameEntity company)
     {
+        var conceptCost = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+
+        var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
+
+
+
         return 500;
     }
 
