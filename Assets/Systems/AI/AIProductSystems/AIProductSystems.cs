@@ -64,23 +64,6 @@ public partial class AIProductSystems : OnDateChange
         return goal;
     }
 
-    //ProductCompanyGoals PickUrgentGoal(Dictionary<ProductCompanyGoals, long> goals)
-    //{
-    //    long value = 0;
-    //    ProductCompanyGoals goal = ProductCompanyGoals.Survive;
-
-    //    foreach (var pair in goals)
-    //    {
-    //        if (pair.Value > value)
-    //        {
-    //            value = pair.Value;
-    //            goal = pair.Key;
-    //        }
-    //    }
-
-    //    return goal;
-    //}
-
     void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
     {
         switch (goal)
