@@ -14,7 +14,7 @@ public class SetAmountOfStars : View
 
     void Render()
     {
-        int amountOfStars = CompanyEconomyUtils.GetCompanyRating(company.company.Id);
+        int amountOfStars = CompanyEconomyUtils.GetCompanyRating(GameContext, company.company.Id);
 
         foreach (Transform child in transform)
             child.gameObject.SetActive(child.GetSiblingIndex() < amountOfStars);
