@@ -6,7 +6,7 @@ public class TeamPerformanceView : View
     {
         base.ViewRender();
 
-        int performance = TeamUtils.GetPerformance(GameContext, MyProductEntity);
+        int performance = TeamUtils.GetPerformance(GameContext, SelectedCompany);
 
         GetComponent<ColoredValueGradient>().UpdateValue(performance);
     }

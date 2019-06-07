@@ -7,8 +7,8 @@ public class RenderTeamSize : View
     {
         base.ViewRender();
 
-        var size = TeamUtils.GetTeamSize(MyProductEntity);
-        var max = TeamUtils.GetTeamMaxSize(MyProductEntity);
+        var size = TeamUtils.GetTeamSize(SelectedCompany);
+        var max = TeamUtils.GetTeamMaxSize(SelectedCompany);
 
         GetComponent<Text>().text = $"{Visuals.Describe(max - size, size.ToString(), size.ToString(), size.ToString())} / {max}";
     }
