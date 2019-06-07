@@ -20,6 +20,8 @@ public interface IAIProductCompany
     void StartTestCampaign(GameEntity company);
     void StartBranding(GameEntity company);
     void ReleaseApp(GameEntity company);
+
+    void UpdatePositioning(GameEntity company);
 }
 
 public enum ProductActionGoal
@@ -50,6 +52,7 @@ public enum ProductCompanyActions
     // DecreaseMaintenance
 
 }
+
 
 public partial class AIProductSystems : OnDateChange
 {
