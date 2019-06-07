@@ -8,8 +8,18 @@ public interface IAIProductCompany
     void IncreasePrices(GameEntity company);
     void DecreasePrices(GameEntity company);
 
+    void UpgradeTeam(GameEntity company);
     void ExpandTeam(GameEntity company);
     void ShrinkTeam(GameEntity company);
+
+    void ImproveConcept(GameEntity company);
+    void ImproveSegment(GameEntity company);
+    void ImprovePayment(GameEntity company);
+
+    void StartTargetingCampaign(GameEntity company);
+    void StartTestCampaign(GameEntity company);
+    void StartBranding(GameEntity company);
+    void ReleaseApp(GameEntity company);
 }
 
 public enum ProductActionGoal
@@ -60,7 +70,6 @@ public partial class AIProductSystems : OnDateChange
         // +- stop crunches                            cooldown
         // hire someone                             money, mp
         // upgrade team                             mp
-        ExpandTeam(company);
 
 
         // ---- Product ----
@@ -79,18 +88,6 @@ public partial class AIProductSystems : OnDateChange
         // start round                              ????
         // accept investments
         // flip goal                                cooldown
-    }
-
-    void ExpandTeam(GameEntity company)
-    {
-        if (TeamUtils.IsWillOverextendTeam(company))
-        {
-            UpgradeTeam(company);
-        }
-        else
-        {
-            HireWorker(company, GetProperWorkerRole(company));
-        }
     }
 
     void HireWorker(GameEntity company, WorkerRole workerRole)
