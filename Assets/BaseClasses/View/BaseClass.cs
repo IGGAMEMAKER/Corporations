@@ -12,6 +12,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public bool IsMyProductCompany
+    {
+        get
+        {
+            return SelectedCompany.company.Id == MyProductEntity.company.Id;
+        }
+    }
+
     public bool IsMyCompetitor(GameEntity company)
     {
         bool isNotMyCompany = MyProductEntity.company.Id != company.company.Id;

@@ -6,13 +6,13 @@ public class RenderTeamMaintenance : UpgradedParameterView
     {
         get
         {
-            return CompanyEconomyUtils.GetCompanyMaintenance(GameContext, MyProductEntity.company.Id);
+            return CompanyEconomyUtils.GetCompanyMaintenance(GameContext, SelectedCompany.company.Id);
         }
     }
 
     public override string RenderHint()
     {
-        var e = MyProductEntity;
+        var e = SelectedCompany;
 
         var universals = CompanyEconomyUtils.GetUniversalsMaintenance(e);
         var programmers = CompanyEconomyUtils.GetProgrammersMaintenance(e);
@@ -31,11 +31,11 @@ public class RenderTeamMaintenance : UpgradedParameterView
             .AppendAndHideIfZero("Managers", managers)
             ;
 
-        return bonus.ToString();
+        return bonus.ToString(true);
     }
 
     public override string RenderValue()
     {
-        return $"${ValueFormatter.Shorten(Maintenance)}";
+        return Visuals.Negative($"${ValueFormatter.Shorten(Maintenance)}");
     }
 }
