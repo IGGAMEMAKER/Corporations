@@ -20,7 +20,6 @@ public partial class AIProductSystems : OnDateChange
 
     void FocusOnIdeas(GameEntity product)
     {
-
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
     }
 
