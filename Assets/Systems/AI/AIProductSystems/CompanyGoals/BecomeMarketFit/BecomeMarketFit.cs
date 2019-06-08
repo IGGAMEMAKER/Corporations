@@ -20,17 +20,6 @@ public partial class AIProductSystems : OnDateChange
 
     }
 
-    TeamResource GetResourceChange(GameEntity company)
-    {
-        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
-    }
-
-    TeamResource GetConceptCost(GameEntity company)
-    {
-        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
-    }
-
-
     void Crunch(GameEntity product)
     {
         if (!product.isCrunching)
@@ -40,6 +29,17 @@ public partial class AIProductSystems : OnDateChange
     void FocusOnIdeas(GameEntity product)
     {
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
+    }
+
+
+    TeamResource GetResourceChange(GameEntity company)
+    {
+        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
+    }
+
+    TeamResource GetConceptCost(GameEntity company)
+    {
+        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
     }
 
     void Print(string action, GameEntity company)
