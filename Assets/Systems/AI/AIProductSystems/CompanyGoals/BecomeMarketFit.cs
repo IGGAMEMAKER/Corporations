@@ -116,4 +116,16 @@ public partial class AIProductSystems : OnDateChange
     {
         return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
     }
+
+
+    void Crunch(GameEntity product)
+    {
+        if (!product.isCrunching)
+            TeamUtils.ToggleCrunching(gameContext, product.company.Id);
+    }
+
+    void FocusOnIdeas(GameEntity product)
+    {
+        ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
+    }
 }
