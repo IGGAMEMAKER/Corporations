@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 
-
 public interface IAIProductCompany
 {
     void Crunch(GameEntity company);

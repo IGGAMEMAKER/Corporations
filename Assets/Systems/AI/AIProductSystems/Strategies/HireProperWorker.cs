@@ -7,30 +7,6 @@ public partial class AIProductSystems : OnDateChange
         return CompanyEconomyUtils.GetBalanceChange(company, gameContext) > GetSalary(workerRole);
     }
 
-    bool IsNeedsMoreProgrammersToMatchIdeaGenerationSpeed(GameEntity company)
-    {
-        var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
-
-        if (change.programmingPoints == 0)
-            return true;
-
-        var conceptCost = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
-
-        var resources = company.companyResource.Resources;
-
-        var programmingCompletionTime = (conceptCost.programmingPoints - resources.programmingPoints) / change.programmingPoints;
-
-        if (programmingCompletionTime <= 0)
-            return false;
-
-        var ideaCompletionTime = (conceptCost.ideaPoints - resources.ideaPoints) / change.ideaPoints;
-
-        if (ideaCompletionTime < 0)
-            ideaCompletionTime = 0;
-
-        return programmingCompletionTime > ideaCompletionTime;
-    }
-
     bool IsNeedsProductManager(GameEntity company)
     {
         bool hasProductManagerAlready = TeamUtils.CountSpecialists(company, WorkerRole.ProductManager) > 0;

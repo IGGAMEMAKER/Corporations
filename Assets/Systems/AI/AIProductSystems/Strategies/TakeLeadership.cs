@@ -25,6 +25,7 @@ public partial class AIProductSystems : OnDateChange
 
     void Print(string action, GameEntity company)
     {
-        Debug.Log($"{action} : {company.company.Name}");
+        if (company.isControlledByPlayer)
+            Debug.Log($"{action} : {company.company.Name}");
     }
 }

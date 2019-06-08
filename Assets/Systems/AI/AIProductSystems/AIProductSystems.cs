@@ -42,6 +42,7 @@ public partial class AIProductSystems : OnDateChange
         };
         
         var goal = PickMostImportantValue(goals);
+        Print($"Choose goal {goal.ToString()}", product);
 
         ExecuteGoal(goal, product);
     }

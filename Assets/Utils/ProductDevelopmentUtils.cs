@@ -3,7 +3,9 @@
 public enum DevelopmentFocus
 {
     Concept,
-    Segments,
+
+    // loyalty
+    Segments, 
     BugFixes
 }
 
