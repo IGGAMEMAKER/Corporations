@@ -1,15 +1,9 @@
-﻿using Assets.Utils;
+﻿using Assets.Classes;
+using Assets.Utils;
 
 public partial class AIProductSystems : OnDateChange
 {
     void ManageTeam(GameEntity company)
-    {
-        ExpandStartupTeam(company);
-
-        OptimizeStartupTeam(company);
-    }
-
-    void ExpandStartupTeam(GameEntity company)
     {
         if (TeamUtils.IsWillOverextendTeam(company))
         {
@@ -17,16 +11,22 @@ public partial class AIProductSystems : OnDateChange
             return;
         }
 
-        if (IsNeedsProgrammerInStartup(company))
-            HireWorker(company, WorkerRole.Programmer);
+        ManageProgrammers(company);
     }
 
-    void OptimizeStartupTeam(GameEntity company)
+    void ManageProgrammers(GameEntity company)
     {
-        //var needPP = 
+        var programmerNecessity = DoWeNeedProgrammer(company);
+
+        switch (programmerNecessity)
+        {
+            case 1: HireWorker(company, WorkerRole.Programmer); break;
+            case -1: FireWorkerByRole(company, WorkerRole.Programmer); break;
+        }
     }
 
-    bool IsNeedsProgrammerInStartup(GameEntity company)
+    // this will change for other company goals
+    TeamResource GetResourceNecessity(GameEntity company)
     {
         var marketDiff = MarketingUtils.GetMarketDiff(gameContext, company) + 1;
         // + 1 means that we want to become tech leaders
@@ -36,59 +36,47 @@ public partial class AIProductSystems : OnDateChange
         var resource = company.companyResource.Resources;
         var change = GetResourceChange(company);
 
-        var goalPP = marketDiff * concept.programmingPoints;
-        var goalIP = marketDiff * concept.ideaPoints;
-
-        // time To Complete Goal Ideawise
-        var time = (goalIP - resource.ideaPoints) / change.ideaPoints;
-
-        if (time < 0)
-            time = 0;
-
-        
-
-        // match idea generation speed
-        bool matchesIdeaGenerationSpeed = IsNeedsMoreProgrammersToMatchConceptSpeed(company);
-
-        return matchesIdeaGenerationSpeed;
+        return new TeamResource
+        {
+            programmingPoints = marketDiff * concept.programmingPoints,
+            ideaPoints = marketDiff * concept.ideaPoints
+        };
     }
 
-    bool IsNeedsToManageIdeaOverflow(GameEntity company)
+    // 1 - we need more programmers
+    // 0 - we have good amount of programmers
+    // -1 - we have more than we need
+    int DoWeNeedProgrammer(GameEntity company)
     {
-        var concept = GetConceptCost(company);
-
-        var resources = company.companyResource.Resources;
-
-        var change = GetResourceChange(company);
-
-        return resources.ideaPoints >= concept.ideaPoints;
-    }
-
-    bool IsNeedsToManageProgrammingPointsOverflow(GameEntity company)
-    {
-        var concept = GetConceptCost(company);
-
-        var resources = company.companyResource.Resources;
-
-        var change = GetResourceChange(company);
-
-        return resources.programmingPoints >= concept.programmingPoints;
-    }
-
-    bool IsNeedsMoreProgrammersToMatchConceptSpeed(GameEntity company)
-    {
+        var needResources = GetResourceNecessity(company);
+        var resource = company.companyResource.Resources;
         var change = GetResourceChange(company);
 
         if (change.programmingPoints == 0)
-            return true;
+            return 1;
 
-        var concept = GetConceptCost(company);
+        var goalIP = needResources.ideaPoints;
+        var goalPP = needResources.programmingPoints;
 
-        var programmingCompletionTime = concept.programmingPoints / change.programmingPoints;
-        var ideaCompletionTime = concept.ideaPoints / change.ideaPoints;
+        // time To Complete Goal Ideawise
+        var ideaTime = (goalIP - resource.ideaPoints) / change.ideaPoints;
 
-        Print($"IsNeedsMoreProgrammersToMatchIdeaGenerationSpeed pp: {programmingCompletionTime}periods ip: {ideaCompletionTime}periods", company);
+        if (ideaTime < 0)
+            ideaTime = 0;
 
-        return programmingCompletionTime > ideaCompletionTime;
+        var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;
+
+        if (programmingTime < ideaTime)
+        {
+            
+        }
+        else if (programmingTime == ideaTime)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 }
