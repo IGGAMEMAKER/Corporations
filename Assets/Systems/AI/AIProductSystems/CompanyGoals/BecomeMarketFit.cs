@@ -6,7 +6,7 @@ public partial class AIProductSystems : OnDateChange
 {
     void BecomeMarketFit(GameEntity company)
     {
-        ExpandStartupTeam(company);
+        ManageTeam(company);
 
         FocusOnIdeas(company);
 
@@ -14,20 +14,12 @@ public partial class AIProductSystems : OnDateChange
 
         Crunch(company);
     }
-
-    //TeamResource GetResourceLimits(GameEntity company)
-    //{
-    //    var concept = GetConceptCost(company);
-
-    //    return new TeamResource
-    //    {
-    //        ideaPoints = concept.ideaPoints * 4,
-    //        managerPoints = 500,
-    //        money = 0,
-    //        programmingPoints = concept.programmingPoints * 4,
-    //        salesPoints = concept.salesPoints * 4
-    //    };
-    //}
+    
+    void ManageTeam(GameEntity company)
+    {
+        ExpandStartupTeam(company);
+        OptimizeStartupTeam(company);
+    }
 
     void ExpandStartupTeam(GameEntity company)
     {
@@ -65,7 +57,7 @@ public partial class AIProductSystems : OnDateChange
 
         var change = GetResourceChange(company);
 
-        return resources.ideaPoints  >= concept.ideaPoints;
+        return resources.ideaPoints >= concept.ideaPoints;
     }
 
     bool IsNeedsToManageProgrammingPointsOverflow(GameEntity company)
