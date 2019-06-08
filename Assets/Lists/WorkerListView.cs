@@ -13,13 +13,10 @@ public class WorkerListView : ListView
             t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
     }
 
-    void Render()
+    public override void ViewRender()
     {
-        SetItems(SelectedCompany.team.Workers.ToArray());
-    }
+        base.ViewRender();
 
-    void OnEnable()
-    {
-        Render();
+        SetItems(SelectedCompany.team.Workers.ToArray());
     }
 }

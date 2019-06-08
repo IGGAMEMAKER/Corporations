@@ -5,14 +5,14 @@ public class ListenTeamChanges : Controller
 {
     public override void AttachListeners()
     {
-        if (HasProductCompany)
-            MyProductEntity.AddTeamListener(this);
+        //if (HasProductCompany)
+        SelectedCompany.AddTeamListener(this);
     }
 
     public override void DetachListeners()
     {
-        if (HasProductCompany)
-            MyProductEntity.RemoveTeamListener(this);
+        //if (HasProductCompany)
+        SelectedCompany.RemoveTeamListener(this);
     }
 
     void ITeamListener.OnTeam(GameEntity entity, int morale, Dictionary<int, WorkerRole> workers, TeamStatus teamStatus)

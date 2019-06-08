@@ -15,6 +15,7 @@
     {
         var needsProgrammer = IsNeedsMoreProgrammersToMatchIdeaGenerationSpeed(company);
         var needsProductManager = IsNeedsProductManager(company);
+        
 
         if (needsProgrammer)
             HireWorker(company, WorkerRole.Programmer);

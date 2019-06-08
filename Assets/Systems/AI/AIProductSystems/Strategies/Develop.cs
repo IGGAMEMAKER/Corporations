@@ -24,36 +24,6 @@ public interface IAIProductCompany
     void UpdatePositioning(GameEntity company);
 }
 
-public enum ProductActionGoal
-{
-    IncreaseLoyalty,
-    IncreaseIncome,
-
-    DecreaseMaintenance,
-
-    StayInTech
-}
-
-public enum ProductCompanyActions
-{
-    // Product
-    UpgradeConcept,
-
-    // IncreaseLoyalty
-    UpgradeSegment,
-    DecreasePrice,
-    BecomeTechLeader,
-
-    // IncreaseIncome
-    DisableTargeting,
-    UpgradeMonetisation,
-    IncreasePrice,
-
-    // DecreaseMaintenance
-
-}
-
-
 public partial class AIProductSystems : OnDateChange
 {
     void CompleteCompanyGoal(GameEntity company)
