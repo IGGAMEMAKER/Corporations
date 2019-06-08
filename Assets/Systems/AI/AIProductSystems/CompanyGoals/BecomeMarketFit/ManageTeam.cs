@@ -1,12 +1,11 @@
-﻿using Assets.Classes;
-using Assets.Utils;
-using UnityEngine;
+﻿using Assets.Utils;
 
 public partial class AIProductSystems : OnDateChange
 {
     void ManageTeam(GameEntity company)
     {
         ExpandStartupTeam(company);
+
         OptimizeStartupTeam(company);
     }
 
@@ -24,7 +23,7 @@ public partial class AIProductSystems : OnDateChange
 
     void OptimizeStartupTeam(GameEntity company)
     {
-
+        //var needPP = 
     }
 
 
