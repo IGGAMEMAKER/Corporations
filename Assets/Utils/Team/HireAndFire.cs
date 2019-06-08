@@ -24,6 +24,7 @@
             ReplaceTeam(company, team);
         }
 
+
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
             HumanUtils.LeaveCompany(worker);
@@ -41,5 +42,20 @@
 
             FireWorker(company, human);
         }
+
+        public static void FireWorker(GameEntity company, GameContext gameContext, WorkerRole workerRole)
+        {
+            var workerId = GetWorkerByRole(company, gameContext, workerRole);
+
+            if (workerId > 0)
+                FireWorker(company, workerId, gameContext);
+        }
+
+
+        public static int GetWorkerByRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
+        {
+            return HumanUtils.GetHumanByWorkerRoleInCompany(company.company.Id, gameContext, workerRole);
+        }
+
     }
 }

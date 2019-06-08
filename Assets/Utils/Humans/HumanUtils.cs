@@ -16,6 +16,14 @@ namespace Assets.Utils
             return GetHumans(gameContext).Length;
         }
 
+
+        internal static int GetHumanByWorkerRoleInCompany(int companyId, GameContext gameContext, WorkerRole workerRole)
+        {
+            var humans = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Human, GameMatcher.Worker));
+
+            return Array.Find(humans, h => h.worker.companyId == companyId && h.worker.WorkerRole == workerRole).human.Id;
+        }
+
         public static GameEntity GetHumanById(GameContext gameContext, int humanId)
         {
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);

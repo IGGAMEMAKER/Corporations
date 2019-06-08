@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using Assets.Classes;
+using Assets.Utils;
 using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
@@ -18,8 +19,16 @@ public partial class AIProductSystems : OnDateChange
             TeamUtils.ToggleCrunching(gameContext, product.company.Id);
     }
 
+    TeamResource GetConceptCost(GameEntity company)
+    {
+        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+    }
+
+
+
     void FocusOnIdeas(GameEntity product)
     {
+        
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
     }
 
