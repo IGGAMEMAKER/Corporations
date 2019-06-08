@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
+using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -14,31 +15,19 @@ public partial class AIProductSystems : OnDateChange
         Crunch(company);
     }
 
-    TeamResource GetResourceLimits(GameEntity company)
-    {
-        var concept = GetConceptCost(company);
+    //TeamResource GetResourceLimits(GameEntity company)
+    //{
+    //    var concept = GetConceptCost(company);
 
-        return new TeamResource
-        {
-            ideaPoints = concept.ideaPoints * 4,
-            managerPoints = 500,
-            money = 0,
-            programmingPoints = concept.programmingPoints * 4,
-            salesPoints = concept.salesPoints * 4
-        };
-    }
-
-    void OptimizeStartupTeam(GameEntity company)
-    {
-        var resources = company.companyResource.Resources;
-        var concept = GetConceptCost(company);
-
-        bool overflowByProgrammingPoints = resources.programmingPoints > 2 * concept.programmingPoints;
-
-        if (overflowByProgrammingPoints &&
-            IsNeedsMoreProgrammersToMatchConceptSpeed(company))
-            TeamUtils.FireWorker(company, gameContext, WorkerRole.Programmer);
-    }
+    //    return new TeamResource
+    //    {
+    //        ideaPoints = concept.ideaPoints * 4,
+    //        managerPoints = 500,
+    //        money = 0,
+    //        programmingPoints = concept.programmingPoints * 4,
+    //        salesPoints = concept.salesPoints * 4
+    //    };
+    //}
 
     void ExpandStartupTeam(GameEntity company)
     {
@@ -52,35 +41,57 @@ public partial class AIProductSystems : OnDateChange
             HireWorker(company, WorkerRole.Programmer);
     }
 
+    void OptimizeStartupTeam(GameEntity company)
+    {
+
+    }
+
     bool IsNeedsProgrammerInStartup(GameEntity company)
     {
         // match idea generation speed
+        bool matchesIdeaGenerationSpeed = IsNeedsMoreProgrammersToMatchConceptSpeed(company);
+
         // idea points overflow
-        // 
+        bool hasEnoughPointsForNewConceptAlready = IsNeedsToManageIdeaOverflow(company);
+
+        return matchesIdeaGenerationSpeed || hasEnoughPointsForNewConceptAlready;
+    }
+
+    bool IsNeedsToManageIdeaOverflow (GameEntity company)
+    {
+        var concept = GetConceptCost(company);
+
+        var resources = company.companyResource.Resources;
+
+        var change = GetResourceChange(company);
+
+        return resources.ideaPoints  >= concept.ideaPoints;
+    }
+
+    bool IsNeedsToManageProgrammingPointsOverflow(GameEntity company)
+    {
+        var concept = GetConceptCost(company);
+
+        var resources = company.companyResource.Resources;
+
+        var change = GetResourceChange(company);
+
+        return resources.programmingPoints >= concept.programmingPoints;
     }
 
     bool IsNeedsMoreProgrammersToMatchConceptSpeed(GameEntity company)
     {
-        var change = CompanyEconomyUtils.GetResourceChange(company, gameContext);
+        var change = GetResourceChange(company);
 
         if (change.programmingPoints == 0)
             return true;
 
         var concept = GetConceptCost(company);
 
-        var resources = company.companyResource.Resources;
-
         var programmingCompletionTime = concept.programmingPoints / change.programmingPoints;
         var ideaCompletionTime = concept.ideaPoints / change.ideaPoints;
 
-
         Print($"IsNeedsMoreProgrammersToMatchIdeaGenerationSpeed pp: {programmingCompletionTime}periods ip: {ideaCompletionTime}periods", company);
-
-        if (ideaCompletionTime < 0)
-            ideaCompletionTime = 0;
-
-        if (programmingCompletionTime < 0)
-            return false;
 
         return programmingCompletionTime > ideaCompletionTime;
     }
@@ -88,5 +99,21 @@ public partial class AIProductSystems : OnDateChange
     void ImproveConcept(GameEntity company)
     {
 
+    }
+
+    TeamResource GetResourceChange(GameEntity company)
+    {
+        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
+    }
+
+    void Print(string action, GameEntity company)
+    {
+        if (company.isControlledByPlayer)
+            Debug.Log($"{action} : {company.company.Name}");
+    }
+
+    TeamResource GetConceptCost(GameEntity company)
+    {
+        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
     }
 }
