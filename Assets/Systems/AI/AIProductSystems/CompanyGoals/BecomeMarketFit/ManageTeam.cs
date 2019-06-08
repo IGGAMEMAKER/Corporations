@@ -26,16 +26,31 @@ public partial class AIProductSystems : OnDateChange
         //var needPP = 
     }
 
-
     bool IsNeedsProgrammerInStartup(GameEntity company)
     {
+        var marketDiff = MarketingUtils.GetMarketDiff(gameContext, company) + 1;
+        // + 1 means that we want to become tech leaders
+
+        var concept = GetConceptCost(company);
+
+        var resource = company.companyResource.Resources;
+        var change = GetResourceChange(company);
+
+        var goalPP = marketDiff * concept.programmingPoints;
+        var goalIP = marketDiff * concept.ideaPoints;
+
+        // time To Complete Goal Ideawise
+        var time = (goalIP - resource.ideaPoints) / change.ideaPoints;
+
+        if (time < 0)
+            time = 0;
+
+        
+
         // match idea generation speed
         bool matchesIdeaGenerationSpeed = IsNeedsMoreProgrammersToMatchConceptSpeed(company);
 
-        // idea points overflow
-        bool hasEnoughPointsForNewConceptAlready = IsNeedsToManageIdeaOverflow(company);
-
-        return matchesIdeaGenerationSpeed || hasEnoughPointsForNewConceptAlready;
+        return matchesIdeaGenerationSpeed;
     }
 
     bool IsNeedsToManageIdeaOverflow(GameEntity company)
