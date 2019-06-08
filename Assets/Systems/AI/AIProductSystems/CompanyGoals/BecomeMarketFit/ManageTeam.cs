@@ -49,6 +49,9 @@ public partial class AIProductSystems : OnDateChange
     int DoWeNeedProgrammer(GameEntity company)
     {
         var needResources = GetResourceNecessity(company);
+
+        Print($"We need {needResources}", company);
+
         var resource = company.companyResource.Resources;
         var change = GetResourceChange(company);
 
@@ -68,15 +71,16 @@ public partial class AIProductSystems : OnDateChange
 
         if (programmingTime < ideaTime)
         {
-            
+            return -1;
         }
         else if (programmingTime == ideaTime)
         {
-
+            return 0;
         }
         else
         {
-
+            // programming time > idea time
+            return 1;
         }
     }
 }
