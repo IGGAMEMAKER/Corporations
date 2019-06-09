@@ -47,7 +47,4 @@ public partial class AIProductSystems : OnDateChange
     {
         return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product))[0];
     }
-
-    // render me F11
-    // render competitors F12
 }
