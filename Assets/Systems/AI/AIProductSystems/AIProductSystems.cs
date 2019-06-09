@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum ProductCompanyGoals
 {
@@ -26,10 +27,14 @@ public partial class AIProductSystems : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in GetAIProducts())
-            ChooseGoal(e);
+        {
+            var goal = ChooseGoal(e);
+
+            ExecuteGoal(goal, e);
+        }
     }
 
-    void ChooseGoal(GameEntity product)
+    ProductCompanyGoals ChooseGoal(GameEntity product)
     {
         var goals = new Dictionary<ProductCompanyGoals, long>
         {
@@ -41,10 +46,7 @@ public partial class AIProductSystems : OnDateChange
             [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalUrgency(product),
         };
         
-        var goal = PickMostImportantValue(goals);
-        Print($"Choose goal {goal.ToString()}", product);
-
-        ExecuteGoal(goal, product);
+        return PickMostImportantValue(goals);
     }
 
     static T PickMostImportantValue<T> (Dictionary<T, long> values)
@@ -73,5 +75,33 @@ public partial class AIProductSystems : OnDateChange
 
             default: CompleteCompanyGoal(product); break;
         }
+    }
+
+
+
+
+    TestComponent GetLogs()
+    {
+        return gameContext.GetEntities(GameMatcher.Test)[0].test;
+    }
+
+    bool GetLog(LogTypes logTypes)
+    {
+        return GetLogs().logs[logTypes];
+    }
+
+    void Print(string action, GameEntity company)
+    {
+        var player = GetPlayerProductCompany();
+
+        bool isMyCompany = company.isControlledByPlayer;
+        bool isMyCompetitor = player != null && company.product.Niche == player.product.Niche;
+
+        bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
+        bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
+
+        // Goal: {company.companyGoal.InvestorGoal}. 
+        if (canRenderMyCompany || canRenderMyCompetitors)
+            Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {company.company.Name}");
     }
 }
