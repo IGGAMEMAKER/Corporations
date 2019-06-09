@@ -51,12 +51,27 @@ public partial class AIProductSystems : OnDateChange
     // render me F11
     // render competitors F12
 
+    TestComponent GetLogs()
+    {
+        return gameContext.GetEntities(GameMatcher.Test)[0].test;
+    }
+
+    bool GetLog(LogTypes logTypes)
+    {
+        return GetLogs().logs[logTypes];
+    }
+
     void Print(string action, GameEntity company)
     {
         var player = GetPlayerProductCompany();
 
-        // !company.isControlledByPlayer && 
-        if (player != null && company.product.Niche == player.product.Niche)
+        bool isMyCompany = company.isControlledByPlayer;
+        bool isMyCompetitor = player != null && company.product.Niche == player.product.Niche;
+
+        bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
+        bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
+
+        if (canRenderMyCompany || canRenderMyCompetitors)
             Debug.Log($"{action} : {company.company.Name}");
     }
 }
