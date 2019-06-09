@@ -33,6 +33,8 @@ public partial class AIProductSystems : OnDateChange
 
         var concept = GetConceptCost(company);
 
+        return concept * marketDiff;
+
         var resource = company.companyResource.Resources;
         var change = GetResourceChange(company);
 
