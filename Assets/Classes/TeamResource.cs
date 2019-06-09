@@ -165,5 +165,31 @@ namespace Assets.Classes
             IdeaPoints += stealableIdeas;
             return this;
         }
+
+        public static TeamResource operator+ (TeamResource teamResource1, TeamResource teamResource2)
+        {
+            return new TeamResource
+            {
+                ideaPoints = teamResource1.ideaPoints + teamResource2.ideaPoints,
+                programmingPoints = teamResource1.programmingPoints + teamResource2.programmingPoints,
+                managerPoints = teamResource1.managerPoints + teamResource2.managerPoints,
+                salesPoints = teamResource1.salesPoints + teamResource2.salesPoints,
+
+                money = teamResource1.money + teamResource2.money,
+            };
+        }
+
+        public static TeamResource operator* (TeamResource teamResource, int multiplier)
+        {
+            return new TeamResource
+            {
+                ideaPoints = teamResource.ideaPoints * multiplier,
+                programmingPoints = teamResource.programmingPoints * multiplier,
+                managerPoints = teamResource.managerPoints * multiplier,
+                salesPoints = teamResource.salesPoints * multiplier,
+
+                money = teamResource.money * multiplier,
+            };
+        }
     }
 }
