@@ -15,6 +15,8 @@ public partial class AIProductSystems : OnDateChange
 
         // crunch
         Crunch(product);
+
+        // sell more shares if possible
     }
 
     void FindMostExpensiveWorker(Dictionary<int, WorkerRole> workers)

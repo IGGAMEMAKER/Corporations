@@ -33,16 +33,17 @@ public partial class AIProductSystems : OnDateChange
 
         var concept = GetConceptCost(company);
 
-        return concept * marketDiff;
+        var loyaltyCore = GetSegmentLoyalty(company, UserType.Core);
+        var loyaltyRegular = GetSegmentLoyalty(company, UserType.Regular);
 
-        var resource = company.companyResource.Resources;
-        var change = GetResourceChange(company);
+        // if loyalties are negative, we need to improve them
+        var loyaltyCoreDiff = loyaltyCore > 0 ? 0 : -loyaltyCore;
+        var loyaltyRegularDiff = loyaltyRegular > 0 ? 0 : -loyaltyRegular;
 
-        return new TeamResource
-        {
-            programmingPoints = marketDiff * concept.programmingPoints,
-            ideaPoints = marketDiff * concept.ideaPoints
-        };
+        var segmentCoreCost = GetSegmentCost(company, UserType.Core);
+        var segmentRegularCost = GetSegmentCost(company, UserType.Regular);
+
+        return (concept * marketDiff) + (segmentCoreCost * loyaltyCoreDiff) + (segmentRegularCost * loyaltyRegularDiff);
     }
 
     // 1 - we need more programmers

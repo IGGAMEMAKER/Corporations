@@ -56,11 +56,6 @@ public partial class AIProductSystems : OnDateChange
         ProductUtils.UpdateSegment(product, gameContext, userType);
     }
 
-    void CatchMarketRequirements(GameEntity product)
-    {
-        FocusOnIdeas(product);
-    }
-
     void DecreasePrices(GameEntity product)
     {
         var price = product.finance.price;
@@ -87,4 +82,10 @@ public partial class AIProductSystems : OnDateChange
 
         ProductUtils.SetPrice(product, price);
     }
+
+    void CatchMarketRequirements(GameEntity product)
+    {
+        FocusOnIdeas(product);
+    }
+
 }

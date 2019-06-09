@@ -42,7 +42,7 @@ public partial class AIProductSystems : OnDateChange
         {
             // threats
             [ProductCompanyGoals.Survive] = GetBankruptcyUrgency(product),
-            [ProductCompanyGoals.FixClientLoyalty] = GetLoyaltyUrgency(product),
+            //[ProductCompanyGoals.FixClientLoyalty] = GetLoyaltyUrgency(product),
 
             // company goal
             [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalUrgency(product),
@@ -109,6 +109,11 @@ public partial class AIProductSystems : OnDateChange
 
 
 
+    long GetSegmentLoyalty(GameEntity company, UserType userType)
+    {
+        return MarketingUtils.GetClientLoyalty(gameContext, company.company.Id, userType);
+    }
+
     TeamResource GetResourceChange(GameEntity company)
     {
         return CompanyEconomyUtils.GetResourceChange(company, gameContext);
@@ -117,6 +122,11 @@ public partial class AIProductSystems : OnDateChange
     TeamResource GetConceptCost(GameEntity company)
     {
         return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+    }
+
+    TeamResource GetSegmentCost(GameEntity company, UserType userType)
+    {
+        return ProductUtils.GetSegmentUpgradeCost(company, gameContext, userType);
     }
 
     GameEntity GetPlayerProductCompany()
