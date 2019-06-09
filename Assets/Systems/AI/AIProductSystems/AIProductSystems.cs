@@ -102,9 +102,12 @@ public partial class AIProductSystems : OnDateChange
         bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
         bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
 
-        // Goal: {company.companyGoal.InvestorGoal}. 
+        string companyName = company.company.Name;
+        if (isMyCompany)
+            companyName = Visuals.Colorize(company.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+        
         if (canRenderMyCompany || canRenderMyCompetitors)
-            Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {company.company.Name}");
+            Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {companyName}");
     }
 
 
