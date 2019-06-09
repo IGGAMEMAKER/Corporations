@@ -10,6 +10,8 @@ public partial class AIProductSystems : OnDateChange
 
         ImproveConcept(company);
 
+        ImproveSegments(company);
+
         Crunch(company);
     }
 
