@@ -68,3 +68,15 @@ public class TutorialComponent : IComponent
 {
     public Dictionary<TutorialFunctionality, bool> progress;
 }
+
+[Game]
+public class TestComponent : IComponent
+{
+    public Dictionary<LogTypes, bool> logs;
+}
+
+public enum LogTypes
+{
+    MyProductCompany,
+    MyProductCompanyCompetitors
+}

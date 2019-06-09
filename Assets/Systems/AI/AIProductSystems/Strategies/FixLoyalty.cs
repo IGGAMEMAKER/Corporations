@@ -25,7 +25,7 @@ public partial class AIProductSystems : OnDateChange
         // TODO 1 DISLOYAL CORE USER IS WAY MORE IMPORTANT THAN THOUSANDS OF PAYING REGULAR USERS
         // WHICH IS NOT ALWAYS WORTH IT
         var badLoyaltyPenalty = loyalty < 0 ? 500 : 0;
-        var incomeBonus = (long)income * 100 / totalIncome;
+        var incomeBonus = (long)income * 100 / (totalIncome + 1);
 
         // TODO COUNT COMPANY GOAL TOO!
         return badLoyaltyPenalty + incomeBonus;

@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
+using Entitas;
 using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
@@ -42,9 +43,20 @@ public partial class AIProductSystems : OnDateChange
         return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
     }
 
+    GameEntity GetPlayerProductCompany()
+    {
+        return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product))[0];
+    }
+
+    // render me F11
+    // render competitors F12
+
     void Print(string action, GameEntity company)
     {
-        if (!company.isControlledByPlayer)
+        var player = GetPlayerProductCompany();
+
+        // !company.isControlledByPlayer && 
+        if (player != null && company.product.Niche == player.product.Niche)
             Debug.Log($"{action} : {company.company.Name}");
     }
 }
