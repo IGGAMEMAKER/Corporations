@@ -1,4 +1,6 @@
-﻿using Entitas;
+﻿using Assets.Classes;
+using Assets.Utils;
+using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -103,5 +105,22 @@ public partial class AIProductSystems : OnDateChange
         // Goal: {company.companyGoal.InvestorGoal}. 
         if (canRenderMyCompany || canRenderMyCompetitors)
             Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {company.company.Name}");
+    }
+
+
+
+    TeamResource GetResourceChange(GameEntity company)
+    {
+        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
+    }
+
+    TeamResource GetConceptCost(GameEntity company)
+    {
+        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+    }
+
+    GameEntity GetPlayerProductCompany()
+    {
+        return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product))[0];
     }
 }

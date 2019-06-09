@@ -1,7 +1,4 @@
-﻿using Assets.Classes;
-using Assets.Utils;
-using Entitas;
-using UnityEngine;
+﻿using Assets.Utils;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -30,21 +27,5 @@ public partial class AIProductSystems : OnDateChange
     void FocusOnIdeas(GameEntity product)
     {
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
-    }
-
-
-    TeamResource GetResourceChange(GameEntity company)
-    {
-        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
-    }
-
-    TeamResource GetConceptCost(GameEntity company)
-    {
-        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
-    }
-
-    GameEntity GetPlayerProductCompany()
-    {
-        return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product))[0];
     }
 }
