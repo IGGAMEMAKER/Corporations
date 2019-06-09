@@ -25,10 +25,15 @@ public partial class AIProductSystems : OnDateChange
         }
     }
 
+    int GetMarketDifference(GameEntity company)
+    {
+        return MarketingUtils.GetMarketDiff(gameContext, company);
+    }
+
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
-        var marketDiff = MarketingUtils.GetMarketDiff(gameContext, company) + 1;
+        var marketDiff = GetMarketDifference(company) + 1;
         // + 1 means that we want to become tech leaders
 
         var concept = GetConceptCost(company);

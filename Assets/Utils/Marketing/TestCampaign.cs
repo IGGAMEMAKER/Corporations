@@ -7,6 +7,14 @@ namespace Assets.Utils
     {
         public static void StartTestCampaign(GameContext gameContext, GameEntity company)
         {
+            if (CompanyUtils.HasCooldown(company, CooldownType.TestCampaign))
+                return;
+
+            var cost = GetTestCampaignCost(gameContext, company);
+
+            if (!CompanyUtils.IsEnoughResources(company, cost))
+                return;
+
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 45);
 
             var marketing = company.marketing;
@@ -15,11 +23,7 @@ namespace Assets.Utils
             marketing.Segments[UserType.Core] += clientGain;
 
             company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
-
-
-            var resources = GetTestCampaignCost(gameContext, company);
-
-            Debug.Log("Spend Test campaign resources");
+            CompanyUtils.SpendResources(company, cost);
         }
 
         public static long GetTestCampaignClientGain(GameContext gameContext, GameEntity company)
