@@ -59,3 +59,10 @@ public class TechnologyLeaderComponent : IComponent { }
 
 [Game, Event(EventTarget.Self)]
 public class CrunchingComponent : IComponent { }
+
+[Game]
+public class MarketAnalyzeComponent : IComponent
+{
+    // companyId => expires
+    public Dictionary<int, int> targets;
+}

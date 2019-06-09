@@ -16,6 +16,18 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
         }
 
+        public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
+        {
+            var targets = stealerCompany.marketAnalyze.targets;
+
+            if (targets.ContainsKey(targetCompany.company.Id))
+                return;
+
+            targets[targetCompany.company.Id] = ScheduleUtils.GetCurrentDate(gameContext) + 45;
+
+            stealerCompany.ReplaceMarketAnalyze(targets);
+        }
+
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
         {
             var costs = GetSegmentUpgradeCost(product, gameContext, userType);
