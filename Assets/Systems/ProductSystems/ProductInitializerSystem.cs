@@ -137,6 +137,7 @@ public class ProductInitializerSystem : IInitializeSystem
 
         var tg = GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
+        GenerateProductCompany("facebook messenger", NicheType.Messenger);
 
         int google = GenerateProductCompany("Google", NicheType.SearchEngine).company.Id;
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
