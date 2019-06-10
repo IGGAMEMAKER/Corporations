@@ -11,7 +11,9 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     {
         // TODO WILL BE SLOW
 
-        cooldowns.FindAll(c => date >= c.EndDate).ForEach(c => { ProcessCooldown(c, company); });
+        cooldowns
+            .FindAll(c => date >= c.EndDate)
+            .ForEach(c => { ProcessCooldown(c, company); });
         cooldowns.RemoveAll(c => date >= c.EndDate);
 
         company.ReplaceCooldowns(cooldowns);

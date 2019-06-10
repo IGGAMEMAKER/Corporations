@@ -10,6 +10,7 @@ namespace Assets.Utils
             var e = context.CreateEntity();
 
             int id = GenerateCompanyId(context);
+            e.AddCooldowns(new List<Cooldown>());
 
             e.AddCompany(id, name, companyType);
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 100000));
@@ -28,13 +29,12 @@ namespace Assets.Utils
 
             e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
 
+
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
 
             HumanUtils.SetSkills(CEO, WorkerRole.Business);
 
             HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
-
-            e.AddCooldowns(new List<Cooldown>());
 
             return e;
         }
