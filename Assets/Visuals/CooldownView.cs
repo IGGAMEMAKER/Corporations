@@ -40,20 +40,16 @@ public class CooldownView : View
         Text.text = $"{remaining} days";
     }
 
-    // TODO AAAAAAAAAAAAAAAAAAAAAaaa((((
+    // TODO AAAAAAAAAAAAAAAAAAAAA((((
     Cooldown GetCooldown(List<Cooldown> cooldowns, CooldownType cooldownType)
     {
-        var c = cooldowns.Find(cooldown => cooldown.CooldownType == cooldownType);
-
-        if (c == null)
-            return null;
-
         switch (cooldownType)
         {
             case CooldownType.StealIdeas:
-                return SelectedCompany.company.Id == (c as CooldownStealIdeas).targetCompanyId ? c : null;
+                return cooldowns.Find(cooldown => cooldown.Compare(new CooldownStealIdeas(SelectedCompany.company.Id)));
 
-            default: return c;
+            default: 
+                return cooldowns.Find(cooldown => cooldown.Compare(cooldownType));
         }
     }
 

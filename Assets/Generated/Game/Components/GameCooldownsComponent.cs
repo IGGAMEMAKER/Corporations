@@ -14,12 +14,14 @@ public partial class GameEntity {
     public void AddCooldowns(System.Collections.Generic.List<Cooldown> newCooldowns) {
         var index = GameComponentsLookup.Cooldowns;
         var component = (CooldownsComponent)CreateComponent(index, typeof(CooldownsComponent));
+        component.Cooldowns = newCooldowns;
         AddComponent(index, component);
     }
 
     public void ReplaceCooldowns(System.Collections.Generic.List<Cooldown> newCooldowns) {
         var index = GameComponentsLookup.Cooldowns;
         var component = (CooldownsComponent)CreateComponent(index, typeof(CooldownsComponent));
+        component.Cooldowns = newCooldowns;
         ReplaceComponent(index, component);
     }
 

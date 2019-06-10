@@ -1,6 +1,5 @@
 ﻿using Entitas;
 using System;
-using UnityEngine;
 
 namespace Assets.Utils
 {

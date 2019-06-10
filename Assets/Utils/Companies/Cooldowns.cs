@@ -8,21 +8,20 @@ namespace Assets.Utils
         {
             var cooldowns = company.cooldowns.Cooldowns;
 
-            Debug.Log("Add Cooldown " + cooldownType.ToString() + ": " + company.company.Name + " " + company.company.Id);
-            Debug.Log("Cooldowns: " + cooldowns.Count);
+            //Debug.Log("Add Cooldown " + cooldownType.ToString() + ": " + company.company.Name + " " + company.company.Id);
 
-            if (cooldowns.Find(cd => cd.CooldownType == cooldownType) != null)
-                return;
-
-            AddCooldown(gameContext, company, new Cooldown 
+            AddCooldown(gameContext, company, new Cooldown
             {
                 CooldownType = cooldownType
-            });
+            }, duration);
         }
 
-        public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration = 0)
+        public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration)
         {
             var cooldowns = company.cooldowns.Cooldowns;
+
+            if (HasCooldown(company, cooldown))
+                return;
 
             cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
             cooldowns.Add(cooldown);
@@ -32,7 +31,12 @@ namespace Assets.Utils
 
         public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
         {
-            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.CooldownType == cooldownType) != null;
+            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.Compare(cooldownType)) != null;
+        }
+
+        public static bool HasCooldown(GameEntity gameEntity, Cooldown cooldown)
+        {
+            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.Compare(cooldown)) != null;
         }
     }
 }

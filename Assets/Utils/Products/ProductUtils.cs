@@ -1,6 +1,7 @@
 ﻿using Assets.Classes;
 using Entitas;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -20,17 +21,20 @@ namespace Assets.Utils
 
         public static bool IsStolenAlready(GameEntity stealer, GameEntity target)
         {
-            return stealer.cooldowns.Cooldowns.Find(c => c.CooldownType == CooldownType.StealIdeas && (c as CooldownStealIdeas).targetCompanyId == target.company.Id) != null;
+            var cooldowns = stealer.cooldowns.Cooldowns;
+
+            //var cooldown = cooldowns.Find(c => c.CooldownType == CooldownType.StealIdeas && (c as CooldownStealIdeas).targetCompanyId == target.company.Id);
+            var cooldown = cooldowns.Find(c => c.Compare(new CooldownStealIdeas(target.company.Id)));
+
+            return cooldown != null;
         }
 
         public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
         {
-            var key = $"steal-{targetCompany.company.Id}";
-
             if (IsStolenAlready(stealerCompany, targetCompany))
                 return;
 
-            CompanyUtils.AddCooldown(gameContext, stealerCompany, CooldownType.StealIdeas, 45);
+            CompanyUtils.AddCooldown(gameContext, stealerCompany, new CooldownStealIdeas (targetCompany.company.Id), 45);
         }
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)

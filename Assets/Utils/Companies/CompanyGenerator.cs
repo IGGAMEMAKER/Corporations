@@ -63,8 +63,6 @@ namespace Assets.Utils
 
             SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 
-            LockCompanyGoal(context, company);
-
             return company;
         }
     }

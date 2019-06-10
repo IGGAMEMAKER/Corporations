@@ -64,11 +64,40 @@ public class Cooldown
 {
     public CooldownType CooldownType;
     public int EndDate;
+
+    public bool Compare (CooldownType cooldownType)
+    {
+        return Compare(new Cooldown { CooldownType = cooldownType });
+    }
+
+    public bool Compare (Cooldown cooldown)
+    {
+        if (CooldownType != cooldown.CooldownType)
+            return false;
+
+        return IsEqual(cooldown);
+    }
+
+    public virtual bool IsEqual(Cooldown comparable)
+    {
+        return true;
+    }
 }
 
 public class CooldownStealIdeas : Cooldown
 {
     public int targetCompanyId;
+
+    public CooldownStealIdeas(int targetId)
+    {
+        targetCompanyId = targetId;
+        CooldownType = CooldownType.StealIdeas;
+    }
+
+    public override bool IsEqual(Cooldown comparable)
+    {
+        return (comparable as CooldownStealIdeas).targetCompanyId == targetCompanyId;
+    }
 }
 
 
