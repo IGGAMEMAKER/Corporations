@@ -22,7 +22,7 @@ public partial class AIProductSystems : OnDateChange
         return gameContext.GetEntities(
             GameMatcher
             .AllOf(GameMatcher.Product)
-            //.NoneOf(GameMatcher.ControlledByPlayer)
+            .NoneOf(GameMatcher.ControlledByPlayer)
         );
     }
 
