@@ -66,3 +66,11 @@ public class MarketAnalyzeComponent : IComponent
     // companyId => expires
     public Dictionary<int, int> targets;
 }
+
+[Game]
+public class CustomCooldownComponent : IComponent
+{
+    // string => expires
+    // string aka: steal-88, where 88 is Id of target company
+    public Dictionary<string, int> targets;
+}

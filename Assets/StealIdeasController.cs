@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,6 @@ public class StealIdeasController : ButtonController
     {
         Debug.Log("Steal ideas!");
 
-
+        ProductUtils.StealIdeas(MyProductEntity, SelectedCompany, GameContext);
     }
 }
