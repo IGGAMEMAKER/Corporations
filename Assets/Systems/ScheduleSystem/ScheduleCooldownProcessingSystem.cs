@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 
 public class ScheduleCooldownProcessingSystem : OnDateChange
 {
@@ -10,7 +11,7 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
     {
         // TODO WILL BE SLOW
-
+        return;
         cooldowns
             .FindAll(c => date >= c.EndDate)
             .ForEach(c => { ProcessCooldown(c, company); });
@@ -39,7 +40,10 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        return;
         GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
+
+        Debug.Log("Cooldown processing system: " + cooldowns.Length);
 
         foreach (var c in cooldowns)
             ProcessTasks(c.cooldowns.Cooldowns, c, entities[0].date.Date);
