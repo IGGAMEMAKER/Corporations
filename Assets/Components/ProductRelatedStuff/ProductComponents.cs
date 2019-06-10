@@ -45,12 +45,6 @@ public class FinanceComponent : IComponent
 [Game, Event(EventTarget.Self)]
 public class ReleaseComponent : IComponent { }
 
-//[Game, Event(EventTarget.Self)]
-//public class TargetUserTypeComponent : IComponent
-//{
-//    public UserType UserType;
-//}
-
 [Game, Event(EventTarget.Self)]
 public class TargetingComponent : IComponent { }
 
@@ -61,16 +55,11 @@ public class TechnologyLeaderComponent : IComponent { }
 public class CrunchingComponent : IComponent { }
 
 //[Game]
-//public class MarketAnalyzeComponent : IComponent
+//public class CustomCooldownComponent : IComponent
 //{
-//    // companyId => expires
-//    public Dictionary<int, int> targets;
+//    // string => expires
+//    // string aka: steal-88, where 88 is Id of target company
+//    public Dictionary<string, int> targets;
 //}
 
-[Game]
-public class CustomCooldownComponent : IComponent
-{
-    // string => expires
-    // string aka: steal-88, where 88 is Id of target company
-    public Dictionary<string, int> targets;
-}
+

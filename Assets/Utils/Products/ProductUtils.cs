@@ -18,35 +18,28 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
         }
 
-        public static bool HasCustomCooldown(GameEntity company, string name)
-        {
-            return company.customCooldown.targets.ContainsKey(name);
-        }
+        //public static bool HasCustomCooldown(GameEntity company, string name)
+        //{
+        //    return company.customCooldown.targets.ContainsKey(name);
+        //}
 
-        public static void SetCustomCooldown(GameEntity company, GameContext gameContext, string name, int duration)
-        {
-            var targets = company.customCooldown.targets;
+        //public static void SetCustomCooldown(GameEntity company, GameContext gameContext, string name, int duration)
+        //{
+        //    var targets = company.customCooldown.targets;
 
-            targets[name] = ScheduleUtils.GetCurrentDate(gameContext) + duration;
+        //    targets[name] = ScheduleUtils.GetCurrentDate(gameContext) + duration;
 
-            company.ReplaceCustomCooldown(targets);
-        }
+        //    company.ReplaceCustomCooldown(targets);
+        //}
 
         public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
         {
             var key = $"steal-{targetCompany.company.Id}";
 
-            if (HasCustomCooldown(targetCompany, key))
-                return;
+            //if (HasCustomCooldown(targetCompany, key))
+            //    return;
 
-            SetCustomCooldown(stealerCompany, gameContext, key, 45);
-        }
-
-        public static void ParseCustomCooldown(GameEntity company, GameContext gameContext)
-        {
-            var cooldowns = company.customCooldown.targets;
-
-            
+            //SetCustomCooldown(stealerCompany, gameContext, key, 45);
         }
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
