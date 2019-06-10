@@ -18,16 +18,35 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
         }
 
+        public static bool HasCustomCooldown(GameEntity company, string name)
+        {
+            return company.customCooldown.targets.ContainsKey(name);
+        }
+
+        public static void SetCustomCooldown(GameEntity company, GameContext gameContext, string name, int duration)
+        {
+            var targets = company.customCooldown.targets;
+
+            targets[name] = ScheduleUtils.GetCurrentDate(gameContext) + duration;
+
+            company.ReplaceCustomCooldown(targets);
+        }
+
         public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
         {
-            var targets = stealerCompany.marketAnalyze.targets;
+            var key = $"steal-{targetCompany.company.Id}";
 
-            if (targets.ContainsKey(targetCompany.company.Id))
+            if (HasCustomCooldown(targetCompany, key))
                 return;
 
-            targets[targetCompany.company.Id] = ScheduleUtils.GetCurrentDate(gameContext) + 45;
+            SetCustomCooldown(stealerCompany, gameContext, key, 45);
+        }
 
-            stealerCompany.ReplaceMarketAnalyze(targets);
+        public static void ParseCustomCooldown(GameEntity company, GameContext gameContext)
+        {
+            var cooldowns = company.customCooldown.targets;
+
+            
         }
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
