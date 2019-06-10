@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Tutorial;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -25,7 +26,17 @@ public partial class AIProductSystems : OnDateChange
 
     void GrabTestClients(GameEntity company)
     {
+        if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))
+            return;
+
+        Print("Start test campaign", company);
+
         MarketingUtils.StartTestCampaign(gameContext, company);
+    }
+
+    int GetDate()
+    {
+        return ScheduleUtils.GetCurrentDate(gameContext);
     }
 
     void Crunch(GameEntity product)
