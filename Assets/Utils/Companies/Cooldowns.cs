@@ -4,19 +4,30 @@
     {
         public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
         {
-            var c = company.cooldowns.Cooldowns;
+            var cooldowns = company.cooldowns.Cooldowns;
 
-            if (c.ContainsKey(cooldownType))
+            if (cooldowns.Find(cd => cd.CooldownType == cooldownType) != null)
                 return;
 
-            c[cooldownType] = new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration };
+            cooldowns.Add(new Cooldown { EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration });
 
-            company.ReplaceCooldowns(c);
+            company.ReplaceCooldowns(cooldowns);
         }
 
-        public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
+        public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration)
         {
-            return gameEntity.cooldowns.Cooldowns.ContainsKey(cooldownType);
+            var cooldowns = company.cooldowns.Cooldowns;
+
+            cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
+
+            cooldowns.Add(cooldown);
+
+            company.ReplaceCooldowns(cooldowns);
         }
+
+        //public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
+        //{
+        //    return gameEntity.cooldowns.Cooldowns.ContainsKey(cooldownType);
+        //}
     }
 }

@@ -113,7 +113,7 @@ public class CEOComponent : IComponent
 
 public class CooldownsComponent : IComponent
 {
-    public Dictionary<CooldownType, Cooldown> Cooldowns;
+    public List<Cooldown> Cooldowns;
 }
 
 public class CompanyGoalComponent : IComponent

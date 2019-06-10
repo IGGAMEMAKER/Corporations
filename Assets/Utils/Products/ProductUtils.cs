@@ -18,11 +18,6 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
         }
 
-        //public static bool HasCustomCooldown(GameEntity company, string name)
-        //{
-        //    return company.customCooldown.targets.ContainsKey(name);
-        //}
-
         //public static void SetCustomCooldown(GameEntity company, GameContext gameContext, string name, int duration)
         //{
         //    var targets = company.customCooldown.targets;
@@ -32,13 +27,21 @@ namespace Assets.Utils
         //    company.ReplaceCustomCooldown(targets);
         //}
 
+        public static bool IsStolenAlready(GameEntity stealer, GameEntity target)
+        {
+            return stealer.cooldowns.Cooldowns.Find(c => c.CooldownType == CooldownType.StealIdeas && (c as CooldownStealIdeas).targetCompanyId == target.company.Id) != null;
+        }
+
         public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
         {
             var key = $"steal-{targetCompany.company.Id}";
 
-            //if (HasCustomCooldown(targetCompany, key))
-            //    return;
+            if (IsStolenAlready(stealerCompany, targetCompany))
+                return;
 
+
+
+            CompanyUtils.AddCooldown(gameContext, stealerCompany, CooldownType.StealIdeas, 45);
             //SetCustomCooldown(stealerCompany, gameContext, key, 45);
         }
 

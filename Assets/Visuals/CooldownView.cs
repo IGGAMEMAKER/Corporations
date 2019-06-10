@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CooldownView : View
@@ -39,6 +40,25 @@ public class CooldownView : View
         Text.text = $"{remaining} days";
     }
 
+    // TODO AAAAAAAAAAAAAAAAAAAAAaaa((((
+    Cooldown GetCooldown(List<Cooldown> cooldowns, CooldownType cooldownType)
+    {
+        var c = cooldowns.Find(cooldown => cooldown.CooldownType == cooldownType);
+
+        if (c == null)
+            return null;
+
+        switch (cooldownType)
+        {
+            case CooldownType.StealIdeas:
+                Debug.Log("steal ideas");
+                return SelectedCompany.company.Id == (c as CooldownStealIdeas).targetCompanyId ? c : null;
+                break;
+
+            default: return c;
+        }
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -48,8 +68,10 @@ public class CooldownView : View
 
         var cooldowns = Observable.cooldowns.Cooldowns;
 
-        if (cooldowns.ContainsKey(CooldownType))
-            Show(cooldowns[CooldownType]);
+        var cooldown = GetCooldown(cooldowns, CooldownType);
+
+        if (cooldown != null)
+            Show(cooldown);
         else
             Hide();
     }

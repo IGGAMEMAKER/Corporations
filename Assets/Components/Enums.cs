@@ -56,11 +56,19 @@ public enum CooldownType
     TestCampaign,
 
     CompanyGoal,
+
+    StealIdeas
 }
 
-public struct Cooldown
+public class Cooldown
 {
+    public CooldownType CooldownType;
     public int EndDate;
+}
+
+public class CooldownStealIdeas : Cooldown
+{
+    public int targetCompanyId;
 }
 
 

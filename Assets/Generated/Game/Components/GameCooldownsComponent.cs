@@ -11,17 +11,15 @@ public partial class GameEntity {
     public CooldownsComponent cooldowns { get { return (CooldownsComponent)GetComponent(GameComponentsLookup.Cooldowns); } }
     public bool hasCooldowns { get { return HasComponent(GameComponentsLookup.Cooldowns); } }
 
-    public void AddCooldowns(System.Collections.Generic.Dictionary<CooldownType, Cooldown> newCooldowns) {
+    public void AddCooldowns(System.Collections.Generic.List<Cooldown> newCooldowns) {
         var index = GameComponentsLookup.Cooldowns;
         var component = (CooldownsComponent)CreateComponent(index, typeof(CooldownsComponent));
-        component.Cooldowns = newCooldowns;
         AddComponent(index, component);
     }
 
-    public void ReplaceCooldowns(System.Collections.Generic.Dictionary<CooldownType, Cooldown> newCooldowns) {
+    public void ReplaceCooldowns(System.Collections.Generic.List<Cooldown> newCooldowns) {
         var index = GameComponentsLookup.Cooldowns;
         var component = (CooldownsComponent)CreateComponent(index, typeof(CooldownsComponent));
-        component.Cooldowns = newCooldowns;
         ReplaceComponent(index, component);
     }
 
