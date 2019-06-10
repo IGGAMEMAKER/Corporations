@@ -11,6 +11,8 @@ public partial class AIProductSystems : OnDateChange
 
         FocusOnIdeas(company);
 
+        StealIdeas(company);
+
         ImproveConcept(company);
 
         if (GetMarketDifference(company) == 0)
@@ -22,6 +24,15 @@ public partial class AIProductSystems : OnDateChange
     void ImproveConcept(GameEntity company)
     {
 
+    }
+
+    void StealIdeas(GameEntity company)
+    {
+        // Steal ideas
+        var competitors = ProductUtils.GetCompetitorsOfCompany(gameContext, company);
+
+        foreach (var c in competitors)
+            ProductUtils.StealIdeas(company, c, gameContext);
     }
 
     void GrabTestClients(GameEntity company)
@@ -48,7 +59,5 @@ public partial class AIProductSystems : OnDateChange
     void FocusOnIdeas(GameEntity product)
     {
         ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
-
-        // Steal ideas
     }
 }
