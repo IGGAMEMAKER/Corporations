@@ -7,29 +7,31 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     {
     }
 
-    void ProcessTasks(List<Cooldown> cooldowns, GameEntity c, int date)
+    void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
     {
-        List<CooldownType> toRemove = new List<CooldownType>();
+        // TODO WILL BE SLOW
 
-        //foreach (var val in cooldowns)
-        //{
-        //    if (date >= val.EndDate)
-        //        toRemove.Add(val.CooldownType);
-        //}
+        cooldowns.FindAll(c => date >= c.EndDate).ForEach(c => { ProcessCooldown(c, company); });
+        cooldowns.RemoveAll(c => date >= c.EndDate);
 
-        //foreach (var t in toRemove)
-        //    cooldowns.Remove(t);
+        company.ReplaceCooldowns(cooldowns);
+    }
 
-        foreach (var val in cooldowns)
+    void ProcessCooldown(Cooldown cooldown, GameEntity company)
+    {
+        switch (cooldown.CooldownType)
         {
-            if (date >= val.EndDate)
-                toRemove.Add(val.CooldownType);
+            case CooldownType.StealIdeas: ProcessStealCooldown(cooldown, company); break;
         }
+    }
 
-        foreach (var t in toRemove)
-            cooldowns.Remove(t);
+    void ProcessStealCooldown(Cooldown cooldown, GameEntity company)
+    {
+        var steal = (cooldown as CooldownStealIdeas);
 
-        c.ReplaceCooldowns(cooldowns);
+        var targetId = steal.targetCompanyId;
+
+
     }
 
     protected override void Execute(List<GameEntity> entities)
