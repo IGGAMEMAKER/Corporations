@@ -1,4 +1,6 @@
 ﻿using Assets.Classes;
+using Entitas;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -44,6 +46,18 @@ namespace Assets.Utils
             dict[userType]++;
 
             product.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, dict);
+        }
+
+        public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
+        {
+            return context
+                .GetEntities(GameMatcher.Product)
+                .Where(c =>
+                // same niche
+                c.product.Niche == company.product.Niche &&
+                // get competitors only
+                c.company.Id != company.company.Id)
+                .ToArray();
         }
     }
 }
