@@ -51,9 +51,7 @@ public class CooldownView : View
         switch (cooldownType)
         {
             case CooldownType.StealIdeas:
-                Debug.Log("steal ideas");
                 return SelectedCompany.company.Id == (c as CooldownStealIdeas).targetCompanyId ? c : null;
-                break;
 
             default: return c;
         }

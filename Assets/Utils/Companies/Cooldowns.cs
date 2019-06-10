@@ -7,13 +7,14 @@ namespace Assets.Utils
         public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
         {
             var cooldowns = company.cooldowns.Cooldowns;
+
             Debug.Log("Add Cooldown " + cooldownType.ToString() + ": " + company.company.Name + " " + company.company.Id);
             Debug.Log("Cooldowns: " + cooldowns.Count);
 
             if (cooldowns.Find(cd => cd.CooldownType == cooldownType) != null)
                 return;
 
-            AddCooldown(gameContext, company, new Cooldown
+            AddCooldown(gameContext, company, new Cooldown 
             {
                 CooldownType = cooldownType
             });

@@ -14,6 +14,7 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
         cooldowns
             .FindAll(c => date >= c.EndDate)
             .ForEach(c => { ProcessCooldown(c, company); });
+
         cooldowns.RemoveAll(c => date >= c.EndDate);
 
         company.ReplaceCooldowns(cooldowns);
