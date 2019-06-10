@@ -36,7 +36,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var hasCooldown = c.cooldowns.Cooldowns.ContainsKey(CooldownType.ProductFocus);
+            var hasCooldown = CompanyUtils.HasCooldown(c, CooldownType.ProductFocus);
 
             if (hasCooldown)
                 return;

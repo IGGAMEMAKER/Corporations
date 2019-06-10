@@ -7,19 +7,28 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     {
     }
 
-    void ProcessTasks(Dictionary<CooldownType, Cooldown> cooldowns, GameEntity c, int date)
+    void ProcessTasks(List<Cooldown> cooldowns, GameEntity c, int date)
     {
         List<CooldownType> toRemove = new List<CooldownType>();
 
+        //foreach (var val in cooldowns)
+        //{
+        //    if (date >= val.EndDate)
+        //        toRemove.Add(val.CooldownType);
+        //}
+
+        //foreach (var t in toRemove)
+        //    cooldowns.Remove(t);
+
         foreach (var val in cooldowns)
         {
-            if (date >= val.Value.EndDate)
-                toRemove.Add(val.Key);
+            if (date >= val.EndDate)
+                toRemove.Add(val.CooldownType);
         }
 
         foreach (var t in toRemove)
             cooldowns.Remove(t);
-            
+
         c.ReplaceCooldowns(cooldowns);
     }
 

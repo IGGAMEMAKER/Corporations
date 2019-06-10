@@ -25,9 +25,9 @@
             company.ReplaceCooldowns(cooldowns);
         }
 
-        //public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
-        //{
-        //    return gameEntity.cooldowns.Cooldowns.ContainsKey(cooldownType);
-        //}
+        public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
+        {
+            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.CooldownType == cooldownType) != null;
+        }
     }
 }

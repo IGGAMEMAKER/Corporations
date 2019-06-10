@@ -34,7 +34,7 @@ namespace Assets.Utils
 
             HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
-            e.AddCooldowns(new Dictionary<CooldownType, Cooldown>());
+            e.AddCooldowns(new List<Cooldown>());
 
             return e;
         }
