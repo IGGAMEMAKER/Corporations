@@ -27,7 +27,7 @@ public class MarketingChannelsContainer : View
             SEO.SetActive(false);
 
             Testing.SetActive(true);
-            Release.SetActive(true);
+            //Release.SetActive(true);
         }
     }
 }
