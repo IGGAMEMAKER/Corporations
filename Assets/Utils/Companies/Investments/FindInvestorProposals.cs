@@ -21,6 +21,9 @@ namespace Assets.Utils
             switch (investorGoal)
             {
                 // scum goals. they don't count
+                case InvestorGoal.Prototype: measurableGoal = 1; break;
+                case InvestorGoal.FirstUsers: measurableGoal = 500; break;
+
                 case InvestorGoal.BecomeMarketFit: measurableGoal = -1; break;
                 case InvestorGoal.BecomeProfitable: measurableGoal = 0; break;
                 case InvestorGoal.IPO: measurableGoal = 1; break;

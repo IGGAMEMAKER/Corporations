@@ -39,6 +39,12 @@
         {
             switch (investorGoal)
             {
+                case InvestorGoal.Prototype:
+                    return "Create a prototype";
+
+                case InvestorGoal.FirstUsers:
+                    return "Get first users";
+
                 case InvestorGoal.BecomeMarketFit:
                     return "Become market fit";
 

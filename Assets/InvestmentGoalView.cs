@@ -34,6 +34,22 @@ public class InvestmentGoalView : View
     {
         switch (MyProductEntity.companyGoal.InvestorGoal)
         {
+            case InvestorGoal.Prototype:
+                NeedLabel.text = "Required product level";
+                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+
+                HaveLabel.text = "Current product level";
+                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                break;
+
+            case InvestorGoal.FirstUsers:
+                NeedLabel.text = "Required amount of users";
+                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+
+                HaveLabel.text = "Current amount of users";
+                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                break;
+
             case InvestorGoal.BecomeMarketFit:
                 NeedLabel.text = "Required product level";
                 NeedValue.text = ValueFormatter.Shorten(requirements.need);
@@ -60,7 +76,7 @@ public class InvestmentGoalView : View
 
             case InvestorGoal.IPO:
                 NeedLabel.text = "Make your company public!";
-                NeedValue.text = ""; // ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = "Organise IPO"; // ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "";
                 HaveValue.text = ValueFormatter.Shorten(requirements.have);

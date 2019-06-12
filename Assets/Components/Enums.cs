@@ -128,6 +128,9 @@ public enum InvestorType
 
 public enum InvestorGoal
 {
+    Prototype,
+    FirstUsers,
+
     BecomeMarketFit,
     BecomeProfitable,
         //BecomeBestByTech, // 
