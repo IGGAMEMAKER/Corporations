@@ -31,6 +31,8 @@ public abstract class BlinkOrDestroyOnSomeCondition : View
             animated = true;
     }
 
+    
+
     private void OnDisable()
     {
         animated = false;
