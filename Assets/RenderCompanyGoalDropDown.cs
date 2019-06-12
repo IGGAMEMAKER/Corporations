@@ -34,6 +34,6 @@ public class RenderCompanyGoalDropDown : View
     {
         var investorGoal = (InvestorGoal) arg0;
 
-        CompanyUtils.SetCompanyGoal(GameContext, MyProductEntity, investorGoal, 360);
+        InvestmentUtils.SetCompanyGoal(GameContext, MyProductEntity, investorGoal, 360);
     }
 }
