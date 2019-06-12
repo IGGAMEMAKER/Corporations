@@ -23,7 +23,7 @@ public partial class AIProductSystems : OnDateChange
 
     void ImproveConcept(GameEntity company)
     {
-
+        ProductUtils.UpgradeConcept(company, gameContext);
     }
 
     void StealIdeas(GameEntity company)

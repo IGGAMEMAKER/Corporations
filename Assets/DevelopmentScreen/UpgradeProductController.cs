@@ -1,7 +1,9 @@
-﻿public class UpgradeProductController : ButtonController
+﻿using Assets.Utils;
+
+public class UpgradeProductController : ButtonController
 {
     public override void Execute()
     {
-        TriggerEventUpgradeProduct(MyProduct.Id, MyProduct.ProductLevel);
+        ProductUtils.UpgradeConcept(MyProductEntity, GameContext);
     }
 }
