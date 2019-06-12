@@ -10,8 +10,17 @@ public enum TutorialFunctionality
     LinkToProjectViewInInvestmentRounds,
     FirstAdCampaign,
 
-    FirstUsers,
-    Prototype
+    GoalFirstUsers,
+    GoalPrototype,
+
+    GoalBecomeMarketFit,
+    GoalRelease,
+
+    GoalBecomeProfitable,
+
+    IPO,
+
+    NeverShow
 }
 
 public class TutorialController : View

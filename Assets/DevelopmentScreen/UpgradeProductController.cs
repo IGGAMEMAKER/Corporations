@@ -7,6 +7,6 @@ public class UpgradeProductController : ButtonController
     {
         ProductUtils.UpgradeConcept(MyProductEntity, GameContext);
 
-        TutorialUtils.Unlock(GameContext, TutorialFunctionality.Prototype);
+        TutorialUtils.Unlock(GameContext, TutorialFunctionality.GoalPrototype);
     }
 }
