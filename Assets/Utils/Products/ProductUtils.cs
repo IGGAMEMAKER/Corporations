@@ -68,7 +68,7 @@ namespace Assets.Utils
         {
             TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
 
-            if (company.companyResource.Resources.IsEnoughResources(need) && !company.hasEventUpgradeProduct)
+            if (CompanyUtils.IsEnoughResources(company, need) && !company.hasEventUpgradeProduct)
             {
                 company.AddEventUpgradeProduct(company.product.Id, company.product.ProductLevel);
 

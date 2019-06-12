@@ -42,6 +42,14 @@ public class InvestmentGoalView : View
                 HaveValue.text = ValueFormatter.Shorten(requirements.have);
                 break;
 
+            case InvestorGoal.Release:
+                NeedLabel.text = "Required product level";
+                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+
+                HaveLabel.text = "";
+                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                break;
+
             case InvestorGoal.FirstUsers:
                 NeedLabel.text = "Required amount of users";
                 NeedValue.text = ValueFormatter.Shorten(requirements.need);

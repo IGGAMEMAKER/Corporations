@@ -27,5 +27,6 @@ public sealed class GameEventSystems : Feature {
         Add(new TeamEventSystem(contexts)); // priority: 0
         Add(new TechnologyLeaderEventSystem(contexts)); // priority: 0
         Add(new AnyTechnologyLeaderEventSystem(contexts)); // priority: 0
+        Add(new TutorialEventSystem(contexts)); // priority: 0
     }
 }

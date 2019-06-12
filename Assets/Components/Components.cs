@@ -63,7 +63,7 @@ public class TimerRunningComponent : IComponent { }
 
 
 
-[Game]
+[Game, Event(EventTarget.Self)]
 public class TutorialComponent : IComponent
 {
     public Dictionary<TutorialFunctionality, bool> progress;

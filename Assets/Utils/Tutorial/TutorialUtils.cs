@@ -24,5 +24,19 @@ namespace Assets.Utils.Tutorial
 
             p.ReplaceTutorial(tutorial);
         }
+
+        public static void AddEventListener(GameContext gameContext, ITutorialListener tutorialListener)
+        {
+            var p = GetProgression(gameContext);
+
+            p.AddTutorialListener(tutorialListener);
+        }
+
+        public static void RemoveEventListener(GameContext gameContext, ITutorialListener tutorialListener)
+        {
+            var p = GetProgression(gameContext);
+
+            p.RemoveTutorialListener(tutorialListener);
+        }
     }
 }

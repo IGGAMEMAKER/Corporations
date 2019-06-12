@@ -11,12 +11,12 @@ namespace Assets.Utils
 
         public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration)
         {
-            var cooldowns = company.cooldowns.Cooldowns;
-
             if (HasCooldown(company, cooldown))
                 return;
 
             cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
+
+            var cooldowns = company.cooldowns.Cooldowns;
             cooldowns.Add(cooldown);
 
             company.ReplaceCooldowns(cooldowns);
