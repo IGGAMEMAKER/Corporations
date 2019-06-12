@@ -132,6 +132,7 @@ public enum InvestorGoal
     FirstUsers,
 
     BecomeMarketFit,
+    Release,
     BecomeProfitable,
         //BecomeBestByTech, // 
         //GrowClientBase, // 

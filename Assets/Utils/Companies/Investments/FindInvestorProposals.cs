@@ -25,6 +25,8 @@ namespace Assets.Utils
                 case InvestorGoal.FirstUsers: measurableGoal = 500; break;
 
                 case InvestorGoal.BecomeMarketFit: measurableGoal = -1; break;
+                case InvestorGoal.Release: measurableGoal = 1; break;
+
                 case InvestorGoal.BecomeProfitable: measurableGoal = 0; break;
                 case InvestorGoal.IPO: measurableGoal = 1; break;
 

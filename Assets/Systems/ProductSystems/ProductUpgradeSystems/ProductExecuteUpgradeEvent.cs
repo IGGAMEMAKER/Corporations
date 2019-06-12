@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public class ProductExecuteUpgradeEvent : IExecuteSystem
 {
@@ -46,6 +47,8 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
 
     void UpgradeProduct(GameEntity e)
     {
+        Debug.Log("Upgrade product " + e.company.Name);
+
         var niche = NicheUtils.GetNicheEntity(_context, e.product.Niche);
 
         int explorationLevel = niche.nicheState.Level;

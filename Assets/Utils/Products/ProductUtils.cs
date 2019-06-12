@@ -23,7 +23,6 @@ namespace Assets.Utils
         {
             var cooldowns = stealer.cooldowns.Cooldowns;
 
-            //var cooldown = cooldowns.Find(c => c.CooldownType == CooldownType.StealIdeas && (c as CooldownStealIdeas).targetCompanyId == target.company.Id);
             var cooldown = cooldowns.Find(c => c.Compare(new CooldownStealIdeas(target.company.Id)));
 
             return cooldown != null;
@@ -33,6 +32,16 @@ namespace Assets.Utils
         {
             if (IsStolenAlready(stealerCompany, targetCompany))
                 return;
+
+            if (targetCompany.product.ProductLevel <= stealerCompany.product.ProductLevel)
+                return;
+
+            var leaderBonus = targetCompany.isTechnologyLeader ? 300 : 0;
+
+            var amount = Random.Range(100 + leaderBonus, 200 + leaderBonus);
+
+
+            CompanyUtils.AddResources(stealerCompany, new TeamResource { ideaPoints = amount });
 
             CompanyUtils.AddCooldown(gameContext, stealerCompany, new CooldownStealIdeas (targetCompany.company.Id), 45);
         }
@@ -53,6 +62,18 @@ namespace Assets.Utils
             dict[userType]++;
 
             product.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, dict);
+        }
+
+        public static void UpgradeConcept(GameEntity company, GameContext gameContext)
+        {
+            TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+
+            if (company.companyResource.Resources.IsEnoughResources(need) && !company.hasEventUpgradeProduct)
+            {
+                company.AddEventUpgradeProduct(company.product.Id, company.product.ProductLevel);
+
+                CompanyUtils.SpendResources(company, need);
+            }
         }
 
         public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)

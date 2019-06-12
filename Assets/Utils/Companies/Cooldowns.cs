@@ -6,14 +6,7 @@ namespace Assets.Utils
     {
         public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
         {
-            var cooldowns = company.cooldowns.Cooldowns;
-
-            //Debug.Log("Add Cooldown " + cooldownType.ToString() + ": " + company.company.Name + " " + company.company.Id);
-
-            AddCooldown(gameContext, company, new Cooldown
-            {
-                CooldownType = cooldownType
-            }, duration);
+            AddCooldown(gameContext, company, new Cooldown { CooldownType = cooldownType }, duration);
         }
 
         public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration)
@@ -28,6 +21,7 @@ namespace Assets.Utils
 
             company.ReplaceCooldowns(cooldowns);
         }
+
 
         public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
         {

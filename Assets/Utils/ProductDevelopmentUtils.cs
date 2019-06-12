@@ -36,9 +36,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var hasCooldown = CompanyUtils.HasCooldown(c, CooldownType.ProductFocus);
-
-            if (hasCooldown)
+            if (CompanyUtils.HasCooldown(c, CooldownType.ProductFocus))
                 return;
 
             c.ReplaceDevelopmentFocus(developmentFocus);
