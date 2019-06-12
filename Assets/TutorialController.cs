@@ -16,7 +16,7 @@ public enum TutorialFunctionality
 
 public class TutorialController : View
 {
-    [Tooltip("This components will be hidden until this tutorial functionality will be unlocked")]
+    [Tooltip("This components will show up when this tutorial functionality will be unlocked")]
     public TutorialFunctionality TutorialFunctionality;
 
     public GameObject[] HideableObjects;

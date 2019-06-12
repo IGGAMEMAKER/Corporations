@@ -5,7 +5,6 @@ using System.Linq;
 
 public class FillCompetingCompaniesList : View
     , IMenuListener
-    , IAnyCompanyListener
 {
     GameEntity[] GetProductsOnNiche()
     {
@@ -38,11 +37,17 @@ public class FillCompetingCompaniesList : View
 
     int SortCompanies(GameEntity p1, GameEntity p2)
     {
-        if (p1.isControlledByPlayer)
+        if (p1.isTechnologyLeader)
             return -1;
 
-        if (p2.isControlledByPlayer)
+        if (p2.isTechnologyLeader)
             return 1;
+
+        //if (p1.isControlledByPlayer)
+        //    return -1;
+
+        //if (p2.isControlledByPlayer)
+        //    return 1;
 
         if (p1.product.ProductLevel == 0)
             return -1;
@@ -50,17 +55,12 @@ public class FillCompetingCompaniesList : View
         if (p2.product.ProductLevel == 0)
             return 1;
 
-        return 0;
+        return p1.product.ProductLevel - p2.product.ProductLevel;
     }
 
     void Render()
     {
         GetComponent<CompetingCompaniesListView>().SetItems(GetProductsOnNiche());
-    }
-
-    void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
-    {
-        Render();
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)

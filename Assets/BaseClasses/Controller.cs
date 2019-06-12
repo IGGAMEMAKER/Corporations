@@ -22,6 +22,11 @@ public abstract class Controller : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
+    public GameEntity AnyChangeListener()
+    {
+        return ScreenUtils.GetMenu(GameContext);
+    }
+
     public void Render()
     {
         foreach (var view in GetComponents<View>())
