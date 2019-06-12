@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class FillCompetingCompaniesList : View
-    , IMenuListener
 {
     GameEntity[] GetProductsOnNiche()
     {
@@ -19,20 +18,6 @@ public class FillCompetingCompaniesList : View
         //Debug.Log("Rendering companies: " + names);
 
         return list;
-    }
-
-    void Start()
-    {
-        ListenMenuChanges(this);
-
-        Render();
-    }
-
-    void OnEnable()
-    {
-        GetUniversalListener.AddAnyCompanyListener(this);
-
-        Render();
     }
 
     int SortCompanies(GameEntity p1, GameEntity p2)
@@ -55,17 +40,13 @@ public class FillCompetingCompaniesList : View
         if (p2.product.ProductLevel == 0)
             return 1;
 
-        return p1.product.ProductLevel - p2.product.ProductLevel;
+        return p2.product.ProductLevel - p1.product.ProductLevel;
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         GetComponent<CompetingCompaniesListView>().SetItems(GetProductsOnNiche());
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
-    {
-        if (screenMode == ScreenMode.NicheScreen)
-            Render();
     }
 }
