@@ -18,11 +18,6 @@ public abstract class ButtonController : BaseClass
         ReNavigate();
     }
 
-    bool Contains<T>()
-    {
-        return gameObject.GetComponent<T>() != null;
-    }
-
     public abstract void Execute();
     public virtual void ButtonStart() { }
 

@@ -107,7 +107,10 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-
+    public bool Contains<T>()
+    {
+        return gameObject.GetComponent<T>() != null;
+    }
 
     internal void ToggleIsChosenComponent(bool isChosen)
     {

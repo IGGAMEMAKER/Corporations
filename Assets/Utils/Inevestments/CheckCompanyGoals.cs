@@ -22,7 +22,7 @@ namespace Assets.Utils
             switch (goal.InvestorGoal)
             {
                 case InvestorGoal.Prototype: return new GoalRequirements { need = 1, have = company.product.ProductLevel };
-                case InvestorGoal.FirstUsers: return new GoalRequirements { need = 500, have = MarketingUtils.GetClients(company) };
+                case InvestorGoal.FirstUsers: return GoalFirstUsers(company, gameContext);
                 case InvestorGoal.Release: return new GoalRequirements { need = 1, have = company.marketing.BrandPower > 15 ? 1 : 0 };
 
                 case InvestorGoal.BecomeMarketFit: return GoalMarketFit(company, gameContext);
@@ -33,6 +33,14 @@ namespace Assets.Utils
 
                 default: return new GoalRequirements { need = 12000000, have = 0 };
             }
+        }
+
+        public static GoalRequirements GoalFirstUsers(GameEntity company, GameContext gameContext)
+        {
+            return new GoalRequirements {
+                have = MarketingUtils.GetClients(company),
+                need = company.companyGoal.MeasurableGoal
+            };
         }
 
         public static GoalRequirements GoalGrowProfit(GameEntity company, GameContext gameContext)
