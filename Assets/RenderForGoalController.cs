@@ -16,17 +16,24 @@ public class RenderForGoalController : View
         base.ViewRender();
 
         var decision = show;
-        Debug.Log("RenderForGoal " + SelectedCompany.companyGoal.InvestorGoal + " " + TargetGoal);
 
         foreach (var obj in HideableObjects)
             obj.SetActive(decision);
+    }
+
+    GameEntity ObservableCompany
+    {
+        get
+        {
+            return MyProductEntity;
+        }
     }
 
     bool show
     {
         get
         {
-            var goal = SelectedCompany.companyGoal.InvestorGoal;
+            var goal = ObservableCompany.companyGoal.InvestorGoal;
 
             if (goal == TargetGoal)
                 return true;

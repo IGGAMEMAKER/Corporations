@@ -1,23 +1,21 @@
 ﻿using UnityEngine;
 
 public class ListenCompanyGoalChanges : Controller
-    , IAnyCompanyGoalListener
+    , ICompanyGoalListener
 {
     public override void AttachListeners()
     {
-        if (!SelectedCompany.hasAnyCompanyGoalListener)
-            SelectedCompany.AddAnyCompanyGoalListener(this);
+        MyProductEntity.AddCompanyGoalListener(this);
     }
 
     public override void DetachListeners()
     {
-        if (SelectedCompany.hasAnyCompanyGoalListener)
-            SelectedCompany.RemoveAnyCompanyGoalListener(this);
+        MyProductEntity.RemoveCompanyGoalListener(this);
     }
 
-    void IAnyCompanyGoalListener.OnAnyCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal)
+    void ICompanyGoalListener.OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal)
     {
-        Debug.Log("OnAnyCompanyGoal");
+        Debug.Log("OnCompanyGoal");
 
         Render();
     }
