@@ -56,7 +56,7 @@ namespace Assets.Utils
             };
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, 1, SegmentsFeatures);
+            company.AddProduct(company.company.Id, name, niche, 0, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);
