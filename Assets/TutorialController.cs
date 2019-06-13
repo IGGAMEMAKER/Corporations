@@ -20,7 +20,9 @@ public enum TutorialFunctionality
 
     IPO,
 
-    NeverShow
+    NeverShow,
+
+    CompletedFirstGoal
 }
 
 public class TutorialController : View

@@ -9,7 +9,6 @@ struct GoalViewInfo
 
 public class InvestmentGoalView : View
 {
-    public Text Expires;
     public Text Goal;
     //public ProgressBar ProgressBar;
 
@@ -98,8 +97,6 @@ public class InvestmentGoalView : View
 
         var goalinfo = GetGoalViewInfo();
         var requirements = InvestmentUtils.GetGoalRequirements(MyProductEntity, GameContext);
-
-        Expires.text = goalinfo.expires + " days";
 
         Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
 

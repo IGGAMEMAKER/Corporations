@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Tutorial;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +49,11 @@ public abstract class ButtonController : BaseClass
     public GameEntity ListenProductChanges()
     {
         return MyProductEntity;
+    }
+
+    public void UnlockTutorialFunctionality(TutorialFunctionality tutorialFunctionality)
+    {
+        TutorialUtils.Unlock(GameContext, tutorialFunctionality);
     }
 
     // trigger events
