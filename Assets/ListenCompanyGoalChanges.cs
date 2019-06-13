@@ -1,4 +1,6 @@
-﻿public class ListenCompanyGoalChanges : Controller
+﻿using UnityEngine;
+
+public class ListenCompanyGoalChanges : Controller
     , IAnyCompanyGoalListener
 {
     public override void AttachListeners()
@@ -15,6 +17,8 @@
 
     void IAnyCompanyGoalListener.OnAnyCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal)
     {
+        Debug.Log("OnAnyCompanyGoal");
+
         Render();
     }
 }

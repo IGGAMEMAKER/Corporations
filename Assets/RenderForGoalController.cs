@@ -15,8 +15,11 @@ public class RenderForGoalController : View
     {
         base.ViewRender();
 
+        var decision = show;
+        Debug.Log("RenderForGoal " + SelectedCompany.companyGoal.InvestorGoal + " " + TargetGoal);
+
         foreach (var obj in HideableObjects)
-            obj.SetActive(show);
+            obj.SetActive(decision);
     }
 
     bool show
@@ -39,59 +42,14 @@ public class RenderForGoalController : View
     {
         var result = CompareGoals(TargetGoal, currentGoal);
 
-        return result == 1;
+        return result < 0;
     }
 
     int CompareGoals(InvestorGoal goal1, InvestorGoal goal2)
     {
-        if (goal1 == InvestorGoal.IPO)
-            return -1;
+        Debug.Log("Goal1 " + (int)goal1);
+        Debug.Log("Goal2 " + (int)goal2);
 
-        if (goal2 == InvestorGoal.IPO)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.GrowCompanyCost)
-            return -1;
-
-        if (goal2 == InvestorGoal.GrowCompanyCost)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.BecomeProfitable)
-            return -1;
-
-        if (goal2 == InvestorGoal.BecomeProfitable)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.Release)
-            return -1;
-
-        if (goal2 == InvestorGoal.Release)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.BecomeMarketFit)
-            return -1;
-
-        if (goal2 == InvestorGoal.BecomeMarketFit)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.FirstUsers)
-            return -1;
-
-        if (goal2 == InvestorGoal.FirstUsers)
-            return 1;
-
-
-        if (goal1 == InvestorGoal.Prototype)
-            return -1;
-
-        if (goal2 == InvestorGoal.Prototype)
-            return 1;
-
-        return 0;
+        return (int)goal1 - (int)goal2;
     }
 }

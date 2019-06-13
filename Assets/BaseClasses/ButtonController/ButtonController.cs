@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public abstract class ButtonController : BaseClass
 {
     Button Button;
+    [Tooltip("Sets the color of link")]
+    public bool IsLink = false;
+
 
     void ExecuteAndUpdate()
     {
@@ -30,6 +33,9 @@ public abstract class ButtonController : BaseClass
         Button.onClick.AddListener(ExecuteAndUpdate);
 
         ButtonStart();
+
+        if (IsLink)
+            GetComponentInChildren<Text>().color = Visuals.Color(VisualConstants.COLOR_LINK);
     }
 
     // destroy

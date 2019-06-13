@@ -70,5 +70,5 @@ public class VisualConstants
     public const string COLOR_BEST = COLOR_GOLD; // "#FFD100"; // "#FFA0FF";
 
 
-    public const string COLOR_LINK = "#FFAB04";
+    public const string COLOR_LINK = "magenta";
 }
