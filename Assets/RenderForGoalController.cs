@@ -54,9 +54,6 @@ public class RenderForGoalController : View
 
     int CompareGoals(InvestorGoal goal1, InvestorGoal goal2)
     {
-        Debug.Log("Goal1 " + (int)goal1);
-        Debug.Log("Goal2 " + (int)goal2);
-
         return (int)goal1 - (int)goal2;
     }
 }
