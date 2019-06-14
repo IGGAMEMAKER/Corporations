@@ -53,6 +53,8 @@ public class Constants
     public static long COMPANY_SCORING_CONCEPT_URGENCY = 300;
 
     public static long COMPANY_SCORING_HIRE_PROGRAMMER = 50;
+
+    public static float GAMEPLAY_OFFSET = -110f;
 }
 
 public class VisualConstants
