@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RenderForGoalController : View
 {
@@ -38,14 +36,14 @@ public class RenderForGoalController : View
             if (goal == TargetGoal)
                 return true;
 
-            if (IsGoalWasCompleted(goal) && KeepAliveIfGoalCompleted)
+            if (IsGoalWasCompletedEarlier(goal) && KeepAliveIfGoalCompleted)
                 return true;
 
             return false;
         }
     }
 
-    bool IsGoalWasCompleted(InvestorGoal currentGoal)
+    bool IsGoalWasCompletedEarlier(InvestorGoal currentGoal)
     {
         var result = CompareGoals(TargetGoal, currentGoal);
 

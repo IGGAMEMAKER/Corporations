@@ -1,10 +1,18 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 
 public class StealIdeasController : ButtonController
 {
+    int targetId;
+
     public override void Execute()
     {
-        ProductUtils.StealIdeas(MyProductEntity, SelectedCompany, GameContext);
+        var target = CompanyUtils.GetCompanyById(GameContext, targetId);
+
+        ProductUtils.StealIdeas(MyProductEntity, target, GameContext);
+    }
+
+    internal void SetTargetCompanyForStealing(int companyId)
+    {
+        targetId = companyId;
     }
 }

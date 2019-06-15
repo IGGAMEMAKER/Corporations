@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CooldownView : View
+public partial class CooldownView : View
 {
     public CooldownType CooldownType;
 
@@ -17,7 +17,6 @@ public class CooldownView : View
             return MyProductEntity;
         }
     }
-
 
     void Toggle(bool show)
     {
@@ -46,7 +45,7 @@ public class CooldownView : View
         switch (cooldownType)
         {
             case CooldownType.StealIdeas:
-                return cooldowns.Find(cooldown => cooldown.Compare(new CooldownStealIdeas(SelectedCompany.company.Id)));
+                return cooldowns.Find(cooldown => cooldown.Compare(new CooldownStealIdeas(targetCompanyId)));
 
             default: 
                 return cooldowns.Find(cooldown => cooldown.Compare(cooldownType));
@@ -68,5 +67,15 @@ public class CooldownView : View
             Show(cooldown);
         else
             Hide();
+    }
+}
+
+public partial class CooldownView
+{
+    int targetCompanyId;
+
+    public void SetTargetCompanyForStealing(int companyId)
+    {
+        targetCompanyId = companyId;
     }
 }
