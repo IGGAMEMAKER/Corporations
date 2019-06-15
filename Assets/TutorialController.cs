@@ -25,6 +25,7 @@ public enum TutorialFunctionality
     CompletedFirstGoal
 }
 
+
 public class TutorialController : View
 {
     [Tooltip("This components will show up when this tutorial functionality will be unlocked")]
