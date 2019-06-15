@@ -23,11 +23,6 @@ public abstract class Controller : BaseClass
         ScheduleUtils.UnsubscribeFromDateChanges(GameContext, dateListener);
     }
 
-    public void LazyUpdate(IAnyDateListener dateListener)
-    {
-        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
-    }
-
     public GameEntity AnyChangeListener()
     {
         return ScreenUtils.GetMenu(GameContext);
