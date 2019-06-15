@@ -10,6 +10,14 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Menu)[0];
         }
 
+        public static void UpdateScreen(GameContext gameContext)
+        {
+            var m = GetMenu(gameContext);
+
+            ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
+            //m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
+        }
+
         public static Dictionary<string, object> GetScreenData(GameContext context)
         {
             return GetMenu(context).menu.Data;

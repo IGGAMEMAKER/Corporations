@@ -17,7 +17,7 @@ public class ToggleDevelopmentController : ButtonController
     {
         Render();
 
-        ListenProductChanges().AddDevelopmentFocusListener(this);
+        MyProductEntity.AddDevelopmentFocusListener(this);
     }
 
     void IDevelopmentFocusListener.OnDevelopmentFocus(GameEntity entity, DevelopmentFocus focus)

@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public abstract class ButtonController : BaseClass
+public abstract partial class ButtonController : BaseClass
 {
     Button Button;
     [Tooltip("Sets the color of link")]
     public bool IsLink = false;
 
+    public abstract void Execute();
+    public virtual void ButtonStart() { }
 
     void ExecuteAndUpdate()
     {
@@ -21,9 +23,6 @@ public abstract class ButtonController : BaseClass
 
         ReNavigate();
     }
-
-    public abstract void Execute();
-    public virtual void ButtonStart() { }
 
     // start
     void OnEnable()
@@ -51,17 +50,31 @@ public abstract class ButtonController : BaseClass
         else
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
     }
+}
 
-    public GameEntity ListenProductChanges()
-    {
-        return MyProductEntity;
-    }
-
+public abstract partial class ButtonController
+{
     public void UnlockTutorialFunctionality(TutorialFunctionality tutorialFunctionality)
     {
         TutorialUtils.Unlock(GameContext, tutorialFunctionality);
     }
 
+    public void SetSelectedCompany(int companyId)
+    {
+        ScreenUtils.SetSelectedCompany(GameContext, companyId);
+    }
+
+    public void ReNavigate()
+    {
+        Debug.Log("ReNavigate()");
+
+        ScreenUtils.UpdateScreen(GameContext);
+    }
+}
+
+
+public abstract partial class ButtonController
+{
     // trigger events
 
     public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
@@ -78,13 +91,11 @@ public abstract class ButtonController : BaseClass
     {
         MyProductEntity.AddEventFinancePricingChange(productId, level);
     }
+}
 
 
-    public void SetSelectedCompany(int companyId)
-    {
-        ScreenUtils.SetSelectedCompany(GameContext, companyId);
-    }
-
+public abstract partial class ButtonController
+{
     // navigate
     public void Navigate(ScreenMode screenMode, string field, object data)
     {
@@ -119,14 +130,5 @@ public abstract class ButtonController : BaseClass
     public void NavigateToProjectScreen(int companyId)
     {
         NavigateToCompany(ScreenMode.ProjectScreen, companyId);
-    }
-
-    public void ReNavigate()
-    {
-        var m = ScreenUtils.GetMenu(GameContext);
-
-        Debug.Log("ReNavigate()");
-
-        m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
     }
 }
