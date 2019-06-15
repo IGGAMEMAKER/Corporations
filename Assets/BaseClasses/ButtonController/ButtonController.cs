@@ -13,7 +13,7 @@ public abstract partial class ButtonController : BaseClass
     public abstract void Execute();
     public virtual void ButtonStart() { }
 
-    void ExecuteAndUpdate()
+    void ExecuteAndUpdateScreen()
     {
         Execute();
 
@@ -29,7 +29,7 @@ public abstract partial class ButtonController : BaseClass
     {
         Button = GetComponent<Button>();
 
-        Button.onClick.AddListener(ExecuteAndUpdate);
+        Button.onClick.AddListener(ExecuteAndUpdateScreen);
 
         ButtonStart();
 
@@ -46,12 +46,20 @@ public abstract partial class ButtonController : BaseClass
     void RemoveListener()
     {
         if (Button)
-            Button.onClick.RemoveListener(ExecuteAndUpdate);
+            Button.onClick.RemoveListener(ExecuteAndUpdateScreen);
         else
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
     }
+
+    public void ReNavigate()
+    {
+        Debug.Log("ReNavigate()");
+
+        ScreenUtils.UpdateScreen(GameContext);
+    }
 }
 
+// others
 public abstract partial class ButtonController
 {
     public void UnlockTutorialFunctionality(TutorialFunctionality tutorialFunctionality)
@@ -62,13 +70,6 @@ public abstract partial class ButtonController
     public void SetSelectedCompany(int companyId)
     {
         ScreenUtils.SetSelectedCompany(GameContext, companyId);
-    }
-
-    public void ReNavigate()
-    {
-        Debug.Log("ReNavigate()");
-
-        ScreenUtils.UpdateScreen(GameContext);
     }
 }
 
