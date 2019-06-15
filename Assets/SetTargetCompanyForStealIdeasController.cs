@@ -5,8 +5,7 @@
 
     public void SetTargetCompanyForStealing(GameEntity company)
     {
-        bool isCompetitor = IsMyCompetitor(company);
-        bool isCanSteal = isCompetitor && company.product.ProductLevel > MyProductEntity.product.ProductLevel;
+        bool isCanSteal = IsMyCompetitor(company) && company.product.ProductLevel > MyProductEntity.product.ProductLevel;
 
         CooldownView.gameObject.SetActive(isCanSteal);
         StealIdeasController.gameObject.SetActive(isCanSteal);
