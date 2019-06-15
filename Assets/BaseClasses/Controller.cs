@@ -41,7 +41,7 @@ public abstract class Controller : BaseClass
         Render();
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         DetachListeners();
     }
