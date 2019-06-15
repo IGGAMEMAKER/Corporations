@@ -46,7 +46,7 @@ public abstract class Controller : BaseClass
         DetachListeners();
     }
 
-    //private void OnDestroy()
+    //void OnDestroy()
     //{
     //    DetachListeners();
     //}
