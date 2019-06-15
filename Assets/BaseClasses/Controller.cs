@@ -7,6 +7,12 @@ public abstract class Controller : BaseClass
         ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);
     }
 
+    public void UnListenMenuChanges(IMenuListener menuListener)
+    {
+        ScreenUtils.GetMenu(GameContext).RemoveMenuListener(menuListener);
+    }
+
+
     public void ListenDateChanges(IAnyDateListener dateListener)
     {
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);

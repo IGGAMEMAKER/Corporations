@@ -125,6 +125,8 @@ public abstract class ButtonController : BaseClass
     {
         var m = ScreenUtils.GetMenu(GameContext);
 
+        Debug.Log("ReNavigate()");
+
         m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
     }
 }

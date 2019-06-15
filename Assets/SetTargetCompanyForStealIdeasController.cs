@@ -1,15 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SetTargetCompanyForStealIdeasController : View
+﻿public class SetTargetCompanyForStealIdeasController : View
 {
     public CooldownView CooldownView;
     public StealIdeasController StealIdeasController;
 
-    public void SetTargetCompanyForStealing(int companyId)
+    public void SetTargetCompanyForStealing(GameEntity company)
     {
-        CooldownView.SetTargetCompanyForStealing(companyId);
-        StealIdeasController.SetTargetCompanyForStealing(companyId);
+        bool isCompetitor = IsMyCompetitor(company);
+        bool isCanSteal = isCompetitor && company.product.ProductLevel > MyProductEntity.product.ProductLevel;
+
+        CooldownView.gameObject.SetActive(isCanSteal);
+        StealIdeasController.gameObject.SetActive(isCanSteal);
+
+        CooldownView.SetTargetCompanyForStealing(company.company.Id);
+        StealIdeasController.SetTargetCompanyForStealing(company.company.Id);
     }
 }

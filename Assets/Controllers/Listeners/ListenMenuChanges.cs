@@ -11,7 +11,8 @@ public class ListenMenuChanges : Controller
 
     public override void DetachListeners()
     {
-        Debug.Log("Detach menu listeners");
+        UnListenMenuChanges(this);
+        Debug.LogWarning("Detach menu listeners");
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)

@@ -27,6 +27,13 @@ public class BaseClass : MonoBehaviour
         return company.hasProduct ? company.product.Niche == MyProduct.Niche && isNotMyCompany : false;
     }
 
+    public bool IsMyCompetitor(int companyId)
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+
+        return IsMyCompetitor(company);
+    }
+
     public ScreenMode CurrentScreen
     {
         get

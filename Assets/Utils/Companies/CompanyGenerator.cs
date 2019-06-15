@@ -5,7 +5,12 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType, Dictionary<int, BlockOfShares> founders, GameEntity CEO)
+        private static GameEntity CreateCompany(
+            GameContext context,
+            string name,
+            CompanyType companyType,
+            Dictionary<int, BlockOfShares> founders,
+            GameEntity CEO)
         {
             var e = context.CreateEntity();
 

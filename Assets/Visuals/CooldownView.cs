@@ -42,6 +42,8 @@ public partial class CooldownView : View
     // TODO AAAAAAAAAAAAAAAAAAAAA((((
     Cooldown GetCooldown(List<Cooldown> cooldowns, CooldownType cooldownType)
     {
+        Debug.Log("target company id: " + targetCompanyId + " " + cooldownType);
+
         switch (cooldownType)
         {
             case CooldownType.StealIdeas:
@@ -77,5 +79,7 @@ public partial class CooldownView
     public void SetTargetCompanyForStealing(int companyId)
     {
         targetCompanyId = companyId;
+
+        ViewRender();
     }
 }

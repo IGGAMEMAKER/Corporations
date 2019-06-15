@@ -9,8 +9,6 @@ public class RenderNicheInfoInProjectScreen : View
     public GameObject NicheRoot;
     public LinkToNiche LinkToNiche;
 
-    public StealIdeasController StealIdeasController;
-
     public Text Staff;
     public Text StaffLabel;
 
@@ -35,8 +33,6 @@ public class RenderNicheInfoInProjectScreen : View
     void ToggleNicheObjects(bool show)
     {
         NicheRoot.SetActive(show);
-
-        StealIdeasController.gameObject.SetActive(show && IsMyCompetitor(SelectedCompany));
     }
 
     private void RenderNicheTab()

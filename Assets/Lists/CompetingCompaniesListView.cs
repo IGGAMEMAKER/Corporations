@@ -9,6 +9,6 @@ public class CompetingCompaniesListView : ListView
         t.GetComponentInChildren<LinkToProjectView>().CompanyId = e.company.Id;
         t.GetComponentInChildren<ProductCompanyCompetingPreview>().SetEntity(e);
 
-        t.GetComponentInChildren<SetTargetCompanyForStealIdeasController>().SetTargetCompanyForStealing(e.company.Id);
+        t.GetComponentInChildren<SetTargetCompanyForStealIdeasController>().SetTargetCompanyForStealing(e);
     }
 }
