@@ -18,6 +18,7 @@ public enum ScreenMode
     InvesmentProposalScreen = 8,
     IndustryScreen = 9,
     NicheScreen = 10,
+    InvestmentOfferScreen = 11
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -36,6 +37,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject GroupManagementScreen;
     public GameObject TeamScreen;
     public GameObject MarketingScreen;
+    public GameObject InvestmentOfferScreen;
 
 
     void Start()
@@ -51,7 +53,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.CharacterScreen] = CharacterScreen,
             [ScreenMode.GroupManagementScreen] = GroupManagementScreen,
             [ScreenMode.TeamScreen] = TeamScreen,
-            [ScreenMode.MarketingScreen] = MarketingScreen
+            [ScreenMode.MarketingScreen] = MarketingScreen,
+            [ScreenMode.InvestmentOfferScreen] = InvestmentOfferScreen
         };
 
         DisableAllScreens();
@@ -77,6 +80,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.CharacterScreen: return "Profile";
             case ScreenMode.TeamScreen: return "Team";
             case ScreenMode.MarketingScreen: return "Marketing";
+            case ScreenMode.InvestmentOfferScreen: return "Offer";
 
             default: return "WUT?";
         }
