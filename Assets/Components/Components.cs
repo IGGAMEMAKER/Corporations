@@ -36,11 +36,22 @@ public class ShareholderComponent : IComponent
     public InvestorType InvestorType;
 }
 
+public enum InvestorBonus
+{
+    None,
+    Expertise,
+    Branding,
+
+}
+
 public class InvestmentProposal
 {
     public int ShareholderId;
     public long Valuation;
     public long Offer;
+    public InvestorBonus InvestorBonus;
+
+    public bool WasAccepted;
 }
 
 [Game]

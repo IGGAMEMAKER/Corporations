@@ -69,36 +69,4 @@ public class ShareholderProposalView : View
 
         SetButtons(shareholder.shareholder.Id);
     }
-
-
-
-    bool IsInvestmentRoundActive
-    {
-        get
-        {
-            return SelectedCompany.hasAcceptsInvestments;
-        }
-    }
-
-    void RenderOffer()
-    {
-        var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
-
-        long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
-
-        long offer = proposal.Offer;
-        long futureShareSize = offer * 100 / (offer + Cost);
-
-        //Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
-    }
-
-    void RenderValuation()
-    {
-        if (IsInvestmentRoundActive)
-        {
-            var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
-
-            //Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
-        }
-    }
 }

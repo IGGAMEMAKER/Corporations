@@ -35,6 +35,13 @@ namespace Assets.Utils
             return CompanyUtils.GetCompanyById(gameContext, companyId);
         }
 
+        public static GameEntity GetSelectedInvestor(GameContext gameContext)
+        {
+            int id = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_INVESTOR];
+
+            return InvestmentUtils.GetInvestorById(gameContext, id);
+        }
+
         public static IndustryType GetSelectedIndustry(GameContext gameContext)
         {
             return (IndustryType)GetScreenData(gameContext)[Constants.MENU_SELECTED_INDUSTRY];
