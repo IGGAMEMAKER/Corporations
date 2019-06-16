@@ -31,15 +31,7 @@ public class ShareholderProposalView : View
     {
         get
         {
-            return CompanyUtils.IsAreSharesSellable(SelectedCompany);
-        }
-    }
-
-    bool IsInvestmentRoundActive
-    {
-        get
-        {
-            return SelectedCompany.hasAcceptsInvestments;
+            return CompanyUtils.IsSharesCanBeSold(SelectedCompany);
         }
     }
 
@@ -79,6 +71,14 @@ public class ShareholderProposalView : View
     }
 
 
+
+    bool IsInvestmentRoundActive
+    {
+        get
+        {
+            return SelectedCompany.hasAcceptsInvestments;
+        }
+    }
 
     void RenderOffer()
     {

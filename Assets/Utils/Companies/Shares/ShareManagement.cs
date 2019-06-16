@@ -26,14 +26,14 @@ namespace Assets.Utils
             return totalShares;
         }
 
-        public static bool IsAreSharesSellable(GameEntity company)
+        public static bool IsSharesCanBeSold(GameEntity company)
         {
             return company.isPublicCompany || company.hasAcceptsInvestments;
         }
 
         public static bool IsAreSharesSellable(GameContext context, int companyId)
         {
-            return IsAreSharesSellable(GetCompanyById(context, companyId));
+            return IsSharesCanBeSold(GetCompanyById(context, companyId));
         }
 
         public static Dictionary<int, BlockOfShares> GetCompanyShares(GameEntity company)
