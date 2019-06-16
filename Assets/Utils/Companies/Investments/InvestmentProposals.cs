@@ -12,15 +12,11 @@ namespace Assets.Utils
 
         public static InvestmentProposal GetInvestmentProposal(GameContext context, int companyId, int investorId)
         {
-            var c = GetCompanyById(context, companyId);
-
             return GetInvestmentProposals(context, companyId).Find(p => p.ShareholderId == investorId);
         }
 
         public static int GetInvestmentProposalIndex(GameContext context, int companyId, int investorId)
         {
-            var c = GetCompanyById(context, companyId);
-
             return GetInvestmentProposals(context, companyId).FindIndex(p => p.ShareholderId == investorId);
         }
 
@@ -75,8 +71,22 @@ namespace Assets.Utils
             CompanyEconomyUtils.IncreaseCompanyBalance(gameContext, companyId, p.Offer);
             CompanyEconomyUtils.DecreaseInvestmentFunds(gameContext, investorId, p.Offer);
 
-            RemoveProposal(gameContext, companyId, investorId);
+            MarkProposalAsAccepted(gameContext, companyId, investorId);
         }
+
+        static void MarkProposalAsAccepted(GameContext gameContext, int companyId, int investorId)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            var proposals = GetInvestmentProposals(gameContext, companyId);
+
+            var index = proposals.FindIndex(p => p.ShareholderId == investorId);
+
+            proposals[index].WasAccepted = true;
+
+            c.ReplaceInvestmentProposals(proposals);
+        }
+
 
         public static void SpawnProposals(GameContext context, int companyId)
         {
