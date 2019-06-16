@@ -60,13 +60,11 @@ public class ProductCompanyCompetingPreview : View,
 
     void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
     {
-        //if (CurrentScreen == ScreenMode.NicheScreen)
         RenderClients(entity);
     }
 
     void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
     {
-        //if (CurrentScreen == ScreenMode.NicheScreen)
         RenderProductInfo(entity.company.Name, productLevel);
     }
 }
