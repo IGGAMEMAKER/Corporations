@@ -90,14 +90,8 @@ namespace Assets.Utils
 
         public static void SpawnProposals(GameContext context, int companyId)
         {
-            //int attractiveness = GetInvestmentAttractiveness(context, companyId);
-
-            //int amount = attractiveness;
-
             long cost = CompanyEconomyUtils.GetCompanyCost(context, companyId);
 
-
-            //for (var i = 0; i < amount; i++)
             foreach (var potentialInvestor in GetPotentialInvestors(context, companyId))
             {
                 long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
@@ -105,7 +99,10 @@ namespace Assets.Utils
                 var p = new InvestmentProposal {
                     Valuation = valuation,
                     Offer = valuation / 10,
-                    ShareholderId = potentialInvestor.shareholder.Id // GetRandomInvestmentFund(context)
+                    ShareholderId = potentialInvestor.shareholder.Id,
+                    InvestorBonus = InvestorBonus.None,
+                    WasAccepted = false
+                    // GetRandomInvestmentFund(context)
                 };
 
                 AddInvestmentProposal(context, companyId, p);

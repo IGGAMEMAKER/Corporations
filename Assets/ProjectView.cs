@@ -31,7 +31,6 @@ public class ProjectView : View
     void Render()
     {
         RenderCompanyType();
-        //CompanyNameLabel.text = SelectedCompany.company.Name;
 
         RenderCompanyEconomy();
 

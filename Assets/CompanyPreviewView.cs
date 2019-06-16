@@ -41,6 +41,16 @@ public class CompanyPreviewView : View,
         Render(entity);
     }
 
+    void Render(GameEntity e)
+    {
+        RenderCompanyName(e);
+        RenderCompanyType(e);
+
+        RenderCompanyCost(e);
+
+        UpdateLinkToCompany(e);
+    }
+
     void RenderCompanyType(GameEntity entity)
     {
         CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(entity.company.CompanyType);
@@ -59,15 +69,6 @@ public class CompanyPreviewView : View,
             link.CompanyId = e.company.Id;
     }
 
-    void Render(GameEntity e)
-    {
-        RenderCompanyName(e);
-        RenderCompanyType(e);
-
-        RenderCompanyCost(e);
-
-        UpdateLinkToCompany(e);
-    }
 
     private void RenderCompanyCost(GameEntity e)
     {
