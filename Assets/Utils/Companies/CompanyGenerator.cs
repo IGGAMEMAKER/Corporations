@@ -66,7 +66,7 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);
 
-            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
+            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.Prototype, 365);
 
             return company;
         }
