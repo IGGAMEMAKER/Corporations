@@ -11,14 +11,12 @@ public class ShareholderProposalView : View
     public Hint Motivation;
     public Text InvestorType;
 
-    public Text Offer;
-
-    public GameObject AcceptProposal;
-
-    public Text Valuation;
+    public GameObject LinkToOffer;
 
     public ColoredValuePositiveOrNegative Opinion;
     public Hint OpinionHint;
+
+    public Text OpinionDescription;
 
     GameEntity shareholder;
 
@@ -49,9 +47,8 @@ public class ShareholderProposalView : View
     {
         bool visible = CanAcceptInvestments && SelectedCompany.isControlledByPlayer;
 
-        AcceptProposal.SetActive(visible);
-
-        AcceptProposal.GetComponent<AcceptInvestmentProposalController>().InvestorId = investorId;
+        LinkToOffer.SetActive(visible);
+        LinkToOffer.GetComponent<LinkToInvestmentOffer>().SetInvestorId(investorId);
     }
 
     void RenderBasicInfo()
@@ -61,14 +58,30 @@ public class ShareholderProposalView : View
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
     }
 
+    void RenderInvestorOpinion()
+    {
+        var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
+
+        Opinion.value = bonus.Sum();
+        OpinionHint.SetHint(bonus.ToString());
+
+        OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
+    }
+
+
+    void Render(GameEntity proposal)
+    {
+        RenderBasicInfo();
+
+        RenderInvestorOpinion();
+
+        SetButtons(shareholder.shareholder.Id);
+    }
+
+
+
     void RenderOffer()
     {
-        if (!IsInvestmentRoundActive)
-        {
-            Offer.text = "???";
-            return;
-        }
-
         var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
         long Cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
@@ -76,13 +89,7 @@ public class ShareholderProposalView : View
         long offer = proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);
 
-        Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
-    }
-
-    void RenderInvestorOpinion()
-    {
-        Opinion.value = InvestmentUtils.GetInvestorOpinion(GameContext, SelectedCompany, shareholder);
-        OpinionHint.SetHint(InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder));
+        //Offer.text = $"${ValueFormatter.Shorten(offer)} ({futureShareSize}%)";
     }
 
     void RenderValuation()
@@ -91,24 +98,7 @@ public class ShareholderProposalView : View
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-            Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
+            //Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
         }
-        else
-        {
-            Valuation.text = "???";
-        }
-    }
-
-    void Render(GameEntity proposal)
-    {
-        RenderBasicInfo();
-
-        RenderOffer();
-
-        RenderValuation();
-
-        RenderInvestorOpinion();
-
-        SetButtons(shareholder.shareholder.Id);
     }
 }

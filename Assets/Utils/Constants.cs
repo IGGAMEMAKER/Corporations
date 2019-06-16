@@ -35,6 +35,7 @@ public class Constants
     public const string MENU_SELECTED_INDUSTRY = "SelectedIndustry";
     public const string MENU_SELECTED_NICHE = "SelectedNiche";
     public const string MENU_SELECTED_HUMAN = "SelectedHuman";
+    public const string MENU_SELECTED_INVESTOR = "SelectedInvestor";
 
     public static int SALARIES_MANAGER = 2000;
     public static int SALARIES_PROGRAMMER = 2000;
