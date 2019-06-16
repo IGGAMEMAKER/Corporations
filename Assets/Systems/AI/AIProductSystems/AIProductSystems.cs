@@ -17,13 +17,22 @@ public partial class AIProductSystems : OnDateChange
 {
     public AIProductSystems(Contexts contexts) : base(contexts) {}
 
-    GameEntity[] GetAIProducts()
+    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
     {
-        return gameContext.GetEntities(
-            GameMatcher
-            .AllOf(GameMatcher.Product)
-            .NoneOf(GameMatcher.ControlledByPlayer)
-        );
+        switch (goal)
+        {
+            case ProductCompanyGoals.Survive:
+                Survive(product);
+                break;
+
+            case ProductCompanyGoals.FixClientLoyalty:
+                FixLoyalty(product);
+                break;
+
+            default:
+                CompleteCompanyGoal(product);
+                break;
+        }
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -34,6 +43,15 @@ public partial class AIProductSystems : OnDateChange
 
             ExecuteGoal(goal, e);
         }
+    }
+
+    GameEntity[] GetAIProducts()
+    {
+        return gameContext.GetEntities(
+            GameMatcher
+            .AllOf(GameMatcher.Product)
+            .NoneOf(GameMatcher.ControlledByPlayer)
+        );
     }
 
     ProductCompanyGoals ChooseGoal(GameEntity product)
@@ -66,17 +84,6 @@ public partial class AIProductSystems : OnDateChange
         }
 
         return goal;
-    }
-
-    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
-    {
-        switch (goal)
-        {
-            case ProductCompanyGoals.Survive: Survive(product); break;
-            case ProductCompanyGoals.FixClientLoyalty: FixLoyalty(product); break;
-
-            default: CompleteCompanyGoal(product); break;
-        }
     }
 
 
