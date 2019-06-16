@@ -16,7 +16,11 @@ public class InvestInControllableCompany : ButtonController
         int shareholderId = MyGroupEntity.shareholder.Id;
 
         CompanyUtils.AddInvestmentProposal(GameContext, companyId, new InvestmentProposal {
-            ShareholderId = shareholderId, Valuation = 0, Offer = Offer, WasAccepted = false, InvestorBonus = InvestorBonus.None
+            ShareholderId = shareholderId,
+            Valuation = 0,
+            Offer = Offer,
+            WasAccepted = false,
+            InvestorBonus = InvestorBonus.None
         });
 
         CompanyUtils.AcceptProposal(GameContext, companyId, shareholderId);
