@@ -24,6 +24,6 @@ public class BusinessButtonsController : View
         LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
         // not controlled
-        NominateAsCEO.SetActive(!c.isControlledByPlayer && !isGroupCEOAlready);
+        NominateAsCEO.SetActive(false && !c.isControlledByPlayer && !isGroupCEOAlready);
     }
 }
