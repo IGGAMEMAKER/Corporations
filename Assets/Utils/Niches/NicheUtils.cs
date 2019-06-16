@@ -53,7 +53,7 @@ namespace Assets.Utils
         public static IEnumerable<string> GetCompetitorInfo(GameEntity e, GameContext context)
         {
             var names = GetPlayersOnMarket(context, e)
-                .Select(c => c.product.ProductLevel + "lvl - " + ProlongNameToNDigits(c.product.Name, 10));
+                .Select(c => c.product.ProductLevel + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
 
             return names;
         }

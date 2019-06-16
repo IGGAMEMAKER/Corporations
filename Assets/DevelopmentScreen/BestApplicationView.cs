@@ -25,7 +25,7 @@ public class BestApplicationView : View
     {
         var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
 
-        Hint.SetHint($"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})");
+        Hint.SetHint($"Best app is: {bestApp.company.Name} ({bestApp.product.ProductLevel})");
 
         AnimateIfValueChanged(MarketRequirements, bestApp.product.ProductLevel.ToString());
     }

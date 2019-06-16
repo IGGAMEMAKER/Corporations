@@ -40,7 +40,7 @@ public class NotificationView : View {
 
     string GetProductName(int companyId)
     {
-        return CompanyUtils.GetCompanyById(GameContext, companyId).product.Name;
+        return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
     }
 
     string Prettify(long sum)

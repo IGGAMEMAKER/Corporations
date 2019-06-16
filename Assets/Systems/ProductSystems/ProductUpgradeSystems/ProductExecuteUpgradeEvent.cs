@@ -62,7 +62,6 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
 
         e.ReplaceProduct(
             e.product.Id,
-            e.product.Name,
             e.product.Niche,
             newLevel,
             e.product.Segments

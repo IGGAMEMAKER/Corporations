@@ -18,7 +18,7 @@ public class MostPopularApplicationView : View
     {
         var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProduct.Niche);
 
-        AnimateIfValueChanged(MarketRequirements, bestApp.product.Name);
+        AnimateIfValueChanged(MarketRequirements, bestApp.company.Name);
 
         Hint.SetHint($"{MarketingUtils.GetClients(bestApp)} clients");
     }

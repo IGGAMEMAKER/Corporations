@@ -58,7 +58,7 @@ public class ProductCompanyCompetingPreview : View,
 
     void Render()
     {
-        RenderProductInfo(Company.product.Name, Company.product.ProductLevel);
+        RenderProductInfo(Company.company.Name, Company.product.ProductLevel);
 
         RenderClients(Company);
 
@@ -71,7 +71,7 @@ public class ProductCompanyCompetingPreview : View,
         RenderClients(entity);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
     {
         //if (CurrentScreen == ScreenMode.NicheScreen)
         RenderProductInfo(name, productLevel);

@@ -44,7 +44,7 @@ namespace Assets.Utils
             return e;
         }
 
-        public static GameEntity GenerateProduct(GameContext context, GameEntity company, string name, NicheType niche)
+        public static GameEntity GenerateProduct(GameContext context, GameEntity company, NicheType niche)
         {
             int brandPower = UnityEngine.Random.Range(0, 15);
 
@@ -61,7 +61,7 @@ namespace Assets.Utils
             };
 
             // product specific components
-            company.AddProduct(company.company.Id, name, niche, 0, SegmentsFeatures);
+            company.AddProduct(company.company.Id, niche, 0, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);

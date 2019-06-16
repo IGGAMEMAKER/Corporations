@@ -61,7 +61,7 @@ namespace Assets.Utils
         {
             var c = CreateCompany(context, name, CompanyType.ProductCompany);
 
-            return GenerateProduct(context, c, name, niche);
+            return GenerateProduct(context, c, niche);
         }
     }
 }

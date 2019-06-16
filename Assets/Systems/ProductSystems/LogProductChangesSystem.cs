@@ -14,7 +14,7 @@ public class LogProductChangesSystem : ReactiveSystem<GameEntity>
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var entity in entities)
-            Debug.Log($"Our product ({entity.product.Name}) changed!");
+            Debug.Log($"Our product ({entity.company.Name}) changed!");
     }
 
     protected override bool Filter(GameEntity entity)

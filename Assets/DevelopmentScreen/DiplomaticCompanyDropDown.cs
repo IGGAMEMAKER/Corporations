@@ -48,11 +48,13 @@ public class DiplomaticCompanyDropDown : View
 
     string GetCompanyName(GameEntity e)
     {
+        var name = e.company.Name;
+
         switch (FilterBy)
         {
-            case GroupCompaniesBy.Niche: return $"{e.product.Name} ({e.product.ProductLevel})";
-            case GroupCompaniesBy.Neighbours: return $"{e.product.Name} ({MarketingUtils.GetClients(e)})";
-            default: return $"{e.product.Name} ({MarketingUtils.GetClients(e)})";
+            case GroupCompaniesBy.Niche: return $"{name} ({e.product.ProductLevel})";
+            case GroupCompaniesBy.Neighbours: return $"{name} ({MarketingUtils.GetClients(e)})";
+            default: return $"{name} ({MarketingUtils.GetClients(e)})";
         }
     }
 

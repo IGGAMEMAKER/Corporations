@@ -61,7 +61,7 @@ namespace Assets.Utils
 
             dict[userType]++;
 
-            product.ReplaceProduct(p.Id, p.Name, p.Niche, p.ProductLevel, dict);
+            product.ReplaceProduct(p.Id, p.Niche, p.ProductLevel, dict);
         }
 
         public static void UpgradeConcept(GameEntity company, GameContext gameContext)

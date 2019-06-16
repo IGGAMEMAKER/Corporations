@@ -29,7 +29,7 @@ public class MarketSituationDescriptionView : UpgradedParameterView
     {
         var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
 
-        return $"Best app is: {bestApp.product.Name} ({bestApp.product.ProductLevel})" +
+        return $"Best app is: {bestApp.company.Name} ({bestApp.product.ProductLevel})" +
             $"\n{NicheUtils.GetProductCompetitivenessBonus(MyProductEntity, GameContext).ToString()}";
     }
 }

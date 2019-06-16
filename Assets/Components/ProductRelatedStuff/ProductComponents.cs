@@ -14,7 +14,6 @@ public class DevelopmentFocusComponent : IComponent
 public class ProductComponent : IComponent
 {
     public int Id;
-    public string Name;
     public NicheType Niche;
 
     // concept level

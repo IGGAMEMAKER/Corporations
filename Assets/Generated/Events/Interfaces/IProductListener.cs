@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IProductListener {
-    void OnProduct(GameEntity entity, int id, string name, NicheType niche, int productLevel, System.Collections.Generic.Dictionary<UserType, int> segments);
+    void OnProduct(GameEntity entity, int id, NicheType niche, int productLevel, System.Collections.Generic.Dictionary<UserType, int> segments);
 }
