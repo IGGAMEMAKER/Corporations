@@ -24,18 +24,11 @@ public class ProductCompanyCompetingPreview : View,
 
         ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
-        //var nameHint = Name.gameObject.GetComponent<Hint>();
-
         if (entity.isControlledByPlayer)
         {
             Name.color = ourCompanyColor;
-            //nameHint.SetHint("Is your company");
 
             Destroy(GetComponent<ClickOnMeIfNeverClicked>());
-        }
-        else
-        {
-            //nameHint.SetHint(IsMyCompetitor(entity) ? "Is your competitor" : "");
         }
 
         Render();
