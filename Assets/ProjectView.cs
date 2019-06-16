@@ -33,6 +33,7 @@ public class ProjectView : View
         string name = $"{human.Name} {human.Surname}";
 
         CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : name);
+        CEONameLabel.gameObject.GetComponent<LinkToHuman>().SetHumanId(human.Id);
     }
 
     void RenderCompanyStatus()
@@ -57,6 +58,6 @@ public class ProjectView : View
 
         RenderCompanyEconomy();
 
-        CompanyGoal.text = $"Company Goal: {InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal)}";
+        CompanyGoal.text = InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
     }
 }
