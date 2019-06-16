@@ -6,12 +6,7 @@ public class ProjectView : View
 {
     public Text CompanyTypeLabel;
 
-    public Text CEONameLabel;
-
     public Text CompanyValuation;
-    public Text CompanyProfit;
-
-    public Text PublicityStatus;
 
     public Text CompanyGoal;
 
@@ -27,20 +22,6 @@ public class ProjectView : View
         CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(companyType);
     }
 
-    void RenderCEO()
-    {
-        var human = HumanUtils.GetHumanById(GameContext, SelectedCompany.cEO.HumanId).human;
-        string name = $"{human.Name} {human.Surname}";
-
-        CEONameLabel.text = "CEO: " + (SelectedCompany.isControlledByPlayer ? "YOU" : name);
-        CEONameLabel.gameObject.GetComponent<LinkToHuman>().SetHumanId(human.Id);
-    }
-
-    void RenderCompanyStatus()
-    {
-        PublicityStatus.text = SelectedCompany.isPublicCompany ? "Is public company" : "Is private company";
-    }
-
     void RenderCompanyEconomy()
     {
         CompanyValuation.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
@@ -51,10 +32,6 @@ public class ProjectView : View
     {
         RenderCompanyType();
         //CompanyNameLabel.text = SelectedCompany.company.Name;
-
-        RenderCompanyStatus();
-
-        RenderCEO();
 
         RenderCompanyEconomy();
 

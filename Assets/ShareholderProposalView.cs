@@ -18,8 +18,8 @@ public class ShareholderProposalView : View
 
     public Text OpinionDescription;
 
-    GameEntity shareholder;
 
+    GameEntity shareholder;
     public void SetEntity(GameEntity proposal)
     {
         shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.shareholder.Id);
