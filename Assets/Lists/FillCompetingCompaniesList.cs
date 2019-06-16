@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 public class FillCompetingCompaniesList : View
@@ -22,17 +21,19 @@ public class FillCompetingCompaniesList : View
 
     int SortCompanies(GameEntity p1, GameEntity p2)
     {
+        if (p1.isControlledByPlayer)
+            return -1;
+
+        if (p2.isControlledByPlayer)
+            return 1;
+
+
         if (p1.isTechnologyLeader)
             return -1;
 
         if (p2.isTechnologyLeader)
             return 1;
 
-        //if (p1.isControlledByPlayer)
-        //    return -1;
-
-        //if (p2.isControlledByPlayer)
-        //    return 1;
 
         if (p1.product.ProductLevel == 0)
             return -1;

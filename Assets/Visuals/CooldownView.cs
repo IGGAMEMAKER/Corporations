@@ -42,7 +42,7 @@ public partial class CooldownView : View
     // TODO AAAAAAAAAAAAAAAAAAAAA((((
     Cooldown GetCooldown(List<Cooldown> cooldowns, CooldownType cooldownType)
     {
-        Debug.Log("target company id: " + targetCompanyId + " " + cooldownType);
+        //Debug.Log("target company id: " + targetCompanyId + " " + cooldownType);
 
         switch (cooldownType)
         {
