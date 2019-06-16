@@ -26,6 +26,7 @@ namespace Assets.Utils
 
             var proposals = c.investmentProposals.Proposals;
 
+            // TODO REFACTOR
             var curr = GetInvestmentProposal(gameContext, companyId, proposal.ShareholderId);
 
             if (curr == null)
