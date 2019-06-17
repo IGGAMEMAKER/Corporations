@@ -1,6 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -29,19 +28,40 @@ namespace Assets.Utils
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
-        public static WorkerRole GetRole(GameContext gameContext, GameEntity worker)
+        public static WorkerRole GetRole(GameEntity worker)
         {
             return worker.worker.WorkerRole;
         }
 
         public static int GetOverallRating(GameEntity worker, GameContext gameContext)
         {
-            var role = GetRole(gameContext, worker);
+            var role = GetRole(worker);
 
             return GetWorkerRatingInRole(worker, role);
         }
 
 
+
+        internal static void Recruit(GameEntity human, GameEntity company)
+        {
+            TeamUtils.HireWorker(company, human);
+        }
+
+        internal static bool IsWorksInCompany(GameEntity human, int id)
+        {
+            if (!human.hasWorker)
+                return false;
+
+            return human.worker.companyId == id;
+        }
+
+        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
+        {
+            var human = GetHumanById(gameContext, humanId);
+
+            if (human.hasWorker)
+                human.ReplaceWorker(human.worker.companyId, workerRole);
+        }
 
         public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
         {

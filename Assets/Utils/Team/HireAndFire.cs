@@ -6,13 +6,19 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
-            AttachToTeam(company, worker.human.Id, workerRole);
-
-            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
+            HireWorker(company, worker);
 
             HumanUtils.SetSkills(worker, workerRole);
         }
 
+        public static void HireWorker(GameEntity company, GameEntity worker)
+        {
+            var role = worker.worker.WorkerRole;
+
+            AttachToTeam(company, worker.human.Id, role);
+
+            HumanUtils.AttachToCompany(worker, company.company.Id, role);
+        }
 
 
         public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)

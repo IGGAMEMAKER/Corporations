@@ -21,7 +21,7 @@ public class HumanPreview : View
 
         Overall.text = $"{overall}";
 
-        var role = HumanUtils.GetRole(GameContext, human);
+        var role = HumanUtils.GetRole(human);
 
         var formattedRole = HumanUtils.GetFormattedRole(role);
 

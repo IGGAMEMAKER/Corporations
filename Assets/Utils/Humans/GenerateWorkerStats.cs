@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class HumanUtils
     {
@@ -55,22 +53,6 @@ namespace Assets.Utils
                     SetPrimaryTrait(worker, TraitType.Vision);
                     break;
             }
-        }
-
-        internal static bool IsWorksInCompany(GameEntity human, int id)
-        {
-            if (!human.hasWorker)
-                return false;
-
-            return human.worker.companyId == id;
-        }
-
-        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
-        {
-            var human = GetHumanById(gameContext, humanId);
-
-            if (human.hasWorker)
-                human.ReplaceWorker(human.worker.companyId, workerRole);
         }
     }
 }

@@ -79,7 +79,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
---- !u!114 &1659341984445581422
+--- !u!114 &3218938890562289580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,11 +88,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2498652328593672865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a086c28c514d2141bbbc40dfa29fa38, type: 3}
+  m_Script: {fileID: 11500000, guid: d857cb8067d97cc42be283db897edd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLink: 0
-  InvestorId: 0
 --- !u!1 &2801019137702406048
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +521,7 @@ MonoBehaviour:
   Valuation: {fileID: 2134069100176134781}
   InvestorName: {fileID: 3509773998183890271}
   ProposalStatus: {fileID: 6414354619244803423}
-  AcceptInvestmentProposalController: {fileID: 1659341984445581422}
+  AcceptInvestmentProposalController: {fileID: 0}
   RejectInvestmentProposalController: {fileID: 0}
 --- !u!1 &6472987311095892304
 GameObject:
@@ -603,7 +601,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'They offer:'
+  m_Text: 'Salary:'
 --- !u!1 &7669373200771494318
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +926,12 @@ PrefabInstance:
     - target: {fileID: 3431329517364706969, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_Text
-      value: Accept investments
+      value: Hire
+      objectReference: {fileID: 0}
+    - target: {fileID: 973787589585381651, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: Sound
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
