@@ -8,10 +8,8 @@ public class RenderPlayerName : View
     {
         base.ViewRender();
 
-        var human = ScreenUtils.GetSelectedHuman(GameContext).human;
-
         var Text = GetComponent<Text>();
-        var text = $"{human.Name} {human.Surname}";
+        var text = HumanUtils.GetFullName(SelectedHuman);
 
         if (isMe)
             text += " (YOU)";
@@ -28,7 +26,7 @@ public class RenderPlayerName : View
     {
         get
         {
-            return ScreenUtils.GetSelectedHuman(GameContext).human.Id == Me.human.Id;
+            return SelectedHuman.human.Id == Me.human.Id;
         }
     }
 }

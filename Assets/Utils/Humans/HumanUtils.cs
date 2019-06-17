@@ -40,7 +40,10 @@ namespace Assets.Utils
             return GetWorkerRatingInRole(worker, role);
         }
 
-
+        internal static string GetFullName(GameEntity human)
+        {
+            return $"{human.human.Name} {human.human.Surname}";
+        }
 
         internal static void Recruit(GameEntity human, GameEntity company)
         {

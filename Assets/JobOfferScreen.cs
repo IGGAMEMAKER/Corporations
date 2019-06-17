@@ -6,6 +6,7 @@ public class JobOfferScreen : View
 {
     public Text Offer;
     public Text WorkerName;
+    public Text RoleName;
 
     public Text ProposalStatus;
 
@@ -46,6 +47,7 @@ public class JobOfferScreen : View
 
         SetButtons();
 
-        WorkerName.text = $"Hire {SelectedHuman.human.Name}, {HumanUtils.GetFormattedRole(SelectedHuman.worker.WorkerRole)} ({HumanUtils.GetOverallRating(SelectedHuman, GameContext)}LVL)";
+        WorkerName.text = $"Hire {HumanUtils.GetFullName(SelectedHuman)}, ({HumanUtils.GetOverallRating(SelectedHuman, GameContext)}LVL)";
+        RoleName.text = HumanUtils.GetFormattedRole(SelectedHuman.worker.WorkerRole);
     }
 }
