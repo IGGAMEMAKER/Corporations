@@ -161,6 +161,7 @@ public enum UserType
 {
     Core,
     Regular,
+    Mass
 }
 
 public enum Pricing

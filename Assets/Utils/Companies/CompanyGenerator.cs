@@ -52,12 +52,14 @@ namespace Assets.Utils
             {
                 [UserType.Core] = 0,
                 [UserType.Regular] = 0,
+                [UserType.Mass] = 0,
             };
 
             var SegmentsFeatures = new Dictionary<UserType, int>
             {
                 [UserType.Core] = 0,
                 [UserType.Regular] = 0,
+                [UserType.Mass] = 0,
             };
 
             // product specific components
@@ -66,7 +68,7 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);
 
-            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.Prototype, 365);
+            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
 
             return company;
         }
