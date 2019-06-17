@@ -54,7 +54,7 @@ public class ProposalScreen : View
         var text = Visuals.Neutral("They are waiting for our response");
 
         if (proposal.WasAccepted)
-            text = Visuals.Positive("We have already accepted their proposal!");
+            text = Visuals.Positive("Investment proposal accepted");
 
         ProposalStatus.text = text;
     }
