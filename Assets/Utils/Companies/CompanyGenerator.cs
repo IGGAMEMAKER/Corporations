@@ -9,6 +9,7 @@ namespace Assets.Utils
         {
             var GOAL = InvestorGoal.BecomeMarketFit;
 
+
             int brandPower = UnityEngine.Random.Range(0, 15);
 
             var Segments = new Dictionary<UserType, long>
