@@ -57,6 +57,14 @@ namespace Assets.Utils
             }
         }
 
+        internal static bool IsWorksInCompany(GameEntity human, int id)
+        {
+            if (!human.hasWorker)
+                return false;
+
+            return human.worker.companyId == id;
+        }
+
         internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
         {
             var human = GetHumanById(gameContext, humanId);

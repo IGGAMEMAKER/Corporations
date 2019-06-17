@@ -2,6 +2,6 @@
 {
     public override bool CheckConditions()
     {
-        return !SelectedCompany.hasProduct;
+        return SelectedCompany.hasProduct;
     }
 }
