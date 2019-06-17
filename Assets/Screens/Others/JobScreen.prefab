@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8676797287447772286}
   - component: {fileID: 3509773998183890271}
   m_Layer: 5
-  m_Name: CompanyName
+  m_Name: HumanName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d857cb8067d97cc42be283db897edd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLink: 0
 --- !u!1 &2801019137702406048
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +104,7 @@ GameObject:
   - component: {fileID: 2559409805026306615}
   - component: {fileID: 914904432653779349}
   m_Layer: 5
-  m_Name: Offer
+  m_Name: Salary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +249,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Valuation:'
+  m_Text: 'Role?:'
 --- !u!1 &3056506330463738610
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ GameObject:
   - component: {fileID: 6145256976055942310}
   - component: {fileID: 6145256976055942297}
   - component: {fileID: 6145256976055942299}
-  - component: {fileID: 5925824347113151115}
+  - component: {fileID: 3514039827844144098}
   m_Layer: 5
   m_Name: JobScreen
   m_TagString: Untagged
@@ -505,24 +506,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c846278690b739740adbb45f5348f552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5925824347113151115
+--- !u!114 &3514039827844144098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6145256976055942301}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b498046a82f60a44a2dc2378c419fc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0eb76f129ecd21b418518cdf3c578e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Offer: {fileID: 914904432653779349}
-  Valuation: {fileID: 2134069100176134781}
-  InvestorName: {fileID: 3509773998183890271}
+  WorkerName: {fileID: 3509773998183890271}
   ProposalStatus: {fileID: 6414354619244803423}
-  AcceptInvestmentProposalController: {fileID: 0}
-  RejectInvestmentProposalController: {fileID: 0}
+  HireWorker: {fileID: 3218938890562289580}
 --- !u!1 &6472987311095892304
 GameObject:
   m_ObjectHideFlags: 0

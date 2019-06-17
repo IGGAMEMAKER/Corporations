@@ -10,8 +10,6 @@ namespace Assets.Utils
         {
             var c = GetCompanyById(context, companyId);
 
-            var founders = c.shareholders.Shareholders;
-
             int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
