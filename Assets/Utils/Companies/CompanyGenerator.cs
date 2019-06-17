@@ -5,6 +5,37 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
+        public static GameEntity GenerateProduct(GameContext context, GameEntity company, NicheType niche)
+        {
+            var GOAL = InvestorGoal.BecomeMarketFit;
+
+            int brandPower = UnityEngine.Random.Range(0, 15);
+
+            var Segments = new Dictionary<UserType, long>
+            {
+                [UserType.Core] = 0,
+                [UserType.Regular] = 0,
+                [UserType.Mass] = 0,
+            };
+
+            var SegmentsFeatures = new Dictionary<UserType, int>
+            {
+                [UserType.Core] = 0,
+                [UserType.Regular] = 0,
+                [UserType.Mass] = 0,
+            };
+
+            // product specific components
+            company.AddProduct(company.company.Id, niche, 0, SegmentsFeatures);
+            company.AddDevelopmentFocus(DevelopmentFocus.Concept);
+            company.AddFinance(0, 0, 0, 5f);
+            company.AddMarketing(brandPower, Segments);
+
+            InvestmentUtils.SetCompanyGoal(context, company, GOAL, 365);
+
+            return company;
+        }
+
         private static GameEntity CreateCompany(
             GameContext context,
             string name,
@@ -42,35 +73,6 @@ namespace Assets.Utils
             HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
             return e;
-        }
-
-        public static GameEntity GenerateProduct(GameContext context, GameEntity company, NicheType niche)
-        {
-            int brandPower = UnityEngine.Random.Range(0, 15);
-
-            var Segments = new Dictionary<UserType, long>
-            {
-                [UserType.Core] = 0,
-                [UserType.Regular] = 0,
-                [UserType.Mass] = 0,
-            };
-
-            var SegmentsFeatures = new Dictionary<UserType, int>
-            {
-                [UserType.Core] = 0,
-                [UserType.Regular] = 0,
-                [UserType.Mass] = 0,
-            };
-
-            // product specific components
-            company.AddProduct(company.company.Id, niche, 0, SegmentsFeatures);
-            company.AddDevelopmentFocus(DevelopmentFocus.Concept);
-            company.AddFinance(0, 0, 0, 5f);
-            company.AddMarketing(brandPower, Segments);
-
-            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.BecomeMarketFit, 365);
-
-            return company;
         }
     }
 }
