@@ -1,5 +1,8 @@
 ﻿using Entitas;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -127,16 +130,18 @@ namespace Assets.Utils
 
             var q = history.navigationHistory.Queries;
 
+            //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
+
+            //Debug.Log("Rendering menues: " + names);
+
             if (q.Count == 0)
                 return;
-
-            var destination = q[q.Count - 1];
 
             q.RemoveAt(q.Count - 1);
 
             history.ReplaceNavigationHistory(q);
 
-            UpdateScreen(context, destination.ScreenMode, destination.Data);
+            UpdateScreen(context);
         }
     }
 }
