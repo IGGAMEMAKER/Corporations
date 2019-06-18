@@ -21,18 +21,40 @@ namespace Assets.Utils
 
             switch (goal.InvestorGoal)
             {
-                case InvestorGoal.Prototype: return new GoalRequirements { need = 1, have = company.product.ProductLevel };
-                case InvestorGoal.FirstUsers: return GoalFirstUsers(company, gameContext);
-                case InvestorGoal.Release: return new GoalRequirements { need = 1, have = company.marketing.BrandPower > 15 ? 1 : 0 };
+                // product company goals
+                case InvestorGoal.Prototype:
+                    return GoalPrototype(company, gameContext);
 
-                case InvestorGoal.BecomeMarketFit: return GoalMarketFit(company, gameContext);
-                case InvestorGoal.BecomeProfitable: return GoalProfitable(company, gameContext);
-                case InvestorGoal.GrowCompanyCost: return GoalCompanyCost(company, gameContext);
+                case InvestorGoal.FirstUsers:
+                    return GoalFirstUsers(company, gameContext);
+
+                case InvestorGoal.Release:
+                    return GoalRelease(company, gameContext);
+
+                case InvestorGoal.BecomeMarketFit:
+                    return GoalMarketFit(company, gameContext);
+
+                // company group goals
+                case InvestorGoal.BecomeProfitable:
+                    return GoalProfitable(company, gameContext);
+
+                case InvestorGoal.GrowCompanyCost:
+                    return GoalCompanyCost(company, gameContext);
+                
                 //case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
-                case InvestorGoal.IPO: return GoalIPO(company, gameContext);
+                case InvestorGoal.IPO:
+                    return GoalIPO(company, gameContext);
 
                 default: return new GoalRequirements { need = 12000000, have = 0 };
             }
+        }
+
+        public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
+        {
+            return new GoalRequirements {
+                need = 1,
+                have = company.product.Segments[UserType.Core]
+            };
         }
 
         public static GoalRequirements GoalFirstUsers(GameEntity company, GameContext gameContext)
@@ -40,6 +62,14 @@ namespace Assets.Utils
             return new GoalRequirements {
                 have = MarketingUtils.GetClients(company),
                 need = company.companyGoal.MeasurableGoal
+            };
+        }
+
+        public static GoalRequirements GoalRelease(GameEntity company, GameContext gameContext)
+        {
+            return new GoalRequirements {
+                have = MarketingUtils.GetClients(company),
+                need = company.isRelease ? 1 : 0
             };
         }
 

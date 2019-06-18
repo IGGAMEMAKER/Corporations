@@ -27,7 +27,6 @@
 
             switch (investorGoal)
             {
-                // scum goals. they don't count
                 case InvestorGoal.Prototype: measurableGoal = 1; break;
                 case InvestorGoal.FirstUsers: measurableGoal = 50; break;
 

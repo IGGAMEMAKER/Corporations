@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Classes;
-using UnityEngine;
+﻿using Assets.Classes;
+using Assets.Utils;
 
 public class CheckTargetingResources : ResourceChecker
 {
     public override string GetBaseHint()
     {
-        throw new System.NotImplementedException();
+        return "Will give you clients everyday";
     }
 
     public override TeamResource GetRequiredResources()
     {
-        throw new System.NotImplementedException();
+        return MarketingUtils.GetTargetingCost(GameContext, MyProductEntity.company.Id);
     }
 }
