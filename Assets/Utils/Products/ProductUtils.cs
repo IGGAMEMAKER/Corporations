@@ -48,12 +48,15 @@ namespace Assets.Utils
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
         {
+            var cooldown = new CooldownImproveSegment(userType);
+
+            if (CompanyUtils.HasCooldown(product, cooldown))
+                return;
+
             var costs = GetSegmentUpgradeCost(product, gameContext, userType);
 
             if (!CompanyUtils.IsEnoughResources(product, costs))
                 return;
-
-            CompanyUtils.SpendResources(product, costs);
 
             var p = product.product;
 
@@ -62,6 +65,9 @@ namespace Assets.Utils
             dict[userType]++;
 
             product.ReplaceProduct(p.Id, p.Niche, p.ProductLevel, dict);
+
+            CompanyUtils.SpendResources(product, costs);
+            CompanyUtils.AddCooldown(gameContext, product, cooldown, 65);
         }
 
         public static void UpgradeConcept(GameEntity company, GameContext gameContext)

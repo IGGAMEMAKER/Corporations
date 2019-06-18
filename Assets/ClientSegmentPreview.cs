@@ -17,6 +17,8 @@ public class ClientSegmentPreview : View
 
     public UpdateSegmentController UpdateSegmentController;
 
+    public CooldownView SegmentCooldownView;
+
     UserType UserType;
     int CompanyId;
 
@@ -24,6 +26,8 @@ public class ClientSegmentPreview : View
     {
         UserType = userType;
         CompanyId = companyId;
+
+        SegmentCooldownView.SetSegmentForImprovements(userType);
 
         Render();
     }

@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
-using UnityEngine;
 
 public class JobOfferScreen : View
 {

@@ -49,6 +49,9 @@ public partial class CooldownView : View
             case CooldownType.StealIdeas:
                 return cooldowns.Find(cooldown => cooldown.Compare(new CooldownStealIdeas(targetCompanyId)));
 
+            case CooldownType.ImproveSegment:
+                return cooldowns.Find(cooldown => cooldown.Compare(new CooldownImproveSegment(targetUserType)));
+
             default: 
                 return cooldowns.Find(cooldown => cooldown.Compare(cooldownType));
         }
@@ -79,6 +82,18 @@ public partial class CooldownView
     public void SetTargetCompanyForStealing(int companyId)
     {
         targetCompanyId = companyId;
+
+        ViewRender();
+    }
+}
+
+public partial class CooldownView
+{
+    UserType targetUserType;
+
+    public void SetSegmentForImprovements(UserType userType)
+    {
+        targetUserType = userType;
 
         ViewRender();
     }

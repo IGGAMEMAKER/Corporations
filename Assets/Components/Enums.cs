@@ -57,7 +57,9 @@ public enum CooldownType
 
     CompanyGoal,
 
-    StealIdeas
+    StealIdeas,
+
+    ImproveSegment
 }
 
 public class Cooldown
@@ -97,6 +99,22 @@ public class CooldownStealIdeas : Cooldown
     public override bool IsEqual(Cooldown comparable)
     {
         return (comparable as CooldownStealIdeas).targetCompanyId == targetCompanyId;
+    }
+}
+
+public class CooldownImproveSegment : Cooldown
+{
+    public UserType userType;
+
+    public CooldownImproveSegment(UserType userType)
+    {
+        this.userType = userType;
+        CooldownType = CooldownType.ImproveSegment;
+    }
+
+    public override bool IsEqual(Cooldown comparable)
+    {
+        return (comparable as CooldownImproveSegment).userType == userType;
     }
 }
 
