@@ -3,6 +3,7 @@ using Entitas;
 using System;
 using Assets.Utils;
 
+// TODO REMOVE
 public class MostPopularApplicationView : View
 {
     Text MarketRequirements;
