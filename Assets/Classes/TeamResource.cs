@@ -79,11 +79,11 @@ namespace Assets.Classes
 
         public static bool IsEnoughResources(TeamResource Need, TeamResource Have)
         {
-            if (Have.money < Need.money) return false;
-            if (Have.ideaPoints < Need.ideaPoints) return false;
-            if (Have.managerPoints < Need.managerPoints) return false;
-            if (Have.programmingPoints < Need.programmingPoints) return false;
-            if (Have.salesPoints < Need.salesPoints) return false;
+            if (Have.money < Need.money && Need.money != 0) return false;
+            if (Have.ideaPoints < Need.ideaPoints && Need.ideaPoints != 0) return false;
+            if (Have.managerPoints < Need.managerPoints && Need.managerPoints != 0) return false;
+            if (Have.programmingPoints < Need.programmingPoints && Need.programmingPoints != 0) return false;
+            if (Have.salesPoints < Need.salesPoints && Need.salesPoints != 0) return false;
 
             return true;
         }
