@@ -19,33 +19,6 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
         }
 
-        public static bool IsStolenAlready(GameEntity stealer, GameEntity target)
-        {
-            var cooldowns = stealer.cooldowns.Cooldowns;
-
-            var cooldown = cooldowns.Find(c => c.Compare(new CooldownStealIdeas(target.company.Id)));
-
-            return cooldown != null;
-        }
-
-        //public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
-        //{
-        //    if (IsStolenAlready(stealerCompany, targetCompany))
-        //        return;
-
-        //    if (targetCompany.product.ProductLevel <= stealerCompany.product.ProductLevel)
-        //        return;
-
-        //    var leaderBonus = targetCompany.isTechnologyLeader ? 300 : 0;
-
-        //    var amount = Random.Range(100 + leaderBonus, 200 + leaderBonus);
-
-
-        //    CompanyUtils.AddResources(stealerCompany, new TeamResource { ideaPoints = amount });
-
-        //    CompanyUtils.AddCooldown(gameContext, stealerCompany, new CooldownStealIdeas (targetCompany.company.Id), 45);
-        //}
-
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
         {
             var cooldown = new CooldownImproveSegment(userType);
