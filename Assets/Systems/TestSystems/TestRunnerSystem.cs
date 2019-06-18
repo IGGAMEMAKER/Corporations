@@ -21,7 +21,7 @@ public class TestRunnerSystem : IInitializeSystem, IExecuteSystem
             new Dictionary<LogTypes, bool>
             {
                 [LogTypes.MyProductCompany] = true,
-                [LogTypes.MyProductCompanyCompetitors] = true,
+                [LogTypes.MyProductCompanyCompetitors] = false,
             });
     }
 

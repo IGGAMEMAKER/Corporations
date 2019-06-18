@@ -34,7 +34,7 @@ public class InvestmentGoalView : View
         switch (MyProductEntity.companyGoal.InvestorGoal)
         {
             case InvestorGoal.Prototype:
-                NeedLabel.text = "Required product level";
+                NeedLabel.text = "Improvements";
                 NeedValue.text = ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "Current product level";

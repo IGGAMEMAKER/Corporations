@@ -1,7 +1,7 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
 
-public class CheckBrandingCampaignResources : CheckButton
+public class CheckBrandingCampaignResources : ResourceChecker
 {
     public override string GetBaseHint()
     {

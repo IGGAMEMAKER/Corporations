@@ -14,27 +14,19 @@ public abstract class ResourceChecker : View
 
     public abstract TeamResource GetRequiredResources();
 
-    public void Start()
-    {
-        Button = GetComponent<Button>();
-        Hint = GetComponent<Hint>();
-    }
+    public abstract string GetBaseHint();
 
     void Render()
     {
-        if (!Button)
-        {
-            Debug.Log("Resource Checker: <Button> not found in " + gameObject.name);
-        }
-        else
-        {
-            Button.interactable = IsEnoughResources;
-        }
+        Button = GetComponent<Button>();
+        Hint = GetComponent<Hint>();
 
-        if (IsEnoughResources)
-            RemoveHint();
+        if (!Button)
+            Debug.Log("Resource Checker: <Button> not found in " + gameObject.name);
         else
-            SetHint();
+            Button.interactable = IsEnoughResources;
+
+        SetHint();
     }
 
     public override void ViewRender()
@@ -52,7 +44,7 @@ public abstract class ResourceChecker : View
         }
     }
 
-    private void SetHint()
+    public virtual void SetHint()
     {
         if (!Hint)
             return;
@@ -66,7 +58,7 @@ public abstract class ResourceChecker : View
         string programmer = RequiredResourceSpec(RequiredResources.programmingPoints, resources.programmingPoints, "programming points");
         string sales = RequiredResourceSpec(RequiredResources.salesPoints, resources.salesPoints, "marketing points");
 
-        string hint = $"This task costs\n\n{money}{idea}{manager}{programmer}{sales}";
+        string hint = $"{GetBaseHint()}\n This task costs\n\n{money}{idea}{manager}{programmer}{sales}";
 
         Hint.SetHint(hint);
     }
@@ -77,13 +69,5 @@ public abstract class ResourceChecker : View
             return Visuals.Colorize($"{req} {literal}\n", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
 
         return "";
-    }
-
-    private void RemoveHint()
-    {
-        if (!Hint)
-            return;
-
-        Hint.SetHint("");
     }
 }
