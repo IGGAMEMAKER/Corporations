@@ -18,6 +18,7 @@ namespace Assets.Utils
             var SegmentBonus = GetSegmentDevelopmentLoyaltyBonus(gameContext, companyId, userType);
 
             return new BonusContainer("Client loyalty is")
+                .RenderTitle()
                 .Append("Product Competitiveness", app)
                 .Append("Improvements", SegmentBonus)
                 .AppendAndHideIfZero("Is only company", onlyPlayerBonus)

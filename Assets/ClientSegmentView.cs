@@ -37,9 +37,9 @@ public class ClientSegmentView : View
     {
         var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
 
-        LevelLabel.text = $"{c.product.Segments[UserType]}LVL";
+        //LevelLabel.text = $"{c.product.Segments[UserType]}LVL";
 
-        RenderChurn(UserType, c);
+        //RenderChurn(UserType, c);
         //RenderSegmentBonus();
         
         UpdateSegmentController.SetSegment(UserType);
