@@ -20,6 +20,7 @@ namespace Assets.Utils.Formatting
             {
                 case UserType.Core: return "Core users";
                 case UserType.Regular: return "Regular users";
+                case UserType.Mass: return "Mass users";
 
                 default: return userType.ToString();
             }

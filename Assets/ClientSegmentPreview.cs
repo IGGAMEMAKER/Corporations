@@ -15,6 +15,8 @@ public class ClientSegmentPreview : View
 
     public Hint LoyaltyHint;
 
+    public UpdateSegmentController UpdateSegmentController;
+
     UserType UserType;
     int CompanyId;
 
@@ -46,9 +48,11 @@ public class ClientSegmentPreview : View
         RenderSegmentIncome(CompanyId, UserType);
 
         RenderLoyaltyHint(CompanyId, UserType);
+
+        UpdateSegmentController.SetSegment(UserType);
     }
 
-    
+
 
     void RenderAudience(UserType userType, GameEntity c)
     {
