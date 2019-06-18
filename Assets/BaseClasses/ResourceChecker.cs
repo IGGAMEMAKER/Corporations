@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
+[RequireComponent(typeof(ListenMyProductResourceChanges))]
 [RequireComponent(typeof(Hint))]
 public abstract class ResourceChecker : View
 {
@@ -47,7 +48,7 @@ public abstract class ResourceChecker : View
     {
         get
         {
-            return TeamResource.IsEnoughResources(MyProductEntity.companyResource.Resources, GetRequiredResources());
+            return CompanyUtils.IsEnoughResources(MyProductEntity, GetRequiredResources());
         }
     }
 
@@ -80,6 +81,9 @@ public abstract class ResourceChecker : View
 
     private void RemoveHint()
     {
+        if (!Hint)
+            return;
+
         Hint.SetHint("");
     }
 }

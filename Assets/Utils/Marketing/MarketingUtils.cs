@@ -68,7 +68,7 @@ namespace Assets.Utils
 
         public static TeamResource GetReleaseCost()
         {
-            return new TeamResource(0, 0, 500, 0, 1000);
+            return new TeamResource(0, 0, 50, 0, 1000);
         }
 
         public static int GetReleaseBrandPowerGain()
