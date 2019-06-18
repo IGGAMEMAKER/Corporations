@@ -59,8 +59,8 @@ public class Hint : MonoBehaviour
         if (mouseY > Screen.height - contentHeight)
             verticalScreenOffset = contentHeight;
 
-        Rect content = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY - verticalScreenOffset, contentWidth, contentHeight);
-        Rect wrapper = new Rect(mouseX - offsetX - rightSideOfScreenOffset, mouseY - offsetY - verticalScreenOffset, contentWidth + offsetX, contentHeight + offsetY);
+        Rect content = new Rect(mouseX + 2 * offsetX - rightSideOfScreenOffset, mouseY - verticalScreenOffset, contentWidth, contentHeight);
+        Rect wrapper = new Rect(mouseX + offsetX - rightSideOfScreenOffset, mouseY - offsetY - verticalScreenOffset, contentWidth + offsetX, contentHeight + offsetY);
 
         GUI.color = Color.white;
 
@@ -135,7 +135,7 @@ public class Hint : MonoBehaviour
 
     public void SetHint(string text)
     {
-        Text = "\n" + text.Replace("\\n", "\n");
+        Text = text.Replace("\\n", "\n");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

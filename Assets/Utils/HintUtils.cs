@@ -94,7 +94,7 @@ public class BonusContainer
         if (renderTitle)
             str.AppendFormat("{0} is {1}", parameter, ValueFormatter.Sign(val));
 
-        str.AppendLine("\n** Based on **");
+        str.AppendLine("\n** Based on **\n");
 
         foreach (var bonus in bonusDescriptions)
         {
