@@ -16,15 +16,15 @@
         {
             var value = 3;
 
-            if (product.isTechnologyLeader)
-                value++;
-            else
-            {
-                var diff = MarketingUtils.GetMarketDiff(gameContext, product);
+            //if (product.isTechnologyLeader)
+            //    value++;
+            //else
+            //{
+            //    var diff = MarketingUtils.GetMarketDiff(gameContext, product);
 
-                if (diff > 1)
-                    value--;
-            }
+            //    if (diff > 1)
+            //        value--;
+            //}
 
             return value;
         }

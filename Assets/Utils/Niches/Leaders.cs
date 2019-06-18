@@ -7,37 +7,37 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static bool IsBestAppOnNiche(GameContext gameContext, int companyId)
-        {
-            return GetLeaderApp(gameContext, companyId).company.Id == companyId;
-        }
+        //public static bool IsBestAppOnNiche(GameContext gameContext, int companyId)
+        //{
+        //    return GetLeaderApp(gameContext, companyId).company.Id == companyId;
+        //}
 
-        public static GameEntity GetLeaderApp(GameContext gameContext, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+        //public static GameEntity GetLeaderApp(GameContext gameContext, int companyId)
+        //{
+        //    var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return GetLeaderApp(gameContext, c.product.Niche);
-        }
+        //    return GetLeaderApp(gameContext, c.product.Niche);
+        //}
 
-        public static GameEntity GetLeaderApp(GameContext gameContext, NicheType nicheType)
-        {
-            var competingProducts = GetPlayersOnMarket(gameContext, nicheType);
+        //public static GameEntity GetLeaderApp(GameContext gameContext, NicheType nicheType)
+        //{
+        //    var competingProducts = GetPlayersOnMarket(gameContext, nicheType);
 
-            return GetBestApp(competingProducts);
-        }
+        //    return GetBestApp(competingProducts);
+        //}
 
-        private static GameEntity GetBestApp(IEnumerable<GameEntity> apps)
-        {
-            GameEntity best = null;
+        //private static GameEntity GetBestApp(IEnumerable<GameEntity> apps)
+        //{
+        //    GameEntity best = null;
 
-            foreach (var p in apps)
-            {
-                if (best == null || p.product.ProductLevel > best.product.ProductLevel)
-                    best = p;
-            }
+        //    foreach (var p in apps)
+        //    {
+        //        if (best == null || p.product.ProductLevel > best.product.ProductLevel)
+        //            best = p;
+        //    }
 
-            return best;
-        }
+        //    return best;
+        //}
 
         //public static GameEntity GetMostPopularApp()
         //{

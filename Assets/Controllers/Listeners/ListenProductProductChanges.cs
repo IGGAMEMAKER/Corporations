@@ -15,7 +15,7 @@ public class ListenProductProductChanges : Controller
             MyProductEntity.RemoveProductListener(this);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, Dictionary<UserType, int> segments)
     {
         Render();
     }

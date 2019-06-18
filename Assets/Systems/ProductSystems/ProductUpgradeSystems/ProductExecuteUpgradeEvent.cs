@@ -32,7 +32,9 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
 
         nicheStateEntity.ReplaceNicheState(nicheStateEntity.nicheState.Growth, level);
 
-        NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
+        Debug.Log("Up");
+
+        //NotificationUtils.AddNotification(_context, new NotificationLevelUp(e.company.Id, e.product.ProductLevel));
     }
 
     void RemoveTechLeaders(GameEntity e)
@@ -63,7 +65,6 @@ public class ProductExecuteUpgradeEvent : IExecuteSystem
         e.ReplaceProduct(
             e.product.Id,
             e.product.Niche,
-            newLevel,
             e.product.Segments
             );
     }

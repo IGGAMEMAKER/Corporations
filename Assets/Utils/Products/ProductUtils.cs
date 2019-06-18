@@ -28,23 +28,23 @@ namespace Assets.Utils
             return cooldown != null;
         }
 
-        public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
-        {
-            if (IsStolenAlready(stealerCompany, targetCompany))
-                return;
+        //public static void StealIdeas(GameEntity stealerCompany, GameEntity targetCompany, GameContext gameContext)
+        //{
+        //    if (IsStolenAlready(stealerCompany, targetCompany))
+        //        return;
 
-            if (targetCompany.product.ProductLevel <= stealerCompany.product.ProductLevel)
-                return;
+        //    if (targetCompany.product.ProductLevel <= stealerCompany.product.ProductLevel)
+        //        return;
 
-            var leaderBonus = targetCompany.isTechnologyLeader ? 300 : 0;
+        //    var leaderBonus = targetCompany.isTechnologyLeader ? 300 : 0;
 
-            var amount = Random.Range(100 + leaderBonus, 200 + leaderBonus);
+        //    var amount = Random.Range(100 + leaderBonus, 200 + leaderBonus);
 
 
-            CompanyUtils.AddResources(stealerCompany, new TeamResource { ideaPoints = amount });
+        //    CompanyUtils.AddResources(stealerCompany, new TeamResource { ideaPoints = amount });
 
-            CompanyUtils.AddCooldown(gameContext, stealerCompany, new CooldownStealIdeas (targetCompany.company.Id), 45);
-        }
+        //    CompanyUtils.AddCooldown(gameContext, stealerCompany, new CooldownStealIdeas (targetCompany.company.Id), 45);
+        //}
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
         {
@@ -64,23 +64,23 @@ namespace Assets.Utils
 
             dict[userType]++;
 
-            product.ReplaceProduct(p.Id, p.Niche, p.ProductLevel, dict);
+            product.ReplaceProduct(p.Id, p.Niche, dict);
 
             CompanyUtils.SpendResources(product, costs);
             CompanyUtils.AddCooldown(gameContext, product, cooldown, 65);
         }
 
-        public static void UpgradeConcept(GameEntity company, GameContext gameContext)
-        {
-            TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+        //public static void UpgradeConcept(GameEntity company, GameContext gameContext)
+        //{
+        //    TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
 
-            if (CompanyUtils.IsEnoughResources(company, need) && !company.hasEventUpgradeProduct)
-            {
-                company.AddEventUpgradeProduct(company.product.Id, company.product.ProductLevel);
+        //    if (CompanyUtils.IsEnoughResources(company, need) && !company.hasEventUpgradeProduct)
+        //    {
+        //        company.AddEventUpgradeProduct(company.product.Id, company.product.ProductLevel);
 
-                CompanyUtils.SpendResources(company, need);
-            }
-        }
+        //        CompanyUtils.SpendResources(company, need);
+        //    }
+        //}
 
         public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
         {

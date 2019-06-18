@@ -27,21 +27,7 @@ public class FillCompetingCompaniesList : View
         if (p2.isControlledByPlayer)
             return 1;
 
-
-        if (p1.isTechnologyLeader)
-            return -1;
-
-        if (p2.isTechnologyLeader)
-            return 1;
-
-
-        if (p1.product.ProductLevel == 0)
-            return -1;
-
-        if (p2.product.ProductLevel == 0)
-            return 1;
-
-        return p2.product.ProductLevel - p1.product.ProductLevel;
+        return 0;
     }
 
     public override void ViewRender()

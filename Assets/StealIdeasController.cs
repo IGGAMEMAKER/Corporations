@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 
+// TODO REMOVE
 public class StealIdeasController : ButtonController
 {
     int targetId;
@@ -7,8 +8,6 @@ public class StealIdeasController : ButtonController
     public override void Execute()
     {
         var target = CompanyUtils.GetCompanyById(GameContext, targetId);
-
-        ProductUtils.StealIdeas(MyProductEntity, target, GameContext);
     }
 
     internal void SetTargetCompanyForStealing(int companyId)

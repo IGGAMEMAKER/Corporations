@@ -15,19 +15,19 @@ namespace Assets.Utils
             c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
         }
 
-        public static int GetMarketDiff(GameContext gameContext, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+        //public static int GetMarketDiff(GameContext gameContext, int companyId)
+        //{
+        //    var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return GetMarketDiff(gameContext, c);
-        }
+        //    return GetMarketDiff(gameContext, c);
+        //}
 
-        public static int GetMarketDiff(GameContext gameContext, GameEntity productCompany)
-        {
-            var best = NicheUtils.GetLeaderApp(gameContext, productCompany.company.Id);
+        //public static int GetMarketDiff(GameContext gameContext, GameEntity productCompany)
+        //{
+        //    var best = NicheUtils.GetLeaderApp(gameContext, productCompany.company.Id);
 
-            return best.product.ProductLevel - productCompany.product.ProductLevel;
-        }
+        //    return best.product.ProductLevel - productCompany.product.ProductLevel;
+        //}
 
         public static long GetClients(GameEntity company)
         {

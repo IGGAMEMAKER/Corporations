@@ -16,9 +16,6 @@ public class ProductComponent : IComponent
     public int Id;
     public NicheType Niche;
 
-    // concept level
-    public int ProductLevel;
-
     // features
     public Dictionary<UserType, int> Segments;
 }

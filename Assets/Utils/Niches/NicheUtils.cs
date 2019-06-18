@@ -50,10 +50,10 @@ namespace Assets.Utils
             return name;
         }
 
-        public static IEnumerable<string> GetCompetitorInfo(GameEntity e, GameContext context)
+        public static IEnumerable<string> GetCompetitorInfo(GameEntity e, GameContext context, UserType userType)
         {
             var names = GetPlayersOnMarket(context, e)
-                .Select(c => c.product.ProductLevel + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
+                .Select(c => c.product.Segments[userType] + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
 
             return names;
         }

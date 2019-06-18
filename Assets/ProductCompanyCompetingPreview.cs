@@ -40,22 +40,22 @@ public class ProductCompanyCompetingPreview : View,
             Clients.text = ValueFormatter.Shorten(MarketingUtils.GetClients(company));
     }
 
-    void RenderProductInfo(string name, int level)
+    void RenderProductInfo(string name, Dictionary<UserType, int> segments)
     {
         Name.text = name;
 
-        if (Level != null)
-            AnimateIfValueChanged(Level, $"{level} ()");
+        //if (Level != null)
+        //    AnimateIfValueChanged(Level, $"{level} ()");
         //Level.text = level.ToString();
     }
 
     void Render()
     {
-        RenderProductInfo(Company.company.Name, Company.product.ProductLevel);
+        RenderProductInfo(Company.company.Name, Company.product.Segments);
 
         RenderClients(Company);
 
-        IsNewCompanyLabel.gameObject.SetActive(Company.product.ProductLevel == 0);
+        IsNewCompanyLabel.gameObject.SetActive(false);
     }
 
     void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
@@ -63,8 +63,8 @@ public class ProductCompanyCompetingPreview : View,
         RenderClients(entity);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int productLevel, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, Dictionary<UserType, int> segments)
     {
-        RenderProductInfo(entity.company.Name, productLevel);
+        RenderProductInfo(entity.company.Name, segments);
     }
 }

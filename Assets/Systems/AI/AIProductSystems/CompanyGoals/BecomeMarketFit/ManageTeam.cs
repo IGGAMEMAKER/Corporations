@@ -27,7 +27,7 @@ public partial class AIProductSystems : OnDateChange
 
     int GetMarketDifference(GameEntity company)
     {
-        return MarketingUtils.GetMarketDiff(gameContext, company);
+        return 0;
     }
 
     // this will change for other company goals

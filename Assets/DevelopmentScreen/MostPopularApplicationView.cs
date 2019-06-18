@@ -16,10 +16,10 @@ public class MostPopularApplicationView : View
 
     void Render()
     {
-        var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProduct.Niche);
+        //var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProduct.Niche);
 
-        AnimateIfValueChanged(MarketRequirements, bestApp.company.Name);
+        //AnimateIfValueChanged(MarketRequirements, bestApp.company.Name);
 
-        Hint.SetHint($"{MarketingUtils.GetClients(bestApp)} clients");
+        //Hint.SetHint($"{MarketingUtils.GetClients(bestApp)} clients");
     }
 }

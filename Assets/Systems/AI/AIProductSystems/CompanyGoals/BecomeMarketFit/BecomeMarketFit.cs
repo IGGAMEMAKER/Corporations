@@ -21,18 +21,13 @@ public partial class AIProductSystems : OnDateChange
         GrabTestClients(company);
     }
 
-    void ImproveConcept(GameEntity company)
-    {
-        ProductUtils.UpgradeConcept(company, gameContext);
-    }
-
     void StealIdeas(GameEntity company)
     {
-        // Steal ideas
-        var competitors = ProductUtils.GetCompetitorsOfCompany(gameContext, company);
+        //// Steal ideas
+        //var competitors = ProductUtils.GetCompetitorsOfCompany(gameContext, company);
 
-        foreach (var c in competitors)
-            ProductUtils.StealIdeas(company, c, gameContext);
+        //foreach (var c in competitors)
+        //    ProductUtils.StealIdeas(company, c, gameContext);
     }
 
     void GrabTestClients(GameEntity company)

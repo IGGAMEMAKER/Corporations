@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 
+// TODO REMOVE
 public class ProductLevelView : View
 {
     public override void ViewRender()
@@ -8,6 +9,6 @@ public class ProductLevelView : View
 
         var Text = GetComponent<Text>();
 
-        AnimateIfValueChanged(Text, MyProduct.ProductLevel + " LVL");
+        //AnimateIfValueChanged(Text, MyProduct.ProductLevel + " LVL");
     }
 }

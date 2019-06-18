@@ -111,12 +111,10 @@ namespace Assets.Utils
 
         private static GoalRequirements GoalMarketFit(GameEntity company, GameContext gameContext)
         {
-            var best = NicheUtils.GetLeaderApp(gameContext, company.product.Niche);
-
             return new GoalRequirements
             {
-                have = company.product.ProductLevel,
-                need = best.product.ProductLevel
+                have = company.product.Segments[UserType.Core],
+                need = 10
             };
         }
     }

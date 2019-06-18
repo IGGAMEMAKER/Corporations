@@ -11,22 +11,20 @@ public partial class GameEntity {
     public ProductComponent product { get { return (ProductComponent)GetComponent(GameComponentsLookup.Product); } }
     public bool hasProduct { get { return HasComponent(GameComponentsLookup.Product); } }
 
-    public void AddProduct(int newId, NicheType newNiche, int newProductLevel, System.Collections.Generic.Dictionary<UserType, int> newSegments) {
+    public void AddProduct(int newId, NicheType newNiche, System.Collections.Generic.Dictionary<UserType, int> newSegments) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
         component.Niche = newNiche;
-        component.ProductLevel = newProductLevel;
         component.Segments = newSegments;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduct(int newId, NicheType newNiche, int newProductLevel, System.Collections.Generic.Dictionary<UserType, int> newSegments) {
+    public void ReplaceProduct(int newId, NicheType newNiche, System.Collections.Generic.Dictionary<UserType, int> newSegments) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
         component.Niche = newNiche;
-        component.ProductLevel = newProductLevel;
         component.Segments = newSegments;
         ReplaceComponent(index, component);
     }

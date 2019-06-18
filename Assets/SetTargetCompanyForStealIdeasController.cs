@@ -1,16 +1,18 @@
-﻿public class SetTargetCompanyForStealIdeasController : View
-{
-    public CooldownView CooldownView;
-    public StealIdeasController StealIdeasController;
+﻿// TODO REMOVE
 
-    public void SetTargetCompanyForStealing(GameEntity company)
-    {
-        bool isCanSteal = IsMyCompetitor(company) && company.product.ProductLevel > MyProductEntity.product.ProductLevel;
+//public class SetTargetCompanyForStealIdeasController : View
+//{
+//    public CooldownView CooldownView;
+//    public StealIdeasController StealIdeasController;
 
-        CooldownView.gameObject.SetActive(isCanSteal);
-        StealIdeasController.gameObject.SetActive(isCanSteal);
+//    public void SetTargetCompanyForStealing(GameEntity company)
+//    {
+//        bool isCanSteal = IsMyCompetitor(company) && company.product.ProductLevel > MyProductEntity.product.ProductLevel;
 
-        CooldownView.SetTargetCompanyForStealing(company.company.Id);
-        StealIdeasController.SetTargetCompanyForStealing(company.company.Id);
-    }
-}
+//        CooldownView.gameObject.SetActive(isCanSteal);
+//        StealIdeasController.gameObject.SetActive(isCanSteal);
+
+//        CooldownView.SetTargetCompanyForStealing(company.company.Id);
+//        StealIdeasController.SetTargetCompanyForStealing(company.company.Id);
+//    }
+//}

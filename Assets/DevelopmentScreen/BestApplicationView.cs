@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using Assets.Utils;
 
+// TODO REMOVE
 public class BestApplicationView : View
     , IAnyDateListener
 {
@@ -17,17 +18,14 @@ public class BestApplicationView : View
 
     void OnEnable()
     {
-        // TODO Update
         Render();
     }
 
     void Render()
     {
-        var bestApp = NicheUtils.GetLeaderApp(GameContext, MyProductEntity.company.Id);
+        //Hint.SetHint($"Best app is: {bestApp.company.Name} ({bestApp.product.ProductLevel})");
 
-        Hint.SetHint($"Best app is: {bestApp.company.Name} ({bestApp.product.ProductLevel})");
-
-        AnimateIfValueChanged(MarketRequirements, bestApp.product.ProductLevel.ToString());
+        //AnimateIfValueChanged(MarketRequirements, bestApp.product.ProductLevel.ToString());
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date)

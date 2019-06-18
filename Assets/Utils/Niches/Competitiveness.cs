@@ -6,13 +6,10 @@
         {
             int marketLevel = GetMarketDemand(gameContext, company.product.Niche);
 
-            int productLevel = company.product.ProductLevel;
-
             int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
 
             return new BonusContainer("Product Competitiveness")
                 .RenderTitle()
-                .Append("Product Level", productLevel)
                 .Append("Market Requirements", -marketLevel)
                 .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
         }
