@@ -70,18 +70,6 @@ namespace Assets.Utils
             CompanyUtils.AddCooldown(gameContext, product, cooldown, 65);
         }
 
-        //public static void UpgradeConcept(GameEntity company, GameContext gameContext)
-        //{
-        //    TeamResource need = ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
-
-        //    if (CompanyUtils.IsEnoughResources(company, need) && !company.hasEventUpgradeProduct)
-        //    {
-        //        company.AddEventUpgradeProduct(company.product.Id, company.product.ProductLevel);
-
-        //        CompanyUtils.SpendResources(company, need);
-        //    }
-        //}
-
         public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
         {
             return context
