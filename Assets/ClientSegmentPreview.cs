@@ -54,6 +54,7 @@ public class ClientSegmentPreview : View
         RenderLoyaltyHint(CompanyId, UserType);
 
         UpdateSegmentController.SetSegment(UserType);
+        UpdateSegmentController.gameObject.GetComponent<CheckSegmentImprovementResources>().SetSegment(UserType);
     }
 
 

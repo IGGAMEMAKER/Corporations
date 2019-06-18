@@ -66,17 +66,28 @@ namespace Assets.Utils
             return hint.ToString();
         }
 
+        public static TeamResource GetReleaseCost()
+        {
+            return new TeamResource(0, 0, 500, 0, 1000);
+        }
+
+        public static int GetReleaseBrandPowerGain()
+        {
+            return 20;
+        }
+
         public static void ReleaseApp(GameEntity product)
         {
-            var need = new TeamResource(0, 0, 500, 0, 1000);
+            var need = GetReleaseCost();
 
-            bool enoughResources = true;
+            bool enoughResources = CompanyUtils.IsEnoughResources(product, need);
 
             if (!product.isRelease && enoughResources)
             {
-                CompanyUtils.SpendResources(product, need);
                 product.isRelease = true;
-                product.ReplaceMarketing(product.marketing.BrandPower + 20, product.marketing.Segments);
+                product.ReplaceMarketing(product.marketing.BrandPower + GetReleaseBrandPowerGain(), product.marketing.Segments);
+
+                CompanyUtils.SpendResources(product, need);
             }
         }
     }

@@ -11,31 +11,34 @@ public abstract class ResourceChecker : View
     internal Hint Hint;
     public TeamResource RequiredResources;
 
+    public abstract TeamResource GetRequiredResources();
+
     public void Start()
     {
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
-
-        RequiredResources = new TeamResource(10, 0, 0, 0, 0);
     }
 
     void Render()
     {
-        if (IsEnoughResources)
+        if (!Button)
         {
-            RemoveHint();
-            Button.interactable = true;
+            Debug.Log("Resource Checker: <Button> not found in " + gameObject.name);
         }
         else
         {
-            SetHint();
-            Button.interactable = false;
+            Button.interactable = IsEnoughResources;
         }
+
+        if (IsEnoughResources)
+            RemoveHint();
+        else
+            SetHint();
     }
 
-    public void SetRequiredResources(TeamResource teamResource)
+    public override void ViewRender()
     {
-        RequiredResources = teamResource;
+        base.ViewRender();
 
         Render();
     }
@@ -44,13 +47,17 @@ public abstract class ResourceChecker : View
     {
         get
         {
-            return TeamResource.IsEnoughResources(MyProductEntity.companyResource.Resources, RequiredResources);
+            return TeamResource.IsEnoughResources(MyProductEntity.companyResource.Resources, GetRequiredResources());
         }
     }
 
     private void SetHint()
     {
+        if (!Hint)
+            return;
+
         TeamResource resources = MyProductEntity.companyResource.Resources;
+        var RequiredResources = GetRequiredResources();
 
         string idea = RequiredResourceSpec(RequiredResources.ideaPoints, resources.ideaPoints, "ideas");
         string money = RequiredResourceSpec((int)RequiredResources.money, (int)resources.money, "$");
@@ -66,7 +73,7 @@ public abstract class ResourceChecker : View
     string RequiredResourceSpec(int req, int res, string literal)
     {
         if (req > 0)
-            return Visuals.Colorize($"{req} {literal}", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
+            return Visuals.Colorize($"{req} {literal}\n", req > res ? VisualConstants.COLOR_NEGATIVE : VisualConstants.COLOR_POSITIVE);
 
         return "";
     }
