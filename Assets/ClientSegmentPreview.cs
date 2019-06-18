@@ -45,19 +45,16 @@ public class ClientSegmentPreview : View
 
         UserTypeLabel.text = EnumUtils.GetFormattedUserType(UserType);
 
-        LoyaltyLabel.UpdateValue(MarketingUtils.GetClientLoyalty(GameContext, CompanyId, UserType));
 
         RenderAudience(UserType, c);
 
         RenderSegmentIncome(CompanyId, UserType);
 
-        RenderLoyaltyHint(CompanyId, UserType);
+        RenderLoyalty(CompanyId, UserType);
 
         UpdateSegmentController.SetSegment(UserType);
         UpdateSegmentController.gameObject.GetComponent<CheckSegmentImprovementResources>().SetSegment(UserType);
     }
-
-
 
     void RenderAudience(UserType userType, GameEntity c)
     {
@@ -75,8 +72,14 @@ public class ClientSegmentPreview : View
         Income.text = $"+${ValueFormatter.Shorten(Convert.ToInt64(income))}";
     }
 
-    void RenderLoyaltyHint(int companyId, UserType userType)
+    void RenderLoyalty(int companyId, UserType userType)
     {
-        LoyaltyHint.SetHint(MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType));
+        LoyaltyLabel.UpdateValue(MarketingUtils.GetClientLoyalty(GameContext, CompanyId, UserType));
+
+        var hint = MarketingUtils.GetClientLoyaltyDescription(GameContext, companyId, userType);
+
+        hint += "\n" + String.Join("\n", NicheUtils.GetCompetitorSegmentLevels(MyProductEntity, GameContext, userType));
+
+        LoyaltyHint.SetHint(hint);
     }
 }
