@@ -40,13 +40,17 @@ public class ClientSegmentView : View
         LevelLabel.text = $"{c.product.Segments[UserType]}LVL";
 
         RenderChurn(UserType, c);
+        //RenderSegmentBonus();
         
+        UpdateSegmentController.SetSegment(UserType);
+    }
+
+    void RenderSegmentBonus()
+    {
         IdeaIcon.SetActive(UserType != UserType.Regular);
         BrandIcon.SetActive(UserType == UserType.Regular);
 
         SegmentBonus.text = $"+25";
-
-        UpdateSegmentController.SetSegment(UserType);
     }
 
     private void RenderChurn(UserType userType, GameEntity c)
