@@ -69,9 +69,9 @@ public class ClientSegmentPreview : View
 
     void RenderSegmentIncome(int companyId, UserType userType)
     {
-        long segmentIncome = Convert.ToInt64(CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType));
+        var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
-        Income.text = $"+${ValueFormatter.Shorten(segmentIncome)}";
+        Income.text = $"+${ValueFormatter.Shorten(Convert.ToInt64(income))}";
     }
 
     void RenderLoyaltyHint(int companyId, UserType userType)
