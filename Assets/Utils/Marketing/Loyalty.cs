@@ -19,7 +19,7 @@ namespace Assets.Utils
 
             return new BonusContainer("Client loyalty is")
                 .RenderTitle()
-                .Append("Product Competitiveness", app)
+                //.Append("Product Competitiveness", app)
                 .Append("Improvements", SegmentBonus)
                 .AppendAndHideIfZero("Is only company", onlyPlayerBonus)
                 .Append("Pricing", -pricing)

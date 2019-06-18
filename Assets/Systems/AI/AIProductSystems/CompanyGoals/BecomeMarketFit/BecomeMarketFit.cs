@@ -13,10 +13,10 @@ public partial class AIProductSystems : OnDateChange
 
         StealIdeas(company);
 
-        ImproveConcept(company);
+        //ImproveConcept(company);
 
-        if (GetMarketDifference(company) == 0)
-            ImproveSegments(company);
+        //if (GetMarketDifference(company) == 0)
+        ImproveSegments(company);
 
         GrabTestClients(company);
     }

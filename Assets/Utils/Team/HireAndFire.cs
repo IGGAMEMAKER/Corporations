@@ -6,6 +6,8 @@
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
+            worker.AddWorker(company.company.Id, workerRole);
+
             HireWorker(company, worker);
 
             HumanUtils.SetSkills(worker, workerRole);
