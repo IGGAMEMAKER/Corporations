@@ -11,7 +11,7 @@ public partial class AIProductSystems : OnDateChange
 
         FocusOnIdeas(company);
 
-        StealIdeas(company);
+        //StealIdeas(company);
 
         //ImproveConcept(company);
 
