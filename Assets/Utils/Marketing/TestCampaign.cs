@@ -23,6 +23,10 @@ namespace Assets.Utils
 
             company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
             CompanyUtils.SpendResources(company, cost);
+
+            int feedback = UnityEngine.Random.Range(25, 75);
+
+            CompanyUtils.AddResources(company, new TeamResource().AddIdeas(feedback));
         }
 
         public static long GetTestCampaignClientGain(GameContext gameContext, GameEntity company)
