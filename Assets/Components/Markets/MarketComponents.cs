@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 
 
@@ -48,8 +49,17 @@ public class NicheStateComponent : IComponent
 
 }
     //// when someone innovates, increment this
-[Game]
+[Game, Event(EventTarget.Self)]
 public class SegmentComponent : IComponent
 {
+    // int - level
     public Dictionary<UserType, int> Segments;
+}
+
+[Game]
+public class SegmentLeadersComponent : IComponent
+{
+    // int - companyId
+    // -1 - no absolute leader
+    public Dictionary<UserType, int> Leaders;
 }

@@ -63,24 +63,26 @@ public static class GameComponentsLookup {
     public const int Release = 52;
     public const int ReleaseListener = 53;
     public const int Segment = 54;
-    public const int Shareholder = 55;
-    public const int Shareholders = 56;
-    public const int ShareholdersListener = 57;
-    public const int Targeting = 58;
-    public const int TargetingListener = 59;
-    public const int Task = 60;
-    public const int TaskManager = 61;
-    public const int Team = 62;
-    public const int TeamListener = 63;
-    public const int TechnologyLeader = 64;
-    public const int TechnologyLeaderListener = 65;
-    public const int Test = 66;
-    public const int TimerRunning = 67;
-    public const int Tutorial = 68;
-    public const int TutorialListener = 69;
-    public const int Worker = 70;
+    public const int SegmentLeaders = 55;
+    public const int SegmentListener = 56;
+    public const int Shareholder = 57;
+    public const int Shareholders = 58;
+    public const int ShareholdersListener = 59;
+    public const int Targeting = 60;
+    public const int TargetingListener = 61;
+    public const int Task = 62;
+    public const int TaskManager = 63;
+    public const int Team = 64;
+    public const int TeamListener = 65;
+    public const int TechnologyLeader = 66;
+    public const int TechnologyLeaderListener = 67;
+    public const int Test = 68;
+    public const int TimerRunning = 69;
+    public const int Tutorial = 70;
+    public const int TutorialListener = 71;
+    public const int Worker = 72;
 
-    public const int TotalComponents = 71;
+    public const int TotalComponents = 73;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -138,6 +140,8 @@ public static class GameComponentsLookup {
         "Release",
         "ReleaseListener",
         "Segment",
+        "SegmentLeaders",
+        "SegmentListener",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -212,6 +216,8 @@ public static class GameComponentsLookup {
         typeof(ReleaseComponent),
         typeof(ReleaseListenerComponent),
         typeof(SegmentComponent),
+        typeof(SegmentLeadersComponent),
+        typeof(SegmentListenerComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),
