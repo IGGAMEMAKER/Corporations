@@ -340,7 +340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CLIENTS
+  m_Text: COMPANY
 --- !u!1 &1933251343164537105
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 1933251343164537108}
   - component: {fileID: 1933251343164537115}
   - component: {fileID: 1933251343164537114}
+  - component: {fileID: 7584883044794225465}
   m_Layer: 5
   m_Name: Funds
   m_TagString: Untagged
@@ -469,7 +470,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933251343164537105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0a773d7ba5e199408a0f276ca0ea813, type: 3}
   m_Name: 
@@ -495,13 +496,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933251343164537105}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 139a92a3caed8b84fa4d9514f5e39a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetCompany: 1
   companyId: 0
+--- !u!114 &7584883044794225465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933251343164537105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb40dd1581525044ab3c6b56b08fde44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLink: 0
+  TargetMenu: 8
 --- !u!1 &1933251343817564180
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,12 +675,10 @@ GameObject:
   - component: {fileID: 1933251344160149833}
   - component: {fileID: 1933251344160149834}
   - component: {fileID: 1933251344160149835}
-  - component: {fileID: 1933251344160149839}
-  - component: {fileID: 1933251344160149832}
   - component: {fileID: 1933251344160149838}
   - component: {fileID: 1933251344160149837}
   m_Layer: 5
-  m_Name: Marketing
+  m_Name: Niche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,31 +783,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1933251344160149839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933251344160149829}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771dde7685299a949b28f744c044c867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
---- !u!114 &1933251344160149832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933251344160149829}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1e48d3efbbfb654c8d74fde71647701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1933251344160149838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,7 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
-  TargetMenu: 1
+  TargetMenu: 2
 --- !u!1 &1933251344563857377
 GameObject:
   m_ObjectHideFlags: 0

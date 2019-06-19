@@ -14,7 +14,7 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(company, cost))
                 return;
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 45);
+            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 15);
 
             var marketing = company.marketing;
 
