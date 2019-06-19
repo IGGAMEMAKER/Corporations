@@ -11,7 +11,6 @@ public interface IAIProductCompany
     void ExpandTeam(GameEntity company);
     void ShrinkTeam(GameEntity company);
 
-    void ImproveConcept(GameEntity company);
     void ImproveSegment(GameEntity company);
     void ImprovePayment(GameEntity company);
 
