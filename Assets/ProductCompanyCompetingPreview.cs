@@ -44,8 +44,10 @@ public class ProductCompanyCompetingPreview : View,
     {
         Name.text = name;
 
-        //if (Level != null)
-        //    AnimateIfValueChanged(Level, $"{level} ()");
+        var improvements = ProductUtils.GetTotalImprovements(Company);
+
+        if (Level != null)
+            AnimateIfValueChanged(Level, improvements.ToString());
         //Level.text = level.ToString();
     }
 

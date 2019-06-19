@@ -58,6 +58,18 @@ namespace Assets.Utils
             return names;
         }
 
+        public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
+        {
+            return context
+                .GetEntities(GameMatcher.Product)
+                .Where(c =>
+                // same niche
+                c.product.Niche == company.product.Niche &&
+                // get competitors only
+                c.company.Id != company.company.Id)
+                .ToArray();
+        }
+
         public static IndustryType GetIndustry(NicheType niche, GameContext context)
         {
             return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
@@ -67,5 +79,7 @@ namespace Assets.Utils
         {
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
+
+
     }
 }

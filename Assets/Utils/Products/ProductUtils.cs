@@ -43,16 +43,11 @@ namespace Assets.Utils
             CompanyUtils.AddCooldown(gameContext, product, cooldown, 65);
         }
 
-        public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
+        public static int GetTotalImprovements(GameEntity product)
         {
-            return context
-                .GetEntities(GameMatcher.Product)
-                .Where(c =>
-                // same niche
-                c.product.Niche == company.product.Niche &&
-                // get competitors only
-                c.company.Id != company.company.Id)
-                .ToArray();
+            var segments = product.product.Segments;
+
+            return segments[UserType.Core] + segments[UserType.Mass] + segments[UserType.Regular];
         }
     }
 }

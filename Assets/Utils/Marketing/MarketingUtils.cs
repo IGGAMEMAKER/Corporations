@@ -1,5 +1,4 @@
 ﻿using Assets.Classes;
-using Assets.Utils.Formatting;
 using System.Text;
 
 namespace Assets.Utils
@@ -14,20 +13,6 @@ namespace Assets.Utils
 
             c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
         }
-
-        //public static int GetMarketDiff(GameContext gameContext, int companyId)
-        //{
-        //    var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-        //    return GetMarketDiff(gameContext, c);
-        //}
-
-        //public static int GetMarketDiff(GameContext gameContext, GameEntity productCompany)
-        //{
-        //    var best = NicheUtils.GetLeaderApp(gameContext, productCompany.company.Id);
-
-        //    return best.product.ProductLevel - productCompany.product.ProductLevel;
-        //}
 
         public static long GetClients(GameEntity company)
         {

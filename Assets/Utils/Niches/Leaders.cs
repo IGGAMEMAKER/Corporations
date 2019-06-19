@@ -56,3 +56,8 @@ namespace Assets.Utils
         //}
     }
 }
+
+namespace CorporationsCore
+{
+
+}
