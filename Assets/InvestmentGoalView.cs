@@ -82,8 +82,8 @@ public class InvestmentGoalView : View
                 break;
 
             case InvestorGoal.IPO:
-                NeedLabel.text = "Make your company public!";
-                NeedValue.text = "Organise IPO"; // ValueFormatter.Shorten(requirements.need);
+                NeedLabel.text = "Organise IPO!";
+                NeedValue.text = ""; // ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "";
                 HaveValue.text = Format.Shorten(requirements.have);

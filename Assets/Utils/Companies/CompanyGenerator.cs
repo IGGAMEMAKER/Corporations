@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         public static GameEntity GenerateProduct(GameContext context, GameEntity company, NicheType niche)
         {
-            var GOAL = InvestorGoal.Prototype;
+            var GOAL = InvestorGoal.IPO;
 
 
             int brandPower = UnityEngine.Random.Range(0, 15);
