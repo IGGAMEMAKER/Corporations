@@ -13,7 +13,7 @@ public class ShareholderProposalView : View
 
     public GameObject LinkToOffer;
 
-    public ColoredValuePositiveOrNegative Opinion;
+    public Text Offer;
     public Hint OpinionHint;
 
     public Text OpinionDescription;
@@ -54,10 +54,20 @@ public class ShareholderProposalView : View
     {
         var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
 
-        Opinion.value = bonus.Sum();
-        OpinionHint.SetHint(bonus.ToString());
+        var opinion = bonus.Sum();
 
         OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
+        OpinionHint.SetHint(bonus.ToString());
+
+        if (SelectedCompany.hasAcceptsInvestments)
+        {
+            var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
+
+            Offer.text = $"${ValueFormatter.Shorten(proposal.Offer)}";
+        } else
+        {
+            Offer.text = "";
+        }
     }
 
 

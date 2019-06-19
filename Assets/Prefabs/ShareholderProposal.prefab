@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 6291225846778646404}
   - component: {fileID: 4942377984667352637}
   - component: {fileID: 8774326968792074288}
+  - component: {fileID: 1154536360315799333}
   m_Layer: 5
   m_Name: OpinionDescription
   m_TagString: Untagged
@@ -664,6 +665,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: They will invest if asked
+--- !u!114 &1154536360315799333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006155085251338577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &6227250639671123400
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,8 +872,8 @@ MonoBehaviour:
   Motivation: {fileID: 6500034690611162058}
   InvestorType: {fileID: 7063346576071534855}
   LinkToOffer: {fileID: 5012467774567530340}
-  Opinion: {fileID: 266036276819013446}
-  OpinionHint: {fileID: 9087421094227013404}
+  Offer: {fileID: 3829030408292393048}
+  OpinionHint: {fileID: 1154536360315799333}
   OpinionDescription: {fileID: 8774326968792074288}
 --- !u!1 &7063346576071534853
 GameObject:
@@ -967,10 +982,8 @@ GameObject:
   - component: {fileID: 1406436868720647495}
   - component: {fileID: 4692876177583768549}
   - component: {fileID: 3829030408292393048}
-  - component: {fileID: 266036276819013446}
-  - component: {fileID: 9087421094227013404}
   m_Layer: 5
-  m_Name: Opinion
+  m_Name: Offer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,38 +1050,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: +100
---- !u!114 &266036276819013446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505748640762959129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9919c4b68a79aad4a9826700c4a9c79d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
-  ShowSign: 1
-  Prettify: 1
-  DigitsAfterComma: 0
-  unit: 1
-  neutralValue: 0
---- !u!114 &9087421094227013404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7505748640762959129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: 
-  isActionHint: 0
 --- !u!1001 &3162514979405747361
 PrefabInstance:
   m_ObjectHideFlags: 0
