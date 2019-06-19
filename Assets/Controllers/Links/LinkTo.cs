@@ -22,7 +22,7 @@
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
                 break;
             case ScreenMode.InvesmentProposalScreen:
-                NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
+                NavigateToCompany(TargetMenu, MyCompany.company.Id);
                 break;
             case ScreenMode.ProjectScreen:
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
