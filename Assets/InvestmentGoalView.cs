@@ -42,7 +42,7 @@ public class InvestmentGoalView : View
                 break;
 
             case InvestorGoal.Release:
-                NeedLabel.text = "Press release button";
+                NeedLabel.text = "Release your app";
                 NeedValue.text = ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "";
