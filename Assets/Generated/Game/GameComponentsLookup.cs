@@ -62,24 +62,25 @@ public static class GameComponentsLookup {
     public const int PublicCompany = 51;
     public const int Release = 52;
     public const int ReleaseListener = 53;
-    public const int Shareholder = 54;
-    public const int Shareholders = 55;
-    public const int ShareholdersListener = 56;
-    public const int Targeting = 57;
-    public const int TargetingListener = 58;
-    public const int Task = 59;
-    public const int TaskManager = 60;
-    public const int Team = 61;
-    public const int TeamListener = 62;
-    public const int TechnologyLeader = 63;
-    public const int TechnologyLeaderListener = 64;
-    public const int Test = 65;
-    public const int TimerRunning = 66;
-    public const int Tutorial = 67;
-    public const int TutorialListener = 68;
-    public const int Worker = 69;
+    public const int Segment = 54;
+    public const int Shareholder = 55;
+    public const int Shareholders = 56;
+    public const int ShareholdersListener = 57;
+    public const int Targeting = 58;
+    public const int TargetingListener = 59;
+    public const int Task = 60;
+    public const int TaskManager = 61;
+    public const int Team = 62;
+    public const int TeamListener = 63;
+    public const int TechnologyLeader = 64;
+    public const int TechnologyLeaderListener = 65;
+    public const int Test = 66;
+    public const int TimerRunning = 67;
+    public const int Tutorial = 68;
+    public const int TutorialListener = 69;
+    public const int Worker = 70;
 
-    public const int TotalComponents = 70;
+    public const int TotalComponents = 71;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -136,6 +137,7 @@ public static class GameComponentsLookup {
         "PublicCompany",
         "Release",
         "ReleaseListener",
+        "Segment",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -209,6 +211,7 @@ public static class GameComponentsLookup {
         typeof(PublicCompanyComponent),
         typeof(ReleaseComponent),
         typeof(ReleaseListenerComponent),
+        typeof(SegmentComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),

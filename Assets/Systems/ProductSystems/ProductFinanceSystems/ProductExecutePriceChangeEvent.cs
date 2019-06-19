@@ -20,7 +20,7 @@ public class ProductExecutePriceChangeEvent : ReactiveSystem<GameEntity>
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
     {
-        return _context.CreateCollector(GameMatcher.AllOf(GameMatcher.Finance, GameMatcher.EventFinancePricingChange));
+        return context.CreateCollector(GameMatcher.AllOf(GameMatcher.Finance, GameMatcher.EventFinancePricingChange));
     }
 
     protected override bool Filter(GameEntity entity)

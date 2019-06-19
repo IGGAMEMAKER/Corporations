@@ -58,7 +58,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 );
 
             e.AddNicheCosts(1, 1, 1, 1, 1, 1);
-            e.AddNicheState(new int[5], 1);
+            e.AddNicheState(new int[5]);
+            e.AddSegment(new Dictionary<UserType, int>
+            {
+                [UserType.Core] = 1,
+                [UserType.Regular] = 1,
+                [UserType.Mass] = 1,
+            });
         }
     }
 
