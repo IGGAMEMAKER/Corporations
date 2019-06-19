@@ -6,7 +6,7 @@ public class ProductExecutePriceChangeEvent : ReactiveSystem<GameEntity>
 {
     readonly GameContext _context;
 
-    protected ProductExecutePriceChangeEvent(Contexts contexts) : base(contexts.game)
+    public ProductExecutePriceChangeEvent(Contexts contexts) : base(contexts.game)
     {
         _context = contexts.game;
     }
