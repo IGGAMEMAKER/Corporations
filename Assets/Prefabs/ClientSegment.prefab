@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4633545811277775779}
   - component: {fileID: 3117427489787896367}
   - component: {fileID: 5796761126818185534}
-  - component: {fileID: 5167582424723228279}
+  - component: {fileID: 4654650056639483002}
   - component: {fileID: 3950365464403359489}
   m_Layer: 5
-  m_Name: Loyalty
+  m_Name: Improvements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13073273, g: 0.8773585, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -81,7 +81,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: +25
---- !u!114 &5167582424723228279
+--- !u!114 &4654650056639483002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,15 +90,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 878370858601994598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9919c4b68a79aad4a9826700c4a9c79d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a8ac748d8d2d5243904d0a3f88804bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: -5
-  ShowSign: 1
+  value: 0
+  ShowSign: 0
   Prettify: 1
   DigitsAfterComma: 0
   unit: 1
-  neutralValue: 0
+  minValue: 0
+  maxValue: 0
+  reversed: 0
 --- !u!114 &3950365464403359489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserTypeLabel: {fileID: 7549217481255015695}
-  LoyaltyLabel: {fileID: 5167582424723228279}
+  LoyaltyLabel: {fileID: 0}
+  SegmentImprovements: {fileID: 4654650056639483002}
   Income: {fileID: 7701303453547526725}
   IncomeLabel: {fileID: 1949067944250367927}
   AudienceSize: {fileID: 6925094819437014945}
