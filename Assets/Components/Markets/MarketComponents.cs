@@ -46,6 +46,10 @@ public class NicheStateComponent : IComponent
 {
     public int[] Growth;
 
-    // when someone innovates, increment this
-    public int Level;
+}
+    //// when someone innovates, increment this
+[Game]
+public class SegmentComponent : IComponent
+{
+    public Dictionary<UserType, int> Segments;
 }

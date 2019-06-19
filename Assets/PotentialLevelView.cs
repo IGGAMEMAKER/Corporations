@@ -1,5 +1,7 @@
 ﻿using Assets.Utils;
 
+
+// TODO REMOVE
 public class PotentialLevelView : SimpleParameterView
 {
     public override string RenderHint()
@@ -9,6 +11,7 @@ public class PotentialLevelView : SimpleParameterView
 
     public override string RenderValue()
     {
-        return ProductDevelopmentUtils.GetMarketRequirementsInNiche(GameContext, MyProduct.Niche) + "";
+        return "NOTHING. HAHA";
+        //return ProductDevelopmentUtils.GetMarketRequirementsInNiche(GameContext, MyProduct.Niche) + "";
     }
 }

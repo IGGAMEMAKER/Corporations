@@ -7,6 +7,6 @@ public class RenderMarketRequirement : View
     {
         base.ViewRender();
 
-        GetComponent<Text>().text = NicheUtils.GetMarketDemand(GameContext, ScreenUtils.GetSelectedNiche(GameContext)) + "LVL";
+        // TODO REMOVE
     }
 }

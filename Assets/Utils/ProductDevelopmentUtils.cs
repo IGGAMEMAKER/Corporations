@@ -44,13 +44,6 @@ namespace Assets.Utils
             CompanyUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
         }
 
-        public static int GetMarketRequirementsInNiche(GameContext context, NicheType nicheType)
-        {
-            var niche = NicheUtils.GetNicheEntity(context, nicheType).nicheState;
-
-            return niche.Level;
-        }
-
         // niche based values
         public static int BaseIdeaCost(GameEntity e, GameContext gameContext)
         {

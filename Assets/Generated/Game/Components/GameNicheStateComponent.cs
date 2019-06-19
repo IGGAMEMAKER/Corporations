@@ -15,7 +15,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.NicheState;
         var component = (NicheStateComponent)CreateComponent(index, typeof(NicheStateComponent));
         component.Growth = newGrowth;
-        component.Level = newLevel;
         AddComponent(index, component);
     }
 
@@ -23,7 +22,6 @@ public partial class GameEntity {
         var index = GameComponentsLookup.NicheState;
         var component = (NicheStateComponent)CreateComponent(index, typeof(NicheStateComponent));
         component.Growth = newGrowth;
-        component.Level = newLevel;
         ReplaceComponent(index, component);
     }
 

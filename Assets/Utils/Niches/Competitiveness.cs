@@ -4,21 +4,12 @@
     {
         internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
-            int marketLevel = GetMarketDemand(gameContext, company.product.Niche);
-
             int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
 
             return new BonusContainer("Product Competitiveness")
                 .RenderTitle()
-                .Append("Market Requirements", -marketLevel)
+                .Append("Just some value", 5)
                 .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
-        }
-
-        public static int GetMarketDemand(GameContext gameContext, NicheType nicheType)
-        {
-            var nicheState = GetNicheEntity(gameContext, nicheType).nicheState;
-
-            return nicheState.Level;
         }
 
         internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
