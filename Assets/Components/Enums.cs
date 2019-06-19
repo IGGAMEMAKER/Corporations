@@ -57,6 +57,7 @@ public enum CooldownType
 
     CompanyGoal,
 
+    // TODO REMOVE
     StealIdeas,
 
     ImproveSegment

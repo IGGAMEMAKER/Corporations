@@ -11,10 +11,6 @@ public partial class AIProductSystems : OnDateChange
 
         // improve segments
         ImproveSegments(product);
-
-        // match market requirements
-        CatchMarketRequirements(product);
-        //  // focus on ideas?
     }
 
     long GetSegmentImportance(GameEntity product, UserType userType)
@@ -82,10 +78,4 @@ public partial class AIProductSystems : OnDateChange
 
         ProductUtils.SetPrice(product, price);
     }
-
-    void CatchMarketRequirements(GameEntity product)
-    {
-        FocusOnIdeas(product);
-    }
-
 }

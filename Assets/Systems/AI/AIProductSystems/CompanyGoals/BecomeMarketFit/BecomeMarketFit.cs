@@ -9,8 +9,6 @@ public partial class AIProductSystems : OnDateChange
 
         Crunch(company);
 
-        FocusOnIdeas(company);
-
         ImproveSegments(company);
 
         GrabTestClients(company);
@@ -35,10 +33,5 @@ public partial class AIProductSystems : OnDateChange
     {
         //if (!product.isCrunching)
         //    TeamUtils.ToggleCrunching(gameContext, product.company.Id);
-    }
-
-    void FocusOnIdeas(GameEntity product)
-    {
-        ProductDevelopmentUtils.ToggleDevelopment(gameContext, product.company.Id, DevelopmentFocus.Concept);
     }
 }
