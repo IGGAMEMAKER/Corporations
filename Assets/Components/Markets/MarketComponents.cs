@@ -46,7 +46,6 @@ public class NicheCostsComponent : IComponent
 public class NicheStateComponent : IComponent
 {
     public int[] Growth;
-
 }
     //// when someone innovates, increment this
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
