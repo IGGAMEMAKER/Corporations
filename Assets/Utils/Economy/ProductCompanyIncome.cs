@@ -36,11 +36,7 @@ namespace Assets.Utils
 
         public static float GetProductPrice(GameEntity e, GameContext context)
         {
-            if (e.finance.price == Pricing.Free) return 0;
-
-            float price = (float)e.finance.price;
-
-            return GetBaseProductPrice(e, context) * price / 100;
+            return GetBaseProductPrice(e, context);
         }
 
         public static float GetBaseProductPrice(GameEntity e, GameContext context)
