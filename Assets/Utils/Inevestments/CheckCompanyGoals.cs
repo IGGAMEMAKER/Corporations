@@ -68,8 +68,8 @@ namespace Assets.Utils
         public static GoalRequirements GoalRelease(GameEntity company, GameContext gameContext)
         {
             return new GoalRequirements {
-                have = MarketingUtils.GetClients(company),
-                need = company.isRelease ? 1 : 0
+                have = company.isRelease ? 1 : 0,
+                need = 1
             };
         }
 
