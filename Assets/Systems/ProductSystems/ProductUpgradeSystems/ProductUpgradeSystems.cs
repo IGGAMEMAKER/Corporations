@@ -2,6 +2,6 @@
 {
     public ProductUpgradeSystems(Contexts contexts) : base("Product Upgade Systems")
     {
-        Add(new ProductExecuteUpgradeEvent(contexts));
+        //Add(new ProductExecuteUpgradeEvent(contexts));
     }
 }

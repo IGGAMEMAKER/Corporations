@@ -1,27 +1,14 @@
-﻿using Assets.Utils;
+﻿using System.Collections.Generic;
+using Assets.Utils;
 using Entitas;
 
-public class ProductExecutePriceChangeEvent : IExecuteSystem
+public class ProductExecutePriceChangeEvent : ReactiveSystem<GameEntity>
 {
     readonly GameContext _context;
 
-    public ProductExecutePriceChangeEvent(Contexts contexts)
+    protected ProductExecutePriceChangeEvent(Contexts contexts) : base(contexts.game)
     {
         _context = contexts.game;
-    }
-
-    GameEntity[] GetProductsWithPriceChangeEvent()
-    {
-        return _context.GetEntities(GameMatcher.AllOf(GameMatcher.Finance, GameMatcher.EventFinancePricingChange));
-    }
-
-    public void Execute()
-    {
-        foreach (var e in GetProductsWithPriceChangeEvent())
-        {
-            ChangePrice(e);
-            e.RemoveEventFinancePricingChange();
-        }
     }
 
     void ChangePrice(GameEntity e)
@@ -29,5 +16,25 @@ public class ProductExecutePriceChangeEvent : IExecuteSystem
         var newPrice = e.eventFinancePricingChange.level;
 
         ProductUtils.SetPrice(e, newPrice);
+    }
+
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    {
+        return _context.CreateCollector(GameMatcher.AllOf(GameMatcher.Finance, GameMatcher.EventFinancePricingChange));
+    }
+
+    protected override bool Filter(GameEntity entity)
+    {
+        return entity.hasEventFinancePricingChange && entity.hasFinance;
+    }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        foreach (var e in entities)
+        {
+            ChangePrice(e);
+
+            e.RemoveEventFinancePricingChange();
+        }
     }
 }
