@@ -29,7 +29,9 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return GetUserTypePriceModifier(userType) * GetProductPrice(c, gameContext);
+            var improvements = c.product.Segments[userType];
+
+            return (100 + 5 * improvements) * GetProductPrice(c, gameContext) / 100;
         }
 
         public static float GetProductPrice(GameEntity e, GameContext context)

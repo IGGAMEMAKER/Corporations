@@ -55,6 +55,9 @@ public class ClientSegmentPreview : View
 
         UpdateSegmentController.SetSegment(UserType);
         UpdateSegmentController.gameObject.GetComponent<CheckSegmentImprovementResources>().SetSegment(UserType);
+
+        bool isInnovation = ProductUtils.IsWillInnovate(MyProductEntity, GameContext, UserType);
+        UpdateSegmentController.gameObject.GetComponentInChildren<Text>().text = isInnovation ? "Make an innovation!" : "Copy competitors";
     }
 
     void RenderAudience(UserType userType, GameEntity c)
@@ -68,13 +71,6 @@ public class ClientSegmentPreview : View
 
     void RenderSegmentIncome(int companyId, UserType userType)
     {
-        var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
-
-        var isFree = c.finance.price == Pricing.Free;
-
-        IncomeLabel.gameObject.SetActive(!isFree);
-        Income.gameObject.SetActive(!isFree);
-
         var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
         Income.text = $"+${ValueFormatter.Shorten(Convert.ToInt64(income))}";
