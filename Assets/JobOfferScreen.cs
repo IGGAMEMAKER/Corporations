@@ -17,7 +17,7 @@ public class JobOfferScreen : View
     {
         long offer = Constants.SALARIES_CEO;
 
-        Offer.text = $"${ValueFormatter.Shorten(offer)} per month";
+        Offer.text = $"${Format.Shorten(offer)} per month";
     }
 
     void RenderProposalStatus()

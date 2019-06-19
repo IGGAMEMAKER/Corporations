@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static class ValueFormatter
+    public static class Format
     {
         public static string ShortenValueMockup<T>(T value)
         {
@@ -27,6 +27,11 @@ namespace Assets.Utils
         public static string Sign(long value)
         {
             return value > 0 ? $"+{value}" : value.ToString();
+        }
+
+        public static string Money<T>(T value)
+        {
+            return $"${Shorten(value)}";
         }
 
         public static string Shorten<T>(T value)

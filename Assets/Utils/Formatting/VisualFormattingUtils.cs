@@ -83,7 +83,7 @@ namespace Assets.Utils
 
         internal static string Sign(long val)
         {
-            return ValueFormatter.Sign(val);
+            return Format.Sign(val);
         }
 
         internal static string Negative(string text)
@@ -121,7 +121,7 @@ namespace Assets.Utils
             if (bonusType == BonusType.Multiplicative)
                 text = "Multiplied by ";
 
-            text += $"{bonusName}: {ValueFormatter.Sign(value)}{dimension}";
+            text += $"{bonusName}: {Format.Sign(value)}{dimension}";
 
             if (!flipColors)
                 return DescribeNormally(text, value);

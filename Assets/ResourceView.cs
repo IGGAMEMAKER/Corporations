@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ResourceView : MonoBehaviour {
     void SetValue<T> (T value, string hint)
     {
-        Set(ValueFormatter.NoFormatting(value), hint);
+        Set(Format.NoFormatting(value), hint);
     }
 
     void Set(string text, string hint)
@@ -22,6 +22,6 @@ public class ResourceView : MonoBehaviour {
 
     public void SetPrettifiedValue<T>(string hint, T value)
     {
-        Set(ValueFormatter.Shorten(value), hint);
+        Set(Format.Shorten(value), hint);
     }
 }

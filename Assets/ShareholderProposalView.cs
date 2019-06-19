@@ -63,7 +63,7 @@ public class ShareholderProposalView : View
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-            Offer.text = $"${ValueFormatter.Shorten(proposal.Offer)}";
+            Offer.text = Format.Money(proposal.Offer);
         } else
         {
             Offer.text = "";

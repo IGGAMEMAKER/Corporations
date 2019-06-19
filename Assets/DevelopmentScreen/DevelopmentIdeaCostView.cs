@@ -11,6 +11,6 @@ public class DevelopmentIdeaCostView : UpgradedParameterView
     {
         var cost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext).ideaPoints;
 
-        return ValueFormatter.Shorten(cost);
+        return Format.Shorten(cost);
     }
 }

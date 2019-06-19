@@ -9,6 +9,6 @@ public class GroupResources : SimpleParameterView
 
     public override string RenderValue()
     {
-        return ValueFormatter.Shorten(MyGroupEntity.companyResource.Resources.money);
+        return Format.Shorten(MyGroupEntity.companyResource.Resources.money);
     }
 }

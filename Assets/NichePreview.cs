@@ -37,7 +37,7 @@ public class NichePreview : View
     {
         int potential = GetMarketPotential();
 
-        return "$" + ValueFormatter.Shorten(potential);
+        return "$" + Format.Shorten(potential);
     }
 
     void Render()

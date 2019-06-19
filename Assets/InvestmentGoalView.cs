@@ -35,15 +35,15 @@ public class InvestmentGoalView : View
         {
             case InvestorGoal.Prototype:
                 NeedLabel.text = "Improved Core Users";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "Core Users Improvements";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
 
             case InvestorGoal.Release:
                 NeedLabel.text = "Release your app";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "";
                 HaveValue.text = ""; // ValueFormatter.Shorten(requirements.have);
@@ -51,34 +51,34 @@ public class InvestmentGoalView : View
 
             case InvestorGoal.FirstUsers:
                 NeedLabel.text = "Required amount of users";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "Current amount of users";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
 
             case InvestorGoal.BecomeMarketFit:
                 NeedLabel.text = "Required product level";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "Current product level";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
 
             case InvestorGoal.BecomeProfitable:
                 NeedLabel.text = "Required Profit";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "Our Profit";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
 
             case InvestorGoal.GrowCompanyCost:
                 NeedLabel.text = "Required Company Cost";
-                NeedValue.text = ValueFormatter.Shorten(requirements.need);
+                NeedValue.text = Format.Shorten(requirements.need);
 
                 HaveLabel.text = "Current Company Cost";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
 
             case InvestorGoal.IPO:
@@ -86,7 +86,7 @@ public class InvestmentGoalView : View
                 NeedValue.text = "Organise IPO"; // ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "";
-                HaveValue.text = ValueFormatter.Shorten(requirements.have);
+                HaveValue.text = Format.Shorten(requirements.have);
                 break;
         }
     }

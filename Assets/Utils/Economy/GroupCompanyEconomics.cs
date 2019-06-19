@@ -82,7 +82,7 @@ namespace Assets.Utils
 
                 string name = c.company.Name;
                 long income = GetCompanyIncome(c, context);
-                string tiedIncome = ValueFormatter.Shorten(h.control * income / 100);
+                string tiedIncome = Format.Shorten(h.control * income / 100);
 
                 description += $"\n  {name}: +${tiedIncome} ({h.control}%)";
             }
@@ -102,7 +102,7 @@ namespace Assets.Utils
 
                 string name = c.company.Name;
                 long income = GetCompanyMaintenance(c, context);
-                string tiedIncome = ValueFormatter.Shorten(h.control * income / 100);
+                string tiedIncome = Format.Shorten(h.control * income / 100);
 
                 description += $"\n  {name}: -${tiedIncome} ({h.control}%)";
             }

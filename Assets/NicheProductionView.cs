@@ -16,10 +16,10 @@ public class NicheProductionView : View
 
         var costs = NicheUtils.GetNicheEntity(GameContext, niche).nicheCosts;
 
-        IdeasCost.text = ValueFormatter.Shorten(costs.IdeaCost);
-        TechCost.text = ValueFormatter.Shorten(costs.TechCost);
-        SalesCost.text = ValueFormatter.Shorten(costs.MarketingCost);
+        IdeasCost.text = Format.Shorten(costs.IdeaCost);
+        TechCost.text = Format.Shorten(costs.TechCost);
+        SalesCost.text = Format.Shorten(costs.MarketingCost);
 
-        AdCost.text = ValueFormatter.Shorten(costs.AdCost);
+        AdCost.text = Format.Shorten(costs.AdCost);
     }
 }

@@ -9,6 +9,6 @@ public class RenderCompanyBalance : SimpleParameterView
 
     public override string RenderValue()
     {
-        return ValueFormatter.Shorten(SelectedCompany.companyResource.Resources.money);
+        return Format.Shorten(SelectedCompany.companyResource.Resources.money);
     }
 }

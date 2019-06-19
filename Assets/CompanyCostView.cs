@@ -26,7 +26,7 @@ public class CompanyCostView : View
 
     string RenderCosts(long cost)
     {
-        return "$" + ValueFormatter.Shorten(cost);
+        return "$" + Format.Shorten(cost);
     }
 
     void ShowGroupLabels(bool show)

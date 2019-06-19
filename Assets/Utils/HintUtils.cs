@@ -92,7 +92,7 @@ public class BonusContainer
         long val = Sum();
 
         if (renderTitle)
-            str.AppendFormat("{0} is {1}", parameter, ValueFormatter.Sign(val));
+            str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));
 
         str.AppendLine("\n** Based on **\n");
 

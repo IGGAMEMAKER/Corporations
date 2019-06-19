@@ -29,7 +29,7 @@ public class GroupManagementScreen : View
 
         CompanyPreviewView.SetEntity(MyGroupEntity);
 
-        GroupBalance.text = ValueFormatter.Shorten(MyGroupEntity.companyResource.Resources.money);
+        GroupBalance.text = Format.Shorten(MyGroupEntity.companyResource.Resources.money);
 
         Render();
     }

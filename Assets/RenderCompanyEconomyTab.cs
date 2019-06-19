@@ -18,10 +18,10 @@ public class RenderCompanyEconomyTab : View
 
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
 
-        Income.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(company, GameContext));
+        Income.text = "$" + Format.Shorten(CompanyEconomyUtils.GetCompanyIncome(company, GameContext));
         IncomeHint.SetHint(CompanyEconomyUtils.GetIncomeDescription(GameContext, companyId));
 
-        Maintenance.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyMaintenance(company, GameContext));
+        Maintenance.text = "$" + Format.Shorten(CompanyEconomyUtils.GetCompanyMaintenance(company, GameContext));
         MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
 
         Change.UpdateValue(CompanyEconomyUtils.GetBalanceChange(company, GameContext));

@@ -43,7 +43,7 @@ public class ProposalScreen : View
         long offer = proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);
 
-        Offer.text = $"${ValueFormatter.Shorten(offer)} for {futureShareSize}% of our company";
+        Offer.text = $"${Format.Shorten(offer)} for {futureShareSize}% of our company";
     }
 
     void RenderProposalStatus()
@@ -60,7 +60,7 @@ public class ProposalScreen : View
     {
         if (IsInvestmentRoundActive)
         {
-            Valuation.text = "$" + ValueFormatter.Shorten(proposal.Valuation);
+            Valuation.text = "$" + Format.Shorten(proposal.Valuation);
         }
     }
 
