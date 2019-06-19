@@ -49,7 +49,7 @@ public class NicheStateComponent : IComponent
 
 }
     //// when someone innovates, increment this
-[Game, Event(EventTarget.Self)]
+[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class SegmentComponent : IComponent
 {
     // int - level
