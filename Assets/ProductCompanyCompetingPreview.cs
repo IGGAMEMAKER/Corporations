@@ -48,7 +48,6 @@ public class ProductCompanyCompetingPreview : View,
 
         if (Level != null)
             AnimateIfValueChanged(Level, improvements.ToString());
-        //Level.text = level.ToString();
     }
 
     void Render()

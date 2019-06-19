@@ -9,6 +9,7 @@ public class ClientSegmentPreview : View
 
     public ColoredValuePositiveOrNegative LoyaltyLabel;
     public Text Income;
+    public Text IncomeLabel;
 
     public Text AudienceSize;
     public Hint AudienceHint;
@@ -67,6 +68,13 @@ public class ClientSegmentPreview : View
 
     void RenderSegmentIncome(int companyId, UserType userType)
     {
+        var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
+
+        var isFree = c.finance.price == Pricing.Free;
+
+        IncomeLabel.gameObject.SetActive(!isFree);
+        Income.gameObject.SetActive(!isFree);
+
         var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
         Income.text = $"+${ValueFormatter.Shorten(Convert.ToInt64(income))}";

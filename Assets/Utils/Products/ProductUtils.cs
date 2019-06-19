@@ -1,6 +1,4 @@
 ﻿using Assets.Classes;
-using Entitas;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -14,9 +12,51 @@ namespace Assets.Utils
 
         public static TeamResource GetSegmentUpgradeCost(GameEntity product, GameContext gameContext, UserType userType)
         {
-            var costs = NicheUtils.GetNicheEntity(gameContext, product.product.Niche).nicheCosts;
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            return new TeamResource(costs.TechCost / 3, 0, 0, costs.IdeaCost / 3, 0);
+            bool isInnovation = IsWillInnovate(product, niche, userType);
+
+            var innovationModifier = isInnovation ? 3 : 1;
+
+            var costs = niche.nicheCosts;
+
+            return new TeamResource(costs.TechCost * innovationModifier, 0, 0, costs.IdeaCost * innovationModifier, 0);
+        }
+
+        public static bool IsWillInnovate(GameEntity product, GameContext gameContext, UserType userType)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            return IsWillInnovate(product, niche, userType);
+        }
+
+        public static bool IsWillInnovate(GameEntity product, GameEntity niche, UserType userType)
+        {
+            var current = product.product.Segments[userType];
+            var marketDemand = niche.segment.Segments[userType];
+
+            return current >= marketDemand;
+        }
+
+        public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext, UserType userType)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            Debug.Log($"UpdateNicheSegmentInfo {product.company.Name} {userType}. {product.product.Segments[userType]}/{niche.segment.Segments[userType]} ");
+
+            UpdateNicheSegmentInfo(product, niche, userType);
+        }
+
+        public static void UpdateNicheSegmentInfo(GameEntity product, GameEntity niche, UserType userType)
+        {
+            var segments = niche.segment.Segments;
+
+            if (IsWillInnovate(product, niche, userType))
+            {
+                segments[userType] = product.product.Segments[userType] + 1;
+
+                niche.ReplaceSegment(segments);
+            }
         }
 
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
@@ -31,6 +71,8 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(product, costs))
                 return;
 
+            UpdateNicheSegmentInfo(product, gameContext, userType);
+
             var p = product.product;
 
             var dict = p.Segments;
@@ -39,8 +81,9 @@ namespace Assets.Utils
 
             product.ReplaceProduct(p.Id, p.Niche, dict);
 
+
             CompanyUtils.SpendResources(product, costs);
-            CompanyUtils.AddCooldown(gameContext, product, cooldown, 65);
+            CompanyUtils.AddCooldown(gameContext, product, cooldown, 15);
         }
 
         public static int GetTotalImprovements(GameEntity product)
