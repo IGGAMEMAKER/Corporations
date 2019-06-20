@@ -29,7 +29,7 @@ namespace Assets.Utils
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
         {
             var costs = GetNicheCosts(gameContext, company);
-            var clients = costs.ClientBatch * 10;
+            var clients = costs.ClientBatch * 10 * GetMarketingFinancingBrandPowerGainModifier(company);
 
             AddClients(company, UserType.Mass, clients);
         }
@@ -51,6 +51,13 @@ namespace Assets.Utils
             int techLeadershipBonus = company.isTechnologyLeader ? 2 : 1;
 
             return GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing) * techLeadershipBonus;
+        }
+
+
+
+        public static int GetMarketingFinancingBrandPowerGainModifier(GameEntity company)
+        {
+            return GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing);
         }
 
         public static int GetMarketingFinancingBrandPowerGainModifier(MarketingFinancing financing)

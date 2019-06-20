@@ -20,7 +20,9 @@ class ProductGrabClientsByTargetingSystem : OnDateChange
 
             if (e.companyResource.Resources.IsEnoughResources(need))
             {
-                e.marketing.Segments[UserType.Regular] += MarketingUtils.GetTargetingEffeciency(contexts.game, e);
+                var clients = MarketingUtils.GetTargetingEffeciency(contexts.game, e);
+
+                MarketingUtils.AddClients(e, UserType.Regular, clients);
 
                 CompanyUtils.SpendResources(e, need);
             }

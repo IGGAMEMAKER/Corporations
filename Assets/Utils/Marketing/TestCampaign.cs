@@ -14,13 +14,10 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(company, cost))
                 return;
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 15);
-
             AddClients(company, UserType.Core, GetTestCampaignClientGain(gameContext, company));
+            GetFeedbackFromTestCampaign(company);
 
-            int feedback = UnityEngine.Random.Range(25, 75);
-            CompanyUtils.AddResources(company, new TeamResource().AddIdeas(feedback));
-
+            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 15);
             CompanyUtils.SpendResources(company, cost);
         }
 
@@ -29,6 +26,13 @@ namespace Assets.Utils
             var costs = NicheUtils.GetNicheEntity(gameContext, company.product.Niche).nicheCosts;
 
             return costs.ClientBatch / 4;
+        }
+
+        public static void GetFeedbackFromTestCampaign(GameEntity company)
+        {
+            int feedback = UnityEngine.Random.Range(25, 75);
+
+            CompanyUtils.AddResources(company, new TeamResource().AddIdeas(feedback));
         }
 
         public static TeamResource GetTestCampaignCost(GameContext gameContext, GameEntity company)
