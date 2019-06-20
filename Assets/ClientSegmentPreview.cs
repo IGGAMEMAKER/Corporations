@@ -73,7 +73,7 @@ public class ClientSegmentPreview : View
 
         var demand = ProductUtils.GetSegmentMarketDemand(company, GameContext, userType);
 
-        SegmentImprovements.minValue = demand - 7;
+        SegmentImprovements.minValue = demand - 5;
         SegmentImprovements.maxValue = demand;
 
         var apps = String.Join("\n", NicheUtils.GetCompetitorSegmentLevels(MyProductEntity, GameContext, userType));
