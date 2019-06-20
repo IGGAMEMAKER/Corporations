@@ -55,8 +55,7 @@ namespace Assets.Utils
                     new BlockOfShares
                     {
                         amount = 100,
-                        expires = -1,
-                        InvestorGoal = InvestorGoal.GrowCompanyCost,
+                        InvestorType = InvestorType.Strategic,
                         shareholderLoyalty = 100
                     }
                 }

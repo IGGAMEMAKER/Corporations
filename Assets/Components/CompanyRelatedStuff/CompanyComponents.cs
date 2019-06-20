@@ -16,8 +16,7 @@ public struct BlockOfShares
 {
     public int amount;
 
-    public InvestorGoal InvestorGoal;
-    public int expires;
+    public InvestorType InvestorType;
 
     public int shareholderLoyalty;
 }

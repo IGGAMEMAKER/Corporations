@@ -67,9 +67,7 @@ namespace Assets.Utils
             {
                 amount = shares,
                 
-                // no time limit
-                expires = -1,
-                InvestorGoal = GetInvestorGoal(context, investorId),
+                InvestorType = GetInvestorById(context, investorId).shareholder.InvestorType,
                 shareholderLoyalty = 100
             };
 

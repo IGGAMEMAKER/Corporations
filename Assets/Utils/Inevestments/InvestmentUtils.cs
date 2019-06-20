@@ -49,12 +49,8 @@ namespace Assets.Utils
 
         public static string GetInvestorGoalDescription(BlockOfShares shares)
         {
-            return GetFormattedInvestorGoal(shares.InvestorGoal);
-        }
-
-        public static string GetInvestorGoal(BlockOfShares shares)
-        {
-            return GetFormattedInvestorGoal(shares.InvestorGoal);
+            return shares.InvestorType.ToString();
+            //return GetFormattedInvestorGoal(shares.InvestorType);
         }
     }
 }
