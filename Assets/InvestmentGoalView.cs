@@ -86,7 +86,7 @@ public class InvestmentGoalView : View
                 NeedValue.text = ""; // ValueFormatter.Shorten(requirements.need);
 
                 HaveLabel.text = "";
-                HaveValue.text = Format.Shorten(requirements.have);
+                HaveValue.text = "";
                 break;
         }
     }

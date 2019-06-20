@@ -16,17 +16,12 @@ namespace Assets.Utils
 
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 15);
 
-            var marketing = company.marketing;
-
-            var clientGain = GetTestCampaignClientGain(gameContext, company);
-            marketing.Segments[UserType.Core] += clientGain;
-
-            company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
-            CompanyUtils.SpendResources(company, cost);
+            AddClients(company, UserType.Core, GetTestCampaignClientGain(gameContext, company));
 
             int feedback = UnityEngine.Random.Range(25, 75);
-
             CompanyUtils.AddResources(company, new TeamResource().AddIdeas(feedback));
+
+            CompanyUtils.SpendResources(company, cost);
         }
 
         public static long GetTestCampaignClientGain(GameContext gameContext, GameEntity company)

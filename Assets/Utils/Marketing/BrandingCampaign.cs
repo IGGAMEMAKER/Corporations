@@ -13,12 +13,25 @@ namespace Assets.Utils
 
             CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
 
-            var marketing = company.marketing;
-
-            int brandingGain = GetBrandingPowerGain(gameContext, company);
-            company.ReplaceMarketing(marketing.BrandPower + brandingGain, marketing.Segments);
+            AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
+            AddMassUsersWhileBrandingCampaign(company, gameContext);
 
             CompanyUtils.SpendResources(company, resources);
+        }
+
+        public static void AddBrandPower(GameEntity company, int power)
+        {
+            var marketing = company.marketing;
+
+            company.ReplaceMarketing(marketing.BrandPower + power, marketing.Segments);
+        }
+
+        public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
+        {
+            var costs = GetNicheCosts(gameContext, company);
+            var clients = costs.ClientBatch * 10;
+
+            AddClients(company, UserType.Mass, clients);
         }
 
         public static TeamResource GetBrandingCost(GameContext gameContext, GameEntity company)

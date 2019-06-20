@@ -24,6 +24,25 @@ namespace Assets.Utils
             return amount;
         }
 
+        public static void AddClients(GameEntity company, UserType userType, long clients)
+        {
+            var marketing = company.marketing;
+
+            marketing.Segments[UserType.Core] += clients;
+
+            company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
+        }
+
+        public static NicheCostsComponent GetNicheCosts(GameContext gameContext, GameEntity company)
+        {
+            return GetNicheCosts(gameContext, company.product.Niche);
+        }
+
+        public static NicheCostsComponent GetNicheCosts(GameContext gameContext, NicheType nicheType)
+        {
+            return NicheUtils.GetNicheEntity(gameContext, nicheType).nicheCosts;
+        }
+
         public static string GetAudienceHint(GameContext gameContext, UserType userType, GameEntity company)
         {
             StringBuilder hint = new StringBuilder();
