@@ -2,7 +2,6 @@
 
 public class InvestmentScreen : View
 {
-    public GameObject DirectorsBoard;
     public GameObject InvestmentActions;
 
     void OnEnable()
@@ -12,7 +11,6 @@ public class InvestmentScreen : View
 
     void ToggleVisibility(bool show)
     {
-        DirectorsBoard.SetActive(show);
         InvestmentActions.SetActive(show);
     }
 }
