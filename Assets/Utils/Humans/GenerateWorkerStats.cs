@@ -37,6 +37,14 @@ namespace Assets.Utils
 
                 case WorkerRole.ProductManager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
+                    SetPrimarySkill(worker, WorkerRole.Business);
+
+                    SetPrimaryTrait(worker, TraitType.Vision);
+                    break;
+
+                case WorkerRole.ProjectManager:
+                    SetPrimarySkill(worker, WorkerRole.Manager);
+                    SetPrimarySkill(worker, WorkerRole.Business);
 
                     SetPrimaryTrait(worker, TraitType.Vision);
                     break;
