@@ -66,6 +66,23 @@ namespace Assets.Utils
             }
         }
 
+
+        // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
+        public static bool HasSegmentCooldown(GameEntity product, UserType userType)
+        {
+            var cooldown = new CooldownImproveSegment(userType);
+
+            return CompanyUtils.HasCooldown(product, cooldown);
+        }
+
+        public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
+        {
+            var costs = GetSegmentUpgradeCost(product, gameContext, userType);
+
+            return CompanyUtils.IsEnoughResources(product, costs);
+        }
+
+        // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
         public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
         {
             var cooldown = new CooldownImproveSegment(userType);
