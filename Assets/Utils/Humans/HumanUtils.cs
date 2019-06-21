@@ -33,6 +33,13 @@ namespace Assets.Utils
             return worker.worker.WorkerRole;
         }
 
+        public static int GetOverallRating(int humanId, GameContext gameContext)
+        {
+            var worker = GetHumanById(gameContext, humanId);
+
+            return GetOverallRating(worker, gameContext);
+        }
+
         public static int GetOverallRating(GameEntity worker, GameContext gameContext)
         {
             var role = GetRole(worker);

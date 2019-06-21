@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ public class WorkerListView : ListView
     {
         base.ViewRender();
 
-        SetItems(SelectedCompany.team.Workers.OrderBy(p => -GetWorkerOrder(p.Value)).ToArray());
+        SetItems(SelectedCompany.team.Workers.OrderBy(p => - (GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext))).ToArray());
     }
 
     Func<WorkerRole, int> GetWorkerOrder = role =>
