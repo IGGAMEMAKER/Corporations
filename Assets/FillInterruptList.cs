@@ -5,9 +5,11 @@ public class FillInterruptList : View
 {
     public GameObject CanUpgradeSegment;
     public GameObject CanHireEmployee;
+    public GameObject CanCompleteGoal;
 
     public GameObject InvestorLoyaltyWarning;
     public GameObject TeamLoyaltyWarning;
+    public GameObject NeedToCompleteGoal;
 
     public GameObject InvestorLoyaltyThreat;
     public GameObject TeamLoyaltyThreat;
@@ -17,9 +19,12 @@ public class FillInterruptList : View
         base.ViewRender();
 
         bool isCanUpgradeSegment = CheckSegments();
+        bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
 
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
+        CanCompleteGoal.SetActive(isCanCompleteGoal);
+        NeedToCompleteGoal.SetActive(!isCanCompleteGoal);
 
         CanHireEmployee.SetActive(isNeedsInterrupt);
 
@@ -28,6 +33,11 @@ public class FillInterruptList : View
 
         InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
         TeamLoyaltyThreat.SetActive(isNeedsInterrupt);
+    }
+
+    bool CheckGoal()
+    {
+        return InvestmentUtils.IsGoalCompleted(MyCompany, GameContext);
     }
 
     private bool CheckSegments()
