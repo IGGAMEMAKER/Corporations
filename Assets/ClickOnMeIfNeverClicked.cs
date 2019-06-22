@@ -1,6 +1,8 @@
 ﻿using Assets.Utils.Tutorial;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
+[RequireComponent(typeof(ListenTutorialChanges))]
 public class ClickOnMeIfNeverClicked : BlinkOrDestroyOnSomeCondition
 {
     public TutorialFunctionality TutorialFunctionality;

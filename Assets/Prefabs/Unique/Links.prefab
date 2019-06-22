@@ -353,11 +353,10 @@ GameObject:
   - component: {fileID: 1933251343164537109}
   - component: {fileID: 1933251343164537110}
   - component: {fileID: 1933251343164537111}
-  - component: {fileID: 1933251343164537108}
   - component: {fileID: 1933251343164537115}
-  - component: {fileID: 1933251343164537114}
   - component: {fileID: 7584883044794225465}
   - component: {fileID: 402600145333624462}
+  - component: {fileID: 1926484109731881075}
   m_Layer: 5
   m_Name: Funds
   m_TagString: Untagged
@@ -464,20 +463,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1933251343164537108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933251343164537105}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0a773d7ba5e199408a0f276ca0ea813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
-  CompanyId: 0
 --- !u!114 &1933251343164537115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,20 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37b7599ff19e074ba1e6f711e86fd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1933251343164537114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933251343164537105}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139a92a3caed8b84fa4d9514f5e39a6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetCompany: 1
-  companyId: 0
 --- !u!114 &7584883044794225465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,7 +501,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba543140089c7e44bb42d06b40a1068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialFunctionality: 5
+  TutorialFunctionality: 13
+--- !u!114 &1926484109731881075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933251343164537105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc258cf7bdaa734a95b40fb6d935853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1933251343817564180
 GameObject:
   m_ObjectHideFlags: 0

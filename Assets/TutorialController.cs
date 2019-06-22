@@ -22,7 +22,9 @@ public enum TutorialFunctionality
 
     NeverShow,
 
-    CompletedFirstGoal
+    CompletedFirstGoal,
+    
+    ClickOnRaiseMoneyLink
 }
 
 

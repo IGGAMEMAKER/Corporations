@@ -21,7 +21,7 @@ public abstract class BlinkOrDestroyOnSomeCondition : View
         Render();
     }
 
-    void OnEnable()
+    void Manage()
     {
         duration = 0;
 
@@ -31,7 +31,17 @@ public abstract class BlinkOrDestroyOnSomeCondition : View
             animated = true;
     }
 
-    
+    void OnEnable()
+    {
+        Manage();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Manage();
+    }
 
     private void OnDisable()
     {
