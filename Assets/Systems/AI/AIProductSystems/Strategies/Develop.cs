@@ -28,15 +28,17 @@ public partial class AIProductSystems : OnDateChange
     {
         switch (company.companyGoal.InvestorGoal)
         {
-            case InvestorGoal.Prototype: BecomeMarketFit(company); break;
-            case InvestorGoal.Release: BecomeMarketFit(company); break;
-            case InvestorGoal.FirstUsers: BecomeMarketFit(company); break;
+            case InvestorGoal.Prototype: Prototype(company); break;
+            case InvestorGoal.FirstUsers: GrabFirstUsers(company); break;
+            case InvestorGoal.Release: Release(company); break;
 
             case InvestorGoal.BecomeMarketFit: BecomeMarketFit(company); break;
             case InvestorGoal.BecomeProfitable: break;
             case InvestorGoal.GrowCompanyCost: break;
             case InvestorGoal.IPO: break;
         }
+
+        InvestmentUtils.CompleteGoal(company, gameContext, false);
 
         return;
 

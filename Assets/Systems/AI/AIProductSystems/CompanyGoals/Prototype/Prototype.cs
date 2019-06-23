@@ -1,13 +1,9 @@
 ﻿public partial class AIProductSystems : OnDateChange
 {
-    void BecomeMarketFit(GameEntity company)
+    void Prototype(GameEntity company)
     {
-        ManageTeam(company);
-
         Crunch(company);
 
         ImproveSegments(company);
-
-        GrabTestClients(company);
     }
 }

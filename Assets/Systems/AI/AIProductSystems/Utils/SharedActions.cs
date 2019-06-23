@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
+using Assets.Utils.Tutorial;
 using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +51,21 @@ public partial class AIProductSystems
         TeamUtils.HireWorker(company, workerRole);
 
         Print($"Hire {workerRole.ToString()}", company);
+    }
+
+    void GrabTestClients(GameEntity company)
+    {
+        if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))
+            return;
+
+        Print("Start test campaign", company);
+
+        MarketingUtils.StartTestCampaign(gameContext, company);
+    }
+
+    void StartTargetingCampaign(GameEntity company)
+    {
+        
     }
 
     void UpgradeTeam(GameEntity company)
