@@ -1,29 +1,20 @@
 ﻿using Assets.Utils;
 using UnityEngine;
 
-public class SetAmountOfStars : View
+public class SetAmountOfStars : MonoBehaviour
 {
-    public GameEntity company;
+    int stars;
 
-    public void SetEntity(GameEntity companyEntity)
+    public void SetStars(int amount)
     {
-        company = companyEntity;
+        stars = amount;
 
         Render();
     }
 
     void Render()
     {
-        int amountOfStars = CompanyEconomyUtils.GetCompanyRating(GameContext, company.company.Id);
-
         foreach (Transform child in transform)
-            child.gameObject.SetActive(child.GetSiblingIndex() < amountOfStars);
-    }
-
-    private void OnEnable()
-    {
-        company = SelectedCompany;
-
-        Render();
+            child.gameObject.SetActive(child.GetSiblingIndex() < stars);
     }
 }
