@@ -2,27 +2,11 @@
 {
     void GrowCompanyCost(GameEntity company)
     {
-        ManageTeam(company);
+        if (company.hasProduct)
+        {
+            ManageProductCompany(company);
 
-        DisableCrunches(company);
-
-        //ImproveSegments(company);
-        StayInMarket(company);
-
-        GrabTestClients(company);
-
-        TakeInvestments(company);
+            return;
+        }
     }
-
-    void ManageProductTeam(GameEntity company)
-    {
-
-    }
-
-    void ManageInvestors(GameEntity company)
-    {
-
-    }
-
-
 }
