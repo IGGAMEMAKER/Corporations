@@ -40,18 +40,25 @@ namespace Assets.Utils
             c.isCrunching = !c.isCrunching;
         }
 
-        internal static int GetPerformance(GameContext gameContext, GameEntity company)
+        public static int GetTeamSizePerformanceModifier(GameEntity company)
         {
             var teamSizeModifier = 100;
 
             switch (company.team.TeamStatus)
             {
-                case TeamStatus.Solo: teamSizeModifier = 150; break;
+                case TeamStatus.Solo: teamSizeModifier = 125; break;
                 case TeamStatus.Pair: teamSizeModifier = 100; break;
                 case TeamStatus.SmallTeam: teamSizeModifier = 75; break;
                 case TeamStatus.Department: teamSizeModifier = 50; break;
                 case TeamStatus.BigTeam: teamSizeModifier = 33; break;
             }
+
+            return teamSizeModifier;
+        }
+
+        internal static int GetPerformance(GameContext gameContext, GameEntity company)
+        {
+            var teamSizeModifier = GetTeamSizePerformanceModifier(company);
 
             int crunchingModifier = company.isCrunching ? 40 : 0;
 

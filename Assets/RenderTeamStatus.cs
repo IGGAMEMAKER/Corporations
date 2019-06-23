@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class RenderTeamStatus : View
 {
@@ -9,6 +6,6 @@ public class RenderTeamStatus : View
     {
         base.ViewRender();
 
-        GetComponent<Text>().text = MyProductEntity.team.TeamStatus.ToString();
+        GetComponent<Text>().text = SelectedCompany.team.TeamStatus.ToString();
     }
 }

@@ -54,7 +54,7 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            Debug.Log($"UpdateNicheSegmentInfo {product.company.Name} {userType}. {product.product.Segments[userType]}/{niche.segment.Segments[userType]} ");
+            //Debug.Log($"UpdateNicheSegmentInfo {product.company.Name} {userType}. {product.product.Segments[userType]}/{niche.segment.Segments[userType]} ");
 
             UpdateNicheSegmentInfo(product, niche, userType);
         }

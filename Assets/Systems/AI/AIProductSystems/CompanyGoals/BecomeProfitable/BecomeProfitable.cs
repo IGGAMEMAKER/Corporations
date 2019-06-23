@@ -21,12 +21,23 @@ public partial class AIProductSystems : OnDateChange
 
         var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, company.company.Id);
 
-        if (list.Length > 0)
-        {
-            CompanyUtils.StartInvestmentRound(company);
+        if (list.Length == 0)
+            return;
 
-            foreach (var s in list)
-                CompanyUtils.AcceptProposal(gameContext, company.company.Id, s.shareholder.Id);
+        CompanyUtils.StartInvestmentRound(company);
+
+        foreach (var s in list)
+        {
+            var investorShareholderId = s.shareholder.Id;
+            var companyId = company.company.Id;
+
+            var proposal = CompanyUtils.GetInvestmentProposal(gameContext, companyId, investorShareholderId);
+            if (proposal == null)
+                return;
+
+            Print($"Took investments from {s.shareholder.Name}. Offer: {Format.Money(proposal.Offer)}", company);
+
+            CompanyUtils.AcceptProposal(gameContext, companyId, investorShareholderId);
         }
     }
 }
