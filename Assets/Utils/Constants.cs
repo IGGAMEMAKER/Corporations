@@ -56,6 +56,12 @@ public class Constants
     public static long COMPANY_SCORING_HIRE_PROGRAMMER = 50;
 
     public static float GAMEPLAY_OFFSET = -110f;
+
+    public static int COOLDOWN_COMPANY_GOAL = 365;
+    public static int COOLDOWN_BRANDING = 90;
+    public static int COOLDOWN_TEST_CAMPAIGN = 15;
+
+    public static int COOLDOWN_CONCEPT = 15;
 }
 
 public class VisualConstants

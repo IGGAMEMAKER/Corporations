@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -31,6 +32,19 @@ namespace Assets.Utils
         public static bool HasCooldown(GameEntity gameEntity, Cooldown cooldown)
         {
             return gameEntity.cooldowns.Cooldowns.Find(cd => cd.Compare(cooldown)) != null;
+        }
+
+
+        public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration, TeamResource resources)
+        {
+            AddCooldown(gameContext, company, cooldown, duration);
+            SpendResources(company, resources);
+        }
+
+        public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration, TeamResource resources)
+        {
+            AddCooldown(gameContext, company, cooldownType, duration);
+            SpendResources(company, resources);
         }
     }
 }

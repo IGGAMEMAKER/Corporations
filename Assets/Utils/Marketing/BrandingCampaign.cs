@@ -14,8 +14,15 @@ namespace Assets.Utils
             AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
             AddMassUsersWhileBrandingCampaign(company, gameContext);
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
+            var duration = GetBrandingCampaignCooldownDuration(gameContext, company);
+
+            CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, duration);
             CompanyUtils.SpendResources(company, resources);
+        }
+
+        public static int GetBrandingCampaignCooldownDuration(GameContext gameContext, GameEntity company)
+        {
+            return Constants.COOLDOWN_BRANDING;
         }
 
         public static void AddBrandPower(GameEntity company, int power)

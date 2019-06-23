@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using Assets.Utils;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -32,9 +33,13 @@ public partial class AIProductSystems : OnDateChange
     {
         var requiredMarketingCost = new TeamResource();
 
-        //var testSpeed = 
+        var testSpeed = MarketingUtils.GetTestCampaignDuration(gameContext, company);
+        var brandingSpeed = MarketingUtils.GetBrandingCampaignCooldownDuration(gameContext, company);
 
-        //requiredMarketingCost += 
+        var testCost = MarketingUtils.GetTestCampaignCost(gameContext, company);
+        var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
+
+        requiredMarketingCost += testCost + brandingCost;
     }
 
     void ManageInvestors(GameEntity company)

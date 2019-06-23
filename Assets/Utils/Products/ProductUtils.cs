@@ -113,8 +113,19 @@ namespace Assets.Utils
             product.ReplaceProduct(p.Id, p.Niche, dict);
 
 
-            CompanyUtils.SpendResources(product, costs);
-            CompanyUtils.AddCooldown(gameContext, product, cooldown, 15);
+            var duration = GetSegmentImprovementDuration(gameContext, product);
+            CompanyUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
+        }
+
+        public static int GetSegmentImprovementDuration(GameContext gameContext, GameEntity company)
+        {
+            var speed = TeamUtils.GetPerformance(gameContext, company);
+
+            var innovation = IsWillInnovate(company, gameContext, UserType.Core) ? 4 : 1;
+
+            var random = Random.Range(1, 1.3f);
+
+            return (int)(Constants.COOLDOWN_CONCEPT * random * innovation * 100 / speed);
         }
 
         public static int GetTotalImprovements(GameEntity product)

@@ -42,9 +42,20 @@ namespace Assets.Utils
 
         internal static int GetPerformance(GameContext gameContext, GameEntity company)
         {
+            var teamSizeModifier = 100;
+
+            switch (company.team.TeamStatus)
+            {
+                case TeamStatus.Solo: teamSizeModifier = 150; break;
+                case TeamStatus.Pair: teamSizeModifier = 100; break;
+                case TeamStatus.SmallTeam: teamSizeModifier = 75; break;
+                case TeamStatus.Department: teamSizeModifier = 50; break;
+                case TeamStatus.BigTeam: teamSizeModifier = 33; break;
+            }
+
             int crunchingModifier = company.isCrunching ? 40 : 0;
 
-            return 100 + crunchingModifier;
+            return teamSizeModifier + crunchingModifier;
         }
 
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole, GameContext gameContext)

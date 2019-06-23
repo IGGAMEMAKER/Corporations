@@ -17,8 +17,15 @@ namespace Assets.Utils
             AddClients(company, UserType.Core, GetTestCampaignClientGain(gameContext, company));
             GetFeedbackFromTestCampaign(company);
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, 15);
+            var duration = GetTestCampaignDuration(gameContext, company);
+
+            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, duration);
             CompanyUtils.SpendResources(company, cost);
+        }
+
+        public static int GetTestCampaignDuration(GameContext gameContext, GameEntity company)
+        {
+            return Constants.COOLDOWN_TEST_CAMPAIGN;
         }
 
         public static long GetTestCampaignClientGain(GameContext gameContext, GameEntity company)
