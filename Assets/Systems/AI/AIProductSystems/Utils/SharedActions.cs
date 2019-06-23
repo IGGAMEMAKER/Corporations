@@ -44,4 +44,32 @@ public partial class AIProductSystems
 
         ProductUtils.SetPrice(product, price);
     }
+
+    void HireWorker(GameEntity company, WorkerRole workerRole)
+    {
+        TeamUtils.HireWorker(company, workerRole);
+
+        Print($"Hire {workerRole.ToString()}", company);
+    }
+
+    void UpgradeTeam(GameEntity company)
+    {
+        var status = company.team.TeamStatus;
+
+        TeamUtils.Promote(company);
+
+        Print($"Upgrade team from {status.ToString()}", company);
+
+        if (status == TeamStatus.Pair)
+        {
+            Print($"Set universal worker as CEO", company);
+
+            TeamUtils.SetRole(company, company.cEO.HumanId, WorkerRole.Business, gameContext);
+        }
+
+        if (status == TeamStatus.SmallTeam)
+        {
+
+        }
+    }
 }
