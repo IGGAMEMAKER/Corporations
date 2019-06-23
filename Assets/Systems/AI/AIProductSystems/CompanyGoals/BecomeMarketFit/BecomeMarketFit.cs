@@ -8,6 +8,8 @@
 
         ImproveSegments(company);
 
+        StartTargetingCampaign(company);
+
         GrabTestClients(company);
     }
 }
