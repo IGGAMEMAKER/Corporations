@@ -1,22 +1,11 @@
 ﻿using Assets.Utils;
 
 public class FillPossibleInvestorsList : View
-    , IAnyDateListener
 {
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    public override void ViewRender()
     {
-        Render();
-    }
+        base.ViewRender();
 
-    void OnEnable()
-    {
-        LazyUpdate(this);
-
-        Render();
-    }
-
-    void Render()
-    {
         var list = CompanyUtils.GetPotentialInvestors(GameContext, SelectedCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
