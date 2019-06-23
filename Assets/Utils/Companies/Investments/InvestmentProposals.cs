@@ -63,6 +63,9 @@ namespace Assets.Utils
         {
             var p = GetInvestmentProposal(gameContext, companyId, investorId);
 
+            if (p == null)
+                return;
+
             long cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
 
             int shares = Convert.ToInt32(GetTotalShares(gameContext, companyId) * p.Offer / cost);

@@ -114,7 +114,7 @@ namespace Assets.Utils
             return new GoalRequirements
             {
                 have = company.product.Segments[UserType.Core],
-                need = 10
+                need = 5
             };
         }
     }

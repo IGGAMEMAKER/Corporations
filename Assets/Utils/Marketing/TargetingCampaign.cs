@@ -21,7 +21,8 @@ namespace Assets.Utils
 
         public static void ToggleTargeting(GameEntity company)
         {
-            company.AddEventMarketingEnableTargeting(company.company.Id);
+            //company.AddEventMarketingEnableTargeting(company.company.Id);
+            company.isTargeting = true;
         }
 
         public static int GetMarketingFinancingPriceModifier(MarketingFinancing financing)
