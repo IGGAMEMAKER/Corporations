@@ -33,7 +33,7 @@ public partial class AIProductSystems : OnDateChange
             case InvestorGoal.Release: Release(company); break;
 
             case InvestorGoal.BecomeMarketFit: BecomeMarketFit(company); break;
-            case InvestorGoal.BecomeProfitable: break;
+            case InvestorGoal.BecomeProfitable: BecomeProfitable(company); break;
             case InvestorGoal.GrowCompanyCost: break;
             case InvestorGoal.IPO: break;
         }

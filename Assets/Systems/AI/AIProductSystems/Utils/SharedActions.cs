@@ -1,9 +1,5 @@
-﻿using Assets.Classes;
-using Assets.Utils;
+﻿using Assets.Utils;
 using Assets.Utils.Tutorial;
-using Entitas;
-using System.Collections.Generic;
-using UnityEngine;
 
 // actions used in multiple strategies
 public partial class AIProductSystems
@@ -21,7 +17,7 @@ public partial class AIProductSystems
 
     void StayInMarket(GameEntity product)
     {
-        if (!ProductUtils.IsWillInnovate(product, gameContext, UserType.Core))
+        if (ProductUtils.IsInMarket(product, gameContext))
             UpgradeSegment(product, UserType.Core);
     }
 
@@ -71,7 +67,8 @@ public partial class AIProductSystems
 
     void StartTargetingCampaign(GameEntity company)
     {
-        
+        //MyProductEntity.AddEventMarketingEnableTargeting(productId);
+        MarketingUtils.ToggleTargeting(company);
     }
 
     void UpgradeTeam(GameEntity company)

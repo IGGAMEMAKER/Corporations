@@ -30,6 +30,11 @@ namespace Assets.Utils
             return niche.segment.Segments[userType];
         }
 
+        public static bool IsInMarket(GameEntity product, GameContext gameContext)
+        {
+            return !IsWillInnovate(product, gameContext, UserType.Core);
+        }
+
         public static bool IsWillInnovate(GameEntity product, GameContext gameContext, UserType userType)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);

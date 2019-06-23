@@ -19,6 +19,11 @@ namespace Assets.Utils
             return new TeamResource(0, 0, 0, 0, adCost * financing);
         }
 
+        public static void ToggleTargeting(GameEntity company)
+        {
+            company.AddEventMarketingEnableTargeting(company.company.Id);
+        }
+
         public static int GetMarketingFinancingPriceModifier(MarketingFinancing financing)
         {
             switch (financing)
