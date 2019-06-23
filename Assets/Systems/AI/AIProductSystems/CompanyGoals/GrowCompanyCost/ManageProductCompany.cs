@@ -30,7 +30,7 @@
         TakeInvestments(company);
 
         // loyalties
-
+        // 
     }
 
     void ManageCompanyMarketing(GameEntity company)
