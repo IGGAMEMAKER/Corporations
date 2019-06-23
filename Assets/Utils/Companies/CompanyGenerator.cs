@@ -5,12 +5,12 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static GameEntity GenerateProduct(GameContext context, GameEntity company, NicheType niche)
+        public static GameEntity CreateProduct(GameContext context, GameEntity company, NicheType niche)
         {
             var GOAL = InvestorGoal.Prototype;
 
 
-            int brandPower = UnityEngine.Random.Range(0, 15);
+            int brandPower = 0;
 
             var Segments = new Dictionary<UserType, long>
             {
