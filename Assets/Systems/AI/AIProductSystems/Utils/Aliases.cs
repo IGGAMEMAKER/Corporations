@@ -24,6 +24,11 @@ public partial class AIProductSystems
         return goal;
     }
 
+    int GetDate()
+    {
+        return ScheduleUtils.GetCurrentDate(gameContext);
+    }
+
     // logging
     TestComponent GetLogs()
     {

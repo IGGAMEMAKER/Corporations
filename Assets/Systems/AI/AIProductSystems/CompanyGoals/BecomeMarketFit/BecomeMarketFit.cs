@@ -23,15 +23,4 @@ public partial class AIProductSystems : OnDateChange
 
         MarketingUtils.StartTestCampaign(gameContext, company);
     }
-
-    int GetDate()
-    {
-        return ScheduleUtils.GetCurrentDate(gameContext);
-    }
-
-    void Crunch(GameEntity product)
-    {
-        //if (!product.isCrunching)
-        //    TeamUtils.ToggleCrunching(gameContext, product.company.Id);
-    }
 }
