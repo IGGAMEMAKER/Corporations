@@ -82,6 +82,11 @@ public partial class AIProductSystems
         MarketingUtils.ToggleTargeting(company);
     }
 
+    void StartBrandingCampaign(GameEntity company)
+    {
+        MarketingUtils.StartBrandingCampaign(gameContext, company);
+    }
+
     void UpgradeTeam(GameEntity company)
     {
         var status = company.team.TeamStatus;

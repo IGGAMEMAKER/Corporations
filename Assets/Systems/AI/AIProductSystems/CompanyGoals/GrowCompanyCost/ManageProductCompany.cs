@@ -1,4 +1,6 @@
-﻿public partial class AIProductSystems : OnDateChange
+﻿using Assets.Classes;
+
+public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity company)
     {
@@ -15,13 +17,24 @@
     {
         DisableCrunches(company);
 
-        ManageTeam(company);
+        ManageSmallTeam(company);
+
+        ManageExpandedMarketingTeam(company);
     }
 
     void ManageProductDevelopment(GameEntity company)
     {
         //ImproveSegments(company);
         StayInMarket(company);
+    }
+
+    void ManageExpandedMarketingTeam(GameEntity company)
+    {
+        var requiredMarketingCost = new TeamResource();
+
+        //var testSpeed = 
+
+        //requiredMarketingCost += 
     }
 
     void ManageInvestors(GameEntity company)
@@ -35,6 +48,10 @@
 
     void ManageCompanyMarketing(GameEntity company)
     {
+        StartTargetingCampaign(company);
+
         GrabTestClients(company);
+
+        StartBrandingCampaign(company);
     }
 }

@@ -4,7 +4,7 @@ public partial class AIProductSystems : OnDateChange
 {
     void BecomeProfitable(GameEntity company)
     {
-        ManageTeam(company);
+        ManageSmallTeam(company);
 
         StayInMarket(company);
 

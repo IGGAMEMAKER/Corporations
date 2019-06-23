@@ -3,7 +3,7 @@ using Assets.Utils;
 
 public partial class AIProductSystems : OnDateChange
 {
-    void ManageTeam(GameEntity company)
+    void ManageSmallTeam(GameEntity company)
     {
         if (TeamUtils.IsWillOverextendTeam(company))
         {

@@ -2,7 +2,7 @@
 {
     void BecomeMarketFit(GameEntity company)
     {
-        ManageTeam(company);
+        ManageSmallTeam(company);
 
         Crunch(company);
 
