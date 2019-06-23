@@ -46,11 +46,11 @@ public class FillInterruptList : View
         if (CheckCanUpgradeSegment(UserType.Core))
             return true;
 
-        if (CheckCanUpgradeSegment(UserType.Regular))
-            return true;
+        //if (CheckCanUpgradeSegment(UserType.Regular))
+        //    return true;
 
-        if (CheckCanUpgradeSegment(UserType.Mass))
-            return true;
+        //if (CheckCanUpgradeSegment(UserType.Mass))
+        //    return true;
 
         return false;
     }

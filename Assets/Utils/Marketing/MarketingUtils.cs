@@ -28,7 +28,8 @@ namespace Assets.Utils
         {
             var marketing = company.marketing;
 
-            marketing.Segments[userType] += clients;
+            //marketing.Segments[userType] += clients;
+            marketing.Segments[UserType.Core] += clients;
 
             company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
         }

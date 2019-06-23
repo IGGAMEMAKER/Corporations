@@ -64,7 +64,7 @@ public class ClientSegmentPreview : View
         UpdateSegmentController.gameObject.GetComponent<CheckSegmentImprovementResources>().SetSegment(UserType);
 
         bool isInnovation = ProductUtils.IsWillInnovate(MyProductEntity, GameContext, UserType);
-        UpdateSegmentController.gameObject.GetComponentInChildren<Text>().text = isInnovation ? "Make an innovation!" : "Copy competitors";
+        UpdateSegmentController.gameObject.GetComponentInChildren<Text>().text = isInnovation ? "Improve app\n(Make an innovation!)" : "Improve app\n(Copy competitors)";
     }
 
     void RenderSegmentLevel(UserType userType, GameEntity company)

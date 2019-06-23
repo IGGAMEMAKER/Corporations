@@ -83,8 +83,10 @@ namespace Assets.Utils
         }
 
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
-        public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType)
+        public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType1)
         {
+            var userType = UserType.Core;
+
             var cooldown = new CooldownImproveSegment(userType);
 
             if (CompanyUtils.HasCooldown(product, cooldown))
