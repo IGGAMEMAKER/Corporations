@@ -2,11 +2,11 @@
 {
     void GrowCompanyCost(GameEntity company)
     {
-        if (company.hasProduct)
+        switch (company.company.CompanyType)
         {
-            ManageProductCompany(company);
-
-            return;
+            case CompanyType.ProductCompany:
+                ManageProductCompany(company);
+                break;
         }
     }
 }

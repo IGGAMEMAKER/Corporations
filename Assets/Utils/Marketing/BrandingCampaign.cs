@@ -11,11 +11,10 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(company, resources) || CompanyUtils.HasCooldown(company, CooldownType.BrandingCampaign))
                 return;
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
-
             AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
             AddMassUsersWhileBrandingCampaign(company, gameContext);
 
+            CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, 90);
             CompanyUtils.SpendResources(company, resources);
         }
 
@@ -40,7 +39,7 @@ namespace Assets.Utils
 
             var costs = NicheUtils.GetNicheEntity(gameContext, company.product.Niche).nicheCosts;
 
-            var marketingCost = costs.MarketingCost * 10 * financing;
+            var marketingCost = costs.MarketingCost * 3 * financing;
             var moneyCost = costs.AdCost * 10 * financing;
 
             return new TeamResource(0, 0, marketingCost, 0, moneyCost);
@@ -50,7 +49,9 @@ namespace Assets.Utils
         {
             int techLeadershipBonus = company.isTechnologyLeader ? 2 : 1;
 
-            return GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing) * techLeadershipBonus;
+            int marketingDirectorBonus = 1;
+
+            return GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing) * techLeadershipBonus * marketingDirectorBonus;
         }
 
 
