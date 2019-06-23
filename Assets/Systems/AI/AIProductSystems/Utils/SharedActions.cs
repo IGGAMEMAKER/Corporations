@@ -21,6 +21,11 @@ public partial class AIProductSystems
             UpgradeSegment(product, UserType.Core);
     }
 
+    void Innovate(GameEntity product)
+    {
+        UpgradeSegment(product, UserType.Core);
+    } 
+
     void DecreasePrices(GameEntity product)
     {
         var price = product.finance.price;

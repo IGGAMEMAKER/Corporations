@@ -27,28 +27,33 @@ public partial class AIProductSystems : OnDateChange
 
     int GetMarketDifference(GameEntity company)
     {
-        return 0;
+        return ProductUtils.GetSegmentMarketDemand(company, gameContext, UserType.Core) - company.product.Segments[UserType.Core];
     }
 
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
+        var stayInMarket = GetSegmentCost(company, UserType.Core);
+
+        //// + 1 means that we want to become tech leaders
         var marketDiff = GetMarketDifference(company) + 1;
-        // + 1 means that we want to become tech leaders
 
-        var concept = GetConceptCost(company);
+        return GetSegmentCost(company, UserType.Core) * marketDiff;
 
-        var loyaltyCore = GetSegmentLoyalty(company, UserType.Core);
-        var loyaltyRegular = GetSegmentLoyalty(company, UserType.Regular);
 
-        // if loyalties are negative, we need to improve them
-        var loyaltyCoreDiff = loyaltyCore > 0 ? 0 : -loyaltyCore;
-        var loyaltyRegularDiff = loyaltyRegular > 0 ? 0 : -loyaltyRegular;
+        //var concept = GetConceptCost(company);
 
-        var segmentCoreCost = GetSegmentCost(company, UserType.Core);
-        var segmentRegularCost = GetSegmentCost(company, UserType.Regular);
+        //var loyaltyCore = GetSegmentLoyalty(company, UserType.Core);
+        //var loyaltyRegular = GetSegmentLoyalty(company, UserType.Regular);
 
-        return (concept * marketDiff) + (segmentCoreCost * loyaltyCoreDiff) + (segmentRegularCost * loyaltyRegularDiff);
+        //// if loyalties are negative, we need to improve them
+        //var loyaltyCoreDiff = loyaltyCore > 0 ? 0 : -loyaltyCore;
+        //var loyaltyRegularDiff = loyaltyRegular > 0 ? 0 : -loyaltyRegular;
+
+        //var segmentCoreCost = GetSegmentCost(company, UserType.Core);
+        //var segmentRegularCost = GetSegmentCost(company, UserType.Regular);
+
+        //return (concept * marketDiff) + (segmentCoreCost * loyaltyCoreDiff) + (segmentRegularCost * loyaltyRegularDiff);
     }
 
     // 1 - we need more programmers
