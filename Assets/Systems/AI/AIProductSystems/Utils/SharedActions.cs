@@ -19,6 +19,12 @@ public partial class AIProductSystems
         ProductUtils.UpdateSegment(product, gameContext, userType);
     }
 
+    void StayInMarket(GameEntity product)
+    {
+        if (!ProductUtils.IsWillInnovate(product, gameContext, UserType.Core))
+            UpgradeSegment(product, UserType.Core);
+    }
+
     void DecreasePrices(GameEntity product)
     {
         var price = product.finance.price;

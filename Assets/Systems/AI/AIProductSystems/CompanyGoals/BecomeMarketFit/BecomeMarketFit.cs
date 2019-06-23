@@ -6,9 +6,8 @@
 
         Crunch(company);
 
-        ImproveSegments(company);
-
-        StartTargetingCampaign(company);
+        //ImproveSegments(company);
+        StayInMarket(company);
 
         GrabTestClients(company);
     }
