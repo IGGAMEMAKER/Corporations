@@ -45,7 +45,7 @@ public class ClientSegmentPreview : View
     {
         var c = CompanyUtils.GetCompanyById(GameContext, CompanyId);
 
-        UserTypeLabel.text = EnumUtils.GetFormattedUserType(UserType);
+        UserTypeLabel.text = ""; // EnumUtils.GetFormattedUserType(UserType);
 
 
         RenderAudience(UserType, c);
@@ -78,7 +78,9 @@ public class ClientSegmentPreview : View
 
         var apps = String.Join("\n", NicheUtils.GetCompetitorSegmentLevels(MyProductEntity, GameContext, userType));
 
-        var hint = $"Best apps for {EnumUtils.GetFormattedUserType(userType)}\n\n{apps}";
+
+        // for {EnumUtils.GetFormattedUserType(userType)}
+        var hint = $"Best apps \n\n{apps}";
 
         LoyaltyHint.SetHint(hint);
     }
