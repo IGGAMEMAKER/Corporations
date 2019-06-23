@@ -61,6 +61,7 @@ public class WorkerListView : ListView
     {
         var first = -1;
         var second = 1;
+
         if (role1 == WorkerRole.Business)
             return first;
 
