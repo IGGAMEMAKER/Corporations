@@ -49,6 +49,9 @@
         {
             var nextGoal = GetNextGoal(company.companyGoal.InvestorGoal);
 
+            if (nextGoal == InvestorGoal.GrowCompanyCost && CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id) > Constants.IPO_REQUIREMENTS_COMPANY_COST / 2)
+                nextGoal = InvestorGoal.IPO;
+
             if (forceComplete || IsGoalCompleted(company, gameContext))
                 SetCompanyGoal(gameContext, company, nextGoal, 365);
         }

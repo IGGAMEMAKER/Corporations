@@ -6,8 +6,14 @@ public partial class AIProductSystems
 {
     void Crunch(GameEntity product)
     {
-        //if (!product.isCrunching)
-        //    TeamUtils.ToggleCrunching(gameContext, product.company.Id);
+        if (!product.isCrunching)
+            TeamUtils.ToggleCrunching(gameContext, product.company.Id);
+    }
+
+    void DisableCrunches(GameEntity product)
+    {
+        if (product.isCrunching)
+            TeamUtils.ToggleCrunching(gameContext, product.company.Id);
     }
 
     void UpgradeSegment(GameEntity product, UserType userType)
