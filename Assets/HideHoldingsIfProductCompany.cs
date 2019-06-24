@@ -1,6 +1,6 @@
 ﻿public class HideHoldingsIfProductCompany : HideOnSomeCondition
 {
-    public override bool HideIfTrue()
+    public override bool HideIf()
     {
         return SelectedCompany.hasProduct;
     }

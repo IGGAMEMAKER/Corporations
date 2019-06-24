@@ -8,12 +8,12 @@ public abstract class HideOnSomeCondition : View
     {
         base.ViewRender();
 
-        bool show = !HideIfTrue();
+        bool show = !HideIf();
 
         foreach (var item in HideableItems)
             item.SetActive(show);
     }
 
     // hide if true
-    public abstract bool HideIfTrue();
+    public abstract bool HideIf();
 }

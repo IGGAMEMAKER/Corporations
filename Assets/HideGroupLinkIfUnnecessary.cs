@@ -3,8 +3,8 @@
 [RequireComponent(typeof(ListenAnyCompanyChanges))]
 public class HideGroupLinkIfUnnecessary : HideOnSomeCondition
 {
-    public override bool HideIfTrue()
+    public override bool HideIf()
     {
-        return !HasGroupCompany;
+        return MyGroupEntity == null;
     }
 }

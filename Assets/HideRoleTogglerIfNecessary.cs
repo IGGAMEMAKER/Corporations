@@ -2,7 +2,7 @@
 
 public class HideRoleTogglerIfNecessary : HideOnSomeCondition
 {
-    public override bool HideIfTrue()
+    public override bool HideIf()
     {
         var myCompany = MyProductEntity.company.Id;
 
