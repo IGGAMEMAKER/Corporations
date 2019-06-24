@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         public static GameEntity CreateProduct(GameContext context, GameEntity company, NicheType niche)
         {
-            var GOAL = InvestorGoal.Prototype;
+            var GOAL = InvestorGoal.GrowCompanyCost;
 
 
             int brandPower = 0;

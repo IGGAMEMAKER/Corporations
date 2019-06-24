@@ -4,58 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GroupManagementScreen : View
-    , IMenuListener
 {
     public Text GroupBalance;
-    public Text GroupName;
     public CompanyPreviewView CompanyPreviewView;
 
     public Text SelectedCompanyName;
     public Text SelectedCompanyBalance;
     public ColoredValuePositiveOrNegative SelectedCompanyROI;
-
-    public Text ControlValue;
-
-    public Button InvestButton;
-
-    private void OnEnable()
-    {
-        if (MyGroupEntity == null)
-        {
-            ScreenUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, null);
-
-            return;
-        }
-
-        CompanyPreviewView.SetEntity(MyGroupEntity);
-
-        GroupBalance.text = Format.Shorten(MyGroupEntity.companyResource.Resources.money);
-
-        Render();
-    }
-
-    void Start()
-    {
-        ListenMenuChanges(this);
-
-        // TODO GROUP MANAGEMENT SCREEN
-
-        Destroy(CompanyPreviewView.GetComponent<LinkToProjectView>());
-        //CompanyPreviewView.gameObject.AddComponent<SelectCompanyController>().companyId = MyGroupEntity.company.Id;
-    }
-
-    void ToggleCEOButtons(bool show)
-    {
-        InvestButton.interactable = show;
-    }
-
-    void RenderCEOButtons()
-    {
-        if (IsHasShares() && IsDomineering())
-            ToggleCEOButtons(true);
-        else
-            ToggleCEOButtons(false);
-    }
 
     void RenderROI()
     {
@@ -65,64 +20,25 @@ public class GroupManagementScreen : View
             SelectedCompanyROI.GetComponent<Text>().text = "???";
     }
 
-    void RenderControlValue()
+    void RemoveLinkIfPossible()
     {
-        if (SelectedCompany == MyGroupEntity || !IsHasShares())
-            ControlValue.text = "---";
-        else
-        {
-            int size = GetSizeOfShares();
+        var link = CompanyPreviewView.GetComponent<LinkToProjectView>();
 
-            string shareholderStatus = GetShareholderStatus(size);
-
-            ControlValue.text = $"{size}% ({shareholderStatus})";
-        }
+        if (link)
+            Destroy(link);
     }
 
-    void Render()
+    public override void ViewRender()
     {
-        var company = SelectedCompany ?? MyGroupEntity;
+        base.ViewRender();
 
-        var c = CompanyUtils.GetCompanyById(GameContext, company.company.Id);
+        CompanyPreviewView.SetEntity(MyGroupEntity);
+        RemoveLinkIfPossible();
 
-        SelectedCompanyName.text = c.company.Name;
+        GroupBalance.text = Format.Shorten(MyGroupEntity.companyResource.Resources.money);
+
+        SelectedCompanyName.text = MyGroupEntity.company.Name;
 
         RenderROI();
-
-        RenderControlValue();
-
-        if (SelectedCompany != MyGroupEntity)
-            RenderCEOButtons();
-        else
-            ToggleCEOButtons(false);
-    }
-
-    bool IsHasShares()
-    {
-        return CompanyUtils.GetTotalShares(SelectedCompany.shareholders.Shareholders) > 0;
-    }
-
-    int GetSizeOfShares()
-    {
-        return CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
-    }
-
-    bool IsDomineering()
-    {
-        return GetSizeOfShares() > 50;
-    }
-
-    string GetShareholderStatus(int percent)
-    {
-        return CompanyUtils.GetShareholderStatus(percent);
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
-    {
-        if (screenMode == ScreenMode.GroupManagementScreen)
-        {
-            Debug.Log("GroupManagementScreen.cs Fix OnMenu!");
-            //Render();
-        }
     }
 }
