@@ -25,8 +25,8 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageProductDevelopment(GameEntity company)
     {
-        //ImproveSegments(company);
-        StayInMarket(company);
+        ImproveSegments(company);
+        //StayInMarket(company);
     }
 
     void ManageExpandedMarketingTeam(GameEntity company)
