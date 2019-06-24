@@ -10,9 +10,13 @@ namespace Assets.Utils
         {
             var c = GetCompanyById(context, companyId);
 
+            if (!c.isIndependentCompany)
+                return -1;
+
             int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
+            c.isIndependentCompany = false;
 
             return companyGroupId;
         }

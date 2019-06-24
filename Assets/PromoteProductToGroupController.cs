@@ -7,6 +7,9 @@ public class PromoteProductToGroupController : ButtonController
     {
         int groupId = CompanyUtils.PromoteProductCompanyToGroup(GameContext, MyProductEntity.company.Id);
 
+        if (groupId == -1)
+            return;
+
         if (MyGroupEntity == null)
             CompanyUtils.SetPlayerControlledCompany(GameContext, groupId);
 

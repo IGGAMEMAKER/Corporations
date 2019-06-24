@@ -96,6 +96,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public bool HasGroupCompany
+    {
+        get
+        {
+            return MyGroupEntity != null;
+        }
+    }
+
     public GameEntity MyGroupEntity
     {
         get

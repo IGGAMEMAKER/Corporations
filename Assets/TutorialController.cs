@@ -25,7 +25,8 @@ public enum TutorialFunctionality
     CompletedFirstGoal,
     
     ClickOnRaiseMoneyLink,
-    ClickOnDevelopmentLink
+    ClickOnDevelopmentLink,
+    ClickOnGroupLink,
 }
 
 
