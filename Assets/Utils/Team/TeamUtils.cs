@@ -109,5 +109,10 @@ namespace Assets.Utils
 
             company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
         }
+
+        internal static void Optimize(GameEntity company)
+        {
+
+        }
     }
 }
