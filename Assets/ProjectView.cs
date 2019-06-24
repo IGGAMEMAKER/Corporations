@@ -22,7 +22,6 @@ public class ProjectView : View
         var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
         CompanyValuation.text = Format.Money(cost);
-        //CompanyProfit.text = Format.Money(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
     }
 
     public override void ViewRender()
