@@ -9,7 +9,6 @@ public class GroupManagementScreen : View
     public CompanyPreviewView CompanyPreviewView;
 
     public Text SelectedCompanyName;
-    public Text SelectedCompanyBalance;
     public ColoredValuePositiveOrNegative SelectedCompanyROI;
 
     void RenderROI()

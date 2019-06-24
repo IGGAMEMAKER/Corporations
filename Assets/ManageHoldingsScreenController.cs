@@ -11,6 +11,8 @@ public class ManageHoldingsScreenController : View
     public Text ControlValue;
     public Button InvestButton;
 
+    public Text SelectedCompanyBalance;
+
     public override void ViewRender()
     {
         base.ViewRender();
