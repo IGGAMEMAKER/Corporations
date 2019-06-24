@@ -10,11 +10,6 @@ public class ProjectView : View
 
     public Text CompanyGoal;
 
-    private void OnEnable()
-    {
-        Render();
-    }
-
     void RenderCompanyType()
     {
         CompanyType companyType = SelectedCompany.company.CompanyType;
@@ -24,12 +19,16 @@ public class ProjectView : View
 
     void RenderCompanyEconomy()
     {
-        CompanyValuation.text = "$" + Format.Shorten(CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id));
-        //CompanyProfit.text = "$" + ValueFormatter.Shorten(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
+        var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+
+        CompanyValuation.text = Format.Money(cost);
+        //CompanyProfit.text = Format.Money(CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext));
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         RenderCompanyType();
 
         RenderCompanyEconomy();
