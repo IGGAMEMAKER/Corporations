@@ -68,10 +68,10 @@ public partial class AIProductSystems
 
     void GrabTestClients(GameEntity company)
     {
-        if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))
-            return;
+        //if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))
+        //    return;
 
-        Print("Start test campaign", company);
+        //Print("Start test campaign", company);
 
         MarketingUtils.StartTestCampaign(gameContext, company);
     }
