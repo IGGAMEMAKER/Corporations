@@ -6,6 +6,7 @@ public class RenderForGoalController : View
     public InvestorGoal TargetGoal;
 
     public bool KeepAliveIfGoalCompleted;
+    public bool Disable = false;
 
     public GameObject[] HideableObjects;
 
@@ -31,6 +32,9 @@ public class RenderForGoalController : View
     {
         get
         {
+            if (Disable)
+                return false;
+
             var goal = ObservableCompany.companyGoal.InvestorGoal;
 
             if (goal == TargetGoal)

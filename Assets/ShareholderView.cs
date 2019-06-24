@@ -5,7 +5,6 @@ public class ShareholderView : View
 {
     public Text Name;
     public Text Type;
-    public Hint Motivation;
     public Text Goal;
     public ColoredValuePositiveOrNegative Loyalty;
     public ColoredValuePositiveOrNegative LoyaltyChange;
@@ -29,12 +28,28 @@ public class ShareholderView : View
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);
     }
 
+    void AddLinkToInvestorIfPossible(InvestorType investorType)
+    {
+        switch (investorType)
+        {
+            case InvestorType.Angel:
+            case InvestorType.Founder:
+                gameObject.AddComponent<LinkToHuman>().SetHumanId(shareholder.human.Id);
+                break;
+
+            case InvestorType.Strategic:
+            case InvestorType.VentureInvestor:
+                gameObject.AddComponent<LinkToProjectView>().CompanyId = shareholder.company.Id;
+                break;
+
+        }
+    }
+
     void Render(string name, BlockOfShares shares, int totalShares, int investorId)
     {
         Name.text = name;
+        AddLinkToInvestorIfPossible(shares.InvestorType);
         
-        Goal.text = InvestmentUtils.GetInvestorGoalDescription(shares);
-
         Type.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
         Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
@@ -42,7 +57,9 @@ public class ShareholderView : View
 
         BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 
-        BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
-        BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);
+        BuyShares.gameObject.GetComponent<LinkToBuyShares>().SetInvestorId(investorId);
+
+        //BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
+        //BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);
     }
 }
