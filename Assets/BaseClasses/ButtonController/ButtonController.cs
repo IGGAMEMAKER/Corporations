@@ -97,6 +97,11 @@ public abstract partial class ButtonController
 
 public abstract partial class ButtonController
 {
+    public void GoBack()
+    {
+        ScreenUtils.NavigateBack(GameContext);
+    }
+
     // navigate
     public void Navigate(ScreenMode screenMode, string field, object data)
     {

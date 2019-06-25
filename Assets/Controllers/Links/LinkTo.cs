@@ -35,6 +35,7 @@
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
             case ScreenMode.MarketingScreen:
+
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
 
