@@ -35,7 +35,7 @@ public partial class AIProductSystems : OnDateChange
             case InvestorGoal.BecomeMarketFit: BecomeMarketFit(company); break;
             case InvestorGoal.BecomeProfitable: BecomeProfitable(company); break;
             case InvestorGoal.GrowCompanyCost: GrowCompanyCost(company); break;
-            case InvestorGoal.IPO: break;
+            case InvestorGoal.IPO: GrowCompanyCost(company); break;
         }
 
         InvestmentUtils.CompleteGoal(company, gameContext, false);
