@@ -27,7 +27,7 @@ public class CanBuySharesController : View
 
     public bool WillSell(int investorId, int companyId)
     {
-        return CompanyUtils.IsAreSharesSellable(GameContext, companyId);
+        return true; // CompanyUtils.IsAreSharesSellable(GameContext, companyId);
     }
 
     public void Render(int investorId)

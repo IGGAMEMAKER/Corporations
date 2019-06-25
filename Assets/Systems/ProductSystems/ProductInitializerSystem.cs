@@ -132,8 +132,8 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         // products
         GenerateProductCompany("facebook", NicheType.SocialNetwork);
-        GenerateProductCompany("twitter", NicheType.SocialNetwork);
-        GenerateProductCompany("vk", NicheType.SocialNetwork);
+        var twitter = GenerateProductCompany("twitter", NicheType.SocialNetwork);
+        var vk = GenerateProductCompany("vk", NicheType.SocialNetwork);
 
         var tg = GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
@@ -161,8 +161,15 @@ public class ProductInitializerSystem : IInitializeSystem
         int googleGroupId = PromoteToGroup(google);
 
         //PlayAs(tg.company.Id);
-        PlayAs(google);
-        PlayAs(alphabet);
+        //PlayAs(google);
+        //PlayAs(alphabet);
+        var mailru = GenerateHoldingCompany("MailRu");
+        AttachToHolding(mailru, vk.company.Id);
+        AttachToHolding(mailru, twitter.company.Id);
+
+        PlayAs(vk.company.Id);
+        PlayAs(mailru);
+        vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
 
         AddShareholder(yahoo, investorId2, 500);

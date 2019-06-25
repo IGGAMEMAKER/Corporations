@@ -68,7 +68,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         if (Input.GetKeyUp(KeyCode.Space))
             ToggleTimer();
 
-        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 3)
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 6)
             currentSpeed++;
 
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)

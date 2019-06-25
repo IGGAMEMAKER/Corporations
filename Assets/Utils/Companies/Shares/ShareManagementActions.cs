@@ -107,25 +107,65 @@ namespace Assets.Utils
             AddShareholder(context, companyId, investorId, b);
         }
 
+        public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
+        {
+            var shareholders = company.shareholders.Shareholders;
+            var shareholder = InvestmentUtils.GetInvestorById(gameContext, investorId).shareholder;
+
+            if (!IsInvestsInCompany(company, investorId))
+            {
+                // new investor
+                shareholders[investorId] = new BlockOfShares
+                {
+                    amount = amountOfShares,
+                    shareholderLoyalty = 100,
+                    InvestorType = shareholder.InvestorType
+                };
+            } else
+            {
+                var prev = shareholders[investorId];
+
+                shareholders[investorId] = new BlockOfShares
+                {
+                    amount = prev.amount + amountOfShares,
+                    InvestorType = prev.InvestorType,
+                    shareholderLoyalty = prev.shareholderLoyalty
+                };
+            }
+
+            ReplaceShareholders(company, shareholders);
+        }
+
+        public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
+        {
+            var shareholders = company.shareholders.Shareholders;
+            var shareholder = InvestmentUtils.GetInvestorById(gameContext, investorId).shareholder;
+
+            var prev = shareholders[investorId];
+
+            if (amountOfShares >= prev.amount)
+            {
+                // needs to be deleted
+                shareholders.Remove(investorId);
+            } else
+            {
+                shareholders[investorId] = new BlockOfShares
+                {
+                    amount = prev.amount - amountOfShares,
+                    InvestorType = prev.InvestorType,
+                    shareholderLoyalty = prev.shareholderLoyalty
+                };
+            }
+
+            ReplaceShareholders(company, shareholders);
+        }
+
         public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
         {
             var c = GetCompanyById(context, companyId);
 
-            var shareholders = c.shareholders.Shareholders;
-
-            int newSellerSharesAmount = GetAmountOfShares(context, companyId, sellerInvestorId) - amountOfShares;
-
-            var SellerBlockOfShares = shareholders[sellerInvestorId];
-            SellerBlockOfShares.amount = newSellerSharesAmount;
-
-            if (newSellerSharesAmount == 0)
-                shareholders.Remove(sellerInvestorId);
-
-
-            var BuyerBlockOfShares = shareholders[buyerInvestorId];
-            BuyerBlockOfShares.amount = GetAmountOfShares(context, companyId, buyerInvestorId) + amountOfShares;
-
-            ReplaceShareholders(c, shareholders);
+            AddShares(context, c, buyerInvestorId, amountOfShares);
+            DecreaseShares(context, c, sellerInvestorId, amountOfShares);
         }
 
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
@@ -136,6 +176,7 @@ namespace Assets.Utils
 
             TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
 
+            Debug.Log("Transferred");
             AddMoneyToInvestor(context, buyerInvestorId, -bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
