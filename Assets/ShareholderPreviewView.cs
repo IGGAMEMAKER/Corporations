@@ -53,6 +53,7 @@ public class ShareholderPreviewView : View
         NameLabel.text = ShareholderEntity.shareholder.Name;
         SharesLabel.text = Shares.amount * 100 / TotalShares + "%";
         SharesAmountHint.SetHint("");
+        SharesAmountHint.gameObject.GetComponent<LinkToBuyShares>().SetInvestorId(ShareholderEntity.shareholder.Id);
 
         AddLinkIfPossible();
     }
