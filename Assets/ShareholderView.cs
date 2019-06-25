@@ -58,8 +58,5 @@ public class ShareholderView : View
         BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 
         BuyShares.gameObject.GetComponent<LinkToBuyShares>().SetInvestorId(investorId);
-
-        //BuyShares.gameObject.GetComponent<BuyShares>().ShareholderId = investorId;
-        //BuyShares.gameObject.GetComponent<CanBuySharesController>().Render(investorId);
     }
 }
