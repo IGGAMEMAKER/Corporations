@@ -1,6 +1,7 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
 using Entitas;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +45,9 @@ public partial class AIProductSystems
     {
         var player = GetPlayerProductCompany();
 
+        if (player == null)
+            return;
+
         bool isMyCompany = company.isControlledByPlayer;
         bool isMyCompetitor = player != null && company.product.Niche == player.product.Niche;
 
@@ -82,6 +86,6 @@ public partial class AIProductSystems
 
     GameEntity GetPlayerProductCompany()
     {
-        return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product))[0];
+        return Array.Find(gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product)), t => true);
     }
 }

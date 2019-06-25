@@ -6,6 +6,7 @@
 
         var c = GetComponent<ToggleMarketingFinancingController>();
 
-        ToggleIsChosenComponent(MyProductEntity.finance.marketingFinancing == c.marketingFinancing);
+        if (HasProductCompany)
+            ToggleIsChosenComponent(MyProductEntity.finance.marketingFinancing == c.marketingFinancing);
     }
 }

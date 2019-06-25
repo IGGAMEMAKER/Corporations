@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class GroupResources : SimpleParameterView
+public class GroupResources : UpgradedParameterView
 {
     public override string RenderHint()
     {

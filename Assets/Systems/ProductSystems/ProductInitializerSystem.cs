@@ -160,7 +160,8 @@ public class ProductInitializerSystem : IInitializeSystem
 
         int googleGroupId = PromoteToGroup(google);
 
-        PlayAs(tg.company.Id);
+        //PlayAs(tg.company.Id);
+        PlayAs(alphabet);
 
 
         AddShareholder(yahoo, investorId2, 500);

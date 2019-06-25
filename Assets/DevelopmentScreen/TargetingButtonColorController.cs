@@ -4,6 +4,7 @@
     {
         base.ViewRender();
 
-        ToggleIsChosenComponent(MyProductEntity.isTargeting);
+        if (HasProductCompany)
+            ToggleIsChosenComponent(MyProductEntity.isTargeting);
     }
 }

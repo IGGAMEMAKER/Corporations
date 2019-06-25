@@ -57,6 +57,9 @@ public class MenuResourceView : View
 
     public void Render()
     {
+        if (!HasProductCompany)
+            return;
+
         Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
 
         return;

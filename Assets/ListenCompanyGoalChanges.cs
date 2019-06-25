@@ -5,12 +5,14 @@ public class ListenCompanyGoalChanges : Controller
 {
     public override void AttachListeners()
     {
-        MyProductEntity.AddCompanyGoalListener(this);
+        if (HasProductCompany)
+            MyProductEntity.AddCompanyGoalListener(this);
     }
 
     public override void DetachListeners()
     {
-        MyProductEntity.RemoveCompanyGoalListener(this);
+        if (HasProductCompany)
+            MyProductEntity.RemoveCompanyGoalListener(this);
     }
 
     void ICompanyGoalListener.OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal)

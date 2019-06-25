@@ -40,13 +40,16 @@ public abstract class ResourceChecker : View
     {
         get
         {
+            if (!HasProductCompany)
+                return false;
+
             return CompanyUtils.IsEnoughResources(MyProductEntity, GetRequiredResources());
         }
     }
 
     public virtual void SetHint()
     {
-        if (!Hint)
+        if (!Hint || !HasProductCompany)
             return;
 
         TeamResource resources = MyProductEntity.companyResource.Resources;
