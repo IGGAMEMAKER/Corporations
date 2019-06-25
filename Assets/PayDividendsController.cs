@@ -9,6 +9,8 @@ public class PayDividendsController : ButtonController
 
     public override void Execute()
     {
+        companyId = SelectedCompany.company.Id;
+
         CompanyUtils.PayDividends(GameContext, companyId);
     }
 
