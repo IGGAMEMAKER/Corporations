@@ -1,15 +1,12 @@
 ﻿using Assets.Utils;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class FillGroupOwnings : View
-    //, IMenuListener
     //, IAnyShareholdersListener
 {
-    void Render()
+    public override void ViewRender()
     {
-        Debug.Log("Render Group ownings");
+        base.ViewRender();
+
         GetComponent<OwningsListView>().SetItems(HasGroupCompany ? GetOwnings() : new GameEntity[0]);
     }
 
