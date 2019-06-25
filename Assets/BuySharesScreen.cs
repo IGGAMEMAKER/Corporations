@@ -31,8 +31,9 @@ public class BuySharesScreen : View
 
         CompanyName.text = $"Buy shares of company {SelectedCompany.company.Name}";
 
-        ProposalStatus.text = Visuals.Negative("They will decline: Wants more money");
-        //BuyShares.ShareholderId = investorId;
-        //CanBuySharesController.Render(investorId);
+        ProposalStatus.text = true ? Visuals.Positive("They will accept our offer!") : Visuals.Negative("They will decline: Wants more money");
+
+        BuyShares.ShareholderId = investorId;
+        CanBuySharesController.Render(investorId);
     }
 }

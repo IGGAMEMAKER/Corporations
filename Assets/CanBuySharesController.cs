@@ -2,10 +2,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Hint))]
 public class CanBuySharesController : View
 {
     Button Button;
     Hint Hint;
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render(ScreenUtils.GetSelectedInvestor(GameContext).shareholder.Id);
+    }
+
+    public bool WillSell(int investorId, int companyId)
+    {
+        return CompanyUtils.IsAreSharesSellable(GameContext, companyId);
+    }
 
     public void Render(int investorId)
     {
@@ -14,23 +27,15 @@ public class CanBuySharesController : View
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
 
-        if (MyGroupEntity == null)
-        {
-            Button.interactable = false;
-            Hint.SetHint("To buy shares of this company, promote your company to group of companies");
-
-            return;
-        }
-
         var cost = CompanyUtils.GetSharesCost(GameContext, companyId, investorId);
 
         // TODO we don't always buy companies as Company Group. We can do it as human or investment fund too!
         var have = MyGroupEntity.companyResource.Resources.money;
 
-        bool availableForSale = CompanyUtils.IsAreSharesSellable(GameContext, companyId);
+        bool wantsToSell = WillSell(investorId, companyId);
         bool canAfford = have >= cost;
 
-        Button.interactable = canAfford && availableForSale;
+        Button.interactable = canAfford && cost > 0 && wantsToSell;
 
         int percentage = CompanyUtils.GetShareSize(GameContext, companyId, investorId);
 
