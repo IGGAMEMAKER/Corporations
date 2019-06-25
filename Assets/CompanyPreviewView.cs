@@ -31,7 +31,8 @@ public class CompanyPreviewView : View,
 
         ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_SELECTED, out Color selectedCompanyColor);
 
-        if (entity == SelectedCompany && CurrentScreen == ScreenMode.GroupManagementScreen)
+        var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
+        if (entity == SelectedCompany && inGroupScreens)
             Panel.color = selectedCompanyColor;
         else
             Panel.color = baseColor;

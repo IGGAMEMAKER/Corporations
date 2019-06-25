@@ -1,4 +1,6 @@
-﻿public class LinkTo : ButtonController
+﻿using Assets.Utils;
+
+public class LinkTo : ButtonController
 {
     public ScreenMode TargetMenu;
 
@@ -35,8 +37,13 @@
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
             case ScreenMode.MarketingScreen:
-
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
+                break;
+            case ScreenMode.ManageCompaniesScreen:
+                var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);
+
+                if (daughters.Length > 0)
+                    Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
                 break;
 
             default:
