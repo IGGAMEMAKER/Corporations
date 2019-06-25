@@ -20,6 +20,10 @@ public class BuySharesScreen : View
         base.ViewRender();
 
         var shareholder = ScreenUtils.GetSelectedInvestor(GameContext);
+
+        if (shareholder == null)
+            return;
+
         var investorId = shareholder.shareholder.Id;
 
         SharesInfo.text = shareholder.shareholder.Name + " owns " + CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "% of company";

@@ -24,7 +24,9 @@ public class RenderForGoalController : View
     {
         get
         {
-            return MyProductEntity;
+            // TODO
+            //return MyProductEntity;
+            return MyCompany;
         }
     }
 

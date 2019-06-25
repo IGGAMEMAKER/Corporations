@@ -55,6 +55,11 @@ namespace Assets.Utils
             return shareholders.ContainsKey(investorId) ? shareholders[investorId].amount : 0;
         }
 
+        public static bool IsInvestsInCompany(GameEntity company, int investorId)
+        {
+            return company.shareholders.Shareholders.ContainsKey(investorId);
+        }
+
         public static int GetShareSize(GameContext context, int companyId, int investorId)
         {
             var c = GetCompanyById(context, companyId);

@@ -12,7 +12,17 @@ public class CanBuySharesController : View
     {
         base.ViewRender();
 
-        Render(ScreenUtils.GetSelectedInvestor(GameContext).shareholder.Id);
+        var selectedInvestor = ScreenUtils.GetSelectedInvestor(GameContext);
+
+        if (selectedInvestor == null)
+            return;
+
+        var investorId = selectedInvestor.shareholder.Id;
+
+        if (!CompanyUtils.IsInvestsInCompany(SelectedCompany, investorId))
+            return;
+
+        Render(investorId);
     }
 
     public bool WillSell(int investorId, int companyId)

@@ -161,6 +161,7 @@ public class ProductInitializerSystem : IInitializeSystem
         int googleGroupId = PromoteToGroup(google);
 
         //PlayAs(tg.company.Id);
+        PlayAs(google);
         PlayAs(alphabet);
 
 

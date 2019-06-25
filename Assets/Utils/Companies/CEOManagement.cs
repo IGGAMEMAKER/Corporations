@@ -19,7 +19,9 @@
 
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
-            GetCompanyById(context, id).isControlledByPlayer = true;
+            var c = GetCompanyById(context, id);
+
+            c.isControlledByPlayer = true;
         }
 
         // it is done for player only!
