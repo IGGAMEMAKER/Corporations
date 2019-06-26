@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public enum MeasurementUnit
@@ -17,6 +18,9 @@ public abstract class ColoredValue : MonoBehaviour
 
     [Space(20)]
     public bool Prettify = true;
+
+    [Tooltip("Will show K instead of 1.000, M instead of 1.000.000 e.t.c")]
+    public bool shorten;
     public int DigitsAfterComma = 0;
 
     public MeasurementUnit unit;
@@ -51,7 +55,15 @@ public abstract class ColoredValue : MonoBehaviour
 
     string GetFormattedText()
     {
-        string text = "" + (Prettify ? ShowNDigitsAfterComma(value, DigitsAfterComma) : value);
+        string text = "";
+
+        if (Prettify)
+            text = ShowNDigitsAfterComma(value, DigitsAfterComma).ToString();
+
+        if (shorten)
+            text = Format.Shorten(value);
+        else
+            text = value.ToString();
 
         if (ShowSign && value > 0)
             text = "+" + text;

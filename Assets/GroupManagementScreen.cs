@@ -21,6 +21,7 @@ public class GroupManagementScreen : View
 
     void RemoveLinkIfPossible()
     {
+        return;
         var link = CompanyPreviewView.GetComponent<LinkToProjectView>();
 
         if (link)
