@@ -9,6 +9,16 @@
             if (c.hasProduct)
                 return GetProductCompanyRating(gameContext, c);
 
+            return GetGroupCompanyRating(gameContext, c);
+        }
+
+        static int GetGroupCompanyRating(GameContext gameContext, GameEntity company)
+        {
+            var cost = GetCompanyCost(gameContext, company.company.Id);
+            var rank = System.Math.Log10(cost) / 1.5d;
+
+            return 1 + UnityEngine.Mathf.Clamp((int)rank, 0, 4);
+
             return UnityEngine.Random.Range(1, 6);
         }
 

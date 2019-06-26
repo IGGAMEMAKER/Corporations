@@ -108,6 +108,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.JobOfferScreen: return "Job Offer";
             case ScreenMode.BuySharesScreen: return "Buy Shares";
             case ScreenMode.EmployeeScreen: return "Employees";
+            case ScreenMode.CompanyEconomyScreen: return "Economy";
 
             default: return "WUT?";
         }

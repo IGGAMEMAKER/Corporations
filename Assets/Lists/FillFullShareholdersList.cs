@@ -16,7 +16,7 @@ public class FillFullShareholdersList : View, IMenuListener
         var shareholders = CompanyUtils.GetCompanyShares(SelectedCompany);
 
         GetComponent<FullShareholdersListView>()
-            .SetItems(shareholders.ToArray());
+            .SetItems(shareholders.OrderByDescending(s => CompanyUtils.GetAmountOfShares(GameContext, SelectedCompany.company.Id, s.Key)).ToArray());
     }
 
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)

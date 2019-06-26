@@ -5,9 +5,6 @@ public class ShareholderView : View
 {
     public Text Name;
     public Text Type;
-    public Text Goal;
-    public ColoredValuePositiveOrNegative Loyalty;
-    public ColoredValuePositiveOrNegative LoyaltyChange;
     public Text Share;
     public Image Icon;
     public Image Panel;
