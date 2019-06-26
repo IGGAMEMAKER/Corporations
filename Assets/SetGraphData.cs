@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetGraphData : MonoBehaviour
 {
@@ -13,11 +15,14 @@ public class SetGraphData : MonoBehaviour
     List<int> XList;
     List<long> Values;
 
+    public int graphWidth = 550;
+    public int graphHeight = 200;
+
+    public int baseY = 0;
+    public int baseX = 25;
 
     public void SetData(List<int> xs, List<long> ys)
     {
-        Debug.Log("Set data to graph " + xs.Count + " " + ys.Count);
-
         XList = xs;
         Values = ys;
 
@@ -32,16 +37,11 @@ public class SetGraphData : MonoBehaviour
 
         var max = ys.Max();
 
-        var baseX = 0;
-        var baseY = 0;
-
-        var graphWidth = 550;
-        var graphHeight = 300;
-
         var len = XList.Count;
         for (var i = 0; i < len; i++)
         {
             Dots[i].transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + Values[i] * graphHeight / max);
+            Dots[i].GetComponentInChildren<Text>().text = Format.MinifyToInteger(Values[i]);
         }
     }
 }

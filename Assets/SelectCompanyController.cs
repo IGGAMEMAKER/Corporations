@@ -11,6 +11,8 @@ public class SelectCompanyController : ButtonController, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Execute();
+        // doing this, because otherwise it triggers onhover sound very often
+        if (SelectedCompany.company.Id != companyId)
+            Execute();
     }
 }

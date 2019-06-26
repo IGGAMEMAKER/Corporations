@@ -19,11 +19,6 @@ public class CompanyCostView : View
     public Text HoldingLabel;
 
 
-    void OnEnable()
-    {
-        Render();
-    }
-
     string RenderCosts(long cost)
     {
         return "$" + Format.Minify(cost);
@@ -67,14 +62,15 @@ public class CompanyCostView : View
         }
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         var c = SelectedCompany;
         var companyId = c.company.Id;
 
         CompanyCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
 
         RenderBaseCosts(companyId, c);
-
     }
 }
