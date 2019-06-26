@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public enum ScreenMode
 {
     DevelopmentScreen = 0,
-    MarketingScreen = 1,
+    MarketingScreen = 1, // deprecated
     ProjectScreen = 2,
     TeamScreen = 3,
     StatsScreen = 4,
@@ -23,7 +23,8 @@ public enum ScreenMode
     CompanyGoalScreen = 13,
     EmployeeScreen = 14,
     BuySharesScreen = 15,
-    ManageCompaniesScreen = 16
+    ManageCompaniesScreen = 16,
+    CompanyEconomyScreen = 17,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -48,6 +49,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject EmployeeScreen;
     public GameObject ManageCompaniesScreen;
     public GameObject BuySharesScreen;
+    public GameObject CompanyEconomyScreen;
 
 
     void Start()
@@ -70,6 +72,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.EmployeeScreen] = EmployeeScreen,
             [ScreenMode.ManageCompaniesScreen] = ManageCompaniesScreen,
             [ScreenMode.BuySharesScreen] = BuySharesScreen,
+            [ScreenMode.CompanyEconomyScreen] = CompanyEconomyScreen,
         };
 
         DisableAllScreens();
