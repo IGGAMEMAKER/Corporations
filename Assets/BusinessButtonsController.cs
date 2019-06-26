@@ -4,8 +4,6 @@ public class BusinessButtonsController : View
 {
     public GameObject PromoteToGroupButton;
     public GameObject PivotButton;
-    public GameObject LeaveCEOButton;
-    public GameObject NominateAsCEO;
 
     private void OnEnable()
     {
@@ -21,9 +19,9 @@ public class BusinessButtonsController : View
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
-        LeaveCEOButton.SetActive(c.isControlledByPlayer);
+        //LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
-        // not controlled
-        NominateAsCEO.SetActive(false && !c.isControlledByPlayer && !isGroupCEOAlready);
+        //// not controlled
+        //NominateAsCEO.SetActive(false && !c.isControlledByPlayer && !isGroupCEOAlready);
     }
 }
