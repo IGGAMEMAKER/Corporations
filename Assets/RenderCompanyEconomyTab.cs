@@ -5,7 +5,6 @@ public class RenderCompanyEconomyTab : View
 {
     public Text Income;
     public Text Maintenance;
-    public ColoredValuePositiveOrNegative Change;
 
     public Hint IncomeHint;
     public Hint MaintenanceHint;
@@ -23,7 +22,5 @@ public class RenderCompanyEconomyTab : View
 
         Maintenance.text = "$" + Format.Shorten(CompanyEconomyUtils.GetCompanyMaintenance(company, GameContext));
         MaintenanceHint.SetHint(CompanyEconomyUtils.GetMaintenanceDescription(GameContext, companyId));
-
-        Change.UpdateValue(CompanyEconomyUtils.GetBalanceChange(company, GameContext));
     }
 }

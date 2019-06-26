@@ -47,9 +47,17 @@ public class CanBuySharesController : View
 
         Button.interactable = canAfford && cost > 0 && wantsToSell;
 
+
+
         int percentage = CompanyUtils.GetShareSize(GameContext, companyId, investorId);
 
-        string hint = $"Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) ${cost}\n We have ${have}";
+        var text = $"Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) {Format.Money(cost)}";
+
+        var paymentAbility = canAfford ? Visuals.Positive(Format.Money(have)) : Visuals.Negative(Format.Money(have));
+
+        //var desireToSell = wantsToSell ? ""
+
+        string hint = text + "\n We have " + paymentAbility;
 
         GetComponent<Hint>().SetHint(hint);
     }

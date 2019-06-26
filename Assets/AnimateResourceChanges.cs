@@ -31,8 +31,8 @@ public class AnimateResourceChanges : View
         var brandDiff = brand - prevBrand;
 
         SpawnResource(diff.money, MoneyIcon, 0);
-        SpawnResource(clientsDiff, ClientsIcon, 1);
-        SpawnResource(brandDiff, BrandIcon, 2);
+        SpawnResource(brandDiff, BrandIcon, 1);
+        SpawnResource(clientsDiff, ClientsIcon, 2);
         SpawnResource(diff.ideaPoints, IdeasIcon, 3);
 
         // update values
