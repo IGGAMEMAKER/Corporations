@@ -2,6 +2,7 @@
 using Assets.Utils.Economy;
 using Entitas;
 using System.Collections.Generic;
+using UnityEngine;
 
 class CompanyReportSystem : OnMonthChange
 {
@@ -12,11 +13,13 @@ class CompanyReportSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] Products = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.CompanyResource));
+        GameEntity[] Companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
+
+        Debug.Log("EXECUTE COMPANY REPORT SYSTEM " + Companies.Length);
 
         int date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        foreach (var e in Products)
+        foreach (var e in Companies)
         {
             if (CompanyUtils.IsProductCompany(e))
                 SaveProductCompanyMetrics(e, date);
