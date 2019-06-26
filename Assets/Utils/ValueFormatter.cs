@@ -4,24 +4,11 @@ namespace Assets.Utils
 {
     public static class Format
     {
-        public static string ShortenValueMockup<T>(T value)
-        {
-            return NoFormatting(value);
-            //return Shorten(value);
-        }
-
         private static string ShowMeaningfulValue(long value, long divisor, string litera)
         {
             int shortened = Convert.ToInt32(value * 10 / divisor);
 
             return "" + shortened / 10f + litera;
-        }
-
-        public static string ShortenSigned<T>(T value)
-        {
-            long.TryParse(value.ToString(), out long val);
-
-            return Sign(val);
         }
 
         public static string Sign(long value)
@@ -62,6 +49,12 @@ namespace Assets.Utils
         {
             return value.ToString();
         }
-    }
 
+        //public static string ShortenSigned<T>(T value)
+        //{
+        //    long.TryParse(value.ToString(), out long val);
+
+        //    return Sign(val);
+        //}
+    }
 }
