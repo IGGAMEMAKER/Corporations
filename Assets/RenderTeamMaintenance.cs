@@ -36,6 +36,6 @@ public class RenderTeamMaintenance : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Visuals.Negative($"${Format.Shorten(Maintenance)}");
+        return Visuals.Negative($"${Format.Minify(Maintenance)}");
     }
 }

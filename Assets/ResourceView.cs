@@ -22,6 +22,6 @@ public class ResourceView : MonoBehaviour {
 
     public void SetPrettifiedValue<T>(string hint, T value)
     {
-        Set(Format.Shorten(value), hint);
+        Set(Format.Minify(value), hint);
     }
 }

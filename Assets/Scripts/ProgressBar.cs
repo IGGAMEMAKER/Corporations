@@ -25,7 +25,7 @@ public class ProgressBar : MonoBehaviour {
 
         SetValue(have);
 
-        Text.text = $"{Format.Shorten(have)} / {Format.Shorten(requirement)}";
+        Text.text = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
     }
 
     public void SetValue (float val)

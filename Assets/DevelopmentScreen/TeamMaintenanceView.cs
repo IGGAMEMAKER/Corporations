@@ -7,6 +7,6 @@ public class TeamMaintenanceView : View
     {
         var maintenance = CompanyEconomyUtils.GetTeamMaintenance(MyProductEntity);
 
-        GetComponent<Text>().text = $"${Format.Shorten(maintenance)}";
+        GetComponent<Text>().text = $"${Format.Minify(maintenance)}";
     }
 }

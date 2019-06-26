@@ -11,6 +11,6 @@ public class DevelopmentCostView : UpgradedParameterView
     {
         var cost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext).programmingPoints;
 
-        return Format.Shorten(cost);
+        return Format.Minify(cost);
     }
 }

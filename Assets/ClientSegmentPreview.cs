@@ -86,7 +86,7 @@ public class ClientSegmentPreview : View
 
     void RenderAudience(UserType userType, GameEntity c)
     {
-        AudienceSize.text = $"{Format.Shorten(c.marketing.Segments[userType])}";
+        AudienceSize.text = $"{Format.Minify(c.marketing.Segments[userType])}";
 
         var hint = MarketingUtils.GetAudienceHint(GameContext, userType, c);
 
@@ -97,7 +97,7 @@ public class ClientSegmentPreview : View
     {
         var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
 
-        Income.text = $"+${Format.Shorten(Convert.ToInt64(income))}";
+        Income.text = $"+${Format.Minify(Convert.ToInt64(income))}";
     }
 
     void RenderLoyalty(int companyId, UserType userType)

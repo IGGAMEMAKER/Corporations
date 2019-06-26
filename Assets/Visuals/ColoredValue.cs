@@ -61,7 +61,7 @@ public abstract class ColoredValue : MonoBehaviour
             text = ShowNDigitsAfterComma(value, DigitsAfterComma).ToString();
 
         if (shorten)
-            text = Format.Shorten(value);
+            text = Format.Minify(value);
         else
             text = value.ToString();
 

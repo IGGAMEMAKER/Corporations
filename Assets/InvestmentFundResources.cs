@@ -9,6 +9,6 @@ public class InvestmentFundResources : SimpleParameterView
 
     public override string RenderValue()
     {
-        return Format.Shorten(MyGroupEntity.companyResource.Resources.money);
+        return Format.Minify(MyGroupEntity.companyResource.Resources.money);
     }
 }

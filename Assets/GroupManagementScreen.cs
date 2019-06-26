@@ -35,7 +35,7 @@ public class GroupManagementScreen : View
         CompanyPreviewView.SetEntity(MyGroupEntity);
         RemoveLinkIfPossible();
 
-        GroupBalance.text = Format.Shorten(MyGroupEntity.companyResource.Resources.money);
+        GroupBalance.text = Format.Minify(MyGroupEntity.companyResource.Resources.money);
 
         SelectedCompanyName.text = MyGroupEntity.company.Name;
 

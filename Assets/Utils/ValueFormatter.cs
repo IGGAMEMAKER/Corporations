@@ -31,10 +31,10 @@ namespace Assets.Utils
 
         public static string Money<T>(T value)
         {
-            return $"${Shorten(value)}";
+            return $"${Minify(value)}";
         }
 
-        public static string Shorten<T>(T value)
+        public static string Minify<T>(T value)
         {
             long.TryParse(value.ToString(), out long val);
 

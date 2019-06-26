@@ -45,7 +45,7 @@ public class NotificationView : View {
 
     string Prettify(long sum)
     {
-        return $"${Format.Shorten(sum)}";
+        return $"${Format.Minify(sum)}";
     }
 
     private string RenderLevelUpText(NotificationLevelUp notificationLevelUp)
