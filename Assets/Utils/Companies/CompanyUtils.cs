@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -25,6 +26,18 @@ namespace Assets.Utils
         {
             return InvestmentUtils.GetCompanyIdByInvestorId(context, investorId);
         }
+
+        internal static GameEntity[] GetProductCompanies(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Product);
+        }
+
+        internal static GameEntity[] GetGroupCompanies(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Company).Where(IsCompanyGroupLike).ToArray();
+        }
+
+
 
         public static bool IsCompanyGroupLike(GameContext context, int companyId)
         {

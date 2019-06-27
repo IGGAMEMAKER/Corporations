@@ -6,6 +6,9 @@ public class CompanySearchListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        throw new System.NotImplementedException();
+        var e = entity as GameEntity;
+
+        if (t.GetComponent<CompanyTableView>() != null)
+            t.GetComponent<CompanyTableView>().SetEntity(e);
     }
 }
