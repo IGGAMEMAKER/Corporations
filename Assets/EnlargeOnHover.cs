@@ -12,6 +12,8 @@ public class EnlargeOnHover : MonoBehaviour
     float duration = 0;
     bool hovered;
 
+    [SerializeField] bool DisableSound = false;
+
     void Update()
     {
         if (!hovered && duration == 0)
@@ -40,7 +42,7 @@ public class EnlargeOnHover : MonoBehaviour
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        if (!hovered)
+        if (!hovered && !DisableSound)
             SoundManager.PlayOnHintHoverSound();
 
         hovered = true;

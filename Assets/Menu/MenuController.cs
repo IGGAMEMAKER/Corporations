@@ -142,7 +142,6 @@ public class MenuController : MonoBehaviour, IMenuListener
 
         if (Screens.ContainsKey(screen))
         {
-            SoundManager.Play(Sound.Hover);
             Screens[screen].SetActive(true);
         }
     }

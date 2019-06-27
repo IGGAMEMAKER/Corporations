@@ -62,9 +62,13 @@ namespace Assets.Utils
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
+
             var menu = GetMenu(gameContext);
 
             var data = menu.menu.Data;
+
+            if ((int)data[Constants.MENU_SELECTED_COMPANY] == companyId)
+                return;
 
             data[Constants.MENU_SELECTED_COMPANY] = companyId;
 
@@ -85,6 +89,8 @@ namespace Assets.Utils
 
         public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
+            SoundManager.Play(Sound.Hover);
+
             ReplaceMenu(context, screenMode, data);
         }
 
