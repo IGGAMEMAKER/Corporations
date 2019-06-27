@@ -8,7 +8,6 @@ public class GroupManagementScreen : View
     public Text GroupBalance;
     public CompanyPreviewView CompanyPreviewView;
 
-    public Text SelectedCompanyName;
     public ColoredValuePositiveOrNegative SelectedCompanyROI;
 
     void RenderROI()
@@ -36,8 +35,6 @@ public class GroupManagementScreen : View
         RemoveLinkIfPossible();
 
         GroupBalance.text = Format.Minify(MyGroupEntity.companyResource.Resources.money);
-
-        SelectedCompanyName.text = MyGroupEntity.company.Name;
 
         RenderROI();
     }

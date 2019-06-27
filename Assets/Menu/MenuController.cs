@@ -25,6 +25,9 @@ public enum ScreenMode
     BuySharesScreen = 15,
     ManageCompaniesScreen = 16,
     CompanyEconomyScreen = 17,
+
+    MarketExplorationScreen = 18,
+    CompanyExplorationScreen = 19,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -50,6 +53,8 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject ManageCompaniesScreen;
     public GameObject BuySharesScreen;
     public GameObject CompanyEconomyScreen;
+    public GameObject MarketExplorationScreen;
+    public GameObject CompanyExplorationScreen;
 
 
     void Start()
@@ -73,6 +78,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.ManageCompaniesScreen] = ManageCompaniesScreen,
             [ScreenMode.BuySharesScreen] = BuySharesScreen,
             [ScreenMode.CompanyEconomyScreen] = CompanyEconomyScreen,
+            [ScreenMode.MarketExplorationScreen] = MarketExplorationScreen,
+            [ScreenMode.CompanyExplorationScreen] = CompanyExplorationScreen,
         };
 
         DisableAllScreens();
@@ -109,6 +116,9 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.BuySharesScreen: return "Buy Shares";
             case ScreenMode.EmployeeScreen: return "Employees";
             case ScreenMode.CompanyEconomyScreen: return "Economy";
+
+            case ScreenMode.MarketExplorationScreen: return "Explore new markets";
+            case ScreenMode.CompanyExplorationScreen: return "Explore companies";
 
             default: return "WUT?";
         }
