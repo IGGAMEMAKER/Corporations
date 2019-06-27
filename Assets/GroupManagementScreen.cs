@@ -18,21 +18,11 @@ public class GroupManagementScreen : View
             SelectedCompanyROI.GetComponent<Text>().text = "???";
     }
 
-    void RemoveLinkIfPossible()
-    {
-        return;
-        var link = CompanyPreviewView.GetComponent<LinkToProjectView>();
-
-        if (link)
-            Destroy(link);
-    }
-
     public override void ViewRender()
     {
         base.ViewRender();
 
         CompanyPreviewView.SetEntity(MyGroupEntity);
-        RemoveLinkIfPossible();
 
         GroupBalance.text = Format.Minify(MyGroupEntity.companyResource.Resources.money);
 
