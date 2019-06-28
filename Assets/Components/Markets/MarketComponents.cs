@@ -42,11 +42,27 @@ public class NicheCostsComponent : IComponent
     public int AdCost;
 }
 
+public enum NicheLifecyclePhase
+{
+    Innovation,
+    Trending,
+    MassUse,
+    Decay,
+    Death
+}
+
 [Game]
 public class NicheStateComponent : IComponent
 {
-    public int[] Growth;
+    public Dictionary<NicheLifecyclePhase, int> Growth;
+    public NicheLifecyclePhase Phase;
+    public int Duration;
 }
+
+[Game]
+public class DeadComponent : IComponent { }
+
+
     //// when someone innovates, increment this
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class SegmentComponent : IComponent
