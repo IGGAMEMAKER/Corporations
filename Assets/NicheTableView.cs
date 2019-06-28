@@ -17,14 +17,25 @@ public class NicheTableView : View, IPointerEnterHandler
     {
         entity = niche;
 
+        Render();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
+    }
+
+    void Render()
+    {
         SetPanelColor();
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(niche.niche.NicheType);
-        Competitors.text = NicheUtils.GetCompetitorsAmount(niche.niche.NicheType, GameContext) + "\ncompanies";
+        NicheName.text = EnumUtils.GetFormattedNicheName(entity.niche.NicheType);
+        Competitors.text = NicheUtils.GetCompetitorsAmount(entity.niche.NicheType, GameContext) + "\ncompanies";
 
-
-        var phase = niche.nicheState.Phase;
-        Growth.text = $"{phase} \n{Format.Sign(niche.nicheState.Growth[phase])}%\ngrowth";
+        var phase = entity.nicheState.Phase;
+        Growth.text = $"{phase} \n{Format.Sign(entity.nicheState.Growth[phase])}%\ngrowth";
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

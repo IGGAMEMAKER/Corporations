@@ -17,10 +17,14 @@ public class CompanyTableView : View, IPointerEnterHandler
     public void SetEntity(GameEntity company)
     {
         entity = company;
+
+        ViewRender();
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         CompanyName.text = entity.company.Name;
 
         SetPanelColor();
@@ -28,12 +32,23 @@ public class CompanyTableView : View, IPointerEnterHandler
         Cost.text = "$" + Format.MinifyToInteger(CompanyEconomyUtils.GetCompanyCost(GameContext, entity.company.Id));
 
         var audienceGrowth = GetAudienceGrowth(entity);
-        //var valuationGrowth = GetValuationGrowth(entity);
+        var valuationGrowth = GetValuationGrowth(entity);
 
-        AudienceGrowth.text = GetAudienceGrowth(entity).ToString();
+        RenderAudienceGrowth();
+        RenderValuationGrowth();
 
         var rating = CompanyEconomyUtils.GetCompanyRating(GameContext, entity.company.Id);
         SetAmountOfStars.SetStars(rating);
+    }
+
+    void RenderAudienceGrowth()
+    {
+        AudienceGrowth.text = Format.Sign(GetAudienceGrowth(entity)) + "%";
+    }
+
+    void RenderValuationGrowth()
+    {
+        ValuationGrowth.text = Format.Sign(GetValuationGrowth(entity)) + "%";
     }
 
     long GetAudienceGrowth(GameEntity e)
@@ -45,13 +60,26 @@ public class CompanyTableView : View, IPointerEnterHandler
 
         var len = metrics.Count;
 
-        var was =  
+        var was = metrics[len - 3].AudienceSize + 1;
+        var now = metrics[len - 1].AudienceSize + 1;
+
+        return (now - was) * 100 / was;
     }
 
-    //long GetValuationGrowth(GameEntity e)
-    //{
+    long GetValuationGrowth(GameEntity e)
+    {
+        var metrics = e.metricsHistory.Metrics;
 
-    //}
+        if (metrics.Count < 3)
+            return 0;
+
+        var len = metrics.Count;
+
+        var was = metrics[len - 3].Valuation + 1;
+        var now = metrics[len - 1].Valuation + 1;
+
+        return (now - was) * 100 / was;
+    }
 
     void SetPanelColor()
     {
