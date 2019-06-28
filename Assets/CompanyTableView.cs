@@ -18,21 +18,24 @@ public class CompanyTableView : View, IPointerEnterHandler
     {
         entity = company;
 
-        ViewRender();
+        Render();
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
+        Render();
+    }
+
+    public void Render()
+    {
         CompanyName.text = entity.company.Name;
 
         SetPanelColor();
 
         Cost.text = "$" + Format.MinifyToInteger(CompanyEconomyUtils.GetCompanyCost(GameContext, entity.company.Id));
 
-        var audienceGrowth = GetAudienceGrowth(entity);
-        var valuationGrowth = GetValuationGrowth(entity);
 
         RenderAudienceGrowth();
         RenderValuationGrowth();
@@ -43,42 +46,16 @@ public class CompanyTableView : View, IPointerEnterHandler
 
     void RenderAudienceGrowth()
     {
-        AudienceGrowth.text = Format.Sign(GetAudienceGrowth(entity)) + "%";
+        var audienceGrowth = CompanyUtils.GetAudienceGrowth(entity);
+
+        AudienceGrowth.text = Format.Sign(audienceGrowth) + "%";
     }
 
     void RenderValuationGrowth()
     {
-        ValuationGrowth.text = Format.Sign(GetValuationGrowth(entity)) + "%";
-    }
+        var valuationGrowth = CompanyUtils.GetValuationGrowth(entity);
 
-    long GetAudienceGrowth(GameEntity e)
-    {
-        var metrics = e.metricsHistory.Metrics;
-
-        if (metrics.Count < 3)
-            return 0;
-
-        var len = metrics.Count;
-
-        var was = metrics[len - 3].AudienceSize + 1;
-        var now = metrics[len - 1].AudienceSize + 1;
-
-        return (now - was) * 100 / was;
-    }
-
-    long GetValuationGrowth(GameEntity e)
-    {
-        var metrics = e.metricsHistory.Metrics;
-
-        if (metrics.Count < 3)
-            return 0;
-
-        var len = metrics.Count;
-
-        var was = metrics[len - 3].Valuation + 1;
-        var now = metrics[len - 1].Valuation + 1;
-
-        return (now - was) * 100 / was;
+        ValuationGrowth.text = Format.Sign(valuationGrowth) + "%";
     }
 
     void SetPanelColor()

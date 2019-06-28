@@ -10,6 +10,7 @@ public class NicheTableView : View, IPointerEnterHandler
     [SerializeField] Text Competitors;
     [SerializeField] Image Panel;
     [SerializeField] Text Growth;
+    [SerializeField] Text Phase;
 
     GameEntity entity;
 
@@ -35,7 +36,8 @@ public class NicheTableView : View, IPointerEnterHandler
         Competitors.text = NicheUtils.GetCompetitorsAmount(entity.niche.NicheType, GameContext) + "\ncompanies";
 
         var phase = entity.nicheState.Phase;
-        Growth.text = $"{phase} \n{Format.Sign(entity.nicheState.Growth[phase])}%\ngrowth";
+        Phase.text = phase.ToString();
+        Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%\ngrowth";
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

@@ -84,7 +84,5 @@ namespace Assets.Utils
         {
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
-
-
     }
 }

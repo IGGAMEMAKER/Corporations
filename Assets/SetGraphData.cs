@@ -35,13 +35,35 @@ public class SetGraphData : MonoBehaviour
             Dots.Add(Instantiate(DotPrefab, DotContainer.transform));
         }
 
-        var max = ys.Max();
-
         var len = XList.Count;
+
+        var max = Values.Max();
+        var min = Values.Min();
+
+        long value = 0;
+
         for (var i = 0; i < len; i++)
         {
-            Dots[i].transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + Values[i] * graphHeight / max);
-            Dots[i].GetComponentInChildren<Text>().text = Format.MinifyToInteger(Values[i]);
+            value = Values[i];
+            Dots[i].transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
+
+            var txt = Dots[i].GetComponentInChildren<Text>();
+
+            if (len < 10 || value == max || value == min)
+            {
+                txt.text = Format.MinifyToInteger(value);
+            }
+            else
+            {
+                txt.text = "";
+            }
         }
+    }
+
+    bool IsSquaredValue (long value)
+    {
+        var sqrt = (int)Mathf.Sqrt(value);
+
+        return sqrt * sqrt == value;
     }
 }
