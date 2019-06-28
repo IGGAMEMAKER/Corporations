@@ -73,7 +73,7 @@ public class VisualConstants
     public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = "#FFFFFF";
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
-    public const string COLOR_PANEL_BASE = "grey";
+    public const string COLOR_PANEL_BASE = "white";
     public const string COLOR_PANEL_SELECTED = COLOR_COMPANY_SELECTED;
 
     public const string COLOR_POSITIVE = "#00FF00";

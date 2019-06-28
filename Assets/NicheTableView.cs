@@ -29,14 +29,6 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void SetPanelColor()
     {
-        var col = entity.niche.NicheType == ScreenUtils.GetSelectedNiche(GameContext)
-            ?
-            VisualConstants.COLOR_PANEL_SELECTED
-            :
-            VisualConstants.COLOR_PANEL_BASE;
-
-        ColorUtility.TryParseHtmlString(col, out Color panelColor);
-
-        Panel.color = panelColor;
+        Panel.color = GetPanelColor(entity.niche.NicheType == ScreenUtils.GetSelectedNiche(GameContext));
     }
 }

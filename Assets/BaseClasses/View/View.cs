@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class View : BaseClass
@@ -19,6 +20,24 @@ public abstract class View : BaseClass
 
             Animate(text);
         }
+    }
+
+    public Color GetPanelColor(bool isSelected)
+    {
+        var col = isSelected
+            ?
+            VisualConstants.COLOR_PANEL_SELECTED
+            :
+            VisualConstants.COLOR_PANEL_BASE;
+
+        ColorUtility.TryParseHtmlString(col, out Color panelColor);
+
+        if (isSelected)
+            panelColor.a = 1f;
+        else
+            panelColor.a = 100f / 255f;
+
+        return panelColor;
     }
 
     public void ListenMenuChanges(IMenuListener menuListener)

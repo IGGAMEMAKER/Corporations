@@ -16,34 +16,28 @@ public class CompanyPreviewView : View,
 
     public GameEntity _entity;
 
-    Color baseColor;
-
-    void Awake()
-    {
-        baseColor = Panel.color;
-    }
-
     public void SetEntity(GameEntity entity)
     {
         _entity = entity;
 
         entity.AddProductListener(this);
 
-        ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_SELECTED, out Color selectedCompanyColor);
-
-        var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
-        if (entity == SelectedCompany && inGroupScreens)
-            Panel.color = selectedCompanyColor;
-        else
-            Panel.color = baseColor;
-
-        CEOLabel.gameObject.SetActive(entity.isControlledByPlayer);
-
         Render(entity);
+    }
+
+    void RenderPanel()
+    {
+        var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
+
+        Panel.color = GetPanelColor(_entity == SelectedCompany && inGroupScreens);
     }
 
     void Render(GameEntity e)
     {
+        RenderPanel();
+
+        CEOLabel.gameObject.SetActive(_entity.isControlledByPlayer);
+
         RenderCompanyName(e);
         RenderCompanyType(e);
 
