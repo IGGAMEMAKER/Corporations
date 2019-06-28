@@ -62,7 +62,6 @@ namespace Assets.Utils
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
-
             var menu = GetMenu(gameContext);
 
             var data = menu.menu.Data;
@@ -71,6 +70,21 @@ namespace Assets.Utils
                 return;
 
             data[Constants.MENU_SELECTED_COMPANY] = companyId;
+
+            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
+        }
+
+
+        public static void SetSelectedNiche(GameContext gameContext, NicheType nicheType)
+        {
+            var menu = GetMenu(gameContext);
+
+            var data = menu.menu.Data;
+
+            if ((NicheType)data[Constants.MENU_SELECTED_NICHE] == nicheType)
+                return;
+
+            data[Constants.MENU_SELECTED_NICHE] = nicheType;
 
             ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }
