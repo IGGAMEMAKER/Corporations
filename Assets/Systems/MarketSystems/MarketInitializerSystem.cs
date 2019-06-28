@@ -61,12 +61,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
             e.AddNicheState(
                 new Dictionary<NicheLifecyclePhase, int>
                 {
-                    [NicheLifecyclePhase.Idle] = 0,
-                    [NicheLifecyclePhase.Innovation] = 2,
-                    [NicheLifecyclePhase.Trending] = 5,
-                    [NicheLifecyclePhase.MassUse] = 6,
-                    [NicheLifecyclePhase.Decay] = 3,
-                    [NicheLifecyclePhase.Death] = 0,
+                    [NicheLifecyclePhase.Idle] = 0, // 0
+                    [NicheLifecyclePhase.Innovation] = UnityEngine.Random.Range(2, 5), // 2-5            Xt
+                    [NicheLifecyclePhase.Trending] = UnityEngine.Random.Range(4, 10), // 4 - 10           5Xt
+                    [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(7, 15), // 7 - 15            10Xt
+                    [NicheLifecyclePhase.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
+                    [NicheLifecyclePhase.Death] = -1, // churn
                 },
                 NicheLifecyclePhase.Innovation,
                 0

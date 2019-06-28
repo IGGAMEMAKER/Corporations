@@ -11,8 +11,6 @@ public class NicheSettings
     public int TechCost;
     public int MarketingCost;
     public int AdsCost;
-
-
 }
 
 public partial class MarketInitializerSystem : IInitializeSystem

@@ -3,5 +3,6 @@
     public MarketSystems(Contexts contexts) : base("Market Systems")
     {
         Add(new MarketInitializerSystem(contexts));
+        Add(new UpdateNicheStateSystem(contexts));
     }
 }
