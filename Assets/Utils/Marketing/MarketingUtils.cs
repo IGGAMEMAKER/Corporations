@@ -34,6 +34,22 @@ namespace Assets.Utils
             company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
         }
 
+        public static long GetCompanyClientBatch(GameContext gameContext, GameEntity company)
+        {
+            return GetCurrentClientBatch(gameContext, company.product.Niche);
+        }
+
+        public static long GetCurrentClientBatch(GameContext gameContext, NicheType nicheType)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+
+            var modifier = niche.nicheState.Growth[niche.nicheState.Phase];
+
+            var costs = GetNicheCosts(gameContext, nicheType);
+
+            return costs.ClientBatch * modifier;
+        }
+
         public static NicheCostsComponent GetNicheCosts(GameContext gameContext, GameEntity company)
         {
             return GetNicheCosts(gameContext, company.product.Niche);

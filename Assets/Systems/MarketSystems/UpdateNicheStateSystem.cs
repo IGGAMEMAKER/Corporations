@@ -41,7 +41,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange
                 break;
         }
 
-        if (value > 0.95f)
+        if (value > 0.9f)
             UpdateNiche(niche);
     }
 

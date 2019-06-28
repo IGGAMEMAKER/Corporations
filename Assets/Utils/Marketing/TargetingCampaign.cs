@@ -54,7 +54,7 @@ namespace Assets.Utils
             Debug.LogWarning("You don't count niche capacity when making ads!");
             var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
 
-            long baseForNiche = niche.nicheCosts.ClientBatch;
+            long baseForNiche = GetCompanyClientBatch(gameContext, e);
 
             long brandModifier = e.marketing.BrandPower / 2;
             long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
