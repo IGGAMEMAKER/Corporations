@@ -11,17 +11,21 @@ public partial class GameEntity {
     public NicheStateComponent nicheState { get { return (NicheStateComponent)GetComponent(GameComponentsLookup.NicheState); } }
     public bool hasNicheState { get { return HasComponent(GameComponentsLookup.NicheState); } }
 
-    public void AddNicheState(int[] newGrowth) {
+    public void AddNicheState(System.Collections.Generic.Dictionary<NicheLifecyclePhase, int> newGrowth, NicheLifecyclePhase newPhase, int newDuration) {
         var index = GameComponentsLookup.NicheState;
         var component = (NicheStateComponent)CreateComponent(index, typeof(NicheStateComponent));
         component.Growth = newGrowth;
+        component.Phase = newPhase;
+        component.Duration = newDuration;
         AddComponent(index, component);
     }
 
-    public void ReplaceNicheState(int[] newGrowth) {
+    public void ReplaceNicheState(System.Collections.Generic.Dictionary<NicheLifecyclePhase, int> newGrowth, NicheLifecyclePhase newPhase, int newDuration) {
         var index = GameComponentsLookup.NicheState;
         var component = (NicheStateComponent)CreateComponent(index, typeof(NicheStateComponent));
         component.Growth = newGrowth;
+        component.Phase = newPhase;
+        component.Duration = newDuration;
         ReplaceComponent(index, component);
     }
 

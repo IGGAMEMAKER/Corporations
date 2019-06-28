@@ -44,6 +44,7 @@ public class NicheCostsComponent : IComponent
 
 public enum NicheLifecyclePhase
 {
+    Idle,
     Innovation,
     Trending,
     MassUse,
