@@ -59,9 +59,8 @@ namespace Assets.Utils
             long brandModifier = e.marketing.BrandPower / 2;
             long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
 
-            var rand = Random.Range(0.8f, 1.2f);
 
-            return (long)(rand * baseForNiche * audienceReachModifier * (100 + brandModifier) / 100);
+            return baseForNiche * audienceReachModifier * (100 + brandModifier) / 100;
         }
     }
 }

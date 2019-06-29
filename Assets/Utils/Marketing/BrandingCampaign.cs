@@ -29,7 +29,7 @@ namespace Assets.Utils
         {
             var marketing = company.marketing;
 
-            company.ReplaceMarketing(marketing.BrandPower + power, marketing.Segments);
+            company.ReplaceMarketing((int)UnityEngine.Mathf.Clamp(marketing.BrandPower + power, 0, 100), marketing.Segments);
         }
 
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)

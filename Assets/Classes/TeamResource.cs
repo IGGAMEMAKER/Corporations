@@ -8,8 +8,6 @@ namespace Assets.Classes
         private int ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints;
         private long Money;
 
-        public const int pointCap = 1000;
-
         public long money
         {
             get { return Money; }
@@ -20,7 +18,7 @@ namespace Assets.Classes
         {
             get { return ProgrammingPoints; }
             set {
-                ProgrammingPoints = value > pointCap ? pointCap : value;
+                ProgrammingPoints = value; // > pointCap ? pointCap : value;
             }
         }
 
@@ -28,7 +26,7 @@ namespace Assets.Classes
         {
             get { return ManagerPoints; }
             set {
-                ManagerPoints = value > pointCap ? pointCap : value;
+                ManagerPoints = value; // > pointCap ? pointCap : value;
             }
         }
 
@@ -36,7 +34,7 @@ namespace Assets.Classes
         {
             get { return SalesPoints; }
             set {
-                SalesPoints = value > pointCap ? pointCap : value;
+                SalesPoints = value; // > pointCap ? pointCap : value;
             }
         }
 
@@ -44,7 +42,7 @@ namespace Assets.Classes
         {
             get { return IdeaPoints; }
             set {
-                IdeaPoints = value > pointCap ? pointCap : value;
+                IdeaPoints = value; // > pointCap ? pointCap : value;
             }
         }
         

@@ -39,21 +39,6 @@ public partial class AIProductSystems : OnDateChange
         var marketDiff = GetMarketDifference(company) + 1;
 
         return GetSegmentCost(company, UserType.Core) * marketDiff;
-
-
-        //var concept = GetConceptCost(company);
-
-        //var loyaltyCore = GetSegmentLoyalty(company, UserType.Core);
-        //var loyaltyRegular = GetSegmentLoyalty(company, UserType.Regular);
-
-        //// if loyalties are negative, we need to improve them
-        //var loyaltyCoreDiff = loyaltyCore > 0 ? 0 : -loyaltyCore;
-        //var loyaltyRegularDiff = loyaltyRegular > 0 ? 0 : -loyaltyRegular;
-
-        //var segmentCoreCost = GetSegmentCost(company, UserType.Core);
-        //var segmentRegularCost = GetSegmentCost(company, UserType.Regular);
-
-        //return (concept * marketDiff) + (segmentCoreCost * loyaltyCoreDiff) + (segmentRegularCost * loyaltyRegularDiff);
     }
 
     // 1 - we need more programmers

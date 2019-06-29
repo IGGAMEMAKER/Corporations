@@ -2,6 +2,7 @@
 using Assets.Classes;
 using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 class ProductGrabClientsByTargetingSystem : OnDateChange
 {
@@ -20,9 +21,11 @@ class ProductGrabClientsByTargetingSystem : OnDateChange
 
             if (e.companyResource.Resources.IsEnoughResources(need))
             {
-                var clients = MarketingUtils.GetTargetingEffeciency(contexts.game, e);
+                var rand = Random.Range(0.75f, 1.4f);
 
-                MarketingUtils.AddClients(e, UserType.Regular, clients);
+                var clients = rand * MarketingUtils.GetTargetingEffeciency(contexts.game, e);
+
+                MarketingUtils.AddClients(e, UserType.Regular, (long)clients);
 
                 CompanyUtils.SpendResources(e, need);
             }

@@ -35,19 +35,30 @@ public partial class AIProductSystems : OnDateChange
 
         var testSpeed = MarketingUtils.GetTestCampaignDuration(gameContext, company);
         var brandingSpeed = MarketingUtils.GetBrandingCampaignCooldownDuration(gameContext, company);
+        var targetSpeed = 1;
 
         var testCost = MarketingUtils.GetTestCampaignCost(gameContext, company);
         var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
+        var targetCost = MarketingUtils.GetTargetingCost(gameContext, company.company.Id);
 
-        requiredMarketingCost += testCost + brandingCost;
+        var period = GetResourcePeriod();
+        requiredMarketingCost = (brandingCost * 100 / brandingSpeed) + (targetCost * 100 / targetSpeed) + (testCost * 100 / testSpeed);
+        requiredMarketingCost /= 100;
+
+        Print("ManageExpandedMarketingTeam: " + requiredMarketingCost.ToString(), company);
 
         var change = GetResourceChange(company);
 
-        if (requiredMarketingCost.salesPoints < change.salesPoints)
+        if (requiredMarketingCost.salesPoints * period > change.salesPoints)
         {
             if (IsCanAffordWorker(company, WorkerRole.Marketer))
                 HireWorker(company, WorkerRole.Marketer);
         }
+    }
+
+    int GetResourcePeriod()
+    {
+        return CompanyEconomyUtils.GetPeriodDuration();
     }
 
     void ManageInvestors(GameEntity company)
@@ -98,6 +109,7 @@ public partial class AIProductSystems : OnDateChange
 
         GrabTestClients(company);
 
-        StartBrandingCampaign(company);
+        if (company.marketing.BrandPower < 90)
+            StartBrandingCampaign(company);
     }
 }
