@@ -24,9 +24,21 @@ class MenuInputSystem :
     void IInitializeSystem.Initialize()
     {
         menu = context.CreateEntity();
-        screen = ScreenMode.DevelopmentScreen;
+        screen = ScreenMode.ProjectScreen;
 
-        menu.AddNavigationHistory(new List<MenuComponent>());
+        menu.AddNavigationHistory(new List<MenuComponent> {
+            new MenuComponent
+            {
+                ScreenMode = screen,
+                Data = {
+                    [Constants.MENU_SELECTED_COMPANY] = 1,
+                    [Constants.MENU_SELECTED_INDUSTRY] = IndustryType.Search,
+                    [Constants.MENU_SELECTED_NICHE] = NicheType.SearchEngine,
+                    [Constants.MENU_SELECTED_HUMAN] = 0,
+                    [Constants.MENU_SELECTED_INVESTOR] = -1,
+                }
+            }
+        });
 
         var dictionary = new Dictionary<string, object>
         {

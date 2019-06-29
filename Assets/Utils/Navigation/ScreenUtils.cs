@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -12,11 +13,18 @@ namespace Assets.Utils
 
         public static Dictionary<string, object> GetScreenData(GameContext context)
         {
+            var queries = GetNavigationHistory(context).navigationHistory.Queries;
+
+            return queries[queries.Count - 1].Data;
             return GetMenu(context).menu.Data;
         }
 
         public static ScreenMode GetScreenMode(GameContext context)
         {
+            var queries = GetNavigationHistory(context).navigationHistory.Queries;
+
+            return queries[queries.Count - 1].ScreenMode;
+            //return GetScreenData(context)
             return GetMenu(context).menu.ScreenMode;
         }
 

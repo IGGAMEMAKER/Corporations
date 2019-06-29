@@ -5,29 +5,18 @@ namespace Assets.Utils
 {
     public static partial class ScreenUtils
     {
-        public static void UpdateScreenWithoutAnyChanges(GameContext gameContext)
-        {
-            var m = GetMenu(gameContext);
-
-            ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
-        }
-
-        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
-        {
-            ReplaceMenu(context, screenMode, data);
-        }
-
-        public static GameEntity GetNavigationHistory(GameContext context)
-        {
-            return context.GetEntities(GameMatcher.NavigationHistory)[0];
-        }
-
         public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
             var history = GetNavigationHistory(context);
 
             var q = history.navigationHistory.Queries;
-            q.Add(new MenuComponent { Data = data, ScreenMode = screenMode });
+
+            var c = new MenuComponent { ScreenMode = screenMode, Data = new Dictionary<string, object>() };
+
+            foreach (var p in data)
+                c.Data[p.Key] = p.Value;
+
+            q.Add(c);
 
             history.ReplaceNavigationHistory(q);
         }
@@ -36,7 +25,7 @@ namespace Assets.Utils
         {
             var menu = GetMenu(context);
 
-            UpdateHistory(context, menu.menu.ScreenMode, menu.menu.Data);
+            UpdateHistory(context, newScreen, newData);
             UpdateScreen(context, newScreen, newData);
 
             SoundManager.Play(Sound.Hover);
@@ -59,14 +48,13 @@ namespace Assets.Utils
 
         //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
 
-        //Debug.Log("Rendering menues: " + names);
         public static void NavigateBack(GameContext context)
         {
             var history = GetNavigationHistory(context);
 
             var q = history.navigationHistory.Queries;
 
-            if (q.Count == 0)
+            if (q.Count < 2)
                 return;
 
 
@@ -76,8 +64,26 @@ namespace Assets.Utils
 
             history.ReplaceNavigationHistory(q);
 
-            UpdateScreen(context, destination.ScreenMode, destination.Data);
+            UpdateScreenWithoutAnyChanges(context);
+            //UpdateScreen(context, destination.ScreenMode, destination.Data);
         }
 
+
+        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
+        {
+            ReplaceMenu(context, screenMode, data);
+        }
+
+        public static void UpdateScreenWithoutAnyChanges(GameContext gameContext)
+        {
+            var m = GetMenu(gameContext);
+
+            ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
+        }
+
+        public static GameEntity GetNavigationHistory(GameContext context)
+        {
+            return context.GetEntities(GameMatcher.NavigationHistory)[0];
+        }
     }
 }
