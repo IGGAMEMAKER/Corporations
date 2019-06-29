@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 
 public class LinkTo : ButtonController
 {
@@ -47,6 +48,9 @@ public class LinkTo : ButtonController
                 break;
 
             default:
+                if (TargetMenu == ScreenMode.ProjectScreen)
+                    Debug.Log("NAVIGATE TO PROJECT SCREEN");
+
                 Navigate(TargetMenu);
                 break;
         }
