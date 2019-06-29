@@ -64,7 +64,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
                     [NicheLifecyclePhase.Idle] = 0, // 0
                     [NicheLifecyclePhase.Innovation] = UnityEngine.Random.Range(1, 4), // 2-5            Xt
                     [NicheLifecyclePhase.Trending] = UnityEngine.Random.Range(5, 10), // 4 - 10           5Xt
-                    [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(8, 15), // 7 - 15            10Xt
+                    [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(11, 15), // 7 - 15            10Xt
                     [NicheLifecyclePhase.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
                     [NicheLifecyclePhase.Death] = 0, // churn
                 },

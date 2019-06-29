@@ -63,6 +63,27 @@ namespace Assets.Utils
             return names;
         }
 
+        public static int GetMinimumPhaseDurationModifier(NicheLifecyclePhase phase)
+        {
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Innovation:
+                    return 1;
+
+                case NicheLifecyclePhase.Trending:
+                    return 4;
+
+                case NicheLifecyclePhase.MassUse:
+                    return 10;
+
+                case NicheLifecyclePhase.Decay:
+                    return 15;
+
+                default:
+                    return 0;
+            }
+        }
+
         public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
         {
             return context

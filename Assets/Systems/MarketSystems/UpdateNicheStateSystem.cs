@@ -29,44 +29,25 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var value = Random.Range(0, 1f);
 
-        switch (state.Phase)
-        {
-            case NicheLifecyclePhase.Innovation:
-                break;
-            case NicheLifecyclePhase.Trending:
-                break;
-            case NicheLifecyclePhase.MassUse:
-                break;
-            case NicheLifecyclePhase.Decay:
-                break;
-        }
-
-        if (value > 0.9f)
+        if (value > 0.9f && IsNeedsPromotion(niche))
             UpdateNiche(niche);
+        else
+            IncrementDuration(niche);
     }
+
+
 
     bool IsNeedsPromotion(GameEntity niche)
     {
         var duration = niche.nicheState.Duration;
         var X = 6;
 
-        switch (niche.nicheState.Phase)
-        {
-            case NicheLifecyclePhase.Innovation:
-                return duration > X;
+        var phase = niche.nicheState.Phase;
 
-            case NicheLifecyclePhase.Trending:
-                return duration > 4 * X;
+        if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
+            return false;
 
-            case NicheLifecyclePhase.MassUse:
-                return duration > 10 * X;
-
-            case NicheLifecyclePhase.Decay:
-                return duration > 15 * X;
-
-            default:
-                return false;
-        }
+        return duration > X * NicheUtils.GetMinimumPhaseDurationModifier(phase);
     }
 
     NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
@@ -86,8 +67,6 @@ public partial class UpdateNicheStateSystem : OnMonthChange
                 return NicheLifecyclePhase.Decay;
 
             case NicheLifecyclePhase.Decay:
-                return NicheLifecyclePhase.Death;
-
             default:
                 return NicheLifecyclePhase.Death;
         }
@@ -101,6 +80,13 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var next = GetNextPhase(phase);
 
-        niche.ReplaceNicheState(state.Growth, next, state.Duration);
+        niche.ReplaceNicheState(state.Growth, next, 0);
+    }
+
+    void IncrementDuration(GameEntity niche)
+    {
+        var state = niche.nicheState;
+
+        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration + 1);
     }
 }
