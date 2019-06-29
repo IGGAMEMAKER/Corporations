@@ -35,7 +35,7 @@ public abstract class View : BaseClass
         if (isSelected)
             panelColor.a = 1f;
         else
-            panelColor.a = 100f / 255f;
+            panelColor.a = 66f / 255f;
 
         return panelColor;
     }
