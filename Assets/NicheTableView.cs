@@ -10,7 +10,7 @@ public class NicheTableView : View, IPointerEnterHandler
     [SerializeField] Text Competitors;
     [SerializeField] Image Panel;
     [SerializeField] Text Growth;
-    [SerializeField] Text Phase;
+    [SerializeField] Hint Phase;
     [SerializeField] Text NicheSize;
     [SerializeField] SetAmountOfStars SetAmountOfStars;
     
@@ -53,7 +53,7 @@ public class NicheTableView : View, IPointerEnterHandler
     void DescribePhase()
     {
         var phase = entity.nicheState.Phase;
-        Phase.text = phase.ToString();
+        Phase.SetHint(phase.ToString());
         Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%";
 
         var stars = NicheUtils.GetMarketRating(entity);
