@@ -64,6 +64,20 @@ namespace Assets.Utils
             return names;
         }
 
+        public static int GetMarketRating(GameEntity niche)
+        {
+            switch (niche.nicheState.Phase)
+            {
+                case NicheLifecyclePhase.Idle: return 1;
+                case NicheLifecyclePhase.Innovation: return 2;
+                case NicheLifecyclePhase.Trending: return 4;
+                case NicheLifecyclePhase.MassUse: return 5;
+                case NicheLifecyclePhase.Decay: return 3;
+
+                default:
+                    return 0;
+            }
+        }
 
         public static long GetMarketPotential(GameEntity niche)
         {
@@ -115,6 +129,9 @@ namespace Assets.Utils
                     return 0;
             }
         }
+
+
+
 
         public static GameEntity[] GetCompetitorsOfCompany(GameContext context, GameEntity company)
         {

@@ -7,6 +7,8 @@ public class MarketPotentialView : View
     public Text PotentialAudienceSize;
     public Text PotentialIncomeSize;
 
+    public SetAmountOfStars SetAmountOfStars;
+
     public Text RiskLabel;
     public Hint RiskHint;
 
@@ -19,6 +21,9 @@ public class MarketPotentialView : View
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+
+        var rating = NicheUtils.GetMarketRating(niche);
+        SetAmountOfStars.SetStars(rating);
 
         PotentialMarketSize.text = "10M ... 100M";
         PotentialAudienceSize.text = "10M ... 100M";

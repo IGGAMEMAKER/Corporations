@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -57,27 +56,10 @@ public class NicheTableView : View, IPointerEnterHandler
         Phase.text = phase.ToString();
         Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%";
 
-        var stars = 0;
-
-        switch (phase)
-        {
-            case NicheLifecyclePhase.Idle: stars = 1; break;
-            case NicheLifecyclePhase.Innovation: stars = 2; break;
-            case NicheLifecyclePhase.Trending: stars = 4; break;
-            case NicheLifecyclePhase.MassUse: stars = 5; break;
-            case NicheLifecyclePhase.Decay: stars = 3; break;
-        }
+        var stars = NicheUtils.GetMarketRating(entity);
 
         SetAmountOfStars.SetStars(stars);
     }
-
-    //public int GetAveragePhasePeriodForMarket(NicheLifecyclePhase phase)
-    //{
-    //    switch (phase)
-    //    {
-    //        case NicheLifecyclePhase.Innovation:
-    //    }
-    //}
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
