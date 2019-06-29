@@ -41,7 +41,13 @@ public partial class AIProductSystems : OnDateChange
 
         requiredMarketingCost += testCost + brandingCost;
 
+        var change = GetResourceChange(company);
 
+        if (requiredMarketingCost.salesPoints < change.salesPoints)
+        {
+            if (IsCanAffordWorker(company, WorkerRole.Marketer))
+                HireWorker(company, WorkerRole.Marketer);
+        }
     }
 
     void ManageInvestors(GameEntity company)
