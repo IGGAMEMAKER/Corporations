@@ -40,6 +40,8 @@ public partial class AIProductSystems : OnDateChange
         var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
 
         requiredMarketingCost += testCost + brandingCost;
+
+
     }
 
     void ManageInvestors(GameEntity company)

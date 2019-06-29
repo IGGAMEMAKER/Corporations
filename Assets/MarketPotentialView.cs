@@ -12,6 +12,8 @@ public class MarketPotentialView : View
     public Text RiskLabel;
     public Hint RiskHint;
 
+    public Text Demand;
+
     private void OnEnable()
     {
         Render();
@@ -28,13 +30,16 @@ public class MarketPotentialView : View
         PotentialMarketSize.text = "10M ... 100M";
         PotentialAudienceSize.text = "10M ... 100M";
 
-        var price = niche.nicheCosts.BasePrice;
-        PotentialIncomeSize.text = $"{price}$ ... {price * 2}$";
+        //var price = niche.nicheCosts.BasePrice;
+        //PotentialIncomeSize.text = $"{price}$ ... {price * 2}$";
 
         var risk = NicheUtils.GetMarketDemandRisk(GameContext, nicheType);
         string riskText = NicheUtils.ShowRiskStatus(risk).ToString();
 
         RiskLabel.text = $"{risk}% ({NicheUtils.ShowRiskStatus(risk)})";
         //RiskHint.SetHint(riskText);
+
+        var demand = MarketingUtils.GetCurrentClientBatch(GameContext, nicheType) * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
+        Demand.text = Format.MinifyToInteger(demand) + " monthly";
     }
 }

@@ -43,7 +43,9 @@ public class CompanyTableView : View, IPointerEnterHandler
         RenderAudienceGrowth();
         RenderValuationGrowth();
 
-        var rating = CompanyEconomyUtils.GetCompanyRating(GameContext, entity.company.Id);
+
+        var niche = NicheUtils.GetNicheEntity(GameContext, entity.product.Niche);
+        var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
 
