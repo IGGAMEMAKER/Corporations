@@ -45,6 +45,9 @@ public class CompanyTableView : View, IPointerEnterHandler
 
         var rating = CompanyEconomyUtils.GetCompanyRating(GameContext, entity.company.Id);
         SetAmountOfStars.SetStars(rating);
+
+
+        GetComponent<LinkToProjectView>().CompanyId = entity.company.Id;
     }
 
     void RenderAudienceGrowth()
