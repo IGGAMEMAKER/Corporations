@@ -43,8 +43,29 @@
 
         public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
         {
-            // amount of users/niche fame
-            return Constants.RISKS_DEMAND_MAX;
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            switch (niche.nicheState.Phase)
+            {
+                case NicheLifecyclePhase.Idle:
+                    return Constants.RISKS_DEMAND_MAX;
+
+                case NicheLifecyclePhase.Innovation:
+                    return Constants.RISKS_DEMAND_MAX / 2;
+
+                case NicheLifecyclePhase.Trending:
+                    return Constants.RISKS_DEMAND_MAX / 5;
+
+                case NicheLifecyclePhase.MassUse:
+                    return Constants.RISKS_DEMAND_MAX / 10;
+
+                case NicheLifecyclePhase.Decay:
+                    return Constants.RISKS_DEMAND_MAX / 2;
+
+                case NicheLifecyclePhase.Death:
+                default:
+                    return 100;
+            }
         }
     }
 }
