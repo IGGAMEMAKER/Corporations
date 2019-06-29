@@ -57,6 +57,9 @@ namespace Assets.Utils
             Navigate(context, screenMode, screenData);
         }
 
+        //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
+
+        //Debug.Log("Rendering menues: " + names);
         public static void NavigateBack(GameContext context)
         {
             var history = GetNavigationHistory(context);
@@ -66,9 +69,6 @@ namespace Assets.Utils
             if (q.Count == 0)
                 return;
 
-            //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
-
-            //Debug.Log("Rendering menues: " + names);
 
             var destination = q[q.Count - 1];
 

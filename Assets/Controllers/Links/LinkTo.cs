@@ -12,14 +12,16 @@ public class LinkTo : ButtonController
             case ScreenMode.CharacterScreen:
                 NavigateToHuman(Me.human.Id);
                 break;
+
             case ScreenMode.IndustryScreen:
                 NavigateToIndustry(IndustryType.Search);
                 break;
-            case ScreenMode.GroupManagementScreen:
-                NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
-                break;
             case ScreenMode.NicheScreen:
                 NavigateToNiche(NicheType.SearchEngine);
+                break;
+
+            case ScreenMode.GroupManagementScreen:
+                NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
                 break;
             case ScreenMode.InvesmentsScreen:
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
@@ -30,7 +32,6 @@ public class LinkTo : ButtonController
             case ScreenMode.ProjectScreen:
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
                 break;
-
             case ScreenMode.TeamScreen:
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
@@ -40,6 +41,7 @@ public class LinkTo : ButtonController
             case ScreenMode.MarketingScreen:
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
+
             case ScreenMode.ManageCompaniesScreen:
                 var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);
 

@@ -21,7 +21,7 @@ public abstract partial class ButtonController : BaseClass
         if (Contains<ToggleRoleButtons>())
             return;
 
-        ReNavigate();
+        UpdatePage();
     }
 
     // start
@@ -51,9 +51,9 @@ public abstract partial class ButtonController : BaseClass
             Debug.LogWarning("This component is not assigned to Button. It is assigned to " + gameObject.name);
     }
 
-    public void ReNavigate()
+    public void UpdatePage()
     {
-        Debug.Log("ReNavigate()");
+        Debug.Log("UpdatePage()");
 
         ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
     }
