@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -63,7 +64,38 @@ namespace Assets.Utils
             return names;
         }
 
-        public static int GetMinimumPhaseDurationModifier(NicheLifecyclePhase phase)
+
+        public static long GetMarketPotential(GameEntity niche)
+        {
+            var state = niche.nicheState;
+
+            var clientBatch = niche.nicheCosts.ClientBatch;
+            var price = niche.nicheCosts.BasePrice * 1.5f;
+
+            long clients = 0;
+
+            foreach (var g in state.Growth)
+            {
+                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDuration(niche) * 30;
+
+                var brandModifier = 1.5f;
+                var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
+
+                clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
+            }
+
+            Debug.Log($"Clients expectation for {niche.niche.NicheType}: " + clients);
+
+            return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
+        }
+
+        // months
+        public static int GetNichePeriodDuration(GameEntity niche)
+        {
+            return 6;
+        }
+
+        public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
         {
             switch (phase)
             {

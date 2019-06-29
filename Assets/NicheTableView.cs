@@ -33,6 +33,9 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void Render()
     {
+        if (entity == null)
+            return;
+
         SetPanelColor();
 
         NicheName.text = EnumUtils.GetFormattedNicheName(entity.niche.NicheType);
@@ -42,7 +45,7 @@ public class NicheTableView : View, IPointerEnterHandler
         Phase.text = phase.ToString();
         Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%\ngrowth";
 
-        NicheSize.text = Format.MinifyToInteger(GetMarketPotential(entity));
+        NicheSize.text = Format.MinifyToInteger(NicheUtils.GetMarketPotential(entity));
     }
 
     //public int GetAveragePhasePeriodForMarket(NicheLifecyclePhase phase)
@@ -52,30 +55,6 @@ public class NicheTableView : View, IPointerEnterHandler
     //        case NicheLifecyclePhase.Innovation:
     //    }
     //}
-
-    public static long GetMarketPotential(GameEntity niche)
-    {
-        var state = niche.nicheState;
-
-        var clientBatch = niche.nicheCosts.ClientBatch;
-        var price = niche.nicheCosts.BasePrice * 1.5f;
-
-        long clients = 0;
-
-        foreach (var g in state.Growth)
-        {
-            var phasePeriod = NicheUtils.GetMinimumPhaseDurationModifier(g.Key) * 30;
-
-            var brandModifier = 1.5f;
-            var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
-
-            clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
-        }
-
-        print($"Clients expectation for {niche.niche.NicheType}: " + clients);
-
-        return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
-    }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {

@@ -116,6 +116,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return e;
     }
 
+    void AttachNichesToIndustry(IndustryType industry, NicheType[] nicheTypes)
+    {
+        foreach (var n in nicheTypes)
+            AttachNicheToIndustry(n, industry);
+    }
+
     GameEntity ForkNiche(NicheType parent, NicheType child)
     {
         var e = GetNicheEntity(child);

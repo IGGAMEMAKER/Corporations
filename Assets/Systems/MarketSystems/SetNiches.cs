@@ -25,10 +25,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     void InitializeCommunicationsIndustry()
     {
-        IndustryType industry = IndustryType.Communications;
-
-        AttachNicheToIndustry(NicheType.Messenger, industry);
-        AttachNicheToIndustry(NicheType.SocialNetwork, industry);
+        AttachNichesToIndustry(IndustryType.Communications, new NicheType[] { NicheType.Messenger, NicheType.SocialNetwork });
 
         SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
         SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
@@ -36,9 +33,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     private void InitializeSearchIndustry()
     {
-        IndustryType industry = IndustryType.Search;
+        AttachNichesToIndustry(IndustryType.Search, new NicheType[] { NicheType.SearchEngine });
 
-        AttachNicheToIndustry(NicheType.SearchEngine, industry);
         SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 20000);
     }
 }

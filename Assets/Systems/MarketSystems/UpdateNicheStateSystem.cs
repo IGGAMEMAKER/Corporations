@@ -40,14 +40,14 @@ public partial class UpdateNicheStateSystem : OnMonthChange
     bool IsNeedsPromotion(GameEntity niche)
     {
         var duration = niche.nicheState.Duration;
-        var X = 6;
+        var nichePeriod = NicheUtils.GetNichePeriodDuration(niche);
 
         var phase = niche.nicheState.Phase;
 
         if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
             return false;
 
-        return duration > X * NicheUtils.GetMinimumPhaseDurationModifier(phase);
+        return duration > nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
     }
 
     NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
