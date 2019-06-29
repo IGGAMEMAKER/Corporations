@@ -13,6 +13,7 @@ public class NicheTableView : View, IPointerEnterHandler
     [SerializeField] Text Growth;
     [SerializeField] Text Phase;
     [SerializeField] Text NicheSize;
+    [SerializeField] SetAmountOfStars SetAmountOfStars;
     
 
     GameEntity entity;
@@ -38,14 +39,36 @@ public class NicheTableView : View, IPointerEnterHandler
 
         SetPanelColor();
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(entity.niche.NicheType);
-        Competitors.text = NicheUtils.GetCompetitorsAmount(entity.niche.NicheType, GameContext) + "\ncompanies";
+        var nicheType = entity.niche.NicheType;
 
+        GetComponent<LinkToNiche>().SetNiche(nicheType);
+
+        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
+        Competitors.text = NicheUtils.GetCompetitorsAmount(nicheType, GameContext) + "\ncompanies";
+
+
+        DescribePhase();
+        NicheSize.text = Format.MinifyToInteger(NicheUtils.GetMarketPotential(entity));
+    }
+
+    void DescribePhase()
+    {
         var phase = entity.nicheState.Phase;
         Phase.text = phase.ToString();
-        Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%\ngrowth";
+        Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%";
 
-        NicheSize.text = Format.MinifyToInteger(NicheUtils.GetMarketPotential(entity));
+        var stars = 0;
+
+        switch (phase)
+        {
+            case NicheLifecyclePhase.Idle: stars = 1; break;
+            case NicheLifecyclePhase.Innovation: stars = 2; break;
+            case NicheLifecyclePhase.Trending: stars = 4; break;
+            case NicheLifecyclePhase.MassUse: stars = 5; break;
+            case NicheLifecyclePhase.Decay: stars = 3; break;
+        }
+
+        SetAmountOfStars.SetStars(stars);
     }
 
     //public int GetAveragePhasePeriodForMarket(NicheLifecyclePhase phase)

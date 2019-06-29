@@ -30,6 +30,9 @@ public class CompanyTableView : View, IPointerEnterHandler
 
     public void Render()
     {
+        if (entity == null)
+            return;
+
         CompanyName.text = entity.company.Name;
 
         SetPanelColor();

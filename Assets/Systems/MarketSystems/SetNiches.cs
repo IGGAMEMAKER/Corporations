@@ -1,18 +1,5 @@
 ﻿using Entitas;
 
-//public class NicheSettings
-//{
-//    public IndustryType IndustryType;
-//    public NicheType NicheType;
-//    public float BaseProductPrice;
-//    public long ClientBatch;
-
-//    public int IdeaCost;
-//    public int TechCost;
-//    public int MarketingCost;
-//    public int AdsCost;
-//}
-
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     //void InitializeOSIndustry()
