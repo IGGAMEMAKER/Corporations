@@ -55,7 +55,7 @@ public abstract partial class ButtonController : BaseClass
     {
         Debug.Log("ReNavigate()");
 
-        ScreenUtils.UpdateScreen(GameContext);
+        ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
     }
 }
 

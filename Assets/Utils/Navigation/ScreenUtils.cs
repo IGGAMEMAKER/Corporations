@@ -3,19 +3,11 @@ using System.Collections.Generic;
 
 namespace Assets.Utils
 {
-    public static class ScreenUtils
+    public static partial class ScreenUtils
     {
         public static GameEntity GetMenu(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Menu)[0];
-        }
-
-        public static void UpdateScreen(GameContext gameContext)
-        {
-            var m = GetMenu(gameContext);
-
-            ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
-            //m.ReplaceMenu(m.menu.ScreenMode, m.menu.Data);
         }
 
         public static Dictionary<string, object> GetScreenData(GameContext context)
@@ -94,73 +86,6 @@ namespace Assets.Utils
             var menu = GetMenu(gameContext);
 
             menu.ReplaceMenu(screenMode, data);
-        }
-
-        public static GameEntity GetNavigationHistory(GameContext context)
-        {
-            return context.GetEntities(GameMatcher.NavigationHistory)[0];
-        }
-
-        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
-        {
-            SoundManager.Play(Sound.Hover);
-
-            ReplaceMenu(context, screenMode, data);
-        }
-
-        public static void UpdateHistory(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
-        {
-            var history = GetNavigationHistory(context);
-
-            var q = history.navigationHistory.Queries;
-            q.Add(new MenuComponent { Data = data, ScreenMode = screenMode });
-
-            history.ReplaceNavigationHistory(q);
-        }
-
-        public static void Navigate(GameContext context, ScreenMode newScreen, Dictionary<string, object> newData)
-        {
-            var menu = GetMenu(context);
-
-            UpdateHistory(context, menu.menu.ScreenMode, menu.menu.Data);
-            UpdateScreen(context, newScreen, newData);
-        }
-
-        public static void Navigate(GameContext context, ScreenMode screenMode)
-        {
-            // only changes screen
-            Navigate(context, screenMode, GetScreenData(context));
-        }
-
-        public static void Navigate(GameContext context, ScreenMode screenMode, string field, object data)
-        {
-            var screenData = GetScreenData(context);
-
-            screenData[field] = data;
-
-            Navigate(context, screenMode, screenData);
-        }
-
-        public static void NavigateBack(GameContext context)
-        {
-            var history = GetNavigationHistory(context);
-
-            var q = history.navigationHistory.Queries;
-
-            if (q.Count == 0)
-                return;
-
-            //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
-
-            //Debug.Log("Rendering menues: " + names);
-
-            var destination = q[q.Count - 1];
-
-            q.RemoveAt(q.Count - 1);
-
-            history.ReplaceNavigationHistory(q);
-
-            UpdateScreen(context, destination.ScreenMode, destination.Data);
         }
     }
 }
