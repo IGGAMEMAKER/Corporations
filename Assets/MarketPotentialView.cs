@@ -22,7 +22,9 @@ public class MarketPotentialView : View
 
         PotentialMarketSize.text = "10M ... 100M";
         PotentialAudienceSize.text = "10M ... 100M";
-        PotentialIncomeSize.text = "1$ ... 10$";
+
+        var price = niche.nicheCosts.BasePrice;
+        PotentialIncomeSize.text = $"{price}$ ... {price * 2}$";
 
         var risk = NicheUtils.GetMarketDemandRisk(GameContext, nicheType);
         string riskText = NicheUtils.ShowRiskStatus(risk).ToString();
