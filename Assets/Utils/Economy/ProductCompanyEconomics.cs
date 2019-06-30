@@ -28,12 +28,16 @@
 
         private static string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
         {
-            return $"Income of this company equals {GetProductCompanyIncome(gameEntity, gameContext)}";
+            var income = GetProductCompanyIncome(gameEntity, gameContext);
+
+            return $"Income of this company equals {Format.Money(income)}";
         }
 
         internal static string GetProductCompanyMaintenanceDescription(GameEntity company)
         {
-            return $"Maintenance of this company equals {GetProductCompanyMaintenance(company)}";
+            var maintenance = GetProductCompanyMaintenance(company);
+
+            return $"Maintenance of this company equals {Format.Money(maintenance)}";
         }
 
         private static long GetProductCompanyMaintenance(GameEntity e)
