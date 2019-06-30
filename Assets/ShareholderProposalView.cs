@@ -20,11 +20,25 @@ public class ShareholderProposalView : View
 
 
     GameEntity shareholder;
-    public void SetEntity(GameEntity proposal)
-    {
-        shareholder = CompanyUtils.GetInvestorById(GameContext, proposal.shareholder.Id);
+    GameEntity proposal;
 
-        Render(proposal);
+    public void SetEntity(GameEntity invProposal)
+    {
+        shareholder = CompanyUtils.GetInvestorById(GameContext, invProposal.shareholder.Id);
+        proposal = invProposal;
+
+        Render(invProposal);
+    }
+
+    void Render(GameEntity proposal)
+    {
+        RenderBasicInfo();
+
+        RenderInvestorOpinion();
+
+        RenderOffer();
+
+        SetButtons(shareholder.shareholder.Id);
     }
 
     bool CanAcceptInvestments
@@ -50,33 +64,25 @@ public class ShareholderProposalView : View
         InvestorType.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
     }
 
-    void RenderInvestorOpinion()
+    void RenderOffer()
     {
-        var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
-
-        var opinion = bonus.Sum();
-
-        OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
-        OpinionHint.SetHint(bonus.ToString());
-
+        //return;
+        var text = "";
         if (SelectedCompany.hasAcceptsInvestments)
         {
             var proposal = CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
 
-            Offer.text = Format.Money(proposal.Offer);
-        } else
-        {
-            Offer.text = "";
+            text = Format.Money(proposal.Offer);
         }
+
+        Offer.text = text;
     }
 
-
-    void Render(GameEntity proposal)
+    void RenderInvestorOpinion()
     {
-        RenderBasicInfo();
+        var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
 
-        RenderInvestorOpinion();
-
-        SetButtons(shareholder.shareholder.Id);
+        OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
+        OpinionHint.SetHint(bonus.ToString());
     }
 }
