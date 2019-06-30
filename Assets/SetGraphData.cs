@@ -30,9 +30,12 @@ public class SetGraphData : MonoBehaviour
         if (XList.Count == 0 || Values.Count != XList.Count)
         {
             NotEnoughDataBanner.SetActive(true);
+            DotContainer.SetActive(false);
             return;
         } else
         {
+            if (!DotContainer.activeSelf)
+                DotContainer.SetActive(true);
             NotEnoughDataBanner.SetActive(false);
         }
 
@@ -49,10 +52,12 @@ public class SetGraphData : MonoBehaviour
 
         long value = 0;
 
-        for (var i = 0; i < len; i++)
+        var i = 0;
+        for (i = 0; i < len; i++)
         {
             value = Values[i];
             Dots[i].transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
+            Dots[i].SetActive(true);
 
             var txt = Dots[i].GetComponentInChildren<Text>();
 
@@ -64,6 +69,10 @@ public class SetGraphData : MonoBehaviour
             {
                 txt.text = "";
             }
+        }
+        for (; i < Dots.Count; i++)
+        {
+            Dots[i].SetActive(false);
         }
     }
 
