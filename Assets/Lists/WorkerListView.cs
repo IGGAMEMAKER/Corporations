@@ -19,13 +19,23 @@ public class WorkerListView : ListView
     {
         base.ViewRender();
 
-        SetItems(SelectedCompany.team.Workers.OrderBy(p => - (GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext))).ToArray());
+        Fill();
+    }
+
+    void Fill()
+    {
+        SetItems(SelectedCompany.team.Workers
+            .OrderBy(p => - (GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext)))
+            .ToArray());
     }
 
     Func<WorkerRole, int> GetWorkerOrder = role =>
     {
         if (role == WorkerRole.Business)
-            return 10;
+            return 15;
+
+        if (role == WorkerRole.Universal)
+            return 11;
 
         if (role == WorkerRole.TechDirector)
             return 9;
@@ -51,86 +61,6 @@ public class WorkerListView : ListView
         if (role == WorkerRole.Programmer)
             return 2;
 
-        if (role == WorkerRole.Universal)
-            return 1;
-
         return 0;
     };
-
-    int CompareWorkerRoles (WorkerRole role1, WorkerRole role2)
-    {
-        var first = -1;
-        var second = 1;
-
-        if (role1 == WorkerRole.Business)
-            return first;
-
-        if (role2 == WorkerRole.Business)
-            return second;
-
-
-        if (role1 == WorkerRole.TechDirector)
-            return first;
-
-        if (role2 == WorkerRole.TechDirector)
-            return second;
-
-
-        if (role1 == WorkerRole.MarketingDirector)
-            return first;
-
-        if (role2 == WorkerRole.MarketingDirector)
-            return second;
-
-
-        if (role1 == WorkerRole.TeamLead)
-            return first;
-
-        if (role2 == WorkerRole.TeamLead)
-            return second;
-
-
-        if (role1 == WorkerRole.MarketingLead)
-            return first;
-
-        if (role2 == WorkerRole.MarketingLead)
-            return second;
-
-
-        if (role1 == WorkerRole.ProjectManager)
-            return first;
-
-        if (role2 == WorkerRole.ProjectManager)
-            return second;
-
-
-        if (role1 == WorkerRole.ProductManager)
-            return first;
-
-        if (role2 == WorkerRole.ProductManager)
-            return second;
-
-
-        if (role1 == WorkerRole.Marketer)
-            return first;
-
-        if (role2 == WorkerRole.Marketer)
-            return second;
-
-
-        if (role1 == WorkerRole.Programmer)
-            return first;
-
-        if (role2 == WorkerRole.Programmer)
-            return second;
-
-
-        if (role1 == WorkerRole.Universal)
-            return first;
-
-        if (role2 == WorkerRole.Universal)
-            return second;
-
-        return 0;
-    }
 }
