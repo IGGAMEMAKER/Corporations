@@ -21,7 +21,7 @@ public class RenderCompanyBalanceChange : View
         Change.UpdateValue(change);
         Change.shorten = true;
 
-        Change.GetComponent<Text>().text = Format.Money(change);
+        //Change.GetComponent<Text>().text = Format.Money(change);
 
         Hint.SetHint(
             "Income: " + Visuals.Positive(Format.Money(income)) + "\n" +

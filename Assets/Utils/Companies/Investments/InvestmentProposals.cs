@@ -42,23 +42,6 @@ namespace Assets.Utils
             c.ReplaceInvestmentProposals(proposals);
         }
 
-
-        internal static void RejectProposal(GameContext gameContext, int companyId, int investorId)
-        {
-            RemoveProposal(gameContext, companyId, investorId);
-        }
-
-        static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
-        {
-            var c = GetCompanyById(gameContext, companyId);
-
-            var proposals = GetInvestmentProposals(gameContext, companyId);
-
-            proposals.RemoveAll(p => p.ShareholderId == investorId);
-
-            c.ReplaceInvestmentProposals(proposals);
-        }
-
         internal static void AcceptProposal(GameContext gameContext, int companyId, int investorId)
         {
             var p = GetInvestmentProposal(gameContext, companyId, investorId);
@@ -110,6 +93,24 @@ namespace Assets.Utils
 
                 AddInvestmentProposal(context, companyId, p);
             }
+        }
+
+
+        // to remove
+        internal static void RejectProposal(GameContext gameContext, int companyId, int investorId)
+        {
+            RemoveProposal(gameContext, companyId, investorId);
+        }
+
+        static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
+        {
+            var c = GetCompanyById(gameContext, companyId);
+
+            var proposals = GetInvestmentProposals(gameContext, companyId);
+
+            proposals.RemoveAll(p => p.ShareholderId == investorId);
+
+            c.ReplaceInvestmentProposals(proposals);
         }
     }
 }
