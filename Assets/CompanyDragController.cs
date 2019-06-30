@@ -16,7 +16,7 @@ public class CompanyDragController : View,
 
     string GetCompanyName()
     {
-        return GetComponent<CompanyPreviewView>()._entity.company.Name;
+        return GetComponent<CompanyPreviewView>().entity.company.Name;
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)

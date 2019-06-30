@@ -14,29 +14,29 @@ public class CompanyPreviewView : View,
 
     public Text ShareCostLabel;
 
-    public GameEntity _entity;
+    public GameEntity entity;
 
-    public void SetEntity(GameEntity entity)
+    public void SetEntity(GameEntity company)
     {
-        _entity = entity;
+        entity = company;
 
-        entity.AddProductListener(this);
+        company.AddProductListener(this);
 
-        Render(entity);
+        Render(company);
     }
 
     void RenderPanel()
     {
         var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
 
-        Panel.color = GetPanelColor(_entity == SelectedCompany && inGroupScreens);
+        Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
     }
 
     void Render(GameEntity e)
     {
         RenderPanel();
 
-        CEOLabel.gameObject.SetActive(_entity.isControlledByPlayer);
+        CEOLabel.gameObject.SetActive(entity.isControlledByPlayer);
 
         RenderCompanyName(e);
         RenderCompanyType(e);

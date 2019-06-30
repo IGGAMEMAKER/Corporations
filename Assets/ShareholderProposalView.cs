@@ -81,12 +81,12 @@ public class ShareholderProposalView : View
         if (proposal.WasAccepted)
         {
             OpinionDescription.text = "Offer was accepted!";
+            OpinionHint.SetHint("");
         } else
         {
             OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
+            var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
+            OpinionHint.SetHint(bonus.ToString());
         }
-
-        var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
-        OpinionHint.SetHint(bonus.ToString());
     }
 }
