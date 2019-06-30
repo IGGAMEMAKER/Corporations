@@ -54,7 +54,7 @@ public class NicheTableView : View, IPointerEnterHandler
     {
         var phase = entity.nicheState.Phase;
         Phase.SetHint(phase.ToString());
-        Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase])}%";
+        Growth.text = $"{Format.Sign(entity.nicheState.Growth[phase] * 12)}%";
 
         var stars = NicheUtils.GetMarketRating(entity);
 
