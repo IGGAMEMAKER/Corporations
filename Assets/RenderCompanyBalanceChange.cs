@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RenderCompanyBalanceChange : View
 {
@@ -15,9 +16,12 @@ public class RenderCompanyBalanceChange : View
         var income = CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(SelectedCompany, GameContext);
 
-        Change.UpdateValue(CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext));
-        Change.Prettify = true;
+        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
 
+        Change.UpdateValue(change);
+        Change.shorten = true;
+
+        Change.GetComponent<Text>().text = Format.Money(change);
 
         Hint.SetHint(
             "Income: " + Visuals.Positive(Format.Money(income)) + "\n" +
