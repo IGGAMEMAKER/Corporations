@@ -112,7 +112,7 @@ public class BaseClass : MonoBehaviour
         }
     }
     
-    public GameContext GameContext
+    public static GameContext GameContext
     {
         get
         {

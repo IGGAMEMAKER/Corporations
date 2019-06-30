@@ -24,12 +24,19 @@ public class WorkerListView : ListView
 
     void Fill()
     {
-        SetItems(SelectedCompany.team.Workers
-            .OrderBy(p => - (GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext)))
-            .ToArray());
+        var items = SelectedCompany.team.Workers
+            .OrderByDescending(OrderWorkers)
+            .ToArray();
+
+        SetItems(items);
     }
 
-    Func<WorkerRole, int> GetWorkerOrder = role =>
+    Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
+    {
+        return GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext);
+    };
+
+    static int GetWorkerOrder (WorkerRole role)
     {
         if (role == WorkerRole.Business)
             return 15;
@@ -62,5 +69,5 @@ public class WorkerListView : ListView
             return 2;
 
         return 0;
-    };
+    }
 }
