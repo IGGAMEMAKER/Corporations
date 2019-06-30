@@ -9,6 +9,7 @@ public class SetGraphData : MonoBehaviour
 {
     public GameObject DotPrefab;
     public GameObject DotContainer;
+    public GameObject NotEnoughDataBanner;
 
     List<GameObject> Dots = new List<GameObject>();
 
@@ -27,7 +28,13 @@ public class SetGraphData : MonoBehaviour
         Values = ys;
 
         if (XList.Count == 0 || Values.Count != XList.Count)
+        {
+            NotEnoughDataBanner.SetActive(true);
             return;
+        } else
+        {
+            NotEnoughDataBanner.SetActive(false);
+        }
 
 
         while (XList.Count > Dots.Count)

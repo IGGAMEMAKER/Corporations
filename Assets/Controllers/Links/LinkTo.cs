@@ -20,9 +20,6 @@ public class LinkTo : ButtonController
                 NavigateToNiche(NicheType.SearchEngine);
                 break;
 
-            case ScreenMode.GroupManagementScreen:
-                NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
-                break;
             case ScreenMode.InvesmentsScreen:
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
                 break;
@@ -42,11 +39,19 @@ public class LinkTo : ButtonController
                 NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
                 break;
 
+            case ScreenMode.GroupManagementScreen:
+                NavigateToCompany(TargetMenu, MyGroupEntity.company.Id);
+                break;
             case ScreenMode.ManageCompaniesScreen:
                 var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);
 
                 if (daughters.Length > 0)
-                    Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
+                {
+                    if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
+                        Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
+                    else
+                        Navigate(TargetMenu);
+                }
                 break;
 
             default:
