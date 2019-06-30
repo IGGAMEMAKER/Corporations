@@ -20,16 +20,18 @@ public class CreateProductCompany : ButtonController
         else if (MyGroupEntity != null)
         {
             AttachToGroup(companyID);
-
-            name = MyGroupEntity.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
-
-            CompanyUtils.Rename(GameContext, companyID, name);
         }
     }
 
     void AttachToGroup(int companyID)
     {
         CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, companyID);
+
+        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
+
+        name = MyGroupEntity.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
+
+        CompanyUtils.Rename(GameContext, companyID, name);
     }
 
     void SetMyselfAsCEO(int companyID)
