@@ -106,7 +106,6 @@ namespace Assets.Utils
                     ShareholderId = potentialInvestor.shareholder.Id,
                     InvestorBonus = InvestorBonus.None,
                     WasAccepted = false
-                    // GetRandomInvestmentFund(context)
                 };
 
                 AddInvestmentProposal(context, companyId, p);
