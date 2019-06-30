@@ -65,6 +65,7 @@ namespace Assets.Utils
             int id = GenerateHumanId(gameContext);
 
             e.AddHuman(id, "Tom", "Stokes " + id);
+            e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
             e.AddHumanSkills(
                 GenerateRandomSkills(),
                 GenerateRandomTraits(),

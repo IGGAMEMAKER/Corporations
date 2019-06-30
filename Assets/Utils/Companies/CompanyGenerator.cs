@@ -32,10 +32,40 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
             company.AddMarketing(brandPower, Segments);
 
+            AddFocusNiche(niche, company);
+
+            var industry = NicheUtils.GetIndustry(niche, context);
+            AddFocusIndustry(industry, company);
             InvestmentUtils.SetCompanyGoal(context, company, GOAL, 365);
 
             return company;
         }
+
+        public static void AddFocusNiche(NicheType nicheType, GameEntity company)
+        {
+            var niches = company.companyFocus.Niches;
+
+            if (niches.Contains(nicheType))
+                return;
+
+            niches.Add(nicheType);
+
+            company.ReplaceCompanyFocus(niches, company.companyFocus.Industries);
+        }
+
+        public static void AddFocusIndustry(IndustryType industryType, GameEntity company)
+        {
+            var industries = company.companyFocus.Industries;
+
+            if (industries.Contains(industryType))
+                return;
+
+            industries.Add(industryType);
+
+            company.ReplaceCompanyFocus(company.companyFocus.Niches, industries);
+        }
+
+
 
         private static GameEntity CreateCompany(
             GameContext context,
@@ -66,6 +96,7 @@ namespace Assets.Utils
 
             e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
 
+            e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
 
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
 

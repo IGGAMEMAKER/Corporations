@@ -1,8 +1,9 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
+using UnityEngine;
 
-public class ProductInitializerSystem : IInitializeSystem
+public partial class ProductInitializerSystem : IInitializeSystem
 {
     readonly GameContext GameContext;
 
@@ -15,117 +16,13 @@ public class ProductInitializerSystem : IInitializeSystem
     {
         Initialize();
 
-        SpawnInvestmentFunds(5, 10000000, 100000000);
-        SpawnInvestors(10, 1000000, 10000000);
+        SpawnInvestmentFunds(8, 10000000, 100000000);
+        SpawnInvestors(50, 1000000, 10000000);
 
         AutoFillNonFilledShareholders();
         AutoFillProposals();
-    }
 
-    GameEntity GenerateProductCompany(string name, NicheType nicheType)
-    {
-        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
-    }
-
-    int GenerateInvestmentFund(string name, long money)
-    {
-        return CompanyUtils.GenerateInvestmentFund(GameContext, name, money).shareholder.Id;
-    }
-
-    int GenerateHoldingCompany(string name)
-    {
-        return CompanyUtils.GenerateHoldingCompany(GameContext, name).company.Id;
-    }
-
-    void AttachToHolding(int parent, int child)
-    {
-        CompanyUtils.AttachToGroup(GameContext, parent, child);
-    }
-
-    void AddShareholder(int companyId, int investorId, int shares)
-    {
-        //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
-
-        CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
-    }
-
-    void SetPlayerControlledCompany(int companyId)
-    {
-        CompanyUtils.SetPlayerControlledCompany(GameContext, companyId);
-    }
-
-    int PromoteToGroup(int companyId)
-    {
-        return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
-    }
-
-    long GetRandomFundSize (int min, int max)
-    {
-        int value = UnityEngine.Random.Range(min, max);
-
-        return Convert.ToInt64(value);
-    }
-
-    void SpawnInvestmentFunds(int amountOfFunds, int investmentMin, int investmentMax)
-    {
-        for (var i = 0; i < amountOfFunds; i++)
-            GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), GetRandomFundSize(investmentMin, investmentMax));
-    }
-
-    void GenerateEarlyInvestor()
-    {
-
-    }
-
-    void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
-    {
-        for (var i = 0; i < amountOfInvestors; i++)
-            InvestmentUtils.GenerateAngel(GameContext);
-    }
-
-    int GetRandomInvestmentFund()
-    {
-        return CompanyUtils.GetRandomInvestmentFund(GameContext);
-    }
-
-    int GetRandomInvestorId()
-    {
-        return GetRandomInvestmentFund();
-    }
-
-    private void AutoFillProposals()
-    {
-        foreach (var c in CompanyUtils.GetNonFinancialCompanies(GameContext))
-            CompanyUtils.SpawnProposals(GameContext, c.company.Id);
-    }
-
-    public static void SetRandomCEO()
-    {
-
-    }
-
-    void AutoFillNonFilledShareholders()
-    {
-        foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
-        {
-            for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
-            {
-                int investorId = GetRandomInvestmentFund();
-
-                AddShareholder(c.company.Id, investorId, 100);
-            }
-        }
-    }
-
-    void PlayAs(int companyId)
-    {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
-
-        SetPlayerControlledCompany(companyId);
-
-        human.isPlayer = true;
+        SetSpheresOfInfluence();
     }
 
     void Initialize()
@@ -182,5 +79,165 @@ public class ProductInitializerSystem : IInitializeSystem
         yandexProduct.finance.price = Pricing.Medium;
 
         ScreenUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, Constants.MENU_SELECTED_NICHE, tg.product.Niche);
+    }
+}
+
+public partial class ProductInitializerSystem : IInitializeSystem
+{
+    void Print(string s)
+    {
+        Debug.Log("INI: " + s);
+    }
+
+    void PlayAs(int companyId)
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+
+        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
+
+        SetPlayerControlledCompany(companyId);
+
+        human.isPlayer = true;
+    }
+
+    void SetSpheresOfInfluence()
+    {
+        var financial = CompanyUtils.GetFinancialCompanies(GameContext);
+        var managing = CompanyUtils.GetGroupCompanies(GameContext);
+
+        foreach (var c in financial)
+        {
+            //Print(c.)
+
+            CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
+
+            AutoFillFocusNichesByIndustry(c);
+        }
+
+        foreach (var c in managing)
+        {
+            CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
+
+            AutoFillSomeFocusNichesByIndustry(c);
+            //AutoFillFocusNichesByIndustry(c);
+        }
+    }
+
+    void AutoFillFocusNichesByIndustry(GameEntity company)
+    {
+        var niches = NicheUtils.GetNichesInIndustry(company.companyFocus.Industries[0], GameContext);
+
+        foreach (var n in niches)
+            CompanyUtils.AddFocusNiche(n.niche.NicheType, company);
+    }
+
+    void AutoFillSomeFocusNichesByIndustry(GameEntity company)
+    {
+        var niches = NicheUtils.GetNichesInIndustry(company.companyFocus.Industries[0], GameContext);
+
+        CompanyUtils.AddFocusNiche(RandomEnum<NicheComponent>.PickRandomItem(niches).NicheType, company);
+
+        //foreach (var n in niches)
+        //    CompanyUtils.AddFocusNiche(n.niche.NicheType, company);
+    }
+
+    IndustryType GetRandomIndustry()
+    {
+        return RandomEnum<IndustryType>.GenerateValue();
+    }
+
+    GameEntity GenerateProductCompany(string name, NicheType nicheType)
+    {
+        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+    }
+
+    int GenerateInvestmentFund(string name, long money)
+    {
+        return CompanyUtils.GenerateInvestmentFund(GameContext, name, money).shareholder.Id;
+    }
+
+    int GenerateHoldingCompany(string name)
+    {
+        return CompanyUtils.GenerateHoldingCompany(GameContext, name).company.Id;
+    }
+
+    void AttachToHolding(int parent, int child)
+    {
+        CompanyUtils.AttachToGroup(GameContext, parent, child);
+    }
+
+    void AddShareholder(int companyId, int investorId, int shares)
+    {
+        //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
+
+        CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
+    }
+
+    void SetPlayerControlledCompany(int companyId)
+    {
+        CompanyUtils.SetPlayerControlledCompany(GameContext, companyId);
+    }
+
+    int PromoteToGroup(int companyId)
+    {
+        return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
+    }
+
+    long GetRandomFundSize(int min, int max)
+    {
+        int value = UnityEngine.Random.Range(min, max);
+
+        return Convert.ToInt64(value);
+    }
+
+    void SpawnInvestmentFunds(int amountOfFunds, int investmentMin, int investmentMax)
+    {
+        for (var i = 0; i < amountOfFunds; i++)
+            GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), GetRandomFundSize(investmentMin, investmentMax));
+    }
+
+    void GenerateEarlyInvestor()
+    {
+
+    }
+
+    void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
+    {
+        for (var i = 0; i < amountOfInvestors; i++)
+            InvestmentUtils.GenerateAngel(GameContext);
+    }
+
+    int GetRandomInvestmentFund()
+    {
+        return CompanyUtils.GetRandomInvestmentFund(GameContext);
+    }
+
+    int GetRandomInvestorId()
+    {
+        return GetRandomInvestmentFund();
+    }
+
+    private void AutoFillProposals()
+    {
+        foreach (var c in CompanyUtils.GetNonFinancialCompanies(GameContext))
+            CompanyUtils.SpawnProposals(GameContext, c.company.Id);
+    }
+
+    public static void SetRandomCEO()
+    {
+
+    }
+
+    void AutoFillNonFilledShareholders()
+    {
+        foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
+        {
+            for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
+            {
+                int investorId = GetRandomInvestmentFund();
+
+                AddShareholder(c.company.Id, investorId, 100);
+            }
+        }
     }
 }

@@ -63,11 +63,19 @@
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
             bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
-            bool isSuitableByNiche = true;
+            bool isSuitableByNiche = IsInInvestorsSphereOfInfluence(shareholder, company);
             bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
             bool isInvestorAlready = IsInvestsInThisCompany(shareholder, company);
 
             return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize && !isInvestorAlready;
+        }
+
+        public static bool IsInInvestorsSphereOfInfluence(GameEntity shareholder, GameEntity company)
+        {
+            if (!company.hasProduct)
+                return true;
+
+            return shareholder.companyFocus.Niches.Contains(company.product.Niche);
         }
 
         private static bool IsInvestsInThisCompany(GameEntity shareholder, GameEntity company)

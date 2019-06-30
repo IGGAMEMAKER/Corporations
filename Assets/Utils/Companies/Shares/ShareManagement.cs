@@ -80,31 +80,6 @@ namespace Assets.Utils
             return CompanyEconomyUtils.GetCompanyCost(context, c.company.Id) * shares / total;
         }
 
-
-        internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
-        {
-            return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
-                e => e.shareholders.Shareholders.Count == 0 && e.company.CompanyType != CompanyType.FinancialGroup
-            );
-        }
-
-        internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
-        {
-            return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals)),
-                e => e.company.CompanyType != CompanyType.FinancialGroup
-            );
-        }
-
-        internal static GameEntity[] GetFinancialCompanies(GameContext gameContext)
-        {
-            return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholder)),
-                e => e.company.CompanyType == CompanyType.FinancialGroup
-            );
-        }
-
         public static string GetInvestorName(GameEntity investor)
         {
             return investor.shareholder.Name;

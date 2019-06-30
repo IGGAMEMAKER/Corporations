@@ -124,6 +124,13 @@ public class CompanyGoalComponent : IComponent
     public long MeasurableGoal;
 }
 
+[Game]
+public class CompanyFocusComponent : IComponent
+{
+    public List<NicheType> Niches;
+    public List<IndustryType> Industries;
+}
+
 public class CompanyPhaseComponent : IComponent
 {
     public bool becameMarketFit;
