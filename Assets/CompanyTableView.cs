@@ -54,16 +54,24 @@ public class CompanyTableView : View, IPointerEnterHandler
 
     void RenderAudienceGrowth()
     {
-        var audienceGrowth = CompanyUtils.GetAudienceGrowth(entity);
+        var monthly = CompanyUtils.GetAudienceGrowth(entity, 3);
+        var yearly = CompanyUtils.GetAudienceGrowth(entity, 12);
 
-        AudienceGrowth.text = Format.Sign(audienceGrowth) + "%";
+        var monGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
+        var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
+
+        AudienceGrowth.text = $"{monGrowth} / {yrGrowth}";
     }
 
     void RenderValuationGrowth()
     {
-        var valuationGrowth = CompanyUtils.GetValuationGrowth(entity);
+        var monthly = CompanyUtils.GetValuationGrowth(entity, 3);
+        var yearly = CompanyUtils.GetValuationGrowth(entity, 12);
 
-        ValuationGrowth.text = Format.Sign(valuationGrowth) + "%";
+        var monGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
+        var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
+
+        ValuationGrowth.text = $"{monGrowth} / {yrGrowth}";
     }
 
     void SetPanelColor()

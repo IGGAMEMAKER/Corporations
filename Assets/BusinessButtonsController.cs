@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 
 public class BusinessButtonsController : View
 {
     public GameObject PromoteToGroupButton;
     public GameObject PivotButton;
+    [SerializeField] GameObject ManageCompanyButton;
 
     private void OnEnable()
     {
@@ -18,6 +20,8 @@ public class BusinessButtonsController : View
         PromoteToGroupButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
+
+        ManageCompanyButton.SetActive(CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany));
 
         //LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
