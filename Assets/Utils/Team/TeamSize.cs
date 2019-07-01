@@ -21,6 +21,23 @@ namespace Assets.Utils
             }
         }
 
+        public static long GetSalary(WorkerRole workerRole)
+        {
+            // TODO GET PROPER SALARIES FOR ALL ROLES
+
+            switch (workerRole)
+            {
+                case WorkerRole.Business: return Constants.SALARIES_CEO;
+                case WorkerRole.Manager: return Constants.SALARIES_MANAGER;
+                case WorkerRole.Marketer: return Constants.SALARIES_MARKETER;
+
+                case WorkerRole.ProductManager: return Constants.SALARIES_PRODUCT_PROJECT_MANAGER;
+                case WorkerRole.ProjectManager: return Constants.SALARIES_PRODUCT_PROJECT_MANAGER;
+
+                default: return Constants.SALARIES_DIRECTOR;
+            }
+        }
+
         //public static GameEntity[] GetSpecialistsByRole(GameEntity company, WorkerRole workerRole, GameContext gameContext)
         //{
         //    company.team.Workers.Values.ToArray().Where(w => w == workerRole);
