@@ -6,9 +6,7 @@ using UnityEngine;
 public class CompanyTableView : View, IPointerEnterHandler
 {
     public Text CompanyName;
-    public SetAmountOfStars SetAmountOfStars;
     [SerializeField] Text Cost;
-    [SerializeField] Text AudienceGrowth;
     [SerializeField] Text ValuationGrowth;
     public Image Panel;
 
@@ -28,10 +26,25 @@ public class CompanyTableView : View, IPointerEnterHandler
         Render();
     }
 
+    void SetProductCompanyTableView()
+    {
+        var p = GetComponent<ProductCompanyTableView>();
+
+        if (p != null)
+            p.SetEntity(entity);
+
+        var g = GetComponent<GroupCompanyTableView>();
+
+        if (g != null)
+            g.SetEntity(entity);
+    }
+
     public void Render()
     {
         if (entity == null)
             return;
+
+        SetProductCompanyTableView();
 
         CompanyName.text = entity.company.Name;
 
@@ -40,27 +53,9 @@ public class CompanyTableView : View, IPointerEnterHandler
         Cost.text = "$" + Format.MinifyToInteger(CompanyEconomyUtils.GetCompanyCost(GameContext, entity.company.Id));
 
 
-        RenderAudienceGrowth();
         RenderValuationGrowth();
 
-
-        var niche = NicheUtils.GetNicheEntity(GameContext, entity.product.Niche);
-        var rating = NicheUtils.GetMarketRating(niche);
-        SetAmountOfStars.SetStars(rating);
-
-
         GetComponent<LinkToProjectView>().CompanyId = entity.company.Id;
-    }
-
-    void RenderAudienceGrowth()
-    {
-        var monthly = CompanyUtils.GetAudienceGrowth(entity, 3);
-        var yearly = CompanyUtils.GetAudienceGrowth(entity, 12);
-
-        var monGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
-        var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
-
-        AudienceGrowth.text = $"{monGrowth} / {yrGrowth}";
     }
 
     void RenderValuationGrowth()
