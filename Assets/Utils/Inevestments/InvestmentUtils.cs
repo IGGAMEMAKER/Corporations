@@ -10,6 +10,13 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
+        public static GameEntity[] GetInvestmentsOf(GameContext gameContext, int shareholderId)
+        {
+            var shareholder = GetInvestorById(gameContext, shareholderId);
+
+            return Array.FindAll(gameContext.GetEntities(GameMatcher.Shareholders), e => IsInvestsInThisCompany(shareholder, e));
+        }
+
         public static GameEntity GenerateAngel(GameContext gameContext)
         {
             var human = HumanUtils.GenerateHuman(gameContext);

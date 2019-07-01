@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Utils;
 
 public class FillSharesList : View
 {
@@ -14,6 +11,9 @@ public class FillSharesList : View
 
     private GameEntity[] GetInvestments()
     {
+        if (SelectedHuman.hasShareholder)
+            return InvestmentUtils.GetInvestmentsOf(GameContext, SelectedHuman.shareholder.Id);
+
         return new GameEntity[0];
     }
 }
