@@ -21,11 +21,6 @@ public class HumanHoldingsPreview : View
         Render();
     }
 
-    void AddLinkIfPossible()
-    {
-        LinkToCompanyPreview.CompanyId = company.company.Id;
-    }
-
     void Render()
     {
         NameLabel.text = company.company.Name;
@@ -33,6 +28,6 @@ public class HumanHoldingsPreview : View
 
         SharesAmountHint.SetHint("");
 
-        AddLinkIfPossible();
+        LinkToCompanyPreview.CompanyId = company.company.Id;
     }
 }
