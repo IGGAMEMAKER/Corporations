@@ -17,7 +17,7 @@ public class GroupSearchListView : ListView
         Render();
     }
 
-    void Render()
+    public void Render()
     {
         var groups = CompanyUtils.GetGroupCompanies(GameContext);
 

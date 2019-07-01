@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompanySearchListView : ListView
+public class ProductCompanySearchListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -17,7 +17,7 @@ public class CompanySearchListView : ListView
         Render();
     }
 
-    void Render()
+    public void Render()
     {
         var products = CompanyUtils.GetProductCompanies(GameContext);
 
