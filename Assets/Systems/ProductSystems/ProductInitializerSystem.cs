@@ -72,15 +72,9 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId, 100);
-
-        var googleProduct = CompanyUtils.GetCompanyById(GameContext, google);
-        var yandexProduct = CompanyUtils.GetCompanyById(GameContext, yahoo);
-
-        yandexProduct.finance.price = Pricing.Medium;
-
-        ScreenUtils.Navigate(GameContext, ScreenMode.DevelopmentScreen, Constants.MENU_SELECTED_NICHE, tg.product.Niche);
     }
 }
+
 
 public partial class ProductInitializerSystem : IInitializeSystem
 {

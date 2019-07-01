@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     readonly GameContext GameContext;
@@ -11,15 +12,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     public MarketInitializerSystem(Contexts contexts)
     {
         GameContext = contexts.game;
-    }
-
-    void CheckIndustriesWithZeroNiches()
-    {
-        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-        {
-            if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
-                Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
-        }
     }
 
     void IInitializeSystem.Initialize()
@@ -33,13 +25,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         CheckIndustriesWithZeroNiches();
     }
+}
 
-    void InitializeIndustries()
-    {
-        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-            GameContext.CreateEntity().AddIndustry(industry);
-    }
-
+public partial class MarketInitializerSystem : IInitializeSystem
+{
     void InitializeNiches()
     {
         foreach (NicheType niche in (NicheType[])Enum.GetValues(typeof(NicheType)))
@@ -79,6 +68,21 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 [UserType.Mass] = 1,
             });
         }
+    }
+
+    void CheckIndustriesWithZeroNiches()
+    {
+        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
+        {
+            if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
+                Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
+        }
+    }
+
+    void InitializeIndustries()
+    {
+        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
+            GameContext.CreateEntity().AddIndustry(industry);
     }
 
     GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost)
