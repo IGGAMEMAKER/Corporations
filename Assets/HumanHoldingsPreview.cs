@@ -6,35 +6,16 @@ using UnityEngine.UI;
 
 public class HumanHoldingsPreview : View
 {
-    int ShareholderId
-    {
-        get
-        {
-            return SelectedHuman.shareholder.Id;
-        }
-    }
-
-    GameEntity company;
-
-    int TotalShares;
-
     public Text NameLabel;
     public Text SharesLabel;
     public Hint SharesAmountHint;
 
     public LinkToProjectView LinkToCompanyPreview;
 
-    GameEntity ShareholderEntity
-    {
-        get
-        {
-            return CompanyUtils.GetInvestorById(GameContext, ShareholderId);
-        }
-    }
+    GameEntity company;
 
     public void SetEntity(GameEntity company)
     {
-        //int shareholderId, BlockOfShares shares
         this.company = company;
 
         Render();
@@ -48,7 +29,7 @@ public class HumanHoldingsPreview : View
     void Render()
     {
         NameLabel.text = company.company.Name;
-        SharesLabel.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, ShareholderId) + "%";
+        SharesLabel.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, SelectedHuman.shareholder.Id) + "%";
 
         SharesAmountHint.SetHint("");
 
