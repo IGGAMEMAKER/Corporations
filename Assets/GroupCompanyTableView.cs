@@ -27,7 +27,35 @@ public class GroupCompanyTableView : View
 
         CompanyTypeName.text = $"({EnumUtils.GetFormattedCompanyType(entity.company.CompanyType)}";
 
-        NicheFocus.text = System.String.Join(",", entity.companyFocus.Niches);
-        IndustryFocus.text = System.String.Join(",", entity.companyFocus.Industries);
+        RenderNichesAmount();
+        RenderIndustriesAmount();
+    }
+
+    void RenderIndustriesAmount()
+    {
+        var industries = entity.companyFocus.Industries;
+
+        var text = "";
+
+        if (industries.Count < 3)
+            text = System.String.Join("\n", industries);
+        else
+            text = industries.Count.ToString();
+
+        IndustryFocus.text = text;
+    }
+
+    void RenderNichesAmount()
+    {
+        var niches = entity.companyFocus.Niches;
+
+        var text = "";
+
+        if (niches.Count < 3)
+            text = System.String.Join("\n", niches);
+        else
+            text = niches.Count.ToString();
+
+        NicheFocus.text = text;
     }
 }
