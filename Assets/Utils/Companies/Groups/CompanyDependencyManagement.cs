@@ -70,15 +70,27 @@ namespace Assets.Utils
             return companyHoldings;
         }
 
-        public static CompanyTree GetHoldingsTree(GameContext context, int companyId)
+        public static List<CompanyHolding> GetPersonalHoldings(GameContext context, int shareholderId, bool recursively)
         {
-            var tree = new CompanyTree
-            {
-                companyId = companyId,
-                holdings = GetCompanyHoldings(context, companyId, true)
-            };
+            List<CompanyHolding> companyHoldings = new List<CompanyHolding>();
 
-            return tree;
+            var investments = InvestmentUtils.GetInvestmentsOf(context, shareholderId);
+
+            foreach (var investment in investments)
+            {
+                var holding = new CompanyHolding
+                {
+                    companyId = investment.company.Id,
+                    control = GetShareSize(context, investment.company.Id, shareholderId),
+                    holdings = recursively ? GetCompanyHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
+                };
+
+                companyHoldings.Add(holding);
+            }
+
+            return companyHoldings;
         }
+
+
     }
 }

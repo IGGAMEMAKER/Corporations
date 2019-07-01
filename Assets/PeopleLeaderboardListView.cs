@@ -2,6 +2,7 @@
 using Entitas;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PeopleLeaderboardListView : ListView
@@ -25,9 +26,12 @@ public class PeopleLeaderboardListView : ListView
         SetItems(people);
     }
 
-    GameEntity[] GetInfluencialPeople(GameContext gameContext)
+    public static GameEntity[] GetInfluencialPeople(GameContext gameContext)
     {
-        var investors = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Shareholder, GameMatcher.Human));
+        var investors = gameContext
+            .GetEntities(GameMatcher.AllOf(GameMatcher.Shareholder, GameMatcher.Human))
+            .OrderBy(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e))
+            .ToArray();
 
         return investors;
     }

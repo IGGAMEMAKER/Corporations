@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2237316320500854646}
   - component: {fileID: 8711441215579330143}
   - component: {fileID: 5319700080901466077}
+  - component: {fileID: 4920933010901584808}
   m_Layer: 5
   m_Name: HumanCapitalTablePreview
   m_TagString: Untagged
@@ -33,9 +34,9 @@ RectTransform:
   - {fileID: 1665201862210507737}
   - {fileID: 148803045766119339}
   - {fileID: 536933739022901964}
-  - {fileID: 5328317120740020160}
   - {fileID: 5925943320856157547}
   - {fileID: 6114594130804588527}
+  - {fileID: 5328317120740020160}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -111,6 +112,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
+--- !u!114 &4920933010901584808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793243504052600592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f0992ede9ca5848a8f52b70837d3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 3092970780408217811}
+  Name: {fileID: 1826850177616264620}
+  Capitals: {fileID: 5917026138882773861}
+  Age: {fileID: 6787521296631152714}
+  Rank: {fileID: 6896142895260367760}
 --- !u!1 &2567502971593607442
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +141,7 @@ GameObject:
   - component: {fileID: 9020825638050918327}
   - component: {fileID: 6896142895260367760}
   m_Layer: 5
-  m_Name: Growth
+  m_Name: Rank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,7 +312,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7504760284766382176}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -342,7 +360,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 56
+  m_Text: 54
 --- !u!1 &7742730458267241796
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +470,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7504760284766382176}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -500,7 +518,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: $50B
+  m_Text: ???
 --- !u!1 &8725920721482814678
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +531,7 @@ GameObject:
   - component: {fileID: 3525071207991259580}
   - component: {fileID: 5917026138882773861}
   m_Layer: 5
-  m_Name: Valuation
+  m_Name: Capital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +549,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7504760284766382176}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

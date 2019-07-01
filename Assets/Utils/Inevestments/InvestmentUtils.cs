@@ -59,5 +59,12 @@ namespace Assets.Utils
             return shares.InvestorType.ToString();
             //return GetFormattedInvestorGoal(shares.InvestorType);
         }
+
+        public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
+        {
+            var holdings = CompanyUtils.GetPersonalHoldings(gameContext, human.shareholder.Id, false);
+
+            return CompanyEconomyUtils.GetHoldingCost(gameContext, holdings);
+        }
     }
 }

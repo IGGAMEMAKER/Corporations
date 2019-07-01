@@ -38,7 +38,7 @@ namespace Assets.Utils
             return GetHoldingCost(context, holdings);
         }
 
-        static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
+        public static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
         {
             long sum = 0;
 
