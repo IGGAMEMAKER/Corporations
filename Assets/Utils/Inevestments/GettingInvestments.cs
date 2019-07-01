@@ -16,7 +16,6 @@
             return description;
         }
 
-
         internal static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
         {
             var description = GetInvestorOpinionBonus(gameContext, company, investor);
@@ -30,8 +29,6 @@
             return title;
         }
 
-
-
         private static void AppendCompanyGroupBonuses(BonusContainer bonusContainer, GameEntity company)
         {
         }
@@ -40,10 +37,6 @@
         {
             bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitiveness(company, gameContext));
         }
-
-
-
-
 
         public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
         {

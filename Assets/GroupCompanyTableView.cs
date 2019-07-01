@@ -25,7 +25,7 @@ public class GroupCompanyTableView : View
         if (entity == null)
             return;
 
-        CompanyTypeName.text = $"({EnumUtils.GetFormattedCompanyType(entity.company.CompanyType)}";
+        CompanyTypeName.text = EnumUtils.GetFormattedCompanyType(entity.company.CompanyType);
 
         RenderNichesAmount();
         RenderIndustriesAmount();
