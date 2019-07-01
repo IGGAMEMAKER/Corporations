@@ -4,13 +4,13 @@ using Assets.Utils.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompanyPreviewView : View,
-    IProductListener
+public class CompanyPreviewView : View
 {
     public Text CompanyNameLabel;
     public Text CompanyTypeLabel;
     public Image Panel;
     public Text CEOLabel;
+    public Hint CEOHint;
 
     public Text ShareCostLabel;
 
@@ -20,23 +20,24 @@ public class CompanyPreviewView : View,
     {
         entity = company;
 
-        company.AddProductListener(this);
-
         Render(company);
     }
 
-    void RenderPanel()
+    public override void ViewRender()
     {
-        var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
+        base.ViewRender();
 
-        Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
+        Render(entity);
     }
 
     void Render(GameEntity e)
     {
+        if (e == null)
+            return;
+
         RenderPanel();
 
-        CEOLabel.gameObject.SetActive(entity.isControlledByPlayer);
+        RenderDependencyStatus(e);
 
         RenderCompanyName(e);
         RenderCompanyType(e);
@@ -44,6 +45,30 @@ public class CompanyPreviewView : View,
         RenderCompanyCost(e);
 
         UpdateLinkToCompany(e);
+    }
+
+    void RenderDependencyStatus(GameEntity e)
+    {
+        var isDaughter = CompanyUtils.IsDaughterOfCompany(MyGroupEntity, entity);
+
+        CEOLabel.gameObject.SetActive(entity.isControlledByPlayer || isDaughter);
+
+        if (isDaughter)
+        {
+            CEOLabel.text = "SUB";
+            CEOHint.SetHint("This company is subsidiary (daughter) of " + MyGroupEntity.company.Name);
+        } else if (entity.isControlledByPlayer)
+        {
+            CEOLabel.text = "CEO";
+            CEOHint.SetHint("You are CEO of this company!");
+        }
+    }
+
+    void RenderPanel()
+    {
+        var inGroupScreens = CurrentScreen == ScreenMode.GroupManagementScreen || CurrentScreen == ScreenMode.ManageCompaniesScreen;
+
+        Panel.color = GetPanelColor(entity == SelectedCompany && inGroupScreens);
     }
 
     void RenderCompanyType(GameEntity entity)
@@ -60,20 +85,14 @@ public class CompanyPreviewView : View,
     {
         var link = GetComponent<LinkToProjectView>();
 
-        if (link != null)
-            link.CompanyId = e.company.Id;
+        //if (link != null)
+        link.CompanyId = e.company.Id;
     }
-
 
     private void RenderCompanyCost(GameEntity e)
     {
         var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, e.company.Id);
 
         ShareCostLabel.text = Format.Money(cost);
-    }
-
-    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, Dictionary<UserType, int> segments)
-    {
-        Render(entity);
     }
 }
