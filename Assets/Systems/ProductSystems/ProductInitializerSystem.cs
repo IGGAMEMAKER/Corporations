@@ -226,6 +226,13 @@ public partial class ProductInitializerSystem : IInitializeSystem
     {
         foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
         {
+            var founder = c.cEO.HumanId;
+            var shareholder = HumanUtils.GetHumanById(GameContext, founder);
+
+            InvestmentUtils.BecomeInvestor(GameContext, shareholder, 100000);
+
+            AddShareholder(c.company.Id, shareholder.shareholder.Id, 500);
+
             for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
             {
                 int investorId = GetRandomInvestmentFund();

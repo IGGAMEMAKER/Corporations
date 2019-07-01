@@ -30,7 +30,7 @@ public class PeopleLeaderboardListView : ListView
     {
         var investors = gameContext
             .GetEntities(GameMatcher.AllOf(GameMatcher.Shareholder, GameMatcher.Human))
-            .OrderBy(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e))
+            .OrderByDescending(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e))
             .ToArray();
 
         return investors;
