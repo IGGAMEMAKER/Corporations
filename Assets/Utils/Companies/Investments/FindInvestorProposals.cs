@@ -1,6 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Linq;
 
 namespace Assets.Utils
 {
@@ -13,6 +12,19 @@ namespace Assets.Utils
             var c = GetCompanyById(gameContext, companyId);
 
             return Array.FindAll(investors, s => InvestmentUtils.IsInvestorSuitable(s, c));
+        }
+
+        internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
+        {
+            return company.companyFocus.Niches.Contains(niche);
+        }
+
+        internal static bool IsInSphereOfInterest(GameEntity company, GameEntity interestingCompany)
+        {
+            if (!interestingCompany.hasProduct)
+                return false;
+
+            return IsInSphereOfInterest(company, interestingCompany.product.Niche);
         }
 
         public static GameEntity[] GetPotentialInvestorsWhoAreReadyToInvest(GameContext gameContext, int companyId)

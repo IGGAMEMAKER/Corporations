@@ -11,9 +11,23 @@ public class IsChosenComponent : MonoBehaviour
     Color BackgroundColor;
     Color TextColor;
 
+    bool state = false;
+
     public void Toggle(bool isChosen)
     {
         if (isChosen)
+            PaintIt();
+        else
+            RestoreDefaultColor();
+
+        state = isChosen;
+    }
+
+    public void Toggle()
+    {
+        state = !state;
+
+        if (state)
             PaintIt();
         else
             RestoreDefaultColor();
