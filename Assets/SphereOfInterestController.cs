@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine.UI;
 
 public class SphereOfInterestController : ButtonController
 {
@@ -8,5 +9,12 @@ public class SphereOfInterestController : ButtonController
         bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(SelectedCompany, niche);
 
         GetComponent<IsChosenComponent>().Toggle(isInSphereOfInterest);
+
+        GetComponentInChildren<Text>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
+
+        if (isInSphereOfInterest)
+            CompanyUtils.RemoveFromSphereOfInfluence(niche, SelectedCompany);
+        else
+            CompanyUtils.AddFocusNiche(niche, SelectedCompany);
     }
 }

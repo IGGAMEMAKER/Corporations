@@ -41,6 +41,14 @@ namespace Assets.Utils
             return company;
         }
 
+        public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company)
+        {
+            var focus = company.companyFocus;
+            var niches = focus.Niches.Remove(nicheType);
+
+            company.ReplaceCompanyFocus(focus.Niches, focus.Industries);
+        }
+
         public static void AddFocusNiche(NicheType nicheType, GameEntity company)
         {
             var niches = company.companyFocus.Niches;
@@ -64,6 +72,8 @@ namespace Assets.Utils
 
             company.ReplaceCompanyFocus(company.companyFocus.Niches, industries);
         }
+
+
 
 
 
