@@ -2,6 +2,7 @@
 using Assets.Utils.Formatting;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,10 @@ public class GroupCompanyTableView : View
         if (industries.Count < 3)
             text = System.String.Join("\n", industries);
         else
-            text = industries.Count.ToString();
+        {
+            text = System.String.Join("\n", industries.Select(n => EnumUtils.GetFormattedIndustryName(n)).ToArray(), 0, 3);
+            text += $"\nand {industries.Count - 3} more";
+        }
 
         IndustryFocus.text = text;
     }
@@ -52,9 +56,14 @@ public class GroupCompanyTableView : View
         var text = "";
 
         if (niches.Count < 3)
+        {
             text = System.String.Join("\n", niches);
+        }
         else
-            text = niches.Count.ToString();
+        {
+            text = System.String.Join("\n", niches.Select(n => EnumUtils.GetFormattedNicheName(n)).ToArray(), 0, 2);
+            text += $"\nand {niches.Count - 3} more";
+        }
 
         NicheFocus.text = text;
     }

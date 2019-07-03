@@ -64,7 +64,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AttachToHolding(mailru, vk.company.Id);
         AttachToHolding(mailru, twitter.company.Id);
 
-        PlayAs(vk.company.Id);
+        //PlayAs(vk.company.Id);
         PlayAs(mailru);
         vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
