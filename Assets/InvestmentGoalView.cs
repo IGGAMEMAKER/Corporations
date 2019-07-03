@@ -18,10 +18,16 @@ public class InvestmentGoalView : View
     public Text HaveLabel;
     public Text HaveValue;
 
+    CompanyGoalComponent goal
+    {
+        get
+        {
+            return MyCompany.companyGoal;
+        }
+    }
+
     GoalViewInfo GetGoalViewInfo()
     {
-        var goal = MyProductEntity.companyGoal;
-
         return new GoalViewInfo
         {
             expires = goal.Expires - CurrentIntDate,
@@ -29,9 +35,9 @@ public class InvestmentGoalView : View
         };
     }
 
-    void RenderProgress(GoalRequirements requirements)
+    void RenderProgress(GoalRequirements requirements, InvestorGoal investorGoal)
     {
-        switch (MyProductEntity.companyGoal.InvestorGoal)
+        switch (investorGoal)
         {
             case InvestorGoal.Prototype:
                 NeedLabel.text = "Improved Core Users";
@@ -100,6 +106,6 @@ public class InvestmentGoalView : View
 
         Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
 
-        RenderProgress(requirements);
+        RenderProgress(requirements, goal.InvestorGoal);
     }
 }
