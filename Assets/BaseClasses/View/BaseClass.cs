@@ -16,12 +16,18 @@ public class BaseClass : MonoBehaviour
     {
         get
         {
+            if (!HasProductCompany)
+                return false;
+
             return SelectedCompany.company.Id == MyProductEntity.company.Id;
         }
     }
 
     public bool IsMyCompetitor(GameEntity company)
     {
+        if (!HasProductCompany)
+            return false;
+
         bool isNotMyCompany = MyProductEntity.company.Id != company.company.Id;
 
         return company.hasProduct ? company.product.Niche == MyProduct.Niche && isNotMyCompany : false;

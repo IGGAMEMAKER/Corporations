@@ -40,7 +40,7 @@ public class MenuResourceView : View
 
     TeamResource GetCompanyResourcePeriodChange()
     {
-        return CompanyEconomyUtils.GetResourceChange(MyProductEntity, GameContext);
+        return CompanyEconomyUtils.GetResourceChange(MyCompany, GameContext);
     }
 
     public override void ViewRender()
@@ -57,16 +57,7 @@ public class MenuResourceView : View
 
     public void Render()
     {
-        if (!HasProductCompany)
-            return;
-
-        Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
-
-        return;
-        if (CurrentScreen == ScreenMode.DevelopmentScreen || CurrentScreen == ScreenMode.TeamScreen || CurrentScreen == ScreenMode.MarketingScreen)
-            Render(MyProductEntity.companyResource.Resources, GetCompanyResourcePeriodChange(), MyProductEntity.marketing);
-        else
-            Hide();
+        Render(MyCompany.companyResource.Resources, GetCompanyResourcePeriodChange(), MyCompany.marketing);
     }
 
     public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing)
@@ -91,7 +82,8 @@ public class MenuResourceView : View
         hint = GetHintText(resourceMonthChanges.ideaPoints);
         IdeaView.SetPrettifiedValue(hint, teamResource.ideaPoints);
 
-        ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyProductEntity));
+        if (HasProductCompany)
+            ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyCompany));
 
         BrandView.SetPrettifiedValue("Brand power makes your ads more effective", marketing.BrandPower);
     }

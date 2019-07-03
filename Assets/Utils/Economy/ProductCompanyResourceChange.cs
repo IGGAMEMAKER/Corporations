@@ -61,17 +61,20 @@ namespace Assets.Utils
             return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (100 + focusModifier) / 100;
         }
 
-        public static TeamResource GetResourceChange(GameEntity productCompany, GameContext gameContext)
+        public static TeamResource GetResourceChange(GameEntity company, GameContext gameContext)
         {
-            int performance = TeamUtils.GetPerformance(gameContext, productCompany);
+            long money = GetBalanceChange(company, gameContext) * GetPeriodDuration() / 30;
 
-            long money = GetBalanceChange(productCompany, gameContext) * GetPeriodDuration() / 30;
+            if (!company.hasProduct)
+                return new TeamResource(money);
+
+            int performance = TeamUtils.GetPerformance(gameContext, company);
 
             return new TeamResource(
-                Normalize(GetPP(productCompany), performance),
-                Normalize(GetMP(productCompany), performance),
-                Normalize(GetSP(productCompany), performance),
-                Normalize(GetIdeas(productCompany), performance),
+                Normalize(GetPP(company), performance),
+                Normalize(GetMP(company), performance),
+                Normalize(GetSP(company), performance),
+                Normalize(GetIdeas(company), performance),
                 money
                 );
         }

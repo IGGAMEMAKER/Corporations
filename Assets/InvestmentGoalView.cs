@@ -102,9 +102,9 @@ public class InvestmentGoalView : View
         base.ViewRender();
 
         var goalinfo = GetGoalViewInfo();
-        var requirements = InvestmentUtils.GetGoalRequirements(MyProductEntity, GameContext);
+        var requirements = InvestmentUtils.GetGoalRequirements(MyCompany, GameContext);
 
-        Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyProductEntity, GameContext));
+        Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyCompany, GameContext));
 
         RenderProgress(requirements, goal.InvestorGoal);
     }

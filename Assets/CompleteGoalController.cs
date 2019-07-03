@@ -4,9 +4,9 @@ public class CompleteGoalController : ButtonController
 {
     public override void Execute()
     {
-        var goal = MyProductEntity.companyGoal.InvestorGoal;
+        var goal = MyCompany.companyGoal.InvestorGoal;
 
-        InvestmentUtils.CompleteGoal(MyProductEntity, GameContext);
+        InvestmentUtils.CompleteGoal(MyCompany, GameContext);
 
         switch (goal)
         {
