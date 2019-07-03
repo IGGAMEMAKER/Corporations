@@ -16,24 +16,36 @@ public class AnimateResourceChanges : View
     public GameObject IdeasIcon;
     public GameObject ClientsIcon;
 
+    public GameObject ProductResourcesContainer;
+
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        var resources = MyProductEntity.companyResource.Resources;
-        var clients = MarketingUtils.GetClients(MyProductEntity);
-        var brand = MyProductEntity.marketing.BrandPower;
+        var resources = MyCompany.companyResource.Resources;
 
+        var brand = MyCompany.marketing.BrandPower;
 
         var diff = TeamResource.Difference(resources, Previous);
-        var clientsDiff = clients - prevClients;
         var brandDiff = brand - prevBrand;
 
         SpawnResource(diff.money, MoneyIcon, 0);
         SpawnResource(brandDiff, BrandIcon, 1);
-        SpawnResource(clientsDiff, ClientsIcon, 2);
-        SpawnResource(diff.ideaPoints, IdeasIcon, 3);
+
+        var clients = HasProductCompany ? MarketingUtils.GetClients(MyProductEntity) : 0;
+        if (HasProductCompany)
+        {
+            ProductResourcesContainer.SetActive(true);
+            var clientsDiff = clients - prevClients;
+
+            SpawnResource(clientsDiff, ClientsIcon, 2);
+            SpawnResource(diff.ideaPoints, IdeasIcon, 3);
+        }
+        else
+        {
+            ProductResourcesContainer.SetActive(false);
+        }
 
         // update values
         Previous = resources;

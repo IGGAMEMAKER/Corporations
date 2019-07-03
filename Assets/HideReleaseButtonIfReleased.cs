@@ -8,6 +8,12 @@ public class HideReleaseButtonIfReleased : View
     {
         base.ViewRender();
 
+        if (!HasProductCompany)
+        {
+            ReleaseCampaign.SetActive(false);
+            return;
+        }
+
         if (MyProductEntity.isRelease)
             ReleaseCampaign.SetActive(false);
     }

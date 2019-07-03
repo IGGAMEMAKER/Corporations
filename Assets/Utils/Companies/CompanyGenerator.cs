@@ -30,7 +30,7 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, niche, SegmentsFeatures);
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
-            company.AddMarketing(brandPower, Segments);
+            company.ReplaceMarketing(brandPower, Segments);
 
             AddFocusNiche(niche, company);
 
@@ -100,6 +100,8 @@ namespace Assets.Utils
             e.isIndependentCompany = true;
 
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
+
+            e.AddMarketing(0, new Dictionary<UserType, long>());
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);

@@ -19,7 +19,8 @@ public class SetTargetCompany : View
                 break;
 
             case TargetCompany.Product:
-                companyId = MyProductEntity.company.Id;
+                if (HasProductCompany)
+                    companyId = MyProductEntity.company.Id;
                 break;
 
             case TargetCompany.Selected:
