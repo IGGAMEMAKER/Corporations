@@ -7,13 +7,13 @@ public class CreateCompanyController : View
 
     void OnEnable()
     {
-        if (MyProductEntity == null)
-        {
-            SetActions(true, "Create a startup and become it's CEO!");
-        }
-        else if (MyGroupEntity != null)
+        if (MyGroupEntity != null)
         {
             SetActions(true, "Create a startup and attach it to group " + MyGroupEntity.company.Name);
+        }
+        else if (MyProductEntity == null)
+        {
+            SetActions(true, "Create a startup and become it's CEO!");
         }
         else
         {

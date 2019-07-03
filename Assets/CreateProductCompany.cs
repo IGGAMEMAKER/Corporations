@@ -13,13 +13,13 @@ public class CreateProductCompany : ButtonController
 
         var companyID = c.company.Id;
 
-        if (MyProductEntity == null)
-        {
-            SetMyselfAsCEO(companyID);
-        }
-        else if (MyGroupEntity != null)
+        if (MyGroupEntity != null)
         {
             AttachToGroup(companyID);
+        }
+        else if (MyProductEntity == null)
+        {
+            SetMyselfAsCEO(companyID);
         }
     }
 

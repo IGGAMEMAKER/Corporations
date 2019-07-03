@@ -37,7 +37,7 @@ public class AddRoleButtons : View
 
     void AddButtons()
     {
-        var teamStatus = MyProductEntity.team.TeamStatus;
+        var teamStatus = MyCompany.team.TeamStatus;
 
         //if (teamStatus >= TeamStatus.BigTeam)
         //{

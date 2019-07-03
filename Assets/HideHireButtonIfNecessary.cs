@@ -4,7 +4,7 @@ public class HideHireButtonIfNecessary : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        var myCompany = MyProductEntity.company.Id;
+        var myCompany = MyCompany.company.Id;
 
         bool worksInMyCompany = HumanUtils.IsWorksInCompany(SelectedHuman, myCompany);
 

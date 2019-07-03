@@ -8,6 +8,6 @@ public class HideUpgradeTeamButton : View
     {
         base.ViewRender();
 
-        UpgradeTeamButton.SetActive(MyProductEntity.team.TeamStatus < TeamStatus.Department);
+        UpgradeTeamButton.SetActive(MyCompany.team.TeamStatus < TeamStatus.Department);
     }
 }

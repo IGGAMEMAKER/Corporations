@@ -17,14 +17,21 @@ public class RenderPersonalCapital : UpgradedParameterView
 
     public override string RenderValue()
     {
+        var text = "";
+
         if (human.hasCompanyResource)
         {
-            return Format.Money(human.companyResource.Resources.money);
+            text += "Holdings: " + Format.Money(InvestmentUtils.GetInvestorCapitalCost(GameContext, SelectedHuman));
+
+            if (SelectedHuman == Me)
+                text += "\nCash: " + Format.Money(human.companyResource.Resources.money);
         } else
         {
             var role = human.worker.WorkerRole;
 
-            return "Salary: $" + TeamUtils.GetSalary(role);
+            text = "Salary: $" + TeamUtils.GetSalary(role);
         }
+
+        return text;
     }
 }
