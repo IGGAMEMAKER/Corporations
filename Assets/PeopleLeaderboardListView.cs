@@ -11,7 +11,7 @@ public class PeopleLeaderboardListView : ListView
     {
         var e = entity as GameEntity;
 
-        t.GetComponent<HumanCapitalsTableView>().SetEntity(e);
+        t.GetComponent<HumanCapitalsTableView>().SetEntity(e, t.GetSiblingIndex());
     }
 
     private void OnEnable()

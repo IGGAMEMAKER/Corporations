@@ -52,6 +52,21 @@ namespace Assets.Utils
         }
 
 
+        public static void SetSelectedHuman(GameContext gameContext, int humanId)
+        {
+            var menu = GetMenu(gameContext);
+
+            var data = menu.menu.Data;
+
+            if ((int)data[Constants.MENU_SELECTED_HUMAN] == humanId)
+                return;
+
+            data[Constants.MENU_SELECTED_HUMAN] = humanId;
+
+            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
+        }
+
+
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
             var menu = GetMenu(gameContext);

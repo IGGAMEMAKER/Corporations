@@ -26,6 +26,6 @@ public class TweakCompanyFinancing : View
 
         var investments = total * percent / 100;
 
-        Hint.SetHint($"We will invest ${investments}\nOur share size will increase");
+        Hint.SetHint($"We will invest {Format.Money(investments)}\nOur share size will increase");
     }
 }
