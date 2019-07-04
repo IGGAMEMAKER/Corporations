@@ -25,7 +25,7 @@ public class NotificationContainer : View
 
         MessagesCount.text = count.ToString();
 
-        ClearNotificationsButton.SetActive(count > 0);
+        //ClearNotificationsButton.SetActive(count > 0);
 
         Animate(MessagesCount);
     }

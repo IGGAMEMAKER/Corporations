@@ -97,6 +97,8 @@ public class NotificationView : View {
         return $"TRENDS change: {description}";
     }
 
+
+
     string GetCompanyName(int companyId)
     {
         return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
