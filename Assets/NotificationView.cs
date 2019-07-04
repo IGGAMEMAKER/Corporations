@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public interface INotificationRenderer<T> where T : NotificationMessage
 {
     void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
+    string GetTitle(T message, GameContext gameContext);
     //string GetShortTitle(T message, GameContext gameContext);
 }
 
