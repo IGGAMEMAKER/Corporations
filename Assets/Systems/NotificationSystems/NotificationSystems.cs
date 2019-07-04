@@ -5,5 +5,7 @@
         Add(new NotificationInitializerSystem(contexts));
 
         Add(new NotificationCheckNewCompaniesSystem(contexts));
+
+        Add(new NotificationCheckNicheTrendsSystem(contexts));
     }
 }

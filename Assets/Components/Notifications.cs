@@ -18,7 +18,9 @@ public enum NotificationType
     Bankruptcy,
 
     InvestmentRoundStarted,
-    CompanyBecomesProfitable
+    CompanyBecomesProfitable,
+
+    NicheTrends
 }
 
 public class NotificationMessage
@@ -47,6 +49,18 @@ public class NotificationMessageNewCompany : NotificationMessage
         NotificationType = NotificationType.NewCompanyOnNiche;
 
         this.CompanyId = CompanyId;
+    }
+}
+
+public class NotificationMessageTrendsChange : NotificationMessage
+{
+    public NicheType nicheType;
+
+    public NotificationMessageTrendsChange(NicheType nicheType)
+    {
+        NotificationType = NotificationType.NicheTrends;
+
+        this.nicheType = nicheType;
     }
 }
 
