@@ -1,7 +1,49 @@
-﻿using System;
-using Assets.Utils;
+﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using UnityEngine;
 using UnityEngine.UI;
+
+//public class NotificationRenderer
+public interface INotificationRenderer<T> where T : NotificationMessage
+{
+    void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
+    //string GetShortTitle(T message, GameContext gameContext);
+}
+
+public abstract class NotificationRenderer<T> : View, INotificationRenderer<T> where T : NotificationMessage
+{
+    public abstract void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
+
+    internal string GetCompanyName(int companyId)
+    {
+        return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
+    }
+
+    internal string GetInvestorName(int investorId)
+    {
+        return CompanyUtils.GetInvestorName(GameContext, investorId);
+    }
+
+    internal string GetProductName(int companyId)
+    {
+        return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
+    }
+
+    internal string GetNicheName(NicheType nicheType)
+    {
+        return EnumUtils.GetFormattedNicheName(nicheType);
+    }
+
+    internal string Prettify(long sum)
+    {
+        return $"${Format.Minify(sum)}";
+    }
+
+    string GetShortTitle(T message, GameContext gameContext)
+    {
+        return message.NotificationType.ToString();
+    }
+}
 
 public class NotificationView : View {
     public CloseNotificationButton CloseNotificationButton;
@@ -12,53 +54,66 @@ public class NotificationView : View {
 
         //CloseNotificationButton.NotificationId = notificationId;
 
-        GetComponent<Text>().text = RenderNotificationText(notificationMessage);
+        //GetComponent<Text>().text = RenderNotificationText(notificationMessage);
     }
 
-    string RenderNotificationText (NotificationMessage notificationMessage)
+    //string RenderNotificationText (NotificationMessage notificationMessage)
+    //{
+    //    //switch (notificationMessage.NotificationType)
+    //    //{
+    //    //    case NotificationType.Bankruptcy:
+    //    //        return RenderBankruptcyText(notificationMessage as NotificationMessageBankruptcy);
+
+    //    //    case NotificationType.Buying:
+    //    //        return RenderBuyingText(notificationMessage as NotificationMessageBuyingCompany);
+
+    //    //    case NotificationType.NicheTrends:
+    //    //        return RenderTrendChageText(notificationMessage as NotificationMessageTrendsChange);
+
+    //    //    case NotificationType.NewCompanyOnNiche:
+    //    //        return RenderNewCompanyText(notificationMessage as NotificationMessageNewCompany);
+
+    //    //    default:
+    //    //        return notificationMessage.NotificationType.ToString();
+    //    //}
+    //}
+
+
+    //private string RenderBuyingText(NotificationMessageBuyingCompany notification)
+    //{
+    //    return $"ACQUISITION: Company {GetCompanyName(notification.CompanyId)} was bought by {GetInvestorName(notification.BuyerInvestorId)} for {Prettify(notification.Bid)}";
+    //}
+
+    //string RenderBankruptcyText(NotificationMessageBankruptcy notification)
+    //{
+    //    return $"BANKRUPTCY: Company {GetCompanyName(notification.CompanyId)} is bankrupt!";
+    //}
+}
+
+public class NotificationRendererNewCompany : NotificationRenderer<NotificationMessageNewCompany>
+{
+    public override void Render(NotificationMessageNewCompany message, Text Title, Text Description, GameObject LinkToEvent)
     {
-        switch (notificationMessage.NotificationType)
-        {
-            case NotificationType.Bankruptcy:
-                return RenderBankruptcyText(notificationMessage as NotificationMessageBankruptcy);
+        var product = CompanyUtils.GetCompanyById(GameContext, message.CompanyId);
 
-            case NotificationType.Buying:
-                return RenderBuyingText(notificationMessage as NotificationMessageBuyingCompany);
+        Title.text = GetTitle(message, GameContext);
 
-            case NotificationType.LevelUp:
-                return RenderLevelUpText(notificationMessage as NotificationMessageLevelUp);
+        Description.text = $"STARTUP on niche {GetNicheName(product.product.Niche)}. Will they change the world?";
 
-            case NotificationType.NicheTrends:
-                return RenderTrendChageText(notificationMessage as NotificationMessageTrendsChange);
-
-            case NotificationType.NewCompanyOnNiche:
-                return RenderNewCompanyText(notificationMessage as NotificationMessageNewCompany);
-
-            default:
-                return notificationMessage.NotificationType.ToString();
-        }
+        LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
     }
 
-    private string RenderNewCompanyText(NotificationMessageNewCompany notificationMessageNewCompany)
+    public static string GetTitle(NotificationMessageNewCompany message, GameContext gameContext)
     {
-        var product = CompanyUtils.GetCompanyById(GameContext, notificationMessageNewCompany.CompanyId);
-
-        return $"STARTUP on niche {GetNicheName(product.product.Niche)}: {GetProductName(notificationMessageNewCompany.CompanyId)}. Will they change the world?";
+        return $"New Startup! {CompanyUtils.GetCompanyById(gameContext, message.CompanyId).company.Name}";
     }
+}
 
-    private string RenderLevelUpText(NotificationMessageLevelUp notificationLevelUp)
+public class NotificationRendererTrendsChange : NotificationRenderer<NotificationMessageTrendsChange>
+{
+    public override void Render(NotificationMessageTrendsChange message, Text Title, Text Description, GameObject LinkToEvent)
     {
-        return $"Product {GetProductName(notificationLevelUp.CompanyId)} was upgraded to {notificationLevelUp.Level}LVL";
-    }
-
-    private string RenderBuyingText(NotificationMessageBuyingCompany notification)
-    {
-        return $"ACQUISITION: Company {GetCompanyName(notification.CompanyId)} was bought by {GetInvestorName(notification.BuyerInvestorId)} for {Prettify(notification.Bid)}";
-    }
-
-    string RenderBankruptcyText(NotificationMessageBankruptcy notification)
-    {
-        return $"BANKRUPTCY: Company {GetCompanyName(notification.CompanyId)} is bankrupt!";
+        //Title.text = GetShortTitle(message, GameContext);
     }
 
     string RenderTrendChageText(NotificationMessageTrendsChange notification)
@@ -73,54 +128,57 @@ public class NotificationView : View {
         switch (phase)
         {
             case NicheLifecyclePhase.Death:
-                description = $"{nicheName} are DYING. People don't need them anymore and they will stop using the product." +
+                description = "People don't need them anymore and they will stop using the product." +
                     $" You'd better search new opportunities";
                 break;
 
             case NicheLifecyclePhase.Decay:
-                description = $"{nicheName} are in decay. New users don't arrive anymore and we need to keep existing ones as long as possible";
+                description = $"New users don't arrive anymore and we need to keep existing ones as long as possible";
                 break;
 
             case NicheLifecyclePhase.Innovation:
-                description = $"{nicheName}, sounds interesting, isn't it? Maybe it is the next big thing?";
+                description = $"Maybe it is the next big thing?";
                 break;
 
             case NicheLifecyclePhase.MassUse:
-                description = $"{nicheName} are EVERYWHERE. They are well known even by those, who are not fancy to technologies";
+                description = $"They are well known even by those, who are not fancy to technologies";
                 break;
 
             case NicheLifecyclePhase.Trending:
-                description = $"{nicheName} are TRENDING. We need to be quick if we want to make benefit from them";
+                description = $"We need to be quick if we want to make benefit from them";
+                break;
+        }
+
+        return $"{GetShortTitle(phase, nicheName)}: {description}";
+    }
+
+    static string GetShortTitle(NicheLifecyclePhase phase, string nicheName)
+    {
+        var description = "";
+
+        switch (phase)
+        {
+            case NicheLifecyclePhase.Death:
+                description = $"{nicheName} are DYING.";
+                break;
+
+            case NicheLifecyclePhase.Decay:
+                description = $"{nicheName} are in DECAY.";
+                break;
+
+            case NicheLifecyclePhase.Innovation:
+                description = $"{nicheName} - future or just a moment?";
+                break;
+
+            case NicheLifecyclePhase.MassUse:
+                description = $"{nicheName} are EVERYWHERE.";
+                break;
+
+            case NicheLifecyclePhase.Trending:
+                description = $"{nicheName} are TRENDING.";
                 break;
         }
 
         return $"TRENDS change: {description}";
-    }
-
-
-
-    string GetCompanyName(int companyId)
-    {
-        return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
-    }
-
-    string GetInvestorName(int investorId)
-    {
-        return CompanyUtils.GetInvestorName(GameContext, investorId);
-    }
-
-    string GetProductName(int companyId)
-    {
-        return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;
-    }
-
-    string GetNicheName(NicheType nicheType)
-    {
-        return EnumUtils.GetFormattedNicheName(nicheType);
-    }
-
-    string Prettify(long sum)
-    {
-        return $"${Format.Minify(sum)}";
     }
 }
