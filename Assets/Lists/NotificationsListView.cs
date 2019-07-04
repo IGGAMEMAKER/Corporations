@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NotificationsListView : ListView
-    , IAnyNotificationsListener
 {
     public ScrollRect _sRect;
 
@@ -14,9 +13,11 @@ public class NotificationsListView : ListView
         t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage);
     }
 
-    void Start()
+    public override void ViewRender()
     {
-        NotificationUtils.SubscribeToChanges(GameContext, this);
+        base.ViewRender();
+
+        Render();
     }
 
     void Render()
@@ -24,18 +25,19 @@ public class NotificationsListView : ListView
         var notifications = NotificationUtils.GetNotifications(GameContext);
 
         SetItems(notifications.ToArray());
+
+        //StartCoroutine(ScrollDown());
+        Scroll();
     }
 
     IEnumerator ScrollDown()
     {
         yield return new WaitForSeconds(0.15f);
-        _sRect.verticalNormalizedPosition = 0f;
+        Scroll();
     }
 
-    void IAnyNotificationsListener.OnAnyNotifications(GameEntity entity, List<NotificationMessage> notifications)
+    void Scroll()
     {
-        Render();
-
-        StartCoroutine(ScrollDown());
+        _sRect.verticalNormalizedPosition = 0f;
     }
 }

@@ -16,7 +16,7 @@ public class NotificationContainer : View
 
     void Start()
     {
-        NotificationUtils.SubscribeToChanges(GameContext, this);
+        NotificationUtils.Subscribe(GameContext, this);
     }
 
     void Render()

@@ -16,11 +16,18 @@ namespace Assets.Utils
             return GetNotificationsComponent(gameContext).notifications.Notifications;
         }
 
-        internal static void SubscribeToChanges(GameContext gameContext, IAnyNotificationsListener listener)
+        internal static void Subscribe(GameContext gameContext, IAnyNotificationsListener listener)
         {
             var c = GetNotificationsComponent(gameContext);
 
             c.AddAnyNotificationsListener(listener);
+        }
+
+        internal static void UnSubscribe(GameContext gameContext, IAnyNotificationsListener listener)
+        {
+            var c = GetNotificationsComponent(gameContext);
+
+            c.RemoveAnyNotificationsListener(listener);
         }
 
         public static void AddNotification(GameContext gameContext, NotificationMessage notificationMessage)
