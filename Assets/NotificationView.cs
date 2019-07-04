@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public interface INotificationRenderer<T> where T : NotificationMessage
 {
     void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
-    string GetTitle(T message, GameContext gameContext);
+    //string GetTitle(T message, GameContext gameContext);
     //string GetShortTitle(T message, GameContext gameContext);
 }
 
@@ -39,45 +39,35 @@ public abstract class NotificationRenderer<T> : View, INotificationRenderer<T> w
     {
         return $"${Format.Minify(sum)}";
     }
-
-    string GetShortTitle(T message, GameContext gameContext)
-    {
-        return message.NotificationType.ToString();
-    }
 }
 
 public class NotificationView : View {
     public CloseNotificationButton CloseNotificationButton;
+    public Text Title;
+    public Text Description;
+    public GameObject LinkToEvent;
 
     public void SetMessage(NotificationMessage notificationMessage)
     {
         int notificationId = transform.GetSiblingIndex();
 
+        switch (notificationMessage.NotificationType)
+        {
+            case NotificationType.NicheTrends:
+                gameObject.AddComponent<NotificationRendererTrendsChange>()
+                    .Render(notificationMessage as NotificationMessageTrendsChange, Title, Description, LinkToEvent);
+                break;
+
+            case NotificationType.NewCompanyOnNiche:
+                gameObject.AddComponent<NotificationRendererNewCompany>()
+                    .Render(notificationMessage as NotificationMessageNewCompany, Title, Description, LinkToEvent);
+                break;
+        }
+
         //CloseNotificationButton.NotificationId = notificationId;
 
         //GetComponent<Text>().text = RenderNotificationText(notificationMessage);
     }
-
-    //string RenderNotificationText (NotificationMessage notificationMessage)
-    //{
-    //    //switch (notificationMessage.NotificationType)
-    //    //{
-    //    //    case NotificationType.Bankruptcy:
-    //    //        return RenderBankruptcyText(notificationMessage as NotificationMessageBankruptcy);
-
-    //    //    case NotificationType.Buying:
-    //    //        return RenderBuyingText(notificationMessage as NotificationMessageBuyingCompany);
-
-    //    //    case NotificationType.NicheTrends:
-    //    //        return RenderTrendChageText(notificationMessage as NotificationMessageTrendsChange);
-
-    //    //    case NotificationType.NewCompanyOnNiche:
-    //    //        return RenderNewCompanyText(notificationMessage as NotificationMessageNewCompany);
-
-    //    //    default:
-    //    //        return notificationMessage.NotificationType.ToString();
-    //    //}
-    //}
 
 
     //private string RenderBuyingText(NotificationMessageBuyingCompany notification)
@@ -114,7 +104,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 {
     public override void Render(NotificationMessageTrendsChange message, Text Title, Text Description, GameObject LinkToEvent)
     {
-        //Title.text = GetShortTitle(message, GameContext);
+        Title.text = GetShortTitle(message, GameContext);
     }
 
     string RenderTrendChageText(NotificationMessageTrendsChange notification)
