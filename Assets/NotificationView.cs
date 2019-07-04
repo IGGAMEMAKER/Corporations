@@ -53,12 +53,12 @@ public class NotificationView : View {
 
     private string RenderBuyingText(NotificationMessageBuyingCompany notification)
     {
-        return $"Company {GetCompanyName(notification.CompanyId)} was bought by {GetInvestorName(notification.BuyerInvestorId)} for {Prettify(notification.Bid)}";
+        return $"ACQUISITION: Company {GetCompanyName(notification.CompanyId)} was bought by {GetInvestorName(notification.BuyerInvestorId)} for {Prettify(notification.Bid)}";
     }
 
     string RenderBankruptcyText(NotificationMessageBankruptcy notification)
     {
-        return $"Company {GetCompanyName(notification.CompanyId)} is bankrupt!";
+        return $"BANKRUPTCY: Company {GetCompanyName(notification.CompanyId)} is bankrupt!";
     }
 
     string RenderTrendChageText(NotificationMessageTrendsChange notification)
@@ -94,7 +94,7 @@ public class NotificationView : View {
                 break;
         }
 
-        return $"Trends change: {description}";
+        return $"TRENDS change: {description}";
     }
 
     string GetCompanyName(int companyId)
