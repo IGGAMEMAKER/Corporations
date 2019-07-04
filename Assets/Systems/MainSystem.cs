@@ -16,6 +16,8 @@
         Add(new InvestmentsSystems(contexts));
         Add(new AISystems(contexts));
 
+        Add(new SpawnerSystems(contexts));
+
         Add(new StatsSystems(contexts));
 
         Add(new GameEventSystems(contexts));

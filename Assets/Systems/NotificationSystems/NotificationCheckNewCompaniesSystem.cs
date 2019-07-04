@@ -27,10 +27,8 @@ public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
         if (player == null)
             return false;
 
-        Debug.Log("Check new companies history " + entity.metricsHistory.Metrics.Count);
-
         return entity.hasProduct
-            && !entity.hasMetricsHistory
+            && entity.product.Segments[UserType.Core] == 0
             && CompanyUtils.IsInSphereOfInterest(player, entity);
     }
 

@@ -43,7 +43,7 @@ public class NotificationView : View {
     {
         var product = CompanyUtils.GetCompanyById(GameContext, notificationMessageNewCompany.CompanyId);
 
-        return $"STARTUP on niche {GetNicheName(product.product.Niche)}: {GetProductName(notificationMessageNewCompany.CompanyId)}. Will they make the revolution?";
+        return $"STARTUP on niche {GetNicheName(product.product.Niche)}: {GetProductName(notificationMessageNewCompany.CompanyId)}. Will they change the world?";
     }
 
     private string RenderLevelUpText(NotificationMessageLevelUp notificationLevelUp)
@@ -69,8 +69,6 @@ public class NotificationView : View {
         var nicheName = GetNicheName(nicheType);
 
         var description = "";
-
-
 
         switch (phase)
         {
