@@ -75,12 +75,12 @@ public class NotificationView : View {
         switch (phase)
         {
             case NicheLifecyclePhase.Death:
-                description = $"{nicheName} is DYING. People don't need them anymore and they will stop using the product." +
+                description = $"{nicheName} are DYING. People don't need them anymore and they will stop using the product." +
                     $" You'd better search new opportunities";
                 break;
 
             case NicheLifecyclePhase.Decay:
-                description = $"{nicheName} is in decay. New users don't arrive anymore and we need to keep them as long as possible.";
+                description = $"{nicheName} are in decay. New users don't arrive anymore and we need to keep existing ones as long as possible";
                 break;
 
             case NicheLifecyclePhase.Innovation:
@@ -88,10 +88,11 @@ public class NotificationView : View {
                 break;
 
             case NicheLifecyclePhase.MassUse:
+                description = $"{nicheName} are EVERYWHERE. They are well known even by those, who are not fancy to technologies";
                 break;
 
             case NicheLifecyclePhase.Trending:
-                description = $"{nicheName} ";
+                description = $"{nicheName} are TRENDING. We need to be quick if we want to make benefit from them";
                 break;
         }
 

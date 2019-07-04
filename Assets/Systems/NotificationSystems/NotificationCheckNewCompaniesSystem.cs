@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
 {
@@ -23,7 +24,13 @@ public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
     {
         var player = CompanyUtils.GetPlayerCompany(gameContext);
 
+        if (player == null)
+            return false;
+
+        Debug.Log("Check new companies history " + entity.metricsHistory.Metrics.Count);
+
         return entity.hasProduct
+            && !entity.hasMetricsHistory
             && CompanyUtils.IsInSphereOfInterest(player, entity);
     }
 

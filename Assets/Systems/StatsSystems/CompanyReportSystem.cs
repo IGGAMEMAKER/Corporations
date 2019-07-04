@@ -13,9 +13,8 @@ class CompanyReportSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] Companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
-
-        Debug.Log("EXECUTE COMPANY REPORT SYSTEM " + Companies.Length);
+        GameEntity[] Companies = contexts.game
+            .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
 
         int date = ScheduleUtils.GetCurrentDate(gameContext);
 
