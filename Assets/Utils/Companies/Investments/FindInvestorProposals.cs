@@ -14,6 +14,7 @@ namespace Assets.Utils
             return Array.FindAll(investors, s => InvestmentUtils.IsInvestorSuitable(s, c));
         }
 
+
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
             return company.companyFocus.Niches.Contains(niche);
@@ -26,6 +27,7 @@ namespace Assets.Utils
 
             return IsInSphereOfInterest(company, interestingCompany.product.Niche);
         }
+
 
         public static GameEntity[] GetPotentialInvestorsWhoAreReadyToInvest(GameContext gameContext, int companyId)
         {

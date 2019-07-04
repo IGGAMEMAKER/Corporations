@@ -18,11 +18,11 @@ public class NotificationView : View {
         switch (notificationMessage.NotificationType)
         {
             case NotificationType.Bankruptcy:
-                return RenderBankruptcyText(notificationMessage as NotificationBankruptcy);
+                return RenderBankruptcyText(notificationMessage as NotificationMessageBankruptcy);
             case NotificationType.Buying:
-                return RenderBuyingText(notificationMessage as NotificationBuyingCompany);
+                return RenderBuyingText(notificationMessage as NotificationMessageBuyingCompany);
             case NotificationType.LevelUp:
-                return RenderLevelUpText(notificationMessage as NotificationLevelUp);
+                return RenderLevelUpText(notificationMessage as NotificationMessageLevelUp);
             default:
                 return notificationMessage.NotificationType.ToString();
         }
@@ -48,17 +48,17 @@ public class NotificationView : View {
         return $"${Format.Minify(sum)}";
     }
 
-    private string RenderLevelUpText(NotificationLevelUp notificationLevelUp)
+    private string RenderLevelUpText(NotificationMessageLevelUp notificationLevelUp)
     {
         return $"Product {GetProductName(notificationLevelUp.CompanyId)} was upgraded to {notificationLevelUp.Level}LVL";
     }
 
-    private string RenderBuyingText(NotificationBuyingCompany notification)
+    private string RenderBuyingText(NotificationMessageBuyingCompany notification)
     {
         return $"Company {GetCompanyName(notification.CompanyId)} was bought by {GetInvestorName(notification.BuyerInvestorId)} for {Prettify(notification.Bid)}";
     }
 
-    string RenderBankruptcyText (NotificationBankruptcy notification)
+    string RenderBankruptcyText (NotificationMessageBankruptcy notification)
     {
         return $"Company {GetCompanyName(notification.CompanyId)} is bankrupt!";
     }

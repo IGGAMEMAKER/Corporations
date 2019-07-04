@@ -26,11 +26,11 @@ public class NotificationMessage
     public NotificationType NotificationType;
 }
 
-public class NotificationBankruptcy : NotificationMessage
+public class NotificationMessageBankruptcy : NotificationMessage
 {
     public int CompanyId;
 
-    public NotificationBankruptcy(int CompanyId)
+    public NotificationMessageBankruptcy(int CompanyId)
     {
         NotificationType = NotificationType.Bankruptcy;
 
@@ -38,13 +38,25 @@ public class NotificationBankruptcy : NotificationMessage
     }
 }
 
-public class NotificationBuyingCompany : NotificationMessage
+public class NotificationMessageNewCompany : NotificationMessage
+{
+    public int CompanyId;
+
+    public NotificationMessageNewCompany(int CompanyId)
+    {
+        NotificationType = NotificationType.NewCompanyOnNiche;
+
+        this.CompanyId = CompanyId;
+    }
+}
+
+public class NotificationMessageBuyingCompany : NotificationMessage
 {
     public int CompanyId;
     public int BuyerInvestorId;
     public long Bid;
 
-    public NotificationBuyingCompany(int CompanyId, int BuyerInvestorId, long Bid)
+    public NotificationMessageBuyingCompany(int CompanyId, int BuyerInvestorId, long Bid)
     {
         NotificationType = NotificationType.Buying;
 
@@ -54,12 +66,12 @@ public class NotificationBuyingCompany : NotificationMessage
     }
 }
 
-public class NotificationLevelUp : NotificationMessage
+public class NotificationMessageLevelUp : NotificationMessage
 {
     public int CompanyId;
     public int Level;
 
-    public NotificationLevelUp(int CompanyId, int Level)
+    public NotificationMessageLevelUp(int CompanyId, int Level)
     {
         NotificationType = NotificationType.LevelUp;
 

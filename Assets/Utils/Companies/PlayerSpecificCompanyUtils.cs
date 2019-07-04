@@ -41,6 +41,17 @@ namespace Assets.Utils
             return null;
         }
 
+        public static GameEntity GetPlayerCompany(GameContext gameContext)
+        {
+            var companies =
+                gameContext.GetEntities(GameMatcher.ControlledByPlayer);
+
+            if (companies.Length == 0)
+                return null;
+
+            return companies[0];
+        }
+
         public static GameEntity[] GetMyNeighbours(GameContext context)
         {
             GameEntity[] products = GetProductsNotControlledByPlayer(context);

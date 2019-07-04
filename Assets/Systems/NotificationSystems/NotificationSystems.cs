@@ -3,5 +3,7 @@
     public NotificationSystems(Contexts contexts) : base("Notification Systems")
     {
         Add(new NotificationInitializerSystem(contexts));
+
+        Add(new NotificationCheckNewCompaniesSystem(contexts));
     }
 }
