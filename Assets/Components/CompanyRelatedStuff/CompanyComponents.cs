@@ -131,6 +131,12 @@ public class CompanyFocusComponent : IComponent
     public List<IndustryType> Industries;
 }
 
+public class FollowComponent : IComponent
+{
+    public List<int> Companies;
+    public List<int> Humans;
+}
+
 public class CompanyPhaseComponent : IComponent
 {
     public bool becameMarketFit;

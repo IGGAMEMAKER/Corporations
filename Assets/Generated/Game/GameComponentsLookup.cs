@@ -41,51 +41,52 @@ public static class GameComponentsLookup {
     public const int EventUpgradeProduct = 30;
     public const int Finance = 31;
     public const int FinanceListener = 32;
-    public const int Following = 33;
-    public const int HumanCompanyRelationship = 34;
-    public const int Human = 35;
-    public const int HumanSkills = 36;
-    public const int IndependentCompany = 37;
-    public const int Industry = 38;
-    public const int InvestmentProposals = 39;
-    public const int InvestmentRounds = 40;
-    public const int Marketing = 41;
-    public const int MarketingListener = 42;
-    public const int Menu = 43;
-    public const int MenuListener = 44;
-    public const int MetricsHistory = 45;
-    public const int NavigationHistory = 46;
-    public const int Niche = 47;
-    public const int NicheCosts = 48;
-    public const int NicheState = 49;
-    public const int Notifications = 50;
-    public const int Player = 51;
-    public const int Product = 52;
-    public const int ProductListener = 53;
-    public const int PublicCompany = 54;
-    public const int Release = 55;
-    public const int ReleaseListener = 56;
-    public const int Segment = 57;
-    public const int SegmentLeaders = 58;
-    public const int SegmentListener = 59;
-    public const int Shareholder = 60;
-    public const int Shareholders = 61;
-    public const int ShareholdersListener = 62;
-    public const int Targeting = 63;
-    public const int TargetingListener = 64;
-    public const int Task = 65;
-    public const int TaskManager = 66;
-    public const int Team = 67;
-    public const int TeamListener = 68;
-    public const int TechnologyLeader = 69;
-    public const int TechnologyLeaderListener = 70;
-    public const int Test = 71;
-    public const int TimerRunning = 72;
-    public const int Tutorial = 73;
-    public const int TutorialListener = 74;
-    public const int Worker = 75;
+    public const int Follow = 33;
+    public const int Following = 34;
+    public const int HumanCompanyRelationship = 35;
+    public const int Human = 36;
+    public const int HumanSkills = 37;
+    public const int IndependentCompany = 38;
+    public const int Industry = 39;
+    public const int InvestmentProposals = 40;
+    public const int InvestmentRounds = 41;
+    public const int Marketing = 42;
+    public const int MarketingListener = 43;
+    public const int Menu = 44;
+    public const int MenuListener = 45;
+    public const int MetricsHistory = 46;
+    public const int NavigationHistory = 47;
+    public const int Niche = 48;
+    public const int NicheCosts = 49;
+    public const int NicheState = 50;
+    public const int Notifications = 51;
+    public const int Player = 52;
+    public const int Product = 53;
+    public const int ProductListener = 54;
+    public const int PublicCompany = 55;
+    public const int Release = 56;
+    public const int ReleaseListener = 57;
+    public const int Segment = 58;
+    public const int SegmentLeaders = 59;
+    public const int SegmentListener = 60;
+    public const int Shareholder = 61;
+    public const int Shareholders = 62;
+    public const int ShareholdersListener = 63;
+    public const int Targeting = 64;
+    public const int TargetingListener = 65;
+    public const int Task = 66;
+    public const int TaskManager = 67;
+    public const int Team = 68;
+    public const int TeamListener = 69;
+    public const int TechnologyLeader = 70;
+    public const int TechnologyLeaderListener = 71;
+    public const int Test = 72;
+    public const int TimerRunning = 73;
+    public const int Tutorial = 74;
+    public const int TutorialListener = 75;
+    public const int Worker = 76;
 
-    public const int TotalComponents = 76;
+    public const int TotalComponents = 77;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -121,6 +122,7 @@ public static class GameComponentsLookup {
         "EventUpgradeProduct",
         "Finance",
         "FinanceListener",
+        "Follow",
         "Following",
         "HumanCompanyRelationship",
         "Human",
@@ -200,6 +202,7 @@ public static class GameComponentsLookup {
         typeof(EventUpgradeProductComponent),
         typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
+        typeof(FollowComponent),
         typeof(FollowingComponent),
         typeof(HumanCompanyRelationshipComponent),
         typeof(HumanComponent),
