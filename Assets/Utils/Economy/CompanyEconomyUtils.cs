@@ -49,7 +49,7 @@
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyMaintenanceDescription(c);
+                return GetProductCompanyMaintenanceDescription(c, context);
 
             return GetGroupMaintenanceDescription(context, companyId);
         }
@@ -143,7 +143,7 @@
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
         {
             if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyMaintenance(c);
+                return GetProductCompanyMaintenance(c, gameContext);
             else
                 return GetGroupMaintenance(gameContext, c.company.Id);
         }
@@ -153,7 +153,7 @@
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyMaintenance(c);
+                return GetProductCompanyMaintenance(c, gameContext);
             else
                 return GetGroupMaintenance(gameContext, companyId);
         }
@@ -167,7 +167,7 @@
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
+            return GetBalanceChange(c, context);
         }
 
         internal static bool IsROICounable(GameEntity c, GameContext context)

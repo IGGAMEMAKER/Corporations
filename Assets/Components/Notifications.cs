@@ -20,7 +20,8 @@ public enum NotificationType
     InvestmentRoundStarted,
     CompanyBecomesProfitable,
 
-    NicheTrends
+    NicheTrends,
+    BoughtShares
 }
 
 public class NotificationMessage
@@ -91,5 +92,17 @@ public class NotificationMessageLevelUp : NotificationMessage
 
         this.CompanyId = CompanyId;
         this.Level = Level;
+    }
+}
+
+public class NotificationMessageInvestmentRoundStarted : NotificationMessage
+{
+    public int CompanyId;
+
+    public NotificationMessageInvestmentRoundStarted(int CompanyId)
+    {
+        NotificationType = NotificationType.InvestmentRoundStarted;
+
+        this.CompanyId = CompanyId;
     }
 }

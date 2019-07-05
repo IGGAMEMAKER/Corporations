@@ -33,16 +33,27 @@
             return $"Income of this company equals {Format.Money(income)}";
         }
 
-        internal static string GetProductCompanyMaintenanceDescription(GameEntity company)
+        internal static string GetProductCompanyMaintenanceDescription(GameEntity company, GameContext gameContext)
         {
-            var maintenance = GetProductCompanyMaintenance(company);
+            var maintenance = GetProductCompanyMaintenance(company, gameContext);
 
-            return $"Maintenance of this company equals {Format.Money(maintenance)}";
+            return $"Maintenance of {company.company.Name} equals {Format.Money(maintenance)}";
         }
 
-        private static long GetProductCompanyMaintenance(GameEntity e)
+        private static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             return GetTeamMaintenance(e);
+        }
+
+        public static long GetMarketingMaintenance(GameEntity e, GameContext gameContext)
+        {
+            if (!e.hasProduct)
+                return 0;
+
+            var targetingCost = MarketingUtils.GetTargetingCost(gameContext, e.company.Id);
+            var brandingCost = MarketingUtils.GetBrandingCost(gameContext, e);
+
+            return targetingCost.money * 30 + brandingCost.money / 3;
         }
     }
 }
