@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,12 @@ public class NotificationsListView : ListView
     {
         var notifications = NotificationUtils.GetNotifications(GameContext);
 
-        SetItems(notifications.ToArray());
+        var list = new List<NotificationMessage>();
+
+        for (var i = notifications.Count - 1; i >= 0; i--)
+            list.Add(notifications[i]);
+
+        SetItems(list.ToArray());
 
         //StartCoroutine(ScrollDown());
         Scroll();
@@ -38,6 +44,6 @@ public class NotificationsListView : ListView
 
     void Scroll()
     {
-        _sRect.verticalNormalizedPosition = 0f;
+        //_sRect.verticalNormalizedPosition = 1f;
     }
 }
