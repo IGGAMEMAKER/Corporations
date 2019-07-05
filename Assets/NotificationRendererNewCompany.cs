@@ -12,6 +12,7 @@ public class NotificationRendererNewCompany : NotificationRenderer<NotificationM
 
         Title.text = GetTitle(message, GameContext);
 
+        RemoveLinks();
         LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
     }
 

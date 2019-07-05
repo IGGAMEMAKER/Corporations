@@ -13,6 +13,12 @@ public abstract class NotificationRenderer<T> : View, INotificationRenderer<T> w
 {
     public abstract void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
 
+    public void RemoveLinks()
+    {
+        foreach (var l in GetComponents<ButtonController>())
+            Destroy(l);
+    }
+
     internal string GetCompanyName(int companyId)
     {
         return CompanyUtils.GetCompanyById(GameContext, companyId).company.Name;

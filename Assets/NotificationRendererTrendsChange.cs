@@ -15,6 +15,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 
         Title.text = GetShortTitle(niche.nicheState.Phase, nicheName);
 
+        RemoveLinks();
         LinkToEvent.AddComponent<LinkToNiche>().SetNiche(nicheType);
     }
 
