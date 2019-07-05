@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entitas;
+using System;
 
 namespace Assets.Utils
 {
@@ -48,6 +49,15 @@ namespace Assets.Utils
                 return Risk.Risky;
 
             return Risk.TooRisky;
+        }
+
+        
+        internal static GameEntity[] GetInstitutionalInvestors(GameContext gameContext, GameEntity e)
+        {
+            return Array.FindAll(gameContext
+                .GetEntities(GameMatcher.Shareholder),
+                s => CompanyUtils.IsInSphereOfInterest(s, e.niche.NicheType)
+                );
         }
     }
 }

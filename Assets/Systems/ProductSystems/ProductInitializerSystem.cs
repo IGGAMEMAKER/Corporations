@@ -190,11 +190,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
             GenerateInvestmentFund(RandomUtils.GenerateInvestmentCompanyName(), GetRandomFundSize(investmentMin, investmentMax));
     }
 
-    void GenerateEarlyInvestor()
-    {
-
-    }
-
     void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
     {
         for (var i = 0; i < amountOfInvestors; i++)
