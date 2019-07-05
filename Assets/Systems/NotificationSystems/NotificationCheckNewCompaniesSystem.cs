@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 using Entitas;
-using UnityEngine;
 
 public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
 {

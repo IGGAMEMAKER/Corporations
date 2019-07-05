@@ -13,18 +13,23 @@ public partial class AIProductSystems : OnDateChange
         TakeInvestments(company);
     }
 
+    bool isCompanyNeedsInvestments()
+    {
+        return true;
+    }
+
     void TakeInvestments(GameEntity company)
     {
         // ??????
 
-        bool isInvestmentsAreNecessary = true;
+        bool isInvestmentsAreNecessary = isCompanyNeedsInvestments();
 
         var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, company.company.Id);
 
         if (list.Length == 0)
             return;
 
-        CompanyUtils.StartInvestmentRound(company);
+        CompanyUtils.StartInvestmentRound(company, gameContext);
 
         foreach (var s in list)
         {

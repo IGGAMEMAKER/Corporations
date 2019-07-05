@@ -17,7 +17,7 @@ namespace Assets.Utils
 
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
         {
-            StartInvestmentRound(GetCompanyById(gameContext, companyId));
+            StartInvestmentRound(GetCompanyById(gameContext, companyId), gameContext);
         }
 
         public static InvestmentRound GetInvestmentRoundName(GameEntity company)
@@ -50,10 +50,15 @@ namespace Assets.Utils
             }
         }
 
-        public static void StartInvestmentRound(GameEntity company)
+        public static void StartInvestmentRound(GameEntity company, GameContext gameContext)
         {
             if (company.hasAcceptsInvestments)
                 return;
+
+            var playerCompany = GetPlayerCompany(gameContext);
+
+            if (IsInSphereOfInterest(playerCompany, company))
+                NotificationUtils.AddNotification(gameContext, new NotificationMessageInvestmentRoundStarted(company.company.Id));
 
             var round = GetInvestmentRoundName(company);
 
