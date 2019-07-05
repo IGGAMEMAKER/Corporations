@@ -25,14 +25,14 @@ public class NotificationsListView : ListView
     {
         var notifications = NotificationUtils.GetNotifications(GameContext);
 
-        var list = new List<NotificationMessage>();
+        //var list = new List<NotificationMessage>();
 
-        for (var i = notifications.Count - 1; i >= 0; i--)
-            list.Add(notifications[i]);
+        //for (var i = notifications.Count - 1; i >= 0; i--)
+        //    list.Add(notifications[i]);
 
-        SetItems(list.ToArray());
+        //SetItems(list.ToArray());
+        SetItems(notifications.ToArray());
 
-        //StartCoroutine(ScrollDown());
         Scroll();
     }
 
@@ -44,6 +44,6 @@ public class NotificationsListView : ListView
 
     void Scroll()
     {
-        //_sRect.verticalNormalizedPosition = 1f;
+        _sRect.verticalNormalizedPosition = 0f;
     }
 }
