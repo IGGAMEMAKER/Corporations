@@ -4,5 +4,7 @@
         Add(new AIManageGroupSystems(contexts));
 
         Add(new AIUpdateSphereOfInfluenceSystem(contexts));
+
+        Add(new AIFillUnoccupiedPrimaryMarketsSystem(contexts));
     }
 }

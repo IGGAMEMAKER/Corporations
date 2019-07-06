@@ -187,5 +187,18 @@
 
             return change * 100 / maintenance;
         }
+
+
+
+
+
+        public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity Group, GameEntity product, NicheType nicheType)
+        {
+            MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
+
+            var profitable = CompanyEconomyUtils.GetTotalBalanceChange(product, gameContext) > 0;
+
+            return !profitable;
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public partial class AIManageGroupSystems : OnQuarterChange
 {
@@ -18,52 +21,37 @@ public partial class AIManageGroupSystems : OnQuarterChange
     }
 }
 
-public partial class AIUpdateSphereOfInfluenceSystem : OnQuarterChange
+public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 {
-    public AIUpdateSphereOfInfluenceSystem(Contexts contexts) : base(contexts) { }
+    public AIFillUnoccupiedPrimaryMarketsSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
-            CheckNiches(c);
+            CheckMarkets(c);
     }
 
-    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity Group, GameEntity product, NicheType nicheType)
+    void CheckMarkets(GameEntity managingCompany)
     {
-        MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
-
-        var profitable = CompanyEconomyUtils.GetTotalBalanceChange(product, gameContext) > 0;
-
-        return !profitable;
-    }
-
-    void CheckNiches(GameEntity group)
-    {
-        bool needsMoreMoney = false;
-        foreach (var n in group.companyFocus.Niches)
+        foreach (var n in managingCompany.companyFocus.Niches)
         {
-            foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
-            {
-                if (!holding.hasProduct)
-                    continue;
+            if (HasCompanyOnMarket(managingCompany, n))
+                continue;
 
-                if (IsCompanyNeedsMoreMoneyOnMarket(group, holding, n))
-                    needsMoreMoney = true;
-            }
+            BuyOrCreate(managingCompany, n);
         }
-
-        if (needsMoreMoney)
-            return;
-
-        SearchSuitableNiche(group);
     }
 
-    void SearchSuitableNiche(GameEntity group)
+    private void BuyOrCreate(GameEntity managingCompany, NicheType n)
     {
-        var industry = group.companyFocus.Industries[0];
+        var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
 
-        var niche = RandomEnum<NicheType>.GenerateValue(group.companyFocus.Niches);
+        CompanyUtils.AttachToGroup(gameContext, managingCompany.company.Id, p.company.Id);
+        Debug.Log("BuyOrCreateCompany on market");
+    }
 
-        CompanyUtils.AddFocusNiche(niche, group, gameContext);
+    bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
+    {
+        return CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
     }
 }

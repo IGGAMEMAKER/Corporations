@@ -63,5 +63,12 @@ namespace Assets.Utils
 
             return CreateProduct(context, c, niche);
         }
+
+        public static GameEntity AutoGenerateProductCompany(NicheType n, GameContext gameContext)
+        {
+            var playersOnMarket = NicheUtils.GetCompetitorsAmount(n, gameContext);
+
+            return GenerateProductCompany(gameContext, n + " " + playersOnMarket, n);
+        }
     }
 }
