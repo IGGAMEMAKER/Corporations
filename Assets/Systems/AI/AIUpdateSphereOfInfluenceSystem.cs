@@ -3,12 +3,14 @@ using Assets.Utils;
 using UnityEngine;
 using Entitas;
 
-public class AIExpandSphereOfInfluenceSystem : OnQuarterChange, IExecuteSystem
+public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 {
     public AIExpandSphereOfInfluenceSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
+        Debug.Log("AIExpandSphereOfInfluenceSystem");
+
         foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
             CheckNiches(c);
     }
@@ -20,10 +22,15 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange, IExecuteSystem
 
     void CheckNiches(GameEntity group)
     {
+        Debug.Log("CheckNiches: " + group.company.Name);
+
         foreach (var n in group.companyFocus.Niches)
         {
+            Debug.Log("Checking niche " + n.ToString());
             foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
             {
+                Debug.Log("Checking holding " + holding.company.Name);
+
                 if (!holding.hasProduct)
                     continue;
 

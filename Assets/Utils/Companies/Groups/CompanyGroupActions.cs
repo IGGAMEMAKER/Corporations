@@ -26,6 +26,7 @@ namespace Assets.Utils
             var groupCo = GetCompanyById(context, companyGroupId);
             AddFocusIndustry(industry, groupCo);
             AddFocusNiche(niche, groupCo, context);
+            groupCo.isManagingCompany = true;
 
             NotifyAboutCompanyPromotion(context, companyGroupId, name);
 
@@ -99,6 +100,7 @@ namespace Assets.Utils
             var c = GetCompanyById(context, companyId);
 
             c.ReplaceCompany(c.company.Id, c.company.Name, CompanyType.Holding);
+            c.isManagingCompany = true;
 
             return c;
         }

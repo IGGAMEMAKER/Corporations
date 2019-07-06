@@ -196,7 +196,7 @@
         {
             MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
 
-            var profitable = CompanyEconomyUtils.GetTotalBalanceChange(product, gameContext) > 0;
+            var profitable = GetTotalBalanceChange(product, gameContext) > 0;
 
             return !profitable;
         }
