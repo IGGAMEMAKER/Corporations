@@ -74,6 +74,16 @@ public class NotificationView : View,
                 gameObject.AddComponent<NotificationRendererInvestmentRound>()
                     .Render(notificationMessage as NotificationMessageInvestmentRoundStarted, Title, Description, LinkToEvent);
                 break;
+
+            case NotificationType.CompanyTypeChange:
+                gameObject.AddComponent<NotificationRendererInvestmentRound>()
+                    .Render(notificationMessage as NotificationMessageCompanyTypeChange, Title, Description, LinkToEvent);
+                break;
+
+            default:
+                gameObject.AddComponent<NotificationRendererDefault>()
+                    .Render(notificationMessage, Title, Description, LinkToEvent);
+                break;
         }
 
         //GetComponent<Text>().text = RenderNotificationText(notificationMessage);
