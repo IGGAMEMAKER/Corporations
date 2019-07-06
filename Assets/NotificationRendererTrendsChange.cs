@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using UnityEngine;
 
 public class NotificationRendererTrendsChange : NotificationRenderer<NotificationMessageTrendsChange>
@@ -6,7 +7,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
     public override string GetTitle(NotificationMessageTrendsChange message)
     {
         var nicheType = message.nicheType;
-        var nicheName = GetNicheName(nicheType);
+        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
 
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
 
@@ -30,7 +31,8 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         var nicheType = notification.nicheType;
 
         var phase = NicheUtils.GetNicheEntity(GameContext, nicheType).nicheState.Phase;
-        var nicheName = GetNicheName(nicheType);
+        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
+
 
         var description = "";
 

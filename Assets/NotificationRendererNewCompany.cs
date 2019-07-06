@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using UnityEngine;
 
 public class NotificationRendererNewCompany : NotificationRenderer<NotificationMessageNewCompany>
@@ -12,7 +13,9 @@ public class NotificationRendererNewCompany : NotificationRenderer<NotificationM
     {
         var product = CompanyUtils.GetCompanyById(GameContext, message.CompanyId);
 
-        return $"STARTUP on niche {GetNicheName(product.product.Niche)}. Will they change the world?";
+        var nicheName = EnumUtils.GetFormattedNicheName(product.product.Niche);
+
+        return $"STARTUP on niche {nicheName}. Will they change the world?";
     }
 
     public override void SetLink(NotificationMessageNewCompany message, GameObject LinkToEvent)
