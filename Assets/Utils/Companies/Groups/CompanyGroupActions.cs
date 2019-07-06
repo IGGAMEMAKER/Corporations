@@ -13,12 +13,19 @@ namespace Assets.Utils
             if (!c.isIndependentCompany)
                 return -1;
 
+            var niche = c.product.Niche;
+            var industry = NicheUtils.GetIndustry(niche, context);
+
             var name = c.company.Name;
 
             int companyGroupId = GenerateCompanyGroup(context, name + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
             c.isIndependentCompany = false;
+
+            var groupCo = GetCompanyById(context, companyGroupId);
+            AddFocusIndustry(industry, groupCo);
+            AddFocusNiche(niche, groupCo, context);
 
             NotifyAboutCompanyPromotion(context, companyGroupId, name);
 

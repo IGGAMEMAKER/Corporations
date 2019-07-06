@@ -55,7 +55,7 @@ public partial class AIUpdateSphereOfInfluenceSystem : OnQuarterChange
         if (needsMoreMoney)
             return;
 
-
+        SearchSuitableNiche(group);
     }
 
     void SearchSuitableNiche(GameEntity group)
