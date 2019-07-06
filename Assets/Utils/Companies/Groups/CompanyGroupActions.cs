@@ -28,7 +28,6 @@ namespace Assets.Utils
         public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyTypeChange(companyId, previousName));
-            Debug.Log("Company promotion! " + previousName + " to " + previousName + " Group");
         }
 
         public static void RedistributeMoneyBetweenCompaniesIfPossible(GameContext context, int giverId, int acceptorId, int amount)
