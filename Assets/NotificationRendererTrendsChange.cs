@@ -1,21 +1,27 @@
 ﻿using Assets.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NotificationRendererTrendsChange : NotificationRenderer<NotificationMessageTrendsChange>
 {
-    public override void Render(NotificationMessageTrendsChange message, Text Title, Text Description, GameObject LinkToEvent)
+    public override string GetTitle(NotificationMessageTrendsChange message)
     {
         var nicheType = message.nicheType;
         var nicheName = GetNicheName(nicheType);
 
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
 
-        Description.text = RenderTrendChageText(message);
+        return GetShortTitle(niche.nicheState.Phase, nicheName);
+    }
 
-        Title.text = GetShortTitle(niche.nicheState.Phase, nicheName);
+    public override string GetDescription(NotificationMessageTrendsChange message)
+    {
+        return RenderTrendChageText(message);
+    }
 
-        RemoveLinks();
+    public override void SetLink(NotificationMessageTrendsChange message, GameObject LinkToEvent)
+    {
+        var nicheType = message.nicheType;
+
         LinkToEvent.AddComponent<LinkToNiche>().SetNiche(nicheType);
     }
 
@@ -83,4 +89,5 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 
         return $"TRENDS change: {description}";
     }
+
 }

@@ -1,23 +1,22 @@
 ﻿using Assets.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NotificationRendererNewCompany : NotificationRenderer<NotificationMessageNewCompany>
 {
-    public override void Render(NotificationMessageNewCompany message, Text Title, Text Description, GameObject LinkToEvent)
+    public override string GetTitle(NotificationMessageNewCompany message)
+    {
+        return $"New Startup! {CompanyUtils.GetCompanyById(GameContext, message.CompanyId).company.Name}";
+    }
+
+    public override string GetDescription(NotificationMessageNewCompany message)
     {
         var product = CompanyUtils.GetCompanyById(GameContext, message.CompanyId);
 
-        Description.text = $"STARTUP on niche {GetNicheName(product.product.Niche)}. Will they change the world?";
-
-        Title.text = GetTitle(message, GameContext);
-
-        RemoveLinks();
-        LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
+        return $"STARTUP on niche {GetNicheName(product.product.Niche)}. Will they change the world?";
     }
 
-    public static string GetTitle(NotificationMessageNewCompany message, GameContext gameContext)
+    public override void SetLink(NotificationMessageNewCompany message, GameObject LinkToEvent)
     {
-        return $"New Startup! {CompanyUtils.GetCompanyById(gameContext, message.CompanyId).company.Name}";
+        LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
     }
 }
