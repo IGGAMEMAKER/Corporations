@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public interface INotificationRenderer<T> where T : NotificationMessage
-{
-    void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
-}
-
-public abstract class NotificationRenderer<T> : View, INotificationRenderer<T> where T : NotificationMessage
+public abstract class NotificationRenderer<T> : View where T : NotificationMessage
 {
     //public abstract void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
     public void Render(T message, Text Title, Text Description, GameObject LinkToEvent)
