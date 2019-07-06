@@ -161,7 +161,9 @@ public enum InvestorGoal
     GrowCompanyCost, // +20%
     //GrowProfit, // +10%
 
-    IPO
+    IPO,
+    // products only
+    Operationing
 }
 
 public enum InvestmentRound
