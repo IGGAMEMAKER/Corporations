@@ -122,7 +122,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         var niches = NicheUtils.GetNichesInIndustry(company.companyFocus.Industries[0], GameContext);
 
         foreach (var n in niches)
-            CompanyUtils.AddFocusNiche(n.niche.NicheType, company);
+            CompanyUtils.AddFocusNiche(n.niche.NicheType, company, GameContext);
     }
 
     void AutoFillSomeFocusNichesByIndustry(GameEntity company)
@@ -132,7 +132,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         //CompanyUtils.AddFocusNiche(RandomEnum<NicheComponent>.PickRandomItem(niches).NicheType, company);
 
         foreach (var n in niches)
-            CompanyUtils.AddFocusNiche(n.niche.NicheType, company);
+            CompanyUtils.AddFocusNiche(n.niche.NicheType, company, GameContext);
     }
 
     IndustryType GetRandomIndustry()

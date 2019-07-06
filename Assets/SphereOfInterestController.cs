@@ -13,8 +13,8 @@ public class SphereOfInterestController : ButtonController
         GetComponentInChildren<Text>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
 
         if (isInSphereOfInterest)
-            CompanyUtils.RemoveFromSphereOfInfluence(niche, SelectedCompany);
+            CompanyUtils.RemoveFromSphereOfInfluence(niche, SelectedCompany, GameContext);
         else
-            CompanyUtils.AddFocusNiche(niche, SelectedCompany);
+            CompanyUtils.AddFocusNiche(niche, SelectedCompany, GameContext);
     }
 }

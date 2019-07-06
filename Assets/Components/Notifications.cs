@@ -23,7 +23,8 @@ public enum NotificationType
     NicheTrends,
     BoughtShares,
 
-    CompanyTypeChange
+    CompanyTypeChange,
+    CompanyFocusChange
 }
 
 public class NotificationMessage
@@ -83,19 +84,54 @@ public class NotificationMessageBuyingCompany : NotificationMessage
     }
 }
 
-public class NotificationMessageLevelUp : NotificationMessage
+public class NotificationMessageCompanyFocusChange : NotificationMessage
 {
     public int CompanyId;
-    public int Level;
+    // true - added, false - removed
+    public bool Added;
+    public NicheType NicheType;
 
-    public NotificationMessageLevelUp(int CompanyId, int Level)
+    public NotificationMessageCompanyFocusChange(int CompanyId, bool Added, NicheType nicheType)
     {
-        NotificationType = NotificationType.LevelUp;
+        NotificationType = NotificationType.CompanyFocusChange;
 
         this.CompanyId = CompanyId;
-        this.Level = Level;
+        this.Added = Added;
+        this.NicheType = nicheType;
     }
 }
+
+public class NotificationMessageBuyingShares : NotificationMessage
+{
+    public int CompanyId;
+    public int BuyerInvestorId;
+
+    public float BlockOfSharesSize;
+    public long Bid;
+
+    public NotificationMessageBuyingShares(int CompanyId, int BuyerInvestorId, long Bid)
+    {
+        NotificationType = NotificationType.BoughtShares;
+
+        this.CompanyId = CompanyId;
+        this.Bid = Bid;
+        this.BuyerInvestorId = BuyerInvestorId;
+    }
+}
+
+//public class NotificationMessageLevelUp : NotificationMessage
+//{
+//    public int CompanyId;
+//    public int Level;
+
+//    public NotificationMessageLevelUp(int CompanyId, int Level)
+//    {
+//        NotificationType = NotificationType.LevelUp;
+
+//        this.CompanyId = CompanyId;
+//        this.Level = Level;
+//    }
+//}
 
 public class NotificationMessageInvestmentRoundStarted : NotificationMessage
 {

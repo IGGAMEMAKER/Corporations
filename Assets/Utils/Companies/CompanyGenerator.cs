@@ -32,7 +32,7 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
             company.ReplaceMarketing(brandPower, Segments);
 
-            AddFocusNiche(niche, company);
+            AddFocusNiche(niche, company, context);
 
             var industry = NicheUtils.GetIndustry(niche, context);
             AddFocusIndustry(industry, company);
@@ -41,15 +41,17 @@ namespace Assets.Utils
             return company;
         }
 
-        public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company)
+        public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company, GameContext gameContext)
         {
             var focus = company.companyFocus;
             var niches = focus.Niches.Remove(nicheType);
 
+            NotifyAboutCompanyFocusChange(gameContext, company.company.Id, false, nicheType);
+
             company.ReplaceCompanyFocus(focus.Niches, focus.Industries);
         }
 
-        public static void AddFocusNiche(NicheType nicheType, GameEntity company)
+        public static void AddFocusNiche(NicheType nicheType, GameEntity company, GameContext gameContext)
         {
             var niches = company.companyFocus.Niches;
 
@@ -57,8 +59,14 @@ namespace Assets.Utils
                 return;
 
             niches.Add(nicheType);
+            NotifyAboutCompanyFocusChange(gameContext, company.company.Id, true, nicheType);
 
             company.ReplaceCompanyFocus(niches, company.companyFocus.Industries);
+        }
+
+        public static void NotifyAboutCompanyFocusChange(GameContext gameContext, int companyId, bool addedOrRemoved, NicheType nicheType)
+        {
+            NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyFocusChange(companyId, addedOrRemoved, nicheType));
         }
 
         public static void AddFocusIndustry(IndustryType industryType, GameEntity company)

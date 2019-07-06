@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -9,6 +10,16 @@ namespace Assets.Utils
             T result = GenerateValue();
 
             while (result.Equals(exception))
+                result = GenerateValue();
+
+            return result;
+        }
+
+        public static T GenerateValue(List<T> exceptions)
+        {
+            T result = GenerateValue();
+
+            while (exceptions.Contains(result))
                 result = GenerateValue();
 
             return result;

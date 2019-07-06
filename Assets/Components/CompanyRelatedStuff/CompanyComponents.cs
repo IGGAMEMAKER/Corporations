@@ -33,6 +33,11 @@ public class ShareholdersComponent : IComponent
 // in future you will be able to switch public/private whenever you want
 public class PublicCompanyComponent : IComponent { }
 
+// groups, holdings, corporations
+// excluding products and financial groups
+public class ManagingCompanyComponent : IComponent { }
+
+
 public class AcceptsInvestmentsComponent : IComponent
 {
     // set this to 60
