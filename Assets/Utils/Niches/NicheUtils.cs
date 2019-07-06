@@ -98,7 +98,7 @@ namespace Assets.Utils
                 clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
             }
 
-            Debug.Log($"Clients expectation for {niche.niche.NicheType}: " + clients);
+            //Debug.Log($"Clients expectation for {niche.niche.NicheType}: " + clients);
 
             return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
         }

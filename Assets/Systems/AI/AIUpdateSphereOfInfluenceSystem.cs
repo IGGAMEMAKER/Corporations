@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
+using UnityEngine;
+using Entitas;
 
-public class AIUpdateSphereOfInfluenceSystem : OnQuarterChange
+public class AIExpandSphereOfInfluenceSystem : OnQuarterChange, IExecuteSystem
 {
-    public AIUpdateSphereOfInfluenceSystem(Contexts contexts) : base(contexts) { }
+    public AIExpandSphereOfInfluenceSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -18,7 +20,6 @@ public class AIUpdateSphereOfInfluenceSystem : OnQuarterChange
 
     void CheckNiches(GameEntity group)
     {
-        bool needsMoreMoney = false;
         foreach (var n in group.companyFocus.Niches)
         {
             foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
@@ -27,18 +28,17 @@ public class AIUpdateSphereOfInfluenceSystem : OnQuarterChange
                     continue;
 
                 if (IsCompanyNeedsMoreMoneyOnMarket(group, holding, n))
-                    needsMoreMoney = true;
+                    return;
             }
         }
-
-        if (needsMoreMoney)
-            return;
 
         SearchSuitableNiche(group);
     }
 
     void SearchSuitableNiche(GameEntity group)
     {
+        Debug.Log("Search Suitable Niche: " + group.company.Name);
+
         var industry = group.companyFocus.Industries[0];
 
         var niche = RandomEnum<NicheType>.GenerateValue(group.companyFocus.Niches);
