@@ -41,29 +41,5 @@ public partial class AIProductSystems : OnDateChange
         InvestmentUtils.CompleteGoal(company, gameContext, false);
 
         return;
-
-
-        // ---- Team ----
-        // +- stop crunches                            cooldown
-        // hire someone                             money, mp
-        // upgrade team                             mp
-
-
-        // ---- Product ----
-        // * monetisation                             ip, pp
-        // n improve segments                         pp, ip
-        // n steal ideas                              cooldown
-        // increase prices if possible              -cooldown
-        IncreasePrices(company);
-
-        // ---- Marketing ----
-        // grab clients                             sp, money
-        // increase marketing budget if possible
-
-
-        // ---- Business ----
-        // start round                              ????
-        // accept investments
-        // flip goal                                cooldown
     }
 }

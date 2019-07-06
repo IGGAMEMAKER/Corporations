@@ -12,24 +12,7 @@ public enum ProductCompanyGoals
 
 public partial class AIProductSystems : OnDateChange
 {
-    public AIProductSystems(Contexts contexts) : base(contexts) {}
-
-    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
-    {
-        switch (goal)
-        {
-            case ProductCompanyGoals.Survive:
-                Survive(product);
-                break;
-
-            case ProductCompanyGoals.FixClientLoyalty:
-                FixLoyalty(product);
-                break;
-
-            default:
-                CompleteCompanyGoal(product);
-                break;
-        }
+    public AIProductSystems(Contexts contexts) : base(contexts) {
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -49,6 +32,24 @@ public partial class AIProductSystems : OnDateChange
             .AllOf(GameMatcher.Product)
             //.NoneOf(GameMatcher.ControlledByPlayer)
         );
+    }
+
+    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
+    {
+        switch (goal)
+        {
+            case ProductCompanyGoals.Survive:
+                Survive(product);
+                break;
+
+            case ProductCompanyGoals.FixClientLoyalty:
+                FixLoyalty(product);
+                break;
+
+            default:
+                CompleteCompanyGoal(product);
+                break;
+        }
     }
 
     ProductCompanyGoals ChooseGoal(GameEntity product)
