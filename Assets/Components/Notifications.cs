@@ -21,7 +21,9 @@ public enum NotificationType
     CompanyBecomesProfitable,
 
     NicheTrends,
-    BoughtShares
+    BoughtShares,
+
+    CompanyTypeChange
 }
 
 public class NotificationMessage
@@ -104,5 +106,19 @@ public class NotificationMessageInvestmentRoundStarted : NotificationMessage
         NotificationType = NotificationType.InvestmentRoundStarted;
 
         this.CompanyId = CompanyId;
+    }
+}
+
+public class NotificationMessageCompanyTypeChange : NotificationMessage
+{
+    public int CompanyId;
+    public string PreviousName;
+
+    public NotificationMessageCompanyTypeChange(int CompanyId, string PreviousName)
+    {
+        NotificationType = NotificationType.CompanyTypeChange;
+
+        this.CompanyId = CompanyId;
+        this.PreviousName = PreviousName;
     }
 }

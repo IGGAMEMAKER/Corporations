@@ -14,7 +14,5 @@ public class PromoteProductToGroupController : ButtonController
             CompanyUtils.SetPlayerControlledCompany(GameContext, groupId);
 
         NavigateToProjectScreen(groupId);
-
-        Debug.Log("Make a notification maybe?");
     }
 }

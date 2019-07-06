@@ -13,12 +13,22 @@ namespace Assets.Utils
             if (!c.isIndependentCompany)
                 return -1;
 
-            int companyGroupId = GenerateCompanyGroup(context, c.company.Name + " Group", companyId).company.Id;
+            var name = c.company.Name;
+
+            int companyGroupId = GenerateCompanyGroup(context, name + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
             c.isIndependentCompany = false;
 
+            NotifyAboutCompanyPromotion(context, companyGroupId, name);
+
             return companyGroupId;
+        }
+
+        public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)
+        {
+            NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyTypeChange(companyId, previousName));
+            Debug.Log("Company promotion! " + previousName + " to " + previousName + " Group");
         }
 
         public static void RedistributeMoneyBetweenCompaniesIfPossible(GameContext context, int giverId, int acceptorId, int amount)
