@@ -3,17 +3,17 @@ using UnityEngine.UI;
 
 public class NotificationRendererDefault : NotificationRenderer<NotificationMessage>
 {
-    public static string GetTitle(NotificationMessage message, GameContext gameContext)
+    public override string GetDescription(NotificationMessage message)
+    {
+        return message.ToString();
+    }
+
+    public override string GetTitle(NotificationMessage message)
     {
         return $"Unknown Notification: {message.NotificationType}: {message.ToString()}";
     }
 
-    public override void Render(NotificationMessage message, Text Title, Text Description, GameObject LinkToEvent)
+    public override void SetLink(NotificationMessage message, GameObject LinkToEvent)
     {
-        Description.text = message.ToString();
-
-        Title.text = GetTitle(message, GameContext);
-
-        RemoveLinks();
     }
 }
