@@ -64,6 +64,17 @@ namespace Assets.Utils
             return names;
         }
 
+        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
+        {
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            var phase = niche.nicheState.Phase;
+
+            return phase == NicheLifecyclePhase.Innovation ||
+                phase == NicheLifecyclePhase.Trending ||
+                phase == NicheLifecyclePhase.MassUse;
+        }
+
         public static int GetMarketRating(GameEntity niche)
         {
             switch (niche.nicheState.Phase)

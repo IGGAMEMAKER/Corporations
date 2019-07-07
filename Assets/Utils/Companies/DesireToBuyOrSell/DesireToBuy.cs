@@ -11,23 +11,19 @@ namespace Assets.Utils
             return 1;
         }
 
-        public static long GetDesireToBuyStartupAsGroup(GameEntity group, GameEntity startup)
+        public static long GetDesireToBuyStartupAsGroup(GameContext gameContext, GameEntity group, GameEntity startup)
         {
             long score = 0;
 
             if (IsInSphereOfInterest(group, startup))
                 score += 1000;
 
+            if (NicheUtils.IsPerspectiveNiche(gameContext, startup.product.Niche))
+                score += 100;
 
-        }
+            var positionOnMarket = NicheUtils.GetPositionOnMarket(gameContext, startup) + 1;
 
-        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
-
-            var phase = niche.nicheState.Phase;
-
-            return phase == NicheLifecyclePhase.Innovation && phase == NicheLifecyclePhase.Trending && phase == NicheLifecyclePhase.MassUse;
+            score += 100 / positionOnMarket;
         }
     }
 }

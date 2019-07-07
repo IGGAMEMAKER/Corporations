@@ -1,4 +1,5 @@
-﻿using Assets.Classes;
+﻿using System;
+using Assets.Classes;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -48,6 +49,11 @@ namespace Assets.Utils
             var marketDemand = niche.segment.Segments[userType];
 
             return current >= marketDemand;
+        }
+
+        internal static int GetProductLevel(GameEntity c)
+        {
+            return c.segment.Segments[UserType.Core];
         }
 
         public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext, UserType userType)
