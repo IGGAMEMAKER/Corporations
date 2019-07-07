@@ -18,7 +18,7 @@
 
         public static void LockCompanyGoal(GameContext gameContext, GameEntity company)
         {
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.CompanyGoal, Constants.COOLDOWN_COMPANY_GOAL);
+            CooldownUtils.AddCooldown(gameContext, company, CooldownType.CompanyGoal, Constants.COOLDOWN_COMPANY_GOAL);
         }
 
         internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoal investorGoal, int expires)

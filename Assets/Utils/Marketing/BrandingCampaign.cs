@@ -8,7 +8,7 @@ namespace Assets.Utils
         {
             var resources = GetBrandingCost(gameContext, company);
 
-            if (!CompanyUtils.IsEnoughResources(company, resources) || CompanyUtils.HasCooldown(company, CooldownType.BrandingCampaign))
+            if (!CompanyUtils.IsEnoughResources(company, resources) || CooldownUtils.HasCooldown(company, CooldownType.BrandingCampaign))
                 return;
 
             AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
@@ -16,8 +16,8 @@ namespace Assets.Utils
 
             var duration = GetBrandingCampaignCooldownDuration(gameContext, company);
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.BrandingCampaign, duration);
-            CompanyUtils.SpendResources(company, resources);
+
+            CooldownUtils.AddCooldownAndSpendResources(gameContext, company, CooldownType.BrandingCampaign, duration, resources);
         }
 
         public static int GetBrandingCampaignCooldownDuration(GameContext gameContext, GameEntity company)

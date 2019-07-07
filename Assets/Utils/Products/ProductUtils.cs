@@ -77,7 +77,7 @@ namespace Assets.Utils
         {
             var cooldown = new CooldownImproveSegment(userType);
 
-            return CompanyUtils.HasCooldown(product, cooldown);
+            return CooldownUtils.HasCooldown(product, cooldown);
         }
 
         public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
@@ -94,7 +94,7 @@ namespace Assets.Utils
 
             var cooldown = new CooldownImproveSegment(userType);
 
-            if (CompanyUtils.HasCooldown(product, cooldown))
+            if (CooldownUtils.HasCooldown(product, cooldown))
                 return;
 
             var costs = GetSegmentUpgradeCost(product, gameContext, userType);
@@ -114,7 +114,7 @@ namespace Assets.Utils
 
 
             var duration = GetSegmentImprovementDuration(gameContext, product);
-            CompanyUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
+            CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
         }
 
         public static int GetSegmentImprovementDuration(GameContext gameContext, GameEntity company)

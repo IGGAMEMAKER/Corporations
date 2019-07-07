@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class CooldownUtils
     {
         public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
         {
@@ -37,13 +37,13 @@ namespace Assets.Utils
         public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration, TeamResource resources)
         {
             AddCooldown(gameContext, company, cooldown, duration);
-            SpendResources(company, resources);
+            CompanyUtils.SpendResources(company, resources);
         }
 
         public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration, TeamResource resources)
         {
             AddCooldown(gameContext, company, cooldownType, duration);
-            SpendResources(company, resources);
+            CompanyUtils.SpendResources(company, resources);
         }
     }
 }

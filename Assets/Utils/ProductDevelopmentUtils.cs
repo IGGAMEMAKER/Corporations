@@ -36,12 +36,12 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            if (CompanyUtils.HasCooldown(c, CooldownType.ProductFocus))
+            if (CooldownUtils.HasCooldown(c, CooldownType.ProductFocus))
                 return;
 
             c.ReplaceDevelopmentFocus(developmentFocus);
 
-            CompanyUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
+            CooldownUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
         }
 
         // niche based values

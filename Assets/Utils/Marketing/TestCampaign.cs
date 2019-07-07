@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static void StartTestCampaign(GameContext gameContext, GameEntity company)
         {
-            if (CompanyUtils.HasCooldown(company, CooldownType.TestCampaign))
+            if (CooldownUtils.HasCooldown(company, CooldownType.TestCampaign))
                 return;
 
             var cost = GetTestCampaignCost(gameContext, company);
@@ -19,8 +19,7 @@ namespace Assets.Utils
 
             var duration = GetTestCampaignDuration(gameContext, company);
 
-            CompanyUtils.AddCooldown(gameContext, company, CooldownType.TestCampaign, duration);
-            CompanyUtils.SpendResources(company, cost);
+            CooldownUtils.AddCooldownAndSpendResources(gameContext, company, CooldownType.TestCampaign, duration, cost);
         }
 
         public static int GetTestCampaignDuration(GameContext gameContext, GameEntity company)
