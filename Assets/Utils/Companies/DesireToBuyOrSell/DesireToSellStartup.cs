@@ -22,6 +22,9 @@ namespace Assets.Utils
                 blocks += block.amount;
             }
 
+            if (blocks == 0)
+                return 0;
+
             return desireToSell * 100 / blocks;
         }
 
