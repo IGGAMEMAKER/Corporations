@@ -21,7 +21,7 @@ namespace Assets.Utils
         public static long GetDesireToSell(GameEntity buyer, GameEntity target, GameContext gameContext)
         {
             if (buyer.isManagingCompany && target.hasProduct)
-                return GetDesireToSellStartup(target, gameContext);
+                return GetDesireToSellStartup(target, gameContext) > 75 ? 100 : 0;
 
             return 0;
         }
@@ -42,9 +42,7 @@ namespace Assets.Utils
                 blocks += block.amount;
             }
 
-            bool hasMoreThan75PercentSellDesire = desireToSell * 100 > blocks * 75;
-
-            return hasMoreThan75PercentSellDesire ? 100 : 0;
+            return desireToSell * 100 / blocks;
         }
 
         public static long GetDesireToSellStartupByInvestorType(GameEntity startup, InvestorType investorType, int shareholderId, GameContext gameContext)
