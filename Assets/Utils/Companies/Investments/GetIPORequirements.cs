@@ -29,16 +29,5 @@ namespace Assets.Utils
 
             return meetsCostRequirement && meetsProfitRequirement && meetsShareholderRequirement;
         }
-
-        static int ProjectRange(int value, int min, int max, int newMin, int newMax)
-        {
-            int input = Mathf.Clamp(value, min, max);
-
-            int percent = (input - min) / (max - min);
-
-            int output = percent * (newMax - newMin) + newMin;
-
-            return output;
-        }
     }
 }
