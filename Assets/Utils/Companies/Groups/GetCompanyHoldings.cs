@@ -1,6 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -10,14 +8,6 @@ namespace Assets.Utils
         public int control;
 
         // controlled company id
-        public int companyId;
-
-        public List<CompanyHolding> holdings;
-    }
-
-    public class CompanyTree
-    {
-        // root company id
         public int companyId;
 
         public List<CompanyHolding> holdings;
