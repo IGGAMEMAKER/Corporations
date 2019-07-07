@@ -92,11 +92,13 @@
                     return shareholderType == InvestorType.VentureInvestor;
 
                 case InvestorGoal.GrowCompanyCost:
-                    return shareholderType == InvestorType.VentureInvestor;
+                    return shareholderType == InvestorType.VentureInvestor || shareholderType == InvestorType.Strategic;
 
                 case InvestorGoal.IPO:
                     return shareholderType == InvestorType.Strategic || shareholderType == InvestorType.VentureInvestor;
 
+                case InvestorGoal.Prototype:
+                case InvestorGoal.FirstUsers:
                 default:
                     return shareholderType == InvestorType.FFF;
             }

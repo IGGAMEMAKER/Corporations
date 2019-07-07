@@ -129,7 +129,7 @@ namespace Assets.Utils
 
             var innovation = IsWillInnovate(company, gameContext, UserType.Core) ? 4 : 1;
 
-            var random = Random.Range(1, 1.3f);
+            var random = UnityEngine.Random.Range(1, 1.3f);
 
             return (int)(Constants.COOLDOWN_CONCEPT * random * innovation * 100 / speed);
         }
