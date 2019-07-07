@@ -1,5 +1,4 @@
 ﻿using Assets.Classes;
-using UnityEngine;
 
 namespace Assets.Utils
 {
