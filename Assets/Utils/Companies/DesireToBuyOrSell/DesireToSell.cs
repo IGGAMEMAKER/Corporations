@@ -88,18 +88,10 @@ namespace Assets.Utils
 
             var ambition = GetFounderAmbition(ambitions);
 
-            switch (ambition)
-            {
-                case Ambition.RuleProduct:
-                case Ambition.RuleCorporation:
-                case Ambition.IPO:
-                case Ambition.CreateUnicorn:
-                    return 0;
+            if (ambition == Ambition.EarnMoney)
+                return 100;
 
-                case Ambition.EarnMoney:
-                default:
-                    return 100;
-            }
+            return 0;
         }
 
         public static long GetStrategicInvestorExitDesire(GameEntity startup, int shareholderId, GameContext context)
