@@ -12,11 +12,6 @@
             SetPlayerControlledCompany(gameContext, companyID);
         }
 
-        public static void SetCEO(GameContext context, int companyId, int humanId)
-        {
-
-        }
-
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
             var c = GetCompanyById(context, id);
