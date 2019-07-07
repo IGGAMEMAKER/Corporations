@@ -18,22 +18,33 @@ namespace Assets.Utils
 
     public static partial class CompanyUtils
     {
-        public static long GetDesireToSell(GameEntity buyer, GameEntity target)
+        public static long GetDesireToSell(GameEntity buyer, GameEntity target, GameContext gameContext)
         {
-            return 1;
+            if (buyer.isManagingCompany && target.hasProduct)
+                return GetDesireToSellStartup(target, gameContext);
+
+            return 0;
         }
 
         public static long GetDesireToSellStartup(GameEntity startup, GameContext gameContext)
         {
             var shareholders = startup.shareholders.Shareholders;
-            
+
+            long blocks = 0;
+            long desireToSell = 0;
+
             foreach (var s in shareholders)
             {
                 var invId = s.Key;
                 var block = s.Value;
 
-                var desire = GetDesireToSellStartupByInvestorType(startup, block.InvestorType, invId, gameContext) * block.amount;
+                desireToSell += GetDesireToSellStartupByInvestorType(startup, block.InvestorType, invId, gameContext) * block.amount;
+                blocks += block.amount;
             }
+
+            bool hasMoreThan75PercentSellDesire = desireToSell * 100 > blocks * 75;
+
+            return hasMoreThan75PercentSellDesire ? 100 : 0;
         }
 
         public static long GetDesireToSellStartupByInvestorType(GameEntity startup, InvestorType investorType, int shareholderId, GameContext gameContext)
@@ -89,7 +100,7 @@ namespace Assets.Utils
             var ambition = GetFounderAmbition(ambitions);
 
             if (ambition == Ambition.EarnMoney)
-                return 100;
+                return 1;
 
             return 0;
         }
@@ -100,33 +111,33 @@ namespace Assets.Utils
 
             bool interestedIn = IsInSphereOfInterest(managingCompany, startup);
 
-            return interestedIn ? 0 : 1000;
+            return interestedIn ? 0 : 1;
         }
 
         public static long GetStockExhangeTradeDesire(GameEntity startup, int shareholderId)
         {
-            return 50;
+            return 1;
         }
 
         public static long GetFFFExitDesire(GameEntity startup, int shareholderId)
         {
             bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
 
-            return goalCompleted ? 100 : 0;
+            return goalCompleted ? 1 : 0;
         }
 
         public static long GetAngelExitDesire(GameEntity startup, int shareholderId)
         {
             bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
 
-            return goalCompleted ? 100 : 0;
+            return goalCompleted ? 1 : 0;
         }
 
         public static long GetVentureInvestorExitDesire(GameEntity startup, int shareholderId)
         {
             bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
 
-            return goalCompleted ? 100 : 0;
+            return goalCompleted ? 1 : 0;
         }
     }
 }
