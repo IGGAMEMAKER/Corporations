@@ -24,6 +24,12 @@ namespace Assets.Utils
             var positionOnMarket = NicheUtils.GetPositionOnMarket(gameContext, startup) + 1;
 
             score += 100 / positionOnMarket;
+
+            var quality = NicheUtils.GetAppQualityOnMarket(gameContext, startup) + 1;
+
+            score += 30 / quality;
+
+
         }
     }
 }
