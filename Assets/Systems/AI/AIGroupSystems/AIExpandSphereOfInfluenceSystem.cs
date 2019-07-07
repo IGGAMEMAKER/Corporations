@@ -9,7 +9,7 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        Debug.Log("AIExpandSphereOfInfluenceSystem");
+        //Debug.Log("AIExpandSphereOfInfluenceSystem");
 
         foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
             CheckNiches(c);
@@ -22,14 +22,14 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 
     void CheckNiches(GameEntity group)
     {
-        Debug.Log("CheckNiches: " + group.company.Name);
+        //Debug.Log("CheckNiches: " + group.company.Name);
 
         foreach (var n in group.companyFocus.Niches)
         {
-            Debug.Log("Checking niche " + n.ToString());
+            //Debug.Log("Checking niche " + n.ToString());
             foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
             {
-                Debug.Log("Checking holding " + holding.company.Name);
+                //Debug.Log("Checking holding " + holding.company.Name);
 
                 if (!holding.hasProduct)
                     continue;
