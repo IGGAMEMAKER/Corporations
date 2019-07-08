@@ -6,15 +6,6 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        // update
-        public static void CopyShareholders(GameContext gameContext, int from, int to)
-        {
-            var cFrom = GetCompanyById(gameContext, from);
-            var cTo = GetCompanyById(gameContext, to);
-
-            ReplaceShareholders(cTo, cFrom.shareholders.Shareholders);
-        }
-
         public static void ReplaceShareholders(GameEntity company, Dictionary<int, BlockOfShares> shareholders)
         {
             company.ReplaceShareholders(shareholders);
