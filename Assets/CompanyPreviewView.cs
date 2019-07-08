@@ -85,8 +85,8 @@ public class CompanyPreviewView : View
     {
         var link = GetComponent<LinkToProjectView>();
 
-        //if (link != null)
-        link.CompanyId = e.company.Id;
+        if (link != null)
+            link.CompanyId = e.company.Id;
     }
 
     private void RenderCompanyCost(GameEntity e)
