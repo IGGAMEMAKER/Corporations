@@ -15,9 +15,9 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
             CheckNiches(c);
     }
 
-    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity Group, GameEntity product, NicheType nicheType)
+    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product, NicheType nicheType)
     {
-        return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, Group, product);
+        return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
     }
 
     void CheckNiches(GameEntity group)
@@ -34,7 +34,7 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
                 if (!holding.hasProduct)
                     continue;
 
-                if (IsCompanyNeedsMoreMoneyOnMarket(group, holding, n))
+                if (IsCompanyNeedsMoreMoneyOnMarket(holding, n))
                     return;
             }
         }

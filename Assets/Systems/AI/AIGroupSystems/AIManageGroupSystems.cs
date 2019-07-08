@@ -17,7 +17,10 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
-            PayDividends(holding, group);
+            if (!holding.hasProduct)
+                continue;
+
+            PayDividends(holding);
 
             CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
         }
@@ -41,9 +44,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
         CompanyUtils.CloseCompany(gameContext, product);
     }
 
-    void PayDividends(GameEntity product, GameEntity group)
+    void PayDividends(GameEntity product)
     {
-        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, group, product))
+        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
         var dividends = product.companyResource.Resources.money * 75 / 100;

@@ -202,7 +202,7 @@
 
 
 
-        public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity Group, GameEntity product)
+        public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
             MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
 
