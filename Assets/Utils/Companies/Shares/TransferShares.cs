@@ -1,5 +1,4 @@
-﻿using Assets.Utils.Formatting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Utils

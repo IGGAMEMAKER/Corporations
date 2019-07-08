@@ -5,6 +5,15 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
+        internal static bool IsInSphereOfInterest(GameEntity company, GameContext gameContext)
+        {
+            var player = GetPlayerCompany(gameContext);
+            if (player == null)
+                return false;
+
+            return IsInSphereOfInterest(player, company);
+        }
+
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
             return company.companyFocus.Niches.Contains(niche);
