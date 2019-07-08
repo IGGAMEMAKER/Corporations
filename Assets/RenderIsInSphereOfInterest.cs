@@ -11,7 +11,7 @@ public class RenderIsInSphereOfInterest : View
         base.ViewRender();
 
         var niche = ScreenUtils.GetSelectedNiche(GameContext);
-        bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(SelectedCompany, niche);
+        bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(MyCompany, niche);
 
         GetComponent<IsChosenComponent>().Toggle(isInSphereOfInterest);
 
