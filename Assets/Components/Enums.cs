@@ -7,6 +7,10 @@
 // https://stackoverflow.com/questions/29482/cast-int-to-enum-in-c-sharp
 // var investorGoal = (InvestorGoal) Enum.Parse(typeof(InvestorGoal), arg0.ToString());
 
+// cast 2
+// https://stackoverflow.com/questions/3260762/can-i-cast-from-a-generic-type-to-an-enum-in-c
+
+
 public enum NicheType
 {
     None,
