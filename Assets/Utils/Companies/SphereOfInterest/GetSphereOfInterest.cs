@@ -55,7 +55,7 @@ namespace Assets.Utils
 
         public static void NotifyAboutCompanyFocusChange(GameContext gameContext, int companyId, bool addedOrRemoved, NicheType nicheType)
         {
-            NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyFocusChange(companyId, addedOrRemoved, nicheType));
+            //NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyFocusChange(companyId, addedOrRemoved, nicheType));
         }
 
         public static void AddFocusIndustry(IndustryType industryType, GameEntity company)
