@@ -1,6 +1,28 @@
 ﻿using Assets.Utils;
 using UnityEngine;
 
+public class NotificationRendererBankruptcy : NotificationRenderer<NotificationMessageBankruptcy>
+{
+    public override string GetDescription(NotificationMessageBankruptcy message)
+    {
+        var name = CompanyUtils.GetCompanyById(GameContext, message.CompanyId).company.Name;
+
+        return $"Company {name} is DEAD! Everything has it's lifespan...";
+    }
+
+    public override string GetTitle(NotificationMessageBankruptcy message)
+    {
+        var name = CompanyUtils.GetCompanyById(GameContext, message.CompanyId).company.Name;
+
+        return $"Company {name} is DEAD!";
+    }
+
+    public override void SetLink(NotificationMessageBankruptcy message, GameObject LinkToEvent)
+    {
+        
+    }
+}
+
 public class NotificationRendererPromoteCompany : NotificationRenderer<NotificationMessageCompanyTypeChange>
 {
     public override string GetTitle(NotificationMessageCompanyTypeChange message)
