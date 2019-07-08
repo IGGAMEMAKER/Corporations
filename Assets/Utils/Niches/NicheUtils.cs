@@ -123,6 +123,11 @@ namespace Assets.Utils
 
         public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
         {
+            if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
+                return 0;
+
+            return 1;
+
             switch (phase)
             {
                 case NicheLifecyclePhase.Innovation:
@@ -132,10 +137,10 @@ namespace Assets.Utils
                     return 4;
 
                 case NicheLifecyclePhase.MassUse:
-                    return 4; // 10
+                    return 10;
 
                 case NicheLifecyclePhase.Decay:
-                    return 3; // 15
+                    return 15
 
                 default:
                     return 0;
