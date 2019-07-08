@@ -140,7 +140,7 @@ namespace Assets.Utils
                     return 10;
 
                 case NicheLifecyclePhase.Decay:
-                    return 15
+                    return 15;
 
                 default:
                     return 0;
