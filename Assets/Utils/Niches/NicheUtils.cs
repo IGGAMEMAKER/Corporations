@@ -117,7 +117,7 @@ namespace Assets.Utils
         // months
         public static int GetNichePeriodDuration(GameEntity niche)
         {
-            return 6;
+            return 1;
         }
 
         public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
