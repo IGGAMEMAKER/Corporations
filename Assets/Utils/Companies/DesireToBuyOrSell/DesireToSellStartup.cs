@@ -6,6 +6,24 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
+        // TODO move ambition function somewhere else
+        public static Ambition GetFounderAmbition(int ambitions)
+        {
+            if (ambitions < 70)
+                return Ambition.EarnMoney;
+
+            if (ambitions < 75)
+                return Ambition.RuleProduct;
+
+            if (ambitions < 80)
+                return Ambition.IPO;
+
+            if (ambitions < 85)
+                return Ambition.CreateUnicorn;
+
+            return Ambition.RuleCorporation;
+        }
+
         public static long GetDesireToSellStartup(GameEntity startup, GameContext gameContext)
         {
             var shareholders = startup.shareholders.Shareholders;
@@ -53,23 +71,6 @@ namespace Assets.Utils
                 default:
                     return 0;
             }
-        }
-
-        public static Ambition GetFounderAmbition(int ambitions)
-        {
-            if (ambitions < 70)
-                return Ambition.EarnMoney;
-
-            if (ambitions < 75)
-                return Ambition.RuleProduct;
-
-            if (ambitions < 80)
-                return Ambition.IPO;
-
-            if (ambitions < 85)
-                return Ambition.CreateUnicorn;
-
-            return Ambition.RuleCorporation;
         }
 
         public static long GetFounderExitDesire(GameEntity startup, int shareholderId, GameContext gameContext)
