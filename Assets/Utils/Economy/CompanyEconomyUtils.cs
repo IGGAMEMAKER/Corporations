@@ -180,6 +180,11 @@
             return GetBalanceChange(c, context);
         }
 
+        internal static bool IsProfitable(GameContext gameContext, int companyId)
+        {
+            return GetBalanceChange(gameContext, companyId) > 0;
+        }
+
         internal static bool IsROICounable(GameEntity c, GameContext context)
         {
             return GetCompanyMaintenance(c, context) > 0;

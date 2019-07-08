@@ -18,6 +18,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
             PayDividends(holding, group);
+
+            CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
         }
     }
 
@@ -26,7 +28,15 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     }
 
-    void CloseCompany(GameEntity product, GameEntity group)
+    void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive (GameEntity product)
+    {
+        var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+        if (niche.nicheState.Phase == NicheLifecyclePhase.Death && CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
+            CloseCompany(product);
+    }
+
+    void CloseCompany(GameEntity product)
     {
         CompanyUtils.CloseCompany(gameContext, product);
     }

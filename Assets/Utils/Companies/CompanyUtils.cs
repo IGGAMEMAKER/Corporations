@@ -45,7 +45,7 @@ namespace Assets.Utils
         {
             return gameContext.GetEntities(
                 GameMatcher
-                .AllOf(GameMatcher.ManagingCompany)
+                .AllOf(GameMatcher.ManagingCompany, GameMatcher.Alive)
                 .NoneOf(GameMatcher.ControlledByPlayer)
                 );
         }
