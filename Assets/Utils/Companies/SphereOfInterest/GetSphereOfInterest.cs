@@ -78,7 +78,12 @@ namespace Assets.Utils
 
         internal static int GetMarketShareOf(GameEntity myCompany, NicheType nicheType, GameContext gameContext)
         {
-            return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 33 : 0;
+            var players = NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
+
+            if (players == 0)
+                return 0;
+
+            return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
         }
     }
 }
