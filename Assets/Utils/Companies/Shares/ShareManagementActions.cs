@@ -63,7 +63,7 @@ namespace Assets.Utils
             if (company.hasAcceptsInvestments)
                 return;
 
-            NotifyAboutInvestmentRound(company, gameContext);
+            //NotifyAboutInvestmentRound(company, gameContext);
 
             var round = GetInvestmentRoundName(company);
 
