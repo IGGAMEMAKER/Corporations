@@ -5,6 +5,6 @@
 
         Add(new AIExpandSphereOfInfluenceSystem(contexts));
 
-        Add(new AIFillUnoccupiedPrimaryMarketsSystem(contexts));
+        //Add(new AIFillUnoccupiedPrimaryMarketsSystem(contexts));
     }
 }
