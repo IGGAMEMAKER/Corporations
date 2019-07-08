@@ -28,7 +28,10 @@ public enum ScreenMode
 
     MarketExplorationScreen = 18,
     CompanyExplorationScreen = 19,
-    LeaderboardScreen = 20
+    LeaderboardScreen = 20,
+
+    ExplorationScreen = 21,
+    NicheInfoScreen = 22
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -57,6 +60,8 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject MarketExplorationScreen;
     public GameObject CompanyExplorationScreen;
     public GameObject LeaderboardScreen;
+    public GameObject ExplorationScreen;
+    public GameObject NicheInfoScreen;
 
 
     void Start()
@@ -83,6 +88,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.MarketExplorationScreen] = MarketExplorationScreen,
             [ScreenMode.CompanyExplorationScreen] = CompanyExplorationScreen,
             [ScreenMode.LeaderboardScreen] = LeaderboardScreen,
+            [ScreenMode.ExplorationScreen] = ExplorationScreen,
+            [ScreenMode.NicheInfoScreen] = NicheInfoScreen,
         };
 
         DisableAllScreens();
@@ -123,6 +130,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.MarketExplorationScreen: return "Explore new markets";
             case ScreenMode.CompanyExplorationScreen: return "Explore companies";
             case ScreenMode.LeaderboardScreen: return "Dorbes list";
+            case ScreenMode.ExplorationScreen: return "Explore";
+            case ScreenMode.NicheInfoScreen: return "Niche details";
 
             default: return "WUT?";
         }
