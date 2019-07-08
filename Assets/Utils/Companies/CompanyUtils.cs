@@ -32,6 +32,15 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Product);
         }
 
+        internal static GameEntity[] GetAIProducts(GameContext gameContext)
+        {
+            return gameContext.GetEntities(
+                    GameMatcher
+                    .AllOf(GameMatcher.Product, GameMatcher.Alive)
+                //.NoneOf(GameMatcher.ControlledByPlayer)
+                );
+        }
+
         internal static GameEntity[] GetAIManagingCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(
@@ -40,6 +49,8 @@ namespace Assets.Utils
                 .NoneOf(GameMatcher.ControlledByPlayer)
                 );
         }
+
+
 
         internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
         {

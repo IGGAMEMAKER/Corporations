@@ -101,6 +101,15 @@ namespace Assets.Utils
             ReplaceShareholders(company, shareholders);
         }
 
+        public static void DestroyBlockOfShares(GameContext gameContext, GameEntity company, int investorId)
+        {
+            var shareholders = company.shareholders.Shareholders;
+
+            shareholders.Remove(investorId);
+
+            ReplaceShareholders(company, shareholders);
+        }
+
         public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
         {
             var c = GetCompanyById(context, companyId);

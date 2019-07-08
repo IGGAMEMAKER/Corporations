@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using System.Collections.Generic;
 
 public enum ProductCompanyGoals
@@ -17,21 +18,12 @@ public partial class AIProductSystems : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in GetAIProducts())
+        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
         {
             var goal = ChooseGoal(e);
 
             ExecuteGoal(goal, e);
         }
-    }
-
-    GameEntity[] GetAIProducts()
-    {
-        return gameContext.GetEntities(
-            GameMatcher
-            .AllOf(GameMatcher.Product)
-            //.NoneOf(GameMatcher.ControlledByPlayer)
-        );
     }
 
     void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)

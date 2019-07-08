@@ -50,6 +50,8 @@ namespace Assets.Utils
         {
             var e = context.CreateEntity();
 
+            e.isAlive = true;
+
             int id = GenerateCompanyId(context);
             e.AddCooldowns(new List<Cooldown>());
 

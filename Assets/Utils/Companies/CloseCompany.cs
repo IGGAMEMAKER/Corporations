@@ -18,6 +18,16 @@ namespace Assets.Utils
 
             NotifyAboutProductSupportEnd(e, context);
 
+
+            foreach (var holding in GetCompanyHoldings(context, e.company.Id, false))
+            {
+                var c = GetCompanyById(context, holding.companyId);
+
+                DestroyBlockOfShares(context, c, e.shareholder.Id);
+            }
+
+            e.isAlive = false;
+
             return e;
         }
 
