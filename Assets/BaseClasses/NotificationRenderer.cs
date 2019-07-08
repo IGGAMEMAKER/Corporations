@@ -7,7 +7,7 @@ public abstract class NotificationRenderer<T> : View where T : NotificationMessa
     public void Render(T message, Text Title, Text Description, GameObject LinkToEvent)
     {
         Description.text = GetDescription(message);
-        Title.text = GetTitle(message);
+        Title.text = "NEWS: " + GetTitle(message);
 
         RemoveLinks();
         SetLink(message, LinkToEvent);
