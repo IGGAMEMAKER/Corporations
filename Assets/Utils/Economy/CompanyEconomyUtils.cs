@@ -165,7 +165,12 @@
 
         internal static long GetTotalBalanceChange(GameEntity c, GameContext context)
         {
-            return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context) - GetMarketingMaintenance(c, context);
+            return GetCompanyIncome(c, context) - GetTotalMaintenance(c, context);
+        }
+
+        internal static long GetTotalMaintenance(GameEntity c, GameContext context)
+        {
+            return GetCompanyMaintenance(c, context) + GetMarketingMaintenance(c, context);
         }
 
         internal static long GetBalanceChange(GameContext context, int companyId)
@@ -192,7 +197,7 @@
 
 
 
-        public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity Group, GameEntity product, NicheType nicheType)
+        public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity Group, GameEntity product)
         {
             MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
 

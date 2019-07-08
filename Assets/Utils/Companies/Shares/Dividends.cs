@@ -14,6 +14,11 @@
 
             var dividends = balance * dividendSize / 100;
 
+            PayDividends(gameContext, company, dividends);
+        }
+
+        public static void PayDividends(GameContext gameContext, GameEntity company, long dividends)
+        {
             foreach (var s in company.shareholders.Shareholders)
             {
                 var investorId = s.Key;

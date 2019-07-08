@@ -15,13 +15,11 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     void CheckMarkets(GameEntity managingCompany)
     {
-        foreach (var n in managingCompany.companyFocus.Niches)
-        {
-            if (HasCompanyOnMarket(managingCompany, n))
-                continue;
+        var niches = managingCompany.companyFocus.Niches;
 
-            BuyOrCreate(managingCompany, n);
-        }
+        niches
+            .Select(n => !HasCompanyOnMarket(managingCompany, n));
+            //BuyOrCreate(managingCompany, n);
     }
 
     private void BuyOrCreate(GameEntity managingCompany, NicheType n)

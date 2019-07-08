@@ -13,8 +13,26 @@ public partial class AIManageGroupSystems : OnQuarterChange
             ManageGroup(c);
     }
 
-    void ManageGroup(GameEntity c)
+    void ManageGroup(GameEntity group)
     {
-        
+        foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
+        {
+            PayDividends(holding, group);
+        }
+    }
+
+    void DemandMoneyFromInvestors(GameEntity group)
+    {
+
+    }
+
+    void PayDividends(GameEntity product, GameEntity group)
+    {
+        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, group, product))
+            return;
+
+        var dividends = product.companyResource.Resources.money * 75 / 100;
+
+        CompanyUtils.PayDividends(gameContext, product, dividends);
     }
 }
