@@ -14,6 +14,8 @@ public class MarketShareView : View
     {
         var share = CompanyUtils.GetMarketShareOf(MyCompany, nicheType, GameContext);
 
+        //AnimateIfValueChanged(ShareSize, share + "%");
+
         ShareSize.text = share + "%";
         ShareChange.text = Visuals.Positive("+13%");
 
