@@ -8,10 +8,6 @@ public class SphereOfInterestController : ButtonController
         var niche = ScreenUtils.GetSelectedNiche(GameContext);
         bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(SelectedCompany, niche);
 
-        GetComponent<IsChosenComponent>().Toggle(isInSphereOfInterest);
-
-        GetComponentInChildren<Text>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
-
         if (isInSphereOfInterest)
             CompanyUtils.RemoveFromSphereOfInfluence(niche, SelectedCompany, GameContext);
         else
