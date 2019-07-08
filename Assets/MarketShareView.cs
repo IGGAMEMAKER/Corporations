@@ -8,11 +8,15 @@ public class MarketShareView : View
     public Text ShareChange;
     public Text NicheName;
 
-    internal void SetEntity(NicheType entity)
+    public LinkToNiche LinkToNiche;
+
+    internal void SetEntity(NicheType nicheType)
     {
         ShareSize.text = "34%";
         ShareChange.text = Visuals.Positive("+13%");
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(entity);
+        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
+
+        LinkToNiche.SetNiche(nicheType);
     }
 }
