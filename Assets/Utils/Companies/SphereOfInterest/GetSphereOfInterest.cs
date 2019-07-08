@@ -39,7 +39,7 @@ namespace Assets.Utils
                 return;
 
             niches.Add(nicheType);
-            //NotifyAboutCompanyFocusChange(gameContext, company.company.Id, true, nicheType);
+            NotifyAboutCompanyFocusChange(gameContext, company.company.Id, true, nicheType);
 
             company.ReplaceCompanyFocus(niches, company.companyFocus.Industries);
         }
