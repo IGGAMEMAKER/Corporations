@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Utils;
+using Assets.Utils.Formatting;
+using UnityEngine.UI;
 
-public class MarketShareView : MonoBehaviour
+public class MarketShareView : View
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Text ShareSize;
+    public Text ShareChange;
+    public Text NicheName;
 
-    // Update is called once per frame
-    void Update()
+    internal void SetEntity(NicheType entity)
     {
-        
+        ShareSize.text = "34%";
+        ShareChange.text = Visuals.Positive("+13%");
+
+        NicheName.text = EnumUtils.GetFormattedNicheName(entity);
     }
 }

@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereOfInfluenceListView : MonoBehaviour
+public class SphereOfInfluenceListView : ListView
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        
+        NicheType nicheType = (NicheType)(object)entity;
+
+        t.GetComponent<MarketShareView>().SetEntity(nicheType);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ViewRender()
     {
-        
+        base.ViewRender();
+
+        Render();
+    }
+
+    void Render()
+    {
+        var niches = MyCompany.companyFocus.Niches;
+
+        SetItems(niches.ToArray());
     }
 }
