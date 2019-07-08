@@ -26,6 +26,11 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     }
 
+    void CloseCompany(GameEntity product, GameEntity group)
+    {
+        CompanyUtils.CloseCompany(gameContext, product);
+    }
+
     void PayDividends(GameEntity product, GameEntity group)
     {
         if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, group, product))

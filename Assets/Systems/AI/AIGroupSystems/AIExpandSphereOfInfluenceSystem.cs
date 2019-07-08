@@ -17,7 +17,7 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 
     bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity Group, GameEntity product, NicheType nicheType)
     {
-        return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, Group, product, nicheType);
+        return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, Group, product);
     }
 
     void CheckNiches(GameEntity group)

@@ -21,6 +21,8 @@ public struct BlockOfShares
     public int shareholderLoyalty;
 }
 
+public class AliveComponent : IComponent { }
+
 // is attached to CompanyComponent
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class ShareholdersComponent : IComponent
