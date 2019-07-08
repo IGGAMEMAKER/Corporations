@@ -20,11 +20,6 @@ namespace Assets.Utils
             company.ReplaceShareholders(shareholders);
         }
 
-        public static int BecomeInvestor(GameContext context, GameEntity e, long money)
-        {
-            return InvestmentUtils.BecomeInvestor(context, e, money);
-        }
-
         public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
         {
             var c = GetCompanyById(context, companyId);

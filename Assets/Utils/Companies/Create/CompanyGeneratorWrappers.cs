@@ -32,11 +32,13 @@ namespace Assets.Utils
             return c;
         }
 
+
+
         public static GameEntity GenerateCompanyGroup(GameContext context, string name)
         {
             var c = CreateCompany(context, name, CompanyType.Group);
 
-            BecomeInvestor(context, c, 0);
+            InvestmentUtils.BecomeInvestor(context, c, 0);
 
             return c;
         }
@@ -45,7 +47,7 @@ namespace Assets.Utils
         {
             var c = CreateCompany(context, name, CompanyType.FinancialGroup);
 
-            BecomeInvestor(context, c, money);
+            InvestmentUtils.BecomeInvestor(context, c, money);
 
             return c;
         }
