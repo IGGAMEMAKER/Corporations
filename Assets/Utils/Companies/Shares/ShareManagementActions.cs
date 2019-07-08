@@ -15,62 +15,6 @@ namespace Assets.Utils
             ReplaceShareholders(cTo, cFrom.shareholders.Shareholders);
         }
 
-        public static void StartInvestmentRound(GameContext gameContext, int companyId)
-        {
-            StartInvestmentRound(GetCompanyById(gameContext, companyId), gameContext);
-        }
-
-        public static InvestmentRound GetInvestmentRoundName(GameEntity company)
-        {
-            switch (company.companyGoal.InvestorGoal)
-            {
-                case InvestorGoal.Prototype:
-                    return InvestmentRound.Preseed;
-
-                case InvestorGoal.FirstUsers:
-                    return InvestmentRound.Seed;
-
-                case InvestorGoal.BecomeMarketFit:
-                    return InvestmentRound.A;
-
-                case InvestorGoal.Release:
-                    return InvestmentRound.B;
-
-                case InvestorGoal.BecomeProfitable:
-                    return InvestmentRound.C;
-
-                case InvestorGoal.GrowCompanyCost:
-                    return InvestmentRound.C;
-
-                case InvestorGoal.IPO:
-                    return InvestmentRound.D;
-
-                default:
-                    return InvestmentRound.E;
-            }
-        }
-
-        public static void NotifyAboutInvestmentRound(GameEntity company, GameContext gameContext)
-        {
-            var playerCompany = GetPlayerCompany(gameContext);
-
-            if (IsInSphereOfInterest(playerCompany, company))
-                NotificationUtils.AddNotification(gameContext, new NotificationMessageInvestmentRoundStarted(company.company.Id));
-        }
-
-        public static void StartInvestmentRound(GameEntity company, GameContext gameContext)
-        {
-            if (company.hasAcceptsInvestments)
-                return;
-
-            //NotifyAboutInvestmentRound(company, gameContext);
-
-            var round = GetInvestmentRoundName(company);
-
-            company.ReplaceInvestmentRounds(round);
-            company.AddAcceptsInvestments(Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
-        }
-
         public static void ReplaceShareholders(GameEntity company, Dictionary<int, BlockOfShares> shareholders)
         {
             company.ReplaceShareholders(shareholders);
@@ -122,16 +66,7 @@ namespace Assets.Utils
             var shareholders = company.shareholders.Shareholders;
             var shareholder = InvestmentUtils.GetInvestorById(gameContext, investorId).shareholder;
 
-            if (!IsInvestsInCompany(company, investorId))
-            {
-                // new investor
-                shareholders[investorId] = new BlockOfShares
-                {
-                    amount = amountOfShares,
-                    shareholderLoyalty = 100,
-                    InvestorType = shareholder.InvestorType
-                };
-            } else
+            if (IsInvestsInCompany(company, investorId))
             {
                 var prev = shareholders[investorId];
 
@@ -140,6 +75,16 @@ namespace Assets.Utils
                     amount = prev.amount + amountOfShares,
                     InvestorType = prev.InvestorType,
                     shareholderLoyalty = prev.shareholderLoyalty
+                };
+            }
+            else
+            {
+                // new investor
+                shareholders[investorId] = new BlockOfShares
+                {
+                    amount = amountOfShares,
+                    shareholderLoyalty = 100,
+                    InvestorType = shareholder.InvestorType
                 };
             }
 
