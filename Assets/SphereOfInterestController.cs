@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using UnityEngine.UI;
 
 public class SphereOfInterestController : ButtonController
 {
