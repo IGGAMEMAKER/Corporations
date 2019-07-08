@@ -14,6 +14,8 @@ namespace Assets.Utils
                 return -1;
 
             var niche = c.product.Niche;
+
+            Debug.Log("PromoteProductCompanyToGroup " + niche.ToString());
             var industry = NicheUtils.GetIndustry(niche, context);
 
             var name = c.company.Name;
