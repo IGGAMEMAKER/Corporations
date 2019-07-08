@@ -29,5 +29,13 @@ namespace Assets.Utils
 
             return meetsCostRequirement && meetsProfitRequirement && meetsShareholderRequirement;
         }
+
+        public static bool IsCanGoPublic(GameContext gameContext, int companyId)
+        {
+            bool isAlreadyPublic = GetCompanyById(gameContext, companyId).isPublicCompany;
+            bool meetsIPORequirements = IsMeetsIPORequirements(gameContext, companyId);
+
+            return !isAlreadyPublic && meetsIPORequirements;
+        }
     }
 }
