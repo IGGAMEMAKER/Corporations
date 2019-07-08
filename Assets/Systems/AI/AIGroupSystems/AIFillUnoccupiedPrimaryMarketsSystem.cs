@@ -32,6 +32,6 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
     {
-        return CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
+        return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
     }
 }

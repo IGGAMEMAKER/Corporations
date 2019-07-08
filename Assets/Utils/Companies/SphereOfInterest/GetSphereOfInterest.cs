@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -68,6 +69,16 @@ namespace Assets.Utils
             industries.Add(industryType);
 
             company.ReplaceCompanyFocus(company.companyFocus.Niches, industries);
+        }
+
+        internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        {
+            return GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
+        }
+
+        internal static int GetMarketShareOf(GameEntity myCompany, NicheType nicheType, GameContext gameContext)
+        {
+            return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 33 : 0;
         }
     }
 }
