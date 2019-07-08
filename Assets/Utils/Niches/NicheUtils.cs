@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -117,7 +116,9 @@ namespace Assets.Utils
         // months
         public static int GetNichePeriodDuration(GameEntity niche)
         {
-            return 1;
+            var X = 1;
+
+            return X;
         }
 
         public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
@@ -131,10 +132,10 @@ namespace Assets.Utils
                     return 4;
 
                 case NicheLifecyclePhase.MassUse:
-                    return 10;
+                    return 4; // 10
 
                 case NicheLifecyclePhase.Decay:
-                    return 15;
+                    return 3; // 15
 
                 default:
                     return 0;

@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
@@ -32,6 +34,27 @@
             ReplaceTeam(company, team);
         }
 
+        public static void DismissTeam(GameEntity company, GameContext gameContext)
+        {
+            Debug.Log("DismissTeam of " + company.company.Name);
+
+            //for (var i = company.team.Workers.Keys.Count; i > 0; i--)
+            //{
+            //    var humanId = company.team.Workers.Keys;
+            //    humanId.
+
+            //    TeamUtils.FireWorker(company, )
+            //}
+
+
+            //var workers = company.team.Workers;
+
+            //while (workers.Count > 0)
+            //{
+            //    var humanId = company.
+            //    TeamUtils.FireWorker(company, company.team.Workers., context);
+            //}
+        }
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {

@@ -13,18 +13,14 @@ namespace Assets.Utils
             PayDividends(context, e, e.companyResource.Resources.money);
 
             // fire everyone
-            foreach (var w in e.team.Workers)
-                TeamUtils.FireWorker(e, w.Key, context);
+
+            TeamUtils.DismissTeam(e, context);
 
             NotifyAboutProductSupportEnd(e, context);
 
 
-            foreach (var holding in GetCompanyHoldings(context, e.company.Id, false))
-            {
-                var c = GetCompanyById(context, holding.companyId);
-
-                DestroyBlockOfShares(context, c, e.shareholder.Id);
-            }
+            foreach (var holding in GetDaughterCompanies(context, e.company.Id))
+                DestroyBlockOfShares(context, holding, e.shareholder.Id);
 
             e.isAlive = false;
 
