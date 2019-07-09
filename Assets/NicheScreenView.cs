@@ -3,25 +3,10 @@ using Assets.Utils.Formatting;
 using UnityEngine.UI;
 
 public class NicheScreenView : View
-    , IAnyCompanyListener
 {
     public Text NicheName;
     public Text IndustryName;
-    public MarketPotentialView MarketPotentialView;
     public Text AmountOfCompetitors;
-
-    void IAnyCompanyListener.OnAnyCompany(GameEntity entity, int id, string name, CompanyType companyType)
-    {
-        if (entity.hasProduct)
-            RenderAmountOfCompanies(entity.product.Niche);
-    }
-
-    void OnEnable()
-    {
-        Render();
-
-        GetUniversalListener.AddAnyCompanyListener(this);
-    }
 
     void RenderAmountOfCompanies(NicheType NicheType)
     {
@@ -37,7 +22,13 @@ public class NicheScreenView : View
         IndustryName.text = Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
         //IndustryName.gameObject.SetActive(false);
 
-        MarketPotentialView.Render();
         RenderAmountOfCompanies(NicheType);
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
     }
 }
