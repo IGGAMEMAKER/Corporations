@@ -76,14 +76,61 @@ namespace Assets.Utils
             return GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
         }
 
-        internal static int GetMarketShareOf(GameEntity myCompany, NicheType nicheType, GameContext gameContext)
-        {
-            var players = NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
 
-            if (players == 0)
+
+        internal static long GetMarketShareOf(GameEntity product, NicheType nicheType, GameContext gameContext)
+        {
+            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
+
+            long clients = 0;
+
+            foreach (var p in products)
+                clients += MarketingUtils.GetClients(p);
+
+            if (clients == 0)
                 return 0;
 
-            return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
+            return MarketingUtils.GetClients(product) / clients;
+        }
+
+        internal static long GetGroupMarketControl(GameEntity group, NicheType nicheType, GameContext gameContext)
+        {
+            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
+
+            long share = 0;
+
+            long clients = 0;
+
+            foreach (var p in products)
+            {
+                var cli = MarketingUtils.GetClients(p);
+                share += GetControlInCompany(group, p, gameContext) * cli;
+
+                clients += cli;
+            }
+
+            if (clients == 0)
+                return 0;
+
+            return share / clients;
+
+            //return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
+        }
+
+        private static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
+        {
+            int shares = 0;
+
+            foreach (var daughter in GetDaughterCompanies(gameContext, controlling.company.Id))
+            {
+                if (daughter.company.Id == holding.company.Id)
+                    shares += GetShareSize(gameContext, holding.company.Id, controlling.shareholder.Id);
+
+                if (!daughter.hasProduct)
+                    shares += GetControlInCompany(daughter, holding, gameContext);
+            }
+
+            return shares;
         }
     }
 }

@@ -12,7 +12,7 @@ public class MarketShareView : View
 
     internal void SetEntity(NicheType nicheType)
     {
-        var share = CompanyUtils.GetMarketShareOf(MyCompany, nicheType, GameContext);
+        var share = CompanyUtils.GetGroupMarketControl(MyCompany, nicheType, GameContext);
 
         //AnimateIfValueChanged(ShareSize, share + "%");
 
