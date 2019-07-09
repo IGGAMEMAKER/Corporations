@@ -12,7 +12,7 @@ public abstract class ListView : View // MonoBehaviour
 
     public void SetItems<T>(T[] entities, object data = null)
     {
-        Render(entities, gameObject);
+        Render(entities, gameObject, data);
     }
 
     void Render<T>(T[] entities, GameObject Container, object data = null)

@@ -8,15 +8,16 @@ public class CompanyTableView : View, IPointerEnterHandler
     public Text CompanyName;
     [SerializeField] Text Cost;
     [SerializeField] Text ValuationGrowth;
+
     public Image Panel;
 
     GameEntity entity;
-    bool QuarterOrYearly;
+    bool QuarterlyOrYearly;
 
     public void SetEntity(GameEntity company, object data)
     {
         entity = company;
-        QuarterOrYearly = (bool)data;
+        QuarterlyOrYearly = (bool)data;
 
         Render();
     }
@@ -33,7 +34,7 @@ public class CompanyTableView : View, IPointerEnterHandler
         var p = GetComponent<ProductCompanyTableView>();
 
         if (p != null)
-            p.SetEntity(entity, QuarterOrYearly);
+            p.SetEntity(entity, QuarterlyOrYearly);
 
         var g = GetComponent<GroupCompanyTableView>();
 
@@ -65,10 +66,11 @@ public class CompanyTableView : View, IPointerEnterHandler
         var monthly = CompanyUtils.GetValuationGrowth(entity, 3);
         var yearly = CompanyUtils.GetValuationGrowth(entity, 12);
 
-        var monGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
+        var quarGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
         var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
 
-        ValuationGrowth.text = $"{monGrowth} / {yrGrowth}";
+        //ValuationGrowth.text = $"{monGrowth} / {yrGrowth}";
+        ValuationGrowth.text = QuarterlyOrYearly ? quarGrowth : yrGrowth;
     }
 
     void SetPanelColor()

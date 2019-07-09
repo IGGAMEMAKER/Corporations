@@ -1304,6 +1304,7 @@ MonoBehaviour:
   YearlyFilter: {fileID: 3642640479973476389}
   Label1: {fileID: 8025694291786041972}
   Label2: {fileID: 7290394859116665193}
+  ValuationLabel: {fileID: 5633766667969544044}
 --- !u!1 &6707561519725912314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,9 +1902,9 @@ GameObject:
   - component: {fileID: 4364789855259731896}
   - component: {fileID: 5599788462592428617}
   - component: {fileID: 4404463870379795332}
+  - component: {fileID: 6638120254169080370}
   - component: {fileID: 4969363280159802538}
   - component: {fileID: 5584702632657439985}
-  - component: {fileID: 6638120254169080370}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1970,6 +1971,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &6638120254169080370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8618821195569405945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e1c03871c48414ebff4c4af4b85d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quarterly: 0
 --- !u!114 &4969363280159802538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1983,6 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8648525311188837512, guid: 8b94c9e8c20658c44828afa42272ecf8, type: 3}
+  GrowthFilterQuarterly: {fileID: 6638120254169080370}
 --- !u!114 &5584702632657439985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1996,18 +2011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 160377763664654283, guid: c82fee121df75134db19eb10d954e94b, type: 3}
---- !u!114 &6638120254169080370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8618821195569405945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25e1c03871c48414ebff4c4af4b85d7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  GrowthFilterQuarterly: {fileID: 6638120254169080370}
 --- !u!1 &9022371249586653065
 GameObject:
   m_ObjectHideFlags: 0

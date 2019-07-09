@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GroupSearchListView : ListView
 {
+    public GrowthFilterQuarterly GrowthFilterQuarterly;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var e = entity as GameEntity;
@@ -20,9 +22,7 @@ public class GroupSearchListView : ListView
     public void Render()
     {
         var groups = CompanyUtils.GetGroupCompanies(GameContext);
-        var quarterlyFilter = GetComponent<GrowthFilterQuarterly>().enabled;
 
-
-        SetItems(groups, quarterlyFilter);
+        SetItems(groups, GrowthFilterQuarterly.Quarterly);
     }
 }

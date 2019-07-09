@@ -20,20 +20,21 @@ public class ApplyCompanySearchFilters : MonoBehaviour
     public Text Label1;
     public Text Label2;
 
+    public Text ValuationLabel;
+
+
+    bool IsProductFilter => ProductFilter.IsChosen;
+    bool IsGroupFilter => GroupFilter.IsChosen;
+
+    bool IsQuarterlyFilter => QuarterlyFilter.IsChosen;
+    bool IsYearlyFilter => YearlyFilter.IsChosen;
+
     public void ShowProductCompanies()
     {
-        ProductCompanySearchListView.enabled = true;
-        GroupSearchListView.enabled = false;
-
         ProductFilter.Toggle(true);
         GroupFilter.Toggle(false);
 
-        ProductCompanySearchListView.Render();
-
-        if (QuarterlyFilter.IsChosen)
-            SetLabels("Market\nStage", "Audience\ngrowth\nquarterly");
-        else
-            SetLabels("Market\nStage", "Audience\ngrowth\nyearly");
+        RenderLists();
     }
 
     public void ShowQuarterlyGrowth()
@@ -41,7 +42,9 @@ public class ApplyCompanySearchFilters : MonoBehaviour
         QuarterlyFilter.Toggle(true);
         YearlyFilter.Toggle(false);
 
-        GrowthFilterQuarterly.enabled = true;
+        GrowthFilterQuarterly.Quarterly = true;
+
+        RenderLists();
     }
 
     public void ShowYearlyGrowth()
@@ -49,25 +52,58 @@ public class ApplyCompanySearchFilters : MonoBehaviour
         QuarterlyFilter.Toggle(false);
         YearlyFilter.Toggle(true);
 
-        GrowthFilterQuarterly.enabled = false;
+        GrowthFilterQuarterly.Quarterly = false;
+
+        RenderLists();
+    }
+
+    public void ShowGroupCompanies()
+    {
+        ProductFilter.Toggle(false);
+        GroupFilter.Toggle(true);
+
+        RenderLists();
+    }
+
+    void RenderLists()
+    {
+        bool productOnly = IsProductFilter;
+
+        ProductCompanySearchListView.enabled = productOnly;
+        GroupSearchListView.enabled = !productOnly;
+
+        if (productOnly)
+            ProductCompanySearchListView.Render();
+        else
+            GroupSearchListView.Render();
+
+        ValuationLabel.text = $"Valuation\ngrowth\n" + (IsQuarterlyFilter ? "quarter" : "year");
+
+
+        UpdateLabels();
+    }
+
+    void UpdateLabels()
+    {
+        if (IsProductFilter)
+        {
+            if (IsQuarterlyFilter)
+                SetLabels("Market\nStage", "Audience\ngrowth\nquarterly");
+            else
+                SetLabels("Market\nStage", "Audience\ngrowth\nyearly");
+
+            return;
+        }
+
+        if (IsGroupFilter)
+        {
+            SetLabels("Sphere of influence\nIndusries", "Sphere of influence\nNiches");
+        }
     }
 
     void SetLabels(string t1, string t2)
     {
         Label1.text = t1;
         Label2.text = t2;
-    }
-
-    public void ShowGroupCompanies()
-    {
-        ProductCompanySearchListView.enabled = false;
-        GroupSearchListView.enabled = true;
-
-        ProductFilter.Toggle(false);
-        GroupFilter.Toggle(true);
-
-        GroupSearchListView.Render();
-
-        SetLabels("Sphere of influence\nIndusries", "Sphere of influence\nNiches");
     }
 }
