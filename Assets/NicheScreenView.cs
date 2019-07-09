@@ -14,6 +14,7 @@ public class NicheScreenView : View
 
         NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
         IndustryName.text = Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
+        
         //IndustryName.gameObject.SetActive(false);
     }
 
