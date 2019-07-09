@@ -78,9 +78,9 @@ namespace Assets.Utils
 
 
 
-        internal static long GetMarketShareOf(GameEntity product, NicheType nicheType, GameContext gameContext)
+        internal static long GetMarketShareOf(GameEntity product, GameContext gameContext)
         {
-            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
+            var products = NicheUtils.GetPlayersOnMarket(gameContext, product);
 
             long clients = 0;
 
