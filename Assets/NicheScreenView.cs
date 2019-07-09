@@ -2,26 +2,18 @@
 using Assets.Utils.Formatting;
 using UnityEngine.UI;
 
-public class NicheScreenView : View
+public class NicheScreenView : UpgradedParameterView
 {
-    public Text NicheName;
-    public Text IndustryName;
-
-    void Render()
+    public override string RenderValue()
     {
         NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
         IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(NicheType);
-        IndustryName.text = Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
-        
-        //IndustryName.gameObject.SetActive(false);
+        return Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
     }
 
-    public override void ViewRender()
+    public override string RenderHint()
     {
-        base.ViewRender();
-
-        Render();
+        return "";
     }
 }

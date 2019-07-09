@@ -74,6 +74,13 @@ namespace Assets.Utils
                 phase == NicheLifecyclePhase.MassUse;
         }
 
+
+
+        public static int GetMarketRating(GameContext gameContext, NicheType niche)
+        {
+            return GetMarketRating(GetNicheEntity(gameContext, niche));
+        }
+
         public static int GetMarketRating(GameEntity niche)
         {
             switch (niche.nicheState.Phase)

@@ -23,6 +23,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public NicheType SelectedNiche
+    {
+        get
+        {
+            return ScreenUtils.GetSelectedNiche(GameContext);
+        }
+    }
+
     public bool IsMyCompetitor(GameEntity company)
     {
         if (!HasProductCompany)
