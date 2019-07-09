@@ -9,7 +9,7 @@
             return GetProductCompanyBaseCost(context, companyId) * (100 - risks) / 100;
         }
 
-        private static long GetProductCompanyBaseCost(GameContext context, int companyId)
+        public static long GetProductCompanyBaseCost(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 

@@ -5,10 +5,13 @@ using UnityEngine.UI;
 public class MarketShareView : View
 {
     public Text ShareSize;
-    public Text ShareChange;
+    public Text MarketState;
     public Text NicheName;
 
     public LinkToNiche LinkToNiche;
+
+    public Hint Hint;
+    public Text MarketImportance;
 
     internal void SetEntity(NicheType nicheType)
     {
@@ -20,12 +23,21 @@ public class MarketShareView : View
         //AnimateIfValueChanged(ShareSize, share + "%");
 
         ShareSize.text = share + "%";
-        //ShareChange.text = Visuals.Positive("+13%");
-        ShareChange.text = niche.nicheState.Phase.ToString();
-        ShareChange.color = Visuals.GetGradientColor(0, 5f, rating);
+        MarketState.text = niche.nicheState.Phase.ToString();
+        MarketState.color = Visuals.GetGradientColor(0, 5f, rating);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
 
         LinkToNiche.SetNiche(nicheType);
+
+
+        var marketSize = CompanyUtils.GetMarketSize(GameContext, nicheType);
+        var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
+
+        string text = $"Total market size is: {Format.Money(marketSize)}\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}";
+
+        MarketImportance.text = Format.Money(marketControlCost);
+
+        Hint.SetHint(text);
     }
 }
