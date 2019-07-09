@@ -11,10 +11,12 @@ public class CompanyTableView : View, IPointerEnterHandler
     public Image Panel;
 
     GameEntity entity;
+    bool QuarterOrYearly;
 
-    public void SetEntity(GameEntity company)
+    public void SetEntity(GameEntity company, object data)
     {
         entity = company;
+        QuarterOrYearly = (bool)data;
 
         Render();
     }
@@ -31,7 +33,7 @@ public class CompanyTableView : View, IPointerEnterHandler
         var p = GetComponent<ProductCompanyTableView>();
 
         if (p != null)
-            p.SetEntity(entity);
+            p.SetEntity(entity, QuarterOrYearly);
 
         var g = GetComponent<GroupCompanyTableView>();
 

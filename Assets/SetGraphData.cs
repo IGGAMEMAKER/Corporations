@@ -61,7 +61,7 @@ public class SetGraphData : MonoBehaviour
 
             var txt = Dots[i].GetComponentInChildren<Text>();
 
-            if (len < 10 || value == max || value == min)
+            if (len <= 12 || value == max || value == min)
             {
                 txt.text = Format.MinifyToInteger(value);
             }

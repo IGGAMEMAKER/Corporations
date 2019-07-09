@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -37,9 +38,9 @@ namespace Assets.Utils
             var costs = GetNicheCosts(gameContext, company);
             var batch = GetCompanyClientBatch(gameContext, company);
 
-            var clients = batch * 10 * GetMarketingFinancingBrandPowerGainModifier(company);
+            var clients = batch * 10 * GetMarketingFinancingBrandPowerGainModifier(company) * Random.Range(0.5f, 1.5f);
 
-            AddClients(company, UserType.Mass, clients);
+            AddClients(company, UserType.Mass, (long)clients);
         }
 
         public static TeamResource GetBrandingCost(GameContext gameContext, GameEntity company)

@@ -8,10 +8,12 @@ public class ProductCompanyTableView : View
     [SerializeField] Text AudienceGrowth;
 
     GameEntity entity;
+    bool QuarterlyOrYearly;
 
-    public void SetEntity(GameEntity company)
+    public void SetEntity(GameEntity company, bool quarterOrYearly)
     {
         entity = company;
+        QuarterlyOrYearly = quarterOrYearly;
 
         Render();
     }
@@ -33,9 +35,12 @@ public class ProductCompanyTableView : View
         var monthly = CompanyUtils.GetAudienceGrowth(entity, 3);
         var yearly = CompanyUtils.GetAudienceGrowth(entity, 12);
 
-        var monGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
+        var quarGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
         var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
 
-        AudienceGrowth.text = $"{monGrowth} / {yrGrowth}";
+        AudienceGrowth.text = QuarterlyOrYearly ? quarGrowth : yrGrowth;
+
+
+        //AudienceGrowth.text = $"{monGrowth} / {yrGrowth}";
     }
 }

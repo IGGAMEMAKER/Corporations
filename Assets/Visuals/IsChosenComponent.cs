@@ -13,6 +13,14 @@ public class IsChosenComponent : MonoBehaviour
 
     bool state = false;
 
+    public bool IsChosen
+    {
+        get
+        {
+            return state;
+        }
+    }
+
     public void Toggle(bool isChosen)
     {
         if (isChosen)

@@ -9,7 +9,7 @@ public class ProductCompanySearchListView : ListView
     {
         var e = entity as GameEntity;
 
-        t.GetComponent<CompanyTableView>().SetEntity(e);
+        t.GetComponent<CompanyTableView>().SetEntity(e, data);
     }
 
     private void OnEnable()
@@ -20,7 +20,8 @@ public class ProductCompanySearchListView : ListView
     public void Render()
     {
         var products = CompanyUtils.GetProductCompanies(GameContext);
+        var quarterlyFilter = GetComponent<GrowthFilterQuarterly>().enabled;
 
-        SetItems(products);
+        SetItems(products, quarterlyFilter);
     }
 }
