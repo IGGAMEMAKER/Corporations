@@ -12,12 +12,17 @@ public class MarketShareView : View
 
     internal void SetEntity(NicheType nicheType)
     {
+        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+        var rating = NicheUtils.GetMarketRating(niche);
+
         var share = CompanyUtils.GetGroupMarketControl(MyCompany, nicheType, GameContext);
 
         //AnimateIfValueChanged(ShareSize, share + "%");
 
         ShareSize.text = share + "%";
-        ShareChange.text = Visuals.Positive("+13%");
+        //ShareChange.text = Visuals.Positive("+13%");
+        ShareChange.text = niche.nicheState.Phase.ToString();
+        ShareChange.color = Visuals.GetGradientColor(0, 5f, rating);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
 

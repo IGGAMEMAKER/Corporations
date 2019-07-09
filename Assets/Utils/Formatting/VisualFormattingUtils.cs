@@ -29,7 +29,7 @@ namespace Assets.Utils
 
         #region gradient
 
-        internal static string Gradient(int min, int max, int value, string text = "")
+        internal static string Gradient(float min, float max, float value, string text = "")
         {
             var color = GetGradientColor(min, max, value, false);
 

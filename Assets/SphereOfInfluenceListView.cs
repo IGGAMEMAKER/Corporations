@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SphereOfInfluenceListView : ListView
@@ -20,7 +22,8 @@ public class SphereOfInfluenceListView : ListView
 
     void Render()
     {
-        var niches = MyCompany.companyFocus.Niches;
+        var niches = MyCompany.companyFocus.Niches
+            .OrderByDescending(n => CompanyUtils.GetMarketSize(GameContext, n) * CompanyUtils.GetGroupMarketControl(MyCompany, n, GameContext));
 
         SetItems(niches.ToArray());
     }
