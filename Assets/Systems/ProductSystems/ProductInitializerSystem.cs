@@ -66,7 +66,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         //PlayAs(vk.company.Id);
         PlayAs(mailru);
-        vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
+        //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
 
         AddShareholder(yahoo, investorId2, 500);
