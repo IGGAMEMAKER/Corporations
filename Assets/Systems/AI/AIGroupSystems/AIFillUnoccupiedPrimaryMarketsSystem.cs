@@ -46,6 +46,7 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     private void CreateCompany(GameEntity managingCompany, NicheType n)
     {
+        return;
         var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
 
         CompanyUtils.AttachToGroup(gameContext, managingCompany.company.Id, p.company.Id);
