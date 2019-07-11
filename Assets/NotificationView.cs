@@ -42,6 +42,11 @@ public class NotificationView : View,
                     .Render(notificationMessage as NotificationMessageBankruptcy, Title, Description, LinkToEvent);
                 break;
 
+            case NotificationType.Buying:
+                gameObject.AddComponent<NotificationRendererAcquisition>()
+                    .Render(notificationMessage as NotificationMessageBuyingCompany, Title, Description, LinkToEvent);
+                break;
+
             default:
                 gameObject.AddComponent<NotificationRendererDefault>()
                     .Render(notificationMessage, Title, Description, LinkToEvent);
