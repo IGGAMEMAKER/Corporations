@@ -158,8 +158,8 @@ namespace Assets.Utils
 
             var c = GetCompanyById(gameContext, companyId);
 
-            int[] array = null;
             var shareholders = c.shareholders.Shareholders;
+            int[] array = new int[shareholders.Keys.Count];
             shareholders.Keys.CopyTo(array, 0);
 
             foreach (var shareholderId in array)
@@ -170,9 +170,11 @@ namespace Assets.Utils
 
         public static void NotifyAboutAcquisition(GameContext gameContext, int buyerShareholderId, int targetCompanyId, long bid)
         {
-            Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}",
+            NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, bid));
+            
+            Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}!",
                 GetInvestorName(gameContext, buyerShareholderId),
-                GetCompanyById(gameContext, targetCompanyId),
+                GetCompanyById(gameContext, targetCompanyId).company.Name,
                 Format.Money(bid));
         }
 
