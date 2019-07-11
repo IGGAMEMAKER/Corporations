@@ -6,6 +6,6 @@
 
         Add(new NotificationCheckNewCompaniesSystem(contexts));
 
-        Add(new NotificationCheckNicheTrendsSystem(contexts));
+        //Add(new NotificationCheckNicheTrendsSystem(contexts));
     }
 }
