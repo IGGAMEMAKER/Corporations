@@ -117,8 +117,25 @@ namespace Assets.Utils
             DecreaseShares(context, c, sellerInvestorId, amountOfShares);
         }
 
+        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long offer, bool comparedToShareSize)
+        {
+            var shareSize = GetShareSize(context, companyId, sellerInvestorId);
+            BuyShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
+        }
+
+        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
+        {
+            long bid = GetSharesCost(context, companyId, sellerInvestorId);
+
+            BuyShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
+        }
+
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
+            // protecting from buying your own shares
+            if (buyerInvestorId == sellerInvestorId)
+                return;
+
             Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
             Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
             Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
@@ -128,6 +145,35 @@ namespace Assets.Utils
             Debug.Log("Transferred");
             AddMoneyToInvestor(context, buyerInvestorId, -bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
+        }
+
+
+
+        public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
+        {
+            // can afford acquisition
+            var inv = InvestmentUtils.GetInvestorById(gameContext, buyerInvestorId);
+            if (!inv.companyResource.Resources.IsEnoughResources(new Classes.TeamResource(offer)))
+                return;
+
+            var c = GetCompanyById(gameContext, companyId);
+
+            int[] array = null;
+            var shareholders = c.shareholders.Shareholders;
+            shareholders.Keys.CopyTo(array, 0);
+
+            foreach (var shareholderId in array)
+                BuyShares(gameContext, companyId, buyerInvestorId, shareholderId, shareholders[shareholderId].amount, offer, true);
+
+            NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
+        }
+
+        public static void NotifyAboutAcquisition(GameContext gameContext, int buyerShareholderId, int targetCompanyId, long bid)
+        {
+            Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}",
+                GetInvestorName(gameContext, buyerShareholderId),
+                GetCompanyById(gameContext, targetCompanyId),
+                Format.Money(bid));
         }
 
         public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)

@@ -34,6 +34,15 @@
             return cost + capital;
         }
 
+        public static long GetCompanySellingPrice(GameContext context, int companyId)
+        {
+            var target = CompanyUtils.GetCompanyById(context, companyId);
+
+            var desireToSell = CompanyUtils.GetDesireToSell(target, context);
+
+            return GetCompanyCost(context, companyId) * desireToSell;
+        }
+
         internal static string GetIncomeDescription(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);

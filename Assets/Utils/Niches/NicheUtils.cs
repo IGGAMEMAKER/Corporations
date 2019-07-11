@@ -96,6 +96,11 @@ namespace Assets.Utils
             }
         }
 
+        public static long GetMarketPotential(GameContext gameContext, NicheType nicheType)
+        {
+            return GetMarketPotential(GetNicheEntity(gameContext, nicheType));
+        }
+
         public static long GetMarketPotential(GameEntity niche)
         {
             var state = niche.nicheState;
