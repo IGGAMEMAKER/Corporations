@@ -15,15 +15,15 @@ namespace Assets.Utils
             return result;
         }
 
-        public static T GenerateValue(List<T> exceptions)
-        {
-            T result = GenerateValue();
+        //public static T GenerateValue(List<T> exceptions)
+        //{
+        //    T result = GenerateValue();
 
-            while (exceptions.Contains(result))
-                result = GenerateValue();
+        //    while (exceptions.Contains(result))
+        //        result = GenerateValue();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public static T GenerateValue()
         {

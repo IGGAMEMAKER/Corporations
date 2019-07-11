@@ -44,11 +44,11 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 
     void SearchSuitableNiche(GameEntity group)
     {
-        Debug.Log("Search Suitable Niche: " + group.company.Name);
+        //Debug.Log("Search Suitable Niche: " + group.company.Name);
 
         var industry = group.companyFocus.Industries[0];
 
-        var niche = RandomEnum<NicheType>.GenerateValue(group.companyFocus.Niches);
+        var niche = RandomEnum<NicheType>.GenerateValue();
 
         CompanyUtils.AddFocusNiche(niche, group, gameContext);
     }
