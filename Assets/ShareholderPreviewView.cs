@@ -29,7 +29,7 @@ public class ShareholderPreviewView : View
 
     int GetCompanyIdByInvestorId(int shareholderId)
     {
-        return CompanyUtils.GetCompanyIdByInvestorId(GameContext, shareholderId);
+        return InvestmentUtils.GetCompanyIdByInvestorId(GameContext, shareholderId);
     }
 
     void AddLinkIfPossible()

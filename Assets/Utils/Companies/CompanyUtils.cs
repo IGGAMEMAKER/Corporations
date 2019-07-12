@@ -22,11 +22,6 @@ namespace Assets.Utils
             return InvestmentUtils.GetInvestorById(context, investorId);
         }
 
-        public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
-        {
-            return InvestmentUtils.GetCompanyIdByInvestorId(context, investorId);
-        }
-
         internal static GameEntity[] GetProductCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Product);
