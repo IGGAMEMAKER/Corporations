@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IMarketingListener {
-    void OnMarketing(GameEntity entity, long brandPower, long clients);
+    void OnMarketing(GameEntity entity, long clients);
 }

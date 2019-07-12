@@ -11,7 +11,7 @@ public partial class GameEntity {
     public MarketingComponent marketing { get { return (MarketingComponent)GetComponent(GameComponentsLookup.Marketing); } }
     public bool hasMarketing { get { return HasComponent(GameComponentsLookup.Marketing); } }
 
-    public void AddMarketing(long newBrandPower, long newClients) {
+    public void AddMarketing(long newClients) {
         var index = GameComponentsLookup.Marketing;
         var component = (MarketingComponent)CreateComponent(index, typeof(MarketingComponent));
         component.clients = newClients;

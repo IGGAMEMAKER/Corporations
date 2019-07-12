@@ -15,7 +15,7 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
 
 
-            company.AddMarketing(0, 0);
+            company.AddMarketing(0);
 
             AddFocusNiche(niche, company, context);
 

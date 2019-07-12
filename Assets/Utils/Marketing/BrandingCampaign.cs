@@ -30,7 +30,7 @@ namespace Assets.Utils
         {
             var brandPower = (int)Mathf.Clamp(company.branding.BrandPower + power, 0, 100);
 
-            company.ReplaceMarketing(brandPower);
+            company.ReplaceBranding(brandPower);
         }
 
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
