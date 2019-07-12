@@ -76,9 +76,4 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
     {
         return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
     }
-
-    bool IsCanAffordCompany(GameEntity group, NicheType nicheType)
-    {
-        return true;
-    }
 }
