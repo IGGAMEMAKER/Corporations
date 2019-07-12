@@ -96,7 +96,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     void SetSpheresOfInfluence()
     {
-        var financial = CompanyUtils.GetFinancialCompanies(GameContext);
+        var financial = CompanyUtils.GetInvestmentFunds(GameContext);
         var managing = CompanyUtils.GetGroupCompanies(GameContext);
 
         foreach (var c in financial)

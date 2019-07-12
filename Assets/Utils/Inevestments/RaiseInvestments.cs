@@ -120,7 +120,7 @@
 
         public static int GetRandomInvestmentFund(GameContext context)
         {
-            var funds = CompanyUtils.GetFinancialCompanies(context);
+            var funds = CompanyUtils.GetInvestmentFunds(context);
 
             var index = UnityEngine.Random.Range(0, funds.Length);
 
