@@ -11,7 +11,7 @@ public class FillNicheListView : View
 
     Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
     {
-        return n => n.niche.IndustryType == industry && n.niche.NicheType != NicheType.None;
+        return n => n.niche.IndustryType == industry; // && n.niche.NicheType != NicheType.None;
     }
 
     GameEntity[] GetNiches()

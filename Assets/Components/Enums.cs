@@ -13,7 +13,7 @@
 
 public enum NicheType
 {
-    None,
+    //None,
 
     SocialNetwork,
     Messenger,

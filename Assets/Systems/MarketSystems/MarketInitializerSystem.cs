@@ -33,7 +33,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         foreach (NicheType niche in (NicheType[])Enum.GetValues(typeof(NicheType)))
         {
-            if (niche == NicheType.None) continue;
+            //if (niche == NicheType.None) continue;
 
             var e = GameContext.CreateEntity();
 
@@ -42,7 +42,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 IndustryType.Communications,
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
-                NicheType.None,
+                NicheType.SocialNetwork,
                 0
                 );
 
