@@ -57,14 +57,14 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         int googleGroupId = PromoteToGroup(google);
 
-        //PlayAs(tg.company.Id);
+        //PlayAs(tg);
         //PlayAs(google);
         //PlayAs(alphabet);
         var mailru = GenerateHoldingCompany("MailRu");
         AttachToHolding(mailru, vk.company.Id);
         AttachToHolding(mailru, twitter.company.Id);
 
-        //PlayAs(vk.company.Id);
+        //PlayAs(vk);
         PlayAs(mailru);
         //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
@@ -83,15 +83,20 @@ public partial class ProductInitializerSystem : IInitializeSystem
         Debug.Log("INI: " + s);
     }
 
+    void PlayAs(GameEntity company)
+    {
+        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
+
+        SetPlayerControlledCompany(company.company.Id);
+
+        human.isPlayer = true;
+    }
+
     void PlayAs(int companyId)
     {
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
 
-        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
-
-        SetPlayerControlledCompany(companyId);
-
-        human.isPlayer = true;
+        PlayAs(company);
     }
 
     void SetSpheresOfInfluence()
