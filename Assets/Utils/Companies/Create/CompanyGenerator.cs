@@ -21,7 +21,7 @@ namespace Assets.Utils
 
             var industry = NicheUtils.GetIndustry(niche, context);
             AddFocusIndustry(industry, company);
-            InvestmentUtils.SetCompanyGoal(context, company, GOAL, 365);
+            InvestmentUtils.SetCompanyGoal(context, company, GOAL);
 
             return company;
         }
@@ -53,7 +53,7 @@ namespace Assets.Utils
             e.AddInvestmentRounds(InvestmentRound.Preseed);
             e.isIndependentCompany = true;
 
-            e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
+            e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
             e.AddMarketing(0, 0);
             e.AddBranding(0);

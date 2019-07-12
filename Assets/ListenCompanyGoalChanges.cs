@@ -15,10 +15,8 @@ public class ListenCompanyGoalChanges : Controller
             MyProductEntity.RemoveCompanyGoalListener(this);
     }
 
-    void ICompanyGoalListener.OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal)
+    void ICompanyGoalListener.OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, long measurableGoal)
     {
-        Debug.Log("OnCompanyGoal");
-
         Render();
     }
 }

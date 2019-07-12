@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface ICompanyGoalListener {
-    void OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, int expires, long measurableGoal);
+    void OnCompanyGoal(GameEntity entity, InvestorGoal investorGoal, long measurableGoal);
 }

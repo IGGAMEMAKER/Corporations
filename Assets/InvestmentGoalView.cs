@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 struct GoalViewInfo
 {
-    public int expires;
     public string goal;
 }
 
@@ -30,7 +29,6 @@ public class InvestmentGoalView : View
     {
         return new GoalViewInfo
         {
-            expires = goal.Expires - CurrentIntDate,
             goal = InvestmentUtils.GetFormattedInvestorGoal(goal.InvestorGoal)
         };
     }

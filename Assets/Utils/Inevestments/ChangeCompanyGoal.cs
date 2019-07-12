@@ -16,12 +16,7 @@
             }
         }
 
-        public static void LockCompanyGoal(GameContext gameContext, GameEntity company)
-        {
-            CooldownUtils.AddCooldown(gameContext, company, CooldownType.CompanyGoal, Constants.COOLDOWN_COMPANY_GOAL);
-        }
-
-        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoal investorGoal, int expires)
+        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoal investorGoal)
         {
             long measurableGoal = 5000;
 
@@ -41,8 +36,7 @@
                     break;
             }
 
-            company.ReplaceCompanyGoal(investorGoal, expires, measurableGoal);
-            LockCompanyGoal(gameContext, company);
+            company.ReplaceCompanyGoal(investorGoal, measurableGoal);
         }
 
         public static void CompleteGoal(GameEntity company, GameContext gameContext, bool forceComplete = false)
@@ -53,7 +47,7 @@
                 nextGoal = InvestorGoal.IPO;
 
             if (forceComplete || IsGoalCompleted(company, gameContext))
-                SetCompanyGoal(gameContext, company, nextGoal, 365);
+                SetCompanyGoal(gameContext, company, nextGoal);
         }
     }
 }
