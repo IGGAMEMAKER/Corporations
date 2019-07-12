@@ -29,7 +29,7 @@ public partial class AIProductSystems : OnDateChange
         //StayInMarket(company);
     }
 
-    void ManageExpandedMarketingTeam(GameEntity company)
+    TeamResource GetRequiredMarketingResources (GameEntity company)
     {
         var requiredMarketingCost = new TeamResource();
 
@@ -41,15 +41,23 @@ public partial class AIProductSystems : OnDateChange
         var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
         var targetCost = MarketingUtils.GetTargetingCost(gameContext, company.company.Id);
 
-        var period = GetResourcePeriod();
         requiredMarketingCost = (brandingCost * 100 / brandingSpeed) + (targetCost * 100 / targetSpeed) + (testCost * 100 / testSpeed);
         requiredMarketingCost /= 100;
 
         Print("ManageExpandedMarketingTeam: " + requiredMarketingCost.ToString(), company);
 
+        return requiredMarketingCost;
+    }
+
+    void ManageExpandedMarketingTeam(GameEntity company)
+    {
+        var requiredMarketingCost = GetRequiredMarketingResources(company);
+
         var change = GetResourceChange(company);
 
-        if (requiredMarketingCost.salesPoints * period > change.salesPoints)
+        var period = GetResourcePeriod();
+
+        if (requiredMarketingCost.salesPoints > change.salesPoints)
         {
             if (IsCanAffordWorker(company, WorkerRole.Marketer))
                 HireWorker(company, WorkerRole.Marketer);
