@@ -57,10 +57,10 @@ public class MenuResourceView : View
 
     public void Render()
     {
-        Render(MyCompany.companyResource.Resources, GetCompanyResourcePeriodChange(), MyCompany.marketing);
+        Render(MyCompany.companyResource.Resources, GetCompanyResourcePeriodChange());
     }
 
-    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges, MarketingComponent marketing)
+    public void Render(TeamResource teamResource, TeamResource resourceMonthChanges)
     {
         Container.SetActive(true);
 
