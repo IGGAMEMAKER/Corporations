@@ -58,7 +58,7 @@
             bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
             bool isSuitableByNiche = IsInInvestorsSphereOfInfluence(shareholder, company);
             bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
-            bool isInvestorAlready = IsInvestsInThisCompany(shareholder, company);
+            bool isInvestorAlready = IsInvestsInCompany(shareholder, company);
 
             return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize && !isInvestorAlready;
         }
@@ -71,9 +71,14 @@
             return shareholder.companyFocus.Niches.Contains(company.product.Niche);
         }
 
-        private static bool IsInvestsInThisCompany(GameEntity shareholder, GameEntity company)
+        public static bool IsInvestsInCompany(GameEntity shareholder, GameEntity company)
         {
-            return company.shareholders.Shareholders.ContainsKey(shareholder.shareholder.Id);
+            return IsInvestsInCompany(shareholder.shareholder.Id, company);
+        }
+
+        public static bool IsInvestsInCompany(int shareholderId, GameEntity company)
+        {
+            return company.shareholders.Shareholders.ContainsKey(shareholderId);
         }
 
         public static bool IsInvestorSuitableByCompanySize(GameEntity shareholder, InvestorGoal goal)

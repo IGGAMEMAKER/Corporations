@@ -124,7 +124,7 @@ namespace Assets.Utils
         {
             return Array.FindAll(
                 GetInvestableCompanies(context),
-                c => c.shareholders.Shareholders.ContainsKey(investorId)
+                c => IsInvestsInCompany(c, investorId)
                 );
         }
 

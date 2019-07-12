@@ -34,7 +34,7 @@ namespace Assets.Utils
 
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
-            return daughter.shareholders.Shareholders.ContainsKey(parent.shareholder.Id);
+            return IsInvestsInCompany(daughter, parent.shareholder.Id);
         }
 
         public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)

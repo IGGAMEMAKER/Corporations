@@ -14,7 +14,7 @@ namespace Assets.Utils
         {
             var shareholder = GetInvestorById(gameContext, shareholderId);
 
-            return Array.FindAll(gameContext.GetEntities(GameMatcher.Shareholders), e => IsInvestsInThisCompany(shareholder, e));
+            return Array.FindAll(gameContext.GetEntities(GameMatcher.Shareholders), e => IsInvestsInCompany(shareholder, e));
         }
 
         public static GameEntity GenerateAngel(GameContext gameContext)

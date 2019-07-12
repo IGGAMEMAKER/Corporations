@@ -18,7 +18,7 @@ namespace Assets.Utils
 
             BlockOfShares b;
 
-            if (shareholders.ContainsKey(investorId))
+            if (IsInvestsInCompany(c, investorId))
             {
                 b = shareholders[investorId];
                 b.amount += block.amount;
