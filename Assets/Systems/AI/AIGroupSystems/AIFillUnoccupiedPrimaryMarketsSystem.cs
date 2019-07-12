@@ -18,18 +18,21 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
         Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
         
         foreach (var n in GetUnoccupiedNiches(managingCompany))
-        {
-            var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
+            OccupyNiche(n, managingCompany);
+    }
 
-            var candidates = GetAcquisitionCandidates(products, managingCompany);
+    void OccupyNiche(NicheType n, GameEntity managingCompany)
+    {
+        var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
 
-            Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
+        var candidates = GetAcquisitionCandidates(products, managingCompany);
 
-            if (candidates.Count() == 0)
-                CreateCompany(managingCompany, n);
-            else
-                BuyCompany(managingCompany, candidates.First());
-        }
+        Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
+
+        if (candidates.Count() == 0)
+            CreateCompany(managingCompany, n);
+        else
+            BuyCompany(managingCompany, candidates.First());
     }
 
     IEnumerable<NicheType> GetUnoccupiedNiches(GameEntity managingCompany)
