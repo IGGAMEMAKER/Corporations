@@ -18,10 +18,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
     }
 
-    private void InitializeSearchIndustry()
+    private void InitializeFundamentalIndustry()
     {
-        AttachNichesToIndustry(IndustryType.Search, new NicheType[] { NicheType.SearchEngine });
+        AttachNichesToIndustry(IndustryType.Fundamental, new NicheType[] { NicheType.SearchEngine, NicheType.OSDesktop, NicheType.CloudComputing });
 
-        SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 20000);
+        SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 2000);
+        SetNicheCosts(NicheType.CloudComputing, 10, 100, 1000, 1000, 1000, 2000);
+        SetNicheCosts(NicheType.OSDesktop, 1000, 500, 1000, 1000, 1000, 5000);
     }
 }

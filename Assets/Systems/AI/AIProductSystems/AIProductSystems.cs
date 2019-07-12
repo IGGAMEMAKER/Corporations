@@ -20,6 +20,8 @@ public partial class AIProductSystems : OnDateChange
     {
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
         {
+            CompleteCompanyGoal(e);
+            continue;
             var goal = ChooseGoal(e);
 
             ExecuteGoal(goal, e);

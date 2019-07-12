@@ -20,7 +20,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeNiches();
 
         //InitializeOSIndustry();
-        InitializeSearchIndustry();
+        InitializeFundamentalIndustry();
         InitializeCommunicationsIndustry();
 
         CheckIndustriesWithZeroNiches();

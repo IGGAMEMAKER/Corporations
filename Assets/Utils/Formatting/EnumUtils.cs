@@ -45,7 +45,7 @@ namespace Assets.Utils.Formatting
             switch (industry)
             {
                 //case IndustryType.OS: return "Operation Systems";
-                case IndustryType.Search: return "Search Engines";
+                case IndustryType.Fundamental: return "Fundamentals";
                 case IndustryType.Communications: return "Communications";
 
                 default: return "Unknown Industry: " + industry.ToString();

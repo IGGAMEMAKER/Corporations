@@ -29,7 +29,7 @@ public enum NicheType
 public enum IndustryType
 {
     Communications,
-    Search,
+    Fundamental,
     //OS,
     //CloudComputing
 }
