@@ -9,6 +9,14 @@ public partial class AIProductSystems : OnDateChange
         PromoteToGroupIfPossible(company);
     }
 
+    void Operate(GameEntity company)
+    {
+        ManageProductCompany(company);
+
+        if (company.isIndependentCompany)
+            PromoteToGroupIfPossible(company);
+    }
+
     void PromoteToGroupIfPossible(GameEntity company)
     {
         if (CompanyEconomyUtils.GetBalanceChange(company, gameContext) > 1000000)

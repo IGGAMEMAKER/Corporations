@@ -23,10 +23,7 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
         {
             var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
 
-            var candidates = products
-                .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext))
-                .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p))
-                .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
+            var candidates = GetAcquisitionCandidates(products, managingCompany);
 
             Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
@@ -35,6 +32,14 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
             else
                 BuyCompany(managingCompany, candidates.First());
         }
+    }
+
+    IOrderedEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
+    {
+        return products
+                .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext))
+                .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p))
+                .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
     }
 
     long GetCompanySellingPriority(GameEntity buyer, GameEntity target, GameContext gameContext)

@@ -41,6 +41,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void SupportStartup(GameEntity product, GameEntity managingCompany)
     {
+        if (product.companyResource.Resources.money > 0 && CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
+            return;
+
         var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
         var phase = niche.nicheState.Phase;
 
