@@ -64,7 +64,7 @@ public class ProductCompanyCompetingPreview : View,
         RenderClients(entity);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, Dictionary<UserType, int> segments)
+    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int concept)
     {
         RenderProductInfo(entity.company.Name);
     }

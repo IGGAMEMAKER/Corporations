@@ -19,15 +19,8 @@ namespace Assets.Utils
                 [UserType.Mass] = 0,
             };
 
-            var SegmentsFeatures = new Dictionary<UserType, int>
-            {
-                [UserType.Core] = 0,
-                [UserType.Regular] = 0,
-                [UserType.Mass] = 0,
-            };
-
             // product specific components
-            company.AddProduct(company.company.Id, niche, SegmentsFeatures);
+            company.AddProduct(company.company.Id, niche, UnityEngine.Random.Range(0, 6));
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
             company.ReplaceMarketing(brandPower, Segments);
