@@ -2,17 +2,6 @@
 
 namespace Assets.Utils
 {
-    public class CompanyHolding
-    {
-        // shares percent
-        public int control;
-
-        // controlled company id
-        public int companyId;
-
-        public List<CompanyHolding> holdings;
-    }
-
     public static partial class CompanyUtils
     {
         public static GameEntity[] GetDaughterCompaniesRecursively(GameContext context, int companyId)
@@ -82,5 +71,16 @@ namespace Assets.Utils
         }
 
 
+    }
+
+    public class CompanyHolding
+    {
+        // shares percent
+        public int control;
+
+        // controlled company id
+        public int companyId;
+
+        public List<CompanyHolding> holdings;
     }
 }
