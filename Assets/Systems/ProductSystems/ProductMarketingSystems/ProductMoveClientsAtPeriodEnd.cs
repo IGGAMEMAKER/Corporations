@@ -19,11 +19,9 @@ class ProductMoveClientsAtPeriodEnd : OnMonthChange
 
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, e.company.Id, userType);
 
-            //Segments[userType] = s.Value + promoted - churnClients - promotionClients;
+            var clients = Mathf.Max(0, e.marketing.clients - churnClients);
 
-            Debug.Log("ProductMoveClientsAtPeriodEnd");
-
-            //e.ReplaceMarketing(e.marketing.BrandPower, Segments);
+            e.ReplaceMarketing((long)clients);
         }
     }
 }
