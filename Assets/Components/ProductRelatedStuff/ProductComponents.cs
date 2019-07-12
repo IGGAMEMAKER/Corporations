@@ -28,6 +28,11 @@ public class MarketingComponent : IComponent
     //public Dictionary<UserType, long> Segments;
 }
 
+public class BrandingComponent : IComponent
+{
+    public long BrandPower;
+}
+
 [Game, Event(EventTarget.Self)]
 public class FinanceComponent : IComponent
 {

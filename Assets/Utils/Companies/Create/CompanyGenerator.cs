@@ -54,6 +54,7 @@ namespace Assets.Utils
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
 
             e.AddMarketing(0, 0);
+            
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
