@@ -22,13 +22,42 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
             PayDividends(holding);
 
+            SupportHolding(holding, group);
+
             CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
         }
     }
 
-    void DemandMoneyFromInvestors(GameEntity group)
+    void SupportHolding(GameEntity holding, GameEntity group)
     {
+        if (holding.hasProduct)
+        {
+            SupportStartup(holding, group);
+            return;
+        }
 
+
+    }
+
+    void SupportStartup(GameEntity product, GameEntity managingCompany)
+    {
+        var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+        var phase = niche.nicheState.Phase;
+
+        if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Decay || phase == NicheLifecyclePhase.Idle)
+            return;
+
+        var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
+
+        var proposal = new InvestmentProposal {
+            Offer = maintenance * 4,
+            ShareholderId = managingCompany.shareholder.Id,
+            InvestorBonus = InvestorBonus.None,
+            Valuation = 0,
+            WasAccepted = false
+        };
+
+        CompanyUtils.AddInvestmentProposal(gameContext, product.company.Id, proposal);
     }
 
     void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive (GameEntity product)

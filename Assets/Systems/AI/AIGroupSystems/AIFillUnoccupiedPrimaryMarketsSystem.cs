@@ -21,8 +21,6 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
         foreach (var n in unoccupiedNiches)
         {
-            Debug.Log("Check unoccupied niche " + n.ToString());
-
             var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
 
             var candidates = products
@@ -30,7 +28,7 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
                 .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p))
                 .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
 
-            Debug.Log("Candidates: " + candidates.Count());
+            Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
             if (candidates.Count() == 0)
                 CreateCompany(managingCompany, n);
@@ -55,6 +53,9 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     private void CreateCompany(GameEntity managingCompany, NicheType n)
     {
+        if (NicheUtils.GetNicheEntity(gameContext, n).nicheState.Phase != NicheLifecyclePhase.Trending)
+            return;
+
         Debug.Log("CreateCompany on market " + n);
         var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
 
