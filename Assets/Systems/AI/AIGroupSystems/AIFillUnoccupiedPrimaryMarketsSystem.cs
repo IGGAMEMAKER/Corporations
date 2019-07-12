@@ -15,24 +15,33 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     void CheckMarkets(GameEntity managingCompany)
     {
+        Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
         var niches = managingCompany.companyFocus.Niches;
         var unoccupiedNiches = niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
 
-        
         foreach (var n in unoccupiedNiches)
         {
+            Debug.Log("Check unoccupied niche " + n.ToString());
+
             var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
 
             var candidates = products
                 .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext))
                 .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p))
-                .OrderByDescending(p => CompanyEconomyUtils.GetCompanySellingPrice(gameContext, p.company.Id) / CompanyUtils.GetDesireToBuy(managingCompany, p));
+                .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
+
+            Debug.Log("Candidates: " + candidates.Count());
 
             if (candidates.Count() == 0)
                 CreateCompany(managingCompany, n);
             else
                 BuyCompany(managingCompany, candidates.First());
         }
+    }
+
+    long GetCompanySellingPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
+    {
+        return Random.Range(10, 14) * CompanyEconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id) / CompanyUtils.GetDesireToBuy(buyer, target) / 10;
     }
 
     void BuyCompany(GameEntity managingCompany, GameEntity candidate)
@@ -46,11 +55,11 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
     private void CreateCompany(GameEntity managingCompany, NicheType n)
     {
+        Debug.Log("CreateCompany on market");
         return;
         var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
 
         CompanyUtils.AttachToGroup(gameContext, managingCompany.company.Id, p.company.Id);
-        Debug.Log("CreateCompany on market");
     }
 
     bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)

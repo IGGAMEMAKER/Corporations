@@ -83,11 +83,6 @@ namespace Assets.Utils
                 }
             };
 
-            Dictionary<int, InvestorGoal> goals = new Dictionary<int, InvestorGoal>
-            {
-                { p.shareholder.Id, InvestorGoal.GrowCompanyCost }
-            };
-
             if (s.hasShareholders)
                 s.ReplaceShareholders(shareholders);
             else
