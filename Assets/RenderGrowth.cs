@@ -22,7 +22,7 @@ public class RenderGrowth : UpgradedParameterView
         else if (Yearly)
             duration = 12;
 
-        var growth = CompanyUtils.GetValuationGrowth(SelectedCompany, duration);
+        var growth = CompanyStatisticsUtils.GetValuationGrowth(SelectedCompany, duration);
 
         return Visuals.Sign(growth) + "%";
     }

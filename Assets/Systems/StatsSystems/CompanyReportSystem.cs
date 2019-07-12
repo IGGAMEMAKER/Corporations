@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Economy;
 using Entitas;
 using System.Collections.Generic;
 using UnityEngine;

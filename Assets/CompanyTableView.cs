@@ -63,8 +63,8 @@ public class CompanyTableView : View, IPointerEnterHandler
 
     void RenderValuationGrowth()
     {
-        var monthly = CompanyUtils.GetValuationGrowth(entity, 3);
-        var yearly = CompanyUtils.GetValuationGrowth(entity, 12);
+        var monthly = CompanyStatisticsUtils.GetValuationGrowth(entity, 3);
+        var yearly = CompanyStatisticsUtils.GetValuationGrowth(entity, 12);
 
         var quarGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
         var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";

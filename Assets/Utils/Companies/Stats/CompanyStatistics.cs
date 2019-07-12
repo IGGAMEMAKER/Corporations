@@ -17,7 +17,7 @@
     public bool ProfitIsGrowthComputable;
 }
 
-namespace Assets.Utils.Economy
+namespace Assets.Utils
 {
     public static class CompanyStatisticsUtils
     {

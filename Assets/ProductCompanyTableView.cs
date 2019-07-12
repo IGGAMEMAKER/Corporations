@@ -32,8 +32,8 @@ public class ProductCompanyTableView : View
 
     void RenderAudienceGrowth()
     {
-        var monthly = CompanyUtils.GetAudienceGrowth(entity, 3);
-        var yearly = CompanyUtils.GetAudienceGrowth(entity, 12);
+        var monthly = CompanyStatisticsUtils.GetAudienceGrowth(entity, 3);
+        var yearly = CompanyStatisticsUtils.GetAudienceGrowth(entity, 12);
 
         var quarGrowth = monthly == 0 ? "???" : Format.Sign(monthly) + "%";
         var yrGrowth = yearly == 0 ? "???" : Format.Sign(yearly) + "%";
