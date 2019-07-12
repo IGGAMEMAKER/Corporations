@@ -166,8 +166,13 @@ public enum InvestorGoal
     //GrowProfit, // +10%
 
     IPO,
+    
     // products only
-    Operationing
+    Operationing,
+
+
+    DefendMarkets,
+    GrabMarkets
 }
 
 public enum InvestmentRound

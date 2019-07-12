@@ -10,9 +10,9 @@
                 case InvestorGoal.FirstUsers: return InvestorGoal.BecomeMarketFit;
                 case InvestorGoal.BecomeMarketFit: return InvestorGoal.Release;
                 case InvestorGoal.Release: return InvestorGoal.BecomeProfitable;
-                case InvestorGoal.BecomeProfitable: return InvestorGoal.GrowCompanyCost;
+                case InvestorGoal.BecomeProfitable: return InvestorGoal.Operationing;
 
-                default: return InvestorGoal.GrowCompanyCost;
+                default: return current;
             }
         }
 
