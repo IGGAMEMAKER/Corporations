@@ -12,6 +12,11 @@ namespace Assets.Utils
             return Array.Find(gameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
         }
 
+        public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)
+        {
+            return GetNicheEntity(gameContext, nicheType).nicheState.Phase;
+        }
+
         public static GameEntity[] GetNiches(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Niche);

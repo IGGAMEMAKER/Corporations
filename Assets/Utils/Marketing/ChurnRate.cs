@@ -21,11 +21,15 @@ namespace Assets.Utils
             var baseValue = GetUserTypeBaseValue(userType);
             var fromLoyalty = GetChurnRateLoyaltyPart(gameContext, companyId, userType);
 
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var state = NicheUtils.GetMarketState(gameContext, c.product.Niche);
+
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append($"Base for {EnumUtils.GetFormattedUserType(userType)}", baseValue)
                 .Append("From loyalty", fromLoyalty)
+                .AppendAndHideIfZero("Niche is DYING", state == NicheLifecyclePhase.Death ? 5 : 0)
                 .AppendAndHideIfZero("From negative loyalty", fromLoyalty < 0 ? 15 : 0);
         }
 
