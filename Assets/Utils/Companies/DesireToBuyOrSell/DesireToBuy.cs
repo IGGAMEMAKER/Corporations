@@ -26,7 +26,7 @@ namespace Assets.Utils
             var quality = NicheUtils.GetAppQualityOnMarket(gameContext, startup) + 1;
             score += 30 / quality;
 
-            score += startup.marketing.BrandPower;
+            score += startup.branding.BrandPower;
 
             return score;
         }

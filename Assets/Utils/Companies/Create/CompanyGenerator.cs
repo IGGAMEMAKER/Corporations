@@ -15,7 +15,7 @@ namespace Assets.Utils
             company.AddFinance(0, 0, 0, 5f);
 
 
-            company.ReplaceMarketing(0, 0);
+            company.AddMarketing(0, 0);
 
             AddFocusNiche(niche, company, context);
 
@@ -55,7 +55,6 @@ namespace Assets.Utils
 
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
-            e.AddMarketing(0, 0);
             e.AddBranding(0);
             
 

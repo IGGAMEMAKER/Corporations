@@ -56,7 +56,7 @@ namespace Assets.Utils
 
             long baseForNiche = GetCompanyClientBatch(gameContext, e);
 
-            long brandModifier = e.marketing.BrandPower / 2;
+            long brandModifier = e.branding.BrandPower / 2;
             long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
 
 

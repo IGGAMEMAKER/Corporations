@@ -127,7 +127,6 @@ public class CompanyGoalComponent : IComponent
 {
     public InvestorGoal InvestorGoal;
 
-    //public int Expires;
     public long MeasurableGoal;
 }
 

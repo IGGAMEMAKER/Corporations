@@ -22,10 +22,7 @@ public class ProductComponent : IComponent
 [Game, Event(EventTarget.Self)]
 public class MarketingComponent : IComponent
 {
-    public long BrandPower;
-
     public long clients;
-    //public Dictionary<UserType, long> Segments;
 }
 
 public class BrandingComponent : IComponent

@@ -117,7 +117,7 @@ public partial class AIProductSystems : OnDateChange
 
         GrabTestClients(company);
 
-        if (company.marketing.BrandPower < 90)
+        if (company.branding.BrandPower < 90)
             StartBrandingCampaign(company);
     }
 }

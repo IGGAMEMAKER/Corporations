@@ -28,11 +28,9 @@ namespace Assets.Utils
 
         public static void AddBrandPower(GameEntity company, int power)
         {
-            var marketing = company.marketing;
+            var brandPower = (int)Mathf.Clamp(company.branding.BrandPower + power, 0, 100);
 
-            var brandPower = (int)Mathf.Clamp(marketing.BrandPower + power, 0, 100);
-
-            company.ReplaceMarketing(brandPower, marketing.clients);
+            company.ReplaceMarketing(brandPower);
         }
 
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)

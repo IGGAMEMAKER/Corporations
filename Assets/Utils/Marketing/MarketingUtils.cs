@@ -23,7 +23,7 @@ namespace Assets.Utils
         {
             var marketing = company.marketing;
 
-            company.ReplaceMarketing(marketing.BrandPower, marketing.clients + clients);
+            company.ReplaceMarketing(marketing.clients + clients);
         }
 
         public static long GetCompanyClientBatch(GameContext gameContext, GameEntity company)
@@ -88,7 +88,7 @@ namespace Assets.Utils
             if (!product.isRelease && enoughResources)
             {
                 product.isRelease = true;
-                product.ReplaceMarketing(product.marketing.BrandPower + GetReleaseBrandPowerGain(), product.marketing.clients);
+                AddBrandPower(product, GetReleaseBrandPowerGain());
 
                 CompanyUtils.SpendResources(product, need);
             }

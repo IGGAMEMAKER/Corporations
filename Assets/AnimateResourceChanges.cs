@@ -25,7 +25,7 @@ public class AnimateResourceChanges : View
 
         var resources = MyCompany.companyResource.Resources;
 
-        var brand = MyCompany.marketing.BrandPower;
+        var brand = MyCompany.branding.BrandPower;
 
         var diff = TeamResource.Difference(resources, Previous);
         var brandDiff = brand - prevBrand;

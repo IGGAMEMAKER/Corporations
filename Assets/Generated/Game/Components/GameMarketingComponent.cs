@@ -14,15 +14,13 @@ public partial class GameEntity {
     public void AddMarketing(long newBrandPower, long newClients) {
         var index = GameComponentsLookup.Marketing;
         var component = (MarketingComponent)CreateComponent(index, typeof(MarketingComponent));
-        component.BrandPower = newBrandPower;
         component.clients = newClients;
         AddComponent(index, component);
     }
 
-    public void ReplaceMarketing(long newBrandPower, long newClients) {
+    public void ReplaceMarketing(long newClients) {
         var index = GameComponentsLookup.Marketing;
         var component = (MarketingComponent)CreateComponent(index, typeof(MarketingComponent));
-        component.BrandPower = newBrandPower;
         component.clients = newClients;
         ReplaceComponent(index, component);
     }

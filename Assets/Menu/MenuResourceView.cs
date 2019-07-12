@@ -85,6 +85,6 @@ public class MenuResourceView : View
         if (HasProductCompany)
             ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyCompany));
 
-        BrandView.SetPrettifiedValue("Brand power makes your ads more effective", marketing.BrandPower);
+        BrandView.SetPrettifiedValue("Brand power makes your ads more effective", MyCompany.branding.BrandPower);
     }
 }
