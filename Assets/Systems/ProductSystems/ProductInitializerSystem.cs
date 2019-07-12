@@ -198,7 +198,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     int GetRandomInvestmentFund()
     {
-        return CompanyUtils.GetRandomInvestmentFund(GameContext);
+        return InvestmentUtils.GetRandomInvestmentFund(GameContext);
     }
 
     int GetRandomInvestorId()

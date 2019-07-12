@@ -112,15 +112,6 @@ namespace Assets.Utils
             return IsProductCompany(GetCompanyById(context, companyId));
         }
 
-        public static int GetRandomInvestmentFund(GameContext context)
-        {
-            var funds = GetFinancialCompanies(context);
-
-            var index = UnityEngine.Random.Range(0, funds.Length);
-
-            return funds[index].shareholder.Id;
-        }
-
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {

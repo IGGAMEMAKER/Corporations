@@ -117,5 +117,14 @@
 
             return marketSituation;
         }
+
+        public static int GetRandomInvestmentFund(GameContext context)
+        {
+            var funds = CompanyUtils.GetFinancialCompanies(context);
+
+            var index = UnityEngine.Random.Range(0, funds.Length);
+
+            return funds[index].shareholder.Id;
+        }
     }
 }
