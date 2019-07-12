@@ -212,11 +212,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
             CompanyUtils.SpawnProposals(GameContext, c.company.Id);
     }
 
-    public static void SetRandomCEO()
-    {
-
-    }
-
     void AutoFillNonFilledShareholders()
     {
         foreach (var c in CompanyUtils.GetNonFinancialCompaniesWithZeroShareholders(GameContext))
