@@ -16,10 +16,8 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
     void CheckMarkets(GameEntity managingCompany)
     {
         Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
-        var niches = managingCompany.companyFocus.Niches;
-        var unoccupiedNiches = niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
-
-        foreach (var n in unoccupiedNiches)
+        
+        foreach (var n in GetUnoccupiedNiches(managingCompany))
         {
             var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
 
@@ -32,6 +30,13 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
             else
                 BuyCompany(managingCompany, candidates.First());
         }
+    }
+
+    IEnumerable<NicheType> GetUnoccupiedNiches(GameEntity managingCompany)
+    {
+        var niches = managingCompany.companyFocus.Niches;
+
+        return niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
     }
 
     IOrderedEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
