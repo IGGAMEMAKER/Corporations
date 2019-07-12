@@ -11,6 +11,8 @@
             else
                 AppendCompanyGroupBonuses(description, company);
 
+            description.AppendAndHideIfZero("Invests already", 35);
+
             description.Append("Same goals", 25);
 
             return description;
@@ -60,7 +62,7 @@
             bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
             bool isInvestorAlready = IsInvestsInCompany(shareholder, company);
 
-            return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize && !isInvestorAlready;
+            return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize; // && !isInvestorAlready;
         }
 
         public static bool IsInInvestorsSphereOfInfluence(GameEntity shareholder, GameEntity company)
