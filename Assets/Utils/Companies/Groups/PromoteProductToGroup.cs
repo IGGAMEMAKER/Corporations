@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     partial class CompanyUtils
     {
@@ -36,50 +33,6 @@ namespace Assets.Utils
         public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyTypeChange(companyId, previousName));
-        }
-
-        public static void AttachToGroup(GameContext context, int parent, int subsidiary)
-        {
-            // TODO only possible if independent!
-
-            var p = GetCompanyById(context, parent);
-
-            if (!IsCompanyGroupLike(p))
-                return;
-
-            var s = GetCompanyById(context, subsidiary);
-
-            Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
-
-            var shareholders = new Dictionary<int, BlockOfShares>
-            {
-                {
-                    p.shareholder.Id,
-                    new BlockOfShares
-                    {
-                        amount = 100,
-                        InvestorType = InvestorType.Strategic,
-                        shareholderLoyalty = 100
-                    }
-                }
-            };
-
-            if (s.hasShareholders)
-                s.ReplaceShareholders(shareholders);
-            else
-                s.AddShareholders(shareholders);
-
-            p.isIndependentCompany = false;
-        }
-
-        public static GameEntity TurnToHolding(GameContext context, int companyId)
-        {
-            var c = GetCompanyById(context, companyId);
-
-            c.ReplaceCompany(c.company.Id, c.company.Name, CompanyType.Holding);
-            c.isManagingCompany = true;
-
-            return c;
         }
     }
 }
