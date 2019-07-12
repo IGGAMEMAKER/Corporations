@@ -41,6 +41,7 @@ public partial class AIProductSystems : OnDateChange
         return GetSegmentCost(company, UserType.Core) * marketDiff;
     }
 
+
     // 1 - we need more programmers
     // 0 - we have good amount of programmers
     // -1 - we have more than we need
