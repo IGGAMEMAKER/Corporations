@@ -1,5 +1,4 @@
-﻿using Assets.Classes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -37,24 +36,6 @@ namespace Assets.Utils
         public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyTypeChange(companyId, previousName));
-        }
-
-        public static void RedistributeMoneyBetweenCompaniesIfPossible(GameContext context, int giverId, int acceptorId, int amount)
-        {
-            var giver = GetCompanyById(context, giverId);
-            var acceptor = GetCompanyById(context, acceptorId);
-
-            var transfer = new TeamResource(amount);
-            var receiving = new TeamResource(-amount);
-
-            if (!TeamResource.IsEnoughResources(transfer, giver.companyResource.Resources))
-                return;
-
-            var newGiverResources = TeamResource.Difference(giver.companyResource.Resources, transfer);
-            var newAcceptorResources = TeamResource.Difference(acceptor.companyResource.Resources, receiving);
-
-            giver.ReplaceCompanyResource(newGiverResources);
-            acceptor.ReplaceCompanyResource(newAcceptorResources);
         }
 
         public static void AttachToGroup(GameContext context, int parent, int subsidiary)
