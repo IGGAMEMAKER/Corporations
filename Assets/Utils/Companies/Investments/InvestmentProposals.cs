@@ -41,6 +41,27 @@ namespace Assets.Utils
                 );
         }
 
+        public static void SpawnProposals(GameContext context, int companyId)
+        {
+            long cost = CompanyEconomyUtils.GetCompanyCost(context, companyId);
+
+            foreach (var potentialInvestor in GetPotentialInvestors(context, companyId))
+            {
+                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
+
+                var p = new InvestmentProposal
+                {
+                    Valuation = valuation,
+                    Offer = valuation / 10,
+                    ShareholderId = potentialInvestor.shareholder.Id,
+                    InvestorBonus = InvestorBonus.None,
+                    WasAccepted = false
+                };
+
+                AddInvestmentProposal(context, companyId, p);
+            }
+        }
+
 
 
         internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
@@ -95,27 +116,6 @@ namespace Assets.Utils
             proposals[index].WasAccepted = true;
 
             c.ReplaceInvestmentProposals(proposals);
-        }
-
-
-        public static void SpawnProposals(GameContext context, int companyId)
-        {
-            long cost = CompanyEconomyUtils.GetCompanyCost(context, companyId);
-
-            foreach (var potentialInvestor in GetPotentialInvestors(context, companyId))
-            {
-                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
-
-                var p = new InvestmentProposal {
-                    Valuation = valuation,
-                    Offer = valuation / 10,
-                    ShareholderId = potentialInvestor.shareholder.Id,
-                    InvestorBonus = InvestorBonus.None,
-                    WasAccepted = false
-                };
-
-                AddInvestmentProposal(context, companyId, p);
-            }
         }
 
 
