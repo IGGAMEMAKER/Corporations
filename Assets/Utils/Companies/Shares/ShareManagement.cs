@@ -5,11 +5,6 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static InvestorGoal GetInvestorGoal(GameContext context, int investorId)
-        {
-            return InvestorGoal.GrowCompanyCost;
-        }
-
         public static int GetTotalShares(GameContext context, int companyId)
         {
             return GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
