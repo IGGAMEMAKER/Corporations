@@ -46,7 +46,6 @@ namespace Assets.Utils
             );
         }
 
-
         internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
         {
             return Array.FindAll(
