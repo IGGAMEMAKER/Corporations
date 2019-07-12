@@ -8,8 +8,7 @@ namespace Assets.Utils
         {
             float income = 0;
 
-            foreach (var pair in e.marketing.Segments)
-                income += GetIncomeBySegment(context, e.company.Id, pair.Key);
+            income += GetIncomeBySegment(context, e.company.Id, UserType.Core);
 
             return Convert.ToInt64(income);
         }
@@ -18,7 +17,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            long clients = c.marketing.Segments[userType];
+            long clients = c.marketing.clients;
 
             float price = GetSegmentPrice(gameContext, companyId, userType);
 

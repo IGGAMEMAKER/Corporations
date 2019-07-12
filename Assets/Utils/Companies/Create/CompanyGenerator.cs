@@ -9,21 +9,11 @@ namespace Assets.Utils
         {
             var GOAL = InvestorGoal.Prototype;
 
-
-            int brandPower = 0;
-
-            var Segments = new Dictionary<UserType, long>
-            {
-                [UserType.Core] = 0,
-                [UserType.Regular] = 0,
-                [UserType.Mass] = 0,
-            };
-
             // product specific components
             company.AddProduct(company.company.Id, niche, UnityEngine.Random.Range(0, 6));
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
-            company.ReplaceMarketing(brandPower, Segments);
+            company.ReplaceMarketing(0, 0);
 
             AddFocusNiche(niche, company, context);
 
@@ -33,6 +23,9 @@ namespace Assets.Utils
 
             return company;
         }
+
+
+
 
         private static GameEntity CreateCompany(
             GameContext context,
@@ -60,7 +53,7 @@ namespace Assets.Utils
 
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
 
-            e.AddMarketing(0, new Dictionary<UserType, long>());
+            e.AddMarketing(0, 0);
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);

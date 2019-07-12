@@ -16,22 +16,14 @@ namespace Assets.Utils
 
         public static long GetClients(GameEntity company)
         {
-            long amount = 0;
-
-            foreach (var p in company.marketing.Segments)
-                amount += p.Value;
-
-            return amount;
+            return company.marketing.clients;
         }
 
         public static void AddClients(GameEntity company, UserType userType, long clients)
         {
             var marketing = company.marketing;
 
-            //marketing.Segments[userType] += clients;
-            marketing.Segments[UserType.Core] += clients;
-
-            company.ReplaceMarketing(marketing.BrandPower, marketing.Segments);
+            company.ReplaceMarketing(marketing.BrandPower, marketing.clients + clients);
         }
 
         public static long GetCompanyClientBatch(GameContext gameContext, GameEntity company)
@@ -68,19 +60,9 @@ namespace Assets.Utils
 
             var churn = GetChurnRate(gameContext, id, userType);
             var churnClients = GetChurnClients(gameContext, id, userType);
-            var promoted = GetPromotionClients(gameContext, id, userType);
 
             hint.AppendFormat("Due to our churn rate ({0}%)", churn);
             hint.AppendFormat(" we lose {0} clients each month\n", Visuals.Negative(churnClients.ToString()));
-
-            //if (userType == UserType.Regular)
-            //{
-            //    hint.AppendFormat("<color={0}>Also, {2} clients will be promoted to {1}</color>",
-            //        VisualConstants.COLOR_POSITIVE,
-            //        EnumUtils.GetFormattedUserType(UserType.Core),
-            //        promoted
-            //        );
-            //}
 
             hint.AppendLine();
 
@@ -106,7 +88,7 @@ namespace Assets.Utils
             if (!product.isRelease && enoughResources)
             {
                 product.isRelease = true;
-                product.ReplaceMarketing(product.marketing.BrandPower + GetReleaseBrandPowerGain(), product.marketing.Segments);
+                product.ReplaceMarketing(product.marketing.BrandPower + GetReleaseBrandPowerGain(), product.marketing.clients);
 
                 CompanyUtils.SpendResources(product, need);
             }

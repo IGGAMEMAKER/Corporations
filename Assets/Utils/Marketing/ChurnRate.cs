@@ -39,22 +39,13 @@ namespace Assets.Utils
             return GetChurnRate(gameContext, companyId, userType) / 10f;
         }
 
-        public static long GetPromotionClients(GameContext gameContext, int companyId, UserType userType)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            long promotionRate = GetChurnRate(gameContext, companyId, userType);
-
-            return c.marketing.Segments[userType] * promotionRate / 10 / 100;
-        }
-
         public static long GetChurnClients(GameContext gameContext, int companyId, UserType userType)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             var churn = GetChurnRate(gameContext, companyId, userType);
 
-            return c.marketing.Segments[userType] * churn / 100;
+            return c.marketing.clients * churn / 100;
         }
 
         internal static int GetUserTypeBaseValue(UserType userType)

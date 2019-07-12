@@ -86,7 +86,7 @@ public class ClientSegmentPreview : View
 
     void RenderAudience(UserType userType, GameEntity c)
     {
-        AudienceSize.text = $"{Format.Minify(c.marketing.Segments[userType])}";
+        AudienceSize.text = $"{Format.Minify(c.marketing.clients)}";
 
         var hint = MarketingUtils.GetAudienceHint(GameContext, userType, c);
 

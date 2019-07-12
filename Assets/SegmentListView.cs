@@ -20,8 +20,7 @@ public class SegmentListView : ListView
         if (MyProductEntity == null)
             return;
 
-        // .Where(pair => pair.Value > 0).ToArray()
-        SetItems(MyProductEntity.marketing.Segments.Where(pair => pair.Key == UserType.Core).ToArray());
+        Debug.Log("Segment List View removed segments!");
     }
 
 

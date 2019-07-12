@@ -16,9 +16,7 @@ public class ProductComponent : IComponent
     public int Id;
     public NicheType Niche;
 
-    // features
     public int Concept;
-    //public Dictionary<UserType, int> Segments;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -26,8 +24,8 @@ public class MarketingComponent : IComponent
 {
     public long BrandPower;
 
-    // long clients
-    public Dictionary<UserType, long> Segments;
+    public long clients;
+    //public Dictionary<UserType, long> Segments;
 }
 
 [Game, Event(EventTarget.Self)]

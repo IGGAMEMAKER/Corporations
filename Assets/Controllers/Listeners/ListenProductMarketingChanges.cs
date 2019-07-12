@@ -15,7 +15,7 @@ public class ListenProductMarketingChanges : Controller
             MyProductEntity.RemoveMarketingListener(this);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, Dictionary<UserType, long> segments)
+    void IMarketingListener.OnMarketing(GameEntity entity, long brandPower, long segments)
     {
         Render();
     }
