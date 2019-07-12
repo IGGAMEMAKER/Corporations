@@ -13,6 +13,8 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, niche, UnityEngine.Random.Range(0, 6));
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
             company.AddFinance(0, 0, 0, 5f);
+
+
             company.ReplaceMarketing(0, 0);
 
             AddFocusNiche(niche, company, context);
@@ -54,6 +56,7 @@ namespace Assets.Utils
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, ScheduleUtils.GetCurrentDate(context) + 360, 1000000);
 
             e.AddMarketing(0, 0);
+            e.AddBranding(0);
             
 
             int CeoID = CEO.human.Id;
