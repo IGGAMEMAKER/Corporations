@@ -68,7 +68,7 @@ public class ClientSegmentPreview : View
 
     void RenderSegmentLevel(UserType userType, GameEntity company)
     {
-        SegmentImprovements.UpdateValue(company.product.Segments[userType]);
+        SegmentImprovements.UpdateValue(company.product.Concept);
 
         var demand = ProductUtils.GetSegmentMarketDemand(company, GameContext, userType);
 

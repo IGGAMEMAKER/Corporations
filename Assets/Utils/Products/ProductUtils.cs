@@ -45,7 +45,7 @@ namespace Assets.Utils
 
         public static bool IsWillInnovate(GameEntity product, GameEntity niche, UserType userType)
         {
-            var current = product.product.Segments[userType];
+            var current = product.product.Concept;
             var marketDemand = niche.segment.Segments[userType];
 
             return current >= marketDemand;
@@ -60,8 +60,6 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            //Debug.Log($"UpdateNicheSegmentInfo {product.company.Name} {userType}. {product.product.Segments[userType]}/{niche.segment.Segments[userType]} ");
-
             UpdateNicheSegmentInfo(product, niche, userType);
         }
 
@@ -71,7 +69,7 @@ namespace Assets.Utils
 
             if (IsWillInnovate(product, niche, userType))
             {
-                segments[userType] = product.product.Segments[userType] + 1;
+                segments[userType] = product.product.Concept + 1;
 
                 niche.ReplaceSegment(segments);
             }
@@ -112,11 +110,7 @@ namespace Assets.Utils
 
             var p = product.product;
 
-            var dict = p.Segments;
-
-            dict[userType]++;
-
-            product.ReplaceProduct(p.Id, p.Niche, dict);
+            product.ReplaceProduct(p.Id, p.Niche, p.Concept + 1);
 
 
             var duration = GetSegmentImprovementDuration(gameContext, product);
@@ -136,9 +130,7 @@ namespace Assets.Utils
 
         public static int GetTotalImprovements(GameEntity product)
         {
-            var segments = product.product.Segments;
-
-            return segments[UserType.Core] + segments[UserType.Mass] + segments[UserType.Regular];
+            return product.product.Concept;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var improvements = c.product.Segments[userType];
+            var improvements = c.product.Concept;
 
             return (100 + 5 * improvements) * GetProductPrice(c, gameContext) / 100;
         }

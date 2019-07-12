@@ -53,7 +53,7 @@ namespace Assets.Utils
         {
             return new GoalRequirements {
                 need = 1,
-                have = company.product.Segments[UserType.Core]
+                have = company.product.Concept
             };
         }
 
@@ -113,7 +113,7 @@ namespace Assets.Utils
         {
             return new GoalRequirements
             {
-                have = company.product.Segments[UserType.Core],
+                have = company.product.Concept,
                 need = 5
             };
         }

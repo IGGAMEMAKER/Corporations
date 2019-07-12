@@ -17,7 +17,8 @@ public class ProductComponent : IComponent
     public NicheType Niche;
 
     // features
-    public Dictionary<UserType, int> Segments;
+    public int Concept;
+    //public Dictionary<UserType, int> Segments;
 }
 
 [Game, Event(EventTarget.Self)]

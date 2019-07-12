@@ -40,7 +40,7 @@ public class ProductCompanyCompetingPreview : View,
             Clients.text = Format.Minify(MarketingUtils.GetClients(company));
     }
 
-    void RenderProductInfo(string name, Dictionary<UserType, int> segments)
+    void RenderProductInfo(string name)
     {
         Name.text = name;
 
@@ -52,7 +52,7 @@ public class ProductCompanyCompetingPreview : View,
 
     void Render()
     {
-        RenderProductInfo(Company.company.Name, Company.product.Segments);
+        RenderProductInfo(Company.company.Name);
 
         RenderClients(Company);
 
@@ -66,6 +66,6 @@ public class ProductCompanyCompetingPreview : View,
 
     void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, Dictionary<UserType, int> segments)
     {
-        RenderProductInfo(entity.company.Name, segments);
+        RenderProductInfo(entity.company.Name);
     }
 }

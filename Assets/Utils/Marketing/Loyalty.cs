@@ -31,7 +31,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            return c.product.Segments[userType];
+            return c.product.Concept;
         }
 
         public static long GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)

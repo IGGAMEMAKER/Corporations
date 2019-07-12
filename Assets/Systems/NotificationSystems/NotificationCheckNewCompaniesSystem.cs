@@ -27,7 +27,7 @@ public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
             return false;
 
         return entity.hasProduct
-            && entity.product.Segments[UserType.Core] == 0
+            && entity.product.Concept == 0
             && CompanyUtils.IsInSphereOfInterest(player, entity);
     }
 

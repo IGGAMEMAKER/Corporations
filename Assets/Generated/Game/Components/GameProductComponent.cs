@@ -16,16 +16,14 @@ public partial class GameEntity {
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
         component.Niche = newNiche;
-        component.Segments = newSegments;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduct(int newId, NicheType newNiche, System.Collections.Generic.Dictionary<UserType, int> newSegments) {
+    public void ReplaceProduct(int newId, NicheType newNiche, int level) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
         component.Id = newId;
         component.Niche = newNiche;
-        component.Segments = newSegments;
         ReplaceComponent(index, component);
     }
 

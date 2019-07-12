@@ -58,7 +58,7 @@ namespace Assets.Utils
         public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context, UserType userType)
         {
             var names = GetPlayersOnMarket(context, e)
-                .Select(c => c.product.Segments[userType] + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
+                .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
 
             return names;
         }
