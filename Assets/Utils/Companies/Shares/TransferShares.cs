@@ -149,6 +149,13 @@ namespace Assets.Utils
 
 
 
+        public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var salePrice = CompanyEconomyUtils.GetCompanySellingPrice(gameContext, companyId);
+
+            BuyCompany(gameContext, companyId, buyerInvestorId, salePrice);
+        }
+
         public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
         {
             // can afford acquisition

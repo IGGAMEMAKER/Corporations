@@ -59,9 +59,7 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
     {
         Debug.LogFormat("{0} wants to buy company {1} ...", managingCompany.company.Name, candidate.company.Name);
 
-        var salePrice = CompanyEconomyUtils.GetCompanySellingPrice(gameContext, candidate.company.Id);
-
-        CompanyUtils.BuyCompany(gameContext, candidate.company.Id, managingCompany.shareholder.Id, salePrice);
+        CompanyUtils.BuyCompany(gameContext, candidate.company.Id, managingCompany.shareholder.Id);
     }
 
     private void CreateCompany(GameEntity managingCompany, NicheType n)
