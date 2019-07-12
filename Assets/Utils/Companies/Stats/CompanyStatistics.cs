@@ -64,5 +64,37 @@ namespace Assets.Utils.Economy
 
             return report;
         }
+
+
+        // phase
+        public static long GetAudienceGrowth(GameEntity e, int duration)
+        {
+            var metrics = e.metricsHistory.Metrics;
+
+            if (metrics.Count < duration)
+                return 0;
+
+            var len = metrics.Count;
+
+            var was = metrics[len - duration].AudienceSize + 1;
+            var now = metrics[len - 1].AudienceSize + 1;
+
+            return (now - was) * 100 / was;
+        }
+
+        public static long GetValuationGrowth(GameEntity e, int duration)
+        {
+            var metrics = e.metricsHistory.Metrics;
+
+            if (metrics.Count < duration)
+                return 0;
+
+            var len = metrics.Count;
+
+            var was = metrics[len - duration].Valuation + 1;
+            var now = metrics[len - 1].Valuation + 1;
+
+            return (now - was) * 100 / was;
+        }
     }
 }

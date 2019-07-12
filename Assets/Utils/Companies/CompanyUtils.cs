@@ -137,52 +137,6 @@ namespace Assets.Utils
             return funds[index].shareholder.Id;
         }
 
-        // phase
-        public static long GetAudienceGrowth(GameEntity e, int duration)
-        {
-            var metrics = e.metricsHistory.Metrics;
-
-            if (metrics.Count < duration)
-                return 0;
-
-            var len = metrics.Count;
-
-            var was = metrics[len - duration].AudienceSize + 1;
-            var now = metrics[len - 1].AudienceSize + 1;
-
-            return (now - was) * 100 / was;
-        }
-
-        public static long GetValuationGrowth(GameEntity e, int duration)
-        {
-            var metrics = e.metricsHistory.Metrics;
-
-            if (metrics.Count < duration)
-                return 0;
-
-            var len = metrics.Count;
-
-            var was = metrics[len - duration].Valuation + 1;
-            var now = metrics[len - 1].Valuation + 1;
-
-            return (now - was) * 100 / was;
-        }
-
-        //public static long GetValuationLastQuarterGrowth(GameEntity e, int duration)
-        //{
-        //    var metrics = e.metricsHistory.Metrics;
-
-        //    if (metrics.Count < duration)
-        //        return 0;
-
-        //    var len = metrics.Count;
-
-        //    var was = metrics[len - duration].Valuation + 1;
-        //    var now = metrics[len - 1].Valuation + 1;
-
-        //    return (now - was) * 100 / was;
-        //}
-
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {
