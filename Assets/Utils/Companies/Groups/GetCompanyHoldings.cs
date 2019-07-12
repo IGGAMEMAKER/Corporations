@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Entitas;
+using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -24,6 +26,14 @@ namespace Assets.Utils
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);
+        }
+
+        private static GameEntity[] GetInvestments(GameContext context, int investorId)
+        {
+            return Array.FindAll(
+                context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
+                c => IsInvestsInCompany(c, investorId)
+                );
         }
 
         public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)

@@ -112,21 +112,6 @@ namespace Assets.Utils
             return IsProductCompany(GetCompanyById(context, companyId));
         }
 
-
-
-        public static GameEntity[] GetInvestableCompanies(GameContext context)
-        {
-            return context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders));
-        }
-
-        public static GameEntity[] GetInvestments(GameContext context, int investorId)
-        {
-            return Array.FindAll(
-                GetInvestableCompanies(context),
-                c => IsInvestsInCompany(c, investorId)
-                );
-        }
-
         public static int GetRandomInvestmentFund(GameContext context)
         {
             var funds = GetFinancialCompanies(context);
