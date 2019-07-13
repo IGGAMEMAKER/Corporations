@@ -45,13 +45,18 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
     {
         return products
                 .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext))
-                .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p))
+                .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
     }
 
-    long GetCompanySellingPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
+    float GetCompanySellingPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        return Random.Range(10, 14) * CompanyEconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id) / CompanyUtils.GetDesireToBuy(buyer, target) / 10;
+        var price = CompanyEconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id);
+        var desireToBuy = CompanyUtils.GetDesireToBuy(buyer, target, gameContext);
+
+        var modifiers = Random.Range(1f, 1.4f);
+
+        return modifiers * desireToBuy / price;
     }
 
     void BuyCompany(GameEntity managingCompany, GameEntity candidate)
@@ -59,6 +64,12 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
         Debug.LogFormat("{0} wants to buy company {1} ...", managingCompany.company.Name, candidate.company.Name);
 
         CompanyUtils.BuyCompany(gameContext, candidate.company.Id, managingCompany.shareholder.Id);
+    }
+
+
+    bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
+    {
+        return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
     }
 
     private void CreateCompany(GameEntity managingCompany, NicheType n)
@@ -70,10 +81,5 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
         var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
 
         CompanyUtils.AttachToGroup(gameContext, managingCompany.company.Id, p.company.Id);
-    }
-
-    bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
-    {
-        return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
     }
 }

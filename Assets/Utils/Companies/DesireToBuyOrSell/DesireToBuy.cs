@@ -6,9 +6,12 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static long GetDesireToBuy(GameEntity buyer, GameEntity target)
+        public static long GetDesireToBuy(GameEntity buyer, GameEntity target, GameContext gameContext)
         {
-            return 1;
+            if (buyer.isManagingCompany && target.hasProduct)
+                return GetDesireToBuyStartupAsGroup(gameContext, buyer, target);
+
+            return 0;
         }
 
         public static long GetStartupAttractiveness(GameContext gameContext, GameEntity startup)

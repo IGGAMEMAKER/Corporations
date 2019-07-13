@@ -1,6 +1,4 @@
-﻿using System;
-using Assets.Classes;
-using UnityEngine;
+﻿using Assets.Classes;
 
 namespace Assets.Utils
 {
@@ -53,7 +51,7 @@ namespace Assets.Utils
 
         internal static int GetProductLevel(GameEntity c)
         {
-            return c.segment.Segments[UserType.Core];
+            return c.product.Concept;
         }
 
         public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext, UserType userType)

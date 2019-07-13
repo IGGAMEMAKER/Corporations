@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -37,13 +38,14 @@ namespace Assets.Utils
         public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
         {
             var desire = GetDesireToSell(target, gameContext);
+            Debug.Log("IsWillSellCompany: " + target.company.Name + " - " + desire + "%");
 
             return desire > 75;
         }
 
-        public static bool IsWillBuyCompany(GameEntity buyer, GameEntity target)
+        public static bool IsWillBuyCompany(GameEntity buyer, GameEntity target, GameContext gameContext)
         {
-            return GetDesireToBuy(buyer, target) > 0;
+            return GetDesireToBuy(buyer, target, gameContext) > 0;
         }
     }
 }
