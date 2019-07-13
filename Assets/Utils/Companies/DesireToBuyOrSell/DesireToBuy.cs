@@ -1,8 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Linq;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
