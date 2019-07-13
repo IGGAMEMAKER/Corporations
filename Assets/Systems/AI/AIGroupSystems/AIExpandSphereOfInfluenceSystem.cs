@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
-using UnityEngine;
-using Entitas;
 
 public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 {
@@ -9,10 +7,14 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //Debug.Log("AIExpandSphereOfInfluenceSystem");
-
         foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
             CheckNiches(c);
+    }
+
+    void CheckNiches(GameEntity group)
+    {
+        if (IsCompanyReadyToExpand(group))
+            AddRandomNiche(group);
     }
 
     bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product, NicheType nicheType)
@@ -20,10 +22,8 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
         return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
     }
 
-    void CheckNiches(GameEntity group)
+    bool IsCompanyReadyToExpand(GameEntity group)
     {
-        //Debug.Log("CheckNiches: " + group.company.Name);
-
         foreach (var n in group.companyFocus.Niches)
         {
             //Debug.Log("Checking niche " + n.ToString());
@@ -35,14 +35,14 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
                     continue;
 
                 if (IsCompanyNeedsMoreMoneyOnMarket(holding, n))
-                    return;
+                    return false;
             }
         }
 
-        SearchSuitableNiche(group);
+        return true;
     }
 
-    void SearchSuitableNiche(GameEntity group)
+    void AddRandomNiche(GameEntity group)
     {
         //Debug.Log("Search Suitable Niche: " + group.company.Name);
 

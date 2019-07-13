@@ -16,15 +16,18 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
-            if (!holding.hasProduct)
-                continue;
-
-            PayDividends(holding);
-
-            SupportHolding(holding, group);
-
-            CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
+            if (holding.hasProduct)
+                ManageProductCompany(holding, group);
         }
+    }
+
+    void ManageProductCompany(GameEntity holding, GameEntity group)
+    {
+        PayDividends(holding);
+
+        SupportHolding(holding, group);
+
+        CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
     }
 
     void SupportHolding(GameEntity holding, GameEntity group)
