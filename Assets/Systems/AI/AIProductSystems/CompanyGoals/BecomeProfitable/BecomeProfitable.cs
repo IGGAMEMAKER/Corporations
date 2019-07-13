@@ -18,6 +18,39 @@ public partial class AIProductSystems : OnDateChange
         return true;
     }
 
+    long GetRequiredAmountOfMoney(GameEntity company)
+    {
+        switch (company.companyGoal.InvestorGoal)
+        {
+            case InvestorGoal.BecomeProfitable:
+
+                break;
+
+            case InvestorGoal.BecomeMarketFit:
+
+                break;
+
+            case InvestorGoal.Operationing:
+
+                break;
+        }
+
+        return 0;
+    }
+
+    void TakeMoneyFromExistingInvestors(GameEntity company)
+    {
+        var balance = company.companyResource.Resources.money;
+        var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, company.company.Id);
+
+
+
+        foreach (var s in company.shareholders.Shareholders)
+        {
+
+        }
+    }
+
     void TakeInvestments(GameEntity company)
     {
         // ??????

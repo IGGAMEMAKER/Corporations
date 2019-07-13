@@ -168,11 +168,7 @@ public enum InvestorGoal
     IPO,
     
     // products only
-    Operationing,
-
-
-    DefendMarkets,
-    Expand
+    Operationing
 }
 
 public enum InvestmentRound

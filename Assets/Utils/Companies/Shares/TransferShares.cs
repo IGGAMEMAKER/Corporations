@@ -143,7 +143,7 @@ namespace Assets.Utils
             TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
 
             Debug.Log("Transferred");
-            AddMoneyToInvestor(context, buyerInvestorId, -bid);
+            GetMoneyFromInvestor(context, buyerInvestorId, -bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
@@ -188,6 +188,11 @@ namespace Assets.Utils
         public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
         {
             InvestmentUtils.AddMoneyToInvestor(context, investorId, sum);
+        }
+
+        public static void GetMoneyFromInvestor(GameContext gameContext, int investorId, long sum)
+        {
+            AddMoneyToInvestor(gameContext, investorId, -sum);
         }
     }
 }

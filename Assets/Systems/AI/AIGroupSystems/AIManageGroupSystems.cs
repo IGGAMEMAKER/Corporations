@@ -30,22 +30,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
         }
     }
 
-    void ManageProductCompany(GameEntity holding, GameEntity group)
+    void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive (GameEntity product)
     {
-        PayDividends(holding);
+        var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-        SupportHolding(holding, group);
-
-        CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
-    }
-
-    void SupportHolding(GameEntity holding, GameEntity group)
-    {
-        if (holding.hasProduct)
-        {
-            SupportStartup(holding, group);
-            return;
-        }
+        if (niche.nicheState.Phase == NicheLifecyclePhase.Death && !CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
+            CompanyUtils.CloseCompany(gameContext, product);
     }
 
 
@@ -64,7 +54,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
 
-        var proposal = new InvestmentProposal {
+        var proposal = new InvestmentProposal
+        {
             Offer = maintenance * 4,
             ShareholderId = managingCompany.shareholder.Id,
             InvestorBonus = InvestorBonus.None,
@@ -75,25 +66,13 @@ public partial class AIManageGroupSystems : OnQuarterChange
         CompanyUtils.AddInvestmentProposal(gameContext, product.company.Id, proposal);
     }
 
-    void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive (GameEntity product)
-    {
-        var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
-
-        if (niche.nicheState.Phase == NicheLifecyclePhase.Death && !CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
-            CloseCompany(product);
-    }
-
-    void CloseCompany(GameEntity company)
-    {
-        CompanyUtils.CloseCompany(gameContext, company);
-    }
 
     void PayDividends(GameEntity product)
     {
         if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
-        var dividends = product.companyResource.Resources.money * 75 / 100;
+        var dividends = product.companyResource.Resources.money - CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
 
         CompanyUtils.PayDividends(gameContext, product, dividends);
     }
