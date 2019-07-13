@@ -17,6 +17,8 @@ public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
             AddRandomNiche(group);
     }
 
+
+
     bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product, NicheType nicheType)
     {
         return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
