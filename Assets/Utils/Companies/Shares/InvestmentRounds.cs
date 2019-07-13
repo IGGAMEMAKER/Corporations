@@ -27,6 +27,8 @@
                     return InvestmentRound.C;
 
                 case InvestorGoal.GrowCompanyCost:
+                case InvestorGoal.Expand:
+                case InvestorGoal.DefendMarkets:
                     return InvestmentRound.C;
 
                 case InvestorGoal.IPO:
