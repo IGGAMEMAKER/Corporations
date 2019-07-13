@@ -18,6 +18,11 @@ public partial class AIManageGroupSystems : OnQuarterChange
         ExpandSphereOfInfluence(group);
         FillUnoccupiedMarkets(group);
 
+        CloseCompaniesIfNecessary(group);
+    }
+
+    void CloseCompaniesIfNecessary(GameEntity group)
+    {
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
             if (holding.hasProduct)
