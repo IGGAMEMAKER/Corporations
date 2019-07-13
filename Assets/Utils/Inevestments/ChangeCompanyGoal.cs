@@ -39,11 +39,16 @@
             company.ReplaceCompanyGoal(investorGoal, measurableGoal);
         }
 
+        private static bool IsCanTakeIPOGoal (GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
+        {
+            return nextGoal == InvestorGoal.GrowCompanyCost && CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id) > Constants.IPO_REQUIREMENTS_COMPANY_COST / 2;
+        }
+
         public static void CompleteGoal(GameEntity company, GameContext gameContext, bool forceComplete = false)
         {
             var nextGoal = GetNextGoal(company.companyGoal.InvestorGoal);
 
-            if (nextGoal == InvestorGoal.GrowCompanyCost && CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id) > Constants.IPO_REQUIREMENTS_COMPANY_COST / 2)
+            if (IsCanTakeIPOGoal(company, gameContext, nextGoal))
                 nextGoal = InvestorGoal.IPO;
 
             if (forceComplete || IsGoalCompleted(company, gameContext))
