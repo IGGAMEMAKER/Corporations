@@ -14,23 +14,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void ManageGroup(GameEntity group)
     {
-        switch(group.companyGoal.InvestorGoal)
-        {
-            case InvestorGoal.DefendMarkets:
-                DefendMarkets(group);
-                break;
-
-            case InvestorGoal.Expand:
-                ExpandSphereOfInfluence(group);
-                FillUnoccupiedMarkets(group);
-                break;
-
-            case InvestorGoal.IPO:
-                break;
-
-            case InvestorGoal.GrowCompanyCost:
-                break;
-        }
+        DefendMarkets(group);
+        ExpandSphereOfInfluence(group);
+        FillUnoccupiedMarkets(group);
 
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
