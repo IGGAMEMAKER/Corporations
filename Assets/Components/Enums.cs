@@ -172,7 +172,7 @@ public enum InvestorGoal
 
 
     DefendMarkets,
-    GrabMarkets
+    Expand
 }
 
 public enum InvestmentRound

@@ -20,7 +20,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
                 DefendMarkets(group);
                 break;
 
-            case InvestorGoal.GrabMarkets:
+            case InvestorGoal.Expand:
                 ExpandSphereOfInfluence(group);
                 FillUnoccupiedMarkets(group);
                 break;

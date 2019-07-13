@@ -44,7 +44,7 @@ namespace Assets.Utils
             e.AddCooldowns(new List<Cooldown>());
 
             e.AddCompany(id, name, companyType);
-            e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 100000));
+            e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
 
             e.AddShareholders(founders);
             e.AddInvestmentProposals(new List<InvestmentProposal>());

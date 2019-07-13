@@ -99,6 +99,8 @@
                     return shareholderType == InvestorType.VentureInvestor;
 
                 case InvestorGoal.GrowCompanyCost:
+                case InvestorGoal.DefendMarkets:
+                case InvestorGoal.Expand:
                     return shareholderType == InvestorType.VentureInvestor || shareholderType == InvestorType.Strategic;
 
                 case InvestorGoal.IPO:

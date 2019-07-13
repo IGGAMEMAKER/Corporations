@@ -22,7 +22,10 @@
                     return "Grow company cost by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
 
                 case InvestorGoal.DefendMarkets:
-                    return "Defend your sphere of influence";
+                    return "Defend your sphere of interest";
+
+                case InvestorGoal.Expand:
+                    return "Expand sphere of interest";
 
                 case InvestorGoal.IPO:
                     return "IPO";
