@@ -29,7 +29,6 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
 
         Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
-            //CreateCompany(managingCompany, n);
         if (candidates.Count() > 0)
             BuyCompany(managingCompany, candidates.First());
     }
