@@ -22,6 +22,7 @@ public partial class AIProductSystems : OnDateChange
         {
             case 1: HireWorker(company, WorkerRole.Programmer); break;
             case -1: FireWorkerByRole(company, WorkerRole.Programmer); break;
+                // case 0: do nothing
         }
     }
 
@@ -69,13 +70,9 @@ public partial class AIProductSystems : OnDateChange
         var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;
 
         if (programmingTime < ideaTime)
-        {
             return -1;
-        }
         else if (programmingTime == ideaTime)
-        {
             return 0;
-        }
         else
         {
             // programming time > idea time

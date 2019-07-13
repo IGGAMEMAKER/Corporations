@@ -21,12 +21,13 @@ namespace Assets.Utils
             if (company.hasProduct)
                 return GetDesireToSellStartup(company, gameContext);
             else
-                return 0;
+                return GetDesireToSellGroup(company, gameContext);
         }
 
         public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
         {
             var desire = GetDesireToSell(target, gameContext);
+
             Debug.Log("IsWillSellCompany: " + target.company.Name + " - " + desire + "%");
 
             return desire > 75;

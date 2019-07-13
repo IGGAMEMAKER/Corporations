@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Utils;
-using Entitas;
+using UnityEngine;
 
 public partial class AIManageGroupSystems : OnQuarterChange
 {
@@ -35,14 +34,14 @@ public partial class AIManageGroupSystems : OnQuarterChange
             SupportStartup(holding, group);
             return;
         }
-
-
     }
 
     void SupportStartup(GameEntity product, GameEntity managingCompany)
     {
         if (product.companyResource.Resources.money > 0 && CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
             return;
+
+        Debug.Log("Support Startup");
 
         var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
         var phase = niche.nicheState.Phase;
