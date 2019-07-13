@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 
-public class AIExpandSphereOfInfluenceSystem : OnQuarterChange
+public partial class AIManageGroupSystems
 {
-    public AIExpandSphereOfInfluenceSystem(Contexts contexts) : base(contexts) { }
-
-    protected override void Execute(List<GameEntity> entities)
+    public void ExpandSphereOfInfluence(GameEntity group)
     {
-        foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
-            CheckNiches(c);
+        CheckNiches(group);
     }
 
     void CheckNiches(GameEntity group)

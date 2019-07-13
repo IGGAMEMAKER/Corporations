@@ -3,17 +3,9 @@ using System.Linq;
 using Assets.Utils;
 using UnityEngine;
 
-public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
+public partial class AIManageGroupSystems : OnQuarterChange
 {
-    public AIFillUnoccupiedPrimaryMarketsSystem(Contexts contexts) : base(contexts) { }
-
-    protected override void Execute(List<GameEntity> entities)
-    {
-        foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
-            CheckMarkets(c);
-    }
-
-    void CheckMarkets(GameEntity managingCompany)
+    void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
         Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
         
@@ -69,16 +61,5 @@ public class AIFillUnoccupiedPrimaryMarketsSystem : OnQuarterChange
     bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
     {
         return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
-    }
-
-    private void CreateCompany(GameEntity managingCompany, NicheType n)
-    {
-        if (NicheUtils.GetNicheEntity(gameContext, n).nicheState.Phase != NicheLifecyclePhase.Trending)
-            return;
-
-        Debug.Log("CreateCompany on market " + n);
-        var p = CompanyUtils.AutoGenerateProductCompany(n, gameContext);
-
-        CompanyUtils.AttachToGroup(gameContext, managingCompany.company.Id, p.company.Id);
     }
 }

@@ -14,10 +14,28 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void ManageGroup(GameEntity group)
     {
+        switch(group.companyGoal.InvestorGoal)
+        {
+            case InvestorGoal.DefendMarkets:
+                DefendMarkets(group);
+                break;
+
+            case InvestorGoal.GrabMarkets:
+                ExpandSphereOfInfluence(group);
+                FillUnoccupiedMarkets(group);
+                break;
+
+            case InvestorGoal.IPO:
+                break;
+
+            case InvestorGoal.GrowCompanyCost:
+                break;
+        }
+
         foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
         {
             if (holding.hasProduct)
-                ManageProductCompany(holding, group);
+                CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
         }
     }
 
@@ -38,6 +56,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
             return;
         }
     }
+
 
     void SupportStartup(GameEntity product, GameEntity managingCompany)
     {
@@ -73,9 +92,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
             CloseCompany(product);
     }
 
-    void CloseCompany(GameEntity product)
+    void CloseCompany(GameEntity company)
     {
-        CompanyUtils.CloseCompany(gameContext, product);
+        CompanyUtils.CloseCompany(gameContext, company);
     }
 
     void PayDividends(GameEntity product)
