@@ -6,8 +6,14 @@ using UnityEngine.UI;
 public class AcquisitionScreen : View
 {
     public Text Title;
-    public Text Buyer;
     public Text ProposalStatus;
 
-    
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
+
+        ProposalStatus.text = "???";
+    }
 }
