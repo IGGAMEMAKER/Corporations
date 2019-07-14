@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class VotingShareholderView : View
 {
     public Text Name;
+    public Text Share;
     public Text Status;
     public Text Response;
 
@@ -21,7 +22,8 @@ public class VotingShareholderView : View
         var investor = CompanyUtils.GetInvestorById(GameContext, shareholderId);
 
         var percentage = CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, shareholderId);
-        Name.text = $"{investor.shareholder.Name}, {percentage}%";
+        Name.text = $"{investor.shareholder.Name}";
+        Share.text = percentage + "%";
         Status.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
 
         Response.text = "";
