@@ -102,6 +102,14 @@ public class BaseClass : MonoBehaviour
         }
     }
 
+    public long Balance
+    {
+        get
+        {
+            return MyCompany.companyResource.Resources.money;
+        }
+    }
+
     public bool HasProductCompany
     {
         get

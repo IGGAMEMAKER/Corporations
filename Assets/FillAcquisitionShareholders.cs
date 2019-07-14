@@ -20,4 +20,11 @@ public class FillAcquisitionShareholders : ListView
     {
         SetItems(SelectedCompany.shareholders.Shareholders.Keys.ToArray());
     }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
+    }
 }
