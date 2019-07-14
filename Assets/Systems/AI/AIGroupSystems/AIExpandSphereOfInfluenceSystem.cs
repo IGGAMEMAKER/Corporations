@@ -16,7 +16,7 @@ public partial class AIManageGroupSystems
 
 
 
-    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product, NicheType nicheType)
+    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product)
     {
         return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
     }
@@ -33,7 +33,7 @@ public partial class AIManageGroupSystems
                 if (!holding.hasProduct)
                     continue;
 
-                if (IsCompanyNeedsMoreMoneyOnMarket(holding, n))
+                if (IsCompanyNeedsMoreMoneyOnMarket(holding))
                     return false;
             }
         }
