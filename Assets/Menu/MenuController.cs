@@ -31,7 +31,8 @@ public enum ScreenMode
     LeaderboardScreen = 20,
 
     ExplorationScreen = 21,
-    NicheInfoScreen = 22
+    NicheInfoScreen = 22,
+    AcquisitionScreen = 23,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -62,6 +63,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject LeaderboardScreen;
     public GameObject ExplorationScreen;
     public GameObject NicheInfoScreen;
+    public GameObject AcquisitionScreen;
 
 
     void Start()
@@ -90,6 +92,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.LeaderboardScreen] = LeaderboardScreen,
             [ScreenMode.ExplorationScreen] = ExplorationScreen,
             [ScreenMode.NicheInfoScreen] = NicheInfoScreen,
+            [ScreenMode.AcquisitionScreen] = AcquisitionScreen,
         };
 
         DisableAllScreens();
@@ -132,6 +135,8 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.LeaderboardScreen: return "Dorbes list";
             case ScreenMode.ExplorationScreen: return "Explore";
             case ScreenMode.NicheInfoScreen: return "Niche details";
+
+            case ScreenMode.AcquisitionScreen: return "Acquisition";
 
             default: return "WUT?";
         }
