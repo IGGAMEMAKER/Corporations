@@ -7,13 +7,7 @@ public class FillAcquisitionShareholders : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-
-        Debug.Log("FillAcquisitionShareholders ");
-    }
-
-    private void OnEnable()
-    {
-        
+        t.GetComponent<VotingShareholderView>().SetEntity((int)(object)entity);
     }
 
     void Render()
