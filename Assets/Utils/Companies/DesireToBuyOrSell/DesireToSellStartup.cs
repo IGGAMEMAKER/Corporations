@@ -6,24 +6,6 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        // TODO move ambition function somewhere else
-        public static Ambition GetFounderAmbition(int ambitions)
-        {
-            if (ambitions < 70)
-                return Ambition.EarnMoney;
-
-            if (ambitions < 75)
-                return Ambition.RuleProduct;
-
-            if (ambitions < 80)
-                return Ambition.IPO;
-
-            if (ambitions < 85)
-                return Ambition.CreateUnicorn;
-
-            return Ambition.RuleCorporation;
-        }
-
         public static long GetDesireToSellStartup(GameEntity startup, GameContext gameContext)
         {
             var shareholders = startup.shareholders.Shareholders;
@@ -101,25 +83,26 @@ namespace Assets.Utils
             return 1;
         }
 
-        public static long GetFFFExitDesire(GameEntity startup, int shareholderId)
+        public static long OnGoalCompletion(GameEntity startup, InvestorType investorType)
         {
-            bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
+            bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
 
             return goalCompleted ? 1 : 0;
+        }
+
+        public static long GetFFFExitDesire(GameEntity startup, int shareholderId)
+        {
+            return OnGoalCompletion(startup, InvestorType.FFF);
         }
 
         public static long GetAngelExitDesire(GameEntity startup, int shareholderId)
         {
-            bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
-
-            return goalCompleted ? 1 : 0;
+            return OnGoalCompletion(startup, InvestorType.Angel);
         }
 
         public static long GetVentureInvestorExitDesire(GameEntity startup, int shareholderId)
         {
-            bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(InvestorType.Angel, startup.companyGoal.InvestorGoal);
-
-            return goalCompleted ? 1 : 0;
+            return OnGoalCompletion(startup, InvestorType.VentureInvestor);
         }
     }
 }

@@ -2,18 +2,6 @@
 
 namespace Assets.Utils
 {
-    public enum Ambition
-    {
-        EarnMoney,
-        RuleProduct,
-        
-        CreateUnicorn,
-        IPO,
-
-        RuleCorporation
-    }
-
-
     public static partial class CompanyUtils
     {
         public static long GetDesireToSell(GameEntity company, GameContext gameContext)

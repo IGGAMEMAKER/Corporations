@@ -5,6 +5,17 @@ namespace Assets.Utils
 {
     public static partial class HumanUtils
     {
+        public enum Ambition
+        {
+            EarnMoney,
+            RuleProductCompany,
+
+            CreateUnicorn,
+            IPO,
+
+            RuleCorporation
+        }
+
         public static GameEntity[] GetHumans(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Human);
@@ -111,6 +122,23 @@ namespace Assets.Utils
         internal static void LeaveCompany(GameEntity human)
         {
             human.RemoveWorker();
+        }
+
+        public static Ambition GetFounderAmbition(int ambitions)
+        {
+            if (ambitions < 70)
+                return Ambition.EarnMoney;
+
+            if (ambitions < 75)
+                return Ambition.RuleProductCompany;
+
+            if (ambitions < 80)
+                return Ambition.IPO;
+
+            if (ambitions < 85)
+                return Ambition.CreateUnicorn;
+
+            return Ambition.RuleCorporation;
         }
 
         public static string GetFormattedRole(WorkerRole role)

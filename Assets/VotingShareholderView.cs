@@ -28,4 +28,9 @@ public class VotingShareholderView : View
 
         Response.text = "";
     }
+
+    void RenderResponse(GameEntity investor)
+    {
+        
+    }
 }
