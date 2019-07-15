@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class AcquisitionScreen : View
@@ -12,8 +9,6 @@ public class AcquisitionScreen : View
     public Text Offer;
 
     public AcquisitionButtonView AcquisitionButtonView;
-
-    public long offer;
 
     public override void ViewRender()
     {
@@ -26,9 +21,12 @@ public class AcquisitionScreen : View
         RenderOffer();
     }
 
-    private void OnEnable()
+    AcquisitionOfferComponent AcquisitionOffer
     {
-        offer = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        get
+        {
+            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        }
     }
 
     void RenderOffer()
@@ -37,6 +35,8 @@ public class AcquisitionScreen : View
         long overprice = 1;
 
         var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+
+        long offer = AcquisitionOffer.Offer;
 
         if (offer > cost)
         {
@@ -47,21 +47,5 @@ public class AcquisitionScreen : View
         Offer.text = Format.Money(offer) + overpriceText;
 
         AcquisitionButtonView.SetAcquisitionBid(offer, offer > cost);
-    }
-
-    public void IncreaseOffer()
-    {
-        offer = offer * 3 / 2;
-        if (offer > Balance)
-            offer = Balance;
-
-        RenderOffer();
-    }
-
-    public void DecreaseOffer()
-    {
-        offer = offer * 2 / 3;
-
-        RenderOffer();
     }
 }

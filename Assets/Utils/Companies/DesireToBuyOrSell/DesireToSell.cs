@@ -33,7 +33,7 @@ namespace Assets.Utils
         {
             var investor = GetInvestorById(gameContext, investorId);
 
-            return GetDesireToSellByInvestorType(company, gameContext, investorId, investor.shareholder.InvestorType);
+            return GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType);
         }
 
         public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
@@ -52,45 +52,30 @@ namespace Assets.Utils
             return desire > 0;
         }
 
-        public static string GetDesireToSellByInvestorType(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
+        public static string GetSellRejectionDescriptionByInvestorType(InvestorType investorType)
         {
-            bool isProduct = company.hasProduct;
-
-            var desire = GetDesireToSellShares(company, gameContext, investorId, investorType);
-            bool wantsToSell = desire > 0;
-
-            if (wantsToSell || investorType == InvestorType.StockExchange)
-                return Visuals.Positive("Wants to sell shares!");
-
-            var text = "";
-
             switch (investorType)
             {
                 case InvestorType.Angel:
                 case InvestorType.FFF:
                 case InvestorType.VentureInvestor:
-                    text = "Company goals are not completed";
-                    break;
+                    return "Company goals are not completed";
 
                 case InvestorType.Founder:
-                    text = "Founder ambitions not fulfilled";
-                    break;
+                    return "Founder ambitions not fulfilled";
 
                 case InvestorType.Strategic:
-                    text = "Views this company as strategic ";
-                    break;
+                    return "Views this company as strategic ";
 
                 default:
-                    text = investorType.ToString() + " will not sell shares";
-                    break;
+                    return investorType.ToString() + " will not sell shares";
             }
-
-            return Visuals.Negative(text);
         }
 
         public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer).First(e => e.acquisitionOffer.CompanyId == companyId && e.acquisitionOffer.BuyerId == buyerInvestorId);
+            var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer)
+                .FirstOrDefault(e => e.acquisitionOffer.CompanyId == companyId && e.acquisitionOffer.BuyerId == buyerInvestorId);
 
             if (offer == null)
             {
@@ -102,6 +87,13 @@ namespace Assets.Utils
             }
 
             return offer;
+        }
+
+        public static void UpdateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long newOffer)
+        {
+            var off = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+
+            off.ReplaceAcquisitionOffer(newOffer, companyId, buyerInvestorId);
         }
 
         //public static string GetSellingRejectionDescriptionByInvestorType()

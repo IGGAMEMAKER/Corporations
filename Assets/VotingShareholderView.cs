@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class VotingShareholderView : View
@@ -13,6 +14,13 @@ public class VotingShareholderView : View
     public void SetEntity(int shareholderId)
     {
         this.shareholderId = shareholderId;
+
+        Render();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
 
         Render();
     }
@@ -33,16 +41,36 @@ public class VotingShareholderView : View
     {
         if (!CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType))
         {
-            Response.text = CompanyUtils.GetDesireToSellByInvestorType(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
-            return;
+            Response.text = Visuals.Negative(CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType));
         }
-
-        var desirableCost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id) * 9 / 10;
-        bool offerIsOk = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, shareholderId).acquisitionOffer.Offer > desirableCost;
-
-        if (offerIsOk)
+        else if (isWillAcceptOffer)
+        {
             Response.text = Visuals.Positive("Will sell shares!");
+        }
         else
+        {
             Response.text = Visuals.Negative("Wants more money");
+        }
+    }
+
+    AcquisitionOfferComponent AcquisitionOffer
+    {
+        get
+        {
+            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        }
+    }
+
+    bool isWillAcceptOffer
+    {
+        get
+        {
+            var desirableCost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id) * 9 / 10;
+            var offer = AcquisitionOffer.Offer;
+
+            Debug.LogFormat("IsWillAcceptOffer {0} / {1}", Format.Money(offer), Format.Money(desirableCost));
+
+            return offer > desirableCost;
+        }
     }
 }
