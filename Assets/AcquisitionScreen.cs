@@ -16,7 +16,9 @@ public class AcquisitionScreen : View
 
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
-        ProposalStatus.text = "???";
+        var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+
+        ProposalStatus.text = progress >= 75 ? Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
 
         RenderOffer();
     }
