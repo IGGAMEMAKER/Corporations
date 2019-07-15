@@ -99,6 +99,17 @@ public partial class ProductInitializerSystem : IInitializeSystem
         PlayAs(company);
     }
 
+    void AddCash(GameEntity company, long money)
+    {
+        company.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
+    }
+    void AddCash(int companyId, long money)
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+
+        AddCash(company, money);
+    }
+
     void SetSpheresOfInfluence()
     {
         var financial = CompanyUtils.GetInvestmentFunds(GameContext);
