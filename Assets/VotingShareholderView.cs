@@ -26,11 +26,11 @@ public class VotingShareholderView : View
         Share.text = percentage + "%";
         Status.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
 
-        Response.text = "";
+        RenderResponse(investor);
     }
 
     void RenderResponse(GameEntity investor)
     {
-        
+        Response.text = CompanyUtils.GetDesireToSellByInvestorType(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
     }
 }

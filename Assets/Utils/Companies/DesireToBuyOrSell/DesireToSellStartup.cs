@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -33,16 +34,12 @@ namespace Assets.Utils
             switch (investorType)
             {
                 case InvestorType.Angel:
-                    return GetAngelExitDesire(startup, shareholderId);
-
                 case InvestorType.FFF:
-                    return GetFFFExitDesire(startup, shareholderId);
+                case InvestorType.VentureInvestor:
+                    return OnGoalCompletion(startup, investorType);
 
                 case InvestorType.StockExchange:
                     return GetStockExhangeTradeDesire(startup, shareholderId);
-
-                case InvestorType.VentureInvestor:
-                    return GetVentureInvestorExitDesire(startup, shareholderId);
 
                 case InvestorType.Founder:
                     return GetFounderExitDesire(startup, shareholderId, gameContext);
@@ -51,6 +48,7 @@ namespace Assets.Utils
                     return GetStrategicInvestorExitDesire(startup, shareholderId, gameContext);
 
                 default:
+                    Debug.Log("GetDesireToSellStartupByInvestorType. Unknown investor type " + investorType.ToString());
                     return 0;
             }
         }
@@ -61,7 +59,7 @@ namespace Assets.Utils
 
             var ambitions = founder.humanSkills.Traits[TraitType.Ambitions];
 
-            var ambition = GetFounderAmbition(ambitions);
+            var ambition = HumanUtils.GetFounderAmbition(ambitions);
 
             if (ambition == Ambition.EarnMoney)
                 return 1;
@@ -83,26 +81,12 @@ namespace Assets.Utils
             return 1;
         }
 
+
         public static long OnGoalCompletion(GameEntity startup, InvestorType investorType)
         {
             bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
 
             return goalCompleted ? 1 : 0;
-        }
-
-        public static long GetFFFExitDesire(GameEntity startup, int shareholderId)
-        {
-            return OnGoalCompletion(startup, InvestorType.FFF);
-        }
-
-        public static long GetAngelExitDesire(GameEntity startup, int shareholderId)
-        {
-            return OnGoalCompletion(startup, InvestorType.Angel);
-        }
-
-        public static long GetVentureInvestorExitDesire(GameEntity startup, int shareholderId)
-        {
-            return OnGoalCompletion(startup, InvestorType.VentureInvestor);
         }
     }
 }

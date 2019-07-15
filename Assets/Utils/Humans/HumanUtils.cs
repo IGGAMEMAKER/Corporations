@@ -3,18 +3,18 @@ using System;
 
 namespace Assets.Utils
 {
+    public enum Ambition
+    {
+        EarnMoney,
+        RuleProductCompany,
+
+        CreateUnicorn,
+        IPO,
+
+        RuleCorporation
+    }
     public static partial class HumanUtils
     {
-        public enum Ambition
-        {
-            EarnMoney,
-            RuleProductCompany,
-
-            CreateUnicorn,
-            IPO,
-
-            RuleCorporation
-        }
 
         public static GameEntity[] GetHumans(GameContext gameContext)
         {
