@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class FillAcquisitionShareholders : ListView
 {
-    public AcquisitionScreen AcquisitionScreen;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<VotingShareholderView>().SetEntity((int)(object)entity, AcquisitionScreen);
+        t.GetComponent<VotingShareholderView>().SetEntity((int)(object)entity);
     }
 
     void Render()

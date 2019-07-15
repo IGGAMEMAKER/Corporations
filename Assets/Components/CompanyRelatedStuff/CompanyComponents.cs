@@ -168,3 +168,18 @@ public class MetricsHistoryComponent : IComponent
 {
     public List<MetricsInfo> Metrics;
 }
+
+
+
+//[Game]
+//public class ParlayComponent : IComponent
+//{
+//    public 
+//}
+
+public class AcquisitionOfferComponent : IComponent
+{
+    public long Offer;
+    public int CompanyId;
+    public int BuyerId;
+}

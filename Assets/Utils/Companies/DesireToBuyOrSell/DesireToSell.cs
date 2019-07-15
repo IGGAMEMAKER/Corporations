@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Entitas;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -84,6 +86,22 @@ namespace Assets.Utils
             }
 
             return Visuals.Negative(text);
+        }
+
+        public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer).First(e => e.acquisitionOffer.CompanyId == companyId && e.acquisitionOffer.BuyerId == buyerInvestorId);
+
+            if (offer == null)
+            {
+                offer = gameContext.CreateEntity();
+
+                var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
+
+                offer.AddAcquisitionOffer(cost, companyId, buyerInvestorId);
+            }
+
+            return offer;
         }
 
         //public static string GetSellingRejectionDescriptionByInvestorType()
