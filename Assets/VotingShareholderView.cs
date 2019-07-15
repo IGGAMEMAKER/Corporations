@@ -10,9 +10,13 @@ public class VotingShareholderView : View
 
     int shareholderId;
 
-    public void SetEntity(int shareholderId)
+    AcquisitionScreen AcquisitionScreen;
+
+    public void SetEntity(int shareholderId, AcquisitionScreen acquisitionScreen)
     {
         this.shareholderId = shareholderId;
+
+        AcquisitionScreen = acquisitionScreen;
 
         Render();
     }
@@ -31,6 +35,18 @@ public class VotingShareholderView : View
 
     void RenderResponse(GameEntity investor)
     {
-        Response.text = CompanyUtils.GetDesireToSellByInvestorType(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+        if (CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType))
+        {
+            bool offerIsOk = AcquisitionScreen.offer > CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id) * 9 / 10;
+
+            if (offerIsOk)
+                Response.text = Visuals.Positive("Will sell shares!");
+            else
+                Response.text = Visuals.Negative("Wants more money");
+        }
+        else
+        {
+            Response.text = CompanyUtils.GetDesireToSellByInvestorType(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+        }
     }
 }

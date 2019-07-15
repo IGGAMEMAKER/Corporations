@@ -13,7 +13,7 @@ public class AcquisitionScreen : View
 
     public AcquisitionButtonView AcquisitionButtonView;
 
-    long offer;
+    public long offer;
 
     public override void ViewRender()
     {

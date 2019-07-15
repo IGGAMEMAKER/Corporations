@@ -43,6 +43,13 @@ namespace Assets.Utils
                 : GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext);
         }
 
+        public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
+        {
+            var desire = GetDesireToSellShares(company, gameContext, investorId, investorType);
+
+            return desire > 0;
+        }
+
         public static string GetDesireToSellByInvestorType(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
