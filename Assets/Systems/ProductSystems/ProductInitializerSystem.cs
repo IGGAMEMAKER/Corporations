@@ -66,6 +66,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         //PlayAs(vk);
         PlayAs(mailru);
+        AddCash(mailru, 100000000);
         //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
 

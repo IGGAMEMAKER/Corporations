@@ -66,12 +66,6 @@ public class VotingShareholderView : View
         get
         {
             return CompanyUtils.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
-            var desirableCost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id) * 9 / 10;
-            var offer = AcquisitionOffer.Offer;
-
-            Debug.LogFormat("IsWillAcceptOffer {0} / {1}", Format.Money(offer), Format.Money(desirableCost));
-
-            return offer > desirableCost;
         }
     }
 }

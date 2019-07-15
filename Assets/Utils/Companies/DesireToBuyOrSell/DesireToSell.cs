@@ -121,9 +121,18 @@ namespace Assets.Utils
 
             var investorType = GetInvestorById(gameContext, shareholderId).shareholder.InvestorType;
 
-            bool willAcceptOffer = ackOffer.Offer > cost * GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
+            var modifier = GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
+
+            Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
+
+            bool willAcceptOffer = ackOffer.Offer > cost * modifier;
 
             return GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext) == 1 && willAcceptOffer;
+        }
+
+        public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            return GetOfferProgress(gameContext, companyId, buyerInvestorId) > 75 - GetShareSize(gameContext, companyId, buyerInvestorId);
         }
 
         public static long GetOfferProgress(GameContext gameContext, int companyId, int buyerInvestorId)

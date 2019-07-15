@@ -18,7 +18,8 @@ public class AcquisitionScreen : View
 
         var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        ProposalStatus.text = progress >= 75 ? Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
+        ProposalStatus.text = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id) ?
+            Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
 
         RenderOffer();
     }
@@ -48,6 +49,6 @@ public class AcquisitionScreen : View
 
         Offer.text = Format.Money(offer) + overpriceText;
 
-        AcquisitionButtonView.SetAcquisitionBid(offer, offer > cost);
+        AcquisitionButtonView.SetAcquisitionBid(offer, CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id));
     }
 }
