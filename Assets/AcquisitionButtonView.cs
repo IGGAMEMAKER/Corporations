@@ -3,15 +3,12 @@ using UnityEngine.UI;
 
 public class AcquisitionButtonView : View
 {
-    public long bid;
-    bool sell;
-
     public void SetAcquisitionBid(long offer, bool willSell)
     {
-        bid = offer;
-
         bool enoughMoney = MyCompany.companyResource.Resources.money >= offer;
         GetComponent<Button>().interactable = willSell && enoughMoney;
+
+
         string text = "";
 
         if (willSell)
