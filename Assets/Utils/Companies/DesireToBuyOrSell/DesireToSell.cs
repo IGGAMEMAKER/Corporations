@@ -96,19 +96,19 @@ namespace Assets.Utils
             off.ReplaceAcquisitionOffer(newOffer, companyId, buyerInvestorId);
         }
 
-        static int HF(int key)
-        {
-          key *= key;           // возвести ключ в квадрат
-          key >>= 11;           // отбросить 11 младших бит
-            return key % 1024;     // возвратить 10 младших бит
-        }
-
         static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
         {
             var mod = ((companyId + 1) % (shareholderId + 1));
             var percent = (float) mod / (float) (companyId + 1);
 
-            return 0.9f + (3f - 0.9f) * percent;
+            var min = 0.9f;
+            var max = 3f;
+
+            var M = max - min;
+            var C = 0.61f;
+            var K = companyId + shareholderId;
+
+            return min + M * ((C * K) % 1);
 
             return 1;
             //return Mathf.Clamp(value, 0.9f, 3f);
