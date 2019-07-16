@@ -8,9 +8,6 @@ namespace Assets.Utils
         EarnMoney,
         RuleProductCompany,
 
-        CreateUnicorn,
-        IPO,
-
         RuleCorporation
     }
     public static partial class HumanUtils
@@ -133,17 +130,11 @@ namespace Assets.Utils
 
         public static Ambition GetFounderAmbition(int ambitions)
         {
-            if (ambitions < 70)
-                return Ambition.EarnMoney;
-
             if (ambitions < 75)
                 return Ambition.RuleProductCompany;
 
-            if (ambitions < 80)
-                return Ambition.IPO;
-
             if (ambitions < 85)
-                return Ambition.CreateUnicorn;
+                return Ambition.EarnMoney;
 
             return Ambition.RuleCorporation;
         }

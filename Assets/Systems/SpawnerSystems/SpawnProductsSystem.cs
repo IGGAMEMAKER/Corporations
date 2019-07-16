@@ -27,7 +27,7 @@ class SpawnProductsSystem : OnMonthChange
 
             var potentialRating = Mathf.Log10(potential) - 5;
             //                              1...5 = 25  *               1...4 = 10           
-            var spawnChance = Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
+            var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
 
             if (spawnChance > Random.Range(0, 1000))
                 CompanyUtils.AutoGenerateProductCompany(e.niche.NicheType, gameContext);

@@ -22,12 +22,6 @@ public class RenderHumanAmbitions : UpgradedParameterView
             case Ambition.RuleProductCompany:
                 return "Make innovative products";
 
-            case Ambition.CreateUnicorn:
-                return "Create Unicorn ($1B company)";
-
-            case Ambition.IPO:
-                return "Create company and make it public!";
-
             case Ambition.RuleCorporation:
                 return "Rule the corporation";
 
