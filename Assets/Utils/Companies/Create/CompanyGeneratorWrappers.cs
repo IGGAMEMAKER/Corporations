@@ -77,7 +77,11 @@ namespace Assets.Utils
         {
             var playersOnMarket = NicheUtils.GetCompetitorsAmount(n, gameContext);
 
-            return GenerateProductCompany(gameContext, n + " " + playersOnMarket, n);
+            var c = GenerateProductCompany(gameContext, n + " " + playersOnMarket, n);
+
+            AutoFillShareholders(gameContext, c, true);
+
+            return c;
         }
     }
 }

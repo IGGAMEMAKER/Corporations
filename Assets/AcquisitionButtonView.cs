@@ -17,7 +17,7 @@ public class AcquisitionButtonView : View
         if (willSell)
             text = Visuals.Positive("They will sell this company! Hurry up, they will not wait for ages!");
         else
-            text = Visuals.Negative("They will not sell this company! We need 75% of votes to safely acquire company");
+            text = Visuals.Negative("They will not sell this company! We need more votes to safely acquire company");
             //text = $"We only have {Format.Money(Balance)}";
 
         GetComponent<Hint>().SetHint(text);
