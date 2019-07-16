@@ -72,6 +72,13 @@ namespace Assets.Utils
             }
         }
 
+        public static void RemoveAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+
+            offer.Destroy();
+        }
+
         public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer)

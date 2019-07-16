@@ -11,12 +11,12 @@ public class SellingOfferView : View
     public Text Valuation;
     public Text Offer;
 
-    public Button AcceptOffer;
-    public Button RejectOffer;
+    public AcceptAcquisitionProposalController AcceptOffer;
+    public RejectAcquisitionProposalController RejectOffer;
 
     int companyId, buyerId;
 
-    void SetEntity(int companyId, int buyerId)
+    public void SetEntity(int companyId, int buyerId)
     {
         this.companyId = companyId;
         this.buyerId = buyerId;
@@ -37,6 +37,7 @@ public class SellingOfferView : View
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, companyId, buyerId);
         Offer.text = Format.Money(offer.acquisitionOffer.Offer);
 
-
+        AcceptOffer.SetData(companyId, buyerId);
+        RejectOffer.SetData(companyId, buyerId);
     }
 }

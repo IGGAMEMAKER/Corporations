@@ -136,6 +136,9 @@ namespace Assets.Utils
             if (buyerInvestorId == sellerInvestorId)
                 return;
 
+            if (amountOfShares == -1)
+                amountOfShares = GetAmountOfShares(context, companyId, sellerInvestorId);
+
             Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
             Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
             Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
