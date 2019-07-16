@@ -124,6 +124,13 @@ namespace Assets.Utils
             human.RemoveWorker();
         }
 
+        public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)
+        {
+            var human = GetHumanById(gameContext, humanId);
+
+            return GetFounderAmbition(human.humanSkills.Traits[TraitType.Ambitions]);
+        }
+
         public static Ambition GetFounderAmbition(int ambitions)
         {
             if (ambitions < 70)

@@ -29,13 +29,6 @@ namespace Assets.Utils
         }
 
 
-        public static string GetDesireToSellDescriptionByInvestorType(GameEntity company, GameContext gameContext, int investorId)
-        {
-            var investor = GetInvestorById(gameContext, investorId);
-
-            return GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType);
-        }
-
         public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
@@ -50,6 +43,13 @@ namespace Assets.Utils
             var desire = GetDesireToSellShares(company, gameContext, investorId, investorType);
 
             return desire > 0;
+        }
+
+        public static string GetDesireToSellDescriptionByInvestorType(GameEntity company, GameContext gameContext, int investorId)
+        {
+            var investor = GetInvestorById(gameContext, investorId);
+
+            return GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType);
         }
 
         public static string GetSellRejectionDescriptionByInvestorType(InvestorType investorType)

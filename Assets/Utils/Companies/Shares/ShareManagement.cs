@@ -61,6 +61,9 @@ namespace Assets.Utils
             int shares = GetAmountOfShares(context, companyId, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
 
+            if (total == 0)
+                return 0;
+
             return shares * 100 / total;
         }
 
