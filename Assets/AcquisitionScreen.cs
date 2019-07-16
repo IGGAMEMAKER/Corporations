@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
+using UnityEngine;
 
 public class AcquisitionScreen : View
 {
@@ -35,7 +36,6 @@ public class AcquisitionScreen : View
     void RenderOffer()
     {
         string overpriceText = "";
-        long overprice = 1;
 
         var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
@@ -43,8 +43,8 @@ public class AcquisitionScreen : View
 
         if (offer > cost)
         {
-            overprice = (offer * 10 / cost);
-            overpriceText = $"  ({(float)(overprice / 10)}x)";
+            var overprice = Mathf.Ceil(offer * 10 / cost);
+            overpriceText = $"  ({(overprice / 10)}x)";
         }
 
         Offer.text = Format.Money(offer) + overpriceText;

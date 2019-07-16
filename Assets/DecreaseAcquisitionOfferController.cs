@@ -6,8 +6,8 @@ public class DecreaseAcquisitionOfferController : ButtonController
     {
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var newOffer = offer.acquisitionOffer.Offer * 2 / 3;
+        var newOffer = offer.acquisitionOffer.Offer / 1.1f;
 
-        CompanyUtils.UpdateAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, newOffer);
+        CompanyUtils.UpdateAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, (long)newOffer);
     }
 }
