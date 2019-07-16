@@ -33,6 +33,7 @@ public enum ScreenMode
     ExplorationScreen = 21,
     NicheInfoScreen = 22,
     AcquisitionScreen = 23,
+    SalesScreen = 24,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -64,6 +65,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject ExplorationScreen;
     public GameObject NicheInfoScreen;
     public GameObject AcquisitionScreen;
+    public GameObject SalesScreen;
 
 
     void Start()
@@ -93,6 +95,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.ExplorationScreen] = ExplorationScreen,
             [ScreenMode.NicheInfoScreen] = NicheInfoScreen,
             [ScreenMode.AcquisitionScreen] = AcquisitionScreen,
+            [ScreenMode.SalesScreen] = SalesScreen,
         };
 
         DisableAllScreens();
@@ -137,6 +140,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.NicheInfoScreen: return "Niche details";
 
             case ScreenMode.AcquisitionScreen: return "Acquisition";
+            case ScreenMode.SalesScreen: return "Sell my shares";
 
             default: return "WUT?";
         }
