@@ -61,33 +61,5 @@ namespace Assets.Utils
                 e => e.company.CompanyType != CompanyType.FinancialGroup
             );
         }
-
-        public static void AutoFillShareholders(GameContext gameContext, GameEntity c, bool founderOnly)
-        {
-            var founder = c.cEO.HumanId;
-            var shareholder = HumanUtils.GetHumanById(gameContext, founder);
-
-            InvestmentUtils.BecomeInvestor(gameContext, shareholder, 100000);
-
-            AddShareholder(gameContext, c.company.Id, shareholder.shareholder.Id, 500);
-
-            if (founderOnly)
-                return;
-
-            for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
-            {
-                int investorId = InvestmentUtils.GetRandomInvestmentFund(gameContext);
-
-                AddShareholder(gameContext, c.company.Id, investorId, 100);
-            }
-        }
-
-        public static void AutoFillNonFilledShareholders(GameContext gameContext, bool founderOnly)
-        {
-            foreach (var c in GetNonFinancialCompaniesWithZeroShareholders(gameContext))
-            {
-                AutoFillShareholders(gameContext, c, founderOnly);
-            }
-        }
     }
 }
