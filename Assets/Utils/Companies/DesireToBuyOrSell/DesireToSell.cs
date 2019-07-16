@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -70,6 +71,30 @@ namespace Assets.Utils
                 default:
                     return investorType.ToString() + " will not sell shares";
             }
+        }
+
+        internal static List<AcquisitionOfferComponent> GetAcquisitionOffers(GameContext gameContext, int id)
+        {
+            var proposals = new List<AcquisitionOfferComponent>
+            {
+                new AcquisitionOfferComponent {
+                    CompanyId = id,
+                    BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
+                    Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, id)
+                }
+            };
+
+            foreach (var c in CompanyUtils.GetDaughterCompanies(gameContext, id))
+            {
+                proposals.Add(new AcquisitionOfferComponent
+                {
+                    CompanyId = c.company.Id,
+                    BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
+                    Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, c.company.Id)
+                });
+            }
+
+            return proposals;
         }
 
         public static void RemoveAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
