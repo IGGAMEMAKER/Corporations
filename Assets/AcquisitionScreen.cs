@@ -25,14 +25,6 @@ public class AcquisitionScreen : View
         RenderOffer();
     }
 
-    AcquisitionOfferComponent AcquisitionOffer
-    {
-        get
-        {
-            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
-        }
-    }
-
     void RenderOffer()
     {
         string overpriceText = "";
@@ -50,5 +42,13 @@ public class AcquisitionScreen : View
         Offer.text = Format.Money(offer) + overpriceText;
 
         AcquisitionButtonView.SetAcquisitionBid(offer, CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id));
+    }
+
+    AcquisitionOfferComponent AcquisitionOffer
+    {
+        get
+        {
+            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        }
     }
 }
