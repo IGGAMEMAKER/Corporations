@@ -96,6 +96,11 @@ namespace Assets.Utils
             off.ReplaceAcquisitionOffer(newOffer, companyId, buyerInvestorId);
         }
 
+        static int GetSeedValue ()
+        {
+            return System.DateTime.Now.Hour;
+        }
+
         static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
         {
             var mod = ((companyId + 1) % (shareholderId + 1));
@@ -106,7 +111,7 @@ namespace Assets.Utils
 
             var M = max - min;
             var C = 0.61f;
-            var K = companyId + shareholderId;
+            var K = companyId + shareholderId + GetSeedValue();
 
             return min + M * ((C * K) % 1);
 
