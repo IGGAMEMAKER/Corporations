@@ -4,9 +4,6 @@
     {
         public static long GetDesireToBuy(GameEntity buyer, GameEntity target, GameContext gameContext)
         {
-            if (!target.isAlive)
-                return 0;
-
             if (buyer.isManagingCompany && target.hasProduct)
                 return GetDesireToBuyStartupAsGroup(gameContext, buyer, target);
 

@@ -36,7 +36,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
     IOrderedEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
         return products
-                .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext))
+                .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext) && p.isAlive)
                 .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
     }

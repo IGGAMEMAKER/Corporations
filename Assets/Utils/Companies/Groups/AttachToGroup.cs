@@ -5,23 +5,25 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static void AttachToGroup(GameContext context, int parent, int subsidiary)
+        public static void AttachToGroup(GameContext context, int parentId, int subsidiaryId)
         {
             // TODO only possible if independent!
 
-            var p = GetCompanyById(context, parent);
+            var parent = GetCompanyById(context, parentId);
 
-            if (!IsCompanyGroupLike(p))
+
+            // we cannot attach company to product company
+            if (!IsCompanyGroupLike(parent))
                 return;
 
-            var s = GetCompanyById(context, subsidiary);
+            var daughter = GetCompanyById(context, subsidiaryId);
 
-            Debug.Log("Attach " + s.company.Name + " to " + p.company.Name);
+            Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
 
             var shareholders = new Dictionary<int, BlockOfShares>
             {
                 {
-                    p.shareholder.Id,
+                    parent.shareholder.Id,
                     new BlockOfShares
                     {
                         amount = 100,
@@ -31,12 +33,12 @@ namespace Assets.Utils
                 }
             };
 
-            if (s.hasShareholders)
-                s.ReplaceShareholders(shareholders);
+            if (daughter.hasShareholders)
+                daughter.ReplaceShareholders(shareholders);
             else
-                s.AddShareholders(shareholders);
+                daughter.AddShareholders(shareholders);
 
-            p.isIndependentCompany = false;
+            daughter.isIndependentCompany = false;
         }
 
     }
