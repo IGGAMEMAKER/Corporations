@@ -84,7 +84,7 @@ namespace Assets.Utils
                 }
             };
 
-            foreach (var c in CompanyUtils.GetDaughterCompanies(gameContext, id))
+            foreach (var c in GetDaughterCompanies(gameContext, id))
             {
                 proposals.Add(new AcquisitionOfferComponent
                 {
