@@ -47,7 +47,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var modifiers = Random.Range(10, 14);
 
-        var priority = modifiers * desireToBuy / (10 * price);
+        var priority = modifiers * desireToBuy / (10 * (price + 1));
 
         Debug.Log($"Priority of {target.company.Name} in {buyer.company.Name}'s eyes: {priority}");
 

@@ -175,6 +175,8 @@ namespace Assets.Utils
             foreach (var shareholderId in array)
                 BuyShares(gameContext, companyId, buyerInvestorId, shareholderId, shareholders[shareholderId].amount, offer, true);
 
+            RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
         }
 

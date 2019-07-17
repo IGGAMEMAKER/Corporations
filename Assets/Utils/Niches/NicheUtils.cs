@@ -190,13 +190,13 @@ namespace Assets.Utils
                 products.AddRange(companies);
             }
 
-            return products;
+            return products.FindAll(p => !CompanyUtils.IsCompanyRelatedToPlayer(context, p));
         }
 
         public static GameEntity[] GetProductsAvailableForSaleOnMarket(NicheType n, GameContext context)
         {
             return GetPlayersOnMarket(context, n)
-                .Where(p => CompanyUtils.IsWillSellCompany(p, context) && p.isAlive)
+                .Where(p => CompanyUtils.IsWillSellCompany(p, context) && p.isAlive && p.companyGoal.InvestorGoal != InvestorGoal.Prototype)
                 .ToArray();
         }
     }
