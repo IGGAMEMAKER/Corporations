@@ -141,16 +141,19 @@ namespace Assets.Utils
 
         public static void BuyBack(GameContext context, GameEntity company, int companyId, int sellerInvestorId, int amountOfShares)
         {
-            var buyerInvestorId = company.shareholder.Id;
-
             var bid = GetSharesCost(context, companyId, sellerInvestorId);
 
             Debug.Log($"Buy Back! {amountOfShares} shares of {companyId} for ${bid}");
+            var cost = new Classes.TeamResource(bid);
+
+            if (!IsEnoughResources(company, cost))
+                return;
+
             Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
 
             RemoveShareholder(company, sellerInvestorId);
 
-            GetMoneyFromInvestor(context, buyerInvestorId, -bid);
+            SpendResources(company, cost);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
@@ -164,7 +167,7 @@ namespace Assets.Utils
                 amountOfShares = GetAmountOfShares(context, companyId, sellerInvestorId);
 
             var c = GetCompanyById(context, companyId);
-            if (buyerInvestorId == c.shareholder.Id)
+            if (c.hasShareholder && buyerInvestorId == c.shareholder.Id)
             {
                 BuyBack(context, c, companyId, sellerInvestorId, amountOfShares);
                 return;
@@ -177,7 +180,7 @@ namespace Assets.Utils
             TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
 
             Debug.Log("Transferred");
-            GetMoneyFromInvestor(context, buyerInvestorId, -bid);
+            GetMoneyFromInvestor(context, buyerInvestorId, bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
