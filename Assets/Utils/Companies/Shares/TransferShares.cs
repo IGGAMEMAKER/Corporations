@@ -76,6 +76,15 @@ namespace Assets.Utils
             ReplaceShareholders(company, shareholders);
         }
 
+        public static void RemoveShareholder(GameEntity company, int shareholderId)
+        {
+            var shareholders = company.shareholders.Shareholders;
+
+            shareholders.Remove(shareholderId);
+
+            ReplaceShareholders(company, shareholders);
+        }
+
         public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
             var shareholders = company.shareholders.Shareholders;
@@ -86,16 +95,16 @@ namespace Assets.Utils
             if (amountOfShares >= prev.amount)
             {
                 // needs to be deleted
-                shareholders.Remove(investorId);
-            } else
-            {
-                shareholders[investorId] = new BlockOfShares
-                {
-                    amount = prev.amount - amountOfShares,
-                    InvestorType = prev.InvestorType,
-                    shareholderLoyalty = prev.shareholderLoyalty
-                };
+                RemoveShareholder(company, investorId);
+                return;
             }
+
+            shareholders[investorId] = new BlockOfShares
+            {
+                amount = prev.amount - amountOfShares,
+                InvestorType = prev.InvestorType,
+                shareholderLoyalty = prev.shareholderLoyalty
+            };
 
             ReplaceShareholders(company, shareholders);
         }
@@ -130,6 +139,21 @@ namespace Assets.Utils
             BuyShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
         }
 
+        public static void BuyBack(GameContext context, GameEntity company, int companyId, int sellerInvestorId, int amountOfShares)
+        {
+            var buyerInvestorId = company.shareholder.Id;
+
+            var bid = GetSharesCost(context, companyId, sellerInvestorId);
+
+            Debug.Log($"Buy Back! {amountOfShares} shares of {companyId} for ${bid}");
+            Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
+
+            RemoveShareholder(company, sellerInvestorId);
+
+            GetMoneyFromInvestor(context, buyerInvestorId, -bid);
+            AddMoneyToInvestor(context, sellerInvestorId, bid);
+        }
+
         public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
             // protecting from buying your own shares
@@ -138,6 +162,12 @@ namespace Assets.Utils
 
             if (amountOfShares == -1)
                 amountOfShares = GetAmountOfShares(context, companyId, sellerInvestorId);
+
+            var c = GetCompanyById(context, companyId);
+            if (buyerInvestorId == c.shareholder.Id)
+            {
+                BuyBack(context, c, companyId, sellerInvestorId, amountOfShares);
+            }
 
             Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
             Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
