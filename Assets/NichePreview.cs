@@ -29,9 +29,6 @@ public class NichePreview : View
     long GetMarketPotential()
     {
         return NicheUtils.GetMarketPotential(GameContext, Niche);
-        int million = 1000000;
-
-        return Random.Range(million, 2000 * million);
     }
 
     string GetFormattedMarketPotential()
