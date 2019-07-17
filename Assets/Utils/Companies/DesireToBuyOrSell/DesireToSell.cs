@@ -28,8 +28,6 @@
         {
             var desire = GetDesireToSellCompany(target, gameContext);
 
-            //Debug.Log("IsWillSellCompany: " + target.company.Name + " - " + desire + "%");
-
             return desire > 75 || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
         }
 
