@@ -48,13 +48,6 @@
             return desire > 0;
         }
 
-        public static string GetDesireToSellDescriptionByInvestorType(GameEntity company, GameContext gameContext, int investorId)
-        {
-            var investor = GetInvestorById(gameContext, investorId);
-
-            return GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType);
-        }
-
         public static string GetSellRejectionDescriptionByInvestorType(InvestorType investorType)
         {
             switch (investorType)
