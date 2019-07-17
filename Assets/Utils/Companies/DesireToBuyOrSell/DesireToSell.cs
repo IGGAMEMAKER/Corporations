@@ -76,24 +76,26 @@ namespace Assets.Utils
 
         public static bool IsCompanyRelatedToPlayer(GameContext gameContext, int companyId)
         {
-            var company = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var company = GetCompanyById(gameContext, companyId);
 
             return IsCompanyRelatedToPlayer(gameContext, company);
         }
 
         public static bool IsCompanyRelatedToPlayer(GameContext gameContext, GameEntity company)
         {
-            return company.isControlledByPlayer || CompanyUtils.IsDaughterOfCompany(CompanyUtils.GetPlayerCompany(gameContext), company);
+            var playerCompany = GetPlayerCompany(gameContext);
+
+            return company.isControlledByPlayer || IsDaughterOfCompany(playerCompany, company);
         }
 
 
-        static GameEntity[] GetAcquisitionOffersOfInvestor(GameContext gameContext, int shareholderId)
-        {
-            return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AcquisitionOffer),
-                o => IsInvestsInCompany(gameContext, o.acquisitionOffer.CompanyId, shareholderId)
-                );
-        }
+        //static GameEntity[] GetAcquisitionOffersOfInvestor(GameContext gameContext, int shareholderId)
+        //{
+        //    return Array.FindAll(
+        //        gameContext.GetEntities(GameMatcher.AcquisitionOffer),
+        //        o => IsInvestsInCompany(gameContext, o.acquisitionOffer.CompanyId, shareholderId)
+        //        );
+        //}
 
         public static GameEntity[] GetAcquisitionOffersToPlayer(GameContext gameContext)
         {
@@ -103,39 +105,39 @@ namespace Assets.Utils
                 );
         }
 
-        internal static List<AcquisitionOfferComponent> GetAcquisitionOffers(GameContext gameContext, int companyId)
-        {
-            var offers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
+        //internal static List<AcquisitionOfferComponent> GetAcquisitionOffers(GameContext gameContext, int companyId)
+        //{
+        //    var offers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
 
-            if (offers.Count() > 0)
-            {
-                return offers
-                    .Select(o => o.acquisitionOffer)
-                    //.Where(o => GetCompanyById()
-                    .ToList();
-            }
+        //    if (offers.Count() > 0)
+        //    {
+        //        return offers
+        //            .Select(o => o.acquisitionOffer)
+        //            //.Where(o => GetCompanyById()
+        //            .ToList();
+        //    }
 
-            var proposals = new List<AcquisitionOfferComponent>
-            {
-                new AcquisitionOfferComponent {
-                    CompanyId = companyId,
-                    BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
-                    Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId)
-                }
-            };
+        //    var proposals = new List<AcquisitionOfferComponent>
+        //    {
+        //        new AcquisitionOfferComponent {
+        //            CompanyId = companyId,
+        //            BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
+        //            Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId)
+        //        }
+        //    };
 
-            foreach (var c in GetDaughterCompanies(gameContext, companyId))
-            {
-                proposals.Add(new AcquisitionOfferComponent
-                {
-                    CompanyId = c.company.Id,
-                    BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
-                    Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, c.company.Id)
-                });
-            }
+        //    foreach (var c in GetDaughterCompanies(gameContext, companyId))
+        //    {
+        //        proposals.Add(new AcquisitionOfferComponent
+        //        {
+        //            CompanyId = c.company.Id,
+        //            BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
+        //            Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, c.company.Id)
+        //        });
+        //    }
 
-            return proposals;
-        }
+        //    return proposals;
+        //}
 
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
