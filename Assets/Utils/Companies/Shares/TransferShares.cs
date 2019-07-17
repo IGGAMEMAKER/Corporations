@@ -167,6 +167,7 @@ namespace Assets.Utils
             if (buyerInvestorId == c.shareholder.Id)
             {
                 BuyBack(context, c, companyId, sellerInvestorId, amountOfShares);
+                return;
             }
 
             Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
