@@ -7,6 +7,7 @@ public class FillInterruptList : View
     public GameObject CanHireEmployee;
     public GameObject CanCompleteGoal;
     public GameObject CanSellCompany;
+    public GameObject CanBuyCompany;
 
     public GameObject InvestorLoyaltyWarning;
     public GameObject TeamLoyaltyWarning;
@@ -23,6 +24,7 @@ public class FillInterruptList : View
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
         bool isCanSellCompany = CheckAcquisitionOffers();
+        bool isCanBuyCompany = CheckAcquisitionCandidates();
 
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
         CanCompleteGoal.SetActive(isCanCompleteGoal);
@@ -37,11 +39,17 @@ public class FillInterruptList : View
         TeamLoyaltyThreat.SetActive(isNeedsInterrupt);
 
         CanSellCompany.SetActive(isCanSellCompany);
+        CanBuyCompany.SetActive(isCanBuyCompany);
     }
 
     bool CheckAcquisitionOffers()
     {
         return CompanyUtils.GetAcquisitionOffersToPlayer(GameContext).Length > 0;
+    }
+
+    bool CheckAcquisitionCandidates()
+    {
+        return NicheUtils.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext).Count > 0;
     }
 
     bool CheckGoal()

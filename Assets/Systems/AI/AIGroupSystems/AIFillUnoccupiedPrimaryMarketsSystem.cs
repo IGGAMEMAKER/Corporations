@@ -15,7 +15,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void OccupyNiche(NicheType n, GameEntity managingCompany)
     {
-        var products = NicheUtils.GetPlayersOnMarket(gameContext, n).ToArray();
+        var products = NicheUtils.GetProductsAvailableForSaleOnMarket(n, gameContext);
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
@@ -36,7 +36,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
     IOrderedEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
         return products
-                .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext) && p.isAlive)
                 .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 .OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
     }

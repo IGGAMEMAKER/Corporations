@@ -174,5 +174,30 @@ namespace Assets.Utils
         {
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
+
+
+
+        public static List<GameEntity> GetProductsAvailableForSaleInSphereOfInfluence(GameEntity managingCompany, GameContext context)
+        {
+            List<GameEntity> products = new List<GameEntity>();
+
+            var niches = managingCompany.companyFocus.Niches;
+
+            foreach (var n in niches)
+            {
+                var companies = GetProductsAvailableForSaleOnMarket(n, context);
+
+                products.AddRange(companies);
+            }
+
+            return products;
+        }
+
+        public static GameEntity[] GetProductsAvailableForSaleOnMarket(NicheType n, GameContext context)
+        {
+            return GetPlayersOnMarket(context, n)
+                .Where(p => CompanyUtils.IsWillSellCompany(p, context) && p.isAlive)
+                .ToArray();
+        }
     }
 }
