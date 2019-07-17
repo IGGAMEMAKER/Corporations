@@ -22,6 +22,7 @@ public struct BlockOfShares
 }
 
 public class AliveComponent : IComponent { }
+public class OnSalesComponent : IComponent { }
 
 // is attached to CompanyComponent
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]

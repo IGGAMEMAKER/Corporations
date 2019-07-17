@@ -22,7 +22,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
         Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
-            BuyCompany(managingCompany, candidates.First());
+            SendAcquisitionOffer(managingCompany, candidates.First(), gameContext);
+            //BuyCompany(managingCompany, candidates.First());
     }
 
     IEnumerable<NicheType> GetUnoccupiedNiches(GameEntity managingCompany)
@@ -48,6 +49,21 @@ public partial class AIManageGroupSystems : OnQuarterChange
         var modifiers = Random.Range(1f, 1.4f);
 
         return modifiers * desireToBuy / price;
+    }
+
+    void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)
+    {
+        var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
+
+        CompanyUtils.AddAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
+
+        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
+            return;
+
+        // Accept offer
+        BuyCompany(buyer, target);
+
+        CompanyUtils.RemoveAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id);
     }
 
     void BuyCompany(GameEntity managingCompany, GameEntity candidate)

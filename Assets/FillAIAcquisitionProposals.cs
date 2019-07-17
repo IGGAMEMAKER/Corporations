@@ -14,9 +14,9 @@ public class FillAIAcquisitionProposals : ListView
 
     void Render()
     {
-        var proposals = CompanyUtils.GetAcquisitionOffers(GameContext, MyCompany.company.Id);
+        var proposals = CompanyUtils.GetAcquisitionOffersToPlayer(GameContext);
 
-        SetItems(proposals.ToArray());
+        SetItems(proposals);
     }
 
     public override void ViewRender()

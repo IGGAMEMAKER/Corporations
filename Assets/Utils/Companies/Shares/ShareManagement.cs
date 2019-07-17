@@ -48,6 +48,11 @@ namespace Assets.Utils
             return IsInvestsInCompany(c, investorId) ? shareholders[investorId].amount : 0;
         }
 
+        public static bool IsInvestsInCompany(GameContext gameContext, int companyId, int investorId)
+        {
+            return IsInvestsInCompany(GetCompanyById(gameContext, companyId), investorId);
+        }
+
         public static bool IsInvestsInCompany(GameEntity company, int investorId)
         {
             return InvestmentUtils.IsInvestsInCompany(investorId, company);
