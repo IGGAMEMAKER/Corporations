@@ -45,11 +45,6 @@ namespace Assets.Utils
             return desire > 75 || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
         }
 
-        public static bool IsWillBuyCompany(GameEntity buyer, GameEntity target, GameContext gameContext)
-        {
-            return GetDesireToBuy(buyer, target, gameContext) > 0;
-        }
-
 
         public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {

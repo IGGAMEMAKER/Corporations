@@ -10,6 +10,11 @@
             return 0;
         }
 
+        public static bool IsWillBuyCompany(GameEntity buyer, GameEntity target, GameContext gameContext)
+        {
+            return GetDesireToBuy(buyer, target, gameContext) > 0;
+        }
+
         public static long GetStartupAttractiveness(GameContext gameContext, GameEntity startup)
         {
             long score = 0;
