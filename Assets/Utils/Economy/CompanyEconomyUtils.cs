@@ -38,7 +38,7 @@
         {
             var target = CompanyUtils.GetCompanyById(context, companyId);
 
-            var desireToSell = CompanyUtils.GetDesireToSell(target, context);
+            var desireToSell = CompanyUtils.GetDesireToSellCompany(target, context);
 
             return GetCompanyCost(context, companyId) * desireToSell;
         }

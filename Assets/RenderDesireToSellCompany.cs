@@ -17,7 +17,7 @@ public class RenderDesireToSellCompany : UpgradedParameterView
     {
         get
         {
-            return CompanyUtils.GetDesireToSell(SelectedCompany, GameContext);
+            return CompanyUtils.GetDesireToSellCompany(SelectedCompany, GameContext);
         }
     }
 
