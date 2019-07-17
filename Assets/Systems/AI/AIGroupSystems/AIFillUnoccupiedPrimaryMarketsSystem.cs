@@ -7,7 +7,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
-        Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
+        //Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
         
         foreach (var n in GetUnoccupiedNiches(managingCompany))
             OccupyNiche(n, managingCompany);
@@ -38,17 +38,21 @@ public partial class AIManageGroupSystems : OnQuarterChange
         return products
                 .Where(p => CompanyUtils.IsWillSellCompany(p, gameContext) && p.isAlive)
                 .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
-                .OrderByDescending(p => GetCompanySellingPriority(managingCompany, p, gameContext));
+                .OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
     }
 
-    float GetCompanySellingPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
+    long GetCompanyAcquisitionPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
         var price = CompanyEconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id);
         var desireToBuy = CompanyUtils.GetDesireToBuy(buyer, target, gameContext);
 
-        var modifiers = Random.Range(1f, 1.4f);
+        var modifiers = Random.Range(10, 14);
 
-        return modifiers * desireToBuy / price;
+        var priority = modifiers * desireToBuy / (10 * price);
+
+        Debug.Log($"Priority of {target.company.Name} in {buyer.company.Name}'s eyes: {priority}");
+
+        return priority;
     }
 
     void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)

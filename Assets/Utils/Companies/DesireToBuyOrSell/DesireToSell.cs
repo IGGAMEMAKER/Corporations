@@ -1,6 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,19 +9,40 @@ namespace Assets.Utils
     {
         public static long GetDesireToSell(GameEntity company, GameContext gameContext)
         {
-            if (company.hasProduct)
-                return GetDesireToSellStartup(company, gameContext);
-            else
-                return GetDesireToSellGroup(company, gameContext);
+            return GetDesireToSellCompany(company, gameContext);
         }
+
+        public static long GetDesireToSellCompany(GameEntity company, GameContext gameContext)
+        {
+            var shareholders = company.shareholders.Shareholders;
+
+            long blocks = 0;
+            long desireToSell = 0;
+
+            foreach (var s in shareholders)
+            {
+                var invId = s.Key;
+                var block = s.Value;
+
+                desireToSell += GetDesireToSellShares(company, gameContext, invId, block.InvestorType) * block.amount;
+                blocks += block.amount;
+            }
+
+            if (blocks == 0)
+                return 0;
+
+            return desireToSell * 100 / blocks;
+        }
+
+
 
         public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
         {
             var desire = GetDesireToSell(target, gameContext);
 
-            Debug.Log("IsWillSellCompany: " + target.company.Name + " - " + desire + "%");
+            //Debug.Log("IsWillSellCompany: " + target.company.Name + " - " + desire + "%");
 
-            return desire > 75 || target.isOnSales;
+            return desire > 75 || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
         }
 
         public static bool IsWillBuyCompany(GameEntity buyer, GameEntity target, GameContext gameContext)
@@ -217,8 +237,9 @@ namespace Assets.Utils
             Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
             bool willAcceptOffer = ackOffer.Offer > cost * modifier;
-
-            return GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext) == 1 && willAcceptOffer;
+            
+            //return GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext) == 1 && willAcceptOffer;
+            return GetDesireToSellShares(company, gameContext, shareholderId, investorType) == 1 && willAcceptOffer;
         }
 
         public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)

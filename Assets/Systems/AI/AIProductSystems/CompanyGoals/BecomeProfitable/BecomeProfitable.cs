@@ -43,8 +43,6 @@ public partial class AIProductSystems : OnDateChange
         var balance = company.companyResource.Resources.money;
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, company.company.Id);
 
-
-
         foreach (var s in company.shareholders.Shareholders)
         {
 

@@ -7,28 +7,6 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static long GetDesireToSellStartup(GameEntity startup, GameContext gameContext)
-        {
-            var shareholders = startup.shareholders.Shareholders;
-
-            long blocks = 0;
-            long desireToSell = 0;
-
-            foreach (var s in shareholders)
-            {
-                var invId = s.Key;
-                var block = s.Value;
-
-                desireToSell += GetDesireToSellStartupByInvestorType(startup, block.InvestorType, invId, gameContext) * block.amount;
-                blocks += block.amount;
-            }
-
-            if (blocks == 0)
-                return 0;
-
-            return desireToSell * 100 / blocks;
-        }
-
         public static long GetDesireToSellStartupByInvestorType(GameEntity startup, InvestorType investorType, int shareholderId, GameContext gameContext)
         {
             switch (investorType)
