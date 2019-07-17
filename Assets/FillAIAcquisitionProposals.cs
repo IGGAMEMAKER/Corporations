@@ -7,7 +7,7 @@ public class FillAIAcquisitionProposals : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        var offer = entity as AcquisitionOfferComponent;
+        var offer = (entity as GameEntity).acquisitionOffer;
 
         t.GetComponent<SellingOfferView>().SetEntity(offer.CompanyId, offer.BuyerId);
     }
