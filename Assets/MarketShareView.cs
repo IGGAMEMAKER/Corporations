@@ -37,6 +37,9 @@ public class MarketShareView : View
 
 
         var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
+
+
+
         var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
         if (MarketImportance != null)

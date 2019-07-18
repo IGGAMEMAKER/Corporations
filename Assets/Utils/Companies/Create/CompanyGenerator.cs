@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         public static GameEntity CreateProduct(GameContext context, GameEntity company, NicheType niche)
         {
-            var GOAL = InvestorGoal.Prototype;
+            var GOAL = InvestorGoal.Operationing;
 
             // product specific components
             company.AddProduct(company.company.Id, niche, UnityEngine.Random.Range(0, 6));

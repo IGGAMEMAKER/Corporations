@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class MapNavigation : MonoBehaviour, IScrollHandler
 {
     public float Limit = 550f;
+    public float Sensitivity = 750f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;
 
-        float mul = Time.deltaTime * 750f;
+        float mul = Time.deltaTime * Sensitivity;
 
         float minOffset = 15f;
 
