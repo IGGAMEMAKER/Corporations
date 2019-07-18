@@ -6,6 +6,6 @@
     {
         base.ViewRender();
 
-        CompanyPreviewView.SetEntity(MyGroupEntity);
+        //CompanyPreviewView.SetEntity(MyCompany);
     }
 }
