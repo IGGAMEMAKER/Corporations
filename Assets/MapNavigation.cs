@@ -12,6 +12,8 @@ public class MapNavigation : MonoBehaviour
     float X;
     float Y;
 
+    public float Zoom = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +34,25 @@ public class MapNavigation : MonoBehaviour
         var scrollAxis = "Vertical";
         //var scrollAxis = "Mouse Y";
 
-        var scroll = Input.GetAxis(scrollAxis);
+        //var scroll = Input.GetAxis(scrollAxis);
+        var scroll = Input.mouseScrollDelta.y;
 
         if (scroll != 0)
-            transform.localScale = new Vector3(1, 1, scroll);
+        {
+            Zoom = Mathf.Clamp(Zoom + scroll / 10, 0.5f, 5f);
+            //transform.localScale = new Vector3(Zoom, Zoom, 1);
+
+            RedrawMap();
+        }
         //transform.Translate(Vector3.forward * Input.GetAxis("Mouse ScrollWheel"));
+    }
+
+    MarketMapRenderer map;
+    void RedrawMap()
+    {
+        if (map == null)
+            map = GetComponent<MarketMapRenderer>();
+        map.ViewRender();
     }
 
     void CheckMouseMovement()
