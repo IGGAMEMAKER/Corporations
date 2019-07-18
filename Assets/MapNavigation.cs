@@ -8,6 +8,9 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
     public float Limit = 550f;
     public float Sensitivity = 750f;
 
+    float X;
+    float Y;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +53,8 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
 
         if (mouseY > Screen.height - minOffset)
             MoveUp(mul);
+
+        transform.position = new Vector3(X, Y);
     }
 
 
@@ -57,25 +62,25 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
     void MoveRight(float mul)
     {
         if (transform.position.x < Limit)
-            transform.position += Vector3.right * mul;
+            X += mul;
     }
 
     void MoveLeft(float mul)
     {
         if (transform.position.x > -Limit)
-            transform.position += Vector3.left * mul;
+            X -= mul;
     }
 
     void MoveUp(float mul)
     {
         if (transform.position.y > -Limit)
-            transform.position += Vector3.down * mul;
+            Y -= mul;
     }
 
     void MoveDown(float mul)
     {
         if (transform.position.y < Limit)
-            transform.position += Vector3.up * mul;
+            Y += mul;
     }
 
     void IScrollHandler.OnScroll(PointerEventData eventData)
