@@ -80,13 +80,10 @@ public class MarketMapRenderer : View
 
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
     {
-        m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
-
         var scale = GetMarketScale(niche);
-
         m.transform.localScale = new Vector3(scale, scale, scale);
 
-        m.GetComponent<MarketShareView>().SetEntity(niche);
+        m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
     }
 
     void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
@@ -96,5 +93,7 @@ public class MarketMapRenderer : View
         GameObject m = GetMarketObject(niche);
 
         UpdateMarketPosition(m, index, marketCount, basePosition, niche);
+
+        m.GetComponent<MarketShareView>().SetEntity(niche);
     }
 }
