@@ -17,6 +17,11 @@ namespace Assets.Utils
             return GetNicheEntity(gameContext, nicheType).nicheState.Phase;
         }
 
+        public static GameEntity[] GetIndustries(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Industry);
+        }
+
         public static GameEntity[] GetNiches(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Niche);
