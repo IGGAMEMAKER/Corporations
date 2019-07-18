@@ -44,7 +44,7 @@ public class MarketShareView : View
 
         string text = $"Total market size is: {Format.Money(marketSize)}" +
             $"\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}" +
-            $"\n\nThis market is <color={phaseColor}>{phase}</color>";
+            $"\n\nThis market is {phase}";
         Hint.SetHint(text);
     }
 }

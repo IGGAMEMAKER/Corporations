@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MapNavigation : MonoBehaviour
+public class MapNavigation : MonoBehaviour, IScrollHandler
 {
+    public float Limit = 550f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,18 @@ public class MapNavigation : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        CheckMouseMovement();
+
+        CheckZoom();
+    }
+
+    void CheckZoom()
+    {
+        
+    }
+
+    void CheckMouseMovement()
     {
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;
@@ -37,23 +51,34 @@ public class MapNavigation : MonoBehaviour
             MoveUp(mul);
     }
 
+
+
     void MoveRight(float mul)
     {
-        transform.position += Vector3.right * mul;
+        if (transform.position.x < Limit)
+            transform.position += Vector3.right * mul;
     }
 
     void MoveLeft(float mul)
     {
-        transform.position += Vector3.left * mul;
+        if (transform.position.x > -Limit)
+            transform.position += Vector3.left * mul;
     }
 
     void MoveUp(float mul)
     {
-        transform.position += Vector3.up * mul;
+        if (transform.position.y > -Limit)
+            transform.position += Vector3.down * mul;
     }
 
     void MoveDown(float mul)
     {
-        transform.position += Vector3.down * mul;
+        if (transform.position.y < Limit)
+            transform.position += Vector3.up * mul;
+    }
+
+    void IScrollHandler.OnScroll(PointerEventData eventData)
+    {
+        Debug.Log("Is scrolling");
     }
 }
