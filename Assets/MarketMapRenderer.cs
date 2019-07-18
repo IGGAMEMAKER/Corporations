@@ -10,8 +10,8 @@ public class MarketMapRenderer : View
     public GameObject NichePrefab;
     public GameObject IndustryPrefab;
 
-    public float IndustrialRadius = 250f;
-    public float NicheRadius = 125f;
+    public float IndustrialRadius = 250f * 1.75f;
+    public float NicheRadius = 125f * 2.5f;
 
     public Vector3 BaseOffset = new Vector3(0, 0, 0);
 
@@ -58,27 +58,32 @@ public class MarketMapRenderer : View
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
+    float GetMarketScale(NicheType niche)
     {
-        var niche = market.niche.NicheType;
-
-        GameObject m;
-
-        if (!niches.ContainsKey(niche)) 
-            niches[niche] = Instantiate(NichePrefab, transform, true);
-
-        m = niches[niche];
-
-        m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
-
         var marketSize = NicheUtils.GetMarketSize(GameContext, niche);
 
         if (marketSize < 0)
             marketSize = 1000;
 
-        Debug.Log("RenderMarket " + niche.ToString());
+        //Debug.Log("RenderMarket " + niche.ToString());
 
-        var scale = Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
+        return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
+    }
+
+    void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
+    {
+        var niche = market.niche.NicheType;
+
+        if (!niches.ContainsKey(niche)) 
+            niches[niche] = Instantiate(NichePrefab, transform, true);
+
+        GameObject m = niches[niche];
+
+
+
+        m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
+
+        var scale = GetMarketScale(niche);
 
         m.transform.localScale = new Vector3(scale, scale, scale);
 
