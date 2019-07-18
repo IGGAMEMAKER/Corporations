@@ -65,7 +65,7 @@ public class MarketMapRenderer : View
     {
         var angle = index * Mathf.PI * 2 / length;
 
-        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * Zoom;
+        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * Zoom * Zoom;
     }
 
     float GetMarketScale(NicheType niche)
