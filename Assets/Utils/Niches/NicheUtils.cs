@@ -106,6 +106,14 @@ namespace Assets.Utils
             }
         }
 
+        internal static long GetMarketSize(GameContext gameContext, NicheType nicheType)
+        {
+            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
+
+            return products.Select(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id)).Sum();
+            //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
+        }
+
         public static long GetMarketPotential(GameContext gameContext, NicheType nicheType)
         {
             return GetMarketPotential(GetNicheEntity(gameContext, nicheType));

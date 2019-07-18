@@ -36,7 +36,7 @@ public class MarketShareView : View
         LinkToNiche.SetNiche(nicheType);
 
 
-        var marketSize = CompanyUtils.GetMarketSize(GameContext, nicheType);
+        var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
         var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
         if (MarketImportance != null)
@@ -44,7 +44,7 @@ public class MarketShareView : View
 
         string text = $"Total market size is: {Format.Money(marketSize)}" +
             $"\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}" +
-            $"\n\nThis market is {phase}";
+            $"\n\nMarket phase: {phase}";
         Hint.SetHint(text);
     }
 }

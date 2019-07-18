@@ -71,7 +71,9 @@ public class MarketMapRenderer : View
 
         m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
 
-        var scale = 1;
+        var marketSize = NicheUtils.GetMarketSize(GameContext, niche);
+        var scale = Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
+
         m.transform.localScale = new Vector3(scale, scale, scale);
 
         m.GetComponent<MarketShareView>().SetEntity(niche);

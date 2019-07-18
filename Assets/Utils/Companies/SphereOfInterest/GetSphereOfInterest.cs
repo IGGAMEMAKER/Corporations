@@ -95,16 +95,10 @@ namespace Assets.Utils
         
         internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
         {
-            return GetMarketSize(gameContext, n) * GetGroupMarketControl(company, n, gameContext) / 100;
+            return NicheUtils.GetMarketSize(gameContext, n) * GetGroupMarketControl(company, n, gameContext) / 100;
         }
 
-        internal static long GetMarketSize(GameContext gameContext, NicheType nicheType)
-        {
-            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
 
-            return products.Select(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id)).Sum();
-            //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
-        }
 
         internal static long GetGroupMarketControl(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
