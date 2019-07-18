@@ -10,8 +10,10 @@ public class MarketMapRenderer : View
     public GameObject NichePrefab;
     public GameObject IndustryPrefab;
 
-    public float IndustrialRadius = 500f;
-    public float NicheRadius = 250f;
+    public float IndustrialRadius = 250f;
+    public float NicheRadius = 125f;
+
+    public Vector3 BaseOffset = new Vector3(0, 0, 0);
 
     public override void ViewRender()
     //public void Start()
@@ -38,12 +40,14 @@ public class MarketMapRenderer : View
     {
         var markets = NicheUtils.GetNichesInIndustry(ind.industry.IndustryType, GameContext);
 
+        
+
         //var industry = Instantiate(IndustryPrefab, transform, true);
         var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius);
 
         for (var i = 0; i < markets.Length; i++)
         {
-            RenderMarket(markets[i], i, markets.Length, baseForIndustry);
+            RenderMarket(markets[i], i, markets.Length, baseForIndustry + BaseOffset);
         }
     }
 
