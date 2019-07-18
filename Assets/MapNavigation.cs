@@ -51,6 +51,7 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
         if (mouseY < minOffset)
             MoveDown(mul);
 
+        // bottom
         if (mouseY > Screen.height - minOffset)
             MoveUp(mul);
 
