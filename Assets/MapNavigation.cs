@@ -40,6 +40,12 @@ public class MapNavigation : MonoBehaviour
         if (scroll != 0)
         {
             Zoom = Mathf.Clamp(Zoom + scroll / 10, 0.5f, 5f);
+
+            float mouseX = Input.mousePosition.x;
+            float mouseY = Input.mousePosition.y;
+
+            X = (mouseX / Screen.width) / Zoom;
+            Y = (mouseY / Screen.height) / Zoom;
             //transform.localScale = new Vector3(Zoom, Zoom, 1);
 
             RedrawMap();
