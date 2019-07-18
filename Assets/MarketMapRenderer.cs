@@ -39,10 +39,7 @@ public class MarketMapRenderer : View
     private void RenderIndustry(GameEntity ind, int j, int industriesCount)
     {
         var markets = NicheUtils.GetNichesInIndustry(ind.industry.IndustryType, GameContext);
-
         
-
-        //var industry = Instantiate(IndustryPrefab, transform, true);
         var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius);
 
         for (var i = 0; i < markets.Length; i++)
