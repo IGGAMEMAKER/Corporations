@@ -28,7 +28,8 @@ public class MapNavigation : MonoBehaviour
 
     void CheckZoom()
     {
-        var scrollAxis = "Mouse ScrollWheel";
+        //var scrollAxis = "Mouse ScrollWheel";
+        var scrollAxis = "Vertical";
         //var scrollAxis = "Mouse Y";
 
         var scroll = Input.GetAxis(scrollAxis);
