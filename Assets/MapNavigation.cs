@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MapNavigation : MonoBehaviour, IScrollHandler
+public class MapNavigation : MonoBehaviour
+    //, IScrollHandler
 {
     public float Limit = 550f;
     public float Sensitivity = 750f;
@@ -27,7 +28,7 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
 
     void CheckZoom()
     {
-        
+        transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel"), Space.Self);
     }
 
     void CheckMouseMovement()
@@ -84,8 +85,8 @@ public class MapNavigation : MonoBehaviour, IScrollHandler
             Y += mul;
     }
 
-    void IScrollHandler.OnScroll(PointerEventData eventData)
-    {
-        Debug.Log("Is scrolling");
-    }
+    //void IScrollHandler.OnScroll(PointerEventData eventData)
+    //{
+    //    Debug.Log("Is scrolling");
+    //}
 }
