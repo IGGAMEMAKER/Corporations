@@ -65,8 +65,6 @@ public class MarketMapRenderer : View
         if (marketSize < 0)
             marketSize = 1000;
 
-        //Debug.Log("RenderMarket " + niche.ToString());
-
         return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
     }
 
