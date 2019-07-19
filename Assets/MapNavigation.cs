@@ -37,7 +37,7 @@ public class MapNavigation : View
 
     void UpdateCanvasPosition()
     {
-        var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2 + Map.CompanyRadius * 2) * 1.4f;
+        var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2 + Map.CompanyRadius * 2);
         //var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
         //var mapSizeY = Screen.height;
 
@@ -83,9 +83,9 @@ public class MapNavigation : View
 
         Zoom = Mathf.Clamp(Zoom + deltaScroll, 1f, 5f);
 
-        //// if zoom out, don't move map
-        //if (scroll < 0)
-        //    return;
+        // if zoom out, don't move map
+        if (scroll < 0)
+            return;
 
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
