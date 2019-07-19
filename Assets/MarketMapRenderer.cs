@@ -1,15 +1,20 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MarketMapRenderer : View
 {
     Dictionary<NicheType, GameObject> niches = new Dictionary<NicheType, GameObject>();
+    Dictionary<int, GameObject> companies = new Dictionary<int, GameObject>();
+
     public GameObject NichePrefab;
     public GameObject IndustryPrefab;
+    public GameObject CompanyPrefab;
 
-    public float IndustrialRadius = 250f * 1.75f;
+    public float IndustrialRadius = 350f * 1.75f;
     public float NicheRadius = 125f * 2.5f;
+    public float CompanyRadius = 50f * 2.5f;
 
     public Vector3 BaseOffset = new Vector3(425, 250, 0);
 
@@ -67,13 +72,28 @@ public class MarketMapRenderer : View
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    void RenderMarket(NicheType niche, int index, int marketCount, Vector3 basePosition)
+    void RenderMarket(NicheType niche, int index, int marketCount, Vector3 industryPosition)
     {
         GameObject m = GetMarketObject(niche);
 
-        UpdateMarketPosition(m, index, marketCount, basePosition, niche);
+        UpdateMarketPosition(m, index, marketCount, industryPosition, niche);
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
+
+        var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche, true);
+
+        var count = competitors.Count();
+        for (var i = 0; i < count; i++)
+            RenderCompany(competitors[i], i, count, m.transform.localPosition);
+    }
+
+
+
+    void RenderCompany(GameEntity company, int index, int amount, Vector3 marketPosition)
+    {
+        GameObject c = GetCompanyObject(company.company.Id);
+
+        UpdateCompanyPosition(c, index, amount, marketPosition);
     }
 
     GameObject GetMarketObject(NicheType niche)
@@ -82,6 +102,14 @@ public class MarketMapRenderer : View
             niches[niche] = Instantiate(NichePrefab, transform);
 
         return niches[niche];
+    }
+
+    GameObject GetCompanyObject(int companyId)
+    {
+        if (!companies.ContainsKey(companyId))
+            companies[companyId] = Instantiate(NichePrefab, transform);
+
+        return companies[companyId];
     }
 
     float GetMarketScale(NicheType niche)
@@ -100,5 +128,13 @@ public class MarketMapRenderer : View
 
         m.transform.localScale = new Vector3(scale, scale, 1);
         m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
+    }
+
+    void UpdateCompanyPosition(GameObject m, int index, int count, Vector3 basePosition)
+    {
+        var scale = 1; // GetMarketScale(niche);
+
+        m.transform.localScale = new Vector3(scale, scale, 1);
+        m.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius) + basePosition;
     }
 }
