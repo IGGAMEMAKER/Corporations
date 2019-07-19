@@ -68,6 +68,8 @@ public class MarketMapRenderer : View
 
         UpdateIndustryPosition(o, j, industriesCount, baseMapOffset);
 
+        o.GetComponent<IndustryViewOnMap>().SetEntity(IndustryType);
+
         for (var i = 0; i < markets.Length; i++)
             RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry);
             //RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry + BaseOffset);
