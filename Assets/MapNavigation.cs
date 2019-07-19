@@ -37,9 +37,12 @@ public class MapNavigation : View
 
     void UpdateCanvasPosition()
     {
-        //var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2) * Zoom;
-        var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
-        var mapSizeY = Screen.height;
+        var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2 + Map.CompanyRadius * 2) * 1.4f;
+        //var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
+        //var mapSizeY = Screen.height;
+
+        var mapSizeX = Mathf.Max(Screen.width, mapSize * 0);
+        var mapSizeY = Mathf.Max(Screen.height, mapSize * 0);
 
         var ZoomOffsetX = mapSizeX * Zoom - Screen.width;
         var ZoomOffsetY = mapSizeY * Zoom - Screen.height;
@@ -51,17 +54,17 @@ public class MapNavigation : View
         transform.localScale = new Vector3(Zoom, Zoom, 1);
     }
 
-    private void OnGUI()
-    {
-        float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y; // - Constants.GAMEPLAY_OFFSET_Y;
+    //private void OnGUI()
+    //{
+    //    float mouseX = Input.mousePosition.x;
+    //    float mouseY = Input.mousePosition.y; // - Constants.GAMEPLAY_OFFSET_Y;
 
-        var deltaX = (mouseX - Screen.width / 2);
-        var deltaY = (mouseY - Screen.height / 2);
+    //    var deltaX = (mouseX - Screen.width / 2);
+    //    var deltaY = (mouseY - Screen.height / 2);
 
-        //GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"X = {X},  Y = {Y}");
-        GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"dX = {deltaX}, dY = {deltaY}");
-    }
+    //    //GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"X = {X},  Y = {Y}");
+    //    GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"dX = {deltaX}, dY = {deltaY}");
+    //}
 
     void CheckZoom()
     {
@@ -85,8 +88,8 @@ public class MapNavigation : View
         var deltaX = (mouseX - Screen.width / 2);
         var deltaY = (mouseY - Screen.height / 2);
 
-        X += -deltaX * modifier;
-        Y += -deltaY * modifier;
+        X += -deltaX * modifier * Mathf.Sign(scroll);
+        Y += -deltaY * modifier * Mathf.Sign(scroll);
     }
 
     MarketMapRenderer MarketMapRenderer;
