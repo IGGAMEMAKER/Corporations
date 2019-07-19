@@ -14,13 +14,6 @@ public class MapNavigation : MonoBehaviour
 
     public float Zoom = 1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         CheckMouseMovement();
@@ -44,8 +37,8 @@ public class MapNavigation : MonoBehaviour
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
 
-            X += (mouseX - Screen.width / 2) * Zoom;
-            Y += (mouseY - Screen.height / 2) * Zoom;
+            X += -(mouseX - Screen.width / 2) * Zoom;
+            Y += -(mouseY - Screen.height / 2) * Zoom;
             //transform.localScale = new Vector3(Zoom, Zoom, 1);
 
             RedrawMap();
@@ -96,30 +89,21 @@ public class MapNavigation : MonoBehaviour
 
     void MoveRight(float mul)
     {
-        if (transform.position.x < Limit)
-            X += mul;
+        X += mul;
     }
 
     void MoveLeft(float mul)
     {
-        if (transform.position.x > -Limit)
-            X -= mul;
+        X -= mul;
     }
 
     void MoveUp(float mul)
     {
-        if (transform.position.y > -Limit)
-            Y -= mul;
+        Y -= mul;
     }
 
     void MoveDown(float mul)
     {
-        if (transform.position.y < Limit)
-            Y += mul;
+        Y += mul;
     }
-
-    //void IScrollHandler.OnScroll(PointerEventData eventData)
-    //{
-    //    Debug.Log("Is scrolling");
-    //}
 }
