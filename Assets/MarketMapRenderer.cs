@@ -70,7 +70,7 @@ public class MarketMapRenderer : View
 
     Vector3 GetPointPositionOnCircle(int index, int length, float radius, float order, float offset = 0)
     {
-        var angle = offset + (index + 1) * (Mathf.PI * 2 - offset) * order / length;
+        var angle = offset + (index) * (Mathf.PI * 2 - offset) * order / length;
 
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
