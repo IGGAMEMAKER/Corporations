@@ -106,6 +106,8 @@ public class MarketMapRenderer : View
         GameObject c = GetCompanyObject(company.company.Id);
 
         UpdateCompanyPosition(c, index, amount, marketPosition);
+
+        c.GetComponent<CompanyViewOnMarket>().SetEntity(company);
     }
 
     GameObject GetIndustryObject(IndustryType industry)
@@ -142,6 +144,8 @@ public class MarketMapRenderer : View
         return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
     }
 
+
+    // set transforms
     void UpdateIndustryPosition(GameObject i, int index, int marketCount, Vector3 basePosition)
     {
         var scale = 1;
