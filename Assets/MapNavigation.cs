@@ -38,23 +38,22 @@ public class MapNavigation : View
     void UpdateCanvasPosition()
     {
         //var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2) * Zoom;
-        var mapSizeX = Screen.width * Zoom;
-        var mapSizeY = Screen.height * Zoom;
+        var mapSizeX = Screen.width;
+        var mapSizeY = Screen.height;
 
-        var Xmax = Screen.width * Zoom / 2;
-        var Ymax = -Screen.height * Zoom / 2;
+        var ZoomOffsetX = mapSizeX * (Zoom - 1);
+        var ZoomOffsetY = mapSizeY * (Zoom - 1);
 
-        //var Xmax = X0 + mapSize;
-        //var Ymax = Y0 - mapSize - Screen.height;
-
-        //var Xmin = X0;
-        //var Ymin = 
-
-        X = Mathf.Clamp(X, X0, X0 - mapSizeX);
-        Y = Mathf.Clamp(Y, Ymax, Y0);
+        X = Mathf.Clamp(X, X0 - ZoomOffsetX, X0);
+        Y = Mathf.Clamp(Y, Y0 - ZoomOffsetY, Y0 + ZoomOffsetY);
 
         transform.localPosition = new Vector3(X, Y);
         transform.localScale = new Vector3(Zoom, Zoom, 1);
+    }
+
+    private void OnGUI()
+    {
+        GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"X = {X},  Y = {Y}");
     }
 
     void CheckZoom()
@@ -64,7 +63,7 @@ public class MapNavigation : View
         if (scroll == 0)
             return;
 
-        Zoom = Mathf.Clamp(Zoom + scroll / 20, 1f, 5f);
+        Zoom = Mathf.Clamp(Zoom + scroll / 10, 1f, 5f);
 
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;
@@ -75,8 +74,8 @@ public class MapNavigation : View
         if (scroll < 0)
             return;
 
-        X += -(mouseX - Screen.width / 2) * modifier;
-        Y += (mouseY - Screen.height / 2) * modifier;
+        //X += -(mouseX - Screen.width / 2) * modifier;
+        //Y += (mouseY - Screen.height / 2) * modifier;
     }
 
     MarketMapRenderer MarketMapRenderer;
