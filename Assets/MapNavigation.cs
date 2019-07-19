@@ -45,7 +45,7 @@ public class MapNavigation : View
         var ZoomOffsetY = mapSizeY * (Zoom - 1);
 
         X = Mathf.Clamp(X, X0 - ZoomOffsetX, X0);
-        Y = Mathf.Clamp(Y, Y0 - ZoomOffsetY, Y0 + ZoomOffsetY);
+        Y = Mathf.Clamp(Y, Y0, Y0 + ZoomOffsetY);
 
         transform.localPosition = new Vector3(X, Y);
         transform.localScale = new Vector3(Zoom, Zoom, 1);
