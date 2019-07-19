@@ -38,8 +38,10 @@ public class MapNavigation : MonoBehaviour
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;
 
-        X += -(mouseX - Screen.width / 2);
-        Y += -(mouseY - Screen.height / 2);
+        float modifier = 0.25f;
+
+        X += -(mouseX - Screen.width / 2) * modifier;
+        Y += -(mouseY - Screen.height / 2) * modifier;
 
         RedrawMap();
     }
