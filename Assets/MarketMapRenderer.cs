@@ -13,11 +13,11 @@ public class MarketMapRenderer : View
     public GameObject CompanyPrefab;
 
     [HideInInspector]
-    public float IndustrialRadius = 350f;
+    internal float IndustrialRadius = 350f;
     [HideInInspector]
-    public float NicheRadius = 225f;
-    //[HideInInspector]
-    public float CompanyRadius = 85f;
+    internal float NicheRadius = 225f;
+    [HideInInspector]
+    internal float CompanyRadius = 85f;
 
     //public Vector3 BaseOffset = new Vector3(425, 250, 0);
 

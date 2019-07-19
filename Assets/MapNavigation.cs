@@ -41,8 +41,8 @@ public class MapNavigation : View
         //var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
         //var mapSizeY = Screen.height;
 
-        var mapSizeX = Mathf.Max(Screen.width, mapSize * 0);
-        var mapSizeY = Mathf.Max(Screen.height, mapSize * 0);
+        var mapSizeX = Mathf.Max(Screen.width, mapSize);
+        var mapSizeY = Mathf.Max(Screen.height, mapSize);
 
         var ZoomOffsetX = mapSizeX * Zoom - Screen.width;
         var ZoomOffsetY = mapSizeY * Zoom - Screen.height;
