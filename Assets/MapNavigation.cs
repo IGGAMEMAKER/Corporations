@@ -73,7 +73,15 @@ public class MapNavigation : View
         if (scroll == 0)
             return;
 
-        Zoom = Mathf.Clamp(Zoom + scroll / 10, 1f, 5f);
+        var deltaScroll = scroll / 10;
+
+        bool zoomIn = deltaScroll > 0;
+
+        var prevZoom = Zoom;
+        if (prevZoom == 5f && zoomIn || prevZoom == 1f && !zoomIn)
+            return;
+
+        Zoom = Mathf.Clamp(Zoom + deltaScroll, 1f, 5f);
 
         //// if zoom out, don't move map
         //if (scroll < 0)
@@ -88,8 +96,8 @@ public class MapNavigation : View
         var deltaX = (mouseX - Screen.width / 2);
         var deltaY = (mouseY - Screen.height / 2);
 
-        X += -deltaX * modifier * Mathf.Sign(scroll);
-        Y += -deltaY * modifier * Mathf.Sign(scroll);
+        X += -deltaX * modifier; // * -Mathf.Sign(scroll);
+        Y += -deltaY * modifier; // * -Mathf.Sign(scroll);
     }
 
     MarketMapRenderer MarketMapRenderer;
