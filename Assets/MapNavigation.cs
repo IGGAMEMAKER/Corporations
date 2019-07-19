@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 public class MapNavigation : MonoBehaviour
     //, IScrollHandler
@@ -33,7 +30,7 @@ public class MapNavigation : MonoBehaviour
         if (scroll == 0)
             return;
 
-        Zoom = Mathf.Clamp(Zoom + scroll / 20, 0.5f, 5f);
+        Zoom = Mathf.Clamp(Zoom + scroll / 50, 0.5f, 5f);
 
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;
@@ -66,40 +63,18 @@ public class MapNavigation : MonoBehaviour
 
         // left 
         if (mouseX < minOffset)
-            MoveRight(mul);
+            X += mul;
 
         // right
         if (mouseX > Screen.width - minOffset)
-            MoveLeft(mul);
+            X -= mul;
 
         // top
         if (mouseY < minOffset)
-            MoveDown(mul);
+            Y += mul;
 
         // bottom
         if (mouseY > Screen.height - minOffset)
-            MoveUp(mul);
-    }
-
-
-
-    void MoveRight(float mul)
-    {
-        X += mul;
-    }
-
-    void MoveLeft(float mul)
-    {
-        X -= mul;
-    }
-
-    void MoveUp(float mul)
-    {
-        Y -= mul;
-    }
-
-    void MoveDown(float mul)
-    {
-        Y += mul;
+            Y -= mul;
     }
 }
