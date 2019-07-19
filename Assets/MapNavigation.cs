@@ -38,11 +38,11 @@ public class MapNavigation : View
     void UpdateCanvasPosition()
     {
         //var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2) * Zoom;
-        var mapSizeX = Screen.width;
+        var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
         var mapSizeY = Screen.height;
 
-        var ZoomOffsetX = mapSizeX * (Zoom - 1);
-        var ZoomOffsetY = mapSizeY * (Zoom - 1);
+        var ZoomOffsetX = mapSizeX * Zoom - Screen.width;
+        var ZoomOffsetY = mapSizeY * Zoom - Screen.height;
 
         X = Mathf.Clamp(X, X0 - ZoomOffsetX, X0);
         Y = Mathf.Clamp(Y, Y0, Y0 + ZoomOffsetY);
@@ -74,8 +74,8 @@ public class MapNavigation : View
         if (scroll < 0)
             return;
 
-        //X += -(mouseX - Screen.width / 2) * modifier;
-        //Y += (mouseY - Screen.height / 2) * modifier;
+        X += -(mouseX - Screen.width / 2) * modifier;
+        Y += (mouseY - Screen.height / 2) * modifier;
     }
 
     MarketMapRenderer MarketMapRenderer;
