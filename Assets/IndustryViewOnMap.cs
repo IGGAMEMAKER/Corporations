@@ -11,7 +11,7 @@ public class IndustryViewOnMap : View
     public void SetEntity(IndustryType industry)
     {
         var name = EnumUtils.GetFormattedIndustryName(industry);
-        Name.text = name;
+        Name.text = name + "\nIndustry";
 
         GetComponent<LinkToIndustry>().SetIndustry(industry);
     }
