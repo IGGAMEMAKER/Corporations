@@ -53,7 +53,14 @@ public class MapNavigation : View
 
     private void OnGUI()
     {
-        GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"X = {X},  Y = {Y}");
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Input.mousePosition.y; // - Constants.GAMEPLAY_OFFSET_Y;
+
+        var deltaX = (mouseX - Screen.width / 2);
+        var deltaY = (mouseY - Screen.height / 2);
+
+        //GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"X = {X},  Y = {Y}");
+        GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"dX = {deltaX}, dY = {deltaY}");
     }
 
     void CheckZoom()
@@ -65,17 +72,21 @@ public class MapNavigation : View
 
         Zoom = Mathf.Clamp(Zoom + scroll / 10, 1f, 5f);
 
-        float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
-
-        float modifier = 0.25f;
-
         // if zoom out, don't move map
         if (scroll < 0)
             return;
 
-        X += -(mouseX - Screen.width / 2) * modifier * Zoom;
-        Y += (mouseY - Screen.height / 2) * modifier;
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
+
+        float modifier = 0.25f *  Zoom;
+
+
+        var deltaX = (mouseX - Screen.width / 2);
+        var deltaY = (mouseY - Screen.height / 2);
+
+        X += -deltaX * modifier;
+        Y += -deltaY * modifier;
     }
 
     MarketMapRenderer MarketMapRenderer;
