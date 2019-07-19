@@ -12,11 +12,11 @@ public class MarketMapRenderer : View
     public GameObject IndustryPrefab;
     public GameObject CompanyPrefab;
 
-    public float IndustrialRadius = 350f * 1.75f;
-    public float NicheRadius = 125f * 2.5f;
-    public float CompanyRadius = 50f * 2.5f;
+    float IndustrialRadius = 250f;
+    float NicheRadius = 125f;
+    float CompanyRadius = 85f;
 
-    public Vector3 BaseOffset = new Vector3(425, 250, 0);
+    //public Vector3 BaseOffset = new Vector3(425, 250, 0);
 
     public override void ViewRender()
     //public void Start()
@@ -65,9 +65,9 @@ public class MarketMapRenderer : View
             //RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry + BaseOffset);
     }
 
-    Vector3 GetPointPositionOnCircle(int index, int length, float radius)
+    Vector3 GetPointPositionOnCircle(int index, int length, float radius, float offset = 0)
     {
-        var angle = index * Mathf.PI * 2 / length;
+        var angle = offset + index * (Mathf.PI * 2 - offset) / length;
 
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
@@ -80,14 +80,18 @@ public class MarketMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche, true);
-
-        var count = competitors.Count();
-        for (var i = 0; i < count; i++)
-            RenderCompany(competitors[i], i, count, m.transform.localPosition);
+        RenderCompanies(niche, m);
     }
 
+    void RenderCompanies(NicheType niche, GameObject m)
+    {
+        var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche, true);
 
+        var marketPosition = m.transform.localPosition;
+        var count = competitors.Count();
+        for (var i = 0; i < count; i++)
+            RenderCompany(competitors[i], i, count, marketPosition);
+    }
 
     void RenderCompany(GameEntity company, int index, int amount, Vector3 marketPosition)
     {
@@ -107,7 +111,7 @@ public class MarketMapRenderer : View
     GameObject GetCompanyObject(int companyId)
     {
         if (!companies.ContainsKey(companyId))
-            companies[companyId] = Instantiate(NichePrefab, transform);
+            companies[companyId] = Instantiate(CompanyPrefab, transform);
 
         return companies[companyId];
     }
@@ -132,9 +136,9 @@ public class MarketMapRenderer : View
 
     void UpdateCompanyPosition(GameObject m, int index, int count, Vector3 basePosition)
     {
-        var scale = 1; // GetMarketScale(niche);
+        var scale = 0.75f; // GetMarketScale(niche);
 
         m.transform.localScale = new Vector3(scale, scale, 1);
-        m.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius) + basePosition;
+        m.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius, Mathf.PI) + basePosition;
     }
 }
