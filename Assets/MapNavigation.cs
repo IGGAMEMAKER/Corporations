@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 
-public class MapNavigation : MonoBehaviour
+public class MapNavigation : View
 {
     public float Limit = 550f;
     public float Sensitivity = 750f;
 
-    float X;
-    float Y;
+    static float X0 = -Screen.width / 2;
+    static float Y0 = Screen.height / 2;
+
+    public float X = X0;
+    public float Y = Y0;
 
     public float Zoom = 1f;
 
@@ -21,12 +25,23 @@ public class MapNavigation : MonoBehaviour
         RedrawMap();
     }
 
+
+    float amountOfNichesSqrt;
+    private void OnEnable()
+    {
+        amountOfNichesSqrt = Mathf.Sqrt(NicheUtils.GetNiches(GameContext).Length);
+    }
+
     void UpdateCanvasPosition()
     {
-        X = Mathf.Clamp(X, -Limit, Limit);
-        Y = Mathf.Clamp(Y, -Limit, Limit);
+        var Xmax = Screen.width * Zoom;
+        var Ymax = Screen.height * Zoom;
 
-        transform.position = new Vector3(X, Y);
+        X = Mathf.Clamp(X, X0, Xmax);
+        Y = Mathf.Clamp(Y, Y0, Ymax);
+
+        transform.localPosition = new Vector3(X, Y);
+        transform.localScale = new Vector3(Zoom, Zoom, 1);
     }
 
     void CheckZoom()
@@ -36,7 +51,7 @@ public class MapNavigation : MonoBehaviour
         if (scroll == 0)
             return;
 
-        Zoom = Mathf.Clamp(Zoom + scroll / 50, 0.5f, 5f);
+        Zoom = Mathf.Clamp(Zoom + scroll / 20, 1f, 5f);
 
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y;

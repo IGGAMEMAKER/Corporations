@@ -11,7 +11,7 @@ public class MarketMapRenderer : View
     public float IndustrialRadius = 250f * 1.75f;
     public float NicheRadius = 125f * 2.5f;
 
-    public Vector3 BaseOffset = new Vector3(0, 0, 0);
+    public Vector3 BaseOffset = new Vector3(425, 250, 0);
 
     public override void ViewRender()
     //public void Start()
@@ -50,11 +50,14 @@ public class MarketMapRenderer : View
     private void RenderIndustry(GameEntity ind, int j, int industriesCount)
     {
         var markets = NicheUtils.GetNichesInIndustry(ind.industry.IndustryType, GameContext);
-        
-        var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius);
+
+        var baseRadius = IndustrialRadius + NicheRadius;
+        var baseMapOffset = new Vector3(baseRadius, -baseRadius);
+        var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius) + baseMapOffset;
 
         for (var i = 0; i < markets.Length; i++)
-            RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry + BaseOffset);
+            RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry);
+            //RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry + BaseOffset);
     }
 
     Vector3 GetPointPositionOnCircle(int index, int length, float radius)
@@ -76,7 +79,7 @@ public class MarketMapRenderer : View
     GameObject GetMarketObject(NicheType niche)
     {
         if (!niches.ContainsKey(niche))
-            niches[niche] = Instantiate(NichePrefab, transform, false);
+            niches[niche] = Instantiate(NichePrefab, transform);
 
         return niches[niche];
     }
@@ -96,6 +99,6 @@ public class MarketMapRenderer : View
         var scale = GetMarketScale(niche);
 
         m.transform.localScale = new Vector3(scale, scale, 1);
-        m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
+        m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
     }
 }
