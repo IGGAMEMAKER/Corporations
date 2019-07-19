@@ -35,14 +35,16 @@ public class MapNavigation : View
         Y = Y0;
     }
 
+
+
+    float mapSize => (Map.IndustrialRadius * 2 + Map.NicheRadius * 2 + Map.CompanyRadius * 2);
+    float mapSizeX => Mathf.Max(Screen.width, mapSize);
+    float mapSizeY => Mathf.Max(Screen.height, mapSize);
+
     void UpdateCanvasPosition()
     {
-        var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2 + Map.CompanyRadius * 2);
         //var mapSizeX = Screen.width; // max from Calculated size and Screen size. Map cannot be smaller than Screen size!
         //var mapSizeY = Screen.height;
-
-        var mapSizeX = Mathf.Max(Screen.width, mapSize);
-        var mapSizeY = Mathf.Max(Screen.height, mapSize);
 
         var ZoomOffsetX = mapSizeX * Zoom - Screen.width;
         var ZoomOffsetY = mapSizeY * Zoom - Screen.height;
@@ -66,6 +68,11 @@ public class MapNavigation : View
     //    GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 700, 100), $"dX = {deltaX}, dY = {deltaY}");
     //}
 
+
+    float minZoom => Mathf.Max(Screen.width / mapSizeX, Screen.height / mapSizeY); //  0.33f;
+    float maxZoom = 5f;
+
+
     void CheckZoom()
     {
         var scroll = Input.mouseScrollDelta.y;
@@ -78,10 +85,10 @@ public class MapNavigation : View
         bool zoomIn = deltaScroll > 0;
 
         var prevZoom = Zoom;
-        if (prevZoom == 5f && zoomIn || prevZoom == 1f && !zoomIn)
+        if (prevZoom == maxZoom && zoomIn || prevZoom == minZoom && !zoomIn)
             return;
 
-        Zoom = Mathf.Clamp(Zoom + deltaScroll, 1f, 5f);
+        Zoom = Mathf.Clamp(Zoom + deltaScroll, minZoom, maxZoom);
 
         // if zoom out, don't move map
         if (scroll < 0)
