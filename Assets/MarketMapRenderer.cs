@@ -1,6 +1,4 @@
 ﻿using Assets.Utils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -98,8 +96,8 @@ public class MarketMapRenderer : View
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
     {
         var scale = GetMarketScale(niche) * Zoom;
-        m.transform.localScale = new Vector3(scale, scale, 1);
 
+        m.transform.localScale = new Vector3(scale, scale, 1);
         m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
     }
 }
