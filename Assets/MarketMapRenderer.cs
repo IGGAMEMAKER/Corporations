@@ -142,12 +142,12 @@ public class MarketMapRenderer : View
         return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
     }
 
-    void UpdateIndustryPosition(GameObject m, int index, int marketCount, Vector3 basePosition)
+    void UpdateIndustryPosition(GameObject i, int index, int marketCount, Vector3 basePosition)
     {
         var scale = 1;
 
-        m.transform.localScale = new Vector3(scale, scale, 1);
-        m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, IndustrialRadius, 1) + basePosition;
+        i.transform.localScale = new Vector3(scale, scale, 1);
+        i.transform.localPosition = GetPointPositionOnCircle(index, marketCount, IndustrialRadius, 1) + basePosition;
     }
 
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
@@ -158,11 +158,11 @@ public class MarketMapRenderer : View
         m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, NicheRadius, 1) + basePosition;
     }
 
-    void UpdateCompanyPosition(GameObject m, int index, int count, Vector3 basePosition)
+    void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition)
     {
         var scale = 0.75f; // GetMarketScale(niche);
 
-        m.transform.localScale = new Vector3(scale, scale, 1);
-        m.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius, 1, Mathf.PI) + basePosition;
+        c.transform.localScale = new Vector3(scale, scale, 1);
+        c.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius, 1, Mathf.PI) + basePosition;
     }
 }
