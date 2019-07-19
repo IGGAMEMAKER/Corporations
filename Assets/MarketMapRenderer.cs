@@ -7,6 +7,7 @@ public class MarketMapRenderer : View
 {
     Dictionary<NicheType, GameObject> niches = new Dictionary<NicheType, GameObject>();
     Dictionary<int, GameObject> companies = new Dictionary<int, GameObject>();
+    Dictionary<IndustryType, GameObject> industryNames = new Dictionary<IndustryType, GameObject>();
 
     public GameObject NichePrefab;
     public GameObject IndustryPrefab;
@@ -51,17 +52,21 @@ public class MarketMapRenderer : View
         {
             var ind = industries[i];
 
-            RenderIndustry(ind, i, length);
+            RenderIndustry(ind.industry.IndustryType, i, length);
         }
     }
 
-    private void RenderIndustry(GameEntity ind, int j, int industriesCount)
+    private void RenderIndustry(IndustryType IndustryType, int j, int industriesCount)
     {
-        var markets = NicheUtils.GetNichesInIndustry(ind.industry.IndustryType, GameContext);
+        var markets = NicheUtils.GetNichesInIndustry(IndustryType, GameContext);
 
         var baseRadius = IndustrialRadius + NicheRadius;
         var baseMapOffset = new Vector3(baseRadius, -baseRadius);
         var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius, 1) + baseMapOffset;
+
+        GameObject o = GetIndustryObject(IndustryType);
+
+        UpdateIndustryPosition(o, j, industriesCount, baseMapOffset);
 
         for (var i = 0; i < markets.Length; i++)
             RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry);
@@ -103,6 +108,14 @@ public class MarketMapRenderer : View
         UpdateCompanyPosition(c, index, amount, marketPosition);
     }
 
+    GameObject GetIndustryObject(IndustryType industry)
+    {
+        if (!industryNames.ContainsKey(industry))
+            industryNames[industry] = Instantiate(IndustryPrefab, transform);
+
+        return industryNames[industry];
+    }
+
     GameObject GetMarketObject(NicheType niche)
     {
         if (!niches.ContainsKey(niche))
@@ -127,6 +140,14 @@ public class MarketMapRenderer : View
             marketSize = 1000;
 
         return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
+    }
+
+    void UpdateIndustryPosition(GameObject m, int index, int marketCount, Vector3 basePosition)
+    {
+        var scale = 1;
+
+        m.transform.localScale = new Vector3(scale, scale, 1);
+        m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, IndustrialRadius, 1) + basePosition;
     }
 
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
