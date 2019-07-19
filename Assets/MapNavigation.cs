@@ -72,14 +72,14 @@ public class MapNavigation : View
 
         Zoom = Mathf.Clamp(Zoom + scroll / 10, 1f, 5f);
 
-        // if zoom out, don't move map
-        if (scroll < 0)
-            return;
+        //// if zoom out, don't move map
+        //if (scroll < 0)
+        //    return;
 
         float mouseX = Input.mousePosition.x;
         float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
 
-        float modifier = 0.25f *  Zoom;
+        float modifier = 0.085f * Zoom;
 
 
         var deltaX = (mouseX - Screen.width / 2);
