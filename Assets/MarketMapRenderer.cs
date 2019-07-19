@@ -56,16 +56,33 @@ public class MarketMapRenderer : View
         var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius);
 
         for (var i = 0; i < markets.Length; i++)
-        {
             RenderMarket(markets[i], i, markets.Length, baseForIndustry + BaseOffset);
-        }
     }
 
     Vector3 GetPointPositionOnCircle(int index, int length, float radius)
     {
         var angle = index * Mathf.PI * 2 / length;
 
-        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * Zoom * Zoom;
+        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * Zoom;
+    }
+
+    void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
+    {
+        var niche = market.niche.NicheType;
+
+        GameObject m = GetMarketObject(niche);
+
+        UpdateMarketPosition(m, index, marketCount, basePosition, niche);
+
+        m.GetComponent<MarketShareView>().SetEntity(niche);
+    }
+
+    GameObject GetMarketObject(NicheType niche)
+    {
+        if (!niches.ContainsKey(niche))
+            niches[niche] = Instantiate(NichePrefab, transform, false);
+
+        return niches[niche];
     }
 
     float GetMarketScale(NicheType niche)
@@ -78,30 +95,11 @@ public class MarketMapRenderer : View
         return Mathf.Clamp(Mathf.Log10(marketSize) / 4f, 0.8f, 2.5f);
     }
 
-    GameObject GetMarketObject(NicheType niche)
-    {
-        if (!niches.ContainsKey(niche))
-            niches[niche] = Instantiate(NichePrefab, transform, true);
-
-        return niches[niche];
-    }
-
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
     {
         var scale = GetMarketScale(niche) * Zoom;
         m.transform.localScale = new Vector3(scale, scale, 1);
 
         m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
-    }
-
-    void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
-    {
-        var niche = market.niche.NicheType;
-
-        GameObject m = GetMarketObject(niche);
-
-        UpdateMarketPosition(m, index, marketCount, basePosition, niche);
-
-        m.GetComponent<MarketShareView>().SetEntity(niche);
     }
 }
