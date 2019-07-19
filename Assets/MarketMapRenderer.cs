@@ -54,20 +54,18 @@ public class MarketMapRenderer : View
         var baseForIndustry = GetPointPositionOnCircle(j, industriesCount, IndustrialRadius);
 
         for (var i = 0; i < markets.Length; i++)
-            RenderMarket(markets[i], i, markets.Length, baseForIndustry + BaseOffset);
+            RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry + BaseOffset);
     }
 
     Vector3 GetPointPositionOnCircle(int index, int length, float radius)
     {
         var angle = index * Mathf.PI * 2 / length;
 
-        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius * Zoom;
+        return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
-    void RenderMarket(GameEntity market, int index, int marketCount, Vector3 basePosition)
+    void RenderMarket(NicheType niche, int index, int marketCount, Vector3 basePosition)
     {
-        var niche = market.niche.NicheType;
-
         GameObject m = GetMarketObject(niche);
 
         UpdateMarketPosition(m, index, marketCount, basePosition, niche);
@@ -95,7 +93,7 @@ public class MarketMapRenderer : View
 
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
     {
-        var scale = GetMarketScale(niche) * Zoom;
+        var scale = GetMarketScale(niche);
 
         m.transform.localScale = new Vector3(scale, scale, 1);
         m.transform.position = GetPointPositionOnCircle(index, marketCount, NicheRadius) + basePosition;
