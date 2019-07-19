@@ -19,31 +19,29 @@ public class MapNavigation : MonoBehaviour
         CheckMouseMovement();
 
         CheckZoom();
+
+        X = Mathf.Clamp(X, -Limit, Limit);
+        Y = Mathf.Clamp(Y, -Limit, Limit);
+
+        transform.position = new Vector3(X, Y);
     }
 
     void CheckZoom()
     {
-        //var scrollAxis = "Mouse ScrollWheel";
-        var scrollAxis = "Vertical";
-        //var scrollAxis = "Mouse Y";
-
-        //var scroll = Input.GetAxis(scrollAxis);
         var scroll = Input.mouseScrollDelta.y;
 
-        if (scroll != 0)
-        {
-            Zoom = Mathf.Clamp(Zoom + scroll / 10, 0.5f, 5f);
+        if (scroll == 0)
+            return;
 
-            float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y;
+        Zoom = Mathf.Clamp(Zoom + scroll / 20, 0.5f, 5f);
 
-            X += -(mouseX - Screen.width / 2) * Zoom;
-            Y += -(mouseY - Screen.height / 2) * Zoom;
-            //transform.localScale = new Vector3(Zoom, Zoom, 1);
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Input.mousePosition.y;
 
-            RedrawMap();
-        }
-        //transform.Translate(Vector3.forward * Input.GetAxis("Mouse ScrollWheel"));
+        X = -(mouseX - Screen.width / 2) * Zoom;
+        Y = -(mouseY - Screen.height / 2) * Zoom;
+
+        RedrawMap();
     }
 
     MarketMapRenderer map;
@@ -51,6 +49,7 @@ public class MapNavigation : MonoBehaviour
     {
         if (map == null)
             map = GetComponent<MarketMapRenderer>();
+
         map.ViewRender();
     }
 
@@ -78,11 +77,6 @@ public class MapNavigation : MonoBehaviour
         // bottom
         if (mouseY > Screen.height - minOffset)
             MoveUp(mul);
-
-        X = Mathf.Clamp(X, -Limit, Limit);
-        Y = Mathf.Clamp(Y, -Limit, Limit);
-
-        transform.position = new Vector3(X, Y);
     }
 
 
