@@ -44,6 +44,14 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == niche);
         }
 
+        public static GameEntity[] GetPlayersOnMarket(GameContext context, NicheType niche, bool something)
+        {
+            return Array.FindAll(
+                context.GetEntities(GameMatcher.Product),
+                p => p.product.Niche == niche
+                );
+        }
+
         public static int GetCompetitorsAmount(GameEntity e, GameContext context)
         {
             // returns amount of competitors on specific niche
