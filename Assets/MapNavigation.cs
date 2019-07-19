@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class MapNavigation : MonoBehaviour
-    //, IScrollHandler
 {
     public float Limit = 550f;
     public float Sensitivity = 750f;
@@ -17,6 +16,13 @@ public class MapNavigation : MonoBehaviour
 
         CheckZoom();
 
+        UpdateCanvasPosition();
+
+        RedrawMap();
+    }
+
+    void UpdateCanvasPosition()
+    {
         X = Mathf.Clamp(X, -Limit, Limit);
         Y = Mathf.Clamp(Y, -Limit, Limit);
 
@@ -39,8 +45,6 @@ public class MapNavigation : MonoBehaviour
 
         X += -(mouseX - Screen.width / 2) * modifier;
         Y += -(mouseY - Screen.height / 2) * modifier;
-
-        RedrawMap();
     }
 
     MarketMapRenderer map;
