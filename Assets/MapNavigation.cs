@@ -44,8 +44,8 @@ public class MapNavigation : MonoBehaviour
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
 
-            X = (mouseX / Screen.width) / Zoom;
-            Y = (mouseY / Screen.height) / Zoom;
+            X += (mouseX - Screen.width / 2) * Zoom;
+            Y += (mouseY - Screen.height / 2) * Zoom;
             //transform.localScale = new Vector3(Zoom, Zoom, 1);
 
             RedrawMap();
@@ -85,6 +85,9 @@ public class MapNavigation : MonoBehaviour
         // bottom
         if (mouseY > Screen.height - minOffset)
             MoveUp(mul);
+
+        X = Mathf.Clamp(X, -Limit, Limit);
+        Y = Mathf.Clamp(Y, -Limit, Limit);
 
         transform.position = new Vector3(X, Y);
     }
