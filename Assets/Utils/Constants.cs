@@ -55,7 +55,7 @@ public class Constants
 
     public static long COMPANY_SCORING_HIRE_PROGRAMMER = 50;
 
-    public static float GAMEPLAY_OFFSET = -110f;
+    public static float GAMEPLAY_OFFSET_Y = -110f;
 
     public static int COOLDOWN_COMPANY_GOAL = 365;
     public static int COOLDOWN_BRANDING = 90;

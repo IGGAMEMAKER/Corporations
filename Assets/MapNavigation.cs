@@ -66,7 +66,7 @@ public class MapNavigation : View
         Zoom = Mathf.Clamp(Zoom + scroll / 10, 1f, 5f);
 
         float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y;
+        float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
 
         float modifier = 0.25f;
 
@@ -74,7 +74,7 @@ public class MapNavigation : View
         if (scroll < 0)
             return;
 
-        X += -(mouseX - Screen.width / 2) * modifier;
+        X += -(mouseX - Screen.width / 2) * modifier * Zoom;
         Y += (mouseY - Screen.height / 2) * modifier;
     }
 
