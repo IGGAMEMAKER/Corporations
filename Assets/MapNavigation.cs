@@ -37,8 +37,14 @@ public class MapNavigation : View
 
     void UpdateCanvasPosition()
     {
-        var Xmax = Screen.width * Zoom / 2;
-        var Ymax = -Screen.height * Zoom / 2;
+        var mapSize = (Map.IndustrialRadius * 2 + Map.NicheRadius * 2) * Zoom;
+
+        //var Xmax = Screen.width * Zoom / 2;
+        //var Ymax = -Screen.height * Zoom / 2;
+
+        var Xmax = X0 + mapSize - Screen.width;
+        var Ymax = Y0 - mapSize - Screen.height;
+
 
         X = Mathf.Clamp(X, X0, Xmax);
         Y = Mathf.Clamp(Y, Ymax, Y0);
@@ -69,13 +75,21 @@ public class MapNavigation : View
         Y += -(mouseY - Screen.height / 2) * modifier;
     }
 
-    MarketMapRenderer map;
+    MarketMapRenderer MarketMapRenderer;
+    MarketMapRenderer Map
+    {
+        get
+        {
+            if (MarketMapRenderer == null)
+                MarketMapRenderer = GetComponent<MarketMapRenderer>();
+
+            return MarketMapRenderer;
+        }
+    }
+
     void RedrawMap()
     {
-        if (map == null)
-            map = GetComponent<MarketMapRenderer>();
-
-        map.ViewRender();
+        Map.ViewRender();
     }
 
     void CheckMouseMovement()
