@@ -18,27 +18,14 @@ public class CompanyViewOnMap : View
     public void SetEntity(GameEntity c)
     {
         company = c;
-
-        int companyId = c.company.Id;
-        //var c = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        var name = c.company.Name;
-        Name.text = name.Substring(0, 1);
-
-        LinkToProjectView.CompanyId = companyId;
-
-
-        // control
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
-        CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var a = hasControl ? 1f : 0.25f;
-
-        var color = Image.color;
-
-        Image.color = new Color(color.r, color.g, color.b, a);
-
+        Name.text = c.company.Name.Substring(0, 1);
         Name.color = Visuals.Color(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+
+        LinkToProjectView.CompanyId = c.company.Id;
+
+        CompanyHint.SetHint(GetCompanyHint(hasControl));
     }
 
     string GetCompanyHint(bool hasControl)
