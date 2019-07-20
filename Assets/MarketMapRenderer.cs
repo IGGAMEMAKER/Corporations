@@ -107,7 +107,7 @@ public class MarketMapRenderer : View
     {
         GameObject c = GetCompanyObject(company.company.Id);
 
-        UpdateCompanyPosition(c, index, amount, marketPosition);
+        UpdateCompanyPosition(c, index, amount, marketPosition, company.product.Niche);
 
         c.GetComponent<CompanyViewOnMap>().SetEntity(company);
     }
@@ -164,11 +164,13 @@ public class MarketMapRenderer : View
         m.transform.localPosition = GetPointPositionOnCircle(index, marketCount, NicheRadius, 1) + basePosition;
     }
 
-    void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition)
+    void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition, NicheType niche)
     {
         var scale = 0.75f; // GetMarketScale(niche);
 
+        var marketScale = GetMarketScale(niche) - 0.8f;
+
         c.transform.localScale = new Vector3(scale, scale, 1);
-        c.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius, 1, Mathf.PI) + basePosition;
+        c.transform.localPosition = GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, Mathf.PI) + basePosition;
     }
 }
