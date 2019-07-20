@@ -70,6 +70,7 @@ public class VisualConstants
     public const string COLOR_GOLD = "#FFAB04";
 
     public const string COLOR_YOU = COLOR_GOLD;
+    public const string COLOR_CONTROL = COLOR_GOLD;
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = COLOR_GOLD;
     public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = "#FFFFFF";
     public const string COLOR_COMPANY_SELECTED = "#131679";

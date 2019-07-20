@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,26 +25,29 @@ public class CompanyViewOnMarket : View
         var name = c.company.Name;
         Name.text = name.Substring(0, 1);
 
-        CompanyHint.SetHint(GetCompanyHint());
-
         LinkToProjectView.CompanyId = companyId;
 
 
         // control
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
+        CompanyHint.SetHint(GetCompanyHint(hasControl));
+
         var a = hasControl ? 1f : 0.25f;
 
         var color = Image.color;
 
         Image.color = new Color(color.r, color.g, color.b, a);
 
-        Name.color = Visuals.Color(hasControl ? VisualConstants.COLOR_GOLD : VisualConstants.COLOR_NEUTRAL);
+        Name.color = Visuals.Color(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
     }
 
-    string GetCompanyHint()
+    string GetCompanyHint(bool hasControl)
     {
-        var hint = $"{company.company.Name}\n{}";
+        StringBuilder hint = new StringBuilder(company.company.Name);
 
-        return hint;
+        if (hasControl)
+            hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
+
+        return hint.ToString();
     }
 }
