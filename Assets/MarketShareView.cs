@@ -29,9 +29,11 @@ public class MarketShareView : View
             MarketState.text = phase;
 
         var phaseColor = Visuals.GetGradientColor(0, 5f, rating);
+        
         MarketState.color = phaseColor;
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
+        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
+        NicheName.text = nicheName; 
 
         LinkToNiche.SetNiche(nicheType);
 
@@ -45,9 +47,10 @@ public class MarketShareView : View
         if (MarketImportance != null)
             MarketImportance.text = Format.Money(marketControlCost);
 
-        string text = $"Total market size is: {Format.Money(marketSize)}" +
+        string text = $"Market of {nicheName}" +
+            $"\nTotal market size: {Format.Money(marketSize)}" +
             $"\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}" +
-            $"\n\nMarket phase: {phase}";
+            $"\n\nMarket phase: {Visuals.Colorize(phase, phaseColor.ToString())}";
         Hint.SetHint(text);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -33,7 +34,11 @@ public class CompanyViewOnMap : View
         StringBuilder hint = new StringBuilder(company.company.Name);
 
         if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
+            hint.AppendLine(Visuals.Colorize("\n\nWe control this company", VisualConstants.COLOR_CONTROL));
+
+        var position = NicheUtils.GetPositionOnMarket(GameContext, company);
+        var nicheName = EnumUtils.GetFormattedNicheName(company.product.Niche);
+        hint.AppendFormat("\n\n#{0} on market of {1}", position + 1, nicheName);
 
         return hint.ToString();
     }
