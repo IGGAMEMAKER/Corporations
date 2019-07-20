@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompanyViewOnMarket : View
+public class CompanyViewOnMap : View
 {
     public Text Name;
     public Hint CompanyHint;
