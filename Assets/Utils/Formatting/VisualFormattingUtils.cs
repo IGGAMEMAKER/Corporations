@@ -10,6 +10,26 @@ namespace Assets.Utils
             return $"<i><b><color=magenta>{text}</color></b></i>";
         }
 
+        private static String HexConverter(Color c)
+        {
+            return "#" + ToHex(c.r) + ToHex(c.g) + ToHex(c.b);
+        }
+
+        static string ToHex(float col)
+        {
+            return ((int)(col * 255)).ToString("X2"); // ("X2");
+        }
+
+        public static string Colorize(string text, Color color)
+        {
+            var colorName = HexConverter(color);
+
+            //Debug.Log(color.ToString());
+            //Debug.Log("Colorize from color, " + text + ": " + colorName);
+
+            return Colorize(text, colorName);
+        }
+
         public static string Colorize(string text, string colorHTML)
         {
             return $"<color={colorHTML}>{text}</color>";

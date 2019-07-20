@@ -90,20 +90,19 @@ public class MapNavigation : View
         Zoom = Mathf.Clamp(Zoom + deltaScroll, minZoom, maxZoom);
 
         // if zoom out, don't move map
-        if (scroll < 0)
-            return;
+        if (scroll > 0)
+        {
+            float mouseX = Input.mousePosition.x;
+            float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
 
-        float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y + Constants.GAMEPLAY_OFFSET_Y;
+            var deltaX = (mouseX - Screen.width / 2);
+            var deltaY = (mouseY - Screen.height / 2);
 
-        float modifier = 0.085f * Zoom;
+            float modifier = 0.085f * Zoom;
 
-
-        var deltaX = (mouseX - Screen.width / 2);
-        var deltaY = (mouseY - Screen.height / 2);
-
-        X += -deltaX * modifier; // * -Mathf.Sign(scroll);
-        Y += -deltaY * modifier; // * -Mathf.Sign(scroll);
+            X += -deltaX * modifier; // * -Mathf.Sign(scroll);
+            Y += -deltaY * modifier; // * -Mathf.Sign(scroll);
+        }
 
         RedrawMap();
     }

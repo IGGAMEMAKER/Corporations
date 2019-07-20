@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System.Text;
 using UnityEngine.UI;
 
 public class MarketShareView : View
@@ -47,11 +48,23 @@ public class MarketShareView : View
         if (MarketImportance != null)
             MarketImportance.text = Format.Money(marketControlCost);
 
-        var colorPrettified = phaseColor.ToString();
-        string text = $"Market of {nicheName}" +
-            $"\nTotal market size: {Format.Money(marketSize)}" +
-            $"\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}" +
-            $"\n\nMarket phase: {Visuals.Colorize(phase, colorPrettified)}\n\n{colorPrettified}";
-        Hint.SetHint(text);
+        StringBuilder text = new StringBuilder();
+
+        text.Append($"Market of {nicheName}");
+        text.Append("\n\n");
+        text.AppendFormat("Total market size: ${0}", Format.MinifyToInteger(marketSize));
+        text.Append("\n\n");
+
+        if (share > 0)
+        {
+            text.AppendFormat(Visuals.Colorize("We control {0}% of it (${1})", VisualConstants.COLOR_CONTROL), share, Format.MinifyToInteger(marketControlCost));
+            text.Append("\n\n");
+        }
+
+        text.Append($"Market phase: {Visuals.Colorize(phase, phaseColor)}");
+
+        Hint.SetHint(text.ToString());
     }
+
+
 }
