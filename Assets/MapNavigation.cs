@@ -11,15 +11,13 @@ public class MapNavigation : View
 
     public float Zoom = 1f;
 
+    bool isNeedsRedraw = false;
+
     void Update()
     {
         CheckMouseMovement();
 
         CheckZoom();
-
-        UpdateCanvasPosition();
-
-        RedrawMap();
     }
 
     float X0 => -Screen.width / 2;
@@ -105,6 +103,8 @@ public class MapNavigation : View
 
         X += -deltaX * modifier; // * -Mathf.Sign(scroll);
         Y += -deltaY * modifier; // * -Mathf.Sign(scroll);
+
+        RedrawMap();
     }
 
     MarketMapRenderer MarketMapRenderer;
@@ -121,6 +121,8 @@ public class MapNavigation : View
 
     void RedrawMap()
     {
+        UpdateCanvasPosition();
+
         Map.ViewRender();
     }
 
@@ -135,18 +137,30 @@ public class MapNavigation : View
 
         // left 
         if (mouseX < minOffset)
+        {
             X += mul;
+            RedrawMap();
+        }
 
         // right
         if (mouseX > Screen.width - minOffset)
+        {
             X -= mul;
+            RedrawMap();
+        }
 
         // top
         if (mouseY < minOffset)
+        {
             Y += mul;
+            RedrawMap();
+        }
 
         // bottom
         if (mouseY > Screen.height - minOffset)
+        {
             Y -= mul;
+            RedrawMap();
+        }
     }
 }
