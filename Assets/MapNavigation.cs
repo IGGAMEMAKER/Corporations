@@ -11,7 +11,8 @@ public class MapNavigation : View
 
     public float Zoom = 1f;
 
-    bool isNeedsRedraw = false;
+    float X0 => -Screen.width / 2;
+    float Y0 => Screen.height / 2;
 
     void Update()
     {
@@ -20,8 +21,6 @@ public class MapNavigation : View
         CheckZoom();
     }
 
-    float X0 => -Screen.width / 2;
-    float Y0 => Screen.height / 2;
 
 
     float amountOfNichesSqrt;
@@ -31,6 +30,8 @@ public class MapNavigation : View
 
         X = X0;
         Y = Y0;
+
+        RedrawMap();
     }
 
 

@@ -47,10 +47,11 @@ public class MarketShareView : View
         if (MarketImportance != null)
             MarketImportance.text = Format.Money(marketControlCost);
 
+        var colorPrettified = phaseColor.ToString();
         string text = $"Market of {nicheName}" +
             $"\nTotal market size: {Format.Money(marketSize)}" +
             $"\n\nWe control {share}%, which equals to {Format.Money(marketControlCost)}" +
-            $"\n\nMarket phase: {Visuals.Colorize(phase, phaseColor.ToString())}";
+            $"\n\nMarket phase: {Visuals.Colorize(phase, colorPrettified)}\n\n{colorPrettified}";
         Hint.SetHint(text);
     }
 }
