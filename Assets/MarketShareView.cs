@@ -20,7 +20,7 @@ public class MarketShareView : View
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
         var rating = NicheUtils.GetMarketRating(niche);
 
-        var share = CompanyUtils.GetGroupMarketControl(MyCompany, nicheType, GameContext);
+        var share = CompanyUtils.GetControlInMarket(MyCompany, nicheType, GameContext);
 
         ShareSize.text = share + "%";
 

@@ -95,12 +95,12 @@ namespace Assets.Utils
         
         internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
         {
-            return NicheUtils.GetMarketSize(gameContext, n) * GetGroupMarketControl(company, n, gameContext) / 100;
+            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
         }
 
 
 
-        internal static long GetGroupMarketControl(GameEntity group, NicheType nicheType, GameContext gameContext)
+        internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
 
@@ -124,7 +124,7 @@ namespace Assets.Utils
             //return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
         }
 
-        private static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
+        public static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
         {
             int shares = 0;
 

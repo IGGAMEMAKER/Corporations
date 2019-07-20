@@ -116,8 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8154657988265084145}
   - component: {fileID: 7816038660135035149}
-  - component: {fileID: 8587160730309010945}
-  - component: {fileID: 5275249112714716523}
   m_Layer: 5
   m_Name: CompanyViewOnMap
   m_TagString: Untagged
@@ -159,62 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 330312027537559052}
   CompanyHint: {fileID: 7293087825942028673}
---- !u!114 &8587160730309010945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784025993755092763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &5275249112714716523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784025993755092763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ce12f1d57071e42ab238c822354a2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
-  CompanyId: 0
+  LinkToProjectView: {fileID: 8221198251082823120}
+  Image: {fileID: 2229079851502018718}
 --- !u!1 &1722860936924769339
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +265,7 @@ GameObject:
   - component: {fileID: 4852815252386449987}
   - component: {fileID: 4647823367131214610}
   - component: {fileID: 7793484727345438408}
-  - component: {fileID: 7884014227780212941}
+  - component: {fileID: 8221198251082823120}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -417,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableSound: 0
---- !u!114 &7884014227780212941
+--- !u!114 &8221198251082823120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -426,10 +370,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3823728173091525758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771dde7685299a949b28f744c044c867, type: 3}
+  m_Script: {fileID: 11500000, guid: b2ce12f1d57071e42ab238c822354a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
+  CompanyId: 0
 --- !u!1 &5577957063316839886
 GameObject:
   m_ObjectHideFlags: 0
