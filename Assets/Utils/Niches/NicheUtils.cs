@@ -104,10 +104,10 @@ namespace Assets.Utils
             switch (niche.nicheState.Phase)
             {
                 case NicheLifecyclePhase.Idle: return 1;
-                case NicheLifecyclePhase.Innovation: return 2;
+                case NicheLifecyclePhase.Innovation: return 3;
                 case NicheLifecyclePhase.Trending: return 4;
                 case NicheLifecyclePhase.MassUse: return 5;
-                case NicheLifecyclePhase.Decay: return 3;
+                case NicheLifecyclePhase.Decay: return 2;
 
                 default:
                     return 0;
