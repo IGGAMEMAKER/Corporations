@@ -82,15 +82,19 @@ public class SetGraphData : MonoBehaviour
         dot.SetActive(true);
 
 
-        string txt;
+        string txt = "";
 
-        if (len <= 12 || value == max || value == min && amountOfGraphs == 1)
+        bool isSmallAmountOfData = len <= 12;
+
+        bool isRenderMinMaxOnly = amountOfGraphs > 1 && value == max || value == min;
+
+        bool isRenderAllValues = amountOfGraphs == 1 && isSmallAmountOfData;
+
+        if (amountOfGraphs == 1)
+        
+        if (isRenderAllValues || isRenderMinMaxOnly)
         {
             txt = Format.Minify(value);
-        }
-        else
-        {
-            txt = "";
         }
 
         dot.GetComponent<GraphDot>().Render(color, txt);

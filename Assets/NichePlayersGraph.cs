@@ -29,9 +29,6 @@ public class NichePlayersGraph : View
     {
         var id = c.company.Id + 1;
 
-        //if (c.isIndependentCompany)
-        //    return Color.grey;
-
         return CompanyUtils.GetCompanyUniqueColor(id);
     }
 
@@ -58,11 +55,7 @@ public class NichePlayersGraph : View
         var month = CompanyStatisticsUtils.GetTotalMonth(CurrentIntDate);
 
         for (var i = Mathf.Max(0, month - 12); i < month; i++)
-        {
-            list.Add(0);
-        }
-
-        Debug.Log("month: " + month + "  count: " + list.Count);
+            list.Add(i);
 
         return list;
     }
