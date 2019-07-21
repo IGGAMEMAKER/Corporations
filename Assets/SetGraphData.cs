@@ -19,6 +19,9 @@ public class SetGraphData : MonoBehaviour
     public GameObject DotContainer;
     public GameObject NotEnoughDataBanner;
 
+    public Text MaxValue;
+    public Text MinValue;
+
     List<GameObject> Dots = new List<GameObject>();
 
     public int graphWidth = 550;
@@ -42,6 +45,9 @@ public class SetGraphData : MonoBehaviour
     }
 
     int counter;
+
+    long maxx = 0;
+    long minn = 0;
     void RenderGraphs(List<int> XList, GraphData graphData, int amountOfGraphs)
     {
         List<long> Values = graphData.values;
@@ -53,8 +59,8 @@ public class SetGraphData : MonoBehaviour
 
         var len = XList.Count;
 
-        var max = Values.Max();
-        var min = Values.Min();
+        maxx = System.Math.Max(maxx, Values.Max());
+        minn = System.Math.Min(minn, Values.Min());
 
         long value = 0;
 
@@ -63,7 +69,7 @@ public class SetGraphData : MonoBehaviour
         {
             value = Values[i];
 
-            RenderDot(value, len, max, min, i, amountOfGraphs, graphData.Color, graphData.Name);
+            RenderDot(value, len, i, amountOfGraphs, graphData.Color, graphData.Name);
 
             counter++;
         }
@@ -71,14 +77,22 @@ public class SetGraphData : MonoBehaviour
         HideUselessDots(i);
     }
 
-    void RenderDot(long value, int len, long max, long min, int i, int amountOfGraphs, Color color, string hint)
+    Vector3 GetPointPosition(long value)
+    {
+        return GetPointPosition(0, value, 1);
+    }
+
+    Vector3 GetPointPosition(int i, long value, int len)
+    {
+        return new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / maxx);
+    }
+
+    void RenderDot(long value, int len, int i, int amountOfGraphs, Color color, string hint)
     {
         var dot = GetDot(counter);
 
-        if (max == 0)
-            max = 1;
-
-        dot.transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
+        dot.transform.localPosition = GetPointPosition(i, value, len);
+        // new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / maxx);
         dot.SetActive(true);
 
 
@@ -86,7 +100,7 @@ public class SetGraphData : MonoBehaviour
 
         bool isSmallAmountOfData = len <= 12;
 
-        bool isRenderMinMaxOnly = amountOfGraphs > 1 && value == max || value == min;
+        bool isRenderMinMaxOnly = amountOfGraphs > 1 && value == maxx || value == minn;
 
         bool isRenderAllValues = amountOfGraphs == 1 && isSmallAmountOfData;
 
@@ -118,20 +132,39 @@ public class SetGraphData : MonoBehaviour
             Dots[i].SetActive(false);
     }
 
-    public void SetData(List<int> xs, GraphData[] ys)
+    void ResetCounter()
     {
         counter = 0;
 
+        maxx = 1;
+        minn = 0;
+    }
+
+    void RenderYAxis()
+    {
+        MaxValue.text = Format.Minify(maxx);
+        MaxValue.gameObject.transform.localPosition = GetPointPosition(maxx);
+
+        MinValue.text = Format.Minify(minn);
+        MinValue.gameObject.transform.localPosition = GetPointPosition(minn);
+    }
+
+    public void SetData(List<int> xs, GraphData[] ys)
+    {
+        ResetCounter();
+
         for (var i = 0; i < ys.Length; i++)
             RenderGraphs(xs, ys[i], ys.Length);
+
+        RenderYAxis();
     }
 
     public void SetData(List<int> xs, GraphData ys)
     {
-        //XList = xs;
-        //Values = ys;
+        ResetCounter();
 
-        counter = 0;
         RenderGraphs(xs, ys, 1);
+
+        RenderYAxis();
     }
 }
