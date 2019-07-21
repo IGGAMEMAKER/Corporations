@@ -13,8 +13,8 @@ public class SetGraphData : MonoBehaviour
 
     List<GameObject> Dots = new List<GameObject>();
 
-    List<int> XList;
-    List<long> Values;
+    //List<int> XList;
+    //List<long> Values;
 
     public int graphWidth = 550;
     public int graphHeight = 200;
@@ -22,28 +22,27 @@ public class SetGraphData : MonoBehaviour
     public int baseY = 0;
     public int baseX = 25;
 
-    public void SetData(List<int> xs, List<long> ys)
+    bool isEnoughData (List<int> xs, List<long> values)
     {
-        XList = xs;
-        Values = ys;
+        //return XList.Count == 0 || Values.Count != XList.Count;
+        return xs.Count > 0 && values.Count > 0;
+    }
 
-        if (XList.Count == 0 || Values.Count != XList.Count)
-        {
-            NotEnoughDataBanner.SetActive(true);
-            DotContainer.SetActive(false);
-            return;
-        } else
-        {
-            if (!DotContainer.activeSelf)
-                DotContainer.SetActive(true);
-            NotEnoughDataBanner.SetActive(false);
-        }
-
-
-        while (XList.Count > Dots.Count)
-        {
+    GameObject GetDot (int i)
+    {
+        if (Dots.Count <= i)
             Dots.Add(Instantiate(DotPrefab, DotContainer.transform));
-        }
+
+        return Dots[i];
+    }
+
+    int counter;
+    void RenderGraphs(List<int> XList, List<long> Values)
+    {
+        RenderNoDataBanner(XList, Values);
+
+        if (!isEnoughData(XList, Values))
+            return;
 
         var len = XList.Count;
 
@@ -56,30 +55,63 @@ public class SetGraphData : MonoBehaviour
         for (i = 0; i < len; i++)
         {
             value = Values[i];
-            Dots[i].transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
-            Dots[i].SetActive(true);
 
-            var txt = Dots[i].GetComponentInChildren<Text>();
+            RenderDot(value, len, max, min, i);
 
-            if (len <= 12 || value == max || value == min)
-            {
-                txt.text = Format.MinifyToInteger(value);
-            }
-            else
-            {
-                txt.text = "";
-            }
+            //ConnectDots()
+
+            counter++;
         }
-        for (; i < Dots.Count; i++)
+
+        HideUselessDots(i);
+    }
+
+    void RenderDot(long value, int len, long max, long min, int i)
+    {
+        var dot = GetDot(counter);
+
+        dot.transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
+        dot.SetActive(true);
+
+        var txt = dot.GetComponentInChildren<Text>();
+
+        if (len <= 12 || value == max || value == min)
         {
-            Dots[i].SetActive(false);
+            txt.text = Format.MinifyToInteger(value);
+        }
+        else
+        {
+            txt.text = "";
         }
     }
 
-    bool IsSquaredValue (long value)
+    void RenderNoDataBanner(List<int> xs, List<long> ys)
     {
-        var sqrt = (int)Mathf.Sqrt(value);
+        if (!isEnoughData(xs, ys))
+        {
+            NotEnoughDataBanner.SetActive(true);
+            DotContainer.SetActive(false);
+        }
+        else
+        {
+            if (!DotContainer.activeSelf)
+                DotContainer.SetActive(true);
+            NotEnoughDataBanner.SetActive(false);
+        }
+    }
 
-        return sqrt * sqrt == value;
+    void HideUselessDots(int i)
+    {
+        for (; i < Dots.Count; i++)
+            Dots[i].SetActive(false);
+    }
+
+    public void SetData(List<int> xs, List<long> ys)
+    {
+        //XList = xs;
+        //Values = ys;
+
+        counter = 0;
+        RenderGraphs(xs, ys);
     }
 }
