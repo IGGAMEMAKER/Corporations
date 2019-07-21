@@ -5,6 +5,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public class GraphData
+{
+    public List<long> values;
+    public Color Color;
+    public string Name;
+}
+
 public class SetGraphData : MonoBehaviour
 {
     public GameObject DotPrefab;
@@ -104,13 +112,6 @@ public class SetGraphData : MonoBehaviour
     {
         for (; i < Dots.Count; i++)
             Dots[i].SetActive(false);
-    }
-
-    public class GraphData
-    {
-        public List<long> values;
-        public Color Color;
-        public string Name;
     }
 
     public void SetData(List<int> xs, GraphData[] ys)
