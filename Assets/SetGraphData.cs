@@ -91,7 +91,7 @@ public class SetGraphData : MonoBehaviour
         bool isRenderAllValues = amountOfGraphs == 1 && isSmallAmountOfData;
 
         string val = Format.Minify(value);
-        if (isRenderAllValues || isRenderMinMaxOnly)
+        if (isRenderAllValues)
             txt = val;
 
         dot.GetComponent<GraphDot>().Render(color, txt, val, hint);
