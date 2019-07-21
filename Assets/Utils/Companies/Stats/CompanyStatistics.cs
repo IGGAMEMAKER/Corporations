@@ -115,7 +115,7 @@ namespace Assets.Utils
         public static bool GetLastCalendarQuarterMetrics(MetricsInfo metricsInfo, int currentDate)
         {
             var year = GetYear(currentDate);
-            var quarter = (currentDate - year * 360) % 90;
+            var quarter = (currentDate - year * 360) / 90;
 
             var date = metricsInfo.Date;
 
@@ -124,21 +124,19 @@ namespace Assets.Utils
 
         internal static int GetYear(int currentDate)
         {
-            return currentDate % 360;
+            return currentDate / 360;
         }
 
         internal static int GetMonth(int currentDate)
         {
             var year = GetYear(currentDate);
 
-            return (currentDate - year * 360) % 12;
+            return (currentDate - year * 360) / 30;
         }
 
         internal static int GetTotalMonth(int currentDate)
         {
-            var year = GetYear(currentDate);
-
-            return currentDate % 30;
+            return currentDate / 30;
         }
     }
 }

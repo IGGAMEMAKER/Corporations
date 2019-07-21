@@ -18,16 +18,19 @@ public class NichePlayersGraph : View
                 c => new GraphData {
                     Color = Visuals.Color(VisualConstants.COLOR_GOLD),
                     Name = c.company.Name,
-                    values = FillListWithZeroesIfNotEnoughData(
-                        c.metricsHistory.Metrics
-                            .Where(m => CompanyStatisticsUtils.GetLastCalendarYearMetrics(m, CurrentIntDate))
-                            .Select(m => m.AudienceSize)
-                            .ToList(),
-                        Xs.Count)
+
+                    values = FillListWithZeroesIfNotEnoughData(GetLastYearMetrics(c), Xs.Count)
                 });
 
-
         GetComponent<SetGraphData>().SetData(Xs, graphDatas.ToArray());
+    }
+
+    List<long> GetLastYearMetrics(GameEntity c)
+    {
+        return c.metricsHistory.Metrics
+                    .Where(m => CompanyStatisticsUtils.GetLastYearMetrics(m, CurrentIntDate))
+                    .Select(m => m.AudienceSize)
+                    .ToList();
     }
 
     List<long> FillListWithZeroesIfNotEnoughData(List<long> list, int amountOfData)
@@ -48,6 +51,8 @@ public class NichePlayersGraph : View
         {
             list.Add(0);
         }
+
+        Debug.Log("month: " + month + "  count: " + list.Count);
 
         return list;
     }
