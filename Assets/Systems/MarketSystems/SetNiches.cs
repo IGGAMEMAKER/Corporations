@@ -2,13 +2,34 @@
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    //void InitializeOSIndustry()
-    //{
-    //    IndustryType industry = IndustryType.OS;
+    public enum IncomePerUser
+    {
+        Low,
+        Mid,
+        High,
+        Premium
+    };
 
-    //    AttachNicheToIndustry(NicheType.OSDesktop, industry);
-    //    SetNicheCosts(NicheType.OSDesktop, 1000, 500, 1000, 1000, 1000, 50000);
-    //}
+    public enum AudienceSize
+    {
+        LessThanMillion,
+        WholeWorld
+    }
+
+    public enum NicheDuration
+    {
+        LessThanYear = 1,
+        Low = 2,
+        Mid = 3,
+        EntireGame = 4
+    }
+
+    void SetNicheCosts(NicheType nicheType,
+        NicheDuration PeriodDuration, AudienceSize audienceSize, IncomePerUser incomePerUser,
+        int MaintenanceCost, int ChangeSpeed)
+    {
+
+    }
 
     void InitializeCommunicationsIndustry()
     {
