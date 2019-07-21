@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,13 @@ public class CompanyValuationGrowthGraph : View
         var Ys = metrics.Select(m => m.Valuation).ToList();
         var Xs = metrics.Select(m => m.Date).ToList();
 
-        GetComponent<SetGraphData>().SetData(Xs, Ys);
+        GraphData graphData = new GraphData
+        {
+            Color = Visuals.Color(VisualConstants.COLOR_GOLD),
+            Name = "",
+            values = Ys
+        };
+
+        GetComponent<SetGraphData>().SetData(Xs, graphData);
     }
 }
