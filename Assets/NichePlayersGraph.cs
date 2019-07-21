@@ -1,8 +1,7 @@
 ﻿using Assets.Utils;
 using System.Linq;
-using UnityEngine;
 
-public class CompanyValuationGrowthGraph : View
+public class NichePlayersGraph : View
 {
     public override void ViewRender()
     {
