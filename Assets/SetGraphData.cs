@@ -63,7 +63,7 @@ public class SetGraphData : MonoBehaviour
         {
             value = Values[i];
 
-            RenderDot(value, len, max, min, i, amountOfGraphs, graphData.Color);
+            RenderDot(value, len, max, min, i, amountOfGraphs, graphData.Color, graphData.Name);
 
             counter++;
         }
@@ -71,7 +71,7 @@ public class SetGraphData : MonoBehaviour
         HideUselessDots(i);
     }
 
-    void RenderDot(long value, int len, long max, long min, int i, int amountOfGraphs, Color color)
+    void RenderDot(long value, int len, long max, long min, int i, int amountOfGraphs, Color color, string hint)
     {
         var dot = GetDot(counter);
 
@@ -97,7 +97,7 @@ public class SetGraphData : MonoBehaviour
             txt = Format.Minify(value);
         }
 
-        dot.GetComponent<GraphDot>().Render(color, txt);
+        dot.GetComponent<GraphDot>().Render(color, txt, hint);
     }
 
     void RenderNoDataBanner(List<int> xs, List<long> ys)

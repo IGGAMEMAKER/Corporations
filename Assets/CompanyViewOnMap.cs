@@ -27,6 +27,13 @@ public class CompanyViewOnMap : View
         LinkToProjectView.CompanyId = c.company.Id;
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
+
+        SetEmblemColor();
+    }
+
+    void SetEmblemColor()
+    {
+        Image.color = CompanyUtils.GetCompanyUniqueColor(company.company.Id);
     }
 
     string GetCompanyHint(bool hasControl)

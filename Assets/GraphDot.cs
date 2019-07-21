@@ -7,10 +7,13 @@ public class GraphDot : MonoBehaviour
 {
     public Text Text;
     public Image Image;
+    public Hint Hint;
 
-    public void Render(Color color, string value)
+    public void Render(Color color, string value, string hint)
     {
         Text.text = value;
         Image.color = color;
+
+        Hint.SetHint($"{hint} {value}");
     }
 }

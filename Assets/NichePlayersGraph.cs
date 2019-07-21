@@ -17,7 +17,7 @@ public class NichePlayersGraph : View
             .Select(
                 c => new GraphData {
                     Color = GetCompanyColor(c),
-                    Name = c.company.Name,
+                    Name = $"{c.company.Name}, clients: ",
 
                     values = FillListWithZeroesIfNotEnoughData(GetLastYearMetrics(c), Xs.Count)
                 });
