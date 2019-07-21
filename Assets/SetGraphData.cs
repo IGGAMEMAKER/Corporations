@@ -42,7 +42,7 @@ public class SetGraphData : MonoBehaviour
     }
 
     int counter;
-    void RenderGraphs(List<int> XList, GraphData graphData)
+    void RenderGraphs(List<int> XList, GraphData graphData, int amountOfGraphs)
     {
         List<long> Values = graphData.values;
         
@@ -63,7 +63,7 @@ public class SetGraphData : MonoBehaviour
         {
             value = Values[i];
 
-            RenderDot(value, len, max, min, i);
+            RenderDot(value, len, max, min, i, amountOfGraphs, graphData.Color);
 
             counter++;
         }
@@ -71,7 +71,7 @@ public class SetGraphData : MonoBehaviour
         HideUselessDots(i);
     }
 
-    void RenderDot(long value, int len, long max, long min, int i)
+    void RenderDot(long value, int len, long max, long min, int i, int amountOfGraphs, Color color)
     {
         var dot = GetDot(counter);
 
@@ -81,16 +81,19 @@ public class SetGraphData : MonoBehaviour
         dot.transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
         dot.SetActive(true);
 
-        var txt = dot.GetComponentInChildren<Text>();
 
-        if (len <= 12 || value == max || value == min)
+        string txt;
+
+        if (len <= 12 || value == max || value == min && amountOfGraphs == 1)
         {
-            txt.text = Format.MinifyToInteger(value);
+            txt = Format.Minify(value);
         }
         else
         {
-            txt.text = "";
+            txt = "";
         }
+
+        dot.GetComponent<GraphDot>().Render(color, txt);
     }
 
     void RenderNoDataBanner(List<int> xs, List<long> ys)
@@ -110,7 +113,7 @@ public class SetGraphData : MonoBehaviour
 
     void HideUselessDots(int i)
     {
-        for (; i < Dots.Count; i++)
+        for (i = counter; i < Dots.Count; i++)
             Dots[i].SetActive(false);
     }
 
@@ -119,7 +122,7 @@ public class SetGraphData : MonoBehaviour
         counter = 0;
 
         for (var i = 0; i < ys.Length; i++)
-            RenderGraphs(xs, ys[i]);
+            RenderGraphs(xs, ys[i], ys.Length);
     }
 
     public void SetData(List<int> xs, GraphData ys)
@@ -128,6 +131,6 @@ public class SetGraphData : MonoBehaviour
         //Values = ys;
 
         counter = 0;
-        RenderGraphs(xs, ys);
+        RenderGraphs(xs, ys, 1);
     }
 }

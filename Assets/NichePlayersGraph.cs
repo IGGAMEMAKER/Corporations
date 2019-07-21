@@ -16,13 +16,23 @@ public class NichePlayersGraph : View
         var graphDatas = players
             .Select(
                 c => new GraphData {
-                    Color = Visuals.Color(VisualConstants.COLOR_GOLD),
+                    Color = GetCompanyColor(c),
                     Name = c.company.Name,
 
                     values = FillListWithZeroesIfNotEnoughData(GetLastYearMetrics(c), Xs.Count)
                 });
 
         GetComponent<SetGraphData>().SetData(Xs, graphDatas.ToArray());
+    }
+
+    Color GetCompanyColor(GameEntity c)
+    {
+        var id = c.company.Id + 1;
+
+        //if (c.isIndependentCompany)
+        //    return Color.grey;
+
+        return CompanyUtils.GetCompanyUniqueColor(id);
     }
 
     List<long> GetLastYearMetrics(GameEntity c)

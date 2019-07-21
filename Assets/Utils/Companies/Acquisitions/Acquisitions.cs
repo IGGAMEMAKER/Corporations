@@ -97,26 +97,6 @@ namespace Assets.Utils
             off.ReplaceAcquisitionOffer(newOffer, companyId, buyerInvestorId);
         }
 
-
-
-        static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
-        {
-            var mod = ((companyId + 1) % (shareholderId + 1));
-            var percent = (float)mod / (float)(companyId + 1);
-
-            var min = 0.9f;
-            var max = 3f;
-
-            var M = max - min;
-            var C = 0.61f;
-            var K = companyId + shareholderId + GetSeedValue();
-
-            return min + M * ((C * K) % 1);
-
-            return 1;
-            //return Mathf.Clamp(value, 0.9f, 3f);
-        }
-
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
         {
             var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, ackOffer.CompanyId);
