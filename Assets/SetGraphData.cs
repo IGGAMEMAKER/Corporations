@@ -21,9 +21,6 @@ public class SetGraphData : MonoBehaviour
 
     List<GameObject> Dots = new List<GameObject>();
 
-    //List<int> XList;
-    //List<long> Values;
-
     public int graphWidth = 550;
     public int graphHeight = 200;
 
@@ -77,6 +74,9 @@ public class SetGraphData : MonoBehaviour
     void RenderDot(long value, int len, long max, long min, int i)
     {
         var dot = GetDot(counter);
+
+        if (max == 0)
+            max = 1;
 
         dot.transform.localPosition = new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / max);
         dot.SetActive(true);

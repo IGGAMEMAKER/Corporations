@@ -96,5 +96,49 @@ namespace Assets.Utils
 
             return (now - was) * 100 / was;
         }
+
+
+
+        public static bool GetLastYearMetrics(MetricsInfo metricsInfo, int currentDate)
+        {
+            return metricsInfo.Date > currentDate - 360;
+        }
+
+        public static bool GetLastCalendarYearMetrics(MetricsInfo metricsInfo, int currentDate)
+        {
+            var year = GetYear(currentDate);
+            var date = metricsInfo.Date;
+
+            return date > year * 360 && date <= currentDate;
+        }
+
+        public static bool GetLastCalendarQuarterMetrics(MetricsInfo metricsInfo, int currentDate)
+        {
+            var year = GetYear(currentDate);
+            var quarter = (currentDate - year * 360) % 90;
+
+            var date = metricsInfo.Date;
+
+            return date > year * 360 + quarter * 90 && date <= currentDate;
+        }
+
+        internal static int GetYear(int currentDate)
+        {
+            return currentDate % 360;
+        }
+
+        internal static int GetMonth(int currentDate)
+        {
+            var year = GetYear(currentDate);
+
+            return (currentDate - year * 360) % 12;
+        }
+
+        internal static int GetTotalMonth(int currentDate)
+        {
+            var year = GetYear(currentDate);
+
+            return currentDate % 30;
+        }
     }
 }
