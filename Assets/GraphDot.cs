@@ -9,9 +9,9 @@ public class GraphDot : MonoBehaviour
     public Image Image;
     public Hint Hint;
 
-    public void Render(Color color, string value, string hint)
+    public void Render(Color color, string text, string value, string hint)
     {
-        Text.text = value;
+        Text.text = text;
         Image.color = color;
 
         Hint.SetHint($"{hint} {value}");

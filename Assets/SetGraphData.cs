@@ -90,14 +90,11 @@ public class SetGraphData : MonoBehaviour
 
         bool isRenderAllValues = amountOfGraphs == 1 && isSmallAmountOfData;
 
-        if (amountOfGraphs == 1)
-        
+        string val = Format.Minify(value);
         if (isRenderAllValues || isRenderMinMaxOnly)
-        {
-            txt = Format.Minify(value);
-        }
+            txt = val;
 
-        dot.GetComponent<GraphDot>().Render(color, txt, hint);
+        dot.GetComponent<GraphDot>().Render(color, txt, val, hint);
     }
 
     void RenderNoDataBanner(List<int> xs, List<long> ys)

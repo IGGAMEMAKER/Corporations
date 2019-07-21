@@ -9,7 +9,7 @@ public class PlayersOnNicheSorted : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<CompanyViewOnMap>().SetEntity(entity as GameEntity);
+        t.GetComponent<CompanyViewOnMap>().SetEntity(entity as GameEntity, false);
     }
 
     public override void ViewRender()

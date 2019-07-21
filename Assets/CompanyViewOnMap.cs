@@ -13,12 +13,17 @@ public class CompanyViewOnMap : View
     public LinkToProjectView LinkToProjectView;
 
     public Image Image;
+    public Image DarkImage;
+
+    bool DisableDarkTheme;
 
     GameEntity company;
 
-    public void SetEntity(GameEntity c)
+    public void SetEntity(GameEntity c, bool darkImage)
     {
         company = c;
+        DisableDarkTheme = darkImage;
+
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
         Name.text = c.company.Name.Substring(0, 1);
@@ -34,6 +39,8 @@ public class CompanyViewOnMap : View
     void SetEmblemColor()
     {
         Image.color = CompanyUtils.GetCompanyUniqueColor(company.company.Id);
+
+        DarkImage.gameObject.SetActive(DisableDarkTheme);
     }
 
     string GetCompanyHint(bool hasControl)
