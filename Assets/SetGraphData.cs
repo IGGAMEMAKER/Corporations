@@ -22,13 +22,13 @@ public class SetGraphData : MonoBehaviour
     public int baseY = 0;
     public int baseX = 25;
 
-    bool isEnoughData (List<int> xs, List<long> values)
+    bool isEnoughData(List<int> xs, List<long> values)
     {
         //return XList.Count == 0 || Values.Count != XList.Count;
         return xs.Count > 0 && values.Count > 0;
     }
 
-    GameObject GetDot (int i)
+    GameObject GetDot(int i)
     {
         if (Dots.Count <= i)
             Dots.Add(Instantiate(DotPrefab, DotContainer.transform));
@@ -37,8 +37,10 @@ public class SetGraphData : MonoBehaviour
     }
 
     int counter;
-    void RenderGraphs(List<int> XList, List<long> Values)
+    void RenderGraphs(List<int> XList, GraphData graphData)
     {
+        List<long> Values = graphData.values;
+        
         RenderNoDataBanner(XList, Values);
 
         if (!isEnoughData(XList, Values))
@@ -57,8 +59,6 @@ public class SetGraphData : MonoBehaviour
             value = Values[i];
 
             RenderDot(value, len, max, min, i);
-
-            //ConnectDots()
 
             counter++;
         }
@@ -106,7 +106,22 @@ public class SetGraphData : MonoBehaviour
             Dots[i].SetActive(false);
     }
 
-    public void SetData(List<int> xs, List<long> ys)
+    public class GraphData
+    {
+        public List<long> values;
+        public Color Color;
+        public string Name;
+    }
+
+    public void SetData(List<int> xs, GraphData[] ys)
+    {
+        counter = 0;
+
+        for (var i = 0; i < ys.Length; i++)
+            RenderGraphs(xs, ys[i]);
+    }
+
+    public void SetData(List<int> xs, GraphData ys)
     {
         //XList = xs;
         //Values = ys;
