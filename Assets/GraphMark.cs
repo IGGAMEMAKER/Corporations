@@ -12,7 +12,7 @@ public class GraphMark : MonoBehaviour
     {
         var pos = transform.localPosition;
 
-        var percent = (value - min) / (max - min);
+        var percent = (value - min) / (float)(max - min);
 
         transform.localPosition = new Vector3(pos.x, percent * graphHeight, 0);
     }
