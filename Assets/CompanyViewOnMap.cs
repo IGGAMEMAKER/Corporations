@@ -15,14 +15,14 @@ public class CompanyViewOnMap : View
     public Image Image;
     public Image DarkImage;
 
-    bool DisableDarkTheme;
+    bool EnableDarkTheme;
 
     GameEntity company;
 
     public void SetEntity(GameEntity c, bool darkImage)
     {
         company = c;
-        DisableDarkTheme = darkImage;
+        EnableDarkTheme = darkImage;
 
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
@@ -40,7 +40,11 @@ public class CompanyViewOnMap : View
     {
         Image.color = CompanyUtils.GetCompanyUniqueColor(company.company.Id);
 
-        DarkImage.gameObject.SetActive(DisableDarkTheme);
+        var col = DarkImage.color;
+        var a = EnableDarkTheme ? 219f : 126f;
+
+        DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
+        //DarkImage.gameObject.SetActive(DisableDarkTheme);
     }
 
     string GetCompanyHint(bool hasControl)
