@@ -90,7 +90,7 @@ public class MarketMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        RenderCompanies(niche, m);
+        //RenderCompanies(niche, m);
     }
 
     void RenderCompanies(NicheType niche, GameObject m)
