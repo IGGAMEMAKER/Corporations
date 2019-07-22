@@ -66,7 +66,7 @@ public class SetGraphData : MonoBehaviour
 
     long maxx = 0;
     long minn = 0;
-    void RenderGraphs(List<int> XList, GraphData graphData, int amountOfGraphs)
+    void RenderGraph(List<int> XList, GraphData graphData, int amountOfGraphs)
     {
         List<long> Values = graphData.values;
         
@@ -90,8 +90,6 @@ public class SetGraphData : MonoBehaviour
             value = Values[i];
 
             var dot = RenderDot(value, len, i, amountOfGraphs, graphData.Color, graphData.Name);
-
-            Debug.Log("Sett graph data i=" + i + " counter=" + counter);
 
             if (prevDot != null)
                 ConnectDots(prevDot.transform, dot.transform, counter - 1, graphData.Color);
@@ -207,7 +205,7 @@ public class SetGraphData : MonoBehaviour
         ResetCounter();
 
         for (var i = 0; i < ys.Length; i++)
-            RenderGraphs(xs, ys[i], ys.Length);
+            RenderGraph(xs, ys[i], ys.Length);
 
         RenderYAxis();
     }
@@ -216,7 +214,7 @@ public class SetGraphData : MonoBehaviour
     {
         ResetCounter();
 
-        RenderGraphs(xs, ys, 1);
+        RenderGraph(xs, ys, 1);
 
         RenderYAxis();
     }

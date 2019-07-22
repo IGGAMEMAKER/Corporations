@@ -4,7 +4,7 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
-class ProductGrabClientsByTargetingSystem : OnDateChange
+class ProductGrabClientsByTargetingSystem : OnMonthChange
 {
     public ProductGrabClientsByTargetingSystem(Contexts contexts) : base(contexts)
     {
@@ -17,13 +17,13 @@ class ProductGrabClientsByTargetingSystem : OnDateChange
 
         foreach (var e in Products)
         {
-            TeamResource need = MarketingUtils.GetTargetingCost(contexts.game, e.company.Id);
+            TeamResource need = MarketingUtils.GetTargetingCost(contexts.game, e.company.Id) * 30;
 
             if (e.companyResource.Resources.IsEnoughResources(need))
             {
-                var rand = Random.Range(0.75f, 1.4f);
+                var rand = Random.Range(0.15f, 1.4f);
 
-                var clients = rand * MarketingUtils.GetTargetingEffeciency(contexts.game, e);
+                var clients = rand * MarketingUtils.GetTargetingEffeciency(contexts.game, e) * 30;
 
                 MarketingUtils.AddClients(e, UserType.Regular, (long)clients);
 

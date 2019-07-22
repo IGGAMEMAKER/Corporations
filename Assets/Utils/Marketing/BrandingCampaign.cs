@@ -35,10 +35,11 @@ namespace Assets.Utils
 
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
         {
+            Debug.Log("AddMassUsersWhileBrandingCampaign " + company.company.Name);
             var costs = GetNicheCosts(gameContext, company);
             var batch = GetCompanyClientBatch(gameContext, company);
 
-            var clients = batch * 10 * GetMarketingFinancingBrandPowerGainModifier(company) * Random.Range(0.5f, 1.5f);
+            var clients = batch * 10 * GetMarketingFinancingBrandPowerGainModifier(company) * Random.Range(0.15f, 1.5f);
 
             AddClients(company, UserType.Mass, (long)clients);
         }

@@ -19,7 +19,7 @@ public class NichePlayersGraph : View
                     Color = GetCompanyColor(c),
                     Name = $"{c.company.Name}, clients: ",
 
-                    values = FillListWithZeroesIfNotEnoughData(GetLastYearMetrics(c), Xs.Count)
+                    values = FillListWithZeroesIfNotEnoughData(GetLastYearMetrics(c), c, Xs.Count)
                 });
 
         GetComponent<SetGraphData>().SetData(Xs, graphDatas.ToArray());
@@ -27,7 +27,7 @@ public class NichePlayersGraph : View
 
     Color GetCompanyColor(GameEntity c)
     {
-        var id = c.company.Id + 1;
+        var id = c.company.Id;
 
         return CompanyUtils.GetCompanyUniqueColor(id);
     }
@@ -40,10 +40,15 @@ public class NichePlayersGraph : View
                     .ToList();
     }
 
-    List<long> FillListWithZeroesIfNotEnoughData(List<long> list, int amountOfData)
+    List<long> FillListWithZeroesIfNotEnoughData(List<long> list, GameEntity c, int amountOfData)
     {
         while (list.Count < amountOfData)
-            list.Add(0);
+        {
+            if (c.isAlive)
+                list.Add(0);
+            else
+                list.Insert(0, 0);
+        }
 
         return list;
     }
