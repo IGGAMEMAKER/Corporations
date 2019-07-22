@@ -16,11 +16,11 @@ public class GraphData
 public class SetGraphData : MonoBehaviour
 {
     public GameObject DotPrefab;
+    public GameObject MarkPrefab;
     public GameObject DotContainer;
     public GameObject NotEnoughDataBanner;
 
-    public Text MaxValue;
-    public Text MinValue;
+    List<GameObject> Marks = new List<GameObject>();
 
     List<GameObject> Dots = new List<GameObject>();
 
@@ -42,6 +42,14 @@ public class SetGraphData : MonoBehaviour
             Dots.Add(Instantiate(DotPrefab, DotContainer.transform));
 
         return Dots[i];
+    }
+
+    GameObject GetMark(int i)
+    {
+        if (Marks.Count <= i)
+            Marks.Add(Instantiate(MarkPrefab, DotContainer.transform));
+
+        return Marks[i];
     }
 
     int counter;
@@ -142,11 +150,14 @@ public class SetGraphData : MonoBehaviour
 
     void RenderYAxis()
     {
-        MaxValue.text = Format.Minify(maxx);
-        MaxValue.gameObject.transform.localPosition = GetPointPosition(maxx);
+        for (var i = 0; i < 6; i++)
+        {
+            var m = GetMark(i);
 
-        MinValue.text = Format.Minify(minn);
-        MinValue.gameObject.transform.localPosition = GetPointPosition(minn);
+            var value = minn + (maxx - minn) * i / 5;
+
+            m.GetComponent<GraphMark>().Render(value, minn, maxx, graphHeight);
+        }
     }
 
     public void SetData(List<int> xs, GraphData[] ys)
