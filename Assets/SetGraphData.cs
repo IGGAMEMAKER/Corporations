@@ -109,6 +109,7 @@ public class SetGraphData : MonoBehaviour
 
         var diff = dot2.localPosition - dot1.localPosition;
 
+
         connection.transform.localPosition = dot1.localPosition + diff / 2;
 
         var angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
