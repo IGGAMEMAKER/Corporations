@@ -56,7 +56,7 @@ public class SetGraphData : MonoBehaviour
 
     GameObject GetOrCreateObject(List<GameObject> list, int i, GameObject prefab)
     {
-        if (list.Count <= i)
+        while (list.Count <= i)
             list.Add(Instantiate(prefab, DotContainer.transform));
 
         return list[i];
@@ -89,12 +89,12 @@ public class SetGraphData : MonoBehaviour
         {
             value = Values[i];
 
-            var dot = GetDot(i);
+            var dot = RenderDot(value, len, i, amountOfGraphs, graphData.Color, graphData.Name);
 
-            RenderDot(value, len, i, amountOfGraphs, graphData.Color, graphData.Name);
+            Debug.Log("Sett graph data i=" + i + " counter=" + counter);
 
             if (prevDot != null)
-                ConnectDots(prevDot.transform, dot.transform, counter);
+                ConnectDots(prevDot.transform, dot.transform, counter - 1, graphData.Color);
 
             prevDot = dot;
             counter++;
@@ -103,13 +103,22 @@ public class SetGraphData : MonoBehaviour
         HideUselessDots(i);
     }
 
-    void ConnectDots(Transform dot1, Transform dot2, int i)
+    void ConnectDots(Transform dot1, Transform dot2, int i, Color color)
     {
         var connection = GetConnection(i);
 
-        connection.transform.localPosition = dot1.localPosition;
-        //connection.transform = dot1.localPosition;
-        connection.transform.LookAt(dot2);
+        var diff = dot2.localPosition - dot1.localPosition;
+
+        connection.transform.localPosition = dot1.localPosition + diff / 2;
+
+        var angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        connection.transform.eulerAngles = new Vector3(0, 0, angle);
+
+        connection.GetComponent<Image>().color = color;
+
+        connection.GetComponent<RectTransform>().sizeDelta = new Vector2(diff.magnitude, 2f);
+
+        connection.SetActive(true);
     }
 
     Vector3 GetPointPosition(long value)
@@ -122,7 +131,7 @@ public class SetGraphData : MonoBehaviour
         return new Vector3(baseX + i * graphWidth / len, baseY + value * graphHeight / maxx);
     }
 
-    void RenderDot(long value, int len, int i, int amountOfGraphs, Color color, string hint)
+    GameObject RenderDot(long value, int len, int i, int amountOfGraphs, Color color, string hint)
     {
         var dot = GetDot(counter);
 
@@ -144,6 +153,8 @@ public class SetGraphData : MonoBehaviour
             txt = val;
 
         dot.GetComponent<GraphDot>().Render(color, txt, val, hint);
+
+        return dot;
     }
 
     void RenderNoDataBanner(List<int> xs, List<long> ys)
@@ -165,6 +176,9 @@ public class SetGraphData : MonoBehaviour
     {
         for (i = counter; i < Dots.Count; i++)
             Dots[i].SetActive(false);
+
+        for (i = counter - 1; i < Connections.Count; i++)
+            Connections[i].SetActive(false);
     }
 
     void ResetCounter()
