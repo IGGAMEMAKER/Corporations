@@ -16,6 +16,7 @@ public class GraphData
 public class SetGraphData : MonoBehaviour
 {
     public GameObject DotPrefab;
+    public GameObject ConnectionPrefab;
     public GameObject MarkPrefab;
     public GameObject DotContainer;
     public GameObject NotEnoughDataBanner;
@@ -23,6 +24,8 @@ public class SetGraphData : MonoBehaviour
     List<GameObject> Marks = new List<GameObject>();
 
     List<GameObject> Dots = new List<GameObject>();
+
+    List<GameObject> Connections = new List<GameObject>();
 
     public int graphWidth = 550;
     public int graphHeight = 200;
@@ -38,18 +41,25 @@ public class SetGraphData : MonoBehaviour
 
     GameObject GetDot(int i)
     {
-        if (Dots.Count <= i)
-            Dots.Add(Instantiate(DotPrefab, DotContainer.transform));
-
-        return Dots[i];
+        return GetOrCreateObject(Dots, i, DotPrefab);
     }
 
     GameObject GetMark(int i)
     {
-        if (Marks.Count <= i)
-            Marks.Add(Instantiate(MarkPrefab, DotContainer.transform));
+        return GetOrCreateObject(Marks, i, MarkPrefab);
+    }
 
-        return Marks[i];
+    GameObject GetConnection(int i)
+    {
+        return GetOrCreateObject(Connections, i, ConnectionPrefab);
+    }
+
+    GameObject GetOrCreateObject(List<GameObject> list, int i, GameObject prefab)
+    {
+        if (list.Count <= i)
+            list.Add(Instantiate(prefab, DotContainer.transform));
+
+        return list[i];
     }
 
     int counter;
@@ -72,17 +82,34 @@ public class SetGraphData : MonoBehaviour
 
         long value = 0;
 
+        GameObject prevDot = null;
+
         var i = 0;
         for (i = 0; i < len; i++)
         {
             value = Values[i];
 
+            var dot = GetDot(i);
+
             RenderDot(value, len, i, amountOfGraphs, graphData.Color, graphData.Name);
 
+            if (prevDot != null)
+                ConnectDots(prevDot.transform, dot.transform, counter);
+
+            prevDot = dot;
             counter++;
         }
 
         HideUselessDots(i);
+    }
+
+    void ConnectDots(Transform dot1, Transform dot2, int i)
+    {
+        var connection = GetConnection(i);
+
+        connection.transform.localPosition = dot1.localPosition;
+        //connection.transform = dot1.localPosition;
+        connection.transform.LookAt(dot2);
     }
 
     Vector3 GetPointPosition(long value)
