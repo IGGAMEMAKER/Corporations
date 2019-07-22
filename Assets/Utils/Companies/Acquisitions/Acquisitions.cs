@@ -23,9 +23,11 @@ namespace Assets.Utils
 
         public static GameEntity[] GetAcquisitionOffersToPlayer(GameContext gameContext)
         {
+            var player = GetPlayerCompany(gameContext);
+
             return Array.FindAll(
                 gameContext.GetEntities(GameMatcher.AcquisitionOffer),
-                o => IsCompanyRelatedToPlayer(gameContext, o.acquisitionOffer.CompanyId)
+                o => IsCompanyRelatedToPlayer(gameContext, o.acquisitionOffer.CompanyId) && o.acquisitionOffer.BuyerId != player.shareholder.Id
                 );
         }
 

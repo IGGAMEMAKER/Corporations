@@ -28,6 +28,11 @@ namespace Assets.Utils
             return $"${Minify(value)}";
         }
 
+        public static string MoneyToInteger<T>(T value)
+        {
+            return $"${MinifyToInteger(value)}";
+        }
+
         public static string MinifyToInteger<T>(T value)
         {
             long.TryParse(value.ToString(), out long val);
