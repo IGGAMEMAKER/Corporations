@@ -58,6 +58,11 @@ public class CompanyViewOnMap : View
         var nicheName = EnumUtils.GetFormattedNicheName(company.product.Niche);
         hint.AppendFormat("\n\n#{0} on market of {1}", position + 1, nicheName);
 
+        var level = ProductUtils.GetProductLevel(company);
+        hint.AppendLine($"\nApp quality: {level}");
+        var clients = MarketingUtils.GetClients(company);
+        hint.AppendLine($"\nClients: {clients}");
+
         return hint.ToString();
     }
 }
