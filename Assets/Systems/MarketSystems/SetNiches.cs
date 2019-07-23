@@ -24,9 +24,22 @@ public partial class MarketInitializerSystem : IInitializeSystem
         EntireGame = 4
     }
 
+    public enum NicheMaintenance
+    {
+        Low, // 
+        Mid,
+        High,
+        Humongous
+    }
+
+    public enum NicheChangeSpeed
+    {
+
+    }
+
     void SetNicheCosts(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize, IncomePerUser incomePerUser,
-        int MaintenanceCost, int ChangeSpeed)
+        NicheMaintenance MaintenanceCost, NicheChangeSpeed ChangeSpeed)
     {
 
     }
