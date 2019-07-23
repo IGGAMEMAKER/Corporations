@@ -51,17 +51,17 @@ public class CompanyViewOnMap : View
     {
         StringBuilder hint = new StringBuilder(company.company.Name);
 
-        if (hasControl)
-            hint.Append(Visuals.Colorize("\n\nWe control this company", VisualConstants.COLOR_CONTROL));
-
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
         var nicheName = EnumUtils.GetFormattedNicheName(company.product.Niche);
-        hint.AppendFormat("\n\n#{0} on market of {1}", position + 1, nicheName);
+        hint.AppendFormat("\n\n#{0} on market", position + 1, nicheName);
 
         var level = ProductUtils.GetProductLevel(company);
         hint.AppendLine($"\nApp quality: {level}");
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"\nClients: {clients}");
+
+        if (hasControl)
+            hint.Append(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
 
         return hint.ToString();
     }
