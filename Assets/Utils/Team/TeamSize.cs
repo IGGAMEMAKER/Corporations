@@ -40,7 +40,7 @@ namespace Assets.Utils
             }
         }
 
-        internal static int GetAverageRating(GameContext gameContext, GameEntity company)
+        internal static int GetAverageTeamStrength(GameContext gameContext, GameEntity company)
         {
             var strength = 0;
             var size = 0;
@@ -55,15 +55,22 @@ namespace Assets.Utils
             if (size == 0)
                 return 0;
 
+            return strength / size;
+        }
+
+        internal static int GetAverageTeamRating(GameContext gameContext, GameEntity company)
+        {
+            var strength = GetAverageTeamStrength(gameContext, company);
 
             var min = 45f;
             var max = 90f;
 
             var diff = max - min;
 
-            // 7 per star
 
-            float relativeStrength = Mathf.Clamp(strength / size, min, max);
+            // 9 per star
+
+            float relativeStrength = Mathf.Clamp(strength, min, max);
 
             var percent = (relativeStrength - min) / diff;
 

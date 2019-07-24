@@ -26,7 +26,7 @@ public class ProductOverview : View
         var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
         Expertise.text = $"Expertise: {expertise}%";
 
-        var strength = TeamUtils.GetAverageRating(GameContext, SelectedCompany);
+        var strength = TeamUtils.GetAverageTeamRating(GameContext, SelectedCompany);
         TeamSpeed.SetStars(strength);
 
         var position = NicheUtils.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
