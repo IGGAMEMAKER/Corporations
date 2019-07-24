@@ -6,11 +6,20 @@
         {
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int monetisation = GetMonetisationRisk(gameContext, companyId);
+            int competitors = GetCompetitionRisk(gameContext, companyId);
 
             return new BonusContainer("Total risk")
                 .SetDimension("%")
                 .Append("Niche demand risk", marketDemand)
+                .Append("Competition risk", competitors)
                 .AppendAndHideIfZero("Is not profitable", monetisation);
+        }
+
+        internal static int GetCompetitionRisk (GameContext gameContext, int companyId)
+        {
+            var company = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return GetCompetitorsAmount(company, gameContext) * 5;
         }
 
         internal static long GetCompanyRisk(GameContext gameContext, int companyId)
