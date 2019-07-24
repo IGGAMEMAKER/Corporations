@@ -17,16 +17,19 @@ public class ProductOverview : View
     {
         base.ViewRender();
 
+        if (!SelectedCompany.hasProduct)
+            return;
+
         var speed = TeamUtils.GetPerformance(GameContext, SelectedCompany);
-        DevelopmentSpeed.text = $"Development Speed: {speed}$";
+        DevelopmentSpeed.text = $"Development Speed: {speed}%";
 
-        var expertise = 115;
-        Expertise.text = $"Expertise: {expertise}";
+        var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
+        Expertise.text = $"Expertise: {expertise}%";
 
-        var strength = 5;
+        var strength = TeamUtils.GetAverageRating(GameContext, SelectedCompany);
         TeamSpeed.SetStars(strength);
 
-        var position = NicheUtils.GetPositionOnMarket(GameContext, SelectedCompany);
+        var position = NicheUtils.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
         Popularity.text = $"Position on market: #{position}";
 
         var quality = ProductUtils.GetProductLevel(SelectedCompany);

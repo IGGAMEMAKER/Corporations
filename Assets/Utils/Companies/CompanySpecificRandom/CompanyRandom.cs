@@ -12,6 +12,20 @@ namespace Assets.Utils
             return GetHashedRandom(companyId, mixer);
         }
 
+        public static int GetCEOId(GameEntity company)
+        {
+            return company.cEO.HumanId;
+        }
+
+        public static int GetCompanyExpertise (GameEntity company)
+        {
+            //var CEOId = 
+            int companyId = company.company.Id;
+            int CEOId = GetCEOId(company);
+
+            return 100 + (int)(30 * GetHashedRandom2(companyId, CEOId));
+        }
+
         public static Color GetCompanyUniqueColor(int companyId)
         {
             var r = GetRandomColor(companyId, companyId);
@@ -31,11 +45,17 @@ namespace Assets.Utils
             return ((C * K) % 1);
         }
 
+        static float GetHashedRandom2(int companyId, int mixer)
+        {
+            var C = 0.58f;
+
+            var K = 2 * companyId + mixer + GetSeedValue2();
+
+            return ((C * K) % 1);
+        }
+
         static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
         {
-            var mod = ((companyId + 1) % (shareholderId + 1));
-            var percent = (float)mod / (float)(companyId + 1);
-
             var min = 0.9f;
             var max = 3f;
 
@@ -47,6 +67,16 @@ namespace Assets.Utils
 
             return 1;
             //return Mathf.Clamp(value, 0.9f, 3f);
+        }
+
+        static int GetSeedValue()
+        {
+            return DateTime.Now.Hour;
+        }
+
+        static int GetSeedValue2()
+        {
+            return DateTime.Now.Hour;
         }
     }
 }

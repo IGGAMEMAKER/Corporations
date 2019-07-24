@@ -2,6 +2,11 @@
 {
     public static partial class HumanUtils
     {
+        public static int GetWorkerRatingInRole(GameEntity worker)
+        {
+            return GetWorkerRatingInRole(worker, worker.worker.WorkerRole);
+        }
+
         public static int GetWorkerRatingInRole(GameEntity worker, WorkerRole workerRole)
         {
             var skills = worker.humanSkills.Roles;

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -36,6 +38,40 @@ namespace Assets.Utils
 
                 default: return Constants.SALARIES_DIRECTOR;
             }
+        }
+
+        internal static int GetAverageRating(GameContext gameContext, GameEntity company)
+        {
+            var strength = 0;
+            var size = 0;
+            foreach (var w in company.team.Workers)
+            {
+                var worker = HumanUtils.GetHumanById(gameContext, w.Key);
+
+                strength += HumanUtils.GetWorkerRatingInRole(worker);
+                size++;
+            }
+
+            if (size == 0)
+                return 0;
+
+
+            var min = 45f;
+            var max = 90f;
+
+            var diff = max - min;
+
+            // 7 per star
+
+            float relativeStrength = Mathf.Clamp(strength / size, min, max);
+
+            var percent = (relativeStrength - min) / diff;
+
+            var maxStars = 5;
+
+            var rating = maxStars * percent;
+
+            return (int)Mathf.Clamp(rating, 1, maxStars);
         }
 
         //public static GameEntity[] GetSpecialistsByRole(GameEntity company, WorkerRole workerRole, GameContext gameContext)

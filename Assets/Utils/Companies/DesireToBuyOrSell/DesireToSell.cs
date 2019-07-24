@@ -69,9 +69,6 @@
         }
 
 
-        static int GetSeedValue()
-        {
-            return System.DateTime.Now.Hour;
-        }
+
     }
 }
