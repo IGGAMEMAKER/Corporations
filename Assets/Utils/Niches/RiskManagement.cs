@@ -11,7 +11,7 @@
             return new BonusContainer("Total risk")
                 .SetDimension("%")
                 .Append("Niche demand risk", marketDemand)
-                .Append("Competition risk", competitors)
+                //.Append("Competition risk", competitors)
                 .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 
