@@ -28,13 +28,13 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void Initialize()
     {
         // products
-        GenerateProductCompany("facebook", NicheType.SocialNetwork);
+        var facebook = GenerateProductCompany("facebook", NicheType.SocialNetwork);
         var twitter = GenerateProductCompany("twitter", NicheType.SocialNetwork);
         var vk = GenerateProductCompany("vk", NicheType.SocialNetwork);
 
         var tg = GenerateProductCompany("telegram", NicheType.Messenger);
         GenerateProductCompany("whatsapp", NicheType.Messenger);
-        GenerateProductCompany("facebook messenger", NicheType.Messenger);
+        var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Messenger);
 
         int google = GenerateProductCompany("Google", NicheType.SearchEngine).company.Id;
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
@@ -57,16 +57,20 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         int googleGroupId = PromoteToGroup(google);
 
+        var facebookInc = GenerateHoldingCompany("Facebook Inc");
+        AttachToHolding(facebookInc, facebook);
+        AttachToHolding(facebookInc, fbMessenger);
+
         //PlayAs(tg);
         //PlayAs(google);
         //PlayAs(alphabet);
         var mailru = GenerateHoldingCompany("MailRu");
-        AttachToHolding(mailru, vk.company.Id);
-        AttachToHolding(mailru, twitter.company.Id);
+        AttachToHolding(mailru, vk);
+        //AttachToHolding(mailru, twitter.company.Id);
 
         //PlayAs(vk);
         PlayAs(mailru);
-        AddCash(mailru, 100000000);
+        //AddCash(mailru, 100000000);
         //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
 
@@ -175,6 +179,11 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void AttachToHolding(int parent, int child)
     {
         CompanyUtils.AttachToGroup(GameContext, parent, child);
+    }
+
+    void AttachToHolding(int parent, GameEntity child)
+    {
+        CompanyUtils.AttachToGroup(GameContext, parent, child.company.Id);
     }
 
     void AddShareholder(int companyId, int investorId, int shares)

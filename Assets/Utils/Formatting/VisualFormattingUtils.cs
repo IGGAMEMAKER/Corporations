@@ -170,6 +170,17 @@ namespace Assets.Utils
             return Negative(value.ToString());
         }
 
+        public static string PositiveOrNegativeMinified(long value)
+        {
+            if (value > 0)
+                return Positive(Format.SignMinified(value));
+
+            if (value == 0)
+                return "";
+
+            return Negative(Format.SignMinified(value));
+        }
+
         public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")
         {
             if (value == 0)

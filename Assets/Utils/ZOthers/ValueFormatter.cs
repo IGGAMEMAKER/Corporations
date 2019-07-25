@@ -23,6 +23,11 @@ namespace Assets.Utils
             return value > 0 ? $"+{value}" : value.ToString();
         }
 
+        public static string SignMinified(long value)
+        {
+            return value > 0 ? $"+{Minify(value)}" : Minify(value);
+        }
+
         public static string Money<T>(T value)
         {
             return $"${Minify(value)}";
@@ -42,16 +47,16 @@ namespace Assets.Utils
             long billion = 1000 * million;
             long trillion = 1000 * billion;
 
-            if (val >= trillion)
+            if (Math.Abs(val) >= trillion)
                 return ShowPrettyValue(val, trillion, "T");
 
-            if (val >= billion)
+            if (Math.Abs(val) >= billion)
                 return ShowPrettyValue(val, billion, "B");
 
-            if (val >= million)
+            if (Math.Abs(val) >= million)
                 return ShowPrettyValue(val, million, "M");
 
-            if (val >= thousand)
+            if (Math.Abs(val) >= thousand)
                 return ShowPrettyValue(val, thousand, "K");
 
             return val.ToString();
@@ -66,16 +71,16 @@ namespace Assets.Utils
             long billion = 1000 * million;
             long trillion = 1000 * billion;
 
-            if (val >= trillion)
+            if (Math.Abs(val) >= trillion)
                 return ShowMeaningfulValue(val, trillion, "T");
 
-            if (val >= billion)
+            if (Math.Abs(val) >= billion)
                 return ShowMeaningfulValue(val, billion, "B");
 
-            if (val >= million)
+            if (Math.Abs(val) >= million)
                 return ShowMeaningfulValue(val, million, "M");
 
-            if (val >= thousand)
+            if (Math.Abs(val) >= thousand)
                 return ShowMeaningfulValue(val, thousand, "K");
 
             return val.ToString();

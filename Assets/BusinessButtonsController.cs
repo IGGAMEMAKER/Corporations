@@ -21,7 +21,7 @@ public class BusinessButtonsController : View
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
-        ManageCompanyButton.SetActive(CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany));
+        ManageCompanyButton.SetActive(CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany);
 
         //LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
