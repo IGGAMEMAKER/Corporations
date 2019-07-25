@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -19,11 +20,13 @@ public class RenderMarketDescription : UpgradedParameterView
 
         text.Append("\n\n\n\n");
 
-        var description = "Messengers allow people to communicate each other";
+        var nicheName = EnumUtils.GetFormattedNicheName(SelectedNiche);
+
+        var description = $"{nicheName} allow people to communicate each other";
         text.AppendLine(description);
         text.AppendLine(barier);
 
-        var requirement = "Messenger development requires our team to be fast.";
+        var requirement = $"{nicheName} development requires our team to be fast.";
         text.AppendLine(requirement);
         text.AppendLine(barier);
 
@@ -41,7 +44,7 @@ public class RenderMarketDescription : UpgradedParameterView
         switch (state)
         {
             case NicheLifecyclePhase.Death:
-                return "This market is dead. People don't need these apps anymore!";
+                return "This market is DEAD. People don't need these apps anymore!";
 
             case NicheLifecyclePhase.Decay:
                 return "This market's peak has gone. Reduce your expenses and prepare for market death";
