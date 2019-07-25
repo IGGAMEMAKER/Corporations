@@ -2,14 +2,6 @@
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    public enum IncomePerUser
-    {
-        Low,
-        Mid,
-        High,
-        Premium
-    };
-
     public enum AudienceSize
     {
         LessThanMillion,
@@ -32,14 +24,26 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Humongous
     }
 
-    public enum NicheChangeSpeed
+    public enum NicheMargin
     {
-
+        Low,
+        Mid,
+        High,
+        ExtremelyHigh
     }
 
-    void SetNicheCosts(NicheType nicheType,
-        NicheDuration PeriodDuration, AudienceSize audienceSize, IncomePerUser incomePerUser,
-        NicheMaintenance MaintenanceCost, NicheChangeSpeed ChangeSpeed)
+    public enum NicheChangeSpeed
+    {
+        Month,
+        Quarter,
+        Year,
+        ThreeYears
+    }
+
+    void SetNicheCostsAutomatitcallty(NicheType nicheType,
+        NicheDuration PeriodDuration, AudienceSize audienceSize,
+        NicheMaintenance MaintenanceCost, NicheMargin nicheMargin,
+        NicheChangeSpeed ChangeSpeed, int startDate)
     {
 
     }
@@ -51,6 +55,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.SocialNetwork,
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
+
+        SetNicheCostsAutomatitcallty(NicheType.Messenger,
+            NicheDuration.EntireGame,
+            AudienceSize.WholeWorld,
+            NicheMaintenance.High,
+            NicheMargin.High,
+            NicheChangeSpeed.Quarter, 
+           0);
 
         SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
         SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
