@@ -40,6 +40,18 @@ namespace Assets.Utils
             return 33;
         }
 
+        internal static object GetMaintenanceCost(GameEntity niche)
+        {
+            var costs = niche.nicheCosts;
+
+            var branding = costs.AdCost * 10 * 5;
+            var targeting = costs.AdCost;
+
+            var marketingCost = targeting;
+
+            return marketingCost;
+        }
+
         public static Risk ShowRiskStatus(long risk)
         {
             if (risk < 10)

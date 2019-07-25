@@ -36,6 +36,7 @@ namespace Assets.Utils
         public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
         {
             Debug.Log("AddMassUsersWhileBrandingCampaign " + company.company.Name);
+
             var costs = GetNicheCosts(gameContext, company);
             var batch = GetCompanyClientBatch(gameContext, company);
 
