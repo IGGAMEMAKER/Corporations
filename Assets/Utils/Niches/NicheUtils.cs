@@ -92,7 +92,19 @@ namespace Assets.Utils
                 phase == NicheLifecyclePhase.MassUse;
         }
 
+        public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType)
+        {
+            var niche = GetNicheEntity(gameContext, nicheType);
 
+            return IsPlayableNiche(gameContext, niche);
+        }
+
+        public static bool IsPlayableNiche(GameContext gameContext, GameEntity niche)
+        {
+            var phase = niche.nicheState.Phase;
+
+            return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
+        }
 
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
         {
@@ -200,6 +212,12 @@ namespace Assets.Utils
         public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
         {
             return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
+        }
+
+        public static GameEntity[] GetPlayableNichesInIndustry(IndustryType industry, GameContext context)
+        {
+            var niches = GetNichesInIndustry(industry, context);
+            return Array.FindAll(niches, n => IsPlayableNiche(context, n));
         }
 
 

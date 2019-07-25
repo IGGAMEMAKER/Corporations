@@ -13,12 +13,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNicheCostsAutomatitcallty(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.High, NicheMargin.Mid, NicheChangeSpeed.Quarter,
+            NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.SocialNetwork,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.High, NicheMargin.High, NicheChangeSpeed.Year,
+            NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Year,
            0);
 
         //SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
@@ -36,17 +36,17 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNicheCostsAutomatitcallty(NicheType.CloudComputing,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Humongous, NicheMargin.High, NicheChangeSpeed.Year,
+            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.Year,
             0);
 
         SetNicheCostsAutomatitcallty(NicheType.SearchEngine,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Humongous, NicheMargin.ExtremelyHigh, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
             0);
 
         SetNicheCostsAutomatitcallty(NicheType.OSDesktop,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Humongous, NicheMargin.ExtremelyHigh, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
             0);
 
         //SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 2000);

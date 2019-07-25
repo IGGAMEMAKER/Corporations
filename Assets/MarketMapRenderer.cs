@@ -90,6 +90,9 @@ public class MarketMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
+        //if (!NicheUtils.IsPlayableNiche(GameContext, niche))
+        //    m.SetActive(false);
+
         //RenderCompanies(niche, m);
     }
 

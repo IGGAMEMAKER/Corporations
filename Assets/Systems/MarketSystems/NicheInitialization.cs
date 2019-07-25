@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
@@ -15,13 +16,22 @@ public partial class MarketInitializerSystem : IInitializeSystem
         // duration in months
         LessThanYear = 6,
         Year = 12,
-        Mid = 5 * 12,
+        FiveYears = 60,
         EntireGame = 5000
+    }
+
+    public enum PriceCategory
+    {
+        // dollars per user per year
+        FreeMass = 4,
+        Mid = 12,
+        High = 20,
+        Premium = 100, // Subscription model: 10$/month
     }
 
     public enum NicheMaintenance
     {
-        Low = 1000, // 
+        Low = 1000,
         Mid = 30000,
         High = 500000,
         Humongous = 5000000
@@ -45,12 +55,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     void SetNicheCostsAutomatitcallty(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize,
-        NicheMaintenance MaintenanceCost, NicheMargin nicheMargin,
+        NicheMaintenance MaintenanceCost, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed, int startDate)
     {
         var nicheId = GetNicheId(nicheType);
 
-        var price = GetProductPrice(nicheMargin, MaintenanceCost, nicheId);
+        var price = GetProductPrice(priceCategory, nicheId, nicheType);
 
         var clients = GetBatchSize(audienceSize, nicheId);
 
@@ -61,15 +71,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNicheCosts(nicheType, price, clients, costs, costs, costs, adCosts);
     }
 
-    float GetProductPrice(NicheMargin nicheMargin, NicheMaintenance nicheMaintenance, int nicheId)
+    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType)
     {
-        var baseCost = (long)nicheMaintenance;
+        var baseCost = (int)priceCategory;
 
-        var margin = (int)nicheMargin;
+        float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
 
-        var price = baseCost * margin / 100;
-
-        return price;
+        return value;
     }
 
     long GetBatchSize (AudienceSize audienceSize, int nicheId)
