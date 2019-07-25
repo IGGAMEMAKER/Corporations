@@ -127,12 +127,11 @@ namespace Assets.Utils
             return GetMarketPotential(GetNicheEntity(gameContext, nicheType));
         }
 
-        public static long GetMarketPotential(GameEntity niche)
+        public static long GetMarketAudiencePotential(GameEntity niche)
         {
             var state = niche.nicheState;
 
             var clientBatch = niche.nicheCosts.ClientBatch;
-            var price = niche.nicheCosts.BasePrice * 1.5f;
 
             long clients = 0;
 
@@ -146,7 +145,14 @@ namespace Assets.Utils
                 clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
             }
 
-            //Debug.Log($"Clients expectation for {niche.niche.NicheType}: " + clients);
+            return clients;
+        }
+
+        public static long GetMarketPotential(GameEntity niche)
+        {
+            var clients = GetMarketAudiencePotential(niche);
+
+            var price = niche.nicheCosts.BasePrice * 1.5f;
 
             return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
         }

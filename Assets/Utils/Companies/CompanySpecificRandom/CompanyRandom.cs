@@ -79,7 +79,7 @@ namespace Assets.Utils
             return DateTime.Now.Hour;
         }
 
-        public static long GetRandomValue (long baseValue, int id1, int id2, long min = 40, long max = 135)
+        public static long GetRandomValue (long baseValue, int id1, int id2, float min = 0.4f, float max = 1.35f)
         {
             return (long)(baseValue * (min + (max - min) * GetHashedRandom2(id1, id2)));
         }

@@ -6,6 +6,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     public enum AudienceSize
     {
         LessThanMillion,
+        MidSizedProduct,
         WholeWorld
     }
 
@@ -28,10 +29,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     public enum NicheMargin
     {
-        Low,
-        Mid,
-        High,
-        ExtremelyHigh
+        Low = 110,
+        Mid = 130,
+        High = 150,
+        ExtremelyHigh = 200
     }
 
     public enum NicheChangeSpeed
@@ -47,9 +48,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         NicheMaintenance MaintenanceCost, NicheMargin nicheMargin,
         NicheChangeSpeed ChangeSpeed, int startDate)
     {
-        var price = 1;
-
         var nicheId = GetNicheId(nicheType);
+
+        var price = GetProductPrice(nicheMargin, MaintenanceCost, nicheId);
 
         var clients = GetBatchSize(audienceSize, nicheId);
 
@@ -58,6 +59,17 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var adCosts = (int)GetAdCost(MaintenanceCost, nicheId);
 
         SetNicheCosts(nicheType, price, clients, costs, costs, costs, adCosts);
+    }
+
+    float GetProductPrice(NicheMargin nicheMargin, NicheMaintenance nicheMaintenance, int nicheId)
+    {
+        var baseCost = (long)nicheMaintenance;
+
+        var margin = (int)nicheMargin;
+
+        var price = baseCost * margin / 100;
+
+        return price;
     }
 
     long GetBatchSize (AudienceSize audienceSize, int nicheId)
@@ -72,6 +84,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         switch (audienceSize)
         {
             case AudienceSize.LessThanMillion: return 70;
+
+            case AudienceSize.MidSizedProduct: return 185;
 
             case AudienceSize.WholeWorld: return 500;
         }
