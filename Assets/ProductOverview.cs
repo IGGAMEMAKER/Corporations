@@ -13,6 +13,8 @@ public class ProductOverview : View
     public Text Popularity;
     public Text AppQuality;
 
+    public Text Brand;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -35,5 +37,8 @@ public class ProductOverview : View
         var quality = ProductUtils.GetProductLevel(SelectedCompany);
         var status = ProductUtils.GetSegmentMarketDemand(SelectedCompany, GameContext, UserType.Core);
         AppQuality.text = $"App quality: {quality} ({status})";
+
+        var brand = SelectedCompany.branding.BrandPower;
+        Brand.text = $"Brand strength: {brand}";
     }
 }
