@@ -44,17 +44,18 @@ public class MarketShareView : View
 
 
 
-        var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
-        if (MarketImportance != null)
-            MarketImportance.text = Format.Money(marketControlCost);
+        //if (MarketImportance != null)
+        //    MarketImportance.text = Format.Money(marketControlCost);
 
-        RenderHint(nicheName, marketSize, share, phase, phaseColor, marketControlCost);
+        RenderHint(nicheName, marketSize, share, phase, phaseColor, nicheType);
     }
 
-    void RenderHint(string nicheName, long marketSize, long share, string phase, Color phaseColor, long marketControlCost)
+    void RenderHint(string nicheName, long marketSize, long share, string phase, Color phaseColor, NicheType nicheType)
     {
         StringBuilder text = new StringBuilder();
+
+        var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
         text.Append($"Market of {nicheName}");
         text.Append("\n\n");
