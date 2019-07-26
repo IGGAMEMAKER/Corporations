@@ -49,10 +49,10 @@ public class MarketShareView : View
         if (MarketImportance != null)
             MarketImportance.text = Format.Money(marketControlCost);
 
-        RenderHint(nicheName, marketSize, share, phase, phaseColor);
+        RenderHint(nicheName, marketSize, share, phase, phaseColor, marketControlCost);
     }
 
-    void RenderHint(string nicheName, long marketSize, long share, string phase, Color phaseColor)
+    void RenderHint(string nicheName, long marketSize, long share, string phase, Color phaseColor, long marketControlCost)
     {
         StringBuilder text = new StringBuilder();
 
