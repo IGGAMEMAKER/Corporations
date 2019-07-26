@@ -41,10 +41,19 @@ public class RenderMarketDescription : UpgradedParameterView
     {
         var p = NicheUtils.GetNichePositionings(SelectedNiche, GameContext);
 
-        var arr = p.Select(k => $"{k.Value.name}, {k.Value.marketShare}% of market").ToArray();
+        var arr = p
+            .Select(k =>
+                $"{k.Value.name}, worth " +
+                $"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
+                //$"{Format.MinifyToInteger(NicheUtils.GetMarketSegmentAudiencePotential(GameContext, SelectedNiche, k.Key))} users," +
+                //$" {NicheUtils.GetSegmentProductPrice(GameContext, SelectedNiche, k.Key).ToString("0.0")} each"
+                )
+            .ToArray();
 
         return String.Join(",\n", arr);
     }
+
+    
 
     const string barier = "---------------------";
 

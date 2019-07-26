@@ -10,10 +10,10 @@ public class PositioningView : View
     public Text IncomePerUser;
     public Text EstimatedUsers;
 
-    int positioning;
+    int segmentId;
     public void SetEntity(int positioning)
     {
-        this.positioning = positioning;
+        segmentId = positioning;
 
         ViewRender();
     }
@@ -26,7 +26,7 @@ public class PositioningView : View
         var positionings = NicheUtils.GetNichePositionings(nicheType, GameContext);
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
 
-        var positioningData = positionings[positioning];
+        var positioningData = positionings[segmentId];
 
 
         PositioningName.text = positioningData.name;
@@ -35,10 +35,10 @@ public class PositioningView : View
         if (priceModifier == 0)
             priceModifier = 1;
 
-        var price = niche.nicheCosts.BasePrice * priceModifier;
+        var price = NicheUtils.GetSegmentProductPrice(GameContext, nicheType, segmentId);
         IncomePerUser.text = $"+{price.ToString("0.0")}";
 
-        var estimatedUsers = positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
+        var estimatedUsers = NicheUtils.GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId);
         EstimatedUsers.text = Format.Minify(estimatedUsers);
     }
 }

@@ -187,6 +187,43 @@ namespace Assets.Utils
             return GetMarketPotential(GetNicheEntity(gameContext, nicheType));
         }
 
+        public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
+        {
+            var positioningData = GetProductPositioningInfo(gameContext, nicheType, segmentId);
+
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            var priceModifier = positioningData.priceModifier;
+            if (priceModifier == 0)
+                priceModifier = 1;
+
+            return niche.nicheCosts.BasePrice * priceModifier;
+        }
+
+        public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
+        {
+            var positionings = GetNichePositionings(nicheType, GameContext);
+            var niche = GetNicheEntity(GameContext, nicheType);
+
+            return positionings[segmentId];
+        }
+
+        public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
+        {
+            var price = (long)(GetSegmentProductPrice(GameContext, nicheType, segmentId) * 100);
+
+            return price * GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId) / 100;
+        }
+
+        public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
+        {
+            var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+
+            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
+
+            return positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
+        }
+
         public static long GetMarketAudiencePotential(GameEntity niche)
         {
             var state = niche.nicheState;
