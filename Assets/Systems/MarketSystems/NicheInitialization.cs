@@ -83,6 +83,17 @@ public partial class MarketInitializerSystem : IInitializeSystem
             clientsContainer[i] = 0;
         }
 
+        if (productPositionings.Length == 0)
+        {
+            positionings[0] = new ProductPositioning
+            {
+                isCompetitive = false,
+                marketShare = 100,
+                name = "Basic " + nicheType.ToString()
+            };
+            clientsContainer[0] = 0;
+        }
+
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
     }
