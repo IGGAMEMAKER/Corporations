@@ -13,13 +13,30 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNicheCostsAutomatitcallty(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
+            NicheMaintenance.Mid, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.SocialNetwork,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Year,
            0);
+
+        SetNicheCostsAutomatitcallty(NicheType.Blogs,
+            NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+           0);
+
+        SetNicheCostsAutomatitcallty(NicheType.Forums,
+            NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+           0);
+
+        //SetNicheCostsAutomatitcallty(NicheType.Dating,
+        //    NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
+        //    NicheMaintenance.Mid, PriceCategory.Mid, NicheChangeSpeed.Year,
+        //   0);
+
+
 
         //SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
         //SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);

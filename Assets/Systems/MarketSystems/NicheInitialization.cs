@@ -23,6 +23,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     public enum PriceCategory
     {
         // dollars per user per year
+        CheapMass = 1,
         FreeMass = 4,
         Mid = 12,
         High = 20,

@@ -9,7 +9,50 @@ namespace Assets.Utils
     {
         public static GameEntity GetNicheEntity(GameContext gameContext, NicheType nicheType)
         {
-            return Array.Find(gameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+            var e = Array.Find(gameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+
+            if (e == null)
+                e = CreateNicheMockup(nicheType, gameContext);
+
+            return e;
+        }
+
+        public static GameEntity CreateNicheMockup(NicheType niche, GameContext GameContext)
+        {
+            var e = GameContext.CreateEntity();
+
+            e.AddNiche(
+                niche,
+                IndustryType.Communications,
+                new List<MarketCompatibility>(),
+                new List<NicheType>(),
+                NicheType.SocialNetwork,
+                0
+                );
+
+            e.AddNicheCosts(1, 1, 1, 1, 1, 1);
+            e.AddNicheState(
+                new Dictionary<NicheLifecyclePhase, int>
+                {
+                    [NicheLifecyclePhase.Idle] = 0, // 0
+                    [NicheLifecyclePhase.Innovation] = UnityEngine.Random.Range(1, 4), // 2-5            Xt
+                    [NicheLifecyclePhase.Trending] = UnityEngine.Random.Range(5, 10), // 4 - 10           5Xt
+                    [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(11, 15), // 7 - 15            10Xt
+                    [NicheLifecyclePhase.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
+                    [NicheLifecyclePhase.Death] = 0, // churn
+                },
+                NicheLifecyclePhase.Innovation,
+                0
+                );
+
+            e.AddSegment(new Dictionary<UserType, int>
+            {
+                [UserType.Core] = 1,
+                [UserType.Regular] = 1,
+                [UserType.Mass] = 1,
+            });
+
+            return e;
         }
 
         public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)

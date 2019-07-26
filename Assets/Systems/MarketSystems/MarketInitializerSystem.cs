@@ -17,9 +17,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
     void IInitializeSystem.Initialize()
     {
         InitializeIndustries();
-        InitializeNiches();
+        //InitializeNiches();
 
-        //InitializeOSIndustry();
         InitializeFundamentalIndustry();
         InitializeCommunicationsIndustry();
 

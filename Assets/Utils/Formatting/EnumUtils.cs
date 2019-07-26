@@ -30,9 +30,14 @@ namespace Assets.Utils.Formatting
         {
             switch (niche)
             {
-                case NicheType.CloudComputing: return "Cloud Computing";
                 case NicheType.Messenger: return "Messengers";
                 case NicheType.SocialNetwork: return "Social Networks";
+                case NicheType.Blogs: return "Blogs";
+                case NicheType.Forums: return "Forums";
+                case NicheType.Dating: return "Dating apps";
+
+
+                case NicheType.CloudComputing: return "Cloud Computing";
                 case NicheType.OSDesktop: return "Desktop OS";
                 case NicheType.SearchEngine: return "Search Engines";
 

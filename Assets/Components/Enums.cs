@@ -17,6 +17,10 @@ public enum NicheType
 
     SocialNetwork,
     Messenger,
+    Dating,
+    Blogs,
+    Forums,
+
 
     SearchEngine,
 
