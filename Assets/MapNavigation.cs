@@ -21,7 +21,12 @@ public class MapNavigation : View
         CheckZoom();
     }
 
+    void Start()
+    {
+        Zoom = minZoom;
 
+        RedrawMap();
+    }
 
     float amountOfNichesSqrt;
     private void OnEnable()
