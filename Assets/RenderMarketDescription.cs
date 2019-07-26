@@ -1,9 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 public class RenderMarketDescription : UpgradedParameterView
 {
@@ -11,8 +8,6 @@ public class RenderMarketDescription : UpgradedParameterView
     {
         return "";
     }
-
-    const string barier = "---------------------";
 
     public override string RenderValue()
     {
@@ -36,8 +31,9 @@ public class RenderMarketDescription : UpgradedParameterView
         return text.ToString();
     }
 
-    NicheLifecyclePhase State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
+    const string barier = "---------------------";
 
+    NicheLifecyclePhase State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
 
     string GetMarketStateDescription (NicheLifecyclePhase state)
     {
