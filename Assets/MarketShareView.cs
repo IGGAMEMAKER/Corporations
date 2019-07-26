@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
 using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MarketShareView : View
@@ -24,7 +25,7 @@ public class MarketShareView : View
         var share = CompanyUtils.GetControlInMarket(MyCompany, nicheType, GameContext);
 
         var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
-        //ShareSize.text = share + "%";
+
         ShareSize.text = Format.MoneyToInteger(marketSize);
         ShareSize.color = Visuals.Color(share > 0 ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
@@ -43,13 +44,16 @@ public class MarketShareView : View
 
 
 
-
-
         var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
         if (MarketImportance != null)
             MarketImportance.text = Format.Money(marketControlCost);
 
+        RenderHint(nicheName, marketSize, share, phase, phaseColor);
+    }
+
+    void RenderHint(string nicheName, long marketSize, long share, string phase, Color phaseColor)
+    {
         StringBuilder text = new StringBuilder();
 
         text.Append($"Market of {nicheName}");
@@ -67,6 +71,4 @@ public class MarketShareView : View
 
         Hint.SetHint(text.ToString());
     }
-
-
 }
