@@ -95,7 +95,8 @@ public class ClientSegmentPreview : View
 
     void RenderSegmentIncome(int companyId, UserType userType)
     {
-        var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, userType);
+        // TODO USERTYPE VS SEGMENT ID
+        var income = CompanyEconomyUtils.GetIncomeBySegment(GameContext, companyId, 0);
 
         Income.text = $"+${Format.Minify(Convert.ToInt64(income))}";
     }
