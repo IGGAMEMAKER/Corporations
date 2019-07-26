@@ -60,38 +60,41 @@ public static class GameComponentsLookup {
     public const int MenuListener = 49;
     public const int MetricsHistory = 50;
     public const int NavigationHistory = 51;
-    public const int Niche = 52;
-    public const int NicheCosts = 53;
-    public const int NicheState = 54;
-    public const int Notifications = 55;
-    public const int OnSales = 56;
-    public const int Player = 57;
-    public const int Product = 58;
-    public const int ProductListener = 59;
-    public const int PublicCompany = 60;
-    public const int Release = 61;
-    public const int ReleaseListener = 62;
-    public const int Segment = 63;
-    public const int SegmentLeaders = 64;
-    public const int SegmentListener = 65;
-    public const int Shareholder = 66;
-    public const int Shareholders = 67;
-    public const int ShareholdersListener = 68;
-    public const int Targeting = 69;
-    public const int TargetingListener = 70;
-    public const int Task = 71;
-    public const int TaskManager = 72;
-    public const int Team = 73;
-    public const int TeamListener = 74;
-    public const int TechnologyLeader = 75;
-    public const int TechnologyLeaderListener = 76;
-    public const int Test = 77;
-    public const int TimerRunning = 78;
-    public const int Tutorial = 79;
-    public const int TutorialListener = 80;
-    public const int Worker = 81;
+    public const int NicheClientsContainer = 52;
+    public const int Niche = 53;
+    public const int NicheCosts = 54;
+    public const int NicheSegments = 55;
+    public const int NicheState = 56;
+    public const int Notifications = 57;
+    public const int OnSales = 58;
+    public const int Player = 59;
+    public const int Product = 60;
+    public const int ProductListener = 61;
+    public const int ProductPositioning = 62;
+    public const int PublicCompany = 63;
+    public const int Release = 64;
+    public const int ReleaseListener = 65;
+    public const int Segment = 66;
+    public const int SegmentLeaders = 67;
+    public const int SegmentListener = 68;
+    public const int Shareholder = 69;
+    public const int Shareholders = 70;
+    public const int ShareholdersListener = 71;
+    public const int Targeting = 72;
+    public const int TargetingListener = 73;
+    public const int Task = 74;
+    public const int TaskManager = 75;
+    public const int Team = 76;
+    public const int TeamListener = 77;
+    public const int TechnologyLeader = 78;
+    public const int TechnologyLeaderListener = 79;
+    public const int Test = 80;
+    public const int TimerRunning = 81;
+    public const int Tutorial = 82;
+    public const int TutorialListener = 83;
+    public const int Worker = 84;
 
-    public const int TotalComponents = 82;
+    public const int TotalComponents = 85;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -146,14 +149,17 @@ public static class GameComponentsLookup {
         "MenuListener",
         "MetricsHistory",
         "NavigationHistory",
+        "NicheClientsContainer",
         "Niche",
         "NicheCosts",
+        "NicheSegments",
         "NicheState",
         "Notifications",
         "OnSales",
         "Player",
         "Product",
         "ProductListener",
+        "ProductPositioning",
         "PublicCompany",
         "Release",
         "ReleaseListener",
@@ -231,14 +237,17 @@ public static class GameComponentsLookup {
         typeof(MenuListenerComponent),
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
+        typeof(NicheClientsContainerComponent),
         typeof(NicheComponent),
         typeof(NicheCostsComponent),
+        typeof(NicheSegmentsComponent),
         typeof(NicheStateComponent),
         typeof(NotificationsComponent),
         typeof(OnSalesComponent),
         typeof(PlayerComponent),
         typeof(ProductComponent),
         typeof(ProductListenerComponent),
+        typeof(ProductPositioningComponent),
         typeof(PublicCompanyComponent),
         typeof(ReleaseComponent),
         typeof(ReleaseListenerComponent),

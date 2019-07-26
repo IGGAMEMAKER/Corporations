@@ -31,6 +31,32 @@ public class NicheComponent : IComponent
 }
 
 [Game]
+public class ProductPositioningComponent : IComponent
+{
+    public int Positioning;
+}
+
+public struct ProductPositioning
+{
+    public int marketShare;
+    public bool isCompetitive;
+}
+
+[Game]
+public class NicheSegmentsComponent : IComponent
+{
+    // int - positioning id
+    public Dictionary<int, ProductPositioning> Positionings;
+}
+
+[Game]
+public class NicheClientsContainerComponent : IComponent
+{
+    public Dictionary<int, long> Clients;
+}
+
+
+[Game]
 public class NicheCostsComponent : IComponent
 {
     public float BasePrice;

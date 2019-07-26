@@ -22,10 +22,10 @@ namespace Assets.Utils
             return new TeamResource(costs.TechCost * innovationModifier, 0, 0, costs.IdeaCost * innovationModifier, 0);
         }
 
-        public static int GetSegmentMarketDemand(GameEntity product, GameContext gameContext, UserType userType)
+        public static int GetMarketDemand(GameEntity product, GameContext gameContext, UserType userType)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
-
+            
             return niche.segment.Segments[userType];
         }
 

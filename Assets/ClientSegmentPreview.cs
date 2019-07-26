@@ -70,7 +70,7 @@ public class ClientSegmentPreview : View
     {
         SegmentImprovements.UpdateValue(company.product.Concept);
 
-        var demand = ProductUtils.GetSegmentMarketDemand(company, GameContext, userType);
+        var demand = ProductUtils.GetMarketDemand(company, GameContext, userType);
 
         SegmentImprovements.minValue = demand - 5;
         SegmentImprovements.maxValue = demand;
