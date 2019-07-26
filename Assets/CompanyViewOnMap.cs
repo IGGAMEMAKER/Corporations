@@ -60,6 +60,9 @@ public class CompanyViewOnMap : View
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"\nClients: {clients}");
 
+        var posTextual = NicheUtils.GetCompanyPositioning(GameContext, company);
+        hint.AppendLine($"\nPositioning: {posTextual}");
+
         if (hasControl)
             hint.Append(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
 

@@ -20,6 +20,7 @@ public enum NicheType
     Dating,
     Blogs,
     Forums,
+    Email,
 
 
     SearchEngine,

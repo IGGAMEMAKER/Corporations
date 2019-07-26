@@ -8,6 +8,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var niches = new NicheType[] {
             NicheType.Messenger,
             NicheType.SocialNetwork,
+            NicheType.Blogs,
+            NicheType.Dating,
+            NicheType.Forums,
+            NicheType.Email
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
@@ -26,23 +30,20 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
                 new ProductPositioning { name = "Corporative social network", marketShare = 3 }, // linkedIn
                 new ProductPositioning { name = "Text focused social network", marketShare = 15 }, // twitter
+                new ProductPositioning { name = "Image focused social network", marketShare = 100 }, // insta
             },
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Blogs,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            new ProductPositioning[] {
-                new ProductPositioning { name = "Basic blog", marketShare = 100 },
-            },
+            new ProductPositioning[] {},
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Forums,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
-            new ProductPositioning[] {
-                new ProductPositioning { name = "Basic forum", marketShare = 100 },
-            },
+            new ProductPositioning[] {},
            0);
 
         //SetNicheCostsAutomatitcallty(NicheType.Dating,

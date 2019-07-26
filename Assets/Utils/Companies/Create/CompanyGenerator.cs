@@ -23,6 +23,11 @@ namespace Assets.Utils
             AddFocusIndustry(industry, company);
             InvestmentUtils.SetCompanyGoal(context, company, GOAL);
 
+
+            int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
+
+            company.AddProductPositioning(UnityEngine.Random.Range(0, positionings));
+
             return company;
         }
 

@@ -13,6 +13,8 @@ public class ProductOverview : View
     public Text Popularity;
     public Text AppQuality;
 
+    public Text PositioningLabel;
+
     public Text Brand;
 
     public override void ViewRender()
@@ -40,5 +42,9 @@ public class ProductOverview : View
 
         var brand = SelectedCompany.branding.BrandPower;
         Brand.text = $"Brand strength: {brand}";
+
+        var posTextual = NicheUtils.GetCompanyPositioning(GameContext, SelectedCompany);
+        PositioningLabel.text = "Positioning: " + posTextual;
+
     }
 }
