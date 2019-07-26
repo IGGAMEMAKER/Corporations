@@ -8,29 +8,32 @@ namespace Assets.Utils
         {
             float income = 0;
 
-            income += GetIncomeBySegment(context, e.company.Id, UserType.Core);
+            var segmentId = e.productPositioning.Positioning;
+            income += GetIncomeBySegment(context, e.company.Id, segmentId);
 
             return Convert.ToInt64(income);
         }
 
-        internal static float GetIncomeBySegment(GameContext gameContext, int companyId, UserType userType)
+        internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             long clients = c.marketing.clients;
 
-            float price = GetSegmentPrice(gameContext, companyId, userType);
+            float price = GetSegmentPrice(gameContext, companyId, segmentId);
 
             return clients * price;
         }
 
-        internal static float GetSegmentPrice(GameContext gameContext, int companyId, UserType userType)
+        internal static float GetSegmentPrice(GameContext gameContext, int companyId, int segmentId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             var improvements = c.product.Concept;
 
-            return (100 + 5 * improvements) * GetProductPrice(c, gameContext) / 100;
+            var segmentPriceModifier = NicheUtils.GetSegmentProductPriceModifier(gameContext, c.product.Niche, segmentId);
+
+            return (100 + 5 * improvements) * GetProductPrice(c, gameContext) * segmentPriceModifier / 100;
         }
 
         public static float GetProductPrice(GameEntity e, GameContext context)

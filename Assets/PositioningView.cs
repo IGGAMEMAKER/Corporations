@@ -31,10 +31,6 @@ public class PositioningView : View
 
         PositioningName.text = positioningData.name;
 
-        var priceModifier = positioningData.priceModifier;
-        if (priceModifier == 0)
-            priceModifier = 1;
-
         var price = NicheUtils.GetSegmentProductPrice(GameContext, nicheType, segmentId);
         IncomePerUser.text = $"+{price.ToString("0.0")}";
 
