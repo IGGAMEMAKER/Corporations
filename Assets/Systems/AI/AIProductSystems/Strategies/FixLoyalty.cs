@@ -17,7 +17,8 @@ public partial class AIProductSystems : OnDateChange
     {
         var loyalty = MarketingUtils.GetClientLoyalty(gameContext, product.company.Id, userType);
 
-        var income = CompanyEconomyUtils.GetIncomeBySegment(gameContext, product.company.Id, userType);
+        // TODO USERTYPE VS SEGMENT ID
+        var income = CompanyEconomyUtils.GetIncomeBySegment(gameContext, product.company.Id, 0);
         var totalIncome = CompanyEconomyUtils.GetCompanyIncome(product, gameContext);
 
         // TODO 1 DISLOYAL CORE USER IS WAY MORE IMPORTANT THAN THOUSANDS OF PAYING REGULAR USERS
