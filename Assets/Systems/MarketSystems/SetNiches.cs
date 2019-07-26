@@ -14,21 +14,35 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNicheCostsAutomatitcallty(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Mid, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
+            new ProductPositioning[] {
+                new ProductPositioning { name = "Basic messenger", marketShare = 100 },
+            },
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.SocialNetwork,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Year,
+            new ProductPositioning[] {
+                new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
+                new ProductPositioning { name = "Corporative social network", marketShare = 3 }, // linkedIn
+                new ProductPositioning { name = "Text focused social network", marketShare = 15 }, // twitter
+            },
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Blogs,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            new ProductPositioning[] {
+                new ProductPositioning { name = "Basic blog", marketShare = 100 },
+            },
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Forums,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            new ProductPositioning[] {
+                new ProductPositioning { name = "Basic forum", marketShare = 100 },
+            },
            0);
 
         //SetNicheCostsAutomatitcallty(NicheType.Dating,
@@ -54,16 +68,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNicheCostsAutomatitcallty(NicheType.CloudComputing,
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.Year,
+            new ProductPositioning[] { },
             0);
 
         SetNicheCostsAutomatitcallty(NicheType.SearchEngine,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            new ProductPositioning[] { },
             0);
 
         SetNicheCostsAutomatitcallty(NicheType.OSDesktop,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            new ProductPositioning[] { },
             0);
 
         //SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 2000);

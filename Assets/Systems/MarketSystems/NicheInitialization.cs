@@ -57,7 +57,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
     void SetNicheCostsAutomatitcallty(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize,
         NicheMaintenance MaintenanceCost, PriceCategory priceCategory,
-        NicheChangeSpeed ChangeSpeed, int startDate)
+        NicheChangeSpeed ChangeSpeed,
+        ProductPositioning[] productPositionings,
+        int startDate)
     {
         var nicheId = GetNicheId(nicheType);
 
@@ -69,7 +71,20 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var adCosts = (int)GetAdCost(MaintenanceCost, nicheId);
 
-        SetNicheCosts(nicheType, price, clients, costs, costs, costs, adCosts);
+        var n = SetNicheCosts(nicheType, price, clients, costs, costs, costs, adCosts);
+
+        // positionings
+        var positionings = n.nicheSegments.Positionings;
+        var clientsContainer = n.nicheClientsContainer.Clients;
+
+        for (var i = 0; i < productPositionings.Length; i++)
+        {
+            positionings[i] = productPositionings[i];
+            clientsContainer[i] = 0;
+        }
+
+        n.ReplaceNicheSegments(positionings);
+        n.ReplaceNicheClientsContainer(clientsContainer);
     }
 
     float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType)

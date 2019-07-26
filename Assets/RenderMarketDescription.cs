@@ -1,5 +1,7 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
+using System.Linq;
 using System.Text;
 
 public class RenderMarketDescription : UpgradedParameterView
@@ -27,8 +29,21 @@ public class RenderMarketDescription : UpgradedParameterView
 
         var state = GetMarketStateDescription(State);
         text.AppendLine(state);
+        text.AppendLine(barier);
+
+        string positionings = GetPositionings();
+        text.AppendLine("There are following segments: \n" + positionings);
 
         return text.ToString();
+    }
+
+    string GetPositionings()
+    {
+        var p = NicheUtils.GetNichePositionings(SelectedNiche, GameContext);
+
+        var arr = p.Select(k => $"{k.Value.name}, {k.Value.marketShare}% of market").ToArray();
+
+        return String.Join(",\n", arr);
     }
 
     const string barier = "---------------------";

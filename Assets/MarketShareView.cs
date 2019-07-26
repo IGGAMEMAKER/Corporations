@@ -15,7 +15,6 @@ public class MarketShareView : View
     public LinkToNiche LinkToNiche;
 
     public Hint Hint;
-    public Text MarketImportance;
 
     internal void SetEntity(NicheType nicheType)
     {
@@ -34,19 +33,12 @@ public class MarketShareView : View
             MarketState.text = phase;
 
         var phaseColor = Visuals.GetGradientColor(0, 5f, rating);
-        
         MarketState.color = phaseColor;
 
         var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
         NicheName.text = nicheName; 
 
         LinkToNiche.SetNiche(nicheType);
-
-
-
-
-        //if (MarketImportance != null)
-        //    MarketImportance.text = Format.Money(marketControlCost);
 
         RenderHint(nicheName, marketSize, share, phase, phaseColor, nicheType);
     }

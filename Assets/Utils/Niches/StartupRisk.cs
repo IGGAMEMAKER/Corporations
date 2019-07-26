@@ -1,5 +1,7 @@
 ﻿using Entitas;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -32,6 +34,15 @@ namespace Assets.Utils
             string text = ShowRiskStatus(risk).ToString();
 
             return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
+        }
+
+        internal static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
+        {
+            var e = GetNicheEntity(gameContext, niche);
+
+            var p = e.nicheSegments.Positionings;
+
+            return p;
         }
 
         public static int GetNewPlayerRiskOnNiche(GameContext gameContext, NicheType nicheType)

@@ -31,6 +31,7 @@ namespace Assets.Utils
                 );
 
             e.AddNicheCosts(1, 1, 1, 1, 1, 1);
+
             e.AddNicheState(
                 new Dictionary<NicheLifecyclePhase, int>
                 {
@@ -44,6 +45,10 @@ namespace Assets.Utils
                 NicheLifecyclePhase.Innovation,
                 0
                 );
+
+            e.AddNicheClientsContainer(new Dictionary<int, long>());
+            e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
+
 
             e.AddSegment(new Dictionary<UserType, int>
             {
