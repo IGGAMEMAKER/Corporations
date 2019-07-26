@@ -36,7 +36,7 @@ namespace Assets.Utils
             return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
         }
 
-        public static string GetCompanyPositioning(GameContext gameContext, GameEntity company)
+        public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
         {
             var positioning = company.productPositioning.Positioning;
             var posTextual = NicheUtils.GetNichePositionings(company.product.Niche, gameContext)[positioning].name;

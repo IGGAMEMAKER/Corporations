@@ -43,7 +43,7 @@ public class ProductOverview : View
         var brand = SelectedCompany.branding.BrandPower;
         Brand.text = $"Brand strength: {brand}";
 
-        var posTextual = NicheUtils.GetCompanyPositioning(GameContext, SelectedCompany);
+        var posTextual = NicheUtils.GetCompanyPositioning(SelectedCompany, GameContext);
         PositioningLabel.text = "Positioning: " + posTextual;
 
     }
