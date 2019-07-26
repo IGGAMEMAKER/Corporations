@@ -31,8 +31,12 @@ public class PositioningView : View
 
         PositioningName.text = positioningData.name;
 
-        var price = niche.nicheCosts.BasePrice * 1000 * 12;
-        IncomePerUser.text = $"+{price}";
+        var priceModifier = positioningData.priceModifier;
+        if (priceModifier == 0)
+            priceModifier = 1;
+
+        var price = niche.nicheCosts.BasePrice * priceModifier;
+        IncomePerUser.text = $"+{price.ToString("0.0")}";
 
         var estimatedUsers = positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
         EstimatedUsers.text = Format.Minify(estimatedUsers);

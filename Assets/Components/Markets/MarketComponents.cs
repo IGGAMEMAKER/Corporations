@@ -41,6 +41,8 @@ public struct ProductPositioning
     public string name;
     public int marketShare;
     public bool isCompetitive;
+
+    public float priceModifier;
 }
 
 [Game]
