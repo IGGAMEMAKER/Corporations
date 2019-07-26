@@ -25,6 +25,11 @@ public class Hint : MonoBehaviour
         BackgroundTexture = MakeTex(2, 2, new Color(0f, 1f, 0f, 1f));
     }
 
+    void OnDisable()
+    {
+        isHovered = false;
+    }
+
     //float GetContentWidth(string text)
     //{
     //    text.Split('\n',);
@@ -99,6 +104,8 @@ public class Hint : MonoBehaviour
                 //Debug.Log("ONGUI HINT " + Text.Length);
             }
         }
+
+        //Debug.Log("ONGui hint " + Text);
     }
 
     // this code took from 
