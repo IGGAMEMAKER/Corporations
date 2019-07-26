@@ -25,14 +25,16 @@ public class PositioningView : View
         var nicheType = SelectedCompany.product.Niche;
         var positionings = NicheUtils.GetNichePositionings(nicheType, GameContext);
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
-        var price = niche.nicheCosts.BasePrice;
 
         var positioningData = positionings[positioning];
 
+
         PositioningName.text = positioningData.name;
+
+        var price = niche.nicheCosts.BasePrice * 1000 * 12;
         IncomePerUser.text = price.ToString();
 
         var estimatedUsers = positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
-        EstimatedUsers.text = estimatedUsers.ToString();
+        EstimatedUsers.text = Format.Minify(estimatedUsers);
     }
 }
