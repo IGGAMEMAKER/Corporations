@@ -15,6 +15,7 @@ class ProductGrabClientsByTargetingSystem : OnMonthChange
         GameEntity[] Products = contexts.game
             .GetEntities(GameMatcher.AllOf(GameMatcher.Marketing, GameMatcher.Targeting));
 
+        return;
         foreach (var e in Products)
         {
             TeamResource need = MarketingUtils.GetTargetingCost(contexts.game, e.company.Id) * 30;

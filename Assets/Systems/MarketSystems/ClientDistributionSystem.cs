@@ -51,6 +51,9 @@ public partial class ClientDistributionSystem : OnMonthChange
             var reach = GetCompanyAudienceReach(p);
 
             strengths[segId] += reach;
+
+            var totalStrengths = strengths[segId];
+
             strengthsProducts[p.company.Id] = reach;
         }
 
@@ -61,12 +64,22 @@ public partial class ClientDistributionSystem : OnMonthChange
 
             var segmentClients = clientContainers[segId];
 
-            var relativeCompanyStrength = (long)(100 * strengthsProducts[p.company.Id] / strengths[segId]);
+            var productStrength = strengthsProducts[p.company.Id];
+            var totalStrengths = strengths[segId];
 
-            var clients = segmentClients * relativeCompanyStrength / 100;
+            var relativeCompanyStrength = productStrength / totalStrengths;
+
+            var clients = (long)(segmentClients * relativeCompanyStrength);
 
             MarketingUtils.AddClients(p, UserType.Core, clients);
+
+            //
+            strengths[segId] -= strengthsProducts[p.company.Id];
+
+            clientContainers[segId] -= clients;
         }
+
+        niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
     float GetCompanyAudienceReach(GameEntity product)
@@ -80,7 +93,9 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         var totalMultplier = targetingMultiplier + (isBrandingPossible ? brandingMultiplier : 0);
 
-        var reach = rand * totalMultplier * MarketingUtils.GetCompanyReachModifierMultipliedByHundred(product);
+        var companyMultiplier = MarketingUtils.GetCompanyReachModifierMultipliedByHundred(product);
+
+        var reach = rand * totalMultplier * companyMultiplier;
 
         return reach;
     }

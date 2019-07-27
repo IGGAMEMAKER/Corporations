@@ -35,7 +35,7 @@ public class MarketPotentialView : View
 
         RiskLabel.text = $"{risk}% ({riskText})";
 
-        var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType) * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
+        var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
         var maintenance = NicheUtils.GetMaintenanceCost(niche);

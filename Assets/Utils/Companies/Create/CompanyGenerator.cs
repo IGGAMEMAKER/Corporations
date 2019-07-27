@@ -12,7 +12,7 @@ namespace Assets.Utils
             // product specific components
             company.AddProduct(company.company.Id, niche, UnityEngine.Random.Range(0, 6));
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
-            company.AddFinance(0, 0, 0, 5f);
+            company.AddFinance(0, MarketingFinancing.Low, 0, 5f);
 
 
             company.AddMarketing(0);

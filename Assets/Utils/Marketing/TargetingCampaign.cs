@@ -50,7 +50,7 @@ namespace Assets.Utils
 
         public static long GetCompanyBrandModifierMultipliedByHundred(GameEntity e)
         {
-            return e.branding.BrandPower * 100 / 2;
+            return 100 + e.branding.BrandPower * 100 / 2;
         }
 
         public static long GetCompanyReachModifierMultipliedByHundred(GameEntity e)

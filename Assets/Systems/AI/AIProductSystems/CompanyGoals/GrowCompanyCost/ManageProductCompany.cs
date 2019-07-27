@@ -97,6 +97,9 @@ public partial class AIProductSystems : OnDateChange
     {
         var balance = company.companyResource.Resources.money;
 
+        //MarketingUtils.SetFinancing(gameContext, company.company.Id, MarketingFinancing.Medium);
+        //return;
+
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(company, gameContext);
 
         if (TryFinancing(MarketingFinancing.High, company, balance, maintenance))
@@ -108,8 +111,8 @@ public partial class AIProductSystems : OnDateChange
         if (TryFinancing(MarketingFinancing.Low, company, balance, maintenance))
             return;
 
-        if (TryFinancing(MarketingFinancing.Zero, company, balance, maintenance))
-            return;
+        //if (TryFinancing(MarketingFinancing.Zero, company, balance, maintenance))
+        //    return;
     }
 
     void ManageCompanyMarketing(GameEntity company)
