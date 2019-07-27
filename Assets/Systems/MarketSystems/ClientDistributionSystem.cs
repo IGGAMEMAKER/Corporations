@@ -74,12 +74,17 @@ public partial class ClientDistributionSystem : OnMonthChange
             MarketingUtils.AddClients(p, UserType.Core, clients);
 
             //
-            strengths[segId] -= strengthsProducts[p.company.Id];
+            strengths[segId] -= productStrength;
 
             clientContainers[segId] -= clients;
         }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
+    }
+
+    void PayForMarketing(GameEntity product)
+    {
+
     }
 
     float GetCompanyAudienceReach(GameEntity product)
