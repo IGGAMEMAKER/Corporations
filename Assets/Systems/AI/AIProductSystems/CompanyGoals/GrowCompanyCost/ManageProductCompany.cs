@@ -107,6 +107,9 @@ public partial class AIProductSystems : OnDateChange
 
         if (TryFinancing(MarketingFinancing.Low, company, balance, maintenance))
             return;
+
+        if (TryFinancing(MarketingFinancing.Zero, company, balance, maintenance))
+            return;
     }
 
     void ManageCompanyMarketing(GameEntity company)

@@ -21,7 +21,6 @@ namespace Assets.Utils
 
         public static void ToggleTargeting(GameEntity company)
         {
-            //company.AddEventMarketingEnableTargeting(company.company.Id);
             company.isTargeting = true;
         }
 
@@ -49,18 +48,30 @@ namespace Assets.Utils
             }
         }
 
+        public static long GetCompanyBrandModifierMultipliedByHundred(GameEntity e)
+        {
+            return e.branding.BrandPower * 100 / 2;
+        }
+
+        public static long GetCompanyReachModifierMultipliedByHundred(GameEntity e)
+        {
+            var financing = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
+
+            var brand = GetCompanyBrandModifierMultipliedByHundred(e);
+
+            return financing * brand;
+        }
+
         public static long GetTargetingEffeciency(GameContext gameContext, GameEntity e)
         {
-            Debug.LogWarning("You don't count niche capacity when making ads!");
             var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
 
             long baseForNiche = GetCompanyClientBatch(gameContext, e);
 
-            long brandModifier = e.branding.BrandPower / 2;
-            long audienceReachModifier = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
+            long reachModifier = GetCompanyReachModifierMultipliedByHundred(e);
 
 
-            return baseForNiche * audienceReachModifier * (100 + brandModifier) / 100;
+            return baseForNiche * reachModifier / 100;
         }
     }
 }

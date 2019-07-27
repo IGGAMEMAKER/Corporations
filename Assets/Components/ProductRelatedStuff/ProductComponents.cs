@@ -44,6 +44,7 @@ public class ReleaseComponent : IComponent { }
 
 [Game, Event(EventTarget.Self)]
 public class TargetingComponent : IComponent { }
+public class BrandingCampaignComponent : IComponent { }
 
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class TechnologyLeaderComponent : IComponent { }

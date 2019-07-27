@@ -5,11 +5,16 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
+        public static bool HasBrandingCooldown(GameEntity company)
+        {
+            return CooldownUtils.HasCooldown(company, CooldownType.BrandingCampaign);
+        }
+
         public static void StartBrandingCampaign(GameContext gameContext, GameEntity company)
         {
             var resources = GetBrandingCost(gameContext, company);
 
-            if (!CompanyUtils.IsEnoughResources(company, resources) || CooldownUtils.HasCooldown(company, CooldownType.BrandingCampaign))
+            if (!CompanyUtils.IsEnoughResources(company, resources) || HasBrandingCooldown(company))
                 return;
 
             AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
@@ -77,6 +82,7 @@ namespace Assets.Utils
         {
             switch (financing)
             {
+                case MarketingFinancing.Zero: return 0;
                 case MarketingFinancing.Low: return 1;
                 case MarketingFinancing.Medium: return 2;
                 case MarketingFinancing.High: return 5;

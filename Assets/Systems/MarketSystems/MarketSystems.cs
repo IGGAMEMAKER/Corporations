@@ -4,5 +4,7 @@
     {
         Add(new MarketInitializerSystem(contexts));
         Add(new UpdateNicheStateSystem(contexts));
+
+        Add(new ClientDistributionSystem(contexts));
     }
 }

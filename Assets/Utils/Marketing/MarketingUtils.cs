@@ -28,10 +28,10 @@ namespace Assets.Utils
 
         public static long GetCompanyClientBatch(GameContext gameContext, GameEntity company)
         {
-            return GetCurrentClientBatch(gameContext, company.product.Niche);
+            return GetCurrentClientFlow(gameContext, company.product.Niche);
         }
 
-        public static long GetCurrentClientBatch(GameContext gameContext, NicheType nicheType)
+        public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
 

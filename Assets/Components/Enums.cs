@@ -205,6 +205,7 @@ public enum Pricing
 
 public enum MarketingFinancing
 {
+    Zero,
     Low,
     Medium,
     High
