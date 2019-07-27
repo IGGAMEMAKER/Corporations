@@ -1,5 +1,4 @@
-﻿
-public class ProductMarketingSystems : Feature
+﻿public class ProductMarketingSystems : Feature
 {
     public ProductMarketingSystems(Contexts contexts) : base("Product Marketing Systems")
     {
