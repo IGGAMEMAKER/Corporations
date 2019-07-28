@@ -24,9 +24,7 @@ public enum NicheType
 
 
     SearchEngine,
-
     CloudComputing,
-
     OSDesktop,
     Browser
     //OSSciencePurpose,
