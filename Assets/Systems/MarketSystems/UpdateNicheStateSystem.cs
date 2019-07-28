@@ -35,6 +35,10 @@ public partial class UpdateNicheStateSystem : OnMonthChange
             DecrementDuration(niche);
     }
 
+    void UpdateNiche(GameEntity niche)
+    {
+        NicheUtils.PromoteNicheState(niche);
+    }
 
 
     bool IsNeedsPromotion(GameEntity niche)
@@ -47,42 +51,6 @@ public partial class UpdateNicheStateSystem : OnMonthChange
             return false;
 
         return duration <= 0;
-    }
-
-    NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
-    {
-        switch(phase)
-        {
-            case NicheLifecyclePhase.Idle:
-                return NicheLifecyclePhase.Innovation;
-
-            case NicheLifecyclePhase.Innovation:
-                return NicheLifecyclePhase.Trending;
-
-            case NicheLifecyclePhase.Trending:
-                return NicheLifecyclePhase.MassUse;
-
-            case NicheLifecyclePhase.MassUse:
-                return NicheLifecyclePhase.Decay;
-
-            case NicheLifecyclePhase.Decay:
-            default:
-                return NicheLifecyclePhase.Death;
-        }
-    }
-
-    void UpdateNiche(GameEntity niche)
-    {
-        var state = niche.nicheState;
-
-        var phase = state.Phase;
-
-        var next = GetNextPhase(phase);
-
-        var nichePeriod = NicheUtils.GetNichePeriodDurationInMonths(niche);
-        var duration = nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
-
-        niche.ReplaceNicheState(next, duration);
     }
 
     void DecrementDuration(GameEntity niche)

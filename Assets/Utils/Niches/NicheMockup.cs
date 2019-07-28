@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -32,6 +33,8 @@ namespace Assets.Utils
             e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame);
 
             e.AddNicheState(NicheLifecyclePhase.Innovation, 0);
+            UpdateNicheDuration(e);
+
 
             e.AddNicheClientsContainer(new Dictionary<int, long>());
             e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
@@ -49,17 +52,71 @@ namespace Assets.Utils
 
 
         // durations
+
+        public static int GetNicheDuration(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            var duration = GetMinimumPhaseDurationInPeriods(phase) * GetNichePeriodDurationInMonths(niche);
+
+            return duration;
+        }
+
+        public static void UpdateNicheDuration(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+            var newDuration = GetNicheDuration(niche);
+
+            niche.ReplaceNicheState(phase, newDuration);
+        }
+
+        public static void PromoteNicheState(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            var next = GetNextPhase(phase);
+
+            var newDuration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, next);
+            niche.ReplaceNicheState(next, newDuration);
+        }
+
+
         public static int GetNichePeriodDurationInMonths(GameEntity niche)
         {
             NicheDuration nicheDuration = niche.nicheLifecycle.Period;
 
-            bool isEntireGame = nicheDuration == NicheDuration.EntireGame;
-            //isEntireGame ? 10000
+            var state = GetMarketState(niche);
 
-            var X = 1;
-
-            return X;
+            return GetNichePeriodDurationInMonths(nicheDuration, state);
         }
+
+        public static int GetNichePeriodDurationInMonths(NicheDuration nicheDuration, NicheLifecyclePhase phase)
+        {
+            if (nicheDuration == NicheDuration.EntireGame)
+            {
+                switch (phase)
+                {
+                    case NicheLifecyclePhase.Innovation: return 12;
+                    case NicheLifecyclePhase.Trending: return 24;
+                    case NicheLifecyclePhase.MassUse: return 1000;
+                    case NicheLifecyclePhase.Decay: return 1000;
+                    default: return 0;
+                }
+            }
+
+            var durationInMonths = (int)nicheDuration;
+
+            var sumOfPeriods = NICHE_PHASE_DURATION_INNOVATION + NICHE_PHASE_DURATION_TRENDING + NICHE_PHASE_DURATION_MASS + NICHE_PHASE_DURATION_DECAY;
+            
+            var X = durationInMonths / sumOfPeriods;
+
+            return Math.Max(X, 1);
+        }
+
+        public const int NICHE_PHASE_DURATION_INNOVATION = 1;
+        public const int NICHE_PHASE_DURATION_TRENDING = 4;
+        public const int NICHE_PHASE_DURATION_MASS = 15;
+        public const int NICHE_PHASE_DURATION_DECAY = 10;
 
         public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
         {
@@ -72,21 +129,42 @@ namespace Assets.Utils
             switch (phase)
             {
                 case NicheLifecyclePhase.Innovation:
-                    return 1;
+                    return NICHE_PHASE_DURATION_INNOVATION;
 
                 case NicheLifecyclePhase.Trending:
-                    return 4;
+                    return NICHE_PHASE_DURATION_TRENDING;
 
                 case NicheLifecyclePhase.MassUse:
-                    return 15;
+                    return NICHE_PHASE_DURATION_MASS;
 
                 case NicheLifecyclePhase.Decay:
-                    return 10;
+                    return NICHE_PHASE_DURATION_DECAY;
 
                 default:
                     return 0;
             }
         }
 
+        public static NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
+        {
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Idle:
+                    return NicheLifecyclePhase.Innovation;
+
+                case NicheLifecyclePhase.Innovation:
+                    return NicheLifecyclePhase.Trending;
+
+                case NicheLifecyclePhase.Trending:
+                    return NicheLifecyclePhase.MassUse;
+
+                case NicheLifecyclePhase.MassUse:
+                    return NicheLifecyclePhase.Decay;
+
+                case NicheLifecyclePhase.Decay:
+                default:
+                    return NicheLifecyclePhase.Death;
+            }
+        }
     }
 }

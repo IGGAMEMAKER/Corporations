@@ -21,11 +21,11 @@ namespace Assets.Utils
 
         public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
-            var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+            var niche = GetNicheEntity(GameContext, nicheType);
 
             var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
 
-            return positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
+            return positioningData.marketShare * GetMarketAudiencePotential(niche) / 100;
         }
 
         public static long GetMarketAudiencePotential(GameEntity niche)

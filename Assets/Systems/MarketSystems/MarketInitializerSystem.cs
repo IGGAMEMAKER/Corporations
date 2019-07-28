@@ -17,25 +17,24 @@ public partial class MarketInitializerSystem : IInitializeSystem
     void IInitializeSystem.Initialize()
     {
         InitializeIndustries();
-        //InitializeNiches();
 
         InitializeFundamentalIndustry();
         InitializeCommunicationsIndustry();
 
-        CheckIndustriesWithZeroNiches();
+        //CheckIndustriesWithZeroNiches();
     }
 }
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    void CheckIndustriesWithZeroNiches()
-    {
-        foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-        {
-            if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
-                Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
-        }
-    }
+    //void CheckIndustriesWithZeroNiches()
+    //{
+    //    foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
+    //    {
+    //        if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
+    //            Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
+    //    }
+    //}
 
     void InitializeIndustries()
     {

@@ -9,7 +9,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.Messenger,
             NicheType.SocialNetwork,
             NicheType.Blogs,
-            //NicheType.Dating,
             NicheType.Forums,
             NicheType.Email
         };
@@ -35,13 +34,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Blogs,
-            NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct,
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            new ProductPositioning[] {},
+           0);
+
+        SetNicheCostsAutomatitcallty(NicheType.Email,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
             new ProductPositioning[] {},
            0);
 
         SetNicheCostsAutomatitcallty(NicheType.Forums,
-            NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct,
             NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
             new ProductPositioning[] {},
            0);

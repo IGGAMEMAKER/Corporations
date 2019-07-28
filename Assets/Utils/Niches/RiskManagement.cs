@@ -52,9 +52,9 @@
 
         public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
+            var phase = GetMarketState(gameContext, nicheType);
 
-            switch (niche.nicheState.Phase)
+            switch (phase)
             {
                 case NicheLifecyclePhase.Idle:
                     return Constants.RISKS_DEMAND_MAX;

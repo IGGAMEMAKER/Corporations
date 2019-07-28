@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -30,8 +31,10 @@ namespace Assets.Utils
 
         public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
         {
+            Debug.Log($"GetProductPositioningInfo {nicheType} in segment {segmentId}");
             var positionings = GetNichePositionings(nicheType, GameContext);
-            var niche = GetNicheEntity(GameContext, nicheType);
+
+            Debug.Log($"GetProductPositioningInfo positionings: {positionings.Count}");
 
             return positionings[segmentId];
         }

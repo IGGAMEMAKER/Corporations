@@ -11,8 +11,15 @@ public class MarketPhaseEstimatedTime : UpgradedParameterView
     {
         var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
 
-        var timeRemaining = niche.nicheState.Duration * NicheUtils.GetNichePeriodDurationInMonths(niche);
+        var timeRemaining = niche.nicheState.Duration; // * NicheUtils.GetNichePeriodDurationInMonths(niche);
+
+        var years = timeRemaining / 12;
+
+        if (years > 0)
+            return $"{years}+ years";
 
         return $"{timeRemaining} months";
     }
+
+    
 }

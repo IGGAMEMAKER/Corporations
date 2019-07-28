@@ -7,9 +7,16 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
+        public static NicheLifecyclePhase GetMarketState(GameEntity niche)
+        {
+            return niche.nicheState.Phase;
+        }
+
         public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)
         {
-            return GetNicheEntity(gameContext, nicheType).nicheState.Phase;
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            return GetMarketState(niche);
         }
 
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
@@ -19,7 +26,8 @@ namespace Assets.Utils
 
         public static int GetMarketRating(GameEntity niche)
         {
-            switch (niche.nicheState.Phase)
+            var phase = GetMarketState(niche);
+            switch (phase)
             {
                 case NicheLifecyclePhase.Idle: return 1;
                 case NicheLifecyclePhase.Innovation: return 3;
