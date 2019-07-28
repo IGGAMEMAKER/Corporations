@@ -34,7 +34,6 @@ namespace Assets.Utils.Formatting
                 case NicheType.SocialNetwork: return "Social Networks";
                 case NicheType.Blogs: return "Blogs";
                 case NicheType.Forums: return "Forums";
-                case NicheType.Dating: return "Dating apps";
 
 
                 case NicheType.CloudComputing: return "Cloud Computing";
