@@ -74,6 +74,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.SearchEngine,
             NicheType.OSDesktop,
             NicheType.CloudComputing,
+            NicheType.Browser,
         };
         AttachNichesToIndustry(IndustryType.Fundamental, niches);
 
