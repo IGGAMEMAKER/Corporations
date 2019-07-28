@@ -30,13 +30,13 @@ namespace Assets.Utils
 
         public static long GetMarketAudiencePotential(GameEntity niche)
         {
-            var state = niche.nicheState;
+            var lifecycle = niche.nicheLifecycle;
 
             var clientBatch = niche.nicheCosts.ClientBatch;
 
             long clients = 0;
 
-            foreach (var g in state.Growth)
+            foreach (var g in lifecycle.Growth)
             {
                 var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDuration(niche) * 30;
 

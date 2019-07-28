@@ -16,7 +16,6 @@ namespace Assets.Utils
                 NicheType.SocialNetwork
                 );
 
-            e.AddNicheLifecycle(0);
 
             e.AddNicheCosts(1, 1, 1, 1, 1, 1);
 
@@ -30,12 +29,9 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Death] = 0, // churn
             };
 
-            e.AddNicheState(
-                clientGrowthDictionary,
-                NicheLifecyclePhase.Innovation,
-                0,
-                NicheDuration.EntireGame
-                );
+            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame);
+
+            e.AddNicheState(NicheLifecyclePhase.Innovation, 0);
 
             e.AddNicheClientsContainer(new Dictionary<int, long>());
             e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
@@ -55,7 +51,7 @@ namespace Assets.Utils
         // durations
         public static int GetNichePeriodDuration(GameEntity niche)
         {
-            NicheDuration nicheDuration = niche.nicheState.Period;
+            NicheDuration nicheDuration = niche.nicheLifecycle.Period;
 
             bool isEntireGame = nicheDuration == NicheDuration.EntireGame;
             //isEntireGame ? 10000

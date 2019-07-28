@@ -35,7 +35,7 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
 
-            var modifier = niche.nicheState.Growth[niche.nicheState.Phase];
+            var modifier = niche.nicheLifecycle.Growth[niche.nicheState.Phase];
 
             var costs = GetNicheCosts(gameContext, nicheType);
 

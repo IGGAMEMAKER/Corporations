@@ -95,10 +95,8 @@ public class NicheLifecycleComponent : IComponent
 [Game]
 public class NicheStateComponent : IComponent
 {
-    public Dictionary<NicheLifecyclePhase, int> Growth;
     public NicheLifecyclePhase Phase;
     public int Duration;
-    public NicheDuration Period;
 }
 
 [Game]

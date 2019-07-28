@@ -82,13 +82,13 @@ public partial class UpdateNicheStateSystem : OnMonthChange
         var nichePeriod = NicheUtils.GetNichePeriodDuration(niche);
         var duration = nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
 
-        niche.ReplaceNicheState(state.Growth, next, duration, state.Period);
+        niche.ReplaceNicheState(next, duration);
     }
 
     void DecrementDuration(GameEntity niche)
     {
         var state = niche.nicheState;
 
-        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration - 1, state.Period);
+        niche.ReplaceNicheState(state.Phase, state.Duration - 1);
     }
 }
