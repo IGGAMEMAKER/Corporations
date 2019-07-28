@@ -51,13 +51,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new ProductPositioning[] {},
            0);
 
-        //SetNicheCostsAutomatitcallty(NicheType.Dating,
-        //    NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
-        //    NicheMaintenance.Mid, PriceCategory.Mid, NicheChangeSpeed.Year,
-        //   0);
-
-
-
         //SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
         //SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
     }

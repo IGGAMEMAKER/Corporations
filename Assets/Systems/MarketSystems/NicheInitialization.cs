@@ -109,6 +109,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     long GetClientBatchBase(AudienceSize audienceSize)
     {
+
         switch (audienceSize)
         {
             case AudienceSize.LessThanMillion: return 70;

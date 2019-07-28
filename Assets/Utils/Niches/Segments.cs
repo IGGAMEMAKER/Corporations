@@ -31,10 +31,7 @@ namespace Assets.Utils
 
         public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
         {
-            Debug.Log($"GetProductPositioningInfo {nicheType} in segment {segmentId}");
             var positionings = GetNichePositionings(nicheType, GameContext);
-
-            Debug.Log($"GetProductPositioningInfo positionings: {positionings.Count}");
 
             return positionings[segmentId];
         }
