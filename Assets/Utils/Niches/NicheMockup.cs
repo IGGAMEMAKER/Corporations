@@ -52,5 +52,40 @@ namespace Assets.Utils
             return e;
         }
 
+
+        // durations
+        public static int GetNichePeriodDuration(GameEntity niche)
+        {
+            var X = 1;
+
+            return X;
+        }
+
+        public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
+        {
+            if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
+                return 0;
+
+            return 1;
+
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Innovation:
+                    return 1;
+
+                case NicheLifecyclePhase.Trending:
+                    return 4;
+
+                case NicheLifecyclePhase.MassUse:
+                    return 10;
+
+                case NicheLifecyclePhase.Decay:
+                    return 15;
+
+                default:
+                    return 0;
+            }
+        }
+
     }
 }
