@@ -28,6 +28,7 @@ public enum NicheType
     CloudComputing,
 
     OSDesktop,
+    Browser
     //OSSciencePurpose,
 }
 

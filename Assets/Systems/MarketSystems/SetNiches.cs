@@ -3,6 +3,16 @@ using Entitas;
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
+    int GetYear(int year)
+    {
+        return (year - 1990) * 360;
+    }
+
+    int GetYearAndADate(int year, int quarter)
+    {
+        return GetYear(year) + quarter * 90;
+    }
+
     void InitializeCommunicationsIndustry()
     {
         var niches = new NicheType[] {
@@ -14,13 +24,26 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
-        SetNicheCostsAutomatitcallty(NicheType.Messenger,
+        SetNicheCostsAutomatitcallty(NicheType.Email,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Mid, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
-            new ProductPositioning[] {
-                new ProductPositioning { name = "Basic messenger", marketShare = 100 },
-            },
-           0);
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            new ProductPositioning[] { },
+            GetYear(1990)
+       );
+
+        SetNicheCostsAutomatitcallty(NicheType.Forums,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct,
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            new ProductPositioning[] { },
+            GetYear(1990)
+           );
+
+        SetNicheCostsAutomatitcallty(NicheType.Blogs,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct,
+            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            new ProductPositioning[] {},
+            GetYear(1995)
+           );
 
         SetNicheCostsAutomatitcallty(NicheType.SocialNetwork,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
@@ -31,29 +54,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
                 new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             },
-           0);
+            GetYear(2000)
+           );
 
-        SetNicheCostsAutomatitcallty(NicheType.Blogs,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            new ProductPositioning[] {},
-           0);
-
-        SetNicheCostsAutomatitcallty(NicheType.Email,
+        SetNicheCostsAutomatitcallty(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            new ProductPositioning[] {},
-           0);
-
-        SetNicheCostsAutomatitcallty(NicheType.Forums,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
-            new ProductPositioning[] {},
-           0);
-
-        //SetNicheCosts(NicheType.Messenger,      2, 75, 100, 75, 100, 1000);
-        //SetNicheCosts(NicheType.SocialNetwork, 10, 100, 100, 100, 100, 1000);
+            NicheMaintenance.Mid, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
+            new ProductPositioning[] {
+                new ProductPositioning { name = "Basic messenger", marketShare = 100 },
+            },
+            GetYear(2005)
+           );
     }
+
 
     private void InitializeFundamentalIndustry()
     {
@@ -68,22 +81,24 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.Year,
             new ProductPositioning[] { },
-            0);
+            GetYear(2000));
 
         SetNicheCostsAutomatitcallty(NicheType.SearchEngine,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
             new ProductPositioning[] { },
-            0);
+            GetYear(1995));
 
         SetNicheCostsAutomatitcallty(NicheType.OSDesktop,
             NicheDuration.EntireGame, AudienceSize.WholeWorld,
             NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
             new ProductPositioning[] { },
-            0);
+            GetYear(1980));
 
-        //SetNicheCosts(NicheType.SearchEngine, 10, 100, 1000, 1000, 1000, 2000);
-        //SetNicheCosts(NicheType.CloudComputing, 10, 100, 1000, 1000, 1000, 2000);
-        //SetNicheCosts(NicheType.OSDesktop, 1000, 500, 1000, 1000, 1000, 5000);
+        SetNicheCostsAutomatitcallty(NicheType.Browser,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld,
+            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            new ProductPositioning[] { },
+            GetYear(1990));
     }
 }

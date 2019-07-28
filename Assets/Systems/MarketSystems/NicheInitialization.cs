@@ -89,6 +89,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
+        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period);
     }
 
     float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType)

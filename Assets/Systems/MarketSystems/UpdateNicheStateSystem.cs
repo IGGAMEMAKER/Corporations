@@ -17,12 +17,28 @@ public partial class UpdateNicheStateSystem : OnMonthChange
             CheckNiche(n);
     }
 
+    void ActivateIfNecessary(GameEntity niche)
+    {
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+
+        var state = NicheUtils.GetMarketState(niche);
+        var nicheStartDate = niche.nicheLifecycle.OpenDate;
+
+        if (date > nicheStartDate && state == NicheLifecyclePhase.Idle)
+        {
+            Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
+            UpdateNiche(niche);
+        }
+    }
+
     void CheckNiche(GameEntity niche)
     {
         var state = niche.nicheState;
 
         if (state.Phase == NicheLifecyclePhase.Death)
             return;
+
+        ActivateIfNecessary(niche);
 
         if (NicheUtils.GetCompetitorsAmount(niche.niche.NicheType, gameContext) == 0)
             return;

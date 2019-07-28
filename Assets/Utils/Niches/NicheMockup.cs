@@ -32,7 +32,7 @@ namespace Assets.Utils
 
             e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame);
 
-            e.AddNicheState(NicheLifecyclePhase.Innovation, 0);
+            e.AddNicheState(NicheLifecyclePhase.Idle, 0);
             UpdateNicheDuration(e);
 
 

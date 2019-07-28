@@ -58,7 +58,7 @@ public class MarketMapRenderer : View
 
     private void RenderIndustry(IndustryType IndustryType, int j, int industriesCount)
     {
-        var markets = NicheUtils.GetNichesInIndustry(IndustryType, GameContext);
+        var markets = NicheUtils.GetPlayableNichesInIndustry(IndustryType, GameContext);
 
         var baseRadius = IndustrialRadius + NicheRadius;
         var baseMapOffset = new Vector3(baseRadius, -baseRadius);
