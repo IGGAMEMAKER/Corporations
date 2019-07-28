@@ -7,38 +7,6 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
-        {
-            int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
-
-            return new BonusContainer("Product Competitiveness")
-                .RenderTitle()
-                .Append("Just some value", 5)
-                .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
-        }
-
-        internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
-        {
-            return GetProductCompetitivenessBonus(company, gameContext).Sum();
-        }
-
-
-        static string ProlongNameToNDigits(string name, int n)
-        {
-            if (name.Length >= n) return name.Substring(0, n - 3) + "...";
-
-            return name;
-        }
-
-        public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context, UserType userType)
-        {
-            var names = GetPlayersOnMarket(context, e)
-                .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
-
-            return names;
-        }
-
-
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
@@ -76,6 +44,38 @@ namespace Assets.Utils
             // returns amount of competitors on specific niche
 
             return GetPlayersOnMarket(context, niche).Count();
+        }
+
+
+        internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
+        {
+            int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
+
+            return new BonusContainer("Product Competitiveness")
+                .RenderTitle()
+                .Append("Just some value", 5)
+                .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
+        }
+
+        internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
+        {
+            return GetProductCompetitivenessBonus(company, gameContext).Sum();
+        }
+
+
+        static string ProlongNameToNDigits(string name, int n)
+        {
+            if (name.Length >= n) return name.Substring(0, n - 3) + "...";
+
+            return name;
+        }
+
+        public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context, UserType userType)
+        {
+            var names = GetPlayersOnMarket(context, e)
+                .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
+
+            return names;
         }
     }
 }
