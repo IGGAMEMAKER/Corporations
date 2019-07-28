@@ -9,7 +9,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.Messenger,
             NicheType.SocialNetwork,
             NicheType.Blogs,
-            NicheType.Dating,
+            //NicheType.Dating,
             NicheType.Forums,
             NicheType.Email
         };

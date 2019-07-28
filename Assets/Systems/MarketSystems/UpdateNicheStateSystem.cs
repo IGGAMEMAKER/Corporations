@@ -29,7 +29,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var value = Random.Range(0, 1f);
 
-        if (value > 0.9f && IsNeedsPromotion(niche))
+        if (IsNeedsPromotion(niche) && value > 0.9f)
             UpdateNiche(niche);
         else
             IncrementDuration(niche);
@@ -80,13 +80,13 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var next = GetNextPhase(phase);
 
-        niche.ReplaceNicheState(state.Growth, next, 0);
+        niche.ReplaceNicheState(state.Growth, next, 0, state.Period);
     }
 
     void IncrementDuration(GameEntity niche)
     {
         var state = niche.nicheState;
 
-        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration + 1);
+        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration + 1, state.Period);
     }
 }

@@ -14,9 +14,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
     public enum NicheDuration
     {
         // duration in months
-        LessThanYear = 6,
         Year = 12,
         FiveYears = 60,
+        Decade = 120,
         EntireGame = 5000
     }
 
@@ -36,14 +36,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Mid = 30000,
         High = 500000,
         Humongous = 5000000
-    }
-
-    public enum NicheMargin
-    {
-        Low = 110,
-        Mid = 130,
-        High = 150,
-        ExtremelyHigh = 200
     }
 
     public enum NicheChangeSpeed

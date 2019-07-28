@@ -17,49 +17,6 @@ namespace Assets.Utils
             return e;
         }
 
-        public static GameEntity CreateNicheMockup(NicheType niche, GameContext GameContext)
-        {
-            var e = GameContext.CreateEntity();
-
-            e.AddNiche(
-                niche,
-                IndustryType.Communications,
-                new List<MarketCompatibility>(),
-                new List<NicheType>(),
-                NicheType.SocialNetwork,
-                0
-                );
-
-            e.AddNicheCosts(1, 1, 1, 1, 1, 1);
-
-            e.AddNicheState(
-                new Dictionary<NicheLifecyclePhase, int>
-                {
-                    [NicheLifecyclePhase.Idle] = 0, // 0
-                    [NicheLifecyclePhase.Innovation] = UnityEngine.Random.Range(1, 4), // 2-5            Xt
-                    [NicheLifecyclePhase.Trending] = UnityEngine.Random.Range(5, 10), // 4 - 10           5Xt
-                    [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(11, 15), // 7 - 15            10Xt
-                    [NicheLifecyclePhase.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
-                    [NicheLifecyclePhase.Death] = 0, // churn
-                },
-                NicheLifecyclePhase.Innovation,
-                0
-                );
-
-            e.AddNicheClientsContainer(new Dictionary<int, long>());
-            e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
-
-
-            e.AddSegment(new Dictionary<UserType, int>
-            {
-                [UserType.Core] = 1,
-                [UserType.Regular] = 1,
-                [UserType.Mass] = 1,
-            });
-
-            return e;
-        }
-
         public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)
         {
             return GetNicheEntity(gameContext, nicheType).nicheState.Phase;
@@ -75,58 +32,22 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Niche);
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return GetPlayersOnMarket(context, c);
+
+        public static IndustryType GetIndustry(NicheType niche, GameContext context)
+        {
+            return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, GameEntity e)
+        public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
         {
-            return GetPlayersOnMarket(context, e.product.Niche);
+            return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, NicheType niche)
+        public static GameEntity[] GetPlayableNichesInIndustry(IndustryType industry, GameContext context)
         {
-            return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == niche);
-        }
-
-        public static GameEntity[] GetPlayersOnMarket(GameContext context, NicheType niche, bool something)
-        {
-            return Array.FindAll(
-                context.GetEntities(GameMatcher.Product),
-                p => p.product.Niche == niche
-                );
-        }
-
-        public static int GetCompetitorsAmount(GameEntity e, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetPlayersOnMarket(context, e).Count();
-        }
-
-        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetPlayersOnMarket(context, niche).Count();
-        }
-
-        static string ProlongNameToNDigits(string name, int n)
-        {
-            if (name.Length >= n) return name.Substring(0, n - 3) + "...";
-
-            return name;
-        }
-
-        public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context, UserType userType)
-        {
-            var names = GetPlayersOnMarket(context, e)
-                .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
-
-            return names;
+            var niches = GetNichesInIndustry(industry, context);
+            return Array.FindAll(niches, n => IsPlayableNiche(context, n));
         }
 
         public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
@@ -153,6 +74,8 @@ namespace Assets.Utils
 
             return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
         }
+
+
 
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
         {
@@ -182,85 +105,7 @@ namespace Assets.Utils
             //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
         }
 
-        public static long GetMarketPotential(GameContext gameContext, NicheType nicheType)
-        {
-            return GetMarketPotential(GetNicheEntity(gameContext, nicheType));
-        }
 
-        public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
-        {
-            var niche = GetNicheEntity(gameContext, nicheType);
-
-            var priceModifier = GetSegmentProductPriceModifier(gameContext, nicheType, segmentId);
-
-            return niche.nicheCosts.BasePrice * priceModifier;
-        }
-
-
-        public static float GetSegmentProductPriceModifier(GameContext gameContext, NicheType nicheType, int segmentId)
-        {
-            var positioningData = GetProductPositioningInfo(gameContext, nicheType, segmentId);
-
-            var priceModifier = positioningData.priceModifier;
-            if (priceModifier == 0)
-                priceModifier = 1;
-
-            return priceModifier;
-        }
-
-        public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
-        {
-            var positionings = GetNichePositionings(nicheType, GameContext);
-            var niche = GetNicheEntity(GameContext, nicheType);
-
-            return positionings[segmentId];
-        }
-
-        public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
-        {
-            var price = (long)(GetSegmentProductPrice(GameContext, nicheType, segmentId) * 100);
-
-            return price * GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId) / 100;
-        }
-
-        public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
-        {
-            var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
-
-            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
-
-            return positioningData.marketShare * NicheUtils.GetMarketAudiencePotential(niche) / 100;
-        }
-
-        public static long GetMarketAudiencePotential(GameEntity niche)
-        {
-            var state = niche.nicheState;
-
-            var clientBatch = niche.nicheCosts.ClientBatch;
-
-            long clients = 0;
-
-            foreach (var g in state.Growth)
-            {
-                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDuration(niche) * 30;
-
-                var brandModifier = 1.5f;
-                var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
-
-                clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
-            }
-
-            return clients;
-        }
-
-        public static long GetMarketPotential(GameEntity niche)
-        {
-            var clients = GetMarketAudiencePotential(niche);
-
-            var price = niche.nicheCosts.BasePrice * 1.5f;
-
-            return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
-        }
 
         // months
         public static int GetNichePeriodDuration(GameEntity niche)
@@ -294,23 +139,6 @@ namespace Assets.Utils
                 default:
                     return 0;
             }
-        }
-
-
-        public static IndustryType GetIndustry(NicheType niche, GameContext context)
-        {
-            return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
-        }
-
-        public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
-        {
-            return Array.FindAll(context.GetEntities(GameMatcher.Niche), n => n.niche.IndustryType == industry);
-        }
-
-        public static GameEntity[] GetPlayableNichesInIndustry(IndustryType industry, GameContext context)
-        {
-            var niches = GetNichesInIndustry(industry, context);
-            return Array.FindAll(niches, n => IsPlayableNiche(context, n));
         }
 
 
