@@ -3,18 +3,23 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
-public partial class UpdateNicheStateSystem : OnMonthChange
+public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 {
     public UpdateNicheStateSystem(Contexts contexts) : base(contexts)
     {
     }
 
-    protected override void Execute(List<GameEntity> entities)
+    void CheckNiches()
     {
         var niches = NicheUtils.GetNiches(gameContext);
 
         foreach (var n in niches)
             CheckNiche(n);
+    }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        CheckNiches();
     }
 
     void ActivateIfNecessary(GameEntity niche)
@@ -26,7 +31,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         if (date > nicheStartDate && state == NicheLifecyclePhase.Idle)
         {
-            Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
+            //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
             UpdateNiche(niche);
         }
     }
@@ -74,5 +79,10 @@ public partial class UpdateNicheStateSystem : OnMonthChange
         var state = niche.nicheState;
 
         niche.ReplaceNicheState(state.Phase, state.Duration - 1);
+    }
+
+    void IInitializeSystem.Initialize()
+    {
+        CheckNiches();
     }
 }

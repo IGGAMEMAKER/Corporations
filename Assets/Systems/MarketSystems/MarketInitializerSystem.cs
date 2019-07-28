@@ -84,6 +84,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
             AttachNicheToIndustry(n, industry);
     }
 
+
+
+
     GameEntity ForkNiche(NicheType parent, NicheType child)
     {
         var e = GetNicheEntity(child);
@@ -97,16 +100,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             );
 
         return e;
-    }
-
-    void SetChildsAsCompetingNiches(NicheType parent)
-    {
-        
-    }
-
-    void SetNicheAsDependant(NicheType niche, NicheType sourceNiche, int dependency)
-    {
-        
     }
 
     void AddSynergicNiche(GameEntity entity, NicheType niche, int compatibility)

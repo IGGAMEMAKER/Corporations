@@ -5,7 +5,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     int GetYear(int year)
     {
-        return (year - 1990) * 360;
+        return (year - 1991) * 360;
     }
 
     int GetYearAndADate(int year, int quarter)
