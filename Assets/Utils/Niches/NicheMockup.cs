@@ -49,7 +49,7 @@ namespace Assets.Utils
 
 
         // durations
-        public static int GetNichePeriodDuration(GameEntity niche)
+        public static int GetNichePeriodDurationInMonths(GameEntity niche)
         {
             NicheDuration nicheDuration = niche.nicheLifecycle.Period;
 

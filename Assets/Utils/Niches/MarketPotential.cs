@@ -38,7 +38,7 @@ namespace Assets.Utils
 
             foreach (var g in lifecycle.Growth)
             {
-                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDuration(niche) * 30;
+                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche) * 30;
 
                 var brandModifier = 1.5f;
                 var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);

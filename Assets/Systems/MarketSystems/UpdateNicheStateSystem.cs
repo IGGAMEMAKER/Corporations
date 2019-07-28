@@ -79,7 +79,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var next = GetNextPhase(phase);
 
-        var nichePeriod = NicheUtils.GetNichePeriodDuration(niche);
+        var nichePeriod = NicheUtils.GetNichePeriodDurationInMonths(niche);
         var duration = nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
 
         niche.ReplaceNicheState(next, duration);
