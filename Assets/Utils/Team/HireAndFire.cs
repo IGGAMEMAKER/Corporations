@@ -58,6 +58,8 @@ namespace Assets.Utils
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
+            Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
+
             HumanUtils.LeaveCompany(worker);
 
             var team = company.team;
@@ -65,6 +67,8 @@ namespace Assets.Utils
             team.Workers.Remove(worker.human.Id);
 
             ReplaceTeam(company, team);
+
+            //worker.Destroy();
         }
 
         public static void FireWorker(GameEntity company, int humanId, GameContext gameContext)
