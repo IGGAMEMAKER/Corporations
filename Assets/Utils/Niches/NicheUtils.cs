@@ -7,12 +7,17 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static GameEntity GetNicheEntity(GameContext gameContext, NicheType nicheType)
+        public static GameEntity[] GetNiches(GameContext context)
         {
-            var e = Array.Find(gameContext.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == nicheType);
+            return context.GetEntities(GameMatcher.Niche);
+        }
+
+        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
+        {
+            var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
 
             if (e == null)
-                e = CreateNicheMockup(nicheType, gameContext);
+                e = CreateNicheMockup(nicheType, context);
 
             return e;
         }
@@ -22,14 +27,10 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.Industry);
         }
 
-        public static GameEntity[] GetNiches(GameContext gameContext)
-        {
-            return gameContext.GetEntities(GameMatcher.Niche);
-        }
 
         public static IndustryType GetIndustry(NicheType niche, GameContext context)
         {
-            return Array.Find(context.GetEntities(GameMatcher.Niche), n => n.niche.NicheType == niche).niche.IndustryType;
+            return Array.Find(GetNiches(context), n => n.niche.NicheType == niche).niche.IndustryType;
         }
 
         public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
