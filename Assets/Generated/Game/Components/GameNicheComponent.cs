@@ -11,7 +11,7 @@ public partial class GameEntity {
     public NicheComponent niche { get { return (NicheComponent)GetComponent(GameComponentsLookup.Niche); } }
     public bool hasNiche { get { return HasComponent(GameComponentsLookup.Niche); } }
 
-    public void AddNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate) {
+    public void AddNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent) {
         var index = GameComponentsLookup.Niche;
         var component = (NicheComponent)CreateComponent(index, typeof(NicheComponent));
         component.NicheType = newNicheType;
@@ -19,11 +19,10 @@ public partial class GameEntity {
         component.MarketCompatibilities = newMarketCompatibilities;
         component.CompetingNiches = newCompetingNiches;
         component.Parent = newParent;
-        component.OpenDate = newOpenDate;
         AddComponent(index, component);
     }
 
-    public void ReplaceNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent, int newOpenDate) {
+    public void ReplaceNiche(NicheType newNicheType, IndustryType newIndustryType, System.Collections.Generic.List<MarketCompatibility> newMarketCompatibilities, System.Collections.Generic.List<NicheType> newCompetingNiches, NicheType newParent) {
         var index = GameComponentsLookup.Niche;
         var component = (NicheComponent)CreateComponent(index, typeof(NicheComponent));
         component.NicheType = newNicheType;
@@ -31,7 +30,6 @@ public partial class GameEntity {
         component.MarketCompatibilities = newMarketCompatibilities;
         component.CompetingNiches = newCompetingNiches;
         component.Parent = newParent;
-        component.OpenDate = newOpenDate;
         ReplaceComponent(index, component);
     }
 

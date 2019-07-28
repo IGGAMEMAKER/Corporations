@@ -71,9 +71,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
             industry,
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
-            e.niche.Parent,
-            e.niche.OpenDate
+            e.niche.Parent
             );
+
+
 
         return e;
     }
@@ -93,8 +94,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             e.niche.IndustryType,
             e.niche.MarketCompatibilities,
             e.niche.CompetingNiches,
-            parent,
-            e.niche.OpenDate
+            parent
             );
 
         return e;
@@ -117,7 +117,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         list.Add(new MarketCompatibility { Compatibility = compatibility, NicheType = niche });
 
-        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent, n.OpenDate);
+        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent);
     }
 
     void SetNichesAsSynergic(NicheType niche1, NicheType niche2, int compatibility)

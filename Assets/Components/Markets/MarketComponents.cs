@@ -27,8 +27,9 @@ public class NicheComponent : IComponent
     public List<NicheType> CompetingNiches;
 
     public NicheType Parent;
-    public int OpenDate;
 }
+
+
 
 [Game]
 public class ProductPositioningComponent : IComponent
@@ -81,13 +82,23 @@ public enum NicheLifecyclePhase
     Death
 }
 
+
+
+[Game]
+public class NicheLifecycleComponent : IComponent
+{
+    public int OpenDate;
+    public Dictionary<NicheLifecyclePhase, int> Growth;
+    public NicheDuration Period;
+}
+
 [Game]
 public class NicheStateComponent : IComponent
 {
     public Dictionary<NicheLifecyclePhase, int> Growth;
     public NicheLifecyclePhase Phase;
     public int Duration;
-    public int Period;
+    public NicheDuration Period;
 }
 
 [Game]

@@ -2,6 +2,15 @@
 using Entitas;
 using UnityEngine;
 
+public enum NicheDuration
+{
+    // duration in months
+    Year = 12,
+    FiveYears = 60,
+    Decade = 120,
+    EntireGame = 5000
+}
+
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     public enum AudienceSize
@@ -11,14 +20,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         WholeWorld
     }
 
-    public enum NicheDuration
-    {
-        // duration in months
-        Year = 12,
-        FiveYears = 60,
-        Decade = 120,
-        EntireGame = 5000
-    }
 
     public enum PriceCategory
     {

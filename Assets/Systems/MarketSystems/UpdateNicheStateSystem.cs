@@ -27,12 +27,12 @@ public partial class UpdateNicheStateSystem : OnMonthChange
         if (NicheUtils.GetCompetitorsAmount(niche.niche.NicheType, gameContext) == 0)
             return;
 
-        var value = Random.Range(0, 1f);
+        //var value = Random.Range(0, 1f);
 
-        if (IsNeedsPromotion(niche) && value > 0.9f)
+        if (IsNeedsPromotion(niche)) //  && value > 0.9f
             UpdateNiche(niche);
         else
-            IncrementDuration(niche);
+            DecrementDuration(niche);
     }
 
 
@@ -40,14 +40,13 @@ public partial class UpdateNicheStateSystem : OnMonthChange
     bool IsNeedsPromotion(GameEntity niche)
     {
         var duration = niche.nicheState.Duration;
-        var nichePeriod = NicheUtils.GetNichePeriodDuration(niche);
 
         var phase = niche.nicheState.Phase;
 
         if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
             return false;
 
-        return duration > nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
+        return duration <= 0;
     }
 
     NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
@@ -80,13 +79,16 @@ public partial class UpdateNicheStateSystem : OnMonthChange
 
         var next = GetNextPhase(phase);
 
-        niche.ReplaceNicheState(state.Growth, next, 0, state.Period);
+        var nichePeriod = NicheUtils.GetNichePeriodDuration(niche);
+        var duration = nichePeriod * NicheUtils.GetMinimumPhaseDurationInPeriods(phase);
+
+        niche.ReplaceNicheState(state.Growth, next, duration, state.Period);
     }
 
-    void IncrementDuration(GameEntity niche)
+    void DecrementDuration(GameEntity niche)
     {
         var state = niche.nicheState;
 
-        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration + 1, state.Period);
+        niche.ReplaceNicheState(state.Growth, state.Phase, state.Duration - 1, state.Period);
     }
 }
