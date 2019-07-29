@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using System;
+using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
@@ -39,6 +40,22 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Humongous = 5000000
     }
 
+    public enum NicheTechMaintenance
+    {
+        Low = 1,
+        Mid = 5,
+        High = 50,
+        Humongous = 250
+    }
+
+    public enum NicheMarketingMaintenance
+    {
+        Low = 1,
+        Mid = 5,
+        High = 50,
+        Humongous = 250
+    }
+
     public enum NicheChangeSpeed
     {
         Month,
@@ -47,10 +64,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
         ThreeYears
     }
 
-    void SetNicheCostsAutomatitcallty(NicheType nicheType,
-        NicheDuration PeriodDuration, AudienceSize audienceSize,
-        NicheMaintenance MaintenanceCost, PriceCategory priceCategory,
+    void SetNichesAutomatically(NicheType nicheType,
+        NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
+        NicheMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
         ProductPositioning[] productPositionings,
         int startDate)
     {
@@ -60,11 +77,16 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var clients = GetBatchSize(audienceSize, nicheId);
 
-        var costs = (int)MaintenanceCost / 1000 * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
 
-        var adCosts = (int)GetAdCost(MaintenanceCost, nicheId);
+        var techCost = GetTechCost(techMaintenance, nicheId);
+        var ideaCost = GetTechCost(techMaintenance, nicheId + 1);
+        var marketingCost = GetMarketingCost(marketingMaintenance, nicheId);
 
-        var n = SetNicheCosts(nicheType, price, clients, costs, costs, costs, adCosts);
+        var adCosts = GetAdCost(MaintenanceCost, nicheId);
+
+        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
+
+
 
         // positionings
         var positionings = n.nicheSegments.Positionings;
@@ -90,6 +112,22 @@ public partial class MarketInitializerSystem : IInitializeSystem
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
         n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period);
+    }
+
+
+
+    private int GetMarketingCost(NicheMarketingMaintenance maintenance, int nicheId)
+    {
+        var baseCost = (int)maintenance;
+
+        return (int)Randomise(baseCost, nicheId);
+    }
+
+    private int GetTechCost(NicheTechMaintenance techMaintenance, int nicheId)
+    {
+        var baseCost = (int)techMaintenance;
+
+        return (int)Randomise(baseCost, nicheId);
     }
 
     float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType)
@@ -123,16 +161,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return 0;
     }
 
-    long GetAdCostBase(NicheMaintenance nicheMaintenance)
+    int GetAdCost (NicheMaintenance nicheMaintenance, int nicheId)
     {
-        return (long)nicheMaintenance;
-    }
+        var baseValue = (long)nicheMaintenance;
 
-    long GetAdCost (NicheMaintenance nicheMaintenance, int nicheId)
-    {
-        var baseValue = GetAdCostBase(nicheMaintenance);
-
-        return Randomise(baseValue, nicheId);
+        return (int)Randomise(baseValue, nicheId);
     }
 
     long Randomise(long baseValue, int nicheId)

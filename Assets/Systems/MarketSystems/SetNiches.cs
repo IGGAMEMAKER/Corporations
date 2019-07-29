@@ -24,47 +24,42 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
-        SetNicheCostsAutomatitcallty(NicheType.Email,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            new ProductPositioning[] { },
-            GetYear(1990)
-       );
 
-        SetNicheCostsAutomatitcallty(NicheType.Forums,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
-            new ProductPositioning[] { },
-            GetYear(1990)
-           );
 
-        SetNicheCostsAutomatitcallty(NicheType.Blogs,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Mid, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+        SetNichesAutomatically(NicheType.Email,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            NicheMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
+            new ProductPositioning[] { },
+            GetYear(1990));
+
+        SetNichesAutomatically(NicheType.Forums,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
+            new ProductPositioning[] { },
+            GetYear(1990));
+
+        SetNichesAutomatically(NicheType.Blogs,
+            NicheDuration.Decade, AudienceSize.MidSizedProduct, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            NicheMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
             new ProductPositioning[] {},
-            GetYear(1995)
-           );
+            GetYear(1995));
 
-        SetNicheCostsAutomatitcallty(NicheType.SocialNetwork,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.High, PriceCategory.FreeMass, NicheChangeSpeed.Year,
+        SetNichesAutomatically(NicheType.SocialNetwork,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Year,
+            NicheMaintenance.High, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
             new ProductPositioning[] {
                 new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
                 new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
                 new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
                 new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             },
-            GetYear(2000)
-           );
+            GetYear(2000));
 
-        SetNicheCostsAutomatitcallty(NicheType.Messenger,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Mid, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
-            new ProductPositioning[] {
-                new ProductPositioning { name = "Basic messenger", marketShare = 100 },
-            },
-            GetYear(2005)
-           );
+        SetNichesAutomatically(NicheType.Messenger,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
+            NicheMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
+            new ProductPositioning[] {},
+            GetYear(2005));
     }
 
 
@@ -78,27 +73,29 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Fundamental, niches);
 
-        SetNicheCostsAutomatitcallty(NicheType.CloudComputing,
-            NicheDuration.EntireGame, AudienceSize.MidSizedProduct,
-            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.Year,
+
+
+        SetNichesAutomatically(NicheType.CloudComputing,
+            NicheDuration.EntireGame, AudienceSize.MidSizedProduct, PriceCategory.Premium, NicheChangeSpeed.Year,
+            NicheMaintenance.Humongous, NicheTechMaintenance.High, NicheMarketingMaintenance.Mid,
             new ProductPositioning[] { },
             GetYear(2000));
 
-        SetNicheCostsAutomatitcallty(NicheType.SearchEngine,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+        SetNichesAutomatically(NicheType.SearchEngine,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
             new ProductPositioning[] { },
             GetYear(1995));
 
-        SetNicheCostsAutomatitcallty(NicheType.OSDesktop,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+        SetNichesAutomatically(NicheType.OSDesktop,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
             new ProductPositioning[] { },
             GetYear(1980));
 
-        SetNicheCostsAutomatitcallty(NicheType.Browser,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld,
-            NicheMaintenance.Humongous, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+        SetNichesAutomatically(NicheType.Browser,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Mid,
             new ProductPositioning[] { },
             GetYear(1990));
     }
