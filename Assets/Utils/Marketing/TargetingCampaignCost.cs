@@ -1,5 +1,4 @@
 ﻿using Assets.Classes;
-using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -24,12 +23,18 @@ namespace Assets.Utils
             return GetPureTargetingCost(gameContext, company.product.Niche);
         }
 
-        public static TeamResource GetTargetingCost(GameContext gameContext, int companyId)
+        public static TeamResource GetTargetingCost(GameContext gameContext, GameEntity c)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
             var financing = GetMarketingFinancingPriceModifier(c.finance.marketingFinancing);
 
             return GetPureTargetingCost(gameContext, c) * financing;
+        }
+
+        public static TeamResource GetTargetingCost(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return GetTargetingCost(gameContext, c);
         }
     }
 }
