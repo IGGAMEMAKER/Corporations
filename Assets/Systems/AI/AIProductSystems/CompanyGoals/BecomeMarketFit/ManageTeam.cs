@@ -36,7 +36,7 @@ public partial class AIProductSystems : OnDateChange
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
-        return ProductUtils.GetSegmentUpgradeCost(company, gameContext, UserType.Core);
+        return GetSegmentCost(company, UserType.Core);
         var stayInMarket = GetSegmentCost(company, UserType.Core);
 
         //// + 1 means that we want to become tech leaders
