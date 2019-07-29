@@ -18,7 +18,7 @@ namespace Assets.Utils
                 return;
 
             AddBrandPower(company, GetBrandingPowerGain(gameContext, company));
-            AddMassUsersWhileBrandingCampaign(company, gameContext);
+            //AddMassUsersWhileBrandingCampaign(company, gameContext);
 
             var duration = GetBrandingCampaignCooldownDuration(gameContext, company);
 

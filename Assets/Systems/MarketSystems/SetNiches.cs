@@ -76,25 +76,25 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         SetNichesAutomatically(NicheType.CloudComputing,
-            NicheDuration.EntireGame, AudienceSize.MidSizedProduct, PriceCategory.Premium, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.MidSizedProduct, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             NicheMaintenance.Humongous, NicheTechMaintenance.High, NicheMarketingMaintenance.Mid,
             new ProductPositioning[] { },
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
             NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
             new ProductPositioning[] { },
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
             NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
             new ProductPositioning[] { },
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.Premium, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
             NicheMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Mid,
             new ProductPositioning[] { },
             GetYear(1990));

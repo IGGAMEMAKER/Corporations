@@ -52,8 +52,6 @@ public partial class ClientDistributionSystem : OnMonthChange
 
             strengths[segId] += reach;
 
-            var totalStrengths = strengths[segId];
-
             strengthsProducts[p.company.Id] = reach;
         }
 
@@ -82,6 +80,8 @@ public partial class ClientDistributionSystem : OnMonthChange
             strengths[segId] -= productStrength;
 
             clientContainers[segId] -= clients;
+
+            PayForMarketing(p);
         }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
@@ -89,7 +89,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
     void PayForMarketing(GameEntity product)
     {
-
+        
     }
 
     float GetCompanyAudienceReach(GameEntity product)

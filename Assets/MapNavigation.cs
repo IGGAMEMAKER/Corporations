@@ -126,7 +126,7 @@ public class MapNavigation : View
 
     void RedrawMap()
     {
-        Debug.Log("RedrawMap");
+        //Debug.Log("RedrawMap");
 
         UpdateCanvasPosition();
 

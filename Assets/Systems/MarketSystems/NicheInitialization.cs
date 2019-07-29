@@ -37,7 +37,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         FreeMass = 4,
         Mid = 12,
         High = 20,
-        Premium = 100, // Subscription model: 10$/month
+        CheapSubscription = 100, // Subscription model: 10$/month
     }
 
     public enum NicheMaintenance
@@ -50,18 +50,18 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     public enum NicheTechMaintenance
     {
-        Low = 1,
-        Mid = 5,
+        Low = 5,
+        Mid = 15,
         High = 50,
-        Humongous = 250
+        Humongous = 125
     }
 
     public enum NicheMarketingMaintenance
     {
-        Low = 1,
-        Mid = 5,
-        High = 50,
-        Humongous = 250
+        Low = 5,
+        Mid = 15,
+        High = 35,
+        Humongous = 50
     }
 
     void SetNichesAutomatically(NicheType nicheType,
