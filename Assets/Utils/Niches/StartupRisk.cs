@@ -61,7 +61,7 @@ namespace Assets.Utils
 
         internal static object GetMaintenanceCost(GameEntity niche)
         {
-            var costs = niche.nicheCosts;
+            var costs = GetNicheCosts(niche);
 
             var branding = costs.AdCost * 10 * 5;
             var targeting = costs.AdCost;

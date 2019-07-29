@@ -32,7 +32,7 @@ namespace Assets.Utils
         {
             var lifecycle = niche.nicheLifecycle;
 
-            var clientBatch = niche.nicheCosts.ClientBatch;
+            var clientBatch = GetNicheCosts(niche).ClientBatch;
 
             long clients = 0;
 
@@ -53,7 +53,7 @@ namespace Assets.Utils
         {
             var clients = GetMarketAudiencePotential(niche);
 
-            var price = niche.nicheCosts.BasePrice * 1.5f;
+            var price = GetNicheCosts(niche).BasePrice * 1.5f;
 
             return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
         }

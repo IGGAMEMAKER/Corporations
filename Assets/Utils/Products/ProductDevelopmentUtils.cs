@@ -32,22 +32,10 @@ namespace Assets.Utils
                 0);
         }
 
-        internal static void ToggleDevelopment(GameContext gameContext, int companyId, DevelopmentFocus developmentFocus)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            if (CooldownUtils.HasCooldown(c, CooldownType.ProductFocus))
-                return;
-
-            c.ReplaceDevelopmentFocus(developmentFocus);
-
-            CooldownUtils.AddCooldown(gameContext, c, CooldownType.ProductFocus, 90);
-        }
-
         // niche based values
         public static int BaseIdeaCost(GameEntity e, GameContext gameContext)
         {
-            var costs = NicheUtils.GetNicheEntity(gameContext, e.product.Niche).nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(gameContext, e.product.Niche);
 
             int baseIdeaCost = costs.IdeaCost;
 
@@ -56,7 +44,7 @@ namespace Assets.Utils
 
         public static int BaseDevCost(GameEntity e, GameContext gameContext)
         {
-            var costs = NicheUtils.GetNicheEntity(gameContext, e.product.Niche).nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(gameContext, e.product.Niche);
 
             int baseDevCost = costs.TechCost;
 

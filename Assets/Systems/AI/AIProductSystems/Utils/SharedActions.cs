@@ -61,9 +61,12 @@ public partial class AIProductSystems
 
     void HireWorker(GameEntity company, WorkerRole workerRole)
     {
-        TeamUtils.HireWorker(company, workerRole);
+        if (IsCanAffordWorker(company, workerRole))
+        {
+            TeamUtils.HireWorker(company, workerRole);
 
-        Print($"Hire {workerRole.ToString()}", company);
+            Print($"Hire {workerRole.ToString()}", company);
+        }
     }
 
     void GrabTestClients(GameEntity company)

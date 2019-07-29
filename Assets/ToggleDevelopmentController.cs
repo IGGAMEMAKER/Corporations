@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleDevelopmentController : ButtonController
@@ -10,7 +11,8 @@ public class ToggleDevelopmentController : ButtonController
 
     public override void Execute()
     {
-        ProductDevelopmentUtils.ToggleDevelopment(GameContext, MyProductEntity.company.Id, DevelopmentFocus);
+        Debug.Log("ToggleDevelopmentController nothing to Execute");
+        //ProductDevelopmentUtils.ToggleDevelopment(GameContext, MyProductEntity.company.Id, DevelopmentFocus);
     }
 
     public void OnEnable()

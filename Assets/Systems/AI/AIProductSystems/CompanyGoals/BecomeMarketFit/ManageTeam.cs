@@ -58,14 +58,7 @@ public partial class AIProductSystems : OnDateChange
         if (change.programmingPoints == 0)
             return 1;
 
-        var goalIP = needResources.ideaPoints;
         var goalPP = needResources.programmingPoints;
-
-        // time To Complete Goal Ideawise
-        var ideaTime = (goalIP - resource.ideaPoints) / change.ideaPoints;
-
-        if (ideaTime < 0)
-            ideaTime = 0;
 
         var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;
 

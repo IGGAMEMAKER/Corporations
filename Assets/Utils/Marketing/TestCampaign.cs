@@ -29,7 +29,7 @@ namespace Assets.Utils
 
         public static long GetTestCampaignClientGain(GameContext gameContext, GameEntity company)
         {
-            var costs = NicheUtils.GetNicheEntity(gameContext, company.product.Niche).nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(gameContext, company.product.Niche);
 
             return costs.ClientBatch / 4;
         }
@@ -43,11 +43,9 @@ namespace Assets.Utils
 
         public static TeamResource GetTestCampaignCost(GameContext gameContext, GameEntity company)
         {
-            var costs = NicheUtils.GetNicheEntity(gameContext, company.product.Niche).nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(gameContext, company.product.Niche);
 
-            var marketingCost = costs.MarketingCost;
-
-            return new TeamResource(0, 0, marketingCost, 0, 0);
+            return new TeamResource(0, 0, costs.MarketingCost, 0, 0);
         }
     }
 }

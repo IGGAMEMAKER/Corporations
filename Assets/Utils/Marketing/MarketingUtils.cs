@@ -49,7 +49,7 @@ namespace Assets.Utils
 
         public static NicheCostsComponent GetNicheCosts(GameContext gameContext, NicheType nicheType)
         {
-            return NicheUtils.GetNicheEntity(gameContext, nicheType).nicheCosts;
+            return NicheUtils.GetNicheCosts(gameContext, nicheType);
         }
 
         public static string GetAudienceHint(GameContext gameContext, UserType userType, GameEntity company)

@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static TeamResource GetPureTargetingCost(GameEntity niche)
         {
-            var costs = niche.nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(niche);
 
             return new TeamResource(0, 0, costs.MarketingCost * 1, 0, costs.AdCost * 1);
         }

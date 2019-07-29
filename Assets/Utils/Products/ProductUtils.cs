@@ -17,7 +17,7 @@ namespace Assets.Utils
 
             var innovationModifier = isInnovation ? 3 : 1;
 
-            var costs = niche.nicheCosts;
+            var costs = NicheUtils.GetNicheCosts(niche);
 
             return new TeamResource(costs.TechCost * innovationModifier, 0, 0, costs.IdeaCost * innovationModifier, 0);
         }

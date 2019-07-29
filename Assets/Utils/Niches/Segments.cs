@@ -10,11 +10,11 @@ namespace Assets.Utils
     {
         public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
-
             var priceModifier = GetSegmentProductPriceModifier(gameContext, nicheType, segmentId);
 
-            return niche.nicheCosts.BasePrice * priceModifier;
+            var costs = GetNicheCosts(gameContext, nicheType);
+
+            return costs.BasePrice * priceModifier;
         }
 
 
