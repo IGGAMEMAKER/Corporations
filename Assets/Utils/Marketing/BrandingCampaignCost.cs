@@ -8,7 +8,7 @@ namespace Assets.Utils
         {
             var costs = niche.nicheCosts;
 
-            return new TeamResource(0, 0, costs.MarketingCost * 5, 0, costs.AdCost * 5);
+            return new TeamResource(0, 0, costs.MarketingCost * 4, 0, costs.AdCost * 3);
         }
 
         public static TeamResource GetPureBrandingCost(GameContext gameContext, NicheType nicheType)
