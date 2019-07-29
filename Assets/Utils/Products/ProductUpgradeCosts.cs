@@ -32,6 +32,19 @@ namespace Assets.Utils
                 0);
         }
 
+        public static TeamResource GetSegmentUpgradeCost(GameEntity product, GameContext gameContext, UserType userType)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            bool isInnovation = IsWillInnovate(product, niche, userType);
+
+            var innovationModifier = isInnovation ? 4 : 1;
+
+            var costs = NicheUtils.GetNicheCosts(niche);
+
+            return new TeamResource(costs.TechCost * innovationModifier, 0, 0, costs.IdeaCost * innovationModifier, 0);
+        }
+
         // niche based values
         public static int BaseIdeaCost(GameEntity e, GameContext gameContext)
         {

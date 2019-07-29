@@ -66,14 +66,14 @@ public partial class AIProductSystems : OnDateChange
 
         var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;
 
-        if (programmingTime < ideaTime)
-            return -1;
-        else if (programmingTime == ideaTime)
-            return 0;
-        else
-        {
-            // programming time > idea time
-            return 1;
-        }
+        //if (programmingTime < ideaTime)
+        //    return -1;
+        //else if (programmingTime == ideaTime)
+        //    return 0;
+        //else
+        //{
+        //    // programming time > idea time
+        //    return 1;
+        //}
     }
 }
