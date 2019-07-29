@@ -30,7 +30,7 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Death] = 0, // churn
             };
 
-            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame);
+            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NicheChangeSpeed.Year);
 
             e.AddNicheState(NicheLifecyclePhase.Idle, 0);
             UpdateNicheDuration(e);
@@ -51,8 +51,9 @@ namespace Assets.Utils
         }
 
 
-        // durations
 
+
+        // durations
         public static int GetNicheDuration(GameEntity niche)
         {
             var phase = GetMarketState(niche);

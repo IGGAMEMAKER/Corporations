@@ -32,7 +32,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         if (date > nicheStartDate && state == NicheLifecyclePhase.Idle)
         {
             //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
-            UpdateNiche(niche);
+            PromoteNiche(niche);
         }
     }
 
@@ -51,12 +51,12 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         //var value = Random.Range(0, 1f);
 
         if (IsNeedsPromotion(niche)) //  && value > 0.9f
-            UpdateNiche(niche);
+            PromoteNiche(niche);
         else
             DecrementDuration(niche);
     }
 
-    void UpdateNiche(GameEntity niche)
+    void PromoteNiche(GameEntity niche)
     {
         NicheUtils.PromoteNicheState(niche);
     }

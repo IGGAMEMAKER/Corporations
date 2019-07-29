@@ -12,6 +12,15 @@ public enum NicheDuration
     EntireGame = 5000
 }
 
+public enum NicheChangeSpeed
+{
+    Month,
+    Quarter,
+    Year,
+    ThreeYears
+}
+
+
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     public enum AudienceSize
@@ -20,7 +29,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         MidSizedProduct,
         WholeWorld
     }
-
 
     public enum PriceCategory
     {
@@ -54,14 +62,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Mid = 5,
         High = 50,
         Humongous = 250
-    }
-
-    public enum NicheChangeSpeed
-    {
-        Month,
-        Quarter,
-        Year,
-        ThreeYears
     }
 
     void SetNichesAutomatically(NicheType nicheType,
@@ -109,9 +109,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
             clientsContainer[0] = 0;
         }
 
+
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period);
+        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
     }
 
 

@@ -53,16 +53,36 @@ namespace Assets.Utils
 
         public static int GetSegmentImprovementDuration(GameContext gameContext, GameEntity company)
         {
-            var speed = TeamUtils.GetPerformance(gameContext, company);
+            var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
-            var innovation = IsWillInnovate(company, gameContext, UserType.Core) ? 4 : 1;
+            var innovationModifier = IsWillInnovate(company, gameContext, UserType.Core) ? 4 : 1;
 
             var random = UnityEngine.Random.Range(1, 1.3f);
 
-            return (int)(Constants.COOLDOWN_CONCEPT * random * innovation * 100 / speed);
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var baseConceptTime = GetBaseConceptTime(niche);
+
+            return (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
         }
 
 
+        public static int GetBaseConceptTime(GameEntity niche)
+        {
+            return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed);
+        }
+
+        public static int GetBaseConceptTime(NicheChangeSpeed nicheChangeSpeed)
+        {
+            switch (nicheChangeSpeed)
+            {
+                case NicheChangeSpeed.Month: return 5;
+                case NicheChangeSpeed.Quarter: return 15;
+                case NicheChangeSpeed.Year: return 60;
+                case NicheChangeSpeed.ThreeYears: return 180;
+
+                default: return 0;
+            } 
+        }
 
         public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
         {

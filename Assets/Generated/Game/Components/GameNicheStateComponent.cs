@@ -11,8 +11,7 @@ public partial class GameEntity {
     public NicheStateComponent nicheState { get { return (NicheStateComponent)GetComponent(GameComponentsLookup.NicheState); } }
     public bool hasNicheState { get { return HasComponent(GameComponentsLookup.NicheState); } }
 
-    public void AddNicheState(NicheLifecyclePhase newPhase, int newDuration)
-    {
+    public void AddNicheState(NicheLifecyclePhase newPhase, int newDuration) {
         var index = GameComponentsLookup.NicheState;
         var component = (NicheStateComponent)CreateComponent(index, typeof(NicheStateComponent));
         component.Phase = newPhase;
