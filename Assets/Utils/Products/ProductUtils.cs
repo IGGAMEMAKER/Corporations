@@ -43,7 +43,7 @@ namespace Assets.Utils
 
         public static bool IsWillInnovate(GameEntity product, GameEntity niche, UserType userType)
         {
-            var current = product.product.Concept;
+            var current = GetProductLevel(product);
             var marketDemand = niche.segment.Segments[userType];
 
             return current >= marketDemand;
@@ -67,7 +67,7 @@ namespace Assets.Utils
 
             if (IsWillInnovate(product, niche, userType))
             {
-                segments[userType] = product.product.Concept + 1;
+                segments[userType] = GetProductLevel(product) + 1;
 
                 niche.ReplaceSegment(segments);
             }

@@ -20,7 +20,7 @@ public class PlatformUpdateRequirements : View
 
     void Render()
     {
-        var devCost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext);
+        var devCost = ProductUtils.GetDevelopmentCost(MyProductEntity, GameContext);
         var have = MyProductEntity.companyResource.Resources;
 
         IdeaProgressBar.SetValue(have.ideaPoints, devCost.ideaPoints);

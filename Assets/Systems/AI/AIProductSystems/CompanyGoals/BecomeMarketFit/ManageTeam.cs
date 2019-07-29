@@ -58,6 +58,10 @@ public partial class AIProductSystems : OnDateChange
         if (change.programmingPoints == 0)
             return 1;
 
+        var iterationTime = ProductUtils.GetSegmentImprovementDuration(gameContext, company);
+
+        
+
         var goalPP = needResources.programmingPoints;
 
         var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;

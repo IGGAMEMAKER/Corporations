@@ -11,7 +11,7 @@ public enum DevelopmentFocus
 
 namespace Assets.Utils
 {
-    public static class ProductDevelopmentUtils
+    public static partial class ProductUtils
     {
         public static TeamResource GetDevelopmentCost(GameEntity e, GameContext context)
         {
@@ -28,7 +28,7 @@ namespace Assets.Utils
                 devCost.programmingPoints / multiplier,
                 devCost.programmingPoints / multiplier,
                 devCost.managerPoints / multiplier,
-                devCost.ideaPoints / multiplier,
+                0,
                 0);
         }
 

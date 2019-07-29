@@ -76,7 +76,7 @@ public partial class AIProductSystems
 
     TeamResource GetConceptCost(GameEntity company)
     {
-        return ProductDevelopmentUtils.GetDevelopmentCost(company, gameContext);
+        return ProductUtils.GetDevelopmentCost(company, gameContext);
     }
 
     TeamResource GetSegmentCost(GameEntity company, UserType userType)

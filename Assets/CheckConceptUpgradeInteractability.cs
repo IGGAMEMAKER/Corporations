@@ -7,7 +7,7 @@ public class CheckConceptUpgradeInteractability : View
     {
         base.ViewRender();
 
-        var cost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext);
+        var cost = ProductUtils.GetDevelopmentCost(MyProductEntity, GameContext);
 
         GetComponent<Button>().interactable = CompanyUtils.IsEnoughResources(MyProductEntity, cost);
     }

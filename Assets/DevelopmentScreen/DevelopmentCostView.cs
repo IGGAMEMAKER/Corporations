@@ -9,7 +9,7 @@ public class DevelopmentCostView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var cost = ProductDevelopmentUtils.GetDevelopmentCost(MyProductEntity, GameContext).programmingPoints;
+        var cost = ProductUtils.GetDevelopmentCost(MyProductEntity, GameContext).programmingPoints;
 
         return Format.Minify(cost);
     }
