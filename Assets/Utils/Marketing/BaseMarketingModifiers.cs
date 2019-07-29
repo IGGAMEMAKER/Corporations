@@ -28,5 +28,20 @@ namespace Assets.Utils
                 default: return 0;
             }
         }
+
+
+        public static long GetCompanyBrandModifierMultipliedByHundred(GameEntity e)
+        {
+            return 100 + e.branding.BrandPower * 100 / 2;
+        }
+
+        public static long GetCompanyReachModifierMultipliedByHundred(GameEntity e)
+        {
+            var financing = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
+
+            var brand = GetCompanyBrandModifierMultipliedByHundred(e);
+
+            return financing * brand;
+        }
     }
 }

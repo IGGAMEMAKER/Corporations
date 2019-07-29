@@ -50,35 +50,7 @@ namespace Assets.Utils
 
             AddClients(company, UserType.Mass, (long)clients);
         }
-
-
-        public static TeamResource GetPureBrandingCost(GameEntity niche)
-        {
-            var costs = niche.nicheCosts;
-
-            return new TeamResource(0, 0, costs.MarketingCost * 5, 0, costs.AdCost * 5);
-        }
-
-        public static TeamResource GetPureBrandingCost(GameContext gameContext, NicheType nicheType)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
-
-            return GetPureBrandingCost(niche);
-        }
-
-        public static TeamResource GetPureBrandingCost(GameContext gameContext, GameEntity company)
-        {
-            return GetPureBrandingCost(gameContext, company.product.Niche);
-        }
-
-        public static TeamResource GetBrandingCost(GameContext gameContext, GameEntity company)
-        {
-            var financing = GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing);
-
-            return GetPureBrandingCost(gameContext, company) * financing;
-        }
-
-
+        
 
         public static int GetBrandingPowerGain(GameContext gameContext, GameEntity company)
         {
@@ -86,7 +58,9 @@ namespace Assets.Utils
 
             int marketingDirectorBonus = 1;
 
-            return GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing) * techLeadershipBonus * marketingDirectorBonus;
+            var financing = GetMarketingFinancingBrandPowerGainModifier(company.finance.marketingFinancing);
+
+            return financing * techLeadershipBonus * marketingDirectorBonus;
         }
 
         public static int GetMarketingFinancingBrandPowerGainModifier(GameEntity company)

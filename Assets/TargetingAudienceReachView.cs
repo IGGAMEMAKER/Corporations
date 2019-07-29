@@ -6,6 +6,7 @@ public class TargetingAudienceReachView : View
     {
         base.ViewRender();
 
-        GetComponent<ColoredValue>().UpdateValue(MarketingUtils.GetTargetingEffeciency(GameContext, MyProductEntity));
+        // MarketingUtils.GetTargetingEffeciency(GameContext, MyProductEntity)
+        GetComponent<ColoredValue>().UpdateValue(228228);
     }
 }
