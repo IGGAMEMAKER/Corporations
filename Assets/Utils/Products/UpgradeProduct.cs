@@ -44,7 +44,7 @@ namespace Assets.Utils
 
             var p = product.product;
 
-            product.ReplaceProduct(p.Id, p.Niche, p.Concept + 1);
+            product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + 1);
 
 
             var duration = GetSegmentImprovementDuration(gameContext, product);
@@ -60,6 +60,15 @@ namespace Assets.Utils
             var random = UnityEngine.Random.Range(1, 1.3f);
 
             return (int)(Constants.COOLDOWN_CONCEPT * random * innovation * 100 / speed);
+        }
+
+
+
+        public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
+        {
+            var costs = GetSegmentUpgradeCost(product, gameContext, userType);
+
+            return CompanyUtils.IsEnoughResources(product, costs);
         }
     }
 }

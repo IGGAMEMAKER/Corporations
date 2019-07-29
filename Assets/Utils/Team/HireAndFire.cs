@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -38,27 +39,15 @@ namespace Assets.Utils
         {
             Debug.Log("DismissTeam of " + company.company.Name);
 
-            //for (var i = company.team.Workers.Keys.Count; i > 0; i--)
-            //{
-            //    var humanId = company.team.Workers.Keys;
-            //    humanId.
+            var workers = company.team.Workers.Keys.ToArray();
 
-            //    TeamUtils.FireWorker(company, )
-            //}
-
-
-            //var workers = company.team.Workers;
-
-            //while (workers.Count > 0)
-            //{
-            //    var humanId = company.
-            //    TeamUtils.FireWorker(company, company.team.Workers., context);
-            //}
+            for (var i = workers.Length; i > 0; i--)
+                FireWorker(company, workers[i], gameContext);
         }
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
-            //Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
+            Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
 
             HumanUtils.LeaveCompany(worker);
 

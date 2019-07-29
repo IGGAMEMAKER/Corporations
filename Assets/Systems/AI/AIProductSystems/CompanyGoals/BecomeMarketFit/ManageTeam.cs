@@ -1,5 +1,7 @@
 ﻿using Assets.Classes;
 using Assets.Utils;
+using System;
+using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
 {
@@ -34,6 +36,7 @@ public partial class AIProductSystems : OnDateChange
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
+        return ProductUtils.GetSegmentUpgradeCost(company, gameContext, UserType.Core);
         var stayInMarket = GetSegmentCost(company, UserType.Core);
 
         //// + 1 means that we want to become tech leaders
@@ -55,25 +58,19 @@ public partial class AIProductSystems : OnDateChange
         var resource = company.companyResource.Resources;
         var change = GetResourceChange(company);
 
-        if (change.programmingPoints == 0)
+        var production = change.programmingPoints;
+
+        var needPP = needResources.programmingPoints * ProductUtils.GetSegmentImprovementDuration(gameContext, company) / 30;
+        var currentPP = resource.programmingPoints;
+
+        var overflowByPoints = currentPP > needPP * 2;
+
+        if (production < needPP)
             return 1;
 
-        var iterationTime = ProductUtils.GetSegmentImprovementDuration(gameContext, company);
+        if (overflowByPoints && production > needPP + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER)
+            return -1;
 
-        
-
-        var goalPP = needResources.programmingPoints;
-
-        var programmingTime = (goalPP - resource.programmingPoints) / change.programmingPoints;
-
-        //if (programmingTime < ideaTime)
-        //    return -1;
-        //else if (programmingTime == ideaTime)
-        //    return 0;
-        //else
-        //{
-        //    // programming time > idea time
-        //    return 1;
-        //}
+        return 0;
     }
 }
