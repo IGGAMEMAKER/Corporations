@@ -15,7 +15,7 @@ namespace Assets.Utils
 
             bool isInnovation = IsWillInnovate(product, niche, userType);
 
-            var innovationModifier = isInnovation ? 3 : 1;
+            var innovationModifier = isInnovation ? 4 : 1;
 
             var costs = NicheUtils.GetNicheCosts(niche);
 
