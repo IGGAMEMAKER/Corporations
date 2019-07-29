@@ -40,7 +40,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
-        GenerateProductCompany("Microsoft", NicheType.OSDesktop);
+        var microsoftOs = GenerateProductCompany("Microsoft", NicheType.OSDesktop);
 
 
         // investors
@@ -69,9 +69,14 @@ public partial class ProductInitializerSystem : IInitializeSystem
         //AttachToHolding(mailru, twitter.company.Id);
 
         //PlayAs(vk);
-        PlayAs(mailru);
+        //PlayAs(alphabet);
         //AddCash(mailru, 100000000);
         //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
+
+        var microsoft = GenerateHoldingCompany("Microsoft Inc");
+        AttachToHolding(microsoft, microsoftOs);
+
+        PlayAs(microsoft);
 
 
         AddShareholder(yahoo, investorId2, 500);

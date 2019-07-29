@@ -88,4 +88,14 @@ public partial class AIProductSystems : OnDateChange
         if (company.branding.BrandPower < 90)
             StartBrandingCampaign(company);
     }
+
+    // TODO WHAT THE FUUUCK
+    // IT DOES NO CALCULATIONS
+    // JUST GREEDY APPROACH
+    public void SetMarketingFinancingLevel(GameEntity company)
+    {
+        var level = MarketingUtils.GetAppropriateFinancingLevel(company, gameContext);
+
+        MarketingUtils.SetFinancing(gameContext, company.company.Id, level);
+    }
 }

@@ -16,7 +16,8 @@ class SpawnProductsSystem : OnMonthChange
 
         foreach (var e in niches)
         {
-            if (e.nicheState.Phase == NicheLifecyclePhase.Death)
+            var phase = NicheUtils.GetMarketState(e);
+            if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
                 continue;
 
             var nicheRating = NicheUtils.GetMarketRating(e);

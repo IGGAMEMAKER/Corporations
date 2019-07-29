@@ -38,15 +38,5 @@
 
             return balance - maintenance - cost > 0;
         }
-
-        // TODO WHAT THE FUUUCK
-        // IT DOES NO CALCULATIONS
-        // JUST GREEDY APPROACH
-        public static void SetMarketingFinancingLevel(GameEntity company, GameContext gameContext)
-        {
-            var level = GetAppropriateFinancingLevel(company, gameContext);
-
-            SetFinancing(gameContext, company.company.Id, level);
-        }
     }
 }

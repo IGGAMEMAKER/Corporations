@@ -106,7 +106,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         var companyMultiplier = MarketingUtils.GetCompanyReachModifierMultipliedByHundred(product);
 
-        var reach = rand * totalMultplier * companyMultiplier;
+        var reach = 1 + rand * totalMultplier * companyMultiplier;
 
         return reach;
     }
