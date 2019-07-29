@@ -79,7 +79,7 @@ public partial class AIProductSystems
     void StartTargetingCampaign(GameEntity company)
     {
         //MyProductEntity.AddEventMarketingEnableTargeting(productId);
-        MarketingUtils.ToggleTargeting(company);
+        MarketingUtils.EnableTargeting(company);
     }
 
     void StartBrandingCampaign(GameEntity company)

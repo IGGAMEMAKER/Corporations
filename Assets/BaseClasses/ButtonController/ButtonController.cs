@@ -85,7 +85,7 @@ public abstract partial class ButtonController
 
     public void TriggerEventTargetingToggle(int productId)
     {
-        MarketingUtils.ToggleTargeting(MyProductEntity);
+        MarketingUtils.EnableTargeting(MyProductEntity);
     }
 
     public void TriggerEventSetPrice(int productId, Pricing level)

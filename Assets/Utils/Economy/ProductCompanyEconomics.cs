@@ -53,7 +53,7 @@
             var targetingCost = MarketingUtils.GetTargetingCost(gameContext, e.company.Id);
             var brandingCost = MarketingUtils.GetBrandingCost(gameContext, e);
 
-            return targetingCost.money * 30 + brandingCost.money / 3;
+            return targetingCost.money + brandingCost.money * 30 / MarketingUtils.GetBrandingCampaignCooldownDuration(gameContext, e);
         }
     }
 }

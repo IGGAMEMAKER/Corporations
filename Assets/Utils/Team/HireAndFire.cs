@@ -58,7 +58,7 @@ namespace Assets.Utils
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
-            Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
+            //Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
 
             HumanUtils.LeaveCompany(worker);
 

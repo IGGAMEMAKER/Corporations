@@ -69,7 +69,12 @@ public partial class ClientDistributionSystem : OnMonthChange
 
             var relativeCompanyStrength = productStrength / totalStrengths;
 
+
             var clients = (long)(segmentClients * relativeCompanyStrength);
+
+            var clientCap = flow * 4;
+            if (clients > clientCap)
+                clients = clientCap;
 
             MarketingUtils.AddClients(p, UserType.Core, clients);
 
@@ -94,7 +99,8 @@ public partial class ClientDistributionSystem : OnMonthChange
         var targetingMultiplier = 1;
         var brandingMultiplier = 10;
 
-        bool isBrandingPossible = !MarketingUtils.HasBrandingCooldown(product);
+        bool wantsToMakeBrandingCampaign = Random.Range(0, 7) < 2;
+        bool isBrandingPossible = !MarketingUtils.HasBrandingCooldown(product) && wantsToMakeBrandingCampaign;
 
         var totalMultplier = targetingMultiplier + (isBrandingPossible ? brandingMultiplier : 0);
 
