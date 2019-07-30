@@ -12,21 +12,10 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
-        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
-        {
-            var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
-
-            if (e == null)
-                e = CreateNicheMockup(nicheType, context);
-
-            return e;
-        }
-
         public static GameEntity[] GetIndustries(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Industry);
         }
-
 
         public static IndustryType GetIndustry(NicheType niche, GameContext context)
         {
@@ -44,6 +33,15 @@ namespace Assets.Utils
             return Array.FindAll(niches, n => IsPlayableNiche(context, n));
         }
 
+        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
+        {
+            var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
+
+            if (e == null)
+                e = CreateNicheMockup(nicheType, context);
+
+            return e;
+        }
 
 
         public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
@@ -69,19 +67,6 @@ namespace Assets.Utils
             var phase = niche.nicheState.Phase;
 
             return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
-        }
-
-
-
-        internal static long GetMarketSize(GameContext gameContext, NicheType nicheType)
-        {
-            var products = GetPlayersOnMarket(gameContext, nicheType);
-
-            return products
-                .Select(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id))
-                .Sum();
-            
-            //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
         }
     }
 }
