@@ -14,10 +14,10 @@ public enum NicheDuration
 
 public enum NicheChangeSpeed
 {
-    Month,
-    Quarter,
-    Year,
-    ThreeYears
+    Month = 1,
+    Quarter = 3,
+    Year = 12,
+    ThreeYears = 36
 }
 
 

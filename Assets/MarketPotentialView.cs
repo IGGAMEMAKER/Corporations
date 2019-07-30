@@ -14,6 +14,8 @@ public class MarketPotentialView : View
     public Text Demand;
     public Text Maintenance;
 
+    public Text ChangeSpeed;
+
     private void OnEnable()
     {
         Render();
@@ -27,8 +29,15 @@ public class MarketPotentialView : View
         var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
+        var speed = niche.nicheLifecycle.NicheChangeSpeed;
+        //var iteration = (int)speed;
+        //ChangeSpeed.text = $"{iteration} months";
+
+        var iteration = speed.ToString();
+        ChangeSpeed.text = $"{iteration}";
+
         PotentialMarketSize.text = Format.Money(NicheUtils.GetMarketPotential(niche));
-        PotentialAudienceSize.text = Format.MinifyToInteger(NicheUtils.GetMarketAudiencePotential(niche));
+        PotentialAudienceSize.text = Format.MinifyToInteger(NicheUtils.GetMarketAudiencePotential(niche)) + " users";
 
         var risk = NicheUtils.GetMarketDemandRisk(GameContext, nicheType);
         string riskText = NicheUtils.ShowRiskStatus(risk).ToString();

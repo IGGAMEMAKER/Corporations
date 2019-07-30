@@ -22,18 +22,6 @@ namespace Assets.Utils
             return e;
         }
 
-        public static NicheCostsComponent GetNicheCosts(GameEntity niche)
-        {
-            return niche.nicheCosts;
-        }
-
-        public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType)
-        {
-            var niche = GetNicheEntity(context, nicheType);
-
-            return GetNicheCosts(niche);
-        }
-
         public static GameEntity[] GetIndustries(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Industry);

@@ -35,5 +35,23 @@ namespace Assets.Utils
 
             return positionings[segmentId];
         }
+
+
+        public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
+        {
+            var positioning = company.productPositioning.Positioning;
+            var posTextual = NicheUtils.GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
+
+            return posTextual;
+        }
+
+        internal static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
+        {
+            var e = GetNicheEntity(gameContext, niche);
+
+            var p = e.nicheSegments.Positionings;
+
+            return p;
+        }
     }
 }
