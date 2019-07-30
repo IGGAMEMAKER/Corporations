@@ -8,6 +8,7 @@ public class FillInterruptList : View
     public GameObject CanCompleteGoal;
     public GameObject CanSellCompany;
     public GameObject CanBuyCompany;
+    public GameObject CanCheckAnnualReport;
 
     public GameObject InvestorLoyaltyWarning;
     public GameObject TeamLoyaltyWarning;

@@ -35,6 +35,7 @@ public enum ScreenMode
     AcquisitionScreen = 23,
     SalesScreen = 24,
     PotentialCompaniesScreen = 25,
+    AnnualReportScreen = 26,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -68,6 +69,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject AcquisitionScreen;
     public GameObject SalesScreen;
     public GameObject PotentialCompaniesScreen;
+    public GameObject AnnualReportScreen;
 
 
     void Start()
@@ -99,6 +101,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.AcquisitionScreen] = AcquisitionScreen,
             [ScreenMode.SalesScreen] = SalesScreen,
             [ScreenMode.PotentialCompaniesScreen] = PotentialCompaniesScreen,
+            [ScreenMode.AnnualReportScreen] = AnnualReportScreen,
         };
 
         DisableAllScreens();
@@ -145,6 +148,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.AcquisitionScreen: return "Acquisition";
             case ScreenMode.SalesScreen: return "Sell my shares";
             case ScreenMode.PotentialCompaniesScreen: return "These companies are on sale";
+            case ScreenMode.AnnualReportScreen: return "Annual Report";
 
             default: return "WUT?";
         }

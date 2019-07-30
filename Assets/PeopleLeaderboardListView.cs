@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ public class PeopleLeaderboardListView : ListView
     {
         var investors = gameContext
             .GetEntities(GameMatcher.AllOf(GameMatcher.Shareholder, GameMatcher.Human))
+            .Where(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e) > 0)
             .OrderByDescending(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e))
             .ToArray();
 
