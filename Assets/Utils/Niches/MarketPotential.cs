@@ -66,5 +66,36 @@ namespace Assets.Utils
 
             return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
         }
+
+        // TODO
+        // max can be less than min
+        public static long GetMarketPotentialMax(GameEntity niche)
+        {
+            var potential = GetMarketPotential(niche);
+
+            // TODO MAKE THIS FUNCTION STATIC!
+            var nicheId = (int)niche.niche.NicheType;
+
+            var min = 1f;
+            var dispersion = 0.7f;
+            var max = min + dispersion;
+
+            return CompanyUtils.GetRandomValue(potential, nicheId, nicheId + 3, min, max);
+        }
+        // TODO
+        // max can be less than min
+        public static long GetMarketPotentialMin(GameEntity niche)
+        {
+            var potential = GetMarketPotential(niche);
+
+            // TODO MAKE THIS FUNCTION STATIC!
+            var nicheId = (int)niche.niche.NicheType;
+
+            var min = 0.1f;
+            var dispersion = 0.7f;
+            var max = min + dispersion;
+
+            return CompanyUtils.GetRandomValue(potential, nicheId, nicheId + 1, 0.1f, 0.8f);
+        }
     }
 }

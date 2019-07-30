@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System;
 
 public class RenderNichePotential : UpgradedParameterView
 {
@@ -11,6 +12,14 @@ public class RenderNichePotential : UpgradedParameterView
     {
         var potential = NicheUtils.GetMarketPotential(GameContext, SelectedNiche);
 
-        return Format.Money(potential);
+        var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
+
+        var min0 = NicheUtils.GetMarketPotentialMin(niche);
+        var max0 = NicheUtils.GetMarketPotentialMax(niche);
+
+        var min = Math.Min(min0, max0);
+        var max = Math.Max(min0, max0);
+
+        return Format.Money(min) + " ... " + Format.Money(max);
     }
 }
