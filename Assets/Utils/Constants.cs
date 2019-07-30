@@ -62,6 +62,8 @@ public class Constants
     public static int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
+
+    public static int START_YEAR = 1991;
 }
 
 public class VisualConstants

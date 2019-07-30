@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -14,6 +15,13 @@ namespace Assets.Utils
 
         public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
+            var niche = GetNicheEntity(GameContext, nicheType);
+
+            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
+
+            var share = positioningData.marketShare;
+
+            return GetMarketPotential(niche) * share / 100;
             var price = (long)(GetSegmentProductPrice(GameContext, nicheType, segmentId) * 100);
 
             return price * GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId) / 100;
@@ -40,11 +48,12 @@ namespace Assets.Utils
             {
                 var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche) * 30;
 
-                var brandModifier = 1.5f;
                 var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
 
-                clients += (long)(clientBatch * g.Value * phasePeriod * brandModifier * financeReach);
+                clients += (long)(clientBatch * g.Value * phasePeriod * financeReach);
             }
+
+            Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");
 
             return clients;
         }
