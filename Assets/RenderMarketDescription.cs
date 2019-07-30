@@ -23,9 +23,9 @@ public class RenderMarketDescription : UpgradedParameterView
         text.AppendLine(description);
         text.AppendLine(barier);
 
-        var requirement = $"{nicheName} development requires our team to be fast.";
-        text.AppendLine(requirement);
-        text.AppendLine(barier);
+        //var requirement = $"{nicheName} development requires our team to be fast.";
+        //text.AppendLine(requirement);
+        //text.AppendLine(barier);
 
         var state = GetMarketStateDescription(State);
         text.AppendLine(state);
@@ -44,8 +44,8 @@ public class RenderMarketDescription : UpgradedParameterView
         var arr = p
             .Select(k =>
                 $"{k.Value.name}, worth " +
-                $"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
-                //$"{Format.MinifyToInteger(NicheUtils.GetMarketSegmentAudiencePotential(GameContext, SelectedNiche, k.Key))} users," +
+                //$"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
+                $"{Format.MinifyToInteger(NicheUtils.GetMarketSegmentAudiencePotential(GameContext, SelectedNiche, k.Key))} users,"
                 //$" {NicheUtils.GetSegmentProductPrice(GameContext, SelectedNiche, k.Key).ToString("0.0")} each"
                 )
             .ToArray();

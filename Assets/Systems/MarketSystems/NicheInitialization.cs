@@ -42,9 +42,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     public enum NicheMaintenance
     {
-        Low = 1000,
-        Mid = 30000,
-        High = 500000,
+        Low =       1000,
+        Mid =       30000,
+        High =      500000,
         Humongous = 5000000
     }
 
@@ -78,9 +78,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var clients = GetBatchSize(audienceSize, nicheId);
 
 
-        var techCost = GetTechCost(techMaintenance, nicheId);
+        var techCost = GetTechCost(techMaintenance, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
         var ideaCost = GetTechCost(techMaintenance, nicheId + 1);
-        var marketingCost = GetMarketingCost(marketingMaintenance, nicheId);
+        var marketingCost = GetMarketingCost(marketingMaintenance, nicheId) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
 
         var adCosts = GetAdCost(MaintenanceCost, nicheId);
 
