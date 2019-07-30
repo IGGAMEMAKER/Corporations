@@ -27,9 +27,14 @@ public class FillInterruptList : View
         bool isCanSellCompany = CheckAcquisitionOffers();
         bool isCanBuyCompany = CheckAcquisitionCandidates();
 
+        bool isCanSeeAnnualReport = CheckAnnualReport();
+
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
         CanCompleteGoal.SetActive(isCanCompleteGoal);
         NeedToCompleteGoal.SetActive(!isCanCompleteGoal);
+
+
+        CanCheckAnnualReport.SetActive(isCanSeeAnnualReport);
 
         CanHireEmployee.SetActive(isNeedsInterrupt);
 
@@ -51,6 +56,11 @@ public class FillInterruptList : View
     bool CheckAcquisitionCandidates()
     {
         return NicheUtils.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext).Count > 0;
+    }
+
+    bool CheckAnnualReport()
+    {
+        return CurrentIntDate > 360;
     }
 
     bool CheckGoal()
