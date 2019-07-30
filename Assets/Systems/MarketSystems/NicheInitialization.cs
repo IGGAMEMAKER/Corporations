@@ -64,7 +64,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Humongous = 50
     }
 
-    void SetNichesAutomatically(NicheType nicheType,
+    GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
         NicheMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
@@ -113,7 +113,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
         n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
+
+        return n;
     }
+
 
 
 

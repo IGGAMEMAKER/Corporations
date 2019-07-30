@@ -29,7 +29,7 @@ public partial class AIProductSystems : OnDateChange
         ImproveSegments(company);
     }
 
-    TeamResource GetRequiredMarketingResources (GameEntity company)
+    TeamResource GetAverageMarketingMaintenance(GameEntity company)
     {
         var requiredMarketingCostPerMonth = new TeamResource();
 
@@ -41,14 +41,16 @@ public partial class AIProductSystems : OnDateChange
         var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
         var targetCost = MarketingUtils.GetTargetingCost(gameContext, company.company.Id);
 
-        requiredMarketingCostPerMonth = brandingCost * 30 / brandingSpeed + targetCost * 30 / targetSpeed; // + (testCost * 100 / testSpeed);
-
-        //requiredMarketingCostPerMonth = (brandingCost * 100 / brandingSpeed) + (targetCost * 100 / targetSpeed); // + (testCost * 100 / testSpeed);
-        //requiredMarketingCostPerMonth /= 100;
+        requiredMarketingCostPerMonth = brandingCost * 30 / brandingSpeed + targetCost * 30 / targetSpeed;
 
         Print("ManageExpandedMarketingTeam: " + requiredMarketingCostPerMonth.ToString(), company);
 
         return requiredMarketingCostPerMonth;
+    }
+
+    TeamResource GetRequiredMarketingResources (GameEntity company)
+    {
+        return GetAverageMarketingMaintenance(company);
     }
 
     void ManageExpandedMarketingTeam(GameEntity company)
