@@ -13,23 +13,28 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
+        public static TeamResource GetDevelopmentCost(GameEntity niche)
+        {
+            var costs = NicheUtils.GetNicheCosts(niche);
+
+            var dev = costs.TechCost;
+            var ideas = costs.IdeaCost;
+
+            return new TeamResource(dev, 0, 0, ideas, 0);
+        }
+
         public static TeamResource GetDevelopmentCost(GameEntity e, GameContext context)
         {
-            return new TeamResource(BaseDevCost(e, context), 0, 0, BaseIdeaCost(e, context), 0);
+            var niche = NicheUtils.GetNicheEntity(context, e.product.Niche);
+
+            return GetDevelopmentCost(niche);
         }
 
         public static TeamResource GetSegmentImprovementCost(GameEntity e, GameContext gameContext)
         {
             var devCost = GetDevelopmentCost(e, gameContext);
 
-            int multiplier = 3;
-
-            return new TeamResource(
-                devCost.programmingPoints / multiplier,
-                devCost.programmingPoints / multiplier,
-                devCost.managerPoints / multiplier,
-                0,
-                0);
+            return new TeamResource(devCost.programmingPoints, 0, 0, 0, 0);
         }
 
         public static TeamResource GetSegmentUpgradeCost(GameEntity product, GameContext gameContext, UserType userType)
@@ -43,25 +48,6 @@ namespace Assets.Utils
             var costs = NicheUtils.GetNicheCosts(niche);
 
             return new TeamResource(costs.TechCost * innovationModifier, 0, 0, costs.IdeaCost * innovationModifier, 0);
-        }
-
-        // niche based values
-        public static int BaseIdeaCost(GameEntity e, GameContext gameContext)
-        {
-            var costs = NicheUtils.GetNicheCosts(gameContext, e.product.Niche);
-
-            int baseIdeaCost = costs.IdeaCost;
-
-            return baseIdeaCost;
-        }
-
-        public static int BaseDevCost(GameEntity e, GameContext gameContext)
-        {
-            var costs = NicheUtils.GetNicheCosts(gameContext, e.product.Niche);
-
-            int baseDevCost = costs.TechCost;
-
-            return baseDevCost;
         }
     }
 }

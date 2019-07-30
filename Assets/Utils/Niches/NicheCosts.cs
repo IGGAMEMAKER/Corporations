@@ -63,14 +63,35 @@ namespace Assets.Utils
         }
         #endregion
 
-        internal static object GetMaintenanceCost(GameEntity niche)
+        internal static object GetTeamMaintenanceCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
+
+            return ProductUtils.GetDevelopmentCost()
+        }
+
+        public static TeamResource GetAverageMarketingMaintenance(GameEntity company)
+        {
+
+        }
+
+        internal static object GetBaseMarketingMaintenance(GameEntity niche)
+        {
+            var costs = GetNicheCosts(niche);
+
+            var brandingDuration = MarketingUtils.GetBrandingCampaignCooldownDuration();
+            var targetingDuration = MarketingUtils.GetTargetingDuration();
 
             var branding = GetPureBrandingCost(niche);
             var targeting = GetPureTargetingCost(niche);
 
-            var marketingCost = targeting;
+            // TODO period???
+            var month = 30;
+
+            var targetingPerMonth = targeting * month / targetingDuration;
+            var brandingPerMonth = branding * month / brandingDuration;
+
+            var marketingCost = targetingPerMonth + brandingPerMonth;
 
             return marketingCost;
         }

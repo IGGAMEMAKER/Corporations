@@ -87,7 +87,8 @@ public partial class AIProductSystems
 
     void StartBrandingCampaign(GameEntity company)
     {
-        MarketingUtils.StartBrandingCampaign(gameContext, company);
+        if (company.branding.BrandPower < 90)
+            MarketingUtils.StartBrandingCampaign(gameContext, company);
     }
 
     void UpgradeTeam(GameEntity company)

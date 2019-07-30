@@ -6,5 +6,10 @@
         {
             company.isTargeting = true;
         }
+
+        public static int GetTargetingDuration()
+        {
+            return 30;
+        }
     }
 }

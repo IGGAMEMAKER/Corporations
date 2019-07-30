@@ -29,28 +29,9 @@ public partial class AIProductSystems : OnDateChange
         ImproveSegments(company);
     }
 
-    TeamResource GetAverageMarketingMaintenance(GameEntity company)
-    {
-        var requiredMarketingCostPerMonth = new TeamResource();
-
-        var testSpeed = MarketingUtils.GetTestCampaignDuration(gameContext, company);
-        var brandingSpeed = MarketingUtils.GetBrandingCampaignCooldownDuration(gameContext, company);
-        var targetSpeed = 30;
-
-        var testCost = MarketingUtils.GetTestCampaignCost(gameContext, company);
-        var brandingCost = MarketingUtils.GetBrandingCost(gameContext, company);
-        var targetCost = MarketingUtils.GetTargetingCost(gameContext, company.company.Id);
-
-        requiredMarketingCostPerMonth = brandingCost * 30 / brandingSpeed + targetCost * 30 / targetSpeed;
-
-        Print("ManageExpandedMarketingTeam: " + requiredMarketingCostPerMonth.ToString(), company);
-
-        return requiredMarketingCostPerMonth;
-    }
-
     TeamResource GetRequiredMarketingResources (GameEntity company)
     {
-        return GetAverageMarketingMaintenance(company);
+        return NicheUtils.GetAverageMarketingMaintenance(company);
     }
 
     void ManageExpandedMarketingTeam(GameEntity company)
@@ -111,12 +92,12 @@ public partial class AIProductSystems : OnDateChange
     {
         SetMarketingFinancingLevel(company);
 
+        StartBrandingCampaign(company);
+
         StartTargetingCampaign(company);
 
         //GrabTestClients(company);
 
-        if (company.branding.BrandPower < 90)
-            StartBrandingCampaign(company);
     }
 
     // TODO WHAT THE FUUUCK

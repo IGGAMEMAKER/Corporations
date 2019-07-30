@@ -13,6 +13,7 @@ public class MarketPotentialView : View
 
     public Text Demand;
     public Text Maintenance;
+    public Text TeamMaintenance;
 
     public Text ChangeSpeed;
 
@@ -47,7 +48,10 @@ public class MarketPotentialView : View
         var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var maintenance = NicheUtils.GetMaintenanceCost(niche);
-        Maintenance.text = Format.MoneyToInteger(maintenance) + " / month";
+        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
+        Maintenance.text = Format.MoneyToInteger(maintenance);
+
+        var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
+        TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
     }
 }
