@@ -27,5 +27,5 @@ public class RenderCompanyProfit : UpgradedParameterView
         return Visuals.PositiveOrNegativeMinified(change);
     }
 
-    long marketing => CompanyEconomyUtils.GetMarketingMaintenance(SelectedCompany, GameContext);
+    long marketing => CompanyEconomyUtils.GetAdsMaintenance(SelectedCompany, GameContext);
 }

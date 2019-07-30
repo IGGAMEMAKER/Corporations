@@ -67,15 +67,18 @@ namespace Assets.Utils
         {
             var costs = GetNicheCosts(niche);
 
-            return ProductUtils.GetDevelopmentCost()
+            var devCost = ProductUtils.GetDevelopmentCost(niche);
+
+            var pp = devCost.programmingPoints;
+            var mp = GetBaseMarketingMaintenance(niche).salesPoints;
+
+            var marketers = mp / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
+            var programmers = pp / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+
+            return new TeamResource(pp, 0, mp, 0, 0);
         }
 
-        public static TeamResource GetAverageMarketingMaintenance(GameEntity company)
-        {
-
-        }
-
-        internal static object GetBaseMarketingMaintenance(GameEntity niche)
+        internal static TeamResource GetBaseMarketingMaintenance(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 

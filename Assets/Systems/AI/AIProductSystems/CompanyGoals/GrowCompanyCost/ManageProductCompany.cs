@@ -29,9 +29,9 @@ public partial class AIProductSystems : OnDateChange
         ImproveSegments(company);
     }
 
-    TeamResource GetRequiredMarketingResources (GameEntity company)
+    long GetRequiredMarketingResources (GameEntity company)
     {
-        return NicheUtils.GetAverageMarketingMaintenance(company);
+        return CompanyEconomyUtils.GetAverageMarketingMaintenance(company, gameContext);
     }
 
     void ManageExpandedMarketingTeam(GameEntity company)
@@ -52,15 +52,13 @@ public partial class AIProductSystems : OnDateChange
 
     int DoWeNeedMarketer(GameEntity company)
     {
-        var requiredMarketingCost = GetRequiredMarketingResources(company);
-
         var change = GetResourceChange(company);
 
         var period = GetResourcePeriod();
 
 
 
-        var need = requiredMarketingCost.salesPoints;
+        var need = GetRequiredMarketingResources(company);
         var production = change.salesPoints;
 
         Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");

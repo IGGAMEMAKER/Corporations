@@ -45,15 +45,28 @@
             return GetTeamMaintenance(e);
         }
 
-        public static long GetMarketingMaintenance(GameEntity e, GameContext gameContext)
+
+
+        public static long GetAverageMarketingMaintenance(GameEntity e, GameContext gameContext)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
+            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).salesPoints;
+
+            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(e);
+
+            return baseCost * financing;
+        }
+        public static long GetAdsMaintenance(GameEntity e, GameContext gameContext)
         {
             if (!e.hasProduct)
                 return 0;
 
-            var targetingCost = MarketingUtils.GetTargetingCost(gameContext, e.company.Id);
-            var brandingCost = MarketingUtils.GetBrandingCost(gameContext, e);
+            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
+            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).money;
 
-            return targetingCost.money + brandingCost.money * 30 / MarketingUtils.GetBrandingCampaignCooldownDuration(gameContext, e);
+            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(e);
+
+            return baseCost * financing;
         }
     }
 }

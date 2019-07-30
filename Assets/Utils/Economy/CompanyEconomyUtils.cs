@@ -161,10 +161,7 @@
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyMaintenance(c, gameContext);
-            else
-                return GetGroupMaintenance(gameContext, companyId);
+            return GetCompanyMaintenance(c, gameContext);
         }
 
         internal static long GetBalanceChange(GameEntity c, GameContext context)
@@ -179,7 +176,7 @@
 
         internal static long GetTotalMaintenance(GameEntity c, GameContext context)
         {
-            return GetCompanyMaintenance(c, context) + GetMarketingMaintenance(c, context);
+            return GetCompanyMaintenance(c, context) + GetAdsMaintenance(c, context);
         }
 
         internal static long GetBalanceChange(GameContext context, int companyId)

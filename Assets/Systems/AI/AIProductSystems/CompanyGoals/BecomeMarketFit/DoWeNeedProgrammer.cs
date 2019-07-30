@@ -40,8 +40,8 @@ public partial class AIProductSystems : OnDateChange
         var currentPP = resource.programmingPoints;
         var overflowByPoints = currentPP > needPP * 2;
 
-        if (overflowByPoints && production > needPP + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
-            return -1;
+        //if (overflowByPoints && production > needPP + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
+        //    return -1;
 
         return 0;
     }

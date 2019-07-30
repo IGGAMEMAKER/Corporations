@@ -22,8 +22,13 @@ public partial class AIProductSystems : OnDateChange
 
         switch (programmerNecessity)
         {
-            case 1: HireWorker(company, WorkerRole.Programmer); break;
-            case -1: FireWorkerByRole(company, WorkerRole.Programmer); break;
+            case 1:
+                if (IsCanAffordWorker(company, WorkerRole.Programmer))
+                    HireWorker(company, WorkerRole.Programmer);
+                break;
+            case -1:
+                FireWorkerByRole(company, WorkerRole.Programmer);
+                break;
                 // case 0: do nothing
         }
     }
