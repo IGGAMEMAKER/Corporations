@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -63,33 +64,36 @@ namespace Assets.Utils
         }
         #endregion
 
-        internal static object GetTeamMaintenanceCost(GameEntity niche)
+        internal static long GetTeamMaintenanceCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 
             var devCost = ProductUtils.GetDevelopmentCost(niche);
+            var marketingCost = GetBaseMarketingMaintenance(niche);
 
             var pp = devCost.programmingPoints;
-            var mp = GetBaseMarketingMaintenance(niche).salesPoints;
+            var mp = marketingCost.salesPoints;
 
-            var marketers = mp / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-            var programmers = pp / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+            //Debug.Log($"pp: {pp}   sp: {mp}");
 
-            return new TeamResource(pp, 0, mp, 0, 0);
+            var marketers = mp * Constants.SALARIES_MARKETER / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
+            var programmers = pp * Constants.SALARIES_PROGRAMMER / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+
+            return marketers + programmers;
         }
 
         internal static TeamResource GetBaseMarketingMaintenance(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 
-            var brandingDuration = MarketingUtils.GetBrandingCampaignCooldownDuration();
-            var targetingDuration = MarketingUtils.GetTargetingDuration();
+            var brandingDuration = (long)MarketingUtils.GetBrandingCampaignCooldownDuration();
+            var targetingDuration = (long)MarketingUtils.GetTargetingDuration();
 
             var branding = GetPureBrandingCost(niche);
             var targeting = GetPureTargetingCost(niche);
 
             // TODO period???
-            var month = 30;
+            long month = 30;
 
             var targetingPerMonth = targeting * month / targetingDuration;
             var brandingPerMonth = branding * month / brandingDuration;

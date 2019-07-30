@@ -48,7 +48,7 @@ public class MarketPotentialView : View
         var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
+        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
         Maintenance.text = Format.MoneyToInteger(maintenance);
 
         var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);

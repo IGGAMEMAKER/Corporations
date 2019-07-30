@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     partial class CompanyEconomyUtils
     {
@@ -56,15 +58,17 @@
 
             return baseCost * financing;
         }
-        public static long GetAdsMaintenance(GameEntity e, GameContext gameContext)
+        public static long GetAdsMaintenance(GameEntity company, GameContext gameContext)
         {
-            if (!e.hasProduct)
+            if (!company.hasProduct)
                 return 0;
 
-            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).money;
 
-            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(e);
+            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(company);
+
+            Debug.Log("Financing " + financing);
 
             return baseCost * financing;
         }

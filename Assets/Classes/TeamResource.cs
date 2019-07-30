@@ -11,7 +11,9 @@ namespace Assets.Classes
         public long money
         {
             get { return Money; }
-            set { }
+            set {
+                Money = value;
+            }
         }
 
         public int programmingPoints
@@ -164,7 +166,7 @@ namespace Assets.Classes
             return this;
         }
 
-        public static TeamResource operator+ (TeamResource teamResource1, TeamResource teamResource2)
+        public static TeamResource operator + (TeamResource teamResource1, TeamResource teamResource2)
         {
             return new TeamResource
             {
@@ -177,7 +179,7 @@ namespace Assets.Classes
             };
         }
 
-        public static TeamResource operator* (TeamResource teamResource, long multiplier)
+        public static TeamResource operator * (TeamResource teamResource, long multiplier)
         {
             return new TeamResource
             {
@@ -190,14 +192,14 @@ namespace Assets.Classes
             };
         }
 
-        public static TeamResource operator/ (TeamResource teamResource, int multiplier)
+        public static TeamResource operator / (TeamResource teamResource, long multiplier)
         {
             return new TeamResource
             {
-                ideaPoints = teamResource.ideaPoints / multiplier,
-                programmingPoints = teamResource.programmingPoints / multiplier,
-                managerPoints = teamResource.managerPoints / multiplier,
-                salesPoints = teamResource.salesPoints / multiplier,
+                ideaPoints = teamResource.ideaPoints / (int)multiplier,
+                programmingPoints = teamResource.programmingPoints / (int)multiplier,
+                managerPoints = teamResource.managerPoints / (int)multiplier,
+                salesPoints = teamResource.salesPoints / (int)multiplier,
 
                 money = teamResource.money / multiplier,
             };
