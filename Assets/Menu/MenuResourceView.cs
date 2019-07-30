@@ -17,6 +17,7 @@ public class MenuResourceView : View
 
     string GetFormattedPeriod()
     {
+        return "";
         int period = CompanyEconomyUtils.GetPeriodDuration();
 
         if (period == 1)
@@ -35,6 +36,7 @@ public class MenuResourceView : View
     {
         long val = long.Parse(value.ToString());
 
+        return "";
         return String.Format("{1} we get: \n\n {0}", Format.Sign(val), GetFormattedPeriod());
     }
 
