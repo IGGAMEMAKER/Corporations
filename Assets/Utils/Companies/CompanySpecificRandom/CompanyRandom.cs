@@ -17,13 +17,22 @@ namespace Assets.Utils
             return company.cEO.HumanId;
         }
 
+        public static int GetAccumulatedExpertise(GameEntity company)
+        {
+            var exp = company.expertise.ExpertiseLevel;
+
+            return (int)(10f * Mathf.Pow(exp, 1.05f));
+        }
+
         public static int GetCompanyExpertise (GameEntity company)
         {
             //var CEOId = 
             int companyId = company.company.Id;
             int CEOId = GetCEOId(company);
 
-            return 100 + (int)(30 * GetHashedRandom2(companyId, CEOId));
+            var accumulated = GetAccumulatedExpertise(company);
+
+            return 100 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
         public static Color GetCompanyUniqueColor(int companyId)
