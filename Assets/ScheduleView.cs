@@ -11,9 +11,9 @@ public class ScheduleView : View
     {
         base.ViewRender();
 
-        var internalYear = CurrentIntDate / 360;
+        //var internalYear = CurrentIntDate / 360;
 
-        var year = Constants.START_YEAR + internalYear;
+        var year = CurrentIntYear; // Constants.START_YEAR + internalYear;
         var day = CurrentIntDate % 360;
         var month = day / 30;
 
