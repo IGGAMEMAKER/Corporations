@@ -41,7 +41,7 @@ namespace Assets.Utils
 
             var workers = company.team.Workers.Keys.ToArray();
 
-            for (var i = workers.Length; i > 0; i--)
+            for (var i = workers.Length - 1; i > 0; i--)
                 FireWorker(company, workers[i], gameContext);
         }
 

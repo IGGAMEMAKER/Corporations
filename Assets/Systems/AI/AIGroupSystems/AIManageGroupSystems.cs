@@ -34,7 +34,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-        if (niche.nicheState.Phase == NicheLifecyclePhase.Death && !CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
+        bool isBankrupt = product.companyResource.Resources.money < 0;
+
+        bool isNotProfitable = !CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id);
+        bool isNicheDead = niche.nicheState.Phase == NicheLifecyclePhase.Death;
+
+        if ((isNicheDead && isNotProfitable) || isBankrupt)
             CompanyUtils.CloseCompany(gameContext, product);
     }
 

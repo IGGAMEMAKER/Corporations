@@ -48,13 +48,19 @@ public class LinkTo : ButtonController
                 break;
             case ScreenMode.ManageCompaniesScreen:
                 var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);
-
+                
                 if (daughters.Length > 0)
                 {
-                    if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
-                        Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
-                    else
+                    if (CompanyUtils.IsDaughterOfCompany(MyCompany, SelectedCompany))
+                    {
                         Navigate(TargetMenu);
+                        return;
+                    }
+
+                    Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
+                    //if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
+                    //else
+                    //    Navigate(TargetMenu);
                 }
                 break;
 

@@ -22,6 +22,8 @@ namespace Assets.Utils
             foreach (var holding in GetDaughterCompanies(context, e.company.Id))
                 DestroyBlockOfShares(context, holding, e.shareholder.Id);
 
+            e.ReplaceShareholders(new Dictionary<int, BlockOfShares>());
+
             e.isAlive = false;
 
             return e;
