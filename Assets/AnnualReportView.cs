@@ -21,21 +21,8 @@ public class AnnualReportView : View
         var previousReport = CompanyStatisticsUtils.GetPreviousAnnualReport(GameContext);
         var currentReport = CompanyStatisticsUtils.GetLastAnnualReport(GameContext);
 
-        var groupShareholderId = MyCompany.shareholder.Id;
-
-        var group = currentReport.Groups.Find(r => r.ShareholderId == groupShareholderId);
-
-        var groupPosition = group.position;
-
-        var lastGroupPosition = group.position;
-
-
-
-        GroupRating.text = $"#{groupPosition + 1}";
-
         RenderHuman(previousReport, currentReport);
         RenderGroup(previousReport, currentReport);
-
 
         CurrentYear.text = $"Results of year {CurrentIntYear - 1}";
     }
