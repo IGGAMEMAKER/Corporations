@@ -40,7 +40,7 @@ public class Constants
     public static int SALARIES_MANAGER = 2000;
     public static int SALARIES_PROGRAMMER = 2000;
     public static int SALARIES_MARKETER = 2000;
-    public static int SALARIES_UNIVERSAL = 2000;
+    public static int SALARIES_UNIVERSAL = 0;
     public static int SALARIES_CEO = 0;
     public static int SALARIES_FOUNDER = 0;
     public static int SALARIES_DIRECTOR = 3500;
