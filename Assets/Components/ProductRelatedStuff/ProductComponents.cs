@@ -10,6 +10,11 @@ public class DevelopmentFocusComponent : IComponent
     public DevelopmentFocus Focus;
 }
 
+public class ExpertiseComponent : IComponent
+{
+    public int ExpertiseLevel;
+}
+
 [Game, Event(EventTarget.Self)]
 public class ProductComponent : IComponent
 {

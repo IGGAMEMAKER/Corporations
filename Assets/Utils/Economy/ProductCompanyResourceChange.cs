@@ -58,7 +58,9 @@ namespace Assets.Utils
             var focusModifier = productCompany.developmentFocus.Focus == DevelopmentFocus.Concept
                 ? Constants.DEVELOPMENT_FOCUS_IDEAS : 0;
 
-            return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (100 + focusModifier) / 100;
+            var expertiseModifier = CompanyUtils.GetCompanyExpertise(productCompany);
+
+            return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (expertiseModifier + focusModifier) / 100;
         }
 
         public static TeamResource GetResourceChange(GameEntity company, GameContext gameContext)
