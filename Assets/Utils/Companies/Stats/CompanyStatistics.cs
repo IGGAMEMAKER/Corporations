@@ -78,16 +78,13 @@ namespace Assets.Utils
             return reports[reports.Count - 1];
         }
 
-        public static AnnualReport GetMockReport()
+        public static AnnualReport GetMockReport() => new AnnualReport
         {
-            return new AnnualReport
-            {
-                Groups = new System.Collections.Generic.List<ReportData>(),
-                Products = new System.Collections.Generic.List<ReportData>(),
-                People = new System.Collections.Generic.List<ReportData>(),
-                Date = 0
-            };
-        }
+            Groups = new List<ReportData>(),
+            Products = new List<ReportData>(),
+            People = new List<ReportData>(),
+            Date = 0
+        };
 
         public static AnnualReport GetPreviousAnnualReport(GameContext gameContext)
         {

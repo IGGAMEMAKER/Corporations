@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 {
+    // TODO TIMER
     readonly GameContext _context;
     bool isTimerRunning = false;
 
@@ -68,7 +69,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         if (Input.GetKeyUp(KeyCode.Space))
             ToggleTimer();
 
-        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 8)
+        if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
             currentSpeed += 2;
 
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)

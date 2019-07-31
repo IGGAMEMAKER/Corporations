@@ -150,13 +150,8 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public int CurrentIntDate
-    {
-        get
-        {
-            return ScheduleUtils.GetCurrentDate(GameContext);
-        }
-    }
+    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
+    public int CurrentIntYear => Constants.START_YEAR + CurrentIntDate / 360;
 
     public GameEntity GetUniversalListener
     {
