@@ -13,6 +13,7 @@ public class FillInterruptList : View
     public GameObject InvestorLoyaltyWarning;
     public GameObject TeamLoyaltyWarning;
     public GameObject NeedToCompleteGoal;
+    public GameObject NeedToManageCompanies;
 
     public GameObject InvestorLoyaltyThreat;
     public GameObject TeamLoyaltyThreat;
@@ -30,8 +31,10 @@ public class FillInterruptList : View
         bool isCanSeeAnnualReport = CheckAnnualReport();
 
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
-        CanCompleteGoal.SetActive(isCanCompleteGoal);
-        NeedToCompleteGoal.SetActive(!isCanCompleteGoal);
+        CanCompleteGoal.SetActive(isCanCompleteGoal && false);
+        NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
+
+        NeedToManageCompanies.SetActive(true);
 
 
         CanCheckAnnualReport.SetActive(isCanSeeAnnualReport);
