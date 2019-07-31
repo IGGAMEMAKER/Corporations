@@ -164,12 +164,32 @@ public struct MetricsInfo
     public long AudienceSize;
 }
 
+public struct ReportData
+{
+    public long Cost;
+    public int ShareholderId;
+    public int position;
+}
+
+public struct AnnualReport
+{
+    public List<ReportData> People;
+    public List<ReportData> Groups;
+    public List<ReportData> Products;
+    public int Date;
+}
+
+
 [Game]
 public class MetricsHistoryComponent : IComponent
 {
     public List<MetricsInfo> Metrics;
 }
 
+public class ReportsComponent : IComponent
+{
+    public List<AnnualReport> AnnualReports;
+}
 
 
 //[Game]

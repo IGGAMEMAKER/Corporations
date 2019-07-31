@@ -1,9 +1,4 @@
 ﻿using Assets.Utils;
-using Entitas;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PeopleLeaderboardListView : ListView
@@ -22,19 +17,8 @@ public class PeopleLeaderboardListView : ListView
 
     public void Render()
     {
-        var people = GetInfluencialPeople(GameContext);
+        var people = InvestmentUtils.GetInfluencialPeople(GameContext);
 
         SetItems(people);
-    }
-
-    public static GameEntity[] GetInfluencialPeople(GameContext gameContext)
-    {
-        var investors = gameContext
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Shareholder, GameMatcher.Human))
-            .Where(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e) > 0)
-            .OrderByDescending(e => InvestmentUtils.GetInvestorCapitalCost(gameContext, e))
-            .ToArray();
-
-        return investors;
     }
 }

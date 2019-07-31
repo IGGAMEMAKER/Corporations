@@ -1,4 +1,7 @@
-﻿public struct FinancialReport
+﻿using Entitas;
+using System.Collections.Generic;
+
+public struct FinancialReport
 {
     public long ValuationDiff;
     public long ValuationGrowth;
@@ -32,37 +35,75 @@ namespace Assets.Utils
             c.ReplaceMetricsHistory(metrics.Metrics);
         }
 
-        public static FinancialReport GetAnnualFinancialReport(GameContext context, int companyId)
+        //public static FinancialReport GetAnnualFinancialReport(GameContext context, int companyId)
+        //{
+        //    var startYearMetrics = new MetricsInfo { AudienceSize = 1000, Date = 0, Income = 0, Valuation = 100000, Profit = 0 };
+        //    var endYearMetrics = new MetricsInfo { AudienceSize = 5000, Date = 350, Income = 50000, Valuation = 1000000, Profit = -35000 };
+
+        //    var report = new FinancialReport
+        //    {
+        //        AudienceDiff = endYearMetrics.AudienceSize - startYearMetrics.AudienceSize,
+        //        ValuationDiff = endYearMetrics.Valuation - startYearMetrics.Valuation,
+        //        IncomeDiff = endYearMetrics.Income - startYearMetrics.Income,
+        //        ProfitDiff = endYearMetrics.Profit - startYearMetrics.Profit,
+
+        //        AudienceIsGrowthComputable = startYearMetrics.AudienceSize != 0,
+        //        ValuationIsGrowthComputable = startYearMetrics.Valuation != 0,
+        //        IncomeIsGrowthComputable = startYearMetrics.Income != 0,
+        //        ProfitIsGrowthComputable = startYearMetrics.Profit != 0,
+        //    };
+
+        //    if (report.AudienceIsGrowthComputable)
+        //        report.AudienceGrowth = endYearMetrics.AudienceSize * 100 / startYearMetrics.AudienceSize;
+
+        //    if (report.IncomeIsGrowthComputable)
+        //        report.IncomeGrowth = endYearMetrics.Income * 100 / startYearMetrics.Income;
+
+        //    if (report.ValuationIsGrowthComputable)
+        //        report.ValuationGrowth = endYearMetrics.Valuation * 100 / startYearMetrics.Valuation;
+
+        //    if (report.ProfitIsGrowthComputable)
+        //        report.ProfitGrowth = endYearMetrics.Profit * 100 / startYearMetrics.Profit;
+
+        //    return report;
+        //}
+
+        public static AnnualReport GetLastAnnualReport(GameContext gameContext)
         {
-            var startYearMetrics = new MetricsInfo { AudienceSize = 1000, Date = 0, Income = 0, Valuation = 100000, Profit = 0 };
-            var endYearMetrics = new MetricsInfo { AudienceSize = 5000, Date = 350, Income = 50000, Valuation = 1000000, Profit = -35000 };
+            var reports = GetAnnualReports(gameContext);
 
-            var report = new FinancialReport
+            if (reports.Count == 0)
+                return GetMockReport();
+
+            return reports[reports.Count - 1];
+        }
+
+        public static AnnualReport GetMockReport()
+        {
+            return new AnnualReport
             {
-                AudienceDiff = endYearMetrics.AudienceSize - startYearMetrics.AudienceSize,
-                ValuationDiff = endYearMetrics.Valuation - startYearMetrics.Valuation,
-                IncomeDiff = endYearMetrics.Income - startYearMetrics.Income,
-                ProfitDiff = endYearMetrics.Profit - startYearMetrics.Profit,
-
-                AudienceIsGrowthComputable = startYearMetrics.AudienceSize != 0,
-                ValuationIsGrowthComputable = startYearMetrics.Valuation != 0,
-                IncomeIsGrowthComputable = startYearMetrics.Income != 0,
-                ProfitIsGrowthComputable = startYearMetrics.Profit != 0,
+                Groups = new System.Collections.Generic.List<ReportData>(),
+                Products = new System.Collections.Generic.List<ReportData>(),
+                People = new System.Collections.Generic.List<ReportData>(),
+                Date = 0
             };
+        }
 
-            if (report.AudienceIsGrowthComputable)
-                report.AudienceGrowth = endYearMetrics.AudienceSize * 100 / startYearMetrics.AudienceSize;
+        public static AnnualReport GetPreviousAnnualReport(GameContext gameContext)
+        {
+            var reports = GetAnnualReports(gameContext);
 
-            if (report.IncomeIsGrowthComputable)
-                report.IncomeGrowth = endYearMetrics.Income * 100 / startYearMetrics.Income;
+            if (reports.Count <= 1)
+                return GetMockReport();
 
-            if (report.ValuationIsGrowthComputable)
-                report.ValuationGrowth = endYearMetrics.Valuation * 100 / startYearMetrics.Valuation;
+            return reports[reports.Count - 2];
+        }
 
-            if (report.ProfitIsGrowthComputable)
-                report.ProfitGrowth = endYearMetrics.Profit * 100 / startYearMetrics.Profit;
+        public static List<AnnualReport> GetAnnualReports(GameContext gameContext)
+        {
+            var reportContainer = gameContext.GetEntities(GameMatcher.Reports)[0];
 
-            return report;
+            return reportContainer.reports.AnnualReports;
         }
 
 

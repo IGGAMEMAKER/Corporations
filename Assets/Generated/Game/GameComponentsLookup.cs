@@ -76,27 +76,28 @@ public static class GameComponentsLookup {
     public const int PublicCompany = 65;
     public const int Release = 66;
     public const int ReleaseListener = 67;
-    public const int Segment = 68;
-    public const int SegmentLeaders = 69;
-    public const int SegmentListener = 70;
-    public const int Shareholder = 71;
-    public const int Shareholders = 72;
-    public const int ShareholdersListener = 73;
-    public const int Targeting = 74;
-    public const int TargetingListener = 75;
-    public const int Task = 76;
-    public const int TaskManager = 77;
-    public const int Team = 78;
-    public const int TeamListener = 79;
-    public const int TechnologyLeader = 80;
-    public const int TechnologyLeaderListener = 81;
-    public const int Test = 82;
-    public const int TimerRunning = 83;
-    public const int Tutorial = 84;
-    public const int TutorialListener = 85;
-    public const int Worker = 86;
+    public const int Reports = 68;
+    public const int Segment = 69;
+    public const int SegmentLeaders = 70;
+    public const int SegmentListener = 71;
+    public const int Shareholder = 72;
+    public const int Shareholders = 73;
+    public const int ShareholdersListener = 74;
+    public const int Targeting = 75;
+    public const int TargetingListener = 76;
+    public const int Task = 77;
+    public const int TaskManager = 78;
+    public const int Team = 79;
+    public const int TeamListener = 80;
+    public const int TechnologyLeader = 81;
+    public const int TechnologyLeaderListener = 82;
+    public const int Test = 83;
+    public const int TimerRunning = 84;
+    public const int Tutorial = 85;
+    public const int TutorialListener = 86;
+    public const int Worker = 87;
 
-    public const int TotalComponents = 87;
+    public const int TotalComponents = 88;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -167,6 +168,7 @@ public static class GameComponentsLookup {
         "PublicCompany",
         "Release",
         "ReleaseListener",
+        "Reports",
         "Segment",
         "SegmentLeaders",
         "SegmentListener",
@@ -257,6 +259,7 @@ public static class GameComponentsLookup {
         typeof(PublicCompanyComponent),
         typeof(ReleaseComponent),
         typeof(ReleaseListenerComponent),
+        typeof(ReportsComponent),
         typeof(SegmentComponent),
         typeof(SegmentLeadersComponent),
         typeof(SegmentListenerComponent),
