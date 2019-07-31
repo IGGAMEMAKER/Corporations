@@ -21,7 +21,7 @@ namespace Assets.Utils
         {
             var exp = company.expertise.ExpertiseLevel;
 
-            return (int)(10f * Mathf.Pow(exp, 1.05f));
+            return (int)(10f * Mathf.Pow(1.05f, exp));
         }
 
         public static int GetCompanyExpertise (GameEntity company)
