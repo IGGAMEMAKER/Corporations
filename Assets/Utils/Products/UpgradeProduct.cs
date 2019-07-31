@@ -30,14 +30,14 @@ namespace Assets.Utils
             var nicheCosts = NicheUtils.GetNicheCosts(gameContext, product.product.Niche);
             var baseIdeaCost = nicheCosts.IdeaCost;
 
-            var expertise = product.expertise.ExpertiseLevel; ;
+            var expertise = product.expertise.ExpertiseLevel;
 
             var required = new TeamResource(0, 0, 0, baseIdeaCost * expertise, 0);
 
             if (CompanyUtils.IsEnoughResources(product, required))
             {
                 CompanyUtils.SpendResources(product, required);
-                product.ReplaceExpertise(expertise);
+                product.ReplaceExpertise(expertise + 1);
             }
         }
 
