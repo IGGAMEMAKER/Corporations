@@ -20,6 +20,8 @@ namespace Assets.Utils
             {
                 segments[userType] = GetProductLevel(product) + 1;
 
+                MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
+
                 niche.ReplaceSegment(segments);
             }
         }
