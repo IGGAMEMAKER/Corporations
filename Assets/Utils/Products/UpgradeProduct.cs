@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -24,9 +25,24 @@ namespace Assets.Utils
         }
 
 
+        public static void UpgradeExpertise(GameEntity product, GameContext gameContext)
+        {
+            var nicheCosts = NicheUtils.GetNicheCosts(gameContext, product.product.Niche);
+            var baseIdeaCost = nicheCosts.IdeaCost;
+
+            var expertise = product.expertise.ExpertiseLevel; ;
+
+            var required = new TeamResource(0, 0, 0, baseIdeaCost * expertise, 0);
+
+            if (CompanyUtils.IsEnoughResources(product, required))
+            {
+                CompanyUtils.SpendResources(product, required);
+                product.ReplaceExpertise(expertise);
+            }
+        }
 
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
-        public static void UpdateSegment(GameEntity product, GameContext gameContext, UserType userType1)
+        public static void UpdateSegment(GameEntity product, GameContext gameContext)
         {
             var userType = UserType.Core;
 
@@ -50,6 +66,8 @@ namespace Assets.Utils
             var duration = GetSegmentImprovementDuration(gameContext, product);
             CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
         }
+
+
 
         public static int GetSegmentImprovementDuration(GameContext gameContext, GameEntity company)
         {

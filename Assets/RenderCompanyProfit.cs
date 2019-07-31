@@ -10,7 +10,7 @@ public class RenderCompanyProfit : UpgradedParameterView
 
         var marketingMaintenance = "";
         if (SelectedCompany.hasProduct)
-            marketingMaintenance = "\nMarketing Expenses: " + Visuals.Negative(Format.Money(marketing));
+            marketingMaintenance = "\nMarketing Expenses: " + Visuals.Negative(Format.Money(adsMaintenence));
 
         var hint = "Income: " + Visuals.Positive(Format.Money(income)) + "\n" +
             "Team Maintenance: " + Visuals.Negative(Format.Money(maintenance)) +
@@ -22,10 +22,10 @@ public class RenderCompanyProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext) - marketing;
+        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext) - adsMaintenence;
 
         return Visuals.PositiveOrNegativeMinified(change);
     }
 
-    long marketing => CompanyEconomyUtils.GetAdsMaintenance(SelectedCompany, GameContext);
+    long adsMaintenence => CompanyEconomyUtils.GetAdsMaintenance(SelectedCompany, GameContext);
 }

@@ -16,20 +16,22 @@ public partial class AIProductSystems
             TeamUtils.ToggleCrunching(gameContext, product.company.Id);
     }
 
-    void UpgradeSegment(GameEntity product, UserType userType)
+    void UpgradeSegment(GameEntity product)
     {
-        ProductUtils.UpdateSegment(product, gameContext, userType);
+        ProductUtils.UpdateSegment(product, gameContext);
+
+        ProductUtils.UpgradeExpertise(product, gameContext);
     }
 
     void StayInMarket(GameEntity product)
     {
         if (ProductUtils.IsInMarket(product, gameContext))
-            UpgradeSegment(product, UserType.Core);
+            UpgradeSegment(product);
     }
 
     void Innovate(GameEntity product)
     {
-        UpgradeSegment(product, UserType.Core);
+        UpgradeSegment(product);
     } 
 
     void DecreasePrices(GameEntity product)

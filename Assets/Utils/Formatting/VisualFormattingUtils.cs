@@ -176,7 +176,7 @@ namespace Assets.Utils
                 return Positive(Format.SignMinified(value));
 
             if (value == 0)
-                return "";
+                return "0";
 
             return Negative(Format.SignMinified(value));
         }

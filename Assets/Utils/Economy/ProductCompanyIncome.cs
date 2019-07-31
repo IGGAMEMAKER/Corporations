@@ -29,7 +29,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var improvements = c.product.Concept;
+            var improvements = c.expertise.ExpertiseLevel;
 
             var segmentPriceModifier = NicheUtils.GetSegmentProductPriceModifier(gameContext, c.product.Niche, segmentId);
 

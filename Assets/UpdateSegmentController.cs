@@ -11,6 +11,6 @@ public class UpdateSegmentController : ButtonController
 
     public override void Execute()
     {
-        ProductUtils.UpdateSegment(MyProductEntity, GameContext, UserType);
+        ProductUtils.UpdateSegment(MyProductEntity, GameContext);
     }
 }
