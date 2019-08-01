@@ -24,17 +24,17 @@ public partial class AIProductSystems : OnDateChange
         var change = GetResourceChange(company);
         var production = change.programmingPoints;
 
-        var needPP = needResources.programmingPoints * 30 / ProductUtils.GetSegmentImprovementDuration(gameContext, company);
+        var iterationLength = ProductUtils.GetSegmentImprovementDuration(gameContext, company);
+        var requiredProduction = needResources.programmingPoints * 30 / iterationLength;
 
 
-        if (production < needPP)
+        if (production < requiredProduction)
             return 1;
 
         var resource = company.companyResource.Resources;
-        var currentPP = resource.programmingPoints;
-        var overflowByPoints = currentPP > needPP * 2;
+        var overflowByPoints = resource.programmingPoints > requiredProduction * 2;
 
-        if (overflowByPoints && production > needPP + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
+        if (overflowByPoints && production > requiredProduction + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
             return -1;
 
         return 0;
