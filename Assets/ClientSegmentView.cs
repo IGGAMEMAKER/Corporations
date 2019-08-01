@@ -47,8 +47,8 @@ public class ClientSegmentView : View
 
     void RenderSegmentBonus()
     {
-        IdeaIcon.SetActive(UserType != UserType.Regular);
-        BrandIcon.SetActive(UserType == UserType.Regular);
+        IdeaIcon.SetActive(true);
+        BrandIcon.SetActive(true);
 
         SegmentBonus.text = $"+25";
     }

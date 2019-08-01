@@ -20,15 +20,11 @@ public class ClientSegmentPreview : View
 
     public CooldownView SegmentCooldownView;
 
-    UserType UserType;
     int CompanyId;
 
-    public void SetEntity(UserType userType, int companyId)
+    public void SetEntity(int companyId)
     {
-        UserType = userType;
         CompanyId = companyId;
-
-        SegmentCooldownView.SetSegmentForImprovements(userType);
     }
 
     public override void ViewRender()

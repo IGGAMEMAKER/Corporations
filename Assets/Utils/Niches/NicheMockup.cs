@@ -43,8 +43,6 @@ namespace Assets.Utils
             e.AddSegment(new Dictionary<UserType, int>
             {
                 [UserType.Core] = 1,
-                [UserType.Regular] = 1,
-                [UserType.Mass] = 1,
             });
 
             return e;

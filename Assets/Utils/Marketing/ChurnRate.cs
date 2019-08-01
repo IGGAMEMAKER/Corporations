@@ -43,7 +43,7 @@ namespace Assets.Utils
             return GetChurnRate(gameContext, companyId) / 10f;
         }
 
-        public static long GetChurnClients(GameContext gameContext, int companyId, UserType userType)
+        public static long GetChurnClients(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 

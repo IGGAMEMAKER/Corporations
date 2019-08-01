@@ -53,7 +53,7 @@ namespace Assets.Utils
         }
 
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
-        public static void UpdateSegment(GameEntity product, GameContext gameContext)
+        public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
         {
             var userType = UserType.Core;
 

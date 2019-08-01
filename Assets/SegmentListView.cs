@@ -12,7 +12,7 @@ public class SegmentListView : ListView
             t.GetComponent<ClientSegmentView>().SetEntity(e.Key, MyProductEntity.company.Id);
 
         if (t.GetComponent<ClientSegmentPreview>() != null)
-            t.GetComponent<ClientSegmentPreview>().SetEntity(e.Key, MyProductEntity.company.Id);
+            t.GetComponent<ClientSegmentPreview>().SetEntity(MyProductEntity.company.Id);
     }
 
     void Render()

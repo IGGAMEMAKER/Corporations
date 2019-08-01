@@ -14,18 +14,6 @@ namespace Assets.Utils.Formatting
             return (Arr.Length == j) ? Arr[0] : Arr[j];
         }
 
-        public static string GetFormattedUserType(UserType userType)
-        {
-            switch (userType)
-            {
-                case UserType.Core: return "Core users";
-                case UserType.Regular: return "Regular users";
-                case UserType.Mass: return "Mass users";
-
-                default: return userType.ToString();
-            }
-        }
-
         public static string GetFormattedNicheName(NicheType niche)
         {
             switch (niche)

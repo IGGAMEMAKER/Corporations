@@ -18,7 +18,7 @@ public partial class AIProductSystems
 
     void UpgradeSegment(GameEntity product)
     {
-        ProductUtils.UpdateSegment(product, gameContext);
+        ProductUtils.UpdgradeProduct(product, gameContext);
 
         ProductUtils.UpgradeExpertise(product, gameContext);
     }

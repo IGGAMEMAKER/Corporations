@@ -189,9 +189,7 @@ public enum InvestmentRound
 
 public enum UserType
 {
-    Core,
-    Regular,
-    Mass
+    Core
 }
 
 public enum Pricing
