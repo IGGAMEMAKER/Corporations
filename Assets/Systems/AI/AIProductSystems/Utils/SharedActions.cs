@@ -61,16 +61,6 @@ public partial class AIProductSystems
         ProductUtils.SetPrice(product, price);
     }
 
-    void HireWorker(GameEntity company, WorkerRole workerRole)
-    {
-        if (IsCanAffordWorker(company, workerRole))
-        {
-            TeamUtils.HireWorker(company, workerRole);
-
-            Print($"Hire {workerRole.ToString()}", company);
-        }
-    }
-
     void GrabTestClients(GameEntity company)
     {
         //if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))

@@ -24,20 +24,6 @@ public partial class AIProductSystems : OnDateChange
         
     }
 
-    bool FireWorkerByRole(GameEntity product, WorkerRole workerRole)
-    {
-        foreach (var w in product.team.Workers)
-        {
-            if (w.Value == workerRole)
-            {
-                TeamUtils.FireWorker(product, w.Key, gameContext);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     void ShrinkTeam(GameEntity product)
     {
         if (FireWorkerByRole(product, WorkerRole.Marketer))
