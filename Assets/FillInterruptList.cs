@@ -97,6 +97,6 @@ public class FillInterruptList : View
         if (ProductUtils.HasSegmentCooldown(MyProductEntity, userType))
             return false;
 
-        return ProductUtils.HasEnoughResourcesForSegmentUpgrade(MyProductEntity, GameContext, userType);
+        return ProductUtils.HasEnoughResourcesForSegmentUpgrade(MyProductEntity, GameContext);
     }
 }

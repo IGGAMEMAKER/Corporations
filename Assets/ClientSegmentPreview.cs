@@ -62,7 +62,7 @@ public class ClientSegmentPreview : View
         UpdateSegmentController.SetSegment(UserType);
         UpdateSegmentController.gameObject.GetComponent<CheckSegmentImprovementResources>().SetSegment(UserType);
 
-        bool isInnovation = ProductUtils.IsWillInnovate(MyProductEntity, GameContext, UserType);
+        bool isInnovation = ProductUtils.IsWillInnovate(MyProductEntity, GameContext);
         UpdateSegmentController.gameObject.GetComponentInChildren<Text>().text = isInnovation ? "Make an innovation!" : "Improve app";
     }
 

@@ -8,13 +8,7 @@ public partial class AIProductSystems : OnDateChange
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
-        return GetSegmentCost(company, UserType.Core);
-        var stayInMarket = GetSegmentCost(company, UserType.Core);
-
-        //// + 1 means that we want to become tech leaders
-        var marketDiff = GetMarketDifference(company) + 1;
-
-        return GetSegmentCost(company, UserType.Core) * marketDiff;
+        return GetProductUpgradeCost(company);
     }
 
 
@@ -30,7 +24,7 @@ public partial class AIProductSystems : OnDateChange
         var change = GetResourceChange(company);
         var production = change.programmingPoints;
 
-        var needPP = needResources.programmingPoints * ProductUtils.GetSegmentImprovementDuration(gameContext, company) / 30;
+        var needPP = needResources.programmingPoints * 30 / ProductUtils.GetSegmentImprovementDuration(gameContext, company);
 
 
         if (production < needPP)

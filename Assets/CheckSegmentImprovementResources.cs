@@ -12,7 +12,7 @@ public class CheckSegmentImprovementResources : ResourceChecker
 
     public override TeamResource GetRequiredResources()
     {
-        return ProductUtils.GetProductUpgradeCost(MyProductEntity, GameContext, UserType);
+        return ProductUtils.GetProductUpgradeCost(MyProductEntity, GameContext);
     }
 
     public void SetSegment(UserType userType)

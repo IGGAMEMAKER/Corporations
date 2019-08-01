@@ -79,9 +79,9 @@ public partial class AIProductSystems
         return ProductUtils.GetDevelopmentCost(company, gameContext);
     }
 
-    TeamResource GetSegmentCost(GameEntity company, UserType userType)
+    TeamResource GetProductUpgradeCost(GameEntity company)
     {
-        return ProductUtils.GetProductUpgradeCost(company, gameContext, userType);
+        return ProductUtils.GetProductUpgradeCost(company, gameContext);
     }
 
     GameEntity GetPlayerProductCompany()

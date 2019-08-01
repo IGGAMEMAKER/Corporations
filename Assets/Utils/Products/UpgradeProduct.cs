@@ -5,20 +5,20 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
-        public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext, UserType userType)
+        public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            UpdateNicheSegmentInfo(product, niche, userType);
+            UpdateNicheSegmentInfo(product, niche);
         }
 
-        public static void UpdateNicheSegmentInfo(GameEntity product, GameEntity niche, UserType userType)
+        public static void UpdateNicheSegmentInfo(GameEntity product, GameEntity niche)
         {
             var segments = niche.segment.Segments;
 
-            if (IsWillInnovate(product, niche, userType))
+            if (IsWillInnovate(product, niche))
             {
-                segments[userType] = GetProductLevel(product) + 1;
+                segments[UserType.Core] = GetProductLevel(product) + 1;
 
                 MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
 
@@ -53,12 +53,12 @@ namespace Assets.Utils
             if (CooldownUtils.HasCooldown(product, cooldown))
                 return;
 
-            var costs = GetProductUpgradeCost(product, gameContext, userType);
+            var costs = GetProductUpgradeCost(product, gameContext);
 
             if (!CompanyUtils.IsEnoughResources(product, costs))
                 return;
 
-            UpdateNicheSegmentInfo(product, gameContext, userType);
+            UpdateNicheSegmentInfo(product, gameContext);
 
             var p = product.product;
 
@@ -75,7 +75,7 @@ namespace Assets.Utils
         {
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
-            var innovationModifier = IsWillInnovate(company, gameContext, UserType.Core) ? 2 : 1;
+            var innovationModifier = IsWillInnovate(company, gameContext) ? 2 : 1;
 
             var random = Random.Range(1, 1.3f);
 
@@ -108,9 +108,9 @@ namespace Assets.Utils
             } 
         }
 
-        public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
+        public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext)
         {
-            var costs = GetProductUpgradeCost(product, gameContext, userType);
+            var costs = GetProductUpgradeCost(product, gameContext);
 
             return CompanyUtils.IsEnoughResources(product, costs);
         }
