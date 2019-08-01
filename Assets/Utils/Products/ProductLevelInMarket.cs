@@ -4,11 +4,11 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
-        public static int GetMarketDemand(GameEntity product, GameContext gameContext, UserType userType)
+        public static int GetMarketDemand(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            return niche.segment.Segments[userType];
+            return niche.segment.Segments[UserType.Core];
         }
 
         public static bool IsInMarket(GameEntity product, GameContext gameContext)

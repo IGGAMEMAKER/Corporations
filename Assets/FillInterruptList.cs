@@ -73,30 +73,9 @@ public class FillInterruptList : View
 
     private bool CheckSegments()
     {
-        if (!HasProductCompany)
-            return false;
-
-        // TODO BETTER TO ITERATE THROUGH USERTYPE ENUM
-        if (CheckCanUpgradeSegment(UserType.Core))
-            return true;
-
-        //if (CheckCanUpgradeSegment(UserType.Regular))
-        //    return true;
-
-        //if (CheckCanUpgradeSegment(UserType.Mass))
-        //    return true;
-
         return false;
-    }
 
-    private bool CheckCanUpgradeSegment(UserType userType)
-    {
         if (!HasProductCompany)
             return false;
-
-        if (ProductUtils.HasSegmentCooldown(MyProductEntity, userType))
-            return false;
-
-        return ProductUtils.HasEnoughResourcesForSegmentUpgrade(MyProductEntity, GameContext);
     }
 }
