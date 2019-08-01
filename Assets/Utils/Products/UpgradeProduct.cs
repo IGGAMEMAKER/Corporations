@@ -82,7 +82,11 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseConceptTime(niche);
 
-            return (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
+            var time = (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
+
+            Debug.Log($"Company {company.company.Name} iteration time: {time}");
+
+            return time;
         }
 
 
