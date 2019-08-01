@@ -1,19 +1,23 @@
 ﻿using Assets.Classes;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
+        public static void RemoveTechLeaders (GameEntity product, GameContext gameContext)
+        {
+            var players = NicheUtils.GetPlayersOnMarket(gameContext, product).ToArray();
+
+            foreach (var p in players)
+                p.isTechnologyLeader = false;
+        }
+
         public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            UpdateNicheSegmentInfo(product, niche);
-        }
-
-        public static void UpdateNicheSegmentInfo(GameEntity product, GameEntity niche)
-        {
             var segments = niche.segment.Segments;
 
             if (IsWillInnovate(product, niche))
@@ -23,9 +27,14 @@ namespace Assets.Utils
                 MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
 
                 niche.ReplaceSegment(segments);
+
+                RemoveTechLeaders(product, gameContext);
+                product.isTechnologyLeader = true;
+            } else if (IsInMarket(product, gameContext))
+            {
+                RemoveTechLeaders(product, gameContext);
             }
         }
-
 
         public static void UpgradeExpertise(GameEntity product, GameContext gameContext)
         {
@@ -58,54 +67,14 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(product, costs))
                 return;
 
-            UpdateNicheSegmentInfo(product, gameContext);
-
             var p = product.product;
 
             product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + 1);
 
+            UpdateNicheSegmentInfo(product, gameContext);
 
             var duration = GetProductUpgradeIterationTime(gameContext, product);
             CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
-        }
-
-
-
-        public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
-        {
-            var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
-
-            var innovationModifier = IsWillInnovate(company, gameContext) ? 2 : 1;
-
-            var random = 1; // Random.Range(1, 1.3f);
-
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-            var baseConceptTime = GetBaseConceptTime(niche);
-
-            var time = (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
-
-            //Debug.Log($"Company {company.company.Name} iteration time: {time}");
-
-            return time;
-        }
-
-
-        public static int GetBaseConceptTime(GameEntity niche)
-        {
-            return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed);
-        }
-
-        public static int GetBaseConceptTime(NicheChangeSpeed nicheChangeSpeed)
-        {
-            switch (nicheChangeSpeed)
-            {
-                case NicheChangeSpeed.Month: return 5;
-                case NicheChangeSpeed.Quarter: return 15;
-                case NicheChangeSpeed.Year: return 60;
-                case NicheChangeSpeed.ThreeYears: return 180;
-
-                default: return 0;
-            } 
         }
 
         public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext)

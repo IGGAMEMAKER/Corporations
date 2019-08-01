@@ -14,9 +14,9 @@ namespace Assets.Utils
             return GetPlayersOnMarket(context, c);
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, GameEntity e)
+        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, GameEntity product)
         {
-            return GetPlayersOnMarket(context, e.product.Niche);
+            return GetPlayersOnMarket(context, product.product.Niche);
         }
 
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, NicheType niche)
