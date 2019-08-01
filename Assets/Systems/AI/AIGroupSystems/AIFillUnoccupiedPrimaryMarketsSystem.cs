@@ -58,8 +58,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
+        if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
+            return;
+
         CompanyUtils.AddAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
 
+        // DON'T TOUCH! this prevents AI from automatically accepting acquisition offer
         if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
             return;
 
