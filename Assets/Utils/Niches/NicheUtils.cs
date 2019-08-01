@@ -100,6 +100,8 @@ namespace Assets.Utils
             var niche = GetNicheEntity(gameContext, e.product.Niche);
 
             AddNewUsersToMarket(niche, gameContext, users);
+
+            MarketingUtils.AddClients(e, -users);
         }
     }
 }

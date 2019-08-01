@@ -19,7 +19,7 @@ namespace Assets.Utils
             return company.marketing.clients;
         }
 
-        public static void AddClients(GameEntity company, UserType userType, long clients)
+        public static void AddClients(GameEntity company, long clients)
         {
             var marketing = company.marketing;
 

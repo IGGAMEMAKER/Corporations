@@ -66,7 +66,7 @@ public partial class ClientDistributionSystem : OnMonthChange
             if (clients > clientCap)
                 clients = clientCap;
 
-            MarketingUtils.AddClients(p, UserType.Core, clients);
+            MarketingUtils.AddClients(p, clients);
 
             //
             strengths[segId] -= productStrength;

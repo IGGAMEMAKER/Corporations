@@ -4,7 +4,10 @@ public partial class AIProductSystems : OnDateChange
 {
     bool IsCanAffordWorker(GameEntity company, WorkerRole workerRole)
     {
-        return CompanyEconomyUtils.GetBalanceChange(company, gameContext) > TeamUtils.GetSalary(workerRole);
+        var profit = CompanyEconomyUtils.GetBalanceChange(company, gameContext);
+        var salary = TeamUtils.GetSalary(workerRole);
+
+        return profit > salary || company.companyResource.Resources.money > salary;
     }
 
     bool IsNeedsProductManager(GameEntity company)

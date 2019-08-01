@@ -38,20 +38,6 @@ namespace Assets.Utils
             company.ReplaceBranding(brandPower);
         }
 
-        public static void AddMassUsersWhileBrandingCampaign(GameEntity company, GameContext gameContext)
-        {
-            return;
-            Debug.Log("AddMassUsersWhileBrandingCampaign " + company.company.Name);
-
-            var costs = GetNicheCosts(gameContext, company);
-            var batch = GetCompanyClientBatch(gameContext, company);
-
-            var clients = batch * 10 * GetMarketingFinancingBrandPowerGainModifier(company) * Random.Range(0.15f, 1.5f);
-
-            AddClients(company, UserType.Mass, (long)clients);
-        }
-        
-
         public static int GetBrandingPowerGain(GameContext gameContext, GameEntity company)
         {
             int techLeadershipBonus = company.isTechnologyLeader ? 2 : 1;

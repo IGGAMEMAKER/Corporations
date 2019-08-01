@@ -65,26 +65,26 @@ namespace Assets.Utils
             product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + 1);
 
 
-            var duration = GetSegmentImprovementDuration(gameContext, product);
+            var duration = GetProductUpgradeIterationTime(gameContext, product);
             CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
         }
 
 
 
-        public static int GetSegmentImprovementDuration(GameContext gameContext, GameEntity company)
+        public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
         {
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
             var innovationModifier = IsWillInnovate(company, gameContext) ? 2 : 1;
 
-            var random = Random.Range(1, 1.3f);
+            var random = 1; // Random.Range(1, 1.3f);
 
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseConceptTime(niche);
 
             var time = (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
 
-            Debug.Log($"Company {company.company.Name} iteration time: {time}");
+            //Debug.Log($"Company {company.company.Name} iteration time: {time}");
 
             return time;
         }

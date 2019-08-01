@@ -34,6 +34,9 @@ namespace Assets.Utils
 
             ReplaceTeam(company, team);
 
+            Debug.Log($"Attach to " + company.company.Name + ": " + role.ToString());
+
+
             if (IsWillOverextendTeam(company))
                 Promote(company);
         }
@@ -50,7 +53,7 @@ namespace Assets.Utils
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
-            //Debug.Log("Fire worker from " + company.company.Name + " " + worker.human.Name + " " + worker.worker.WorkerRole);
+            Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
 
             HumanUtils.LeaveCompany(worker);
 

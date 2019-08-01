@@ -14,7 +14,9 @@ namespace Assets.Utils
             if (!CompanyUtils.IsEnoughResources(company, cost))
                 return;
 
-            AddClients(company, UserType.Core, GetTestCampaignClientGain(gameContext, company));
+            var testClients = GetTestCampaignClientGain(gameContext, company);
+
+            AddClients(company, testClients);
             GetFeedbackFromTestCampaign(company);
 
             var duration = GetTestCampaignDuration(gameContext, company);
