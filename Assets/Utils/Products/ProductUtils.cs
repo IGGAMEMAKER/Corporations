@@ -13,14 +13,5 @@ namespace Assets.Utils
         {
             return c.product.Concept;
         }
-
-
-        // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
-        public static bool HasSegmentCooldown(GameEntity product, UserType userType)
-        {
-            var cooldown = new CooldownImproveSegment(userType);
-
-            return CooldownUtils.HasCooldown(product, cooldown);
-        }
     }
 }

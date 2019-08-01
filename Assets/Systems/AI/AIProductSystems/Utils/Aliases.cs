@@ -43,13 +43,8 @@ public partial class AIProductSystems
 
     void Print(string action, GameEntity company)
     {
-        var player = GetPlayerProductCompany();
-
-        if (player == null)
-            return;
-
         bool isMyCompany = company.isControlledByPlayer || CompanyUtils.IsCompanyRelatedToPlayer(gameContext, company);
-        bool isMyCompetitor = player != null && company.product.Niche == player.product.Niche;
+        bool isMyCompetitor = false; // player != null && company.product.Niche == player.product.Niche;
 
         bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
         bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
@@ -75,10 +70,5 @@ public partial class AIProductSystems
     TeamResource GetProductUpgradeCost(GameEntity company)
     {
         return ProductUtils.GetProductUpgradeCost(company, gameContext);
-    }
-
-    GameEntity GetPlayerProductCompany()
-    {
-        return Array.Find(gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.ControlledByPlayer, GameMatcher.Product)), t => true);
     }
 }

@@ -21,15 +21,12 @@ namespace Assets.Utils
 
         public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, NicheType niche)
         {
-            return context.GetEntities(GameMatcher.Product).Where(p => p.product.Niche == niche);
+            return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
         public static GameEntity[] GetPlayersOnMarket(GameContext context, NicheType niche, bool something)
         {
-            return Array.FindAll(
-                context.GetEntities(GameMatcher.Product),
-                p => p.product.Niche == niche
-                );
+            return GetPlayersOnMarket(context, niche).ToArray();
         }
 
         public static int GetCompetitorsAmount(GameEntity e, GameContext context)

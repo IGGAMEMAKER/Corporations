@@ -4,11 +4,16 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
+        public static int GetMarketDemand(GameEntity product, GameEntity niche)
+        {
+            return niche.segment.Segments[UserType.Core];
+        }
+
         public static int GetMarketDemand(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            return niche.segment.Segments[UserType.Core];
+            return GetMarketDemand(product, niche);
         }
 
         public static bool IsInMarket(GameEntity product, GameContext gameContext)
@@ -26,7 +31,7 @@ namespace Assets.Utils
         public static bool IsWillInnovate(GameEntity product, GameEntity niche)
         {
             var current = GetProductLevel(product);
-            var marketDemand = niche.segment.Segments[UserType.Core];
+            var marketDemand = GetMarketDemand(product, niche);
 
             return current >= marketDemand;
         }
@@ -36,7 +41,7 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
             var current = GetProductLevel(product);
-            var marketDemand = niche.segment.Segments[UserType.Core];
+            var marketDemand = GetMarketDemand(product, niche);
 
             return current < marketDemand;
         }
