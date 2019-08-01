@@ -86,6 +86,8 @@ namespace Assets.Utils
         {
             var costs = GetNicheCosts(niche);
 
+            return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
+
             var brandingDuration = (long)MarketingUtils.GetBrandingCampaignCooldownDuration();
             var targetingDuration = (long)MarketingUtils.GetTargetingDuration();
 

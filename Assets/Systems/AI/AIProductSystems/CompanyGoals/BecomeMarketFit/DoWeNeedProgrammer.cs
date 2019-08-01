@@ -27,12 +27,11 @@ public partial class AIProductSystems : OnDateChange
         var iterationLength = ProductUtils.GetProductUpgradeIterationTime(gameContext, company);
         var requiredProduction = needResources.programmingPoints * 30 / iterationLength;
 
-
         if (production < requiredProduction)
             return 1;
 
-        if (production > requiredProduction + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
-            return -1;
+        //if (production > requiredProduction + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
+        //    return -1;
 
         return 0;
     }
