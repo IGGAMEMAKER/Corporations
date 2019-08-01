@@ -40,7 +40,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
         GenerateProductCompany("Yandex", NicheType.SearchEngine);
 
-        var microsoftOs = GenerateProductCompany("Microsoft", NicheType.OSDesktop);
+        var microsoftOs = GenerateProductCompany("Windows", NicheType.OSDesktop);
 
 
         // investors

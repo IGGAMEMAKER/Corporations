@@ -53,7 +53,7 @@ public class Hint : MonoBehaviour
 
 
         float contentWidth = 225f;
-        float contentHeight = 225f;
+        float contentHeight = 300f;
 
         float rightSideOfScreenOffset = 0;
         float verticalScreenOffset = 0;
