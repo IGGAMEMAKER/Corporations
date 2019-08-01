@@ -28,35 +28,23 @@ namespace Assets.Utils
             return MarketingUtils.GetClients(c) * 100;
         }
 
-        private static string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
-        {
-            var income = GetProductCompanyIncome(gameEntity, gameContext);
-
-            return $"Income of this company equals {Format.Money(income)}";
-        }
-
-        internal static string GetProductCompanyMaintenanceDescription(GameEntity company, GameContext gameContext)
-        {
-            var maintenance = GetProductCompanyMaintenance(company, gameContext);
-
-            return $"Maintenance of {company.company.Name} equals {Format.Money(maintenance)}";
-        }
-
-        private static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             return GetTeamMaintenance(e);
         }
 
 
-
-        public static long GetAverageMarketingMaintenance(GameEntity e, GameContext gameContext)
+        // TODO DUPLICATING GETTING MAINTENANCE
+        public static bool IsCanAffordMarketing(GameEntity company, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
-            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).salesPoints;
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche);
 
-            return baseCost;
+            return CompanyUtils.IsEnoughResources(company, baseCost);
         }
-        public static long GetAdsMaintenance(GameEntity company, GameContext gameContext)
+
+        // TODO DUPLICATING GETTING MAINTENANCE
+        public static long GetCompanyAdsMaintenance(GameEntity company, GameContext gameContext)
         {
             if (!company.hasProduct)
                 return 0;
@@ -64,7 +52,10 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).money;
 
-            return baseCost;
+            if (IsCanAffordMarketing(company, gameContext))
+                return baseCost;
+
+            return 0;
         }
     }
 }

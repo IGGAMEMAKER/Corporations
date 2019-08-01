@@ -16,7 +16,6 @@ public class RenderCompanyProfit : UpgradedParameterView
             "Team Maintenance: " + Visuals.Negative(Format.Money(maintenance)) +
             marketingMaintenance;
 
-
         return hint;
     }
 
@@ -27,5 +26,5 @@ public class RenderCompanyProfit : UpgradedParameterView
         return Visuals.PositiveOrNegativeMinified(change);
     }
 
-    long adsMaintenence => CompanyEconomyUtils.GetAdsMaintenance(SelectedCompany, GameContext);
+    long adsMaintenence => CompanyEconomyUtils.GetCompanyAdsMaintenance(SelectedCompany, GameContext);
 }

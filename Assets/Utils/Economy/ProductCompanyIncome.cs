@@ -4,7 +4,7 @@ namespace Assets.Utils
 {
     static partial class CompanyEconomyUtils
     {
-        private static long GetProductCompanyIncome(GameEntity e, GameContext context)
+        internal static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
             float income = 0;
 

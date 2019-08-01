@@ -68,47 +68,5 @@ namespace Assets.Utils
 
             return GetHoldingCost(context, holdings);
         }
-
-
-        private static string GetGroupIncomeDescription(GameContext context, int companyId)
-        {
-            string description = "Group income:\n";
-
-            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, false);
-
-            foreach (var h in holdings)
-            {
-                var c = CompanyUtils.GetCompanyById(context, h.companyId);
-
-                string name = c.company.Name;
-                long income = GetCompanyIncome(c, context);
-                string tiedIncome = Format.Minify(h.control * income / 100);
-
-                description += $"\n  {name}: +${tiedIncome} ({h.control}%)";
-            }
-
-            return description;
-        }
-
-        private static string GetGroupMaintenanceDescription(GameContext context, int companyId)
-        {
-            string description = "Group maintenance:\n";
-
-            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, false);
-
-            foreach (var h in holdings)
-            {
-                var c = CompanyUtils.GetCompanyById(context, h.companyId);
-
-                string name = c.company.Name;
-                long income = GetCompanyMaintenance(c, context);
-                string tiedIncome = Format.Minify(h.control * income / 100);
-
-                description += $"\n  {name}: -${tiedIncome} ({h.control}%)";
-            }
-
-            return description;
-        }
-
     }
 }

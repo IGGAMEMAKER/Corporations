@@ -61,14 +61,4 @@ public partial class AIProductSystems
     {
         return CompanyEconomyUtils.GetResourceChange(company, gameContext);
     }
-
-    TeamResource GetConceptCost(GameEntity company)
-    {
-        return ProductUtils.GetDevelopmentCost(company, gameContext);
-    }
-
-    TeamResource GetProductUpgradeCost(GameEntity company)
-    {
-        return ProductUtils.GetProductUpgradeCost(company, gameContext);
-    }
 }

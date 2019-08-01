@@ -8,7 +8,7 @@ public partial class AIProductSystems : OnDateChange
     // this will change for other company goals
     TeamResource GetResourceNecessity(GameEntity company)
     {
-        return GetProductUpgradeCost(company);
+        return ProductUtils.GetProductUpgradeCost(company, gameContext);
     }
 
 

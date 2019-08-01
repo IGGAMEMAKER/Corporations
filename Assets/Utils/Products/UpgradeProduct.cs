@@ -76,12 +76,5 @@ namespace Assets.Utils
             var duration = GetProductUpgradeIterationTime(gameContext, product);
             CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
         }
-
-        public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext)
-        {
-            var costs = GetProductUpgradeCost(product, gameContext);
-
-            return CompanyUtils.IsEnoughResources(product, costs);
-        }
     }
 }

@@ -1,8 +1,4 @@
-﻿using Assets.Classes;
-using Assets.Utils;
-using UnityEngine;
-
-public partial class AIProductSystems : OnDateChange
+﻿public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity company)
     {

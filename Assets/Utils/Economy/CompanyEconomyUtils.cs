@@ -43,26 +43,6 @@
             return GetCompanyCost(context, companyId) * desireToSell;
         }
 
-        internal static string GetIncomeDescription(GameContext context, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
-
-            if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyIncomeDescription(c, context);
-
-            return GetGroupIncomeDescription(context, companyId);
-        }
-
-        internal static string GetMaintenanceDescription(GameContext context, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
-
-            if (CompanyUtils.IsProductCompany(c))
-                return GetProductCompanyMaintenanceDescription(c, context);
-
-            return GetGroupMaintenanceDescription(context, companyId);
-        }
-
         public static long GetTeamMaintenance(GameContext gameContext, int companyId)
         {
             return GetTeamMaintenance(
@@ -176,7 +156,7 @@
 
         internal static long GetTotalMaintenance(GameEntity c, GameContext context)
         {
-            return GetCompanyMaintenance(c, context) + GetAdsMaintenance(c, context);
+            return GetCompanyMaintenance(c, context) + GetCompanyAdsMaintenance(c, context);
         }
 
         internal static long GetBalanceChange(GameContext context, int companyId)

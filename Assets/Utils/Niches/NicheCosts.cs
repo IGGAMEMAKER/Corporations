@@ -17,58 +17,58 @@ namespace Assets.Utils
             return GetNicheCosts(niche);
         }
 
-        #region branding
-        public static TeamResource GetPureBrandingCost(GameEntity niche)
-        {
-            var costs = NicheUtils.GetNicheCosts(niche);
-
-            return new TeamResource(0, 0, costs.MarketingCost * 4, 0, costs.AdCost * 3);
-        }
-
-        public static TeamResource GetPureBrandingCost(GameContext gameContext, NicheType nicheType)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
-
-            return GetPureBrandingCost(niche);
-        }
-
-        public static TeamResource GetPureBrandingCost(GameContext gameContext, GameEntity company)
-        {
-            return GetPureBrandingCost(gameContext, company.product.Niche);
-        }
-
-        //public static TeamResource GetPureBrandingCostPerMonth(GameEntity niche)
+        //#region branding
+        //public static TeamResource GetPureBrandingCost(GameEntity niche)
         //{
+        //    var costs = NicheUtils.GetNicheCosts(niche);
 
+        //    return new TeamResource(0, 0, costs.MarketingCost * 4, 0, costs.AdCost * 3);
         //}
-        #endregion
 
-        #region targeting
-        public static TeamResource GetPureTargetingCost(GameEntity niche)
-        {
-            var costs = NicheUtils.GetNicheCosts(niche);
+        //public static TeamResource GetPureBrandingCost(GameContext gameContext, NicheType nicheType)
+        //{
+        //    var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
 
-            return new TeamResource(0, 0, costs.MarketingCost * 1, 0, costs.AdCost * 1);
-        }
+        //    return GetPureBrandingCost(niche);
+        //}
 
-        public static TeamResource GetPureTargetingCost(GameContext gameContext, NicheType nicheType)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+        //public static TeamResource GetPureBrandingCost(GameContext gameContext, GameEntity company)
+        //{
+        //    return GetPureBrandingCost(gameContext, company.product.Niche);
+        //}
 
-            return GetPureTargetingCost(niche);
-        }
+        ////public static TeamResource GetPureBrandingCostPerMonth(GameEntity niche)
+        ////{
 
-        public static TeamResource GetPureTargetingCost(GameContext gameContext, GameEntity company)
-        {
-            return GetPureTargetingCost(gameContext, company.product.Niche);
-        }
-        #endregion
+        ////}
+        //#endregion
+
+        //#region targeting
+        //public static TeamResource GetPureTargetingCost(GameEntity niche)
+        //{
+        //    var costs = NicheUtils.GetNicheCosts(niche);
+
+        //    return new TeamResource(0, 0, costs.MarketingCost * 1, 0, costs.AdCost * 1);
+        //}
+
+        //public static TeamResource GetPureTargetingCost(GameContext gameContext, NicheType nicheType)
+        //{
+        //    var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+
+        //    return GetPureTargetingCost(niche);
+        //}
+
+        //public static TeamResource GetPureTargetingCost(GameContext gameContext, GameEntity company)
+        //{
+        //    return GetPureTargetingCost(gameContext, company.product.Niche);
+        //}
+        //#endregion
 
         internal static long GetTeamMaintenanceCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 
-            var devCost = ProductUtils.GetDevelopmentCost(niche);
+            var devCost = ProductUtils.GetBaseDevelopmentCost(niche);
             var marketingCost = GetBaseMarketingMaintenance(niche);
 
             var pp = devCost.programmingPoints;
@@ -87,22 +87,6 @@ namespace Assets.Utils
             var costs = GetNicheCosts(niche);
 
             return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
-
-            var brandingDuration = (long)MarketingUtils.GetBrandingCampaignCooldownDuration();
-            var targetingDuration = (long)MarketingUtils.GetTargetingDuration();
-
-            var branding = GetPureBrandingCost(niche);
-            var targeting = GetPureTargetingCost(niche);
-
-            // TODO period???
-            long month = 30;
-
-            var targetingPerMonth = targeting * month / targetingDuration;
-            var brandingPerMonth = branding * month / brandingDuration;
-
-            var marketingCost = targetingPerMonth + brandingPerMonth;
-
-            return marketingCost;
         }
     }
 }
