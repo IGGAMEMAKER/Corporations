@@ -31,10 +31,7 @@ public partial class AIProductSystems : OnDateChange
         if (production < requiredProduction)
             return 1;
 
-        var resource = company.companyResource.Resources;
-        var overflowByPoints = resource.programmingPoints > requiredProduction * 2;
-
-        if (overflowByPoints && production > requiredProduction + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
+        if (production > requiredProduction + Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER * 2)
             return -1;
 
         return 0;

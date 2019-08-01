@@ -10,7 +10,7 @@ public enum NicheDuration
     Year = 12,
     FiveYears = 60,
     Decade = 120,
-    EntireGame = 5000
+    EntireGame = 12 * 50
 }
 
 public enum NicheChangeSpeed

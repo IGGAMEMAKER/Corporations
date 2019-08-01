@@ -8,7 +8,9 @@ public partial class AIProductSystems : OnDateChange
     // this will change for other company goals
     long GetRequiredMarketingResources(GameEntity company)
     {
-        return CompanyEconomyUtils.GetAverageMarketingMaintenance(company, gameContext);
+        var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+
+        return NicheUtils.GetBaseMarketingMaintenance(niche).salesPoints;
     }
 
     int DoWeNeedMarketer(GameEntity company)
@@ -19,6 +21,8 @@ public partial class AIProductSystems : OnDateChange
         var production = change.salesPoints;
 
         Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");
+        Print($"We need {need}, but produce {production}", company);
+
 
         if (production < need)
             return 1;

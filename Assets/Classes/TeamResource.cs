@@ -108,8 +108,23 @@ namespace Assets.Classes
             Money -= spendable.Money;
         }
 
+        void prt (string baseStr, string v, long val)
+        {
+            baseStr += " " + v + ": " + val;
+        }
+
         public override string ToString()
         {
+            var str = "";
+
+            prt(str, "$$$", Money);
+            prt(str, "PP", ProgrammingPoints);
+            prt(str, "MP", ManagerPoints);
+            prt(str, "SP", SalesPoints);
+            prt(str, "IP", IdeaPoints);
+
+            return str;
+
             return String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
                 ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money);
         }
