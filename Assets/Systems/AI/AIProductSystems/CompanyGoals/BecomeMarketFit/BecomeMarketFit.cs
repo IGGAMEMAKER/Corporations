@@ -6,8 +6,7 @@
 
         Crunch(company);
 
-        ImproveSegments(company);
-        //StayInMarket(company);
+        UpgradeSegment(company);
 
         GrabTestClients(company);
     }

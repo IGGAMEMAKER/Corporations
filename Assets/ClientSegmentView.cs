@@ -53,11 +53,11 @@ public class ClientSegmentView : View
         SegmentBonus.text = $"+25";
     }
 
-    private void RenderChurn(UserType userType, GameEntity c)
+    private void RenderChurn(GameEntity c)
     {
-        var bonus = MarketingUtils.GetChurnBonus(GameContext, c.company.Id, userType);
+        var bonus = MarketingUtils.GetChurnBonus(GameContext, c.company.Id);
 
-        int baseValue = MarketingUtils.GetUserTypeBaseValue(userType);
+        int baseValue = MarketingUtils.GetUserTypeBaseValue();
 
         Churn.minValue = baseValue;
         Churn.maxValue = baseValue + 10;

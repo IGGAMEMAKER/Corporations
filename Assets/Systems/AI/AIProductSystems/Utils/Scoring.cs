@@ -28,12 +28,4 @@ public partial class AIProductSystems : OnDateChange
     {
         return Constants.COMPANY_SCORING_COMPANY_GOAL;
     }
-
-    long GetLoyaltyUrgency(GameEntity product)
-    {
-        var coreLoyalty = MarketingUtils.GetClientLoyalty(gameContext, product.company.Id, UserType.Core);
-        var regularsLoyalty = MarketingUtils.GetClientLoyalty(gameContext, product.company.Id, UserType.Regular);
-
-        return (coreLoyalty <= 0 || regularsLoyalty <= 0) ? Constants.COMPANY_SCORING_LOYALTY : 0;
-    }
 }

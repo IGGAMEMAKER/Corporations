@@ -6,7 +6,7 @@ public partial class AIProductSystems : OnDateChange
     {
         Crunch(company);
 
-        ImproveSegments(company);
+        UpgradeSegment(company);
 
         MarketingUtils.ReleaseApp(company);
     }

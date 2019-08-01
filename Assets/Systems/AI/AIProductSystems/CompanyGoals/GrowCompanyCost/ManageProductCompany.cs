@@ -17,7 +17,7 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageProductDevelopment(GameEntity company)
     {
-        ImproveSegments(company);
+        UpgradeSegment(company);
     }
 
     void ManageInvestors(GameEntity company)

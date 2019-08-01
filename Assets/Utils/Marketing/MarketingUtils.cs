@@ -52,23 +52,6 @@ namespace Assets.Utils
             return NicheUtils.GetNicheCosts(gameContext, nicheType);
         }
 
-        public static string GetAudienceHint(GameContext gameContext, UserType userType, GameEntity company)
-        {
-            StringBuilder hint = new StringBuilder();
-
-            var id = company.company.Id;
-
-            var churn = GetChurnRate(gameContext, id, userType);
-            var churnClients = GetChurnClients(gameContext, id, userType);
-
-            hint.AppendFormat("Due to our churn rate ({0}%)", churn);
-            hint.AppendFormat(" we lose {0} clients each month\n", Visuals.Negative(churnClients.ToString()));
-
-            hint.AppendLine();
-
-            return hint.ToString();
-        }
-
         public static TeamResource GetReleaseCost()
         {
             return new TeamResource(0, 0, 50, 0, 1000);

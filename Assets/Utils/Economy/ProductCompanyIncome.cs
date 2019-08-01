@@ -45,16 +45,5 @@ namespace Assets.Utils
         {
             return e.finance.basePrice;
         }
-
-        private static float GetUserTypePriceModifier(UserType userType)
-        {
-            switch (userType)
-            {
-                case UserType.Regular: return 0.6f;
-                case UserType.Core: return 2f;
-
-                default: return 0.1f;
-            }
-        }
     }
 }

@@ -4,6 +4,6 @@
     {
         Crunch(company);
 
-        ImproveSegments(company);
+        UpgradeSegment(company);
     }
 }

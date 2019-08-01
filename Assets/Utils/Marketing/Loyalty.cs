@@ -4,7 +4,7 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
-        static BonusContainer GetClientLoyaltyBonus(GameContext gameContext, int companyId, UserType userType)
+        static BonusContainer GetClientLoyaltyBonus(GameContext gameContext, int companyId)
         {
             var app = GetClientLoyaltyAppPart(gameContext, companyId);
             int bugs = GetClientLoyaltyBugPenalty(gameContext, companyId);
@@ -15,7 +15,7 @@ namespace Assets.Utils
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            var SegmentBonus = GetSegmentDevelopmentLoyaltyBonus(gameContext, companyId, userType);
+            var SegmentBonus = GetSegmentDevelopmentLoyaltyBonus(gameContext, companyId);
 
             return new BonusContainer("Client loyalty is")
                 .RenderTitle()
@@ -34,14 +34,14 @@ namespace Assets.Utils
             return c.product.Concept;
         }
 
-        public static long GetClientLoyalty(GameContext gameContext, int companyId, UserType userType)
+        public static long GetClientLoyalty(GameContext gameContext, int companyId)
         {
-            return GetClientLoyaltyBonus(gameContext, companyId, userType).Sum();
+            return GetClientLoyaltyBonus(gameContext, companyId).Sum();
         }
 
-        public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId, UserType userType)
+        public static string GetClientLoyaltyDescription(GameContext gameContext, int companyId)
         {
-            return GetClientLoyaltyBonus(gameContext, companyId, userType).ToString();
+            return GetClientLoyaltyBonus(gameContext, companyId).ToString();
         }
 
         public static int GetClientLoyaltyBugPenalty(GameContext gameContext, int companyId)

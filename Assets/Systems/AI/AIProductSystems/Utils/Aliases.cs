@@ -62,13 +62,6 @@ public partial class AIProductSystems
             Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {companyName}");
     }
 
-
-    // aliases
-    long GetSegmentLoyalty(GameEntity company, UserType userType)
-    {
-        return MarketingUtils.GetClientLoyalty(gameContext, company.company.Id, userType);
-    }
-
     TeamResource GetResourceChange(GameEntity company)
     {
         return CompanyEconomyUtils.GetResourceChange(company, gameContext);
