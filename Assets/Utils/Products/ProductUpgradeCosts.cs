@@ -37,13 +37,13 @@ namespace Assets.Utils
             return new TeamResource(devCost.programmingPoints, 0, 0, 0, 0);
         }
 
-        public static TeamResource GetSegmentUpgradeCost(GameEntity product, GameContext gameContext, UserType userType)
+        public static TeamResource GetProductUpgradeCost(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            bool isInnovation = IsWillInnovate(product, niche, userType);
+            bool isInnovation = IsWillInnovate(product, niche);
 
-            var innovationModifier = isInnovation ? 4 : 1;
+            var innovationModifier = isInnovation ? 2 : 1;
 
             var costs = NicheUtils.GetNicheCosts(niche);
 

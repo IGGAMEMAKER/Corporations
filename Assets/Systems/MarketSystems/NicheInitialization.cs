@@ -58,10 +58,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     public enum NicheMarketingMaintenance
     {
-        Low = 5,
-        Mid = 15,
-        High = 35,
-        Humongous = 50
+        Low = 1,
+        Mid = 3,
+        High = 7,
+        Humongous = 10
     }
 
     GameEntity SetNichesAutomatically(NicheType nicheType,

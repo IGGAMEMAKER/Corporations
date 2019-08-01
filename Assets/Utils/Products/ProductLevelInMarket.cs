@@ -13,20 +13,20 @@ namespace Assets.Utils
 
         public static bool IsInMarket(GameEntity product, GameContext gameContext)
         {
-            return !IsWillInnovate(product, gameContext, UserType.Core);
+            return !IsWillInnovate(product, gameContext);
         }
 
-        public static bool IsWillInnovate(GameEntity product, GameContext gameContext, UserType userType)
+        public static bool IsWillInnovate(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            return IsWillInnovate(product, niche, userType);
+            return IsWillInnovate(product, niche);
         }
 
-        public static bool IsWillInnovate(GameEntity product, GameEntity niche, UserType userType)
+        public static bool IsWillInnovate(GameEntity product, GameEntity niche)
         {
             var current = GetProductLevel(product);
-            var marketDemand = niche.segment.Segments[userType];
+            var marketDemand = niche.segment.Segments[UserType.Core];
 
             return current >= marketDemand;
         }

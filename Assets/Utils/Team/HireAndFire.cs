@@ -32,10 +32,10 @@ namespace Assets.Utils
 
             team.Workers[humanId] = role;
 
+            ReplaceTeam(company, team);
+
             if (IsWillOverextendTeam(company))
                 Promote(company);
-
-            ReplaceTeam(company, team);
         }
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)

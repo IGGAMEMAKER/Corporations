@@ -53,7 +53,7 @@ namespace Assets.Utils
             if (CooldownUtils.HasCooldown(product, cooldown))
                 return;
 
-            var costs = GetSegmentUpgradeCost(product, gameContext, userType);
+            var costs = GetProductUpgradeCost(product, gameContext, userType);
 
             if (!CompanyUtils.IsEnoughResources(product, costs))
                 return;
@@ -110,7 +110,7 @@ namespace Assets.Utils
 
         public static bool HasEnoughResourcesForSegmentUpgrade(GameEntity product, GameContext gameContext, UserType userType)
         {
-            var costs = GetSegmentUpgradeCost(product, gameContext, userType);
+            var costs = GetProductUpgradeCost(product, gameContext, userType);
 
             return CompanyUtils.IsEnoughResources(product, costs);
         }

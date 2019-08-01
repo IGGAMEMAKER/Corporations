@@ -48,7 +48,7 @@ public partial class AIProductSystems
         if (player == null)
             return;
 
-        bool isMyCompany = company.isControlledByPlayer;
+        bool isMyCompany = company.isControlledByPlayer || CompanyUtils.IsCompanyRelatedToPlayer(gameContext, company);
         bool isMyCompetitor = player != null && company.product.Niche == player.product.Niche;
 
         bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
@@ -81,7 +81,7 @@ public partial class AIProductSystems
 
     TeamResource GetSegmentCost(GameEntity company, UserType userType)
     {
-        return ProductUtils.GetSegmentUpgradeCost(company, gameContext, userType);
+        return ProductUtils.GetProductUpgradeCost(company, gameContext, userType);
     }
 
     GameEntity GetPlayerProductCompany()
