@@ -48,9 +48,9 @@ namespace Assets.Utils
             {
                 case TeamStatus.Solo: teamSizeModifier = 125; break;
                 case TeamStatus.Pair: teamSizeModifier = 100; break;
-                case TeamStatus.SmallTeam: teamSizeModifier = 75; break;
-                case TeamStatus.Department: teamSizeModifier = 50; break;
-                case TeamStatus.BigTeam: teamSizeModifier = 33; break;
+                case TeamStatus.SmallTeam: teamSizeModifier = 85; break;
+                case TeamStatus.Department: teamSizeModifier = 75; break;
+                case TeamStatus.BigTeam: teamSizeModifier = 65; break;
             }
 
             return teamSizeModifier;

@@ -23,21 +23,13 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
-        var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
+        NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
 
         var clientContainers = niche.nicheClientsContainer.Clients;
-        foreach (var s in segments)
-        {
-            // clients to clientContainer
-
-            var segId = s.Key;
-
-            var share = s.Value.marketShare;
-
-            clientContainers[segId] += flow * share / 100;
-        }
 
         var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType, false);
+
+        var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
 
         var strengths = new float[segments.Count];
         var strengthsProducts = new Dictionary<int, float>();

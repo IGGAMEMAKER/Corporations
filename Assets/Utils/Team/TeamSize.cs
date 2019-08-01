@@ -124,7 +124,7 @@ namespace Assets.Utils
 
         public static bool IsWillOverextendTeam(GameEntity company)
         {
-            return GetTeamSize(company) == GetTeamMaxSize(company);
+            return GetTeamSize(company) >= GetTeamMaxSize(company);
         }
     }
 }

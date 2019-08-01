@@ -53,7 +53,7 @@ namespace Assets.Utils
                 clients += (long)(clientBatch * g.Value * phasePeriod * financeReach);
             }
 
-            Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");
+            //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");
 
             return clients;
         }

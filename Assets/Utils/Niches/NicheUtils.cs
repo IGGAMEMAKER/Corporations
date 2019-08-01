@@ -68,5 +68,38 @@ namespace Assets.Utils
 
             return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
         }
+
+
+
+
+        internal static void AddNewUsersToMarket(GameEntity niche, GameContext gameContext, long clients)
+        {
+            var nicheType = niche.niche.NicheType;
+
+            var segments = GetNichePositionings(nicheType, gameContext);
+
+            var clientContainers = niche.nicheClientsContainer.Clients;
+            foreach (var s in segments)
+            {
+                // clients to clientContainer
+
+                var segId = s.Key;
+
+                var share = s.Value.marketShare;
+
+                clientContainers[segId] += clients * share / 100;
+            }
+
+            niche.ReplaceNicheClientsContainer(clientContainers);
+        }
+
+        internal static void ReturnUsersWhenCompanyIsClosed(GameEntity e, GameContext gameContext)
+        {
+            var users = MarketingUtils.GetClients(e);
+
+            var niche = GetNicheEntity(gameContext, e.product.Niche);
+
+            AddNewUsersToMarket(niche, gameContext, users);
+        }
     }
 }

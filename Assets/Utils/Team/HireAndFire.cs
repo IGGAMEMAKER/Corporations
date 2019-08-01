@@ -32,6 +32,9 @@ namespace Assets.Utils
 
             team.Workers[humanId] = role;
 
+            if (IsWillOverextendTeam(company))
+                Promote(company);
+
             ReplaceTeam(company, team);
         }
 

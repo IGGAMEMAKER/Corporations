@@ -7,12 +7,6 @@ public partial class AIProductSystems : OnDateChange
 {
     void ManageSmallTeam(GameEntity company)
     {
-        if (TeamUtils.IsWillOverextendTeam(company))
-        {
-            TeamUtils.Promote(company);
-            return;
-        }
-
         ManageProgrammers(company);
     }
 
