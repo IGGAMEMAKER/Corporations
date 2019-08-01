@@ -18,13 +18,13 @@ public partial class AIProductSystems : OnDateChange
         var need = GetRequiredMarketingResources(company);
         var production = change.salesPoints;
 
-        //Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");
+        Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");
 
         if (production < need)
             return 1;
 
-        if (production > need + Constants.DEVELOPMENT_PRODUCTION_MARKETER * 3)
-            return -1;
+        //if (production > need + Constants.DEVELOPMENT_PRODUCTION_MARKETER * 3)
+        //    return -1;
 
         return 0;
     }

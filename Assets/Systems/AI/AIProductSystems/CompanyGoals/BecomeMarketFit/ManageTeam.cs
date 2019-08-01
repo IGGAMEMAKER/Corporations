@@ -26,9 +26,4 @@ public partial class AIProductSystems : OnDateChange
                 // case 0: do nothing
         }
     }
-
-    int GetMarketDifference(GameEntity company)
-    {
-        return ProductUtils.GetMarketDemand(company, gameContext, UserType.Core) - company.product.Concept;
-    }
 }

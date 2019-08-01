@@ -34,7 +34,7 @@ namespace Assets.Utils
 
             ReplaceTeam(company, team);
 
-            Debug.Log($"Attach to " + company.company.Name + ": " + role.ToString());
+            //Debug.Log($"Hire to " + company.company.Name + ": " + role.ToString());
 
 
             if (IsWillOverextendTeam(company))

@@ -85,7 +85,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         Debug.Log("Pay for marketing : " + product.company.Name);
         product.companyResource.Resources.Print();
-
+        maintenance.Print();
 
         bool isPayingForMarketing = CompanyUtils.IsEnoughResources(product, maintenance);
 
