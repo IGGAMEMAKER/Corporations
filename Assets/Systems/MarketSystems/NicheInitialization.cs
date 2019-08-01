@@ -50,10 +50,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     public enum NicheTechMaintenance
     {
-        Low = 5,
-        Mid = 15,
-        High = 50,
-        Humongous = 125
+        Low = 3,
+        Mid = 7,
+        High = 15,
+        Humongous = 25
     }
 
     public enum NicheMarketingMaintenance
