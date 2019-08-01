@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Utils;
+using Assets.Utils.Formatting;
 using Entitas;
 using UnityEngine;
 
@@ -104,7 +105,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 isCompetitive = false,
                 marketShare = 100,
-                name = "Basic " + nicheType.ToString()
+                name = "Basic " + EnumUtils.GetFormattedNicheName(nicheType)
             };
             clientsContainer[0] = 0;
         }

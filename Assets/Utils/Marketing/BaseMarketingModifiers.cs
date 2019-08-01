@@ -38,11 +38,9 @@
 
         public static long GetCompanyReachModifierMultipliedByHundred(GameEntity e)
         {
-            var financing = GetMarketingFinancingAudienceReachModifier(e.finance.marketingFinancing);
-
             var brand = GetCompanyBrandModifierMultipliedByHundred(e);
 
-            return financing * brand;
+            return brand;
         }
 
         public static long GetCompanyBrandModifierMultipliedByHundred(GameEntity e)

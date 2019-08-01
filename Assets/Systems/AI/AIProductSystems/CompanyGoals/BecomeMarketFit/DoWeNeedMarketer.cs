@@ -15,10 +15,6 @@ public partial class AIProductSystems : OnDateChange
     {
         var change = GetResourceChange(company);
 
-        var period = GetResourcePeriod();
-
-
-
         var need = GetRequiredMarketingResources(company);
         var production = change.salesPoints;
 
@@ -27,7 +23,7 @@ public partial class AIProductSystems : OnDateChange
         if (production < need)
             return 1;
 
-        if (production > need + Constants.DEVELOPMENT_PRODUCTION_MARKETER)
+        if (production > need + Constants.DEVELOPMENT_PRODUCTION_MARKETER * 3)
             return -1;
 
         return 0;

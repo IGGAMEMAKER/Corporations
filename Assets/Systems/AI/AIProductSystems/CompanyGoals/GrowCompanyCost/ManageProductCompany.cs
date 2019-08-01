@@ -6,6 +6,8 @@ public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity company)
     {
+        //Debug.Log("Manage Product Company ")
+
         ManageProductTeam(company);
 
         ManageProductDevelopment(company);
@@ -61,6 +63,9 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageCompanyMarketing(GameEntity company)
     {
+        MarketingUtils.SetFinancing(gameContext, company.company.Id, MarketingFinancing.Medium);
+        return;
+
         SetMarketingFinancingLevel(company);
 
         StartBrandingCampaign(company);

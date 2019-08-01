@@ -73,33 +73,46 @@ public partial class ClientDistributionSystem : OnMonthChange
 
             clientContainers[segId] -= clients;
 
-            PayForMarketing(p);
+            PayForMarketing(p, niche);
         }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
-    void PayForMarketing(GameEntity product)
+    void PayForMarketing(GameEntity product, GameEntity niche)
     {
-        
+        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
+
+        Debug.Log("Pay for marketing : " + product.company.Name);
+        product.companyResource.Resources.Print();
+
+
+        bool isPayingForMarketing = CompanyUtils.IsEnoughResources(product, maintenance);
+
+        var power = -1;
+
+        if (isPayingForMarketing)
+            power += 4;
+
+        bool isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext);
+        bool isInnovator = product.isTechnologyLeader;
+
+        if (isInnovator)
+            power += 3;
+
+        if (isOutOfMarket)
+            power += -5;
+
+        MarketingUtils.AddBrandPower(product, power);
+
+        if (isPayingForMarketing)
+            CompanyUtils.SpendResources(product, maintenance);
     }
 
     float GetCompanyAudienceReach(GameEntity product)
     {
         var rand = Random.Range(0.15f, 1.4f);
 
-        var targetingMultiplier = 1;
-        var brandingMultiplier = 10;
-
-        bool wantsToMakeBrandingCampaign = Random.Range(0, 7) < 2;
-        bool isBrandingPossible = !MarketingUtils.HasBrandingCooldown(product) && wantsToMakeBrandingCampaign;
-
-        var totalMultplier = targetingMultiplier + (isBrandingPossible ? brandingMultiplier : 0);
-
-        var companyMultiplier = MarketingUtils.GetCompanyReachModifierMultipliedByHundred(product);
-
-        var reach = 1 + rand * totalMultplier * companyMultiplier;
-
-        return reach;
+        return 1 + rand * product.branding.BrandPower;
     }
 }

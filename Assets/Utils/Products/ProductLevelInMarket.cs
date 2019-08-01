@@ -30,5 +30,15 @@ namespace Assets.Utils
 
             return current >= marketDemand;
         }
+
+        public static bool IsOutOfMarket(GameEntity product, GameContext gameContext)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            var current = GetProductLevel(product);
+            var marketDemand = niche.segment.Segments[UserType.Core];
+
+            return current < marketDemand;
+        }
     }
 }

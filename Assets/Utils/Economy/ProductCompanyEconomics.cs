@@ -54,9 +54,7 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
             var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).salesPoints;
 
-            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(e);
-
-            return baseCost * financing;
+            return baseCost;
         }
         public static long GetAdsMaintenance(GameEntity company, GameContext gameContext)
         {
@@ -66,11 +64,7 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).money;
 
-            var financing = MarketingUtils.GetMarketingFinancingPriceModifier(company);
-
-            Debug.Log("Financing " + financing);
-
-            return baseCost * financing;
+            return baseCost;
         }
     }
 }
