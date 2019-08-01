@@ -5,9 +5,36 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
+        public static int GetMarketStateCostsModifier(NicheLifecyclePhase phase)
+        {
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Innovation: return 1;
+                case NicheLifecyclePhase.Trending: return 5;
+                case NicheLifecyclePhase.MassUse: return 9;
+                case NicheLifecyclePhase.Decay: return 7;
+
+                default: return 0;
+            }
+        }
+
         public static NicheCostsComponent GetNicheCosts(GameEntity niche)
         {
-            return niche.nicheCosts;
+            var state = GetMarketState(niche);
+            var costs = niche.nicheCosts;
+
+            var multiplier = GetMarketStateCostsModifier(state);
+            var component = new NicheCostsComponent
+            {
+                BasePrice = costs.BasePrice,
+                AdCost = costs.AdCost * multiplier,
+                ClientBatch = costs.ClientBatch * multiplier,
+                IdeaCost = costs.IdeaCost * multiplier,
+                MarketingCost = costs.MarketingCost * multiplier,
+                TechCost = costs.TechCost * multiplier
+            };
+
+            return component;
         }
 
         public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType)
