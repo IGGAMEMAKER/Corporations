@@ -111,8 +111,9 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     void AddCash(GameEntity company, long money)
     {
-        company.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
+        CompanyUtils.SetResources(company, new Assets.Classes.TeamResource(1000000000));
     }
+
     void AddCash(int companyId, long money)
     {
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);

@@ -1,4 +1,5 @@
 ﻿using Assets.Classes;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -6,9 +7,18 @@ namespace Assets.Utils
     {
         public static void SpendResources(GameEntity company, TeamResource resource)
         {
+            //if (company.company.Name == "Windows")
+            //{
+            //    Debug.Log("Spending: " + resource.ToString());
+            //}
             company.companyResource.Resources.Spend(resource);
 
             company.ReplaceCompanyResource(company.companyResource.Resources);
+        }
+
+        public static void SetResources(GameEntity company, TeamResource resource)
+        {
+            company.ReplaceCompanyResource(resource);
         }
 
         public static void AddResources(GameEntity company, TeamResource resource)
