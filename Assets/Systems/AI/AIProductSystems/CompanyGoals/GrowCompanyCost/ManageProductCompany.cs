@@ -2,29 +2,31 @@
 
 public partial class AIProductSystems : OnDateChange
 {
-    void ManageProductCompany(GameEntity company)
+    void ManageProductCompany(GameEntity product)
     {
         //Debug.Log("Manage Product Company ")
 
-        ManageProductTeam(company);
+        ManageProductTeam(product);
 
-        ManageProductDevelopment(company);
+        ManageProductDevelopment(product);
 
-        ManageInvestors(company);
+        ManageInvestors(product);
+
+        PayDividendsIfPossible(product);
     }
 
-    void ManageProductDevelopment(GameEntity company)
+    void ManageProductDevelopment(GameEntity product)
     {
-        UpgradeSegment(company);
+        UpgradeSegment(product);
     }
 
-    void ManageInvestors(GameEntity company)
+    void ManageInvestors(GameEntity product)
     {
         // taking investments
-        TakeInvestments(company);
+        TakeInvestments(product);
     }
 
-    void PayDividends(GameEntity product)
+    void PayDividendsIfPossible(GameEntity product)
     {
         if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
@@ -32,7 +34,8 @@ public partial class AIProductSystems : OnDateChange
         if (product.isIndependentCompany)
             return;
 
-        var dividends = product.companyResource.Resources.money - CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
+        var maintenance = CompanyEconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
+        var dividends = product.companyResource.Resources.money - maintenance;
 
         CompanyUtils.PayDividends(gameContext, product, dividends);
     }

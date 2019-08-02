@@ -185,16 +185,22 @@
         }
 
 
+        public static long GetOptimalProductCompanyMaintenance(GameContext gameContext, GameEntity product)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
+            var nicheTeamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
+            var marketingMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
+
+            return nicheTeamMaintenance + marketingMaintenance;
+        }
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
             var income = GetCompanyIncome(product, gameContext);
-            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+            var maintenance = GetOptimalProductCompanyMaintenance(gameContext, product);
 
-            var nicheTeamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
-
-            return nicheTeamMaintenance > income;
+            return maintenance > income;
 
             var profitable = GetTotalBalanceChange(product, gameContext) > 0;
 
