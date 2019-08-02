@@ -19,7 +19,6 @@ public class NicheMapRenderer : View
 
     public override void ViewRender()
     {
-        Debug.Log("NICHE MAP RENDERER");
         Render();
     }
 
