@@ -57,6 +57,7 @@ public class CompanyViewOnMap : View
 
         var level = ProductUtils.GetProductLevel(company);
         hint.AppendLine($"\nApp quality: {level}");
+
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {clients}");
 
@@ -65,8 +66,6 @@ public class CompanyViewOnMap : View
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
-
-        hint.AppendLine("\nFinancing: " + company.finance.marketingFinancing);
 
         return hint.ToString();
     }

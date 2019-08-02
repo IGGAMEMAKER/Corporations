@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -78,7 +79,7 @@ namespace Assets.Utils
 
 
 
-        internal static long GetMarketShareOf(GameEntity product, GameContext gameContext)
+        internal static long GetMarketShareOfCompanyMultipliedByHundred(GameEntity product, GameContext gameContext)
         {
             long clients = 0;
 
@@ -88,7 +89,11 @@ namespace Assets.Utils
             if (clients == 0)
                 return 0;
 
-            return MarketingUtils.GetClients(product) / clients;
+            var share = 100 * MarketingUtils.GetClients(product) / clients;
+
+            //Debug.Log("GetMarketShareOf " + product.company.Name + " : " + share);
+
+            return share;
         }
 
 

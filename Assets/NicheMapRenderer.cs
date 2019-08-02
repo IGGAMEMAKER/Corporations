@@ -12,10 +12,10 @@ public class NicheMapRenderer : View
     public GameObject NichePrefab;
     public GameObject CompanyPrefab;
 
+    NicheType currNiche;
+
     [HideInInspector]
-    internal float NicheRadius = 225f;
-    [HideInInspector]
-    internal float CompanyRadius = 85f;
+    internal float CompanyRadius = 165f;
 
     public override void ViewRender()
     {
@@ -26,7 +26,21 @@ public class NicheMapRenderer : View
     {
         var baseForIndustry = new Vector3(350, -350); // Rendering.GetPointPositionOnCircle(0, 1, 0, 1);
 
+        if (currNiche != SelectedNiche)
+        {
+            niches.Clear();
+            companies.Clear();
+
+            currNiche = SelectedNiche;
+        }
+
         RenderMarket(SelectedNiche, 0, 1, baseForIndustry);
+
+        // clean dead companies
+        foreach (var c in companies)
+        {
+            c.Value.SetActive(CompanyUtils.GetCompanyById(GameContext, c.Key).isAlive);
+        }
     }
 
     void RenderMarket(NicheType niche, int index, int marketCount, Vector3 industryPosition)
@@ -58,7 +72,7 @@ public class NicheMapRenderer : View
     {
         GameObject c = GetCompanyObject(company.company.Id);
 
-        UpdateCompanyPosition(c, index, amount, marketPosition, company.product.Niche);
+        UpdateCompanyPosition(c, index, amount, marketPosition, company);
 
         c.GetComponent<CompanyViewOnMap>().SetEntity(company, true);
     }
@@ -98,16 +112,23 @@ public class NicheMapRenderer : View
         var scale = GetMarketScale(niche);
 
         m.transform.localScale = new Vector3(scale, scale, 1);
-        m.transform.localPosition = Rendering.GetPointPositionOnCircle(index, marketCount, NicheRadius, 1) + basePosition;
+        m.transform.localPosition = basePosition;
+            //Rendering.GetPointPositionOnCircle(index, marketCount, NicheRadius, 1) 
     }
 
-    void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition, NicheType niche)
+    void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition, GameEntity startup)
     {
-        var scale = 0.75f; // GetMarketScale(niche);
+        var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
 
-        var marketScale = GetMarketScale(niche) - 0.8f;
+        var min = 0.5f;
+        var max = 1.2f;
+        var k = max - min;
+
+        var scale = min + k * share; // GetMarketScale(niche);
+
+        var marketScale = GetMarketScale(startup.product.Niche) - 0.8f;
 
         c.transform.localScale = new Vector3(scale, scale, 1);
-        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, Mathf.PI) + basePosition;
+        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.5f * Mathf.PI) + basePosition;
     }
 }

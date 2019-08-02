@@ -41,12 +41,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
         CheapSubscription = 100, // Subscription model: 10$/month
     }
 
-    public enum NicheMaintenance
+    public enum NicheAdMaintenance
     {
-        Low =       1000,
-        Mid =       30000,
-        High =      500000,
-        Humongous = 5000000
+        Low =       2000,
+        Mid =       7000,
+        High =      25000,
+        Humongous = 85000
     }
 
     public enum NicheTechMaintenance
@@ -68,7 +68,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
-        NicheMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
+        NicheAdMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
         ProductPositioning[] productPositionings,
         int startDate)
     {
@@ -167,7 +167,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return 0;
     }
 
-    int GetAdCost (NicheMaintenance nicheMaintenance, int nicheId)
+    int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
     {
         var baseValue = (long)nicheMaintenance;
 

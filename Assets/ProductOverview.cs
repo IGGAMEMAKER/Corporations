@@ -41,7 +41,7 @@ public class ProductOverview : View
         AppQuality.text = $"App quality: {quality} ({status})";
 
         var brand = SelectedCompany.branding.BrandPower;
-        Brand.text = $"Brand strength: {brand}";
+        Brand.text = $"Brand: {brand}";
 
         var posTextual = NicheUtils.GetCompanyPositioning(SelectedCompany, GameContext);
         PositioningLabel.text = "Positioning: " + posTextual;

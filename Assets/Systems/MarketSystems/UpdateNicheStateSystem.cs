@@ -78,7 +78,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var state = niche.nicheState;
 
-        niche.ReplaceNicheState(state.Phase, state.Duration - 1);
+        niche.ReplaceNicheState(state.Phase, Mathf.Max(state.Duration - 1, 0));
     }
 
     void IInitializeSystem.Initialize()

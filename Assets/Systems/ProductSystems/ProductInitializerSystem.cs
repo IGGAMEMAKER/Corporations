@@ -185,11 +185,17 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void AttachToHolding(int parent, int child)
     {
         CompanyUtils.AttachToGroup(GameContext, parent, child);
+
+        var c = CompanyUtils.GetCompanyById(GameContext, child);
+        var p = CompanyUtils.GetCompanyById(GameContext, parent);
+
+        if (c.hasProduct)
+            CompanyUtils.AddFocusNiche(c.product.Niche, p, GameContext);
     }
 
     void AttachToHolding(int parent, GameEntity child)
     {
-        CompanyUtils.AttachToGroup(GameContext, parent, child.company.Id);
+        AttachToHolding(parent, child.company.Id);
     }
 
     void AddShareholder(int companyId, int investorId, int shares)
