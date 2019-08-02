@@ -11,7 +11,8 @@
             else
                 AppendCompanyGroupBonuses(description, company);
 
-            description.AppendAndHideIfZero("Invests already", 35);
+            if (IsInvestsInCompany(investor, company))
+                description.AppendAndHideIfZero("Invests already", 35);
 
             description.Append("Same goals", 25);
 

@@ -70,15 +70,4 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         CompanyUtils.AddInvestmentProposal(gameContext, product.company.Id, proposal);
     }
-
-
-    void PayDividends(GameEntity product)
-    {
-        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
-            return;
-
-        var dividends = product.companyResource.Resources.money - CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
-
-        CompanyUtils.PayDividends(gameContext, product, dividends);
-    }
 }

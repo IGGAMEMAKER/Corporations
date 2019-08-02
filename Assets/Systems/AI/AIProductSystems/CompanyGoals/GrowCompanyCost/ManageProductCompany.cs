@@ -1,4 +1,6 @@
-﻿public partial class AIProductSystems : OnDateChange
+﻿using Assets.Utils;
+
+public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity company)
     {
@@ -20,5 +22,18 @@
     {
         // taking investments
         TakeInvestments(company);
+    }
+
+    void PayDividends(GameEntity product)
+    {
+        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
+            return;
+
+        if (product.isIndependentCompany)
+            return;
+
+        var dividends = product.companyResource.Resources.money - CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
+
+        CompanyUtils.PayDividends(gameContext, product, dividends);
     }
 }
