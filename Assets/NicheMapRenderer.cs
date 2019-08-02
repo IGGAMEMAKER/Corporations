@@ -1,20 +1,17 @@
 ﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MarketMapRenderer : View
+public class NicheMapRenderer : View
 {
     Dictionary<NicheType, GameObject> niches = new Dictionary<NicheType, GameObject>();
     Dictionary<int, GameObject> companies = new Dictionary<int, GameObject>();
-    Dictionary<IndustryType, GameObject> industryNames = new Dictionary<IndustryType, GameObject>();
 
     public GameObject NichePrefab;
-    public GameObject IndustryPrefab;
     public GameObject CompanyPrefab;
 
-    [HideInInspector]
-    internal float IndustrialRadius = 350f;
     [HideInInspector]
     internal float NicheRadius = 225f;
     [HideInInspector]
@@ -25,46 +22,12 @@ public class MarketMapRenderer : View
         Render();
     }
 
-    MapNavigation mapNavigation;
-
-    float Zoom
-    {
-        get
-        {
-            if (mapNavigation == null)
-                mapNavigation = GetComponent<MapNavigation>();
-            
-            return mapNavigation.Zoom;
-        }
-    }
-
     void Render()
     {
-        var industries = NicheUtils.GetIndustries(GameContext);
+        var baseForIndustry = new Vector3(350, -350); // Rendering.GetPointPositionOnCircle(0, 1, 0, 1);
 
-        for (var i = 0; i < industries.Length; i++)
-            RenderIndustry(industries[i].industry.IndustryType, i, industries.Length);
+        RenderMarket(SelectedNiche, 0, 1, baseForIndustry);
     }
-
-    private void RenderIndustry(IndustryType IndustryType, int j, int industriesCount)
-    {
-        var markets = NicheUtils.GetPlayableNichesInIndustry(IndustryType, GameContext);
-
-        var baseRadius = IndustrialRadius + NicheRadius;
-        var baseMapOffset = new Vector3(baseRadius, -baseRadius);
-        var baseForIndustry = Rendering.GetPointPositionOnCircle(j, industriesCount, IndustrialRadius, 1) + baseMapOffset;
-
-        GameObject o = GetIndustryObject(IndustryType);
-
-        UpdateIndustryPosition(o, j, industriesCount, baseMapOffset);
-
-        o.GetComponent<IndustryViewOnMap>().SetEntity(IndustryType);
-
-        for (var i = 0; i < markets.Length; i++)
-            RenderMarket(markets[i].niche.NicheType, i, markets.Length, baseForIndustry);
-    }
-
-
 
     void RenderMarket(NicheType niche, int index, int marketCount, Vector3 industryPosition)
     {
@@ -85,7 +48,8 @@ public class MarketMapRenderer : View
         var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche, true);
 
         var marketPosition = m.transform.localPosition;
-        var count = competitors.Count();
+
+        var count = competitors.Length;
         for (var i = 0; i < count; i++)
             RenderCompany(competitors[i], i, count, marketPosition);
     }
@@ -97,14 +61,6 @@ public class MarketMapRenderer : View
         UpdateCompanyPosition(c, index, amount, marketPosition, company.product.Niche);
 
         c.GetComponent<CompanyViewOnMap>().SetEntity(company, true);
-    }
-
-    GameObject GetIndustryObject(IndustryType industry)
-    {
-        if (!industryNames.ContainsKey(industry))
-            industryNames[industry] = Instantiate(IndustryPrefab, transform);
-
-        return industryNames[industry];
     }
 
     GameObject GetMarketObject(NicheType niche)
@@ -137,14 +93,6 @@ public class MarketMapRenderer : View
 
 
     // set transforms
-    void UpdateIndustryPosition(GameObject i, int index, int marketCount, Vector3 basePosition)
-    {
-        var scale = 1;
-
-        i.transform.localScale = new Vector3(scale, scale, 1);
-        i.transform.localPosition = Rendering.GetPointPositionOnCircle(index, marketCount, IndustrialRadius, 1) + basePosition;
-    }
-
     void UpdateMarketPosition(GameObject m, int index, int marketCount, Vector3 basePosition, NicheType niche)
     {
         var scale = GetMarketScale(niche);
