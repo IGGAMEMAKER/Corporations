@@ -25,10 +25,8 @@ public partial class ProductInitializerSystem : IInitializeSystem
         SetSpheresOfInfluence();
 
         var playerCompany = CompanyUtils.GetPlayerCompany(GameContext);
-        Debug.Log(playerCompany.company.Name + " INIT SCREEN ");
 
         var daughter = CompanyUtils.GetDaughterCompanies(GameContext, playerCompany.company.Id)[0];
-        Debug.Log(daughter.company.Name + " INIT SCREEN ");
 
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, daughter.product.Niche);
     }

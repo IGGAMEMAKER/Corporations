@@ -24,7 +24,7 @@ class MenuInputSystem :
     void IInitializeSystem.Initialize()
     {
         menu = context.CreateEntity();
-        screen = ScreenMode.GroupManagementScreen;
+        screen = ScreenMode.NicheScreen;
 
         menu.AddNavigationHistory(new List<MenuComponent>());
 
