@@ -189,7 +189,12 @@
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            MarketingUtils.SetFinancing(gameContext, product.company.Id, MarketingFinancing.High);
+            var income = GetCompanyIncome(product, gameContext);
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            var nicheTeamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
+
+            return nicheTeamMaintenance > income;
 
             var profitable = GetTotalBalanceChange(product, gameContext) > 0;
 
