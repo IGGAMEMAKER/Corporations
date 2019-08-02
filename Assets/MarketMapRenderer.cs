@@ -47,13 +47,8 @@ public class MarketMapRenderer : View
     {
         var industries = NicheUtils.GetIndustries(GameContext);
 
-        var length = industries.Length;
-        for (var i = 0; i < length; i++)
-        {
-            var ind = industries[i];
-
-            RenderIndustry(ind.industry.IndustryType, i, length);
-        }
+        for (var i = 0; i < industries.Length; i++)
+            RenderIndustry(industries[i].industry.IndustryType, i, industries.Length);
     }
 
     private void RenderIndustry(IndustryType IndustryType, int j, int industriesCount)
@@ -90,10 +85,10 @@ public class MarketMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        //if (!NicheUtils.IsPlayableNiche(GameContext, niche))
-        //    m.SetActive(false);
+        if (!NicheUtils.IsPlayableNiche(GameContext, niche))
+            m.SetActive(false);
 
-        //RenderCompanies(niche, m);
+        RenderCompanies(niche, m);
     }
 
     void RenderCompanies(NicheType niche, GameObject m)

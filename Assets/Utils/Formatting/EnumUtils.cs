@@ -22,11 +22,11 @@ namespace Assets.Utils.Formatting
                 case NicheType.SocialNetwork: return "Social Networks";
                 case NicheType.Blogs: return "Blogs";
                 case NicheType.Forums: return "Forums";
-                case NicheType.Email: return "Email service";
+                case NicheType.Email: return "Email services";
 
 
-                case NicheType.CloudComputing: return "Cloud Computing";
-                case NicheType.OSDesktop: return "Desktop OS";
+                case NicheType.CloudComputing: return "Clouds";
+                case NicheType.OSDesktop: return "Operation Systems";
                 case NicheType.SearchEngine: return "Search Engines";
                 case NicheType.Browser: return "Web browsers";
 
