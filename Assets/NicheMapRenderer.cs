@@ -19,6 +19,7 @@ public class NicheMapRenderer : View
 
     public override void ViewRender()
     {
+        Debug.Log("NICHE MAP RENDERER");
         Render();
     }
 
@@ -28,6 +29,12 @@ public class NicheMapRenderer : View
 
         if (currNiche != SelectedNiche)
         {
+            foreach (var n in niches)
+                Destroy(n.Value);
+
+            foreach (var c in companies)
+                Destroy(c.Value);
+
             niches.Clear();
             companies.Clear();
 
