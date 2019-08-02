@@ -21,6 +21,9 @@ public abstract partial class ButtonController : BaseClass
         if (Contains<ToggleRoleButtons>())
             return;
 
+        if (Contains<AutomaticallyShowAnnualReport>())
+            return;
+
         UpdatePage();
     }
 

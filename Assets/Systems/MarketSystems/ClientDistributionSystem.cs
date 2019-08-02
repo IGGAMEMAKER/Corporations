@@ -83,8 +83,8 @@ public partial class ClientDistributionSystem : OnMonthChange
     {
         var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
 
-        Debug.Log("Pay for marketing : " + product.company.Name);
-        maintenance.Print();
+        //Debug.Log("Pay for marketing : " + product.company.Name);
+        //maintenance.Print();
 
         bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
 

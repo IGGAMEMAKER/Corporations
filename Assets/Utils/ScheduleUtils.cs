@@ -19,6 +19,13 @@ namespace Assets.Utils
             return GetDateContainer(gameContext).isTimerRunning;
         }
 
+        public static void PauseGame(GameContext gameContext)
+        {
+            var container = GetDateContainer(gameContext);
+
+            container.isTimerRunning = false;
+        }
+
         public static TaskComponent GenerateTaskComponent(GameContext gameContext, TaskType taskType, int duration)
         {
             int currentDate = GetCurrentDate(gameContext); // contexts.game.GetEntities(GameMatcher.Date)[0].date.Date;

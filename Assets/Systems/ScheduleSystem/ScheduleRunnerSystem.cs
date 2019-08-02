@@ -1,11 +1,12 @@
-﻿using Entitas;
+﻿using Assets.Utils;
+using Entitas;
 using UnityEngine;
 
 public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 {
     // TODO TIMER
     readonly GameContext _context;
-    bool isTimerRunning = false;
+    bool isTimerRunning => DateEntity.isTimerRunning;
 
     float totalTime;
     float currentSpeed = 1;
@@ -22,7 +23,10 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     {
         DateEntity = _context.CreateEntity();
         DateEntity.AddDate(0);
-        DateEntity.isTimerRunning = false;
+
+        ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
+
+        //DateEntity.isTimerRunning = false;
 
         ResetTimer();
     }
@@ -36,8 +40,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     void ToggleTimer()
     {
-        isTimerRunning = !isTimerRunning;
-        DateEntity.isTimerRunning = isTimerRunning;
+        DateEntity.isTimerRunning = !isTimerRunning;
     }
 
     void UpdateWorld()
