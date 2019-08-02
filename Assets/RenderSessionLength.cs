@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RenderSessionLength : MonoBehaviour
 {
-    //private void OnGUI()
-    //{
-    //    GUI.Label(new Rect(), "Session time: " + Time.time);
-    //}
+    public Text text;
+
+    private void Update()
+    {
+        text.text = SessionDuration.FormatTime();
+    }
 }

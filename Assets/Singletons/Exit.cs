@@ -16,7 +16,7 @@ public class Exit : View
 
         if (Input.GetKeyDown(KeyCode.F12))
         {
-            MakeAScreenShot();
+            MakeAScreenshot();
         }
     }
 
@@ -30,7 +30,26 @@ public class Exit : View
         PrintSessionLength();
     }
 
-    public string FormatTime(float time)
+    void PrintSessionLength()
+    {
+        Debug.Log("SESSION TIME: " + SessionDuration.FormatTime(Time.time));
+    }
+
+    void MakeAScreenshot()
+    {
+        string time = System.DateTime.UtcNow.ToString("dd MMMM yyyy, HH-mm-ss");
+
+        ScreenCapture.CaptureScreenshot($"C://Users/Gaga/Desktop/Screenshots/save {time}.png");
+    }
+}
+
+public static class SessionDuration
+{
+    public static string FormatTime()
+    {
+        return FormatTime(Time.time);
+    }
+    public static string FormatTime(float time)
     {
         int hours = (int)time / 3600;
         int minutes = (int)time / 60;
@@ -39,17 +58,5 @@ public class Exit : View
 
         return string.Format("{3:00}h {0:00}min {1:00}sec", minutes, seconds, milliseconds, hours);
         //return string.Format("{3:00}:{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds, hours);
-    }
-
-    void PrintSessionLength()
-    {
-        Debug.Log("SESSION TIME: " + FormatTime(Time.time));
-    }
-
-    void MakeAScreenShot()
-    {
-        string time = System.DateTime.UtcNow.ToString("dd MMMM yyyy, HH-mm-ss");
-
-        ScreenCapture.CaptureScreenshot($"C://Users/Gaga/Desktop/Screenshots/save {time}.png");
     }
 }
