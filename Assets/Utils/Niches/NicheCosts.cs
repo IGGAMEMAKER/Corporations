@@ -104,7 +104,7 @@ namespace Assets.Utils
             //Debug.Log($"pp: {pp}   sp: {mp}");
 
             var marketers = mp * Constants.SALARIES_MARKETER / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-            var programmers = pp * Constants.SALARIES_PROGRAMMER / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+            var programmers = pp * Constants.SALARIES_PROGRAMMER * 30 / ProductUtils.GetBaseConceptTime(niche) / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
 
             return marketers + programmers;
         }
