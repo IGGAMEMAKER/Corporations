@@ -201,10 +201,6 @@
             var maintenance = GetOptimalProductCompanyMaintenance(gameContext, product);
 
             return maintenance > income;
-
-            var profitable = GetTotalBalanceChange(product, gameContext) > 0;
-
-            return !profitable;
         }
     }
 }
