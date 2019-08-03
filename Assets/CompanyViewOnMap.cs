@@ -63,6 +63,8 @@ public class CompanyViewOnMap : View
 
         var posTextual = NicheUtils.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");
+        var expertise = CompanyUtils.GetCompanyExpertise(company);
+        hint.AppendLine($"\nExpertise: {expertise}%");
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
