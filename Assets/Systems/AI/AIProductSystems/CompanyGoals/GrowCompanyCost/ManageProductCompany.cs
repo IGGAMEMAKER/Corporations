@@ -4,8 +4,6 @@ public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity product)
     {
-        //Debug.Log("Manage Product Company ")
-
         ManageProductTeam(product);
 
         ManageProductDevelopment(product);
