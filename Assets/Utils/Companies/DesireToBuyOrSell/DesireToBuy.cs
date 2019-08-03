@@ -30,7 +30,7 @@
             var quality = NicheUtils.GetAppQualityOnMarket(gameContext, startup) + 1;
             score += 30 / quality;
 
-            score += startup.branding.BrandPower;
+            score += (long)startup.branding.BrandPower;
 
             return score;
         }

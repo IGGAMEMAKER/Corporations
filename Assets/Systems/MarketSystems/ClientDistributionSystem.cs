@@ -94,20 +94,10 @@ public partial class ClientDistributionSystem : OnMonthChange
         if (isPayingForMarketing)
             power += 4;
 
-        bool isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext);
-        bool isInnovator = product.isTechnologyLeader;
+        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -5f : 0;
+        float innovationBonus = product.isTechnologyLeader ? 3f : 0;
 
-        if (isInnovator)
-        {
-            Debug.Log(product.company.Name + " is technology leader, so they will get extra 3 points");
-            power += 3;
-        }
 
-        if (isOutOfMarket)
-        {
-            Debug.Log(product.company.Name + " is extremely outdated: -5");
-            power += -5;
-        }
 
         MarketingUtils.AddBrandPower(product, power);
 

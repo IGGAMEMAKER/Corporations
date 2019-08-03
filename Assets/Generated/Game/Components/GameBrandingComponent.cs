@@ -11,14 +11,14 @@ public partial class GameEntity {
     public BrandingComponent branding { get { return (BrandingComponent)GetComponent(GameComponentsLookup.Branding); } }
     public bool hasBranding { get { return HasComponent(GameComponentsLookup.Branding); } }
 
-    public void AddBranding(long newBrandPower) {
+    public void AddBranding(float newBrandPower) {
         var index = GameComponentsLookup.Branding;
         var component = (BrandingComponent)CreateComponent(index, typeof(BrandingComponent));
         component.BrandPower = newBrandPower;
         AddComponent(index, component);
     }
 
-    public void ReplaceBranding(long newBrandPower) {
+    public void ReplaceBranding(float newBrandPower) {
         var index = GameComponentsLookup.Branding;
         var component = (BrandingComponent)CreateComponent(index, typeof(BrandingComponent));
         component.BrandPower = newBrandPower;

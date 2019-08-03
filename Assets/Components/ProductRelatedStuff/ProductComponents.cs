@@ -32,7 +32,7 @@ public class MarketingComponent : IComponent
 
 public class BrandingComponent : IComponent
 {
-    public long BrandPower;
+    public float BrandPower;
 }
 
 [Game, Event(EventTarget.Self)]

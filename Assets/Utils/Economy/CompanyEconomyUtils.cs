@@ -149,16 +149,6 @@
             return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
         }
 
-        internal static long GetTotalBalanceChange(GameEntity c, GameContext context)
-        {
-            return GetCompanyIncome(c, context) - GetTotalMaintenance(c, context);
-        }
-
-        internal static long GetTotalMaintenance(GameEntity c, GameContext context)
-        {
-            return GetCompanyMaintenance(c, context) + GetCompanyAdsMaintenance(c, context);
-        }
-
         internal static long GetBalanceChange(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);

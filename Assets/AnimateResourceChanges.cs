@@ -7,7 +7,7 @@ public class AnimateResourceChanges : View
 {
     TeamResource Previous;
     long prevClients;
-    long prevBrand;
+    float prevBrand;
 
     public GameObject ResourceTextPrefab;
 
@@ -31,7 +31,7 @@ public class AnimateResourceChanges : View
         var brandDiff = brand - prevBrand;
 
         SpawnResource(diff.money, MoneyIcon, 0);
-        SpawnResource(brandDiff, BrandIcon, 1);
+        SpawnResource((long)brandDiff, BrandIcon, 1);
 
         var clients = HasProductCompany ? MarketingUtils.GetClients(MyProductEntity) : 0;
         if (HasProductCompany)
