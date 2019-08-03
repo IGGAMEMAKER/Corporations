@@ -75,12 +75,12 @@ public partial class ClientDistributionSystem : OnMonthChange
         }
 
         for (var i = 0; i < products.Length; i++)
-            PayForMarketing(products[i], niche);
+            RecalculateBrandPowers(products[i], niche);
 
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
-    void PayForMarketing(GameEntity product, GameEntity niche)
+    void RecalculateBrandPowers(GameEntity product, GameEntity niche)
     {
         var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
 
@@ -89,15 +89,21 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
 
-        var power = -1;
-
-        if (isPayingForMarketing)
-            power += 4;
+        var power = -1f;
 
         float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -5f : 0;
-        float innovationBonus = product.isTechnologyLeader ? 3f : 0;
+        float innovationBonus = product.isTechnologyLeader ? 2f : 0;
+
+        var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
+        var brand = product.branding.BrandPower;
+        var decay = Mathf.Min((marketShare - brand), 0);
+
+        var paymentModifier = isPayingForMarketing ? 4f : 0;
 
 
+        var techFactor = isOutOfMarket + innovationBonus;
+
+        power = 1 + decay + techFactor + paymentModifier;
 
         MarketingUtils.AddBrandPower(product, power);
 

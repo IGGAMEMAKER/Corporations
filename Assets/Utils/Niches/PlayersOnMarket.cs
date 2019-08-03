@@ -48,9 +48,13 @@ namespace Assets.Utils
         {
             int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
 
+            var isOutdated = ProductUtils.IsOutOfMarket(company, gameContext);
+            var isInMarket = ProductUtils.IsInMarket(company, gameContext);
+
             return new BonusContainer("Product Competitiveness")
                 .RenderTitle()
-                .Append("Just some value", 5)
+                .AppendAndHideIfZero("Is in market", isInMarket ? 2 : 0)
+                .AppendAndHideIfZero("Is outdated", isOutdated ? - 10: 0)
                 .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
         }
 

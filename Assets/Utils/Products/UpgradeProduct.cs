@@ -22,7 +22,7 @@ namespace Assets.Utils
 
             if (IsWillInnovate(product, niche))
             {
-                segments[UserType.Core] = GetProductLevel(product) + 1;
+                segments[UserType.Core] = GetProductLevel(product);
 
                 MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
 
@@ -69,7 +69,23 @@ namespace Assets.Utils
 
             var p = product.product;
 
-            product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + 1);
+            var upgrade = 0;
+            var expertise = CompanyUtils.GetCompanyExpertise(product);
+
+            if (IsWillInnovate(product, gameContext))
+            {
+                // try to make the revolution
+                var val = Random.Range(0, 100);
+
+                var exp = expertise - 100;
+
+                upgrade = val <= exp ? 1 : 0;
+            } else
+            {
+                upgrade = 1;
+            }
+
+            product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + upgrade);
 
             UpdateNicheSegmentInfo(product, gameContext);
 

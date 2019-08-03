@@ -21,7 +21,7 @@ namespace Assets.Utils
         {
             var exp = company.expertise.ExpertiseLevel;
 
-            return (int)(10f * Mathf.Log(1.05f, exp));
+            return Mathf.Clamp((int)(10f * Mathf.Log(1.2f, exp)), 0, 60);
         }
 
         public static int GetCompanyExpertise (GameEntity company)
@@ -32,7 +32,7 @@ namespace Assets.Utils
 
             var accumulated = GetAccumulatedExpertise(company);
 
-            return 100 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+            return 100 + 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
         public static Color GetCompanyUniqueColor(int companyId)
