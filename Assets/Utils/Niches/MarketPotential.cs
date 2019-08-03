@@ -1,10 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
@@ -13,27 +7,29 @@ namespace Assets.Utils
             return GetMarketPotential(GetNicheEntity(gameContext, nicheType));
         }
 
+        public static long GetSegmentMarketShare(GameContext GameContext, NicheType nicheType, int segmentId)
+        {
+            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
+
+            return positioningData.marketShare;
+        }
+
         public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
             var niche = GetNicheEntity(GameContext, nicheType);
 
-            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
+            var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
 
-            var share = positioningData.marketShare;
-
-            return GetMarketPotential(niche) * share / 100;
-            var price = (long)(GetSegmentProductPrice(GameContext, nicheType, segmentId) * 100);
-
-            return price * GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId) / 100;
+            return GetMarketPotential(niche) * segmentShare / 100;
         }
 
         public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
             var niche = GetNicheEntity(GameContext, nicheType);
 
-            var positioningData = GetProductPositioningInfo(GameContext, nicheType, segmentId);
+            var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
 
-            return positioningData.marketShare * GetMarketAudiencePotential(niche) / 100;
+            return segmentShare * GetMarketAudiencePotential(niche) / 100;
         }
 
         public static long GetMarketAudiencePotential(GameEntity niche)
@@ -48,9 +44,7 @@ namespace Assets.Utils
             {
                 var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche);
 
-                //var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
-
-                clients += (long)(clientBatch * g.Value * phasePeriod);
+                clients += clientBatch * g.Value * phasePeriod;
             }
 
             //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");
