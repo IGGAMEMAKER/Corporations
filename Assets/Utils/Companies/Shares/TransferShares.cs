@@ -211,6 +211,8 @@ namespace Assets.Utils
 
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
+            c.isIndependentCompany = false;
+
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
         }
 

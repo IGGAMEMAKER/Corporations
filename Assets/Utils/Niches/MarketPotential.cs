@@ -46,11 +46,11 @@ namespace Assets.Utils
 
             foreach (var g in lifecycle.Growth)
             {
-                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche) * 30;
+                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche);
 
-                var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
+                //var financeReach = MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High);
 
-                clients += (long)(clientBatch * g.Value * phasePeriod * financeReach);
+                clients += (long)(clientBatch * g.Value * phasePeriod);
             }
 
             //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");

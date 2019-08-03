@@ -105,7 +105,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 isCompetitive = false,
                 marketShare = 100,
-                name = "Basic " + EnumUtils.GetFormattedNicheName(nicheType)
+                name = "Basic " + EnumUtils.GetSingleFormattedNicheName(nicheType)
             };
             clientsContainer[0] = 0;
         }

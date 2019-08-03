@@ -14,6 +14,13 @@ namespace Assets.Utils.Formatting
             return (Arr.Length == j) ? Arr[0] : Arr[j];
         }
 
+        public static string GetSingleFormattedNicheName(NicheType niche)
+        {
+            var name = GetFormattedNicheName(niche);
+
+            return name.Substring(0, name.Length - 1);
+        }
+
         public static string GetFormattedNicheName(NicheType niche)
         {
             switch (niche)
