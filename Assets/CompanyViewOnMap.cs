@@ -53,13 +53,13 @@ public class CompanyViewOnMap : View
 
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
         var nicheName = EnumUtils.GetFormattedNicheName(company.product.Niche);
-        hint.AppendFormat("\n\n#{0} on market", position + 1, nicheName);
+        //hint.AppendFormat("\n\n#{0} on market", position + 1, nicheName);
 
         var level = ProductUtils.GetProductLevel(company);
         hint.AppendLine($"\nApp quality: {level}");
 
         var clients = MarketingUtils.GetClients(company);
-        hint.AppendLine($"Clients: {clients}");
+        hint.AppendLine($"Clients: {clients} (#{position + 1})");
 
         var posTextual = NicheUtils.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");
