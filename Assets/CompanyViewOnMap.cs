@@ -65,6 +65,8 @@ public class CompanyViewOnMap : View
         hint.AppendLine($"\nPositioning: {posTextual}");
         var expertise = CompanyUtils.GetCompanyExpertise(company);
         hint.AppendLine($"\nExpertise: {expertise}%");
+        var brand = company.branding.BrandPower;
+        hint.AppendLine($"Brand strength: {brand}");
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));

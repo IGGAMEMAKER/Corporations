@@ -64,7 +64,8 @@ namespace Assets.Utils
 
             var price = GetNicheCosts(niche).BasePrice * 1.5f;
 
-            return (long)(clients * CompanyEconomyUtils.GetCompanyCostNicheMultiplier() * price);
+            // * CompanyEconomyUtils.GetCompanyCostNicheMultiplier()
+            return (long)(clients * price);
         }
 
         // TODO

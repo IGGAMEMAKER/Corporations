@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GroupSearchListView : ListView
@@ -21,7 +22,9 @@ public class GroupSearchListView : ListView
 
     public void Render()
     {
-        var groups = CompanyUtils.GetGroupCompanies(GameContext);
+        var groups = CompanyUtils.GetGroupCompanies(GameContext)
+            .OrderByDescending(g => CompanyEconomyUtils.GetCompanyCost(GameContext, g.company.Id))
+            .ToArray();
 
         SetItems(groups, GrowthFilterQuarterly.Quarterly);
     }

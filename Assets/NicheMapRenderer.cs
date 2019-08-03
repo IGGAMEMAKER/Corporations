@@ -135,6 +135,6 @@ public class NicheMapRenderer : View
         var marketScale = GetMarketScale(startup.product.Niche) - 0.8f;
 
         c.transform.localScale = new Vector3(scale, scale, 1);
-        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.5f * Mathf.PI) + basePosition;
+        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.75f * Mathf.PI) + basePosition;
     }
 }

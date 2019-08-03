@@ -17,8 +17,10 @@ public class MarketPotentialView : View
 
     public Text ChangeSpeed;
 
-    private void OnEnable()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         Render();
     }
 
