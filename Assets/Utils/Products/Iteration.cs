@@ -27,7 +27,7 @@ namespace Assets.Utils
         {
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
-            var innovationModifier = IsWillInnovate(company, gameContext) ? 2 : 1;
+            var innovationModifier = IsWillInnovate(company, gameContext) ? 1.5f : 1;
 
             var random = 1; // Random.Range(1, 1.3f);
 

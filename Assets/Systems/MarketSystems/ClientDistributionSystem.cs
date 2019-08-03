@@ -92,11 +92,13 @@ public partial class ClientDistributionSystem : OnMonthChange
         var power = -1f;
 
         float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -5f : 0;
-        float innovationBonus = product.isTechnologyLeader ? 2f : 0;
+        float innovationBonus = product.isTechnologyLeader ? 4f : 0;
 
         var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
         var brand = product.branding.BrandPower;
-        var decay = Mathf.Min((marketShare - brand), 0);
+
+        var decay = Mathf.Min((marketShare - brand), 0); // -100....0
+        decay *= 0.1f;
 
         var paymentModifier = isPayingForMarketing ? 4f : 0;
 

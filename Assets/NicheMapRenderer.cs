@@ -127,13 +127,13 @@ public class NicheMapRenderer : View
     {
         var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
 
-        var min = 0.5f;
-        var max = 1.2f;
+        var min = 0.35f;
+        var max = 2.05f;
         var k = max - min;
 
         var scale = min + k * share; // GetMarketScale(niche);
 
-        var marketScale = GetMarketScale(startup.product.Niche) - 0.8f;
+        var marketScale = GetMarketScale(startup.product.Niche) - 0.9f;
 
         c.transform.localScale = new Vector3(scale, scale, 1);
         c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.75f * Mathf.PI) + basePosition;

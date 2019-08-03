@@ -77,9 +77,7 @@ namespace Assets.Utils
                 // try to make the revolution
                 var val = Random.Range(0, 100);
 
-                var exp = expertise - 100;
-
-                upgrade = val <= exp ? 1 : 0;
+                upgrade = val <= expertise ? 1 : 0;
             } else
             {
                 upgrade = 1;

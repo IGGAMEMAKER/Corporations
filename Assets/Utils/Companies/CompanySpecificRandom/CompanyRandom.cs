@@ -32,7 +32,7 @@ namespace Assets.Utils
 
             var accumulated = GetAccumulatedExpertise(company);
 
-            return 100 + 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+            return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
         public static Color GetCompanyUniqueColor(int companyId)
