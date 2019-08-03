@@ -11,6 +11,12 @@ public class PositioningVariantsListView : ListView
 
     private void OnEnable()
     {
+        if (!SelectedCompany.hasProduct)
+        {
+            SetItems(new GameEntity[0]);
+            return;
+        }
+
         var niche = SelectedCompany.product.Niche;
         var positioningVariants = NicheUtils.GetNichePositionings(niche, GameContext);
 
