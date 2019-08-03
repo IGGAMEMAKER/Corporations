@@ -44,6 +44,31 @@ namespace Assets.Utils
             return GetNicheCosts(niche);
         }
 
+        internal static long GetTeamMaintenanceCost(GameEntity niche)
+        {
+            var costs = GetNicheCosts(niche);
+
+            var devCost = ProductUtils.GetBaseDevelopmentCost(niche);
+            var marketingCost = GetBaseMarketingMaintenance(niche);
+
+            var pp = devCost.programmingPoints;
+            var mp = marketingCost.salesPoints;
+
+            //Debug.Log($"pp: {pp}   sp: {mp}");
+
+            var marketers = mp * Constants.SALARIES_MARKETER / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
+            var programmers = pp * Constants.SALARIES_PROGRAMMER * 30 / ProductUtils.GetBaseConceptTime(niche) / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+
+            return marketers + programmers;
+        }
+
+        internal static TeamResource GetBaseMarketingMaintenance(GameEntity niche)
+        {
+            var costs = GetNicheCosts(niche);
+
+            return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
+        }
+
         //#region branding
         //public static TeamResource GetPureBrandingCost(GameEntity niche)
         //{
@@ -90,30 +115,5 @@ namespace Assets.Utils
         //    return GetPureTargetingCost(gameContext, company.product.Niche);
         //}
         //#endregion
-
-        internal static long GetTeamMaintenanceCost(GameEntity niche)
-        {
-            var costs = GetNicheCosts(niche);
-
-            var devCost = ProductUtils.GetBaseDevelopmentCost(niche);
-            var marketingCost = GetBaseMarketingMaintenance(niche);
-
-            var pp = devCost.programmingPoints;
-            var mp = marketingCost.salesPoints;
-
-            //Debug.Log($"pp: {pp}   sp: {mp}");
-
-            var marketers = mp * Constants.SALARIES_MARKETER / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-            var programmers = pp * Constants.SALARIES_PROGRAMMER * 30 / ProductUtils.GetBaseConceptTime(niche) / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-
-            return marketers + programmers;
-        }
-
-        internal static TeamResource GetBaseMarketingMaintenance(GameEntity niche)
-        {
-            var costs = GetNicheCosts(niche);
-
-            return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
-        }
     }
 }
