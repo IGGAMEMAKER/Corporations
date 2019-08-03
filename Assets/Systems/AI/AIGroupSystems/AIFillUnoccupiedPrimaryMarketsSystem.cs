@@ -19,7 +19,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
-        Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
+        //Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
             SendAcquisitionOffer(managingCompany, candidates.First(), gameContext);
@@ -49,7 +49,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var priority = modifiers * desireToBuy / (10 * (price + 1));
 
-        Debug.Log($"Priority of {target.company.Name} in {buyer.company.Name}'s eyes: {priority}");
+        //Debug.Log($"Priority of {target.company.Name} in {buyer.company.Name}'s eyes: {priority}");
 
         return priority;
     }

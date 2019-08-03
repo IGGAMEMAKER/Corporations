@@ -63,8 +63,10 @@ public class CompanyViewOnMap : View
 
         var posTextual = NicheUtils.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");
+
         var expertise = CompanyUtils.GetCompanyExpertise(company);
         hint.AppendLine($"\nExpertise: {expertise}%");
+
         var brand = company.branding.BrandPower;
         hint.AppendLine($"Brand strength: {brand}");
 

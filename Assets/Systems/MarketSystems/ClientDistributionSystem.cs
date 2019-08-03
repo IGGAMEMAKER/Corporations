@@ -72,9 +72,10 @@ public partial class ClientDistributionSystem : OnMonthChange
             strengths[segId] -= productStrength;
 
             clientContainers[segId] -= clients;
-
-            PayForMarketing(p, niche);
         }
+
+        for (var i = 0; i < products.Length; i++)
+            PayForMarketing(products[i], niche);
 
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
@@ -97,10 +98,16 @@ public partial class ClientDistributionSystem : OnMonthChange
         bool isInnovator = product.isTechnologyLeader;
 
         if (isInnovator)
+        {
+            Debug.Log(product.company.Name + " is technology leader, so they will get extra 3 points");
             power += 3;
+        }
 
         if (isOutOfMarket)
+        {
+            Debug.Log(product.company.Name + " is extremely outdated: -5");
             power += -5;
+        }
 
         MarketingUtils.AddBrandPower(product, power);
 

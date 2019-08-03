@@ -20,8 +20,8 @@ public partial class AIProductSystems : OnDateChange
         var need = GetRequiredMarketingResources(company);
         var production = change.salesPoints;
 
-        Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");
-        Print($"We need {need}, but produce {production}", company);
+        //Debug.Log($"Company {company.company.Name} >>> Required SP: {need}, Have SP: {production}");
+        //Print($"We need {need}, but produce {production}", company);
 
 
         if (production < need)
