@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ChooseNextNiche : ButtonController
+﻿public class ChooseNextNiche : ButtonController
 {
     public override void Execute()
     {
