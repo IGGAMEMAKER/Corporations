@@ -54,7 +54,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
         var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
         var phase = NicheUtils.GetMarketState(niche);
 
-        if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Decay || phase == NicheLifecyclePhase.Idle)
+        
+        if (!NicheUtils.IsPerspectiveNiche(gameContext, product.product.Niche))
             return;
 
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);

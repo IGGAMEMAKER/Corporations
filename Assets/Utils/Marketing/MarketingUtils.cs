@@ -14,6 +14,7 @@ namespace Assets.Utils
             c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
         }
 
+
         public static long GetClients(GameEntity company)
         {
             return company.marketing.clients;
@@ -25,6 +26,7 @@ namespace Assets.Utils
 
             company.ReplaceMarketing(marketing.clients + clients);
         }
+
 
         public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {

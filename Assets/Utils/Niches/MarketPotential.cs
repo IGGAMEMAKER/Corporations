@@ -44,12 +44,13 @@
         {
             var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
 
-            var clientBatch = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
+            var flow = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
 
+            long clients = flow * relativeGrowth;
 
-            long clients = 0;
+            var price = GetNicheCosts(niche).BasePrice * 1.5f;
 
-            clients += clientBatch * relativeGrowth;
+            return (long)(clients * price);
         }
 
         public static long GetMarketAudiencePotential(GameEntity niche)
@@ -81,6 +82,7 @@
             // * CompanyEconomyUtils.GetCompanyCostNicheMultiplier()
             return (long)(clients * price);
         }
+
 
         // TODO
         // max can be less than min
