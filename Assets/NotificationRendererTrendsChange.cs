@@ -11,7 +11,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 
         var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
 
-        return GetShortTitle(niche.nicheState.Phase, nicheName);
+        return GetShortTitle(NicheUtils.GetMarketState(niche), nicheName);
     }
 
     public override string GetDescription(NotificationMessageTrendsChange message)
@@ -30,7 +30,9 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
     {
         var nicheType = notification.nicheType;
 
-        var phase = NicheUtils.GetNicheEntity(GameContext, nicheType).nicheState.Phase;
+        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+        var phase = NicheUtils.GetMarketState(niche);
+
         var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
 
 

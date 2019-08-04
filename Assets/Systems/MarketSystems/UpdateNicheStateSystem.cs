@@ -38,9 +38,9 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
     void CheckNiche(GameEntity niche)
     {
-        var state = niche.nicheState;
+        var phase = NicheUtils.GetMarketState(niche);
 
-        if (state.Phase == NicheLifecyclePhase.Death)
+        if (phase == NicheLifecyclePhase.Death)
             return;
 
         ActivateIfNecessary(niche);
@@ -66,7 +66,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var duration = niche.nicheState.Duration;
 
-        var phase = niche.nicheState.Phase;
+        var phase = NicheUtils.GetMarketState(niche);
 
         if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
             return false;

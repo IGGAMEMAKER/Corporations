@@ -52,7 +52,7 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void DescribePhase()
     {
-        var phase = entity.nicheState.Phase;
+        var phase = NicheUtils.GetMarketState(entity);
         Phase.SetHint(phase.ToString());
 
         var growth = entity.nicheLifecycle.Growth[phase] * 12;

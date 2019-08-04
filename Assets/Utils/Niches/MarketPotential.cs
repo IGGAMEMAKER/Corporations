@@ -40,7 +40,7 @@
             return niche.nicheLifecycle.Growth[phase] * 12;
         }
 
-        public static long GetAbsoluteAnnualMarketGrowth(GameEntity niche)
+        public static long GetAbsoluteAnnualMarketGrowth(GameContext gameContext, GameEntity niche)
         {
             var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
 

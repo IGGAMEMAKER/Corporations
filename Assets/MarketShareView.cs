@@ -28,7 +28,7 @@ public class MarketShareView : View
         ShareSize.text = Format.MoneyToInteger(marketSize);
         ShareSize.color = Visuals.Color(share > 0 ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
-        var phase = niche.nicheState.Phase.ToString();
+        var phase = NicheUtils.GetMarketState(niche).ToString();
         if (!ShowMarketStateOnlyByColor)
             MarketState.text = phase;
 

@@ -48,7 +48,7 @@ namespace Assets.Utils
         {
             var niche = GetNicheEntity(gameContext, nicheType);
 
-            var phase = niche.nicheState.Phase;
+            var phase = NicheUtils.GetMarketState(niche);
 
             return phase == NicheLifecyclePhase.Innovation ||
                 phase == NicheLifecyclePhase.Trending ||
@@ -64,7 +64,7 @@ namespace Assets.Utils
 
         public static bool IsPlayableNiche(GameContext gameContext, GameEntity niche)
         {
-            var phase = niche.nicheState.Phase;
+            var phase = NicheUtils.GetMarketState(niche);
 
             return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
         }

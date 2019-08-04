@@ -29,8 +29,9 @@ namespace Assets.Utils
         public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+            var phase = NicheUtils.GetMarketState(niche);
 
-            var marketPhaseModifier = niche.nicheLifecycle.Growth[niche.nicheState.Phase];
+            var marketPhaseModifier = niche.nicheLifecycle.Growth[phase];
 
             var costs = GetNicheCosts(gameContext, nicheType);
 
