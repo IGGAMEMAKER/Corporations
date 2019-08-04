@@ -18,6 +18,15 @@ namespace Assets.Utils
 
             var daughter = GetCompanyById(context, subsidiaryId);
 
+            if (daughter.hasProduct)
+            {
+                AddFocusNiche(daughter.product.Niche, parent, context);
+                var industry = NicheUtils.GetIndustry(daughter.product.Niche, context);
+
+                AddFocusIndustry(industry, parent);
+            }
+
+
             Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
 
             var shareholders = new Dictionary<int, BlockOfShares>

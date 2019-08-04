@@ -130,7 +130,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void SetSpheresOfInfluence()
     {
         var financial = CompanyUtils.GetInvestmentFunds(GameContext);
-        var managing = CompanyUtils.GetGroupCompanies(GameContext);
+        //var managing = CompanyUtils.GetGroupCompanies(GameContext);
 
         foreach (var c in financial)
         {
@@ -141,13 +141,13 @@ public partial class ProductInitializerSystem : IInitializeSystem
             AutoFillFocusNichesByIndustry(c);
         }
 
-        foreach (var c in managing)
-        {
-            CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
+        //foreach (var c in managing)
+        //{
+        //    CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
 
-            AutoFillSomeFocusNichesByIndustry(c);
-            //AutoFillFocusNichesByIndustry(c);
-        }
+        //    AutoFillSomeFocusNichesByIndustry(c);
+        //    //AutoFillFocusNichesByIndustry(c);
+        //}
     }
 
     void AutoFillFocusNichesByIndustry(GameEntity company)
