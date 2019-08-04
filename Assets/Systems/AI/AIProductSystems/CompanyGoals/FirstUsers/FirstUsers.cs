@@ -3,7 +3,5 @@
     void GrabFirstUsers(GameEntity company)
     {
         Crunch(company);
-
-        GrabTestClients(company);
     }
 }

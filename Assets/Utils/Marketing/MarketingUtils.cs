@@ -26,20 +26,15 @@ namespace Assets.Utils
             company.ReplaceMarketing(marketing.clients + clients);
         }
 
-        public static long GetCompanyClientBatch(GameContext gameContext, GameEntity company)
-        {
-            return GetCurrentClientFlow(gameContext, company.product.Niche);
-        }
-
         public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
 
-            var modifier = niche.nicheLifecycle.Growth[niche.nicheState.Phase];
+            var marketPhaseModifier = niche.nicheLifecycle.Growth[niche.nicheState.Phase];
 
             var costs = GetNicheCosts(gameContext, nicheType);
 
-            return costs.ClientBatch * modifier;
+            return costs.ClientBatch * marketPhaseModifier;
         }
 
         public static NicheCostsComponent GetNicheCosts(GameContext gameContext, GameEntity company)

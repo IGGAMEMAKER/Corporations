@@ -6,8 +6,8 @@ public class TestCampaignReachView : View
     {
         base.ViewRender();
 
-        var gain = MarketingUtils.GetTestCampaignClientGain(GameContext, MyProductEntity);
+        //var gain = MarketingUtils.GetTestCampaignClientGain(GameContext, MyProductEntity);
 
-        GetComponent<ColoredValuePositiveOrNegative>().UpdateValue(gain);
+        //GetComponent<ColoredValuePositiveOrNegative>().UpdateValue(gain);
     }
 }

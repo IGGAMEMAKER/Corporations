@@ -32,6 +32,26 @@
             return segmentShare * GetMarketAudiencePotential(niche) / 100;
         }
 
+        public static long GetRelativeAnnualMarketGrowth(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            // 12 months
+            return niche.nicheLifecycle.Growth[phase] * 12;
+        }
+
+        public static long GetAbsoluteAnnualMarketGrowth(GameEntity niche)
+        {
+            var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
+
+            var clientBatch = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
+
+
+            long clients = 0;
+
+            clients += clientBatch * relativeGrowth;
+        }
+
         public static long GetMarketAudiencePotential(GameEntity niche)
         {
             var lifecycle = niche.nicheLifecycle;

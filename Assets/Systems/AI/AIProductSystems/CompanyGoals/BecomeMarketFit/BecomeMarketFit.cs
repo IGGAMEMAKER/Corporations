@@ -7,7 +7,5 @@
         Crunch(company);
 
         UpgradeSegment(company);
-
-        GrabTestClients(company);
     }
 }

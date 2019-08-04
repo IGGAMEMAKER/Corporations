@@ -10,6 +10,7 @@ public class CheckTestCampaignResources : ResourceChecker
 
     public override TeamResource GetRequiredResources()
     {
-        return MarketingUtils.GetTestCampaignCost(GameContext, MyProductEntity);
+        return new TeamResource(-1, -1, -1, -1, -1);
+        //return MarketingUtils.GetTestCampaignCost(GameContext, MyProductEntity);
     }
 }

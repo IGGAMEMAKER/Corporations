@@ -61,16 +61,6 @@ public partial class AIProductSystems
         ProductUtils.SetPrice(product, price);
     }
 
-    void GrabTestClients(GameEntity company)
-    {
-        //if (company.isControlledByPlayer && !TutorialUtils.IsOpenedFunctionality(gameContext, TutorialFunctionality.FirstAdCampaign))
-        //    return;
-
-        //Print("Start test campaign", company);
-
-        MarketingUtils.StartTestCampaign(gameContext, company);
-    }
-
     void StartTargetingCampaign(GameEntity company)
     {
         //MyProductEntity.AddEventMarketingEnableTargeting(productId);
