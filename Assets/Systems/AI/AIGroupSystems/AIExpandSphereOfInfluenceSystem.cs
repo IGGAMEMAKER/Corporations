@@ -49,6 +49,7 @@ public partial class AIManageGroupSystems
 
         var niche = RandomEnum<NicheType>.GenerateValue();
 
-        CompanyUtils.AddFocusNiche(niche, group, gameContext);
+        if (NicheUtils.IsPlayableNiche(gameContext, niche))
+            CompanyUtils.AddFocusNiche(niche, group, gameContext);
     }
 }

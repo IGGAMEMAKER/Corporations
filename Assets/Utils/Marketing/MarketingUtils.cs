@@ -31,22 +31,14 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
             var phase = NicheUtils.GetMarketState(niche);
 
-            var marketPhaseModifier = niche.nicheLifecycle.Growth[phase];
+            var baseGrowthModifier = niche.nicheLifecycle.Growth[phase];
 
-            var costs = GetNicheCosts(gameContext, nicheType);
+            var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
 
-            return costs.ClientBatch * marketPhaseModifier;
+            return costs.ClientBatch * baseGrowthModifier;
         }
 
-        public static NicheCostsComponent GetNicheCosts(GameContext gameContext, GameEntity company)
-        {
-            return GetNicheCosts(gameContext, company.product.Niche);
-        }
 
-        public static NicheCostsComponent GetNicheCosts(GameContext gameContext, NicheType nicheType)
-        {
-            return NicheUtils.GetNicheCosts(gameContext, nicheType);
-        }
 
         public static TeamResource GetReleaseCost()
         {

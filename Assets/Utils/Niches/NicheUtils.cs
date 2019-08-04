@@ -12,6 +12,13 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
+        public static GameEntity[] GetPlayableNiches(GameContext context)
+        {
+            return GetNiches(context)
+                .Where(n => IsPlayableNiche(context, n))
+                .ToArray();
+        }
+
         public static GameEntity[] GetIndustries(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Industry);

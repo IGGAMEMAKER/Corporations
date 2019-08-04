@@ -12,7 +12,8 @@ public class FillNicheTableListView : View
 
     void Render()
     {
-        var niches = NicheUtils.GetNiches(GameContext);
+        //var niches = NicheUtils.GetNiches(GameContext);
+        var niches = NicheUtils.GetPlayableNiches(GameContext);
 
         GetComponent<NicheTableListView>().SetItems(niches);
     }

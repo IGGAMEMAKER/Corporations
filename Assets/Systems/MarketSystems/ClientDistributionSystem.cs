@@ -11,7 +11,8 @@ public partial class ClientDistributionSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var niches = NicheUtils.GetNiches(gameContext);
+        //var niches = NicheUtils.GetNiches(gameContext);
+        var niches = NicheUtils.GetPlayableNiches(gameContext);
 
         foreach (var n in niches)
             CheckMarket(n);

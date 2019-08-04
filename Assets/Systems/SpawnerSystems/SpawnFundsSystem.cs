@@ -11,13 +11,12 @@ class SpawnFundsSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] niches = contexts.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Niche));
+        GameEntity[] niches = NicheUtils.GetPlayableNiches(gameContext);
+            //contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Niche));
 
         foreach (var e in niches)
         {
-            var phase = NicheUtils.GetMarketState(e);
-            if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
+            if (!NicheUtils.IsPlayableNiche(gameContext, e))
                 continue;
 
             var nicheRating = NicheUtils.GetMarketRating(e);
