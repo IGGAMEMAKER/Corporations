@@ -29,7 +29,8 @@
 
             long capital = c.companyResource.Resources.money;
 
-            return cost + capital;
+            // +1 to avoid division by zero
+            return cost + capital + 1;
         }
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
