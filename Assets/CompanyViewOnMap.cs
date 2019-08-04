@@ -52,8 +52,6 @@ public class CompanyViewOnMap : View
         StringBuilder hint = new StringBuilder(company.company.Name);
 
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
-        var nicheName = EnumUtils.GetFormattedNicheName(company.product.Niche);
-        //hint.AppendFormat("\n\n#{0} on market", position + 1, nicheName);
 
         var level = ProductUtils.GetProductLevel(company);
         hint.AppendLine($"\nApp quality: {level}");
