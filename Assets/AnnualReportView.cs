@@ -19,7 +19,7 @@ public class AnnualReportView : View
         base.ViewRender();
 
         var previousReport = CompanyStatisticsUtils.GetPreviousAnnualReport(GameContext);
-        var currentReport = CompanyStatisticsUtils.GetLastAnnualReport(GameContext);
+        var currentReport = CompanyStatisticsUtils.GetCurrentAnnualReport(GameContext);
 
         RenderHuman(previousReport, currentReport);
         RenderGroup(previousReport, currentReport);
