@@ -31,12 +31,11 @@ public class RenderGroupAnnualGrowth : UpgradedParameterView
         var color = growthAbsolute >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
 
         //$"+23% growth (+$102.4M)"
-        var relativeGrowthText = Visuals.Colorize(Visuals.Sign(growthRelative), color);
-        //var absoluteGrowthText = Visuals.Colorize(Visuals.Sign(growthAbsolute), color);
-        
-        var absoluteGrowthText = Visuals.Colorize((isGrowth ? "+" : "") + Format.MoneyToInteger(growthAbsolute), color);
+        var relativeGrowthText = Visuals.Sign(growthRelative); // Visuals.Colorize(, color);
+
+        var absoluteGrowthText = (isGrowth ? "+" : "") + Format.MoneyToInteger(growthAbsolute); // Visuals.Colorize(, color);
         var change = Visuals.Describe(growthAbsolute, "growth" , "loss");
 
-        return $"{relativeGrowthText}% {change} ({absoluteGrowthText})";
+        return $"{absoluteGrowthText} {change} ({relativeGrowthText}%)";
     }
 }

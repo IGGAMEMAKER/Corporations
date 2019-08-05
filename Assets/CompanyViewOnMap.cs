@@ -14,6 +14,7 @@ public class CompanyViewOnMap : View
 
     public Image Image;
     public Image DarkImage;
+    public Image RelevancyImage;
 
     bool EnableDarkTheme;
 
@@ -36,6 +37,21 @@ public class CompanyViewOnMap : View
         SetEmblemColor();
     }
 
+    Color GetMarketRelevanceColor()
+    {
+        if (company.isTechnologyLeader)
+            return Visuals.Color(VisualConstants.COLOR_POSITIVE);
+
+        if (ProductUtils.IsOutOfMarket(company, GameContext))
+            return Visuals.Color(VisualConstants.COLOR_NEGATIVE);
+
+        var col = Visuals.Color(VisualConstants.COLOR_NEUTRAL);
+
+        //col.a = 0;
+
+        return col;
+    }
+
     void SetEmblemColor()
     {
         Image.color = CompanyUtils.GetCompanyUniqueColor(company.company.Id);
@@ -45,6 +61,9 @@ public class CompanyViewOnMap : View
 
         DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
         //DarkImage.gameObject.SetActive(DisableDarkTheme);
+
+        if (RelevancyImage != null)
+            RelevancyImage.color = GetMarketRelevanceColor();
     }
 
     string GetCompanyHint(bool hasControl)
@@ -70,6 +89,17 @@ public class CompanyViewOnMap : View
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
+
+        if (company.isTechnologyLeader)
+        {
+            hint.AppendLine(Visuals.Positive("Is innovator. This significantly increases their brand strength"));
+        } else if (ProductUtils.IsOutOfMarket(company, GameContext))
+        {
+            hint.AppendLine(Visuals.Negative("Is out of market. Users delete this app from their devices!"));
+        } else
+        {
+            hint.AppendLine(Visuals.Negative("Is in market. Users are satisfied with this product"));
+        }
 
         return hint.ToString();
     }

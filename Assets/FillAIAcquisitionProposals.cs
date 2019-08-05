@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FillAIAcquisitionProposals : ListView
@@ -15,9 +16,25 @@ public class FillAIAcquisitionProposals : ListView
 
     void Render()
     {
-        var proposals = CompanyUtils.GetAcquisitionOffersToPlayer(GameContext);
+        var proposals = CompanyUtils.GetAcquisitionOffersToPlayer(GameContext)
+            .OrderBy(OrderByMarketStage)
+            .ToArray();
 
         SetItems(proposals);
+    }
+
+    int OrderByMarketStage (GameEntity a)
+    {
+        var c = CompanyUtils.GetCompanyById(GameContext, a.acquisitionOffer.CompanyId);
+
+        if (!c.hasProduct)
+            return -10;
+
+        var niche = c.product.Niche;
+
+        var rating = NicheUtils.GetMarketRating(GameContext, niche);
+
+        return rating;
     }
 
     public override void ViewRender()
