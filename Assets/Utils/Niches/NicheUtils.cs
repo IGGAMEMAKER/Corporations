@@ -12,10 +12,17 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
+        public static GameEntity[] GetPerspectiveNiches(GameContext context)
+        {
+            return GetPlayableNiches(context)
+                .Where(n => IsPerspectiveNiche(n))
+                .ToArray();
+        }
+
         public static GameEntity[] GetPlayableNiches(GameContext context)
         {
             return GetNiches(context)
-                .Where(n => IsPlayableNiche(context, n))
+                .Where(n => IsPlayableNiche(n))
                 .ToArray();
         }
 
@@ -37,7 +44,8 @@ namespace Assets.Utils
         public static GameEntity[] GetPlayableNichesInIndustry(IndustryType industry, GameContext context)
         {
             var niches = GetNichesInIndustry(industry, context);
-            return Array.FindAll(niches, n => IsPlayableNiche(context, n));
+
+            return Array.FindAll(niches, n => IsPlayableNiche(n));
         }
 
         public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
@@ -55,23 +63,26 @@ namespace Assets.Utils
         {
             var niche = GetNicheEntity(gameContext, nicheType);
 
-            var phase = NicheUtils.GetMarketState(niche);
+            return IsPerspectiveNiche(niche);
+        }
 
-            return phase == NicheLifecyclePhase.Innovation ||
-                phase == NicheLifecyclePhase.Trending ||
-                phase == NicheLifecyclePhase.MassUse;
+        public static bool IsPerspectiveNiche(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            return phase == NicheLifecyclePhase.Innovation || phase == NicheLifecyclePhase.Trending;
         }
 
         public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType)
         {
             var niche = GetNicheEntity(gameContext, nicheType);
 
-            return IsPlayableNiche(gameContext, niche);
+            return IsPlayableNiche(niche);
         }
 
-        public static bool IsPlayableNiche(GameContext gameContext, GameEntity niche)
+        public static bool IsPlayableNiche(GameEntity niche)
         {
-            var phase = NicheUtils.GetMarketState(niche);
+            var phase = GetMarketState(niche);
 
             return phase != NicheLifecyclePhase.Idle && phase != NicheLifecyclePhase.Death;
         }

@@ -19,7 +19,7 @@
         {
             long score = 0;
 
-            if (NicheUtils.IsPerspectiveNiche(gameContext, startup.product.Niche))
+            if (NicheUtils.IsPlayableNiche(gameContext, startup.product.Niche))
                 score += 100;
             else
                 score -= 100;

@@ -12,7 +12,7 @@ public class PerspectiveNichesListView : ListView
     {
         base.ViewRender();
 
-        var perspectiveNiches = NicheUtils.GetPlayableNiches(GameContext);
+        var perspectiveNiches = NicheUtils.GetPerspectiveNiches(GameContext);
 
         SetItems(perspectiveNiches);
     }
