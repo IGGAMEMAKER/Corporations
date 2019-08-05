@@ -25,7 +25,7 @@ namespace Assets.Utils
 
         public static string SignMinified(long value)
         {
-            return value > 0 ? $"+{Minify(value)}" : Minify(value);
+            return (value > 0 ? "+" : "") + Minify(value);
         }
 
         public static string Money<T>(T value)

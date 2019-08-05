@@ -65,7 +65,9 @@
             {
                 var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche);
 
-                clients += clientBatch * g.Value * phasePeriod;
+                var additionalPhaseModifier = GetMarketStateCostsModifier(g.Key);
+
+                clients += clientBatch * additionalPhaseModifier * g.Value * phasePeriod;
             }
 
             //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");

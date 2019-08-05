@@ -70,7 +70,7 @@ namespace Assets.Utils
         {
             var phase = GetMarketState(niche);
 
-            return phase == NicheLifecyclePhase.Innovation || phase == NicheLifecyclePhase.Trending;
+            return phase == NicheLifecyclePhase.Innovation; // || phase == NicheLifecyclePhase.Trending;
         }
 
         public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType)

@@ -36,8 +36,9 @@ public class MarketPotentialView : View
         //var iteration = (int)speed;
         //ChangeSpeed.text = $"{iteration} months";
 
-        var iteration = speed.ToString();
-        ChangeSpeed.text = $"{iteration}";
+        var iteration = ProductUtils.GetBaseConceptTime(niche);
+        //var iteration = speed.ToString();
+        ChangeSpeed.text = iteration + " days";
 
         PotentialMarketSize.text = Format.Money(NicheUtils.GetMarketPotential(niche));
         PotentialAudienceSize.text = Format.MinifyToInteger(NicheUtils.GetMarketAudiencePotential(niche)) + " users";

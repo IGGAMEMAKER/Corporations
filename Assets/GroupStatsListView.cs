@@ -15,9 +15,10 @@ public class GroupStatsListView : ListView
     {
         base.ViewRender();
 
-        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
-
-        //daughters.OrderByDescending(d => )
+        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id)
+            //.OrderBy(d => CompanyStatisticsUtils.GetIncomeGrowthAbsolute(d, 12))
+            .OrderByDescending(d => CompanyEconomyUtils.GetCompanyCost(GameContext, d.company.Id))
+            .ToArray();
 
         SetItems(daughters);
     }

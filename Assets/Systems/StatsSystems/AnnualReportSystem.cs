@@ -22,13 +22,37 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
         {
             Groups = GetGroupList(),
             People = GetPeopleList(),
-            Products = GetGroupList(),
+            Products = GetProductList(),
             Date = date
         };
 
         reports.Add(report);
 
         reportContainer.ReplaceReports(reports);
+    }
+
+    List<ReportData> GetProductList()
+    {
+        var products = CompanyUtils.GetProductCompanies(gameContext)
+            .OrderByDescending(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id))
+            .ToArray();
+
+        var List = new List<ReportData>();
+
+        for (var i = 0; i < products.Length; i++)
+        {
+            var p = products[i];
+            var id = p.company.Id;
+
+            List.Add(new ReportData
+            {
+                Cost = CompanyEconomyUtils.GetCompanyCost(gameContext, id),
+                ShareholderId = id,
+                position = i
+            });
+        }
+
+        return List;
     }
 
     List<ReportData> GetGroupList()

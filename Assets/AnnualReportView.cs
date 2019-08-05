@@ -66,7 +66,7 @@ public class AnnualReportView : View
 
         var change = position - previousPosition;
 
-        var changeText = $"{Format.Sign(-change)} per year";
+        var changeText = Format.Sign(-change) + " per year";
         RatingChangeText.text = Visuals.Colorize(changeText, change <= 0);
     }
 }
