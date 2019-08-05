@@ -16,9 +16,6 @@ class SpawnFundsSystem : OnMonthChange
 
         foreach (var e in niches)
         {
-            if (!NicheUtils.IsPlayableNiche(gameContext, e))
-                continue;
-
             var nicheRating = NicheUtils.GetMarketRating(e);
 
             var potential = NicheUtils.GetMarketPotential(e);
