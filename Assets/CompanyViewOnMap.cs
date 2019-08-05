@@ -72,8 +72,27 @@ public class CompanyViewOnMap : View
 
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
 
+        // quality description
+        var appQuality = "";
+
+        if (company.isTechnologyLeader)
+        {
+            appQuality = Visuals.Positive("Sets Trends!");
+            // . This significantly increases their brand strength
+        }
+        else if (ProductUtils.IsOutOfMarket(company, GameContext))
+        {
+            appQuality = Visuals.Negative("Outdated");
+            // . Users delete this app from their devices!
+        }
+        else
+        {
+            appQuality = Visuals.Neutral("Relevant");
+        }
+        //
+
         var level = ProductUtils.GetProductLevel(company);
-        hint.AppendLine($"\nApp quality: {level}");
+        hint.AppendLine($"\nApp quality: {level} ({appQuality})");
 
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {clients} (#{position + 1})");
@@ -89,17 +108,6 @@ public class CompanyViewOnMap : View
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
-
-        if (company.isTechnologyLeader)
-        {
-            hint.AppendLine(Visuals.Positive("Is innovator. This significantly increases their brand strength"));
-        } else if (ProductUtils.IsOutOfMarket(company, GameContext))
-        {
-            hint.AppendLine(Visuals.Negative("Is out of market. Users delete this app from their devices!"));
-        } else
-        {
-            hint.AppendLine(Visuals.Negative("Is in market. Users are satisfied with this product"));
-        }
 
         return hint.ToString();
     }
