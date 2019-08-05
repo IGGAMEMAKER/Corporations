@@ -17,7 +17,7 @@ public class RenderPlayerName : View
         Text.text = text;
 
         if (isMe)
-            Text.color = Visuals.Color(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+            Text.color = Visuals.GetColorFromString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
         else
             Text.color = Color.white;
     }

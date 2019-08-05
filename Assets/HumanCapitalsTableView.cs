@@ -39,7 +39,7 @@ public class HumanCapitalsTableView : View, IPointerEnterHandler
         SetPanelColor();
 
         if (entity == Me)
-            Panel.color = Visuals.Color(VisualConstants.COLOR_YOU);
+            Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_YOU);
 
         GetComponent<LinkToHuman>().SetHumanId(entity.human.Id);
     }

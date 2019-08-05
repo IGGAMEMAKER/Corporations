@@ -28,7 +28,7 @@ public abstract class UpgradedParameterView : View
 
     public void Colorize(string color)
     {
-        Text.color = Visuals.Color(color);
+        Text.color = Visuals.GetColorFromString(color);
     }
 
     public abstract string RenderValue();

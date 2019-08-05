@@ -76,7 +76,7 @@ public class CompanyTableView : View, IPointerEnterHandler
     void SetPanelColor()
     {
         if (entity.company.Id == MyCompany.company.Id)
-            Panel.color = Visuals.Color(VisualConstants.COLOR_CONTROL);
+            Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_CONTROL);
         else
             Panel.color = GetPanelColor(entity == SelectedCompany);
     }

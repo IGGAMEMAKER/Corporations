@@ -28,7 +28,7 @@ public class CompanyViewOnMap : View
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
         Name.text = c.company.Name.Substring(0, 1);
-        Name.color = Visuals.Color(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+        Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
 
         LinkToProjectView.CompanyId = c.company.Id;
 
@@ -40,12 +40,12 @@ public class CompanyViewOnMap : View
     Color GetMarketRelevanceColor()
     {
         if (company.isTechnologyLeader)
-            return Visuals.Color(VisualConstants.COLOR_POSITIVE);
+            return Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
 
         if (ProductUtils.IsOutOfMarket(company, GameContext))
-            return Visuals.Color(VisualConstants.COLOR_NEGATIVE);
+            return Visuals.GetColorFromString(VisualConstants.COLOR_NEGATIVE);
 
-        var col = Visuals.Color(VisualConstants.COLOR_NEUTRAL);
+        var col = Visuals.GetColorFromString(VisualConstants.COLOR_NEUTRAL);
 
         //col.a = 0;
 

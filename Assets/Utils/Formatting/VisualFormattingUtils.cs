@@ -94,7 +94,7 @@ namespace Assets.Utils
         }
 
 
-        public static Color Color(string color)
+        public static Color GetColorFromString(string color)
         {
             ColorUtility.TryParseHtmlString(color, out Color c);
 

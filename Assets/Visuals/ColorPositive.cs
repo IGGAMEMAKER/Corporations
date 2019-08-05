@@ -6,6 +6,6 @@ public class ColorPositive : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Text>().color = Visuals.Color(VisualConstants.COLOR_POSITIVE);
+        GetComponent<Text>().color = Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
     }
 }
