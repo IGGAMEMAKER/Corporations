@@ -42,7 +42,7 @@ namespace Assets.Utils
 
             e.AddSegment(new Dictionary<UserType, int>
             {
-                [UserType.Core] = 1,
+                [UserType.Core] = 0,
             });
 
             return e;

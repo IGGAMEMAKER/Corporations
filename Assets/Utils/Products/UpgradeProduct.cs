@@ -20,9 +20,12 @@ namespace Assets.Utils
 
             var segments = niche.segment.Segments;
 
-            if (IsWillInnovate(product, niche))
+            var demand = GetMarketDemand(product, niche);
+            var newLevel = GetProductLevel(product);
+
+            if (newLevel > demand)
             {
-                segments[UserType.Core] = GetProductLevel(product);
+                segments[UserType.Core] = newLevel;
 
                 MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
 
@@ -30,7 +33,7 @@ namespace Assets.Utils
 
                 RemoveTechLeaders(product, gameContext);
                 product.isTechnologyLeader = true;
-            } else if (IsInMarket(product, gameContext))
+            } else if (newLevel == demand)
             {
                 RemoveTechLeaders(product, gameContext);
             }
