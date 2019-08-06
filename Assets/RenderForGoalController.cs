@@ -13,6 +13,8 @@ public class RenderForGoalController : View
     public override void ViewRender()
     {
         base.ViewRender();
+        if (!HasCompany)
+            return;
 
         var decision = show;
 

@@ -24,10 +24,24 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         SetSpheresOfInfluence();
 
+        PlayerSettings();
+    }
+
+    void PlayerSettings()
+    {
+        ScreenUtils.Navigate(GameContext, ScreenMode.StartCampaignScreen);
+        return;
+        //PlayAs(vk);
+        //PlayAs(alphabet);
+        //AddCash(mailru, 100000000);
+
+        //PlayAs(microsoft);
+
         var playerCompany = CompanyUtils.GetPlayerCompany(GameContext);
 
         var daughter = CompanyUtils.GetDaughterCompanies(GameContext, playerCompany.company.Id)[0];
 
+        //ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, daughter.product.Niche);
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, daughter.product.Niche);
     }
 
@@ -67,6 +81,9 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AttachToHolding(facebookInc, facebook);
         AttachToHolding(facebookInc, fbMessenger);
 
+        var microsoft = GenerateHoldingCompany("Microsoft Inc");
+        AttachToHolding(microsoft, microsoftOs);
+
         //PlayAs(tg);
         //PlayAs(google);
         //PlayAs(alphabet);
@@ -74,15 +91,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AttachToHolding(mailru, vk);
         //AttachToHolding(mailru, twitter.company.Id);
 
-        //PlayAs(vk);
-        //PlayAs(alphabet);
-        //AddCash(mailru, 100000000);
-        //vk.ReplaceCompanyResource(new Assets.Classes.TeamResource(1000000000));
 
-        var microsoft = GenerateHoldingCompany("Microsoft Inc");
-        AttachToHolding(microsoft, microsoftOs);
-
-        PlayAs(microsoft);
 
 
         AddShareholder(yahoo, investorId2, 500);
@@ -99,6 +108,12 @@ public partial class ProductInitializerSystem : IInitializeSystem
         Debug.Log("INI: " + s);
     }
 
+    void PlayAs(string companyName)
+    {
+        var company = CompanyUtils.GetCompanyByName(GameContext, companyName);
+
+        PlayAs(company);
+    }
     void PlayAs(GameEntity company)
     {
         var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);

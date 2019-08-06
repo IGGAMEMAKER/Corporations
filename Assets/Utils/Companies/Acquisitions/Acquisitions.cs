@@ -18,6 +18,9 @@ namespace Assets.Utils
         {
             var playerCompany = GetPlayerCompany(gameContext);
 
+            if (playerCompany == null)
+                return false;
+
             return company.isControlledByPlayer || IsDaughterOfCompany(playerCompany, company);
         }
 

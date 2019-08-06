@@ -22,6 +22,9 @@ public class FillInterruptList : View
     {
         base.ViewRender();
 
+        if (!HasCompany)
+            return;
+
         bool isCanUpgradeSegment = CheckSegments();
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;

@@ -36,6 +36,12 @@ public enum ScreenMode
     SalesScreen = 24,
     PotentialCompaniesScreen = 25,
     AnnualReportScreen = 26,
+
+    StartCampaignScreen = 27,
+    GroupScreen = 28,
+    HoldingScreen = 29,
+    CorporationScreen = 30,
+
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -70,6 +76,10 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject SalesScreen;
     public GameObject PotentialCompaniesScreen;
     public GameObject AnnualReportScreen;
+    public GameObject StartCampaignScreen;
+    public GameObject GroupScreen;
+    public GameObject HoldingScreen;
+    public GameObject CorporationScreen;
 
 
     void Start()
@@ -102,11 +112,15 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.SalesScreen] = SalesScreen,
             [ScreenMode.PotentialCompaniesScreen] = PotentialCompaniesScreen,
             [ScreenMode.AnnualReportScreen] = AnnualReportScreen,
+            [ScreenMode.StartCampaignScreen] = StartCampaignScreen,
+            [ScreenMode.GroupScreen] = GroupScreen,
+            [ScreenMode.HoldingScreen] = HoldingScreen,
+            [ScreenMode.CorporationScreen] = CorporationScreen,
         };
 
         DisableAllScreens();
         
-        EnableScreen(ScreenMode.NicheScreen);
+        EnableScreen(ScreenMode.StartCampaignScreen);
 
         GameEntity e = ScreenUtils.GetMenu(Contexts.sharedInstance.game);
 
@@ -149,6 +163,11 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.SalesScreen: return "Sell my shares";
             case ScreenMode.PotentialCompaniesScreen: return "These companies are on sale";
             case ScreenMode.AnnualReportScreen: return "Annual Report";
+
+            case ScreenMode.StartCampaignScreen: return "Start new campaign";
+            case ScreenMode.GroupScreen: return "Group";
+            case ScreenMode.HoldingScreen: return "Holding";
+            case ScreenMode.CorporationScreen: return "Corporation";
 
             default: return "WUT?";
         }

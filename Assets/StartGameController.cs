@@ -9,6 +9,6 @@ public class StartGameController : ButtonController
     {
         Canvas.SetActive(false);
 
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
     }
 }

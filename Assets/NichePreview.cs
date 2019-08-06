@@ -19,11 +19,13 @@ public class NichePreview : View
     public TextMeshProUGUI NicheName;
     public LinkToNiche LinkToNiche;
 
-    public void SetNiche(GameEntity nicheEntity)
+    
+
+    public void SetNiche(GameEntity nicheEntity, bool hidePotential = false)
     {
         Niche = nicheEntity.niche.NicheType;
 
-        Render();
+        Render(hidePotential);
     }
 
     long GetMarketPotential()
@@ -38,12 +40,12 @@ public class NichePreview : View
         return "$" + Format.MinifyToInteger(potential);
     }
 
-    void Render()
+    void Render(bool hidePotential = false)
     {
         LinkToNiche.SetNiche(Niche);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
-        MarketPotential.text = GetFormattedMarketPotential();
+        MarketPotential.text = hidePotential ? "?" : GetFormattedMarketPotential();
     }
 }
