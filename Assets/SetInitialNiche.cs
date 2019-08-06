@@ -9,12 +9,6 @@ public class SetInitialNiche : MonoBehaviour, IPointerClickHandler
     NicheType nicheType;
     GameObject TypeCorporationNameContainer, ChooseInitialNicheContainer;
 
-    //public override void Execute()
-    //{
-    //    ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, nicheType);
-
-    //}
-
     public void SetNiche(NicheType nicheType, GameObject TypeCorporationNameContainer, GameObject ChooseInitialNicheContainer)
     {
         this.nicheType = nicheType;
@@ -25,5 +19,7 @@ public class SetInitialNiche : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetNiche(nicheType);
+        ChooseInitialNicheContainer.SetActive(false);
+        TypeCorporationNameContainer.SetActive(true);
     }
 }

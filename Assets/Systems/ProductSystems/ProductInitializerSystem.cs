@@ -29,7 +29,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     void PlayerSettings()
     {
-        ScreenUtils.Navigate(GameContext, ScreenMode.StartCampaignScreen);
+        //ScreenUtils.Navigate(GameContext, ScreenMode.StartCampaignScreen);
         return;
         //PlayAs(vk);
         //PlayAs(alphabet);
