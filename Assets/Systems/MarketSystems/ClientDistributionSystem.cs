@@ -99,7 +99,7 @@ public partial class ClientDistributionSystem : OnMonthChange
         var brand = product.branding.BrandPower;
 
         var decay = Mathf.Min((marketShare - brand), 0); // -100....0
-        decay *= 0.1f;
+        decay *= 0.05f; // Cap brand power decay to -5
 
         var paymentModifier = isPayingForMarketing ? 4f : 0;
 
@@ -108,10 +108,19 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         power = 1 + decay + techFactor + paymentModifier;
 
+
         MarketingUtils.AddBrandPower(product, power);
 
         if (isPayingForMarketing)
             CompanyUtils.SpendResources(product, maintenance);
+
+
+        var aggressiveMaintenance = NicheUtils.GetAggressiveMarketingMaintenance(niche);
+        if (CompanyUtils.IsEnoughResources(product, aggressiveMaintenance))
+        {
+            CompanyUtils.SpendResources(product, aggressiveMaintenance);
+            MarketingUtils.AddBrandPower(product, 10);
+        }
     }
 
     float GetCompanyAudienceReach(GameEntity product)

@@ -76,21 +76,13 @@ public class CompanyViewOnMap : View
         var appQuality = "";
 
         if (company.isTechnologyLeader)
-        {
             appQuality = Visuals.Positive("Sets Trends!");
-            // . This significantly increases their brand strength
-        }
         else if (ProductUtils.IsOutOfMarket(company, GameContext))
-        {
             appQuality = Visuals.Negative("Outdated");
-            // . Users delete this app from their devices!
-        }
         else
-        {
             appQuality = Visuals.Neutral("Relevant");
-        }
-        //
 
+        //
         var level = ProductUtils.GetProductLevel(company);
         hint.AppendLine($"\nApp quality: {level} ({appQuality})");
 

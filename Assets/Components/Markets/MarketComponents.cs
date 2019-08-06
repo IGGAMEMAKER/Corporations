@@ -29,7 +29,8 @@ public class NicheComponent : IComponent
     public NicheType Parent;
 }
 
-
+[Game]
+public class AggressiveMarketingComponent: IComponent {}
 
 [Game]
 public class ProductPositioningComponent : IComponent

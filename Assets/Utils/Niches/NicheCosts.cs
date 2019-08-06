@@ -69,6 +69,19 @@ namespace Assets.Utils
             return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
         }
 
+        internal static TeamResource GetAggressiveMarketingMaintenance(GameContext context, NicheType nicheType)
+        {
+            var niche = GetNicheEntity(context, nicheType);
+
+            return GetAggressiveMarketingMaintenance(niche);
+        }
+        internal static TeamResource GetAggressiveMarketingMaintenance(GameEntity niche)
+        {
+            var baseCosts = GetBaseMarketingMaintenance(niche);
+
+            return new TeamResource(0, 0, baseCosts.salesPoints * 3, 0, baseCosts.money * 20);
+        }
+
         //#region branding
         //public static TeamResource GetPureBrandingCost(GameEntity niche)
         //{

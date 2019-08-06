@@ -57,7 +57,11 @@
         {
             var lifecycle = niche.nicheLifecycle;
 
+            var phase = GetMarketState(niche);
+
             var clientBatch = GetNicheCosts(niche).ClientBatch;
+            if (clientBatch != 0)
+                clientBatch /= GetMarketStateCostsModifier(phase);
 
             long clients = 0;
 

@@ -24,7 +24,7 @@ public partial class AIProductSystems : OnDateChange
         //Print($"We need {need}, but produce {production}", company);
 
 
-        if (production < need)
+        if (production < need * 1.2f)
             return 1;
 
         //if (production > need + Constants.DEVELOPMENT_PRODUCTION_MARKETER * 3)

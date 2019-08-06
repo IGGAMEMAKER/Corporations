@@ -29,7 +29,7 @@ public partial class AIProductSystems : OnDateChange
         if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
-        if (product.isIndependentCompany)
+        if (product.isIndependentCompany || product.isAggressiveMarketing)
             return;
 
         var maintenance = CompanyEconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
