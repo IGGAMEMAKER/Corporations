@@ -115,6 +115,11 @@ public partial class ClientDistributionSystem : OnMonthChange
             CompanyUtils.SpendResources(product, maintenance);
 
 
+        PayForAgressiveMarketing(product, niche);
+    }
+
+    void PayForAgressiveMarketing(GameEntity product, GameEntity niche)
+    {
         var aggressiveMaintenance = NicheUtils.GetAggressiveMarketingMaintenance(niche);
         if (CompanyUtils.IsEnoughResources(product, aggressiveMaintenance))
         {
