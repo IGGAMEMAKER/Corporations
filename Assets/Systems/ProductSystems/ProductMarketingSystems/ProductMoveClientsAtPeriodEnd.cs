@@ -11,6 +11,7 @@ class ProductMoveClientsAtPeriodEnd : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        return;
         GameEntity[] Products = CompanyUtils.GetProductCompanies(gameContext);
 
         foreach (var e in Products)

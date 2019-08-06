@@ -90,23 +90,22 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
 
-        var power = -1f;
-
-        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -5f : 0;
-        float innovationBonus = product.isTechnologyLeader ? 4f : 0;
-
         var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
         var brand = product.branding.BrandPower;
 
         var decay = Mathf.Min((marketShare - brand), 0); // -100....0
-        decay *= 0.05f; // Cap brand power decay to -5
+        decay *= 0.1f; // Cap brand power decay to -10
 
-        var paymentModifier = isPayingForMarketing ? 4f : 0;
+        var paymentModifier = isPayingForMarketing ? 1f : 0;
 
 
-        var techFactor = isOutOfMarket + innovationBonus;
+        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -3f : 0;
+        float innovationBonus = product.isTechnologyLeader ? 2f : 0;
+        if (isPayingForMarketing && innovationBonus > 0)
+            innovationBonus *= 4;
 
-        power = 1 + decay + techFactor + paymentModifier;
+        decay = -1;
+        var power = decay + isOutOfMarket + innovationBonus + paymentModifier;
 
 
         MarketingUtils.AddBrandPower(product, power);
@@ -130,8 +129,10 @@ public partial class ClientDistributionSystem : OnMonthChange
 
     float GetCompanyAudienceReach(GameEntity product)
     {
-        var rand = Random.Range(0.15f, 1.4f);
+        //var rand = Random.Range(0.15f, 1.4f);
+        var rand = Random.Range(0.25f, 1.2f);
 
-        return 1 + rand * product.branding.BrandPower;
+        //     0...100 + 12...60
+        return product.branding.BrandPower + rand * 50;
     }
 }
