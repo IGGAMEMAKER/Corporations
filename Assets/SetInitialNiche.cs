@@ -24,6 +24,6 @@ public class SetInitialNiche : MonoBehaviour, IPointerClickHandler
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        TypeCorporationNameContainer.GetComponent<NewCampaignController>();
+        TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetNiche(nicheType);
     }
 }

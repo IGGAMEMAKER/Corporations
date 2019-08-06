@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class NewCampaignController : View
 {
+    public void SetNiche(NicheType nicheType)
+    {
 
+    }
 }
