@@ -9,8 +9,12 @@ public class StartCampaignButton : ButtonController
     NicheType NicheType;
     public override void Execute()
     {
-        CompanyUtils.GenerateCompanyGroup(GameContext, "Mail mail ru");
+        var company = CompanyUtils.GenerateCompanyGroup(GameContext, "Mail mail ru");
+
+        CompanyUtils.PlayAs(company, GameContext);
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
+
+
         SceneManager.UnloadSceneAsync(2);
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }

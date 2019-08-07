@@ -114,20 +114,17 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         PlayAs(company);
     }
-    void PlayAs(GameEntity company)
-    {
-        var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
-
-        SetPlayerControlledCompany(company.company.Id);
-
-        human.isPlayer = true;
-    }
 
     void PlayAs(int companyId)
     {
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
 
         PlayAs(company);
+    }
+
+    void PlayAs(GameEntity company)
+    {
+        CompanyUtils.PlayAs(company, GameContext);
     }
 
     void AddCash(GameEntity company, long money)
@@ -224,11 +221,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
         //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
 
         CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
-    }
-
-    void SetPlayerControlledCompany(int companyId)
-    {
-        CompanyUtils.SetPlayerControlledCompany(GameContext, companyId);
     }
 
     int PromoteToGroup(int companyId)

@@ -12,6 +12,15 @@
             SetPlayerControlledCompany(gameContext, companyID);
         }
 
+        public static void PlayAs(GameEntity company, GameContext GameContext)
+        {
+            var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
+
+            SetPlayerControlledCompany(GameContext, company.company.Id);
+
+            human.isPlayer = true;
+        }
+
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
             var c = GetCompanyById(context, id);

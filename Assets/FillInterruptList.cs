@@ -32,12 +32,13 @@ public class FillInterruptList : View
         bool isCanBuyCompany = CheckAcquisitionCandidates();
 
         bool isCanSeeAnnualReport = CheckAnnualReport();
+        bool isHasDaughterCompanies = CheckManagingCompanies();
 
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
         CanCompleteGoal.SetActive(isCanCompleteGoal && false);
         NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
 
-        NeedToManageCompanies.SetActive(true);
+        NeedToManageCompanies.SetActive(isHasDaughterCompanies);
 
 
         CanCheckAnnualReport.SetActive(isCanSeeAnnualReport);
@@ -52,6 +53,11 @@ public class FillInterruptList : View
 
         CanSellCompany.SetActive(isCanSellCompany);
         CanBuyCompany.SetActive(isCanBuyCompany);
+    }
+
+    bool CheckManagingCompanies()
+    {
+        return CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool CheckAcquisitionOffers()
