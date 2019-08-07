@@ -146,8 +146,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         foreach (var c in financial)
         {
-            //Print(c.)
-
             CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
 
             AutoFillFocusNichesByIndustry(c);
