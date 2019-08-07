@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class FillCompanyOwnings : View
     ,IMenuListener
@@ -64,10 +65,12 @@ public class FillCompanyOwnings : View
 
     GameEntity[] GetOwnings()
     {
-        var arr = CompanyUtils.GetDaughterCompanies(GameContext, ObservableCompany.company.Id);
+        var arr = CompanyUtils.GetDaughterCompanies(GameContext, ObservableCompany.company.Id)
+            .OrderByDescending(c => CompanyEconomyUtils.GetCompanyCost(GameContext, c.company.Id))
+            .ToArray();
 
-        if (SortingOrder)
-            Array.Reverse(arr);
+        //if (SortingOrder)
+        //    Array.Reverse(arr);
 
         return arr;
     }

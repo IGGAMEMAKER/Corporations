@@ -1,15 +1,18 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartCampaignButton : ButtonController
 {
     NicheType NicheType;
+    InputField Input;
+
     public override void Execute()
     {
-        var company = CompanyUtils.GenerateCompanyGroup(GameContext, "Mail mail ru");
+        if (Input.text.Length == 0)
+            return;
+
+        var company = CompanyUtils.GenerateCompanyGroup(GameContext, Input.text);
 
         CompanyUtils.PlayAs(company, GameContext);
         CompanyUtils.AutoFillShareholders(GameContext, company, true);
@@ -21,8 +24,9 @@ public class StartCampaignButton : ButtonController
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }
 
-    public void SetNiche(NicheType nicheType)
+    public void SetNiche(NicheType nicheType, InputField Input)
     {
         NicheType = nicheType;
+        this.Input = Input;
     }
 }

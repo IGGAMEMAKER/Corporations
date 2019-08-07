@@ -20,8 +20,6 @@ public class GetStartingNichesListView : ListView
 
     void Start()
     {
-        base.ViewRender();
-
         var niches = new GameEntity[1];
 
         niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Forums);

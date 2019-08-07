@@ -42,7 +42,8 @@ public class NichePreview : View
 
     void Render(bool hidePotential = false)
     {
-        LinkToNiche.SetNiche(Niche);
+        if (LinkToNiche != null)
+            LinkToNiche.SetNiche(Niche);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
