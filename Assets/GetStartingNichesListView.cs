@@ -13,9 +13,11 @@ public class GetStartingNichesListView : ListView
         var preview = t.GetComponent<NichePreview>();
         preview.SetNiche(niche, true);
 
-        Destroy(preview.GetComponentInChildren<LinkToNiche>());
-        preview.gameObject.AddComponent<SetInitialNiche>()
+        var link = preview.GetComponentInChildren<LinkToNiche>();
+        link.gameObject.AddComponent<SetInitialNiche>()
             .SetNiche(niche.niche.NicheType, TypeCorporationNameContainer, ChooseInitialNicheContainer);
+
+        Destroy(link);
     }
 
     void Start()
