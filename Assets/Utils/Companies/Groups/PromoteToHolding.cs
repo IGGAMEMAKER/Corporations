@@ -7,7 +7,6 @@
             var c = GetCompanyById(context, companyId);
 
             c.ReplaceCompany(c.company.Id, c.company.Name, CompanyType.Holding);
-            c.isManagingCompany = true;
 
             return c;
         }

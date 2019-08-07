@@ -44,6 +44,7 @@ namespace Assets.Utils
         public static GameEntity GenerateCompanyGroup(GameContext context, string name)
         {
             var c = CreateCompany(context, name, CompanyType.Group);
+            c.isManagingCompany = true;
 
             InvestmentUtils.BecomeInvestor(context, c, 0);
 

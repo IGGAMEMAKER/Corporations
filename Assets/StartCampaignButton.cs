@@ -12,6 +12,8 @@ public class StartCampaignButton : ButtonController
         var company = CompanyUtils.GenerateCompanyGroup(GameContext, "Mail mail ru");
 
         CompanyUtils.PlayAs(company, GameContext);
+        CompanyUtils.AutoFillShareholders(GameContext, company, true);
+
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
 
 
