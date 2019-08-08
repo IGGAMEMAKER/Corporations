@@ -48,10 +48,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Year,
             NicheAdMaintenance.High, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
             new ProductPositioning[] {
-                new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
-                new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
-                new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
-                new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
+                //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
+                //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
+                //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
+                //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             },
             GetYear(2000));
 
