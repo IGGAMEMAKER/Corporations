@@ -52,9 +52,11 @@ namespace Assets.Utils
         {
             var screenData = GetScreenData(context);
 
-            screenData[field] = data;
+            var newScreenData = new Dictionary<string, object>(screenData);
 
-            Navigate(context, screenMode, screenData);
+            newScreenData[field] = data;
+
+            Navigate(context, screenMode, newScreenData);
         }
 
         //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
