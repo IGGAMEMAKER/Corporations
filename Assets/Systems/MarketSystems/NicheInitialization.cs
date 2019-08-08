@@ -21,14 +21,18 @@ public enum NicheChangeSpeed
     ThreeYears = 36
 }
 
+// everyone: operation systems, browsers, social networks (messaging + content)
+// small niche project : 50K
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     public enum AudienceSize
     {
-        LessThanMillion,
-        MidSizedProduct,
-        WholeWorld
+        ForBigEnterprise, // 2K
+        ForSmallEnterprise, // 50K
+        LessThanMillion, // 1M
+        MidSizedProduct, // 100M // usefull util AdBlock
+        WholeWorld // 1-2B
     }
 
     public enum PriceCategory
@@ -36,9 +40,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         // dollars per user per year
         CheapMass = 1,
         FreeMass = 4,
-        Mid = 12,
-        High = 20,
         CheapSubscription = 100, // Subscription model: 10$/month
+        ExpensiveSubscription = 500, // Subscription model: 10$/month
     }
 
     public enum NicheAdMaintenance
