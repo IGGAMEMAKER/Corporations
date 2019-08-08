@@ -84,7 +84,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
         var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
-        var marketingCost = GetMarketingCost(marketingMaintenance, nicheId) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
+        var marketingCost = GetMarketingCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
 
         var adCosts = GetAdCost(clients, priceCategory, nicheId);
 
@@ -125,9 +125,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
 
-    private int GetMarketingCost(NicheMarketingMaintenance maintenance, int nicheId)
+    //private int GetMarketingCost(NicheMarketingMaintenance techMaintenance, int nicheId)
+    private int GetMarketingCost(NicheChangeSpeed techMaintenance, int nicheId)
     {
-        var baseCost = (int)maintenance;
+        var baseCost = (int)techMaintenance;
 
         return (int)Randomise(baseCost, nicheId);
     }
