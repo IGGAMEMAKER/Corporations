@@ -52,6 +52,7 @@ namespace Assets.Utils
         {
             var screenData = GetScreenData(context);
 
+            // https://stackoverflow.com/questions/139592/what-is-the-best-way-to-clone-deep-copy-a-net-generic-dictionarystring-t
             var newScreenData = new Dictionary<string, object>(screenData);
 
             newScreenData[field] = data;
