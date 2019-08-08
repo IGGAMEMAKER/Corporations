@@ -57,8 +57,8 @@ public class NicheMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        if (!NicheUtils.IsPlayableNiche(GameContext, niche))
-            m.SetActive(false);
+        var isPlayable = NicheUtils.IsPlayableNiche(GameContext, niche);
+        m.SetActive(isPlayable);
 
         RenderCompanies(niche, m);
     }

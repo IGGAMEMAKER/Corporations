@@ -67,7 +67,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         SetNichesAutomatically(NicheType.CloudComputing,
-            NicheDuration.EntireGame, AudienceSize.BigProduct, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.ForSmallEnterprise, PriceCategory.Enterprise, NicheChangeSpeed.Year,
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
@@ -75,7 +75,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.ThreeYears,
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,

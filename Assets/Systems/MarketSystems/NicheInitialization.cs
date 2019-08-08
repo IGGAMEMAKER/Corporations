@@ -43,6 +43,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         FreeMass = 4,
         CheapSubscription = 100, // Subscription model: 10$/month
         ExpensiveSubscription = 500, // Subscription model: 10$/month
+        Enterprise = 5000, // Subscription model: 10$/month
     }
 
     public enum NicheAdMaintenance
@@ -70,7 +71,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
-        NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
+        NicheDuration NicheDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
         //ProductPositioning[] productPositionings,
         int startDate)
@@ -79,7 +80,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var price = GetProductPrice(priceCategory, nicheId, nicheType);
 
-        var clients = GetBatchSize(audienceSize, nicheId);
+        var clients = GetBatchSize(audienceSize, NicheDuration, nicheId);
 
 
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
@@ -153,26 +154,17 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return value;
     }
 
-    long GetBatchSize (AudienceSize audienceSize, int nicheId)
+    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId)
     {
-        var baseValue = GetClientBatchBase(audienceSize);
+        var audience = Randomise((long)audienceSize, nicheId);
+        var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
 
         return Randomise(baseValue, nicheId);
     }
 
-    long GetClientBatchBase(AudienceSize audienceSize)
+    long GetClientBatchBase(long size, int NicheDurationInMonths)
     {
-
-        switch (audienceSize)
-        {
-            case AudienceSize.LessThanMillion: return 70;
-
-            case AudienceSize.BigProduct: return 185;
-
-            case AudienceSize.WholeWorld: return 500;
-        }
-
-        return 0;
+        return size / NicheDurationInMonths / 9;
     }
 
     //int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
@@ -182,6 +174,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         return (int)Randomise(baseValue, nicheId);
     }
+
+
 
     long Randomise(long baseValue, int nicheId)
     {
