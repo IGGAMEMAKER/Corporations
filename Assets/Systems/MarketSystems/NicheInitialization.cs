@@ -28,11 +28,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     public enum AudienceSize
     {
-        ForBigEnterprise, // 2K
-        ForSmallEnterprise, // 50K
-        LessThanMillion, // 1M
-        MidSizedProduct, // 100M // usefull util AdBlock
-        WholeWorld // 1-2B
+        ForBigEnterprise =      2000, // 2K
+        ForSmallEnterprise =    50000, // 50K
+        LessThanMillion =       1000000, // 1M
+        MidSizedProduct =       100000000, // 100M // usefull util AdBlock
+        WholeWorld =            1000000000 // 1-2B
     }
 
     public enum PriceCategory
@@ -71,7 +71,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
-        NicheAdMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
+        //NicheAdMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
         ProductPositioning[] productPositionings,
         int startDate)
     {
@@ -82,11 +82,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var clients = GetBatchSize(audienceSize, nicheId);
 
 
-        var techCost = GetTechCost(techMaintenance, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-        var ideaCost = GetTechCost(techMaintenance, nicheId + 1);
+        var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+        var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
         var marketingCost = GetMarketingCost(marketingMaintenance, nicheId) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
 
-        var adCosts = GetAdCost(MaintenanceCost, nicheId);
+        var adCosts = GetAdCost(clients, priceCategory, nicheId);
 
         var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
 
@@ -132,7 +132,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return (int)Randomise(baseCost, nicheId);
     }
 
-    private int GetTechCost(NicheTechMaintenance techMaintenance, int nicheId)
+    //private int GetTechCost(NicheTechMaintenance techMaintenance, int nicheId)
+    private int GetTechCost(NicheChangeSpeed techMaintenance, int nicheId)
     {
         var baseCost = (int)techMaintenance;
 
@@ -170,9 +171,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return 0;
     }
 
-    int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
+    //int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
+    int GetAdCost (long clientBatch, PriceCategory priceCategory, int nicheId)
     {
-        var baseValue = (long)nicheMaintenance;
+        var baseValue = clientBatch * (int)priceCategory / 2;
 
         return (int)Randomise(baseValue, nicheId);
     }
