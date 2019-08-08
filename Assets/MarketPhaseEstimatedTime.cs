@@ -15,11 +15,9 @@ public class MarketPhaseEstimatedTime : UpgradedParameterView
 
         var years = timeRemaining / 12;
 
-        if (years > 0)
+        if (years > 1)
             return $"{years}+ years";
 
         return $"{timeRemaining} months";
     }
-
-    
 }
