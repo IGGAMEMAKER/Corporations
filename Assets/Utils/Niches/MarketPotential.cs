@@ -42,11 +42,11 @@
 
         public static long GetAbsoluteAnnualMarketGrowth(GameContext gameContext, GameEntity niche)
         {
-            var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
+            //var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
 
             var flow = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
 
-            long clients = flow * relativeGrowth;
+            long clients = flow; // * relativeGrowth;
 
             var price = GetNicheCosts(niche).BasePrice * 1.5f;
 
@@ -70,8 +70,8 @@
                 var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche);
 
                 var additionalPhaseModifier = GetMarketStateCostsModifier(g.Key);
-
-                clients += clientBatch * additionalPhaseModifier * g.Value * phasePeriod;
+                //*g.Value
+                clients += clientBatch * additionalPhaseModifier * phasePeriod;
             }
 
             //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");

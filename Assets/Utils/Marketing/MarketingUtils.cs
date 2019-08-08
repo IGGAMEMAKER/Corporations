@@ -30,14 +30,14 @@ namespace Assets.Utils
 
         public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
-            var phase = NicheUtils.GetMarketState(niche);
+            //var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+            //var phase = NicheUtils.GetMarketState(niche);
 
-            var baseGrowthModifier = niche.nicheLifecycle.Growth[phase];
+            //var baseGrowthModifier = niche.nicheLifecycle.Growth[phase];
 
             var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
 
-            return costs.ClientBatch * baseGrowthModifier;
+            return costs.ClientBatch; // * baseGrowthModifier;
         }
 
 
