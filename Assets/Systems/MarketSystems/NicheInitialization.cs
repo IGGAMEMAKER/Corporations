@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Utils;
 using Assets.Utils.Formatting;
 using Entitas;
@@ -31,7 +32,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         ForBigEnterprise =      2000, // 2K
         ForSmallEnterprise =    50000, // 50K
         LessThanMillion =       1000000, // 1M
-        MidSizedProduct =       100000000, // 100M // usefull util AdBlock
+        BigProduct =            100000000, // 100M // usefull util AdBlock
         WholeWorld =            1000000000 // 1-2B
     }
 
@@ -71,8 +72,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration PeriodDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
-        //NicheAdMaintenance MaintenanceCost, NicheTechMaintenance techMaintenance, NicheMarketingMaintenance marketingMaintenance,
-        ProductPositioning[] productPositionings,
+        //ProductPositioning[] productPositionings,
         int startDate)
     {
         var nicheId = GetNicheId(nicheType);
@@ -93,25 +93,28 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         // positionings
-        var positionings = n.nicheSegments.Positionings;
-        var clientsContainer = n.nicheClientsContainer.Clients;
+        var positionings = new Dictionary<int, ProductPositioning>(); // n.nicheSegments.Positionings;
+        //var clientsContainer = n.nicheClientsContainer.Clients;
+        var clientsContainer = new Dictionary<int, long>();
 
-        for (var i = 0; i < productPositionings.Length; i++)
-        {
-            positionings[i] = productPositionings[i];
-            clientsContainer[i] = 0;
-        }
+        //for (var i = 0; i < productPositionings.Length; i++)
+        //{
+        //    positionings[i] = productPositionings[i];
+        //    clientsContainer[i] = 0;
+        //}
 
-        if (productPositionings.Length == 0)
+
+
+        positionings[0] = new ProductPositioning
         {
-            positionings[0] = new ProductPositioning
-            {
-                isCompetitive = false,
-                marketShare = 100,
-                name = EnumUtils.GetSingleFormattedNicheName(nicheType)
-            };
-            clientsContainer[0] = 0;
-        }
+            isCompetitive = false,
+            marketShare = 100,
+            name = EnumUtils.GetSingleFormattedNicheName(nicheType)
+        };
+        clientsContainer[0] = 0;
+        //if (productPositionings.Length == 0)
+        //{
+        //}
 
 
         n.ReplaceNicheSegments(positionings);
@@ -164,7 +167,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         {
             case AudienceSize.LessThanMillion: return 70;
 
-            case AudienceSize.MidSizedProduct: return 185;
+            case AudienceSize.BigProduct: return 185;
 
             case AudienceSize.WholeWorld: return 500;
         }

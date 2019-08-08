@@ -14,5 +14,18 @@ public class NewCampaignController : View
         NicheType = nicheType;
 
         StartCampaignButton.SetNiche(nicheType, Input);
+
+        Input.Select();
+        Input.ActivateInputField();
+    }
+
+    public void OnCompanyNameChange()
+    {
+        StartCampaignButton.gameObject.SetActive(Input.text.Length > 0);
+    }
+
+    public void OnFormSubmit()
+    {
+        StartCampaignButton.Execute();
     }
 }

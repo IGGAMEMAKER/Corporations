@@ -28,37 +28,28 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNichesAutomatically(NicheType.Email,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            //NicheAdMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
-            new ProductPositioning[] { },
             GetYear(1990));
 
         SetNichesAutomatically(NicheType.Forums,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
-            //NicheAdMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
-            new ProductPositioning[] { },
+            NicheDuration.Decade, AudienceSize.BigProduct, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
             GetYear(1990));
 
         SetNichesAutomatically(NicheType.Blogs,
-            NicheDuration.Decade, AudienceSize.MidSizedProduct, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            //NicheAdMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
-            new ProductPositioning[] {},
+            NicheDuration.Decade, AudienceSize.BigProduct, PriceCategory.CheapMass, NicheChangeSpeed.Year,
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.SocialNetwork,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Year,
-            //NicheAdMaintenance.High, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
-            new ProductPositioning[] {
-                //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
-                //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
-                //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
-                //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
-            },
+            //new ProductPositioning[] {
+            //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
+            //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
+            //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
+            //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
+            //},
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
-            //NicheAdMaintenance.Mid, NicheTechMaintenance.High, NicheMarketingMaintenance.High,
-            new ProductPositioning[] {},
             GetYear(2005));
     }
 
@@ -76,27 +67,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         SetNichesAutomatically(NicheType.CloudComputing,
-            NicheDuration.EntireGame, AudienceSize.MidSizedProduct, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
-            //NicheAdMaintenance.Humongous, NicheTechMaintenance.High, NicheMarketingMaintenance.Mid,
-            new ProductPositioning[] { },
+            NicheDuration.EntireGame, AudienceSize.BigProduct, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
-            //NicheAdMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
-            new ProductPositioning[] { },
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
-            //NicheAdMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Humongous,
-            new ProductPositioning[] { },
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
-            //NicheAdMaintenance.Humongous, NicheTechMaintenance.Humongous, NicheMarketingMaintenance.Mid,
-            new ProductPositioning[] { },
             GetYear(1990));
     }
 }
