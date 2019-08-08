@@ -55,9 +55,10 @@ namespace Assets.Utils
             var mp = marketingCost.salesPoints;
 
             //Debug.Log($"pp: {pp}   sp: {mp}");
+            var iteration = ProductUtils.GetBaseConceptTime(niche);
 
             var marketers = mp * Constants.SALARIES_MARKETER / Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-            var programmers = pp * Constants.SALARIES_PROGRAMMER * 30 / ProductUtils.GetBaseConceptTime(niche) / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+            var programmers = pp * Constants.SALARIES_PROGRAMMER * 30 / iteration / Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
 
             return marketers + programmers;
         }
