@@ -1,7 +1,4 @@
-﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SetInitialNiche : MonoBehaviour, IPointerClickHandler
@@ -14,12 +11,10 @@ public class SetInitialNiche : MonoBehaviour, IPointerClickHandler
         this.nicheType = nicheType;
         this.TypeCorporationNameContainer = TypeCorporationNameContainer;
         this.ChooseInitialNicheContainer = ChooseInitialNicheContainer;
-        Debug.Log("Set niche for SetInitialNiche");
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("OnPointerClick");
         TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetNiche(nicheType);
         ChooseInitialNicheContainer.SetActive(false);
         TypeCorporationNameContainer.SetActive(true);
