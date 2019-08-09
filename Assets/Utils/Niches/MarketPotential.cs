@@ -29,8 +29,9 @@
 
             var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
 
-            return segmentShare * GetMarketAudiencePotential(niche) / 100;
+            return GetMarketAudiencePotential(niche) * segmentShare / 100;
         }
+
 
         public static long GetRelativeAnnualMarketGrowth(GameEntity niche)
         {
@@ -88,6 +89,7 @@
             // * CompanyEconomyUtils.GetCompanyCostNicheMultiplier()
             return (long)(clients * price);
         }
+
 
 
         // TODO

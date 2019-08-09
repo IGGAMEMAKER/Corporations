@@ -5,16 +5,6 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
-        internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            var f = c.finance;
-
-            c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
-        }
-
-
         public static long GetClients(GameEntity company)
         {
             return company.marketing.clients;
@@ -26,7 +16,6 @@ namespace Assets.Utils
 
             company.ReplaceMarketing(marketing.clients + clients);
         }
-
 
         public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
         {
@@ -41,6 +30,16 @@ namespace Assets.Utils
         }
 
 
+
+
+        internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var f = c.finance;
+
+            c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
+        }
 
         public static TeamResource GetReleaseCost()
         {

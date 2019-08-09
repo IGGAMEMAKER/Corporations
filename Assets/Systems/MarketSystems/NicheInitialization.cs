@@ -41,9 +41,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         // dollars per user per year
         CheapMass = 1,
         FreeMass = 4,
-        CheapSubscription = 100, // Subscription model: 10$/month
+        CheapSubscription = 120, // Subscription model: 10$/month
         ExpensiveSubscription = 500, // Subscription model: 10$/month
-        Enterprise = 5000, // Subscription model: 10$/month
+        Enterprise = 50000, 
     }
 
     public enum NicheAdMaintenance

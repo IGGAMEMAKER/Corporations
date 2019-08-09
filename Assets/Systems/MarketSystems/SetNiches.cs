@@ -71,7 +71,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.ThreeYears,
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
@@ -79,7 +79,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapSubscription, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
             GetYear(1990));
     }
 }
