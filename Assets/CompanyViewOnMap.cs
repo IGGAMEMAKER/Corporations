@@ -16,6 +16,8 @@ public class CompanyViewOnMap : View
     public Image DarkImage;
     public Image RelevancyImage;
 
+    public Text Profitability;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -35,6 +37,18 @@ public class CompanyViewOnMap : View
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
         SetEmblemColor();
+
+        if (Profitability != null)
+        {
+            var profit = CompanyEconomyUtils.GetBalanceChange(GameContext, company.company.Id);
+
+            Profitability.text = Visuals.Describe(profit, "+", "-", "");
+            Profitability.GetComponent<Hint>().SetHint(
+                profit > 0 ?
+                Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
+                Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
+                );
+        }
     }
 
     Color GetMarketRelevanceColor()

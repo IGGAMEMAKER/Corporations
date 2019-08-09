@@ -18,7 +18,7 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            long clients = c.marketing.clients;
+            long clients = MarketingUtils.GetClients(c);
 
             float price = GetSegmentPrice(gameContext, companyId, segmentId);
 
