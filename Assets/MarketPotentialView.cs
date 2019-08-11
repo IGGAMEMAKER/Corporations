@@ -70,13 +70,6 @@ public class MarketPotentialView : View
                 BiggestIncome.text = "???";
             else
             {
-                //Debug.Log("Niche " + niche.niche.NicheType + " players Count: " + players.Count());
-
-                //foreach (var p in players)
-                //{
-                //    Debug.Log("player " + p.company.Name);
-                //}
-                //Debug.Log(players.Count());
                 var max = players.Max(p => CompanyEconomyUtils.GetCompanyIncome(p, GameContext));
                 BiggestIncome.text = Format.Money(max) + " / month";
             }
