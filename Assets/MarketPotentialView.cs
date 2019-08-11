@@ -1,4 +1,6 @@
 ﻿using Assets.Utils;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MarketPotentialView : View
@@ -16,6 +18,8 @@ public class MarketPotentialView : View
     public Text TeamMaintenance;
 
     public Text ChangeSpeed;
+
+    public Text BiggestIncome;
 
     public override void ViewRender()
     {
@@ -56,5 +60,26 @@ public class MarketPotentialView : View
 
         var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
+
+
+        if (BiggestIncome != null)
+        {
+            var players = NicheUtils.GetPlayersOnMarket(GameContext, niche.niche.NicheType);
+
+            if (players.Count() == 0)
+                BiggestIncome.text = "???";
+            else
+            {
+                //Debug.Log("Niche " + niche.niche.NicheType + " players Count: " + players.Count());
+
+                //foreach (var p in players)
+                //{
+                //    Debug.Log("player " + p.company.Name);
+                //}
+                //Debug.Log(players.Count());
+                var max = players.Max(p => CompanyEconomyUtils.GetCompanyIncome(p, GameContext));
+                BiggestIncome.text = Format.Money(max) + " / month";
+            }
+        }
     }
 }
