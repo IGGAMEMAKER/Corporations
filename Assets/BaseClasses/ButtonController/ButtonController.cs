@@ -76,28 +76,7 @@ public abstract partial class ButtonController
     }
 }
 
-
-public abstract partial class ButtonController
-{
-    // trigger events
-
-    public void TriggerEventUpgradeProduct(int productId, int ProductLevel)
-    {
-        MyProductEntity.AddEventUpgradeProduct(productId, ProductLevel);
-    }
-
-    public void TriggerEventTargetingToggle(int productId)
-    {
-        MarketingUtils.EnableTargeting(MyProductEntity);
-    }
-
-    public void TriggerEventSetPrice(int productId, Pricing level)
-    {
-        MyProductEntity.AddEventFinancePricingChange(productId, level);
-    }
-}
-
-
+// navigation
 public abstract partial class ButtonController
 {
     public void GoBack()

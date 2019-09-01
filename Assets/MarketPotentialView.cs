@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿ using Assets.Utils;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,8 +18,12 @@ public class MarketPotentialView : View
     public Text TeamMaintenance;
 
     public Text ChangeSpeed;
+    public Text ChangeSpeedLabel;
 
     public Text BiggestIncome;
+
+    public Text StartCapital;
+    public Text StartCapitalLabel;
 
     public override void ViewRender()
     {
@@ -73,6 +77,12 @@ public class MarketPotentialView : View
                 var max = players.Max(p => CompanyEconomyUtils.GetCompanyIncome(p, GameContext));
                 BiggestIncome.text = Format.Money(max) + " / month";
             }
+        }
+
+        if (StartCapital != null)
+        {
+            var start = NicheUtils.GetStartCapital(niche);
+            StartCapital.text = Format.Money(start);
         }
     }
 }

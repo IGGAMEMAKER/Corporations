@@ -70,6 +70,14 @@ namespace Assets.Utils
             return new TeamResource(0, 0, costs.MarketingCost, 0, costs.AdCost);
         }
 
+        public static long GetStartCapital(GameEntity niche)
+        {
+            var team = GetTeamMaintenanceCost(niche);
+            var marketing = GetBaseMarketingMaintenance(niche);
+
+            return team + marketing.money;
+        }
+
         internal static TeamResource GetAggressiveMarketingMaintenance(GameContext context, NicheType nicheType)
         {
             var niche = GetNicheEntity(context, nicheType);

@@ -29,7 +29,7 @@ public class FillInterruptList : View
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
         bool isCanSellCompany = CheckAcquisitionOffers();
-        bool isCanBuyCompany = CheckAcquisitionCandidates();
+        bool isCanBuyCompany = false && CheckAcquisitionCandidates();
 
         bool isCanSeeAnnualReport = CheckAnnualReport();
         bool isHasDaughterCompanies = CheckManagingCompanies();
