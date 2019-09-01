@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Visuals;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,7 +97,10 @@ public class NicheMapRenderer : View
     GameObject GetCompanyObject(int companyId)
     {
         if (!companies.ContainsKey(companyId))
+        {
             companies[companyId] = Instantiate(CompanyPrefab, transform);
+            //companies[companyId].AddComponent<EnlargeOnAppearance>();
+        }
 
         return companies[companyId];
     }

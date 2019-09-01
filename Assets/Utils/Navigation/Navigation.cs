@@ -62,6 +62,15 @@ namespace Assets.Utils
 
         //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
 
+        public static bool IsCanNavigateBack(GameContext gameContext)
+        {
+            var history = GetNavigationHistory(gameContext);
+
+            var q = history.navigationHistory.Queries;
+
+            return q.Count > 1;
+        }
+
         //Debug.Log("Rendering menues: " + names);
         public static void NavigateBack(GameContext context)
         {

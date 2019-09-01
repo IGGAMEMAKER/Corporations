@@ -2,7 +2,7 @@
 
 namespace Assets.Visuals
 {
-    class EnlargeOnAppearance : MonoBehaviour
+    public class EnlargeOnAppearance : MonoBehaviour
     {
         [Tooltip("Set only half of full animation length")]
         public float period = 0.15f;
