@@ -7,6 +7,5 @@ public class HideMarketInfoIfMarketIsNotResearched : ToggleOnSomeCondition
         var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
 
         return niche.hasResearch;
-        return true;
     }
 }

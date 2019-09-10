@@ -102,9 +102,7 @@ public class MarketPotentialView : View
 
         var monthlyMaintenance = marketingMaintenance + teamMaintenance;
         if (MonthlyMaintenance != null)
-        {
             MonthlyMaintenance.text = Format.Money(monthlyMaintenance) + " / month";
-        }
 
         if (ROI != null)
         {
