@@ -25,12 +25,16 @@ public class CreateProductCompany : ButtonController
 
     void AttachToGroup(int companyID)
     {
+        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
+        var startCapital = NicheUtils.GetStartCapital(nicheType, GameContext);
+
+        if (!CompanyUtils.IsEnoughResources(MyCompany, new Assets.Classes.TeamResource(startCapital)))
+            return;
+
+        CompanyUtils.SpendResources(MyCompany, startCapital);
         CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, companyID);
 
-        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
-
         name = MyGroupEntity.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
-
         CompanyUtils.Rename(GameContext, companyID, name);
     }
 

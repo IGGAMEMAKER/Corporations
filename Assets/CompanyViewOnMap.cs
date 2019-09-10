@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Formatting;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,18 +84,18 @@ public class CompanyViewOnMap : View
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
 
         // quality description
-        var appQuality = "";
+        var concept = "";
 
         if (company.isTechnologyLeader)
-            appQuality = Visuals.Positive("Sets Trends!");
+            concept = Visuals.Positive("Sets Trends!");
         else if (ProductUtils.IsOutOfMarket(company, GameContext))
-            appQuality = Visuals.Negative("Outdated");
+            concept = Visuals.Negative("Outdated");
         else
-            appQuality = Visuals.Neutral("Relevant");
+            concept = Visuals.Neutral("Relevant");
 
         //
         var level = ProductUtils.GetProductLevel(company);
-        hint.AppendLine($"\nApp quality: {level} ({appQuality})");
+        hint.AppendLine($"\nConcept: {level} ({concept})");
 
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {clients} (#{position + 1})");
@@ -111,7 +108,7 @@ public class CompanyViewOnMap : View
         hint.AppendLine($"\nExpertise: {expertise}");
 
         var brand = (int)company.branding.BrandPower;
-        hint.AppendLine($"Brand strength: {brand}");
+        hint.AppendLine($"Brand: {brand}");
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));

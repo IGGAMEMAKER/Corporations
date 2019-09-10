@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MarketPotentialView : View
 {
+    public bool FullView;
+
     public Text PotentialMarketSize;
     public Text PotentialAudienceSize;
 
@@ -24,6 +26,9 @@ public class MarketPotentialView : View
 
     public Text StartCapital;
     public Text StartCapitalLabel;
+
+    public Text MonthlyMaintenanceLabel;
+    public Text MonthlyMaintenance;
 
     public override void ViewRender()
     {
@@ -59,8 +64,8 @@ public class MarketPotentialView : View
         var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
-        Maintenance.text = Format.MoneyToInteger(maintenance) + " / month";
+        var marketingMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
+        Maintenance.text = Format.MoneyToInteger(marketingMaintenance) + " / month";
 
         var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
@@ -83,6 +88,16 @@ public class MarketPotentialView : View
         {
             var start = NicheUtils.GetStartCapital(niche);
             StartCapital.text = Format.Money(start);
+
+            var showStartCapital = !CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
+            StartCapital.gameObject.SetActive(showStartCapital);
+            StartCapitalLabel.gameObject.SetActive(showStartCapital);
+        }
+
+        if (MonthlyMaintenance != null)
+        {
+            var monthly = marketingMaintenance + teamMaintenance;
+            MonthlyMaintenance.text = Format.Money(monthly) + " / month";
         }
     }
 }

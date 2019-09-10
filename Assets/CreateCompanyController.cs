@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CreateCompanyController : View
@@ -7,9 +8,13 @@ public class CreateCompanyController : View
 
     void OnEnable()
     {
+        var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
+        var startCapital = NicheUtils.GetStartCapital(niche);
+
         if (MyGroupEntity != null)
         {
-            SetActions(true, "Create a startup and attach it to group " + MyGroupEntity.company.Name);
+            SetActions(true, $"Create a startup and attach it to group {MyGroupEntity.company.Name}\n\n " +
+                $"This will cost {Format.Money(startCapital)}");
         }
         else if (MyProductEntity == null)
         {
