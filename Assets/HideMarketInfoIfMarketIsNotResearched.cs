@@ -2,7 +2,7 @@
 
 public class HideMarketInfoIfMarketIsNotResearched : ToggleOnSomeCondition
 {
-    public override bool HideIf()
+    public override bool Condition()
     {
         var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
 

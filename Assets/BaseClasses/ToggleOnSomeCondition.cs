@@ -7,13 +7,11 @@ public abstract class ToggleOnSomeCondition : View
     public GameObject[] Items1;
     public GameObject[] Items2;
 
-    public bool Auto = false;
-
     public override void ViewRender()
     {
         base.ViewRender();
 
-        bool show = !HideIf();
+        bool show = !Condition();
 
         if (!Flip)
             show = !show;
@@ -26,5 +24,5 @@ public abstract class ToggleOnSomeCondition : View
     }
 
     // hide if true
-    public abstract bool HideIf();
+    public abstract bool Condition();
 }
