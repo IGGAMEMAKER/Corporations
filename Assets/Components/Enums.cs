@@ -68,7 +68,10 @@ public enum CooldownType
     // TODO REMOVE
     StealIdeas,
 
-    ImproveSegment
+    ImproveSegment,
+
+    //
+    MarketResearch
 }
 
 public class Cooldown
