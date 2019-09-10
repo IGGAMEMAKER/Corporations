@@ -30,6 +30,9 @@ public class MarketPotentialView : View
     public Text MonthlyMaintenanceLabel;
     public Text MonthlyMaintenance;
 
+    public Text ROILabel;
+    public Text ROI;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -71,22 +74,24 @@ public class MarketPotentialView : View
         TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
 
 
+        long maxIncome = 0;
         if (BiggestIncome != null)
         {
             var players = NicheUtils.GetPlayersOnMarket(GameContext, niche.niche.NicheType);
+
 
             if (players.Count() == 0)
                 BiggestIncome.text = "???";
             else
             {
-                var max = players.Max(p => CompanyEconomyUtils.GetCompanyIncome(p, GameContext));
-                BiggestIncome.text = Format.Money(max) + " / month";
+                maxIncome = players.Max(p => CompanyEconomyUtils.GetCompanyIncome(p, GameContext));
+                BiggestIncome.text = Format.Money(maxIncome) + " / month";
             }
         }
 
+        var start = NicheUtils.GetStartCapital(niche);
         if (StartCapital != null)
         {
-            var start = NicheUtils.GetStartCapital(niche);
             StartCapital.text = Format.Money(start);
 
             var showStartCapital = !CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
@@ -95,10 +100,16 @@ public class MarketPotentialView : View
             StartCapitalLabel.gameObject.SetActive(showStartCapital);
         }
 
+        var monthlyMaintenance = marketingMaintenance + teamMaintenance;
         if (MonthlyMaintenance != null)
         {
-            var monthly = marketingMaintenance + teamMaintenance;
-            MonthlyMaintenance.text = Format.Money(monthly) + " / month";
+            MonthlyMaintenance.text = Format.Money(monthlyMaintenance) + " / month";
+        }
+
+        if (ROI != null)
+        {
+            var roi = (maxIncome - monthlyMaintenance) * 100 * 12 / monthlyMaintenance;
+            ROI.text = $"{roi}% / yearly";
         }
     }
 }
