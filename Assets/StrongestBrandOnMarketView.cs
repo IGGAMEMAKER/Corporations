@@ -17,6 +17,6 @@ public class StrongestBrandOnMarketView : UpgradedParameterView
 
         var productCompany = players.OrderByDescending(p => p.branding.BrandPower).First();
 
-        return $"{productCompany.company.Name} ({productCompany.branding.BrandPower})";
+        return $"{productCompany.company.Name} ({productCompany.branding.BrandPower})\nThey grow faster than others";
     }
 }
