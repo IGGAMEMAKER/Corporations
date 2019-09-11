@@ -9,8 +9,8 @@ public class CreateProductCompany : ButtonController
 
         var startCapital = NicheUtils.GetStartCapital(nicheType, GameContext);
 
-        //if (!CompanyUtils.IsEnoughResources(MyCompany, new Assets.Classes.TeamResource(startCapital)))
-        //    return;
+        if (!CompanyUtils.IsEnoughResources(MyCompany, new Assets.Classes.TeamResource(startCapital)))
+            return;
 
         CompanyUtils.SpendResources(MyCompany, startCapital);
 
