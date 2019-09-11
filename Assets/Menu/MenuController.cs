@@ -41,6 +41,7 @@ public enum ScreenMode
     GroupScreen = 28,
     HoldingScreen = 29,
     CorporationScreen = 30,
+    AcquirableCompaniesOnNicheScreen = 31,
 
 }
 
@@ -80,6 +81,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject GroupScreen;
     public GameObject HoldingScreen;
     public GameObject CorporationScreen;
+    public GameObject AcquirableCompaniesOnNicheScreen;
 
 
     void Start()
@@ -116,6 +118,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.GroupScreen] = GroupScreen,
             [ScreenMode.HoldingScreen] = HoldingScreen,
             [ScreenMode.CorporationScreen] = CorporationScreen,
+            [ScreenMode.AcquirableCompaniesOnNicheScreen] = AcquirableCompaniesOnNicheScreen,
         };
 
         DisableAllScreens();

@@ -22,6 +22,25 @@ public class EnlargeOnHover : MonoBehaviour
         Render();
     }
 
+    void OnDisable()
+    {
+        Debug.Log("EnlargeOnHover disabled");
+
+        // reset scale
+        duration = 0;
+
+        hovered = false;
+
+        SetScale();
+    }
+
+    void SetScale()
+    {
+        float scale = (1 + amplification * duration / animationDuration);
+
+        transform.localScale = new Vector3(scale, scale, 1);
+    }
+
     void Render()
     {
         if (hovered)
@@ -35,9 +54,7 @@ public class EnlargeOnHover : MonoBehaviour
         if (duration > animationDuration)
             duration = animationDuration;
 
-        float scale = (1 + amplification * duration / animationDuration);
-
-        transform.localScale = new Vector3(scale, scale, 1);
+        SetScale();
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
