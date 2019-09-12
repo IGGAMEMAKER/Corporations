@@ -6,6 +6,8 @@ public class BusinessButtonsController : View
     public GameObject PromoteToGroupButton;
     public GameObject PivotButton;
     [SerializeField] GameObject ManageCompanyButton;
+    [SerializeField] GameObject CloseCompanyButton;
+    [SerializeField] GameObject SellCompanyButton;
 
     private void OnEnable()
     {
@@ -21,7 +23,10 @@ public class BusinessButtonsController : View
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
-        ManageCompanyButton.SetActive(CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany);
+        var manageable = CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+        ManageCompanyButton.SetActive(manageable);
+        SellCompanyButton.SetActive(manageable);
+        CloseCompanyButton.SetActive(manageable);
 
         //LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
