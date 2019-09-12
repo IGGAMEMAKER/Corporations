@@ -15,7 +15,10 @@ public class StrongestBrandOnMarketView : UpgradedParameterView
     {
         var players = NicheUtils.GetPlayersOnMarket(GameContext, SelectedNiche);
 
-        var productCompany = players.OrderByDescending(p => p.branding.BrandPower).First();
+        var productCompany = players.OrderByDescending(p => p.branding.BrandPower).FirstOrDefault();
+
+        if (productCompany == null)
+            return "Market is FREE";
 
         return $"{productCompany.company.Name} ({productCompany.branding.BrandPower})\nThey grow faster than others";
     }
