@@ -1,4 +1,4 @@
-﻿public abstract class ToggleButton : ButtonController
+﻿public abstract class ToggleButtonController : ButtonController
 {
     public virtual void ViewRender() { }
 }

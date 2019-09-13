@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class SetTeamSize : ToggleButton
+public class SetTeamSize : ToggleButtonController
 {
     public TeamStatus TeamSize;
 

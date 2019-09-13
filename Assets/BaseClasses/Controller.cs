@@ -33,7 +33,7 @@ public abstract class Controller : BaseClass
         foreach (var view in GetComponents<View>())
             view.ViewRender();
 
-        foreach (var view in GetComponents<ToggleButton>())
+        foreach (var view in GetComponents<ToggleButtonController>())
             view.ViewRender();
     }
 
