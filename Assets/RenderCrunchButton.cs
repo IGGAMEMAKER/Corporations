@@ -4,6 +4,6 @@
     {
         base.ViewRender();
 
-        ToggleIsChosenComponent(MyCompany.isCrunching);
+        ToggleIsChosenComponent(SelectedCompany.isCrunching);
     }
 }
