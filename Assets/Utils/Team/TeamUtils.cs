@@ -91,6 +91,13 @@ namespace Assets.Utils
             return new TeamResource(0, managerPoints, 0, 0, 0);
         }
 
+        internal static void Promote(GameEntity company, TeamStatus newTeamStatus)
+        {
+            var team = company.team;
+
+            company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
+        }
+
         internal static void Promote(GameEntity company)
         {
             var team = company.team;
@@ -107,12 +114,7 @@ namespace Assets.Utils
                 default: newTeamStatus = TeamStatus.BigTeam; break;
             }
 
-            company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
-        }
-
-        internal static void Optimize(GameEntity company)
-        {
-
+            Promote(company, newTeamStatus);
         }
     }
 }
