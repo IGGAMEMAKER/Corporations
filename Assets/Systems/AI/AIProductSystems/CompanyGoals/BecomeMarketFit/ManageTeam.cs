@@ -7,12 +7,14 @@ public partial class AIProductSystems : OnDateChange
 {
     void ManageSmallTeam(GameEntity company)
     {
+        return;
         ManageProgrammers(company);
     }
 
     void ManageProductTeam(GameEntity company)
     {
         //DisableCrunches(company);
+        return;
 
         ManageSmallTeam(company);
 
