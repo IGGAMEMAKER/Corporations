@@ -22,17 +22,17 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
         var container = CooldownUtils.GetCooldowns(contexts.game);
 
         var date = entities[0].date.Date;
+        // old cooldown system
         foreach (var c in cooldowns)
             ProcessTasks(c.cooldowns.Cooldowns, c, date);
 
+        // new cooldown system
         var removables = new List<string>();
         foreach (var c in container)
         {
             if (date >= c.Value.EndDate)
                 removables.Add(c.Key);
         }
-
-        removables.Reverse();
 
         foreach (var c in removables)
             container.Remove(c);
