@@ -30,9 +30,19 @@ namespace Assets.Utils
             int companyId = company.company.Id;
             int CEOId = GetCEOId(company);
 
-            var accumulated = GetAccumulatedExpertise(company);
+            //var accumulated = GetAccumulatedExpertise(company);
 
-            return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+            return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId));
+            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+        }
+
+        public static int GetInnovationChance (GameEntity company)
+        {
+            var morale = company.team.Morale;
+
+            var moraleChance = morale / 10;
+
+            return 15 + moraleChance;
         }
 
         public static Color GetCompanyUniqueColor(int companyId)
