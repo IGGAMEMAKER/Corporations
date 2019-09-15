@@ -87,16 +87,16 @@ public abstract partial class ButtonController
     // navigate
     public void Navigate(ScreenMode screenMode, string field, object data)
     {
-        if (!HasProductCompany && screenMode == ScreenMode.DevelopmentScreen)
-            return;
+        //if (!HasProductCompany && screenMode == ScreenMode.DevelopmentScreen)
+        //    return;
 
         ScreenUtils.Navigate(GameContext, screenMode, field, data);
     }
 
     public void Navigate(ScreenMode screenMode)
     {
-        if (!HasProductCompany && screenMode == ScreenMode.DevelopmentScreen)
-            return;
+        //if (!HasProductCompany && screenMode == ScreenMode.DevelopmentScreen)
+        //    return;
 
         ScreenUtils.Navigate(GameContext, screenMode);
     }
