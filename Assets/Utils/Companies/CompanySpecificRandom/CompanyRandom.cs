@@ -36,13 +36,25 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
-        public static int GetInnovationChance (GameEntity company)
+        public static BonusContainer GetInnovationChanceDescription(GameEntity company)
         {
             var morale = company.team.Morale;
 
-            var moraleChance = morale / 10; // 0...10
+            var moraleChance = morale / 5; // 0...20
+            var expertiseChance = Mathf.Clamp(company.expertise.ExpertiseLevel, 0, 25);
 
-            return 15 + moraleChance;
+            //return 15 + moraleChance + expertiseChance; // 15... 60 (+45)
+
+            return new BonusContainer("Innovation chance")
+                .Append("Base", 15)
+                .Append("Morale", moraleChance)
+                .Append("Expertise", expertiseChance);
+        }
+        public static long GetInnovationChance (GameEntity company)
+        {
+            var chance = GetInnovationChanceDescription(company);
+
+            return chance.Sum();
         }
 
         public static Color GetCompanyUniqueColor(int companyId)

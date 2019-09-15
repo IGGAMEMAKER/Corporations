@@ -1,4 +1,6 @@
-﻿public class ProjectMoraleView : UpgradedParameterView
+﻿using Assets.Utils;
+
+public class ProjectMoraleView : UpgradedParameterView
 {
     public override string RenderHint()
     {
@@ -7,6 +9,10 @@
 
     public override string RenderValue()
     {
-        return SelectedCompany.team.Morale.ToString();
+        var morale = SelectedCompany.team.Morale;
+
+        Colorize(morale, 0, 100);
+
+        return morale.ToString();
     }
 }

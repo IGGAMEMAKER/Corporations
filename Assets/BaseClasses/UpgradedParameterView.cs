@@ -31,6 +31,11 @@ public abstract class UpgradedParameterView : View
         Text.color = Visuals.GetColorFromString(color);
     }
 
+    public void Colorize(int value, int min, int max)
+    {
+        Text.color = Visuals.GetGradientColor(min, max, value);
+    }
+
     public abstract string RenderValue();
     public abstract string RenderHint();
 }
