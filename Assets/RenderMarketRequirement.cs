@@ -1,12 +1,15 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class RenderMarketRequirement : View
+public class RenderMarketRequirement : UpgradedParameterView
 {
-    public override void ViewRender()
+    public override string RenderHint()
     {
-        base.ViewRender();
+        return "";
+    }
 
-        // TODO REMOVE
+    public override string RenderValue()
+    {
+        return ProductUtils.GetMarketDemand(SelectedCompany, GameContext).ToString();
     }
 }
