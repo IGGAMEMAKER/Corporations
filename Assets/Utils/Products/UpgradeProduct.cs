@@ -63,22 +63,20 @@ namespace Assets.Utils
             if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product))
                 return;
 
-            var p = product.product;
-
-            var upgrade = 0;
-            var expertise = CompanyUtils.GetCompanyExpertise(product);
+            var upgrade = 1;
 
             if (IsWillInnovate(product, gameContext))
             {
                 // try to make the revolution
                 var val = Random.Range(0, 100);
 
-                upgrade = val <= expertise ? 1 : 0;
-            } else
-            {
-                upgrade = 1;
+                var expertise = CompanyUtils.GetCompanyExpertise(product);
+
+                if (val > expertise)
+                    upgrade = 0;
             }
 
+            var p = product.product;
             product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + upgrade);
 
             UpdateNicheSegmentInfo(product, gameContext);
