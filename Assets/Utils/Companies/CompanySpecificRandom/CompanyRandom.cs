@@ -40,7 +40,7 @@ namespace Assets.Utils
         {
             var morale = company.team.Morale;
 
-            var moraleChance = morale / 10;
+            var moraleChance = morale / 10; // 0...10
 
             return 15 + moraleChance;
         }
