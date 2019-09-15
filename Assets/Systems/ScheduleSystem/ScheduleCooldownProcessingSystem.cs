@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Utils;
 using Entitas;
 
 public class ScheduleCooldownProcessingSystem : OnDateChange
@@ -17,9 +19,23 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
+        var container = CooldownUtils.GetCooldowns(contexts.game);
 
+        var date = entities[0].date.Date;
         foreach (var c in cooldowns)
-            ProcessTasks(c.cooldowns.Cooldowns, c, entities[0].date.Date);
+            ProcessTasks(c.cooldowns.Cooldowns, c, date);
+
+        var removables = new List<string>();
+        foreach (var c in container)
+        {
+            if (date >= c.Value.EndDate)
+                removables.Add(c.Key);
+        }
+
+        removables.Reverse();
+
+        foreach (var c in removables)
+            container.Remove(c);
     }
 
     protected override bool Filter(GameEntity entity)

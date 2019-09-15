@@ -31,76 +31,77 @@ public static class GameComponentsLookup {
     public const int CompanyResource = 20;
     public const int CompanyResourceListener = 21;
     public const int ControlledByPlayer = 22;
-    public const int Cooldowns = 23;
-    public const int Crunching = 24;
-    public const int CrunchingListener = 25;
-    public const int Date = 26;
-    public const int Dead = 27;
-    public const int DevelopmentFocus = 28;
-    public const int DevelopmentFocusListener = 29;
-    public const int EventFinancePricingChange = 30;
-    public const int EventMarketingEnableTargeting = 31;
-    public const int EventMarketingStartSimpleCampaign = 32;
-    public const int EventStaffHireProgrammer = 33;
-    public const int EventUpgradeAnalytics = 34;
-    public const int EventUpgradeProduct = 35;
-    public const int Expertise = 36;
-    public const int Finance = 37;
-    public const int FinanceListener = 38;
-    public const int Follow = 39;
-    public const int Following = 40;
-    public const int HumanCompanyRelationship = 41;
-    public const int Human = 42;
-    public const int HumanSkills = 43;
-    public const int IndependentCompany = 44;
-    public const int Industry = 45;
-    public const int InvestmentProposals = 46;
-    public const int InvestmentRounds = 47;
-    public const int ManagingCompany = 48;
-    public const int Marketing = 49;
-    public const int MarketingListener = 50;
-    public const int Menu = 51;
-    public const int MenuListener = 52;
-    public const int MetricsHistory = 53;
-    public const int NavigationHistory = 54;
-    public const int NicheClientsContainer = 55;
-    public const int Niche = 56;
-    public const int NicheCosts = 57;
-    public const int NicheLifecycle = 58;
-    public const int NicheSegments = 59;
-    public const int NicheState = 60;
-    public const int Notifications = 61;
-    public const int OnSales = 62;
-    public const int Player = 63;
-    public const int Product = 64;
-    public const int ProductListener = 65;
-    public const int ProductPositioning = 66;
-    public const int PublicCompany = 67;
-    public const int Release = 68;
-    public const int ReleaseListener = 69;
-    public const int Reports = 70;
-    public const int Research = 71;
-    public const int Segment = 72;
-    public const int SegmentLeaders = 73;
-    public const int SegmentListener = 74;
-    public const int Shareholder = 75;
-    public const int Shareholders = 76;
-    public const int ShareholdersListener = 77;
-    public const int Targeting = 78;
-    public const int TargetingListener = 79;
-    public const int Task = 80;
-    public const int TaskManager = 81;
-    public const int Team = 82;
-    public const int TeamListener = 83;
-    public const int TechnologyLeader = 84;
-    public const int TechnologyLeaderListener = 85;
-    public const int Test = 86;
-    public const int TimerRunning = 87;
-    public const int Tutorial = 88;
-    public const int TutorialListener = 89;
-    public const int Worker = 90;
+    public const int CooldownContainer = 23;
+    public const int Cooldowns = 24;
+    public const int Crunching = 25;
+    public const int CrunchingListener = 26;
+    public const int Date = 27;
+    public const int Dead = 28;
+    public const int DevelopmentFocus = 29;
+    public const int DevelopmentFocusListener = 30;
+    public const int EventFinancePricingChange = 31;
+    public const int EventMarketingEnableTargeting = 32;
+    public const int EventMarketingStartSimpleCampaign = 33;
+    public const int EventStaffHireProgrammer = 34;
+    public const int EventUpgradeAnalytics = 35;
+    public const int EventUpgradeProduct = 36;
+    public const int Expertise = 37;
+    public const int Finance = 38;
+    public const int FinanceListener = 39;
+    public const int Follow = 40;
+    public const int Following = 41;
+    public const int HumanCompanyRelationship = 42;
+    public const int Human = 43;
+    public const int HumanSkills = 44;
+    public const int IndependentCompany = 45;
+    public const int Industry = 46;
+    public const int InvestmentProposals = 47;
+    public const int InvestmentRounds = 48;
+    public const int ManagingCompany = 49;
+    public const int Marketing = 50;
+    public const int MarketingListener = 51;
+    public const int Menu = 52;
+    public const int MenuListener = 53;
+    public const int MetricsHistory = 54;
+    public const int NavigationHistory = 55;
+    public const int NicheClientsContainer = 56;
+    public const int Niche = 57;
+    public const int NicheCosts = 58;
+    public const int NicheLifecycle = 59;
+    public const int NicheSegments = 60;
+    public const int NicheState = 61;
+    public const int Notifications = 62;
+    public const int OnSales = 63;
+    public const int Player = 64;
+    public const int Product = 65;
+    public const int ProductListener = 66;
+    public const int ProductPositioning = 67;
+    public const int PublicCompany = 68;
+    public const int Release = 69;
+    public const int ReleaseListener = 70;
+    public const int Reports = 71;
+    public const int Research = 72;
+    public const int Segment = 73;
+    public const int SegmentLeaders = 74;
+    public const int SegmentListener = 75;
+    public const int Shareholder = 76;
+    public const int Shareholders = 77;
+    public const int ShareholdersListener = 78;
+    public const int Targeting = 79;
+    public const int TargetingListener = 80;
+    public const int Task = 81;
+    public const int TaskManager = 82;
+    public const int Team = 83;
+    public const int TeamListener = 84;
+    public const int TechnologyLeader = 85;
+    public const int TechnologyLeaderListener = 86;
+    public const int Test = 87;
+    public const int TimerRunning = 88;
+    public const int Tutorial = 89;
+    public const int TutorialListener = 90;
+    public const int Worker = 91;
 
-    public const int TotalComponents = 91;
+    public const int TotalComponents = 92;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -126,6 +127,7 @@ public static class GameComponentsLookup {
         "CompanyResource",
         "CompanyResourceListener",
         "ControlledByPlayer",
+        "CooldownContainer",
         "Cooldowns",
         "Crunching",
         "CrunchingListener",
@@ -220,6 +222,7 @@ public static class GameComponentsLookup {
         typeof(CompanyResourceComponent),
         typeof(CompanyResourceListenerComponent),
         typeof(ControlledByPlayerComponent),
+        typeof(CooldownContainerComponent),
         typeof(CooldownsComponent),
         typeof(CrunchingComponent),
         typeof(CrunchingListenerComponent),

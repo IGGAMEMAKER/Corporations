@@ -1,49 +1,72 @@
 ﻿using Assets.Classes;
+using Entitas;
+using System.Collections.Generic;
 
 namespace Assets.Utils
 {
     partial class CooldownUtils
     {
-        public static void AddCooldown(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration)
+        // new cooldwon system
+
+        public static GameEntity GetCooldownContainer(GameContext gameContext)
         {
-            AddCooldown(gameContext, company, new Cooldown { CooldownType = cooldownType }, duration);
+            return gameContext.GetEntities(GameMatcher.CooldownContainer)[0];
         }
 
-        public static void AddCooldown(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration)
+        public static Dictionary<string, Cooldown> GetCooldowns(GameContext gameContext)
         {
-            if (HasCooldown(company, cooldown))
-                return;
+            var container = GetCooldownContainer(gameContext);
+
+            return container.cooldownContainer.Cooldowns;
+        }
+
+
+        public static bool HasCooldown(GameContext gameContext, Cooldown cooldown)
+        {
+            return HasCooldown(gameContext, cooldown.GetKey());
+        }
+
+        public static bool HasCooldown(GameContext gameContext, string cooldownName)
+        {
+            return GetCooldowns(gameContext).ContainsKey(cooldownName);
+        }
+
+
+
+        public static void AddNewCooldown(GameContext gameContext, Cooldown cooldown, int duration)
+        {
+            var cooldownName = cooldown.GetKey();
+
+            AddNewCooldown(gameContext, cooldownName, cooldown, duration);
+        }
+        public static void AddNewCooldown(GameContext gameContext, string cooldownName, Cooldown cooldown, int duration)
+        {
+            var c = GetCooldowns(gameContext);
 
             cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
 
-            var cooldowns = company.cooldowns.Cooldowns;
-            cooldowns.Add(cooldown);
-
-            company.ReplaceCooldowns(cooldowns);
+            c[cooldownName] = cooldown;
         }
 
-
-        public static bool HasCooldown(GameEntity gameEntity, CooldownType cooldownType)
+        // specific cooldowns
+        public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product, int duration)
         {
-            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.Compare(cooldownType)) != null;
+            AddNewCooldown(gameContext, new CooldownImproveConcept(product.company.Id), duration);
         }
 
-        public static bool HasCooldown(GameEntity gameEntity, Cooldown cooldown)
+        public static bool HasConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
         {
-            return gameEntity.cooldowns.Cooldowns.Find(cd => cd.Compare(cooldown)) != null;
+            return HasCooldown(gameContext, new CooldownImproveConcept(product.company.Id));
         }
 
-
-        public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, Cooldown cooldown, int duration, TeamResource resources)
+        public static bool TryGetCooldown(GameContext gameContext, Cooldown req, out Cooldown cooldown)
         {
-            AddCooldown(gameContext, company, cooldown, duration);
-            CompanyUtils.SpendResources(company, resources);
+            return TryGetCooldown(gameContext, req.GetKey(), out cooldown);
         }
 
-        public static void AddCooldownAndSpendResources(GameContext gameContext, GameEntity company, CooldownType cooldownType, int duration, TeamResource resources)
+        public static bool TryGetCooldown(GameContext gameContext, string cooldownName, out Cooldown cooldown)
         {
-            AddCooldown(gameContext, company, cooldownType, duration);
-            CompanyUtils.SpendResources(company, resources);
+            return GetCooldowns(gameContext).TryGetValue(cooldownName, out cooldown);
         }
     }
 }

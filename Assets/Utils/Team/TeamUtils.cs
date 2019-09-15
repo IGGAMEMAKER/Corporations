@@ -46,11 +46,11 @@ namespace Assets.Utils
 
             switch (company.team.TeamStatus)
             {
-                case TeamStatus.Solo: teamSizeModifier = 25; break;
-                case TeamStatus.Pair: teamSizeModifier = 45; break;
+                case TeamStatus.Solo: teamSizeModifier = 50; break;
+                case TeamStatus.Pair: teamSizeModifier = 85; break;
                 case TeamStatus.SmallTeam: teamSizeModifier = 100; break;
-                case TeamStatus.BigTeam: teamSizeModifier = 300; break;
-                case TeamStatus.Department: teamSizeModifier = 1200; break;
+                case TeamStatus.BigTeam: teamSizeModifier = 95; break;
+                case TeamStatus.Department: teamSizeModifier = 80; break;
             }
 
             return teamSizeModifier;

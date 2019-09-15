@@ -92,41 +92,35 @@ public class Cooldown
         return IsEqual(cooldown);
     }
 
+    public virtual string GetKey()
+    {
+        return $"StandardCooldown-expires-{EndDate}";
+    }
+
     public virtual bool IsEqual(Cooldown comparable)
     {
         return true;
     }
 }
 
-public class CooldownStealIdeas : Cooldown
+public class CooldownImproveConcept : Cooldown
 {
-    public int targetCompanyId;
+    public int companyId;
 
-    public CooldownStealIdeas(int targetId)
+    public CooldownImproveConcept(int companyId)
     {
-        targetCompanyId = targetId;
-        CooldownType = CooldownType.StealIdeas;
-    }
-
-    public override bool IsEqual(Cooldown comparable)
-    {
-        return (comparable as CooldownStealIdeas).targetCompanyId == targetCompanyId;
-    }
-}
-
-public class CooldownImproveSegment : Cooldown
-{
-    public UserType userType;
-
-    public CooldownImproveSegment(UserType userType)
-    {
-        this.userType = userType;
+        this.companyId = companyId;
         CooldownType = CooldownType.ImproveSegment;
     }
 
+    public override string GetKey()
+    {
+        return $"Upgrade-{companyId}";
+    }
+
     public override bool IsEqual(Cooldown comparable)
     {
-        return (comparable as CooldownImproveSegment).userType == userType;
+        return (comparable as CooldownImproveConcept).companyId == companyId;
     }
 }
 

@@ -58,16 +58,9 @@ namespace Assets.Utils
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
         public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
         {
-            var userType = UserType.Core;
+            var cooldown = new CooldownImproveConcept(product.company.Id);
 
-            var cooldown = new CooldownImproveSegment(userType);
-
-            if (CooldownUtils.HasCooldown(product, cooldown))
-                return;
-
-            var costs = GetProductUpgradeCost(product, gameContext);
-
-            if (!CompanyUtils.IsEnoughResources(product, costs))
+            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product))
                 return;
 
             var p = product.product;
@@ -91,7 +84,8 @@ namespace Assets.Utils
             UpdateNicheSegmentInfo(product, gameContext);
 
             var duration = GetProductUpgradeIterationTime(gameContext, product);
-            CooldownUtils.AddCooldownAndSpendResources(gameContext, product, cooldown, duration, costs);
+
+            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }
     }
 }

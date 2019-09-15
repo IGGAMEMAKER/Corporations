@@ -72,7 +72,11 @@ public class TaskComponent: IComponent
 [Game]
 public class TimerRunningComponent : IComponent { }
 
-
+[Game]
+public class CooldownContainerComponent: IComponent
+{
+    public Dictionary<string, Cooldown> Cooldowns;
+}
 
 [Game, Event(EventTarget.Self)]
 public class TutorialComponent : IComponent

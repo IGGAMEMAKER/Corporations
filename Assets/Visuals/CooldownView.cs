@@ -46,9 +46,6 @@ public partial class CooldownView : View
 
         switch (cooldownType)
         {
-            case CooldownType.ImproveSegment:
-                return cooldowns.Find(cooldown => cooldown.Compare(new CooldownImproveSegment(targetUserType)));
-
             default: 
                 return cooldowns.Find(cooldown => cooldown.Compare(cooldownType));
         }
@@ -69,17 +66,5 @@ public partial class CooldownView : View
             Show(cooldown);
         else
             Hide();
-    }
-}
-
-public partial class CooldownView
-{
-    UserType targetUserType;
-
-    public void SetSegmentForImprovements(UserType userType)
-    {
-        targetUserType = userType;
-
-        ViewRender();
     }
 }

@@ -15,6 +15,8 @@ public class CompanyViewOnMap : View
 
     public Text Profitability;
 
+    public RenderConceptProgress ConceptProgress;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -30,6 +32,8 @@ public class CompanyViewOnMap : View
         Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
 
         LinkToProjectView.CompanyId = c.company.Id;
+
+        ConceptProgress.SetCompanyId(c.company.Id);
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
