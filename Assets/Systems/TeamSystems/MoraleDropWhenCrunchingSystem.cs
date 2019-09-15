@@ -18,7 +18,7 @@ class MoraleManagementSystem : OnMonthChange
 
         for (var i = 0; i < products.Length; i++)
         {
-            var change = products[i].isCrunching ? -10 : 2;
+            var change = products[i].isCrunching ? -8 : 2;
 
             products[i].team.Morale = Mathf.Clamp(products[i].team.Morale + change, 0, 100);
         }

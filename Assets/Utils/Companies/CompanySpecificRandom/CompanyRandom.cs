@@ -43,18 +43,21 @@ namespace Assets.Utils
             var moraleChance = morale / 5; // 0...20
             var expertiseChance = Mathf.Clamp(company.expertise.ExpertiseLevel, 0, 25);
 
+            var crunch = company.isCrunching ? 10 : 0;
+
             //return 15 + moraleChance + expertiseChance; // 15... 60 (+45)
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 15)
                 .Append("Morale", moraleChance)
+                .AppendAndHideIfZero("Crunch", crunch)
                 .Append("Expertise", expertiseChance);
         }
-        public static long GetInnovationChance (GameEntity company)
+        public static int GetInnovationChance (GameEntity company)
         {
             var chance = GetInnovationChanceDescription(company);
 
-            return chance.Sum();
+            return (int) chance.Sum();
         }
 
         public static Color GetCompanyUniqueColor(int companyId)

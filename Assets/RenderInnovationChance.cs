@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System;
 
 public class RenderInnovationChance : UpgradedParameterView
 {
@@ -9,6 +10,10 @@ public class RenderInnovationChance : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return CompanyUtils.GetInnovationChance(SelectedCompany) + "%";
+        var chance = CompanyUtils.GetInnovationChance(SelectedCompany);
+
+        Colorize(chance, 0, 70);
+
+        return chance + "%";
     }
 }

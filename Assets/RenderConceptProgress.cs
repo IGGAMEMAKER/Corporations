@@ -20,6 +20,9 @@ public class RenderConceptProgress : UpgradedParameterView
         Cooldown c;
         CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out c);
 
+        if (c == null)
+            return "";
+
         days = c.EndDate - CurrentIntDate;
 
         return $"{days}d";
