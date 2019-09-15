@@ -81,7 +81,7 @@ namespace Assets.Utils
 
             UpdateNicheSegmentInfo(product, gameContext);
 
-            var duration = GetProductUpgradeIterationTime(gameContext, product);
+            var duration = GetProductUpgradeFinalIterationTime(gameContext, product);
 
             CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }

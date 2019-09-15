@@ -23,22 +23,27 @@ namespace Assets.Utils
             }
         }
 
+
+
         public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
         {
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
-            var innovationModifier = IsWillInnovate(company, gameContext) ? 2.25f : 1;
-
-            var random = 1; // Random.Range(1, 1.3f);
-
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseConceptTime(niche);
 
-            var time = (int)(baseConceptTime * innovationModifier * 100 * random / teamPerformance);
+            var innovationTime = IsWillInnovate(company, gameContext) ? 15 : 10;
 
-            //Debug.Log($"Company {company.company.Name} iteration time: {time}");
+            return baseConceptTime * innovationTime * 100 / 10 / teamPerformance;
+        }
 
-            return time;
+        public static int GetProductUpgradeFinalIterationTime(GameContext gameContext, GameEntity company)
+        {
+            var random = Random.Range(10, 13);
+
+            var baseTime = GetProductUpgradeIterationTime(gameContext, company);
+
+            return baseTime * random / 10;
         }
     }
 }

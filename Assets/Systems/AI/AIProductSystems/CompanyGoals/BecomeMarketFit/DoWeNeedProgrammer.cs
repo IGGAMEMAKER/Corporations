@@ -24,7 +24,7 @@ public partial class AIProductSystems : OnDateChange
         var change = GetResourceChange(company);
         var production = change.programmingPoints;
 
-        var iterationLength = ProductUtils.GetProductUpgradeIterationTime(gameContext, company);
+        var iterationLength = ProductUtils.GetProductUpgradeFinalIterationTime(gameContext, company);
         var requiredProduction = needResources.programmingPoints * 30 / iterationLength;
 
         if (production < requiredProduction)
