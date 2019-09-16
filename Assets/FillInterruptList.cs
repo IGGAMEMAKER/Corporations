@@ -31,6 +31,8 @@ public class FillInterruptList : View
         bool isCanSellCompany = CheckAcquisitionOffers();
         bool isCanBuyCompany = false && CheckAcquisitionCandidates();
 
+        bool isHaveUnhappyCompanies = CheckUnhappyTeams();
+
         bool isCanSeeAnnualReport = CheckAnnualReport();
         bool isHasDaughterCompanies = CheckManagingCompanies();
 
@@ -49,10 +51,15 @@ public class FillInterruptList : View
         TeamLoyaltyWarning.SetActive(isNeedsInterrupt);
 
         InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
-        TeamLoyaltyThreat.SetActive(isNeedsInterrupt);
+        TeamLoyaltyThreat.SetActive(isHaveUnhappyCompanies);
 
         CanSellCompany.SetActive(isCanSellCompany);
         CanBuyCompany.SetActive(isCanBuyCompany);
+    }
+
+    bool CheckUnhappyTeams()
+    {
+        return CompanyUtils.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool CheckManagingCompanies()

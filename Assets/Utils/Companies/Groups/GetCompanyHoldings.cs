@@ -1,6 +1,7 @@
 ﻿using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -21,6 +22,13 @@ namespace Assets.Utils
             int investorId = c.shareholder.Id;
 
             return GetInvestments(context, investorId);
+        }
+
+        public static GameEntity[] GetDaughterUnhappyCompanies(GameContext gameContext, int companyId)
+        {
+            return GetDaughterCompanies(gameContext, companyId)
+            .Where(p => p.hasProduct && p.team.Morale < 30)
+            .ToArray();
         }
 
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
