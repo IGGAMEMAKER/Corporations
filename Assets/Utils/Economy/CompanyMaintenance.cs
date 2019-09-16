@@ -78,6 +78,17 @@
 
         public static long GetTeamMaintenance(GameEntity e)
         {
+            switch (e.team.TeamStatus)
+            {
+                case TeamStatus.Solo: return 0;
+                case TeamStatus.Pair: return 10000;
+                case TeamStatus.SmallTeam: return 50000;
+                case TeamStatus.BigTeam: return 300000;
+                case TeamStatus.Department: return 2300000;
+
+                default: return -100000;
+            }
+
             return
                 GetCEOMaintenance(e) +
                 GetUniversalsMaintenance(e) +

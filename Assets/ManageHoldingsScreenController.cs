@@ -24,6 +24,7 @@ public class ManageHoldingsScreenController : View
 
     void ToggleCEOButtons(bool show)
     {
+        return;
         InvestButton.interactable = show;
     }
 
