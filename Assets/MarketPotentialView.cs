@@ -106,7 +106,7 @@ public class MarketPotentialView : View
 
         if (ROI != null)
         {
-            var roi = (maxIncome - monthlyMaintenance) * 100 * 12 / monthlyMaintenance;
+            var roi = (maxIncome - monthlyMaintenance) * 100 * 12 / (monthlyMaintenance + 1);
             ROI.text = $"{roi}% / yearly";
         }
     }

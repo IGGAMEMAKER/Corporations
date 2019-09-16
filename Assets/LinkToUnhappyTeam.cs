@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System;
 using System.Linq;
+using UnityEngine;
 
 public class LinkToUnhappyTeam : ButtonController
 {
@@ -8,7 +9,7 @@ public class LinkToUnhappyTeam : ButtonController
     {
         var myUnhappyTeams = CompanyUtils.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id);
 
-        var companyId = 0;
+        var companyId = SelectedCompany.company.Id;
 
         if (myUnhappyTeams.Length == 0)
             return;
@@ -22,6 +23,8 @@ public class LinkToUnhappyTeam : ButtonController
         else
         {
             var ind = Array.FindIndex(myUnhappyTeams, m => m.company.Id == companyId);
+
+            Debug.Log("Unhappy team index: " + ind + " out of " + myUnhappyTeams.Length);
 
             if (ind == -1 || ind == myUnhappyTeams.Length - 1)
                 companyId = firstId;
