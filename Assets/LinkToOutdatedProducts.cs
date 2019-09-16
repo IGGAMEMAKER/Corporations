@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-public class LinkToUnhappyTeam : ButtonController
+public class LinkToOutdatedProducts : ButtonController
 {
     public override void Execute()
     {
