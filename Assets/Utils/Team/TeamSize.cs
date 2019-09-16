@@ -60,6 +60,15 @@ namespace Assets.Utils
 
         internal static int GetAverageTeamRating(GameContext gameContext, GameEntity company)
         {
+            switch (company.team.TeamStatus)
+            {
+                case TeamStatus.Solo: return 1;
+                case TeamStatus.Pair: return 2;
+                case TeamStatus.SmallTeam: return 3;
+                case TeamStatus.BigTeam: return 4;
+                case TeamStatus.Department: return 5;
+            }
+
             var strength = GetAverageTeamStrength(gameContext, company);
 
             var min = 45f;

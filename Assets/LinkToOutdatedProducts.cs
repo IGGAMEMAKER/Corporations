@@ -6,9 +6,9 @@ public class LinkToOutdatedProducts : ButtonController
 {
     public override void Execute()
     {
-        var companies = CompanyUtils.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id);
+        var companies = CompanyUtils.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id);
 
-        var hint = $"You have {companies.Length} exhausted teams.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
+        var hint = $"You have {companies.Length} outdated products. \nImprove them!\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);
 
         var targetMenu = ScreenMode.ManageCompaniesScreen;
@@ -34,6 +34,8 @@ public class LinkToOutdatedProducts : ButtonController
             else
                 companyId = companies[ind + 1].company.Id;
         }
+
+
 
         Navigate(targetMenu, Constants.MENU_SELECTED_COMPANY, companyId);
     }

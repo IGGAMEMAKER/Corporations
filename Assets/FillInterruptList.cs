@@ -17,6 +17,7 @@ public class FillInterruptList : View
 
     public GameObject InvestorLoyaltyThreat;
     public GameObject TeamLoyaltyThreat;
+    public GameObject OutdatedProducts;
 
     public override void ViewRender()
     {
@@ -35,6 +36,7 @@ public class FillInterruptList : View
 
         bool isCanSeeAnnualReport = CheckAnnualReport();
         bool isHasDaughterCompanies = CheckManagingCompanies();
+        bool isHasOutdatedProducts = CheckOutdatedProducts();
 
         CanUpgradeSegment.SetActive(isCanUpgradeSegment);
         CanCompleteGoal.SetActive(isCanCompleteGoal && false);
@@ -52,9 +54,15 @@ public class FillInterruptList : View
 
         InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
         TeamLoyaltyThreat.SetActive(isHaveUnhappyCompanies);
+        OutdatedProducts.SetActive(isHasOutdatedProducts);
 
         CanSellCompany.SetActive(isCanSellCompany);
         CanBuyCompany.SetActive(isCanBuyCompany);
+    }
+
+    bool CheckOutdatedProducts()
+    {
+        return CompanyUtils.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool CheckUnhappyTeams()

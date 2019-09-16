@@ -31,6 +31,13 @@ namespace Assets.Utils
             .ToArray();
         }
 
+        public static GameEntity[] GetDaughterOutdatedCompanies(GameContext gameContext, int companyId)
+        {
+            return GetDaughterCompanies(gameContext, companyId)
+            .Where(p => p.hasProduct && ProductUtils.IsOutOfMarket(p, gameContext))
+            .ToArray();
+        }
+
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);

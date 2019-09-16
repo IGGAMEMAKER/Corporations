@@ -9,6 +9,9 @@ public class RenderConceptLevel : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return ProductUtils.GetProductLevel(SelectedCompany).ToString();
+        var level = ProductUtils.GetProductLevel(SelectedCompany);
+        var max = ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
+
+        return Visuals.Gradient(max - 1, max, level) + " / " + max;
     }
 }

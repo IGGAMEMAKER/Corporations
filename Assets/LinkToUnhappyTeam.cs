@@ -35,6 +35,8 @@ public class LinkToUnhappyTeam : ButtonController
                 companyId = companies[ind + 1].company.Id;
         }
 
+
+
         Navigate(targetMenu, Constants.MENU_SELECTED_COMPANY, companyId);
     }
 }

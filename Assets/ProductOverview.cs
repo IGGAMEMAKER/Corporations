@@ -38,7 +38,7 @@ public class ProductOverview : View
 
         var quality = ProductUtils.GetProductLevel(SelectedCompany);
         var status = ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
-        AppQuality.text = $"App quality: {quality} ({status})";
+        AppQuality.text = $"Concept strength: {quality} ({status})";
 
         var brand = SelectedCompany.branding.BrandPower;
         Brand.text = $"Brand: {brand}";
