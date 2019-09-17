@@ -12,6 +12,6 @@ public class RenderConceptLevel : UpgradedParameterView
         var level = ProductUtils.GetProductLevel(SelectedCompany);
         var max = ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
 
-        return Visuals.Gradient(max - 1, max, level) + " / " + max;
+        return Visuals.Gradient(0, max, level) + " / " + max;
     }
 }

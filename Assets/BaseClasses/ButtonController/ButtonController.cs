@@ -28,7 +28,7 @@ public abstract partial class ButtonController : BaseClass
     }
 
     // start
-    void OnEnable()
+    public virtual void Initialize()
     {
         Button = GetComponent<Button>();
 
@@ -38,6 +38,11 @@ public abstract partial class ButtonController : BaseClass
 
         if (IsLink)
             GetComponentInChildren<Text>().color = Visuals.GetColorFromString(VisualConstants.COLOR_LINK);
+    }
+
+    void OnEnable()
+    {
+        Initialize();
     }
 
     // destroy

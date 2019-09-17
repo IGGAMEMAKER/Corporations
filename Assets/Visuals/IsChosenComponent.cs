@@ -21,6 +21,17 @@ public class IsChosenComponent : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        Image = GetComponent<Image>();
+        Text = GetComponentInChildren<Text>();
+
+        BackgroundColor = Color.white; // Image.color;
+        TextColor = Text.color;
+
+        Toggle(false);
+    }
+
     public void Toggle(bool isChosen)
     {
         if (isChosen)
@@ -41,24 +52,13 @@ public class IsChosenComponent : MonoBehaviour
             RestoreDefaultColor();
     }
 
-    void Start()
-    {
-        Image = GetComponent<Image>();
-        Text = GetComponentInChildren<Text>();
-
-        BackgroundColor = Image.color;
-        TextColor = Text.color;
-
-        Toggle(false);
-    }
-
     void RestoreDefaultColor()
     {
-        if (Image != null)
-            Image.color = BackgroundColor;
+        //if (Image != null)
 
-        if (Text != null)
-            Text.color = TextColor;
+        //if (Text != null)
+            Image.color = Color.white;
+            Text.color = Color.black;
     }
 
     void PaintIt()

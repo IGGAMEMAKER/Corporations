@@ -75,10 +75,9 @@
             return directors + midManagers;
         }
 
-
-        public static long GetTeamMaintenance(GameEntity e)
+        public static long GetAbstractTeamMaintenance(TeamStatus teamStatus)
         {
-            switch (e.team.TeamStatus)
+            switch (teamStatus)
             {
                 case TeamStatus.Solo: return 0;
                 case TeamStatus.Pair: return 10000;
@@ -88,6 +87,11 @@
 
                 default: return -100000;
             }
+        }
+
+        public static long GetTeamMaintenance(GameEntity e)
+        {
+            return GetAbstractTeamMaintenance(e.team.TeamStatus);
 
             return
                 GetCEOMaintenance(e) +
