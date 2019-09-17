@@ -17,13 +17,11 @@
             return GetCompanyIncome(e, context);
         }
 
-        public static long GetCompanyCost(GameContext context, int companyId)
+        public static long GetCompanyCost(GameContext context, GameEntity c)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
-
             long cost;
             if (CompanyUtils.IsProductCompany(c))
-                cost = GetProductCompanyCost(context, companyId);
+                cost = GetProductCompanyCost(context, c.company.Id);
             else
                 cost = GetGroupOfCompaniesCost(context, c);
 
@@ -31,6 +29,13 @@
 
             // +1 to avoid division by zero
             return cost + capital + 1;
+        }
+
+        public static long GetCompanyCost(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            return GetCompanyCost(context, c);
         }
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
