@@ -11,15 +11,7 @@ public class IsChosenComponent : MonoBehaviour
     Color BackgroundColor;
     Color TextColor;
 
-    bool state = false;
-
-    public bool IsChosen
-    {
-        get
-        {
-            return state;
-        }
-    }
+    public bool IsChosen { get; private set; } = false;
 
     void Start()
     {
@@ -39,14 +31,14 @@ public class IsChosenComponent : MonoBehaviour
         else
             RestoreDefaultColor();
 
-        state = isChosen;
+        IsChosen = isChosen;
     }
 
     public void Toggle()
     {
-        state = !state;
+        IsChosen = !IsChosen;
 
-        if (state)
+        if (IsChosen)
             PaintIt();
         else
             RestoreDefaultColor();
@@ -54,10 +46,10 @@ public class IsChosenComponent : MonoBehaviour
 
     void RestoreDefaultColor()
     {
-        //if (Image != null)
-
-        //if (Text != null)
+        if (Image != null)
             Image.color = Color.white;
+
+        if (Text != null)
             Text.color = Color.black;
     }
 

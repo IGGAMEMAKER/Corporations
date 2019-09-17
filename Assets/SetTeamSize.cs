@@ -16,8 +16,16 @@ public class SetTeamSize : ToggleButtonController
 
         var money = CompanyEconomyUtils.GetAbstractTeamMaintenance(TeamSize);
 
-        GetComponent<Button>().interactable = CompanyUtils.IsEnoughResources(SelectedCompany, new Assets.Classes.TeamResource(money));
+        bool hasResources = CompanyUtils.IsEnoughResources(SelectedCompany, new Assets.Classes.TeamResource(money));
+
+        GetComponent<Button>().interactable = hasResources;
 
         ToggleIsChosenComponent(SelectedCompany.team.TeamStatus == TeamSize);
+
+        var text = "Company " + SelectedCompany.company.Name + " needs to have \n" + Visuals.Colorize(Format.MoneyToInteger(money), hasResources) + "\non their balance sheets to expand team";
+        if (!hasResources)
+            text += "\n They only have " + Format.MoneyToInteger(SelectedCompany.companyResource.Resources.money);
+
+        GetComponent<Hint>().SetHint(text);
     }
 }
