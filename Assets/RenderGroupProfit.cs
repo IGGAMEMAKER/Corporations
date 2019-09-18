@@ -8,7 +8,8 @@ public class RenderGroupProfit : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
+        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id)
+            .OrderByDescending(c => CompanyEconomyUtils.GetBalanceChange(c, GameContext));
 
         return string.Join("\n", daughters.Select(GetIncomeInfo));
 
