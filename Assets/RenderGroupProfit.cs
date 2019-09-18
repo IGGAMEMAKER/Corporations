@@ -1,13 +1,17 @@
 ﻿using Assets.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RenderGroupProfit : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        return "";
+        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
+
+        return string.Join("\n", daughters.Select(GetIncomeInfo));
+
         var income = CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
         var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(SelectedCompany, GameContext);
 
@@ -24,5 +28,10 @@ public class RenderGroupProfit : UpgradedParameterView
         var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
 
         return Visuals.PositiveOrNegativeMinified(change);
+    }
+
+    string GetIncomeInfo(GameEntity c) {
+
+        return $"{c.company.Name}: {Format.Money(CompanyEconomyUtils.GetBalanceChange(c, GameContext))}";
     }
 }
