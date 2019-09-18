@@ -1,10 +1,8 @@
 ﻿using Assets.Utils;
 using UnityEngine;
 
-public class PerspectiveNichesListView : ListView
+public class PerspectiveAdjacentNichesListView : ListView
 {
-    public bool AdjacentNichesOnly;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<NichePreview>().SetNiche(entity as GameEntity);
@@ -14,7 +12,7 @@ public class PerspectiveNichesListView : ListView
     {
         base.ViewRender();
 
-        var perspectiveNiches = AdjacentNichesOnly ? NicheUtils.GetAdjacentNiches(GameContext, MyCompany) : NicheUtils.GetPerspectiveNiches(GameContext);
+        var perspectiveNiches = NicheUtils.GetAdjacentNiches(GameContext, MyCompany);
 
         SetItems(perspectiveNiches);
     }

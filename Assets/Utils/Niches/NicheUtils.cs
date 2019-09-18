@@ -12,6 +12,20 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
+        public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)
+        {
+            var industries = company.companyFocus.Industries;
+
+            return company.companyFocus.Industries.Contains(niche.niche.IndustryType);
+        }
+
+        public static GameEntity[] GetAdjacentNiches(GameContext context, GameEntity group)
+        {
+            return GetPerspectiveNiches(context)
+                .Where(n => IsAdjacentToCompanyInterest(n, group))
+                .ToArray();
+        }
+
         public static GameEntity[] GetPerspectiveNiches(GameContext context)
         {
             return GetPlayableNiches(context)
