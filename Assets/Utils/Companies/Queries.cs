@@ -60,11 +60,20 @@ namespace Assets.Utils
             );
         }
 
+        public static bool IsNotFinancialStructure(GameEntity e)
+        {
+            return e.company.CompanyType != CompanyType.FinancialGroup;
+        }
+        public static bool IsFinancialStructure(GameEntity e)
+        {
+            return e.company.CompanyType == CompanyType.FinancialGroup;
+        }
+
         internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
         {
             return Array.FindAll(
                 gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals)),
-                e => e.company.CompanyType != CompanyType.FinancialGroup
+                IsNotFinancialStructure
             );
         }
     }

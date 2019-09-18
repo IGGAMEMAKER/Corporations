@@ -7,6 +7,11 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
+        public static IEnumerable<GameEntity> GetNonFinancialCompaniesWithSameInterests (GameContext context, GameEntity company)
+        {
+            return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsNotFinancialStructure);
+        }
+
         public static IEnumerable<GameEntity> GetCompaniesWithSameInterests (GameContext context, GameEntity company)
         {
             var independent = CompanyUtils.GetIndependentCompanies(context);
