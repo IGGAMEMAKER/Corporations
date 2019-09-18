@@ -9,7 +9,7 @@ namespace Assets.Utils
     {
         internal static long GetMarketSize(GameContext gameContext, NicheType nicheType)
         {
-            var products = GetPlayersOnMarket(gameContext, nicheType);
+            var products = GetProductsOnMarket(gameContext, nicheType);
 
             return products
                 .Select(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id))

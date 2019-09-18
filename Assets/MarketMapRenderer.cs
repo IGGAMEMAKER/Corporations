@@ -82,7 +82,7 @@ public class MarketMapRenderer : View
 
     void RenderCompanies(NicheType niche, GameObject m)
     {
-        var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche, true);
+        var competitors = NicheUtils.GetProductsOnMarket(GameContext, niche, true);
 
         var marketPosition = m.transform.localPosition;
         var count = competitors.Count();

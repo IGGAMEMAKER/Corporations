@@ -64,7 +64,7 @@ public class NicheMapRenderer : View
 
     void RenderCompanies(NicheType niche, GameObject m)
     {
-        var competitors = NicheUtils.GetPlayersOnMarket(GameContext, niche)
+        var competitors = NicheUtils.GetProductsOnMarket(GameContext, niche)
             .OrderByDescending(p => ProductUtils.GetProductLevel(p) + CompanyUtils.GetCompanyExpertise(p) * 100)
             .ToArray();
 

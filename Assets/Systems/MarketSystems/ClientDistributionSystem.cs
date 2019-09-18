@@ -28,7 +28,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         var clientContainers = niche.nicheClientsContainer.Clients;
 
-        var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType, false);
+        var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
 
         var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
 

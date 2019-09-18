@@ -17,11 +17,15 @@ public class NearestCompaniesListView : ListView
     GameEntity[] GetCompetingCompanies()
     {
         var niches = MyCompany.companyFocus.Niches;
-
-        //niches.Select()
-        return CompanyUtils.GetAIManagingCompanies(GameContext)
+        
+        return NicheUtils.GetCompaniesWithSameInterests(GameContext, MyCompany)
             .OrderByDescending(c => CompanyEconomyUtils.GetCompanyCost(GameContext, c))
             .ToArray();
+
+        ////niches.Select()
+        //return CompanyUtils.GetAIManagingCompanies(GameContext)
+        //    .OrderByDescending(c => CompanyEconomyUtils.GetCompanyCost(GameContext, c))
+        //    .ToArray();
     }
 
     public override void ViewRender()

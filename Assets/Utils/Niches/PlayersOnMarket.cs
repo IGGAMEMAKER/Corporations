@@ -7,41 +7,67 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, int companyId)
+        public static IEnumerable<GameEntity> GetCompaniesWithSameInterests (GameContext context, GameEntity company)
+        {
+            var independent = CompanyUtils.GetIndependentCompanies(context);
+
+            var interests = company.companyFocus.Niches;
+
+            return independent.Where(c =>
+            (c.hasProduct && interests.Contains(c.product.Niche))
+            ||
+            (c.hasCompanyFocus && c.companyFocus.Niches.Intersect(interests).Count() > 0)
+            );
+        }
+
+        public static IEnumerable<GameEntity> GetCompaniesInterestedInMarket (GameContext context, NicheType niche)
+        {
+            var independent = CompanyUtils.GetIndependentCompanies(context);
+
+            return independent.Where(c =>
+            (c.hasProduct && c.product.Niche == niche)
+            ||
+            (c.hasCompanyFocus && c.companyFocus.Niches.Contains(niche))
+            );
+        }
+
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return GetPlayersOnMarket(context, c);
+            return GetProductsOnMarket(context, c);
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, GameEntity product)
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, GameEntity product)
         {
-            return GetPlayersOnMarket(context, product.product.Niche);
+            return GetProductsOnMarket(context, product.product.Niche);
         }
 
-        public static IEnumerable<GameEntity> GetPlayersOnMarket(GameContext context, NicheType niche)
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, NicheType niche)
         {
             return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
-        public static GameEntity[] GetPlayersOnMarket(GameContext context, NicheType niche, bool something)
+        public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
         {
-            return GetPlayersOnMarket(context, niche).ToArray();
+            return GetProductsOnMarket(context, niche).ToArray();
         }
 
         public static int GetCompetitorsAmount(GameEntity e, GameContext context)
         {
             // returns amount of competitors on specific niche
 
-            return GetPlayersOnMarket(context, e).Count();
+            return GetProductsOnMarket(context, e).Count();
         }
 
         public static int GetCompetitorsAmount(NicheType niche, GameContext context)
         {
             // returns amount of competitors on specific niche
 
-            return GetPlayersOnMarket(context, niche).Count();
+            return GetProductsOnMarket(context, niche).Count();
         }
+
+
 
 
         internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
@@ -73,7 +99,7 @@ namespace Assets.Utils
 
         public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context)
         {
-            var names = GetPlayersOnMarket(context, e)
+            var names = GetProductsOnMarket(context, e)
                 .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
 
             return names;

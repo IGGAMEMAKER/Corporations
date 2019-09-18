@@ -77,7 +77,7 @@ public class MarketPotentialView : View
         long maxIncome = 0;
         if (BiggestIncome != null)
         {
-            var players = NicheUtils.GetPlayersOnMarket(GameContext, niche.niche.NicheType);
+            var players = NicheUtils.GetProductsOnMarket(GameContext, niche.niche.NicheType);
 
 
             if (players.Count() == 0)

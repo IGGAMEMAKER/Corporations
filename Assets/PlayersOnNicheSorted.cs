@@ -16,7 +16,7 @@ public class PlayersOnNicheSorted : ListView
     {
         base.ViewRender();
 
-        var players = NicheUtils.GetPlayersOnMarket(GameContext, SelectedNiche).OrderByDescending(p => MarketingUtils.GetClients(p));
+        var players = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche).OrderByDescending(p => MarketingUtils.GetClients(p));
 
         SetItems(players.ToArray());
     }

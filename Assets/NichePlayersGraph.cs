@@ -9,7 +9,7 @@ public class NichePlayersGraph : View
     {
         base.ViewRender();
 
-        var players = NicheUtils.GetPlayersOnMarket(GameContext, SelectedNiche, true);
+        var players = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche, true);
 
         var Xs = GetLast12Months();
 

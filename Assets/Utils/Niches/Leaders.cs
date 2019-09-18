@@ -9,7 +9,7 @@ namespace Assets.Utils
     {
         internal static int GetPositionOnMarket(GameContext gameContext, GameEntity startup)
         {
-            var competitors = GetPlayersOnMarket(gameContext, startup);
+            var competitors = GetProductsOnMarket(gameContext, startup);
 
             return Array.FindIndex(
                 competitors.OrderByDescending(MarketingUtils.GetClients).ToArray(),
@@ -18,7 +18,7 @@ namespace Assets.Utils
 
         internal static int GetAppQualityOnMarket(GameContext gameContext, GameEntity startup)
         {
-            var competitors = GetPlayersOnMarket(gameContext, startup);
+            var competitors = GetProductsOnMarket(gameContext, startup);
 
             return Array.FindIndex(
                 competitors.OrderByDescending(ProductUtils.GetProductLevel).ToArray(),

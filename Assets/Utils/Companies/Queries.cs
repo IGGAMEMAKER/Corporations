@@ -10,6 +10,12 @@ namespace Assets.Utils
             return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.Alive));
         }
 
+        internal static GameEntity[] GetIndependentCompanies(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.IndependentCompany, GameMatcher.Alive));
+        }
+
+
         internal static GameEntity[] GetAIProducts(GameContext gameContext)
         {
             return GetProductCompanies(gameContext);

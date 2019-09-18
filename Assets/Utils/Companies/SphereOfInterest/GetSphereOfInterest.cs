@@ -83,7 +83,7 @@ namespace Assets.Utils
         {
             long clients = 0;
 
-            foreach (var p in NicheUtils.GetPlayersOnMarket(gameContext, product))
+            foreach (var p in NicheUtils.GetProductsOnMarket(gameContext, product))
                 clients += MarketingUtils.GetClients(p);
 
             if (clients == 0)
@@ -107,7 +107,7 @@ namespace Assets.Utils
 
         internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
-            var products = NicheUtils.GetPlayersOnMarket(gameContext, nicheType);
+            var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType);
 
             long share = 0;
 

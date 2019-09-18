@@ -8,7 +8,7 @@ namespace Assets.Utils
     {
         public static void RemoveTechLeaders (GameEntity product, GameContext gameContext)
         {
-            var players = NicheUtils.GetPlayersOnMarket(gameContext, product).ToArray();
+            var players = NicheUtils.GetProductsOnMarket(gameContext, product).ToArray();
 
             foreach (var p in players)
                 p.isTechnologyLeader = false;

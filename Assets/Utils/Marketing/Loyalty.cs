@@ -9,7 +9,7 @@ namespace Assets.Utils
             var app = GetClientLoyaltyRelativeStrength(gameContext, companyId);
             int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
 
-            bool isOnlyPlayer = NicheUtils.GetPlayersOnMarket(gameContext, companyId).Count() == 1;
+            bool isOnlyPlayer = NicheUtils.GetProductsOnMarket(gameContext, companyId).Count() == 1;
             int onlyPlayerBonus = isOnlyPlayer ? 30 : 0;
 
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);

@@ -13,7 +13,7 @@ public class StrongestBrandOnMarketView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var players = NicheUtils.GetPlayersOnMarket(GameContext, SelectedNiche);
+        var players = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche);
 
         var productCompany = players.OrderByDescending(p => p.branding.BrandPower).FirstOrDefault();
 
