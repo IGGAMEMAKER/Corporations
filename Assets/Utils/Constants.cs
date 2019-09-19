@@ -55,7 +55,8 @@ public class Constants
 
     public static long COMPANY_SCORING_HIRE_PROGRAMMER = 50;
 
-    public static float GAMEPLAY_OFFSET_Y = -110f;
+    //public static float GAMEPLAY_OFFSET_Y = -110f;
+    public static float GAMEPLAY_OFFSET_Y = -60f;
 
     public static int COOLDOWN_COMPANY_GOAL = 365;
     public static int COOLDOWN_BRANDING = 90;
@@ -86,6 +87,11 @@ public class VisualConstants
     public const string COLOR_NEGATIVE = "#FF0000";
     public const string COLOR_NEUTRAL = "#FFFFFF";
     public const string COLOR_BEST = COLOR_GOLD; // "#FFD100"; // "#FFA0FF";
+
+
+    public const string COLOR_MARKET_ATTITUDE_HAS_COMPANY = COLOR_GOLD; // "#FFD100"; // "#FFA0FF";
+    public const string COLOR_MARKET_ATTITUDE_FOCUS_ONLY = "#524FDE"; // "#FFD100"; // "#FFA0FF";
+    public const string COLOR_MARKET_ATTITUDE_NOT_INTERESTED = COLOR_CONTROL_NO; // "#FFD100"; // "#FFA0FF";
 
 
     public const string COLOR_LINK = "magenta";

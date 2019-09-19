@@ -47,6 +47,25 @@ public class NichePreview : View
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
-        MarketPotential.text = hidePotential ? "?" : GetFormattedMarketPotential();
+        var text = hidePotential ? "?" : GetFormattedMarketPotential();
+
+        bool hasCompany = false;
+        bool isMarketOfInterest = false;
+
+        if (MyCompany != null)
+        {
+            hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, Niche, GameContext);
+            isMarketOfInterest = CompanyUtils.IsInSphereOfInterest(MyCompany, Niche);
+        }
+
+        var color = VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+
+        if (isMarketOfInterest)
+            color = VisualConstants.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
+
+        if (hasCompany)
+            color = VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
+
+        MarketPotential.text = Visuals.Colorize(text, color);
     }
 }

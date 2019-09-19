@@ -54,7 +54,7 @@ public class MarketShareView : View
         text.AppendFormat("Market size: ${0}", Format.MinifyToInteger(marketSize));
         text.Append("\n\n");
 
-        if (share > 0)
+        if (CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext))
         {
             text.AppendFormat(Visuals.Colorize("We control {0}% of it (${1})", VisualConstants.COLOR_CONTROL), share, Format.MinifyToInteger(marketControlCost));
             text.Append("\n\n");

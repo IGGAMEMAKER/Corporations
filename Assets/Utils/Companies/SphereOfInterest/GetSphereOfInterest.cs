@@ -18,6 +18,9 @@ namespace Assets.Utils
 
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
+            if (!company.hasCompanyFocus)
+                return false;
+
             return company.companyFocus.Niches.Contains(niche);
         }
 
