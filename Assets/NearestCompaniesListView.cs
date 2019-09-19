@@ -10,7 +10,7 @@ public class NearestCompaniesListView : ListView
     {
         var e = (entity as GameEntity);
 
-        t.GetComponent<CompanyPreviewView>()
+        t.GetComponent<CompetitorPreview>()
             .SetEntity(e);
     }
 
