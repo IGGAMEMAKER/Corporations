@@ -131,8 +131,8 @@ public class NicheMapRenderer : View
         //var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
         var share = startup.branding.BrandPower / 100f;
 
-        var min = 0.95f;
-        var max = 2.05f;
+        var min = 0.55f;
+        var max = 1.55f;
         var k = max - min;
 
         var scale = min + k * share; // GetMarketScale(niche);
