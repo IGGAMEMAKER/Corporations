@@ -128,9 +128,10 @@ public class NicheMapRenderer : View
 
     void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition, GameEntity startup)
     {
-        var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
+        //var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
+        var share = startup.branding.BrandPower / 100f;
 
-        var min = 0.35f;
+        var min = 0.95f;
         var max = 2.05f;
         var k = max - min;
 
