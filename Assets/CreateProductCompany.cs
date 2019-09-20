@@ -16,8 +16,13 @@ public class CreateProductCompany : ButtonController
 
 
         string name = MyCompany.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
-        var c = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
 
+        if (CompanyUtils.GetCompanyByName(GameContext, name) != null)
+        {
+            name += " " + NicheUtils.GetCompetitorsAmount(nicheType, GameContext);
+        }
+
+        var c = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
 
         CompanyUtils.AttachToGroup(GameContext, MyCompany.company.Id, c.company.Id);
     }
