@@ -52,6 +52,7 @@ public class NichePreview : View
         bool hasCompany = false;
         bool isMarketOfInterest = false;
 
+        // avoiding errors when choosing our first niche 
         if (MyCompany != null)
         {
             hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, Niche, GameContext);

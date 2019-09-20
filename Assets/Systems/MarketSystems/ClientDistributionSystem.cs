@@ -24,6 +24,8 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
+        // calculate churn rates here?
+
         NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
 
         var clientContainers = niche.nicheClientsContainer.Clients;
@@ -76,49 +78,51 @@ public partial class ClientDistributionSystem : OnMonthChange
         }
 
         for (var i = 0; i < products.Length; i++)
-            RecalculateBrandPowers(products[i], niche);
+        {
+            var powerChange = RecalculateBrandPowers(products[i], niche);
+            MarketingUtils.AddBrandPower(products[i], powerChange);
+
+            PayForMarketing(products[i], niche);
+        }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
-    void RecalculateBrandPowers(GameEntity product, GameEntity niche)
+    float GetMarketShareBasedBrandDecay(GameEntity product)
     {
-        var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
-
-        //Debug.Log("Pay for marketing : " + product.company.Name);
-        //maintenance.Print();
-
-        bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
-
         var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
         var brand = product.branding.BrandPower;
 
-        var decay = Mathf.Min((marketShare - brand), 0); // -100....0
-        decay *= 0.1f; // Cap brand power decay to -10
+        return Mathf.Min((marketShare - brand) / 10, 0); // -10....0
+    }
 
-        var paymentModifier = isPayingForMarketing ? 1f : 0;
-
+    float RecalculateBrandPowers(GameEntity product, GameEntity niche)
+    {
+        bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
 
         float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -3f : 0;
         float innovationBonus = product.isTechnologyLeader ? 2f : 0;
-        if (isPayingForMarketing && innovationBonus > 0)
+        if (isPayingForMarketing)
             innovationBonus *= 4;
 
-        decay = -1;
-        var power = decay + isOutOfMarket + innovationBonus + paymentModifier;
+        var appQualityModifier = isOutOfMarket + innovationBonus;
 
+        var decay = GetMarketShareBasedBrandDecay(product);
+        var paymentModifier = isPayingForMarketing ? 1f : 0;
 
-        MarketingUtils.AddBrandPower(product, power);
+        var power = -1 + decay + appQualityModifier + paymentModifier;
 
-        if (isPayingForMarketing)
-            CompanyUtils.SpendResources(product, maintenance);
-
-
-        PayForAgressiveMarketing(product, niche);
+        return power;
     }
 
-    void PayForAgressiveMarketing(GameEntity product, GameEntity niche)
+    void PayForMarketing(GameEntity product, GameEntity niche)
     {
+        if (CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext))
+        {
+            var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
+            CompanyUtils.SpendResources(product, maintenance);
+        }
+
         var aggressiveMaintenance = NicheUtils.GetAggressiveMarketingMaintenance(niche);
         if (CompanyUtils.IsEnoughResources(product, aggressiveMaintenance))
         {
