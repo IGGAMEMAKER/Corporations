@@ -106,18 +106,23 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
-        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1f : 0;
-        float innovationBonus = product.isTechnologyLeader ? 2f : 0;
+        var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1 : 0;
+        var innovationBonus = product.isTechnologyLeader ? 2 : 0;
         if (isPayingForMarketing)
             innovationBonus *= 4;
 
-        var appQualityModifier = isOutOfMarket + innovationBonus;
-
         var decay = GetMarketShareBasedBrandDecay(product);
-        var paymentModifier = isPayingForMarketing ? 1f : 0;
+        var paymentModifier = isPayingForMarketing ? 1 : 0;
 
-        var power = -1 + decay + appQualityModifier + paymentModifier;
 
+        var BrandingChangeBonus = new BonusContainer("Brand power change")
+            .Append("Base", -1)
+            .Append("Market share based decay", (int)decay)
+            .AppendAndHideIfZero("Outdated app", isOutOfMarket)
+            .AppendAndHideIfZero("Is Innovator", innovationBonus)
+            .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier);
+
+        var power = BrandingChangeBonus.Sum();
         Debug.Log("Power change for " + product.company.Name + " is " + power);
 
         return power;
@@ -145,6 +150,6 @@ public partial class ClientDistributionSystem : OnMonthChange
         var rand = Random.Range(0.25f, 1.2f);
 
         //     0...100 + 12...60
-        return product.branding.BrandPower + rand * 50;
+        return product.branding.BrandPower + 20; // + rand * 50;
     }
 }
