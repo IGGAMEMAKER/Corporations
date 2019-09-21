@@ -53,6 +53,34 @@ namespace Assets.Utils
             return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
+        public static long GetBiggestIncomeOnMarket(GameContext context, GameEntity niche)
+        {
+            var players = GetProductsOnMarket(context, niche.niche.NicheType);
+
+            var productCompany = players
+                .OrderByDescending(p => CompanyEconomyUtils.GetProductCompanyIncome(p, context))
+                .FirstOrDefault();
+
+            if (productCompany == null)
+                return 0;
+
+            return CompanyEconomyUtils.GetProductCompanyIncome(productCompany, context);
+        }
+
+        public static long GetLowestIncomeOnMarket(GameContext context, GameEntity niche)
+        {
+            var players = GetProductsOnMarket(context, niche.niche.NicheType);
+
+            var productCompany = players
+                .OrderBy(p => CompanyEconomyUtils.GetProductCompanyIncome(p, context))
+                .FirstOrDefault();
+
+            if (productCompany == null)
+                return 0;
+
+            return CompanyEconomyUtils.GetProductCompanyIncome(productCompany, context);
+        }
+
         public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
         {
             return GetProductsOnMarket(context, niche).ToArray();

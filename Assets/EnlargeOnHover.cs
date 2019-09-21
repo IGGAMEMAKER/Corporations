@@ -24,7 +24,7 @@ public class EnlargeOnHover : MonoBehaviour
 
     void OnDisable()
     {
-        Debug.Log("EnlargeOnHover disabled");
+        //Debug.Log("EnlargeOnHover disabled");
 
         // reset scale
         duration = 0;

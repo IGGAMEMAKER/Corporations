@@ -65,7 +65,9 @@ public class MarketCompetitorPreview : View
         var clients = MarketingUtils.GetClients(e);
         var concept = ProductUtils.GetProductLevel(e);
 
+        var brand = (int) e.branding.BrandPower;
+
         Clients.text = Format.Minify(clients) + " users";
-        Concept.text = concept + "LVL";
+        Concept.text = Visuals.Colorize(brand.ToString(), Visuals.GetGradientColor(0, 100, brand)); // concept + "LVL";
     }
 }

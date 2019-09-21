@@ -12,7 +12,9 @@ public class ShowBiggestIncomeOnMarketView : UpgradedParameterView
     {
         var players = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche);
 
-        var productCompany = players.OrderByDescending(p => CompanyEconomyUtils.GetProductCompanyIncome(p, GameContext)).FirstOrDefault();
+        var productCompany = players
+            .OrderByDescending(p => CompanyEconomyUtils.GetProductCompanyIncome(p, GameContext))
+            .FirstOrDefault();
 
         if (productCompany == null)
             return "Market is FREE";

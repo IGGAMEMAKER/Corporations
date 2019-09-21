@@ -50,13 +50,18 @@ public partial class AIManageGroupSystems
         var industry = group.companyFocus.Industries[0];
 
         var playableNiches = NicheUtils.GetPlayableNichesInIndustry(industry, gameContext);
+        var profit = CompanyEconomyUtils.GetBalanceChange(group, gameContext);
 
-        var affordableNiches = playableNiches
-            .Where(n => CompanyUtils.IsEnoughResources(group, 10 * NicheUtils.GetStartCapital(n)))
-            .Where(n => !CompanyUtils.IsInSphereOfInterest(group, n.niche.NicheType))
+        var averageProfit = profit / (CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
+
+        var suitableNiches = playableNiches
+            .Where(n => CompanyUtils.IsEnoughResources(group, 10 * NicheUtils.GetStartCapital(n))) // can start business and hold for a while
+            .Where(n => !CompanyUtils.IsInSphereOfInterest(group, n.niche.NicheType)) // exclude niches, that we cover already
+            .Where(n => NicheUtils.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2) // is profitable niche
+            //.Where(n => NicheUtils.GetBiggestIncomeOnMarket(gameContext, n) > averageProfit) // can compete with current products
             .ToArray();
 
-        var count = affordableNiches.Count();
+        var count = suitableNiches.Count();
 
         if (count == 0)
             return;
@@ -64,7 +69,7 @@ public partial class AIManageGroupSystems
         var rand = Random.Range(0, count);
 
         //var niche = RandomEnum<NicheType>.GenerateValue();
-        var niche = affordableNiches[rand].niche.NicheType;
+        var niche = suitableNiches[rand].niche.NicheType;
 
         CompanyUtils.AddFocusNiche(niche, group, gameContext);
     }

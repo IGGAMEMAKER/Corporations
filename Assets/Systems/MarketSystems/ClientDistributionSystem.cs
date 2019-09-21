@@ -93,14 +93,20 @@ public partial class ClientDistributionSystem : OnMonthChange
         var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
         var brand = product.branding.BrandPower;
 
-        return Mathf.Min((marketShare - brand) / 10, 0); // -10....0
+        var change = (marketShare - brand) / 10;
+
+        return change;
+
+        return Mathf.Min(change, 0); // -10....0
     }
 
     float RecalculateBrandPowers(GameEntity product, GameEntity niche)
     {
         bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
 
-        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -3f : 0;
+        Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
+
+        float isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1f : 0;
         float innovationBonus = product.isTechnologyLeader ? 2f : 0;
         if (isPayingForMarketing)
             innovationBonus *= 4;
@@ -111,6 +117,8 @@ public partial class ClientDistributionSystem : OnMonthChange
         var paymentModifier = isPayingForMarketing ? 1f : 0;
 
         var power = -1 + decay + appQualityModifier + paymentModifier;
+
+        Debug.Log("Power change for " + product.company.Name + " is " + power);
 
         return power;
     }
