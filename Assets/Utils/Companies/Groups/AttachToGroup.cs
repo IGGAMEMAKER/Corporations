@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Utils.Formatting;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -48,6 +49,27 @@ namespace Assets.Utils
                 daughter.AddShareholders(shareholders);
 
             daughter.isIndependentCompany = false;
+        }
+
+        public static void CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
+        {
+            var startCapital = NicheUtils.GetStartCapital(nicheType, gameContext);
+
+            if (!IsEnoughResources(group, startCapital))
+                return;
+
+            SpendResources(group, startCapital);
+
+
+
+            string name = group.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
+
+            if (GetCompanyByName(gameContext, name) != null)
+                name += " " + NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
+
+            var c = GenerateProductCompany(gameContext, name, nicheType);
+
+            AttachToGroup(gameContext, group.company.Id, c.company.Id);
         }
 
     }

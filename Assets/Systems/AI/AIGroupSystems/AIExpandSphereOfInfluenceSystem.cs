@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
+using System.Linq;
+using UnityEngine;
 
 public partial class AIManageGroupSystems
 {
@@ -47,9 +49,23 @@ public partial class AIManageGroupSystems
 
         var industry = group.companyFocus.Industries[0];
 
-        var niche = RandomEnum<NicheType>.GenerateValue();
+        var playableNiches = NicheUtils.GetPlayableNichesInIndustry(industry, gameContext);
 
-        if (NicheUtils.IsPlayableNiche(gameContext, niche))
-            CompanyUtils.AddFocusNiche(niche, group, gameContext);
+        var affordableNiches = playableNiches
+            .Where(n => CompanyUtils.IsEnoughResources(group, 10 * NicheUtils.GetStartCapital(n)))
+            .Where(n => !CompanyUtils.IsInSphereOfInterest(group, n.niche.NicheType))
+            .ToArray();
+
+        var count = affordableNiches.Count();
+
+        if (count == 0)
+            return;
+
+        var rand = Random.Range(0, count);
+
+        //var niche = RandomEnum<NicheType>.GenerateValue();
+        var niche = affordableNiches[rand].niche.NicheType;
+
+        CompanyUtils.AddFocusNiche(niche, group, gameContext);
     }
 }

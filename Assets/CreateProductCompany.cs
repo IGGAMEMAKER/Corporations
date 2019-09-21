@@ -7,21 +7,6 @@ public class CreateProductCompany : ButtonController
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
 
-        var startCapital = NicheUtils.GetStartCapital(nicheType, GameContext);
-
-        if (!CompanyUtils.IsEnoughResources(MyCompany, new Assets.Classes.TeamResource(startCapital)))
-            return;
-
-        CompanyUtils.SpendResources(MyCompany, startCapital);
-
-
-        string name = MyCompany.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
-
-        if (CompanyUtils.GetCompanyByName(GameContext, name) != null)
-            name += " " + NicheUtils.GetCompetitorsAmount(nicheType, GameContext);
-
-        var c = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
-
-        CompanyUtils.AttachToGroup(GameContext, MyCompany.company.Id, c.company.Id);
+        CompanyUtils.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
     }
 }

@@ -23,7 +23,14 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         if (candidates.Count() > 0)
             SendAcquisitionOffer(managingCompany, candidates.First(), gameContext);
+        else
+            CreateCompanyOnMarket(n, managingCompany);
             //BuyCompany(managingCompany, candidates.First());
+    }
+
+    void CreateCompanyOnMarket(NicheType n, GameEntity managingCompany)
+    {
+        CompanyUtils.CreateProductAndAttachItToGroup(gameContext, n, managingCompany);
     }
 
     IEnumerable<NicheType> GetUnoccupiedNiches(GameEntity managingCompany)

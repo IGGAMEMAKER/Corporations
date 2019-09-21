@@ -49,7 +49,7 @@ namespace Assets.Utils
         {
             var niches = company.companyFocus.Niches;
 
-            if (niches.Contains(nicheType))
+            if (IsInSphereOfInterest(company, nicheType))
                 return;
 
             niches.Add(nicheType);
