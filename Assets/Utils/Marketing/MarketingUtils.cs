@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -29,7 +30,40 @@ namespace Assets.Utils
             return costs.ClientBatch; // * baseGrowthModifier;
         }
 
+        public static float GetMarketShareBasedBrandDecay(GameEntity product, GameContext gameContext)
+        {
+            var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
+            var brand = product.branding.BrandPower;
 
+            var change = (marketShare - brand) / 10;
+
+            return change;
+        }
+
+        public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
+        {
+            bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
+
+            //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
+
+            var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1 : 0;
+            var innovationBonus = product.isTechnologyLeader ? 2 : 0;
+            if (isPayingForMarketing)
+                innovationBonus *= 4;
+
+            var decay = GetMarketShareBasedBrandDecay(product, gameContext);
+            var paymentModifier = isPayingForMarketing ? 1 : 0;
+
+
+            var BrandingChangeBonus = new BonusContainer("Brand power change")
+                .Append("Base", -1)
+                .Append("Market share based decay", (int)decay)
+                .AppendAndHideIfZero("Outdated app", isOutOfMarket)
+                .AppendAndHideIfZero("Is Innovator", innovationBonus)
+                .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier);
+
+            return BrandingChangeBonus;
+        }
 
 
         internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)

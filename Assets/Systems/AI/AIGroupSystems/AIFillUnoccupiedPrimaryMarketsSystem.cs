@@ -63,6 +63,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
+        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
+            return;
+
         var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
         if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))

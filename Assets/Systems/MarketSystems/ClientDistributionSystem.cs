@@ -79,53 +79,14 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         for (var i = 0; i < products.Length; i++)
         {
-            var powerChange = RecalculateBrandPowers(products[i], niche);
+            var powerChange = MarketingUtils.GetMonthlyBrandPowerChange(products[i], gameContext).Sum();
+
             MarketingUtils.AddBrandPower(products[i], powerChange);
 
             PayForMarketing(products[i], niche);
         }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
-    }
-
-    float GetMarketShareBasedBrandDecay(GameEntity product)
-    {
-        var marketShare = (float)CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
-        var brand = product.branding.BrandPower;
-
-        var change = (marketShare - brand) / 10;
-
-        return change;
-
-        return Mathf.Min(change, 0); // -10....0
-    }
-
-    float RecalculateBrandPowers(GameEntity product, GameEntity niche)
-    {
-        bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
-
-        Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
-
-        var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1 : 0;
-        var innovationBonus = product.isTechnologyLeader ? 2 : 0;
-        if (isPayingForMarketing)
-            innovationBonus *= 4;
-
-        var decay = GetMarketShareBasedBrandDecay(product);
-        var paymentModifier = isPayingForMarketing ? 1 : 0;
-
-
-        var BrandingChangeBonus = new BonusContainer("Brand power change")
-            .Append("Base", -1)
-            .Append("Market share based decay", (int)decay)
-            .AppendAndHideIfZero("Outdated app", isOutOfMarket)
-            .AppendAndHideIfZero("Is Innovator", innovationBonus)
-            .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier);
-
-        var power = BrandingChangeBonus.Sum();
-        Debug.Log("Power change for " + product.company.Name + " is " + power);
-
-        return power;
     }
 
     void PayForMarketing(GameEntity product, GameEntity niche)
