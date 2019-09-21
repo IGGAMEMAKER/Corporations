@@ -43,6 +43,35 @@ namespace Assets.Utils
             return IsInvestsInCompany(daughter, parent.shareholder.Id);
         }
 
+        public static GameEntity GetParentCompany(GameContext context, GameEntity company)
+        {
+            if (company.isIndependentCompany)
+                return null;
+
+
+            var shares = 0;
+            var shareholders = company.shareholders.Shareholders;
+            GameEntity parent = null;
+
+            foreach (var shareholder in shareholders)
+            {
+                var id = shareholder.Key;
+                var block = shareholder.Value.amount;
+
+                var investor = InvestmentUtils.GetInvestorById(context, id);
+                if (investor.hasCompany)
+                {
+                    // is managing company
+                    if (block > shares)
+                    {
+                        parent = investor;
+                    }
+                }
+            }
+
+            return parent;
+        }
+
         private static GameEntity[] GetInvestments(GameContext context, int investorId)
         {
             return Array.FindAll(

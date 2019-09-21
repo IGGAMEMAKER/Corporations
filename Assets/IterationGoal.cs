@@ -9,7 +9,7 @@ public class IterationGoal : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var chance = CompanyUtils.GetInnovationChance(SelectedCompany);
+        var chance = CompanyUtils.GetInnovationChance(SelectedCompany, GameContext);
 
         return ProductUtils.IsWillInnovate(SelectedCompany, GameContext) ?
             $"Has {chance}% chance to innovate in" :

@@ -36,7 +36,7 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
-        public static BonusContainer GetInnovationChanceDescription(GameEntity company)
+        public static BonusContainer GetInnovationChanceDescription(GameEntity company, GameContext gameContext)
         {
             var morale = company.team.Morale;
 
@@ -45,17 +45,32 @@ namespace Assets.Utils
 
             var crunch = company.isCrunching ? 10 : 0;
 
-            //return 15 + moraleChance + expertiseChance; // 15... 60 (+45)
+
+            var sphereOfInterestBonus = 0;
+
+            if (!company.isIndependentCompany)
+            {
+                var parent = GetParentCompany(gameContext, company);
+
+                if (parent != null)
+                {
+                    if (IsInSphereOfInterest(parent, company.product.Niche))
+                        sphereOfInterestBonus = 10;
+                }
+            }
+
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 15)
                 .Append("Morale", moraleChance)
-                .AppendAndHideIfZero("Crunch", crunch)
-                .Append("Expertise", expertiseChance);
+                .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 25 : 0)
+                .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
+                .AppendAndHideIfZero("Crunch", crunch);
+                //.Append("Expertise", expertiseChance);
         }
-        public static int GetInnovationChance (GameEntity company)
+        public static int GetInnovationChance (GameEntity company, GameContext gameContext)
         {
-            var chance = GetInnovationChanceDescription(company);
+            var chance = GetInnovationChanceDescription(company, gameContext);
 
             return (int) chance.Sum();
         }
