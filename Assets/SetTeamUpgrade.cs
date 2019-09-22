@@ -27,6 +27,8 @@ public class SetTeamUpgrade : View
     public Text RequiredWorkers;
     public Text Description;
 
+    public Image Panel;
+
     public void SetEntity(TeamImprovement improvement)
     {
         UpgradeType = improvement.TeamUpgrade;
@@ -34,6 +36,8 @@ public class SetTeamUpgrade : View
         UpgradeName.text = improvement.Name;
         RequiredWorkers.text = "Required workers: " + improvement.Workers;
         Description.text = improvement.Description;
+
+        
 
         var activated = false;
         UpgradeActivated.gameObject.SetActive(activated);

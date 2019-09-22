@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public struct TeamImprovement
@@ -25,6 +26,7 @@ public class DevelpmentUpgradesListView : ListView
 
         var upgrades = new TeamImprovement[]
         {
+            // dev
             new TeamImprovement
             {
                 TeamUpgrade = TeamUpgrade.Prototype,
@@ -47,7 +49,47 @@ public class DevelpmentUpgradesListView : ListView
                 Workers = 30
             },
 
-        };
+            // marketing
+            new TeamImprovement
+            {
+                TeamUpgrade = TeamUpgrade.BaseMarketing,
+                Name = "Base marketing",
+                Description = "Gives you +1 Brand power each month. Costs money",
+                Workers = 1
+            },
+            new TeamImprovement
+            {
+                TeamUpgrade = TeamUpgrade.AggressiveMarketing,
+                Name = "Aggressive marketing",
+                Description = "Gives you +3 Brand power each month. Costs a lot of money",
+                Workers = 7
+            },
+            new TeamImprovement
+            {
+                TeamUpgrade = TeamUpgrade.AllPlatformMarketing,
+                Name = "All platform marketing",
+                Description = "Gives you +1 Brand power each month when combined with 'All platforms'. Costs money",
+                Workers = 5
+            },
+
+            //// support
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.ClientSupport,
+            //    Name = "Client support",
+            //    Description = "Lowers churn rate by 1%",
+            //    Workers = 1
+            //},
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.ImprovedClientSupport,
+            //    Name = "Improved client support",
+            //    Description = "Lowers churn rate by 1% but costs additional money",
+            //    Workers = 5
+            //},
+        }
+        .OrderBy(i => i.Workers)
+        .ToArray();
 
         //new TeamImprovement
         //{
