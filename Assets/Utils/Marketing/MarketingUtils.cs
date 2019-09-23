@@ -42,8 +42,9 @@ namespace Assets.Utils
 
         public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            bool isPayingForMarketing = CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext);
-
+            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.BaseMarketing);
+            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.AggressiveMarketing);
+            
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
             var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext);
@@ -59,6 +60,7 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
                 .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
+                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 10 : 0)
                 .AppendAndHideIfZero("Is Innovator Paying For Marketing", isInnovator && isPayingForMarketing ? 6 : 0);
 
             return BrandingChangeBonus;

@@ -30,7 +30,19 @@ namespace Assets.Utils
 
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            return GetTeamMaintenance(e);
+
+            var upgrades = e.teamImprovements.Upgrades;
+
+            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.BaseMarketing);
+            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.AggressiveMarketing);
+
+            var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
+
+            var baseMarketing = hasBaseMarketing ? NicheUtils.GetBaseMarketingMaintenance(niche).money : 0;
+            var aggressiveMarketing = hasAggressiveMarketing ? NicheUtils.GetAggressiveMarketingMaintenance(niche).money : 0;
+
+
+            return GetTeamMaintenance(e) + baseMarketing + aggressiveMarketing;
         }
 
 

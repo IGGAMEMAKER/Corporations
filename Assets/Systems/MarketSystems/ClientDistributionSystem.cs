@@ -82,27 +82,9 @@ public partial class ClientDistributionSystem : OnMonthChange
             var powerChange = MarketingUtils.GetMonthlyBrandPowerChange(products[i], gameContext).Sum();
 
             MarketingUtils.AddBrandPower(products[i], powerChange);
-
-            PayForMarketing(products[i], niche);
         }
 
         niche.ReplaceNicheClientsContainer(clientContainers);
-    }
-
-    void PayForMarketing(GameEntity product, GameEntity niche)
-    {
-        if (CompanyEconomyUtils.IsCanAffordMarketing(product, gameContext))
-        {
-            var maintenance = NicheUtils.GetBaseMarketingMaintenance(niche);
-            CompanyUtils.SpendResources(product, maintenance);
-        }
-
-        var aggressiveMaintenance = NicheUtils.GetAggressiveMarketingMaintenance(niche);
-        if (CompanyUtils.IsEnoughResources(product, aggressiveMaintenance))
-        {
-            CompanyUtils.SpendResources(product, aggressiveMaintenance);
-            MarketingUtils.AddBrandPower(product, 10);
-        }
     }
 
     float GetCompanyAudienceReach(GameEntity product)
