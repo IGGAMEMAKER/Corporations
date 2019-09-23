@@ -48,7 +48,7 @@ public class TeamUpgradeView : View
         Panel.color = GetPanelColor(activated);
         if (!activated && !TeamUtils.HasEnoughAvailableWorkersForImprovement(SelectedCompany, UpgradeType))
         {
-            Panel.color = new Color(1, 0, 0);
+            Panel.color = new Color(0.75f, 0, 0);
         }
     }
 }
