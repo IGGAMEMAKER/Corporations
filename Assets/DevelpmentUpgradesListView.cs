@@ -17,7 +17,7 @@ public class DevelpmentUpgradesListView : ListView
     {
         var upgrade = (TeamImprovement) (object) entity;
 
-        t.GetComponent<SetTeamUpgrade>().SetEntity(upgrade);
+        t.GetComponent<TeamUpgradeView>().SetEntity(upgrade);
     }
 
     public override void ViewRender()
@@ -54,21 +54,21 @@ public class DevelpmentUpgradesListView : ListView
             {
                 TeamUpgrade = TeamUpgrade.BaseMarketing,
                 Name = "Base marketing",
-                Description = "Gives you +1 Brand power each month. Costs money",
+                Description = "+1 Brand power each month. Costs money",
                 Workers = 1
             },
             new TeamImprovement
             {
                 TeamUpgrade = TeamUpgrade.AggressiveMarketing,
                 Name = "Aggressive marketing",
-                Description = "Gives you +3 Brand power each month. Costs a lot of money",
+                Description = "+3 Brand power each month. Costs a lot of money",
                 Workers = 7
             },
             new TeamImprovement
             {
                 TeamUpgrade = TeamUpgrade.AllPlatformMarketing,
                 Name = "All platform marketing",
-                Description = "Gives you +1 Brand power each month when combined with 'All platforms'. Costs money",
+                Description = "+1 Brand power each month when combined with 'All platforms'. Costs money",
                 Workers = 5
             },
 

@@ -92,16 +92,17 @@ public static class GameComponentsLookup {
     public const int Task = 81;
     public const int TaskManager = 82;
     public const int Team = 83;
-    public const int TeamListener = 84;
-    public const int TechnologyLeader = 85;
-    public const int TechnologyLeaderListener = 86;
-    public const int Test = 87;
-    public const int TimerRunning = 88;
-    public const int Tutorial = 89;
-    public const int TutorialListener = 90;
-    public const int Worker = 91;
+    public const int TeamImprovements = 84;
+    public const int TeamListener = 85;
+    public const int TechnologyLeader = 86;
+    public const int TechnologyLeaderListener = 87;
+    public const int Test = 88;
+    public const int TimerRunning = 89;
+    public const int Tutorial = 90;
+    public const int TutorialListener = 91;
+    public const int Worker = 92;
 
-    public const int TotalComponents = 92;
+    public const int TotalComponents = 93;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -188,6 +189,7 @@ public static class GameComponentsLookup {
         "Task",
         "TaskManager",
         "Team",
+        "TeamImprovements",
         "TeamListener",
         "TechnologyLeader",
         "TechnologyLeaderListener",
@@ -283,6 +285,7 @@ public static class GameComponentsLookup {
         typeof(TaskComponent),
         typeof(TaskManagerComponent),
         typeof(TeamComponent),
+        typeof(TeamImprovementsComponent),
         typeof(TeamListenerComponent),
         typeof(TechnologyLeaderComponent),
         typeof(TechnologyLeaderListenerComponent),

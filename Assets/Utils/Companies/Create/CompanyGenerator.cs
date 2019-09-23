@@ -64,7 +64,8 @@ namespace Assets.Utils
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
             e.AddBranding(0);
-            
+
+            e.AddTeamImprovements(new Dictionary<TeamUpgrade, int>());
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);

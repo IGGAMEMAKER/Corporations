@@ -46,21 +46,20 @@ namespace Assets.Utils
 
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
-            var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext) ? -1 : 0;
-            var innovationBonus = product.isTechnologyLeader ? 2 : 0;
-            if (isPayingForMarketing)
-                innovationBonus *= 4;
+            var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext);
+            var isInnovator = product.isTechnologyLeader;
 
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
-            var paymentModifier = isPayingForMarketing ? 1 : 0;
+            var paymentModifier = isPayingForMarketing;
 
 
             var BrandingChangeBonus = new BonusContainer("Brand power change")
                 .Append("Base", -1)
                 .Append("Market share based decay", (int)decay)
-                .AppendAndHideIfZero("Outdated app", isOutOfMarket)
-                .AppendAndHideIfZero("Is Innovator", innovationBonus)
-                .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier);
+                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
+                .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
+                .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
+                .AppendAndHideIfZero("Is Innovator Paying For Marketing", isInnovator && isPayingForMarketing ? 4 : 0);
 
             return BrandingChangeBonus;
         }

@@ -1,45 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public enum TeamUpgrade
+public class SetTeamUpgrade : ButtonController
 {
-    Prototype, // match market level
-    OnePlatformPaid, // monetised
+    TeamUpgrade TeamUpgrade;
 
-    AllPlatforms, // way more payments
-
-    BaseMarketing, // +1
-    AggressiveMarketing, // +3
-    AllPlatformMarketing, // bigger maintenance and reach when getting clients
-
-    ClientSupport, // -1% churn fixed cost
-    ImprovedClientSupport, // -1% churn scaling cost
-}
-
-public class SetTeamUpgrade : View
-{
-    public TeamUpgrade UpgradeType;
-
-    public Text UpgradeName;
-    public Image UpgradeActivated;
-    public Text RequiredWorkers;
-    public Text Description;
-
-    public Image Panel;
-
-    public void SetEntity(TeamImprovement improvement)
+    public override void Execute()
     {
-        UpgradeType = improvement.TeamUpgrade;
+        var activated = SelectedCompany.teamImprovements.Upgrades.ContainsKey(TeamUpgrade);
 
-        UpgradeName.text = improvement.Name;
-        RequiredWorkers.text = "Required workers: " + improvement.Workers;
-        Description.text = improvement.Description;
+        if (activated)
+            SelectedCompany.teamImprovements.Upgrades.Remove(TeamUpgrade);
+        else
+        {
+            bool hasEnoughWorkers = true;
 
-        
+            if (hasEnoughWorkers)
+                SelectedCompany.teamImprovements.Upgrades[TeamUpgrade] = 1;
+        }
+    }
 
-        var activated = false;
-        UpgradeActivated.gameObject.SetActive(activated);
+    public void SetTeanUpgrade(TeamUpgrade teamUpgrade)
+    {
+        TeamUpgrade = teamUpgrade;
     }
 }

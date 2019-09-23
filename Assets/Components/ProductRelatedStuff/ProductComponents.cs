@@ -44,6 +44,11 @@ public class FinanceComponent : IComponent
     public float basePrice;
 }
 
+public class TeamImprovementsComponent : IComponent
+{
+    public Dictionary<TeamUpgrade, int> Upgrades;
+}
+
 [Game, Event(EventTarget.Self)]
 public class ReleaseComponent : IComponent { }
 

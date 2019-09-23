@@ -8,7 +8,7 @@ public class MarketingUpgradesListView : ListView
     {
         var upgrade = (TeamImprovement)(object)entity;
 
-        t.GetComponent<SetTeamUpgrade>().SetEntity(upgrade);
+        t.GetComponent<TeamUpgradeView>().SetEntity(upgrade);
     }
 
     public override void ViewRender()
