@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,9 +42,13 @@ public class TeamUpgradeView : View
 
         GetComponent<SetTeamUpgrade>().SetTeanUpgrade(UpgradeType);
 
-        var activated = SelectedCompany.teamImprovements.Upgrades.ContainsKey(UpgradeType);
+        var activated = TeamUtils.IsUpgradePicked(SelectedCompany, UpgradeType);
         UpgradeActivated.gameObject.SetActive(false);
 
         Panel.color = GetPanelColor(activated);
+        if (!activated && !TeamUtils.HasEnoughAvailableWorkersForImprovement(SelectedCompany, UpgradeType))
+        {
+            Panel.color = new Color(1, 0, 0);
+        }
     }
 }

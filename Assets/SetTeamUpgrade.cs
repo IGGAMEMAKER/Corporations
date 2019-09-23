@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,7 @@ public class SetTeamUpgrade : ButtonController
 
     public override void Execute()
     {
-        var activated = SelectedCompany.teamImprovements.Upgrades.ContainsKey(TeamUpgrade);
-
-        if (activated)
-            SelectedCompany.teamImprovements.Upgrades.Remove(TeamUpgrade);
-        else
-        {
-            bool hasEnoughWorkers = true;
-
-            if (hasEnoughWorkers)
-                SelectedCompany.teamImprovements.Upgrades[TeamUpgrade] = 1;
-        }
+        TeamUtils.PickTeamImprovement(SelectedCompany, TeamUpgrade);
     }
 
     public void SetTeanUpgrade(TeamUpgrade teamUpgrade)

@@ -17,9 +17,9 @@ namespace Assets.Utils
 
                 case TeamStatus.SmallTeam: return 5;
 
-                case TeamStatus.Department: return 20;
+                case TeamStatus.BigTeam: return 20;
 
-                default: return 11 + GetManagers(company) * 7;
+                default: return 100; // 11 + GetManagers(company) * 7;
             }
         }
 
