@@ -5,26 +5,22 @@ public class RenderCompanyProfit : UpgradedParameterView
     public override string RenderHint()
     {
         var income = CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
-        var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(SelectedCompany, GameContext);
+        var maintenance = CompanyEconomyUtils.GetTeamMaintenance(SelectedCompany);
+        var marketingMaintenanceCombined = CompanyEconomyUtils.GetCompanyMarketingMaintenance(SelectedCompany, GameContext);
 
 
-        var marketingMaintenance = "";
-        if (SelectedCompany.hasProduct)
-            marketingMaintenance = "\nMarketing Expenses: " + Visuals.Negative(Format.Money(adsMaintenence));
+        var bonus = new BonusContainer("Balance change")
+            .Append("Income", income)
+            .AppendAndHideIfZero("Team maintenance", -maintenance)
+            .AppendAndHideIfZero("Marketing Expenses", -marketingMaintenanceCombined);
 
-        var hint = "Income: " + Visuals.Positive(Format.Money(income)) + "\n" +
-            "Team Maintenance: " + Visuals.Negative(Format.Money(maintenance)) +
-            marketingMaintenance;
-
-        return hint;
+        return bonus.ToString();
     }
 
     public override string RenderValue()
     {
-        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext) - adsMaintenence;
+        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
 
         return Visuals.PositiveOrNegativeMinified(change);
     }
-
-    long adsMaintenence => CompanyEconomyUtils.GetCompanyAdsMaintenance(SelectedCompany, GameContext);
 }

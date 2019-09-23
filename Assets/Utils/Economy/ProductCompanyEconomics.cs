@@ -28,11 +28,8 @@ namespace Assets.Utils
             return MarketingUtils.GetClients(c) * 100;
         }
 
-        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
         {
-
-            var upgrades = e.teamImprovements.Upgrades;
-
             var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.BaseMarketing);
             var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.AggressiveMarketing);
 
@@ -41,8 +38,12 @@ namespace Assets.Utils
             var baseMarketing = hasBaseMarketing ? NicheUtils.GetBaseMarketingMaintenance(niche).money : 0;
             var aggressiveMarketing = hasAggressiveMarketing ? NicheUtils.GetAggressiveMarketingMaintenance(niche).money : 0;
 
+            return baseMarketing + aggressiveMarketing;
+        }
 
-            return GetTeamMaintenance(e) + baseMarketing + aggressiveMarketing;
+        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        {
+            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext);
         }
 
 
