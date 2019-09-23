@@ -60,8 +60,8 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
                 .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
-                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 10 : 0)
-                .AppendAndHideIfZero("Is Innovator Paying For Marketing", isInnovator && isPayingForMarketing ? 6 : 0);
+                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 5 : 0)
+                .AppendAndHideIfZero("Is Innovator + Aggressive Marketing", isInnovator && isPayingForAggressiveMarketing ? 5 : 0);
 
             return BrandingChangeBonus;
         }

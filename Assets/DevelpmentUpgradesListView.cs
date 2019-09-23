@@ -43,7 +43,7 @@ public class DevelpmentUpgradesListView : ListView
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.AllPlatforms,
+                TeamUpgrade = TeamUpgrade.CrossplatformDevelopment,
                 Name = "All platforms",
                 Description = "Increases your income by 300%",
                 Workers = 30
@@ -73,20 +73,20 @@ public class DevelpmentUpgradesListView : ListView
             },
 
             //// support
-            //new TeamImprovement
-            //{
-            //    TeamUpgrade = TeamUpgrade.ClientSupport,
-            //    Name = "Client support",
-            //    Description = "Lowers churn rate by 1%",
-            //    Workers = 1
-            //},
-            //new TeamImprovement
-            //{
-            //    TeamUpgrade = TeamUpgrade.ImprovedClientSupport,
-            //    Name = "Improved client support",
-            //    Description = "Lowers churn rate by 1% but costs additional money",
-            //    Workers = 5
-            //},
+            new TeamImprovement
+            {
+                TeamUpgrade = TeamUpgrade.ClientSupport,
+                Name = "Client support",
+                Description = "Lowers churn rate by 1%",
+                Workers = 1
+            },
+            new TeamImprovement
+            {
+                TeamUpgrade = TeamUpgrade.ImprovedClientSupport,
+                Name = "Improved client support",
+                Description = "Lowers churn rate by 1% but costs additional money",
+                Workers = 5
+            },
         }
         .OrderBy(i => i.Workers)
         .ToArray();

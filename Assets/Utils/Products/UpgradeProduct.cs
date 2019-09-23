@@ -55,12 +55,20 @@ namespace Assets.Utils
             }
         }
 
+        public static bool IsTeamWorkingOnProduct(GameEntity product)
+        {
+            return TeamUtils.IsUpgradePicked(product, TeamUpgrade.Prototype) ||
+            TeamUtils.IsUpgradePicked(product, TeamUpgrade.OnePlatformPaid) ||
+            TeamUtils.IsUpgradePicked(product, TeamUpgrade.CrossplatformDevelopment);
+        }
+
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
         public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
         {
-            var cooldown = new CooldownImproveConcept(product.company.Id);
-
             if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product))
+                return;
+
+            if (!IsTeamWorkingOnProduct(product))
                 return;
 
             var upgrade = 1;

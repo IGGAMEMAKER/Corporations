@@ -9,7 +9,7 @@ public enum TeamUpgrade
     Prototype, // match market level
     OnePlatformPaid, // monetised
 
-    AllPlatforms, // way more payments
+    CrossplatformDevelopment, // way more payments
 
     BaseMarketing, // +1
     AggressiveMarketing, // +3

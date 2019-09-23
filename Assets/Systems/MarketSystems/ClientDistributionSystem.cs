@@ -93,6 +93,6 @@ public partial class ClientDistributionSystem : OnMonthChange
         var rand = Random.Range(0.25f, 1.2f);
 
         //     0...100 + 12...60
-        return product.branding.BrandPower + 20; // + rand * 50;
+        return product.branding.BrandPower + 1; // + rand * 50;
     }
 }

@@ -31,7 +31,7 @@ namespace Assets.Utils
             {
                 case TeamUpgrade.Prototype: return 1;
                 case TeamUpgrade.OnePlatformPaid: return 4;
-                case TeamUpgrade.AllPlatforms: return 30;
+                case TeamUpgrade.CrossplatformDevelopment: return 30;
 
                 case TeamUpgrade.BaseMarketing: return 1;
                 case TeamUpgrade.AggressiveMarketing: return 7;

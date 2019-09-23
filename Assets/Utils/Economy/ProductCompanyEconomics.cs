@@ -28,6 +28,24 @@ namespace Assets.Utils
             return MarketingUtils.GetClients(c) * 100;
         }
 
+        public static long GetClientSupportCost(GameEntity e, GameContext gameContext)
+        {
+            var clients = MarketingUtils.GetClients(e);
+
+            var hasBaseSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupport);
+            var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ImprovedClientSupport);
+
+            var income = GetProductCompanyIncome(e, gameContext);
+
+            if (hasAdvancedSupport)
+                return income / 4;
+
+            if (hasBaseSupport)
+                return income / 10;
+
+            return 0;
+        }
+
         public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
         {
             var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.BaseMarketing);
@@ -43,7 +61,7 @@ namespace Assets.Utils
 
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext);
+            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext) + GetClientSupportCost(e, gameContext);
         }
 
 

@@ -5,14 +5,16 @@ public class RenderCompanyProfit : UpgradedParameterView
     public override string RenderHint()
     {
         var income = CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
-        var maintenance = CompanyEconomyUtils.GetTeamMaintenance(SelectedCompany);
-        var marketingMaintenanceCombined = CompanyEconomyUtils.GetCompanyMarketingMaintenance(SelectedCompany, GameContext);
+        var team = CompanyEconomyUtils.GetTeamMaintenance(SelectedCompany);
+        var marketingMaintenance = CompanyEconomyUtils.GetCompanyMarketingMaintenance(SelectedCompany, GameContext);
+        var support = CompanyEconomyUtils.GetClientSupportCost(SelectedCompany, GameContext);
 
 
         var bonus = new BonusContainer("Balance change")
             .Append("Income", income)
-            .AppendAndHideIfZero("Team maintenance", -maintenance)
-            .AppendAndHideIfZero("Marketing Expenses", -marketingMaintenanceCombined);
+            .AppendAndHideIfZero("Team maintenance", -team)
+            .AppendAndHideIfZero("Marketing Expenses", -marketingMaintenance)
+            .AppendAndHideIfZero("Support maintenance", -support);
 
         return bonus.ToString();
     }
