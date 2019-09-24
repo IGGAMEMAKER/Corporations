@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Utils;
 using Assets.Utils.Formatting;
 using Entitas;
@@ -70,15 +71,25 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Humongous = 10
     }
 
+    public enum MarketAttributes
+    {
+        RepaymentMonth,
+        RepaymentHalfYear,
+        RepaymentYear,
+    }
+
+    public 
+
     GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration NicheDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
         //ProductPositioning[] productPositionings,
-        int startDate)
+        int startDate,
+        MarketAttributes[] marketAttributes = null)
     {
         var nicheId = GetNicheId(nicheType);
 
-        var price = GetProductPrice(priceCategory, nicheId, nicheType);
+        var price = GetProductPrice(priceCategory, nicheId, nicheType, marketAttributes);
 
         var clients = GetBatchSize(audienceSize, NicheDuration, nicheId);
 
@@ -123,6 +134,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
         //n.ReplaceNicheLifecycle(GetYear(1990), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
 
+
+
         return n;
     }
 
@@ -145,7 +158,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return (int)Randomise(baseCost, nicheId);
     }
 
-    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType)
+    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType, MarketAttributes[] marketAttributes)
     {
         var baseCost = (int)priceCategory;
 
@@ -153,6 +166,16 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         if (priceCategory == PriceCategory.Enterprise)
             Debug.Log(nicheType + " " + value);
+
+        if (marketAttributes != null)
+        {
+            if (marketAttributes.Contains(MarketAttributes.RepaymentMonth))
+                value *= 5;
+            if (marketAttributes.Contains(MarketAttributes.RepaymentHalfYear))
+                value *= 2;
+            if (marketAttributes.Contains(MarketAttributes.RepaymentHalfYear))
+                value /= 2;
+        }
 
         return value;
     }

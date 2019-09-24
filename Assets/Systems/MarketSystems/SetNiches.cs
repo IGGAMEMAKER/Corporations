@@ -28,7 +28,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNichesAutomatically(NicheType.Email,
             NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            GetYear(1990));
+            GetYear(1990),
+            new MarketAttributes[] { MarketAttributes.RepaymentYear }
+            );
 
         SetNichesAutomatically(NicheType.Forums,
             NicheDuration.Decade, AudienceSize.BigProduct, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
