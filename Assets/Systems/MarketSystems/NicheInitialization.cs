@@ -99,7 +99,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var price = GetProductPrice(priceCategory, nicheId, nicheType, marketAttributes);
 
-        var clients = GetBatchSize(audienceSize, NicheDuration, nicheId, marketAttributes);
+        var audience = GetFullAudience(audienceSize, nicheId, marketAttributes);
+        var clients = GetBatchSize(audience, NicheDuration);
 
 
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
@@ -131,7 +132,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             marketShare = 100,
             name = EnumUtils.GetSingleFormattedNicheName(nicheType)
         };
-        clientsContainer[0] = 0;
+        clientsContainer[0] = audience;
         //if (productPositionings.Length == 0)
         //{
         //}
@@ -182,7 +183,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return value;
     }
 
-    long GetFullAudience(AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
+    long GetFullAudience(AudienceSize audienceSize, int nicheId, MarketAttribute[] marketAttributes)
     {
         var audience = Randomise((long)audienceSize, nicheId);
 
@@ -194,12 +195,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return audience;
     }
 
-    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
+    long GetBatchSize (long audience, NicheDuration nicheDuration)
     {
-        var audience = GetFullAudience(audienceSize, nicheDuration, nicheId, marketAttributes);
-
         var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
-        return Randomise(baseValue, nicheId);
+
+        return baseValue;
     }
 
 

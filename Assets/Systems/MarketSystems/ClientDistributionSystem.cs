@@ -24,9 +24,10 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
-        // calculate churn rates here?
+        //// calculate churn rates here?
 
-        NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
+        // we have added all users at once
+        //NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
 
         var clientContainers = niche.nicheClientsContainer.Clients;
 
@@ -34,46 +35,20 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
 
-        var strengths = new float[segments.Count];
-        var strengthsProducts = new Dictionary<int, float>();
-
-        // calculate relative strengths
         for (var i = 0; i < products.Length; i++)
         {
             var p = products[i];
             var segId = p.productPositioning.Positioning;
 
-            var reach = GetCompanyAudienceReach(p);
+            var clients = GetCompanyAudienceReach(p, flow);
 
-            strengths[segId] += reach;
-
-            strengthsProducts[p.company.Id] = reach;
-        }
-
-        for (var i = 0; i < products.Length; i++)
-        {
-            var p = products[i];
-            var segId = p.productPositioning.Positioning;
-
-            var segmentClients = clientContainers[segId];
-
-            var productStrength = strengthsProducts[p.company.Id];
-            var totalStrengths = strengths[segId];
-
-            var relativeCompanyStrength = productStrength / totalStrengths;
-
-
-            var clients = (long)(segmentClients * relativeCompanyStrength);
-
-            var clientCap = flow * 4;
+            var clientCap = flow * 10;
             if (clients > clientCap)
                 clients = clientCap;
 
             MarketingUtils.AddClients(p, clients);
 
             //
-            strengths[segId] -= productStrength;
-
             clientContainers[segId] -= clients;
         }
 
@@ -87,12 +62,25 @@ public partial class ClientDistributionSystem : OnMonthChange
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
-    float GetCompanyAudienceReach(GameEntity product)
+    long GetCompanyAudienceReach(GameEntity product, long flow)
     {
         //var rand = Random.Range(0.15f, 1.4f);
         var rand = Random.Range(0.25f, 1.2f);
 
+        var SEO = (product.branding.BrandPower + 100) / 100;
+
+        var marketing = 0;
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.BaseMarketing))
+            marketing = 1;
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.AllPlatformMarketing))
+            marketing = 3;
+
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.AggressiveMarketing))
+            marketing *= 3;
+
         //     0...100 + 12...60
-        return product.branding.BrandPower + 1; // + rand * 50;
+        var multiplier = SEO + marketing; // + rand * 50;
+
+        return (long)(multiplier * flow);
     }
 }
