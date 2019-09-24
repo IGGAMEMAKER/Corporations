@@ -31,12 +31,10 @@ public enum NicheType
     //OSSciencePurpose,
 
     // Gaming and gambling
-    GamingPoker,
-    GamingCasino,
-    GamingBetting,
-    GamingSlots,
-    GamingTotalisator,
     GamingLottery,
+    GamingCasino, // slots, totalisator
+    GamingBetting,
+    GamingPoker,
 
 
     Ecommerce,

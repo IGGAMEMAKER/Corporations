@@ -37,6 +37,11 @@ namespace Assets.Utils.Formatting
                 case NicheType.SearchEngine: return "Search Engines";
                 case NicheType.Browser: return "Web browsers";
 
+                case NicheType.GamingCasino: return "Online Casino";
+                case NicheType.GamingBetting: return "Online Betting";
+                case NicheType.GamingLottery: return "Online Lottery";
+                case NicheType.GamingPoker: return "Online Poker";
+
                 default: return "Unknown niche: " + niche.ToString();
             }
         }
@@ -48,6 +53,8 @@ namespace Assets.Utils.Formatting
                 //case IndustryType.OS: return "Operation Systems";
                 case IndustryType.Fundamental: return "Fundamentals";
                 case IndustryType.Communications: return "Communications";
+                case IndustryType.Entertainment: return "Entertainment";
+                case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();
             }

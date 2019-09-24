@@ -27,21 +27,21 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         SetNichesAutomatically(NicheType.Email,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.CheapMass, NicheChangeSpeed.Year,
             GetYear(1990),
-            new MarketAttributes[] { MarketAttributes.RepaymentYear }
+            new MarketAttribute[] { MarketAttribute.RepaymentYear }
             );
 
         SetNichesAutomatically(NicheType.Forums,
-            NicheDuration.Decade, AudienceSize.BigProduct, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            NicheDuration.Decade, AudienceSize.HundredMillion, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
             GetYear(1990));
 
         SetNichesAutomatically(NicheType.Blogs,
-            NicheDuration.Decade, AudienceSize.BigProduct, PriceCategory.CheapMass, NicheChangeSpeed.Year,
+            NicheDuration.Decade, AudienceSize.HundredMillion, PriceCategory.CheapMass, NicheChangeSpeed.Year,
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.SocialNetwork,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.Year,
             //new ProductPositioning[] {
             //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
             //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
@@ -51,10 +51,44 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.Messenger,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
             GetYear(2005));
     }
 
+
+    private void InitializeEntertainmentIndustry()
+    {
+        var niches = new NicheType[] {
+            NicheType.GamingBetting,
+            NicheType.GamingCasino,
+            NicheType.GamingLottery,
+            NicheType.GamingPoker,
+        };
+        AttachNichesToIndustry(IndustryType.Entertainment, niches);
+
+
+
+        SetNichesAutomatically(NicheType.GamingLottery,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            GetYear(2000)
+            );
+
+        SetNichesAutomatically(NicheType.GamingCasino,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            GetYear(2001),
+            new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
+            );
+
+        SetNichesAutomatically(NicheType.GamingBetting,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            GetYear(2000)
+            );
+
+        SetNichesAutomatically(NicheType.GamingPoker,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            GetYear(2001)
+            );
+    }
 
     private void InitializeFundamentalIndustry()
     {
@@ -73,15 +107,15 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.FreeMass, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.ThreeYears,
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.ThreeYears,
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,
-            NicheDuration.EntireGame, AudienceSize.WholeWorld, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
             GetYear(1990));
     }
 }

@@ -32,9 +32,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         ForBigEnterprise =      2000, // 2K
         ForSmallEnterprise =    50000, // 50K
-        LessThanMillion =       1000000, // 1M
-        BigProduct =            100000000, // 100M // usefull util AdBlock
-        WholeWorld =            1000000000 // 1-2B
+        Million         =       1000000, // 1M
+        HundredMillion =        100000000, // 100M // usefull util AdBlock
+        Billion =               1000000000 // 1-2B
     }
 
     public enum PriceCategory
@@ -71,27 +71,35 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Humongous = 10
     }
 
-    public enum MarketAttributes
+    public enum MarketAttribute
     {
         RepaymentMonth,
         RepaymentHalfYear,
         RepaymentYear,
+
+        AudienceIncreased,
+        AudienceNiche,
     }
 
-    public 
+    bool GetAttribute(MarketAttribute[] marketAttributes, MarketAttribute attribute)
+    {
+        if (marketAttributes == null) return false;
+
+        return marketAttributes.Contains(attribute);
+    }
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
         NicheDuration NicheDuration, AudienceSize audienceSize, PriceCategory priceCategory,
         NicheChangeSpeed ChangeSpeed,
         //ProductPositioning[] productPositionings,
         int startDate,
-        MarketAttributes[] marketAttributes = null)
+        MarketAttribute[] marketAttributes = null)
     {
         var nicheId = GetNicheId(nicheType);
 
         var price = GetProductPrice(priceCategory, nicheId, nicheType, marketAttributes);
 
-        var clients = GetBatchSize(audienceSize, NicheDuration, nicheId);
+        var clients = GetBatchSize(audienceSize, NicheDuration, nicheId, marketAttributes);
 
 
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
@@ -158,7 +166,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return (int)Randomise(baseCost, nicheId);
     }
 
-    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType, MarketAttributes[] marketAttributes)
+    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType, MarketAttribute[] marketAttributes)
     {
         var baseCost = (int)priceCategory;
 
@@ -167,23 +175,26 @@ public partial class MarketInitializerSystem : IInitializeSystem
         if (priceCategory == PriceCategory.Enterprise)
             Debug.Log(nicheType + " " + value);
 
-        if (marketAttributes != null)
-        {
-            if (marketAttributes.Contains(MarketAttributes.RepaymentMonth))
-                value *= 5;
-            if (marketAttributes.Contains(MarketAttributes.RepaymentHalfYear))
-                value *= 2;
-            if (marketAttributes.Contains(MarketAttributes.RepaymentHalfYear))
-                value /= 2;
-        }
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentMonth))
+            value *= 5;
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentHalfYear))
+            value *= 2;
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentYear))
+            value /= 2;
 
         return value;
     }
 
-    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId)
+    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
     {
         var audience = Randomise((long)audienceSize, nicheId);
         var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
+
+
+        if (GetAttribute(marketAttributes, MarketAttribute.AudienceIncreased))
+            baseValue *= 5;
+        if (GetAttribute(marketAttributes, MarketAttribute.AudienceNiche))
+            baseValue /= 2;
 
         return Randomise(baseValue, nicheId);
     }
