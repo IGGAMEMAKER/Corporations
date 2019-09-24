@@ -185,19 +185,26 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return value;
     }
 
-    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
+    long GetFullAudience(AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
     {
         var audience = Randomise((long)audienceSize, nicheId);
-        var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
-
 
         if (GetAttribute(marketAttributes, MarketAttribute.AudienceIncreased))
-            baseValue *= 5;
+            audience *= 5;
         if (GetAttribute(marketAttributes, MarketAttribute.AudienceNiche))
-            baseValue /= 2;
+            audience /= 2;
 
+        return audience;
+    }
+
+    long GetBatchSize (AudienceSize audienceSize, NicheDuration nicheDuration, int nicheId, MarketAttribute[] marketAttributes)
+    {
+        var audience = GetFullAudience(audienceSize, nicheDuration, nicheId, marketAttributes);
+
+        var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
         return Randomise(baseValue, nicheId);
     }
+
 
     long GetClientBatchBase(long size, int NicheDurationInMonths)
     {
