@@ -11,18 +11,10 @@ public partial class AIProductSystems : OnDateChange
         // shrink team
         ShrinkTeam(product);
 
-        // increase prices
-        IncreasePrices(product);
-
         // crunch
         Crunch(product);
 
         // sell more shares if possible
-    }
-
-    void FindMostExpensiveWorker(Dictionary<int, WorkerRole> workers)
-    {
-        
     }
 
     void ShrinkTeam(GameEntity product)

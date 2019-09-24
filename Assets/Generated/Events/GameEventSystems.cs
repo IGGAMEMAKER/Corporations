@@ -17,7 +17,6 @@ public sealed class GameEventSystems : Feature {
         Add(new CrunchingEventSystem(contexts)); // priority: 0
         Add(new AnyDateEventSystem(contexts)); // priority: 0
         Add(new DevelopmentFocusEventSystem(contexts)); // priority: 0
-        Add(new FinanceEventSystem(contexts)); // priority: 0
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new MenuEventSystem(contexts)); // priority: 0
         Add(new AnyNotificationsEventSystem(contexts)); // priority: 0

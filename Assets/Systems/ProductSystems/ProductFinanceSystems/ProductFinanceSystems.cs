@@ -5,6 +5,5 @@
         //// Adds task when upgrade product button is pressed
         //Add(new ProductRegisterUpgradeEvent(contexts));
 
-        Add(new ProductExecutePriceChangeEvent(contexts));
     }
 }

@@ -7,7 +7,6 @@ namespace Assets.Utils
         static BonusContainer GetClientLoyaltyBonus(GameContext gameContext, int companyId)
         {
             var app = GetClientLoyaltyRelativeStrength(gameContext, companyId);
-            int pricing = GetClientLoyaltyPricingPenalty(gameContext, companyId);
 
             bool isOnlyPlayer = NicheUtils.GetProductsOnMarket(gameContext, companyId).Count() == 1;
             int onlyPlayerBonus = isOnlyPlayer ? 30 : 0;
@@ -18,7 +17,6 @@ namespace Assets.Utils
                 .RenderTitle()
                 .Append("Product Competitiveness", app)
                 .AppendAndHideIfZero("Is only company", onlyPlayerBonus)
-                //.Append("Pricing", -pricing)
                 ;
         }
 
@@ -32,23 +30,6 @@ namespace Assets.Utils
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
             return NicheUtils.GetProductCompetitiveness(c, gameContext);
-        }
-
-        public static int GetClientLoyaltyPricingPenalty(GameContext gameContext, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            var pricing = c.finance.price;
-
-            switch (pricing)
-            {
-                case Pricing.Free: return 0;
-                case Pricing.Low: return 5;
-                case Pricing.Medium: return 22;
-                case Pricing.High: return 30;
-
-                default: return 1000;
-            }
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Assets.Utils
             company.AddProduct(company.company.Id, niche, 0); //  UnityEngine.Random.Range(0, 6)
             company.AddExpertise(UnityEngine.Random.Range(1, 4)); //  UnityEngine.Random.Range(0, 6)
             company.AddDevelopmentFocus(DevelopmentFocus.Concept);
-            company.AddFinance(0, MarketingFinancing.Low, 0, 5f);
 
 
             company.AddMarketing(0);

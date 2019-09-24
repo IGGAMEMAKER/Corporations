@@ -239,7 +239,6 @@ public static class GameComponentsLookup {
         typeof(EventUpgradeAnalyticsComponent),
         typeof(EventUpgradeProductComponent),
         typeof(ExpertiseComponent),
-        typeof(FinanceComponent),
         typeof(FinanceListenerComponent),
         typeof(FollowComponent),
         typeof(FollowingComponent),

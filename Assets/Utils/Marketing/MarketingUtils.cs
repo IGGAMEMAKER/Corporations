@@ -67,15 +67,6 @@ namespace Assets.Utils
         }
 
 
-        internal static void SetFinancing(GameContext gameContext, int companyId, MarketingFinancing marketingFinancing)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            var f = c.finance;
-
-            c.ReplaceFinance(f.price, marketingFinancing, f.salaries, f.basePrice);
-        }
-
         public static TeamResource GetReleaseCost()
         {
             return new TeamResource(0, 0, 50, 0, 1000);

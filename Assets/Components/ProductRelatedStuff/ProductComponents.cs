@@ -35,15 +35,6 @@ public class BrandingComponent : IComponent
     public float BrandPower;
 }
 
-[Game, Event(EventTarget.Self)]
-public class FinanceComponent : IComponent
-{
-    public Pricing price;
-    public MarketingFinancing marketingFinancing;
-    public int salaries;
-    public float basePrice;
-}
-
 public class TeamImprovementsComponent : IComponent
 {
     public Dictionary<TeamUpgrade, int> Upgrades;

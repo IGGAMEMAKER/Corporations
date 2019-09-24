@@ -6,9 +6,6 @@ public partial class AIProductSystems : OnDateChange
     {
         Print("Terrible loyalty", product);
 
-        // decrease prices
-        DecreasePrices(product);
-
         // improve segments
         UpgradeSegment(product);
     }
