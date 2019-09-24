@@ -36,6 +36,7 @@ public enum NicheType
     GamingBetting,
     GamingSlots,
     GamingTotalisator,
+    GamingLottery,
 
 
     Ecommerce,
