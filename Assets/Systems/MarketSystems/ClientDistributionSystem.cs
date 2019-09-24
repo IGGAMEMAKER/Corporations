@@ -79,7 +79,7 @@ public partial class ClientDistributionSystem : OnMonthChange
             marketing *= 3;
 
         //     0...100 + 12...60
-        var multiplier = SEO + marketing; // + rand * 50;
+        var multiplier = SEO + marketing * 3; // + rand * 50;
 
         return (long)(multiplier * flow);
     }
