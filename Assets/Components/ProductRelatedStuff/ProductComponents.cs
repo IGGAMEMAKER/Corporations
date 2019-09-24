@@ -12,7 +12,6 @@ public class ExpertiseComponent : IComponent
 [Game, Event(EventTarget.Self)]
 public class ProductComponent : IComponent
 {
-    //public int Id;
     public NicheType Niche;
 
     public int Concept;
