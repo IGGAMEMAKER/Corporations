@@ -151,6 +151,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
 
+        if (priceCategory == PriceCategory.Enterprise)
+            Debug.Log(nicheType + " " + value);
+
         return value;
     }
 

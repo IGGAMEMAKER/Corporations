@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -8,7 +9,7 @@ namespace Assets.Utils
         {
             float income = 0;
 
-            var productStageModifier = 1;
+            var productStageModifier = 0;
 
             if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Prototype))
                 productStageModifier = 10;
@@ -17,6 +18,8 @@ namespace Assets.Utils
             if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.CrossplatformDevelopment))
                 productStageModifier = 1;
 
+            if (productStageModifier == 0)
+                return 0;
 
             var segmentId = e.productPositioning.Positioning;
             income += GetIncomeBySegment(context, e.company.Id, segmentId);
@@ -30,30 +33,25 @@ namespace Assets.Utils
 
             long clients = MarketingUtils.GetClients(c);
 
-            float price = GetSegmentPrice(gameContext, companyId, segmentId);
+            float price = GetSegmentPrice(gameContext, c, segmentId);
 
             return clients * price;
         }
 
-        internal static float GetSegmentPrice(GameContext gameContext, int companyId, int segmentId)
+        internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
-
-            var improvements = 1; // c.expertise.ExpertiseLevel;
-
             var segmentPriceModifier = NicheUtils.GetSegmentProductPriceModifier(gameContext, c.product.Niche, segmentId);
 
-            return (100 + 5 * improvements) * GetProductPrice(c, gameContext) * segmentPriceModifier / 100;
-        }
+            var basePrice = GetBaseProductPrice(c, gameContext);
 
-        public static float GetProductPrice(GameEntity e, GameContext context)
-        {
-            return GetBaseProductPrice(e, context);
+            return basePrice * segmentPriceModifier;
         }
 
         public static float GetBaseProductPrice(GameEntity e, GameContext context)
         {
-            return e.finance.basePrice;
+            var niche = NicheUtils.GetNicheEntity(context, e.product.Niche);
+
+            return niche.nicheCosts.BasePrice;
         }
     }
 }
