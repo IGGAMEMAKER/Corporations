@@ -31,21 +31,21 @@ public class DevelpmentUpgradesListView : ListView
             {
                 TeamUpgrade = TeamUpgrade.Prototype,
                 Name = "Prototype",
-                Description = "Makes and app without any monetisation",
+                Description = "Makes and app with weak monetisation",
                 Workers = 1
             },
             new TeamImprovement
             {
                 TeamUpgrade = TeamUpgrade.OnePlatformPaid,
                 Name = "Polished App",
-                Description = "Makes and app with monetisation",
+                Description = "Makes and app with good monetisation",
                 Workers = 4
             },
             new TeamImprovement
             {
                 TeamUpgrade = TeamUpgrade.CrossplatformDevelopment,
                 Name = "All platforms",
-                Description = "Increases your income by 300%",
+                Description = "Maximises your income",
                 Workers = 30
             },
 

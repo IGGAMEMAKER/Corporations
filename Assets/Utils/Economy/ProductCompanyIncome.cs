@@ -8,10 +8,20 @@ namespace Assets.Utils
         {
             float income = 0;
 
+            var productStageModifier = 1;
+
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Prototype))
+                productStageModifier = 10;
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.OnePlatformPaid))
+                productStageModifier = 3;
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.CrossplatformDevelopment))
+                productStageModifier = 1;
+
+
             var segmentId = e.productPositioning.Positioning;
             income += GetIncomeBySegment(context, e.company.Id, segmentId);
 
-            return Convert.ToInt64(income);
+            return Convert.ToInt64(income / productStageModifier);
         }
 
         internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)
