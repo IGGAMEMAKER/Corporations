@@ -11,19 +11,17 @@ public partial class GameEntity {
     public ProductComponent product { get { return (ProductComponent)GetComponent(GameComponentsLookup.Product); } }
     public bool hasProduct { get { return HasComponent(GameComponentsLookup.Product); } }
 
-    public void AddProduct(int newId, NicheType newNiche, int newConcept) {
+    public void AddProduct(NicheType newNiche, int newConcept) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
-        component.Id = newId;
         component.Niche = newNiche;
         component.Concept = newConcept;
         AddComponent(index, component);
     }
 
-    public void ReplaceProduct(int newId, NicheType newNiche, int newConcept) {
+    public void ReplaceProduct(NicheType newNiche, int newConcept) {
         var index = GameComponentsLookup.Product;
         var component = (ProductComponent)CreateComponent(index, typeof(ProductComponent));
-        component.Id = newId;
         component.Niche = newNiche;
         component.Concept = newConcept;
         ReplaceComponent(index, component);

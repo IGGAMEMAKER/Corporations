@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IProductListener {
-    void OnProduct(GameEntity entity, int id, NicheType niche, int concept);
+    void OnProduct(GameEntity entity, NicheType niche, int concept);
 }

@@ -15,7 +15,7 @@ public class ListenProductProductChanges : Controller
             MyProductEntity.RemoveProductListener(this);
     }
 
-    void IProductListener.OnProduct(GameEntity entity, int id, NicheType niche, int concept)
+    void IProductListener.OnProduct(GameEntity entity, NicheType niche, int concept)
     {
         Render();
     }

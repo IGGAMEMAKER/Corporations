@@ -85,7 +85,7 @@ namespace Assets.Utils
             }
 
             var p = product.product;
-            product.ReplaceProduct(p.Id, p.Niche, GetProductLevel(product) + upgrade);
+            product.ReplaceProduct(p.Niche, GetProductLevel(product) + upgrade);
 
             UpdateNicheSegmentInfo(product, gameContext);
 
