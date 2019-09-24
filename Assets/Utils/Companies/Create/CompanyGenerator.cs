@@ -12,7 +12,6 @@ namespace Assets.Utils
             // product specific components
             company.AddProduct(company.company.Id, niche, 0); //  UnityEngine.Random.Range(0, 6)
             company.AddExpertise(UnityEngine.Random.Range(1, 4)); //  UnityEngine.Random.Range(0, 6)
-            company.AddDevelopmentFocus(DevelopmentFocus.Concept);
 
 
             company.AddMarketing(0);

@@ -55,8 +55,7 @@ namespace Assets.Utils
             //var productManager = TeamUtils.GetManagers
             //var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
 
-            var focusModifier = productCompany.developmentFocus.Focus == DevelopmentFocus.Concept
-                ? Constants.DEVELOPMENT_FOCUS_IDEAS : 0;
+            var focusModifier = Constants.DEVELOPMENT_FOCUS_IDEAS;
 
             var expertiseModifier = CompanyUtils.GetCompanyExpertise(productCompany);
 

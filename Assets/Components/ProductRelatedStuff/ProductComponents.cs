@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[Game, Event(EventTarget.Self)]
-public class DevelopmentFocusComponent : IComponent
-{
-    public DevelopmentFocus Focus;
-}
-
 public class ExpertiseComponent : IComponent
 {
     public int ExpertiseLevel;
