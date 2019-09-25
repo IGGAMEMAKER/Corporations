@@ -4,8 +4,6 @@ public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity product)
     {
-        ManageProductTeam(product);
-
         ManageProductDevelopment(product);
 
         ManageInvestors(product);

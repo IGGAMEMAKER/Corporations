@@ -24,6 +24,8 @@ namespace Assets.Utils
 
             InvestmentUtils.SetCompanyGoal(context, company, GOAL);
 
+            TeamUtils.PickTeamImprovement(company, TeamUpgrade.Prototype);
+
 
             int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
 
@@ -72,11 +74,11 @@ namespace Assets.Utils
 
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
 
-            TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
+            //TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
 
             HumanUtils.SetSkills(CEO, WorkerRole.Business);
 
-            HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
+            //HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
             return e;
         }

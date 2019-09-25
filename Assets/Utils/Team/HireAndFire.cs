@@ -35,10 +35,6 @@ namespace Assets.Utils
             ReplaceTeam(company, team);
 
             //Debug.Log($"Hire to " + company.company.Name + ": " + role.ToString());
-
-
-            if (IsWillOverextendTeam(company))
-                Promote(company);
         }
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)

@@ -4,16 +4,12 @@ public partial class AIProductSystems : OnDateChange
 {
     void BecomeProfitable(GameEntity company)
     {
-        ManageSmallTeam(company);
-
         StayInMarket(company);
-
-        StartTargetingCampaign(company);
 
         TakeInvestments(company);
     }
 
-    bool isCompanyNeedsInvestments()
+    bool IsCompanyNeedsInvestments()
     {
         return true;
     }
@@ -53,7 +49,7 @@ public partial class AIProductSystems : OnDateChange
     {
         // ??????
 
-        bool isInvestmentsAreNecessary = isCompanyNeedsInvestments();
+        bool isInvestmentsAreNecessary = IsCompanyNeedsInvestments();
 
         var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, company.company.Id);
 

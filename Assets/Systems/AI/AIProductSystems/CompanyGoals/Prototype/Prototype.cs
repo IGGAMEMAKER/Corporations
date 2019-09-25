@@ -2,8 +2,6 @@
 {
     void Prototype(GameEntity company)
     {
-        Crunch(company);
-
         UpgradeSegment(company);
     }
 }
