@@ -23,6 +23,7 @@ namespace Assets.Utils
 
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
+            return 0;
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             return MarketingUtils.GetClients(c) * 100;

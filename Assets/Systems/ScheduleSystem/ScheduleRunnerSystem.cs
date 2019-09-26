@@ -23,6 +23,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     {
         DateEntity = _context.CreateEntity();
         DateEntity.AddDate(0);
+        DateEntity.AddTargetDate(0);
 
         ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
 
@@ -35,32 +36,29 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     {
         CheckPressedButtons();
 
-        UpdateTimer();
+        totalTime -= Time.deltaTime;
+
+        if (totalTime < 0 && isTimerRunning)
+        {
+            ResetTimer();
+
+            DateEntity.ReplaceDate(DateEntity.date.Date + 1);
+
+            if (DateEntity.date.Date == DateEntity.targetDate.Date)
+                ScheduleUtils.PauseGame(_context);
+        }
     }
 
-    void ToggleTimer()
-    {
-        DateEntity.isTimerRunning = !isTimerRunning;
-    }
-
-    void UpdateWorld()
-    {
-        ResetTimer();
-
-        DateEntity.ReplaceDate(DateEntity.date.Date + 1);
-    }
 
     void ResetTimer()
     {
         totalTime = baseSpeed / currentSpeed;
     }
 
-    private void UpdateTimer()
-    {
-        totalTime -= Time.deltaTime;
 
-        if (totalTime < 0 && isTimerRunning)
-            UpdateWorld();
+    void ToggleTimer()
+    {
+        DateEntity.isTimerRunning = !isTimerRunning;
     }
 
     void CheckPressedButtons()

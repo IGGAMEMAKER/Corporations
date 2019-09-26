@@ -35,7 +35,7 @@ public class CompanyCostView : View
         IncomeBasedCost.gameObject.SetActive(show);
         IncomeBasedCostLabel.gameObject.SetActive(show);
 
-        AudienceCost.gameObject.SetActive(show);
+        AudienceCost.gameObject.SetActive(show && false);
         AudienceLabel.gameObject.SetActive(show);
     }
 

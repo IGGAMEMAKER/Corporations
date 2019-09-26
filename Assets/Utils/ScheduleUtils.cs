@@ -26,6 +26,16 @@ namespace Assets.Utils
             container.isTimerRunning = false;
         }
 
+        public static void ResumeGame(GameContext gameContext, int date = -1)
+        {
+            var container = GetDateContainer(gameContext);
+
+            container.isTimerRunning = true;
+
+            if (date >= 0)
+                container.ReplaceTargetDate(date);
+        }
+
         public static TaskComponent GenerateTaskComponent(GameContext gameContext, TaskType taskType, int duration)
         {
             int currentDate = GetCurrentDate(gameContext); // contexts.game.GetEntities(GameMatcher.Date)[0].date.Date;

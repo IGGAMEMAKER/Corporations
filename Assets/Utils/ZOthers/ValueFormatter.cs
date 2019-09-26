@@ -2,6 +2,13 @@
 
 namespace Assets.Utils
 {
+    public struct DateDescription
+    {
+        public int day;
+        public int month;
+        public string monthLiteral;
+        public int year;
+    }
     public static class Format
     {
         private static string ShowMeaningfulValue(long value, long divisor, string litera)
@@ -97,5 +104,59 @@ namespace Assets.Utils
 
         //    return Sign(val);
         //}
+
+        // dates
+        public static DateDescription GetDateDescription(int date)
+        {
+            var year = Constants.START_YEAR + date / 360;
+            var day = date % 360;
+            var month = day / 30;
+
+            day = day % 30;
+
+            return new DateDescription
+            {
+                day = day,
+                month = month,
+                monthLiteral = GetMonthLiteral(month),
+                year = year
+            };
+        }
+        public static string FormatDate(int date, bool withYear = true)
+        {
+            var year = Constants.START_YEAR + date / 360;
+            var day = date % 360;
+            var month = day / 30;
+
+            day = day % 30;
+
+
+            var dateString = $"{day + 1:00} {GetMonthLiteral(month):000000000} ";
+
+            if (withYear)
+                dateString += $"{year:0000}";
+
+            return dateString;
+        }
+
+        public static string GetMonthLiteral(int month)
+        {
+            switch (month)
+            {
+                case 0: return "January";
+                case 1: return "February";
+                case 2: return "March";
+                case 3: return "April";
+                case 4: return "May";
+                case 5: return "June";
+                case 6: return "July";
+                case 7: return "August";
+                case 8: return "September";
+                case 9: return "October";
+                case 10: return "November";
+                case 11: return "December";
+                default: return "UNKNOWN MONTH";
+            }
+        }
     }
 }

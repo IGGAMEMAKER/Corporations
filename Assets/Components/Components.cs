@@ -14,6 +14,13 @@ public class DateComponent : IComponent
     public int Date;
 }
 
+[Game, Unique, Event(EventTarget.Any)]
+public class TargetDateComponent : IComponent
+{
+    public int Date;
+}
+
+
 
 [Game, Event(EventTarget.Self)]
 public class MenuComponent : IComponent
