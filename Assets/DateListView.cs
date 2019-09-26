@@ -18,9 +18,9 @@ public class DateListView : ListView
 
         var date = CurrentIntDate;
 
-        var amountOfDates = 6;
+        var amountOfDates = 4;
 
-        var start = date - date % 7;
+        var start = date - date % amountOfDates;
 
         var dates = new int[amountOfDates];
         for (int i = 0; i < amountOfDates; i++)

@@ -14,7 +14,7 @@ public class HideBackButtonIfUnnecessary : HideOnSomeCondition
         var h = ScreenUtils.GetNavigationHistory(GameContext);
         var count = h.navigationHistory.Queries.Count;
 
-        Debug.Log("History Count: " + count);
+        //Debug.Log("History Count: " + count);
 
         return !ScreenUtils.IsCanNavigateBack(GameContext);
     }
