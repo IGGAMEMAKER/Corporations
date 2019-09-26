@@ -10,7 +10,10 @@ public class ScheduleView : View
     {
         base.ViewRender();
 
+        var dateDescription = Format.GetDateDescription(CurrentIntDate);
+
         var dateString = Format.FormatDate(CurrentIntDate);
+
         //var dateString = $"{day + 1:00} {month + 1:MM} {year:0000}";
 
         //var DateT = new DateTime(year, 1, 1).AddMonths(month).AddDays(day);

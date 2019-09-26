@@ -16,8 +16,6 @@ public class DateView : View
     public override void ViewRender()
     {
         base.ViewRender();
-
-
     }
 
     public void SetEntity(int currDate)
@@ -31,6 +29,10 @@ public class DateView : View
     {
         Panel.color = GetPanelColor(CurrentIntDate == date);
 
-        Text.text = Format.FormatDate(date, false);
+        var dateDescription = Format.GetDateDescription(date);
+
+        Text.text = (dateDescription.day + 1) + "\n" + dateDescription.monthLiteral;
+        // Format.FormatDate(date, false);
+
     }
 }
