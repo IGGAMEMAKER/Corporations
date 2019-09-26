@@ -19,6 +19,16 @@ namespace Assets.Utils
             return GetDateContainer(gameContext).isTimerRunning;
         }
 
+        public static void ToggleTimer(GameContext gameContext)
+        {
+            var container = GetDateContainer(gameContext);
+
+            if (container.isTimerRunning)
+                PauseGame(gameContext);
+            else
+                ResumeGame(gameContext);
+        }
+
         public static void PauseGame(GameContext gameContext)
         {
             var container = GetDateContainer(gameContext);

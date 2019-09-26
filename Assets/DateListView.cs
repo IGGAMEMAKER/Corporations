@@ -18,7 +18,7 @@ public class DateListView : ListView
 
         var date = CurrentIntDate;
 
-        var dateOffset = 3;
+        var dateOffset = 2;
         var amountOfDates = dateOffset * 2 + 1;
 
         var start = date - date % 7;
