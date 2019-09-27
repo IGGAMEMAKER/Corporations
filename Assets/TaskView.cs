@@ -10,14 +10,14 @@ public class TaskView : View
 
     public void SetEntity(CompanyTask companyTask)
     {
-        var text = GetTaskHeader(companyTask);
+        var text = GetTaskHeader(companyTask) + "\n\n";
 
         var remaining = companyTask.EndDate - CurrentIntDate;
 
         if (remaining == 0)
             text += "DONE";
         else
-            text += "\n\nWill be finished in\n" + remaining + " days";
+            text += "Will be finished in\n" + remaining + " days";
 
         Text.text = text;
     }
