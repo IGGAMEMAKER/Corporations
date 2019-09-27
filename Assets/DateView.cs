@@ -33,7 +33,7 @@ public class DateView : View
         var dateDescription = Format.GetDateDescription(date);
 
         Text.text = (dateDescription.day + 1) + "\n" + dateDescription.monthLiteral;
-        YearText.text = "\n\n\n\n" + dateDescription.year;
+        YearText.text = dateDescription.year.ToString();
         // Format.FormatDate(date, false);
 
     }
