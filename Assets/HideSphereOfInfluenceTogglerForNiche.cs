@@ -4,6 +4,6 @@
     {
         var focus = MyCompany.companyFocus.Niches;
 
-        return focus.Count < 3;
+        return focus.Count > 6;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,10 @@ public class TaskView : View
 
         var remaining = companyTask.EndDate - CurrentIntDate;
 
-        if (remaining == 0)
+        if (remaining <= 0)
             text += "DONE";
         else
-            text += "Will be finished in\n" + remaining + " days";
+            text += "Finished in\n" + remaining + " days";
 
         Text.text = text;
     }
@@ -27,10 +28,10 @@ public class TaskView : View
         switch (companyTask.CompanyTaskType)
         {
             case CompanyTaskType.AcquiringCompany:
-                return "Acquiring company\nFacebook";
+                return "Acquiring company\n" + CompanyUtils.GetCompanyById(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
 
             case CompanyTaskType.ExploreMarket:
-                return EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
+                return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
 
             default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
         }
@@ -51,14 +52,23 @@ public enum CompanyTaskType
 
 public class CompanyTask
 {
+    public int StartDate;
     public int EndDate;
     public CompanyTaskType CompanyTaskType;
+
+    public void Expires(int expires)
+    {
+        EndDate = expires;
+    }
 }
 
 public class CompanyTaskAcquisition : CompanyTask
 {
-    public CompanyTaskAcquisition()
+    public int CompanyId;
+
+    public CompanyTaskAcquisition(int companyId)
     {
+        CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.AcquiringCompany;
     }
 }
