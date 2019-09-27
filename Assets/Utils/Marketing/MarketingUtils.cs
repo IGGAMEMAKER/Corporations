@@ -53,10 +53,12 @@ namespace Assets.Utils
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
             var paymentModifier = isPayingForMarketing;
 
+            var baseDecay = -product.branding.BrandPower * 5 / 100;
 
             var BrandingChangeBonus = new BonusContainer("Brand power change")
                 .Append("Base", -1)
-                .Append("Due to Market share", (int)decay)
+                .AppendAndHideIfZero("5% Decay", (int)baseDecay)
+                //.Append("Due to Market share", (int)decay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)

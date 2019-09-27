@@ -8,6 +8,7 @@ public class DateView : View
 {
     public Image Panel;
     public Text Text;
+    public Text YearText;
 
     public Image ThemeImage;
 
@@ -32,6 +33,7 @@ public class DateView : View
         var dateDescription = Format.GetDateDescription(date);
 
         Text.text = (dateDescription.day + 1) + "\n" + dateDescription.monthLiteral;
+        YearText.text = "\n\n\n\n" + dateDescription.year;
         // Format.FormatDate(date, false);
 
     }

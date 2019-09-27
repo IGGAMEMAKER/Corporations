@@ -68,5 +68,14 @@ namespace Assets.Utils
         {
             return GetCooldowns(gameContext).TryGetValue(cooldownName, out cooldown);
         }
+
+
+
+        public static void AddCompanyTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            companyTask.StartDate = ScheduleUtils.GetCurrentDate(gameContext);
+
+
+        }
     }
 }
