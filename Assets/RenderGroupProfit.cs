@@ -13,7 +13,7 @@ public class RenderGroupProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
+        var change = CompanyEconomyUtils.GetBalanceChange(MyCompany, GameContext);
 
         return Visuals.PositiveOrNegativeMinified(change);
     }

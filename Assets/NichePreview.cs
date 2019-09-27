@@ -14,6 +14,7 @@ public enum Risk
 public class NichePreview : View
 {
     NicheType Niche;
+    GameEntity nicheE;
 
     public Text MarketPotential;
     public TextMeshProUGUI NicheName;
@@ -24,6 +25,7 @@ public class NichePreview : View
     public void SetNiche(GameEntity nicheEntity, bool hidePotential = false)
     {
         Niche = nicheEntity.niche.NicheType;
+        nicheE = nicheEntity;
 
         Render(hidePotential);
     }
@@ -48,6 +50,11 @@ public class NichePreview : View
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
         var text = hidePotential ? "?" : GetFormattedMarketPotential();
+
+        var size = NicheUtils.GetMarketSize(GameContext, Niche);
+
+        if (CurrentScreen == ScreenMode.GroupManagementScreen)
+            text = nicheE.hasResearch ? Format.MoneyToInteger(size) : "?";
 
         bool hasCompany = false;
         bool isMarketOfInterest = false;
