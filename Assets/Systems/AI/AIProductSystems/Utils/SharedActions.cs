@@ -11,12 +11,6 @@ public partial class AIProductSystems
         ProductUtils.UpgradeExpertise(product, gameContext);
     }
 
-    void StayInMarket(GameEntity product)
-    {
-        if (ProductUtils.IsInMarket(product, gameContext))
-            UpgradeSegment(product);
-    }
-
     void Innovate(GameEntity product)
     {
         UpgradeSegment(product);
