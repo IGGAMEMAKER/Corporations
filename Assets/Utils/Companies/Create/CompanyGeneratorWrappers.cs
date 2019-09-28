@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System;
 using System.Collections.Generic;
 
 namespace Assets.Utils
@@ -108,10 +109,12 @@ namespace Assets.Utils
 
         public static void AutoFillNonFilledShareholders(GameContext gameContext, bool founderOnly)
         {
-            foreach (var c in GetNonFinancialCompaniesWithZeroShareholders(gameContext))
-            {
+            var nonFinancialCompaniesWithZeroShareholders = Array.FindAll(gameContext.GetEntities(GameMatcher
+                .AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
+                e => IsNotFinancialStructure(e) && e.shareholders.Shareholders.Count == 0);
+
+            foreach (var c in nonFinancialCompaniesWithZeroShareholders)
                 AutoFillShareholders(gameContext, c, founderOnly);
-            }
         }
     }
 }

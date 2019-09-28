@@ -37,13 +37,6 @@ namespace Assets.Utils
                 .AllOf(GameMatcher.ManagingCompany, GameMatcher.Alive));
         }
 
-
-        internal static GameEntity[] GetNonFinancialCompaniesWithZeroShareholders(GameContext gameContext)
-        {
-            return Array.FindAll(gameContext.GetEntities(GameMatcher
-                .AllOf(GameMatcher.Company, GameMatcher.Shareholders)), e => IsNotFinancialStructure(e) && e.shareholders.Shareholders.Count == 0);
-        }
-
         internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
         {
             return Array.FindAll(gameContext.GetEntities(GameMatcher
