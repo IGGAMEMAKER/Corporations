@@ -18,14 +18,24 @@ public partial class AIProductSystems : OnDateChange
         return CompanyEconomyUtils.GetBalanceChange(company, gameContext);
     }
 
+
+
     void ManagePairOfWorkers(GameEntity product)
     {
+        TeamUtils.PickTeamImprovement(product, TeamUpgrade.Prototype);
+
+        
 
     }
 
     void PickTeamUpgrades(GameEntity product)
     {
-
+        switch (product.team.TeamStatus)
+        {
+            case TeamStatus.Pair:
+                ManagePairOfWorkers(product);
+                break;
+        }
     }
 
     void ScaleTeamIfPossible(GameEntity product)

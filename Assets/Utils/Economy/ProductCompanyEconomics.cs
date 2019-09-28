@@ -54,8 +54,8 @@ namespace Assets.Utils
 
             var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
 
-            var baseMarketing = hasBaseMarketing ? NicheUtils.GetBaseMarketingMaintenance(niche).money : 0;
-            var aggressiveMarketing = hasAggressiveMarketing ? NicheUtils.GetAggressiveMarketingMaintenance(niche).money : 0;
+            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.BaseMarketing) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
+            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.AggressiveMarketing) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
 
             return baseMarketing + aggressiveMarketing;
         }

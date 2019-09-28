@@ -9,7 +9,7 @@ public class SetTeamUpgrade : ButtonController
 
     public override void Execute()
     {
-        TeamUtils.PickTeamImprovement(SelectedCompany, TeamUpgrade);
+        TeamUtils.ToggleTeamImprovement(SelectedCompany, TeamUpgrade);
     }
 
     public void SetTeanUpgrade(TeamUpgrade teamUpgrade)

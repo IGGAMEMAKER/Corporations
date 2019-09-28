@@ -1,20 +1,24 @@
-﻿using Assets.Classes;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
+        //public static void 
+        public static void DisableTeamImprovement(GameEntity company, TeamUpgrade teamUpgrade)
+        {
+            company.teamImprovements.Upgrades.Remove(teamUpgrade);
+        }
         public static void PickTeamImprovement(GameEntity company, TeamUpgrade teamUpgrade)
         {
-            var activated = company.teamImprovements.Upgrades.ContainsKey(teamUpgrade);
+            if (HasEnoughAvailableWorkersForImprovement(company, teamUpgrade))
+                company.teamImprovements.Upgrades[teamUpgrade] = 1;
+        }
 
-            if (activated)
-                company.teamImprovements.Upgrades.Remove(teamUpgrade);
+        public static void ToggleTeamImprovement(GameEntity company, TeamUpgrade teamUpgrade)
+        {
+            if (IsUpgradePicked(company, teamUpgrade))
+                DisableTeamImprovement(company, teamUpgrade);
             else
-            {
-                if (HasEnoughAvailableWorkersForImprovement(company, teamUpgrade))
-                    company.teamImprovements.Upgrades[teamUpgrade] = 1;
-            }
+                PickTeamImprovement(company, teamUpgrade);
         }
 
         public static bool HasEnoughAvailableWorkersForImprovement (GameEntity company, TeamUpgrade teamUpgrade)
@@ -64,9 +68,7 @@ namespace Assets.Utils
 
             var workers = 0;
             foreach (var imp in upgrades)
-            {
                 workers += IsUpgradePicked(company, imp.Key) ? GetRequiredAmountOfWorkersForTeamImprovement(imp.Key) : 0;
-            }
 
             return workers;
         }
