@@ -1,6 +1,4 @@
-﻿using Assets.Utils;
-
-public partial class AIProductSystems : OnDateChange
+﻿public partial class AIProductSystems : OnDateChange
 {
     void ManageProductCompany(GameEntity product)
     {
@@ -19,6 +17,4 @@ public partial class AIProductSystems : OnDateChange
         // taking investments
         TakeInvestments(product);
     }
-
-
 }

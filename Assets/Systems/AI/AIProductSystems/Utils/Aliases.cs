@@ -52,9 +52,6 @@ public partial class AIProductSystems
         string companyName = company.company.Name;
         if (isMyCompany)
             companyName = Visuals.Colorize(company.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
-
-        if (canRenderMyCompany || canRenderMyCompetitors)
-            Debug.Log($"Goal: {ChooseGoal(company)}. {action} : {companyName}");
     }
 
     TeamResource GetResourceChange(GameEntity company)
