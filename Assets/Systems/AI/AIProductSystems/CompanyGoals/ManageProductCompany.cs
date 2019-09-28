@@ -7,9 +7,13 @@
         ManageInvestors(product);
     }
 
+
+
     void ManageProductDevelopment(GameEntity product)
     {
         UpgradeSegment(product);
+
+
     }
 
     void ManageInvestors(GameEntity product)
