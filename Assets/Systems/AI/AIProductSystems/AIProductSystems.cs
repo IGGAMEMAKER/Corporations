@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using Entitas;
 using System.Collections.Generic;
 
 public enum ProductCompanyGoals

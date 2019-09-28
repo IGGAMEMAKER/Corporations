@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using UnityEngine;
 
 public partial class AIProductSystems : OnDateChange
 {
