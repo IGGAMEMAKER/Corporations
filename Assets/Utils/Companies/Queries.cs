@@ -20,9 +20,9 @@ namespace Assets.Utils
 
         internal static GameEntity[] GetAIProducts(GameContext gameContext)
         {
-            return gameContext.GetEntities(GameMatcher
-                .AllOf(GameMatcher.Product, GameMatcher.Alive)
-                .NoneOf(GameMatcher.ControlledByPlayer));
+            return Array.FindAll(GetProductCompanies(gameContext),
+                p => !IsCompanyRelatedToPlayer(gameContext, p)
+                );
         }
 
         // groups

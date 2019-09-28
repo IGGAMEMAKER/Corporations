@@ -8,10 +8,10 @@ public partial class AIProductSystems : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
+        foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
             ManageProductDevelopment(e);
 
-        foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
+        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
             Operate(e);
     }
 }
