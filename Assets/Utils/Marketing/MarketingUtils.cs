@@ -42,8 +42,8 @@ namespace Assets.Utils
 
         public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.BaseMarketing);
-            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.AggressiveMarketing);
+            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase);
+            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive);
             
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 

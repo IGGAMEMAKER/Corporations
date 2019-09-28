@@ -33,12 +33,12 @@
         {
             switch (teamUpgrade)
             {
-                case TeamUpgrade.Prototype: return 1;
-                case TeamUpgrade.OnePlatformPaid: return 4;
-                case TeamUpgrade.CrossplatformDevelopment: return 30;
+                case TeamUpgrade.DevelopmentPrototype: return 1;
+                case TeamUpgrade.DevelopmentPolishedApp: return 4;
+                case TeamUpgrade.DevelopmentCrossplatform: return 30;
 
-                case TeamUpgrade.BaseMarketing: return 1;
-                case TeamUpgrade.AggressiveMarketing: return 7;
+                case TeamUpgrade.MarketingBase: return 1;
+                case TeamUpgrade.MarketingAggressive: return 7;
                 case TeamUpgrade.AllPlatformMarketing: return 5;
                 case TeamUpgrade.ClientSupport: return 1;
                 case TeamUpgrade.ImprovedClientSupport: return 5;

@@ -49,13 +49,13 @@ namespace Assets.Utils
 
         public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
         {
-            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.BaseMarketing);
-            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.AggressiveMarketing);
+            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.MarketingBase);
+            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.MarketingAggressive);
 
             var niche = NicheUtils.GetNicheEntity(gameContext, e.product.Niche);
 
-            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.BaseMarketing) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
-            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.AggressiveMarketing) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
+            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.MarketingBase) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
+            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.MarketingAggressive) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
 
             return baseMarketing + aggressiveMarketing;
         }

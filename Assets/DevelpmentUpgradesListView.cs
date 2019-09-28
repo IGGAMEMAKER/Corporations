@@ -29,21 +29,21 @@ public class DevelpmentUpgradesListView : ListView
             // dev
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.Prototype,
+                TeamUpgrade = TeamUpgrade.DevelopmentPrototype,
                 Name = "Prototype",
                 Description = "Makes and app with weak monetisation",
                 Workers = 1
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.OnePlatformPaid,
+                TeamUpgrade = TeamUpgrade.DevelopmentPolishedApp,
                 Name = "Polished App",
                 Description = "Makes and app with good monetisation",
                 Workers = 4
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.CrossplatformDevelopment,
+                TeamUpgrade = TeamUpgrade.DevelopmentCrossplatform,
                 Name = "All platforms",
                 Description = "Maximises your income",
                 Workers = 30
@@ -52,14 +52,14 @@ public class DevelpmentUpgradesListView : ListView
             // marketing
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.BaseMarketing,
+                TeamUpgrade = TeamUpgrade.MarketingBase,
                 Name = "Base marketing",
                 Description = "+1 Brand power each month. Costs money",
                 Workers = 1
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.AggressiveMarketing,
+                TeamUpgrade = TeamUpgrade.MarketingAggressive,
                 Name = "Aggressive marketing",
                 Description = "+3 Brand power each month. Costs a lot of money",
                 Workers = 7

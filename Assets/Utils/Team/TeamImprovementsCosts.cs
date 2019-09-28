@@ -1,6 +1,4 @@
-﻿using Assets.Classes;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class TeamUtils
     {
@@ -10,19 +8,21 @@ namespace Assets.Utils
 
             switch (teamUpgrade)
             {
-                case TeamUpgrade.Prototype:
-                case TeamUpgrade.OnePlatformPaid:
-                case TeamUpgrade.CrossplatformDevelopment:
+                case TeamUpgrade.DevelopmentPrototype:
+                case TeamUpgrade.DevelopmentPolishedApp:
+                case TeamUpgrade.DevelopmentCrossplatform:
                     return 0;
 
                 case TeamUpgrade.ClientSupport:
                 case TeamUpgrade.ImprovedClientSupport:
                     return 0;
 
-                case TeamUpgrade.AggressiveMarketing:
+                case TeamUpgrade.MarketingAggressive:
                     return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
-                case TeamUpgrade.BaseMarketing:
+
+                case TeamUpgrade.MarketingBase:
                     return NicheUtils.GetBaseMarketingMaintenance(niche).money;
+
                 case TeamUpgrade.AllPlatformMarketing:
                     return 1000;
 

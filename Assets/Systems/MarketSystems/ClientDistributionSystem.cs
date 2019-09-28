@@ -70,12 +70,12 @@ public partial class ClientDistributionSystem : OnMonthChange
         var SEO = (product.branding.BrandPower + 100) / 100;
 
         var marketing = 0;
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.BaseMarketing))
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase))
             marketing = 1;
         if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.AllPlatformMarketing))
             marketing = 3;
 
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.AggressiveMarketing))
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))
             marketing *= 3;
 
         //     0...100 + 12...60

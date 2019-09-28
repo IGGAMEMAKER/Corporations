@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public enum TeamUpgrade
 {
-    Prototype, // match market level
-    OnePlatformPaid, // monetised
+    DevelopmentPrototype, // match market level
+    DevelopmentPolishedApp, // monetised
 
-    CrossplatformDevelopment, // way more payments
+    DevelopmentCrossplatform, // way more payments
 
-    BaseMarketing, // +1
-    AggressiveMarketing, // +3
+    MarketingBase, // +1
+    MarketingAggressive, // +3
     AllPlatformMarketing, // bigger maintenance and reach when getting clients
 
     ClientSupport, // -1% churn fixed cost

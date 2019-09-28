@@ -11,11 +11,11 @@ namespace Assets.Utils
 
             var productStageModifier = 0;
 
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Prototype))
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPrototype))
                 productStageModifier = 10;
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.OnePlatformPaid))
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp))
                 productStageModifier = 3;
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.CrossplatformDevelopment))
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform))
                 productStageModifier = 1;
 
             if (productStageModifier == 0)
