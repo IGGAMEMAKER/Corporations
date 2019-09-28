@@ -19,44 +19,6 @@ public partial class AIProductSystems : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
-        {
             CompleteCompanyGoal(e);
-            continue;
-            var goal = ChooseGoal(e);
-
-            ExecuteGoal(goal, e);
-        }
-    }
-
-    void ExecuteGoal(ProductCompanyGoals goal, GameEntity product)
-    {
-        switch (goal)
-        {
-            case ProductCompanyGoals.Survive:
-                Survive(product);
-                break;
-
-            case ProductCompanyGoals.FixClientLoyalty:
-                FixLoyalty(product);
-                break;
-
-            default:
-                CompleteCompanyGoal(product);
-                break;
-        }
-    }
-
-    ProductCompanyGoals ChooseGoal(GameEntity product)
-    {
-        var goals = new Dictionary<ProductCompanyGoals, long>
-        {
-            // threats
-            [ProductCompanyGoals.Survive] = GetBankruptcyUrgency(product),
-
-            // company goal
-            [ProductCompanyGoals.CompleteCompanyGoal] = GetCompanyGoalUrgency(product),
-        };
-        
-        return PickMostImportantValue(goals);
     }
 }
