@@ -12,6 +12,11 @@ namespace Assets.Utils
             return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsNotFinancialStructure);
         }
 
+        public static IEnumerable<GameEntity> GetFinancialStructuresWithSameInterests (GameContext context, GameEntity company)
+        {
+            return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsFinancialStructure);
+        }
+
         public static IEnumerable<GameEntity> GetCompaniesWithSameInterests (GameContext context, GameEntity company)
         {
             var independent = CompanyUtils.GetIndependentCompanies(context);
