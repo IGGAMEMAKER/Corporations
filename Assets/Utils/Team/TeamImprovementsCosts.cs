@@ -17,11 +17,11 @@
                 case TeamUpgrade.ImprovedClientSupport:
                     return 0;
 
-                case TeamUpgrade.MarketingAggressive:
-                    return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
-
                 case TeamUpgrade.MarketingBase:
                     return NicheUtils.GetBaseMarketingMaintenance(niche).money;
+
+                case TeamUpgrade.MarketingAggressive:
+                    return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
 
                 case TeamUpgrade.AllPlatformMarketing:
                     return 1000;
