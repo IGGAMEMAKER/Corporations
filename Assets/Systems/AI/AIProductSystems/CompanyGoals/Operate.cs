@@ -7,7 +7,11 @@ public partial class AIProductSystems : OnDateChange
     {
         ManageProductCompany(company);
 
+        PayDividendsIfPossible(company);
+
         PromoteToGroupIfPossible(company);
+
+        //InvestmentUtils.CompleteGoal(e, gameContext, false);
     }
 
     void PromoteToGroupIfPossible(GameEntity company)
@@ -23,5 +27,19 @@ public partial class AIProductSystems : OnDateChange
             if (canGrow && wantsToGrow)
                 CompanyUtils.PromoteProductCompanyToGroup(gameContext, company.company.Id);
         }
+    }
+
+    void PayDividendsIfPossible(GameEntity product)
+    {
+        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
+            return;
+
+        if (product.isIndependentCompany || product.isAggressiveMarketing)
+            return;
+
+        var maintenance = CompanyEconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
+        var dividends = product.companyResource.Resources.money - maintenance;
+
+        CompanyUtils.PayDividends(gameContext, product, dividends);
     }
 }
