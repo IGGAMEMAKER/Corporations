@@ -5,32 +5,6 @@ public partial class AIProductSystems : OnDateChange
     void ManageProductDevelopment(GameEntity product)
     {
         UpgradeSegment(product);
-
-        ScaleTeamIfPossible(product);
-
-        PickTeamUpgrades(product);
-    }
-
-
-
-    long GetProfit(GameEntity company)
-    {
-        return CompanyEconomyUtils.GetBalanceChange(company, gameContext);
-    }
-
-    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
-
-        return CompanyUtils.IsEnoughResources(product, cost);
-    }
-
-    //void ApplyImprovementSet
-
-    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        if (IsCanAffordTeamImprovement(product, teamUpgrade))
-            TeamUtils.PickTeamImprovement(product, teamUpgrade);
     }
 
     void ManageBigTeam(GameEntity product)

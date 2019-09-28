@@ -14,5 +14,24 @@ public partial class AIProductSystems
     void Innovate(GameEntity product)
     {
         UpgradeSegment(product);
-    } 
+    }
+
+    long GetProfit(GameEntity company)
+    {
+        return CompanyEconomyUtils.GetBalanceChange(company, gameContext);
+    }
+
+    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
+    {
+        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
+
+        return CompanyUtils.IsEnoughResources(product, cost);
+    }
+
+
+    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
+    {
+        if (IsCanAffordTeamImprovement(product, teamUpgrade))
+            TeamUtils.PickTeamImprovement(product, teamUpgrade);
+    }
 }

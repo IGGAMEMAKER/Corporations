@@ -2,29 +2,37 @@
 
 public partial class AIProductSystems : OnDateChange
 {
-    void Operate(GameEntity company)
+    void Operate(GameEntity product)
     {
-        PayDividendsIfPossible(company);
+        ScaleTeamIfPossible(product);
 
-        PromoteToGroupIfPossible(company);
+        PickTeamUpgrades(product);
 
-        ManageInvestors(company);
+
+        PayDividendsIfPossible(product);
+
+        PromoteToGroupIfPossible(product);
+
+        ManageInvestors(product);
+
+
+
         //InvestmentUtils.CompleteGoal(e, gameContext, false);
     }
 
-    void PromoteToGroupIfPossible(GameEntity company)
+    void PromoteToGroupIfPossible(GameEntity product)
     {
-        if (!company.isIndependentCompany)
+        if (!product.isIndependentCompany)
             return;
 
-        var profit = CompanyEconomyUtils.GetBalanceChange(company, gameContext);
+        var profit = CompanyEconomyUtils.GetBalanceChange(product, gameContext);
         var canGrow = profit > 1000000;
 
-        var ambitions = HumanUtils.GetFounderAmbition(gameContext, company.cEO.HumanId);
+        var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
         var wantsToGrow = ambitions != Ambition.RuleProductCompany;
             
         if (canGrow && wantsToGrow)
-            CompanyUtils.PromoteProductCompanyToGroup(gameContext, company.company.Id);
+            CompanyUtils.PromoteProductCompanyToGroup(gameContext, product.company.Id);
     }
 
     void PayDividendsIfPossible(GameEntity product)
@@ -46,29 +54,29 @@ public partial class AIProductSystems : OnDateChange
         return true;
     }
 
-    void TakeInvestments(GameEntity company)
+    void TakeInvestments(GameEntity product)
     {
         // ??????
 
         bool isInvestmentsAreNecessary = IsCompanyNeedsInvestments();
 
-        var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, company.company.Id);
+        var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, product.company.Id);
 
         if (list.Length == 0)
             return;
 
-        CompanyUtils.StartInvestmentRound(company, gameContext);
+        CompanyUtils.StartInvestmentRound(product, gameContext);
 
         foreach (var s in list)
         {
             var investorShareholderId = s.shareholder.Id;
-            var companyId = company.company.Id;
+            var companyId = product.company.Id;
 
             var proposal = CompanyUtils.GetInvestmentProposal(gameContext, companyId, investorShareholderId);
             if (proposal == null)
                 return;
 
-            Print($"Took investments from {s.shareholder.Name}. Offer: {Format.Money(proposal.Offer)}", company);
+            Print($"Took investments from {s.shareholder.Name}. Offer: {Format.Money(proposal.Offer)}", product);
 
             CompanyUtils.AcceptProposal(gameContext, companyId, investorShareholderId);
         }
