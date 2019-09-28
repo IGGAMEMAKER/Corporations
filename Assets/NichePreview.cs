@@ -49,9 +49,9 @@ public class NichePreview : View
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
-        var text = hidePotential ? "?" : GetFormattedMarketPotential();
-
         var size = NicheUtils.GetMarketSize(GameContext, Niche);
+        var text = hidePotential ? "?" : Format.MoneyToInteger(size); // GetFormattedMarketPotential();
+
 
         if (CurrentScreen == ScreenMode.GroupManagementScreen)
             text = nicheE.hasResearch ? Format.MoneyToInteger(size) : "?";

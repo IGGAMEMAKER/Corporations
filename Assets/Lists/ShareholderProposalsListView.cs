@@ -11,18 +11,11 @@ public class ShareholderProposalsListView : ListView
             .SetEntity(proposal);
     }
 
-    void Draw()
+    public override void ViewRender()
     {
         var proposals = CompanyUtils.GetInvestmentProposals(GameContext, SelectedCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
             .SetItems(proposals.ToArray(), SelectedCompany);
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        Draw();
     }
 }

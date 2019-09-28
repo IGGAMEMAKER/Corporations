@@ -30,6 +30,14 @@ namespace Assets.Utils
             );
         }
 
+        public static bool IsShareSameInterests(GameEntity c1, GameEntity c2)
+        {
+            var interests1 = c1.companyFocus.Niches;
+            var interests2 = c2.companyFocus.Niches;
+
+            return interests1.Intersect(interests2).Count() > 0;
+        }
+
         public static IEnumerable<GameEntity> GetCompaniesInterestedInMarket (GameContext context, NicheType niche)
         {
             var independent = CompanyUtils.GetIndependentCompanies(context);
