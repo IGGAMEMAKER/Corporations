@@ -4,24 +4,26 @@
     {
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {
-            var c = GetCompanyById(context, companyId);
+            var product = GetCompanyById(context, companyId);
 
-            if (!c.isIndependentCompany)
+            if (!product.isIndependentCompany)
                 return -1;
 
-            var niche = c.product.Niche;
+            product.isIndependentCompany = false;
 
-            var industry = NicheUtils.GetIndustry(niche, context);
-
-            var name = c.company.Name;
+            var name = product.company.Name;
 
             int companyGroupId = GenerateCompanyGroup(context, name + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
-            c.isIndependentCompany = false;
+
 
             var groupCo = GetCompanyById(context, companyGroupId);
+
+            var niche = product.product.Niche;
+            var industry = NicheUtils.GetIndustry(niche, context);
             AddFocusIndustry(industry, groupCo);
+
             AddFocusNiche(niche, groupCo, context);
             groupCo.isManagingCompany = true;
 

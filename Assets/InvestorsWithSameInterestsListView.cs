@@ -15,7 +15,7 @@ public class InvestorsWithSameInterestsListView : ListView
     {
         base.ViewRender();
 
-        var funds = NicheUtils.GetFinancialStructuresWithSameInterests(GameContext, SelectedCompany);
+        var funds = NicheUtils.GetFinancialStructuresWithSameInterests(GameContext, MyCompany);
 
         SetItems(funds.ToArray());
     }
