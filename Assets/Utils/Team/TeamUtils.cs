@@ -98,21 +98,31 @@ namespace Assets.Utils
             company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
         }
 
+        internal static TeamStatus GetNextTeamSize(TeamStatus teamStatus)
+        {
+            switch (teamStatus)
+            {
+                case TeamStatus.Solo:
+                    return TeamStatus.Pair;
+
+                case TeamStatus.Pair:
+                    return TeamStatus.SmallTeam;
+
+                case TeamStatus.SmallTeam:
+                    return TeamStatus.Department;
+
+                case TeamStatus.Department:
+                    return TeamStatus.BigTeam;
+
+                default: return TeamStatus.BigTeam;
+            }
+        }
+
         internal static void Promote(GameEntity company)
         {
             var team = company.team;
 
-            TeamStatus newTeamStatus;
-
-            switch (team.TeamStatus)
-            {
-                case TeamStatus.Solo: newTeamStatus = TeamStatus.Pair; break;
-                case TeamStatus.Pair: newTeamStatus = TeamStatus.SmallTeam; break;
-                case TeamStatus.SmallTeam: newTeamStatus = TeamStatus.Department; break;
-                case TeamStatus.Department: newTeamStatus = TeamStatus.BigTeam; break;
-
-                default: newTeamStatus = TeamStatus.BigTeam; break;
-            }
+            TeamStatus newTeamStatus = GetNextTeamSize(team.TeamStatus);
 
             Promote(company, newTeamStatus);
         }

@@ -25,6 +25,8 @@ public partial class AIProductSystems
     {
         var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
 
+        return GetProfit(product) >= cost;
+
         return CompanyUtils.IsEnoughResources(product, cost);
     }
 

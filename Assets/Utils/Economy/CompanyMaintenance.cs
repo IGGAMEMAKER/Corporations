@@ -30,9 +30,8 @@
 
         public static long GetTeamMaintenance(GameContext gameContext, int companyId)
         {
-            return GetTeamMaintenance(
-                CompanyUtils.GetCompanyById(gameContext, companyId)
-                );
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            return GetTeamMaintenance(c);
         }
 
         public static int GetManagersMaintenance(GameEntity e)
@@ -73,6 +72,13 @@
                 ) * Constants.SALARIES_PRODUCT_PROJECT_MANAGER;
 
             return directors + midManagers;
+        }
+
+        public static long GetPromotedTeamMaintenance(GameEntity product)
+        {
+            var newStatus = TeamUtils.GetNextTeamSize(product.team.TeamStatus);
+
+            return GetAbstractTeamMaintenance(newStatus);
         }
 
         public static long GetAbstractTeamMaintenance(TeamStatus teamStatus)
