@@ -1,7 +1,4 @@
-﻿using Assets.Utils.Formatting;
-using Entitas;
-using System;
-using System.Linq;
+﻿using System;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -126,6 +123,8 @@ namespace Assets.Utils
 
             return (int) chance.Sum();
         }
+
+
 
         public static Color GetCompanyUniqueColor(int companyId)
         {
