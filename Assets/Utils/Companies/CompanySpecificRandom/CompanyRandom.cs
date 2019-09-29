@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils.Formatting;
+using Entitas;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -36,6 +37,53 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
+        internal static long GetMarketStageInnovationModifier (GameEntity company, GameContext gameContext)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+
+            return GetMarketStageInnovationModifier(niche);
+        }
+
+        // TODO move this to niche utils!!!
+        public static string GetMarketStateDescription(NicheLifecyclePhase state)
+        {
+            switch (state)
+            {
+                case NicheLifecyclePhase.Idle: return "???";
+                case NicheLifecyclePhase.Innovation: return "Innovation";
+                case NicheLifecyclePhase.Trending: return "Trending";
+                case NicheLifecyclePhase.MassUse: return "Mass use";
+                case NicheLifecyclePhase.Decay: return "Decay";
+                case NicheLifecyclePhase.Death: return "Death";
+
+                default: return "???WTF " + state.ToString();
+            }
+        }
+
+        internal static long GetMarketStageInnovationModifier (GameEntity niche)
+        {
+            var phase = NicheUtils.GetMarketState(niche);
+
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Death:
+                case NicheLifecyclePhase.Decay:
+                case NicheLifecyclePhase.Idle:
+                    return 0;
+
+                case NicheLifecyclePhase.Innovation:
+                    return 25;
+
+                case NicheLifecyclePhase.Trending:
+                    return 15;
+
+                case NicheLifecyclePhase.MassUse:
+                    return 5;
+
+                default: return 0;
+            }
+        }
+
         public static BonusContainer GetInnovationChanceDescription(GameEntity company, GameContext gameContext)
         {
             var morale = company.team.Morale;
@@ -59,10 +107,14 @@ namespace Assets.Utils
                 }
             }
 
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var phase = NicheUtils.GetMarketState(niche);
+            var marketStage = GetMarketStageInnovationModifier(niche);
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 15)
-                .Append("Morale", moraleChance)
+                //.Append("Morale", moraleChance)
+                .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
                 .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 25 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
                 .AppendAndHideIfZero("Crunch", crunch);
