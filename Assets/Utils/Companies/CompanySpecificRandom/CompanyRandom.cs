@@ -127,7 +127,7 @@ namespace Assets.Utils
                 .Append("Base", 15)
                 //.Append("Morale", moraleChance)
                 .Append("CEO bonus", leaderBonus)
-                .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
+                .Append("Market stage " + GetMarketStateDescription(phase), marketStage)
                 .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 25 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
                 .AppendAndHideIfZero("Crunch", crunch);
