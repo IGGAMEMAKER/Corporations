@@ -25,6 +25,16 @@ public partial class AIProductSystems : OnDateChange
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
     }
 
+    void PickOneOf(GameEntity product)
+    {
+
+    }
+
+    void ManageSoloDeveloper(GameEntity product)
+    {
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
+    }
+
     void ManagePairOfWorkers(GameEntity product)
     {
         TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
@@ -36,6 +46,7 @@ public partial class AIProductSystems : OnDateChange
     {
         switch (product.team.TeamStatus)
         {
+            case TeamStatus.Solo: ManageSoloDeveloper(product); break;
             case TeamStatus.Pair: ManagePairOfWorkers(product); break;
             case TeamStatus.SmallTeam: ManageSmallTeam(product); break;
             case TeamStatus.BigTeam: ManageBigTeam(product); break;

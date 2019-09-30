@@ -8,12 +8,7 @@ public partial class AIProductSystems
     {
         ProductUtils.UpdgradeProduct(product, gameContext);
 
-        ProductUtils.UpgradeExpertise(product, gameContext);
-    }
-
-    void Innovate(GameEntity product)
-    {
-        UpgradeSegment(product);
+        //ProductUtils.UpgradeExpertise(product, gameContext);
     }
 
     long GetProfit(GameEntity company)

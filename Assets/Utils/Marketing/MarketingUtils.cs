@@ -53,11 +53,12 @@ namespace Assets.Utils
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
             var paymentModifier = isPayingForMarketing;
 
-            var baseDecay = -product.branding.BrandPower * 5 / 100;
+            var percent = 5;
+            var baseDecay = -product.branding.BrandPower * percent / 100;
 
             var BrandingChangeBonus = new BonusContainer("Brand power change")
-                .Append("Base", -1)
-                .AppendAndHideIfZero("5% Decay", (int)baseDecay)
+                //.Append("Base", -1)
+                .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
                 //.Append("Due to Market share", (int)decay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
@@ -66,6 +67,31 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Is Innovator + Aggressive Marketing", isInnovator && isPayingForAggressiveMarketing ? 6 : 0);
 
             return BrandingChangeBonus;
+        }
+
+        public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
+        {
+            var flow = GetCurrentClientFlow(gameContext, product.product.Niche);
+            var multiplier = GetAudienceGrowthMultiplier(product);
+
+            return (long)(multiplier * flow);
+        }
+
+        public static float GetAudienceGrowthMultiplier(GameEntity product)
+        {
+            var SEO = (product.branding.BrandPower + 100) / 100;
+
+            var marketing = 0;
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase))
+                marketing = 1;
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAllPlatform))
+                marketing = 3;
+
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))
+                marketing *= 3;
+
+            //     0...100 + 12...60
+            return SEO + marketing * 3; // + rand * 50;
         }
 
 

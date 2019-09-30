@@ -15,7 +15,7 @@ public class ShowImprovementList : UpgradedParameterView
         if (!TeamUtils.IsUpgradePicked(SelectedCompany, teamUpgrade))
             return "";
 
-        var separator = "\n* ";
+        var separator = "\n\n* ";
 
         return separator + ((description.Length > 0) ? description : teamUpgrade.ToString());
     }
@@ -33,6 +33,8 @@ public class ShowImprovementList : UpgradedParameterView
         text += DescribeImprovement(TeamUpgrade.MarketingBase, "They grow normally");
         text += DescribeImprovement(TeamUpgrade.MarketingAggressive, "They grow aggressively");
         text += DescribeImprovement(TeamUpgrade.MarketingAllPlatform);
+        var clients = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
+        text += "\nAudience grows by " + Format.Minify(clients) + " clients each month";
         
         text += "\nSupport";
         text += DescribeImprovement(TeamUpgrade.ClientSupport);

@@ -64,23 +64,8 @@ public partial class ClientDistributionSystem : OnMonthChange
 
     long GetCompanyAudienceReach(GameEntity product, long flow)
     {
-        //var rand = Random.Range(0.15f, 1.4f);
         var rand = Random.Range(0.25f, 1.2f);
 
-        var SEO = (product.branding.BrandPower + 100) / 100;
-
-        var marketing = 0;
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase))
-            marketing = 1;
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAllPlatform))
-            marketing = 3;
-
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))
-            marketing *= 3;
-
-        //     0...100 + 12...60
-        var multiplier = SEO + marketing * 3; // + rand * 50;
-
-        return (long)(multiplier * flow);
+        return MarketingUtils.GetAudienceGrowth(product, gameContext);
     }
 }
