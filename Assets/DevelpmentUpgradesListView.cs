@@ -66,7 +66,7 @@ public class DevelpmentUpgradesListView : ListView
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.AllPlatformMarketing,
+                TeamUpgrade = TeamUpgrade.MarketingAllPlatform,
                 Name = "All platform marketing",
                 Description = "+1 Brand power each month when combined with 'All platforms'. Costs money",
                 Workers = 5
@@ -82,7 +82,7 @@ public class DevelpmentUpgradesListView : ListView
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.ImprovedClientSupport,
+                TeamUpgrade = TeamUpgrade.ClientSupportImproved,
                 Name = "Improved client support",
                 Description = "Lowers churn rate by 1% but costs additional money",
                 Workers = 5

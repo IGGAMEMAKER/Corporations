@@ -34,7 +34,7 @@ namespace Assets.Utils
             var clients = MarketingUtils.GetClients(e);
 
             var hasBaseSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupport);
-            var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ImprovedClientSupport);
+            var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupportImproved);
 
             var income = GetProductCompanyIncome(e, gameContext);
 

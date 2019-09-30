@@ -14,7 +14,7 @@
                     return 0;
 
                 case TeamUpgrade.ClientSupport:
-                case TeamUpgrade.ImprovedClientSupport:
+                case TeamUpgrade.ClientSupportImproved:
                     return 0;
 
                 case TeamUpgrade.MarketingBase:
@@ -23,7 +23,7 @@
                 case TeamUpgrade.MarketingAggressive:
                     return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
 
-                case TeamUpgrade.AllPlatformMarketing:
+                case TeamUpgrade.MarketingAllPlatform:
                     return 1000;
 
                 default: return 1;

@@ -72,7 +72,7 @@ public partial class ClientDistributionSystem : OnMonthChange
         var marketing = 0;
         if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase))
             marketing = 1;
-        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.AllPlatformMarketing))
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAllPlatform))
             marketing = 3;
 
         if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))

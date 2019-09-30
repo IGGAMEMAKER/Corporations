@@ -41,9 +41,9 @@
 
                 case TeamUpgrade.MarketingBase: return 1;
                 case TeamUpgrade.MarketingAggressive: return 7;
-                case TeamUpgrade.AllPlatformMarketing: return 5;
+                case TeamUpgrade.MarketingAllPlatform: return 5;
                 case TeamUpgrade.ClientSupport: return 1;
-                case TeamUpgrade.ImprovedClientSupport: return 5;
+                case TeamUpgrade.ClientSupportImproved: return 5;
 
                 default: return 1000;
             }

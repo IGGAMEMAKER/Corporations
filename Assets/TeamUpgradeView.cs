@@ -13,10 +13,10 @@ public enum TeamUpgrade
 
     MarketingBase, // +1
     MarketingAggressive, // +3
-    AllPlatformMarketing, // bigger maintenance and reach when getting clients
+    MarketingAllPlatform, // bigger maintenance and reach when getting clients
 
     ClientSupport, // -1% churn fixed cost
-    ImprovedClientSupport, // -1% churn scaling cost
+    ClientSupportImproved, // -1% churn scaling cost
 }
 
 public class TeamUpgradeView : View
