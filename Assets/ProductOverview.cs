@@ -30,7 +30,6 @@ public class ProductOverview : View
         //var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
         var expertise = CompanyUtils.GetInnovationChance(SelectedCompany, GameContext);
         Expertise.text = $"Innovation chance: {expertise}%";
-        //Expertise.text = $"Expertise: {expertise}%";
 
         var strength = TeamUtils.GetAverageTeamRating(GameContext, SelectedCompany);
         TeamSpeed.SetStars(strength);

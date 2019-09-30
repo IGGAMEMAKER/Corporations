@@ -9,9 +9,8 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageBigTeam(GameEntity product)
     {
-        TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
-        TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentCrossplatform);
-        TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
+        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentCrossplatform);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
         PickImprovementIfCan(product, TeamUpgrade.MarketingAggressive);
@@ -19,15 +18,10 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageSmallTeam(GameEntity product)
     {
-        TeamUtils.DisableTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
-        TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
+        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
-    }
-
-    void PickOneOf(GameEntity product)
-    {
-
     }
 
     void ManageSoloDeveloper(GameEntity product)
@@ -37,7 +31,8 @@ public partial class AIProductSystems : OnDateChange
 
     void ManagePairOfWorkers(GameEntity product)
     {
-        TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
+        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
     }
