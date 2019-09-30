@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Utils;
 using Assets.Utils.Formatting;
 using Entitas;
-using UnityEngine;
 
 public enum NicheDuration
 {
@@ -115,16 +113,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         // positionings
         var positionings = new Dictionary<int, ProductPositioning>(); // n.nicheSegments.Positionings;
-        //var clientsContainer = n.nicheClientsContainer.Clients;
         var clientsContainer = new Dictionary<int, long>();
-
-        //for (var i = 0; i < productPositionings.Length; i++)
-        //{
-        //    positionings[i] = productPositionings[i];
-        //    clientsContainer[i] = 0;
-        //}
-
-
 
         positionings[0] = new ProductPositioning
         {
@@ -133,15 +122,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
             name = EnumUtils.GetSingleFormattedNicheName(nicheType)
         };
         clientsContainer[0] = audience;
-        //if (productPositionings.Length == 0)
-        //{
-        //}
 
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
         n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
-        //n.ReplaceNicheLifecycle(GetYear(1990), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
 
 
 
