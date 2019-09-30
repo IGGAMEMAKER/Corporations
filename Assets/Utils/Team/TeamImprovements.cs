@@ -9,10 +9,11 @@
         }
         public static void PickTeamImprovement(GameEntity company, TeamUpgrade teamUpgrade)
         {
+            if (IsUpgradePicked(company, teamUpgrade))
+                return;
+
             if (HasEnoughAvailableWorkersForImprovement(company, teamUpgrade))
                 company.teamImprovements.Upgrades[teamUpgrade] = 1;
-            else
-                DisableTeamImprovement(company, teamUpgrade);
         }
 
         public static void ToggleTeamImprovement(GameEntity company, TeamUpgrade teamUpgrade)
