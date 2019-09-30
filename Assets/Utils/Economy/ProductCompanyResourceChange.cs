@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Utils
 {
-    static partial class CompanyEconomyUtils
+    static partial class EconomyUtils
     {
         // TODO move this to better place!
         public static int GetPeriodDuration()

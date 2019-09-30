@@ -41,7 +41,7 @@ public class CompanyCostView : View
 
     void RenderBaseCosts(int companyId, GameEntity c)
     {
-        BaseCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyBaseCost(GameContext, companyId));
+        BaseCost.text = RenderCosts(EconomyUtils.GetCompanyBaseCost(GameContext, companyId));
         CapitalSize.text = RenderCosts(c.companyResource.Resources.money);
 
         if (CompanyUtils.IsProductCompany(c))
@@ -49,16 +49,16 @@ public class CompanyCostView : View
             ShowProductCompanyLabels(true);
             ShowGroupLabels(false);
 
-            AudienceCost.text = RenderCosts(CompanyEconomyUtils.GetClientBaseCost(GameContext, companyId));
-            IncomeBasedCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyIncomeBasedCost(GameContext, companyId));
-            IncomeBasedCostLabel.text = $"Income X{CompanyEconomyUtils.GetCompanyCostNicheMultiplier()}";
+            AudienceCost.text = RenderCosts(EconomyUtils.GetClientBaseCost(GameContext, companyId));
+            IncomeBasedCost.text = RenderCosts(EconomyUtils.GetCompanyIncomeBasedCost(GameContext, companyId));
+            IncomeBasedCostLabel.text = $"Income X{EconomyUtils.GetCompanyCostNicheMultiplier()}";
         }
         else
         {
             ShowProductCompanyLabels(false);
             ShowGroupLabels(true);
 
-            HoldingCost.text = RenderCosts(CompanyEconomyUtils.GetHoldingCost(GameContext, companyId));
+            HoldingCost.text = RenderCosts(EconomyUtils.GetHoldingCost(GameContext, companyId));
         }
     }
 
@@ -69,7 +69,7 @@ public class CompanyCostView : View
         var c = SelectedCompany;
         var companyId = c.company.Id;
 
-        CompanyCost.text = RenderCosts(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
+        CompanyCost.text = RenderCosts(EconomyUtils.GetCompanyCost(GameContext, companyId));
 
         RenderBaseCosts(companyId, c);
     }

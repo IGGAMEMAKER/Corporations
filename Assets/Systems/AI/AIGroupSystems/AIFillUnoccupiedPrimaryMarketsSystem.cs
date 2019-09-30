@@ -49,7 +49,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     long GetCompanyAcquisitionPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        var price = CompanyEconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id);
+        var price = EconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id);
         var desireToBuy = CompanyUtils.GetDesireToBuy(buyer, target, gameContext);
 
         var modifiers = Random.Range(10, 14);
@@ -66,7 +66,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
         if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
             return;
 
-        var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
+        var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
         if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
             return;

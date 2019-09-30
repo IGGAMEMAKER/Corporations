@@ -36,7 +36,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         bool isBankrupt = product.companyResource.Resources.money < 0;
 
-        bool isNotProfitable = !CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id);
+        bool isNotProfitable = !EconomyUtils.IsProfitable(gameContext, product.company.Id);
         bool isNicheDead = NicheUtils.GetMarketState(niche) == NicheLifecyclePhase.Death;
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
@@ -46,7 +46,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void SupportStartup(GameEntity product, GameEntity managingCompany)
     {
-        if (product.companyResource.Resources.money > 0 && CompanyEconomyUtils.IsProfitable(gameContext, product.company.Id))
+        if (product.companyResource.Resources.money > 0 && EconomyUtils.IsProfitable(gameContext, product.company.Id))
             return;
 
         Debug.Log("Support Startup");
@@ -58,7 +58,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
         if (!NicheUtils.IsPlayableNiche(gameContext, product.product.Niche))
             return;
 
-        var maintenance = CompanyEconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
+        var maintenance = EconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);
 
         var proposal = new InvestmentProposal
         {

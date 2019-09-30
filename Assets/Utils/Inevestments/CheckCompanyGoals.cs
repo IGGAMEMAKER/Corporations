@@ -77,7 +77,7 @@ namespace Assets.Utils
         {
             return new GoalRequirements
             {
-                have = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id),
+                have = EconomyUtils.GetBalanceChange(gameContext, company.company.Id),
                 need = company.companyGoal.MeasurableGoal
             };
         }
@@ -86,7 +86,7 @@ namespace Assets.Utils
         {
             return new GoalRequirements
             {
-                have = CompanyEconomyUtils.GetCompanyCost(gameContext, company.company.Id),
+                have = EconomyUtils.GetCompanyCost(gameContext, company.company.Id),
                 need = company.companyGoal.MeasurableGoal
             };
         }
@@ -104,7 +104,7 @@ namespace Assets.Utils
         {
             return new GoalRequirements
             {
-                have = CompanyEconomyUtils.GetBalanceChange(gameContext, company.company.Id),
+                have = EconomyUtils.GetBalanceChange(gameContext, company.company.Id),
                 need = 0
             };
         }

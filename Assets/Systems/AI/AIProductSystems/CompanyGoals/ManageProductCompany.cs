@@ -49,7 +49,7 @@ public partial class AIProductSystems : OnDateChange
 
     void ScaleTeamIfPossible(GameEntity product)
     {
-        var cost = CompanyEconomyUtils.GetPromotedTeamMaintenance(product);
+        var cost = EconomyUtils.GetPromotedTeamMaintenance(product);
 
         var profit = GetProfit(product);
 

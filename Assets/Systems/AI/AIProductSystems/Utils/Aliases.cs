@@ -56,6 +56,6 @@ public partial class AIProductSystems
 
     TeamResource GetResourceChange(GameEntity company)
     {
-        return CompanyEconomyUtils.GetResourceChange(company, gameContext);
+        return EconomyUtils.GetResourceChange(company, gameContext);
     }
 }

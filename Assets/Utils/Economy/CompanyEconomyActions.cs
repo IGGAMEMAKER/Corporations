@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class CompanyEconomyUtils
+    public static partial class EconomyUtils
     {
         public static void IncreaseCompanyBalance(GameContext context, int companyId, long sum)
         {

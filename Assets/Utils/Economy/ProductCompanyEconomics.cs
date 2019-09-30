@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    partial class CompanyEconomyUtils
+    partial class EconomyUtils
     {
         private static long GetProductCompanyCost(GameContext context, int companyId)
         {

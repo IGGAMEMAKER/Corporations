@@ -64,7 +64,7 @@ namespace Assets.Utils
         {
             var holdings = CompanyUtils.GetPersonalHoldings(gameContext, human.shareholder.Id, false);
 
-            return CompanyEconomyUtils.GetHoldingCost(gameContext, holdings);
+            return EconomyUtils.GetHoldingCost(gameContext, holdings);
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Assets.Utils
             int shares = GetAmountOfShares(context, companyId, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
 
-            return CompanyEconomyUtils.GetCompanyCost(context, c.company.Id) * shares / total;
+            return EconomyUtils.GetCompanyCost(context, c.company.Id) * shares / total;
         }
 
         public static string GetInvestorName(GameEntity investor)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    static partial class CompanyEconomyUtils
+    static partial class EconomyUtils
     {
         internal static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {

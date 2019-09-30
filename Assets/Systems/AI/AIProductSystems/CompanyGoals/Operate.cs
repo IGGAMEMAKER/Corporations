@@ -25,7 +25,7 @@ public partial class AIProductSystems : OnDateChange
         if (!product.isIndependentCompany)
             return;
 
-        var profit = CompanyEconomyUtils.GetBalanceChange(product, gameContext);
+        var profit = EconomyUtils.GetBalanceChange(product, gameContext);
         var canGrow = profit > 1000000;
 
         var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
@@ -37,13 +37,13 @@ public partial class AIProductSystems : OnDateChange
 
     void PayDividendsIfPossible(GameEntity product)
     {
-        if (CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
+        if (EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
         if (product.isIndependentCompany || product.isAggressiveMarketing)
             return;
 
-        var maintenance = CompanyEconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
+        var maintenance = EconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
         var dividends = product.companyResource.Resources.money - maintenance;
 
         CompanyUtils.PayDividends(gameContext, product, dividends);

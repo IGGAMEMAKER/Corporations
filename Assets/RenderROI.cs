@@ -9,6 +9,6 @@ public class RenderROI : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Format.Sign(CompanyEconomyUtils.GetBalanceROI(SelectedCompany, GameContext)) + "%";
+        return Format.Sign(EconomyUtils.GetBalanceROI(SelectedCompany, GameContext)) + "%";
     }
 }

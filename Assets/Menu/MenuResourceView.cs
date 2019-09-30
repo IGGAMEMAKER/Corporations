@@ -18,7 +18,7 @@ public class MenuResourceView : View
     string GetFormattedPeriod()
     {
         return "";
-        int period = CompanyEconomyUtils.GetPeriodDuration();
+        int period = EconomyUtils.GetPeriodDuration();
 
         if (period == 1)
             return "Everyday";
@@ -42,7 +42,7 @@ public class MenuResourceView : View
 
     TeamResource GetCompanyResourcePeriodChange()
     {
-        return CompanyEconomyUtils.GetResourceChange(MyCompany, GameContext);
+        return EconomyUtils.GetResourceChange(MyCompany, GameContext);
     }
 
     public override void ViewRender()

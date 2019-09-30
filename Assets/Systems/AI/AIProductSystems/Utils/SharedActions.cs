@@ -13,7 +13,7 @@ public partial class AIProductSystems
 
     long GetProfit(GameEntity company)
     {
-        return CompanyEconomyUtils.GetBalanceChange(company, gameContext);
+        return EconomyUtils.GetBalanceChange(company, gameContext);
     }
 
     bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)

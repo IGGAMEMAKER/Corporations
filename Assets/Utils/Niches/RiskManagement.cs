@@ -36,7 +36,7 @@
         {
             int num = Constants.RISKS_MONETISATION_MAX;
 
-            if (CompanyEconomyUtils.IsCompanyProfitable(gameContext, companyId))
+            if (EconomyUtils.IsCompanyProfitable(gameContext, companyId))
                 num -= Constants.RISKS_MONETISATION_IS_PROFITABLE;
 
             return num;

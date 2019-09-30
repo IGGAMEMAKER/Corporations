@@ -26,6 +26,6 @@ public class MonthlyIncomeView : View
     void Render()
     {
         // TODO Update
-        Text.text = Format.Money(CompanyEconomyUtils.GetCompanyIncome(MyProductEntity, GameContext));
+        Text.text = Format.Money(EconomyUtils.GetCompanyIncome(MyProductEntity, GameContext));
     }
 }

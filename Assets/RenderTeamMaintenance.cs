@@ -6,7 +6,7 @@ public class RenderTeamMaintenance : UpgradedParameterView
     {
         get
         {
-            return CompanyEconomyUtils.GetCompanyMaintenance(GameContext, SelectedCompany.company.Id);
+            return EconomyUtils.GetCompanyMaintenance(GameContext, SelectedCompany.company.Id);
         }
     }
 
@@ -14,13 +14,13 @@ public class RenderTeamMaintenance : UpgradedParameterView
     {
         var e = SelectedCompany;
 
-        var universals = CompanyEconomyUtils.GetUniversalsMaintenance(e);
-        var programmers = CompanyEconomyUtils.GetProgrammersMaintenance(e);
-        var marketers = CompanyEconomyUtils.GetMarketersMaintenance(e);
-        var managers = CompanyEconomyUtils.GetManagersMaintenance(e);
-        var topManagers = CompanyEconomyUtils.GetTopManagersMaintenance(e);
+        var universals = EconomyUtils.GetUniversalsMaintenance(e);
+        var programmers = EconomyUtils.GetProgrammersMaintenance(e);
+        var marketers = EconomyUtils.GetMarketersMaintenance(e);
+        var managers = EconomyUtils.GetManagersMaintenance(e);
+        var topManagers = EconomyUtils.GetTopManagersMaintenance(e);
 
-        var CEO = CompanyEconomyUtils.GetCEOMaintenance(e);
+        var CEO = EconomyUtils.GetCEOMaintenance(e);
 
         var bonus = new BonusContainer("Maintenance")
             .AppendAndHideIfZero("CEO", CEO)

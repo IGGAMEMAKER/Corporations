@@ -44,7 +44,7 @@ namespace Assets.Utils
 
         public static void SpawnProposals(GameContext context, int companyId)
         {
-            long cost = CompanyEconomyUtils.GetCompanyCost(context, companyId);
+            long cost = EconomyUtils.GetCompanyCost(context, companyId);
             var c = GetCompanyById(context, companyId);
 
             foreach (var potentialInvestor in GetPotentialInvestors(context, companyId))

@@ -20,7 +20,7 @@ public partial class AIManageGroupSystems
 
     bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product)
     {
-        return CompanyEconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
+        return EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
     }
 
     bool IsCompanyReadyToExpand(GameEntity group)
@@ -50,7 +50,7 @@ public partial class AIManageGroupSystems
         var industry = group.companyFocus.Industries[0];
 
         var playableNiches = NicheUtils.GetPlayableNichesInIndustry(industry, gameContext);
-        var profit = CompanyEconomyUtils.GetBalanceChange(group, gameContext);
+        var profit = EconomyUtils.GetBalanceChange(group, gameContext);
 
         var averageProfit = profit / (CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 

@@ -34,7 +34,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
     List<ReportData> GetProductList()
     {
         var products = CompanyUtils.GetProductCompanies(gameContext)
-            .OrderByDescending(p => CompanyEconomyUtils.GetCompanyCost(gameContext, p.company.Id))
+            .OrderByDescending(p => EconomyUtils.GetCompanyCost(gameContext, p.company.Id))
             .ToArray();
 
         var List = new List<ReportData>();
@@ -46,7 +46,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
             List.Add(new ReportData
             {
-                Cost = CompanyEconomyUtils.GetCompanyCost(gameContext, id),
+                Cost = EconomyUtils.GetCompanyCost(gameContext, id),
                 ShareholderId = id,
                 position = i
             });
@@ -58,7 +58,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
     List<ReportData> GetGroupList()
     {
         var groups = CompanyUtils.GetGroupCompanies(gameContext)
-            .OrderByDescending(g => CompanyEconomyUtils.GetCompanyCost(gameContext, g.company.Id))
+            .OrderByDescending(g => EconomyUtils.GetCompanyCost(gameContext, g.company.Id))
             .ToArray();
 
         var List = new List<ReportData>();
@@ -69,7 +69,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
             List.Add(new ReportData
             {
-                Cost = CompanyEconomyUtils.GetCompanyCost(gameContext, g.company.Id),
+                Cost = EconomyUtils.GetCompanyCost(gameContext, g.company.Id),
                 ShareholderId = g.shareholder.Id,
                 position = i
             });
@@ -112,9 +112,9 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
         {
             AudienceSize = 0,
             Date = date,
-            Income = CompanyEconomyUtils.GetCompanyIncome(e, gameContext),
-            Profit = CompanyEconomyUtils.GetBalanceChange(e, gameContext),
-            Valuation = CompanyEconomyUtils.GetCompanyCost(gameContext, e.company.Id)
+            Income = EconomyUtils.GetCompanyIncome(e, gameContext),
+            Profit = EconomyUtils.GetBalanceChange(e, gameContext),
+            Valuation = EconomyUtils.GetCompanyCost(gameContext, e.company.Id)
         });
     }
 }

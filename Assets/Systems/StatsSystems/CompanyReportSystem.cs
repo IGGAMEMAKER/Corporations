@@ -32,9 +32,9 @@ class CompanyReportSystem : OnMonthChange
         {
             AudienceSize = 0,
             Date = date,
-            Income = CompanyEconomyUtils.GetCompanyIncome(e, gameContext),
-            Profit = CompanyEconomyUtils.GetBalanceChange(e, gameContext),
-            Valuation = CompanyEconomyUtils.GetCompanyCost(gameContext, e.company.Id)
+            Income = EconomyUtils.GetCompanyIncome(e, gameContext),
+            Profit = EconomyUtils.GetBalanceChange(e, gameContext),
+            Valuation = EconomyUtils.GetCompanyCost(gameContext, e.company.Id)
         });
     }
 
@@ -44,9 +44,9 @@ class CompanyReportSystem : OnMonthChange
         {
             AudienceSize = MarketingUtils.GetClients(e),
             Date = date,
-            Income = CompanyEconomyUtils.GetCompanyIncome(e, gameContext),
-            Profit = CompanyEconomyUtils.GetBalanceChange(e, gameContext),
-            Valuation = CompanyEconomyUtils.GetCompanyCost(gameContext, e.company.Id)
+            Income = EconomyUtils.GetCompanyIncome(e, gameContext),
+            Profit = EconomyUtils.GetBalanceChange(e, gameContext),
+            Valuation = EconomyUtils.GetCompanyCost(gameContext, e.company.Id)
         });
     }
 }

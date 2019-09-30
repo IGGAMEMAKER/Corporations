@@ -50,7 +50,7 @@ public class SellingOfferView : View
 
         StageHint.SetHint(c.hasProduct ? NicheUtils.GetMarketState(GameContext, c.product.Niche).ToString() : "");
 
-        Valuation.text = Format.Money(CompanyEconomyUtils.GetCompanyCost(GameContext, companyId));
+        Valuation.text = Format.Money(EconomyUtils.GetCompanyCost(GameContext, companyId));
 
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, companyId, buyerId);
         Offer.text = Format.Money(offer.acquisitionOffer.Offer);

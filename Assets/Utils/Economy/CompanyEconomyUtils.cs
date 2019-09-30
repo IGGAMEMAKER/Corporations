@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class CompanyEconomyUtils
+    public static partial class EconomyUtils
     {
         public static long GetCompanyIncome(GameEntity e, GameContext context)
         {

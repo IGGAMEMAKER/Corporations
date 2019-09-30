@@ -87,7 +87,7 @@ namespace Assets.Utils
             {
                 offer = gameContext.CreateEntity();
 
-                var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
+                var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
                 offer.AddAcquisitionOffer(cost, companyId, buyerInvestorId);
             }
@@ -104,7 +104,7 @@ namespace Assets.Utils
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
         {
-            var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, ackOffer.CompanyId);
+            var cost = EconomyUtils.GetCompanyCost(gameContext, ackOffer.CompanyId);
             var company = GetCompanyById(gameContext, ackOffer.CompanyId);
 
             var investorType = GetInvestorById(gameContext, shareholderId).shareholder.InvestorType;
@@ -135,7 +135,7 @@ namespace Assets.Utils
             long blocks = 0;
             long desireToSell = 0;
 
-            var cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
+            var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
             foreach (var s in shareholders)
             {

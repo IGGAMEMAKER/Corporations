@@ -4,10 +4,10 @@ public class RenderCompanyProfit : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var income = CompanyEconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
-        var team = CompanyEconomyUtils.GetTeamMaintenance(SelectedCompany);
-        var marketingMaintenance = CompanyEconomyUtils.GetCompanyMarketingMaintenance(SelectedCompany, GameContext);
-        var support = CompanyEconomyUtils.GetClientSupportCost(SelectedCompany, GameContext);
+        var income = EconomyUtils.GetCompanyIncome(SelectedCompany, GameContext);
+        var team = EconomyUtils.GetTeamMaintenance(SelectedCompany);
+        var marketingMaintenance = EconomyUtils.GetCompanyMarketingMaintenance(SelectedCompany, GameContext);
+        var support = EconomyUtils.GetClientSupportCost(SelectedCompany, GameContext);
 
 
         var bonus = new BonusContainer("Balance change")
@@ -21,7 +21,7 @@ public class RenderCompanyProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var change = CompanyEconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
+        var change = EconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
 
         return Visuals.PositiveOrNegativeMinified(change);
     }

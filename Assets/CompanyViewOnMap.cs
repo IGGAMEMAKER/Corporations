@@ -41,7 +41,7 @@ public class CompanyViewOnMap : View
 
         if (Profitability != null)
         {
-            var profit = CompanyEconomyUtils.GetBalanceChange(GameContext, company.company.Id);
+            var profit = EconomyUtils.GetBalanceChange(GameContext, company.company.Id);
 
             Profitability.text = Visuals.Describe(profit, "$", "$", "");
             Profitability.GetComponent<Hint>().SetHint(

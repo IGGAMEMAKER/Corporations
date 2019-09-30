@@ -91,7 +91,7 @@ public class CompanyPreviewView : View
 
     private void RenderCompanyCost(GameEntity e)
     {
-        var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, e.company.Id);
+        var cost = EconomyUtils.GetCompanyCost(GameContext, e.company.Id);
 
         ShareCostLabel.text = Format.Money(cost);
     }

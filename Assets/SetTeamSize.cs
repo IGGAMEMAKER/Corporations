@@ -14,7 +14,7 @@ public class SetTeamSize : ToggleButtonController
     {
         base.ViewRender();
 
-        var money = CompanyEconomyUtils.GetAbstractTeamMaintenance(TeamSize);
+        var money = EconomyUtils.GetAbstractTeamMaintenance(TeamSize);
 
         bool hasResources = CompanyUtils.IsEnoughResources(SelectedCompany, new Assets.Classes.TeamResource(money));
 

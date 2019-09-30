@@ -11,14 +11,14 @@ namespace Assets.Utils
             if (p == null)
                 return;
 
-            long cost = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId);
+            long cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
             int shares = Convert.ToInt32(GetTotalShares(gameContext, companyId) * p.Offer / cost);
 
             AddShareholder(gameContext, companyId, investorId, shares);
 
-            CompanyEconomyUtils.IncreaseCompanyBalance(gameContext, companyId, p.Offer);
-            CompanyEconomyUtils.DecreaseInvestmentFunds(gameContext, investorId, p.Offer);
+            EconomyUtils.IncreaseCompanyBalance(gameContext, companyId, p.Offer);
+            EconomyUtils.DecreaseInvestmentFunds(gameContext, investorId, p.Offer);
 
             MarkProposalAsAccepted(gameContext, companyId, investorId);
         }

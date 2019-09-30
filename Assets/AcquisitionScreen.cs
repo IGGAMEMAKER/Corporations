@@ -29,7 +29,7 @@ public class AcquisitionScreen : View
     {
         string overpriceText = "";
 
-        var cost = CompanyEconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
         long offer = AcquisitionOffer.Offer;
 

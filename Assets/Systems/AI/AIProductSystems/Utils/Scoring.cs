@@ -4,7 +4,7 @@ public partial class AIProductSystems : OnDateChange
 {
     long GetBankruptcyUrgency(GameEntity product)
     {
-        var change = CompanyEconomyUtils.GetBalanceChange(gameContext, product.company.Id);
+        var change = EconomyUtils.GetBalanceChange(gameContext, product.company.Id);
         var balance = product.companyResource.Resources.money;
 
         if (change >= 0)

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class CompanyEconomyUtils
+    public static partial class EconomyUtils
     {
         public static int GetCompanyRating(GameContext gameContext, int companyId)
         {

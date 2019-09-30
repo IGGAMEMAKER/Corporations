@@ -11,7 +11,7 @@ class ProductResourceSystems : OnDateChange
 
     bool IsPeriodEnd(DateComponent dateComponent)
     {
-        int period = CompanyEconomyUtils.GetPeriodDuration();
+        int period = EconomyUtils.GetPeriodDuration();
 
         if (period == 1)
             return true;
@@ -35,7 +35,7 @@ class ProductResourceSystems : OnDateChange
     {
         foreach (var e in Products)
         {
-            var resources = CompanyEconomyUtils.GetResourceChange(e, contexts.game);
+            var resources = EconomyUtils.GetResourceChange(e, contexts.game);
 
             CompanyUtils.AddResources(e, resources);
         }
