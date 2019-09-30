@@ -1,8 +1,4 @@
-﻿using Assets.Classes;
-using System.Text;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -53,7 +49,7 @@ namespace Assets.Utils
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
             var paymentModifier = isPayingForMarketing;
 
-            var percent = 5;
+            var percent = 4;
             var baseDecay = -product.branding.BrandPower * percent / 100;
 
             var BrandingChangeBonus = new BonusContainer("Brand power change")
@@ -92,32 +88,6 @@ namespace Assets.Utils
 
             //     0...100 + 12...60
             return SEO + marketing * 3; // + rand * 50;
-        }
-
-
-        public static TeamResource GetReleaseCost()
-        {
-            return new TeamResource(0, 0, 50, 0, 1000);
-        }
-
-        public static int GetReleaseBrandPowerGain()
-        {
-            return 20;
-        }
-
-        public static void ReleaseApp(GameEntity product)
-        {
-            var need = GetReleaseCost();
-
-            bool enoughResources = CompanyUtils.IsEnoughResources(product, need);
-
-            if (!product.isRelease && enoughResources)
-            {
-                product.isRelease = true;
-                AddBrandPower(product, GetReleaseBrandPowerGain());
-
-                CompanyUtils.SpendResources(product, need);
-            }
         }
     }
 }
