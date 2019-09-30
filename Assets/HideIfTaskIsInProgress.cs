@@ -4,7 +4,7 @@ using UnityEngine;
 // Hides start action buttons for player convenience
 public class HideIfTaskIsInProgress : View
 {
-    public CompanyTaskType TaskType;
+    public CompanyTask TaskType;
     public GameObject GameObject;
 
     void Update()
@@ -12,7 +12,7 @@ public class HideIfTaskIsInProgress : View
         GameObject.SetActive(!HasTask(TaskType));
     }
 
-    bool HasTask(CompanyTaskType taskType)
+    bool HasTask(CompanyTask taskType)
     {
         // TODO
 
