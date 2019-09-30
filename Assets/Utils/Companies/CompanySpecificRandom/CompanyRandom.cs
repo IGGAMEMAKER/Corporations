@@ -34,6 +34,18 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
+        public static int GetLeaderInnovationBonus (GameEntity company)
+        {
+            //var CEOId = 
+            int companyId = company.company.Id;
+            int CEOId = GetCEOId(company);
+
+            //var accumulated = GetAccumulatedExpertise(company);
+
+            return (int)(15 * GetHashedRandom2(companyId, CEOId));
+            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+        }
+
         internal static long GetMarketStageInnovationModifier (GameEntity company, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
@@ -108,9 +120,13 @@ namespace Assets.Utils
             var phase = NicheUtils.GetMarketState(niche);
             var marketStage = GetMarketStageInnovationModifier(niche);
 
+
+            var leaderBonus = GetLeaderInnovationBonus(company);
+
             return new BonusContainer("Innovation chance")
                 .Append("Base", 15)
                 //.Append("Morale", moraleChance)
+                .Append("CEO bonus", leaderBonus)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
                 .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 25 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
