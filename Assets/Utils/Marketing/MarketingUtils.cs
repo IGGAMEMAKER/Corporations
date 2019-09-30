@@ -47,7 +47,6 @@
             var isInnovator = product.isTechnologyLeader;
 
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
-            var paymentModifier = isPayingForMarketing;
 
             var percent = 4;
             var baseDecay = -product.branding.BrandPower * percent / 100;
@@ -57,7 +56,7 @@
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
                 //.Append("Due to Market share", (int)decay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
-                .AppendAndHideIfZero("Is Paying For Marketing", paymentModifier ? 1 : 0)
+                .AppendAndHideIfZero("Is Paying For Marketing", isPayingForMarketing ? 1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
                 .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 3 : 0)
                 .AppendAndHideIfZero("Is Innovator + Aggressive Marketing", isInnovator && isPayingForAggressiveMarketing ? 6 : 0);
