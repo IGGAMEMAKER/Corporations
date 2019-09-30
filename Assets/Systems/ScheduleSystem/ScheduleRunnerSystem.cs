@@ -64,8 +64,8 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     void CheckPressedButtons()
     {
         // on right click
-        if (Input.GetMouseButtonUp(1))
-            ToggleTimer();
+        //if (Input.GetMouseButtonUp(1))
+        //    ToggleTimer();
 
         if (Input.GetKeyUp(KeyCode.Space))
             ToggleTimer();
