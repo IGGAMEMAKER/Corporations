@@ -9,7 +9,6 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageBigTeam(GameEntity product)
     {
-        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentCrossplatform);
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
@@ -18,7 +17,6 @@ public partial class AIProductSystems : OnDateChange
 
     void ManageSmallTeam(GameEntity product)
     {
-        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
@@ -31,7 +29,6 @@ public partial class AIProductSystems : OnDateChange
 
     void ManagePairOfWorkers(GameEntity product)
     {
-        //TeamUtils.PickTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
