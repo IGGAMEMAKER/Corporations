@@ -48,3 +48,49 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
         return context.CreateCollector(GameMatcher.Date);
     }
 }
+
+public class TaskProcessingSystem : OnDateChange
+{
+    public TaskProcessingSystem(Contexts contexts) : base(contexts)
+    {
+    }
+
+    void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
+    {
+        cooldowns.RemoveAll(c => date >= c.EndDate);
+
+        company.ReplaceCooldowns(cooldowns);
+    }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
+        var container = CooldownUtils.GetCooldowns(contexts.game);
+
+        var date = entities[0].date.Date;
+        // old cooldown system
+        foreach (var c in tasks)
+            ProcessTasks(c.cooldowns.Cooldowns, c, date);
+
+        // new cooldown system
+        var removables = new List<string>();
+        foreach (var c in container)
+        {
+            if (date >= c.Value.EndDate)
+                removables.Add(c.Key);
+        }
+
+        foreach (var c in removables)
+            container.Remove(c);
+    }
+
+    protected override bool Filter(GameEntity entity)
+    {
+        return entity.hasDate;
+    }
+
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    {
+        return context.CreateCollector(GameMatcher.Date);
+    }
+}

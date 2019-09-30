@@ -9,11 +9,11 @@ public class TaskView : View
 {
     public Text Text;
 
-    public void SetEntity(CompanyTask companyTask)
+    public void SetEntity(TaskComponent task)
     {
-        var text = GetTaskHeader(companyTask) + "\n\n";
+        var text = GetTaskHeader(task.TaskType) + "\n\n";
 
-        var remaining = companyTask.EndDate - CurrentIntDate;
+        var remaining = task.EndTime - CurrentIntDate;
 
         if (remaining <= 0)
             text += "DONE";
@@ -52,14 +52,7 @@ public enum CompanyTaskType
 
 public class CompanyTask
 {
-    public int StartDate;
-    public int EndDate;
     public CompanyTaskType CompanyTaskType;
-
-    public void Expires(int expires)
-    {
-        EndDate = expires;
-    }
 }
 
 public class CompanyTaskAcquisition : CompanyTask
