@@ -46,7 +46,7 @@ namespace Assets.Utils
                 container.ReplaceTargetDate(date);
         }
 
-        public static TaskComponent GenerateTaskComponent(GameContext gameContext, TaskType taskType, int duration)
+        public static TaskComponent GenerateTaskComponent(GameContext gameContext, CompanyTaskType taskType, int duration)
         {
             int currentDate = GetCurrentDate(gameContext); // contexts.game.GetEntities(GameMatcher.Date)[0].date.Date;
 
@@ -77,7 +77,7 @@ namespace Assets.Utils
             return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
         }
 
-        static GameEntity[] GetTasks(GameContext gameContext, TaskType taskType)
+        static GameEntity[] GetTasks(GameContext gameContext, CompanyTaskType taskType)
         {
             // TODO: add filtering tasks, which are done by other players!
 
@@ -86,7 +86,7 @@ namespace Assets.Utils
             return Array.FindAll(gameEntities, e => e.task.TaskType == taskType);
         }
 
-        public static TaskComponent GetTask(GameContext gameContext, TaskType taskType)
+        public static TaskComponent GetTask(GameContext gameContext, CompanyTaskType taskType)
         {
             GameEntity[] tasks = GetTasks(gameContext, taskType);
 

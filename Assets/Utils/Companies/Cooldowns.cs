@@ -71,8 +71,11 @@ namespace Assets.Utils
 
 
 
-        public static void AddCompanyTask(GameContext gameContext, CompanyTask companyTask)
+        public static void AddTask(GameContext gameContext, CompanyTask companyTask)
         {
+            var e = gameContext.CreateEntity();
+
+            //e.AddTask(false, )
             companyTask.StartDate = ScheduleUtils.GetCurrentDate(gameContext);
 
 

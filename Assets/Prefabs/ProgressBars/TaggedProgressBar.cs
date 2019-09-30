@@ -13,7 +13,7 @@ public enum TaskType
 public class TaggedProgressBar : View
     , IAnyDateListener
 {
-    public TaskType TaskType;
+    public CompanyTaskType TaskType;
     public Text ProgressBarDescription; // task description
 
     public ProgressBar ProgressBar;
@@ -53,22 +53,10 @@ public class TaggedProgressBar : View
         ProgressBar.SetValue(progress);
     }
 
-    private string GetDescriptionByTask(TaskType taskType)
+    private string GetDescriptionByTask(CompanyTaskType taskType)
     {
         switch (taskType)
         {
-            case TaskType.UpgradeProduct:
-                return "Upgrading product...";
-
-            case TaskType.StealIdeas:
-                return "Analysing competitor...";
-
-            case TaskType.ShareExpertise:
-                return "Exchanging expertise...";
-
-            case TaskType.CrossPromotion:
-                return "Exchanging users...";
-
             default:
                 return $"progressbar fail {taskType}";
         }
