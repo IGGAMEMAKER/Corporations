@@ -7,9 +7,14 @@ public partial class AIProductSystems : OnDateChange
         UpgradeSegment(product);
     }
 
+    //void RemoveObsoletteImprovements(GameEntity product, )
+
     void ManageBigTeam(GameEntity product)
     {
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
+
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform))
+            TeamUtils.DisableTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
         PickImprovementIfCan(product, TeamUpgrade.MarketingAggressive);
@@ -18,6 +23,9 @@ public partial class AIProductSystems : OnDateChange
     void ManageSmallTeam(GameEntity product)
     {
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
+
+        if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp))
+            TeamUtils.DisableTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
 
         PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
     }
