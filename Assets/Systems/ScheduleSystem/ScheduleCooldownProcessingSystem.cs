@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Utils;
 using Entitas;
@@ -55,33 +56,46 @@ public class TaskProcessingSystem : OnDateChange
     {
     }
 
-    void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
-    {
-        cooldowns.RemoveAll(c => date >= c.EndDate);
-
-        company.ReplaceCooldowns(cooldowns);
-    }
-
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
-        var container = CooldownUtils.GetCooldowns(contexts.game);
 
-        var date = entities[0].date.Date;
-        // old cooldown system
-        foreach (var c in tasks)
-            ProcessTasks(c.cooldowns.Cooldowns, c, date);
-
-        // new cooldown system
-        var removables = new List<string>();
-        foreach (var c in container)
+        for (var i = tasks.Length - 1; i > 0; i++)
         {
-            if (date >= c.Value.EndDate)
-                removables.Add(c.Key);
-        }
+            var t = tasks[i];
+            if (t.task.isCompleted)
+            {
+                ProcessTask(t.task);
 
-        foreach (var c in removables)
-            container.Remove(c);
+                t.Destroy();
+            }
+        }
+    }
+
+    void AcquireCompany(CompanyTask task)
+    {
+        var nicheType = (task as CompanyTaskExploreMarket).NicheType;
+
+        var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+        niche.AddResearch(1);
+    }
+
+    void ExploreMarket(CompanyTask task)
+    {
+        var nicheType = (task as CompanyTaskExploreMarket).NicheType;
+
+        var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
+        niche.AddResearch(1);
+    }
+
+    private void ProcessTask(TaskComponent taskComponent)
+    {
+        var task = taskComponent.TaskType;
+        switch (task.CompanyTaskType)
+        {
+            case CompanyTaskType.ExploreMarket: ExploreMarket(task); break;
+            case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
+        }
     }
 
     protected override bool Filter(GameEntity entity)
