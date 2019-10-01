@@ -50,6 +50,10 @@ public class TaskView : View
             case CompanyTaskType.ExploreCompany:
                 AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskExploreCompany).CompanyId);
                 break;
+
+            case CompanyTaskType.AcquiringCompany:
+                AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskAcquisition).CompanyId);
+                break;
         }
     }
 
