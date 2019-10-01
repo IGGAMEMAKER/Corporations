@@ -21,5 +21,6 @@ public class TutorialInitializeSystem : IInitializeSystem
         var e = GameContext.CreateEntity();
 
         e.AddTutorial(new System.Collections.Generic.Dictionary<TutorialFunctionality, bool>());
+        e.AddEventContainer(new System.Collections.Generic.Dictionary<string, bool>());
     }
 }

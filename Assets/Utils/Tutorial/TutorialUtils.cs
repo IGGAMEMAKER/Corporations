@@ -8,11 +8,24 @@ namespace Assets.Utils.Tutorial
         {
             return gameContext.GetEntities(GameMatcher.Tutorial)[0];
         }
+        static GameEntity GetEventProgression(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.EventContainer)[0];
+        }
+
+
 
         internal static bool IsOpenedFunctionality(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
         {
             return GetProgression(gameContext).tutorial.progress.ContainsKey(tutorialFunctionality);
         }
+
+        internal static bool IsOpenedFunctionality(GameContext gameContext, string tutorialFunctionality)
+        {
+            return GetEventProgression(gameContext).eventContainer.progress.ContainsKey(tutorialFunctionality);
+        }
+
+
 
         internal static void Unlock(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
         {
@@ -24,6 +37,19 @@ namespace Assets.Utils.Tutorial
 
             p.ReplaceTutorial(tutorial);
         }
+
+        internal static void Unlock(GameContext gameContext, string tutorialFunctionality)
+        {
+            var p = GetEventProgression(gameContext);
+
+            var tutorial = p.eventContainer.progress;
+
+            tutorial[tutorialFunctionality] = true;
+
+            p.ReplaceEventContainer(tutorial);
+        }
+
+
 
         public static void AddEventListener(GameContext gameContext, ITutorialListener tutorialListener)
         {

@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using Assets.Utils.Tutorial;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,15 +17,28 @@ public class TaskView : View
 
         var remaining = task.EndTime - CurrentIntDate;
 
+
+
         if (remaining <= 0)
         {
             text += "DONE";
-            AddIfAbsent<Blinker>();
+
+            var taskString = GetTaskString(task.CompanyTask);
+            if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
+            {
+                AddIfAbsent<Blinker>();
+
+                var asd = AddIfAbsent<TutorialUnlocker>();
+                asd.SetEvent(taskString);
+            }
+            else
+                RemoveIfExists<Blinker>();
         }
         else
             text += "Finished in\n" + remaining + " days";
 
         Text.text = text;
+
 
         AddLinkToObservableObject(task.CompanyTask);
     }
@@ -58,6 +72,26 @@ public class TaskView : View
 
             default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
         }
+    }
+
+    string GetTaskString(CompanyTask companyTask)
+    {
+        var text = companyTask.CompanyTaskType.ToString();
+
+        switch (companyTask.CompanyTaskType)
+        {
+            case CompanyTaskType.AcquiringCompany:
+                return text + (companyTask as CompanyTaskAcquisition).CompanyId;
+
+            case CompanyTaskType.ExploreMarket:
+                return text + (companyTask as CompanyTaskExploreMarket).NicheType;
+
+            case CompanyTaskType.ExploreCompany:
+                return text + (companyTask as CompanyTaskExploreCompany).CompanyId;
+
+            default: return "UNKNOWN TASK!!!!" + text;
+        }
+
     }
 }
 

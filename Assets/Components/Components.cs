@@ -93,6 +93,12 @@ public class TutorialComponent : IComponent
     public Dictionary<TutorialFunctionality, bool> progress;
 }
 
+[Game, Event(EventTarget.Self)]
+public class EventContainerComponent : IComponent
+{
+    public Dictionary<string, bool> progress;
+}
+
 [Game]
 public class TestComponent : IComponent
 {
