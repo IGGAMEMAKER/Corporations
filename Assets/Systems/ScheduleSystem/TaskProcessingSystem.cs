@@ -21,14 +21,11 @@ public partial class TaskProcessingSystem : OnDateChange
 
             var EndTime = task.EndTime;
 
-            //Debug.Log("Process task " + i + " / " + tasks.Length + ". It ends at: " + EndTime);
-
             if (date >= EndTime && !task.isCompleted)
             {
-                Debug.Log("Finishing task " + task.CompanyTask.CompanyTaskType);
+                //Debug.Log("Finishing task " + task.CompanyTask.CompanyTaskType);
 
                 ProcessTask(task);
-                //t.ReplaceTask(true, task.CompanyTask, task.StartTime, task.Duration, task.EndTime);
                 t.task.isCompleted = true;
             }
 

@@ -14,10 +14,6 @@ public class TaskListView : ListView
     {
         base.ViewRender();
 
-        var t1 = new CompanyTaskAcquisition(1);
-        var t2 = new CompanyTaskExploreMarket(NicheType.GamingBetting);
-
-        //var tasks = new CompanyTask[] { t1, t2 };
         var tasks = CooldownUtils.GetTasks(GameContext);
 
         SetItems(tasks);

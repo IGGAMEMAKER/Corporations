@@ -17,7 +17,10 @@ public class TaskView : View
         var remaining = task.EndTime - CurrentIntDate;
 
         if (remaining <= 0)
+        {
             text += "DONE";
+            AddIfAbsent<Blinker>();
+        }
         else
             text += "Finished in\n" + remaining + " days";
 
@@ -49,6 +52,9 @@ public class TaskView : View
 
             case CompanyTaskType.ExploreMarket:
                 return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
+
+            case CompanyTaskType.ExploreCompany:
+                return "Exploring company\n" + CompanyUtils.GetCompanyById(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
 
             default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
         }

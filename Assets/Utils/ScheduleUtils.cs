@@ -70,12 +70,17 @@ namespace Assets.Utils
             GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
         }
 
+
+
+
         public static float GetTaskCompletionPercentage(GameContext gameContext, TaskComponent taskComponent)
         {
             int CurrentIntDate = GetCurrentDate(gameContext);
 
             return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
         }
+
+
 
         public static GameEntity[] GetTasks(GameContext gameContext)
         {

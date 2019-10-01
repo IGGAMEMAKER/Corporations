@@ -175,6 +175,12 @@ public class BaseClass : MonoBehaviour
         return gameObject.GetComponent<T>();
     }
 
+    public void RemoveIfExists<T>() where T : Component
+    {
+        if (Contains<T>())
+            Destroy(gameObject.GetComponent<T>());
+    }
+
     internal void ToggleIsChosenComponent(bool isChosen)
     {
         gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
