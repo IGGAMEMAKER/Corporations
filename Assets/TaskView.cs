@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,22 @@ public class TaskView : View
             text += "Finished in\n" + remaining + " days";
 
         Text.text = text;
+
+        AddLinkToObservableObject(task.CompanyTask);
+    }
+
+    private void AddLinkToObservableObject(CompanyTask companyTask)
+    {
+        switch (companyTask.CompanyTaskType)
+        {
+            case CompanyTaskType.ExploreMarket:
+                AddIfAbsent<LinkToNiche>().SetNiche((companyTask as CompanyTaskExploreMarket).NicheType);
+                break;
+
+            case CompanyTaskType.ExploreCompany:
+                AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskExploreCompany).CompanyId);
+                break;
+        }
     }
 
     string GetTaskHeader(CompanyTask companyTask)
@@ -74,5 +91,16 @@ public class CompanyTaskExploreMarket : CompanyTask
     {
         CompanyTaskType = CompanyTaskType.ExploreMarket;
         NicheType = nicheType;
+    }
+}
+
+public class CompanyTaskExploreCompany : CompanyTask
+{
+    public int CompanyId;
+
+    public CompanyTaskExploreCompany(int companyId)
+    {
+        CompanyTaskType = CompanyTaskType.ExploreCompany;
+        CompanyId = companyId;
     }
 }

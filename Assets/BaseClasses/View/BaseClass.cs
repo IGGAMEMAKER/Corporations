@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseClass : MonoBehaviour
 {
@@ -164,6 +165,14 @@ public class BaseClass : MonoBehaviour
     public bool Contains<T>()
     {
         return gameObject.GetComponent<T>() != null;
+    }
+
+    public T AddIfAbsent<T>() where T : Component
+    {
+        if (!Contains<T>())
+            return gameObject.AddComponent<T>();
+
+        return gameObject.GetComponent<T>();
     }
 
     internal void ToggleIsChosenComponent(bool isChosen)
