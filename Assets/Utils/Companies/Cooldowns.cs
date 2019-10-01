@@ -71,6 +71,11 @@ namespace Assets.Utils
 
 
 
+        public static GameEntity[] GetTasks(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Task);
+        }
+
         public static void AddTask(GameContext gameContext, CompanyTask companyTask, int duration)
         {
             var e = gameContext.CreateEntity();

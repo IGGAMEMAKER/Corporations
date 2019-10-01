@@ -18,7 +18,7 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
         {
             if (date.Date >= t.task.EndTime)
             {
-                t.ReplaceTask(true, t.task.TaskType, t.task.StartTime, t.task.Duration, t.task.EndTime);
+                t.ReplaceTask(true, t.task.CompanyTask, t.task.StartTime, t.task.Duration, t.task.EndTime);
                 // TODO: play sounds for some taskTypes maybe??
             }
         }

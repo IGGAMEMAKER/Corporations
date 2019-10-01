@@ -72,7 +72,7 @@ public class TaskComponent: IComponent
     public bool isCompleted;
     //public TaskType TaskType;
     //public CompanyTaskType TaskType;
-    public CompanyTask TaskType;
+    public CompanyTask CompanyTask;
     public int StartTime;
     public int Duration;
     public int EndTime;

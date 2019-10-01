@@ -11,7 +11,7 @@ public class TaskView : View
 
     public void SetEntity(TaskComponent task)
     {
-        var text = GetTaskHeader(task.TaskType) + "\n\n";
+        var text = GetTaskHeader(task.CompanyTask) + "\n\n";
 
         var remaining = task.EndTime - CurrentIntDate;
 

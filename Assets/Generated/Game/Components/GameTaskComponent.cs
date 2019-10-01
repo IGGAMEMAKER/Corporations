@@ -15,7 +15,7 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Task;
         var component = (TaskComponent)CreateComponent(index, typeof(TaskComponent));
         component.isCompleted = newIsCompleted;
-        component.TaskType = newTaskType;
+        component.CompanyTask = newTaskType;
         component.StartTime = newStartTime;
         component.Duration = newDuration;
         component.EndTime = newEndTime;
@@ -26,7 +26,7 @@ public partial class GameEntity {
         var index = GameComponentsLookup.Task;
         var component = (TaskComponent)CreateComponent(index, typeof(TaskComponent));
         component.isCompleted = newIsCompleted;
-        component.TaskType = newTaskType;
+        component.CompanyTask = newTaskType;
         component.StartTime = newStartTime;
         component.Duration = newDuration;
         component.EndTime = newEndTime;

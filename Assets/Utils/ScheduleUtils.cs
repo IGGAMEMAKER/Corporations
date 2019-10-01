@@ -54,7 +54,7 @@ namespace Assets.Utils
             {
                 Duration = duration,
                 isCompleted = false,
-                TaskType = taskType,
+                CompanyTask = taskType,
                 StartTime = currentDate,
                 EndTime = currentDate + duration
             };
@@ -83,7 +83,7 @@ namespace Assets.Utils
 
             GameEntity[] gameEntities = gameContext.GetEntities(GameMatcher.Task);
 
-            return Array.FindAll(gameEntities, e => e.task.TaskType == taskType);
+            return Array.FindAll(gameEntities, e => e.task.CompanyTask == taskType);
         }
 
         public static TaskComponent GetTask(GameContext gameContext, CompanyTask taskType)

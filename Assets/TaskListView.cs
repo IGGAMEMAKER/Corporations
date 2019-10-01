@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ public class TaskListView : ListView
         var t1 = new CompanyTaskAcquisition(1);
         var t2 = new CompanyTaskExploreMarket(NicheType.GamingBetting);
 
-        var tasks = new CompanyTask[] { t1, t2 };
+        //var tasks = new CompanyTask[] { t1, t2 };
+        var tasks = CooldownUtils.GetTasks(GameContext);
 
         SetItems(tasks);
     }
