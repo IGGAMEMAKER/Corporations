@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 using Entitas;
+using UnityEngine;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
@@ -10,19 +11,28 @@ public partial class TaskProcessingSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
+        GameEntity[] tasks = ScheduleUtils.GetTasks(gameContext);
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        for (var i = tasks.Length - 1; i > 0; i--)
+        for (var i = tasks.Length - 1; i >= 0; i--)
         {
             var t = tasks[i];
-            if (t.task.EndTime >= date && !t.task.isCompleted)
+            var task = t.task;
+
+            var EndTime = task.EndTime;
+
+            //Debug.Log("Process task " + i + " / " + tasks.Length + ". It ends at: " + EndTime);
+
+            if (date >= EndTime && !task.isCompleted)
             {
-                ProcessTask(t.task);
+                Debug.Log("Finishing task " + task.CompanyTask.CompanyTaskType);
+
+                ProcessTask(task);
+                //t.ReplaceTask(true, task.CompanyTask, task.StartTime, task.Duration, task.EndTime);
                 t.task.isCompleted = true;
             }
 
-            if (t.task.EndTime + 30 < date)
+            if (date > EndTime + 30)
                 t.Destroy();
         }
     }

@@ -12,16 +12,16 @@ public class ScheduleTaskProcessingSystem : ReactiveSystem<GameEntity>
 
     void ProcessTasks(DateComponent date)
     {
-        GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
+        //GameEntity[] tasks = contexts.game.GetEntities(GameMatcher.Task);
 
-        foreach (var t in tasks)
-        {
-            if (date.Date >= t.task.EndTime)
-            {
-                t.ReplaceTask(true, t.task.CompanyTask, t.task.StartTime, t.task.Duration, t.task.EndTime);
-                // TODO: play sounds for some taskTypes maybe??
-            }
-        }
+        //foreach (var t in tasks)
+        //{
+        //    if (date.Date >= t.task.EndTime)
+        //    {
+        //        t.ReplaceTask(false, t.task.CompanyTask, t.task.StartTime, t.task.Duration, t.task.EndTime);
+        //        // TODO: play sounds for some taskTypes maybe??
+        //    }
+        //}
     }
 
     protected override void Execute(List<GameEntity> entities)

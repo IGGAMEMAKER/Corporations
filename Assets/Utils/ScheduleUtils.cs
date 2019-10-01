@@ -77,11 +77,16 @@ namespace Assets.Utils
             return (CurrentIntDate - taskComponent.StartTime) * 100f / taskComponent.Duration;
         }
 
-        static GameEntity[] GetTasks(GameContext gameContext, CompanyTask taskType)
+        public static GameEntity[] GetTasks(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Task);
+        }
+
+        public static GameEntity[] GetTasks(GameContext gameContext, CompanyTask taskType)
         {
             // TODO: add filtering tasks, which are done by other players!
 
-            GameEntity[] gameEntities = gameContext.GetEntities(GameMatcher.Task);
+            GameEntity[] gameEntities = GetTasks(gameContext);
 
             return Array.FindAll(gameEntities, e => e.task.CompanyTask == taskType);
         }
