@@ -24,7 +24,7 @@ public class TaskView : View
             text += "DONE";
 
             var taskString = GetTaskString(task.CompanyTask);
-            if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
+            if (!TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
             {
                 AddIfAbsent<Blinker>();
 
