@@ -1,10 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
 using Assets.Utils.Tutorial;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskView : View
