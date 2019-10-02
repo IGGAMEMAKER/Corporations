@@ -7,6 +7,7 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
+        // TODO move to separate file
         public static bool IsCompanyRelatedToPlayer(GameContext gameContext, int companyId)
         {
             var company = GetCompanyById(gameContext, companyId);
@@ -14,6 +15,7 @@ namespace Assets.Utils
             return IsCompanyRelatedToPlayer(gameContext, company);
         }
 
+        // TODO move to separate file
         public static bool IsCompanyRelatedToPlayer(GameContext gameContext, GameEntity company)
         {
             var playerCompany = GetPlayerCompany(gameContext);
@@ -23,6 +25,14 @@ namespace Assets.Utils
 
             return company.isControlledByPlayer || IsDaughterOfCompany(playerCompany, company);
         }
+
+        // TODO move to separate file
+        public static bool IsCanShowFullCompanyData(GameContext gameContext, GameEntity company)
+        {
+            return company.hasResearch || IsCompanyRelatedToPlayer(gameContext, company);
+        }
+
+
 
         public static GameEntity[] GetAcquisitionOffersToPlayer(GameContext gameContext)
         {

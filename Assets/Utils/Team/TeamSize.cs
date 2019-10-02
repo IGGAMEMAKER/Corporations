@@ -58,7 +58,7 @@ namespace Assets.Utils
             return strength / size;
         }
 
-        internal static int GetAverageTeamRating(GameContext gameContext, GameEntity company)
+        internal static int GetTeamRating(GameContext gameContext, GameEntity company)
         {
             switch (company.team.TeamStatus)
             {

@@ -78,7 +78,7 @@ namespace Assets.Utils
                 // try to make the revolution
                 var val = Random.Range(0, 100);
 
-                var chance = CompanyUtils.GetInnovationChance(product, gameContext);
+                var chance = ProductUtils.GetInnovationChance(product, gameContext);
 
                 if (val > chance)
                     upgrade = 0;

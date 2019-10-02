@@ -34,25 +34,6 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
-        public static int GetLeaderInnovationBonus (GameEntity company)
-        {
-            //var CEOId = 
-            int companyId = company.company.Id;
-            int CEOId = GetCEOId(company);
-
-            //var accumulated = GetAccumulatedExpertise(company);
-
-            return (int)(15 * GetHashedRandom2(companyId, CEOId));
-            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
-        }
-
-        internal static long GetMarketStageInnovationModifier (GameEntity company, GameContext gameContext)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-
-            return GetMarketStageInnovationModifier(niche);
-        }
-
         // TODO move this to niche utils!!!
         public static string GetMarketStateDescription(NicheLifecyclePhase state)
         {
@@ -93,54 +74,6 @@ namespace Assets.Utils
             }
         }
 
-        public static BonusContainer GetInnovationChanceDescription(GameEntity company, GameContext gameContext)
-        {
-            var morale = company.team.Morale;
-
-            var moraleChance = morale / 5; // 0...20
-            var expertiseChance = Mathf.Clamp(company.expertise.ExpertiseLevel, 0, 25);
-
-            var crunch = company.isCrunching ? 10 : 0;
-
-
-            var sphereOfInterestBonus = 0;
-
-            if (!company.isIndependentCompany)
-            {
-                var parent = GetParentCompany(gameContext, company);
-
-                if (parent != null)
-                {
-                    if (IsInSphereOfInterest(parent, company.product.Niche))
-                        sphereOfInterestBonus = 10;
-                }
-            }
-
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-            var phase = NicheUtils.GetMarketState(niche);
-            var marketStage = GetMarketStageInnovationModifier(niche);
-
-
-            var leaderBonus = GetLeaderInnovationBonus(company);
-
-            return new BonusContainer("Innovation chance")
-                .Append("Base", 15)
-                //.Append("Morale", moraleChance)
-                .Append("CEO bonus", leaderBonus)
-                .Append("Market stage " + GetMarketStateDescription(phase), marketStage)
-                .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 25 : 0)
-                .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
-                .AppendAndHideIfZero("Crunch", crunch);
-                //.Append("Expertise", expertiseChance);
-        }
-        public static int GetInnovationChance (GameEntity company, GameContext gameContext)
-        {
-            var chance = GetInnovationChanceDescription(company, gameContext);
-
-            return (int) chance.Sum();
-        }
-
-
 
         public static Color GetCompanyUniqueColor(int companyId)
         {
@@ -161,7 +94,7 @@ namespace Assets.Utils
             return ((C * K) % 1);
         }
 
-        static float GetHashedRandom2(int companyId, int mixer)
+        public static float GetHashedRandom2(int companyId, int mixer)
         {
             var C = 0.58f;
 

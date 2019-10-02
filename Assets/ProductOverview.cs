@@ -24,28 +24,39 @@ public class ProductOverview : View
         if (!SelectedCompany.hasProduct)
             return;
 
+        var canShowData = CompanyUtils.IsCanShowFullCompanyData(GameContext, SelectedCompany);
+
+        //var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
+        var expertise = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
+        Expertise.text = $"Innovation chance: {expertise}%";
+
+
         var speed = TeamUtils.GetPerformance(GameContext, SelectedCompany);
         DevelopmentSpeed.text = $"Development Speed: {speed}%";
 
-        //var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
-        var expertise = CompanyUtils.GetInnovationChance(SelectedCompany, GameContext);
-        Expertise.text = $"Innovation chance: {expertise}%";
-
-        var strength = TeamUtils.GetAverageTeamRating(GameContext, SelectedCompany);
+        var strength = TeamUtils.GetTeamRating(GameContext, SelectedCompany);
         TeamSpeed.SetStars(strength);
 
+        RenderCommonInfo();
+    }
+
+    void RenderCommonInfo()
+    {
         var position = NicheUtils.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
         Popularity.text = $"Position on market: #{position}";
 
+
         var quality = ProductUtils.GetProductLevel(SelectedCompany);
-        var status = ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
-        AppQuality.text = $"Concept: {quality} / {status}";
+        var demand =  ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
+        var status =  ProductUtils.GetConceptStatus(SelectedCompany, GameContext);
+
+        AppQuality.text = $"Concept: {quality} / {demand} ({status})";
+
 
         var brand = SelectedCompany.branding.BrandPower;
         Brand.text = $"Brand: {brand}";
 
         var posTextual = NicheUtils.GetCompanyPositioning(SelectedCompany, GameContext);
         PositioningLabel.text = "Positioning: " + posTextual;
-
     }
 }

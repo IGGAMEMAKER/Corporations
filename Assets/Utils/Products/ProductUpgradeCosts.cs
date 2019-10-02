@@ -1,4 +1,12 @@
-﻿using Assets.Classes;
+﻿using System;
+using Assets.Classes;
+
+public enum ConceptStatus
+{
+    Leader,
+    Relevant,
+    Outdated
+}
 
 namespace Assets.Utils
 {
@@ -13,13 +21,18 @@ namespace Assets.Utils
             return new TeamResource(dev, 0, 0, 0, 0);
         }
 
-        public static TeamResource GetProductUpgradeCost(GameEntity product, GameContext gameContext)
+        internal static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+            var isRelevant = IsInMarket(product, gameContext);
+            var isOutdated = IsOutOfMarket(product, gameContext);
 
-            var innovationModifier = IsWillInnovate(product, niche) ? 2 : 1;
+            if (isRelevant)
+                return ConceptStatus.Relevant;
 
-            return GetBaseDevelopmentCost(niche) * innovationModifier;
+            if (isOutdated)
+                return ConceptStatus.Outdated;
+
+            return ConceptStatus.Leader;
         }
     }
 }

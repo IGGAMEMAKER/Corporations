@@ -34,7 +34,8 @@ namespace Assets.Utils
 
             var innovationTime = IsWillInnovate(company, gameContext) ? 15 : 10;
 
-            return baseConceptTime * innovationTime * 100 / 10 / teamPerformance;
+            //return baseConceptTime * innovationTime * 100 / 10 / teamPerformance;
+            return baseConceptTime * innovationTime / 10;
         }
 
         public static int GetProductUpgradeFinalIterationTime(GameContext gameContext, GameEntity company)
@@ -42,6 +43,7 @@ namespace Assets.Utils
             var random = Random.Range(10, 13);
 
             var baseTime = GetProductUpgradeIterationTime(gameContext, company);
+            return baseTime;
 
             return baseTime * random / 10;
         }

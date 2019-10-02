@@ -5,12 +5,12 @@ public class RenderInnovationChance : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        return CompanyUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
+        return ProductUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
     }
 
     public override string RenderValue()
     {
-        var chance = CompanyUtils.GetInnovationChance(SelectedCompany, GameContext);
+        var chance = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
 
         Colorize(chance, 0, 70);
 
