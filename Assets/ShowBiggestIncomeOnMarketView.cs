@@ -21,6 +21,6 @@ public class ShowBiggestIncomeOnMarketView : UpgradedParameterView
 
         var income = EconomyUtils.GetProductCompanyIncome(productCompany, GameContext);
 
-        return $"{Format.Money(income)}\n{productCompany.company.Name}";
+        return $"{Format.Money(income)}"; //\n{productCompany.company.Name}";
     }
 }
