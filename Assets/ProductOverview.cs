@@ -24,7 +24,7 @@ public class ProductOverview : View
         if (!SelectedCompany.hasProduct)
             return;
 
-        var canShowData = CompanyUtils.IsCanShowFullCompanyData(GameContext, SelectedCompany);
+        var canShowData = CompanyUtils.IsExploredCompany(GameContext, SelectedCompany);
 
         //var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
         var expertise = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);

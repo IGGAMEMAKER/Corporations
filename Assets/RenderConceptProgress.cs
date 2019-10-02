@@ -25,6 +25,9 @@ public class RenderConceptProgress : UpgradedParameterView
 
         days = c.EndDate - CurrentIntDate;
 
+        if (!CompanyUtils.IsExploredCompany(GameContext, CompanyId))
+            return "";
+
         return $"{days}d";
         //return $"Improving {days}d";
         //return $"Upgrading app\n{days} days";

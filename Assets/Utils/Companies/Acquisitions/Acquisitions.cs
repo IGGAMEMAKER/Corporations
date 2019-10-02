@@ -27,7 +27,13 @@ namespace Assets.Utils
         }
 
         // TODO move to separate file
-        public static bool IsCanShowFullCompanyData(GameContext gameContext, GameEntity company)
+        public static bool IsExploredCompany(GameContext gameContext, int companyId)
+        {
+            var company = GetCompanyById(gameContext, companyId);
+
+            return IsExploredCompany(gameContext, company);
+        }
+        public static bool IsExploredCompany(GameContext gameContext, GameEntity company)
         {
             return company.hasResearch || IsCompanyRelatedToPlayer(gameContext, company);
         }

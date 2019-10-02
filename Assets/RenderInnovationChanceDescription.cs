@@ -12,9 +12,16 @@ public class RenderInnovationChanceDescription : UpgradedParameterView
 
     public override string RenderValue()
     {
-        if (SelectedCompany.hasResearch || CompanyUtils.IsCompanyRelatedToPlayer(GameContext, SelectedCompany))
-            return ProductUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
+        if (CompanyUtils.IsExploredCompany(GameContext, SelectedCompany))
+        {
+            var expertise = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
+            var text = $"Innovation chance: {expertise}%\n\n";
 
-        return "??? Make company research to find out!";
+            var description = ProductUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
+
+            return text + description;
+        }
+
+        return "Innovation chance: ??? \n\nResearch the company to find out!";
     }
 }
