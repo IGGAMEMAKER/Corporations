@@ -16,6 +16,17 @@ namespace Assets.Utils
             return GetMarketDemand(product, niche);
         }
 
+        // always positive or equal to zero
+        public static int GetDifferenceBetweenMarketDemandAndAppConcept(GameEntity product, GameContext gameContext)
+        {
+            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+
+            var demand = GetMarketDemand(product, niche);
+            var level = GetProductLevel(product);
+
+            return demand - level;
+        }
+
         public static bool IsInMarket(GameEntity product, GameContext gameContext)
         {
             return !IsWillInnovate(product, gameContext);

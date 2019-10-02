@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 
-public partial class AIProductSystems : OnDateChange
+public partial class AIProductSystems
 {
     void Operate(GameEntity product)
     {
@@ -15,8 +16,6 @@ public partial class AIProductSystems : OnDateChange
 
         ManageInvestors(product);
 
-
-
         //InvestmentUtils.CompleteGoal(e, gameContext, false);
     }
 
@@ -25,7 +24,7 @@ public partial class AIProductSystems : OnDateChange
         if (!product.isIndependentCompany)
             return;
 
-        var profit = EconomyUtils.GetBalanceChange(product, gameContext);
+        var profit = GetProfit(product);
         var canGrow = profit > 1000000;
 
         var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
@@ -37,14 +36,14 @@ public partial class AIProductSystems : OnDateChange
 
     void PayDividendsIfPossible(GameEntity product)
     {
+        if (product.isIndependentCompany)
+            return;
+
         if (EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
-        if (product.isIndependentCompany || product.isAggressiveMarketing)
-            return;
-
         var maintenance = EconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
-        var dividends = product.companyResource.Resources.money - maintenance;
+        long dividends = product.companyResource.Resources.money - maintenance;
 
         CompanyUtils.PayDividends(gameContext, product, dividends);
     }

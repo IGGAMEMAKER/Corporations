@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public partial class AIProductSystems : OnDateChange
+public partial class AIProductSystems
 {
     long GetBankruptcyUrgency(GameEntity product)
     {

@@ -25,6 +25,13 @@ namespace Assets.Utils
                 );
         }
 
+        internal static GameEntity[] GetPlayerRelatedCompanies(GameContext gameContext)
+        {
+            return Array.FindAll(GetProductCompanies(gameContext),
+                p => IsCompanyRelatedToPlayer(gameContext, p)
+                );
+        }
+
         // groups
         internal static GameEntity[] GetAIManagingCompanies(GameContext gameContext)
         {

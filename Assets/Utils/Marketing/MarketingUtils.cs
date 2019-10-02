@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -67,12 +69,12 @@
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
             var flow = GetCurrentClientFlow(gameContext, product.product.Niche);
-            var multiplier = GetAudienceGrowthMultiplier(product);
+            var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
 
             return (long)(multiplier * flow);
         }
 
-        public static float GetAudienceGrowthMultiplier(GameEntity product)
+        public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             var SEO = (product.branding.BrandPower + 100) / 100;
 
@@ -85,8 +87,11 @@
             if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))
                 marketing *= 3;
 
-            //     0...100 + 12...60
-            return SEO + marketing * 3; // + rand * 50;
+            var conceptModifier = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext);
+
+            // SEO: 0...2
+            // marketing: 0...12
+            return Mathf.Max(SEO + marketing * 3 - conceptModifier * 3, 0); // + rand * 50;
         }
     }
 }

@@ -58,6 +58,8 @@ public class InvestmentRoundsComponent : IComponent
 // if Founder + investment companies shares > Group/Holding/Corp
 // or Groups have less than 25%
 
+
+// Independent company = has no managing companies in shareholder list
 // if independent, you can promote prouct company to group
 // only independent companies can IPO
 public class IndependentCompanyComponent : IComponent { }
