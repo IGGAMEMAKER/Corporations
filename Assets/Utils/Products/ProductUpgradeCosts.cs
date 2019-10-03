@@ -26,13 +26,13 @@ namespace Assets.Utils
             var isRelevant = IsInMarket(product, gameContext);
             var isOutdated = IsOutOfMarket(product, gameContext);
 
-            if (isRelevant)
-                return ConceptStatus.Relevant;
+            if (product.isTechnologyLeader)
+                return ConceptStatus.Leader;
 
             if (isOutdated)
                 return ConceptStatus.Outdated;
 
-            return ConceptStatus.Leader;
+            return ConceptStatus.Relevant;
         }
     }
 }

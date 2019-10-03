@@ -42,11 +42,13 @@ namespace Assets.Utils
         {
             bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase);
             bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive);
-            
+
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
-            var isOutOfMarket = ProductUtils.IsOutOfMarket(product, gameContext);
-            var isInnovator = product.isTechnologyLeader;
+
+            var conceptStatus = ProductUtils.GetConceptStatus(product, gameContext);
+            var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
+            var isInnovator = conceptStatus == ConceptStatus.Leader;
 
             var decay = GetMarketShareBasedBrandDecay(product, gameContext);
 

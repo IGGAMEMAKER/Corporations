@@ -54,17 +54,15 @@ public class CompanyViewOnMap : View
 
     Color GetMarketRelevanceColor()
     {
-        if (company.isTechnologyLeader)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
+        var concept = "";
+        switch (ProductUtils.GetConceptStatus(company, GameContext))
+        {
+            case ConceptStatus.Leader: concept = VisualConstants.COLOR_POSITIVE; break;
+            case ConceptStatus.Outdated: concept = VisualConstants.COLOR_NEGATIVE; break;
+            case ConceptStatus.Relevant: concept = VisualConstants.COLOR_NEUTRAL; break;
+        }
 
-        if (ProductUtils.IsOutOfMarket(company, GameContext))
-            return Visuals.GetColorFromString(VisualConstants.COLOR_NEGATIVE);
-
-        var col = Visuals.GetColorFromString(VisualConstants.COLOR_NEUTRAL);
-
-        //col.a = 0;
-
-        return col;
+        return Visuals.GetColorFromString(concept);
     }
 
     void SetEmblemColor()
@@ -88,14 +86,16 @@ public class CompanyViewOnMap : View
         var position = NicheUtils.GetPositionOnMarket(GameContext, company);
 
         // quality description
-        var concept = "";
+        var conceptStatus = ProductUtils.GetConceptStatus(company, GameContext);
 
-        if (company.isTechnologyLeader)
-            concept = Visuals.Positive("Sets Trends!");
-        else if (ProductUtils.IsOutOfMarket(company, GameContext))
-            concept = Visuals.Negative("Outdated");
-        else
-            concept = Visuals.Neutral("Relevant");
+        var concept = "???";
+
+        switch (conceptStatus)
+        {
+            case ConceptStatus.Leader:      concept = Visuals.Positive("Sets Trends!"); break;
+            case ConceptStatus.Outdated:    concept = Visuals.Negative("Outdated"); break;
+            case ConceptStatus.Relevant:    concept = Visuals.Neutral("Relevant"); break;
+        }
 
         //
         var level = ProductUtils.GetProductLevel(company);

@@ -7,6 +7,45 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(context, companyId);
+
+            return GetProductsOnMarket(context, c);
+        }
+
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, GameEntity product)
+        {
+            return GetProductsOnMarket(context, product.product.Niche);
+        }
+
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, NicheType niche)
+        {
+            return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
+        }
+
+        public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
+        {
+            return GetProductsOnMarket(context, niche).ToArray();
+        }
+
+        public static int GetCompetitorsAmount(GameEntity e, GameContext context)
+        {
+            // returns amount of competitors on specific niche
+
+            return GetProductsOnMarket(context, e).Count();
+        }
+
+        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
+        {
+            // returns amount of competitors on specific niche
+
+            return GetProductsOnMarket(context, niche).Count();
+        }
+
+
+
+        // sphere of interests
         public static IEnumerable<GameEntity> GetNonFinancialCompaniesWithSameInterests (GameContext context, GameEntity company)
         {
             return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsNotFinancialStructure);
@@ -49,23 +88,11 @@ namespace Assets.Utils
             );
         }
 
-        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
 
-            return GetProductsOnMarket(context, c);
-        }
 
-        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, GameEntity product)
-        {
-            return GetProductsOnMarket(context, product.product.Niche);
-        }
 
-        public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, NicheType niche)
-        {
-            return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
-        }
 
+        // Leaders
         public static long GetBiggestIncomeOnMarket(GameContext context, GameEntity niche)
         {
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
@@ -94,46 +121,32 @@ namespace Assets.Utils
             return EconomyUtils.GetProductCompanyIncome(productCompany, context);
         }
 
-        public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
-        {
-            return GetProductsOnMarket(context, niche).ToArray();
-        }
-
-        public static int GetCompetitorsAmount(GameEntity e, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetProductsOnMarket(context, e).Count();
-        }
-
-        public static int GetCompetitorsAmount(NicheType niche, GameContext context)
-        {
-            // returns amount of competitors on specific niche
-
-            return GetProductsOnMarket(context, niche).Count();
-        }
 
 
 
 
+        // competitiveness
         internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
-            int techLeadershipBonus = company.isTechnologyLeader ? 15 : 0;
+            var conceptStatus = ProductUtils.GetConceptStatus(company, gameContext);
 
-            var isOutdated = ProductUtils.IsOutOfMarket(company, gameContext);
-            var isInMarket = ProductUtils.IsInMarket(company, gameContext);
+            var techLeadershipBonus = conceptStatus == ConceptStatus.Leader;
+
+            var isOutdated = conceptStatus == ConceptStatus.Outdated;
+            var isInMarket = conceptStatus == ConceptStatus.Relevant;
 
             return new BonusContainer("Product Competitiveness")
                 .RenderTitle()
                 .AppendAndHideIfZero("Is in market", isInMarket ? 2 : 0)
                 .AppendAndHideIfZero("Is outdated", isOutdated ? - 10: 0)
-                .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus);
+                .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus ? 15 : 0);
         }
 
         internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
         {
             return GetProductCompetitivenessBonus(company, gameContext).Sum();
         }
+
 
 
         static string ProlongNameToNDigits(string name, int n)
