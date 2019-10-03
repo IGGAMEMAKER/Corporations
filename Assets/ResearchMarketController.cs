@@ -8,6 +8,6 @@ public class ResearchMarketController : ButtonController
         //CooldownUtils.AddCooldownAndSpendResources(GameContext, MyCompany, CooldownType.MarketResearch, 15, res);
 
         CooldownUtils.AddTask(GameContext, new CompanyTaskExploreMarket(SelectedNiche), 8);
-        Navigate(ScreenMode.GroupManagementScreen);
+        //Navigate(ScreenMode.GroupManagementScreen);
     }
 }

@@ -25,8 +25,9 @@ public class MarketShareView : View
 
         var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
 
+        var hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         ShareSize.text = Format.MoneyToInteger(marketSize);
-        ShareSize.color = Visuals.GetColorFromString(share > 0 ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
+        ShareSize.color = Visuals.GetColorFromString(HasCompany ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
         var phase = NicheUtils.GetMarketState(niche).ToString();
         if (!ShowMarketStateOnlyByColor)

@@ -17,11 +17,11 @@ public class CompanyResultView : View
         CompanyName.text = CompanyUtils.GetCompanyById(GameContext, result.CompanyId).company.Name;
 
         //ClientGrowth.color = Visuals.G
-        ClientGrowth.text = Format.Minify(result.clientChange);
+        ClientGrowth.text = "Client growth\n" + Format.Minify(result.clientChange);
 
-        MarketShareChange.text = result.MarketShareChange.ToString();
+        MarketShareChange.text = "Market share\n" + Format.Sign((long)result.MarketShareChange) + "%";
 
-        ConceptStatusText.text = result.ConceptStatus.ToString();
+        ConceptStatusText.text = "Product\n" + result.ConceptStatus;
 
         LinkToProjectView.CompanyId = result.CompanyId;
     }

@@ -69,6 +69,7 @@ public class MarketCompetitorPreview : View
 
         Clients.text = Format.Minify(clients) + " users";
         Concept.text = concept + "LVL";
+        Concept.gameObject.GetComponent<Hint>().SetHint("");
 
         //Concept.text = Visuals.Colorize(brand.ToString(), Visuals.GetGradientColor(-100, 100, brand));
 

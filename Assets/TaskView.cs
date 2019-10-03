@@ -20,17 +20,17 @@ public class TaskView : View
             text += "DONE";
 
             var taskString = GetTaskString(task.CompanyTask);
-            if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
-            {
-                RemoveIfExists<Blinker>();
-            }
-            else
-            {
-                AddIfAbsent<Blinker>();
+            //if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
+            //{
+            //    RemoveIfExists<Blinker>();
+            //}
+            //else
+            //{
+            //    AddIfAbsent<Blinker>();
 
-                var asd = AddIfAbsent<TutorialUnlocker>();
-                asd.SetEvent(taskString);
-            }
+            //    var asd = AddIfAbsent<TutorialUnlocker>();
+            //    asd.SetEvent(taskString);
+            //}
         }
         else
             text += remaining + " days left";
@@ -109,9 +109,11 @@ public enum CompanyTaskType
 
 }
 
-public class CompanyTask
+public abstract class CompanyTask
 {
     public CompanyTaskType CompanyTaskType;
+
+    public abstract bool Equals(CompanyTask obj);
 }
 
 public class CompanyTaskAcquisition : CompanyTask
@@ -122,6 +124,12 @@ public class CompanyTaskAcquisition : CompanyTask
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.AcquiringCompany;
+    }
+
+    public override bool Equals(CompanyTask obj)
+    {
+        var t = (obj as CompanyTaskAcquisition);
+        return CompanyTaskType == t.CompanyTaskType && CompanyId == t.CompanyId;
     }
 }
 
@@ -134,6 +142,12 @@ public class CompanyTaskExploreMarket : CompanyTask
         CompanyTaskType = CompanyTaskType.ExploreMarket;
         NicheType = nicheType;
     }
+
+    public override bool Equals(CompanyTask obj)
+    {
+        var t = (obj as CompanyTaskExploreMarket);
+        return CompanyTaskType == t.CompanyTaskType && NicheType == t.NicheType;
+    }
 }
 
 public class CompanyTaskExploreCompany : CompanyTask
@@ -144,5 +158,11 @@ public class CompanyTaskExploreCompany : CompanyTask
     {
         CompanyTaskType = CompanyTaskType.ExploreCompany;
         CompanyId = companyId;
+    }
+
+    public override bool Equals(CompanyTask obj)
+    {
+        var t = (obj as CompanyTaskExploreCompany);
+        return CompanyTaskType == t.CompanyTaskType && CompanyId == t.CompanyId;
     }
 }

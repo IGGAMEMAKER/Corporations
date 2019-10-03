@@ -1,6 +1,8 @@
 ﻿using Assets.Classes;
 using Entitas;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -82,6 +84,19 @@ namespace Assets.Utils
 
             var start = ScheduleUtils.GetCurrentDate(gameContext);
             e.AddTask(false, companyTask, start, duration, start + duration);
+        }
+
+
+
+        public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            var tasks = GetTasks(gameContext);
+
+            Debug.Log("Tasks: " + tasks.Length);
+
+            var task = Array.Find(tasks, t => t.task.CompanyTask.Equals(companyTask));
+
+            return task?.task;
         }
     }
 }
