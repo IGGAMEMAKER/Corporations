@@ -5,13 +5,7 @@ using UnityEngine.UI;
 
 public class BaseClass : MonoBehaviour
 {
-    public GameEntity SelectedCompany
-    {
-        get
-        {
-            return ScreenUtils.GetSelectedCompany(GameContext);
-        }
-    }
+    public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(GameContext);
 
     public bool IsMyProductCompany
     {
@@ -24,13 +18,7 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public NicheType SelectedNiche
-    {
-        get
-        {
-            return ScreenUtils.GetSelectedNiche(GameContext);
-        }
-    }
+    public NicheType SelectedNiche => ScreenUtils.GetSelectedNiche(GameContext);
 
     public bool IsMyCompetitor(GameEntity company)
     {
@@ -49,45 +37,15 @@ public class BaseClass : MonoBehaviour
         return IsMyCompetitor(company);
     }
 
-    public ScreenMode CurrentScreen
-    {
-        get
-        {
-            return ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
-        }
-    }
+    public ScreenMode CurrentScreen => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
-    public GameEntity Me
-    {
-        get
-        {
-            return GameContext.GetEntities(GameMatcher.Player)[0];
-        }
-    }
+    public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
 
-    public GameEntity SelectedHuman
-    {
-        get
-        {
-            return ScreenUtils.GetSelectedHuman(GameContext);
-        }
-    }
+    public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(GameContext);
 
-    public GameEntity MyProductEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledProductCompany(GameContext);
-        }
-    }
+    public GameEntity MyProductEntity => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
 
-    public bool HasCompany
-    {
-        get
-        {
-            return MyCompany != null;
-        }
-    }
+    public bool HasCompany => MyCompany != null;
 
     public GameEntity MyCompany
     {
@@ -103,64 +61,22 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public long Balance
-    {
-        get
-        {
-            return MyCompany.companyResource.Resources.money;
-        }
-    }
+    public long Balance => MyCompany.companyResource.Resources.money;
 
-    public bool HasProductCompany
-    {
-        get
-        {
-            return MyProductEntity != null;
-        }
-    }
+    public bool HasProductCompany => MyProductEntity != null;
+    public bool HasGroupCompany => MyGroupEntity != null;
 
-    public bool HasGroupCompany
-    {
-        get
-        {
-            return MyGroupEntity != null;
-        }
-    }
+    public GameEntity MyGroupEntity => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
+    public ProductComponent MyProduct => MyProductEntity?.product;
 
-    public GameEntity MyGroupEntity
-    {
-        get
-        {
-            return CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-        }
-    }
-    
-    public static GameContext GameContext
-    {
-        get
-        {
-            return Contexts.sharedInstance.game;
-        }
-    }
-
-    public ProductComponent MyProduct
-    {
-        get
-        {
-            return MyProductEntity?.product;
-        }
-    }
+    public static GameContext GameContext => Contexts.sharedInstance.game;
 
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
     public int CurrentIntYear => Constants.START_YEAR + CurrentIntDate / 360;
 
-    public GameEntity GetUniversalListener
-    {
-        get
-        {
-            return ScreenUtils.GetMenu(GameContext);
-        }
-    }
+    public GameEntity GetUniversalListener => ScreenUtils.GetMenu(GameContext);
+
+
 
     public bool Contains<T>()
     {
@@ -186,6 +102,8 @@ public class BaseClass : MonoBehaviour
         if (Contains<T>())
             Destroy(gameObject.GetComponent<T>());
     }
+
+
 
     internal void ToggleIsChosenComponent(bool isChosen)
     {

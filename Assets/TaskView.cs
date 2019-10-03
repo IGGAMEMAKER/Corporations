@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
 using Assets.Utils.Tutorial;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskView : View
@@ -113,7 +114,11 @@ public abstract class CompanyTask
 {
     public CompanyTaskType CompanyTaskType;
 
-    public abstract bool Equals(CompanyTask obj);
+    public bool Equals(CompanyTask obj)
+    {
+        return CompanyTaskType == obj.CompanyTaskType && EqualsExactly(obj);
+    }
+    public abstract bool EqualsExactly(CompanyTask obj);
 }
 
 public class CompanyTaskAcquisition : CompanyTask
@@ -126,10 +131,9 @@ public class CompanyTaskAcquisition : CompanyTask
         CompanyTaskType = CompanyTaskType.AcquiringCompany;
     }
 
-    public override bool Equals(CompanyTask obj)
+    public override bool EqualsExactly(CompanyTask obj)
     {
-        var t = (obj as CompanyTaskAcquisition);
-        return CompanyTaskType == t.CompanyTaskType && CompanyId == t.CompanyId;
+        return CompanyId == (obj as CompanyTaskAcquisition).CompanyId;
     }
 }
 
@@ -143,10 +147,9 @@ public class CompanyTaskExploreMarket : CompanyTask
         NicheType = nicheType;
     }
 
-    public override bool Equals(CompanyTask obj)
+    public override bool EqualsExactly(CompanyTask obj)
     {
-        var t = (obj as CompanyTaskExploreMarket);
-        return CompanyTaskType == t.CompanyTaskType && NicheType == t.NicheType;
+        return NicheType == (obj as CompanyTaskExploreMarket).NicheType;
     }
 }
 
@@ -160,9 +163,8 @@ public class CompanyTaskExploreCompany : CompanyTask
         CompanyId = companyId;
     }
 
-    public override bool Equals(CompanyTask obj)
+    public override bool EqualsExactly(CompanyTask obj)
     {
-        var t = (obj as CompanyTaskExploreCompany);
-        return CompanyTaskType == t.CompanyTaskType && CompanyId == t.CompanyId;
+        return CompanyId == (obj as CompanyTaskExploreCompany).CompanyId;
     }
 }

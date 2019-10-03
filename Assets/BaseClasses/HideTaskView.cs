@@ -19,5 +19,10 @@
         return !show;
     }
 
+    private void OnDisable()
+    {
+        show = false;
+    }
+
     public abstract TaskComponent GetTask();
 }
