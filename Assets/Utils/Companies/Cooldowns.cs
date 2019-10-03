@@ -92,8 +92,6 @@ namespace Assets.Utils
         {
             var tasks = GetTasks(gameContext);
 
-            Debug.Log("Tasks: " + tasks.Length);
-
             var task = Array.Find(tasks, t => t.task.CompanyTask.Equals(companyTask));
 
             return task?.task;

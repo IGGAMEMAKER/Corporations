@@ -8,7 +8,7 @@ public class ResearchCompanyController : ButtonController
     public override void Execute()
     {
         CooldownUtils.AddTask(GameContext, new CompanyTaskExploreCompany(SelectedCompany.company.Id), 8);
-        Navigate(ScreenMode.GroupManagementScreen);
+        //Navigate(ScreenMode.GroupManagementScreen);
         //SelectedCompany.AddResearch(1);
     }
 }
