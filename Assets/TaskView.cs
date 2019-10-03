@@ -20,18 +20,20 @@ public class TaskView : View
             text += "DONE";
 
             var taskString = GetTaskString(task.CompanyTask);
-            if (!TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
+            if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
+            {
+                RemoveIfExists<Blinker>();
+            }
+            else
             {
                 AddIfAbsent<Blinker>();
 
                 var asd = AddIfAbsent<TutorialUnlocker>();
                 asd.SetEvent(taskString);
             }
-            else
-                RemoveIfExists<Blinker>();
         }
         else
-            text += "Finished in\n" + remaining + " days";
+            text += remaining + " days left";
 
         Text.text = text;
 
