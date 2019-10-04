@@ -106,10 +106,12 @@ namespace Assets.Utils
 
                 var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
+                Debug.Log("GetAcquisitionOffer. " + cost + "  ");
+
                 var conditions = new AcquisitionConditions
                 {
                     BuyerOffer = cost,
-                    SellerPrice = cost * UnityEngine.Random.Range(3, 10),
+                    SellerPrice = (long)(cost * UnityEngine.Random.Range(3f, 10f)),
                     ByCash = cost,
                     ByShares = 0,
                     KeepLeaderAsCEO = false

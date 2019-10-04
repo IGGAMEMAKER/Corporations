@@ -8,8 +8,14 @@ public class AcquisitionScreen : View
     public Text ProposalStatus;
 
     public Text Offer;
+    public Text SellerPrice;
 
     public AcquisitionButtonView AcquisitionButtonView;
+
+    public Text TriesRemaining;
+    public Text DaysRemaining;
+
+    public Toggle KeepFounderAsCEO;
 
     public override void ViewRender()
     {
@@ -31,8 +37,10 @@ public class AcquisitionScreen : View
 
         var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
-        Debug.Log("AcquisitionScreen");
-        long offer = 0; // AcquisitionOffer.Offer;
+        var acquisitionOffer = AcquisitionOffer;
+
+        var conditions = acquisitionOffer.AcquisitionConditions;
+        long offer = conditions.BuyerOffer;
 
         if (offer > cost)
         {
@@ -41,8 +49,16 @@ public class AcquisitionScreen : View
         }
 
         Offer.text = Format.Money(offer) + overpriceText;
+        SellerPrice.text = Format.Money(conditions.SellerPrice);
 
-        AcquisitionButtonView.SetAcquisitionBid(offer, CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id));
+
+        TriesRemaining.text = acquisitionOffer.RemainingTries.ToString();
+        DaysRemaining.text = acquisitionOffer.RemainingDays + " days left. If we won't fit this deadline, we will need to start again";
+
+        var isWillSell = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        AcquisitionButtonView.SetAcquisitionBid(offer, isWillSell);
+
+        KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
     }
 
     AcquisitionOfferComponent AcquisitionOffer
