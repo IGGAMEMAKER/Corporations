@@ -53,7 +53,7 @@ public class AcquisitionScreen : View
 
 
         TriesRemaining.text = acquisitionOffer.RemainingTries.ToString();
-        DaysRemaining.text = acquisitionOffer.RemainingDays + " days left. If we won't fit this deadline, we will need to start again";
+        DaysRemaining.text = acquisitionOffer.RemainingDays + " days left";
 
         var isWillSell = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
         AcquisitionButtonView.SetAcquisitionBid(offer, isWillSell);
