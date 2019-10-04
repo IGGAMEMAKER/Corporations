@@ -40,7 +40,8 @@ public class NavigationHistoryComponent : IComponent
 
 public enum PopupType
 {
-    CloseCompany
+    CloseCompany,
+    MarketChanges
 }
 
 public class PopupMessage
@@ -56,6 +57,17 @@ public class PopupMessageCloseCompany : PopupMessage
     {
         this.companyId = companyId;
         PopupType = PopupType.CloseCompany;
+    }
+}
+
+public class PopupMessageMarketPhaseChange : PopupMessage
+{
+    public NicheType NicheType;
+
+    public PopupMessageMarketPhaseChange(NicheType niche)
+    {
+        this.NicheType = niche;
+        PopupType = PopupType.MarketChanges;
     }
 }
 
