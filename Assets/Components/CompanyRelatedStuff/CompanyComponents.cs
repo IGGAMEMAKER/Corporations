@@ -200,9 +200,26 @@ public class ReportsComponent : IComponent
 //    public 
 //}
 
+public class AcquisitionConditions
+{
+    public long SellerPrice;
+    public long BuyerOffer;
+
+    public long ByCash;
+    public int ByShares; // part of our company
+    // to be accepted, byCash + ByShares * BuyerCompanyCost must be greater than SellerPrice
+
+    public bool KeepLeaderAsCEO;
+}
+
 public class AcquisitionOfferComponent : IComponent
 {
-    public long Offer;
-    public int CompanyId;
+    //public long Offer; // buyer Price
+    public int CompanyId; // target
     public int BuyerId;
+
+    public int RemainingTries;
+    public int RemainingDays;
+
+    public AcquisitionConditions AcquisitionConditions;
 }

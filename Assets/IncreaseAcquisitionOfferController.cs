@@ -9,10 +9,10 @@ public class IncreaseAcquisitionOfferController : ButtonController
     {
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var newOffer = offer.acquisitionOffer.Offer * 1.1f;
-        if (newOffer > Balance)
-            newOffer = Balance;
+        var newConditions = offer.acquisitionOffer.AcquisitionConditions;
 
-        CompanyUtils.UpdateAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, (long)newOffer);
+        newConditions.BuyerOffer = (long)(newConditions.BuyerOffer * 1.1f);
+
+        CompanyUtils.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, newConditions);
     }
 }

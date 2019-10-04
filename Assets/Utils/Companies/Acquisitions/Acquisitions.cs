@@ -91,7 +91,8 @@ namespace Assets.Utils
         {
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
-            offer.acquisitionOffer.Offer = bid;
+            Debug.Log("AddAcquisitionOffer");
+            //offer.acquisitionOffer.Offer = bid;
         }
 
         public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
@@ -105,18 +106,34 @@ namespace Assets.Utils
 
                 var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
-                offer.AddAcquisitionOffer(cost, companyId, buyerInvestorId);
+                var conditions = new AcquisitionConditions
+                {
+                    BuyerOffer = cost,
+                    SellerPrice = cost * UnityEngine.Random.Range(3, 10),
+                    ByCash = cost,
+                    ByShares = 0,
+                    KeepLeaderAsCEO = false
+                };
+
+                offer.AddAcquisitionOffer(companyId, buyerInvestorId, 3, 60, conditions);
             }
 
             return offer;
         }
 
-        public static void UpdateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long newOffer)
+        public static void TweakAcquisitionConditions(GameContext gameContext, int companyId, int buyerInvestorId, AcquisitionConditions newConditions)
         {
             var off = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
-            off.ReplaceAcquisitionOffer(newOffer, companyId, buyerInvestorId);
+            off.ReplaceAcquisitionOffer(
+                companyId,
+                buyerInvestorId,
+                off.acquisitionOffer.RemainingTries - 1,
+                off.acquisitionOffer.RemainingDays,
+                newConditions
+                );
         }
+
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
         {
@@ -129,7 +146,7 @@ namespace Assets.Utils
 
             Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
-            bool willAcceptOffer = ackOffer.Offer > cost * modifier;
+            bool willAcceptOffer = true; // ackOffer.Offer > cost * modifier;
 
             //return GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext) == 1 && willAcceptOffer;
             return GetDesireToSellShares(company, gameContext, shareholderId, investorType) == 1 && willAcceptOffer;

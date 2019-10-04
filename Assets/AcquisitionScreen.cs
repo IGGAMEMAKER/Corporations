@@ -31,7 +31,8 @@ public class AcquisitionScreen : View
 
         var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
-        long offer = AcquisitionOffer.Offer;
+        Debug.Log("AcquisitionScreen");
+        long offer = 0; // AcquisitionOffer.Offer;
 
         if (offer > cost)
         {

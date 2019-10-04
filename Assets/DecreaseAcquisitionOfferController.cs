@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 
 public class DecreaseAcquisitionOfferController : ButtonController
 {
@@ -6,8 +7,12 @@ public class DecreaseAcquisitionOfferController : ButtonController
     {
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var newOffer = offer.acquisitionOffer.Offer / 1.1f;
+        //Debug.Log("DecreaseAcquisitionOfferController");
 
-        CompanyUtils.UpdateAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, (long)newOffer);
+        var newConditions = offer.acquisitionOffer.AcquisitionConditions;
+
+        newConditions.BuyerOffer = (long)(newConditions.BuyerOffer / 1.1f);
+
+        CompanyUtils.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, newConditions);
     }
 }

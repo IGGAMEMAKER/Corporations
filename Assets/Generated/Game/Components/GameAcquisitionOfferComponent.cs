@@ -11,21 +11,25 @@ public partial class GameEntity {
     public AcquisitionOfferComponent acquisitionOffer { get { return (AcquisitionOfferComponent)GetComponent(GameComponentsLookup.AcquisitionOffer); } }
     public bool hasAcquisitionOffer { get { return HasComponent(GameComponentsLookup.AcquisitionOffer); } }
 
-    public void AddAcquisitionOffer(long newOffer, int newCompanyId, int newBuyerId) {
+    public void AddAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionConditions newAcquisitionConditions) {
         var index = GameComponentsLookup.AcquisitionOffer;
         var component = (AcquisitionOfferComponent)CreateComponent(index, typeof(AcquisitionOfferComponent));
-        component.Offer = newOffer;
         component.CompanyId = newCompanyId;
         component.BuyerId = newBuyerId;
+        component.RemainingTries = newRemainingTries;
+        component.RemainingDays = newRemainingDays;
+        component.AcquisitionConditions = newAcquisitionConditions;
         AddComponent(index, component);
     }
 
-    public void ReplaceAcquisitionOffer(long newOffer, int newCompanyId, int newBuyerId) {
+    public void ReplaceAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionConditions newAcquisitionConditions) {
         var index = GameComponentsLookup.AcquisitionOffer;
         var component = (AcquisitionOfferComponent)CreateComponent(index, typeof(AcquisitionOfferComponent));
-        component.Offer = newOffer;
         component.CompanyId = newCompanyId;
         component.BuyerId = newBuyerId;
+        component.RemainingTries = newRemainingTries;
+        component.RemainingDays = newRemainingDays;
+        component.AcquisitionConditions = newAcquisitionConditions;
         ReplaceComponent(index, component);
     }
 

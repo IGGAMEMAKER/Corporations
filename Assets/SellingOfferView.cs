@@ -53,7 +53,8 @@ public class SellingOfferView : View
         Valuation.text = Format.Money(EconomyUtils.GetCompanyCost(GameContext, companyId));
 
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, companyId, buyerId);
-        Offer.text = Format.Money(offer.acquisitionOffer.Offer);
+        Debug.Log("SellingOfferView");
+        //Offer.text = Format.Money(offer.acquisitionOffer.Offer);
 
         AcceptOffer.SetData(companyId, buyerId);
         RejectOffer.SetData(companyId, buyerId);
