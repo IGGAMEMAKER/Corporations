@@ -1,6 +1,6 @@
 ﻿using Assets.Utils;
 
-public class ClosePopup : PopupButtonController
+public class ClosePopup : SimplePopupButtonController
 {
     public override void Execute()
     {

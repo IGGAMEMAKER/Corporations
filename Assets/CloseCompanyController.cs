@@ -1,28 +1,13 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class CloseCompanyController : PopupButtonController
+public class CloseCompanyController : PopupButtonController<PopupMessageCloseCompany>
 {
     public override void Execute()
     {
-        var popup = NotificationUtils.GetPopupMessage(GameContext) as PopupMessageCloseCompany;
-
-        CompanyUtils.CloseCompany(GameContext, popup.companyId);
+        CompanyUtils.CloseCompany(GameContext, Popup.companyId);
 
         Navigate(ScreenMode.GroupManagementScreen);
-
-        //var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
-
-        //if (daughters.Length > 0)
-        //{
-        //    // pick another daughter company
-        //    NavigateToCompany(CurrentScreen, daughters[0].company.Id);
-        //}
-        //else
-        //{
-
-        //    NavigateToProjectScreen(MyCompany.company.Id);
-        //}
     }
 
     public override string GetButtonName()
@@ -31,7 +16,8 @@ public class CloseCompanyController : PopupButtonController
     }
 }
 
-public abstract class PopupButtonController : ButtonController
+// TODO move to baseClass folder
+public abstract class SimplePopupButtonController : ButtonController
 {
     public abstract string GetButtonName();
 
@@ -41,6 +27,26 @@ public abstract class PopupButtonController : ButtonController
 
         SetButtonName(GetButtonName());
     }
+
+    public virtual void SetButtonName(string name)
+    {
+        GetComponentInChildren<Text>().text = name;
+    }
+}
+
+// TODO duplicate
+public abstract class PopupButtonController<T> : ButtonController where T : PopupMessage
+{
+    public abstract string GetButtonName();
+
+    void OnEnable()
+    {
+        Initialize();
+
+        SetButtonName(GetButtonName());
+    }
+
+    internal T Popup => NotificationUtils.GetPopupMessage(GameContext) as T;
 
     public virtual void SetButtonName(string name)
     {
