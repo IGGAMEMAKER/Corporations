@@ -18,10 +18,7 @@ public class NotificationInitializerSystem : IInitializeSystem
 
         e.AddNotifications(new List<NotificationMessage>());
 
-        var popups = new List<PopupMessage>()
-        {
-            new PopupMessageCloseCompany(0)
-        };
+        var popups = new List<PopupMessage>();
 
         e.AddPopup(popups);
     }
