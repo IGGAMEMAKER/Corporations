@@ -36,6 +36,38 @@ public class NavigationHistoryComponent : IComponent
     public List<MenuComponent> Queries;
 }
 
+
+
+public enum PopupType
+{
+    CloseCompany
+}
+
+public class PopupMessage
+{
+    public PopupType PopupType;
+}
+
+public class PopupMessageCloseCompany : PopupMessage
+{
+    public int companyId;
+
+    public PopupMessageCloseCompany (int companyId)
+    {
+        this.companyId = companyId;
+        PopupType = PopupType.CloseCompany;
+    }
+}
+
+public class PopupComponent : IComponent
+{
+    public List<PopupMessage> PopupMessages;
+}
+
+
+
+
+
 public class ShareholderComponent : IComponent
 {
     public int Id;
@@ -48,7 +80,6 @@ public enum InvestorBonus
     None,
     Expertise,
     Branding,
-
 }
 
 public class InvestmentProposal

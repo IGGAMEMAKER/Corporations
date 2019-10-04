@@ -59,5 +59,38 @@ namespace Assets.Utils
 
             n.ReplaceNotifications(l);
         }
+
+        // TODO move to separate file?
+        /// Popups
+        /// 
+
+        internal static void AddPopup(GameContext gameContext, PopupMessage popup)
+        {
+            GetPopupContainer(gameContext).popup.PopupMessages.Add(popup);
+        }
+
+        public static GameEntity GetPopupContainer(GameContext gameContext)
+        {
+            return GetNotificationsComponent(gameContext);
+        }
+
+        public static bool IsHasActivePopups(GameContext gameContext)
+        {
+            return GetNotificationsComponent(gameContext).popup.PopupMessages.Count == 0;
+        }
+
+        public static PopupMessage GetPopupMessage(GameContext gameContext)
+        {
+            var container = GetPopupContainer(gameContext);
+            var messages = container.popup.PopupMessages;
+
+            return messages[0];
+        }
+
+        internal static void ClosePopup(GameContext gameContext)
+        {
+            if (IsHasActivePopups(gameContext))
+                GetPopupContainer(gameContext).popup.PopupMessages.RemoveAt(0);
+        }
     }
 }

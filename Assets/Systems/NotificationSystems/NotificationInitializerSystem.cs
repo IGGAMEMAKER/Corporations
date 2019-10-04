@@ -16,8 +16,13 @@ public class NotificationInitializerSystem : IInitializeSystem
     {
         var e = GameContext.CreateEntity();
 
-        var notifications = new List<NotificationMessage>();
+        e.AddNotifications(new List<NotificationMessage>());
 
-        e.AddNotifications(notifications);
+        var popups = new List<PopupMessage>()
+        {
+            new PopupMessageCloseCompany(0)
+        };
+
+        e.AddPopup(popups);
     }
 }
