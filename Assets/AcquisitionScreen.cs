@@ -61,6 +61,11 @@ public class AcquisitionScreen : View
         KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
     }
 
+    public void ToggleKeepFounderAsCEO()
+    {
+        AcquisitionOffer.AcquisitionConditions.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
+    }
+
     AcquisitionOfferComponent AcquisitionOffer
     {
         get

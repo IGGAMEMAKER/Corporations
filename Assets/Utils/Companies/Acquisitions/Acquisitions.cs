@@ -106,8 +106,6 @@ namespace Assets.Utils
 
                 var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
-                Debug.Log("GetAcquisitionOffer. " + cost + "  ");
-
                 var conditions = new AcquisitionConditions
                 {
                     BuyerOffer = cost,
@@ -130,7 +128,7 @@ namespace Assets.Utils
             off.ReplaceAcquisitionOffer(
                 companyId,
                 buyerInvestorId,
-                off.acquisitionOffer.RemainingTries - 1,
+                off.acquisitionOffer.RemainingTries,
                 off.acquisitionOffer.RemainingDays,
                 newConditions
                 );
