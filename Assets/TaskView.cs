@@ -8,19 +8,34 @@ public class TaskView : View
 {
     public Text Text;
 
+    TaskComponent TaskComponent;
+
     public void SetEntity(TaskComponent task)
     {
-        var text = GetTaskHeader(task.CompanyTask) + "\n\n";
+        TaskComponent = task;
+        AddLinkToObservableObject(task.CompanyTask);
 
-        var remaining = task.EndTime - CurrentIntDate;
+        Render();
+    }
 
+    public override void ViewRender()
+    {
+        base.ViewRender();
 
+        Render();
+    }
+
+    void Render()
+    {
+        var text = GetTaskHeader(TaskComponent.CompanyTask) + "\n\n";
+
+        var remaining = TaskComponent.EndTime - CurrentIntDate;
 
         if (remaining <= 0)
         {
             text += "DONE";
 
-            var taskString = GetTaskString(task.CompanyTask);
+            var taskString = GetTaskString(TaskComponent.CompanyTask);
             //if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
             //{
             //    RemoveIfExists<Blinker>();
@@ -37,9 +52,6 @@ public class TaskView : View
             text += remaining + " days left";
 
         Text.text = text;
-
-
-        AddLinkToObservableObject(task.CompanyTask);
     }
 
     private void AddLinkToObservableObject(CompanyTask companyTask)
