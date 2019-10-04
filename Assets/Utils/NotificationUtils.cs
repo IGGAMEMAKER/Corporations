@@ -66,7 +66,27 @@ namespace Assets.Utils
 
         internal static void AddPopup(GameContext gameContext, PopupMessage popup)
         {
-            GetPopupContainer(gameContext).popup.PopupMessages.Add(popup);
+            var container = GetPopupContainer(gameContext);
+            var messages = container.popup.PopupMessages;
+
+            messages.Add(popup);
+
+            container.ReplacePopup(messages);
+            ScreenUtils.TriggerScreenUpdate(gameContext);
+        }
+
+        internal static void ClosePopup(GameContext gameContext)
+        {
+            if (!IsHasActivePopups(gameContext))
+                return;
+
+            var container = GetPopupContainer(gameContext);
+            var messages = container.popup.PopupMessages;
+
+            messages.RemoveAt(0);
+
+            container.ReplacePopup(messages);
+            ScreenUtils.TriggerScreenUpdate(gameContext);
         }
 
         public static GameEntity GetPopupContainer(GameContext gameContext)
@@ -76,7 +96,7 @@ namespace Assets.Utils
 
         public static bool IsHasActivePopups(GameContext gameContext)
         {
-            return GetNotificationsComponent(gameContext).popup.PopupMessages.Count == 0;
+            return GetNotificationsComponent(gameContext).popup.PopupMessages.Count > 0;
         }
 
         public static PopupMessage GetPopupMessage(GameContext gameContext)
@@ -85,12 +105,6 @@ namespace Assets.Utils
             var messages = container.popup.PopupMessages;
 
             return messages[0];
-        }
-
-        internal static void ClosePopup(GameContext gameContext)
-        {
-            if (IsHasActivePopups(gameContext))
-                GetPopupContainer(gameContext).popup.PopupMessages.RemoveAt(0);
         }
     }
 }

@@ -7,6 +7,8 @@ public class CloseCompanyController : PopupButtonController<PopupMessageCloseCom
     {
         CompanyUtils.CloseCompany(GameContext, Popup.companyId);
 
+        NotificationUtils.ClosePopup(GameContext);
+
         Navigate(ScreenMode.GroupManagementScreen);
     }
 

@@ -7,6 +7,7 @@ public class PopupView : View
     public Text Description;
     public PopupButtonsContainer popupButtonsContainer;
 
+    //public override void ViewRender()
     private void OnEnable()
     {
         var popup = NotificationUtils.GetPopupMessage(GameContext);

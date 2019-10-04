@@ -7,6 +7,6 @@ public class PopupToggler : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        return NotificationUtils.IsHasActivePopups(GameContext);
+        return !NotificationUtils.IsHasActivePopups(GameContext);
     }
 }

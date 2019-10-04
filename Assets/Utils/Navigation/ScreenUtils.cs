@@ -102,5 +102,12 @@ namespace Assets.Utils
 
             menu.ReplaceMenu(screenMode, data);
         }
+
+        public static void TriggerScreenUpdate(GameContext gameContext)
+        {
+            var menu = GetMenu(gameContext);
+
+            menu.ReplaceMenu(menu.menu.ScreenMode, menu.menu.Data);
+        }
     }
 }

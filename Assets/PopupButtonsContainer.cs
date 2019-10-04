@@ -6,23 +6,23 @@ public class PopupButtonsContainer : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        AttachComponent(t, entity as Component);
+        AttachComponent(t, entity as System.Type);
     }
 
-    void AttachComponent<T>(Transform t, T Component) where T : Component
+    void AttachComponent<T>(Transform t, T type) where T : System.Type
     {
-        t.gameObject.AddComponent<Component>();
+        t.gameObject.AddComponent(type);
     }
 
     public void SetMessage(PopupMessage popupMessage)
     {
-        var components = new List<Component>();
+        var components = new List<System.Type>();
 
         switch (popupMessage.PopupType)
         {
             case PopupType.CloseCompany:
-                components.Add(new CloseCompanyController());
-                components.Add(new ClosePopup());
+                components.Add(typeof(ClosePopup));
+                components.Add(typeof(CloseCompanyController));
                 break;
         }
 
