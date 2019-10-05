@@ -26,6 +26,7 @@
 
         public static bool HasEnoughAvailableWorkersForImprovement (GameEntity company, TeamUpgrade teamUpgrade)
         {
+            return true;
             var requiredWorkers = GetRequiredAmountOfWorkersForTeamImprovement(teamUpgrade);
             var available = GetAvailableWorkers(company);
 
@@ -40,11 +41,11 @@
                 case TeamUpgrade.DevelopmentPolishedApp: return 4;
                 case TeamUpgrade.DevelopmentCrossplatform: return 30;
 
-                case TeamUpgrade.MarketingBase: return 1;
-                case TeamUpgrade.MarketingAggressive: return 7;
-                case TeamUpgrade.MarketingAllPlatform: return 5;
-                case TeamUpgrade.ClientSupport: return 1;
-                case TeamUpgrade.ClientSupportImproved: return 5;
+                //case TeamUpgrade.MarketingBase: return 1;
+                //case TeamUpgrade.MarketingAggressive: return 7;
+                //case TeamUpgrade.MarketingAllPlatform: return 5;
+                //case TeamUpgrade.ClientSupport: return 1;
+                //case TeamUpgrade.ClientSupportImproved: return 5;
 
                 default: return 1000;
             }

@@ -40,8 +40,8 @@ namespace Assets.Utils
 
         public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase);
-            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive);
+            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp);
+            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform);
 
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
@@ -81,19 +81,18 @@ namespace Assets.Utils
             var SEO = (product.branding.BrandPower + 100) / 100;
 
             var marketing = 0;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingBase))
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPrototype))
                 marketing = 1;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAllPlatform))
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp))
                 marketing = 3;
-
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.MarketingAggressive))
-                marketing *= 3;
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform))
+                marketing = 9;
 
             var conceptModifier = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext);
 
             // SEO: 0...2
             // marketing: 0...12
-            return Mathf.Max(SEO + marketing * 3 - conceptModifier * 3, 0); // + rand * 50;
+            return (SEO + marketing * 3) / (conceptModifier + 1); // + rand * 50;
         }
     }
 }

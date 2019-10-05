@@ -5,7 +5,7 @@ public partial class AIProductSystems
 {
     void Operate(GameEntity product)
     {
-        ScaleTeamIfPossible(product);
+        //ScaleTeamIfPossible(product);
 
         PickTeamUpgrades(product);
 

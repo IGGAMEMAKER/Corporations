@@ -31,29 +31,29 @@ namespace Assets.Utils
 
         public static long GetClientSupportCost(GameEntity e, GameContext gameContext)
         {
-            var clients = MarketingUtils.GetClients(e);
+            //var clients = MarketingUtils.GetClients(e);
 
-            var hasBaseSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupport);
-            var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupportImproved);
+            //var hasBaseSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupport);
+            //var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupportImproved);
 
-            var income = GetProductCompanyIncome(e, gameContext);
+            //var income = GetProductCompanyIncome(e, gameContext);
 
-            if (hasAdvancedSupport)
-                return income / 4;
+            //if (hasAdvancedSupport)
+            //    return income / 4;
 
-            if (hasBaseSupport)
-                return income / 10;
+            //if (hasBaseSupport)
+            //    return income / 10;
 
             return 0;
         }
 
         public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
         {
-            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.MarketingBase);
-            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.MarketingAggressive);
+            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp);
+            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform);
 
-            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.MarketingBase) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
-            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.MarketingAggressive) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
+            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPolishedApp) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
+            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentCrossplatform) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
 
             return baseMarketing + aggressiveMarketing;
         }

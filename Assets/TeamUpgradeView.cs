@@ -11,12 +11,12 @@ public enum TeamUpgrade
 
     DevelopmentCrossplatform, // way more payments
 
-    MarketingBase, // +1
-    MarketingAggressive, // +3
-    MarketingAllPlatform, // bigger maintenance and reach when getting clients
+    //MarketingBase, // +1
+    //MarketingAggressive, // +3
+    //MarketingAllPlatform, // bigger maintenance and reach when getting clients
 
-    ClientSupport, // -1% churn fixed cost
-    ClientSupportImproved, // -1% churn scaling cost
+    //ClientSupport, // -1% churn fixed cost
+    //ClientSupportImproved, // -1% churn scaling cost
 }
 
 public class TeamUpgradeView : View

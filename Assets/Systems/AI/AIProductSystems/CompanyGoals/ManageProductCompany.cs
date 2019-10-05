@@ -16,8 +16,8 @@ public partial class AIProductSystems
         if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform))
             TeamUtils.DisableTeamImprovement(product, TeamUpgrade.DevelopmentPolishedApp);
 
-        PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
-        PickImprovementIfCan(product, TeamUpgrade.MarketingAggressive);
+        //PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
+        //PickImprovementIfCan(product, TeamUpgrade.MarketingAggressive);
     }
 
     void ManageSmallTeam(GameEntity product)
@@ -27,7 +27,7 @@ public partial class AIProductSystems
         if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp))
             TeamUtils.DisableTeamImprovement(product, TeamUpgrade.DevelopmentPrototype);
 
-        PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
+        //PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
     }
 
     void ManageSoloDeveloper(GameEntity product)
@@ -38,21 +38,23 @@ public partial class AIProductSystems
     void ManagePairOfWorkers(GameEntity product)
     {
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
-
-        PickImprovementIfCan(product, TeamUpgrade.MarketingBase);
     }
 
     void PickTeamUpgrades(GameEntity product)
     {
-        switch (product.team.TeamStatus)
-        {
-            case TeamStatus.Solo: ManageSoloDeveloper(product); break;
-            case TeamStatus.Pair: ManagePairOfWorkers(product); break;
-            case TeamStatus.SmallTeam: ManageSmallTeam(product); break;
-            case TeamStatus.BigTeam: ManageBigTeam(product); break;
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
 
-            default: ManageBigTeam(product); break;
-        }
+        //switch (product.team.TeamStatus)
+        //{
+        //    case TeamStatus.Solo: ManageSoloDeveloper(product); break;
+        //    case TeamStatus.Pair: ManagePairOfWorkers(product); break;
+        //    case TeamStatus.SmallTeam: ManageSmallTeam(product); break;
+        //    case TeamStatus.BigTeam: ManageBigTeam(product); break;
+
+        //    default: ManageBigTeam(product); break;
+        //}
     }
 
     void ScaleTeamIfPossible(GameEntity product)

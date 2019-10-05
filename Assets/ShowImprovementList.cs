@@ -27,16 +27,16 @@ public class ShowImprovementList : UpgradedParameterView
         text += DescribeImprovement(TeamUpgrade.DevelopmentCrossplatform, "Ready on multiple platforms");
 
         //text += "\nMarketing";
-        text += DescribeImprovement(TeamUpgrade.MarketingBase, "They grow normally");
-        text += DescribeImprovement(TeamUpgrade.MarketingAggressive, "They grow aggressively");
-        text += DescribeImprovement(TeamUpgrade.MarketingAllPlatform);
+        //text += DescribeImprovement(TeamUpgrade.MarketingBase, "They grow normally");
+        //text += DescribeImprovement(TeamUpgrade.MarketingAggressive, "They grow aggressively");
+        //text += DescribeImprovement(TeamUpgrade.MarketingAllPlatform);
 
         var clients = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
         text += "\nAudience grows by " + Format.Minify(clients) + " clients each month";
         
         //text += "\nSupport";
-        text += DescribeImprovement(TeamUpgrade.ClientSupport);
-        text += DescribeImprovement(TeamUpgrade.ClientSupportImproved);
+        //text += DescribeImprovement(TeamUpgrade.ClientSupport);
+        //text += DescribeImprovement(TeamUpgrade.ClientSupportImproved);
 
 
         return text;

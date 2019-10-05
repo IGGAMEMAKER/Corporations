@@ -6,25 +6,29 @@
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
+            var baseMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
+
             switch (teamUpgrade)
             {
                 case TeamUpgrade.DevelopmentPrototype:
+                    return baseMaintenance;
                 case TeamUpgrade.DevelopmentPolishedApp:
+                    return baseMaintenance * 4;
                 case TeamUpgrade.DevelopmentCrossplatform:
-                    return 0;
+                    return baseMaintenance * 12;
 
-                case TeamUpgrade.ClientSupport:
-                case TeamUpgrade.ClientSupportImproved:
-                    return 0;
+                //case TeamUpgrade.ClientSupport:
+                //case TeamUpgrade.ClientSupportImproved:
+                //    return 0;
 
-                case TeamUpgrade.MarketingBase:
-                    return NicheUtils.GetBaseMarketingMaintenance(niche).money;
+                //case TeamUpgrade.MarketingBase:
+                //    return NicheUtils.GetBaseMarketingMaintenance(niche).money;
 
-                case TeamUpgrade.MarketingAggressive:
-                    return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
+                //case TeamUpgrade.MarketingAggressive:
+                //    return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
 
-                case TeamUpgrade.MarketingAllPlatform:
-                    return 1000;
+                //case TeamUpgrade.MarketingAllPlatform:
+                //    return 1000;
 
                 default: return 1;
             }
