@@ -31,14 +31,23 @@
             return desire > 75 || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
         }
 
+        public static bool IsYoungCompany(GameEntity company)
+        {
+            return company.metricsHistory.Metrics.Count < 12;
+        }
 
         public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
-            bool isGroup = !isProduct;
 
-            return isProduct ? GetDesireToSellStartupByInvestorType(company, investorType, investorId, gameContext)
-                : GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext);
+            bool isYoungCompany = IsYoungCompany(company);
+            if (isYoungCompany)
+                return Constants.COMPANY_DESIRE_TO_SELL_NO;
+
+            if (isProduct)
+                return GetDesireToSellStartupByInvestorType(company, investorType, investorId, gameContext);
+
+            return GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext);
         }
 
         public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
@@ -48,8 +57,11 @@
             return desire > 0;
         }
 
-        public static string GetSellRejectionDescriptionByInvestorType(InvestorType investorType)
+        public static string GetSellRejectionDescriptionByInvestorType(InvestorType investorType, GameEntity company)
         {
+            if (IsYoungCompany(company))
+                return "It's too early to sell company";
+
             switch (investorType)
             {
                 case InvestorType.Angel:
@@ -67,8 +79,5 @@
                     return investorType.ToString() + " will not sell shares";
             }
         }
-
-
-
     }
 }
