@@ -140,9 +140,9 @@ namespace Assets.Utils
 
             switch (investor.shareholder.InvestorType)
             {
-                case InvestorType.Founder: container = GetFounderOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
-                case InvestorType.VentureInvestor: container = GetVentureOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
-                case InvestorType.Strategic: container.Append("Views this company as strategic interest", -1000); break;
+                case InvestorType.Founder:          container = GetFounderOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
+                case InvestorType.VentureInvestor:  container = GetVentureOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
+                case InvestorType.Strategic:        container.Append("Views this company as strategic interest", -1000); break;
             }
 
             return container;

@@ -63,8 +63,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
-            return;
+        //if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
+        //    return;
 
         var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
