@@ -49,44 +49,44 @@ public class DevelpmentUpgradesListView : ListView
                 Workers = 30
             },
 
-            // marketing
-            new TeamImprovement
-            {
-                TeamUpgrade = TeamUpgrade.MarketingBase,
-                Name = "Base marketing",
-                Description = "+1 Brand power each month. Costs money",
-                Workers = 1
-            },
-            new TeamImprovement
-            {
-                TeamUpgrade = TeamUpgrade.MarketingAggressive,
-                Name = "Aggressive marketing",
-                Description = "+3 Brand power each month. Costs a lot of money",
-                Workers = 7
-            },
-            new TeamImprovement
-            {
-                TeamUpgrade = TeamUpgrade.MarketingAllPlatform,
-                Name = "All platform marketing",
-                Description = "+1 Brand power each month when combined with 'All platforms'. Costs money",
-                Workers = 5
-            },
+            //// marketing
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.MarketingBase,
+            //    Name = "Base marketing",
+            //    Description = "+1 Brand power each month. Costs money",
+            //    Workers = 1
+            //},
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.MarketingAggressive,
+            //    Name = "Aggressive marketing",
+            //    Description = "+3 Brand power each month. Costs a lot of money",
+            //    Workers = 7
+            //},
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.MarketingAllPlatform,
+            //    Name = "All platform marketing",
+            //    Description = "+1 Brand power each month when combined with 'All platforms'. Costs money",
+            //    Workers = 5
+            //},
 
-            //// support
-            new TeamImprovement
-            {
-                TeamUpgrade = TeamUpgrade.ClientSupport,
-                Name = "Client support",
-                Description = "Lowers churn rate by 1%",
-                Workers = 1
-            },
-            new TeamImprovement
-            {
-                TeamUpgrade = TeamUpgrade.ClientSupportImproved,
-                Name = "Improved client support",
-                Description = "Lowers churn rate by 1% but costs additional money",
-                Workers = 5
-            },
+            ////// support
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.ClientSupport,
+            //    Name = "Client support",
+            //    Description = "Lowers churn rate by 1%",
+            //    Workers = 1
+            //},
+            //new TeamImprovement
+            //{
+            //    TeamUpgrade = TeamUpgrade.ClientSupportImproved,
+            //    Name = "Improved client support",
+            //    Description = "Lowers churn rate by 1% but costs additional money",
+            //    Workers = 5
+            //},
         }
         .OrderBy(i => i.Workers)
         .ToArray();
