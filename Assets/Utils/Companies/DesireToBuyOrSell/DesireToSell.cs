@@ -40,14 +40,18 @@
         {
             bool isProduct = company.hasProduct;
 
-            bool isYoungCompany = IsYoungCompany(company);
-            if (isYoungCompany)
-                return Constants.COMPANY_DESIRE_TO_SELL_NO;
+            var bonusContainer = new BonusContainer("Desire to sell");
+
+            bonusContainer.Append("Base", -1);
+
+            bonusContainer.AppendAndHideIfZero("Is young company", IsYoungCompany(company) ? -10 : 0);
 
             if (isProduct)
-                return GetDesireToSellStartupByInvestorType(company, investorType, investorId, gameContext);
+                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellStartupByInvestorType(company, investorType, investorId, gameContext));
+            else
+                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext));
 
-            return GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext);
+            return bonusContainer.Sum();
         }
 
         public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
