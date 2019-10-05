@@ -50,31 +50,6 @@ namespace Assets.Utils
                 );
         }
 
-        //internal static List<AcquisitionOfferComponent> GetAcquisitionOffers(GameContext gameContext, int companyId)
-        //{
-
-        //    var proposals = new List<AcquisitionOfferComponent>
-        //    {
-        //        new AcquisitionOfferComponent {
-        //            CompanyId = companyId,
-        //            BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
-        //            Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, companyId)
-        //        }
-        //    };
-
-        //    foreach (var c in GetDaughterCompanies(gameContext, companyId))
-        //    {
-        //        proposals.Add(new AcquisitionOfferComponent
-        //        {
-        //            CompanyId = c.company.Id,
-        //            BuyerId = InvestmentUtils.GetRandomInvestmentFund(gameContext),
-        //            Offer = CompanyEconomyUtils.GetCompanyCost(gameContext, c.company.Id)
-        //        });
-        //    }
-
-        //    return proposals;
-        //}
-
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
