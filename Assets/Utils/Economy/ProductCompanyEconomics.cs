@@ -29,7 +29,7 @@ namespace Assets.Utils
             return MarketingUtils.GetClients(c) * 100;
         }
 
-        public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
+        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform))
                 return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentCrossplatform);
@@ -37,35 +37,8 @@ namespace Assets.Utils
             if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp))
                 return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPolishedApp);
 
-            return 0;
-        }
-
-        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
-        {
-            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext);
-        }
-
-
-        // TODO DUPLICATING GETTING MAINTENANCE
-        public static bool IsCanAffordMarketing(GameEntity company, GameContext gameContext)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche);
-
-            return CompanyUtils.IsEnoughResources(company, baseCost);
-        }
-
-        // TODO DUPLICATING GETTING MAINTENANCE
-        public static long GetCompanyAdsMaintenance(GameEntity company, GameContext gameContext)
-        {
-            if (!company.hasProduct)
-                return 0;
-
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-            var baseCost = NicheUtils.GetBaseMarketingMaintenance(niche).money;
-
-            if (IsCanAffordMarketing(company, gameContext))
-                return baseCost;
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPrototype))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPrototype);
 
             return 0;
         }
