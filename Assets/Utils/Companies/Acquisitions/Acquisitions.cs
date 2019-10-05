@@ -87,7 +87,7 @@ namespace Assets.Utils
             offer.Destroy();
         }
 
-        public static void AddAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long bid)
+        public static void SendAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long bid)
         {
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
@@ -134,22 +134,39 @@ namespace Assets.Utils
                 );
         }
 
+        public static BonusContainer GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOfferComponent ackOffer, GameEntity investor, GameEntity targetCompany, GameContext gameContext)
+        {
+            var container = new BonusContainer("Opinion about acquisition offer");
+
+            switch (investor.shareholder.InvestorType)
+            {
+                case InvestorType.Founder: container = GetFounderOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
+                case InvestorType.VentureInvestor: container = GetVentureOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
+                case InvestorType.Strategic: container.Append("Views this company as strategic interest", -1000); break;
+            }
+
+            return container;
+        }
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
         {
             var cost = EconomyUtils.GetCompanyCost(gameContext, ackOffer.CompanyId);
-            var company = GetCompanyById(gameContext, ackOffer.CompanyId);
 
-            var investorType = GetInvestorById(gameContext, shareholderId).shareholder.InvestorType;
+            var company = GetCompanyById(gameContext, ackOffer.CompanyId);
+            var investor = GetInvestorById(gameContext, shareholderId);
 
             var modifier = GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
 
             Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
-            bool willAcceptOffer = true; // ackOffer.Offer > cost * modifier;
+            var container = GetInvestorOpinionAboutAcquisitionOffer(ackOffer, investor, company, gameContext);
 
-            //return GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext) == 1 && willAcceptOffer;
-            return GetDesireToSellShares(company, gameContext, shareholderId, investorType) == 1 && willAcceptOffer;
+
+            bool willAcceptOffer = container.Sum() >= 0; // ackOffer.Offer > cost * modifier;
+
+            bool isBestOffer = true; // when competing with other companies
+
+            return GetDesireToSellShares(company, gameContext, shareholderId, investor.shareholder.InvestorType) == 1 && willAcceptOffer && isBestOffer;
         }
 
         public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
@@ -187,6 +204,5 @@ namespace Assets.Utils
 
             return desireToSell * 100 / blocks;
         }
-        //public static string GetSellingRejectionDescriptionByInvestorType()
     }
 }
