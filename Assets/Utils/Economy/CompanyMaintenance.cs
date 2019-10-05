@@ -74,13 +74,6 @@
             return directors + midManagers;
         }
 
-        public static long GetPromotedTeamMaintenance(GameEntity product)
-        {
-            var newStatus = TeamUtils.GetNextTeamSize(product.team.TeamStatus);
-
-            return GetAbstractTeamMaintenance(newStatus);
-        }
-
         public static long GetAbstractTeamMaintenance(TeamStatus teamStatus)
         {
             switch (teamStatus)
@@ -97,6 +90,7 @@
 
         public static long GetTeamMaintenance(GameEntity e)
         {
+            return 0;
             return GetAbstractTeamMaintenance(e.team.TeamStatus);
 
             return

@@ -21,23 +21,12 @@ public class ShowImprovementList : UpgradedParameterView
     {
         var text = "";
 
-        //text += "Development";
         text += DescribeImprovement(TeamUpgrade.DevelopmentPrototype, "Prototype");
         text += DescribeImprovement(TeamUpgrade.DevelopmentPolishedApp, "Is ready for mass usage");
         text += DescribeImprovement(TeamUpgrade.DevelopmentCrossplatform, "Ready on multiple platforms");
 
-        //text += "\nMarketing";
-        //text += DescribeImprovement(TeamUpgrade.MarketingBase, "They grow normally");
-        //text += DescribeImprovement(TeamUpgrade.MarketingAggressive, "They grow aggressively");
-        //text += DescribeImprovement(TeamUpgrade.MarketingAllPlatform);
-
         var clients = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
         text += "\nAudience grows by " + Format.Minify(clients) + " clients each month";
-        
-        //text += "\nSupport";
-        //text += DescribeImprovement(TeamUpgrade.ClientSupport);
-        //text += DescribeImprovement(TeamUpgrade.ClientSupportImproved);
-
 
         return text;
     }

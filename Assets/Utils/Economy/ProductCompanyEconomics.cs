@@ -29,38 +29,20 @@ namespace Assets.Utils
             return MarketingUtils.GetClients(c) * 100;
         }
 
-        public static long GetClientSupportCost(GameEntity e, GameContext gameContext)
+        public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
         {
-            //var clients = MarketingUtils.GetClients(e);
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentCrossplatform);
 
-            //var hasBaseSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupport);
-            //var hasAdvancedSupport = TeamUtils.IsUpgradePicked(e, TeamUpgrade.ClientSupportImproved);
-
-            //var income = GetProductCompanyIncome(e, gameContext);
-
-            //if (hasAdvancedSupport)
-            //    return income / 4;
-
-            //if (hasBaseSupport)
-            //    return income / 10;
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPolishedApp);
 
             return 0;
         }
 
-        public static long GetCompanyMarketingMaintenance(GameEntity e, GameContext gameContext)
-        {
-            var hasBaseMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp);
-            var hasAggressiveMarketing = TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform);
-
-            var baseMarketing = hasBaseMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPolishedApp) : 0; // NicheUtils.GetBaseMarketingMaintenance(niche).money
-            var aggressiveMarketing = hasAggressiveMarketing ? TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentCrossplatform) : 0; // NicheUtils.GetAggressiveMarketingMaintenance(niche).money 
-
-            return baseMarketing + aggressiveMarketing;
-        }
-
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext) + GetClientSupportCost(e, gameContext);
+            return GetTeamMaintenance(e) + GetCompanyMarketingMaintenance(e, gameContext);
         }
 
 
