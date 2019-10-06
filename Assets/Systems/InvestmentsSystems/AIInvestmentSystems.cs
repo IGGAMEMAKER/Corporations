@@ -27,6 +27,18 @@ public class AIInvestmentSystems : OnHalfYear
         return !isRelatedToPlayer;
     }
 
+    bool IsTargetInvestsInInvestorItself (InvestmentProposal proposal, GameEntity targetCompany)
+    {
+        var investor = CompanyUtils.GetInvestorById(gameContext, proposal.ShareholderId);
+
+        if (!investor.hasCompany || !targetCompany.hasShareholder)
+            return false;
+
+        bool isTargetInvestsInFutureInvestor = CompanyUtils.IsInvestsInCompany(investor, targetCompany.shareholder.Id);
+
+        return isTargetInvestsInFutureInvestor;
+    }
+
     void TakeInvestments(GameEntity company)
     {
         CompanyUtils.StartInvestmentRound(company, gameContext);
@@ -34,7 +46,8 @@ public class AIInvestmentSystems : OnHalfYear
         var companyId = company.company.Id;
 
         var suitableProposals = CompanyUtils.GetInvestmentProposals(gameContext, companyId)
-            .Where(InvestorIsNotRelatedToPlayer);
+            .Where(InvestorIsNotRelatedToPlayer)
+            .Where(p => !IsTargetInvestsInInvestorItself(p, company));
 
         foreach (var s in suitableProposals)
         {

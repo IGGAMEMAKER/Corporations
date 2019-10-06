@@ -12,8 +12,6 @@ public partial class AIProductSystems
         PayDividendsIfPossible(product);
 
         PromoteToGroupIfPossible(product);
-
-        //InvestmentUtils.CompleteGoal(e, gameContext, false);
     }
 
     void PromoteToGroupIfPossible(GameEntity product)
