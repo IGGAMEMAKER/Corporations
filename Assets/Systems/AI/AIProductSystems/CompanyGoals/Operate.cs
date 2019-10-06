@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System.Linq;
 using UnityEngine;
 
 public partial class AIProductSystems
@@ -14,7 +15,8 @@ public partial class AIProductSystems
 
         PromoteToGroupIfPossible(product);
 
-        ManageInvestors(product);
+        // taking investments
+        TakeInvestments(product);
 
         //InvestmentUtils.CompleteGoal(e, gameContext, false);
     }
@@ -47,18 +49,14 @@ public partial class AIProductSystems
         CompanyUtils.PayDividends(gameContext, product, dividends);
     }
 
-    bool IsCompanyNeedsInvestments()
-    {
-        return true;
-    }
-
     void TakeInvestments(GameEntity product)
     {
         // ??????
 
-        bool isInvestmentsAreNecessary = IsCompanyNeedsInvestments();
+        var list = CompanyUtils.GetPotentialInvestors(gameContext, product.company.Id);
 
-        var list = CompanyUtils.GetPotentialInvestorsWhoAreReadyToInvest(gameContext, product.company.Id);
+        var investors = string.Join(",", list.Select(l => l.shareholder.Name));
+        Print("Take Investments: " + list.Length + " " + investors , product);
 
         if (list.Length == 0)
             return;

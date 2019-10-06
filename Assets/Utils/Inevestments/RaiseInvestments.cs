@@ -8,8 +8,6 @@
 
             if (company.hasProduct)
                 AppendProductBonuses(description, company, gameContext);
-            else
-                AppendCompanyGroupBonuses(description, company);
 
             if (IsInvestsInCompany(investor, company))
                 description.AppendAndHideIfZero("Invests already", 35);
@@ -30,10 +28,6 @@
             );
 
             return title;
-        }
-
-        private static void AppendCompanyGroupBonuses(BonusContainer bonusContainer, GameEntity company)
-        {
         }
 
         private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company, GameContext gameContext)
@@ -58,13 +52,19 @@
 
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
-            bool isSuitableByGoal = IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
+            bool isSuitableByGoal = true; // IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
             bool isSuitableByNiche = IsInInvestorsSphereOfInfluence(shareholder, company);
             bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
-            bool isHaveFreeMoney = true;
-            //bool isInvestorAlready = IsInvestsInCompany(shareholder, company);
 
-            return isSuitableByGoal && isSuitableByNiche && isSuitableByCompanySize && isHaveFreeMoney; // && !isInvestorAlready;
+            bool isInvestorAlready = IsInvestsInCompany(shareholder, company);
+
+            bool isParentOfDependentCompany = !company.isIndependentCompany && isInvestorAlready;
+
+            return
+                isSuitableByGoal
+                && isSuitableByNiche
+                && isSuitableByCompanySize
+                && (isParentOfDependentCompany || company.isIndependentCompany);
         }
 
         public static bool IsInInvestorsSphereOfInfluence(GameEntity shareholder, GameEntity company)

@@ -50,6 +50,8 @@
             if (company.hasAcceptsInvestments)
                 return;
 
+            SpawnProposals(gameContext, company.company.Id);
+
             //NotifyAboutInvestmentRound(company, gameContext);
 
             var round = GetInvestmentRoundName(company);

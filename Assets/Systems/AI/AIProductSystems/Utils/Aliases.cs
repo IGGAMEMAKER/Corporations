@@ -50,8 +50,10 @@ public partial class AIProductSystems
         bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
 
         string companyName = company.company.Name;
-        if (isMyCompany)
-            companyName = Visuals.Colorize(company.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+        //if (isMyCompany)
+        companyName = Visuals.Colorize(company.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+
+        Debug.Log(companyName + " " + action);
     }
 
     TeamResource GetResourceChange(GameEntity company)

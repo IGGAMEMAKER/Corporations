@@ -14,9 +14,16 @@ public partial class AIProductSystems
         PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
     }
 
-    void ManageInvestors(GameEntity product)
+    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
     {
-        // taking investments
-        TakeInvestments(product);
+        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
+
+        return GetIncome(product) >= cost;
+    }
+
+    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
+    {
+        if (IsCanAffordTeamImprovement(product, teamUpgrade))
+            TeamUtils.PickTeamImprovement(product, teamUpgrade);
     }
 }

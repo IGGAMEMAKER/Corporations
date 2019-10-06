@@ -21,16 +21,16 @@ namespace Assets.Utils
             return GetInvestmentProposals(context, companyId).FindIndex(p => p.ShareholderId == investorId);
         }
 
-        public static GameEntity[] GetPotentialInvestorsWhoAreReadyToInvest(GameContext gameContext, int companyId)
-        {
-            var investors = gameContext.GetEntities(GameMatcher.Shareholder);
+        //public static GameEntity[] GetPotentialInvestorsWhoAreReadyToInvest(GameContext gameContext, int companyId)
+        //{
+        //    var investors = gameContext.GetEntities(GameMatcher.Shareholder);
 
-            var c = GetCompanyById(gameContext, companyId);
+        //    var c = GetCompanyById(gameContext, companyId);
 
-            return Array.FindAll(investors,
-                s => InvestmentUtils.IsInvestorSuitable(s, c) && InvestmentUtils.GetInvestorOpinion(gameContext, c, s) > 0
-                );
-        }
+        //    return Array.FindAll(investors,
+        //        s => InvestmentUtils.IsInvestorSuitable(s, c) && InvestmentUtils.GetInvestorOpinion(gameContext, c, s) > 0
+        //        );
+        //}
 
 
         public static GameEntity[] GetPotentialInvestors(GameContext gameContext, int companyId)

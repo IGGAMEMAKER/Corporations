@@ -21,18 +21,4 @@ public partial class AIProductSystems
         return EconomyUtils.GetBalanceChange(company, gameContext);
     }
 
-    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
-
-        return GetIncome(product) >= cost;
-        //return GetProfit(product) >= cost;
-    }
-
-
-    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        if (IsCanAffordTeamImprovement(product, teamUpgrade))
-            TeamUtils.PickTeamImprovement(product, teamUpgrade);
-    }
 }
