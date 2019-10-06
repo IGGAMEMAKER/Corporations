@@ -1,5 +1,12 @@
 ﻿using Assets.Classes;
 
+public enum ConceptStatus
+{
+    Leader,
+    Relevant,
+    Outdated
+}
+
 namespace Assets.Utils
 {
     public static partial class ProductUtils
@@ -27,6 +34,7 @@ namespace Assets.Utils
             return demand - level;
         }
 
+
         public static bool IsInMarket(GameEntity product, GameContext gameContext)
         {
             return GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext) == 0;
@@ -40,6 +48,21 @@ namespace Assets.Utils
         public static bool IsWillInnovate(GameEntity product, GameContext gameContext)
         {
             return IsInMarket(product, gameContext);
+        }
+
+
+        internal static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
+        {
+            var isRelevant = IsInMarket(product, gameContext);
+            var isOutdated = IsOutOfMarket(product, gameContext);
+
+            if (product.isTechnologyLeader)
+                return ConceptStatus.Leader;
+
+            if (isOutdated)
+                return ConceptStatus.Outdated;
+
+            return ConceptStatus.Relevant;
         }
     }
 }

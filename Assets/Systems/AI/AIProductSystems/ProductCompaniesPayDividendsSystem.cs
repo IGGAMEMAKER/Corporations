@@ -17,9 +17,11 @@ public partial class ProductCompaniesPayDividendsSystem : OnMonthChange
         if (product.isIndependentCompany)
             return;
 
+        var balanceChange = EconomyUtils.GetBalanceChange(product, gameContext);
+
         if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
         {
-            CompanyUtils.PayDividends(gameContext, product, EconomyUtils.GetBalanceChange(product, gameContext));
+            CompanyUtils.PayDividends(gameContext, product, balanceChange);
             return;
         }
 
@@ -27,8 +29,8 @@ public partial class ProductCompaniesPayDividendsSystem : OnMonthChange
         if (EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
-        var maintenance = EconomyUtils.GetOptimalProductCompanyMaintenance(gameContext, product);
-        long dividends = product.companyResource.Resources.money - maintenance;
+        //if (balanceChange)
+        long dividends = product.companyResource.Resources.money;
 
         CompanyUtils.PayDividends(gameContext, product, dividends);
     }

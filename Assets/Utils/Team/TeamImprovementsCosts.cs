@@ -6,7 +6,7 @@
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            var baseMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
+            var baseMaintenance = NicheUtils.GetBaseProductMaintenance(niche);
 
             switch (teamUpgrade)
             {
@@ -16,19 +16,6 @@
                     return baseMaintenance * 4;
                 case TeamUpgrade.Multiplatform:
                     return baseMaintenance * 12;
-
-                //case TeamUpgrade.ClientSupport:
-                //case TeamUpgrade.ClientSupportImproved:
-                //    return 0;
-
-                //case TeamUpgrade.MarketingBase:
-                //    return NicheUtils.GetBaseMarketingMaintenance(niche).money;
-
-                //case TeamUpgrade.MarketingAggressive:
-                //    return NicheUtils.GetAggressiveMarketingMaintenance(niche).money;
-
-                //case TeamUpgrade.MarketingAllPlatform:
-                //    return 1000;
 
                 default: return 1;
             }

@@ -67,11 +67,11 @@ public class MarketPotentialView : View
         var demand = MarketingUtils.GetCurrentClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var marketingMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
-        Maintenance.text = Format.MoneyToInteger(marketingMaintenance) + " / month";
+        var baseMaintenance = NicheUtils.GetBaseProductMaintenance(niche);
+        Maintenance.text = Format.MoneyToInteger(baseMaintenance) + " / month";
 
-        var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
-        TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
+        //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
+        //TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
 
 
         long maxIncome = 0;
@@ -100,14 +100,14 @@ public class MarketPotentialView : View
             StartCapitalLabel.gameObject.SetActive(showStartCapital);
         }
 
-        var monthlyMaintenance = marketingMaintenance + teamMaintenance;
-        if (MonthlyMaintenance != null)
-            MonthlyMaintenance.text = Format.Money(monthlyMaintenance) + " / month";
+        //var monthlyMaintenance = marketingMaintenance + teamMaintenance;
+        //if (MonthlyMaintenance != null)
+        //    MonthlyMaintenance.text = Format.Money(monthlyMaintenance) + " / month";
 
-        if (ROI != null)
-        {
-            var roi = (maxIncome - monthlyMaintenance) * 100 * 12 / (monthlyMaintenance + 1);
-            ROI.text = $"{roi}% / yearly";
-        }
+        //if (ROI != null)
+        //{
+        //    var roi = (maxIncome - monthlyMaintenance) * 100 * 12 / (monthlyMaintenance + 1);
+        //    ROI.text = $"{roi}% / yearly";
+        //}
     }
 }

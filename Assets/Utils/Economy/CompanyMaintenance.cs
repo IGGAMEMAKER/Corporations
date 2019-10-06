@@ -16,21 +16,5 @@
 
             return GetCompanyMaintenance(c, gameContext);
         }
-
-
-        public static long GetOptimalProductCompanyMaintenance(GameContext gameContext, GameEntity product)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
-
-            var nicheTeamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
-            var marketingMaintenance = NicheUtils.GetBaseMarketingMaintenance(niche).money;
-
-            return nicheTeamMaintenance + marketingMaintenance;
-        }
-
-        public static long GetTeamMaintenance(GameContext gameContext, int companyId)
-        {
-            return 0;
-        }
     }
 }
