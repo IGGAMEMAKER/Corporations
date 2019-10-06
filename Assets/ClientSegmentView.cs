@@ -57,7 +57,7 @@ public class ClientSegmentView : View
     {
         var bonus = MarketingUtils.GetChurnBonus(GameContext, c.company.Id);
 
-        int baseValue = MarketingUtils.GetUserTypeBaseValue();
+        int baseValue = 1;
 
         Churn.minValue = baseValue;
         Churn.maxValue = baseValue + 10;
