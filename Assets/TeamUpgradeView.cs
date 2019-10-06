@@ -37,7 +37,11 @@ public class TeamUpgradeView : View
         UpgradeType = improvement.TeamUpgrade;
 
         UpgradeName.text = improvement.Name;
-        RequiredWorkers.text = "Required workers: " + improvement.Workers;
+
+        var maintenance = TeamUtils.GetImprovementCost(GameContext, SelectedCompany, improvement.TeamUpgrade);
+        RequiredWorkers.text = "Maintenance: " + Format.Money(maintenance);
+        //RequiredWorkers.text = "Required workers: " + improvement.Workers;
+
         Description.text = improvement.Description;
 
         GetComponent<SetTeamUpgrade>().SetTeanUpgrade(UpgradeType);
