@@ -48,14 +48,18 @@ namespace Assets.Utils
 
         internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
         {
-            return Array.FindAll(gameContext.GetEntities(GameMatcher
-                .AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals)), IsNotFinancialStructure);
+            var investableCompanies = gameContext.GetEntities(GameMatcher
+                .AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals));
+
+            return Array.FindAll(investableCompanies, IsNotFinancialStructure);
         }
 
         internal static GameEntity[] GetInvestmentFunds(GameContext gameContext)
         {
-            return Array.FindAll(gameContext.GetEntities(GameMatcher
-                .AllOf(GameMatcher.Company, GameMatcher.Shareholder)), IsFinancialStructure);
+            var investingCompanies = gameContext.GetEntities(GameMatcher
+                .AllOf(GameMatcher.Company, GameMatcher.Shareholder));
+
+            return Array.FindAll(investingCompanies, IsFinancialStructure);
         }
 
 
