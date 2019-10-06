@@ -5,8 +5,8 @@ public class TeamMaintenanceView : View
 {
     void Render()
     {
-        var maintenance = EconomyUtils.GetTeamMaintenance(MyProductEntity);
+        var maintenance = 0;
 
-        GetComponent<Text>().text = $"${Format.Minify(maintenance)}";
+        GetComponent<Text>().text = Format.Money(maintenance);
     }
 }
