@@ -24,8 +24,7 @@ public partial class AIProductSystems
         if (!product.isIndependentCompany)
             return;
 
-        var profit = GetProfit(product);
-        var canGrow = profit > 1000000;
+        var canGrow = GetProfit(product) > 1000000;
 
         var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
         var wantsToGrow = ambitions != Ambition.RuleProductCompany;
