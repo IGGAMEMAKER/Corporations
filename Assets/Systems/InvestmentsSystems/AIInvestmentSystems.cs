@@ -11,6 +11,9 @@ public class AIInvestmentSystems : OnHalfYear
 
     protected override void Execute(List<GameEntity> entities)
     {
+        foreach (var e in CompanyUtils.GetAIManagingCompanies(gameContext))
+            TakeInvestments(e);
+
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
             TakeInvestments(e);
     }
@@ -24,13 +27,13 @@ public class AIInvestmentSystems : OnHalfYear
         return !isRelatedToPlayer;
     }
 
-    void TakeInvestments(GameEntity product)
+    void TakeInvestments(GameEntity company)
     {
-        CompanyUtils.StartInvestmentRound(product, gameContext);
+        CompanyUtils.StartInvestmentRound(company, gameContext);
 
-        var companyId = product.company.Id;
+        var companyId = company.company.Id;
 
-        var suitableProposals = CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id)
+        var suitableProposals = CompanyUtils.GetInvestmentProposals(gameContext, companyId)
             .Where(InvestorIsNotRelatedToPlayer);
 
         foreach (var s in suitableProposals)
@@ -40,7 +43,7 @@ public class AIInvestmentSystems : OnHalfYear
 
             CompanyUtils.AcceptProposal(gameContext, companyId, investorShareholderId);
 
-            Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", product);
+            Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
         }
     }
 }
