@@ -12,32 +12,14 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
-        public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)
+        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
         {
-            var industries = company.companyFocus.Industries;
+            var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
 
-            return company.companyFocus.Industries.Contains(niche.niche.IndustryType);
-        }
+            if (e == null)
+                e = CreateNicheMockup(nicheType, context);
 
-        public static GameEntity[] GetPerspectiveAdjacentNiches(GameContext context, GameEntity group)
-        {
-            return GetPerspectiveNiches(context)
-                .Where(n => IsAdjacentToCompanyInterest(n, group))
-                .ToArray();
-        }
-
-        public static GameEntity[] GetPerspectiveNiches(GameContext context)
-        {
-            return GetPlayableNiches(context)
-                .Where(n => IsPerspectiveNiche(n))
-                .ToArray();
-        }
-
-        public static GameEntity[] GetPlayableNiches(GameContext context)
-        {
-            return GetNiches(context)
-                .Where(n => IsPlayableNiche(n))
-                .ToArray();
+            return e;
         }
 
         public static GameEntity[] GetIndustries(GameContext gameContext)
@@ -52,39 +34,25 @@ namespace Assets.Utils
 
         public static GameEntity[] GetNichesInIndustry(IndustryType industry, GameContext context)
         {
-            return Array.FindAll(GetNiches(context), n => n.niche.IndustryType == industry);
+            var niches = GetNiches(context);
+
+            return Array.FindAll(niches, n => n.niche.IndustryType == industry);
         }
 
         public static GameEntity[] GetPlayableNichesInIndustry(IndustryType industry, GameContext context)
         {
             var niches = GetNichesInIndustry(industry, context);
 
-            return Array.FindAll(niches, n => IsPlayableNiche(n));
-        }
-
-        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
-        {
-            var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
-
-            if (e == null)
-                e = CreateNicheMockup(nicheType, context);
-
-            return e;
+            return Array.FindAll(niches, IsPlayableNiche);
         }
 
 
-        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
+
+        public static GameEntity[] GetPlayableNiches(GameContext context)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
-
-            return IsPerspectiveNiche(niche);
-        }
-
-        public static bool IsPerspectiveNiche(GameEntity niche)
-        {
-            var phase = GetMarketState(niche);
-
-            return phase == NicheLifecyclePhase.Innovation; // || phase == NicheLifecyclePhase.Trending;
+            return GetNiches(context)
+                .Where(IsPlayableNiche)
+                .ToArray();
         }
 
         public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType)
