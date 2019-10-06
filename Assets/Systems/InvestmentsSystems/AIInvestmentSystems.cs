@@ -26,12 +26,12 @@ public class AIInvestmentSystems : OnHalfYear
     {
         CompanyUtils.StartInvestmentRound(product, gameContext);
 
-        var list = CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id)
-            .Where(InvestorIsNotRelatedToPlayer);
-
         var companyId = product.company.Id;
 
-        foreach (var s in CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id))
+        var suitableProposals = CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id)
+            .Where(InvestorIsNotRelatedToPlayer);
+
+        foreach (var s in suitableProposals)
         {
             var investorShareholderId = s.ShareholderId;
             var shareholderName = CompanyUtils.GetInvestorName(gameContext, investorShareholderId);
