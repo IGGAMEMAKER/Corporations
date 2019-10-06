@@ -12,14 +12,14 @@ namespace Assets.Utils
             var state = NicheUtils.GetMarketState(gameContext, c.product.Niche);
 
             var fromProductLevel = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
-            var nicheIsDying = state == NicheLifecyclePhase.Death;
+            var marketIsDying = state == NicheLifecyclePhase.Death;
 
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append($"Base", 1)
-                .Append("From concept", fromProductLevel)
-                .AppendAndHideIfZero("Niche is DYING", nicheIsDying ? 5 : 0);
+                .Append("Base", 1)
+                .Append("Concept", fromProductLevel)
+                .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
         }
 
         public static long GetChurnRate(GameContext gameContext, int companyId)
