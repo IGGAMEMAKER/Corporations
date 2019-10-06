@@ -41,21 +41,6 @@ public partial class AIProductSystems
         return GetLogs().logs[logTypes];
     }
 
-    void Print(string action, GameEntity company)
-    {
-        bool isMyCompany = company.isControlledByPlayer || CompanyUtils.IsCompanyRelatedToPlayer(gameContext, company);
-        bool isMyCompetitor = false; // player != null && company.product.Niche == player.product.Niche;
-
-        bool canRenderMyCompany = GetLog(LogTypes.MyProductCompany) && isMyCompany;
-        bool canRenderMyCompetitors = GetLog(LogTypes.MyProductCompanyCompetitors) && isMyCompetitor;
-
-        string companyName = company.company.Name;
-        //if (isMyCompany)
-        companyName = Visuals.Colorize(company.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
-
-        Debug.Log(companyName + " " + action);
-    }
-
     TeamResource GetResourceChange(GameEntity company)
     {
         return EconomyUtils.GetResourceChange(company, gameContext);

@@ -4,6 +4,8 @@
     {
         Add(new AIProductSystems(contexts));
 
+        Add(new AIInvestmentSystems(contexts));
+
         Add(new AIGroupSystems(contexts));
     }
 }
