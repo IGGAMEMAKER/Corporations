@@ -9,23 +9,16 @@ public class FillNicheListView : View
         Render();
     }
 
-    Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
-    {
-        return n => n.niche.IndustryType == industry; // && n.niche.NicheType != NicheType.None;
-    }
-
-    GameEntity[] GetNiches()
-    {
-        var niches = GameContext.GetEntities(GameMatcher.Niche);
-
-        IndustryType industryType = ScreenUtils.GetSelectedIndustry(GameContext);
-
-        return Array.FindAll(niches, FilterNichesByIndustry(industryType));
-    }
+    // TODO PREDICATE
+    //Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
+    //{
+    //    return n => n.niche.IndustryType == industry; // && n.niche.NicheType != NicheType.None;
+    //}
 
     void Render()
     {
-        var niches = GetNiches();
+        var industry = ScreenUtils.GetSelectedIndustry(GameContext);
+        var niches = NicheUtils.GetObservableNichesInIndustry(industry, GameContext);
 
         GetComponent<NicheListView>().SetItems(niches);
     }

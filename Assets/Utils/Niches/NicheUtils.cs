@@ -46,6 +46,23 @@ namespace Assets.Utils
             return Array.FindAll(niches, IsPlayableNiche);
         }
 
+        public static bool IsObservableNiche(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            return
+                phase == NicheLifecyclePhase.Trending ||
+                phase == NicheLifecyclePhase.Decay ||
+                phase == NicheLifecyclePhase.MassUse;
+        }
+
+        public static GameEntity[] GetObservableNichesInIndustry(IndustryType industry, GameContext context)
+        {
+            var niches = GetNichesInIndustry(industry, context);
+
+            return Array.FindAll(niches, IsObservableNiche);
+        }
+
 
 
         public static GameEntity[] GetPlayableNiches(GameContext context)

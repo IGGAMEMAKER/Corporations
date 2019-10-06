@@ -18,7 +18,7 @@ namespace Assets.Utils
         {
             var phase = GetMarketState(niche);
 
-            return phase == NicheLifecyclePhase.Innovation; // || phase == NicheLifecyclePhase.Trending;
+            return phase == NicheLifecyclePhase.Trending;
         }
 
         public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)
