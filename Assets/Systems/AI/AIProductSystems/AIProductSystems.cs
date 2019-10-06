@@ -47,7 +47,6 @@ public partial class AIProductSystems : OnMonthChange
         if (product.isIndependentCompany)
             return;
 
-        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
-            CompanyUtils.PayDividends(gameContext, product, GetProfit(product));
+        CompanyUtils.PayDividends(gameContext, product, GetProfit(product));
     }
 }
