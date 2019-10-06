@@ -31,12 +31,17 @@ public class AIInvestmentSystems : OnHalfYear
 
         foreach (var s in list)
         {
+            if (s.hasCompany && CompanyUtils.IsCompanyRelatedToPlayer(gameContext, s))
+                return;
+
+
             var investorShareholderId = s.shareholder.Id;
             var companyId = product.company.Id;
 
             var proposal = CompanyUtils.GetInvestmentProposal(gameContext, companyId, investorShareholderId);
-            if (proposal == null)
-                return;
+            //if (proposal == null)
+            //    return;
+
 
             Format.Print($"Took investments from {s.shareholder.Name}. Offer: {Format.Money(proposal.Offer)}", product);
 
