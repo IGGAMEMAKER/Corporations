@@ -57,9 +57,9 @@ namespace Assets.Utils
 
         public static bool IsTeamWorkingOnProduct(GameEntity product)
         {
-            return TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPrototype) ||
-            TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp) ||
-            TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform);
+            return TeamUtils.IsUpgradePicked(product, TeamUpgrade.Prototype) ||
+            TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release) ||
+            TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform);
         }
 
         // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions

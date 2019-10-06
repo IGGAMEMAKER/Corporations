@@ -29,21 +29,21 @@ public class DevelpmentUpgradesListView : ListView
             // dev
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.DevelopmentPrototype,
+                TeamUpgrade = TeamUpgrade.Prototype,
                 Name = "Prototype",
                 Description = "Makes and app with weak monetisation",
                 Workers = 1
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.DevelopmentPolishedApp,
+                TeamUpgrade = TeamUpgrade.Release,
                 Name = "Polished App",
                 Description = "Makes and app with good monetisation",
                 Workers = 4
             },
             new TeamImprovement
             {
-                TeamUpgrade = TeamUpgrade.DevelopmentCrossplatform,
+                TeamUpgrade = TeamUpgrade.Multiplatform,
                 Name = "All platforms",
                 Description = "Maximises your income",
                 Workers = 30

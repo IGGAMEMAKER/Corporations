@@ -98,7 +98,7 @@
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            var isMaxDevelopment = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform);
+            var isMaxDevelopment = TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform);
             var isProfitable = IsProfitable(gameContext, product.company.Id);
 
             return isMaxDevelopment && isProfitable;

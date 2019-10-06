@@ -17,9 +17,9 @@ public partial class AIProductSystems : OnMonthChange
 
     void PickTeamUpgrades(GameEntity product)
     {
-        PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
-        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
-        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
+        PickImprovementIfCan(product, TeamUpgrade.Multiplatform);
+        PickImprovementIfCan(product, TeamUpgrade.Release);
+        PickImprovementIfCan(product, TeamUpgrade.Prototype);
     }
 
     bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)

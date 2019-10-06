@@ -37,9 +37,9 @@
         {
             switch (teamUpgrade)
             {
-                case TeamUpgrade.DevelopmentPrototype: return 1;
-                case TeamUpgrade.DevelopmentPolishedApp: return 4;
-                case TeamUpgrade.DevelopmentCrossplatform: return 30;
+                case TeamUpgrade.Prototype: return 1;
+                case TeamUpgrade.Release: return 4;
+                case TeamUpgrade.Multiplatform: return 30;
 
                 //case TeamUpgrade.MarketingBase: return 1;
                 //case TeamUpgrade.MarketingAggressive: return 7;

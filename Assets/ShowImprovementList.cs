@@ -21,9 +21,9 @@ public class ShowImprovementList : UpgradedParameterView
     {
         var text = "";
 
-        text += DescribeImprovement(TeamUpgrade.DevelopmentPrototype, "Prototype");
-        text += DescribeImprovement(TeamUpgrade.DevelopmentPolishedApp, "Is ready for mass usage");
-        text += DescribeImprovement(TeamUpgrade.DevelopmentCrossplatform, "Ready on multiple platforms");
+        text += DescribeImprovement(TeamUpgrade.Prototype, "Prototype");
+        text += DescribeImprovement(TeamUpgrade.Release, "Is ready for mass usage");
+        text += DescribeImprovement(TeamUpgrade.Multiplatform, "Ready on multiple platforms");
 
         var clients = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
         text += "\nAudience grows by " + Format.Minify(clients) + " clients each month";

@@ -10,11 +10,11 @@
 
             switch (teamUpgrade)
             {
-                case TeamUpgrade.DevelopmentPrototype:
+                case TeamUpgrade.Prototype:
                     return baseMaintenance;
-                case TeamUpgrade.DevelopmentPolishedApp:
+                case TeamUpgrade.Release:
                     return baseMaintenance * 4;
-                case TeamUpgrade.DevelopmentCrossplatform:
+                case TeamUpgrade.Multiplatform:
                     return baseMaintenance * 12;
 
                 //case TeamUpgrade.ClientSupport:

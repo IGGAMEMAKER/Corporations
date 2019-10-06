@@ -24,7 +24,7 @@ namespace Assets.Utils
 
             InvestmentUtils.SetCompanyGoal(context, company, GOAL);
 
-            TeamUtils.ToggleTeamImprovement(company, TeamUpgrade.DevelopmentPrototype);
+            TeamUtils.ToggleTeamImprovement(company, TeamUpgrade.Prototype);
 
 
             int positionings = NicheUtils.GetNichePositionings(niche, context).Count;

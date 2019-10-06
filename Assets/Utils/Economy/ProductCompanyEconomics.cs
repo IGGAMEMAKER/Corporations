@@ -31,14 +31,14 @@ namespace Assets.Utils
 
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentCrossplatform))
-                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentCrossplatform);
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Multiplatform))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.Multiplatform);
 
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPolishedApp))
-                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPolishedApp);
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Release))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.Release);
 
-            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.DevelopmentPrototype))
-                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.DevelopmentPrototype);
+            if (TeamUtils.IsUpgradePicked(e, TeamUpgrade.Prototype))
+                return TeamUtils.GetImprovementCost(gameContext, e, TeamUpgrade.Prototype);
 
             return 0;
         }

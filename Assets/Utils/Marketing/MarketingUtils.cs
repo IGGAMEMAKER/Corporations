@@ -40,8 +40,8 @@ namespace Assets.Utils
 
         public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp);
-            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform);
+            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release);
+            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform);
 
             //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
 
@@ -81,11 +81,11 @@ namespace Assets.Utils
             var SEO = (product.branding.BrandPower + 100) / 100;
 
             var marketing = 0;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPrototype))
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Prototype))
                 marketing = 1;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentPolishedApp))
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release))
                 marketing = 3;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform))
+            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform))
                 marketing = 9;
 
             var conceptModifier = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext);
