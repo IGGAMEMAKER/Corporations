@@ -50,75 +50,36 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
 
 public abstract class OnHalfYear : OnRandomDateChange
 {
-    protected OnHalfYear(Contexts contexts) : base(contexts)
+    public OnHalfYear(Contexts contexts) : base(contexts)
     {
     }
 
     public override int AmountOfDays => 180;
 }
 
-public abstract class OnMonthChange : ReactiveSystem<GameEntity>
+public abstract class OnMonthChange : OnRandomDateChange
 {
-    public readonly Contexts contexts;
-    public readonly GameContext gameContext;
-
-    protected OnMonthChange(Contexts contexts) : base (contexts.game)
+    public OnMonthChange(Contexts contexts) : base (contexts)
     {
-        this.contexts = contexts;
-        gameContext = contexts.game;
     }
 
-    protected override bool Filter(GameEntity entity)
-    {
-        return entity.hasDate && entity.date.Date % 30 == 0 && entity.date.Date > 0;
-    }
-
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.Date);
-    }
+    public override int AmountOfDays => 30;
 }
 
-public abstract class OnQuarterChange : ReactiveSystem<GameEntity>
+public abstract class OnQuarterChange : OnRandomDateChange
 {
-    public readonly Contexts contexts;
-    public readonly GameContext gameContext;
-
-    protected OnQuarterChange(Contexts contexts) : base (contexts.game)
+    public OnQuarterChange(Contexts contexts) : base(contexts)
     {
-        this.contexts = contexts;
-        gameContext = contexts.game;
     }
 
-    protected override bool Filter(GameEntity entity)
-    {
-        return entity.hasDate && entity.date.Date % 90 == 0 && entity.date.Date > 0;
-    }
-
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.Date);
-    }
+    public override int AmountOfDays => 90;
 }
 
-public abstract class OnYearChange : ReactiveSystem<GameEntity>
+public abstract class OnYearChange : OnRandomDateChange
 {
-    public readonly Contexts contexts;
-    public readonly GameContext gameContext;
-
-    protected OnYearChange(Contexts contexts) : base (contexts.game)
+    public OnYearChange(Contexts contexts) : base(contexts)
     {
-        this.contexts = contexts;
-        gameContext = contexts.game;
     }
 
-    protected override bool Filter(GameEntity entity)
-    {
-        return entity.hasDate && entity.date.Date % 360 == 0 && entity.date.Date > 0;
-    }
-
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.Date);
-    }
+    public override int AmountOfDays => 360;
 }
