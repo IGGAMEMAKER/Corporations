@@ -4,7 +4,7 @@
     {
         Add(new AIProductSystems(contexts));
 
-        Add(new AIProductsPayDividends(contexts));
+        Add(new ProductCompaniesPayDividendsSystem(contexts));
 
         Add(new AIInvestmentSystems(contexts));
 

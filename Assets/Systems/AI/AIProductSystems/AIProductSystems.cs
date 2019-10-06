@@ -13,14 +13,7 @@ public partial class AIProductSystems : OnMonthChange
 
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
             PickTeamUpgrades(e);
-
-        foreach (var e in CompanyUtils.GetPlayerRelatedCompanies(gameContext))
-            OperatePlayerRelatedProductCompany(e);
     }
-
-
-
-
 
     void PickTeamUpgrades(GameEntity product)
     {
@@ -40,13 +33,5 @@ public partial class AIProductSystems : OnMonthChange
     {
         if (IsCanAffordTeamImprovement(product, teamUpgrade))
             TeamUtils.PickTeamImprovement(product, teamUpgrade);
-    }
-
-    void OperatePlayerRelatedProductCompany(GameEntity product)
-    {
-        if (product.isIndependentCompany)
-            return;
-
-        CompanyUtils.PayDividends(gameContext, product, GetProfit(product));
     }
 }

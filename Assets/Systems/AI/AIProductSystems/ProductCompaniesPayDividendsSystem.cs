@@ -1,14 +1,14 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 
-public partial class AIProductsPayDividends : OnMonthChange
+public partial class ProductCompaniesPayDividendsSystem : OnMonthChange
 {
-    public AIProductsPayDividends(Contexts contexts) : base(contexts) {
+    public ProductCompaniesPayDividendsSystem(Contexts contexts) : base(contexts) {
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
+        foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
             PayDividendsIfPossible(e);
     }
 
@@ -16,6 +16,13 @@ public partial class AIProductsPayDividends : OnMonthChange
     {
         if (product.isIndependentCompany)
             return;
+
+        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
+        {
+            CompanyUtils.PayDividends(gameContext, product, EconomyUtils.GetBalanceChange(product, gameContext));
+            return;
+        }
+
 
         if (EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
