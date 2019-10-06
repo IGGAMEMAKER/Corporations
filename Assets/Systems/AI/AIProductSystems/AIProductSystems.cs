@@ -9,13 +9,37 @@ public partial class AIProductSystems : OnMonthChange
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
-            ManageProductDevelopment(e);
+            UpgradeSegment(e);
 
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
-            Operate(e);
+            PickTeamUpgrades(e);
 
         foreach (var e in CompanyUtils.GetPlayerRelatedCompanies(gameContext))
             OperatePlayerRelatedProductCompany(e);
+    }
+
+
+
+
+
+    void PickTeamUpgrades(GameEntity product)
+    {
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentCrossplatform);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPolishedApp);
+        PickImprovementIfCan(product, TeamUpgrade.DevelopmentPrototype);
+    }
+
+    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
+    {
+        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
+
+        return GetIncome(product) >= cost;
+    }
+
+    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
+    {
+        if (IsCanAffordTeamImprovement(product, teamUpgrade))
+            TeamUtils.PickTeamImprovement(product, teamUpgrade);
     }
 
     void OperatePlayerRelatedProductCompany(GameEntity product)
@@ -23,16 +47,7 @@ public partial class AIProductSystems : OnMonthChange
         if (product.isIndependentCompany)
             return;
 
-        var profit = GetProfit(product);
-        long dividends = 0;
-
         if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
-        {
-            dividends = profit;
-            //Debug.Log("Is company related to player: " + product.company.Name);
-
-            CompanyUtils.PayDividends(gameContext, product, dividends);
-            //return;
-        }
+            CompanyUtils.PayDividends(gameContext, product, GetProfit(product));
     }
 }
