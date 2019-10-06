@@ -50,9 +50,9 @@ public class TeamUpgradeView : View
         UpgradeActivated.gameObject.SetActive(false);
 
         Panel.color = GetPanelColor(activated);
-        if (!activated && !TeamUtils.HasEnoughAvailableWorkersForImprovement(SelectedCompany, UpgradeType))
-        {
-            Panel.color = new Color(0.75f, 0, 0);
-        }
+        //if (!activated && !TeamUtils.HasEnoughAvailableWorkersForImprovement(SelectedCompany, UpgradeType))
+        //{
+        //    Panel.color = new Color(0.75f, 0, 0);
+        //}
     }
 }
