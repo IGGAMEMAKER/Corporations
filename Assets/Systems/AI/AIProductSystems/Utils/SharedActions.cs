@@ -7,18 +7,6 @@ public partial class AIProductSystems
     void UpgradeSegment(GameEntity product)
     {
         ProductUtils.UpdgradeProduct(product, gameContext);
-
-        //ProductUtils.UpgradeExpertise(product, gameContext);
+        ProductUtils.UpgradeExpertise(product, gameContext);
     }
-
-    long GetIncome(GameEntity company)
-    {
-        return EconomyUtils.GetCompanyIncome(company, gameContext);
-    }
-
-    long GetProfit(GameEntity company)
-    {
-        return EconomyUtils.GetBalanceChange(company, gameContext);
-    }
-
 }

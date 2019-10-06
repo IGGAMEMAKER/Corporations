@@ -26,7 +26,9 @@ public partial class AIProductSystems : OnMonthChange
     {
         var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
 
-        return GetIncome(product) >= cost;
+        var income = EconomyUtils.GetCompanyIncome(product, gameContext);
+
+        return income >= cost;
     }
 
     void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
