@@ -60,10 +60,10 @@ namespace Assets.Utils
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
                 //.Append("Due to Market share", (int)decay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
-                .AppendAndHideIfZero("Is Paying For Marketing", isPayingForMarketing ? 1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
-                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 3 : 0)
-                .AppendAndHideIfZero("Is Innovator + Aggressive Marketing", isInnovator && isPayingForAggressiveMarketing ? 6 : 0);
+                .AppendAndHideIfZero("Is Paying For Marketing", isPayingForMarketing ? 1 : 0)
+                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 3 : 0);
+                //.AppendAndHideIfZero("Is Innovator + Aggressive Marketing", isInnovator && isPayingForAggressiveMarketing ? 6 : 0);
 
             return BrandingChangeBonus;
         }

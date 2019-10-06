@@ -11,6 +11,11 @@ public partial class AIProductSystems
         //ProductUtils.UpgradeExpertise(product, gameContext);
     }
 
+    long GetIncome(GameEntity company)
+    {
+        return EconomyUtils.GetCompanyIncome(company, gameContext);
+    }
+
     long GetProfit(GameEntity company)
     {
         return EconomyUtils.GetBalanceChange(company, gameContext);
@@ -20,7 +25,8 @@ public partial class AIProductSystems
     {
         var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
 
-        return GetProfit(product) >= cost;
+        return GetIncome(product) >= cost;
+        //return GetProfit(product) >= cost;
     }
 
 

@@ -71,11 +71,6 @@
 
 
 
-        public static bool IsCompanyProfitable(GameContext gameContext, int companyId)
-        {
-            return GetBalanceChange(gameContext, companyId) > 0;
-        }
-
         internal static long GetBalanceChange(GameEntity c, GameContext context)
         {
             return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
@@ -103,10 +98,10 @@
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            var income = GetCompanyIncome(product, gameContext);
-            var maintenance = GetOptimalProductCompanyMaintenance(gameContext, product);
+            var isMaxDevelopment = TeamUtils.IsUpgradePicked(product, TeamUpgrade.DevelopmentCrossplatform);
+            var isProfitable = IsProfitable(gameContext, product.company.Id);
 
-            return maintenance > income;
+            return isMaxDevelopment && isProfitable;
         }
     }
 }
