@@ -38,7 +38,7 @@ namespace Assets.Utils
         public static GameEntity[] GetPerspectiveNiches(GameContext context)
         {
             return GetPlayableNiches(context)
-                .Where(n => IsPerspectiveNiche(n))
+                .Where(IsPerspectiveNiche)
                 .ToArray();
         }
     }
