@@ -15,37 +15,30 @@ public class AIInvestmentSystems : OnHalfYear
             TakeInvestments(e);
     }
 
+    bool InvestorIsNotRelatedToPlayer (InvestmentProposal proposal)
+    {
+        var investor = InvestmentUtils.GetInvestorById(gameContext, p.ShareholderId);
+
+        return !(investor.hasCompany && CompanyUtils.IsCompanyRelatedToPlayer(gameContext, investor));
+    }
 
     void TakeInvestments(GameEntity product)
     {
-        var list = CompanyUtils.GetPotentialInvestors(gameContext, product.company.Id);
-
-        var investors = string.Join(",", list.Select(l => l.shareholder.Name));
-
-        Format.Print("Take Investments: " + list.Length + " " + investors, product);
-
-        if (list.Length == 0)
-            return;
-
         CompanyUtils.StartInvestmentRound(product, gameContext);
 
-        foreach (var s in list)
+        var list = CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id)
+            .Where(InvestorIsNotRelatedToPlayer);
+
+        var companyId = product.company.Id;
+
+        foreach (var s in CompanyUtils.GetInvestmentProposals(gameContext, product.company.Id))
         {
-            if (s.hasCompany && CompanyUtils.IsCompanyRelatedToPlayer(gameContext, s))
-                return;
-
-
-            var investorShareholderId = s.shareholder.Id;
-            var companyId = product.company.Id;
-
-            var proposal = CompanyUtils.GetInvestmentProposal(gameContext, companyId, investorShareholderId);
-            //if (proposal == null)
-            //    return;
-
-
-            Format.Print($"Took investments from {s.shareholder.Name}. Offer: {Format.Money(proposal.Offer)}", product);
+            var investorShareholderId = s.ShareholderId;
+            var shareholderName = CompanyUtils.GetInvestorName(gameContext, investorShareholderId);
 
             CompanyUtils.AcceptProposal(gameContext, companyId, investorShareholderId);
+
+            Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", product);
         }
     }
 }
