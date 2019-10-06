@@ -3,9 +3,9 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
-class ProductMoveClientsAtPeriodEnd : OnMonthChange
+class ChurnClientsSystem : OnMonthChange
 {
-    public ProductMoveClientsAtPeriodEnd(Contexts contexts) : base(contexts)
+    public ChurnClientsSystem(Contexts contexts) : base(contexts)
     {
     }
 

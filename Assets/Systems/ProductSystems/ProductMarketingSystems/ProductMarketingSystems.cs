@@ -3,6 +3,6 @@
     public ProductMarketingSystems(Contexts contexts) : base("Product Marketing Systems")
     {
         // promote and leave clients
-        Add(new ProductMoveClientsAtPeriodEnd(contexts));
+        Add(new ChurnClientsSystem(contexts));
     }
 }

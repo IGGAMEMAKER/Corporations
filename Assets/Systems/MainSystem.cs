@@ -12,9 +12,9 @@
         Add(new NotificationSystems(contexts));
 
         Add(new MarketSystems(contexts));
-        Add(new ProductSystems(contexts));
         Add(new InvestmentsSystems(contexts));
         Add(new AISystems(contexts));
+        Add(new ProductSystems(contexts));
 
         Add(new TeamSystems(contexts));
 
