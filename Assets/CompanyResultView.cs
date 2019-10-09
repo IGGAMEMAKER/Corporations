@@ -16,13 +16,30 @@ public class CompanyResultView : View
     {
         CompanyName.text = CompanyUtils.GetCompanyById(GameContext, result.CompanyId).company.Name;
 
-        //ClientGrowth.color = Visuals.G
-        ClientGrowth.text = "Client growth\n" + Format.Minify(result.clientChange);
+        var growth = result.clientChange;
+        ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth);
 
-        MarketShareChange.text = "Market share\n" + Format.Sign((long)result.MarketShareChange) + "%";
+        var share = (long)result.MarketShareChange;
+        MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
 
-        ConceptStatusText.text = "Product\n" + result.ConceptStatus;
+
+
+        var conceptStatus = result.ConceptStatus;
+        var color = GetStatusColor(conceptStatus);
+
+        ConceptStatusText.text = "Product\n" + Visuals.Colorize(conceptStatus.ToString(), color);
 
         LinkToProjectView.CompanyId = result.CompanyId;
+    }
+
+    string GetStatusColor (ConceptStatus conceptStatus)
+    {
+        if (conceptStatus == ConceptStatus.Leader)
+            return VisualConstants.COLOR_POSITIVE;
+
+        if (conceptStatus == ConceptStatus.Outdated)
+            return VisualConstants.COLOR_NEGATIVE;
+
+        return VisualConstants.COLOR_NEUTRAL;
     }
 }
