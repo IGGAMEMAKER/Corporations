@@ -21,17 +21,17 @@ namespace Assets.Utils
             return audienceCost + profitCost;
         }
 
+        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        {
+            return NicheUtils.GetBaseProductMaintenance(gameContext, e);
+        }
+
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
             return 0;
             var c = CompanyUtils.GetCompanyById(context, companyId);
 
             return MarketingUtils.GetClients(c) * 100;
-        }
-
-        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
-        {
-            return NicheUtils.GetBaseProductMaintenance(gameContext, e);
         }
     }
 }
