@@ -18,7 +18,7 @@ public class RenderCompanyProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var change = EconomyUtils.GetBalanceChange(SelectedCompany, GameContext);
+        var change = EconomyUtils.GetProfit(SelectedCompany, GameContext);
 
         return Visuals.PositiveOrNegativeMinified(change);
     }

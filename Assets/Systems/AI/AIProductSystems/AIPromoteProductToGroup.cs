@@ -17,7 +17,7 @@ public partial class AIPromoteProductToGroup : OnMonthChange
         if (!product.isIndependentCompany)
             return;
 
-        var canGrow = EconomyUtils.GetBalanceChange(product, gameContext) > 1000000;
+        var canGrow = EconomyUtils.GetProfit(product, gameContext) > 1000000;
 
         var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
         var wantsToGrow = ambitions != Ambition.RuleProductCompany;

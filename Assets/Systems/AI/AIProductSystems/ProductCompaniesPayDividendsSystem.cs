@@ -17,7 +17,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnMonthChange
         if (product.isIndependentCompany)
             return;
 
-        var balanceChange = EconomyUtils.GetBalanceChange(product, gameContext);
+        var balanceChange = EconomyUtils.GetProfit(product, gameContext);
 
         if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
         {

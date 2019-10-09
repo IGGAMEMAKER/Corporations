@@ -11,7 +11,7 @@ namespace Assets.Utils
 
         public static bool IsMeetsIPOProfitRequirement(GameContext gameContext, int companyId)
         {
-            return EconomyUtils.GetBalanceChange(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_PROFIT;
+            return EconomyUtils.GetProfit(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_PROFIT;
         }
 
         public static bool IsMeetsIPOShareholderRequirement(GameContext gameContext, int companyId)

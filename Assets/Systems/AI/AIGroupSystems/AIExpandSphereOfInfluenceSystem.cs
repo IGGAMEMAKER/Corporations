@@ -50,7 +50,7 @@ public partial class AIManageGroupSystems
         var industry = group.companyFocus.Industries[0];
 
         var playableNiches = NicheUtils.GetPlayableNichesInIndustry(industry, gameContext);
-        var profit = EconomyUtils.GetBalanceChange(group, gameContext);
+        var profit = EconomyUtils.GetProfit(group, gameContext);
 
         var averageProfit = profit / (CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 

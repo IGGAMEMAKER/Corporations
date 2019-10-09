@@ -64,7 +64,7 @@ namespace Assets.Utils
 
         public static TeamResource GetResourceChange(GameEntity company, GameContext gameContext)
         {
-            long money = GetBalanceChange(company, gameContext) * GetPeriodDuration() / 30;
+            long money = GetProfit(company, gameContext) * GetPeriodDuration() / 30;
 
             if (!company.hasProduct)
                 return new TeamResource(money);

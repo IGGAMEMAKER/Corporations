@@ -22,7 +22,7 @@ public class ProductExpectations : View
     void Render()
     {
         long balance = MyProductEntity.companyResource.Resources.money;
-        long change = EconomyUtils.GetBalanceChange(GameContext, MyProductEntity.company.Id);
+        long change = EconomyUtils.GetProfit(GameContext, MyProductEntity.company.Id);
 
         var Text = GetComponent<Text>();
 
