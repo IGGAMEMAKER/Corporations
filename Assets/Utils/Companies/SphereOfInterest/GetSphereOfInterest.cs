@@ -7,7 +7,7 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        internal static bool IsInSphereOfInterest(GameEntity company, GameContext gameContext)
+        internal static bool IsInPlayerSphereOfInterest(GameEntity company, GameContext gameContext)
         {
             var player = GetPlayerCompany(gameContext);
             if (player == null)

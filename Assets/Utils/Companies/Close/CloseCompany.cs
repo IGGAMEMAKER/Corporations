@@ -36,7 +36,7 @@ namespace Assets.Utils
 
         public static void NotifyAboutProductSupportEnd(GameEntity product, GameContext gameContext)
         {
-            if (IsInSphereOfInterest(product, gameContext))
+            if (IsInPlayerSphereOfInterest(product, gameContext))
                 NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(product.company.Id));
         }
     }

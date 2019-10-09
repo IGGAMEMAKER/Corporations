@@ -3,7 +3,7 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class SpawnProductsSystem : OnMonthChange
+class SpawnProductsSystem : OnQuarterChange
 {
     public SpawnProductsSystem(Contexts contexts) : base(contexts)
     {
@@ -11,8 +11,7 @@ class SpawnProductsSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] niches = contexts.game
-            .GetEntities(GameMatcher.AllOf(GameMatcher.Niche));
+        GameEntity[] niches = NicheUtils.GetNiches(gameContext);
 
         foreach (var niche in niches)
         {
@@ -36,8 +35,10 @@ class SpawnProductsSystem : OnMonthChange
             {
                 var product = CompanyUtils.AutoGenerateProductCompany(nicheType, gameContext);
 
-                var startCapital = NicheUtils.GetStartCapital(niche) * Random.Range(50, 150) / 100;
-                CompanyUtils.AddResources(product, new Assets.Classes.TeamResource(startCapital));
+                CompanyUtils.SetStartCapital(product, niche);
+
+                if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
             }
         }
     }

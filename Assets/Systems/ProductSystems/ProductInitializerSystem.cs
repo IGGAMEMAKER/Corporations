@@ -185,7 +185,11 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     GameEntity GenerateProductCompany(string name, NicheType nicheType)
     {
-        return CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+        var product = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+
+        CompanyUtils.SetStartCapital(product, GameContext);
+
+        return product;
     }
 
     int GenerateInvestmentFund(string name, long money)

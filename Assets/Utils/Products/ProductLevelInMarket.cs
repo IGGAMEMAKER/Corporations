@@ -42,7 +42,7 @@ namespace Assets.Utils
 
         public static bool IsOutOfMarket(GameEntity product, GameContext gameContext)
         {
-            return GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext) < 0;
+            return GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext) > 0;
         }
 
         public static bool IsWillInnovate(GameEntity product, GameContext gameContext)

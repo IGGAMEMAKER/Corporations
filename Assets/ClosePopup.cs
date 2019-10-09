@@ -9,6 +9,6 @@ public class ClosePopup : SimplePopupButtonController
 
     public override string GetButtonName()
     {
-        return "Close";
+        return "Cancel";
     }
 }

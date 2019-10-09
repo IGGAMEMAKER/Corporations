@@ -40,7 +40,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
         bool isNicheDead = NicheUtils.GetMarketState(niche) == NicheLifecyclePhase.Death;
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
+        {
             CompanyUtils.CloseCompany(gameContext, product);
+
+            if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
+                NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
+        }
     }
 
 

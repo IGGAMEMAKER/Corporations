@@ -3,7 +3,7 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class SpawnFundsSystem : OnMonthChange
+class SpawnFundsSystem : OnQuarterChange
 {
     public SpawnFundsSystem(Contexts contexts) : base(contexts)
     {

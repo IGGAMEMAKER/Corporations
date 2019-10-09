@@ -41,7 +41,10 @@ public class NavigationHistoryComponent : IComponent
 public enum PopupType
 {
     CloseCompany,
-    MarketChanges
+    MarketChanges,
+
+    BankruptCompany,
+    NewCompany
 }
 
 public class PopupMessage
@@ -49,14 +52,37 @@ public class PopupMessage
     public PopupType PopupType;
 }
 
-public class PopupMessageCloseCompany : PopupMessage
+public class PopupMessageCompanyClose : PopupMessage
 {
     public int companyId;
 
-    public PopupMessageCloseCompany (int companyId)
+    public PopupMessageCompanyClose (int companyId)
     {
         this.companyId = companyId;
         PopupType = PopupType.CloseCompany;
+    }
+}
+
+public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
+{
+    public PopupMessageCompanyBankrupt(int companyId) : base(companyId, PopupType.BankruptCompany) { }
+}
+
+public class PopupMessageCompanySpawn : PopupMessageCompanyEvent
+{
+    public PopupMessageCompanySpawn(int companyId) : base(companyId, PopupType.NewCompany) { }
+}
+
+
+// universal
+public abstract class PopupMessageCompanyEvent : PopupMessage
+{
+    public int companyId;
+
+    public PopupMessageCompanyEvent(int companyId, PopupType popupType)
+    {
+        this.companyId = companyId;
+        PopupType = popupType;
     }
 }
 

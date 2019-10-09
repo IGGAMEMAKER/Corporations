@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Utils.Formatting;
+using Entitas;
 using System;
 using System.Collections.Generic;
 
@@ -79,7 +80,7 @@ namespace Assets.Utils
         {
             var playersOnMarket = NicheUtils.GetCompetitorsAmount(n, gameContext);
 
-            var c = GenerateProductCompany(gameContext, n + " " + playersOnMarket, n);
+            var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(n) + " " + playersOnMarket, n);
 
             AutoFillShareholders(gameContext, c, true);
 

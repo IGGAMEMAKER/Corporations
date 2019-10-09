@@ -1,7 +1,7 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class CloseCompanyController : PopupButtonController<PopupMessageCloseCompany>
+public class CloseCompanyController : PopupButtonController<PopupMessageCompanyClose>
 {
     public override void Execute()
     {
