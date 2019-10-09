@@ -35,6 +35,9 @@
             return GetProfit(gameContext, companyId) > 0;
         }
 
+
+
+
         internal static long GetBalanceROI(GameEntity c, GameContext context)
         {
             long maintenance = GetCompanyMaintenance(c, context);
