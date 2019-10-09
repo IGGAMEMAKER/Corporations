@@ -28,25 +28,25 @@ class CompanyReportSystem : OnMonthChange
 
     private void SaveGroupCompanyMetrics(GameEntity e, int date)
     {
-        CompanyStatisticsUtils.AddMetrics(gameContext, e.company.Id, new MetricsInfo
+        CompanyStatisticsUtils.AddMetrics(gameContext, e, new MetricsInfo
         {
             AudienceSize = 0,
             Date = date,
             Income = EconomyUtils.GetCompanyIncome(e, gameContext),
             Profit = EconomyUtils.GetProfit(e, gameContext),
-            Valuation = EconomyUtils.GetCompanyCost(gameContext, e.company.Id)
+            Valuation = EconomyUtils.GetCompanyCost(gameContext, e)
         });
     }
 
     void SaveProductCompanyMetrics (GameEntity e, int date)
     {
-        CompanyStatisticsUtils.AddMetrics(gameContext, e.company.Id, new MetricsInfo
+        CompanyStatisticsUtils.AddMetrics(gameContext, e, new MetricsInfo
         {
             AudienceSize = MarketingUtils.GetClients(e),
             Date = date,
             Income = EconomyUtils.GetCompanyIncome(e, gameContext),
             Profit = EconomyUtils.GetProfit(e, gameContext),
-            Valuation = EconomyUtils.GetCompanyCost(gameContext, e.company.Id)
+            Valuation = EconomyUtils.GetCompanyCost(gameContext, e)
         });
     }
 }

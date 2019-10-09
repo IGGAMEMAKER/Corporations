@@ -41,6 +41,19 @@
             }
         }
 
+        public static float GetMarketStateTechModifier(NicheLifecyclePhase phase)
+        {
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Innovation:    return 1;
+                case NicheLifecyclePhase.Trending:      return 0.8f;
+                case NicheLifecyclePhase.MassUse:       return 0.7f;
+                case NicheLifecyclePhase.Decay:         return 0.6f;
+
+                default: return 0;
+            }
+        }
+
         public static NicheCostsComponent GetNicheCosts(GameEntity niche)
         {
             var state = GetMarketState(niche);
@@ -48,6 +61,7 @@
             var costModifier = GetMarketStateCostsModifier(state);
             var flowModifier = GetMarketStateClientFlowModifier(state);
             var priceModifier = GetMarketStatePriceModifier(state);
+            var techModifier = GetMarketStateTechModifier(state);
 
             var costs = niche.nicheCosts;
 
@@ -58,7 +72,7 @@
                 ClientBatch     = costs.ClientBatch * flowModifier,
                 
                 IdeaCost        = costs.IdeaCost * costModifier,
-                TechCost        = costs.TechCost * costModifier,
+                TechCost        = (int)(costs.TechCost * techModifier),
                 MarketingCost   = costs.MarketingCost * costModifier, // 
             };
 

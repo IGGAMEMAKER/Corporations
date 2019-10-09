@@ -28,7 +28,7 @@ public class CompanyViewOnMap : View
 
         bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
-        Name.text = c.company.Name.Substring(0, 1);
+        Name.text = c.company.Name; // .Substring(0, 1);
         Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
 
         LinkToProjectView.CompanyId = c.company.Id;

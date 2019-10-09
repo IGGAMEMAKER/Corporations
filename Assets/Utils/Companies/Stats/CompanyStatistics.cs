@@ -59,10 +59,8 @@ namespace Assets.Utils
 {
     public static class CompanyStatisticsUtils
     {
-        public static void AddMetrics(GameContext context, int companyId, MetricsInfo metricsInfo)
+        public static void AddMetrics(GameContext context, GameEntity c, MetricsInfo metricsInfo)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
-
             var metrics = c.metricsHistory;
 
             metrics.Metrics.Add(metricsInfo);

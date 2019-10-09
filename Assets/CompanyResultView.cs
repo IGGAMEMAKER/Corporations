@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CompanyResultView : View
 {
-    public LinkToProjectView LinkToProjectView;
+    public LinkToNiche LinkToNiche;
     public Text CompanyName;
     public Text ClientGrowth;
     public Text MarketShareChange;
@@ -29,7 +29,8 @@ public class CompanyResultView : View
 
         ConceptStatusText.text = "Product\n" + Visuals.Colorize(conceptStatus.ToString(), color);
 
-        LinkToProjectView.CompanyId = result.CompanyId;
+        var c = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
+        LinkToNiche.SetNiche(c.product.Niche);
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)
