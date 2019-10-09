@@ -55,20 +55,9 @@ namespace Assets.Utils
             }
         }
 
-        public static bool IsTeamWorkingOnProduct(GameEntity product)
-        {
-            return TeamUtils.IsUpgradePicked(product, TeamUpgrade.Prototype) ||
-            TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release) ||
-            TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform);
-        }
-
-        // TODO DUPLICATE!! UpdateSegment Doesnot Use these functions
         public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
         {
             if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product))
-                return;
-
-            if (!IsTeamWorkingOnProduct(product))
                 return;
 
             var upgrade = 1;

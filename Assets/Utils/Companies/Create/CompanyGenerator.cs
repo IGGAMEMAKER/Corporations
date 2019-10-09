@@ -24,9 +24,6 @@ namespace Assets.Utils
 
             InvestmentUtils.SetCompanyGoal(context, company, GOAL);
 
-            TeamUtils.ToggleTeamImprovement(company, TeamUpgrade.Prototype);
-
-
             int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
 
             company.AddProductPositioning(UnityEngine.Random.Range(0, positionings));
@@ -64,8 +61,6 @@ namespace Assets.Utils
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
             e.AddBranding(0);
-
-            e.AddTeamImprovements(new Dictionary<TeamUpgrade, int>());
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);

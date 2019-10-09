@@ -28,11 +28,6 @@ public class BrandingComponent : IComponent
     public float BrandPower;
 }
 
-public class TeamImprovementsComponent : IComponent
-{
-    public Dictionary<TeamUpgrade, int> Upgrades;
-}
-
 [Game, Event(EventTarget.Self)]
 public class ReleaseComponent : IComponent { }
 

@@ -14,12 +14,6 @@ namespace Assets.Utils
 
         public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            bool isPayingForMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release);
-            bool isPayingForAggressiveMarketing = TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform);
-
-            //Debug.Log("RecalculateBrandPowers: " + product.company.Name + " isPayingForMarketing=" + isPayingForMarketing);
-
-
             var conceptStatus = ProductUtils.GetConceptStatus(product, gameContext);
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;
@@ -30,9 +24,7 @@ namespace Assets.Utils
             var BrandingChangeBonus = new BonusContainer("Brand power change")
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
-                .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
-                .AppendAndHideIfZero("Is Paying For Marketing", isPayingForMarketing ? 1 : 0)
-                .AppendAndHideIfZero("Aggressive Marketing", isPayingForAggressiveMarketing ? 3 : 0);
+                .AppendAndHideIfZero("Is Innovator", isInnovator ? 5 : 0);
 
             return BrandingChangeBonus;
         }

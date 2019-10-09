@@ -94,6 +94,12 @@
         }
 
         // Maintenance
+        internal static long GetBaseProductMaintenance(GameContext gameContext, GameEntity product)
+        {
+            var niche = GetNicheEntity(gameContext, product.product.Niche);
+
+            return GetBaseProductMaintenance(niche);
+        }
         internal static long GetBaseProductMaintenance(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);

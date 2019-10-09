@@ -10,30 +10,5 @@ public partial class AIProductSystems : OnMonthChange
     {
         foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
             UpgradeSegment(e);
-
-        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
-            PickTeamUpgrades(e);
-    }
-
-    void PickTeamUpgrades(GameEntity product)
-    {
-        PickImprovementIfCan(product, TeamUpgrade.Multiplatform);
-        PickImprovementIfCan(product, TeamUpgrade.Release);
-        PickImprovementIfCan(product, TeamUpgrade.Prototype);
-    }
-
-    bool IsCanAffordTeamImprovement(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        var cost = TeamUtils.GetImprovementCost(gameContext, product, teamUpgrade);
-
-        var income = EconomyUtils.GetCompanyIncome(product, gameContext);
-
-        return income >= cost;
-    }
-
-    void PickImprovementIfCan(GameEntity product, TeamUpgrade teamUpgrade)
-    {
-        if (IsCanAffordTeamImprovement(product, teamUpgrade))
-            TeamUtils.PickTeamImprovement(product, teamUpgrade);
     }
 }

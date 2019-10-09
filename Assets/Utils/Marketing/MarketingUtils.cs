@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -33,22 +31,11 @@ namespace Assets.Utils
 
         public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
-            var brandModifier = (product.branding.BrandPower + 100) / 100;
-
-            var marketing = 0;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Prototype))
-                marketing = 1;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Release))
-                marketing = 3;
-            if (TeamUtils.IsUpgradePicked(product, TeamUpgrade.Multiplatform))
-                marketing = 9;
+            var brandModifier = (3 * product.branding.BrandPower + 100) / 100;
 
             var conceptModifier = 1 + ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext);
 
-            // SEO: 0...2
-            // marketing: 0...12
-            marketing = 1;
-            return (brandModifier * marketing) / conceptModifier; // + rand * 50;
+            return brandModifier / conceptModifier; // + rand * 50;
         }
     }
 }
