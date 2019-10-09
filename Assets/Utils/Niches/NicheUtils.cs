@@ -116,7 +116,20 @@ namespace Assets.Utils
 
             var niche = GetNicheEntity(gameContext, e.product.Niche);
 
-            AddNewUsersToMarket(niche, gameContext, users);
+            //AddNewUsersToMarket(niche, gameContext, users);
+
+            var companies = GetProductsOnMarket(gameContext, e.company.Id);
+
+            var powers = companies.Sum(c => c.branding.BrandPower + 1) - e.branding.BrandPower;
+
+            foreach (var c in companies)
+            {
+                if (c == e)
+                    continue;
+
+                var part = (long)((1 + c.branding.BrandPower) * users / powers);
+                MarketingUtils.AddClients(c, part);
+            }
 
             MarketingUtils.AddClients(e, -users);
         }
