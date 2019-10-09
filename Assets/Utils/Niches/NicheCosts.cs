@@ -105,7 +105,7 @@
             var costs = GetNicheCosts(niche);
 
             var ads = costs.AdCost;
-            var team = costs.TechCost;
+            var team = costs.TechCost * Constants.SALARIES_PROGRAMMER;
 
             return ads + team;
         }

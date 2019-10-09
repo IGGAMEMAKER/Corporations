@@ -68,6 +68,9 @@ public class Constants
     public static int START_YEAR = 2000;
     internal static long COMPANY_DESIRE_TO_SELL_NO = 0;
     internal static long COMPANY_DESIRE_TO_SELL_YES = 1;
+
+    public static float CLIENT_GAIN_MODIFIER_MIN = 0.75f;
+    public static float CLIENT_GAIN_MODIFIER_MAX = 1.2f;
 }
 
 public class VisualConstants

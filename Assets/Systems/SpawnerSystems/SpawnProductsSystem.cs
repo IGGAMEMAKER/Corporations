@@ -14,24 +14,31 @@ class SpawnProductsSystem : OnMonthChange
         GameEntity[] niches = contexts.game
             .GetEntities(GameMatcher.AllOf(GameMatcher.Niche));
 
-        foreach (var e in niches)
+        foreach (var niche in niches)
         {
-            var phase = NicheUtils.GetMarketState(e);
+            var phase = NicheUtils.GetMarketState(niche);
             if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
                 continue;
 
-            var nicheRating = NicheUtils.GetMarketRating(e);
+            var nicheType = niche.niche.NicheType;
 
-            var potential = NicheUtils.GetMarketPotential(e);
+            var nicheRating = NicheUtils.GetMarketRating(niche);
 
-            var playersOnMarket = NicheUtils.GetCompetitorsAmount(e.niche.NicheType, gameContext);
+            var potential = NicheUtils.GetMarketPotential(niche);
+
+            var playersOnMarket = NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
 
             var potentialRating = Mathf.Log10(potential) - 5;
             //                              1...5 = 25  *               1...4 = 10           
             var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
 
             if (spawnChance > Random.Range(0, 1000))
-                CompanyUtils.AutoGenerateProductCompany(e.niche.NicheType, gameContext);
+            {
+                var product = CompanyUtils.AutoGenerateProductCompany(nicheType, gameContext);
+
+                var startCapital = NicheUtils.GetStartCapital(niche) * Random.Range(50, 150) / 100;
+                CompanyUtils.AddResources(product, new Assets.Classes.TeamResource(startCapital));
+            }
         }
     }
 }

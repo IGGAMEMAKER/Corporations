@@ -64,7 +64,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
     long GetCompanyAudienceReach(GameEntity product, long flow)
     {
-        var rand = Random.Range(0.25f, 1.2f);
+        var rand = Random.Range(Constants.CLIENT_GAIN_MODIFIER_MIN, Constants.CLIENT_GAIN_MODIFIER_MAX);
 
         var growth = MarketingUtils.GetAudienceGrowth(product, gameContext);
 
