@@ -62,11 +62,22 @@ public class NicheMapRenderer : View
         RenderCompanies(niche, m);
     }
 
+    GameEntity[] GetProductsOnMarket (NicheType niche)
+    {
+        var marketWasResearched = NicheUtils.IsExploredMarket(GameContext, niche);
+
+        if (!marketWasResearched)
+            return new GameEntity[0];
+
+        return NicheUtils.GetProductsOnMarket(GameContext, niche)
+            .OrderByDescending(p => ProductUtils.GetProductLevel(p) * 1000 + CompanyUtils.GetCompanyExpertise(p))
+            .ToArray();
+
+    }
+
     void RenderCompanies(NicheType niche, GameObject m)
     {
-        var competitors = NicheUtils.GetProductsOnMarket(GameContext, niche)
-            .OrderByDescending(p => ProductUtils.GetProductLevel(p) + CompanyUtils.GetCompanyExpertise(p) * 100)
-            .ToArray();
+        var competitors = GetProductsOnMarket(niche);
 
         var marketPosition = m.transform.localPosition;
 
