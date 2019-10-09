@@ -47,6 +47,7 @@ namespace Assets.Utils
 
             // SEO: 0...2
             // marketing: 0...12
+            marketing = 1;
             return (brandModifier * marketing) / conceptModifier; // + rand * 50;
         }
     }

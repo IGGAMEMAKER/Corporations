@@ -5,7 +5,7 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
-        public static int GetBaseConceptTime(GameEntity niche)
+        public static int GetBaseIterationTime(GameEntity niche)
         {
             return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed);
         }
@@ -30,7 +30,7 @@ namespace Assets.Utils
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-            var baseConceptTime = GetBaseConceptTime(niche);
+            var baseConceptTime = GetBaseIterationTime(niche);
 
             var innovationTime = IsWillInnovate(company, gameContext) ? 15 : 10;
 

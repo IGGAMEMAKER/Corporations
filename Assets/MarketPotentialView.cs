@@ -52,7 +52,7 @@ public class MarketPotentialView : View
         //var iteration = (int)speed;
         //ChangeSpeed.text = $"{iteration} months";
 
-        var iteration = ProductUtils.GetBaseConceptTime(niche);
+        var iteration = ProductUtils.GetBaseIterationTime(niche);
         //var iteration = speed.ToString();
         ChangeSpeed.text = iteration + " days";
 
