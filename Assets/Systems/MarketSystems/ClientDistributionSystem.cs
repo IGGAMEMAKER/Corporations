@@ -66,6 +66,8 @@ public partial class ClientDistributionSystem : OnMonthChange
     {
         var rand = Random.Range(0.25f, 1.2f);
 
-        return MarketingUtils.GetAudienceGrowth(product, gameContext);
+        var growth = MarketingUtils.GetAudienceGrowth(product, gameContext);
+
+        return (long)(growth * rand);
     }
 }
