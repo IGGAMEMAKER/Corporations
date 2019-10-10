@@ -8,8 +8,26 @@ namespace Assets.Utils
         // TODO move this to better place!
         public static int GetPeriodDuration()
         {
-            return 30; // 30
+            return 30;
         }
+
+        public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)
+        {
+            var period = GetPeriodDuration();
+
+            long money = GetProfit(company, gameContext) * period / 30;
+
+            int performance = TeamUtils.GetPerformance(gameContext, company);
+
+            return new TeamResource(
+                Normalize(GetPP(company), performance),
+                Normalize(GetMP(company), performance),
+                Normalize(GetSP(company), performance),
+                Normalize(GetIdeas(company), performance),
+                money
+                );
+        }
+
 
         static int Normalize (int value, int performance)
         {
@@ -57,23 +75,6 @@ namespace Assets.Utils
             var expertiseModifier = CompanyUtils.GetCompanyExpertise(productCompany);
 
             return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (expertiseModifier + focusModifier) / 100;
-        }
-
-        public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)
-        {
-            var period = GetPeriodDuration();
-
-            long money = GetProfit(company, gameContext) * period / 30;
-
-            int performance = TeamUtils.GetPerformance(gameContext, company);
-
-            return new TeamResource(
-                Normalize(GetPP(company), performance),
-                Normalize(GetMP(company), performance),
-                Normalize(GetSP(company), performance),
-                Normalize(GetIdeas(company), performance),
-                money
-                );
         }
     }
 }
