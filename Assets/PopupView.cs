@@ -68,7 +68,31 @@ public class PopupView : View
     void RenderMarketChangePopup(PopupMessageMarketPhaseChange popup)
     {
         SetTitle("Market state changed!");
-        SetDescription("Market of " + EnumUtils.GetFormattedNicheName(popup.NicheType) + " is " + NicheUtils.GetMarketState(GameContext, popup.NicheType) + " now!");
+
+        var name = EnumUtils.GetFormattedNicheName(popup.NicheType);
+        var state = NicheUtils.GetMarketState(GameContext, popup.NicheType);
+        var possibilities = "";
+
+        switch (state)
+        {
+            case NicheLifecyclePhase.Innovation:
+                possibilities = "It's time to be first! Your innovation chances in this niche increase by 25%";
+                break;
+
+            case NicheLifecyclePhase.Trending:
+                possibilities = "It seems, that this market has the potential! Companies on this market will get way more clients, but maintenance cost will also increase";
+                break;
+
+            case NicheLifecyclePhase.MassUse:
+                possibilities = "It's time to earn money now! Company maintenances increase even more";
+                break;
+
+            case NicheLifecyclePhase.Decay:
+                possibilities = "Market passed it's prime and will decay slowly. Companies will no longer receive new users";
+                break;
+        }
+
+        SetDescription($"Market of {name} is {state} now!\n\n{possibilities}");
 
         AddComponent(typeof(ClosePopup));
     }

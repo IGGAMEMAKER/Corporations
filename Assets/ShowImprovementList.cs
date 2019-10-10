@@ -11,9 +11,8 @@ public class ShowImprovementList : UpgradedParameterView
     {
         var growth = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
 
-
-        var min = growth * Constants.CLIENT_GAIN_MODIFIER_MIN;
-        var max = growth * Constants.CLIENT_GAIN_MODIFIER_MAX;
+        var min = (long) (growth * Constants.CLIENT_GAIN_MODIFIER_MIN);
+        var max = (long) (growth * Constants.CLIENT_GAIN_MODIFIER_MAX);
 
         var churn = MarketingUtils.GetChurnClients(GameContext, SelectedCompany.company.Id);
 
