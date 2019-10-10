@@ -11,7 +11,6 @@ public partial class ClientDistributionSystem : OnPeriodChange // OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //var niches = NicheUtils.GetNiches(gameContext);
         var niches = NicheUtils.GetPlayableNiches(gameContext);
 
         foreach (var n in niches)
@@ -25,12 +24,8 @@ public partial class ClientDistributionSystem : OnPeriodChange // OnMonthChange
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
 
-        // we have added all users at once
-        //NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
-
         var clientContainers = niche.nicheClientsContainer.Clients;
 
-        //// calculate churn rates here?
         var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
         for (var i = 0; i < products.Length; i++)
         {
@@ -56,7 +51,6 @@ public partial class ClientDistributionSystem : OnPeriodChange // OnMonthChange
 
             MarketingUtils.AddClients(p, clients);
 
-            //
             clientContainers[segId] -= clients;
         }
 

@@ -1,9 +1,6 @@
-﻿using Assets.Classes;
-using Assets.Utils;
+﻿using Assets.Utils;
 using Entitas;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 // utils, logs and aliases
 public partial class AIProductSystems
