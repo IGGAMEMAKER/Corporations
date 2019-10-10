@@ -20,7 +20,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.SocialNetwork,
             NicheType.Blogs,
             NicheType.Forums,
-            NicheType.Email
+            NicheType.Email,
+            NicheType.Dating
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
@@ -63,32 +64,71 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.GamblingCasino,
             NicheType.GamblingLottery,
             NicheType.GamblingPoker,
+            NicheType.GamingF2P,
+            NicheType.GamingMMO,
+            NicheType.StreamingService
         };
         AttachNichesToIndustry(IndustryType.Entertainment, niches);
 
 
 
         SetNichesAutomatically(NicheType.GamblingLottery,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
             GetYear(2000)
             );
 
         SetNichesAutomatically(NicheType.GamblingCasino,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
             GetYear(2001),
             new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
             );
 
         SetNichesAutomatically(NicheType.GamblingBetting,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
             GetYear(2000)
             );
 
         SetNichesAutomatically(NicheType.GamblingPoker,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
             GetYear(2001)
             );
     }
+
+    private void InitializeEcommerceIndustry()
+    {
+        var niches = new NicheType[] {
+            NicheType.MarketplaceB2B,
+            NicheType.MarketplaceB2C,
+            NicheType.MarketplaceC2C,
+            NicheType.MarketplaceGlobal
+        };
+        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
+
+
+
+        SetNichesAutomatically(NicheType.MarketplaceB2B,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
+            GetYear(2003)
+            );
+
+        SetNichesAutomatically(NicheType.MarketplaceB2C,
+            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
+            GetYear(2005),
+            new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
+            );
+
+        SetNichesAutomatically(NicheType.MarketplaceC2C,
+            NicheDuration.EntireGame, AudienceSize.HundredMillion, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
+            GetYear(2006)
+            );
+
+        SetNichesAutomatically(NicheType.MarketplaceGlobal,
+            NicheDuration.EntireGame, AudienceSize.HundredMillion, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
+            GetYear(2001),
+            new MarketAttribute[] { MarketAttribute.AudienceIncreased }
+            );
+    }
+
 
     private void InitializeFundamentalIndustry()
     {

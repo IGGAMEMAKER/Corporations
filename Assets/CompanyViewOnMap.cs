@@ -7,6 +7,7 @@ public class CompanyViewOnMap : View
 {
     public Text Name;
     public Hint CompanyHint;
+    public Text Concept;
     public LinkToProjectView LinkToProjectView;
 
     public Image Image;
@@ -33,9 +34,13 @@ public class CompanyViewOnMap : View
 
         LinkToProjectView.CompanyId = c.company.Id;
 
+        var isRelatedToPlayer = CompanyUtils.IsCompanyRelatedToPlayer(GameContext, c);
         ConceptProgress.SetCompanyId(c.company.Id);
+        ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
+
+        Concept.text = ProductUtils.GetProductLevel(c) + "LVL";
 
         SetEmblemColor();
 
