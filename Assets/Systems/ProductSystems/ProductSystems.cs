@@ -4,8 +4,6 @@
     {
         //Add(new LogProductChangesSystem(contexts));
 
-        Add(new ProductMarketingSystems(contexts));
-
         Add(new ProductResourceSystems(contexts));
     }
 }

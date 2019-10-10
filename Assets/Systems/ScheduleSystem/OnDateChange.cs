@@ -68,6 +68,15 @@ public abstract class OnMonthChange : OnRandomDateChange
     public override int AmountOfDays => 30;
 }
 
+public abstract class OnWeekChange : OnRandomDateChange
+{
+    public OnWeekChange(Contexts contexts) : base (contexts)
+    {
+    }
+
+    public override int AmountOfDays => 7;
+}
+
 public abstract class OnQuarterChange : OnRandomDateChange
 {
     public OnQuarterChange(Contexts contexts) : base(contexts)

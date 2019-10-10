@@ -3,7 +3,7 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
-public partial class ClientDistributionSystem : OnMonthChange
+public partial class ClientDistributionSystem : OnWeekChange // OnMonthChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts)
     {
@@ -32,6 +32,16 @@ public partial class ClientDistributionSystem : OnMonthChange
         var clientContainers = niche.nicheClientsContainer.Clients;
 
         var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
+        for (var i = 0; i < products.Length; i++)
+        {
+            var p = products[i];
+
+            var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
+
+            var clients = Mathf.Max(0, MarketingUtils.GetClients(p) - churnClients);
+
+            MarketingUtils.AddClients(p, (long)clients / 4);
+        }
 
         var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
 

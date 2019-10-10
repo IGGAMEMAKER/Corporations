@@ -8,7 +8,7 @@ namespace Assets.Utils
         // TODO move this to better place!
         public static int GetPeriodDuration()
         {
-            return 30;
+            return 7;
         }
 
         static int Normalize (int value, int performance)
