@@ -18,7 +18,7 @@ public enum NicheType
 
     SocialNetwork,
     Messenger,
-    //Dating,
+    Dating,
     Blogs,
     Forums,
     Email,
@@ -31,13 +31,19 @@ public enum NicheType
     //OSSciencePurpose,
 
     // Gaming and gambling
-    GamingLottery,
-    GamingCasino, // slots, totalisator
-    GamingBetting,
-    GamingPoker,
+    GamblingLottery,
+    GamblingCasino, // slots, totalisator
+    GamblingBetting,
+    GamblingPoker,
+    GamingMMO,
+    GamingF2P,
+    StreamingService,
 
 
-    Ecommerce,
+    MarketplaceB2B,
+    MarketplaceC2C,
+    MarketplaceB2C,
+    MarketplaceGlobal
 }
 
 public enum IndustryType

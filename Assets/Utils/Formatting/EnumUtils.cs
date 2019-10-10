@@ -37,10 +37,10 @@ namespace Assets.Utils.Formatting
                 case NicheType.SearchEngine: return "Search Engines";
                 case NicheType.Browser: return "Web browsers";
 
-                case NicheType.GamingCasino: return "Online Casino";
-                case NicheType.GamingBetting: return "Online Betting";
-                case NicheType.GamingLottery: return "Online Lottery";
-                case NicheType.GamingPoker: return "Online Poker";
+                case NicheType.GamblingCasino: return "Online Casino";
+                case NicheType.GamblingBetting: return "Online Betting";
+                case NicheType.GamblingLottery: return "Online Lottery";
+                case NicheType.GamblingPoker: return "Online Poker";
 
                 default: return "Unknown niche: " + niche.ToString();
             }

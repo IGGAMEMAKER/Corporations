@@ -59,32 +59,32 @@ public partial class MarketInitializerSystem : IInitializeSystem
     private void InitializeEntertainmentIndustry()
     {
         var niches = new NicheType[] {
-            NicheType.GamingBetting,
-            NicheType.GamingCasino,
-            NicheType.GamingLottery,
-            NicheType.GamingPoker,
+            NicheType.GamblingBetting,
+            NicheType.GamblingCasino,
+            NicheType.GamblingLottery,
+            NicheType.GamblingPoker,
         };
         AttachNichesToIndustry(IndustryType.Entertainment, niches);
 
 
 
-        SetNichesAutomatically(NicheType.GamingLottery,
+        SetNichesAutomatically(NicheType.GamblingLottery,
             NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             GetYear(2000)
             );
 
-        SetNichesAutomatically(NicheType.GamingCasino,
+        SetNichesAutomatically(NicheType.GamblingCasino,
             NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             GetYear(2001),
             new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
             );
 
-        SetNichesAutomatically(NicheType.GamingBetting,
+        SetNichesAutomatically(NicheType.GamblingBetting,
             NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             GetYear(2000)
             );
 
-        SetNichesAutomatically(NicheType.GamingPoker,
+        SetNichesAutomatically(NicheType.GamblingPoker,
             NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
             GetYear(2001)
             );
