@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
-using Entitas;
 using UnityEngine;
 
-public partial class ClientDistributionSystem : OnPeriodChange // OnMonthChange
+public partial class ClientDistributionSystem : OnPeriodChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts)
     {

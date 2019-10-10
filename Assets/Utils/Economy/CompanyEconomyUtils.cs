@@ -38,15 +38,6 @@
 
 
 
-        internal static long GetBalanceROI(GameEntity c, GameContext context)
-        {
-            long maintenance = GetCompanyMaintenance(c, context);
-            long change = GetProfit(c, context);
-
-            return change * 100 / maintenance;
-        }
-
-
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
             var isMaxDevelopment = true;

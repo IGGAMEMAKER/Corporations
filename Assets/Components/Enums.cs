@@ -30,7 +30,7 @@ public enum NicheType
     Browser,
     //OSSciencePurpose,
 
-    // Gaming and gambling
+    // Entertainment
     GamblingLottery,
     GamblingCasino, // slots, totalisator
     GamblingBetting,
