@@ -49,7 +49,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},
-            GetYear(2000));
+            GetYear(1999));
 
         SetNichesAutomatically(NicheType.Messenger,
             NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
