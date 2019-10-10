@@ -17,6 +17,8 @@
             return GetGroupIncome(context, e);
         }
 
+
+
         internal static long GetProfit(GameEntity c, GameContext context)
         {
             return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
@@ -40,10 +42,7 @@
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            var isMaxDevelopment = true;
-            var isProfitable = IsProfitable(gameContext, product.company.Id);
-
-            return isMaxDevelopment && isProfitable;
+            return IsProfitable(gameContext, product.company.Id);
         }
     }
 }
