@@ -42,7 +42,7 @@ public class MenuResourceView : View
 
     TeamResource GetCompanyResourcePeriodChange()
     {
-        return EconomyUtils.GetResourceChange(MyCompany, GameContext);
+        return EconomyUtils.GetProductCompanyResourceChange(MyCompany, GameContext);
     }
 
     public override void ViewRender()

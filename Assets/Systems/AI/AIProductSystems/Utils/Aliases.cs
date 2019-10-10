@@ -40,9 +40,4 @@ public partial class AIProductSystems
     {
         return GetLogs().logs[logTypes];
     }
-
-    TeamResource GetResourceChange(GameEntity company)
-    {
-        return EconomyUtils.GetResourceChange(company, gameContext);
-    }
 }

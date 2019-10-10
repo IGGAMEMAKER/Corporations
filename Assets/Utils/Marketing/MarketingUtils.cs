@@ -18,7 +18,9 @@
         {
             var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
 
-            return costs.ClientBatch / 4;
+            var period = EconomyUtils.GetPeriodDuration();
+
+            return costs.ClientBatch * period / 30;
         }
 
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)

@@ -3,7 +3,7 @@ using Assets.Utils;
 using Entitas;
 using UnityEngine;
 
-public partial class ClientDistributionSystem : OnWeekChange // OnMonthChange
+public partial class ClientDistributionSystem : OnPeriodChange // OnMonthChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts)
     {
@@ -24,13 +24,13 @@ public partial class ClientDistributionSystem : OnWeekChange // OnMonthChange
 
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
-        //// calculate churn rates here?
 
         // we have added all users at once
         //NicheUtils.AddNewUsersToMarket(niche, gameContext, flow);
 
         var clientContainers = niche.nicheClientsContainer.Clients;
 
+        //// calculate churn rates here?
         var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
         for (var i = 0; i < products.Length; i++)
         {
@@ -38,9 +38,7 @@ public partial class ClientDistributionSystem : OnWeekChange // OnMonthChange
 
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
 
-            var clients = Mathf.Max(0, MarketingUtils.GetClients(p) - churnClients);
-
-            MarketingUtils.AddClients(p, (long)clients / 4);
+            MarketingUtils.AddClients(p, -churnClients);
         }
 
         var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);

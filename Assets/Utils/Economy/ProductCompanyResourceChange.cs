@@ -8,7 +8,7 @@ namespace Assets.Utils
         // TODO move this to better place!
         public static int GetPeriodDuration()
         {
-            return 7;
+            return 7; // 30
         }
 
         static int Normalize (int value, int performance)
@@ -52,9 +52,6 @@ namespace Assets.Utils
 
         static int GetIdeas(GameEntity productCompany)
         {
-            //var productManager = TeamUtils.GetManagers
-            //var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
-
             var focusModifier = Constants.DEVELOPMENT_FOCUS_IDEAS;
 
             var expertiseModifier = CompanyUtils.GetCompanyExpertise(productCompany);
@@ -62,12 +59,11 @@ namespace Assets.Utils
             return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (expertiseModifier + focusModifier) / 100;
         }
 
-        public static TeamResource GetResourceChange(GameEntity company, GameContext gameContext)
+        public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)
         {
-            long money = GetProfit(company, gameContext) * GetPeriodDuration() / 30;
+            var period = GetPeriodDuration();
 
-            if (!company.hasProduct)
-                return new TeamResource(money);
+            long money = GetProfit(company, gameContext) * period / 30;
 
             int performance = TeamUtils.GetPerformance(gameContext, company);
 

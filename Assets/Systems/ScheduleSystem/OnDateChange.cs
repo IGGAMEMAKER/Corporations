@@ -24,6 +24,7 @@ public abstract class OnDateChange : ReactiveSystem<GameEntity>
 }
 
 
+
 public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
 {
     public readonly Contexts contexts;
@@ -48,7 +49,12 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
     public abstract int AmountOfDays { get; }
 }
 
-
+public abstract class OnPeriodChange : OnWeekChange
+{
+    public OnPeriodChange(Contexts contexts) : base(contexts)
+    {
+    }
+}
 
 public abstract class OnHalfYear : OnRandomDateChange
 {

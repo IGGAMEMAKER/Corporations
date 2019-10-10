@@ -1,63 +1,21 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
-using Entitas;
 
-// TODO replace with OnMonthChange!
-class ProductResourceSystems : OnDateChange
+class ProductResourceSystems : OnPeriodChange
 {
     public ProductResourceSystems(Contexts contexts) : base(contexts)
     {
     }
 
-    bool IsPeriodEnd(DateComponent dateComponent)
+    protected override void Execute(List<GameEntity> entities)
     {
-        int period = EconomyUtils.GetPeriodDuration();
+        var products = CompanyUtils.GetProductCompanies(gameContext);
 
-        if (period == 1)
-            return true;
-
-        return dateComponent.Date % period == 0 && dateComponent.Date > 0;
-    }
-
-    bool IsMonthEnd(DateComponent dateComponent)
-    {
-        return dateComponent.Date % 30 == 0 && dateComponent.Date > 0;
-    }
-
-    bool IsWeekEnd(DateComponent dateComponent)
-    {
-        return dateComponent.Date % 7 == 0 && dateComponent.Date > 0;
-    }
-
-
-
-    void AddResources(GameEntity[] Products)
-    {
-        foreach (var e in Products)
+        foreach (var e in products)
         {
-            var resources = EconomyUtils.GetResourceChange(e, contexts.game);
+            var resources = EconomyUtils.GetProductCompanyResourceChange(e, contexts.game);
 
             CompanyUtils.AddResources(e, resources);
         }
-    }
-
-    protected override void Execute(List<GameEntity> entities)
-    {
-        if (!IsPeriodEnd(entities[0].date))
-            return;
-
-        var products = CompanyUtils.GetProductCompanies(gameContext);
-
-        AddResources(products);
-    }
-
-    protected override bool Filter(GameEntity entity)
-    {
-        return entity.hasDate;
-    }
-
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.Date);
     }
 }

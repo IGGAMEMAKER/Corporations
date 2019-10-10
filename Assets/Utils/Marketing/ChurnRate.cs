@@ -1,8 +1,4 @@
-﻿using Assets.Utils.Formatting;
-using System;
-using System.Text;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -33,7 +29,11 @@ namespace Assets.Utils
 
             var churn = GetChurnRate(gameContext, companyId);
 
-            return c.marketing.clients * churn / 100;
+            var clients = GetClients(c);
+
+            var period = EconomyUtils.GetPeriodDuration();
+
+            return clients * churn * period / 30 / 100;
         }
     }
 }
