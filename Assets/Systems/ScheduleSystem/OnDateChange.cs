@@ -49,7 +49,7 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
     public abstract int AmountOfDays { get; }
 }
 
-public abstract class OnPeriodChange : OnWeekChange
+public abstract class OnPeriodChange : OnMonthChange
 {
     public OnPeriodChange(Contexts contexts) : base(contexts)
     {

@@ -29,10 +29,19 @@ public class BonusContainer
     public bool renderTitle;
     public string dimension;
 
+    bool minify = false;
+
     public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
 
         parameter = bonusName;
+    }
+
+    public BonusContainer Minify()
+    {
+        minify = true;
+
+        return this;
     }
 
     public BonusContainer SetDimension(string dim)
@@ -98,10 +107,15 @@ public class BonusContainer
 
         foreach (var bonus in bonusDescriptions)
         {
-            if (!(bonus.HideIfZero && bonus.Value == 0))
-            {
-                str.AppendLine(Visuals.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType));
-            }
+            if (bonus.HideIfZero && bonus.Value == 0)
+                continue;
+
+            var text = "";
+
+            //if (minify)
+            text = Visuals.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType);
+
+            str.AppendLine(text);
         }
 
         return str.ToString();

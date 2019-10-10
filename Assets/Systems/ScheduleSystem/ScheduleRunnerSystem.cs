@@ -9,7 +9,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     bool isTimerRunning => DateEntity.isTimerRunning;
 
     float totalTime;
-    float currentSpeed = 3;
+    float currentSpeed = 2;
     float baseSpeed = 0.5f;
 
     GameEntity DateEntity;
