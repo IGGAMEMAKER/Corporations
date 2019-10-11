@@ -23,6 +23,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         GetYear(year));
     }
 
+
+
     void InitializeCommunicationsIndustry()
     {
         var niches = new NicheType[] {
