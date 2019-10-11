@@ -16,12 +16,12 @@ public enum NicheType
 {
     //None,
 
-    SocialNetwork,
-    Messenger,
-    Dating,
-    Blogs,
-    Forums,
-    Email,
+    Com_SocialNetwork,
+    Com_Messenger,
+    Com_Dating,
+    Com_Blogs,
+    Com_Forums,
+    Com_Email,
 
 
     SearchEngine,
@@ -31,19 +31,17 @@ public enum NicheType
     //OSSciencePurpose,
 
     // Entertainment
-    GamblingLottery,
-    GamblingCasino, // slots, totalisator
-    GamblingBetting,
-    GamblingPoker,
-    GamingMMO,
-    GamingF2P,
-    StreamingService,
+    Ent_Lottery,
+    Ent_Casino, // slots, totalisator
+    Ent_Betting,
+    Ent_Poker,
 
+    Ent_MMOs,
+    Ent_FreeToPlay,
+    Ent_SinglePlayer,
+    Ent_Publishing,
 
-    MarketplaceB2B,
-    MarketplaceC2C,
-    MarketplaceB2C,
-    MarketplaceGlobal
+    Ent_StreamingService,
 }
 
 public enum IndustryType

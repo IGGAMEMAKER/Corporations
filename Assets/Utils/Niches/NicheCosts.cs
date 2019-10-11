@@ -102,7 +102,7 @@
 
             var timeToMarket = marketDemand * iterationTime / 30;
 
-            var timeToProfitability = 24;
+            var timeToProfitability = 0;
 
             return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(niche);
         }

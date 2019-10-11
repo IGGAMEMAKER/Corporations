@@ -48,13 +48,13 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void Initialize()
     {
         // products
-        var facebook = GenerateProductCompany("facebook", NicheType.SocialNetwork);
-        var twitter = GenerateProductCompany("twitter", NicheType.SocialNetwork);
-        var vk = GenerateProductCompany("vk", NicheType.SocialNetwork);
+        var facebook = GenerateProductCompany("facebook", NicheType.Com_SocialNetwork);
+        var twitter = GenerateProductCompany("twitter", NicheType.Com_SocialNetwork);
+        var vk = GenerateProductCompany("vk", NicheType.Com_SocialNetwork);
 
-        var tg = GenerateProductCompany("telegram", NicheType.Messenger);
-        GenerateProductCompany("whatsapp", NicheType.Messenger);
-        var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Messenger);
+        var tg = GenerateProductCompany("telegram", NicheType.Com_Messenger);
+        GenerateProductCompany("whatsapp", NicheType.Com_Messenger);
+        var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Com_Messenger);
 
         int google = GenerateProductCompany("Google", NicheType.SearchEngine).company.Id;
         int yahoo = GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;

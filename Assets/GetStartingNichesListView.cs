@@ -24,8 +24,8 @@ public class GetStartingNichesListView : ListView
     {
         var niches = new GameEntity[2];
 
-        niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Forums);
-        niches[1] = NicheUtils.GetNicheEntity(GameContext, NicheType.SocialNetwork);
+        niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_Forums);
+        niches[1] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_SocialNetwork);
 
         SetItems(niches);
     }

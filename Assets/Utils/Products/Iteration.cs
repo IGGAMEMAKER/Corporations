@@ -10,14 +10,14 @@ namespace Assets.Utils
             return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed);
         }
 
-        public static int GetBaseConceptTime(NicheChangeSpeed nicheChangeSpeed)
+        public static int GetBaseConceptTime(NicheSpeed nicheChangeSpeed)
         {
             switch (nicheChangeSpeed)
             {
-                case NicheChangeSpeed.Month: return 30;
-                case NicheChangeSpeed.Quarter: return 45;
-                case NicheChangeSpeed.Year: return 60;
-                case NicheChangeSpeed.ThreeYears: return 180;
+                case NicheSpeed.Month: return 30;
+                case NicheSpeed.Quarter: return 45;
+                case NicheSpeed.Year: return 60;
+                case NicheSpeed.ThreeYears: return 180;
 
                 default: return 0;
             }

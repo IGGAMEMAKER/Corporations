@@ -25,11 +25,11 @@ namespace Assets.Utils.Formatting
         {
             switch (niche)
             {
-                case NicheType.Messenger: return "Messengers";
-                case NicheType.SocialNetwork: return "Social Networks";
-                case NicheType.Blogs: return "Blogs";
-                case NicheType.Forums: return "Forums";
-                case NicheType.Email: return "Email services";
+                case NicheType.Com_Messenger: return "Messengers";
+                case NicheType.Com_SocialNetwork: return "Social Networks";
+                case NicheType.Com_Blogs: return "Blogs";
+                case NicheType.Com_Forums: return "Forums";
+                case NicheType.Com_Email: return "Email services";
 
 
                 case NicheType.CloudComputing: return "Clouds";
@@ -37,10 +37,10 @@ namespace Assets.Utils.Formatting
                 case NicheType.SearchEngine: return "Search Engines";
                 case NicheType.Browser: return "Web browsers";
 
-                case NicheType.GamblingCasino: return "Online Casino";
-                case NicheType.GamblingBetting: return "Online Betting";
-                case NicheType.GamblingLottery: return "Online Lottery";
-                case NicheType.GamblingPoker: return "Online Poker";
+                case NicheType.Ent_Casino: return "Online Casino";
+                case NicheType.Ent_Betting: return "Online Betting";
+                case NicheType.Ent_Lottery: return "Online Lottery";
+                case NicheType.Ent_Poker: return "Online Poker";
 
                 default: return "Unknown niche: " + niche.ToString();
             }

@@ -4,6 +4,8 @@ using Assets.Utils;
 using Assets.Utils.Formatting;
 using Entitas;
 
+
+
 public enum NicheDuration
 {
     // duration in months
@@ -13,12 +15,87 @@ public enum NicheDuration
     EntireGame = 12 * 50
 }
 
-public enum NicheChangeSpeed
+public enum NicheSpeed
 {
     Month = 1,
     Quarter = 3,
+    HalfYear = 6,
     Year = 12,
     ThreeYears = 36
+}
+
+public enum AudienceSize
+{
+    ForBigEnterprise = 2000, // 2K
+    ForSmallEnterprise = 50000, // 50K
+    Million = 1000000, // 1M
+    HundredMillion = 100000000, // 100M // usefull util AdBlock
+    Global = 1000000000 // 1-2B
+}
+
+//public enum PriceCategory
+//{
+//    // dollars per user per year
+//    CheapMass = 1,
+//    FreeMass = 4,
+//    CheapSubscription = 120, // Subscription model: 10$/month
+//    ExpensiveSubscription = 500, // Subscription model: 10$/month
+//    Enterprise = 50000,
+//}
+
+public enum Monetisation
+{
+    Ads,
+    Service,
+    IrregularPaid,
+    Paid, // (max income when making ads) + small additional payments
+    Enterprise
+}
+
+public enum IncomeSize
+{
+    Low = 1,
+    Mid = 5,
+    High = 20
+}
+
+public enum NicheAds
+{
+    Low = 2000,
+    Mid = 7000,
+    High = 25000,
+    Humongous = 85000
+}
+
+public enum ProductComplexity
+{
+    Low = 3,
+    Mid = 7,
+    High = 15,
+    Humongous = 25
+}
+
+
+public enum MarketAttribute
+{
+    RepaymentMonth,
+    RepaymentHalfYear,
+    RepaymentYear,
+
+    AudienceIncreased,
+    AudienceNiche,
+}
+
+
+public struct MarketSettings
+{
+    public AudienceSize AudienceSize;
+    public Monetisation MonetisationType;
+    public IncomeSize IncomeSize;
+
+
+    public NicheSpeed Iteration;
+    public ProductComplexity ProductComplexity;
 }
 
 // everyone: operation systems, browsers, social networks (messaging + content)
@@ -26,58 +103,64 @@ public enum NicheChangeSpeed
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    public enum AudienceSize
+    GameEntity SetNichesAutomatically(NicheType nicheType,
+        MarketSettings settings,
+        //AudienceSize AudienceSize,
+        //MonetisationType MonetisationType,
+        //IncomeSize IncomeSize,
+        //NicheSpeed NicheChangeSpeed,
+        //NicheAds NicheAdMaintenance,
+        //NicheMaintenance NicheSupportMaintenance,
+
+
+    //NicheDuration NicheDuration, AudienceSize audienceSize, MonetisationType priceCategory,
+    //NicheChangeSpeed ChangeSpeed,
+    // //ProductPositioning[] productPositionings,
+    int startDate,
+        MarketAttribute[] marketAttributes = null)
     {
-        ForBigEnterprise =      2000, // 2K
-        ForSmallEnterprise =    50000, // 50K
-        Million         =       1000000, // 1M
-        HundredMillion =        100000000, // 100M // usefull util AdBlock
-        Billion =               1000000000 // 1-2B
+        var nicheId = GetNicheId(nicheType);
+
+        var price = GetProductPrice(settings.MonetisationType, settings.IncomeSize, nicheId);
+
+        var audience = GetFullAudience(settings.AudienceSize, nicheId);
+        var clients = GetBatchSize(audience, nicheId);
+
+        var ChangeSpeed = settings.Iteration;
+        var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+        var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
+        var marketingCost = 0;
+
+        var adCosts = GetAdCost(clients, nicheId);
+
+        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
+
+
+
+
+        var positionings = new Dictionary<int, ProductPositioning>
+        {
+            [0] = new ProductPositioning
+            {
+                isCompetitive = false,
+                marketShare = 100,
+                name = EnumUtils.GetSingleFormattedNicheName(nicheType)
+            }
+        };
+
+        var clientsContainer = new Dictionary<int, long>
+        {
+            [0] = audience
+        };
+
+        n.ReplaceNicheSegments(positionings);
+        n.ReplaceNicheClientsContainer(clientsContainer);
+        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
+
+
+        return n;
     }
 
-    public enum PriceCategory
-    {
-        // dollars per user per year
-        CheapMass = 1,
-        FreeMass = 4,
-        CheapSubscription = 120, // Subscription model: 10$/month
-        ExpensiveSubscription = 500, // Subscription model: 10$/month
-        Enterprise = 50000, 
-    }
-
-    public enum NicheAdMaintenance
-    {
-        Low =       2000,
-        Mid =       7000,
-        High =      25000,
-        Humongous = 85000
-    }
-
-    public enum NicheTechMaintenance
-    {
-        Low = 3,
-        Mid = 7,
-        High = 15,
-        Humongous = 25
-    }
-
-    public enum NicheMarketingMaintenance
-    {
-        Low = 1,
-        Mid = 3,
-        High = 7,
-        Humongous = 10
-    }
-
-    public enum MarketAttribute
-    {
-        RepaymentMonth,
-        RepaymentHalfYear,
-        RepaymentYear,
-
-        AudienceIncreased,
-        AudienceNiche,
-    }
 
     bool GetAttribute(MarketAttribute[] marketAttributes, MarketAttribute attribute)
     {
@@ -86,117 +169,49 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return marketAttributes.Contains(attribute);
     }
 
-    GameEntity SetNichesAutomatically(NicheType nicheType,
-        NicheDuration NicheDuration, AudienceSize audienceSize, PriceCategory priceCategory,
-        NicheChangeSpeed ChangeSpeed,
-        //ProductPositioning[] productPositionings,
-        int startDate,
-        MarketAttribute[] marketAttributes = null)
-    {
-        var nicheId = GetNicheId(nicheType);
-
-        var price = GetProductPrice(priceCategory, nicheId, nicheType, marketAttributes);
-
-        var audience = GetFullAudience(audienceSize, nicheId, marketAttributes);
-        var clients = GetBatchSize(audience, NicheDuration);
-
-
-        var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-        var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
-        var marketingCost = GetMarketingCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-
-        var adCosts = GetAdCost(clients, priceCategory, nicheId);
-
-        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
-
-
-
-        // positionings
-        var positionings = new Dictionary<int, ProductPositioning>(); // n.nicheSegments.Positionings;
-        var clientsContainer = new Dictionary<int, long>();
-
-        positionings[0] = new ProductPositioning
-        {
-            isCompetitive = false,
-            marketShare = 100,
-            name = EnumUtils.GetSingleFormattedNicheName(nicheType)
-        };
-        clientsContainer[0] = audience;
-
-
-        n.ReplaceNicheSegments(positionings);
-        n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
-
-
-
-        return n;
-    }
-
-
-
-
-    //private int GetMarketingCost(NicheMarketingMaintenance techMaintenance, int nicheId)
-    private int GetMarketingCost(NicheChangeSpeed techMaintenance, int nicheId)
+    private int GetTechCost(NicheSpeed techMaintenance, int nicheId)
     {
         var baseCost = (int)techMaintenance;
 
         return (int)Randomise(baseCost, nicheId);
     }
 
-    //private int GetTechCost(NicheTechMaintenance techMaintenance, int nicheId)
-    private int GetTechCost(NicheChangeSpeed techMaintenance, int nicheId)
-    {
-        var baseCost = (int)techMaintenance;
 
-        return (int)Randomise(baseCost, nicheId);
+    float GetPriceModifierAttributeBased(MarketAttribute[] marketAttributes)
+    {
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentMonth))
+            return 5;
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentHalfYear))
+            return 2;
+        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentYear))
+            return 0.5f;
+
+        return 1;
     }
-
-    float GetProductPrice(PriceCategory priceCategory, int nicheId, NicheType nicheType, MarketAttribute[] marketAttributes)
+    float GetProductPrice(Monetisation monetisationType, IncomeSize incomeSize, int nicheId)
     {
-        var baseCost = (int)priceCategory;
+        var baseCost = (int)monetisationType;
 
         float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
-
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentMonth))
-            value *= 5;
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentHalfYear))
-            value *= 2;
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentYear))
-            value /= 2;
 
         return value;
     }
 
-    long GetFullAudience(AudienceSize audienceSize, int nicheId, MarketAttribute[] marketAttributes)
+    long GetFullAudience(AudienceSize audienceSize, int nicheId)
     {
-        var audience = Randomise((long)audienceSize, nicheId);
-
-        if (GetAttribute(marketAttributes, MarketAttribute.AudienceIncreased))
-            audience *= 5;
-        if (GetAttribute(marketAttributes, MarketAttribute.AudienceNiche))
-            audience /= 2;
-
-        return audience;
+        return Randomise((long)audienceSize, nicheId);
     }
 
-    long GetBatchSize (long audience, NicheDuration nicheDuration)
+    long GetBatchSize (long audience, int nicheId)
     {
-        var baseValue = GetClientBatchBase(audience, (int)nicheDuration);
-
-        return baseValue;
+        return Randomise(audience, nicheId);
     }
 
-
-    long GetClientBatchBase(long size, int NicheDurationInMonths)
-    {
-        return size / NicheDurationInMonths / 9;
-    }
 
     //int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
-    int GetAdCost (long clientBatch, PriceCategory priceCategory, int nicheId)
+    int GetAdCost (long clientBatch, int nicheId)
     {
-        var baseValue = clientBatch * (int)priceCategory / 2;
+        var baseValue = clientBatch / 2;
 
         return (int)Randomise(baseValue, nicheId);
     }

@@ -14,7 +14,7 @@ namespace Assets.Utils
                 IndustryType.Communications,
                 new List<MarketCompatibility>(),
                 new List<NicheType>(),
-                NicheType.SocialNetwork
+                NicheType.Com_SocialNetwork
                 );
 
 
@@ -30,7 +30,7 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Death] = 0, // churn
             };
 
-            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NicheChangeSpeed.Year);
+            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NicheSpeed.Year);
 
             e.AddNicheState(NicheLifecyclePhase.Idle, 0);
             UpdateNicheDuration(e);

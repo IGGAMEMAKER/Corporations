@@ -1,134 +1,138 @@
-﻿using Assets.Utils;
-using Entitas;
+﻿using Entitas;
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    int GetYear(int year)
-    {
-        return (year - Constants.START_YEAR) * 360;
-    }
+    int GetYear(int year) => (year - Constants.START_YEAR) * 360;
 
-    int GetYearAndADate(int year, int quarter)
+    int GetYearAndADate(int year, int quarter) => GetYear(year) + quarter * 90;
+
+
+    void SetGlobalFreeApp(NicheType nicheType, int year)
     {
-        return GetYear(year) + quarter * 90;
+        SetNichesAutomatically(nicheType,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Ads,
+                IncomeSize = IncomeSize.High,
+
+                ProductComplexity = ProductComplexity.High,
+
+                Iteration = NicheSpeed.Year
+            },
+        GetYear(year));
     }
 
     void InitializeCommunicationsIndustry()
     {
         var niches = new NicheType[] {
-            NicheType.Messenger,
-            NicheType.SocialNetwork,
-            NicheType.Blogs,
-            NicheType.Forums,
-            NicheType.Email,
-            NicheType.Dating
+            NicheType.Com_Messenger,
+            NicheType.Com_SocialNetwork,
+            NicheType.Com_Blogs,
+            NicheType.Com_Forums,
+            NicheType.Com_Email,
+            NicheType.Com_Dating
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
+        // Group by audience size
+        // 
+
+        MarketSettings popularUsefulApp = new MarketSettings
+        {
+            AudienceSize = AudienceSize.HundredMillion,
+            MonetisationType = Monetisation.Ads,
+            IncomeSize = IncomeSize.Low,
+
+            ProductComplexity = ProductComplexity.Low,
+
+            Iteration = NicheSpeed.Year,
+        };
+
+        MarketSettings rarelyUsedApp = new MarketSettings
+        {
+            AudienceSize = AudienceSize.HundredMillion,
+            MonetisationType = Monetisation.Ads,
+            IncomeSize = IncomeSize.Low,
+
+            ProductComplexity = ProductComplexity.Low,
+
+            Iteration = NicheSpeed.ThreeYears,
+        };
 
 
-        SetNichesAutomatically(NicheType.Email,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            GetYear(1990),
-            new MarketAttribute[] { MarketAttribute.RepaymentYear }
-            );
 
-        SetNichesAutomatically(NicheType.Forums,
-            NicheDuration.Decade, AudienceSize.HundredMillion, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
-            GetYear(1990));
+        SetNichesAutomatically(NicheType.Com_Email,     popularUsefulApp,   GetYear(1990));
+        SetNichesAutomatically(NicheType.Com_Forums,    rarelyUsedApp,      GetYear(1990));
+        SetNichesAutomatically(NicheType.Com_Blogs,     rarelyUsedApp,      GetYear(1995));
+        SetNichesAutomatically(NicheType.Com_Dating,    popularUsefulApp,   GetYear(2000));
 
-        SetNichesAutomatically(NicheType.Blogs,
-            NicheDuration.Decade, AudienceSize.HundredMillion, PriceCategory.CheapMass, NicheChangeSpeed.Year,
-            GetYear(1995));
 
-        SetNichesAutomatically(NicheType.SocialNetwork,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.Year,
+        SetNichesAutomatically(NicheType.Com_SocialNetwork,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Ads,
+                IncomeSize = IncomeSize.Mid,
+
+                ProductComplexity = ProductComplexity.Low,
+
+                Iteration = NicheSpeed.Year,
+            },
             //new ProductPositioning[] {
             //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
             //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
             //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},
-            GetYear(1999));
+            GetYear(1999)
+            );
 
-        SetNichesAutomatically(NicheType.Messenger,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.Quarter,
-            GetYear(2005));
+        SetNichesAutomatically(NicheType.Com_Messenger,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Ads,
+                IncomeSize = IncomeSize.Low,
+
+                ProductComplexity = ProductComplexity.Low,
+
+                Iteration = NicheSpeed.Quarter,
+            },
+            GetYear(2000)
+            );
     }
 
 
     private void InitializeEntertainmentIndustry()
     {
         var niches = new NicheType[] {
-            NicheType.GamblingBetting,
-            NicheType.GamblingCasino,
-            NicheType.GamblingLottery,
-            NicheType.GamblingPoker,
-            NicheType.GamingF2P,
-            NicheType.GamingMMO,
-            NicheType.StreamingService
+            NicheType.Ent_Betting,
+            NicheType.Ent_Casino,
+            NicheType.Ent_Lottery,
+            NicheType.Ent_Poker,
+            NicheType.Ent_FreeToPlay,
+            NicheType.Ent_MMOs,
+            NicheType.Ent_StreamingService
         };
         AttachNichesToIndustry(IndustryType.Entertainment, niches);
 
+        MarketSettings gamblingCompanyProfile = new MarketSettings
+        {
+            AudienceSize = AudienceSize.Million,
+            MonetisationType = Monetisation.IrregularPaid,
+            IncomeSize = IncomeSize.Low,
 
+            ProductComplexity = ProductComplexity.Low,
 
-        SetNichesAutomatically(NicheType.GamblingLottery,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2000)
-            );
-
-        SetNichesAutomatically(NicheType.GamblingCasino,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2001),
-            new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
-            );
-
-        SetNichesAutomatically(NicheType.GamblingBetting,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2000)
-            );
-
-        SetNichesAutomatically(NicheType.GamblingPoker,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2001)
-            );
-    }
-
-    private void InitializeEcommerceIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.MarketplaceB2B,
-            NicheType.MarketplaceB2C,
-            NicheType.MarketplaceC2C,
-            NicheType.MarketplaceGlobal
+            Iteration = NicheSpeed.Year,
         };
-        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
 
-
-
-        SetNichesAutomatically(NicheType.MarketplaceB2B,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2003)
-            );
-
-        SetNichesAutomatically(NicheType.MarketplaceB2C,
-            NicheDuration.EntireGame, AudienceSize.Million, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2005),
-            new MarketAttribute[] { MarketAttribute.RepaymentMonth, MarketAttribute.AudienceIncreased }
-            );
-
-        SetNichesAutomatically(NicheType.MarketplaceC2C,
-            NicheDuration.EntireGame, AudienceSize.HundredMillion, PriceCategory.CheapSubscription, NicheChangeSpeed.Year,
-            GetYear(2006)
-            );
-
-        SetNichesAutomatically(NicheType.MarketplaceGlobal,
-            NicheDuration.EntireGame, AudienceSize.HundredMillion, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.Year,
-            GetYear(2001),
-            new MarketAttribute[] { MarketAttribute.AudienceIncreased }
-            );
+        SetNichesAutomatically(NicheType.Ent_Lottery,   gamblingCompanyProfile, GetYear(2000));
+        SetNichesAutomatically(NicheType.Ent_Casino,    gamblingCompanyProfile, GetYear(2001));
+        SetNichesAutomatically(NicheType.Ent_Betting,   gamblingCompanyProfile, GetYear(2000));
+        SetNichesAutomatically(NicheType.Ent_Poker,     gamblingCompanyProfile, GetYear(2001));
     }
-
 
     private void InitializeFundamentalIndustry()
     {
@@ -142,20 +146,55 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
 
-        SetNichesAutomatically(NicheType.CloudComputing,
-            NicheDuration.EntireGame, AudienceSize.ForSmallEnterprise, PriceCategory.Enterprise, NicheChangeSpeed.Year,
+        SetNichesAutomatically(NicheType.CloudComputing, 
+            new MarketSettings {
+                AudienceSize = AudienceSize.ForSmallEnterprise,
+                MonetisationType = Monetisation.Enterprise,
+                IncomeSize = IncomeSize.High,
+
+                ProductComplexity = ProductComplexity.High,
+
+                Iteration = NicheSpeed.Year
+            },
             GetYear(2000));
 
         SetNichesAutomatically(NicheType.SearchEngine,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.FreeMass, NicheChangeSpeed.ThreeYears,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Ads,
+                IncomeSize = IncomeSize.High,
+
+                ProductComplexity = ProductComplexity.High,
+
+                Iteration = NicheSpeed.ThreeYears
+            },
             GetYear(1995));
 
         SetNichesAutomatically(NicheType.OSDesktop,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.ExpensiveSubscription, NicheChangeSpeed.ThreeYears,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Paid,
+                IncomeSize = IncomeSize.High,
+
+                ProductComplexity = ProductComplexity.High,
+
+                Iteration = NicheSpeed.ThreeYears
+            },
             GetYear(1980));
 
         SetNichesAutomatically(NicheType.Browser,
-            NicheDuration.EntireGame, AudienceSize.Billion, PriceCategory.CheapMass, NicheChangeSpeed.ThreeYears,
+            new MarketSettings
+            {
+                AudienceSize = AudienceSize.Global,
+                MonetisationType = Monetisation.Ads,
+                IncomeSize = IncomeSize.High,
+
+                ProductComplexity = ProductComplexity.High,
+
+                Iteration = NicheSpeed.Year
+            },
             GetYear(1990));
     }
 }
