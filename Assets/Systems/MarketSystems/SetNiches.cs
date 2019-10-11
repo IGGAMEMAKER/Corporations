@@ -7,23 +7,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
     int GetYearAndADate(int year, int quarter) => GetYear(year) + quarter * 90;
 
 
-    void SetGlobalFreeApp(NicheType nicheType, int year)
+    void PresetMarkets()
     {
-        SetNichesAutomatically(nicheType,
-            new MarketSettings
-            {
-                AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Ads,
-                Margin = Margin.High,
 
-                ProductComplexity = ProductComplexity.High,
-
-                Iteration = NicheSpeed.Year
-            },
-        GetYear(year));
     }
-
-
 
     void InitializeCommunicationsIndustry()
     {
@@ -40,7 +27,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         // Group by audience size
         // 
 
-        MarketSettings popularUsefulApp = new MarketSettings
+        MarketProfile popularUsefulApp = new MarketProfile
         {
             AudienceSize = AudienceSize.HundredMillion,
             MonetisationType = Monetisation.Ads,
@@ -51,7 +38,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             Iteration = NicheSpeed.Year,
         };
 
-        MarketSettings rarelyUsedApp = new MarketSettings
+        MarketProfile rarelyUsedApp = new MarketProfile
         {
             AudienceSize = AudienceSize.HundredMillion,
             MonetisationType = Monetisation.Ads,
@@ -64,14 +51,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
 
-        SetNichesAutomatically(NicheType.Com_Email,     popularUsefulApp,   GetYear(1990));
-        SetNichesAutomatically(NicheType.Com_Forums,    rarelyUsedApp,      GetYear(1990));
-        SetNichesAutomatically(NicheType.Com_Blogs,     rarelyUsedApp,      GetYear(1995));
-        SetNichesAutomatically(NicheType.Com_Dating,    popularUsefulApp,   GetYear(2000));
+        SetNichesAutomatically(NicheType.Com_Email,  1990, popularUsefulApp);
+        SetNichesAutomatically(NicheType.Com_Forums, 1990, rarelyUsedApp);
+        SetNichesAutomatically(NicheType.Com_Blogs,  1995, rarelyUsedApp);
+        SetNichesAutomatically(NicheType.Com_Dating, 2000, popularUsefulApp);
 
 
-        SetNichesAutomatically(NicheType.Com_SocialNetwork,
-            new MarketSettings
+        SetNichesAutomatically(NicheType.Com_SocialNetwork, 1999,
+            new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
@@ -80,18 +67,18 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 ProductComplexity = ProductComplexity.Low,
 
                 Iteration = NicheSpeed.Year,
-            },
+            }
             //new ProductPositioning[] {
             //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
             //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
             //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},
-            GetYear(1999)
+            
             );
 
-        SetNichesAutomatically(NicheType.Com_Messenger,
-            new MarketSettings
+        SetNichesAutomatically(NicheType.Com_Messenger, 2000,
+            new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
@@ -100,9 +87,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 ProductComplexity = ProductComplexity.Low,
 
                 Iteration = NicheSpeed.Quarter,
-            },
-            GetYear(2000)
-            );
+            });
     }
 
 
@@ -119,7 +104,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Entertainment, niches);
 
-        MarketSettings gamblingCompanyProfile = new MarketSettings
+        MarketProfile gamblingCompanyProfile = new MarketProfile
         {
             AudienceSize = AudienceSize.Million,
             MonetisationType = Monetisation.IrregularPaid,
@@ -127,13 +112,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             ProductComplexity = ProductComplexity.Low,
 
-            Iteration = NicheSpeed.Year,
+            Iteration = NicheSpeed.ThreeYears,
         };
 
-        SetNichesAutomatically(NicheType.Ent_Lottery,   gamblingCompanyProfile, GetYear(2000));
-        SetNichesAutomatically(NicheType.Ent_Casino,    gamblingCompanyProfile, GetYear(2001));
-        SetNichesAutomatically(NicheType.Ent_Betting,   gamblingCompanyProfile, GetYear(2000));
-        SetNichesAutomatically(NicheType.Ent_Poker,     gamblingCompanyProfile, GetYear(2001));
+        SetNichesAutomatically(NicheType.Ent_Lottery, 2000, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Casino, 2001, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Betting, 2000, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Poker, 2001, gamblingCompanyProfile);
     }
 
     private void InitializeFundamentalIndustry()
@@ -148,20 +133,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
 
-        SetNichesAutomatically(NicheType.CloudComputing, 
-            new MarketSettings {
-                AudienceSize = AudienceSize.ForSmallEnterprise,
+        SetNichesAutomatically(NicheType.CloudComputing, 2000,
+            new MarketProfile {
+                AudienceSize = AudienceSize.SmallEnterprise,
                 MonetisationType = Monetisation.Enterprise,
                 Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 
                 Iteration = NicheSpeed.Year
-            },
-            GetYear(2000));
+            });
 
-        SetNichesAutomatically(NicheType.SearchEngine,
-            new MarketSettings
+        SetNichesAutomatically(NicheType.SearchEngine, 1995,
+            new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
@@ -170,11 +154,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 ProductComplexity = ProductComplexity.High,
 
                 Iteration = NicheSpeed.ThreeYears
-            },
-            GetYear(1995));
+            });
 
-        SetNichesAutomatically(NicheType.OSDesktop,
-            new MarketSettings
+        SetNichesAutomatically(NicheType.OSDesktop, 1980,
+            new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Paid,
@@ -183,11 +166,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 ProductComplexity = ProductComplexity.High,
 
                 Iteration = NicheSpeed.ThreeYears
-            },
-            GetYear(1980));
+            });
 
-        SetNichesAutomatically(NicheType.Browser,
-            new MarketSettings
+        SetNichesAutomatically(NicheType.Browser, 1990,
+            new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
@@ -196,7 +178,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 ProductComplexity = ProductComplexity.High,
 
                 Iteration = NicheSpeed.Year
-            },
-            GetYear(1990));
+            });
     }
 }

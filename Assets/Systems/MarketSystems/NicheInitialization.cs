@@ -27,7 +27,7 @@ public enum NicheSpeed
 public enum AudienceSize
 {
     ForBigEnterprise = 2000, // 2K
-    ForSmallEnterprise = 50000, // 50K
+    SmallEnterprise = 50000, // 50K
     Million = 1000000, // 1M
     HundredMillion = 100000000, // 100M // usefull util AdBlock
     Global = 1000000000 // 1-2B
@@ -87,7 +87,7 @@ public enum MarketAttribute
 }
 
 
-public struct MarketSettings
+public struct MarketProfile
 {
     public AudienceSize AudienceSize;
     public Monetisation MonetisationType;
@@ -104,7 +104,8 @@ public struct MarketSettings
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
-        MarketSettings settings,
+        int startDate,
+        MarketProfile settings,
         //AudienceSize AudienceSize,
         //MonetisationType MonetisationType,
         //IncomeSize IncomeSize,
@@ -116,7 +117,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     //NicheDuration NicheDuration, AudienceSize audienceSize, MonetisationType priceCategory,
     //NicheChangeSpeed ChangeSpeed,
     // //ProductPositioning[] productPositionings,
-    int startDate,
         MarketAttribute[] marketAttributes = null)
     {
         var nicheId = GetNicheId(nicheType);
@@ -155,7 +155,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(startDate, n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
 
 
         return n;
