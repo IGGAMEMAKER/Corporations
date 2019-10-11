@@ -14,7 +14,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
-                IncomeSize = IncomeSize.High,
+                Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 
@@ -42,7 +42,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         {
             AudienceSize = AudienceSize.HundredMillion,
             MonetisationType = Monetisation.Ads,
-            IncomeSize = IncomeSize.Low,
+            Margin = Margin.Low,
 
             ProductComplexity = ProductComplexity.Low,
 
@@ -53,7 +53,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         {
             AudienceSize = AudienceSize.HundredMillion,
             MonetisationType = Monetisation.Ads,
-            IncomeSize = IncomeSize.Low,
+            Margin = Margin.Low,
 
             ProductComplexity = ProductComplexity.Low,
 
@@ -73,7 +73,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
-                IncomeSize = IncomeSize.Mid,
+                Margin = Margin.Mid,
 
                 ProductComplexity = ProductComplexity.Low,
 
@@ -93,7 +93,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
-                IncomeSize = IncomeSize.Low,
+                Margin = Margin.Low,
 
                 ProductComplexity = ProductComplexity.Low,
 
@@ -121,7 +121,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         {
             AudienceSize = AudienceSize.Million,
             MonetisationType = Monetisation.IrregularPaid,
-            IncomeSize = IncomeSize.Low,
+            Margin = Margin.Low,
 
             ProductComplexity = ProductComplexity.Low,
 
@@ -150,7 +150,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new MarketSettings {
                 AudienceSize = AudienceSize.ForSmallEnterprise,
                 MonetisationType = Monetisation.Enterprise,
-                IncomeSize = IncomeSize.High,
+                Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 
@@ -163,7 +163,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
-                IncomeSize = IncomeSize.High,
+                Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 
@@ -176,7 +176,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Paid,
-                IncomeSize = IncomeSize.High,
+                Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 
@@ -189,7 +189,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 AudienceSize = AudienceSize.Global,
                 MonetisationType = Monetisation.Ads,
-                IncomeSize = IncomeSize.High,
+                Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
 

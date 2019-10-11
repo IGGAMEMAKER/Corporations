@@ -52,7 +52,7 @@ public enum Monetisation
     Enterprise
 }
 
-public enum IncomeSize
+public enum Margin
 {
     Low = 1,
     Mid = 5,
@@ -91,7 +91,7 @@ public struct MarketSettings
 {
     public AudienceSize AudienceSize;
     public Monetisation MonetisationType;
-    public IncomeSize IncomeSize;
+    public Margin Margin;
 
 
     public NicheSpeed Iteration;
@@ -121,7 +121,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         var nicheId = GetNicheId(nicheType);
 
-        var price = GetProductPrice(settings.MonetisationType, settings.IncomeSize, nicheId);
+        var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
 
         var audience = GetFullAudience(settings.AudienceSize, nicheId);
         var clients = GetBatchSize(audience, nicheId);
@@ -188,7 +188,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         return 1;
     }
-    float GetProductPrice(Monetisation monetisationType, IncomeSize incomeSize, int nicheId)
+    float GetProductPrice(Monetisation monetisationType, Margin incomeSize, int nicheId)
     {
         var baseCost = (int)monetisationType;
 
