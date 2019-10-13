@@ -20,7 +20,8 @@
                 .Append("Base", 10)
                 .Append("Concept", fromProductLevel)
                 .Append("Retention Improvements", -improvements)
-                .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
+                .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
+                .Cap(2, 100);
         }
 
         public static long GetChurnRate(GameContext gameContext, int companyId)
