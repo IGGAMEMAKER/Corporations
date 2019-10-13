@@ -6,5 +6,8 @@ public partial class AIProductSystems
     {
         ProductUtils.UpdgradeProduct(product, gameContext);
         ProductUtils.UpgradeExpertise(product, gameContext);
+
+        ProductUtils.UpgradeProductImprovement(ProductImprovement.Acquisition, product);
+        ProductUtils.UpgradeProductImprovement(ProductImprovement.Monetisation, product);
     }
 }

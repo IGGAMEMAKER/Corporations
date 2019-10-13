@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderExpertise : UpgradedParameterView
+﻿public class RenderExpertise : UpgradedParameterView
 {
     public override string RenderHint()
     {
@@ -11,6 +7,14 @@ public class RenderExpertise : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return SelectedCompany.expertise.ExpertiseLevel.ToString();
+        var level = SelectedCompany.expertise.ExpertiseLevel;
+        var improvements = SelectedCompany.productImprovements.Count;
+
+        var freeImprovements = level - improvements;
+
+        if (freeImprovements > 0)
+            return freeImprovements + " free improvements";
+
+        return level + "LVL";
     }
 }

@@ -11,21 +11,19 @@ public partial class GameEntity {
     public ProductImprovementsComponent productImprovements { get { return (ProductImprovementsComponent)GetComponent(GameComponentsLookup.ProductImprovements); } }
     public bool hasProductImprovements { get { return HasComponent(GameComponentsLookup.ProductImprovements); } }
 
-    public void AddProductImprovements(int newAcquisition, int newRetention, int newMonetisation) {
+    public void AddProductImprovements(System.Collections.Generic.Dictionary<ProductImprovement, int> newImprovements, int newCount) {
         var index = GameComponentsLookup.ProductImprovements;
         var component = (ProductImprovementsComponent)CreateComponent(index, typeof(ProductImprovementsComponent));
-        component.Acquisition = newAcquisition;
-        component.Retention = newRetention;
-        component.Monetisation = newMonetisation;
+        component.Improvements = newImprovements;
+        component.Count = newCount;
         AddComponent(index, component);
     }
 
-    public void ReplaceProductImprovements(int newAcquisition, int newRetention, int newMonetisation) {
+    public void ReplaceProductImprovements(System.Collections.Generic.Dictionary<ProductImprovement, int> newImprovements, int newCount) {
         var index = GameComponentsLookup.ProductImprovements;
         var component = (ProductImprovementsComponent)CreateComponent(index, typeof(ProductImprovementsComponent));
-        component.Acquisition = newAcquisition;
-        component.Retention = newRetention;
-        component.Monetisation = newMonetisation;
+        component.Improvements = newImprovements;
+        component.Count = newCount;
         ReplaceComponent(index, component);
     }
 

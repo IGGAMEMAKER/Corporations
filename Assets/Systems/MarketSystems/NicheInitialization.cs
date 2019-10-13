@@ -45,11 +45,11 @@ public enum AudienceSize
 
 public enum Monetisation
 {
-    Ads,
-    Service,
-    IrregularPaid,
-    Paid, // (max income when making ads) + small additional payments
-    Enterprise
+    Ads = 1,
+    Service = 10,
+    IrregularPaid = 25,
+    Paid = 50, // (max income when making ads) + small additional payments
+    Enterprise = 1000
 }
 
 public enum Margin
@@ -106,16 +106,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
         MarketProfile settings,
-        //AudienceSize AudienceSize,
-        //MonetisationType MonetisationType,
-        //IncomeSize IncomeSize,
-        //NicheSpeed NicheChangeSpeed,
-        //NicheAds NicheAdMaintenance,
-        //NicheMaintenance NicheSupportMaintenance,
-
-
-    //NicheDuration NicheDuration, AudienceSize audienceSize, MonetisationType priceCategory,
-    //NicheChangeSpeed ChangeSpeed,
     // //ProductPositioning[] productPositionings,
         MarketAttribute[] marketAttributes = null)
     {
@@ -124,7 +114,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
 
         var audience = GetFullAudience(settings.AudienceSize, nicheId);
-        var clients = GetBatchSize(audience, nicheId);
+        var clients = GetBatchSize(settings.AudienceSize, nicheId);
 
         var ChangeSpeed = settings.Iteration;
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
@@ -177,20 +167,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
 
-    float GetPriceModifierAttributeBased(MarketAttribute[] marketAttributes)
-    {
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentMonth))
-            return 5;
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentHalfYear))
-            return 2;
-        if (GetAttribute(marketAttributes, MarketAttribute.RepaymentYear))
-            return 0.5f;
-
-        return 1;
-    }
     float GetProductPrice(Monetisation monetisationType, Margin incomeSize, int nicheId)
     {
-        var baseCost = (int)monetisationType;
+        var baseCost = (int)monetisationType * (int)incomeSize;
 
         float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
 
@@ -202,14 +181,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Randomise((long)audienceSize, nicheId);
     }
 
-    long GetBatchSize (long audience, int nicheId)
+    long GetBatchSize(AudienceSize audience, int nicheId)
     {
-        return Randomise(audience, nicheId);
+        var repaymentPeriod = 20 * 12;
+        return Randomise((long)audience / repaymentPeriod, nicheId);
     }
 
-
-    //int GetAdCost (NicheAdMaintenance nicheMaintenance, int nicheId)
-    int GetAdCost (long clientBatch, int nicheId)
+    int GetAdCost(long clientBatch, int nicheId)
     {
         var baseValue = clientBatch / 2;
 

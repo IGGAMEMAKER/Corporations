@@ -36,8 +36,9 @@
             var brandModifier = (3 * product.branding.BrandPower + 100) / 100;
 
             var conceptModifier = 1 + ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, gameContext);
+            var improvements = (100 + product.productImprovements.Improvements[ProductImprovement.Acquisition] * 2) / 100;
 
-            return brandModifier / conceptModifier; // + rand * 50;
+            return brandModifier * improvements / conceptModifier; // + rand * 50;
         }
     }
 }

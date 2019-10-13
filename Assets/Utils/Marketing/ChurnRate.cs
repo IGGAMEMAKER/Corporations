@@ -10,11 +10,16 @@
             var fromProductLevel = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
             var marketIsDying = state == NicheLifecyclePhase.Death;
 
+
+            var improvements = c.productImprovements.Improvements[ProductImprovement.Retention];
+            var improvementModifier = improvements;
+
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base", 1)
+                .Append("Base", 10)
                 .Append("Concept", fromProductLevel)
+                .Append("Retention Improvements", -improvements)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0);
         }
 

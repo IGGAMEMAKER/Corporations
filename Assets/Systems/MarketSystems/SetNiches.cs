@@ -7,11 +7,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     int GetYearAndADate(int year, int quarter) => GetYear(year) + quarter * 90;
 
 
-    void PresetMarkets()
-    {
-
-    }
-
     void InitializeCommunicationsIndustry()
     {
         var niches = new NicheType[] {

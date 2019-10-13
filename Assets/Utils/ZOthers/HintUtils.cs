@@ -29,19 +29,10 @@ public class BonusContainer
     public bool renderTitle;
     public string dimension;
 
-    bool minify = false;
-
     public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
 
         parameter = bonusName;
-    }
-
-    public BonusContainer Minify()
-    {
-        minify = true;
-
-        return this;
     }
 
     public BonusContainer SetDimension(string dim)

@@ -17,11 +17,17 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
+public enum ProductImprovement
+{
+    Acquisition,
+    Retention,
+    Monetisation
+}
+
 public class ProductImprovementsComponent : IComponent
 {
-    public int Acquisition;
-    public int Retention;
-    public int Monetisation;
+    public Dictionary<ProductImprovement, int> Improvements;
+    public int Count;
 }
 
 [Game, Event(EventTarget.Self)]
