@@ -23,26 +23,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AutoFillProposals();
 
         SetSpheresOfInfluence();
-
-        PlayerSettings();
-    }
-
-    void PlayerSettings()
-    {
-        //ScreenUtils.Navigate(GameContext, ScreenMode.StartCampaignScreen);
-        return;
-        //PlayAs(vk);
-        //PlayAs(alphabet);
-        //AddCash(mailru, 100000000);
-
-        //PlayAs(microsoft);
-
-        var playerCompany = CompanyUtils.GetPlayerCompany(GameContext);
-
-        var daughter = CompanyUtils.GetDaughterCompanies(GameContext, playerCompany.company.Id)[0];
-
-        //ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, daughter.product.Niche);
-        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, daughter.product.Niche);
     }
 
     void Initialize()

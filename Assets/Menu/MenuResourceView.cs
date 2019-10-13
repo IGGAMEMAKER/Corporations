@@ -17,27 +17,27 @@ public class MenuResourceView : View
 
     string GetFormattedPeriod()
     {
+        //int period = EconomyUtils.GetPeriodDuration();
+
+        //if (period == 1)
+        //    return "Everyday";
+
+        //if (period == 7)
+        //    return "Each week";
+
+        //if (period == 30)
+        //    return "Every month";
+
+        //return "Every " + period + " day(s)";
         return "";
-        int period = EconomyUtils.GetPeriodDuration();
-
-        if (period == 1)
-            return "Everyday";
-
-        if (period == 7)
-            return "Each week";
-
-        if (period == 30)
-            return "Every month";
-
-        return "Every " + period + " day(s)";
     }
 
     string GetHintText<T> (T value)
     {
         long val = long.Parse(value.ToString());
 
+        //return String.Format("{1} we get: \n\n {0}", Format.Sign(val), GetFormattedPeriod());
         return "";
-        return String.Format("{1} we get: \n\n {0}", Format.Sign(val), GetFormattedPeriod());
     }
 
     TeamResource GetCompanyResourcePeriodChange()

@@ -17,6 +17,13 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
+public class ProductImprovementsComponent : IComponent
+{
+    public int Acquisition;
+    public int Retention;
+    public int Monetisation;
+}
+
 [Game, Event(EventTarget.Self)]
 public class MarketingComponent : IComponent
 {

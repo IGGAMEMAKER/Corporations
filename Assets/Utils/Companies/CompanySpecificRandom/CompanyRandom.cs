@@ -113,9 +113,6 @@ namespace Assets.Utils
             var K = companyId + shareholderId + GetSeedValue();
 
             return min + M * ((C * K) % 1);
-
-            return 1;
-            //return Mathf.Clamp(value, 0.9f, 3f);
         }
 
         static int GetSeedValue()

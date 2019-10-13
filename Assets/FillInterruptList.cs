@@ -26,7 +26,7 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanUpgradeSegment = CheckSegments();
+        bool isCanUpgradeSegment = false;
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
         bool isCanSellCompany = CheckAcquisitionOffers();
@@ -93,13 +93,5 @@ public class FillInterruptList : View
     bool CheckGoal()
     {
         return InvestmentUtils.IsGoalCompleted(MyCompany, GameContext);
-    }
-
-    private bool CheckSegments()
-    {
-        return false;
-
-        if (!HasProductCompany)
-            return false;
     }
 }

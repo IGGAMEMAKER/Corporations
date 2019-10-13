@@ -123,10 +123,9 @@ namespace Assets.Classes
             prt(str, "SP", SalesPoints);
             prt(str, "IP", IdeaPoints);
 
+            //return String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
+            //    ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money);
             return str;
-
-            return String.Format("$$$: {4} PP: {0} MP: {1} SP: {2} i: {3}",
-                ProgrammingPoints, ManagerPoints, SalesPoints, IdeaPoints, Money);
         }
 
         public void Print()
