@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Tutorial;
 
-// actions used in multiple strategies
 public partial class AIProductSystems
 {
     void UpgradeSegment(GameEntity product)
