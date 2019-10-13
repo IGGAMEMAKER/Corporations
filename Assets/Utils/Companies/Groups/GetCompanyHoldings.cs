@@ -38,6 +38,13 @@ namespace Assets.Utils
             .ToArray();
         }
 
+        public static GameEntity[] GetDaughterUpgradableCompanies(GameContext gameContext, int companyId)
+        {
+            return GetDaughterCompanies(gameContext, companyId)
+            .Where(p => p.hasProduct && ProductUtils.IsHasAvailableProductImprovements(p))
+            .ToArray();
+        }
+
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);

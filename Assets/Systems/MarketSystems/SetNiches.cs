@@ -111,9 +111,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
 
         SetNichesAutomatically(NicheType.Ent_Lottery, 2000, gamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Casino, 2001, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Casino,  2001, gamblingCompanyProfile);
         SetNichesAutomatically(NicheType.Ent_Betting, 2000, gamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Poker, 2001, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Poker,   2001, gamblingCompanyProfile);
     }
 
     private void InitializeFundamentalIndustry()

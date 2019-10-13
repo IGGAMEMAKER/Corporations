@@ -10,6 +10,14 @@ namespace Assets.Utils
             return c.product.Concept;
         }
 
+        public static bool IsHasAvailableProductImprovements(GameEntity product)
+        {
+            var level = GetProductLevel(product);
+            var improvements = product.productImprovements.Count;
+
+            return level > improvements;
+        }
+
         public static BonusContainer GetInnovationChanceDescription(GameEntity company, GameContext gameContext)
         {
             var morale = company.team.Morale;

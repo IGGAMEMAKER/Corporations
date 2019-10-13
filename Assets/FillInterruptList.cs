@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System.Linq;
 using UnityEngine;
 
 public class FillInterruptList : View
@@ -26,7 +27,7 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanUpgradeSegment = false;
+        bool isCanUpgradeSegment = CheckProductImprovements();
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
         bool isCanSellCompany = CheckAcquisitionOffers();
@@ -58,6 +59,14 @@ public class FillInterruptList : View
 
         CanSellCompany.SetActive(isCanSellCompany);
         CanBuyCompany.SetActive(isCanBuyCompany);
+    }
+
+    GameEntity[] Daughters => CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
+
+    bool CheckProductImprovements()
+    {
+        var upgradableCompanies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
+        return upgradableCompanies.Count() > 0;
     }
 
     bool CheckOutdatedProducts()

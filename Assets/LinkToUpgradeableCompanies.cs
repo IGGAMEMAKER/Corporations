@@ -2,13 +2,13 @@
 using System;
 using System.Linq;
 
-public class LinkToOutdatedProducts : ButtonController
+public class LinkToUpgradeableCompanies : ButtonController
 {
     public override void Execute()
     {
-        var companies = CompanyUtils.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id);
+        var companies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
 
-        var hint = $"You have {companies.Length} outdated products. \nImprove them!\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
+        var hint = $"You can upgrade {companies.Length} products.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);
 
         var targetMenu = ScreenMode.ManageCompaniesScreen;
