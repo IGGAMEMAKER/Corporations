@@ -45,36 +45,33 @@ namespace Assets.Utils
             var e = context.CreateEntity();
 
             e.isAlive = true;
+            e.isIndependentCompany = true;
 
             int id = GenerateCompanyId(context);
-            e.AddCooldowns(new List<Cooldown>());
 
             e.AddCompany(id, name, companyType);
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
 
             e.AddShareholders(founders);
             e.AddInvestmentProposals(new List<InvestmentProposal>());
-            e.AddMetricsHistory(new List<MetricsInfo>());
-
             e.AddInvestmentRounds(InvestmentRound.Preseed);
-            e.isIndependentCompany = true;
-
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
+
 
             e.AddBranding(0);
 
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
-
             e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
+            TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
+            HumanUtils.SetSkills(CEO, WorkerRole.Business);
+            //HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
+
 
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
 
-            //TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
-
-            HumanUtils.SetSkills(CEO, WorkerRole.Business);
-
-            //HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
+            e.AddMetricsHistory(new List<MetricsInfo>());
+            e.AddCooldowns(new List<Cooldown>());
 
             return e;
         }
