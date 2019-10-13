@@ -40,6 +40,16 @@ public class BonusContainer
         parameter = bonusName;
     }
 
+    public BonusContainer Cap(long min, long max)
+    {
+        capMin = min;
+        capMax = max;
+
+        isCapped = true;
+
+        return this;
+    }
+
     public BonusContainer SetDimension(string dim)
     {
         dimension = dim;
@@ -111,13 +121,16 @@ public class BonusContainer
 
             var text = "";
 
-            //if (minify)
             text = Visuals.Describe(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType);
 
             str.AppendLine(text);
         }
 
-
+        if (isCapped)
+        {
+            if (val == capMin || val == capMax)
+                str.AppendLine("Value capped at " + val);
+        }
 
         return str.ToString();
     }
