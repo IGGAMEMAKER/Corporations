@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using System.Collections.Generic;
 
 public partial class AIProductSystems : OnMonthChange
@@ -13,8 +14,9 @@ public partial class AIProductSystems : OnMonthChange
 
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
         {
-            ProductUtils.UpgradeProductImprovement(ProductImprovement.Acquisition, e);
-            ProductUtils.UpgradeProductImprovement(ProductImprovement.Monetisation, e);
+            var val = RandomEnum<ProductImprovement>.GenerateValue();
+
+            ProductUtils.UpgradeProductImprovement(val, e);
         }
     }
 }
