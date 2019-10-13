@@ -10,5 +10,11 @@ public partial class AIProductSystems : OnMonthChange
     {
         foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
             UpgradeSegment(e);
+
+        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
+        {
+            ProductUtils.UpgradeProductImprovement(ProductImprovement.Acquisition, e);
+            ProductUtils.UpgradeProductImprovement(ProductImprovement.Monetisation, e);
+        }
     }
 }

@@ -57,26 +57,13 @@ namespace Assets.Utils
 
         public static void UpgradeProductImprovement(ProductImprovement improvement, GameEntity product)
         {
-            if (product.productImprovements.Count < product.expertise.ExpertiseLevel)
+            var level = GetProductLevel(product);
+
+            if (product.productImprovements.Count < level)
             {
                 product.productImprovements.Improvements[improvement]++;
                 product.productImprovements.Count++;
             }
-        }
-
-        public static void UpgradeAcquisition(GameEntity product)
-        {
-            UpgradeProductImprovement(ProductImprovement.Acquisition, product);
-        }
-
-        public static void UpgradeRetention(GameEntity product)
-        {
-            UpgradeProductImprovement(ProductImprovement.Retention, product);
-        }
-
-        public static void UpgradeMonetisation(GameEntity product)
-        {
-            UpgradeProductImprovement(ProductImprovement.Monetisation, product);
         }
 
 

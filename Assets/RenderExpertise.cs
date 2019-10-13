@@ -1,4 +1,6 @@
-﻿public class RenderExpertise : UpgradedParameterView
+﻿using Assets.Utils;
+
+public class RenderExpertise : UpgradedParameterView
 {
     public override string RenderHint()
     {
@@ -7,14 +9,14 @@
 
     public override string RenderValue()
     {
-        var level = SelectedCompany.expertise.ExpertiseLevel;
+        var level = ProductUtils.GetProductLevel(SelectedCompany);
         var improvements = SelectedCompany.productImprovements.Count;
 
         var freeImprovements = level - improvements;
 
         if (freeImprovements > 0)
-            return freeImprovements + " free improvements";
+            return freeImprovements + "";
 
-        return level + "LVL";
+        return "---";
     }
 }

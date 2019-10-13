@@ -21,9 +21,10 @@ namespace Assets.Utils
 
             long clients = MarketingUtils.GetClients(c);
 
+            var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
-            return clients * price;
+            return clients * price * (100 + improvements * 4f) / 100;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)
