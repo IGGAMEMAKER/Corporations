@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 public enum BonusType
 {
@@ -28,6 +29,10 @@ public class BonusContainer
 
     public bool renderTitle;
     public string dimension;
+
+    bool isCapped = false;
+    long capMin = 0;
+    long capMax = 0;
 
     public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
@@ -82,6 +87,9 @@ public class BonusContainer
         foreach (var bonus in bonusDescriptions)
             sum += bonus.Value;
 
+        if (isCapped)
+            return (long)Mathf.Clamp(sum, capMin, capMax);
+
         return sum;
     }
 
@@ -108,6 +116,8 @@ public class BonusContainer
 
             str.AppendLine(text);
         }
+
+
 
         return str.ToString();
     }
