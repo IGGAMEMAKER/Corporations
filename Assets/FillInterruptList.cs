@@ -61,8 +61,6 @@ public class FillInterruptList : View
         CanBuyCompany.SetActive(isCanBuyCompany);
     }
 
-    GameEntity[] Daughters => CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
-
     bool CheckProductImprovements()
     {
         var upgradableCompanies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
