@@ -26,7 +26,7 @@ namespace Assets.Utils
         public static GameEntity[] GetProductsAvailableForSaleOnMarket(NicheType n, GameContext context)
         {
             return GetProductsOnMarket(context, n)
-                .Where(p => CompanyUtils.IsWillSellCompany(p, context) && p.isAlive && p.companyGoal.InvestorGoal != InvestorGoal.Prototype)
+                .Where(p => CompanyUtils.IsWillSellCompany(p, context) && p.isAlive)
                 .ToArray();
         }
     }
