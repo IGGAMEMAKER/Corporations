@@ -40,12 +40,17 @@ namespace Assets.Utils
 
 
 
+        public static GameEntity[] GetAcquisitionOffers(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.AcquisitionOffer);
+        }
+
         public static GameEntity[] GetAcquisitionOffersToPlayer(GameContext gameContext)
         {
             var player = GetPlayerCompany(gameContext);
 
             return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AcquisitionOffer),
+                GetAcquisitionOffers(gameContext),
                 o => IsCompanyRelatedToPlayer(gameContext, o.acquisitionOffer.CompanyId) && o.acquisitionOffer.BuyerId != player.shareholder.Id
                 );
         }
@@ -53,7 +58,7 @@ namespace Assets.Utils
         public static GameEntity[] GetAcquisitionOffersToCompany(GameContext gameContext, int companyId)
         {
             return Array.FindAll(
-                gameContext.GetEntities(GameMatcher.AcquisitionOffer),
+                GetAcquisitionOffers(gameContext),
                 o => o.acquisitionOffer.CompanyId == companyId
                 );
         }

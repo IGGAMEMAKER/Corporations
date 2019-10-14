@@ -70,7 +70,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
         //if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
         //    return;
 
-        Debug.Log("SendAcquisitionOffer: " + buyer.company.Name + " " + target.company.Name);
+        Debug.Log("SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
 
         CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
 

@@ -56,7 +56,7 @@ public class AIInvestmentSystems : OnHalfYear
 
             CompanyUtils.AcceptProposal(gameContext, companyId, investorShareholderId);
 
-            Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
+            //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
         }
     }
 }

@@ -19,7 +19,7 @@ public class PlaySoundOnClick : View
     {
         if (Sound == Sound.None)
         {
-            Debug.Log("no sound specified at " + CurrentScreen.ToString() + " " + gameObject.name);
+            Debug.LogWarning("no sound specified at " + CurrentScreen.ToString() + " " + gameObject.name);
             return;
         }
 

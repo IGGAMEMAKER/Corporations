@@ -26,10 +26,10 @@ public enum NicheSpeed
 
 public enum AudienceSize
 {
-    ForBigEnterprise = 2000, // 2K
+    BigEnterprise = 2000, // 2K
     SmallEnterprise = 50000, // 50K
     Million = 1000000, // 1M
-    HundredMillion = 100000000, // 100M // usefull util AdBlock
+    Million100 = 100000000, // 100M // usefull util AdBlock
     Global = 1000000000 // 1-2B
 }
 
@@ -45,7 +45,7 @@ public enum AudienceSize
 
 public enum Monetisation
 {
-    Ads = 1,
+    Adverts = 1,
     Service = 10,
     IrregularPaid = 25,
     Paid = 50, // (max income when making ads) + small additional payments
@@ -104,9 +104,23 @@ public struct MarketProfile
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
+    int startDate,
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, ProductComplexity ProductComplexity,
+    MarketAttribute[] marketAttributes = null)
+    {
+        return SetNichesAutomatically(
+            nicheType,
+            startDate,
+            new MarketProfile {
+                AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, ProductComplexity = ProductComplexity
+            },
+            marketAttributes
+            );
+    }
+
+    GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
         MarketProfile settings,
-    // //ProductPositioning[] productPositionings,
         MarketAttribute[] marketAttributes = null)
     {
         var nicheId = GetNicheId(nicheType);

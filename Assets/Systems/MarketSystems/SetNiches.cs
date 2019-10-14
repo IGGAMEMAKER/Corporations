@@ -15,7 +15,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.Com_Blogs,
             NicheType.Com_Forums,
             NicheType.Com_Email,
-            NicheType.Com_Dating
+            NicheType.Com_Dating,
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
@@ -24,8 +24,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         MarketProfile popularUsefulApp = new MarketProfile
         {
-            AudienceSize = AudienceSize.HundredMillion,
-            MonetisationType = Monetisation.Ads,
+            AudienceSize = AudienceSize.Million100,
+            MonetisationType = Monetisation.Adverts,
             Margin = Margin.Low,
 
             ProductComplexity = ProductComplexity.Low,
@@ -35,8 +35,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         MarketProfile rarelyUsedApp = new MarketProfile
         {
-            AudienceSize = AudienceSize.HundredMillion,
-            MonetisationType = Monetisation.Ads,
+            AudienceSize = AudienceSize.Million100,
+            MonetisationType = Monetisation.Adverts,
             Margin = Margin.Low,
 
             ProductComplexity = ProductComplexity.Low,
@@ -56,7 +56,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Ads,
+                MonetisationType = Monetisation.Adverts,
                 Margin = Margin.Mid,
 
                 ProductComplexity = ProductComplexity.Low,
@@ -75,7 +75,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Ads,
+                MonetisationType = Monetisation.Adverts,
                 Margin = Margin.Low,
 
                 ProductComplexity = ProductComplexity.Low,
@@ -109,10 +109,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
             Iteration = NicheSpeed.ThreeYears,
         };
 
-        SetNichesAutomatically(NicheType.Ent_Lottery, 2000, gamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Casino,  2001, gamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Betting, 2000, gamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Poker,   2001, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Lottery,           2000, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Casino,            2001, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Betting,           2000, gamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Ent_Poker,             2001, gamblingCompanyProfile);
+
+        SetNichesAutomatically(NicheType.Ent_FreeToPlay,        2001,
+            AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, ProductComplexity.Mid);
+
+        SetNichesAutomatically(NicheType.Ent_MMOs,              2000,
+            AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, ProductComplexity.Mid);
+
+        SetNichesAutomatically(NicheType.Ent_StreamingService,  2011,
+            AudienceSize.Million100, Monetisation.Service, Margin.Low, NicheSpeed.HalfYear, ProductComplexity.Low);
     }
 
     private void InitializeFundamentalIndustry()
@@ -142,7 +151,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Ads,
+                MonetisationType = Monetisation.Adverts,
                 Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
@@ -166,7 +175,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Ads,
+                MonetisationType = Monetisation.Adverts,
                 Margin = Margin.High,
 
                 ProductComplexity = ProductComplexity.High,
