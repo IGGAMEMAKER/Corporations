@@ -22,7 +22,10 @@ public partial class AIManageGroupSystems : OnQuarterChange
         //Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
-            SendAcquisitionOffer(managingCompany, RandomUtils.RandomItem(candidates), gameContext);
+        {
+            foreach (var c in candidates)
+                SendAcquisitionOffer(managingCompany, c, gameContext);
+        }
         else
             CreateCompanyOnMarket(n, managingCompany);
     }
