@@ -77,6 +77,7 @@ namespace Assets.Utils
             Debug.Log("AddAcquisitionOffer");
             offer.acquisitionOffer.Turn = AcquisitionTurn.Seller;
             offer.acquisitionOffer.BuyerOffer.Price = bid;
+            offer.acquisitionOffer.BuyerOffer.ByCash = bid;
 
             //offer.acquisitionOffer.Offer = bid;
         }
