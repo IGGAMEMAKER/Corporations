@@ -14,6 +14,9 @@ public class DateComponent : IComponent
     public int Date;
 }
 
+[Game]
+public class TimerRunningComponent : IComponent { }
+
 [Game, Unique, Event(EventTarget.Any)]
 public class TargetDateComponent : IComponent
 {
@@ -77,9 +80,6 @@ public class TaskComponent: IComponent
     public int Duration;
     public int EndTime;
 }
-
-[Game]
-public class TimerRunningComponent : IComponent { }
 
 [Game]
 public class CooldownContainerComponent: IComponent
