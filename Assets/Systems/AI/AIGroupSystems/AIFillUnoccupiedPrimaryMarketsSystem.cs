@@ -16,6 +16,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
         var products = NicheUtils.GetProductsAvailableForSaleOnMarket(n, gameContext);
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
+        //var candidates = products;
 
         Debug.Log("Check unoccupied niche " + n + ". Candidates: " + candidates.Count());
 
@@ -40,11 +41,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
         return niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
     }
 
-    IOrderedEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
+    IEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
         return products
-                .Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
-                .OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
+            .Where(p => CompanyUtils.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
+                //.Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
+                //.OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
     }
 
     long GetCompanyAcquisitionPriority(GameEntity buyer, GameEntity target, GameContext gameContext)

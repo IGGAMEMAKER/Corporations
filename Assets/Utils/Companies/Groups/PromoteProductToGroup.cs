@@ -32,6 +32,16 @@
             return companyGroupId;
         }
 
+        public static bool IsProductWantsToGrow(GameEntity product, GameContext gameContext)
+        {
+            if (!product.isIndependentCompany)
+                return false;
+
+
+            var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
+            return ambitions != Ambition.RuleProductCompany;
+        }
+
         public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyTypeChange(companyId, previousName));

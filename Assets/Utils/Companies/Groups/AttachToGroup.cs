@@ -28,7 +28,7 @@ namespace Assets.Utils
             }
 
 
-            Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
+            //Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
 
             var shareholders = new Dictionary<int, BlockOfShares>
             {

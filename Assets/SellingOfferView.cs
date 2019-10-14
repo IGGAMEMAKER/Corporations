@@ -1,8 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Formatting;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class SellingOfferView : View
@@ -53,7 +49,6 @@ public class SellingOfferView : View
         Valuation.text = Format.Money(EconomyUtils.GetCompanyCost(GameContext, companyId));
 
         var offer = CompanyUtils.GetAcquisitionOffer(GameContext, companyId, buyerId);
-        Debug.Log("SellingOfferView");
         //Offer.text = Format.Money(offer.acquisitionOffer.Offer);
 
         AcceptOffer.SetData(companyId, buyerId);

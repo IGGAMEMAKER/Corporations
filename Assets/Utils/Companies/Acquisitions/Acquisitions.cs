@@ -158,7 +158,7 @@ namespace Assets.Utils
 
             var modifier = GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
 
-            Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
+            //Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
             var container = GetInvestorOpinionAboutAcquisitionOffer(ackOffer, investor, company, gameContext);
 

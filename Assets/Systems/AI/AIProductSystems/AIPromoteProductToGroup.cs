@@ -14,13 +14,8 @@ public partial class AIPromoteProductToGroup : OnMonthChange
 
     void PromoteToGroupIfPossible(GameEntity product)
     {
-        if (!product.isIndependentCompany)
-            return;
-
+        var wantsToGrow = CompanyUtils.IsProductWantsToGrow(product, gameContext);
         var canGrow = EconomyUtils.GetProfit(product, gameContext) > 1000000;
-
-        var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
-        var wantsToGrow = ambitions != Ambition.RuleProductCompany;
 
         if (canGrow && wantsToGrow)
             CompanyUtils.PromoteProductCompanyToGroup(gameContext, product.company.Id);
