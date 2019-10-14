@@ -14,11 +14,11 @@ public class PerspectiveNichesListView : ListView
     {
         base.ViewRender();
 
-        var perspectiveNiches =
-            AdjacentNichesOnly ?
-                NicheUtils.GetPerspectiveAdjacentNiches(GameContext, MyCompany)
-                :
-                NicheUtils.GetPerspectiveNiches(GameContext);
+        var perspectiveNiches = NicheUtils.GetPlayableNiches(GameContext);
+            //AdjacentNichesOnly ?
+            //    NicheUtils.GetPerspectiveAdjacentNiches(GameContext, MyCompany)
+            //    :
+            //    NicheUtils.GetPerspectiveNiches(GameContext);
 
         SetItems(perspectiveNiches);
     }

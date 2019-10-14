@@ -81,11 +81,6 @@ namespace Assets.Utils
             //offer.acquisitionOffer.Offer = bid;
         }
 
-        //public static GameEntity CreateAcquisition()
-        //{
-
-        //}
-
         public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer)

@@ -62,6 +62,7 @@
 
             return
                 isSuitableByGoal
+                && !shareholder.isManagingCompany
                 && isSuitableByNiche
                 && isSuitableByCompanySize
                 && (isParentOfDependentCompany || company.isIndependentCompany);
