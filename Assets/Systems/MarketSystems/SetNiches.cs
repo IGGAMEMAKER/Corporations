@@ -69,7 +69,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},
-            
             );
 
         SetNichesAutomatically(NicheType.Com_Messenger, 2000,
