@@ -19,7 +19,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
-        //Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
+        Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
         {
@@ -67,8 +67,10 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
-        if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
-            return;
+        //if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
+        //    return;
+
+        Debug.Log("SendAcquisitionOffer: " + buyer.company.Name + " " + target.company.Name);
 
         CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
 

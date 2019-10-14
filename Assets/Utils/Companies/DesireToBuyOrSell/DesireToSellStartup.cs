@@ -79,7 +79,7 @@ namespace Assets.Utils
         // opinion about offer
         public static BonusContainer GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
-            var bonus = new BonusContainer("Founder Opinion");
+            var bonus = new BonusContainer("Venture investor Opinion");
             var conditions = acquisitionOffer.BuyerOffer;
 
             var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;

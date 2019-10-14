@@ -45,7 +45,9 @@ public enum PopupType
 
     BankruptCompany,
     NewCompany,
-    TargetInterception
+    TargetInterception,
+
+    InspirationToOpenMarket
 }
 
 public class PopupMessage
@@ -82,6 +84,15 @@ public class PopupMessageCompanySpawn : PopupMessageCompanyEvent
     public PopupMessageCompanySpawn(int companyId) : base(companyId, PopupType.NewCompany) { }
 }
 
+// market state changes
+public class PopupMessageMarketPhaseChange : PopupMessageMarketChanges
+{
+    public PopupMessageMarketPhaseChange(NicheType niche) : base(niche, PopupType.MarketChanges) {}
+}
+public class PopupMessageMarketInspiration : PopupMessageMarketChanges
+{
+    public PopupMessageMarketInspiration(NicheType niche) : base(niche, PopupType.InspirationToOpenMarket) {}
+}
 
 // universal
 public abstract class PopupMessageCompanyEvent : PopupMessage
@@ -95,14 +106,14 @@ public abstract class PopupMessageCompanyEvent : PopupMessage
     }
 }
 
-public class PopupMessageMarketPhaseChange : PopupMessage
+public abstract class PopupMessageMarketChanges : PopupMessage
 {
     public NicheType NicheType;
 
-    public PopupMessageMarketPhaseChange(NicheType niche)
+    public PopupMessageMarketChanges(NicheType niche, PopupType popupType)
     {
         this.NicheType = niche;
-        PopupType = PopupType.MarketChanges;
+        PopupType = popupType;
     }
 }
 
