@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Assets.Utils
@@ -10,6 +13,10 @@ namespace Assets.Utils
             int index = UnityEngine.Random.Range(0, items.Length);
 
             return items[index];
+        }
+        public static T RandomItem<T>(IEnumerable<T> items)
+        {
+            return RandomItem(items.ToArray());
         }
 
         public static string RandomString(int size, bool lowerCase)

@@ -22,10 +22,9 @@ public partial class AIManageGroupSystems : OnQuarterChange
         //Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
-            SendAcquisitionOffer(managingCompany, candidates.First(), gameContext);
+            SendAcquisitionOffer(managingCompany, RandomUtils.RandomItem(candidates), gameContext);
         else
             CreateCompanyOnMarket(n, managingCompany);
-            //BuyCompany(managingCompany, candidates.First());
     }
 
     void CreateCompanyOnMarket(NicheType n, GameEntity managingCompany)
@@ -63,9 +62,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        //if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
-        //    return;
-
         var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
         if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
@@ -73,11 +69,16 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
 
-        // DON'T TOUCH! this prevents AI from automatically accepting acquisition offer
-        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
-            return;
+        //// DON'T TOUCH! this prevents AI from automatically accepting acquisition offer
+        //if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
+        //    return;
 
-        // Accept offer
+        //// Accept offer
+
+    }
+
+    void AcceptOffer(GameEntity buyer, GameEntity target)
+    {
         BuyCompany(buyer, target);
 
         CompanyUtils.RemoveAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id);

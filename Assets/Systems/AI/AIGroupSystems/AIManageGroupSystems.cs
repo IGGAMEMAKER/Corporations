@@ -14,7 +14,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void ManageGroup(GameEntity group)
     {
-        DefendMarkets(group);
         ExpandSphereOfInfluence(group);
         FillUnoccupiedMarkets(group);
 

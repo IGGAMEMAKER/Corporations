@@ -44,7 +44,8 @@ public enum PopupType
     MarketChanges,
 
     BankruptCompany,
-    NewCompany
+    NewCompany,
+    TargetInterception
 }
 
 public class PopupMessage
@@ -66,6 +67,14 @@ public class PopupMessageCompanyClose : PopupMessage
 public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
 {
     public PopupMessageCompanyBankrupt(int companyId) : base(companyId, PopupType.BankruptCompany) { }
+}
+
+public class PopupMessageCompetitorWantsToInterceptOurTargetCompany : PopupMessageCompanyEvent
+{
+    public int InterceptorCompanyId;
+    public PopupMessageCompetitorWantsToInterceptOurTargetCompany(int targetCompanyId, int interceptorId) : base(targetCompanyId, PopupType.TargetInterception) {
+        InterceptorCompanyId = interceptorId;
+    }
 }
 
 public class PopupMessageCompanySpawn : PopupMessageCompanyEvent
