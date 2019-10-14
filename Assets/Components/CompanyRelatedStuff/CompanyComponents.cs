@@ -194,16 +194,11 @@ public class ReportsComponent : IComponent
 }
 
 
-//[Game]
-//public class ParlayComponent : IComponent
-//{
-//    public 
-//}
 
 public class AcquisitionConditions
 {
-    public long SellerPrice;
-    public long BuyerOffer;
+    //public long SellerPrice;
+    public long Price;
 
     public long ByCash;
     public int ByShares; // part of our company
@@ -212,14 +207,22 @@ public class AcquisitionConditions
     public bool KeepLeaderAsCEO;
 }
 
+public enum AcquisitionTurn
+{
+    Buyer,
+    Seller
+}
+
 public class AcquisitionOfferComponent : IComponent
 {
-    //public long Offer; // buyer Price
     public int CompanyId; // target
     public int BuyerId;
 
     public int RemainingTries;
     public int RemainingDays;
 
-    public AcquisitionConditions AcquisitionConditions;
+    public AcquisitionTurn Turn;
+
+    public AcquisitionConditions BuyerOffer;
+    public AcquisitionConditions SellerOffer;
 }

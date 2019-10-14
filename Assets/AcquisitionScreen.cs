@@ -46,8 +46,9 @@ public class AcquisitionScreen : View
 
         var acquisitionOffer = AcquisitionOffer;
 
-        var conditions = acquisitionOffer.AcquisitionConditions;
-        long offer = conditions.BuyerOffer;
+        var conditions = acquisitionOffer.BuyerOffer;
+        var seller = acquisitionOffer.SellerOffer;
+        long offer = conditions.Price;
 
         if (offer > cost)
         {
@@ -56,7 +57,7 @@ public class AcquisitionScreen : View
         }
 
         Offer.text = Format.Money(offer) + overpriceText;
-        SellerPrice.text = Format.Money(conditions.SellerPrice);
+        SellerPrice.text = Format.Money(seller.Price);
 
 
 
@@ -96,7 +97,7 @@ public class AcquisitionScreen : View
 
     public void ToggleKeepFounderAsCEO()
     {
-        AcquisitionOffer.AcquisitionConditions.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
+        AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
     }
 
     void UpdateData()
@@ -136,12 +137,12 @@ public class AcquisitionScreen : View
     {
         var offer = long.Parse(CashOfferInput.text);
 
-        Conditions.BuyerOffer = offer;
+        Conditions.Price = offer;
 
         UpdateData();
     }
 
-    AcquisitionConditions Conditions => AcquisitionOffer.AcquisitionConditions;
+    AcquisitionConditions Conditions => AcquisitionOffer.BuyerOffer;
 
     AcquisitionOfferComponent AcquisitionOffer
     {

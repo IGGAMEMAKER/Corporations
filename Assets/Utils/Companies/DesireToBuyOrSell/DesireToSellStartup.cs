@@ -80,9 +80,9 @@ namespace Assets.Utils
         public static BonusContainer GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
             var bonus = new BonusContainer("Founder Opinion");
-            var conditions = acquisitionOffer.AcquisitionConditions;
+            var conditions = acquisitionOffer.BuyerOffer;
 
-            var priceOk = conditions.BuyerOffer < conditions.SellerPrice;
+            var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
             bonus.Append("Offered price", priceOk ? -100 : 1);
 
             var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
@@ -98,9 +98,9 @@ namespace Assets.Utils
         public static BonusContainer GetFounderOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
             var bonus = new BonusContainer("Founder Opinion");
-            var conditions = acquisitionOffer.AcquisitionConditions;
+            var conditions = acquisitionOffer.BuyerOffer;
 
-            var priceOk = conditions.BuyerOffer < conditions.SellerPrice;
+            var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
             bonus.Append("Offered price", priceOk ? -100 : 1);
 
             var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;

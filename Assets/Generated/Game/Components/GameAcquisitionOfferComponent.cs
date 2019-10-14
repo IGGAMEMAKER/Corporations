@@ -11,25 +11,29 @@ public partial class GameEntity {
     public AcquisitionOfferComponent acquisitionOffer { get { return (AcquisitionOfferComponent)GetComponent(GameComponentsLookup.AcquisitionOffer); } }
     public bool hasAcquisitionOffer { get { return HasComponent(GameComponentsLookup.AcquisitionOffer); } }
 
-    public void AddAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionConditions newAcquisitionConditions) {
+    public void AddAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionTurn newTurn, AcquisitionConditions newBuyerOffer, AcquisitionConditions newSellerOffer) {
         var index = GameComponentsLookup.AcquisitionOffer;
         var component = (AcquisitionOfferComponent)CreateComponent(index, typeof(AcquisitionOfferComponent));
         component.CompanyId = newCompanyId;
         component.BuyerId = newBuyerId;
         component.RemainingTries = newRemainingTries;
         component.RemainingDays = newRemainingDays;
-        component.AcquisitionConditions = newAcquisitionConditions;
+        component.Turn = newTurn;
+        component.BuyerOffer = newBuyerOffer;
+        component.SellerOffer = newSellerOffer;
         AddComponent(index, component);
     }
 
-    public void ReplaceAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionConditions newAcquisitionConditions) {
+    public void ReplaceAcquisitionOffer(int newCompanyId, int newBuyerId, int newRemainingTries, int newRemainingDays, AcquisitionTurn newTurn, AcquisitionConditions newBuyerOffer, AcquisitionConditions newSellerOffer) {
         var index = GameComponentsLookup.AcquisitionOffer;
         var component = (AcquisitionOfferComponent)CreateComponent(index, typeof(AcquisitionOfferComponent));
         component.CompanyId = newCompanyId;
         component.BuyerId = newBuyerId;
         component.RemainingTries = newRemainingTries;
         component.RemainingDays = newRemainingDays;
-        component.AcquisitionConditions = newAcquisitionConditions;
+        component.Turn = newTurn;
+        component.BuyerOffer = newBuyerOffer;
+        component.SellerOffer = newSellerOffer;
         ReplaceComponent(index, component);
     }
 

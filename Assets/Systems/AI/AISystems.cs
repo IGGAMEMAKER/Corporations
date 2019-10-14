@@ -9,6 +9,7 @@
 
         // both groups and products
         Add(new AIInvestmentSystems(contexts));
+        Add(new ProcessAcquisitionOffersSystem(contexts));
 
 
         // groups

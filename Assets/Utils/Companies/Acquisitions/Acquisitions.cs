@@ -50,6 +50,14 @@ namespace Assets.Utils
                 );
         }
 
+        public static GameEntity[] GetAcquisitionOffersToCompany(GameContext gameContext, int companyId)
+        {
+            return Array.FindAll(
+                gameContext.GetEntities(GameMatcher.AcquisitionOffer),
+                o => o.acquisitionOffer.CompanyId == companyId
+                );
+        }
+
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
@@ -67,8 +75,16 @@ namespace Assets.Utils
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
             Debug.Log("AddAcquisitionOffer");
+            offer.acquisitionOffer.Turn = AcquisitionTurn.Seller;
+            offer.acquisitionOffer.BuyerOffer.Price = bid;
+
             //offer.acquisitionOffer.Offer = bid;
         }
+
+        //public static GameEntity CreateAcquisition()
+        //{
+
+        //}
 
         public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
@@ -81,16 +97,23 @@ namespace Assets.Utils
 
                 var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
-                var conditions = new AcquisitionConditions
+                var buyerOffer = new AcquisitionConditions
                 {
-                    BuyerOffer = cost,
-                    SellerPrice = (long)(cost * UnityEngine.Random.Range(3f, 10f)),
+                    Price = cost,
                     ByCash = cost,
                     ByShares = 0,
-                    KeepLeaderAsCEO = false
+                    KeepLeaderAsCEO = true
                 };
 
-                offer.AddAcquisitionOffer(companyId, buyerInvestorId, 3, 60, conditions);
+                var sellerOffer = new AcquisitionConditions
+                {
+                    Price = cost * 4,
+                    ByCash = cost * 4,
+                    ByShares = 0,
+                    KeepLeaderAsCEO = true
+                };
+
+                offer.AddAcquisitionOffer(companyId, buyerInvestorId, 3, 60, AcquisitionTurn.Seller, buyerOffer, sellerOffer);
             }
 
             return offer;
@@ -105,7 +128,9 @@ namespace Assets.Utils
                 buyerInvestorId,
                 off.acquisitionOffer.RemainingTries,
                 off.acquisitionOffer.RemainingDays,
-                newConditions
+                off.acquisitionOffer.Turn,
+                newConditions,
+                off.acquisitionOffer.SellerOffer
                 );
         }
 
