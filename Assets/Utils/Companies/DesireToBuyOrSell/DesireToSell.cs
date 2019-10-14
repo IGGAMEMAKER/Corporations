@@ -27,8 +27,9 @@
         public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
         {
             var desire = GetDesireToSellCompany(target, gameContext);
+            var founderWantsToSell = GetFounderAmbition(target, gameContext) == Ambition.EarnMoney;
 
-            return desire > 75 || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
+            return desire > 75 || founderWantsToSell || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
         }
 
         public static bool IsYoungCompany(GameEntity company)
