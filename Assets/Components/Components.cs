@@ -105,14 +105,14 @@ public class TestComponent : IComponent
     public Dictionary<LogTypes, bool> logs;
 }
 
-[Game]
-public class ResearchComponent : IComponent
-{
-    public int Level;
-}
-
 public enum LogTypes
 {
     MyProductCompany,
     MyProductCompanyCompetitors
+}
+
+[Game]
+public class ResearchComponent : IComponent
+{
+    public int Level;
 }
