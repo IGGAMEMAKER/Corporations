@@ -7,8 +7,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
-        //Debug.Log("Fill Unoccupied Markets: " + managingCompany.company.Name);
-        
         foreach (var n in GetUnoccupiedNiches(managingCompany))
             OccupyNiche(n, managingCompany);
     }
@@ -19,7 +17,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
-        Debug.Log("Check unoccupied niche " + n.ToString() + ". Candidates: " + candidates.Count());
+        Debug.Log("Check unoccupied niche " + n + ". Candidates: " + candidates.Count());
 
         if (candidates.Count() > 0)
         {
@@ -73,13 +71,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
         Debug.Log("SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
 
         CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
-
-        //// DON'T TOUCH! this prevents AI from automatically accepting acquisition offer
-        //if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, target))
-        //    return;
-
-        //// Accept offer
-
     }
 
     void AcceptOffer(GameEntity buyer, GameEntity target)
