@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class BaseClass : MonoBehaviour
 {
     public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(GameContext);
+    public NicheType SelectedNiche =>    ScreenUtils.GetSelectedNiche(GameContext);
+    public GameEntity SelectedHuman =>   ScreenUtils.GetSelectedHuman(GameContext);
+    public ScreenMode CurrentScreen =>   ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
     public bool IsMyProductCompany
     {
@@ -18,63 +21,30 @@ public class BaseClass : MonoBehaviour
         }
     }
 
-    public NicheType SelectedNiche => ScreenUtils.GetSelectedNiche(GameContext);
+    public static GameContext GameContext => Contexts.sharedInstance.game;
 
-    public bool IsMyCompetitor(GameEntity company)
-    {
-        if (!HasProductCompany)
-            return false;
+    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
+    public int CurrentIntYear => Constants.START_YEAR + CurrentIntDate / 360;
 
-        bool isNotMyCompany = MyProductEntity.company.Id != company.company.Id;
 
-        return company.hasProduct ? company.product.Niche == MyProduct.Niche && isNotMyCompany : false;
-    }
-
-    public bool IsMyCompetitor(int companyId)
-    {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        return IsMyCompetitor(company);
-    }
-
-    public ScreenMode CurrentScreen => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
     public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
-
-    public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(GameContext);
-
     public GameEntity MyProductEntity => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
 
-    public bool HasCompany => MyCompany != null;
+    public GameEntity MyCompany => MyGroupEntity ?? null;
 
-    public GameEntity MyCompany
-    {
-        get
-        {
-            if (MyProductEntity != null)
-                return MyProductEntity;
-
-            if (MyGroupEntity != null)
-                return MyGroupEntity;
-
-            return null;
-        }
-    }
 
     public long Balance => MyCompany.companyResource.Resources.money;
 
+    public bool HasCompany => MyCompany != null;
     public bool HasProductCompany => MyProductEntity != null;
     public bool HasGroupCompany => MyGroupEntity != null;
 
     public GameEntity MyGroupEntity => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
     public ProductComponent MyProduct => MyProductEntity?.product;
 
-    public static GameContext GameContext => Contexts.sharedInstance.game;
 
-    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
-    public int CurrentIntYear => Constants.START_YEAR + CurrentIntDate / 360;
 
-    public GameEntity GetUniversalListener => ScreenUtils.GetMenu(GameContext);
 
 
 

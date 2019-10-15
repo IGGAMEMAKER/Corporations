@@ -123,19 +123,15 @@ namespace Assets.Utils
                 year = year
             };
         }
+
         public static string FormatDate(int date, bool withYear = true)
         {
-            var year = Constants.START_YEAR + date / 360;
-            var day = date % 360;
-            var month = day / 30;
+            var description = GetDateDescription(date);
 
-            day = day % 30;
-
-
-            var dateString = $"{day + 1:00} {GetMonthLiteral(month):000000000} ";
+            var dateString = $"{description.day + 1:00} {description.monthLiteral:000000000} ";
 
             if (withYear)
-                dateString += $"{year:0000}";
+                dateString += $"{description.year:0000}";
 
             return dateString;
         }

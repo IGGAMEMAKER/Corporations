@@ -7,11 +7,14 @@ public class FillGroupOwnings : View
     {
         base.ViewRender();
 
-        GetComponent<OwningsListView>().SetItems(HasGroupCompany ? GetOwnings() : new GameEntity[0]);
+        GetComponent<OwningsListView>().SetItems(GetOwnings());
     }
 
     GameEntity[] GetOwnings()
     {
+        if (!HasGroupCompany)
+            return new GameEntity[0];
+
         return CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);
     }
 }
