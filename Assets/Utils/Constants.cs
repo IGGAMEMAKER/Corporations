@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Constants
+﻿public class Constants
 {
     public const int DEVELOPMENT_PRODUCTION_MARKETER = 10;
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 10;
