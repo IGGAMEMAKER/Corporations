@@ -42,6 +42,7 @@ public enum NicheType
     Ent_Publishing,
 
     Ent_StreamingService,
+    Ent_TVStreamingService,
 }
 
 public enum IndustryType

@@ -67,11 +67,11 @@ public enum NicheAds
     Humongous = 85000
 }
 
-public enum ProductComplexity
+public enum AppComplexity
 {
-    Low = 3,
+    Easy = 3,
     Mid = 7,
-    High = 15,
+    Hard = 15,
     Humongous = 25
 }
 
@@ -95,7 +95,7 @@ public struct MarketProfile
 
 
     public NicheSpeed Iteration;
-    public ProductComplexity ProductComplexity;
+    public AppComplexity AppComplexity;
 }
 
 // everyone: operation systems, browsers, social networks (messaging + content)
@@ -105,17 +105,24 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, ProductComplexity ProductComplexity,
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity,
     MarketAttribute[] marketAttributes = null)
     {
         return SetNichesAutomatically(
             nicheType,
             startDate,
             new MarketProfile {
-                AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, ProductComplexity = ProductComplexity
+                AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
             },
             marketAttributes
             );
+    }
+
+    void StartsAt(NicheType nicheType, int startDate)
+    {
+        var n = GetNicheEntity(nicheType);
+
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, n.nicheLifecycle.NicheChangeSpeed);
     }
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
