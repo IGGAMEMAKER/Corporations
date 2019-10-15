@@ -119,19 +119,8 @@ namespace Assets.Utils
             return Math.Max(X, 1);
         }
 
-        public const int NICHE_PHASE_DURATION_INNOVATION = 1;
-        public const int NICHE_PHASE_DURATION_TRENDING = 4;
-        public const int NICHE_PHASE_DURATION_MASS = 15;
-        public const int NICHE_PHASE_DURATION_DECAY = 10;
-
         public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
         {
-            //if (phase == NicheLifecyclePhase.Death || phase == NicheLifecyclePhase.Idle)
-            //    return 0;
-
-            //return 1;
-
-
             switch (phase)
             {
                 case NicheLifecyclePhase.Innovation:
@@ -172,5 +161,10 @@ namespace Assets.Utils
                     return NicheLifecyclePhase.Death;
             }
         }
+
+        public const int NICHE_PHASE_DURATION_INNOVATION = 1;
+        public const int NICHE_PHASE_DURATION_TRENDING = 4;
+        public const int NICHE_PHASE_DURATION_MASS = 15;
+        public const int NICHE_PHASE_DURATION_DECAY = 10;
     }
 }
