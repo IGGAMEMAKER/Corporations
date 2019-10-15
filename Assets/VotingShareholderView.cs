@@ -55,7 +55,8 @@ public class VotingShareholderView : View
         }
         else
         {
-            Response.text = Visuals.Negative(CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany));
+            var description = CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany);
+            Response.text = Visuals.Negative(description);
         }
     }
 }
