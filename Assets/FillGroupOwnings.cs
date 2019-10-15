@@ -12,7 +12,7 @@ public class FillGroupOwnings : View
 
     GameEntity[] GetOwnings()
     {
-        if (!HasGroupCompany)
+        if (!HasCompany)
             return new GameEntity[0];
 
         return CompanyUtils.GetDaughterCompanies(GameContext, MyGroupEntity.company.Id);

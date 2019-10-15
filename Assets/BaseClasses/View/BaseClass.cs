@@ -32,8 +32,7 @@ public class BaseClass : MonoBehaviour
     public bool HasCompany => MyCompany != null;
     public bool HasProductCompany => MyProductEntity != null;
 
-    // TODO 1 USAGE
-    public bool HasGroupCompany => MyGroupEntity != null;
+
 
     public long Balance => MyCompany.companyResource.Resources.money;
 
