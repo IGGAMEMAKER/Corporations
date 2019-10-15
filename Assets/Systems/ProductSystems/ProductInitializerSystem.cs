@@ -73,6 +73,8 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId1, 100);
 
+        var skipDays = (2000 - Constants.START_YEAR) * 360;
+        ScheduleUtils.ResumeGame(GameContext, skipDays, 500);
         //SimulateDevelopment();
     }
 

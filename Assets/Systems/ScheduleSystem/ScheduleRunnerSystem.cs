@@ -9,7 +9,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     bool isTimerRunning => DateEntity.isTimerRunning;
 
     float totalTime;
-    float currentSpeed = 4;
+    int currentSpeed = 4;
 
     GameEntity DateEntity;
 
@@ -21,8 +21,9 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     public void Initialize()
     {
         DateEntity = _context.CreateEntity();
-        DateEntity.AddDate(0);
+        DateEntity.AddDate(0, currentSpeed);
         DateEntity.AddTargetDate(0);
+        
 
         ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
 
@@ -41,7 +42,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         {
             ResetTimer();
 
-            DateEntity.ReplaceDate(DateEntity.date.Date + 1);
+            DateEntity.ReplaceDate(DateEntity.date.Date + 1, currentSpeed);
 
             if (DateEntity.date.Date == DateEntity.targetDate.Date)
                 ScheduleUtils.PauseGame(_context);
@@ -51,7 +52,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     void ResetTimer()
     {
-        totalTime = 1 / currentSpeed;
+        totalTime = 1 / (float) currentSpeed;
     }
 
 

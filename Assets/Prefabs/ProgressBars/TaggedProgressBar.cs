@@ -62,7 +62,7 @@ public class TaggedProgressBar : View
         }
     }
 
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date, int speed)
     {
         Render();
     }

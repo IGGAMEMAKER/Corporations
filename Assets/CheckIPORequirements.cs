@@ -2,20 +2,16 @@
 using UnityEngine.UI;
 
 public class CheckIPORequirements : View
-    , IAnyDateListener
 {
     public Button IPOButton;
     public Hint Hint;
 
-    void OnEnable()
-    {
-        ListenDateChanges(this);
 
-        Render();
-    }
-
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
+
         int companyId = SelectedCompany.company.Id;
 
         Hint.SetHint($"Requirements" +
@@ -25,10 +21,5 @@ public class CheckIPORequirements : View
             );
 
         IPOButton.interactable = CompanyUtils.IsCanGoPublic(GameContext, SelectedCompany.company.Id);
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }

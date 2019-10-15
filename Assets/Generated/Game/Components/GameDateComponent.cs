@@ -12,22 +12,22 @@ public partial class GameContext {
     public DateComponent date { get { return dateEntity.date; } }
     public bool hasDate { get { return dateEntity != null; } }
 
-    public GameEntity SetDate(int newDate) {
+    public GameEntity SetDate(int newDate, int newSpeed) {
         if (hasDate) {
             throw new Entitas.EntitasException("Could not set Date!\n" + this + " already has an entity with DateComponent!",
                 "You should check if the context already has a dateEntity before setting it or use context.ReplaceDate().");
         }
         var entity = CreateEntity();
-        entity.AddDate(newDate);
+        entity.AddDate(newDate, newSpeed);
         return entity;
     }
 
-    public void ReplaceDate(int newDate) {
+    public void ReplaceDate(int newDate, int newSpeed) {
         var entity = dateEntity;
         if (entity == null) {
-            entity = SetDate(newDate);
+            entity = SetDate(newDate, newSpeed);
         } else {
-            entity.ReplaceDate(newDate);
+            entity.ReplaceDate(newDate, newSpeed);
         }
     }
 
@@ -49,17 +49,19 @@ public partial class GameEntity {
     public DateComponent date { get { return (DateComponent)GetComponent(GameComponentsLookup.Date); } }
     public bool hasDate { get { return HasComponent(GameComponentsLookup.Date); } }
 
-    public void AddDate(int newDate) {
+    public void AddDate(int newDate, int newSpeed) {
         var index = GameComponentsLookup.Date;
         var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
         component.Date = newDate;
+        component.Speed = newSpeed;
         AddComponent(index, component);
     }
 
-    public void ReplaceDate(int newDate) {
+    public void ReplaceDate(int newDate, int newSpeed) {
         var index = GameComponentsLookup.Date;
         var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
         component.Date = newDate;
+        component.Speed = newSpeed;
         ReplaceComponent(index, component);
     }
 

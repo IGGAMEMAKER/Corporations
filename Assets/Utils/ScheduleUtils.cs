@@ -36,14 +36,19 @@ namespace Assets.Utils
             container.isTimerRunning = false;
         }
 
-        public static void ResumeGame(GameContext gameContext, int date = -1)
+        public static void ResumeGame(GameContext gameContext, int date = -1, int currentSpeed = -1)
         {
             var container = GetDateContainer(gameContext);
 
             container.isTimerRunning = true;
 
             if (date >= 0)
+            {
                 container.ReplaceTargetDate(date);
+
+                if (currentSpeed > 0)
+                    container.ReplaceDate(container.date.Date, currentSpeed);
+            }
         }
 
         public static TaskComponent GenerateTaskComponent(GameContext gameContext, CompanyTask taskType, int duration)

@@ -51,7 +51,7 @@
     public static int COOLDOWN_CONCEPT = 15;
 
     //public static int START_YEAR = 1991;
-    public static int START_YEAR = 2000;
+    public static int START_YEAR = 1980; // 2000
     internal static long COMPANY_DESIRE_TO_SELL_NO = 0;
     internal static long COMPANY_DESIRE_TO_SELL_YES = 1;
 

@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 
 public class InestmentProposalScreen : View
-    , IAnyDateListener
 {
     public Button StartRoundButton;
     public Text RoundCounter;
@@ -10,9 +9,9 @@ public class InestmentProposalScreen : View
     public GameObject IPOLabel;
     public GameObject IPOButton;
 
-    void OnEnable()
+    public override void ViewRender()
     {
-        ListenDateChanges(this);
+        base.ViewRender();
 
         Render();
     }
@@ -46,10 +45,5 @@ public class InestmentProposalScreen : View
     void RenderActionButtons()
     {
         RenderMyInvestmentActions(SelectedCompany.isControlledByPlayer);
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
-    {
-        Render();
     }
 }

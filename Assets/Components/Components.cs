@@ -12,6 +12,7 @@ public interface IEventListener
 public class DateComponent : IComponent
 {
     public int Date;
+    public int Speed;
 }
 
 [Game]
