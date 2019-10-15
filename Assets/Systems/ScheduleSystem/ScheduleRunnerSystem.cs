@@ -9,7 +9,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     bool isTimerRunning => DateEntity.isTimerRunning;
 
     float totalTime;
-    int currentSpeed = 4;
+    int currentSpeed => DateEntity.date.Speed;
 
     GameEntity DateEntity;
 
@@ -21,7 +21,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     public void Initialize()
     {
         DateEntity = _context.CreateEntity();
-        DateEntity.AddDate(0, currentSpeed);
+        DateEntity.AddDate(0, 4);
         DateEntity.AddTargetDate(0);
         
 
@@ -49,6 +49,10 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         }
     }
 
+    void UpdateSpeed(int changeSpeed)
+    {
+        DateEntity.ReplaceDate(DateEntity.date.Date, DateEntity.date.Speed + changeSpeed);
+    }
 
     void ResetTimer()
     {
@@ -72,9 +76,11 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
             ToggleTimer();
 
         if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
-            currentSpeed += 2;
+            UpdateSpeed(2);
+        //currentSpeed += 2;
 
         if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 2)
-            currentSpeed--;
+            UpdateSpeed(-1);
+            //currentSpeed--;
     }
 }

@@ -27,28 +27,15 @@ public class GetStartingNichesListView : ListView
         return profile.AppComplexity == AppComplexity.Easy && profile.AudienceSize != AudienceSize.Global;
     }
 
-    GameEntity ChooseAppropriateMarket(GameEntity[] markets)
-    {
-        return RandomUtils.RandomItem(markets.Where(IsAppropriateStartNiche));
-    }
 
-
-
-    GameEntity[] GetStartNichesInIndustry(IndustryType industry, GameContext context)
-    {
-        var niches = NicheUtils.GetNichesInIndustry(industry, context);
-
-        return Array.FindAll(niches, IsAppropriateStartNiche);
-    }
 
     void Start()
     {
-        var niches = NicheUtils.GetPlayableNiches(GameContext)
-            .Where(IsAppropriateStartNiche)
-            .ToArray();
+        var niches = NicheUtils.GetNiches(GameContext);
 
-        var availableEntertainingMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Entertainment, GameContext);
-        var availableCommunicationMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Communications, GameContext);
+        //var niches = NicheUtils.GetPlayableNiches(GameContext)
+        //    .Where(IsAppropriateStartNiche)
+        //    .ToArray();
 
         SetItems(niches);
     }

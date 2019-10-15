@@ -12,7 +12,6 @@
 
         // Initialization
         Add(new MarketInitializerSystem(contexts));
-        Add(new ProductInitializerSystem(contexts));
 
 
         // companies
@@ -27,5 +26,8 @@
 
         Add(new StatsSystems(contexts));
         Add(new GameEventSystems(contexts));
+
+        // Simulate world to start date
+        Add(new ProductInitializerSystem(contexts));
     }
 }

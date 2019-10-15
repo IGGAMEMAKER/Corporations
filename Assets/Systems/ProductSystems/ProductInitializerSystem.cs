@@ -73,13 +73,14 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId1, 100);
 
-        var skipDays = (2000 - Constants.START_YEAR) * 360;
-        ScheduleUtils.ResumeGame(GameContext, skipDays, 500);
-        //SimulateDevelopment();
+        SimulateDevelopment();
     }
 
     void SimulateDevelopment()
     {
+        var skipDays = (2000 - Constants.START_YEAR) * 360;
+        ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
+        return;
         var products = CompanyUtils.GetProductCompanies(GameContext);
         var markets =  NicheUtils.GetNiches(GameContext);
 
