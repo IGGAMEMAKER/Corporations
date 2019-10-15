@@ -26,5 +26,24 @@ namespace Assets.Utils
 
             return Array.FindAll(products, e => e.product.Niche == myProductEntity.product.Niche);
         }
+
+        // TODO move to separate file
+        public static bool IsCompanyRelatedToPlayer(GameContext gameContext, int companyId)
+        {
+            var company = GetCompanyById(gameContext, companyId);
+
+            return IsCompanyRelatedToPlayer(gameContext, company);
+        }
+
+        // TODO move to separate file
+        public static bool IsCompanyRelatedToPlayer(GameContext gameContext, GameEntity company)
+        {
+            var playerCompany = GetPlayerCompany(gameContext);
+
+            if (playerCompany == null)
+                return false;
+
+            return company.isControlledByPlayer || IsDaughterOfCompany(playerCompany, company);
+        }
     }
 }
