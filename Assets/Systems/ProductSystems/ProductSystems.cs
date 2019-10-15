@@ -5,5 +5,6 @@
         //Add(new LogProductChangesSystem(contexts));
 
         Add(new ProductResourceSystems(contexts));
+        Add(new HistoricalProductSpawnSystem(contexts));
     }
 }

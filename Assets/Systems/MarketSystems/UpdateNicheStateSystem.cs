@@ -9,12 +9,9 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
     }
 
-    void CheckNiches()
+    void IInitializeSystem.Initialize()
     {
-        var niches = NicheUtils.GetNiches(gameContext);
-
-        foreach (var n in niches)
-            CheckNiche(n);
+        CheckNiches();
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -22,18 +19,12 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         CheckNiches();
     }
 
-    void ActivateIfNecessary(GameEntity niche)
+    void CheckNiches()
     {
-        var date = ScheduleUtils.GetCurrentDate(gameContext);
+        var niches = NicheUtils.GetNiches(gameContext);
 
-        var state = NicheUtils.GetMarketState(niche);
-        var nicheStartDate = niche.nicheLifecycle.OpenDate;
-
-        if (date > nicheStartDate && state == NicheLifecyclePhase.Idle)
-        {
-            //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
-            PromoteNiche(niche);
-        }
+        foreach (var n in niches)
+            CheckNiche(n);
     }
 
     void CheckNiche(GameEntity niche)
@@ -54,6 +45,21 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
             PromoteNiche(niche);
         else
             DecrementDuration(niche);
+    }
+
+
+    void ActivateIfNecessary(GameEntity niche)
+    {
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+
+        var state = NicheUtils.GetMarketState(niche);
+        var nicheStartDate = niche.nicheLifecycle.OpenDate;
+
+        if (date > nicheStartDate && state == NicheLifecyclePhase.Idle)
+        {
+            //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
+            PromoteNiche(niche);
+        }
     }
 
     void PromoteNiche(GameEntity niche)
@@ -93,8 +99,5 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         niche.ReplaceNicheState(state.Phase, Mathf.Max(state.Duration - 1, 0));
     }
 
-    void IInitializeSystem.Initialize()
-    {
-        CheckNiches();
-    }
+
 }
