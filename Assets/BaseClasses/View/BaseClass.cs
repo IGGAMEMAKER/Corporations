@@ -34,8 +34,6 @@ public class BaseClass : MonoBehaviour
 
 
 
-    public long Balance => MyCompany.companyResource.Resources.money;
-
 
 
 
