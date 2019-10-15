@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -51,12 +49,6 @@ public class GetStartingNichesListView : ListView
 
         var availableEntertainingMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Entertainment, GameContext);
         var availableCommunicationMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Communications, GameContext);
-
-        //niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_Forums);
-        //niches[1] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_SocialNetwork);
-
-        //niches[0] = ChooseAppropriateMarket(availableEntertainingMarkets);
-        //niches[1] = ChooseAppropriateMarket(availableCommunicationMarkets);
 
         SetItems(niches);
     }
