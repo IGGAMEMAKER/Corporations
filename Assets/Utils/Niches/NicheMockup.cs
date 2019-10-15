@@ -98,6 +98,12 @@ namespace Assets.Utils
 
         public static int GetNichePeriodDurationInMonths(NicheDuration nicheDuration, NicheLifecyclePhase phase)
         {
+            // innovation 5
+            // trending 10
+            // mass use 55
+            // decay 20
+            // death 10
+
             if (nicheDuration == NicheDuration.EntireGame)
             {
                 switch (phase)
@@ -162,9 +168,10 @@ namespace Assets.Utils
             }
         }
 
-        public const int NICHE_PHASE_DURATION_INNOVATION = 1;
-        public const int NICHE_PHASE_DURATION_TRENDING = 4;
-        public const int NICHE_PHASE_DURATION_MASS = 15;
-        public const int NICHE_PHASE_DURATION_DECAY = 10;
+        public const int NICHE_PHASE_DURATION_INNOVATION = 5;
+        public const int NICHE_PHASE_DURATION_TRENDING = 10;
+        public const int NICHE_PHASE_DURATION_MASS = 55;
+        public const int NICHE_PHASE_DURATION_DECAY = 20;
+        public const int NICHE_PHASE_DURATION_DEATH = 10;
     }
 }
