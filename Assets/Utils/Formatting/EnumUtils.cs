@@ -33,10 +33,10 @@ namespace Assets.Utils.Formatting
                 case NicheType.Com_Dating: return "Dating";
 
 
-                case NicheType.CloudComputing: return "Clouds";
-                case NicheType.OSDesktop: return "Operation Systems";
-                case NicheType.SearchEngine: return "Search Engines";
-                case NicheType.Browser: return "Web browsers";
+                case NicheType.Tech_CloudComputing: return "Clouds";
+                case NicheType.Tech_OSDesktop: return "Operation Systems";
+                case NicheType.Tech_SearchEngine: return "Search Engines";
+                case NicheType.Tech_Browser: return "Web browsers";
 
                 case NicheType.Ent_Casino: return "Online Casino";
                 case NicheType.Ent_Betting: return "Online Betting";

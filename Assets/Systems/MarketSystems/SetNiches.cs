@@ -101,10 +101,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
     private void InitializeFundamentalIndustry()
     {
         var niches = new NicheType[] {
-            NicheType.SearchEngine,
-            NicheType.OSDesktop,
-            NicheType.CloudComputing,
-            NicheType.Browser,
+            NicheType.Tech_SearchEngine,
+            NicheType.Tech_OSDesktop,
+            NicheType.Tech_CloudComputing,
+            NicheType.Tech_Browser,
         };
         AttachNichesToIndustry(IndustryType.Technology, niches);
 
@@ -149,10 +149,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
             Iteration = NicheSpeed.Year
         };
 
-        SetNichesAutomatically(NicheType.CloudComputing, 2000, cloudProfile);
-        SetNichesAutomatically(NicheType.SearchEngine,   1995, searchEngineProfile);
-        SetNichesAutomatically(NicheType.OSDesktop,      1980, desktopProfile);
-        SetNichesAutomatically(NicheType.Browser,        1990, browserProfile);
+        SetNichesAutomatically(NicheType.Tech_CloudComputing, 2000, cloudProfile);
+        SetNichesAutomatically(NicheType.Tech_SearchEngine,   1995, searchEngineProfile);
+        SetNichesAutomatically(NicheType.Tech_OSDesktop,      1980, desktopProfile);
+        SetNichesAutomatically(NicheType.Tech_Browser,        1990, browserProfile);
     }
 }
 

@@ -36,11 +36,11 @@ public partial class ProductInitializerSystem : IInitializeSystem
         GenerateProductCompany("whatsapp", NicheType.Com_Messenger);
         var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Com_Messenger);
 
-        int google = GenerateProductCompany("Google", NicheType.SearchEngine).company.Id;
-        int yahoo =  GenerateProductCompany("Yahoo", NicheType.SearchEngine).company.Id;
-        GenerateProductCompany("Yandex", NicheType.SearchEngine);
+        int google = GenerateProductCompany("Google", NicheType.Tech_SearchEngine).company.Id;
+        int yahoo =  GenerateProductCompany("Yahoo", NicheType.Tech_SearchEngine).company.Id;
+        GenerateProductCompany("Yandex", NicheType.Tech_SearchEngine);
 
-        var microsoftOs = GenerateProductCompany("Windows", NicheType.OSDesktop);
+        var microsoftOs = GenerateProductCompany("Windows", NicheType.Tech_OSDesktop);
 
 
         // investors
@@ -50,7 +50,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
         int alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
-        //AttachToHolding(alphabet, yahoo);
 
         AddShareholder(alphabet, investorId1, 100);
         AddShareholder(alphabet, investorId2, 200);

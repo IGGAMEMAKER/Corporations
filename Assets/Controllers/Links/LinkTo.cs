@@ -17,7 +17,7 @@ public class LinkTo : ButtonController
                 NavigateToIndustry(IndustryType.Technology);
                 break;
             case ScreenMode.NicheScreen:
-                NavigateToNiche(NicheType.SearchEngine);
+                NavigateToNiche(NicheType.Tech_SearchEngine);
                 break;
 
             case ScreenMode.InvesmentsScreen:

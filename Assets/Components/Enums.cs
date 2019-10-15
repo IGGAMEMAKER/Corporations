@@ -24,10 +24,10 @@ public enum NicheType
     Com_Email,
 
 
-    SearchEngine,
-    CloudComputing,
-    OSDesktop,
-    Browser,
+    Tech_SearchEngine,
+    Tech_CloudComputing,
+    Tech_OSDesktop,
+    Tech_Browser,
 
     // Entertainment
     Ent_Lottery,

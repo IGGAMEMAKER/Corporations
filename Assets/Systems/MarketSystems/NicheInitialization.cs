@@ -105,16 +105,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity,
-    MarketAttribute[] marketAttributes = null)
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity)
     {
         return SetNichesAutomatically(
             nicheType,
             startDate,
             new MarketProfile {
                 AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
-            },
-            marketAttributes
+            }
             );
     }
 
@@ -127,8 +125,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
-        MarketProfile settings,
-        MarketAttribute[] marketAttributes = null)
+        MarketProfile settings
+        )
     {
         var nicheId = GetNicheId(nicheType);
 

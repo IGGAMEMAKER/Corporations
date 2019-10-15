@@ -26,6 +26,7 @@ class SpawnProductsSystem : OnQuarterChange
 
             var nicheType = niche.niche.NicheType;
             var playersOnMarket = NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
+
             if (phase == NicheLifecyclePhase.Innovation && playersOnMarket > 0)
                 continue;
 
