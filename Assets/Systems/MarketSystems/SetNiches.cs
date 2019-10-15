@@ -130,7 +130,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             AppComplexity = AppComplexity.Humongous,
 
             Iteration = NicheSpeed.ThreeYears
-        }
+        };
         var desktopProfile = new MarketProfile
         {
             AudienceSize = AudienceSize.Global,
