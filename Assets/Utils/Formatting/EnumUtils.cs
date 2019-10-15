@@ -52,10 +52,10 @@ namespace Assets.Utils.Formatting
             switch (industry)
             {
                 //case IndustryType.OS: return "Operation Systems";
-                case IndustryType.Fundamental: return "Fundamentals";
+                case IndustryType.Technology: return "Technology";
                 case IndustryType.Communications: return "Communications";
                 case IndustryType.Entertainment: return "Entertainment";
-                case IndustryType.Ecommerce: return "E-commerce";
+                //case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();
             }

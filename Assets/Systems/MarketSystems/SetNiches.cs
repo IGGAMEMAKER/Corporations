@@ -106,7 +106,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.CloudComputing,
             NicheType.Browser,
         };
-        AttachNichesToIndustry(IndustryType.Fundamental, niches);
+        AttachNichesToIndustry(IndustryType.Technology, niches);
 
         var cloudProfile = new MarketProfile
         {

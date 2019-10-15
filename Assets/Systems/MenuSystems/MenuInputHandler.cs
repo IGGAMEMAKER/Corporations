@@ -31,7 +31,7 @@ class MenuInputSystem :
         var dictionary = new Dictionary<string, object>
         {
             [Constants.MENU_SELECTED_COMPANY] = 1,
-            [Constants.MENU_SELECTED_INDUSTRY] = IndustryType.Fundamental,
+            [Constants.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
             [Constants.MENU_SELECTED_NICHE] = NicheType.SearchEngine,
             [Constants.MENU_SELECTED_HUMAN] = 0,
             [Constants.MENU_SELECTED_INVESTOR] = -1,

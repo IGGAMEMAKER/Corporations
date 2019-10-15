@@ -47,11 +47,9 @@ public enum NicheType
 public enum IndustryType
 {
     Communications,
-    Fundamental,
+    Technology,
     Entertainment,
-    Ecommerce
-    //OS,
-    //CloudComputing
+    //Ecommerce
 }
 
 public enum CompanyType
