@@ -5,22 +5,6 @@ using UnityEngine.UI;
 
 public class BaseClass : MonoBehaviour
 {
-    public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(GameContext);
-    public NicheType SelectedNiche =>    ScreenUtils.GetSelectedNiche(GameContext);
-    public GameEntity SelectedHuman =>   ScreenUtils.GetSelectedHuman(GameContext);
-    public ScreenMode CurrentScreen =>   ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
-
-    public bool IsMyProductCompany
-    {
-        get
-        {
-            if (!HasProductCompany)
-                return false;
-
-            return SelectedCompany.company.Id == MyProductEntity.company.Id;
-        }
-    }
-
     public static GameContext GameContext => Contexts.sharedInstance.game;
 
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
@@ -28,20 +12,31 @@ public class BaseClass : MonoBehaviour
 
 
 
+    public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(GameContext);
+    public NicheType SelectedNiche      => ScreenUtils.GetSelectedNiche(GameContext);
+    public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(GameContext);
+    public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
+
+
+
+
     public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
-    public GameEntity MyProductEntity => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+
+    public GameEntity MyProductEntity   => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+    public GameEntity MyGroupEntity     => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
 
     public GameEntity MyCompany => MyGroupEntity ?? null;
 
 
-    public long Balance => MyCompany.companyResource.Resources.money;
 
     public bool HasCompany => MyCompany != null;
     public bool HasProductCompany => MyProductEntity != null;
+
+    // TODO 1 USAGE
     public bool HasGroupCompany => MyGroupEntity != null;
 
-    public GameEntity MyGroupEntity => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-    public ProductComponent MyProduct => MyProductEntity?.product;
+    public long Balance => MyCompany.companyResource.Resources.money;
+
 
 
 
