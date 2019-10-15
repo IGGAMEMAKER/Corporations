@@ -58,7 +58,8 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     void ToggleTimer()
     {
-        DateEntity.isTimerRunning = !isTimerRunning;
+        //DateEntity.isTimerRunning = !isTimerRunning;
+        ScheduleUtils.ToggleTimer(_context);
     }
 
     void CheckPressedButtons()

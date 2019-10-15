@@ -73,7 +73,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId1, 100);
 
-        SimulateDevelopment();
+        //SimulateDevelopment();
     }
 
     void SimulateDevelopment()
