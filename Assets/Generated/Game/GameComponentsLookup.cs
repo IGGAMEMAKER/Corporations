@@ -63,47 +63,48 @@ public static class GameComponentsLookup {
     public const int MenuListener = 52;
     public const int MetricsHistory = 53;
     public const int NavigationHistory = 54;
-    public const int NicheClientsContainer = 55;
-    public const int Niche = 56;
-    public const int NicheCosts = 57;
-    public const int NicheLifecycle = 58;
-    public const int NicheSegments = 59;
-    public const int NicheState = 60;
-    public const int Notifications = 61;
-    public const int OnSales = 62;
-    public const int Player = 63;
-    public const int Popup = 64;
-    public const int Product = 65;
-    public const int ProductImprovements = 66;
-    public const int ProductListener = 67;
-    public const int ProductPositioning = 68;
-    public const int PublicCompany = 69;
-    public const int Release = 70;
-    public const int ReleaseListener = 71;
-    public const int Reports = 72;
-    public const int Research = 73;
-    public const int Segment = 74;
-    public const int SegmentLeaders = 75;
-    public const int SegmentListener = 76;
-    public const int Shareholder = 77;
-    public const int Shareholders = 78;
-    public const int ShareholdersListener = 79;
-    public const int TargetDate = 80;
-    public const int Targeting = 81;
-    public const int TargetingListener = 82;
-    public const int Task = 83;
-    public const int TaskManager = 84;
-    public const int Team = 85;
-    public const int TeamListener = 86;
-    public const int TechnologyLeader = 87;
-    public const int TechnologyLeaderListener = 88;
-    public const int Test = 89;
-    public const int TimerRunning = 90;
-    public const int Tutorial = 91;
-    public const int TutorialListener = 92;
-    public const int Worker = 93;
+    public const int NicheBaseProfile = 55;
+    public const int NicheClientsContainer = 56;
+    public const int Niche = 57;
+    public const int NicheCosts = 58;
+    public const int NicheLifecycle = 59;
+    public const int NicheSegments = 60;
+    public const int NicheState = 61;
+    public const int Notifications = 62;
+    public const int OnSales = 63;
+    public const int Player = 64;
+    public const int Popup = 65;
+    public const int Product = 66;
+    public const int ProductImprovements = 67;
+    public const int ProductListener = 68;
+    public const int ProductPositioning = 69;
+    public const int PublicCompany = 70;
+    public const int Release = 71;
+    public const int ReleaseListener = 72;
+    public const int Reports = 73;
+    public const int Research = 74;
+    public const int Segment = 75;
+    public const int SegmentLeaders = 76;
+    public const int SegmentListener = 77;
+    public const int Shareholder = 78;
+    public const int Shareholders = 79;
+    public const int ShareholdersListener = 80;
+    public const int TargetDate = 81;
+    public const int Targeting = 82;
+    public const int TargetingListener = 83;
+    public const int Task = 84;
+    public const int TaskManager = 85;
+    public const int Team = 86;
+    public const int TeamListener = 87;
+    public const int TechnologyLeader = 88;
+    public const int TechnologyLeaderListener = 89;
+    public const int Test = 90;
+    public const int TimerRunning = 91;
+    public const int Tutorial = 92;
+    public const int TutorialListener = 93;
+    public const int Worker = 94;
 
-    public const int TotalComponents = 94;
+    public const int TotalComponents = 95;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -161,6 +162,7 @@ public static class GameComponentsLookup {
         "MenuListener",
         "MetricsHistory",
         "NavigationHistory",
+        "NicheBaseProfile",
         "NicheClientsContainer",
         "Niche",
         "NicheCosts",
@@ -258,6 +260,7 @@ public static class GameComponentsLookup {
         typeof(MenuListenerComponent),
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
+        typeof(NicheBaseProfileComponent),
         typeof(NicheClientsContainerComponent),
         typeof(NicheComponent),
         typeof(NicheCostsComponent),

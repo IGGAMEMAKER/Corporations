@@ -1,6 +1,8 @@
 ﻿using Assets.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GetStartingNichesListView : ListView
@@ -20,12 +22,41 @@ public class GetStartingNichesListView : ListView
         Destroy(link);
     }
 
+    bool IsAppropriateStartNiche(GameEntity niche)
+    {
+        var profile = niche.nicheBaseProfile.Profile;
+
+        return profile.AppComplexity == AppComplexity.Easy && profile.AudienceSize != AudienceSize.Global;
+    }
+
+    GameEntity ChooseAppropriateMarket(GameEntity[] markets)
+    {
+        return RandomUtils.RandomItem(markets.Where(IsAppropriateStartNiche));
+    }
+
+
+
+    GameEntity[] GetStartNichesInIndustry(IndustryType industry, GameContext context)
+    {
+        var niches = NicheUtils.GetNichesInIndustry(industry, context);
+
+        return Array.FindAll(niches, IsAppropriateStartNiche);
+    }
+
     void Start()
     {
-        var niches = new GameEntity[2];
+        var niches = NicheUtils.GetPlayableNiches(GameContext)
+            .Where(IsAppropriateStartNiche)
+            .ToArray();
 
-        niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_Forums);
-        niches[1] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_SocialNetwork);
+        var availableEntertainingMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Entertainment, GameContext);
+        var availableCommunicationMarkets = NicheUtils.GetPlayableNichesInIndustry(IndustryType.Communications, GameContext);
+
+        //niches[0] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_Forums);
+        //niches[1] = NicheUtils.GetNicheEntity(GameContext, NicheType.Com_SocialNetwork);
+
+        //niches[0] = ChooseAppropriateMarket(availableEntertainingMarkets);
+        //niches[1] = ChooseAppropriateMarket(availableCommunicationMarkets);
 
         SetItems(niches);
     }
