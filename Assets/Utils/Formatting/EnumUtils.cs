@@ -30,6 +30,7 @@ namespace Assets.Utils.Formatting
                 case NicheType.Com_Blogs: return "Blogs";
                 case NicheType.Com_Forums: return "Forums";
                 case NicheType.Com_Email: return "Email services";
+                case NicheType.Com_Dating: return "Dating";
 
 
                 case NicheType.CloudComputing: return "Clouds";

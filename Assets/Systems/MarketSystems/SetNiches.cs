@@ -58,11 +58,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             });
     }
 
-    void InitializeECommerceIndustry()
-    {
-
-    }
-
     private void InitializeEntertainmentIndustry()
     {
         var niches = new NicheType[] {
@@ -75,7 +70,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             // gaming
             NicheType.Ent_FreeToPlay,
             NicheType.Ent_MMOs,
-            NicheType.Ent_Publishing,
+            //NicheType.Ent_Publishing,
 
             // Video Streaming
             NicheType.Ent_StreamingService,
@@ -96,8 +91,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNichesAutomatically(NicheType.Ent_MMOs,              2000,
             AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Mid);
 
+
         SetNichesAutomatically(NicheType.Ent_StreamingService,  2011,
             AudienceSize.Million100, Monetisation.Service, Margin.Low, NicheSpeed.HalfYear, AppComplexity.Easy);
+        SetNichesAutomatically(NicheType.Ent_TVStreamingService,  2016,
+            AudienceSize.Million100, Monetisation.Service, Margin.Mid, NicheSpeed.HalfYear, AppComplexity.Mid);
     }
 
     private void InitializeFundamentalIndustry()
@@ -109,7 +107,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.Browser,
         };
         AttachNichesToIndustry(IndustryType.Fundamental, niches);
-
 
         var cloudProfile = new MarketProfile
         {

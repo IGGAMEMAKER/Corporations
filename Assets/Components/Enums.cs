@@ -28,7 +28,6 @@ public enum NicheType
     CloudComputing,
     OSDesktop,
     Browser,
-    //OSSciencePurpose,
 
     // Entertainment
     Ent_Lottery,
@@ -39,7 +38,7 @@ public enum NicheType
     Ent_MMOs,
     Ent_FreeToPlay,
     Ent_SinglePlayer,
-    Ent_Publishing,
+    //Ent_Publishing,
 
     Ent_StreamingService,
     Ent_TVStreamingService,
