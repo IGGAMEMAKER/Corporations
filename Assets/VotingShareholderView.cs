@@ -39,33 +39,23 @@ public class VotingShareholderView : View
 
     void RenderResponse(GameEntity investor)
     {
-        if (!CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType))
-        {
-            Response.text = Visuals.Negative(CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany));
-        }
-        else if (isWillAcceptOffer)
+        var AcquisitionOffer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+
+
+        bool willAcceptOffer = CompanyUtils.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
+        bool wantsToSellShares = CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+
+        if (willAcceptOffer)
         {
             Response.text = Visuals.Positive("Will sell shares!");
         }
-        else
+        else if (wantsToSellShares)
         {
             Response.text = Visuals.Negative("Wants more money");
         }
-    }
-
-    AcquisitionOfferComponent AcquisitionOffer
-    {
-        get
+        else
         {
-            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
-        }
-    }
-
-    bool isWillAcceptOffer
-    {
-        get
-        {
-            return CompanyUtils.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
+            Response.text = Visuals.Negative(CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany));
         }
     }
 }

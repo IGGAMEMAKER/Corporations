@@ -111,14 +111,13 @@ public class AcquisitionScreen : View
     public void IncreaseShareOffer()
     {
         var newConditions = Conditions;
-
         newConditions.ByShares = Mathf.Clamp(newConditions.ByShares + 1, 0, 25);
+
         UpdateData();
     }
     public void DecreaseShareOffer()
     {
         var newConditions = Conditions;
-
         newConditions.ByShares = Mathf.Clamp(newConditions.ByShares - 1, 0, 25);
 
         UpdateData();
@@ -127,7 +126,6 @@ public class AcquisitionScreen : View
     public void OnSharesOfferEdit()
     {
         var offer = int.Parse(SharesOfferInput.text);
-
         Conditions.ByShares = (int)Slider.value; // Mathf.Clamp(offer, 0, 25);
 
         UpdateData();
