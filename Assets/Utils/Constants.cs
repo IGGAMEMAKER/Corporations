@@ -43,15 +43,6 @@ public class Constants
     public static int SALARIES_DIRECTOR = 3500;
     public static int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
 
-    public static long COMPANY_SCORING_BANKRUPTCY = 10000;
-    public static long COMPANY_SCORING_LOYALTY = 5000;
-    public static long COMPANY_SCORING_COMPANY_GOAL = 3000;
-
-    public static long COMPANY_SCORING_CONCEPT_TOO_URGENT = 600;
-    public static long COMPANY_SCORING_CONCEPT_URGENCY = 300;
-
-    public static long COMPANY_SCORING_HIRE_PROGRAMMER = 50;
-
     //public static float GAMEPLAY_OFFSET_Y = -110f;
     public static float GAMEPLAY_OFFSET_Y = -60f;
 
