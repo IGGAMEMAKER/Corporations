@@ -9,8 +9,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     bool isTimerRunning => DateEntity.isTimerRunning;
 
     float totalTime;
-    float currentSpeed = 2;
-    float baseSpeed = 0.5f;
+    float currentSpeed = 4;
 
     GameEntity DateEntity;
 
@@ -52,7 +51,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
 
     void ResetTimer()
     {
-        totalTime = baseSpeed / currentSpeed;
+        totalTime = 1 / currentSpeed;
     }
 
 
@@ -67,13 +66,14 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         // on right click
         //if (Input.GetMouseButtonUp(1))
         //    ToggleTimer();
+
         if (Input.GetKeyUp(KeyCode.Space))
             ToggleTimer();
 
         if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
             currentSpeed += 2;
 
-        if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 1)
+        if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 2)
             currentSpeed--;
     }
 }
