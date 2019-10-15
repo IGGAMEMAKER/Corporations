@@ -63,12 +63,8 @@ public partial class ProductInitializerSystem : IInitializeSystem
         var microsoft = GenerateHoldingCompany("Microsoft Inc");
         AttachToHolding(microsoft, microsoftOs);
 
-        //PlayAs(tg);
-        //PlayAs(google);
-        //PlayAs(alphabet);
         var mailru = GenerateHoldingCompany("MailRu");
         AttachToHolding(mailru, vk);
-        //AttachToHolding(mailru, twitter.company.Id);
 
 
 
