@@ -51,7 +51,7 @@ namespace Assets.Utils
             if (phase == NicheLifecyclePhase.Trending)
                 spawnChance *= 5;
 
-            if (spawnChance > UnityEngine.Random.Range(0, 1000))
+            if (spawnChance > Random.Range(0, 1000))
                 SpawnCompany(niche, gameContext);
         }
 
