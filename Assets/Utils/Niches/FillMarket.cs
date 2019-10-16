@@ -10,7 +10,7 @@ namespace Assets.Utils
     {
         public static void FillMarket(GameEntity niche, GameContext gameContext)
         {
-            var phase = NicheUtils.GetMarketState(niche);
+            var phase = GetMarketState(niche);
             if (phase == NicheLifecyclePhase.Death)
                 return;
 
@@ -20,13 +20,13 @@ namespace Assets.Utils
                 return;
 
             var nicheType = niche.niche.NicheType;
-            var playersOnMarket = NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
+            var playersOnMarket = GetCompetitorsAmount(nicheType, gameContext);
 
             if (phase == NicheLifecyclePhase.Innovation && playersOnMarket > 0)
                 return;
 
-            var nicheRating = NicheUtils.GetMarketRating(niche);
-            var potential = NicheUtils.GetMarketPotential(niche);
+            var nicheRating = GetMarketRating(niche);
+            var potential = GetMarketPotential(niche);
 
             var potentialRating = Mathf.Log10(potential) - 5;
             //                              1...5 = 25  *               1...4 = 10           
