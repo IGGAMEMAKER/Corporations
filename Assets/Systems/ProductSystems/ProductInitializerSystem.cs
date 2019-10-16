@@ -72,50 +72,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
         AddShareholder(yahoo, investorId2, 500);
         AddShareholder(yahoo, investorId3, 1500);
         AddShareholder(yahoo, investorId1, 100);
-
-        SimulateDevelopment();
-    }
-
-    void SimulateDevelopment()
-    {
-        var skipDays = (2000 - Constants.START_YEAR) * 360;
-        ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
-        return;
-        var products = CompanyUtils.GetProductCompanies(GameContext);
-        var markets =  NicheUtils.GetNiches(GameContext);
-
-        var date = ScheduleUtils.GetCurrentDate(GameContext);
-
-        // simulate market development
-        foreach (var m in markets)
-        {
-
-        }
-
-        // simulate products
-        foreach (var p in products)
-        {
-            var niche = NicheUtils.GetNicheEntity(GameContext, p.product.Niche);
-            var spawnTime = niche.nicheLifecycle.OpenDate;
-
-            var monthsOfWork = (date - spawnTime) / 30;
-
-            if (monthsOfWork < 0)
-                monthsOfWork = 0;
-
-            // set clients
-            var clients = monthsOfWork * MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche) * UnityEngine.Random.Range(0.5f, 1.5f);
-            MarketingUtils.AddClients(p, (long)clients);
-
-            // set brands
-            var brand = Mathf.Clamp(UnityEngine.Random.Range(0, monthsOfWork * 3), 0, 100);
-            MarketingUtils.AddBrandPower(p, brand);
-
-            // set concepts
-            var iterationTime = ProductUtils.GetBaseIterationTime(niche);
-
-            var concept = monthsOfWork * iterationTime / 30;
-        }
     }
 }
 

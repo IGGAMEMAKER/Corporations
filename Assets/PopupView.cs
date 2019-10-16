@@ -8,20 +8,36 @@ public class PopupView : View
     public Text Title;
     public Text Description;
     public PopupButtonsContainer popupButtonsContainer;
+    public Text AmountOfMessages;
 
     PopupMessage PopupMessage;
 
     List<System.Type> ButtonComponents = new List<System.Type>();
 
-
-    //public override void ViewRender()
     private void OnEnable()
     {
-        var popup = NotificationUtils.GetPopupMessage(GameContext);
+        Render();
+    }
+
+
+    public override void ViewRender()
+    {
+        Render();
+    }
+    void Render()
+    {
+        var messagesCount = NotificationUtils.GetPopups(GameContext).Count;
+
+        if (messagesCount == 0)
+            return;
+
+        var popup = NotificationUtils.GetPopupMessage(GameContext) ?? null;
 
         PopupMessage = popup;
 
         ButtonComponents.Clear();
+
+        AmountOfMessages.text = "Messages: " + messagesCount;
 
         switch (popup.PopupType)
         {

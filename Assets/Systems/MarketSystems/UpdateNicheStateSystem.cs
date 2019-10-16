@@ -98,6 +98,4 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
         niche.ReplaceNicheState(state.Phase, Mathf.Max(state.Duration - 1, 0));
     }
-
-
 }

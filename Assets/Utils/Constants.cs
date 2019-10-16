@@ -51,12 +51,12 @@
     public static int COOLDOWN_CONCEPT = 15;
 
     //public static int START_YEAR = 1991;
-    public static int START_YEAR = 1980; // 2000
-    internal static long COMPANY_DESIRE_TO_SELL_NO = 0;
-    internal static long COMPANY_DESIRE_TO_SELL_YES = 1;
+    public const int START_YEAR = 2000; // 2000
+    internal const long COMPANY_DESIRE_TO_SELL_NO = 0;
+    internal const long COMPANY_DESIRE_TO_SELL_YES = 1;
 
-    public static float CLIENT_GAIN_MODIFIER_MIN = 1f;
-    public static float CLIENT_GAIN_MODIFIER_MAX = 1.5f;
+    public const float CLIENT_GAIN_MODIFIER_MIN = 1f;
+    public const float CLIENT_GAIN_MODIFIER_MAX = 1.5f;
 }
 
 public class VisualConstants

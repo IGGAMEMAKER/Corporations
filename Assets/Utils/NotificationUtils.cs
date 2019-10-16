@@ -99,10 +99,16 @@ namespace Assets.Utils
             return GetNotificationsComponent(gameContext).popup.PopupMessages.Count > 0;
         }
 
-        public static PopupMessage GetPopupMessage(GameContext gameContext)
+        public static List<PopupMessage> GetPopups(GameContext gameContext)
         {
             var container = GetPopupContainer(gameContext);
-            var messages = container.popup.PopupMessages;
+
+            return container.popup.PopupMessages;
+        }
+
+        public static PopupMessage GetPopupMessage(GameContext gameContext)
+        {
+            var messages = GetPopups(gameContext);
 
             return messages[0];
         }

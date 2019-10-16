@@ -12,6 +12,7 @@ public enum NicheDuration
     Year = 12,
     FiveYears = 60,
     Decade = 120,
+    TwoDecades = Decade * 2,
     EntireGame = 12 * 50
 }
 
@@ -32,16 +33,6 @@ public enum AudienceSize
     Million100 = 100000000, // 100M // usefull util AdBlock
     Global = 1000000000 // 1-2B
 }
-
-//public enum PriceCategory
-//{
-//    // dollars per user per year
-//    CheapMass = 1,
-//    FreeMass = 4,
-//    CheapSubscription = 120, // Subscription model: 10$/month
-//    ExpensiveSubscription = 500, // Subscription model: 10$/month
-//    Enterprise = 50000,
-//}
 
 public enum Monetisation
 {
@@ -76,17 +67,6 @@ public enum AppComplexity
 }
 
 
-public enum MarketAttribute
-{
-    RepaymentMonth,
-    RepaymentHalfYear,
-    RepaymentYear,
-
-    AudienceIncreased,
-    AudienceNiche,
-}
-
-
 public struct MarketProfile
 {
     public AudienceSize AudienceSize;
@@ -105,14 +85,15 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity)
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity,
+    NicheDuration nicheDuration = NicheDuration.EntireGame)
     {
         return SetNichesAutomatically(
             nicheType,
             startDate,
             new MarketProfile {
                 AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
-            }
+            }, nicheDuration
             );
     }
 
@@ -125,7 +106,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
-        MarketProfile settings
+        MarketProfile settings,
+        NicheDuration nicheDuration = NicheDuration.EntireGame
         )
     {
         var nicheId = GetNicheId(nicheType);
@@ -164,18 +146,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, ChangeSpeed);
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, nicheDuration, ChangeSpeed);
         n.ReplaceNicheBaseProfile(settings);
 
         return n;
-    }
-
-
-    bool GetAttribute(MarketAttribute[] marketAttributes, MarketAttribute attribute)
-    {
-        if (marketAttributes == null) return false;
-
-        return marketAttributes.Contains(attribute);
     }
 
     private int GetTechCost(NicheSpeed techMaintenance, int nicheId)

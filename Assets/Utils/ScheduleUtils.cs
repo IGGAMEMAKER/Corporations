@@ -36,6 +36,13 @@ namespace Assets.Utils
             container.isTimerRunning = false;
         }
 
+        internal static void IncreaseDate(GameContext gameContext, int increment)
+        {
+            var container = GetDateContainer(gameContext);
+
+            container.ReplaceDate(container.date.Date + increment, container.date.Speed);
+        }
+
         public static void ResumeGame(GameContext gameContext, int date = -1, int currentSpeed = -1)
         {
             var container = GetDateContainer(gameContext);

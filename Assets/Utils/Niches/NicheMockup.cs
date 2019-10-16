@@ -59,15 +59,8 @@ namespace Assets.Utils
 
 
         // durations
-        public static int GetNicheDuration(GameEntity niche)
-        {
-            var phase = GetMarketState(niche);
 
-            var duration = GetMinimumPhaseDurationInPeriods(phase) * GetNichePeriodDurationInMonths(niche);
-
-            return duration;
-        }
-
+        // update
         public static void UpdateNicheDuration(GameEntity niche)
         {
             var phase = GetMarketState(niche);
@@ -86,6 +79,16 @@ namespace Assets.Utils
             niche.ReplaceNicheState(next, newDuration);
         }
 
+
+        // get
+        public static int GetNicheDuration(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            var duration = GetMinimumPhaseDurationInPeriods(phase) * GetNichePeriodDurationInMonths(niche);
+
+            return duration;
+        }
 
         public static int GetNichePeriodDurationInMonths(GameEntity niche)
         {

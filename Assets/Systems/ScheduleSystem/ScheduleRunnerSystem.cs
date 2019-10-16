@@ -42,7 +42,9 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         {
             ResetTimer();
 
-            DateEntity.ReplaceDate(DateEntity.date.Date + 1, currentSpeed);
+            ScheduleUtils.IncreaseDate(_context, 1);
+            //DateEntity.ReplaceDate(DateEntity.date.Date + 1, currentSpeed);
+
 
             if (DateEntity.date.Date == DateEntity.targetDate.Date)
                 ScheduleUtils.PauseGame(_context);

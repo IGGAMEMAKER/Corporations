@@ -31,11 +31,11 @@ public class GetStartingNichesListView : ListView
 
     void Start()
     {
-        var niches = NicheUtils.GetNiches(GameContext);
+        //var niches = NicheUtils.GetNiches(GameContext);
 
-        //var niches = NicheUtils.GetPlayableNiches(GameContext)
-        //    .Where(IsAppropriateStartNiche)
-        //    .ToArray();
+        var niches = NicheUtils.GetPlayableNiches(GameContext)
+            .Where(IsAppropriateStartNiche)
+            .ToArray();
 
         SetItems(niches);
     }
