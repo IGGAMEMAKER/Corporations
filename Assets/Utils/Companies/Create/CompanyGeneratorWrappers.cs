@@ -91,21 +91,8 @@ namespace Assets.Utils
 
         public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
         {
-            var rating = 1;
-
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
-
-            var profile = niche.nicheBaseProfile.Profile;
-
-            var audience = profile.AudienceSize;
-            var income = profile.Margin;
-
-            if (audience == AudienceSize.Global     || audience == AudienceSize.BigEnterprise)   rating += 2;
-            if (audience == AudienceSize.Million100 || audience == AudienceSize.SmallEnterprise) rating += 1;
-
-
-            if (income == Margin.High) rating += 2;
-            if (income == Margin.Mid) rating += 1;
+            var rating = NicheUtils.GetMarketPotentialRating(niche);
 
 
             var rand = UnityEngine.Random.Range(1f, 2f);

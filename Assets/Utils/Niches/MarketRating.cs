@@ -47,5 +47,25 @@ namespace Assets.Utils
             }
         }
 
+        public static int GetMarketPotentialRating(GameEntity niche)
+        {
+            var rating = 1;
+
+
+            var profile = niche.nicheBaseProfile.Profile;
+
+            var audience = profile.AudienceSize;
+            var income = profile.Margin;
+
+            if (audience == AudienceSize.Global || audience == AudienceSize.BigEnterprise) rating += 2;
+            if (audience == AudienceSize.Million100 || audience == AudienceSize.SmallEnterprise) rating += 1;
+
+
+            if (income == Margin.High) rating += 2;
+            if (income == Margin.Mid) rating += 1;
+
+            return rating;
+        }
+
     }
 }
