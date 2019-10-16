@@ -1,8 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -25,12 +21,16 @@ namespace Assets.Utils
             if (phase == NicheLifecyclePhase.Innovation && playersOnMarket > 0)
                 return;
 
+
+
             var nicheRating = GetMarketRating(niche);
             var potential = GetMarketPotential(niche);
 
             var potentialRating = Mathf.Log10(potential) - 5;
             //                              1...5 = 25  *               1...4 = 10           
             var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
+
+
 
             if (playersOnMarket == 0 || phase == NicheLifecyclePhase.Idle)
             {
