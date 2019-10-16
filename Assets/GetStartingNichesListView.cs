@@ -24,7 +24,9 @@ public class GetStartingNichesListView : ListView
     {
         var profile = niche.nicheBaseProfile.Profile;
 
-        return profile.AppComplexity == AppComplexity.Easy && profile.AudienceSize != AudienceSize.Global;
+        var isPerspective = NicheUtils.IsPerspectiveNiche(niche);
+
+        return profile.AppComplexity == AppComplexity.Easy && profile.AudienceSize != AudienceSize.Global && isPerspective;
     }
 
 
