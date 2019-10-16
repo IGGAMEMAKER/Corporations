@@ -61,12 +61,15 @@ public partial class WorldFillerSystem : IInitializeSystem
             var spawnTime = niche.nicheLifecycle.OpenDate;
 
             var monthsOfWork = (date - spawnTime) / 30;
+            //Debug.Log($"Market={p.product.Niche}  Date: " + date + " openDate " + spawnTime + "  monthsOfWork = " + monthsOfWork);
 
             if (monthsOfWork < 0)
                 monthsOfWork = 0;
 
             // set clients
-            var clients = monthsOfWork * MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche) * UnityEngine.Random.Range(0.5f, 1.5f);
+            var flow = (float) MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche);
+            var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
+
             MarketingUtils.AddClients(p, (long)clients);
 
             // set brands
@@ -77,7 +80,7 @@ public partial class WorldFillerSystem : IInitializeSystem
             var iterationTime = ProductUtils.GetBaseIterationTime(niche);
 
             var concept = monthsOfWork * 30 / iterationTime;
-            var randConcept = UnityEngine.Random.Range(1, concept);
+            var randConcept = UnityEngine.Random.Range(1, 7);
 
             for (var i = 0; i < randConcept; i++)
                 ProductUtils.UpdgradeProduct(p, GameContext);
