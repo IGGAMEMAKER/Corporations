@@ -39,7 +39,7 @@
 
 
             var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
-            return ambitions != Ambition.RuleProductCompany;
+            return ambitions == Ambition.RuleCorporation;
         }
 
         public static void NotifyAboutCompanyPromotion(GameContext gameContext, int companyId, string previousName)

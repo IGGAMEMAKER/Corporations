@@ -19,8 +19,8 @@ public class RenderHumanAmbitions : UpgradedParameterView
             case Ambition.EarnMoney:
                 return "Just make money";
 
-            case Ambition.RuleProductCompany:
-                return "Make innovative products";
+            //case Ambition.RuleProductCompany:
+            //    return "Make innovative products";
 
             case Ambition.RuleCorporation:
                 return "Rule the corporation";

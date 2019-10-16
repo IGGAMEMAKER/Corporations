@@ -6,7 +6,7 @@ namespace Assets.Utils
     public enum Ambition
     {
         EarnMoney,
-        RuleProductCompany,
+        //RuleProductCompany,
 
         RuleCorporation
     }
@@ -130,8 +130,8 @@ namespace Assets.Utils
 
         public static Ambition GetFounderAmbition(int ambitions)
         {
-            if (ambitions < 75)
-                return Ambition.RuleProductCompany;
+            //if (ambitions < 75)
+            //    return Ambition.RuleProductCompany;
 
             if (ambitions < 85)
                 return Ambition.EarnMoney;

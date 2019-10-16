@@ -2,6 +2,7 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -69,22 +70,55 @@ namespace Assets.Utils
             return TurnToHolding(context, c.company.Id);
         }
 
-        public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType niche)
+        public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType NicheType)
         {
             var c = CreateCompany(context, name, CompanyType.ProductCompany);
 
-            return CreateProduct(context, c, niche);
+            return CreateProduct(context, c, NicheType);
         }
 
-        public static GameEntity AutoGenerateProductCompany(NicheType n, GameContext gameContext)
+        public static GameEntity AutoGenerateProductCompany(NicheType NicheType, GameContext gameContext)
         {
-            var playersOnMarket = NicheUtils.GetCompetitorsAmount(n, gameContext);
+            var playersOnMarket = NicheUtils.GetCompetitorsAmount(NicheType, gameContext);
 
-            var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(n) + " " + playersOnMarket, n);
+            var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
 
             AutoFillShareholders(gameContext, c, true);
+            SetFounderAmbitionDueToMarketSize(c, gameContext);
 
             return c;
+        }
+
+        public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
+        {
+            var rating = 1;
+
+            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+
+            var profile = niche.nicheBaseProfile.Profile;
+
+            var audience = profile.AudienceSize;
+            var income = profile.Margin;
+
+            if (audience == AudienceSize.Global     || audience == AudienceSize.BigEnterprise)   rating += 2;
+            if (audience == AudienceSize.Million100 || audience == AudienceSize.SmallEnterprise) rating += 1;
+
+
+            if (income == Margin.High) rating += 2;
+            if (income == Margin.Mid) rating += 1;
+
+
+            var rand = UnityEngine.Random.Range(1f, 2f);
+
+            // 5...25      
+            var ambition = 65 + Mathf.Clamp(rating * 5 * rand, 0, 30);
+            var CeoId = GetCEOId(company);
+
+            var currentAmbition = GetFounderAmbition(company, gameContext);
+
+            var ceo = HumanUtils.GetHumanById(gameContext, CeoId);
+
+            HumanUtils.SetTrait(ceo, TraitType.Ambitions, (int)ambition);
         }
 
 

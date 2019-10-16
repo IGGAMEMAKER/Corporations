@@ -46,7 +46,7 @@ namespace Assets.Utils
 
             var ambition = HumanUtils.GetFounderAmbition(ambitions);
 
-            if (ambition == Ambition.EarnMoney || ambition == Ambition.RuleProductCompany)
+            if (ambition == Ambition.EarnMoney)
                 return Constants.COMPANY_DESIRE_TO_SELL_YES;
 
             return Constants.COMPANY_DESIRE_TO_SELL_NO;
@@ -111,12 +111,12 @@ namespace Assets.Utils
 
             var ambition = GetFounderAmbition(company, gameContext);
 
-            var wantsToStayInCompany = ambition == Ambition.RuleProductCompany;
+            //var wantsToStayInCompany = ambition == Ambition.RuleProductCompany;
             var wantsToRuleIndependently = ambition == Ambition.RuleCorporation;
 
 
-            if (wantsToStayInCompany)
-                bonus.Append("Wants to stay in company", conditions.KeepLeaderAsCEO ? 0 : -100);
+            //if (wantsToStayInCompany)
+            //    bonus.Append("Wants to stay in company", conditions.KeepLeaderAsCEO ? 0 : -100);
 
             if (wantsToRuleIndependently)
                 bonus.Append("Founder wants to rule independently", -1000);
