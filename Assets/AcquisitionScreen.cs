@@ -28,6 +28,9 @@ public class AcquisitionScreen : View
     {
         base.ViewRender();
 
+        if (!HasCompany)
+            return;
+
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
         var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
@@ -45,6 +48,9 @@ public class AcquisitionScreen : View
         var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
         var acquisitionOffer = AcquisitionOffer;
+
+        if (acquisitionOffer == null)
+            return;
 
         var conditions = acquisitionOffer.BuyerOffer;
         var seller = acquisitionOffer.SellerOffer;
@@ -95,10 +101,10 @@ public class AcquisitionScreen : View
         SharePercentage.text = $"You will pay {Format.Money(cash)} with cash and give {sharePartOfCompany}% of your company shares (worth ${Format.Money(shareCost)})";
     }
 
-    public void ToggleKeepFounderAsCEO()
-    {
-        AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
-    }
+    //public void ToggleKeepFounderAsCEO()
+    //{
+    //    AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
+    //}
 
     void UpdateData()
     {
@@ -146,7 +152,7 @@ public class AcquisitionScreen : View
     {
         get
         {
-            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id)?.acquisitionOffer ?? null;
         }
     }
 }
