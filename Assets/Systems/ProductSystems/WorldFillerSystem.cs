@@ -66,16 +66,6 @@ public partial class WorldFillerSystem : IInitializeSystem
             if (monthsOfWork < 0)
                 monthsOfWork = 0;
 
-            // set clients
-            var flow = (float) MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche);
-            var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
-
-            MarketingUtils.AddClients(p, (long)clients);
-
-            // set brands
-            var brand = Mathf.Clamp(UnityEngine.Random.Range(0, monthsOfWork / 2), 0, 35);
-            MarketingUtils.AddBrandPower(p, brand);
-
             // set concepts
             var iterationTime = ProductUtils.GetBaseIterationTime(niche);
 
@@ -84,6 +74,17 @@ public partial class WorldFillerSystem : IInitializeSystem
 
             for (var i = 0; i < randConcept; i++)
                 ProductUtils.UpdgradeProduct(p, GameContext, true);
+
+            // set brands
+            // commented, because UpgradeProduct already adds brand powers
+            //var brand = Mathf.Clamp(UnityEngine.Random.Range(0, monthsOfWork / 2), 0, 35);
+            //MarketingUtils.AddBrandPower(p, brand);
+
+            // set clients
+            var flow = (float) MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche);
+            var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
+
+            MarketingUtils.AddClients(p, (long)clients);
         }
     }
 
