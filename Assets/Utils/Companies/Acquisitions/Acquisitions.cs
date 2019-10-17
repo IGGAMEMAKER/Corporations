@@ -141,17 +141,19 @@ namespace Assets.Utils
             var investor = GetInvestorById(gameContext, shareholderId);
 
             var modifier = GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
-
             //Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
             var container = GetInvestorOpinionAboutAcquisitionOffer(ackOffer, investor, company, gameContext);
-
-
             bool willAcceptOffer = container.Sum() >= 0; // ackOffer.Offer > cost * modifier;
 
-            bool isBestOffer = true; // when competing with other companies
 
-            return GetDesireToSellShares(company, gameContext, shareholderId, investor.shareholder.InvestorType) == 1 && willAcceptOffer && isBestOffer;
+            bool isBestOffer = true; // when competing with other companies
+            var offers = GetAcquisitionOffersToCompany(gameContext, ackOffer.CompanyId);
+
+
+            var baseDesireToSellCompany = GetDesireToSellShares(company, gameContext, shareholderId, investor.shareholder.InvestorType);
+
+            return baseDesireToSellCompany == 1 && willAcceptOffer && isBestOffer;
         }
 
         public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)

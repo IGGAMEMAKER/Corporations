@@ -63,7 +63,7 @@ public class VotingShareholderView : View
         }
 
 
-        text = opinion.Sum() + "  " + opinion.RenderTitle().ToString();
+        text = opinion.Minify().ToString();
         Response.text = text;
     }
 }

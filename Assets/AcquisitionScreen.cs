@@ -35,13 +35,15 @@ public class AcquisitionScreen : View
 
         var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        ProposalStatus.text = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id) ?
-            Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
+        var willAcceptOffer = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        RenderOffer();
+        ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
+            //? Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
+
+        RenderOffer(willAcceptOffer);
     }
 
-    void RenderOffer()
+    void RenderOffer(bool willAcceptOffer)
     {
         string overpriceText = "";
 
@@ -73,8 +75,7 @@ public class AcquisitionScreen : View
         TriesRemaining.text = acquisitionOffer.RemainingTries.ToString();
         DaysRemaining.text = acquisitionOffer.RemainingDays + " days left";
 
-        var isWillSell = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
-        AcquisitionButtonView.SetAcquisitionBid(offer, isWillSell);
+        AcquisitionButtonView.SetAcquisitionBid(offer, willAcceptOffer);
 
         KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
 

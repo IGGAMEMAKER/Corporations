@@ -34,10 +34,19 @@ public class BonusContainer
     long capMin = 0;
     long capMax = 0;
 
+    bool renderSubTitle = true;
+
     public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
 
         parameter = bonusName;
+    }
+
+    public BonusContainer Minify()
+    {
+        renderSubTitle = false;
+
+        return this;
     }
 
     public BonusContainer Cap(long min, long max)
@@ -112,7 +121,8 @@ public class BonusContainer
         if (renderTitle)
             str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));
 
-        str.AppendLine("\n** Based on **\n");
+        if (renderSubTitle)
+            str.AppendLine("\n** Based on **\n");
 
         foreach (var bonus in bonusDescriptions)
         {
