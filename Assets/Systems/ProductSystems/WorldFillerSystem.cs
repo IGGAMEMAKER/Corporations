@@ -80,10 +80,10 @@ public partial class WorldFillerSystem : IInitializeSystem
             var iterationTime = ProductUtils.GetBaseIterationTime(niche);
 
             var concept = monthsOfWork * 30 / iterationTime;
-            var randConcept = UnityEngine.Random.Range(1, 7);
+            var randConcept = 1 + UnityEngine.Random.Range(0, concept);
 
             for (var i = 0; i < randConcept; i++)
-                ProductUtils.UpdgradeProduct(p, GameContext);
+                ProductUtils.UpdgradeProduct(p, GameContext, true);
         }
     }
 

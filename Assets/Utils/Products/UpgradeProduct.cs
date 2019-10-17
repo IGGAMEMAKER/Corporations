@@ -67,9 +67,9 @@ namespace Assets.Utils
         }
 
 
-        public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
+        public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
         {
-            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product))
+            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
                 return;
 
             var upgrade = 1;
@@ -87,9 +87,12 @@ namespace Assets.Utils
 
             UpdateNicheSegmentInfo(product, gameContext);
 
-            var duration = GetProductUpgradeFinalIterationTime(gameContext, product);
+            if (!IgnoreCooldowns)
+            {
+                var duration = GetProductUpgradeFinalIterationTime(gameContext, product);
 
-            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
+                CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
+            }
         }
     }
 }

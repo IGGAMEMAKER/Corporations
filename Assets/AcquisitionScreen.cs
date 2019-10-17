@@ -101,36 +101,29 @@ public class AcquisitionScreen : View
         SharePercentage.text = $"You will pay {Format.Money(cash)} with cash and give {sharePartOfCompany}% of your company shares (worth ${Format.Money(shareCost)})";
     }
 
-    //public void ToggleKeepFounderAsCEO()
-    //{
-    //    AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
-    //}
+    public void ToggleKeepFounderAsCEO()
+    {
+        if (!HasCompany)
+            return;
+
+        AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
+    }
 
     void UpdateData()
     {
+        if (!HasCompany)
+            return;
+
         CompanyUtils.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
 
         ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
     }
 
-    // TODO move to ButtonController classes
-    public void IncreaseShareOffer()
-    {
-        var newConditions = Conditions;
-        newConditions.ByShares = Mathf.Clamp(newConditions.ByShares + 1, 0, 25);
-
-        UpdateData();
-    }
-    public void DecreaseShareOffer()
-    {
-        var newConditions = Conditions;
-        newConditions.ByShares = Mathf.Clamp(newConditions.ByShares - 1, 0, 25);
-
-        UpdateData();
-    }
-
     public void OnSharesOfferEdit()
     {
+        if (!HasCompany)
+            return;
+
         var offer = int.Parse(SharesOfferInput.text);
         Conditions.ByShares = (int)Slider.value; // Mathf.Clamp(offer, 0, 25);
 
@@ -139,6 +132,9 @@ public class AcquisitionScreen : View
 
     public void OnCashOfferEdit()
     {
+        if (!HasCompany)
+            return;
+
         var offer = long.Parse(CashOfferInput.text);
 
         Conditions.Price = offer;
