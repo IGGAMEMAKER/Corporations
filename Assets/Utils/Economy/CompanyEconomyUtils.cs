@@ -42,7 +42,7 @@
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            return IsProfitable(gameContext, product.company.Id);
+            return !IsProfitable(gameContext, product.company.Id);
         }
     }
 }

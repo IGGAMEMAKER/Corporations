@@ -9,9 +9,10 @@ public enum PopupType
 
     BankruptCompany,
     NewCompany,
-    TargetInterception,
+    TargetWasBought,
 
-    InspirationToOpenMarket
+    InspirationToOpenMarket,
+    InterestToCompanyInOurSphereOfInfluence
 }
 
 public class PopupMessage
@@ -35,12 +36,20 @@ public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
     public PopupMessageCompanyBankrupt(int companyId) : base(companyId, PopupType.BankruptCompany) { }
 }
 
-public class PopupMessageCompetitorWantsToInterceptOurTargetCompany : PopupMessageCompanyEvent
+public class PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence : PopupMessageCompanyEvent
 {
     public int InterceptorCompanyId;
-    public PopupMessageCompetitorWantsToInterceptOurTargetCompany(int targetCompanyId, int interceptorId) : base(targetCompanyId, PopupType.TargetInterception)
+    public PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(int targetCompanyId, int interceptorId) : base(targetCompanyId, PopupType.TargetWasBought)
     {
         InterceptorCompanyId = interceptorId;
+    }
+}
+
+public class PopupMessageInterestToCompany : PopupMessageCompanyEvent
+{
+    public int buyerInvestorId;
+    public PopupMessageInterestToCompany(int companyId, int buyerInvestorId) : base(companyId, PopupType.InterestToCompanyInOurSphereOfInfluence) {
+        this.buyerInvestorId = buyerInvestorId;
     }
 }
 

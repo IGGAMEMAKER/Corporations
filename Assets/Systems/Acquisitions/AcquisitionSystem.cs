@@ -13,7 +13,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
     {
         var offers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
 
-
+        // companies, who are acquisition targets
         var targets = new List<int>();
 
         foreach (var o in offers)

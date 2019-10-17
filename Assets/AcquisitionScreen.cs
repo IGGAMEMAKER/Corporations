@@ -148,7 +148,9 @@ public class AcquisitionScreen : View
     {
         get
         {
-            return CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id)?.acquisitionOffer ?? null;
+            var offer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+            
+            return offer?.acquisitionOffer ?? null;
         }
     }
 }

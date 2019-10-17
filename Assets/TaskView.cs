@@ -56,6 +56,7 @@ public class TaskView : View
 
     private void AddLinkToObservableObject(CompanyTask companyTask)
     {
+        return;
         switch (companyTask.CompanyTaskType)
         {
             case CompanyTaskType.ExploreMarket:

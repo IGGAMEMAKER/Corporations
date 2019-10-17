@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ public class PopupView : View
     {
         Render();
     }
+
     void Render()
     {
         var messagesCount = NotificationUtils.GetPopups(GameContext).Count;
@@ -41,15 +43,38 @@ public class PopupView : View
 
         switch (popup.PopupType)
         {
-            case PopupType.CloseCompany: RenderCloseCompanyPopup(); break;
-            case PopupType.MarketChanges: RenderMarketChangePopup(popup as PopupMessageMarketPhaseChange); break;
-            case PopupType.BankruptCompany: RenderBankruptCompany(popup as PopupMessageCompanyBankrupt); break;
-            case PopupType.NewCompany: RenderNewCompany(popup as PopupMessageCompanySpawn); break;
+            case PopupType.CloseCompany:
+                RenderCloseCompanyPopup();
+                break;
 
+            case PopupType.MarketChanges:
+                RenderMarketChangePopup(popup as PopupMessageMarketPhaseChange);
+                break;
+
+            case PopupType.BankruptCompany:
+                RenderBankruptCompany(popup as PopupMessageCompanyBankrupt);
+                break;
+
+            case PopupType.NewCompany:
+                RenderNewCompany(popup as PopupMessageCompanySpawn);
+                break;
+
+            case PopupType.InterestToCompanyInOurSphereOfInfluence:
+                RenderInterestToCompany(popup as PopupMessageInterestToCompany);
+                break;
+
+            case PopupType.TargetWasBought:
+                RenderTargetAcquisition(popup as PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence);
+                break;
 
             default:
-                Title.text = popup.PopupType.ToString();
-                Description.text = popup.PopupType.ToString() + " description. This Popup was not filled! ";
+                RenderUniversalPopup(
+                    popup.PopupType.ToString(),
+                    popup.PopupType.ToString() + " description. This Popup was not filled! ",
+                    typeof(ClosePopup)
+                    );
+                //Title.text = popup.PopupType.ToString();
+                //Description.text = popup.PopupType.ToString() + " description. This Popup was not filled! ";
                 break;
         }
 
@@ -79,6 +104,39 @@ public class PopupView : View
 
         AddComponent(typeof(ClosePopup));
         AddComponent(typeof(CloseCompanyController));
+    }
+
+    void RenderUniversalPopup(string title, string description, params Type[] buttons)
+    {
+        SetTitle(title);
+        SetDescription(description);
+
+        foreach (var b in buttons)
+            AddComponent(b);
+    }
+
+    private void RenderInterestToCompany(PopupMessageInterestToCompany popup)
+    {
+        var target = CompanyUtils.GetCompanyById(GameContext, popup.companyId);
+        var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.buyerInvestorId);
+
+        RenderUniversalPopup(
+            $"{buyer.company.Name} wants to buy {target.company.Name}!",
+            "If we want to prevent this, we need to send a counter offer!",
+            typeof(ClosePopup)
+            );
+    }
+
+    private void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
+    {
+        var target = CompanyUtils.GetCompanyById(GameContext, popup.companyId);
+        var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.InterceptorCompanyId);
+
+        RenderUniversalPopup(
+            $"{buyer.company.Name} Bought {target.company.Name}!",
+            $"This move will increase market share of {buyer.company.Name}",
+            typeof(ClosePopup)
+            );
     }
 
     void RenderMarketChangePopup(PopupMessageMarketPhaseChange popup)

@@ -30,6 +30,8 @@ namespace Assets.Utils
                 );
         }
 
+
+
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
@@ -50,6 +52,16 @@ namespace Assets.Utils
             offer.acquisitionOffer.Turn = AcquisitionTurn.Seller;
             offer.acquisitionOffer.BuyerOffer.Price = bid;
             offer.acquisitionOffer.BuyerOffer.ByCash = bid;
+
+            NotifyAboutInterest(gameContext, companyId, buyerInvestorId);
+        }
+
+        public static void NotifyAboutInterest(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var company = GetCompanyById(gameContext, companyId);
+
+            if (IsInPlayerSphereOfInterest(company, gameContext))
+                NotificationUtils.AddPopup(gameContext, new PopupMessageInterestToCompany(companyId, buyerInvestorId));
         }
 
         public static GameEntity CreateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
@@ -105,6 +117,8 @@ namespace Assets.Utils
                 );
         }
 
+
+        // opinions about acquisitions
         public static BonusContainer GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOfferComponent ackOffer, GameEntity investor, GameEntity targetCompany, GameContext gameContext)
         {
             var container = new BonusContainer("Opinion about acquisition offer");
