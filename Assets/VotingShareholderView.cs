@@ -45,18 +45,25 @@ public class VotingShareholderView : View
         bool willAcceptOffer = CompanyUtils.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
         bool wantsToSellShares = CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
 
+        var opinion = CompanyUtils.GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOffer, investor, SelectedCompany, GameContext);
+        var text = "";
+
         if (willAcceptOffer)
         {
-            Response.text = Visuals.Positive("Will sell shares!");
+            text = Visuals.Positive("Will sell shares!");
         }
         else if (wantsToSellShares)
         {
-            Response.text = Visuals.Negative("Wants more money");
+            text = Visuals.Negative("Wants more money");
         }
         else
         {
             var description = CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany);
-            Response.text = Visuals.Negative(description);
+            text = Visuals.Negative(description);
         }
+
+
+        text = opinion.Sum() + "  " + opinion.RenderTitle().ToString();
+        Response.text = text;
     }
 }
