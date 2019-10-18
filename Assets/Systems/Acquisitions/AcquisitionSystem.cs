@@ -2,6 +2,7 @@
 using Entitas;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class ProcessAcquisitionOffersSystem : OnWeekChange
 {
@@ -36,7 +37,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         // if one offer
         // try to lower price
         if (offerCount == 1)
-            TradeWithOneBuyer();
+            TradeWithOneBuyer(offers.First(), companyId);
         else
             RespondToOffers(offers, offerCount);
 
@@ -78,8 +79,51 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
     }
 
-    void TradeWithOneBuyer()
+    void TradeWithOneBuyer(GameEntity offer, int targetId)
     {
+        var o = offer.acquisitionOffer;
+        var shareholderId = o.BuyerId;
 
+        var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
+
+        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var minPrice = cost * modifier;
+
+
+        if (o.BuyerOffer.Price < o.SellerOffer.Price)
+        {
+            var newPrice = o.SellerOffer.Price * Random.Range(0.75f, 1f);
+
+            newPrice = Mathf.Max(newPrice, minPrice, o.BuyerOffer.Price);
+
+            offer.ReplaceAcquisitionOffer(
+                targetId, shareholderId, o.RemainingTries - 1, o.RemainingDays, AcquisitionTurn.Buyer, o.BuyerOffer,
+                new AcquisitionConditions
+                {
+                    Price = (long)newPrice,
+                    ByCash = (long)newPrice,
+                    ByShares = 0,
+                    KeepLeaderAsCEO = o.SellerOffer.KeepLeaderAsCEO
+                }
+                );
+        }
+        else
+        {
+            // price is ok
+            var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+
+            if (investor.isControlledByPlayer)
+            {
+                Debug.Log("Acquisition status OK");
+            } else
+            {
+                AcceptOffer(targetId, shareholderId);
+            }
+        }
+    }
+
+    void AcceptOffer(int targetId, int shareholderId)
+    {
+        CompanyUtils.ConfirmAcquisitionOffer(gameContext, targetId, shareholderId);
     }
 }

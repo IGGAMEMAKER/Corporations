@@ -74,20 +74,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
         CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
     }
 
-    void AcceptOffer(GameEntity buyer, GameEntity target)
-    {
-        BuyCompany(buyer, target);
-
-        CompanyUtils.RemoveAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id);
-    }
-
-    void BuyCompany(GameEntity managingCompany, GameEntity candidate)
-    {
-        Debug.LogFormat("{0} wants to buy company {1} ...", managingCompany.company.Name, candidate.company.Name);
-
-        CompanyUtils.BuyCompany(gameContext, candidate.company.Id, managingCompany.shareholder.Id);
-    }
-
 
     bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
     {

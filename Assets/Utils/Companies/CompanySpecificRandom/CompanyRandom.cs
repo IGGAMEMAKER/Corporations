@@ -103,7 +103,7 @@ namespace Assets.Utils
             return ((C * K) % 1);
         }
 
-        static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
+        public static float GetRandomAcquisitionPriceModifier(int companyId, int shareholderId)
         {
             var min = 0.9f;
             var max = 3f;

@@ -27,10 +27,10 @@ public partial class AIManageGroupSystems
     {
         foreach (var n in group.companyFocus.Niches)
         {
-            Debug.Log("Checking niche " + n.ToString());
+            //Debug.Log("Checking niche " + n.ToString());
             foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
             {
-                Debug.Log("Checking holding " + holding.company.Name);
+                //Debug.Log("Checking holding " + holding.company.Name);
 
                 if (!holding.hasProduct)
                     continue;
