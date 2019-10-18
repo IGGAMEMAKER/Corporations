@@ -7,6 +7,7 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
+        // reject offer
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
@@ -19,6 +20,8 @@ namespace Assets.Utils
             offer.Destroy();
         }
 
+
+        // send offer
         public static void SendAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long bid)
         {
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);

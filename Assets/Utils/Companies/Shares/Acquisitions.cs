@@ -16,7 +16,7 @@ namespace Assets.Utils
         {
             // can afford acquisition
             var inv = InvestmentUtils.GetInvestorById(gameContext, buyerInvestorId);
-            if (!inv.companyResource.Resources.IsEnoughResources(new Classes.TeamResource(offer)))
+            if (!IsEnoughResources(inv, offer))
                 return;
 
             var c = GetCompanyById(gameContext, companyId);
