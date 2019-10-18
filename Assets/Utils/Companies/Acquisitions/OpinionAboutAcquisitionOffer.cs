@@ -61,8 +61,6 @@ namespace Assets.Utils
             long blocks = 0;
             long desireToSell = 0;
 
-            var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
-
             foreach (var s in shareholders)
             {
                 var invId = s.Key;
@@ -72,6 +70,7 @@ namespace Assets.Utils
 
                 if (willAcceptOffer)
                     desireToSell += block.amount;
+
                 blocks += block.amount;
             }
 
