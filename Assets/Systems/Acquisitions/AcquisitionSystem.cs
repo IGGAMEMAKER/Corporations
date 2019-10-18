@@ -47,11 +47,9 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void RespondToOffers(GameEntity[] offers, int offerCount)
     {
-        var sortedOffers = offers
-            .OrderByDescending(o => o.acquisitionOffer.BuyerOffer.Price);
+        var sortedOffers = offers.OrderByDescending(o => o.acquisitionOffer.BuyerOffer.Price);
 
-        var maxOffer = sortedOffers
-            .First();
+        var maxOffer = sortedOffers.First();
 
         var maxCost = maxOffer.acquisitionOffer.BuyerOffer.Price;
 
@@ -81,18 +79,18 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
     }
 
-    //AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
-    //{
-    //    var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
+    AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
+    {
+        var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-    //    var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
-    //    var minPrice = cost * modifier;
-    //}
+        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var minPrice = cost * modifier;
+    }
 
-    void TradeWithOneBuyer(GameEntity offer, int targetId)
+    void DecreaseCompanyPrice(GameEntity offer, int targetId, int shareholderId)
     {
         var o = offer.acquisitionOffer;
-        var shareholderId = o.BuyerId;
+
 
         var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
@@ -100,23 +98,31 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         var minPrice = cost * modifier;
 
 
+        var newPrice = o.SellerOffer.Price * Random.Range(0.75f, 1f);
+
+        newPrice = Mathf.Max(newPrice, minPrice, o.BuyerOffer.Price);
+
+        var sellerConditions = new AcquisitionConditions
+        {
+            Price = (long)newPrice,
+            ByCash = (long)newPrice,
+            ByShares = 0,
+            KeepLeaderAsCEO = o.SellerOffer.KeepLeaderAsCEO
+        };
+
+        offer.ReplaceAcquisitionOffer(targetId, shareholderId, AcquisitionTurn.Buyer, o.BuyerOffer, sellerConditions);
+    }
+
+    void TradeWithOneBuyer(GameEntity offer, int targetId)
+    {
+        var o = offer.acquisitionOffer;
+        var shareholderId = o.BuyerId;
+
+
+
         if (o.BuyerOffer.Price < o.SellerOffer.Price)
         {
-            var newPrice = o.SellerOffer.Price * Random.Range(0.75f, 1f);
-
-            newPrice = Mathf.Max(newPrice, minPrice, o.BuyerOffer.Price);
-
-            offer.ReplaceAcquisitionOffer(
-                targetId, shareholderId,
-                AcquisitionTurn.Buyer,
-                o.BuyerOffer,
-                new AcquisitionConditions
-                {
-                    Price = (long)newPrice,
-                    ByCash = (long)newPrice,
-                    ByShares = 0,
-                    KeepLeaderAsCEO = o.SellerOffer.KeepLeaderAsCEO
-                });
+            DecreaseCompanyPrice(offer, targetId, shareholderId);
         }
         else
         {
