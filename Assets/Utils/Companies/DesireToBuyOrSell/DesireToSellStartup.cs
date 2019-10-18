@@ -73,58 +73,5 @@ namespace Assets.Utils
 
             return goalCompleted ? Constants.COMPANY_DESIRE_TO_SELL_YES : Constants.COMPANY_DESIRE_TO_SELL_NO;
         }
-
-
-
-        // opinion about offer
-        public static BonusContainer GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
-        {
-            var bonus = new BonusContainer("Venture investor Opinion");
-            var conditions = acquisitionOffer.BuyerOffer;
-
-            var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
-            bonus.Append("Offered price", priceOk ? -100 : 1);
-
-            var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
-            bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
-
-
-
-
-
-            return bonus;
-        }
-
-        public static BonusContainer GetFounderOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
-        {
-            var bonus = new BonusContainer("Founder Opinion");
-            var conditions = acquisitionOffer.BuyerOffer;
-
-            var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
-            bonus.Append("Offered price", priceOk ? -100 : 1);
-
-            var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
-            if (conditions.ByShares > 0)
-                bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
-
-
-
-
-            var ambition = GetFounderAmbition(company, gameContext);
-
-            //var wantsToStayInCompany = ambition == Ambition.RuleProductCompany;
-            var wantsToRuleIndependently = ambition == Ambition.RuleCorporation;
-
-
-            //if (wantsToStayInCompany)
-            //    bonus.Append("Wants to stay in company", conditions.KeepLeaderAsCEO ? 0 : -100);
-
-            if (wantsToRuleIndependently)
-                bonus.Append("Founder wants to rule independently", -1000);
-
-
-
-            return bonus;
-        }
     }
 }

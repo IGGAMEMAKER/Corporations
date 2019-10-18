@@ -1,25 +1,10 @@
-﻿using Entitas;
-using System;
-using System.Linq;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        // opinions about acquisitions
-        public static BonusContainer GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOfferComponent ackOffer, GameEntity investor, GameEntity targetCompany, GameContext gameContext)
+        public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var container = new BonusContainer("Opinion about acquisition offer");
-
-            switch (investor.shareholder.InvestorType)
-            {
-                case InvestorType.Founder:          container = GetFounderOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
-                case InvestorType.VentureInvestor:  container = GetVentureOpinionAboutOffer(ackOffer, investor, targetCompany, gameContext); break;
-                case InvestorType.Strategic:        container.Append("Views this company as strategic interest", -1000); break;
-            }
-
-            return container;
+            return GetOfferProgress(gameContext, companyId, buyerInvestorId) > 75 - GetShareSize(gameContext, companyId, buyerInvestorId);
         }
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
@@ -28,9 +13,6 @@ namespace Assets.Utils
 
             var company = GetCompanyById(gameContext, ackOffer.CompanyId);
             var investor = GetInvestorById(gameContext, shareholderId);
-
-            var modifier = GetRandomAcquisitionPriceModifier(ackOffer.CompanyId, shareholderId);
-            //Debug.Log("IsShareholderWillAcceptAcquisitionOffer " + modifier);
 
             var container = GetInvestorOpinionAboutAcquisitionOffer(ackOffer, investor, company, gameContext);
             bool willAcceptOffer = container.Sum() >= 0; // ackOffer.Offer > cost * modifier;
@@ -45,11 +27,7 @@ namespace Assets.Utils
             return wantsToSellShares && willAcceptOffer && isBestOffer;
         }
 
-        public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
-        {
-            return GetOfferProgress(gameContext, companyId, buyerInvestorId) > 75 - GetShareSize(gameContext, companyId, buyerInvestorId);
-        }
-
+        // sum opinions of all investors
         public static long GetOfferProgress(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             var ackOffer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);

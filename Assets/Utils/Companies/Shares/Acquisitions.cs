@@ -36,15 +36,5 @@ namespace Assets.Utils
 
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
         }
-
-        public static void NotifyAboutAcquisition(GameContext gameContext, int buyerShareholderId, int targetCompanyId, long bid)
-        {
-            NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, bid));
-
-            Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}!",
-                GetInvestorName(gameContext, buyerShareholderId),
-                GetCompanyById(gameContext, targetCompanyId).company.Name,
-                Format.Money(bid));
-        }
     }
 }
