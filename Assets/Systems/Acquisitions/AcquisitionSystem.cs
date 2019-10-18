@@ -79,13 +79,13 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
     }
 
-    AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
-    {
-        var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
+    //AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
+    //{
+    //    var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
-        var minPrice = cost * modifier;
-    }
+    //    var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+    //    var minPrice = cost * modifier;
+    //}
 
     void DecreaseCompanyPrice(GameEntity offer, int targetId, int shareholderId)
     {
