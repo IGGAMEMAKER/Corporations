@@ -43,6 +43,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
     IEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
         return products
+            .Where(p => p.isIndependentCompany)
             .Where(p => CompanyUtils.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
                 //.Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 //.OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
@@ -66,8 +67,8 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
-        //if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
-        //    return;
+        if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
+            return;
 
         Debug.Log("AI.SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
 

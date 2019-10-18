@@ -62,6 +62,10 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
             var isBestOffer = offer.BuyerOffer.Price == maxOffer.acquisitionOffer.BuyerOffer.Price;
 
+            // increase prices to meet expectations
+            //var counterOffer = GetNewCounterOffer();
+
+
             o.ReplaceAcquisitionOffer(
                 offer.CompanyId, offer.BuyerId,
                 offer.RemainingTries - 1 + (isBestOffer ? 1 : 0),
@@ -78,6 +82,14 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
                 });
         }
     }
+
+    //AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
+    //{
+    //    var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
+
+    //    var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+    //    var minPrice = cost * modifier;
+    //}
 
     void TradeWithOneBuyer(GameEntity offer, int targetId)
     {

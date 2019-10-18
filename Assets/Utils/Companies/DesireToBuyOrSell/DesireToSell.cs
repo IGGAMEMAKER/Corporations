@@ -2,6 +2,14 @@
 {
     public static partial class CompanyUtils
     {
+        public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
+        {
+            var desire = GetDesireToSellCompany(target, gameContext);
+            var founderWantsToSell = GetFounderAmbition(target, gameContext) == Ambition.EarnMoney;
+
+            return desire > 75 || founderWantsToSell || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
+        }
+
         public static long GetDesireToSellCompany(GameEntity company, GameContext gameContext)
         {
             var shareholders = company.shareholders.Shareholders;
@@ -24,13 +32,6 @@
             return desireToSell * 100 / blocks;
         }
 
-        public static bool IsWillSellCompany(GameEntity target, GameContext gameContext)
-        {
-            var desire = GetDesireToSellCompany(target, gameContext);
-            var founderWantsToSell = GetFounderAmbition(target, gameContext) == Ambition.EarnMoney;
-
-            return desire > 75 || founderWantsToSell || target.isOnSales || IsCompanyRelatedToPlayer(gameContext, target);
-        }
 
         public static bool IsYoungCompany(GameEntity company)
         {
