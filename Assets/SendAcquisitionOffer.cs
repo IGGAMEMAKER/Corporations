@@ -1,18 +1,12 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SendAcquisitionOffer : MonoBehaviour
+public class SendAcquisitionOffer : ButtonController
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Execute()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CompanyUtils.SendAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
     }
 }
