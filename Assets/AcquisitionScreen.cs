@@ -69,8 +69,8 @@ public class AcquisitionScreen : View
         CashOfferInput.text = offer.ToString();
         SharesOfferInput.text = conditions.ByShares.ToString();
 
-        TriesRemaining.text = acquisitionOffer.RemainingTries.ToString();
-        DaysRemaining.text = acquisitionOffer.RemainingDays + " days left";
+        TriesRemaining.text = ""; // acquisitionOffer.RemainingTries.ToString();
+        DaysRemaining.text = ""; // acquisitionOffer.RemainingDays + " days left";
 
         KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
 

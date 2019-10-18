@@ -41,8 +41,7 @@ namespace Assets.Utils
 
             var o = offer.acquisitionOffer;
 
-            offer.ReplaceAcquisitionOffer(companyId, buyerInvestorId,
-                o.RemainingTries - 1, o.RemainingDays, AcquisitionTurn.Seller, o.BuyerOffer, o.SellerOffer);
+            offer.ReplaceAcquisitionOffer(companyId, buyerInvestorId, AcquisitionTurn.Seller, o.BuyerOffer, o.SellerOffer);
         }
 
 
@@ -55,8 +54,6 @@ namespace Assets.Utils
             off.ReplaceAcquisitionOffer(
                 companyId,
                 buyerInvestorId,
-                off.acquisitionOffer.RemainingTries,
-                off.acquisitionOffer.RemainingDays,
                 off.acquisitionOffer.Turn,
                 newConditions,
                 off.acquisitionOffer.SellerOffer

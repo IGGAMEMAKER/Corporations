@@ -68,8 +68,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
             o.ReplaceAcquisitionOffer(
                 offer.CompanyId, offer.BuyerId,
-                offer.RemainingTries - 1 + (isBestOffer ? 1 : 0),
-                offer.RemainingDays,
                 AcquisitionTurn.Buyer,
                 offer.BuyerOffer,
                 new AcquisitionConditions
@@ -109,15 +107,16 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
             newPrice = Mathf.Max(newPrice, minPrice, o.BuyerOffer.Price);
 
             offer.ReplaceAcquisitionOffer(
-                targetId, shareholderId, o.RemainingTries - 1, o.RemainingDays, AcquisitionTurn.Buyer, o.BuyerOffer,
+                targetId, shareholderId,
+                AcquisitionTurn.Buyer,
+                o.BuyerOffer,
                 new AcquisitionConditions
                 {
                     Price = (long)newPrice,
                     ByCash = (long)newPrice,
                     ByShares = 0,
                     KeepLeaderAsCEO = o.SellerOffer.KeepLeaderAsCEO
-                }
-                );
+                });
         }
         else
         {

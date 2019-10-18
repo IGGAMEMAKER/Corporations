@@ -218,8 +218,8 @@ public class AcquisitionOfferComponent : IComponent
     public int CompanyId; // target
     public int BuyerId;
 
-    public int RemainingTries;
-    public int RemainingDays;
+    //public int RemainingTries;
+    //public int RemainingDays;
 
     public AcquisitionTurn Turn;
 
