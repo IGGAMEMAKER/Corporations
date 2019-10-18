@@ -78,7 +78,7 @@
                     return "Founder ambitions not fulfilled";
 
                 case InvestorType.Strategic:
-                    return "Views this company as strategic ";
+                    return "Views this company as strategic";
 
                 default:
                     return investorType.ToString() + " will not sell shares";

@@ -23,16 +23,20 @@ namespace Assets.Utils
         {
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
+            var o = offer.acquisitionOffer;
 
+            offer.ReplaceAcquisitionOffer(companyId, buyerInvestorId,
+                o.RemainingTries - 1, o.RemainingDays, AcquisitionTurn.Seller, o.BuyerOffer, o.SellerOffer);
         }
         public static void SendAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId, long bid)
         {
             var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
             Debug.Log("SendAcquisitionOffer");
-            offer.acquisitionOffer.Turn = AcquisitionTurn.Seller;
             offer.acquisitionOffer.BuyerOffer.Price = bid;
             offer.acquisitionOffer.BuyerOffer.ByCash = bid;
+
+            SendAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
             NotifyAboutInterest(gameContext, companyId, buyerInvestorId);
         }

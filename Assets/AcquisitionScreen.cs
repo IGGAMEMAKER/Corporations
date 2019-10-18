@@ -10,8 +10,6 @@ public class AcquisitionScreen : View
     public Text Offer;
     public Text SellerPrice;
 
-    public AcquisitionButtonView AcquisitionButtonView;
-
     public Text TriesRemaining;
     public Text DaysRemaining;
 
@@ -38,7 +36,6 @@ public class AcquisitionScreen : View
         var willAcceptOffer = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
-            //? Visuals.Positive(progress + "%") : Visuals.Negative(progress + "%");
 
         RenderOffer(willAcceptOffer);
     }
@@ -74,8 +71,6 @@ public class AcquisitionScreen : View
 
         TriesRemaining.text = acquisitionOffer.RemainingTries.ToString();
         DaysRemaining.text = acquisitionOffer.RemainingDays + " days left";
-
-        AcquisitionButtonView.SetAcquisitionBid(offer, willAcceptOffer);
 
         KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
 

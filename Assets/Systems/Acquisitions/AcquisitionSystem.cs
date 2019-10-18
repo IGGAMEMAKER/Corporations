@@ -30,17 +30,56 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
     {
         var offers = CompanyUtils.GetAcquisitionOffersToCompany(gameContext, companyId);
 
-        var maxOffer = offers
-            .OrderByDescending(o => o.acquisitionOffer.BuyerOffer.Price)
+        var offerCount = offers.Count();
+
+
+        // if one offer
+        // try to lower price
+        if (offerCount == 1)
+            TradeWithOneBuyer();
+        else
+            RespondToOffers(offers, offerCount);
+
+        // if competing offers: choose best, who offers more than minimum needed
+
+    }
+
+    void RespondToOffers(GameEntity[] offers, int offerCount)
+    {
+        var sortedOffers = offers
+            .OrderByDescending(o => o.acquisitionOffer.BuyerOffer.Price);
+
+        var maxOffer = sortedOffers
             .First();
 
         var maxCost = maxOffer.acquisitionOffer.BuyerOffer.Price;
 
-        for (var i = 0; i < offers.Count(); i++)
+        for (var i = 0; i < offerCount; i++)
         {
             var o = offers[i];
             var offer = o.acquisitionOffer;
-            //o.ReplaceAcquisitionOffer(offer.CompanyId, offer.BuyerId, offer.RemainingTries, offer.RemainingDays, offer.AcquisitionConditions.)
+
+            var isBestOffer = offer.BuyerOffer.Price == maxOffer.acquisitionOffer.BuyerOffer.Price;
+
+            o.ReplaceAcquisitionOffer(
+                offer.CompanyId, offer.BuyerId,
+                offer.RemainingTries - 1 + (isBestOffer ? 1 : 0),
+                offer.RemainingDays,
+                AcquisitionTurn.Buyer,
+                offer.BuyerOffer,
+                new AcquisitionConditions
+                {
+                    ByCash = maxCost,
+                    Price = maxCost,
+
+                    ByShares = 0,
+                    KeepLeaderAsCEO = offer.SellerOffer.KeepLeaderAsCEO,
+                });
         }
+    }
+
+    void TradeWithOneBuyer()
+    {
+
     }
 }
