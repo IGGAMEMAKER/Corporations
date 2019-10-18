@@ -8,7 +8,7 @@ public class AcquisitionButtonView : View
     {
         bid = offer;
 
-        bool enoughMoney = MyCompany.companyResource.Resources.money >= offer;
+        bool enoughMoney = CompanyUtils.IsEnoughResources(MyCompany, offer);
         GetComponent<Button>().interactable = willSell && enoughMoney;
 
 

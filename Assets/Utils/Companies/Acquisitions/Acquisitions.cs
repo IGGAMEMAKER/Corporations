@@ -150,10 +150,10 @@ namespace Assets.Utils
             bool isBestOffer = true; // when competing with other companies
             var offers = GetAcquisitionOffersToCompany(gameContext, ackOffer.CompanyId);
 
-
             var baseDesireToSellCompany = GetDesireToSellShares(company, gameContext, shareholderId, investor.shareholder.InvestorType);
+            var wantsToSellShares = true || baseDesireToSellCompany == 1;
 
-            return baseDesireToSellCompany == 1 && willAcceptOffer && isBestOffer;
+            return wantsToSellShares && willAcceptOffer && isBestOffer;
         }
 
         public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)

@@ -104,7 +104,8 @@ namespace Assets.Utils
             bonus.Append("Offered price", priceOk ? -100 : 1);
 
             var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
-            bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
+            if (conditions.ByShares > 0)
+                bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
 
 
 
