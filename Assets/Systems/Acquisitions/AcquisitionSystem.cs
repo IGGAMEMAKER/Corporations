@@ -84,8 +84,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
                     KeepLeaderAsCEO = offer.SellerOffer.KeepLeaderAsCEO,
                 });
         }
-
-
     }
 
     AcquisitionConditions GetNewCounterOffer(GameEntity offer, int targetId, int shareholderId, long maxOfferedPrice)
@@ -93,7 +91,25 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
         var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
-        var minPrice = cost * modifier;
+        var maxPrice = (long) (cost * modifier); // the max amount, that we want to pay theoretically
+
+        var newPrice = (long) (maxOfferedPrice * Random.Range(1.05f, 5f));
+
+        if (newPrice > maxPrice)
+            newPrice = maxPrice;
+
+        var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+        var balance = investor.companyResource.Resources.money;
+        if (newPrice > balance)
+            newPrice = balance;
+
+        return new AcquisitionConditions
+        {
+            ByCash = newPrice,
+            Price = newPrice,
+            ByShares = 0,
+            KeepLeaderAsCEO = offer.acquisitionOffer.BuyerOffer.KeepLeaderAsCEO,
+        };
     }
 
     void DecreaseCompanyPrice(GameEntity offer, int targetId, int shareholderId)
