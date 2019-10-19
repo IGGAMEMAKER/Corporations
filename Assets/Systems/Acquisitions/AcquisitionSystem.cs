@@ -51,7 +51,9 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         var maxOffer = sortedOffers.First();
 
-        var maxCost = maxOffer.acquisitionOffer.BuyerOffer.Price;
+        var maxOfferedPrice = maxOffer.acquisitionOffer.BuyerOffer.Price;
+
+        List<int> toRemove = new List<int>();
 
         for (var i = 0; i < offerCount; i++)
         {
@@ -61,31 +63,38 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
             var isBestOffer = offer.BuyerOffer.Price == maxOffer.acquisitionOffer.BuyerOffer.Price;
 
             // increase prices to meet expectations
-            //var counterOffer = GetNewCounterOffer();
+            var counterOffer = GetNewCounterOffer(o, offer.CompanyId, offer.BuyerId, maxOfferedPrice);
 
+            if (counterOffer.Price < maxOfferedPrice)
+            {
+                toRemove.Add(offer.BuyerId);
+                continue;
+            }
 
             o.ReplaceAcquisitionOffer(
                 offer.CompanyId, offer.BuyerId,
                 AcquisitionTurn.Buyer,
-                offer.BuyerOffer,
+                counterOffer,
                 new AcquisitionConditions
                 {
-                    ByCash = maxCost,
-                    Price = maxCost,
+                    ByCash = maxOfferedPrice,
+                    Price = maxOfferedPrice,
 
                     ByShares = 0,
                     KeepLeaderAsCEO = offer.SellerOffer.KeepLeaderAsCEO,
                 });
         }
+
+
     }
 
-    //AcquisitionConditions GetNewCounterOffer(int targetId, int shareholderId)
-    //{
-    //    var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
+    AcquisitionConditions GetNewCounterOffer(GameEntity offer, int targetId, int shareholderId, long maxOfferedPrice)
+    {
+        var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-    //    var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
-    //    var minPrice = cost * modifier;
-    //}
+        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var minPrice = cost * modifier;
+    }
 
     void DecreaseCompanyPrice(GameEntity offer, int targetId, int shareholderId)
     {
@@ -118,29 +127,24 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         var o = offer.acquisitionOffer;
         var shareholderId = o.BuyerId;
 
-
-
         if (o.BuyerOffer.Price < o.SellerOffer.Price)
-        {
             DecreaseCompanyPrice(offer, targetId, shareholderId);
-        }
         else
-        {
-            // price is ok
-            var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
-
-            if (investor.isControlledByPlayer)
-            {
-                Debug.Log("Acquisition status OK");
-            } else
-            {
-                AcceptOffer(targetId, shareholderId);
-            }
-        }
+            AcceptOffer(targetId, shareholderId);
     }
 
     void AcceptOffer(int targetId, int shareholderId)
     {
-        CompanyUtils.ConfirmAcquisitionOffer(gameContext, targetId, shareholderId);
+        var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+
+        if (investor.isControlledByPlayer)
+        {
+            Debug.Log("Acquisition status OK");
+            // Acquisition popup, which will contain ConfirmAcquisitionOffer call
+        }
+        else
+        {
+            CompanyUtils.ConfirmAcquisitionOffer(gameContext, targetId, shareholderId);
+        }
     }
 }
