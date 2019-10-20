@@ -133,7 +133,8 @@ public class PopupView : View
         var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
-            $"{buyer.company.Name} Bought {target.company.Name}!",
+            "ACQUISITION!",
+            $"Company {buyer.company.Name} BOUGHT {target.company.Name} for {Format.Money(popup.Bid)}!\n\n" +
             $"This move will increase market share of {buyer.company.Name}",
             typeof(ClosePopup)
             );

@@ -39,9 +39,11 @@ public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
 public class PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence : PopupMessageCompanyEvent
 {
     public int InterceptorCompanyId;
-    public PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(int targetCompanyId, int interceptorId) : base(targetCompanyId, PopupType.TargetWasBought)
+    public long Bid;
+    public PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(int targetCompanyId, int interceptorId, long bid) : base(targetCompanyId, PopupType.TargetWasBought)
     {
         InterceptorCompanyId = interceptorId;
+        Bid = bid;
     }
 }
 
