@@ -19,6 +19,11 @@ namespace Assets.Utils
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, bid));
 
+            var company = GetCompanyById(gameContext, targetCompanyId);
+
+            if (IsInPlayerSphereOfInterest(company, gameContext))
+                NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(targetCompanyId, buyerShareholderId));
+
             Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}!",
                 GetInvestorName(gameContext, buyerShareholderId),
                 GetCompanyById(gameContext, targetCompanyId).company.Name,
