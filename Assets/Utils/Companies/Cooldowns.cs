@@ -80,6 +80,9 @@ namespace Assets.Utils
 
         public static void AddTask(GameContext gameContext, CompanyTask companyTask, int duration)
         {
+            if (IsHasTask(gameContext, companyTask))
+                return;
+
             var e = gameContext.CreateEntity();
 
             var start = ScheduleUtils.GetCurrentDate(gameContext);
@@ -88,6 +91,12 @@ namespace Assets.Utils
 
 
 
+        public static bool IsHasTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            var task = GetTask(gameContext, companyTask);
+
+            return task != null;
+        }
         public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
         {
             var tasks = GetTasks(gameContext);

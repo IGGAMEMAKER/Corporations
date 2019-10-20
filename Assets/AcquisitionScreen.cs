@@ -53,20 +53,20 @@ public class AcquisitionScreen : View
 
         var conditions = acquisitionOffer.BuyerOffer;
         var seller = acquisitionOffer.SellerOffer;
-        long offer = conditions.Price;
+        long price = conditions.Price;
 
-        if (offer > cost)
+        if (price > cost)
         {
-            var overprice = Mathf.Ceil(offer * 10 / cost);
+            var overprice = Mathf.Ceil(price * 10 / cost);
             overpriceText = $"  ({(overprice / 10)}x)";
         }
 
-        Offer.text = Format.Money(offer) + overpriceText;
+        Offer.text = Format.Money(price) + overpriceText;
         SellerPrice.text = Format.Money(seller.Price);
 
 
 
-        CashOfferInput.text = offer.ToString();
+        CashOfferInput.text = price.ToString();
         SharesOfferInput.text = conditions.ByShares.ToString();
 
         TriesRemaining.text = ""; // acquisitionOffer.RemainingTries.ToString();
@@ -74,14 +74,19 @@ public class AcquisitionScreen : View
 
         KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
 
+        RenderShareOfferSlider(conditions, price);
+    }
+
+    void RenderShareOfferSlider(AcquisitionConditions conditions, long price)
+    {
         var ourCompanyCost = EconomyUtils.GetCompanyCost(GameContext, MyCompany);
 
 
         var sharePercent = conditions.ByShares; // ;
         var maxAllowedShareCost = 25 * ourCompanyCost / 100;
 
-        var shareCost = Mathf.Clamp(sharePercent * offer / 100, 0, maxAllowedShareCost);
-        sharePercent = (int)(shareCost * 100 / offer);
+        var shareCost = Mathf.Clamp(sharePercent * price / 100, 0, maxAllowedShareCost);
+        sharePercent = (int)(shareCost * 100 / price);
 
 
 
@@ -89,11 +94,11 @@ public class AcquisitionScreen : View
         Slider.maxValue = 100;
 
 
-        Slider.maxValue = Mathf.Clamp(maxAllowedShareCost * 100 / offer, 0, 100);
+        Slider.maxValue = Mathf.Clamp(maxAllowedShareCost * 100 / price, 0, 100);
 
         var sharePartOfCompany = shareCost * 100 / ourCompanyCost;
 
-        var cash = offer - shareCost;
+        var cash = price - shareCost;
         SharePercentage.text = $"You will pay {Format.Money(cash)} with cash and give {sharePartOfCompany}% of your company shares (worth ${Format.Money(shareCost)})";
     }
 

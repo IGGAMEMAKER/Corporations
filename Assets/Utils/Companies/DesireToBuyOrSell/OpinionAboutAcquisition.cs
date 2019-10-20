@@ -54,9 +54,9 @@ namespace Assets.Utils
             var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
             bonus.Append("Offered price", priceOk ? -100 : 1);
 
-            var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
-            if (conditions.ByShares > 0)
-                bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
+            //var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
+            //if (conditions.ByShares > 0)
+            //    bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
 
 
 
