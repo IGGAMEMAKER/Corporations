@@ -53,12 +53,12 @@ namespace Assets.Utils
 
         public static void CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
         {
-            var startCapital = NicheUtils.GetStartCapital(nicheType, gameContext);
+            //var startCapital = NicheUtils.GetStartCapital(nicheType, gameContext) / 2;
 
-            if (!IsEnoughResources(group, startCapital))
-                return;
+            //if (!IsEnoughResources(group, startCapital))
+            //    return;
 
-            SpendResources(group, startCapital);
+            //SpendResources(group, startCapital);
 
 
 

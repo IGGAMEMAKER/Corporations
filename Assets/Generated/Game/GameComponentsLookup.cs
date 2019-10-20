@@ -74,37 +74,38 @@ public static class GameComponentsLookup {
     public const int OnSales = 63;
     public const int Player = 64;
     public const int Popup = 65;
-    public const int Product = 66;
-    public const int ProductImprovements = 67;
-    public const int ProductListener = 68;
-    public const int ProductPositioning = 69;
-    public const int PublicCompany = 70;
-    public const int Release = 71;
-    public const int ReleaseListener = 72;
-    public const int Reports = 73;
-    public const int Research = 74;
-    public const int Segment = 75;
-    public const int SegmentLeaders = 76;
-    public const int SegmentListener = 77;
-    public const int Shareholder = 78;
-    public const int Shareholders = 79;
-    public const int ShareholdersListener = 80;
-    public const int TargetDate = 81;
-    public const int Targeting = 82;
-    public const int TargetingListener = 83;
-    public const int Task = 84;
-    public const int TaskManager = 85;
-    public const int Team = 86;
-    public const int TeamListener = 87;
-    public const int TechnologyLeader = 88;
-    public const int TechnologyLeaderListener = 89;
-    public const int Test = 90;
-    public const int TimerRunning = 91;
-    public const int Tutorial = 92;
-    public const int TutorialListener = 93;
-    public const int Worker = 94;
+    public const int PreviousAcquisitionOffers = 66;
+    public const int Product = 67;
+    public const int ProductImprovements = 68;
+    public const int ProductListener = 69;
+    public const int ProductPositioning = 70;
+    public const int PublicCompany = 71;
+    public const int Release = 72;
+    public const int ReleaseListener = 73;
+    public const int Reports = 74;
+    public const int Research = 75;
+    public const int Segment = 76;
+    public const int SegmentLeaders = 77;
+    public const int SegmentListener = 78;
+    public const int Shareholder = 79;
+    public const int Shareholders = 80;
+    public const int ShareholdersListener = 81;
+    public const int TargetDate = 82;
+    public const int Targeting = 83;
+    public const int TargetingListener = 84;
+    public const int Task = 85;
+    public const int TaskManager = 86;
+    public const int Team = 87;
+    public const int TeamListener = 88;
+    public const int TechnologyLeader = 89;
+    public const int TechnologyLeaderListener = 90;
+    public const int Test = 91;
+    public const int TimerRunning = 92;
+    public const int Tutorial = 93;
+    public const int TutorialListener = 94;
+    public const int Worker = 95;
 
-    public const int TotalComponents = 95;
+    public const int TotalComponents = 96;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -173,6 +174,7 @@ public static class GameComponentsLookup {
         "OnSales",
         "Player",
         "Popup",
+        "PreviousAcquisitionOffers",
         "Product",
         "ProductImprovements",
         "ProductListener",
@@ -271,6 +273,7 @@ public static class GameComponentsLookup {
         typeof(OnSalesComponent),
         typeof(PlayerComponent),
         typeof(PopupComponent),
+        typeof(PreviousAcquisitionOffersComponent),
         typeof(ProductComponent),
         typeof(ProductImprovementsComponent),
         typeof(ProductListenerComponent),

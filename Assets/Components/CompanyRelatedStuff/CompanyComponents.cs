@@ -218,11 +218,14 @@ public class AcquisitionOfferComponent : IComponent
     public int CompanyId; // target
     public int BuyerId;
 
-    //public int RemainingTries;
-    //public int RemainingDays;
-
     public AcquisitionTurn Turn;
 
+    public AcquisitionConditions BuyerOffer;
+    public AcquisitionConditions SellerOffer;
+}
+
+public class PreviousAcquisitionOffersComponent : IComponent
+{
     public AcquisitionConditions BuyerOffer;
     public AcquisitionConditions SellerOffer;
 }

@@ -31,13 +31,26 @@ public class AcquisitionScreen : View
 
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
-        var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         var willAcceptOffer = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
+        RenderProposalStatus(willAcceptOffer);
 
         RenderOffer(willAcceptOffer);
+    }
+
+    void RenderProposalStatus(bool willAcceptOffer)
+    {
+        var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+
+        ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
+
+        var o = AcquisitionOffer;
+
+        if (o.Turn == AcquisitionTurn.Seller)
+        {
+            ProposalStatus.text = "Waiting for response... Will respond in " + CurrentIntDate % 7 + " days";
+        }
     }
 
     void RenderOffer(bool willAcceptOffer)
@@ -67,6 +80,12 @@ public class AcquisitionScreen : View
 
 
         CashOfferInput.text = price.ToString();
+
+        var turn = acquisitionOffer.Turn;
+        var showInputField = turn == AcquisitionTurn.Buyer;
+
+        CashOfferInput.gameObject.SetActive(showInputField);
+
         SharesOfferInput.text = conditions.ByShares.ToString();
 
         TriesRemaining.text = ""; // acquisitionOffer.RemainingTries.ToString();

@@ -12,29 +12,11 @@ public class ProposalScreen : View
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
     public RejectInvestmentProposalController RejectInvestmentProposalController;
 
-    GameEntity shareholder
-    {
-        get
-        {
-            return ScreenUtils.GetSelectedInvestor(GameContext);
-        }
-    }
+    private GameEntity Shareholder => ScreenUtils.GetSelectedInvestor(GameContext);
 
-    InvestmentProposal proposal
-    {
-        get
-        {
-            return CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, shareholder.shareholder.Id);
-        }
-    }
+    InvestmentProposal proposal => CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, Shareholder.shareholder.Id);
 
-    bool IsInvestmentRoundActive
-    {
-        get
-        {
-            return SelectedCompany.hasAcceptsInvestments;
-        }
-    }
+    bool IsInvestmentRoundActive => SelectedCompany.hasAcceptsInvestments;
 
     void RenderOffer()
     {
@@ -74,8 +56,8 @@ public class ProposalScreen : View
         AcceptInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
         RejectInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
 
-        AcceptInvestmentProposalController.InvestorId = shareholder.shareholder.Id;
-        RejectInvestmentProposalController.InvestorId = shareholder.shareholder.Id;
+        AcceptInvestmentProposalController.InvestorId = Shareholder.shareholder.Id;
+        RejectInvestmentProposalController.InvestorId = Shareholder.shareholder.Id;
     }
 
     void Render()
@@ -86,6 +68,6 @@ public class ProposalScreen : View
 
         SetButtons();
 
-        InvestorName.text = $"Proposal from {shareholder.shareholder.Name}, {InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType)}";
+        InvestorName.text = $"Proposal from {Shareholder.shareholder.Name}, {InvestmentUtils.GetFormattedInvestorType(Shareholder.shareholder.InvestorType)}";
     }
 }

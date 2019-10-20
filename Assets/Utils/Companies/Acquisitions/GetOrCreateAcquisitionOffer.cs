@@ -29,7 +29,7 @@ namespace Assets.Utils
                 KeepLeaderAsCEO = true
             };
 
-            offer.AddAcquisitionOffer(companyId, buyerInvestorId, AcquisitionTurn.Seller, buyerOffer, sellerOffer);
+            offer.AddAcquisitionOffer(companyId, buyerInvestorId, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
 
             return offer;
         }

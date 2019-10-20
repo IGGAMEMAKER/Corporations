@@ -55,15 +55,24 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         List<int> toRemove = new List<int>();
 
+        var CompanyId = maxOffer.acquisitionOffer.CompanyId;
+
+        var newSellerOffer = new AcquisitionConditions
+        {
+            ByCash = maxOfferedPrice,
+            Price = maxOfferedPrice,
+
+            ByShares = 0,
+            KeepLeaderAsCEO = true,
+        };
+
         for (var i = 0; i < offerCount; i++)
         {
             var o = offers[i];
             var offer = o.acquisitionOffer;
 
-            var isBestOffer = offer.BuyerOffer.Price == maxOffer.acquisitionOffer.BuyerOffer.Price;
-
             // increase prices to meet expectations
-            var counterOffer = GetNewCounterOffer(o, offer.CompanyId, offer.BuyerId, maxOfferedPrice);
+            var counterOffer = GetNewCounterOffer(o, CompanyId, offer.BuyerId, maxOfferedPrice);
 
             if (counterOffer.Price < maxOfferedPrice)
             {
@@ -72,17 +81,21 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
             }
 
             o.ReplaceAcquisitionOffer(
-                offer.CompanyId, offer.BuyerId,
+                CompanyId, offer.BuyerId,
                 AcquisitionTurn.Buyer,
                 counterOffer,
-                new AcquisitionConditions
-                {
-                    ByCash = maxOfferedPrice,
-                    Price = maxOfferedPrice,
+                newSellerOffer);
+        }
 
-                    ByShares = 0,
-                    KeepLeaderAsCEO = offer.SellerOffer.KeepLeaderAsCEO,
-                });
+        foreach (var buyerId in toRemove)
+            CompanyUtils.RejectAcquisitionOffer(gameContext, CompanyId, buyerId);
+
+        var remainingOffers = CompanyUtils.GetAcquisitionOffersToCompany(gameContext, CompanyId);
+
+        if (remainingOffers.Count() == 1)
+        {
+            Debug.Log("WON IN COMPETITION FOR COMPANY " + CompanyUtils.GetCompanyById(gameContext, CompanyId));
+            AcceptOffer(CompanyId, remainingOffers.First().acquisitionOffer.BuyerId);
         }
     }
 
@@ -107,7 +120,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         {
             ByCash = newPrice,
             Price = newPrice,
-            ByShares = 0,
+            ByShares = offer.acquisitionOffer.BuyerOffer.ByShares,
             KeepLeaderAsCEO = offer.acquisitionOffer.BuyerOffer.KeepLeaderAsCEO,
         };
     }
@@ -119,21 +132,22 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
-        var minPrice = cost * modifier;
+        var Kmin = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var Kbuyer = o.BuyerOffer.Price * 1f / cost;
+        var Kseller = 2 * Kmin - Kbuyer;
 
+        var KsellerRandomised = Kseller * Random.Range(0.85f, 1.15f);
 
-        var newPrice = o.SellerOffer.Price * Random.Range(0.75f, 1f);
-
-        newPrice = Mathf.Max(newPrice, minPrice, o.BuyerOffer.Price);
+        var newPrice = Mathf.Max(KsellerRandomised, Kmin, Kbuyer) * cost;
 
         var sellerConditions = new AcquisitionConditions
         {
-            Price = (long)newPrice,
+            Price =  (long)newPrice,
             ByCash = (long)newPrice,
             ByShares = 0,
             KeepLeaderAsCEO = o.SellerOffer.KeepLeaderAsCEO
         };
+
 
         offer.ReplaceAcquisitionOffer(targetId, shareholderId, AcquisitionTurn.Buyer, o.BuyerOffer, sellerConditions);
     }
@@ -145,7 +159,8 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         if (o.BuyerOffer.Price < o.SellerOffer.Price)
             DecreaseCompanyPrice(offer, targetId, shareholderId);
-        else
+
+        if (o.BuyerOffer.Price >= o.SellerOffer.Price)
             AcceptOffer(targetId, shareholderId);
     }
 

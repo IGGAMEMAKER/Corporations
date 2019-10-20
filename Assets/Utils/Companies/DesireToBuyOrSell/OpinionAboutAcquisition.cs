@@ -28,6 +28,8 @@ namespace Assets.Utils
             return container;
         }
 
+        
+
         public static BonusContainer GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
             var bonus = new BonusContainer("Venture investor Opinion");
@@ -36,8 +38,8 @@ namespace Assets.Utils
             var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
             bonus.Append("Offered price", priceOk ? -100 : 1);
 
-            var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
-            bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
+            //var wantsOurShares = GetHashedRandom(company.company.Id, acquisitionOffer.BuyerId) > 0.22f;
+            //bonus.AppendAndHideIfZero("Does not want our shares", wantsOurShares ? 0 : -120);
 
 
 
