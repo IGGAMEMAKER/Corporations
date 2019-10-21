@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -24,7 +23,15 @@ namespace Assets.Utils
             var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
-            return clients * price * (100 + improvements * 4f) / 100;
+            var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
+
+            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
+
+            var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
+            var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
+            var isPaidProduct = pricingType == Monetisation.Paid;
+
+            return clients * price * (10 + improvements * 15f) / 100;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)
