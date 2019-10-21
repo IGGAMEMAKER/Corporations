@@ -18,11 +18,6 @@ public class SetTargetCompany : View
                 companyId = MyGroupEntity != null ? MyGroupEntity.company.Id : 0;
                 break;
 
-            case TargetCompany.Product:
-                if (HasProductCompany)
-                    companyId = MyProductEntity.company.Id;
-                break;
-
             case TargetCompany.Selected:
                 companyId = SelectedCompany.company.Id;
                 break;

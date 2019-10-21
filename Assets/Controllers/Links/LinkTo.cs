@@ -29,15 +29,7 @@ public class LinkTo : ButtonController
             case ScreenMode.ProjectScreen:
                 NavigateToCompany(TargetMenu, SelectedCompany.company.Id);
                 break;
-            case ScreenMode.TeamScreen:
-                NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
-                break;
-            //case ScreenMode.DevelopmentScreen:
-            //    Navigate(TargetMenu, SelectedCompany.company.Id);
-            //    break;
-            case ScreenMode.MarketingScreen:
-                NavigateToCompany(TargetMenu, MyProductEntity.company.Id);
-                break;
+
 
             case ScreenMode.CompanyGoalScreen:
                 NavigateToCompany(TargetMenu, MyCompany.company.Id);

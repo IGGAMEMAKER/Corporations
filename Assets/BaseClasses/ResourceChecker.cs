@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-[RequireComponent(typeof(ListenMyProductResourceChanges))]
 [RequireComponent(typeof(Hint))]
 public abstract class ResourceChecker : View
 {
@@ -24,7 +23,7 @@ public abstract class ResourceChecker : View
         if (!Button)
             Debug.Log("Resource Checker: <Button> not found in " + gameObject.name);
         else
-            Button.interactable = IsEnoughResources;
+            Button.interactable = false;
 
         SetHint();
     }
@@ -36,34 +35,23 @@ public abstract class ResourceChecker : View
         Render();
     }
 
-    bool IsEnoughResources
-    {
-        get
-        {
-            if (!HasProductCompany)
-                return false;
-
-            return CompanyUtils.IsEnoughResources(MyProductEntity, GetRequiredResources());
-        }
-    }
-
     public virtual void SetHint()
     {
-        if (!Hint || !HasProductCompany)
+        //if (!Hint || !HasProductCompany)
             return;
 
-        TeamResource resources = MyProductEntity.companyResource.Resources;
-        var RequiredResources = GetRequiredResources();
+        //TeamResource resources = MyProductEntity.companyResource.Resources;
+        //var RequiredResources = GetRequiredResources();
 
-        string idea = RequiredResourceSpec(RequiredResources.ideaPoints, resources.ideaPoints, "ideas");
-        string money = RequiredResourceSpec((int)RequiredResources.money, (int)resources.money, "$");
-        string manager = RequiredResourceSpec(RequiredResources.managerPoints, resources.managerPoints, "manager points");
-        string programmer = RequiredResourceSpec(RequiredResources.programmingPoints, resources.programmingPoints, "programming points");
-        string sales = RequiredResourceSpec(RequiredResources.salesPoints, resources.salesPoints, "marketing points");
+        //string idea = RequiredResourceSpec(RequiredResources.ideaPoints, resources.ideaPoints, "ideas");
+        //string money = RequiredResourceSpec((int)RequiredResources.money, (int)resources.money, "$");
+        //string manager = RequiredResourceSpec(RequiredResources.managerPoints, resources.managerPoints, "manager points");
+        //string programmer = RequiredResourceSpec(RequiredResources.programmingPoints, resources.programmingPoints, "programming points");
+        //string sales = RequiredResourceSpec(RequiredResources.salesPoints, resources.salesPoints, "marketing points");
 
-        string hint = $"{GetBaseHint()}\n This task costs\n\n{money}{idea}{manager}{programmer}{sales}";
+        //string hint = $"{GetBaseHint()}\n This task costs\n\n{money}{idea}{manager}{programmer}{sales}";
 
-        Hint.SetHint(hint);
+        //Hint.SetHint(hint);
     }
 
     string RequiredResourceSpec(int req, int res, string literal)

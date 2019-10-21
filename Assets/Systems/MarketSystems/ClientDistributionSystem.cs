@@ -81,3 +81,14 @@ public partial class ClientDistributionSystem : OnPeriodChange
         return (long)(growth * rand);
     }
 }
+
+
+/*
+ ICrunchingListener
+ IMarketingListener
+ IProductListener
+ ICompanyResourceListener ??
+ ITargetingListener
+ IReleaseListener
+ ICompanyGoalListener
+*/

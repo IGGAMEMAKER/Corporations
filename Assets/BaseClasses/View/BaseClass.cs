@@ -20,15 +20,15 @@ public class BaseClass : MonoBehaviour
 
     public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
 
-    public GameEntity MyProductEntity   => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
     public GameEntity MyGroupEntity     => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
 
     public GameEntity MyCompany => MyGroupEntity ?? null;
 
-
-
     public bool HasCompany => MyCompany != null;
-    public bool HasProductCompany => MyProductEntity != null;
+
+
+    //public GameEntity MyProductEntity   => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
+    //public bool HasProductCompany => MyProductEntity != null;
 
 
 

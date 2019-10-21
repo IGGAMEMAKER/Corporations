@@ -9,8 +9,6 @@ public class JobOfferScreen : View
 
     public Text ProposalStatus;
 
-    public HireWorker HireWorker;
-
     // tweak salary buttons
 
     void RenderOffer()
@@ -34,17 +32,10 @@ public class JobOfferScreen : View
         Render();
     }
 
-    void SetButtons()
-    {
-        HireWorker.gameObject.SetActive(true);
-    }
-
     void Render()
     {
         RenderOffer();
         RenderProposalStatus();
-
-        SetButtons();
 
         WorkerName.text = $"Hire {HumanUtils.GetFullName(SelectedHuman)}, ({HumanUtils.GetOverallRating(SelectedHuman, GameContext)}LVL)";
         RoleName.text = HumanUtils.GetFormattedRole(SelectedHuman.worker.WorkerRole);

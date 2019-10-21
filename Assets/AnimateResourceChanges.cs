@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class AnimateResourceChanges : View
 {
     TeamResource Previous;
-    long prevClients;
     float prevBrand;
 
     public GameObject ResourceTextPrefab;
@@ -33,23 +32,10 @@ public class AnimateResourceChanges : View
         SpawnResource(diff.money, MoneyIcon, 0);
         SpawnResource((long)brandDiff, BrandIcon, 1);
 
-        var clients = HasProductCompany ? MarketingUtils.GetClients(MyProductEntity) : 0;
-        if (HasProductCompany)
-        {
-            ProductResourcesContainer.SetActive(true);
-            var clientsDiff = clients - prevClients;
-
-            SpawnResource(clientsDiff, ClientsIcon, 2);
-            SpawnResource(diff.ideaPoints, IdeasIcon, 3);
-        }
-        else
-        {
             ProductResourcesContainer.SetActive(false);
-        }
 
         // update values
         Previous = resources;
-        prevClients = clients;
         prevBrand = brand;
     }
 

@@ -6,7 +6,7 @@ public class InvestmentScreen : View
 
     void OnEnable()
     {
-        ToggleVisibility(SelectedCompany == MyProductEntity || SelectedCompany == MyGroupEntity);
+        ToggleVisibility(SelectedCompany == MyGroupEntity);
     }
 
     void ToggleVisibility(bool show)

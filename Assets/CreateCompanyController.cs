@@ -16,10 +16,6 @@ public class CreateCompanyController : View
             SetActions(true, $"Create a startup and attach it to group {MyGroupEntity.company.Name}\n\n " +
                 $"This will cost {Format.Money(startCapital)}");
         }
-        else if (MyProductEntity == null)
-        {
-            SetActions(true, "Create a startup and become it's CEO!");
-        }
         else
         {
             SetActions(false, "You have one startup already!\n" +

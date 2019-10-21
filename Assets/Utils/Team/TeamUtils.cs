@@ -117,14 +117,5 @@ namespace Assets.Utils
                 default: return TeamStatus.BigTeam;
             }
         }
-
-        internal static void Promote(GameEntity company)
-        {
-            var team = company.team;
-
-            TeamStatus newTeamStatus = GetNextTeamSize(team.TeamStatus);
-
-            Promote(company, newTeamStatus);
-        }
     }
 }

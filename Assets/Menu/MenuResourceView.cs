@@ -84,9 +84,6 @@ public class MenuResourceView : View
         hint = GetHintText(resourceMonthChanges.ideaPoints);
         IdeaView.SetPrettifiedValue(hint, teamResource.ideaPoints);
 
-        if (HasProductCompany)
-            ClientView.SetPrettifiedValue("Clients", MarketingUtils.GetClients(MyCompany));
-
         BrandView.SetPrettifiedValue("Brand power makes your ads more effective", MyCompany.branding.BrandPower);
     }
 }

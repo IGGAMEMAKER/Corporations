@@ -8,7 +8,5 @@ public class LinkToManagingScreen : ButtonController
     {
         if (SelectedCompany == MyGroupEntity)
             Navigate(ScreenMode.GroupManagementScreen);
-        else if (SelectedCompany == MyProductEntity)
-            Navigate(ScreenMode.DevelopmentScreen);
     }
 }
