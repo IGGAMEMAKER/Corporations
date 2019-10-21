@@ -104,6 +104,9 @@ public class PopupView : View
 
         foreach (var b in buttons)
             AddComponent(b);
+
+        if (buttons.Length == 0)
+            AddComponent(typeof(ClosePopup));
     }
     void RenderCloseCompanyPopup()
     {
@@ -123,8 +126,7 @@ public class PopupView : View
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
-            "If we want to prevent this, we need to send a counter offer!",
-            typeof(ClosePopup)
+            "If we want to prevent this, we need to send a counter offer!"
             );
     }
 
@@ -136,8 +138,7 @@ public class PopupView : View
         RenderUniversalPopup(
             "ACQUISITION!",
             $"Company {buyer.company.Name} BOUGHT {target.company.Name} for {Format.Money(popup.Bid)}!\n\n" +
-            $"This move will increase market share of {buyer.company.Name}",
-            typeof(ClosePopup)
+            $"This move will increase market share of {buyer.company.Name}"
             );
     }
 
@@ -175,19 +176,19 @@ public class PopupView : View
 
     void RenderBankruptCompany(PopupMessageCompanyBankrupt popup)
     {
-        SetTitle("Our competitor is bankrupt!");
-        SetDescription("Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " is bankrupt now!" +
-            "\nSome of their clients will start using our product instead");
-
-        AddComponent(typeof(ClosePopup));
+        RenderUniversalPopup(
+            "Our competitor is bankrupt!",
+            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " is bankrupt now!" +
+            "\nSome of their clients will start using our product instead"
+            );
     }
 
     void RenderNewCompany(PopupMessageCompanySpawn popup)
     {
-        SetTitle("New Startup");
-        SetDescription("Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. They will compete with our products now" +
-            "\n\nKeep an eye on them. Perhaps, we can buy them later");
-
-        AddComponent(typeof(ClosePopup));
+        RenderUniversalPopup(
+            "New Startup",
+            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. They will compete with our products now" +
+            "\n\nKeep an eye on them. Perhaps, we can buy them later"
+            );
     }
 }
