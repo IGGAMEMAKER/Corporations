@@ -13,7 +13,7 @@ public class PopupView : View
 
     PopupMessage PopupMessage;
 
-    List<System.Type> ButtonComponents = new List<System.Type>();
+    List<Type> ButtonComponents = new List<Type>();
 
     private void OnEnable()
     {
@@ -91,20 +91,11 @@ public class PopupView : View
         Description.text = text;
     }
 
-    void AddComponent(System.Type type)
+    void AddComponent(Type type)
     {
         ButtonComponents.Add(type);
     }
 
-
-    void RenderCloseCompanyPopup()
-    {
-        SetTitle("Do you want to close this company?");
-        SetDescription("");
-
-        AddComponent(typeof(ClosePopup));
-        AddComponent(typeof(CloseCompanyController));
-    }
 
     void RenderUniversalPopup(string title, string description, params Type[] buttons)
     {
@@ -114,6 +105,16 @@ public class PopupView : View
         foreach (var b in buttons)
             AddComponent(b);
     }
+    void RenderCloseCompanyPopup()
+    {
+        RenderUniversalPopup(
+            "Do you want to close this company?",
+            "",
+            typeof(ClosePopup),
+            typeof(CloseCompanyController)
+            );
+    }
+
 
     private void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
@@ -185,7 +186,7 @@ public class PopupView : View
     {
         SetTitle("New Startup");
         SetDescription("Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. They will compete with our products now" +
-            "\nKeep an eye on them. Perhaps, we can buy them later");
+            "\n\nKeep an eye on them. Perhaps, we can buy them later");
 
         AddComponent(typeof(ClosePopup));
     }
