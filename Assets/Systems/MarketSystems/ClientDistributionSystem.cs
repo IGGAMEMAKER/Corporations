@@ -20,22 +20,14 @@ public partial class ClientDistributionSystem : OnPeriodChange
     {
         var nicheType = niche.niche.NicheType;
 
+        var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
+
+        ChurnUsers(products);
+        ChangeBrandPowers(products);
+
         long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
 
-
         var clientContainers = niche.nicheClientsContainer.Clients;
-
-        var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
-        for (var i = 0; i < products.Length; i++)
-        {
-            var p = products[i];
-
-            var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
-
-            MarketingUtils.AddClients(p, -churnClients);
-        }
-
-        var segments = NicheUtils.GetNichePositionings(nicheType, gameContext);
 
         for (var i = 0; i < products.Length; i++)
         {
@@ -53,15 +45,32 @@ public partial class ClientDistributionSystem : OnPeriodChange
             clientContainers[segId] -= clients;
         }
 
+        niche.ReplaceNicheClientsContainer(clientContainers);
+    }
+
+    void ChurnUsers(GameEntity[] products)
+    {
+        for (var i = 0; i < products.Length; i++)
+        {
+            var p = products[i];
+
+            var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
+
+            MarketingUtils.AddClients(p, -churnClients);
+        }
+    }
+
+    void ChangeBrandPowers(GameEntity[] products)
+    {
         for (var i = 0; i < products.Length; i++)
         {
             var powerChange = MarketingUtils.GetMonthlyBrandPowerChange(products[i], gameContext).Sum();
 
             MarketingUtils.AddBrandPower(products[i], powerChange);
         }
-
-        niche.ReplaceNicheClientsContainer(clientContainers);
     }
+
+
 
     long GetCompanyAudienceReach(GameEntity product, long flow)
     {

@@ -50,14 +50,6 @@ public enum Margin
     High = 20
 }
 
-public enum NicheAds
-{
-    Low = 2000,
-    Mid = 7000,
-    High = 25000,
-    Humongous = 85000
-}
-
 public enum AppComplexity
 {
     Easy = 3,

@@ -1,14 +1,12 @@
 ﻿using Assets.Utils;
 using Entitas;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BaseClass : MonoBehaviour
 {
     public static GameContext GameContext => Contexts.sharedInstance.game;
 
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
-    public int CurrentIntYear => Constants.START_YEAR + CurrentIntDate / 360;
 
 
 
