@@ -1,7 +1,5 @@
 ﻿using Entitas;
-using System;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Utils
 {
