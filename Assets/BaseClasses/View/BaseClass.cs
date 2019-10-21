@@ -11,24 +11,18 @@ public class BaseClass : MonoBehaviour
 
 
     public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(GameContext);
-    public NicheType SelectedNiche      => ScreenUtils.GetSelectedNiche(GameContext);
+    public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(GameContext);
     public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(GameContext);
     public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
 
 
-
     public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
 
+
     public GameEntity MyGroupEntity     => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
-
     public GameEntity MyCompany => MyGroupEntity ?? null;
-
     public bool HasCompany => MyCompany != null;
-
-
-    //public GameEntity MyProductEntity   => CompanyUtils.GetPlayerControlledProductCompany(GameContext);
-    //public bool HasProductCompany => MyProductEntity != null;
 
 
 

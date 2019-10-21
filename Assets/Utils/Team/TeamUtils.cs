@@ -75,47 +75,5 @@ namespace Assets.Utils
 
             HumanUtils.SetRole(gameContext, humanId, workerRole);
         }
-
-        public static TeamResource GetTeamPromotionCost(GameEntity company)
-        {
-            var managerPoints = 100;
-
-            switch (company.team.TeamStatus)
-            {
-                case TeamStatus.Solo: managerPoints = 100; break;
-                case TeamStatus.Pair: managerPoints = 225; break;
-                case TeamStatus.SmallTeam: managerPoints = 350; break;
-                case TeamStatus.Department: managerPoints = 700; break;
-            }
-
-            return new TeamResource(0, managerPoints, 0, 0, 0);
-        }
-
-        internal static void Promote(GameEntity company, TeamStatus newTeamStatus)
-        {
-            var team = company.team;
-
-            company.ReplaceTeam(team.Morale, team.Workers, newTeamStatus);
-        }
-
-        internal static TeamStatus GetNextTeamSize(TeamStatus teamStatus)
-        {
-            switch (teamStatus)
-            {
-                case TeamStatus.Solo:
-                    return TeamStatus.Pair;
-
-                case TeamStatus.Pair:
-                    return TeamStatus.SmallTeam;
-
-                case TeamStatus.SmallTeam:
-                    return TeamStatus.Department;
-
-                case TeamStatus.Department:
-                    return TeamStatus.BigTeam;
-
-                default: return TeamStatus.BigTeam;
-            }
-        }
     }
 }
