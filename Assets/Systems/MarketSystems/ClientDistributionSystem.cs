@@ -25,27 +25,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
         ChurnUsers(products);
         ChangeBrandPowers(products);
 
-        long flow = MarketingUtils.GetCurrentClientFlow(gameContext, nicheType);
-
-        var clientContainers = niche.nicheClientsContainer.Clients;
-
-        for (var i = 0; i < products.Length; i++)
-        {
-            var p = products[i];
-            var segId = p.productPositioning.Positioning;
-
-            var clients = GetCompanyAudienceReach(p, flow);
-
-            var clientCap = flow * 10;
-            if (clients > clientCap)
-                clients = clientCap;
-
-            MarketingUtils.AddClients(p, clients);
-
-            clientContainers[segId] -= clients;
-        }
-
-        niche.ReplaceNicheClientsContainer(clientContainers);
+        DistributeClients(products, niche);
     }
 
     void ChurnUsers(GameEntity[] products)
@@ -70,7 +50,30 @@ public partial class ClientDistributionSystem : OnPeriodChange
         }
     }
 
+    void DistributeClients(GameEntity[] products, GameEntity niche)
+    {
+        long flow = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
 
+        var clientContainers = niche.nicheClientsContainer.Clients;
+
+        for (var i = 0; i < products.Length; i++)
+        {
+            var p = products[i];
+            var segId = p.productPositioning.Positioning;
+
+            var clients = GetCompanyAudienceReach(p, flow);
+
+            var clientCap = flow * 10;
+            if (clients > clientCap)
+                clients = clientCap;
+
+            MarketingUtils.AddClients(p, clients);
+
+            clientContainers[segId] -= clients;
+        }
+
+        niche.ReplaceNicheClientsContainer(clientContainers);
+    }
 
     long GetCompanyAudienceReach(GameEntity product, long flow)
     {
