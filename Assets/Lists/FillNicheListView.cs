@@ -9,12 +9,6 @@ public class FillNicheListView : View
         Render();
     }
 
-    // TODO PREDICATE
-    //Predicate<GameEntity> FilterNichesByIndustry(IndustryType industry)
-    //{
-    //    return n => n.niche.IndustryType == industry; // && n.niche.NicheType != NicheType.None;
-    //}
-
     void Render()
     {
         var industry = ScreenUtils.GetSelectedIndustry(GameContext);

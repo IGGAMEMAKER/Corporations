@@ -1,7 +1,5 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using Assets.Utils.Tutorial;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskView : View
@@ -56,21 +54,20 @@ public class TaskView : View
 
     private void AddLinkToObservableObject(CompanyTask companyTask)
     {
-        return;
-        switch (companyTask.CompanyTaskType)
-        {
-            case CompanyTaskType.ExploreMarket:
-                AddIfAbsent<LinkToNiche>().SetNiche((companyTask as CompanyTaskExploreMarket).NicheType);
-                break;
+        //switch (companyTask.CompanyTaskType)
+        //{
+        //    case CompanyTaskType.ExploreMarket:
+        //        AddIfAbsent<LinkToNiche>().SetNiche((companyTask as CompanyTaskExploreMarket).NicheType);
+        //        break;
 
-            case CompanyTaskType.ExploreCompany:
-                AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskExploreCompany).CompanyId);
-                break;
+        //    case CompanyTaskType.ExploreCompany:
+        //        AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskExploreCompany).CompanyId);
+        //        break;
 
-            case CompanyTaskType.AcquiringCompany:
-                AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskAcquisition).CompanyId);
-                break;
-        }
+        //    case CompanyTaskType.AcquiringCompany:
+        //        AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskAcquisition).CompanyId);
+        //        break;
+        //}
     }
 
     string GetTaskHeader(CompanyTask companyTask)

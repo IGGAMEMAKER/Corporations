@@ -4,16 +4,14 @@ using UnityEngine.UI;
 
 public class BuySharesScreen : View
 {
-    [SerializeField] Text CompanyName;
-    [SerializeField] Text SharesInfo;
-    [SerializeField] Text Valuation;
-    [SerializeField] Text Offer;
+    public Text CompanyName;
+    public Text SharesInfo;
+    public Text Valuation;
+    public Text Offer;
 
-    [SerializeField] Text ProposalStatus;
-    [SerializeField] BuyShares BuyShares;
-    [SerializeField] CanBuySharesController CanBuySharesController;
-
-    int MoneyOffer;
+    public Text ProposalStatus;
+    public BuyShares BuyShares;
+    public CanBuySharesController CanBuySharesController;
 
     public override void ViewRender()
     {
