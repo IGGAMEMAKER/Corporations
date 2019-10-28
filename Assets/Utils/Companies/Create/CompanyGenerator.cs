@@ -1,5 +1,6 @@
 ﻿using Assets.Classes;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -27,7 +28,7 @@ namespace Assets.Utils
 
             int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
 
-            company.AddProductPositioning(UnityEngine.Random.Range(0, positionings));
+            company.AddProductPositioning(Random.Range(0, positionings));
 
             return company;
         }
@@ -47,6 +48,15 @@ namespace Assets.Utils
             e.isAlive = true;
             e.isIndependentCompany = true;
 
+            var culture = new Dictionary<CorporatePolicy, int>()
+            {
+                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
+                [CorporatePolicy.WorkerMindset] = Random.Range(1, 6),
+                [CorporatePolicy.Focusing] = Random.Range(1, 6),
+                [CorporatePolicy.CreateOrBuy] = Random.Range(1, 6),
+            };
+            e.AddCorporateCulture(culture);
+
             int id = GenerateCompanyId(context);
 
             e.AddCompany(id, name, companyType);
@@ -65,7 +75,7 @@ namespace Assets.Utils
             e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
             HumanUtils.SetSkills(CEO, WorkerRole.Business);
-            //HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
+            HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
 
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());

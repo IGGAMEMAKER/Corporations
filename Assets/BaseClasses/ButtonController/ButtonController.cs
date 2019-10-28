@@ -61,8 +61,6 @@ public abstract partial class ButtonController : BaseClass
 
     public void UpdatePage()
     {
-        //Debug.Log("UpdatePage()");
-
         ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
     }
 }

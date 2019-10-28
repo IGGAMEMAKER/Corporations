@@ -229,3 +229,17 @@ public class PreviousAcquisitionOffersComponent : IComponent
     public AcquisitionConditions BuyerOffer;
     public AcquisitionConditions SellerOffer;
 }
+
+public enum CorporatePolicy
+{
+    Responsibility, // team vs leader
+    CreateOrBuy,
+    WorkerMindset, // engineer vs researcher
+    Focusing
+}
+
+[Game]
+public class CorporateCultureComponent : IComponent
+{
+    public Dictionary<CorporatePolicy, int> Culture;
+}
