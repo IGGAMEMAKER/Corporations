@@ -12,7 +12,10 @@ public class RenderChurnRate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return MarketingUtils.GetChurnRate(GameContext, SelectedCompany.company.Id).ToString();
+        var rate = MarketingUtils.GetChurnRate(GameContext, SelectedCompany.company.Id).ToString();
+        var churnUsers = MarketingUtils.GetChurnClients(GameContext, SelectedCompany.company.Id);
+
+        return $"{Format.Minify(churnUsers)} users ({rate}%)";
         //return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
     }
 }
