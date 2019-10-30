@@ -52,19 +52,19 @@
 
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
-            bool isSuitableByGoal = true; // IsInvestorSuitableByGoal(shareholder.shareholder.InvestorType, company.companyGoal.InvestorGoal);
             bool isSuitableByNiche = IsInInvestorsSphereOfInfluence(shareholder, company);
-            bool isSuitableByCompanySize = IsInvestorSuitableByCompanySize(shareholder, company.companyGoal.InvestorGoal);
 
             bool isInvestorAlready = IsInvestsInCompany(shareholder, company);
 
             bool isParentOfDependentCompany = !company.isIndependentCompany && isInvestorAlready;
 
+            // prevent group investments
+            // because of recursive investment bug
+            bool isFinancialStructure = !shareholder.isManagingCompany;
+
             return
-                isSuitableByGoal
-                && !shareholder.isManagingCompany
+                isFinancialStructure
                 && isSuitableByNiche
-                && isSuitableByCompanySize
                 && (isParentOfDependentCompany || company.isIndependentCompany);
         }
 
@@ -84,11 +84,6 @@
         public static bool IsInvestsInCompany(int shareholderId, GameEntity company)
         {
             return company.shareholders.Shareholders.ContainsKey(shareholderId);
-        }
-
-        public static bool IsInvestorSuitableByCompanySize(GameEntity shareholder, InvestorGoal goal)
-        {
-            return true;
         }
 
         public static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
