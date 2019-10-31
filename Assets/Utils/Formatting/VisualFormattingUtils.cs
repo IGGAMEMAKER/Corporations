@@ -42,6 +42,14 @@ namespace Assets.Utils
             return Colorize(text, col);
         }
 
+        public static Color GetColorPositiveOrNegative(long value)
+        {
+            string col = value > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+
+            return GetColorFromString(col);
+        }
+
+
         public static string Positive(string text)
         {
             return Colorize(text, VisualConstants.COLOR_POSITIVE);

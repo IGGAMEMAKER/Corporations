@@ -527,13 +527,14 @@ GameObject:
   - component: {fileID: 6357896077713110014}
   - component: {fileID: 3359697327122811456}
   - component: {fileID: 2380112662486131590}
+  - component: {fileID: 2770196723323188294}
   m_Layer: 5
   m_Name: Text (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6357896077713110014
 RectTransform:
   m_ObjectHideFlags: 0
@@ -594,7 +595,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Companies
+  m_Text: Time to market
+--- !u!114 &2770196723323188294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222182781402228783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: <i>Approximate</i> amount of time, that you need to meet market requirements
+  isActionHint: 0
 --- !u!1 &1262878999020329368
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +873,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start Capital
+  m_Text: Maintenance
 --- !u!1 &1590248870658935199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1265,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2298604705483499516
 GameObject:
   m_ObjectHideFlags: 0
@@ -4032,7 +4047,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &7718468581522649198
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,7 +4427,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 162, y: 237.89}
-  m_SizeDelta: {x: 89.507, y: 37.8}
+  m_SizeDelta: {x: 89.498, y: 37.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8617391876563347378
 CanvasRenderer:
@@ -4455,7 +4470,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Income
+  m_Text: Biggest Profit
 --- !u!1 &8850108426717481174
 GameObject:
   m_ObjectHideFlags: 0

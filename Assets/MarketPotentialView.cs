@@ -68,7 +68,7 @@ public class MarketPotentialView : View
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
         var baseMaintenance = NicheUtils.GetBaseProductMaintenance(niche);
-        Maintenance.text = Format.MoneyToInteger(baseMaintenance) + " / month";
+        Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
 
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         //TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";

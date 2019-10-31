@@ -97,7 +97,7 @@
 
         public static long GetStartCapital(GameEntity niche)
         {
-            var marketDemand = ProductUtils.GetMarketDemand(null, niche);
+            var marketDemand = ProductUtils.GetMarketDemand(niche);
             var iterationTime = ProductUtils.GetBaseIterationTime(niche);
 
             var timeToMarket = marketDemand * iterationTime / 30;

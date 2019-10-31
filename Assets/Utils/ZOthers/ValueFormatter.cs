@@ -41,7 +41,7 @@ namespace Assets.Utils
             return $"${Minify(value)}";
         }
 
-        public static string MoneyToInteger<T>(T value)
+        public static string MinifyMoney<T>(T value)
         {
             return $"${MinifyToInteger(value)}";
         }

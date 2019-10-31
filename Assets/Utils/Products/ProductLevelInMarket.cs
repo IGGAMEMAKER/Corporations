@@ -11,7 +11,7 @@ namespace Assets.Utils
 {
     public static partial class ProductUtils
     {
-        public static int GetMarketDemand(GameEntity product, GameEntity niche)
+        public static int GetMarketDemand(GameEntity niche)
         {
             return niche.segment.Segments[UserType.Core];
         }
@@ -20,7 +20,7 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            return GetMarketDemand(product, niche);
+            return GetMarketDemand(niche);
         }
 
         // always positive or equal to zero
@@ -28,7 +28,7 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
 
-            var demand = GetMarketDemand(product, niche);
+            var demand = GetMarketDemand(niche);
             var level = GetProductLevel(product);
 
             return demand - level;

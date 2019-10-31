@@ -50,11 +50,11 @@ public class NichePreview : View
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
         var size = NicheUtils.GetMarketSize(GameContext, Niche);
-        var text = hidePotential ? "?" : Format.MoneyToInteger(size); // GetFormattedMarketPotential();
+        var text = hidePotential ? "?" : Format.MinifyMoney(size); // GetFormattedMarketPotential();
 
 
         if (CurrentScreen == ScreenMode.GroupManagementScreen)
-            text = nicheE.hasResearch ? Format.MoneyToInteger(size) : "?";
+            text = nicheE.hasResearch ? Format.MinifyMoney(size) : "?";
 
         bool hasCompany = false;
         bool isMarketOfInterest = false;

@@ -90,9 +90,23 @@ namespace Assets.Utils
 
 
 
-
+        public static bool IsEmptyMarket(GameContext gameContext, GameEntity niche)
+        {
+            return GetProductsOnMarket(gameContext, niche.niche.NicheType).Count() == 0;
+        }
 
         // Leaders
+        public static GameEntity GetMostProfitableCompanyOnMarket(GameContext context, GameEntity niche)
+        {
+            var players = GetProductsOnMarket(context, niche.niche.NicheType);
+
+            var productCompany = players
+                .OrderByDescending(p => EconomyUtils.GetProfit(p, context))
+                .FirstOrDefault();
+
+            return productCompany;
+        }
+
         public static long GetBiggestIncomeOnMarket(GameContext context, GameEntity niche)
         {
             var players = GetProductsOnMarket(context, niche.niche.NicheType);

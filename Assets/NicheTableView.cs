@@ -17,11 +17,11 @@ public class NicheTableView : View, IPointerEnterHandler
 
     public Text MonetisationType;
 
-    GameEntity entity;
+    GameEntity niche;
 
     public void SetEntity(GameEntity niche)
     {
-        entity = niche;
+        this.niche = niche;
 
         Render();
     }
@@ -35,23 +35,58 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void Render()
     {
-        if (entity == null)
+        if (niche == null)
             return;
 
         SetPanelColor();
 
-        var nicheType = entity.niche.NicheType;
+        var nicheType = niche.niche.NicheType;
 
         GetComponent<LinkToNiche>().SetNiche(nicheType);
 
         NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
-        Competitors.text = NicheUtils.GetCompetitorsAmount(nicheType, GameContext) + "\ncompanies";
 
-        var monetisation = entity.nicheBaseProfile.Profile.MonetisationType;
-        MonetisationType.text = GetFormattedMonetisationType(monetisation);
+        var hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
+        var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
+        var colorName = hasCompany || isInterestingMarket ?
+            VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY
+            :
+            VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+        NicheName.color = Visuals.GetColorFromString(colorName);
+
 
         DescribePhase();
-        NicheSize.text = Format.Money(NicheUtils.GetBiggestIncomeOnMarket(GameContext, entity));
+        //var growth = NicheUtils.GetAbsoluteAnnualMarketGrowth(GameContext, entity);
+
+        var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
+        MonetisationType.text = GetFormattedMonetisationType(monetisation);
+
+        RenderTimeToMarket();
+        
+        // maintenance
+        var capital = NicheUtils.GetStartCapital(niche);
+        StartCapital.text = Format.MinifyMoney(capital);
+
+        var myBalance = EconomyUtils.GetCompanyBalance(MyCompany);
+        StartCapital.color = Visuals.GetColorPositiveOrNegative(myBalance - capital);
+
+
+
+        var profitLeader = NicheUtils.GetMostProfitableCompanyOnMarket(GameContext, niche);
+        var profit = profitLeader == null ? 0 : EconomyUtils.GetProfit(profitLeader, GameContext);
+        
+        NicheSize.text = Format.MinifyMoney(profit);
+        NicheSize.color = Visuals.GetColorPositiveOrNegative(profit);
+    }
+
+    void RenderTimeToMarket()
+    {
+        // time to market
+        var demand = ProductUtils.GetMarketDemand(niche);
+        var iterationTime = ProductUtils.GetBaseIterationTime(niche);
+        var timeToMarket = demand * iterationTime / 30;
+
+        Competitors.text = $"{timeToMarket} months";
     }
 
     string GetFormattedMonetisationType (Monetisation monetisation)
@@ -65,14 +100,11 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void DescribePhase()
     {
-        var phase = NicheUtils.GetMarketState(entity);
+        var phase = NicheUtils.GetMarketState(niche);
         Phase.SetHint(phase.ToString());
 
-        //var growth = NicheUtils.GetAbsoluteAnnualMarketGrowth(GameContext, entity);
-        var capital = NicheUtils.GetStartCapital(entity);
-        StartCapital.text = Format.Money(capital);
-
-        var stars = NicheUtils.GetMarketRating(entity);
+        // phase
+        var stars = NicheUtils.GetMarketRating(niche);
 
         SetAmountOfStars.SetStars(stars);
         MarketPhase.text = phase.ToString();
@@ -80,11 +112,11 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        ScreenUtils.SetSelectedNiche(GameContext, entity.niche.NicheType);
+        ScreenUtils.SetSelectedNiche(GameContext, niche.niche.NicheType);
     }
 
     void SetPanelColor()
     {
-        Panel.color = GetPanelColor(entity.niche.NicheType == ScreenUtils.GetSelectedNiche(GameContext));
+        Panel.color = GetPanelColor(niche.niche.NicheType == ScreenUtils.GetSelectedNiche(GameContext));
     }
 }

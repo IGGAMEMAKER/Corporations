@@ -20,7 +20,7 @@ namespace Assets.Utils
 
             var segments = niche.segment.Segments;
 
-            var demand = GetMarketDemand(product, niche);
+            var demand = GetMarketDemand(niche);
             var newLevel = GetProductLevel(product);
 
             if (newLevel > demand)
