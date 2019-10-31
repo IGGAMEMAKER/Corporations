@@ -23,7 +23,6 @@ public enum ProductImprovement
     Retention,
     Monetisation
 }
-
 public class ProductImprovementsComponent : IComponent
 {
     public Dictionary<ProductImprovement, int> Improvements;
@@ -41,26 +40,22 @@ public class BrandingComponent : IComponent
     public float BrandPower;
 }
 
+public enum Financing
+{
+    Marketing,
+    Development
+}
+public class FinancingComponent : IComponent
+{
+    public Dictionary<Financing, int> Financing;
+}
+
 [Game, Event(EventTarget.Self)]
 public class ReleaseComponent : IComponent { }
-
-[Game, Event(EventTarget.Self)]
-public class TargetingComponent : IComponent { }
-public class BrandingCampaignComponent : IComponent { }
-
 
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class TechnologyLeaderComponent : IComponent { }
 
 [Game, Event(EventTarget.Self)]
 public class CrunchingComponent : IComponent { }
-
-//[Game]
-//public class CustomCooldownComponent : IComponent
-//{
-//    // string => expires
-//    // string aka: steal-88, where 88 is Id of target company
-//    public Dictionary<string, int> targets;
-//}
-
 

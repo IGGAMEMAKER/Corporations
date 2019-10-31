@@ -86,7 +86,7 @@ public class NicheTableView : View, IPointerEnterHandler
         var iterationTime = ProductUtils.GetBaseIterationTime(niche);
         var timeToMarket = demand * iterationTime / 30;
 
-        Competitors.text = $"{timeToMarket} months";
+        Competitors.text = $"{timeToMarket}\nmonths";
     }
 
     string GetFormattedMonetisationType (Monetisation monetisation)
