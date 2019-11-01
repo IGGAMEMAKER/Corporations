@@ -14,27 +14,11 @@ public class ToggleFinancingMarketing : View
         Render();
     }
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        Render();
-    }
-
     public void SetFinancing()
     {
         SelectedCompany.financing.Financing[Financing.Marketing] = Dropdown.value;
 
-        Redraw();
-    }
-
-    void Redraw()
-    {
         Render();
-
-        //yield return new WaitForSeconds(0.15f);
-
-        //RefreshPage();
     }
 
     void Render()
@@ -45,7 +29,6 @@ public class ToggleFinancingMarketing : View
         long cost = EconomyUtils.GetProductMarketingCost(SelectedCompany, GameContext);
 
         var description = "";
-
         switch (SelectedCompany.financing.Financing[Financing.Marketing])
         {
             case 0:
