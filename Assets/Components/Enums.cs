@@ -208,11 +208,3 @@ public enum UserType
 {
     Core
 }
-
-public enum Pricing
-{
-    Free = 0,
-    Low = 100,
-    Medium = 170,
-    High = 200
-}
