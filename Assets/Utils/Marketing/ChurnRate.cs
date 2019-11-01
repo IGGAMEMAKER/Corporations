@@ -28,7 +28,7 @@
                     break;
 
                 case Monetisation.Adverts:
-                    baseValue = 5;
+                    baseValue = 7;
                     break;
 
                 case Monetisation.Service:
