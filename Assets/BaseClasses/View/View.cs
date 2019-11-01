@@ -54,5 +54,10 @@ public abstract class View : BaseClass
         ScheduleUtils.ListenDateChanges(GameContext, dateListener);
     }
 
+    public void RefreshPage()
+    {
+        ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
+    }
+
     public virtual void ViewRender() { }
 }

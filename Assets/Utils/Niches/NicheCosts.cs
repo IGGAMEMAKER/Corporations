@@ -67,12 +67,12 @@
 
             var component = new NicheCostsComponent
             {
-                BasePrice       = costs.BasePrice * priceModifier,
-                AdCost          = costs.AdCost * costModifier,
+                BasePrice       = costs.BasePrice,
+                AdCost          = (int)(costs.AdCost * costModifier / priceModifier),
                 ClientBatch     = costs.ClientBatch * flowModifier,
+                TechCost        = costs.TechCost,
                 
                 IdeaCost        = costs.IdeaCost * costModifier,
-                TechCost        = (int)(costs.TechCost * techModifier),
                 MarketingCost   = costs.MarketingCost * costModifier, // 
             };
 
@@ -94,7 +94,6 @@
 
             return GetStartCapital(niche);
         }
-
         public static long GetStartCapital(GameEntity niche)
         {
             var marketDemand = ProductUtils.GetMarketDemand(niche);
@@ -107,19 +106,40 @@
             return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(niche);
         }
 
-        // Maintenance
-        internal static long GetBaseProductMaintenance(GameContext gameContext, GameEntity product)
-        {
-            var niche = GetNicheEntity(gameContext, product.product.Niche);
-
-            return GetBaseProductMaintenance(niche);
-        }
-        internal static long GetBaseProductMaintenance(GameEntity niche)
+        // base marketing cost
+        public static long GetBaseMarketingCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 
-            var ads = costs.AdCost;
-            var team = costs.TechCost * Constants.SALARIES_PROGRAMMER;
+            return costs.AdCost;
+        }
+        public static long GetBaseMarketingCost(NicheType nicheType, GameContext gameContext)
+        {
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            return GetBaseMarketingCost(niche);
+        }
+
+        // base development cost
+        public static long GetBaseDevelopmentCost(GameEntity niche)
+        {
+            var costs = GetNicheCosts(niche);
+
+            return costs.TechCost * Constants.SALARIES_PROGRAMMER;
+        }
+        public static long GetBaseDevelopmentCost(NicheType nicheType, GameContext gameContext)
+        {
+            var niche = GetNicheEntity(gameContext, nicheType);
+
+            return GetBaseDevelopmentCost(niche);
+        }
+
+
+        // Maintenance
+        internal static long GetBaseProductMaintenance(GameEntity niche)
+        {
+            var ads = GetBaseMarketingCost(niche);
+            var team = GetBaseDevelopmentCost(niche);
 
             return ads + team;
         }

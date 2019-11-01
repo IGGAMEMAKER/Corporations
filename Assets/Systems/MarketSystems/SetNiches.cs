@@ -60,6 +60,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     private void InitializeEntertainmentIndustry()
     {
+        return;
         var niches = new NicheType[] {
             // gambling
             NicheType.Ent_Betting,

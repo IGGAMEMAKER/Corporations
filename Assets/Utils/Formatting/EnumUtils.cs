@@ -18,7 +18,10 @@ namespace Assets.Utils.Formatting
         {
             var name = GetFormattedNicheName(niche);
 
-            return name.Substring(0, name.Length - 1);
+            if (name.EndsWith("s"))
+                return name.Substring(0, name.Length - 1);
+            else
+                return name;
         }
 
         public static string GetFormattedNicheName(NicheType niche)
@@ -38,12 +41,20 @@ namespace Assets.Utils.Formatting
                 case NicheType.Tech_SearchEngine: return "Search Engines";
                 case NicheType.Tech_Browser: return "Web browsers";
 
-                case NicheType.Ent_Casino: return "Online Casino";
-                case NicheType.Ent_Betting: return "Online Betting";
+                case NicheType.Ent_Casino: return "Online Casinos";
+                case NicheType.Ent_Betting: return "Online Bettings";
                 case NicheType.Ent_Lottery: return "Online Lottery";
                 case NicheType.Ent_Poker: return "Online Poker";
+                case NicheType.Ent_MMOs: return "MMO games";
+                case NicheType.Ent_FreeToPlay: return "F2P Games";
+                case NicheType.Ent_StreamingService: return "Streaming Services";
+                case NicheType.Ent_TVStreamingService: return "TV Streaming Services";
 
-                default: return "Unknown niche: " + niche.ToString();
+                case NicheType.Fin_Exchanging: return "Money Exchange";
+                case NicheType.Fin_OnlineBanking: return "Online Banking";
+                case NicheType.Fin_PaymentSystem: return "Payment Systems";
+
+                default: return niche.ToString();
             }
         }
 
@@ -55,6 +66,7 @@ namespace Assets.Utils.Formatting
                 case IndustryType.Technology: return "Technology";
                 case IndustryType.Communications: return "Communications";
                 case IndustryType.Entertainment: return "Entertainment";
+                case IndustryType.Finances: return "Finances";
                 //case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();

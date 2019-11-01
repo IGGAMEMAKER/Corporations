@@ -21,9 +21,61 @@ namespace Assets.Utils
             return audienceCost + profitCost;
         }
 
+        public static long GetMarketingFinancingMultiplier (int financing)
+        {
+            switch (financing)
+            {
+                case 0: return 1;
+                case 1: return 5;
+                case 2: return 20;
+                default: return -1000;
+            }
+        }
+        public static long GetMarketingFinancingMultiplier (GameEntity e)
+        {
+            return GetMarketingFinancingMultiplier(e.financing.Financing[Financing.Marketing]);
+        }
+
+
+        public static long GetDevFinancingMultiplier (GameEntity e)
+        {
+            return GetDevFinancingMultiplier(e.financing.Financing[Financing.Development]);
+        }
+        public static long GetDevFinancingMultiplier (int financing)
+        {
+            switch (financing)
+            {
+                case 0: return 1;
+                case 1: return 5;
+                case 2: return 20;
+                default: return -1000;
+            }
+        }
+
+
+        public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
+        {
+            var multiplier = GetMarketingFinancingMultiplier(e);
+
+            var baseCost = NicheUtils.GetBaseMarketingCost(e.product.Niche, gameContext);
+
+            return baseCost * multiplier;
+        }
+        public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
+        {
+            var multiplier = GetDevFinancingMultiplier(e);
+
+            var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
+
+            return baseCost * multiplier;
+        }
+
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            return NicheUtils.GetBaseProductMaintenance(gameContext, e);
+            var devFinancing = GetProductDevelopmentCost(e, gameContext);
+            var marketingFinancing = GetProductMarketingCost(e, gameContext);
+
+            return devFinancing + marketingFinancing;
         }
 
         public static long GetClientBaseCost(GameContext context, int companyId)

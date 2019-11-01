@@ -42,6 +42,11 @@ public enum NicheType
 
     Ent_StreamingService,
     Ent_TVStreamingService,
+
+    // Finances
+    Fin_PaymentSystem,
+    Fin_OnlineBanking,
+    Fin_Exchanging,
 }
 
 public enum IndustryType
@@ -49,6 +54,7 @@ public enum IndustryType
     Communications,
     Technology,
     Entertainment,
+    Finances,
     //Ecommerce
 }
 
@@ -209,12 +215,4 @@ public enum Pricing
     Low = 100,
     Medium = 170,
     High = 200
-}
-
-public enum MarketingFinancing
-{
-    Zero,
-    Low,
-    Medium,
-    High
 }
