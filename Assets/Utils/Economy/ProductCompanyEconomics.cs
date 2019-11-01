@@ -25,9 +25,10 @@ namespace Assets.Utils
         {
             switch (financing)
             {
-                case 0: return 1;
-                case 1: return 5;
-                case 2: return 20;
+                case 0: return 0;
+                case 1: return 1;
+                case 2: return 5;
+                case 3: return 20;
                 default: return -1000;
             }
         }

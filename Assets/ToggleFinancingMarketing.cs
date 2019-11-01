@@ -49,14 +49,18 @@ public class ToggleFinancingMarketing : View
         switch (SelectedCompany.financing.Financing[Financing.Marketing])
         {
             case 0:
-                description = "Gives small amount of clients";
+                description = "Gives microscopic amount of clients";
                 break;
 
             case 1:
-                description = "Gives average amount of clients";
+                description = "Gives small amount of clients";
                 break;
 
             case 2:
+                description = "Gives average amount of clients";
+                break;
+
+            case 3:
                 description = "Gives high amount of clients";
                 bonuses = "<i> You will get your competitor's clients if you are the innovation leader</i>";
                 break;
