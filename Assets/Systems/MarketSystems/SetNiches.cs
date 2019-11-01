@@ -60,7 +60,18 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     private void InitializeFinanceIndustry()
     {
+        var niches = new NicheType[] {
+            NicheType.Fin_Exchanging,
+            NicheType.Fin_OnlineBanking,
+            NicheType.Fin_PaymentSystem,
+        };
+        AttachNichesToIndustry(IndustryType.Finances, niches);
 
+
+
+        SetNichesAutomatically(NicheType.Fin_Exchanging, 2000, GetGamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Fin_OnlineBanking, 2001, GetGamblingCompanyProfile);
+        SetNichesAutomatically(NicheType.Fin_PaymentSystem, 2000, GetGamblingCompanyProfile);
     }
 
     private void InitializeEntertainmentIndustry()
