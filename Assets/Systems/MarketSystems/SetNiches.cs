@@ -58,6 +58,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
             });
     }
 
+    private void InitializeFinanceIndustry()
+    {
+
+    }
+
     private void InitializeEntertainmentIndustry()
     {
         return;

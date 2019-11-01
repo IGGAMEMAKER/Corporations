@@ -14,10 +14,32 @@
             var improvements = c.productImprovements.Improvements[ProductImprovement.Retention];
             var improvementModifier = improvements;
 
+            var baseValue = 2;
+
+            var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
+            var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
+
+            switch (monetisation)
+            {
+                case Monetisation.Enterprise:
+                case Monetisation.IrregularPaid:
+                case Monetisation.Paid:
+                    baseValue = 2;
+                    break;
+
+                case Monetisation.Adverts:
+                    baseValue = 5;
+                    break;
+
+                case Monetisation.Service:
+                    baseValue = 4;
+                    break;
+            }
+
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base", 10)
+                .Append("Base", baseValue)
                 .Append("Concept", fromProductLevel)
                 .Append("Retention Improvements", -improvements)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
