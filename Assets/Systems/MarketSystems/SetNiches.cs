@@ -58,20 +58,41 @@ public partial class MarketInitializerSystem : IInitializeSystem
             });
     }
 
-    private void InitializeFinanceIndustry()
+    private void InitializeEcommerceIndustry()
     {
+        //return;
         var niches = new NicheType[] {
             NicheType.Fin_Exchanging,
             NicheType.Fin_OnlineBanking,
             NicheType.Fin_PaymentSystem,
         };
-        AttachNichesToIndustry(IndustryType.Finances, niches);
+        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
 
+        var financialSystemMarket = new MarketProfile
+        {
+            AudienceSize = AudienceSize.Million,
+            MonetisationType = Monetisation.Service,
+            Margin = Margin.Low,
 
+            AppComplexity = AppComplexity.Average,
 
-        SetNichesAutomatically(NicheType.Fin_Exchanging, 2000, GetGamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Fin_OnlineBanking, 2001, GetGamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Fin_PaymentSystem, 2000, GetGamblingCompanyProfile);
+            Iteration = NicheSpeed.HalfYear,
+        };
+
+        var banking = new MarketProfile
+        {
+            AudienceSize = AudienceSize.Global,
+            MonetisationType = Monetisation.Service,
+            Margin = Margin.Low,
+
+            AppComplexity = AppComplexity.Average,
+
+            Iteration = NicheSpeed.HalfYear,
+        };
+
+        SetNichesAutomatically(NicheType.Fin_Exchanging, 1998, financialSystemMarket);
+        SetNichesAutomatically(NicheType.Fin_OnlineBanking, 1992, banking);
+        SetNichesAutomatically(NicheType.Fin_PaymentSystem, 1995, financialSystemMarket);
     }
 
     private void InitializeEntertainmentIndustry()
@@ -103,16 +124,16 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNichesAutomatically(NicheType.Ent_Poker,             2001, GetGamblingCompanyProfile);
 
         SetNichesAutomatically(NicheType.Ent_FreeToPlay,        2001,
-            AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, AppComplexity.Mid);
+            AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
         SetNichesAutomatically(NicheType.Ent_MMOs,              2000,
-            AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Mid);
+            AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
 
         SetNichesAutomatically(NicheType.Ent_StreamingService,  2011,
             AudienceSize.Million100, Monetisation.Service, Margin.Low, NicheSpeed.HalfYear, AppComplexity.Easy);
         SetNichesAutomatically(NicheType.Ent_TVStreamingService,  2016,
-            AudienceSize.Million100, Monetisation.Service, Margin.Mid, NicheSpeed.HalfYear, AppComplexity.Mid);
+            AudienceSize.Million100, Monetisation.Service, Margin.Mid, NicheSpeed.HalfYear, AppComplexity.Average);
     }
 
     private void InitializeFundamentalIndustry()

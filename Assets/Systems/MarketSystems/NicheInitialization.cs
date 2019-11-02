@@ -53,7 +53,7 @@ public enum Margin
 public enum AppComplexity
 {
     Easy = 3,
-    Mid = 7,
+    Average = 7,
     Hard = 15,
     Humongous = 25
 }

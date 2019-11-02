@@ -66,7 +66,7 @@ namespace Assets.Utils.Formatting
                 case IndustryType.Technology: return "Technology";
                 case IndustryType.Communications: return "Communications";
                 case IndustryType.Entertainment: return "Entertainment";
-                case IndustryType.Finances: return "Finances";
+                case IndustryType.Ecommerce: return "Finances";
                 //case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();

@@ -15,9 +15,12 @@ namespace Assets.Utils
             switch (nicheChangeSpeed)
             {
                 case NicheSpeed.Month: return 30;
-                case NicheSpeed.Quarter: return 45;
-                case NicheSpeed.Year: return 60;
-                case NicheSpeed.ThreeYears: return 180;
+                case NicheSpeed.Quarter: return 90;
+
+                case NicheSpeed.HalfYear: return 180;
+                case NicheSpeed.Year: return 360;
+
+                case NicheSpeed.ThreeYears: return 360 * 3;
 
                 default: return 0;
             }
@@ -32,19 +35,29 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseIterationTime(niche);
 
-            var innovationTime = IsWillInnovate(company, gameContext) ? 15 : 10;
+            var innovationTime = IsWillInnovate(company, gameContext) ? 50 : 0;
 
-            //return baseConceptTime * innovationTime * 100 / 10 / teamPerformance;
-            return baseConceptTime * innovationTime / 10;
+            var financing = company.financing.Financing;
+            var devModifier = financing[Financing.Development];
+
+
+            var culture = company.corporateCulture.Culture;
+            var mindsetModifier = culture[CorporatePolicy.WorkerMindset];
+
+            var modifiers = 100 + innovationTime - devModifier * 25 - mindsetModifier * 5;
+            var time = (int) (baseConceptTime * modifiers / 100f);
+
+            Debug.Log($"GetProductUpgradeIterationTime: company={company.company.Name} dev={devModifier} culture={culture} ** result={time}");
+
+            return time;
         }
 
         public static int GetProductUpgradeFinalIterationTime(GameContext gameContext, GameEntity company)
         {
-            var random = Random.Range(10, 13);
-
             var baseTime = GetProductUpgradeIterationTime(gameContext, company);
             return baseTime;
 
+            var random = Random.Range(10, 13);
             return baseTime * random / 10;
         }
     }

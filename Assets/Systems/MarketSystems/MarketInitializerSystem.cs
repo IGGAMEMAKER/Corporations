@@ -21,7 +21,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeFundamentalIndustry();
         InitializeCommunicationsIndustry();
         InitializeEntertainmentIndustry();
-        InitializeFinanceIndustry();
+        InitializeEcommerceIndustry();
 
         //CheckIndustriesWithZeroNiches();
     }

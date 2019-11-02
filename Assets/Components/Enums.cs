@@ -54,8 +54,7 @@ public enum IndustryType
     Communications,
     Technology,
     Entertainment,
-    Finances,
-    //Ecommerce
+    Ecommerce,
 }
 
 public enum CompanyType
