@@ -18,7 +18,6 @@ public class ToggleFinancingDevelopment : View
 
         Render();
 
-        Debug.Log("Financing dev");
         Dropdown.value = SelectedCompany.financing.Financing[Financing.Development];
     }
 
@@ -37,10 +36,15 @@ public class ToggleFinancingDevelopment : View
         long cost = EconomyUtils.GetProductDevelopmentCost(SelectedCompany, GameContext);
 
         var description = "";
-        switch (SelectedCompany.financing.Financing[Financing.Development])
+        var value = SelectedCompany.financing.Financing[Financing.Development];
+
+
+        bonuses = $"{Visuals.Positive((-value * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL).ToString())}% iteration time";
+        switch (value)
         {
             case 0:
                 description = "Cheap way to reach market demands";
+                bonuses = "";
                 break;
 
             case 1:
@@ -49,7 +53,6 @@ public class ToggleFinancingDevelopment : View
 
             case 2:
                 description = "Triples your income";
-                bonuses = "+25% innovation chances\n- 10 % iteration time";
                 break;
         }
 

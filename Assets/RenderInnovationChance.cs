@@ -5,7 +5,7 @@ public class RenderInnovationChance : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        return ProductUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
+        return ProductUtils.GetInnovationChanceBonus(SelectedCompany, GameContext).ToString();
     }
 
     public override string RenderValue()

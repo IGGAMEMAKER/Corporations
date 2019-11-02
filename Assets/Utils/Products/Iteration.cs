@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         public static int GetBaseIterationTime(GameEntity niche)
         {
-            return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed);
+            return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed) / 4;
         }
 
         public static int GetBaseConceptTime(NicheSpeed nicheChangeSpeed)
@@ -44,7 +44,7 @@ namespace Assets.Utils
             var culture = company.corporateCulture.Culture;
             var mindsetModifier = culture[CorporatePolicy.WorkerMindset];
 
-            var modifiers = 100 + innovationTime - devModifier * 25 - mindsetModifier * 5;
+            var modifiers = 100 + innovationTime - devModifier * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL - mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL;
             var time = (int) (baseConceptTime * modifiers / 100f);
 
             Debug.Log($"GetProductUpgradeIterationTime: company={company.company.Name} dev={devModifier} culture={culture} ** result={time}");

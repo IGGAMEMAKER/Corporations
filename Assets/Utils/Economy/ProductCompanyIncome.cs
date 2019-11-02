@@ -31,7 +31,16 @@ namespace Assets.Utils
             var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
             var isPaidProduct = pricingType == Monetisation.Paid;
 
-            return clients * price * (10 + improvements * 15f) / 100;
+            var financing = c.financing.Financing[Financing.Development];
+            var financingModifier = 1;
+
+            if (financing == 1)
+                financingModifier = 10;
+
+            if (financing == 2)
+                financingModifier = 13;
+
+            return clients * price * financingModifier / 10f;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)

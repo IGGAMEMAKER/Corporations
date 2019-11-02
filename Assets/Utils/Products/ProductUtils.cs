@@ -18,7 +18,7 @@ namespace Assets.Utils
             return level > improvements;
         }
 
-        public static BonusContainer GetInnovationChanceDescription(GameEntity company, GameContext gameContext)
+        public static BonusContainer GetInnovationChanceBonus(GameEntity company, GameContext gameContext)
         {
             var morale = company.team.Morale;
 
@@ -28,14 +28,17 @@ namespace Assets.Utils
             var crunch = company.isCrunching ? 10 : 0;
 
 
-            var sphereOfInterestBonus = 0;
 
+            var culture = company.corporateCulture.Culture;
+            var sphereOfInterestBonus = 0;
             if (!company.isIndependentCompany)
             {
                 var parent = CompanyUtils.GetParentCompany(gameContext, company);
 
+
                 if (parent != null)
                 {
+                    culture = parent.corporateCulture.Culture;
                     if (CompanyUtils.IsInSphereOfInterest(parent, company.product.Niche))
                         sphereOfInterestBonus = 5;
                 }
@@ -46,21 +49,26 @@ namespace Assets.Utils
             var marketStage = CompanyUtils.GetMarketStageInnovationModifier(niche);
 
 
-            var leaderBonus = GetLeaderInnovationBonus(company);
+            var responsibility = culture[CorporatePolicy.Responsibility];
+            var mindset = culture[CorporatePolicy.WorkerMindset];
+
+            var leaderBonus = GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10;
+            var mindsetBonus = 10 - mindset * 2;
+
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 5)
                 //.Append("Morale", moraleChance)
                 .Append("CEO bonus", leaderBonus)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
+                .Append("Corporate Culture Mindset", mindsetBonus)
                 .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 5 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
                 .AppendAndHideIfZero("Crunch", crunch);
-            //.Append("Expertise", expertiseChance);
         }
         public static int GetInnovationChance(GameEntity company, GameContext gameContext)
         {
-            var chance = GetInnovationChanceDescription(company, gameContext);
+            var chance = GetInnovationChanceBonus(company, gameContext);
 
             return (int)chance.Sum();
         }

@@ -18,7 +18,6 @@ public class ToggleFinancingMarketing : View
 
         Render();
 
-        Debug.Log("Financing marketing");
         Dropdown.value = SelectedCompany.financing.Financing[Financing.Marketing];
     }
 

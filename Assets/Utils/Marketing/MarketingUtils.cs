@@ -42,8 +42,10 @@
             var financing = product.financing.Financing[Financing.Marketing];
             float financingModifier = GetAudienceReachModifierBasedOnFinancing(financing);
 
+            var devFinancing = product.financing.Financing[Financing.Development];
+            float productPhaseModigier = GetAudienceReachModifierBasedOnDevelopmentFinancing(devFinancing);
 
-            return brandModifier * financingModifier / conceptModifier; // + rand * 50;
+            return brandModifier * financingModifier * productPhaseModigier / conceptModifier; // + rand * 50;
         }
 
         public static float GetAudienceViralGrowthModifier(GameEntity product, GameContext gameContext)
@@ -57,8 +59,19 @@
             {
                 case 0: return 0.5f;
                 case 1: return 1f;
+                case 2: return 2.8f;
+                default: return 10000;
+            }
+        }
+
+        public static float GetAudienceReachModifierBasedOnDevelopmentFinancing(int financing)
+        {
+            switch (financing)
+            {
+                case 0: return 0.5f;
+                case 1: return 1f;
                 case 2: return 2f;
-                case 3: return 5f;
+                case 3: return 3f;
                 default: return 10000;
             }
         }

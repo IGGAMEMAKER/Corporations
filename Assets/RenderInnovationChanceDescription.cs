@@ -17,7 +17,7 @@ public class RenderInnovationChanceDescription : UpgradedParameterView
 
         if (CompanyUtils.IsExploredCompany(GameContext, SelectedCompany))
         {
-            var description = ProductUtils.GetInnovationChanceDescription(SelectedCompany, GameContext).ToString();
+            var description = ProductUtils.GetInnovationChanceBonus(SelectedCompany, GameContext).ToString();
 
             return text + description;
         }
