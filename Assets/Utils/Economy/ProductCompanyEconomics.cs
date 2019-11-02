@@ -21,6 +21,10 @@ namespace Assets.Utils
             return audienceCost + profitCost;
         }
 
+        public static long GetMarketingFinancingMultiplier (GameEntity e)
+        {
+            return GetMarketingFinancingMultiplier(e.financing.Financing[Financing.Marketing]);
+        }
         public static long GetMarketingFinancingMultiplier (int financing)
         {
             switch (financing)
@@ -31,10 +35,6 @@ namespace Assets.Utils
                 case 3: return 20;
                 default: return -1000;
             }
-        }
-        public static long GetMarketingFinancingMultiplier (GameEntity e)
-        {
-            return GetMarketingFinancingMultiplier(e.financing.Financing[Financing.Marketing]);
         }
 
 

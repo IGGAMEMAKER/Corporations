@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleFinancingDevelopment : View
@@ -6,9 +7,19 @@ public class ToggleFinancingDevelopment : View
     public Dropdown Dropdown;
     public Text FinancingDescription;
 
-    private void OnEnable()
+    //private void OnEnable()
+    //{
+    //    Render();
+    //}
+
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         Render();
+
+        Debug.Log("Financing dev");
+        Dropdown.value = SelectedCompany.financing.Financing[Financing.Development];
     }
 
     public void SetFinancing()
