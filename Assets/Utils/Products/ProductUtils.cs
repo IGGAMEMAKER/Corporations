@@ -49,12 +49,15 @@ namespace Assets.Utils
             var marketStage = CompanyUtils.GetMarketStageInnovationModifier(niche);
 
 
+            // culture bonuses
             var responsibility = culture[CorporatePolicy.Responsibility];
-            var mindset = culture[CorporatePolicy.WorkerMindset];
-
             var leaderBonus = GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10;
+
+            var mindset = culture[CorporatePolicy.WorkerMindset];
             var mindsetBonus = 10 - mindset * 2;
 
+
+            // culture bonuses
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 5)
@@ -62,7 +65,7 @@ namespace Assets.Utils
                 .Append("CEO bonus", leaderBonus)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
                 .Append("Corporate Culture Mindset", mindsetBonus)
-                .AppendAndHideIfZero("Is fully focused on market", company.isIndependentCompany ? 5 : 0)
+                .AppendAndHideIfZero("Is independent company", company.isIndependentCompany ? 5 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
                 .AppendAndHideIfZero("Crunch", crunch);
         }
