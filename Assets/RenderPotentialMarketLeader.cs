@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RenderPotentialMarketLeader : UpgradedParameterView
 {
@@ -23,6 +24,10 @@ public class RenderPotentialMarketLeader : UpgradedParameterView
 
         var chances = ProductUtils.GetInnovationChance(potentialLeader, GameContext);
 
-        return $"<b>{potentialLeader.company.Name}</b>\n\nInnovation chances: {chances}%";
+        var isRelatedToPlayer = CompanyUtils.IsCompanyRelatedToPlayer(GameContext, potentialLeader);
+
+        var colorName = isRelatedToPlayer ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO;
+
+        return $"<b>{Visuals.Colorize(potentialLeader.company.Name, colorName)}</b>\n\nInnovation chances: {chances}%";
     }
 }
