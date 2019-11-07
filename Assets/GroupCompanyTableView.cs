@@ -32,18 +32,23 @@ public class GroupCompanyTableView : View
         RenderIndustriesAmount();
     }
 
+    string FormatNiches(NicheType n) => EnumUtils.GetFormattedNicheName(n);
+    string FormatIndustries(IndustryType n) => EnumUtils.GetFormattedIndustryName(n);
+
+    int amountOfNiches => 3;
+
     void RenderIndustriesAmount()
     {
         var industries = entity.companyFocus.Industries;
 
         var text = "";
 
-        if (industries.Count < 3)
-            text = System.String.Join("\n", industries);
+        if (industries.Count < amountOfNiches)
+            text = System.String.Join("\n", industries.Select(FormatIndustries));
         else
         {
-            text = System.String.Join("\n", industries.Select(n => EnumUtils.GetFormattedIndustryName(n)).ToArray(), 0, 3);
-            text += $"\nand {industries.Count - 3} more";
+            text = System.String.Join("\n", industries.Select(FormatIndustries).ToArray(), 0, amountOfNiches);
+            text += $"\nand {industries.Count - amountOfNiches} more";
         }
 
         IndustryFocus.text = text;
@@ -55,14 +60,14 @@ public class GroupCompanyTableView : View
 
         var text = "";
 
-        if (niches.Count < 3)
+        if (niches.Count < amountOfNiches)
         {
-            text = System.String.Join("\n", niches);
+            text = System.String.Join("\n", niches.Select(FormatNiches));
         }
         else
         {
-            text = System.String.Join("\n", niches.Select(n => EnumUtils.GetFormattedNicheName(n)).ToArray(), 0, 2);
-            text += $"\nand {niches.Count - 3} more";
+            text = System.String.Join("\n", niches.Select(FormatNiches).ToArray(), 0, amountOfNiches);
+            text += $"\nand {niches.Count - amountOfNiches} more";
         }
 
         NicheFocus.text = text;
