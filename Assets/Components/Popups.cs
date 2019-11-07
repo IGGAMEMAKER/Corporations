@@ -10,6 +10,7 @@ public enum PopupType
     BankruptCompany,
     NewCompany,
     TargetWasBought,
+    NewCorporation,
 
     InspirationToOpenMarket,
     InterestToCompanyInOurSphereOfInfluence
@@ -53,6 +54,11 @@ public class PopupMessageInterestToCompany : PopupMessageCompanyEvent
     public PopupMessageInterestToCompany(int companyId, int buyerInvestorId) : base(companyId, PopupType.InterestToCompanyInOurSphereOfInfluence) {
         this.buyerInvestorId = buyerInvestorId;
     }
+}
+
+public class PopupMessageCorporationSpawn : PopupMessageCompanyEvent
+{
+    public PopupMessageCorporationSpawn(int companyId) : base(companyId, PopupType.NewCorporation) { }
 }
 
 public class PopupMessageCompanySpawn : PopupMessageCompanyEvent

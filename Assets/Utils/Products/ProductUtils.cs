@@ -51,9 +51,9 @@ namespace Assets.Utils
 
             // culture bonuses
             var responsibility = culture[CorporatePolicy.Responsibility];
-            var leaderBonus = GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10;
-
             var mindset = culture[CorporatePolicy.WorkerMindset];
+
+            var leaderBonus = GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10;
             var mindsetBonus = 10 - mindset * 2;
 
 
