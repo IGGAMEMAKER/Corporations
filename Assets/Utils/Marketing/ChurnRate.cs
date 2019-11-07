@@ -39,9 +39,9 @@
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base", baseValue)
+                .Append("Base for " + monetisation.ToString() + " products", baseValue)
                 .Append("Concept", fromProductLevel)
-                .Append("Retention Improvements", -improvements)
+                .AppendAndHideIfZero("Retention Improvements", -improvements)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(2, 100);
         }

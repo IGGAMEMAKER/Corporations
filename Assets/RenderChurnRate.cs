@@ -7,7 +7,7 @@ public class RenderChurnRate : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).ToString();
+        return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).ToString(true);
     }
 
     public override string RenderValue()
