@@ -54,20 +54,15 @@ namespace Assets.Utils
         }
 
 
-        public static long GetTeamFinancingMultiplier (GameEntity e)
+        public static float GetTeamFinancingMultiplier (GameEntity e)
         {
             return GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
         }
-        public static long GetTeamFinancingMultiplier (int financing)
+        public static float GetTeamFinancingMultiplier (int financing)
         {
-            switch (financing)
-            {
-                case 0: return 1; // 100
-                case 1: return 2; // 120
-                case 2: return 5; // 200
-                case 3: return 12; // 300
-                default: return -1000; // 
-            }
+            var acceleration = 1 + financing * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL / 100f;
+
+            return Mathf.Pow(acceleration, 10);
         }
         public static long GetTeamFinancingEffeciency (int financing)
         {
@@ -99,7 +94,7 @@ namespace Assets.Utils
 
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
-            return baseCost * stage * team;
+            return (long)(baseCost * stage * team);
         }
 
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)

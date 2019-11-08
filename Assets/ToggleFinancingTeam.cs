@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleFinancingTeam : View
@@ -55,7 +52,7 @@ public class ToggleFinancingTeam : View
                 break;
         }
 
-        var maintenanceMultiplier = EconomyUtils.GetTeamFinancingMultiplier(SelectedCompany);
+        var maintenanceMultiplier = (long)EconomyUtils.GetTeamFinancingMultiplier(SelectedCompany);
         text = $"{description}\n\nCosts {Visuals.Negative("x" + maintenanceMultiplier)} monthly\n\n{bonuses}";
 
         FinancingDescription.text = text;

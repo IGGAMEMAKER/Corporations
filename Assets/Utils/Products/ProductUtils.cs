@@ -1,7 +1,4 @@
-﻿using Assets.Classes;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class ProductUtils
     {

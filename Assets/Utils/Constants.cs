@@ -58,7 +58,7 @@
     public const float CLIENT_GAIN_MODIFIER_MIN = 1f;
     public const float CLIENT_GAIN_MODIFIER_MAX = 1.5f;
 
-    public const int FINANCING_ITERATION_SPEED_PER_LEVEL = 5;
+    public const int FINANCING_ITERATION_SPEED_PER_LEVEL = 10;
 
 
     public const int CULTURE_ITERATION_SPEED_PER_LEVEL = 5;
