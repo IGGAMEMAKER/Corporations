@@ -38,7 +38,7 @@ namespace Assets.Utils
             var innovationTime = IsWillInnovate(company, gameContext) ? 50 : 0;
 
             var financing = company.financing.Financing;
-            var devModifier = financing[Financing.Development];
+            var devModifier = financing[Financing.Team];
 
 
             var culture = company.corporateCulture.Culture;

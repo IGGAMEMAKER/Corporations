@@ -7,11 +7,6 @@ public class ToggleFinancingDevelopment : View
     public Dropdown Dropdown;
     public Text FinancingDescription;
 
-    //private void OnEnable()
-    //{
-    //    Render();
-    //}
-
     public override void ViewRender()
     {
         base.ViewRender();
@@ -39,7 +34,7 @@ public class ToggleFinancingDevelopment : View
         var value = SelectedCompany.financing.Financing[Financing.Development];
 
 
-        bonuses = $"{Visuals.Positive((-value * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL).ToString())}% iteration time";
+        //bonuses = $"{Visuals.Positive((-value * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL).ToString())}% iteration time";
         switch (value)
         {
             case 0:

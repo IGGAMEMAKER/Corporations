@@ -10,25 +10,8 @@ namespace Assets.Utils
             return c.product.Concept;
         }
 
-        public static bool IsHasAvailableProductImprovements(GameEntity product)
-        {
-            var level = GetProductLevel(product);
-            var improvements = product.productImprovements.Count;
-
-            return level > improvements;
-        }
-
         public static BonusContainer GetInnovationChanceBonus(GameEntity company, GameContext gameContext)
         {
-            var morale = company.team.Morale;
-
-            var moraleChance = morale / 5; // 0...20
-            var expertiseChance = Mathf.Clamp(company.expertise.ExpertiseLevel, 0, 25);
-
-            var crunch = company.isCrunching ? 10 : 0;
-
-
-
             var culture = company.corporateCulture.Culture;
             var sphereOfInterestBonus = 0;
             if (!company.isIndependentCompany)
@@ -52,22 +35,20 @@ namespace Assets.Utils
             // culture bonuses
             var responsibility = culture[CorporatePolicy.Responsibility];
             var mindset = culture[CorporatePolicy.WorkerMindset];
-
-            var leaderBonus = GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10;
-            var mindsetBonus = 10 - mindset * 2;
-
+            var createOrBuy = culture[CorporatePolicy.CreateOrBuy];
 
             // culture bonuses
 
             return new BonusContainer("Innovation chance")
                 .Append("Base", 5)
-                //.Append("Morale", moraleChance)
-                .Append("CEO bonus", leaderBonus)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
-                .Append("Corporate Culture Mindset", mindsetBonus)
+                
+                .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)
+                .Append("Corporate Culture Mindset", 10 - mindset * 2)
+                .Append("Corporate Culture Acquisitions", createOrBuy * 2)
+                
                 .AppendAndHideIfZero("Is independent company", company.isIndependentCompany ? 5 : 0)
-                .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus)
-                .AppendAndHideIfZero("Crunch", crunch);
+                .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
         }
         public static int GetInnovationChance(GameEntity company, GameContext gameContext)
         {
@@ -88,11 +69,14 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
-        internal static long GetMarketStageInnovationModifier(GameEntity company, GameContext gameContext)
-        {
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
 
-            return CompanyUtils.GetMarketStageInnovationModifier(niche);
+
+        public static bool IsHasAvailableProductImprovements(GameEntity product)
+        {
+            var level = GetProductLevel(product);
+            var improvements = product.productImprovements.Count;
+
+            return level > improvements;
         }
     }
 }

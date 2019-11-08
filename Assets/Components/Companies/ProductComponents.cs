@@ -43,7 +43,8 @@ public class BrandingComponent : IComponent
 public enum Financing
 {
     Marketing,
-    Development
+    Development,
+    Team
 }
 public class FinancingComponent : IComponent
 {

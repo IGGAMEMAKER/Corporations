@@ -20,7 +20,8 @@ namespace Assets.Utils
             company.AddFinancing(new Dictionary<Financing, int>
             {
                 [Financing.Development] = 0,
-                [Financing.Marketing] = 0
+                [Financing.Marketing] = 0,
+                [Financing.Team] = 0
             });
 
             AddFocusNiche(niche, company, context);

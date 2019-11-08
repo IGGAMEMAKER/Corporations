@@ -7,11 +7,6 @@ public class ToggleFinancingMarketing : View
     public Dropdown Dropdown;
     public Text FinancingDescription;
 
-    //private void OnEnable()
-    //{
-    //    Render();
-    //}
-
     public override void ViewRender()
     {
         base.ViewRender();

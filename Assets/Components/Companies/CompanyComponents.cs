@@ -235,7 +235,8 @@ public enum CorporatePolicy
     Responsibility, // team vs leader
     CreateOrBuy,
     WorkerMindset, // engineer vs researcher
-    Focusing
+    Focusing,
+    Salaries // low vs high
 }
 
 [Game]

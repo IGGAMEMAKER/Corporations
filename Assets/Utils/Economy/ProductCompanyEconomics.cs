@@ -38,11 +38,11 @@ namespace Assets.Utils
         }
 
 
-        public static long GetDevFinancingMultiplier (GameEntity e)
+        public static long GetStageFinancingMultiplier (GameEntity e)
         {
-            return GetDevFinancingMultiplier(e.financing.Financing[Financing.Development]);
+            return GetStageFinancingMultiplier(e.financing.Financing[Financing.Development]);
         }
-        public static long GetDevFinancingMultiplier (int financing)
+        public static long GetStageFinancingMultiplier(int financing)
         {
             switch (financing)
             {
@@ -52,6 +52,36 @@ namespace Assets.Utils
                 default: return -1000;
             }
         }
+
+
+        public static long GetTeamFinancingMultiplier (GameEntity e)
+        {
+            return GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
+        }
+        public static long GetTeamFinancingMultiplier (int financing)
+        {
+            switch (financing)
+            {
+                case 0: return 1; // 100
+                case 1: return 2; // 120
+                case 2: return 5; // 200
+                case 3: return 12; // 300
+                default: return -1000; // 
+            }
+        }
+        public static long GetTeamFinancingEffeciency (int financing)
+        {
+            switch (financing)
+            {
+                case 0: return 100; // 100
+                case 1: return 120; // 120
+                case 2: return 200; // 200
+                case 3: return 300; // 300
+                default: return -1000; // 
+            }
+        }
+
+
 
 
         public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
@@ -64,11 +94,12 @@ namespace Assets.Utils
         }
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var multiplier = GetDevFinancingMultiplier(e);
+            var stage = GetStageFinancingMultiplier(e);
+            var team = GetTeamFinancingMultiplier(e);
 
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
-            return baseCost * multiplier;
+            return baseCost * stage * team;
         }
 
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
@@ -78,6 +109,8 @@ namespace Assets.Utils
 
             return devFinancing + marketingFinancing;
         }
+
+
 
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
