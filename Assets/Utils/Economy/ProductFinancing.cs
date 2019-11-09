@@ -77,9 +77,5 @@ namespace Assets.Utils
                 default: return -1000; // 
             }
         }
-
-
-
-
     }
 }
