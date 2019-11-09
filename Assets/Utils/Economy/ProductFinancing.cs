@@ -58,13 +58,14 @@ namespace Assets.Utils
                 default: return -1000;
             }
         }
-
         public static float GetTeamFinancingMultiplier (int financing)
         {
             var acceleration = 1 + financing * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL / 100f;
 
             return Mathf.Pow(acceleration, 10);
         }
+
+
         public static long GetTeamFinancingEffeciency (int financing)
         {
             switch (financing)
