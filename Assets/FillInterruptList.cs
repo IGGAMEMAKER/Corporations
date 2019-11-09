@@ -63,6 +63,7 @@ public class FillInterruptList : View
 
     bool CheckProductImprovements()
     {
+        return false;
         var upgradableCompanies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
         return upgradableCompanies.Count() > 0;
     }

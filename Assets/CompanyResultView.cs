@@ -11,6 +11,7 @@ public class CompanyResultView : View
     public Text ClientGrowth;
     public Text MarketShareChange;
     public Text ConceptStatusText;
+    public Text Profit;
 
     public void SetEntity(ProductCompanyResult result)
     {
@@ -31,6 +32,9 @@ public class CompanyResultView : View
 
         var c = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
         LinkToNiche.SetNiche(c.product.Niche);
+
+        var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
+        Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)
