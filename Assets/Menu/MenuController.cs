@@ -42,7 +42,7 @@ public enum ScreenMode
     HoldingScreen = 29,
     CorporationScreen = 30,
     AcquirableCompaniesOnNicheScreen = 31,
-
+    JoinCorporationScreen = 32,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -82,6 +82,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject HoldingScreen;
     public GameObject CorporationScreen;
     public GameObject AcquirableCompaniesOnNicheScreen;
+    public GameObject JoinCorporationScreen;
 
 
     void Start()
@@ -119,6 +120,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.HoldingScreen] = HoldingScreen,
             [ScreenMode.CorporationScreen] = CorporationScreen,
             [ScreenMode.AcquirableCompaniesOnNicheScreen] = AcquirableCompaniesOnNicheScreen,
+            [ScreenMode.JoinCorporationScreen] = JoinCorporationScreen,
         };
 
         DisableAllScreens();
@@ -171,6 +173,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             case ScreenMode.GroupScreen: return "Group";
             case ScreenMode.HoldingScreen: return "Holding";
             case ScreenMode.CorporationScreen: return "Corporation";
+            case ScreenMode.JoinCorporationScreen: return "Join Corporation";
 
             default: return "WUT?";
         }

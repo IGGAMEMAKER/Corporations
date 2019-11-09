@@ -7,6 +7,7 @@ public class BusinessButtonsController : View
     [SerializeField] GameObject ManageCompanyButton;
     [SerializeField] GameObject CloseCompanyButton;
     [SerializeField] GameObject SellCompanyButton;
+    public GameObject JoinCorporation;
 
     private void OnEnable()
     {
@@ -24,6 +25,9 @@ public class BusinessButtonsController : View
         ManageCompanyButton.SetActive(manageable);
         SellCompanyButton.SetActive(manageable);
         CloseCompanyButton.SetActive(manageable);
+
+        bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
+        JoinCorporation.SetActive(isCorporation && !manageable);
 
         //LeaveCEOButton.SetActive(c.isControlledByPlayer);
 
