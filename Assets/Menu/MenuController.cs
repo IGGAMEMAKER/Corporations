@@ -43,6 +43,7 @@ public enum ScreenMode
     CorporationScreen = 30,
     AcquirableCompaniesOnNicheScreen = 31,
     JoinCorporationScreen = 32,
+    FormStrategicPartnershipScreen = 33,
 }
 
 public class MenuController : MonoBehaviour, IMenuListener
@@ -83,6 +84,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject CorporationScreen;
     public GameObject AcquirableCompaniesOnNicheScreen;
     public GameObject JoinCorporationScreen;
+    public GameObject FormStrategicPartnershipScreen;
 
 
     void Start()
@@ -121,6 +123,7 @@ public class MenuController : MonoBehaviour, IMenuListener
             [ScreenMode.CorporationScreen] = CorporationScreen,
             [ScreenMode.AcquirableCompaniesOnNicheScreen] = AcquirableCompaniesOnNicheScreen,
             [ScreenMode.JoinCorporationScreen] = JoinCorporationScreen,
+            [ScreenMode.FormStrategicPartnershipScreen] = FormStrategicPartnershipScreen
         };
 
         DisableAllScreens();
