@@ -4,18 +4,37 @@ namespace Assets.Utils
 {
     partial class EconomyUtils
     {
-        public static long GetMarketingFinancingMultiplier (GameEntity e)
+        public static long GetMarketingFinancingMultiplier(GameEntity e) => GetMarketingFinancingMultiplier(e.financing.Financing[Financing.Marketing]);
+        public static long GetStageFinancingMultiplier(GameEntity e) => GetStageFinancingMultiplier(e.financing.Financing[Financing.Development]);
+        public static float GetTeamFinancingMultiplier(GameEntity e) => GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
+
+        public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
         {
-            return GetMarketingFinancingMultiplier(e.financing.Financing[Financing.Marketing]);
+            var multiplier = GetMarketingFinancingMultiplier(e);
+
+            var baseCost = NicheUtils.GetBaseMarketingCost(e.product.Niche, gameContext);
+
+            return baseCost * multiplier;
         }
-        public static long GetStageFinancingMultiplier (GameEntity e)
+        public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            return GetStageFinancingMultiplier(e.financing.Financing[Financing.Development]);
+            var stage = GetStageFinancingMultiplier(e);
+            var team = GetTeamFinancingMultiplier(e);
+
+            var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
+
+            return (long)(baseCost * stage * team);
         }
-        public static float GetTeamFinancingMultiplier (GameEntity e)
+
+        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            return GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
+            var devFinancing = GetProductDevelopmentCost(e, gameContext);
+            var marketingFinancing = GetProductMarketingCost(e, gameContext);
+
+            return devFinancing + marketingFinancing;
         }
+
+
 
 
         public static long GetMarketingFinancingMultiplier (int financing)
@@ -61,30 +80,5 @@ namespace Assets.Utils
 
 
 
-        public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
-        {
-            var multiplier = GetMarketingFinancingMultiplier(e);
-
-            var baseCost = NicheUtils.GetBaseMarketingCost(e.product.Niche, gameContext);
-
-            return baseCost * multiplier;
-        }
-        public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
-        {
-            var stage = GetStageFinancingMultiplier(e);
-            var team = GetTeamFinancingMultiplier(e);
-
-            var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
-
-            return (long)(baseCost * stage * team);
-        }
-
-        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
-        {
-            var devFinancing = GetProductDevelopmentCost(e, gameContext);
-            var marketingFinancing = GetProductMarketingCost(e, gameContext);
-
-            return devFinancing + marketingFinancing;
-        }
     }
 }
