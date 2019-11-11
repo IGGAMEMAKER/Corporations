@@ -11,9 +11,6 @@ public class JoinCorporationScreen : View
     public Text Offer;
     public Text SellerPrice;
 
-    public Text TriesRemaining;
-    public Text DaysRemaining;
-
     public Toggle KeepFounderAsCEO;
 
     public Text SharePercentage;
@@ -29,12 +26,5 @@ public class JoinCorporationScreen : View
             return;
 
         Title.text = $"Integrate {SelectedCompany.company.Name} company to our corporation";
-
-
-        //var willAcceptOffer = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
-
-        //RenderProposalStatus(willAcceptOffer);
-
-        //RenderOffer(willAcceptOffer);
     }
 }

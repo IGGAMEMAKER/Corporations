@@ -65,7 +65,7 @@
 
             var costs = niche.nicheCosts;
 
-            var component = new NicheCostsComponent
+            return new NicheCostsComponent
             {
                 BasePrice       = costs.BasePrice,
                 AdCost          = (int)(costs.AdCost * costModifier / priceModifier),
@@ -75,8 +75,6 @@
                 IdeaCost        = costs.IdeaCost * costModifier,
                 MarketingCost   = costs.MarketingCost * costModifier, // 
             };
-
-            return component;
         }
 
         public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType)

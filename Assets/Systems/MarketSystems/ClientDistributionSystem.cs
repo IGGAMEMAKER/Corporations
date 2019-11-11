@@ -59,7 +59,6 @@ public partial class ClientDistributionSystem : OnPeriodChange
         for (var i = 0; i < products.Length; i++)
         {
             var p = products[i];
-            var segId = p.productPositioning.Positioning;
 
             var clients = GetCompanyAudienceReach(p, flow);
 
@@ -69,6 +68,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
             MarketingUtils.AddClients(p, clients);
 
+            var segId = p.productPositioning.Positioning;
             clientContainers[segId] -= clients;
         }
 
