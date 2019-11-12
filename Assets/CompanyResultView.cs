@@ -18,7 +18,12 @@ public class CompanyResultView : View
         CompanyName.text = CompanyUtils.GetCompanyById(GameContext, result.CompanyId).company.Name;
 
         var growth = result.clientChange;
-        ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth);
+        var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
+        growth = (long) MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
+
+        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
+        ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
+        ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
 
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";

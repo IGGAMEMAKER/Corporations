@@ -12,10 +12,12 @@ namespace Assets.Utils
 
             // product specific components
             company.AddProduct(niche, 0); //  UnityEngine.Random.Range(0, 6)
+
             company.AddProductImprovements(new Dictionary<ProductImprovement, int> { [ProductImprovement.Acquisition] = 0, [ProductImprovement.Monetisation] = 0, [ProductImprovement.Retention] = 0 }, 0);
             company.AddExpertise(Random.Range(1, 4)); //  UnityEngine.Random.Range(0, 6)
 
-
+            var flow = MarketingUtils.GetCurrentClientFlow(context, niche);
+            var baseClients = Random.Range(flow / 2, flow * 2);
             company.AddMarketing(0);
             company.AddFinancing(new Dictionary<Financing, int>
             {
