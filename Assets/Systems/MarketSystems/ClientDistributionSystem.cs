@@ -62,9 +62,9 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
             var clients = GetCompanyAudienceReach(p, flow);
 
-            var clientCap = flow * 10;
-            if (clients > clientCap)
-                clients = clientCap;
+            //var clientCap = flow * 10;
+            //if (clients > clientCap)
+            //    clients = clientCap;
 
             MarketingUtils.AddClients(p, clients);
 
