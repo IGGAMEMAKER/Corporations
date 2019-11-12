@@ -92,7 +92,7 @@ namespace Assets.Utils
             //.Append("Market state " + marketStage.ToString(), baseGrowth)
             //.Append("Monetisation type " + monetisationType.ToString(), +marketStageGrowth)
 
-            return baseGrowth + marketStageGrowth;
+            return (baseGrowth + marketStageGrowth) / 3;
         }
 
         public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
@@ -100,18 +100,19 @@ namespace Assets.Utils
             var marketGrowthMultiplier = GetMarketStateGrowthMultiplier(product, gameContext);
 
             // 0...4
-            var brandModifier = (3 * product.branding.BrandPower + 100);
-            var innovationBonus = product.isTechnologyLeader ? 5 : 0;
+            var brand = (int)product.branding.BrandPower;
+            var brandModifier = 3 * brand + 100;
 
-            float financingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product);
-            float productSizeModifier = GetAudienceReachModifierBasedOnDevelopmentFinancing(product);
+            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
             return new BonusContainer("Audience growth")
+                .Append("Product Financing: Marketing", (int)marketingModifier)
+                .Append($"Brand strength ({brand})", brandModifier / 100)
                 .Append("Market state", marketGrowthMultiplier)
-                .Append("Brand strength", (int)(brandModifier / 100))
-                .Append("Product Financing: Development", (int)productSizeModifier)
-                .Append("Product Financing: Marketing", (int)financingModifier);
+                ;
         }
+
+
         public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             var bonus = GetGrowthMultiplier(product, gameContext);
@@ -135,26 +136,6 @@ namespace Assets.Utils
                 case 1: return 1f;
                 case 2: return 2.8f;
                 case 3: return 3.5f;
-                default: return 10000;
-            }
-        }
-
-
-
-        public static float GetAudienceReachModifierBasedOnDevelopmentFinancing(GameEntity product)
-        {
-            var financing = product.financing.Financing[Financing.Development];
-
-            return GetAudienceReachModifierBasedOnDevelopmentFinancing(financing);
-        }
-        public static float GetAudienceReachModifierBasedOnDevelopmentFinancing(int financing)
-        {
-            switch (financing)
-            {
-                case 0: return 0.5f;
-                case 1: return 1f;
-                case 2: return 2f;
-                case 3: return 3f;
                 default: return 10000;
             }
         }
