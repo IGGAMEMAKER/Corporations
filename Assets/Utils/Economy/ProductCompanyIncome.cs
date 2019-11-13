@@ -20,27 +20,19 @@ namespace Assets.Utils
 
             long clients = MarketingUtils.GetClients(c);
 
-            var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
             var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
 
-            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
+            //var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 
-            var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
-            var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
-            var isPaidProduct = pricingType == Monetisation.Paid;
+            //var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
+            //var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
+            //var isPaidProduct = pricingType == Monetisation.Paid;
 
-            var financing = c.financing.Financing[Financing.Development];
-            var financingModifier = 5;
+            var isReleasedModifier = c.isRelease ? 10 : 5;
 
-            if (c.isRelease || financing == 1)
-                financingModifier = 10;
-
-            //if (financing == 2)
-            //    financingModifier = 13;
-
-            return clients * price * financingModifier / 10f;
+            return clients * price * isReleasedModifier / 10f;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)
