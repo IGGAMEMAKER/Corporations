@@ -69,15 +69,7 @@
             }
         }
 
-
         // based on financing
-        public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product)
-        {
-            var financing = product.financing.Financing[Financing.Marketing];
-
-            return GetAudienceReachModifierBasedOnMarketingFinancing(financing);
-        }
-
         public static float GetAudienceReachModifierBasedOnMarketingFinancing(int financing)
         {
             switch (financing)
@@ -88,6 +80,13 @@
                 case 3: return 6;
                 default: return 10000;
             }
+        }
+
+        public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product)
+        {
+            var financing = product.financing.Financing[Financing.Marketing];
+
+            return GetAudienceReachModifierBasedOnMarketingFinancing(financing);
         }
     }
 }
