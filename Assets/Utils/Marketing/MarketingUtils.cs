@@ -92,7 +92,7 @@ namespace Assets.Utils
             //.Append("Market state " + marketStage.ToString(), baseGrowth)
             //.Append("Monetisation type " + monetisationType.ToString(), +marketStageGrowth)
 
-            return (baseGrowth + marketStageGrowth) / 3;
+            return (baseGrowth + marketStageGrowth);
         }
 
         public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
@@ -103,10 +103,11 @@ namespace Assets.Utils
             var brand = (int)product.branding.BrandPower;
             var brandModifier = 3 * brand + 100;
 
-            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product);
+            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product) * 3;
 
             return new BonusContainer("Audience growth")
-                .Append("Product Financing: Marketing", (int)marketingModifier)
+                .SetDimension("%")
+                .Append("Marketing Financing", (int)marketingModifier)
                 .Append($"Brand strength ({brand})", brandModifier / 100)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
