@@ -16,10 +16,6 @@
             var marketIsDying = state == NicheLifecyclePhase.Death;
 
 
-            var improvements = c.productImprovements.Improvements[ProductImprovement.Retention];
-            var improvementModifier = improvements;
-
-
             var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
@@ -29,7 +25,6 @@
                 .SetDimension("%")
                 .Append("Base for " + monetisation.ToString() + " products", baseValue)
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
-                .AppendAndHideIfZero("Retention Improvements", -improvements)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(2, 100);
         }
