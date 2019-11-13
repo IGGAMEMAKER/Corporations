@@ -2,6 +2,18 @@
 {
     public static partial class MarketingUtils
     {
+        public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
+        {
+            var baseGrowth = GetCurrentClientFlow(gameContext, product.product.Niche) / 1000;
+            if (baseGrowth == 0)
+                baseGrowth = 1;
+
+            var clients = GetClients(product);
+            var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
+
+            return (long)(multiplier * clients) / 100;
+        }
+
         public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             return GetGrowthMultiplier(product, gameContext).Sum();
@@ -9,18 +21,18 @@
 
         public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
-            var marketGrowthMultiplier = GetMarketStateGrowthMultiplier(product, gameContext);
+            var marketGrowthMultiplier = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
 
             // 0...4
             var brand = (int)product.branding.BrandPower;
             var brandModifier = 3 * brand + 100;
 
-            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
+            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product) * 2;
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
                 .Append("Marketing Financing", marketingModifier)
-                .Append($"Brand strength ({brand})", brandModifier / 20)
+                .Append($"Brand strength ({brand})", brandModifier / 100)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
         }
@@ -40,9 +52,7 @@
 
         public static int GetGrowthMultiplierBasedOnMonetisationType(GameEntity niche)
         {
-            var profile = niche.nicheBaseProfile.Profile;
-
-            switch (profile.MonetisationType)
+            switch (niche.nicheBaseProfile.Profile.MonetisationType)
             {
                 case Monetisation.Adverts: return 10;
 

@@ -11,11 +11,11 @@ namespace Assets.Utils
         public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
         {
             var multiplier = GetMarketingFinancingMultiplier(e);
-            var clients = MarketingUtils.GetClients(e);
+            var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
 
             var baseCost = NicheUtils.GetBaseMarketingCost(e.product.Niche, gameContext);
 
-            return clients * baseCost * multiplier;
+            return gainedClients * baseCost * multiplier;
         }
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
@@ -40,14 +40,9 @@ namespace Assets.Utils
 
         public static long GetMarketingFinancingMultiplier (int financing)
         {
-            switch (financing)
-            {
-                case 0: return 0;
-                case 1: return 1;
-                case 2: return 5;
-                case 3: return 20;
-                default: return -1000;
-            }
+            var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
+
+            return (long)Mathf.Pow(marketing, 1.8f);
         }
         public static long GetStageFinancingMultiplier(int financing)
         {
