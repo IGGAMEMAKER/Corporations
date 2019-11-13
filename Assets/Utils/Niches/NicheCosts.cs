@@ -68,8 +68,9 @@
             {
                 BaseIncome       = costs.BaseIncome * priceModifier,
                 AdCost          = (int)(costs.AdCost * adModifier),
-                ClientBatch     = costs.ClientBatch * flowModifier,
                 TechCost        = costs.TechCost,
+
+                ClientBatch     = costs.ClientBatch * flowModifier,
                 
                 //IdeaCost        = costs.IdeaCost * costModifier,
                 //MarketingCost   = costs.MarketingCost * costModifier, // 
