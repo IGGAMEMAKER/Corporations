@@ -33,17 +33,15 @@
         {
             switch (monetisation)
             {
-                case Monetisation.Enterprise:
-                case Monetisation.IrregularPaid:
-                case Monetisation.Paid:
-                    return 2;
-
                 case Monetisation.Adverts:
                     return 7;
 
                 case Monetisation.Service:
                     return 4;
 
+                case Monetisation.Enterprise:
+                case Monetisation.IrregularPaid:
+                case Monetisation.Paid:
                 default:
                     return 2;
             }
