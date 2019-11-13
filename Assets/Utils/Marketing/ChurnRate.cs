@@ -40,7 +40,7 @@
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base for " + monetisation.ToString() + " products", baseValue)
-                .Append("Concept", fromProductLevel)
+                .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Retention Improvements", -improvements)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(2, 100);

@@ -16,7 +16,7 @@ public enum NicheDuration
     EntireGame = 12 * 50
 }
 
-public enum NicheSpeed
+public enum NichePeriod
 {
     Month = 1,
     Quarter = 3,
@@ -66,7 +66,7 @@ public struct MarketProfile
     public Margin Margin;
 
 
-    public NicheSpeed Iteration;
+    public NichePeriod NicheSpeed;
     public AppComplexity AppComplexity;
 }
 
@@ -77,14 +77,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity,
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NichePeriod Iteration, AppComplexity ProductComplexity,
     NicheDuration nicheDuration = NicheDuration.EntireGame)
     {
         return SetNichesAutomatically(
             nicheType,
             startDate,
             new MarketProfile {
-                AudienceSize = AudienceSize, Iteration = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
+                AudienceSize = AudienceSize, NicheSpeed = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
             }, nicheDuration
             );
     }
@@ -106,15 +106,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
 
-        var audience = GetFullAudience(settings.AudienceSize, nicheId);
         var clients = GetBatchSize(settings.AudienceSize, nicheId);
 
-        var ChangeSpeed = settings.Iteration;
+        var ChangeSpeed = settings.NicheSpeed;
         var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
         var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
         var marketingCost = 0;
 
-        var adCosts = GetAdCost(clients, nicheId);
+        var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
 
         var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
 
@@ -133,7 +132,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var clientsContainer = new Dictionary<int, long>
         {
-            [0] = audience
+            [0] = GetFullAudience(settings.AudienceSize, nicheId)
         };
 
         n.ReplaceNicheSegments(positionings);
@@ -144,7 +143,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return n;
     }
 
-    private int GetTechCost(NicheSpeed techMaintenance, int nicheId)
+    private int GetTechCost(NichePeriod techMaintenance, int nicheId)
     {
         var baseCost = (int)techMaintenance;
 
@@ -152,13 +151,32 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
 
-    float GetProductPrice(Monetisation monetisationType, Margin incomeSize, int nicheId)
+    float GetProductPrice(Monetisation monetisationType, Margin margin, int nicheId)
     {
-        var baseCost = (int)monetisationType * (int)incomeSize;
+        var baseCost = (int)monetisationType * (int)margin;
 
         float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
 
         return value;
+    }
+
+    int GetAdCost(long clientBatch, Monetisation monetisationType, NichePeriod nichePeriod, int nicheId)
+    {
+        var baseValue = (int)monetisationType;
+
+        var repaymentTime = 1;
+
+        switch (monetisationType)
+        {
+            case Monetisation.Adverts: repaymentTime = 5; break;
+            case Monetisation.Enterprise: repaymentTime = 10; break;
+            case Monetisation.Service: repaymentTime = 10; break;
+            case Monetisation.Paid: repaymentTime = 3; break;
+        }
+
+        baseValue *= repaymentTime;
+
+        return (int)Randomise(baseValue, nicheId);
     }
 
     long GetFullAudience(AudienceSize audienceSize, int nicheId)
@@ -172,12 +190,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Randomise((long)audience / repaymentPeriod, nicheId);
     }
 
-    int GetAdCost(long clientBatch, int nicheId)
-    {
-        var baseValue = clientBatch / 2;
-
-        return (int)Randomise(baseValue, nicheId);
-    }
 
 
 

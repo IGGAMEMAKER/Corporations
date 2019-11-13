@@ -22,7 +22,7 @@ namespace Assets.Utils
             e.AddNicheBaseProfile(new MarketProfile {
                 AppComplexity = AppComplexity.Average,
                 AudienceSize = AudienceSize.Million,
-                Iteration = NicheSpeed.Year,
+                NicheSpeed = NichePeriod.Year,
                 Margin = Margin.Mid,
                 MonetisationType = Monetisation.Service
             });
@@ -37,7 +37,7 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Death] = 0, // churn
             };
 
-            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NicheSpeed.Year);
+            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NichePeriod.Year);
 
             e.AddNicheState(NicheLifecyclePhase.Idle, 0);
             UpdateNicheDuration(e);

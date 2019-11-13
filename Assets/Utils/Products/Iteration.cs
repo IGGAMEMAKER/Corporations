@@ -1,5 +1,4 @@
-﻿using Assets.Classes;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -10,17 +9,17 @@ namespace Assets.Utils
             return GetBaseConceptTime(niche.nicheLifecycle.NicheChangeSpeed) / 4;
         }
 
-        public static int GetBaseConceptTime(NicheSpeed nicheChangeSpeed)
+        public static int GetBaseConceptTime(NichePeriod nicheChangeSpeed)
         {
             switch (nicheChangeSpeed)
             {
-                case NicheSpeed.Month: return 30;
-                case NicheSpeed.Quarter: return 90;
+                case NichePeriod.Month: return 30;
+                case NichePeriod.Quarter: return 90;
 
-                case NicheSpeed.HalfYear: return 180;
-                case NicheSpeed.Year: return 360;
+                case NichePeriod.HalfYear: return 180;
+                case NichePeriod.Year: return 360;
 
-                case NicheSpeed.ThreeYears: return 360 * 3;
+                case NichePeriod.ThreeYears: return 360 * 3;
 
                 default: return 0;
             }
