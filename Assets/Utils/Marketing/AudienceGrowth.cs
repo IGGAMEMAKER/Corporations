@@ -92,10 +92,7 @@ namespace Assets.Utils
             var baseGrowth = GetGrowthMultiplierBasedOnMonetisationType(niche);
             var marketStageGrowth = GetGrowthMultiplierBasedOnMarketState(niche);
 
-            //.Append("Market state " + marketStage.ToString(), baseGrowth)
-            //.Append("Monetisation type " + monetisationType.ToString(), +marketStageGrowth)
-
-            return (baseGrowth + marketStageGrowth);
+            return baseGrowth + marketStageGrowth;
         }
 
         // based on financing

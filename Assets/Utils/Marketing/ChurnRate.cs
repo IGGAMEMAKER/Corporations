@@ -2,6 +2,11 @@
 {
     public static partial class MarketingUtils
     {
+        public static long GetChurnRate(GameContext gameContext, int companyId)
+        {
+            return GetChurnBonus(gameContext, companyId).Sum();
+        }
+
         public static BonusContainer GetChurnBonus(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
@@ -14,27 +19,10 @@
             var improvements = c.productImprovements.Improvements[ProductImprovement.Retention];
             var improvementModifier = improvements;
 
-            var baseValue = 2;
 
             var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
-
-            switch (monetisation)
-            {
-                case Monetisation.Enterprise:
-                case Monetisation.IrregularPaid:
-                case Monetisation.Paid:
-                    baseValue = 2;
-                    break;
-
-                case Monetisation.Adverts:
-                    baseValue = 7;
-                    break;
-
-                case Monetisation.Service:
-                    baseValue = 4;
-                    break;
-            }
+            var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 
             return new BonusContainer("Churn rate")
                 .RenderTitle()
@@ -46,22 +34,24 @@
                 .Cap(2, 100);
         }
 
-        public static long GetChurnRate(GameContext gameContext, int companyId)
+        public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
-            return GetChurnBonus(gameContext, companyId).Sum();
-        }
+            switch (monetisation)
+            {
+                case Monetisation.Enterprise:
+                case Monetisation.IrregularPaid:
+                case Monetisation.Paid:
+                    return 2;
 
-        public static long GetChurnClients(GameContext gameContext, int companyId)
-        {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+                case Monetisation.Adverts:
+                    return 7;
 
-            var churn = GetChurnRate(gameContext, companyId);
+                case Monetisation.Service:
+                    return 4;
 
-            var clients = GetClients(c);
-
-            var period = EconomyUtils.GetPeriodDuration();
-
-            return clients * churn * period / 30 / 100;
+                default:
+                    return 2;
+            }
         }
     }
 }

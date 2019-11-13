@@ -1,6 +1,4 @@
-﻿using Assets.Utils.Formatting;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -23,6 +21,19 @@ namespace Assets.Utils
             var period = EconomyUtils.GetPeriodDuration();
 
             return costs.ClientBatch * period / 30;
+        }
+
+        public static long GetChurnClients(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            var churn = GetChurnRate(gameContext, companyId);
+
+            var clients = GetClients(c);
+
+            var period = EconomyUtils.GetPeriodDuration();
+
+            return clients * churn * period / 30 / 100;
         }
 
         public static void ReleaseApp(GameEntity product, GameContext gameContext)
