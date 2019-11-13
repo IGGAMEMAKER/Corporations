@@ -14,7 +14,7 @@ public partial class GameEntity {
     public void AddNicheCosts(float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost) {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
-        component.BasePrice = newBasePrice;
+        component.BaseIncome = newBasePrice;
         component.ClientBatch = newClientBatch;
         component.TechCost = newTechCost;
         component.IdeaCost = newIdeaCost;
@@ -26,7 +26,7 @@ public partial class GameEntity {
     public void ReplaceNicheCosts(float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost) {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
-        component.BasePrice = newBasePrice;
+        component.BaseIncome = newBasePrice;
         component.ClientBatch = newClientBatch;
         component.TechCost = newTechCost;
         component.IdeaCost = newIdeaCost;

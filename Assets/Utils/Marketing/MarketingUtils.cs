@@ -140,5 +140,19 @@ namespace Assets.Utils
                 default: return 10000;
             }
         }
+
+
+        public static void ReleaseApp(GameEntity product, GameContext gameContext)
+        {
+            if (!product.isRelease)
+            {
+                AddBrandPower(product, 20);
+                var flow = GetCurrentClientFlow(gameContext, product.product.Niche);
+
+                AddClients(product, 3 * flow);
+
+                product.isRelease = true;
+            }
+        }
     }
 }

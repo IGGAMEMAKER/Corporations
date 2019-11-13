@@ -1,11 +1,4 @@
-﻿using UnityEngine;
-
-public class HideReleaseButtonIfReleased : View
+﻿public class HideReleaseButtonIfReleased : HideOnSomeCondition
 {
-    public GameObject ReleaseCampaign;
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-    }
+    public override bool HideIf() => SelectedCompany.isRelease;
 }

@@ -18,7 +18,7 @@ namespace Assets.Utils
 
             var flow = MarketingUtils.GetCurrentClientFlow(context, niche);
             var baseClients = Random.Range(flow / 2, flow * 2);
-            company.AddMarketing(0);
+            company.AddMarketing((long)baseClients);
             company.AddFinancing(new Dictionary<Financing, int>
             {
                 [Financing.Development] = 0,

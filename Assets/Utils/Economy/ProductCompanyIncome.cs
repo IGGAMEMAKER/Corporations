@@ -32,13 +32,13 @@ namespace Assets.Utils
             var isPaidProduct = pricingType == Monetisation.Paid;
 
             var financing = c.financing.Financing[Financing.Development];
-            var financingModifier = 1;
+            var financingModifier = 5;
 
-            if (financing == 1)
+            if (c.isRelease || financing == 1)
                 financingModifier = 10;
 
-            if (financing == 2)
-                financingModifier = 13;
+            //if (financing == 2)
+            //    financingModifier = 13;
 
             return clients * price * financingModifier / 10f;
         }
@@ -56,7 +56,7 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNicheEntity(context, e.product.Niche);
 
-            return niche.nicheCosts.BasePrice;
+            return niche.nicheCosts.BaseIncome;
         }
     }
 }

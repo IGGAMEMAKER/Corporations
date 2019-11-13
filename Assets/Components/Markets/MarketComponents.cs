@@ -69,7 +69,7 @@ public class NicheClientsContainerComponent : IComponent
 [Game]
 public class NicheCostsComponent : IComponent
 {
-    public float BasePrice;
+    public float BaseIncome;
     public long ClientBatch;
 
     public int TechCost;

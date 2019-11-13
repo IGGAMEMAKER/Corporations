@@ -60,3 +60,5 @@ public class TechnologyLeaderComponent : IComponent { }
 [Game, Event(EventTarget.Self)]
 public class CrunchingComponent : IComponent { }
 
+public class DumpingComponent : IComponent { }
+

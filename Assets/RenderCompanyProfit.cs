@@ -15,7 +15,6 @@ public class RenderCompanyProfit : UpgradedParameterView
             .Append("Income", income)
             .Append("Development Financing", -devCost)
             .Append("Marketing Financing", -marketingCost);
-            //.Append("Maintenance", -maintenance);
 
         return bonus.ToString();
     }

@@ -41,14 +41,14 @@
             }
         }
 
-        public static float GetMarketStateTechModifier(NicheLifecyclePhase phase)
+        public static float GetMarketStateAdCostModifier(NicheLifecyclePhase phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Innovation:    return 1;
-                case NicheLifecyclePhase.Trending:      return 0.8f;
-                case NicheLifecyclePhase.MassUse:       return 0.7f;
-                case NicheLifecyclePhase.Decay:         return 0.6f;
+                case NicheLifecyclePhase.Innovation:    return 0.1f;
+                case NicheLifecyclePhase.Trending:      return 0.5f;
+                case NicheLifecyclePhase.MassUse:       return 1f;
+                case NicheLifecyclePhase.Decay:         return 2f;
 
                 default: return 0;
             }
@@ -58,22 +58,21 @@
         {
             var state = GetMarketState(niche);
 
-            var costModifier = GetMarketStateCostsModifier(state);
             var flowModifier = GetMarketStateClientFlowModifier(state);
             var priceModifier = GetMarketStatePriceModifier(state);
-            var techModifier = GetMarketStateTechModifier(state);
+            var adModifier = GetMarketStateAdCostModifier(state);
 
             var costs = niche.nicheCosts;
 
             return new NicheCostsComponent
             {
-                BasePrice       = costs.BasePrice,
-                AdCost          = (int)(costs.AdCost * costModifier / priceModifier),
+                BaseIncome       = costs.BaseIncome * priceModifier,
+                AdCost          = (int)(costs.AdCost * adModifier),
                 ClientBatch     = costs.ClientBatch * flowModifier,
                 TechCost        = costs.TechCost,
                 
-                IdeaCost        = costs.IdeaCost * costModifier,
-                MarketingCost   = costs.MarketingCost * costModifier, // 
+                //IdeaCost        = costs.IdeaCost * costModifier,
+                //MarketingCost   = costs.MarketingCost * costModifier, // 
             };
         }
 

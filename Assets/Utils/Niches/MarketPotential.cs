@@ -49,7 +49,7 @@
 
             long clients = flow; // * relativeGrowth;
 
-            var price = GetNicheCosts(niche).BasePrice * 1.5f;
+            var price = GetNicheCosts(niche).BaseIncome * 1.5f;
 
             return (long)(clients * price);
         }
@@ -84,7 +84,7 @@
         {
             var clients = GetMarketAudiencePotential(niche);
 
-            var price = GetNicheCosts(niche).BasePrice * 1.5f;
+            var price = GetNicheCosts(niche).BaseIncome * 1.5f;
 
             // * CompanyEconomyUtils.GetCompanyCostNicheMultiplier()
             return (long)(clients * price);

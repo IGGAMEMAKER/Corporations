@@ -14,7 +14,7 @@ namespace Assets.Utils
 
             var costs = GetNicheCosts(gameContext, nicheType);
 
-            return costs.BasePrice * priceModifier;
+            return costs.BaseIncome * priceModifier;
         }
 
 
