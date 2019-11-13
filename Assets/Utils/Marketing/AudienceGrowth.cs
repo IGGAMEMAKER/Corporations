@@ -1,6 +1,4 @@
-﻿using Assets.Utils.Formatting;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -19,12 +17,12 @@ namespace Assets.Utils
             var brand = (int)product.branding.BrandPower;
             var brandModifier = 3 * brand + 100;
 
-            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product) * 3;
+            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
                 .Append("Marketing Financing", (int)marketingModifier)
-                .Append($"Brand strength ({brand})", brandModifier / 100)
+                .Append($"Brand strength ({brand})", brandModifier / 20)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
         }
@@ -32,47 +30,6 @@ namespace Assets.Utils
 
 
         // based on market state
-        public static int GetGrowthMultiplierBasedOnMonetisationType(GameEntity niche)
-        {
-            var profile = niche.nicheBaseProfile.Profile;
-
-
-            var monetisationType = profile.MonetisationType;
-            var baseGrowth = 5; // 5%
-            switch (monetisationType)
-            {
-                case Monetisation.Adverts:
-                    baseGrowth = 10;
-                    break;
-                case Monetisation.Enterprise:
-                case Monetisation.Service:
-                    baseGrowth = 3;
-                    break;
-
-                case Monetisation.Paid:
-                    baseGrowth = 1;
-                    break;
-            }
-
-            return baseGrowth;
-        }
-
-        public static int GetGrowthMultiplierBasedOnMarketState(GameEntity niche)
-        {
-            var marketStage = NicheUtils.GetMarketState(niche);
-            var marketStageGrowth = 0;
-            switch (marketStage)
-            {
-                case NicheLifecyclePhase.Innovation: marketStageGrowth = 10; break;
-                case NicheLifecyclePhase.Trending: marketStageGrowth = 6; break;
-
-                case NicheLifecyclePhase.MassUse: marketStageGrowth = 2; break;
-                case NicheLifecyclePhase.Decay: marketStageGrowth = 1; break;
-            }
-
-            return marketStageGrowth;
-        }
-
         public static int GetMarketStateGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
@@ -83,6 +40,36 @@ namespace Assets.Utils
             return baseGrowth + marketStageGrowth;
         }
 
+        public static int GetGrowthMultiplierBasedOnMonetisationType(GameEntity niche)
+        {
+            var profile = niche.nicheBaseProfile.Profile;
+
+            switch (profile.MonetisationType)
+            {
+                case Monetisation.Adverts: return 10;
+
+                case Monetisation.Enterprise:
+                case Monetisation.Service: return 3;
+
+                case Monetisation.Paid: return 1;
+                default: return 5;
+            }
+        }
+
+        public static int GetGrowthMultiplierBasedOnMarketState(GameEntity niche)
+        {
+            switch (NicheUtils.GetMarketState(niche))
+            {
+                case NicheLifecyclePhase.Innovation: return 10;
+                case NicheLifecyclePhase.Trending: return 6;
+
+                case NicheLifecyclePhase.MassUse: return 2;
+                case NicheLifecyclePhase.Decay: return 1;
+                default: return 0;
+            }
+        }
+
+
         // based on financing
         public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product)
         {
@@ -90,14 +77,15 @@ namespace Assets.Utils
 
             return GetAudienceReachModifierBasedOnMarketingFinancing(financing);
         }
+
         public static float GetAudienceReachModifierBasedOnMarketingFinancing(int financing)
         {
             switch (financing)
             {
-                case 0: return 0.5f;
-                case 1: return 1f;
-                case 2: return 2.8f;
-                case 3: return 3.5f;
+                case 0: return 1;
+                case 1: return 3;
+                case 2: return 4;
+                case 3: return 6;
                 default: return 10000;
             }
         }
