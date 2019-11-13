@@ -11,10 +11,11 @@ namespace Assets.Utils
         public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
         {
             var multiplier = GetMarketingFinancingMultiplier(e);
+            var clients = MarketingUtils.GetClients(e);
 
             var baseCost = NicheUtils.GetBaseMarketingCost(e.product.Niche, gameContext);
 
-            return baseCost * multiplier;
+            return clients * baseCost * multiplier;
         }
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
