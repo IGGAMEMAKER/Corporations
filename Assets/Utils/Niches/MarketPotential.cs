@@ -56,6 +56,11 @@
 
         public static long GetMarketAudiencePotential(GameEntity niche)
         {
+            var audienceMax = niche.nicheBaseProfile.Profile.AudienceSize;
+            int nicheId = (int)niche.niche.NicheType;
+
+            return CompanyUtils.GetRandomValue((long)audienceMax, nicheId, 0);
+
             var lifecycle = niche.nicheLifecycle;
 
             var phase = GetMarketState(niche);
