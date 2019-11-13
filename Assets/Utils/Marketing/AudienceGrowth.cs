@@ -4,9 +4,7 @@
     {
         public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
-            var bonus = GetGrowthMultiplier(product, gameContext);
-
-            return bonus.Sum();
+            return GetGrowthMultiplier(product, gameContext).Sum();
         }
 
         public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
@@ -17,11 +15,11 @@
             var brand = (int)product.branding.BrandPower;
             var brandModifier = 3 * brand + 100;
 
-            var marketingModifier = GetAudienceReachModifierBasedOnMarketingFinancing(product);
+            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
-                .Append("Marketing Financing", (int)marketingModifier)
+                .Append("Marketing Financing", marketingModifier)
                 .Append($"Brand strength ({brand})", brandModifier / 20)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
