@@ -66,14 +66,14 @@
 
         public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType)
         {
-            var niche = GetNicheEntity(context, nicheType);
+            var niche = GetNiche(context, nicheType);
 
             return GetNicheCosts(niche);
         }
         
 
         // Start capital
-        public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(GetNicheEntity(gameContext, nicheType));
+        public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(GetNiche(gameContext, nicheType));
         public static long GetStartCapital(GameEntity niche)
         {
             var marketDemand = ProductUtils.GetMarketDemand(niche);
@@ -88,7 +88,7 @@
 
 
         // base marketing cost
-        public static long GetBaseMarketingCost(NicheType nicheType, GameContext gameContext) => GetBaseMarketingCost(GetNicheEntity(gameContext, nicheType));
+        public static long GetBaseMarketingCost(NicheType nicheType, GameContext gameContext) => GetBaseMarketingCost(GetNiche(gameContext, nicheType));
         public static long GetBaseMarketingCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
@@ -97,7 +97,7 @@
         }
 
         // base development cost
-        public static long GetBaseDevelopmentCost(NicheType nicheType, GameContext gameContext) => GetBaseDevelopmentCost(GetNicheEntity(gameContext, nicheType));
+        public static long GetBaseDevelopmentCost(NicheType nicheType, GameContext gameContext) => GetBaseDevelopmentCost(GetNiche(gameContext, nicheType));
         public static long GetBaseDevelopmentCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);

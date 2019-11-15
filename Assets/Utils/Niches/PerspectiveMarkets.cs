@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
+            var niche = GetNiche(gameContext, nicheType);
 
             return IsPerspectiveNiche(niche);
         }

@@ -43,7 +43,7 @@ public class MarketPotentialView : View
     public void Render()
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
-        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+        var niche = NicheUtils.GetNiche(GameContext, nicheType);
 
         var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);

@@ -5,7 +5,7 @@ public class RenderCompanyInterestList : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        var niche = NicheUtils.GetNicheEntity(GameContext, (NicheType)(object)entity);
+        var niche = NicheUtils.GetNiche(GameContext, (NicheType)(object)entity);
 
         t.GetComponent<NichePreview>().SetNiche(niche);
     }

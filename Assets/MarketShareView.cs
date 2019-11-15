@@ -18,7 +18,7 @@ public class MarketShareView : View
 
     internal void SetEntity(NicheType nicheType)
     {
-        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+        var niche = NicheUtils.GetNiche(GameContext, nicheType);
         var rating = NicheUtils.GetMarketRating(niche);
 
         var share = CompanyUtils.GetControlInMarket(MyCompany, nicheType, GameContext);

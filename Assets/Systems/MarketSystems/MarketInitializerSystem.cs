@@ -60,7 +60,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity GetNicheEntity(NicheType nicheType)
     {
-        return NicheUtils.GetNicheEntity(GameContext, nicheType);
+        return NicheUtils.GetNiche(GameContext, nicheType);
     }
 
     GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)

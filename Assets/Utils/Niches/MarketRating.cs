@@ -14,21 +14,21 @@ namespace Assets.Utils
 
         internal static bool IsExploredMarket(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
+            var niche = GetNiche(gameContext, nicheType);
 
             return niche.hasResearch;
         }
 
         public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
+            var niche = GetNiche(gameContext, nicheType);
 
             return GetMarketState(niche);
         }
 
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
         {
-            return GetMarketRating(GetNicheEntity(gameContext, niche));
+            return GetMarketRating(GetNiche(gameContext, niche));
         }
 
         public static int GetMarketRating(GameEntity niche)

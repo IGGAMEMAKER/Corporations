@@ -42,7 +42,7 @@
         // based on market state
         public static int GetMarketStateGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
 
             var baseGrowth = GetGrowthMultiplierBasedOnMonetisationType(niche);
             var marketStageGrowth = GetGrowthMultiplierBasedOnMarketState(niche);

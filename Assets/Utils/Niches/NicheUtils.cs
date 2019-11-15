@@ -12,7 +12,7 @@ namespace Assets.Utils
             return context.GetEntities(GameMatcher.Niche);
         }
 
-        public static GameEntity GetNicheEntity(GameContext context, NicheType nicheType)
+        public static GameEntity GetNiche(GameContext context, NicheType nicheType)
         {
             var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
 
@@ -74,7 +74,7 @@ namespace Assets.Utils
 
         public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNicheEntity(gameContext, nicheType);
+            var niche = GetNiche(gameContext, nicheType);
 
             return IsPlayableNiche(niche);
         }
@@ -114,7 +114,7 @@ namespace Assets.Utils
         {
             var users = MarketingUtils.GetClients(e);
 
-            var niche = GetNicheEntity(gameContext, e.product.Niche);
+            var niche = GetNiche(gameContext, e.product.Niche);
 
             //AddNewUsersToMarket(niche, gameContext, users);
 

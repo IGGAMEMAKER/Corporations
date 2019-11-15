@@ -16,7 +16,7 @@
             var marketIsDying = state == NicheLifecyclePhase.Death;
 
 
-            var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 

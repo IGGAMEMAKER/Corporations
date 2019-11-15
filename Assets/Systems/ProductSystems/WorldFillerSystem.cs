@@ -57,7 +57,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         var products = CompanyUtils.GetProductCompanies(GameContext);
         foreach (var p in products)
         {
-            var niche = NicheUtils.GetNicheEntity(GameContext, p.product.Niche);
+            var niche = NicheUtils.GetNiche(GameContext, p.product.Niche);
             var spawnTime = niche.nicheLifecycle.OpenDate;
 
             var monthsOfWork = (date - spawnTime) / 30;

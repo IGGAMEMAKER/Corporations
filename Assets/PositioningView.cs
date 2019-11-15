@@ -24,7 +24,7 @@ public class PositioningView : View
 
         var nicheType = SelectedCompany.product.Niche;
         var positionings = NicheUtils.GetNichePositionings(nicheType, GameContext);
-        var niche = NicheUtils.GetNicheEntity(GameContext, nicheType);
+        var niche = NicheUtils.GetNiche(GameContext, nicheType);
 
         var positioningData = positionings[segmentId];
 

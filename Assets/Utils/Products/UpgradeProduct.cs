@@ -16,7 +16,7 @@ namespace Assets.Utils
 
         public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, product.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
 
             var segments = niche.segment.Segments;
 

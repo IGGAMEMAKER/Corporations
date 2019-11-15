@@ -15,7 +15,7 @@ public class RenderNichePotential : UpgradedParameterView
         if (potential == 0)
             return "???";
 
-        var niche = NicheUtils.GetNicheEntity(GameContext, SelectedNiche);
+        var niche = NicheUtils.GetNiche(GameContext, SelectedNiche);
 
         var min0 = NicheUtils.GetMarketPotentialMin(niche);
         var max0 = NicheUtils.GetMarketPotentialMax(niche);

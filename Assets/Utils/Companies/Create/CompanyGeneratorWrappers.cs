@@ -91,7 +91,7 @@ namespace Assets.Utils
 
         public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
             var rating = NicheUtils.GetMarketPotentialRating(niche);
 
 

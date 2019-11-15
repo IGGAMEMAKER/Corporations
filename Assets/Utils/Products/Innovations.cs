@@ -19,7 +19,7 @@
                 }
             }
 
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
             var phase = NicheUtils.GetMarketState(niche);
             var marketStage = CompanyUtils.GetMarketStageInnovationModifier(niche);
 

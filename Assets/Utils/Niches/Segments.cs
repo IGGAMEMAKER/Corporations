@@ -47,7 +47,7 @@ namespace Assets.Utils
 
         internal static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
         {
-            var e = GetNicheEntity(gameContext, niche);
+            var e = GetNiche(gameContext, niche);
 
             var p = e.nicheSegments.Positionings;
 

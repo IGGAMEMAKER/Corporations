@@ -22,7 +22,7 @@ namespace Assets.Utils
 
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
-            var niche = NicheUtils.GetNicheEntity(gameContext, c.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);
 
             //var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 
@@ -46,7 +46,7 @@ namespace Assets.Utils
 
         public static float GetBaseProductPrice(GameEntity e, GameContext context)
         {
-            var niche = NicheUtils.GetNicheEntity(context, e.product.Niche);
+            var niche = NicheUtils.GetNiche(context, e.product.Niche);
 
             return niche.nicheCosts.BaseIncome;
         }

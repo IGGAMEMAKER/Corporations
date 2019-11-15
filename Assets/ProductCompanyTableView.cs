@@ -25,7 +25,7 @@ public class ProductCompanyTableView : View
 
         RenderAudienceGrowth();
 
-        var niche = NicheUtils.GetNicheEntity(GameContext, entity.product.Niche);
+        var niche = NicheUtils.GetNiche(GameContext, entity.product.Niche);
         var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
     }

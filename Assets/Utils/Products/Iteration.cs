@@ -30,7 +30,7 @@ namespace Assets.Utils
         {
             var teamPerformance = TeamUtils.GetPerformance(gameContext, company);
 
-            var niche = NicheUtils.GetNicheEntity(gameContext, company.product.Niche);
+            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseIterationTime(niche);
 
             var innovationTime = IsWillInnovate(company, gameContext) ? 50 : 0;
