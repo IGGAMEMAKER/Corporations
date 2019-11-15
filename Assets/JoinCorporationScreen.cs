@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class JoinCorporationScreen : View
@@ -48,7 +45,8 @@ public class JoinCorporationScreen : View
         else
         {
             OfferNote.text = $"Company {name} will be <b>Partially</b> integrated to our company." +
-                $"\n\nThey will be able to leave whenever they want.\nTheir shareholders won't receive our shares." +
+                $"\n\nThey will be able to leave whenever they want." +
+                $"\nTheir shareholders won't receive our shares." +
                 $"\n\nOur company will get +1 Brand power for all products in Communications industry." +
                 $"\n\n{name} will get ";
         }
