@@ -14,8 +14,7 @@ public class JoinCorporationScreen : View
 
     public Toggle KeepAsIndependent;
 
-    public Text SharePercentage;
-    public InputField SharesOfferInput;
+    public Text OfferNote;
 
     public override void ViewRender()
     {
@@ -24,7 +23,8 @@ public class JoinCorporationScreen : View
         if (!HasCompany)
             return;
 
-        Title.text = $"Integrate {SelectedCompany.company.Name} company to our corporation";
+        var name = SelectedCompany.company.Name;
+        Title.text = $"Integrate \"{name}\" to our corporation";
 
         // TODO DIVIDE BY ZERO
         var ourCost = EconomyUtils.GetCompanyCost(GameContext, MyCompany);
@@ -33,7 +33,21 @@ public class JoinCorporationScreen : View
 
         var sizeComparison = targetCost * 100 / ourCost;
 
+        var futureShares = targetCost * 100 / (targetCost + ourCost);
+
         OurValuation.text = Format.Money(ourCost);
         TargetValuation.text = $"{Format.Money(targetCost)} ({sizeComparison}%)";
+
+        bool willStayIndependent = KeepAsIndependent.isOn;
+
+        if (willStayIndependent)
+        {
+            OfferNote.text = $"Company {name} will be <b>Fully</b> integrated to our company.\n\n" +
+                $"Their shareholders will own {futureShares} % of our corporation";
+        }
+        else
+        {
+            OfferNote.text = "";
+        }
     }
 }
