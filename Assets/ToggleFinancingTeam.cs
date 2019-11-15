@@ -52,7 +52,7 @@ public class ToggleFinancingTeam : View
                 break;
         }
 
-        var maintenanceMultiplier = (long)EconomyUtils.GetTeamFinancingMultiplier(SelectedCompany);
+        var maintenanceMultiplier = (long)EconomyUtils.GetTeamFinancingCostMultiplier(SelectedCompany);
         text = $"{description}\n\nCosts {Visuals.Negative("x" + maintenanceMultiplier)} monthly\n\n{bonuses}";
 
         FinancingDescription.text = text;

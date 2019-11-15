@@ -25,8 +25,8 @@ namespace Assets.Utils
             }
         }
 
-        public static float GetTeamFinancingMultiplier(GameEntity e) => GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
-        public static float GetTeamFinancingMultiplier(int financing)
+        public static float GetTeamFinancingCostMultiplier(GameEntity e) => GetTeamFinancingCostMultiplier(e.financing.Financing[Financing.Team]);
+        public static float GetTeamFinancingCostMultiplier(int financing)
         {
             var acceleration = 1 + financing * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL / 100f;
 

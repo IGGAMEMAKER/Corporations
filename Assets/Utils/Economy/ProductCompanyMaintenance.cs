@@ -24,7 +24,7 @@
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
             var stage = GetStageFinancingMultiplier(e);
-            var team = GetTeamFinancingMultiplier(e);
+            var team = GetTeamFinancingCostMultiplier(e);
 
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
