@@ -13,7 +13,6 @@ namespace Assets.Utils
         {
             switch (nicheChangeSpeed)
             {
-                case NichePeriod.Month: return 30;
                 case NichePeriod.Quarter: return 90;
 
                 case NichePeriod.HalfYear: return 180;

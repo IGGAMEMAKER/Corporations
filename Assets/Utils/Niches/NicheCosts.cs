@@ -104,6 +104,7 @@
             return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(niche);
         }
 
+
         // base marketing cost
         public static long GetBaseMarketingCost(GameEntity niche)
         {
