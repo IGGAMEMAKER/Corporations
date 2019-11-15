@@ -88,8 +88,8 @@
 
 
         // base marketing cost
-        public static long GetBaseMarketingCost(NicheType nicheType, GameContext gameContext) => GetBaseMarketingCost(GetNiche(gameContext, nicheType));
-        public static long GetBaseMarketingCost(GameEntity niche)
+        public static long GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(GetNiche(gameContext, nicheType));
+        public static long GetClientAcquisitionCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 
@@ -109,7 +109,7 @@
         // Maintenance
         internal static long GetBaseProductMaintenance(GameEntity niche)
         {
-            var ads = GetBaseMarketingCost(niche);
+            var ads = 0; // GetClientAcquisitionCost(niche);
             var team = GetBaseDevelopmentCost(niche);
 
             return ads + team;
