@@ -14,7 +14,7 @@
             company.ReplaceMarketing(marketing.clients + clients);
         }
 
-        public static long GetCurrentClientFlow(GameContext gameContext, NicheType nicheType)
+        public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
         {
             var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
 
@@ -41,7 +41,7 @@
             if (!product.isRelease)
             {
                 AddBrandPower(product, 20);
-                var flow = GetCurrentClientFlow(gameContext, product.product.Niche);
+                var flow = GetClientFlow(gameContext, product.product.Niche);
 
                 AddClients(product, 3 * flow);
 

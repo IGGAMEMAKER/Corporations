@@ -4,9 +4,9 @@
     {
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
-            var baseGrowth = GetCurrentClientFlow(gameContext, product.product.Niche) / 1000;
-            if (baseGrowth == 0)
-                baseGrowth = 1;
+            //var baseGrowth = GetClientFlow(gameContext, product.product.Niche) / 1000;
+            //if (baseGrowth == 0)
+            //    baseGrowth = 1;
 
             var clients = GetClients(product);
             var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
@@ -27,12 +27,12 @@
             var brand = (int)product.branding.BrandPower;
             var brandModifier = 3 * brand + 100;
 
-            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product) * 2;
+            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
                 .Append("Marketing Financing", marketingModifier)
-                .Append($"Brand strength ({brand})", brandModifier / 100)
+                .Append($"Brand strength ({brand})", brandModifier * 2 / 100)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
         }
@@ -78,6 +78,7 @@
         }
 
         // based on financing
+        public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product) => GetAudienceReachModifierBasedOnMarketingFinancing(product.financing.Financing[Financing.Marketing]);
         public static float GetAudienceReachModifierBasedOnMarketingFinancing(int financing)
         {
             switch (financing)
@@ -88,13 +89,6 @@
                 case 3: return 6;
                 default: return 10000;
             }
-        }
-
-        public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product)
-        {
-            var financing = product.financing.Financing[Financing.Marketing];
-
-            return GetAudienceReachModifierBasedOnMarketingFinancing(financing);
         }
     }
 }

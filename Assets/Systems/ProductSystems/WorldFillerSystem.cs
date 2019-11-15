@@ -81,7 +81,7 @@ public partial class WorldFillerSystem : IInitializeSystem
             //MarketingUtils.AddBrandPower(p, brand);
 
             // set clients
-            var flow = (float) MarketingUtils.GetCurrentClientFlow(GameContext, p.product.Niche);
+            var flow = (float) MarketingUtils.GetClientFlow(GameContext, p.product.Niche);
             var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
 
             MarketingUtils.AddClients(p, (long)clients);

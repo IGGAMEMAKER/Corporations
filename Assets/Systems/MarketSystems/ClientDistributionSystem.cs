@@ -52,7 +52,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     void DistributeClients(GameEntity[] products, GameEntity niche)
     {
-        long flow = MarketingUtils.GetCurrentClientFlow(gameContext, niche.niche.NicheType);
+        long flow = MarketingUtils.GetClientFlow(gameContext, niche.niche.NicheType);
 
         var clientContainers = niche.nicheClientsContainer.Clients;
 
