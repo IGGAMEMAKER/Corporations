@@ -34,7 +34,7 @@ namespace Assets.Utils
 
         // financing multipliers
         public static long GetMarketingFinancingCostMultiplier(GameEntity e) => GetMarketingFinancingCostMultiplier(e.financing.Financing[Financing.Marketing]);
-        public static long GetMarketingFinancingCostMultiplier (int financing)
+        public static long GetMarketingFinancingCostMultiplier(int financing)
         {
             var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
 
@@ -54,7 +54,7 @@ namespace Assets.Utils
         }
 
         public static float GetTeamFinancingMultiplier(GameEntity e) => GetTeamFinancingMultiplier(e.financing.Financing[Financing.Team]);
-        public static float GetTeamFinancingMultiplier (int financing)
+        public static float GetTeamFinancingMultiplier(int financing)
         {
             var acceleration = 1 + financing * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL / 100f;
 
