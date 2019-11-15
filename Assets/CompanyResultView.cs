@@ -19,7 +19,7 @@ public class CompanyResultView : View
 
         var growth = result.clientChange;
         var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
-        growth = (long) MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
+        growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
 
         var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
         ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";

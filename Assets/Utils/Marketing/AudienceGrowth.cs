@@ -4,13 +4,18 @@
     {
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
+            var flow = GetClientFlow(gameContext, product.product.Niche);
             var clients = GetClients(product);
+
+            if (clients < flow)
+                clients = flow;
+
             var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
 
-            return (long)(multiplier * clients) / 100;
+            return multiplier * clients / 100;
         }
 
-        public static float GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
+        public static long GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             return GetGrowthMultiplier(product, gameContext).Sum();
         }
