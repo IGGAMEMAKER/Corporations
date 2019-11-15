@@ -9,8 +9,8 @@
             var state = GetMarketState(niche);
 
             var priceModifier = GetMarketStatePriceModifier(state);
-            var flowModifier = GetMarketStateClientFlowModifier(state);
-            var adModifier = GetMarketStateAdCostModifier(state);
+            var flowModifier  = GetMarketStateClientFlowModifier(state);
+            var adModifier    = GetMarketStateAdCostModifier(state);
 
             return new NicheCostsComponent
             {

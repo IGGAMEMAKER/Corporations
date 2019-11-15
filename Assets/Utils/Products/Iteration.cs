@@ -8,10 +8,10 @@
             var modifier = 4;
             switch (nicheChangeSpeed)
             {
-                case NichePeriod.Quarter: return 90 / modifier;
+                case NichePeriod.Quarter:   return 90 / modifier;
 
-                case NichePeriod.HalfYear: return 180 / modifier;
-                case NichePeriod.Year: return 360 / modifier;
+                case NichePeriod.HalfYear:  return 180 / modifier;
+                case NichePeriod.Year:      return 360 / modifier;
 
                 case NichePeriod.ThreeYears: return 360 * 3 / modifier;
 
