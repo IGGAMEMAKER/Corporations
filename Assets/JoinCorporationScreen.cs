@@ -47,7 +47,10 @@ public class JoinCorporationScreen : View
         }
         else
         {
-            OfferNote.text = "";
+            OfferNote.text = $"Company {name} will be <b>Partially</b> integrated to our company.\n\n" +
+                $"They will be able to leave whenever they want.\nTheir shareholders won't receive our shares.\n\n" +
+                $"Our company will get +1 Brand power for all products in Communications industry.\n\n" +
+                $"Email Services 0 will get ";
         }
     }
 }
