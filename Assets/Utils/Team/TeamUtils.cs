@@ -1,5 +1,5 @@
 ﻿using Assets.Classes;
-
+// TODO REMOVE THIS FILE
 public enum WorkerRole {
     // base
     Programmer,
