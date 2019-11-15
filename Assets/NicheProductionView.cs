@@ -20,6 +20,6 @@ public class NicheProductionView : View
         TechCost.text = Format.Minify(costs.TechCost);
         SalesCost.text = Format.Minify(costs.MarketingCost);
 
-        AdCost.text = Format.Minify(costs.AdCost);
+        AdCost.text = Format.Minify(costs.AcquisitionCost);
     }
 }

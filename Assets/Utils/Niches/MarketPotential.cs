@@ -60,29 +60,6 @@
             int nicheId = (int)niche.niche.NicheType;
 
             return CompanyUtils.GetRandomValue((long)audienceMax, nicheId, 0);
-
-            var lifecycle = niche.nicheLifecycle;
-
-            var phase = GetMarketState(niche);
-
-            var clientBatch = GetNicheCosts(niche).ClientBatch;
-            if (clientBatch != 0)
-                clientBatch /= GetMarketStateCostsModifier(phase);
-
-            long clients = 0;
-
-            foreach (var g in lifecycle.Growth)
-            {
-                var phasePeriod = GetMinimumPhaseDurationInPeriods(g.Key) * GetNichePeriodDurationInMonths(niche);
-
-                var additionalPhaseModifier = GetMarketStateCostsModifier(g.Key);
-                //*g.Value
-                clients += clientBatch * additionalPhaseModifier * phasePeriod;
-            }
-
-            //Debug.Log($"Audience potential for {niche.niche.NicheType}: {Format.Minify(clients)}");
-
-            return clients;
         }
 
         public static long GetMarketPotential(GameEntity niche)

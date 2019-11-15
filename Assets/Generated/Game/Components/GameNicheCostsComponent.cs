@@ -19,7 +19,7 @@ public partial class GameEntity {
         component.TechCost = newTechCost;
         component.IdeaCost = newIdeaCost;
         component.MarketingCost = newMarketingCost;
-        component.AdCost = newAdCost;
+        component.AcquisitionCost = newAdCost;
         AddComponent(index, component);
     }
 
@@ -31,7 +31,7 @@ public partial class GameEntity {
         component.TechCost = newTechCost;
         component.IdeaCost = newIdeaCost;
         component.MarketingCost = newMarketingCost;
-        component.AdCost = newAdCost;
+        component.AcquisitionCost = newAdCost;
         ReplaceComponent(index, component);
     }
 

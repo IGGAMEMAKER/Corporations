@@ -75,7 +75,7 @@ public class NicheCostsComponent : IComponent
     public int TechCost;
     public int IdeaCost;
     public int MarketingCost;
-    public int AdCost;
+    public int AcquisitionCost;
 }
 
 public enum NicheLifecyclePhase
