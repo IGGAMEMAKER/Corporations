@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     partial class EconomyUtils
     {

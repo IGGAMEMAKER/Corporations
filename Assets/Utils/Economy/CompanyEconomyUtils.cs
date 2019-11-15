@@ -2,6 +2,8 @@
 {
     public static partial class EconomyUtils
     {
+        public static long GetCompanyBalance(GameEntity company) => company.companyResource.Resources.money;
+
         public static long GetCompanyIncome(int companyId, GameContext context)
         {
             var e = CompanyUtils.GetCompanyById(context, companyId);

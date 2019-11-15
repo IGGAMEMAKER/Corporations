@@ -4,10 +4,6 @@
     {
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
-            //var baseGrowth = GetClientFlow(gameContext, product.product.Niche) / 1000;
-            //if (baseGrowth == 0)
-            //    baseGrowth = 1;
-
             var clients = GetClients(product);
             var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
 
@@ -23,16 +19,16 @@
         {
             var marketGrowthMultiplier = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
 
-            // 0...4
+            // 0...8
             var brand = (int)product.branding.BrandPower;
-            var brandModifier = 3 * brand + 100;
+            var brandModifier = (3 * brand + 100) * 2 / 100;
 
             var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
                 .Append("Marketing Financing", marketingModifier)
-                .Append($"Brand strength ({brand})", brandModifier * 2 / 100)
+                .Append($"Brand strength ({brand})", brandModifier)
                 .Append("Market state", marketGrowthMultiplier)
                 ;
         }

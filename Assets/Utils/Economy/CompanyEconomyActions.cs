@@ -1,14 +1,7 @@
-﻿using System;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class EconomyUtils
     {
-        public static long GetCompanyBalance(GameEntity company)
-        {
-            return company.companyResource.Resources.money;
-        }
-
         public static void IncreaseCompanyBalance(GameContext context, int companyId, long sum)
         {
             var c = CompanyUtils.GetCompanyById(context, companyId);
