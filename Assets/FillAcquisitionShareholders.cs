@@ -9,9 +9,15 @@ public class FillAcquisitionShareholders : ListView
         int shareholderId = (int)(object)entity;
         t.GetComponent<VotingShareholderView>().SetEntity(shareholderId);
 
+
+
         var acquisitionComponent = t.GetComponent<RenderInvestorResponseToAcquisitionOffer>();
         if (acquisitionComponent != null)
             acquisitionComponent.SetEntity(shareholderId);
+
+        var joinCorporationComponent = t.GetComponent<RenderInvestorResponseToJoinCorporationOffer>();
+        if (joinCorporationComponent != null)
+            joinCorporationComponent.SetEntity(shareholderId);
 
 
 

@@ -38,6 +38,7 @@
             return company.metricsHistory.Metrics.Count < 6;
         }
 
+        public static long GetDesireToSellShares(int companyId, GameContext gameContext, int shareholderId) => GetDesireToSellShares(GetCompanyById(gameContext, companyId), gameContext, shareholderId, GetInvestorById(gameContext, shareholderId).shareholder.InvestorType);
         public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
