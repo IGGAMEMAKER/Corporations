@@ -49,18 +49,18 @@ public class JoinCorporationScreen : View
         var isTargetTooBig = targetCost * 100 > ourCost * 15;
         var tooSmallToAcquire = isTargetTooBig ? Visuals.Negative("This company costs more than 15% of our corporation, so they won't join us.") : "";
 
-        if (willStayIndependent)
-        {
-            OfferNote.text = $"{tooSmallToAcquire}\n\nCompany {name} will be <b>Fully</b> integrated to our company.\n\n" +
-                $"Their shareholders will own {futureShares} % of our corporation";
-        }
-        else
-        {
-            OfferNote.text = $"Company {name} will be <b>Partially</b> integrated to our company." +
-                $"\n\nThey will be able to leave whenever they want." +
-                $"\nTheir shareholders won't receive our shares." +
-                $"\n\nOur company will get +1 Brand power for all products in Communications industry." +
-                $"\n\n{name} will get ";
-        }
+        OfferNote.text = $"{tooSmallToAcquire}\n\nCompany {name} will be <b>Fully</b> integrated to our company.\n\n" +
+            $"Their shareholders will own {futureShares} % of our corporation";
+        //if (willStayIndependent)
+        //{
+        //}
+        //else
+        //{
+        //    OfferNote.text = $"Company {name} will be <b>Partially</b> integrated to our company." +
+        //        $"\n\nThey will be able to leave whenever they want." +
+        //        $"\nTheir shareholders won't receive our shares." +
+        //        $"\n\nOur company will get +1 Brand power for all products in Communications industry." +
+        //        $"\n\n{name} will get ";
+        //}
     }
 }
