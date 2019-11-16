@@ -41,11 +41,12 @@ public class RenderInvestorResponseToJoinCorporationOffer : View
         }
         else if (wantsToSellShares)
         {
-            text = Visuals.Negative("Doesn't want to join");
+            text = Visuals.Negative("Our company is too small");
         }
         else
         {
             var description = CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany);
+            description = "Doesn't want to sell shares";
             text = Visuals.Negative(description);
         }
 

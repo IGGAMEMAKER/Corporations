@@ -22,7 +22,7 @@
                 var invId = s.Key;
                 var block = s.Value;
 
-                desireToSell += GetDesireToSellShares(gameContext, company, invId, block.InvestorType) * block.amount;
+                desireToSell += GetBaseDesireToSellShares(gameContext, company, invId, block.InvestorType) * block.amount;
                 blocks += block.amount;
             }
 
@@ -38,9 +38,9 @@
             return company.metricsHistory.Metrics.Count < 6;
         }
 
-        public static long GetDesireToSellShares(GameContext gameContext, int companyId, int shareholderId) => GetDesireToSellShares(gameContext, GetCompanyById(gameContext, companyId), shareholderId, GetInvestorById(gameContext, shareholderId));
-        public static long GetDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, GameEntity investor) => GetDesireToSellShares(gameContext, company, shareholderId, investor.shareholder.InvestorType);
-        public static long GetDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, InvestorType investorType)
+        public static long GetBaseDesireToSellShares(GameContext gameContext, int companyId, int shareholderId) => GetBaseDesireToSellShares(gameContext, GetCompanyById(gameContext, companyId), shareholderId, GetInvestorById(gameContext, shareholderId));
+        public static long GetBaseDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, GameEntity investor) => GetBaseDesireToSellShares(gameContext, company, shareholderId, investor.shareholder.InvestorType);
+        public static long GetBaseDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
 
@@ -60,7 +60,7 @@
 
         public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
-            var desire = GetDesireToSellShares(gameContext, company, investorId, investorType);
+            var desire = GetBaseDesireToSellShares(gameContext, company, investorId, investorType);
 
             return desire > 0;
         }

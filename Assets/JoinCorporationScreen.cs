@@ -11,6 +11,8 @@ public class JoinCorporationScreen : View
 
     public Toggle KeepAsIndependent;
 
+    public Text Progress;
+
     public Text OfferNote;
 
     public override void ViewRender()
@@ -23,6 +25,13 @@ public class JoinCorporationScreen : View
         var name = SelectedCompany.company.Name;
         Title.text = $"Integrate \"{name}\" to our corporation";
 
+        bool willAcceptOffer = CompanyUtils.IsCompanyWillAcceptCorporationOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+
+        var progress = CompanyUtils.GetCorporationOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+
+        Progress.text = Visuals.Colorize(progress + "%", willAcceptOffer);
+
+
         // TODO DIVIDE BY ZERO
         var ourCost = EconomyUtils.GetCompanyCost(GameContext, MyCompany);
         if (ourCost == 0) ourCost = 1;
@@ -33,13 +42,16 @@ public class JoinCorporationScreen : View
         var futureShares = targetCost * 100 / (targetCost + ourCost);
 
         OurValuation.text = Format.Money(ourCost);
-        TargetValuation.text = $"{Format.Money(targetCost)} ({sizeComparison}%)";
+        TargetValuation.text = $"{Format.Money(targetCost)} ({sizeComparison}% compared to us)";
 
         bool willStayIndependent = KeepAsIndependent.isOn;
 
+        var isTargetTooBig = targetCost * 100 > ourCost * 15;
+        var tooSmallToAcquire = isTargetTooBig ? Visuals.Negative("This company costs more than 15% of our corporation, so they won't join us.") : "";
+
         if (willStayIndependent)
         {
-            OfferNote.text = $"Company {name} will be <b>Fully</b> integrated to our company.\n\n" +
+            OfferNote.text = $"{tooSmallToAcquire}\n\nCompany {name} will be <b>Fully</b> integrated to our company.\n\n" +
                 $"Their shareholders will own {futureShares} % of our corporation";
         }
         else

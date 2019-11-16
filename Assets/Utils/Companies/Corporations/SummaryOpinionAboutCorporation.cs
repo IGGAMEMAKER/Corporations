@@ -11,10 +11,14 @@
         {
             var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
-            var baseDesireToSellCompany = GetDesireToSellShares(gameContext, companyId, shareholderId);
-            var wantsToSellShares = baseDesireToSellCompany == 1;
+            var baseDesireToSellCompany = GetBaseDesireToSellShares(gameContext, companyId, shareholderId);
+            var wantsToSellShares = true || baseDesireToSellCompany == 1;
 
-            return wantsToSellShares;
+
+            var corporationCost = EconomyUtils.GetCompanyCost(gameContext, companyId);
+            var isSmallComparedToCorporation = cost * 100 < 15 * corporationCost;
+
+            return wantsToSellShares && isSmallComparedToCorporation;
         }
 
         // sum opinions of all investors
@@ -22,7 +26,7 @@
         {
             var company = GetCompanyById(gameContext, companyId);
 
-            var shareholders = company.shareholders.Shareholders;
+            var shareholders = GetShareholders(company);
 
             long blocks = 0;
             long desireToSell = 0;

@@ -11,6 +11,12 @@ namespace Assets.Utils
 
             BuyCompany(gameContext, companyId, buyerInvestorId, offer.acquisitionOffer.SellerOffer.Price);
         }
+        public static void ConfirmCorporateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+
+            JoinCorporation(gameContext, companyId, buyerInvestorId);
+        }
 
         public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
         {
@@ -19,9 +25,9 @@ namespace Assets.Utils
             if (!IsEnoughResources(inv, offer))
                 return;
 
-            var c = GetCompanyById(gameContext, companyId);
+            var target = GetCompanyById(gameContext, companyId);
 
-            var shareholders = c.shareholders.Shareholders;
+            var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];
             shareholders.Keys.CopyTo(array, 0);
 
@@ -32,10 +38,12 @@ namespace Assets.Utils
 
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
-            c.isIndependentCompany = false;
+            target.isIndependentCompany = false;
 
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
         }
+
+
 
         public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
         {
@@ -44,15 +52,11 @@ namespace Assets.Utils
 
             var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];
-            shareholders.Keys.CopyTo(array, 0);
 
 
             var corporationCost = EconomyUtils.GetCompanyCost(gameContext, corporation);
             var targetCost = EconomyUtils.GetCompanyCost(gameContext, target);
-
-
-
-
+            
             var corporationShares = CompanyUtils.GetTotalShares(gameContext, companyId);
             var emitedShares = corporationShares * targetCost / corporationCost;
 
