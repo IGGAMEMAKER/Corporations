@@ -49,9 +49,13 @@ namespace Assets.Utils
             return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);
         }
 
+        public static GameEntity GetCompanyByInvestorId(GameContext context, int investorId)
+        {
+            return GetInvestorById(context, investorId);
+        }
         public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
         {
-            return GetInvestorById(context, investorId).company.Id;
+            return GetCompanyByInvestorId(context, investorId).company.Id;
         }
 
         public static string GetInvestorGoalDescription(BlockOfShares shares)

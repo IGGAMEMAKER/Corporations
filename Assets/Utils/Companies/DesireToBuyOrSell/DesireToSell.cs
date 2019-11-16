@@ -22,7 +22,7 @@
                 var invId = s.Key;
                 var block = s.Value;
 
-                desireToSell += GetDesireToSellShares(company, gameContext, invId, block.InvestorType) * block.amount;
+                desireToSell += GetDesireToSellShares(gameContext, company, invId, block.InvestorType) * block.amount;
                 blocks += block.amount;
             }
 
@@ -38,8 +38,9 @@
             return company.metricsHistory.Metrics.Count < 6;
         }
 
-        public static long GetDesireToSellShares(int companyId, GameContext gameContext, int shareholderId) => GetDesireToSellShares(GetCompanyById(gameContext, companyId), gameContext, shareholderId, GetInvestorById(gameContext, shareholderId).shareholder.InvestorType);
-        public static long GetDesireToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
+        public static long GetDesireToSellShares(GameContext gameContext, int companyId, int shareholderId) => GetDesireToSellShares(gameContext, GetCompanyById(gameContext, companyId), shareholderId, GetInvestorById(gameContext, shareholderId));
+        public static long GetDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, GameEntity investor) => GetDesireToSellShares(gameContext, company, shareholderId, investor.shareholder.InvestorType);
+        public static long GetDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, InvestorType investorType)
         {
             bool isProduct = company.hasProduct;
 
@@ -50,16 +51,16 @@
             bonusContainer.AppendAndHideIfZero("Is young company", IsYoungCompany(company) ? -10 : 0);
 
             if (isProduct)
-                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellStartupByInvestorType(company, investorType, investorId, gameContext));
+                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext));
             else
-                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, investorId, gameContext));
+                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, shareholderId, gameContext));
 
             return bonusContainer.Sum();
         }
 
         public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)
         {
-            var desire = GetDesireToSellShares(company, gameContext, investorId, investorType);
+            var desire = GetDesireToSellShares(gameContext, company, investorId, investorType);
 
             return desire > 0;
         }

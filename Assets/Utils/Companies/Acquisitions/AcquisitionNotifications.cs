@@ -30,5 +30,20 @@ namespace Assets.Utils
                 GetCompanyById(gameContext, targetCompanyId).company.Name,
                 Format.Money(bid));
         }
+
+        public static void NotifyAboutCorporateAcquisition(GameContext gameContext, int buyerShareholderId, int targetCompanyId)
+        {
+            NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, 0));
+
+            var company = GetCompanyById(gameContext, targetCompanyId);
+
+            if (IsInPlayerSphereOfInterest(company, gameContext))
+                NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(targetCompanyId, buyerShareholderId, 0));
+
+
+            Debug.LogFormat("CORPORATE ACQUISITION: {0} integrated {1}!",
+                GetInvestorName(gameContext, buyerShareholderId),
+                GetCompanyById(gameContext, targetCompanyId).company.Name);
+        }
     }
 }

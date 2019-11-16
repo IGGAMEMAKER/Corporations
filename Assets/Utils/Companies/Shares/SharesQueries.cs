@@ -6,11 +6,7 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static int GetTotalShares(GameContext context, int companyId)
-        {
-            return GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
-        }
-
+        public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
         public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
         {
             int totalShares = 0;
@@ -30,7 +26,7 @@ namespace Assets.Utils
             return IsSharesCanBeSold(GetCompanyById(context, companyId));
         }
 
-        public static Dictionary<int, BlockOfShares> GetCompanyShares(GameEntity company)
+        public static Dictionary<int, BlockOfShares> GetShareholders(GameEntity company)
         {
             var shareholders = new Dictionary<int, BlockOfShares>();
 

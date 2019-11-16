@@ -10,6 +10,18 @@ namespace Assets.Utils
             company.ReplaceShareholders(shareholders);
         }
 
+        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
+        {
+            var b = new BlockOfShares
+            {
+                amount = shares,
+                
+                InvestorType = GetInvestorById(context, investorId).shareholder.InvestorType,
+                shareholderLoyalty = 100
+            };
+
+            AddShareholder(context, companyId, investorId, b);
+        }
         public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
         {
             var c = GetCompanyById(context, companyId);
@@ -33,18 +45,6 @@ namespace Assets.Utils
             ReplaceShareholders(c, shareholders);
         }
 
-        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
-        {
-            var b = new BlockOfShares
-            {
-                amount = shares,
-                
-                InvestorType = GetInvestorById(context, investorId).shareholder.InvestorType,
-                shareholderLoyalty = 100
-            };
-
-            AddShareholder(context, companyId, investorId, b);
-        }
 
         public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
@@ -59,7 +59,7 @@ namespace Assets.Utils
                 {
                     amount = prev.amount + amountOfShares,
                     InvestorType = prev.InvestorType,
-                    shareholderLoyalty = prev.shareholderLoyalty
+                    shareholderLoyalty = prev.shareholderLoyalty,
                 };
             }
             else
@@ -68,8 +68,8 @@ namespace Assets.Utils
                 shareholders[investorId] = new BlockOfShares
                 {
                     amount = amountOfShares,
+                    InvestorType = shareholder.InvestorType,
                     shareholderLoyalty = 100,
-                    InvestorType = shareholder.InvestorType
                 };
             }
 

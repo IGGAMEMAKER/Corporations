@@ -13,7 +13,7 @@ public class FillFullShareholdersList : View, IMenuListener
 
     void Render()
     {
-        var shareholders = CompanyUtils.GetCompanyShares(SelectedCompany);
+        var shareholders = CompanyUtils.GetShareholders(SelectedCompany);
 
         GetComponent<FullShareholdersListView>()
             .SetItems(shareholders.OrderByDescending(s => CompanyUtils.GetAmountOfShares(GameContext, SelectedCompany.company.Id, s.Key)).ToArray());

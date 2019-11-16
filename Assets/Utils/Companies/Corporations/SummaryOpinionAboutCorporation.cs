@@ -11,7 +11,7 @@
         {
             var cost = EconomyUtils.GetCompanyCost(gameContext, companyId);
 
-            var baseDesireToSellCompany = GetDesireToSellShares(companyId, gameContext, shareholderId);
+            var baseDesireToSellCompany = GetDesireToSellShares(gameContext, companyId, shareholderId);
             var wantsToSellShares = baseDesireToSellCompany == 1;
 
             return wantsToSellShares;

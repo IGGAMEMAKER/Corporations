@@ -36,5 +36,45 @@ namespace Assets.Utils
 
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
         }
+
+        public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
+        {
+            var target = GetCompanyById(gameContext, companyId);
+            var corporation = InvestmentUtils.GetCompanyByInvestorId(gameContext, buyerInvestorId);
+
+            var shareholders = GetShareholders(target);
+            int[] array = new int[shareholders.Keys.Count];
+            shareholders.Keys.CopyTo(array, 0);
+
+
+            var corporationCost = EconomyUtils.GetCompanyCost(gameContext, corporation);
+            var targetCost = EconomyUtils.GetCompanyCost(gameContext, target);
+
+
+
+
+            var corporationShares = CompanyUtils.GetTotalShares(gameContext, companyId);
+            var emitedShares = corporationShares * targetCost / corporationCost;
+
+            // give shares in corporation to shareholders of integratable company
+            foreach (var shareholderId in array)
+            {
+                var percentOfSharesInPreviousCompany = GetShareSize(gameContext, companyId, shareholderId);
+
+                var newShare = emitedShares * percentOfSharesInPreviousCompany / 100;
+
+                AddShares(gameContext, corporation, shareholderId, (int)newShare);
+            }
+
+
+            foreach (var shareholderId in array)
+            {
+                RemoveShareholder(target, shareholderId);
+            }
+            AddShareholder(gameContext, companyId, buyerInvestorId, 100);
+            target.isIndependentCompany = false;
+
+            NotifyAboutCorporateAcquisition(gameContext, buyerInvestorId, companyId);
+        }
     }
 }
