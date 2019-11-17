@@ -68,6 +68,7 @@ namespace Assets.Utils
                 var newShare = emitedShares * percentOfSharesInPreviousCompany / 100;
 
                 AddShares(gameContext, corporation, shareholderId, (int)newShare);
+                Debug.Log($"investor {GetInvestorName(gameContext, shareholderId)} will get {(int)newShare} shares of corporation {corporation.company.Name}");
             }
 
 

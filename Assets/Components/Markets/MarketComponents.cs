@@ -73,9 +73,7 @@ public class NicheCostsComponent : IComponent
     public long ClientBatch;
 
     public int TechCost;
-    public int IdeaCost;
-    public int MarketingCost;
-    public int AcquisitionCost;
+    public float AcquisitionCost;
 }
 
 public enum NicheLifecyclePhase

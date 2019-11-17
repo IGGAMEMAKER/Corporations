@@ -15,21 +15,18 @@
             return new NicheCostsComponent
             {
                 BaseIncome       = costs.BaseIncome * priceModifier,
-                AcquisitionCost  = (int)(costs.AcquisitionCost * adModifier),
+                AcquisitionCost  = costs.AcquisitionCost * adModifier,
                 TechCost         = costs.TechCost,
 
                 ClientBatch      = costs.ClientBatch * flowModifier,
-                
-                //IdeaCost       = costs.IdeaCost * costModifier,
-                //MarketingCost  = costs.MarketingCost * costModifier, // 
             };
         }
 
 
 
         // base marketing cost
-        public static long GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(GetNiche(gameContext, nicheType));
-        public static long GetClientAcquisitionCost(GameEntity niche)
+        public static float GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(GetNiche(gameContext, nicheType));
+        public static float GetClientAcquisitionCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
 

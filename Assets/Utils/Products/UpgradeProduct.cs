@@ -39,22 +39,6 @@ namespace Assets.Utils
             }
         }
 
-        public static void UpgradeExpertise(GameEntity product, GameContext gameContext)
-        {
-            var nicheCosts = NicheUtils.GetNicheCosts(gameContext, product.product.Niche);
-            var baseIdeaCost = nicheCosts.IdeaCost;
-
-            var expertise = product.expertise.ExpertiseLevel;
-
-            var required = new TeamResource(0, 0, 0, baseIdeaCost * expertise, 0);
-
-            if (CompanyUtils.IsEnoughResources(product, required))
-            {
-                CompanyUtils.SpendResources(product, required);
-                product.ReplaceExpertise(expertise + 1);
-            }
-        }
-
         public static void UpgradeProductImprovement(ProductImprovement improvement, GameEntity product)
         {
             var level = GetProductLevel(product);

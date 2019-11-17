@@ -16,9 +16,9 @@ public class NicheProductionView : View
 
         var costs = NicheUtils.GetNicheCosts(GameContext, niche);
 
-        IdeasCost.text = Format.Minify(costs.IdeaCost);
+        IdeasCost.text = "???";
         TechCost.text = Format.Minify(costs.TechCost);
-        SalesCost.text = Format.Minify(costs.MarketingCost);
+        SalesCost.text = "????";
 
         AdCost.text = Format.Minify(costs.AcquisitionCost);
     }

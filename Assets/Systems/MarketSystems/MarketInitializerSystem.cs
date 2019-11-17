@@ -44,9 +44,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GameContext.CreateEntity().AddIndustry(industry);
     }
 
-    GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost)
+    GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, float newAdCost)
     {
-        e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newIdeaCost, newMarketingCost, newAdCost);
+        e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newAdCost);
 
         return e;
     }

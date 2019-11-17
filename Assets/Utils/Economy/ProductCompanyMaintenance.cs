@@ -21,7 +21,7 @@
 
             var acquisitionCost = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
-            return gainedClients * acquisitionCost * multiplier / brandDiscount / innovationDiscount;
+            return (long)(gainedClients * acquisitionCost * multiplier / brandDiscount / innovationDiscount);
         }
 
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)

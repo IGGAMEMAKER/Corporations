@@ -11,27 +11,23 @@ public partial class GameEntity {
     public NicheCostsComponent nicheCosts { get { return (NicheCostsComponent)GetComponent(GameComponentsLookup.NicheCosts); } }
     public bool hasNicheCosts { get { return HasComponent(GameComponentsLookup.NicheCosts); } }
 
-    public void AddNicheCosts(float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost) {
+    public void AddNicheCosts(float newBaseIncome, long newClientBatch, int newTechCost, float newAcquisitionCost) {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
-        component.BaseIncome = newBasePrice;
+        component.BaseIncome = newBaseIncome;
         component.ClientBatch = newClientBatch;
         component.TechCost = newTechCost;
-        component.IdeaCost = newIdeaCost;
-        component.MarketingCost = newMarketingCost;
-        component.AcquisitionCost = newAdCost;
+        component.AcquisitionCost = newAcquisitionCost;
         AddComponent(index, component);
     }
 
-    public void ReplaceNicheCosts(float newBasePrice, long newClientBatch, int newTechCost, int newIdeaCost, int newMarketingCost, int newAdCost) {
+    public void ReplaceNicheCosts(float newBaseIncome, long newClientBatch, int newTechCost, float newAcquisitionCost) {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
-        component.BaseIncome = newBasePrice;
+        component.BaseIncome = newBaseIncome;
         component.ClientBatch = newClientBatch;
         component.TechCost = newTechCost;
-        component.IdeaCost = newIdeaCost;
-        component.MarketingCost = newMarketingCost;
-        component.AcquisitionCost = newAdCost;
+        component.AcquisitionCost = newAcquisitionCost;
         ReplaceComponent(index, component);
     }
 
