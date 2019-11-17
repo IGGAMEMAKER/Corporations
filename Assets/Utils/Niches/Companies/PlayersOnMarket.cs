@@ -135,7 +135,16 @@ namespace Assets.Utils
             return EconomyUtils.GetProductCompanyIncome(productCompany, context);
         }
 
+        public static GameEntity GetPotentialMarketLeader(GameContext context, NicheType niche)
+        {
+            var list = GetProductsOnMarket(context, niche)
+            .OrderByDescending(p => ProductUtils.GetInnovationChance(p, context) * 100 + (int)p.branding.BrandPower);
 
+            if (list.Count() == 0)
+                return null;
+
+            return list.First();
+        }
 
 
 

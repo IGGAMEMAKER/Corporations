@@ -11,6 +11,7 @@ namespace Assets.Utils
         {
             var company = GetCompanyById(gameContext, companyId);
 
+            return;
             if (IsInPlayerSphereOfInterest(company, gameContext))
                 NotificationUtils.AddPopup(gameContext, new PopupMessageInterestToCompany(companyId, buyerInvestorId));
         }

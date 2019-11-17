@@ -187,7 +187,7 @@ public class PopupView : View
     {
         RenderUniversalPopup(
             "New Startup",
-            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. They will compete with our products now" +
+            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
             "\n\nKeep an eye on them. Perhaps, we can buy them later"
             );
     }

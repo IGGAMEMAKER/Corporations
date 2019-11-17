@@ -62,7 +62,12 @@ namespace Assets.Utils
             CompanyUtils.SetStartCapital(product, niche);
 
             if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
+            {
+                var potentialLeader = NicheUtils.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
+                var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
+
                 NotificationUtils.AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
+            }
         }
     }
 }
