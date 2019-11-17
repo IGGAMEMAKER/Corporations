@@ -16,9 +16,12 @@
             var multiplier = GetMarketingFinancingCostMultiplier(e);
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
 
+            var brandDiscount = MarketingUtils.GetAudienceReachBrandMultiplier(e);
+            var innovationDiscount = MarketingUtils.GetAudienceReachInnovationLeaderMultiplier(e);
+
             var acquisitionCost = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
-            return gainedClients * acquisitionCost * multiplier;
+            return gainedClients * acquisitionCost * multiplier / brandDiscount / innovationDiscount;
         }
 
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)

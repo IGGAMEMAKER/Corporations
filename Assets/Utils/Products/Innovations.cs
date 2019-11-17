@@ -23,6 +23,7 @@
             var phase = NicheUtils.GetMarketState(niche);
             var marketStage = CompanyUtils.GetMarketStageInnovationModifier(niche);
 
+            var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
             // culture bonuses
             var responsibility = culture[CorporatePolicy.Responsibility];
@@ -34,6 +35,7 @@
             return new BonusContainer("Innovation chance")
                 .Append("Base", 5)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
+                .Append("Market change speed", marketSpeedPenalty)
                 
                 .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)
                 .Append("Corporate Culture Mindset", 10 - mindset * 2)
@@ -41,6 +43,23 @@
                 
                 .AppendAndHideIfZero("Is independent company", company.isIndependentCompany ? 5 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
+        }
+
+        public static int GetNicheSpeedInnovationPenalty(GameEntity niche)
+        {
+            var speed = niche.nicheLifecycle.NicheChangeSpeed;
+            switch (speed)
+            {
+                case NichePeriod.ThreeYears:
+                    return -20;
+                case NichePeriod.Year:
+                    return -12;
+                case NichePeriod.HalfYear:
+                    return -5;
+                case NichePeriod.Quarter:
+                default:
+                    return 0;
+            }
         }
 
         public static int GetInnovationChance(GameEntity company, GameContext gameContext)

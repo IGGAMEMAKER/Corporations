@@ -5,6 +5,8 @@
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheLifecycle.NicheChangeSpeed);
         public static int GetBaseIterationTime(NichePeriod nicheChangeSpeed)
         {
+            return 60;
+
             var modifier = 4;
             switch (nicheChangeSpeed)
             {

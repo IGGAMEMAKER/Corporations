@@ -72,7 +72,8 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void RenderMarketName(NicheType nicheType)
     {
-        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType);
+        var industryType = NicheUtils.GetIndustry(nicheType, GameContext);
+        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType) + "\n<i>" + EnumUtils.GetFormattedIndustryName(industryType) + "</i>";
 
         var hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);

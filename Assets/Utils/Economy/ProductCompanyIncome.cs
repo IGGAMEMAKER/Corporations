@@ -18,21 +18,24 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
-            long clients = MarketingUtils.GetClients(c);
-
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
             var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);
 
-            //var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 
-            //var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
-            //var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
-            //var isPaidProduct = pricingType == Monetisation.Paid;
+            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 
-            var isReleasedModifier = c.isRelease ? 10 : 5;
+            var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
+            var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
+            var isPaidProduct = pricingType == Monetisation.Paid;
 
-            return clients * price * isReleasedModifier / 10f;
+            var monetisationTypeBonus = 1f;
+            
+
+            var isReleasedModifier = c.isRelease ? 1f : 0.5f;
+
+            long clients = MarketingUtils.GetClients(c);
+            return clients * price * isReleasedModifier;
         }
 
         internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)

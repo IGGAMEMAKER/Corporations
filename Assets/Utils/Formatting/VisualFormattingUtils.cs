@@ -147,9 +147,9 @@ namespace Assets.Utils
             var text = "";
 
             if (bonusType == BonusType.Multiplicative)
-                text = "Multiplied by ";
-
-            text += $"{bonusName}: {Format.Sign(value)}{dimension}";
+                text = $"Multiplied by \n{bonusName}: {value}";
+            else
+                text += $"{bonusName}: {Format.Sign(value)}{dimension}";
 
             if (!flipColors)
                 return DescribeNormally(text, value);

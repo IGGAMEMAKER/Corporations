@@ -77,23 +77,18 @@ public partial class MarketInitializerSystem : IInitializeSystem
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
     AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NichePeriod Iteration, AppComplexity ProductComplexity,
-    NicheDuration nicheDuration = NicheDuration.EntireGame)
-    {
-        return SetNichesAutomatically(
+    NicheDuration nicheDuration = NicheDuration.EntireGame) => SetNichesAutomatically(
             nicheType,
             startDate,
-            new MarketProfile {
-                AudienceSize = AudienceSize, NicheSpeed = Iteration, Margin = Margin, MonetisationType = MonetisationType, AppComplexity = ProductComplexity
+            new MarketProfile
+            {
+                AudienceSize = AudienceSize,
+                NicheSpeed = Iteration,
+                Margin = Margin,
+                MonetisationType = MonetisationType,
+                AppComplexity = ProductComplexity
             }, nicheDuration
             );
-    }
-
-    void StartsAt(NicheType nicheType, int startDate)
-    {
-        var n = GetNicheEntity(nicheType);
-
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, n.nicheLifecycle.Period, n.nicheLifecycle.NicheChangeSpeed);
-    }
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
@@ -108,13 +103,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var clients = GetBatchSize(settings.AudienceSize, nicheId);
 
         var ChangeSpeed = settings.NicheSpeed;
-        var techCost = GetTechCost(ChangeSpeed, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-        var ideaCost = GetTechCost(ChangeSpeed, nicheId + 1);
-        var marketingCost = 0;
+        var AppComplexity = settings.AppComplexity;
+
+        var techCost = GetTechCost(AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+        var ideaCost = GetTechCost(AppComplexity, nicheId + 1);
 
         var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
 
-        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, marketingCost, adCosts);
+        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, 0, adCosts);
 
 
 
@@ -142,9 +138,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return n;
     }
 
-    private int GetTechCost(NichePeriod techMaintenance, int nicheId)
+
+
+    private int GetTechCost(AppComplexity complexity, int nicheId)
     {
-        var baseCost = (int)techMaintenance;
+        var baseCost = (int)complexity;
 
         return (int)Randomise(baseCost, nicheId);
     }
@@ -173,10 +171,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
             case Monetisation.Paid: repaymentTime = 3; break;
         }
 
-        baseValue *= repaymentTime;
+        //baseValue *= repaymentTime;
 
         return (int)Randomise(baseValue, nicheId);
     }
+
+
 
     long GetFullAudience(AudienceSize audienceSize, int nicheId)
     {

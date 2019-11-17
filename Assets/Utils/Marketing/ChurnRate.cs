@@ -23,14 +23,17 @@
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base for " + monetisation.ToString() + " products", baseValue)
+                //.Append("Base value", baseValue)
+                //.Append("Base for " + monetisation.ToString() + " products", baseValue)
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .Cap(2, 100);
+                .Cap(2, 100)
+                ;
         }
 
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
+            return 2;
             switch (monetisation)
             {
                 case Monetisation.Adverts:

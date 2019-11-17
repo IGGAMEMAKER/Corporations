@@ -73,6 +73,8 @@ public class BonusContainer
         return this;
     }
 
+    public BonusContainer AppendAndHideIfZero(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public BonusContainer Append(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
     public BonusContainer Append(BonusDescription bonus)
     {
         bonus.BonusType = BonusType.Additive;
@@ -81,6 +83,10 @@ public class BonusContainer
         return this;
     }
 
+
+
+    public BonusContainer MultiplyAndHideIfOne(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public BonusContainer Multiply(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
     public BonusContainer Multiply(BonusDescription bonus)
     {
         bonus.BonusType = BonusType.Multiplicative;
@@ -89,22 +95,17 @@ public class BonusContainer
         return this;
     }
 
-    public BonusContainer AppendAndHideIfZero(string bonusName, long value, string dimension = "")
-    {
-        return Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
-    }
-
-    public BonusContainer Append(string bonusName, long value, string dimension = "")
-    {
-        return Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    }
-
     public long Sum()
     {
         long sum = 0;
 
         foreach (var bonus in bonusDescriptions)
-            sum += bonus.Value;
+        {
+            if (bonus.BonusType == BonusType.Multiplicative)
+                sum *= bonus.Value;
+            else
+                sum += bonus.Value;
+        }
 
         if (isCapped)
             return (long)Mathf.Clamp(sum, capMin, capMax);
@@ -126,8 +127,14 @@ public class BonusContainer
 
         foreach (var bonus in bonusDescriptions)
         {
-            if (bonus.HideIfZero && bonus.Value == 0)
-                continue;
+            if (bonus.HideIfZero)
+            {
+                if (bonus.BonusType == BonusType.Additive && bonus.Value == 0)
+                    continue;
+
+                if (bonus.BonusType == BonusType.Multiplicative && bonus.Value == 1)
+                    continue;
+            }
 
             var text = "";
 

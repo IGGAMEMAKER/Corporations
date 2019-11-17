@@ -15,30 +15,37 @@
             return multiplier * clients / 100;
         }
 
-        public static long GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext)
-        {
-            return GetGrowthMultiplier(product, gameContext).Sum();
-        }
+        public static long GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext) => GetGrowthMultiplier(product, gameContext).Sum();
 
         public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
-            var marketGrowthMultiplier = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
+            var marketState = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
+            var marketingFinancing = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
 
-            // 0...8
+            // 0...4
             var brand = (int)product.branding.BrandPower;
-            var brandModifier = (3 * brand + 100) * 2 / 100;
-
-            var marketingModifier = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
+            var brandModifier = GetAudienceReachBrandMultiplier(product);
+            var innovationMultiplier = GetAudienceReachInnovationLeaderMultiplier(product);
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
-                .Append("Marketing Financing", marketingModifier)
-                .Append($"Brand strength ({brand})", brandModifier)
-                .Append("Market state", marketGrowthMultiplier)
+                .Append("Marketing Financing", marketingFinancing)
+                .Append("Market state", marketState)
+                .Multiply($"Brand strength ({brand})", brandModifier)
+                .MultiplyAndHideIfOne("Is Leader", innovationMultiplier)
                 ;
         }
 
-
+        public static int GetAudienceReachInnovationLeaderMultiplier (GameEntity product)
+        {
+            return product.isTechnologyLeader ? 2 : 1;
+        }
+        public static int GetAudienceReachBrandMultiplier (GameEntity product)
+        {
+            // 0...4
+            var brand = (int)product.branding.BrandPower;
+            return (3 * brand + 100) / 100;
+        }
 
         // based on market state
         public static int GetMarketStateGrowthMultiplier(GameEntity product, GameContext gameContext)
@@ -64,7 +71,6 @@
                 default: return 5;
             }
         }
-
         public static int GetGrowthMultiplierBasedOnMarketState(GameEntity niche)
         {
             switch (NicheUtils.GetMarketState(niche))
@@ -85,9 +91,9 @@
             switch (financing)
             {
                 case 0: return 1;
-                case 1: return 3;
-                case 2: return 4;
-                case 3: return 6;
+                case 1: return 2;
+                case 2: return 5;
+                case 3: return 10;
                 default: return 10000;
             }
         }

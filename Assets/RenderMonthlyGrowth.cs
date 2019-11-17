@@ -7,13 +7,14 @@ public class RenderMonthlyGrowth : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        return "";
+        return MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext).ToString();
     }
 
     public override string RenderValue()
     {
+        var multiplier = MarketingUtils.GetAudienceGrowthMultiplier(SelectedCompany, GameContext);
         var growth = MarketingUtils.GetAudienceGrowth(SelectedCompany, GameContext);
 
-        return Format.Minify(growth) + " users";
+        return $"{Format.Minify(growth)} users (+{multiplier}%)";
     }
 }

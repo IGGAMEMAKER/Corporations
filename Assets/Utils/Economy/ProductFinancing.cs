@@ -5,12 +5,12 @@ namespace Assets.Utils
     partial class EconomyUtils
     {
         // financing multipliers
-        public static long GetMarketingFinancingCostMultiplier(GameEntity e) => GetMarketingFinancingCostMultiplier(e.financing.Financing[Financing.Marketing]);
-        public static long GetMarketingFinancingCostMultiplier(int financing)
+        public static float GetMarketingFinancingCostMultiplier(GameEntity e) => GetMarketingFinancingCostMultiplier(e.financing.Financing[Financing.Marketing]);
+        public static float GetMarketingFinancingCostMultiplier(int financing)
         {
             var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
 
-            return (long)Mathf.Pow(marketing, 1.8f);
+            return Mathf.Pow(marketing, 1.28f);
         }
 
         public static long GetStageFinancingMultiplier(GameEntity e) => GetStageFinancingMultiplier(e.financing.Financing[Financing.Development]);
