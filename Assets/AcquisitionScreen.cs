@@ -10,11 +10,6 @@ public class AcquisitionScreen : View
     public Text Offer;
     public Text SellerPrice;
 
-    public Text TriesRemaining;
-    public Text DaysRemaining;
-
-    public Toggle KeepFounderAsCEO;
-
     public Text SharePercentage;
 
     public InputField CashOfferInput;
@@ -55,10 +50,6 @@ public class AcquisitionScreen : View
 
     void RenderOffer(bool willAcceptOffer)
     {
-        string overpriceText = "";
-
-        var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
-
         var acquisitionOffer = AcquisitionOffer;
 
         if (acquisitionOffer == null)
@@ -68,6 +59,9 @@ public class AcquisitionScreen : View
         var seller = acquisitionOffer.SellerOffer;
         long price = conditions.Price;
 
+
+        var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        string overpriceText = "";
         if (price > cost)
         {
             var overprice = Mathf.Ceil(price * 10 / cost);
@@ -79,19 +73,13 @@ public class AcquisitionScreen : View
 
 
 
+
+
+        var showInputField = acquisitionOffer.Turn == AcquisitionTurn.Buyer;
+        CashOfferInput.gameObject.SetActive(showInputField);
         CashOfferInput.text = price.ToString();
 
-        var turn = acquisitionOffer.Turn;
-        var showInputField = turn == AcquisitionTurn.Buyer;
-
-        CashOfferInput.gameObject.SetActive(showInputField);
-
         SharesOfferInput.text = conditions.ByShares.ToString();
-
-        TriesRemaining.text = ""; // acquisitionOffer.RemainingTries.ToString();
-        DaysRemaining.text = ""; // acquisitionOffer.RemainingDays + " days left";
-
-        KeepFounderAsCEO.isOn = conditions.KeepLeaderAsCEO;
 
         RenderShareOfferSlider(conditions, price);
     }
@@ -119,14 +107,6 @@ public class AcquisitionScreen : View
 
         var cash = price - shareCost;
         SharePercentage.text = $"You will pay {Format.Money(cash)} with cash and give {sharePartOfCompany}% of your company shares (worth ${Format.Money(shareCost)})";
-    }
-
-    public void ToggleKeepFounderAsCEO()
-    {
-        if (!HasCompany)
-            return;
-
-        AcquisitionOffer.BuyerOffer.KeepLeaderAsCEO = KeepFounderAsCEO.isOn;
     }
 
     void UpdateData()

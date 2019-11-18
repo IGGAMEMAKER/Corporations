@@ -13,6 +13,8 @@ public class CompanyResultView : View
     public Text ConceptStatusText;
     public Text Profit;
 
+    public MarketingCampaignIsActivated MarketingCampaignIsActivated;
+
     public void SetEntity(ProductCompanyResult result)
     {
         CompanyName.text = CompanyUtils.GetCompanyById(GameContext, result.CompanyId).company.Name;
@@ -40,6 +42,8 @@ public class CompanyResultView : View
 
         var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
+
+        MarketingCampaignIsActivated.SetCompany(result.CompanyId);
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)
