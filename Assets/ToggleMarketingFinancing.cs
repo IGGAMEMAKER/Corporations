@@ -23,8 +23,6 @@ public class ToggleMarketingFinancing : ToggleButtonController
         var financing = company.financing.Financing[Financing.Marketing];
 
         company.financing.Financing[Financing.Marketing] = financing == MaxFinancing ? 0 : MaxFinancing;
-
-        Render();
     }
 
     void Render()
