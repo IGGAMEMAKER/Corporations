@@ -8,8 +8,6 @@ public class IsChosenComponent : MonoBehaviour
 {
     Image Image;
     Text Text;
-    Color BackgroundColor;
-    Color TextColor;
 
     public bool IsChosen { get; private set; } = false;
 
@@ -18,8 +16,6 @@ public class IsChosenComponent : MonoBehaviour
         Image = GetComponent<Image>();
         Text = GetComponentInChildren<Text>();
 
-        BackgroundColor = Color.white; // Image.color;
-        TextColor = Text.color;
 
         Toggle(false);
     }
