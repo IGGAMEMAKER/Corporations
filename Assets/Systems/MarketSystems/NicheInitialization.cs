@@ -97,22 +97,16 @@ public partial class MarketInitializerSystem : IInitializeSystem
         )
     {
         var nicheId = GetNicheId(nicheType);
+        var AppComplexity = settings.AppComplexity;
+        var ChangeSpeed = settings.NicheSpeed;
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
-
         var clients = GetBatchSize(settings.AudienceSize, nicheId);
-
-        var ChangeSpeed = settings.NicheSpeed;
-        var AppComplexity = settings.AppComplexity;
-
         var techCost = GetTechCost(AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-        var ideaCost = GetTechCost(AppComplexity, nicheId + 1);
-
         var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
 
-        var n = SetNicheCosts(nicheType, price, clients, techCost, ideaCost, 0, adCosts);
 
-
+        var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts);
 
 
         var positionings = new Dictionary<int, ProductPositioning>
@@ -157,7 +151,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return value;
     }
 
-    int GetAdCost(long clientBatch, Monetisation monetisationType, NichePeriod nichePeriod, int nicheId)
+    float GetAdCost(long clientBatch, Monetisation monetisationType, NichePeriod nichePeriod, int nicheId)
     {
         var baseValue = (int)monetisationType;
 
@@ -173,7 +167,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         //baseValue *= repaymentTime;
 
-        return (int)Randomise(baseValue, nicheId);
+        return Randomise(baseValue * 1000, nicheId) / 1000f;
     }
 
 
