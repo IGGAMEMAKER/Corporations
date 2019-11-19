@@ -196,7 +196,7 @@ MonoBehaviour:
   MarketShareChange: {fileID: 6155506622073499800}
   ConceptStatusText: {fileID: 2257992577399229721}
   Profit: {fileID: 6465706366346321188}
-  MarketingCampaignIsActivated: {fileID: 8047133775981700918}
+  ToggleMarketingFinancing: {fileID: 443380781961077392}
 --- !u!114 &9200592153934752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,18 +532,6 @@ MonoBehaviour:
   m_Text: 'Market share
 
     -3%'
---- !u!114 &8047133775981700918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9069772240394693880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c74581d2807f5a45aa3b3f65c045a93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &443380781961077392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,19 +542,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e1844355dcda2c43ba6ea4bb94dd16e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
---- !u!114 &5556760606601284736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9069772240394693880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03a650be502bec4fb82129105c85264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
@@ -844,15 +819,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
---- !u!1 &5086218402082528017 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7956838528449801157, guid: fd6a5c7e86f18454cba2124cd62a812c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2952600815531684052}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &481647188623704035 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2952600815531684052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5086218402082528017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7956838528449801157, guid: fd6a5c7e86f18454cba2124cd62a812c,
     type: 3}
   m_PrefabInstance: {fileID: 2952600815531684052}
   m_PrefabAsset: {fileID: 0}

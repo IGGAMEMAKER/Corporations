@@ -1,25 +1,39 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ToggleMarketingFinancing : ButtonController
+public class ToggleMarketingFinancing : ToggleButtonController
 {
     int companyId;
-    public override void Execute()
+    
+    // max financing
+    int MaxFinancing => 3;
+
+    private void Start()
     {
-        Debug.Log("MarketingCampaignIsActivated ButtonController");
-
-
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-        var financing = company.financing.Financing[Financing.Marketing];
-
-        var max = 3;
-        company.financing.Financing[Financing.Marketing] = financing == max ? 0 : max;
+        Render();
     }
 
     public void SetCompanyId(int companyId)
     {
         this.companyId = companyId;
     }
+
+    public override void Execute()
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var financing = company.financing.Financing[Financing.Marketing];
+
+        company.financing.Financing[Financing.Marketing] = financing == MaxFinancing ? 0 : MaxFinancing;
+
+        Render();
+    }
+
+    void Render()
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var financing = company.financing.Financing[Financing.Marketing];
+
+        var isChosen = financing == MaxFinancing;
+        ToggleIsChosenComponent(isChosen);
+    }
+
 }

@@ -13,7 +13,7 @@ public class CompanyResultView : View
     public Text ConceptStatusText;
     public Text Profit;
 
-    public MarketingCampaignIsActivated MarketingCampaignIsActivated;
+    public ToggleMarketingFinancing ToggleMarketingFinancing;
 
     public void SetEntity(ProductCompanyResult result)
     {
@@ -43,7 +43,7 @@ public class CompanyResultView : View
         var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
-        MarketingCampaignIsActivated.SetCompany(result.CompanyId);
+        ToggleMarketingFinancing.SetCompanyId(result.CompanyId);
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)
