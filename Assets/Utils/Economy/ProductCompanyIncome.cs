@@ -23,13 +23,13 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);
 
 
-            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
+            //var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 
-            var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
-            var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
-            var isPaidProduct = pricingType == Monetisation.Paid;
+            //var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
+            //var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
+            //var isPaidProduct = pricingType == Monetisation.Paid;
 
-            var monetisationTypeBonus = 1f;
+            //var monetisationTypeBonus = 1f;
             
 
             var isReleasedModifier = c.isRelease ? 1f : 0.5f;
