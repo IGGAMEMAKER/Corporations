@@ -21,15 +21,15 @@ public class CompanyResultView : View
     {
         result1 = result;
 
-        var с = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
-
-        
-
-        //CompanyName.text = company.Name;
+        var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
 
 
-        var growth = MarketingUtils.GetAudienceGrowthMultiplier(с, GameContext);
-        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(с, GameContext);
+
+        CompanyName.text = product.company.Name;
+
+
+        var growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
+        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
         ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
 
@@ -40,7 +40,7 @@ public class CompanyResultView : View
 
         DrawProductStatus();
 
-        LinkToNiche.SetNiche(c.product.Niche);
+        LinkToNiche.SetNiche(product.product.Niche);
 
         var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
