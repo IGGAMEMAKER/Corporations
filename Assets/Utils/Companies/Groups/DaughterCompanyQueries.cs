@@ -21,6 +21,19 @@ namespace Assets.Utils
             .ToArray();
         }
 
+        public static bool IsReleaseableApp(GameEntity product, GameContext gameContext)
+        {
+            var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
+
+            return !isOutdated && !product.isRelease;
+        }
+
+        public static GameEntity[] GetDaughterReleaseableCompanies(GameContext gameContext, int companyId)
+        {
+            return GetDaughterCompanies(gameContext, companyId)
+            .Where(p => p.hasProduct && IsReleaseableApp(p, gameContext))
+            .ToArray();
+        }
         public static GameEntity[] GetDaughterUpgradableCompanies(GameContext gameContext, int companyId)
         {
             return GetDaughterCompanies(gameContext, companyId)

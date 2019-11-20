@@ -14,9 +14,18 @@ namespace Assets.Utils
             return GetProductsOnMarket(context, c);
         }
 
+        public static IEnumerable<GameEntity> GetProductsOnMarket(GameEntity niche, GameContext context)
+        {
+            return GetProductsOnMarket(context, niche.niche.NicheType);
+        }
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, GameEntity product)
         {
             return GetProductsOnMarket(context, product.product.Niche);
+        }
+
+        public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
+        {
+            return GetProductsOnMarket(context, niche).ToArray();
         }
 
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, NicheType niche)
@@ -24,10 +33,8 @@ namespace Assets.Utils
             return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
-        public static GameEntity[] GetProductsOnMarket(GameContext context, NicheType niche, bool something)
-        {
-            return GetProductsOnMarket(context, niche).ToArray();
-        }
+
+
 
         public static int GetCompetitorsAmount(GameEntity e, GameContext context)
         {

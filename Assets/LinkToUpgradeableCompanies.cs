@@ -6,7 +6,7 @@ public class LinkToUpgradeableCompanies : ButtonController
 {
     public override void Execute()
     {
-        var companies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
+        var companies = CompanyUtils.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
 
         var hint = $"You can upgrade {companies.Length} products.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);

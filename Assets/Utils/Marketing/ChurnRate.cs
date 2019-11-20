@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System.Linq;
+
+namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
@@ -20,14 +22,20 @@
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 
+            var competitors = NicheUtils.GetProductsOnMarket(niche, gameContext);
+
+            var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != c.company.Id);
+            var isCompetitorDumping = dumpingCompetitors.Count() > 0;
+
             return new BonusContainer("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                //.Append("Base value", baseValue)
-                //.Append("Base for " + monetisation.ToString() + " products", baseValue)
+                .Append("Base value", baseValue)
+                .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
+                .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .Cap(2, 100)
+                .Cap(0, 100)
                 ;
         }
 

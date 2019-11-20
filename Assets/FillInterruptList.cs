@@ -27,7 +27,7 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanUpgradeSegment = CheckProductImprovements();
+        bool isCanReleaseProduct = CheckReleaseableProducts();
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
         bool isCanSellCompany = CheckAcquisitionOffers();
@@ -39,7 +39,7 @@ public class FillInterruptList : View
         bool isHasDaughterCompanies = CheckManagingCompanies();
         bool isHasOutdatedProducts = CheckOutdatedProducts();
 
-        CanUpgradeSegment.SetActive(isCanUpgradeSegment);
+        CanUpgradeSegment.SetActive(isCanReleaseProduct);
         CanCompleteGoal.SetActive(isCanCompleteGoal && false);
         NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
 
@@ -61,10 +61,9 @@ public class FillInterruptList : View
         CanBuyCompany.SetActive(isCanBuyCompany);
     }
 
-    bool CheckProductImprovements()
+    bool CheckReleaseableProducts()
     {
-        return false;
-        var upgradableCompanies = CompanyUtils.GetDaughterUpgradableCompanies(GameContext, MyCompany.company.Id);
+        var upgradableCompanies = CompanyUtils.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
         return upgradableCompanies.Count() > 0;
     }
 

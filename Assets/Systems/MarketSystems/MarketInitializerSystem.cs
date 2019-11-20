@@ -1,8 +1,6 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 public partial class MarketInitializerSystem : IInitializeSystem
@@ -44,6 +42,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             GameContext.CreateEntity().AddIndustry(industry);
     }
 
+    GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost) => SetNicheCosts(GetNiche(niche), newBasePrice, newClientBatch, newTechCost, newAdCost);
     GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost)
     {
         e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newAdCost);
@@ -51,21 +50,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return e;
     }
 
-    GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost)
-    {
-        var e = GetNicheEntity(niche);
 
-        return SetNicheCosts(e, newBasePrice, newClientBatch, newTechCost, newAdCost);
-    }
-
-    GameEntity GetNicheEntity(NicheType nicheType)
-    {
-        return NicheUtils.GetNiche(GameContext, nicheType);
-    }
+    GameEntity GetNiche(NicheType nicheType) => NicheUtils.GetNiche(GameContext, nicheType);
 
     GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)
     {
-        var e = GetNicheEntity(niche);
+        var e = GetNiche(niche);
 
         e.ReplaceNiche(
             e.niche.NicheType,
@@ -91,7 +81,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity ForkNiche(NicheType parent, NicheType child)
     {
-        var e = GetNicheEntity(child);
+        var e = GetNiche(child);
 
         e.ReplaceNiche(
             e.niche.NicheType,
@@ -116,8 +106,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     void SetNichesAsSynergic(NicheType niche1, NicheType niche2, int compatibility)
     {
-        var n1 = GetNicheEntity(niche1);
-        var n2 = GetNicheEntity(niche2);
+        var n1 = GetNiche(niche1);
+        var n2 = GetNiche(niche2);
 
         AddSynergicNiche(n1, niche2, compatibility);
         AddSynergicNiche(n2, niche1, compatibility);

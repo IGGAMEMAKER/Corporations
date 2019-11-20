@@ -18,6 +18,9 @@ namespace Assets.Utils
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
 
+            if (c.isDumping)
+                return 0;
+
             float price = GetSegmentPrice(gameContext, c, segmentId);
 
             var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);

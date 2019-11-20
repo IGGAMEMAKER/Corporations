@@ -15,15 +15,21 @@ public class CompanyResultView : View
 
     public ToggleMarketingFinancing ToggleMarketingFinancing;
 
+    ProductCompanyResult result1;
+
     public void SetEntity(ProductCompanyResult result)
     {
-        CompanyName.text = CompanyUtils.GetCompanyById(GameContext, result.CompanyId).company.Name;
+        result1 = result;
 
-        var growth = result.clientChange;
-        var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
-        growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
+        var с = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
 
-        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
+        
+
+        //CompanyName.text = company.Name;
+
+
+        var growth = MarketingUtils.GetAudienceGrowthMultiplier(с, GameContext);
+        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(с, GameContext);
         ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
 
@@ -32,18 +38,38 @@ public class CompanyResultView : View
 
 
 
-        var conceptStatus = result.ConceptStatus;
-        var color = GetStatusColor(conceptStatus);
+        DrawProductStatus();
 
-        ConceptStatusText.text = "Product\n" + Visuals.Colorize(conceptStatus.ToString(), color);
-
-        var c = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
         LinkToNiche.SetNiche(c.product.Niche);
 
         var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
         ToggleMarketingFinancing.SetCompanyId(result.CompanyId);
+    }
+
+    void DrawProductStatus()
+    {
+        var conceptStatus = result1.ConceptStatus;
+        var color = GetStatusColor(conceptStatus);
+
+        var days = 100;
+        Cooldown c1;
+        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out c1);
+
+        if (c1 == null)
+            days = 0;
+        else
+            days = c1.EndDate - CurrentIntDate;
+
+        ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + $"\nUpgrades in {days}d";
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        DrawProductStatus();
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)

@@ -22,8 +22,12 @@ namespace Assets.Utils
             var percent = 4;
             var baseDecay = -product.branding.BrandPower * percent / 100;
 
+
+            var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 3;
+
             var BrandingChangeBonus = new BonusContainer("Brand power change")
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
+                .AppendAndHideIfZero("Started Ad Campaign", isMarketingAggressively ? 2 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 5 : 0);
 

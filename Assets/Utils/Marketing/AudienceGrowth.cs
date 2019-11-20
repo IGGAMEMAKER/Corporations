@@ -36,10 +36,7 @@
                 ;
         }
 
-        public static int GetAudienceReachInnovationLeaderMultiplier (GameEntity product)
-        {
-            return product.isTechnologyLeader ? 2 : 1;
-        }
+        public static int GetAudienceReachInnovationLeaderMultiplier(GameEntity product) => product.isTechnologyLeader ? 2 : 1;
         public static int GetAudienceReachBrandMultiplier (GameEntity product)
         {
             // 0...4

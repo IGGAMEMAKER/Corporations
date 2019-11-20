@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Utils;
 using UnityEngine;
 
@@ -22,20 +23,25 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
         var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
 
-        ChurnUsers(products);
+        ChurnUsers(products, niche);
         ChangeBrandPowers(products);
 
         DistributeClients(products, niche);
     }
 
-    void ChurnUsers(GameEntity[] products)
+    void ChurnUsers(GameEntity[] products, GameEntity niche)
     {
+        var clientContainers = niche.nicheClientsContainer.Clients;
+
+        var dumpingCompanies = products.Where(p => p.isDumping);
+
         for (var i = 0; i < products.Length; i++)
         {
             var p = products[i];
 
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
 
+            var segId = p.productPositioning.Positioning;
             MarketingUtils.AddClients(p, -churnClients);
         }
     }
@@ -52,15 +58,13 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     void DistributeClients(GameEntity[] products, GameEntity niche)
     {
-        long flow = MarketingUtils.GetClientFlow(gameContext, niche.niche.NicheType);
-
         var clientContainers = niche.nicheClientsContainer.Clients;
 
         for (var i = 0; i < products.Length; i++)
         {
             var p = products[i];
 
-            var clients = GetCompanyAudienceReach(p, flow);
+            var clients = GetCompanyAudienceReach(p);
 
             MarketingUtils.AddClients(p, clients);
 
@@ -71,7 +75,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
 
-    long GetCompanyAudienceReach(GameEntity product, long flow)
+    long GetCompanyAudienceReach(GameEntity product)
     {
         var rand = Random.Range(Constants.CLIENT_GAIN_MODIFIER_MIN, Constants.CLIENT_GAIN_MODIFIER_MAX);
 

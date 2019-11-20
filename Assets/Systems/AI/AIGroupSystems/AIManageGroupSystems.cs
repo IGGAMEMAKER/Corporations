@@ -42,8 +42,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
         {
             CompanyUtils.CloseCompany(gameContext, product);
 
-            if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
-                NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
+            NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(product.company.Id));
+            //if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
+            //{
+            //    //NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
+
+            //}
         }
     }
 
