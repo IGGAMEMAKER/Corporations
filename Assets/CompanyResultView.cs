@@ -23,11 +23,20 @@ public class CompanyResultView : View
 
         var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
 
-
-
         CompanyName.text = product.company.Name;
 
+        DrawProductGrowth(product, result);
+        DrawProductStatus();
 
+        var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
+        Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
+
+        LinkToNiche.SetNiche(product.product.Niche);
+        ToggleMarketingFinancing.SetCompanyId(result.CompanyId);
+    }
+
+    void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
+    {
         var growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
         var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
         ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
@@ -35,17 +44,6 @@ public class CompanyResultView : View
 
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
-
-
-
-        DrawProductStatus();
-
-        LinkToNiche.SetNiche(product.product.Niche);
-
-        var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
-        Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
-
-        ToggleMarketingFinancing.SetCompanyId(result.CompanyId);
     }
 
     void DrawProductStatus()
@@ -53,13 +51,10 @@ public class CompanyResultView : View
         var conceptStatus = result1.ConceptStatus;
         var color = GetStatusColor(conceptStatus);
 
-        var days = 100;
-        Cooldown c1;
-        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out c1);
+        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
 
-        if (c1 == null)
-            days = 0;
-        else
+        var days = 0;
+        if (c1 != null)
             days = c1.EndDate - CurrentIntDate;
 
         ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + $"\nUpgrades in {days}d";
