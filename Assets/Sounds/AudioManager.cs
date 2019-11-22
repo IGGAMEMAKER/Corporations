@@ -14,7 +14,10 @@ namespace Assets
         Selected,
 
         Tweak,
-        Upgrade
+        Upgrade,
+
+        SignContract,
+        CorporatePolicyTweak
     }
 
     public class AudioManager: MonoBehaviour
@@ -30,6 +33,7 @@ namespace Assets
         public AudioClip hintSound;
         public AudioClip monthlyMoneySound;
         public AudioClip itemSelectedSound;
+        public AudioClip penOnPaperSoung;
 
         void Start()
         {
@@ -42,6 +46,8 @@ namespace Assets
 
             AddSound(toggleScreenSound, Sound.Upgrade);
             AddSound(itemSelectedSound, Sound.Tweak);
+            AddSound(penOnPaperSoung, Sound.SignContract);
+            AddSound(itemSelectedSound, Sound.CorporatePolicyTweak);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

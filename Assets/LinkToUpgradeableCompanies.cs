@@ -8,7 +8,7 @@ public class LinkToUpgradeableCompanies : ButtonController
     {
         var companies = CompanyUtils.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
 
-        var hint = $"You can upgrade {companies.Length} products.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
+        var hint = $"You can release {companies.Length} products.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);
 
         var targetMenu = ScreenMode.ManageCompaniesScreen;
