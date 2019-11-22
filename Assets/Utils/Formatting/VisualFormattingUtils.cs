@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    public static class Visuals
+    public static partial class Visuals
     {
         public static string Link(string text)
         {
@@ -38,7 +38,7 @@ namespace Assets.Utils
 
         public static string Positive(string text) => Colorize(text, VisualConstants.COLOR_POSITIVE);
         public static string Neutral(string text) => Colorize(text, VisualConstants.COLOR_NEUTRAL);
-        internal static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
+        public static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
 
         #region gradient
 
@@ -92,8 +92,6 @@ namespace Assets.Utils
         internal static string Sign(long val) => Format.Sign(val);
 
 
-        public static string RenderBonus(BonusDescription bonus, bool flipColors)  => RenderBonus(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
-        public static string RenderBonus(BonusDescription bonus)                   => RenderBonus(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
         public static string RenderBonus(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
         {
             var text = "";
@@ -133,7 +131,6 @@ namespace Assets.Utils
 
             return Negative(text);
         }
-
         private static string DescribeReversed(string text, long value)
         {
             if (value == 0)

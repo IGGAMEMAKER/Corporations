@@ -99,13 +99,6 @@ namespace Assets.Utils
             return value.ToString();
         }
 
-        //public static string ShortenSigned<T>(T value)
-        //{
-        //    long.TryParse(value.ToString(), out long val);
-
-        //    return Sign(val);
-        //}
-
         // dates
         public static DateDescription GetDateDescription(int date)
         {
@@ -160,7 +153,7 @@ namespace Assets.Utils
 
 
 
-
+        // TODO no reference?
         public static void Print(string action, GameEntity company)
         {
             //bool isMyCompany = company.isControlledByPlayer || CompanyUtils.IsCompanyRelatedToPlayer(, company);
