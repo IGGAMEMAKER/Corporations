@@ -5,7 +5,7 @@ using UnityEngine;
 public class FillInterruptList : View
 {
     public GameObject CanUpgradeSegment;
-    public GameObject CanHireEmployee;
+    public GameObject CanUpgradeCorporateCulture;
     public GameObject CanCompleteGoal;
     public GameObject CanSellCompany;
     public GameObject CanBuyCompany;
@@ -27,52 +27,45 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanReleaseProduct = CheckReleaseableProducts();
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
-        bool isCanSellCompany = CheckAcquisitionOffers();
-        bool isCanBuyCompany = false && CheckAcquisitionCandidates();
 
-        bool isHaveUnhappyCompanies = CheckUnhappyTeams();
-
-        bool isCanSeeAnnualReport = CheckAnnualReport();
-        bool isHasDaughterCompanies = CheckManagingCompanies();
-        bool isHasOutdatedProducts = CheckOutdatedProducts();
-
-        CanUpgradeSegment.SetActive(isCanReleaseProduct);
+        CanUpgradeSegment.SetActive(HasReleaseableProducts());
         CanCompleteGoal.SetActive(isCanCompleteGoal && false);
         NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
 
-        NeedToManageCompanies.SetActive(isHasDaughterCompanies);
+        NeedToManageCompanies.SetActive(CheckManagingCompanies());
 
 
-        CanCheckAnnualReport.SetActive(isCanSeeAnnualReport);
+        CanCheckAnnualReport.SetActive(CheckAnnualReport());
 
-        CanHireEmployee.SetActive(isNeedsInterrupt);
+        CanUpgradeCorporateCulture.SetActive(IsCanUpgradeCorporateCulture());
 
         InvestorLoyaltyWarning.SetActive(isNeedsInterrupt);
         TeamLoyaltyWarning.SetActive(isNeedsInterrupt);
-
         InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
-        TeamLoyaltyThreat.SetActive(isHaveUnhappyCompanies);
-        OutdatedProducts.SetActive(isHasOutdatedProducts);
+        TeamLoyaltyThreat.SetActive(HasUnhappyTeams());
 
-        CanSellCompany.SetActive(isCanSellCompany);
-        CanBuyCompany.SetActive(isCanBuyCompany);
+        OutdatedProducts.SetActive(HasOutdatedProducts());
+
+        CanSellCompany.SetActive(HasAcquisitionOffers());
+        CanBuyCompany.SetActive(false && CheckAcquisitionCandidates());
     }
 
-    bool CheckReleaseableProducts()
+    bool IsCanUpgradeCorporateCulture() => !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+
+    bool HasReleaseableProducts()
     {
         var upgradableCompanies = CompanyUtils.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
         return upgradableCompanies.Count() > 0;
     }
 
-    bool CheckOutdatedProducts()
+    bool HasOutdatedProducts()
     {
         return CompanyUtils.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
-    bool CheckUnhappyTeams()
+    bool HasUnhappyTeams()
     {
         return CompanyUtils.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
@@ -82,7 +75,7 @@ public class FillInterruptList : View
         return CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
-    bool CheckAcquisitionOffers()
+    bool HasAcquisitionOffers()
     {
         return CompanyUtils.GetAcquisitionOffersToPlayer(GameContext).Length > 0;
     }
