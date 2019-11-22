@@ -63,7 +63,7 @@ public class AnimateResourceChanges : View
     public static string PositiveOrNegative(long value)
     {
         if (value > 0)
-            return Visuals.Positive(Visuals.Sign(value));
+            return Visuals.Positive(Format.Sign(value));
 
         if (value == 0)
             return "";

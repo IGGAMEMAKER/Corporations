@@ -24,6 +24,6 @@ public class RenderGrowth : UpgradedParameterView
 
         var growth = CompanyStatisticsUtils.GetValuationGrowth(SelectedCompany, duration);
 
-        return Visuals.Sign(growth) + "%";
+        return Format.Sign(growth) + "%";
     }
 }
