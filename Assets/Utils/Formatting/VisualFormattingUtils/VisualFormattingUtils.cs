@@ -14,7 +14,6 @@ namespace Assets.Utils
         {
             return "#" + ToHex(c.r) + ToHex(c.g) + ToHex(c.b);
         }
-
         private static string ToHex(float col)
         {
             return ((int)(col * 255)).ToString("X2"); // ("X2");
@@ -27,6 +26,10 @@ namespace Assets.Utils
             return $"<color={colorHTML}>{text}</color>";
         }
 
+        public static string Positive(string text) => Colorize(text, VisualConstants.COLOR_POSITIVE);
+        public static string Neutral(string text) => Colorize(text, VisualConstants.COLOR_NEUTRAL);
+        public static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
+
         // TODO used twice in same place
         public static Color GetColorPositiveOrNegative(long value)
         {
@@ -34,12 +37,6 @@ namespace Assets.Utils
 
             return GetColorFromString(col);
         }
-
-
-        public static string Positive(string text) => Colorize(text, VisualConstants.COLOR_POSITIVE);
-        public static string Neutral(string text) => Colorize(text, VisualConstants.COLOR_NEUTRAL);
-        public static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
-
 
         public static Color GetColorFromString(string color)
         {
