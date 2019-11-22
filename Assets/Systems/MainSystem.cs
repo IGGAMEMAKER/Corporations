@@ -26,6 +26,7 @@
         Add(new SpawnerSystems(contexts));
 
         Add(new StatsSystems(contexts));
+
         // Simulate world to start date
         Add(new WorldFillerSystem(contexts));
 

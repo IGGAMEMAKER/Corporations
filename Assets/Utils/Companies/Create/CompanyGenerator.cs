@@ -17,7 +17,7 @@ namespace Assets.Utils
             company.AddExpertise(Random.Range(1, 4)); //  UnityEngine.Random.Range(0, 6)
 
             var flow = MarketingUtils.GetClientFlow(context, niche);
-            var baseClients = Random.Range(flow / 2, flow * 2);
+            var baseClients = Random.Range(flow / 2, flow);
             company.AddMarketing((long)baseClients);
             company.AddFinancing(new Dictionary<Financing, int>
             {

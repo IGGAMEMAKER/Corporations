@@ -90,7 +90,9 @@ public enum CooldownType
     ImproveSegment,
 
     //
-    MarketResearch
+    MarketResearch,
+
+    CorporateCulture,
 }
 
 public class Cooldown
@@ -140,6 +142,27 @@ public class CooldownImproveConcept : Cooldown
     public override bool IsEqual(Cooldown comparable)
     {
         return (comparable as CooldownImproveConcept).companyId == companyId;
+    }
+}
+
+public class CooldownUpgradeCorporateCulture : Cooldown
+{
+    public int companyId;
+
+    public CooldownUpgradeCorporateCulture(int companyId)
+    {
+        this.companyId = companyId;
+        CooldownType = CooldownType.CorporateCulture;
+    }
+
+    public override string GetKey()
+    {
+        return $"Culture-{companyId}";
+    }
+
+    public override bool IsEqual(Cooldown comparable)
+    {
+        return (comparable as CooldownUpgradeCorporateCulture).companyId == companyId;
     }
 }
 
