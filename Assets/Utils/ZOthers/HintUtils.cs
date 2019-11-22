@@ -35,6 +35,7 @@ public class BonusContainer
     long capMax = 0;
 
     bool renderSubTitle = true;
+    bool minifyValues = false;
 
     public BonusContainer(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
@@ -45,6 +46,13 @@ public class BonusContainer
     public BonusContainer Minify()
     {
         renderSubTitle = false;
+
+        return this;
+    }
+
+    public BonusContainer MinifyValues()
+    {
+        minifyValues = true;
 
         return this;
     }

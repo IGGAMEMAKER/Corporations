@@ -14,7 +14,8 @@ public class RenderCompanyProfit : UpgradedParameterView
         var bonus = new BonusContainer("Balance change")
             .Append("Income", income)
             .Append("Development Financing", -devCost)
-            .Append("Marketing Financing", -marketingCost);
+            .Append("Marketing Financing", -marketingCost)
+            .MinifyValues();
 
         return bonus.ToString();
     }

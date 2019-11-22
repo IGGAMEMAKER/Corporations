@@ -20,28 +20,14 @@ namespace Assets.Utils
             return ((int)(col * 255)).ToString("X2"); // ("X2");
         }
 
-        public static string Colorize(string text, Color color)
-        {
-            var colorName = HexConverter(color);
-
-            //Debug.Log(color.ToString());
-            //Debug.Log("Colorize from color, " + text + ": " + colorName);
-
-            return Colorize(text, colorName);
-        }
-
+        public static string Colorize(string text, Color color) => Colorize(text, HexConverter(color));
+        public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
         public static string Colorize(string text, string colorHTML)
         {
             return $"<color={colorHTML}>{text}</color>";
         }
 
-        public static string Colorize(string text, bool isPositive)
-        {
-            string col = isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
-
-            return Colorize(text, col);
-        }
-
+        // TODO used twice in same place
         public static Color GetColorPositiveOrNegative(long value)
         {
             string col = value > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
@@ -50,10 +36,9 @@ namespace Assets.Utils
         }
 
 
-        public static string Positive(string text)
-        {
-            return Colorize(text, VisualConstants.COLOR_POSITIVE);
-        }
+        public static string Positive(string text) => Colorize(text, VisualConstants.COLOR_POSITIVE);
+        public static string Neutral(string text) => Colorize(text, VisualConstants.COLOR_NEUTRAL);
+        internal static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
 
         #region gradient
 
@@ -96,11 +81,6 @@ namespace Assets.Utils
         #endregion
 
 
-        public static string Neutral(string text)
-        {
-            return Colorize(text, VisualConstants.COLOR_NEUTRAL);
-        }
-
 
         public static Color GetColorFromString(string color)
         {
@@ -109,14 +89,36 @@ namespace Assets.Utils
             return c;
         }
 
-        internal static string Sign(long val)
-        {
-            return Format.Sign(val);
-        }
+        internal static string Sign(long val) => Format.Sign(val);
 
-        internal static string Negative(string text)
+
+        public static string Describe(BonusDescription bonus, bool flipColors) => Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
+        public static string Describe(BonusDescription bonus) => Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
+        public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")
         {
-            return Colorize(text, VisualConstants.COLOR_NEGATIVE);
+            if (value == 0)
+                return Neutral(neutralText);
+
+            if (value > 0)
+                return Positive(positiveText);
+
+            return Negative(negativeText);
+        }
+        public static string Describe(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
+        {
+            var text = "";
+
+            if (bonusType == BonusType.Multiplicative)
+                text = $"Multiplied by \n{bonusName}: {value}";
+            else
+                text += $"{bonusName}: {Format.Sign(value)}{dimension}";
+
+
+
+            if (!flipColors)
+                return DescribeNormally(text, value);
+            else
+                return DescribeReversed(text, value);
         }
 
 
@@ -142,31 +144,8 @@ namespace Assets.Utils
             return Positive(text);
         }
 
-        public static string Describe(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
-        {
-            var text = "";
 
-            if (bonusType == BonusType.Multiplicative)
-                text = $"Multiplied by \n{bonusName}: {value}";
-            else
-                text += $"{bonusName}: {Format.Sign(value)}{dimension}";
-
-            if (!flipColors)
-                return DescribeNormally(text, value);
-            else
-                return DescribeReversed(text, value);
-        }
-
-        public static string Describe(BonusDescription bonus, bool flipColors)
-        {
-            return Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
-        }
-
-        public static string Describe(BonusDescription bonus)
-        {
-            return Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
-        }
-
+        // TODO used once
         public static string PositiveOrNegative(long value)
         {
             if (value > 0)
@@ -189,15 +168,5 @@ namespace Assets.Utils
             return Negative(Format.SignMinified(value));
         }
 
-        public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")
-        {
-            if (value == 0)
-                return Neutral(neutralText);
-
-            if (value > 0)
-                return Positive(positiveText);
-
-            return Negative(negativeText);
-        }
     }
 }
