@@ -62,9 +62,9 @@ namespace Assets.Utils
             AddNewCooldown(gameContext, new CooldownUpgradeCorporateCulture(product.company.Id), duration);
         }
 
-        public static bool HasCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity product)
+        public static bool HasCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity company)
         {
-            return HasCooldown(gameContext, new CooldownUpgradeCorporateCulture(product.company.Id));
+            return HasCooldown(gameContext, new CooldownUpgradeCorporateCulture(company.company.Id));
         }
     }
 }
