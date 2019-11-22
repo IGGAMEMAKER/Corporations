@@ -52,6 +52,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
                     clients /= dumpingCompanies.Count();
                 else
                     clients *= p.branding.BrandPower / totalBrands;
+
                 MarketingUtils.AddClients(d, (long)(clients));
             }
         }

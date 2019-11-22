@@ -55,19 +55,24 @@ public class NicheTableView : View, IPointerEnterHandler
 
         RenderTimeToMarket();
         
-        // income
+        // 
         var profitLeader = NicheUtils.GetMostProfitableCompanyOnMarket(GameContext, niche);
-        var profit = profitLeader == null ? 0 : EconomyUtils.GetProfit(profitLeader, GameContext);
         
-        NicheSize.text = Format.MinifyMoney(profit);
-        NicheSize.color = Visuals.GetColorPositiveOrNegative(profit);
-
         // maintenance
         var biggestMaintenance = profitLeader == null ? 0 : EconomyUtils.GetCompanyMaintenance(profitLeader, GameContext);
         StartCapital.text = Format.MinifyMoney(biggestMaintenance);
 
         var myProfit = EconomyUtils.GetProfit(MyCompany, GameContext);
         StartCapital.color = Visuals.GetColorPositiveOrNegative(myProfit - biggestMaintenance);
+
+        // income
+        var profit = profitLeader == null ? 0 : EconomyUtils.GetProfit(profitLeader, GameContext);
+
+        var ROI = profitLeader == null ? 0 : (profit * 100 / biggestMaintenance);
+        
+        NicheSize.text = profitLeader == null ? "???" : ROI + "%";
+        NicheSize.color = Visuals.GetColorPositiveOrNegative(profit);
+
     }
 
     void RenderMarketName(NicheType nicheType)

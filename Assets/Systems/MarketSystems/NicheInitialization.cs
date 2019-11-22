@@ -146,9 +146,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         var baseCost = (int)monetisationType * (int)margin;
 
-        float value = Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
-
-        return value;
+        return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
     }
 
     float GetAdCost(long clientBatch, Monetisation monetisationType, NichePeriod nichePeriod, int nicheId)
@@ -179,7 +177,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     long GetBatchSize(AudienceSize audience, int nicheId)
     {
-        var repaymentPeriod = 20 * 12;
+        var repaymentPeriod = 20 * 12; // 20 years
         return Randomise((long)audience / repaymentPeriod, nicheId);
     }
 

@@ -63,8 +63,8 @@ namespace Assets.Utils
             return DescribeValueWithText(
                 value,
                 minified,
-                "0",
-                minified
+                minified,
+                "0"
                 );
             //if (value > 0)
             //    return Positive(Format.SignMinified(value));
