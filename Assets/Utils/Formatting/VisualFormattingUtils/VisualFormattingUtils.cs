@@ -45,7 +45,7 @@ namespace Assets.Utils
             return c;
         }
 
-        public static string DescribeValueWithText(long value, string positiveText, string negativeText, string neutralText = "")
+        public static string DescribeValueWithText(long value, string positiveText, string negativeText, string neutralText)
         {
             if (value == 0)
                 return Neutral(neutralText);

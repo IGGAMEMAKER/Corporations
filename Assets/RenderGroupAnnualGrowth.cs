@@ -34,7 +34,7 @@ public class RenderGroupAnnualGrowth : UpgradedParameterView
         var relativeGrowthText = Format.Sign(growthRelative); // Visuals.Colorize(, color);
 
         var absoluteGrowthText = (isGrowth ? "+" : "") + Format.MinifyMoney(growthAbsolute); // Visuals.Colorize(, color);
-        var change = Visuals.DescribeValueWithText(growthAbsolute, "growth" , "loss");
+        var change = Visuals.DescribeValueWithText(growthAbsolute, "growth" , "loss", "");
 
         return $"{absoluteGrowthText} {change} ({relativeGrowthText}%)";
     }
