@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class RenderGroupAnnualGrowth : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {

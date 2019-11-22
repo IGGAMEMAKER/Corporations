@@ -2,14 +2,14 @@
 {
     public static partial class Visuals
     {
-        public static string RenderBonus(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
+        public static string RenderBonus(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType, bool minifyValue)
         {
             var text = "";
 
             if (bonusType == BonusType.Multiplicative)
                 text = $"Multiplied by \n{bonusName}: {value}";
             else
-                text += $"{bonusName}: {Format.Sign(value)}{dimension}";
+                text = $"{bonusName}: {Format.Sign(value, minifyValue)}{dimension}";
 
 
 
@@ -29,6 +29,7 @@
 
             return Negative(text);
         }
+
         private static string DescribeReversed(string text, long value)
         {
             if (value == 0)
@@ -39,6 +40,5 @@
 
             return Positive(text);
         }
-
     }
 }

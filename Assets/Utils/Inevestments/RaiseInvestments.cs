@@ -25,7 +25,7 @@
                 description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest",
-                "They will not invest"
+                "They almost want to invest"
             );
 
             return title;

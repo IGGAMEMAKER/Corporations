@@ -26,14 +26,12 @@ namespace Assets.Utils
             return "" + shortened + litera;
         }
 
-        public static string Sign(long value)
+        public static string Sign(long value, bool minify = false)
         {
-            return value > 0 ? $"+{value}" : value.ToString();
-        }
+            if (minify)
+                return (value > 0 ? "+" : "") + Minify(value);
 
-        public static string SignMinified(long value)
-        {
-            return (value > 0 ? "+" : "") + Minify(value);
+            return value > 0 ? $"+{value}" : value.ToString();
         }
 
         public static string Money<T>(T value)

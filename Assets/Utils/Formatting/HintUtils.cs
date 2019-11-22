@@ -146,7 +146,7 @@ public class BonusContainer
 
             var text = "";
 
-            text = Visuals.RenderBonus(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType);
+            text = Visuals.RenderBonus(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
 
             str.AppendLine(text);
         }

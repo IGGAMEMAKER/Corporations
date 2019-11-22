@@ -26,9 +26,9 @@ namespace Assets.Utils
             return $"<color={colorHTML}>{text}</color>";
         }
 
-        public static string Positive(string text) => Colorize(text, VisualConstants.COLOR_POSITIVE);
-        public static string Neutral(string text) => Colorize(text, VisualConstants.COLOR_NEUTRAL);
-        public static string Negative(string text) => Colorize(text, VisualConstants.COLOR_NEGATIVE);
+        public static string Positive(string text)  => Colorize(text, VisualConstants.COLOR_POSITIVE);
+        public static string Neutral(string text)   => Colorize(text, VisualConstants.COLOR_NEUTRAL);
+        public static string Negative(string text)  => Colorize(text, VisualConstants.COLOR_NEGATIVE);
 
         // TODO used twice in same place
         public static Color GetColorPositiveOrNegative(long value)
@@ -58,13 +58,21 @@ namespace Assets.Utils
 
         public static string PositiveOrNegativeMinified(long value)
         {
-            if (value > 0)
-                return Positive(Format.SignMinified(value));
+            var minified = Format.Sign(value, true);
 
-            if (value == 0)
-                return "0";
+            return DescribeValueWithText(
+                value,
+                minified,
+                "0",
+                minified
+                );
+            //if (value > 0)
+            //    return Positive(Format.SignMinified(value));
 
-            return Negative(Format.SignMinified(value));
+            //if (value == 0)
+            //    return "0";
+
+            //return Negative(Format.SignMinified(value));
         }
 
     }
