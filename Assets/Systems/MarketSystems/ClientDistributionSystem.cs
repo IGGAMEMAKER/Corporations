@@ -31,18 +31,29 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     void ChurnUsers(GameEntity[] products, GameEntity niche)
     {
-        var clientContainers = niche.nicheClientsContainer.Clients;
+        //var clientContainers = niche.nicheClientsContainer.Clients;
 
         var dumpingCompanies = products.Where(p => p.isDumping);
+
+        var totalBrands = dumpingCompanies.Sum(p => p.branding.BrandPower);
 
         for (var i = 0; i < products.Length; i++)
         {
             var p = products[i];
 
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
-
-            var segId = p.productPositioning.Positioning;
             MarketingUtils.AddClients(p, -churnClients);
+
+            // send churn users to dumping companies
+            foreach (var d in dumpingCompanies)
+            {
+                float clients = churnClients;
+                if (totalBrands == 0)
+                    clients /= dumpingCompanies.Count();
+                else
+                    clients = p.branding.BrandPower / totalBrands;
+                MarketingUtils.AddClients(d, (long)(clients));
+            }
         }
     }
 
