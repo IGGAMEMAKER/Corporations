@@ -21,7 +21,7 @@
         {
             var description = GetInvestorOpinionBonus(gameContext, company, investor);
 
-            string title = Visuals.Describe(
+            string title = Visuals.DescribeValueWithText(
                 description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest"

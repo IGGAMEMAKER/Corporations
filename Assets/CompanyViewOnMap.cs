@@ -48,7 +48,7 @@ public class CompanyViewOnMap : View
         {
             var profit = EconomyUtils.GetProfit(GameContext, company.company.Id);
 
-            Profitability.text = Visuals.Describe(profit, "$", "$", "");
+            Profitability.text = Visuals.DescribeValueWithText(profit, "$", "$", "");
             Profitability.GetComponent<Hint>().SetHint(
                 profit > 0 ?
                 Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :

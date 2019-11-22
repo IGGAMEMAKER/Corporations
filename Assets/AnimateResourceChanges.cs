@@ -56,7 +56,18 @@ public class AnimateResourceChanges : View
             val.transform.localPosition = new Vector3(25f + offset, 0, 0);
 
             val.AddComponent<AnimateResourceChange>();
-            val.GetComponent<Text>().text = Visuals.PositiveOrNegative(change);
+            val.GetComponent<Text>().text = PositiveOrNegative(change);
         }
+    }
+
+    public static string PositiveOrNegative(long value)
+    {
+        if (value > 0)
+            return Visuals.Positive(Visuals.Sign(value));
+
+        if (value == 0)
+            return "";
+
+        return Visuals.Negative(value.ToString());
     }
 }

@@ -15,7 +15,7 @@ namespace Assets.Utils
             return "#" + ToHex(c.r) + ToHex(c.g) + ToHex(c.b);
         }
 
-        static string ToHex(float col)
+        private static string ToHex(float col)
         {
             return ((int)(col * 255)).ToString("X2"); // ("X2");
         }
@@ -92,19 +92,9 @@ namespace Assets.Utils
         internal static string Sign(long val) => Format.Sign(val);
 
 
-        public static string Describe(BonusDescription bonus, bool flipColors) => Describe(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
-        public static string Describe(BonusDescription bonus) => Describe(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
-        public static string Describe(long value, string positiveText, string negativeText, string neutralText = "")
-        {
-            if (value == 0)
-                return Neutral(neutralText);
-
-            if (value > 0)
-                return Positive(positiveText);
-
-            return Negative(negativeText);
-        }
-        public static string Describe(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
+        public static string RenderBonus(BonusDescription bonus, bool flipColors)  => RenderBonus(bonus.Name, bonus.Value, bonus.Dimension, flipColors, bonus.BonusType);
+        public static string RenderBonus(BonusDescription bonus)                   => RenderBonus(bonus.Name, bonus.Value, bonus.Dimension, false, bonus.BonusType);
+        public static string RenderBonus(string bonusName, long value, string dimension, bool flipColors, BonusType bonusType)
         {
             var text = "";
 
@@ -121,8 +111,19 @@ namespace Assets.Utils
                 return DescribeReversed(text, value);
         }
 
+        public static string DescribeValueWithText(long value, string positiveText, string negativeText, string neutralText = "")
+        {
+            if (value == 0)
+                return Neutral(neutralText);
 
-        static string DescribeNormally(string text, long value)
+            if (value > 0)
+                return Positive(positiveText);
+
+            return Negative(negativeText);
+        }
+
+
+        private static string DescribeNormally(string text, long value)
         {
             if (value == 0)
                 return Neutral(text);
@@ -133,7 +134,7 @@ namespace Assets.Utils
             return Negative(text);
         }
 
-        static string DescribeReversed(string text, long value)
+        private static string DescribeReversed(string text, long value)
         {
             if (value == 0)
                 return Neutral(text);
@@ -142,19 +143,6 @@ namespace Assets.Utils
                 return Negative(text);
 
             return Positive(text);
-        }
-
-
-        // TODO used once
-        public static string PositiveOrNegative(long value)
-        {
-            if (value > 0)
-                return Positive(Sign(value));
-
-            if (value == 0)
-                return "";
-
-            return Negative(value.ToString());
         }
 
         public static string PositiveOrNegativeMinified(long value)
