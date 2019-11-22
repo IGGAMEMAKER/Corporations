@@ -83,36 +83,17 @@ public partial class ProductInitializerSystem : IInitializeSystem
         Debug.Log("INI: " + s);
     }
 
-    void PlayAs(string companyName)
-    {
-        var company = CompanyUtils.GetCompanyByName(GameContext, companyName);
+    void PlayAs(string companyName) => PlayAs(CompanyUtils.GetCompanyByName(GameContext, companyName));
+    void PlayAs(int companyId)      => PlayAs(CompanyUtils.GetCompanyById(GameContext, companyId));
+    void PlayAs(GameEntity company) => CompanyUtils.PlayAs(company, GameContext);
 
-        PlayAs(company);
-    }
 
-    void PlayAs(int companyId)
-    {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        PlayAs(company);
-    }
-
-    void PlayAs(GameEntity company)
-    {
-        CompanyUtils.PlayAs(company, GameContext);
-    }
-
+    void AddCash(int companyId, long money) => AddCash(CompanyUtils.GetCompanyById(GameContext, companyId), money);
     void AddCash(GameEntity company, long money)
     {
         CompanyUtils.SetResources(company, new Assets.Classes.TeamResource(1000000000));
     }
 
-    void AddCash(int companyId, long money)
-    {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-
-        AddCash(company, money);
-    }
 
     void SetSpheresOfInfluence()
     {
@@ -177,6 +158,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         return CompanyUtils.GenerateHoldingCompany(GameContext, name).company.Id;
     }
 
+    void AttachToHolding(int parent, GameEntity child) => AttachToHolding(parent, child.company.Id);
     void AttachToHolding(int parent, int child)
     {
         CompanyUtils.AttachToGroup(GameContext, parent, child);
@@ -188,10 +170,6 @@ public partial class ProductInitializerSystem : IInitializeSystem
             CompanyUtils.AddFocusNiche(c.product.Niche, p, GameContext);
     }
 
-    void AttachToHolding(int parent, GameEntity child)
-    {
-        AttachToHolding(parent, child.company.Id);
-    }
 
     void AddShareholder(int companyId, int investorId, int shares)
     {
