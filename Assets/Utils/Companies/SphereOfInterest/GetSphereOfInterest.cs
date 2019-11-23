@@ -32,10 +32,6 @@ namespace Assets.Utils
             return IsInSphereOfInterest(company, interestingCompany.product.Niche);
         }
 
-        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
-        {
-            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
-        }
 
 
         public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company, GameContext gameContext)
@@ -78,9 +74,17 @@ namespace Assets.Utils
             company.ReplaceCompanyFocus(company.companyFocus.Niches, industries);
         }
 
+
+
+
         internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             return GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
+        }
+
+        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
+        {
+            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
         }
     }
 }

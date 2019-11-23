@@ -1,9 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Linq;
-using UnityEngine;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
@@ -19,20 +14,15 @@ namespace Assets.Utils
 
             var share = 100 * MarketingUtils.GetClients(product) / clients;
 
-            //Debug.Log("GetMarketShareOf " + product.company.Name + " : " + share);
-
             return share;
         }
 
         internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
-            var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType);
-
             long share = 0;
-
             long clients = 0;
 
-            foreach (var p in products)
+            foreach (var p in NicheUtils.GetProductsOnMarket(gameContext, nicheType))
             {
                 var cli = MarketingUtils.GetClients(p);
                 share += GetControlInCompany(group, p, gameContext) * cli;
@@ -44,8 +34,6 @@ namespace Assets.Utils
                 return 0;
 
             return share / clients;
-
-            //return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
         }
 
         public static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
