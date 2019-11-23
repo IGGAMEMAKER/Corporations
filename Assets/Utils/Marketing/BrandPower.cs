@@ -1,4 +1,4 @@
-﻿using Assets.Classes;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -25,13 +25,38 @@ namespace Assets.Utils
 
             var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 3;
 
+            var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
+
             var BrandingChangeBonus = new BonusContainer("Brand power change")
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
-                .AppendAndHideIfZero("Started Ad Campaign", isMarketingAggressively ? 2 : 0)
+                .Append("Partnerships", (int)partnershipBonuses)
+                .AppendAndHideIfZero("Aggressive marketing", isMarketingAggressively ? 2 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 5 : 0);
 
             return BrandingChangeBonus;
+        }
+
+        private static float GetPartnershipBonuses(GameEntity product, GameContext gameContext)
+        {
+            var partners = NicheUtils.GetProductsOnMarket(gameContext, product);
+            var partnersInSameIndustry = partners
+                .Where(p =>
+                NicheUtils.GetIndustry(p.product.Niche, gameContext) ==
+                NicheUtils.GetIndustry(product.product.Niche, gameContext)
+                );
+
+
+            float value = 0;
+            foreach (var p in partnersInSameIndustry)
+            {
+                var marketShare = CompanyUtils.GetMarketShareOfProductCompany(product, gameContext);
+                var marketSize = NicheUtils.GetMarketRating(gameContext, product.product.Niche);
+                
+                value += marketShare * marketSize;
+            }
+
+            return value;
         }
     }
 }

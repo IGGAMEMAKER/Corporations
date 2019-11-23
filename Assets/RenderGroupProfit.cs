@@ -23,6 +23,7 @@ public class RenderGroupProfit : UpgradedParameterView
         var profit = EconomyUtils.GetProfit(c, GameContext);
         var formattedMoney = Format.Money(profit);
 
-        return $"* {c.company.Name}: {Visuals.DescribeValueWithText(profit, "+" + formattedMoney, formattedMoney, "0")}";
+        var describedProfit = Visuals.DescribeValueWithText(profit, "+" + formattedMoney, formattedMoney, "0");
+        return $"* {c.company.Name}: {describedProfit}";
     }
 }

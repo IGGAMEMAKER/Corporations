@@ -108,6 +108,26 @@ namespace Assets.Utils
 
 
 
+        internal static long GetMarketShareOfProductCompany(GameEntity product, GameContext gameContext)
+        {
+            var products = NicheUtils.GetProductsOnMarket(gameContext, product.product.Niche);
+
+            long clients = MarketingUtils.GetClients(product);
+
+            long totalClients = 0;
+
+            foreach (var p in products)
+            {
+                var cli = MarketingUtils.GetClients(p);
+
+                totalClients += cli;
+            }
+
+            if (totalClients == 0)
+                return 0;
+
+            return clients / totalClients;
+        }
         internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType);
