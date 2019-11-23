@@ -50,10 +50,10 @@ namespace Assets.Utils
             float value = 0;
             foreach (var p in partnersInSameIndustry)
             {
-                var marketShare = CompanyUtils.GetMarketShareOfProductCompany(product, gameContext);
+                var marketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
                 var marketSize = NicheUtils.GetMarketRating(gameContext, product.product.Niche);
                 
-                value += marketShare * marketSize;
+                value += marketShare * marketSize / 100f;
             }
 
             return Mathf.Clamp(value, 0, 1.5f);

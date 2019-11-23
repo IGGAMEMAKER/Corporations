@@ -32,7 +32,10 @@ namespace Assets.Utils
             return IsInSphereOfInterest(company, interestingCompany.product.Niche);
         }
 
-
+        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
+        {
+            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
+        }
 
 
         public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company, GameContext gameContext)
@@ -78,95 +81,6 @@ namespace Assets.Utils
         internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             return GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
-        }
-
-
-
-        internal static long GetMarketShareOfCompanyMultipliedByHundred(GameEntity product, GameContext gameContext)
-        {
-            long clients = 0;
-
-            foreach (var p in NicheUtils.GetProductsOnMarket(gameContext, product))
-                clients += MarketingUtils.GetClients(p);
-
-            if (clients == 0)
-                return 0;
-
-            var share = 100 * MarketingUtils.GetClients(product) / clients;
-
-            //Debug.Log("GetMarketShareOf " + product.company.Name + " : " + share);
-
-            return share;
-        }
-
-
-        
-        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
-        {
-            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
-        }
-
-
-
-        internal static long GetMarketShareOfProductCompany(GameEntity product, GameContext gameContext)
-        {
-            var products = NicheUtils.GetProductsOnMarket(gameContext, product.product.Niche);
-
-            long clients = MarketingUtils.GetClients(product);
-
-            long totalClients = 0;
-
-            foreach (var p in products)
-            {
-                var cli = MarketingUtils.GetClients(p);
-
-                totalClients += cli;
-            }
-
-            if (totalClients == 0)
-                return 0;
-
-            return clients / totalClients;
-        }
-
-        internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
-        {
-            var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType);
-
-            long share = 0;
-
-            long clients = 0;
-
-            foreach (var p in products)
-            {
-                var cli = MarketingUtils.GetClients(p);
-                share += GetControlInCompany(group, p, gameContext) * cli;
-
-                clients += cli;
-            }
-
-            if (clients == 0)
-                return 0;
-
-            return share / clients;
-
-            //return HasCompanyOnMarket(myCompany, nicheType, gameContext) ? 100 / players : 0;
-        }
-
-        public static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
-        {
-            int shares = 0;
-
-            foreach (var daughter in GetDaughterCompanies(gameContext, controlling.company.Id))
-            {
-                if (daughter.company.Id == holding.company.Id)
-                    shares += GetShareSize(gameContext, holding.company.Id, controlling.shareholder.Id);
-
-                if (!daughter.hasProduct)
-                    shares += GetControlInCompany(daughter, holding, gameContext);
-            }
-
-            return shares;
         }
     }
 }
