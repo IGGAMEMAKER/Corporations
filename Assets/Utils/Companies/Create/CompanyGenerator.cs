@@ -8,8 +8,9 @@ namespace Assets.Utils
     {
         public static GameEntity CreateProduct(GameContext context, GameEntity company, NicheType niche)
         {
-            // positioning
             company.AddProduct(niche, 0);
+
+            // positioning
             int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
             company.AddProductPositioning(Random.Range(0, positionings));
 
