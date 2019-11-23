@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseClass : MonoBehaviour
 {
+    // data
     public static GameContext GameContext => Contexts.sharedInstance.game;
 
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
@@ -31,7 +32,7 @@ public class BaseClass : MonoBehaviour
 
 
 
-
+    // GameObjects
     public bool Contains<T>()
     {
         return gameObject.GetComponent<T>() != null;
