@@ -29,8 +29,8 @@
 
             return new BonusContainer("Audience growth")
                 .SetDimension("%")
-                .Append("Marketing Financing", marketingFinancing)
                 .Append("Market state", marketState)
+                .Append("Marketing Financing", marketingFinancing)
                 .Multiply($"Brand strength ({brand})", brandModifier)
                 .MultiplyAndHideIfOne("Is Leader", innovationMultiplier)
                 ;
