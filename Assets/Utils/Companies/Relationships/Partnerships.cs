@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -6,13 +8,10 @@ namespace Assets.Utils
     {
         public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, bool notifyPlayer = false)
         {
-            if (!requester.isIndependentCompany ||
-                !acceptor.isIndependentCompany)
+            if (!IsCanBePartnersTheoretically(requester, acceptor))
                 return;
 
-            // have partnership already
-            if (requester.partnerships.Companies.Contains(acceptor.company.Id) ||
-                acceptor.partnerships.Companies.Contains(requester.company.Id))
+            if (IsHaveStrategicPartnership(requester, acceptor))
                 return;
 
             var maxPartnerships = 3;
@@ -34,6 +33,49 @@ namespace Assets.Utils
 
             //if (notifyPlayer)
             //    NotifyAboutPartnershipResponse()
+        }
+
+        public static bool IsHaveStrategicPartnership(GameEntity c1, GameEntity c2)
+        {
+            return
+                c1.partnerships.Companies.Contains(c2.company.Id) ||
+                c2.partnerships.Companies.Contains(c1.company.Id);
+        }
+
+        public static bool IsCanBePartnersTheoretically(GameEntity requester, GameEntity acceptor)
+        {
+            // self partnering :)
+            if (requester.company.Id == acceptor.company.Id)
+                return false;
+
+            if (!requester.isIndependentCompany ||
+                !acceptor.isIndependentCompany)
+                return false;
+
+            return true;
+        }
+
+        public static bool IsHaveIntersectingMarketsOrProducts(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        {
+            var isIntersectingMarkets = requester.companyFocus.Niches.Intersect((acceptor.companyFocus.Niches)).Count() > 0;
+
+            var requesterMarkets = GetParticipatingMarkets(requester, gameContext);
+            var acceptorMarkets = GetParticipatingMarkets(acceptor, gameContext);
+
+            var isIntersectingProducts = requesterMarkets.Intersect(acceptorMarkets).Count() > 0;
+
+            return isIntersectingMarkets || isIntersectingProducts;
+        }
+
+
+        public static NicheType[] GetParticipatingMarkets(GameEntity company, GameContext gameContext)
+        {
+            if (company.hasProduct)
+                return new NicheType[1] { company.product.Niche };
+
+            var daughters = GetDaughterCompanies(gameContext, company.company.Id);
+
+            return daughters.Where(d => d.hasProduct).Select(d => d.product.Niche).ToArray();
         }
     }
 }
