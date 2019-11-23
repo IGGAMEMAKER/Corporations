@@ -34,15 +34,6 @@ namespace Assets.Utils
 
 
 
-        public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company, GameContext gameContext)
-        {
-            var focus = company.companyFocus;
-            var niches = focus.Niches.Remove(nicheType);
-
-            NotifyAboutCompanyFocusChange(gameContext, company.company.Id, false, nicheType);
-
-            company.ReplaceCompanyFocus(focus.Niches, focus.Industries);
-        }
 
         public static void AddFocusNiche(NicheType nicheType, GameEntity company, GameContext gameContext)
         {
@@ -57,11 +48,6 @@ namespace Assets.Utils
             company.ReplaceCompanyFocus(niches, company.companyFocus.Industries);
         }
 
-        public static void NotifyAboutCompanyFocusChange(GameContext gameContext, int companyId, bool addedOrRemoved, NicheType nicheType)
-        {
-            //NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyFocusChange(companyId, addedOrRemoved, nicheType));
-        }
-
         public static void AddFocusIndustry(IndustryType industryType, GameEntity company)
         {
             var industries = company.companyFocus.Industries;
@@ -74,7 +60,20 @@ namespace Assets.Utils
             company.ReplaceCompanyFocus(company.companyFocus.Niches, industries);
         }
 
+        public static void RemoveFromSphereOfInfluence(NicheType nicheType, GameEntity company, GameContext gameContext)
+        {
+            var focus = company.companyFocus;
+            var niches = focus.Niches.Remove(nicheType);
 
+            NotifyAboutCompanyFocusChange(gameContext, company.company.Id, false, nicheType);
+
+            company.ReplaceCompanyFocus(focus.Niches, focus.Industries);
+        }
+
+        public static void NotifyAboutCompanyFocusChange(GameContext gameContext, int companyId, bool addedOrRemoved, NicheType nicheType)
+        {
+            //NotificationUtils.AddNotification(gameContext, new NotificationMessageCompanyFocusChange(companyId, addedOrRemoved, nicheType));
+        }
 
 
         internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
