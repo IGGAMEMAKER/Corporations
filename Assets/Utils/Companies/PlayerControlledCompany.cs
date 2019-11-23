@@ -5,11 +5,6 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static GameEntity GetAnyOfControlledCompanies(GameContext context)
-        {
-            return GetPlayerControlledProductCompany(context);
-        }
-
         public static GameEntity[] GetProductsNotControlledByPlayer(GameContext context)
         {
             return context.GetEntities(GameMatcher.AllOf(GameMatcher.Product).NoneOf(GameMatcher.ControlledByPlayer));
