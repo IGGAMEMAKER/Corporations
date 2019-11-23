@@ -133,6 +133,12 @@ public class CompanyGoalComponent : IComponent
     public long MeasurableGoal;
 }
 
+// only independent companies have that
+public class PartnershipsComponent : IComponent
+{
+    public List<int> Companies;
+}
+
 [Game]
 public class CompanyFocusComponent : IComponent
 {

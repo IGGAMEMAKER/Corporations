@@ -128,6 +128,7 @@ namespace Assets.Utils
 
             return clients / totalClients;
         }
+
         internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType);

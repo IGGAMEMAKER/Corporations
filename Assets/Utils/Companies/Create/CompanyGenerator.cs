@@ -52,6 +52,7 @@ namespace Assets.Utils
             e.AddCompany(id, name, companyType);
             e.isAlive = true;
             e.isIndependentCompany = true;
+            e.AddPartnerships(new List<int>());
 
 
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));

@@ -43,7 +43,7 @@
                 AddBrandPower(product, 20);
                 var flow = GetClientFlow(gameContext, product.product.Niche);
 
-                AddClients(product, 3 * flow);
+                AddClients(product, flow);
 
                 product.isRelease = true;
             }
