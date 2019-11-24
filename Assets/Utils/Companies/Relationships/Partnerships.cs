@@ -6,18 +6,30 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, bool notifyPlayer = false)
+        public static BonusContainer GetPartnerability(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
+            return new BonusContainer("Partnership possibility")
+                .AppendAndHideIfZero("Have competing products", IsHaveCompetingProducts(requester, acceptor, gameContext) ? -100 : 0)
+                .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
+                .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)
+                .Append("Partnership benefits", GetPartnershipBenefits(requester, acceptor))
+                ;
+        }
+
+        public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, GameContext gameContext, bool notifyPlayer = false)
+        {
+            // don't render buttons
             if (!IsCanBePartnersTheoretically(requester, acceptor))
                 return;
 
+            // don't render buttons
             if (IsHaveStrategicPartnership(requester, acceptor))
                 return;
 
-            var maxPartnerships = 3;
-            if (requester.partnerships.Companies.Count >= maxPartnerships ||
-                acceptor.partnerships.Companies.Count >= maxPartnerships)
+            if (IsHasTooManyPartnerships(requester) || IsHasTooManyPartnerships(acceptor))
                 return;
+
+
 
 
             var acceptorStrength = acceptor.branding.BrandPower;
@@ -31,14 +43,44 @@ namespace Assets.Utils
                 requester.partnerships.Companies.Add(acceptor.company.Id);
             }
 
-            //if (notifyPlayer)
-            //    NotifyAboutPartnershipResponse()
+            if (notifyPlayer)
+                NotifyAboutPartnershipResponse(requester, acceptor, gameContext);
+        }
+
+        public static int GetPartnershipBenefits(GameEntity requester, GameEntity acceptor)
+        {
+            var acceptorStrength = acceptor.branding.BrandPower;
+            var requesterStrength = requester.branding.BrandPower;
+
+            var equalityZone = 10;
+
+            return (int)(requesterStrength - acceptorStrength) + equalityZone;
+        }
+
+        public static void CancelStrategicPartnership(GameEntity requester, GameEntity acceptor)
+        {
+            acceptor.partnerships.Companies.RemoveAll(id => id == requester.company.Id);
+            requester.partnerships.Companies.RemoveAll(id => id == acceptor.company.Id);
+        }
+
+        public static void NotifyAboutPartnershipResponse(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        {
+            NotificationUtils.AddPopup(gameContext, new PopupMessageStrategicPartnership(requester.company.Id, acceptor.company.Id, true));
+        }
+
+
+        // validation
+        public static bool IsHasTooManyPartnerships(GameEntity company)
+        {
+            var maxPartnerships = 3;
+
+            return company.partnerships.Companies.Count >= maxPartnerships;
         }
 
         public static bool IsHaveStrategicPartnership(GameEntity c1, GameEntity c2)
         {
             return
-                c1.partnerships.Companies.Contains(c2.company.Id) ||
+                c1.partnerships.Companies.Contains(c2.company.Id) &&
                 c2.partnerships.Companies.Contains(c1.company.Id);
         }
 
@@ -55,18 +97,22 @@ namespace Assets.Utils
             return true;
         }
 
-        public static bool IsHaveIntersectingMarketsOrProducts(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        public static bool IsHaveCompetingProducts(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
-            var isIntersectingMarkets = requester.companyFocus.Niches.Intersect((acceptor.companyFocus.Niches)).Count() > 0;
-
             var requesterMarkets = GetParticipatingMarkets(requester, gameContext);
             var acceptorMarkets = GetParticipatingMarkets(acceptor, gameContext);
 
-            var isIntersectingProducts = requesterMarkets.Intersect(acceptorMarkets).Count() > 0;
+            var competingProducts = requesterMarkets.Intersect(acceptorMarkets);
 
-            return isIntersectingMarkets || isIntersectingProducts;
+            return competingProducts.Count() > 0;
         }
 
+        public static bool IsHaveIntersectingMarkets(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        {
+            var commonMarkets = requester.companyFocus.Niches.Intersect((acceptor.companyFocus.Niches));
+
+            return commonMarkets.Count() > 0;
+        }
 
         public static NicheType[] GetParticipatingMarkets(GameEntity company, GameContext gameContext)
         {
@@ -75,7 +121,10 @@ namespace Assets.Utils
 
             var daughters = GetDaughterCompanies(gameContext, company.company.Id);
 
-            return daughters.Where(d => d.hasProduct).Select(d => d.product.Niche).ToArray();
+            return daughters
+                .Where(d => d.hasProduct)
+                .Select(d => d.product.Niche)
+                .ToArray();
         }
     }
 }

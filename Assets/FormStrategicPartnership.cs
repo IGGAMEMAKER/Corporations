@@ -1,14 +1,11 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class FormStrategicPartnership : ToggleButtonController
 {
     public override void Execute()
     {
-        CompanyUtils.SendStrategicPartnershipRequest(MyCompany, SelectedCompany);
+        CompanyUtils.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, GameContext, true);
     }
 
     public override void ViewRender()

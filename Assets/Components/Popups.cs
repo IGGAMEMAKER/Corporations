@@ -13,7 +13,9 @@ public enum PopupType
     NewCorporation,
 
     InspirationToOpenMarket,
-    InterestToCompanyInOurSphereOfInfluence
+    InterestToCompanyInOurSphereOfInfluence,
+
+    StrategicPartnership
 }
 
 public class PopupMessage
@@ -29,6 +31,21 @@ public class PopupMessageCompanyClose : PopupMessage
     {
         this.companyId = companyId;
         PopupType = PopupType.CloseCompany;
+    }
+}
+
+public class PopupMessageStrategicPartnership : PopupMessage
+{
+    public int companyId;
+    public int companyId2;
+
+    // form = true, break = false
+    public PopupMessageStrategicPartnership(int companyId, int companyId2, bool form)
+    {
+        this.companyId = companyId;
+        this.companyId2 = companyId2;
+
+        PopupType = PopupType.StrategicPartnership;
     }
 }
 

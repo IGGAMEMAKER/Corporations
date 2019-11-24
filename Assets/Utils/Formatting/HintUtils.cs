@@ -83,7 +83,7 @@ public class BonusContainer
 
     public BonusContainer AppendAndHideIfZero(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
     public BonusContainer Append(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    public BonusContainer Append(BonusDescription bonus)
+    private BonusContainer Append(BonusDescription bonus)
     {
         bonus.BonusType = BonusType.Additive;
         bonusDescriptions.Add(bonus);
