@@ -130,7 +130,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     long GetBatchSize(AudienceSize audience, int nicheId, NicheType NicheType)
     {
-        var duration = 20 * 12d; // 20 years
+        var duration = 10 * 12; // 10 years
+
+        return (long)audience / duration;
 
         var monthlyGrowth = 1.04d;
 

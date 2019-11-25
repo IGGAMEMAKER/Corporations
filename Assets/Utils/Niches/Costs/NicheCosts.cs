@@ -32,6 +32,14 @@ namespace Assets.Utils
             if (state == NicheLifecyclePhase.Idle || state == NicheLifecyclePhase.Death)
                 return 0;
 
+            switch (state)
+            {
+                case NicheLifecyclePhase.Decay: return 0;
+                case NicheLifecyclePhase.Innovation: return 1f;
+                case NicheLifecyclePhase.Trending: return 1.5f;
+                case NicheLifecyclePhase.MassUse: return 1.6f;
+            }
+            return 1f;
             NicheLifecyclePhase phase = NicheLifecyclePhase.Innovation;
 
             float modifier = 0;
