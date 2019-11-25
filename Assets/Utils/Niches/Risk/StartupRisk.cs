@@ -2,23 +2,79 @@
 {
     public static partial class NicheUtils
     {
-        static Bonus GetRiskOnNiche(GameContext gameContext, NicheType nicheType)
+        static Bonus GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
-            int baseValue = Constants.RISKS_MONETISATION_MAX;
-            int demand = GetMarketDemandRisk(gameContext, nicheType);
-            int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
+            int marketDemand = GetMarketDemandRisk(gameContext, companyId);
+            int monetisation = GetMonetisationRisk(gameContext, companyId);
+            int competitors = GetCompetitionRisk(gameContext, companyId);
 
-            return new Bonus("Startup risk")
+            return new Bonus("Total risk")
                 .SetDimension("%")
-                .Append("Is not profitable", baseValue)
-                .Append("Niche demand risk", demand)
-                .Append("Competitors", competitors);
+                .Append("Niche demand risk", marketDemand)
+                //.Append("Competition risk", competitors)
+                .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 
-        public static int GetNewPlayerRiskOnNiche(GameContext gameContext, NicheType nicheType)
+        internal static int GetCompetitionRisk(GameContext gameContext, int companyId)
         {
-            // based on competitors level and amount
-            return 33;
+            var company = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return GetCompetitorsAmount(company, gameContext) * 5;
+        }
+
+        internal static long GetCompanyRisk(GameContext gameContext, int companyId)
+        {
+            return GetCompanyRiskBonus(gameContext, companyId).Sum();
+        }
+
+        public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)
+        {
+            return GetCompanyRiskBonus(gameContext, companyId).ToString(true);
+        }
+
+        public static int GetMonetisationRisk(GameContext gameContext, int companyId)
+        {
+            int num = Constants.RISKS_MONETISATION_MAX;
+
+            if (EconomyUtils.IsProfitable(gameContext, companyId))
+                num -= Constants.RISKS_MONETISATION_IS_PROFITABLE;
+
+            return num;
+        }
+
+
+        public static int GetMarketDemandRisk(GameContext gameContext, int companyId)
+        {
+            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            return GetMarketDemandRisk(gameContext, c.product.Niche);
+        }
+
+        public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
+        {
+            var phase = GetMarketState(gameContext, nicheType);
+
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Idle:
+                    return Constants.RISKS_DEMAND_MAX;
+
+                case NicheLifecyclePhase.Innovation:
+                    return Constants.RISKS_DEMAND_MAX / 2;
+
+                case NicheLifecyclePhase.Trending:
+                    return Constants.RISKS_DEMAND_MAX / 5;
+
+                case NicheLifecyclePhase.MassUse:
+                    return Constants.RISKS_DEMAND_MAX / 10;
+
+                case NicheLifecyclePhase.Decay:
+                    return Constants.RISKS_DEMAND_MAX / 2;
+
+                case NicheLifecyclePhase.Death:
+                default:
+                    return 100;
+            }
         }
 
         public static Risk ShowRiskStatus(long risk)
