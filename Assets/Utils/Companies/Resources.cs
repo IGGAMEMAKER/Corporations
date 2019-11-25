@@ -47,11 +47,9 @@ namespace Assets.Utils
             SetStartCapital(product, niche);
         }
 
-        public static bool IsEnoughResources(GameEntity company, long money)
-        {
-            return IsEnoughResources(company, new TeamResource(money));
-        }
 
+
+        public static bool IsEnoughResources(GameEntity company, long money) => IsEnoughResources(company, new TeamResource(money));
         public static bool IsEnoughResources(GameEntity company, TeamResource resource)
         {
             return company.companyResource.Resources.IsEnoughResources(resource);
