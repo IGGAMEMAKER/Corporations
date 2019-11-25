@@ -5,17 +5,9 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static void SpendResources(GameEntity company, long money)
-        {
-            SpendResources(company, new TeamResource(money));
-        }
-
+        public static void SpendResources(GameEntity company, long money) => SpendResources(company, new TeamResource(money));
         public static void SpendResources(GameEntity company, TeamResource resource)
         {
-            //if (company.company.Name == "Windows")
-            //{
-            //    Debug.Log("Spending: " + resource.ToString());
-            //}
             company.companyResource.Resources.Spend(resource);
 
             company.ReplaceCompanyResource(company.companyResource.Resources);
