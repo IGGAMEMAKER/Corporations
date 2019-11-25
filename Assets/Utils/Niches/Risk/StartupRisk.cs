@@ -15,22 +15,6 @@
                 .Append("Competitors", competitors);
         }
 
-        public static long GetStartupRiskOnNiche(GameContext gameContext, NicheType nicheType)
-        {
-            return GetRiskOnNiche(gameContext, nicheType).Sum();
-        }
-
-        public static string GetStartupRiskOnNicheDescription(GameContext gameContext, NicheType nicheType)
-        {
-            var bonusContainer = GetRiskOnNiche(gameContext, nicheType);
-
-            var risk = bonusContainer.Sum();
-
-            string text = ShowRiskStatus(risk).ToString();
-
-            return $"Current risk is {risk}%! ({text})" + bonusContainer.ToString(true);
-        }
-
         public static int GetNewPlayerRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             // based on competitors level and amount
