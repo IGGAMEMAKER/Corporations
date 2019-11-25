@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 
 
@@ -115,11 +114,3 @@ public class SegmentComponent : IComponent
     // int - level
     public int Level;
 }
-
-//[Game]
-//public class SegmentLeadersComponent : IComponent
-//{
-//    // int - companyId
-//    // -1 - no absolute leader
-//    public Dictionary<UserType, int> Leaders;
-//}

@@ -49,16 +49,5 @@ namespace Assets.Utils
 
             return e;
         }
-
-        // update
-        public static void PromoteNicheState(GameEntity niche)
-        {
-            var phase = GetMarketState(niche);
-
-            var next = GetNextPhase(phase);
-
-            var newDuration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, next);
-            niche.ReplaceNicheState(next, newDuration);
-        }
     }
 }
