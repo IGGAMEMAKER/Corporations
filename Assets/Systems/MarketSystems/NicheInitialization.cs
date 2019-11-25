@@ -131,13 +131,33 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return n;
     }
 
+    long GetBatchSize(AudienceSize audience, NicheDuration nicheDuration, int nicheId, GameEntity niche)
+    {
+        var repaymentPeriod = (int)nicheDuration;
+
+        var possibleMonthlyGrowth = 1.1d;
+
+        //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
+        var chisl = (long)audience * (1 - possibleMonthlyGrowth);
+        //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
+
+        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, repaymentPeriod));
+        //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
+
+
+        var batch = (chisl / znam);
+
+        Debug.Log($"Get batch size {niche.niche.NicheType}: {batch}");
+
+        return (long)batch;
+        //return Randomise((long)audience / repaymentPeriod, nicheId);
+    }
+
 
 
     private int GetTechCost(AppComplexity complexity, int nicheId)
     {
-        var baseCost = (int)complexity;
-
-        return (int)Randomise(baseCost, nicheId);
+        return (int)Randomise((int)complexity, nicheId);
     }
 
 
@@ -172,29 +192,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     long GetFullAudience(AudienceSize audienceSize, int nicheId)
     {
         return Randomise((long)audienceSize, nicheId);
-    }
-
-    long GetBatchSize(AudienceSize audience, NicheDuration nicheDuration, int nicheId, GameEntity niche)
-    {
-        var repaymentPeriod = (int)nicheDuration;
-
-        var possibleMonthlyGrowth = 1.1d;
-
-        //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
-        var chisl = (long)audience * (1 - possibleMonthlyGrowth);
-        //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
-
-        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, repaymentPeriod));
-        //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
-
-
-        var batch = (chisl / znam);
-
-        Debug.Log($"Get batch size {niche.niche.NicheType}: {batch}");
-
-        return (long)batch;
-        //return Randomise(Mathf.Pow(, nicheId);
-        //return Randomise((long)audience / repaymentPeriod, nicheId);
     }
 
 
