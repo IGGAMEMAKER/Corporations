@@ -48,7 +48,7 @@ public class MarketPotentialView : View
         var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
-        var speed = niche.nicheLifecycle.NicheChangeSpeed;
+        var speed = niche.nicheBaseProfile.Profile.NicheSpeed;
         //var iteration = (int)speed;
         //ChangeSpeed.text = $"{iteration} months";
 

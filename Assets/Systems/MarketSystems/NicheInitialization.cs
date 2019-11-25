@@ -95,13 +95,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         )
     {
         var nicheId = GetNicheId(nicheType);
-        var AppComplexity = settings.AppComplexity;
-        var ChangeSpeed = settings.NicheSpeed;
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
-        var clients = GetBatchSize(settings.AudienceSize, nicheId, GetNiche(nicheType));
-        var techCost = GetTechCost(AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-        var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
+        var clients = GetBatchSize(settings.AudienceSize, nicheId, nicheType);
+        var techCost = GetTechCost(settings.AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+        var adCosts = GetAdCost(clients, settings.MonetisationType, settings.NicheSpeed, nicheId);
 
 
         var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts);
@@ -124,29 +122,29 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, ChangeSpeed);
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth);
         n.ReplaceNicheBaseProfile(settings);
 
         return n;
     }
 
-    long GetBatchSize(AudienceSize audience, int nicheId, GameEntity niche)
+    long GetBatchSize(AudienceSize audience, int nicheId, NicheType NicheType)
     {
         var duration = 20 * 12; // 20 years
 
-        var possibleMonthlyGrowth = 1.05d;
+        var monthlyGrowth = 1.05d;
 
         //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
-        var chisl = (long)audience * (1 - possibleMonthlyGrowth);
+        var chisl = (long)audience * (1 - monthlyGrowth);
         //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
 
-        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, duration));
+        var znam = (1 - System.Math.Pow(monthlyGrowth, duration));
         //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
 
 
         var batch = (chisl / znam);
 
-        Debug.Log($"Get batch size {niche.niche.NicheType}: {batch}");
+        Debug.Log($"Get batch size {NicheType}: {batch}");
 
         return (long)batch;
         //return Randomise((long)audience / repaymentPeriod, nicheId);

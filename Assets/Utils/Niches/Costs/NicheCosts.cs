@@ -39,7 +39,7 @@ namespace Assets.Utils
             {
                 var duration = GetNichePeriodDurationInMonths(phase);
 
-                modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(phase), duration);
+                modifier += Mathf.Pow(GetMarketStateClientFlowModifier(phase), duration);
 
                 phase = GetNextPhase(phase);
             }
@@ -47,7 +47,7 @@ namespace Assets.Utils
             var maxDuration = GetNichePeriodDurationInMonths(state);
             var nicheDuration = niche.nicheState.Duration;
             var x = maxDuration - nicheDuration;
-            modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(state), x);
+            modifier += Mathf.Pow(GetMarketStateClientFlowModifier(state), x);
 
             Debug.Log(" Sum modifier =" + modifier);
 

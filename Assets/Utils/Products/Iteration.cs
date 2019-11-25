@@ -2,7 +2,7 @@
 {
     public static partial class ProductUtils
     {
-        public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheLifecycle.NicheChangeSpeed);
+        public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
         public static int GetBaseIterationTime(NichePeriod nicheChangeSpeed)
         {
             return 60;

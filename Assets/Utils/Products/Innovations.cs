@@ -47,7 +47,7 @@
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)
         {
-            var speed = niche.nicheLifecycle.NicheChangeSpeed;
+            var speed = niche.nicheBaseProfile.Profile.NicheSpeed;
             switch (speed)
             {
                 case NichePeriod.ThreeYears:
