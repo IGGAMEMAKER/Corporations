@@ -4,13 +4,7 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType)
-        {
-            var niche = GetNiche(gameContext, nicheType);
-
-            return IsPerspectiveNiche(niche);
-        }
-
+        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType) => IsPerspectiveNiche(GetNiche(gameContext, nicheType));
         public static bool IsPerspectiveNiche(GameEntity niche)
         {
             var phase = GetMarketState(niche);
