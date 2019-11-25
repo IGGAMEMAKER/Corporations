@@ -3,17 +3,16 @@ using System.Linq;
 using Assets.Utils;
 using Assets.Utils.Formatting;
 using Entitas;
-
-
+using UnityEngine;
 
 public enum NicheDuration
 {
     // duration in months
     Year = 12,
-    FiveYears = 60,
-    Decade = 120,
+    FiveYears = Year * 5,
+    Decade = Year * 10,
     TwoDecades = Decade * 2,
-    EntireGame = 12 * 50
+    EntireGame = Decade * 4
 }
 
 public enum NichePeriod
@@ -101,7 +100,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var ChangeSpeed = settings.NicheSpeed;
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
-        var clients = GetBatchSize(settings.AudienceSize, nicheId);
+        var clients = GetBatchSize(settings.AudienceSize, nicheDuration, nicheId, GetNiche(nicheType));
         var techCost = GetTechCost(AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
         var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
 
@@ -175,10 +174,27 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Randomise((long)audienceSize, nicheId);
     }
 
-    long GetBatchSize(AudienceSize audience, int nicheId)
+    long GetBatchSize(AudienceSize audience, NicheDuration nicheDuration, int nicheId, GameEntity niche)
     {
-        var repaymentPeriod = 20 * 12; // 20 years
-        return Randomise((long)audience / repaymentPeriod, nicheId);
+        var repaymentPeriod = (int)nicheDuration;
+
+        var possibleMonthlyGrowth = 1.1d;
+
+        //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
+        var chisl = (long)audience * (1 - possibleMonthlyGrowth);
+        //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
+
+        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, repaymentPeriod));
+        //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
+
+
+        var batch = (chisl / znam);
+
+        Debug.Log($"Get batch size {niche.niche.NicheType}: {batch}");
+
+        return (long)batch;
+        //return Randomise(Mathf.Pow(, nicheId);
+        //return Randomise((long)audience / repaymentPeriod, nicheId);
     }
 
 

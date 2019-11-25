@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
@@ -8,8 +10,9 @@
             var costs = niche.nicheCosts;
             var state = GetMarketState(niche);
 
+            var flowModifier  = GetClientFlowModifier(niche);
+
             var priceModifier = GetMarketStatePriceModifier(state);
-            var flowModifier  = GetMarketStateClientFlowModifier(state);
             var adModifier    = GetMarketStateAdCostModifier(state);
 
             return new NicheCostsComponent
@@ -18,11 +21,38 @@
                 AcquisitionCost  = costs.AcquisitionCost * adModifier,
                 TechCost         = costs.TechCost,
 
-                ClientBatch      = costs.ClientBatch * flowModifier,
+                ClientBatch      = (int)(costs.ClientBatch * flowModifier),
             };
         }
 
+        public static float GetClientFlowModifier(GameEntity niche)
+        {
+            var state = GetMarketState(niche);
 
+            if (state == NicheLifecyclePhase.Idle || state == NicheLifecyclePhase.Death)
+                return 0;
+
+            NicheLifecyclePhase phase = NicheLifecyclePhase.Innovation;
+
+            float modifier = 0;
+            while (phase != state)
+            {
+                var duration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, phase);
+
+                modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(phase), duration);
+
+                phase = GetNextPhase(phase);
+            }
+
+            var maxDuration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, state);
+            var nicheDuration = niche.nicheState.Duration;
+            var x = maxDuration - nicheDuration;
+            modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(state), x);
+
+            Debug.Log(" Sum modifier =" + modifier);
+
+            return modifier;
+        }
 
         // base marketing cost
         public static float GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(GetNiche(gameContext, nicheType));
