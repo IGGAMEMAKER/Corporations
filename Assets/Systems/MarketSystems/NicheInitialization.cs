@@ -132,7 +132,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         var duration = 20 * 12; // 20 years
 
-        var monthlyGrowth = 1.05d;
+        var monthlyGrowth = 1.04d;
 
         //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
         var chisl = (long)audience * (1 - monthlyGrowth);
