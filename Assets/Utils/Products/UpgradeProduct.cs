@@ -18,18 +18,16 @@ namespace Assets.Utils
         {
             var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
 
-            var segments = niche.segment.Segments;
+            var segments = niche.segment.Level;
 
             var demand = GetMarketDemand(niche);
             var newLevel = GetProductLevel(product);
 
             if (newLevel > demand)
             {
-                segments[UserType.Core] = newLevel;
-
                 MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
 
-                niche.ReplaceSegment(segments);
+                niche.ReplaceSegment(newLevel);
 
                 RemoveTechLeaders(product, gameContext);
                 product.isTechnologyLeader = true;
@@ -66,17 +64,16 @@ namespace Assets.Utils
                     upgrade = 0;
             }
 
-            var p = product.product;
-            product.ReplaceProduct(p.Niche, GetProductLevel(product) + upgrade);
+            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
 
             UpdateNicheSegmentInfo(product, gameContext);
 
-            if (!IgnoreCooldowns)
-            {
-                var duration = GetProductUpgradeIterationTime(gameContext, product);
+            if (IgnoreCooldowns)
+                return;
 
-                CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
-            }
+            var duration = GetProductUpgradeIterationTime(gameContext, product);
+
+            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }
     }
 }

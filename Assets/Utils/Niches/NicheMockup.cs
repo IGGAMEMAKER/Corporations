@@ -45,12 +45,7 @@ namespace Assets.Utils
 
             e.AddNicheClientsContainer(new Dictionary<int, long>());
             e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
-
-
-            e.AddSegment(new Dictionary<UserType, int>
-            {
-                [UserType.Core] = 0,
-            });
+            e.AddSegment(0);
 
             return e;
         }

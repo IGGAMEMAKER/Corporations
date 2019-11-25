@@ -16,91 +16,88 @@ public static class GameComponentsLookup {
     public const int AnyCompanyListener = 5;
     public const int AnyDateListener = 6;
     public const int AnyNotificationsListener = 7;
-    public const int AnySegmentListener = 8;
-    public const int AnyShareholdersListener = 9;
-    public const int AnyTargetDateListener = 10;
-    public const int AnyTechnologyLeaderListener = 11;
-    public const int Branding = 12;
-    public const int CEO = 13;
-    public const int Company = 14;
-    public const int CompanyFocus = 15;
-    public const int CompanyGoal = 16;
-    public const int CompanyGoalListener = 17;
-    public const int CompanyListener = 18;
-    public const int CompanyPhase = 19;
-    public const int CompanyResource = 20;
-    public const int CompanyResourceListener = 21;
-    public const int ControlledByPlayer = 22;
-    public const int CooldownContainer = 23;
-    public const int Cooldowns = 24;
-    public const int CorporateCulture = 25;
-    public const int Crunching = 26;
-    public const int CrunchingListener = 27;
-    public const int Date = 28;
-    public const int Dead = 29;
-    public const int Dumping = 30;
-    public const int EventContainer = 31;
-    public const int EventContainerListener = 32;
-    public const int Expertise = 33;
-    public const int Financing = 34;
-    public const int Follow = 35;
-    public const int Following = 36;
-    public const int HumanCompanyRelationship = 37;
-    public const int Human = 38;
-    public const int HumanSkills = 39;
-    public const int IndependentCompany = 40;
-    public const int Industry = 41;
-    public const int InvestmentProposals = 42;
-    public const int InvestmentRounds = 43;
-    public const int ManagingCompany = 44;
-    public const int Marketing = 45;
-    public const int MarketingListener = 46;
-    public const int Menu = 47;
-    public const int MenuListener = 48;
-    public const int MetricsHistory = 49;
-    public const int NavigationHistory = 50;
-    public const int NicheBaseProfile = 51;
-    public const int NicheClientsContainer = 52;
-    public const int Niche = 53;
-    public const int NicheCosts = 54;
-    public const int NicheLifecycle = 55;
-    public const int NicheSegments = 56;
-    public const int NicheState = 57;
-    public const int Notifications = 58;
-    public const int OnSales = 59;
-    public const int Partnerships = 60;
-    public const int Player = 61;
-    public const int Popup = 62;
-    public const int PreviousAcquisitionOffers = 63;
-    public const int Product = 64;
-    public const int ProductImprovements = 65;
-    public const int ProductListener = 66;
-    public const int ProductPositioning = 67;
-    public const int PublicCompany = 68;
-    public const int Release = 69;
-    public const int ReleaseListener = 70;
-    public const int Reports = 71;
-    public const int Research = 72;
-    public const int Segment = 73;
-    public const int SegmentLeaders = 74;
-    public const int SegmentListener = 75;
-    public const int Shareholder = 76;
-    public const int Shareholders = 77;
-    public const int ShareholdersListener = 78;
-    public const int TargetDate = 79;
-    public const int Task = 80;
-    public const int TaskManager = 81;
-    public const int Team = 82;
-    public const int TeamListener = 83;
-    public const int TechnologyLeader = 84;
-    public const int TechnologyLeaderListener = 85;
-    public const int Test = 86;
-    public const int TimerRunning = 87;
-    public const int Tutorial = 88;
-    public const int TutorialListener = 89;
-    public const int Worker = 90;
+    public const int AnyShareholdersListener = 8;
+    public const int AnyTargetDateListener = 9;
+    public const int AnyTechnologyLeaderListener = 10;
+    public const int Branding = 11;
+    public const int CEO = 12;
+    public const int Company = 13;
+    public const int CompanyFocus = 14;
+    public const int CompanyGoal = 15;
+    public const int CompanyGoalListener = 16;
+    public const int CompanyListener = 17;
+    public const int CompanyPhase = 18;
+    public const int CompanyResource = 19;
+    public const int CompanyResourceListener = 20;
+    public const int ControlledByPlayer = 21;
+    public const int CooldownContainer = 22;
+    public const int Cooldowns = 23;
+    public const int CorporateCulture = 24;
+    public const int Crunching = 25;
+    public const int CrunchingListener = 26;
+    public const int Date = 27;
+    public const int Dead = 28;
+    public const int Dumping = 29;
+    public const int EventContainer = 30;
+    public const int EventContainerListener = 31;
+    public const int Expertise = 32;
+    public const int Financing = 33;
+    public const int Follow = 34;
+    public const int Following = 35;
+    public const int HumanCompanyRelationship = 36;
+    public const int Human = 37;
+    public const int HumanSkills = 38;
+    public const int IndependentCompany = 39;
+    public const int Industry = 40;
+    public const int InvestmentProposals = 41;
+    public const int InvestmentRounds = 42;
+    public const int ManagingCompany = 43;
+    public const int Marketing = 44;
+    public const int MarketingListener = 45;
+    public const int Menu = 46;
+    public const int MenuListener = 47;
+    public const int MetricsHistory = 48;
+    public const int NavigationHistory = 49;
+    public const int NicheBaseProfile = 50;
+    public const int NicheClientsContainer = 51;
+    public const int Niche = 52;
+    public const int NicheCosts = 53;
+    public const int NicheLifecycle = 54;
+    public const int NicheSegments = 55;
+    public const int NicheState = 56;
+    public const int Notifications = 57;
+    public const int OnSales = 58;
+    public const int Partnerships = 59;
+    public const int Player = 60;
+    public const int Popup = 61;
+    public const int PreviousAcquisitionOffers = 62;
+    public const int Product = 63;
+    public const int ProductImprovements = 64;
+    public const int ProductListener = 65;
+    public const int ProductPositioning = 66;
+    public const int PublicCompany = 67;
+    public const int Release = 68;
+    public const int ReleaseListener = 69;
+    public const int Reports = 70;
+    public const int Research = 71;
+    public const int Segment = 72;
+    public const int Shareholder = 73;
+    public const int Shareholders = 74;
+    public const int ShareholdersListener = 75;
+    public const int TargetDate = 76;
+    public const int Task = 77;
+    public const int TaskManager = 78;
+    public const int Team = 79;
+    public const int TeamListener = 80;
+    public const int TechnologyLeader = 81;
+    public const int TechnologyLeaderListener = 82;
+    public const int Test = 83;
+    public const int TimerRunning = 84;
+    public const int Tutorial = 85;
+    public const int TutorialListener = 86;
+    public const int Worker = 87;
 
-    public const int TotalComponents = 91;
+    public const int TotalComponents = 88;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -111,7 +108,6 @@ public static class GameComponentsLookup {
         "AnyCompanyListener",
         "AnyDateListener",
         "AnyNotificationsListener",
-        "AnySegmentListener",
         "AnyShareholdersListener",
         "AnyTargetDateListener",
         "AnyTechnologyLeaderListener",
@@ -177,8 +173,6 @@ public static class GameComponentsLookup {
         "Reports",
         "Research",
         "Segment",
-        "SegmentLeaders",
-        "SegmentListener",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -205,7 +199,6 @@ public static class GameComponentsLookup {
         typeof(AnyCompanyListenerComponent),
         typeof(AnyDateListenerComponent),
         typeof(AnyNotificationsListenerComponent),
-        typeof(AnySegmentListenerComponent),
         typeof(AnyShareholdersListenerComponent),
         typeof(AnyTargetDateListenerComponent),
         typeof(AnyTechnologyLeaderListenerComponent),
@@ -271,8 +264,6 @@ public static class GameComponentsLookup {
         typeof(ReportsComponent),
         typeof(ResearchComponent),
         typeof(SegmentComponent),
-        typeof(SegmentLeadersComponent),
-        typeof(SegmentListenerComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),

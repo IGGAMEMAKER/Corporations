@@ -13,7 +13,7 @@ namespace Assets.Utils
     {
         public static int GetMarketDemand(GameEntity niche)
         {
-            return niche.segment.Segments[UserType.Core];
+            return niche.segment.Level;
         }
 
         public static int GetMarketDemand(GameEntity product, GameContext gameContext)

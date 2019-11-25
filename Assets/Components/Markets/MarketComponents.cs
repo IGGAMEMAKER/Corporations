@@ -109,17 +109,17 @@ public class DeadComponent : IComponent { }
 
 
     //// when someone innovates, increment this
-[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
+//[Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class SegmentComponent : IComponent
 {
     // int - level
-    public Dictionary<UserType, int> Segments;
+    public int Level;
 }
 
-[Game]
-public class SegmentLeadersComponent : IComponent
-{
-    // int - companyId
-    // -1 - no absolute leader
-    public Dictionary<UserType, int> Leaders;
-}
+//[Game]
+//public class SegmentLeadersComponent : IComponent
+//{
+//    // int - companyId
+//    // -1 - no absolute leader
+//    public Dictionary<UserType, int> Leaders;
+//}
