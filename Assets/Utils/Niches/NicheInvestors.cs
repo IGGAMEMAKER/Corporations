@@ -1,7 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Assets.Utils
 {
@@ -9,10 +7,9 @@ namespace Assets.Utils
     {
         internal static GameEntity[] GetInstitutionalInvestors(GameContext gameContext, GameEntity e)
         {
-            return Array.FindAll(gameContext
-                .GetEntities(GameMatcher.Shareholder),
-                s => CompanyUtils.IsInSphereOfInterest(s, e.niche.NicheType)
-                );
+            var investors = gameContext.GetEntities(GameMatcher.Shareholder);
+
+            return Array.FindAll(investors, s => CompanyUtils.IsInSphereOfInterest(s, e.niche.NicheType));
         }
     }
 }
