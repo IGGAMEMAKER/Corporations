@@ -156,7 +156,7 @@ namespace Assets.Utils
 
 
         // competitiveness
-        internal static BonusContainer GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
+        internal static Bonus GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
             var conceptStatus = ProductUtils.GetConceptStatus(company, gameContext);
 
@@ -165,7 +165,7 @@ namespace Assets.Utils
             var isOutdated = conceptStatus == ConceptStatus.Outdated;
             var isInMarket = conceptStatus == ConceptStatus.Relevant;
 
-            return new BonusContainer("Product Competitiveness")
+            return new Bonus("Product Competitiveness")
                 .RenderTitle()
                 .AppendAndHideIfZero("Is in market", isInMarket ? 2 : 0)
                 .AppendAndHideIfZero("Is outdated", isOutdated ? - 10: 0)

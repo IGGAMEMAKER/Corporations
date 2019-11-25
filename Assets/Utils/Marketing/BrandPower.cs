@@ -12,7 +12,7 @@ namespace Assets.Utils
             company.ReplaceBranding(brandPower);
         }
 
-        public static BonusContainer GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
+        public static Bonus GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
             var conceptStatus = ProductUtils.GetConceptStatus(product, gameContext);
 
@@ -27,7 +27,7 @@ namespace Assets.Utils
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
-            var BrandingChangeBonus = new BonusContainer("Brand power change")
+            var BrandingChangeBonus = new Bonus("Brand power change")
                 .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
                 .Append("Partnerships", (int)partnershipBonuses)
                 .AppendAndHideIfZero("Aggressive marketing", isMarketingAggressively ? 2 : 0)

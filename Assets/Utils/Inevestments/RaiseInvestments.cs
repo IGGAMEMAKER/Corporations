@@ -2,9 +2,9 @@
 {
     public static partial class InvestmentUtils
     {
-        public static BonusContainer GetInvestorOpinionBonus(GameContext gameContext, GameEntity company, GameEntity investor)
+        public static Bonus GetInvestorOpinionBonus(GameContext gameContext, GameEntity company, GameEntity investor)
         {
-            var description = new BonusContainer("Investor opinion");
+            var description = new Bonus("Investor opinion");
 
             if (company.hasProduct)
                 AppendProductBonuses(description, company, gameContext);
@@ -31,7 +31,7 @@
             return title;
         }
 
-        private static void AppendProductBonuses(BonusContainer bonusContainer, GameEntity company, GameContext gameContext)
+        private static void AppendProductBonuses(Bonus bonusContainer, GameEntity company, GameContext gameContext)
         {
             bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitiveness(company, gameContext));
         }

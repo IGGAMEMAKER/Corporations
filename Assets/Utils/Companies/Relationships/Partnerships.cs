@@ -6,9 +6,9 @@ namespace Assets.Utils
 {
     public static partial class CompanyUtils
     {
-        public static BonusContainer GetPartnerability(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        public static Bonus GetPartnerability(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
-            return new BonusContainer("Partnership possibility")
+            return new Bonus("Partnership possibility")
                 .AppendAndHideIfZero("Have competing products", IsHaveCompetingProducts(requester, acceptor, gameContext) ? -100 : 0)
                 .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
                 .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)

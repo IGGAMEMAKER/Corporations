@@ -9,7 +9,7 @@ namespace Assets.Utils
             return GetChurnBonus(gameContext, companyId).Sum();
         }
 
-        public static BonusContainer GetChurnBonus(GameContext gameContext, int companyId)
+        public static Bonus GetChurnBonus(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
             var state = NicheUtils.GetMarketState(gameContext, c.product.Niche);
@@ -27,7 +27,7 @@ namespace Assets.Utils
             var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != c.company.Id);
             var isCompetitorDumping = dumpingCompetitors.Count() > 0;
 
-            return new BonusContainer("Churn rate")
+            return new Bonus("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value", baseValue)

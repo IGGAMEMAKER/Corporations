@@ -22,7 +22,7 @@ public struct BonusDescription
     public string Dimension;
 }
 
-public class BonusContainer
+public class Bonus
 {
     public List<BonusDescription> bonusDescriptions;
     public string parameter;
@@ -37,27 +37,27 @@ public class BonusContainer
     bool renderSubTitle = true;
     bool minifyValues = false;
 
-    public BonusContainer(string bonusName) {
+    public Bonus(string bonusName) {
         bonusDescriptions = new List<BonusDescription>();
 
         parameter = bonusName;
     }
 
-    public BonusContainer Minify()
+    public Bonus Minify()
     {
         renderSubTitle = false;
 
         return this;
     }
 
-    public BonusContainer MinifyValues()
+    public Bonus MinifyValues()
     {
         minifyValues = true;
 
         return this;
     }
 
-    public BonusContainer Cap(long min, long max)
+    public Bonus Cap(long min, long max)
     {
         capMin = min;
         capMax = max;
@@ -67,23 +67,23 @@ public class BonusContainer
         return this;
     }
 
-    public BonusContainer SetDimension(string dim)
+    public Bonus SetDimension(string dim)
     {
         dimension = dim;
 
         return this;
     }
 
-    public BonusContainer RenderTitle()
+    public Bonus RenderTitle()
     {
         renderTitle = true;
 
         return this;
     }
 
-    public BonusContainer AppendAndHideIfZero(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
-    public BonusContainer Append(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    private BonusContainer Append(BonusDescription bonus)
+    public Bonus AppendAndHideIfZero(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public Bonus Append(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
+    private Bonus Append(BonusDescription bonus)
     {
         bonus.BonusType = BonusType.Additive;
         bonusDescriptions.Add(bonus);
@@ -93,9 +93,9 @@ public class BonusContainer
 
 
 
-    public BonusContainer MultiplyAndHideIfOne(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
-    public BonusContainer Multiply(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    public BonusContainer Multiply(BonusDescription bonus)
+    public Bonus MultiplyAndHideIfOne(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public Bonus Multiply(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
+    public Bonus Multiply(BonusDescription bonus)
     {
         bonus.BonusType = BonusType.Multiplicative;
         bonusDescriptions.Add(bonus);

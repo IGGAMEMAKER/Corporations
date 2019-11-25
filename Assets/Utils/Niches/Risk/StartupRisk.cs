@@ -2,13 +2,13 @@
 {
     public static partial class NicheUtils
     {
-        static BonusContainer GetRiskOnNiche(GameContext gameContext, NicheType nicheType)
+        static Bonus GetRiskOnNiche(GameContext gameContext, NicheType nicheType)
         {
             int baseValue = Constants.RISKS_MONETISATION_MAX;
             int demand = GetMarketDemandRisk(gameContext, nicheType);
             int competitors = GetNewPlayerRiskOnNiche(gameContext, nicheType);
 
-            return new BonusContainer("Startup risk")
+            return new Bonus("Startup risk")
                 .SetDimension("%")
                 .Append("Is not profitable", baseValue)
                 .Append("Niche demand risk", demand)

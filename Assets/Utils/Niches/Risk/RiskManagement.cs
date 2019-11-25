@@ -2,13 +2,13 @@
 {
     public static partial class NicheUtils
     {
-        static BonusContainer GetCompanyRiskBonus(GameContext gameContext, int companyId)
+        static Bonus GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int monetisation = GetMonetisationRisk(gameContext, companyId);
             int competitors = GetCompetitionRisk(gameContext, companyId);
 
-            return new BonusContainer("Total risk")
+            return new Bonus("Total risk")
                 .SetDimension("%")
                 .Append("Niche demand risk", marketDemand)
                 //.Append("Competition risk", competitors)

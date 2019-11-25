@@ -17,7 +17,7 @@
 
         public static long GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext) => GetGrowthMultiplier(product, gameContext).Sum();
 
-        public static BonusContainer GetGrowthMultiplier(GameEntity product, GameContext gameContext)
+        public static Bonus GetGrowthMultiplier(GameEntity product, GameContext gameContext)
         {
             var marketState = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
             var marketingFinancing = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
@@ -27,7 +27,7 @@
             var brandModifier = GetAudienceReachBrandMultiplier(product);
             var innovationMultiplier = GetAudienceReachInnovationLeaderMultiplier(product);
 
-            return new BonusContainer("Audience growth")
+            return new Bonus("Audience growth")
                 .SetDimension("%")
                 .Append("Market state", marketState)
                 .Append("Marketing Financing", marketingFinancing)

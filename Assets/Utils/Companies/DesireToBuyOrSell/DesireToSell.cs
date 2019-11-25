@@ -44,7 +44,7 @@
         {
             bool isProduct = company.hasProduct;
 
-            var bonusContainer = new BonusContainer("Desire to sell");
+            var bonusContainer = new Bonus("Desire to sell");
 
             bonusContainer.Append("Base", -1);
 
