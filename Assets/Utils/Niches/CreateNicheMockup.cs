@@ -36,7 +36,7 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Death] = 0, // churn
             };
 
-            e.AddNicheLifecycle(0, clientGrowthDictionary, NicheDuration.EntireGame, NichePeriod.Year);
+            e.AddNicheLifecycle(0, clientGrowthDictionary, NichePeriod.Year);
 
             e.AddNicheState(NicheLifecyclePhase.Idle, 0);
             UpdateNicheDuration(e);

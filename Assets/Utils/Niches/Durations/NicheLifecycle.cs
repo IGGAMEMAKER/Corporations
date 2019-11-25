@@ -15,71 +15,18 @@ namespace Assets.Utils
         }
 
         // get
-        public static int GetNicheDuration(GameEntity niche)
-        {
-            var phase = GetMarketState(niche);
+        public static int GetNicheDuration(GameEntity niche) => GetNichePeriodDurationInMonths(niche);
 
-            var duration = GetMinimumPhaseDurationInPeriods(phase) * GetNichePeriodDurationInMonths(niche);
-
-            return duration;
-        }
-
-        public static int GetNichePeriodDurationInMonths(GameEntity niche)
-        {
-            NicheDuration nicheDuration = niche.nicheLifecycle.Period;
-
-            var state = GetMarketState(niche);
-
-            return GetNichePeriodDurationInMonths(nicheDuration, state);
-        }
-
-        public static int GetNichePeriodDurationInMonths(NicheDuration nicheDuration, NicheLifecyclePhase phase)
-        {
-            // innovation 5
-            // trending 10
-            // mass use 55
-            // decay 20
-            // death 10
-
-            if (nicheDuration == NicheDuration.EntireGame)
-            {
-                switch (phase)
-                {
-                    case NicheLifecyclePhase.Innovation: return 12;
-                    case NicheLifecyclePhase.Trending: return 24;
-                    case NicheLifecyclePhase.MassUse: return 1000;
-                    case NicheLifecyclePhase.Decay: return 1000;
-                    default: return 0;
-                }
-            }
-
-            var durationInMonths = (int)nicheDuration;
-
-            var sumOfPeriods = NICHE_PHASE_DURATION_INNOVATION + NICHE_PHASE_DURATION_TRENDING + NICHE_PHASE_DURATION_MASS + NICHE_PHASE_DURATION_DECAY;
-            
-            var X = durationInMonths / sumOfPeriods;
-
-            return Math.Max(X, 1);
-        }
-
-        public static int GetMinimumPhaseDurationInPeriods(NicheLifecyclePhase phase)
+        public static int GetNichePeriodDurationInMonths(GameEntity niche) => GetNichePeriodDurationInMonths(GetMarketState(niche));
+        public static int GetNichePeriodDurationInMonths(NicheLifecyclePhase phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Innovation:
-                    return NICHE_PHASE_DURATION_INNOVATION;
-
-                case NicheLifecyclePhase.Trending:
-                    return NICHE_PHASE_DURATION_TRENDING;
-
-                case NicheLifecyclePhase.MassUse:
-                    return NICHE_PHASE_DURATION_MASS;
-
-                case NicheLifecyclePhase.Decay:
-                    return NICHE_PHASE_DURATION_DECAY;
-
-                default:
-                    return 0;
+                case NicheLifecyclePhase.Innovation: return 8;
+                case NicheLifecyclePhase.Trending: return 24;
+                case NicheLifecyclePhase.MassUse: return 1000;
+                case NicheLifecyclePhase.Decay: return 1000;
+                default: return 0;
             }
         }
 
@@ -104,11 +51,5 @@ namespace Assets.Utils
                     return NicheLifecyclePhase.Death;
             }
         }
-
-        public const int NICHE_PHASE_DURATION_INNOVATION = 5;
-        public const int NICHE_PHASE_DURATION_TRENDING = 10;
-        public const int NICHE_PHASE_DURATION_MASS = 55;
-        public const int NICHE_PHASE_DURATION_DECAY = 20;
-        public const int NICHE_PHASE_DURATION_DEATH = 10;
     }
 }

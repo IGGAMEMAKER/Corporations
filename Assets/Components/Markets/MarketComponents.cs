@@ -92,7 +92,7 @@ public class NicheLifecycleComponent : IComponent
 {
     public int OpenDate;
     public Dictionary<NicheLifecyclePhase, int> Growth;
-    public NicheDuration Period;
+    //public NicheDuration Period;
     public NichePeriod NicheChangeSpeed;
 }
 

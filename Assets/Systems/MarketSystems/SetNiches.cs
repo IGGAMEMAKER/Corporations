@@ -22,7 +22,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetNichesAutomatically(NicheType.Com_Email,  1990, GetPopularUsefulAppProfile);
         SetNichesAutomatically(NicheType.Com_Forums, 1990, GetPopularRarelyUsedAppProfile);
-        SetNichesAutomatically(NicheType.Com_Blogs,  1995, GetPopularRarelyUsedAppProfile, NicheDuration.Decade);
+        SetNichesAutomatically(NicheType.Com_Blogs,  1995, GetPopularRarelyUsedAppProfile);
         SetNichesAutomatically(NicheType.Com_Dating, 2000, GetPopularUsefulAppProfile);
 
 

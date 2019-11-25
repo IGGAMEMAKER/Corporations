@@ -9,7 +9,7 @@
 
             var next = GetNextPhase(phase);
 
-            var newDuration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, next);
+            var newDuration = GetNichePeriodDurationInMonths(next);
             niche.ReplaceNicheState(next, newDuration);
         }
     }

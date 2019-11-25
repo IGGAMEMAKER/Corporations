@@ -5,15 +5,15 @@ using Assets.Utils.Formatting;
 using Entitas;
 using UnityEngine;
 
-public enum NicheDuration
-{
-    // duration in months
-    Year = 12,
-    FiveYears = Year * 5,
-    Decade = Year * 10,
-    TwoDecades = Decade * 2,
-    EntireGame = Decade * 4
-}
+//public enum NicheDuration
+//{
+//    // duration in months
+//    Year = 12,
+//    FiveYears = Year * 5,
+//    Decade = Year * 10,
+//    TwoDecades = Decade * 2,
+//    EntireGame = Decade * 4
+//}
 
 public enum NichePeriod
 {
@@ -75,8 +75,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NichePeriod Iteration, AppComplexity ProductComplexity,
-    NicheDuration nicheDuration = NicheDuration.EntireGame) => SetNichesAutomatically(
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NichePeriod Iteration, AppComplexity ProductComplexity
+    ) => SetNichesAutomatically(
             nicheType,
             startDate,
             new MarketProfile
@@ -86,13 +86,12 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 Margin = Margin,
                 MonetisationType = MonetisationType,
                 AppComplexity = ProductComplexity
-            }, nicheDuration
+            }
             );
 
     GameEntity SetNichesAutomatically(NicheType nicheType,
         int startDate,
-        MarketProfile settings,
-        NicheDuration nicheDuration = NicheDuration.EntireGame
+        MarketProfile settings
         )
     {
         var nicheId = GetNicheId(nicheType);
@@ -100,7 +99,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var ChangeSpeed = settings.NicheSpeed;
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
-        var clients = GetBatchSize(settings.AudienceSize, nicheDuration, nicheId, GetNiche(nicheType));
+        var clients = GetBatchSize(settings.AudienceSize, nicheId, GetNiche(nicheType));
         var techCost = GetTechCost(AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
         var adCosts = GetAdCost(clients, settings.MonetisationType, ChangeSpeed, nicheId);
 
@@ -125,23 +124,23 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, nicheDuration, ChangeSpeed);
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, ChangeSpeed);
         n.ReplaceNicheBaseProfile(settings);
 
         return n;
     }
 
-    long GetBatchSize(AudienceSize audience, NicheDuration nicheDuration, int nicheId, GameEntity niche)
+    long GetBatchSize(AudienceSize audience, int nicheId, GameEntity niche)
     {
-        var repaymentPeriod = (int)nicheDuration;
+        var duration = 20 * 12; // 20 years
 
-        var possibleMonthlyGrowth = 1.1d;
+        var possibleMonthlyGrowth = 1.05d;
 
         //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
         var chisl = (long)audience * (1 - possibleMonthlyGrowth);
         //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
 
-        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, repaymentPeriod));
+        var znam = (1 - System.Math.Pow(possibleMonthlyGrowth, duration));
         //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
 
 

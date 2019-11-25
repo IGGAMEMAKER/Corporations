@@ -35,7 +35,6 @@ public partial class WorldFillerSystem : IInitializeSystem
 
             // niche state promotion
             var profile = m.nicheBaseProfile.Profile;
-            var time = (int)m.nicheLifecycle.Period;
 
             while (accumulator > 0)
             {

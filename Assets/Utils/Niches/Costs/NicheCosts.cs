@@ -37,14 +37,14 @@ namespace Assets.Utils
             float modifier = 0;
             while (phase != state)
             {
-                var duration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, phase);
+                var duration = GetNichePeriodDurationInMonths(phase);
 
                 modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(phase), duration);
 
                 phase = GetNextPhase(phase);
             }
 
-            var maxDuration = GetNichePeriodDurationInMonths(niche.nicheLifecycle.Period, state);
+            var maxDuration = GetNichePeriodDurationInMonths(state);
             var nicheDuration = niche.nicheState.Duration;
             var x = maxDuration - nicheDuration;
             modifier += UnityEngine.Mathf.Pow(GetMarketStateClientFlowModifier(state), x);
