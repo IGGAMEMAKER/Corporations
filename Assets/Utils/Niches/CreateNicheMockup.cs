@@ -21,7 +21,7 @@ namespace Assets.Utils
             e.AddNicheBaseProfile(new MarketProfile {
                 AppComplexity = AppComplexity.Average,
                 AudienceSize = AudienceSize.Million,
-                NicheSpeed = NichePeriod.Year,
+                NicheSpeed = NicheSpeed.Year,
                 Margin = Margin.Mid,
                 MonetisationType = Monetisation.Service
             });

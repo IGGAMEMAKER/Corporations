@@ -15,7 +15,7 @@ using UnityEngine;
 //    EntireGame = Decade * 4
 //}
 
-public enum NichePeriod
+public enum NicheSpeed
 {
     Quarter = 3,
     HalfYear = 6,
@@ -64,7 +64,7 @@ public struct MarketProfile
     public Margin Margin;
 
 
-    public NichePeriod NicheSpeed;
+    public NicheSpeed NicheSpeed;
     public AppComplexity AppComplexity;
 }
 
@@ -75,7 +75,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetNichesAutomatically(NicheType nicheType,
     int startDate,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NichePeriod Iteration, AppComplexity ProductComplexity
+    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity
     ) => SetNichesAutomatically(
             nicheType,
             startDate,
@@ -167,7 +167,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
     }
 
-    float GetAdCost(long clientBatch, Monetisation monetisationType, NichePeriod nichePeriod, int nicheId)
+    float GetAdCost(long clientBatch, Monetisation monetisationType, NicheSpeed nichePeriod, int nicheId)
     {
         var baseValue = (int)monetisationType;
 

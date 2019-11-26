@@ -50,13 +50,13 @@
             var speed = niche.nicheBaseProfile.Profile.NicheSpeed;
             switch (speed)
             {
-                case NichePeriod.ThreeYears:
+                case NicheSpeed.ThreeYears:
                     return -20;
-                case NichePeriod.Year:
+                case NicheSpeed.Year:
                     return -12;
-                case NichePeriod.HalfYear:
+                case NicheSpeed.HalfYear:
                     return -5;
-                case NichePeriod.Quarter:
+                case NicheSpeed.Quarter:
                 default:
                     return 0;
             }

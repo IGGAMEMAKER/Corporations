@@ -35,7 +35,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
                 AppComplexity = AppComplexity.Easy,
 
-                NicheSpeed = NichePeriod.Year,
+                NicheSpeed = NicheSpeed.Year,
             }
             //new ProductPositioning[] {
             //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
@@ -54,7 +54,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
                 AppComplexity = AppComplexity.Easy,
 
-                NicheSpeed = NichePeriod.Quarter,
+                NicheSpeed = NicheSpeed.Quarter,
             });
     }
 
@@ -76,7 +76,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Average,
 
-            NicheSpeed = NichePeriod.HalfYear,
+            NicheSpeed = NicheSpeed.HalfYear,
         };
 
         var banking = new MarketProfile
@@ -87,7 +87,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Average,
 
-            NicheSpeed = NichePeriod.HalfYear,
+            NicheSpeed = NicheSpeed.HalfYear,
         };
 
         SetNichesAutomatically(NicheType.Fin_Exchanging, 1998, financialSystemMarket);
@@ -124,16 +124,16 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetNichesAutomatically(NicheType.Ent_Poker,             2001, GetGamblingCompanyProfile);
 
         SetNichesAutomatically(NicheType.Ent_FreeToPlay,        2001,
-            AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NichePeriod.Year, AppComplexity.Average);
+            AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
         SetNichesAutomatically(NicheType.Ent_MMOs,              2000,
-            AudienceSize.Million,    Monetisation.Service, Margin.Mid, NichePeriod.Year, AppComplexity.Average);
+            AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
 
         SetNichesAutomatically(NicheType.Ent_StreamingService,  2011,
-            AudienceSize.Million100, Monetisation.Service, Margin.Low, NichePeriod.HalfYear, AppComplexity.Easy);
+            AudienceSize.Million100, Monetisation.Service, Margin.Low, NicheSpeed.HalfYear, AppComplexity.Easy);
         SetNichesAutomatically(NicheType.Ent_TVStreamingService,  2016,
-            AudienceSize.Million100, Monetisation.Service, Margin.Mid, NichePeriod.HalfYear, AppComplexity.Average);
+            AudienceSize.Million100, Monetisation.Service, Margin.Mid, NicheSpeed.HalfYear, AppComplexity.Average);
     }
 
     private void InitializeFundamentalIndustry()
@@ -146,7 +146,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Technology, niches);
 
-        var cloudProfile = new MarketProfile
+        var cloud =          new MarketProfile
         {
             AudienceSize = AudienceSize.SmallEnterprise,
             MonetisationType = Monetisation.Enterprise,
@@ -154,9 +154,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Hard,
 
-            NicheSpeed = NichePeriod.Year
+            NicheSpeed = NicheSpeed.Year
         };
-        var searchEngineProfile = new MarketProfile
+        var searchEngine =   new MarketProfile
         {
             AudienceSize = AudienceSize.Global,
             MonetisationType = Monetisation.Adverts,
@@ -164,9 +164,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Humongous,
 
-            NicheSpeed = NichePeriod.ThreeYears
+            NicheSpeed = NicheSpeed.ThreeYears
         };
-        var desktopProfile = new MarketProfile
+        var desktop =        new MarketProfile
         {
             AudienceSize = AudienceSize.Global,
             MonetisationType = Monetisation.Paid,
@@ -174,9 +174,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Humongous,
 
-            NicheSpeed = NichePeriod.ThreeYears
+            NicheSpeed = NicheSpeed.ThreeYears
         };
-        var browserProfile = new MarketProfile
+        var browser =        new MarketProfile
         {
             AudienceSize = AudienceSize.Global,
             MonetisationType = Monetisation.Adverts,
@@ -184,13 +184,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             AppComplexity = AppComplexity.Hard,
 
-            NicheSpeed = NichePeriod.Year
+            NicheSpeed = NicheSpeed.Year
         };
 
-        SetNichesAutomatically(NicheType.Tech_CloudComputing, 2000, cloudProfile);
-        SetNichesAutomatically(NicheType.Tech_SearchEngine,   1995, searchEngineProfile);
-        SetNichesAutomatically(NicheType.Tech_OSDesktop,      1980, desktopProfile);
-        SetNichesAutomatically(NicheType.Tech_Browser,        1990, browserProfile);
+        SetNichesAutomatically(NicheType.Tech_CloudComputing, 2000, cloud);
+        SetNichesAutomatically(NicheType.Tech_SearchEngine,   1995, searchEngine);
+        SetNichesAutomatically(NicheType.Tech_OSDesktop,      1980, desktop);
+        SetNichesAutomatically(NicheType.Tech_Browser,        1990, browser);
     }
 }
 
@@ -205,7 +205,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         AppComplexity = AppComplexity.Easy,
 
-        NicheSpeed = NichePeriod.ThreeYears,
+        NicheSpeed = NicheSpeed.ThreeYears,
     };
 
     MarketProfile GetPopularUsefulAppProfile => new MarketProfile
@@ -216,7 +216,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         AppComplexity = AppComplexity.Easy,
 
-        NicheSpeed = NichePeriod.Year,
+        NicheSpeed = NicheSpeed.Year,
     };
 
     MarketProfile GetGamblingCompanyProfile => new MarketProfile
@@ -227,6 +227,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         AppComplexity = AppComplexity.Easy,
 
-        NicheSpeed = NichePeriod.ThreeYears,
+        NicheSpeed = NicheSpeed.ThreeYears,
     };
 }

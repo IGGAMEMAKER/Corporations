@@ -3,19 +3,19 @@
     public static partial class ProductUtils
     {
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
-        public static int GetBaseIterationTime(NichePeriod nicheChangeSpeed)
+        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
             return 60;
 
             var modifier = 4;
             switch (nicheChangeSpeed)
             {
-                case NichePeriod.Quarter:   return 90 / modifier;
+                case NicheSpeed.Quarter:   return 90 / modifier;
 
-                case NichePeriod.HalfYear:  return 180 / modifier;
-                case NichePeriod.Year:      return 360 / modifier;
+                case NicheSpeed.HalfYear:  return 180 / modifier;
+                case NicheSpeed.Year:      return 360 / modifier;
 
-                case NichePeriod.ThreeYears: return 360 * 3 / modifier;
+                case NicheSpeed.ThreeYears: return 360 * 3 / modifier;
 
                 default: return 0;
             }
