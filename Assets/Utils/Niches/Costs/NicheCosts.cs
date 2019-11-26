@@ -35,7 +35,7 @@ namespace Assets.Utils
             switch (state)
             {
                 case NicheLifecyclePhase.Decay: return 0;
-                case NicheLifecyclePhase.Innovation: return 1f;
+                case NicheLifecyclePhase.Innovation: return 1.3f;
                 case NicheLifecyclePhase.Trending: return 1.5f;
                 case NicheLifecyclePhase.MassUse: return 1.6f;
             }
