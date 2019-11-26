@@ -21,8 +21,8 @@
             {
                 case NicheLifecyclePhase.Innovation: return 8;
                 case NicheLifecyclePhase.Trending: return 24;
-                case NicheLifecyclePhase.MassUse: return 1000;
-                case NicheLifecyclePhase.Decay: return 1000;
+                case NicheLifecyclePhase.MassUse: return 60;
+                case NicheLifecyclePhase.Decay: return 100;
                 default: return 0;
             }
         }
