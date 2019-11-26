@@ -175,9 +175,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         switch (monetisationType)
         {
-            case Monetisation.Adverts: repaymentTime = 5; break;
-            case Monetisation.Enterprise: repaymentTime = 10; break;
-            case Monetisation.Service: repaymentTime = 10; break;
+            case Monetisation.Adverts: repaymentTime = 10; break;
+            case Monetisation.Service: repaymentTime = 8; break;
+            case Monetisation.Enterprise: repaymentTime = 5; break;
             case Monetisation.Paid: repaymentTime = 3; break;
         }
 

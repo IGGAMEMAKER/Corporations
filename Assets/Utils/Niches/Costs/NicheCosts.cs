@@ -40,26 +40,6 @@ namespace Assets.Utils
                 case NicheLifecyclePhase.MassUse: return 1.6f;
             }
             return 1f;
-            NicheLifecyclePhase phase = NicheLifecyclePhase.Innovation;
-
-            float modifier = 0;
-            while (phase != state)
-            {
-                var duration = GetNichePeriodDurationInMonths(phase);
-
-                modifier += Mathf.Pow(GetMarketStateClientFlowModifier(phase), duration);
-
-                phase = GetNextPhase(phase);
-            }
-
-            var maxDuration = GetNichePeriodDurationInMonths(state);
-            var nicheDuration = niche.nicheState.Duration;
-            var x = maxDuration - nicheDuration;
-            modifier += Mathf.Pow(GetMarketStateClientFlowModifier(state), x);
-
-            Debug.Log(" Sum modifier =" + modifier);
-
-            return modifier;
         }
 
         // base marketing cost
