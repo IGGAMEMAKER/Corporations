@@ -2,20 +2,6 @@
 {
     public static partial class NicheUtils
     {
-        public static float GetMarketStateClientFlowModifier(NicheLifecyclePhase phase)
-        {
-            return 1.05f;
-            switch (phase)
-            {
-                case NicheLifecyclePhase.Innovation:    return 1.5f;
-                case NicheLifecyclePhase.Trending:      return 1.1f;
-                case NicheLifecyclePhase.MassUse:       return 1.05f;
-                case NicheLifecyclePhase.Decay:         return 0.9f;
-
-                default: return 0;
-            }
-        }
-
         public static float GetMarketStatePriceModifier(NicheLifecyclePhase phase)
         {
             switch (phase)

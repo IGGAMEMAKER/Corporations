@@ -38,6 +38,7 @@ public partial class WorldFillerSystem : IInitializeSystem
 
             while (accumulator > 0)
             {
+                Debug.Log("while");
                 NicheUtils.PromoteNicheState(m);
                 accumulator -= NicheUtils.GetNicheDuration(m);
             }
@@ -100,6 +101,7 @@ public partial class WorldFillerSystem : IInitializeSystem
     {
         Debug.Log("Simulate Development");
         var skipDays = (Constants.START_YEAR - 1991) * 360;
+
         Debug.Log("Skip days = " + skipDays);
         //ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
 

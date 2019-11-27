@@ -5,16 +5,6 @@ using Assets.Utils.Formatting;
 using Entitas;
 using UnityEngine;
 
-//public enum NicheDuration
-//{
-//    // duration in months
-//    Year = 12,
-//    FiveYears = Year * 5,
-//    Decade = Year * 10,
-//    TwoDecades = Decade * 2,
-//    EntireGame = Decade * 4
-//}
-
 public enum NicheSpeed
 {
     Quarter = 3,
