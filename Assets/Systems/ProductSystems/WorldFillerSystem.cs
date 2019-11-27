@@ -25,6 +25,8 @@ public partial class WorldFillerSystem : IInitializeSystem
 
         var date = ScheduleUtils.GetCurrentDate(GameContext);
 
+        Debug.Log("Mocky simulation: simulate market development");
+
         // simulate market development
         foreach (var m in markets)
         {
@@ -52,6 +54,7 @@ public partial class WorldFillerSystem : IInitializeSystem
                 NicheUtils.FillMarket(m, GameContext);
         }
 
+        Debug.Log("Mocky simulation: simulate product development");
         // simulate products
 
         var products = CompanyUtils.GetProductCompanies(GameContext);

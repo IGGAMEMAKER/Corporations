@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -8,7 +9,7 @@ namespace Assets.Utils
         public static T GenerateValue(T exception)
         {
             T result = GenerateValue();
-
+            Debug.Log("Generate value: " + result);
             while (result.Equals(exception))
                 result = GenerateValue();
 
