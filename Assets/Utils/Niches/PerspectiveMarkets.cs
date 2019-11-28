@@ -12,6 +12,14 @@ namespace Assets.Utils
             return phase == NicheLifecyclePhase.Trending;
         }
 
+        public static bool IsInnovativeNiche(GameContext gameContext, NicheType nicheType) => IsInnovativeNiche(GetNiche(gameContext, nicheType));
+        public static bool IsInnovativeNiche(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
+
+            return phase == NicheLifecyclePhase.Innovation;
+        }
+
         public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)
         {
             var industries = company.companyFocus.Industries;

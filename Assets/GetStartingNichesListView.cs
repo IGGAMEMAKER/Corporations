@@ -27,9 +27,10 @@ public class GetStartingNichesListView : ListView
         var isPerspective = NicheUtils.IsPerspectiveNiche(niche);
         var isCheapToMaintain = profile.AppComplexity == AppComplexity.Easy;
         var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
-        var isConceptLevelLow = ProductUtils.GetMarketDemand(niche) < 10;
+        var isConceptLevelLow = true || ProductUtils.GetMarketDemand(niche) < 10;
 
-        return true;
+        //return true;
+        return isPerspective;
         return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
     }
 
