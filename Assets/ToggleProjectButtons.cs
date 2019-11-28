@@ -1,7 +1,11 @@
-﻿public class ToggleProjectButtons : HideOnSomeCondition
+﻿using Assets.Utils;
+
+public class ToggleProjectButtons : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        return !SelectedCompany.hasResearch;
+        var exploredCompany = SelectedCompany.hasResearch || CompanyUtils.IsCompanyRelatedToPlayer(GameContext, SelectedCompany);
+
+        return !exploredCompany;
     }
 }
