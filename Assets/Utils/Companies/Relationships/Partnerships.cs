@@ -35,7 +35,7 @@ namespace Assets.Utils
             var acceptorStrength = acceptor.branding.BrandPower;
             var requesterStrength = requester.branding.BrandPower;
 
-            bool wantsToAccept = Mathf.Abs(acceptorStrength - requesterStrength) < 10;
+            bool wantsToAccept = true; // Mathf.Abs(acceptorStrength - requesterStrength) < 10;
 
             if (wantsToAccept)
             {

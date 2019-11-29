@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyResultView : View
@@ -23,7 +20,7 @@ public class CompanyResultView : View
 
         var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
 
-        CompanyName.text = product.company.Name;
+        CompanyName.text = product.company.Name + "\n";
 
         DrawProductGrowth(product, result);
         DrawProductStatus();
@@ -51,6 +48,7 @@ public class CompanyResultView : View
 
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
+        CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
     }
 
     void DrawProductStatus()

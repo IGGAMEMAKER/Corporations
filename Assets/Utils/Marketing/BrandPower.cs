@@ -31,11 +31,11 @@ namespace Assets.Utils
 
             var BrandingChangeBonus = new Bonus("Brand power change")
                 .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
-                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
+                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -3 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 2 : 0)
                 .AppendAndHideIfZero("Normal marketing", isMarketingNormally ? 1 : 0)
-                .AppendAndHideIfZero("Is Innovator", isInnovator ? 5 : 0)
+                .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)
                 ;
 
@@ -84,7 +84,7 @@ namespace Assets.Utils
                 value += marketShare * marketSize / 100f;
             }
 
-            return Mathf.Clamp(value, 0, 1.5f);
+            return Mathf.Clamp(value * 5, 0, 2);
         }
     }
 }
