@@ -37,10 +37,17 @@ public class CompanyResultView : View
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
     {
-        var growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
-        var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
-        ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
-        ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
+        //var growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
+        //var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
+
+        //ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
+        //ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
+
+        
+        var bonus = MarketingUtils.GetMonthlyBrandPowerChange(product, GameContext);
+        var change = bonus.Sum();
+        ClientGrowth.text = "Brand change\n" + Visuals.PositiveOrNegativeMinified(change) + "%";
+        ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";

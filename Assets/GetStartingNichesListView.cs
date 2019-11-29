@@ -30,7 +30,7 @@ public class GetStartingNichesListView : ListView
         var isConceptLevelLow = true || ProductUtils.GetMarketDemand(niche) < 10;
 
         //return true;
-        return isPerspective;
+        return isPerspective && isCheapToMaintain;
         return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
     }
 

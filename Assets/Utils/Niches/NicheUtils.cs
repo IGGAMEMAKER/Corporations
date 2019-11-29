@@ -8,6 +8,7 @@ namespace Assets.Utils
     {
         public static GameEntity[] GetNiches(GameContext context) => context.GetEntities(GameMatcher.Niche);
 
+        public static GameEntity GetNiche(GameContext context, GameEntity product) => GetNiche(context, product.product.Niche);
         public static GameEntity GetNiche(GameContext context, NicheType nicheType)
         {
             var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);

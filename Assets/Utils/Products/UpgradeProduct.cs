@@ -25,7 +25,7 @@ namespace Assets.Utils
 
             if (newLevel > demand)
             {
-                MarketingUtils.AddBrandPower(product, Random.Range(3, 10));
+                MarketingUtils.AddBrandPower(product, Random.Range(10, 20));
 
                 niche.ReplaceSegment(newLevel);
 
@@ -33,6 +33,10 @@ namespace Assets.Utils
                 product.isTechnologyLeader = true;
             } else if (newLevel == demand)
             {
+                // if you are techonology leader and you fail to innovate, you will not lose tech leadership
+                if (product.isTechnologyLeader)
+                    return;
+
                 RemoveTechLeaders(product, gameContext);
             }
         }

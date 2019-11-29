@@ -21,21 +21,22 @@ namespace Assets.Utils
             var isInnovator = conceptStatus == ConceptStatus.Leader;
 
             var percent = 4;
-            var baseDecay = -product.branding.BrandPower * percent / 100;
+            var baseDecay = product.branding.BrandPower * percent / 100;
 
 
             var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 3;
-            var isMonopolist = NicheUtils.GetCompetitorsAmount(product, gameContext) == 1;
+            var isMarketingNormally = product.financing.Financing[Financing.Marketing] == 2;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus("Brand power change")
-                .AppendAndHideIfZero("Monopolist", isMonopolist ? 2 : 0)
-                .AppendAndHideIfZero(percent + "% Decay", (int)baseDecay)
-                .Append("Partnerships", (int)partnershipBonuses)
-                .AppendAndHideIfZero("Aggressive marketing", isMarketingAggressively ? 2 : 0)
+                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -1 : 0)
+
+                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 2 : 0)
+                .AppendAndHideIfZero("Normal marketing", isMarketingNormally ? 1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 5 : 0)
+                .Append("Partnerships", (int)partnershipBonuses)
                 ;
 
             return BrandingChangeBonus;

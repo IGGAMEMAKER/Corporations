@@ -9,6 +9,21 @@ namespace Assets.Utils
             return GetChurnBonus(gameContext, companyId).Sum();
         }
 
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product));
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
+        {
+            var competitors = NicheUtils.GetProductsOnMarket(niche, gameContext);
+
+            var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != product.company.Id);
+
+            return dumpingCompetitors.ToArray();
+        }
+
+        public static bool HasDumpingCompetitors(GameContext gameContext, GameEntity product)
+        {
+            return GetDumpingCompetitors(gameContext, product).Count() > 0;
+        }
+
         public static Bonus GetChurnBonus(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
@@ -22,10 +37,7 @@ namespace Assets.Utils
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 
-            var competitors = NicheUtils.GetProductsOnMarket(niche, gameContext);
-
-            var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != c.company.Id);
-            var isCompetitorDumping = dumpingCompetitors.Count() > 0;
+            var isCompetitorDumping = HasDumpingCompetitors(gameContext, c);
 
             return new Bonus("Churn rate")
                 .RenderTitle()

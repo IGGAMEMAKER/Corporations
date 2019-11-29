@@ -91,15 +91,6 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
         niche.ReplaceNicheClientsContainer(clientContainers);
     }
-
-    long GetCompanyAudienceReach(GameEntity product)
-    {
-        var rand = Random.Range(Constants.CLIENT_GAIN_MODIFIER_MIN, Constants.CLIENT_GAIN_MODIFIER_MAX);
-
-        var growth = MarketingUtils.GetAudienceGrowth(product, gameContext);
-
-        return (long)(growth * rand);
-    }
 }
 
 
