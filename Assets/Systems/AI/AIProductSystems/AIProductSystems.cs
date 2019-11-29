@@ -31,21 +31,22 @@ public partial class BaseProductSystems : OnDateChange
 
     void ManageDumpingProduct(GameEntity product)
     {
-        var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
-
         var willBeBankruptIn6Months = !CompanyUtils.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
         var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
-        var hasLowMarketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 25;
 
-        var monthlyDumpingChance = 5f;
-        var wantsToDump = UnityEngine.Random.Range(0f, 1f) < monthlyDumpingChance / 30f;
+        var hasLowMarketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
 
-        var competitorIsDumpingToo = MarketingUtils.HasDumpingCompetitors(gameContext, product);
+        var competitorIsDumpingToo = false && MarketingUtils.HasDumpingCompetitors(gameContext, product);
+        var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
 
-        var needsToDump = (isOutdated || hasLowMarketShare || competitorIsDumpingToo);
+        var needsToDump = isOutdated || hasLowMarketShare || competitorIsDumpingToo;
+
 
         if (needsToDump && hasMoneyToDumpSafely)
         {
+            var monthlyDumpingChance = 2f;
+            var wantsToDump = UnityEngine.Random.Range(0f, 1f) < monthlyDumpingChance / 30f;
+
             if (wantsToDump)
                 ProductUtils.StartDumping(gameContext, product);
         }

@@ -16,6 +16,8 @@ public class CompanyViewOnMap : View
 
     public Text Profitability;
 
+    public RenderDumpingHint Dumping;
+
     public RenderConceptProgress ConceptProgress;
 
     bool EnableDarkTheme;
@@ -43,6 +45,8 @@ public class CompanyViewOnMap : View
         Concept.text = ProductUtils.GetProductLevel(c) + "LVL";
 
         SetEmblemColor();
+
+        Dumping.SetCompanyId(c.company.Id);
 
         if (Profitability != null)
         {

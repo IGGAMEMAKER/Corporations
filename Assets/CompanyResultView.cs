@@ -20,7 +20,7 @@ public class CompanyResultView : View
 
         var product = CompanyUtils.GetCompanyById(GameContext, result.CompanyId);
 
-        CompanyName.text = product.company.Name + "\n";
+        CompanyName.text = product.company.Name;
 
         DrawProductGrowth(product, result);
         DrawProductStatus();
@@ -47,8 +47,8 @@ public class CompanyResultView : View
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var share = (long)result.MarketShareChange;
-        MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
-        CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
+        MarketShareChange.text = "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
+        //CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
     }
 
     void DrawProductStatus()
