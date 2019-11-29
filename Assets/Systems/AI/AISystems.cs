@@ -3,7 +3,7 @@
     public AISystems(Contexts contexts) : base("AI Systems")
     {
         // products
-        Add(new AIProductSystems(contexts));
+        Add(new BaseProductSystems(contexts));
         Add(new ProductCompaniesPayDividendsSystem(contexts));
         Add(new AIPromoteProductToGroup(contexts));
 

@@ -3,7 +3,7 @@ using Entitas;
 using System.Collections.Generic;
 
 // utils, logs and aliases
-public partial class AIProductSystems
+public partial class BaseProductSystems
 {
     static T PickMostImportantValue<T>(Dictionary<T, long> values)
     {

@@ -2,28 +2,27 @@
 using Assets.Utils.Formatting;
 using System.Collections.Generic;
 
-public partial class AIProductSystems : OnDateChange
+public partial class BaseProductSystems : OnDateChange
 {
-    public AIProductSystems(Contexts contexts) : base(contexts) {
+    public BaseProductSystems(Contexts contexts) : base(contexts) {
     }
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
+            ProductUtils.UpdgradeProduct(e, gameContext);
+
+        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
+        {
+            //var val = RandomEnum<ProductImprovement>.GenerateValue();
+
+            //ProductUtils.UpgradeProductImprovement(val, e);
             ManageProduct(e);
-
-        //foreach (var e in CompanyUtils.GetAIProducts(gameContext))
-        //{
-        //    var val = RandomEnum<ProductImprovement>.GenerateValue();
-
-        //    ProductUtils.UpgradeProductImprovement(val, e);
-        //}
+        }
     }
 
     void ManageProduct(GameEntity product)
     {
-        ProductUtils.UpdgradeProduct(product, gameContext);
-
         if (!product.isRelease && ProductUtils.IsInMarket(product, gameContext))
             MarketingUtils.ReleaseApp(product, gameContext);
 
