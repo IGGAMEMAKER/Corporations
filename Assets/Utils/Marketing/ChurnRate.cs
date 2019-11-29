@@ -9,7 +9,7 @@ namespace Assets.Utils
             return GetChurnBonus(gameContext, companyId).Sum();
         }
 
-        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product));
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product), product);
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
         {
             var competitors = NicheUtils.GetProductsOnMarket(niche, gameContext);
