@@ -5,7 +5,7 @@ public class ToggleMarketingFinancing : ToggleButtonController
     int companyId;
     
     // max financing
-    int MaxFinancing => 3;
+    int MaxFinancing => 2;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class ToggleMarketingFinancing : ToggleButtonController
         }
         else if (financing == 1)
         {
-            newFinancing = 3;
+            newFinancing = 2;
         }
         else
         {

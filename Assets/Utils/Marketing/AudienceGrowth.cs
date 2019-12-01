@@ -1,9 +1,31 @@
-﻿namespace Assets.Utils
+﻿using System.Linq;
+
+namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
+        public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
+        {
+            var products = NicheUtils.GetProductsOnMarket(gameContext, e);
+
+            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
+
+            return e.branding.BrandPower / sumOfBrandPowers;
+        }
+
+        public static int GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
+        {
+            var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext);
+
+            var flow = GetClientFlow(gameContext, e.product.Niche);
+
+            return (int)(brandBasedMarketShare * flow);
+        }
+
+        // outdated
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
+            return GetBrandBasedAudienceGrowth(product, gameContext);
             var flow = GetClientFlow(gameContext, product.product.Niche);
             var clients = GetClients(product);
 

@@ -72,16 +72,9 @@ public partial class ClientDistributionSystem : OnPeriodChange
     {
         var clientContainers = niche.nicheClientsContainer.Clients;
 
-        var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
-
-        var flow = MarketingUtils.GetClientFlow(gameContext, niche.niche.NicheType);
-
-        for (var i = 0; i < products.Length; i++)
+        foreach (var p in products)
         {
-            var p = products[i];
-
-            //var clients = GetCompanyAudienceReach(p);
-            var clients = (int)(p.branding.BrandPower * flow / sumOfBrandPowers);
+            var clients = MarketingUtils.GetAudienceGrowth(p, gameContext);
 
             MarketingUtils.AddClients(p, clients);
 

@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using System.Linq;
+
+namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {

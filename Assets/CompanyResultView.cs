@@ -44,9 +44,11 @@ public class CompanyResultView : View
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
         var financing = company.financing.Financing[Financing.Marketing];
 
-        SetAggressiveMarketing.gameObject.SetActive(financing == 1);
-        SetNormalMarketing.gameObject.SetActive(financing == 0);
-        SetZeroMarketing.gameObject.SetActive(financing == 3);
+        var isReleased = company.isRelease;
+
+        SetNormalMarketing      .gameObject.SetActive(isReleased && financing == 0);
+        SetAggressiveMarketing  .gameObject.SetActive(isReleased && financing == 1);
+        SetZeroMarketing        .gameObject.SetActive(isReleased && financing == 2);
     }
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
@@ -64,7 +66,8 @@ public class CompanyResultView : View
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var share = (long)result.MarketShareChange;
-        MarketShareChange.text = "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
+        MarketShareChange.text = "Brand strength\n" + (int)product.branding.BrandPower;
+        //MarketShareChange.text = "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
         //CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
     }
 

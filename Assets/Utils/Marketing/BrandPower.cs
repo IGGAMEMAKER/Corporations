@@ -24,16 +24,18 @@ namespace Assets.Utils
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
-            var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 3;
-            var isMarketingNormally = product.financing.Financing[Financing.Marketing] == 2;
+            var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 2;
+            var isMarketingNormally = product.financing.Financing[Financing.Marketing] == 1;
+            var isNotPayingForMarketing = product.financing.Financing[Financing.Marketing] == 0;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus("Brand power change")
-                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
+                //.AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
+                .AppendAndHideIfZero("Is not paying for marketing", isNotPayingForMarketing ? -3 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -3 : 0)
 
-                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 2 : 0)
+                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 5 : 0)
                 .AppendAndHideIfZero("Normal marketing", isMarketingNormally ? 1 : 0)
                 .AppendAndHideIfZero("Is Innovator", isInnovator ? 2 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)

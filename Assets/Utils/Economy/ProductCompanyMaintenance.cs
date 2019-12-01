@@ -19,9 +19,11 @@ namespace Assets.Utils
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
 
             var multiplier = GetMarketingFinancingCostMultiplier(e);
-            var acquisitionCost = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
-            var brandDiscount = MarketingUtils.GetAudienceReachBrandMultiplier(e);
-            var innovationDiscount = MarketingUtils.GetAudienceReachInnovationLeaderMultiplier(e);
+
+
+            var acquisitionCost     = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
+            var brandDiscount       = MarketingUtils.GetAudienceReachBrandMultiplier(e);
+            var innovationDiscount  = MarketingUtils.GetAudienceReachInnovationLeaderMultiplier(e);
 
 
 
@@ -30,11 +32,11 @@ namespace Assets.Utils
 
 
 
-            if (result == 0)
-            {
-                Debug.Log($"{EnumUtils.GetFormattedNicheName(e.product.Niche)} gained clients = {gainedClients}, brand discount = {brandDiscount}, acquisition cost = {acquisitionCost}, multiplier = {multiplier}");
+            //if (result == 0)
+            //{
+            //    Debug.Log($"{EnumUtils.GetFormattedNicheName(e.product.Niche)} gained clients = {gainedClients}, brand discount = {brandDiscount}, acquisition cost = {acquisitionCost}, multiplier = {multiplier}");
 
-            }
+            //}
 
             return result;
         }
@@ -45,6 +47,8 @@ namespace Assets.Utils
             var team = GetTeamFinancingCostMultiplier(e);
 
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
+
+            var concept = ProductUtils.GetProductLevel(e);
 
             return (long)(baseCost * stage * team);
         }
