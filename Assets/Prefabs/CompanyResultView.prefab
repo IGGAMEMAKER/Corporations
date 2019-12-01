@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7960141175222421746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112491061701978856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271bc791b5d4cce40afb7a50f7b2a472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8160000617271732024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,18 +25,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
---- !u!114 &7960141175222421746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112491061701978856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 271bc791b5d4cce40afb7a50f7b2a472, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5211544622167487809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +155,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6301061185439916254}
-  - component: {fileID: 6480521981360522527}
   m_Layer: 5
   m_Name: ToggleMarketingFinancing
   m_TagString: Untagged
@@ -182,18 +181,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6480521981360522527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4669676945970627066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6889710e95c03ba459db808c2655ff26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4866718428200128021
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +285,9 @@ MonoBehaviour:
   MarketShareChange: {fileID: 6155506622073499800}
   ConceptStatusText: {fileID: 2257992577399229721}
   Profit: {fileID: 6465706366346321188}
-  ToggleMarketingFinancing: {fileID: 443380781961077392}
+  SetAggressiveMarketing: {fileID: 5211544622167487809}
+  SetNormalMarketing: {fileID: 8160000617271732024}
+  SetZeroMarketing: {fileID: 443380781961077392}
 --- !u!114 &926588873705754247
 MonoBehaviour:
   m_ObjectHideFlags: 0

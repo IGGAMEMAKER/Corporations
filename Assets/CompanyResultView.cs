@@ -10,7 +10,9 @@ public class CompanyResultView : View
     public Text ConceptStatusText;
     public Text Profit;
 
-    public ToggleMarketingFinancing ToggleMarketingFinancing;
+    public ToggleMarketingFinancing SetAggressiveMarketing;
+    public ToggleMarketingFinancing SetNormalMarketing;
+    public ToggleMarketingFinancing SetZeroMarketing;
 
     ProductCompanyResult result1;
 
@@ -29,7 +31,22 @@ public class CompanyResultView : View
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
         LinkToNiche.SetNiche(product.product.Niche);
-        ToggleMarketingFinancing.SetCompanyId(result.CompanyId);
+
+        SetAggressiveMarketing.SetCompanyId(result.CompanyId);
+        SetNormalMarketing.SetCompanyId(result.CompanyId);
+        SetZeroMarketing.SetCompanyId(result.CompanyId);
+
+        RenderMarketingButtons(result.CompanyId);
+    }
+
+    void RenderMarketingButtons(int companyId)
+    {
+        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var financing = company.financing.Financing[Financing.Marketing];
+
+        SetAggressiveMarketing.gameObject.SetActive(financing == 1);
+        SetNormalMarketing.gameObject.SetActive(financing == 0);
+        SetZeroMarketing.gameObject.SetActive(financing == 3);
     }
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
@@ -43,7 +60,7 @@ public class CompanyResultView : View
         
         var bonus = MarketingUtils.GetMonthlyBrandPowerChange(product, GameContext);
         var change = bonus.Sum();
-        ClientGrowth.text = "Brand change\n" + Visuals.PositiveOrNegativeMinified(change) + "%";
+        ClientGrowth.text = "Brand change\n" + Visuals.PositiveOrNegativeMinified(change);
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var share = (long)result.MarketShareChange;
@@ -70,6 +87,8 @@ public class CompanyResultView : View
         base.ViewRender();
 
         DrawProductStatus();
+
+        RenderMarketingButtons(result1.CompanyId);
     }
 
     string GetStatusColor (ConceptStatus conceptStatus)

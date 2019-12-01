@@ -22,7 +22,22 @@ public class ToggleMarketingFinancing : ToggleButtonController
         var company = CompanyUtils.GetCompanyById(GameContext, companyId);
         var financing = company.financing.Financing[Financing.Marketing];
 
-        company.financing.Financing[Financing.Marketing] = financing == MaxFinancing ? 0 : financing + 1;
+        var newFinancing = 0;
+
+        if (financing == 0)
+        {
+            newFinancing = 1;
+        }
+        else if (financing == 1)
+        {
+            newFinancing = 3;
+        }
+        else
+        {
+            newFinancing = 0;
+        }
+
+        company.financing.Financing[Financing.Marketing] = newFinancing;
     }
 
     void Render()
