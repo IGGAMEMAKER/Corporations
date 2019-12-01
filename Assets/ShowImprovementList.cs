@@ -16,7 +16,7 @@ public class ShowImprovementList : UpgradedParameterView
         //var text = "Audience grows by " + Format.Minify(clients) + " clients each month due to current brand power and concept level";
         var text = $"This product will {Visuals.Positive("receive")} approximately {Format.Minify(growth)} clients next month." +
             $"\n\nDue to churn they will {Visuals.Negative("lose")} {Format.Minify(churn)} clients." +
-            $"\n\nThis values are based on brand power, concept relevance, product improvements and luck."
+            $"\n\nThis values are based on brand power, product relevance"
             ;
 
         return text;

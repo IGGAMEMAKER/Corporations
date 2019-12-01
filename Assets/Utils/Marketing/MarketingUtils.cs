@@ -20,7 +20,13 @@
 
             var period = EconomyUtils.GetPeriodDuration();
 
-            return costs.ClientBatch * period / 30;
+            var niche = NicheUtils.GetNiche(gameContext, nicheType);
+            var stateDuration = NicheUtils.GetNichePeriodDurationInMonths(niche) - niche.nicheState.Duration;
+
+            var stateGrowth = 1.1f;
+            var multiplier = System.Math.Pow(stateGrowth, stateDuration);
+
+            return (long) (costs.ClientBatch * multiplier * period / 30);
         }
 
         public static long GetChurnClients(GameContext gameContext, int companyId)

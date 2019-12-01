@@ -13,33 +13,33 @@ public class RenderNicheInfoInProjectScreen : View
     {
         base.ViewRender();
 
-        ToggleNicheObjects(CanRenderNiche);
+        //ToggleNicheObjects(CanRenderNiche);
 
-        if (CanRenderNiche)
-            RenderLinkToNiche();
+        //if (CanRenderNiche)
+        //    RenderLinkToNiche();
     }
 
-    bool CanRenderNiche
-    {
-        get
-        {
-            return SelectedCompany.hasProduct;
-        }
-    }
+    //bool CanRenderNiche
+    //{
+    //    get
+    //    {
+    //        return SelectedCompany.hasProduct;
+    //    }
+    //}
 
-    void ToggleNicheObjects(bool show)
-    {
-        NicheRoot.SetActive(show);
-    }
+    ////void ToggleNicheObjects(bool show)
+    ////{
+    ////    NicheRoot.SetActive(show);
+    ////}
 
-    private void RenderLinkToNiche()
-    {
-        NicheType niche = SelectedCompany.product.Niche;
+    //private void RenderLinkToNiche()
+    //{
+    //    NicheType niche = SelectedCompany.product.Niche;
 
-        string text = EnumUtils.GetFormattedNicheName(niche);
+    //    string text = EnumUtils.GetFormattedNicheName(niche);
 
-        NicheName.text = Visuals.Link(text);
+    //    NicheName.text = Visuals.Link(text);
 
-        LinkToNiche.SetNiche(niche);
-    }
+    //    LinkToNiche.SetNiche(niche);
+    //}
 }

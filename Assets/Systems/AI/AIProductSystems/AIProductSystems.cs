@@ -36,7 +36,7 @@ public partial class BaseProductSystems : OnDateChange
 
         var hasLowMarketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
 
-        var competitorIsDumpingToo = false && MarketingUtils.HasDumpingCompetitors(gameContext, product);
+        var competitorIsDumpingToo = MarketingUtils.HasDumpingCompetitors(gameContext, product);
         var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
 
         var needsToDump = isOutdated || hasLowMarketShare || competitorIsDumpingToo;
@@ -45,7 +45,9 @@ public partial class BaseProductSystems : OnDateChange
         if (needsToDump && hasMoneyToDumpSafely)
         {
             var monthlyDumpingChance = 2f;
-            var wantsToDump = UnityEngine.Random.Range(0f, 1f) < monthlyDumpingChance / 30f;
+            var chance = UnityEngine.Random.Range(0f, 1f);
+
+            var wantsToDump = chance < monthlyDumpingChance / 30f;
 
             if (wantsToDump)
                 ProductUtils.StartDumping(gameContext, product);

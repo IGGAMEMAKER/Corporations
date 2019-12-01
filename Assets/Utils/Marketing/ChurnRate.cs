@@ -21,6 +21,7 @@ namespace Assets.Utils
 
         public static bool HasDumpingCompetitors(GameContext gameContext, GameEntity product)
         {
+            return false;
             return GetDumpingCompetitors(gameContext, product).Count() > 0;
         }
 
