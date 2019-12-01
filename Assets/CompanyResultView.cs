@@ -62,11 +62,14 @@ public class CompanyResultView : View
         
         var bonus = MarketingUtils.GetMonthlyBrandPowerChange(product, GameContext);
         var change = bonus.Sum();
-        ClientGrowth.text = "Brand change\n" + Visuals.PositiveOrNegativeMinified(change);
+        ClientGrowth.text = $"Brand strength\n{(int)product.branding.BrandPower} ({Visuals.PositiveOrNegativeMinified(change)})";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Brand strength\n" + (int)product.branding.BrandPower;
+
+        MarketShareChange.SetAllDirty();
+        //MarketShareChange.gameObject.SetActive(false);
         //MarketShareChange.text = "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
         //CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
     }
