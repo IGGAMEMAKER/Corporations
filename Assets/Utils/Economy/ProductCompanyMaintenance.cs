@@ -54,7 +54,7 @@ namespace Assets.Utils
             var niche = NicheUtils.GetNiche(gameContext, e);
             var complexity = niche.nicheBaseProfile.Profile.AppComplexity;
 
-            var development = Mathf.Pow((int)complexity, 1f + concept / 5);
+            var development = Mathf.Pow((int)complexity, 1f + concept * 0.1f);
 
             return (long)(baseCost * development * stage * team);
         }
