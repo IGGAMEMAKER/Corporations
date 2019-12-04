@@ -2,13 +2,13 @@
 {
     public static partial class NicheUtils
     {
-        static Bonus GetCompanyRiskBonus(GameContext gameContext, int companyId)
+        static Bonus<long> GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int monetisation = GetMonetisationRisk(gameContext, companyId);
             int competitors = GetCompetitionRisk(gameContext, companyId);
 
-            return new Bonus("Total risk")
+            return new Bonus<long>("Total risk")
                 .SetDimension("%")
                 .Append("Niche demand risk", marketDemand)
                 //.Append("Competition risk", competitors)
@@ -24,7 +24,7 @@
 
         internal static long GetCompanyRisk(GameContext gameContext, int companyId)
         {
-            return GetCompanyRiskBonus(gameContext, companyId).Sum();
+            return (long)GetCompanyRiskBonus(gameContext, companyId).Sum();
         }
 
         public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)

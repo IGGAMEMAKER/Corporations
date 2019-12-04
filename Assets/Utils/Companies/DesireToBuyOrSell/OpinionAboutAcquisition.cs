@@ -8,9 +8,9 @@ namespace Assets.Utils
     public static partial class CompanyUtils
     {
         // opinion about offer
-        public static Bonus GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOfferComponent ackOffer, GameEntity investor, GameEntity targetCompany, GameContext gameContext)
+        public static Bonus<float> GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOfferComponent ackOffer, GameEntity investor, GameEntity targetCompany, GameContext gameContext)
         {
-            var container = new Bonus("Opinion about acquisition offer");
+            var container = new Bonus<float>("Opinion about acquisition offer");
 
             switch (investor.shareholder.InvestorType)
             {
@@ -30,9 +30,9 @@ namespace Assets.Utils
 
         
 
-        public static Bonus GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
+        public static Bonus<float> GetVentureOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
-            var bonus = new Bonus("Venture investor Opinion");
+            var bonus = new Bonus<float>("Venture investor Opinion");
             var conditions = acquisitionOffer.BuyerOffer;
 
             var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;
@@ -48,9 +48,9 @@ namespace Assets.Utils
             return bonus;
         }
 
-        public static Bonus GetFounderOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
+        public static Bonus<float> GetFounderOpinionAboutOffer(AcquisitionOfferComponent acquisitionOffer, GameEntity investor, GameEntity company, GameContext gameContext)
         {
-            var bonus = new Bonus("Founder Opinion");
+            var bonus = new Bonus<float>("Founder Opinion");
             var conditions = acquisitionOffer.BuyerOffer;
 
             var priceOk = conditions.Price < acquisitionOffer.SellerOffer.Price;

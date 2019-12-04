@@ -44,7 +44,7 @@
         {
             bool isProduct = company.hasProduct;
 
-            var bonusContainer = new Bonus("Desire to sell");
+            var bonusContainer = new Bonus<long>("Desire to sell");
 
             bonusContainer.Append("Base", -1);
 
@@ -55,7 +55,7 @@
             else
                 bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, shareholderId, gameContext));
 
-            return bonusContainer.Sum();
+            return (long)bonusContainer.Sum();
         }
 
         public static bool IsWantsToSellShares(GameEntity company, GameContext gameContext, int investorId, InvestorType investorType)

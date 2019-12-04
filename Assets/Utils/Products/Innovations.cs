@@ -2,7 +2,7 @@
 {
     public static partial class ProductUtils
     {
-        public static Bonus GetInnovationChanceBonus(GameEntity company, GameContext gameContext)
+        public static Bonus<long> GetInnovationChanceBonus(GameEntity company, GameContext gameContext)
         {
             var culture = company.corporateCulture.Culture;
             var sphereOfInterestBonus = 0;
@@ -32,7 +32,7 @@
 
             // culture bonuses
 
-            return new Bonus("Innovation chance")
+            return new Bonus<long>("Innovation chance")
                 .Append("Base", 5)
                 .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)

@@ -156,7 +156,7 @@ namespace Assets.Utils
 
 
         // competitiveness
-        internal static Bonus GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
+        internal static Bonus<long> GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
             var conceptStatus = ProductUtils.GetConceptStatus(company, gameContext);
 
@@ -165,7 +165,7 @@ namespace Assets.Utils
             var isOutdated = conceptStatus == ConceptStatus.Outdated;
             var isInMarket = conceptStatus == ConceptStatus.Relevant;
 
-            return new Bonus("Product Competitiveness")
+            return new Bonus<long>("Product Competitiveness")
                 .RenderTitle()
                 .AppendAndHideIfZero("Is in market", isInMarket ? 2 : 0)
                 .AppendAndHideIfZero("Is outdated", isOutdated ? - 10: 0)
@@ -174,7 +174,7 @@ namespace Assets.Utils
 
         internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
         {
-            return GetProductCompetitivenessBonus(company, gameContext).Sum();
+            return (long)GetProductCompetitivenessBonus(company, gameContext).Sum();
         }
 
 

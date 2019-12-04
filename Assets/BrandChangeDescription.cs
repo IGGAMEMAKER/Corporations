@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class BrandChangeDescription : UpgradedParameterView
 {
@@ -15,5 +12,5 @@ public class BrandChangeDescription : UpgradedParameterView
         return "Brand power: " + (int)SelectedCompany.branding.BrandPower;
     }
 
-    Bonus BrandPower => MarketingUtils.GetMonthlyBrandPowerChange(SelectedCompany, GameContext);
+    Bonus<float> BrandPower => MarketingUtils.GetMonthlyBrandPowerChange(SelectedCompany, GameContext);
 }

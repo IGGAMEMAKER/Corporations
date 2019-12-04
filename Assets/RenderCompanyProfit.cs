@@ -11,7 +11,7 @@ public class RenderCompanyProfit : UpgradedParameterView
         var marketingCost = EconomyUtils.GetProductMarketingCost(SelectedCompany, GameContext);
 
 
-        var bonus = new Bonus("Balance change")
+        var bonus = new Bonus<long>("Balance change")
             .Append("Income", income)
             .Append("Development Financing", -devCost)
             .Append("Marketing Financing", -marketingCost)
