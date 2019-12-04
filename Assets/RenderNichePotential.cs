@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using System;
+using System.Linq;
 
 public class RenderNichePotential : UpgradedParameterView
 {
@@ -10,6 +11,14 @@ public class RenderNichePotential : UpgradedParameterView
 
     public override string RenderValue()
     {
+        var products = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche);
+
+
+        var clients = products.Sum(p => MarketingUtils.GetClients(p));
+
+        var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
+
+        return $"{Format.Minify(clients)} users\n\n+{Format.Minify(flow)} this month";
         var potential = NicheUtils.GetMarketPotential(GameContext, SelectedNiche);
 
         if (potential == 0)
