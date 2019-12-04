@@ -49,8 +49,12 @@ namespace Assets.Utils
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
             var concept = ProductUtils.GetProductLevel(e);
+            var niche = NicheUtils.GetNiche(gameContext, e);
+            var complexity = niche.nicheBaseProfile.Profile.AppComplexity;
 
-            return (long)(baseCost * stage * team);
+            var development = Mathf.Pow((int)complexity, 1f + concept / 5);
+
+            return (long)(baseCost * development * stage * team);
         }
     }
 }
