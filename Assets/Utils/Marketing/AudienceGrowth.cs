@@ -26,36 +26,6 @@ namespace Assets.Utils
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
             return GetBrandBasedAudienceGrowth(product, gameContext);
-            var flow = GetClientFlow(gameContext, product.product.Niche);
-            var clients = GetClients(product);
-
-            if (clients < flow)
-                clients = flow;
-
-            var multiplier = GetAudienceGrowthMultiplier(product, gameContext);
-
-            return multiplier * clients / 100;
-        }
-
-        public static long GetAudienceGrowthMultiplier(GameEntity product, GameContext gameContext) => GetGrowthMultiplier(product, gameContext).Sum();
-
-        public static Bonus GetGrowthMultiplier(GameEntity product, GameContext gameContext)
-        {
-            var marketState = GetMarketStateGrowthMultiplier(product, gameContext) / 10;
-            var marketingFinancing = (int)GetAudienceReachModifierBasedOnMarketingFinancing(product);
-
-            // 0...4
-            var brand = (int)product.branding.BrandPower;
-            var brandModifier = GetAudienceReachBrandMultiplier(product);
-            var innovationMultiplier = GetAudienceReachInnovationLeaderMultiplier(product);
-
-            return new Bonus("Audience growth")
-                .SetDimension("%")
-                .Append("Market state", marketState)
-                .Append("Marketing Financing", marketingFinancing)
-                .Multiply($"Brand strength ({brand})", brandModifier)
-                .MultiplyAndHideIfOne("Is Leader", innovationMultiplier)
-                ;
         }
 
         public static int GetAudienceReachInnovationLeaderMultiplier(GameEntity product) => product.isTechnologyLeader ? 2 : 1;
@@ -104,7 +74,6 @@ namespace Assets.Utils
         }
 
         // based on financing
-        public static float GetAudienceReachModifierBasedOnMarketingFinancing(GameEntity product) => GetAudienceReachModifierBasedOnMarketingFinancing(product.financing.Financing[Financing.Marketing]);
         public static float GetAudienceReachModifierBasedOnMarketingFinancing(int financing)
         {
             switch (financing)
