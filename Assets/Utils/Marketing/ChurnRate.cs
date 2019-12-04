@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static long GetChurnRate(GameContext gameContext, int companyId)
         {
-            return (long)GetChurnBonus(gameContext, companyId).Sum();
+            return GetChurnBonus(gameContext, companyId).Sum();
         }
 
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product), product);
