@@ -16,9 +16,11 @@ namespace Assets.Utils
 
         public static long GetProductMarketingCost(GameEntity e, GameContext gameContext)
         {
+            var flow = MarketingUtils.GetClientFlow(gameContext, e.product.Niche);
+
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
 
-            var multiplier = GetMarketingFinancingCostMultiplier(e);
+            var financing = GetMarketingFinancingCostMultiplier(e);
 
 
             var acquisitionCost     = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
@@ -28,9 +30,9 @@ namespace Assets.Utils
 
 
 
-            var result = (long)((gainedClients * acquisitionCost * multiplier) / brandDiscount / innovationDiscount);
+            var result = (long)((gainedClients * acquisitionCost * financing) / brandDiscount / innovationDiscount);
 
-
+            result = (long)(acquisitionCost * flow * financing);
 
             //if (result == 0)
             //{
