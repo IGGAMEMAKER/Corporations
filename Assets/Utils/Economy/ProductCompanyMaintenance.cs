@@ -32,7 +32,7 @@ namespace Assets.Utils
 
             var result = (long)((gainedClients * acquisitionCost * financing) / brandDiscount / innovationDiscount);
 
-            result = (long)(acquisitionCost * flow * financing);
+                result = (long)(gainedClients * acquisitionCost * financing);
 
             //if (result == 0)
             //{
