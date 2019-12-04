@@ -10,7 +10,7 @@ namespace Assets.Utils
 
 
             var stateDuration = NicheUtils.GetCurrentNicheStateDuration(gameContext, nicheType);
-            var n = stateDuration;
+            var n = stateDuration + 1;
             var q = GetMonthlyAudienceGrowthMultiplier();
 
             var multiplier = System.Math.Pow(n, q);
