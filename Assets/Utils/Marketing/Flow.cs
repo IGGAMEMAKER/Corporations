@@ -34,7 +34,7 @@ namespace Assets.Utils
 
             var q = monthlyGrowthMultiplier;
             var nMax = stateMaxDuration;
-            var baseFlowForStage = totalStageClients * (1f - Mathf.Pow(q, nMax)) / (1f - q);
+            var baseFlowForStage = totalStageClients * (1f - q) / (1f - Mathf.Pow(q, nMax));
 
             return baseFlowForStage;
         }
