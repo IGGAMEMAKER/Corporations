@@ -224,9 +224,3 @@ public enum InvestmentRound
     D,
     E
 }
-
-
-public enum UserType
-{
-    Core
-}

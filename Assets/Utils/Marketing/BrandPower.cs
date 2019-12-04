@@ -64,7 +64,7 @@ namespace Assets.Utils
                 value += marketShare * marketSize / 100f;
             }
 
-            return Mathf.Clamp(value * 5, 0, 2);
+            return Mathf.Clamp(value * 3, 0, 3);
         }
     }
 }
