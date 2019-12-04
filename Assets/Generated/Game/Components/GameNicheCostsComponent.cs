@@ -15,7 +15,7 @@ public partial class GameEntity {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
         component.BaseIncome = newBaseIncome;
-        component.ClientBatch = newClientBatch;
+        component.Audience = newClientBatch;
         component.TechCost = newTechCost;
         component.AcquisitionCost = newAcquisitionCost;
         AddComponent(index, component);
@@ -25,7 +25,7 @@ public partial class GameEntity {
         var index = GameComponentsLookup.NicheCosts;
         var component = (NicheCostsComponent)CreateComponent(index, typeof(NicheCostsComponent));
         component.BaseIncome = newBaseIncome;
-        component.ClientBatch = newClientBatch;
+        component.Audience = newClientBatch;
         component.TechCost = newTechCost;
         component.AcquisitionCost = newAcquisitionCost;
         ReplaceComponent(index, component);

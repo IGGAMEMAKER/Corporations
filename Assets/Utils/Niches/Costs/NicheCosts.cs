@@ -10,8 +10,6 @@ namespace Assets.Utils
             var costs = niche.nicheCosts;
             var state = GetMarketState(niche);
 
-            var flowModifier  = GetClientFlowModifier(niche);
-
             var priceModifier = GetMarketStatePriceModifier(state);
             var adModifier    = GetMarketStateAdCostModifier(state);
 
@@ -21,25 +19,8 @@ namespace Assets.Utils
                 AcquisitionCost  = costs.AcquisitionCost * adModifier,
                 TechCost         = costs.TechCost,
 
-                ClientBatch      = (int)(costs.ClientBatch * flowModifier),
+                Audience      = costs.Audience,
             };
-        }
-
-        public static float GetClientFlowModifier(GameEntity niche)
-        {
-            var state = GetMarketState(niche);
-
-            if (state == NicheLifecyclePhase.Idle || state == NicheLifecyclePhase.Death)
-                return 0;
-
-            switch (state)
-            {
-                case NicheLifecyclePhase.Decay: return 0;
-                case NicheLifecyclePhase.Innovation: return 1.3f;
-                case NicheLifecyclePhase.Trending: return 1.5f;
-                case NicheLifecyclePhase.MassUse: return 1.6f;
-            }
-            return 1f;
         }
 
         // base marketing cost

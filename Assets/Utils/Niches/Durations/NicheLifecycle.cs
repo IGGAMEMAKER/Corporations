@@ -7,7 +7,7 @@
         {
             var phase = GetMarketState(niche);
             var newDuration = GetNicheDuration(niche);
-
+            
             niche.ReplaceNicheState(phase, newDuration);
         }
 
@@ -25,6 +25,14 @@
                 case NicheLifecyclePhase.Decay:      return 100;
                 default: return 1;
             }
+        }
+
+        public static int GetCurrentNicheStateDuration(GameContext gameContext, NicheType nicheType) => GetCurrentNicheStateDuration(GetNiche(gameContext, nicheType));
+        public static int GetCurrentNicheStateDuration(GameEntity niche)
+        {
+            var stateDuration = NicheUtils.GetNichePeriodDurationInMonths(niche) - niche.nicheState.Duration;
+
+            return stateDuration;
         }
 
         public static NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
