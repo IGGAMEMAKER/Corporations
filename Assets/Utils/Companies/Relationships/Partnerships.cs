@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -125,6 +126,33 @@ namespace Assets.Utils
                 .Where(d => d.hasProduct)
                 .Select(d => d.product.Niche)
                 .ToArray();
+        }
+
+
+
+
+
+
+
+
+        public static List<int> GetPartnersOf(GameEntity company, GameContext gameContext)
+        {
+            if (company.isIndependentCompany)
+                return company.partnerships.Companies;
+
+            var parent = GetParentCompany(gameContext, company);
+
+            return parent.partnerships.Companies;
+        }
+
+        public static List<GameEntity> GetPartnerList(GameEntity company, GameContext gameContext)
+        {
+            var partners = GetPartnersOf(company, gameContext);
+
+            return partners
+                .Select(p => GetCompanyById(gameContext, p))
+                .Where(p => p.hasProduct)
+                .ToList();
         }
     }
 }

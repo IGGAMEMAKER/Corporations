@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Assets.Utils
@@ -44,31 +43,9 @@ namespace Assets.Utils
             return BrandingChangeBonus;
         }
 
-        public static List<int> GetPartnersOf(GameEntity company, GameContext gameContext)
-        {
-            //return NicheUtils.GetProductsOnMarket(gameContext, product);
-
-            if (company.isIndependentCompany)
-                return company.partnerships.Companies;
-
-            var parent = CompanyUtils.GetParentCompany(gameContext, company);
-
-            return parent.partnerships.Companies;
-        }
-
-        public static List<GameEntity> GetPartnerList(GameEntity company, GameContext gameContext)
-        {
-            var partners = GetPartnersOf(company, gameContext);
-
-            return partners
-                .Select(p => CompanyUtils.GetCompanyById(gameContext, p))
-                .Where(p => p.hasProduct)
-                .ToList();
-        }
-
         private static float GetPartnershipBonuses(GameEntity product, GameContext gameContext)
         {
-            var partners = GetPartnerList(product, gameContext);
+            var partners = CompanyUtils.GetPartnerList(product, gameContext);
 
             var partnersInSameIndustry = partners
                 .Where(p =>

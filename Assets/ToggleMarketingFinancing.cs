@@ -48,5 +48,4 @@ public class ToggleMarketingFinancing : ToggleButtonController
         var isChosen = financing == MaxFinancing;
         //ToggleIsChosenComponent(isChosen);
     }
-
 }
