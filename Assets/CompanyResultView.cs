@@ -68,7 +68,6 @@ public class CompanyResultView : View
         var share = (long)result.MarketShareChange;
         MarketShareChange.text = "Brand strength\n" + (int)product.branding.BrandPower;
 
-        MarketShareChange.SetAllDirty();
         //MarketShareChange.gameObject.SetActive(false);
         //MarketShareChange.text = "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
         //CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
