@@ -2,9 +2,10 @@
 {
     public static partial class InvestmentUtils
     {
-        public static Bonus<float> GetInvestorOpinionBonus(GameContext gameContext, GameEntity company, GameEntity investor)
+        // TODO <float>
+        public static Bonus<long> GetInvestorOpinionBonus(GameContext gameContext, GameEntity company, GameEntity investor)
         {
-            var description = new Bonus<float>("Investor opinion");
+            var description = new Bonus<long>("Investor opinion");
 
             if (company.hasProduct)
                 AppendProductBonuses(description, company, gameContext);
@@ -22,7 +23,7 @@
             var description = GetInvestorOpinionBonus(gameContext, company, investor);
 
             string title = Visuals.DescribeValueWithText(
-                (long)description.Sum(),
+                description.Sum(),
                 "They will invest in this company if asked",
                 "They will not invest",
                 "They almost want to invest"
@@ -31,7 +32,7 @@
             return title;
         }
 
-        private static void AppendProductBonuses(Bonus<float> bonusContainer, GameEntity company, GameContext gameContext)
+        private static void AppendProductBonuses(Bonus<long> bonusContainer, GameEntity company, GameContext gameContext)
         {
             bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitiveness(company, gameContext));
         }

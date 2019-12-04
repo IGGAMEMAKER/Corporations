@@ -103,21 +103,21 @@ public class Bonus<T>
         return this;
     }
 
-    public double Sum()
+    public long Sum()
     {
-        double sum = 0;
+        long sum = 0;
 
         foreach (var bonus in bonusDescriptions)
         {
             if (bonus.BonusType == BonusType.Multiplicative)
-                sum *= (double)(object)bonus.Value;
+                sum *= (long)(object)bonus.Value;
             else
-                sum += (double)(object)bonus.Value;
+                sum += (long)(object)bonus.Value;
         }
 
         if (isCapped)
         {
-            return Mathf.Clamp((float)sum, capMin, capMax);
+            return (long)Mathf.Clamp(sum, capMin, capMax);
         }
 
         return sum;
@@ -127,17 +127,17 @@ public class Bonus<T>
     {
         StringBuilder str = new StringBuilder();
 
-        double val = Sum();
+        long val = Sum();
 
         if (renderTitle)
-            str.AppendFormat("{0} is {1}", parameter, Format.Sign((long)val));
+            str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));
 
         if (renderSubTitle)
             str.AppendLine("\n** Based on **\n");
 
         foreach (var bonus in bonusDescriptions)
         {
-            double value = (double)(object)bonus.Value;
+            long value = (long)(object)bonus.Value;
 
             if (bonus.HideIfZero)
             {
@@ -150,7 +150,7 @@ public class Bonus<T>
 
             var text = "";
 
-            text = Visuals.RenderBonus(bonus.Name, (long)value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            text = Visuals.RenderBonus(bonus.Name, value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
 
             str.AppendLine(text);
         }
