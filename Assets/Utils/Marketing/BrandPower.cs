@@ -12,7 +12,7 @@ namespace Assets.Utils
             company.ReplaceBranding(brandPower);
         }
 
-        public static Bonus GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
+        public static Bonus<float> GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
             var conceptStatus = ProductUtils.GetConceptStatus(product, gameContext);
 
@@ -29,7 +29,7 @@ namespace Assets.Utils
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
-            var BrandingChangeBonus = new Bonus("Brand power change")
+            var BrandingChangeBonus = new Bonus<float>("Brand power change")
                 //.AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 .AppendAndHideIfZero("Is not paying for marketing", isNotPayingForMarketing ? -3 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -3 : 0)

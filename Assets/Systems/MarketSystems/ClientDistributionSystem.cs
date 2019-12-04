@@ -64,7 +64,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
         {
             var powerChange = MarketingUtils.GetMonthlyBrandPowerChange(products[i], gameContext).Sum();
 
-            MarketingUtils.AddBrandPower(products[i], powerChange);
+            MarketingUtils.AddBrandPower(products[i], (float)powerChange);
         }
     }
 

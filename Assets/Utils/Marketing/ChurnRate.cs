@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static long GetChurnRate(GameContext gameContext, int companyId)
         {
-            return GetChurnBonus(gameContext, companyId).Sum();
+            return (long)GetChurnBonus(gameContext, companyId).Sum();
         }
 
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product), product);
@@ -25,7 +25,7 @@ namespace Assets.Utils
             return GetDumpingCompetitors(gameContext, product).Count() > 0;
         }
 
-        public static Bonus GetChurnBonus(GameContext gameContext, int companyId)
+        public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId)
         {
             var c = CompanyUtils.GetCompanyById(gameContext, companyId);
             var state = NicheUtils.GetMarketState(gameContext, c.product.Niche);
@@ -40,7 +40,7 @@ namespace Assets.Utils
 
             var isCompetitorDumping = HasDumpingCompetitors(gameContext, c);
 
-            return new Bonus("Churn rate")
+            return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value", baseValue)

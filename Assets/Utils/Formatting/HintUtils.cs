@@ -9,9 +9,9 @@ public enum BonusType
     Multiplicative
 }
 
-public struct BonusDescription
+public struct BonusDescription<T>
 {
-    public long Value;
+    public T Value;
 
     public string Name;
 
@@ -22,9 +22,9 @@ public struct BonusDescription
     public string Dimension;
 }
 
-public class Bonus
+public class Bonus<T>
 {
-    public List<BonusDescription> bonusDescriptions;
+    public List<BonusDescription<T>> bonusDescriptions;
     public string parameter;
 
     public bool renderTitle;
@@ -38,26 +38,26 @@ public class Bonus
     bool minifyValues = false;
 
     public Bonus(string bonusName) {
-        bonusDescriptions = new List<BonusDescription>();
+        bonusDescriptions = new List<BonusDescription<T>>();
 
         parameter = bonusName;
     }
 
-    public Bonus Minify()
+    public Bonus<T> Minify()
     {
         renderSubTitle = false;
 
         return this;
     }
 
-    public Bonus MinifyValues()
+    public Bonus<T> MinifyValues()
     {
         minifyValues = true;
 
         return this;
     }
 
-    public Bonus Cap(long min, long max)
+    public Bonus<T> Cap(long min, long max)
     {
         capMin = min;
         capMax = max;
@@ -67,23 +67,23 @@ public class Bonus
         return this;
     }
 
-    public Bonus SetDimension(string dim)
+    public Bonus<T> SetDimension(string dim)
     {
         dimension = dim;
 
         return this;
     }
 
-    public Bonus RenderTitle()
+    public Bonus<T> RenderTitle()
     {
         renderTitle = true;
 
         return this;
     }
 
-    public Bonus AppendAndHideIfZero(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
-    public Bonus Append(string bonusName, long value, string dimension = "") => Append(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    private Bonus Append(BonusDescription bonus)
+    public Bonus<T> AppendAndHideIfZero(string bonusName, T value, string dimension = "") => Append(new BonusDescription<T> { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public Bonus<T> Append(string bonusName, T value, string dimension = "") => Append(new BonusDescription<T> { Name = bonusName, Value = value, Dimension = dimension });
+    private Bonus<T> Append(BonusDescription<T> bonus)
     {
         bonus.BonusType = BonusType.Additive;
         bonusDescriptions.Add(bonus);
@@ -93,9 +93,9 @@ public class Bonus
 
 
 
-    public Bonus MultiplyAndHideIfOne(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
-    public Bonus Multiply(string bonusName, long value, string dimension = "") => Multiply(new BonusDescription { Name = bonusName, Value = value, Dimension = dimension });
-    public Bonus Multiply(BonusDescription bonus)
+    public Bonus<T> MultiplyAndHideIfOne(string bonusName, T value, string dimension = "") => Multiply(new BonusDescription<T> { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
+    public Bonus<T> Multiply(string bonusName, T value, string dimension = "") => Multiply(new BonusDescription<T> { Name = bonusName, Value = value, Dimension = dimension });
+    public Bonus<T> Multiply(BonusDescription<T> bonus)
     {
         bonus.BonusType = BonusType.Multiplicative;
         bonusDescriptions.Add(bonus);
@@ -103,20 +103,22 @@ public class Bonus
         return this;
     }
 
-    public long Sum()
+    public double Sum()
     {
-        long sum = 0;
+        double sum = 0;
 
         foreach (var bonus in bonusDescriptions)
         {
             if (bonus.BonusType == BonusType.Multiplicative)
-                sum *= bonus.Value;
+                sum *= (double)(object)bonus.Value;
             else
-                sum += bonus.Value;
+                sum += (double)(object)bonus.Value;
         }
 
         if (isCapped)
-            return (long)Mathf.Clamp(sum, capMin, capMax);
+        {
+            return Mathf.Clamp((float)sum, capMin, capMax);
+        }
 
         return sum;
     }
@@ -125,28 +127,30 @@ public class Bonus
     {
         StringBuilder str = new StringBuilder();
 
-        long val = Sum();
+        double val = Sum();
 
         if (renderTitle)
-            str.AppendFormat("{0} is {1}", parameter, Format.Sign(val));
+            str.AppendFormat("{0} is {1}", parameter, Format.Sign((long)val));
 
         if (renderSubTitle)
             str.AppendLine("\n** Based on **\n");
 
         foreach (var bonus in bonusDescriptions)
         {
+            double value = (double)(object)bonus.Value;
+
             if (bonus.HideIfZero)
             {
-                if (bonus.BonusType == BonusType.Additive && bonus.Value == 0)
+                if (bonus.BonusType == BonusType.Additive && value == 0)
                     continue;
 
-                if (bonus.BonusType == BonusType.Multiplicative && bonus.Value == 1)
+                if (bonus.BonusType == BonusType.Multiplicative && value == 1)
                     continue;
             }
 
             var text = "";
 
-            text = Visuals.RenderBonus(bonus.Name, bonus.Value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
+            text = Visuals.RenderBonus(bonus.Name, (long)value, bonus.Dimension + dimension, positiveIsNegative, bonus.BonusType, minifyValues);
 
             str.AppendLine(text);
         }
