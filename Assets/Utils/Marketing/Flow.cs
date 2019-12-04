@@ -13,7 +13,7 @@ namespace Assets.Utils
             var n = stateDuration + 1;
             var q = GetMonthlyAudienceGrowthMultiplier();
 
-            var multiplier = System.Math.Pow(n, q);
+            var multiplier = System.Math.Pow(q, n);
 
 
 
