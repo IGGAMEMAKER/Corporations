@@ -76,13 +76,7 @@ namespace Assets.Utils
             HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
 
             // culture
-            var culture = new Dictionary<CorporatePolicy, int>()
-            {
-                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
-                [CorporatePolicy.WorkerMindset] = Random.Range(1, 6),
-                [CorporatePolicy.Focusing] = Random.Range(1, 6),
-                [CorporatePolicy.CreateOrBuy] = Random.Range(1, 6),
-            };
+            var culture = GetRandomCorporateCulture();
             e.AddCorporateCulture(culture);
 
 
@@ -92,6 +86,28 @@ namespace Assets.Utils
             e.AddCooldowns(new List<Cooldown>());
 
             return e;
+        }
+
+        public static Dictionary<CorporatePolicy, int> GetRandomCorporateCulture()
+        {
+            return new Dictionary<CorporatePolicy, int>()
+            {
+                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
+                [CorporatePolicy.WorkerMindset]  = Random.Range(1, 6),
+                [CorporatePolicy.Focusing]       = Random.Range(1, 6),
+                [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 6),
+            };
+        }
+
+        public static Dictionary<CorporatePolicy, int> GetFundCorporateCulture()
+        {
+            return new Dictionary<CorporatePolicy, int>()
+            {
+                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
+                [CorporatePolicy.WorkerMindset]  = Random.Range(1, 3),
+                [CorporatePolicy.Focusing]       = Random.Range(1, 6),
+                [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 3),
+            };
         }
     }
 }
