@@ -69,6 +69,8 @@ public class NicheTableListView : ListView
     {
         var state = NicheUtils.GetMarketState(niche);
 
+        return !(state == NicheLifecyclePhase.Death || state == NicheLifecyclePhase.Idle || state == NicheLifecyclePhase.Innovation);
+
         return (IncludeInnovativeMarkets && state == NicheLifecyclePhase.Innovation)
             || (IncludeTrendingMarkets && state == NicheLifecyclePhase.Trending)
             || (IncludeMassMarkets && state == NicheLifecyclePhase.MassUse);

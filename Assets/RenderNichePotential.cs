@@ -19,6 +19,8 @@ public class RenderNichePotential : UpgradedParameterView
         var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
 
         return $"{Format.Minify(clients)} users\n\n+{Format.Minify(flow)} this month";
+
+
         var potential = NicheUtils.GetMarketPotential(GameContext, SelectedNiche);
 
         if (potential == 0)

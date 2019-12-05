@@ -19,7 +19,7 @@ namespace Assets.Utils
             return ((int)(col * 255)).ToString("X2"); // ("X2");
         }
 
-        public static string Colorize(string text, Color color) => Colorize(text, HexConverter(color));
+        public static string Colorize(string text, Color color)     => Colorize(text, HexConverter(color));
         public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
         public static string Colorize(string text, string colorHTML)
         {

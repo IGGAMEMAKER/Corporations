@@ -29,8 +29,14 @@ public partial class BaseProductSystems : OnDateChange
         ManageDumpingProduct(product);
     }
 
+    void ManageMarketing(GameEntity product)
+    {
+        var financing = EconomyUtils.GetProductMarketingCost(product, gameContext);
+    }
+
     void ManageDumpingProduct(GameEntity product)
     {
+        return;
         var willBeBankruptIn6Months = !CompanyUtils.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
         var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
 

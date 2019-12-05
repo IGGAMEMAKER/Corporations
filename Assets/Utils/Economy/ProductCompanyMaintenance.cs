@@ -24,6 +24,7 @@ namespace Assets.Utils
 
 
             var acquisitionCost     = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
+
             var brandDiscount       = MarketingUtils.GetAudienceReachBrandMultiplier(e);
             var innovationDiscount  = MarketingUtils.GetAudienceReachInnovationLeaderMultiplier(e);
 
@@ -45,18 +46,16 @@ namespace Assets.Utils
 
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var stage = GetStageFinancingMultiplier(e);
-            var team = GetTeamFinancingCostMultiplier(e);
-
             var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
             var concept = ProductUtils.GetProductLevel(e);
             var niche = NicheUtils.GetNiche(gameContext, e);
-            var complexity = niche.nicheBaseProfile.Profile.AppComplexity;
+            var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
-            var development = Mathf.Pow((int)complexity, 1f + concept * 0.1f);
+            //var development = Mathf.Pow((int)complexity, 1f + concept * 0.1f);
+            var development = Mathf.Pow(1f + complexity / 100f, concept);
 
-            return (long)(baseCost * development * stage * team);
+            return (long)(baseCost * development);
         }
     }
 }

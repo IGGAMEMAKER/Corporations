@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Utils;
-using UnityEngine;
 
 public partial class ClientDistributionSystem : OnPeriodChange
 {
@@ -31,6 +30,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     void ChurnUsers(GameEntity[] products, GameEntity niche)
     {
+        return;
         //var clientContainers = niche.nicheClientsContainer.Clients;
 
         var dumpingCompanies = products.Where(p => p.isDumping);

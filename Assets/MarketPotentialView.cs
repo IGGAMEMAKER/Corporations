@@ -45,10 +45,12 @@ public class MarketPotentialView : View
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
         var niche = NicheUtils.GetNiche(GameContext, nicheType);
 
+        var profile = niche.nicheBaseProfile.Profile;
+
         var rating = NicheUtils.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
-        var speed = niche.nicheBaseProfile.Profile.NicheSpeed;
+        var speed = profile.NicheSpeed;
         //var iteration = (int)speed;
         //ChangeSpeed.text = $"{iteration} months";
 
@@ -73,6 +75,7 @@ public class MarketPotentialView : View
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         //TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
 
+        TeamMaintenance.text = profile.AppComplexity.ToString();
 
         long maxIncome = 0;
         if (BiggestIncome != null)

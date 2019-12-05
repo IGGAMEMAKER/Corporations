@@ -40,6 +40,7 @@ public enum Margin
 
 public enum AppComplexity
 {
+    Solo = 1,
     Easy = 3,
     Average = 7,
     Hard = 15,
@@ -88,7 +89,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
         var clients = GetBatchSize(settings.AudienceSize, nicheId, nicheType);
-        var techCost = GetTechCost(settings.AppComplexity, nicheId) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+        var techCost = GetTechCost(settings.AppComplexity, nicheId);
         var adCosts = GetAdCost(clients, settings.MonetisationType, settings.NicheSpeed, nicheId);
 
 
