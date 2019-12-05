@@ -16,9 +16,15 @@
                 name = e.company.Name;
 
                 if (e.company.CompanyType == CompanyType.FinancialGroup)
+                {
                     investorType = InvestorType.VentureInvestor;
+
+                }
                 else
+                {
                     investorType = InvestorType.Strategic;
+
+                }
             }
             else if (e.hasHuman)
             {
