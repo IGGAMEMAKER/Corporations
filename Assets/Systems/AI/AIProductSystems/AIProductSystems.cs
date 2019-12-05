@@ -14,9 +14,6 @@ public partial class BaseProductSystems : OnDateChange
 
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
         {
-            //var val = RandomEnum<ProductImprovement>.GenerateValue();
-
-            //ProductUtils.UpgradeProductImprovement(val, e);
             ManageProduct(e);
         }
     }
@@ -27,11 +24,15 @@ public partial class BaseProductSystems : OnDateChange
             MarketingUtils.ReleaseApp(product, gameContext);
 
         ManageDumpingProduct(product);
+
+        ManageMarketing(product);
     }
 
     void ManageMarketing(GameEntity product)
     {
         var financing = EconomyUtils.GetProductMarketingCost(product, gameContext);
+
+
     }
 
     void ManageDumpingProduct(GameEntity product)

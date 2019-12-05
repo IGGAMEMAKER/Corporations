@@ -14,5 +14,10 @@
 
             return level > improvements;
         }
+
+        public static void SetFinancing(GameEntity product, Financing financing, int level)
+        {
+            product.financing.Financing[financing] = level;
+        }
     }
 }

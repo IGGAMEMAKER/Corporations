@@ -17,7 +17,7 @@ public class ToggleFinancingTeam : View
 
     public void SetFinancing()
     {
-        SelectedCompany.financing.Financing[Financing.Team] = Dropdown.value;
+        ProductUtils.SetFinancing(SelectedCompany, Financing.Team, Dropdown.value);
 
         Render();
     }
