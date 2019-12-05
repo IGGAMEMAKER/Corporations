@@ -1,5 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils.Formatting;
 using System.Collections.Generic;
 
 public partial class BaseProductSystems : OnDateChange
@@ -32,7 +31,7 @@ public partial class BaseProductSystems : OnDateChange
     {
         var financing = EconomyUtils.GetProductMarketingCost(product, gameContext);
 
-
+        var nextFinancing = product.financing.Financing[Financing.Marketing];
     }
 
     void ManageDumpingProduct(GameEntity product)
