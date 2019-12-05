@@ -14,6 +14,8 @@ public class BaseClass : MonoBehaviour
     public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(GameContext);
     public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(GameContext);
     public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(GameContext);
+    public GameEntity SelectedInvestor  => ScreenUtils.GetSelectedInvestor(GameContext);
+
     public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
 
 

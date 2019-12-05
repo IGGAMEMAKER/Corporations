@@ -12,9 +12,7 @@ public class ProposalScreen : View
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
     public RejectInvestmentProposalController RejectInvestmentProposalController;
 
-    private GameEntity Shareholder => ScreenUtils.GetSelectedInvestor(GameContext);
-
-    InvestmentProposal proposal => CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, Shareholder.shareholder.Id);
+    InvestmentProposal proposal => CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, SelectedInvestor.shareholder.Id);
 
     bool IsInvestmentRoundActive => SelectedCompany.hasAcceptsInvestments;
 
@@ -56,8 +54,8 @@ public class ProposalScreen : View
         AcceptInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
         RejectInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
 
-        AcceptInvestmentProposalController.InvestorId = Shareholder.shareholder.Id;
-        RejectInvestmentProposalController.InvestorId = Shareholder.shareholder.Id;
+        AcceptInvestmentProposalController.InvestorId = SelectedInvestor.shareholder.Id;
+        RejectInvestmentProposalController.InvestorId = SelectedInvestor.shareholder.Id;
     }
 
     void Render()
@@ -68,6 +66,6 @@ public class ProposalScreen : View
 
         SetButtons();
 
-        InvestorName.text = $"Proposal from {Shareholder.shareholder.Name}, {InvestmentUtils.GetFormattedInvestorType(Shareholder.shareholder.InvestorType)}";
+        InvestorName.text = $"Proposal from {SelectedInvestor.shareholder.Name}, {InvestmentUtils.GetFormattedInvestorType(SelectedInvestor.shareholder.InvestorType)}";
     }
 }

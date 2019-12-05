@@ -33,7 +33,8 @@
             }
 
             e.AddShareholder(investorId, name, investorType);
-            e.AddCorporateCulture(CompanyUtils.GetFundCorporateCulture());
+            if (!e.hasCorporateCulture)
+                e.AddCorporateCulture(CompanyUtils.GetFundCorporateCulture());
             AddMoneyToInvestor(context, investorId, money);
 
             return investorId;
