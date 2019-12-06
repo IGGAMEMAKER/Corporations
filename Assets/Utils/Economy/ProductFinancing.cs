@@ -20,7 +20,7 @@ namespace Assets.Utils
 
         public static int GetCheaperFinancing(GameEntity e)
         {
-            return Mathf.Clamp(GetMarketingFinancing(e) - 1, 0, ProductUtils.GetMaxFinancing);
+            return Mathf.Clamp(GetMarketingFinancing(e) - 1, e.isRelease ? 1 : 0, ProductUtils.GetMaxFinancing);
         }
 
         public static int GetMarketingFinancing(GameEntity e)
