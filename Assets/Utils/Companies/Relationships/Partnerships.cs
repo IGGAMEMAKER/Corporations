@@ -8,10 +8,11 @@ namespace Assets.Utils
         public static Bonus<long> GetPartnerability(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
             return new Bonus<long>("Partnership possibility")
+                .Append("Base", -1)
                 .AppendAndHideIfZero("Have competing products", IsHaveCompetingProducts(requester, acceptor, gameContext) ? -100 : 0)
                 .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
                 .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)
-                .Append("Partnership benefits", GetPartnershipBenefits(requester, acceptor))
+                .Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(acceptor, requester, gameContext))
                 ;
         }
 
