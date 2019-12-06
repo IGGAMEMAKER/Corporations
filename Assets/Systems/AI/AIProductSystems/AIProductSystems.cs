@@ -22,7 +22,7 @@ public partial class BaseProductSystems : OnDateChange
         if (!product.isRelease && ProductUtils.IsInMarket(product, gameContext))
             MarketingUtils.ReleaseApp(product, gameContext);
 
-        ManageDumpingProduct(product);
+        //ManageDumpingProduct(product);
 
         ManageMarketing(product);
     }
@@ -35,13 +35,13 @@ public partial class BaseProductSystems : OnDateChange
         var diff = nextCost - currentCost;
 
         // go higher
-        if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
+        //if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
+        if (CompanyUtils.IsEnoughResources(product, nextCost))
             ProductUtils.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
     }
 
     void ManageDumpingProduct(GameEntity product)
     {
-        return;
         var willBeBankruptIn6Months = !CompanyUtils.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
         var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
 
