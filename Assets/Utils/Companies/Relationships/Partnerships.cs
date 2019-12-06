@@ -12,9 +12,28 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Have competing products", IsHaveCompetingProducts(requester, acceptor, gameContext) ? -100 : 0)
                 .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
                 .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)
+                .AppendAndHideIfZero("You compete with one of their partners", IsPartnerOfCompetingCompany(requester, acceptor, gameContext) ? 0 : -200)
                 .Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(acceptor, requester, gameContext))
                 //.Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(requester, acceptor, gameContext))
                 ;
+        }
+
+        public static bool IsCompetingCompany(int companyId1, int companyId2, GameContext gameContext) => IsCompetingCompany(GetCompanyById(gameContext, companyId1), GetCompanyById(gameContext, companyId2), gameContext);
+        public static bool IsCompetingCompany(GameEntity company1, GameEntity company2, GameContext gameContext)
+        {
+            return IsHaveCompetingProducts(company1, company2, gameContext) || IsHaveIntersectingMarkets(company1, company2, gameContext);
+        }
+
+        public static bool IsPartnerOfCompetingCompany(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        {
+            foreach (var acceptorPartner in acceptor.partnerships.Companies)
+            {
+                // signing contract will piss one of acceptor partners
+                if (IsCompetingCompany(requester.company.Id, acceptorPartner, gameContext))
+                    return true;
+            }
+
+            return false;
         }
 
         public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, GameContext gameContext, bool notifyPlayer)
