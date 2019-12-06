@@ -4,14 +4,6 @@ public class ToggleMarketingFinancing : ToggleButtonController
 {
     int companyId;
     
-    // max financing
-    int MaxFinancing => 2;
-
-    private void Start()
-    {
-        Render();
-    }
-
     public void SetCompanyId(int companyId)
     {
         this.companyId = companyId;
@@ -28,10 +20,6 @@ public class ToggleMarketingFinancing : ToggleButtonController
         {
             newFinancing = 1;
         }
-        else if (financing == 1)
-        {
-            newFinancing = 2;
-        }
         else
         {
             newFinancing = 0;
@@ -39,14 +27,5 @@ public class ToggleMarketingFinancing : ToggleButtonController
 
         ProductUtils.SetFinancing(company, Financing.Marketing, newFinancing);
         //company.financing.Financing[Financing.Marketing] = newFinancing;
-    }
-
-    void Render()
-    {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
-        var financing = company.financing.Financing[Financing.Marketing];
-
-        var isChosen = financing == MaxFinancing;
-        //ToggleIsChosenComponent(isChosen);
     }
 }

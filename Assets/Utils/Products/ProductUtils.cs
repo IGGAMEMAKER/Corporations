@@ -15,6 +15,13 @@
             return level > improvements;
         }
 
+        public static int GetMaxFinancing = 2;
+
+        public static void SetMarketingFinancing(GameEntity product, int level)
+        {
+            SetFinancing(product, Financing.Marketing, level);
+        }
+
         public static void SetFinancing(GameEntity product, Financing financing, int level)
         {
             product.financing.Financing[financing] = level;

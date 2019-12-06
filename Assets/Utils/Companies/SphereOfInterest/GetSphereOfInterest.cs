@@ -78,7 +78,7 @@ namespace Assets.Utils
 
         internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
-            return GetDaughterCompanies(gameContext, group.company.Id).Count(c => c.hasProduct && c.product.Niche == nicheType) > 0;
+            return GetDaughterCompaniesOnMarket(group, nicheType, gameContext).Count() > 0;
         }
 
         internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)

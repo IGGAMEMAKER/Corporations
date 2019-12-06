@@ -19,6 +19,13 @@ namespace Assets.Utils
                 .ToArray();
         }
 
+        public static GameEntity[] GetDaughterCompaniesOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        {
+            return GetDaughterProductCompanies(gameContext, group)
+                .Where(p => p.product.Niche == nicheType)
+                .ToArray();
+        }
+
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, GetCompanyById(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {
