@@ -12,7 +12,7 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Have competing products", IsHaveCompetingProducts(requester, acceptor, gameContext) ? -100 : 0)
                 .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
                 .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)
-                .AppendAndHideIfZero("You compete with one of their partners", IsPartnerOfCompetingCompany(requester, acceptor, gameContext) ? 0 : -200)
+                .AppendAndHideIfZero("You have partnerships with their competitors", IsPartnerOfCompetingCompany(requester, acceptor, gameContext) ? -200 : 0)
                 .Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(acceptor, requester, gameContext))
                 //.Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(requester, acceptor, gameContext))
                 ;
@@ -26,10 +26,10 @@ namespace Assets.Utils
 
         public static bool IsPartnerOfCompetingCompany(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
-            foreach (var acceptorPartner in acceptor.partnerships.Companies)
+            foreach (var requesterPartner in requester.partnerships.Companies)
             {
                 // signing contract will piss one of acceptor partners
-                if (IsCompetingCompany(requester.company.Id, acceptorPartner, gameContext))
+                if (IsCompetingCompany(acceptor.company.Id, requesterPartner, gameContext))
                     return true;
             }
 
@@ -181,6 +181,7 @@ namespace Assets.Utils
             return GetIndependentCompanies(gameContext)
                 .Where(IsNotFinancialStructure)
                 .Where(c => IsCanBePartnersTheoretically(company, c))
+                .Where(c => !IsHaveStrategicPartnershipAlready(company, c))
                 //.Where(c => CompanyUtils.IsHaveIntersectingMarkets(MyCompany, c, GameContext))
                 .ToArray()
                 ;
