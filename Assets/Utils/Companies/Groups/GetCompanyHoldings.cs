@@ -12,10 +12,16 @@ namespace Assets.Utils
             return GetDaughterCompanies(context, companyId);
         }
 
-        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId)
+        public static GameEntity[] GetDaughterProductCompanies(GameContext context, GameEntity company)
         {
-            var c = GetCompanyById(context, companyId);
+            return GetDaughterCompanies(context, company)
+                .Where(p => p.hasProduct)
+                .ToArray();
+        }
 
+        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, GetCompanyById(context, companyId));
+        public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
+        {
             if (!c.hasShareholder)
                 return new GameEntity[0];
 

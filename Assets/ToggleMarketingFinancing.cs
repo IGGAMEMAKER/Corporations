@@ -37,7 +37,7 @@ public class ToggleMarketingFinancing : ToggleButtonController
             newFinancing = 0;
         }
 
-        ProductUtils.SetFinancing(company, Financing.Development, newFinancing);
+        ProductUtils.SetFinancing(company, Financing.Marketing, newFinancing);
         //company.financing.Financing[Financing.Marketing] = newFinancing;
     }
 

@@ -84,7 +84,10 @@ public class CompanyResultView : View
         if (c1 != null)
             days = c1.EndDate - CurrentIntDate;
 
-        ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + $"\nUpgrades in {days}d";
+        var product = CompanyUtils.GetCompanyById(GameContext, result1.CompanyId);
+
+        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, GameContext)}LVL)" : "";
+        ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";
     }
 
     public override void ViewRender()

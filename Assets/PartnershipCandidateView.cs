@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PartnershipCandidateView : View
 {
-    GameEntity GameEntity;
+    GameEntity company;
 
     public Text CompanyName;
     public Text BrandPowerGain;
@@ -17,19 +17,21 @@ public class PartnershipCandidateView : View
 
     public void SetEntity(GameEntity gameEntity)
     {
-        GameEntity = gameEntity;
+        company = gameEntity;
 
-        var partnerability = CompanyUtils.GetPartnerability(MyCompany, gameEntity, GameContext);
+        var partnerability = CompanyUtils.GetPartnerability(MyCompany, company, GameContext);
         var opinion = partnerability.Sum();
 
-        CompanyName.text = gameEntity.company.Name;
+        CompanyName.text = company.company.Name;
         Opinion.text = Visuals.PositiveOrNegativeMinified(opinion);
         Opinion.gameObject.GetComponent<Hint>().SetHint(partnerability.ToString());
 
-        GetComponent<LinkToProjectView>().CompanyId = gameEntity.company.Id;
+        GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
 
-        var industries = MyCompany.companyFocus.Industries.Select(EnumUtils.GetFormattedIndustryName);
+        var industries = company.companyFocus.Industries.Select(EnumUtils.GetFormattedIndustryName);
 
         TargetIndustry.text = string.Join(", ", industries);
+
+        BrandPowerGain.text = CompanyUtils.GetCompanyBenefitFromTargetCompany(MyCompany, company, GameContext).ToString();
     }
 }

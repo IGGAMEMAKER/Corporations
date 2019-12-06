@@ -15,7 +15,7 @@ namespace Assets.Utils
                 ;
         }
 
-        public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, GameContext gameContext, bool notifyPlayer = false)
+        public static void SendStrategicPartnershipRequest(GameEntity requester, GameEntity acceptor, GameContext gameContext, bool notifyPlayer)
         {
             // don't render buttons
             if (!IsCanBePartnersTheoretically(requester, acceptor))
@@ -44,6 +44,34 @@ namespace Assets.Utils
 
             if (notifyPlayer)
                 NotifyAboutPartnershipResponse(requester, acceptor, wantsToAccept, gameContext);
+        }
+
+        public static float GetCompanyBenefitFromTargetCompany(GameEntity company, GameEntity target, GameContext gameContext)
+        {
+            var sameIndustries = company.companyFocus.Industries.Intersect(target.companyFocus.Industries);
+
+            return sameIndustries
+                .Sum(i => GetCompanyStrengthInIndustry(target, i, gameContext))
+                ;
+        }
+
+        public static float GetCompanyStrengthInIndustry(GameEntity company, IndustryType industry, GameContext gameContext)
+        {
+            if (company.isManagingCompany)
+            {
+                var daughtersInIndustry = GetDaughterProductCompanies(gameContext, company)
+                    .Where(p => NicheUtils.GetIndustry(p.product.Niche, gameContext) == industry);
+
+                return daughtersInIndustry
+                    .Sum(d => d.branding.BrandPower);
+            }
+            else
+            {
+                // product company
+                var ind = NicheUtils.GetIndustry(company.product.Niche, gameContext);
+
+                return ind == industry ? company.branding.BrandPower : 0;
+            }
         }
 
         public static int GetPartnershipBenefits(GameEntity requester, GameEntity acceptor)
