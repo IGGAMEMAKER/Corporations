@@ -29,9 +29,14 @@ public partial class BaseProductSystems : OnDateChange
 
     void ManageMarketing(GameEntity product)
     {
-        var financing = EconomyUtils.GetProductMarketingCost(product, gameContext);
+        var currentCost = EconomyUtils.GetProductMarketingCost(product, gameContext);
+        var nextCost = EconomyUtils.GetNextMarketingLevelCost(product, gameContext);
 
-        var nextFinancing = product.financing.Financing[Financing.Marketing];
+        var diff = nextCost - currentCost;
+
+        // go higher
+        if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
+            ProductUtils.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
     }
 
     void ManageDumpingProduct(GameEntity product)

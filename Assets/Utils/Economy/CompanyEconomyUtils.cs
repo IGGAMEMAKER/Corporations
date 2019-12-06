@@ -33,6 +33,11 @@
             return GetProfit(c, context);
         }
 
+        public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
+        {
+            return GetProfit(company, gameContext) >= money;
+        }
+
 
         internal static bool IsProfitable(GameContext gameContext, int companyId)
         {

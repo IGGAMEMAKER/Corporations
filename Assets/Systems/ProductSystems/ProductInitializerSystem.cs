@@ -28,19 +28,19 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void Initialize()
     {
         // products
-        var facebook = GenerateProductCompany("facebook", NicheType.Com_SocialNetwork);
-        var twitter = GenerateProductCompany("twitter", NicheType.Com_SocialNetwork);
-        var vk = GenerateProductCompany("vk", NicheType.Com_SocialNetwork);
+        var facebook =      GenerateProductCompany("facebook", NicheType.Com_SocialNetwork);
+        var twitter =       GenerateProductCompany("twitter", NicheType.Com_SocialNetwork);
+        var vk =            GenerateProductCompany("vk", NicheType.Com_SocialNetwork);
 
-        var tg = GenerateProductCompany("telegram", NicheType.Com_Messenger);
-        GenerateProductCompany("whatsapp", NicheType.Com_Messenger);
-        var fbMessenger = GenerateProductCompany("facebook messenger", NicheType.Com_Messenger);
+        var tg =            GenerateProductCompany("telegram", NicheType.Com_Messenger);
+                            GenerateProductCompany("whatsapp", NicheType.Com_Messenger);
+        var fbMessenger =   GenerateProductCompany("facebook messenger", NicheType.Com_Messenger);
 
-        int google = GenerateProductCompany("Google", NicheType.Tech_SearchEngine).company.Id;
-        int yahoo =  GenerateProductCompany("Yahoo", NicheType.Tech_SearchEngine).company.Id;
-        GenerateProductCompany("Yandex", NicheType.Tech_SearchEngine);
+        int google =        GenerateProductCompany("Google", NicheType.Tech_SearchEngine).company.Id;
+        int yahoo =         GenerateProductCompany("Yahoo", NicheType.Tech_SearchEngine).company.Id;
+                            GenerateProductCompany("Yandex", NicheType.Tech_SearchEngine);
 
-        var microsoftOs = GenerateProductCompany("Windows", NicheType.Tech_OSDesktop);
+        var microsoftOs =   GenerateProductCompany("Windows", NicheType.Tech_OSDesktop);
 
 
         // investors
