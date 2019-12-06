@@ -15,7 +15,8 @@ public class PartnershipCandidates : ListView
     void OnEnable()
     {
         var possiblePartners = CompanyUtils.GetPartnershipCandidates(MyCompany, GameContext)
-                .OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum());
+                //.OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum());
+                .OrderByDescending(c => CompanyUtils.GetCompanyBenefitFromTargetCompany(MyCompany, c, GameContext));
 
         SetItems(possiblePartners.ToArray());
     }
