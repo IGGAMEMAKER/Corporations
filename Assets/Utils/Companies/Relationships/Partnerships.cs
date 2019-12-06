@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -24,7 +22,7 @@ namespace Assets.Utils
                 return;
 
             // don't render buttons
-            if (IsHaveStrategicPartnership(requester, acceptor))
+            if (IsHaveStrategicPartnershipAlready(requester, acceptor))
                 return;
 
             if (IsHasTooManyPartnerships(requester) || IsHasTooManyPartnerships(acceptor))
@@ -45,7 +43,7 @@ namespace Assets.Utils
             }
 
             if (notifyPlayer)
-                NotifyAboutPartnershipResponse(requester, acceptor, gameContext);
+                NotifyAboutPartnershipResponse(requester, acceptor, wantsToAccept, gameContext);
         }
 
         public static int GetPartnershipBenefits(GameEntity requester, GameEntity acceptor)
@@ -64,9 +62,9 @@ namespace Assets.Utils
             requester.partnerships.Companies.RemoveAll(id => id == acceptor.company.Id);
         }
 
-        public static void NotifyAboutPartnershipResponse(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        public static void NotifyAboutPartnershipResponse(GameEntity requester, GameEntity acceptor, bool willAccept, GameContext gameContext)
         {
-            NotificationUtils.AddPopup(gameContext, new PopupMessageStrategicPartnership(requester.company.Id, acceptor.company.Id, true));
+            NotificationUtils.AddPopup(gameContext, new PopupMessageStrategicPartnership(requester.company.Id, acceptor.company.Id, willAccept));
         }
 
 
@@ -78,7 +76,7 @@ namespace Assets.Utils
             return company.partnerships.Companies.Count >= maxPartnerships;
         }
 
-        public static bool IsHaveStrategicPartnership(GameEntity c1, GameEntity c2)
+        public static bool IsHaveStrategicPartnershipAlready(GameEntity c1, GameEntity c2)
         {
             return
                 c1.partnerships.Companies.Contains(c2.company.Id) &&
@@ -91,8 +89,7 @@ namespace Assets.Utils
             if (requester.company.Id == acceptor.company.Id)
                 return false;
 
-            if (!requester.isIndependentCompany ||
-                !acceptor.isIndependentCompany)
+            if (!(requester.isIndependentCompany && acceptor.isIndependentCompany))
                 return false;
 
             return true;
@@ -130,7 +127,15 @@ namespace Assets.Utils
 
 
 
-
+        public static GameEntity[] GetPartnershipCandidates (GameEntity company, GameContext gameContext)
+        {
+            return GetIndependentCompanies(gameContext)
+                .Where(IsNotFinancialStructure)
+                .Where(c => IsCanBePartnersTheoretically(company, c))
+                //.Where(c => CompanyUtils.IsHaveIntersectingMarkets(MyCompany, c, GameContext))
+                .ToArray()
+                ;
+        }
 
 
 

@@ -12,13 +12,10 @@ public class PartnershipCandidates : ListView
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        var possiblePartners = CompanyUtils.GetIndependentCompanies(GameContext)
-            .Where(c => CompanyUtils.IsCanBePartnersTheoretically(MyCompany, c))
-            .OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum())
-            //.Where(c => CompanyUtils.IsHaveIntersectingMarkets(MyCompany, c, GameContext))
-            ;
+        var possiblePartners = CompanyUtils.GetPartnershipCandidates(MyCompany, GameContext)
+                .OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum());
 
         SetItems(possiblePartners.ToArray());
     }

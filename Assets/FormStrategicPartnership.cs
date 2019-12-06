@@ -12,7 +12,7 @@ public class FormStrategicPartnership : ToggleButtonController
     {
         base.ViewRender();
 
-        bool isPartnersAlready = CompanyUtils.IsHaveStrategicPartnership(MyCompany, SelectedCompany);
+        bool isPartnersAlready = CompanyUtils.IsHaveStrategicPartnershipAlready(MyCompany, SelectedCompany);
         bool isCanBePartnersTheoretically = CompanyUtils.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
 
         GetComponent<Button>().interactable = !isPartnersAlready && isCanBePartnersTheoretically;
