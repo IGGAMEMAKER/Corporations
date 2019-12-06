@@ -15,7 +15,10 @@ public class PartnershipCandidates : ListView
     void Start()
     {
         var possiblePartners = CompanyUtils.GetIndependentCompanies(GameContext)
-            .Where(c => CompanyUtils.IsHaveIntersectingMarkets(MyCompany, c, GameContext));
+            .Where(c => CompanyUtils.IsCanBePartnersTheoretically(MyCompany, c))
+            .OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum())
+            //.Where(c => CompanyUtils.IsHaveIntersectingMarkets(MyCompany, c, GameContext))
+            ;
 
         SetItems(possiblePartners.ToArray());
     }

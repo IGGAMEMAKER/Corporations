@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 1466719129986816851}
   - component: {fileID: 4814355274991488539}
   - component: {fileID: 4809504643769530214}
+  - component: {fileID: 1738885920449851342}
+  - component: {fileID: 664088921195794415}
   m_Layer: 5
   m_Name: PossiblePartnership
   m_TagString: Untagged
@@ -170,6 +172,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37db6a2957765145a9fd2a8b5c6b4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CompanyName: {fileID: 606997437222451190}
+  BrandPowerGain: {fileID: 1223861432774052574}
+  Opinion: {fileID: 9084266225102502176}
+  TargetIndustry: {fileID: 1364175460892976738}
+--- !u!114 &1738885920449851342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386413474884102916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4814355274991488539}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &664088921195794415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386413474884102916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ce12f1d57071e42ab238c822354a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLink: 0
+  CompanyId: 0
 --- !u!1 &3455596656471941358
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +244,7 @@ GameObject:
   - component: {fileID: 8468575156493204658}
   - component: {fileID: 1364175460892976738}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: Industry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +323,7 @@ GameObject:
   - component: {fileID: 677572473342560734}
   - component: {fileID: 1223861432774052574}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Benefit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,8 +401,9 @@ GameObject:
   - component: {fileID: 8397108960301428087}
   - component: {fileID: 5817421908263115689}
   - component: {fileID: 9084266225102502176}
+  - component: {fileID: 207855458611077727}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: Opinion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,3 +470,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: +70
+--- !u!114 &207855458611077727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8868887968442892118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
