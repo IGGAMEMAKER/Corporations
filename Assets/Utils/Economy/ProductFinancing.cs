@@ -18,6 +18,11 @@ namespace Assets.Utils
             return Mathf.Clamp(GetMarketingFinancing(e) + 1, 0, ProductUtils.GetMaxFinancing);
         }
 
+        public static int GetCheaperFinancing(GameEntity e)
+        {
+            return Mathf.Clamp(GetMarketingFinancing(e) - 1, 0, ProductUtils.GetMaxFinancing);
+        }
+
         public static int GetMarketingFinancing(GameEntity e)
         {
             return e.financing.Financing[Financing.Marketing];

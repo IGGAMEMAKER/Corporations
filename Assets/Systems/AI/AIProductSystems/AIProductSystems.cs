@@ -36,6 +36,13 @@ public partial class BaseProductSystems : OnDateChange
 
         // go higher
         //if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
+        if (!CompanyUtils.IsEnoughResources(product, currentCost))
+        {
+            var financing = EconomyUtils.GetCheaperFinancing(product);
+
+            ProductUtils.SetMarketingFinancing(product, financing);
+        }
+
         if (CompanyUtils.IsEnoughResources(product, nextCost))
             ProductUtils.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
     }
