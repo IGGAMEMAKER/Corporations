@@ -34,7 +34,7 @@ namespace Assets.Utils
                 //.AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 .AppendAndHideIfZero("Is not paying for marketing", isNotPayingForMarketing ? -7 : 0)
                 //.AppendAndHideIfZero("Is paying for marketing", isMarketingNormally ? 1 : 0)
-                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -3 : 0)
+                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
 
