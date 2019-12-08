@@ -12,9 +12,7 @@ public partial class BaseProductSystems : OnDateChange
             ProductUtils.UpdgradeProduct(e, gameContext);
 
         foreach (var e in CompanyUtils.GetAIProducts(gameContext))
-        {
             ManageProduct(e);
-        }
     }
 
     void ManageProduct(GameEntity product)

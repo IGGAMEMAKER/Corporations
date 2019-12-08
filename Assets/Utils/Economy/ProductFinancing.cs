@@ -10,7 +10,7 @@ namespace Assets.Utils
         {
             var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
 
-            return Mathf.Pow(marketing, 1.28f);
+            return Mathf.Pow(marketing, 1.78f);
         }
 
         public static int GetNextMarketingFinancing(GameEntity e)
