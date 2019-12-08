@@ -21,7 +21,7 @@ namespace Assets.Utils
 
             // clients
             var flow = MarketingUtils.GetClientFlow(context, niche);
-            var baseClients = Random.Range(flow / 2, flow);
+            var baseClients = Random.Range(0.15f, 0.35f) * flow;
             company.AddMarketing((long)baseClients);
 
             // sphere of interest
