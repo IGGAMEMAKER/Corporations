@@ -10,11 +10,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
     void InitializeCommunicationsIndustry()
     {
         var niches = new NicheType[] {
-            NicheType.Com_Messenger, // chatting***, info
-            NicheType.Com_SocialNetwork, // users, chatting, info
-            NicheType.Com_Blogs, // info, users, chatting
-            NicheType.Com_Forums, // info, chatting
-            NicheType.Com_Email, // chatting
+            NicheType.Com_Messenger,        // chatting***, info
+            NicheType.Com_SocialNetwork,    // users, chatting, info
+            NicheType.Com_Blogs,            // info, users, chatting
+            NicheType.Com_Forums,           // info, chatting
+            NicheType.Com_Email,            // chatting
 
             NicheType.Com_Dating,
         };
