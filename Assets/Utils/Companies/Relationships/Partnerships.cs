@@ -187,6 +187,15 @@ namespace Assets.Utils
                 ;
         }
 
+        public static GameEntity[] GetPartnershipCandidatesWhoWantToBePartnersWithUs(GameEntity company, GameContext gameContext)
+        {
+            var candidates = GetPartnershipCandidates(company, gameContext);
+
+            return candidates
+                .Where(c => GetPartnerability(company, c, gameContext).Sum() > 0)
+                .OrderByDescending(c => GetCompanyBenefitFromTargetCompany(company, c, gameContext))
+                .ToArray();
+        }
 
 
 
