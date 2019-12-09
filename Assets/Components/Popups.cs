@@ -17,7 +17,10 @@ public enum PopupType
 
     StrategicPartnership,
 
-    PreRelease
+    PreRelease,
+    Release,
+
+    CreatePrototype
 }
 
 public class PopupMessage
@@ -59,6 +62,11 @@ public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
 public class PopupMessageDoYouWantToRelease : PopupMessageCompanyEvent
 {
     public PopupMessageDoYouWantToRelease(int companyId) : base(companyId, PopupType.PreRelease) { }
+}
+
+public class PopupMessageCreateApp : PopupMessageCompanyEvent
+{
+    public PopupMessageCreateApp(int companyId) : base(companyId, PopupType.CreatePrototype) { }
 }
 
 public class PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence : PopupMessageCompanyEvent

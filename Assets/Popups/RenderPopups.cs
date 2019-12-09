@@ -73,7 +73,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "Our competitor is bankrupt!",
-            "Company " + Companies.GetCompany(GameContext, popup.companyId).company.Name + " is bankrupt now!" +
+            "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!" +
             "\nSome of their clients will start using our product instead"
             );
     }
@@ -82,7 +82,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "New Startup",
-            "Company " + Companies.GetCompany(GameContext, popup.companyId).company.Name + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
+            "Company " + GetCompanyName(popup.companyId) + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
             "\n\nKeep an eye on them. Perhaps, we can buy them later"
             );
     }
@@ -96,4 +96,15 @@ public partial class PopupView : View
             typeof(ClosePopup)
             );
     }
+
+    void RenderCreateCompanyPopup(PopupMessageCreateApp popup)
+    {
+        RenderUniversalPopup(
+            $"You have created a new company called {GetCompanyName(popup.companyId)}!",
+            "You will need some time to match market requirements and after that, you will be able to release your product and make money from it",
+            typeof(CloseOKPopup)
+            );
+    }
+
+    string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

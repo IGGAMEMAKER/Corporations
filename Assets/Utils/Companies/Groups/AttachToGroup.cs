@@ -51,7 +51,7 @@ namespace Assets.Utils
             daughter.isIndependentCompany = false;
         }
 
-        public static void CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
+        public static int CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
         {
             //var startCapital = NicheUtils.GetStartCapital(nicheType, gameContext) / 2;
 
@@ -70,6 +70,8 @@ namespace Assets.Utils
             var c = GenerateProductCompany(gameContext, name, nicheType);
 
             AttachToGroup(gameContext, group.company.Id, c.company.Id);
+
+            return c.company.Id;
         }
 
     }

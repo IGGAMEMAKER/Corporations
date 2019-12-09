@@ -32,6 +32,10 @@
                 RenderPreReleasePopup(popup as PopupMessageDoYouWantToRelease);
                 break;
 
+            case PopupType.CreatePrototype:
+                RenderCreateCompanyPopup(popup as PopupMessageCreateApp);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

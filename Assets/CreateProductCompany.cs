@@ -7,6 +7,8 @@ public class CreateProductCompany : ButtonController
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
 
-        Companies.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
+        var id = Companies.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
+
+        NotificationUtils.AddPopup(GameContext, new PopupMessageCreateApp(id));
     }
 }
