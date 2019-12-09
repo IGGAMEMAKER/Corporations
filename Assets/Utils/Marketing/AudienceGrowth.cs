@@ -22,7 +22,6 @@ namespace Assets.Utils
             return (int)(brandBasedMarketShare * flow);
         }
 
-        // outdated
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
             return GetBrandBasedAudienceGrowth(product, gameContext);
