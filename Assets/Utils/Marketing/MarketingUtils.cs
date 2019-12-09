@@ -43,6 +43,8 @@
                 AddClients(product, flow);
 
                 product.isRelease = true;
+
+                ProductUtils.SetMarketingFinancing(product, 1);
             }
         }
     }

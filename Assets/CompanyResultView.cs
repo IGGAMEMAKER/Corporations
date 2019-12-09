@@ -50,9 +50,9 @@ public class CompanyResultView : View
 
         var isReleased = company.isRelease;
 
-        SetNormalMarketing      .gameObject.SetActive(isReleased && financing == 0);
-        SetAggressiveMarketing  .gameObject.SetActive(false && isReleased && financing == 1);
-        SetZeroMarketing        .gameObject.SetActive(isReleased && financing > 0);
+        SetNormalMarketing      .gameObject.SetActive(false);
+        SetAggressiveMarketing  .gameObject.SetActive(false);
+        SetZeroMarketing        .gameObject.SetActive(false && isReleased && financing > 0);
 
         ReleaseApp.gameObject.SetActive(!company.isRelease);
     }
