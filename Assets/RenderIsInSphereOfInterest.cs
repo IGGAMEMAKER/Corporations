@@ -7,7 +7,7 @@ public class RenderIsInSphereOfInterest : View
     {
         base.ViewRender();
 
-        bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(MyCompany, SelectedNiche);
+        bool isInSphereOfInterest = Companies.IsInSphereOfInterest(MyCompany, SelectedNiche);
 
         GetComponent<IsChosenComponent>().Toggle(isInSphereOfInterest);
 

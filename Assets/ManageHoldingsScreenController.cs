@@ -19,13 +19,13 @@ public class ManageHoldingsScreenController : View
     {
         int size = GetSizeOfShares();
 
-        string shareholderStatus = CompanyUtils.GetShareholderStatus(size);
+        string shareholderStatus = Companies.GetShareholderStatus(size);
 
         ControlValue.text = $"{size}% ({shareholderStatus})";
     }
 
     int GetSizeOfShares()
     {
-        return CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
+        return Companies.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
     }
 }

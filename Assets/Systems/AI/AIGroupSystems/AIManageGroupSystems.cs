@@ -8,7 +8,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var c in CompanyUtils.GetAIManagingCompanies(gameContext))
+        foreach (var c in Companies.GetAIManagingCompanies(gameContext))
             ManageGroup(c);
     }
 
@@ -22,7 +22,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void CloseCompaniesIfNecessary(GameEntity group)
     {
-        foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
+        foreach (var holding in Companies.GetDaughterCompanies(gameContext, group.company.Id))
         {
             if (holding.hasProduct)
                 CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
@@ -40,7 +40,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
         {
-            CompanyUtils.CloseCompany(gameContext, product);
+            Companies.CloseCompany(gameContext, product);
 
             NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(product.company.Id));
             //if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
@@ -77,6 +77,6 @@ public partial class AIManageGroupSystems : OnQuarterChange
             WasAccepted = false
         };
 
-        CompanyUtils.AddInvestmentProposal(gameContext, product.company.Id, proposal);
+        Companies.AddInvestmentProposal(gameContext, product.company.Id, proposal);
     }
 }

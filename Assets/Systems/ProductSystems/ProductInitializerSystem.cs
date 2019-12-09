@@ -83,26 +83,26 @@ public partial class ProductInitializerSystem : IInitializeSystem
         Debug.Log("INI: " + s);
     }
 
-    void PlayAs(string companyName) => PlayAs(CompanyUtils.GetCompanyByName(GameContext, companyName));
-    void PlayAs(int companyId)      => PlayAs(CompanyUtils.GetCompany(GameContext, companyId));
-    void PlayAs(GameEntity company) => CompanyUtils.PlayAs(company, GameContext);
+    void PlayAs(string companyName) => PlayAs(Companies.GetCompanyByName(GameContext, companyName));
+    void PlayAs(int companyId)      => PlayAs(Companies.GetCompany(GameContext, companyId));
+    void PlayAs(GameEntity company) => Companies.PlayAs(company, GameContext);
 
 
-    void AddCash(int companyId, long money) => AddCash(CompanyUtils.GetCompany(GameContext, companyId), money);
+    void AddCash(int companyId, long money) => AddCash(Companies.GetCompany(GameContext, companyId), money);
     void AddCash(GameEntity company, long money)
     {
-        CompanyUtils.SetResources(company, new Assets.Classes.TeamResource(1000000000));
+        Companies.SetResources(company, new Assets.Classes.TeamResource(1000000000));
     }
 
 
     void SetSpheresOfInfluence()
     {
-        var financial = CompanyUtils.GetInvestmentFunds(GameContext);
+        var financial = Companies.GetInvestmentFunds(GameContext);
         //var managing = CompanyUtils.GetGroupCompanies(GameContext);
 
         foreach (var c in financial)
         {
-            CompanyUtils.AddFocusIndustry(GetRandomIndustry(), c);
+            Companies.AddFocusIndustry(GetRandomIndustry(), c);
 
             AutoFillFocusNichesByIndustry(c);
         }
@@ -121,7 +121,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         var niches = NicheUtils.GetNichesInIndustry(company.companyFocus.Industries[0], GameContext);
 
         foreach (var n in niches)
-            CompanyUtils.AddFocusNiche(n.niche.NicheType, company, GameContext);
+            Companies.AddFocusNiche(n.niche.NicheType, company, GameContext);
     }
 
     void AutoFillSomeFocusNichesByIndustry(GameEntity company)
@@ -131,7 +131,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
         //CompanyUtils.AddFocusNiche(RandomEnum<NicheComponent>.PickRandomItem(niches).NicheType, company);
 
         foreach (var n in niches)
-            CompanyUtils.AddFocusNiche(n.niche.NicheType, company, GameContext);
+            Companies.AddFocusNiche(n.niche.NicheType, company, GameContext);
     }
 
     IndustryType GetRandomIndustry()
@@ -141,33 +141,33 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     GameEntity GenerateProductCompany(string name, NicheType nicheType)
     {
-        var product = CompanyUtils.GenerateProductCompany(GameContext, name, nicheType);
+        var product = Companies.GenerateProductCompany(GameContext, name, nicheType);
 
-        CompanyUtils.SetStartCapital(product, GameContext);
+        Companies.SetStartCapital(product, GameContext);
 
         return product;
     }
 
     int GenerateInvestmentFund(string name, long money)
     {
-        return CompanyUtils.GenerateInvestmentFund(GameContext, name, money).shareholder.Id;
+        return Companies.GenerateInvestmentFund(GameContext, name, money).shareholder.Id;
     }
 
     int GenerateHoldingCompany(string name)
     {
-        return CompanyUtils.GenerateHoldingCompany(GameContext, name).company.Id;
+        return Companies.GenerateHoldingCompany(GameContext, name).company.Id;
     }
 
     void AttachToHolding(int parent, GameEntity child) => AttachToHolding(parent, child.company.Id);
     void AttachToHolding(int parent, int child)
     {
-        CompanyUtils.AttachToGroup(GameContext, parent, child);
+        Companies.AttachToGroup(GameContext, parent, child);
 
-        var c = CompanyUtils.GetCompany(GameContext, child);
-        var p = CompanyUtils.GetCompany(GameContext, parent);
+        var c = Companies.GetCompany(GameContext, child);
+        var p = Companies.GetCompany(GameContext, parent);
 
         if (c.hasProduct)
-            CompanyUtils.AddFocusNiche(c.product.Niche, p, GameContext);
+            Companies.AddFocusNiche(c.product.Niche, p, GameContext);
     }
 
 
@@ -175,12 +175,12 @@ public partial class ProductInitializerSystem : IInitializeSystem
     {
         //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
 
-        CompanyUtils.AddShareholder(GameContext, companyId, investorId, shares);
+        Companies.AddShareholder(GameContext, companyId, investorId, shares);
     }
 
     int PromoteToGroup(int companyId)
     {
-        return CompanyUtils.PromoteProductCompanyToGroup(GameContext, companyId);
+        return Companies.PromoteProductCompanyToGroup(GameContext, companyId);
     }
 
     long GetRandomFundSize(int min, int max)
@@ -214,12 +214,12 @@ public partial class ProductInitializerSystem : IInitializeSystem
 
     private void AutoFillProposals()
     {
-        foreach (var c in CompanyUtils.GetNonFinancialCompanies(GameContext))
-            CompanyUtils.SpawnProposals(GameContext, c.company.Id);
+        foreach (var c in Companies.GetNonFinancialCompanies(GameContext))
+            Companies.SpawnProposals(GameContext, c.company.Id);
     }
 
     void AutoFillNonFilledShareholders()
     {
-        CompanyUtils.AutoFillNonFilledShareholders(GameContext, false);
+        Companies.AutoFillNonFilledShareholders(GameContext, false);
     }
 }

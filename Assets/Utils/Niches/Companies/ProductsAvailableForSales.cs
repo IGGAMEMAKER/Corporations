@@ -18,13 +18,13 @@ namespace Assets.Utils
                 products.AddRange(companies);
             }
 
-            return products.FindAll(p => !CompanyUtils.IsCompanyRelatedToPlayer(context, p));
+            return products.FindAll(p => !Companies.IsCompanyRelatedToPlayer(context, p));
         }
 
         public static GameEntity[] GetProductsAvailableForSaleOnMarket(NicheType n, GameContext context)
         {
             return GetProductsOnMarket(context, n)
-                .Where(p => CompanyUtils.IsWillSellCompany(p, context))
+                .Where(p => Companies.IsWillSellCompany(p, context))
                 .ToArray();
         }
     }

@@ -4,7 +4,7 @@
     {
         internal static long GetCompanyMaintenance(GameEntity c, GameContext gameContext)
         {
-            if (CompanyUtils.IsProductCompany(c))
+            if (Companies.IsProductCompany(c))
                 return GetProductCompanyMaintenance(c, gameContext);
             else
                 return GetGroupMaintenance(gameContext, c.company.Id);
@@ -12,7 +12,7 @@
 
         internal static long GetCompanyMaintenance(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompany(gameContext, companyId);
+            var c = Companies.GetCompany(gameContext, companyId);
 
             return GetCompanyMaintenance(c, gameContext);
         }

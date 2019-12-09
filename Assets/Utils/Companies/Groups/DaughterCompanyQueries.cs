@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         public static GameEntity[] GetDaughterUnhappyCompanies(GameContext gameContext, int companyId)
         {

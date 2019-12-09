@@ -191,7 +191,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     long Randomise(long baseValue, int nicheId)
     {
-        return CompanyUtils.GetRandomValue(baseValue, nicheId, 0);
+        return Companies.GetRandomValue(baseValue, nicheId, 0);
     }
 
     int GetNicheId (NicheType nicheType)

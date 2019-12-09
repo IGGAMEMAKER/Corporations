@@ -29,16 +29,16 @@ public class SellingOfferView : View
 
     void Render()
     {
-        var c = CompanyUtils.GetCompany(GameContext, companyId);
-        var buyer = CompanyUtils.GetInvestorById(GameContext, buyerId);
+        var c = Companies.GetCompany(GameContext, companyId);
+        var buyer = Companies.GetInvestorById(GameContext, buyerId);
 
         Name.text = c.company.Name;
         CompanyLink.CompanyId = companyId;
         BuyerLink.CompanyId = buyer.company.Id;
 
-        Buyer.text = CompanyUtils.GetInvestorName(buyer);
+        Buyer.text = Companies.GetInvestorName(buyer);
 
-        var hasControl = CompanyUtils.GetControlInCompany(MyCompany, buyer, GameContext) > 0;
+        var hasControl = Companies.GetControlInCompany(MyCompany, buyer, GameContext) > 0;
         Buyer.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
         var rating = c.hasProduct ? NicheUtils.GetMarketRating(GameContext, c.product.Niche): 0;
@@ -48,7 +48,7 @@ public class SellingOfferView : View
 
         Valuation.text = Format.Money(EconomyUtils.GetCompanyCost(GameContext, companyId));
 
-        var offer = CompanyUtils.GetAcquisitionOffer(GameContext, companyId, buyerId);
+        var offer = Companies.GetAcquisitionOffer(GameContext, companyId, buyerId);
         //Offer.text = Format.Money(offer.acquisitionOffer.Offer);
 
         AcceptOffer.SetData(companyId, buyerId);

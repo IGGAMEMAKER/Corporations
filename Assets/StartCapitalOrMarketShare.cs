@@ -9,17 +9,17 @@ public class StartCapitalOrMarketShare : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
+        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
 
         if (hasCompany)
         {
-            return CompanyUtils.GetControlInMarket(MyCompany, SelectedNiche, GameContext) + "%";
+            return Companies.GetControlInMarket(MyCompany, SelectedNiche, GameContext) + "%";
         }
         else
         {
             var capital = NicheUtils.GetStartCapital(SelectedNiche, GameContext);
 
-            return Visuals.Colorize(Format.Money(capital), CompanyUtils.IsEnoughResources(MyCompany, capital));
+            return Visuals.Colorize(Format.Money(capital), Companies.IsEnoughResources(MyCompany, capital));
         }
     }
 }

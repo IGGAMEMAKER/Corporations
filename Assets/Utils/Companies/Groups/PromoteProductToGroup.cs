@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {

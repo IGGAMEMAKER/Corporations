@@ -4,7 +4,7 @@ public class PromoteToCorporation : ButtonController
 {
     public override void Execute()
     {
-        CompanyUtils.PromoteToCorporation(MyCompany, GameContext);
+        Companies.PromoteToCorporation(MyCompany, GameContext);
 
         Navigate(ScreenMode.CorporationScreen);
     }

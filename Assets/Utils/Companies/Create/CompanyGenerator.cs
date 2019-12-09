@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static GameEntity CreateProduct(GameContext context, GameEntity company, NicheType niche)
         {

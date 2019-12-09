@@ -24,7 +24,7 @@ public class RenderWorkerRole : View
         {
             var companyId = human.worker.companyId;
 
-            var c = CompanyUtils.GetCompany(GameContext, companyId);
+            var c = Companies.GetCompany(GameContext, companyId);
 
             var role = HumanUtils.GetRole(human);
 

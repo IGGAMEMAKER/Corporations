@@ -4,6 +4,6 @@ public class HideTeamImprovementMenu : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        return !(SelectedCompany.hasProduct && CompanyUtils.IsDaughterOfCompany(MyCompany, SelectedCompany));
+        return !(SelectedCompany.hasProduct && Companies.IsDaughterOfCompany(MyCompany, SelectedCompany));
     }
 }

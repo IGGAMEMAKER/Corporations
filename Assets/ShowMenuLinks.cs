@@ -4,6 +4,6 @@ public class ShowMenuLinks : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        return CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length == 0;
+        return Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length == 0;
     }
 }

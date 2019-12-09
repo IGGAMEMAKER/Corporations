@@ -9,7 +9,7 @@ namespace Assets.Utils
         {
             var investors = gameContext.GetEntities(GameMatcher.Shareholder);
 
-            return Array.FindAll(investors, s => CompanyUtils.IsInSphereOfInterest(s, e.niche.NicheType));
+            return Array.FindAll(investors, s => Companies.IsInSphereOfInterest(s, e.niche.NicheType));
         }
     }
 }

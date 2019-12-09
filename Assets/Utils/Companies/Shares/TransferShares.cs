@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void ReplaceShareholders(GameEntity company, Dictionary<int, BlockOfShares> shareholders)
         {

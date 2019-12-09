@@ -6,6 +6,6 @@ public class ToggleCompanyActionButtonsIfCompanyIsNotResearched : ToggleOnSomeCo
     {
         var hasTask = CooldownUtils.IsHasTask(GameContext, new CompanyTaskExploreCompany(SelectedCompany.company.Id));
 
-        return SelectedCompany.hasResearch || hasTask || CompanyUtils.IsCompanyRelatedToPlayer(GameContext, SelectedCompany);
+        return SelectedCompany.hasResearch || hasTask || Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany);
     }
 }

@@ -22,7 +22,7 @@ public class GroupSearchListView : ListView
 
     public void Render()
     {
-        var groups = CompanyUtils.GetGroupCompanies(GameContext)
+        var groups = Companies.GetGroupCompanies(GameContext)
             .OrderByDescending(g => EconomyUtils.GetCompanyCost(GameContext, g.company.Id))
             .ToArray();
 

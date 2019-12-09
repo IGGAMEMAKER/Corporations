@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void TweakCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy, int value)
         {

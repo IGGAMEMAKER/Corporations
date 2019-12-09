@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         public static long GetDesireToSellGroupByInvestorType(GameEntity group, InvestorType investorType, int shareholderId, GameContext gameContext)
         {

@@ -66,12 +66,12 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         NicheUtils.PromoteNicheState(niche);
 
-        var player = CompanyUtils.GetPlayerCompany(gameContext);
+        var player = Companies.GetPlayerCompany(gameContext);
 
         if (player == null)
             return;
 
-        if (!CompanyUtils.IsInSphereOfInterest(player, niche.niche.NicheType))
+        if (!Companies.IsInSphereOfInterest(player, niche.niche.NicheType))
             return;
 
         var popup = new PopupMessageMarketPhaseChange(niche.niche.NicheType);

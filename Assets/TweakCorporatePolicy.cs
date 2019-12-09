@@ -12,9 +12,9 @@ public class TweakCorporatePolicy : UpgradedButtonController
     public override void Execute()
     {
         if (Increment)
-            CompanyUtils.IncrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
+            Companies.IncrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
         else
-            CompanyUtils.DecrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
+            Companies.DecrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
     }
 
     public override bool IsInteractable()

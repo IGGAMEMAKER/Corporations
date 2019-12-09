@@ -19,7 +19,7 @@ class CompanyReportSystem : OnMonthChange
 
         foreach (var e in companies)
         {
-            if (CompanyUtils.IsProductCompany(e))
+            if (Companies.IsProductCompany(e))
                 SaveProductCompanyMetrics(e, date);
             else
                 SaveGroupCompanyMetrics(e, date);

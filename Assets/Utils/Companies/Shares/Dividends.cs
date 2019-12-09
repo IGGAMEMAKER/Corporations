@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void PayDividends(GameContext gameContext, int companyId)
         {

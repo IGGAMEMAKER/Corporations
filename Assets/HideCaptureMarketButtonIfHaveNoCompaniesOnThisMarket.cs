@@ -8,7 +8,7 @@ public class HideCaptureMarketButtonIfHaveNoCompaniesOnThisMarket : HideOnSomeCo
 {
     public override bool HideIf()
     {
-        var hasReleasedCompaniesOnMarket = CompanyUtils.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext).Count(c => c.isRelease) > 0;
+        var hasReleasedCompaniesOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext).Count(c => c.isRelease) > 0;
 
         return !hasReleasedCompaniesOnMarket;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         internal static bool IsInPlayerSphereOfInterest(GameEntity company, GameContext gameContext)
         {

@@ -16,7 +16,7 @@ namespace Assets.Utils
 
         internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)
         {
-            var c = CompanyUtils.GetCompany(gameContext, companyId);
+            var c = Companies.GetCompany(gameContext, companyId);
 
             if (c.isDumping)
                 return 0;

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
         {

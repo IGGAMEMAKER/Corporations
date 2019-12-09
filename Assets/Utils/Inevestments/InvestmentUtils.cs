@@ -41,7 +41,7 @@ namespace Assets.Utils
         {
             var investor = GetInvestorById(context, investorId);
 
-            CompanyUtils.AddResources(investor, new Classes.TeamResource(sum));
+            Companies.AddResources(investor, new Classes.TeamResource(sum));
         }
 
         public static GameEntity GetInvestorById(GameContext context, int investorId)
@@ -66,7 +66,7 @@ namespace Assets.Utils
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
-            var holdings = CompanyUtils.GetPersonalHoldings(gameContext, human.shareholder.Id, false);
+            var holdings = Companies.GetPersonalHoldings(gameContext, human.shareholder.Id, false);
 
             return EconomyUtils.GetHoldingCost(gameContext, holdings);
         }

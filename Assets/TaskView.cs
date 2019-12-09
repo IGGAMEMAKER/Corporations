@@ -75,13 +75,13 @@ public class TaskView : View
         switch (companyTask.CompanyTaskType)
         {
             case CompanyTaskType.AcquiringCompany:
-                return "Acquiring company\n" + CompanyUtils.GetCompany(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
+                return "Acquiring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
 
             case CompanyTaskType.ExploreMarket:
                 return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
 
             case CompanyTaskType.ExploreCompany:
-                return "Exploring company\n" + CompanyUtils.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
+                return "Exploring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
 
             default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
         }

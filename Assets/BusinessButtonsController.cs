@@ -21,7 +21,7 @@ public class BusinessButtonsController : View
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
-        var manageable = CompanyUtils.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+        var manageable = Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
         ManageCompanyButton.SetActive(manageable);
         SellCompanyButton.SetActive(manageable);
         CloseCompanyButton.SetActive(manageable);

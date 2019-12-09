@@ -11,7 +11,7 @@ public class LinkToMainNiche : ButtonController
             return;
 
         var mostValuableNiche = focus
-            .OrderByDescending(n => CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, n))
+            .OrderByDescending(n => Companies.GetMarketImportanceForCompany(GameContext, MyCompany, n))
             .First();
 
         NavigateToNiche(mostValuableNiche);

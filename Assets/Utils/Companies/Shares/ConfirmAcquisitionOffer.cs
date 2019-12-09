@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void ConfirmAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
@@ -57,7 +57,7 @@ namespace Assets.Utils
             var corporationCost = EconomyUtils.GetCompanyCost(gameContext, corporation);
             var targetCost = EconomyUtils.GetCompanyCost(gameContext, target);
             
-            var corporationShares = CompanyUtils.GetTotalShares(gameContext, companyId);
+            var corporationShares = Companies.GetTotalShares(gameContext, companyId);
             var emitedShares = corporationShares * targetCost / corporationCost;
 
             // give shares in corporation to shareholders of integratable company

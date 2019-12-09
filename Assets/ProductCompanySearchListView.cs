@@ -21,7 +21,7 @@ public class ProductCompanySearchListView : ListView
 
     public void Render()
     {
-        var products = CompanyUtils.GetProductCompanies(GameContext);
+        var products = Companies.GetProductCompanies(GameContext);
 
         SetItems(products, GrowthFilterQuarterly.Quarterly);
     }

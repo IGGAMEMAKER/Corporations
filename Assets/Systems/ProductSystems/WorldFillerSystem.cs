@@ -57,7 +57,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         Debug.Log("Mocky simulation: simulate product development");
         // simulate products
 
-        var products = CompanyUtils.GetProductCompanies(GameContext);
+        var products = Companies.GetProductCompanies(GameContext);
         foreach (var p in products)
         {
             var niche = NicheUtils.GetNiche(GameContext, p.product.Niche);

@@ -29,14 +29,14 @@ public class CompanyViewOnMap : View
         company = c;
         EnableDarkTheme = darkImage;
 
-        bool hasControl = CompanyUtils.GetControlInCompany(MyCompany, c, GameContext) > 0;
+        bool hasControl = Companies.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
         Name.text = c.company.Name; // .Substring(0, 1);
         Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
 
         LinkToProjectView.CompanyId = c.company.Id;
 
-        var isRelatedToPlayer = CompanyUtils.IsCompanyRelatedToPlayer(GameContext, c);
+        var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, c);
         ConceptProgress.SetCompanyId(c.company.Id);
         ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
 
@@ -76,7 +76,7 @@ public class CompanyViewOnMap : View
 
     void SetEmblemColor()
     {
-        Image.color = CompanyUtils.GetCompanyUniqueColor(company.company.Id);
+        Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
 
         var col = DarkImage.color;
         var a = EnableDarkTheme ? 219f : 126f;

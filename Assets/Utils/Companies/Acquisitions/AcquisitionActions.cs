@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         // reject offer
         public static void RejectAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)

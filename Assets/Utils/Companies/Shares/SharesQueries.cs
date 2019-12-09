@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(GetCompany(context, companyId).shareholders.Shareholders);
         public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)

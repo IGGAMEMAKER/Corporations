@@ -97,7 +97,7 @@ public class MarketPotentialView : View
         {
             StartCapital.text = Format.Money(start);
 
-            var showStartCapital = !CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
+            var showStartCapital = !Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
 
             StartCapital.gameObject.SetActive(showStartCapital);
             StartCapitalLabel.gameObject.SetActive(showStartCapital);

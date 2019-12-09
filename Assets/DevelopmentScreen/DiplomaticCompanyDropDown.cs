@@ -60,12 +60,12 @@ public class DiplomaticCompanyDropDown : View
 
     public GameEntity[] GetCompetitors()
     {
-        return CompanyUtils.GetMyCompetitors(GameContext);
+        return Companies.GetMyCompetitors(GameContext);
     }
 
     public GameEntity[] GetNeighbours()
     {
-        return CompanyUtils.GetMyNeighbours(GameContext);
+        return Companies.GetMyNeighbours(GameContext);
     }
 
     GameEntity[] GetProperList()

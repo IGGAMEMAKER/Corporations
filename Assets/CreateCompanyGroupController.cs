@@ -4,10 +4,10 @@ public class CreateCompanyGroupController : ButtonController
 {
     public override void Execute()
     {
-        string name = "Company Group #" + CompanyUtils.GenerateCompanyId(GameContext);
+        string name = "Company Group #" + Companies.GenerateCompanyId(GameContext);
 
-        int groupId = CompanyUtils.GenerateCompanyGroup(GameContext, name).company.Id;
+        int groupId = Companies.GenerateCompanyGroup(GameContext, name).company.Id;
 
-        CompanyUtils.AttachToGroup(GameContext, MyGroupEntity.company.Id, groupId);
+        Companies.AttachToGroup(GameContext, MyGroupEntity.company.Id, groupId);
     }
 }

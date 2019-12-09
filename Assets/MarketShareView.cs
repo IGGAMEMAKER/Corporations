@@ -21,11 +21,11 @@ public class MarketShareView : View
         var niche = NicheUtils.GetNiche(GameContext, nicheType);
         var rating = NicheUtils.GetMarketRating(niche);
 
-        var share = CompanyUtils.GetControlInMarket(MyCompany, nicheType, GameContext);
+        var share = Companies.GetControlInMarket(MyCompany, nicheType, GameContext);
 
         var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
 
-        var hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
+        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         ShareSize.text = Format.MinifyMoney(marketSize);
         ShareSize.color = Visuals.GetColorFromString(HasCompany ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
@@ -48,14 +48,14 @@ public class MarketShareView : View
     {
         StringBuilder text = new StringBuilder();
 
-        var marketControlCost = CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
+        var marketControlCost = Companies.GetMarketImportanceForCompany(GameContext, MyCompany, nicheType);
 
         text.Append($"Market of {nicheName}");
         text.Append("\n\n");
         text.AppendFormat("Market size: ${0}", Format.MinifyToInteger(marketSize));
         text.Append("\n\n");
 
-        if (CompanyUtils.HasCompanyOnMarket(MyCompany, nicheType, GameContext))
+        if (Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext))
         {
             text.AppendFormat(Visuals.Colorize("We control {0}% of it (${1})", VisualConstants.COLOR_CONTROL), share, Format.MinifyToInteger(marketControlCost));
             text.Append("\n\n");

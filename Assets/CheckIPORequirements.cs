@@ -15,11 +15,11 @@ public class CheckIPORequirements : View
         int companyId = SelectedCompany.company.Id;
 
         Hint.SetHint($"Requirements" +
-            Visuals.Colorize($"\nCompany Cost more than ${Format.Minify(Constants.IPO_REQUIREMENTS_COMPANY_COST)}", CompanyUtils.IsMeetsIPOCompanyCostRequirement(GameContext, companyId))  +
-            Visuals.Colorize($"\nMore than 3 shareholders", CompanyUtils.IsMeetsIPOShareholderRequirement(GameContext, companyId)) + 
-            Visuals.Colorize($"\nProfit bigger than ${Format.Minify(Constants.IPO_REQUIREMENTS_COMPANY_PROFIT)}", CompanyUtils.IsMeetsIPOProfitRequirement(GameContext, companyId))
+            Visuals.Colorize($"\nCompany Cost more than ${Format.Minify(Constants.IPO_REQUIREMENTS_COMPANY_COST)}", Companies.IsMeetsIPOCompanyCostRequirement(GameContext, companyId))  +
+            Visuals.Colorize($"\nMore than 3 shareholders", Companies.IsMeetsIPOShareholderRequirement(GameContext, companyId)) + 
+            Visuals.Colorize($"\nProfit bigger than ${Format.Minify(Constants.IPO_REQUIREMENTS_COMPANY_PROFIT)}", Companies.IsMeetsIPOProfitRequirement(GameContext, companyId))
             );
 
-        IPOButton.interactable = CompanyUtils.IsCanGoPublic(GameContext, SelectedCompany.company.Id);
+        IPOButton.interactable = Companies.IsCanGoPublic(GameContext, SelectedCompany.company.Id);
     }
 }

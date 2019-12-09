@@ -38,9 +38,9 @@ namespace Assets.Utils
 
                 if (UnityEngine.Random.Range(0, 100) < 6)
                 {
-                    var player = CompanyUtils.GetPlayerCompany(gameContext);
+                    var player = Companies.GetPlayerCompany(gameContext);
 
-                    if (player != null && CompanyUtils.IsInSphereOfInterest(player, nicheType))
+                    if (player != null && Companies.IsInSphereOfInterest(player, nicheType))
                     {
                         NotificationUtils.AddPopup(gameContext, new PopupMessageMarketInspiration(nicheType));
                         return;
@@ -57,14 +57,14 @@ namespace Assets.Utils
 
         public static void SpawnCompany(GameEntity niche, GameContext gameContext)
         {
-            var product = CompanyUtils.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
+            var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
 
-            CompanyUtils.SetStartCapital(product, niche);
+            Companies.SetStartCapital(product, niche);
 
             var potentialLeader = NicheUtils.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
             var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
 
-            if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
                 NotificationUtils.AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
         }
     }

@@ -16,7 +16,7 @@ public class FillAIAcquisitionProposals : ListView
 
     void Render()
     {
-        var proposals = CompanyUtils.GetAcquisitionOffersToPlayer(GameContext)
+        var proposals = Companies.GetAcquisitionOffersToPlayer(GameContext)
             .OrderBy(OrderByMarketStage)
             .ToArray();
 
@@ -25,7 +25,7 @@ public class FillAIAcquisitionProposals : ListView
 
     int OrderByMarketStage (GameEntity a)
     {
-        var c = CompanyUtils.GetCompany(GameContext, a.acquisitionOffer.CompanyId);
+        var c = Companies.GetCompany(GameContext, a.acquisitionOffer.CompanyId);
 
         if (!c.hasProduct)
             return -10;

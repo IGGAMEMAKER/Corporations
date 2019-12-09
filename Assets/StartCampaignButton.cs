@@ -12,14 +12,14 @@ public class StartCampaignButton : ButtonController
         if (Input.text.Length == 0)
             return;
 
-        var company = CompanyUtils.GenerateCompanyGroup(GameContext, Input.text);
+        var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
 
         var startCapital = NicheUtils.GetStartCapital(NicheType, GameContext);
 
-        CompanyUtils.SetResources(company, new Assets.Classes.TeamResource(startCapital));
+        Companies.SetResources(company, new Assets.Classes.TeamResource(startCapital));
 
-        CompanyUtils.PlayAs(company, GameContext);
-        CompanyUtils.AutoFillShareholders(GameContext, company, true);
+        Companies.PlayAs(company, GameContext);
+        Companies.AutoFillShareholders(GameContext, company, true);
 
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
 

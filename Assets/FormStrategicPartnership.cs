@@ -5,15 +5,15 @@ public class FormStrategicPartnership : ToggleButtonController
 {
     public override void Execute()
     {
-        CompanyUtils.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, GameContext, true);
+        Companies.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, GameContext, true);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        bool isPartnersAlready = CompanyUtils.IsHaveStrategicPartnershipAlready(MyCompany, SelectedCompany);
-        bool isCanBePartnersTheoretically = CompanyUtils.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
+        bool isPartnersAlready = Companies.IsHaveStrategicPartnershipAlready(MyCompany, SelectedCompany);
+        bool isCanBePartnersTheoretically = Companies.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
 
         GetComponent<Button>().interactable = !isPartnersAlready && isCanBePartnersTheoretically;
     }

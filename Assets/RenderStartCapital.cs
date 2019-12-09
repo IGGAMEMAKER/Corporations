@@ -14,6 +14,6 @@ public class RenderStartCapital : UpgradedParameterView
     {
         var capital = NicheUtils.GetStartCapital(SelectedNiche, GameContext);
 
-        return Visuals.Colorize(Format.Money(capital), CompanyUtils.IsEnoughResources(MyCompany, capital));
+        return Visuals.Colorize(Format.Money(capital), Companies.IsEnoughResources(MyCompany, capital));
     }
 }

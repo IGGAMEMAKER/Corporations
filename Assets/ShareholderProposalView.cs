@@ -24,7 +24,7 @@ public class ShareholderProposalView : View
 
     public void SetEntity(InvestmentProposal invProposal)
     {
-        shareholder = CompanyUtils.GetInvestorById(GameContext, invProposal.ShareholderId);
+        shareholder = Companies.GetInvestorById(GameContext, invProposal.ShareholderId);
         proposal = invProposal;
 
         Render();
@@ -45,7 +45,7 @@ public class ShareholderProposalView : View
     {
         get
         {
-            return CompanyUtils.IsSharesCanBeSold(SelectedCompany);
+            return Companies.IsSharesCanBeSold(SelectedCompany);
         }
     }
 

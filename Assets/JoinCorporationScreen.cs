@@ -25,9 +25,9 @@ public class JoinCorporationScreen : View
         var name = SelectedCompany.company.Name;
         Title.text = $"Integrate \"{name}\" to our corporation";
 
-        bool willAcceptOffer = CompanyUtils.IsCompanyWillAcceptCorporationOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        bool willAcceptOffer = Companies.IsCompanyWillAcceptCorporationOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var progress = CompanyUtils.GetCorporationOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var progress = Companies.GetCorporationOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         Progress.text = Visuals.Colorize(progress + "%", willAcceptOffer);
 

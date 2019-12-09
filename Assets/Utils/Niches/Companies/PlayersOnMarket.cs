@@ -9,7 +9,7 @@ namespace Assets.Utils
     {
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompany(context, companyId);
+            var c = Companies.GetCompany(context, companyId);
 
             return GetProductsOnMarket(context, c);
         }
@@ -30,7 +30,7 @@ namespace Assets.Utils
 
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, NicheType niche)
         {
-            return CompanyUtils.GetProductCompanies(context).Where(p => p.product.Niche == niche);
+            return Companies.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
 
@@ -55,17 +55,17 @@ namespace Assets.Utils
         // sphere of interests
         public static IEnumerable<GameEntity> GetNonFinancialCompaniesWithSameInterests (GameContext context, GameEntity company)
         {
-            return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsNotFinancialStructure);
+            return GetCompaniesWithSameInterests(context, company).Where(Companies.IsNotFinancialStructure);
         }
 
         public static IEnumerable<GameEntity> GetFinancialStructuresWithSameInterests (GameContext context, GameEntity company)
         {
-            return GetCompaniesWithSameInterests(context, company).Where(CompanyUtils.IsFinancialStructure);
+            return GetCompaniesWithSameInterests(context, company).Where(Companies.IsFinancialStructure);
         }
 
         public static IEnumerable<GameEntity> GetCompaniesWithSameInterests (GameContext context, GameEntity company)
         {
-            var independent = CompanyUtils.GetIndependentCompanies(context);
+            var independent = Companies.GetIndependentCompanies(context);
 
             var interests = company.companyFocus.Niches;
 
@@ -86,7 +86,7 @@ namespace Assets.Utils
 
         public static IEnumerable<GameEntity> GetCompaniesInterestedInMarket (GameContext context, NicheType niche)
         {
-            var independent = CompanyUtils.GetIndependentCompanies(context);
+            var independent = Companies.GetIndependentCompanies(context);
 
             return independent.Where(c =>
             (c.hasProduct && c.product.Niche == niche)

@@ -59,7 +59,7 @@
             var audienceMax = niche.nicheBaseProfile.Profile.AudienceSize;
             int nicheId = (int)niche.niche.NicheType;
 
-            return CompanyUtils.GetRandomValue((long)audienceMax, nicheId, 0);
+            return Companies.GetRandomValue((long)audienceMax, nicheId, 0);
         }
 
         public static long GetMarketPotential(GameEntity niche)
@@ -87,7 +87,7 @@
             var dispersion = 0.7f;
             var max = min + dispersion;
 
-            return CompanyUtils.GetRandomValue(potential, nicheId, nicheId + 3, min, max);
+            return Companies.GetRandomValue(potential, nicheId, nicheId + 3, min, max);
         }
         // TODO
         // max can be less than min
@@ -102,7 +102,7 @@
             var dispersion = 0.7f;
             var max = min + dispersion;
 
-            return CompanyUtils.GetRandomValue(potential, nicheId, nicheId + 1, 0.1f, 0.8f);
+            return Companies.GetRandomValue(potential, nicheId, nicheId + 1, 0.1f, 0.8f);
         }
     }
 }

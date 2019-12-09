@@ -25,9 +25,9 @@ public class VotingShareholderView : View
 
     void Render()
     {
-        var investor = CompanyUtils.GetInvestorById(GameContext, shareholderId);
+        var investor = Companies.GetInvestorById(GameContext, shareholderId);
 
-        var percentage = CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, shareholderId);
+        var percentage = Companies.GetShareSize(GameContext, SelectedCompany.company.Id, shareholderId);
         Name.text = $"{investor.shareholder.Name}";
         Share.text = percentage + "%";
         Status.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);

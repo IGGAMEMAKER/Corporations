@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         internal static GameEntity CloseCompany(GameContext context, int CompanyId)
         {

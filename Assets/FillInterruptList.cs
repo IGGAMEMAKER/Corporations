@@ -56,28 +56,28 @@ public class FillInterruptList : View
 
     bool HasReleaseableProducts()
     {
-        var upgradableCompanies = CompanyUtils.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
+        var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
         return upgradableCompanies.Count() > 0;
     }
 
     bool HasOutdatedProducts()
     {
-        return CompanyUtils.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
+        return Companies.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool HasUnhappyTeams()
     {
-        return CompanyUtils.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
+        return Companies.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool CheckManagingCompanies()
     {
-        return CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length > 0;
+        return Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool HasAcquisitionOffers()
     {
-        return CompanyUtils.GetAcquisitionOffersToPlayer(GameContext).Length > 0;
+        return Companies.GetAcquisitionOffersToPlayer(GameContext).Length > 0;
     }
 
     bool CheckAcquisitionCandidates()

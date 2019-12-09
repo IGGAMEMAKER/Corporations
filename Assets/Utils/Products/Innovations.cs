@@ -8,20 +8,20 @@
             var sphereOfInterestBonus = 0;
             if (!company.isIndependentCompany)
             {
-                var parent = CompanyUtils.GetParentCompany(gameContext, company);
+                var parent = Companies.GetParentCompany(gameContext, company);
 
 
                 if (parent != null)
                 {
                     culture = parent.corporateCulture.Culture;
-                    if (CompanyUtils.IsInSphereOfInterest(parent, company.product.Niche))
+                    if (Companies.IsInSphereOfInterest(parent, company.product.Niche))
                         sphereOfInterestBonus = 5;
                 }
             }
 
             var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
             var phase = NicheUtils.GetMarketState(niche);
-            var marketStage = CompanyUtils.GetMarketStageInnovationModifier(niche);
+            var marketStage = Companies.GetMarketStageInnovationModifier(niche);
 
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
@@ -34,7 +34,7 @@
 
             return new Bonus<long>("Innovation chance")
                 .Append("Base", 5)
-                .Append("Market stage " + CompanyUtils.GetMarketStateDescription(phase), marketStage)
+                .Append("Market stage " + Companies.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
                 
                 .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)
@@ -73,11 +73,11 @@
         {
             //var CEOId = 
             int companyId = company.company.Id;
-            int CEOId = CompanyUtils.GetCEOId(company);
+            int CEOId = Companies.GetCEOId(company);
 
             //var accumulated = GetAccumulatedExpertise(company);
 
-            return (int)(15 * CompanyUtils.GetHashedRandom2(companyId, CEOId));
+            return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
     }

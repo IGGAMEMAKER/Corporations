@@ -19,8 +19,8 @@ public class ShareholderView : View
     {
         company = SelectedCompany;
 
-        int totalShares = CompanyUtils.GetTotalShares(company.shareholders.Shareholders);
-        shareholder = CompanyUtils.GetInvestorById(GameContext, shareholderId);
+        int totalShares = Companies.GetTotalShares(company.shareholders.Shareholders);
+        shareholder = Companies.GetInvestorById(GameContext, shareholderId);
 
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);
     }
@@ -49,7 +49,7 @@ public class ShareholderView : View
         
         Type.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
-        Share.text = CompanyUtils.GetShareSize(GameContext, company.company.Id, investorId) + "%";
+        Share.text = Companies.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 
         //BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 

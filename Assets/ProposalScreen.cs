@@ -12,7 +12,7 @@ public class ProposalScreen : View
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
     public RejectInvestmentProposalController RejectInvestmentProposalController;
 
-    InvestmentProposal proposal => CompanyUtils.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, SelectedInvestor.shareholder.Id);
+    InvestmentProposal proposal => Companies.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, SelectedInvestor.shareholder.Id);
 
     bool IsInvestmentRoundActive => SelectedCompany.hasAcceptsInvestments;
 

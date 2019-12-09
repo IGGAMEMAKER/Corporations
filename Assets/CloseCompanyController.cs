@@ -5,7 +5,7 @@ public class CloseCompanyController : PopupButtonController<PopupMessageCompanyC
 {
     public override void Execute()
     {
-        CompanyUtils.CloseCompany(GameContext, Popup.companyId);
+        Companies.CloseCompany(GameContext, Popup.companyId);
 
         NotificationUtils.ClosePopup(GameContext);
 

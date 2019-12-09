@@ -49,7 +49,7 @@ namespace Assets.Utils
 
         private static float GetPartnershipBonuses(GameEntity product, GameContext gameContext)
         {
-            var partners = CompanyUtils.GetPartnerList(product, gameContext);
+            var partners = Companies.GetPartnerList(product, gameContext);
 
             var partnersInSameIndustry = partners
                 .Where(p =>
@@ -61,7 +61,7 @@ namespace Assets.Utils
             float value = 0;
             foreach (var p in partnersInSameIndustry)
             {
-                var marketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
+                var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
                 var marketSize = NicheUtils.GetMarketRating(gameContext, product.product.Niche);
                 
                 value += marketShare * marketSize / 100f;

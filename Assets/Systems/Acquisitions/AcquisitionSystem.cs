@@ -29,7 +29,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void AnalyzeOffers (int companyId)
     {
-        var offers = CompanyUtils.GetAcquisitionOffersToCompany(gameContext, companyId);
+        var offers = Companies.GetAcquisitionOffersToCompany(gameContext, companyId);
 
         var offerCount = offers.Count();
 
@@ -88,13 +88,13 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
 
         foreach (var buyerId in toRemove)
-            CompanyUtils.RejectAcquisitionOffer(gameContext, CompanyId, buyerId);
+            Companies.RejectAcquisitionOffer(gameContext, CompanyId, buyerId);
 
-        var remainingOffers = CompanyUtils.GetAcquisitionOffersToCompany(gameContext, CompanyId);
+        var remainingOffers = Companies.GetAcquisitionOffersToCompany(gameContext, CompanyId);
 
         if (remainingOffers.Count() == 1)
         {
-            Debug.Log("WON IN COMPETITION FOR COMPANY " + CompanyUtils.GetCompany(gameContext, CompanyId));
+            Debug.Log("WON IN COMPETITION FOR COMPANY " + Companies.GetCompany(gameContext, CompanyId));
             AcceptOffer(CompanyId, remainingOffers.First().acquisitionOffer.BuyerId);
         }
     }
@@ -103,7 +103,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
     {
         var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-        var modifier = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var modifier = Companies.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
         var maxPrice = (long) (cost * modifier); // the max amount, that we want to pay theoretically
 
         var newPrice = (long) (maxOfferedPrice * Random.Range(1.05f, 5f));
@@ -132,7 +132,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         var cost = EconomyUtils.GetCompanyCost(gameContext, targetId);
 
-        var Kmin = CompanyUtils.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
+        var Kmin = Companies.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
         var Kbuyer = o.BuyerOffer.Price * 1f / cost;
         var Kseller = 2 * Kmin - Kbuyer;
 
@@ -175,7 +175,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
         else
         {
-            CompanyUtils.ConfirmAcquisitionOffer(gameContext, targetId, shareholderId);
+            Companies.ConfirmAcquisitionOffer(gameContext, targetId, shareholderId);
         }
     }
 }

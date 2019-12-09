@@ -4,16 +4,16 @@
     {
         public static void IncreaseCompanyBalance(GameContext context, int companyId, long sum)
         {
-            var c = CompanyUtils.GetCompany(context, companyId);
+            var c = Companies.GetCompany(context, companyId);
 
-            CompanyUtils.AddResources(c, new Classes.TeamResource(sum));
+            Companies.AddResources(c, new Classes.TeamResource(sum));
         }
 
         public static void DecreaseInvestmentFunds(GameContext context, int investorId, long sum)
         {
-            var investor = CompanyUtils.GetInvestorById(context, investorId);
+            var investor = Companies.GetInvestorById(context, investorId);
 
-            CompanyUtils.SpendResources(investor, new Classes.TeamResource(sum));
+            Companies.SpendResources(investor, new Classes.TeamResource(sum));
         }
     }
 }

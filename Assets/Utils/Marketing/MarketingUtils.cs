@@ -16,7 +16,7 @@
 
         public static long GetChurnClients(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompany(gameContext, companyId);
+            var c = Companies.GetCompany(gameContext, companyId);
 
             var churn = GetChurnRate(gameContext, companyId);
 
@@ -29,7 +29,7 @@
 
         public static void ReleaseApp(int companyId, GameContext gameContext)
         {
-            var product = CompanyUtils.GetCompany(gameContext, companyId);
+            var product = Companies.GetCompany(gameContext, companyId);
 
             ReleaseApp(product, gameContext);
         }

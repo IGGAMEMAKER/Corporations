@@ -16,7 +16,7 @@ public class RenderInvestorResponseToAcquisitionOffer : View
 
     void Render()
     {
-        var investor = CompanyUtils.GetInvestorById(GameContext, shareholderId);
+        var investor = Companies.GetInvestorById(GameContext, shareholderId);
 
         RenderResponse(investor);
     }
@@ -30,13 +30,13 @@ public class RenderInvestorResponseToAcquisitionOffer : View
 
     void RenderResponse(GameEntity investor)
     {
-        var AcquisitionOffer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        var AcquisitionOffer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
 
 
-        bool willAcceptOffer = CompanyUtils.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
-        bool wantsToSellShares = CompanyUtils.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+        bool willAcceptOffer = Companies.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
+        bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
 
-        var opinion = CompanyUtils.GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOffer, investor, SelectedCompany, GameContext);
+        var opinion = Companies.GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOffer, investor, SelectedCompany, GameContext);
         var text = "";
 
         if (willAcceptOffer)
@@ -49,7 +49,7 @@ public class RenderInvestorResponseToAcquisitionOffer : View
         }
         else
         {
-            var description = CompanyUtils.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany);
+            var description = Companies.GetSellRejectionDescriptionByInvestorType(investor.shareholder.InvestorType, SelectedCompany);
             text = Visuals.Negative(description);
         }
 

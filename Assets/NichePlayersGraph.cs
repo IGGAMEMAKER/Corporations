@@ -29,7 +29,7 @@ public class NichePlayersGraph : View
     {
         var id = c.company.Id;
 
-        return CompanyUtils.GetCompanyUniqueColor(id);
+        return Companies.GetCompanyUniqueColor(id);
     }
 
     List<long> GetLastYearMetrics(GameEntity c)

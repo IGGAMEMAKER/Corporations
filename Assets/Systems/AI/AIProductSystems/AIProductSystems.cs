@@ -8,10 +8,10 @@ public partial class BaseProductSystems : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
+        foreach (var e in Companies.GetProductCompanies(gameContext))
             ProductUtils.UpdgradeProduct(e, gameContext);
 
-        foreach (var e in CompanyUtils.GetAIProducts(gameContext))
+        foreach (var e in Companies.GetAIProducts(gameContext))
             ManageProduct(e);
     }
 
@@ -34,23 +34,23 @@ public partial class BaseProductSystems : OnDateChange
 
         // go higher
         //if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
-        if (!CompanyUtils.IsEnoughResources(product, currentCost))
+        if (!Companies.IsEnoughResources(product, currentCost))
         {
             var financing = EconomyUtils.GetCheaperFinancing(product);
 
             ProductUtils.SetMarketingFinancing(product, financing);
         }
 
-        if (CompanyUtils.IsEnoughResources(product, nextCost))
+        if (Companies.IsEnoughResources(product, nextCost))
             ProductUtils.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
     }
 
     void ManageDumpingProduct(GameEntity product)
     {
-        var willBeBankruptIn6Months = !CompanyUtils.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
+        var willBeBankruptIn6Months = !Companies.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
         var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
 
-        var hasLowMarketShare = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
+        var hasLowMarketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
 
         var competitorIsDumpingToo = MarketingUtils.HasDumpingCompetitors(gameContext, product);
         var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);

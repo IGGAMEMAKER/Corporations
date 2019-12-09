@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         static float GetRandomColor(int companyId, int mixer)
         {

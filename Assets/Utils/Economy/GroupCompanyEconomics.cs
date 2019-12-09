@@ -31,9 +31,9 @@ namespace Assets.Utils
 
         public static long GetHoldingCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompany(context, companyId);
+            var c = Companies.GetCompany(context, companyId);
 
-            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
+            var holdings = Companies.GetCompanyHoldings(context, companyId, true);
 
             return GetHoldingCost(context, holdings);
         }
@@ -50,21 +50,21 @@ namespace Assets.Utils
 
         private static long GetGroupMaintenance(GameContext gameContext, int companyId)
         {
-            var holdings = CompanyUtils.GetCompanyHoldings(gameContext, companyId, true);
+            var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
 
             return GetHoldingMaintenance(gameContext, holdings);
         }
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
-            var holdings = CompanyUtils.GetCompanyHoldings(context, e.company.Id, true);
+            var holdings = Companies.GetCompanyHoldings(context, e.company.Id, true);
 
             return GetHoldingIncome(context, holdings);
         }
 
         private static long GetGroupCost(GameContext context, int companyId)
         {
-            var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
+            var holdings = Companies.GetCompanyHoldings(context, companyId, true);
 
             return GetHoldingCost(context, holdings);
         }

@@ -11,7 +11,7 @@ public class PayDividendsController : ButtonController
     {
         companyId = SelectedCompany.company.Id;
 
-        CompanyUtils.PayDividends(GameContext, companyId);
+        Companies.PayDividends(GameContext, companyId);
     }
 
     public void SetDividendCompany(int CompanyId)

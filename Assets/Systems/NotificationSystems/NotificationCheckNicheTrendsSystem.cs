@@ -21,11 +21,11 @@ public class NotificationCheckNicheTrendsSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        var player = CompanyUtils.GetPlayerCompany(gameContext);
+        var player = Companies.GetPlayerCompany(gameContext);
 
         return entity.hasNicheState
             && entity.nicheState.Duration == 0
-            && CompanyUtils.IsInSphereOfInterest(player, entity.niche.NicheType);
+            && Companies.IsInSphereOfInterest(player, entity.niche.NicheType);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

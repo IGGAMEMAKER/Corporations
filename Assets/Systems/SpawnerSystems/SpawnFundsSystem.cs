@@ -35,7 +35,7 @@ class SpawnFundsSystem : OnQuarterChange
 
     int GenerateInvestmentFund(string name, long money)
     {
-        return CompanyUtils.GenerateInvestmentFund(gameContext, name, money).shareholder.Id;
+        return Companies.GenerateInvestmentFund(gameContext, name, money).shareholder.Id;
     }
 
     long GetRandomFundSize(int min, int max)

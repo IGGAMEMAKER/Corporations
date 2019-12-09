@@ -62,8 +62,8 @@ public class NichePreview : View
         // avoiding errors when choosing our first niche 
         if (MyCompany != null)
         {
-            hasCompany = CompanyUtils.HasCompanyOnMarket(MyCompany, Niche, GameContext);
-            isMarketOfInterest = CompanyUtils.IsInSphereOfInterest(MyCompany, Niche);
+            hasCompany = Companies.HasCompanyOnMarket(MyCompany, Niche, GameContext);
+            isMarketOfInterest = Companies.IsInSphereOfInterest(MyCompany, Niche);
         }
 
         var color = VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;

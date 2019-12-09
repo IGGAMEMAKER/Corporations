@@ -11,7 +11,7 @@ public class ToggleMarketingFinancing : ToggleButtonController
 
     public override void Execute()
     {
-        var company = CompanyUtils.GetCompany(GameContext, companyId);
+        var company = Companies.GetCompany(GameContext, companyId);
         var financing = company.financing.Financing[Financing.Marketing];
 
         var newFinancing = 0;

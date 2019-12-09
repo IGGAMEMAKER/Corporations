@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         // Create
         public static int GenerateCompanyId(GameContext context)

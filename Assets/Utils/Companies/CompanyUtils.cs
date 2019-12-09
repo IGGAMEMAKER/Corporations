@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         // Read
         public static GameEntity GetCompany(GameContext context, int companyId)

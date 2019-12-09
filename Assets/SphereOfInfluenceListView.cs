@@ -23,7 +23,7 @@ public class SphereOfInfluenceListView : ListView
     void Render()
     {
         var niches = MyCompany.companyFocus.Niches
-            .OrderByDescending(n => CompanyUtils.GetMarketImportanceForCompany(GameContext, MyCompany, n));
+            .OrderByDescending(n => Companies.GetMarketImportanceForCompany(GameContext, MyCompany, n));
 
         SetItems(niches.ToArray());
     }

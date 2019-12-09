@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         internal static long GetMarketShareOfCompanyMultipliedByHundred(GameEntity product, GameContext gameContext)
         {

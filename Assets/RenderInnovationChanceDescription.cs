@@ -15,7 +15,7 @@ public class RenderInnovationChanceDescription : UpgradedParameterView
         var chance = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
         var text = $"<b>Innovation chance: {chance}%</b>\n\n";
 
-        if (CompanyUtils.IsExploredCompany(GameContext, SelectedCompany))
+        if (Companies.IsExploredCompany(GameContext, SelectedCompany))
         {
             var description = ProductUtils.GetInnovationChanceBonus(SelectedCompany, GameContext).ToString();
 

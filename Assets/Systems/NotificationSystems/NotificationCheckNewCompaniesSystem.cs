@@ -21,14 +21,14 @@ public class NotificationCheckNewCompaniesSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        var player = CompanyUtils.GetPlayerCompany(gameContext);
+        var player = Companies.GetPlayerCompany(gameContext);
 
         if (player == null)
             return false;
 
         return entity.hasProduct
             && entity.product.Concept == 0
-            && CompanyUtils.IsInSphereOfInterest(player, entity);
+            && Companies.IsInSphereOfInterest(player, entity);
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)

@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         internal static void AcceptProposal(GameContext gameContext, int companyId, int investorId)
         {

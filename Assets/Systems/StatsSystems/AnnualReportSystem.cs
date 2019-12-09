@@ -33,7 +33,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
     List<ReportData> GetProductList()
     {
-        var products = CompanyUtils.GetProductCompanies(gameContext)
+        var products = Companies.GetProductCompanies(gameContext)
             .OrderByDescending(p => EconomyUtils.GetCompanyCost(gameContext, p.company.Id))
             .ToArray();
 
@@ -57,7 +57,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
     List<ReportData> GetGroupList()
     {
-        var groups = CompanyUtils.GetGroupCompanies(gameContext)
+        var groups = Companies.GetGroupCompanies(gameContext)
             .OrderByDescending(g => EconomyUtils.GetCompanyCost(gameContext, g.company.Id))
             .ToArray();
 

@@ -72,7 +72,7 @@ namespace Assets.Utils
         {
             var focusModifier = Constants.DEVELOPMENT_FOCUS_IDEAS;
 
-            var expertiseModifier = CompanyUtils.GetCompanyExpertise(productCompany);
+            var expertiseModifier = Companies.GetCompanyExpertise(productCompany);
 
             return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (expertiseModifier + focusModifier) / 100;
         }

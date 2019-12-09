@@ -19,7 +19,7 @@ public class CanBuySharesController : View
 
         var investorId = selectedInvestor.shareholder.Id;
 
-        if (!CompanyUtils.IsInvestsInCompany(SelectedCompany, investorId))
+        if (!Companies.IsInvestsInCompany(SelectedCompany, investorId))
             return;
 
         Render(investorId);
@@ -37,7 +37,7 @@ public class CanBuySharesController : View
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
 
-        var cost = CompanyUtils.GetSharesCost(GameContext, companyId, investorId);
+        var cost = Companies.GetSharesCost(GameContext, companyId, investorId);
 
         // TODO we don't always buy companies as Company Group. We can do it as human or investment fund too!
         var have = MyGroupEntity.companyResource.Resources.money;
@@ -49,7 +49,7 @@ public class CanBuySharesController : View
 
 
 
-        int percentage = CompanyUtils.GetShareSize(GameContext, companyId, investorId);
+        int percentage = Companies.GetShareSize(GameContext, companyId, investorId);
 
         var text = $"Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) {Format.Money(cost)}";
 

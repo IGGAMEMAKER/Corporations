@@ -28,7 +28,7 @@ public partial class AIManageGroupSystems
         foreach (var n in group.companyFocus.Niches)
         {
             //Debug.Log("Checking niche " + n.ToString());
-            foreach (var holding in CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id))
+            foreach (var holding in Companies.GetDaughterCompanies(gameContext, group.company.Id))
             {
                 //Debug.Log("Checking holding " + holding.company.Name);
 
@@ -52,11 +52,11 @@ public partial class AIManageGroupSystems
         var playableNiches = NicheUtils.GetPlayableNichesInIndustry(industry, gameContext);
         var profit = EconomyUtils.GetProfit(group, gameContext);
 
-        var averageProfit = profit / (CompanyUtils.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
+        var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 
         var suitableNiches = playableNiches
-            .Where(n => CompanyUtils.IsEnoughResources(group, NicheUtils.GetStartCapital(n))) // can start business and hold for a while
-            .Where(n => !CompanyUtils.IsInSphereOfInterest(group, n.niche.NicheType)) // exclude niches, that we cover already
+            .Where(n => Companies.IsEnoughResources(group, NicheUtils.GetStartCapital(n))) // can start business and hold for a while
+            .Where(n => !Companies.IsInSphereOfInterest(group, n.niche.NicheType)) // exclude niches, that we cover already
             .Where(n => NicheUtils.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2) // is profitable niche
             //.Where(n => NicheUtils.GetBiggestIncomeOnMarket(gameContext, n) > averageProfit) // can compete with current products
             .ToArray();
@@ -71,6 +71,6 @@ public partial class AIManageGroupSystems
         //var niche = RandomEnum<NicheType>.GenerateValue();
         var niche = suitableNiches[rand].niche.NicheType;
 
-        CompanyUtils.AddFocusNiche(niche, group, gameContext);
+        Companies.AddFocusNiche(niche, group, gameContext);
     }
 }

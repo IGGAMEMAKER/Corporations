@@ -9,7 +9,7 @@ public class IterationGoal : UpgradedParameterView
 
     public override string RenderValue()
     {
-        if (!CompanyUtils.IsExploredCompany(GameContext, SelectedCompany))
+        if (!Companies.IsExploredCompany(GameContext, SelectedCompany))
             return "";
 
         var chance = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);

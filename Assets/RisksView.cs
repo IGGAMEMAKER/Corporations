@@ -16,7 +16,7 @@ public class RisksView : View
 
         var c = SelectedCompany;
 
-        if (CompanyUtils.IsCompanyGroupLike(c))
+        if (Companies.IsCompanyGroupLike(c))
         {
             RiskContainer.SetActive(false);
 

@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Utils
 {
-    public static partial class CompanyUtils
+    public static partial class Companies
     {
         internal static GameEntity[] GetIndependentCompanies(GameContext gameContext)
         {

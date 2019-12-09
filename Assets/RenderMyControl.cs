@@ -12,7 +12,7 @@ public class RenderMyControl : UpgradedParameterView
     {
 
         var shareholderId = Me.shareholder.Id;
-        var control = CompanyUtils.GetShareSize(GameContext, MyCompany.company.Id, shareholderId);
+        var control = Companies.GetShareSize(GameContext, MyCompany.company.Id, shareholderId);
 
         return Mathf.Floor(control) + "%";
     }

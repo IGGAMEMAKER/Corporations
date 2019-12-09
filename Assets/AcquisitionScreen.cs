@@ -27,7 +27,7 @@ public class AcquisitionScreen : View
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
 
-        var willAcceptOffer = CompanyUtils.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         RenderProposalStatus(willAcceptOffer);
 
@@ -36,7 +36,7 @@ public class AcquisitionScreen : View
 
     void RenderProposalStatus(bool willAcceptOffer)
     {
-        var progress = CompanyUtils.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var progress = Companies.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
 
@@ -114,7 +114,7 @@ public class AcquisitionScreen : View
         if (!HasCompany)
             return;
 
-        CompanyUtils.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
+        Companies.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
 
         ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
     }
@@ -148,7 +148,7 @@ public class AcquisitionScreen : View
     {
         get
         {
-            var offer = CompanyUtils.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+            var offer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
             
             return offer?.acquisitionOffer ?? null;
         }

@@ -44,7 +44,7 @@ public class CompanyCostView : View
         BaseCost.text = RenderCosts(EconomyUtils.GetCompanyBaseCost(GameContext, companyId));
         CapitalSize.text = RenderCosts(c.companyResource.Resources.money);
 
-        if (CompanyUtils.IsProductCompany(c))
+        if (Companies.IsProductCompany(c))
         {
             ShowProductCompanyLabels(true);
             ShowGroupLabels(false);

@@ -13,7 +13,7 @@ public class ShareholderProposalsListView : ListView
 
     public override void ViewRender()
     {
-        var proposals = CompanyUtils.GetInvestmentProposals(GameContext, SelectedCompany.company.Id);
+        var proposals = Companies.GetInvestmentProposals(GameContext, SelectedCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
             .SetItems(proposals.ToArray(), SelectedCompany);

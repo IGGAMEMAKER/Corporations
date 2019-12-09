@@ -9,7 +9,7 @@ public class RenderMarketState : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return CompanyUtils.GetMarketStateDescription(State) + " phase";
+        return Companies.GetMarketStateDescription(State) + " phase";
     }
 
     NicheLifecyclePhase State => NicheUtils.GetMarketState(GameContext, SelectedNiche);

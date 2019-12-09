@@ -8,7 +8,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in CompanyUtils.GetProductCompanies(gameContext))
+        foreach (var e in Companies.GetProductCompanies(gameContext))
             PayDividendsIfPossible(e);
     }
 
@@ -18,10 +18,10 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
             return;
 
 
-        if (CompanyUtils.IsCompanyRelatedToPlayer(gameContext, product))
+        if (Companies.IsCompanyRelatedToPlayer(gameContext, product))
         {
             var profit = EconomyUtils.GetProfit(product, gameContext);
-            CompanyUtils.PayDividends(gameContext, product, profit);
+            Companies.PayDividends(gameContext, product, profit);
 
             return;
         }
@@ -32,6 +32,6 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
 
         long dividends = product.companyResource.Resources.money;
-        CompanyUtils.PayDividends(gameContext, product, dividends);
+        Companies.PayDividends(gameContext, product, dividends);
     }
 }

@@ -5,7 +5,7 @@ public class RenderGroupProfit : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id)
+        var daughters = Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id)
             .OrderByDescending(c => EconomyUtils.GetProfit(c, GameContext));
 
         return string.Join("\n", daughters.Select(GetIncomeInfo));

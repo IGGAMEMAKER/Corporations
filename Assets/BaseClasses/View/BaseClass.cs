@@ -23,7 +23,7 @@ public class BaseClass : MonoBehaviour
     public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
 
 
-    public GameEntity MyGroupEntity     => CompanyUtils.GetPlayerControlledGroupCompany(GameContext);
+    public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(GameContext);
     public GameEntity MyCompany => MyGroupEntity ?? null;
     public bool HasCompany => MyCompany != null;
 

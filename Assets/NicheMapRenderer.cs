@@ -45,7 +45,7 @@ public class NicheMapRenderer : View
 
         // clean dead companies
         foreach (var c in companies)
-            c.Value.SetActive(CompanyUtils.GetCompany(GameContext, c.Key).isAlive);
+            c.Value.SetActive(Companies.GetCompany(GameContext, c.Key).isAlive);
     }
 
     void RenderMarket(NicheType niche, int index, int marketCount, Vector3 industryPosition)

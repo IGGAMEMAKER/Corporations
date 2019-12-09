@@ -66,7 +66,7 @@ public class CompanyProductResultsListView : ListView
     {
         base.ViewRender();
 
-        var daughters = CompanyUtils.GetDaughterCompanies(GameContext, MyCompany.company.Id);
+        var daughters = Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id);
         var results = daughters
             .Select(GetProductCompanyResults)
             .ToArray();

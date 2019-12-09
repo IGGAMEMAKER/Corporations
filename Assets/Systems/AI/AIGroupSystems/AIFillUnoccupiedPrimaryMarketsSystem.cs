@@ -30,7 +30,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void CreateCompanyOnMarket(NicheType n, GameEntity managingCompany)
     {
-        CompanyUtils.CreateProductAndAttachItToGroup(gameContext, n, managingCompany);
+        Companies.CreateProductAndAttachItToGroup(gameContext, n, managingCompany);
     }
 
     IEnumerable<NicheType> GetUnoccupiedNiches(GameEntity managingCompany)
@@ -44,7 +44,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         return products
             .Where(p => p.isIndependentCompany)
-            .Where(p => CompanyUtils.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
+            .Where(p => Companies.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
                 //.Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 //.OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
     }
@@ -52,7 +52,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
     long GetCompanyAcquisitionPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
         var price = EconomyUtils.GetCompanySellingPrice(gameContext, target.company.Id);
-        var desireToBuy = CompanyUtils.GetDesireToBuy(buyer, target, gameContext);
+        var desireToBuy = Companies.GetDesireToBuy(buyer, target, gameContext);
 
         var modifiers = Random.Range(10, 14);
 
@@ -67,17 +67,17 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         var cost = EconomyUtils.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
-        if (!CompanyUtils.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
+        if (!Companies.IsEnoughResources(buyer, new Assets.Classes.TeamResource(cost)))
             return;
 
         Debug.Log("AI.SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
 
-        CompanyUtils.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
+        Companies.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
     }
 
 
     bool HasCompanyOnMarket(GameEntity group, NicheType nicheType)
     {
-        return CompanyUtils.HasCompanyOnMarket(group, nicheType, gameContext);
+        return Companies.HasCompanyOnMarket(group, nicheType, gameContext);
     }
 }

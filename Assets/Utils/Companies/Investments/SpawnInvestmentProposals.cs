@@ -4,7 +4,7 @@ using Entitas;
 
 namespace Assets.Utils
 {
-    partial class CompanyUtils
+    partial class Companies
     {
         public static void SpawnProposals(GameContext context, int companyId)
         {

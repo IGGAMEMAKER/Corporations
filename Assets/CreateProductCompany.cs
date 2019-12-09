@@ -7,6 +7,6 @@ public class CreateProductCompany : ButtonController
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
 
-        CompanyUtils.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
+        Companies.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
     }
 }

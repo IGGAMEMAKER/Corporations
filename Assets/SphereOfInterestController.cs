@@ -5,11 +5,11 @@ public class SphereOfInterestController : ButtonController
     public override void Execute()
     {
         var niche = ScreenUtils.GetSelectedNiche(GameContext);
-        bool isInSphereOfInterest = CompanyUtils.IsInSphereOfInterest(MyCompany, niche);
+        bool isInSphereOfInterest = Companies.IsInSphereOfInterest(MyCompany, niche);
 
         if (isInSphereOfInterest)
-            CompanyUtils.RemoveFromSphereOfInfluence(niche, MyCompany, GameContext);
+            Companies.RemoveFromSphereOfInfluence(niche, MyCompany, GameContext);
         else
-            CompanyUtils.AddFocusNiche(niche, MyCompany, GameContext);
+            Companies.AddFocusNiche(niche, MyCompany, GameContext);
     }
 }

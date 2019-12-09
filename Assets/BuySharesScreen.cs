@@ -24,9 +24,9 @@ public class BuySharesScreen : View
 
         var investorId = shareholder.shareholder.Id;
 
-        SharesInfo.text = shareholder.shareholder.Name + " owns " + CompanyUtils.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "% of company";
+        SharesInfo.text = shareholder.shareholder.Name + " owns " + Companies.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "% of company";
 
-        var shareCost = CompanyUtils.GetSharesCost(GameContext, SelectedCompany.company.Id, investorId);
+        var shareCost = Companies.GetSharesCost(GameContext, SelectedCompany.company.Id, investorId);
         Valuation.text = Format.Money(shareCost);
 
         Offer.text = Format.Money(shareCost);
