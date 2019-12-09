@@ -46,7 +46,7 @@ public class FillInterruptList : View
         InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
         TeamLoyaltyThreat.SetActive(HasUnhappyTeams());
 
-        OutdatedProducts.SetActive(HasOutdatedProducts());
+        OutdatedProducts.SetActive(false && HasOutdatedProducts());
 
         CanSellCompany.SetActive(HasAcquisitionOffers());
         CanBuyCompany.SetActive(false && CheckAcquisitionCandidates());
