@@ -49,7 +49,8 @@ public class LinkTo : ButtonController
                         return;
                     }
 
-                    Navigate(TargetMenu, Constants.MENU_SELECTED_COMPANY, daughters[0].company.Id);
+                    // daughters[0].company.Id
+                    Navigate(ScreenMode.ProjectScreen, Constants.MENU_SELECTED_COMPANY, MyCompany.company.Id);
                     //if (SelectedCompany.company.Id == MyGroupEntity.company.Id)
                     //else
                     //    Navigate(TargetMenu);
