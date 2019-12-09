@@ -67,6 +67,10 @@ public class PopupView : View
                 RenderTargetAcquisition(popup as PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence);
                 break;
 
+            case PopupType.PreRelease:
+                RenderPreReleasePopup(popup as PopupMessageDoYouWantToRelease);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
@@ -189,6 +193,15 @@ public class PopupView : View
             "New Startup",
             "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
             "\n\nKeep an eye on them. Perhaps, we can buy them later"
+            );
+    }
+
+    void RenderPreReleasePopup(PopupMessageDoYouWantToRelease popup)
+    {
+        RenderUniversalPopup(
+            "Do you really want to release this product?",
+            "Maintenance cost will increase\nThis product will get 20 brand power",
+
             );
     }
 }

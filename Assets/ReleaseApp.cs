@@ -4,6 +4,8 @@ public class ReleaseApp : ButtonController
 {
     public override void Execute()
     {
-        MarketingUtils.ReleaseApp(SelectedCompany, GameContext);
+
+        var id = SelectedCompany.company.Id;
+        NotificationUtils.AddPopup(GameContext, new PopupMessageDoYouWantToRelease(id));
     }
 }

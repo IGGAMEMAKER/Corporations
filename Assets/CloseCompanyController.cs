@@ -18,6 +18,24 @@ public class CloseCompanyController : PopupButtonController<PopupMessageCompanyC
     }
 }
 
+public class ReleaseAppPopup : PopupButtonController<PopupMessageDoYouWantToRelease>
+{
+    public override void Execute()
+    {
+        MarketingUtils.ReleaseApp(SelectedCompany, GameContext);
+    }
+
+    public override string GetButtonName()
+    {
+        throw new System.NotImplementedException();
+    }
+}
+
+
+
+
+
+
 // TODO move to baseClass folder
 public abstract class SimplePopupButtonController : ButtonController
 {

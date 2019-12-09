@@ -27,6 +27,12 @@
             return clients * churn * period / 30 / 100;
         }
 
+        public static void ReleaseApp(int companyId, GameContext gameContext)
+        {
+            var product = CompanyUtils.GetCompanyById(gameContext, companyId);
+
+            ReleaseApp(product, gameContext);
+        }
         public static void ReleaseApp(GameEntity product, GameContext gameContext)
         {
             if (!product.isRelease)
