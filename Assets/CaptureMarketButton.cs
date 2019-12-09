@@ -12,7 +12,7 @@ public class CaptureMarketButton : ToggleButtonController
         var capture = !hasAtLeastOneAggressiveCompany;
 
         foreach (var p in productsOnMarket)
-            ProductUtils.SetMarketingFinancing(p, capture ? max : 0);
+            ProductUtils.SetMarketingFinancing(p, capture ? max : max - 1);
     }
 
     int max = ProductUtils.GetMaxFinancing;
