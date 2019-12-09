@@ -16,7 +16,7 @@ namespace Assets.Utils
 
         public static int GenerateInvestorId(GameContext context)
         {
-            return InvestmentUtils.GenerateInvestorId(context);
+            return Investments.GenerateInvestorId(context);
         }
 
         private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
@@ -49,7 +49,7 @@ namespace Assets.Utils
             var c = CreateCompany(context, name, CompanyType.Group);
             c.isManagingCompany = true;
 
-            InvestmentUtils.BecomeInvestor(context, c, 0);
+            Investments.BecomeInvestor(context, c, 0);
 
             return c;
         }
@@ -58,7 +58,7 @@ namespace Assets.Utils
         {
             var c = CreateCompany(context, name, CompanyType.FinancialGroup);
 
-            InvestmentUtils.BecomeInvestor(context, c, money);
+            Investments.BecomeInvestor(context, c, money);
 
             return c;
         }
@@ -114,7 +114,7 @@ namespace Assets.Utils
             var founder = c.cEO.HumanId;
             var shareholder = HumanUtils.GetHumanById(gameContext, founder);
 
-            InvestmentUtils.BecomeInvestor(gameContext, shareholder, 100000);
+            Investments.BecomeInvestor(gameContext, shareholder, 100000);
 
             AddShareholder(gameContext, c.company.Id, shareholder.shareholder.Id, 500);
 
@@ -123,7 +123,7 @@ namespace Assets.Utils
 
             for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
             {
-                int investorId = InvestmentUtils.GetRandomInvestmentFund(gameContext);
+                int investorId = Investments.GetRandomInvestmentFund(gameContext);
 
                 AddShareholder(gameContext, c.company.Id, investorId, 100);
             }

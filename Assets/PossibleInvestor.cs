@@ -20,6 +20,6 @@ public class PossibleInvestor : View
     void Render()
     {
         InvestorName.text = investor.shareholder.Name;
-        InvestorType.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
+        InvestorType.text = Investments.GetFormattedInvestorType(investor.shareholder.InvestorType);
     }
 }

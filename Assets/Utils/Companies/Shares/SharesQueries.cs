@@ -52,7 +52,7 @@ namespace Assets.Utils
 
         public static bool IsInvestsInCompany(GameEntity company, int investorId)
         {
-            return InvestmentUtils.IsInvestsInCompany(investorId, company);
+            return Investments.IsInvestsInCompany(investorId, company);
             //return company.shareholders.Shareholders.ContainsKey(investorId);
         }
 

@@ -31,7 +31,7 @@ namespace Assets.Utils
             AddFocusIndustry(industry, company);
 
 
-            InvestmentUtils.SetCompanyGoal(context, company, InvestorGoal.Operationing);
+            Investments.SetCompanyGoal(context, company, InvestorGoal.Operationing);
 
             return company;
         }

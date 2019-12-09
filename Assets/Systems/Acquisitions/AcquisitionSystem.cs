@@ -111,7 +111,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         if (newPrice > maxPrice)
             newPrice = maxPrice;
 
-        var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+        var investor = Investments.GetInvestorById(gameContext, shareholderId);
         var balance = investor.companyResource.Resources.money;
         if (newPrice > balance)
             newPrice = balance;
@@ -166,7 +166,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void AcceptOffer(int targetId, int shareholderId)
     {
-        var investor = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+        var investor = Investments.GetInvestorById(gameContext, shareholderId);
 
         if (investor.isControlledByPlayer)
         {

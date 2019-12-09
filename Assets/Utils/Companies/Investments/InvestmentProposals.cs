@@ -27,7 +27,7 @@ namespace Assets.Utils
 
             var c = GetCompany(gameContext, companyId);
 
-            return Array.FindAll(investors, s => InvestmentUtils.IsInvestorSuitable(s, c));
+            return Array.FindAll(investors, s => Investments.IsInvestorSuitable(s, c));
         }
 
 

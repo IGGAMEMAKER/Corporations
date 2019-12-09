@@ -4,6 +4,6 @@ public class BlinkIfGoalIsCompleted : BlinkOnSomeCondition
 {
     public override bool ConditionCheck()
     {
-        return InvestmentUtils.IsGoalCompleted(MyCompany, GameContext);
+        return Investments.IsGoalCompleted(MyCompany, GameContext);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class InvestmentUtils
+    public static partial class Investments
     {
         public static int BecomeInvestor(GameContext context, GameEntity e, long money)
         {

@@ -66,6 +66,6 @@ public class ProposalScreen : View
 
         SetButtons();
 
-        InvestorName.text = $"Proposal from {SelectedInvestor.shareholder.Name}, {InvestmentUtils.GetFormattedInvestorType(SelectedInvestor.shareholder.InvestorType)}";
+        InvestorName.text = $"Proposal from {SelectedInvestor.shareholder.Name}, {Investments.GetFormattedInvestorType(SelectedInvestor.shareholder.InvestorType)}";
     }
 }

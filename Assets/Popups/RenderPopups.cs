@@ -17,7 +17,7 @@ public partial class PopupView : View
     private void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
         var target = Companies.GetCompany(GameContext, popup.companyId);
-        var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.buyerInvestorId);
+        var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
@@ -28,7 +28,7 @@ public partial class PopupView : View
     private void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
         var target = Companies.GetCompany(GameContext, popup.companyId);
-        var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.InterceptorCompanyId);
+        var buyer = Investments.GetInvestorById(GameContext, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
             "ACQUISITION!",

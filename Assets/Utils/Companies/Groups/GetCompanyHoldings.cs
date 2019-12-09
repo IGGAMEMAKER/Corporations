@@ -57,7 +57,7 @@ namespace Assets.Utils
                 var id = shareholder.Key;
                 var block = shareholder.Value.amount;
 
-                var investor = InvestmentUtils.GetInvestorById(context, id);
+                var investor = Investments.GetInvestorById(context, id);
                 if (investor.hasCompany)
                 {
                     // is managing company
@@ -106,7 +106,7 @@ namespace Assets.Utils
         {
             List<CompanyHolding> companyHoldings = new List<CompanyHolding>();
 
-            var investments = InvestmentUtils.GetInvestmentsOf(context, shareholderId);
+            var investments = Investments.GetInvestmentsOf(context, shareholderId);
 
             foreach (var investment in investments)
             {

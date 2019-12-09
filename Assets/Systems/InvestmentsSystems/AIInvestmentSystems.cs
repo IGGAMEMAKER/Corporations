@@ -20,7 +20,7 @@ public class AIInvestmentSystems : OnHalfYear
 
     bool InvestorIsNotRelatedToPlayer (InvestmentProposal proposal)
     {
-        var investor = InvestmentUtils.GetInvestorById(gameContext, proposal.ShareholderId);
+        var investor = Investments.GetInvestorById(gameContext, proposal.ShareholderId);
 
         var isRelatedToPlayer = investor.hasCompany && Companies.IsCompanyRelatedToPlayer(gameContext, investor);
 

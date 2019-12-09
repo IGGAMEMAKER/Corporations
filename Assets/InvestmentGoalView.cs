@@ -29,7 +29,7 @@ public class InvestmentGoalView : View
     {
         return new GoalViewInfo
         {
-            goal = InvestmentUtils.GetFormattedInvestorGoal(goal.InvestorGoal)
+            goal = Investments.GetFormattedInvestorGoal(goal.InvestorGoal)
         };
     }
 
@@ -100,9 +100,9 @@ public class InvestmentGoalView : View
         base.ViewRender();
 
         var goalinfo = GetGoalViewInfo();
-        var requirements = InvestmentUtils.GetGoalRequirements(MyCompany, GameContext);
+        var requirements = Investments.GetGoalRequirements(MyCompany, GameContext);
 
-        Goal.text = Visuals.Colorize(goalinfo.goal, InvestmentUtils.IsGoalCompleted(MyCompany, GameContext));
+        Goal.text = Visuals.Colorize(goalinfo.goal, Investments.IsGoalCompleted(MyCompany, GameContext));
 
         RenderProgress(requirements, goal.InvestorGoal);
     }

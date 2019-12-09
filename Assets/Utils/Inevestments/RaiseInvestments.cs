@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class InvestmentUtils
+    public static partial class Investments
     {
         // TODO <float>
         public static Bonus<long> GetInvestorOpinionBonus(GameContext gameContext, GameEntity company, GameEntity investor)

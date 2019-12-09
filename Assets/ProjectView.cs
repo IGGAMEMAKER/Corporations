@@ -32,6 +32,6 @@ public class ProjectView : View
 
         RenderCompanyEconomy();
 
-        CompanyGoal.text = InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
+        CompanyGoal.text = Investments.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
     }
 }

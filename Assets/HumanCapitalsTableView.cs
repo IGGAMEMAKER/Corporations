@@ -31,7 +31,7 @@ public class HumanCapitalsTableView : View, IPointerEnterHandler
     void Render(int rank)
     {
         Name.text = HumanUtils.GetFullName(entity);
-        Capitals.text = Format.Money(InvestmentUtils.GetInvestorCapitalCost(GameContext, entity));
+        Capitals.text = Format.Money(Investments.GetInvestorCapitalCost(GameContext, entity));
 
         Rank.text = rank.ToString();
         Age.text = "54"; // Random.Range(35, 80).ToString();

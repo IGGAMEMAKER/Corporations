@@ -12,7 +12,7 @@ public class FillSharesList : View
     private GameEntity[] GetInvestments()
     {
         if (SelectedHuman.hasShareholder)
-            return InvestmentUtils.GetInvestmentsOf(GameContext, SelectedHuman.shareholder.Id);
+            return Investments.GetInvestmentsOf(GameContext, SelectedHuman.shareholder.Id);
 
         return new GameEntity[0];
     }

@@ -6,7 +6,7 @@ public class CompleteGoalController : ButtonController
     {
         var goal = MyCompany.companyGoal.InvestorGoal;
 
-        InvestmentUtils.CompleteGoal(MyCompany, GameContext);
+        Investments.CompleteGoal(MyCompany, GameContext);
 
         switch (goal)
         {

@@ -6,7 +6,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class InvestmentUtils
+    public static partial class Investments
     {
         public static bool IsGoalCompleted (GameEntity company, GameContext gameContext)
         {

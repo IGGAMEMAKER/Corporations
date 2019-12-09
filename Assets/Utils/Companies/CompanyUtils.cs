@@ -19,7 +19,7 @@ namespace Assets.Utils
 
         public static GameEntity GetInvestorById(GameContext context, int investorId)
         {
-            return InvestmentUtils.GetInvestorById(context, investorId);
+            return Investments.GetInvestorById(context, investorId);
         }
 
 

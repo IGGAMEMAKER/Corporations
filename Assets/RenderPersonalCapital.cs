@@ -21,7 +21,7 @@ public class RenderPersonalCapital : UpgradedParameterView
 
         if (human.hasCompanyResource)
         {
-            text += "Holdings cost: " + Format.Money(InvestmentUtils.GetInvestorCapitalCost(GameContext, SelectedHuman));
+            text += "Holdings cost: " + Format.Money(Investments.GetInvestorCapitalCost(GameContext, SelectedHuman));
 
             //if (SelectedHuman == Me)
             //    text += "\nCash: " + Format.Money(human.companyResource.Resources.money);

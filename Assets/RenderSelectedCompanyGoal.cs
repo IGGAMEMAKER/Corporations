@@ -9,6 +9,6 @@ public class RenderSelectedCompanyGoal : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return InvestmentUtils.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
+        return Investments.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
     }
 }

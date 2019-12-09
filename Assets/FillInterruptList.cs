@@ -92,6 +92,6 @@ public class FillInterruptList : View
 
     bool CheckGoal()
     {
-        return InvestmentUtils.IsGoalCompleted(MyCompany, GameContext);
+        return Investments.IsGoalCompleted(MyCompany, GameContext);
     }
 }

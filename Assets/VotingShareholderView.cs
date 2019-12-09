@@ -30,6 +30,6 @@ public class VotingShareholderView : View
         var percentage = Companies.GetShareSize(GameContext, SelectedCompany.company.Id, shareholderId);
         Name.text = $"{investor.shareholder.Name}";
         Share.text = percentage + "%";
-        Status.text = InvestmentUtils.GetFormattedInvestorType(investor.shareholder.InvestorType);
+        Status.text = Investments.GetFormattedInvestorType(investor.shareholder.InvestorType);
     }
 }

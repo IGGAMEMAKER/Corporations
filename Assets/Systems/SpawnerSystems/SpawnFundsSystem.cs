@@ -54,6 +54,6 @@ class SpawnFundsSystem : OnQuarterChange
     void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
     {
         for (var i = 0; i < amountOfInvestors; i++)
-            InvestmentUtils.GenerateAngel(gameContext);
+            Investments.GenerateAngel(gameContext);
     }
 }

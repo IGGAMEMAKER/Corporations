@@ -47,7 +47,7 @@ public class ShareholderView : View
         Name.text = name;
         AddLinkToInvestorIfPossible(shares.InvestorType);
         
-        Type.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
+        Type.text = Investments.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
         Share.text = Companies.GetShareSize(GameContext, company.company.Id, investorId) + "%";
 

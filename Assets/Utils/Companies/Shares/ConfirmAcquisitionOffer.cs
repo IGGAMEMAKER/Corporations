@@ -21,7 +21,7 @@ namespace Assets.Utils
         public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
         {
             // can afford acquisition
-            var inv = InvestmentUtils.GetInvestorById(gameContext, buyerInvestorId);
+            var inv = Investments.GetInvestorById(gameContext, buyerInvestorId);
             if (!IsEnoughResources(inv, offer))
                 return;
 
@@ -48,7 +48,7 @@ namespace Assets.Utils
         public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             var target = GetCompany(gameContext, companyId);
-            var corporation = InvestmentUtils.GetCompanyByInvestorId(gameContext, buyerInvestorId);
+            var corporation = Investments.GetCompanyByInvestorId(gameContext, buyerInvestorId);
 
             var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];

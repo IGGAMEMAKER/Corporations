@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class InvestmentUtils
+    public static partial class Investments
     {
         public static InvestorGoal GetNextGoal(InvestorGoal current)
         {

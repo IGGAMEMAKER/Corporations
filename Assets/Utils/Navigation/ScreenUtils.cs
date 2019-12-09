@@ -31,7 +31,7 @@ namespace Assets.Utils
         {
             int id = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_INVESTOR];
 
-            return InvestmentUtils.GetInvestorById(gameContext, id);
+            return Investments.GetInvestorById(gameContext, id);
         }
 
         public static IndustryType GetSelectedIndustry(GameContext gameContext)

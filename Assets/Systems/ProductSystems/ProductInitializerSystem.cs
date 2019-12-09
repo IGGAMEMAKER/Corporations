@@ -199,12 +199,12 @@ public partial class ProductInitializerSystem : IInitializeSystem
     void SpawnInvestors(int amountOfInvestors, int investmentMin, int investmentMax)
     {
         for (var i = 0; i < amountOfInvestors; i++)
-            InvestmentUtils.GenerateAngel(GameContext);
+            Investments.GenerateAngel(GameContext);
     }
 
     int GetRandomInvestmentFund()
     {
-        return InvestmentUtils.GetRandomInvestmentFund(GameContext);
+        return Investments.GetRandomInvestmentFund(GameContext);
     }
 
     int GetRandomInvestorId()

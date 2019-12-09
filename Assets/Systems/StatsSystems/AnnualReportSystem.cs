@@ -80,7 +80,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
     List<ReportData> GetPeopleList()
     {
-        var people = InvestmentUtils.GetInfluencialPeople(gameContext);
+        var people = Investments.GetInfluencialPeople(gameContext);
 
         var List = new List<ReportData>();
         
@@ -90,7 +90,7 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
 
             List.Add(new ReportData
             {
-                Cost = InvestmentUtils.GetInvestorCapitalCost(gameContext, h),
+                Cost = Investments.GetInvestorCapitalCost(gameContext, h),
                 ShareholderId = h.shareholder.Id,
                 position = i
             });

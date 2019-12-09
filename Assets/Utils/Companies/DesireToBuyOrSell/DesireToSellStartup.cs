@@ -40,7 +40,7 @@ namespace Assets.Utils
 
         public static long GetFounderExitDesire(GameEntity startup, int shareholderId, GameContext gameContext)
         {
-            var founder = InvestmentUtils.GetInvestorById(gameContext, shareholderId);
+            var founder = Investments.GetInvestorById(gameContext, shareholderId);
 
             var ambitions = founder.humanSkills.Traits[TraitType.Ambitions];
 
@@ -69,7 +69,7 @@ namespace Assets.Utils
 
         public static long OnGoalCompletion(GameEntity startup, InvestorType investorType)
         {
-            bool goalCompleted = !InvestmentUtils.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
+            bool goalCompleted = !Investments.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
 
             return goalCompleted ? Constants.COMPANY_DESIRE_TO_SELL_YES : Constants.COMPANY_DESIRE_TO_SELL_NO;
         }

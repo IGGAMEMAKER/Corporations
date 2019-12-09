@@ -61,7 +61,7 @@ public class ShareholderProposalView : View
     {
         Name.text = shareholder.shareholder.Name;
 
-        InvestorType.text = InvestmentUtils.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
+        InvestorType.text = Investments.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
     }
 
     void RenderOffer()
@@ -84,8 +84,8 @@ public class ShareholderProposalView : View
             OpinionHint.SetHint("");
         } else
         {
-            OpinionDescription.text = InvestmentUtils.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
-            var bonus = InvestmentUtils.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
+            OpinionDescription.text = Investments.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
+            var bonus = Investments.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
             OpinionHint.SetHint(bonus.ToString());
         }
     }
