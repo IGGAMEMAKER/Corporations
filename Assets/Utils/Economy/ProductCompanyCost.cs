@@ -11,7 +11,7 @@
 
         public static long GetProductCompanyBaseCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             long audienceCost = GetClientBaseCost(context, companyId);
             long profitCost = GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
@@ -22,7 +22,7 @@
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
             return 0;
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             return MarketingUtils.GetClients(c) * 100;
         }

@@ -38,7 +38,7 @@
             return company.metricsHistory.Metrics.Count < 6;
         }
 
-        public static long GetBaseDesireToSellShares(GameContext gameContext, int companyId, int shareholderId) => GetBaseDesireToSellShares(gameContext, GetCompanyById(gameContext, companyId), shareholderId, GetInvestorById(gameContext, shareholderId));
+        public static long GetBaseDesireToSellShares(GameContext gameContext, int companyId, int shareholderId) => GetBaseDesireToSellShares(gameContext, GetCompany(gameContext, companyId), shareholderId, GetInvestorById(gameContext, shareholderId));
         public static long GetBaseDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, GameEntity investor) => GetBaseDesireToSellShares(gameContext, company, shareholderId, investor.shareholder.InvestorType);
         public static long GetBaseDesireToSellShares(GameContext gameContext, GameEntity company, int shareholderId, InvestorType investorType)
         {

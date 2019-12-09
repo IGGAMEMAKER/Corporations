@@ -6,7 +6,7 @@
 
         public static long GetCompanyIncome(int companyId, GameContext context)
         {
-            var e = CompanyUtils.GetCompanyById(context, companyId);
+            var e = CompanyUtils.GetCompany(context, companyId);
 
             return GetCompanyIncome(e, context);
         }
@@ -28,7 +28,7 @@
 
         internal static long GetProfit(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             return GetProfit(c, context);
         }

@@ -4,7 +4,7 @@
     {
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {
-            var product = GetCompanyById(context, companyId);
+            var product = GetCompany(context, companyId);
 
             if (!product.isIndependentCompany)
                 return -1;
@@ -18,7 +18,7 @@
             AttachToGroup(context, companyGroupId, companyId);
 
 
-            var groupCo = GetCompanyById(context, companyGroupId);
+            var groupCo = GetCompany(context, companyGroupId);
 
             var niche = product.product.Niche;
             var industry = NicheUtils.GetIndustry(niche, context);

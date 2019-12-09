@@ -18,7 +18,7 @@ namespace Assets.Utils
                 ;
         }
 
-        public static bool IsCompetingCompany(int companyId1, int companyId2, GameContext gameContext) => IsCompetingCompany(GetCompanyById(gameContext, companyId1), GetCompanyById(gameContext, companyId2), gameContext);
+        public static bool IsCompetingCompany(int companyId1, int companyId2, GameContext gameContext) => IsCompetingCompany(GetCompany(gameContext, companyId1), GetCompany(gameContext, companyId2), gameContext);
         public static bool IsCompetingCompany(GameEntity company1, GameEntity company2, GameContext gameContext)
         {
             return IsHaveCompetingProducts(company1, company2, gameContext) || IsHaveIntersectingMarkets(company1, company2, gameContext);
@@ -214,7 +214,7 @@ namespace Assets.Utils
             var partners = GetPartnersOf(company, gameContext);
 
             return partners
-                .Select(p => GetCompanyById(gameContext, p))
+                .Select(p => GetCompany(gameContext, p))
                 .Where(p => p.hasProduct)
                 .ToList();
         }

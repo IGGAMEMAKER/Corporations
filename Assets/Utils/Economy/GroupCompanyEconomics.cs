@@ -31,7 +31,7 @@ namespace Assets.Utils
 
         public static long GetHoldingCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             var holdings = CompanyUtils.GetCompanyHoldings(context, companyId, true);
 

@@ -6,7 +6,7 @@ namespace Assets.Utils
 {
     partial class CompanyUtils
     {
-        public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(GetCompanyById(context, companyId).shareholders.Shareholders);
+        public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(GetCompany(context, companyId).shareholders.Shareholders);
         public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
         {
             int totalShares = 0;
@@ -23,7 +23,7 @@ namespace Assets.Utils
 
         public static bool IsAreSharesSellable(GameContext context, int companyId)
         {
-            return IsSharesCanBeSold(GetCompanyById(context, companyId));
+            return IsSharesCanBeSold(GetCompany(context, companyId));
         }
 
         public static Dictionary<int, BlockOfShares> GetShareholders(GameEntity company)
@@ -38,7 +38,7 @@ namespace Assets.Utils
 
         public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             var shareholders = c.shareholders.Shareholders;
 
@@ -47,7 +47,7 @@ namespace Assets.Utils
 
         public static bool IsInvestsInCompany(GameContext gameContext, int companyId, int investorId)
         {
-            return IsInvestsInCompany(GetCompanyById(gameContext, companyId), investorId);
+            return IsInvestsInCompany(GetCompany(gameContext, companyId), investorId);
         }
 
         public static bool IsInvestsInCompany(GameEntity company, int investorId)
@@ -58,7 +58,7 @@ namespace Assets.Utils
 
         public static int GetShareSize(GameContext context, int companyId, int investorId)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             int shares = GetAmountOfShares(context, companyId, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
@@ -71,7 +71,7 @@ namespace Assets.Utils
 
         public static long GetSharesCost(GameContext context, int companyId, int investorId)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             int shares = GetAmountOfShares(context, companyId, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
@@ -91,7 +91,7 @@ namespace Assets.Utils
 
         public static int GetBiggestShareholder(GameContext gameContext, int companyId)
         {
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             var list = c.shareholders.Shareholders.OrderBy(key => key.Value);
 

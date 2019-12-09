@@ -8,7 +8,7 @@ namespace Assets.Utils
     {
         public static List<InvestmentProposal> GetInvestmentProposals(GameContext context, int companyId)
         {
-            return GetCompanyById(context, companyId).investmentProposals.Proposals;
+            return GetCompany(context, companyId).investmentProposals.Proposals;
         }
 
         public static InvestmentProposal GetInvestmentProposal(GameContext context, int companyId, int investorId)
@@ -25,7 +25,7 @@ namespace Assets.Utils
         {
             var investors = gameContext.GetEntities(GameMatcher.Shareholder);
 
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             return Array.FindAll(investors, s => InvestmentUtils.IsInvestorSuitable(s, c));
         }
@@ -35,7 +35,7 @@ namespace Assets.Utils
 
         internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
         {
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             var proposals = c.investmentProposals.Proposals;
 
@@ -63,7 +63,7 @@ namespace Assets.Utils
 
         static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
         {
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             var proposals = GetInvestmentProposals(gameContext, companyId);
 

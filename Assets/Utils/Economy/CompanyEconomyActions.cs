@@ -4,7 +4,7 @@
     {
         public static void IncreaseCompanyBalance(GameContext context, int companyId, long sum)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             CompanyUtils.AddResources(c, new Classes.TeamResource(sum));
         }

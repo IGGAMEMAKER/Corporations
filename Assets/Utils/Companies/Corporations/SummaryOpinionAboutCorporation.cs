@@ -55,7 +55,7 @@ namespace Assets.Utils
         public static long GetCorporationOfferProgress(GameContext gameContext, int companyId, int buyerInvestorId)
         {
             //return GetSummaryInvestorOpinion(gameContext, companyId, buyerInvestorId, IsShareholderWillAcceptCorporationOffer(companyId, invId, gameContext));
-            var company = GetCompanyById(gameContext, companyId);
+            var company = GetCompany(gameContext, companyId);
 
             var shareholders = GetShareholders(company);
 

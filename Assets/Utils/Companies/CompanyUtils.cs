@@ -7,7 +7,7 @@ namespace Assets.Utils
     public static partial class CompanyUtils
     {
         // Read
-        public static GameEntity GetCompanyById(GameContext context, int companyId)
+        public static GameEntity GetCompany(GameContext context, int companyId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
         }
@@ -32,7 +32,7 @@ namespace Assets.Utils
 
         public static bool IsCompanyGroupLike(GameContext context, int companyId)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             return IsCompanyGroupLike(c);
         }
@@ -49,7 +49,7 @@ namespace Assets.Utils
 
         public static bool IsProductCompany(GameContext context, int companyId)
         {
-            return IsProductCompany(GetCompanyById(context, companyId));
+            return IsProductCompany(GetCompany(context, companyId));
         }
 
 
@@ -57,7 +57,7 @@ namespace Assets.Utils
         // TODO move to separate file
         public static bool IsExploredCompany(GameContext gameContext, int companyId)
         {
-            var company = GetCompanyById(gameContext, companyId);
+            var company = GetCompany(gameContext, companyId);
 
             return IsExploredCompany(gameContext, company);
         }
@@ -70,7 +70,7 @@ namespace Assets.Utils
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             c.ReplaceCompany(c.company.Id, name, c.company.CompanyType);
         }

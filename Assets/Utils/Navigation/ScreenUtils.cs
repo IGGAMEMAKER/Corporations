@@ -24,7 +24,7 @@ namespace Assets.Utils
         {
             int companyId = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_COMPANY];
 
-            return CompanyUtils.GetCompanyById(gameContext, companyId);
+            return CompanyUtils.GetCompany(gameContext, companyId);
         }
 
         public static GameEntity GetSelectedInvestor(GameContext gameContext)

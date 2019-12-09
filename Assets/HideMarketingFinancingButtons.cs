@@ -8,7 +8,7 @@ public class HideMarketingFinancingButtons : HideOnSomeCondition
 
     public override bool HideIf()
     {
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var company = CompanyUtils.GetCompany(GameContext, companyId);
         var financing = company.financing.Financing[Financing.Marketing];
 
         return financing == companyFinancing;

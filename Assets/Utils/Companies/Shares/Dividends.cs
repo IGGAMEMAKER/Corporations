@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         public static void PayDividends(GameContext gameContext, int companyId)
         {
-            PayDividends(gameContext, GetCompanyById(gameContext, companyId));
+            PayDividends(gameContext, GetCompany(gameContext, companyId));
         }
 
         public static void PayDividends(GameContext gameContext, GameEntity company)

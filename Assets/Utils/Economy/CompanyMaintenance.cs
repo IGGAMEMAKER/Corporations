@@ -12,7 +12,7 @@
 
         internal static long GetCompanyMaintenance(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var c = CompanyUtils.GetCompany(gameContext, companyId);
 
             return GetCompanyMaintenance(c, gameContext);
         }

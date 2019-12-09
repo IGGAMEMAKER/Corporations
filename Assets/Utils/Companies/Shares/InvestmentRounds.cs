@@ -4,7 +4,7 @@
     {
         public static void StartInvestmentRound(GameContext gameContext, int companyId)
         {
-            StartInvestmentRound(GetCompanyById(gameContext, companyId), gameContext);
+            StartInvestmentRound(GetCompany(gameContext, companyId), gameContext);
         }
 
         public static InvestmentRound GetInvestmentRoundName(GameEntity company)

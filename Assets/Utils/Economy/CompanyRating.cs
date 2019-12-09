@@ -4,7 +4,7 @@
     {
         public static int GetCompanyRating(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var c = CompanyUtils.GetCompany(gameContext, companyId);
 
             if (c.hasProduct)
                 return GetProductCompanyRating(gameContext, c);

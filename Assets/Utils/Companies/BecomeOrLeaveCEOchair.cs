@@ -4,7 +4,7 @@
     {
         public static void RemovePlayerControlledCompany(GameContext context, int id)
         {
-            GetCompanyById(context, id).isControlledByPlayer = false;
+            GetCompany(context, id).isControlledByPlayer = false;
         }
 
         internal static void BecomeCEO(GameContext gameContext, int companyID)
@@ -23,7 +23,7 @@
 
         public static void SetPlayerControlledCompany(GameContext context, int id)
         {
-            var c = GetCompanyById(context, id);
+            var c = GetCompany(context, id);
 
             c.isControlledByPlayer = true;
         }

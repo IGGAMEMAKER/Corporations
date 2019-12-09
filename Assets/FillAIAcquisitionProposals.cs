@@ -25,7 +25,7 @@ public class FillAIAcquisitionProposals : ListView
 
     int OrderByMarketStage (GameEntity a)
     {
-        var c = CompanyUtils.GetCompanyById(GameContext, a.acquisitionOffer.CompanyId);
+        var c = CompanyUtils.GetCompany(GameContext, a.acquisitionOffer.CompanyId);
 
         if (!c.hasProduct)
             return -10;

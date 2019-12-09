@@ -26,7 +26,7 @@ namespace Assets.Utils
                 .ToArray();
         }
 
-        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, GetCompanyById(context, companyId));
+        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, GetCompany(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {
             if (!c.hasShareholder)
@@ -83,7 +83,7 @@ namespace Assets.Utils
         {
             List<CompanyHolding> companyHoldings = new List<CompanyHolding>();
 
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             var investments = GetDaughterCompanies(context, companyId);
 

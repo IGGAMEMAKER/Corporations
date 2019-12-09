@@ -17,7 +17,7 @@
 
         internal static int GetCompetitionRisk(GameContext gameContext, int companyId)
         {
-            var company = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var company = CompanyUtils.GetCompany(gameContext, companyId);
 
             return GetCompetitorsAmount(company, gameContext) * 5;
         }
@@ -45,7 +45,7 @@
 
         public static int GetMarketDemandRisk(GameContext gameContext, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(gameContext, companyId);
+            var c = CompanyUtils.GetCompany(gameContext, companyId);
 
             return GetMarketDemandRisk(gameContext, c.product.Niche);
         }

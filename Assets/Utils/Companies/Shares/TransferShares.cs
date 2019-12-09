@@ -24,7 +24,7 @@ namespace Assets.Utils
         }
         public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             var shareholders = c.shareholders.Shareholders;
 
@@ -120,7 +120,7 @@ namespace Assets.Utils
 
         public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
         {
-            var c = GetCompanyById(context, companyId);
+            var c = GetCompany(context, companyId);
 
             AddShares(context, c, buyerInvestorId, amountOfShares);
             DecreaseShares(context, c, sellerInvestorId, amountOfShares);

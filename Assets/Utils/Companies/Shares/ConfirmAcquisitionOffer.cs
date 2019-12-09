@@ -25,7 +25,7 @@ namespace Assets.Utils
             if (!IsEnoughResources(inv, offer))
                 return;
 
-            var target = GetCompanyById(gameContext, companyId);
+            var target = GetCompany(gameContext, companyId);
 
             var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];
@@ -47,7 +47,7 @@ namespace Assets.Utils
 
         public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var target = GetCompanyById(gameContext, companyId);
+            var target = GetCompany(gameContext, companyId);
             var corporation = InvestmentUtils.GetCompanyByInvestorId(gameContext, buyerInvestorId);
 
             var shareholders = GetShareholders(target);

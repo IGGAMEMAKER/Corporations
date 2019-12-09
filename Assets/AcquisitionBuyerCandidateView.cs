@@ -16,6 +16,6 @@ public class AcquisitionBuyerCandidateView : View
 
         GetComponent<LinkToProjectView>().CompanyId = buyerCompanyId;
         Offer.text = Format.Money(offer.acquisitionOffer.BuyerOffer.Price);
-        CompanyName.text = CompanyUtils.GetCompanyById(GameContext, buyerCompanyId).company.Name;
+        CompanyName.text = CompanyUtils.GetCompany(GameContext, buyerCompanyId).company.Name;
     }
 }

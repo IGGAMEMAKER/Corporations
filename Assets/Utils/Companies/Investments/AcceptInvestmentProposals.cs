@@ -25,7 +25,7 @@ namespace Assets.Utils
 
         static void MarkProposalAsAccepted(GameContext gameContext, int companyId, int investorId)
         {
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             var proposals = GetInvestmentProposals(gameContext, companyId);
 

@@ -37,8 +37,8 @@ namespace Assets.Utils
 
         public static void CopyShareholders(GameContext gameContext, int from, int to)
         {
-            var From = GetCompanyById(gameContext, from);
-            var To = GetCompanyById(gameContext, to);
+            var From = GetCompany(gameContext, from);
+            var To = GetCompany(gameContext, to);
 
             ReplaceShareholders(To, From.shareholders.Shareholders);
         }

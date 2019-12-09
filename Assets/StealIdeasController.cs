@@ -7,7 +7,7 @@ public class StealIdeasController : ButtonController
 
     public override void Execute()
     {
-        var target = CompanyUtils.GetCompanyById(GameContext, targetId);
+        var target = CompanyUtils.GetCompany(GameContext, targetId);
     }
 
     internal void SetTargetCompanyForStealing(int companyId)

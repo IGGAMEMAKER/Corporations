@@ -84,11 +84,11 @@ public partial class ProductInitializerSystem : IInitializeSystem
     }
 
     void PlayAs(string companyName) => PlayAs(CompanyUtils.GetCompanyByName(GameContext, companyName));
-    void PlayAs(int companyId)      => PlayAs(CompanyUtils.GetCompanyById(GameContext, companyId));
+    void PlayAs(int companyId)      => PlayAs(CompanyUtils.GetCompany(GameContext, companyId));
     void PlayAs(GameEntity company) => CompanyUtils.PlayAs(company, GameContext);
 
 
-    void AddCash(int companyId, long money) => AddCash(CompanyUtils.GetCompanyById(GameContext, companyId), money);
+    void AddCash(int companyId, long money) => AddCash(CompanyUtils.GetCompany(GameContext, companyId), money);
     void AddCash(GameEntity company, long money)
     {
         CompanyUtils.SetResources(company, new Assets.Classes.TeamResource(1000000000));
@@ -163,8 +163,8 @@ public partial class ProductInitializerSystem : IInitializeSystem
     {
         CompanyUtils.AttachToGroup(GameContext, parent, child);
 
-        var c = CompanyUtils.GetCompanyById(GameContext, child);
-        var p = CompanyUtils.GetCompanyById(GameContext, parent);
+        var c = CompanyUtils.GetCompany(GameContext, child);
+        var p = CompanyUtils.GetCompany(GameContext, parent);
 
         if (c.hasProduct)
             CompanyUtils.AddFocusNiche(c.product.Niche, p, GameContext);

@@ -18,14 +18,14 @@
 
         public static long GetCompanyCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             return GetCompanyCost(context, c);
         }
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
         {
-            var target = CompanyUtils.GetCompanyById(context, companyId);
+            var target = CompanyUtils.GetCompany(context, companyId);
 
             var desireToSell = CompanyUtils.GetDesireToSellCompany(target, context);
 
@@ -39,7 +39,7 @@
 
         public static long GetCompanyBaseCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             if (CompanyUtils.IsProductCompany(c))
                 return GetProductCompanyBaseCost(context, companyId);
@@ -49,7 +49,7 @@
 
         public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             return GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
         }

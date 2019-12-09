@@ -78,7 +78,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var id = (task as CompanyTaskExploreCompany).CompanyId;
 
-        var c = CompanyUtils.GetCompanyById(gameContext, id);
+        var c = CompanyUtils.GetCompany(gameContext, id);
         c.AddResearch(1);
     }
 }

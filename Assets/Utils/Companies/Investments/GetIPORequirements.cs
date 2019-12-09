@@ -16,7 +16,7 @@ namespace Assets.Utils
 
         public static bool IsMeetsIPOShareholderRequirement(GameContext gameContext, int companyId)
         {
-            var c = GetCompanyById(gameContext, companyId);
+            var c = GetCompany(gameContext, companyId);
 
             return c.shareholders.Shareholders.Count >= 3;
         }
@@ -32,7 +32,7 @@ namespace Assets.Utils
 
         public static bool IsCanGoPublic(GameContext gameContext, int companyId)
         {
-            bool isAlreadyPublic = GetCompanyById(gameContext, companyId).isPublicCompany;
+            bool isAlreadyPublic = GetCompany(gameContext, companyId).isPublicCompany;
             bool meetsIPORequirements = IsMeetsIPORequirements(gameContext, companyId);
 
             return !isAlreadyPublic && meetsIPORequirements;

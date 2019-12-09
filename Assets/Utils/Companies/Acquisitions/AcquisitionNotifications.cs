@@ -9,7 +9,7 @@ namespace Assets.Utils
     {
         public static void NotifyAboutInterest(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var company = GetCompanyById(gameContext, companyId);
+            var company = GetCompany(gameContext, companyId);
 
             return;
             if (IsInPlayerSphereOfInterest(company, gameContext))
@@ -20,7 +20,7 @@ namespace Assets.Utils
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, bid));
 
-            var company = GetCompanyById(gameContext, targetCompanyId);
+            var company = GetCompany(gameContext, targetCompanyId);
 
             if (IsInPlayerSphereOfInterest(company, gameContext))
                 NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(targetCompanyId, buyerShareholderId, bid));
@@ -28,7 +28,7 @@ namespace Assets.Utils
 
             Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}!",
                 GetInvestorName(gameContext, buyerShareholderId),
-                GetCompanyById(gameContext, targetCompanyId).company.Name,
+                GetCompany(gameContext, targetCompanyId).company.Name,
                 Format.Money(bid));
         }
 
@@ -36,7 +36,7 @@ namespace Assets.Utils
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageBuyingCompany(targetCompanyId, buyerShareholderId, 0));
 
-            var company = GetCompanyById(gameContext, targetCompanyId);
+            var company = GetCompany(gameContext, targetCompanyId);
 
             if (IsInPlayerSphereOfInterest(company, gameContext))
                 NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(targetCompanyId, buyerShareholderId, 0));
@@ -44,7 +44,7 @@ namespace Assets.Utils
 
             Debug.LogFormat("CORPORATE ACQUISITION: {0} integrated {1}!",
                 GetInvestorName(gameContext, buyerShareholderId),
-                GetCompanyById(gameContext, targetCompanyId).company.Name);
+                GetCompany(gameContext, targetCompanyId).company.Name);
         }
     }
 }

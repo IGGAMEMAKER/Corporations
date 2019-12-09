@@ -35,7 +35,7 @@ namespace Assets.Utils
 
         internal static void ToggleCrunching(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             c.isCrunching = !c.isCrunching;
         }

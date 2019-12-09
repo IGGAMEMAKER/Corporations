@@ -19,7 +19,7 @@ public class RenderDumpingHint : UpgradedParameterView
         return "";
     }
 
-    bool dumping => CompanyUtils.GetCompanyById(GameContext, CompanyId).isDumping;
+    bool dumping => CompanyUtils.GetCompany(GameContext, CompanyId).isDumping;
 
     public override string RenderValue()
     {

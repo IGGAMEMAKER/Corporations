@@ -29,7 +29,7 @@ public class SellingOfferView : View
 
     void Render()
     {
-        var c = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var c = CompanyUtils.GetCompany(GameContext, companyId);
         var buyer = CompanyUtils.GetInvestorById(GameContext, buyerId);
 
         Name.text = c.company.Name;

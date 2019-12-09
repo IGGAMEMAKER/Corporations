@@ -125,7 +125,7 @@ public class PopupView : View
 
     private void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
-        var target = CompanyUtils.GetCompanyById(GameContext, popup.companyId);
+        var target = CompanyUtils.GetCompany(GameContext, popup.companyId);
         var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.buyerInvestorId);
 
         RenderUniversalPopup(
@@ -136,7 +136,7 @@ public class PopupView : View
 
     private void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
-        var target = CompanyUtils.GetCompanyById(GameContext, popup.companyId);
+        var target = CompanyUtils.GetCompany(GameContext, popup.companyId);
         var buyer = InvestmentUtils.GetInvestorById(GameContext, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
@@ -182,7 +182,7 @@ public class PopupView : View
     {
         RenderUniversalPopup(
             "Our competitor is bankrupt!",
-            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " is bankrupt now!" +
+            "Company " + CompanyUtils.GetCompany(GameContext, popup.companyId).company.Name + " is bankrupt now!" +
             "\nSome of their clients will start using our product instead"
             );
     }
@@ -191,7 +191,7 @@ public class PopupView : View
     {
         RenderUniversalPopup(
             "New Startup",
-            "Company " + CompanyUtils.GetCompanyById(GameContext, popup.companyId).company.Name + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
+            "Company " + CompanyUtils.GetCompany(GameContext, popup.companyId).company.Name + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
             "\n\nKeep an eye on them. Perhaps, we can buy them later"
             );
     }

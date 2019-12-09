@@ -94,7 +94,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         if (remainingOffers.Count() == 1)
         {
-            Debug.Log("WON IN COMPETITION FOR COMPANY " + CompanyUtils.GetCompanyById(gameContext, CompanyId));
+            Debug.Log("WON IN COMPETITION FOR COMPANY " + CompanyUtils.GetCompany(gameContext, CompanyId));
             AcceptOffer(CompanyId, remainingOffers.First().acquisitionOffer.BuyerId);
         }
     }

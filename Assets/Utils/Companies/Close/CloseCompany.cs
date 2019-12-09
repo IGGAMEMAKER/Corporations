@@ -7,7 +7,7 @@ namespace Assets.Utils
     {
         internal static GameEntity CloseCompany(GameContext context, int CompanyId)
         {
-            return CloseCompany(context, GetCompanyById(context, CompanyId));
+            return CloseCompany(context, GetCompany(context, CompanyId));
         }
 
         internal static GameEntity CloseCompany(GameContext context, GameEntity e)

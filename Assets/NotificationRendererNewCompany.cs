@@ -6,12 +6,12 @@ public class NotificationRendererNewCompany : NotificationRenderer<NotificationM
 {
     public override string GetTitle(NotificationMessageNewCompany message)
     {
-        return $"New Startup! {CompanyUtils.GetCompanyById(GameContext, message.CompanyId).company.Name}";
+        return $"New Startup! {CompanyUtils.GetCompany(GameContext, message.CompanyId).company.Name}";
     }
 
     public override string GetDescription(NotificationMessageNewCompany message)
     {
-        var product = CompanyUtils.GetCompanyById(GameContext, message.CompanyId);
+        var product = CompanyUtils.GetCompany(GameContext, message.CompanyId);
 
         var nicheName = EnumUtils.GetFormattedNicheName(product.product.Niche);
 

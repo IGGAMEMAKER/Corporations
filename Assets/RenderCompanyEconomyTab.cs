@@ -15,7 +15,7 @@ public class RenderCompanyEconomyTab : View
 
         int companyId = GetComponent<SetTargetCompany>().companyId;
 
-        var company = CompanyUtils.GetCompanyById(GameContext, companyId);
+        var company = CompanyUtils.GetCompany(GameContext, companyId);
 
         Income.text = "$" + Format.Minify(EconomyUtils.GetCompanyIncome(company, GameContext));
         IncomeHint.SetHint(GetIncomeDescription(GameContext, companyId));
@@ -27,7 +27,7 @@ public class RenderCompanyEconomyTab : View
 
     internal string GetIncomeDescription(GameContext context, int companyId)
     {
-        var c = CompanyUtils.GetCompanyById(context, companyId);
+        var c = CompanyUtils.GetCompany(context, companyId);
 
         if (CompanyUtils.IsProductCompany(c))
             return GetProductCompanyIncomeDescription(c, context);
@@ -38,7 +38,7 @@ public class RenderCompanyEconomyTab : View
 
     internal string GetMaintenanceDescription(GameContext context, int companyId)
     {
-        var c = CompanyUtils.GetCompanyById(context, companyId);
+        var c = CompanyUtils.GetCompany(context, companyId);
 
         if (CompanyUtils.IsProductCompany(c))
             return GetProductCompanyMaintenanceDescription(c, context);
@@ -69,7 +69,7 @@ public class RenderCompanyEconomyTab : View
 
         foreach (var h in holdings)
         {
-            var c = CompanyUtils.GetCompanyById(context, h.companyId);
+            var c = CompanyUtils.GetCompany(context, h.companyId);
 
             string name = c.company.Name;
             long income = EconomyUtils.GetCompanyMaintenance(c, context);
@@ -90,7 +90,7 @@ public class RenderCompanyEconomyTab : View
 
         foreach (var h in holdings)
         {
-            var c = CompanyUtils.GetCompanyById(context, h.companyId);
+            var c = CompanyUtils.GetCompany(context, h.companyId);
 
             string name = c.company.Name;
             long income = EconomyUtils.GetCompanyIncome(c, context);

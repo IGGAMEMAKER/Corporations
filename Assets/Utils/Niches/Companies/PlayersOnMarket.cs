@@ -9,7 +9,7 @@ namespace Assets.Utils
     {
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
         {
-            var c = CompanyUtils.GetCompanyById(context, companyId);
+            var c = CompanyUtils.GetCompany(context, companyId);
 
             return GetProductsOnMarket(context, c);
         }
