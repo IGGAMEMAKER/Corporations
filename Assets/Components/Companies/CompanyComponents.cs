@@ -136,7 +136,7 @@ public class CompanyGoalComponent : IComponent
 // only independent companies have that
 public class PartnershipsComponent : IComponent
 {
-    public List<int> Companies;
+    public List<int> companies;
 }
 
 [Game]

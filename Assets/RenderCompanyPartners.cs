@@ -14,7 +14,7 @@ public class RenderCompanyPartners : ListView
     {
         base.ViewRender();
 
-        var partners = SelectedCompany.partnerships.Companies;
+        var partners = SelectedCompany.partnerships.companies;
 
         SetItems(partners.ToArray());
     }

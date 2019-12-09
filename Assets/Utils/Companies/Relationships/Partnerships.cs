@@ -26,7 +26,7 @@ namespace Assets.Utils
 
         public static bool IsPartnerOfCompetingCompany(GameEntity requester, GameEntity acceptor, GameContext gameContext)
         {
-            foreach (var requesterPartner in requester.partnerships.Companies)
+            foreach (var requesterPartner in requester.partnerships.companies)
             {
                 // signing contract will piss one of acceptor partners
                 if (IsCompetingCompany(acceptor.company.Id, requesterPartner, gameContext))
@@ -59,8 +59,8 @@ namespace Assets.Utils
 
             if (wantsToAccept)
             {
-                acceptor.partnerships.Companies.Add(requester.company.Id);
-                requester.partnerships.Companies.Add(acceptor.company.Id);
+                acceptor.partnerships.companies.Add(requester.company.Id);
+                requester.partnerships.companies.Add(acceptor.company.Id);
             }
 
             if (notifyPlayer)
@@ -107,8 +107,8 @@ namespace Assets.Utils
 
         public static void CancelStrategicPartnership(GameEntity requester, GameEntity acceptor)
         {
-            acceptor.partnerships.Companies.RemoveAll(id => id == requester.company.Id);
-            requester.partnerships.Companies.RemoveAll(id => id == acceptor.company.Id);
+            acceptor.partnerships.companies.RemoveAll(id => id == requester.company.Id);
+            requester.partnerships.companies.RemoveAll(id => id == acceptor.company.Id);
         }
 
         public static void NotifyAboutPartnershipResponse(GameEntity requester, GameEntity acceptor, bool willAccept, GameContext gameContext)
@@ -122,14 +122,14 @@ namespace Assets.Utils
         {
             var maxPartnerships = 3;
 
-            return company.partnerships.Companies.Count >= maxPartnerships;
+            return company.partnerships.companies.Count >= maxPartnerships;
         }
 
         public static bool IsHaveStrategicPartnershipAlready(GameEntity c1, GameEntity c2)
         {
             return
-                c1.partnerships.Companies.Contains(c2.company.Id) &&
-                c2.partnerships.Companies.Contains(c1.company.Id);
+                c1.partnerships.companies.Contains(c2.company.Id) &&
+                c2.partnerships.companies.Contains(c1.company.Id);
         }
 
         public static bool IsCanBePartnersTheoretically(GameEntity requester, GameEntity acceptor)
@@ -202,11 +202,11 @@ namespace Assets.Utils
         public static List<int> GetPartnersOf(GameEntity company, GameContext gameContext)
         {
             if (company.isIndependentCompany)
-                return company.partnerships.Companies;
+                return company.partnerships.companies;
 
             var parent = GetParentCompany(gameContext, company);
 
-            return parent.partnerships.Companies;
+            return parent.partnerships.companies;
         }
 
         public static List<GameEntity> GetPartnerList(GameEntity company, GameContext gameContext)

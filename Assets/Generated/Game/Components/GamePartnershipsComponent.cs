@@ -14,14 +14,14 @@ public partial class GameEntity {
     public void AddPartnerships(System.Collections.Generic.List<int> newCompanies) {
         var index = GameComponentsLookup.Partnerships;
         var component = (PartnershipsComponent)CreateComponent(index, typeof(PartnershipsComponent));
-        component.Companies = newCompanies;
+        component.companies = newCompanies;
         AddComponent(index, component);
     }
 
     public void ReplacePartnerships(System.Collections.Generic.List<int> newCompanies) {
         var index = GameComponentsLookup.Partnerships;
         var component = (PartnershipsComponent)CreateComponent(index, typeof(PartnershipsComponent));
-        component.Companies = newCompanies;
+        component.companies = newCompanies;
         ReplaceComponent(index, component);
     }
 

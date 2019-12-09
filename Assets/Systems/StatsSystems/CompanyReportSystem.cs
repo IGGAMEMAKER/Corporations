@@ -12,12 +12,12 @@ class CompanyReportSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] Companies = contexts.game
+        GameEntity[] companies = contexts.game
             .GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.CompanyResource, GameMatcher.MetricsHistory));
 
         int date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        foreach (var e in Companies)
+        foreach (var e in companies)
         {
             if (CompanyUtils.IsProductCompany(e))
                 SaveProductCompanyMetrics(e, date);
