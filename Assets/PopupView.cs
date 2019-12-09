@@ -201,7 +201,10 @@ public class PopupView : View
         RenderUniversalPopup(
             "Do you really want to release this product?",
             "Maintenance cost will increase\nThis product will get 20 brand power",
-
+            new Type[] {
+                typeof(ReleaseAppPopup),
+                typeof(ClosePopup)
+            }
             );
     }
 }

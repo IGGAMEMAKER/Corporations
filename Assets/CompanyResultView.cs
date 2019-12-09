@@ -14,6 +14,8 @@ public class CompanyResultView : View
     public ToggleMarketingFinancing SetNormalMarketing;
     public ToggleMarketingFinancing SetZeroMarketing;
 
+    public ReleaseApp ReleaseApp;
+
     ProductCompanyResult result1;
 
     public void SetEntity(ProductCompanyResult result)
@@ -36,6 +38,8 @@ public class CompanyResultView : View
         SetNormalMarketing.SetCompanyId(result.CompanyId);
         SetZeroMarketing.SetCompanyId(result.CompanyId);
 
+        ReleaseApp.SetCompanyId(result.CompanyId);
+
         RenderMarketingButtons(result.CompanyId);
     }
 
@@ -49,6 +53,8 @@ public class CompanyResultView : View
         SetNormalMarketing      .gameObject.SetActive(isReleased && financing == 0);
         SetAggressiveMarketing  .gameObject.SetActive(false && isReleased && financing == 1);
         SetZeroMarketing        .gameObject.SetActive(isReleased && financing > 0);
+
+        ReleaseApp.gameObject.SetActive(!company.isRelease);
     }
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)

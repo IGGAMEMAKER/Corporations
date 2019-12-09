@@ -12,23 +12,18 @@ public class CloseCompanyController : PopupButtonController<PopupMessageCompanyC
         Navigate(ScreenMode.GroupManagementScreen);
     }
 
-    public override string GetButtonName()
-    {
-        return "YES";
-    }
+    public override string GetButtonName() => "YES";
 }
 
 public class ReleaseAppPopup : PopupButtonController<PopupMessageDoYouWantToRelease>
 {
     public override void Execute()
     {
-        MarketingUtils.ReleaseApp(SelectedCompany, GameContext);
+        MarketingUtils.ReleaseApp(Popup.companyId, GameContext);
+        NotificationUtils.ClosePopup(GameContext);
     }
 
-    public override string GetButtonName()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override string GetButtonName() => "YES";
 }
 
 
