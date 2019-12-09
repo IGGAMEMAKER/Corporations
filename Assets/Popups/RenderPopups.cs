@@ -14,7 +14,7 @@ public partial class PopupView : View
     }
 
 
-    private void RenderInterestToCompany(PopupMessageInterestToCompany popup)
+    void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
         var target = Companies.GetCompany(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
@@ -25,7 +25,7 @@ public partial class PopupView : View
             );
     }
 
-    private void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
+    void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
         var target = Companies.GetCompany(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.InterceptorCompanyId);

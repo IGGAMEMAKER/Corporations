@@ -26,6 +26,11 @@ namespace Assets.Utils
                 .ToArray();
         }
 
+        public static bool IsHasDaughters(GameContext gameContext, GameEntity company)
+        {
+            return GetDaughterCompanies(gameContext, company).Count() > 0;
+        }
+
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, GetCompany(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {

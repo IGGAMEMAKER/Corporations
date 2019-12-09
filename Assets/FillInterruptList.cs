@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FillInterruptList : View
 {
-    public GameObject CanUpgradeSegment;
+    public GameObject CanReleaseProduct;
     public GameObject CanUpgradeCorporateCulture;
     public GameObject CanCompleteGoal;
     public GameObject CanSellCompany;
@@ -30,7 +30,7 @@ public class FillInterruptList : View
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
 
-        CanUpgradeSegment.SetActive(HasReleaseableProducts());
+        //CanReleaseProduct.SetActive(HasReleaseableProducts());
         CanCompleteGoal.SetActive(isCanCompleteGoal && false);
         NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
 
