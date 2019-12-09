@@ -8,7 +8,7 @@ namespace Assets.Utils
         {
             var products = NicheUtils.GetProductsOnMarket(gameContext, e);
 
-            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
+            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower) + 1;
 
             return e.branding.BrandPower / sumOfBrandPowers;
         }
