@@ -8,7 +8,7 @@ namespace Assets.Utils
     {
         public static void RemoveTechLeaders (GameEntity product, GameContext gameContext)
         {
-            var players = NicheUtils.GetProductsOnMarket(gameContext, product).ToArray();
+            var players = Markets.GetProductsOnMarket(gameContext, product).ToArray();
 
             foreach (var p in players)
                 p.isTechnologyLeader = false;
@@ -16,7 +16,7 @@ namespace Assets.Utils
 
         public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
             var segments = niche.segment.Level;
 

@@ -6,7 +6,7 @@
         {
             long clients = 0;
 
-            foreach (var p in NicheUtils.GetProductsOnMarket(gameContext, product))
+            foreach (var p in Markets.GetProductsOnMarket(gameContext, product))
                 clients += MarketingUtils.GetClients(p);
 
             if (clients == 0)
@@ -22,7 +22,7 @@
             long share = 0;
             long clients = 0;
 
-            foreach (var p in NicheUtils.GetProductsOnMarket(gameContext, nicheType))
+            foreach (var p in Markets.GetProductsOnMarket(gameContext, nicheType))
             {
                 var cli = MarketingUtils.GetClients(p);
                 share += GetControlInCompany(group, p, gameContext) * cli;

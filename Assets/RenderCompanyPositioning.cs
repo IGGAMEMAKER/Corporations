@@ -17,6 +17,6 @@ public class RenderCompanyPositioning : UpgradedParameterView
         if (!c.hasProduct)
             return "-----";
 
-        return NicheUtils.GetCompanyPositioning(c, GameContext);
+        return Markets.GetCompanyPositioning(c, GameContext);
     }
 }

@@ -51,8 +51,8 @@ namespace Assets.Utils
 
             var partnersInSameIndustry = partners
                 .Where(p =>
-                NicheUtils.GetIndustry(p.product.Niche, gameContext) ==
-                NicheUtils.GetIndustry(product.product.Niche, gameContext)
+                Markets.GetIndustry(p.product.Niche, gameContext) ==
+                Markets.GetIndustry(product.product.Niche, gameContext)
                 );
 
 
@@ -60,7 +60,7 @@ namespace Assets.Utils
             foreach (var p in partnersInSameIndustry)
             {
                 var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
-                var marketSize = NicheUtils.GetMarketRating(gameContext, product.product.Niche);
+                var marketSize = Markets.GetMarketRating(gameContext, product.product.Niche);
                 
                 value += marketShare * marketSize / 100f;
             }

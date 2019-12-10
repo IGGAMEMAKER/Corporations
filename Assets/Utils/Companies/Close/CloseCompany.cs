@@ -21,7 +21,7 @@ namespace Assets.Utils
 
             NotifyAboutProductSupportEnd(e, context);
 
-            NicheUtils.ReturnUsersWhenCompanyIsClosed(e, context);
+            Markets.ReturnUsersWhenCompanyIsClosed(e, context);
 
 
             foreach (var holding in GetDaughterCompanies(context, e.company.Id))

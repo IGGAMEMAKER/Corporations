@@ -18,7 +18,7 @@ namespace Assets.Utils
 
         public static int GetMarketDemand(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
             return GetMarketDemand(niche);
         }
@@ -26,7 +26,7 @@ namespace Assets.Utils
         // always positive or equal to zero
         public static int GetDifferenceBetweenMarketDemandAndAppConcept(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
             var demand = GetMarketDemand(niche);
             var level = GetProductLevel(product);

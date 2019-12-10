@@ -43,11 +43,11 @@ public class MarketPotentialView : View
     public void Render()
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
-        var niche = NicheUtils.GetNiche(GameContext, nicheType);
+        var niche = Markets.GetNiche(GameContext, nicheType);
 
         var profile = niche.nicheBaseProfile.Profile;
 
-        var rating = NicheUtils.GetMarketRating(niche);
+        var rating = Markets.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
         var speed = profile.NicheSpeed;
@@ -58,18 +58,18 @@ public class MarketPotentialView : View
         //var iteration = speed.ToString();
         ChangeSpeed.text = iteration + " days";
 
-        PotentialMarketSize.text = Format.Money(NicheUtils.GetMarketPotential(niche));
-        PotentialAudienceSize.text = Format.MinifyToInteger(NicheUtils.GetMarketAudiencePotential(niche)) + " users";
+        PotentialMarketSize.text = Format.Money(Markets.GetMarketPotential(niche));
+        PotentialAudienceSize.text = Format.MinifyToInteger(Markets.GetMarketAudiencePotential(niche)) + " users";
 
-        var risk = NicheUtils.GetMarketDemandRisk(GameContext, nicheType);
-        string riskText = NicheUtils.ShowRiskStatus(risk).ToString();
+        var risk = Markets.GetMarketDemandRisk(GameContext, nicheType);
+        string riskText = Markets.ShowRiskStatus(risk).ToString();
 
         RiskLabel.text = $"{risk}% ({riskText})";
 
         var demand = MarketingUtils.GetClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var baseMaintenance = NicheUtils.GetBaseProductMaintenance(niche);
+        var baseMaintenance = Markets.GetBaseProductMaintenance(niche);
         Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
 
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
@@ -80,7 +80,7 @@ public class MarketPotentialView : View
         long maxIncome = 0;
         if (BiggestIncome != null)
         {
-            var players = NicheUtils.GetProductsOnMarket(GameContext, niche.niche.NicheType);
+            var players = Markets.GetProductsOnMarket(GameContext, niche.niche.NicheType);
 
 
             if (players.Count() == 0)
@@ -92,7 +92,7 @@ public class MarketPotentialView : View
             }
         }
 
-        var start = NicheUtils.GetStartCapital(niche);
+        var start = Markets.GetStartCapital(niche);
         if (StartCapital != null)
         {
             StartCapital.text = Format.Money(start);

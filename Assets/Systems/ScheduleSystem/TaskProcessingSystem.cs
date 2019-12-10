@@ -70,7 +70,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var nicheType = (task as CompanyTaskExploreMarket).NicheType;
 
-        var niche = NicheUtils.GetNiche(gameContext, nicheType);
+        var niche = Markets.GetNiche(gameContext, nicheType);
         niche.AddResearch(1);
     }
 

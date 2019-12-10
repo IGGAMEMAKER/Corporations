@@ -19,15 +19,15 @@
         {
             long score = 0;
 
-            if (NicheUtils.IsPlayableNiche(gameContext, startup.product.Niche))
+            if (Markets.IsPlayableNiche(gameContext, startup.product.Niche))
                 score += 100;
             else
                 score -= 100;
 
-            var positionOnMarket = NicheUtils.GetPositionOnMarket(gameContext, startup) + 1;
+            var positionOnMarket = Markets.GetPositionOnMarket(gameContext, startup) + 1;
             score += 100 / positionOnMarket;
 
-            var quality = NicheUtils.GetAppQualityOnMarket(gameContext, startup) + 1;
+            var quality = Markets.GetAppQualityOnMarket(gameContext, startup) + 1;
             score += 30 / quality;
 
             score += (long)startup.branding.BrandPower;

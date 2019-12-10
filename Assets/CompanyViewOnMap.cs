@@ -92,7 +92,7 @@ public class CompanyViewOnMap : View
     {
         StringBuilder hint = new StringBuilder(company.company.Name);
 
-        var position = NicheUtils.GetPositionOnMarket(GameContext, company);
+        var position = Markets.GetPositionOnMarket(GameContext, company);
 
         // quality description
         var conceptStatus = ProductUtils.GetConceptStatus(company, GameContext);
@@ -113,7 +113,7 @@ public class CompanyViewOnMap : View
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {clients} (#{position + 1})");
 
-        var posTextual = NicheUtils.GetCompanyPositioning(company, GameContext);
+        var posTextual = Markets.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");
 
         ////var expertise = CompanyUtils.GetCompanyExpertise(company);

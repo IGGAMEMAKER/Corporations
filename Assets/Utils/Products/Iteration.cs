@@ -23,7 +23,7 @@
 
         public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
         {
-            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
+            var niche = Markets.GetNiche(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseIterationTime(niche);
 
             var innovationTime = IsWillInnovate(company, gameContext) ? 50 : 0;

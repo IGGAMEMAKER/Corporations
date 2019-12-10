@@ -32,7 +32,7 @@ public class NichePreview : View
 
     long GetMarketPotential()
     {
-        return NicheUtils.GetMarketPotential(GameContext, Niche);
+        return Markets.GetMarketPotential(GameContext, Niche);
     }
 
     string GetFormattedMarketPotential()
@@ -49,7 +49,7 @@ public class NichePreview : View
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
-        var size = NicheUtils.GetMarketSize(GameContext, Niche);
+        var size = Markets.GetMarketSize(GameContext, Niche);
         var text = hidePotential ? "?" : Format.MinifyMoney(size); // GetFormattedMarketPotential();
 
 

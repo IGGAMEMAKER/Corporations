@@ -12,7 +12,7 @@ public class FillNicheListView : View
     void Render()
     {
         var industry = ScreenUtils.GetSelectedIndustry(GameContext);
-        var niches = NicheUtils.GetObservableNichesInIndustry(industry, GameContext);
+        var niches = Markets.GetObservableNichesInIndustry(industry, GameContext);
 
         GetComponent<NicheListView>().SetItems(niches);
     }

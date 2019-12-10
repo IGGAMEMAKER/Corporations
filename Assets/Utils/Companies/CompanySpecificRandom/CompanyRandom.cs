@@ -52,7 +52,7 @@ namespace Assets.Utils
 
         internal static long GetMarketStageInnovationModifier (GameEntity niche)
         {
-            var phase = NicheUtils.GetMarketState(niche);
+            var phase = Markets.GetMarketState(niche);
 
             switch (phase)
             {

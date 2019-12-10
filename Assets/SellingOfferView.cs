@@ -41,10 +41,10 @@ public class SellingOfferView : View
         var hasControl = Companies.GetControlInCompany(MyCompany, buyer, GameContext) > 0;
         Buyer.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
-        var rating = c.hasProduct ? NicheUtils.GetMarketRating(GameContext, c.product.Niche): 0;
+        var rating = c.hasProduct ? Markets.GetMarketRating(GameContext, c.product.Niche): 0;
         NicheStage.SetStars(rating);
 
-        StageHint.SetHint(c.hasProduct ? NicheUtils.GetMarketState(GameContext, c.product.Niche).ToString() : "");
+        StageHint.SetHint(c.hasProduct ? Markets.GetMarketState(GameContext, c.product.Niche).ToString() : "");
 
         Valuation.text = Format.Money(EconomyUtils.GetCompanyCost(GameContext, companyId));
 

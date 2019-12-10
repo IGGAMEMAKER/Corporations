@@ -17,7 +17,7 @@ public class StartCapitalOrMarketShare : UpgradedParameterView
         }
         else
         {
-            var capital = NicheUtils.GetStartCapital(SelectedNiche, GameContext);
+            var capital = Markets.GetStartCapital(SelectedNiche, GameContext);
 
             return Visuals.Colorize(Format.Money(capital), Companies.IsEnoughResources(MyCompany, capital));
         }

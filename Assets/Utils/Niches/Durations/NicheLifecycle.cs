@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         // update
         public static void UpdateNicheDuration(GameEntity niche)

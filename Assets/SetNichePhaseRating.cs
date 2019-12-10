@@ -9,7 +9,7 @@ public class SetNichePhaseRating : View
     {
         base.ViewRender();
 
-        var rating = NicheUtils.GetMarketRating(GameContext, SelectedNiche);
+        var rating = Markets.GetMarketRating(GameContext, SelectedNiche);
         GetComponent<SetAmountOfStars>().SetStars(rating);
     }
 }

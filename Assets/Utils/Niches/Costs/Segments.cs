@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
         {
@@ -36,7 +36,7 @@ namespace Assets.Utils
         public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
         {
             var positioning = company.productPositioning.Positioning;
-            var posTextual = NicheUtils.GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
+            var posTextual = Markets.GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
 
             return posTextual;
         }

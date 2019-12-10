@@ -8,7 +8,7 @@ public class FillCompetingCompaniesList : View
     {
         var niche = ScreenUtils.GetSelectedNiche(GameContext);
 
-        var list = NicheUtils.GetProductsOnMarket(GameContext, niche).ToArray();
+        var list = Markets.GetProductsOnMarket(GameContext, niche).ToArray();
 
         Array.Sort(list, SortCompanies);
 

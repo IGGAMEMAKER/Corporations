@@ -4,7 +4,7 @@
     {
         private static long GetProductCompanyCost(GameContext context, int companyId)
         {
-            var risks = NicheUtils.GetCompanyRisk(context, companyId);
+            var risks = Markets.GetCompanyRisk(context, companyId);
 
             return GetProductCompanyBaseCost(context, companyId) * (100 - risks) / 100;
         }

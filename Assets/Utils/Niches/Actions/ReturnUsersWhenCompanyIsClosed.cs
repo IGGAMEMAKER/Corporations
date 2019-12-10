@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         internal static void ReturnUsersWhenCompanyIsClosed(GameEntity e, GameContext gameContext)
         {

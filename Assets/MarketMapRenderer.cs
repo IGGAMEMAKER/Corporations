@@ -40,7 +40,7 @@ public class MarketMapRenderer : View
 
     void Render()
     {
-        var industries = NicheUtils.GetIndustries(GameContext);
+        var industries = Markets.GetIndustries(GameContext);
 
         for (var i = 0; i < industries.Length; i++)
             RenderIndustry(industries[i].industry.IndustryType, i, industries.Length);
@@ -48,7 +48,7 @@ public class MarketMapRenderer : View
 
     private void RenderIndustry(IndustryType IndustryType, int j, int industriesCount)
     {
-        var markets = NicheUtils.GetPlayableNichesInIndustry(IndustryType, GameContext);
+        var markets = Markets.GetPlayableNichesInIndustry(IndustryType, GameContext);
 
         var baseRadius = IndustrialRadius + NicheRadius;
         var baseMapOffset = new Vector3(baseRadius, -baseRadius);
@@ -74,7 +74,7 @@ public class MarketMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        if (!NicheUtils.IsPlayableNiche(GameContext, niche))
+        if (!Markets.IsPlayableNiche(GameContext, niche))
             m.SetActive(false);
 
         RenderCompanies(niche, m);
@@ -82,7 +82,7 @@ public class MarketMapRenderer : View
 
     void RenderCompanies(NicheType niche, GameObject m)
     {
-        var competitors = NicheUtils.GetProductsOnMarket(GameContext, niche, true);
+        var competitors = Markets.GetProductsOnMarket(GameContext, niche, true);
 
         var marketPosition = m.transform.localPosition;
         var count = competitors.Count();
@@ -127,7 +127,7 @@ public class MarketMapRenderer : View
 
     float GetMarketScale(NicheType niche)
     {
-        var marketSize = NicheUtils.GetMarketSize(GameContext, niche);
+        var marketSize = Markets.GetMarketSize(GameContext, niche);
 
         if (marketSize < 0)
             marketSize = 1000;

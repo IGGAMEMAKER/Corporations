@@ -21,7 +21,7 @@ public class CompanyProductResultsListView : ListView
 
     ProductCompanyResult GetProductCompanyResults (GameEntity product)
     {
-        var competitors = NicheUtils.GetProductsOnMarket(GameContext, product);
+        var competitors = Markets.GetProductsOnMarket(GameContext, product);
 
         long previousMarketSize = 0;
         long currentMarketSize = 0;

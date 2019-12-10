@@ -32,7 +32,7 @@ public class FillAIAcquisitionProposals : ListView
 
         var niche = c.product.Niche;
 
-        var rating = NicheUtils.GetMarketRating(GameContext, niche);
+        var rating = Markets.GetMarketRating(GameContext, niche);
 
         return rating;
     }

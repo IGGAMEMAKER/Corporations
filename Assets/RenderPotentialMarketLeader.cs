@@ -21,7 +21,7 @@ public class RenderPotentialMarketLeader : UpgradedParameterView
         //    return "";
 
         //var potentialLeader = products.First();
-        var potentialLeader = NicheUtils.GetPotentialMarketLeader(GameContext, SelectedNiche);
+        var potentialLeader = Markets.GetPotentialMarketLeader(GameContext, SelectedNiche);
 
         if (potentialLeader == null)
             return "";

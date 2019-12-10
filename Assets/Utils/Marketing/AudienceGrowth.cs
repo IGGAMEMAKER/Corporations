@@ -6,7 +6,7 @@ namespace Assets.Utils
     {
         public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
         {
-            var products = NicheUtils.GetProductsOnMarket(gameContext, e);
+            var products = Markets.GetProductsOnMarket(gameContext, e);
 
             var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower) + 1;
 

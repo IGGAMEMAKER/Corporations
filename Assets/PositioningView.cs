@@ -23,18 +23,18 @@ public class PositioningView : View
         base.ViewRender();
 
         var nicheType = SelectedCompany.product.Niche;
-        var positionings = NicheUtils.GetNichePositionings(nicheType, GameContext);
-        var niche = NicheUtils.GetNiche(GameContext, nicheType);
+        var positionings = Markets.GetNichePositionings(nicheType, GameContext);
+        var niche = Markets.GetNiche(GameContext, nicheType);
 
         var positioningData = positionings[segmentId];
 
 
         PositioningName.text = positioningData.name;
 
-        var price = NicheUtils.GetSegmentProductPrice(GameContext, nicheType, segmentId);
+        var price = Markets.GetSegmentProductPrice(GameContext, nicheType, segmentId);
         IncomePerUser.text = $"+{price.ToString("0.0")}";
 
-        var estimatedUsers = NicheUtils.GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId);
+        var estimatedUsers = Markets.GetMarketSegmentAudiencePotential(GameContext, nicheType, segmentId);
         EstimatedUsers.text = Format.Minify(estimatedUsers);
     }
 }

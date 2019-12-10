@@ -79,7 +79,7 @@ namespace Assets.Utils
 
         public static GameEntity AutoGenerateProductCompany(NicheType NicheType, GameContext gameContext)
         {
-            var playersOnMarket = NicheUtils.GetCompetitorsAmount(NicheType, gameContext);
+            var playersOnMarket = Markets.GetCompetitorsAmount(NicheType, gameContext);
 
             var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
 
@@ -91,8 +91,8 @@ namespace Assets.Utils
 
         public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
-            var rating = NicheUtils.GetMarketPotentialRating(niche);
+            var niche = Markets.GetNiche(gameContext, company.product.Niche);
+            var rating = Markets.GetMarketPotentialRating(niche);
 
 
             var rand = UnityEngine.Random.Range(1f, 2f);

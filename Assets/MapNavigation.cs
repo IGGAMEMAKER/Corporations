@@ -31,7 +31,7 @@ public class MapNavigation : View
     float amountOfNichesSqrt;
     private void OnEnable()
     {
-        amountOfNichesSqrt = Mathf.Sqrt(NicheUtils.GetNiches(GameContext).Length);
+        amountOfNichesSqrt = Mathf.Sqrt(Markets.GetNiches(GameContext).Length);
 
         X = X0;
         Y = Y0;

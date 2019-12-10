@@ -40,7 +40,7 @@ public partial class PopupView : View
     void RenderMarketChangePopup(PopupMessageMarketPhaseChange popup)
     {
         var name = EnumUtils.GetFormattedNicheName(popup.NicheType);
-        var state = NicheUtils.GetMarketState(GameContext, popup.NicheType);
+        var state = Markets.GetMarketState(GameContext, popup.NicheType);
         var possibilities = "";
 
         switch (state)

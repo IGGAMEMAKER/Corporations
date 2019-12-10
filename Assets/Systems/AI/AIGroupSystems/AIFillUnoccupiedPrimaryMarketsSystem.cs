@@ -13,7 +13,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void OccupyNiche(NicheType n, GameEntity managingCompany)
     {
-        var products = NicheUtils.GetProductsAvailableForSaleOnMarket(n, gameContext);
+        var products = Markets.GetProductsAvailableForSaleOnMarket(n, gameContext);
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 

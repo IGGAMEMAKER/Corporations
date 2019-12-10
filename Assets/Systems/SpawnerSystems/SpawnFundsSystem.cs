@@ -11,16 +11,16 @@ class SpawnFundsSystem : OnQuarterChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] niches = NicheUtils.GetPlayableNiches(gameContext);
+        GameEntity[] niches = Markets.GetPlayableNiches(gameContext);
             //contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Niche));
 
         foreach (var e in niches)
         {
-            var nicheRating = NicheUtils.GetMarketRating(e);
+            var nicheRating = Markets.GetMarketRating(e);
 
-            var potential = NicheUtils.GetMarketPotential(e);
+            var potential = Markets.GetMarketPotential(e);
 
-            var profileInvestors = NicheUtils.GetInstitutionalInvestors(gameContext, e);
+            var profileInvestors = Markets.GetInstitutionalInvestors(gameContext, e);
 
             var playersOnMarket = profileInvestors.Length;
 

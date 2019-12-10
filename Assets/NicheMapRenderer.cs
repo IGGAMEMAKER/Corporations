@@ -56,7 +56,7 @@ public class NicheMapRenderer : View
 
         m.GetComponent<MarketShareView>().SetEntity(niche);
 
-        var isPlayable = NicheUtils.IsPlayableNiche(GameContext, niche);
+        var isPlayable = Markets.IsPlayableNiche(GameContext, niche);
         m.SetActive(isPlayable);
 
         RenderCompanies(niche, m);
@@ -64,12 +64,12 @@ public class NicheMapRenderer : View
 
     GameEntity[] GetProductsOnMarket (NicheType niche)
     {
-        var marketWasResearched = NicheUtils.IsExploredMarket(GameContext, niche);
+        var marketWasResearched = Markets.IsExploredMarket(GameContext, niche);
 
         if (!marketWasResearched)
             return new GameEntity[0];
 
-        return NicheUtils.GetProductsOnMarket(GameContext, niche)
+        return Markets.GetProductsOnMarket(GameContext, niche)
             //.OrderByDescending(p => ProductUtils.GetProductLevel(p) * 1000 + CompanyUtils.GetCompanyExpertise(p))
             .OrderByDescending(MarketingUtils.GetClients)
             .ToArray();
@@ -119,7 +119,7 @@ public class NicheMapRenderer : View
 
     float GetMarketScale(NicheType niche)
     {
-        var marketSize = NicheUtils.GetMarketSize(GameContext, niche);
+        var marketSize = Markets.GetMarketSize(GameContext, niche);
 
         if (marketSize < 0)
             marketSize = 1000;

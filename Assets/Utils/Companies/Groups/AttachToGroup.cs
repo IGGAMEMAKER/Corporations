@@ -22,7 +22,7 @@ namespace Assets.Utils
             if (daughter.hasProduct)
             {
                 AddFocusNiche(daughter.product.Niche, parent, context);
-                var industry = NicheUtils.GetIndustry(daughter.product.Niche, context);
+                var industry = Markets.GetIndustry(daughter.product.Niche, context);
 
                 AddFocusIndustry(industry, parent);
             }
@@ -65,7 +65,7 @@ namespace Assets.Utils
             string name = group.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
 
             if (GetCompanyByName(gameContext, name) != null)
-                name += " " + NicheUtils.GetCompetitorsAmount(nicheType, gameContext);
+                name += " " + Markets.GetCompetitorsAmount(nicheType, gameContext);
 
             var c = GenerateProductCompany(gameContext, name, nicheType);
 

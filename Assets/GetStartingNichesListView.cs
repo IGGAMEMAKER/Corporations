@@ -24,7 +24,7 @@ public class GetStartingNichesListView : ListView
     {
         var profile = niche.nicheBaseProfile.Profile;
 
-        var isPerspective = NicheUtils.IsPerspectiveNiche(niche);
+        var isPerspective = Markets.IsPerspectiveNiche(niche);
         var isCheapToMaintain = profile.AppComplexity == AppComplexity.Easy;
         var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
         var isConceptLevelLow = true || ProductUtils.GetMarketDemand(niche) < 10;
@@ -40,7 +40,7 @@ public class GetStartingNichesListView : ListView
     {
         //var niches = NicheUtils.GetNiches(GameContext);
 
-        var niches = NicheUtils.GetPlayableNiches(GameContext)
+        var niches = Markets.GetPlayableNiches(GameContext)
             .Where(IsAppropriateStartNiche)
             .ToArray();
 

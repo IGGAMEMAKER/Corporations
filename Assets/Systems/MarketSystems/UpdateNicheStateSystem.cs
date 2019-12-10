@@ -21,7 +21,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
     void CheckNiches()
     {
-        var niches = NicheUtils.GetNiches(gameContext);
+        var niches = Markets.GetNiches(gameContext);
 
         foreach (var n in niches)
             CheckNiche(n);
@@ -29,14 +29,14 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
     void CheckNiche(GameEntity niche)
     {
-        var phase = NicheUtils.GetMarketState(niche);
+        var phase = Markets.GetMarketState(niche);
 
         if (phase == NicheState.Death)
             return;
 
         ActivateIfNecessary(niche);
 
-        if (NicheUtils.GetCompetitorsAmount(niche.niche.NicheType, gameContext) == 0)
+        if (Markets.GetCompetitorsAmount(niche.niche.NicheType, gameContext) == 0)
             return;
 
         //var value = Random.Range(0, 1f);
@@ -52,7 +52,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        var state = NicheUtils.GetMarketState(niche);
+        var state = Markets.GetMarketState(niche);
         var nicheStartDate = niche.nicheLifecycle.OpenDate;
 
         if (date > nicheStartDate && state == NicheState.Idle)
@@ -64,7 +64,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
     void PromoteNiche(GameEntity niche)
     {
-        NicheUtils.PromoteNicheState(niche);
+        Markets.PromoteNicheState(niche);
 
         var player = Companies.GetPlayerCompany(gameContext);
 
@@ -84,7 +84,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var duration = niche.nicheState.Duration;
 
-        var phase = NicheUtils.GetMarketState(niche);
+        var phase = Markets.GetMarketState(niche);
 
         if (phase == NicheState.Death || phase == NicheState.Idle)
             return false;

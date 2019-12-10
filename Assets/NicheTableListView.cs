@@ -67,7 +67,7 @@ public class NicheTableListView : ListView
 
     bool IsSuitableByMarketState (GameEntity niche)
     {
-        var state = NicheUtils.GetMarketState(niche);
+        var state = Markets.GetMarketState(niche);
 
         return !(state == NicheState.Death || state == NicheState.Idle || state == NicheState.Innovation);
 
@@ -78,7 +78,7 @@ public class NicheTableListView : ListView
 
     bool IsSuitableByCapitalSize (GameEntity niche)
     {
-        var capital = NicheUtils.GetStartCapital(niche);
+        var capital = Markets.GetStartCapital(niche);
 
         return (IncludeLessThan1MStartCapital && capital < 1000000)
             || (IncludeLessThan100MStartCapital && capital < 1000000 * 100)
@@ -87,7 +87,7 @@ public class NicheTableListView : ListView
 
     bool IsConnectedToOurMainBusiness (GameEntity niche)
     {
-        var isAdjacent = NicheUtils.IsAdjacentToCompanyInterest(niche, MyCompany);
+        var isAdjacent = Markets.IsAdjacentToCompanyInterest(niche, MyCompany);
 
         if (HomeMarketsOnly)
             return isAdjacent;
@@ -102,7 +102,7 @@ public class NicheTableListView : ListView
     {
         UpdateFilters();
 
-        var niches = NicheUtils.GetPlayableNiches(GameContext)
+        var niches = Markets.GetPlayableNiches(GameContext)
             .Where(IsSuitableByMarketState)
             .Where(IsSuitableByCapitalSize)
             .Where(IsConnectedToOurMainBusiness)

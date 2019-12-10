@@ -11,7 +11,7 @@ public class RenderNichePotential : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var products = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche);
+        var products = Markets.GetProductsOnMarket(GameContext, SelectedNiche);
 
 
         var clients = products.Sum(p => MarketingUtils.GetClients(p));
@@ -21,15 +21,15 @@ public class RenderNichePotential : UpgradedParameterView
         return $"{Format.Minify(clients)} users\n\n+{Format.Minify(flow)} this month";
 
 
-        var potential = NicheUtils.GetMarketPotential(GameContext, SelectedNiche);
+        var potential = Markets.GetMarketPotential(GameContext, SelectedNiche);
 
         if (potential == 0)
             return "???";
 
-        var niche = NicheUtils.GetNiche(GameContext, SelectedNiche);
+        var niche = Markets.GetNiche(GameContext, SelectedNiche);
 
-        var min0 = NicheUtils.GetMarketPotentialMin(niche);
-        var max0 = NicheUtils.GetMarketPotentialMax(niche);
+        var min0 = Markets.GetMarketPotentialMin(niche);
+        var max0 = Markets.GetMarketPotentialMax(niche);
 
         var min = Math.Min(min0, max0);
         var max = Math.Max(min0, max0);

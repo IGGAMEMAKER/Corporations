@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType) => IsPerspectiveNiche(GetNiche(gameContext, nicheType));
         public static bool IsPerspectiveNiche(GameEntity niche)

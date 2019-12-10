@@ -11,9 +11,9 @@ class SpawnProductsSystem : OnQuarterChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] niches = NicheUtils.GetNiches(gameContext);
+        GameEntity[] niches = Markets.GetNiches(gameContext);
 
         foreach (var niche in niches)
-            NicheUtils.FillMarket(niche, gameContext);
+            Markets.FillMarket(niche, gameContext);
     }
 }

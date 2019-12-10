@@ -12,5 +12,5 @@ public class RenderMarketState : UpgradedParameterView
         return Companies.GetMarketStateDescription(State) + " phase";
     }
 
-    NicheState State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
+    NicheState State => Markets.GetMarketState(GameContext, SelectedNiche);
 }

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(GetNiche(gameContext, nicheType));
         public static long GetStartCapital(GameEntity niche)

@@ -81,7 +81,7 @@ namespace Assets.Utils
             if (company.isManagingCompany)
             {
                 var daughtersInIndustry = GetDaughterProductCompanies(gameContext, company)
-                    .Where(p => NicheUtils.GetIndustry(p.product.Niche, gameContext) == industry);
+                    .Where(p => Markets.GetIndustry(p.product.Niche, gameContext) == industry);
 
                 return daughtersInIndustry
                     .Sum(d => d.branding.BrandPower);
@@ -89,7 +89,7 @@ namespace Assets.Utils
             else
             {
                 // product company
-                var ind = NicheUtils.GetIndustry(company.product.Niche, gameContext);
+                var ind = Markets.GetIndustry(company.product.Niche, gameContext);
 
                 return ind == industry ? company.branding.BrandPower : 0;
             }

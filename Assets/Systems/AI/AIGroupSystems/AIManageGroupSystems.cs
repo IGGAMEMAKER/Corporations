@@ -31,12 +31,12 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
     void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive (GameEntity product)
     {
-        var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
+        var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
         bool isBankrupt = product.companyResource.Resources.money < 0;
 
         bool isNotProfitable = !EconomyUtils.IsProfitable(gameContext, product.company.Id);
-        bool isNicheDead = NicheUtils.GetMarketState(niche) == NicheState.Death;
+        bool isNicheDead = Markets.GetMarketState(niche) == NicheState.Death;
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
         {
@@ -59,11 +59,11 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         Debug.Log("Support Startup");
 
-        var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
-        var phase = NicheUtils.GetMarketState(niche);
+        var niche = Markets.GetNiche(gameContext, product.product.Niche);
+        var phase = Markets.GetMarketState(niche);
 
         
-        if (!NicheUtils.IsPlayableNiche(gameContext, product.product.Niche))
+        if (!Markets.IsPlayableNiche(gameContext, product.product.Niche))
             return;
 
         var maintenance = EconomyUtils.GetCompanyMaintenance(gameContext, product.company.Id);

@@ -18,7 +18,7 @@ public class NearestCompaniesListView : ListView
     {
         var niches = MyCompany.companyFocus.Niches;
         
-        return NicheUtils.GetNonFinancialCompaniesWithSameInterests(GameContext, MyCompany)
+        return Markets.GetNonFinancialCompaniesWithSameInterests(GameContext, MyCompany)
             .OrderByDescending(c => EconomyUtils.GetCompanyCost(GameContext, c))
             .ToArray();
 

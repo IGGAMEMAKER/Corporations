@@ -83,7 +83,7 @@ namespace Assets.Utils
 
         internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
         {
-            return NicheUtils.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
+            return Markets.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
         }
     }
 }

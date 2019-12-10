@@ -13,7 +13,7 @@ public class PlayersOnMarketSorted : ListView
     {
         base.ViewRender();
 
-        var players = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche)
+        var players = Markets.GetProductsOnMarket(GameContext, SelectedNiche)
             .OrderByDescending(p => MarketingUtils.GetClients(p));
 
         SetItems(players.ToArray());

@@ -18,18 +18,18 @@ public class MarketShareView : View
 
     internal void SetEntity(NicheType nicheType)
     {
-        var niche = NicheUtils.GetNiche(GameContext, nicheType);
-        var rating = NicheUtils.GetMarketRating(niche);
+        var niche = Markets.GetNiche(GameContext, nicheType);
+        var rating = Markets.GetMarketRating(niche);
 
         var share = Companies.GetControlInMarket(MyCompany, nicheType, GameContext);
 
-        var marketSize = NicheUtils.GetMarketSize(GameContext, nicheType);
+        var marketSize = Markets.GetMarketSize(GameContext, nicheType);
 
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         ShareSize.text = Format.MinifyMoney(marketSize);
         ShareSize.color = Visuals.GetColorFromString(HasCompany ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
 
-        var phase = NicheUtils.GetMarketState(niche).ToString();
+        var phase = Markets.GetMarketState(niche).ToString();
         if (!ShowMarketStateOnlyByColor)
             MarketState.text = phase;
 

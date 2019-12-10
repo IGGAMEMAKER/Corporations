@@ -11,7 +11,7 @@ namespace Assets.Utils
             company.AddProduct(niche, 0);
 
             // positioning
-            int positionings = NicheUtils.GetNichePositionings(niche, context).Count;
+            int positionings = Markets.GetNichePositionings(niche, context).Count;
             company.AddProductPositioning(Random.Range(0, positionings));
 
             // development
@@ -25,7 +25,7 @@ namespace Assets.Utils
             company.AddMarketing((long)baseClients);
 
             // sphere of interest
-            var industry = NicheUtils.GetIndustry(niche, context);
+            var industry = Markets.GetIndustry(niche, context);
 
             AddFocusNiche(niche, company, context);
             AddFocusIndustry(industry, company);

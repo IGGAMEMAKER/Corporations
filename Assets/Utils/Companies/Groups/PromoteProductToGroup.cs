@@ -21,7 +21,7 @@
             var groupCo = GetCompany(context, companyGroupId);
 
             var niche = product.product.Niche;
-            var industry = NicheUtils.GetIndustry(niche, context);
+            var industry = Markets.GetIndustry(niche, context);
             AddFocusIndustry(industry, groupCo);
 
             AddFocusNiche(niche, groupCo, context);

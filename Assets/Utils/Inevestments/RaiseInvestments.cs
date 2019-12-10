@@ -34,7 +34,7 @@
 
         private static void AppendProductBonuses(Bonus<long> bonusContainer, GameEntity company, GameContext gameContext)
         {
-            bonusContainer.Append("Product competitiveness", NicheUtils.GetProductCompetitiveness(company, gameContext));
+            bonusContainer.Append("Product competitiveness", Markets.GetProductCompetitiveness(company, gameContext));
         }
 
         public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
@@ -73,7 +73,7 @@
         public static bool IsInInvestorsSphereOfInfluence(GameEntity shareholder, GameEntity company)
         {
             if (!company.hasProduct)
-                return NicheUtils.IsShareSameInterests(company, shareholder);
+                return Markets.IsShareSameInterests(company, shareholder);
 
             return shareholder.companyFocus.Niches.Contains(company.product.Niche);
         }
@@ -113,7 +113,7 @@
 
         public static long GetProductCompanyOpinion(GameEntity company, GameContext gameContext)
         {
-            var marketSituation = NicheUtils.GetProductCompetitiveness(company, gameContext);
+            var marketSituation = Markets.GetProductCompetitiveness(company, gameContext);
 
             return marketSituation;
         }

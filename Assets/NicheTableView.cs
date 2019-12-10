@@ -56,7 +56,7 @@ public class NicheTableView : View, IPointerEnterHandler
         RenderTimeToMarket();
         
         // 
-        var profitLeader = NicheUtils.GetMostProfitableCompanyOnMarket(GameContext, niche);
+        var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
         
         // maintenance
         var biggestMaintenance = profitLeader == null ? 0 : EconomyUtils.GetCompanyMaintenance(profitLeader, GameContext);
@@ -77,7 +77,7 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void RenderMarketName(NicheType nicheType)
     {
-        var industryType = NicheUtils.GetIndustry(nicheType, GameContext);
+        var industryType = Markets.GetIndustry(nicheType, GameContext);
         NicheName.text = EnumUtils.GetFormattedNicheName(nicheType) + "\n<i>" + EnumUtils.GetFormattedIndustryName(industryType) + "</i>";
 
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
@@ -110,11 +110,11 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void DescribePhase()
     {
-        var phase = NicheUtils.GetMarketState(niche);
+        var phase = Markets.GetMarketState(niche);
         Phase.SetHint(phase.ToString());
 
         // phase
-        var stars = NicheUtils.GetMarketRating(niche);
+        var stars = Markets.GetMarketRating(niche);
 
         SetAmountOfStars.SetStars(stars);
         MarketPhase.text = phase.ToString();

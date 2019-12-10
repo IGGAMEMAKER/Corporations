@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static void FillMarket(GameEntity niche, GameContext gameContext)
         {
@@ -61,7 +61,7 @@ namespace Assets.Utils
 
             Companies.SetStartCapital(product, niche);
 
-            var potentialLeader = NicheUtils.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
+            var potentialLeader = Markets.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
             var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
 
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)

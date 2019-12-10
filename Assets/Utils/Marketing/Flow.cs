@@ -6,11 +6,11 @@ namespace Assets.Utils
     {
         public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
         {
-            var niche = NicheUtils.GetNiche(gameContext, nicheType);
+            var niche = Markets.GetNiche(gameContext, nicheType);
             var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
 
 
-            var stateDuration = NicheUtils.GetCurrentNicheStateDuration(gameContext, nicheType);
+            var stateDuration = Markets.GetCurrentNicheStateDuration(gameContext, nicheType);
             var n = stateDuration + 1;
             var q = GetMonthlyAudienceGrowthMultiplier(niche);
 
@@ -25,13 +25,13 @@ namespace Assets.Utils
 
         public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)
         {
-            var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
+            var costs = Markets.GetNicheCosts(gameContext, nicheType);
 
 
             var totalStageClients = costs.Audience * GetAudiencePercentageThatProductsWillGetDuringThisMarketState(niche) / 100;
 
             var monthlyGrowthMultiplier = GetMonthlyAudienceGrowthMultiplier(niche);
-            var stateMaxDuration = NicheUtils.GetNichePeriodDurationInMonths(niche);
+            var stateMaxDuration = Markets.GetNichePeriodDurationInMonths(niche);
 
             var q = monthlyGrowthMultiplier;
             var nMax = stateMaxDuration;
@@ -40,7 +40,7 @@ namespace Assets.Utils
             return baseFlowForStage;
         }
 
-        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(NicheUtils.GetMarketState(niche));
+        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(Markets.GetMarketState(niche));
         public static float GetMonthlyAudienceGrowthMultiplier(NicheState phase)
         {
             switch (phase)
@@ -61,7 +61,7 @@ namespace Assets.Utils
             return 1.05f;
         }
 
-        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheUtils.GetMarketState(niche));
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(Markets.GetMarketState(niche));
         public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheState phase)
         {
             switch (phase)

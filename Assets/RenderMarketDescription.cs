@@ -39,13 +39,13 @@ public class RenderMarketDescription : UpgradedParameterView
 
     string GetPositionings()
     {
-        var p = NicheUtils.GetNichePositionings(SelectedNiche, GameContext);
+        var p = Markets.GetNichePositionings(SelectedNiche, GameContext);
 
         var arr = p
             .Select(k =>
                 $"{k.Value.name}, worth " +
                 //$"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
-                $"{Format.MinifyToInteger(NicheUtils.GetMarketSegmentAudiencePotential(GameContext, SelectedNiche, k.Key))} users,"
+                $"{Format.MinifyToInteger(Markets.GetMarketSegmentAudiencePotential(GameContext, SelectedNiche, k.Key))} users,"
                 //$" {NicheUtils.GetSegmentProductPrice(GameContext, SelectedNiche, k.Key).ToString("0.0")} each"
                 )
             .ToArray();
@@ -57,7 +57,7 @@ public class RenderMarketDescription : UpgradedParameterView
 
     const string barier = "---------------------";
 
-    NicheState State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
+    NicheState State => Markets.GetMarketState(GameContext, SelectedNiche);
 
     string GetMarketStateDescription (NicheState state)
     {

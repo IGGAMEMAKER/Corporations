@@ -5,7 +5,7 @@ public class HidePrototypeButtonIfWeHaveCompanyOnMarket : HideOnSomeCondition
     public override bool HideIf()
     {
         var hasCompanyAlready = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
-        var isUnknownMarket = !NicheUtils.IsExploredMarket(GameContext, SelectedNiche);
+        var isUnknownMarket = !Markets.IsExploredMarket(GameContext, SelectedNiche);
 
         return hasCompanyAlready || isUnknownMarket;
     }

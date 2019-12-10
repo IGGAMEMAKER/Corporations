@@ -14,7 +14,7 @@ public class StartCampaignButton : ButtonController
 
         var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
 
-        var startCapital = NicheUtils.GetStartCapital(NicheType, GameContext);
+        var startCapital = Markets.GetStartCapital(NicheType, GameContext);
 
         Companies.SetResources(company, new Assets.Classes.TeamResource(startCapital));
 

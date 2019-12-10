@@ -82,7 +82,7 @@ public class FillInterruptList : View
 
     bool CheckAcquisitionCandidates()
     {
-        return NicheUtils.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext).Count > 0;
+        return Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext).Count > 0;
     }
 
     bool CheckAnnualReport()

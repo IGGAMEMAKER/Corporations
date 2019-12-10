@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType) => GetNicheCosts(GetNiche(context, nicheType));
         public static NicheCostsComponent GetNicheCosts(GameEntity niche)

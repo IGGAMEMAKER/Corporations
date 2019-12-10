@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    public static partial class NicheUtils
+    public static partial class Markets
     {
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
         {

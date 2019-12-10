@@ -15,7 +15,7 @@ public class FillPotentialCompanies : ListView
 
     void Render()
     {
-        var proposals = NicheUtils.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext);
+        var proposals = Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext);
 
         SetItems(proposals.ToArray());
     }

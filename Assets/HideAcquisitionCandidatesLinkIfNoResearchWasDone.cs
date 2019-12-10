@@ -4,7 +4,7 @@ public class HideAcquisitionCandidatesLinkIfNoResearchWasDone : HideOnSomeCondit
 {
     public override bool HideIf()
     {
-        var niche = NicheUtils.GetNiche(GameContext, SelectedNiche);
+        var niche = Markets.GetNiche(GameContext, SelectedNiche);
 
         return !niche.hasResearch;
     }

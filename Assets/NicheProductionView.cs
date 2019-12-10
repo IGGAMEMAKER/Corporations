@@ -14,7 +14,7 @@ public class NicheProductionView : View
 
         var niche = ScreenUtils.GetSelectedNiche(GameContext);
 
-        var costs = NicheUtils.GetNicheCosts(GameContext, niche);
+        var costs = Markets.GetNicheCosts(GameContext, niche);
 
         IdeasCost.text = "???";
         TechCost.text = Format.Minify(costs.TechCost);

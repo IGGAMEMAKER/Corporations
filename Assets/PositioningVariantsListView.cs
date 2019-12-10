@@ -18,7 +18,7 @@ public class PositioningVariantsListView : ListView
         }
 
         var niche = SelectedCompany.product.Niche;
-        var positioningVariants = NicheUtils.GetNichePositionings(niche, GameContext);
+        var positioningVariants = Markets.GetNichePositionings(niche, GameContext);
 
         var list = positioningVariants.Keys.ToArray();
 

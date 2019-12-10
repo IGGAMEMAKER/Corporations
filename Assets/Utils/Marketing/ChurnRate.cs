@@ -9,10 +9,10 @@ namespace Assets.Utils
             return GetChurnBonus(gameContext, companyId).Sum();
         }
 
-        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, NicheUtils.GetNiche(gameContext, product), product);
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.GetNiche(gameContext, product), product);
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
         {
-            var competitors = NicheUtils.GetProductsOnMarket(niche, gameContext);
+            var competitors = Markets.GetProductsOnMarket(niche, gameContext);
 
             var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != product.company.Id);
 
@@ -28,13 +28,13 @@ namespace Assets.Utils
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId)
         {
             var c = Companies.GetCompany(gameContext, companyId);
-            var state = NicheUtils.GetMarketState(gameContext, c.product.Niche);
+            var state = Markets.GetMarketState(gameContext, c.product.Niche);
 
             var fromProductLevel = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
             var marketIsDying = state == NicheState.Death;
 
 
-            var niche = NicheUtils.GetNiche(gameContext, c.product.Niche);
+            var niche = Markets.GetNiche(gameContext, c.product.Niche);
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 

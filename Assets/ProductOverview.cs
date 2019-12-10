@@ -42,7 +42,7 @@ public class ProductOverview : View
 
     void RenderCommonInfo()
     {
-        var position = NicheUtils.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
+        var position = Markets.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
         Popularity.text = $"Position on market: #{position}";
 
 
@@ -56,7 +56,7 @@ public class ProductOverview : View
         var brand = SelectedCompany.branding.BrandPower;
         Brand.text = $"Brand: {brand}";
 
-        var posTextual = NicheUtils.GetCompanyPositioning(SelectedCompany, GameContext);
+        var posTextual = Markets.GetCompanyPositioning(SelectedCompany, GameContext);
         PositioningLabel.text = "Positioning: " + posTextual;
     }
 }

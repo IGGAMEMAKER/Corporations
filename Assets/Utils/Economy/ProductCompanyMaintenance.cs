@@ -17,7 +17,7 @@ namespace Assets.Utils
         public static long GetProductMarketingCost(GameEntity e, GameContext gameContext, float financing)
         {
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
-            var acquisitionCost = NicheUtils.GetClientAcquisitionCost(e.product.Niche, gameContext);
+            var acquisitionCost = Markets.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
             var result = gainedClients * acquisitionCost * financing;
 
@@ -38,10 +38,10 @@ namespace Assets.Utils
 
         public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var baseCost = NicheUtils.GetBaseDevelopmentCost(e.product.Niche, gameContext);
+            var baseCost = Markets.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
             var concept = ProductUtils.GetProductLevel(e);
-            var niche = NicheUtils.GetNiche(gameContext, e);
+            var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
             var development = Mathf.Pow(1f + complexity / 100f, concept);

@@ -10,7 +10,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var niches = NicheUtils.GetNiches(gameContext);
+        var niches = Markets.GetNiches(gameContext);
 
         foreach (var n in niches)
             CheckMarket(n);
@@ -20,7 +20,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
     {
         var nicheType = niche.niche.NicheType;
 
-        var products = NicheUtils.GetProductsOnMarket(gameContext, nicheType, false);
+        var products = Markets.GetProductsOnMarket(gameContext, nicheType, false);
 
         ChurnUsers(products, niche);
         ChangeBrandPowers(products);

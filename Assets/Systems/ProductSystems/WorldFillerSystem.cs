@@ -20,7 +20,7 @@ public partial class WorldFillerSystem : IInitializeSystem
 
     void MockySimulation(int skipDays)
     {
-        var markets = NicheUtils.GetNiches(GameContext);
+        var markets = Markets.GetNiches(GameContext);
         var skipMonths = skipDays / 30;
 
         var date = ScheduleUtils.GetCurrentDate(GameContext);
@@ -41,8 +41,8 @@ public partial class WorldFillerSystem : IInitializeSystem
             while (accumulator > 0)
             {
                 Debug.Log("while");
-                NicheUtils.PromoteNicheState(m);
-                accumulator -= NicheUtils.GetNicheDuration(m);
+                Markets.PromoteNicheState(m);
+                accumulator -= Markets.GetNicheDuration(m);
             }
 
 
@@ -51,7 +51,7 @@ public partial class WorldFillerSystem : IInitializeSystem
             var amountOfCompanies = UnityEngine.Random.Range(0, monthsOfWork / 12);
 
             for (var i = 0; i < amountOfCompanies; i++)
-                NicheUtils.FillMarket(m, GameContext);
+                Markets.FillMarket(m, GameContext);
         }
 
         Debug.Log("Mocky simulation: simulate product development");
@@ -60,7 +60,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         var products = Companies.GetProductCompanies(GameContext);
         foreach (var p in products)
         {
-            var niche = NicheUtils.GetNiche(GameContext, p.product.Niche);
+            var niche = Markets.GetNiche(GameContext, p.product.Niche);
             var spawnTime = niche.nicheLifecycle.OpenDate;
 
             var monthsOfWork = (date - spawnTime) / 30;

@@ -7,7 +7,7 @@ public class NicheScreenView : UpgradedParameterView
     public override string RenderValue()
     {
         NicheType NicheType = ScreenUtils.GetSelectedNiche(GameContext);
-        IndustryType IndustryType = NicheUtils.GetIndustry(NicheType, GameContext);
+        IndustryType IndustryType = Markets.GetIndustry(NicheType, GameContext);
 
         return Visuals.Link("Is part of " + EnumUtils.GetFormattedIndustryName(IndustryType) + " industry");
     }

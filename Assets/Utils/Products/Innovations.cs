@@ -19,8 +19,8 @@
                 }
             }
 
-            var niche = NicheUtils.GetNiche(gameContext, company.product.Niche);
-            var phase = NicheUtils.GetMarketState(niche);
+            var niche = Markets.GetNiche(gameContext, company.product.Niche);
+            var phase = Markets.GetMarketState(niche);
             var marketStage = Companies.GetMarketStageInnovationModifier(niche);
 
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);

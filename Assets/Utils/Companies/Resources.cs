@@ -27,14 +27,14 @@ namespace Assets.Utils
 
         public static void SetStartCapital(GameEntity product, GameEntity niche)
         {
-            var startCapital = NicheUtils.GetStartCapital(niche) * Random.Range(50, 150) / 100;
+            var startCapital = Markets.GetStartCapital(niche) * Random.Range(50, 150) / 100;
 
             AddResources(product, new TeamResource(startCapital));
         }
 
         public static void SetStartCapital(GameEntity product, GameContext gameContext)
         {
-            var niche = NicheUtils.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
             SetStartCapital(product, niche);
         }
