@@ -21,7 +21,8 @@ public class FormStrategicPartnership : ToggleButtonController
 
         var arePartners = isPartnersAlready;
 
-        GetComponent<Button>().interactable = !arePartners && isCanBePartnersTheoretically;
+        GetComponent<Button>().interactable = isCanBePartnersTheoretically;
         GetComponentInChildren<Text>().text = arePartners ? "Break strategic partnership!" : "Sign strategic partnership";
+        ToggleIsChosenComponent(arePartners);
     }
 }
