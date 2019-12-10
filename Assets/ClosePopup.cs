@@ -15,7 +15,7 @@ public class ClosePopup : SimplePopupButtonController
     }
 }
 
-public class CloseOKPopup : SimplePopupButtonController
+public class ClosePopupOK : SimplePopupButtonController
 {
     public override void Execute()
     {

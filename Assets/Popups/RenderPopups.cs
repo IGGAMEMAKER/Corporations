@@ -102,7 +102,17 @@ public partial class PopupView : View
         RenderUniversalPopup(
             $"You have created a new company called {GetCompanyName(popup.companyId)}!",
             "You will need some time to match market requirements and after that, you will be able to release your product and make money from it",
-            typeof(CloseOKPopup)
+            typeof(ClosePopupOK)
+            );
+    }
+
+    void RenderHasTooManyPartners(PopupMessageTooManyPartners popup)
+    {
+        bool we = popup.companyId == MyCompany.company.Id;
+        RenderUniversalPopup(
+            (we ? "We" : "They") + " have too many partnerships already!",
+            (we ? "We" : "They") + " need to break one partnership to become partners",
+            typeof(ClosePopupOK)
             );
     }
 

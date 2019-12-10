@@ -36,6 +36,10 @@
                 RenderCreateCompanyPopup(popup as PopupMessageCreateApp);
                 break;
 
+            case PopupType.TooManyPartners:
+                RenderHasTooManyPartners(popup as PopupMessageTooManyPartners);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

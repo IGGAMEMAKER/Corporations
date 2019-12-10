@@ -20,7 +20,9 @@ public enum PopupType
     PreRelease,
     Release,
 
-    CreatePrototype
+    CreatePrototype,
+
+    TooManyPartners
 }
 
 public class PopupMessage
@@ -52,6 +54,11 @@ public class PopupMessageStrategicPartnership : PopupMessage
 
         PopupType = PopupType.StrategicPartnership;
     }
+}
+
+public class PopupMessageTooManyPartners : PopupMessageCompanyEvent
+{
+    public PopupMessageTooManyPartners(int companyId) : base(companyId, PopupType.TooManyPartners) { }
 }
 
 public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent

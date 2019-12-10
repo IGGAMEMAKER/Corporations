@@ -60,6 +60,7 @@
         public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(Markets.GetMarketState(niche));
         public static float GetMonthlyAudienceGrowthMultiplier(NicheState phase)
         {
+            return 1.05f;
             switch (phase)
             {
                 case NicheState.Idle:
@@ -75,7 +76,6 @@
                     return 1.05f;
             }
 
-            return 1.05f;
         }
 
         public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(Markets.GetMarketState(niche));

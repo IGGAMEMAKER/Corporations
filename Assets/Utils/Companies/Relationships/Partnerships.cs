@@ -46,8 +46,17 @@ namespace Assets.Utils
             if (IsHaveStrategicPartnershipAlready(requester, acceptor))
                 return;
 
-            if (IsHasTooManyPartnerships(requester) || IsHasTooManyPartnerships(acceptor))
+            if (IsHasTooManyPartnerships(requester) && notifyPlayer)
+            {
+                NotificationUtils.AddPopup(gameContext, new PopupMessageTooManyPartners(requester.company.Id));
                 return;
+            }
+
+            if (IsHasTooManyPartnerships(acceptor) && notifyPlayer)
+            {
+                NotificationUtils.AddPopup(gameContext, new PopupMessageTooManyPartners(acceptor.company.Id));
+                return;
+            }
 
 
 
