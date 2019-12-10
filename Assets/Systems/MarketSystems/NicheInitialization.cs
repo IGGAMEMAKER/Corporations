@@ -146,7 +146,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
 
-    float GetProductPrice(MarketProfile profile, int nicheId)
+    float GetProductPrice(MarketProfile profile, float adCost, int nicheId)
     {
         Monetisation monetisationType = profile.MonetisationType;
         Margin margin = profile.Margin;
@@ -156,24 +156,29 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
     }
 
+
     float GetAdCost(MarketProfile profile, int nicheId)
     {
         Monetisation monetisationType = profile.MonetisationType;
 
         var baseValue = (int)monetisationType;
 
-        var repaymentTime = 1;
-
-        switch (monetisationType)
-        {
-            case Monetisation.Adverts: repaymentTime = 10; break;
-            case Monetisation.Service: repaymentTime = 8; break;
-            case Monetisation.Enterprise: repaymentTime = 5; break;
-            case Monetisation.Paid: repaymentTime = 3; break;
-        }
-
+        //var repaymentTime = GetSelfPaymentTime(monetisationType);
         //baseValue *= repaymentTime;
 
-        return Randomise(baseValue * 1000, nicheId) / 1000f;
+        return Randomise(baseValue * 1000, nicheId) / 12f / 1000f;
+    }
+
+    float GetSelfPaymentTime(Monetisation monetisationType)
+    {
+        switch (monetisationType)
+        {
+            case Monetisation.Adverts: return 10;
+            case Monetisation.Service: return 8;
+            case Monetisation.Enterprise: return 5;
+            case Monetisation.Paid: return 3;
+        }
+
+        return 1;
     }
 }
