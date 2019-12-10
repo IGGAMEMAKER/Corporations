@@ -33,8 +33,8 @@ public enum Monetisation
 
 public enum Margin
 {
-    Low = 1,
-    Mid = 5,
+    Low = 5,
+    Mid = 10,
     High = 20
 }
 
@@ -120,6 +120,25 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
 
+    long Randomise(long baseValue, int nicheId)
+    {
+        return Companies.GetRandomValue(baseValue, nicheId, 0);
+    }
+
+    int GetNicheId (NicheType nicheType)
+    {
+        return (int)nicheType;
+    }
+}
+
+public partial class MarketInitializerSystem : IInitializeSystem
+{
+    long GetFullAudience(MarketProfile profile, int nicheId)
+    {
+        AudienceSize audienceSize = profile.AudienceSize;
+
+        return Randomise((long)audienceSize, nicheId);
+    }
 
     private int GetTechCost(MarketProfile profile, int nicheId)
     {
@@ -140,7 +159,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
     float GetAdCost(MarketProfile profile, int nicheId)
     {
         Monetisation monetisationType = profile.MonetisationType;
-        NicheSpeed nichePeriod = profile.NicheSpeed;
 
         var baseValue = (int)monetisationType;
 
@@ -157,27 +175,5 @@ public partial class MarketInitializerSystem : IInitializeSystem
         //baseValue *= repaymentTime;
 
         return Randomise(baseValue * 1000, nicheId) / 1000f;
-    }
-
-
-
-    long GetFullAudience(MarketProfile profile, int nicheId)
-    {
-        AudienceSize audienceSize = profile.AudienceSize;
-
-        return Randomise((long)audienceSize, nicheId);
-    }
-
-
-
-
-    long Randomise(long baseValue, int nicheId)
-    {
-        return Companies.GetRandomValue(baseValue, nicheId, 0);
-    }
-
-    int GetNicheId (NicheType nicheType)
-    {
-        return (int)nicheType;
     }
 }

@@ -81,6 +81,7 @@ public enum NicheState
     Innovation,
     Trending,
     MassGrowth,
+    MassUsage,
     Decay,
     Death
 }

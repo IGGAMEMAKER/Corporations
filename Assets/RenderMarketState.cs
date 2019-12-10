@@ -2,14 +2,11 @@
 
 public class RenderMarketState : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {
-        return Companies.GetMarketStateDescription(State) + " phase";
+        return Markets.GetMarketStateDescription(State) + " phase";
     }
 
     NicheState State => Markets.GetMarketState(GameContext, SelectedNiche);

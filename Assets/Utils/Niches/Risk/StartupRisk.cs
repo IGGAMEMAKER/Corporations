@@ -50,33 +50,6 @@
             return GetMarketDemandRisk(gameContext, c.product.Niche);
         }
 
-        public static int GetMarketDemandRisk(GameContext gameContext, NicheType nicheType)
-        {
-            var phase = GetMarketState(gameContext, nicheType);
-
-            switch (phase)
-            {
-                case NicheState.Idle:
-                    return Constants.RISKS_DEMAND_MAX;
-
-                case NicheState.Innovation:
-                    return Constants.RISKS_DEMAND_MAX / 2;
-
-                case NicheState.Trending:
-                    return Constants.RISKS_DEMAND_MAX / 5;
-
-                case NicheState.MassGrowth:
-                    return Constants.RISKS_DEMAND_MAX / 10;
-
-                case NicheState.Decay:
-                    return Constants.RISKS_DEMAND_MAX / 2;
-
-                case NicheState.Death:
-                default:
-                    return 100;
-            }
-        }
-
         public static Risk ShowRiskStatus(long risk)
         {
             if (risk < 10)

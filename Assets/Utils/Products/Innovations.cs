@@ -21,7 +21,7 @@
 
             var niche = Markets.GetNiche(gameContext, company.product.Niche);
             var phase = Markets.GetMarketState(niche);
-            var marketStage = Companies.GetMarketStageInnovationModifier(niche);
+            var marketStage = Markets.GetMarketStageInnovationModifier(niche);
 
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
@@ -34,7 +34,7 @@
 
             return new Bonus<long>("Innovation chance")
                 .Append("Base", 5)
-                .Append("Market stage " + Companies.GetMarketStateDescription(phase), marketStage)
+                .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
                 
                 .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)

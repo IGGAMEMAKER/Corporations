@@ -47,7 +47,7 @@ public class NicheTableListView : ListView
 
     void UpdateFilters()
     {
-        IncludeInnovativeMarkets = InnovativeMarkets.isOn;
+        IncludeInnovativeMarkets = false; // InnovativeMarkets.isOn;
         IncludeTrendingMarkets = TrendingMarkets.isOn;
         IncludeMassMarkets = MassMarkets.isOn;
 
@@ -58,15 +58,14 @@ public class NicheTableListView : ListView
         BothMarkets = AllMarkets.isOn;
     }
 
-    bool IsSuitableByMarketState (GameEntity niche)
+    bool IsSuitableByMarketState(GameEntity niche)
     {
         var state = Markets.GetMarketState(niche);
 
-        return !(state == NicheState.Death || state == NicheState.Idle || state == NicheState.Innovation);
-
         return (IncludeInnovativeMarkets && state == NicheState.Innovation)
             || (IncludeTrendingMarkets && state == NicheState.Trending)
-            || (IncludeMassMarkets && state == NicheState.MassGrowth);
+            || (IncludeMassMarkets && (state == NicheState.MassGrowth || state == NicheState.MassUsage))
+            ;
     }
 
     bool IsSuitableByCapitalSize (GameEntity niche)

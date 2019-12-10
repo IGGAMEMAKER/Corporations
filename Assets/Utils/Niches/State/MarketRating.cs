@@ -1,9 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Assets.Utils
+﻿namespace Assets.Utils
 {
     public static partial class Markets
     {
@@ -29,22 +24,6 @@ namespace Assets.Utils
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
         {
             return GetMarketRating(GetNiche(gameContext, niche));
-        }
-
-        public static int GetMarketRating(GameEntity niche)
-        {
-            var phase = GetMarketState(niche);
-            switch (phase)
-            {
-                case NicheState.Idle: return 1;
-                case NicheState.Innovation: return 3;
-                case NicheState.Trending: return 4;
-                case NicheState.MassGrowth: return 5;
-                case NicheState.Decay: return 2;
-
-                default:
-                    return 0;
-            }
         }
 
         public static int GetMarketPotentialRating(GameEntity niche)

@@ -34,47 +34,6 @@ namespace Assets.Utils
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
 
-        // TODO move this to niche utils!!!
-        public static string GetMarketStateDescription(NicheState state)
-        {
-            switch (state)
-            {
-                case NicheState.Idle: return "???";
-                case NicheState.Innovation: return "Innovation";
-                case NicheState.Trending: return "Trending";
-                case NicheState.MassGrowth: return "Mass use";
-                case NicheState.Decay: return "Decay";
-                case NicheState.Death: return "Death";
-
-                default: return "???WTF " + state.ToString();
-            }
-        }
-
-        internal static long GetMarketStageInnovationModifier (GameEntity niche)
-        {
-            var phase = Markets.GetMarketState(niche);
-
-            switch (phase)
-            {
-                case NicheState.Death:
-                case NicheState.Decay:
-                case NicheState.Idle:
-                    return 0;
-
-                case NicheState.Innovation:
-                    return 25;
-
-                case NicheState.Trending:
-                    return 15;
-
-                case NicheState.MassGrowth:
-                    return 5;
-
-                default: return 0;
-            }
-        }
-
-
         public static Color GetCompanyUniqueColor(int companyId)
         {
             var r = GetRandomColor(companyId, companyId);

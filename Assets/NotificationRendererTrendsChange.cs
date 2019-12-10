@@ -83,6 +83,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
                 break;
 
             case NicheState.MassGrowth:
+            case NicheState.MassUsage:
                 description = $"{nicheName} are EVERYWHERE.";
                 break;
 
