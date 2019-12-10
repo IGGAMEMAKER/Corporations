@@ -9,10 +9,7 @@ public class ClosePopup : SimplePopupButtonController
         UpdatePage();
     }
 
-    public override string GetButtonName()
-    {
-        return "Cancel";
-    }
+    public override string GetButtonName() => "Cancel";
 }
 
 public class ClosePopupOK : SimplePopupButtonController
@@ -24,8 +21,5 @@ public class ClosePopupOK : SimplePopupButtonController
         UpdatePage();
     }
 
-    public override string GetButtonName()
-    {
-        return "OK";
-    }
+    public override string GetButtonName() => "OK";
 }

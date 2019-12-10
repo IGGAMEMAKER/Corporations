@@ -1,36 +1,6 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class CloseCompanyController : PopupButtonController<PopupMessageCompanyClose>
-{
-    public override void Execute()
-    {
-        Companies.CloseCompany(GameContext, Popup.companyId);
-
-        NotificationUtils.ClosePopup(GameContext);
-
-        Navigate(ScreenMode.GroupManagementScreen);
-    }
-
-    public override string GetButtonName() => "YES";
-}
-
-public class ReleaseAppPopup : PopupButtonController<PopupMessageDoYouWantToRelease>
-{
-    public override void Execute()
-    {
-        MarketingUtils.ReleaseApp(Popup.companyId, GameContext);
-        NotificationUtils.ClosePopup(GameContext);
-    }
-
-    public override string GetButtonName() => "YES";
-}
-
-
-
-
-
-
 // TODO move to baseClass folder
 public abstract class SimplePopupButtonController : ButtonController
 {

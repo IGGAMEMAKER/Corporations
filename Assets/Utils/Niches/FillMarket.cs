@@ -18,6 +18,7 @@ namespace Assets.Utils
             var nicheType = niche.niche.NicheType;
             var playersOnMarket = GetCompetitorsAmount(nicheType, gameContext);
 
+            // don't spawn companies on innovation phase if has companies already
             if (phase == NicheState.Innovation && playersOnMarket > 0)
                 return;
 
@@ -31,12 +32,13 @@ namespace Assets.Utils
             var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
 
 
-
-            if (playersOnMarket == 0 || phase == NicheState.Idle)
+            // force spawning if there are no companies on idle phase
+            if (phase == NicheState.Idle || playersOnMarket == 0)
             {
                 spawnChance = 1200;
 
-                if (Random.Range(0, 100) < 6)
+                var inspirationChance = 6;
+                if (inspirationChance > Random.Range(0, 100))
                 {
                     var player = Companies.GetPlayerCompany(gameContext);
 

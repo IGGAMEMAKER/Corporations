@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
+using System;
 
 public partial class PopupView : View
 {
@@ -9,7 +10,7 @@ public partial class PopupView : View
             "Do you want to close this company?",
             "",
             typeof(ClosePopup),
-            typeof(CloseCompanyController)
+            typeof(CloseCompanyPopupButton)
             );
     }
 
@@ -92,7 +93,7 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "Do you really want to release this product?",
             "Maintenance cost will increase\nThis product will get 20 brand power",
-            typeof(ReleaseAppPopup),
+            typeof(ReleaseAppPopupButton),
             typeof(ClosePopup)
             );
     }
@@ -113,6 +114,15 @@ public partial class PopupView : View
             (we ? "We" : "They") + " have too many partnerships already!",
             (we ? "We" : "They") + " need to break one partnership to become partners",
             typeof(ClosePopupOK)
+            );
+    }
+
+    void RenderInspirationPopup(PopupMessageMarketInspiration popup)
+    {
+        RenderUniversalPopup(
+            "INSPIRATION",
+            "On your spare time you got new revolutionary ideas! You can create first " + EnumUtils.GetFormattedNicheName(popup.NicheType).ToUpper(),
+            typeof(InspirationPopupButton)
             );
     }
 

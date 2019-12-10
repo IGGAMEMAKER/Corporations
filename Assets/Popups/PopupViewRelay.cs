@@ -40,6 +40,10 @@
                 RenderHasTooManyPartners(popup as PopupMessageTooManyPartners);
                 break;
 
+            case PopupType.InspirationToOpenMarket:
+                RenderInspirationPopup(popup as PopupMessageMarketInspiration);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
