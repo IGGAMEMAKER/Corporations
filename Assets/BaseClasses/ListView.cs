@@ -22,7 +22,10 @@ public abstract class ListView : View // MonoBehaviour
             Destroy(child.gameObject);
 
 
-            //for (int i = 0; i < entities.Length; i++)
+        //for (int i = 0; i < entities.Length; i++)
+        if (entities == null)
+            return;
+
         foreach (var e in entities)
         {
             if (Prefab == null)

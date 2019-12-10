@@ -23,6 +23,7 @@
                 case NicheState.Innovation:    return 0.1f;
                 case NicheState.Trending:      return 0.5f;
                 case NicheState.MassGrowth:    return 1f;
+                case NicheState.MassUsage:     return 1f;
                 case NicheState.Decay:         return 2f;
 
                 default: return 0;
@@ -64,6 +65,7 @@
                     return 15;
 
                 case NicheState.MassGrowth:
+                case NicheState.MassUsage:
                     return 5;
 
                 default: return 0;
@@ -80,6 +82,7 @@
                 case NicheState.Innovation: return 3;
                 case NicheState.Trending: return 4;
                 case NicheState.MassGrowth: return 5;
+                case NicheState.MassUsage: return 5;
                 case NicheState.Decay: return 2;
 
                 default:
@@ -103,6 +106,7 @@
                     return Constants.RISKS_DEMAND_MAX / 5;
 
                 case NicheState.MassGrowth:
+                case NicheState.MassUsage:
                     return Constants.RISKS_DEMAND_MAX / 10;
 
                 case NicheState.Decay:
@@ -174,6 +178,8 @@
 
                 case NicheState.MassGrowth:
                     return 55;
+                case NicheState.MassUsage:
+                    return 0;
 
                 case NicheState.Decay:
                     return 10;

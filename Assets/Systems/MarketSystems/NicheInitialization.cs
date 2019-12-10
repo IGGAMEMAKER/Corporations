@@ -153,9 +153,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Monetisation monetisationType = profile.MonetisationType;
         Margin margin = profile.Margin;
 
-        var baseCost = (int)monetisationType * (100 + (int)margin);
+        var baseCost = adCost * (100 + (int)margin);
 
-        return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
+        return baseCost / 100f;
     }
 
 

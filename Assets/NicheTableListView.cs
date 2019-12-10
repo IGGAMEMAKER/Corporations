@@ -95,11 +95,13 @@ public class NicheTableListView : ListView
     {
         UpdateFilters();
 
-        var niches = Markets.GetPlayableNiches(GameContext)
+        var niches = HasCompany ? Markets.GetPlayableNiches(GameContext)
             .Where(IsSuitableByMarketState)
             .Where(IsSuitableByCapitalSize)
             .Where(IsConnectedToOurMainBusiness)
-            .ToArray();
+            .ToArray()
+            :
+            null;
 
         GetComponent<NicheTableListView>().SetItems(niches);
     }
