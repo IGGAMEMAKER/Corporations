@@ -7,7 +7,7 @@ namespace Assets.Utils
         public static void FillMarket(GameEntity niche, GameContext gameContext)
         {
             var phase = GetMarketState(niche);
-            if (phase == NicheLifecyclePhase.Death)
+            if (phase == NicheState.Death)
                 return;
 
             var date = ScheduleUtils.GetCurrentDate(gameContext);
@@ -18,7 +18,7 @@ namespace Assets.Utils
             var nicheType = niche.niche.NicheType;
             var playersOnMarket = GetCompetitorsAmount(nicheType, gameContext);
 
-            if (phase == NicheLifecyclePhase.Innovation && playersOnMarket > 0)
+            if (phase == NicheState.Innovation && playersOnMarket > 0)
                 return;
 
 
@@ -32,7 +32,7 @@ namespace Assets.Utils
 
 
 
-            if (playersOnMarket == 0 || phase == NicheLifecyclePhase.Idle)
+            if (playersOnMarket == 0 || phase == NicheState.Idle)
             {
                 spawnChance = 1200;
 
@@ -48,7 +48,7 @@ namespace Assets.Utils
                 }
             }
 
-            if (phase == NicheLifecyclePhase.Trending)
+            if (phase == NicheState.Trending)
                 spawnChance *= 5;
 
             if (spawnChance > Random.Range(0, 1000))

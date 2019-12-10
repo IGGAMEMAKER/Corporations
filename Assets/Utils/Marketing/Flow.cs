@@ -41,20 +41,20 @@ namespace Assets.Utils
         }
 
         public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(NicheUtils.GetMarketState(niche));
-        public static float GetMonthlyAudienceGrowthMultiplier(NicheLifecyclePhase phase)
+        public static float GetMonthlyAudienceGrowthMultiplier(NicheState phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Idle:
+                case NicheState.Idle:
                     return 1;
 
-                case NicheLifecyclePhase.Innovation:
+                case NicheState.Innovation:
                     return 1.01f;
 
-                case NicheLifecyclePhase.Trending:
+                case NicheState.Trending:
                     return 1.02f;
 
-                case NicheLifecyclePhase.MassGrowth:
+                case NicheState.MassGrowth:
                     return 1.05f;
             }
 
@@ -62,24 +62,24 @@ namespace Assets.Utils
         }
 
         public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheUtils.GetMarketState(niche));
-        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheLifecyclePhase phase)
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheState phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Innovation:
+                case NicheState.Innovation:
                     return 10;
 
-                case NicheLifecyclePhase.Trending:
+                case NicheState.Trending:
                     return 25;
 
-                case NicheLifecyclePhase.MassGrowth:
+                case NicheState.MassGrowth:
                     return 55;
 
-                case NicheLifecyclePhase.Decay:
+                case NicheState.Decay:
                     return 10;
 
-                case NicheLifecyclePhase.Death:
-                case NicheLifecyclePhase.Idle:
+                case NicheState.Death:
+                case NicheState.Idle:
                 default:
                     return 0;
             }

@@ -45,19 +45,19 @@ public partial class PopupView : View
 
         switch (state)
         {
-            case NicheLifecyclePhase.Innovation:
+            case NicheState.Innovation:
                 possibilities = "It's time to be first! Your innovation chances in this niche increase by 25%";
                 break;
 
-            case NicheLifecyclePhase.Trending:
+            case NicheState.Trending:
                 possibilities = "It seems, that this market has the potential! Companies on this market will get way more clients, but maintenance cost will also increase";
                 break;
 
-            case NicheLifecyclePhase.MassGrowth:
+            case NicheState.MassGrowth:
                 possibilities = "It's time to earn money now! Company maintenances increase even more";
                 break;
 
-            case NicheLifecyclePhase.Decay:
+            case NicheState.Decay:
                 possibilities = "Market passed it's prime and will decay slowly. Companies will no longer receive new users";
                 break;
         }

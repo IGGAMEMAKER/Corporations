@@ -7,7 +7,7 @@ namespace Assets.Utils
 {
     public static partial class NicheUtils
     {
-        public static NicheLifecyclePhase GetMarketState(GameEntity niche)
+        public static NicheState GetMarketState(GameEntity niche)
         {
             return niche.nicheState.Phase;
         }
@@ -19,7 +19,7 @@ namespace Assets.Utils
             return niche.hasResearch;
         }
 
-        public static NicheLifecyclePhase GetMarketState(GameContext gameContext, NicheType nicheType)
+        public static NicheState GetMarketState(GameContext gameContext, NicheType nicheType)
         {
             var niche = GetNiche(gameContext, nicheType);
 
@@ -36,11 +36,11 @@ namespace Assets.Utils
             var phase = GetMarketState(niche);
             switch (phase)
             {
-                case NicheLifecyclePhase.Idle: return 1;
-                case NicheLifecyclePhase.Innovation: return 3;
-                case NicheLifecyclePhase.Trending: return 4;
-                case NicheLifecyclePhase.MassGrowth: return 5;
-                case NicheLifecyclePhase.Decay: return 2;
+                case NicheState.Idle: return 1;
+                case NicheState.Innovation: return 3;
+                case NicheState.Trending: return 4;
+                case NicheState.MassGrowth: return 5;
+                case NicheState.Decay: return 2;
 
                 default:
                     return 0;

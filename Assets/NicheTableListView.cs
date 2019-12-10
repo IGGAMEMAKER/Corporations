@@ -69,11 +69,11 @@ public class NicheTableListView : ListView
     {
         var state = NicheUtils.GetMarketState(niche);
 
-        return !(state == NicheLifecyclePhase.Death || state == NicheLifecyclePhase.Idle || state == NicheLifecyclePhase.Innovation);
+        return !(state == NicheState.Death || state == NicheState.Idle || state == NicheState.Innovation);
 
-        return (IncludeInnovativeMarkets && state == NicheLifecyclePhase.Innovation)
-            || (IncludeTrendingMarkets && state == NicheLifecyclePhase.Trending)
-            || (IncludeMassMarkets && state == NicheLifecyclePhase.MassGrowth);
+        return (IncludeInnovativeMarkets && state == NicheState.Innovation)
+            || (IncludeTrendingMarkets && state == NicheState.Trending)
+            || (IncludeMassMarkets && state == NicheState.MassGrowth);
     }
 
     bool IsSuitableByCapitalSize (GameEntity niche)

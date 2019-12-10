@@ -40,23 +40,23 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 
         switch (phase)
         {
-            case NicheLifecyclePhase.Death:
+            case NicheState.Death:
                 description = "People don't need them anymore and they will stop using the product. You'd better search new opportunities";
                 break;
 
-            case NicheLifecyclePhase.Decay:
+            case NicheState.Decay:
                 description = $"New users don't arrive anymore and we need to keep existing ones as long as possible";
                 break;
 
-            case NicheLifecyclePhase.Innovation:
+            case NicheState.Innovation:
                 description = $"Maybe it is the next big thing?";
                 break;
 
-            case NicheLifecyclePhase.MassGrowth:
+            case NicheState.MassGrowth:
                 description = $"They are well known even by those, who are not fancy to technologies";
                 break;
 
-            case NicheLifecyclePhase.Trending:
+            case NicheState.Trending:
                 description = $"We need to be quick if we want to make benefit from them";
                 break;
         }
@@ -64,29 +64,29 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         return description;
     }
 
-    static string GetShortTitle(NicheLifecyclePhase phase, string nicheName)
+    static string GetShortTitle(NicheState phase, string nicheName)
     {
         var description = "";
 
         switch (phase)
         {
-            case NicheLifecyclePhase.Death:
+            case NicheState.Death:
                 description = $"{nicheName} are DYING.";
                 break;
 
-            case NicheLifecyclePhase.Decay:
+            case NicheState.Decay:
                 description = $"{nicheName} are in DECAY.";
                 break;
 
-            case NicheLifecyclePhase.Innovation:
+            case NicheState.Innovation:
                 description = $"{nicheName} - future or just a moment?";
                 break;
 
-            case NicheLifecyclePhase.MassGrowth:
+            case NicheState.MassGrowth:
                 description = $"{nicheName} are EVERYWHERE.";
                 break;
 
-            case NicheLifecyclePhase.Trending:
+            case NicheState.Trending:
                 description = $"{nicheName} are TRENDING.";
                 break;
         }

@@ -36,7 +36,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
         bool isBankrupt = product.companyResource.Resources.money < 0;
 
         bool isNotProfitable = !EconomyUtils.IsProfitable(gameContext, product.company.Id);
-        bool isNicheDead = NicheUtils.GetMarketState(niche) == NicheLifecyclePhase.Death;
+        bool isNicheDead = NicheUtils.GetMarketState(niche) == NicheState.Death;
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
         {

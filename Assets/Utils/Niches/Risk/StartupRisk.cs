@@ -56,22 +56,22 @@
 
             switch (phase)
             {
-                case NicheLifecyclePhase.Idle:
+                case NicheState.Idle:
                     return Constants.RISKS_DEMAND_MAX;
 
-                case NicheLifecyclePhase.Innovation:
+                case NicheState.Innovation:
                     return Constants.RISKS_DEMAND_MAX / 2;
 
-                case NicheLifecyclePhase.Trending:
+                case NicheState.Trending:
                     return Constants.RISKS_DEMAND_MAX / 5;
 
-                case NicheLifecyclePhase.MassGrowth:
+                case NicheState.MassGrowth:
                     return Constants.RISKS_DEMAND_MAX / 10;
 
-                case NicheLifecyclePhase.Decay:
+                case NicheState.Decay:
                     return Constants.RISKS_DEMAND_MAX / 2;
 
-                case NicheLifecyclePhase.Death:
+                case NicheState.Death:
                 default:
                     return 100;
             }

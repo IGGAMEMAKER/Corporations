@@ -75,7 +75,7 @@ public class NicheCostsComponent : IComponent
     public float AcquisitionCost;
 }
 
-public enum NicheLifecyclePhase
+public enum NicheState
 {
     Idle,
     Innovation,
@@ -91,13 +91,13 @@ public enum NicheLifecyclePhase
 public class NicheLifecycleComponent : IComponent
 {
     public int OpenDate;
-    public Dictionary<NicheLifecyclePhase, int> Growth;
+    public Dictionary<NicheState, int> Growth;
 }
 
 [Game]
 public class NicheStateComponent : IComponent
 {
-    public NicheLifecyclePhase Phase;
+    public NicheState Phase;
     public int Duration;
 }
 

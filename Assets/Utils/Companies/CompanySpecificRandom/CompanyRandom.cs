@@ -35,16 +35,16 @@ namespace Assets.Utils
         }
 
         // TODO move this to niche utils!!!
-        public static string GetMarketStateDescription(NicheLifecyclePhase state)
+        public static string GetMarketStateDescription(NicheState state)
         {
             switch (state)
             {
-                case NicheLifecyclePhase.Idle: return "???";
-                case NicheLifecyclePhase.Innovation: return "Innovation";
-                case NicheLifecyclePhase.Trending: return "Trending";
-                case NicheLifecyclePhase.MassGrowth: return "Mass use";
-                case NicheLifecyclePhase.Decay: return "Decay";
-                case NicheLifecyclePhase.Death: return "Death";
+                case NicheState.Idle: return "???";
+                case NicheState.Innovation: return "Innovation";
+                case NicheState.Trending: return "Trending";
+                case NicheState.MassGrowth: return "Mass use";
+                case NicheState.Decay: return "Decay";
+                case NicheState.Death: return "Death";
 
                 default: return "???WTF " + state.ToString();
             }
@@ -56,18 +56,18 @@ namespace Assets.Utils
 
             switch (phase)
             {
-                case NicheLifecyclePhase.Death:
-                case NicheLifecyclePhase.Decay:
-                case NicheLifecyclePhase.Idle:
+                case NicheState.Death:
+                case NicheState.Decay:
+                case NicheState.Idle:
                     return 0;
 
-                case NicheLifecyclePhase.Innovation:
+                case NicheState.Innovation:
                     return 25;
 
-                case NicheLifecyclePhase.Trending:
+                case NicheState.Trending:
                     return 15;
 
-                case NicheLifecyclePhase.MassGrowth:
+                case NicheState.MassGrowth:
                     return 5;
 
                 default: return 0;

@@ -57,28 +57,28 @@ public class RenderMarketDescription : UpgradedParameterView
 
     const string barier = "---------------------";
 
-    NicheLifecyclePhase State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
+    NicheState State => NicheUtils.GetMarketState(GameContext, SelectedNiche);
 
-    string GetMarketStateDescription (NicheLifecyclePhase state)
+    string GetMarketStateDescription (NicheState state)
     {
         switch (state)
         {
-            case NicheLifecyclePhase.Death:
+            case NicheState.Death:
                 return "This market is DEAD. People don't need these apps anymore!";
 
-            case NicheLifecyclePhase.Decay:
+            case NicheState.Decay:
                 return "This market's peak has gone. Reduce your expenses and prepare for market death";
 
-            case NicheLifecyclePhase.Idle:
+            case NicheState.Idle:
                 return "We don't know if people need this or not. Maybe you'll be the innovator";
 
-            case NicheLifecyclePhase.Innovation:
+            case NicheState.Innovation:
                 return "Some people had shown their interest in these apps! Be first in new market!";
 
-            case NicheLifecyclePhase.Trending:
+            case NicheState.Trending:
                 return "This market grows extremely fast";
 
-            case NicheLifecyclePhase.MassGrowth:
+            case NicheState.MassGrowth:
                 return "People need these apps, but will it last long?";
 
             default:

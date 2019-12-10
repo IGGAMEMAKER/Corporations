@@ -15,14 +15,14 @@
         public static int GetNicheDuration(GameEntity niche) => GetNichePeriodDurationInMonths(niche);
 
         public static int GetNichePeriodDurationInMonths(GameEntity niche) => GetNichePeriodDurationInMonths(GetMarketState(niche));
-        private static int GetNichePeriodDurationInMonths(NicheLifecyclePhase phase)
+        private static int GetNichePeriodDurationInMonths(NicheState phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Innovation:    return 8;
-                case NicheLifecyclePhase.Trending:      return 24;
-                case NicheLifecyclePhase.MassGrowth:    return 60;
-                case NicheLifecyclePhase.Decay:         return 100;
+                case NicheState.Innovation:    return 8;
+                case NicheState.Trending:      return 24;
+                case NicheState.MassGrowth:    return 60;
+                case NicheState.Decay:         return 100;
                 default: return 1;
             }
         }
@@ -35,25 +35,25 @@
             return stateDuration;
         }
 
-        public static NicheLifecyclePhase GetNextPhase(NicheLifecyclePhase phase)
+        public static NicheState GetNextPhase(NicheState phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Idle:
-                    return NicheLifecyclePhase.Innovation;
+                case NicheState.Idle:
+                    return NicheState.Innovation;
 
-                case NicheLifecyclePhase.Innovation:
-                    return NicheLifecyclePhase.Trending;
+                case NicheState.Innovation:
+                    return NicheState.Trending;
 
-                case NicheLifecyclePhase.Trending:
-                    return NicheLifecyclePhase.MassGrowth;
+                case NicheState.Trending:
+                    return NicheState.MassGrowth;
 
-                case NicheLifecyclePhase.MassGrowth:
-                    return NicheLifecyclePhase.Decay;
+                case NicheState.MassGrowth:
+                    return NicheState.Decay;
 
-                case NicheLifecyclePhase.Decay:
+                case NicheState.Decay:
                 default:
-                    return NicheLifecyclePhase.Death;
+                    return NicheState.Death;
             }
         }
     }
