@@ -21,11 +21,11 @@ namespace Assets.Utils
 
             var result = gainedClients * acquisitionCost * financing;
 
-            if (result < 0)
-            {
-                var niche = EnumUtils.GetFormattedNicheName(e.product.Niche);
-                Debug.Log($"{niche} gained clients = {gainedClients}, acquisition cost = {acquisitionCost}, financing = {financing}");
-            }
+            //if (result < 0)
+            //{
+            //    var niche = EnumUtils.GetFormattedNicheName(e.product.Niche);
+            //    Debug.Log($"{niche} gained clients = {gainedClients}, acquisition cost = {acquisitionCost}, financing = {financing}");
+            //}
 
             return (long)result;
         }
