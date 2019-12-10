@@ -30,7 +30,7 @@
         public static int GetCurrentNicheStateDuration(GameContext gameContext, NicheType nicheType) => GetCurrentNicheStateDuration(GetNiche(gameContext, nicheType));
         public static int GetCurrentNicheStateDuration(GameEntity niche)
         {
-            var stateDuration = NicheUtils.GetNichePeriodDurationInMonths(niche) - niche.nicheState.Duration;
+            var stateDuration = GetNichePeriodDurationInMonths(niche) - niche.nicheState.Duration;
 
             return stateDuration;
         }
