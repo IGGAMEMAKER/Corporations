@@ -36,7 +36,7 @@ namespace Assets.Utils
             {
                 spawnChance = 1200;
 
-                if (UnityEngine.Random.Range(0, 100) < 6)
+                if (Random.Range(0, 100) < 6)
                 {
                     var player = Companies.GetPlayerCompany(gameContext);
 
@@ -58,10 +58,10 @@ namespace Assets.Utils
         public static void SpawnCompany(GameEntity niche, GameContext gameContext)
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
-
             Companies.SetStartCapital(product, niche);
 
-            var potentialLeader = Markets.GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
+
+            var potentialLeader = GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
             var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
 
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
