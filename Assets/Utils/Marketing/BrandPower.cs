@@ -20,27 +20,26 @@ namespace Assets.Utils
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;
 
-            var percent = 4;
+            var percent = 5;
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
             var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 2;
             var isMarketingNormally     = product.financing.Financing[Financing.Marketing] == 1;
-            var isNotPayingForMarketing = product.financing.Financing[Financing.Marketing] == 0;
+            var isPayingForMarketing    = product.financing.Financing[Financing.Marketing] > 0;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
-                //.AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
-                .AppendAndHideIfZero("Is not paying for marketing", isNotPayingForMarketing ? -7 : 0)
-                //.AppendAndHideIfZero("Is paying for marketing", isMarketingNormally ? 1 : 0)
+                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
+                .AppendAndHideIfZero("Is not paying for marketing", !isPayingForMarketing ? -7 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
 
                 // multiply our marketing efforts if paying for them
-                .MultiplyAndHideIfOne("Is Innovator", isInnovator && !isNotPayingForMarketing ? 2 : 1)
-                .AppendAndHideIfZero("Is Innovator", isInnovator && isNotPayingForMarketing ? 1 : 0)
+                .MultiplyAndHideIfOne("Is Innovator", isInnovator && isPayingForMarketing ? 2 : 1)
+                .AppendAndHideIfZero("Is Innovator", isInnovator && !isPayingForMarketing ? 1 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)
                 ;
 
@@ -67,7 +66,7 @@ namespace Assets.Utils
                 value += marketShare * marketSize / 100f;
             }
 
-            return Mathf.Clamp(value * 3, 0, 3);
+            return Mathf.Clamp(value, 0, 1) * 3f;
         }
     }
 }
