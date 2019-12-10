@@ -87,10 +87,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         var nicheId = GetNicheId(nicheType);
 
-        var price       = GetProductPrice   (settings, nicheId);
         var clients     = GetFullAudience   (settings, nicheId);
         var techCost    = GetTechCost       (settings, nicheId);
         var adCosts     = GetAdCost         (settings, nicheId);
+        var price       = GetProductPrice   (settings, adCosts, nicheId);
 
 
         var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts);
@@ -131,6 +131,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 }
 
+
+
 public partial class MarketInitializerSystem : IInitializeSystem
 {
     long GetFullAudience(MarketProfile profile, int nicheId)
@@ -151,7 +153,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         Monetisation monetisationType = profile.MonetisationType;
         Margin margin = profile.Margin;
 
-        var baseCost = (int)monetisationType * (int)margin;
+        var baseCost = (int)monetisationType * (100 + (int)margin);
 
         return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
     }
