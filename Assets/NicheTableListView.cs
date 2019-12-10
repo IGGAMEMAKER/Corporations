@@ -11,9 +11,7 @@ public class NicheTableListView : ListView
     bool IncludeTrendingMarkets = true;
     bool IncludeMassMarkets = true;
 
-    bool IncludeLessThan1MStartCapital = true;
-    bool IncludeLessThan100MStartCapital = true;
-    bool IncludeHugeStartCapital = true;
+    bool IncludeOnlyAffordableByStartCapital = true;
 
     bool HomeMarketsOnly = false;
     bool UnknownIndustriesOnly = false;
@@ -25,9 +23,8 @@ public class NicheTableListView : ListView
     public Toggle TrendingMarkets;
     public Toggle MassMarkets;
 
-    public Toggle CapitalSmall;
-    public Toggle CapitalMid;
-    public Toggle CapitalHigh;
+    // enough money
+    public Toggle AffordableByStartCapital;
 
     public Toggle AdjacentMarkets;
     public Toggle NonAdjacentMarkets;
@@ -56,9 +53,7 @@ public class NicheTableListView : ListView
         IncludeTrendingMarkets = TrendingMarkets.isOn;
         IncludeMassMarkets = MassMarkets.isOn;
 
-        IncludeLessThan1MStartCapital = CapitalSmall.isOn;
-        IncludeLessThan100MStartCapital = CapitalMid.isOn;
-        IncludeHugeStartCapital = CapitalHigh.isOn;
+        IncludeOnlyAffordableByStartCapital = AffordableByStartCapital.isOn;
 
         HomeMarketsOnly = AdjacentMarkets.isOn;
         UnknownIndustriesOnly = NonAdjacentMarkets.isOn;
@@ -80,9 +75,10 @@ public class NicheTableListView : ListView
     {
         var capital = Markets.GetStartCapital(niche);
 
-        return (IncludeLessThan1MStartCapital && capital < 1000000)
-            || (IncludeLessThan100MStartCapital && capital < 1000000 * 100)
-            || (IncludeHugeStartCapital && capital >= 1000000 * 100);
+        if (!IncludeOnlyAffordableByStartCapital)
+            return true;
+
+        return Companies.IsEnoughResources(MyCompany, capital);
     }
 
     bool IsConnectedToOurMainBusiness (GameEntity niche)
