@@ -73,7 +73,7 @@ public class NicheTableListView : ListView
 
         return (IncludeInnovativeMarkets && state == NicheLifecyclePhase.Innovation)
             || (IncludeTrendingMarkets && state == NicheLifecyclePhase.Trending)
-            || (IncludeMassMarkets && state == NicheLifecyclePhase.MassUse);
+            || (IncludeMassMarkets && state == NicheLifecyclePhase.MassGrowth);
     }
 
     bool IsSuitableByCapitalSize (GameEntity niche)

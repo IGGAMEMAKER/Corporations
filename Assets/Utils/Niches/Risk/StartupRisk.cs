@@ -65,7 +65,7 @@
                 case NicheLifecyclePhase.Trending:
                     return Constants.RISKS_DEMAND_MAX / 5;
 
-                case NicheLifecyclePhase.MassUse:
+                case NicheLifecyclePhase.MassGrowth:
                     return Constants.RISKS_DEMAND_MAX / 10;
 
                 case NicheLifecyclePhase.Decay:

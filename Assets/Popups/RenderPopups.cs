@@ -53,7 +53,7 @@ public partial class PopupView : View
                 possibilities = "It seems, that this market has the potential! Companies on this market will get way more clients, but maintenance cost will also increase";
                 break;
 
-            case NicheLifecyclePhase.MassUse:
+            case NicheLifecyclePhase.MassGrowth:
                 possibilities = "It's time to earn money now! Company maintenances increase even more";
                 break;
 

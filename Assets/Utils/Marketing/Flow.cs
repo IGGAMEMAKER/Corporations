@@ -6,30 +6,31 @@ namespace Assets.Utils
     {
         public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
         {
-            var baseFlowForStage = GetBaseStageFlow(gameContext, nicheType);
+            var niche = NicheUtils.GetNiche(gameContext, nicheType);
+            var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
 
 
             var stateDuration = NicheUtils.GetCurrentNicheStateDuration(gameContext, nicheType);
             var n = stateDuration + 1;
-            var q = GetMonthlyAudienceGrowthMultiplier();
+            var q = GetMonthlyAudienceGrowthMultiplier(niche);
 
-            var multiplier = System.Math.Pow(q, n);
+            var multiplier = Mathf.Pow(q, n);
 
+            var result = baseFlowForStage * multiplier;
 
-
+            // normalise
             var period = EconomyUtils.GetPeriodDuration();
-            return (long)(baseFlowForStage * multiplier * period / 30);
+            return (long)(result * period / 30);
         }
 
-        public static float GetBaseStageFlow(GameContext gameContext, NicheType nicheType)
+        public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)
         {
             var costs = NicheUtils.GetNicheCosts(gameContext, nicheType);
 
-            var niche = NicheUtils.GetNiche(gameContext, nicheType);
 
             var totalStageClients = costs.Audience * GetAudiencePercentageThatProductsWillGetDuringThisMarketState(niche) / 100;
 
-            var monthlyGrowthMultiplier = GetMonthlyAudienceGrowthMultiplier();
+            var monthlyGrowthMultiplier = GetMonthlyAudienceGrowthMultiplier(niche);
             var stateMaxDuration = NicheUtils.GetNichePeriodDurationInMonths(niche);
 
             var q = monthlyGrowthMultiplier;
@@ -39,8 +40,24 @@ namespace Assets.Utils
             return baseFlowForStage;
         }
 
-        public static float GetMonthlyAudienceGrowthMultiplier()
+        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(NicheUtils.GetMarketState(niche));
+        public static float GetMonthlyAudienceGrowthMultiplier(NicheLifecyclePhase phase)
         {
+            switch (phase)
+            {
+                case NicheLifecyclePhase.Idle:
+                    return 1;
+
+                case NicheLifecyclePhase.Innovation:
+                    return 1.01f;
+
+                case NicheLifecyclePhase.Trending:
+                    return 1.02f;
+
+                case NicheLifecyclePhase.MassGrowth:
+                    return 1.05f;
+            }
+
             return 1.05f;
         }
 
@@ -55,7 +72,7 @@ namespace Assets.Utils
                 case NicheLifecyclePhase.Trending:
                     return 25;
 
-                case NicheLifecyclePhase.MassUse:
+                case NicheLifecyclePhase.MassGrowth:
                     return 55;
 
                 case NicheLifecyclePhase.Decay:

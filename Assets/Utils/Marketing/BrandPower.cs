@@ -25,7 +25,6 @@ namespace Assets.Utils
 
 
             var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 2;
-            var isMarketingNormally     = product.financing.Financing[Financing.Marketing] == 1;
             var isPayingForMarketing    = product.financing.Financing[Financing.Marketing] > 0;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);

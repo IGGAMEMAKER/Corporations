@@ -39,7 +39,7 @@ namespace Assets.Utils
                 case NicheLifecyclePhase.Idle: return 1;
                 case NicheLifecyclePhase.Innovation: return 3;
                 case NicheLifecyclePhase.Trending: return 4;
-                case NicheLifecyclePhase.MassUse: return 5;
+                case NicheLifecyclePhase.MassGrowth: return 5;
                 case NicheLifecyclePhase.Decay: return 2;
 
                 default:

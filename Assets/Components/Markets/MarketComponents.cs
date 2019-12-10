@@ -80,7 +80,7 @@ public enum NicheLifecyclePhase
     Idle,
     Innovation,
     Trending,
-    MassUse,
+    MassGrowth,
     Decay,
     Death
 }

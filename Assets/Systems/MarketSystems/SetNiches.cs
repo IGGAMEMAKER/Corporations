@@ -90,7 +90,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheSpeed = NicheSpeed.HalfYear,
         };
 
-        SetNichesAutomatically(NicheType.Fin_Exchanging, 1998, financialSystemMarket);
+        SetNichesAutomatically(NicheType.Fin_Exchanging,    1998, financialSystemMarket);
         SetNichesAutomatically(NicheType.Fin_OnlineBanking, 1992, banking);
         SetNichesAutomatically(NicheType.Fin_PaymentSystem, 1995, financialSystemMarket);
     }

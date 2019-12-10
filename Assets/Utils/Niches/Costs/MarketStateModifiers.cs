@@ -8,7 +8,7 @@
             {
                 case NicheLifecyclePhase.Innovation:    return 1;
                 case NicheLifecyclePhase.Trending:      return 0.8f;
-                case NicheLifecyclePhase.MassUse:       return 0.7f;
+                case NicheLifecyclePhase.MassGrowth:       return 0.7f;
                 case NicheLifecyclePhase.Decay:         return 0.6f;
 
                 default: return 0;
@@ -21,7 +21,7 @@
             {
                 case NicheLifecyclePhase.Innovation:    return 0.1f;
                 case NicheLifecyclePhase.Trending:      return 0.5f;
-                case NicheLifecyclePhase.MassUse:       return 1f;
+                case NicheLifecyclePhase.MassGrowth:       return 1f;
                 case NicheLifecyclePhase.Decay:         return 2f;
 
                 default: return 0;

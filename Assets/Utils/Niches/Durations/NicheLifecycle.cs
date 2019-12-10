@@ -15,14 +15,14 @@
         public static int GetNicheDuration(GameEntity niche) => GetNichePeriodDurationInMonths(niche);
 
         public static int GetNichePeriodDurationInMonths(GameEntity niche) => GetNichePeriodDurationInMonths(GetMarketState(niche));
-        public static int GetNichePeriodDurationInMonths(NicheLifecyclePhase phase)
+        private static int GetNichePeriodDurationInMonths(NicheLifecyclePhase phase)
         {
             switch (phase)
             {
-                case NicheLifecyclePhase.Innovation: return 8;
-                case NicheLifecyclePhase.Trending:   return 24;
-                case NicheLifecyclePhase.MassUse:    return 60;
-                case NicheLifecyclePhase.Decay:      return 100;
+                case NicheLifecyclePhase.Innovation:    return 8;
+                case NicheLifecyclePhase.Trending:      return 24;
+                case NicheLifecyclePhase.MassGrowth:    return 60;
+                case NicheLifecyclePhase.Decay:         return 100;
                 default: return 1;
             }
         }
@@ -46,9 +46,9 @@
                     return NicheLifecyclePhase.Trending;
 
                 case NicheLifecyclePhase.Trending:
-                    return NicheLifecyclePhase.MassUse;
+                    return NicheLifecyclePhase.MassGrowth;
 
-                case NicheLifecyclePhase.MassUse:
+                case NicheLifecyclePhase.MassGrowth:
                     return NicheLifecyclePhase.Decay;
 
                 case NicheLifecyclePhase.Decay:

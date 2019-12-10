@@ -31,7 +31,7 @@ namespace Assets.Utils
                 [NicheLifecyclePhase.Idle] = 0, // 0
                 [NicheLifecyclePhase.Innovation] = UnityEngine.Random.Range(1, 3), // 2-5            Xt
                 [NicheLifecyclePhase.Trending] = UnityEngine.Random.Range(3, 10), // 4 - 10           5Xt
-                [NicheLifecyclePhase.MassUse] = UnityEngine.Random.Range(10, 15), // 7 - 15            10Xt
+                [NicheLifecyclePhase.MassGrowth] = UnityEngine.Random.Range(10, 15), // 7 - 15            10Xt
                 [NicheLifecyclePhase.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
                 [NicheLifecyclePhase.Death] = 0, // churn
             };

@@ -52,7 +52,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
                 description = $"Maybe it is the next big thing?";
                 break;
 
-            case NicheLifecyclePhase.MassUse:
+            case NicheLifecyclePhase.MassGrowth:
                 description = $"They are well known even by those, who are not fancy to technologies";
                 break;
 
@@ -82,7 +82,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
                 description = $"{nicheName} - future or just a moment?";
                 break;
 
-            case NicheLifecyclePhase.MassUse:
+            case NicheLifecyclePhase.MassGrowth:
                 description = $"{nicheName} are EVERYWHERE.";
                 break;
 

@@ -78,7 +78,7 @@ public class RenderMarketDescription : UpgradedParameterView
             case NicheLifecyclePhase.Trending:
                 return "This market grows extremely fast";
 
-            case NicheLifecyclePhase.MassUse:
+            case NicheLifecyclePhase.MassGrowth:
                 return "People need these apps, but will it last long?";
 
             default:

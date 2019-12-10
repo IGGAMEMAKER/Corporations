@@ -77,7 +77,7 @@ namespace Assets.Utils
             return
                 phase == NicheLifecyclePhase.Trending ||
                 phase == NicheLifecyclePhase.Decay ||
-                phase == NicheLifecyclePhase.MassUse;
+                phase == NicheLifecyclePhase.MassGrowth;
         }
     }
 }
