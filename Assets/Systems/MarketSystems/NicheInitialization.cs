@@ -87,10 +87,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         var nicheId = GetNicheId(nicheType);
 
-        var price = GetProductPrice(settings.MonetisationType, settings.Margin, nicheId);
-        var clients = GetBatchSize(settings.AudienceSize, nicheId, nicheType);
-        var techCost = GetTechCost(settings.AppComplexity, nicheId);
-        var adCosts = GetAdCost(clients, settings.MonetisationType, settings.NicheSpeed, nicheId);
+        var price       = GetProductPrice   (settings, nicheId);
+        var clients     = GetFullAudience   (settings, nicheId);
+        var techCost    = GetTechCost       (settings, nicheId);
+        var adCosts     = GetAdCost         (settings, nicheId);
 
 
         var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts);
@@ -108,7 +108,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var clientsContainer = new Dictionary<int, long>
         {
-            [0] = GetFullAudience(settings.AudienceSize, nicheId)
+            [0] = clients
         };
 
         n.ReplaceNicheSegments(positionings);
@@ -119,49 +119,29 @@ public partial class MarketInitializerSystem : IInitializeSystem
         return n;
     }
 
-    long GetBatchSize(AudienceSize audience, int nicheId, NicheType NicheType)
+
+
+    private int GetTechCost(MarketProfile profile, int nicheId)
     {
-        return GetFullAudience(audience, nicheId);
-
-        var duration = 10 * 12; // 10 years
-
-        return (long)audience / duration;
-
-        var monthlyGrowth = 1.04d;
-
-        //var batch = (long)audience / Mathf.Pow(possibleMonthlyGrowth, repaymentPeriod);
-        var chisl = (long)audience * (1 - monthlyGrowth);
-        //Debug.Log($"Get batch size {niche.niche.NicheType}: chisl {chisl}");
-
-        var znam = (1 - System.Math.Pow(monthlyGrowth, duration));
-        //Debug.Log($"Get batch size {niche.niche.NicheType}: znam {znam}");
-
-
-        var batch = (chisl / znam);
-
-        Debug.Log($"Get batch size {NicheType}: {batch}");
-
-        return (long)batch;
-        //return Randomise((long)audience / repaymentPeriod, nicheId);
+        return (int)Randomise((int)profile.AppComplexity, nicheId);
     }
 
 
-
-    private int GetTechCost(AppComplexity complexity, int nicheId)
+    float GetProductPrice(MarketProfile profile, int nicheId)
     {
-        return (int)Randomise((int)complexity, nicheId);
-    }
+        Monetisation monetisationType = profile.MonetisationType;
+        Margin margin = profile.Margin;
 
-
-    float GetProductPrice(Monetisation monetisationType, Margin margin, int nicheId)
-    {
         var baseCost = (int)monetisationType * (int)margin;
 
         return Randomise(baseCost * 1000, nicheId) / 12f / 1000f;
     }
 
-    float GetAdCost(long clientBatch, Monetisation monetisationType, NicheSpeed nichePeriod, int nicheId)
+    float GetAdCost(MarketProfile profile, int nicheId)
     {
+        Monetisation monetisationType = profile.MonetisationType;
+        NicheSpeed nichePeriod = profile.NicheSpeed;
+
         var baseValue = (int)monetisationType;
 
         var repaymentTime = 1;
@@ -181,8 +161,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
 
-    long GetFullAudience(AudienceSize audienceSize, int nicheId)
+    long GetFullAudience(MarketProfile profile, int nicheId)
     {
+        AudienceSize audienceSize = profile.AudienceSize;
+
         return Randomise((long)audienceSize, nicheId);
     }
 
