@@ -56,5 +56,50 @@
                     return NicheState.Death;
             }
         }
+
+        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(Markets.GetMarketState(niche));
+        public static float GetMonthlyAudienceGrowthMultiplier(NicheState phase)
+        {
+            switch (phase)
+            {
+                case NicheState.Idle:
+                    return 1;
+
+                case NicheState.Innovation:
+                    return 1.01f;
+
+                case NicheState.Trending:
+                    return 1.02f;
+
+                case NicheState.MassGrowth:
+                    return 1.05f;
+            }
+
+            return 1.05f;
+        }
+
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(Markets.GetMarketState(niche));
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheState phase)
+        {
+            switch (phase)
+            {
+                case NicheState.Innovation:
+                    return 10;
+
+                case NicheState.Trending:
+                    return 25;
+
+                case NicheState.MassGrowth:
+                    return 55;
+
+                case NicheState.Decay:
+                    return 10;
+
+                case NicheState.Death:
+                case NicheState.Idle:
+                default:
+                    return 0;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Assets.Utils
                 AcquisitionCost  = costs.AcquisitionCost * adModifier,
                 TechCost         = costs.TechCost,
 
-                Audience      = costs.Audience,
+                Audience         = costs.Audience,
             };
         }
 
@@ -39,6 +39,46 @@ namespace Assets.Utils
             var costs = GetNicheCosts(niche);
 
             return costs.TechCost * Constants.SALARIES_PROGRAMMER;
+        }
+
+        // flow
+        public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
+        {
+            var niche = GetNiche(gameContext, nicheType);
+            var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
+
+
+            var stateDuration = GetCurrentNicheStateDuration(gameContext, nicheType);
+            var n = stateDuration + 1;
+            var q = GetMonthlyAudienceGrowthMultiplier(niche);
+
+            var multiplier = Mathf.Pow(q, n);
+
+            var result = baseFlowForStage * multiplier;
+
+            // normalise
+            var period = EconomyUtils.GetPeriodDuration();
+            return (long)(result * period / 30);
+        }
+
+        public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)
+        {
+            var costs = GetNicheCosts(gameContext, nicheType);
+
+
+            var totalStageClients = costs.Audience * GetAudiencePercentageThatProductsWillGetDuringThisMarketState(niche) / 100;
+
+            var monthlyGrowthMultiplier = GetMonthlyAudienceGrowthMultiplier(niche);
+            var stateMaxDuration = GetNichePeriodDurationInMonths(niche);
+
+            var q = monthlyGrowthMultiplier;
+            var nMax = stateMaxDuration;
+
+
+
+            var baseFlowForStage = totalStageClients * (1f - q) / (1f - Mathf.Pow(q, nMax));
+
+            return baseFlowForStage;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -25,7 +22,7 @@ namespace Assets.Utils
                 NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence(targetCompanyId, buyerShareholderId, bid));
 
 
-            Debug.LogFormat("ACQUISITION: {0} bought {1} for insane {2}!",
+            Debug.LogFormat("ACQUISITION: {0} bought {1} for {2}!",
                 GetInvestorName(gameContext, buyerShareholderId),
                 GetCompany(gameContext, targetCompanyId).company.Name,
                 Format.Money(bid));
