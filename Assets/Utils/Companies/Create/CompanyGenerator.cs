@@ -92,7 +92,7 @@ namespace Assets.Utils
         {
             return new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
+                [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
                 [CorporatePolicy.WorkerMindset]  = Random.Range(1, 6),
                 [CorporatePolicy.Focusing]       = Random.Range(1, 6),
                 [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 6),
@@ -103,7 +103,7 @@ namespace Assets.Utils
         {
             return new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.Responsibility] = Random.Range(1, 6),
+                [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
                 [CorporatePolicy.WorkerMindset]  = Random.Range(1, 3),
                 [CorporatePolicy.Focusing]       = Random.Range(1, 6),
                 [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 3),

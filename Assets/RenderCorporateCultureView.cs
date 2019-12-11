@@ -11,7 +11,7 @@ public class RenderCorporateCultureView : View
     {
         base.ViewRender();
 
-        SetText(Leadership, CorporatePolicy.Responsibility);
+        SetText(Leadership, CorporatePolicy.LeaderOrTeam);
         SetText(Mindset,    CorporatePolicy.WorkerMindset);
         SetText(Focusing,   CorporatePolicy.Focusing);
         SetText(Expansion,  CorporatePolicy.CreateOrBuy);

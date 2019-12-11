@@ -238,7 +238,7 @@ public class PreviousAcquisitionOffersComponent : IComponent
 
 public enum CorporatePolicy
 {
-    Responsibility, // team vs leader
+    LeaderOrTeam, // team vs leader
     CreateOrBuy,
     WorkerMindset, // engineer vs researcher
     Focusing,

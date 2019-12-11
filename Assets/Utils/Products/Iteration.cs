@@ -32,9 +32,13 @@
             var culture = company.corporateCulture.Culture;
             var mindsetModifier = culture[CorporatePolicy.WorkerMindset];
 
+            var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
+
             var modifiers = 100 + innovationTime
                 - financing[Financing.Team] * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL
-                - mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL;
+                - mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL
+                - companyLimitPenalty;
+
 
             var time = (int) (baseConceptTime * modifiers / 100f);
             //Debug.Log($"GetProductUpgradeIterationTime: company={company.company.Name} dev={devModifier} culture={culture} ** result={time}");

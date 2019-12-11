@@ -6,14 +6,15 @@
         {
             var culture = company.corporateCulture.Culture;
             var sphereOfInterestBonus = 0;
+
+            var parent = Companies.GetParentCompany(gameContext, company);
+            var managingCompany = company.isIndependentCompany ? company : parent;
+
             if (!company.isIndependentCompany)
             {
-                var parent = Companies.GetParentCompany(gameContext, company);
-
-
                 if (parent != null)
                 {
-                    culture = parent.corporateCulture.Culture;
+                    culture = managingCompany.corporateCulture.Culture;
                     if (Companies.IsInSphereOfInterest(parent, company.product.Niche))
                         sphereOfInterestBonus = 5;
                 }
@@ -26,9 +27,9 @@
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
             // culture bonuses
-            var responsibility = culture[CorporatePolicy.Responsibility];
-            var mindset = culture[CorporatePolicy.WorkerMindset];
-            var createOrBuy = culture[CorporatePolicy.CreateOrBuy];
+            var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
+            var mindset         = culture[CorporatePolicy.WorkerMindset];
+            var createOrBuy     = culture[CorporatePolicy.CreateOrBuy];
 
             // culture bonuses
 
@@ -40,6 +41,7 @@
                 .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)
                 .Append("Corporate Culture Mindset", 10 - mindset * 2)
                 .Append("Corporate Culture Acquisitions", createOrBuy * 2)
+                .AppendAndHideIfZero("Too many primary markets", Companies.GetPrimaryMarketsInnovationPenalty(company, gameContext))
                 
                 .AppendAndHideIfZero("Is independent company", company.isIndependentCompany ? 5 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
