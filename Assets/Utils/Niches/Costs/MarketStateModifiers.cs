@@ -59,14 +59,14 @@
                     return 0;
 
                 case NicheState.Innovation:
-                    return 25;
+                    return 30;
 
                 case NicheState.Trending:
-                    return 15;
+                    return 20;
 
                 case NicheState.MassGrowth:
                 case NicheState.MassUsage:
-                    return 5;
+                    return 10;
 
                 default: return 0;
             }

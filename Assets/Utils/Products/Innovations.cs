@@ -4,13 +4,10 @@
     {
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
-            var sphereOfInterestBonus = 0;
-
             var managingCompany = product.isIndependentCompany ? product : Companies.GetParentCompany(gameContext, product);
             var culture = managingCompany.corporateCulture.Culture;
 
             bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
-
 
             // market state
             var niche = Markets.GetNiche(gameContext, product);
@@ -28,22 +25,20 @@
             // culture bonuses
 
             return new Bonus<long>("Innovation chance")
-                .Append("Base", 5)
                 // market
                 .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
-                
+
                 // corp culture
                 .Append("CEO bonus", GetLeaderInnovationBonus(product) * (10 - responsibility) / 10)
                 .Append("Corporate Culture Mindset", 5 - mindset)
                 .Append("Corporate Culture Acquisitions", createOrBuy * 2)
-                .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? 5 * focusing : 0)
 
                 // focusing / sphere of interest
+                .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
                 .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
-                .AppendAndHideIfZero("Too many primary markets", Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext))
-                
-                .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
+                .AppendAndHideIfZero("Too many primary markets", -Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext))
+                ;
         }
 
         public static int GetHoldingBonus(GameEntity product, GameEntity holding)
@@ -53,7 +48,11 @@
 
         public static int GetFocusingBonus(GameEntity product)
         {
-            return 0;
+            var culture = product.corporateCulture.Culture;
+
+            var focusing = culture[CorporatePolicy.Focusing];
+
+            return 5 * (5 - focusing);
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)
