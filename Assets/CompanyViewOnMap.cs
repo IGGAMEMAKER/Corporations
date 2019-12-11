@@ -20,6 +20,8 @@ public class CompanyViewOnMap : View
 
     public RenderConceptProgress ConceptProgress;
 
+    public GameObject AggressiveMarketing;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -59,6 +61,9 @@ public class CompanyViewOnMap : View
                 Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
                 );
         }
+
+        var financing = company.financing.Financing[Financing.Marketing];
+        AggressiveMarketing.SetActive(financing == ProductUtils.GetMaxFinancing);
     }
 
     Color GetMarketRelevanceColor()
