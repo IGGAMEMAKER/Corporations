@@ -37,7 +37,7 @@
                 .Append("CEO bonus", GetLeaderInnovationBonus(product) * (10 - responsibility) / 10)
                 .Append("Corporate Culture Mindset", 5 - mindset)
                 .Append("Corporate Culture Acquisitions", createOrBuy * 2)
-                .AppendAndHideIfZero("Is Primary Market", isPrimaryMarket ? 5 * focusing : 0)
+                .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? 5 * focusing : 0)
 
                 // focusing / sphere of interest
                 .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
