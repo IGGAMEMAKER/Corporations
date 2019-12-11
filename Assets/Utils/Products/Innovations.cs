@@ -2,25 +2,18 @@
 {
     public static partial class ProductUtils
     {
-        public static Bonus<long> GetInnovationChanceBonus(GameEntity company, GameContext gameContext)
+        public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
-            var culture = company.corporateCulture.Culture;
             var sphereOfInterestBonus = 0;
 
-            var parent = Companies.GetParentCompany(gameContext, company);
-            var managingCompany = company.isIndependentCompany ? company : parent;
+            var managingCompany = product.isIndependentCompany ? product : Companies.GetParentCompany(gameContext, product);
+            var culture = managingCompany.corporateCulture.Culture;
 
-            if (!company.isIndependentCompany)
-            {
-                if (parent != null)
-                {
-                    culture = managingCompany.corporateCulture.Culture;
-                    if (Companies.IsInSphereOfInterest(parent, company.product.Niche))
-                        sphereOfInterestBonus = 5;
-                }
-            }
+            bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
 
-            var niche = Markets.GetNiche(gameContext, company.product.Niche);
+
+
+            var niche = Markets.GetNiche(gameContext, product);
             var phase = Markets.GetMarketState(niche);
             var marketStage = Markets.GetMarketStageInnovationModifier(niche);
 
@@ -30,6 +23,7 @@
             var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
             var mindset         = culture[CorporatePolicy.WorkerMindset];
             var createOrBuy     = culture[CorporatePolicy.CreateOrBuy];
+            var focusing        = culture[CorporatePolicy.Focusing];
 
             // culture bonuses
 
@@ -38,13 +32,17 @@
                 .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
                 
-                .Append("CEO bonus", GetLeaderInnovationBonus(company) * (5 + (5 - responsibility)) / 10)
+                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (5 + (5 - responsibility)) / 10)
                 .Append("Corporate Culture Mindset", 10 - mindset * 2)
                 .Append("Corporate Culture Acquisitions", createOrBuy * 2)
-                .AppendAndHideIfZero("Too many primary markets", Companies.GetPrimaryMarketsInnovationPenalty(company, gameContext))
+                .AppendAndHideIfZero("Too many primary markets", Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext))
                 
-                .AppendAndHideIfZero("Is independent company", company.isIndependentCompany ? 5 : 0)
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
+        }
+
+        public static int GetFocusingBonus(GameEntity product)
+        {
+
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)
@@ -64,18 +62,18 @@
             }
         }
 
-        public static int GetInnovationChance(GameEntity company, GameContext gameContext)
+        public static int GetInnovationChance(GameEntity product, GameContext gameContext)
         {
-            var chance = GetInnovationChanceBonus(company, gameContext);
+            var chance = GetInnovationChanceBonus(product, gameContext);
 
             return (int)chance.Sum();
         }
 
-        public static int GetLeaderInnovationBonus(GameEntity company)
+        public static int GetLeaderInnovationBonus(GameEntity product)
         {
             //var CEOId = 
-            int companyId = company.company.Id;
-            int CEOId = Companies.GetCEOId(company);
+            int companyId = product.company.Id;
+            int CEOId = Companies.GetCEOId(product);
 
             //var accumulated = GetAccumulatedExpertise(company);
 
