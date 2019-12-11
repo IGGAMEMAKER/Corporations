@@ -12,7 +12,7 @@
             bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
 
 
-
+            // market state
             var niche = Markets.GetNiche(gameContext, product);
             var phase = Markets.GetMarketState(niche);
             var marketStage = Markets.GetMarketStageInnovationModifier(niche);
@@ -29,20 +29,31 @@
 
             return new Bonus<long>("Innovation chance")
                 .Append("Base", 5)
+                // market
                 .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
                 
+                // corp culture
                 .Append("CEO bonus", GetLeaderInnovationBonus(product) * (5 + (5 - responsibility)) / 10)
                 .Append("Corporate Culture Mindset", 10 - mindset * 2)
-                .Append("Corporate Culture Acquisitions", createOrBuy * 2)
+                .Append("Corporate Culture Acquisitions", createOrBuy)
+                .AppendAndHideIfZero("Is Primary Market", isPrimaryMarket ? 5 * focusing : 0)
+
+                // focusing / sphere of interest
+                .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
                 .AppendAndHideIfZero("Too many primary markets", Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext))
                 
                 .AppendAndHideIfZero("Parent company focuses on this company market", sphereOfInterestBonus);
         }
 
+        public static int GetHoldingBonus(GameEntity product, GameEntity holding)
+        {
+            return 0;
+        }
+
         public static int GetFocusingBonus(GameEntity product)
         {
-
+            return 0;
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)
