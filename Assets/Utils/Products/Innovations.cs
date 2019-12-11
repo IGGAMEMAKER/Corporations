@@ -34,9 +34,9 @@
                 .Append("Market change speed", marketSpeedPenalty)
                 
                 // corp culture
-                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (5 + (5 - responsibility)) / 10)
-                .Append("Corporate Culture Mindset", 10 - mindset * 2)
-                .Append("Corporate Culture Acquisitions", createOrBuy)
+                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (10 - responsibility) / 10)
+                .Append("Corporate Culture Mindset", 5 - mindset)
+                .Append("Corporate Culture Acquisitions", createOrBuy * 2)
                 .AppendAndHideIfZero("Is Primary Market", isPrimaryMarket ? 5 * focusing : 0)
 
                 // focusing / sphere of interest
