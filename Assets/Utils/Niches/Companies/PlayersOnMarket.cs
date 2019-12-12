@@ -102,71 +102,6 @@ namespace Assets.Utils
             return GetProductsOnMarket(gameContext, niche.niche.NicheType).Count() == 0;
         }
 
-        // Leaders
-        public static GameEntity GetMostProfitableCompanyOnMarket(GameContext context, GameEntity niche)
-        {
-            var players = GetProductsOnMarket(context, niche.niche.NicheType);
-
-            var productCompany = players
-                .OrderByDescending(p => Economy.GetProfit(p, context))
-                .FirstOrDefault();
-
-            return productCompany;
-        }
-
-        public static long GetBiggestIncomeOnMarket(GameContext context, GameEntity niche)
-        {
-            var players = GetProductsOnMarket(context, niche.niche.NicheType);
-
-            var productCompany = players
-                .OrderByDescending(p => Economy.GetProductCompanyIncome(p, context))
-                .FirstOrDefault();
-
-            if (productCompany == null)
-                return 0;
-
-            return Economy.GetProductCompanyIncome(productCompany, context);
-        }
-
-        public static long GetLowestIncomeOnMarket(GameContext context, GameEntity niche)
-        {
-            var players = GetProductsOnMarket(context, niche.niche.NicheType);
-
-            var productCompany = players
-                .OrderBy(p => Economy.GetProductCompanyIncome(p, context))
-                .FirstOrDefault();
-
-            if (productCompany == null)
-                return 0;
-
-            return Economy.GetProductCompanyIncome(productCompany, context);
-        }
-
-        public static long GetBiggestMaintenanceOnMarket(GameContext context, GameEntity niche)
-        {
-            var players = GetProductsOnMarket(context, niche.niche.NicheType);
-
-            var productCompany = players
-                .OrderByDescending(p => Economy.GetProductCompanyMaintenance(p, context))
-                .FirstOrDefault();
-
-            if (productCompany == null)
-                return 0;
-
-            return Economy.GetProductCompanyMaintenance(productCompany, context);
-        }
-
-        public static GameEntity GetPotentialMarketLeader(GameContext context, NicheType niche)
-        {
-            var list = GetProductsOnMarket(context, niche)
-            .OrderByDescending(p => Products.GetInnovationChance(p, context) * 100 + (int)p.branding.BrandPower);
-
-            if (list.Count() == 0)
-                return null;
-
-            return list.First();
-        }
-
 
 
         // competitiveness
@@ -198,14 +133,6 @@ namespace Assets.Utils
             if (name.Length >= n) return name.Substring(0, n - 3) + "...";
 
             return name;
-        }
-
-        public static IEnumerable<string> GetCompetitorSegmentLevels(GameEntity e, GameContext context)
-        {
-            var names = GetProductsOnMarket(context, e)
-                .Select(c => c.product.Concept + "lvl - " + ProlongNameToNDigits(c.company.Name, 10));
-
-            return names;
         }
     }
 }
