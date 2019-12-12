@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -41,24 +42,21 @@ namespace Assets.Utils
             return false;
         }
 
+        public static bool IsAllReleasedCompaniesAreProfiteering(GameEntity niche, GameContext gameContext)
+        {
+            var releasedProducts = GetProductsOnMarket(niche, gameContext).Where(p => p.isRelease);
+
+            return releasedProducts.All(p => Economy.IsProfitable(gameContext, p.company.Id));
+        }
+
+        public static bool IsMarketCanAffordMoreCompanies(GameEntity niche, GameContext gameContext) => IsAllReleasedCompaniesAreProfiteering(niche, gameContext);
+
         public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
-            var nicheRating = GetMarketRating(niche);
-            var potential = GetMarketPotential(niche);
+            var noCompanies = IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket);
+            var competitionIsLow = IsMarketCanAffordMoreCompanies(niche, gameContext);
 
-            var potentialRating = Mathf.Log10(potential) - 5;
-            //                              1...5 = 25  *               1...4 = 10           
-            var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
-
-
-            if (phase == MarketState.Trending)
-                spawnChance *= 5;
-
-            // force spawn if no companies
-            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket))
-                spawnChance = 1200;
-
-            if (spawnChance > Random.Range(0, 1000))
+            if (noCompanies || competitionIsLow)
                 SpawnCompany(niche, gameContext);
         }
 
