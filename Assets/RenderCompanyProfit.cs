@@ -7,8 +7,8 @@ public class RenderCompanyProfit : UpgradedParameterView
         var income = Economy.GetCompanyIncome(SelectedCompany, GameContext);
         var maintenance = Economy.GetProductCompanyMaintenance(SelectedCompany, GameContext);
 
-        var devCost = Economy.GetProductDevelopmentCost(SelectedCompany, GameContext);
-        var marketingCost = Economy.GetProductMarketingCost(SelectedCompany, GameContext);
+        var devCost = Economy.GetDevelopmentCost(SelectedCompany, GameContext);
+        var marketingCost = Economy.GetMarketingCost(SelectedCompany, GameContext);
 
 
         var bonus = new Bonus<long>("Balance change")

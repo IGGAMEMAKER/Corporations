@@ -28,7 +28,7 @@ public class ToggleFinancingMarketing : View
         var text = "";
         var title = Dropdown.itemText.text;
         var bonuses = "";
-        long cost = Economy.GetProductMarketingCost(SelectedCompany, GameContext);
+        long cost = Economy.GetMarketingCost(SelectedCompany, GameContext);
 
         var description = "";
         switch (SelectedCompany.financing.Financing[Financing.Marketing])

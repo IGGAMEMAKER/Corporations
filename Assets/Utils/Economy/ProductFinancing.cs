@@ -33,7 +33,7 @@ namespace Assets.Utils
             var financing = GetMarketingFinancing(e);
             var nextFinancing = GetNextMarketingFinancing(e);
 
-            var nextCost = GetProductMarketingCost(e, gameContext, nextFinancing);
+            var nextCost = GetMarketingCost(e, gameContext, nextFinancing);
 
             return nextCost;
         }

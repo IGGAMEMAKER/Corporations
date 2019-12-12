@@ -27,7 +27,7 @@ public partial class BaseProductSystems : OnDateChange
 
     void ManageMarketing(GameEntity product)
     {
-        var currentCost = Economy.GetProductMarketingCost(product, gameContext);
+        var currentCost = Economy.GetMarketingCost(product, gameContext);
         var nextCost = Economy.GetNextMarketingLevelCost(product, gameContext);
 
         var diff = nextCost - currentCost;
