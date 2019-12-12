@@ -1,6 +1,4 @@
-﻿using Entitas;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Utils
@@ -33,7 +31,10 @@ namespace Assets.Utils
             return Companies.GetProductCompanies(context).Where(p => p.product.Niche == niche);
         }
 
-
+        public static bool IsEmptyMarket(GameContext gameContext, NicheType niche)
+        {
+            return GetCompetitorsAmount(niche, gameContext) == 0;
+        }
 
 
         public static int GetCompetitorsAmount(GameEntity e, GameContext context)
@@ -50,81 +51,6 @@ namespace Assets.Utils
             return GetProductsOnMarket(context, niche).Count();
         }
 
-
-
-        // sphere of interests
-        public static IEnumerable<GameEntity> GetNonFinancialCompaniesWithSameInterests (GameContext context, GameEntity company)
-        {
-            return GetCompaniesWithSameInterests(context, company).Where(Companies.IsNotFinancialStructure);
-        }
-
-        public static IEnumerable<GameEntity> GetFinancialStructuresWithSameInterests (GameContext context, GameEntity company)
-        {
-            return GetCompaniesWithSameInterests(context, company).Where(Companies.IsFinancialStructure);
-        }
-
-        public static IEnumerable<GameEntity> GetCompaniesWithSameInterests (GameContext context, GameEntity company)
-        {
-            var independent = Companies.GetIndependentCompanies(context);
-
-            var interests = company.companyFocus.Niches;
-
-            return independent.Where(c =>
-            (c.hasProduct && interests.Contains(c.product.Niche))
-            ||
-            (c.hasCompanyFocus && c.companyFocus.Niches.Intersect(interests).Count() > 0)
-            );
-        }
-
-        public static bool IsShareSameInterests(GameEntity c1, GameEntity c2)
-        {
-            var interests1 = c1.companyFocus.Niches;
-            var interests2 = c2.companyFocus.Niches;
-
-            return interests1.Intersect(interests2).Count() > 0;
-        }
-
-        public static IEnumerable<GameEntity> GetCompaniesInterestedInMarket (GameContext context, NicheType niche)
-        {
-            var independent = Companies.GetIndependentCompanies(context);
-
-            return independent.Where(c =>
-            (c.hasProduct && c.product.Niche == niche)
-            ||
-            (c.hasCompanyFocus && c.companyFocus.Niches.Contains(niche))
-            );
-        }
-
-
-
-        public static bool IsEmptyMarket(GameContext gameContext, GameEntity niche)
-        {
-            return GetProductsOnMarket(gameContext, niche.niche.NicheType).Count() == 0;
-        }
-
-
-
-        // competitiveness
-        internal static Bonus<long> GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
-        {
-            var conceptStatus = Products.GetConceptStatus(company, gameContext);
-
-            var techLeadershipBonus = conceptStatus == ConceptStatus.Leader;
-
-            var isOutdated = conceptStatus == ConceptStatus.Outdated;
-            var isInMarket = conceptStatus == ConceptStatus.Relevant;
-
-            return new Bonus<long>("Product Competitiveness")
-                .RenderTitle()
-                .AppendAndHideIfZero("Is in market", isInMarket ? 2 : 0)
-                .AppendAndHideIfZero("Is outdated", isOutdated ? - 10: 0)
-                .AppendAndHideIfZero("Is Setting Trends", techLeadershipBonus ? 15 : 0);
-        }
-
-        internal static long GetProductCompetitiveness(GameEntity company, GameContext gameContext)
-        {
-            return (long)GetProductCompetitivenessBonus(company, gameContext).Sum();
-        }
 
 
 

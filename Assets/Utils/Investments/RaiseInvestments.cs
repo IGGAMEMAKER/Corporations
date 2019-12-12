@@ -7,9 +7,6 @@
         {
             var description = new Bonus<long>("Investor opinion");
 
-            if (company.hasProduct)
-                AppendProductBonuses(description, company, gameContext);
-
             if (IsInvestsInCompany(investor, company))
                 description.AppendAndHideIfZero("Invests already", 35);
 
@@ -30,11 +27,6 @@
             );
 
             return title;
-        }
-
-        private static void AppendProductBonuses(Bonus<long> bonusContainer, GameEntity company, GameContext gameContext)
-        {
-            bonusContainer.Append("Product competitiveness", Markets.GetProductCompetitiveness(company, gameContext));
         }
 
         public static long GetInvestorOpinion(GameContext gameContext, GameEntity company, GameEntity investor)
@@ -78,11 +70,7 @@
             return shareholder.companyFocus.Niches.Contains(company.product.Niche);
         }
 
-        public static bool IsInvestsInCompany(GameEntity shareholder, GameEntity company)
-        {
-            return IsInvestsInCompany(shareholder.shareholder.Id, company);
-        }
-
+        public static bool IsInvestsInCompany(GameEntity shareholder, GameEntity company) => IsInvestsInCompany(shareholder.shareholder.Id, company);
         public static bool IsInvestsInCompany(int shareholderId, GameEntity company)
         {
             return company.shareholders.Shareholders.ContainsKey(shareholderId);
