@@ -24,6 +24,25 @@ namespace Assets.Utils
 
 
 
+            TryToSpawnCompany(niche, gameContext, phase, playersOnMarket);
+        }
+
+        public static bool IsNeedsMoreCompaniesOnMarket(GameEntity niche, GameContext gameContext, NicheState phase, int playersOnMarket)
+        {
+            // force spawning if there are no companies
+            if (playersOnMarket == 0)
+            {
+                if (InspirationToPlayer(niche.niche.NicheType, gameContext))
+                    return false;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, NicheState phase, int playersOnMarket)
+        {
             var nicheRating = GetMarketRating(niche);
             var potential = GetMarketPotential(niche);
 
@@ -32,29 +51,32 @@ namespace Assets.Utils
             var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
 
 
-            // force spawning if there are no companies on idle phase
-            if (phase == NicheState.Idle || playersOnMarket == 0)
-            {
-                spawnChance = 1200;
-
-                var inspirationChance = 6;
-                if (inspirationChance > Random.Range(0, 100))
-                {
-                    var player = Companies.GetPlayerCompany(gameContext);
-
-                    if (player != null && Companies.IsInSphereOfInterest(player, nicheType))
-                    {
-                        NotificationUtils.AddPopup(gameContext, new PopupMessageMarketInspiration(nicheType));
-                        return;
-                    }
-                }
-            }
-
             if (phase == NicheState.Trending)
                 spawnChance *= 5;
 
+            // force spawn if no companies
+            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket))
+                spawnChance = 1200;
+
             if (spawnChance > Random.Range(0, 1000))
                 SpawnCompany(niche, gameContext);
+        }
+
+        public static bool InspirationToPlayer(NicheType nicheType, GameContext gameContext)
+        {
+            var inspirationChance = 6;
+            if (inspirationChance > Random.Range(0, 100))
+            {
+                var player = Companies.GetPlayerCompany(gameContext);
+
+                if (player != null && Companies.IsInSphereOfInterest(player, nicheType))
+                {
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageMarketInspiration(nicheType));
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static void SpawnCompany(GameEntity niche, GameContext gameContext)
