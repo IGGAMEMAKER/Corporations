@@ -22,7 +22,8 @@
             var createOrBuy     = culture[CorporatePolicy.CreateOrBuy];
             var focusing        = culture[CorporatePolicy.Focusing];
 
-            // culture bonuses
+            // penalties
+            var tooManyPrimaryMarketsPenalty = Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext);
 
             return new Bonus<long>("Innovation chance")
                 // market
@@ -37,7 +38,7 @@
                 // focusing / sphere of interest
                 .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
                 .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
-                .AppendAndHideIfZero("Too many primary markets", -Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext))
+                .AppendAndHideIfZero("Too many primary markets", -tooManyPrimaryMarketsPenalty)
                 ;
         }
 
