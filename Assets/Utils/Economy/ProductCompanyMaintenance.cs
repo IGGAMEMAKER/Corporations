@@ -31,17 +31,23 @@ namespace Assets.Utils
             return GetProductMarketingCost(e, gameContext, financing);
         }
 
-        public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
-        {
-            var baseCost = Markets.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
+        public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
             var concept = Products.GetProductLevel(e);
             var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
-            var workers = Mathf.Pow(1f + complexity, concept);
+            return (int)Mathf.Pow(complexity, concept / 9);
+        }
 
-            return (long)(baseCost * workers);
+        public static long GetProductDevelopmentCost(GameEntity e, GameContext gameContext)
+        {
+            var baseCost = Markets.GetBaseDevelopmentCost(e.product.Niche, gameContext);
+
+            var workers = GetAmountOfWorkers(e, gameContext);
+
+            return baseCost * workers;
         }
     }
 }
