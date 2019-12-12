@@ -101,9 +101,7 @@
 
         public static long GetProductCompanyOpinion(GameEntity company, GameContext gameContext)
         {
-            var marketSituation = Markets.GetProductCompetitiveness(company, gameContext);
-
-            return marketSituation;
+            return 1;
         }
 
         public static int GetRandomInvestmentFund(GameContext context)
