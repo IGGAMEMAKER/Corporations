@@ -69,7 +69,7 @@ public class MarketPotentialView : View
         var demand = MarketingUtils.GetClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
-        var baseMaintenance = Markets.GetBaseProductMaintenance(niche);
+        var baseMaintenance = Markets.GetBaseProductMaintenance(GameContext, niche);
         Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
 
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
@@ -92,7 +92,7 @@ public class MarketPotentialView : View
             }
         }
 
-        var start = Markets.GetStartCapital(niche);
+        var start = Markets.GetStartCapital(niche, GameContext);
         if (StartCapital != null)
         {
             StartCapital.text = Format.Money(start);

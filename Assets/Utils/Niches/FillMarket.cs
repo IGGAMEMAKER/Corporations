@@ -82,7 +82,7 @@ namespace Assets.Utils
         public static void SpawnCompany(GameEntity niche, GameContext gameContext)
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
-            Companies.SetStartCapital(product, niche);
+            Companies.SetStartCapital(product, niche, gameContext);
 
 
             var potentialLeader = GetPotentialMarketLeader(gameContext, niche.niche.NicheType);

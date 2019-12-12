@@ -70,7 +70,7 @@ public class NicheTableListView : ListView
 
     bool IsSuitableByCapitalSize (GameEntity niche)
     {
-        var capital = Markets.GetStartCapital(niche);
+        var capital = Markets.GetStartCapital(niche, GameContext);
 
         if (!IncludeOnlyAffordableByStartCapital)
             return true;

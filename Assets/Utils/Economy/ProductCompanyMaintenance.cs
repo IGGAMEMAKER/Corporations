@@ -37,11 +37,9 @@ namespace Assets.Utils
 
         public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var baseCost = Markets.GetBaseDevelopmentCost(e.product.Niche, gameContext);
-
             var workers = GetAmountOfWorkers(e, gameContext);
 
-            return baseCost * workers;
+            return workers * Constants.SALARIES_PROGRAMMER;
         }
     }
 }

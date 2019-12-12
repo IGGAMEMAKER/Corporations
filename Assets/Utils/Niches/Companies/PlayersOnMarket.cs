@@ -142,6 +142,20 @@ namespace Assets.Utils
             return Economy.GetProductCompanyIncome(productCompany, context);
         }
 
+        public static long GetBiggestMaintenanceOnMarket(GameContext context, GameEntity niche)
+        {
+            var players = GetProductsOnMarket(context, niche.niche.NicheType);
+
+            var productCompany = players
+                .OrderByDescending(p => Economy.GetProductCompanyMaintenance(p, context))
+                .FirstOrDefault();
+
+            if (productCompany == null)
+                return 0;
+
+            return Economy.GetProductCompanyMaintenance(productCompany, context);
+        }
+
         public static GameEntity GetPotentialMarketLeader(GameContext context, NicheType niche)
         {
             var list = GetProductsOnMarket(context, niche)

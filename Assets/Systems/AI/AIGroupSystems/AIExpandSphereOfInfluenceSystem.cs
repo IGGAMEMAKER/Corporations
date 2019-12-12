@@ -55,7 +55,7 @@ public partial class AIManageGroupSystems
         var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 
         var suitableNiches = playableNiches
-            .Where(n => Companies.IsEnoughResources(group, Markets.GetStartCapital(n))) // can start business and hold for a while
+            .Where(n => Companies.IsEnoughResources(group, Markets.GetStartCapital(n, gameContext))) // can start business and hold for a while
             .Where(n => !Companies.IsInSphereOfInterest(group, n.niche.NicheType)) // exclude niches, that we cover already
             .Where(n => Markets.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2) // is profitable niche
             //.Where(n => NicheUtils.GetBiggestIncomeOnMarket(gameContext, n) > averageProfit) // can compete with current products

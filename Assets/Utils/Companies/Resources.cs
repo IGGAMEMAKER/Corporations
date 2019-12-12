@@ -25,10 +25,10 @@ namespace Assets.Utils
             company.ReplaceCompanyResource(company.companyResource.Resources);
         }
 
-        public static void SetStartCapital(GameEntity product, GameContext gameContext) => SetStartCapital(product, Markets.GetNiche(gameContext, product));
-        public static void SetStartCapital(GameEntity product, GameEntity niche)
+        public static void SetStartCapital(GameEntity product, GameContext gameContext) => SetStartCapital(product, Markets.GetNiche(gameContext, product), gameContext);
+        public static void SetStartCapital(GameEntity product, GameEntity niche, GameContext gameContext)
         {
-            var startCapital = Markets.GetStartCapital(niche) * Random.Range(50, 150) / 100;
+            var startCapital = Markets.GetStartCapital(niche, gameContext) * Random.Range(50, 150) / 100;
 
             AddResources(product, new TeamResource(startCapital));
         }

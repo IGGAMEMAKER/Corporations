@@ -23,8 +23,8 @@
 
         public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
         {
-            var niche = Markets.GetNiche(gameContext, company.product.Niche);
-            var baseConceptTime = GetBaseIterationTime(niche);
+            var niche = Markets.GetNiche(gameContext, company);
+            var baseIterationTime = GetBaseIterationTime(niche);
 
             var innovationPenalty = IsWillInnovate(company, gameContext) ? 50 : 0;
             var financing = company.financing.Financing;
@@ -37,9 +37,18 @@
                 + companyLimitPenalty;
 
 
-            var time = (int) (baseConceptTime * modifiers / 100f);
+            var time = (int) (baseIterationTime * modifiers / 100f);
 
             return time;
+        }
+
+        public static int GetTimeToMarketFromScratch(GameEntity niche)
+        {
+            var demand = GetMarketDemand(niche);
+            var iterationTime = GetBaseIterationTime(niche);
+            var timeToMarket = demand * iterationTime / 30;
+
+            return timeToMarket;
         }
     }
 }
