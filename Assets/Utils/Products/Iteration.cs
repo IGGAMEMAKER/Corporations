@@ -26,22 +26,18 @@
             var niche = Markets.GetNiche(gameContext, company.product.Niche);
             var baseConceptTime = GetBaseIterationTime(niche);
 
-            var innovationTime = IsWillInnovate(company, gameContext) ? 50 : 0;
+            var innovationPenalty = IsWillInnovate(company, gameContext) ? 50 : 0;
             var financing = company.financing.Financing;
-
-            var culture = company.corporateCulture.Culture;
-            var mindsetModifier = culture[CorporatePolicy.WorkerMindset];
 
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
-            var modifiers = 100 + innovationTime
+            var modifiers = 100 + innovationPenalty
                 - financing[Financing.Team] * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL
-                - mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL
-                - companyLimitPenalty;
+                //- mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL
+                + companyLimitPenalty;
 
 
             var time = (int) (baseConceptTime * modifiers / 100f);
-            //Debug.Log($"GetProductUpgradeIterationTime: company={company.company.Name} dev={devModifier} culture={culture} ** result={time}");
 
             return time;
         }

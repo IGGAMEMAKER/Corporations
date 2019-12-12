@@ -1,9 +1,6 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class RenderPrimaryMarketsInnovationChancesDescription : View
