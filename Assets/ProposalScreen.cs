@@ -18,7 +18,7 @@ public class ProposalScreen : View
 
     void RenderOffer()
     {
-        long Cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        long Cost = Economy.GetCompanyCost(GameContext, SelectedCompany.company.Id);
 
         long offer = proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);

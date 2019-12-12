@@ -108,7 +108,7 @@ namespace Assets.Utils
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderByDescending(p => EconomyUtils.GetProfit(p, context))
+                .OrderByDescending(p => Economy.GetProfit(p, context))
                 .FirstOrDefault();
 
             return productCompany;
@@ -119,13 +119,13 @@ namespace Assets.Utils
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderByDescending(p => EconomyUtils.GetProductCompanyIncome(p, context))
+                .OrderByDescending(p => Economy.GetProductCompanyIncome(p, context))
                 .FirstOrDefault();
 
             if (productCompany == null)
                 return 0;
 
-            return EconomyUtils.GetProductCompanyIncome(productCompany, context);
+            return Economy.GetProductCompanyIncome(productCompany, context);
         }
 
         public static long GetLowestIncomeOnMarket(GameContext context, GameEntity niche)
@@ -133,13 +133,13 @@ namespace Assets.Utils
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderBy(p => EconomyUtils.GetProductCompanyIncome(p, context))
+                .OrderBy(p => Economy.GetProductCompanyIncome(p, context))
                 .FirstOrDefault();
 
             if (productCompany == null)
                 return 0;
 
-            return EconomyUtils.GetProductCompanyIncome(productCompany, context);
+            return Economy.GetProductCompanyIncome(productCompany, context);
         }
 
         public static GameEntity GetPotentialMarketLeader(GameContext context, NicheType niche)

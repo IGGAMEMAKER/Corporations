@@ -57,7 +57,7 @@ namespace Assets.Utils
             var result = baseFlowForStage * multiplier;
 
             // normalise
-            var period = EconomyUtils.GetPeriodDuration();
+            var period = Economy.GetPeriodDuration();
             return (long)(result * period / 30);
         }
 

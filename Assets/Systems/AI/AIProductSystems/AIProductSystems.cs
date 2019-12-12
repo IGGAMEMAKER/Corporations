@@ -27,8 +27,8 @@ public partial class BaseProductSystems : OnDateChange
 
     void ManageMarketing(GameEntity product)
     {
-        var currentCost = EconomyUtils.GetProductMarketingCost(product, gameContext);
-        var nextCost = EconomyUtils.GetNextMarketingLevelCost(product, gameContext);
+        var currentCost = Economy.GetProductMarketingCost(product, gameContext);
+        var nextCost = Economy.GetNextMarketingLevelCost(product, gameContext);
 
         var diff = nextCost - currentCost;
 
@@ -36,18 +36,18 @@ public partial class BaseProductSystems : OnDateChange
         //if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
         if (!Companies.IsEnoughResources(product, currentCost))
         {
-            var financing = EconomyUtils.GetCheaperFinancing(product);
+            var financing = Economy.GetCheaperFinancing(product);
 
             Products.SetMarketingFinancing(product, financing);
         }
 
         if (Companies.IsEnoughResources(product, nextCost))
-            Products.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
+            Products.SetMarketingFinancing(product, Economy.GetNextMarketingFinancing(product));
     }
 
     void ManageDumpingProduct(GameEntity product)
     {
-        var willBeBankruptIn6Months = !Companies.IsEnoughResources(product, EconomyUtils.GetProductCompanyMaintenance(product, gameContext) * 6);
+        var willBeBankruptIn6Months = !Companies.IsEnoughResources(product, Economy.GetProductCompanyMaintenance(product, gameContext) * 6);
         var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
 
         var hasLowMarketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;

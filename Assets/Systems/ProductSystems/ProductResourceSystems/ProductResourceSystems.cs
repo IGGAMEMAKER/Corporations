@@ -13,7 +13,7 @@ class ProductResourceSystems : OnPeriodChange
 
         foreach (var e in products)
         {
-            var resources = EconomyUtils.GetProductCompanyResourceChange(e, contexts.game);
+            var resources = Economy.GetProductCompanyResourceChange(e, contexts.game);
 
             Companies.AddResources(e, resources);
         }

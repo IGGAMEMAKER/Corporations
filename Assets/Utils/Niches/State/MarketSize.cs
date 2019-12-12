@@ -12,7 +12,7 @@ namespace Assets.Utils
             var products = GetProductsOnMarket(gameContext, nicheType);
 
             return products
-                .Select(p => EconomyUtils.GetCompanyCost(gameContext, p.company.Id))
+                .Select(p => Economy.GetCompanyCost(gameContext, p.company.Id))
                 .Sum();
             
             //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();

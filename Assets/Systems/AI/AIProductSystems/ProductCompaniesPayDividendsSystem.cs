@@ -20,13 +20,13 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
         if (Companies.IsCompanyRelatedToPlayer(gameContext, product))
         {
-            var profit = EconomyUtils.GetProfit(product, gameContext);
+            var profit = Economy.GetProfit(product, gameContext);
             Companies.PayDividends(gameContext, product, profit);
 
             return;
         }
 
-        if (EconomyUtils.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
+        if (Economy.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
             return;
 
 

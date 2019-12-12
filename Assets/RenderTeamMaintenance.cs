@@ -6,7 +6,7 @@ public class RenderTeamMaintenance : UpgradedParameterView
     {
         get
         {
-            return EconomyUtils.GetCompanyMaintenance(GameContext, SelectedCompany.company.Id);
+            return Economy.GetCompanyMaintenance(GameContext, SelectedCompany.company.Id);
         }
     }
 

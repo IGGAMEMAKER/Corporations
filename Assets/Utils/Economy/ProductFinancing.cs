@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    partial class EconomyUtils
+    partial class Economy
     {
         // financing multipliers
         public static float GetMarketingFinancingCostMultiplier(GameEntity e) => GetMarketingFinancingCostMultiplier(e.financing.Financing[Financing.Marketing]);

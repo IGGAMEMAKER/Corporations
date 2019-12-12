@@ -66,7 +66,7 @@ public class FillCompanyOwnings : View
     GameEntity[] GetOwnings()
     {
         var arr = Companies.GetDaughterCompanies(GameContext, ObservableCompany.company.Id)
-            .OrderByDescending(c => EconomyUtils.GetCompanyCost(GameContext, c.company.Id))
+            .OrderByDescending(c => Economy.GetCompanyCost(GameContext, c.company.Id))
             .ToArray();
 
         //if (SortingOrder)

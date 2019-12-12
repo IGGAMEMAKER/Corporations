@@ -59,14 +59,14 @@ public class NicheTableView : View, IPointerEnterHandler
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
         
         // maintenance
-        var biggestMaintenance = profitLeader == null ? 0 : EconomyUtils.GetCompanyMaintenance(profitLeader, GameContext);
+        var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(profitLeader, GameContext);
         StartCapital.text = Format.MinifyMoney(biggestMaintenance);
 
-        var myProfit = EconomyUtils.GetProfit(MyCompany, GameContext);
+        var myProfit = Economy.GetProfit(MyCompany, GameContext);
         StartCapital.color = Visuals.GetColorPositiveOrNegative(myProfit - biggestMaintenance);
 
         // income
-        var profit = profitLeader == null ? 0 : EconomyUtils.GetProfit(profitLeader, GameContext);
+        var profit = profitLeader == null ? 0 : Economy.GetProfit(profitLeader, GameContext);
 
         var ROI = profitLeader == null ? 0 : (profit * 100 / biggestMaintenance);
         

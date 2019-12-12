@@ -87,7 +87,7 @@ public class MarketPotentialView : View
                 BiggestIncome.text = "???";
             else
             {
-                maxIncome = players.Max(p => EconomyUtils.GetCompanyIncome(p, GameContext));
+                maxIncome = players.Max(p => Economy.GetCompanyIncome(p, GameContext));
                 BiggestIncome.text = Format.Money(maxIncome) + " / month";
             }
         }

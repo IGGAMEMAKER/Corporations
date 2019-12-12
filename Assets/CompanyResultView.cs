@@ -29,7 +29,7 @@ public class CompanyResultView : View
         DrawProductGrowth(product, result);
         DrawProductStatus();
 
-        var profit = EconomyUtils.GetProfit(GameContext, result.CompanyId);
+        var profit = Economy.GetProfit(GameContext, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
         LinkToNiche.SetNiche(product.product.Niche);

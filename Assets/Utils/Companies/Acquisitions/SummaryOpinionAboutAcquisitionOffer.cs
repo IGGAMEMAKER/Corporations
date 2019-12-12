@@ -9,7 +9,7 @@
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
         {
-            var cost = EconomyUtils.GetCompanyCost(gameContext, ackOffer.CompanyId);
+            var cost = Economy.GetCompanyCost(gameContext, ackOffer.CompanyId);
 
             var company = GetCompany(gameContext, ackOffer.CompanyId);
             var investor = GetInvestorById(gameContext, shareholderId);

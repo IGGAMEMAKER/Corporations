@@ -12,7 +12,7 @@ public class RenderCompanyRank : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var rank = EconomyUtils.GetCompanyCost(GameContext, MyCompany);
+        var rank = Economy.GetCompanyCost(GameContext, MyCompany);
 
         return $"Company cost: {Format.Money(rank)}";
     }

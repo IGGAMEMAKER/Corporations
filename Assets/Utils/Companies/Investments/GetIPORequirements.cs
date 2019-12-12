@@ -6,12 +6,12 @@ namespace Assets.Utils
     {
         public static bool IsMeetsIPOCompanyCostRequirement(GameContext gameContext, int companyId)
         {
-            return EconomyUtils.GetCompanyCost(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_COST;
+            return Economy.GetCompanyCost(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_COST;
         }
 
         public static bool IsMeetsIPOProfitRequirement(GameContext gameContext, int companyId)
         {
-            return EconomyUtils.GetProfit(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_PROFIT;
+            return Economy.GetProfit(gameContext, companyId) > Constants.IPO_REQUIREMENTS_COMPANY_PROFIT;
         }
 
         public static bool IsMeetsIPOShareholderRequirement(GameContext gameContext, int companyId)

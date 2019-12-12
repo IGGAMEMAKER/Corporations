@@ -2,7 +2,7 @@
 
 namespace Assets.Utils
 {
-    static partial class EconomyUtils
+    static partial class Economy
     {
         internal static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {

@@ -60,7 +60,7 @@ public class AcquisitionScreen : View
         long price = conditions.Price;
 
 
-        var cost = EconomyUtils.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        var cost = Economy.GetCompanyCost(GameContext, SelectedCompany.company.Id);
         string overpriceText = "";
         if (price > cost)
         {
@@ -86,7 +86,7 @@ public class AcquisitionScreen : View
 
     void RenderShareOfferSlider(AcquisitionConditions conditions, long price)
     {
-        var ourCompanyCost = EconomyUtils.GetCompanyCost(GameContext, MyCompany);
+        var ourCompanyCost = Economy.GetCompanyCost(GameContext, MyCompany);
 
 
         var sharePercent = conditions.ByShares; // ;

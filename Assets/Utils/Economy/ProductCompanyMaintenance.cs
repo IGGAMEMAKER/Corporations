@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Utils
 {
-    partial class EconomyUtils
+    partial class Economy
     {
         // resulting costs
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)

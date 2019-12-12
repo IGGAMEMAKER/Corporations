@@ -54,8 +54,8 @@ namespace Assets.Utils
             int[] array = new int[shareholders.Keys.Count];
 
 
-            var corporationCost = EconomyUtils.GetCompanyCost(gameContext, corporation);
-            var targetCost = EconomyUtils.GetCompanyCost(gameContext, target);
+            var corporationCost = Economy.GetCompanyCost(gameContext, corporation);
+            var targetCost = Economy.GetCompanyCost(gameContext, target);
             
             var corporationShares = Companies.GetTotalShares(gameContext, companyId);
             var emitedShares = corporationShares * targetCost / corporationCost;

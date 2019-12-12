@@ -17,10 +17,10 @@ public class RenderCompanyEconomyTab : View
 
         var company = Companies.GetCompany(GameContext, companyId);
 
-        Income.text = "$" + Format.Minify(EconomyUtils.GetCompanyIncome(company, GameContext));
+        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(company, GameContext));
         IncomeHint.SetHint(GetIncomeDescription(GameContext, companyId));
 
-        Maintenance.text = "$" + Format.Minify(EconomyUtils.GetCompanyMaintenance(company, GameContext));
+        Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(company, GameContext));
         MaintenanceHint.SetHint(GetMaintenanceDescription(GameContext, companyId));
     }
 
@@ -49,14 +49,14 @@ public class RenderCompanyEconomyTab : View
 
     private string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
     {
-        var income = EconomyUtils.GetProductCompanyIncome(gameEntity, gameContext);
+        var income = Economy.GetProductCompanyIncome(gameEntity, gameContext);
 
         return $"Income of this company equals {Format.Money(income)}";
     }
 
     internal string GetProductCompanyMaintenanceDescription(GameEntity company, GameContext gameContext)
     {
-        var maintenance = EconomyUtils.GetProductCompanyMaintenance(company, gameContext);
+        var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext);
 
         return $"Maintenance of {company.company.Name} equals {Format.Money(maintenance)}";
     }
@@ -72,7 +72,7 @@ public class RenderCompanyEconomyTab : View
             var c = Companies.GetCompany(context, h.companyId);
 
             string name = c.company.Name;
-            long income = EconomyUtils.GetCompanyMaintenance(c, context);
+            long income = Economy.GetCompanyMaintenance(c, context);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
             description += $"\n  {name}: -${tiedIncome} ({h.control}%)";
@@ -93,7 +93,7 @@ public class RenderCompanyEconomyTab : View
             var c = Companies.GetCompany(context, h.companyId);
 
             string name = c.company.Name;
-            long income = EconomyUtils.GetCompanyIncome(c, context);
+            long income = Economy.GetCompanyIncome(c, context);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
             description += $"\n  {name}: +${tiedIncome} ({h.control}%)";
