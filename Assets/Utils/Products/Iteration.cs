@@ -46,9 +46,8 @@
         {
             var demand = GetMarketDemand(niche);
             var iterationTime = GetBaseIterationTime(niche);
-            var timeToMarket = demand * iterationTime / 30;
 
-            return timeToMarket;
+            return demand * iterationTime / 30;
         }
     }
 }
