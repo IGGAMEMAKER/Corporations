@@ -53,16 +53,8 @@
 
             switch (phase)
             {
-                case MarketState.Death:
-                case MarketState.Decay:
-                case MarketState.Idle:
-                    return 0;
-
-                case MarketState.Innovation:
-                    return 30;
-
-                case MarketState.Trending:
-                    return 20;
+                case MarketState.Innovation:    return 30;
+                case MarketState.Trending:      return 20;
 
                 case MarketState.MassGrowth:
                 case MarketState.MassUsage:
@@ -78,12 +70,12 @@
             var phase = GetMarketState(niche);
             switch (phase)
             {
-                case MarketState.Idle: return 1;
-                case MarketState.Innovation: return 3;
-                case MarketState.Trending: return 4;
-                case MarketState.MassGrowth: return 5;
-                case MarketState.MassUsage: return 5;
-                case MarketState.Decay: return 2;
+                case MarketState.Idle:          return 1;
+                case MarketState.Innovation:    return 3;
+                case MarketState.Trending:      return 4;
+                case MarketState.MassGrowth:    return 5;
+                case MarketState.MassUsage:     return 5;
+                case MarketState.Decay:         return 2;
 
                 default:
                     return 0;
@@ -123,14 +115,15 @@
         {
             switch (phase)
             {
-                case MarketState.Innovation: return 8;
-                case MarketState.Trending: return 24;
-                case MarketState.MassGrowth: return 60;
-                case MarketState.MassUsage: return 120;
-                case MarketState.Decay: return 100;
+                case MarketState.Innovation:    return 8;
+                case MarketState.Trending:      return 24;
+                case MarketState.MassGrowth:    return 60;
+                case MarketState.MassUsage:     return 120;
+                case MarketState.Decay:         return 100;
                 default: return 1;
             }
         }
+
         public static MarketState GetNextPhase(MarketState phase)
         {
             switch (phase)
@@ -146,6 +139,7 @@
                     return MarketState.Death;
             }
         }
+
         public static float GetMonthlyAudienceGrowthMultiplier(MarketState phase)
         {
             return 1.05f;
@@ -170,19 +164,11 @@
         {
             switch (phase)
             {
-                case MarketState.Innovation:
-                    return 10;
-
-                case MarketState.Trending:
-                    return 25;
-
-                case MarketState.MassGrowth:
-                    return 55;
-                case MarketState.MassUsage:
-                    return 0;
-
-                case MarketState.Decay:
-                    return 10;
+                case MarketState.Innovation:    return 10;
+                case MarketState.Trending:      return 25;
+                case MarketState.MassGrowth:    return 55;
+                case MarketState.MassUsage:     return 0;
+                case MarketState.Decay:         return 10;
 
                 case MarketState.Death:
                 case MarketState.Idle:
