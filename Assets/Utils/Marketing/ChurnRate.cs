@@ -30,7 +30,7 @@ namespace Assets.Utils
             var c = Companies.GetCompany(gameContext, companyId);
             var state = Markets.GetMarketState(gameContext, c.product.Niche);
 
-            var fromProductLevel = ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
+            var fromProductLevel = Products.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
             var marketIsDying = state == NicheState.Death;
 
 

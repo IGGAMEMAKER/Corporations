@@ -12,10 +12,10 @@ public class CaptureMarketButton : ToggleButtonController
         var capture = !hasAtLeastOneAggressiveCompany;
 
         foreach (var p in productsOnMarket)
-            ProductUtils.SetMarketingFinancing(p, capture ? max : max - 1);
+            Products.SetMarketingFinancing(p, capture ? max : max - 1);
     }
 
-    int max = ProductUtils.GetMaxFinancing;
+    int max = Products.GetMaxFinancing;
     GameEntity[] productsOnMarket => Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext);
     bool hasAtLeastOneAggressiveCompany => productsOnMarket.Count(p => p.financing.Financing[Financing.Marketing] == max) != 0;
 

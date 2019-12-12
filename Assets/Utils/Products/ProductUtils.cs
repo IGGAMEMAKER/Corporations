@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class ProductUtils
+    public static partial class Products
     {
         internal static int GetProductLevel(GameEntity c)
         {

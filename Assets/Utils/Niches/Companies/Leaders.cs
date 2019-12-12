@@ -21,7 +21,7 @@ namespace Assets.Utils
             var competitors = GetProductsOnMarket(gameContext, startup);
 
             return Array.FindIndex(
-                competitors.OrderByDescending(ProductUtils.GetProductLevel).ToArray(),
+                competitors.OrderByDescending(Products.GetProductLevel).ToArray(),
                 c => c.company.Id == startup.company.Id);
         }
     }

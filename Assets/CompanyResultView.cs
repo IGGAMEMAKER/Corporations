@@ -92,7 +92,7 @@ public class CompanyResultView : View
 
         var product = Companies.GetCompany(GameContext, result1.CompanyId);
 
-        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{ProductUtils.GetDifferenceBetweenMarketDemandAndAppConcept(product, GameContext)}LVL)" : "";
+        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, GameContext)}LVL)" : "";
         ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";
     }
 

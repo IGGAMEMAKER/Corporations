@@ -10,6 +10,6 @@ public class RenderMarketRequirement : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return ProductUtils.GetMarketDemand(SelectedCompany, GameContext).ToString();
+        return Products.GetMarketDemand(SelectedCompany, GameContext).ToString();
     }
 }

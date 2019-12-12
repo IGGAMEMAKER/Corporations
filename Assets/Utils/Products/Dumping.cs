@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class ProductUtils
+    public static partial class Products
     {
         public static void ToggleDumping(GameContext gameContext, GameEntity product)
         {

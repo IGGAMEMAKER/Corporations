@@ -18,7 +18,7 @@ public class ToggleFinancingMarketing : View
 
     public void SetFinancing()
     {
-        ProductUtils.SetFinancing(SelectedCompany, Financing.Marketing, Dropdown.value);
+        Products.SetFinancing(SelectedCompany, Financing.Marketing, Dropdown.value);
 
         Render();
     }

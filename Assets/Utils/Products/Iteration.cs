@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class ProductUtils
+    public static partial class Products
     {
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
         public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)

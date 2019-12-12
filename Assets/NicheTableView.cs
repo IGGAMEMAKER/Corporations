@@ -92,8 +92,8 @@ public class NicheTableView : View, IPointerEnterHandler
     void RenderTimeToMarket()
     {
         // time to market
-        var demand = ProductUtils.GetMarketDemand(niche);
-        var iterationTime = ProductUtils.GetBaseIterationTime(niche);
+        var demand = Products.GetMarketDemand(niche);
+        var iterationTime = Products.GetBaseIterationTime(niche);
         var timeToMarket = demand * iterationTime / 30;
 
         Competitors.text = $"{timeToMarket}\nmonths";

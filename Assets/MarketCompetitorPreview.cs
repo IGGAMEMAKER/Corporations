@@ -63,7 +63,7 @@ public class MarketCompetitorPreview : View
     private void RenderCompanyInfo(GameEntity e)
     {
         var clients = MarketingUtils.GetClients(e);
-        var concept = ProductUtils.GetProductLevel(e);
+        var concept = Products.GetProductLevel(e);
 
         var brand = (int) e.branding.BrandPower;
 

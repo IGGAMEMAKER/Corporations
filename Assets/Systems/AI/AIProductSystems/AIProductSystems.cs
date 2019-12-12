@@ -9,7 +9,7 @@ public partial class BaseProductSystems : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in Companies.GetProductCompanies(gameContext))
-            ProductUtils.UpdgradeProduct(e, gameContext);
+            Products.UpdgradeProduct(e, gameContext);
 
         foreach (var e in Companies.GetAIProducts(gameContext))
             ManageProduct(e);
@@ -17,7 +17,7 @@ public partial class BaseProductSystems : OnDateChange
 
     void ManageProduct(GameEntity product)
     {
-        if (!product.isRelease && ProductUtils.IsInMarket(product, gameContext))
+        if (!product.isRelease && Products.IsInMarket(product, gameContext))
             MarketingUtils.ReleaseApp(product, gameContext);
 
         //ManageDumpingProduct(product);
@@ -38,11 +38,11 @@ public partial class BaseProductSystems : OnDateChange
         {
             var financing = EconomyUtils.GetCheaperFinancing(product);
 
-            ProductUtils.SetMarketingFinancing(product, financing);
+            Products.SetMarketingFinancing(product, financing);
         }
 
         if (Companies.IsEnoughResources(product, nextCost))
-            ProductUtils.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
+            Products.SetMarketingFinancing(product, EconomyUtils.GetNextMarketingFinancing(product));
     }
 
     void ManageDumpingProduct(GameEntity product)
@@ -53,7 +53,7 @@ public partial class BaseProductSystems : OnDateChange
         var hasLowMarketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
 
         var competitorIsDumpingToo = MarketingUtils.HasDumpingCompetitors(gameContext, product);
-        var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
+        var isOutdated = Products.IsOutOfMarket(product, gameContext);
 
         var needsToDump = isOutdated || hasLowMarketShare || competitorIsDumpingToo;
 
@@ -66,9 +66,9 @@ public partial class BaseProductSystems : OnDateChange
             var wantsToDump = chance < monthlyDumpingChance / 30f;
 
             if (wantsToDump)
-                ProductUtils.StartDumping(gameContext, product);
+                Products.StartDumping(gameContext, product);
         }
         else
-            ProductUtils.StopDumping(gameContext, product);
+            Products.StopDumping(gameContext, product);
     }
 }

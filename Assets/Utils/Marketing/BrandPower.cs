@@ -15,7 +15,7 @@ namespace Assets.Utils
         // float
         public static Bonus<long> GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
         {
-            var conceptStatus = ProductUtils.GetConceptStatus(product, gameContext);
+            var conceptStatus = Products.GetConceptStatus(product, gameContext);
 
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;

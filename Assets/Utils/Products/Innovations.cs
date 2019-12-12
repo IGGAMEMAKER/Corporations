@@ -1,6 +1,6 @@
 ﻿namespace Assets.Utils
 {
-    public static partial class ProductUtils
+    public static partial class Products
     {
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {

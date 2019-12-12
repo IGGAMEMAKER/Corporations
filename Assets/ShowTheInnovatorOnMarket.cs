@@ -17,6 +17,6 @@ public class ShowTheInnovatorOnMarket : UpgradedParameterView
         if (productCompany == null)
             return "Noone has the decisive advantage in concept";
 
-        return $"{productCompany.company.Name} ({ProductUtils.GetProductLevel(productCompany)}LVL) \nThis gives them +1 Brand each month";
+        return $"{productCompany.company.Name} ({Products.GetProductLevel(productCompany)}LVL) \nThis gives them +1 Brand each month";
     }
 }

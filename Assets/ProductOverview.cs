@@ -27,7 +27,7 @@ public class ProductOverview : View
         var canShowData = Companies.IsExploredCompany(GameContext, SelectedCompany);
 
         //var expertise = CompanyUtils.GetCompanyExpertise(SelectedCompany);
-        var expertise = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
+        var expertise = Products.GetInnovationChance(SelectedCompany, GameContext);
         Expertise.text = $"Innovation chance: {expertise}%";
 
 
@@ -46,9 +46,9 @@ public class ProductOverview : View
         Popularity.text = $"Position on market: #{position}";
 
 
-        var quality = ProductUtils.GetProductLevel(SelectedCompany);
-        var demand =  ProductUtils.GetMarketDemand(SelectedCompany, GameContext);
-        var status =  ProductUtils.GetConceptStatus(SelectedCompany, GameContext);
+        var quality = Products.GetProductLevel(SelectedCompany);
+        var demand =  Products.GetMarketDemand(SelectedCompany, GameContext);
+        var status =  Products.GetConceptStatus(SelectedCompany, GameContext);
 
         AppQuality.text = $"Concept: {quality} / {demand} ({status})";
 

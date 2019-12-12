@@ -145,7 +145,7 @@ namespace Assets.Utils
         public static GameEntity GetPotentialMarketLeader(GameContext context, NicheType niche)
         {
             var list = GetProductsOnMarket(context, niche)
-            .OrderByDescending(p => ProductUtils.GetInnovationChance(p, context) * 100 + (int)p.branding.BrandPower);
+            .OrderByDescending(p => Products.GetInnovationChance(p, context) * 100 + (int)p.branding.BrandPower);
 
             if (list.Count() == 0)
                 return null;
@@ -158,7 +158,7 @@ namespace Assets.Utils
         // competitiveness
         internal static Bonus<long> GetProductCompetitivenessBonus(GameEntity company, GameContext gameContext)
         {
-            var conceptStatus = ProductUtils.GetConceptStatus(company, gameContext);
+            var conceptStatus = Products.GetConceptStatus(company, gameContext);
 
             var techLeadershipBonus = conceptStatus == ConceptStatus.Leader;
 

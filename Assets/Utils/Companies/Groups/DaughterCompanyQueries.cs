@@ -17,13 +17,13 @@ namespace Assets.Utils
         public static GameEntity[] GetDaughterOutdatedCompanies(GameContext gameContext, int companyId)
         {
             return GetDaughterCompanies(gameContext, companyId)
-            .Where(p => p.hasProduct && ProductUtils.IsOutOfMarket(p, gameContext))
+            .Where(p => p.hasProduct && Products.IsOutOfMarket(p, gameContext))
             .ToArray();
         }
 
         public static bool IsReleaseableApp(GameEntity product, GameContext gameContext)
         {
-            var isOutdated = ProductUtils.IsOutOfMarket(product, gameContext);
+            var isOutdated = Products.IsOutOfMarket(product, gameContext);
 
             return !isOutdated && !product.isRelease;
         }
@@ -37,7 +37,7 @@ namespace Assets.Utils
         public static GameEntity[] GetDaughterUpgradableCompanies(GameContext gameContext, int companyId)
         {
             return GetDaughterCompanies(gameContext, companyId)
-            .Where(p => p.hasProduct && ProductUtils.IsHasAvailableProductImprovements(p))
+            .Where(p => p.hasProduct && Products.IsHasAvailableProductImprovements(p))
             .ToArray();
         }
     }

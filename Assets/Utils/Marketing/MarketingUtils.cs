@@ -44,7 +44,7 @@
 
                 product.isRelease = true;
 
-                ProductUtils.SetMarketingFinancing(product, 1);
+                Products.SetMarketingFinancing(product, 1);
             }
         }
     }

@@ -57,7 +57,7 @@ public class CompanyProductResultsListView : ListView
         return new ProductCompanyResult {
             clientChange = currCompanyClients - prevCompanyClients,
             MarketShareChange = Share - prevShare,
-            ConceptStatus = ProductUtils.GetConceptStatus(product, GameContext),
+            ConceptStatus = Products.GetConceptStatus(product, GameContext),
             CompanyId = product.company.Id
         };
     }

@@ -12,9 +12,9 @@ public class IterationGoal : UpgradedParameterView
         if (!Companies.IsExploredCompany(GameContext, SelectedCompany))
             return "";
 
-        var chance = ProductUtils.GetInnovationChance(SelectedCompany, GameContext);
+        var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
 
-        return ProductUtils.IsWillInnovate(SelectedCompany, GameContext) ?
+        return Products.IsWillInnovate(SelectedCompany, GameContext) ?
             $"Has {chance}% chance to innovate in" :
             "Will upgrade in";
     }

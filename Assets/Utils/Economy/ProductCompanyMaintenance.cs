@@ -40,7 +40,7 @@ namespace Assets.Utils
         {
             var baseCost = Markets.GetBaseDevelopmentCost(e.product.Niche, gameContext);
 
-            var concept = ProductUtils.GetProductLevel(e);
+            var concept = Products.GetProductLevel(e);
             var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 

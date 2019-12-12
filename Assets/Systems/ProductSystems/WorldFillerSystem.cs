@@ -70,13 +70,13 @@ public partial class WorldFillerSystem : IInitializeSystem
                 monthsOfWork = 0;
 
             // set concepts
-            var iterationTime = ProductUtils.GetBaseIterationTime(niche);
+            var iterationTime = Products.GetBaseIterationTime(niche);
 
             var concept = monthsOfWork * 30 / iterationTime;
             var randConcept = 1 + UnityEngine.Random.Range(0, concept);
 
             for (var i = 0; i < randConcept; i++)
-                ProductUtils.UpdgradeProduct(p, GameContext, true);
+                Products.UpdgradeProduct(p, GameContext, true);
 
             // set brands
             // commented, because UpgradeProduct already adds brand powers

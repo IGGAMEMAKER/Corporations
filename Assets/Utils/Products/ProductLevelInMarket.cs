@@ -9,7 +9,7 @@ public enum ConceptStatus
 
 namespace Assets.Utils
 {
-    public static partial class ProductUtils
+    public static partial class Products
     {
         public static int GetMarketDemand(GameEntity niche)
         {

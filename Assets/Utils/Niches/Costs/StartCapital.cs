@@ -5,8 +5,8 @@
         public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(GetNiche(gameContext, nicheType));
         public static long GetStartCapital(GameEntity niche)
         {
-            var marketDemand = ProductUtils.GetMarketDemand(niche);
-            var iterationTime = ProductUtils.GetBaseIterationTime(niche);
+            var marketDemand = Products.GetMarketDemand(niche);
+            var iterationTime = Products.GetBaseIterationTime(niche);
 
             var timeToMarket = marketDemand * iterationTime / 30;
 

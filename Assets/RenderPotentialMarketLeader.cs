@@ -26,7 +26,7 @@ public class RenderPotentialMarketLeader : UpgradedParameterView
         if (potentialLeader == null)
             return "";
 
-        var chances = ProductUtils.GetInnovationChance(potentialLeader, GameContext);
+        var chances = Products.GetInnovationChance(potentialLeader, GameContext);
 
         var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, potentialLeader);
 

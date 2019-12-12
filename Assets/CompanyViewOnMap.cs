@@ -44,7 +44,7 @@ public class CompanyViewOnMap : View
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        Concept.text = ProductUtils.GetProductLevel(c) + "LVL";
+        Concept.text = Products.GetProductLevel(c) + "LVL";
 
         SetEmblemColor();
 
@@ -63,13 +63,13 @@ public class CompanyViewOnMap : View
         }
 
         var financing = company.financing.Financing[Financing.Marketing];
-        AggressiveMarketing.SetActive(financing == ProductUtils.GetMaxFinancing);
+        AggressiveMarketing.SetActive(financing == Products.GetMaxFinancing);
     }
 
     Color GetMarketRelevanceColor()
     {
         var concept = "";
-        switch (ProductUtils.GetConceptStatus(company, GameContext))
+        switch (Products.GetConceptStatus(company, GameContext))
         {
             case ConceptStatus.Leader: concept = VisualConstants.COLOR_POSITIVE; break;
             case ConceptStatus.Outdated: concept = VisualConstants.COLOR_NEGATIVE; break;
@@ -100,7 +100,7 @@ public class CompanyViewOnMap : View
         var position = Markets.GetPositionOnMarket(GameContext, company);
 
         // quality description
-        var conceptStatus = ProductUtils.GetConceptStatus(company, GameContext);
+        var conceptStatus = Products.GetConceptStatus(company, GameContext);
 
         var concept = "???";
 
@@ -112,7 +112,7 @@ public class CompanyViewOnMap : View
         }
 
         //
-        var level = ProductUtils.GetProductLevel(company);
+        var level = Products.GetProductLevel(company);
         hint.AppendLine($"\nConcept: {level} ({concept})");
 
         var clients = MarketingUtils.GetClients(company);

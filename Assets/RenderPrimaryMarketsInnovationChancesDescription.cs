@@ -11,7 +11,7 @@ public class RenderPrimaryMarketsInnovationChancesDescription : View
     {
         base.ViewRender();
 
-        var innovationBonus = ProductUtils.GetFocusingBonus(MyCompany);
+        var innovationBonus = Products.GetFocusingBonus(MyCompany);
         var markets = string.Join("\n", MyCompany.companyFocus.Niches.Select(n => "*" + EnumUtils.GetFormattedNicheName(n)));
 
         MarketLimitDescription.text = $"You have +{Visuals.Positive(innovationBonus.ToString())}% chance to innovate on these markets\n" +
