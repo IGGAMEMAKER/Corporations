@@ -31,7 +31,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var phase = Markets.GetMarketState(niche);
 
-        if (phase == NicheState.Death)
+        if (phase == MarketState.Death)
             return;
 
         ActivateIfNecessary(niche);
@@ -55,7 +55,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         var state = Markets.GetMarketState(niche);
         var nicheStartDate = niche.nicheLifecycle.OpenDate;
 
-        if (date > nicheStartDate && state == NicheState.Idle)
+        if (date > nicheStartDate && state == MarketState.Idle)
         {
             //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
             PromoteNiche(niche);
@@ -86,7 +86,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
         var phase = Markets.GetMarketState(niche);
 
-        if (phase == NicheState.Death || phase == NicheState.Idle)
+        if (phase == MarketState.Death || phase == MarketState.Idle)
             return false;
 
         return duration <= 0;

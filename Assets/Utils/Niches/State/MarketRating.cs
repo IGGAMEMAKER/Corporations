@@ -2,7 +2,7 @@
 {
     public static partial class Markets
     {
-        public static NicheState GetMarketState(GameEntity niche)
+        public static MarketState GetMarketState(GameEntity niche)
         {
             return niche.nicheState.Phase;
         }
@@ -14,7 +14,7 @@
             return niche.hasResearch;
         }
 
-        public static NicheState GetMarketState(GameContext gameContext, NicheType nicheType)
+        public static MarketState GetMarketState(GameContext gameContext, NicheType nicheType)
         {
             var niche = GetNiche(gameContext, nicheType);
 

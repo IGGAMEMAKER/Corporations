@@ -26,19 +26,19 @@ namespace Assets.Utils
                 MonetisationType = Monetisation.Service
             });
 
-            var clientGrowthDictionary = new Dictionary<NicheState, int>
+            var clientGrowthDictionary = new Dictionary<MarketState, int>
             {
-                [NicheState.Idle] = 0, // 0
-                [NicheState.Innovation] = UnityEngine.Random.Range(1, 3), // 2-5            Xt
-                [NicheState.Trending] = UnityEngine.Random.Range(3, 10), // 4 - 10           5Xt
-                [NicheState.MassGrowth] = UnityEngine.Random.Range(10, 15), // 7 - 15            10Xt
-                [NicheState.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
-                [NicheState.Death] = 0, // churn
+                [MarketState.Idle] = 0, // 0
+                [MarketState.Innovation] = UnityEngine.Random.Range(1, 3), // 2-5            Xt
+                [MarketState.Trending] = UnityEngine.Random.Range(3, 10), // 4 - 10           5Xt
+                [MarketState.MassGrowth] = UnityEngine.Random.Range(10, 15), // 7 - 15            10Xt
+                [MarketState.Decay] = UnityEngine.Random.Range(2, 5), // 2 - 5 // churn      3Xt-22Xt
+                [MarketState.Death] = 0, // churn
             };
 
             e.AddNicheLifecycle(0, clientGrowthDictionary);
 
-            e.AddNicheState(NicheState.Idle, 0);
+            e.AddNicheState(MarketState.Idle, 0);
             UpdateNicheDuration(e);
 
 

@@ -11,7 +11,7 @@ public partial class GameEntity {
     public NicheLifecycleComponent nicheLifecycle { get { return (NicheLifecycleComponent)GetComponent(GameComponentsLookup.NicheLifecycle); } }
     public bool hasNicheLifecycle { get { return HasComponent(GameComponentsLookup.NicheLifecycle); } }
 
-    public void AddNicheLifecycle(int newOpenDate, System.Collections.Generic.Dictionary<NicheState, int> newGrowth) {
+    public void AddNicheLifecycle(int newOpenDate, System.Collections.Generic.Dictionary<MarketState, int> newGrowth) {
         var index = GameComponentsLookup.NicheLifecycle;
         var component = (NicheLifecycleComponent)CreateComponent(index, typeof(NicheLifecycleComponent));
         component.OpenDate = newOpenDate;
@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceNicheLifecycle(int newOpenDate, System.Collections.Generic.Dictionary<NicheState, int> newGrowth) {
+    public void ReplaceNicheLifecycle(int newOpenDate, System.Collections.Generic.Dictionary<MarketState, int> newGrowth) {
         var index = GameComponentsLookup.NicheLifecycle;
         var component = (NicheLifecycleComponent)CreateComponent(index, typeof(NicheLifecycleComponent));
         component.OpenDate = newOpenDate;

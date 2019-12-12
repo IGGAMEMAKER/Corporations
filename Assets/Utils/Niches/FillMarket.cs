@@ -7,7 +7,7 @@ namespace Assets.Utils
         public static void FillMarket(GameEntity niche, GameContext gameContext)
         {
             var phase = GetMarketState(niche);
-            if (phase == NicheState.Death)
+            if (phase == MarketState.Death)
                 return;
 
             var date = ScheduleUtils.GetCurrentDate(gameContext);
@@ -19,7 +19,7 @@ namespace Assets.Utils
             var playersOnMarket = GetCompetitorsAmount(nicheType, gameContext);
 
             // don't spawn companies on innovation phase if has companies already
-            if (phase == NicheState.Innovation && playersOnMarket > 0)
+            if (phase == MarketState.Innovation && playersOnMarket > 0)
                 return;
 
 
@@ -27,7 +27,7 @@ namespace Assets.Utils
             TryToSpawnCompany(niche, gameContext, phase, playersOnMarket);
         }
 
-        public static bool IsNeedsMoreCompaniesOnMarket(GameEntity niche, GameContext gameContext, NicheState phase, int playersOnMarket)
+        public static bool IsNeedsMoreCompaniesOnMarket(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
             // force spawning if there are no companies
             if (playersOnMarket == 0)
@@ -41,7 +41,7 @@ namespace Assets.Utils
             return false;
         }
 
-        public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, NicheState phase, int playersOnMarket)
+        public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
             var nicheRating = GetMarketRating(niche);
             var potential = GetMarketPotential(niche);
@@ -51,7 +51,7 @@ namespace Assets.Utils
             var spawnChance = 2 * Mathf.Pow(nicheRating, 2) * Mathf.Pow(potentialRating, 1.7f) / (playersOnMarket + 1);
 
 
-            if (phase == NicheState.Trending)
+            if (phase == MarketState.Trending)
                 spawnChance *= 5;
 
             // force spawn if no companies

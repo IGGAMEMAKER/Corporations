@@ -67,7 +67,7 @@ namespace Assets.Utils
         {
             var phase = GetMarketState(niche);
 
-            return phase != NicheState.Idle && phase != NicheState.Death;
+            return phase != MarketState.Idle && phase != MarketState.Death;
         }
 
         public static bool IsObservableNiche(GameEntity niche)
@@ -75,9 +75,9 @@ namespace Assets.Utils
             var phase = GetMarketState(niche);
 
             return
-                phase == NicheState.Trending ||
-                phase == NicheState.Decay ||
-                phase == NicheState.MassGrowth;
+                phase == MarketState.Trending ||
+                phase == MarketState.Decay ||
+                phase == MarketState.MassGrowth;
         }
     }
 }

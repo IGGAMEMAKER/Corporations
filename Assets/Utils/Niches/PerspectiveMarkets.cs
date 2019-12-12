@@ -9,7 +9,7 @@ namespace Assets.Utils
         {
             var phase = GetMarketState(niche);
 
-            return phase == NicheState.Trending;
+            return phase == MarketState.Trending;
         }
 
         public static bool IsInnovativeNiche(GameContext gameContext, NicheType nicheType) => IsInnovativeNiche(GetNiche(gameContext, nicheType));
@@ -17,7 +17,7 @@ namespace Assets.Utils
         {
             var phase = GetMarketState(niche);
 
-            return phase == NicheState.Innovation;
+            return phase == MarketState.Innovation;
         }
 
         public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)

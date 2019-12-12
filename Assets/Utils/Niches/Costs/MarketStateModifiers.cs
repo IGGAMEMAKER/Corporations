@@ -2,46 +2,46 @@
 {
     public static partial class Markets
     {
-        public static float GetMarketStatePriceModifier(NicheState phase)
+        public static float GetMarketStatePriceModifier(MarketState phase)
         {
             switch (phase)
             {
-                case NicheState.Innovation:    return 1;
-                case NicheState.Trending:      return 0.8f;
-                case NicheState.MassGrowth:    return 0.7f;
-                case NicheState.MassUsage:     return 0.65f;
-                case NicheState.Decay:         return 0.5f;
+                case MarketState.Innovation:    return 1;
+                case MarketState.Trending:      return 0.8f;
+                case MarketState.MassGrowth:    return 0.7f;
+                case MarketState.MassUsage:     return 0.65f;
+                case MarketState.Decay:         return 0.5f;
 
                 default: return 0;
             }
         }
 
-        public static float GetMarketStateAdCostModifier(NicheState phase)
+        public static float GetMarketStateAdCostModifier(MarketState phase)
         {
             switch (phase)
             {
-                case NicheState.Innovation:    return 0.1f;
-                case NicheState.Trending:      return 0.5f;
-                case NicheState.MassGrowth:    return 1f;
-                case NicheState.MassUsage:     return 1f;
-                case NicheState.Decay:         return 2f;
+                case MarketState.Innovation:    return 0.1f;
+                case MarketState.Trending:      return 0.5f;
+                case MarketState.MassGrowth:    return 1f;
+                case MarketState.MassUsage:     return 1f;
+                case MarketState.Decay:         return 2f;
 
                 default: return 0;
             }
         }
 
         // TODO move this to niche utils!!!
-        public static string GetMarketStateDescription(NicheState state)
+        public static string GetMarketStateDescription(MarketState state)
         {
             switch (state)
             {
-                case NicheState.Idle: return "???";
-                case NicheState.Innovation: return "Innovation";
-                case NicheState.Trending: return "Trending";
-                case NicheState.MassGrowth: return "Mass growth";
-                case NicheState.MassUsage: return "Mass use";
-                case NicheState.Decay: return "Decay";
-                case NicheState.Death: return "Death";
+                case MarketState.Idle: return "???";
+                case MarketState.Innovation: return "Innovation";
+                case MarketState.Trending: return "Trending";
+                case MarketState.MassGrowth: return "Mass growth";
+                case MarketState.MassUsage: return "Mass use";
+                case MarketState.Decay: return "Decay";
+                case MarketState.Death: return "Death";
 
                 default: return "???WTF " + state.ToString();
             }
@@ -53,19 +53,19 @@
 
             switch (phase)
             {
-                case NicheState.Death:
-                case NicheState.Decay:
-                case NicheState.Idle:
+                case MarketState.Death:
+                case MarketState.Decay:
+                case MarketState.Idle:
                     return 0;
 
-                case NicheState.Innovation:
+                case MarketState.Innovation:
                     return 30;
 
-                case NicheState.Trending:
+                case MarketState.Trending:
                     return 20;
 
-                case NicheState.MassGrowth:
-                case NicheState.MassUsage:
+                case MarketState.MassGrowth:
+                case MarketState.MassUsage:
                     return 10;
 
                 default: return 0;
@@ -78,12 +78,12 @@
             var phase = GetMarketState(niche);
             switch (phase)
             {
-                case NicheState.Idle: return 1;
-                case NicheState.Innovation: return 3;
-                case NicheState.Trending: return 4;
-                case NicheState.MassGrowth: return 5;
-                case NicheState.MassUsage: return 5;
-                case NicheState.Decay: return 2;
+                case MarketState.Idle: return 1;
+                case MarketState.Innovation: return 3;
+                case MarketState.Trending: return 4;
+                case MarketState.MassGrowth: return 5;
+                case MarketState.MassUsage: return 5;
+                case MarketState.Decay: return 2;
 
                 default:
                     return 0;
@@ -96,96 +96,96 @@
 
             switch (phase)
             {
-                case NicheState.Idle:
+                case MarketState.Idle:
                     return Constants.RISKS_DEMAND_MAX;
 
-                case NicheState.Innovation:
+                case MarketState.Innovation:
                     return Constants.RISKS_DEMAND_MAX / 2;
 
-                case NicheState.Trending:
+                case MarketState.Trending:
                     return Constants.RISKS_DEMAND_MAX / 5;
 
-                case NicheState.MassGrowth:
-                case NicheState.MassUsage:
+                case MarketState.MassGrowth:
+                case MarketState.MassUsage:
                     return Constants.RISKS_DEMAND_MAX / 10;
 
-                case NicheState.Decay:
+                case MarketState.Decay:
                     return Constants.RISKS_DEMAND_MAX / 2;
 
-                case NicheState.Death:
+                case MarketState.Death:
                 default:
                     return 100;
             }
         }
 
         // niche lifecycle
-        private static int GetNichePeriodDurationInMonths(NicheState phase)
+        private static int GetNichePeriodDurationInMonths(MarketState phase)
         {
             switch (phase)
             {
-                case NicheState.Innovation: return 8;
-                case NicheState.Trending: return 24;
-                case NicheState.MassGrowth: return 60;
-                case NicheState.MassUsage: return 120;
-                case NicheState.Decay: return 100;
+                case MarketState.Innovation: return 8;
+                case MarketState.Trending: return 24;
+                case MarketState.MassGrowth: return 60;
+                case MarketState.MassUsage: return 120;
+                case MarketState.Decay: return 100;
                 default: return 1;
             }
         }
-        public static NicheState GetNextPhase(NicheState phase)
+        public static MarketState GetNextPhase(MarketState phase)
         {
             switch (phase)
             {
-                case NicheState.Idle: return NicheState.Innovation;
-                case NicheState.Innovation: return NicheState.Trending;
-                case NicheState.Trending: return NicheState.MassGrowth; 
-                case NicheState.MassGrowth: return NicheState.MassUsage;
-                case NicheState.MassUsage: return NicheState.Decay;
+                case MarketState.Idle: return MarketState.Innovation;
+                case MarketState.Innovation: return MarketState.Trending;
+                case MarketState.Trending: return MarketState.MassGrowth; 
+                case MarketState.MassGrowth: return MarketState.MassUsage;
+                case MarketState.MassUsage: return MarketState.Decay;
 
-                case NicheState.Decay:
+                case MarketState.Decay:
                 default:
-                    return NicheState.Death;
+                    return MarketState.Death;
             }
         }
-        public static float GetMonthlyAudienceGrowthMultiplier(NicheState phase)
+        public static float GetMonthlyAudienceGrowthMultiplier(MarketState phase)
         {
             return 1.05f;
             switch (phase)
             {
-                case NicheState.Idle:
+                case MarketState.Idle:
                     return 1;
 
-                case NicheState.Innovation:
+                case MarketState.Innovation:
                     return 1.01f;
 
-                case NicheState.Trending:
+                case MarketState.Trending:
                     return 1.02f;
 
-                case NicheState.MassGrowth:
+                case MarketState.MassGrowth:
                     return 1.05f;
             }
 
         }
 
-        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(NicheState phase)
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(MarketState phase)
         {
             switch (phase)
             {
-                case NicheState.Innovation:
+                case MarketState.Innovation:
                     return 10;
 
-                case NicheState.Trending:
+                case MarketState.Trending:
                     return 25;
 
-                case NicheState.MassGrowth:
+                case MarketState.MassGrowth:
                     return 55;
-                case NicheState.MassUsage:
+                case MarketState.MassUsage:
                     return 0;
 
-                case NicheState.Decay:
+                case MarketState.Decay:
                     return 10;
 
-                case NicheState.Death:
-                case NicheState.Idle:
+                case MarketState.Death:
+                case MarketState.Idle:
                 default:
                     return 0;
             }
