@@ -44,9 +44,9 @@ namespace Assets.Utils
             var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
-            var development = Mathf.Pow(1f + complexity / 100f, concept);
+            var workers = Mathf.Pow(1f + complexity, concept);
 
-            return (long)(baseCost * development);
+            return (long)(baseCost * workers);
         }
     }
 }

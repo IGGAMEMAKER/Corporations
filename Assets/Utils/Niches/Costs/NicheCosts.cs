@@ -76,9 +76,7 @@ namespace Assets.Utils
 
 
 
-            var baseFlowForStage = totalStageClients * (1f - q) / (1f - Mathf.Pow(q, nMax));
-
-            return baseFlowForStage;
+            return totalStageClients * (1f - q) / (1f - Mathf.Pow(q, nMax));
         }
     }
 }
