@@ -24,7 +24,6 @@
             return GetNichePeriodDurationInMonths(phase);
         }
 
-        // niche lifecycle
         private static int GetNichePeriodDurationInMonths(
             MarketState phase,
             bool isFastGrowingOnStart = false, bool isSlowlyDecaying = false)
@@ -48,7 +47,6 @@
             return stateDuration;
         }
 
-        // actual lifetime
         private static int GetMassUsageDuration(GameEntity niche)
         {
             var lifecycle = niche.nicheLifecycle;
