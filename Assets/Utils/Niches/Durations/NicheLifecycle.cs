@@ -34,7 +34,7 @@
                 case MarketState.Trending: return 24;
                 case MarketState.MassGrowth: return 60;
                 //case MarketState.MassUsage: return 
-                case MarketState.Decay: return 100;
+                case MarketState.Decay: return 24;
                 default: return 1;
             }
         }

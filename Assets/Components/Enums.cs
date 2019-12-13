@@ -43,28 +43,36 @@ public enum NicheType
     Ent_StreamingService,
     Ent_TVStreamingService,
 
-    // Finances/Ecommerce
+    // Ecommerce
+    /// Finances
     ECom_PaymentSystem,
     ECom_OnlineBanking,
     ECom_Exchanging,
+    ECom_Blockchain,
+    ECom_TradingBot,
 
     ECom_OnlineTaxi,
     ECom_Booking,
     ECom_Tourism,
     ECom_EventTickets,
 
-    ECom_OnlineShops,
+    ECom_Marketplace,
 
     // Usefull apps
-    Qol_BookEditors, // pdf readers
+    Qol_PdfReader, // pdf readers
     Qol_DocumentEditors, // micr office
-    Qol_DiskFormattingUtils,
-    Qol_AdBlocker,
-    Qol_RSSReader,
+    Qol_GraphicalEditor, // Photoshop
+    Qol_3DGraphicalEditor, // 3d max
+    Qol_AdBlocker, 
+
+    Qol_DiskFormattingUtils, // small
+    Qol_RSSReader, // small
+    Qol_MusicSearch, // average
+
     Qol_Encyclopedia,
     Qol_Antivirus,
 
-
+    Qol_OnlineEducation,
 }
 
 public enum IndustryType

@@ -37,7 +37,7 @@ namespace Assets.Utils.Formatting
 
 
                 case NicheType.Tech_CloudComputing: return "Clouds";
-                case NicheType.Tech_OSDesktop: return "Operation Systems";
+                case NicheType.Tech_OSDesktop: return "Operational Systems";
                 case NicheType.Tech_SearchEngine: return "Search Engines";
                 case NicheType.Tech_Browser: return "Web browsers";
 
@@ -66,9 +66,8 @@ namespace Assets.Utils.Formatting
                 case IndustryType.Technology: return "Technology";
                 case IndustryType.Communications: return "Communications";
                 case IndustryType.Entertainment: return "Entertainment";
-                case IndustryType.Ecommerce: return "Finances";
                 case IndustryType.WorkAndLife: return "Other";
-                //case IndustryType.Ecommerce: return "E-commerce";
+                case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();
             }
