@@ -4,18 +4,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     private void InitializeEcommerceIndustry()
     {
+        return;
         var niches = new NicheType[] {
-            NicheType.Fin_Exchanging,
-            NicheType.Fin_OnlineBanking,
-            NicheType.Fin_PaymentSystem,
+            NicheType.ECom_Exchanging,
+            NicheType.ECom_OnlineBanking,
+            NicheType.ECom_PaymentSystem,
         };
         AttachNichesToIndustry(IndustryType.Ecommerce, niches);
 
         var payment = new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
         var banking = payment.Copy().Global().IncomeMid().Dynamic();
 
-        SetMarkets(NicheType.Fin_OnlineBanking, 1992, 2030, banking);
-        SetMarkets(NicheType.Fin_Exchanging, 1998, 2030, payment);
-        SetMarkets(NicheType.Fin_PaymentSystem, 1995, 2030, payment);
+        SetMarkets(NicheType.ECom_OnlineBanking, 1992, 2030, banking);
+        SetMarkets(NicheType.ECom_Exchanging, 1998, 2030, payment);
+        SetMarkets(NicheType.ECom_PaymentSystem, 1995, 2030, payment);
     }
 }

@@ -50,9 +50,9 @@ namespace Assets.Utils.Formatting
                 case NicheType.Ent_StreamingService: return "Streaming Services";
                 case NicheType.Ent_TVStreamingService: return "TV Streaming Services";
 
-                case NicheType.Fin_Exchanging: return "Money Exchange";
-                case NicheType.Fin_OnlineBanking: return "Online Banking";
-                case NicheType.Fin_PaymentSystem: return "Payment Systems";
+                case NicheType.ECom_Exchanging: return "Money Exchange";
+                case NicheType.ECom_OnlineBanking: return "Online Banking";
+                case NicheType.ECom_PaymentSystem: return "Payment Systems";
 
                 default: return niche.ToString();
             }
@@ -67,6 +67,7 @@ namespace Assets.Utils.Formatting
                 case IndustryType.Communications: return "Communications";
                 case IndustryType.Entertainment: return "Entertainment";
                 case IndustryType.Ecommerce: return "Finances";
+                case IndustryType.WorkAndLife: return "Other";
                 //case IndustryType.Ecommerce: return "E-commerce";
 
                 default: return "Unknown Industry: " + industry.ToString();

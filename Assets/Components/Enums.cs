@@ -43,10 +43,28 @@ public enum NicheType
     Ent_StreamingService,
     Ent_TVStreamingService,
 
-    // Finances
-    Fin_PaymentSystem,
-    Fin_OnlineBanking,
-    Fin_Exchanging,
+    // Finances/Ecommerce
+    ECom_PaymentSystem,
+    ECom_OnlineBanking,
+    ECom_Exchanging,
+
+    ECom_OnlineTaxi,
+    ECom_Booking,
+    ECom_Tourism,
+    ECom_EventTickets,
+
+    ECom_OnlineShops,
+
+    // Usefull apps
+    Qol_BookEditors, // pdf readers
+    Qol_DocumentEditors, // micr office
+    Qol_DiskFormattingUtils,
+    Qol_AdBlocker,
+    Qol_RSSReader,
+    Qol_Encyclopedia,
+    Qol_Antivirus,
+
+
 }
 
 public enum IndustryType
@@ -55,6 +73,7 @@ public enum IndustryType
     Technology,
     Entertainment,
     Ecommerce,
+    WorkAndLife
 }
 
 public enum CompanyType
