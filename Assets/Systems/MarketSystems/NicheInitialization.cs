@@ -48,17 +48,6 @@ public enum AppComplexity
 }
 
 
-public struct MarketProfile
-{
-    public AudienceSize AudienceSize;
-    public Monetisation MonetisationType;
-    public Margin Margin;
-
-
-    public NicheSpeed NicheSpeed;
-    public AppComplexity AppComplexity;
-}
-
 // everyone: operation systems, browsers, social networks (messaging + content)
 // small niche project : 50K
 

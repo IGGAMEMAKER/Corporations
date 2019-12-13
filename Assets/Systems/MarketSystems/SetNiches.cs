@@ -45,17 +45,20 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //},
             );
 
-        SetNichesAutomatically(NicheType.Com_Messenger, 2000,
-            new MarketProfile
-            {
-                AudienceSize = AudienceSize.Global,
-                MonetisationType = Monetisation.Adverts,
-                Margin = Margin.Low,
+        var messenger = new MarketProfile
+        {
+            AudienceSize = AudienceSize.Global,
+            MonetisationType = Monetisation.Adverts,
+            Margin = Margin.Low,
 
-                AppComplexity = AppComplexity.Easy,
+            AppComplexity = AppComplexity.Easy,
 
-                NicheSpeed = NicheSpeed.Quarter,
-            });
+            NicheSpeed = NicheSpeed.Quarter,
+        };
+
+        messenger = new MarketProfile().Free().Global().SetMargin(Margin.Low).BigWebService().SetNicheSpeed(NicheSpeed.Quarter);
+
+        SetNichesAutomatically(NicheType.Com_Messenger, 2000, messenger);
     }
 
     private void InitializeEcommerceIndustry()
