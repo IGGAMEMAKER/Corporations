@@ -17,6 +17,9 @@ public partial struct MarketProfile
         AudienceSize = audienceSize;
         return this;
     }
+    public MarketProfile ForEnterpriseSmall() => SetAudience(AudienceSize.SmallEnterprise);
+    public MarketProfile ForEnterpriseBig() => SetAudience(AudienceSize.BigEnterprise);
+    public MarketProfile NicheApp() => SetAudience(AudienceSize.Million);
     public MarketProfile Popular() => SetAudience(AudienceSize.Million100);
     public MarketProfile Global() => SetAudience(AudienceSize.Global);
 
