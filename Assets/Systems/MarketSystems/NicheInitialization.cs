@@ -55,10 +55,14 @@ public partial class MarketInitializerSystem : IInitializeSystem
 {
     GameEntity SetMarkets(NicheType nicheType,
     int startDate,
+    //int duration,
     AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity
-    ) => SetMarkets(
+    )
+    {
+        return SetMarkets(
             nicheType,
             startDate,
+            //duration,
             new MarketProfile
             {
                 AudienceSize = AudienceSize,
@@ -68,9 +72,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 AppComplexity = ProductComplexity
             }
             );
+    }
 
     GameEntity SetMarkets(NicheType nicheType,
         int startDate,
+        //int duration,
         MarketProfile settings
         )
     {

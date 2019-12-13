@@ -93,6 +93,7 @@ public class NicheLifecycleComponent : IComponent
 {
     public int OpenDate;
     public Dictionary<MarketState, int> Growth;
+    public int Duration;
 }
 
 [Game]
