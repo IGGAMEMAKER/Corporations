@@ -53,16 +53,20 @@ public enum AppComplexity
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
+    int GetYear(int year) => (year - Constants.START_YEAR) * 360;
+
+    int GetYearAndADate(int year, int quarter) => GetYear(year) + quarter * 90;
+
     GameEntity SetMarkets(NicheType nicheType,
     int startDate,
-    //int duration,
+    int duration,
     AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity
     )
     {
         return SetMarkets(
             nicheType,
             startDate,
-            //duration,
+            duration,
             new MarketProfile
             {
                 AudienceSize = AudienceSize,
@@ -76,7 +80,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     GameEntity SetMarkets(NicheType nicheType,
         int startDate,
-        //int duration,
+        int duration,
         MarketProfile settings
         )
     {
@@ -108,7 +112,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         n.ReplaceNicheSegments(positionings);
         n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth);
+        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, GetYear(duration));
         n.ReplaceNicheBaseProfile(settings);
 
         return n;

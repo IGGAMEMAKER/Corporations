@@ -11,32 +11,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Ecommerce, niches);
 
-        var financialSystemMarket = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Million,
-            MonetisationType = Monetisation.Service,
-            Margin = Margin.Low,
+        var payment = new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
+        var banking = payment.Global().IncomeMid().Dynamic();
 
-            AppComplexity = AppComplexity.Average,
-
-            NicheSpeed = NicheSpeed.HalfYear,
-        };
-
-        financialSystemMarket = new MarketProfile().NicheApp().Service().LowMargin().WebService().SetSpeed(NicheSpeed.HalfYear);
-
-        var banking = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Service,
-            Margin = Margin.Low,
-
-            AppComplexity = AppComplexity.Average,
-
-            NicheSpeed = NicheSpeed.HalfYear,
-        };
-
-        SetMarkets(NicheType.Fin_Exchanging, 1998, financialSystemMarket);
-        SetMarkets(NicheType.Fin_OnlineBanking, 1992, banking);
-        SetMarkets(NicheType.Fin_PaymentSystem, 1995, financialSystemMarket);
+        SetMarkets(NicheType.Fin_Exchanging, 1998, 2030, payment);
+        SetMarkets(NicheType.Fin_OnlineBanking, 1992, 2030, banking);
+        SetMarkets(NicheType.Fin_PaymentSystem, 1995, 2030, payment);
     }
 }

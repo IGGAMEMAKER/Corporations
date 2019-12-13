@@ -10,6 +10,14 @@ public partial struct MarketProfile
     public NicheSpeed NicheSpeed;
     public AppComplexity AppComplexity;
 
+    public MarketProfile(AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, AppComplexity AppComplexity, NicheSpeed NicheSpeed)
+    {
+        this.AudienceSize = AudienceSize;
+        this.MonetisationType = MonetisationType;
+        this.Margin = Margin;
+        this.AppComplexity = AppComplexity;
+        this.NicheSpeed = NicheSpeed;
+    }
 
     // audiences
     public MarketProfile SetAudience(AudienceSize audienceSize)
@@ -54,9 +62,9 @@ public partial struct MarketProfile
         Margin = margin;
         return this;
     }
-    public MarketProfile LowMargin() => SetMargin(Margin.Low);
-    public MarketProfile AverageMargin() => SetMargin(Margin.Mid);
-    public MarketProfile GoldMine() => SetMargin(Margin.High);
+    public MarketProfile IncomeLow() => SetMargin(Margin.Low);
+    public MarketProfile IncomeMid() => SetMargin(Margin.Mid);
+    public MarketProfile IncomeHigh() => SetMargin(Margin.High);
 
     // market changes speed
     public MarketProfile SetSpeed(NicheSpeed nicheSpeed)

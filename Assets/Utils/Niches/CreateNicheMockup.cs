@@ -36,7 +36,7 @@ namespace Assets.Utils
                 [MarketState.Death] = 0, // churn
             };
 
-            e.AddNicheLifecycle(0, clientGrowthDictionary);
+            e.AddNicheLifecycle(0, clientGrowthDictionary, 0);
 
             e.AddNicheState(MarketState.Idle, 0);
             UpdateNicheDuration(e);
