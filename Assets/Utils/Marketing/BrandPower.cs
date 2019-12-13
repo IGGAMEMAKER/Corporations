@@ -30,7 +30,6 @@ namespace Assets.Utils
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
-                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 .AppendAndHideIfZero("Is not paying for marketing", !isPayingForMarketing ? -7 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
@@ -40,6 +39,7 @@ namespace Assets.Utils
                 .MultiplyAndHideIfOne("Is Innovator", isInnovator && isPayingForMarketing ? 2 : 1)
                 .AppendAndHideIfZero("Is Innovator", isInnovator && !isPayingForMarketing ? 1 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)
+                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 ;
 
             return BrandingChangeBonus;
