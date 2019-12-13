@@ -37,12 +37,12 @@ public partial struct MarketProfile
         return this;
     }
     public MarketProfile SoloDev() => SetComplexity(AppComplexity.Solo);
+    public MarketProfile Util() => SetComplexity(AppComplexity.Solo);
     public MarketProfile Humongous() => SetComplexity(AppComplexity.Humongous);
 
     public MarketProfile BigWebService() => SetComplexity(AppComplexity.Hard);
     public MarketProfile WebService() => SetComplexity(AppComplexity.Average);
     public MarketProfile SmallWebService() => SetComplexity(AppComplexity.Easy);
-    public MarketProfile Util() => SetComplexity(AppComplexity.Solo);
 
 
     // margin
