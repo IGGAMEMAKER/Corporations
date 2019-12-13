@@ -20,13 +20,13 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
-        SetNichesAutomatically(NicheType.Com_Email,  1990, GetPopularUsefulAppProfile);
-        SetNichesAutomatically(NicheType.Com_Forums, 1990, GetPopularRarelyUsedAppProfile);
-        SetNichesAutomatically(NicheType.Com_Blogs,  1995, GetPopularRarelyUsedAppProfile);
-        SetNichesAutomatically(NicheType.Com_Dating, 2000, GetPopularUsefulAppProfile);
+        SetMarkets(NicheType.Com_Email,  1990, GetPopularUsefulAppProfile);
+        SetMarkets(NicheType.Com_Forums, 1990, GetPopularRarelyUsedAppProfile);
+        SetMarkets(NicheType.Com_Blogs,  1995, GetPopularRarelyUsedAppProfile);
+        SetMarkets(NicheType.Com_Dating, 2000, GetPopularUsefulAppProfile);
 
 
-        SetNichesAutomatically(NicheType.Com_SocialNetwork, 1999,
+        SetMarkets(NicheType.Com_SocialNetwork, 1999,
             new MarketProfile
             {
                 AudienceSize = AudienceSize.Global,
@@ -56,9 +56,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheSpeed = NicheSpeed.Quarter,
         };
 
-        messenger = new MarketProfile().Free().Global().SetMargin(Margin.Low).BigWebService().SetNicheSpeed(NicheSpeed.Quarter);
+        messenger = new MarketProfile().Free().Global().LowMargin().WebService().Dynamic();
 
-        SetNichesAutomatically(NicheType.Com_Messenger, 2000, messenger);
+        SetMarkets(NicheType.Com_Messenger, 2000, messenger);
     }
 
     private void InitializeEcommerceIndustry()
@@ -93,9 +93,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheSpeed = NicheSpeed.HalfYear,
         };
 
-        SetNichesAutomatically(NicheType.Fin_Exchanging,    1998, financialSystemMarket);
-        SetNichesAutomatically(NicheType.Fin_OnlineBanking, 1992, banking);
-        SetNichesAutomatically(NicheType.Fin_PaymentSystem, 1995, financialSystemMarket);
+        SetMarkets(NicheType.Fin_Exchanging,    1998, financialSystemMarket);
+        SetMarkets(NicheType.Fin_OnlineBanking, 1992, banking);
+        SetMarkets(NicheType.Fin_PaymentSystem, 1995, financialSystemMarket);
     }
 
     private void InitializeEntertainmentIndustry()
@@ -121,21 +121,21 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         
 
-        SetNichesAutomatically(NicheType.Ent_Lottery,           2000, GetGamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Casino,            2001, GetGamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Betting,           2000, GetGamblingCompanyProfile);
-        SetNichesAutomatically(NicheType.Ent_Poker,             2001, GetGamblingCompanyProfile);
+        SetMarkets(NicheType.Ent_Lottery,           2000, GetGamblingCompanyProfile);
+        SetMarkets(NicheType.Ent_Casino,            2001, GetGamblingCompanyProfile);
+        SetMarkets(NicheType.Ent_Betting,           2000, GetGamblingCompanyProfile);
+        SetMarkets(NicheType.Ent_Poker,             2001, GetGamblingCompanyProfile);
 
-        SetNichesAutomatically(NicheType.Ent_FreeToPlay,        2001,
+        SetMarkets(NicheType.Ent_FreeToPlay,        2001,
             AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
-        SetNichesAutomatically(NicheType.Ent_MMOs,              2000,
+        SetMarkets(NicheType.Ent_MMOs,              2000,
             AudienceSize.Million,    Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
 
 
-        SetNichesAutomatically(NicheType.Ent_StreamingService,  2011,
+        SetMarkets(NicheType.Ent_StreamingService,  2011,
             AudienceSize.Million100, Monetisation.Service, Margin.Low, NicheSpeed.HalfYear, AppComplexity.Easy);
-        SetNichesAutomatically(NicheType.Ent_TVStreamingService,  2016,
+        SetMarkets(NicheType.Ent_TVStreamingService,  2016,
             AudienceSize.Million100, Monetisation.Service, Margin.Mid, NicheSpeed.HalfYear, AppComplexity.Average);
     }
 
@@ -190,10 +190,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheSpeed = NicheSpeed.Year
         };
 
-        SetNichesAutomatically(NicheType.Tech_CloudComputing, 2000, cloud);
-        SetNichesAutomatically(NicheType.Tech_SearchEngine,   1995, searchEngine);
-        SetNichesAutomatically(NicheType.Tech_OSDesktop,      1980, desktop);
-        SetNichesAutomatically(NicheType.Tech_Browser,        1990, browser);
+        SetMarkets(NicheType.Tech_CloudComputing, 2000, cloud);
+        SetMarkets(NicheType.Tech_SearchEngine,   1995, searchEngine);
+        SetMarkets(NicheType.Tech_OSDesktop,      1980, desktop);
+        SetMarkets(NicheType.Tech_Browser,        1990, browser);
     }
 }
 

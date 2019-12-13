@@ -53,10 +53,10 @@ public enum AppComplexity
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    GameEntity SetNichesAutomatically(NicheType nicheType,
+    GameEntity SetMarkets(NicheType nicheType,
     int startDate,
     AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity
-    ) => SetNichesAutomatically(
+    ) => SetMarkets(
             nicheType,
             startDate,
             new MarketProfile
@@ -69,7 +69,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             }
             );
 
-    GameEntity SetNichesAutomatically(NicheType nicheType,
+    GameEntity SetMarkets(NicheType nicheType,
         int startDate,
         MarketProfile settings
         )
