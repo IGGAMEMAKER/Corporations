@@ -165,9 +165,9 @@
             switch (phase)
             {
                 case MarketState.Innovation:    return 10;
-                case MarketState.Trending:      return 25;
-                case MarketState.MassGrowth:    return 55;
-                case MarketState.MassUsage:     return 0;
+                case MarketState.Trending:      return 20;
+                case MarketState.MassGrowth:    return 40;
+                case MarketState.MassUsage:     return 20;
                 case MarketState.Decay:         return 10;
 
                 case MarketState.Death:
