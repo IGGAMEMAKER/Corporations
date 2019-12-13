@@ -135,24 +135,17 @@ public partial class PopupView : View
         bool hasResources = Companies.IsEnoughResources(MyCompany, startCapital);
 
         var title = "Do you really want to create a new " + EnumUtils.GetFormattedNicheName(popup.NicheType);
+        var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
 
-        if (hasResources)
-        {
-            RenderUniversalPopup(
-                title,
-                "",
-                typeof(CreateAppPopupButton),
-                typeof(ClosePopup)
-                );
-        } else
-        {
-            RenderUniversalPopup(
-                title,
-                $"You don't have enough money for that :(\nYou need at least {Format.Money(startCapital)}, " +
-                $"to create a product, which meets market requirements",
-                typeof(ClosePopup)
-                );
-        }
+        var resourceText = hasResources ? "" : Visuals.Negative("\nYou don't have enough money for that :(");
+
+
+        RenderUniversalPopup(
+            title,
+            description + resourceText,
+            typeof(CreateAppPopupButton),
+            typeof(ClosePopup)
+            );
     }
 
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);

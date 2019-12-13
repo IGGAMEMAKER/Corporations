@@ -42,8 +42,8 @@ public class GetStartingNichesListView : ListView
 
         var niches = Markets.GetPlayableNiches(GameContext)
             .Where(IsAppropriateStartNiche)
-            .ToArray();
+            ;
 
-        SetItems(niches);
+        SetItems(niches.ToArray());
     }
 }
