@@ -17,5 +17,14 @@ namespace Assets.Utils
             
             //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
         }
+
+        internal static long GetAudienceSize(GameContext gameContext, NicheType nicheType)
+        {
+            var products = GetProductsOnMarket(gameContext, nicheType);
+
+            var clients = products.Sum(p => MarketingUtils.GetClients(p));
+
+            return clients;
+        }
     }
 }

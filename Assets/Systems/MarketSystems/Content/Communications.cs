@@ -19,9 +19,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var socialNetworks =
             new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Mid, AppComplexity.Hard, NicheSpeed.Year);
 
-        var messenger = socialNetworks.Copy()
-            //new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Mid, AppComplexity.Hard, NicheSpeed.Year)
-            .IncomeLow().WebService().Dynamic();
+        var messenger = socialNetworks.Copy().IncomeLow().WebService().Dynamic();
 
         SetMarkets(NicheType.Com_Email, 1990, 2020, GetPopularUsefulAppProfile);
         SetMarkets(NicheType.Com_Forums, 1990, 2020, GetPopularRarelyUsedAppProfile);

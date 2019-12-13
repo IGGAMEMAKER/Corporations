@@ -11,10 +11,7 @@ public class RenderNichePotential : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var products = Markets.GetProductsOnMarket(GameContext, SelectedNiche);
-
-
-        var clients = products.Sum(p => MarketingUtils.GetClients(p));
+        var clients = Markets.GetAudienceSize(GameContext, SelectedNiche);
 
         var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
 
