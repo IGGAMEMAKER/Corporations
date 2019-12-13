@@ -78,5 +78,9 @@ namespace Assets.Utils
 
             return totalStageClients * (1f - q) / (1f - Mathf.Pow(q, nMax));
         }
+
+        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(GetMarketState(niche));
+
+        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GetMarketState(niche));
     }
 }

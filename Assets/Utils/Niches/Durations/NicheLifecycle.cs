@@ -13,8 +13,32 @@
 
         // get
         public static int GetNicheDuration(GameEntity niche) => GetNichePeriodDurationInMonths(niche);
+        // same
+        private static int GetNichePeriodDurationInMonths(GameEntity niche)
+        {
+            var phase = GetMarketState(niche);
 
-        public static int GetNichePeriodDurationInMonths(GameEntity niche) => GetNichePeriodDurationInMonths(GetMarketState(niche));
+            if (phase == MarketState.MassUsage)
+                return GetMassUsageDuration(niche);
+
+            return GetNichePeriodDurationInMonths(phase);
+        }
+
+        // niche lifecycle
+        private static int GetNichePeriodDurationInMonths(
+            MarketState phase,
+            bool isFastGrowingOnStart = false, bool isSlowlyDecaying = false)
+        {
+            switch (phase)
+            {
+                case MarketState.Innovation: return 8;
+                case MarketState.Trending: return 24;
+                case MarketState.MassGrowth: return 60;
+                //case MarketState.MassUsage: return 
+                case MarketState.Decay: return 100;
+                default: return 1;
+            }
+        }
 
         public static int GetCurrentNicheStateDuration(GameContext gameContext, NicheType nicheType) => GetCurrentNicheStateDuration(GetNiche(gameContext, nicheType));
         public static int GetCurrentNicheStateDuration(GameEntity niche)
@@ -24,8 +48,23 @@
             return stateDuration;
         }
 
-        public static float GetMonthlyAudienceGrowthMultiplier(GameEntity niche) => GetMonthlyAudienceGrowthMultiplier(GetMarketState(niche));
+        // actual lifetime
+        private static int GetMassUsageDuration(GameEntity niche)
+        {
+            var lifecycle = niche.nicheLifecycle;
 
-        public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GameEntity niche) => GetAudiencePercentageThatProductsWillGetDuringThisMarketState(GetMarketState(niche));
+            var startDate = lifecycle.OpenDate;
+            var endDate = lifecycle.EndDate;
+
+            var idle = GetNichePeriodDurationInMonths(MarketState.Idle);
+            var innovation = GetNichePeriodDurationInMonths(MarketState.Innovation);
+            var trending = GetNichePeriodDurationInMonths(MarketState.Trending);
+            var massGrowth = GetNichePeriodDurationInMonths(MarketState.MassGrowth);
+            var decay = GetNichePeriodDurationInMonths(MarketState.Decay);
+
+            var wholeLifetime = (endDate - startDate) / 30; // months
+
+            return wholeLifetime - idle - innovation - trending - massGrowth - decay;
+        }
     }
 }

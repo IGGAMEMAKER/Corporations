@@ -110,20 +110,6 @@
             }
         }
 
-        // niche lifecycle
-        private static int GetNichePeriodDurationInMonths(MarketState phase)
-        {
-            switch (phase)
-            {
-                case MarketState.Innovation:    return 8;
-                case MarketState.Trending:      return 24;
-                case MarketState.MassGrowth:    return 60;
-                case MarketState.MassUsage:     return 120;
-                case MarketState.Decay:         return 100;
-                default: return 1;
-            }
-        }
-
         public static MarketState GetNextPhase(MarketState phase)
         {
             switch (phase)
