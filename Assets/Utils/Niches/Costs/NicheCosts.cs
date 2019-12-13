@@ -32,15 +32,6 @@ namespace Assets.Utils
             return costs.AcquisitionCost;
         }
 
-        // base development cost
-        //public static long GetBaseDevelopmentCost(NicheType nicheType, GameContext gameContext) => GetBaseDevelopmentCost(GetNiche(gameContext, nicheType));
-        //public static long GetBaseDevelopmentCost(GameEntity niche)
-        //{
-        //    var costs = GetNicheCosts(niche);
-
-        //    return costs.TechCost * Constants.SALARIES_PROGRAMMER;
-        //}
-
         // flow
         public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
         {

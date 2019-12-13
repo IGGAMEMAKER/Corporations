@@ -36,7 +36,7 @@ namespace Assets.Utils
         public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
         {
             var positioning = company.productPositioning.Positioning;
-            var posTextual = Markets.GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
+            var posTextual = GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
 
             return posTextual;
         }
