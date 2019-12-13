@@ -39,18 +39,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},
 
-        var messenger = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Adverts,
-            Margin = Margin.Low,
-
-            AppComplexity = AppComplexity.Easy,
-
-            NicheSpeed = NicheSpeed.Quarter,
-        };
-
-        messenger = new MarketProfile { AudienceSize = AudienceSize.Global, MonetisationType = Monetisation.Adverts, Margin = Margin.Low,  AppComplexity = AppComplexity.Easy, NicheSpeed = NicheSpeed.Quarter };
+        var messenger = new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.Quarter);
 
         messenger = new MarketProfile().Free().Global().IncomeLow().WebService().Dynamic();
 

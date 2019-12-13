@@ -14,8 +14,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var payment = new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
         var banking = payment.Global().IncomeMid().Dynamic();
 
-        SetMarkets(NicheType.Fin_Exchanging, 1998, 2030, payment);
         SetMarkets(NicheType.Fin_OnlineBanking, 1992, 2030, banking);
+        SetMarkets(NicheType.Fin_Exchanging, 1998, 2030, payment);
         SetMarkets(NicheType.Fin_PaymentSystem, 1995, 2030, payment);
     }
 }
