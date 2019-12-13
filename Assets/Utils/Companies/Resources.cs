@@ -30,7 +30,11 @@ namespace Assets.Utils
         {
             var startCapital = Markets.GetStartCapital(niche, gameContext) * Random.Range(50, 150) / 100;
 
-            AddResources(product, new TeamResource(startCapital));
+            SetStartCapital(product, startCapital);
+        }
+        public static void SetStartCapital(GameEntity company, long startCapital)
+        {
+            AddResources(company, new TeamResource(startCapital));
         }
 
 

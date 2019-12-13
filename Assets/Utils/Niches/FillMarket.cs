@@ -55,8 +55,12 @@ namespace Assets.Utils
 
         public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
-            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket))
-                SpawnCompany(niche, gameContext);
+            var leaderFunds = Random.Range(5000, 300000);
+
+            bool leaderHasEnoughMoney = GetStartCapital(niche, gameContext) <= leaderFunds;
+
+            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket) && leaderHasEnoughMoney)
+                SpawnCompany(niche, gameContext, leaderFunds);
         }
 
         public static bool InspirationToPlayer(NicheType nicheType, GameContext gameContext)
@@ -76,10 +80,10 @@ namespace Assets.Utils
             return false;
         }
 
-        public static void SpawnCompany(GameEntity niche, GameContext gameContext)
+        public static void SpawnCompany(GameEntity niche, GameContext gameContext, long leaderFunds)
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
-            Companies.SetStartCapital(product, niche, gameContext);
+            Companies.SetStartCapital(product, leaderFunds);
 
 
             var potentialLeader = GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
