@@ -44,6 +44,10 @@
                 RenderInspirationPopup(popup as PopupMessageMarketInspiration);
                 break;
 
+            case PopupType.CreatePrototypeWarning:
+                RenderDoYouReallyWantToCreateAPrototype(popup as PopupMessageDoYouWantToCreateApp);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

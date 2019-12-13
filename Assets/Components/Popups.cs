@@ -21,6 +21,7 @@ public enum PopupType
     Release,
 
     CreatePrototype,
+    CreatePrototypeWarning,
 
     TooManyPartners
 }
@@ -113,6 +114,11 @@ public class PopupMessageMarketPhaseChange : PopupMessageMarketChanges
 public class PopupMessageMarketInspiration : PopupMessageMarketChanges
 {
     public PopupMessageMarketInspiration(NicheType niche) : base(niche, PopupType.InspirationToOpenMarket) { }
+}
+
+public class PopupMessageDoYouWantToCreateApp : PopupMessageMarketChanges
+{
+    public PopupMessageDoYouWantToCreateApp(NicheType niche) : base(niche, PopupType.CreatePrototypeWarning) { }
 }
 
 // universal

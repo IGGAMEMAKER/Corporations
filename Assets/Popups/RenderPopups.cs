@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Assets.Utils.Formatting;
 using System;
+using System.Collections.Generic;
 
 public partial class PopupView : View
 {
@@ -124,6 +125,34 @@ public partial class PopupView : View
             "On your spare time you got new revolutionary ideas! You can create first " + EnumUtils.GetFormattedNicheName(popup.NicheType).ToUpper(),
             typeof(InspirationPopupButton)
             );
+    }
+
+    void RenderDoYouReallyWantToCreateAPrototype(PopupMessageDoYouWantToCreateApp popup)
+    {
+        // check if has enough resources
+        var startCapital = Markets.GetStartCapital(popup.NicheType, GameContext);
+
+        bool hasResources = Companies.IsEnoughResources(MyCompany, startCapital);
+
+        var title = "Do you really want to create a new " + EnumUtils.GetFormattedNicheName(popup.NicheType);
+
+        if (hasResources)
+        {
+            RenderUniversalPopup(
+                title,
+                "",
+                typeof(CreateAppPopupButton),
+                typeof(ClosePopup)
+                );
+        } else
+        {
+            RenderUniversalPopup(
+                title,
+                $"You don't have enough money for that :(\nYou need at least {Format.Money(startCapital)}, " +
+                $"to create a product, which meets market requirements",
+                typeof(ClosePopup)
+                );
+        }
     }
 
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
