@@ -21,10 +21,13 @@ public class BusinessButtonsController : View
 
         PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
 
-        var manageable = Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
-        ManageCompanyButton.SetActive(manageable);
-        SellCompanyButton.SetActive(manageable);
-        CloseCompanyButton.SetActive(manageable);
+
+        bool isMyCompany = c.company.Id == MyCompany.company.Id;
+        bool manageable = Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+
+        ManageCompanyButton.SetActive(false && manageable);
+        SellCompanyButton.SetActive(!isMyCompany && manageable);
+        CloseCompanyButton.SetActive(!isMyCompany && manageable);
 
         bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
         JoinCorporation.SetActive(isCorporation && !manageable);
