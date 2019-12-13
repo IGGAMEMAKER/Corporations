@@ -17,6 +17,7 @@ public enum AudienceSize
 {
     BigEnterprise = 2000, // 2K
     SmallEnterprise = 50000, // 50K
+    SmallUtil = SmallEnterprise,
     Million = 1000000, // 1M
     Million100 = 100000000, // 100M // usefull util AdBlock
     Global = 1000000000 // 1-2B

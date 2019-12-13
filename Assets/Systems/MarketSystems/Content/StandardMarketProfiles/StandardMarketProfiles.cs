@@ -36,5 +36,5 @@ public partial class MarketInitializerSystem : IInitializeSystem
         NicheSpeed = NicheSpeed.ThreeYears,
     };
 
-    MarketProfile GetSmallUtilityForOneDevProfile => new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);
+    MarketProfile GetSmallUtilityForOneDevProfile => new MarketProfile(AudienceSize.SmallUtil, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);
 }
