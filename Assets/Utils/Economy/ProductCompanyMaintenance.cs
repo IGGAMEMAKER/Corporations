@@ -8,10 +8,10 @@ namespace Assets.Utils
         // resulting costs
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            var devFinancing = GetDevelopmentCost(e, gameContext);
-            var marketingFinancing = GetMarketingCost(e, gameContext);
+            var development = GetDevelopmentCost(e, gameContext);
+            var marketing = GetMarketingCost(e, gameContext);
 
-            return devFinancing + marketingFinancing;
+            return development + marketing;
         }
 
         public static long GetMarketingCost(GameEntity e, GameContext gameContext) => GetMarketingCost(e, gameContext, GetMarketingFinancingCostMultiplier(e));
@@ -26,20 +26,20 @@ namespace Assets.Utils
         }
 
 
+        public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
+        {
+            var workers = GetAmountOfWorkers(e, gameContext);
+
+            return workers * Constants.SALARIES_PROGRAMMER;
+        }
+
         public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
             var concept = Products.GetProductLevel(e);
             var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
-            return (int)Mathf.Pow(complexity, concept / 6f);
-        }
-
-        public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
-        {
-            var workers = GetAmountOfWorkers(e, gameContext);
-
-            return workers * Constants.SALARIES_PROGRAMMER;
+            return (int)Mathf.Pow(1 + complexity / 20f, concept);
         }
     }
 }

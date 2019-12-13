@@ -33,7 +33,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
                 MonetisationType = Monetisation.Adverts,
                 Margin = Margin.Mid,
 
-                AppComplexity = AppComplexity.Easy,
+                AppComplexity = AppComplexity.Hard,
 
                 NicheSpeed = NicheSpeed.Year,
             }
@@ -203,7 +203,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         MonetisationType = Monetisation.Adverts,
         Margin = Margin.Low,
 
-        AppComplexity = AppComplexity.Easy,
+        AppComplexity = AppComplexity.Average,
 
         NicheSpeed = NicheSpeed.ThreeYears,
     };
@@ -214,7 +214,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         MonetisationType = Monetisation.Adverts,
         Margin = Margin.Low,
 
-        AppComplexity = AppComplexity.Easy,
+        AppComplexity = AppComplexity.Hard,
 
         NicheSpeed = NicheSpeed.Year,
     };
@@ -223,9 +223,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
     {
         AudienceSize = AudienceSize.Million,
         MonetisationType = Monetisation.IrregularPaid,
-        Margin = Margin.Low,
+        Margin = Margin.Mid,
 
-        AppComplexity = AppComplexity.Easy,
+        AppComplexity = AppComplexity.Average,
 
         NicheSpeed = NicheSpeed.ThreeYears,
     };

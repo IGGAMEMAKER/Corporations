@@ -33,13 +33,15 @@ namespace Assets.Utils
             // force spawning if there are no companies
             if (playersOnMarket == 0)
             {
+                // offer spawning a company to player
                 if (InspirationToPlayer(niche.niche.NicheType, gameContext))
                     return false;
 
                 return true;
             }
 
-            return false;
+            // competition is low
+            return IsMarketCanAffordMoreCompanies(niche, gameContext);
         }
 
         public static bool IsAllReleasedCompaniesAreProfiteering(GameEntity niche, GameContext gameContext)
@@ -53,10 +55,7 @@ namespace Assets.Utils
 
         public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
-            var noCompanies = IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket);
-            var competitionIsLow = IsMarketCanAffordMoreCompanies(niche, gameContext);
-
-            if (noCompanies || competitionIsLow)
+            if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket))
                 SpawnCompany(niche, gameContext);
         }
 

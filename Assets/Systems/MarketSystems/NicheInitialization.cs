@@ -42,9 +42,9 @@ public enum AppComplexity
 {
     Solo = 1,
     Easy = 3,
-    Average = 7,
-    Hard = 15,
-    Humongous = 25
+    Average = 6,
+    Hard = 10,
+    Humongous = 12
 }
 
 
