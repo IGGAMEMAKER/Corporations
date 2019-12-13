@@ -74,4 +74,9 @@ public partial struct MarketProfile
     }
     public MarketProfile Dynamic() => SetSpeed(NicheSpeed.Quarter);
     public MarketProfile LongTerm() => SetSpeed(NicheSpeed.ThreeYears);
+
+    public MarketProfile Copy()
+    {
+        return new MarketProfile(this.AudienceSize, this.MonetisationType, this.Margin, this.AppComplexity, this.NicheSpeed);
+    }
 }
