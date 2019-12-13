@@ -28,6 +28,7 @@ public enum NicheType
     Tech_CloudComputing,
     Tech_OSDesktop,
     Tech_Browser,
+    // Databases
 
     // Entertainment
     Ent_Lottery,
@@ -58,7 +59,7 @@ public enum NicheType
 
     ECom_Marketplace,
 
-    // Usefull apps
+    // Useful apps
     Qol_PdfReader, // pdf readers
     Qol_DocumentEditors, // micr office
     Qol_GraphicalEditor, // Photoshop
@@ -67,7 +68,11 @@ public enum NicheType
 
     Qol_DiskFormattingUtils, // small
     Qol_RSSReader, // small
-    Qol_MusicSearch, // average
+    Qol_Archivers, // small-average
+    Qol_MusicPlayers, // small-average
+    Qol_VideoPlayers, // average
+    Qol_VideoEditingTool, // average
+    //Qol_MusicSearch, // average
 
     Qol_Encyclopedia,
     Qol_Antivirus,

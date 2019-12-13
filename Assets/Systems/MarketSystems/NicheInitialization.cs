@@ -25,11 +25,12 @@ public enum AudienceSize
 
 public enum Monetisation
 {
-    Adverts = 1,
+    Donations = 1,
+    Adverts = 2,
     Service = 10,
     IrregularPaid = 25,
     Paid = 50, // (max income when making ads) + small additional payments
-    Enterprise = 1000
+    Enterprise = 1000,
 }
 
 public enum Margin
