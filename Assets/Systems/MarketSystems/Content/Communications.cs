@@ -15,34 +15,24 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Communications, niches);
 
+
+        var socialNetworks =
+            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Mid, AppComplexity.Hard, NicheSpeed.Year);
+
+        var messenger = socialNetworks.IncomeLow().WebService().Dynamic();
+
         SetMarkets(NicheType.Com_Email, 1990, 2020, GetPopularUsefulAppProfile);
         SetMarkets(NicheType.Com_Forums, 1990, 2020, GetPopularRarelyUsedAppProfile);
         SetMarkets(NicheType.Com_Blogs, 1995, 2020, GetPopularRarelyUsedAppProfile);
         SetMarkets(NicheType.Com_Dating, 2000, 2020, GetPopularUsefulAppProfile);
 
-
-        var socialNetworks = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Adverts,
-            Margin = Margin.Mid,
-
-            AppComplexity = AppComplexity.Hard,
-
-            NicheSpeed = NicheSpeed.Year,
-        };
-        SetMarkets(NicheType.Com_SocialNetwork, 1999, 2025, new MarketProfile().Global().Free().IncomeMid().BigWebService().SetSpeed(NicheSpeed.Year));
-            //new ProductPositioning[] {
-            //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
-            //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
-            //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
-            //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
-            //},
-
-        var messenger = new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.Quarter);
-
-        messenger = new MarketProfile().Free().Global().IncomeLow().WebService().Dynamic();
-
         SetMarkets(NicheType.Com_Messenger, 2000, 2030, messenger);
+        SetMarkets(NicheType.Com_SocialNetwork, 1999, 2025, socialNetworks);
+        //new ProductPositioning[] {
+        //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
+        //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
+        //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
+        //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
+        //},
     }
 }
