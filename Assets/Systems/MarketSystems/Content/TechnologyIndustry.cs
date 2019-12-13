@@ -12,50 +12,18 @@ public partial class MarketInitializerSystem : IInitializeSystem
         };
         AttachNichesToIndustry(IndustryType.Technology, niches);
 
-        var cloud = new MarketProfile
-        {
-            AudienceSize = AudienceSize.SmallEnterprise,
-            MonetisationType = Monetisation.Enterprise,
-            Margin = Margin.High,
+        var cloud =
+            new MarketProfile(AudienceSize.SmallEnterprise, Monetisation.Enterprise, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
+        var searchEngine =
+            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.High, AppComplexity.Humongous, NicheSpeed.ThreeYears);
+        var desktop =
+            new MarketProfile(AudienceSize.Global, Monetisation.Paid, Margin.High, AppComplexity.Humongous, NicheSpeed.ThreeYears);
+        var browser =
+            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
 
-            AppComplexity = AppComplexity.Hard,
-
-            NicheSpeed = NicheSpeed.Year
-        };
-        var searchEngine = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Adverts,
-            Margin = Margin.High,
-
-            AppComplexity = AppComplexity.Humongous,
-
-            NicheSpeed = NicheSpeed.ThreeYears
-        };
-        var desktop = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Paid,
-            Margin = Margin.High,
-
-            AppComplexity = AppComplexity.Humongous,
-
-            NicheSpeed = NicheSpeed.ThreeYears
-        };
-        var browser = new MarketProfile
-        {
-            AudienceSize = AudienceSize.Global,
-            MonetisationType = Monetisation.Adverts,
-            Margin = Margin.High,
-
-            AppComplexity = AppComplexity.Hard,
-
-            NicheSpeed = NicheSpeed.Year
-        };
-
-        SetMarkets(NicheType.Tech_CloudComputing, 2000, cloud);
-        SetMarkets(NicheType.Tech_SearchEngine, 1995, searchEngine);
-        SetMarkets(NicheType.Tech_OSDesktop, 1980, desktop);
-        SetMarkets(NicheType.Tech_Browser, 1990, browser);
+        SetMarkets(NicheType.Tech_CloudComputing, 2000, 2050, cloud);
+        SetMarkets(NicheType.Tech_SearchEngine, 1995, 2040, searchEngine);
+        SetMarkets(NicheType.Tech_OSDesktop, 1980, 2040, desktop);
+        SetMarkets(NicheType.Tech_Browser, 1990, 2030, browser);
     }
 }
