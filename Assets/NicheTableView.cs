@@ -9,13 +9,14 @@ public class NicheTableView : View, IPointerEnterHandler
     public Text NicheName;
     public Text Competitors;
     public Image Panel;
-    public Text StartCapital;
+    public Text Maintenance;
     public Hint Phase;
     public Text NicheSize;
     public SetAmountOfStars SetAmountOfStars;
     public Text MarketPhase;
 
     public Text MonetisationType;
+    public Text StartCapital;
 
     GameEntity niche;
 
@@ -54,16 +55,20 @@ public class NicheTableView : View, IPointerEnterHandler
         MonetisationType.text = GetFormattedMonetisationType(monetisation);
 
         RenderTimeToMarket();
-        
+
+        var startCapital = Markets.GetStartCapital(nicheType, GameContext);
+        StartCapital.text = Format.MinifyMoney(startCapital);
+        StartCapital.color = Visuals.GetColorPositiveOrNegative(Companies.IsEnoughResources(MyCompany, startCapital));
+
         // 
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
         
         // maintenance
         var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(profitLeader, GameContext);
-        StartCapital.text = Format.MinifyMoney(biggestMaintenance);
+        Maintenance.text = Format.MinifyMoney(biggestMaintenance);
 
         var myProfit = Economy.GetProfit(MyCompany, GameContext);
-        StartCapital.color = Visuals.GetColorPositiveOrNegative(myProfit - biggestMaintenance);
+        Maintenance.color = Visuals.GetColorPositiveOrNegative(myProfit - biggestMaintenance);
 
         // income
         var profit = profitLeader == null ? 0 : Economy.GetProfit(profitLeader, GameContext);

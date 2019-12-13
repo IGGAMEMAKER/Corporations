@@ -31,9 +31,10 @@ namespace Assets.Utils
         public static string Negative(string text)  => Colorize(text, VisualConstants.COLOR_NEGATIVE);
 
         // TODO used twice in same place
-        public static Color GetColorPositiveOrNegative(long value)
+        public static Color GetColorPositiveOrNegative(long value) => GetColorPositiveOrNegative(value > 0);
+        public static Color GetColorPositiveOrNegative(bool isPositive)
         {
-            string col = value > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+            string col = isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
 
             return GetColorFromString(col);
         }
