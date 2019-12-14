@@ -79,5 +79,19 @@ namespace Assets.Utils
                 phase == MarketState.Decay ||
                 phase == MarketState.MassGrowth;
         }
+
+        public static bool IsAppropriateStartNiche(GameEntity niche)
+        {
+            var profile = niche.nicheBaseProfile.Profile;
+
+            var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
+            var isConceptLevelLow = true || Products.GetMarketDemand(niche) < 10;
+
+            var isPerspective = Markets.IsPerspectiveNiche(niche);
+            var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
+
+            return isPerspective && isCheapToMaintain;
+            return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
+        }
     }
 }

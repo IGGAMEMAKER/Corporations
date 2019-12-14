@@ -1,10 +1,13 @@
 ﻿using Assets.Utils;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartCampaignButton : ButtonController
 {
     NicheType NicheType;
+    //IndustryType Industry;
     InputField Input;
 
     public override void Execute()
@@ -32,5 +35,14 @@ public class StartCampaignButton : ButtonController
     {
         NicheType = nicheType;
         this.Input = Input;
+    }
+
+    public void SetIndustry(IndustryType industry, InputField Input)
+    {
+        var niches = Markets.GetPlayableNichesInIndustry(industry, GameContext).Where(Markets.IsAppropriateStartNiche).ToArray();
+        var index = Random.Range(0, niches.Count());
+        var niche = niches[index].niche.NicheType;
+
+        SetNiche(niche, Input);
     }
 }

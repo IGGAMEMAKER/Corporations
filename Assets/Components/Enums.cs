@@ -53,11 +53,12 @@ public enum NicheType
     ECom_TradingBot,
 
     ECom_OnlineTaxi,
-    ECom_Booking,
+    ECom_BookingTickets, // rzd, aero
+    ECom_Booking, // hotels
     ECom_Tourism,
-    ECom_EventTickets,
+    ECom_EventTickets, // concerts
 
-    ECom_Marketplace,
+    ECom_Marketplace, // amazon, ali e.t.c.
 
     // Useful apps
     Qol_PdfReader, // pdf readers

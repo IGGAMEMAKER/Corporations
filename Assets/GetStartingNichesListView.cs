@@ -20,28 +20,12 @@ public class GetStartingNichesListView : ListView
         Destroy(link);
     }
 
-    bool IsAppropriateStartNiche(GameEntity niche)
-    {
-        var profile = niche.nicheBaseProfile.Profile;
-
-        var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
-        var isConceptLevelLow = true || Products.GetMarketDemand(niche) < 10;
-
-        var isPerspective = Markets.IsPerspectiveNiche(niche);
-        var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
-
-        return isPerspective && isCheapToMaintain;
-        return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
-    }
-
-
-
     void Start()
     {
         //var niches = NicheUtils.GetNiches(GameContext);
 
         var niches = Markets.GetPlayableNiches(GameContext)
-            .Where(IsAppropriateStartNiche)
+            .Where(Markets.IsAppropriateStartNiche)
             ;
 
         SetItems(niches.ToArray());

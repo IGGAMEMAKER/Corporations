@@ -25,8 +25,7 @@ public enum AudienceSize
 
 public enum Monetisation
 {
-    Donations = 1,
-    Adverts = 2,
+    Adverts = 1,
     Service = 10,
     IrregularPaid = 25,
     Paid = 50, // (max income when making ads) + small additional payments

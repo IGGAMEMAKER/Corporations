@@ -20,6 +20,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeCommunicationsIndustry();
         InitializeEntertainmentIndustry();
         InitializeEcommerceIndustry();
+        InitializeUsefulAppsIndustry();
 
         //CheckIndustriesWithZeroNiches();
     }

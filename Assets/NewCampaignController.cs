@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NewCampaignController : View
 {
     NicheType NicheType;
+    IndustryType Industry;
     public StartCampaignButton StartCampaignButton;
     public InputField Input;
 
@@ -14,6 +15,16 @@ public class NewCampaignController : View
         NicheType = nicheType;
 
         StartCampaignButton.SetNiche(nicheType, Input);
+
+        Input.Select();
+        Input.ActivateInputField();
+    }
+
+    public void SetIndustry(IndustryType industry)
+    {
+        Industry = industry;
+
+        StartCampaignButton.SetIndustry(industry, Input);
 
         Input.Select();
         Input.ActivateInputField();
