@@ -41,6 +41,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.ECom_EventTickets,     1995, 2030, booking);
 
 
-        SetMarkets(NicheType.ECom_Marketplace,      1995, 2030, marketplace);
+        SetMarkets(NicheType.ECom_Marketplace,      1995, 2050, marketplace);
     }
 }
