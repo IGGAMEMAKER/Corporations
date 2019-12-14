@@ -5,7 +5,7 @@
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
             var managingCompany = product.isIndependentCompany ? product : Companies.GetParentCompany(gameContext, product);
-            var culture = managingCompany.corporateCulture.Culture;
+            var culture = Companies.GetActualCorporateCulture(product, gameContext);
 
             bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
 
@@ -49,9 +49,7 @@
 
         public static int GetFocusingBonus(GameEntity product)
         {
-            var culture = product.corporateCulture.Culture;
-
-            var focusing = culture[CorporatePolicy.Focusing];
+            var focusing = Companies.GetPolicyValue(product, CorporatePolicy.Focusing);
 
             return 5 * (5 - focusing);
         }

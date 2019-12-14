@@ -21,9 +21,9 @@ public class TweakCorporatePolicy : UpgradedButtonController
     {
         bool hasCooldown = CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
 
-        var culture = MyCompany.corporateCulture.Culture;
+        var culture = Companies.GetOwnCorporateCulture(MyCompany);
 
-        var value = culture[CorporatePolicy];
+        var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
         bool willExceedLimits = (Increment && value == 5) || (!Increment && value == 1);
 
         return !hasCooldown && !willExceedLimits;

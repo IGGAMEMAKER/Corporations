@@ -2,7 +2,7 @@
 {
     partial class Companies
     {
-        public static int GetPolicyValue(GameEntity company, CorporatePolicy policy) => company.corporateCulture.Culture[policy];
+        public static int GetPolicyValue(GameEntity company, CorporatePolicy policy) => GetOwnCorporateCulture(company)[policy];
 
         // policy Responsibility: LeaderOrTeam
         public static int GetCompanyLimit(GameEntity company)

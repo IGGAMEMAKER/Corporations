@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
 
     string DescribePolicy(CorporatePolicy corporatePolicy, string left, string right)
     {
-        var investorCulture = SelectedInvestor.corporateCulture.Culture;
+        var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
 
         var val = investorCulture[corporatePolicy];
 

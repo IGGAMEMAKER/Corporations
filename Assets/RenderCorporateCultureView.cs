@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Utils;
+using UnityEngine.UI;
 
 public class RenderCorporateCultureView : View
 {
@@ -19,8 +20,8 @@ public class RenderCorporateCultureView : View
 
     void SetText(Text text, CorporatePolicy corporatePolicy)
     {
-        var culture = MyCompany.corporateCulture.Culture;
+        var value = Companies.GetPolicyValue(MyCompany, corporatePolicy);
 
-        text.text = culture[corporatePolicy].ToString();
+        text.text = value.ToString();
     }
 }
