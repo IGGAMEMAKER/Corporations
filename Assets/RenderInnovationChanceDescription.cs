@@ -12,6 +12,9 @@ public class RenderInnovationChanceDescription : UpgradedParameterView
 
     public override string RenderValue()
     {
+        if (!SelectedCompany.hasProduct)
+            return "";
+
         var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
         var text = $"<b>Innovation chance: {chance}%</b>\n\n";
 
