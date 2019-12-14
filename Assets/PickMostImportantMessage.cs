@@ -17,18 +17,22 @@ public class PickMostImportantMessage : ListView
     {
         base.ViewRender();
 
+        var message = GetMostImportant();
+
+        SetItems(message);
+    }
+
+    NotificationMessage[] GetMostImportant()
+    {
         var notifications = NotificationUtils.GetNotifications(GameContext);
 
         if (notifications.Count > 0)
         {
             var notification = notifications[notifications.Count - 1];
 
-            NotificationMessage[] notificationMessage = new NotificationMessage[] { notification };
-
-            SetItems(notificationMessage);
-        } else
-        {
-            SetItems(new NotificationMessage[0]);
+            return new NotificationMessage[] { notification };
         }
+
+        return new NotificationMessage[0];
     }
 }
