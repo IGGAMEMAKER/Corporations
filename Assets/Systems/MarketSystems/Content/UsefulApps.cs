@@ -17,8 +17,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.Qol_RSSReader, // small
             NicheType.Qol_Archivers, // small-average
 
-            NicheType.Qol_MusicPlayers, // small-average
-            NicheType.Qol_VideoPlayers, // average
+            //NicheType.Qol_MusicPlayers, // small-average
+            //NicheType.Qol_VideoPlayers, // average
 
             //NicheType.Qol_Encyclopedia,
             //NicheType.Qol_Antivirus,
