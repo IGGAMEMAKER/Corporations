@@ -54,6 +54,28 @@ namespace Assets.Utils.Formatting
                 case NicheType.ECom_OnlineBanking: return "Online Banking";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
 
+                case NicheType.ECom_EventTickets: return "Event tickets booking";
+                case NicheType.ECom_Tourism: return "Booking Tours";
+                case NicheType.ECom_Booking: return "Booking hotels";
+                case NicheType.ECom_BookingTickets: return "Online airplane/train booking";
+                case NicheType.ECom_OnlineTaxi: return "Online taxi";
+
+                case NicheType.Qol_3DGraphicalEditor: return "3D Editing tools";
+                case NicheType.Qol_AdBlocker: return "Advert blocking tools";
+                case NicheType.Qol_Antivirus: return "Antiviruses";
+                case NicheType.Qol_Archivers: return "Archivers";
+                case NicheType.Qol_DiskFormattingUtils: return "Disk formatting util";
+                case NicheType.Qol_DocumentEditors: return "Document Editors";
+                case NicheType.Qol_Encyclopedia: return "Online Encyclopedia";
+                case NicheType.Qol_GraphicalEditor: return "2D Editing tools";
+                case NicheType.Qol_MusicPlayers: return "Music Players";
+                case NicheType.Qol_OnlineEducation: return "Online schools";
+                case NicheType.Qol_PdfReader: return "PDF readers";
+                case NicheType.Qol_RSSReader: return "RSS readers";
+                case NicheType.Qol_VideoEditingTool: return "Video editing tool";
+                case NicheType.Qol_VideoPlayers: return "Video players";
+
+
                 default: return niche.ToString();
             }
         }
