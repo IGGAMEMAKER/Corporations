@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Utils.Formatting;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -27,6 +29,7 @@ namespace Assets.Utils
 
         public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
         {
+            Debug.Log("GetProductPositioningInfo " + EnumUtils.GetFormattedNicheName(nicheType) + " segment " + segmentId);
             var positionings = GetNichePositionings(nicheType, GameContext);
 
             return positionings[segmentId];
