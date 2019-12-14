@@ -11,10 +11,21 @@ namespace Assets.Utils
             long cost = Economy.GetCompanyCost(context, companyId);
             var c = GetCompany(context, companyId);
 
-            foreach (var potentialInvestor in GetPotentialInvestors(context, companyId))
+            var potentialInvestors = GetPotentialInvestors(context, companyId);
+            var investorsCount = potentialInvestors.Length;
+
+            foreach (var potentialInvestor in potentialInvestors)
             {
-                long valuation = cost * (50 + UnityEngine.Random.Range(0, 100)) / 100;
+                var modifier = (50 + UnityEngine.Random.Range(0, 100));
+
+                long valuation = cost * modifier / 100;
                 var ShareholderId = potentialInvestor.shareholder.Id;
+
+                long offer = valuation / 10;
+                var max = GetMaxInvestingAmountForInvestorType(potentialInvestor);
+
+                if (offer > max)
+                    offer = max;
 
                 var p = new InvestmentProposal
                 {
@@ -30,6 +41,20 @@ namespace Assets.Utils
                     continue;
 
                 AddInvestmentProposal(context, companyId, p);
+            }
+        }
+
+        public static int GetMaxInvestingAmountForInvestorType(GameEntity investor)
+        {
+            switch (investor.shareholder.InvestorType)
+            {
+                case InvestorType.FFF: return 10000;
+
+                case InvestorType.Angel: return 150000;
+
+                case InvestorType.VentureInvestor: return 1000000;
+
+                default: return 0;
             }
         }
     }
