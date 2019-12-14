@@ -20,7 +20,12 @@ namespace Assets.Utils
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
             var acquisitionCost = Markets.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
-            var result = gainedClients * acquisitionCost * financing;
+            var culture = Companies.GetActualCorporateCulture(e, gameContext);
+            var creation = culture[CorporatePolicy.CreateOrBuy];
+
+            // up to 40%
+            var discount = 100 - (creation - 1) * 10;
+            var result = gainedClients * acquisitionCost * financing * discount / 100;
 
             return (long)result;
         }
@@ -30,7 +35,13 @@ namespace Assets.Utils
         {
             var workers = GetAmountOfWorkers(e, gameContext);
 
-            return workers * Constants.SALARIES_PROGRAMMER;
+            var salaries = workers * Constants.SALARIES_PROGRAMMER;
+
+            var culture = Companies.GetActualCorporateCulture(e, gameContext);
+            var mindset = culture[CorporatePolicy.WorkerMindset];
+
+            var discount = 100 - (mindset - 1) * 10;
+            return salaries * discount / 100;
         }
 
         public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
