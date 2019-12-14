@@ -5,7 +5,6 @@
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
             var managingCompany = product.isIndependentCompany ? product : Companies.GetParentCompany(gameContext, product);
-            var culture = Companies.GetActualCorporateCulture(product, gameContext);
 
             bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
 
@@ -17,6 +16,7 @@
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
             // culture bonuses
+            var culture = Companies.GetActualCorporateCulture(product, gameContext);
             var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
             var mindset         = culture[CorporatePolicy.WorkerMindset];
             var createOrBuy     = culture[CorporatePolicy.CreateOrBuy];
