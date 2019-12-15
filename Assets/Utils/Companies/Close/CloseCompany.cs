@@ -17,11 +17,13 @@ namespace Assets.Utils
 
             // fire everyone
 
-            TeamUtils.DismissTeam(e, context);
-
             NotifyAboutProductSupportEnd(e, context);
 
-            Markets.ReturnUsersWhenCompanyIsClosed(e, context);
+            if (e.hasProduct)
+            {
+                TeamUtils.DismissTeam(e, context);
+                Markets.ReturnUsersWhenCompanyIsClosed(e, context);
+            }
 
 
             foreach (var holding in GetDaughterCompanies(context, e.company.Id))
