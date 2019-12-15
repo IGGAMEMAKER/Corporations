@@ -148,5 +148,23 @@ public partial class PopupView : View
             );
     }
 
+    void RenderBankruptcyThreat(PopupMessageBankruptcyThreat popup)
+    {
+        RenderUniversalPopup(
+            "BANKRUPTCY IS COMING!",
+            "YOU HAVE ONE DAY TO SAVE YOUR COMPANY!\n\n" + Visuals.Negative("<b><i>Raise investments</i></b> and stop <b></i>capturing markets</b></i>!"),
+            typeof(ClosePopupOK)
+            );
+    }
+
+    void RenderGameOverMessage(PopupMessageGameOver popup)
+    {
+        RenderUniversalPopup(
+            "YOU ARE BANKRUPT!",
+            Visuals.Negative("<b><i>GAME OVER</i></b>") + "\nYou will be luckier next time. The game will be closed. Restart it!",
+            typeof(ClosePopupOK)
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

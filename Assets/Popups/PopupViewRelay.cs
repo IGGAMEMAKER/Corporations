@@ -48,6 +48,14 @@
                 RenderDoYouReallyWantToCreateAPrototype(popup as PopupMessageDoYouWantToCreateApp);
                 break;
 
+            case PopupType.BankruptcyThreat:
+                RenderBankruptcyThreat(popup as PopupMessageBankruptcyThreat);
+                break;
+
+            case PopupType.GameOver:
+                RenderGameOverMessage(popup as PopupMessageGameOver);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

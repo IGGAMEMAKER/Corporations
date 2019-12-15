@@ -23,7 +23,10 @@ public enum PopupType
     CreatePrototype,
     CreatePrototypeWarning,
 
-    TooManyPartners
+    TooManyPartners,
+
+    BankruptcyThreat,
+    GameOver
 }
 
 public class PopupMessage
@@ -99,6 +102,16 @@ public class PopupMessageInterestToCompany : PopupMessageCompanyEvent
 public class PopupMessageCorporationSpawn : PopupMessageCompanyEvent
 {
     public PopupMessageCorporationSpawn(int companyId) : base(companyId, PopupType.NewCorporation) { }
+}
+
+public class PopupMessageBankruptcyThreat : PopupMessageCompanyEvent
+{
+    public PopupMessageBankruptcyThreat(int companyId) : base(companyId, PopupType.BankruptcyThreat) { }
+}
+
+public class PopupMessageGameOver : PopupMessageCompanyEvent
+{
+    public PopupMessageGameOver(int companyId) : base(companyId, PopupType.GameOver) { }
 }
 
 public class PopupMessageCompanySpawn : PopupMessageCompanyEvent
