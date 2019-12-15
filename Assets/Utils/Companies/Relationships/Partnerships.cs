@@ -78,10 +78,11 @@ namespace Assets.Utils
 
         public static float GetCompanyBenefitFromTargetCompany(GameEntity company, GameEntity target, GameContext gameContext)
         {
-            var sameIndustries = company.companyFocus.Industries.Intersect(target.companyFocus.Industries);
+            var targetManager = GetManagingCompanyOf(target, gameContext);
+            var sameIndustries = company.companyFocus.Industries.Intersect(targetManager.companyFocus.Industries);
 
             return sameIndustries
-                .Sum(i => GetCompanyStrengthInIndustry(target, i, gameContext))
+                .Sum(i => GetCompanyStrengthInIndustry(targetManager, i, gameContext))
                 ;
         }
 
