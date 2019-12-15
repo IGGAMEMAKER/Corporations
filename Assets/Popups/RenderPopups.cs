@@ -189,5 +189,17 @@ public partial class PopupView : View
             );
     }
 
+    void RenderNewCorporationRequirements(PopupMessageCorporationRequirements popup)
+    {
+        var cost = Economy.GetCompanyCost(GameContext, popup.companyId);
+        var goal = Constants.CORPORATION_REQUIREMENTS_COMPANY_COST;
+
+        RenderUniversalPopup(
+            "You cannot create a corporation :(",
+            $"Currently it costs {Format.Money(cost)}, but needs to cost at least {Format.Money(goal)} to be taken seriously",
+            typeof(ClosePopupOK)
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

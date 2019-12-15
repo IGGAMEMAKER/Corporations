@@ -26,7 +26,9 @@ public enum PopupType
     TooManyPartners,
 
     BankruptcyThreat,
-    GameOver
+    GameOver,
+
+    CorporationRequirementsWarning
 }
 
 public class PopupMessage
@@ -117,6 +119,11 @@ public class PopupMessageGameOver : PopupMessageCompanyEvent
 public class PopupMessageCompanySpawn : PopupMessageCompanyEvent
 {
     public PopupMessageCompanySpawn(int companyId) : base(companyId, PopupType.NewCompany) { }
+}
+
+public class PopupMessageCorporationRequirements : PopupMessageCompanyEvent
+{
+    public PopupMessageCorporationRequirements(int companyId) : base(companyId, PopupType.CorporationRequirementsWarning) { }
 }
 
 // market state changes

@@ -64,6 +64,10 @@
                 RenderNewCorporationSpawn(popup as PopupMessageCorporationSpawn);
                 break;
 
+            case PopupType.CorporationRequirementsWarning:
+                RenderNewCorporationRequirements(popup as PopupMessageCorporationRequirements);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
