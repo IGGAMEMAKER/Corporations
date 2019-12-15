@@ -180,5 +180,14 @@ public partial class PopupView : View
             );
     }
 
+    void RenderNewCorporationSpawn(PopupMessageCorporationSpawn popup)
+    {
+        RenderUniversalPopup(
+            "YOU HAVE CREATED A CORPORATION!!!",
+            Visuals.Positive("You can buy and manage way more companies than before!") +
+            "\n\nBECOME the RICHEST COMPANY in the world!"
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

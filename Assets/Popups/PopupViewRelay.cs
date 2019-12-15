@@ -60,6 +60,10 @@
                 RenderStrategicPartnershipMessage(popup as PopupMessageStrategicPartnership);
                 break;
 
+            case PopupType.NewCorporation:
+                RenderNewCorporationSpawn(popup as PopupMessageCorporationSpawn);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
