@@ -93,7 +93,10 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "Do you really want to release this product?",
-            "Maintenance cost will increase\nThis product will get 20 brand power",
+            Visuals.Negative("Maintenance cost will increase") +
+            Visuals.Positive("\nThis product will get 20 brand power") +
+            Visuals.Positive("\nYou will be able to make partnerships") +
+            Visuals.Positive("\n\nYour income will increase!"),
             typeof(ReleaseAppPopupButton),
             typeof(ClosePopup)
             );
