@@ -12,7 +12,12 @@ public partial class CheckBankruptciesSystems : OnPeriodChange
             CloseCompaniesIfNecessary(c);
 
         foreach (var c in Companies.GetIndependentCompanies(gameContext))
+        {
+            if (Companies.IsFinancialStructure(c))
+                continue;
+
             CheckBankruptcies(c);
+        }
     }
 
     void CloseCompaniesIfNecessary(GameEntity group)
