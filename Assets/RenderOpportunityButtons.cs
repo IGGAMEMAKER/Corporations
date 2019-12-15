@@ -22,7 +22,7 @@ public class RenderOpportunityButtons : View
         Partnerships.SetActive(hasReleasedProducts);
 
         CorporateCulture.SetActive(hasAtLeastOneCompany);
-        Acquisitions.SetActive(hasAtLeastOneCompany);
+        Acquisitions.SetActive(false && hasAtLeastOneCompany);
         RaiseInvestmentsButton.SetActive(hasAtLeastOneCompany);
     }
 }
