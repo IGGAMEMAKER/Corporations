@@ -169,5 +169,16 @@ public partial class PopupView : View
             );
     }
 
+    void RenderStrategicPartnershipMessage(PopupMessageStrategicPartnership popup)
+    {
+        bool signed = Companies.IsHaveStrategicPartnershipAlready(popup.companyId, popup.companyId2, GameContext);
+
+        var target = GetCompanyName(popup.companyId2);
+        RenderUniversalPopup(
+            signed ? $"We are strategic partners with {target}!" : $"We have revoked our strategic partnership with {target}",
+            signed ? "Our products will get more brand power every month" : "They are worthless and we don't need their help anymore!"
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

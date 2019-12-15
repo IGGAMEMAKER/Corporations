@@ -134,6 +134,7 @@ namespace Assets.Utils
             return company.partnerships.companies.Count >= maxPartnerships;
         }
 
+        public static bool IsHaveStrategicPartnershipAlready(int c1, int c2, GameContext gameContext) => IsHaveStrategicPartnershipAlready(GetCompany(gameContext, c1), GetCompany(gameContext, c2));
         public static bool IsHaveStrategicPartnershipAlready(GameEntity c1, GameEntity c2)
         {
             return

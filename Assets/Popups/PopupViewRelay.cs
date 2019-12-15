@@ -56,6 +56,10 @@
                 RenderGameOverMessage(popup as PopupMessageGameOver);
                 break;
 
+            case PopupType.StrategicPartnership:
+                RenderStrategicPartnershipMessage(popup as PopupMessageStrategicPartnership);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
