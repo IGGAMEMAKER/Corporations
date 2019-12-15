@@ -215,7 +215,9 @@ namespace Assets.Utils
 
             var parent = GetParentCompany(gameContext, company);
 
-            return parent.partnerships.companies;
+            var manager = parent ?? company;
+
+            return manager.partnerships.companies;
         }
 
         public static List<GameEntity> GetPartnerList(GameEntity company, GameContext gameContext)
