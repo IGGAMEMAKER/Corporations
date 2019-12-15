@@ -7,17 +7,16 @@
         {
             var timeToMarket = Products.GetTimeToMarketFromScratch(niche);
 
-            var timeToProfitability = 0;
+            var timeToProfitability = 4;
 
-            return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(gameContext, niche);
+            var marketingBudget = 200000;
+
+            return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(gameContext, niche) + marketingBudget;
         }
 
         internal static long GetBaseProductMaintenance(GameContext gameContext, GameEntity niche)
         {
-            var ads = 0; // GetClientAcquisitionCost(niche);
-            var team = GetBiggestMaintenanceOnMarket(gameContext, niche);
-
-            return ads + team;
+            return GetBiggestMaintenanceOnMarket(gameContext, niche);
         }
     }
 }
