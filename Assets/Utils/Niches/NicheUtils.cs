@@ -90,7 +90,9 @@ namespace Assets.Utils
             var isPerspective = Markets.IsPerspectiveNiche(niche);
             var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
 
-            return isPerspective && isCheapToMaintain;
+            var isTopMarket = GetMarketPotentialRating(niche) > 3;
+
+            return isPerspective && isCheapToMaintain && !isTopMarket;
             return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
         }
     }
