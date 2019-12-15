@@ -196,8 +196,8 @@ public partial class PopupView : View
 
         RenderUniversalPopup(
             "You cannot create a corporation :(",
-            $"Currently it costs {Format.Money(cost)}, but needs to cost at least {Format.Money(goal)} to be taken seriously",
-            typeof(ClosePopupOK)
+            $"Your company costs {Format.Money(cost)}, but needs to cost at least {Format.Money(goal)} to become a corporation",
+            typeof(ClosePopup)
             );
     }
 
