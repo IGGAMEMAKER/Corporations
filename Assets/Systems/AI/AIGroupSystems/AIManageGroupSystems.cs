@@ -63,11 +63,8 @@ public partial class CheckBankruptciesSystems : OnPeriodChange
 
     void CloseCompaniesIfNecessary(GameEntity group)
     {
-        foreach (var holding in Companies.GetDaughterCompanies(gameContext, group.company.Id))
-        {
-            if (holding.hasProduct)
-                CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
-        }
+        foreach (var holding in Companies.GetDaughterProductCompanies(gameContext, group))
+            CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
     }
 
     void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(GameEntity product)
@@ -81,6 +78,8 @@ public partial class CheckBankruptciesSystems : OnPeriodChange
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
             CloseBankruptCompany(product);
+
+        // Support company?
     }
 
     void CheckBankruptcies(GameEntity company)
