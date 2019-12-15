@@ -23,7 +23,29 @@ public abstract class OnDateChange : ReactiveSystem<GameEntity>
     }
 }
 
+public abstract class OnLastDayOfPeriod : ReactiveSystem<GameEntity>
+{
+    public readonly Contexts contexts;
+    public readonly GameContext gameContext;
 
+    protected OnLastDayOfPeriod(Contexts contexts) : base(contexts.game)
+    {
+        this.contexts = contexts;
+        gameContext = contexts.game;
+    }
+
+    protected override bool Filter(GameEntity entity)
+    {
+        return entity.hasDate && (entity.date.Date % AmountOfDays == AmountOfDays - 1) && entity.date.Date > 0;
+    }
+
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
+    {
+        return context.CreateCollector(GameMatcher.Date);
+    }
+
+    public int AmountOfDays { get { return 30; } }
+}
 
 public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
 {
@@ -49,6 +71,8 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
     public abstract int AmountOfDays { get; }
 }
 
+
+// implementations
 public abstract class OnPeriodChange : OnMonthChange
 {
     public OnPeriodChange(Contexts contexts) : base(contexts)

@@ -45,5 +45,17 @@ namespace Assets.Utils
 
             return companies[0];
         }
+
+        public static bool IsPlayerCompany(GameContext gameContext, GameEntity company)
+        {
+            return company.isControlledByPlayer;
+
+            var playerCompany = GetPlayerCompany(gameContext);
+
+            if (playerCompany == null)
+                return false;
+
+            return playerCompany.company.Id == company.company.Id;
+        }
     }
 }

@@ -10,6 +10,37 @@ public partial class AIManageGroupSystems : OnQuarterChange
     {
         foreach (var c in Companies.GetAIManagingCompanies(gameContext))
             ManageGroup(c);
+
+        foreach (var c in Companies.GetIndependentCompanies(gameContext))
+            CheckBankruptcies(c);
+    }
+
+    void CheckBankruptcies(GameEntity company)
+    {
+        if (company.hasProduct)
+            return;
+
+        var isBankrupt = company.companyResource.Resources.money < 0;
+
+        if (!isBankrupt)
+            return;
+
+        if (Companies.IsPlayerCompany(gameContext, company))
+            NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
+
+        Companies.CloseCompany(gameContext, company);
+    }
+
+    void CloseBankruptCompany(GameEntity company)
+    {
+        Companies.CloseCompany(gameContext, company);
+
+        NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(company.company.Id));
+        //if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
+        //{
+        //    //NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
+
+        //}
     }
 
     void ManageGroup(GameEntity group)
@@ -40,14 +71,7 @@ public partial class AIManageGroupSystems : OnQuarterChange
 
         if ((isNicheDead && isNotProfitable) || isBankrupt)
         {
-            Companies.CloseCompany(gameContext, product);
-
-            NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(product.company.Id));
-            //if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
-            //{
-            //    //NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
-
-            //}
+            CloseBankruptCompany(product);
         }
     }
 
