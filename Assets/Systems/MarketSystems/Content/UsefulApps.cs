@@ -31,19 +31,19 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var officeDocumentEditor = new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.Year);
 
-        SetMarkets(NicheType.Qol_PdfReader, 2000, 2030, officeDocumentEditor);
+        SetMarkets(NicheType.Qol_PdfReader,             2000, 2030, officeDocumentEditor);
 
-        SetMarkets(NicheType.Qol_DocumentEditors, 1980, 2040, officeDocumentEditor);
-        SetMarkets(NicheType.Qol_GraphicalEditor, 1990, 2040, officeDocumentEditor);
+        SetMarkets(NicheType.Qol_DocumentEditors,       1980, 2040, officeDocumentEditor);
+        SetMarkets(NicheType.Qol_GraphicalEditor,       1990, 2040, officeDocumentEditor);
 
-        SetMarkets(NicheType.Qol_3DGraphicalEditor, 2000, 2050, officeDocumentEditor);
-        SetMarkets(NicheType.Qol_VideoEditingTool, 2000, 2050, officeDocumentEditor);
+        SetMarkets(NicheType.Qol_3DGraphicalEditor,     2000, 2050, officeDocumentEditor);
+        SetMarkets(NicheType.Qol_VideoEditingTool,      2000, 2050, officeDocumentEditor);
 
 
-        SetMarkets(NicheType.Qol_AdBlocker, 2003, 2040, smallUtil);
-        SetMarkets(NicheType.Qol_DiskFormattingUtils, 1999, 2030, smallUtil);
-        SetMarkets(NicheType.Qol_RSSReader, 1999, 2030, smallUtil);
-        SetMarkets(NicheType.Qol_Archivers, 1999, 2030, smallUtil);
+        SetMarkets(NicheType.Qol_AdBlocker,             2003, 2040, smallUtil);
+        SetMarkets(NicheType.Qol_DiskFormattingUtils,   1999, 2030, smallUtil);
+        SetMarkets(NicheType.Qol_RSSReader,             1999, 2030, smallUtil);
+        SetMarkets(NicheType.Qol_Archivers,             1999, 2030, smallUtil);
 
 
     }
