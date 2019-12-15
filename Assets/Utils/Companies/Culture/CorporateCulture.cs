@@ -42,9 +42,19 @@ namespace Assets.Utils
             return company.corporateCulture.Culture;
         }
 
+        public static GameEntity GetManagingCompanyOf(GameEntity company, GameContext gameContext)
+        {
+            if (company.isIndependentCompany)
+                return company;
+
+            var parent = GetParentCompany(gameContext, company);
+
+            return parent ?? company;
+        }
+
         public static Dictionary<CorporatePolicy, int> GetActualCorporateCulture(GameEntity company, GameContext gameContext)
         {
-            var managingCompany = company.isIndependentCompany ? company : GetParentCompany(gameContext, company);
+            var managingCompany = GetManagingCompanyOf(company, gameContext);
 
             return managingCompany.corporateCulture.Culture;
         }

@@ -210,12 +210,7 @@ namespace Assets.Utils
 
         public static List<int> GetPartnersOf(GameEntity company, GameContext gameContext)
         {
-            if (company.isIndependentCompany)
-                return company.partnerships.companies;
-
-            var parent = GetParentCompany(gameContext, company);
-
-            var manager = parent ?? company;
+            var manager = GetManagingCompanyOf(company, gameContext);
 
             return manager.partnerships.companies;
         }
