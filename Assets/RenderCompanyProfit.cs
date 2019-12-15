@@ -5,6 +5,7 @@ public class RenderCompanyProfit : UpgradedParameterView
     public override string RenderHint()
     {
         var income = Economy.GetCompanyIncome(SelectedCompany, GameContext);
+
         var maintenance = Economy.GetProductCompanyMaintenance(SelectedCompany, GameContext);
 
         var devCost = Economy.GetDevelopmentCost(SelectedCompany, GameContext);
