@@ -116,7 +116,7 @@ public class CompanyViewOnMap : View
         hint.AppendLine($"\nConcept: {level} ({concept})");
 
         var clients = MarketingUtils.GetClients(company);
-        hint.AppendLine($"Clients: {clients} (#{position + 1})");
+        hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
 
         var posTextual = Markets.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");

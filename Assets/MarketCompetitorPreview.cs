@@ -67,7 +67,7 @@ public class MarketCompetitorPreview : View
 
         var brand = (int) e.branding.BrandPower;
 
-        Clients.text = Format.Minify(clients) + " users";
+        Clients.text = Format.MinifyToInteger(clients) + " users";
         Concept.text = concept + "LVL";
         Concept.gameObject.GetComponent<Hint>().SetHint("");
 
