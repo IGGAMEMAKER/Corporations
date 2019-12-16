@@ -4,7 +4,7 @@
     {
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
-            var managingCompany = product.isIndependentCompany ? product : Companies.GetParentCompany(gameContext, product);
+            var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 
             bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
 

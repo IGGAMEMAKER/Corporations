@@ -4,13 +4,8 @@ using System;
 using System.Linq;
 using System.Text;
 
-public class RenderMarketDescription : UpgradedParameterView
+public class RenderMarketDescription : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
         var text = new StringBuilder();
@@ -19,7 +14,7 @@ public class RenderMarketDescription : UpgradedParameterView
 
         var nicheName = EnumUtils.GetFormattedNicheName(SelectedNiche);
 
-        var description = $"{nicheName} allow people to communicate each other";
+        var description = ""; // $"{nicheName} allow people to communicate each other";
         text.AppendLine(description);
         text.AppendLine(barier);
 

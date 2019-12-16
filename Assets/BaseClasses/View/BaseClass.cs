@@ -12,7 +12,10 @@ public class BaseClass : MonoBehaviour
 
 
     public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(GameContext);
+
     public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(GameContext);
+    public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(GameContext);
+
     public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(GameContext);
     public GameEntity SelectedInvestor  => ScreenUtils.GetSelectedInvestor(GameContext);
 

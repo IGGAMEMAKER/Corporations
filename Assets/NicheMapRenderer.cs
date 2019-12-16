@@ -149,7 +149,7 @@ public class NicheMapRenderer : View
 
         var scale = min + k * share; // GetMarketScale(niche);
 
-        var marketScale = GetMarketScale(startup.product.Niche) - 0.9f;
+        var marketScale = 1f; // GetMarketScale(startup.product.Niche) - 0.9f;
 
         c.transform.localScale = new Vector3(scale, scale, 1);
         c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.75f * Mathf.PI) + basePosition;
