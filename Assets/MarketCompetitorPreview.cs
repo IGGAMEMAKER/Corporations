@@ -67,9 +67,14 @@ public class MarketCompetitorPreview : View
 
         var brand = (int) e.branding.BrandPower;
 
-        Clients.text = Format.MinifyToInteger(clients) + " users";
-        Concept.text = concept + "LVL";
-        Concept.gameObject.GetComponent<Hint>().SetHint("");
+        var newClients = MarketingUtils.GetAudienceGrowth(e, GameContext);
+
+        //Clients.text = Format.MinifyToInteger(clients) + " users";
+        Clients.text = "+" + Format.Minify(newClients) + " users";
+
+        //Concept.text = concept + "LVL";
+        Concept.text = "Brand\n\n" + brand;
+        //Concept.gameObject.GetComponent<Hint>().SetHint("");
 
         //Concept.text = Visuals.Colorize(brand.ToString(), Visuals.GetGradientColor(-100, 100, brand));
 
