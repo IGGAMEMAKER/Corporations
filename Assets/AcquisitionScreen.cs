@@ -38,7 +38,9 @@ public class AcquisitionScreen : View
     {
         var progress = Companies.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        ProposalStatus.text = Visuals.Colorize(progress + "%", willAcceptOffer);
+        var status = Visuals.Colorize(progress + "%", willAcceptOffer) + " of owners want to accept your offer";
+        var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer! Change your offer!");
+        ProposalStatus.text = status + " " + textDescription;
 
         var o = AcquisitionOffer;
 
