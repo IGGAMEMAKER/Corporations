@@ -68,6 +68,10 @@
                 RenderNewCorporationRequirements(popup as PopupMessageCorporationRequirements);
                 break;
 
+            case PopupType.CorporateCultureChange:
+                RenderCorporateCultureChanges(popup as PopupMessageCultureChange);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

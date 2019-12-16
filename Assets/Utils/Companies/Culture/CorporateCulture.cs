@@ -11,10 +11,17 @@ namespace Assets.Utils
             if (CooldownUtils.HasCorporateCultureUpgradeCooldown(gameContext, company))
                 return;
 
-            CooldownUtils.AddCorporateCultureUpgradeCooldown(gameContext, company, 180);
+            CooldownUtils.AddCorporateCultureUpgradeCooldown(gameContext, company, Constants.CORPORATE_CULTURE_CHANGES_DURATION);
             var culture = GetOwnCorporateCulture(company);
 
+            var prevValue = culture[policy];
             culture[policy] = Mathf.Clamp(value, 1, 5);
+
+            if (value != prevValue)
+            {
+                // culture changed
+                NotificationUtils.AddPopup(gameContext, new PopupMessageCultureChange(company.company.Id));
+            }
 
             company.ReplaceCorporateCulture(culture);
         }

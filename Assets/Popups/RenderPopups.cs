@@ -205,5 +205,14 @@ public partial class PopupView : View
             );
     }
 
+    void RenderCorporateCultureChanges(PopupMessageCultureChange popup)
+    {
+        RenderUniversalPopup(
+            "You changed the corporate culture!",
+            "{improvement_description}\n\nYou will be able to do this again in " + Constants.CORPORATE_CULTURE_CHANGES_DURATION + " days",
+            typeof(ClosePopupOK)
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }
