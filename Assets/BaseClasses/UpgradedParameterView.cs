@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
+// TODO extend ParameterView
 public abstract class UpgradedParameterView : View
 {
     internal Text Text;
