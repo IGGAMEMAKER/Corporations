@@ -126,34 +126,39 @@
             }
         }
 
-        public static float GetMonthlyAudienceGrowthMultiplier(MarketState phase)
+        public static int GetMarketGrowth(MarketState phase)
         {
-            return 1.05f;
             switch (phase)
             {
                 case MarketState.Idle:
-                    return 1;
+                    return 0;
 
                 case MarketState.Innovation:
-                    return 1.01f;
+                    return 1;
 
                 case MarketState.Trending:
-                    return 1.02f;
+                    return 5;
 
                 case MarketState.MassGrowth:
-                    return 1.05f;
+                    return 7;
             }
 
+            return 5;
+        }
+
+        public static float GetMonthlyAudienceGrowthMultiplier(MarketState phase)
+        {
+            return (100 + GetMarketGrowth(phase)) / 100f;
         }
 
         public static int GetAudiencePercentageThatProductsWillGetDuringThisMarketState(MarketState phase)
         {
             switch (phase)
             {
-                case MarketState.Innovation:    return 10;
-                case MarketState.Trending:      return 20;
-                case MarketState.MassGrowth:    return 40;
-                case MarketState.MassUsage:     return 20;
+                case MarketState.Innovation:    return 5;
+                case MarketState.Trending:      return 15;
+                case MarketState.MassGrowth:    return 30;
+                case MarketState.MassUsage:     return 40;
                 case MarketState.Decay:         return 10;
 
                 case MarketState.Death:
