@@ -2,13 +2,8 @@
 using System;
 using System.Linq;
 
-public class RenderNichePotential : UpgradedParameterView
+public class RenderNichePotential : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
         var clients = Markets.GetAudienceSize(GameContext, SelectedNiche);
