@@ -71,12 +71,9 @@ public class CompanyResultView : View
         ClientGrowth.text = $"Brand\n{(int)product.branding.BrandPower} ({Visuals.PositiveOrNegativeMinified(change)})";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
-        var share = (long)result.MarketShareChange;
-        MarketShareChange.text = "Brand strength\n" + (int)product.branding.BrandPower;
-
-        //MarketShareChange.gameObject.SetActive(false);
-        MarketShareChange.text = "Market share\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
-        //CompanyName.text = product.company.Name + "\n" + "Market share change\n" + Visuals.PositiveOrNegativeMinified(share) + "%";
+        var shareChange = (long)result.MarketShareChange;
+        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, GameContext);
+        MarketShareChange.text = "Market share\n" + Visuals.Colorize(share.ToString(), shareChange >= 0) + "%";
     }
 
     void DrawProductStatus()
