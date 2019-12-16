@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Proposal status:'
+  m_Text: 'Parlay status:'
 --- !u!1 &895305384061003148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3404,7 +3404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015590249, y: 0.000016180622}
+  m_AnchoredPosition: {x: 0.000019798827, y: -0.0000027316344}
   m_SizeDelta: {x: -8.5, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &466338806042009489
@@ -3779,6 +3779,8 @@ GameObject:
   - component: {fileID: 71984822236799923}
   - component: {fileID: 5968812419139244699}
   - component: {fileID: 1751956062806795011}
+  - component: {fileID: 7505192035970751426}
+  - component: {fileID: 8818098158408140431}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3802,8 +3804,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66.6, y: 63.1}
-  m_SizeDelta: {x: 149.91, y: 30}
+  m_AnchoredPosition: {x: 66.6, y: 75.72}
+  m_SizeDelta: {x: 149.91, y: 55.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5968812419139244699
 CanvasRenderer:
@@ -3840,13 +3842,39 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Shareholders
+  m_Text: 'Owners of
+
+'
+--- !u!114 &7505192035970751426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8649878766190065081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8818098158408140431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8649878766190065081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3714dcd4435d15b4d9d0ad3b27cd78ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8815515988686677945
 GameObject:
   m_ObjectHideFlags: 0
