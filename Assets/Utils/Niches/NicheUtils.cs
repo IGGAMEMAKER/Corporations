@@ -80,17 +80,17 @@ namespace Assets.Utils
                 phase == MarketState.MassGrowth;
         }
 
-        public static bool IsAppropriateStartNiche(GameEntity niche)
+        public static bool IsAppropriateStartNiche(GameEntity niche, GameContext gameContext)
         {
             var profile = niche.nicheBaseProfile.Profile;
 
             var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
             var isConceptLevelLow = true || Products.GetMarketDemand(niche) < 10;
 
-            var isPerspective = Markets.IsPerspectiveNiche(niche);
+            var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);
             var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
 
-            var isTopMarket = GetMarketPotentialRating(niche) > 3;
+            var isTopMarket = profile.Margin > Margin.Low || profile.AudienceSize > AudienceSize.Million; // GetMarketPotentialRating(niche) > 3;
 
             return isPerspective && isCheapToMaintain && !isTopMarket;
             return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;

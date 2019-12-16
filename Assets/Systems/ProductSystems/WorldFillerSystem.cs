@@ -84,12 +84,12 @@ public partial class WorldFillerSystem : IInitializeSystem
             //MarketingUtils.AddBrandPower(p, brand);
 
             // set clients
-            var flow = (float) MarketingUtils.GetClientFlow(GameContext, p.product.Niche);
-            //var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
-            var growth = 1.03f;
-            var clients = MarketingUtils.GetClients(p) * Mathf.Pow(growth, monthsOfWork);
+            //var flow = (float) MarketingUtils.GetClientFlow(GameContext, p.product.Niche);
+            ////var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
+            //var growth = 1.03f;
+            //var clients = MarketingUtils.GetClients(p) * Mathf.Pow(growth, monthsOfWork);
 
-            MarketingUtils.AddClients(p, (long)clients);
+            //MarketingUtils.AddClients(p, (long)clients);
         }
     }
 

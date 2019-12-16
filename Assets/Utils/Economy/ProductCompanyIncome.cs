@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Utils.Formatting;
+using System;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -11,7 +13,18 @@ namespace Assets.Utils
             var segmentId = e.productPositioning.Positioning;
             income += GetIncomeBySegment(context, e.company.Id, segmentId);
 
-            return Convert.ToInt64(income);
+            long result = 0;
+
+            try
+            {
+                result = Convert.ToInt64(income);
+            }
+            catch
+            {
+                Debug.Log("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
+            }
+
+            return result;
         }
 
         internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)
