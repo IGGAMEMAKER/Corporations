@@ -1,17 +1,13 @@
 ﻿using Assets.Utils;
 
-public class RenderMarketState : UpgradedParameterView
+public class RenderMarketState : ParameterView
 {
-    public override string RenderHint() => "";
-
     public override string RenderValue()
     {
         var state = State;
-        var marketGrowthSpeed = Markets.GetMarketGrowth(state);
+        var speed = Markets.GetMarketGrowth(state);
 
-        var speed = marketGrowthSpeed;
-
-        return Markets.GetMarketStateDescription(State) + " phase\n\nMarket Growth\n" + speed + "% / month";
+        return Markets.GetMarketStateDescription(State) + " phase\n\nMarket Growth\n" + Visuals.Positive("+" + speed) + "% / month";
     }
 
     MarketState State => Markets.GetMarketState(GameContext, SelectedNiche);
