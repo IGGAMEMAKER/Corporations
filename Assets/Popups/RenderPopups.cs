@@ -76,7 +76,8 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "Our competitor is bankrupt!",
             "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!" +
-            "\nSome of their clients will start using our product instead"
+            "\nSome of their clients will start using our product instead",
+            typeof(ClosePopupOK)
             );
     }
 
@@ -85,7 +86,8 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "New Startup",
             "Company " + GetCompanyName(popup.companyId) + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
-            "\n\nKeep an eye on them. Perhaps, we can buy them later"
+            "\n\nKeep an eye on them. Perhaps, we can buy them later",
+            typeof(ClosePopupOK)
             );
     }
 
@@ -176,7 +178,8 @@ public partial class PopupView : View
         var target = GetCompanyName(popup.companyId2);
         RenderUniversalPopup(
             signed ? $"We are strategic partners with {target}!" : $"We have revoked our strategic partnership with {target}",
-            signed ? "Our products will get more brand power every month" : "They are worthless and we don't need their help anymore!"
+            signed ? "Our products will get more brand power every month" : "They are worthless and we don't need their help anymore!",
+            typeof(ClosePopupOK)
             );
     }
 
@@ -185,7 +188,8 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "YOU HAVE CREATED A CORPORATION!!!",
             Visuals.Positive("You can buy and manage way more companies than before!") +
-            "\n\nBECOME the RICHEST COMPANY in the world!"
+            "\n\nBECOME the RICHEST COMPANY in the world!",
+            typeof(ClosePopupOK)
             );
     }
 
