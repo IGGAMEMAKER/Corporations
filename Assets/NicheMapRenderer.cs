@@ -140,8 +140,8 @@ public class NicheMapRenderer : View
 
     void UpdateCompanyPosition(GameObject c, int index, int count, Vector3 basePosition, GameEntity startup)
     {
-        //var share = CompanyUtils.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
-        var share = startup.branding.BrandPower / 100f;
+        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(startup, GameContext) / 100f;
+        //var share = startup.branding.BrandPower / 100f;
 
         var min = 0.55f;
         var max = 1.55f;
@@ -152,6 +152,6 @@ public class NicheMapRenderer : View
         var marketScale = 1f; // GetMarketScale(startup.product.Niche) - 0.9f;
 
         c.transform.localScale = new Vector3(scale, scale, 1);
-        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 0.75f * Mathf.PI) + basePosition;
+        c.transform.localPosition = Rendering.GetPointPositionOnCircle(index, count, CompanyRadius + marketScale * 25f, 1, 1.75f * Mathf.PI) + basePosition;
     }
 }
