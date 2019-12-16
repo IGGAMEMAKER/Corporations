@@ -19,6 +19,12 @@ namespace Assets.Utils
                 .ToArray();
         }
 
+        public static bool IsHasReleasedProducts(GameContext gameContext, GameEntity company)
+        {
+            return GetDaughterProductCompanies(gameContext, company)
+                .Count(p => p.isRelease) > 0;
+        }
+
         public static GameEntity[] GetDaughterCompaniesOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             return GetDaughterProductCompanies(gameContext, group)

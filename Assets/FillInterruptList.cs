@@ -52,7 +52,7 @@ public class FillInterruptList : View
         CanBuyCompany.SetActive(false && CheckAcquisitionCandidates());
     }
 
-    bool IsCanUpgradeCorporateCulture() => !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+    bool IsCanUpgradeCorporateCulture() => Companies.IsHasReleasedProducts(GameContext, MyCompany) && !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
 
     bool HasReleaseableProducts()
     {

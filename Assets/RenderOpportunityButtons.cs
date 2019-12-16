@@ -17,12 +17,14 @@ public class RenderOpportunityButtons : View
         //base.ViewRender();
 
         bool hasAtLeastOneCompany = Companies.IsHasDaughters(GameContext, MyCompany);
-        bool hasReleasedProducts = Companies.GetDaughterProductCompanies(GameContext, MyCompany).Count(p => p.isRelease) > 0;
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(GameContext, MyCompany);
 
         Partnerships.SetActive(hasReleasedProducts);
 
-        CorporateCulture.SetActive(hasAtLeastOneCompany);
-        Acquisitions.SetActive(false && hasAtLeastOneCompany);
+        PerspectiveMarkets.SetActive(hasReleasedProducts);
+
+        CorporateCulture.SetActive(hasReleasedProducts);
+        Acquisitions.SetActive(false);
         RaiseInvestmentsButton.SetActive(hasAtLeastOneCompany);
     }
 }
