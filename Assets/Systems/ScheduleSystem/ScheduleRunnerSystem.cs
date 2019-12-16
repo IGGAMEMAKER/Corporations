@@ -74,8 +74,8 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         //if (Input.GetMouseButtonUp(1))
         //    ToggleTimer();
 
-        if (Input.GetKeyUp(KeyCode.Space))
-            ToggleTimer();
+        //if (Input.GetKeyUp(KeyCode.Space))
+        //    ToggleTimer();
 
         if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
             UpdateSpeed(2);
