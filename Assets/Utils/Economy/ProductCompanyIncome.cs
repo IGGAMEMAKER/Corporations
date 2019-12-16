@@ -21,7 +21,7 @@ namespace Assets.Utils
             }
             catch
             {
-                Debug.Log("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
+                Debug.LogError("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
             }
 
             return result;
