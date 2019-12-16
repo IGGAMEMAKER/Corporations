@@ -9,8 +9,8 @@ public class Exit : View
             // https://answers.unity.com/questions/10808/how-to-force-applicationquit-in-web-player-and-edi.html
             #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-            #else
-                 Application.Quit();
+            //#else
+            //     Application.Quit();
             #endif
         }
 
