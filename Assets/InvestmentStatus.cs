@@ -15,7 +15,7 @@ public class InvestmentStatus : View
     {
         bool sellable = Companies.IsAreSharesSellable(GameContext, SelectedCompany.company.Id);
 
-        string sellablePhrase = sellable ? "" : "We cannot buy shares now! Wait until next investment round or IPO\n\n";
+        string sellablePhrase = ""; // sellable ? "" : "We cannot buy shares now! Wait until next investment round or IPO\n\n";
 
         GetComponent<Text>().text = sellablePhrase;
     }
