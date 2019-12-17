@@ -68,6 +68,11 @@ public class NicheTableListView : ListView
             ;
     }
 
+    bool HasCompanies(GameEntity niche)
+    {
+        return Markets.GetCompetitorsAmount(niche.niche.NicheType, GameContext) > 0;
+    }
+
     bool IsSuitableByCapitalSize (GameEntity niche)
     {
         var capital = Markets.GetStartCapital(niche, GameContext);
@@ -99,6 +104,7 @@ public class NicheTableListView : ListView
             .Where(IsSuitableByMarketState)
             .Where(IsSuitableByCapitalSize)
             .Where(IsConnectedToOurMainBusiness)
+            .Where(HasCompanies)
             .ToArray()
             :
             null;
