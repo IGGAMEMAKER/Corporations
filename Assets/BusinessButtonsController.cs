@@ -31,7 +31,7 @@ public class BusinessButtonsController : View
 
         // daughters
         ManageCompany.SetActive(false);
-        SellCompany.SetActive(isDaughter);
+        SellCompany.SetActive(false && isDaughter);
         CloseCompany.SetActive(isDaughter);
 
         // other companies
