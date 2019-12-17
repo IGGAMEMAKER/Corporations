@@ -16,7 +16,7 @@ namespace Assets.Utils
             return niche.segment.Level;
         }
 
-        public static int GetMarketDemand(GameEntity product, GameContext gameContext)
+        public static int GetMarketRequirements(GameEntity product, GameContext gameContext)
         {
             var niche = Markets.GetNiche(gameContext, product.product.Niche);
 

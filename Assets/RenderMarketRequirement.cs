@@ -1,15 +1,13 @@
 ﻿using Assets.Utils;
 using UnityEngine.UI;
 
-public class RenderMarketRequirement : UpgradedParameterView
+public class RenderMarketRequirement : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
-        return Products.GetMarketDemand(SelectedCompany, GameContext).ToString();
+        if (!SelectedCompany.hasProduct)
+            return "";
+
+        return Products.GetMarketRequirements(SelectedCompany, GameContext) + "LVL";
     }
 }

@@ -6,6 +6,8 @@ public class HideMarketInfoIfMarketIsNotResearched : ToggleOnSomeCondition
     {
         var niche = Markets.GetNiche(GameContext, SelectedNiche);
 
-        return niche.hasResearch;
+        // or there are no companies
+
+        return niche.hasResearch && Markets.GetCompetitorsAmount(SelectedNiche, GameContext) > 0;
     }
 }
