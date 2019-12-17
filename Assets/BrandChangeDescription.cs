@@ -1,22 +1,15 @@
 ﻿using Assets.Utils;
 
-public class BrandChangeDescription : UpgradedParameterView
+public class BrandChangeDescription : ParameterView
 {
-    public override string RenderHint()
-    {
-        if (!SelectedCompany.hasProduct)
-            return "";
-
-        return BrandPower.ToString();
-    }
-
     public override string RenderValue()
     {
         if (!SelectedCompany.hasProduct)
             return "";
 
-        return "Brand power: " + (int)SelectedCompany.branding.BrandPower;
-    }
+        if (Companies.IsExploredCompany(GameContext, SelectedCompany))
+            return MarketingUtils.GetBrandChange(SelectedCompany, GameContext).ToString();
 
-    Bonus<long> BrandPower => MarketingUtils.GetBrandChange(SelectedCompany, GameContext);
+        return "???";
+    }
 }

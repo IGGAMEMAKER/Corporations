@@ -5,9 +5,10 @@ public class RenderInnovationChance : ParameterView
 {
     public override string RenderValue()
     {
-        var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
+        if (!SelectedCompany.hasProduct)
+            return "";
 
-        Colorize(chance, 0, 70);
+        var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
 
         return chance + "%";
     }
