@@ -15,8 +15,6 @@ public class ProductOverview : View
 
     public Text PositioningLabel;
 
-    public Text Brand;
-
     public override void ViewRender()
     {
         base.ViewRender();
@@ -41,9 +39,6 @@ public class ProductOverview : View
 
         //AppQuality.text = $"Concept: {quality} / {demand} ({status})";
 
-
-        //var brand = SelectedCompany.branding.BrandPower;
-        //Brand.text = $"Brand: {brand}";
 
         //var posTextual = Markets.GetCompanyPositioning(SelectedCompany, GameContext);
         //PositioningLabel.text = "Positioning: " + posTextual;
