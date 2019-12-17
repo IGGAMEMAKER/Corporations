@@ -4,15 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderSelectedNicheName : UpgradedParameterView
+public class RenderSelectedNicheName : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
-        return EnumUtils.GetFormattedNicheName(ScreenUtils.GetSelectedNiche(GameContext));
+        return "Market of " + EnumUtils.GetFormattedNicheName(ScreenUtils.GetSelectedNiche(GameContext));
     }
 }
