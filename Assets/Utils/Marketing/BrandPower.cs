@@ -13,7 +13,7 @@ namespace Assets.Utils
         }
 
         // float
-        public static Bonus<long> GetMonthlyBrandPowerChange(GameEntity product, GameContext gameContext)
+        public static Bonus<long> GetBrandChange(GameEntity product, GameContext gameContext)
         {
             var conceptStatus = Products.GetConceptStatus(product, gameContext);
 
@@ -30,7 +30,7 @@ namespace Assets.Utils
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
-                .AppendAndHideIfZero("Is not paying for marketing", !isPayingForMarketing ? -7 : 0)
+                .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)

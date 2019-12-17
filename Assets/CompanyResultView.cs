@@ -66,7 +66,7 @@ public class CompanyResultView : View
         //ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
 
         
-        var bonus = MarketingUtils.GetMonthlyBrandPowerChange(product, GameContext);
+        var bonus = MarketingUtils.GetBrandChange(product, GameContext);
         var change = bonus.Sum();
         ClientGrowth.text = $"Brand\n{(int)product.branding.BrandPower} ({Visuals.PositiveOrNegativeMinified(change)})";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());

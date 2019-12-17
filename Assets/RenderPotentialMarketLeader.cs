@@ -5,22 +5,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RenderPotentialMarketLeader : UpgradedParameterView
+public class RenderPotentialMarketLeader : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
-        //var products = NicheUtils.GetProductsOnMarket(GameContext, SelectedNiche)
-        //    .OrderByDescending(p => ProductUtils.GetInnovationChance(p, GameContext));
+        if (!Markets.IsExploredMarket(GameContext, SelectedNiche))
+            return "???";
 
-        //if (products.Count() == 0)
-        //    return "";
-
-        //var potentialLeader = products.First();
         var potentialLeader = Markets.GetPotentialMarketLeader(GameContext, SelectedNiche);
 
         if (potentialLeader == null)

@@ -3,20 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderInnovationChanceDescription : UpgradedParameterView
+public class RenderInnovationChanceDescription : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
         if (!SelectedCompany.hasProduct)
             return "";
 
         var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
-        var text = $"<b>Innovation chance: {chance}%</b>\n\n";
+        var text = $"<b>Innovation chance\n{chance}%</b>\n\n";
 
         if (Companies.IsExploredCompany(GameContext, SelectedCompany))
         {

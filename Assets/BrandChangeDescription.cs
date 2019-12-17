@@ -18,5 +18,5 @@ public class BrandChangeDescription : UpgradedParameterView
         return "Brand power: " + (int)SelectedCompany.branding.BrandPower;
     }
 
-    Bonus<long> BrandPower => MarketingUtils.GetMonthlyBrandPowerChange(SelectedCompany, GameContext);
+    Bonus<long> BrandPower => MarketingUtils.GetBrandChange(SelectedCompany, GameContext);
 }

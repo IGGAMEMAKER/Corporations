@@ -6,6 +6,7 @@ public class RenderNichePotential : ParameterView
 {
     public override string RenderValue()
     {
+        return "";
         var clients = Markets.GetAudienceSize(GameContext, SelectedNiche);
 
         var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);

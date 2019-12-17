@@ -66,13 +66,14 @@ public class MarketCompetitorPreview : View
         var concept = Products.GetProductLevel(e);
 
         var brand = (int) e.branding.BrandPower;
+        var brandChange = MarketingUtils.GetBrandChange(e, GameContext).Sum();
 
         var newClients = MarketingUtils.GetAudienceGrowth(e, GameContext);
 
         //Clients.text = Format.MinifyToInteger(clients) + " users";
         Clients.text = "+" + Format.Minify(newClients) + " users";
 
-        Concept.text = "" + brand;
+        Concept.text = "" + brand + "  " + Visuals.PositiveOrNegativeMinified(brandChange);
 
         var sumOfBrandPowers = MarketingUtils.GetSumOfBrandPowers(e.product.Niche, GameContext);
         Concept.color = Visuals.GetGradientColor(-1, 100, brand);
