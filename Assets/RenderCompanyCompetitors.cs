@@ -1,13 +1,15 @@
 ﻿using Assets.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RenderCompanyCompetitors : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        var companyId = (int)(object)entity;
+        var company = entity as GameEntity;
+        var companyId = company.company.Id;
 
         t.GetComponent<LinkToProjectView>().CompanyId = companyId;
         t.GetComponent<RenderPartnerName>().SetCompanyId(companyId);
@@ -17,7 +19,7 @@ public class RenderCompanyCompetitors : ListView
     {
         base.ViewRender();
 
-        var competitors = SelectedCompany.partnerships.companies;
+        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, GameContext);
 
         SetItems(competitors.ToArray());
     }

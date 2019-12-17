@@ -13,7 +13,7 @@ namespace Assets.Utils
                 .AppendAndHideIfZero("Have common markets", IsHaveIntersectingMarkets(requester, acceptor, gameContext) ? -90 : 0)
                 .AppendAndHideIfZero("Max amount of partners", IsHasTooManyPartnerships(acceptor) ? -75 : 0)
                 .AppendAndHideIfZero("You have partnerships with their competitors", IsPartnerOfCompetingCompany(requester, acceptor, gameContext) ? -200 : 0)
-                .Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(acceptor, requester, gameContext))
+                .Append("Partnership benefits for them", (long)GetCompanyBenefitFromTargetCompany(acceptor, requester, gameContext))
                 //.Append("Partnership benefits", (long)GetCompanyBenefitFromTargetCompany(requester, acceptor, gameContext))
                 ;
         }
