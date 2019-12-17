@@ -4,13 +4,23 @@ namespace Assets.Utils
 {
     public static partial class MarketingUtils
     {
+        public static float GetSumOfBrandPowers(NicheType nicheType, GameContext gameContext) => GetSumOfBrandPowers(Markets.GetNiche(gameContext, nicheType), gameContext);
+        public static float GetSumOfBrandPowers(GameEntity niche, GameContext gameContext)
+        {
+            var products = Markets.GetProductsOnMarket(niche, gameContext);
+
+            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
+
+            return sumOfBrandPowers;
+        }
         public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
         {
-            var products = Markets.GetProductsOnMarket(gameContext, e);
+            var niche = Markets.GetNiche(gameContext, e);
 
-            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower) + 1;
+            var sumOfBrandPowers = GetSumOfBrandPowers(niche, gameContext);
 
-            return e.branding.BrandPower / sumOfBrandPowers;
+            // +1 : avoid division by zero
+            return e.branding.BrandPower / (sumOfBrandPowers + 1);
         }
 
         public static int GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)

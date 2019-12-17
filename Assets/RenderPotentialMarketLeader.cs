@@ -32,6 +32,6 @@ public class RenderPotentialMarketLeader : UpgradedParameterView
 
         var colorName = isRelatedToPlayer ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO;
 
-        return $"<b>{Visuals.Colorize(potentialLeader.company.Name, colorName)}</b>"; // \n\nInnovation chances: {chances}%";
+        return $"<b>{Visuals.Colorize(potentialLeader.company.Name, colorName)}</b>\n\nInnovation chances: {chances}%";
     }
 }

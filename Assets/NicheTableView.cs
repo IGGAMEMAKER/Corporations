@@ -56,9 +56,10 @@ public class NicheTableView : View, IPointerEnterHandler
 
         RenderTimeToMarket();
 
-        var startCapital = Markets.GetStartCapital(nicheType, GameContext);
-        StartCapital.text = Format.MinifyMoney(startCapital);
-        StartCapital.color = Visuals.GetColorPositiveOrNegative(Companies.IsEnoughResources(MyCompany, startCapital));
+        //var startCapital = Markets.GetStartCapital(nicheType, GameContext);
+        var sumOfBrandPowers = (int)MarketingUtils.GetSumOfBrandPowers(niche, GameContext);
+        StartCapital.text = sumOfBrandPowers.ToString(); // Format.MinifyMoney(startCapital);
+        //StartCapital.color = Visuals.GetColorPositiveOrNegative(Companies.IsEnoughResources(MyCompany, startCapital));
 
         // 
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);

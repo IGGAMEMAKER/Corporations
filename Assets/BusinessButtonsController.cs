@@ -3,38 +3,42 @@ using UnityEngine;
 
 public class BusinessButtonsController : View
 {
-    public GameObject PivotButton;
-    [SerializeField] GameObject ManageCompanyButton;
-    [SerializeField] GameObject CloseCompanyButton;
-    [SerializeField] GameObject SellCompanyButton;
+    public GameObject Pivot;
+    public GameObject ManageCompany;
+    public GameObject CloseCompany;
+    public GameObject SellCompany;
     public GameObject JoinCorporation;
+
+    public GameObject AcquireCompany;
+    public GameObject SendPartnership;
 
     private void OnEnable()
     {
-        var c = SelectedCompany;
+        bool isProductCompany = Companies.IsProductCompany(SelectedCompany);
+        bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
 
-        bool isProductCompany = c.company.CompanyType == CompanyType.ProductCompany;
+        bool canBePartnersTheoretically = Companies.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
+
+        bool isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+        bool isDaughter = Companies.IsDaughterOfCompany(MyCompany, SelectedCompany);
 
         // controlled company buttons
 
         // is independent company
 
-        PivotButton.SetActive(c.isControlledByPlayer && isProductCompany);
+        Pivot.SetActive(false);
 
 
-        bool isMyCompany = c.company.Id == MyCompany.company.Id;
-        bool manageable = Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+        // daughters
+        ManageCompany.SetActive(false);
+        SellCompany.SetActive(isDaughter);
+        CloseCompany.SetActive(isDaughter);
 
-        ManageCompanyButton.SetActive(false && manageable);
-        SellCompanyButton.SetActive(!isMyCompany && manageable);
-        CloseCompanyButton.SetActive(!isMyCompany && manageable);
+        // other companies
+        AcquireCompany.SetActive(!isRelatedToPlayer);
 
-        bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
-        JoinCorporation.SetActive(isCorporation && !manageable);
+        JoinCorporation.SetActive(!isRelatedToPlayer && isCorporation);
 
-        //LeaveCEOButton.SetActive(c.isControlledByPlayer);
-
-        //// not controlled
-        //NominateAsCEO.SetActive(false && !c.isControlledByPlayer && !isGroupCEOAlready);
+        SendPartnership.SetActive(!isRelatedToPlayer && canBePartnersTheoretically);
     }
 }

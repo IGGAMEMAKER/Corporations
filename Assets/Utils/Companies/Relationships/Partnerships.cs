@@ -149,6 +149,11 @@ namespace Assets.Utils
             if (requester.company.Id == acceptor.company.Id)
                 return false;
 
+            // parents w childs
+            // || IsDaughterOfCompany(acceptor, requester)
+            if (IsDaughterOfCompany(requester, acceptor))
+                return false;
+
             if (!(requester.isIndependentCompany && acceptor.isIndependentCompany))
                 return false;
 

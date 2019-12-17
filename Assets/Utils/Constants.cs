@@ -71,20 +71,21 @@ public class VisualConstants
 {
     const string COLOR_BACKGROUND = "#2B2E34";
     public const string COLOR_GOLD = "#FFAB04";
+    public const string COLOR_WHITE = "#FFFFFF";
 
     public const string COLOR_YOU = COLOR_GOLD;
     public const string COLOR_CONTROL = COLOR_GOLD;
-    public const string COLOR_CONTROL_NO = "white";
+    public const string COLOR_CONTROL_NO = COLOR_WHITE;
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = COLOR_GOLD;
-    public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = "#FFFFFF";
+    public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = COLOR_WHITE;
     public const string COLOR_COMPANY_SELECTED = "#131679";
 
-    public const string COLOR_PANEL_BASE = "white";
+    public const string COLOR_PANEL_BASE = COLOR_WHITE;
     public const string COLOR_PANEL_SELECTED = COLOR_COMPANY_SELECTED;
 
     public const string COLOR_POSITIVE = "#00FF00";
     public const string COLOR_NEGATIVE = "#FF0000";
-    public const string COLOR_NEUTRAL = "#FFFFFF";
+    public const string COLOR_NEUTRAL = COLOR_WHITE;
     public const string COLOR_BEST = COLOR_GOLD; // "#FFD100"; // "#FFA0FF";
 
 
