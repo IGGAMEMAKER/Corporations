@@ -21,9 +21,9 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
         var companyId = Popup.companyId;
         var buyerId = Popup.buyerInvestorId;
 
+        NavigateToProjectScreen(companyId);
         NotificationUtils.ClosePopup(GameContext);
 
-        NavigateToProjectScreen(companyId);
         Companies.ConfirmAcquisitionOffer(GameContext, companyId, buyerId);
     }
 
