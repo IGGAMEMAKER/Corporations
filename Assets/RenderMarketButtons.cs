@@ -25,7 +25,8 @@ public class RenderMarketButtons : View
         bool IsMarketResearched = Markets.IsExploredMarket(GameContext, SelectedNiche);
 
         RaiseInvestments.SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
-        Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasReleasedApps);
+        Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
+
         Release         .SetActive(IsMarketResearched && hasReleasebleApps);
     }
 }

@@ -11,7 +11,7 @@ public class LinkToUpgradeableCompanies : ButtonController
         var hint = $"You can release {companies.Length} products.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);
 
-        var targetMenu = ScreenMode.ManageCompaniesScreen;
+        var targetMenu = ScreenMode.NicheScreen;
 
 
         // copy
@@ -36,7 +36,7 @@ public class LinkToUpgradeableCompanies : ButtonController
         }
 
 
-
-        Navigate(targetMenu, Constants.MENU_SELECTED_COMPANY, companyId);
+        var c = Companies.GetCompany(GameContext, companyId);
+        Navigate(targetMenu, Constants.MENU_SELECTED_NICHE, c.product.Niche);
     }
 }

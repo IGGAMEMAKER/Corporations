@@ -113,10 +113,13 @@ public class CompanyViewOnMap : View
 
         //
         var level = Products.GetProductLevel(company);
-        hint.AppendLine($"\nConcept: {level} ({concept})");
+        hint.AppendLine($"\n\nConcept: {level} ({concept})");
 
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
+
+        var brand = (int)company.branding.BrandPower;
+        hint.AppendLine($"Brand: {brand}");
 
         var posTextual = Markets.GetCompanyPositioning(company, GameContext);
         hint.AppendLine($"\nPositioning: {posTextual}");
@@ -125,8 +128,6 @@ public class CompanyViewOnMap : View
         //var expertise = company.expertise.ExpertiseLevel + " LVL";
         //hint.AppendLine($"\nExpertise: {expertise}");
 
-        var brand = (int)company.branding.BrandPower;
-        hint.AppendLine($"Brand: {brand}");
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));

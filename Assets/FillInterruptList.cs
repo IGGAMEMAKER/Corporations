@@ -30,29 +30,33 @@ public class FillInterruptList : View
         bool isCanCompleteGoal = CheckGoal();
         bool isNeedsInterrupt = false;
 
-        //CanReleaseProduct.SetActive(HasReleaseableProducts());
-        CanCompleteGoal.SetActive(isCanCompleteGoal && false);
-        NeedToCompleteGoal.SetActive(!isCanCompleteGoal && false);
+        CanReleaseProduct           .SetActive(HasReleaseableProducts());
+        NeedToCompleteGoal          .SetActive(!isCanCompleteGoal && false);
 
-        NeedToManageCompanies.SetActive(CheckManagingCompanies());
+        NeedToManageCompanies       .SetActive(false);
 
 
-        CanCheckAnnualReport.SetActive(CheckAnnualReport());
+        CanCheckAnnualReport        .SetActive(CheckAnnualReport());
 
-        CanUpgradeCorporateCulture.SetActive(IsCanUpgradeCorporateCulture());
+        CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
 
-        InvestorLoyaltyWarning.SetActive(isNeedsInterrupt);
-        TeamLoyaltyWarning.SetActive(isNeedsInterrupt);
-        InvestorLoyaltyThreat.SetActive(isNeedsInterrupt);
-        TeamLoyaltyThreat.SetActive(HasUnhappyTeams());
+        InvestorLoyaltyWarning      .SetActive(isNeedsInterrupt);
+        InvestorLoyaltyThreat       .SetActive(isNeedsInterrupt);
+        TeamLoyaltyWarning          .SetActive(isNeedsInterrupt);
+        TeamLoyaltyThreat           .SetActive(HasUnhappyTeams());
 
-        OutdatedProducts.SetActive(false && HasOutdatedProducts());
+        OutdatedProducts            .SetActive(false && HasOutdatedProducts());
 
-        CanSellCompany.SetActive(HasAcquisitionOffers());
-        CanBuyCompany.SetActive(false && CheckAcquisitionCandidates());
+        CanSellCompany              .SetActive(HasAcquisitionOffers());
+        CanBuyCompany               .SetActive(false && CheckAcquisitionCandidates());
     }
 
-    bool IsCanUpgradeCorporateCulture() => Companies.IsHasReleasedProducts(GameContext, MyCompany) && !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+    bool IsCanUpgradeCorporateCulture()
+    {
+        return
+            Companies.IsHasReleasedProducts(GameContext, MyCompany) &&
+            !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+    }
 
     bool HasReleaseableProducts()
     {

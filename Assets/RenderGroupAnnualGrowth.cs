@@ -33,6 +33,10 @@ public class RenderGroupAnnualGrowth : UpgradedParameterView
         var absoluteGrowthText = (isGrowth ? "+" : "") + Format.MinifyMoney(growthAbsolute); // Visuals.Colorize(, color);
         var change = Visuals.DescribeValueWithText(growthAbsolute, "growth" , "loss", "");
 
+        // if company younger than 1 year
+        if (growthRelative > 20000)
+            return absoluteGrowthText;
+
         return $"{absoluteGrowthText} {change} ({relativeGrowthText}%)";
     }
 }

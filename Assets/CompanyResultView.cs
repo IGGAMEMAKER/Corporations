@@ -54,7 +54,7 @@ public class CompanyResultView : View
         SetAggressiveMarketing  .gameObject.SetActive(false);
         SetZeroMarketing        .gameObject.SetActive(false && isReleased && financing > 0);
 
-        ReleaseApp.gameObject.SetActive(!company.isRelease);
+        ReleaseApp              .gameObject.SetActive(false);
     }
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)

@@ -12,13 +12,26 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderHint()
     {
-        return $"Will upgrade concept in {days} days";
+        if (!Companies.IsExploredCompany(GameContext, CompanyId))
+            return "";
+
+        var company = Companies.GetCompany(GameContext, CompanyId);
+        var willInnovate = Products.IsWillInnovate(company, GameContext);
+        var innovationChance = Products.GetInnovationChance(company, GameContext);
+
+        var description = $"Working on product upgrade ({days} days)\n\n";
+
+        if (willInnovate)
+            description += "Has " + innovationChance + "% chance to make an innovation";
+        else
+            description += "Will upgrade product guaranteedly, cause they are behind market";
+
+        return description;
     }
 
     public override string RenderValue()
     {
-        Cooldown c;
-        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out c);
+        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out Cooldown c);
 
         if (c == null)
             return "";
