@@ -9,9 +9,9 @@
 
             var timeToProfitability = 4;
 
-            var marketingBudget = 200000;
+            var buffer = 15000;
 
-            return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(gameContext, niche) + marketingBudget;
+            return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(gameContext, niche) + buffer;
         }
 
         internal static long GetBaseProductMaintenance(GameContext gameContext, GameEntity niche)
