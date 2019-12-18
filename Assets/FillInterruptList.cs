@@ -54,6 +54,7 @@ public class FillInterruptList : View
     bool IsCanUpgradeCorporateCulture()
     {
         return
+            MyCompany.isWantsToExpand &&
             Companies.IsHasReleasedProducts(GameContext, MyCompany) &&
             !CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
     }

@@ -24,6 +24,8 @@ public struct BlockOfShares
 public class AliveComponent : IComponent { }
 public class OnSalesComponent : IComponent { }
 
+public class WantsToExpand : IComponent { }
+
 // is attached to CompanyComponent
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public class ShareholdersComponent : IComponent
