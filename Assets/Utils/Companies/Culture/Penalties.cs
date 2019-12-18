@@ -4,7 +4,7 @@
     {
         public static int GetPolicyValue(GameEntity company, CorporatePolicy policy) => GetOwnCorporateCulture(company)[policy];
 
-        // policy Responsibility: LeaderOrTeam
+        // policy Responsibility: LeaderOrTeam => Focusing too
         public static int GetCompanyLimit(GameEntity company)
         {
             var rank = 1;
@@ -15,7 +15,7 @@
             if (company.company.CompanyType == CompanyType.Holding)
                 rank = 2;
 
-            return GetPolicyValue(company, CorporatePolicy.LeaderOrTeam) * rank;
+            return GetPolicyValue(company, CorporatePolicy.Focusing) * rank;
         }
 
         public static int GetCompanyLimitPenalty(GameEntity company, GameContext gameContext)
@@ -55,7 +55,7 @@
             var limit = GetPrimaryMarketsLimit(company, gameContext);
 
             if (amount > limit)
-                return (amount - limit) * 5;
+                return (amount - limit) * 15;
 
             return 0;
         }
