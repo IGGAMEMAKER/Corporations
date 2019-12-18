@@ -37,7 +37,7 @@ public class BusinessButtonsController : View
         // other companies
         AcquireCompany.SetActive(!isRelatedToPlayer);
 
-        JoinCorporation.SetActive(!isRelatedToPlayer && isCorporation);
+        JoinCorporation.SetActive(false && !isRelatedToPlayer && isCorporation);
 
         SendPartnership.SetActive(!isRelatedToPlayer && canBePartnersTheoretically);
     }
