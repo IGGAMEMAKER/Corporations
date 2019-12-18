@@ -4,6 +4,8 @@ public class RenderHeadCompanyName : ParameterView
 {
     public override string RenderValue()
     {
-        return "Head company: " + Visuals.Link(MyCompany.company.Name);
+        var cost = Economy.GetCompanyCost(GameContext, MyCompany);
+
+        return Visuals.Link($"Head company: {MyCompany.company.Name} ({Format.MinifyMoney(cost)})");
     }
 }

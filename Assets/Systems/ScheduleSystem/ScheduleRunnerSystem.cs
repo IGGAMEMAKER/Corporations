@@ -21,7 +21,7 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     public void Initialize()
     {
         DateEntity = _context.CreateEntity();
-        DateEntity.AddDate(0, 2);
+        DateEntity.AddDate(0, 3);
         DateEntity.AddTargetDate(0);
         
 

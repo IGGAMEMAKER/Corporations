@@ -61,7 +61,11 @@ public class FillInterruptList : View
     bool HasReleaseableProducts()
     {
         var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
-        return upgradableCompanies.Count() > 0;
+        var count = upgradableCompanies.Count();
+
+        bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.NicheScreen && count == 1 && SelectedNiche == upgradableCompanies.First().product.Niche;
+
+        return count > 0 && !isAlreadyOnReleasableMarket;
     }
 
     bool HasOutdatedProducts()
