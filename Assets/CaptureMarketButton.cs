@@ -1,8 +1,5 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class CaptureMarketButton : ToggleButtonController
@@ -23,7 +20,7 @@ public class CaptureMarketButton : ToggleButtonController
     {
         base.ViewRender();
 
-        GetComponentInChildren<Text>().text = hasAtLeastOneAggressiveCompany ? "Stop market takeover" : "CAPTURE MARKET!";
+        GetComponentInChildren<Text>().text = hasAtLeastOneAggressiveCompany ? "STOP market TAKEOVER" : "CAPTURE MARKET!";
         ToggleIsChosenComponent(hasAtLeastOneAggressiveCompany);
     }
 }
