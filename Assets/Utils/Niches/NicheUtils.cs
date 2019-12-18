@@ -84,16 +84,14 @@ namespace Assets.Utils
         {
             var profile = niche.nicheBaseProfile.Profile;
 
-            var isGlobalMarket = profile.AudienceSize == AudienceSize.Global;
-            var isConceptLevelLow = true || Products.GetMarketDemand(niche) < 10;
-
             var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);
             var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
 
             var isTopMarket = profile.Margin > Margin.Low || profile.AudienceSize > AudienceSize.Million; // GetMarketPotentialRating(niche) > 3;
 
-            return isPerspective && isCheapToMaintain && !isTopMarket;
-            return isCheapToMaintain && !isGlobalMarket && isPerspective && isConceptLevelLow;
+            var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
+
+            return isPerspective && isCheapToMaintain && !isTopMarket && competition == 0;
         }
     }
 }

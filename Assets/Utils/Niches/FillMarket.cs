@@ -80,7 +80,7 @@ namespace Assets.Utils
             return false;
         }
 
-        public static void SpawnCompany(GameEntity niche, GameContext gameContext, long leaderFunds)
+        public static GameEntity SpawnCompany(GameEntity niche, GameContext gameContext, long leaderFunds)
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
             Companies.SetStartCapital(product, leaderFunds);
@@ -91,6 +91,8 @@ namespace Assets.Utils
 
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
                 NotificationUtils.AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
+
+            return product;
         }
     }
 }

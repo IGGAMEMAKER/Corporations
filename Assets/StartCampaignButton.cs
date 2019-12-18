@@ -27,6 +27,23 @@ public class StartCampaignButton : ButtonController
         Companies.PlayAs(company, GameContext);
         Companies.AutoFillShareholders(GameContext, company, true);
 
+        // spawn competitors
+        for (var i = 0; i < 1; i++)
+        {
+            var c = Markets.SpawnCompany(niche, GameContext, Random.Range(2, 5) * startCapital);
+
+            MarketingUtils.AddClients(c, MarketingUtils.GetClients(c) * Random.Range(1, 2));
+            MarketingUtils.AddBrandPower(c, 20 * Random.Range(1, 2));
+        }
+
+        company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
+        {
+            [CorporatePolicy.CreateOrBuy] = 3,
+            [CorporatePolicy.Focusing] = 1,
+            [CorporatePolicy.LeaderOrTeam] = 1,
+            [CorporatePolicy.WorkerMindset] = 3
+        });
+
         ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
 
 
