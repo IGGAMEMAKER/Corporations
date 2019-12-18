@@ -89,9 +89,9 @@ namespace Assets.Utils
 
             var isTopMarket = profile.Margin > Margin.Low || profile.AudienceSize > AudienceSize.Million; // GetMarketPotentialRating(niche) > 3;
 
-            var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
+            //var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
 
-            return isPerspective && isCheapToMaintain && !isTopMarket && competition == 0;
+            return isPerspective && isCheapToMaintain && !isTopMarket;
         }
     }
 }

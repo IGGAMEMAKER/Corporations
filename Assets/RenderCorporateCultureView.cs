@@ -1,12 +1,17 @@
 ﻿using Assets.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class RenderCorporateCultureView : View
 {
-    public Text Leadership;
     public Text Mindset;
+    public GameObject MindsetPolicy;
+
     public Text Focusing;
+    public GameObject FocusingPolicy;
+
     public Text Expansion;
+    public GameObject ExpansionPolicy;
 
     public override void ViewRender()
     {
@@ -16,18 +21,17 @@ public class RenderCorporateCultureView : View
         bool isFocused = expansion == 1;
 
 
-        SetText(Leadership, CorporatePolicy.LeaderOrTeam, false);
-        SetText(Mindset,    CorporatePolicy.WorkerMindset, !isFocused);
-        SetText(Focusing,   CorporatePolicy.Focusing, true);
-        SetText(Expansion,  CorporatePolicy.CreateOrBuy, !isFocused);
+        SetText(Mindset,    CorporatePolicy.WorkerMindset, MindsetPolicy, !isFocused);
+        SetText(Focusing,   CorporatePolicy.Focusing, FocusingPolicy, true);
+        SetText(Expansion,  CorporatePolicy.CreateOrBuy, ExpansionPolicy, !isFocused);
     }
 
-    void SetText(Text text, CorporatePolicy corporatePolicy, bool render)
+    void SetText(Text text, CorporatePolicy corporatePolicy, GameObject policyObject, bool render)
     {
         var value = Companies.GetPolicyValue(MyCompany, corporatePolicy);
 
         text.text = value.ToString();
 
-        text.gameObject.SetActive(render);
+        policyObject.SetActive(render);
     }
 }

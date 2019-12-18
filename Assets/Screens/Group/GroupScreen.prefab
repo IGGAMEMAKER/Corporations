@@ -2831,10 +2831,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbde93ca2c9f27147a1a1ba8396023e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Leadership: {fileID: 1042962712050273098}
   Mindset: {fileID: 9220785203043558240}
+  MindsetPolicy: {fileID: 7265653948067569432}
   Focusing: {fileID: 794699977123216810}
+  FocusingPolicy: {fileID: 1163426134371402194}
   Expansion: {fileID: 1638462254752035642}
+  ExpansionPolicy: {fileID: 981496861377220418}
 --- !u!114 &3033230462770150639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3875,12 +3877,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7451005572489461134, guid: 0f6accdb06b96a649a39ca77ec66cea5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0f6accdb06b96a649a39ca77ec66cea5, type: 3}
---- !u!224 &7972312167201677906 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8289663369695371626, guid: 0f6accdb06b96a649a39ca77ec66cea5,
-    type: 3}
-  m_PrefabInstance: {fileID: 2137410228597424952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9220785203043558240 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7088476760148336728, guid: 0f6accdb06b96a649a39ca77ec66cea5,
@@ -3893,6 +3889,18 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7972312167201677906 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8289663369695371626, guid: 0f6accdb06b96a649a39ca77ec66cea5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2137410228597424952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7265653948067569432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8754243969206803488, guid: 0f6accdb06b96a649a39ca77ec66cea5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2137410228597424952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2666149300924612154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4945,7 +4953,7 @@ PrefabInstance:
 
         Increases main market limit
 
-        Increases main market limit'
+        Increases company limit'
       objectReference: {fileID: 0}
     - target: {fileID: 7399477936392790265, guid: 0f6accdb06b96a649a39ca77ec66cea5,
         type: 3}
@@ -4980,9 +4988,9 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7451005572489461134, guid: 0f6accdb06b96a649a39ca77ec66cea5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0f6accdb06b96a649a39ca77ec66cea5, type: 3}
---- !u!224 &1896806609157553304 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8289663369695371626, guid: 0f6accdb06b96a649a39ca77ec66cea5,
+--- !u!1 &1163426134371402194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8754243969206803488, guid: 0f6accdb06b96a649a39ca77ec66cea5,
     type: 3}
   m_PrefabInstance: {fileID: 7590820907349728754}
   m_PrefabAsset: {fileID: 0}
@@ -4998,6 +5006,12 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1896806609157553304 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8289663369695371626, guid: 0f6accdb06b96a649a39ca77ec66cea5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7590820907349728754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7792930503610133266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5149,18 +5163,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7792930503610133266}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1042962712050273098 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7088476760148336728, guid: 0f6accdb06b96a649a39ca77ec66cea5,
-    type: 3}
-  m_PrefabInstance: {fileID: 7792930503610133266}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7850354131457308863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5485,3 +5487,9 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &981496861377220418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8754243969206803488, guid: 0f6accdb06b96a649a39ca77ec66cea5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8422761219011744610}
+  m_PrefabAsset: {fileID: 0}
