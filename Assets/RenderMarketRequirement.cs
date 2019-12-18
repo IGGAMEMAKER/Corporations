@@ -1,13 +1,11 @@
 ﻿using Assets.Utils;
-using UnityEngine.UI;
 
 public class RenderMarketRequirement : ParameterView
 {
     public override string RenderValue()
     {
-        if (!SelectedCompany.hasProduct)
-            return "";
+        var niche = Markets.GetNiche(GameContext, SelectedNiche);
 
-        return Products.GetMarketRequirements(SelectedCompany, GameContext) + "LVL";
+        return Products.GetMarketRequirements(niche) + "LVL";
     }
 }
