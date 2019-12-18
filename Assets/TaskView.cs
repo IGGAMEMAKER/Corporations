@@ -47,7 +47,11 @@ public class TaskView : View
             //}
         }
         else
+        {
             text += remaining + " days left";
+            if (!ScheduleUtils.IsTimerRunning(GameContext))
+                text += ". " + Visuals.Negative("Unpause") + " to finish";
+        }
 
         Text.text = text;
     }

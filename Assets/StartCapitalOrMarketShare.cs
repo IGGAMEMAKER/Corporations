@@ -17,9 +17,9 @@ public class StartCapitalOrMarketShare : UpgradedParameterView
         }
         else
         {
-            var capital = Markets.GetStartCapital(SelectedNiche, GameContext);
+            var maintenance = Markets.GetBiggestMaintenanceOnMarket(GameContext, SelectedNiche);
 
-            return Visuals.Colorize(Format.Money(capital), Companies.IsEnoughResources(MyCompany, capital));
+            return Visuals.Colorize(Format.Money(maintenance), Economy.IsCanMaintain(MyCompany, GameContext, maintenance));
         }
     }
 }

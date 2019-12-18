@@ -23,7 +23,8 @@ public partial class PopupView : View
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
-            "If we want to prevent this, we need to send a counter offer!"
+            "If we want to prevent this, we need to send a counter offer!",
+            typeof(ClosePopupOK)
             );
     }
 
@@ -35,7 +36,8 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "ACQUISITION!",
             $"Company {buyer.company.Name} BOUGHT {target.company.Name} for {Format.Money(popup.Bid)}!\n\n" +
-            $"This move will increase market share of {buyer.company.Name}"
+            $"This move will increase market share of {buyer.company.Name}",
+            typeof(ClosePopupOK)
             );
     }
 
@@ -67,7 +69,7 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "Market state changed!",
             $"Market of {name} is {state} now!\n\n{possibilities}",
-            typeof(ClosePopup)
+            typeof(ClosePopupOK)
             );
     }
 
@@ -135,14 +137,20 @@ public partial class PopupView : View
     void RenderDoYouReallyWantToCreateAPrototype(PopupMessageDoYouWantToCreateApp popup)
     {
         // check if has enough resources
-        var startCapital = Markets.GetStartCapital(popup.NicheType, GameContext);
+        var maintenance = Markets.GetBiggestMaintenanceOnMarket(GameContext, popup.NicheType);
 
-        bool hasResources = Companies.IsEnoughResources(MyCompany, startCapital);
+        bool hasResources = Economy.IsCanMaintain(MyCompany, GameContext, maintenance);
 
         var title = "Do you really want to create a new " + EnumUtils.GetFormattedNicheName(popup.NicheType) + "?";
-        var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
+        //var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
+        var description = $"On release, this product will cost you about {Format.Money(maintenance)} each month";
+        if (maintenance == 0)
+            description = "We don't know, how much it will cost on release. Create app to find out! Be the innovator!";
 
-        var resourceText = hasResources ? "" : Visuals.Negative("\nYou don't have enough money for that :(");
+
+        var resourceText = "";
+        if (!hasResources)
+            resourceText = Visuals.Negative("\nIt's too expensive!");
 
 
         RenderUniversalPopup(
@@ -157,7 +165,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "BANKRUPTCY IS COMING!",
-            "YOU HAVE ONE DAY TO SAVE YOUR COMPANY!\n\n" + Visuals.Negative("Raise investments and stop capturing markets!"),
+            "YOU HAVE ONE DAY TO SAVE YOUR COMPANY!\n\n" + Visuals.Negative("Raise investments, close not profitable companies and stop capturing markets!"),
             typeof(ClosePopupOK)
             );
     }

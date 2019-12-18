@@ -17,6 +17,6 @@ public class StartCapitalOrMarketShareLabel : UpgradedParameterView
         if (hasCompany)
             return "Our market share";
         else
-            return "Start Capital";
+            return "Top Maintenance";
     }
 }
