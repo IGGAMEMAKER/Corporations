@@ -29,7 +29,10 @@ public enum PopupType
     GameOver,
 
     CorporationRequirementsWarning,
-    CorporateCultureChange
+    CorporateCultureChange,
+
+    AcquisitionOfferResponse,
+    AcquisitionOfferSoldOut,
 }
 
 public class PopupMessage
@@ -98,6 +101,14 @@ public class PopupMessageInterestToCompany : PopupMessageCompanyEvent
 {
     public int buyerInvestorId;
     public PopupMessageInterestToCompany(int companyId, int buyerInvestorId) : base(companyId, PopupType.InterestToCompanyInOurSphereOfInfluence) {
+        this.buyerInvestorId = buyerInvestorId;
+    }
+}
+
+public class PopupMessageAcquisitionOfferResponse : PopupMessageCompanyEvent
+{
+    public int buyerInvestorId;
+    public PopupMessageAcquisitionOfferResponse(int companyId, int buyerInvestorId) : base(companyId, PopupType.AcquisitionOfferResponse) {
         this.buyerInvestorId = buyerInvestorId;
     }
 }

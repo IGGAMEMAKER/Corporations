@@ -72,6 +72,10 @@
                 RenderCorporateCultureChanges(popup as PopupMessageCultureChange);
                 break;
 
+            case PopupType.AcquisitionOfferResponse:
+                RenderAcquisitionOfferResponse(popup as PopupMessageAcquisitionOfferResponse);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

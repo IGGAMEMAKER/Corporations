@@ -52,7 +52,7 @@ public class ProposalScreen : View
     void SetButtons()
     {
         AcceptInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
-        RejectInvestmentProposalController.gameObject.SetActive(!proposal.WasAccepted);
+        RejectInvestmentProposalController.gameObject.SetActive(false);
 
         AcceptInvestmentProposalController.InvestorId = SelectedInvestor.shareholder.Id;
         RejectInvestmentProposalController.InvestorId = SelectedInvestor.shareholder.Id;

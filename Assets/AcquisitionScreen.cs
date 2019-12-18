@@ -46,7 +46,10 @@ public class AcquisitionScreen : View
 
         if (o.Turn == AcquisitionTurn.Seller)
         {
-            ProposalStatus.text = "Waiting for response... Will respond in " + CurrentIntDate % 7 + " days";
+            //ProposalStatus.text = "Waiting for response... Will respond in " + CurrentIntDate % 7 + " days. ";
+            ProposalStatus.text = "Waiting for response... ";
+            if (!ScheduleUtils.IsTimerRunning(GameContext))
+                ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
         }
     }
 

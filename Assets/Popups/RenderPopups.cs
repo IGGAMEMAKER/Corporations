@@ -222,5 +222,32 @@ public partial class PopupView : View
             );
     }
 
+    void RenderAcquisitionOfferResponse(PopupMessageAcquisitionOfferResponse popup)
+    {
+        var positiveResponse = "They " + Visuals.Positive("ACCEPTED") + " our offer!\n\nPress OK to buy a company";
+        var negativeResponse = "They " + Visuals.Negative("DECLINED") + " our offer!\n\nSend another offer to buy this company";
+
+        bool willAccept = Companies.IsCompanyWillAcceptAcquisitionOffer(GameContext, popup.companyId, popup.buyerInvestorId);
+
+        List<Type> buttons = new List<Type>();
+        
+        if (willAccept)
+        {
+            buttons.Add(typeof(AcquireCompanyPopupButton));
+        }
+        else
+        {
+            buttons.Add(typeof(SendAnotherAcquisitionOfferPopupButton));
+        }
+
+        buttons.Add(typeof(ClosePopup));
+
+        RenderUniversalPopup(
+            "Response from company " + GetCompanyName(popup.companyId),
+            willAccept ? positiveResponse : negativeResponse,
+            buttons.ToArray()
+            );
+    }
+
     string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
 }

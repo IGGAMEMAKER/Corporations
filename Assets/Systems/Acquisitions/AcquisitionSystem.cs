@@ -88,7 +88,11 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         }
 
         foreach (var buyerId in toRemove)
+        {
             Companies.RejectAcquisitionOffer(gameContext, CompanyId, buyerId);
+
+
+        }
 
         var remainingOffers = Companies.GetAcquisitionOffersToCompany(gameContext, CompanyId);
 
@@ -150,6 +154,11 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
 
         offer.ReplaceAcquisitionOffer(targetId, shareholderId, AcquisitionTurn.Buyer, o.BuyerOffer, sellerConditions);
+
+        var investor = Investments.GetInvestorById(gameContext, shareholderId);
+
+        if (investor.isControlledByPlayer)
+            NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfferResponse(targetId, shareholderId));
     }
 
     void TradeWithOneBuyer(GameEntity offer, int targetId)
@@ -159,9 +168,9 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         if (o.BuyerOffer.Price < o.SellerOffer.Price)
             DecreaseCompanyPrice(offer, targetId, shareholderId);
-
-        if (o.BuyerOffer.Price >= o.SellerOffer.Price)
+        else
             AcceptOffer(targetId, shareholderId);
+        //if (o.BuyerOffer.Price >= o.SellerOffer.Price)
     }
 
     void AcceptOffer(int targetId, int shareholderId)
@@ -170,6 +179,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
         if (investor.isControlledByPlayer)
         {
+            NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfferResponse(targetId, shareholderId));
             Debug.Log("Acquisition status OK");
             // Acquisition popup, which will contain ConfirmAcquisitionOffer call
         }
