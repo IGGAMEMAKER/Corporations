@@ -14,7 +14,7 @@ public class RenderPrimaryMarketsDescription : View
 
         bool isOverflow = markets > limit;
 
-        GetComponent<Text>().text = $"Primary markets: {Visuals.Colorize(markets.ToString(), !isOverflow)} / {limit}";
+        GetComponent<Text>().text = $"Main markets: {Visuals.Colorize(markets.ToString(), !isOverflow)} / {limit}";
 
         var innovationPenalty = Companies.GetPrimaryMarketsInnovationPenalty(MyCompany, GameContext);
         MarketLimitDescription.text = isOverflow ?
