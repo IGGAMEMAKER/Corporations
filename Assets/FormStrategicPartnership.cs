@@ -21,8 +21,15 @@ public class FormStrategicPartnership : ToggleButtonController
 
         var arePartners = isPartnersAlready;
 
-        GetComponent<Button>().interactable = isCanBePartnersTheoretically;
+        var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, GameContext);
+
+        GetComponent<Button>().interactable = isCanBePartnersTheoretically && opinion >= 0;
         GetComponentInChildren<Text>().text = arePartners ? "Break strategic partnership!" : "Sign strategic partnership";
+
+        GetComponent<Hint>().SetHint("");
+        if (opinion < 0 && !arePartners)
+            GetComponent<Hint>().SetHint("Will not accept partnership, because their opinion about us is negative " + opinion);
+
 
         ToggleIsChosenComponent(arePartners);
     }

@@ -18,9 +18,18 @@ namespace Assets.Utils
                 ;
         }
 
+        public static long GetPartnershipOpinionAboutUs(GameEntity requester, GameEntity acceptor, GameContext gameContext)
+        {
+            return GetPartnerability(requester, acceptor, gameContext).Sum();
+        }
+
         public static bool IsCompetingCompany(int companyId1, int companyId2, GameContext gameContext) => IsCompetingCompany(GetCompany(gameContext, companyId1), GetCompany(gameContext, companyId2), gameContext);
         public static bool IsCompetingCompany(GameEntity company1, GameEntity company2, GameContext gameContext)
         {
+            // you cannot compete with yourself:)
+            if (company1.company.Id == company2.company.Id)
+                return false;
+
             return IsHaveCompetingProducts(company1, company2, gameContext) || IsHaveIntersectingMarkets(company1, company2, gameContext);
         }
 
@@ -64,7 +73,7 @@ namespace Assets.Utils
             var acceptorStrength = acceptor.branding.BrandPower;
             var requesterStrength = requester.branding.BrandPower;
 
-            bool wantsToAccept = true; // Mathf.Abs(acceptorStrength - requesterStrength) < 10;
+            bool wantsToAccept = GetPartnerability(requester, acceptor, gameContext).Sum() > 0; // Mathf.Abs(acceptorStrength - requesterStrength) < 10;
 
             if (wantsToAccept)
             {
@@ -154,7 +163,7 @@ namespace Assets.Utils
             if (IsDaughterOfCompany(requester, acceptor))
                 return false;
 
-            if (!(requester.isIndependentCompany && acceptor.isIndependentCompany))
+            if (!requester.isIndependentCompany || !acceptor.isIndependentCompany)
                 return false;
 
             return true;
