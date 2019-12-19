@@ -25,7 +25,11 @@ public class PartnershipCandidateView : View
 
         GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
 
-        var industries = company.companyFocus.Industries.Select(EnumUtils.GetFormattedIndustryName);
+        var industries = company.companyFocus.Industries
+            .Select(i => Visuals.Colorize(
+                EnumUtils.GetFormattedIndustryName(i),
+                MyCompany.companyFocus.Industries.Contains(i) ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_WHITE)
+                );
 
         TargetIndustry.text = string.Join(", ", industries);
 
