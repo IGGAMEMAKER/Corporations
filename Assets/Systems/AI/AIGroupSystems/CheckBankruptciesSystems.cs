@@ -64,10 +64,8 @@ public partial class CheckBankruptciesSystems : OnPeriodChange
         Companies.CloseCompany(gameContext, company);
 
         NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(company.company.Id));
-        //if (CompanyUtils.IsInPlayerSphereOfInterest(product, gameContext))
-        //{
-        //    //NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
 
-        //}
+        if (Companies.IsInPlayerSphereOfInterest(company, gameContext))
+            NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(product.company.Id));
     }
 }
