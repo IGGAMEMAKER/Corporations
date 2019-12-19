@@ -1,13 +1,8 @@
 ﻿using Assets.Utils;
 using System.Linq;
 
-public class StartCapitalOrMarketShare : UpgradedParameterView
+public class StartCapitalOrMarketShare : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
