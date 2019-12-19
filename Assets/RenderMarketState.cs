@@ -23,6 +23,8 @@ public class RenderMarketState : UpgradedParameterView
 
         var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
 
-        return Visuals.Positive("+" + speed) + $"% / month\n\nMarket will get {Format.MinifyToInteger(flow)} new users this month";
+        return Visuals.Positive("+" + speed) + $"% / month";
+            //+
+            //$"\n\nMarket will get {Format.MinifyToInteger(flow)} new users this month";
     }
 }
