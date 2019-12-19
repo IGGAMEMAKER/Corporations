@@ -76,10 +76,16 @@ public partial class PopupView : View
 
     void RenderBankruptCompany(PopupMessageCompanyBankrupt popup)
     {
+        var niche = Companies.GetCompany(GameContext, popup.companyId).product.Niche;
+        bool hasCompaniesOnMarket = Companies.HasCompanyOnMarket(MyCompany, niche, GameContext);
+
+        var description = "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!";
+        if (hasCompaniesOnMarket)
+            description += "\nSome of their clients will start using our products instead";
+
         RenderUniversalPopup(
             "Our competitor is bankrupt!",
-            "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!" +
-            "\nSome of their clients will start using our product instead",
+            description,
             typeof(ClosePopupOK)
             );
     }
