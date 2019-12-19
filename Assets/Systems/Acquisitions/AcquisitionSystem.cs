@@ -185,7 +185,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         {
             NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfferResponse(targetId, shareholderId));
             Debug.Log("Acquisition status OK");
-            // Acquisition popup, which will contain ConfirmAcquisitionOffer call
         }
         else
         {

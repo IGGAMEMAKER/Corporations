@@ -36,6 +36,12 @@ public class AcquisitionScreen : View
 
     void RenderProposalStatus(bool willAcceptOffer)
     {
+        if (Companies.IsDaughterOfCompany(MyCompany, SelectedCompany))
+        {
+            ProposalStatus.text = "It is OUR COMPANY ALREADY!";
+            return;
+        }
+
         var progress = Companies.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         var status = Visuals.Colorize(progress + "%", willAcceptOffer) + " of owners want to accept your offer";
@@ -46,7 +52,6 @@ public class AcquisitionScreen : View
 
         if (o.Turn == AcquisitionTurn.Seller)
         {
-            //ProposalStatus.text = "Waiting for response... Will respond in " + CurrentIntDate % 7 + " days. ";
             ProposalStatus.text = "Waiting for response... ";
             if (!ScheduleUtils.IsTimerRunning(GameContext))
                 ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
