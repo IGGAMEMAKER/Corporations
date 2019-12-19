@@ -23,7 +23,10 @@ public abstract class UpgradedParameterView : View
 
         string hint = RenderHint();
 
-        if (hint.Length > 0)
+        //if (hint.Length > 0)
+        //Hint.SetHint(hint);
+
+        if (Hint != null)
             Hint.SetHint(hint);
     }
 
