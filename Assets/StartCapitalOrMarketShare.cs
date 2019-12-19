@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using System.Linq;
 
 public class StartCapitalOrMarketShare : UpgradedParameterView
 {
@@ -13,7 +14,15 @@ public class StartCapitalOrMarketShare : UpgradedParameterView
 
         if (hasCompany)
         {
-            return Companies.GetControlInMarket(MyCompany, SelectedNiche, GameContext) + "%";
+            var control = Companies.GetControlInMarket(MyCompany, SelectedNiche, GameContext);
+            var previousControl = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext)
+                .Select(p => Companies.GetProductCompanyResults(p, GameContext))
+                .Select(r => r.MarketShareChange)
+                .Sum();
+
+            var diff = (long)(previousControl);
+
+            return $"{control}% ({Visuals.PositiveOrNegativeMinified(diff)}%)";
         }
         else
         {
