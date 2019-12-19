@@ -40,7 +40,7 @@ public class AcquisitionScreen : View
 
         var status = Visuals.Colorize(progress + "%", willAcceptOffer) + " of owners want to accept your offer";
         var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
-        ProposalStatus.text = status + "\n" + textDescription;
+        ProposalStatus.text = status; // + "\n" + textDescription;
 
         var o = AcquisitionOffer;
 
