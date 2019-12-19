@@ -29,10 +29,14 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void AnalyzeOffers (int companyId)
     {
-        var offers = Companies.GetAcquisitionOffersToCompany(gameContext, companyId);
+        var offers = Companies.GetAcquisitionOffersToCompany(gameContext, companyId)
+            .Where(o => o.acquisitionOffer.Turn == AcquisitionTurn.Seller)
+            .ToArray();
 
         var offerCount = offers.Count();
 
+        if (offerCount == 0)
+            return;
 
         // if one offer
         // try to lower price

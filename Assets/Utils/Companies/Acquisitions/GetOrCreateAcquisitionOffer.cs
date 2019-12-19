@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Utils
 {
@@ -28,6 +29,10 @@ namespace Assets.Utils
             };
 
             offer.AddAcquisitionOffer(companyId, buyerInvestorId, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
+
+            var playerIsInvestor = GetInvestorById(gameContext, buyerInvestorId).isControlledByPlayer;
+            if (playerIsInvestor)
+                Debug.Log("Create acquisition offer: " + GetCompanyName(gameContext, companyId));
 
             return offer;
         }

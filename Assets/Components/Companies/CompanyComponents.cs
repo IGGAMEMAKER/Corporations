@@ -218,7 +218,8 @@ public class AcquisitionConditions
 public enum AcquisitionTurn
 {
     Buyer,
-    Seller
+    Seller,
+    Neutral
 }
 
 public class AcquisitionOfferComponent : IComponent
