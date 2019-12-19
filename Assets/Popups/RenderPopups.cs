@@ -1,4 +1,5 @@
-﻿using Assets.Utils;
+﻿using Assets;
+using Assets.Utils;
 using Assets.Utils.Formatting;
 using System;
 using System.Collections.Generic;
@@ -194,6 +195,9 @@ public partial class PopupView : View
         bool signed = Companies.IsHaveStrategicPartnershipAlready(popup.companyId, popup.companyId2, GameContext);
 
         var target = GetCompanyName(popup.companyId2);
+
+        SoundManager.Play(Sound.SignContract);
+
         RenderUniversalPopup(
             signed ? $"We are strategic partners with {target}!" : $"We have revoked our strategic partnership with {target}",
             signed ? "Our products will get more brand power every month" : "They are worthless and we don't need their help anymore!",
