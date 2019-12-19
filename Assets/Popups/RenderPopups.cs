@@ -111,8 +111,9 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "You've released the prouct!",
-            "You got new users and 20 Brand Power!\nIncrease Brand power if you want to get more clients!" +
-            "\n\nBrand grows if you form partnerships, make innovations and capture markets" +
+            Visuals.Positive("You got new users and 20 Brand Power!") +
+            "\n\nIncrease Brand power if you want to get more clients!" +
+            "\n\nBrand grows if you form partnerships, make innovations and capture markets",
             typeof(ClosePopupOK)
             );
     }
