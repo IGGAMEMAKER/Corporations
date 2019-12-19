@@ -71,6 +71,11 @@ public class PopupMessageTooManyPartners : PopupMessageCompanyEvent
     public PopupMessageTooManyPartners(int companyId) : base(companyId, PopupType.TooManyPartners) { }
 }
 
+public class PopupMessageRelease : PopupMessageCompanyEvent
+{
+    public PopupMessageRelease(int companyId) : base(companyId, PopupType.Release) { }
+}
+
 public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
 {
     public PopupMessageCompanyBankrupt(int companyId) : base(companyId, PopupType.BankruptCompany) { }

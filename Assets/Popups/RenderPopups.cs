@@ -87,7 +87,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "New Startup",
-            "Company " + GetCompanyName(popup.companyId) + " started it's business. Their approach seems REVOLUTIONARY. They will compete with our products now" +
+            "Company " + GetCompanyName(popup.companyId) + " started it's business. Their approach seems REVOLUTIONARY." +
             "\n\nKeep an eye on them. Perhaps, we can buy them later",
             typeof(ClosePopupOK)
             );
@@ -98,11 +98,21 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "Do you really want to release this product?",
             Visuals.Negative("Maintenance cost will increase") +
-            Visuals.Positive("\nThis product will get 20 brand power") +
+            Visuals.Positive("\nThis product will get a lot of new clients") +
             Visuals.Positive("\nYou will be able to make partnerships") +
             Visuals.Positive("\n\nYour income will increase!"),
             typeof(ReleaseAppPopupButton),
             typeof(ClosePopup)
+            );
+    }
+
+    void RenderReleasePopup(PopupMessageRelease popup)
+    {
+        RenderUniversalPopup(
+            "You've released the prouct!",
+            "You got new users and 20 Brand Power!\nIncrease Brand power if you want to get more clients!" +
+            "\n\nBrand grows if you form partnerships, make innovations and capture markets" +
+            typeof(ClosePopupOK)
             );
     }
 

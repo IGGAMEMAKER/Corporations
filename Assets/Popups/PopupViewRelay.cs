@@ -76,6 +76,10 @@
                 RenderAcquisitionOfferResponse(popup as PopupMessageAcquisitionOfferResponse);
                 break;
 
+            case PopupType.Release:
+                RenderReleasePopup(popup as PopupMessageRelease);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
