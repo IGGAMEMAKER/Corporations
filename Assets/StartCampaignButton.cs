@@ -32,8 +32,8 @@ public class StartCampaignButton : ButtonController
         {
             var c = Markets.SpawnCompany(niche, GameContext, Random.Range(2, 5) * startCapital);
 
-            MarketingUtils.AddClients(c, MarketingUtils.GetClients(c) * Random.Range(1, 2));
-            MarketingUtils.AddBrandPower(c, 20 * Random.Range(1, 2));
+            //MarketingUtils.AddClients(c, MarketingUtils.GetClients(c) * Random.Range(1, 1.5f));
+            MarketingUtils.AddBrandPower(c, 10);
         }
 
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
