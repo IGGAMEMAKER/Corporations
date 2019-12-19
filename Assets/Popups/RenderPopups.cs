@@ -110,7 +110,7 @@ public partial class PopupView : View
     void RenderReleasePopup(PopupMessageRelease popup)
     {
         RenderUniversalPopup(
-            "You've released the prouct!",
+            "You've released the product!",
             Visuals.Positive("You got new users and 20 Brand Power!") +
             "\n\nIncrease Brand power if you want to get more clients!" +
             "\n\nBrand grows if you form partnerships, make innovations and capture markets",

@@ -33,10 +33,12 @@ public class RenderMarketButtons : View
                 isDomineering = true;
         }
 
+        bool isTimeToExpand = CurrentIntDate > 120;
+
         RaiseInvestments.SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
         Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
 
         Release         .SetActive(IsMarketResearched && hasReleasebleApps);
-        Expand          .SetActive(IsMarketResearched && !MyCompany.isWantsToExpand && isDomineering);
+        Expand          .SetActive(IsMarketResearched && !MyCompany.isWantsToExpand && isTimeToExpand);
     }
 }
