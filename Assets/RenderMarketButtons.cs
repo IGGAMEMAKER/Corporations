@@ -18,7 +18,7 @@ public class RenderMarketButtons : View
         var amountOfCompanies = Companies.GetDaughterCompaniesAmount(MyCompany, GameContext);
         var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext);
 
-        bool hasReleasebleApps  = daughtersOnMarket.Where(p => !p.isRelease).Count() > 0;
+        bool hasReleasebleApps  = daughtersOnMarket.Where(p => Companies.IsReleaseableApp(p, GameContext)).Count() > 0;
         bool hasReleasedApps    = daughtersOnMarket.Where(p => p.isRelease).Count() > 0;
 
         bool hasDaughtersOnMarket = daughtersOnMarket.Count() > 0;
