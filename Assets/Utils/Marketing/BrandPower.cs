@@ -20,17 +20,18 @@ namespace Assets.Utils
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;
 
-            var percent = 5;
+            var percent = 7;
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
             var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 2;
-            var isPayingForMarketing    = product.financing.Financing[Financing.Marketing] > 0;
+            var isPayingForMarketing    = product.isRelease;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
                 .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
+                .AppendAndHideIfZero("Released", isPayingForMarketing ? 1 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
@@ -49,23 +50,14 @@ namespace Assets.Utils
         {
             var partners = Companies.GetPartnerList(product, gameContext);
 
-            var partnersInSameIndustry = partners
-                .Where(p =>
-                Markets.GetIndustry(p.product.Niche, gameContext) ==
-                Markets.GetIndustry(product.product.Niche, gameContext)
-                );
+            var industry = Markets.GetIndustry(product.product.Niche, gameContext);
 
 
             float value = 0;
-            foreach (var p in partnersInSameIndustry)
-            {
-                var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
-                var marketSize = Markets.GetMarketRating(gameContext, product.product.Niche);
-                
-                value += marketShare * marketSize / 100f;
-            }
+            foreach (var p in partners)
+                value += Companies.GetBrandProjectionOnIndustry(p, gameContext, industry);
 
-            return Mathf.Clamp(value, 0, 1) * 3f;
+            return Mathf.Clamp(value, 0, 3);
         }
     }
 }

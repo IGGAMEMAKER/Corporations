@@ -110,8 +110,23 @@ namespace Assets.Utils
 
             return partners
                 .Select(p => GetCompany(gameContext, p))
-                .Where(p => p.hasProduct)
+                //.Where(p => p.hasProduct)
                 .ToList();
+        }
+
+        public static float GetBrandProjectionOnIndustry(GameEntity company, GameContext gameContext, NicheType nicheType)
+        {
+            var industry = Markets.GetIndustry(nicheType, gameContext);
+
+            return GetBrandProjectionOnIndustry(company, gameContext, industry);
+        }
+        public static float GetBrandProjectionOnIndustry(GameEntity company, GameContext gameContext, IndustryType industryType)
+        {
+            //var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext);
+            //var marketSize = Markets.GetMarketRating(gameContext, product.product.Niche);
+
+            //value += 1; // marketShare * marketSize / 100f;
+            return 1;
         }
     }
 }
