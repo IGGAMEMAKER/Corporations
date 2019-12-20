@@ -30,14 +30,10 @@
             groupCo.isManagingCompany = true;
 
             // manage partnerships of product company
-            groupCo.ReplacePartnerships(product.partnerships.companies);
-
-            int[] ids = new int[product.partnerships.companies.Count];
-            product.partnerships.companies.CopyTo(ids);
-
-            foreach (var id in ids)
+            foreach (var p in GetPartnershipCopy(product))
             {
-                var acceptor = GetCompany(context, id);
+                var acceptor = GetCompany(context, p);
+
                 AcceptStrategicPartnership(groupCo, acceptor);
             }
             RemoveAllPartnerships(product, context);

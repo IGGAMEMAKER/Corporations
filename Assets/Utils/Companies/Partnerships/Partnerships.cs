@@ -35,12 +35,17 @@ namespace Assets.Utils
                 NotifyAboutPartnershipResponse(requester, acceptor, wantsToAccept, gameContext);
         }
 
-        public static void RemoveAllPartnerships(GameEntity company, GameContext gameContext)
+        public static int[] GetPartnershipCopy(GameEntity company)
         {
             int[] ids = new int[company.partnerships.companies.Count];
             company.partnerships.companies.CopyTo(ids);
 
-            foreach (var p in ids)
+            return ids;
+        }
+
+        public static void RemoveAllPartnerships(GameEntity company, GameContext gameContext)
+        {
+            foreach (var p in GetPartnershipCopy(company))
             {
                 var acceptor = GetCompany(gameContext, p);
 
