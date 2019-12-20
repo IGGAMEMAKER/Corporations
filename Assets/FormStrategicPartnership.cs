@@ -6,7 +6,7 @@ public class FormStrategicPartnership : ToggleButtonController
     public override void Execute()
     {
         if (isPartnersAlready)
-            Companies.CancelStrategicPartnership(MyCompany, SelectedCompany);
+            Companies.BreakStrategicPartnership(MyCompany, SelectedCompany);
         else
             Companies.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, GameContext, true);
     }

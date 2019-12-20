@@ -76,14 +76,38 @@ namespace Assets.Utils
             bool wantsToAccept = GetPartnerability(requester, acceptor, gameContext).Sum() > 0; // Mathf.Abs(acceptorStrength - requesterStrength) < 10;
 
             if (wantsToAccept)
-            {
-                acceptor.partnerships.companies.Add(requester.company.Id);
-                requester.partnerships.companies.Add(acceptor.company.Id);
-            }
+                AcceptStrategicPartnership(requester, acceptor);
 
             if (notifyPlayer)
                 NotifyAboutPartnershipResponse(requester, acceptor, wantsToAccept, gameContext);
         }
+
+        public static void RemoveAllPartnerships(GameEntity company, GameContext gameContext)
+        {
+            int[] ids = new int[company.partnerships.companies.Count];
+            company.partnerships.companies.CopyTo(ids);
+
+            foreach (var p in ids)
+            {
+                var acceptor = GetCompany(gameContext, p);
+
+                BreakStrategicPartnership(company, acceptor);
+                // notify about breaking partnership
+            }
+        }
+
+        public static void AcceptStrategicPartnership(GameEntity requester, GameEntity acceptor)
+        {
+            acceptor.partnerships.companies.Add(requester.company.Id);
+            requester.partnerships.companies.Add(acceptor.company.Id);
+        }
+
+        public static void BreakStrategicPartnership(GameEntity requester, GameEntity acceptor)
+        {
+            acceptor.partnerships.companies.RemoveAll(id => id == requester.company.Id);
+            requester.partnerships.companies.RemoveAll(id => id == acceptor.company.Id);
+        }
+
 
         public static float GetCompanyBenefitFromTargetCompany(GameEntity company, GameEntity target, GameContext gameContext)
         {
@@ -122,12 +146,6 @@ namespace Assets.Utils
             var equalityZone = 10;
 
             return (int)(requesterStrength - acceptorStrength) + equalityZone;
-        }
-
-        public static void CancelStrategicPartnership(GameEntity requester, GameEntity acceptor)
-        {
-            acceptor.partnerships.companies.RemoveAll(id => id == requester.company.Id);
-            requester.partnerships.companies.RemoveAll(id => id == acceptor.company.Id);
         }
 
         public static void NotifyAboutPartnershipResponse(GameEntity requester, GameEntity acceptor, bool willAccept, GameContext gameContext)

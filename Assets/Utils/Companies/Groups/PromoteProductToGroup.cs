@@ -11,6 +11,8 @@
 
             product.isIndependentCompany = false;
 
+
+
             var name = product.company.Name;
 
             int companyGroupId = GenerateCompanyGroup(context, name + " Group", companyId).company.Id;
@@ -26,6 +28,21 @@
 
             AddFocusNiche(niche, groupCo, context);
             groupCo.isManagingCompany = true;
+
+            // manage partnerships of product company
+            groupCo.ReplacePartnerships(product.partnerships.companies);
+
+            int[] ids = new int[product.partnerships.companies.Count];
+            product.partnerships.companies.CopyTo(ids);
+
+            foreach (var id in ids)
+            {
+                var acceptor = GetCompany(context, id);
+                AcceptStrategicPartnership(groupCo, acceptor);
+            }
+            RemoveAllPartnerships(product, context);
+
+
 
             NotifyAboutCompanyPromotion(context, companyGroupId, name);
 

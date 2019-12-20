@@ -12,6 +12,8 @@ namespace Assets.Utils
             BuyCompany(gameContext, companyId, buyerInvestorId, offer.acquisitionOffer.SellerOffer.Price);
         }
 
+        
+
         public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
         {
             // can afford acquisition
@@ -28,7 +30,7 @@ namespace Assets.Utils
             foreach (var shareholderId in array)
                 BuyShares(gameContext, companyId, buyerInvestorId, shareholderId, shareholders[shareholderId].amount, offer, true);
 
-
+            RemoveAllPartnerships(target, gameContext);
 
             RemoveAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
