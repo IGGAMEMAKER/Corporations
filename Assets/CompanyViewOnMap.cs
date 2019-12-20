@@ -44,7 +44,8 @@ public class CompanyViewOnMap : View
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        Concept.text = Products.GetProductLevel(c) + "LVL";
+        var clients = MarketingUtils.GetClients(company);
+        Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         SetEmblemColor();
 
@@ -113,7 +114,7 @@ public class CompanyViewOnMap : View
 
         //
         var level = Products.GetProductLevel(company);
-        hint.AppendLine($"\n\nConcept: {level} ({concept})");
+        hint.AppendLine($"\n\nConcept: {level}LVL ({concept})");
 
         var clients = MarketingUtils.GetClients(company);
         hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");

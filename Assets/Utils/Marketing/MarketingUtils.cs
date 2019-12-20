@@ -37,7 +37,7 @@
         {
             if (!product.isRelease)
             {
-                AddBrandPower(product, 20);
+                AddBrandPower(product, Constants.RELEASE_BRAND_POWER_GAIN);
                 var flow = GetClientFlow(gameContext, product.product.Niche);
 
                 AddClients(product, flow);
