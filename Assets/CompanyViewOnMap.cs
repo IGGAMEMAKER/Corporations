@@ -123,7 +123,7 @@ public class CompanyViewOnMap : View
         hint.AppendLine($"Brand: {brand}");
 
         var posTextual = Markets.GetCompanyPositioning(company, GameContext);
-        hint.AppendLine($"\nPositioning: {posTextual}");
+        //hint.AppendLine($"\nPositioning: {posTextual}");
 
         ////var expertise = CompanyUtils.GetCompanyExpertise(company);
         //var expertise = company.expertise.ExpertiseLevel + " LVL";

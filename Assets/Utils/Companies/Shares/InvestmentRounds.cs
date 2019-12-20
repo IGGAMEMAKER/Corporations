@@ -59,5 +59,10 @@
             company.ReplaceInvestmentRounds(round);
             company.AddAcceptsInvestments(Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
         }
+
+        public static bool IsReadyToStartInvestmentRound(GameEntity company)
+        {
+            return !company.hasAcceptsInvestments;
+        }
     }
 }

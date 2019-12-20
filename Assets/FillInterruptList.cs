@@ -9,6 +9,7 @@ public class FillInterruptList : View
     public GameObject CanCompleteGoal;
     public GameObject CanSellCompany;
     public GameObject CanBuyCompany;
+    public GameObject CanRaiseInvestments;
     public GameObject CanCheckAnnualReport;
 
     public GameObject InvestorLoyaltyWarning;
@@ -35,7 +36,7 @@ public class FillInterruptList : View
 
         NeedToManageCompanies       .SetActive(false);
 
-
+        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments());
         CanCheckAnnualReport        .SetActive(CheckAnnualReport());
 
         CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
@@ -72,6 +73,11 @@ public class FillInterruptList : View
     bool HasOutdatedProducts()
     {
         return Companies.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
+    }
+
+    bool IsCanRaiseInvestments()
+    {
+        return Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(GameContext, MyCompany);
     }
 
     bool HasUnhappyTeams()
