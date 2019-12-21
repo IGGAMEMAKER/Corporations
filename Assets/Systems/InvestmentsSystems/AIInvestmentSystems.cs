@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AIInvestmentSystems : OnHalfYear
+public class AIInvestmentSystem : OnHalfYear
 {
-    public AIInvestmentSystems(Contexts contexts) : base(contexts)
+    public AIInvestmentSystem(Contexts contexts) : base(contexts)
     {
     }
 

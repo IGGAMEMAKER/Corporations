@@ -3,7 +3,7 @@ using System.Linq;
 using Assets.Utils;
 using UnityEngine;
 
-public partial class AIManageGroupSystems : OnQuarterChange
+public partial class AIManageGroupSystem : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {

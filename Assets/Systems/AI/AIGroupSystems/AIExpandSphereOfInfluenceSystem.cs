@@ -3,7 +3,7 @@ using Assets.Utils;
 using System.Linq;
 using UnityEngine;
 
-public partial class AIManageGroupSystems
+public partial class AIManageGroupSystem
 {
     public void ExpandSphereOfInfluence(GameEntity group)
     {

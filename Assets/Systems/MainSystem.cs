@@ -17,9 +17,8 @@
 
         // companies
         Add(new InvestmentsSystems(contexts));
-        Add(new ProductSystems(contexts));
-        Add(new AISystems(contexts));
-        Add(new TeamSystems(contexts));
+        Add(new CompanyManagementSystems(contexts));
+        //Add(new TeamSystems(contexts));
 
         // markets
         Add(new MarketSystems(contexts));

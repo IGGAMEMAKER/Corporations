@@ -1,37 +1,19 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 {
-    public ProductCompaniesPayDividendsSystem(Contexts contexts) : base(contexts) {
-    }
+    public ProductCompaniesPayDividendsSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetProductCompanies(gameContext))
-            PayDividendsIfPossible(e);
-    }
+        var dependantProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isIndependentCompany);
 
-    void PayDividendsIfPossible(GameEntity product)
-    {
-        if (product.isIndependentCompany)
-            return;
-
-
-        if (Companies.IsCompanyRelatedToPlayer(gameContext, product))
+        foreach (var e in dependantProducts)
         {
-            var profit = Economy.GetProfit(product, gameContext);
-            Companies.PayDividends(gameContext, product, profit);
-
-            return;
+            long dividends = e.companyResource.Resources.money;
+            Companies.PayDividends(gameContext, e, dividends);
         }
-
-        if (Economy.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product))
-            return;
-
-
-
-        long dividends = product.companyResource.Resources.money;
-        Companies.PayDividends(gameContext, product, dividends);
     }
 }

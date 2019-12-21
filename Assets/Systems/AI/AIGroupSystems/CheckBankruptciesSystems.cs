@@ -2,9 +2,9 @@
 using Assets.Utils;
 using UnityEngine;
 
-public partial class CheckBankruptciesSystems : OnPeriodChange
+public partial class CheckBankruptciesSystem : OnPeriodChange
 {
-    public CheckBankruptciesSystems(Contexts contexts) : base(contexts) { }
+    public CheckBankruptciesSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {

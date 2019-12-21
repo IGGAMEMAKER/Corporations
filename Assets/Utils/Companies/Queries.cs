@@ -25,7 +25,7 @@ namespace Assets.Utils
                 );
         }
 
-        internal static GameEntity[] GetPlayerRelatedCompanies(GameContext gameContext)
+        internal static GameEntity[] GetPlayerRelatedProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),
                 p => IsCompanyRelatedToPlayer(gameContext, p)
