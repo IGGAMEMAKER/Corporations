@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 
-class ProductResourceSystem : OnPeriodChange
+class ProductCompaniesEarnMoneySystem : OnPeriodChange
 {
-    public ProductResourceSystem(Contexts contexts) : base(contexts) {}
+    public ProductCompaniesEarnMoneySystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

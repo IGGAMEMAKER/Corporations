@@ -4,18 +4,15 @@
     {
         Add(new HistoricalProductSpawnSystem(contexts));
 
-        // products
-        Add(new ProductResourceSystem(contexts));
-        Add(new AutoUpgradeProductsSystem(contexts));
-        Add(new ManageMarketingFinancingSystem(contexts));
-
-        // dividends
+        // money
+        Add(new ProductCompaniesEarnMoneySystem(contexts));
         Add(new ProductCompaniesPayDividendsSystem(contexts));
-
-        // investments
         Add(new AIInvestmentSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
+        // products
+        Add(new AutoUpgradeProductsSystem(contexts));
+        Add(new ManageMarketingFinancingSystem(contexts));
 
         // expansion
         Add(new AIPromoteProductToGroupSystem(contexts));
