@@ -8,6 +8,8 @@ public class RenderMyControl : ParameterView
         var shareholderId = Me.shareholder.Id;
         var control = Companies.GetShareSize(GameContext, MyCompany.company.Id, shareholderId);
 
+        Colorize(control, 0, 100);
+
         return Mathf.Floor(control) + "%";
     }
 }
