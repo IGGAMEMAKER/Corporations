@@ -1,7 +1,7 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 
-public partial class ManageProductMarketingSystem : OnDateChange
+public partial class ManageProductMarketingSystem : OnPeriodChange
 {
     public ManageProductMarketingSystem(Contexts contexts) : base(contexts) {}
 

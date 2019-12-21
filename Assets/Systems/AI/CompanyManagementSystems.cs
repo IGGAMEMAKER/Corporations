@@ -10,15 +10,17 @@
 
         Add(new ProductCompaniesPayDividendsSystem(contexts));
 
-        // both groups and products
+        // investments
         Add(new AIInvestmentSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
-        Add(new AIPromoteProductToGroup(contexts));
 
+        Add(new AIPromoteProductToGroup(contexts));
         Add(new AIGroupExpansionSystem(contexts));
+
         Add(new ProcessAcquisitionOffersSystem(contexts));
 
+        // bankruptcies
         Add(new CheckBankruptciesSystem(contexts));
     }
 }
