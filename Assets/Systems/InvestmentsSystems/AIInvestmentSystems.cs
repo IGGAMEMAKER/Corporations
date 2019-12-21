@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class AIInvestmentSystem : OnHalfYear
 {
-    public AIInvestmentSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public AIInvestmentSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
