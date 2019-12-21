@@ -12,7 +12,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
         foreach (var e in dependantProducts)
         {
-            long dividends = e.companyResource.Resources.money;
+            long dividends = Companies.BalanceOf(e);
             Companies.PayDividends(gameContext, e, dividends);
         }
     }

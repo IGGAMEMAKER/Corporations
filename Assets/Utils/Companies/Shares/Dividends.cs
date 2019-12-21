@@ -13,11 +13,16 @@ namespace Assets.Utils
         public static void PayDividends(GameContext gameContext, GameEntity company)
         {
             int dividendSize = 33;
-            var balance = company.companyResource.Resources.money;
+            var balance = BalanceOf(company);
 
             var dividends = balance * dividendSize / 100;
 
             PayDividends(gameContext, company, dividends);
+        }
+
+        public static long BalanceOf(GameEntity company)
+        {
+            return company.companyResource.Resources.money;
         }
 
         public static void PayDividends(GameContext gameContext, GameEntity company, long dividends)
