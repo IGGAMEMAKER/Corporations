@@ -31,10 +31,10 @@ public class AIInvestmentSystem : OnPeriodChange
         foreach (var s in suitableProposals)
         {
             var investorShareholderId = s.ShareholderId;
-            var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
 
             Companies.AcceptProposal(gameContext, companyId, investorShareholderId);
 
+            //var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
             //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
         }
     }

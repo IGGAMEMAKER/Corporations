@@ -40,12 +40,8 @@ namespace Assets.Utils
         {
             NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(company.company.Id));
 
-            if (Companies.IsInPlayerSphereOfInterest(company, gameContext))
-                NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(company.company.Id));
-
-            return;
             if (IsInPlayerSphereOfInterest(company, gameContext))
-                NotificationUtils.AddNotification(gameContext, new NotificationMessageBankruptcy(company.company.Id));
+                NotificationUtils.AddPopup(gameContext, new PopupMessageCompanyBankrupt(company.company.Id));
         }
     }
 }
