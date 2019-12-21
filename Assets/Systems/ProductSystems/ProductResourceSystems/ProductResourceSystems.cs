@@ -3,9 +3,7 @@ using Assets.Utils;
 
 class ProductResourceSystem : OnPeriodChange
 {
-    public ProductResourceSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public ProductResourceSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

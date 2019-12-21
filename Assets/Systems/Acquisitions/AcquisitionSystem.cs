@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class ProcessAcquisitionOffersSystem : OnWeekChange
 {
-    public ProcessAcquisitionOffersSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public ProcessAcquisitionOffersSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

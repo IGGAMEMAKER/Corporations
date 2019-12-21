@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 public partial class AIPromoteProductToGroupSystem : OnMonthChange
 {
-    public AIPromoteProductToGroupSystem(Contexts contexts) : base(contexts) {
-    }
+    public AIPromoteProductToGroupSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

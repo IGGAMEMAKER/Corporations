@@ -16,12 +16,15 @@
         Add(new AIInvestmentSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
+
         // expansion
         Add(new AIPromoteProductToGroupSystem(contexts));
+        Add(new AICloseUnworthyProductsSystem(contexts));
         Add(new AIGroupExpansionSystem(contexts));
 
         // acquisitions
         Add(new ProcessAcquisitionOffersSystem(contexts));
+
 
         // bankruptcies
         Add(new CheckBankruptciesSystem(contexts));
