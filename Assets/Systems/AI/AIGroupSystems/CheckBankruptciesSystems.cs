@@ -11,13 +11,15 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
     {
         var bankruptCompanies = Companies.GetIndependentCompanies(gameContext)
             .Where(Companies.IsNotFinancialStructure)
-            .Where(c => Companies.BalanceOf(c) < 0);
+            .Where(IsBankrupt);
 
         foreach (var c in bankruptCompanies)
-            CheckBankruptcies(c);
+            CloseBankruptCompanies(c);
     }
 
-    void CheckBankruptcies(GameEntity company)
+    bool IsBankrupt(GameEntity company) => Companies.BalanceOf(company) < 0;
+
+    void CloseBankruptCompanies(GameEntity company)
     {
         Debug.Log("Bankrupt: " + company.company.Name);
 

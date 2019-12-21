@@ -23,7 +23,7 @@ public class InvestInControllableCompany : ButtonController
             InvestorBonus = InvestorBonus.None
         });
 
-        Companies.AcceptProposal(GameContext, companyId, shareholderId);
+        Companies.AcceptInvestmentProposal(GameContext, companyId, shareholderId);
     }
 
     public void ResetValue(float value)

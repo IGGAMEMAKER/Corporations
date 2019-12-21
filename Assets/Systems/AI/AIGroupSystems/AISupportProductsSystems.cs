@@ -8,30 +8,33 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var c in Companies.GetAIManagingCompanies(gameContext))
-        {
-            foreach (var p in Companies.GetDaughterProductCompanies(gameContext, c))
-                SupportStartup(p, c);
-        }
+        foreach (var p in Companies.GetDependentProducts(gameContext))
+            SupportStartup(p);
     }
 
-
-    void SupportStartup(GameEntity product, GameEntity managingCompany)
+    public long GetNecessaryAmountOfMoney(GameEntity product)
     {
-        if (Companies.BalanceOf(product) > 0 && Economy.IsProfitable(gameContext, product.company.Id))
-            return;
+        return Economy.GetCompanyMaintenance(gameContext, product.company.Id);
+    }
 
-        if (!Markets.IsPlayableNiche(gameContext, product.product.Niche))
-            return;
-
+    void SupportStartup(GameEntity product)
+    {
         Debug.Log("Support Startup");
 
+        var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 
-        var maintenance = Economy.GetCompanyMaintenance(gameContext, product.company.Id);
+
+        // calculate startup goal
+
+        // if it's vital interest
+        // give them a lot of money
+
+        // otherwise
+        // give them decent amount of money
 
         var proposal = new InvestmentProposal
         {
-            Offer = maintenance * 4,
+            Offer = GetNecessaryAmountOfMoney(product),
             ShareholderId = managingCompany.shareholder.Id,
             InvestorBonus = InvestorBonus.None,
             Valuation = 0,
@@ -39,5 +42,6 @@ public partial class AISupportProductsSystem : OnPeriodChange
         };
 
         Companies.AddInvestmentProposal(gameContext, product.company.Id, proposal);
+        Companies.AcceptInvestmentProposal(gameContext, product.company.Id, managingCompany.shareholder.Id);
     }
 }

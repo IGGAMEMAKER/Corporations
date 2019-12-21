@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Utils
 {
@@ -9,6 +10,13 @@ namespace Assets.Utils
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.IndependentCompany, GameMatcher.Alive));
+        }
+
+        internal static GameEntity[] GetIndependentAICompanies(GameContext gameContext)
+        {
+            return GetIndependentCompanies(gameContext)
+                .Where(c => !IsCompanyRelatedToPlayer(gameContext, c))
+                .ToArray();
         }
 
         // products

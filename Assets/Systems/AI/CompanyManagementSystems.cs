@@ -7,7 +7,7 @@
         // money
         Add(new ProductCompaniesEarnMoneySystem(contexts));
         Add(new ProductCompaniesPayDividendsSystem(contexts));
-        Add(new AIInvestmentSystem(contexts));
+        Add(new AIIndependentCompaniesTakeInvestmentsSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
         // products
@@ -16,7 +16,6 @@
 
         // expansion
         Add(new AIPromoteProductToGroupSystem(contexts));
-        Add(new AICloseUnworthyProductsSystem(contexts));
         Add(new AIGroupExpansionSystem(contexts));
 
         // acquisitions
@@ -24,6 +23,7 @@
 
 
         // bankruptcies
+        Add(new AICloseUnworthyProductsSystem(contexts));
         Add(new CheckBankruptciesSystem(contexts));
     }
 }

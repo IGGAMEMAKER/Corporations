@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class AIInvestmentSystem : OnPeriodChange
+public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
 {
-    public AIInvestmentSystem(Contexts contexts) : base(contexts) {}
+    public AIIndependentCompaniesTakeInvestmentsSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetAIManagingCompanies(gameContext))
-            TakeInvestments(e);
-
-        foreach (var e in Companies.GetAIProducts(gameContext))
+        foreach (var e in Companies.GetIndependentAICompanies(gameContext))
             TakeInvestments(e);
     }
 
@@ -32,7 +29,7 @@ public class AIInvestmentSystem : OnPeriodChange
         {
             var investorShareholderId = s.ShareholderId;
 
-            Companies.AcceptProposal(gameContext, companyId, investorShareholderId);
+            Companies.AcceptInvestmentProposal(gameContext, companyId, investorShareholderId);
 
             //var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
             //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
