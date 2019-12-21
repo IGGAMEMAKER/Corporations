@@ -20,6 +20,8 @@ public class CompanyViewOnMap : View
 
     public RenderConceptProgress ConceptProgress;
 
+    public Text PositionOnMarket;
+
     public GameObject AggressiveMarketing;
 
     bool EnableDarkTheme;
@@ -46,6 +48,10 @@ public class CompanyViewOnMap : View
 
         var clients = MarketingUtils.GetClients(company);
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
+
+        var position = Markets.GetPositionOnMarket(GameContext, company);
+
+        PositionOnMarket.text = $"#{position + 1}";
 
         SetEmblemColor();
 
