@@ -1,9 +1,8 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-public class AIInvestmentSystem : OnHalfYear
+public class AIInvestmentSystem : OnPeriodChange
 {
     public AIInvestmentSystem(Contexts contexts) : base(contexts) {}
 
@@ -14,6 +13,30 @@ public class AIInvestmentSystem : OnHalfYear
 
         foreach (var e in Companies.GetAIProducts(gameContext))
             TakeInvestments(e);
+    }
+
+    void TakeInvestments(GameEntity company)
+    {
+        Companies.StartInvestmentRound(company, gameContext);
+
+        if (!Companies.IsInvestmentRoundStarted(company))
+            return;
+
+        var companyId = company.company.Id;
+
+        var suitableProposals = Companies.GetInvestmentProposals(gameContext, companyId)
+            .Where(InvestorIsNotRelatedToPlayer)
+            .Where(p => !IsTargetInvestsInInvestorItself(p, company));
+
+        foreach (var s in suitableProposals)
+        {
+            var investorShareholderId = s.ShareholderId;
+            var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
+
+            Companies.AcceptProposal(gameContext, companyId, investorShareholderId);
+
+            //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
+        }
     }
 
     bool InvestorIsNotRelatedToPlayer (InvestmentProposal proposal)
@@ -35,26 +58,5 @@ public class AIInvestmentSystem : OnHalfYear
         bool isTargetInvestsInFutureInvestor = Companies.IsInvestsInCompany(investor, targetCompany.shareholder.Id);
 
         return isTargetInvestsInFutureInvestor;
-    }
-
-    void TakeInvestments(GameEntity company)
-    {
-        Companies.StartInvestmentRound(company, gameContext);
-
-        var companyId = company.company.Id;
-
-        var suitableProposals = Companies.GetInvestmentProposals(gameContext, companyId)
-            .Where(InvestorIsNotRelatedToPlayer)
-            .Where(p => !IsTargetInvestsInInvestorItself(p, company));
-
-        foreach (var s in suitableProposals)
-        {
-            var investorShareholderId = s.ShareholderId;
-            var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
-
-            Companies.AcceptProposal(gameContext, companyId, investorShareholderId);
-
-            //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
-        }
     }
 }

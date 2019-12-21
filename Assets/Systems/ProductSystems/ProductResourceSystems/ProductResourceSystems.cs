@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Assets.Utils;
 
-class ProductResourceSystems : OnPeriodChange
+class ProductResourceSystem : OnPeriodChange
 {
-    public ProductResourceSystems(Contexts contexts) : base(contexts)
+    public ProductResourceSystem(Contexts contexts) : base(contexts)
     {
     }
 

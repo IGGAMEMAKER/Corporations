@@ -18,6 +18,14 @@ namespace Assets.Utils
                 .AllOf(GameMatcher.Product, GameMatcher.Alive));
         }
 
+        internal static GameEntity[] GetDependentProducts(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher
+                .AllOf(GameMatcher.Product, GameMatcher.Alive)
+                .NoneOf(GameMatcher.IndependentCompany)
+                );
+        }
+
         internal static GameEntity[] GetAIProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),

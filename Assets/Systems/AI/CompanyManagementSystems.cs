@@ -5,9 +5,9 @@
         Add(new HistoricalProductSpawnSystem(contexts));
 
         // products
-        Add(new ProductResourceSystems(contexts));
-        Add(new AutoUpgradeProducts(contexts));
-        Add(new ManageProductMarketingSystem(contexts));
+        Add(new ProductResourceSystem(contexts));
+        Add(new AutoUpgradeProductsSystem(contexts));
+        Add(new ManageMarketingFinancingSystem(contexts));
 
         // dividends
         Add(new ProductCompaniesPayDividendsSystem(contexts));
@@ -17,7 +17,7 @@
         Add(new AISupportProductsSystem(contexts));
 
         // expansion
-        Add(new AIPromoteProductToGroup(contexts));
+        Add(new AIPromoteProductToGroupSystem(contexts));
         Add(new AIGroupExpansionSystem(contexts));
 
         // acquisitions

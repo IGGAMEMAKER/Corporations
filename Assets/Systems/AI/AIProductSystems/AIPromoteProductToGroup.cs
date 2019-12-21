@@ -1,9 +1,9 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 
-public partial class AIPromoteProductToGroup : OnMonthChange
+public partial class AIPromoteProductToGroupSystem : OnMonthChange
 {
-    public AIPromoteProductToGroup(Contexts contexts) : base(contexts) {
+    public AIPromoteProductToGroupSystem(Contexts contexts) : base(contexts) {
     }
 
     protected override void Execute(List<GameEntity> entities)

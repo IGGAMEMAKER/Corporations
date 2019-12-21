@@ -23,19 +23,17 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
     void CloseCompaniesIfNecessary(GameEntity group)
     {
         foreach (var holding in Companies.GetDaughterProductCompanies(gameContext, group))
-            CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(holding);
+            CloseUnworthyProducts(holding);
     }
 
-    void CloseCompanyIfNicheIsDeadAndProfitIsNotPositive(GameEntity product)
+    void CloseUnworthyProducts(GameEntity product)
     {
         var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
-        bool isBankrupt = product.companyResource.Resources.money < 0;
-
-        bool isNotProfitable = !Economy.IsProfitable(gameContext, product.company.Id);
+        bool isProfitable = Economy.IsProfitable(gameContext, product.company.Id);
         bool isNicheDead = Markets.GetMarketState(niche) == MarketState.Death;
 
-        if ((isNicheDead && isNotProfitable) || isBankrupt)
+        if (isNicheDead && !isProfitable)
             CloseBankruptCompany(product);
 
         // Support company?
@@ -46,7 +44,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
         //if (company.hasProduct)
         //    return;
 
-        var isBankrupt = company.companyResource.Resources.money < 0;
+        var isBankrupt = Companies.BalanceOf(company) < 0;
 
         if (!isBankrupt)
             return;

@@ -18,17 +18,14 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     void SupportStartup(GameEntity product, GameEntity managingCompany)
     {
-        if (product.companyResource.Resources.money > 0 && Economy.IsProfitable(gameContext, product.company.Id))
+        if (Companies.BalanceOf(product) > 0 && Economy.IsProfitable(gameContext, product.company.Id))
+            return;
+
+        if (!Markets.IsPlayableNiche(gameContext, product.product.Niche))
             return;
 
         Debug.Log("Support Startup");
 
-        var niche = Markets.GetNiche(gameContext, product.product.Niche);
-        var phase = Markets.GetMarketState(niche);
-
-
-        if (!Markets.IsPlayableNiche(gameContext, product.product.Niche))
-            return;
 
         var maintenance = Economy.GetCompanyMaintenance(gameContext, product.company.Id);
 

@@ -1,9 +1,9 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 
-public partial class ManageProductMarketingSystem : OnPeriodChange
+public partial class ManageMarketingFinancingSystem : OnPeriodChange
 {
-    public ManageProductMarketingSystem(Contexts contexts) : base(contexts) {}
+    public ManageMarketingFinancingSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

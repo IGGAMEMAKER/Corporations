@@ -45,6 +45,16 @@
                 NotificationUtils.AddNotification(gameContext, new NotificationMessageInvestmentRoundStarted(company.company.Id));
         }
 
+        public static bool IsInvestmentRoundStarted(GameEntity company)
+        {
+            return company.hasAcceptsInvestments;
+        }
+
+        public static bool IsReadyToStartInvestmentRound(GameEntity company)
+        {
+            return !company.hasAcceptsInvestments;
+        }
+
         public static void StartInvestmentRound(GameEntity company, GameContext gameContext)
         {
             if (company.hasAcceptsInvestments)
@@ -52,17 +62,12 @@
 
             SpawnProposals(gameContext, company.company.Id);
 
-            //NotifyAboutInvestmentRound(company, gameContext);
+            NotifyAboutInvestmentRound(company, gameContext);
 
             var round = GetInvestmentRoundName(company);
 
             company.ReplaceInvestmentRounds(round);
             company.AddAcceptsInvestments(Constants.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
-        }
-
-        public static bool IsReadyToStartInvestmentRound(GameEntity company)
-        {
-            return !company.hasAcceptsInvestments;
         }
     }
 }

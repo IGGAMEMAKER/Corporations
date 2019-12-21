@@ -1,6 +1,5 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 {
@@ -8,7 +7,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var dependantProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isIndependentCompany);
+        var dependantProducts = Companies.GetDependentProducts(gameContext);
 
         foreach (var e in dependantProducts)
         {
