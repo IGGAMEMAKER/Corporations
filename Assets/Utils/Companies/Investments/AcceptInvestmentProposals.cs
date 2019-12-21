@@ -13,9 +13,12 @@ namespace Assets.Utils
 
             long cost = Economy.GetCompanyCost(gameContext, companyId);
 
-            int shares = Convert.ToInt32(GetTotalShares(gameContext, companyId) * p.Offer / cost);
+            var allShares = (long)GetTotalShares(gameContext, companyId);
+            long shares = allShares * p.Offer / cost;
 
-            AddShareholder(gameContext, companyId, investorId, shares);
+
+
+            AddShareholder(gameContext, companyId, investorId, (int)shares);
 
             Economy.IncreaseCompanyBalance(gameContext, companyId, p.Offer);
             Economy.DecreaseInvestmentFunds(gameContext, investorId, p.Offer);

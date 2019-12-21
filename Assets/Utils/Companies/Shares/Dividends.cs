@@ -32,7 +32,7 @@ namespace Assets.Utils
                 AddMoneyToInvestor(gameContext, investorId, sum);
             }
 
-            SpendResources(company, new Classes.TeamResource(dividends));
+            SpendResources(company, dividends);
         }
     }
 }

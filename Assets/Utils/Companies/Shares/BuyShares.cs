@@ -48,7 +48,7 @@ namespace Assets.Utils
             var bid = GetSharesCost(context, companyId, sellerInvestorId);
 
             Debug.Log($"Buy Back! {amountOfShares} shares of {companyId} for ${bid}");
-            var cost = new Classes.TeamResource(bid);
+            var cost = bid;
 
             if (!IsEnoughResources(company, cost))
                 return;

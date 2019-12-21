@@ -13,11 +13,13 @@ namespace Assets.Utils
             company.ReplaceCompanyResource(company.companyResource.Resources);
         }
 
+        public static void SetResources(GameEntity company, long money) => SetResources(company, new TeamResource(money));
         public static void SetResources(GameEntity company, TeamResource resource)
         {
             company.ReplaceCompanyResource(resource);
         }
 
+        public static void AddResources(GameEntity company, long money) => AddResources(company, new TeamResource(money));
         public static void AddResources(GameEntity company, TeamResource resource)
         {
             company.companyResource.Resources.Add(resource);
@@ -34,7 +36,7 @@ namespace Assets.Utils
         }
         public static void SetStartCapital(GameEntity company, long startCapital)
         {
-            AddResources(company, new TeamResource(startCapital));
+            SetResources(company, startCapital);
         }
 
 
