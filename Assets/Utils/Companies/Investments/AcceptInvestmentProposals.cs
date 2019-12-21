@@ -8,8 +8,8 @@ namespace Assets.Utils
         {
             var p = GetInvestmentProposal(gameContext, companyId, investorId);
 
-            if (p == null)
-                return;
+            //if (p == null)
+            //    return;
 
             long cost = Economy.GetCompanyCost(gameContext, companyId);
 
