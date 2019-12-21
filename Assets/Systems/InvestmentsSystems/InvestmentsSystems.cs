@@ -1,6 +1,6 @@
-﻿public class InvestmentsSystems : Feature
+﻿public class InvestmentCooldownSystems : Feature
 {
-    public InvestmentsSystems(Contexts contexts) : base("Investments Systems")
+    public InvestmentCooldownSystems(Contexts contexts) : base("Investments Systems")
     {
         Add(new InvestmentRoundExecutionSystem(contexts));
     }

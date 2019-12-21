@@ -3,7 +3,7 @@ using Entitas;
 using System.Collections.Generic;
 
 // utils, logs and aliases
-public partial class BaseProductSystems
+public partial class AutoUpgradeProducts
 {
     static T PickMostImportantValue<T>(Dictionary<T, long> values)
     {

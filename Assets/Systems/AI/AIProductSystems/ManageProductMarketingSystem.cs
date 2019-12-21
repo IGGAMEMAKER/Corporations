@@ -1,16 +1,12 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
 
-public partial class BaseProductSystems : OnDateChange
+public partial class ManageProductMarketingSystem : OnDateChange
 {
-    public BaseProductSystems(Contexts contexts) : base(contexts) {
-    }
+    public ManageProductMarketingSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetProductCompanies(gameContext))
-            Products.UpdgradeProduct(e, gameContext);
-
         foreach (var e in Companies.GetAIProducts(gameContext))
             ManageProduct(e);
     }

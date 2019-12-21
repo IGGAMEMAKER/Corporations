@@ -2,9 +2,9 @@
 using Assets.Utils;
 
 
-public partial class AIManageGroupSystem : OnQuarterChange
+public partial class AIGroupExpansionSystem : OnQuarterChange
 {
-    public AIManageGroupSystem(Contexts contexts) : base(contexts) { }
+    public AIGroupExpansionSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
