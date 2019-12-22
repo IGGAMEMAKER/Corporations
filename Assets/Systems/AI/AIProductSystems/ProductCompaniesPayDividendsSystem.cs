@@ -10,20 +10,24 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
         var dependantProducts = Companies.GetDependentProducts(gameContext);
 
         foreach (var e in dependantProducts)
-            PayDividends(e);
+        {
+            if (Companies.IsCompanyRelatedToPlayer(gameContext, e))
+                PayPlayerDividends(e);
+            else
+                PayAIDividends(e);
+        }
     }
 
-    void PayDividends(GameEntity e)
+    void PayPlayerDividends(GameEntity e)
     {
-        var dividends = Companies.BalanceOf(e);
-        if (Companies.IsCompanyRelatedToPlayer(gameContext, e))
-            Companies.PayDividends(gameContext, e, dividends);
-        else
-        {
-            dividends -= Economy.GetCompanyMaintenance(gameContext, e);
+        Companies.PayDividends(gameContext, e, Companies.BalanceOf(e));
+    }
 
-            if (dividends > 0)
-                Companies.PayDividends(gameContext, e, dividends);
-        }
+    void PayAIDividends(GameEntity e)
+    {
+        var dividends = Companies.BalanceOf(e) - Economy.GetCompanyMaintenance(gameContext, e);
+
+        if (dividends > 0)
+            Companies.PayDividends(gameContext, e, dividends);
     }
 }
