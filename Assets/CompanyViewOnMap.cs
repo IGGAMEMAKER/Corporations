@@ -37,12 +37,15 @@ public class CompanyViewOnMap : View
 
         Name.text = c.company.Name; // .Substring(0, 1);
         Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+        SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
 
+
+
         var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, c);
         ConceptProgress.SetCompanyId(c.company.Id);
-        ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
+        //ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
@@ -53,7 +56,6 @@ public class CompanyViewOnMap : View
 
         PositionOnMarket.text = $"#{position + 1}";
 
-        SetEmblemColor();
 
         Dumping.SetCompanyId(c.company.Id);
 
