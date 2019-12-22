@@ -27,7 +27,6 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
     {
         var dividends = Companies.BalanceOf(e) - Economy.GetCompanyMaintenance(gameContext, e);
 
-        if (dividends > 0)
-            Companies.PayDividends(gameContext, e, dividends);
+        Companies.PayDividends(gameContext, e, dividends);
     }
 }
