@@ -2,7 +2,13 @@
 {
     public static partial class Economy
     {
+        public static long GetCompanyCost(GameContext context, int companyId) => GetCompanyCost(context, Companies.GetCompany(context, companyId));
         public static long GetCompanyCost(GameContext context, GameEntity c)
+        {
+            return GetCompanyBaseCost(context, c.company.Id);
+        }
+
+        public static long GetFullCompanyCost(GameContext context, GameEntity c)
         {
             long cost;
             if (Companies.IsProductCompany(c))
@@ -10,18 +16,12 @@
             else
                 cost = GetGroupOfCompaniesCost(context, c);
 
-            long capital = c.companyResource.Resources.money;
+            long capital = Companies.BalanceOf(c);
 
             // +1 to avoid division by zero
             return cost + capital + 1;
         }
 
-        public static long GetCompanyCost(GameContext context, int companyId)
-        {
-            var c = Companies.GetCompany(context, companyId);
-
-            return GetCompanyCost(context, c);
-        }
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
         {
