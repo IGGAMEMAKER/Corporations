@@ -39,6 +39,13 @@ namespace Assets.Utils
             product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
         }
 
+        private static void GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
+        {
+            MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
+
+
+        }
+
         private static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
             var niche = Markets.GetNiche(gameContext, product.product.Niche);
@@ -48,7 +55,8 @@ namespace Assets.Utils
 
             if (newLevel > demand)
             {
-                MarketingUtils.AddBrandPower(product, Random.Range(10, 20));
+                // innovation
+                GiveInnovatorBenefits(product, gameContext);
 
                 niche.ReplaceSegment(newLevel);
 
