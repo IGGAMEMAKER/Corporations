@@ -6,19 +6,42 @@ namespace Assets.Utils
 {
     public static partial class Products
     {
-        public static void RemoveTechLeaders (GameEntity product, GameContext gameContext)
+        public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
         {
-            var players = Markets.GetProductsOnMarket(gameContext, product).ToArray();
+            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
+                return;
 
-            foreach (var p in players)
-                p.isTechnologyLeader = false;
+            TryToUpgradeProduct(product, gameContext);
+            UpdateNicheSegmentInfo(product, gameContext);
+
+            if (IgnoreCooldowns)
+                return;
+
+            var duration = GetProductUpgradeIterationTime(gameContext, product) * Random.Range(10, 11) / 10;
+
+            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }
 
-        public static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
+        private static void TryToUpgradeProduct(GameEntity product, GameContext gameContext)
+        {
+            // upgrade by default
+            var upgrade = 1;
+
+            if (IsWillInnovate(product, gameContext))
+            {
+                var chance = GetInnovationChance(product, gameContext);
+
+                // or not, if unsuccessful
+                if (Random.Range(0, 100) > chance)
+                    upgrade = 0;
+            }
+
+            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
+        }
+
+        private static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
         {
             var niche = Markets.GetNiche(gameContext, product.product.Niche);
-
-            var segments = niche.segment.Level;
 
             var demand = GetMarketDemand(niche);
             var newLevel = GetProductLevel(product);
@@ -41,38 +64,12 @@ namespace Assets.Utils
             }
         }
 
-        private static void TryToUpgrade(GameEntity product, GameContext gameContext)
+        private static void RemoveTechLeaders(GameEntity product, GameContext gameContext)
         {
-            // upgrade by default
-            var upgrade = 1;
+            var players = Markets.GetProductsOnMarket(gameContext, product).ToArray();
 
-            if (IsWillInnovate(product, gameContext))
-            {
-                var chance = GetInnovationChance(product, gameContext);
-
-                // or not, if unsuccessful
-                if (Random.Range(0, 100) > chance)
-                    upgrade = 0;
-            }
-
-            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
-
-            UpdateNicheSegmentInfo(product, gameContext);
-        }
-
-        public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
-        {
-            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
-                return;
-
-            TryToUpgrade(product, gameContext);
-
-            if (IgnoreCooldowns)
-                return;
-
-            var duration = GetProductUpgradeIterationTime(gameContext, product) * Random.Range(10, 11) / 10;
-
-            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
+            foreach (var p in players)
+                p.isTechnologyLeader = false;
         }
 
 
