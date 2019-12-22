@@ -27,14 +27,10 @@
             var baseIterationTime = GetBaseIterationTime(niche);
 
             var innovationPenalty = IsWillInnovate(company, gameContext) ? 50 : 0;
-            var financing = company.financing.Financing;
 
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
-            var modifiers = 100 + innovationPenalty
-                - financing[Financing.Team] * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL
-                //- mindsetModifier * Constants.CULTURE_ITERATION_SPEED_PER_LEVEL
-                + companyLimitPenalty;
+            var modifiers = 100 + innovationPenalty + companyLimitPenalty;
 
 
             var time = (int) (baseIterationTime * modifiers / 100f);

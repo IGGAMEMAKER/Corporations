@@ -64,7 +64,7 @@ namespace Assets.Utils
             {
                 var chance = GetInnovationChance(product, gameContext);
 
-                if (Random.Range(0, 100) > chance)
+                if (Random.Range(0, 100) < chance)
                     upgrade = 0;
             }
 
