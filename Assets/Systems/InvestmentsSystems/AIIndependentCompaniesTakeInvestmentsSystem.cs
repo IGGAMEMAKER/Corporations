@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
+public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
 {
     public AIIndependentCompaniesTakeInvestmentsSystem(Contexts contexts) : base(contexts) {}
 
@@ -36,7 +36,7 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
         }
     }
 
-    bool InvestorIsNotRelatedToPlayer (InvestmentProposal proposal)
+    bool InvestorIsNotRelatedToPlayer(InvestmentProposal proposal)
     {
         var investor = Investments.GetInvestorById(gameContext, proposal.ShareholderId);
 
@@ -45,15 +45,13 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
         return !isRelatedToPlayer;
     }
 
-    bool IsTargetInvestsInInvestorItself (InvestmentProposal proposal, GameEntity targetCompany)
+    bool IsTargetInvestsInInvestorItself(InvestmentProposal proposal, GameEntity targetCompany)
     {
         var investor = Companies.GetInvestorById(gameContext, proposal.ShareholderId);
 
         if (!investor.hasCompany || !targetCompany.hasShareholder)
             return false;
 
-        bool isTargetInvestsInFutureInvestor = Companies.IsInvestsInCompany(investor, targetCompany.shareholder.Id);
-
-        return isTargetInvestsInFutureInvestor;
+        return Companies.IsInvestsInCompany(investor, targetCompany.shareholder.Id);
     }
 }

@@ -5,11 +5,7 @@ namespace Assets.Utils
 {
     partial class Companies
     {
-        public static void PayDividends(GameContext gameContext, int companyId)
-        {
-            PayDividends(gameContext, GetCompany(gameContext, companyId));
-        }
-
+        public static void PayDividends(GameContext gameContext, int companyId) => PayDividends(gameContext, GetCompany(gameContext, companyId));
         public static void PayDividends(GameContext gameContext, GameEntity company)
         {
             int dividendSize = 33;
@@ -18,11 +14,6 @@ namespace Assets.Utils
             var dividends = balance * dividendSize / 100;
 
             PayDividends(gameContext, company, dividends);
-        }
-
-        public static long BalanceOf(GameEntity company)
-        {
-            return company.companyResource.Resources.money;
         }
 
         public static void PayDividends(GameContext gameContext, GameEntity company, long dividends)
@@ -39,5 +30,7 @@ namespace Assets.Utils
 
             SpendResources(company, dividends);
         }
+
+        public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
     }
 }

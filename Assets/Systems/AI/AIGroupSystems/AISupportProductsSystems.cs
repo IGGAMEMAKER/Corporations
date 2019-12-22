@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Utils;
 using UnityEngine;
 
@@ -8,16 +9,40 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var p in Companies.GetDependentProducts(gameContext))
-            SupportStartup(p);
+        foreach (var m in Companies.GetAIManagingCompanies(gameContext))
+        {
+            var products = Companies.GetDaughterProductCompanies(gameContext, m);
+
+            var importances = products
+                .Select(p => Companies.GetMarketImportanceForCompany(gameContext, m, p.product.Niche))
+                .ToArray();
+
+            var sum = importances.Sum();
+            if (sum == 0)
+                sum = 1;
+
+            var balance = Companies.BalanceOf(m);
+
+            for (var i = 0; i < products.Length; i++)
+            {
+                var budget = balance * importances[i] / sum;
+
+                SupportStartup(products[i], budget);
+            }
+        }
     }
 
-    public long GetNecessaryAmountOfMoney(GameEntity product)
+    public long GetMoneyForExpansion(GameEntity product)
     {
-        return Economy.GetCompanyMaintenance(gameContext, product.company.Id);
+        var next = Economy.GetNextMarketingLevelCost(product, gameContext);
+        var curr = Economy.GetMarketingCost(product, gameContext);
+
+        var diff = next - curr;
+
+        return diff;
     }
 
-    void SupportStartup(GameEntity product)
+    void SupportStartup(GameEntity product, long budget)
     {
         Debug.Log("Support Startup");
 
@@ -31,10 +56,17 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
         // otherwise
         // give them decent amount of money
+        var sum = GetMoneyForExpansion(product);
 
+        if (sum < budget)
+            SendMoney(product, managingCompany, sum);
+    }
+
+    void SendMoney(GameEntity product, GameEntity managingCompany, long sum)
+    {
         var proposal = new InvestmentProposal
         {
-            Offer = GetNecessaryAmountOfMoney(product),
+            Offer = sum,
             ShareholderId = managingCompany.shareholder.Id,
             InvestorBonus = InvestorBonus.None,
             Valuation = 0,
