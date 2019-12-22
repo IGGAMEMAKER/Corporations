@@ -26,10 +26,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         var currentCost = Economy.GetMarketingCost(product, gameContext);
         var nextCost = Economy.GetNextMarketingLevelCost(product, gameContext);
 
-        var diff = nextCost - currentCost;
-
-        // go higher
-        //if (EconomyUtils.IsCanMaintain(product, gameContext, diff))
+        // reduce maintenance
         if (!Companies.IsEnoughResources(product, currentCost))
         {
             var financing = Economy.GetCheaperFinancing(product);
@@ -37,6 +34,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             Products.SetMarketingFinancing(product, financing);
         }
 
+        // go higher
         if (Companies.IsEnoughResources(product, nextCost))
             Products.SetMarketingFinancing(product, Economy.GetNextMarketingFinancing(product));
     }
