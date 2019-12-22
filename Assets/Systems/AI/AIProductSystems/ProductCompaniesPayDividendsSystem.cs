@@ -20,7 +20,9 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
     void PayPlayerDividends(GameEntity e)
     {
-        Companies.PayDividends(gameContext, e, Companies.BalanceOf(e));
+        var dividends = Companies.BalanceOf(e);
+
+        Companies.PayDividends(gameContext, e, dividends);
     }
 
     void PayAIDividends(GameEntity e)

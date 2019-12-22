@@ -7,7 +7,7 @@
         {
             var timeToMarket = Products.GetTimeToMarketFromScratch(niche);
 
-            var timeToProfitability = 4;
+            var timeToProfitability = timeToMarket / 2;
 
             var buffer = 15000;
 

@@ -30,7 +30,7 @@ namespace Assets.Utils
         public static void SetStartCapital(GameEntity product, GameContext gameContext) => SetStartCapital(product, Markets.GetNiche(gameContext, product), gameContext);
         public static void SetStartCapital(GameEntity product, GameEntity niche, GameContext gameContext)
         {
-            var startCapital = Markets.GetStartCapital(niche, gameContext) * Random.Range(50, 150) / 100;
+            var startCapital = Markets.GetStartCapital(niche, gameContext) * Random.Range(150, 200) / 100;
 
             SetStartCapital(product, startCapital);
         }

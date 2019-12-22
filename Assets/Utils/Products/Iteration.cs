@@ -3,7 +3,7 @@
     public static partial class Products
     {
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
-        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
+        private static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
             return 60;
 
@@ -26,8 +26,7 @@
             var niche = Markets.GetNiche(gameContext, company);
             var baseIterationTime = GetBaseIterationTime(niche);
 
-            var innovationPenalty = IsWillInnovate(company, gameContext) ? 50 : 0;
-
+            var innovationPenalty   = IsWillInnovate(company, gameContext) ? 50 : 0;
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
             var modifiers = 100 + innovationPenalty + companyLimitPenalty;
