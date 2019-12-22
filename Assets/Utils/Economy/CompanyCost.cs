@@ -5,7 +5,8 @@
         public static long GetCompanyCost(GameContext context, int companyId) => GetCompanyCost(context, Companies.GetCompany(context, companyId));
         public static long GetCompanyCost(GameContext context, GameEntity c)
         {
-            return GetCompanyBaseCost(context, c.company.Id);
+            return GetFullCompanyCost(context, c);
+            //return GetCompanyBaseCost(context, c.company.Id);
         }
 
         public static long GetFullCompanyCost(GameContext context, GameEntity c)
@@ -37,14 +38,13 @@
             return 15;
         }
 
-        public static long GetCompanyBaseCost(GameContext context, int companyId)
+        public static long GetCompanyBaseCost(GameContext context, int companyId) => GetCompanyBaseCost(context, Companies.GetCompany(context, companyId));
+        public static long GetCompanyBaseCost(GameContext context, GameEntity company)
         {
-            var c = Companies.GetCompany(context, companyId);
+            if (Companies.IsProductCompany(company))
+                return GetProductCompanyBaseCost(context, company);
 
-            if (Companies.IsProductCompany(c))
-                return GetProductCompanyBaseCost(context, companyId);
-
-            return GetCompanyCost(context, companyId);
+            return GetCompanyCost(context, company.company.Id);
         }
 
         public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)

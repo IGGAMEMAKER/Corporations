@@ -65,7 +65,7 @@ public class NicheTableView : View, IPointerEnterHandler
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
         
         // maintenance
-        var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(profitLeader, GameContext);
+        var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(GameContext, profitLeader);
         Maintenance.text = Format.MinifyMoney(biggestMaintenance);
 
         var myProfit = Economy.GetProfit(MyCompany, GameContext);

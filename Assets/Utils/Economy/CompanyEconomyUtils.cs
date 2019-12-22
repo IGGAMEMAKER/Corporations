@@ -23,7 +23,7 @@
 
         internal static long GetProfit(GameEntity c, GameContext context)
         {
-            return GetCompanyIncome(c, context) - GetCompanyMaintenance(c, context);
+            return GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c);
         }
 
         internal static long GetProfit(GameContext context, int companyId)

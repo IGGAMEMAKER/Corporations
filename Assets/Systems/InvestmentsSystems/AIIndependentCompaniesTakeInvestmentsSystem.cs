@@ -12,8 +12,19 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
             TakeInvestments(e);
     }
 
+    bool IsHasMoneyOverflow(GameEntity company)
+    {
+        var balance = Companies.BalanceOf(company);
+        var nonCapitalCost = Economy.GetCompanyBaseCost(gameContext, company.company.Id);
+
+        return balance > 0.3d * nonCapitalCost;
+    }
+
     void TakeInvestments(GameEntity company)
     {
+        if (IsHasMoneyOverflow(company))
+            return;
+
         Companies.StartInvestmentRound(company, gameContext);
 
         if (!Companies.IsInvestmentRoundStarted(company))

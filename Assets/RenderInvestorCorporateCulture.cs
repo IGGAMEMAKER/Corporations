@@ -1,7 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class RenderInvestorCorporateCulture : UpgradedParameterView
 {
@@ -13,6 +10,9 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
     public override string RenderValue()
     {
         string text = "";
+
+        if (SelectedInvestor == null || !SelectedInvestor.hasCorporateCulture)
+            return "";
 
         text += DescribePolicy(CorporatePolicy.CreateOrBuy,     "Loves acquisitions",               "Loves creating new products");
         text += DescribePolicy(CorporatePolicy.Focusing,        "Focuses on one market/product/industry",   "Doesn't focus in one market/industry");
@@ -27,8 +27,6 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
         var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
 
         var val = investorCulture[corporatePolicy];
-
-
 
 
         if (val == 5)
