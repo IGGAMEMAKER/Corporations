@@ -24,6 +24,8 @@ public class CompanyViewOnMap : View
 
     public GameObject AggressiveMarketing;
 
+    public ShowProductChanges ShowProductChanges;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -40,7 +42,7 @@ public class CompanyViewOnMap : View
         SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
-
+        ShowProductChanges.SetEntity(company);
 
 
         var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, c);
@@ -71,7 +73,7 @@ public class CompanyViewOnMap : View
                 );
         }
 
-        var financing = company.financing.Financing[Financing.Marketing];
+        var financing = Economy.GetMarketingFinancing(company);
         AggressiveMarketing.SetActive(financing == Products.GetMaxFinancing);
     }
 

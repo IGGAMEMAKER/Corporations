@@ -58,6 +58,13 @@ namespace Assets.Utils
             }
         }
 
+        public static bool IsPeriodEnd(GameContext gameContext)
+        {
+            var date = GetCurrentDate(gameContext);
+
+            return date % Economy.GetPeriodDuration() == 0;
+        }
+
 
         internal static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
         {

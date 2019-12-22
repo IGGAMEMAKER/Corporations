@@ -8,6 +8,9 @@ public class AnimateResourceChange : MonoBehaviour
     float amplitude = 40;
 
     float duration = 0;
+    public bool Renewable = false;
+
+    float distance = 0;
 
     void Update()
     {
@@ -18,20 +21,23 @@ public class AnimateResourceChange : MonoBehaviour
     {
         duration += Time.deltaTime;
 
-        float phase;
+        var movement = amplitude * Time.deltaTime / period;
 
-        if (duration < period)
-            phase = duration / period;
-        else
-            phase = 2 - duration / period;
-
-
-
-        //float scale = 1 + amplification * phase;
-
-        transform.localPosition += new Vector3(0, amplitude * Time.deltaTime / period, 1);
+        distance += movement;
+        transform.localPosition += new Vector3(0, movement, 1);
 
         if (duration >= period * 2)
-            Destroy(gameObject);
+        {
+            duration = 0;
+
+            if (!Renewable)
+                Destroy(gameObject);
+            else
+            {
+                transform.localPosition -= new Vector3(0, distance, 1);
+                Destroy(this);
+                gameObject.SetActive(false);
+            }
+        }
     }
 }
