@@ -41,6 +41,42 @@ namespace Assets.Utils
             }
         }
 
+        private static void TryToUpgrade(GameEntity product, GameContext gameContext)
+        {
+            // upgrade by default
+            var upgrade = 1;
+
+            if (IsWillInnovate(product, gameContext))
+            {
+                var chance = GetInnovationChance(product, gameContext);
+
+                // or not, if unsuccessful
+                if (Random.Range(0, 100) > chance)
+                    upgrade = 0;
+            }
+
+            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
+
+            UpdateNicheSegmentInfo(product, gameContext);
+        }
+
+        public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
+        {
+            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
+                return;
+
+            TryToUpgrade(product, gameContext);
+
+            if (IgnoreCooldowns)
+                return;
+
+            var duration = GetProductUpgradeIterationTime(gameContext, product) * Random.Range(10, 11) / 10;
+
+            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
+        }
+
+
+        // TODO move to separate file/delete
         public static void UpgradeProductImprovement(ProductImprovement improvement, GameEntity product)
         {
             var level = GetProductLevel(product);
@@ -50,34 +86,6 @@ namespace Assets.Utils
                 product.productImprovements.Improvements[improvement]++;
                 product.productImprovements.Count++;
             }
-        }
-
-
-        public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
-        {
-            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
-                return;
-
-            var upgrade = 1;
-
-            if (IsWillInnovate(product, gameContext))
-            {
-                var chance = GetInnovationChance(product, gameContext);
-
-                if (Random.Range(0, 100) < chance)
-                    upgrade = 0;
-            }
-
-            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
-
-            UpdateNicheSegmentInfo(product, gameContext);
-
-            if (IgnoreCooldowns)
-                return;
-
-            var duration = GetProductUpgradeIterationTime(gameContext, product);
-
-            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }
     }
 }
