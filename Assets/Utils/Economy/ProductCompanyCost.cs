@@ -14,7 +14,7 @@
             var c = Companies.GetCompany(context, companyId);
 
             long audienceCost = GetClientBaseCost(context, companyId);
-            long profitCost = GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
+            long profitCost = GetCompanyIncomeBasedCost(context, companyId);
 
             return audienceCost + profitCost;
         }
