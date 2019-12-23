@@ -38,7 +38,7 @@ public class StartCampaignButton : ButtonController
 
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
-            [CorporatePolicy.CreateOrBuy] = 4,
+            [CorporatePolicy.BuyOrCreate] = 4,
             [CorporatePolicy.Focusing] = 1,
             [CorporatePolicy.LeaderOrTeam] = 1,
             [CorporatePolicy.WorkerMindset] = 2

@@ -95,7 +95,7 @@ namespace Assets.Utils
                 [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
                 [CorporatePolicy.WorkerMindset]  = Random.Range(1, 6),
                 [CorporatePolicy.Focusing]       = Random.Range(1, 6),
-                [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 6),
+                [CorporatePolicy.BuyOrCreate]    = Random.Range(1, 6),
             };
         }
 
@@ -106,7 +106,7 @@ namespace Assets.Utils
                 [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
                 [CorporatePolicy.WorkerMindset]  = Random.Range(1, 3),
                 [CorporatePolicy.Focusing]       = Random.Range(1, 6),
-                [CorporatePolicy.CreateOrBuy]    = Random.Range(1, 3),
+                [CorporatePolicy.BuyOrCreate]    = Random.Range(1, 3),
             };
         }
     }

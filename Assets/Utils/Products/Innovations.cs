@@ -19,7 +19,7 @@
             var culture = Companies.GetActualCorporateCulture(product, gameContext);
             var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
             var mindset         = culture[CorporatePolicy.WorkerMindset];
-            var createOrBuy     = culture[CorporatePolicy.CreateOrBuy];
+            var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
             var focusing        = culture[CorporatePolicy.Focusing];
 
             // penalties

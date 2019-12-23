@@ -14,7 +14,7 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
         if (SelectedInvestor == null || !SelectedInvestor.hasCorporateCulture)
             return "";
 
-        text += DescribePolicy(CorporatePolicy.CreateOrBuy,     "Loves acquisitions",               "Loves creating new products");
+        text += DescribePolicy(CorporatePolicy.BuyOrCreate,     "Loves acquisitions",               "Loves creating new products");
         text += DescribePolicy(CorporatePolicy.Focusing,        "Focuses on one market/product/industry",   "Doesn't focus in one market/industry");
         text += DescribePolicy(CorporatePolicy.LeaderOrTeam,  "Favors centralised companies",     "Favors decentralised companies");
         text += DescribePolicy(CorporatePolicy.WorkerMindset,   "Favors researchers",               "Favors engineers");

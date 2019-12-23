@@ -23,7 +23,7 @@ public class RenderCorporateCultureView : View
 
         SetText(Mindset,    CorporatePolicy.WorkerMindset, MindsetPolicy, !isFocused);
         SetText(Focusing,   CorporatePolicy.Focusing, FocusingPolicy, true);
-        SetText(Expansion,  CorporatePolicy.CreateOrBuy, ExpansionPolicy, !isFocused);
+        SetText(Expansion,  CorporatePolicy.BuyOrCreate, ExpansionPolicy, !isFocused);
     }
 
     void SetText(Text text, CorporatePolicy corporatePolicy, GameObject policyObject, bool render)

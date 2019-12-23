@@ -21,7 +21,7 @@ namespace Assets.Utils
             var acquisitionCost = Markets.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
             var culture = Companies.GetActualCorporateCulture(e, gameContext);
-            var creation = culture[CorporatePolicy.CreateOrBuy];
+            var creation = culture[CorporatePolicy.BuyOrCreate];
 
             // up to 40%
             var discount = 100 - (creation - 1) * 10;
