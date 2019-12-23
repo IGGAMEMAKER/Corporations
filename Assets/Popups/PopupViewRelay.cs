@@ -80,6 +80,10 @@
                 RenderReleasePopup(popup as PopupMessageRelease);
                 break;
 
+            case PopupType.Innovator:
+                RenderInnovatorPopup(popup as PopupMessageInnovation);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

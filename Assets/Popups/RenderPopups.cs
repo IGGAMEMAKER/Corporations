@@ -127,6 +127,16 @@ public partial class PopupView : View
             );
     }
 
+    void RenderInnovatorPopup(PopupMessageInnovation popup)
+    {
+        RenderUniversalPopup(
+            $"Company {GetCompanyName(popup.companyId)} is innovator!",
+            Visuals.Positive($"They will get {Constants.INNOVATION_BRAND_POWER_GAIN} Brand Power and " +
+            $"{Format.Minify(popup.clientGain)} clients from their competitors"),
+            typeof(ClosePopupOK)
+            );
+    }
+
     void RenderCreateCompanyPopup(PopupMessageCreateApp popup)
     {
         RenderUniversalPopup(

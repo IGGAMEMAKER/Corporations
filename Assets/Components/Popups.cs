@@ -33,6 +33,8 @@ public enum PopupType
 
     AcquisitionOfferResponse,
     AcquisitionOfferSoldOut,
+
+    Innovator
 }
 
 public class PopupMessage
@@ -79,6 +81,14 @@ public class PopupMessageRelease : PopupMessageCompanyEvent
 public class PopupMessageCompanyBankrupt : PopupMessageCompanyEvent
 {
     public PopupMessageCompanyBankrupt(int companyId) : base(companyId, PopupType.BankruptCompany) { }
+}
+
+public class PopupMessageInnovation : PopupMessageCompanyEvent
+{
+    public long clientGain;
+    public PopupMessageInnovation(int companyId, long sum) : base(companyId, PopupType.Innovator) {
+        clientGain = sum;
+    }
 }
 
 public class PopupMessageDoYouWantToRelease : PopupMessageCompanyEvent

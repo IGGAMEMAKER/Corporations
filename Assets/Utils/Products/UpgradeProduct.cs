@@ -42,7 +42,25 @@ namespace Assets.Utils
         {
             MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
 
+            // get your competitor's clients
+            var products = Markets.GetProductsOnMarket(gameContext, product)
+                .Where(p => p.isRelease)
+                .Where(p => p.company.Id != product.company.Id);
 
+            long sum = 0;
+            foreach (var p in products)
+            {
+                var disloyal = MarketingUtils.GetClients(product) / 6;
+
+                MarketingUtils.LooseClients(p, disloyal);
+                MarketingUtils.AddClients(product, disloyal);
+
+                sum += disloyal;
+            }
+
+            // notify about leadership if player has only one product
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
+                NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
         }
 
         private static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)

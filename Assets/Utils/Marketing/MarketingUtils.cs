@@ -14,6 +14,17 @@
             company.ReplaceMarketing(marketing.clients + clients);
         }
 
+        public static void LooseClients(GameEntity company, long clients)
+        {
+            var marketing = company.marketing;
+
+            var newClients = marketing.clients - clients;
+            if (newClients < 0)
+                newClients = 0;
+
+            company.ReplaceMarketing(newClients);
+        }
+
         public static long GetChurnClients(GameContext gameContext, int companyId)
         {
             var c = Companies.GetCompany(gameContext, companyId);
