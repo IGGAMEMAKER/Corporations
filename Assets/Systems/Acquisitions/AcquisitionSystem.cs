@@ -172,7 +172,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
             DecreaseCompanyPrice(offer, targetId, shareholderId);
         else
             AcceptOffer(targetId, shareholderId);
-        //if (o.BuyerOffer.Price >= o.SellerOffer.Price)
     }
 
     void AcceptOffer(int targetId, int shareholderId)
@@ -182,7 +181,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         if (investor.isControlledByPlayer)
         {
             NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfferResponse(targetId, shareholderId));
-            Debug.Log("Acquisition status OK");
         }
         else
         {

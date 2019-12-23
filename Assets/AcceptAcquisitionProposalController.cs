@@ -18,6 +18,6 @@ public class AcceptAcquisitionProposalController : ButtonController
         Debug.Log("AcceptAcquisitionProposalController");
         //CompanyUtils.BuyShares(GameContext, companyId, buyerId, MyCompany.shareholder.Id, -1, offer.acquisitionOffer.Offer);
 
-        Companies.RemoveAcquisitionOffer(GameContext, companyId, buyerId);
+        Companies.ConfirmAcquisitionOffer(GameContext, companyId, buyerId);
     }
 }
