@@ -22,9 +22,11 @@ public partial class PopupView : View
         var target = Companies.GetCompany(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
 
+        bool isOurCompany = Companies.IsCompanyRelatedToPlayer(GameContext, target);
+
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
-            "If we want to prevent this, we need to send a counter offer!",
+            isOurCompany ? "They are waiting your response" : "If we want to prevent this, we need to send a counter offer!",
             typeof(ClosePopupOK)
             );
     }
