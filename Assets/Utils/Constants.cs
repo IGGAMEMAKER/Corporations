@@ -51,8 +51,8 @@
     public static int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
-    internal static int RELEASE_BRAND_POWER_GAIN = 15;
-    internal static int INNOVATION_BRAND_POWER_GAIN = 5;
+    internal static int RELEASE_BRAND_POWER_GAIN = 25;
+    internal static int INNOVATION_BRAND_POWER_GAIN = 15;
     internal const int CORPORATE_CULTURE_CHANGES_DURATION = 180;
 
     //public static int START_YEAR = 1991;
