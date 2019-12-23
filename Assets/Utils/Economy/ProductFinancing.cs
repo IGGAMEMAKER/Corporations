@@ -7,17 +7,19 @@ namespace Assets.Utils
         // financing multipliers
         public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext) => GetMarketingFinancingCostMultiplier(product, gameContext, GetMarketingFinancing(product));
         public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext, int financing) {
+            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
+            var flow = MarketingUtils.GetClientFlow(gameContext, product.product.Niche);
+
             // not released
             // needs to depend on own size
             if (financing == 0)
-                return 1;
+            {
+                return (long)(clientCost * flow / 10);
+            }
 
             // released
-            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
-
             if (financing == 1)
             {
-                var flow = MarketingUtils.GetClientFlow(gameContext, product.product.Niche);
 
                 return (long)(clientCost * flow);
             }
@@ -25,7 +27,7 @@ namespace Assets.Utils
             // capturing market
             var audience = Markets.GetAudienceSize(gameContext, product.product.Niche);
 
-            return (long)(clientCost * audience / 10);
+            return (long)(clientCost * audience);
 
             //var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
 
