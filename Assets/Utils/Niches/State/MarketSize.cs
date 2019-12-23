@@ -16,9 +16,8 @@ namespace Assets.Utils
             try
             {
 
-            var sum = products
-                .Select(p => Economy.GetCompanyCost(gameContext, p.company.Id))
-                .Sum();
+                var sum = products
+                    .Sum(p => Economy.GetCompanyCost(gameContext, p.company.Id));
 
                 return sum;
             }
@@ -36,9 +35,20 @@ namespace Assets.Utils
         {
             var products = GetProductsOnMarket(gameContext, nicheType);
 
-            var clients = products.Sum(p => MarketingUtils.GetClients(p));
+            try
+            {
 
-            return clients;
+                var sum = products
+                    .Sum(MarketingUtils.GetClients);
+
+                return sum;
+            }
+            catch
+            {
+                Debug.LogError("Get audience size of " + EnumUtils.GetFormattedNicheName(nicheType));
+            }
+
+            return 0;
         }
     }
 }
