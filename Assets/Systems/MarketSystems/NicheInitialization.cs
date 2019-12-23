@@ -54,7 +54,7 @@ public enum AppComplexity
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    int GetYear(int year) => ScheduleUtils.GetYear(year);
+    int GetYear(int year) => ScheduleUtils.GetDateByYear(year);
 
     GameEntity SetMarkets(NicheType nicheType,
     int startDate,

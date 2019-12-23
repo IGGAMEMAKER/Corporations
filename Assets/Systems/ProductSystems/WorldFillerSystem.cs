@@ -97,7 +97,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         Dictionary<int, int> years = new Dictionary<int, int>();
         foreach (var m in markets)
         {
-            var openDate = ScheduleUtils.GetYear(m.nicheLifecycle.OpenDate);
+            var openDate = ScheduleUtils.GetYearOf(m.nicheLifecycle.OpenDate);
 
             if (years.ContainsKey(openDate))
                 years[openDate]++;
@@ -105,9 +105,7 @@ public partial class WorldFillerSystem : IInitializeSystem
                 years[openDate] = 1;
         }
 
-        years.OrderBy(p => p.Key);
-
-        foreach (var m in years)
+        foreach (var m in years.OrderBy(p => p.Key))
         {
             Debug.Log($"Year {m.Key}: {m.Value} markets");
         }

@@ -78,9 +78,10 @@ namespace Assets.Utils
 
 
         // Date
-        public static int GetYear(int year) => (year - Constants.START_YEAR) * 360;
+        public static int GetDateByYear(int year) => (year - Constants.START_YEAR) * 360;
+        public static int GetYearOf(int date) => date / 360 + Constants.START_YEAR;
 
-        public static int GetYearAndADate(int year, int quarter) => GetYear(year) + quarter * 90;
+        public static int GetDateByYearAndQuarter(int year, int quarter) => GetDateByYear(year) + quarter * 90;
 
 
         // TODO Remove
