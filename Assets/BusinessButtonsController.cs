@@ -31,7 +31,7 @@ public class BusinessButtonsController : View
 
         // daughters
         ManageCompany.SetActive(false);
-        SellCompany.SetActive(false && isDaughter);
+        SellCompany.SetActive(isDaughter);
         CloseCompany.SetActive(isDaughter);
 
         // other companies
@@ -39,6 +39,7 @@ public class BusinessButtonsController : View
 
         JoinCorporation.SetActive(false && !isRelatedToPlayer && isCorporation);
 
-        SendPartnership.SetActive(!isRelatedToPlayer && canBePartnersTheoretically);
+        bool arePartnersAlready = Companies.IsHaveStrategicPartnershipAlready(MyCompany, SelectedCompany);
+        SendPartnership.SetActive(!isRelatedToPlayer && (canBePartnersTheoretically || arePartnersAlready));
     }
 }
