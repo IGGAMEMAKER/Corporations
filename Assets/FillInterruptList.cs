@@ -91,7 +91,7 @@ public class FillInterruptList : View
 
     bool HasAcquisitionOffers()
     {
-        return Companies.GetAcquisitionOffersToPlayer(GameContext).Length > 0;
+        return Companies.GetAcquisitionOffersToPlayer(GameContext).Count() > 0;
     }
 
     bool CheckAcquisitionCandidates()
