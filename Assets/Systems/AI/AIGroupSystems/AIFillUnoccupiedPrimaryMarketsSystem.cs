@@ -7,24 +7,39 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
+        foreach (var n in GetOccupiedNiches(managingCompany))
+        {
+            // try to improve influence
+            TryToAcquireCompany(n, managingCompany);
+        }
+
         foreach (var n in GetUnoccupiedNiches(managingCompany))
             OccupyNiche(n, managingCompany);
     }
 
-    void OccupyNiche(NicheType n, GameEntity managingCompany)
+    bool TryToAcquireCompany(NicheType n, GameEntity managingCompany)
     {
         var products = Markets.GetProductsAvailableForSaleOnMarket(n, gameContext);
 
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
-        Debug.Log("Check unoccupied niche " + n + ". Candidates: " + candidates.Count());
+        var count = candidates.Count();
+        Debug.Log("Check niche " + n + ". Candidates: " + count);
 
-        if (candidates.Count() > 0)
+        if (count > 0)
         {
             foreach (var c in candidates)
                 SendAcquisitionOffer(managingCompany, c, gameContext);
         }
-        else
+
+        return count > 0;
+    }
+
+    void OccupyNiche(NicheType n, GameEntity managingCompany)
+    {
+        var hasCandidates = TryToAcquireCompany(n, managingCompany);
+
+        if (!hasCandidates)
             CreateCompanyOnMarket(n, managingCompany);
     }
 
@@ -40,10 +55,17 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
         return niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
     }
 
+    IEnumerable<NicheType> GetOccupiedNiches(GameEntity managingCompany)
+    {
+        var niches = managingCompany.companyFocus.Niches;
+
+        return niches.Where(n => HasCompanyOnMarket(managingCompany, n));
+    }
+
     IEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
         return products
-            .Where(p => p.isIndependentCompany)
+            .Where(p => p.isIndependentCompany || Companies.IsCompanyRelatedToPlayer(gameContext, p))
             .Where(p => Companies.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
                 //.Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 //.OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
