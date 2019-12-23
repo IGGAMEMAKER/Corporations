@@ -1,6 +1,7 @@
 ﻿using Assets.Utils;
 using Entitas;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public partial class WorldFillerSystem : IInitializeSystem
@@ -90,6 +91,17 @@ public partial class WorldFillerSystem : IInitializeSystem
             //var clients = MarketingUtils.GetClients(p) * Mathf.Pow(growth, monthsOfWork);
 
             //MarketingUtils.AddClients(p, (long)clients);
+        }
+
+        Dictionary<int, int> years = new Dictionary<int, int>();
+        foreach (var m in markets)
+        {
+            years[m.nicheLifecycle.OpenDate]++;
+        }
+
+        foreach (var m in years)
+        {
+            Debug.Log($"Year {m.Key}: {m.Value} markets");
         }
     }
 
