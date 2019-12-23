@@ -29,9 +29,12 @@ namespace Assets.Utils
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
+            var isMonopolist = Markets.GetCompetitorsAmount(product, gameContext) == 0;
+
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
                 .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
                 .AppendAndHideIfZero("Released", isPayingForMarketing ? 1 : 0)
+                .AppendAndHideIfZero("Monopoly", isMonopolist ? 3 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
