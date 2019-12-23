@@ -1,6 +1,4 @@
 ﻿using Assets.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,13 +19,10 @@ public class ShowProductChanges : View
         if (product == null)
             return;
 
-        bool isPeriodTick = ScheduleUtils.IsPeriodEnd(GameContext);
-
-
         var newClients = MarketingUtils.GetAudienceGrowth(product, GameContext);
         ClientChanges.GetComponent<Text>().text = Visuals.Positive(Format.Minify(newClients)) + " users";
 
-        if (isPeriodTick)
+        if (ScheduleUtils.IsPeriodEnd(GameContext))
         {
             ClientChanges.AddComponent<AnimateResourceChange>().Renewable = true;
             ClientChanges.SetActive(true);

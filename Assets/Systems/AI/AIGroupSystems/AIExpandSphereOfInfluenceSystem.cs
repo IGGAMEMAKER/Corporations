@@ -16,13 +16,6 @@ public partial class AIGroupExpansionSystem
             AddRandomNiche(group);
     }
 
-
-
-    bool IsCompanyNeedsMoreMoneyOnMarket(GameEntity product)
-    {
-        return Economy.IsCompanyNeedsMoreMoneyOnMarket(gameContext, product);
-    }
-
     bool IsCompanyReadyToExpand(GameEntity group)
     {
         foreach (var n in group.companyFocus.Niches)
@@ -35,7 +28,7 @@ public partial class AIGroupExpansionSystem
                 if (!holding.hasProduct)
                     continue;
 
-                if (IsCompanyNeedsMoreMoneyOnMarket(holding))
+                if (Economy.IsCompanyNeedsMoreMoneyOnMarket(gameContext, holding))
                     return false;
             }
         }
@@ -55,9 +48,12 @@ public partial class AIGroupExpansionSystem
         var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 
         var suitableNiches = playableNiches
-            .Where(n => Companies.IsEnoughResources(group, Markets.GetStartCapital(n, gameContext))) // can start business and hold for a while
-            .Where(n => !Companies.IsInSphereOfInterest(group, n.niche.NicheType)) // exclude niches, that we cover already
-            .Where(n => Markets.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2) // is profitable niche
+            // can start business and hold for a while
+            .Where(n => Companies.IsEnoughResources(group, Markets.GetStartCapital(n, gameContext)))
+            // exclude niches, that we cover already
+            .Where(n => !Companies.IsInSphereOfInterest(group, n.niche.NicheType))
+            // is matching our size
+            .Where(n => Markets.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2)
             //.Where(n => NicheUtils.GetBiggestIncomeOnMarket(gameContext, n) > averageProfit) // can compete with current products
             .ToArray();
 

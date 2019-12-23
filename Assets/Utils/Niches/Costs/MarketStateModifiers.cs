@@ -114,11 +114,11 @@
         {
             switch (phase)
             {
-                case MarketState.Idle: return MarketState.Innovation;
-                case MarketState.Innovation: return MarketState.Trending;
-                case MarketState.Trending: return MarketState.MassGrowth; 
-                case MarketState.MassGrowth: return MarketState.MassUsage;
-                case MarketState.MassUsage: return MarketState.Decay;
+                case MarketState.Idle:          return MarketState.Innovation;
+                case MarketState.Innovation:    return MarketState.Trending;
+                case MarketState.Trending:      return MarketState.MassGrowth; 
+                case MarketState.MassGrowth:    return MarketState.MassUsage;
+                case MarketState.MassUsage:     return MarketState.Decay;
 
                 case MarketState.Decay:
                 default:
