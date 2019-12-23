@@ -2,6 +2,7 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public partial class WorldFillerSystem : IInitializeSystem
@@ -96,8 +97,15 @@ public partial class WorldFillerSystem : IInitializeSystem
         Dictionary<int, int> years = new Dictionary<int, int>();
         foreach (var m in markets)
         {
-            years[m.nicheLifecycle.OpenDate]++;
+            var openDate = ScheduleUtils.GetYear(m.nicheLifecycle.OpenDate);
+
+            if (years.ContainsKey(openDate))
+                years[openDate]++;
+            else
+                years[openDate] = 1;
         }
+
+        years.OrderBy(p => p.Key);
 
         foreach (var m in years)
         {
