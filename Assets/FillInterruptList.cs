@@ -29,7 +29,6 @@ public class FillInterruptList : View
             return;
 
         bool isCanCompleteGoal = CheckGoal();
-        bool isNeedsInterrupt = false;
 
         CanReleaseProduct           .SetActive(HasReleaseableProducts());
         NeedToCompleteGoal          .SetActive(!isCanCompleteGoal && false);
@@ -41,9 +40,9 @@ public class FillInterruptList : View
 
         CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
 
-        InvestorLoyaltyWarning      .SetActive(isNeedsInterrupt);
-        InvestorLoyaltyThreat       .SetActive(isNeedsInterrupt);
-        TeamLoyaltyWarning          .SetActive(isNeedsInterrupt);
+        InvestorLoyaltyWarning      .SetActive(false);
+        InvestorLoyaltyThreat       .SetActive(false);
+        TeamLoyaltyWarning          .SetActive(false);
         TeamLoyaltyThreat           .SetActive(HasUnhappyTeams());
 
         OutdatedProducts            .SetActive(false && HasOutdatedProducts());
