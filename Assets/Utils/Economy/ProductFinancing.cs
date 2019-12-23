@@ -5,12 +5,31 @@ namespace Assets.Utils
     partial class Economy
     {
         // financing multipliers
-        public static float GetMarketingFinancingCostMultiplier(GameEntity e) => GetMarketingFinancingCostMultiplier(e.financing.Financing[Financing.Marketing]);
-        public static float GetMarketingFinancingCostMultiplier(int financing)
-        {
-            var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
+        public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext) => GetMarketingFinancingCostMultiplier(product, gameContext, GetMarketingFinancing(product));
+        public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext, int financing) {
+            // not released
+            // needs to depend on own size
+            if (financing == 0)
+                return 1;
 
-            return Mathf.Pow(marketing, 1.78f);
+            // released
+            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
+
+            if (financing == 1)
+            {
+                var flow = MarketingUtils.GetClientFlow(gameContext, product.product.Niche);
+
+                return (long)(clientCost * flow);
+            }
+
+            // capturing market
+            var audience = Markets.GetAudienceSize(gameContext, product.product.Niche);
+
+            return (long)(clientCost * audience / 10);
+
+            //var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
+
+            //return Mathf.Pow(marketing, 1.78f);
         }
 
         public static int GetNextMarketingFinancing(GameEntity e)
@@ -33,7 +52,7 @@ namespace Assets.Utils
             var financing = GetMarketingFinancing(e);
             var nextFinancing = GetNextMarketingFinancing(e);
 
-            var nextCost = GetMarketingCost(e, gameContext, nextFinancing);
+            var nextCost = GetMarketingFinancingCostMultiplier(e, gameContext, nextFinancing);
 
             return nextCost;
         }

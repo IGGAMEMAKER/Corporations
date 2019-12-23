@@ -14,9 +14,10 @@ namespace Assets.Utils
             return development + marketing;
         }
 
-        public static long GetMarketingCost(GameEntity e, GameContext gameContext) => GetMarketingCost(e, gameContext, GetMarketingFinancingCostMultiplier(e));
-        public static long GetMarketingCost(GameEntity e, GameContext gameContext, float financing)
+        public static long GetMarketingCost(GameEntity e, GameContext gameContext)
         {
+            var cost = GetMarketingFinancingCostMultiplier(e, gameContext);
+
             var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
             var acquisitionCost = Markets.GetClientAcquisitionCost(e.product.Niche, gameContext);
 
@@ -25,7 +26,7 @@ namespace Assets.Utils
 
             // up to 40%
             var discount = 100 - (creation - 1) * 10;
-            var result = gainedClients * acquisitionCost * financing * discount / 100;
+            var result = cost * discount / 100;
 
             return (long)result;
         }
@@ -35,13 +36,14 @@ namespace Assets.Utils
         {
             var workers = GetAmountOfWorkers(e, gameContext);
 
-            var salaries = workers * Constants.SALARIES_PROGRAMMER;
+            var cost = workers * Constants.SALARIES_PROGRAMMER;
 
             var culture = Companies.GetActualCorporateCulture(e, gameContext);
             var mindset = culture[CorporatePolicy.WorkerMindset];
 
+            // up to 40%
             var discount = 100 - (mindset - 1) * 10;
-            return salaries * discount / 100;
+            return cost * discount / 100;
         }
 
         public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
