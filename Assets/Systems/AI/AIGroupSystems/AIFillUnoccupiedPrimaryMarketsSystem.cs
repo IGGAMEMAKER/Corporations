@@ -24,11 +24,8 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
         var count = candidates.Count();
         Debug.Log("Check niche " + n + ". Candidates: " + count);
 
-        if (count > 0)
-        {
-            foreach (var c in candidates)
-                SendAcquisitionOffer(managingCompany, c, gameContext);
-        }
+        foreach (var c in candidates)
+            SendAcquisitionOffer(managingCompany, c, gameContext);
 
         return count > 0;
     }
@@ -62,9 +59,18 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 
     IEnumerable<GameEntity> GetAcquisitionCandidates(GameEntity[] products, GameEntity managingCompany)
     {
+        var culture = Companies.GetOwnCorporateCulture(managingCompany);
+
+        var desireToBuy = 5 - Companies.GetPolicyValue(managingCompany, CorporatePolicy.BuyOrCreate);
+        var AIwantsToBuyPlayerCompany = Random.Range(0, 100) < 5 + desireToBuy;
+
         return products
-            .Where(p => p.isIndependentCompany || Companies.IsCompanyRelatedToPlayer(gameContext, p))
-            .Where(p => Companies.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney);
+            .Where(p =>
+            p.isIndependentCompany ||
+            (Companies.IsCompanyRelatedToPlayer(gameContext, p) && (p.isOnSales || AIwantsToBuyPlayerCompany))
+            )
+            //.Where(p => Companies.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney)
+            ;
                 //.Where(p => CompanyUtils.IsWillBuyCompany(managingCompany, p, gameContext))
                 //.OrderByDescending(p => GetCompanyAcquisitionPriority(managingCompany, p, gameContext));
     }
