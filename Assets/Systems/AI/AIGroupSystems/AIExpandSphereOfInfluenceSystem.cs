@@ -36,37 +36,50 @@ public partial class AIGroupExpansionSystem
         return true;
     }
 
-    void AddRandomNiche(GameEntity group)
+    IEnumerable<GameEntity> GetSuitableMarkets(GameEntity group, IndustryType industry)
     {
-        //Debug.Log("Search Suitable Niche: " + group.company.Name);
-
-        var industry = group.companyFocus.Industries[0];
-
-        var playableNiches = Markets.GetPlayableNichesInIndustry(industry, gameContext);
         var profit = Economy.GetProfit(group, gameContext);
 
         var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 
-        var suitableNiches = playableNiches
+
+        return Markets.GetPlayableNichesInIndustry(industry, gameContext)
             // can start business and hold for a while
             .Where(n => Companies.IsEnoughResources(group, Markets.GetStartCapital(n, gameContext)))
+
             // exclude niches, that we cover already
             .Where(n => !Companies.IsInSphereOfInterest(group, n.niche.NicheType))
+
             // is matching our size
-            .Where(n => Markets.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2)
-            //.Where(n => NicheUtils.GetBiggestIncomeOnMarket(gameContext, n) > averageProfit) // can compete with current products
-            .ToArray();
+            .Where(n => Markets.GetLowestIncomeOnMarket(gameContext, n) > averageProfit / 2);
+    }
 
-        var count = suitableNiches.Count();
+    void AddRandomNiche(GameEntity group)
+    {
+        var marketLimit = Companies.GetPrimaryMarketsLimit(group, gameContext);
+        var willGetPenalty = group.companyFocus.Niches.Count() + 1 > marketLimit;
 
-        if (count == 0)
+        // TODO Tweak corporate culture maybe?
+        if (willGetPenalty)
             return;
 
-        var rand = Random.Range(0, count);
 
-        //var niche = RandomEnum<NicheType>.GenerateValue();
-        var niche = suitableNiches[rand].niche.NicheType;
+        foreach (var industry in group.companyFocus.Industries)
+        {
+            var suitableNiches = GetSuitableMarkets(group, industry).ToArray();
 
-        Companies.AddFocusNiche(niche, group, gameContext);
+
+            var count = suitableNiches.Count();
+
+            if (count == 0)
+                continue;
+
+            var rand = Random.Range(0, count);
+
+            var niche = suitableNiches[rand].niche.NicheType;
+
+            Companies.AddFocusNiche(niche, group, gameContext);
+            break;
+        }
     }
 }
