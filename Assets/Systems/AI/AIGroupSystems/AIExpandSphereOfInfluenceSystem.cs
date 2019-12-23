@@ -33,7 +33,11 @@ public partial class AIGroupExpansionSystem
             }
         }
 
-        return true;
+        var marketLimit = Companies.GetPrimaryMarketsLimit(group, gameContext);
+        var willGetPenalty = group.companyFocus.Niches.Count() + 1 > marketLimit;
+
+        // TODO Tweak corporate culture maybe?
+        return !willGetPenalty;
     }
 
     IEnumerable<GameEntity> GetSuitableMarkets(GameEntity group, IndustryType industry)
@@ -56,14 +60,6 @@ public partial class AIGroupExpansionSystem
 
     void AddRandomNiche(GameEntity group)
     {
-        var marketLimit = Companies.GetPrimaryMarketsLimit(group, gameContext);
-        var willGetPenalty = group.companyFocus.Niches.Count() + 1 > marketLimit;
-
-        // TODO Tweak corporate culture maybe?
-        if (willGetPenalty)
-            return;
-
-
         foreach (var industry in group.companyFocus.Industries)
         {
             var suitableNiches = GetSuitableMarkets(group, industry).ToArray();
