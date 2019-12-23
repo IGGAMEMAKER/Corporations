@@ -131,7 +131,7 @@
             switch (phase)
             {
                 case MarketState.Idle:
-                    return 0;
+                    return 1;
 
                 case MarketState.Innovation:
                     return 1;
