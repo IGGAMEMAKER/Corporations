@@ -7,11 +7,9 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
-        foreach (var n in GetOccupiedNiches(managingCompany))
-        {
-            // try to improve influence
+        // try to improve influence
+        foreach (var n in GetMainMarkets(managingCompany))
             TryToAcquireCompany(n, managingCompany);
-        }
 
         foreach (var n in GetUnoccupiedNiches(managingCompany))
             OccupyNiche(n, managingCompany);
@@ -55,7 +53,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
         return niches.Where(n => !HasCompanyOnMarket(managingCompany, n));
     }
 
-    IEnumerable<NicheType> GetOccupiedNiches(GameEntity managingCompany)
+    IEnumerable<NicheType> GetMainMarkets(GameEntity managingCompany)
     {
         var niches = managingCompany.companyFocus.Niches;
 
