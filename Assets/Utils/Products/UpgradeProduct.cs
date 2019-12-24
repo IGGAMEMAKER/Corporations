@@ -61,8 +61,12 @@ namespace Assets.Utils
             // notify about leadership if player has only one product
             var player = Companies.GetPlayerCompany(gameContext);
 
-            if (Companies.IsRelatedToPlayer(gameContext, product) && Companies.GetDaughterCompaniesAmount(player, gameContext) < 3)
-                NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
+            {
+                // Companies.IsRelatedToPlayer(gameContext, product) && 
+                if (Companies.GetDaughterCompaniesAmount(player, gameContext) < 3)
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
+            }
         }
 
         private static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
