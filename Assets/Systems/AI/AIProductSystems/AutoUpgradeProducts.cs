@@ -15,7 +15,10 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
 
         var releasableAIApps = products
+            // increase performance
+            .Where(p => !p.isRelease)
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
+            
             .Where(p => !Companies.IsRelatedToPlayer(gameContext, p))
             ;
 
