@@ -91,10 +91,12 @@ public class NicheTableView : View, IPointerEnterHandler
 
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
+
         var colorName = hasCompany || isInterestingMarket ?
             VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY
             :
             VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+
         NicheName.color = Visuals.GetColorFromString(colorName);
     }
 
