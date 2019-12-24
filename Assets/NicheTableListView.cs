@@ -47,7 +47,7 @@ public class NicheTableListView : ListView
 
     void UpdateFilters()
     {
-        IncludeInnovativeMarkets = false; // InnovativeMarkets.isOn;
+        IncludeInnovativeMarkets = InnovativeMarkets.isOn;
         IncludeTrendingMarkets = TrendingMarkets.isOn;
         IncludeMassMarkets = MassMarkets.isOn;
 
