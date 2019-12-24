@@ -67,7 +67,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
         return products
             .Where(p =>
             p.isIndependentCompany ||
-            (Companies.IsCompanyRelatedToPlayer(gameContext, p) && (p.isOnSales || AIwantsToBuyPlayerCompany))
+            (Companies.IsRelatedToPlayer(gameContext, p) && (p.isOnSales || AIwantsToBuyPlayerCompany))
             )
             //.Where(p => Companies.GetFounderAmbition(p, gameContext) == Ambition.EarnMoney)
             ;

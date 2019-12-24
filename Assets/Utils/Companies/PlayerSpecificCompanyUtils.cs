@@ -32,11 +32,11 @@ namespace Assets.Utils
         {
             var company = GetCompany(gameContext, companyId);
 
-            return IsCompanyRelatedToPlayer(gameContext, company);
+            return IsRelatedToPlayer(gameContext, company);
         }
 
         // TODO move to separate file
-        public static bool IsCompanyRelatedToPlayer(GameContext gameContext, GameEntity company)
+        public static bool IsRelatedToPlayer(GameContext gameContext, GameEntity company)
         {
             var playerCompany = GetPlayerCompany(gameContext);
 

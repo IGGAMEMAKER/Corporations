@@ -67,7 +67,7 @@ namespace Assets.Utils
         }
         public static bool IsExploredCompany(GameContext gameContext, GameEntity company)
         {
-            return company.hasResearch || IsCompanyRelatedToPlayer(gameContext, company);
+            return company.hasResearch || IsRelatedToPlayer(gameContext, company);
         }
 
 

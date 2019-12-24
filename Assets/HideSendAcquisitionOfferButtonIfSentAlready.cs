@@ -9,6 +9,6 @@ public class HideSendAcquisitionOfferButtonIfSentAlready : HideOnSomeCondition
     {
         var offer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        return offer.acquisitionOffer.Turn == AcquisitionTurn.Seller || Companies.IsCompanyRelatedToPlayer(GameContext, SelectedCompany);
+        return offer.acquisitionOffer.Turn == AcquisitionTurn.Seller || Companies.IsRelatedToPlayer(GameContext, SelectedCompany);
     }
 }

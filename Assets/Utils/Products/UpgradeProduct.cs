@@ -61,7 +61,7 @@ namespace Assets.Utils
             // notify about leadership if player has only one product
             var player = Companies.GetPlayerCompany(gameContext);
 
-            if (Companies.IsCompanyRelatedToPlayer(gameContext, product) && Companies.GetDaughterCompaniesAmount(player, gameContext) < 3)
+            if (Companies.IsRelatedToPlayer(gameContext, product) && Companies.GetDaughterCompaniesAmount(player, gameContext) < 3)
                 NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
         }
 

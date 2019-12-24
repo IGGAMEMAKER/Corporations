@@ -51,7 +51,7 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
     {
         var investor = Investments.GetInvestorById(gameContext, proposal.ShareholderId);
 
-        var isRelatedToPlayer = investor.hasCompany && Companies.IsCompanyRelatedToPlayer(gameContext, investor);
+        var isRelatedToPlayer = investor.hasCompany && Companies.IsRelatedToPlayer(gameContext, investor);
 
         return !isRelatedToPlayer;
     }

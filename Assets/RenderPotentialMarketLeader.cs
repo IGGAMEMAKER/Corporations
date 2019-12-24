@@ -14,7 +14,7 @@ public class RenderPotentialMarketLeader : ParameterView
 
         var chances = Products.GetInnovationChance(potentialLeader, GameContext);
 
-        var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, potentialLeader);
+        var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, potentialLeader);
 
         var colorName = isRelatedToPlayer ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO;
 

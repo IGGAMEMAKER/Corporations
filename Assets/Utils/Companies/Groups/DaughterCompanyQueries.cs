@@ -25,7 +25,7 @@ namespace Assets.Utils
         {
             var isOutdated = Products.IsOutOfMarket(product, gameContext);
 
-            return !isOutdated && !product.isRelease;
+            return !product.isRelease && !isOutdated;
         }
 
         public static GameEntity[] GetDaughterReleaseableCompanies(GameContext gameContext, int companyId)

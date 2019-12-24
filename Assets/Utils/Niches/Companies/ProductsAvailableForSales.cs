@@ -18,7 +18,7 @@ namespace Assets.Utils
                 products.AddRange(companies);
             }
 
-            return products.FindAll(p => !Companies.IsCompanyRelatedToPlayer(context, p));
+            return products.FindAll(p => !Companies.IsRelatedToPlayer(context, p));
         }
 
         public static GameEntity[] GetProductsAvailableForSaleOnMarket(NicheType n, GameContext context)

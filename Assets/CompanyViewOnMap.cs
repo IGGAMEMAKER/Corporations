@@ -45,7 +45,7 @@ public class CompanyViewOnMap : View
         ShowProductChanges.SetEntity(company);
 
 
-        var isRelatedToPlayer = Companies.IsCompanyRelatedToPlayer(GameContext, c);
+        var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, c);
         ConceptProgress.SetCompanyId(c.company.Id);
         //ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
 

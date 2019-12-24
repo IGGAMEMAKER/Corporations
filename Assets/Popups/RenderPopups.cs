@@ -22,7 +22,7 @@ public partial class PopupView : View
         var target = Companies.GetCompany(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
 
-        bool isOurCompany = Companies.IsCompanyRelatedToPlayer(GameContext, target);
+        bool isOurCompany = Companies.IsRelatedToPlayer(GameContext, target);
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
