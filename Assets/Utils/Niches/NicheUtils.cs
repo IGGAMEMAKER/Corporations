@@ -87,7 +87,7 @@ namespace Assets.Utils
             var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);
             var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
 
-            var isTopMarket = profile.Margin > Margin.Low || profile.AudienceSize > AudienceSize.Million; // GetMarketPotentialRating(niche) > 3;
+            var isTopMarket = profile.AudienceSize == AudienceSize.Global; // GetMarketPotentialRating(niche) > 3;
 
             //var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
 
