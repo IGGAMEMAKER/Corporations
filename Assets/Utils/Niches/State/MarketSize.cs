@@ -23,7 +23,7 @@ namespace Assets.Utils
             }
             catch
             {
-                Debug.LogError("Get market size of " + EnumUtils.GetFormattedNicheName(nicheType));
+                Debug.LogWarning("Get market size of " + EnumUtils.GetFormattedNicheName(nicheType));
             }
 
             return 0;
@@ -45,7 +45,7 @@ namespace Assets.Utils
             }
             catch
             {
-                Debug.LogError("Get audience size of " + EnumUtils.GetFormattedNicheName(nicheType));
+                Debug.LogWarning("Get audience size of " + EnumUtils.GetFormattedNicheName(nicheType));
             }
 
             return 0;
