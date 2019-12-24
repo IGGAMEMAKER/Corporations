@@ -82,7 +82,6 @@ namespace Assets.Utils
 
         public static bool IsAppropriateStartNiche(GameEntity niche, GameContext gameContext)
         {
-            return true;
             var profile = niche.nicheBaseProfile.Profile;
 
             var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);

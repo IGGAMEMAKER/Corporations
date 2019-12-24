@@ -105,10 +105,24 @@ public partial class WorldFillerSystem : IInitializeSystem
                 years[openDate] = 1;
         }
 
+        var pre2000markets = 0;
+        var post2000markets = 0;
+
         foreach (var m in years.OrderBy(p => p.Key))
         {
+            var year = m.Key;
+            var amount = m.Value;
+
+            if (year < 2000)
+                pre2000markets += amount;
+            else
+                post2000markets += amount;
+
             Debug.Log($"Year {m.Key}: {m.Value} markets");
         }
+
+        Debug.Log("Pre 2000 markets: " + pre2000markets);
+        Debug.Log("Post 2000 markets: " + post2000markets);
     }
 
     void Simulate()
