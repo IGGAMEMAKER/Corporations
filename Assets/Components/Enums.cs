@@ -75,12 +75,13 @@ public enum NicheType
     Qol_MusicPlayers, // small-average
     Qol_VideoPlayers, // average
     Qol_VideoEditingTool, // average
-    //Qol_MusicSearch, // average
+    Qol_MusicSearch, // average
 
     Qol_Encyclopedia,
     Qol_Antivirus,
 
     Qol_OnlineEducation,
+    Qol_Maps,
 }
 
 public enum IndustryType
