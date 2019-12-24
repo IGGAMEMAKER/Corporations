@@ -16,6 +16,13 @@ public class StartCampaignButton : ButtonController
             return;
 
         var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
+        company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
+        {
+            [CorporatePolicy.BuyOrCreate] = 4,
+            [CorporatePolicy.Focusing] = 1,
+            [CorporatePolicy.LeaderOrTeam] = 1,
+            [CorporatePolicy.WorkerMindset] = 2
+        });
 
         var startCapital = Markets.GetStartCapital(NicheType, GameContext);
 
@@ -27,6 +34,18 @@ public class StartCampaignButton : ButtonController
         Companies.PlayAs(company, GameContext);
         Companies.AutoFillShareholders(GameContext, company, true);
 
+        PrepareMarket(niche, startCapital);
+
+
+        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
+
+
+        SceneManager.UnloadSceneAsync(2);
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+    }
+
+    void PrepareMarket(GameEntity niche, long startCapital)
+    {
         // spawn competitors
         for (var i = 0; i < 1; i++)
         {
@@ -36,19 +55,8 @@ public class StartCampaignButton : ButtonController
             MarketingUtils.AddBrandPower(c, 10);
         }
 
-        company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
-        {
-            [CorporatePolicy.BuyOrCreate] = 4,
-            [CorporatePolicy.Focusing] = 1,
-            [CorporatePolicy.LeaderOrTeam] = 1,
-            [CorporatePolicy.WorkerMindset] = 2
-        });
+        // spawn investors
 
-        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
-
-
-        SceneManager.UnloadSceneAsync(2);
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }
 
     public void SetNiche(NicheType nicheType, InputField Input)
