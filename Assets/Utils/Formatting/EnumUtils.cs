@@ -36,10 +36,11 @@ namespace Assets.Utils.Formatting
                 case NicheType.Com_Dating: return "Dating";
 
 
-                case NicheType.Tech_CloudComputing: return "Clouds";
+                case NicheType.Tech_Clouds: return "Clouds";
                 case NicheType.Tech_OSDesktop: return "Operational Systems";
                 case NicheType.Tech_SearchEngine: return "Search Engines";
                 case NicheType.Tech_Browser: return "Web browsers";
+                case NicheType.Tech_MobileOS: return "Mobile Operational Systems";
 
                 case NicheType.Ent_Casino: return "Online Casinos";
                 case NicheType.Ent_Betting: return "Online Bettings";
@@ -56,9 +57,10 @@ namespace Assets.Utils.Formatting
 
                 case NicheType.ECom_EventTickets: return "Event tickets booking";
                 case NicheType.ECom_Tourism: return "Booking Tours";
-                case NicheType.ECom_Booking: return "Booking hotels";
-                case NicheType.ECom_BookingTickets: return "Online airplane/train booking";
+                case NicheType.ECom_BookingHotels: return "Booking hotels";
+                case NicheType.ECom_BookingTransportTickets: return "Online airplane/train booking";
                 case NicheType.ECom_OnlineTaxi: return "Online taxi";
+                case NicheType.ECom_Marketplace: return "Marketplaces";
 
                 case NicheType.Qol_3DGraphicalEditor: return "3D Editing tools";
                 case NicheType.Qol_AdBlocker: return "Advert blocking tools";
@@ -86,7 +88,7 @@ namespace Assets.Utils.Formatting
             {
                 //case IndustryType.OS: return "Operation Systems";
                 case IndustryType.Technology: return "Technology";
-                case IndustryType.Communications: return "Communications";
+                case IndustryType.Communications: return "Social Media";
                 case IndustryType.Entertainment: return "Entertainment";
                 case IndustryType.WorkAndLife: return "Other";
                 case IndustryType.Ecommerce: return "E-commerce";

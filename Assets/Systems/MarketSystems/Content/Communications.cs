@@ -28,6 +28,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetMarkets(NicheType.Com_Messenger, 2000, 2030, messenger);
         SetMarkets(NicheType.Com_SocialNetwork, 1999, 2025, socialNetworks);
+
+
+
         //new ProductPositioning[] {
         //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
         //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn

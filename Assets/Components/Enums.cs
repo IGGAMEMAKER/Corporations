@@ -25,9 +25,10 @@ public enum NicheType
 
 
     Tech_SearchEngine,
-    Tech_CloudComputing,
+    Tech_Clouds,
     Tech_OSDesktop,
     Tech_Browser,
+    Tech_MobileOS,
     // Databases
 
     // Entertainment
@@ -53,8 +54,8 @@ public enum NicheType
     ECom_TradingBot,
 
     ECom_OnlineTaxi,
-    ECom_BookingTickets, // rzd, aero
-    ECom_Booking, // hotels
+    ECom_BookingTransportTickets, // rzd, aero
+    ECom_BookingHotels, // hotels
     ECom_Tourism,
     ECom_EventTickets, // concerts
 
