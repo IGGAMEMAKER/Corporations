@@ -9,7 +9,5 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
     {
         foreach (var e in Companies.GetProductCompanies(gameContext))
             Products.UpdgradeProduct(e, gameContext);
-
-
     }
 }
