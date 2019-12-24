@@ -13,9 +13,6 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     void ManageProduct(GameEntity product)
     {
-        if (!product.isRelease && Products.IsInMarket(product, gameContext))
-            MarketingUtils.ReleaseApp(product, gameContext);
-
         //ManageDumpingProduct(product);
 
         ManageMarketing(product);

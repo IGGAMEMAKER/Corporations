@@ -1,5 +1,6 @@
 ﻿using Assets.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class AutoUpgradeProductsSystem : OnDateChange
 {
@@ -7,7 +8,18 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetProductCompanies(gameContext))
-            Products.UpdgradeProduct(e, gameContext);
+        var products = Companies.GetProductCompanies(gameContext);
+
+        foreach (var product in products)
+            Products.UpdgradeProduct(product, gameContext);
+
+
+        var releasableAIApps = products
+            .Where(p => Companies.IsReleaseableApp(p, gameContext))
+            .Where(p => !Companies.IsRelatedToPlayer(gameContext, p))
+            ;
+
+        foreach (var concept in releasableAIApps)
+            MarketingUtils.ReleaseApp(concept, gameContext);
     }
 }
