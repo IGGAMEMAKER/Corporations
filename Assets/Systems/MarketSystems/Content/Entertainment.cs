@@ -43,6 +43,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.Ent_VideoHosting,      2004, 2030, videoHosting);
 
         SetMarkets(NicheType.Ent_StreamingService,  2011, 2030, streaming);
-        SetMarkets(NicheType.Ent_TVStreamingService, 2016, 2030, tvStreaming);
+        SetMarkets(NicheType.Ent_TVStreamingService, 2013, 2030, tvStreaming);
     }
 }
