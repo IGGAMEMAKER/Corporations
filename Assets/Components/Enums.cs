@@ -42,8 +42,9 @@ public enum NicheType
     Ent_SinglePlayer,
     //Ent_Publishing,
 
-    Ent_StreamingService,
-    Ent_TVStreamingService,
+    Ent_StreamingService, // Twitch
+    Ent_TVStreamingService, // Netflix like
+    Ent_VideoHosting, // Youtube
 
     // Ecommerce
     /// Finances

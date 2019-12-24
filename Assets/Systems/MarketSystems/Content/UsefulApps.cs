@@ -28,16 +28,17 @@ public partial class MarketInitializerSystem : IInitializeSystem
         AttachNichesToIndustry(IndustryType.WorkAndLife, niches);
 
         var smallUtil =
-            new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.Year);
+            new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);
 
         var encyclopedia =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, AppComplexity.Easy, NicheSpeed.Year);
+            new MarketProfile(AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, AppComplexity.Easy, NicheSpeed.ThreeYears);
 
+        // paid?
         var officeDocumentEditor =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.Year);
+            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.ThreeYears);
 
         var education =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.Year);
+            new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.High, AppComplexity.Easy, NicheSpeed.Year);
 
 
         SetMarkets(NicheType.Qol_DocumentEditors,       1980, 2040, officeDocumentEditor);
@@ -54,11 +55,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.Qol_VideoEditingTool,      2000, 2050, officeDocumentEditor);
 
 
+        SetMarkets(NicheType.Qol_Encyclopedia,          2002, 2050, encyclopedia);
         SetMarkets(NicheType.Qol_AdBlocker,             2003, 2040, smallUtil);
         //SetMarkets(NicheType.Qol_MusicPlayers,          2003, 2040, smallUtil);
         //SetMarkets(NicheType.Qol_VideoPlayers,          2003, 2040, smallUtil);
-        SetMarkets(NicheType.Qol_Encyclopedia,          2002, 2050, encyclopedia);
         //SetMarkets(NicheType.Qol_Antivirus,             2003, 2040, smallUtil);
-        SetMarkets(NicheType.Qol_OnlineEducation,       2008, 2040, smallUtil);
+        SetMarkets(NicheType.Qol_OnlineEducation,       2008, 2040, education);
     }
 }

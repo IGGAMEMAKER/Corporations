@@ -40,8 +40,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.ECom_PaymentSystem,    1995, 2030, payment);
         SetMarkets(NicheType.ECom_Marketplace,      1995, 2050, marketplace);
 
-        SetMarkets(NicheType.ECom_OnlineTaxi,       1998, 2030, taxi);
         SetMarkets(NicheType.ECom_Exchanging,       1998, 2030, payment);
+        SetMarkets(NicheType.ECom_OnlineTaxi,       1998, 2030, taxi);
         SetMarkets(NicheType.ECom_BookingTransportTickets,   1998, 2030, booking);
         SetMarkets(NicheType.ECom_BookingHotels,          1998, 2030, booking);
         SetMarkets(NicheType.ECom_Tourism,          1998, 2030, booking);
