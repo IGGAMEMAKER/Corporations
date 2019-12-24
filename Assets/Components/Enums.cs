@@ -82,6 +82,7 @@ public enum NicheType
 
     Qol_OnlineEducation,
     Qol_Maps,
+    Qol_OnlineGenealogy,
 }
 
 public enum IndustryType
