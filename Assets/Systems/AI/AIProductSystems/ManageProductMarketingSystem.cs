@@ -28,11 +28,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         // reduce maintenance
         if (!Companies.IsEnoughResources(product, currentCost))
-        {
-            var financing = Economy.GetCheaperFinancing(product);
-
-            Products.SetMarketingFinancing(product, financing);
-        }
+            Products.SetMarketingFinancing(product, Economy.GetCheaperFinancing(product));
 
         // go higher
         if (Companies.IsEnoughResources(product, nextCost))
