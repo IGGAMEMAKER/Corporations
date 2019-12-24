@@ -50,7 +50,7 @@ namespace Assets.Utils
             long sum = 0;
             foreach (var p in products)
             {
-                var disloyal = MarketingUtils.GetClients(product) / 6;
+                var disloyal = MarketingUtils.GetClients(p) / 6;
 
                 MarketingUtils.LooseClients(p, disloyal);
                 MarketingUtils.AddClients(product, disloyal);

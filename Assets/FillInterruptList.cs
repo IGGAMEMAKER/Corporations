@@ -36,7 +36,7 @@ public class FillInterruptList : View
         NeedToManageCompanies       .SetActive(false);
 
         CanRaiseInvestments         .SetActive(IsCanRaiseInvestments());
-        CanCheckAnnualReport        .SetActive(CheckAnnualReport());
+        CanCheckAnnualReport        .SetActive(false && CheckAnnualReport());
 
         CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
 
