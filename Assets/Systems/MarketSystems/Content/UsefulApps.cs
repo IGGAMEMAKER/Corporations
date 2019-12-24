@@ -19,6 +19,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
             //NicheType.Qol_MusicPlayers, // small-average
             //NicheType.Qol_VideoPlayers, // average
+            NicheType.Qol_MusicSearch,
+            NicheType.Qol_Maps,
 
             NicheType.Qol_Encyclopedia,
             //NicheType.Qol_Antivirus,
@@ -40,6 +42,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var education =
             new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.High, AppComplexity.Easy, NicheSpeed.Year);
 
+        var musicSearch =
+            new MarketProfile(AudienceSize.Million100, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.Year);
+
+        var maps =
+            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Hard, NicheSpeed.ThreeYears);
 
         SetMarkets(NicheType.Qol_DocumentEditors,       1980, 2040, officeDocumentEditor);
         SetMarkets(NicheType.Qol_GraphicalEditor,       1990, 2040, officeDocumentEditor);
@@ -57,6 +64,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetMarkets(NicheType.Qol_Encyclopedia,          2002, 2050, encyclopedia);
         SetMarkets(NicheType.Qol_AdBlocker,             2003, 2040, smallUtil);
+        SetMarkets(NicheType.Qol_Maps,                  2005, 2040, maps);
+        SetMarkets(NicheType.Qol_MusicSearch,             2009, 2040, musicSearch);
+
         //SetMarkets(NicheType.Qol_MusicPlayers,          2003, 2040, smallUtil);
         //SetMarkets(NicheType.Qol_VideoPlayers,          2003, 2040, smallUtil);
         //SetMarkets(NicheType.Qol_Antivirus,             2003, 2040, smallUtil);
