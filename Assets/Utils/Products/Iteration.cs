@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using UnityEngine;
+
+namespace Assets.Utils
 {
     public static partial class Products
     {
@@ -26,7 +28,9 @@
             var niche = Markets.GetNiche(gameContext, company);
             var baseIterationTime = GetBaseIterationTime(niche);
 
-            var innovationPenalty   = IsWillInnovate(company, gameContext) ? 50 : 0;
+            var innovationSpeed = 50 * Random.Range(10, 13) / 10;
+
+            var innovationPenalty   = IsWillInnovate(company, gameContext) ? innovationSpeed : 0;
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
             var modifiers = 100 + innovationPenalty + companyLimitPenalty;
