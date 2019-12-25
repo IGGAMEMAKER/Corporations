@@ -17,6 +17,10 @@ public class NicheTableListView : ListView
 
     // --------
 
+    bool sortByROI;
+    bool sortByMaintenance;
+    bool sortByProfit;
+
     public Toggle InnovativeMarkets;
     public Toggle TrendingMarkets;
     public Toggle MassMarkets;

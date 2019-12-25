@@ -79,17 +79,27 @@ public class NicheTableView : View, IPointerEnterHandler
     void RenderMarketName(NicheType nicheType)
     {
         var industryType = Markets.GetIndustry(nicheType, GameContext);
-        NicheName.text = EnumUtils.GetFormattedNicheName(nicheType) + "\n<i>" + EnumUtils.GetFormattedIndustryName(industryType) + "</i>";
+
 
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
 
-        var marketColorName = hasCompany || isInterestingMarket ?
-            VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY
-            :
-            VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+        var marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
-        NicheName.color = Visuals.GetColorFromString(marketColorName);
+        if (hasCompany)
+            marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
+        else if (isInterestingMarket)
+            marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
+
+        
+        bool isOurIndustry = MyCompany.companyFocus.Industries.Contains(industryType);
+        var industryColorName = isOurIndustry ? VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY : VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+
+
+        var coloredMarket = Visuals.Colorize(EnumUtils.GetFormattedNicheName(nicheType), marketColorName);
+        var coloredIndustry = Visuals.Colorize(EnumUtils.GetFormattedIndustryName(industryType), industryColorName);
+
+        NicheName.text = $"{coloredMarket}\n<i>{coloredIndustry}</i>";
     }
 
     void RenderTimeToMarket()
