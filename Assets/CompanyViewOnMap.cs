@@ -66,16 +66,28 @@ public class CompanyViewOnMap : View
         {
             var profit = Economy.GetProfit(GameContext, company.company.Id);
 
-            Profitability.text = Visuals.DescribeValueWithText(profit, "$", "$", "");
-            Profitability.GetComponent<Hint>().SetHint(
-                profit > 0 ?
-                Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
-                Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
-                );
+            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, GameContext);
+            var shareChange = 1;
+
+            Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
+            //Profitability.GetComponent<Hint>().SetHint(
+            //    profit > 0 ?
+            //    Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
+            //    Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
+            //    );
         }
 
         var financing = Economy.GetMarketingFinancing(company);
         AggressiveMarketing.SetActive(financing == Products.GetMaxFinancing);
+    }
+
+    string GetProfitDescription()
+    {
+        var profit = Economy.GetProfit(GameContext, company.company.Id);
+
+        return profit > 0 ?
+            Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
+            Visuals.Negative($"This company loses {Format.Money(-profit)} each month!");
     }
 
     Color GetMarketRelevanceColor()
@@ -133,7 +145,13 @@ public class CompanyViewOnMap : View
         var brand = (int)company.branding.BrandPower;
         hint.AppendLine($"Brand: {brand}");
 
-        var posTextual = Markets.GetCompanyPositioning(company, GameContext);
+        hint.AppendLine();
+        hint.AppendLine();
+
+        var profitDescription = GetProfitDescription();
+        hint.AppendLine(profitDescription);
+
+        //var posTextual = Markets.GetCompanyPositioning(company, GameContext);
         //hint.AppendLine($"\nPositioning: {posTextual}");
 
         ////var expertise = CompanyUtils.GetCompanyExpertise(company);
