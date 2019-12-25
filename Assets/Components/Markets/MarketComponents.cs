@@ -34,9 +34,6 @@ public class NicheBaseProfileComponent : IComponent
 }
 
 [Game]
-public class AggressiveMarketingComponent: IComponent {}
-
-[Game]
 public class ProductPositioningComponent : IComponent
 {
     public int Positioning;
