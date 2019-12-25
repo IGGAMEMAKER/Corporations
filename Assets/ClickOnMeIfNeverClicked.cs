@@ -1,4 +1,4 @@
-﻿using Assets.Utils.Tutorial;
+﻿using Assets.Utils;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
