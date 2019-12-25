@@ -89,8 +89,8 @@ public class CompanyViewOnMap : View
         var profit = Economy.GetProfit(GameContext, company.company.Id);
 
         return profit > 0 ?
-            Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
-            Visuals.Negative($"This company loses {Format.Money(-profit)} each month!");
+            Visuals.Positive($"Profit: +{Format.Money(profit)}") :
+            Visuals.Negative($"Loss: {Format.Money(-profit)}");
     }
 
     Color GetMarketRelevanceColor()

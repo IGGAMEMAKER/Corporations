@@ -87,11 +87,13 @@ namespace Assets.Utils
             var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);
             var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
 
+            var isDynamic = profile.NicheSpeed < NicheSpeed.Year;
+
             var isTopMarket = profile.AudienceSize == AudienceSize.Global; // GetMarketPotentialRating(niche) > 3;
 
             //var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
 
-            return isPerspective && isCheapToMaintain && !isTopMarket;
+            return isPerspective && isCheapToMaintain && isDynamic && !isTopMarket;
         }
     }
 }
