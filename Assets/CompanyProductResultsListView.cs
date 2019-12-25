@@ -4,7 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
+public struct ProductCompanyResult
+{
+    public long clientChange;
+    public float MarketShareChange;
+    public ConceptStatus ConceptStatus;
+    public int CompanyId;
+}
 
 public class CompanyProductResultsListView : ListView
 {

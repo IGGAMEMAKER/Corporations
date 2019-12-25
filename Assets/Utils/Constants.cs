@@ -20,10 +20,10 @@
 
     public const int INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
 
-    public const long CORPORATION_REQUIREMENTS_COMPANY_COST = 100000000;
+    internal const long CORPORATION_REQUIREMENTS_COMPANY_COST = 100000000;
 
-    public const long IPO_REQUIREMENTS_COMPANY_COST = CORPORATION_REQUIREMENTS_COMPANY_COST * 5;
-    public const long IPO_REQUIREMENTS_COMPANY_PROFIT = 10000000;
+    internal const long IPO_REQUIREMENTS_COMPANY_COST = CORPORATION_REQUIREMENTS_COMPANY_COST * 5;
+    internal const long IPO_REQUIREMENTS_COMPANY_PROFIT = 10000000;
 
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST = 20;
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH = 5;
@@ -51,14 +51,14 @@
     public static int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
-    public static int RELEASE_BRAND_POWER_GAIN = 25;
-    public static int INNOVATION_BRAND_POWER_GAIN = 15;
-    public const int CORPORATE_CULTURE_CHANGES_DURATION = 180;
+    internal static int RELEASE_BRAND_POWER_GAIN = 25;
+    internal static int INNOVATION_BRAND_POWER_GAIN = 15;
+    internal const int CORPORATE_CULTURE_CHANGES_DURATION = 180;
 
     //public static int START_YEAR = 1991;
     public const int START_YEAR = 2000; // 2000
-    public const long COMPANY_DESIRE_TO_SELL_NO = 0;
-    public const long COMPANY_DESIRE_TO_SELL_YES = 1;
+    internal const long COMPANY_DESIRE_TO_SELL_NO = 0;
+    internal const long COMPANY_DESIRE_TO_SELL_YES = 1;
 
     public const float CLIENT_GAIN_MODIFIER_MIN = 1f;
     public const float CLIENT_GAIN_MODIFIER_MAX = 1.5f;

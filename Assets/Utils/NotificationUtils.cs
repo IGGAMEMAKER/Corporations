@@ -64,7 +64,7 @@ namespace Assets.Utils
         /// Popups
         /// 
 
-        public static void AddPopup(GameContext gameContext, PopupMessage popup)
+        internal static void AddPopup(GameContext gameContext, PopupMessage popup)
         {
             var container = GetPopupContainer(gameContext);
             var messages = container.popup.PopupMessages;
@@ -75,7 +75,7 @@ namespace Assets.Utils
             ScreenUtils.TriggerScreenUpdate(gameContext);
         }
 
-        public static void ClosePopup(GameContext gameContext)
+        internal static void ClosePopup(GameContext gameContext)
         {
             if (!IsHasActivePopups(gameContext))
                 return;

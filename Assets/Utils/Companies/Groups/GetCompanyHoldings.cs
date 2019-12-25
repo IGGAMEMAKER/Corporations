@@ -5,13 +5,6 @@ using System.Linq;
 
 namespace Assets.Utils
 {
-    public struct ProductCompanyResult
-    {
-        public long clientChange;
-        public float MarketShareChange;
-        public ConceptStatus ConceptStatus;
-        public int CompanyId;
-    }
     public static partial class Companies
     {
         public static GameEntity[] GetDaughterCompaniesRecursively(GameContext context, int companyId)
