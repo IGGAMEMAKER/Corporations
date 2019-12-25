@@ -26,13 +26,13 @@ namespace Assets.Utils
             // upgrade by default
             var upgrade = 1;
 
-            if (IsWillInnovate(product, gameContext))
-            {
+            //if (IsWillInnovate(product, gameContext))
+            //{
                 var chance = GetInnovationChance(product, gameContext);
 
                 if (Random.Range(0, 100) < chance)
                     upgrade = 2;
-            }
+            //}
 
             product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
         }
