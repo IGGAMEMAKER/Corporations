@@ -88,33 +88,6 @@ public class CooldownContainerComponent: IComponent
     public Dictionary<string, Cooldown> Cooldowns;
 }
 
-public enum TutorialFunctionality
-{
-    MarketingMenu,
-    CompetitorView,
-    PossibleInvestors,
-    LinkToProjectViewInInvestmentRounds,
-    FirstAdCampaign,
-
-    GoalFirstUsers,
-    GoalPrototype,
-
-    GoalBecomeMarketFit,
-    GoalRelease,
-
-    GoalBecomeProfitable,
-
-    IPO,
-
-    NeverShow,
-
-    CompletedFirstGoal,
-
-    ClickOnRaiseMoneyLink,
-    ClickOnDevelopmentLink,
-    ClickOnGroupLink,
-}
-
 [Game, Event(EventTarget.Self)]
 public class TutorialComponent : IComponent
 {

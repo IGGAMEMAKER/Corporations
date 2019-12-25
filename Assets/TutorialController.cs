@@ -1,5 +1,34 @@
-﻿using Assets.Utils;
+﻿using Assets.Utils.Tutorial;
 using UnityEngine;
+
+
+public enum TutorialFunctionality
+{
+    MarketingMenu,
+    CompetitorView,
+    PossibleInvestors,
+    LinkToProjectViewInInvestmentRounds,
+    FirstAdCampaign,
+
+    GoalFirstUsers,
+    GoalPrototype,
+
+    GoalBecomeMarketFit,
+    GoalRelease,
+
+    GoalBecomeProfitable,
+
+    IPO,
+
+    NeverShow,
+
+    CompletedFirstGoal,
+    
+    ClickOnRaiseMoneyLink,
+    ClickOnDevelopmentLink,
+    ClickOnGroupLink,
+}
+
 
 public class TutorialController : View
 {
