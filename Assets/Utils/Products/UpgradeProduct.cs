@@ -63,8 +63,11 @@ namespace Assets.Utils
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
             {
                 // Companies.IsRelatedToPlayer(gameContext, product) && 
-                if (Companies.GetDaughterCompaniesAmount(player, gameContext) < 3)
+                // Companies.GetDaughterCompaniesAmount(player, gameContext) < 3
+                if (Markets.GetCompetitorsAmount(product, gameContext) > 0)
+                {
                     NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
+                }
             }
         }
 
