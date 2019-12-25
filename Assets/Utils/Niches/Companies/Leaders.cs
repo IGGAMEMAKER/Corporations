@@ -25,6 +25,18 @@ namespace Assets.Utils
                 c => c.company.Id == startup.company.Id);
         }
 
+        public static long GetMarketROI(GameContext gameContext, GameEntity niche)
+        {
+            var profitLeader = GetMostProfitableCompanyOnMarket(gameContext, niche);
+
+            var profit = profitLeader == null ? 0 : Economy.GetProfit(profitLeader, gameContext);
+            var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(gameContext, profitLeader);
+
+            var ROI = profitLeader == null ? 0 : (profit * 100 / biggestMaintenance);
+
+            return ROI;
+        }
+        
         // Leaders
         public static GameEntity GetMostProfitableCompanyOnMarket(GameContext context, GameEntity niche)
         {

@@ -76,7 +76,7 @@ public class MarketCompetitorPreview : View
         Concept.text = "" + brand + "  " + Visuals.PositiveOrNegativeMinified(brandChange);
 
         var sumOfBrandPowers = MarketingUtils.GetSumOfBrandPowers(e.product.Niche, GameContext);
-        Concept.color = Visuals.GetGradientColor(-1, 100, brand);
+        //Concept.color = Visuals.GetGradientColor(-1, 100, brand);
 
         //var change = MarketingUtils.GetMonthlyBrandPowerChange(e, GameContext)
         //    .RenderTitle();

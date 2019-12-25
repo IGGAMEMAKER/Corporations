@@ -28,7 +28,7 @@ namespace Assets.Utils
             var niche = Markets.GetNiche(gameContext, company);
             var baseIterationTime = GetBaseIterationTime(niche);
 
-            var innovationSpeed = 50 * Random.Range(10, 13) / 10;
+            var innovationSpeed = 100 * Random.Range(10, 13) / 10;
 
             var innovationPenalty   = IsWillInnovate(company, gameContext) ? innovationSpeed : 0;
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);

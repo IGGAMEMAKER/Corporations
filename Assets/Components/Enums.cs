@@ -57,6 +57,7 @@ public enum NicheType
     ECom_OnlineTaxi,
     ECom_BookingTransportTickets, // rzd, aero
     ECom_BookingHotels, // hotels
+    ECom_BookingAppartments, // airbnb
     ECom_Tourism,
     ECom_EventTickets, // concerts
 

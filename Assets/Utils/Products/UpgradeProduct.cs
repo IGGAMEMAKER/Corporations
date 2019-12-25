@@ -30,9 +30,8 @@ namespace Assets.Utils
             {
                 var chance = GetInnovationChance(product, gameContext);
 
-                // or not, if unsuccessful
-                if (Random.Range(0, 100) > chance)
-                    upgrade = 0;
+                if (Random.Range(0, 100) < chance)
+                    upgrade = 2;
             }
 
             product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);

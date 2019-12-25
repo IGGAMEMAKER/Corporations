@@ -60,7 +60,9 @@ namespace Assets.Utils
 
             var basePrice = GetBaseProductPrice(c, gameContext);
 
-            return basePrice * segmentPriceModifier;
+            var concept = Products.GetProductLevel(c) * 1.05f;
+
+            return basePrice * segmentPriceModifier * concept;
         }
 
         public static float GetBaseProductPrice(GameEntity e, GameContext context)

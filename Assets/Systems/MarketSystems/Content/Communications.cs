@@ -27,7 +27,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.Com_Dating, 2000, 2020, GetPopularUsefulAppProfile);
 
         SetMarkets(NicheType.Com_Messenger, 2000, 2030, messenger);
-        SetMarkets(NicheType.Com_SocialNetwork, 1999, 2025, socialNetworks);
+        SetMarkets(NicheType.Com_SocialNetwork, 2003, 2025, socialNetworks);
 
 
 

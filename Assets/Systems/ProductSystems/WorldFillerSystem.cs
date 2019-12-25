@@ -1,4 +1,5 @@
 ﻿using Assets.Utils;
+using Assets.Utils.Formatting;
 using Entitas;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         var skipMonths = skipDays / 30;
 
         var date = ScheduleUtils.GetCurrentDate(GameContext);
+        List<NicheType> activatedMarkets = new List<NicheType>();
 
         Debug.Log("Mocky simulation: simulate market development");
 
@@ -54,11 +56,17 @@ public partial class WorldFillerSystem : IInitializeSystem
 
             for (var i = 0; i < amountOfCompanies; i++)
                 Markets.FillMarket(m, GameContext);
+
+            var costs = m.nicheCosts;
+            var isMockup = costs.AcquisitionCost == 1 && costs.Audience == 1 && costs.BaseIncome == 1 && costs.TechCost == 1;
+            if (!isMockup)
+                activatedMarkets.Add(m.niche.NicheType);
         }
 
         Debug.Log("Mocky simulation: simulate product development");
         // simulate products
 
+        
         var products = Companies.GetProductCompanies(GameContext);
         foreach (var p in products)
         {
@@ -123,6 +131,25 @@ public partial class WorldFillerSystem : IInitializeSystem
 
         Debug.Log("Pre 2000 markets: " + pre2000markets);
         Debug.Log("Post 2000 markets: " + post2000markets);
+
+        List<NicheType> list = new List<NicheType>();
+        List<NicheType> notActivated = new List<NicheType>();
+
+
+        foreach (NicheType n in (NicheType[])Enum.GetValues(typeof(NicheType)))
+        {
+            if (EnumUtils.GetFormattedNicheName(n) == n.ToString())
+                list.Add(n);
+
+            if (!activatedMarkets.Contains(n))
+                notActivated.Add(n);
+        }
+
+        if (list.Count != 0)
+            Debug.Log(list.Count + " markets need to be described: " + string.Join(",", list));
+
+        if (notActivated.Count != 0)
+            Debug.Log(notActivated.Count + " markets need to be activated: " + string.Join(",", notActivated));
     }
 
     void Simulate()
@@ -137,7 +164,7 @@ public partial class WorldFillerSystem : IInitializeSystem
         Debug.Log("Simulate Development");
         var skipDays = (Constants.START_YEAR - 1991) * 360;
 
-        Debug.Log("Skip days = " + skipDays);
+        //Debug.Log("Skip days = " + skipDays);
         //ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
 
 

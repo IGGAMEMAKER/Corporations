@@ -45,6 +45,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.ECom_BookingTransportTickets,   1998, 2030, booking);
         SetMarkets(NicheType.ECom_BookingHotels,          1998, 2030, booking);
         SetMarkets(NicheType.ECom_Tourism,          1998, 2030, booking);
+        SetMarkets(NicheType.ECom_BookingAppartments,2008, 2050, booking);
 
         SetMarkets(NicheType.ECom_EventTickets,     2000, 2030, booking);
     }

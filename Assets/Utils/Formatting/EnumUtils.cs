@@ -42,15 +42,22 @@ namespace Assets.Utils.Formatting
                 case NicheType.Tech_Browser: return "Web browsers";
                 case NicheType.Tech_MobileOS: return "Mobile Operational Systems";
 
+                // entertainment
                 case NicheType.Ent_Casino: return "Online Casinos";
                 case NicheType.Ent_Betting: return "Online Bettings";
                 case NicheType.Ent_Lottery: return "Online Lottery";
                 case NicheType.Ent_Poker: return "Online Poker";
+
                 case NicheType.Ent_MMOs: return "MMO games";
                 case NicheType.Ent_FreeToPlay: return "F2P Games";
+                case NicheType.Ent_SinglePlayer: return "Single player games";
+
+
+                case NicheType.Ent_VideoHosting: return "Video hosting";
                 case NicheType.Ent_StreamingService: return "Streaming Services";
                 case NicheType.Ent_TVStreamingService: return "TV Streaming Services";
 
+                // e-commerce
                 case NicheType.ECom_Exchanging: return "Money Exchange";
                 case NicheType.ECom_OnlineBanking: return "Online Banking";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
@@ -59,9 +66,16 @@ namespace Assets.Utils.Formatting
                 case NicheType.ECom_Tourism: return "Booking Tours";
                 case NicheType.ECom_BookingHotels: return "Booking hotels";
                 case NicheType.ECom_BookingTransportTickets: return "Online airplane/train booking";
+                case NicheType.ECom_BookingAppartments: return "Rent appartments";
+
                 case NicheType.ECom_OnlineTaxi: return "Online taxi";
                 case NicheType.ECom_Marketplace: return "Marketplaces";
+                case NicheType.ECom_Blockchain: return "Blockchain";
+                case NicheType.ECom_TradingBot: return "Trading bot";
 
+
+
+                // quality of life
                 case NicheType.Qol_3DGraphicalEditor: return "3D Editing tools";
                 case NicheType.Qol_AdBlocker: return "Advert blocking tools";
                 case NicheType.Qol_Antivirus: return "Antiviruses";
@@ -76,6 +90,10 @@ namespace Assets.Utils.Formatting
                 case NicheType.Qol_RSSReader: return "RSS readers";
                 case NicheType.Qol_VideoEditingTool: return "Video editing tool";
                 case NicheType.Qol_VideoPlayers: return "Video players";
+
+                case NicheType.Qol_MusicSearch: return "Music search";
+                case NicheType.Qol_Maps: return "Maps";
+                case NicheType.Qol_OnlineGenealogy: return "Online genealogy";
 
 
                 default: return niche.ToString();

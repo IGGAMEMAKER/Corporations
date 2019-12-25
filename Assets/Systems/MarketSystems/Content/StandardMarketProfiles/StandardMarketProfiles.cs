@@ -33,7 +33,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         AppComplexity = AppComplexity.Average,
 
-        NicheSpeed = NicheSpeed.ThreeYears,
+        NicheSpeed = NicheSpeed.Year,
     };
 
     MarketProfile GetSmallUtilityForOneDevProfile => new MarketProfile(AudienceSize.SmallUtil, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);

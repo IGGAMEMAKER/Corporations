@@ -105,6 +105,9 @@ public class NicheTableListView : ListView
             .Where(IsSuitableByCapitalSize)
             .Where(IsConnectedToOurMainBusiness)
             .Where(HasCompanies)
+
+            .OrderByDescending(n => Markets.GetMarketROI(GameContext, n))
+
             .ToArray()
             :
             null;

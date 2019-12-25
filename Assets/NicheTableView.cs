@@ -56,10 +56,8 @@ public class NicheTableView : View, IPointerEnterHandler
 
         RenderTimeToMarket();
 
-        //var startCapital = Markets.GetStartCapital(nicheType, GameContext);
         var sumOfBrandPowers = (int)MarketingUtils.GetSumOfBrandPowers(niche, GameContext);
-        StartCapital.text = sumOfBrandPowers.ToString(); // Format.MinifyMoney(startCapital);
-        //StartCapital.color = Visuals.GetColorPositiveOrNegative(Companies.IsEnoughResources(MyCompany, startCapital));
+        StartCapital.text = sumOfBrandPowers.ToString();
 
         // 
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
@@ -68,18 +66,11 @@ public class NicheTableView : View, IPointerEnterHandler
         var income              = profitLeader == null ? 0 : Economy.GetCompanyIncome(profitLeader, GameContext);
         var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(GameContext, profitLeader);
 
-        //// maintenance
-        //Maintenance.text = Format.MinifyMoney(biggestMaintenance);
-
         // maintenance
         Maintenance.text = Visuals.Positive(Format.MinifyMoney(income));
 
-        //var myProfit = Economy.GetProfit(MyCompany, GameContext);
-        //Maintenance.color = Visuals.GetColorPositiveOrNegative(myProfit - biggestMaintenance);
-
         // income
-
-        var ROI = profitLeader == null ? 0 : (profit * 100 / biggestMaintenance);
+        var ROI = Markets.GetMarketROI(GameContext, niche);
         
         NicheSize.text = profitLeader == null ? "???" : ROI + "%";
         NicheSize.color = Visuals.GetColorPositiveOrNegative(profit);
@@ -93,12 +84,12 @@ public class NicheTableView : View, IPointerEnterHandler
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
 
-        var colorName = hasCompany || isInterestingMarket ?
+        var marketColorName = hasCompany || isInterestingMarket ?
             VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY
             :
             VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
-        NicheName.color = Visuals.GetColorFromString(colorName);
+        NicheName.color = Visuals.GetColorFromString(marketColorName);
     }
 
     void RenderTimeToMarket()
