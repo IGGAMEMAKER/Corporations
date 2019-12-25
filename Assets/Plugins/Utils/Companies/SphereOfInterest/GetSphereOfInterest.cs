@@ -76,12 +76,12 @@ namespace Assets.Utils
         }
 
 
-        internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        public static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             return GetDaughterCompaniesOnMarket(group, nicheType, gameContext).Count() > 0;
         }
 
-        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
+        public static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
         {
             return Markets.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
         }

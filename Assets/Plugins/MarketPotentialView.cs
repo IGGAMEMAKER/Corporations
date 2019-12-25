@@ -62,9 +62,8 @@ public class MarketPotentialView : View
         PotentialAudienceSize.text = Format.MinifyToInteger(Markets.GetMarketAudiencePotential(niche)) + " users";
 
         var risk = Markets.GetMarketDemandRisk(GameContext, nicheType);
-        string riskText = Markets.ShowRiskStatus(risk).ToString();
 
-        RiskLabel.text = $"{risk}% ({riskText})";
+        RiskLabel.text = $"{risk}% (???)";
 
         var demand = MarketingUtils.GetClientFlow(GameContext, nicheType); // * MarketingUtils.GetMarketingFinancingAudienceReachModifier(MarketingFinancing.High) * 30;
         Demand.text = Format.MinifyToInteger(demand) + " monthly";

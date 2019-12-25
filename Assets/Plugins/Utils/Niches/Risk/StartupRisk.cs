@@ -49,16 +49,5 @@
 
             return GetMarketDemandRisk(gameContext, c.product.Niche);
         }
-
-        public static Risk ShowRiskStatus(long risk)
-        {
-            if (risk < 10)
-                return Risk.Guaranteed;
-
-            if (risk < 50)
-                return Risk.Risky;
-
-            return Risk.TooRisky;
-        }
     }
 }
