@@ -73,15 +73,6 @@ public class CompanyResourceComponent : IComponent
     public TeamResource Resources;
 }
 
-public class Team
-{
-    public int Programmers;
-    public int Managers;
-    public int Marketers;
-
-    public int Morale;
-}
-
 public enum TeamStatus
 {
     Solo,
@@ -153,54 +144,6 @@ public class FollowComponent : IComponent
     public List<int> Companies;
     public List<int> Humans;
 }
-
-public class CompanyPhaseComponent : IComponent
-{
-    public bool becameMarketFit;
-    public bool becameProfitable;
-    public bool startedCorporativeChanges;
-    public bool raisedInvestments;
-    public bool IPOed;
-}
-
-public struct MetricsInfo
-{
-    public int Date;
-    public long Income;
-    public long Valuation;
-
-    // balance change
-    public long Profit;
-    public long AudienceSize;
-}
-
-public struct ReportData
-{
-    public long Cost;
-    public int ShareholderId;
-    public int position;
-}
-
-public struct AnnualReport
-{
-    public List<ReportData> People;
-    public List<ReportData> Groups;
-    public List<ReportData> Products;
-    public int Date;
-}
-
-
-[Game]
-public class MetricsHistoryComponent : IComponent
-{
-    public List<MetricsInfo> Metrics;
-}
-
-public class ReportsComponent : IComponent
-{
-    public List<AnnualReport> AnnualReports;
-}
-
 
 
 public class AcquisitionConditions
