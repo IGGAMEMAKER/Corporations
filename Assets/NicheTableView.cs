@@ -43,7 +43,7 @@ public class NicheTableView : View, IPointerEnterHandler
 
         var nicheType = niche.niche.NicheType;
 
-        GetComponent<LinkToNiche>().SetNiche(nicheType);
+        GetComponent<LinkToNicheInfo>().SetNiche(nicheType);
 
         RenderMarketName(nicheType);
 

@@ -64,7 +64,7 @@ namespace Assets.Utils
             {
                 // Companies.IsRelatedToPlayer(gameContext, product) && 
                 // Companies.GetDaughterCompaniesAmount(player, gameContext) < 3
-                if (Markets.GetCompetitorsAmount(product, gameContext) > 0)
+                if (Markets.GetCompetitorsAmount(product, gameContext) > 1)
                 {
                     NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
                 }
