@@ -55,8 +55,9 @@ public class CompanyViewOnMap : View
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         var position = Markets.GetPositionOnMarket(GameContext, company);
-
         PositionOnMarket.text = $"#{position + 1}";
+        var level = Products.GetProductLevel(company);
+        PositionOnMarket.text = $"{level}LVL";
 
 
         Dumping.SetCompanyId(c.company.Id);
