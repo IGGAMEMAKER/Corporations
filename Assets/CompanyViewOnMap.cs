@@ -68,8 +68,11 @@ public class CompanyViewOnMap : View
 
             var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, GameContext);
             var shareChange = 1;
+            bool isGrowing = Companies.IsCompanyGrowing(company, GameContext);
 
-            Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
+            //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
+            Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
+            Profitability.text = Visuals.Positive(marketShare + "%");
             //Profitability.GetComponent<Hint>().SetHint(
             //    profit > 0 ?
             //    Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :

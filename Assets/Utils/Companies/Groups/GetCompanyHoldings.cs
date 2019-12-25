@@ -140,6 +140,11 @@ namespace Assets.Utils
         }
 
         // changes
+        public static bool IsCompanyGrowing(GameEntity product, GameContext gameContext)
+        {
+            return GetProductCompanyResults(product, gameContext).MarketShareChange > 0;
+        }
+
         public static ProductCompanyResult GetProductCompanyResults(GameEntity product, GameContext gameContext)
         {
             var competitors = Markets.GetProductsOnMarket(gameContext, product);
@@ -172,17 +177,19 @@ namespace Assets.Utils
                 }
             }
 
-            var prevShare = prevCompanyClients * 100 / (previousMarketSize + 1);
-            var Share = currCompanyClients * 100 / (currentMarketSize + 1);
+            var prevShare = prevCompanyClients * 100d / (previousMarketSize + 1);
+            var Share = currCompanyClients * 100d / (currentMarketSize + 1);
 
             return new ProductCompanyResult
             {
                 clientChange = currCompanyClients - prevCompanyClients,
-                MarketShareChange = Share - prevShare,
+                MarketShareChange = (float)(Share - prevShare),
                 ConceptStatus = Products.GetConceptStatus(product, gameContext),
                 CompanyId = product.company.Id
             };
         }
+
+
     }
 
     public class CompanyHolding
