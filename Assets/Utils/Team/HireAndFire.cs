@@ -16,6 +16,21 @@ namespace Assets.Core
             HumanUtils.SetSkills(worker, workerRole);
         }
 
+        public static GameEntity GetWorkerByWorkerRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
+        {
+            var team = company.team.Workers;
+
+            GameEntity human = null;
+
+            foreach (var w in team)
+            {
+                if (w.Value == workerRole)
+                    human = HumanUtils.GetHumanById(gameContext, w.Key);
+            }
+
+            return human;
+        }
+
         public static void HireWorker(GameEntity company, GameEntity worker)
         {
             var role = worker.worker.WorkerRole;
