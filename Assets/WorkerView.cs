@@ -8,8 +8,17 @@
     {
         this.humanId = humanId;
 
-        GetComponent<LinkToHuman>().SetHumanId(humanId);
+        var link = GetComponent<LinkToHuman>();
+        if (humanId != -1)
+        {
+            link.SetHumanId(humanId);
+            link.enabled = true;
 
-        HumanPreview.SetEntity(humanId);
+            HumanPreview.SetEntity(humanId);
+        }
+        else
+        {
+            link.enabled = false;
+        }
     }
 }
