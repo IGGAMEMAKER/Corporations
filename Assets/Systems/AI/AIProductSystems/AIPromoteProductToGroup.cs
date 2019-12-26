@@ -19,7 +19,7 @@ public partial class AIPromoteProductToGroupSystem : OnMonthChange
         var isDomineering = Markets.GetPositionOnMarket(gameContext, product) == 0;
         var isProfitable = Economy.IsProfitable(gameContext, product);
 
-        var canGrow = isDomineering && isProfitable; // ;
+        var canGrow = isDomineering && isProfitable;
 
         if (canGrow && wantsToGrow)
             Companies.PromoteProductCompanyToGroup(gameContext, product.company.Id);
