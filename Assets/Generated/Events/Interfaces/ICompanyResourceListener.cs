@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface ICompanyResourceListener {
-    void OnCompanyResource(GameEntity entity, Assets.Classes.TeamResource resources);
+    void OnCompanyResource(GameEntity entity, Assets.Utils.TeamResource resources);
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Classes
+namespace Assets.Utils
 {
     public struct TeamResource
     {

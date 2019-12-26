@@ -70,7 +70,5 @@ public class MarketCompetitorPreview : View
         Clients.text = "+" + Format.Minify(newClients) + $" users ({brand} brand)";
 
         Concept.text = "" + brand + "  " + Visuals.PositiveOrNegativeMinified(brandChange);
-
-        var sumOfBrandPowers = MarketingUtils.GetSumOfBrandPowers(e.product.Niche, GameContext);
     }
 }

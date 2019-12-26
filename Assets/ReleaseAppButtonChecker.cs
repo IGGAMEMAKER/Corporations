@@ -1,4 +1,4 @@
-﻿using Assets.Classes;
+﻿using Assets.Utils;
 
 public class ReleaseAppButtonChecker : ResourceChecker
 {

@@ -35,7 +35,7 @@
                 investorType = InvestorType.Founder;
 
                 if (!e.hasCompanyResource)
-                    e.AddCompanyResource(new Classes.TeamResource(money));
+                    e.AddCompanyResource(new Utils.TeamResource(money));
             }
 
             e.AddShareholder(investorId, name, investorType);

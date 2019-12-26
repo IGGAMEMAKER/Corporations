@@ -26,7 +26,7 @@ public class StartCampaignButton : ButtonController
 
         var startCapital = Markets.GetStartCapital(NicheType, GameContext);
 
-        Companies.SetResources(company, new Assets.Classes.TeamResource(startCapital));
+        Companies.SetResources(company, new Assets.Utils.TeamResource(startCapital));
 
         var niche = Markets.GetNiche(GameContext, NicheType);
         //niche.AddResearch(1);
