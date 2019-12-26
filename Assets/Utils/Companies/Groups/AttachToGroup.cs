@@ -64,8 +64,8 @@ namespace Assets.Utils
 
             string name = group.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
 
-            if (GetCompanyByName(gameContext, name) != null)
-                name += " " + Markets.GetCompetitorsAmount(nicheType, gameContext);
+            //if (GetCompanyByName(gameContext, name) != null)
+            //    name += " " + Markets.GetCompetitorsAmount(nicheType, gameContext);
 
             var c = GenerateProductCompany(gameContext, name, nicheType);
 

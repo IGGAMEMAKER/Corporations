@@ -1,4 +1,6 @@
-﻿namespace Assets.Utils
+﻿using Assets.Utils.Formatting;
+
+namespace Assets.Utils
 {
     partial class Companies
     {
@@ -15,7 +17,8 @@
 
             var name = product.company.Name;
 
-            int companyGroupId = GenerateCompanyGroup(context, name + " Group", companyId).company.Id;
+            var futureName = EnumUtils.GetShortNicheName(product.product.Niche);
+            int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
 
