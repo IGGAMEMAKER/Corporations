@@ -1,7 +1,7 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Core.Formatting;
 using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     partial class Economy
     {

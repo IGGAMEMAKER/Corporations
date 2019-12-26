@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     partial class Companies
     {

@@ -1,4 +1,4 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Core.Formatting;
 using UnityEngine.UI;
 
 public class SetProductNicheLink : View

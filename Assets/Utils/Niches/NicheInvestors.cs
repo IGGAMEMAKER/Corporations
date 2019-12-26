@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using System;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Markets
     {

@@ -1,5 +1,5 @@
-﻿using Assets.Utils;
-using Assets.Utils.Formatting;
+﻿using Assets.Core;
+using Assets.Core.Formatting;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,4 +1,4 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Core.Formatting;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

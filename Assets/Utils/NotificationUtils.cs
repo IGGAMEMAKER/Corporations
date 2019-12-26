@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static class NotificationUtils
     {

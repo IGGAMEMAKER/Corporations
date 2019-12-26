@@ -1,7 +1,7 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System.Collections.Generic;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     partial class Companies
     {

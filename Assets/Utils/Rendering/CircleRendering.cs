@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static class Rendering
     {

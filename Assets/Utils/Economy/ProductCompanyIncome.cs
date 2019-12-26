@@ -1,8 +1,8 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Core.Formatting;
 using System;
 using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     static partial class Economy
     {

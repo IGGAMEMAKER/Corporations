@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 
 // TODO REMOVE
 public class MarketSituationDescriptionView : UpgradedParameterView

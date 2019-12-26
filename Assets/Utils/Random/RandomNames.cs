@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static class RandomUtils
     {

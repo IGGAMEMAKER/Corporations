@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System;
 
 public abstract class IndustryNavigator: ButtonController

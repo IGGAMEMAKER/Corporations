@@ -1,4 +1,4 @@
-﻿using Assets.Utils.Tutorial;
+﻿using Assets.Core.Tutorial;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

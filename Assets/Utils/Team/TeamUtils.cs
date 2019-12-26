@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 // TODO REMOVE THIS FILE
 public enum WorkerRole {
     // base
@@ -24,7 +24,7 @@ public enum WorkerRole {
     Universal,
 }
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class TeamUtils
     {

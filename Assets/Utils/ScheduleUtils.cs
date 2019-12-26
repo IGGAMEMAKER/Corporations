@@ -1,7 +1,7 @@
 ﻿using System;
 using Entitas;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static class ScheduleUtils
     {

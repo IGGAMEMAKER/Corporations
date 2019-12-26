@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Utils;
+using Assets.Core;
 using Entitas;
 
 public class ScheduleCooldownProcessingSystem : OnDateChange

@@ -11,14 +11,14 @@ public partial class GameEntity {
     public CompanyResourceComponent companyResource { get { return (CompanyResourceComponent)GetComponent(GameComponentsLookup.CompanyResource); } }
     public bool hasCompanyResource { get { return HasComponent(GameComponentsLookup.CompanyResource); } }
 
-    public void AddCompanyResource(Assets.Utils.TeamResource newResources) {
+    public void AddCompanyResource(Assets.Core.TeamResource newResources) {
         var index = GameComponentsLookup.CompanyResource;
         var component = (CompanyResourceComponent)CreateComponent(index, typeof(CompanyResourceComponent));
         component.Resources = newResources;
         AddComponent(index, component);
     }
 
-    public void ReplaceCompanyResource(Assets.Utils.TeamResource newResources) {
+    public void ReplaceCompanyResource(Assets.Core.TeamResource newResources) {
         var index = GameComponentsLookup.CompanyResource;
         var component = (CompanyResourceComponent)CreateComponent(index, typeof(CompanyResourceComponent));
         component.Resources = newResources;

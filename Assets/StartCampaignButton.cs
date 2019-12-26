@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +26,7 @@ public class StartCampaignButton : ButtonController
 
         var startCapital = Markets.GetStartCapital(NicheType, GameContext);
 
-        Companies.SetResources(company, new Assets.Utils.TeamResource(startCapital));
+        Companies.SetResources(company, new Assets.Core.TeamResource(startCapital));
 
         var niche = Markets.GetNiche(GameContext, NicheType);
         //niche.AddResearch(1);

@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 
 public class ResearchCompanyController : ButtonController
 {

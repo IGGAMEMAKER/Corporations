@@ -1,5 +1,5 @@
-﻿using Assets.Utils;
-using Assets.Utils.Tutorial;
+﻿using Assets.Core;
+using Assets.Core.Tutorial;
 using UnityEngine;
 using UnityEngine.UI;
 

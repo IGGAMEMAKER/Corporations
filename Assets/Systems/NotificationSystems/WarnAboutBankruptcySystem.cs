@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Utils;
+using Assets.Core;
 using Entitas;
 
 public class WarnAboutBankruptcySystem : OnLastDayOfPeriod

@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using UnityEngine.UI;
 
 public class PossibleInvestor : View

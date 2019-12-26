@@ -1,4 +1,4 @@
-﻿namespace Assets.Utils
+﻿namespace Assets.Core
 {
     public static partial class Investments
     {
@@ -35,7 +35,7 @@
                 investorType = InvestorType.Founder;
 
                 if (!e.hasCompanyResource)
-                    e.AddCompanyResource(new Utils.TeamResource(money));
+                    e.AddCompanyResource(new Core.TeamResource(money));
             }
 
             e.AddShareholder(investorId, name, investorType);

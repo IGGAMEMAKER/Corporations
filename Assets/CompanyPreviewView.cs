@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Assets.Utils;
-using Assets.Utils.Formatting;
+using Assets.Core;
+using Assets.Core.Formatting;
 using UnityEngine;
 using UnityEngine.UI;
 

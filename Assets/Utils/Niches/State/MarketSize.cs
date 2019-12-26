@@ -1,11 +1,11 @@
-﻿using Assets.Utils.Formatting;
+﻿using Assets.Core.Formatting;
 using Entitas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Markets
     {

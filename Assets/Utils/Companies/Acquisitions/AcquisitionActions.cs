@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Companies
     {

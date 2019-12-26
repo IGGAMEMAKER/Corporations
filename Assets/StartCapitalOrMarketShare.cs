@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System.Linq;
 
 public class StartCapitalOrMarketShare : ParameterView

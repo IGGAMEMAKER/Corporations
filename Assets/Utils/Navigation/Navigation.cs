@@ -1,7 +1,7 @@
 ﻿using Entitas;
 using System.Collections.Generic;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class ScreenUtils
     {

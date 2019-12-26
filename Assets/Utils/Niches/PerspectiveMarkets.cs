@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Markets
     {

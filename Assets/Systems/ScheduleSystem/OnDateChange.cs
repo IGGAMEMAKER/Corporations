@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using Entitas;
 
 public abstract class OnDateChange : ReactiveSystem<GameEntity>

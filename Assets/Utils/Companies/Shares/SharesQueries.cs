@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     partial class Companies
     {

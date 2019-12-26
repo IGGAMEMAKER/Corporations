@@ -1,7 +1,7 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     static partial class Economy
     {

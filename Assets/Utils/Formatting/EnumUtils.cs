@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Utils.Formatting
+namespace Assets.Core.Formatting
 {
     public static class EnumUtils
     {

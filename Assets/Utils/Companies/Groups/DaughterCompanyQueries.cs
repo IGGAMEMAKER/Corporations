@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Companies
     {

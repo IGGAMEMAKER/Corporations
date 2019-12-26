@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 using System.Collections.Generic;
 
 public partial class AIPromoteProductToGroupSystem : OnMonthChange

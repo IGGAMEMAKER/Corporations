@@ -1,4 +1,4 @@
-﻿using Assets.Utils;
+﻿using Assets.Core;
 
 public enum ConceptStatus
 {
@@ -7,7 +7,7 @@ public enum ConceptStatus
     Outdated
 }
 
-namespace Assets.Utils
+namespace Assets.Core
 {
     public static partial class Products
     {

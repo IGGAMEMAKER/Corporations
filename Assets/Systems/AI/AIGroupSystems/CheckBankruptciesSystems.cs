@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Utils;
+using Assets.Core;
 using UnityEngine;
 
 public partial class CheckBankruptciesSystem : OnPeriodChange
