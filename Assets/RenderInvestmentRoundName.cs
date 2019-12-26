@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public class ShowInestmentRound : View
+public class RenderInvestmentRoundName : View
 {
     void OnEnable()
     {
