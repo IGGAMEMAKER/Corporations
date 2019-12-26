@@ -23,6 +23,11 @@ namespace Assets.Utils
         {
             var CEO = HumanUtils.GenerateHuman(context);
 
+
+            var level = UnityEngine.Random.Range(70, 90);
+
+            HumanUtils.SetTrait(CEO, TraitType.Ambitions, level);
+
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);
         }
 
@@ -84,7 +89,7 @@ namespace Assets.Utils
             var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
 
             AutoFillShareholders(gameContext, c, true);
-            SetFounderAmbitionDueToMarketSize(c, gameContext);
+            //SetFounderAmbitionDueToMarketSize(c, gameContext);
 
             return c;
         }
@@ -95,13 +100,11 @@ namespace Assets.Utils
             var rating = Markets.GetMarketPotentialRating(niche);
 
 
-            var rand = UnityEngine.Random.Range(1f, 2f);
+            var rand = UnityEngine.Random.Range(1f, 2f) * 5;
 
-            // 5...25      
-            var ambition = 65 + Mathf.Clamp(rating * 5 * rand, 0, 30);
+            // 5...25
+            var ambition = 65 + Mathf.Clamp(rating * rand, 0, 30);
             var CeoId = GetCEOId(company);
-
-            var currentAmbition = GetFounderAmbition(company, gameContext);
 
             var ceo = HumanUtils.GetHumanById(gameContext, CeoId);
 
