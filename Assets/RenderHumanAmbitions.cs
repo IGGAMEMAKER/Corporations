@@ -3,13 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderHumanAmbitions : UpgradedParameterView
+public class RenderHumanAmbitions : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
     public override string RenderValue()
     {
         var ambition = HumanUtils.GetFounderAmbition(GameContext, SelectedHuman.human.Id);
