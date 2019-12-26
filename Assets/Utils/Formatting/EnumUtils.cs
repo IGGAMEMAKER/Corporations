@@ -24,6 +24,82 @@ namespace Assets.Utils.Formatting
                 return name;
         }
 
+        public static string GetShortNicheName(NicheType niche)
+        {
+            switch (niche)
+            {
+                case NicheType.Com_Messenger: return "MES";
+                case NicheType.Com_SocialNetwork: return "SN";
+                case NicheType.Com_Blogs: return "BLG";
+                case NicheType.Com_Forums: return "FOR";
+                case NicheType.Com_Email: return "EML";
+                case NicheType.Com_Dating: return "DAT";
+
+
+                case NicheType.Tech_Clouds: return "CLO";
+                case NicheType.Tech_OSDesktop: return "OS";
+                case NicheType.Tech_SearchEngine: return "SER";
+                case NicheType.Tech_Browser: return "BRW";
+                case NicheType.Tech_MobileOS: return "MOS";
+
+                // entertainment
+                case NicheType.Ent_Casino: return "CAS";
+                case NicheType.Ent_Betting: return "BET";
+                case NicheType.Ent_Lottery: return "LOT";
+                case NicheType.Ent_Poker: return "POK";
+
+                case NicheType.Ent_MMOs: return "MMO";
+                case NicheType.Ent_FreeToPlay: return "F2P";
+                case NicheType.Ent_SinglePlayer: return "GAM";
+
+
+                case NicheType.Ent_VideoHosting: return "VH";
+                case NicheType.Ent_StreamingService: return "STR";
+                case NicheType.Ent_TVStreamingService: return "TV";
+
+                // e-commerce
+                case NicheType.ECom_Exchanging: return "EX$";
+                case NicheType.ECom_OnlineBanking: return "BNK";
+                case NicheType.ECom_PaymentSystem: return "PAY";
+
+                case NicheType.ECom_EventTickets: return "TKT";
+                case NicheType.ECom_Tourism: return "TOU";
+                case NicheType.ECom_BookingHotels: return "BUK";
+                case NicheType.ECom_BookingTransportTickets: return "TRS";
+                case NicheType.ECom_BookingAppartments: return "APA";
+
+                case NicheType.ECom_OnlineTaxi: return "TAX";
+                case NicheType.ECom_Marketplace: return "MKT";
+                case NicheType.ECom_Blockchain: return "BLC";
+                case NicheType.ECom_TradingBot: return "BOT";
+
+
+
+                // quality of life
+                case NicheType.Qol_3DGraphicalEditor: return "3DE";
+                case NicheType.Qol_AdBlocker: return "ADB";
+                case NicheType.Qol_Antivirus: return "AVR";
+                case NicheType.Qol_Archivers: return "ARC";
+                case NicheType.Qol_DiskFormattingUtils: return "FOR";
+                case NicheType.Qol_DocumentEditors: return "DOC";
+                case NicheType.Qol_Encyclopedia: return "ENC";
+                case NicheType.Qol_GraphicalEditor: return "2DE";
+                case NicheType.Qol_MusicPlayers: return "MP";
+                case NicheType.Qol_OnlineEducation: return "SCO";
+                case NicheType.Qol_PdfReader: return "PDF";
+                case NicheType.Qol_RSSReader: return "RSS";
+                case NicheType.Qol_VideoEditingTool: return "VET";
+                case NicheType.Qol_VideoPlayers: return "VP";
+
+                case NicheType.Qol_MusicSearch: return "MS";
+                case NicheType.Qol_Maps: return "MAP";
+                case NicheType.Qol_OnlineGenealogy: return "GEN";
+
+
+                default: return niche.ToString();
+            }
+        }
+
         public static string GetFormattedNicheName(NicheType niche)
         {
             switch (niche)
