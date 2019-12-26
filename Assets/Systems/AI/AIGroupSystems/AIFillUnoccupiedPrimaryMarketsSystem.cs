@@ -93,7 +93,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
     {
         var cost = Economy.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
 
-        if (!Companies.IsEnoughResources(buyer, new Assets.Utils.TeamResource(cost)))
+        if (!Companies.IsEnoughResources(buyer, cost))
             return;
 
         Debug.Log("AI.SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
