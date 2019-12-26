@@ -1,6 +1,4 @@
 ﻿using Assets.Utils;
-using Assets.Utils;
-using System;
 using UnityEngine;
 
 public class MenuResourceView : View
