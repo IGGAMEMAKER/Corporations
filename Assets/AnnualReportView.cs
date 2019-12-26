@@ -56,7 +56,7 @@ public class AnnualReportView : View
         var position = human.position;
 
         RatingText.text = $"#{position + 1}";
-        RatingText.gameObject.GetComponent<RatingAnimation>().SetValue(currentList.Count, position + 1);
+        //RatingText.gameObject.GetComponent<RatingAnimation>().SetValue(currentList.Count, position + 1);
 
 
         var previousIndex = previousList.FindIndex(r => r.ShareholderId == shareholderId);
