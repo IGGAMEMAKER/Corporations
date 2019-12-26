@@ -14,7 +14,11 @@ public partial class AIPromoteProductToGroupSystem : OnMonthChange
     void PromoteToGroupIfPossible(GameEntity product)
     {
         var wantsToGrow = Companies.IsProductWantsToGrow(product, gameContext);
-        var canGrow = Economy.GetProfit(product, gameContext) > 1000000;
+
+        var isDomineering = Markets.GetPositionOnMarket(gameContext, product) == 0;
+        var isProfitable = Economy.IsProfitable(gameContext, product);
+
+        var canGrow = isDomineering && isProfitable; // Economy.GetProfit(product, gameContext) > 1000000;
 
         if (canGrow && wantsToGrow)
             Companies.PromoteProductCompanyToGroup(gameContext, product.company.Id);

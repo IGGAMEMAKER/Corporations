@@ -39,6 +39,10 @@
         }
 
 
+        internal static bool IsProfitable(GameContext gameContext, GameEntity company)
+        {
+            return GetProfit(company, gameContext) > 0;
+        }
         internal static bool IsProfitable(GameContext gameContext, int companyId)
         {
             return GetProfit(gameContext, companyId) > 0;
