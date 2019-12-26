@@ -57,7 +57,6 @@ public class NicheTableView : View, IPointerEnterHandler
         RenderTimeToMarket();
 
         var sumOfBrandPowers = (int)MarketingUtils.GetSumOfBrandPowers(niche, GameContext);
-        StartCapital.text = sumOfBrandPowers.ToString();
 
         // 
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
@@ -69,6 +68,8 @@ public class NicheTableView : View, IPointerEnterHandler
         // maintenance
         Maintenance.text = Visuals.Positive(Format.MinifyMoney(income));
 
+        bool canMaintain = Economy.IsCanMaintain(MyCompany, GameContext, biggestMaintenance);
+        StartCapital.text = Visuals.Colorize(Format.MinifyMoney(biggestMaintenance), canMaintain);
         // income
         var ROI = Markets.GetMarketROI(GameContext, niche);
         

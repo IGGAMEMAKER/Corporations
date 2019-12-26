@@ -67,7 +67,7 @@ public class MarketCompetitorPreview : View
 
         var newClients = MarketingUtils.GetAudienceGrowth(e, GameContext);
 
-        Clients.text = "+" + Format.Minify(newClients) + " users";
+        Clients.text = "+" + Format.Minify(newClients) + $" users ({brand} brand)";
 
         Concept.text = "" + brand + "  " + Visuals.PositiveOrNegativeMinified(brandChange);
 

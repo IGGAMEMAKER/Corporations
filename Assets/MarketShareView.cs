@@ -14,6 +14,8 @@ public class MarketShareView : View
 
     public LinkToNiche LinkToNiche;
 
+    public Text ControlInMarket;
+
     public Hint Hint;
 
     internal void SetEntity(NicheType nicheType)
@@ -44,6 +46,9 @@ public class MarketShareView : View
         NicheName.text = nicheName; 
 
         LinkToNiche.SetNiche(nicheType);
+
+        //var control = Companies.GetControlInMarket(MyCompany, nicheType, GameContext);
+        //ControlInMarket.text = control + "%";
 
         RenderHint(nicheName, marketSize, share, phase, phaseColor, nicheType);
     }
