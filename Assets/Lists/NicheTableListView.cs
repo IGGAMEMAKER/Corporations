@@ -67,8 +67,7 @@ public class NicheTableListView : ListView
         var state = Markets.GetMarketState(niche);
 
         return (IncludeInnovativeMarkets && state == MarketState.Innovation)
-            || (IncludeTrendingMarkets && state == MarketState.Trending)
-            || (IncludeMassMarkets && (state == MarketState.MassGrowth || state == MarketState.MassUsage))
+            || (IncludeMassMarkets && (state == MarketState.Trending || state == MarketState.MassGrowth || state == MarketState.MassUsage))
             ;
     }
 
