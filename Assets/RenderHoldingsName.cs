@@ -12,8 +12,8 @@ public class RenderHoldingsName : ParameterView
         bool isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, SelectedCompany);
 
         if (isRelatedToPlayer)
-            return "Our holdings";
+            return "Our companies";
         else
-            return "Their holdings";
+            return "Their companies";
     }
 }
