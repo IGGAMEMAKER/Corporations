@@ -14,6 +14,7 @@ public class AcceptAcquisitionProposalController : ButtonController
     public override void Execute()
     {
         var offer = Companies.GetAcquisitionOffer(GameContext, companyId, buyerId);
+        offer.acquisitionOffer.SellerOffer = offer.acquisitionOffer.BuyerOffer;
 
         Debug.Log("AcceptAcquisitionProposalController");
         //CompanyUtils.BuyShares(GameContext, companyId, buyerId, MyCompany.shareholder.Id, -1, offer.acquisitionOffer.Offer);
