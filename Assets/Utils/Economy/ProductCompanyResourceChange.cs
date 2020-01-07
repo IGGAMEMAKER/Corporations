@@ -8,7 +8,7 @@ namespace Assets.Core
         // TODO move this to better place!
         public static int GetPeriodDuration()
         {
-            return 30;
+            return 7;
         }
 
         public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)

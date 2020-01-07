@@ -3,12 +3,9 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class CompanyReportSystem : OnMonthChange
+class CompanyReportSystem : OnPeriodChange
 {
-    public CompanyReportSystem(Contexts contexts) : base(contexts)
-    {
-
-    }
+    public CompanyReportSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

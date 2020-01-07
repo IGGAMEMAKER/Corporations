@@ -73,11 +73,13 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
 
 
 // implementations
-public abstract class OnPeriodChange : OnMonthChange
+public abstract class OnPeriodChange : OnRandomDateChange
 {
     public OnPeriodChange(Contexts contexts) : base(contexts)
     {
     }
+
+    public override int AmountOfDays => Economy.GetPeriodDuration();
 }
 
 public abstract class OnHalfYear : OnRandomDateChange

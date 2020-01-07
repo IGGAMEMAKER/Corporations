@@ -4,9 +4,7 @@ using Assets.Core;
 
 public partial class ClientDistributionSystem : OnPeriodChange
 {
-    public ClientDistributionSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -30,7 +28,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
 
     void ChurnUsers(GameEntity[] products, GameEntity niche)
     {
-        return;
+        //return;
         //var clientContainers = niche.nicheClientsContainer.Clients;
 
         var dumpingCompanies = products.Where(p => p.isDumping);
@@ -44,6 +42,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
             MarketingUtils.AddClients(p, -churnClients);
 
+            continue;
             // send churn users to dumping companies
             foreach (var d in dumpingCompanies)
             {
