@@ -18,9 +18,6 @@ namespace Assets.Core
         {
             var cost = GetMarketingFinancingCostMultiplier(e, gameContext);
 
-            var gainedClients = MarketingUtils.GetAudienceGrowth(e, gameContext);
-            var acquisitionCost = Markets.GetClientAcquisitionCost(e.product.Niche, gameContext);
-
             var culture = Companies.GetActualCorporateCulture(e, gameContext);
             var creation = culture[CorporatePolicy.BuyOrCreate];
 
