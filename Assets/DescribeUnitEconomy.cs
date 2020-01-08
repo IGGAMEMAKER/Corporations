@@ -6,8 +6,9 @@ public class DescribeUnitEconomy : ParameterView
     {
         var isProfitable = Economy.IsProfitable(GameContext, SelectedCompany);
 
+        // Your business will be " + Visuals.Positive("profitable") + ". 
         if (isProfitable)
-            return "Unit economy is " + Visuals.Positive("OK") + "\nYour business will be " + Visuals.Positive("profitable") + ". Get as more clients as you can!";
+            return "Unit economy is " + Visuals.Positive("OK") + "\nGet as more clients as you can!";
         else
             return "Unit economy is " + Visuals.Negative("Bad") + "\nAdd more features to succeed!";
     }
