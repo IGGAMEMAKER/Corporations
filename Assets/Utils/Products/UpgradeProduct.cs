@@ -105,13 +105,17 @@ namespace Assets.Core
                 p.isTechnologyLeader = false;
         }
 
+        public static bool HasFreeImprovements(GameEntity product)
+        {
+            var level = GetProductLevel(product);
+
+            return product.productImprovements.Count < level;
+        }
 
         // TODO move to separate file/delete
         public static void UpgradeProductImprovement(ProductImprovement improvement, GameEntity product)
         {
-            var level = GetProductLevel(product);
-
-            if (product.productImprovements.Count < level)
+            if (HasFreeImprovements(product))
             {
                 product.productImprovements.Improvements[improvement]++;
                 product.productImprovements.Count++;

@@ -60,7 +60,9 @@ namespace Assets.Core
 
             var basePrice = GetBaseProductPrice(c, gameContext);
 
-            var concept = 1 + Products.GetProductLevel(c) * 0.05f;
+            var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
+
+            var concept = 0.5f + improvements * 0.08f;
 
             return basePrice * segmentPriceModifier * concept;
         }
