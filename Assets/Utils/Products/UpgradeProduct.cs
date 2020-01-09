@@ -23,6 +23,37 @@ namespace Assets.Core
                 product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
+
+        private static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
+        {
+            var niche = Markets.GetNiche(gameContext, product.product.Niche);
+
+            var demand = GetMarketDemand(niche);
+            var newLevel = GetProductLevel(product);
+
+            if (newLevel > demand)
+            {
+                // innovation
+                var clientChange = GiveInnovatorBenefits(product, gameContext);
+                NotifyAboutInnovation(product, gameContext, clientChange);
+
+                niche.ReplaceSegment(newLevel);
+
+                // order matters
+                RemoveTechLeaders(product, gameContext);
+                product.isTechnologyLeader = true;
+            }
+            else if (newLevel == demand)
+            {
+                // if you are techonology leader and you fail to innovate, you will not lose tech leadership
+                if (product.isTechnologyLeader)
+                    return;
+
+                RemoveTechLeaders(product, gameContext);
+            }
+        }
+
+
         private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
         {
             MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
@@ -50,33 +81,6 @@ namespace Assets.Core
         {
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1)
                 NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
-        }
-
-        private static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
-        {
-            var niche = Markets.GetNiche(gameContext, product.product.Niche);
-
-            var demand = GetMarketDemand(niche);
-            var newLevel = GetProductLevel(product);
-
-            if (newLevel > demand)
-            {
-                // innovation
-                var clientChange = GiveInnovatorBenefits(product, gameContext);
-                NotifyAboutInnovation(product, gameContext, clientChange);
-
-                niche.ReplaceSegment(newLevel);
-
-                RemoveTechLeaders(product, gameContext);
-                product.isTechnologyLeader = true;
-            } else if (newLevel == demand)
-            {
-                // if you are techonology leader and you fail to innovate, you will not lose tech leadership
-                if (product.isTechnologyLeader)
-                    return;
-
-                RemoveTechLeaders(product, gameContext);
-            }
         }
 
         private static void RemoveTechLeaders(GameEntity product, GameContext gameContext)
