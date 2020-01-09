@@ -16,7 +16,7 @@ namespace Assets.Core
             if (IgnoreCooldowns)
                 return;
 
-            var duration = GetProductUpgradeIterationTime(gameContext, product);
+            var duration = GetConceptUpgradeTime(gameContext, product);
 
             CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
         }

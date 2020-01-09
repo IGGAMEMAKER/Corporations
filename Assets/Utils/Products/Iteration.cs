@@ -23,7 +23,7 @@ namespace Assets.Core
             }
         }
 
-        public static int GetProductUpgradeIterationTime(GameContext gameContext, GameEntity company)
+        public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
         {
             var niche = Markets.GetNiche(gameContext, company);
             var baseIterationTime = GetBaseIterationTime(niche);
