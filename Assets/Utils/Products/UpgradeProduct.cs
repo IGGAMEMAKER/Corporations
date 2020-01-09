@@ -105,6 +105,9 @@ namespace Assets.Core
                 p.isTechnologyLeader = false;
         }
 
+
+
+
         public static bool HasFreeImprovements(GameEntity product)
         {
             var level = GetProductLevel(product);
