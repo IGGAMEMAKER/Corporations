@@ -11,7 +11,7 @@ namespace Assets.Core
                 return;
 
             TryToUpgradeProduct(product, gameContext);
-            UpdateNicheSegmentInfo(product, gameContext);
+            UpdateMarketRequirements(product, gameContext);
 
             if (IgnoreCooldowns)
                 return;
@@ -37,7 +37,7 @@ namespace Assets.Core
             product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
         }
 
-        private static void GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
+        private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
         {
             MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
 
@@ -57,21 +57,19 @@ namespace Assets.Core
                 sum += disloyal;
             }
 
-            // notify about leadership if player has only one product
-            var player = Companies.GetPlayerCompany(gameContext);
+            return sum;
+        }
 
+        public static void NotifyAboutInnovation(GameEntity product, GameContext gameContext, long clients)
+        {
             if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
             {
-                // Companies.IsRelatedToPlayer(gameContext, product) && 
-                // Companies.GetDaughterCompaniesAmount(player, gameContext) < 3
                 if (Markets.GetCompetitorsAmount(product, gameContext) > 1)
-                {
-                    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, sum));
-                }
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
             }
         }
 
-        private static void UpdateNicheSegmentInfo(GameEntity product, GameContext gameContext)
+        private static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
         {
             var niche = Markets.GetNiche(gameContext, product.product.Niche);
 
@@ -81,7 +79,8 @@ namespace Assets.Core
             if (newLevel > demand)
             {
                 // innovation
-                GiveInnovatorBenefits(product, gameContext);
+                var clientChange = GiveInnovatorBenefits(product, gameContext);
+                NotifyAboutInnovation(product, gameContext, clientChange);
 
                 niche.ReplaceSegment(newLevel);
 
