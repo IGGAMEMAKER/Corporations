@@ -13,31 +13,34 @@ public class RenderClientsDataForProduct : View
         var metrics = SelectedCompany.metricsHistory.Metrics;
         List<int> xs = metrics.Select(m => m.Date).ToList();
 
+        if (xs.Count == 0)
+            return;
+
         var start = xs[0];
         var end = xs[xs.Count - 1];
 
 
-        //GraphData[] ys = new GraphData[1];
-        //ys[0] = new GraphData
-        //{
-        //    Color = Companies.GetCompanyUniqueColor(SelectedCompany.company.Id),
-        //    Name = "qwe",
-        //    values = metrics.Select(m => m.AudienceSize).ToList()
-        //};
+        GraphData[] ys = new GraphData[1];
+        ys[0] = new GraphData
+        {
+            Color = Companies.GetCompanyUniqueColor(SelectedCompany.company.Id),
+            Name = SelectedCompany.company.Name,
+            values = metrics.Select(m => m.AudienceSize).ToList()
+        };
 
-        var products = new GameEntity[] { SelectedCompany }; // Markets.GetProductsOnMarket(GameContext, SelectedCompany);
-        GraphData[] ys = products
-            .Select(p =>
-                new GraphData {
-                    Color = Companies.GetCompanyUniqueColor(p.company.Id),
-                    Name = p.company.Name,
-                    values = p.metricsHistory.Metrics
-                        .Where(m => m.Date >= start && m.Date <= end)
-                        .Select(m => m.AudienceSize)
-                        .ToList()
-                }
-            )
-            .ToArray();
+        //var products = new GameEntity[] { SelectedCompany }; // Markets.GetProductsOnMarket(GameContext, SelectedCompany);
+        //GraphData[] ys = products
+        //    .Select(p =>
+        //        new GraphData {
+        //            Color = Companies.GetCompanyUniqueColor(p.company.Id),
+        //            Name = p.company.Name,
+        //            values = p.metricsHistory.Metrics
+        //                .Where(m => m.Date >= start && m.Date <= end)
+        //                .Select(m => m.AudienceSize)
+        //                .ToList()
+        //        }
+        //    )
+        //    .ToArray();
         
 
         GetComponent<SetGraphData>().SetData(xs, ys);
