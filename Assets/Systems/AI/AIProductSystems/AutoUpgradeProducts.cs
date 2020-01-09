@@ -13,7 +13,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         foreach (var product in products)
             Products.UpdgradeProduct(product, gameContext);
 
-
+        // release AI apps if can
         var releasableAIApps = products
             // increase performance
             .Where(p => !p.isRelease)
