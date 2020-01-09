@@ -20,8 +20,8 @@ public class DescribeUnitEconomy : ParameterView
         //else
         //    return "Unit economy is " + Visuals.Negative("Bad") + "\nAdd more features to succeed!";
         if (isProfitable)
-            return "Get as more clients as you can!";
+            return Visuals.Positive("Get as more clients as you can!");
         else
-            return "Add more features to succeed!";
+            return Visuals.Negative("Add more features to become profitable!");
     }
 }
