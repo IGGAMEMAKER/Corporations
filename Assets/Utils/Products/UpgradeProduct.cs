@@ -13,12 +13,8 @@ namespace Assets.Core
             TryToUpgradeProduct(product, gameContext);
             UpdateMarketRequirements(product, gameContext);
 
-            if (IgnoreCooldowns)
-                return;
-
-            var duration = GetConceptUpgradeTime(gameContext, product);
-
-            CooldownUtils.AddConceptUpgradeCooldown(gameContext, product, duration);
+            if (!IgnoreCooldowns)
+                CooldownUtils.AddConceptUpgradeCooldown(gameContext, product);
         }
 
         private static void TryToUpgradeProduct(GameEntity product, GameContext gameContext)

@@ -46,8 +46,10 @@ namespace Assets.Core
         //
 
         // concept upgrade cooldown
-        public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product, int duration)
+        public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
         {
+            int duration = Products.GetConceptUpgradeTime(gameContext, product);
+            
             AddNewCooldown(gameContext, new CooldownImproveConcept(product.company.Id), duration);
         }
 
