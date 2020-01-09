@@ -11,6 +11,6 @@ public class RenderMarketingCostPerUser : ParameterView
 
         var cost = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext) * 1000;
 
-        return cost.ToString("0.0") + "$ per 1000 users";
+        return cost.ToString("0.0") + "$";
     }
 }

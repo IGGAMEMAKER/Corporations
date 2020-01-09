@@ -11,6 +11,6 @@ public class RenderIncomePerUser : ParameterView
 
         var cost = Economy.GetSegmentPrice(GameContext, product, 0) * 1000;
 
-        return cost.ToString("0.0") + "$ per 1000 users";
+        return cost.ToString("0.0") + "$";
     }
 }
