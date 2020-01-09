@@ -6,6 +6,6 @@ public class UpgradeProductImprovements : ButtonController
 
     public override void Execute()
     {
-        Products.UpgradeProductImprovement(ProductImprovement, SelectedCompany);
+        Products.UpgradeFeatures(ProductImprovement, SelectedCompany);
     }
 }

@@ -115,7 +115,7 @@ namespace Assets.Core
         }
 
         // TODO move to separate file/delete
-        public static void UpgradeProductImprovement(ProductImprovement improvement, GameEntity product)
+        public static void UpgradeFeatures(ProductImprovement improvement, GameEntity product)
         {
             if (HasFreeImprovements(product))
             {
