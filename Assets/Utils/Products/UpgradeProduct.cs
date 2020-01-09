@@ -10,14 +10,14 @@ namespace Assets.Core
             if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
                 return;
 
-            TryToUpgradeProduct(product, gameContext);
+            UogradeProductLevel(product, gameContext);
             UpdateMarketRequirements(product, gameContext);
 
             if (!IgnoreCooldowns)
                 CooldownUtils.AddConceptUpgradeCooldown(gameContext, product);
         }
 
-        private static void TryToUpgradeProduct(GameEntity product, GameContext gameContext)
+        private static void UogradeProductLevel(GameEntity product, GameContext gameContext)
         {
             // upgrade by default
             var upgrade = 1;
