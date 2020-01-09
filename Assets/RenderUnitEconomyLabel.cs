@@ -1,6 +1,6 @@
 ﻿using Assets.Core;
 
-public class DescribeUnitEconomy : ParameterView
+public class RenderUnitEconomyLabel : ParameterView
 {
     public override string RenderValue()
     {
@@ -12,8 +12,8 @@ public class DescribeUnitEconomy : ParameterView
         var change = income - ads;
 
         if (change >= 0)
-            return Visuals.Positive("Get as more clients as you can!");
+            return "Unit economy is " + Visuals.Positive("OK");
         else
-            return Visuals.Negative("Add more features to become profitable!");
+            return "Unit economy is " + Visuals.Negative("Bad");
     }
 }
