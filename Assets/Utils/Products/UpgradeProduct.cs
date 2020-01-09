@@ -10,27 +10,17 @@ namespace Assets.Core
             if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
                 return;
 
-            UogradeProductLevel(product, gameContext);
+            UpgradeProductLevel(product, gameContext);
             UpdateMarketRequirements(product, gameContext);
 
             if (!IgnoreCooldowns)
                 CooldownUtils.AddConceptUpgradeCooldown(gameContext, product);
         }
 
-        private static void UogradeProductLevel(GameEntity product, GameContext gameContext)
+        private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
         {
-            // upgrade by default
-            var upgrade = 1;
-
-            //if (IsWillInnovate(product, gameContext))
-            //{
-                var chance = GetInnovationChance(product, gameContext);
-
-                if (Random.Range(0, 100) < chance)
-                    upgrade = 2;
-            //}
-
-            product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + upgrade);
+            if (Random.Range(0, 100) < GetInnovationChance(product, gameContext))
+                product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
         private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
@@ -58,11 +48,8 @@ namespace Assets.Core
 
         public static void NotifyAboutInnovation(GameEntity product, GameContext gameContext, long clients)
         {
-            if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
-            {
-                if (Markets.GetCompetitorsAmount(product, gameContext) > 1)
-                    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
-            }
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1)
+                NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
         }
 
         private static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
@@ -107,7 +94,7 @@ namespace Assets.Core
         {
             var level = GetProductLevel(product);
 
-            return product.productImprovements.Count < level;
+            return product.productImprovements.Count < level * 2;
         }
 
         // TODO move to separate file/delete
