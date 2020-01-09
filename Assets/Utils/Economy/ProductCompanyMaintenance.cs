@@ -1,5 +1,4 @@
-﻿using Assets.Core.Formatting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Core
 {
@@ -22,7 +21,7 @@ namespace Assets.Core
             var creation = culture[CorporatePolicy.BuyOrCreate];
 
             // up to 40%
-            var discount = 100 - (creation - 1) * 10;
+            var discount = 100 - (creation - 1) * 5;
             var result = cost * discount / 100;
 
             return (long)result;
@@ -39,7 +38,7 @@ namespace Assets.Core
             var mindset = culture[CorporatePolicy.WorkerMindset];
 
             // up to 40%
-            var discount = 100 - (mindset - 1) * 10;
+            var discount = 100 - (mindset - 1) * 5;
             return cost * discount / 100;
         }
 

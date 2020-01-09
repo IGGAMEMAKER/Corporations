@@ -15,7 +15,7 @@ namespace Assets.Core
             var culture = GetOwnCorporateCulture(company);
 
             var prevValue = culture[policy];
-            culture[policy] = Mathf.Clamp(value, 1, 5);
+            culture[policy] = Mathf.Clamp(value, Constants.CORPORATE_CULTURE_LEVEL_MIN, Constants.CORPORATE_CULTURE_LEVEL_MAX);
 
             if (value != prevValue)
             {

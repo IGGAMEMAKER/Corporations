@@ -90,23 +90,30 @@ namespace Assets.Core
 
         public static Dictionary<CorporatePolicy, int> GetRandomCorporateCulture()
         {
+            var max = Constants.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var min = Constants.CORPORATE_CULTURE_LEVEL_MIN;
+
             return new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
-                [CorporatePolicy.WorkerMindset]  = Random.Range(1, 6),
-                [CorporatePolicy.Focusing]       = Random.Range(1, 6),
-                [CorporatePolicy.BuyOrCreate]    = Random.Range(1, 6),
+                [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
+                [CorporatePolicy.WorkerMindset]  = Random.Range(min, max),
+                [CorporatePolicy.Focusing]       = Random.Range(min, max),
+                [CorporatePolicy.BuyOrCreate]    = Random.Range(min, max),
             };
         }
 
         public static Dictionary<CorporatePolicy, int> GetFundCorporateCulture()
         {
+            var max = Constants.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var min = Constants.CORPORATE_CULTURE_LEVEL_MIN;
+            var half = max / 2;
+
             return new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.LeaderOrTeam] = Random.Range(1, 6),
-                [CorporatePolicy.WorkerMindset]  = Random.Range(1, 3),
-                [CorporatePolicy.Focusing]       = Random.Range(1, 6),
-                [CorporatePolicy.BuyOrCreate]    = Random.Range(1, 3),
+                [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
+                [CorporatePolicy.WorkerMindset]  = Random.Range(min, half),
+                [CorporatePolicy.Focusing]       = Random.Range(min, max),
+                [CorporatePolicy.BuyOrCreate]    = Random.Range(min, half),
             };
         }
     }
