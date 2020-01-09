@@ -20,7 +20,7 @@ public class ScheduleCooldownProcessingSystem : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
-        var container = CooldownUtils.GetCooldowns(contexts.game);
+        var container = Cooldowns.GetCooldowns(contexts.game);
 
         var date = entities[0].date.Date;
         // old cooldown system

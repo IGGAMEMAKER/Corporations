@@ -7,14 +7,14 @@ namespace Assets.Core
     {
         public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
         {
-            if (CooldownUtils.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
+            if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
                 return;
 
             UpgradeProductLevel(product, gameContext);
             UpdateMarketRequirements(product, gameContext);
 
             if (!IgnoreCooldowns)
-                CooldownUtils.AddConceptUpgradeCooldown(gameContext, product);
+                Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
         }
 
         private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)

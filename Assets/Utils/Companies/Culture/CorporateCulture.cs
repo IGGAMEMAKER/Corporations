@@ -8,10 +8,10 @@ namespace Assets.Core
     {
         public static void TweakCorporatePolicy(GameContext gameContext, GameEntity company, CorporatePolicy policy, int value)
         {
-            if (CooldownUtils.HasCorporateCultureUpgradeCooldown(gameContext, company))
+            if (Cooldowns.HasCorporateCultureUpgradeCooldown(gameContext, company))
                 return;
 
-            CooldownUtils.AddCorporateCultureUpgradeCooldown(gameContext, company, Constants.CORPORATE_CULTURE_CHANGES_DURATION);
+            Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, Constants.CORPORATE_CULTURE_CHANGES_DURATION);
             var culture = GetOwnCorporateCulture(company);
 
             var prevValue = culture[policy];

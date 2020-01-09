@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Core
 {
-    partial class CooldownUtils
+    partial class Cooldowns
     {
         public static GameEntity[] GetTasks(GameContext gameContext)
         {

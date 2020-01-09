@@ -31,7 +31,7 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderValue()
     {
-        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out Cooldown c);
+        Cooldowns.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out Cooldown c);
 
         if (c == null)
             return "";

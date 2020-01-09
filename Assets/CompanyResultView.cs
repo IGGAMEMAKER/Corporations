@@ -81,7 +81,7 @@ public class CompanyResultView : View
         var conceptStatus = result1.ConceptStatus;
         var color = GetStatusColor(conceptStatus);
 
-        CooldownUtils.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
+        Cooldowns.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
 
         var days = 0;
         if (c1 != null)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Core
 {
-    partial class CooldownUtils
+    partial class Cooldowns
     {
         // new cooldwon system
         private static GameEntity GetCooldownContainer(GameContext gameContext)

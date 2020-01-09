@@ -4,7 +4,7 @@ public class ToggleCompanyActionButtonsIfCompanyIsNotResearched : ToggleOnSomeCo
 {
     public override bool Condition()
     {
-        var hasTask = CooldownUtils.IsHasTask(GameContext, new CompanyTaskExploreCompany(SelectedCompany.company.Id));
+        var hasTask = Cooldowns.IsHasTask(GameContext, new CompanyTaskExploreCompany(SelectedCompany.company.Id));
 
         return SelectedCompany.hasResearch || hasTask || Companies.IsRelatedToPlayer(GameContext, SelectedCompany);
     }

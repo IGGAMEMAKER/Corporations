@@ -14,7 +14,7 @@ public class TaskListView : ListView
     {
         base.ViewRender();
 
-        var tasks = CooldownUtils.GetTasks(GameContext);
+        var tasks = Cooldowns.GetTasks(GameContext);
 
         SetItems(tasks);
     }

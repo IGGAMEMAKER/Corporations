@@ -19,7 +19,7 @@ public class TweakCorporatePolicy : UpgradedButtonController
 
     public override bool IsInteractable()
     {
-        bool hasCooldown = CooldownUtils.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+        bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
 
         var culture = Companies.GetOwnCorporateCulture(MyCompany);
 
