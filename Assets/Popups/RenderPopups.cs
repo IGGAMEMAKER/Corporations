@@ -129,7 +129,7 @@ public partial class PopupView : View
 
     void RenderInnovatorPopup(PopupMessageInnovation popup)
     {
-        bool ourInnovation = Companies.IsCompanyRelatedToPlayer(GameContext, popup.companyId);
+        bool ourInnovation = Companies.IsRelatedToPlayer(GameContext, popup.companyId);
 
         var innovationBenefit = $"They will get {Constants.INNOVATION_BRAND_POWER_GAIN} Brand Power and " +
             $"{Format.Minify(popup.clientGain)} clients from their competitors";
