@@ -24,7 +24,7 @@ public class TweakCorporatePolicy : UpgradedButtonController
         var culture = Companies.GetOwnCorporateCulture(MyCompany);
 
         var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
-        bool willExceedLimits = (Increment && value == 5) || (!Increment && value == 1);
+        bool willExceedLimits = (Increment && value == Constants.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == Constants.CORPORATE_CULTURE_LEVEL_MIN);
 
         return !hasCooldown && !willExceedLimits;
     }
