@@ -2,10 +2,6 @@
 {
     public override string RenderValue()
     {
-        var product = SelectedCompany;
-
-        var retention = product.productImprovements.Improvements[ProductImprovement.Monetisation];
-
-        return retention.ToString();
+        return SelectedCompany.productImprovements.Improvements[ProductImprovement.Monetisation].ToString();
     }
 }
