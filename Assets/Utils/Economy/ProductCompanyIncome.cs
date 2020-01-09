@@ -62,7 +62,7 @@ namespace Assets.Core
 
             var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
 
-            var concept = 0.5f + improvements * 0.08f;
+            var concept = 0.15f + improvements * 0.04f;
 
             return basePrice * segmentPriceModifier * concept;
         }
