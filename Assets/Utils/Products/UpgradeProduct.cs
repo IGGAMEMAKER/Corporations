@@ -23,6 +23,28 @@ namespace Assets.Core
                 product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
+        private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
+        {
+            MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
+
+            // get your competitor's clients
+            var products = Markets.GetProductsOnMarket(gameContext, product)
+                .Where(p => p.isRelease)
+                .Where(p => p.company.Id != product.company.Id);
+
+            long sum = 0;
+            foreach (var p in products)
+            {
+                var disloyal = MarketingUtils.GetClients(p) / 6;
+
+                MarketingUtils.LooseClients(p, disloyal);
+                MarketingUtils.AddClients(product, disloyal);
+
+                sum += disloyal;
+            }
+
+            return sum;
+        }
 
         private static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
         {
@@ -54,28 +76,8 @@ namespace Assets.Core
         }
 
 
-        private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
-        {
-            MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
 
-            // get your competitor's clients
-            var products = Markets.GetProductsOnMarket(gameContext, product)
-                .Where(p => p.isRelease)
-                .Where(p => p.company.Id != product.company.Id);
 
-            long sum = 0;
-            foreach (var p in products)
-            {
-                var disloyal = MarketingUtils.GetClients(p) / 6;
-
-                MarketingUtils.LooseClients(p, disloyal);
-                MarketingUtils.AddClients(product, disloyal);
-
-                sum += disloyal;
-            }
-
-            return sum;
-        }
 
         public static void NotifyAboutInnovation(GameEntity product, GameContext gameContext, long clients)
         {
