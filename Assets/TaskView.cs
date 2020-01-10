@@ -2,7 +2,7 @@
 using Assets.Core.Formatting;
 using UnityEngine.UI;
 
-public class TaskView : View
+public partial class TaskView : View
 {
     public Text Text;
 
@@ -32,19 +32,6 @@ public class TaskView : View
         if (remaining <= 0)
         {
             text += "DONE";
-
-            var taskString = GetTaskString(TaskComponent.CompanyTask);
-            //if (TutorialUtils.IsOpenedFunctionality(GameContext, taskString))
-            //{
-            //    RemoveIfExists<Blinker>();
-            //}
-            //else
-            //{
-            //    AddIfAbsent<Blinker>();
-
-            //    var asd = AddIfAbsent<TutorialUnlocker>();
-            //    asd.SetEvent(taskString);
-            //}
         }
         else
         {
@@ -73,24 +60,10 @@ public class TaskView : View
         //        break;
         //}
     }
+}
 
-    string GetTaskHeader(CompanyTask companyTask)
-    {
-        switch (companyTask.CompanyTaskType)
-        {
-            case CompanyTaskType.AcquiringCompany:
-                return "Acquiring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
-
-            case CompanyTaskType.ExploreMarket:
-                return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
-
-            case CompanyTaskType.ExploreCompany:
-                return "Exploring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
-
-            default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
-        }
-    }
-
+public partial class TaskView : View
+{
     string GetTaskString(CompanyTask companyTask)
     {
         var text = companyTask.CompanyTaskType.ToString();
@@ -108,7 +81,26 @@ public class TaskView : View
 
             default: return "UNKNOWN TASK!!!!" + text;
         }
+    }
+}
 
+public partial class TaskView : View
+{
+    string GetTaskHeader(CompanyTask companyTask)
+    {
+        switch (companyTask.CompanyTaskType)
+        {
+            case CompanyTaskType.AcquiringCompany:
+                return "Acquiring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
+
+            case CompanyTaskType.ExploreMarket:
+                return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
+
+            case CompanyTaskType.ExploreCompany:
+                return "Exploring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
+
+            default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
+        }
     }
 }
 
