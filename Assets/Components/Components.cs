@@ -65,28 +65,6 @@ public class InvestmentProposal
     public bool WasAccepted;
 }
 
-[Game]
-public class TaskManagerComponent : IComponent
-{
-    public List<GameEntity> Tasks;
-}
-
-public class TaskComponent: IComponent
-{
-    public bool isCompleted;
-    //public TaskType TaskType;
-    //public CompanyTaskType TaskType;
-    public CompanyTask CompanyTask;
-    public int StartTime;
-    public int Duration;
-    public int EndTime;
-}
-
-[Game]
-public class CooldownContainerComponent: IComponent
-{
-    public Dictionary<string, Cooldown> Cooldowns;
-}
 
 [Game, Event(EventTarget.Self)]
 public class TutorialComponent : IComponent
