@@ -127,6 +127,7 @@ public abstract class CompanyTask
     public abstract bool EqualsExactly(CompanyTask obj);
 }
 
+
 public class CompanyTaskAcquisition : CompanyTask
 {
     public int CompanyId;
@@ -143,22 +144,6 @@ public class CompanyTaskAcquisition : CompanyTask
     }
 }
 
-public class CompanyTaskExploreMarket : CompanyTask
-{
-    public NicheType NicheType;
-
-    public CompanyTaskExploreMarket(NicheType nicheType)
-    {
-        CompanyTaskType = CompanyTaskType.ExploreMarket;
-        NicheType = nicheType;
-    }
-
-    public override bool EqualsExactly(CompanyTask obj)
-    {
-        return NicheType == (obj as CompanyTaskExploreMarket).NicheType;
-    }
-}
-
 public class CompanyTaskExploreCompany : CompanyTask
 {
     public int CompanyId;
@@ -172,5 +157,22 @@ public class CompanyTaskExploreCompany : CompanyTask
     public override bool EqualsExactly(CompanyTask obj)
     {
         return CompanyId == (obj as CompanyTaskExploreCompany).CompanyId;
+    }
+}
+
+// markets
+public class CompanyTaskExploreMarket : CompanyTask
+{
+    public NicheType NicheType;
+
+    public CompanyTaskExploreMarket(NicheType nicheType)
+    {
+        CompanyTaskType = CompanyTaskType.ExploreMarket;
+        NicheType = nicheType;
+    }
+
+    public override bool EqualsExactly(CompanyTask obj)
+    {
+        return NicheType == (obj as CompanyTaskExploreMarket).NicheType;
     }
 }
