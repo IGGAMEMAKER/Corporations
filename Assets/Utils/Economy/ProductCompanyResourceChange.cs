@@ -1,7 +1,4 @@
-﻿using Assets.Core;
-using System;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     static partial class Economy
     {
@@ -23,14 +20,7 @@ namespace Assets.Core
         }
 
 
-        static int Normalize (int value, int performance)
-        {
-            int period = Constants.PERIOD;
-
-            return value * period * performance / 100;
-        }
-
-        static long Normalize (long value, int performance)
+        static int Normalize(int value, int performance)
         {
             int period = Constants.PERIOD;
 
