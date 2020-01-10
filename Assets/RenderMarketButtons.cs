@@ -25,15 +25,7 @@ public class RenderMarketButtons : View
 
         bool IsMarketResearched = Markets.IsExploredMarket(GameContext, SelectedNiche);
 
-        bool isDomineering = false;
-
-        if (hasDaughtersOnMarket)
-        {
-            if (Markets.GetPositionOnMarket(GameContext, daughtersOnMarket.First()) == 0)
-                isDomineering = true;
-        }
-
-        bool isTimeToExpand = CurrentIntDate > 120;
+        bool isTimeToExpand = CurrentIntDate > 90;
 
         RaiseInvestments.SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
         Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
