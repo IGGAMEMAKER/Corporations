@@ -84,19 +84,18 @@ public static class GameComponentsLookup {
     public const int ShareholdersListener = 73;
     public const int TargetDate = 74;
     public const int Task = 75;
-    public const int TaskManager = 76;
-    public const int Team = 77;
-    public const int TeamListener = 78;
-    public const int TechnologyLeader = 79;
-    public const int TechnologyLeaderListener = 80;
-    public const int Test = 81;
-    public const int TimerRunning = 82;
-    public const int Tutorial = 83;
-    public const int TutorialListener = 84;
-    public const int WantsToExpand = 85;
-    public const int Worker = 86;
+    public const int Team = 76;
+    public const int TeamListener = 77;
+    public const int TechnologyLeader = 78;
+    public const int TechnologyLeaderListener = 79;
+    public const int Test = 80;
+    public const int TimerRunning = 81;
+    public const int Tutorial = 82;
+    public const int TutorialListener = 83;
+    public const int WantsToExpand = 84;
+    public const int Worker = 85;
 
-    public const int TotalComponents = 87;
+    public const int TotalComponents = 86;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -175,7 +174,6 @@ public static class GameComponentsLookup {
         "ShareholdersListener",
         "TargetDate",
         "Task",
-        "TaskManager",
         "Team",
         "TeamListener",
         "TechnologyLeader",
