@@ -265,7 +265,6 @@ public static class GameComponentsLookup {
         typeof(ShareholdersListenerComponent),
         typeof(TargetDateComponent),
         typeof(TaskComponent),
-        typeof(TaskManagerComponent),
         typeof(TeamComponent),
         typeof(TeamListenerComponent),
         typeof(TechnologyLeaderComponent),
