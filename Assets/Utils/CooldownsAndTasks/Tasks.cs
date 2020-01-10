@@ -9,6 +9,14 @@ namespace Assets.Core
         {
             return gameContext.GetEntities(GameMatcher.Task);
         }
+        public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            var tasks = GetTasks(gameContext);
+
+            var task = Array.Find(tasks, t => t.task.CompanyTask.Equals(companyTask));
+
+            return task?.task;
+        }
 
         public static void AddTask(GameContext gameContext, CompanyTask companyTask, int duration)
         {
@@ -32,14 +40,6 @@ namespace Assets.Core
             var task = GetTask(gameContext, companyTask);
 
             return task != null;
-        }
-        public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
-        {
-            var tasks = GetTasks(gameContext);
-
-            var task = Array.Find(tasks, t => t.task.CompanyTask.Equals(companyTask));
-
-            return task?.task;
         }
     }
 }
