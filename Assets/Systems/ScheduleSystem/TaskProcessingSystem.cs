@@ -5,9 +5,7 @@ using UnityEngine;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
-    public TaskProcessingSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public TaskProcessingSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
