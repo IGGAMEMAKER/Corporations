@@ -4,14 +4,15 @@ public class RenderFeatures : ParameterView
 {
     public override string RenderValue()
     {
-        var features = SelectedCompany.productImprovements.Count;
-        var level = Products.GetProductLevel(SelectedCompany);
+        var product = SelectedCompany;
 
-        var freeFeatures = UnityEngine.Mathf.Max(level - features, 0);
+        var freeFeatures = Products.GetFreeImprovements(product);
 
         var freeFeaturesDescription = "";
         if (freeFeatures > 0)
             freeFeaturesDescription = $"(+{freeFeatures})";
+
+        var features = product.productImprovements.Count;
 
         return $"{features} {freeFeaturesDescription}";
     }
