@@ -69,13 +69,13 @@ public partial class TaskView : View
         switch (companyTask.CompanyTaskType)
         {
             case CompanyTaskType.AcquiringCompany:
-                return "Acquiring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskAcquisition).CompanyId).company.Name;
+                return "Acquiring company\n" + Companies.GetCompanyName(GameContext, companyTask.CompanyId);
 
             case CompanyTaskType.ExploreMarket:
                 return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
 
             case CompanyTaskType.ExploreCompany:
-                return "Exploring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
+                return "Exploring company\n" + Companies.GetCompanyName(GameContext, companyTask.CompanyId);
 
             case CompanyTaskType.UpgradeFeature:
                 return $"Adding {(companyTask as CompanyTaskUpgradeFeature).ProductImprovement} feature\n";
