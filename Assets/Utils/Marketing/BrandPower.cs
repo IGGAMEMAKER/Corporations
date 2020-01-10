@@ -29,7 +29,7 @@ namespace Assets.Core
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
-            var isMonopolist = Markets.GetCompetitorsAmount(product, gameContext) == 0;
+            var isMonopolist = Markets.GetCompetitorsAmount(product, gameContext) == 1;
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
                 .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
