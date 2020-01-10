@@ -96,11 +96,15 @@ namespace Assets.Core
 
 
 
-        public static bool HasFreeImprovements(GameEntity product)
+        public static int GetFreeImprovements(GameEntity product)
         {
             var level = GetProductLevel(product);
 
-            return product.productImprovements.Count < level * 2;
+            return level * 2 - product.productImprovements.Count;
+        }
+        public static bool HasFreeImprovements(GameEntity product)
+        {
+            return GetFreeImprovements(product) > 0;
         }
 
         // TODO move to separate file/delete
