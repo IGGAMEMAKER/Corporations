@@ -25,8 +25,8 @@ namespace Assets.Core
             return GetCooldowns(gameContext).ContainsKey(cooldownName);
         }
 
-        public static void AddNewCooldown(GameContext gameContext, Cooldown cooldown, int duration) => AddNewCooldown(gameContext, cooldown.GetKey(), cooldown, duration);
-        public static void AddNewCooldown(GameContext gameContext, string cooldownName, Cooldown cooldown, int duration)
+        public static void AddCooldown(GameContext gameContext, Cooldown cooldown, int duration) => AddCooldown(gameContext, cooldown.GetKey(), cooldown, duration);
+        public static void AddCooldown(GameContext gameContext, string cooldownName, Cooldown cooldown, int duration)
         {
             var c = GetCooldowns(gameContext);
 
@@ -39,34 +39,6 @@ namespace Assets.Core
         public static bool TryGetCooldown(GameContext gameContext, string cooldownName, out Cooldown cooldown)
         {
             return GetCooldowns(gameContext).TryGetValue(cooldownName, out cooldown);
-        }
-
-        //
-        // specific cooldowns
-        //
-
-        // concept upgrade cooldown
-        public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
-        {
-            int duration = Products.GetConceptUpgradeTime(gameContext, product);
-            
-            AddNewCooldown(gameContext, new CooldownImproveConcept(product.company.Id), duration);
-        }
-
-        public static bool HasConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
-        {
-            return HasCooldown(gameContext, new CooldownImproveConcept(product.company.Id));
-        }
-
-        // culture upgrade cooldown
-        public static void AddCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity product, int duration)
-        {
-            AddNewCooldown(gameContext, new CooldownUpgradeCorporateCulture(product.company.Id), duration);
-        }
-
-        public static bool HasCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity company)
-        {
-            return HasCooldown(gameContext, new CooldownUpgradeCorporateCulture(company.company.Id));
         }
     }
 }
