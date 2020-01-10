@@ -64,7 +64,8 @@ public class FillInterruptList : View
         var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
         var count = upgradableCompanies.Count();
 
-        bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.NicheScreen && count == 1 && SelectedNiche == upgradableCompanies.First().product.Niche;
+        //bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.NicheScreen && count == 1 && SelectedNiche == upgradableCompanies.First().product.Niche;
+        bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
 
         return count > 0 && !isAlreadyOnReleasableMarket;
     }
@@ -82,11 +83,6 @@ public class FillInterruptList : View
     bool HasUnhappyTeams()
     {
         return Companies.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
-    }
-
-    bool CheckManagingCompanies()
-    {
-        return Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id).Length > 0;
     }
 
     bool HasAcquisitionOffers()
