@@ -11,10 +11,8 @@ namespace Assets.Core
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
         }
-        public static string GetCompanyName(GameContext context, int companyId)
-        {
-            return GetCompany(context, companyId).company.Name;
-        }
+        public static string GetCompanyName(GameContext context, int companyId) => GetCompanyName(GetCompany(context, companyId));
+        public static string GetCompanyName(GameEntity company) => company.company.Name;
 
         public static GameEntity GetCompanyByName(GameContext context, string name)
         {
