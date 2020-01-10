@@ -10,25 +10,30 @@ public class RenderClientsDataForProduct : View
     {
         base.ViewRender();
 
-        var metrics = SelectedCompany.metricsHistory.Metrics;
+        var product = SelectedCompany;
+        var metrics = product.metricsHistory.Metrics;
         List<int> xs = metrics.Select(m => m.Date).ToList();
 
-        if (xs.Count == 0)
-            return;
+        // add current value
+        xs.Add(CurrentIntDate);
 
         var start = xs[0];
+
         var end = xs[xs.Count - 1];
 
 
         GraphData[] ys = new GraphData[1];
         ys[0] = new GraphData
         {
-            Color = Companies.GetCompanyUniqueColor(SelectedCompany.company.Id),
-            Name = SelectedCompany.company.Name,
+            Color = Companies.GetCompanyUniqueColor(product.company.Id),
+            Name = product.company.Name,
             values = metrics.Select(m => m.AudienceSize).ToList()
         };
 
-        //var products = new GameEntity[] { SelectedCompany }; // Markets.GetProductsOnMarket(GameContext, SelectedCompany);
+        // add current value
+        ys[0].values.Add(MarketingUtils.GetClients(product));
+
+        //var products = new GameEntity[] { product }; // Markets.GetProductsOnMarket(GameContext, SelectedCompany);
         //GraphData[] ys = products
         //    .Select(p =>
         //        new GraphData {
