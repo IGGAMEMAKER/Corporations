@@ -64,28 +64,6 @@ public partial class TaskView : View
 
 public partial class TaskView : View
 {
-    string GetTaskString(CompanyTask companyTask)
-    {
-        var text = companyTask.CompanyTaskType.ToString();
-
-        switch (companyTask.CompanyTaskType)
-        {
-            case CompanyTaskType.AcquiringCompany:
-                return text + (companyTask as CompanyTaskAcquisition).CompanyId;
-
-            case CompanyTaskType.ExploreMarket:
-                return text + (companyTask as CompanyTaskExploreMarket).NicheType;
-
-            case CompanyTaskType.ExploreCompany:
-                return text + (companyTask as CompanyTaskExploreCompany).CompanyId;
-
-            default: return "UNKNOWN TASK!!!!" + text;
-        }
-    }
-}
-
-public partial class TaskView : View
-{
     string GetTaskHeader(CompanyTask companyTask)
     {
         switch (companyTask.CompanyTaskType)
@@ -98,6 +76,9 @@ public partial class TaskView : View
 
             case CompanyTaskType.ExploreCompany:
                 return "Exploring company\n" + Companies.GetCompany(GameContext, (companyTask as CompanyTaskExploreCompany).CompanyId).company.Name;
+
+            case CompanyTaskType.UpgradeFeature:
+                return $"Adding {(companyTask as CompanyTaskUpgradeFeature).ProductImprovement} feature\n";
 
             default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
         }

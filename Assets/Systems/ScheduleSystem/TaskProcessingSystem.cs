@@ -29,7 +29,8 @@ public partial class TaskProcessingSystem : OnDateChange
                 t.task.isCompleted = true;
             }
 
-            if (date > EndTime + 30)
+            // 
+            if (date > EndTime)
                 t.Destroy();
         }
     }
