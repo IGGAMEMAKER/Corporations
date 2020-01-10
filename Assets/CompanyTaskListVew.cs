@@ -13,12 +13,11 @@ public class CompanyTaskListVew : ListView
     {
         base.ViewRender();
 
-        //var types = new CompanyTaskType
-        //{
-        //    CompanyTaskType.
-        //}
+        var companyId = SelectedCompany.company.Id;
 
-        var tasks = Cooldowns.GetTasks(GameContext);
+        var tasks = Cooldowns.GetTasks(GameContext)
+            .Where(t => t.task.CompanyTask.CompanyId == companyId)
+            ;
 
         SetItems(tasks);
     }
