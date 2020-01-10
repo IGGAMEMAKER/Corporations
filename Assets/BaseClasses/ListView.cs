@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public abstract class ListView : View // MonoBehaviour
 {
@@ -10,6 +12,7 @@ public abstract class ListView : View // MonoBehaviour
     public abstract void SetItem<T>(Transform t, T entity, object data = null);
     //public virtual void DebugEntity<T>(T entity) { }
 
+    public void SetItems<T>(IEnumerable<T> entities, object data = null) => SetItems(entities.ToArray(), data);
     public void SetItems<T>(T[] entities, object data = null)
     {
         Render(entities, gameObject, data);
