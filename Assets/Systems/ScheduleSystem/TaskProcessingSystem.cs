@@ -33,18 +33,6 @@ public partial class TaskProcessingSystem : OnDateChange
         }
     }
 
-    private void ProcessTask(TaskComponent taskComponent)
-    {
-        var task = taskComponent.CompanyTask;
-        switch (task.CompanyTaskType)
-        {
-            case CompanyTaskType.ExploreMarket:     ExploreMarket(task); break;
-            case CompanyTaskType.ExploreCompany:    ExploreCompany(task); break;
-            case CompanyTaskType.AcquiringCompany:  AcquireCompany(task); break;
-            case CompanyTaskType.UpgradeFeature:    UpgradeFeature(task); break;
-        }
-    }
-
     protected override bool Filter(GameEntity entity)
     {
         return entity.hasDate;
@@ -58,6 +46,18 @@ public partial class TaskProcessingSystem : OnDateChange
 
 public partial class TaskProcessingSystem : OnDateChange
 {
+    private void ProcessTask(TaskComponent taskComponent)
+    {
+        var task = taskComponent.CompanyTask;
+        switch (task.CompanyTaskType)
+        {
+            case CompanyTaskType.ExploreMarket: ExploreMarket(task); break;
+            case CompanyTaskType.ExploreCompany: ExploreCompany(task); break;
+            case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
+            case CompanyTaskType.UpgradeFeature: UpgradeFeature(task); break;
+        }
+    }
+
     void AcquireCompany(CompanyTask task)
     {
         //var nicheType = (task as CompanyTaskExploreMarket).NicheType;
