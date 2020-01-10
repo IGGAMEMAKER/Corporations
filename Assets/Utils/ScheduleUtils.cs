@@ -62,7 +62,7 @@ namespace Assets.Core
         {
             var date = GetCurrentDate(gameContext);
 
-            return date % Economy.GetPeriodDuration() == 0;
+            return date % Constants.PERIOD == 0;
         }
 
 

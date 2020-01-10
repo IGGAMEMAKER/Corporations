@@ -1,5 +1,7 @@
 ﻿public class Constants
 {
+    public const int PERIOD = 7;
+
     public const int DEVELOPMENT_PRODUCTION_MARKETER = 10;
     public const int DEVELOPMENT_PRODUCTION_PROGRAMMER = 10;
     public const int DEVELOPMENT_PRODUCTION_MANAGER = 10;

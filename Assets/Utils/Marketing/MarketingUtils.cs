@@ -33,7 +33,7 @@
 
             var clients = GetClients(c);
 
-            var period = Economy.GetPeriodDuration();
+            var period = Constants.PERIOD;
 
             return clients * churn * period / 30 / 100;
         }

@@ -5,15 +5,9 @@ namespace Assets.Core
 {
     static partial class Economy
     {
-        // TODO move this to better place!
-        public static int GetPeriodDuration()
-        {
-            return 7;
-        }
-
         public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)
         {
-            var period = GetPeriodDuration();
+            var period = Constants.PERIOD;
 
             long money = GetProfit(company, gameContext) * period / 30;
 
@@ -31,14 +25,14 @@ namespace Assets.Core
 
         static int Normalize (int value, int performance)
         {
-            int period = GetPeriodDuration();
+            int period = Constants.PERIOD;
 
             return value * period * performance / 100;
         }
 
         static long Normalize (long value, int performance)
         {
-            int period = GetPeriodDuration();
+            int period = Constants.PERIOD;
 
             return value * period * performance / 100;
         }

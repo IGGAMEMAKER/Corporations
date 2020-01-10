@@ -79,7 +79,7 @@ public abstract class OnPeriodChange : OnRandomDateChange
     {
     }
 
-    public override int AmountOfDays => Economy.GetPeriodDuration();
+    public override int AmountOfDays => Constants.PERIOD;
 }
 
 public abstract class OnHalfYear : OnRandomDateChange
