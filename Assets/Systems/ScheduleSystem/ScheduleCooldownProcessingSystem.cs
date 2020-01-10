@@ -4,9 +4,9 @@ using System.Linq;
 using Assets.Core;
 using Entitas;
 
-public class ScheduleCooldownProcessingSystem : OnDateChange
+public class CooldownProcessingSystem : OnDateChange
 {
-    public ScheduleCooldownProcessingSystem(Contexts contexts) : base(contexts)
+    public CooldownProcessingSystem(Contexts contexts) : base(contexts)
     {
     }
 

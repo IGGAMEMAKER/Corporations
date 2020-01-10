@@ -104,12 +104,16 @@ namespace Assets.Core
         }
 
         // TODO move to separate file/delete
-        public static void UpgradeFeatures(ProductImprovement improvement, GameEntity product)
+        public static void UpgradeFeatures(ProductImprovement improvement, GameEntity product, GameContext gameContext)
         {
+            var task = new CompanyTaskUpgradeFeature(product.company.Id, improvement);
+
+            if (Cooldowns.IsHasTask(gameContext, task))
+                return;
+
             if (HasFreeImprovements(product))
             {
-                product.productImprovements.Improvements[improvement]++;
-                product.productImprovements.Count++;
+                Cooldowns.AddTask(gameContext, task, 15);
             }
         }
     }

@@ -138,6 +138,19 @@ public class CompanyTaskMarketingActivity : CompanyTask
     }
 }
 
+public class CompanyTaskUpgradeFeature : CompanyTask
+{
+    public ProductImprovement ProductImprovement;
+
+    public CompanyTaskUpgradeFeature(int companyId, ProductImprovement improvement)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.UpgradeFeature;
+
+        ProductImprovement = improvement;
+    }
+}
+
 public class CompanyTaskAcquisition : CompanyTask
 {
     public CompanyTaskAcquisition(int companyId)

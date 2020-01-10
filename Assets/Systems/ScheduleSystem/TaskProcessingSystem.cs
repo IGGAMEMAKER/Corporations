@@ -39,9 +39,10 @@ public partial class TaskProcessingSystem : OnDateChange
         var task = taskComponent.CompanyTask;
         switch (task.CompanyTaskType)
         {
-            case CompanyTaskType.ExploreMarket: ExploreMarket(task); break;
-            case CompanyTaskType.ExploreCompany: ExploreCompany(task); break;
-            case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
+            case CompanyTaskType.ExploreMarket:     ExploreMarket(task); break;
+            case CompanyTaskType.ExploreCompany:    ExploreCompany(task); break;
+            case CompanyTaskType.AcquiringCompany:  AcquireCompany(task); break;
+            case CompanyTaskType.UpgradeFeature:    UpgradeFeature(task); break;
         }
     }
 
@@ -76,9 +77,17 @@ public partial class TaskProcessingSystem : OnDateChange
 
     void ExploreCompany(CompanyTask task)
     {
-        var id = (task as CompanyTaskExploreCompany).CompanyId;
-
-        var c = Companies.GetCompany(gameContext, id);
+        var c = Companies.GetCompany(gameContext, task.CompanyId);
         c.AddResearch(1);
+    }
+
+    void UpgradeFeature(CompanyTask task)
+    {
+        var t = (task as CompanyTaskUpgradeFeature);
+
+        var product = Companies.GetCompany(gameContext, t.CompanyId);
+
+        product.productImprovements.Improvements[t.ProductImprovement]++;
+        product.productImprovements.Count++;
     }
 }
