@@ -113,50 +113,46 @@ public enum CompanyTaskType
     AcquiringCompany,
     AcquiringParlay,
 
-
+    UpgradeFeature,
+    MarketingActivity
 }
 
 public abstract class CompanyTask
 {
     public CompanyTaskType CompanyTaskType;
+    public int CompanyId;
 
     public bool Equals(CompanyTask obj)
     {
-        return CompanyTaskType == obj.CompanyTaskType && EqualsExactly(obj);
+        return CompanyTaskType == obj.CompanyTaskType && CompanyId == obj.CompanyId && EqualsExactly(obj);
     }
-    public abstract bool EqualsExactly(CompanyTask obj);
+    public virtual bool EqualsExactly(CompanyTask obj) => true;
 }
 
+public class CompanyTaskMarketingActivity : CompanyTask
+{
+    public CompanyTaskMarketingActivity(int companyId)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.MarketingActivity;
+    }
+}
 
 public class CompanyTaskAcquisition : CompanyTask
 {
-    public int CompanyId;
-
     public CompanyTaskAcquisition(int companyId)
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.AcquiringCompany;
     }
-
-    public override bool EqualsExactly(CompanyTask obj)
-    {
-        return CompanyId == (obj as CompanyTaskAcquisition).CompanyId;
-    }
 }
 
 public class CompanyTaskExploreCompany : CompanyTask
 {
-    public int CompanyId;
-
     public CompanyTaskExploreCompany(int companyId)
     {
         CompanyTaskType = CompanyTaskType.ExploreCompany;
         CompanyId = companyId;
-    }
-
-    public override bool EqualsExactly(CompanyTask obj)
-    {
-        return CompanyId == (obj as CompanyTaskExploreCompany).CompanyId;
     }
 }
 
@@ -169,6 +165,8 @@ public class CompanyTaskExploreMarket : CompanyTask
     {
         CompanyTaskType = CompanyTaskType.ExploreMarket;
         NicheType = nicheType;
+
+        CompanyId = -1;
     }
 
     public override bool EqualsExactly(CompanyTask obj)
