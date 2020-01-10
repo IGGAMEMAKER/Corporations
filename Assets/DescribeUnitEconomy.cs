@@ -12,8 +12,8 @@ public class DescribeUnitEconomy : ParameterView
         var change = income - ads;
 
         if (change >= 0)
-            return Visuals.Positive("Get as more clients as you can!");
+            return "Get as more clients as you can!";
         else
-            return Visuals.Negative("Add more features to become profitable!");
+            return "Add more features to become profitable!";
     }
 }
