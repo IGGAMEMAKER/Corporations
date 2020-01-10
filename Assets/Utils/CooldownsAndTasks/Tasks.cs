@@ -23,6 +23,10 @@ namespace Assets.Core
 
 
 
+        public static bool CanAddTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            return !IsHasTask(gameContext, companyTask);
+        }
         public static bool IsHasTask(GameContext gameContext, CompanyTask companyTask)
         {
             var task = GetTask(gameContext, companyTask);

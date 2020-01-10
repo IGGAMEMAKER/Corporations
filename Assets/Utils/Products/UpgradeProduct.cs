@@ -108,7 +108,7 @@ namespace Assets.Core
         {
             var task = new CompanyTaskUpgradeFeature(product.company.Id, improvement);
 
-            if (HasFreeImprovements(product) && !Cooldowns.IsHasTask(gameContext, task))
+            if (HasFreeImprovements(product) && Cooldowns.CanAddTask(gameContext, task))
                 Cooldowns.AddTask(gameContext, task, 15);
         }
     }
