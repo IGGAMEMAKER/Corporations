@@ -41,31 +41,6 @@ public class NavigationHistoryComponent : IComponent
 }
 
 
-public class ShareholderComponent : IComponent
-{
-    public int Id;
-    public string Name;
-    public InvestorType InvestorType;
-}
-
-public enum InvestorBonus
-{
-    None,
-    Expertise,
-    Branding,
-}
-
-public class InvestmentProposal
-{
-    public int ShareholderId;
-    public long Valuation;
-    public long Offer;
-    public InvestorBonus InvestorBonus;
-
-    public bool WasAccepted;
-}
-
-
 [Game, Event(EventTarget.Self)]
 public class TutorialComponent : IComponent
 {
@@ -90,8 +65,33 @@ public enum LogTypes
     MyProductCompanyCompetitors
 }
 
+// TODO game data. move somewhere else
 [Game]
 public class ResearchComponent : IComponent
 {
     public int Level;
+}
+
+public class ShareholderComponent : IComponent
+{
+    public int Id;
+    public string Name;
+    public InvestorType InvestorType;
+}
+
+public enum InvestorBonus
+{
+    None,
+    Expertise,
+    Branding,
+}
+
+public class InvestmentProposal
+{
+    public int ShareholderId;
+    public long Valuation;
+    public long Offer;
+    public InvestorBonus InvestorBonus;
+
+    public bool WasAccepted;
 }
