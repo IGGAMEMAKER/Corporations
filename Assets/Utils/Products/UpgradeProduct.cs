@@ -98,9 +98,7 @@ namespace Assets.Core
 
         public static int GetFreeImprovements(GameEntity product)
         {
-            var level = GetProductLevel(product);
-
-            return level * 2 - product.productImprovements.Count;
+            return product.expertise.ExpertiseLevel;
         }
         public static bool HasFreeImprovements(GameEntity product)
         {
@@ -113,7 +111,10 @@ namespace Assets.Core
             var task = new CompanyTaskUpgradeFeature(product.company.Id, improvement);
 
             if (HasFreeImprovements(product))
+            {
+                product.expertise.ExpertiseLevel--;
                 Cooldowns.AddTask(gameContext, task, 8);
+            }
         }
     }
 }

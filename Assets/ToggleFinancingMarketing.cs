@@ -13,7 +13,7 @@ public class ToggleFinancingMarketing : View
 
         Render();
 
-        Dropdown.value = SelectedCompany.financing.Financing[Financing.Marketing];
+        Dropdown.value = MarketingFinancing;
     }
 
     public void SetFinancing()
@@ -23,6 +23,8 @@ public class ToggleFinancingMarketing : View
         Render();
     }
 
+    int MarketingFinancing => Economy.GetMarketingFinancing(SelectedCompany);
+
     void Render()
     {
         var text = "";
@@ -31,7 +33,7 @@ public class ToggleFinancingMarketing : View
         long cost = Economy.GetMarketingCost(SelectedCompany, GameContext);
 
         var description = "";
-        switch (SelectedCompany.financing.Financing[Financing.Marketing])
+        switch (MarketingFinancing)
         {
             case 0:
                 description = "Gives microscopic amount of clients";

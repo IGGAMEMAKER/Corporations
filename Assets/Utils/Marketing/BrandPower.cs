@@ -24,7 +24,7 @@ namespace Assets.Core
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
-            var isMarketingAggressively = product.financing.Financing[Financing.Marketing] == 2;
+            var isMarketingAggressively = Economy.GetMarketingFinancing(product) == Products.GetMaxFinancing;
             var isPayingForMarketing    = product.isRelease;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
@@ -34,13 +34,15 @@ namespace Assets.Core
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
                 .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
                 .AppendAndHideIfZero("Released", isPayingForMarketing ? 1 : 0)
-                .AppendAndHideIfZero("Monopoly", isMonopolist ? 3 : 0)
+                
+                .AppendAndHideIfZero("Monopoly", isMonopolist ? 1 : 0)
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
                 .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
 
                 // multiply our marketing efforts if paying for them
                 .MultiplyAndHideIfOne("Is Innovator", isInnovator && isPayingForMarketing ? 2 : 1)
+                
                 .AppendAndHideIfZero("Is Innovator", isInnovator && !isPayingForMarketing ? 1 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)
                 .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)

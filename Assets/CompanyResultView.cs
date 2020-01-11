@@ -46,7 +46,7 @@ public class CompanyResultView : View
     void RenderMarketingButtons(int companyId)
     {
         var company = Companies.GetCompany(GameContext, companyId);
-        var financing = company.financing.Financing[Financing.Marketing];
+        var financing = Economy.GetMarketingFinancing(company);
 
         var isReleased = company.isRelease;
 

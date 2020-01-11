@@ -33,10 +33,6 @@
             return GetCompanyCost(context, companyId) * desireToSell;
         }
 
-        public static long GetCompanyCostNicheMultiplier()
-        {
-            return 15;
-        }
 
         public static long GetCompanyBaseCost(GameContext context, int companyId) => GetCompanyBaseCost(context, Companies.GetCompany(context, companyId));
         public static long GetCompanyBaseCost(GameContext context, GameEntity company)
@@ -51,7 +47,12 @@
         {
             var c = Companies.GetCompany(context, companyId);
 
-            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier();
+            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier() * 30 / Constants.PERIOD;
+        }
+
+        public static long GetCompanyCostNicheMultiplier()
+        {
+            return 15;
         }
     }
 }

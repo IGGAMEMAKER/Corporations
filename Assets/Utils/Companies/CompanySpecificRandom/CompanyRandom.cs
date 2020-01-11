@@ -15,13 +15,6 @@ namespace Assets.Core
             return company.cEO.HumanId;
         }
 
-        public static int GetAccumulatedExpertise(GameEntity company)
-        {
-            var exp = company.expertise.ExpertiseLevel;
-
-            return Mathf.Clamp((int)(10f * Mathf.Log(1.2f, exp)), 0, 60);
-        }
-
         public static int GetCompanyExpertise (GameEntity company)
         {
             //var CEOId = 
