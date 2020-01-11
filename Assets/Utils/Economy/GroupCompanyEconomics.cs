@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -6,7 +7,9 @@ namespace Assets.Core
     {
         private static long GetGroupOfCompaniesCost(GameContext context, GameEntity e)
         {
-            return GetGroupCost(context, e.company.Id);
+            var holdings = Companies.GetCompanyHoldings(context, e.company.Id, true);
+
+            return GetHoldingCost(context, holdings);
         }
 
         static long GetHoldingIncome(GameContext context, List<CompanyHolding> holdings)
@@ -21,6 +24,7 @@ namespace Assets.Core
 
         static long GetHoldingMaintenance(GameContext context, List<CompanyHolding> holdings)
         {
+            //return holdings.Sum(h => h.control * GetCompanyMaintenance(context, h.companyId) / 100);
             long sum = 0;
 
             foreach (var h in holdings)
@@ -29,15 +33,7 @@ namespace Assets.Core
             return sum;
         }
 
-        public static long GetHoldingCost(GameContext context, int companyId)
-        {
-            var c = Companies.GetCompany(context, companyId);
-
-            var holdings = Companies.GetCompanyHoldings(context, companyId, true);
-
-            return GetHoldingCost(context, holdings);
-        }
-
+        public static long GetHoldingCost(GameContext context, int companyId) => GetHoldingCost(context, Companies.GetCompanyHoldings(context, companyId, true));
         public static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
         {
             long sum = 0;
@@ -48,25 +44,13 @@ namespace Assets.Core
             return sum;
         }
 
-        private static long GetGroupMaintenance(GameContext gameContext, int companyId)
-        {
-            var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
 
-            return GetHoldingMaintenance(gameContext, holdings);
-        }
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
             var holdings = Companies.GetCompanyHoldings(context, e.company.Id, true);
 
             return GetHoldingIncome(context, holdings);
-        }
-
-        private static long GetGroupCost(GameContext context, int companyId)
-        {
-            var holdings = Companies.GetCompanyHoldings(context, companyId, true);
-
-            return GetHoldingCost(context, holdings);
         }
     }
 }

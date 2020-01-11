@@ -10,5 +10,12 @@
             else
                 return GetGroupMaintenance(gameContext, c.company.Id);
         }
+
+        private static long GetGroupMaintenance(GameContext gameContext, int companyId)
+        {
+            var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
+
+            return GetHoldingMaintenance(gameContext, holdings);
+        }
     }
 }
