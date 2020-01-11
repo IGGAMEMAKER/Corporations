@@ -4,14 +4,8 @@
     {
         public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
-        public static long GetCompanyIncome(int companyId, GameContext context)
-        {
-            var e = Companies.GetCompany(context, companyId);
-
-            return GetCompanyIncome(e, context);
-        }
-
-        public static long GetCompanyIncome(GameEntity e, GameContext context)
+        public static long GetCompanyIncome(GameContext context, int companyId) => GetCompanyIncome(context, Companies.GetCompany(context, companyId));
+        public static long GetCompanyIncome(GameContext context, GameEntity e)
         {
             if (Companies.IsProductCompany(e))
                 return GetProductCompanyIncome(e, context);
@@ -24,7 +18,7 @@
         internal static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.GetCompany(context, companyId));
         internal static long GetProfit(GameContext context, GameEntity c)
         {
-            return GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c);
+            return GetCompanyIncome(context, c) - GetCompanyMaintenance(context, c);
         }
 
 

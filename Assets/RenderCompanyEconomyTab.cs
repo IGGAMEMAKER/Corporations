@@ -17,7 +17,7 @@ public class RenderCompanyEconomyTab : View
 
         var company = Companies.GetCompany(GameContext, companyId);
 
-        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(company, GameContext));
+        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(GameContext, company));
         IncomeHint.SetHint(GetIncomeDescription(GameContext, companyId));
 
         Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(GameContext, company));
@@ -93,7 +93,7 @@ public class RenderCompanyEconomyTab : View
             var c = Companies.GetCompany(context, h.companyId);
 
             string name = c.company.Name;
-            long income = Economy.GetCompanyIncome(c, context);
+            long income = Economy.GetCompanyIncome(context, c);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
             description += $"\n  {name}: +${tiedIncome} ({h.control}%)";

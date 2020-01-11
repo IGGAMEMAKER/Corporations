@@ -24,7 +24,7 @@ namespace Assets.Core
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
             return Companies.GetCompanyHoldings(context, e.company.Id, true)
-                .Sum(h => h.control * GetCompanyIncome(h.companyId, context) / 100);
+                .Sum(h => h.control * GetCompanyIncome(context, h.companyId) / 100);
         }
     }
 }

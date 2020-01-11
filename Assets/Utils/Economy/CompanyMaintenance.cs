@@ -18,12 +18,8 @@ namespace Assets.Core
         {
             var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
 
-            return GetHoldingMaintenance(gameContext, holdings);
-        }
-
-        static long GetHoldingMaintenance(GameContext context, List<CompanyHolding> holdings)
-        {
-            return holdings.Sum(h => h.control * GetCompanyMaintenance(context, h.companyId) / 100);
+            return holdings
+                .Sum(h => h.control * GetCompanyMaintenance(gameContext, h.companyId) / 100);
         }
     }
 }

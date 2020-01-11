@@ -51,7 +51,7 @@
         {
             var c = Companies.GetCompany(context, companyId);
 
-            return GetCompanyIncome(c, context) * GetCompanyCostNicheMultiplier();
+            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier();
         }
     }
 }
