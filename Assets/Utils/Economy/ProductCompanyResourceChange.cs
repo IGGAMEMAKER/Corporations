@@ -4,9 +4,7 @@
     {
         public static TeamResource GetProductCompanyResourceChange(GameEntity company, GameContext gameContext)
         {
-            var period = Constants.PERIOD;
-
-            long money = GetProfit(gameContext, company) * period / 30;
+            long money = GetProfit(gameContext, company);
 
             int performance = TeamUtils.GetPerformance(gameContext, company);
 

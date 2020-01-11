@@ -24,7 +24,7 @@ namespace Assets.Core
                 Debug.LogWarning("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
             }
 
-            return result;
+            return result * Constants.PERIOD / 30;
         }
 
         internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)

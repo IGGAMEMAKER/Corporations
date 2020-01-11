@@ -24,7 +24,7 @@
         internal static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.GetCompany(context, companyId));
         internal static long GetProfit(GameContext context, GameEntity c)
         {
-            return (GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c)) * Constants.PERIOD / 30;
+            return GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c);
         }
 
 
@@ -34,7 +34,7 @@
         }
 
 
-        internal static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, companyId);
+        internal static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, Companies.GetCompany(gameContext, companyId));
         internal static bool IsProfitable(GameContext gameContext, GameEntity company)
         {
             return GetProfit(gameContext, company) > 0;

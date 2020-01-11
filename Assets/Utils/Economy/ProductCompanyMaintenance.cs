@@ -10,7 +10,7 @@ namespace Assets.Core
             var development = GetDevelopmentCost(e, gameContext);
             var marketing = GetMarketingCost(e, gameContext);
 
-            return development + marketing;
+            return (development + marketing) * Constants.PERIOD / 30;
         }
 
         public static long GetMarketingCost(GameEntity e, GameContext gameContext)
