@@ -11,7 +11,20 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         var products = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in products)
+        {
+            var ideaPerExpertise = 100;
+
+            var expertiseLevel = product.companyResource.Resources.ideaPoints / ideaPerExpertise;
+
+            if (expertiseLevel > 0)
+            {
+                product.expertise.ExpertiseLevel += expertiseLevel;
+
+                Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
+            }
+
             Products.UpdgradeProduct(product, gameContext);
+        }
 
         // release AI apps if can
         var releasableAIApps = products
