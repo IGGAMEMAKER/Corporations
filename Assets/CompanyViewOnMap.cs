@@ -140,13 +140,15 @@ public class CompanyViewOnMap : View
 
         //
         var level = Products.GetProductLevel(company);
-        hint.AppendLine($"\n\nConcept: {level}LVL ({concept})");
 
         var clients = MarketingUtils.GetClients(company);
-        hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
 
         var brand = (int)company.branding.BrandPower;
+
+        hint.AppendLine($"\n\n");
+        hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
         hint.AppendLine($"Brand: {brand}");
+        hint.AppendLine($"\nConcept: {level}LVL ({concept})");
 
         hint.AppendLine();
         hint.AppendLine();
