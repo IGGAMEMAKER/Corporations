@@ -18,10 +18,12 @@ namespace Assets.Core
 
         private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
         {
-            var innovationOccured = Random.Range(0, 100) < GetInnovationChance(product, gameContext);
+            var revolutionChance = Mathf.Sqrt(GetInnovationChance(product, gameContext));
+
+            var revolutionOccured = Random.Range(0, 100) < revolutionChance;
             var needsToUpgrade = !IsWillInnovate(product, gameContext);
 
-            if (innovationOccured || needsToUpgrade)
+            if (revolutionOccured || needsToUpgrade)
                 product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
