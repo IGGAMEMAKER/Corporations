@@ -17,7 +17,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
             CloseBankruptCompanies(c);
     }
 
-    bool IsBankrupt(GameEntity company) => Companies.BalanceOf(company) < 0;
+    bool IsBankrupt(GameEntity company) => Economy.BalanceOf(company) < 0;
 
     void CloseBankruptCompanies(GameEntity company)
     {

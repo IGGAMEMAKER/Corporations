@@ -6,7 +6,7 @@
         {
             var period = Constants.PERIOD;
 
-            long money = GetProfit(company, gameContext) * period / 30;
+            long money = GetProfit(gameContext, company) * period / 30;
 
             int performance = TeamUtils.GetPerformance(gameContext, company);
 

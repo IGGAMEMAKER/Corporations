@@ -14,7 +14,7 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
 
     bool IsHasMoneyOverflow(GameEntity company)
     {
-        var balance = Companies.BalanceOf(company);
+        var balance = Economy.BalanceOf(company);
         var nonCapitalCost = Economy.GetCompanyBaseCost(gameContext, company.company.Id);
 
         return balance > 0.3d * nonCapitalCost;

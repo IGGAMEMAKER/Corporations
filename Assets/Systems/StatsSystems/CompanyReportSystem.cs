@@ -3,7 +3,8 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class CompanyReportSystem : OnPeriodChange
+//class CompanyReportSystem : OnPeriodChange
+class CompanyReportSystem : OnMonthChange
 {
     public CompanyReportSystem(Contexts contexts) : base(contexts) {}
 
@@ -30,7 +31,7 @@ class CompanyReportSystem : OnPeriodChange
             Date = date,
             AudienceSize = 0,
             Income = Economy.GetCompanyIncome(e, gameContext),
-            Profit = Economy.GetProfit(e, gameContext),
+            Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.GetCompanyCost(gameContext, e)
         });
     }
@@ -42,7 +43,7 @@ class CompanyReportSystem : OnPeriodChange
             Date = date,
             AudienceSize = MarketingUtils.GetClients(e),
             Income = Economy.GetCompanyIncome(e, gameContext),
-            Profit = Economy.GetProfit(e, gameContext),
+            Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.GetCompanyCost(gameContext, e)
         });
     }

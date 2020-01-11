@@ -12,15 +12,6 @@ namespace Assets.Core
             return GetHoldingCost(context, holdings);
         }
 
-        static long GetHoldingIncome(GameContext context, List<CompanyHolding> holdings)
-        {
-            return holdings.Sum(h => h.control * GetCompanyIncome(h.companyId, context) / 100);
-        }
-
-        static long GetHoldingMaintenance(GameContext context, List<CompanyHolding> holdings)
-        {
-            return holdings.Sum(h => h.control * GetCompanyMaintenance(context, h.companyId) / 100);
-        }
 
         public static long GetHoldingCost(GameContext context, int companyId) => GetHoldingCost(context, Companies.GetCompanyHoldings(context, companyId, true));
         public static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
@@ -32,9 +23,8 @@ namespace Assets.Core
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
-            var holdings = Companies.GetCompanyHoldings(context, e.company.Id, true);
-
-            return GetHoldingIncome(context, holdings);
+            return Companies.GetCompanyHoldings(context, e.company.Id, true)
+                .Sum(h => h.control * GetCompanyIncome(h.companyId, context) / 100);
         }
     }
 }

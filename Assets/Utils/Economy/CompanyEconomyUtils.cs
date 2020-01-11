@@ -2,7 +2,7 @@
 {
     public static partial class Economy
     {
-        public static long GetCompanyBalance(GameEntity company) => company.companyResource.Resources.money;
+        public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
         public static long GetCompanyIncome(int companyId, GameContext context)
         {
@@ -21,31 +21,23 @@
 
 
 
-        internal static long GetProfit(GameEntity c, GameContext context)
+        internal static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.GetCompany(context, companyId));
+        internal static long GetProfit(GameContext context, GameEntity c)
         {
-            return GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c);
+            return (GetCompanyIncome(c, context) - GetCompanyMaintenance(context, c)) * Constants.PERIOD / 30;
         }
 
-        internal static long GetProfit(GameContext context, int companyId)
-        {
-            var c = Companies.GetCompany(context, companyId);
-
-            return GetProfit(c, context);
-        }
 
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
-            return GetProfit(company, gameContext) >= money;
+            return GetProfit(gameContext, company) >= money;
         }
 
 
+        internal static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, companyId);
         internal static bool IsProfitable(GameContext gameContext, GameEntity company)
         {
-            return GetProfit(company, gameContext) > 0;
-        }
-        internal static bool IsProfitable(GameContext gameContext, int companyId)
-        {
-            return GetProfit(gameContext, companyId) > 0;
+            return GetProfit(gameContext, company) > 0;
         }
 
 

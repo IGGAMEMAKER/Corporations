@@ -1,4 +1,7 @@
-﻿namespace Assets.Core
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Assets.Core
 {
     public static partial class Economy
     {
@@ -16,6 +19,11 @@
             var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
 
             return GetHoldingMaintenance(gameContext, holdings);
+        }
+
+        static long GetHoldingMaintenance(GameContext context, List<CompanyHolding> holdings)
+        {
+            return holdings.Sum(h => h.control * GetCompanyMaintenance(context, h.companyId) / 100);
         }
     }
 }

@@ -42,7 +42,7 @@ public partial class AIGroupExpansionSystem
 
     IEnumerable<GameEntity> GetSuitableMarkets(GameEntity group, IndustryType industry)
     {
-        var profit = Economy.GetProfit(group, gameContext);
+        var profit = Economy.GetProfit(gameContext, group);
 
         var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
 

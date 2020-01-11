@@ -44,7 +44,7 @@ public abstract class OnLastDayOfPeriod : ReactiveSystem<GameEntity>
         return context.CreateCollector(GameMatcher.Date);
     }
 
-    public int AmountOfDays { get { return 30; } }
+    public int AmountOfDays { get { return Constants.PERIOD; } }
 }
 
 public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>

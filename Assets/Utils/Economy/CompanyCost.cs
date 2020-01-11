@@ -17,7 +17,7 @@
             else
                 cost = GetGroupOfCompaniesCost(context, c);
 
-            long capital = Companies.BalanceOf(c);
+            long capital = BalanceOf(c);
 
             // +1 to avoid division by zero
             return cost + capital + 1;

@@ -15,8 +15,8 @@ public class WarnAboutBankruptcySystem : OnLastDayOfPeriod
         if (playerCompany == null)
             return;
 
-        var profit = Economy.GetProfit(playerCompany, gameContext);
-        var balance = playerCompany.companyResource.Resources.money;
+        var profit = Economy.GetProfit(gameContext, playerCompany);
+        var balance = Economy.BalanceOf(playerCompany);
 
         var willBecomeBankruptNextDay = balance + profit < 0;
 

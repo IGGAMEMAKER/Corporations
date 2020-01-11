@@ -29,7 +29,7 @@ namespace Assets.Core
         {
             var profitLeader = GetMostProfitableCompanyOnMarket(gameContext, niche);
 
-            var profit = profitLeader == null ? 0 : Economy.GetProfit(profitLeader, gameContext);
+            var profit = profitLeader == null ? 0 : Economy.GetProfit(gameContext, profitLeader);
             var biggestMaintenance = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(gameContext, profitLeader);
 
             var ROI = profitLeader == null ? 0 : (profit * 100 / biggestMaintenance);
@@ -43,7 +43,7 @@ namespace Assets.Core
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderByDescending(p => Economy.GetProfit(p, context))
+                .OrderByDescending(p => Economy.GetProfit(context, p))
                 .FirstOrDefault();
 
             return productCompany;

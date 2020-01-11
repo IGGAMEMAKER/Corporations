@@ -9,7 +9,7 @@ namespace Assets.Core
         public static void PayDividends(GameContext gameContext, GameEntity company)
         {
             int dividendSize = 33;
-            var balance = BalanceOf(company);
+            var balance = Economy.BalanceOf(company);
 
             var dividends = balance * dividendSize / 100;
 
@@ -31,6 +31,6 @@ namespace Assets.Core
             SpendResources(company, dividends);
         }
 
-        public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
+        //public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
     }
 }

@@ -21,7 +21,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
             if (sum == 0)
                 sum = 1;
 
-            var balance = Companies.BalanceOf(m);
+            var balance = Economy.BalanceOf(m);
 
             for (var i = 0; i < products.Length; i++)
             {
