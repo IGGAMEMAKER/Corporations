@@ -26,7 +26,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //NicheType.Qol_Antivirus,
 
             NicheType.Qol_OnlineEducation,
-            NicheType.Qol_OnlineGenealogy
+            NicheType.Qol_OnlineGenealogy,
+
+
+            NicheType.ECom_OnlineTaxi,
+
         };
         AttachNichesToIndustry(IndustryType.WorkAndLife, niches);
 
@@ -52,6 +56,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var genealogySite =
             new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.ThreeYears);
 
+        var taxi =
+            new MarketProfile(AudienceSize.Global, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
+
+
+
         SetMarkets(NicheType.Qol_DocumentEditors,       1980, 2040, officeDocumentEditor);
         SetMarkets(NicheType.Qol_GraphicalEditor,       1990, 2040, officeDocumentEditor);
 
@@ -72,7 +81,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
 
         SetMarkets(NicheType.Qol_Maps,                  2005, 2040, maps);
-        SetMarkets(NicheType.Qol_MusicSearch,             2009, 2040, musicSearch);
+        SetMarkets(NicheType.Qol_MusicSearch,           2009, 2040, musicSearch);
+
+        SetMarkets(NicheType.ECom_OnlineTaxi,           1998, 2030, taxi);
 
         //SetMarkets(NicheType.Qol_MusicPlayers,          2003, 2040, smallUtil);
         //SetMarkets(NicheType.Qol_VideoPlayers,          2003, 2040, smallUtil);

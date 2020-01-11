@@ -12,7 +12,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //NicheType.ECom_Blockchain,
             //NicheType.ECom_TradingBot,
 
-            NicheType.ECom_OnlineTaxi,
             NicheType.ECom_BookingTransportTickets,
             NicheType.ECom_BookingHotels,
             NicheType.ECom_Tourism,
@@ -27,9 +26,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var banking = payment.Copy().Global().IncomeMid().Dynamic();
 
-        var taxi =
-            new MarketProfile(AudienceSize.Global, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
-
         var booking =
             new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
 
@@ -41,7 +37,9 @@ public partial class MarketInitializerSystem : IInitializeSystem
         SetMarkets(NicheType.ECom_Marketplace,      1995, 2050, marketplace);
 
         SetMarkets(NicheType.ECom_Exchanging,       1998, 2030, payment);
-        SetMarkets(NicheType.ECom_OnlineTaxi,       1998, 2030, taxi);
+
+
+
         SetMarkets(NicheType.ECom_BookingTransportTickets,   1998, 2030, booking);
         SetMarkets(NicheType.ECom_BookingHotels,          1998, 2030, booking);
         SetMarkets(NicheType.ECom_Tourism,          1998, 2030, booking);
