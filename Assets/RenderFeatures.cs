@@ -8,12 +8,6 @@ public class RenderFeatures : ParameterView
 
         var freeFeatures = Products.GetFreeImprovements(product);
 
-        var freeFeaturesDescription = "";
-        if (freeFeatures > 0)
-            freeFeaturesDescription = $"(+{freeFeatures})";
-
-        var features = product.productImprovements.Count;
-
-        return $"{features} {freeFeaturesDescription}";
+        return freeFeatures.ToString();
     }
 }

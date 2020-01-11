@@ -16,6 +16,11 @@ public class TaskComponent : IComponent
     public int EndTime;
 }
 
+[Game]
+public class CooldownContainerComponent : IComponent
+{
+    public Dictionary<string, Cooldown> Cooldowns;
+}
 
 
 public enum CompanyTaskType
@@ -27,7 +32,9 @@ public enum CompanyTaskType
     AcquiringParlay,
 
     UpgradeFeature,
-    MarketingActivity
+    MarketingActivity,
+
+    ReleasingApp
 }
 
 public abstract class CompanyTask
@@ -48,6 +55,15 @@ public class CompanyTaskMarketingActivity : CompanyTask
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.MarketingActivity;
+    }
+}
+
+public class CompanyTaskReleaseApp : CompanyTask
+{
+    public CompanyTaskReleaseApp(int companyId)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.ReleasingApp;
     }
 }
 
@@ -99,12 +115,4 @@ public class CompanyTaskExploreMarket : CompanyTask
     {
         return NicheType == (obj as CompanyTaskExploreMarket).NicheType;
     }
-}
-
-
-
-[Game]
-public class CooldownContainerComponent : IComponent
-{
-    public Dictionary<string, Cooldown> Cooldowns;
 }

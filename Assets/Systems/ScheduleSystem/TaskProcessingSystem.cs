@@ -55,7 +55,13 @@ public partial class TaskProcessingSystem : OnDateChange
             case CompanyTaskType.ExploreCompany: ExploreCompany(task); break;
             case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
             case CompanyTaskType.UpgradeFeature: UpgradeFeature(task); break;
+            case CompanyTaskType.ReleasingApp: ReleaseApp(task); break;
         }
+    }
+
+    void ReleaseApp(CompanyTask task)
+    {
+
     }
 
     void AcquireCompany(CompanyTask task)
