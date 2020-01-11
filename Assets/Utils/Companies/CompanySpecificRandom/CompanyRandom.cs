@@ -15,18 +15,6 @@ namespace Assets.Core
             return company.cEO.HumanId;
         }
 
-        public static int GetCompanyExpertise (GameEntity company)
-        {
-            //var CEOId = 
-            int companyId = company.company.Id;
-            int CEOId = GetCEOId(company);
-
-            //var accumulated = GetAccumulatedExpertise(company);
-
-            return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId));
-            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
-        }
-
         public static Color GetCompanyUniqueColor(int companyId)
         {
             var r = GetRandomColor(companyId, companyId);
