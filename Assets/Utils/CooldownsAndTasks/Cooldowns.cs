@@ -28,11 +28,11 @@ namespace Assets.Core
         public static void AddCooldown(GameContext gameContext, Cooldown cooldown, int duration) => AddCooldown(gameContext, cooldown.GetKey(), cooldown, duration);
         public static void AddCooldown(GameContext gameContext, string cooldownName, Cooldown cooldown, int duration)
         {
-            var c = GetCooldowns(gameContext);
+            var cooldowns = GetCooldowns(gameContext);
 
             cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
 
-            c[cooldownName] = cooldown;
+            cooldowns[cooldownName] = cooldown;
         }
 
         public static bool TryGetCooldown(GameContext gameContext, Cooldown req, out Cooldown cooldown) => TryGetCooldown(gameContext, req.GetKey(), out cooldown);
