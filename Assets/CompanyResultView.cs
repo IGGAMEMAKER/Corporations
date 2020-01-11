@@ -58,14 +58,7 @@ public class CompanyResultView : View
     }
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
-    {
-        //var growth = MarketingUtils.GetAudienceGrowthMultiplier(product, GameContext);
-        //var growthMultiplier = MarketingUtils.GetGrowthMultiplier(product, GameContext);
-
-        //ClientGrowth.text = "Client growth\n" + Visuals.PositiveOrNegativeMinified(growth) + "%";
-        //ClientGrowth.gameObject.GetComponent<Hint>().SetHint(growthMultiplier.ToString());
-
-        
+    {        
         var bonus = MarketingUtils.GetBrandChange(product, GameContext);
         var change = bonus.Sum();
         ClientGrowth.text = $"Brand\n{(int)product.branding.BrandPower} ({Visuals.PositiveOrNegativeMinified(change)})";
