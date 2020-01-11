@@ -13,13 +13,15 @@ namespace Assets.Core
             UpgradeProductLevel(product, gameContext);
             UpdateMarketRequirements(product, gameContext);
 
-            if (!IgnoreCooldowns)
-                Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
+            Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
         }
 
         private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
         {
-            if (Random.Range(0, 100) < GetInnovationChance(product, gameContext))
+            var innovationOccured = Random.Range(0, 100) < GetInnovationChance(product, gameContext);
+            var needsToUpgrade = !IsWillInnovate(product, gameContext);
+
+            if (innovationOccured || needsToUpgrade)
                 product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
@@ -100,6 +102,7 @@ namespace Assets.Core
         {
             return product.expertise.ExpertiseLevel;
         }
+
         public static bool HasFreeImprovements(GameEntity product)
         {
             return GetFreeImprovements(product) > 0;
