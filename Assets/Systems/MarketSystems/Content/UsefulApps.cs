@@ -26,7 +26,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //NicheType.Qol_Antivirus,
 
             NicheType.Qol_OnlineEducation,
-            NicheType.Qol_OnlineGenealogy,
+            //NicheType.Qol_OnlineGenealogy,
 
 
             NicheType.ECom_OnlineTaxi,
@@ -53,8 +53,8 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var maps =
             new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Hard, NicheSpeed.ThreeYears);
 
-        var genealogySite =
-            new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.ThreeYears);
+        //var genealogySite =
+        //    new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.ThreeYears);
 
         var taxi =
             new MarketProfile(AudienceSize.Global, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
@@ -77,7 +77,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         SetMarkets(NicheType.Qol_Encyclopedia,          2002, 2050, encyclopedia);
         SetMarkets(NicheType.Qol_AdBlocker,             2003, 2040, smallUtil);
-        SetMarkets(NicheType.Qol_OnlineGenealogy,       2003, 2040, genealogySite);
+        //SetMarkets(NicheType.Qol_OnlineGenealogy,       2003, 2040, genealogySite);
 
 
         SetMarkets(NicheType.Qol_Maps,                  2005, 2040, maps);
