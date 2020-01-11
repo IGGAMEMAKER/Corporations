@@ -25,20 +25,23 @@
             // penalties
             var tooManyPrimaryMarketsPenalty = Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext);
 
+            var maxCorpLevel = Constants.CORPORATE_CULTURE_LEVEL_MAX;
+
             return new Bonus<long>("Innovation chance")
                 // market
                 .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
                 .Append("Market change speed", marketSpeedPenalty)
 
                 // corp culture
-                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (10 - responsibility) / 10)
-                .Append("Corporate Culture Mindset", 5 - mindset)
+                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel)
+                .Append("Corporate Culture Mindset", maxCorpLevel - mindset)
                 .Append("Corporate Culture Acquisitions", createOrBuy * 2)
 
                 // focusing / sphere of interest
                 .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
-                .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
                 .AppendAndHideIfZero("Too many primary markets", -tooManyPrimaryMarketsPenalty)
+
+                .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
                 ;
         }
 
@@ -51,7 +54,7 @@
         {
             var focusing = Companies.GetPolicyValue(product, CorporatePolicy.Focusing);
 
-            return 5 * (5 - focusing);
+            return 5 * (Constants.CORPORATE_CULTURE_LEVEL_MAX - focusing);
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)

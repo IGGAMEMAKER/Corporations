@@ -12,7 +12,7 @@
                 Normalize(GetPP(company), performance),
                 Normalize(GetMP(company), performance),
                 Normalize(GetSP(company), performance),
-                Normalize(GetIdeas(company), performance),
+                Normalize(GetIdeas(company, gameContext), performance),
                 money
                 );
         }
@@ -50,13 +50,11 @@
             return managers + universals;
         }
 
-        static int GetIdeas(GameEntity productCompany)
+        static int GetIdeas(GameEntity productCompany, GameContext gameContext)
         {
-            var focusModifier = Constants.DEVELOPMENT_FOCUS_IDEAS;
+            var innovation = Products.GetInnovationChance(productCompany, gameContext);
 
-            var expertiseModifier = Companies.GetCompanyExpertise(productCompany);
-
-            return Constants.DEVELOPMENT_PRODUCTION_IDEAS * (expertiseModifier + focusModifier) / 100;
+            return innovation + 100;
         }
     }
 }
