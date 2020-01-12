@@ -9,7 +9,7 @@ public class RenderIncomePerUser : ParameterView
     {
         var product = SelectedCompany;
 
-        var cost = Economy.GetSegmentPrice(GameContext, product, 0) * 1000;
+        var cost = Economy.GetBaseSegmentIncome(GameContext, product, 0) * 1000;
 
         return cost.ToString("0.0") + "$";
     }

@@ -8,15 +8,25 @@ namespace Assets.Core
     {
         public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
         {
-            var priceModifier = GetSegmentProductPriceModifier(gameContext, nicheType, segmentId);
+            var priceModifier = GetPositioningPriceModifier(gameContext, nicheType, segmentId);
 
-            var costs = GetNicheCosts(gameContext, nicheType);
+            var baseIncome = GetBaseProductPrice(nicheType, gameContext);
 
-            return costs.BaseIncome * priceModifier;
+            return baseIncome * priceModifier;
         }
 
 
-        public static float GetSegmentProductPriceModifier(GameContext gameContext, NicheType nicheType, int segmentId)
+
+        public static float GetBaseProductPrice(GameEntity e, GameContext context) => GetBaseProductPrice(e.product.Niche, context);
+        public static float GetBaseProductPrice(NicheType nicheType, GameContext context)
+        {
+            return GetNicheCosts(context, nicheType).BaseIncome;
+        }
+
+
+
+        // positionings
+        public static float GetPositioningPriceModifier(GameContext gameContext, NicheType nicheType, int segmentId)
         {
             var positioningData = GetProductPositioningInfo(gameContext, nicheType, segmentId);
 

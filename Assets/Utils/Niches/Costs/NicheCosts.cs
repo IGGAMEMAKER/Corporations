@@ -10,12 +10,11 @@ namespace Assets.Core
             var costs = niche.nicheCosts;
             var state = GetMarketState(niche);
 
-            var priceModifier = GetMarketStatePriceModifier(state);
             var adModifier    = GetMarketStateAdCostModifier(state);
 
             return new NicheCostsComponent
             {
-                BaseIncome       = costs.BaseIncome * priceModifier,
+                BaseIncome       = costs.BaseIncome,
                 AcquisitionCost  = costs.AcquisitionCost * adModifier,
                 TechCost         = costs.TechCost,
 

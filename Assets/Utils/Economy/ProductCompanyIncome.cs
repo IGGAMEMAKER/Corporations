@@ -8,10 +8,8 @@ namespace Assets.Core
     {
         internal static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
-            float income = 0;
-
             var segmentId = e.productPositioning.Positioning;
-            income += GetIncomeBySegment(context, e.company.Id, segmentId);
+            float income = GetIncomeBySegment(context, e, segmentId);
 
             long result = 0;
 
@@ -27,51 +25,80 @@ namespace Assets.Core
             return result * Constants.PERIOD / 30;
         }
 
-        internal static float GetIncomeBySegment(GameContext gameContext, int companyId, int segmentId)
+        public static float GetImprovementMonetisationValue(Monetisation monetisation)
         {
-            var c = Companies.GetCompany(gameContext, companyId);
+            switch (monetisation)
+            {
+                case Monetisation.Adverts:
+                    return 1f;
 
-            if (c.isDumping)
-                return 0;
+                case Monetisation.Enterprise:
+                    return 1f;
 
-            float price = GetSegmentPrice(gameContext, c, segmentId);
+                case Monetisation.Paid:
+                    return 4f;
 
-            var niche = Markets.GetNiche(gameContext, c.product.Niche);
+                case Monetisation.Service:
+                    return 5f;
 
-
-            //var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
-
-            //var isRegularPayingBusiness = pricingType == Monetisation.Adverts || pricingType == Monetisation.Service || pricingType == Monetisation.Enterprise;
-            //var isIrregularPayingBusiness = pricingType == Monetisation.IrregularPaid;
-            //var isPaidProduct = pricingType == Monetisation.Paid;
-
-            //var monetisationTypeBonus = 1f;
-            
-
-            var isReleasedModifier = c.isRelease ? 1f : 0.5f;
-
-            long clients = MarketingUtils.GetClients(c);
-            return clients * price * isReleasedModifier;
+                default:
+                    return 1f;
+            }
         }
 
-        internal static float GetSegmentPrice(GameContext gameContext, GameEntity c, int segmentId)
+        public static float GetBaseMonetisationValue(Monetisation monetisation)
         {
-            var segmentPriceModifier = Markets.GetSegmentProductPriceModifier(gameContext, c.product.Niche, segmentId);
+            switch (monetisation)
+            {
+                case Monetisation.Adverts:
+                    return 0.3f;
 
-            var basePrice = GetBaseProductPrice(c, gameContext);
+                case Monetisation.Enterprise:
+                    return 0.7f;
+
+                case Monetisation.Paid:
+                    return 0.7f;
+
+                case Monetisation.Service:
+                    return 0.3f;
+
+                default:
+                    return 0.15f;
+            }
+        }
+
+        public static float GetMonetisationModifier(GameContext gameContext, GameEntity c)
+        {
+            var niche = Markets.GetNiche(gameContext, c.product.Niche);
+
+            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
+
+            var baseValue = GetBaseMonetisationValue(pricingType);
+            var multiplier = GetImprovementMonetisationValue(pricingType);
+
 
             var improvements = c.productImprovements.Improvements[ProductImprovement.Monetisation];
 
-            var concept = 0.15f + improvements * 0.04f;
-
-            return basePrice * segmentPriceModifier * concept;
+            return baseValue + improvements * multiplier / 100;
         }
 
-        public static float GetBaseProductPrice(GameEntity e, GameContext context)
+        internal static float GetIncomeBySegment(GameContext gameContext, GameEntity c, int segmentId)
         {
-            var niche = Markets.GetNiche(context, e.product.Niche);
+            if (c.isDumping)
+                return 0;
 
-            return niche.nicheCosts.BaseIncome;
+            float price = GetBaseSegmentIncome(gameContext, c, segmentId);
+
+            float monetisationModifier = GetMonetisationModifier(gameContext, c);
+
+            long clients = MarketingUtils.GetClients(c);
+
+            return clients * price * monetisationModifier;
+        }
+
+        internal static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c, int segmentId)
+        {
+            return Markets.GetSegmentProductPrice(gameContext, c.product.Niche, segmentId);
         }
     }
 }
