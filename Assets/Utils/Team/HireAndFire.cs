@@ -18,7 +18,7 @@ namespace Assets.Core
 
         public static GameEntity GetWorkerByWorkerRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
         {
-            var team = company.team.Workers;
+            var team = company.team.Managers;
 
             GameEntity human = null;
 
@@ -45,7 +45,7 @@ namespace Assets.Core
         {
             var team = company.team;
 
-            team.Workers[humanId] = role;
+            team.Managers[humanId] = role;
 
             ReplaceTeam(company, team);
 
@@ -56,7 +56,7 @@ namespace Assets.Core
         {
             Debug.Log("DismissTeam of " + company.company.Name);
 
-            var workers = company.team.Workers.Keys.ToArray();
+            var workers = company.team.Managers.Keys.ToArray();
 
             for (var i = workers.Length - 1; i > 0; i--)
                 FireWorker(company, workers[i], gameContext);
@@ -70,7 +70,7 @@ namespace Assets.Core
 
             var team = company.team;
 
-            team.Workers.Remove(worker.human.Id);
+            team.Managers.Remove(worker.human.Id);
 
             ReplaceTeam(company, team);
 

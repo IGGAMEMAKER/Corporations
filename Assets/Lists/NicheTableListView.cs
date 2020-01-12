@@ -66,6 +66,11 @@ public class NicheTableListView : ListView
     {
         var state = Markets.GetMarketState(niche);
 
+        var timeToMarket = Products.GetTimeToMarketFromScratch(niche);
+
+        return (IncludeInnovativeMarkets && timeToMarket < 12)
+            || (IncludeMassMarkets && timeToMarket >= 12);
+
         return (IncludeInnovativeMarkets && state == MarketState.Innovation)
             || (IncludeMassMarkets && (state == MarketState.Trending || state == MarketState.MassGrowth || state == MarketState.MassUsage))
             ;

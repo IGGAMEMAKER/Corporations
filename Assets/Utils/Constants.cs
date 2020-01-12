@@ -53,8 +53,8 @@
     public static int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
-    public static int RELEASE_BRAND_POWER_GAIN = 25;
-    public static int INNOVATION_BRAND_POWER_GAIN = 15;
+    public static int RELEASE_BRAND_POWER_GAIN = 100;
+    public static int INNOVATION_BRAND_POWER_GAIN = 70;
 
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 60;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;
@@ -72,6 +72,8 @@
 
 
     public const int CULTURE_ITERATION_SPEED_PER_LEVEL = 5;
+
+    public const int IDEA_PER_EXPERTISE = 1000;
 }
 
 public class VisualConstants

@@ -1,6 +1,4 @@
-﻿using Assets.Core.Formatting;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace Assets.Core
 {
@@ -49,18 +47,15 @@ namespace Assets.Core
         public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
         {
             var positioning = company.productPositioning.Positioning;
-            var posTextual = GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
 
-            return posTextual;
+            return GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
         }
 
         internal static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
         {
             var e = GetNiche(gameContext, niche);
 
-            var p = e.nicheSegments.Positionings;
-
-            return p;
+            return e.nicheSegments.Positionings;
         }
     }
 }

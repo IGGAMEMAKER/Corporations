@@ -30,7 +30,7 @@ namespace Assets.Core
 
         public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var workers = GetAmountOfWorkers(e, gameContext);
+            var workers = GetNecessaryAmountOfWorkers(e, gameContext);
 
             var cost = workers * Constants.SALARIES_PROGRAMMER;
 
@@ -42,7 +42,9 @@ namespace Assets.Core
             return cost * discount / 100;
         }
 
-        public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
+
+
+        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
             var concept = Products.GetProductLevel(e);
             var niche = Markets.GetNiche(gameContext, e);

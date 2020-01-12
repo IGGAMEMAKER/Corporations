@@ -30,7 +30,7 @@ namespace Assets.Core
     {
         private static void ReplaceTeam(GameEntity company, TeamComponent t)
         {
-            company.ReplaceTeam(t.Morale, t.Workers, t.TeamStatus);
+            company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.TeamStatus);
         }
 
         internal static void ToggleCrunching(GameContext context, int companyId)
@@ -67,11 +67,11 @@ namespace Assets.Core
 
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole, GameContext gameContext)
         {
-            var workers = company.team.Workers;
+            var managers = company.team.Managers;
 
-            workers[humanId] = workerRole;
+            managers[humanId] = workerRole;
 
-            company.ReplaceTeam(company.team.Morale, workers, company.team.TeamStatus);
+            company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.TeamStatus);
 
             HumanUtils.SetRole(gameContext, humanId, workerRole);
         }

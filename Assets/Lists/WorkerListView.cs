@@ -24,7 +24,7 @@ public class WorkerListView : ListView
 
     void Fill()
     {
-        var items = SelectedCompany.team.Workers
+        var items = SelectedCompany.team.Managers
             .OrderByDescending(OrderWorkers)
             .ToArray();
 

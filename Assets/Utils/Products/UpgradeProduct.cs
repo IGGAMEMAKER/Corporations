@@ -27,7 +27,7 @@ namespace Assets.Core
                 product.ReplaceProduct(product.product.Niche, GetProductLevel(product) + 1);
         }
 
-        private static long GiveInnovatorBenefits(GameEntity product, GameContext gameContext)
+        private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext)
         {
             MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
 
@@ -60,7 +60,7 @@ namespace Assets.Core
             if (newLevel > demand)
             {
                 // innovation
-                var clientChange = GiveInnovatorBenefits(product, gameContext);
+                var clientChange = GiveInnovationBenefits(product, gameContext);
                 NotifyAboutInnovation(product, gameContext, clientChange);
 
                 niche.ReplaceSegment(newLevel);

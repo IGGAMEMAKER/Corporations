@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Core
@@ -71,7 +70,7 @@ namespace Assets.Core
             // team
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
-            e.AddTeam(100, new Dictionary<int, WorkerRole>(), TeamStatus.Solo);
+            e.AddTeam(100, 50, new Dictionary<int, WorkerRole>(), new Dictionary<WorkerRole, int>(), TeamStatus.Solo);
             TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
             HumanUtils.SetSkills(CEO, WorkerRole.Business);
             HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);

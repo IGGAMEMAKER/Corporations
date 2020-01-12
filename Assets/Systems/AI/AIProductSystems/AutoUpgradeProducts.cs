@@ -12,7 +12,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
         foreach (var product in products)
         {
-            var ideaPerExpertise = 100;
+            var ideaPerExpertise = Constants.IDEA_PER_EXPERTISE;
 
             var expertiseLevel = product.companyResource.Resources.ideaPoints / ideaPerExpertise;
 

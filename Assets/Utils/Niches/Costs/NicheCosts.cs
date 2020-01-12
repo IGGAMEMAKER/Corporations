@@ -39,6 +39,7 @@ namespace Assets.Core
 
 
             var stateDuration = GetCurrentNicheStateDuration(gameContext, nicheType);
+
             var n = stateDuration + 1;
             var q = GetMonthlyAudienceGrowthMultiplier(niche);
 
@@ -47,8 +48,7 @@ namespace Assets.Core
             var result = baseFlowForStage * multiplier;
 
             // normalise
-            var period = Constants.PERIOD;
-            return (long)(result * period / 30);
+            return (long)(result * Constants.PERIOD / 30);
         }
 
         public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)

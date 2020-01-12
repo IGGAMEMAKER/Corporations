@@ -17,7 +17,7 @@ public class ListenTeamChanges : Controller
             SelectedCompany.RemoveTeamListener(this);
     }
 
-    void ITeamListener.OnTeam(GameEntity entity, int morale, Dictionary<int, WorkerRole> workers, TeamStatus teamStatus)
+    void ITeamListener.OnTeam(GameEntity entity, int morale, int organisation, Dictionary<int, WorkerRole> managers, Dictionary<WorkerRole, int> workers, TeamStatus teamStatus)
     {
         Render();
     }

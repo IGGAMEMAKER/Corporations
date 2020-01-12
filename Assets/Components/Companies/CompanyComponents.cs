@@ -87,7 +87,10 @@ public class TeamComponent : IComponent
 {
     public int Morale;
 
-    public Dictionary<int, WorkerRole> Workers;
+    public int Organisation;
+
+    public Dictionary<int, WorkerRole> Managers;
+    public Dictionary<WorkerRole, int> Workers;
 
     public TeamStatus TeamStatus;
 }

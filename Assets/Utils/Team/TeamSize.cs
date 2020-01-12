@@ -8,9 +8,13 @@ namespace Assets.Core
     {
         public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
         {
-            return company.team.Workers.Values.ToArray().Count(w => w == workerRole);
+            return company.team.Managers.Values.ToArray().Count(w => w == workerRole);
         }
 
+        public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
+            return e.team.Workers.Count;
+        }
 
         internal static int GetUniversals(GameEntity company)
         {

@@ -20,32 +20,29 @@ namespace Assets.Core
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;
 
-            var percent = 7;
+            var percent = 10;
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
             var isMarketingAggressively = Economy.GetMarketingFinancing(product) == Products.GetMaxFinancing;
-            var isPayingForMarketing    = product.isRelease;
+            var isReleased    = product.isRelease;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
 
             var isMonopolist = Markets.GetCompetitorsAmount(product, gameContext) == 1;
 
             var BrandingChangeBonus = new Bonus<long>("Brand power change")
-                .AppendAndHideIfZero("Is not released", !isPayingForMarketing ? -7 : 0)
-                .AppendAndHideIfZero("Released", isPayingForMarketing ? 1 : 0)
+                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 
-                .AppendAndHideIfZero("Monopoly", isMonopolist ? 1 : 0)
+                .AppendAndHideIfZero("Released", isReleased ? 1 : 0)
+                .AppendAndHideIfZero("MONOPOLY", isMonopolist ? 10 : 0)
+                
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
 
-                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 4 : 0)
+                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 6 : 0)
 
-                // multiply our marketing efforts if paying for them
-                .MultiplyAndHideIfOne("Is Innovator", isInnovator && isPayingForMarketing ? 2 : 1)
-                
-                .AppendAndHideIfZero("Is Innovator", isInnovator && !isPayingForMarketing ? 1 : 0)
                 .Append("Partnerships", (int)partnershipBonuses)
-                .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
+                
                 ;
 
             return BrandingChangeBonus;

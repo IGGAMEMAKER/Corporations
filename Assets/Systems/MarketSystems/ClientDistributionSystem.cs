@@ -2,7 +2,7 @@
 using System.Linq;
 using Assets.Core;
 
-public partial class ClientDistributionSystem : OnPeriodChange
+public partial class ClientDistributionSystem : OnMonthChange // OnPeriodChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
 
