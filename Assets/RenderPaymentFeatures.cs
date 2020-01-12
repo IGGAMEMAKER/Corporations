@@ -2,6 +2,6 @@
 {
     public override string RenderValue()
     {
-        return SelectedCompany.features.features[ProductImprovement.Monetisation].ToString();
+        return SelectedCompany.features.features[ProductFeature.Monetisation].ToString();
     }
 }

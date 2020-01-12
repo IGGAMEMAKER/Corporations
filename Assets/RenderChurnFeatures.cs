@@ -4,7 +4,7 @@
     {
         var product = SelectedCompany;
 
-        var retention = product.features.features[ProductImprovement.Retention];
+        var retention = product.features.features[ProductFeature.Retention];
 
         return retention.ToString();
     }

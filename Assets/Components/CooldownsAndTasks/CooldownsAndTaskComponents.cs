@@ -69,9 +69,9 @@ public class CompanyTaskReleaseApp : CompanyTask
 
 public class CompanyTaskUpgradeFeature : CompanyTask
 {
-    public ProductImprovement ProductImprovement;
+    public ProductFeature ProductImprovement;
 
-    public CompanyTaskUpgradeFeature(int companyId, ProductImprovement improvement)
+    public CompanyTaskUpgradeFeature(int companyId, ProductFeature improvement)
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.UpgradeFeature;

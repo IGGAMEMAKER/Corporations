@@ -2,7 +2,7 @@
 
 public class UpgradeProductImprovements : ButtonController
 {
-    public ProductImprovement ProductImprovement;
+    public ProductFeature ProductImprovement;
 
     public override void Execute()
     {

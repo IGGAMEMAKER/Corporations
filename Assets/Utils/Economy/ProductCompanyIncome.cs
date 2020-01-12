@@ -77,7 +77,7 @@ namespace Assets.Core
             var multiplier = GetImprovementMonetisationValue(pricingType);
 
 
-            var improvements = c.features.features[ProductImprovement.Monetisation];
+            var improvements = c.features.features[ProductFeature.Monetisation];
 
             return baseValue + improvements * multiplier / 100;
         }

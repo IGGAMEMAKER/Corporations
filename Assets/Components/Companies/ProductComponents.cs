@@ -17,7 +17,7 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
-public enum ProductImprovement
+public enum ProductFeature
 {
     Acquisition,
     Retention,
@@ -25,7 +25,7 @@ public enum ProductImprovement
 }
 public class FeaturesComponent : IComponent
 {
-    public Dictionary<ProductImprovement, int> features;
+    public Dictionary<ProductFeature, int> features;
     public int Count;
 }
 

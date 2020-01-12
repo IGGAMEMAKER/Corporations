@@ -111,7 +111,7 @@ namespace Assets.Core
         }
 
         // TODO move to separate file/delete
-        public static void UpgradeFeatures(ProductImprovement improvement, GameEntity product, GameContext gameContext)
+        public static void UpgradeFeatures(ProductFeature improvement, GameEntity product, GameContext gameContext)
         {
             var task = new CompanyTaskUpgradeFeature(product.company.Id, improvement);
 
