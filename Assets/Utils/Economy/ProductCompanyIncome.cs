@@ -87,13 +87,20 @@ namespace Assets.Core
             if (c.isDumping)
                 return 0;
 
+            float unitIncome = GetUnitIncome(gameContext, c, segmentId);
+
+            long clients = MarketingUtils.GetClients(c);
+
+            return clients * unitIncome;
+        }
+
+        public static float GetUnitIncome(GameContext gameContext, GameEntity c, int segmentId)
+        {
             float price = GetBaseSegmentIncome(gameContext, c, segmentId);
 
             float monetisationModifier = GetMonetisationModifier(gameContext, c);
 
-            long clients = MarketingUtils.GetClients(c);
-
-            return clients * price * monetisationModifier;
+            return price * monetisationModifier;
         }
 
         internal static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c, int segmentId)

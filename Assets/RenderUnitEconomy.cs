@@ -10,7 +10,7 @@ public class RenderUnitEconomy : ParameterView
         var product = SelectedCompany;
 
         var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext) * 1000;
-        var income = Economy.GetBaseSegmentIncome(GameContext, product, 0) * 1000;
+        var income = Economy.GetUnitIncome(GameContext, product, 0) * 1000;
 
         var change = income - ads;
 
