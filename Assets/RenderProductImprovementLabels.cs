@@ -13,9 +13,9 @@ public class RenderProductImprovementLabels : View
     {
         base.ViewRender();
 
-        var imp = SelectedCompany.productImprovements;
-        GrowthLabel.text = $"Growth ({imp.Improvements[ProductImprovement.Acquisition]})";
-        RetentionLabel.text = $"Retention ({imp.Improvements[ProductImprovement.Retention]})";
-        MonetisationLabel.text = $"Monetisation ({imp.Improvements[ProductImprovement.Monetisation]})";
+        var imp = SelectedCompany.features;
+        GrowthLabel.text = $"Growth ({imp.features[ProductImprovement.Acquisition]})";
+        RetentionLabel.text = $"Retention ({imp.features[ProductImprovement.Retention]})";
+        MonetisationLabel.text = $"Monetisation ({imp.features[ProductImprovement.Monetisation]})";
     }
 }

@@ -92,7 +92,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
         var product = Companies.GetCompany(gameContext, t.CompanyId);
 
-        product.productImprovements.Improvements[t.ProductImprovement]++;
-        product.productImprovements.Count++;
+        product.features.features[t.ProductImprovement]++;
+        product.features.Count++;
     }
 }

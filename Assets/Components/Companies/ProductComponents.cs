@@ -23,9 +23,9 @@ public enum ProductImprovement
     Retention,
     Monetisation
 }
-public class ProductImprovementsComponent : IComponent
+public class FeaturesComponent : IComponent
 {
-    public Dictionary<ProductImprovement, int> Improvements;
+    public Dictionary<ProductImprovement, int> features;
     public int Count;
 }
 

@@ -15,7 +15,7 @@ namespace Assets.Core
             company.AddProductPositioning(Random.Range(0, positionings));
 
             // development
-            company.AddProductImprovements(new Dictionary<ProductImprovement, int> { [ProductImprovement.Acquisition] = 0, [ProductImprovement.Monetisation] = 0, [ProductImprovement.Retention] = 0 }, 0);
+            company.AddFeatures(new Dictionary<ProductImprovement, int> { [ProductImprovement.Acquisition] = 0, [ProductImprovement.Monetisation] = 0, [ProductImprovement.Retention] = 0 }, 0);
             company.AddExpertise(Random.Range(1, 4));
 
             company.AddFinancing(new Dictionary<Financing, int> { [Financing.Development] = 0, [Financing.Marketing] = 0, [Financing.Team] = 0 });

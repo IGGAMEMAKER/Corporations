@@ -39,38 +39,38 @@ public static class GameComponentsLookup {
     public const int EventContainer = 28;
     public const int EventContainerListener = 29;
     public const int Expertise = 30;
-    public const int Financing = 31;
-    public const int Follow = 32;
-    public const int Following = 33;
-    public const int HumanCompanyRelationship = 34;
-    public const int Human = 35;
-    public const int HumanSkills = 36;
-    public const int IndependentCompany = 37;
-    public const int Industry = 38;
-    public const int InvestmentProposals = 39;
-    public const int InvestmentRounds = 40;
-    public const int ManagingCompany = 41;
-    public const int Marketing = 42;
-    public const int MarketingListener = 43;
-    public const int Menu = 44;
-    public const int MenuListener = 45;
-    public const int MetricsHistory = 46;
-    public const int NavigationHistory = 47;
-    public const int NicheBaseProfile = 48;
-    public const int NicheClientsContainer = 49;
-    public const int Niche = 50;
-    public const int NicheCosts = 51;
-    public const int NicheLifecycle = 52;
-    public const int NicheSegments = 53;
-    public const int NicheState = 54;
-    public const int Notifications = 55;
-    public const int OnSales = 56;
-    public const int Partnerships = 57;
-    public const int Player = 58;
-    public const int Popup = 59;
-    public const int PreviousAcquisitionOffers = 60;
-    public const int Product = 61;
-    public const int ProductImprovements = 62;
+    public const int Features = 31;
+    public const int Financing = 32;
+    public const int Follow = 33;
+    public const int Following = 34;
+    public const int HumanCompanyRelationship = 35;
+    public const int Human = 36;
+    public const int HumanSkills = 37;
+    public const int IndependentCompany = 38;
+    public const int Industry = 39;
+    public const int InvestmentProposals = 40;
+    public const int InvestmentRounds = 41;
+    public const int ManagingCompany = 42;
+    public const int Marketing = 43;
+    public const int MarketingListener = 44;
+    public const int Menu = 45;
+    public const int MenuListener = 46;
+    public const int MetricsHistory = 47;
+    public const int NavigationHistory = 48;
+    public const int NicheBaseProfile = 49;
+    public const int NicheClientsContainer = 50;
+    public const int Niche = 51;
+    public const int NicheCosts = 52;
+    public const int NicheLifecycle = 53;
+    public const int NicheSegments = 54;
+    public const int NicheState = 55;
+    public const int Notifications = 56;
+    public const int OnSales = 57;
+    public const int Partnerships = 58;
+    public const int Player = 59;
+    public const int Popup = 60;
+    public const int PreviousAcquisitionOffers = 61;
+    public const int Product = 62;
     public const int ProductListener = 63;
     public const int ProductPositioning = 64;
     public const int PublicCompany = 65;
@@ -129,6 +129,7 @@ public static class GameComponentsLookup {
         "EventContainer",
         "EventContainerListener",
         "Expertise",
+        "Features",
         "Financing",
         "Follow",
         "Following",
@@ -160,7 +161,6 @@ public static class GameComponentsLookup {
         "Popup",
         "PreviousAcquisitionOffers",
         "Product",
-        "ProductImprovements",
         "ProductListener",
         "ProductPositioning",
         "PublicCompany",
@@ -218,6 +218,7 @@ public static class GameComponentsLookup {
         typeof(EventContainerComponent),
         typeof(EventContainerListenerComponent),
         typeof(ExpertiseComponent),
+        typeof(FeaturesComponent),
         typeof(FinancingComponent),
         typeof(FollowComponent),
         typeof(FollowingComponent),
@@ -249,7 +250,6 @@ public static class GameComponentsLookup {
         typeof(PopupComponent),
         typeof(PreviousAcquisitionOffersComponent),
         typeof(ProductComponent),
-        typeof(ProductImprovementsComponent),
         typeof(ProductListenerComponent),
         typeof(ProductPositioningComponent),
         typeof(PublicCompanyComponent),

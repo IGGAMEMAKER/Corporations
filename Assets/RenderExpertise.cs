@@ -10,7 +10,7 @@ public class RenderExpertise : UpgradedParameterView
     public override string RenderValue()
     {
         var level = Products.GetProductLevel(SelectedCompany);
-        var improvements = SelectedCompany.productImprovements.Count;
+        var improvements = SelectedCompany.features.Count;
 
         var freeImprovements = level - improvements;
 
