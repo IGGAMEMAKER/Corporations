@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     public static partial class TeamUtils
     {
-        public static void HireWorker(GameEntity company, WorkerRole workerRole)
+        public static void HireManager(GameEntity company, WorkerRole workerRole)
         {
             var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
 
@@ -14,6 +14,17 @@ namespace Assets.Core
             HireWorker(company, worker);
 
             HumanUtils.SetSkills(worker, workerRole);
+        }
+
+        public static void HireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)
+        {
+            company.team.Workers[workerRole]++;
+        }
+
+        public static void FireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)
+        {
+            if (company.team.Workers[workerRole] > 0)
+                company.team.Workers[workerRole]--;
         }
 
         public static GameEntity GetWorkerByWorkerRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)

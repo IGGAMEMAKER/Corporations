@@ -13,7 +13,7 @@ namespace Assets.Core
 
         public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
-            return e.team.Workers.Count;
+            return e.team.Workers[WorkerRole.Programmer];
         }
 
         internal static int GetUniversals(GameEntity company)
