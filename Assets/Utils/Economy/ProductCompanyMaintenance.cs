@@ -30,7 +30,7 @@ namespace Assets.Core
 
         public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
         {
-            var workers = GetNecessaryAmountOfWorkers(e, gameContext);
+            var workers = TeamUtils.GetAmountOfWorkers(e, gameContext);
 
             var cost = workers * Constants.SALARIES_PROGRAMMER;
 
