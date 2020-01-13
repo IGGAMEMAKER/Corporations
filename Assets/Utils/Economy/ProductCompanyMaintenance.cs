@@ -24,7 +24,7 @@ namespace Assets.Core
             var discount = 100 - (creation - 1) * 5;
             var result = cost * discount / 100;
 
-            return (long)result;
+            return result;
         }
 
 
