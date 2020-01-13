@@ -16,6 +16,13 @@ namespace Assets.Core
             HumanUtils.SetSkills(worker, workerRole);
         }
 
+        public static void ReduceOrganisationPoints(GameEntity company, int points)
+        {
+            var o = company.team.Organisation;
+
+            company.team.Organisation = Mathf.Clamp(o - points, 0, 100);
+        }
+
         public static void HireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)
         {
             company.team.Workers[workerRole]++;
