@@ -23,6 +23,20 @@ namespace Assets.Core
             }
         }
 
+        public static int GetTeamSizeIterationModifierMultipliedByHundred(GameContext gameContext, GameEntity company)
+        {
+            var have     = TeamUtils.GetAmountOfWorkers(company, gameContext);
+            var required = Economy.GetNecessaryAmountOfWorkers(company, gameContext) + 1;
+
+            if (have == 0)
+                return 500;
+
+            if (have >= required)
+                return 0;
+
+            return required * 100 / have;
+        }
+
         public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
         {
             var niche = Markets.GetNiche(gameContext, company);
@@ -30,13 +44,15 @@ namespace Assets.Core
 
             var innovationSpeed = 150 * Random.Range(10, 13) / 10;
 
+
+            var teamSizeModifier    = GetTeamSizeIterationModifierMultipliedByHundred(gameContext, company);
             var innovationPenalty   = IsWillInnovate(company, gameContext) ? innovationSpeed : 0;
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
             var modifiers = 100 + innovationPenalty + companyLimitPenalty;
 
 
-            var time = (int) (baseIterationTime * modifiers / 100f);
+            var time = (int) (baseIterationTime * modifiers * teamSizeModifier / 100 / 100f);
 
             return time;
         }
