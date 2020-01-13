@@ -44,12 +44,13 @@ namespace Assets.Core
 
             var innovationSpeed = 150 * Random.Range(10, 13) / 10;
 
+            var crunchModifier = company.isCrunching ? -40 : 0;
 
             var teamSizeModifier    = GetTeamSizeIterationModifierMultipliedByHundred(gameContext, company);
             var innovationPenalty   = IsWillInnovate(company, gameContext) ? innovationSpeed : 0;
             var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
 
-            var modifiers = 100 + innovationPenalty + companyLimitPenalty;
+            var modifiers = 100 + innovationPenalty + companyLimitPenalty + crunchModifier;
 
 
             var time = (int) (baseIterationTime * modifiers * teamSizeModifier / 100 / 100f);

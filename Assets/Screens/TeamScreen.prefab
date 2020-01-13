@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 5309795225828009149}
   - component: {fileID: 5196815709207879005}
   - component: {fileID: 5660081363754339747}
+  - component: {fileID: 3483694153883416741}
   m_Layer: 5
   m_Name: Label (1)
   m_TagString: Untagged
@@ -158,6 +159,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Morale
+--- !u!114 &3483694153883416741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079711593180144077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: If team has low morale, they will quit from your company and/or gain less
+    expertise. Decreases if you fire people, or if your team is exhausted
+  isActionHint: 0
 --- !u!1 &1204493372738177504
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +525,7 @@ GameObject:
   - component: {fileID: 6511739032439016038}
   - component: {fileID: 6105048085422111332}
   - component: {fileID: 7851046984476111776}
+  - component: {fileID: 3652032740945496353}
   m_Layer: 5
   m_Name: Label (2)
   m_TagString: Untagged
@@ -577,6 +594,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Organisation
+--- !u!114 &3652032740945496353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270597103198754550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: Shows the organisation quality of team. Determines the development speed of
+    company. Decays when hiring new workers
+  isActionHint: 0
 --- !u!114 &45840902022053235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,6 +899,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6573701143291417850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115256680606454715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9558f144ef8fe3c4fac30af1f8d5cda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7386070617291750075
@@ -2165,15 +2209,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eddc987c0cd30a47961197e67ec4385, type: 3}
---- !u!1 &4813674391865176691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1956747649843318, guid: 9eddc987c0cd30a47961197e67ec4385,
-    type: 3}
-  m_PrefabInstance: {fileID: 4813056059106210309}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4743902720724180951 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224848615159836114, guid: 9eddc987c0cd30a47961197e67ec4385,
+    type: 3}
+  m_PrefabInstance: {fileID: 4813056059106210309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4813674391865176691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1956747649843318, guid: 9eddc987c0cd30a47961197e67ec4385,
     type: 3}
   m_PrefabInstance: {fileID: 4813056059106210309}
   m_PrefabAsset: {fileID: 0}

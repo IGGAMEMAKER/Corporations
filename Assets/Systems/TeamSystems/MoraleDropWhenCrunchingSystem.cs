@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Core;
+using Entitas;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,14 @@ class MoraleManagementSystem : OnMonthChange
 
         for (var i = 0; i < products.Length; i++)
         {
-            var change = products[i].isCrunching ? -8 : 2;
+            var change = products[i].isCrunching ? -4 : 2;
+
+            var workers = TeamUtils.GetAmountOfWorkers(products[i], gameContext) + 1;
+            var required = Economy.GetNecessaryAmountOfWorkers(products[i], gameContext);
+
+            if (required > workers)
+                change -= required / workers;
+
 
             products[i].team.Morale = Mathf.Clamp(products[i].team.Morale + change, 0, 100);
         }
