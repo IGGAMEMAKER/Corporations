@@ -27,13 +27,6 @@ namespace Assets.Core
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
-        internal static int GetHumanByWorkerRoleInCompany(GameContext gameContext, int companyId, WorkerRole workerRole)
-        {
-            var humans = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Human, GameMatcher.Worker));
-
-            return Array.Find(humans, h => h.worker.companyId == companyId && h.worker.WorkerRole == workerRole).human.Id;
-        }
-
         // actions
         public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
         {
@@ -56,10 +49,6 @@ namespace Assets.Core
         }
 
         // hire / fire
-        internal static bool IsEmployed(GameEntity human)
-        {
-            return human.worker.companyId != -1;
-        }
         internal static bool IsWorksInCompany(GameEntity human, int id)
         {
             if (!human.hasWorker)
@@ -79,7 +68,7 @@ namespace Assets.Core
         internal static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
         internal static void LeaveCompany(GameEntity human)
         {
-            human.RemoveWorker();
+            human.worker.companyId = -1;
         }
     }
 }

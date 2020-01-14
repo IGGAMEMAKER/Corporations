@@ -13,6 +13,7 @@ namespace Assets.Core
 
             return worker;
         }
+
         public static GameEntity GenerateHuman(GameContext gameContext)
         {
             var e = gameContext.CreateEntity();
