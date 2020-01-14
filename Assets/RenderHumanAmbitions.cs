@@ -7,7 +7,7 @@ public class RenderHumanAmbitions : ParameterView
 {
     public override string RenderValue()
     {
-        var ambition = HumanUtils.GetFounderAmbition(GameContext, SelectedHuman.human.Id);
+        var ambition = Humans.GetFounderAmbition(GameContext, SelectedHuman.human.Id);
 
         switch (ambition)
         {

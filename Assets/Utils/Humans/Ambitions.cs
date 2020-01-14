@@ -10,7 +10,7 @@ namespace Assets.Core
 
         RuleCorporation
     }
-    public static partial class HumanUtils
+    public static partial class Humans
     {
         // ambitions
         public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)

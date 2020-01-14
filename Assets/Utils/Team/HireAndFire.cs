@@ -8,13 +8,13 @@ namespace Assets.Core
     {
         public static void HireManager(GameEntity company, WorkerRole workerRole)
         {
-            var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game, workerRole);
+            var worker = Humans.GenerateHuman(Contexts.sharedInstance.game, workerRole);
 
             worker.worker.companyId = company.company.Id;
 
             AttachToTeam(company, worker.human.Id, workerRole);
 
-            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
+            Humans.AttachToCompany(worker, company.company.Id, workerRole);
         }
 
         public static void ReduceOrganisationPoints(GameEntity company, int points)
@@ -101,7 +101,7 @@ namespace Assets.Core
             Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
 
             foreach (var humanId in company.employee.Managers.Keys)
-                HumanUtils.GetHuman(gameContext, humanId).Destroy();
+                Humans.GetHuman(gameContext, humanId).Destroy();
 
             var roles = GetAvailableRoles(company);
 
@@ -111,7 +111,7 @@ namespace Assets.Core
 
                 var role = roles[index];
 
-                var worker = HumanUtils.GenerateHuman(gameContext, role);
+                var worker = Humans.GenerateHuman(gameContext, role);
                 var humanId = worker.human.Id;
 
                 Debug.Log($"human #{i} - {role}. Human Id = {humanId}");
@@ -126,7 +126,7 @@ namespace Assets.Core
 
         public static int GetWorkerByRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
         {
-            return HumanUtils.GetHumanByWorkerRoleInCompany(gameContext, company.company.Id, workerRole);
+            return Humans.GetHumanByWorkerRoleInCompany(gameContext, company.company.Id, workerRole);
         }
 
         // --------------
@@ -150,37 +150,30 @@ namespace Assets.Core
             var workers = company.team.Managers.Keys.ToArray();
 
             for (var i = workers.Length - 1; i > 0; i--)
-                FireWorker(company, workers[i], gameContext);
+                FireWorker(company, gameContext, workers[i]);
         }
 
         public static void FireWorker(GameEntity company, GameEntity worker)
         {
             Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
 
-            HumanUtils.LeaveCompany(worker);
+            Humans.LeaveCompany(worker);
 
             var team = company.team;
 
             team.Managers.Remove(worker.human.Id);
 
             ReplaceTeam(company, team);
-
-            //worker.Destroy();
         }
 
-        public static void FireWorker(GameEntity company, int humanId, GameContext gameContext)
-        {
-            var human = HumanUtils.GetHuman(gameContext, humanId);
-
-            FireWorker(company, human);
-        }
+        public static void FireWorker(GameEntity company, GameContext gameContext, int humanId) => FireWorker(company, Humans.GetHuman(gameContext, humanId));
 
         public static void FireWorker(GameEntity company, GameContext gameContext, WorkerRole workerRole)
         {
             var workerId = GetWorkerByRole(company, gameContext, workerRole);
 
             if (workerId > 0)
-                FireWorker(company, workerId, gameContext);
+                FireWorker(company, gameContext, workerId);
         }
     }
 }

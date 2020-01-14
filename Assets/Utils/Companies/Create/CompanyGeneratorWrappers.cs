@@ -21,12 +21,12 @@ namespace Assets.Core
 
         private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
         {
-            var CEO = HumanUtils.GenerateHuman(context);
+            var CEO = Humans.GenerateHuman(context);
 
 
             var level = UnityEngine.Random.Range(70, 90);
 
-            HumanUtils.SetTrait(CEO, TraitType.Ambitions, level);
+            Humans.SetTrait(CEO, TraitType.Ambitions, level);
 
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);
         }
@@ -106,16 +106,16 @@ namespace Assets.Core
             var ambition = 65 + Mathf.Clamp(rating * rand, 0, 30);
             var CeoId = GetCEOId(company);
 
-            var ceo = HumanUtils.GetHuman(gameContext, CeoId);
+            var ceo = Humans.GetHuman(gameContext, CeoId);
 
-            HumanUtils.SetTrait(ceo, TraitType.Ambitions, (int)ambition);
+            Humans.SetTrait(ceo, TraitType.Ambitions, (int)ambition);
         }
 
 
         public static void AutoFillShareholders(GameContext gameContext, GameEntity c, bool founderOnly)
         {
             var founder = c.cEO.HumanId;
-            var shareholder = HumanUtils.GetHuman(gameContext, founder);
+            var shareholder = Humans.GetHuman(gameContext, founder);
 
             Investments.BecomeInvestor(gameContext, shareholder, 100000);
 

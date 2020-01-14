@@ -35,7 +35,7 @@ namespace Assets.Core
         {
             var CEOId = company.cEO.HumanId;
 
-            return HumanUtils.GetFounderAmbition(gameContext, CEOId);
+            return Humans.GetFounderAmbition(gameContext, CEOId);
         }
 
         public static long GetFounderExitDesire(GameEntity startup, int shareholderId, GameContext gameContext)
@@ -44,7 +44,7 @@ namespace Assets.Core
 
             var ambitions = founder.humanSkills.Traits[TraitType.Ambitions];
 
-            var ambition = HumanUtils.GetFounderAmbition(ambitions);
+            var ambition = Humans.GetFounderAmbition(ambitions);
 
             if (ambition == Ambition.EarnMoney)
                 return Constants.COMPANY_DESIRE_TO_SELL_YES;

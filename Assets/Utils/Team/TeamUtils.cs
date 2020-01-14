@@ -73,7 +73,7 @@ namespace Assets.Core
 
             company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.TeamStatus);
 
-            HumanUtils.SetRole(gameContext, humanId, workerRole);
+            Humans.SetRole(gameContext, humanId, workerRole);
         }
     }
 }

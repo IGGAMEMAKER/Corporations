@@ -54,7 +54,7 @@ namespace Assets.Core
                 return false;
 
 
-            var ambitions = HumanUtils.GetFounderAmbition(gameContext, product.cEO.HumanId);
+            var ambitions = Humans.GetFounderAmbition(gameContext, product.cEO.HumanId);
             return ambitions == Ambition.RuleCorporation;
         }
 

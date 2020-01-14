@@ -1,6 +1,6 @@
 ﻿namespace Assets.Core
 {
-    public static partial class HumanUtils
+    public static partial class Humans
     {
         public static int GetOverallRating(GameContext gameContext, int humanId) => GetOverallRating(gameContext, GetHuman(gameContext, humanId));
         public static int GetOverallRating(GameContext gameContext, GameEntity worker)

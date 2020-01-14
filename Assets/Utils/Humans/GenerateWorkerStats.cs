@@ -2,7 +2,7 @@
 
 namespace Assets.Core
 {
-    public static partial class HumanUtils
+    public static partial class Humans
     {
         public static void SetSkills(GameEntity worker, WorkerRole workerRole)
         {

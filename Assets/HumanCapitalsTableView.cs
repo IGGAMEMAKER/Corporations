@@ -30,7 +30,7 @@ public class HumanCapitalsTableView : View, IPointerEnterHandler
 
     void Render(int rank)
     {
-        Name.text = HumanUtils.GetFullName(entity);
+        Name.text = Humans.GetFullName(entity);
         Capitals.text = Format.Money(Investments.GetInvestorCapitalCost(GameContext, entity));
 
         Rank.text = rank.ToString();

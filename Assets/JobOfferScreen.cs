@@ -37,7 +37,7 @@ public class JobOfferScreen : View
         RenderOffer();
         RenderProposalStatus();
 
-        WorkerName.text = $"Hire {HumanUtils.GetFullName(SelectedHuman)}, ({HumanUtils.GetOverallRating(GameContext, SelectedHuman)}LVL)";
-        RoleName.text = HumanUtils.GetFormattedRole(SelectedHuman.worker.WorkerRole);
+        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetOverallRating(GameContext, SelectedHuman)}LVL)";
+        RoleName.text = Humans.GetFormattedRole(SelectedHuman.worker.WorkerRole);
     }
 }

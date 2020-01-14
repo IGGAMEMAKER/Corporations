@@ -93,9 +93,9 @@ public class AddRoleButtons : View
         foreach (var pair in Buttons)
         {
             var role = pair.Key;
-            var rating = HumanUtils.GetWorkerRatingInRole(SelectedHuman, role);
+            var rating = Humans.GetWorkerRatingInRole(SelectedHuman, role);
 
-            pair.Value.GetComponentInChildren<Text>().text = $"Set as {HumanUtils.GetFormattedRole(role)} => {rating}";
+            pair.Value.GetComponentInChildren<Text>().text = $"Set as {Humans.GetFormattedRole(role)} => {rating}";
         }
     }
 

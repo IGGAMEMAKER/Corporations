@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Core
 {
-    public static partial class HumanUtils
+    public static partial class Humans
     {
         // queries
         public static GameEntity[] GetHumans(GameContext gameContext)

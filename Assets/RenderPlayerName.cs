@@ -9,7 +9,7 @@ public class RenderPlayerName : View
         base.ViewRender();
 
         var Text = GetComponent<Text>();
-        var text = HumanUtils.GetFullName(SelectedHuman);
+        var text = Humans.GetFullName(SelectedHuman);
 
         if (isMe)
             text += " (YOU)";

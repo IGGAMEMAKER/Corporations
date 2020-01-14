@@ -48,7 +48,7 @@ namespace Assets.Core
         {
             var humanId = (int) GetScreenData(gameContext)[Constants.MENU_SELECTED_HUMAN];
 
-            return HumanUtils.GetHuman(gameContext, humanId);
+            return Humans.GetHuman(gameContext, humanId);
         }
 
 

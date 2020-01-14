@@ -19,7 +19,7 @@ namespace Assets.Core
 
         public static GameEntity GenerateAngel(GameContext gameContext)
         {
-            var human = HumanUtils.GenerateHuman(gameContext);
+            var human = Humans.GenerateHuman(gameContext);
 
             var investorId = GenerateInvestorId(gameContext);
 

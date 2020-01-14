@@ -1,6 +1,6 @@
 ﻿namespace Assets.Core
 {
-    public static partial class HumanUtils
+    public static partial class Humans
     {
         public static WorkerRole GetRole(GameEntity worker)
         {
