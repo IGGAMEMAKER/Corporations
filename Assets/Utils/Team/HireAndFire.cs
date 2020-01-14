@@ -10,11 +10,18 @@ namespace Assets.Core
         {
             var worker = Humans.GenerateHuman(Contexts.sharedInstance.game, workerRole);
 
-            worker.worker.companyId = company.company.Id;
-
             AttachToTeam(company, worker.human.Id, workerRole);
 
             Humans.AttachToCompany(worker, company.company.Id, workerRole);
+        }
+
+        public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
+        {
+            var team = company.team;
+
+            team.Managers[humanId] = role;
+
+            ReplaceTeam(company, team);
         }
 
         public static void HireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)
@@ -37,6 +44,8 @@ namespace Assets.Core
         }
 
 
+
+
         public static void ReduceOrganisationPoints(GameEntity company, int points)
         {
             var o = company.team.Organisation;
@@ -56,19 +65,6 @@ namespace Assets.Core
 
             // +1 to prevent zero division
             return 1f / (workers + 1);
-        }
-
-
-        // --------------
-        public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
-        {
-            var team = company.team;
-
-            team.Managers[humanId] = role;
-
-            ReplaceTeam(company, team);
-
-            //Debug.Log($"Hire to " + company.company.Name + ": " + role.ToString());
         }
     }
 }
