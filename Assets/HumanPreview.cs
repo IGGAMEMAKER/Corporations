@@ -5,6 +5,7 @@ public class HumanPreview : View
 {
     public Text Overall;
     public Text Description;
+    public Text RoleText;
 
     public GameEntity human;
 
@@ -25,9 +26,12 @@ public class HumanPreview : View
 
         var formattedRole = HumanUtils.GetFormattedRole(role);
 
-        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}\n{formattedRole}";
+        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}"; // \n{formattedRole}
 
         Description.text = description;
+
+        if (RoleText)
+            RoleText.text = formattedRole;
     }
 
     public void SetEntity(int humanId)

@@ -1,11 +1,9 @@
-﻿public class RenderMoraleProgressbar : View
+﻿public class RenderMoraleProgressbar : ParameterView
 {
-    public override void ViewRender()
+    public override string RenderValue()
     {
-        base.ViewRender();
-
         var morale = SelectedCompany.team.Morale;
 
-        GetComponent<ProgressBar>().SetValue(morale, 100);
+        return morale.ToString();
     }
 }

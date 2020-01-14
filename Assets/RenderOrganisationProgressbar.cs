@@ -1,15 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RenderOrganisationProgressbar : View
+﻿public class RenderOrganisationProgressbar : ParameterView
 {
-    public override void ViewRender()
+    public override string RenderValue()
     {
-        base.ViewRender();
-
         var organisation = SelectedCompany.team.Organisation;
 
-        GetComponent<ProgressBar>().SetValue(organisation, 100);
+        return organisation.ToString();
     }
 }

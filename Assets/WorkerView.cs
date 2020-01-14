@@ -1,4 +1,6 @@
-﻿public class WorkerView : View
+﻿using UnityEngine.UI;
+
+public class WorkerView : View
 {
     int humanId;
 

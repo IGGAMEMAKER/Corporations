@@ -6,12 +6,7 @@ using UnityEngine;
 
 class MoraleManagementSystem : OnMonthChange
 {
-    //private readonly Contexts contexts;
-
-    public MoraleManagementSystem(Contexts contexts) : base(contexts)
-    {
-        //this.contexts = contexts;
-    }
+    public MoraleManagementSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
