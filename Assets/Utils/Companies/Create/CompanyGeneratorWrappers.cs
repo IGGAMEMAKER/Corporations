@@ -106,7 +106,7 @@ namespace Assets.Core
             var ambition = 65 + Mathf.Clamp(rating * rand, 0, 30);
             var CeoId = GetCEOId(company);
 
-            var ceo = HumanUtils.GetHumanById(gameContext, CeoId);
+            var ceo = HumanUtils.GetHuman(gameContext, CeoId);
 
             HumanUtils.SetTrait(ceo, TraitType.Ambitions, (int)ambition);
         }
@@ -115,7 +115,7 @@ namespace Assets.Core
         public static void AutoFillShareholders(GameContext gameContext, GameEntity c, bool founderOnly)
         {
             var founder = c.cEO.HumanId;
-            var shareholder = HumanUtils.GetHumanById(gameContext, founder);
+            var shareholder = HumanUtils.GetHuman(gameContext, founder);
 
             Investments.BecomeInvestor(gameContext, shareholder, 100000);
 

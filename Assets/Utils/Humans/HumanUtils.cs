@@ -29,7 +29,7 @@ namespace Assets.Core
         }
 
 
-        public static GameEntity GetHumanById(GameContext gameContext, int humanId)
+        public static GameEntity GetHuman(GameContext gameContext, int humanId)
         {
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
@@ -51,7 +51,7 @@ namespace Assets.Core
 
         internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
         {
-            var human = GetHumanById(gameContext, humanId);
+            var human = GetHuman(gameContext, humanId);
 
             if (human.hasWorker)
                 human.ReplaceWorker(human.worker.companyId, workerRole);
@@ -101,7 +101,7 @@ namespace Assets.Core
 
         internal static void LeaveCompany(GameContext gameContext, int humanId)
         {
-            var human = GetHumanById(gameContext, humanId);
+            var human = GetHuman(gameContext, humanId);
 
             LeaveCompany(human);
         }
@@ -114,7 +114,7 @@ namespace Assets.Core
         // ambitions
         public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)
         {
-            var human = GetHumanById(gameContext, humanId);
+            var human = GetHuman(gameContext, humanId);
 
             return GetFounderAmbition(human.humanSkills.Traits[TraitType.Ambitions]);
         }

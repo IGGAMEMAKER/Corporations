@@ -36,7 +36,7 @@ public class HumanPreview : View
 
     public void SetEntity(int humanId)
     {
-        human = HumanUtils.GetHumanById(GameContext, humanId);
+        human = HumanUtils.GetHuman(GameContext, humanId);
 
         Render();
     }

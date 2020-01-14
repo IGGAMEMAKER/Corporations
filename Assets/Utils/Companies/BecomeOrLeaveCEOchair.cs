@@ -14,7 +14,7 @@
 
         public static void PlayAs(GameEntity company, GameContext GameContext)
         {
-            var human = HumanUtils.GetHumanById(GameContext, company.cEO.HumanId);
+            var human = HumanUtils.GetHuman(GameContext, company.cEO.HumanId);
 
             SetPlayerControlledCompany(GameContext, company.company.Id);
 

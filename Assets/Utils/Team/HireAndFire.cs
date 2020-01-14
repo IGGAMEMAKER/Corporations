@@ -101,7 +101,7 @@ namespace Assets.Core
             Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
 
             foreach (var humanId in company.employee.Managers.Keys)
-                HumanUtils.GetHumanById(gameContext, humanId).Destroy();
+                HumanUtils.GetHuman(gameContext, humanId).Destroy();
 
             var roles = GetAvailableRoles(company);
 
@@ -133,7 +133,7 @@ namespace Assets.Core
             foreach (var w in team)
             {
                 if (w.Value == workerRole)
-                    human = HumanUtils.GetHumanById(gameContext, w.Key);
+                    human = HumanUtils.GetHuman(gameContext, w.Key);
             }
 
             return human;
@@ -187,7 +187,7 @@ namespace Assets.Core
 
         public static void FireWorker(GameEntity company, int humanId, GameContext gameContext)
         {
-            var human = HumanUtils.GetHumanById(gameContext, humanId);
+            var human = HumanUtils.GetHuman(gameContext, humanId);
 
             FireWorker(company, human);
         }

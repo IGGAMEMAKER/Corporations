@@ -13,7 +13,7 @@ public class BasicProjectInfoView : View
 
     void RenderCEO()
     {
-        var human = HumanUtils.GetHumanById(GameContext, SelectedCompany.cEO.HumanId).human;
+        var human = HumanUtils.GetHuman(GameContext, SelectedCompany.cEO.HumanId).human;
         string name = SelectedCompany.isControlledByPlayer ? "YOU" : $"{human.Name} {human.Surname}";
 
         CEONameLabel.text = Visuals.Link($"CEO: {name}");

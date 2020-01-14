@@ -4,7 +4,7 @@
     {
         public static int GetOverallRating(int humanId, GameContext gameContext)
         {
-            var worker = GetHumanById(gameContext, humanId);
+            var worker = GetHuman(gameContext, humanId);
 
             return GetOverallRating(worker, gameContext);
         }
