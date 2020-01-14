@@ -143,7 +143,7 @@ namespace Assets.Core
         {
             switch (role)
             {
-                case WorkerRole.Business: return "CEO";
+                case WorkerRole.CEO: return "CEO";
                 case WorkerRole.Manager: return "Manager";
                 case WorkerRole.Marketer: return "Marketer";
                 case WorkerRole.MarketingDirector: return "Marketing Director";

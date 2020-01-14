@@ -95,6 +95,11 @@ public class TeamComponent : IComponent
     public TeamStatus TeamStatus;
 }
 
+public class EmployeeComponent : IComponent
+{
+    public Dictionary<int, WorkerRole> Managers;
+}
+
 [Game]
 public class InvestmentProposalsComponent : IComponent
 {

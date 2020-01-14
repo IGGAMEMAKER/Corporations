@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,11 +17,9 @@ public class EmployeeListView : ListView
     public override void ViewRender()
     {
         base.ViewRender();
-    }
 
-    private void OnEnable()
-    {
-        var employees = new GameEntity[0];
+        var employees = SelectedCompany.employee.Managers.Keys
+            .Select(id => HumanUtils.GetHumanById(GameContext, id));
 
         SetItems(employees.ToArray());
     }

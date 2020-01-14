@@ -8,8 +8,8 @@ namespace Assets.Core
         {
             switch (workerRole)
             {
-                case WorkerRole.Business:
-                    SetPrimarySkill(worker, WorkerRole.Business);
+                case WorkerRole.CEO:
+                    SetPrimarySkill(worker, WorkerRole.CEO);
 
                     SetPrimaryTrait(worker, TraitType.Ambitions);
                     SetPrimaryTrait(worker, TraitType.Vision);
@@ -37,14 +37,14 @@ namespace Assets.Core
 
                 case WorkerRole.ProductManager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
-                    SetPrimarySkill(worker, WorkerRole.Business);
+                    SetPrimarySkill(worker, WorkerRole.CEO);
 
                     SetPrimaryTrait(worker, TraitType.Vision);
                     break;
 
                 case WorkerRole.ProjectManager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
-                    SetPrimarySkill(worker, WorkerRole.Business);
+                    SetPrimarySkill(worker, WorkerRole.CEO);
 
                     SetPrimaryTrait(worker, TraitType.Vision);
                     break;

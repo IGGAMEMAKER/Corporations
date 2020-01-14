@@ -4,5 +4,6 @@
     {
         Add(new MoraleManagementSystem(contexts));
         Add(new TeamManagementSystem(contexts));
+        Add(new EmployeeSystem(contexts));
     }
 }

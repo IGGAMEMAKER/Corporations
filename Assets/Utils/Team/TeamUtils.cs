@@ -18,7 +18,7 @@ public enum WorkerRole {
     MarketingDirector,
 
     // base
-    Business,
+    CEO,
 
 
     Universal,

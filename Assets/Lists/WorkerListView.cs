@@ -38,7 +38,7 @@ public class WorkerListView : ListView
 
     static int GetWorkerOrder (WorkerRole role)
     {
-        if (role == WorkerRole.Business)
+        if (role == WorkerRole.CEO)
             return 15;
 
         if (role == WorkerRole.Universal)

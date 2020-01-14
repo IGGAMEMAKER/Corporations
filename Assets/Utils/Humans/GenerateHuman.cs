@@ -51,13 +51,21 @@ namespace Assets.Core
         {
             return new Dictionary<WorkerRole, int>
             {
-                [WorkerRole.Business] = GetRandomXP(),
+                [WorkerRole.CEO] = GetRandomXP(),
                 [WorkerRole.Manager] = GetRandomXP(),
                 [WorkerRole.Marketer] = GetRandomXP(),
                 [WorkerRole.Programmer] = 0,
             };
         }
 
+        public static GameEntity GenerateHuman(GameContext gameContext, WorkerRole workerRole)
+        {
+            var worker = GenerateHuman(gameContext);
+
+            SetSkills(worker, workerRole);
+
+            return worker;
+        }
         public static GameEntity GenerateHuman(GameContext gameContext)
         {
             var e = gameContext.CreateEntity();

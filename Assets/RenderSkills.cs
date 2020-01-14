@@ -52,7 +52,7 @@ public class RenderSkills : View
         Trait(Discipline, traits[TraitType.Discipline]);
 
         Roles(Vision, traits[TraitType.Vision]);
-        Roles(Business, roles[WorkerRole.Business]);
+        Roles(Business, roles[WorkerRole.CEO]);
         Roles(Management, roles[WorkerRole.Manager]);
         Roles(Marketing, roles[WorkerRole.Marketer]);
         Roles(Programming, roles[WorkerRole.Programmer]);

@@ -8,7 +8,7 @@ class TeamManagementSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var products = contexts.game.GetEntities(GameMatcher.Product);
+        var products = Companies.GetProductCompanies(gameContext);
 
         for (var i = 0; i < products.Length; i++)
         {

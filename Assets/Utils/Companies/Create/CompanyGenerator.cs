@@ -71,9 +71,11 @@ namespace Assets.Core
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
             e.AddTeam(100, 50, new Dictionary<int, WorkerRole>(), new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 }, TeamStatus.Solo);
-            TeamUtils.AttachToTeam(e, CeoID, WorkerRole.Universal);
-            HumanUtils.SetSkills(CEO, WorkerRole.Business);
-            HumanUtils.AttachToCompany(CEO, id, WorkerRole.Universal);
+            e.AddEmployee(new Dictionary<int, WorkerRole>());
+
+            TeamUtils.AttachToTeam(e, CeoID, WorkerRole.CEO);
+            HumanUtils.SetSkills(CEO, WorkerRole.CEO);
+            HumanUtils.AttachToCompany(CEO, id, WorkerRole.CEO);
 
             // culture
             var culture = GetRandomCorporateCulture();

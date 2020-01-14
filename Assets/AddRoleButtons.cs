@@ -54,7 +54,7 @@ public class AddRoleButtons : View
         //if (teamStatus >= TeamStatus.SmallTeam)
         //{
             AddButton(WorkerRole.ProductManager, "Requires Vision, Management and Business");
-            AddButton(WorkerRole.Business, "Leader of the project. Requires Excelent Business and Vision.");
+            AddButton(WorkerRole.CEO, "Leader of the project. Requires Excelent Business and Vision.");
         //}
 
         //if (teamStatus >= TeamStatus.Pair)
