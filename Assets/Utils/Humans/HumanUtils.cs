@@ -23,6 +23,16 @@ namespace Assets.Core
             return GetHumans(gameContext).Length;
         }
 
+        internal static string GetFullName(GameEntity human)
+        {
+            return $"{human.human.Name} {human.human.Surname}";
+        }
+
+
+        public static GameEntity GetHumanById(GameContext gameContext, int humanId)
+        {
+            return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
+        }
 
         internal static int GetHumanByWorkerRoleInCompany(int companyId, GameContext gameContext, WorkerRole workerRole)
         {
@@ -31,46 +41,12 @@ namespace Assets.Core
             return Array.Find(humans, h => h.worker.companyId == companyId && h.worker.WorkerRole == workerRole).human.Id;
         }
 
-        public static GameEntity GetHumanById(GameContext gameContext, int humanId)
-        {
-            return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
-        }
-
         public static WorkerRole GetRole(GameEntity worker)
         {
-            return worker.worker.WorkerRole;
-        }
+            if (worker.hasWorker)
+                return worker.worker.WorkerRole;
 
-        public static int GetOverallRating(int humanId, GameContext gameContext)
-        {
-            var worker = GetHumanById(gameContext, humanId);
 
-            return GetOverallRating(worker, gameContext);
-        }
-
-        public static int GetOverallRating(GameEntity worker, GameContext gameContext)
-        {
-            var role = GetRole(worker);
-
-            return GetWorkerRatingInRole(worker, role);
-        }
-
-        internal static string GetFullName(GameEntity human)
-        {
-            return $"{human.human.Name} {human.human.Surname}";
-        }
-
-        internal static void Recruit(GameEntity human, GameEntity company)
-        {
-            TeamUtils.HireWorker(company, human);
-        }
-
-        internal static bool IsWorksInCompany(GameEntity human, int id)
-        {
-            if (!human.hasWorker)
-                return false;
-
-            return human.worker.companyId == id;
         }
 
         internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
@@ -101,6 +77,20 @@ namespace Assets.Core
             return worker;
         }
 
+        // hire / fire
+        internal static void Recruit(GameEntity human, GameEntity company)
+        {
+            TeamUtils.HireWorker(company, human);
+        }
+
+        internal static bool IsWorksInCompany(GameEntity human, int id)
+        {
+            if (!human.hasWorker)
+                return false;
+
+            return human.worker.companyId == id;
+        }
+
         public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
         {
             if (!worker.hasWorker)
@@ -121,6 +111,7 @@ namespace Assets.Core
             human.RemoveWorker();
         }
 
+        // ambitions
         public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)
         {
             var human = GetHumanById(gameContext, humanId);

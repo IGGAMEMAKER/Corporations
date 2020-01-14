@@ -2,20 +2,29 @@
 {
     public static partial class HumanUtils
     {
-        public static int GetWorkerRatingInRole(GameEntity worker)
+        public static int GetOverallRating(int humanId, GameContext gameContext)
         {
-            return GetWorkerRatingInRole(worker, worker.worker.WorkerRole);
+            var worker = GetHumanById(gameContext, humanId);
+
+            return GetOverallRating(worker, gameContext);
+        }
+
+        public static int GetOverallRating(GameEntity worker, GameContext gameContext)
+        {
+            var role = GetRole(worker);
+
+            return GetWorkerRatingInRole(worker, role);
         }
 
         public static int GetWorkerRatingInRole(GameEntity worker, WorkerRole workerRole)
         {
             var skills = worker.humanSkills.Roles;
 
-            var marketing = skills[WorkerRole.Marketer];
-            var business = skills[WorkerRole.CEO];
-            var coding = skills[WorkerRole.Programmer];
-            var management = skills[WorkerRole.Manager];
-            var vision = worker.humanSkills.Traits[TraitType.Vision];
+            var marketing   = skills[WorkerRole.Marketer];
+            var business    = skills[WorkerRole.CEO];
+            var coding      = skills[WorkerRole.Programmer];
+            var management  = skills[WorkerRole.Manager];
+            var vision      = worker.humanSkills.Traits[TraitType.Vision];
 
             switch (workerRole)
             {

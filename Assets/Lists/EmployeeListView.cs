@@ -18,8 +18,7 @@ public class EmployeeListView : ListView
     {
         base.ViewRender();
 
-        var employees = SelectedCompany.employee.Managers.Keys
-            .Select(id => HumanUtils.GetHumanById(GameContext, id));
+        var employees = SelectedCompany.employee.Managers;
 
         SetItems(employees.ToArray());
     }
