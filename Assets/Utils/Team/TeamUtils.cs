@@ -26,7 +26,7 @@ public enum WorkerRole {
 
 namespace Assets.Core
 {
-    public static partial class TeamUtils
+    public static partial class Teams
     {
         private static void ReplaceTeam(GameEntity company, TeamComponent t)
         {

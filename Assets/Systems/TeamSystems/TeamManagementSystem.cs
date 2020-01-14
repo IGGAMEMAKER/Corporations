@@ -12,7 +12,7 @@ class TeamManagementSystem : OnMonthChange
 
         for (var i = 0; i < products.Length; i++)
         {
-            TeamUtils.ReduceOrganisationPoints(products[i], -2);
+            Teams.ReduceOrganisationPoints(products[i], -2);
         }
     }
 }

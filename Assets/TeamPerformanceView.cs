@@ -6,12 +6,12 @@ public class TeamPerformanceView : View
     {
         base.ViewRender();
 
-        int performance = TeamUtils.GetPerformance(GameContext, SelectedCompany);
+        int performance = Teams.GetPerformance(GameContext, SelectedCompany);
 
         var crunchDescription = SelectedCompany.isCrunching ? Visuals.Positive("We force our team to crunch, so this gives additional 40%") : "";
 
         var hint = $"Due to team status ({SelectedCompany.team.TeamStatus})" +
-            $"the base value is {TeamUtils.GetTeamSizePerformanceModifier(SelectedCompany)}\n" +
+            $"the base value is {Teams.GetTeamSizePerformanceModifier(SelectedCompany)}\n" +
             $"{crunchDescription}";
 
         GetComponent<ColoredValueGradient>().UpdateValue(performance);

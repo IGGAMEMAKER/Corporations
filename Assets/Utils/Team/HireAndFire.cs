@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Core
 {
-    public static partial class TeamUtils
+    public static partial class Teams
     {
         public static void HireManager(GameEntity company, WorkerRole workerRole)
         {

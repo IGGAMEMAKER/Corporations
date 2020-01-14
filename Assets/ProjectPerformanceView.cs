@@ -9,7 +9,7 @@ public class ProjectPerformanceView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var performance = TeamUtils.GetPerformance(GameContext, SelectedCompany);
+        var performance = Teams.GetPerformance(GameContext, SelectedCompany);
 
         return performance.ToString();
     }

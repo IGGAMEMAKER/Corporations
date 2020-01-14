@@ -6,7 +6,7 @@
         {
             long money = GetProfit(gameContext, company);
 
-            int performance = TeamUtils.GetPerformance(gameContext, company);
+            int performance = Teams.GetPerformance(gameContext, company);
 
             return new TeamResource(
                 Normalize(GetPP(company), performance),
@@ -28,24 +28,24 @@
 
         static int GetPP(GameEntity productCompany)
         {
-            var programmers = TeamUtils.GetProgrammers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
-            var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
+            var programmers = Teams.GetProgrammers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_PROGRAMMER;
+            var universals = Teams.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
 
             return programmers + universals;
         }
 
         static int GetSP(GameEntity productCompany)
         {
-            var marketers = TeamUtils.GetMarketers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
-            var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
+            var marketers = Teams.GetMarketers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MARKETER;
+            var universals = Teams.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
 
             return marketers + universals;
         }
 
         static int GetMP(GameEntity productCompany)
         {
-            var managers = TeamUtils.GetManagers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MANAGER;
-            var universals = TeamUtils.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
+            var managers = Teams.GetManagers(productCompany) * Constants.DEVELOPMENT_PRODUCTION_MANAGER;
+            var universals = Teams.GetUniversals(productCompany) * Constants.DEVELOPMENT_PRODUCTION_UNIVERSALS;
 
             return managers + universals;
         }

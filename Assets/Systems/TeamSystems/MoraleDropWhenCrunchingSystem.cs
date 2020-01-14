@@ -16,7 +16,7 @@ class MoraleManagementSystem : OnMonthChange
         {
             var change = products[i].isCrunching ? -4 : 2;
 
-            var workers = TeamUtils.GetAmountOfWorkers(products[i], gameContext) + 1;
+            var workers = Teams.GetAmountOfWorkers(products[i], gameContext) + 1;
             var required = Economy.GetNecessaryAmountOfWorkers(products[i], gameContext);
 
             if (required > workers)

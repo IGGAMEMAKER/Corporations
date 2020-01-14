@@ -6,7 +6,7 @@ public class RenderCTO : View
     {
         var role = WorkerRole.TechDirector;
 
-        var workerId = TeamUtils.GetWorkerByRole(SelectedCompany, GameContext, role);
+        var workerId = Teams.GetWorkerByRole(SelectedCompany, GameContext, role);
         GetComponent<WorkerView>().SetEntity(workerId, role);
     }
 }

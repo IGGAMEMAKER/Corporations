@@ -7,6 +7,6 @@ public class FireWorker : ButtonController
 {
     public override void Execute()
     {
-        TeamUtils.FireRegularWorker(SelectedCompany);
+        Teams.FireRegularWorker(SelectedCompany);
     }
 }

@@ -25,7 +25,7 @@ public class SelectWorkerRoleThatYouWantToHire : View
         // set roles
         var options = new List<Dropdown.OptionData>();
 
-        var roles = TeamUtils.GetAvailableRoles(company);
+        var roles = Teams.GetAvailableRoles(company);
 
         foreach (var role in roles)
             options.Add(new Dropdown.OptionData(role.ToString()));
@@ -39,7 +39,7 @@ public class SelectWorkerRoleThatYouWantToHire : View
     {
         var company = SelectedCompany;
 
-        var roles = TeamUtils.GetAvailableRoles(company);
+        var roles = Teams.GetAvailableRoles(company);
 
         SpawnEmployees.SetWorkerRole(roles[arg0]);
     }

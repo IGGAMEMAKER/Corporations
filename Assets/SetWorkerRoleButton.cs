@@ -6,7 +6,7 @@ public class SetWorkerRoleButton : ButtonController
 
     public override void Execute()
     {
-        TeamUtils.SetRole(MyCompany, SelectedHuman.human.Id, WorkerRole, GameContext);
+        Teams.SetRole(MyCompany, SelectedHuman.human.Id, WorkerRole, GameContext);
     }
 
     public void SetRole(WorkerRole workerRole)

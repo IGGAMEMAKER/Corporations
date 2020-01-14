@@ -6,7 +6,7 @@ public class RenderCMO : View
     {
         var role = WorkerRole.MarketingDirector;
 
-        var workerId = TeamUtils.GetWorkerByRole(SelectedCompany, GameContext, role);
+        var workerId = Teams.GetWorkerByRole(SelectedCompany, GameContext, role);
         GetComponent<WorkerView>().SetEntity(workerId, role);
     }
 }

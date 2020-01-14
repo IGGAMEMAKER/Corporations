@@ -14,9 +14,9 @@ class EmployeeSystem : OnMonthChange
 
         for (var i = 0; i < products.Length; i++)
         {
-            TeamUtils.ShaffleEmployees(products[i], gameContext);
+            Teams.ShaffleEmployees(products[i], gameContext);
         }
 
-        TeamUtils.ShaffleEmployees(playerCompany, gameContext);
+        Teams.ShaffleEmployees(playerCompany, gameContext);
     }
 }

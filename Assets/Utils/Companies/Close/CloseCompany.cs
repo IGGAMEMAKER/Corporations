@@ -17,7 +17,7 @@ namespace Assets.Core
 
             if (e.hasProduct)
             {
-                TeamUtils.DismissTeam(e, context);
+                Teams.DismissTeam(e, context);
                 Markets.ReturnUsersWhenCompanyIsClosed(e, context);
             }
 

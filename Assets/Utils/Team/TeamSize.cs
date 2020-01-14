@@ -2,7 +2,7 @@
 
 namespace Assets.Core
 {
-    public static partial class TeamUtils
+    public static partial class Teams
     {
         public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
         {
