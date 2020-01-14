@@ -8,8 +8,6 @@ class EmployeeSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        Debug.Log("Employee system");
-
         var playerCompany = Companies.GetPlayerCompany(gameContext);
 
         var products = Companies.GetPlayerRelatedProducts(gameContext);

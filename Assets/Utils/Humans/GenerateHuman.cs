@@ -4,6 +4,34 @@ namespace Assets.Core
 {
     public static partial class HumanUtils
     {
+        public static GameEntity GenerateHuman(GameContext gameContext, WorkerRole workerRole)
+        {
+            var worker = GenerateHuman(gameContext);
+
+            SetSkills(worker, workerRole);
+            SetRole(worker, workerRole);
+
+            return worker;
+        }
+        public static GameEntity GenerateHuman(GameContext gameContext)
+        {
+            var e = gameContext.CreateEntity();
+
+            int id = GenerateHumanId(gameContext);
+
+            e.AddHuman(id, "Dude", id + "");
+            e.AddWorker(-1, WorkerRole.Universal);
+            e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
+            e.AddHumanSkills(
+                GenerateRandomSkills(),
+                GenerateRandomTraits(),
+                new Dictionary<NicheType, int>()
+                );
+
+            return e;
+        }
+
+
         // generate as secondary skill, but save genius chances
         static int GetRandomXP()
         {
@@ -56,31 +84,6 @@ namespace Assets.Core
                 [WorkerRole.Marketer] = GetRandomXP(),
                 [WorkerRole.Programmer] = 0,
             };
-        }
-
-        public static GameEntity GenerateHuman(GameContext gameContext, WorkerRole workerRole)
-        {
-            var worker = GenerateHuman(gameContext);
-
-            SetSkills(worker, workerRole);
-
-            return worker;
-        }
-        public static GameEntity GenerateHuman(GameContext gameContext)
-        {
-            var e = gameContext.CreateEntity();
-
-            int id = GenerateHumanId(gameContext);
-
-            e.AddHuman(id, "Tom", "Stokes " + id);
-            e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
-            e.AddHumanSkills(
-                GenerateRandomSkills(),
-                GenerateRandomTraits(),
-                new Dictionary<NicheType, int>()
-                );
-
-            return e;
         }
     }
 }

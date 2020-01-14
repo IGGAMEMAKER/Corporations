@@ -33,7 +33,7 @@ public class WorkerListView : ListView
 
     Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
     {
-        return GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(p.Key, GameContext);
+        return GetWorkerOrder(p.Value) * 1000 + HumanUtils.GetOverallRating(GameContext, p.Key);
     };
 
     static int GetWorkerOrder (WorkerRole role)

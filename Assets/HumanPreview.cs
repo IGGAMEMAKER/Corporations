@@ -18,7 +18,7 @@ public class HumanPreview : View
 
     public void Render()
     {
-        var overall = HumanUtils.GetOverallRating(human, GameContext);
+        var overall = HumanUtils.GetOverallRating(GameContext, human);
 
         Overall.text = $"{overall}";
 

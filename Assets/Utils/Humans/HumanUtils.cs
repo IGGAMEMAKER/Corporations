@@ -3,16 +3,9 @@ using System;
 
 namespace Assets.Core
 {
-    public enum Ambition
-    {
-        EarnMoney,
-        //RuleProductCompany,
-
-        RuleCorporation
-    }
     public static partial class HumanUtils
     {
-
+        // queries
         public static GameEntity[] GetHumans(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Human);
@@ -34,29 +27,14 @@ namespace Assets.Core
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
-        internal static int GetHumanByWorkerRoleInCompany(int companyId, GameContext gameContext, WorkerRole workerRole)
+        internal static int GetHumanByWorkerRoleInCompany(GameContext gameContext, int companyId, WorkerRole workerRole)
         {
             var humans = gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.Human, GameMatcher.Worker));
 
             return Array.Find(humans, h => h.worker.companyId == companyId && h.worker.WorkerRole == workerRole).human.Id;
         }
 
-        public static WorkerRole GetRole(GameEntity worker)
-        {
-            if (worker.hasWorker)
-                return worker.worker.WorkerRole;
-
-
-        }
-
-        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
-        {
-            var human = GetHuman(gameContext, humanId);
-
-            if (human.hasWorker)
-                human.ReplaceWorker(human.worker.companyId, workerRole);
-        }
-
+        // actions
         public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
         {
             var roles = worker.humanSkills.Roles;
@@ -78,11 +56,10 @@ namespace Assets.Core
         }
 
         // hire / fire
-        internal static void Recruit(GameEntity human, GameEntity company)
+        internal static bool IsEmployed(GameEntity human)
         {
-            TeamUtils.HireWorker(company, human);
+            return human.worker.companyId != -1;
         }
-
         internal static bool IsWorksInCompany(GameEntity human, int id)
         {
             if (!human.hasWorker)
@@ -99,54 +76,10 @@ namespace Assets.Core
                 worker.ReplaceWorker(companyId, workerRole);
         }
 
-        internal static void LeaveCompany(GameContext gameContext, int humanId)
-        {
-            var human = GetHuman(gameContext, humanId);
-
-            LeaveCompany(human);
-        }
-
+        internal static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
         internal static void LeaveCompany(GameEntity human)
         {
             human.RemoveWorker();
-        }
-
-        // ambitions
-        public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)
-        {
-            var human = GetHuman(gameContext, humanId);
-
-            return GetFounderAmbition(human.humanSkills.Traits[TraitType.Ambitions]);
-        }
-
-        public static Ambition GetFounderAmbition(int ambitions)
-        {
-            //if (ambitions < 75)
-            //    return Ambition.RuleProductCompany;
-
-            if (ambitions < 85)
-                return Ambition.EarnMoney;
-
-            return Ambition.RuleCorporation;
-        }
-
-        public static string GetFormattedRole(WorkerRole role)
-        {
-            switch (role)
-            {
-                case WorkerRole.CEO: return "CEO";
-                case WorkerRole.Manager: return "Manager";
-                case WorkerRole.Marketer: return "Marketer";
-                case WorkerRole.MarketingDirector: return "Marketing Director";
-                case WorkerRole.ProductManager: return "Product Manager";
-                case WorkerRole.Programmer: return "Programmer";
-                case WorkerRole.ProjectManager: return "Project Manager";
-                case WorkerRole.TechDirector: return "Tech Director";
-
-                case WorkerRole.Universal: return "Universal";
-
-                default: return role.ToString();
-            }
         }
     }
 }

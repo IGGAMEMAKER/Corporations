@@ -2,14 +2,8 @@
 {
     public static partial class HumanUtils
     {
-        public static int GetOverallRating(int humanId, GameContext gameContext)
-        {
-            var worker = GetHuman(gameContext, humanId);
-
-            return GetOverallRating(worker, gameContext);
-        }
-
-        public static int GetOverallRating(GameEntity worker, GameContext gameContext)
+        public static int GetOverallRating(GameContext gameContext, int humanId) => GetOverallRating(gameContext, GetHuman(gameContext, humanId));
+        public static int GetOverallRating(GameContext gameContext, GameEntity worker)
         {
             var role = GetRole(worker);
 

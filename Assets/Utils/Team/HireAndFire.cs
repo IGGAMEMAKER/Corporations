@@ -8,13 +8,13 @@ namespace Assets.Core
     {
         public static void HireManager(GameEntity company, WorkerRole workerRole)
         {
-            var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game);
+            var worker = HumanUtils.GenerateHuman(Contexts.sharedInstance.game, workerRole);
 
-            worker.AddWorker(company.company.Id, workerRole);
+            worker.worker.companyId = company.company.Id;
 
-            HireWorker(company, worker);
+            AttachToTeam(company, worker.human.Id, workerRole);
 
-            HumanUtils.SetSkills(worker, workerRole);
+            HumanUtils.AttachToCompany(worker, company.company.Id, workerRole);
         }
 
         public static void ReduceOrganisationPoints(GameEntity company, int points)
@@ -124,29 +124,12 @@ namespace Assets.Core
 
 
 
-        public static GameEntity GetWorkerByWorkerRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
+        public static int GetWorkerByRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
         {
-            var team = company.team.Managers;
-
-            GameEntity human = null;
-
-            foreach (var w in team)
-            {
-                if (w.Value == workerRole)
-                    human = HumanUtils.GetHuman(gameContext, w.Key);
-            }
-
-            return human;
+            return HumanUtils.GetHumanByWorkerRoleInCompany(gameContext, company.company.Id, workerRole);
         }
 
-        public static void HireWorker(GameEntity company, GameEntity worker)
-        {
-            var role = worker.worker.WorkerRole;
-
-            AttachToTeam(company, worker.human.Id, role);
-
-            HumanUtils.AttachToCompany(worker, company.company.Id, role);
-        }
+        // --------------
 
 
         public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
@@ -199,12 +182,5 @@ namespace Assets.Core
             if (workerId > 0)
                 FireWorker(company, workerId, gameContext);
         }
-
-
-        public static int GetWorkerByRole(GameEntity company, GameContext gameContext, WorkerRole workerRole)
-        {
-            return HumanUtils.GetHumanByWorkerRoleInCompany(company.company.Id, gameContext, workerRole);
-        }
-
     }
 }
