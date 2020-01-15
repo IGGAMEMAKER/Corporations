@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Core
 {
@@ -10,18 +8,20 @@ namespace Assets.Core
         {
             var worker = Humans.GenerateHuman(Contexts.sharedInstance.game, workerRole);
 
-            AttachToTeam(company, worker.human.Id, workerRole);
-
-            Humans.AttachToCompany(worker, company.company.Id, workerRole);
+            AttachToTeam(company, worker, workerRole);
         }
 
-        public static void AttachToTeam(GameEntity company, int humanId, WorkerRole role)
+        public static void AttachToTeam(GameEntity company, GameEntity worker, WorkerRole role)
         {
             var team = company.team;
+
+            var humanId = worker.human.Id;
 
             team.Managers[humanId] = role;
 
             ReplaceTeam(company, team);
+
+            Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
         public static void HireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)

@@ -59,10 +59,7 @@ namespace Assets.Core
 
         public static void AttachToCompany(GameEntity worker, int companyId, WorkerRole workerRole)
         {
-            if (!worker.hasWorker)
-                worker.AddWorker(companyId, workerRole);
-            else
-                worker.ReplaceWorker(companyId, workerRole);
+            worker.ReplaceWorker(companyId, workerRole);
         }
 
         internal static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
