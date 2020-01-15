@@ -1,13 +1,20 @@
-﻿namespace Assets.Core
+﻿using UnityEngine;
+
+namespace Assets.Core
 {
     public static partial class Humans
     {
         public static WorkerRole GetRole(GameEntity worker)
         {
+            Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
+
             if (worker.hasWorker)
                 return worker.worker.WorkerRole;
 
-            throw new System.Exception("Tries to getRole of entity #" + worker.creationIndex);
+            var err = "Tries to getRole of entity #" + worker.creationIndex;
+            Debug.LogError(err);
+
+            throw new System.Exception(err);
         }
 
         internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);

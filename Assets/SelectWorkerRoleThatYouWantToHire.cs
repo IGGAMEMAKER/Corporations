@@ -41,6 +41,6 @@ public class SelectWorkerRoleThatYouWantToHire : View
 
         var roles = Teams.GetAvailableRoles(company);
 
-        SpawnEmployees.SetWorkerRole(roles[arg0]);
+        //SpawnEmployees.SetWorkerRole(roles[arg0]);
     }
 }

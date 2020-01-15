@@ -12,11 +12,15 @@
             var business    = skills[WorkerRole.CEO];
             var coding      = skills[WorkerRole.Programmer];
             var management  = skills[WorkerRole.Manager];
+
             var vision      = worker.humanSkills.Traits[TraitType.Vision];
 
             switch (workerRole)
             {
+                case WorkerRole.MarketingLead:
                 case WorkerRole.MarketingDirector: return (marketing * 3 + business * 2 + management * 3 + vision * 2) / 10;
+
+                case WorkerRole.TeamLead:
                 case WorkerRole.TechDirector: return (coding * 4 + business * 1 + management * 5) / 10;
 
                 case WorkerRole.ProductManager: return (vision * 5 + business * 2 + management * 3) / 10;

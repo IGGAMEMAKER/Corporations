@@ -12,7 +12,11 @@ namespace Assets.Core
 
             #region remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
-                Humans.GetHuman(gameContext, humanId).Destroy();
+            {
+                var h = Humans.GetHuman(gameContext, humanId);
+                
+                h.Destroy();
+            }
 
             company.employee.Managers.Clear();
             #endregion
