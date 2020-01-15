@@ -15,7 +15,7 @@ public class RenderWorkerRole : View
         var text = "";
         var human = SelectedHuman;
 
-        if (!human.hasWorker)
+        if (!human.hasWorker || human.worker.companyId == -1)
         {
             text = "Unemployed";
             Link.enabled = false;
@@ -28,7 +28,10 @@ public class RenderWorkerRole : View
 
             var role = Humans.GetRole(human);
 
-            text = Visuals.Link( $"{Humans.GetFormattedRole(role)} ({Humans.GetOverallRating(GameContext, human)}LVL) in {c.company.Name}" );
+            var formattedRole = Humans.GetFormattedRole(role);
+            var rating = Humans.GetOverallRating(GameContext, human);
+
+            text = Visuals.Link( $"{formattedRole} ({rating}LVL) in {c.company.Name}" );
             Link.enabled = true;
             Link.CompanyId = companyId;
         }

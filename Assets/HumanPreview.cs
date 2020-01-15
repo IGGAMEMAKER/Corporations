@@ -18,26 +18,26 @@ public class HumanPreview : View
 
     public void Render()
     {
-        var overall = Humans.GetOverallRating(GameContext, human);
+        var rating = Humans.GetOverallRating(GameContext, human);
 
-        Overall.text = $"{overall}";
+        var entityID = human.creationIndex;
+
+        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname} \n#{entityID}"; // \n{formattedRole}
+
 
         var role = Humans.GetRole(human);
-
         var formattedRole = Humans.GetFormattedRole(role);
-
-        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname}"; // \n{formattedRole}
-
-        Description.text = description;
-
-        if (RoleText)
+        if (RoleText != null)
+        {
             RoleText.text = formattedRole;
+        }
+
+        Overall.text = $"{rating}";
+        Description.text = description;
     }
 
     public void SetEntity(int humanId)
     {
         human = Humans.GetHuman(GameContext, humanId);
-
-        Render();
     }
 }

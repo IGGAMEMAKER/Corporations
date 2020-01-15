@@ -4,11 +4,14 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static void HireManager(GameEntity company, WorkerRole workerRole)
+        // managers
+        public static void HireManager(GameEntity company, WorkerRole workerRole) => HireManager(company, Humans.GenerateHuman(Contexts.sharedInstance.game, workerRole));
+        public static void HireManager(GameEntity company, GameEntity worker)
         {
-            var worker = Humans.GenerateHuman(Contexts.sharedInstance.game, workerRole);
+            var role = Humans.GetRole(worker);
 
-            AttachToTeam(company, worker, workerRole);
+            AttachToTeam(company, worker, role);
+
         }
 
         public static void AttachToTeam(GameEntity company, GameEntity worker, WorkerRole role)
@@ -24,6 +27,7 @@ namespace Assets.Core
             Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
+        // regular workers
         public static void HireRegularWorker(GameEntity company, WorkerRole workerRole = WorkerRole.Programmer)
         {
             company.team.Workers[workerRole]++;

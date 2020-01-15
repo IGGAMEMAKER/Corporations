@@ -20,8 +20,6 @@ public class JobOfferScreen : View
 
     void RenderProposalStatus()
     {
-        //bool isFounder = HumanUtils
-
         var text = Visuals.Neutral("They are waiting for our response");
 
         ProposalStatus.text = text;

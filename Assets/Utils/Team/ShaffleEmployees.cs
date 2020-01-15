@@ -10,8 +10,12 @@ namespace Assets.Core
         {
             Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
 
+            #region remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
                 Humans.GetHuman(gameContext, humanId).Destroy();
+
+            company.employee.Managers.Clear();
+            #endregion
 
             var roles = GetAvailableRoles(company);
 
