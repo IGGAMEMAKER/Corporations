@@ -32,6 +32,8 @@ namespace Assets.Core
 
                 company.employee.Managers[humanId] = role;
             }
+
+            Debug.Log("ShaffleEmployees: " + company.company.Name + " DONE");
         }
 
         public static List<WorkerRole> GetGroupRoles() => new List<WorkerRole>

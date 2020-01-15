@@ -1,25 +1,9 @@
-﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class EmployeeListView : ListView
+public class EmployeeListView : StaffListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override Dictionary<int, WorkerRole> Workers()
     {
-        var e = (KeyValuePair<int, WorkerRole>)(object)entity;
-
-        //if (t.GetComponent<WorkerView>() != null)
-        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        var employees = SelectedCompany.employee.Managers;
-
-        SetItems(employees.ToArray());
+        return SelectedCompany.employee.Managers;
     }
 }

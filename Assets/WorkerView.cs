@@ -1,13 +1,11 @@
-﻿public class WorkerView : View
-{
-    int humanId;
+﻿using UnityEngine;
 
+public class WorkerView : View
+{
     public HumanPreview HumanPreview;
 
     public void SetEntity(int humanId, WorkerRole workerRole)
     {
-        this.humanId = humanId;
-
         var link = GetComponent<LinkToHuman>();
         if (humanId != -1)
         {
@@ -18,6 +16,7 @@
         }
         else
         {
+            Debug.Log("ERROR OF ERRORS! humanId for " + workerRole + " is -1!");
             link.enabled = false;
         }
     }
