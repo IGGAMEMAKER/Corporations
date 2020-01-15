@@ -74,7 +74,6 @@ namespace Assets.Core
             e.AddEmployee(new Dictionary<int, WorkerRole>());
 
             Teams.AttachToTeam(e, CEO, WorkerRole.CEO);
-            Humans.SetSkills(CEO, WorkerRole.CEO);
 
             // culture
             var culture = GetRandomCorporateCulture();

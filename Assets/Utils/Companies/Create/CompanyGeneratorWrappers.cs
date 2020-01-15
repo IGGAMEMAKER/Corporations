@@ -27,6 +27,7 @@ namespace Assets.Core
             var level = UnityEngine.Random.Range(70, 90);
 
             Humans.SetTrait(CEO, TraitType.Ambitions, level);
+            Humans.SetSkills(CEO, WorkerRole.CEO);
 
             return CreateCompany(context, name, companyType, new Dictionary<int, BlockOfShares>(), CEO);
         }
@@ -94,6 +95,7 @@ namespace Assets.Core
             return c;
         }
 
+        // TODO remove
         public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
         {
             var niche = Markets.GetNiche(gameContext, company.product.Niche);
