@@ -14,7 +14,7 @@ namespace Assets.Core
             foreach (var humanId in company.employee.Managers.Keys)
             {
                 var h = Humans.GetHuman(gameContext, humanId);
-                
+
                 h.Destroy();
             }
 

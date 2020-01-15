@@ -20,7 +20,17 @@ public class JobOfferScreen : View
 
     void RenderProposalStatus()
     {
-        var text = Visuals.Neutral("They are waiting for our response");
+        var text = Visuals.Neutral("Is waiting for your response");
+
+        var role = Humans.GetRole(SelectedHuman);
+
+        var hasSameRoleWorkers = SelectedCompany.team.Managers.ContainsValue(role);
+        if (hasSameRoleWorkers)
+        {
+            text = Visuals.Negative(
+                $"You already have the {Humans.GetFormattedRole(role)} in company {SelectedCompany.company.Name}, while you only need one per company. Are you sure?"
+                );
+        }
 
         ProposalStatus.text = text;
     }
@@ -35,7 +45,9 @@ public class JobOfferScreen : View
         RenderOffer();
         RenderProposalStatus();
 
+        var role = Humans.GetRole(SelectedHuman);
+
         WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(GameContext, SelectedHuman)}LVL)";
-        RoleName.text = Humans.GetFormattedRole(SelectedHuman.worker.WorkerRole);
+        RoleName.text = Humans.GetFormattedRole(role);
     }
 }

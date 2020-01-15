@@ -21,7 +21,8 @@ public abstract class StaffListView : ListView
         base.ViewRender();
 
         var items = Workers()
-            .OrderByDescending(OrderWorkers);
+            .OrderByDescending(OrderWorkers)
+            ;
 
         SetItems(items);
     }

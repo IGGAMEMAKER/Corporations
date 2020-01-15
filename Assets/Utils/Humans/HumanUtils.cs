@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -13,7 +14,12 @@ namespace Assets.Core
 
         public static int GenerateHumanId(GameContext gameContext)
         {
-            return GetHumans(gameContext).Length;
+            var humans = GetHumans(gameContext);
+
+            if (humans.Length == 0)
+                return 0;
+
+            return humans.Max(h => h.human.Id) + 1;
         }
 
         internal static string GetFullName(GameEntity human)

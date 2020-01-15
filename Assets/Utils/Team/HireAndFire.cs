@@ -62,6 +62,7 @@ namespace Assets.Core
         public static void ChangeMorale(GameEntity company, int change)
         {
             var morale = company.team.Morale;
+
             company.team.Morale = Mathf.Clamp(morale + change, 0, 100);
         }
 

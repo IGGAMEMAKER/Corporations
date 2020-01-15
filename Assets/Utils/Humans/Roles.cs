@@ -17,8 +17,8 @@ namespace Assets.Core
             throw new System.Exception(err);
         }
 
-        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);
-        internal static void SetRole(GameEntity human, WorkerRole workerRole)
+        public static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);
+        public static void SetRole(GameEntity human, WorkerRole workerRole)
         {
             if (human.hasWorker)
                 human.ReplaceWorker(human.worker.companyId, workerRole);

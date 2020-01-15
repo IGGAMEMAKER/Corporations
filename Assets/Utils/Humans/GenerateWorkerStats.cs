@@ -50,12 +50,14 @@ namespace Assets.Core
                     break;
 
                 case WorkerRole.MarketingDirector:
+                case WorkerRole.MarketingLead:
                     SetPrimarySkill(worker, WorkerRole.Marketer);
                     SetPrimarySkill(worker, WorkerRole.Manager);
 
                     SetPrimaryTrait(worker, TraitType.Vision);
                     break;
 
+                case WorkerRole.TeamLead:
                 case WorkerRole.TechDirector:
                     SetPrimarySkill(worker, WorkerRole.Programmer);
                     SetPrimarySkill(worker, WorkerRole.Manager);
