@@ -1,6 +1,5 @@
 ﻿using Assets.Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,22 +10,16 @@ public class WorkerListView : ListView
     {
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 
-        if (t.GetComponent<WorkerView>() != null)
-            t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
+        //if (t.GetComponent<WorkerView>() != null)
+        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        Fill();
-    }
-
-    void Fill()
-    {
         var items = SelectedCompany.team.Managers
-            .OrderByDescending(OrderWorkers)
-            .ToArray();
+            .OrderByDescending(OrderWorkers);
 
         SetItems(items);
     }

@@ -19,9 +19,9 @@ namespace Assets.Core
 
             var roles = GetAvailableRoles(company);
 
-            for (var i = 0; i < roles.Count / 2; i++)
+            for (var i = 0; i < roles.Count; i++)
             {
-                var index = Random.Range(0, roles.Count - 1);
+                var index = Random.Range(0, roles.Count);
 
                 var role = roles[index];
 

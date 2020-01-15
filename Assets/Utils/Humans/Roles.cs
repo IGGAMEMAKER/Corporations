@@ -7,16 +7,11 @@
             return worker.worker.WorkerRole;
         }
 
+        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);
         internal static void SetRole(GameEntity human, WorkerRole workerRole)
         {
             if (human.hasWorker)
                 human.ReplaceWorker(human.worker.companyId, workerRole);
-        }
-        internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole)
-        {
-            var human = GetHuman(gameContext, humanId);
-
-            SetRole(human, workerRole);
         }
 
         public static string GetFormattedRole(WorkerRole role)

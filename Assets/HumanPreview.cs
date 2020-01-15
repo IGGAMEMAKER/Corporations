@@ -9,13 +9,6 @@ public class HumanPreview : View
 
     public GameEntity human;
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        Render();
-    }
-
     public void Render()
     {
         var rating = Humans.GetOverallRating(GameContext, human);
@@ -39,5 +32,7 @@ public class HumanPreview : View
     public void SetEntity(int humanId)
     {
         human = Humans.GetHuman(GameContext, humanId);
+
+        Render();
     }
 }

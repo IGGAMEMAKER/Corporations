@@ -8,5 +8,6 @@ public class ApplicationSettings : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.None);
     }
 }

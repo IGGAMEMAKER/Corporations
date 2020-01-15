@@ -15,9 +15,16 @@ public class RenderWorkerRole : View
         var text = "";
         var human = SelectedHuman;
 
+        var role = Humans.GetRole(human);
+
+        var formattedRole = Humans.GetFormattedRole(role);
+        var rating = Humans.GetOverallRating(GameContext, human);
+
+        text = $"{formattedRole} ({rating}LVL)";
+
         if (!human.hasWorker || human.worker.companyId == -1)
         {
-            text = "Unemployed";
+            text += " (Unemployed)";
             Link.enabled = false;
         }
         else
@@ -26,12 +33,8 @@ public class RenderWorkerRole : View
 
             var c = Companies.GetCompany(GameContext, companyId);
 
-            var role = Humans.GetRole(human);
+            text += " " + Visuals.Link($"in {c.company.Name}");
 
-            var formattedRole = Humans.GetFormattedRole(role);
-            var rating = Humans.GetOverallRating(GameContext, human);
-
-            text = Visuals.Link( $"{formattedRole} ({rating}LVL) in {c.company.Name}" );
             Link.enabled = true;
             Link.CompanyId = companyId;
         }
