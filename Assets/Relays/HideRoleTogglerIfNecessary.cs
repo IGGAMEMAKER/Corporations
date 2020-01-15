@@ -6,6 +6,8 @@ public class HideRoleTogglerIfNecessary : HideOnSomeCondition
     {
         var myCompany = MyCompany.company.Id;
 
+        return true;
+
         bool worksInMyCompany = Humans.IsWorksInCompany(SelectedHuman, myCompany);
 
         return !worksInMyCompany;

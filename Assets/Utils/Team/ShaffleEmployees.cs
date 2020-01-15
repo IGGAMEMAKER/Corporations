@@ -8,7 +8,7 @@ namespace Assets.Core
     {
         public static void ShaffleEmployees(GameEntity company, GameContext gameContext)
         {
-            Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
+            //Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
 
             #region remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
@@ -18,7 +18,7 @@ namespace Assets.Core
                 h.Destroy();
             }
 
-            Debug.Log("ShaffleEmployees: will remove " + company.employee.Managers.Keys.Count + " employees");
+            //Debug.Log("ShaffleEmployees: will remove " + company.employee.Managers.Keys.Count + " employees");
 
             company.employee.Managers.Clear();
             #endregion
@@ -34,12 +34,12 @@ namespace Assets.Core
                 var worker = Humans.GenerateHuman(gameContext, role);
                 var humanId = worker.human.Id;
 
-                Debug.Log($"human #{i} - {role}. Human Id = {humanId}");
+                //Debug.Log($"human #{i} - {role}. Human Id = {humanId}");
 
                 company.employee.Managers[humanId] = role;
             }
 
-            Debug.Log("ShaffleEmployees: " + company.company.Name + " DONE");
+            //Debug.Log("ShaffleEmployees: " + company.company.Name + " DONE");
         }
 
         public static List<WorkerRole> GetGroupRoles() => new List<WorkerRole>

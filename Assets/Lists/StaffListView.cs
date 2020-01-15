@@ -12,7 +12,6 @@ public abstract class StaffListView : ListView
     {
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 
-        //if (t.GetComponent<WorkerView>() != null)
         t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
     }
 
