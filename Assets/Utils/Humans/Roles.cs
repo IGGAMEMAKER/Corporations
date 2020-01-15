@@ -6,7 +6,7 @@ namespace Assets.Core
     {
         public static WorkerRole GetRole(GameEntity worker)
         {
-            Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
+            //Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
 
             if (worker.hasWorker)
                 return worker.worker.WorkerRole;

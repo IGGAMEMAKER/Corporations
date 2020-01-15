@@ -18,6 +18,8 @@ namespace Assets.Core
                 h.Destroy();
             }
 
+            Debug.Log("ShaffleEmployees: will remove " + company.employee.Managers.Keys.Count + " employees");
+
             company.employee.Managers.Clear();
             #endregion
 
