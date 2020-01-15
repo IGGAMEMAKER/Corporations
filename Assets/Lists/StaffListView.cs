@@ -28,7 +28,7 @@ public abstract class StaffListView : ListView
 
     Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
     {
-        return GetWorkerOrder(p.Value) * 1000 + Humans.GetOverallRating(GameContext, p.Key);
+        return GetWorkerOrder(p.Value) * 1000 + Humans.GetRating(GameContext, p.Key);
     };
 
     static int GetWorkerOrder(WorkerRole role)

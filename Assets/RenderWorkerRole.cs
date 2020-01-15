@@ -18,7 +18,7 @@ public class RenderWorkerRole : View
         var role = Humans.GetRole(human);
 
         var formattedRole = Humans.GetFormattedRole(role);
-        var rating = Humans.GetOverallRating(GameContext, human);
+        var rating = Humans.GetRating(GameContext, human);
 
         text = $"{formattedRole} ({rating}LVL)";
 

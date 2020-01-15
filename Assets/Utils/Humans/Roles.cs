@@ -4,7 +4,10 @@
     {
         public static WorkerRole GetRole(GameEntity worker)
         {
-            return worker.worker.WorkerRole;
+            if (worker.hasWorker)
+                return worker.worker.WorkerRole;
+
+            throw new System.Exception("Tries to getRole of entity #" + worker.creationIndex);
         }
 
         internal static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);

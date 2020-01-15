@@ -11,7 +11,7 @@ public class HumanPreview : View
 
     public void Render()
     {
-        var rating = Humans.GetOverallRating(GameContext, human);
+        var rating = Humans.GetRating(GameContext, human);
 
         var entityID = human.creationIndex;
 
