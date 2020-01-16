@@ -95,6 +95,17 @@ public class CompanyViewOnMap : View
 
     Color GetMarketRelevanceColor()
     {
+        var profit = Economy.GetProfit(GameContext, company);
+
+        if (profit > 0)
+            return Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
+
+        if (profit == 0)
+            return Visuals.GetColorFromString(VisualConstants.COLOR_NEUTRAL);
+
+        if (profit < 0)
+            return Visuals.GetColorFromString(VisualConstants.COLOR_NEGATIVE);
+
         var concept = "";
         switch (Products.GetConceptStatus(company, GameContext))
         {
@@ -133,9 +144,9 @@ public class CompanyViewOnMap : View
 
         switch (conceptStatus)
         {
-            case ConceptStatus.Leader:      concept = Visuals.Positive("Sets Trends!"); break;
-            case ConceptStatus.Outdated:    concept = Visuals.Negative("Outdated"); break;
-            case ConceptStatus.Relevant:    concept = Visuals.Neutral("Relevant"); break;
+            case ConceptStatus.Leader:      concept = "Sets Trends!"; break;
+            case ConceptStatus.Outdated:    concept = "Outdated"; break;
+            case ConceptStatus.Relevant:    concept = "Relevant"; break;
         }
 
         //

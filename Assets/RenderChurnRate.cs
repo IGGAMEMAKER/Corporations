@@ -12,6 +12,8 @@ public class RenderChurnRate : UpgradedParameterView
         var rate = MarketingUtils.GetChurnRate(GameContext, SelectedCompany.company.Id).ToString();
         var churnUsers = MarketingUtils.GetChurnClients(GameContext, SelectedCompany.company.Id);
 
+        return $"Loses {Format.Minify(churnUsers)} users weekly ({rate}% churn)";
+
         return $"{Format.Minify(churnUsers)} users ({rate}%)";
         //return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
     }

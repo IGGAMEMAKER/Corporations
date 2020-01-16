@@ -40,34 +40,36 @@ namespace Assets.Core
 
             var isCompetitorDumping = HasDumpingCompetitors(gameContext, c);
 
+            var retentionImprovement = c.features.features[ProductFeature.Retention];
+
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value", baseValue)
+                .Append("Retention features", -retentionImprovement * 2)
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
-                .Cap(0, 100)
+                .Cap(1, 100)
                 ;
         }
 
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
-            return 2;
             switch (monetisation)
             {
                 case Monetisation.Adverts:
-                    return 7;
+                    return 70;
 
                 case Monetisation.Service:
-                    return 4;
+                    return 40;
 
                 case Monetisation.Enterprise:
                 case Monetisation.IrregularPaid:
                 case Monetisation.Paid:
                 default:
-                    return 2;
+                    return 20;
             }
         }
     }
