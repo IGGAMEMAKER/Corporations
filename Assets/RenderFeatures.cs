@@ -4,6 +4,11 @@ public class RenderFeatures : ParameterView
 {
     public override string RenderValue()
     {
-        return Products.GetFreeImprovements(SelectedCompany).ToString();
+        var features = Products.GetFreeImprovements(SelectedCompany);
+        var expGain = Economy.GetIdeas(SelectedCompany, GameContext);
+
+        var gain = expGain / 100f;
+
+        return $"{features} (+{gain})";
     }
 }

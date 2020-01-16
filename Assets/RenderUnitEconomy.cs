@@ -9,10 +9,10 @@ public class RenderUnitEconomy : ParameterView
     {
         var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext) * 1000;
-        var income = Economy.GetUnitIncome(GameContext, product, 0) * 1000;
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
+        var income = Economy.GetUnitIncome(GameContext, product, 0);
 
-        var change = income - ads;
+        var change = (income - ads) * 1000;
 
         Colorize(change >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
 

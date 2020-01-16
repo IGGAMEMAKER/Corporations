@@ -50,7 +50,7 @@
             return managers + universals;
         }
 
-        static int GetIdeas(GameEntity productCompany, GameContext gameContext)
+        public static int GetIdeas(GameEntity productCompany, GameContext gameContext)
         {
             var innovation = Products.GetInnovationChance(productCompany, gameContext);
 

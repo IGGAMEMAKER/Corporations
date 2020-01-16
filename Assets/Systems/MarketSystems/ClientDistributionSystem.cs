@@ -2,28 +2,20 @@
 using System.Linq;
 using Assets.Core;
 
-public partial class ClientDistributionSystem : OnMonthChange // OnPeriodChange
+public partial class ChurnSystem : OnPeriodChange
 {
-    public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
+    public ChurnSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
         var niches = Markets.GetNiches(gameContext);
 
         foreach (var n in niches)
-            CheckMarket(n);
-    }
+        {
+            var products = Markets.GetProductsOnMarket(gameContext, n.niche.NicheType, false);
 
-    void CheckMarket(GameEntity niche)
-    {
-        var nicheType = niche.niche.NicheType;
-
-        var products = Markets.GetProductsOnMarket(gameContext, nicheType, false);
-
-        ChurnUsers(products, niche);
-        ChangeBrandPowers(products);
-
-        DistributeClients(products, niche);
+            ChurnUsers(products, n);
+        }
     }
 
     void ChurnUsers(GameEntity[] products, GameEntity niche)
@@ -55,6 +47,29 @@ public partial class ClientDistributionSystem : OnMonthChange // OnPeriodChange
                 MarketingUtils.AddClients(d, (long)(clients));
             }
         }
+    }
+}
+public partial class ClientDistributionSystem : OnMonthChange
+{
+    public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        var niches = Markets.GetNiches(gameContext);
+
+        foreach (var n in niches)
+            CheckMarket(n);
+    }
+
+    void CheckMarket(GameEntity niche)
+    {
+        var nicheType = niche.niche.NicheType;
+
+        var products = Markets.GetProductsOnMarket(gameContext, nicheType, false);
+
+        ChangeBrandPowers(products);
+
+        DistributeClients(products, niche);
     }
 
     void ChangeBrandPowers(GameEntity[] products)
