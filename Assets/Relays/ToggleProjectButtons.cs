@@ -15,16 +15,21 @@ public class ToggleProjectButtons : View
     {
         base.ViewRender();
 
-        var isExplored = SelectedCompany.hasResearch || Companies.IsRelatedToPlayer(GameContext, SelectedCompany);
+        var company = SelectedCompany;
+
+        var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, company);
+        var isExplored = company.hasResearch || isRelatedToPlayer;
 
 
-        var hasExplorationTask = Cooldowns.IsHasTask(GameContext, new CompanyTaskExploreCompany(SelectedCompany.company.Id));
+        var hasExplorationTask = Cooldowns.IsHasTask(GameContext, new CompanyTaskExploreCompany(company.company.Id));
         var isResearchingOrDone = isExplored || hasExplorationTask;
         Research.SetActive(!isResearchingOrDone);
 
         Economy.SetActive(isExplored);
         Investors.SetActive(isExplored);
-        Development.SetActive(isExplored);
+
+        // product only
+        Development.SetActive(isExplored && !company.isManagingCompany);
         Team.SetActive(isExplored);
     }
 }
