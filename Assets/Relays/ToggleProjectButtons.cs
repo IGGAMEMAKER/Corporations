@@ -29,7 +29,7 @@ public class ToggleProjectButtons : View
         Investors.SetActive(isExplored);
 
         // product only
-        Development.SetActive(isExplored && !company.isManagingCompany);
+        Development.SetActive(isExplored && company.hasProduct);
         Team.SetActive(isExplored);
     }
 }
