@@ -49,6 +49,7 @@ public partial class ChurnSystem : OnPeriodChange
         }
     }
 }
+
 public partial class ClientDistributionSystem : OnMonthChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
