@@ -36,6 +36,6 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             ;
 
         foreach (var concept in releasableAIApps)
-            MarketingUtils.ReleaseApp(concept, gameContext);
+            MarketingUtils.ReleaseApp(gameContext, concept);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -7,6 +8,14 @@ namespace Assets.Core
         public static long GetChurnRate(GameContext gameContext, int companyId)
         {
             return GetChurnBonus(gameContext, companyId).Sum();
+        }
+
+        public static float GetLifeTime(GameContext gameContext, int companyId)
+        {
+            var churn = GetChurnRate(gameContext, companyId);
+            var oppositeChurn = (100 - churn) / 100f;
+
+            return Mathf.Log(0.01f, oppositeChurn);
         }
 
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.GetNiche(gameContext, product), product);

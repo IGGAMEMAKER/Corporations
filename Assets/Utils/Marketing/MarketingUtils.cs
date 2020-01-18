@@ -33,18 +33,13 @@
 
             var clients = GetClients(c);
 
-            var period = Constants.PERIOD;
+            //var period = Constants.PERIOD;
 
-            return clients * churn * period / 30 / 100;
+            return clients * churn / 100;
         }
 
-        public static void ReleaseApp(int companyId, GameContext gameContext)
-        {
-            var product = Companies.GetCompany(gameContext, companyId);
-
-            ReleaseApp(product, gameContext);
-        }
-        public static void ReleaseApp(GameEntity product, GameContext gameContext)
+        public static void ReleaseApp(GameContext gameContext, int companyId) => ReleaseApp(gameContext, Companies.GetCompany(gameContext, companyId));
+        public static void ReleaseApp(GameContext gameContext, GameEntity product)
         {
             if (!product.isRelease)
             {

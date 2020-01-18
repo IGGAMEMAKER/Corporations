@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public partial class TaskView : View
 {
     public Text Text;
+    public ProgressBar ProgressBar;
 
     TaskComponent TaskComponent;
 
@@ -25,20 +26,35 @@ public partial class TaskView : View
 
     void Render()
     {
-        var text = GetTaskHeader(TaskComponent.CompanyTask) + "\n\n";
+        var text = GetTaskHeader(TaskComponent.CompanyTask);
 
         var remaining = TaskComponent.EndTime - CurrentIntDate;
 
+        var progress = (CurrentIntDate - TaskComponent.StartTime) * 100 / (TaskComponent.Duration);
+
+        bool hasProgressbar = ProgressBar != null;
+
+        if (hasProgressbar)
+        {
+            ProgressBar.gameObject.SetActive(remaining > 0);
+            ProgressBar.SetValue(progress);
+        }
+
         if (remaining <= 0)
         {
-            text += "DONE";
+            text += "\n\nDONE";
         }
         else
         {
-            text += remaining + " days left";
-            if (!ScheduleUtils.IsTimerRunning(GameContext))
+            if (hasProgressbar)
+                text += $" ({remaining}d)";
+            else
+                text += $"\n\n{remaining} days left";
+
+            if (!ScheduleUtils.IsTimerRunning(GameContext) && !hasProgressbar)
                 text += ". " + Visuals.Negative("Unpause") + " to finish";
         }
+
 
         Text.text = text;
     }

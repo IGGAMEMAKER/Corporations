@@ -7,10 +7,7 @@ public class RenderClientLifetime : ParameterView
 {
     public override string RenderValue()
     {
-        var churn = MarketingUtils.GetChurnRate(GameContext, SelectedCompany.company.Id);
-        var oppositeChurn = (100 - churn) / 100f;
-
-        var lifetime = Mathf.Log(0.01f, oppositeChurn);
+        var lifetime = MarketingUtils.GetLifeTime(GameContext, SelectedCompany.company.Id);
 
         return lifetime.ToString("0.00") + " months";
     }

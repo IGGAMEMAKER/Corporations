@@ -18,15 +18,15 @@ public class StartCampaignButton : ButtonController
         var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
-            [CorporatePolicy.BuyOrCreate] = 4,
+            [CorporatePolicy.BuyOrCreate] = Constants.CORPORATE_CULTURE_LEVEL_MAX,
             [CorporatePolicy.Focusing] = 1,
             [CorporatePolicy.LeaderOrTeam] = 1,
-            [CorporatePolicy.WorkerMindset] = 2
+            [CorporatePolicy.WorkerMindset] = Constants.CORPORATE_CULTURE_LEVEL_MAX
         });
 
         var startCapital = Markets.GetStartCapital(NicheType, GameContext);
 
-        Companies.SetResources(company, new Assets.Core.TeamResource(startCapital));
+        Companies.SetResources(company, new TeamResource(startCapital));
 
         var niche = Markets.GetNiche(GameContext, NicheType);
         //niche.AddResearch(1);
@@ -56,7 +56,11 @@ public class StartCampaignButton : ButtonController
         }
 
         // spawn investors
-
+        for (var i = 0; i < 1; i++)
+        {
+            var fund = Companies.GenerateInvestmentFund(GameContext, RandomUtils.GenerateInvestmentCompanyName(), 500000);
+            Companies.AddFocusNiche(niche.niche.NicheType, fund, GameContext);
+        }
     }
 
     public void SetNiche(NicheType nicheType, InputField Input)

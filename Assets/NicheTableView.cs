@@ -51,8 +51,7 @@ public class NicheTableView : View, IPointerEnterHandler
         DescribePhase();
         //var growth = NicheUtils.GetAbsoluteAnnualMarketGrowth(GameContext, entity);
 
-        var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
-        MonetisationType.text = GetFormattedMonetisationType(monetisation);
+        MonetisationType.text = Products.GetFormattedMonetisationType(niche);
 
         RenderTimeToMarket();
 
@@ -109,15 +108,6 @@ public class NicheTableView : View, IPointerEnterHandler
         var timeToMarket = Products.GetTimeToMarketFromScratch(niche);
 
         Competitors.text = $"{timeToMarket}\nmonths";
-    }
-
-    string GetFormattedMonetisationType (Monetisation monetisation)
-    {
-        switch (monetisation)
-        {
-            case Monetisation.IrregularPaid: return "Irregular paid";
-            default: return monetisation.ToString();
-        }
     }
 
     void DescribePhase()

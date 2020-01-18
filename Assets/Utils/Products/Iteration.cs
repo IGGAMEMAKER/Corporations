@@ -65,5 +65,16 @@ namespace Assets.Core
 
             return demand * iterationTime / 30;
         }
+
+
+        public static string GetFormattedMonetisationType(GameEntity niche) => GetFormattedMonetisationType(niche.nicheBaseProfile.Profile.MonetisationType);
+        public static string GetFormattedMonetisationType(Monetisation monetisation)
+        {
+            switch (monetisation)
+            {
+                case Monetisation.IrregularPaid: return "Irregular paid";
+                default: return monetisation.ToString();
+            }
+        }
     }
 }
