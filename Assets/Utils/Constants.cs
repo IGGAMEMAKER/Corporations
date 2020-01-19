@@ -36,21 +36,21 @@
     public const string MENU_SELECTED_HUMAN = "SelectedHuman";
     public const string MENU_SELECTED_INVESTOR = "SelectedInvestor";
 
-    public static int SALARIES_MANAGER = 2000;
-    public static int SALARIES_PROGRAMMER = 2000;
-    public static int SALARIES_MARKETER = 2000;
-    public static int SALARIES_UNIVERSAL = 0;
-    public static int SALARIES_CEO = 0;
-    public static int SALARIES_FOUNDER = 0;
-    public static int SALARIES_DIRECTOR = 3500;
-    public static int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
+    public const int SALARIES_MANAGER = 2000;
+    public const int SALARIES_PROGRAMMER = 2000;
+    public const int SALARIES_MARKETER = 2000;
+    public const int SALARIES_UNIVERSAL = 0;
+    public const int SALARIES_CEO = 0;
+    public const int SALARIES_FOUNDER = 0;
+    public const int SALARIES_DIRECTOR = 3500;
+    public const int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
 
     //public static float GAMEPLAY_OFFSET_Y = -110f;
-    public static float GAMEPLAY_OFFSET_Y = -60f;
+    public const float GAMEPLAY_OFFSET_Y = -60f;
 
-    public static int COOLDOWN_COMPANY_GOAL = 365;
-    public static int COOLDOWN_BRANDING = 90;
-    public static int COOLDOWN_TEST_CAMPAIGN = 15;
+    public const int COOLDOWN_COMPANY_GOAL = 365;
+    public const int COOLDOWN_BRANDING = 90;
+    public const int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
     public static int RELEASE_BRAND_POWER_GAIN = 100;

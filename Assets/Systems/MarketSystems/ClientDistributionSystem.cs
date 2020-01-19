@@ -20,8 +20,7 @@ public partial class ChurnSystem : OnPeriodChange
 
     void ChurnUsers(GameEntity[] products, GameEntity niche)
     {
-        //return;
-        //var clientContainers = niche.nicheClientsContainer.Clients;
+        var clientContainers = niche.nicheClientsContainer.Clients;
 
         var dumpingCompanies = products.Where(p => p.isDumping);
 
@@ -33,6 +32,8 @@ public partial class ChurnSystem : OnPeriodChange
 
             var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
             MarketingUtils.AddClients(p, -churnClients);
+
+            clientContainers[0] += churnClients;
 
             continue;
             // send churn users to dumping companies

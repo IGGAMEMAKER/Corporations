@@ -7,6 +7,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        return;
         foreach (var e in Companies.GetAIProducts(gameContext))
             ManageProduct(e);
     }
