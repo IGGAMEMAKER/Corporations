@@ -25,18 +25,18 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
             .Where(n => Markets.GetMarketState(n) == MarketState.Idle)
             .Where(IsReadyToBeActivated);
 
-        var filledPromotableMarkets = niches
+        var activePromotableMarkets = niches
             .Where(n => Markets.GetMarketState(n) > MarketState.Idle && Markets.GetMarketState(n) < MarketState.Death)
             // has companies
             .Where(n => Markets.GetCompetitorsAmount(n.niche.NicheType, gameContext) > 0)
             ;
 
+        foreach (var n in activePromotableMarkets)
+            CheckNiche(n);
+
         // activate idle markets
         foreach (var n in idleNiches)
             PromoteNiche(n);
-
-        foreach (var n in filledPromotableMarkets)
-            CheckNiche(n);
     }
 
     void CheckNiche(GameEntity niche)
@@ -46,7 +46,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         if (needsPromotion)
             PromoteNiche(niche);
         else
-            DecrementDuration(niche);
+            Markets.DecrementDuration(niche);
     }
 
     bool IsReadyToBeActivated(GameEntity niche)
@@ -63,25 +63,6 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         Markets.PromoteNicheState(niche);
 
-        NotifyIfNecessary(niche);
-    }
-
-
-    void NotifyIfNecessary(GameEntity niche)
-    {
-        var player = Companies.GetPlayerCompany(gameContext);
-
-        if (player == null)
-            return;
-
-        if (!Companies.IsInSphereOfInterest(player, niche.niche.NicheType))
-            return;
-
-        NotificationUtils.AddPopup(gameContext, new PopupMessageMarketPhaseChange(niche.niche.NicheType));
-    }
-
-    void DecrementDuration(GameEntity niche)
-    {
-        Markets.DecrementDuration(niche);
+        NotificationUtils.SendMarketStateChangePopup(gameContext, niche);
     }
 }
