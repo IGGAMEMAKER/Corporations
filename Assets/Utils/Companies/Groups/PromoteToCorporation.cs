@@ -16,12 +16,7 @@
 
             company.ReplaceCompany(company.company.Id, company.company.Name, CompanyType.Corporation);
 
-            NotifyAboutCorporationSpawn(gameContext, company.company.Id);
-        }
-
-        public static void NotifyAboutCorporationSpawn(GameContext gameContext, int companyId)
-        {
-            NotificationUtils.AddPopup(gameContext, new PopupMessageCorporationSpawn(companyId));
+            NotificationUtils.NotifyAboutCorporationSpawn(gameContext, company.company.Id);
         }
     }
 }

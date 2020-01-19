@@ -16,6 +16,15 @@ namespace Assets.Core
             return IsInSphereOfInterest(player, company);
         }
 
+        internal static bool IsInPlayerSphereOfInterest(NicheType nicheType, GameContext gameContext)
+        {
+            var player = GetPlayerCompany(gameContext);
+            if (player == null)
+                return false;
+
+            return IsInSphereOfInterest(player, nicheType);
+        }
+
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
             if (!company.hasCompanyFocus)

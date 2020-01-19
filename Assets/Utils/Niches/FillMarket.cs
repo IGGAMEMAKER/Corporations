@@ -44,14 +44,14 @@ namespace Assets.Core
             return IsMarketCanAffordMoreCompanies(niche, gameContext);
         }
 
-        public static bool IsAllReleasedCompaniesAreProfiteering(GameEntity niche, GameContext gameContext)
+        public static bool IsAllReleasedCompaniesAreProfitable(GameEntity niche, GameContext gameContext)
         {
             var releasedProducts = GetProductsOnMarket(niche, gameContext).Where(p => p.isRelease);
 
             return releasedProducts.All(p => Economy.IsProfitable(gameContext, p.company.Id));
         }
 
-        public static bool IsMarketCanAffordMoreCompanies(GameEntity niche, GameContext gameContext) => IsAllReleasedCompaniesAreProfiteering(niche, gameContext);
+        public static bool IsMarketCanAffordMoreCompanies(GameEntity niche, GameContext gameContext) => IsAllReleasedCompaniesAreProfitable(niche, gameContext);
 
         public static void TryToSpawnCompany(GameEntity niche, GameContext gameContext, MarketState phase, int playersOnMarket)
         {
@@ -60,22 +60,19 @@ namespace Assets.Core
             bool leaderHasEnoughMoney = GetStartCapital(niche, gameContext) <= leaderFunds;
 
             if (IsNeedsMoreCompaniesOnMarket(niche, gameContext, phase, playersOnMarket) && leaderHasEnoughMoney)
-                SpawnCompany(niche, gameContext, leaderFunds);
+            {
+                var product = SpawnCompany(niche, gameContext, leaderFunds);
+
+                NotificationUtils.SendNewCompetitorPopup(gameContext, niche, product);
+            }
         }
 
         public static bool InspirationToPlayer(NicheType nicheType, GameContext gameContext)
         {
             var inspirationChance = 6;
-            if (inspirationChance > Random.Range(0, 100))
-            {
-                var player = Companies.GetPlayerCompany(gameContext);
 
-                if (player != null && Companies.IsInSphereOfInterest(player, nicheType))
-                {
-                    NotificationUtils.AddPopup(gameContext, new PopupMessageMarketInspiration(nicheType));
-                    return true;
-                }
-            }
+            if (inspirationChance > Random.Range(0, 100))
+                return NotificationUtils.SendInspirationPopup(gameContext, nicheType);
 
             return false;
         }
@@ -84,13 +81,6 @@ namespace Assets.Core
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
             Companies.SetStartCapital(product, leaderFunds);
-
-
-            var potentialLeader = GetPotentialMarketLeader(gameContext, niche.niche.NicheType);
-            var hasBiggestPotential = potentialLeader.company.Id == product.company.Id;
-
-            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && hasBiggestPotential)
-                NotificationUtils.AddPopup(gameContext, new PopupMessageCompanySpawn(product.company.Id));
 
             return product;
         }
