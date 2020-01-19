@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using UnityEngine;
+
+namespace Assets.Core
 {
     public static partial class Markets
     {
@@ -11,6 +13,13 @@
 
             var newDuration = GetNichePeriodDurationInMonths(next);
             niche.ReplaceNicheState(next, newDuration);
+        }
+
+        public static void DecrementDuration(GameEntity niche)
+        {
+            var state = niche.nicheState;
+
+            niche.ReplaceNicheState(state.Phase, Mathf.Max(state.Duration - 1, 0));
         }
     }
 }

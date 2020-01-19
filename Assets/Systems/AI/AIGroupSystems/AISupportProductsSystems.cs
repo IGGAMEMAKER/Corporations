@@ -48,6 +48,9 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
         var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 
+        // head company bankrupted somehow
+        if (managingCompany.company.Id == product.company.Id)
+            return;
 
         // calculate startup goal
 

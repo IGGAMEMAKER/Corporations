@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Core;
 using Entitas;
-using UnityEngine;
 
 public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 {
-    public UpdateNicheStateSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public UpdateNicheStateSystem(Contexts contexts) : base(contexts) {}
 
     void IInitializeSystem.Initialize()
     {
@@ -23,49 +21,54 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
     {
         var niches = Markets.GetNiches(gameContext);
 
-        foreach (var n in niches)
+        var idleNiches = niches
+            .Where(n => Markets.GetMarketState(n) == MarketState.Idle)
+            .Where(IsReadyToBeActivated);
+
+        var filledPromotableMarkets = niches
+            .Where(n => Markets.GetMarketState(n) > MarketState.Idle && Markets.GetMarketState(n) < MarketState.Death)
+            // has companies
+            .Where(n => Markets.GetCompetitorsAmount(n.niche.NicheType, gameContext) > 0)
+            ;
+
+        // activate idle markets
+        foreach (var n in idleNiches)
+            PromoteNiche(n);
+
+        foreach (var n in filledPromotableMarkets)
             CheckNiche(n);
     }
 
     void CheckNiche(GameEntity niche)
     {
-        var phase = Markets.GetMarketState(niche);
+        bool needsPromotion = niche.nicheClientsContainer.Clients[0] <= 0;
 
-        if (phase == MarketState.Death)
-            return;
-
-        ActivateIfNecessary(niche);
-
-        if (Markets.GetCompetitorsAmount(niche.niche.NicheType, gameContext) == 0)
-            return;
-
-        //var value = Random.Range(0, 1f);
-
-        if (IsNeedsPromotion(niche)) //  && value > 0.9f
+        if (needsPromotion)
             PromoteNiche(niche);
         else
             DecrementDuration(niche);
     }
 
-
-    void ActivateIfNecessary(GameEntity niche)
+    bool IsReadyToBeActivated(GameEntity niche)
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        var state = Markets.GetMarketState(niche);
-        var nicheStartDate = niche.nicheLifecycle.OpenDate;
+        var openDate = niche.nicheLifecycle.OpenDate;
 
-        if (date > nicheStartDate && state == MarketState.Idle)
-        {
-            //Debug.Log($"Awake niche from idle {state} {date}: niche start date={nicheStartDate}");
-            PromoteNiche(niche);
-        }
+        return date > openDate;
     }
+
 
     void PromoteNiche(GameEntity niche)
     {
         Markets.PromoteNicheState(niche);
 
+        NotifyIfNecessary(niche);
+    }
+
+
+    void NotifyIfNecessary(GameEntity niche)
+    {
         var player = Companies.GetPlayerCompany(gameContext);
 
         if (player == null)
@@ -74,28 +77,11 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
         if (!Companies.IsInSphereOfInterest(player, niche.niche.NicheType))
             return;
 
-        var popup = new PopupMessageMarketPhaseChange(niche.niche.NicheType);
-
-        NotificationUtils.AddPopup(gameContext, popup);
-    }
-
-
-    bool IsNeedsPromotion(GameEntity niche)
-    {
-        var duration = niche.nicheState.Duration;
-
-        var phase = Markets.GetMarketState(niche);
-
-        if (phase == MarketState.Death || phase == MarketState.Idle)
-            return false;
-
-        return duration <= 0;
+        NotificationUtils.AddPopup(gameContext, new PopupMessageMarketPhaseChange(niche.niche.NicheType));
     }
 
     void DecrementDuration(GameEntity niche)
     {
-        var state = niche.nicheState;
-
-        niche.ReplaceNicheState(state.Phase, Mathf.Max(state.Duration - 1, 0));
+        Markets.DecrementDuration(niche);
     }
 }

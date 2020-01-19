@@ -8,7 +8,7 @@ namespace Assets.Core
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             var development = GetDevelopmentCost(e, gameContext);
-            var marketing = GetMarketingCost(e, gameContext);
+            var marketing = 0; // GetMarketingCost(e, gameContext);
 
             return (development + marketing) * Constants.PERIOD / 30;
         }
@@ -42,15 +42,26 @@ namespace Assets.Core
             return cost * discount / 100;
         }
 
-
-
-        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
+        public static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
             var concept = Products.GetProductLevel(e);
             var niche = Markets.GetNiche(gameContext, e);
             var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
             return (int)Mathf.Pow(1 + complexity / 20f, concept);
+        }
+        public static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
+        {
+            var niche = Markets.GetNiche(gameContext, e);
+
+            var clients = MarketingUtils.GetClients(e);
+
+            return (int) Mathf.Pow(clients / 1000, 0.5f);
+        }
+
+        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
+            return GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
         }
     }
 }

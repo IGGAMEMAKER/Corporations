@@ -33,7 +33,7 @@ public class RenderUnitEconomy2 : View
 
         if (ROI > 100)
         {
-            EconomyDescription.text = "ROI:" + ROI + "%";
+            EconomyDescription.text = "ROI: " + ROI + "%";
             UnitEconomy.text = "Unit economy is " + Visuals.Positive("GOOD");
         }
         else
