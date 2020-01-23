@@ -25,7 +25,7 @@ public class ToggleProjectButtons : View
         var isResearchingOrDone = isExplored || hasExplorationTask;
         Research.SetActive(!isResearchingOrDone);
 
-        Economy.SetActive(isExplored);
+        Economy.SetActive(false && isExplored);
         Investors.SetActive(isExplored);
 
         // product only

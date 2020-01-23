@@ -11,7 +11,19 @@ public class RenderClientsDataForProduct : View
         base.ViewRender();
 
         var product = SelectedCompany;
-        var metrics = product.metricsHistory.Metrics;
+        var history = product.metricsHistory.Metrics;
+
+        var months = 12*4;
+
+        var start1 = Mathf.Max(history.Count - months, 0);
+        var count = history.Count - start1;
+
+        if (count > months)
+            count = months;
+
+        var metrics = history.GetRange(start1, count);
+
+
         List<int> xs = metrics.Select(m => m.Date).ToList();
 
         // add current value

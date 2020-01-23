@@ -16,8 +16,9 @@ public class RenderUnitEconomy2 : View
 
         var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
         var income = Economy.GetUnitIncome(GameContext, product, 0);
+
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
 
         var payback = ads / income;
         var lifetime = MarketingUtils.GetLifeTime(GameContext, product.company.Id);
@@ -39,7 +40,6 @@ public class RenderUnitEconomy2 : View
         else
         {
             EconomyDescription.text = "lifetime < payback \nImprove your product!";
-            //EconomyDescription.text = "ROI = " + ROI + "%.";
             UnitEconomy.text = "Unit economy is " + Visuals.Negative("BAD");
         }
 

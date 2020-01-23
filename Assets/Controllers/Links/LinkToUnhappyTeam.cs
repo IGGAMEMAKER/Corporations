@@ -11,7 +11,7 @@ public class LinkToUnhappyTeam : ButtonController
         var hint = $"You have {companies.Length} exhausted teams.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);
 
-        var targetMenu = ScreenMode.ManageCompaniesScreen;
+        var targetMenu = ScreenMode.TeamScreen;
 
 
 

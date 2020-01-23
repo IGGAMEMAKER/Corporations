@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Assets.Core.Formatting;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -54,10 +55,12 @@ namespace Assets.Core
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base value", baseValue)
+                .Append("Base value for " + Products.GetFormattedMonetisationType(monetisation), baseValue)
                 .Append("Retention features", -retentionImprovement * 2)
+
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
+                
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(1, 100)
@@ -66,6 +69,7 @@ namespace Assets.Core
 
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
+            return 2;
             switch (monetisation)
             {
                 case Monetisation.Adverts:
