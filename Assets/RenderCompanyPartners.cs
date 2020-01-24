@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+
+
 public class RenderCompanyPartners : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -16,6 +18,6 @@ public class RenderCompanyPartners : ListView
 
         var partners = SelectedCompany.partnerships.companies;
 
-        SetItems(partners.ToArray());
+        SetItems(partners);
     }
 }

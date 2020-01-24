@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -21,6 +19,6 @@ public class RenderCompanyCompetitors : ListView
 
         var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, GameContext);
 
-        SetItems(competitors.ToArray());
+        SetItems(competitors);
     }
 }

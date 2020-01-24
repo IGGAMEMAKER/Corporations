@@ -11,7 +11,8 @@ public class RenderManagingCompany : View
 
         bool isIndependent = managingCompany.company.Id == SelectedCompany.company.Id;
 
-        GetComponent<Text>().text = isIndependent ? "Independent company" : "Daughter of " + Visuals.Link(managingCompany.company.Name);
+        // Independent company
+        GetComponent<Text>().text = isIndependent ? "" : "Daughter of " + Visuals.Link(managingCompany.company.Name);
 
         GetComponent<LinkToProjectView>().CompanyId = managingCompany.company.Id;
         GetComponent<LinkToProjectView>().enabled = !isIndependent;

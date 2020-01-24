@@ -13,7 +13,7 @@ public class SetProductNicheLink : View
         {
             var niche = SelectedCompany.product.Niche;
             Link.SetNiche(niche);
-            Link.GetComponent<Text>().text = EnumUtils.GetFormattedNicheName(niche);
+            Link.GetComponent<Text>().text = EnumUtils.GetSingleFormattedNicheName(niche);
             Link.gameObject.SetActive(true);
         }
         else
