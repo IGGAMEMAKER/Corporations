@@ -1,14 +1,6 @@
 ﻿using Assets.Core;
 
-public class RenderGroupBalance : UpgradedParameterView
+public class RenderGroupBalance : ParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
-    public override string RenderValue()
-    {
-        return Format.Minify(MyCompany.companyResource.Resources.money);
-    }
+    public override string RenderValue() => Format.Minify(Economy.BalanceOf(MyCompany));
 }

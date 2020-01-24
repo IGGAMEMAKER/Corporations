@@ -16,7 +16,12 @@ public class RenderGroupProfit : UpgradedParameterView
         var profit = Economy.GetProfit(GameContext, MyCompany);
         var balance = Economy.BalanceOf(MyCompany);
 
-        return $"{Format.Minify(balance)}  {Visuals.PositiveOrNegativeMinified(profit)}";
+        var minifiedBalance = Format.Minify(balance);
+
+        if (Companies.IsHasDaughters(GameContext, MyCompany))
+            return $"{minifiedBalance}  {Visuals.PositiveOrNegativeMinified(profit)}";
+
+        return minifiedBalance;
     }
 
     string GetIncomeInfo(GameEntity c)
