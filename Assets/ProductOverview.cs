@@ -30,7 +30,7 @@ public class ProductOverview : View
     void RenderCommonInfo()
     {
         var position = Markets.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
-        Popularity.text = $"Position on market: #{position}";
+        Popularity.text = $"#{position}";
 
 
         //var quality = Products.GetProductLevel(SelectedCompany);
