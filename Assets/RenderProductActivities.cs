@@ -9,8 +9,10 @@ public class RenderProductActivities : ParameterView
 
         var count = tasks.Count();
 
+        var max = 1;
+
         if (count > 0)
-            return $"Current activities ({count})";
+            return $"Current activities ({count} / {max})";
         else
             return "";
     }
