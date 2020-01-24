@@ -12,7 +12,7 @@ public class RenderProductActivities : ParameterView
         var max = 1;
 
         if (count > 0)
-            return $"Current activities ({count} / {max})";
+            return $"Current activities: {count} / {max}";
         else
             return "";
     }
