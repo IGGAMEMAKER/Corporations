@@ -8,14 +8,15 @@ public class RenderGroupProfit : UpgradedParameterView
         var daughters = Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id)
             .OrderByDescending(c => Economy.GetProfit(GameContext, c));
 
-        return string.Join("\n", daughters.Select(GetIncomeInfo));
+        return "Profits\n\n" + string.Join("\n", daughters.Select(GetIncomeInfo));
     }
 
     public override string RenderValue()
     {
-        var change = Economy.GetProfit(GameContext, MyCompany);
+        var profit = Economy.GetProfit(GameContext, MyCompany);
+        var balance = Economy.BalanceOf(MyCompany);
 
-        return Visuals.PositiveOrNegativeMinified(change);
+        return $"{Format.Minify(balance)}  {Visuals.PositiveOrNegativeMinified(profit)}";
     }
 
     string GetIncomeInfo(GameEntity c)

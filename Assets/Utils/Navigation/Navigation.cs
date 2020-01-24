@@ -39,7 +39,7 @@ namespace Assets.Core
             UpdateHistory(context, menu.menu.ScreenMode, menu.menu.Data);
             UpdateScreen(context, newScreen, newData);
 
-            SoundManager.Play(Sound.Hover);
+            //SoundManager.Play(Sound.Hover);
         }
 
         public static void Navigate(GameContext context, ScreenMode screenMode)

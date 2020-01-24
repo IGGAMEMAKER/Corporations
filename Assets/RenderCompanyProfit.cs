@@ -10,7 +10,7 @@ public class RenderCompanyProfit : UpgradedParameterView
         var bonus = new Bonus<long>("Balance change")
             .Append("Income", income)
             //.AppendAndHideIfZero("Maintenance cost", SelectedCompany.hasProduct ? -Economy.GetDevelopmentCost(SelectedCompany, GameContext) : 0)
-            .AppendAndHideIfZero("Maintenance cost", maintenance)
+            .AppendAndHideIfZero("Maintenance", -maintenance)
             .MinifyValues();
 
         return bonus.ToString();
