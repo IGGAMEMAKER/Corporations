@@ -13,7 +13,8 @@ public class RenderOpportunityButtons : View
     {
         //base.ViewRender();
 
-        bool isMyCompanyScreen = SelectedCompany.company.Id == MyCompany.company.Id && CurrentScreen == ScreenMode.ProjectScreen;
+        var screen = CurrentScreen;
+        bool isMyCompanyScreen = screen == ScreenMode.GroupManagementScreen || (SelectedCompany.company.Id == MyCompany.company.Id && screen == ScreenMode.ProjectScreen);
 
         bool hasAtLeastOneCompany = Companies.IsHasDaughters(GameContext, MyCompany);
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(GameContext, MyCompany);
