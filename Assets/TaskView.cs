@@ -6,6 +6,7 @@ public partial class TaskView : View
 {
     public Text Text;
     public ProgressBar ProgressBar;
+    public Image Panel;
 
     TaskComponent TaskComponent;
 
@@ -53,6 +54,14 @@ public partial class TaskView : View
 
             if (!ScheduleUtils.IsTimerRunning(GameContext) && !hasProgressbar)
                 text += ". " + Visuals.Negative("Unpause") + " to finish";
+        }
+
+        if (Panel != null)
+        {
+            if (TaskComponent.StartTime > CurrentIntDate)
+                Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_PANEL_BASE); // not started yet
+            else
+                Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_PANEL_SELECTED); // started
         }
 
 
