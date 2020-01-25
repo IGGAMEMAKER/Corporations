@@ -9,7 +9,7 @@ public class RenderClientsDataForProduct : View
     {
         base.ViewRender();
 
-        var offset = 12 * 30;
+        var offset = 90;
 
         var startDate = CurrentIntDate - offset;
         var endDate = CurrentIntDate;
@@ -20,7 +20,7 @@ public class RenderClientsDataForProduct : View
         for (var i = startDate; i < endDate; i+= Constants.PERIOD) // 7 - period length
             xs.Add(i);
 
-        Debug.Log("amount of dots: " + xs.Count);
+        //Debug.Log("amount of dots: " + xs.Count);
 
         var products = Markets.GetProductsOnMarket(GameContext, SelectedCompany);
         GraphData[] ys = products
@@ -34,10 +34,20 @@ public class RenderClientsDataForProduct : View
             )
             .ToArray();
 
+        // add current value
+        xs.Add(CurrentIntDate + 1);
+
         GetComponent<SetGraphData>().SetData(xs, ys);
     }
 
-
+    MetricsInfo GetMetricMockup(long audience, int date) => new MetricsInfo
+    {
+        AudienceSize = audience,
+        Date = date,
+        Income = 0,
+        Profit = 0,
+        Valuation = 0,
+    };
 
     List<long> NormalizeGraphData(GameEntity p, int start, int end, int necessaryMetrics)
     {
@@ -48,32 +58,22 @@ public class RenderClientsDataForProduct : View
         //var necessaryMetrics = (end - start) / Constants.PERIOD; // metrics are saved each 7 days
         var metricsCount = metrics.Count();
 
-        Debug.Log($"Found {metricsCount} / {necessaryMetrics} queries for {p.company.Name}");
+        //Debug.Log($"Found {metricsCount} / {necessaryMetrics} queries for {p.company.Name}");
 
         var insertBefore = necessaryMetrics - metricsCount;
         for (var i = 0; i < insertBefore; i++)
         {
-            var info = new MetricsInfo {
-                AudienceSize = 0,
-                Date = start + i * Constants.PERIOD,
-
-                Income = 0, Profit = 0, Valuation = 0
-            };
-
-            metrics.Add(info);
+            metrics.Add(GetMetricMockup(0, start + i * Constants.PERIOD));
         }
 
-        //// show current values
-        //metrics.Add(new MetricsInfo
-        //{
-            
-        //})
+        // add current value
+        metrics.Add(GetMetricMockup(MarketingUtils.GetClients(p), CurrentIntDate + 1));
 
         var result = metrics.OrderBy(m => m.Date);
 
-        var loggedMetrics = result.Select(m => $"date={m.Date}, audience={Format.Minify(m.AudienceSize)}");
+        //var loggedMetrics = result.Select(m => $"date={m.Date}, audience={Format.Minify(m.AudienceSize)}");
 
-        Debug.Log("normalising " + p.company.Name + $" (Entity{p.creationIndex}: {result.Count()}/{necessaryMetrics} " + string.Join("\n", loggedMetrics));
+        //Debug.Log("normalising " + p.company.Name + $" (Entity{p.creationIndex}: {result.Count()}/{necessaryMetrics} " + string.Join("\n", loggedMetrics));
 
         return result
             .Select(m => m.AudienceSize)
