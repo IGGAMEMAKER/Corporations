@@ -9,6 +9,7 @@ public class ProductOnMarketView : View
     public Text Clients;
     public Text NewClients;
     public Hint ClientChange;
+    public LinkToProjectView LinkToProjectView;
 
     public Text Name;
 
@@ -25,12 +26,16 @@ public class ProductOnMarketView : View
         var company = Companies.GetCompany(GameContext, companyId);
 
         var clients = MarketingUtils.GetClients(company);
-        var newClients = 15000;
+        var newClients = MarketingUtils.GetAudienceGrowth(company, GameContext);
 
         Clients.text = Format.Minify(clients);
         NewClients.text = Format.Minify(newClients);
 
+        var isPlayerRelated = Companies.IsRelatedToPlayer(GameContext, company);
         Name.text = company.company.Name;
+        Name.color = Visuals.GetColorFromString(isPlayerRelated ? VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO : VisualConstants.COLOR_COMPANY_WHERE_I_AM_NOT_CEO);
+
+        LinkToProjectView.CompanyId = company.company.Id;
 
         ClientChange.SetHint($"{company.company.Name} will get this amount of clients next week");
     }

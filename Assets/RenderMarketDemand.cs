@@ -7,6 +7,6 @@ public class RenderMarketDemand : ParameterView
         var demand = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
         var audience = Markets.GetAudienceSize(GameContext, SelectedNiche);
 
-        return $"{Format.Minify(audience)} ({Format.Minify(demand)} users)";
+        return $"{Format.Minify(audience)} users"; // (+{Format.Minify(demand)} weekly)";
     }
 }
