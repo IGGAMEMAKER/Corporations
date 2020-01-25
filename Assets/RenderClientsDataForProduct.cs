@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,70 +9,74 @@ public class RenderClientsDataForProduct : View
     {
         base.ViewRender();
 
-        var product = SelectedCompany;
-        var history = product.metricsHistory.Metrics;
+        var offset = 12 * 30;
 
-        var months = 12*4;
-
-        var start1 = Mathf.Max(history.Count - months, 0);
-        var count = history.Count - start1;
-
-        if (count > months)
-            count = months;
-
-        var metrics = history.GetRange(start1, count);
+        var startDate = CurrentIntDate - offset;
+        var endDate = CurrentIntDate;
 
 
-        List<int> xs = metrics.Select(m => m.Date).ToList();
+        List<int> xs = new List<int>();
 
-        // add current value
-        xs.Add(CurrentIntDate);
+        for (var i = startDate; i < endDate; i+= Constants.PERIOD) // 7 - period length
+            xs.Add(i);
 
-        var start = xs[0];
+        Debug.Log("amount of dots: " + xs.Count);
 
-        var end = xs[xs.Count - 1];
-
-
-        GraphData[] ys = new GraphData[1];
-        ys[0] = new GraphData
-        {
-            Color = Companies.GetCompanyUniqueColor(product.company.Id),
-            Name = product.company.Name,
-            values = metrics.Select(m => m.AudienceSize).ToList()
-        };
-
-        // add current value
-        ys[0].values.Add(MarketingUtils.GetClients(product));
-
-        //var products = new GameEntity[] { product }; // Markets.GetProductsOnMarket(GameContext, SelectedCompany);
-        //GraphData[] ys = products
-        //    .Select(p =>
-        //        new GraphData {
-        //            Color = Companies.GetCompanyUniqueColor(p.company.Id),
-        //            Name = p.company.Name,
-        //            values = p.metricsHistory.Metrics
-        //                .Where(m => m.Date >= start && m.Date <= end)
-        //                .Select(m => m.AudienceSize)
-        //                .ToList()
-        //        }
-        //    )
-        //    .ToArray();
-        
+        var products = Markets.GetProductsOnMarket(GameContext, SelectedCompany);
+        GraphData[] ys = products
+            .Select(p =>
+                new GraphData
+                {
+                    Color = Companies.GetCompanyUniqueColor(p.company.Id),
+                    Name = p.company.Name,
+                    values = NormalizeGraphData(p, startDate, endDate, xs.Count)
+                }
+            )
+            .ToArray();
 
         GetComponent<SetGraphData>().SetData(xs, ys);
     }
 
-    //List<long> NormalizeGraphData (List<MetricsInfo> metrics, int start, int end)
-    //{
-    //    var insertBefore = 0;
-    //    var insertAfter = 0;
 
 
+    List<long> NormalizeGraphData(GameEntity p, int start, int end, int necessaryMetrics)
+    {
+        var metrics = p.metricsHistory.Metrics
+                        .Where(m => m.Date >= start)
+                        .ToList();
 
-    //    for (int i = start; i < end; i++)
-    //    {
+        //var necessaryMetrics = (end - start) / Constants.PERIOD; // metrics are saved each 7 days
+        var metricsCount = metrics.Count();
 
-    //    }
-    //    metrics.Insert()
-    //}
+        Debug.Log($"Found {metricsCount} / {necessaryMetrics} queries for {p.company.Name}");
+
+        var insertBefore = necessaryMetrics - metricsCount;
+        for (var i = 0; i < insertBefore; i++)
+        {
+            var info = new MetricsInfo {
+                AudienceSize = 0,
+                Date = start + i * Constants.PERIOD,
+
+                Income = 0, Profit = 0, Valuation = 0
+            };
+
+            metrics.Add(info);
+        }
+
+        //// show current values
+        //metrics.Add(new MetricsInfo
+        //{
+            
+        //})
+
+        var result = metrics.OrderBy(m => m.Date);
+
+        var loggedMetrics = result.Select(m => $"date={m.Date}, audience={Format.Minify(m.AudienceSize)}");
+
+        Debug.Log("normalising " + p.company.Name + $" (Entity{p.creationIndex}: {result.Count()}/{necessaryMetrics} " + string.Join("\n", loggedMetrics));
+
+        return result
+            .Select(m => m.AudienceSize)
+            .ToList();
+    }
 }
