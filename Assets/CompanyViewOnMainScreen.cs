@@ -17,6 +17,8 @@ public class CompanyViewOnMainScreen : View
 
     public RenderConceptProgress ConceptProgress;
 
+    public HireWorker HireWorker;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -43,6 +45,12 @@ public class CompanyViewOnMainScreen : View
         var profit = Economy.GetProfit(GameContext, company.company.Id);
         Profitability.text = Format.Money(profit);
         Profitability.color = Visuals.GetColorFromString(profit > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
+
+        HireWorker.companyId = company.company.Id;
+        var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
+        var workers = Teams.GetAmountOfWorkers(company, GameContext);
+        HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
+        HireWorker.gameObject.SetActive(workers < max);
     }
 
     string GetProfitDescription()
