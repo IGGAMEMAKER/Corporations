@@ -2,8 +2,12 @@
 
 public class HireWorker : ButtonController
 {
+    public int companyId;
+
     public override void Execute()
     {
-        Teams.HireRegularWorker(SelectedCompany, WorkerRole.Programmer);
+        var company = CurrentScreen == ScreenMode.GroupManagementScreen ? Companies.GetCompany(GameContext, companyId) : SelectedCompany;
+
+        Teams.HireRegularWorker(company, WorkerRole.Programmer);
     }
 }

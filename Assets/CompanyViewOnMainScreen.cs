@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,18 +7,15 @@ public class CompanyViewOnMainScreen : View
 {
     public Text Name;
     public Hint CompanyHint;
-    public Text Concept;
+    public Text Clients;
     public LinkToProjectView LinkToProjectView;
 
     public Image Image;
     public Image DarkImage;
-    public Image RelevancyImage;
 
     public Text Profitability;
 
     public RenderConceptProgress ConceptProgress;
-
-    public Text PositionOnMarket;
 
     bool EnableDarkTheme;
 
@@ -43,31 +38,11 @@ public class CompanyViewOnMainScreen : View
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
         var clients = MarketingUtils.GetClients(company);
-        Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
+        Clients.text = Format.Minify(clients);
 
-        var position = Markets.GetPositionOnMarket(GameContext, company);
-        PositionOnMarket.text = $"#{position + 1}";
-        var level = Products.GetProductLevel(company);
-        PositionOnMarket.text = $"{level}LVL";
-
-
-        if (Profitability != null)
-        {
-            var profit = Economy.GetProfit(GameContext, company.company.Id);
-
-            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, GameContext);
-            var shareChange = 1;
-            bool isGrowing = Companies.IsCompanyGrowing(company, GameContext);
-
-            //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
-            Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
-            Profitability.text = Visuals.Positive(marketShare + "%");
-            //Profitability.GetComponent<Hint>().SetHint(
-            //    profit > 0 ?
-            //    Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
-            //    Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
-            //    );
-        }
+        var profit = Economy.GetProfit(GameContext, company.company.Id);
+        Profitability.text = Format.Money(profit);
+        Profitability.color = Visuals.GetColorFromString(profit > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
     }
 
     string GetProfitDescription()
@@ -78,31 +53,7 @@ public class CompanyViewOnMainScreen : View
             Visuals.Positive($"Profit: +{Format.Money(profit)}") :
             Visuals.Negative($"Loss: {Format.Money(-profit)}");
     }
-
-    Color GetMarketRelevanceColor()
-    {
-        var profit = Economy.GetProfit(GameContext, company);
-
-        if (profit > 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
-
-        if (profit == 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_NEUTRAL);
-
-        if (profit < 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_NEGATIVE);
-
-        var concept = "";
-        switch (Products.GetConceptStatus(company, GameContext))
-        {
-            case ConceptStatus.Leader: concept = VisualConstants.COLOR_POSITIVE; break;
-            case ConceptStatus.Outdated: concept = VisualConstants.COLOR_NEGATIVE; break;
-            case ConceptStatus.Relevant: concept = VisualConstants.COLOR_NEUTRAL; break;
-        }
-
-        return Visuals.GetColorFromString(concept);
-    }
-
+    
     void SetEmblemColor()
     {
         Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
@@ -112,9 +63,6 @@ public class CompanyViewOnMainScreen : View
 
         DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
         //DarkImage.gameObject.SetActive(DisableDarkTheme);
-
-        if (RelevancyImage != null)
-            RelevancyImage.color = GetMarketRelevanceColor();
     }
 
     string GetCompanyHint(bool hasControl)
