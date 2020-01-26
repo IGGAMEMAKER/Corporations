@@ -62,7 +62,7 @@ public class CompanyViewOnMainScreen : View
         // buttons
         LinkToProjectView.CompanyId = id;
         HireWorker.companyId = id;
-        TestCampaignButton.CompanyId = id;
+        TestCampaignButton.SetCompanyId(id);
 
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);

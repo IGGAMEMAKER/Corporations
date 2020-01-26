@@ -6,12 +6,19 @@ using UnityEngine.UI;
 
 public class TestCampaignButton : TimedButton
 {
-    public int CompanyId;
+    int CompanyId;
     public override void Execute()
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
         MarketingUtils.StartTestCampaign(company, GameContext);
+    }
+
+    public void SetCompanyId(int companyId)
+    {
+        CompanyId = companyId;
+
+        ViewRender();
     }
 
     public override bool HasActiveTimer()
@@ -26,12 +33,12 @@ public class TestCampaignButton : TimedButton
 
     public override int QueuedTasks()
     {
-        return 2;
+        return 0;
     }
 
     public override string StandardTitle()
     {
-        return "Set aggressive campaign";
+        return "Test campaign (+100 clients)";
     }
 
     public override int TimeRemaining()

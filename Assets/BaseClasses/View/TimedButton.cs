@@ -23,6 +23,7 @@ public abstract class TimedButton : UpgradedButtonController
         }
 
         GetComponentInChildren<Text>().text = title;
+        GetComponent<Button>().interactable = IsInteractable();
     }
 
     // is interactable
