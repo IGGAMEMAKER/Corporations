@@ -37,36 +37,38 @@ public class CompanyViewOnMainScreen : View
         if (company == null)
             return;
 
-        SetEmblemColor();
-
         bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
 
         var id = company.company.Id;
+        var clients = MarketingUtils.GetClients(company);
+        var profit = Economy.GetProfit(GameContext, id);
 
-        Name.text = company.company.Name;
-        Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+        var nameColor = hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL;
+        var profitColor = profit >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
 
 
+        SetEmblemColor();
 
+        Clients.text = Format.Minify(clients);
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var clients = MarketingUtils.GetClients(company);
-        Clients.text = Format.Minify(clients);
+        Name.text = company.company.Name;
+        Name.color = Visuals.GetColorFromString(nameColor);
 
-        var profit = Economy.GetProfit(GameContext, id);
         Profitability.text = Format.Money(profit);
-        Profitability.color = Visuals.GetColorFromString(profit > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
+        Profitability.color = Visuals.GetColorFromString(profitColor);
+
 
         // buttons
         LinkToProjectView.CompanyId = id;
-
         HireWorker.companyId = id;
+        TestCampaignButton.CompanyId = id;
+
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.gameObject.SetActive(workers < max);
 
-        TestCampaignButton.CompanyId = id;
     }
 
     public override void ViewRender()
