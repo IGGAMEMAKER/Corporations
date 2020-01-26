@@ -32,7 +32,7 @@ public enum CompanyTaskType
     AcquiringParlay,
 
     UpgradeFeature,
-    MarketingActivity,
+    TestCampaign,
 
     ReleasingApp
 }
@@ -49,12 +49,12 @@ public abstract class CompanyTask
     public virtual bool EqualsExactly(CompanyTask obj) => true;
 }
 
-public class CompanyTaskMarketingActivity : CompanyTask
+public class CompanyTaskMarketingTestCampaign : CompanyTask
 {
-    public CompanyTaskMarketingActivity(int companyId)
+    public CompanyTaskMarketingTestCampaign(int companyId)
     {
         CompanyId = companyId;
-        CompanyTaskType = CompanyTaskType.MarketingActivity;
+        CompanyTaskType = CompanyTaskType.TestCampaign;
     }
 }
 

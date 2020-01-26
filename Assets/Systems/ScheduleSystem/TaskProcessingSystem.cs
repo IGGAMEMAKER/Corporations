@@ -56,12 +56,22 @@ public partial class TaskProcessingSystem : OnDateChange
             case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
             case CompanyTaskType.UpgradeFeature: UpgradeFeature(task); break;
             case CompanyTaskType.ReleasingApp: ReleaseApp(task); break;
+
+            case CompanyTaskType.TestCampaign: TestCampaign(task); break;
         }
     }
 
     void ReleaseApp(CompanyTask task)
     {
 
+    }
+
+    void TestCampaign(CompanyTask task)
+    {
+        var t = task as CompanyTaskMarketingTestCampaign;
+
+        var c = Companies.GetCompany(gameContext, t.CompanyId);
+        MarketingUtils.AddClients(c, 100);
     }
 
     void AcquireCompany(CompanyTask task)

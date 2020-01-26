@@ -21,7 +21,7 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         ChangeBrandPowers(products);
 
-        DistributeClients(products, niche);
+        //DistributeClients(products, niche);
     }
 
     void ChangeBrandPowers(GameEntity[] products)

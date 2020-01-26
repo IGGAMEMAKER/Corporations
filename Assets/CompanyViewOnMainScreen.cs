@@ -18,6 +18,7 @@ public class CompanyViewOnMainScreen : View
     public RenderConceptProgress ConceptProgress;
 
     public HireWorker HireWorker;
+    public TestCampaignButton TestCampaignButton;
 
     bool EnableDarkTheme;
 
@@ -28,13 +29,23 @@ public class CompanyViewOnMainScreen : View
         company = c;
         EnableDarkTheme = darkImage;
 
-        bool hasControl = Companies.GetControlInCompany(MyCompany, c, GameContext) > 0;
+        Render();
+    }
 
-        Name.text = c.company.Name; // .Substring(0, 1);
-        Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+    void Render()
+    {
+        if (company == null)
+            return;
+
         SetEmblemColor();
 
-        LinkToProjectView.CompanyId = c.company.Id;
+        bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
+
+        var id = company.company.Id;
+
+        Name.text = company.company.Name;
+        Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+
 
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
@@ -42,15 +53,27 @@ public class CompanyViewOnMainScreen : View
         var clients = MarketingUtils.GetClients(company);
         Clients.text = Format.Minify(clients);
 
-        var profit = Economy.GetProfit(GameContext, company.company.Id);
+        var profit = Economy.GetProfit(GameContext, id);
         Profitability.text = Format.Money(profit);
         Profitability.color = Visuals.GetColorFromString(profit > 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
 
-        HireWorker.companyId = company.company.Id;
+        // buttons
+        LinkToProjectView.CompanyId = id;
+
+        HireWorker.companyId = id;
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.gameObject.SetActive(workers < max);
+
+        TestCampaignButton.CompanyId = id;
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
     }
 
     string GetProfitDescription()
