@@ -8,14 +8,12 @@ namespace Assets.Core
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             var development = GetDevelopmentCost(e, gameContext);
-            var marketing = GetMarketingCost(e, gameContext);
 
-            return (development + marketing) * Constants.PERIOD / 30;
+            return development * Constants.PERIOD / 30;
         }
 
-        public static long GetMarketingCost(GameEntity e, GameContext gameContext)
+        public static long GetRegularCampaignCost(GameEntity e, GameContext gameContext)
         {
-            return 0;
             var cost = GetMarketingFinancingCostMultiplier(e, gameContext);
 
             var culture = Companies.GetActualCorporateCulture(e, gameContext);

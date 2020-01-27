@@ -19,6 +19,8 @@ public class CompanyViewOnMainScreen : View
 
     public HireWorker HireWorker;
     public TestCampaignButton TestCampaignButton;
+    public StartRegularAdCampaign StartRegularAdCampaign;
+    public ReleaseApp ReleaseApp;
 
     bool EnableDarkTheme;
 
@@ -37,11 +39,12 @@ public class CompanyViewOnMainScreen : View
         if (company == null)
             return;
 
-        bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
-
         var id = company.company.Id;
+
         var clients = MarketingUtils.GetClients(company);
         var profit = Economy.GetProfit(GameContext, id);
+
+        bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
 
         var nameColor = hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL;
         var profitColor = profit >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
@@ -50,7 +53,7 @@ public class CompanyViewOnMainScreen : View
         SetEmblemColor();
 
         Clients.text = Format.Minify(clients);
-        CompanyHint.SetHint(GetCompanyHint(hasControl));
+        CompanyHint.SetHint(GetCompanyHint());
 
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
@@ -60,14 +63,28 @@ public class CompanyViewOnMainScreen : View
 
 
         // buttons
-        LinkToProjectView.CompanyId = id;
-        HireWorker.companyId = id;
-        TestCampaignButton.SetCompanyId(id);
 
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
-        HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
+        var regularMarketingCampaignCost = Economy.GetRegularCampaignCost(company, GameContext);
+
+        // enable / disable them
         HireWorker.gameObject.SetActive(workers < max);
+        ReleaseApp.gameObject.SetActive(Companies.IsReleaseableApp(company, GameContext));
+
+        TestCampaignButton.gameObject.SetActive(!company.isRelease);
+
+        // set
+        LinkToProjectView.CompanyId = id;
+        HireWorker.companyId = id;
+        TestCampaignButton.SetCompanyId(id);
+        StartRegularAdCampaign.SetCompanyId(id);
+        ReleaseApp.SetCompanyId(id);
+
+        // render
+        HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
+
+        StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(regularMarketingCampaignCost)}");
 
     }
 
@@ -98,7 +115,7 @@ public class CompanyViewOnMainScreen : View
         //DarkImage.gameObject.SetActive(DisableDarkTheme);
     }
 
-    string GetCompanyHint(bool hasControl)
+    string GetCompanyHint()
     {
         StringBuilder hint = new StringBuilder(company.company.Name);
 
@@ -123,19 +140,20 @@ public class CompanyViewOnMainScreen : View
 
         var brand = (int)company.branding.BrandPower;
 
-        hint.AppendLine($"\n\n");
+        hint.AppendLine();
+        hint.AppendLine();
+
         hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
         hint.AppendLine($"Brand: {brand}");
-        hint.AppendLine($"\nConcept: {level}LVL ({concept})");
+
+        hint.AppendLine();
+
+        hint.AppendLine($"Concept: {level}LVL ({concept})");
 
         hint.AppendLine();
         hint.AppendLine();
 
-        var profitDescription = GetProfitDescription();
-        hint.AppendLine(profitDescription);
-
-        if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
+        hint.AppendLine(GetProfitDescription());
 
         return hint.ToString();
     }

@@ -21,7 +21,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     void ManageMarketing(GameEntity product)
     {
-        var currentCost = Economy.GetMarketingCost(product, gameContext);
+        var currentCost = Economy.GetRegularCampaignCost(product, gameContext);
         var nextCost = Economy.GetNextMarketingLevelCost(product, gameContext);
 
         // reduce maintenance

@@ -58,6 +58,7 @@ public partial class TaskProcessingSystem : OnDateChange
             case CompanyTaskType.ReleasingApp: ReleaseApp(task); break;
 
             case CompanyTaskType.TestCampaign: TestCampaign(task); break;
+            case CompanyTaskType.RegularCampaign: RegularCampaign(task); break;
         }
     }
 
@@ -72,6 +73,17 @@ public partial class TaskProcessingSystem : OnDateChange
 
         var c = Companies.GetCompany(gameContext, t.CompanyId);
         MarketingUtils.AddClients(c, 100);
+    }
+
+    void RegularCampaign(CompanyTask task)
+    {
+        var t = task as CompanyTaskMarketingRegularCampaign;
+
+        var c = Companies.GetCompany(gameContext, t.CompanyId);
+
+        var clients = MarketingUtils.GetAudienceGrowth(c, gameContext);
+
+        MarketingUtils.AddClients(c, clients);
     }
 
     void AcquireCompany(CompanyTask task)

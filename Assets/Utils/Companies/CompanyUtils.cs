@@ -56,6 +56,13 @@ namespace Assets.Core
 
 
 
+        public static void SupportCompany(GameEntity main, GameEntity daughter, long money)
+        {
+            SpendResources(main, money);
+            daughter.companyResource.Resources.AddMoney(money);
+        }
+
+
         // TODO move to separate file
         public static bool IsExploredCompany(GameContext gameContext, int companyId)
         {

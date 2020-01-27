@@ -1,11 +1,27 @@
-﻿using UnityEngine.UI;
+﻿using Assets.Core;
+using UnityEngine.UI;
 
 public abstract class TimedButton : UpgradedButtonController
 {
-    public abstract bool HasActiveTimer();
     public abstract string StandardTitle();
-    public abstract int TimeRemaining();
-    public abstract int QueuedTasks();
+    //public abstract int QueuedTasks();
+
+    public abstract CompanyTask GetCompanyTask();
+
+    public bool HasActiveTimer()
+    {
+        return Cooldowns.IsHasTask(GameContext, GetCompanyTask());
+    }
+    int TimeRemaining()
+    {
+        var task = Cooldowns.GetTask(GameContext, GetCompanyTask());
+
+        if (task == null)
+            return 0;
+
+        return task.EndTime - CurrentIntDate;
+    }
+
 
     public override void ViewRender()
     {
@@ -14,13 +30,7 @@ public abstract class TimedButton : UpgradedButtonController
         var title = StandardTitle();
 
         if (HasActiveTimer())
-        {
             title = $"will finish in {TimeRemaining()} days";
-
-            var queued = QueuedTasks();
-            if (queued > 1)
-                title += $" (x{queued})";
-        }
 
         GetComponentInChildren<Text>().text = title;
         GetComponent<Button>().interactable = IsInteractable();

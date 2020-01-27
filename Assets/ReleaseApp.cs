@@ -2,10 +2,12 @@
 
 public class ReleaseApp : ButtonController
 {
-    int id;
+    int id = -1;
     public override void Execute()
     {
-        NotificationUtils.AddPopup(GameContext, new PopupMessageDoYouWantToRelease(SelectedCompany.company.Id));
+        id = CurrentScreen == ScreenMode.GroupManagementScreen ? id : SelectedCompany.company.Id;
+
+        NotificationUtils.AddPopup(GameContext, new PopupMessageDoYouWantToRelease(id));
     }
 
     // not used

@@ -1,8 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class TestCampaignButton : TimedButton
 {
@@ -21,19 +17,9 @@ public class TestCampaignButton : TimedButton
         ViewRender();
     }
 
-    public override bool HasActiveTimer()
-    {
-        return Cooldowns.IsHasTask(GameContext, new CompanyTaskMarketingTestCampaign(CompanyId));
-    }
-
     public override bool IsInteractable()
     {
         return !HasActiveTimer();
-    }
-
-    public override int QueuedTasks()
-    {
-        return 0;
     }
 
     public override string StandardTitle()
@@ -41,10 +27,8 @@ public class TestCampaignButton : TimedButton
         return "Test campaign (+100 clients)";
     }
 
-    public override int TimeRemaining()
+    public override CompanyTask GetCompanyTask()
     {
-        var t = Cooldowns.GetTask(GameContext, new CompanyTaskMarketingTestCampaign(CompanyId));
-
-        return t.EndTime - CurrentIntDate;
+        return new CompanyTaskMarketingTestCampaign(CompanyId);
     }
 }
