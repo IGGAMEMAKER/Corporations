@@ -53,8 +53,8 @@
     public const int COOLDOWN_TEST_CAMPAIGN = 15;
 
     public static int COOLDOWN_CONCEPT = 15;
-    public static int RELEASE_BRAND_POWER_GAIN = 100;
-    public static int INNOVATION_BRAND_POWER_GAIN = 70;
+    public static int RELEASE_BRAND_POWER_GAIN = 30;
+    public static int INNOVATION_BRAND_POWER_GAIN = 20;
     public static int BRAND_CAMPAIGN_BRAND_POWER_GAIN = 15;
 
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 60;

@@ -47,7 +47,7 @@
 
         public static bool IsCanStartRegularCampaign(GameEntity product, GameContext gameContext)
         {
-            var cost = Economy.GetRegularCampaignCost(product, gameContext);
+            var cost = GetTargetingCampaignCost(product, gameContext);
             var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
 
             return IsCanStartRegularCampaign(product, gameContext, task, cost);

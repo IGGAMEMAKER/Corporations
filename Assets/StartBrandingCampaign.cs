@@ -28,7 +28,7 @@ public class StartBrandingCampaign : TimedButton
         var clients = MarketingUtils.GetAudienceGrowth(company, GameContext);
         var branding = Constants.BRAND_CAMPAIGN_BRAND_POWER_GAIN;
 
-        return $"Start Branding Campaign\n(+{branding} Brand Power and +{Format.Minify(clients)} clients)";
+        return $"Start Branding Campaign\n(+{branding} Brand and +{Format.Minify(clients)} clients)";
     }
 
 
