@@ -37,7 +37,7 @@
             var cost = GetTargetingCampaignCost(product, gameContext);
             var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
 
-            if (IsCanStartRegularCampaign(product, gameContext, task, cost))
+            if (IsCanStartTargetingCampaign(product, gameContext, task, cost))
             {
                 Cooldowns.AddTask(gameContext, task, 30);
                 Companies.SpendResources(product, cost);
@@ -45,14 +45,14 @@
         }
 
         // validation
-        public static bool IsCanStartRegularCampaign(GameEntity product, GameContext gameContext)
+        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext)
         {
             var cost = GetTargetingCampaignCost(product, gameContext);
             var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
 
-            return IsCanStartRegularCampaign(product, gameContext, task, cost);
+            return IsCanStartTargetingCampaign(product, gameContext, task, cost);
         }
-        public static bool IsCanStartRegularCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
+        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
         {
             //Companies.IsEnoughResources(product, cost) &&
             return Cooldowns.CanAddTask(gameContext, task);
