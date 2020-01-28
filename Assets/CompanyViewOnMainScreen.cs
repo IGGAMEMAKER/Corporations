@@ -54,7 +54,7 @@ public class CompanyViewOnMainScreen : View
         var nameColor = hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL;
         var profitColor = profit >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
-        var positionOnMarket = Markets.GetPositionOnMarket(GameContext, company);
+        var positionOnMarket = Markets.GetPositionOnMarket(GameContext, company) + 1;
 
         SetEmblemColor();
 
