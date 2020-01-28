@@ -13,19 +13,12 @@ public class StartRegularAdCampaign : TimedButton
         MarketingUtils.StartRegularCampaign(company, GameContext);
     }
 
-    public void SetCompanyId(int companyId)
-    {
-        CompanyId = companyId;
-
-        ViewRender();
-    }
-
     public override bool IsInteractable()
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
         var cost = Economy.GetRegularCampaignCost(company, GameContext);
-        return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost); // && MarketingUtils.IsCanStartRegularCampaign(company, GameContext);
+        return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 
     public override string StandardTitle()
@@ -36,13 +29,14 @@ public class StartRegularAdCampaign : TimedButton
         return $"Start Targeting Campaign\n(+{Format.Minify(clients)} clients)";
     }
 
-    public override CompanyTask GetCompanyTask()
-    {
-        return new CompanyTaskMarketingRegularCampaign(CompanyId);
-    }
 
-    public override string ShortTitle()
+    public override CompanyTask GetCompanyTask() => new CompanyTaskMarketingRegularCampaign(CompanyId);
+    public override string ShortTitle() => "Targeting Campaign";
+
+    public void SetCompanyId(int companyId)
     {
-        return "Targeting Campaign";
+        CompanyId = companyId;
+
+        ViewRender();
     }
 }

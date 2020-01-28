@@ -13,18 +13,6 @@ public class StartBrandingCampaign : TimedButton
         MarketingUtils.StartBrandingCampaign(company, GameContext);
     }
 
-    public void SetCompanyId(int companyId)
-    {
-        CompanyId = companyId;
-
-        ViewRender();
-    }
-
-    public override CompanyTask GetCompanyTask()
-    {
-        return new CompanyTaskBrandingCampaign(CompanyId);
-    }
-
     public override bool IsInteractable()
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
@@ -33,13 +21,24 @@ public class StartBrandingCampaign : TimedButton
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 
-    public override string ShortTitle()
-    {
-        return "Branding Campaign";
-    }
-
     public override string StandardTitle()
     {
-        return "Start Branding Campaign";
+        var company = Companies.GetCompany(GameContext, CompanyId);
+
+        var clients = MarketingUtils.GetAudienceGrowth(company, GameContext);
+        var branding = Constants.BRAND_CAMPAIGN_BRAND_POWER_GAIN;
+
+        return $"Start Branding Campaign\n(+{branding} Brand Power and +{Format.Minify(clients)} clients)";
+    }
+
+
+    public override CompanyTask GetCompanyTask() => new CompanyTaskBrandingCampaign(CompanyId);
+    public override string ShortTitle() => "Branding Campaign";
+
+    public void SetCompanyId(int companyId)
+    {
+        CompanyId = companyId;
+
+        ViewRender();
     }
 }
