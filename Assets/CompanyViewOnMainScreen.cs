@@ -65,6 +65,15 @@ public class CompanyViewOnMainScreen : View
 
         // buttons
 
+        // set
+        LinkToProjectView.CompanyId = id;
+        HireWorker.companyId = id;
+        TestCampaignButton.SetCompanyId(id);
+        StartRegularAdCampaign.SetCompanyId(id);
+        StartBrandingCampaign.SetCompanyId(id);
+        ReleaseApp.SetCompanyId(id);
+
+
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
 
@@ -79,20 +88,12 @@ public class CompanyViewOnMainScreen : View
         StartRegularAdCampaign.gameObject.SetActive(company.isRelease);
         StartBrandingCampaign.gameObject.SetActive(company.isRelease);
 
-        // set
-        LinkToProjectView.CompanyId = id;
-        HireWorker.companyId = id;
-        TestCampaignButton.SetCompanyId(id);
-        StartRegularAdCampaign.SetCompanyId(id);
-        StartBrandingCampaign.SetCompanyId(id);
-        ReleaseApp.SetCompanyId(id);
 
         // render
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
 
         StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
-
     }
 
     public override void ViewRender()
