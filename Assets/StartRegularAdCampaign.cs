@@ -10,7 +10,7 @@ public class StartRegularAdCampaign : TimedButton
         var cost = Marketing.GetTargetingCampaignCost(company, GameContext);
 
         Companies.SupportCompany(MyCompany, company, cost);
-        Marketing.StartRegularCampaign(company, GameContext);
+        Marketing.StartTargetingCampaign(company, GameContext);
     }
 
     public override bool IsInteractable()
