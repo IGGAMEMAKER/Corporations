@@ -11,7 +11,7 @@ public class PopupController : MonoBehaviour {
         height = 768f;
 
         width = 0; // 1024f;
-        positionY = -Constants.GAMEPLAY_OFFSET_Y;
+        positionY = -Balance.GAMEPLAY_OFFSET_Y;
 
         Render();
     }

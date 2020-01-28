@@ -34,7 +34,7 @@ public abstract class IterateOverCompaniesButtonController : ButtonController
                 companyId = companies[ind + 1].company.Id;
         }
 
-        Navigate(targetMenu, Constants.MENU_SELECTED_COMPANY, companyId);
+        Navigate(targetMenu, Balance.MENU_SELECTED_COMPANY, companyId);
     }
 
 }

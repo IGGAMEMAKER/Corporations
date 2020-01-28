@@ -100,7 +100,7 @@ namespace Assets.Core
         // dates
         public static DateDescription GetDateDescription(int date)
         {
-            var year = Constants.START_YEAR + date / 360;
+            var year = Balance.START_YEAR + date / 360;
             var day = date % 360;
             var month = day / 30;
 

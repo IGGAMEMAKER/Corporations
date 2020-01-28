@@ -48,7 +48,7 @@ namespace Assets.Core
             var result = baseFlowForStage * multiplier;
 
             // normalise
-            return (long)(result * Constants.PERIOD / 30);
+            return (long)(result * Balance.PERIOD / 30);
         }
 
         public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)

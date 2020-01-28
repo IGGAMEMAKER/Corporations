@@ -30,11 +30,11 @@ class MenuInputSystem :
 
         var dictionary = new Dictionary<string, object>
         {
-            [Constants.MENU_SELECTED_COMPANY] = 1,
-            [Constants.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
-            [Constants.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
-            [Constants.MENU_SELECTED_HUMAN] = 0,
-            [Constants.MENU_SELECTED_INVESTOR] = -1,
+            [Balance.MENU_SELECTED_COMPANY] = 1,
+            [Balance.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
+            [Balance.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
+            [Balance.MENU_SELECTED_HUMAN] = 0,
+            [Balance.MENU_SELECTED_INVESTOR] = -1,
         };
 
         menu.AddMenu(screen, dictionary);

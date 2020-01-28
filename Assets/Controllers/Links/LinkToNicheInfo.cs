@@ -9,6 +9,6 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.NicheInfoScreen, Constants.MENU_SELECTED_NICHE, Niche);
+        Navigate(ScreenMode.NicheInfoScreen, Balance.MENU_SELECTED_NICHE, Niche);
     }
 }

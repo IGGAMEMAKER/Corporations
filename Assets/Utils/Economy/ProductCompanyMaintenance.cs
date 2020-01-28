@@ -9,7 +9,7 @@ namespace Assets.Core
         {
             var development = GetDevelopmentCost(e, gameContext);
 
-            return development * Constants.PERIOD / 30;
+            return development * Balance.PERIOD / 30;
         }
 
         public static long GetRegularCampaignCost(GameEntity e, GameContext gameContext)
@@ -32,7 +32,7 @@ namespace Assets.Core
             var workers = Teams.GetAmountOfWorkers(e, gameContext);
             var managers = e.team.Managers.Count;
 
-            var cost = workers * Constants.SALARIES_PROGRAMMER + managers * Constants.SALARIES_DIRECTOR;
+            var cost = workers * Balance.SALARIES_PROGRAMMER + managers * Balance.SALARIES_DIRECTOR;
 
             var culture = Companies.GetActualCorporateCulture(e, gameContext);
             var mindset = culture[CorporatePolicy.WorkerMindset];

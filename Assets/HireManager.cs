@@ -6,6 +6,6 @@ public class HireManager : ButtonController
     {
         Teams.HireManager(SelectedCompany, SelectedHuman);
 
-        Navigate(ScreenMode.TeamScreen, Constants.MENU_SELECTED_COMPANY, SelectedCompany.company.Id);
+        Navigate(ScreenMode.TeamScreen, Balance.MENU_SELECTED_COMPANY, SelectedCompany.company.Id);
     }
 }

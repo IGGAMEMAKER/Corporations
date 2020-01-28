@@ -25,7 +25,7 @@
             // penalties
             var tooManyPrimaryMarketsPenalty = Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext);
 
-            var maxCorpLevel = Constants.CORPORATE_CULTURE_LEVEL_MAX;
+            var maxCorpLevel = Balance.CORPORATE_CULTURE_LEVEL_MAX;
 
             return new Bonus<long>("Innovation chance")
                 // market
@@ -54,7 +54,7 @@
         {
             var focusing = Companies.GetPolicyValue(product, CorporatePolicy.Focusing);
 
-            return 5 * (Constants.CORPORATE_CULTURE_LEVEL_MAX - focusing);
+            return 5 * (Balance.CORPORATE_CULTURE_LEVEL_MAX - focusing);
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)

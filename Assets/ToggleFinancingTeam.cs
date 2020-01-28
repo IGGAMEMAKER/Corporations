@@ -31,7 +31,7 @@ public class ToggleFinancingTeam : View
 
 
         var description = "";
-        bonuses = $"{Visuals.Positive((-value * Constants.FINANCING_ITERATION_SPEED_PER_LEVEL).ToString())}% iteration time";
+        bonuses = $"{Visuals.Positive((-value * Balance.FINANCING_ITERATION_SPEED_PER_LEVEL).ToString())}% iteration time";
         switch (value)
         {
             case 0:

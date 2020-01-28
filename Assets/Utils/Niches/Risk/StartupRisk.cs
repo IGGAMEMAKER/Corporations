@@ -34,10 +34,10 @@
 
         public static int GetMonetisationRisk(GameContext gameContext, int companyId)
         {
-            int num = Constants.RISKS_MONETISATION_MAX;
+            int num = Balance.RISKS_MONETISATION_MAX;
 
             if (Economy.IsProfitable(gameContext, companyId))
-                num -= Constants.RISKS_MONETISATION_IS_PROFITABLE;
+                num -= Balance.RISKS_MONETISATION_IS_PROFITABLE;
 
             return num;
         }

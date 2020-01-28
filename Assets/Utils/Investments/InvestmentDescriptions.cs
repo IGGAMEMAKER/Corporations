@@ -19,7 +19,7 @@
                     return "Become profitable";
 
                 case InvestorGoal.GrowCompanyCost:
-                    return "Grow company cost by " + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
+                    return "Grow company cost by " + Balance.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
 
                 case InvestorGoal.IPO:
                     return "IPO";

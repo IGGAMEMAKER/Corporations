@@ -24,7 +24,7 @@ public class AnnualReportView : View
         RenderHuman(previousReport, currentReport);
         RenderGroup(previousReport, currentReport);
 
-        int CurrentIntYear = Constants.START_YEAR + CurrentIntDate / 360;
+        int CurrentIntYear = Balance.START_YEAR + CurrentIntDate / 360;
 
         CurrentYear.text = $"Results of year {CurrentIntYear - 1}";
     }

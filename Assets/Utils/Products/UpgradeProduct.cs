@@ -29,7 +29,7 @@ namespace Assets.Core
 
         private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext)
         {
-            MarketingUtils.AddBrandPower(product, Constants.INNOVATION_BRAND_POWER_GAIN);
+            MarketingUtils.AddBrandPower(product, Balance.INNOVATION_BRAND_POWER_GAIN);
 
             // get your competitor's clients
             var products = Markets.GetProductsOnMarket(gameContext, product)

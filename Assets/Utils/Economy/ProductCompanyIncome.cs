@@ -22,7 +22,7 @@ namespace Assets.Core
                 Debug.LogWarning("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
             }
 
-            return result * Constants.PERIOD / 30;
+            return result * Balance.PERIOD / 30;
         }
 
         public static float GetImprovementMonetisationValue(Monetisation monetisation)

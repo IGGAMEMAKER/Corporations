@@ -27,7 +27,7 @@ namespace Assets.Core
 
                 default:
                     Debug.Log("GetDesireToSellStartupByInvestorType. Unknown investor type " + investorType.ToString());
-                    return Constants.COMPANY_DESIRE_TO_SELL_NO;
+                    return Balance.COMPANY_DESIRE_TO_SELL_NO;
             }
         }
 
@@ -47,9 +47,9 @@ namespace Assets.Core
             var ambition = Humans.GetFounderAmbition(ambitions);
 
             if (ambition == Ambition.EarnMoney)
-                return Constants.COMPANY_DESIRE_TO_SELL_YES;
+                return Balance.COMPANY_DESIRE_TO_SELL_YES;
 
-            return Constants.COMPANY_DESIRE_TO_SELL_NO;
+            return Balance.COMPANY_DESIRE_TO_SELL_NO;
         }
 
         public static long GetStrategicInvestorExitDesire(GameEntity startup, int shareholderId, GameContext context)
@@ -58,12 +58,12 @@ namespace Assets.Core
 
             bool interestedIn = IsInSphereOfInterest(managingCompany, startup);
 
-            return interestedIn ? Constants.COMPANY_DESIRE_TO_SELL_NO : Constants.COMPANY_DESIRE_TO_SELL_YES;
+            return interestedIn ? Balance.COMPANY_DESIRE_TO_SELL_NO : Balance.COMPANY_DESIRE_TO_SELL_YES;
         }
 
         public static long GetStockExhangeTradeDesire(GameEntity startup, int shareholderId)
         {
-            return Constants.COMPANY_DESIRE_TO_SELL_YES;
+            return Balance.COMPANY_DESIRE_TO_SELL_YES;
         }
 
 
@@ -71,7 +71,7 @@ namespace Assets.Core
         {
             bool goalCompleted = !Investments.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
 
-            return goalCompleted ? Constants.COMPANY_DESIRE_TO_SELL_YES : Constants.COMPANY_DESIRE_TO_SELL_NO;
+            return goalCompleted ? Balance.COMPANY_DESIRE_TO_SELL_YES : Balance.COMPANY_DESIRE_TO_SELL_NO;
         }
     }
 }

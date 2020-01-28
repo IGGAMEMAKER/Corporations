@@ -4,7 +4,7 @@
 
     public override void Execute()
     {
-        Navigate(ScreenMode.InvestmentOfferScreen, Constants.MENU_SELECTED_INVESTOR, investorId);
+        Navigate(ScreenMode.InvestmentOfferScreen, Balance.MENU_SELECTED_INVESTOR, investorId);
     }
 
     public void SetInvestorId(int InvestorId)

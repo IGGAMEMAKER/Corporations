@@ -1,4 +1,4 @@
-﻿public class Constants
+﻿public class Balance
 {
     public const int PERIOD = 7;
 

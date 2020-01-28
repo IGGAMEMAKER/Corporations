@@ -89,20 +89,20 @@
             switch (phase)
             {
                 case MarketState.Idle:
-                    return Constants.RISKS_DEMAND_MAX;
+                    return Balance.RISKS_DEMAND_MAX;
 
                 case MarketState.Innovation:
-                    return Constants.RISKS_DEMAND_MAX / 2;
+                    return Balance.RISKS_DEMAND_MAX / 2;
 
                 case MarketState.Trending:
-                    return Constants.RISKS_DEMAND_MAX / 5;
+                    return Balance.RISKS_DEMAND_MAX / 5;
 
                 case MarketState.MassGrowth:
                 case MarketState.MassUsage:
-                    return Constants.RISKS_DEMAND_MAX / 10;
+                    return Balance.RISKS_DEMAND_MAX / 10;
 
                 case MarketState.Decay:
-                    return Constants.RISKS_DEMAND_MAX / 2;
+                    return Balance.RISKS_DEMAND_MAX / 2;
 
                 case MarketState.Death:
                 default:

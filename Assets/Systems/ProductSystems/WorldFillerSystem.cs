@@ -162,7 +162,7 @@ public partial class WorldFillerSystem : IInitializeSystem
     void SimulateDevelopment()
     {
         Debug.Log("Simulate Development");
-        var skipDays = (Constants.START_YEAR - 1991) * 360;
+        var skipDays = (Balance.START_YEAR - 1991) * 360;
 
         //Debug.Log("Skip days = " + skipDays);
         //ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);

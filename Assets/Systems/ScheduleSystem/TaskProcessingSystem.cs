@@ -93,7 +93,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
         var c = Companies.GetCompany(gameContext, t.CompanyId);
 
-        MarketingUtils.AddBrandPower(c, Constants.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
+        MarketingUtils.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
 
         var clients = MarketingUtils.GetAudienceGrowth(c, gameContext);
         MarketingUtils.AddClients(c, clients);

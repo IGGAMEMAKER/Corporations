@@ -37,6 +37,6 @@ public class LinkToOutdatedProducts : ButtonController
 
 
 
-        Navigate(targetMenu, Constants.MENU_SELECTED_COMPANY, companyId);
+        Navigate(targetMenu, Balance.MENU_SELECTED_COMPANY, companyId);
     }
 }

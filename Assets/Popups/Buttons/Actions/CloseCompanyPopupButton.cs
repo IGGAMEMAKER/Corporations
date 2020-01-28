@@ -37,7 +37,7 @@ public class SendAnotherAcquisitionOfferPopupButton : PopupButtonController<Popu
         var companyId = Popup.companyId;
         NotificationUtils.ClosePopup(GameContext);
 
-        Navigate(ScreenMode.AcquisitionScreen, Constants.MENU_SELECTED_COMPANY, companyId);
+        Navigate(ScreenMode.AcquisitionScreen, Balance.MENU_SELECTED_COMPANY, companyId);
     }
 
     public override string GetButtonName() => "SEND NEW OFFER";

@@ -18,10 +18,10 @@ public class StartCampaignButton : ButtonController
         var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
-            [CorporatePolicy.BuyOrCreate] = Constants.CORPORATE_CULTURE_LEVEL_MAX,
+            [CorporatePolicy.BuyOrCreate] = Balance.CORPORATE_CULTURE_LEVEL_MAX,
             [CorporatePolicy.Focusing] = 1,
             [CorporatePolicy.LeaderOrTeam] = 1,
-            [CorporatePolicy.WorkerMindset] = Constants.CORPORATE_CULTURE_LEVEL_MAX
+            [CorporatePolicy.WorkerMindset] = Balance.CORPORATE_CULTURE_LEVEL_MAX
         });
 
         var startCapital = Markets.GetStartCapital(NicheType, GameContext);
@@ -37,7 +37,7 @@ public class StartCampaignButton : ButtonController
         PrepareMarket(niche, startCapital);
 
 
-        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Constants.MENU_SELECTED_NICHE, NicheType);
+        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Balance.MENU_SELECTED_NICHE, NicheType);
 
 
         SceneManager.UnloadSceneAsync(2);

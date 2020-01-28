@@ -22,31 +22,31 @@ namespace Assets.Core
 
         public static GameEntity GetSelectedCompany(GameContext gameContext)
         {
-            int companyId = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_COMPANY];
+            int companyId = (int)GetScreenData(gameContext)[Balance.MENU_SELECTED_COMPANY];
 
             return Companies.GetCompany(gameContext, companyId);
         }
 
         public static GameEntity GetSelectedInvestor(GameContext gameContext)
         {
-            int id = (int)GetScreenData(gameContext)[Constants.MENU_SELECTED_INVESTOR];
+            int id = (int)GetScreenData(gameContext)[Balance.MENU_SELECTED_INVESTOR];
 
             return Investments.GetInvestorById(gameContext, id);
         }
 
         public static IndustryType GetSelectedIndustry(GameContext gameContext)
         {
-            return (IndustryType)GetScreenData(gameContext)[Constants.MENU_SELECTED_INDUSTRY];
+            return (IndustryType)GetScreenData(gameContext)[Balance.MENU_SELECTED_INDUSTRY];
         }
 
         public static NicheType GetSelectedNiche(GameContext gameContext)
         {
-            return (NicheType)GetScreenData(gameContext)[Constants.MENU_SELECTED_NICHE];
+            return (NicheType)GetScreenData(gameContext)[Balance.MENU_SELECTED_NICHE];
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
-            var humanId = (int) GetScreenData(gameContext)[Constants.MENU_SELECTED_HUMAN];
+            var humanId = (int) GetScreenData(gameContext)[Balance.MENU_SELECTED_HUMAN];
 
             return Humans.GetHuman(gameContext, humanId);
         }
@@ -58,10 +58,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((int)data[Constants.MENU_SELECTED_HUMAN] == humanId)
+            if ((int)data[Balance.MENU_SELECTED_HUMAN] == humanId)
                 return;
 
-            data[Constants.MENU_SELECTED_HUMAN] = humanId;
+            data[Balance.MENU_SELECTED_HUMAN] = humanId;
 
             ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }
@@ -73,10 +73,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((int)data[Constants.MENU_SELECTED_COMPANY] == companyId)
+            if ((int)data[Balance.MENU_SELECTED_COMPANY] == companyId)
                 return;
 
-            data[Constants.MENU_SELECTED_COMPANY] = companyId;
+            data[Balance.MENU_SELECTED_COMPANY] = companyId;
 
             ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }
@@ -88,10 +88,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((NicheType)data[Constants.MENU_SELECTED_NICHE] == nicheType)
+            if ((NicheType)data[Balance.MENU_SELECTED_NICHE] == nicheType)
                 return;
 
-            data[Constants.MENU_SELECTED_NICHE] = nicheType;
+            data[Balance.MENU_SELECTED_NICHE] = nicheType;
 
             ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }

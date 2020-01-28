@@ -32,7 +32,7 @@
                 case InvestorGoal.IPO: measurableGoal = 1; break;
 
                 case InvestorGoal.GrowCompanyCost:
-                    measurableGoal = Economy.GetCompanyCost(gameContext, company.company.Id) * (100 + Constants.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
+                    measurableGoal = Economy.GetCompanyCost(gameContext, company.company.Id) * (100 + Balance.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
                     break;
             }
 
@@ -41,7 +41,7 @@
 
         private static bool IsCanTakeIPOGoal (GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
         {
-            return nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > Constants.IPO_REQUIREMENTS_COMPANY_COST / 2;
+            return nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > Balance.IPO_REQUIREMENTS_COMPANY_COST / 2;
         }
 
         public static void CompleteGoal(GameEntity company, GameContext gameContext, bool forceComplete = false)
