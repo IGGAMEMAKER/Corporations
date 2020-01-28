@@ -22,7 +22,7 @@ public class UpgradeProductImprovements : TimedButton
     {
         var company = Companies.Get(GameContext, CompanyId);
 
-        return Products.HasFreeImprovements(company);
+        return Products.HasFreeImprovements(company) && Cooldowns.CanAddTask(GameContext, GetCompanyTask());
     }
 
     public override string ShortTitle()

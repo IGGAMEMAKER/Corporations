@@ -98,6 +98,11 @@ public class CompanyTaskUpgradeFeature : CompanyTask
 
         ProductImprovement = improvement;
     }
+
+    public override bool EqualsExactly(CompanyTask obj)
+    {
+        return (obj as CompanyTaskUpgradeFeature).ProductImprovement == ProductImprovement;
+    }
 }
 
 public class CompanyTaskAcquisition : CompanyTask

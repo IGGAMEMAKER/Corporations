@@ -10,6 +10,8 @@ public class CompanyViewOnMainScreen : View
     public Text Clients;
     public LinkToProjectView LinkToProjectView;
 
+    public Text PositionOnMarket;
+
     public Image Image;
     public Image DarkImage;
 
@@ -52,6 +54,7 @@ public class CompanyViewOnMainScreen : View
         var nameColor = hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL;
         var profitColor = profit >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
+        var positionOnMarket = Markets.GetPositionOnMarket(GameContext, company);
 
         SetEmblemColor();
 
@@ -64,6 +67,7 @@ public class CompanyViewOnMainScreen : View
         Profitability.text = Format.Money(profit);
         Profitability.color = Visuals.GetColorFromString(profitColor);
 
+        PositionOnMarket.text = $"#{positionOnMarket}";
 
         // buttons
 
