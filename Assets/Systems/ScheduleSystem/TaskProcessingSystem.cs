@@ -59,6 +59,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
             case CompanyTaskType.TestCampaign: TestCampaign(task); break;
             case CompanyTaskType.RegularCampaign: RegularCampaign(task); break;
+            case CompanyTaskType.BrandingCampaign: BrandingCampaign(task); break;
         }
     }
 
@@ -85,6 +86,20 @@ public partial class TaskProcessingSystem : OnDateChange
 
         MarketingUtils.AddClients(c, clients);
     }
+
+    void BrandingCampaign(CompanyTask task)
+    {
+        var t = task as CompanyTaskBrandingCampaign;
+
+        var c = Companies.GetCompany(gameContext, t.CompanyId);
+
+        MarketingUtils.AddBrandPower(c, Constants.INNOVATION_BRAND_POWER_GAIN);
+
+        var clients = MarketingUtils.GetAudienceGrowth(c, gameContext) * 2;
+        MarketingUtils.AddClients(c, clients);
+    }
+
+
 
     void AcquireCompany(CompanyTask task)
     {

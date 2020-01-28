@@ -31,4 +31,9 @@ public class TestCampaignButton : TimedButton
     {
         return new CompanyTaskMarketingTestCampaign(CompanyId);
     }
+
+    public override string ShortTitle()
+    {
+        return "Test campaign";
+    }
 }

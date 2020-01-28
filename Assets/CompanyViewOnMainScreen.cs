@@ -20,6 +20,7 @@ public class CompanyViewOnMainScreen : View
     public HireWorker HireWorker;
     public TestCampaignButton TestCampaignButton;
     public StartRegularAdCampaign StartRegularAdCampaign;
+    public StartBrandingCampaign StartBrandingCampaign;
     public ReleaseApp ReleaseApp;
 
     bool EnableDarkTheme;
@@ -66,25 +67,31 @@ public class CompanyViewOnMainScreen : View
 
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
-        var regularMarketingCampaignCost = Economy.GetRegularCampaignCost(company, GameContext);
+
+        var targetingCost = MarketingUtils.GetTargetingCampaignCost(company, GameContext);
+        var brandingCost = MarketingUtils.GetBrandingCampaignCost(company, GameContext);
 
         // enable / disable them
         HireWorker.gameObject.SetActive(workers < max);
         ReleaseApp.gameObject.SetActive(Companies.IsReleaseableApp(company, GameContext));
 
         TestCampaignButton.gameObject.SetActive(!company.isRelease);
+        StartRegularAdCampaign.gameObject.SetActive(company.isRelease);
+        StartBrandingCampaign.gameObject.SetActive(company.isRelease);
 
         // set
         LinkToProjectView.CompanyId = id;
         HireWorker.companyId = id;
         TestCampaignButton.SetCompanyId(id);
         StartRegularAdCampaign.SetCompanyId(id);
+        StartBrandingCampaign.SetCompanyId(id);
         ReleaseApp.SetCompanyId(id);
 
         // render
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
 
-        StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(regularMarketingCampaignCost)}");
+        StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
+        StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
 
     }
 

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public abstract class TimedButton : UpgradedButtonController
 {
     public abstract string StandardTitle();
+    public abstract string ShortTitle();
     //public abstract int QueuedTasks();
 
     public abstract CompanyTask GetCompanyTask();
@@ -30,7 +31,10 @@ public abstract class TimedButton : UpgradedButtonController
         var title = StandardTitle();
 
         if (HasActiveTimer())
-            title = $"will finish in {TimeRemaining()} days";
+        {
+            title = ShortTitle() + "\n";
+            title += $"will finish in {TimeRemaining()} days";
+        }
 
         GetComponentInChildren<Text>().text = title;
         GetComponent<Button>().interactable = IsInteractable();
