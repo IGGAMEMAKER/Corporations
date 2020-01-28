@@ -22,6 +22,8 @@ public class CompanyViewOnMainScreen : View
     public StartRegularAdCampaign StartRegularAdCampaign;
     public StartBrandingCampaign StartBrandingCampaign;
     public ReleaseApp ReleaseApp;
+    public UpgradeProductImprovements UpgradeChurn;
+    public UpgradeProductImprovements UpgradeMonetisation;
 
     bool EnableDarkTheme;
 
@@ -72,6 +74,8 @@ public class CompanyViewOnMainScreen : View
         StartRegularAdCampaign.SetCompanyId(id);
         StartBrandingCampaign.SetCompanyId(id);
         ReleaseApp.SetCompanyId(id);
+        UpgradeChurn.SetCompanyId(id);
+        UpgradeMonetisation.SetCompanyId(id);
 
 
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);

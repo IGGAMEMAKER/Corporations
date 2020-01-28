@@ -3,6 +3,15 @@ using UnityEngine.UI;
 
 public abstract class TimedButton : UpgradedButtonController
 {
+    internal int CompanyId;
+
+    public void SetCompanyId(int companyId)
+    {
+        CompanyId = companyId;
+
+        ViewRender();
+    }
+
     public abstract string StandardTitle();
     public abstract string ShortTitle();
     //public abstract int QueuedTasks();

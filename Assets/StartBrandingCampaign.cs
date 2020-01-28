@@ -2,7 +2,6 @@
 
 public class StartBrandingCampaign : TimedButton
 {
-    int CompanyId;
     public override void Execute()
     {
         var company = Companies.Get(GameContext, CompanyId);
@@ -35,11 +34,4 @@ public class StartBrandingCampaign : TimedButton
 
     public override CompanyTask GetCompanyTask() => new CompanyTaskBrandingCampaign(CompanyId);
     public override string ShortTitle() => "Branding Campaign";
-
-    public void SetCompanyId(int companyId)
-    {
-        CompanyId = companyId;
-
-        ViewRender();
-    }
 }

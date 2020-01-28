@@ -2,19 +2,11 @@
 
 public class TestCampaignButton : TimedButton
 {
-    int CompanyId;
     public override void Execute()
     {
         var company = Companies.Get(GameContext, CompanyId);
 
         Marketing.StartTestCampaign(company, GameContext);
-    }
-
-    public void SetCompanyId(int companyId)
-    {
-        CompanyId = companyId;
-
-        ViewRender();
     }
 
     public override bool IsInteractable()

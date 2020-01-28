@@ -2,7 +2,6 @@
 
 public class StartRegularAdCampaign : TimedButton
 {
-    int CompanyId;
     public override void Execute()
     {
         var company = Companies.Get(GameContext, CompanyId);
@@ -33,11 +32,4 @@ public class StartRegularAdCampaign : TimedButton
 
     public override CompanyTask GetCompanyTask() => new CompanyTaskMarketingRegularCampaign(CompanyId);
     public override string ShortTitle() => "Targeting Campaign";
-
-    public void SetCompanyId(int companyId)
-    {
-        CompanyId = companyId;
-
-        ViewRender();
-    }
 }
