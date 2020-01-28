@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Assets.Core;
 using Entitas;
 
 public class CooldownProcessingSystem : OnDateChange
 {
-    public CooldownProcessingSystem(Contexts contexts) : base(contexts)
-    {
-    }
+    public CooldownProcessingSystem(Contexts contexts) : base(contexts) {}
 
     void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
     {
