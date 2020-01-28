@@ -70,10 +70,11 @@ public class CompanyViewOnMainScreen : View
         // set
         LinkToProjectView.CompanyId = id;
         HireWorker.companyId = id;
+        ReleaseApp.SetCompanyId(id);
+
         TestCampaignButton.SetCompanyId(id);
         StartRegularAdCampaign.SetCompanyId(id);
         StartBrandingCampaign.SetCompanyId(id);
-        ReleaseApp.SetCompanyId(id);
         UpgradeChurn.SetCompanyId(id);
         UpgradeMonetisation.SetCompanyId(id);
 
