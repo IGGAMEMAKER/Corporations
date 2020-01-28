@@ -2,13 +2,24 @@
 {
     public static partial class Marketing
     {
-        // test
+        // costs
+        public static long GetBrandingCampaignCost(GameEntity product, GameContext gameContext)
+        {
+            return Economy.GetMarketingFinancingCostMultiplier(product, gameContext, 3) * 3;
+        }
+
+        public static long GetTargetingCampaignCost(GameEntity product, GameContext gameContext)
+        {
+            return Economy.GetRegularCampaignCost(product, gameContext);
+        }
+
+
+        // actions
         public static void StartTestCampaign(GameEntity product, GameContext gameContext)
         {
             Cooldowns.AddTask(gameContext, new CompanyTaskMarketingTestCampaign(product.company.Id), 8);
         }
 
-        // branding
         public static void StartBrandingCampaign(GameEntity product, GameContext gameContext)
         {
             var cost = GetBrandingCampaignCost(product, gameContext);
@@ -21,18 +32,6 @@
             }
         }
 
-        public static long GetBrandingCampaignCost(GameEntity product, GameContext gameContext)
-        {
-            return Economy.GetMarketingFinancingCostMultiplier(product, gameContext, 3) * 3;
-        }
-
-        public static long GetTargetingCampaignCost(GameEntity product, GameContext gameContext)
-        {
-            return Economy.GetRegularCampaignCost(product, gameContext);
-        }
-
-
-        // regular
         public static void StartRegularCampaign(GameEntity product, GameContext gameContext)
         {
             var cost = GetTargetingCampaignCost(product, gameContext);
@@ -45,6 +44,7 @@
             }
         }
 
+        // validation
         public static bool IsCanStartRegularCampaign(GameEntity product, GameContext gameContext)
         {
             var cost = GetTargetingCampaignCost(product, gameContext);
