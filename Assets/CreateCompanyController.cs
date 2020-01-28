@@ -13,7 +13,7 @@ public class CreateCompanyController : View
 
         if (MyGroupEntity != null)
         {
-            var groupName = Visuals.Colorize(MyGroupEntity.company.Name, VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO);
+            var groupName = Visuals.Colorize(MyGroupEntity.company.Name, Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
 
             SetActions(true, $"Create a startup and attach it to group \n\n{groupName}\n\n "
             //+ $"This will cost {Format.Money(startCapital)}"

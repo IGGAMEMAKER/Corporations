@@ -66,13 +66,13 @@ public class NichePreview : View
             isMarketOfInterest = Companies.IsInSphereOfInterest(MyCompany, Niche);
         }
 
-        var color = VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+        var color = Colors.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
         if (isMarketOfInterest)
-            color = VisualConstants.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
+            color = Colors.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
 
         if (hasCompany)
-            color = VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
+            color = Colors.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
 
         MarketPotential.text = Visuals.Colorize(text, color);
     }

@@ -22,7 +22,7 @@ public class ProductCompanyCompetingPreview : View,
         Company.AddProductListener(this);
         Company.AddMarketingListener(this);
 
-        ColorUtility.TryParseHtmlString(VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
+        ColorUtility.TryParseHtmlString(Colors.COLOR_COMPANY_WHERE_I_AM_CEO, out Color ourCompanyColor);
 
         if (entity.isControlledByPlayer)
         {

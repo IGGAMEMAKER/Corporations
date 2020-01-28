@@ -33,7 +33,7 @@ public class ProductOnMarketView : View
 
         var isPlayerRelated = Companies.IsRelatedToPlayer(GameContext, company);
         Name.text = company.company.Name;
-        Name.color = Visuals.GetColorFromString(isPlayerRelated ? VisualConstants.COLOR_COMPANY_WHERE_I_AM_CEO : VisualConstants.COLOR_COMPANY_WHERE_I_AM_NOT_CEO);
+        Name.color = Visuals.GetColorFromString(isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO);
 
         LinkToProjectView.CompanyId = company.company.Id;
 

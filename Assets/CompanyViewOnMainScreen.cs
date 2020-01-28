@@ -47,8 +47,8 @@ public class CompanyViewOnMainScreen : View
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
 
-        var nameColor = hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL;
-        var profitColor = profit >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+        var nameColor = hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL;
+        var profitColor = profit >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
 
         SetEmblemColor();

@@ -20,21 +20,21 @@ namespace Assets.Core
         }
 
         public static string Colorize(string text, Color color)     => Colorize(text, HexConverter(color));
-        public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
+        public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
         public static string Colorize(string text, string colorHTML)
         {
             return $"<color={colorHTML}>{text}</color>";
         }
 
-        public static string Positive(string text)  => Colorize(text, VisualConstants.COLOR_POSITIVE);
-        public static string Neutral(string text)   => Colorize(text, VisualConstants.COLOR_NEUTRAL);
-        public static string Negative(string text)  => Colorize(text, VisualConstants.COLOR_NEGATIVE);
+        public static string Positive(string text)  => Colorize(text, Colors.COLOR_POSITIVE);
+        public static string Neutral(string text)   => Colorize(text, Colors.COLOR_NEUTRAL);
+        public static string Negative(string text)  => Colorize(text, Colors.COLOR_NEGATIVE);
 
         // TODO used twice in same place
         public static Color GetColorPositiveOrNegative(long value) => GetColorPositiveOrNegative(value > 0);
         public static Color GetColorPositiveOrNegative(bool isPositive)
         {
-            string col = isPositive ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+            string col = isPositive ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
             return GetColorFromString(col);
         }

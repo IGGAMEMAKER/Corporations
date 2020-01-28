@@ -39,7 +39,7 @@ public class SellingOfferView : View
         Buyer.text = Companies.GetInvestorName(buyer);
 
         var hasControl = Companies.GetControlInCompany(MyCompany, buyer, GameContext) > 0;
-        Buyer.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
+        Buyer.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO);
 
         var rating = c.hasProduct ? Markets.GetMarketRating(GameContext, c.product.Niche): 0;
         NicheStage.SetStars(rating);

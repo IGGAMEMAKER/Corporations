@@ -77,7 +77,7 @@
     public const int IDEA_PER_EXPERTISE = 1000;
 }
 
-public class VisualConstants
+public class Colors
 {
     const string COLOR_BACKGROUND = "#2B2E34";
     public const string COLOR_GOLD = "#FFAB04";

@@ -84,16 +84,16 @@ public class NicheTableView : View, IPointerEnterHandler
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
 
-        var marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+        var marketColorName = Colors.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
         if (hasCompany)
-            marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
+            marketColorName = Colors.COLOR_MARKET_ATTITUDE_HAS_COMPANY;
         else if (isInterestingMarket)
-            marketColorName = VisualConstants.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
+            marketColorName = Colors.COLOR_MARKET_ATTITUDE_FOCUS_ONLY;
 
         
         bool isOurIndustry = MyCompany.companyFocus.Industries.Contains(industryType);
-        var industryColorName = isOurIndustry ? VisualConstants.COLOR_MARKET_ATTITUDE_HAS_COMPANY : VisualConstants.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
+        var industryColorName = isOurIndustry ? Colors.COLOR_MARKET_ATTITUDE_HAS_COMPANY : Colors.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
 
         var coloredMarket = Visuals.Colorize(EnumUtils.GetFormattedNicheName(nicheType), marketColorName);

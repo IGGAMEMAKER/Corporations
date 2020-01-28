@@ -37,7 +37,7 @@ public abstract partial class ButtonController : BaseClass
         ButtonStart();
 
         if (IsLink)
-            GetComponentInChildren<Text>().color = Visuals.GetColorFromString(VisualConstants.COLOR_LINK);
+            GetComponentInChildren<Text>().color = Visuals.GetColorFromString(Colors.COLOR_LINK);
     }
 
     void OnEnable()

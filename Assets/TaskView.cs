@@ -59,9 +59,9 @@ public partial class TaskView : View
         if (Panel != null)
         {
             if (TaskComponent.StartTime > CurrentIntDate)
-                Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_PANEL_BASE); // not started yet
+                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_BASE); // not started yet
             else
-                Panel.color = Visuals.GetColorFromString(VisualConstants.COLOR_PANEL_SELECTED); // started
+                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_SELECTED); // started
         }
 
 

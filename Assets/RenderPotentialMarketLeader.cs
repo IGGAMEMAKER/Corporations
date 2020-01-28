@@ -16,7 +16,7 @@ public class RenderPotentialMarketLeader : ParameterView
 
         var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, potentialLeader);
 
-        var colorName = isRelatedToPlayer ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO;
+        var colorName = isRelatedToPlayer ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO;
 
         Colorize(colorName);
 

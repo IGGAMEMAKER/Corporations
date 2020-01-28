@@ -25,7 +25,7 @@ public class RenderGroupAnnualGrowth : UpgradedParameterView
         var growthRelative = growthAbsolute * 100 / prevCost;
 
         bool isGrowth = growthAbsolute >= 0;
-        var color = growthAbsolute >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE;
+        var color = growthAbsolute >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
         //$"+23% growth (+$102.4M)"
         var relativeGrowthText = Format.Sign(growthRelative); // Visuals.Colorize(, color);

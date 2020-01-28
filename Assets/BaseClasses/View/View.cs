@@ -25,9 +25,9 @@ public abstract class View : BaseClass
     {
         var col = isSelected
             ?
-            VisualConstants.COLOR_PANEL_SELECTED
+            Colors.COLOR_PANEL_SELECTED
             :
-            VisualConstants.COLOR_PANEL_BASE;
+            Colors.COLOR_PANEL_BASE;
 
         ColorUtility.TryParseHtmlString(col, out Color panelColor);
 

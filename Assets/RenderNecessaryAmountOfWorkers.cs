@@ -13,7 +13,7 @@ public class RenderNecessaryAmountOfWorkers : ParameterView
 
         bool isEnough = have >= required;
 
-        Colorize(isEnough ? VisualConstants.COLOR_NEUTRAL : VisualConstants.COLOR_NEGATIVE);
+        Colorize(isEnough ? Colors.COLOR_NEUTRAL : Colors.COLOR_NEGATIVE);
 
         return $"{have} / {required}";
     }

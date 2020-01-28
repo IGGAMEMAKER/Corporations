@@ -15,7 +15,7 @@ public class CompanyValuationGrowthGraph : View
 
         GraphData graphData = new GraphData
         {
-            Color = Visuals.GetColorFromString(VisualConstants.COLOR_GOLD),
+            Color = Visuals.GetColorFromString(Colors.COLOR_GOLD),
             Name = "",
             values = Ys
         };

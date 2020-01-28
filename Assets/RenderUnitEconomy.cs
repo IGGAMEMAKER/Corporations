@@ -14,7 +14,7 @@ public class RenderUnitEconomy : ParameterView
 
         var change = (income - ads) * 1000;
 
-        Colorize(change >= 0 ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
+        Colorize(change >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
 
         return change.ToString("0.0") + "$";
     }

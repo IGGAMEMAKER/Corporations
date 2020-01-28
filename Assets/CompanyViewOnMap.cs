@@ -38,7 +38,7 @@ public class CompanyViewOnMap : View
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, GameContext) > 0;
 
         Name.text = c.company.Name; // .Substring(0, 1);
-        Name.color = Visuals.GetColorFromString(hasControl ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_NEUTRAL);
+        Name.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
         SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
@@ -98,20 +98,20 @@ public class CompanyViewOnMap : View
         var profit = Economy.GetProfit(GameContext, company);
 
         if (profit > 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_POSITIVE);
+            return Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
         if (profit == 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_NEUTRAL);
+            return Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
 
         if (profit < 0)
-            return Visuals.GetColorFromString(VisualConstants.COLOR_NEGATIVE);
+            return Visuals.GetColorFromString(Colors.COLOR_NEGATIVE);
 
         var concept = "";
         switch (Products.GetConceptStatus(company, GameContext))
         {
-            case ConceptStatus.Leader: concept = VisualConstants.COLOR_POSITIVE; break;
-            case ConceptStatus.Outdated: concept = VisualConstants.COLOR_NEGATIVE; break;
-            case ConceptStatus.Relevant: concept = VisualConstants.COLOR_NEUTRAL; break;
+            case ConceptStatus.Leader: concept = Colors.COLOR_POSITIVE; break;
+            case ConceptStatus.Outdated: concept = Colors.COLOR_NEGATIVE; break;
+            case ConceptStatus.Relevant: concept = Colors.COLOR_NEUTRAL; break;
         }
 
         return Visuals.GetColorFromString(concept);
@@ -176,7 +176,7 @@ public class CompanyViewOnMap : View
 
 
         if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nWe control this company", VisualConstants.COLOR_CONTROL));
+            hint.AppendLine(Visuals.Colorize("\nWe control this company", Colors.COLOR_CONTROL));
 
         return hint.ToString();
     }

@@ -98,11 +98,11 @@ public class CompanyResultView : View
     string GetStatusColor (ConceptStatus conceptStatus)
     {
         if (conceptStatus == ConceptStatus.Leader)
-            return VisualConstants.COLOR_POSITIVE;
+            return Colors.COLOR_POSITIVE;
 
         if (conceptStatus == ConceptStatus.Outdated)
-            return VisualConstants.COLOR_NEGATIVE;
+            return Colors.COLOR_NEGATIVE;
 
-        return VisualConstants.COLOR_NEUTRAL;
+        return Colors.COLOR_NEUTRAL;
     }
 }

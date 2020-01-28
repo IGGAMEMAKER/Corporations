@@ -19,7 +19,7 @@ namespace Assets.Core
         // TODO mockup
         static string GetGradientStringName(Color color)
         {
-            return VisualConstants.COLOR_POSITIVE;
+            return Colors.COLOR_POSITIVE;
         }
 
         public static Color GetGradientColor(float min, float max, float val, bool reversed = false)

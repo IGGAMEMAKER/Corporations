@@ -52,7 +52,7 @@ public class CompanyGrowthPreview : View
         bool isGrowing = growthAbsolute >= 0;
 
         Value.text = (isGrowing ? "+" : "") + Format.MinifyMoney(growthAbsolute);
-        Value.color = Visuals.GetColorFromString(isGrowing ? VisualConstants.COLOR_POSITIVE : VisualConstants.COLOR_NEGATIVE);
+        Value.color = Visuals.GetColorFromString(isGrowing ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
 
         Value.GetComponent<Hint>().SetHint($"Income growth: {Format.Sign(growthAbsolute, true)} ({Format.Sign(growthRelative)}%)");
     }

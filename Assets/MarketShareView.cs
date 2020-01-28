@@ -33,7 +33,7 @@ public class MarketShareView : View
         var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
         //ShareSize.text = Format.MinifyMoney(marketSize);
         ShareSize.text = Format.MinifyToInteger(audience) + "\nusers";
-        ShareSize.color = Visuals.GetColorFromString(HasCompany ? VisualConstants.COLOR_CONTROL : VisualConstants.COLOR_CONTROL_NO);
+        ShareSize.color = Visuals.GetColorFromString(HasCompany ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO);
 
         var phase = Markets.GetMarketState(niche).ToString();
         if (!ShowMarketStateOnlyByColor)
@@ -66,7 +66,7 @@ public class MarketShareView : View
 
         if (Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext))
         {
-            text.AppendFormat(Visuals.Colorize("We control {0}% of it (${1})", VisualConstants.COLOR_CONTROL), share, Format.MinifyToInteger(marketControlCost));
+            text.AppendFormat(Visuals.Colorize("We control {0}% of it (${1})", Colors.COLOR_CONTROL), share, Format.MinifyToInteger(marketControlCost));
             text.Append("\n\n");
         }
 
