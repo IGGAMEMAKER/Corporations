@@ -8,6 +8,7 @@ public class RenderOpportunityButtons : View
     public GameObject Acquisitions;
     public GameObject CorporateCulture;
     public GameObject Partnerships;
+    public GameObject LinkToHead;
 
     public void OnEnable()
     {
@@ -19,10 +20,15 @@ public class RenderOpportunityButtons : View
         bool hasAtLeastOneCompany = Companies.IsHasDaughters(GameContext, MyCompany);
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(GameContext, MyCompany);
 
+        LinkToHead
+            .SetActive(isMyCompanyScreen && hasReleasedProducts);
+
         Partnerships
             .SetActive(isMyCompanyScreen && hasReleasedProducts);
+
         PerspectiveMarkets
             .SetActive(isMyCompanyScreen && hasReleasedProducts);
+
         CorporateCulture
             .SetActive(isMyCompanyScreen && hasReleasedProducts);
 
