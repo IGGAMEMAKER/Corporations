@@ -31,7 +31,7 @@ public class RenderWorkerRole : View
         {
             var companyId = human.worker.companyId;
 
-            var c = Companies.GetCompany(GameContext, companyId);
+            var c = Companies.Get(GameContext, companyId);
 
             text += " " + Visuals.Link($"in {c.company.Name}");
 

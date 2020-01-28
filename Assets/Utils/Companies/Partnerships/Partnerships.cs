@@ -47,7 +47,7 @@ namespace Assets.Core
         {
             foreach (var p in GetPartnershipCopy(company))
             {
-                var acceptor = GetCompany(gameContext, p);
+                var acceptor = Get(gameContext, p);
 
                 BreakStrategicPartnership(company, acceptor);
                 // notify about breaking partnership
@@ -109,7 +109,7 @@ namespace Assets.Core
             var partners = GetPartnersOf(company, gameContext);
 
             return partners
-                .Select(p => GetCompany(gameContext, p))
+                .Select(p => Get(gameContext, p))
                 //.Where(p => p.hasProduct)
                 .ToList();
         }

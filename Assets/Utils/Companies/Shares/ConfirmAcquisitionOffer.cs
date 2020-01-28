@@ -21,7 +21,7 @@ namespace Assets.Core
             if (!IsEnoughResources(inv, offer))
                 return;
 
-            var target = GetCompany(gameContext, companyId);
+            var target = Get(gameContext, companyId);
 
             var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];

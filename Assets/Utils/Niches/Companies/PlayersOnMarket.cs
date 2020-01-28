@@ -7,7 +7,7 @@ namespace Assets.Core
     {
         public static IEnumerable<GameEntity> GetProductsOnMarket(GameContext context, int companyId)
         {
-            var c = Companies.GetCompany(context, companyId);
+            var c = Companies.Get(context, companyId);
 
             return GetProductsOnMarket(context, c);
         }

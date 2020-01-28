@@ -2,7 +2,7 @@
 {
     public static partial class Economy
     {
-        public static long GetCompanyCost(GameContext context, int companyId) => GetCompanyCost(context, Companies.GetCompany(context, companyId));
+        public static long GetCompanyCost(GameContext context, int companyId) => GetCompanyCost(context, Companies.Get(context, companyId));
         public static long GetCompanyCost(GameContext context, GameEntity c)
         {
             return GetFullCompanyCost(context, c);
@@ -26,7 +26,7 @@
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
         {
-            var target = Companies.GetCompany(context, companyId);
+            var target = Companies.Get(context, companyId);
 
             var desireToSell = Companies.GetDesireToSellCompany(target, context);
 
@@ -34,7 +34,7 @@
         }
 
 
-        public static long GetCompanyBaseCost(GameContext context, int companyId) => GetCompanyBaseCost(context, Companies.GetCompany(context, companyId));
+        public static long GetCompanyBaseCost(GameContext context, int companyId) => GetCompanyBaseCost(context, Companies.Get(context, companyId));
         public static long GetCompanyBaseCost(GameContext context, GameEntity company)
         {
             if (Companies.IsProductCompany(company))
@@ -45,7 +45,7 @@
 
         public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
         {
-            var c = Companies.GetCompany(context, companyId);
+            var c = Companies.Get(context, companyId);
 
             return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier() * 30 / Balance.PERIOD;
         }

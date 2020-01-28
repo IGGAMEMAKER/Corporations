@@ -10,14 +10,14 @@ namespace Assets.Core
         {
             // TODO only possible if independent!
 
-            var parent = GetCompany(context, parentId);
+            var parent = Get(context, parentId);
 
 
             // we cannot attach company to product company
             if (!IsCompanyGroupLike(parent))
                 return;
 
-            var daughter = GetCompany(context, subsidiaryId);
+            var daughter = Get(context, subsidiaryId);
 
             if (daughter.hasProduct)
             {

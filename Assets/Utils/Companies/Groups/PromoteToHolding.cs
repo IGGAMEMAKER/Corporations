@@ -4,7 +4,7 @@
     {
         public static GameEntity TurnToHolding(GameContext context, int companyId)
         {
-            var c = GetCompany(context, companyId);
+            var c = Get(context, companyId);
 
             c.ReplaceCompany(c.company.Id, c.company.Name, CompanyType.Holding);
 

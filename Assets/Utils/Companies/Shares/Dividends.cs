@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void PayDividends(GameContext gameContext, int companyId) => PayDividends(gameContext, GetCompany(gameContext, companyId));
+        public static void PayDividends(GameContext gameContext, int companyId) => PayDividends(gameContext, Get(gameContext, companyId));
         public static void PayDividends(GameContext gameContext, GameEntity company)
         {
             int dividendSize = 33;

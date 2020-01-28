@@ -19,7 +19,7 @@ public partial class PopupView : View
 
     void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
-        var target = Companies.GetCompany(GameContext, popup.companyId);
+        var target = Companies.Get(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
 
         bool isOurCompany = Companies.IsRelatedToPlayer(GameContext, target);
@@ -33,7 +33,7 @@ public partial class PopupView : View
 
     void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
-        var target = Companies.GetCompany(GameContext, popup.companyId);
+        var target = Companies.Get(GameContext, popup.companyId);
         var buyer = Investments.GetInvestorById(GameContext, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
@@ -78,7 +78,7 @@ public partial class PopupView : View
 
     void RenderBankruptCompany(PopupMessageCompanyBankrupt popup)
     {
-        var niche = Companies.GetCompany(GameContext, popup.companyId).product.Niche;
+        var niche = Companies.Get(GameContext, popup.companyId).product.Niche;
         bool hasCompaniesOnMarket = Companies.HasCompanyOnMarket(MyCompany, niche, GameContext);
 
         var description = "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!";

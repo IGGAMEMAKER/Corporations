@@ -20,7 +20,7 @@ public class TweakCompanyFinancing : View
     {
         int percent = (int)(value * 100);
 
-        var c = Companies.GetCompany(GameContext, MyGroupEntity.company.Id);
+        var c = Companies.Get(GameContext, MyGroupEntity.company.Id);
 
         var total = c.companyResource.Resources.money;
 

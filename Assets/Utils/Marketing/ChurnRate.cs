@@ -37,7 +37,7 @@ namespace Assets.Core
 
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId)
         {
-            var c = Companies.GetCompany(gameContext, companyId);
+            var c = Companies.Get(gameContext, companyId);
             var state = Markets.GetMarketState(gameContext, c.product.Niche);
 
             var fromProductLevel = Products.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);

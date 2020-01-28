@@ -24,7 +24,7 @@ namespace Assets.Core
             if (amountOfShares == -1)
                 amountOfShares = GetAmountOfShares(context, companyId, sellerInvestorId);
 
-            var c = GetCompany(context, companyId);
+            var c = Get(context, companyId);
             if (c.hasShareholder && buyerInvestorId == c.shareholder.Id)
             {
                 BuyBack(context, c, companyId, sellerInvestorId, amountOfShares);

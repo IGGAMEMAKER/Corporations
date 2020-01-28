@@ -12,14 +12,14 @@ public class ToggleMarketingFinancing : ToggleButtonController
 
     public override void Execute()
     {
-        var company = Companies.GetCompany(GameContext, companyId);
+        var company = Companies.Get(GameContext, companyId);
 
         Products.SetFinancing(company, Financing.Marketing, 1);
     }
 
     private void Start()
     {
-        var company = Companies.GetCompany(GameContext, companyId);
+        var company = Companies.Get(GameContext, companyId);
         var financing = Economy.GetMarketingFinancing(company);
 
         ToggleIsChosenComponent(financing == 1);

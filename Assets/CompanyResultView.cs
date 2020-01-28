@@ -22,7 +22,7 @@ public class CompanyResultView : View
     {
         result1 = result;
 
-        var product = Companies.GetCompany(GameContext, result.CompanyId);
+        var product = Companies.Get(GameContext, result.CompanyId);
 
         CompanyName.text = product.company.Name;
 
@@ -45,7 +45,7 @@ public class CompanyResultView : View
 
     void RenderMarketingButtons(int companyId)
     {
-        var company = Companies.GetCompany(GameContext, companyId);
+        var company = Companies.Get(GameContext, companyId);
         var financing = Economy.GetMarketingFinancing(company);
 
         var isReleased = company.isRelease;
@@ -80,7 +80,7 @@ public class CompanyResultView : View
         if (c1 != null)
             days = c1.EndDate - CurrentIntDate;
 
-        var product = Companies.GetCompany(GameContext, result1.CompanyId);
+        var product = Companies.Get(GameContext, result1.CompanyId);
 
         var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, GameContext)}LVL)" : "";
         ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";

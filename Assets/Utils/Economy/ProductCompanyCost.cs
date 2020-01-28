@@ -9,7 +9,7 @@
             return GetProductCompanyBaseCost(context, companyId) * (100 - risks) / 100;
         }
 
-        public static long GetProductCompanyBaseCost(GameContext context, int companyId) => GetProductCompanyBaseCost(context, Companies.GetCompany(context, companyId));
+        public static long GetProductCompanyBaseCost(GameContext context, int companyId) => GetProductCompanyBaseCost(context, Companies.Get(context, companyId));
         public static long GetProductCompanyBaseCost(GameContext context, GameEntity company)
         {
             long audienceCost = GetClientBaseCost(context, company.company.Id);
@@ -21,7 +21,7 @@
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
             return 0;
-            var c = Companies.GetCompany(context, companyId);
+            var c = Companies.Get(context, companyId);
 
             return Marketing.GetClients(c) * 100;
         }

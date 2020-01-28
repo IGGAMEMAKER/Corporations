@@ -23,7 +23,7 @@ public class ProductOnMarketView : View
 
     void Render()
     {
-        var company = Companies.GetCompany(GameContext, companyId);
+        var company = Companies.Get(GameContext, companyId);
 
         var clients = Marketing.GetClients(company);
         var newClients = Marketing.GetAudienceGrowth(company, GameContext);

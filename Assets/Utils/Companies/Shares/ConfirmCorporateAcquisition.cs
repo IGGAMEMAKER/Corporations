@@ -14,7 +14,7 @@ namespace Assets.Core
 
         public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var target = GetCompany(gameContext, companyId);
+            var target = Get(gameContext, companyId);
             var corporation = Investments.GetCompanyByInvestorId(gameContext, buyerInvestorId);
 
             var shareholders = GetShareholders(target);

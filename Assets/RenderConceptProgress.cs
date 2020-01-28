@@ -15,7 +15,7 @@ public class RenderConceptProgress : UpgradedParameterView
         if (!Companies.IsExploredCompany(GameContext, CompanyId))
             return "";
 
-        var company = Companies.GetCompany(GameContext, CompanyId);
+        var company = Companies.Get(GameContext, CompanyId);
         var willInnovate = Products.IsWillInnovate(company, GameContext);
         var innovationChance = Products.GetInnovationChance(company, GameContext);
 

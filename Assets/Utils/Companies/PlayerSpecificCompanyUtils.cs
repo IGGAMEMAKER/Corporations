@@ -28,7 +28,7 @@ namespace Assets.Core
         }
 
         // TODO move to separate file
-        public static bool IsRelatedToPlayer(GameContext gameContext, int companyId) => IsRelatedToPlayer(gameContext, GetCompany(gameContext, companyId));
+        public static bool IsRelatedToPlayer(GameContext gameContext, int companyId) => IsRelatedToPlayer(gameContext, Get(gameContext, companyId));
         public static bool IsRelatedToPlayer(GameContext gameContext, GameEntity company)
         {
             var playerCompany = GetPlayerCompany(gameContext);

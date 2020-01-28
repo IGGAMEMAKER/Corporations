@@ -5,7 +5,7 @@ public class TestCampaignButton : TimedButton
     int CompanyId;
     public override void Execute()
     {
-        var company = Companies.GetCompany(GameContext, CompanyId);
+        var company = Companies.Get(GameContext, CompanyId);
 
         Marketing.StartTestCampaign(company, GameContext);
     }

@@ -7,11 +7,11 @@ namespace Assets.Core
     public static partial class Companies
     {
         // Read
-        public static GameEntity GetCompany(GameContext context, int companyId)
+        public static GameEntity Get(GameContext context, int companyId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
         }
-        public static string GetCompanyName(GameContext context, int companyId) => GetCompanyName(GetCompany(context, companyId));
+        public static string GetCompanyName(GameContext context, int companyId) => GetCompanyName(Get(context, companyId));
         public static string GetCompanyName(GameEntity company) => company.company.Name;
 
         public static GameEntity GetCompanyByName(GameContext context, string name)
@@ -34,7 +34,7 @@ namespace Assets.Core
 
         public static bool IsCompanyGroupLike(GameContext context, int companyId)
         {
-            var c = GetCompany(context, companyId);
+            var c = Get(context, companyId);
 
             return IsCompanyGroupLike(c);
         }
@@ -51,7 +51,7 @@ namespace Assets.Core
 
         public static bool IsProductCompany(GameContext context, int companyId)
         {
-            return IsProductCompany(GetCompany(context, companyId));
+            return IsProductCompany(Get(context, companyId));
         }
 
 
@@ -66,7 +66,7 @@ namespace Assets.Core
         // TODO move to separate file
         public static bool IsExploredCompany(GameContext gameContext, int companyId)
         {
-            var company = GetCompany(gameContext, companyId);
+            var company = Get(gameContext, companyId);
 
             return IsExploredCompany(gameContext, company);
         }
@@ -79,7 +79,7 @@ namespace Assets.Core
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {
-            var c = GetCompany(context, companyId);
+            var c = Get(context, companyId);
 
             c.ReplaceCompany(c.company.Id, name, c.company.CompanyType);
         }

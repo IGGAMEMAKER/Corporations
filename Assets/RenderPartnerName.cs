@@ -9,7 +9,7 @@ public class RenderPartnerName : View
     {
         this.companyId = companyId;
 
-        var c = Companies.GetCompany(GameContext, companyId);
+        var c = Companies.Get(GameContext, companyId);
 
         GetComponent<Text>().text = Visuals.Link(c.company.Name);
     }

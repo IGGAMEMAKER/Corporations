@@ -6,7 +6,7 @@ namespace Assets.Core
     {
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {
-            var product = GetCompany(context, companyId);
+            var product = Get(context, companyId);
 
             if (!product.isIndependentCompany)
                 return -1;
@@ -23,7 +23,7 @@ namespace Assets.Core
             AttachToGroup(context, companyGroupId, companyId);
 
 
-            var groupCo = GetCompany(context, companyGroupId);
+            var groupCo = Get(context, companyGroupId);
 
             var niche = product.product.Niche;
             var industry = Markets.GetIndustry(niche, context);
@@ -35,7 +35,7 @@ namespace Assets.Core
             // manage partnerships of product company
             foreach (var p in GetPartnershipCopy(product))
             {
-                var acceptor = GetCompany(context, p);
+                var acceptor = Get(context, p);
 
                 AcceptStrategicPartnership(groupCo, acceptor);
             }

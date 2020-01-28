@@ -84,7 +84,7 @@ public partial class ProductInitializerSystem : IInitializeSystem
     }
 
     void PlayAs(string companyName) => PlayAs(Companies.GetCompanyByName(GameContext, companyName));
-    void PlayAs(int companyId)      => PlayAs(Companies.GetCompany(GameContext, companyId));
+    void PlayAs(int companyId)      => PlayAs(Companies.Get(GameContext, companyId));
     void PlayAs(GameEntity company) => Companies.PlayAs(company, GameContext);
 
 
@@ -156,8 +156,8 @@ public partial class ProductInitializerSystem : IInitializeSystem
     {
         Companies.AttachToGroup(GameContext, parent, child);
 
-        var c = Companies.GetCompany(GameContext, child);
-        var p = Companies.GetCompany(GameContext, parent);
+        var c = Companies.Get(GameContext, child);
+        var p = Companies.Get(GameContext, parent);
 
         if (c.hasProduct)
             Companies.AddFocusNiche(c.product.Niche, p, GameContext);

@@ -72,7 +72,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var t = task as CompanyTaskMarketingTestCampaign;
 
-        var c = Companies.GetCompany(gameContext, t.CompanyId);
+        var c = Companies.Get(gameContext, t.CompanyId);
         Marketing.AddClients(c, 100);
     }
 
@@ -80,7 +80,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var t = task as CompanyTaskMarketingRegularCampaign;
 
-        var c = Companies.GetCompany(gameContext, t.CompanyId);
+        var c = Companies.Get(gameContext, t.CompanyId);
 
         var clients = Marketing.GetAudienceGrowth(c, gameContext);
 
@@ -91,7 +91,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var t = task as CompanyTaskBrandingCampaign;
 
-        var c = Companies.GetCompany(gameContext, t.CompanyId);
+        var c = Companies.Get(gameContext, t.CompanyId);
 
         Marketing.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
 
@@ -119,7 +119,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
     void ExploreCompany(CompanyTask task)
     {
-        var c = Companies.GetCompany(gameContext, task.CompanyId);
+        var c = Companies.Get(gameContext, task.CompanyId);
         c.AddResearch(1);
     }
 
@@ -127,7 +127,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var t = (task as CompanyTaskUpgradeFeature);
 
-        var product = Companies.GetCompany(gameContext, t.CompanyId);
+        var product = Companies.Get(gameContext, t.CompanyId);
 
         product.features.features[t.ProductImprovement]++;
         product.features.Count++;

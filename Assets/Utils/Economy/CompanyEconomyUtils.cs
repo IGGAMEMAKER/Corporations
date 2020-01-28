@@ -4,7 +4,7 @@
     {
         public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
-        public static long GetCompanyIncome(GameContext context, int companyId) => GetCompanyIncome(context, Companies.GetCompany(context, companyId));
+        public static long GetCompanyIncome(GameContext context, int companyId) => GetCompanyIncome(context, Companies.Get(context, companyId));
         public static long GetCompanyIncome(GameContext context, GameEntity e)
         {
             if (Companies.IsProductCompany(e))
@@ -15,7 +15,7 @@
 
 
 
-        internal static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.GetCompany(context, companyId));
+        internal static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.Get(context, companyId));
         internal static long GetProfit(GameContext context, GameEntity c)
         {
             return GetCompanyIncome(context, c) - GetCompanyMaintenance(context, c);
@@ -28,7 +28,7 @@
         }
 
 
-        internal static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, Companies.GetCompany(gameContext, companyId));
+        internal static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, Companies.Get(gameContext, companyId));
         internal static bool IsProfitable(GameContext gameContext, GameEntity company)
         {
             return GetProfit(gameContext, company) > 0;

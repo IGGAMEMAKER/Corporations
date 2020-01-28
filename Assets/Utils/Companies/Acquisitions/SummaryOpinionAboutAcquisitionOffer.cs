@@ -11,7 +11,7 @@
         {
             var cost = Economy.GetCompanyCost(gameContext, ackOffer.CompanyId);
 
-            var company = GetCompany(gameContext, ackOffer.CompanyId);
+            var company = Get(gameContext, ackOffer.CompanyId);
             var investor = GetInvestorById(gameContext, shareholderId);
 
             var container = GetInvestorOpinionAboutAcquisitionOffer(ackOffer, investor, company, gameContext);
@@ -32,7 +32,7 @@
         {
             var ackOffer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
 
-            var company = GetCompany(gameContext, companyId);
+            var company = Get(gameContext, companyId);
 
             var shareholders = company.shareholders.Shareholders;
 
