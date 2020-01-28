@@ -29,7 +29,7 @@ namespace Assets.Core
 
         private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext)
         {
-            MarketingUtils.AddBrandPower(product, Balance.INNOVATION_BRAND_POWER_GAIN);
+            Marketing.AddBrandPower(product, Balance.INNOVATION_BRAND_POWER_GAIN);
 
             // get your competitor's clients
             var products = Markets.GetProductsOnMarket(gameContext, product)
@@ -39,10 +39,10 @@ namespace Assets.Core
             long sum = 0;
             foreach (var p in products)
             {
-                var disloyal = MarketingUtils.GetClients(p) / 6;
+                var disloyal = Marketing.GetClients(p) / 6;
 
-                MarketingUtils.LooseClients(p, disloyal);
-                MarketingUtils.AddClients(product, disloyal);
+                Marketing.LooseClients(p, disloyal);
+                Marketing.AddClients(product, disloyal);
 
                 sum += disloyal;
             }

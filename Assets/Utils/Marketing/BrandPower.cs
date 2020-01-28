@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Core
 {
-    public static partial class MarketingUtils
+    public static partial class Marketing
     {
         public static void AddBrandPower(GameEntity company, float power)
         {

@@ -54,7 +54,7 @@ namespace Assets.Core
         {
             var niche = Markets.GetNiche(gameContext, e);
 
-            var clients = MarketingUtils.GetClients(e);
+            var clients = Marketing.GetClients(e);
 
             return (int) Mathf.Pow(clients / 1000, 0.5f);
         }

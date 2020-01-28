@@ -23,7 +23,7 @@
             return 0;
             var c = Companies.GetCompany(context, companyId);
 
-            return MarketingUtils.GetClients(c) * 100;
+            return Marketing.GetClients(c) * 100;
         }
     }
 }

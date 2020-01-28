@@ -19,7 +19,7 @@ public class ShowProductChanges : View
         if (product == null)
             return;
 
-        var newClients = MarketingUtils.GetAudienceGrowth(product, GameContext);
+        var newClients = Marketing.GetAudienceGrowth(product, GameContext);
         ClientChanges.GetComponent<Text>().text = Visuals.Positive(Format.Minify(newClients)) + " users";
 
         if (ScheduleUtils.IsPeriodEnd(GameContext))

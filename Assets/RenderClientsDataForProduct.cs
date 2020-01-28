@@ -67,7 +67,7 @@ public class RenderClientsDataForProduct : View
         }
 
         // add current value
-        metrics.Add(GetMetricMockup(MarketingUtils.GetClients(p), CurrentIntDate + 1));
+        metrics.Add(GetMetricMockup(Marketing.GetClients(p), CurrentIntDate + 1));
 
         var result = metrics.OrderBy(m => m.Date);
 

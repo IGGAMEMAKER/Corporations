@@ -71,7 +71,7 @@ public class NicheMapRenderer : View
 
         return Markets.GetProductsOnMarket(GameContext, niche)
             //.OrderByDescending(p => ProductUtils.GetProductLevel(p) * 1000 + CompanyUtils.GetCompanyExpertise(p))
-            .OrderByDescending(MarketingUtils.GetClients)
+            .OrderByDescending(Marketing.GetClients)
             .ToArray();
 
     }

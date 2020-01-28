@@ -17,7 +17,7 @@ public class ProductsOnMarketList : ListView
         base.ViewRender();
 
         var products = Markets.GetProductsOnMarket(GameContext, SelectedNiche)
-            .OrderByDescending(p => MarketingUtils.GetClients(p))
+            .OrderByDescending(p => Marketing.GetClients(p))
             ;
 
         SetItems(products);

@@ -51,7 +51,7 @@ public class CompanyViewOnMap : View
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var clients = MarketingUtils.GetClients(company);
+        var clients = Marketing.GetClients(company);
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         var position = Markets.GetPositionOnMarket(GameContext, company);
@@ -152,7 +152,7 @@ public class CompanyViewOnMap : View
         //
         var level = Products.GetProductLevel(company);
 
-        var clients = MarketingUtils.GetClients(company);
+        var clients = Marketing.GetClients(company);
 
         var brand = (int)company.branding.BrandPower;
 

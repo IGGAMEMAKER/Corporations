@@ -2,7 +2,7 @@
 
 namespace Assets.Core
 {
-    public static partial class MarketingUtils
+    public static partial class Marketing
     {
         public static float GetSumOfBrandPowers(NicheType nicheType, GameContext gameContext) => GetSumOfBrandPowers(Markets.GetNiche(gameContext, nicheType), gameContext);
         public static float GetSumOfBrandPowers(GameEntity niche, GameContext gameContext)

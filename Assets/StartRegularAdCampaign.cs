@@ -7,17 +7,17 @@ public class StartRegularAdCampaign : TimedButton
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var cost = MarketingUtils.GetTargetingCampaignCost(company, GameContext);
+        var cost = Marketing.GetTargetingCampaignCost(company, GameContext);
 
         Companies.SupportCompany(MyCompany, company, cost);
-        MarketingUtils.StartRegularCampaign(company, GameContext);
+        Marketing.StartRegularCampaign(company, GameContext);
     }
 
     public override bool IsInteractable()
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var cost = MarketingUtils.GetTargetingCampaignCost(company, GameContext);
+        var cost = Marketing.GetTargetingCampaignCost(company, GameContext);
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 
@@ -25,7 +25,7 @@ public class StartRegularAdCampaign : TimedButton
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var clients = MarketingUtils.GetAudienceGrowth(company, GameContext);
+        var clients = Marketing.GetAudienceGrowth(company, GameContext);
         return $"Start Targeting Campaign\n(+{Format.Minify(clients)} clients)";
     }
 

@@ -10,7 +10,7 @@ public class RenderMarketState : UpgradedParameterView
 
     string GetGrowthDescription (GameEntity p)
     {
-        var growth = MarketingUtils.GetBrandBasedAudienceGrowth(p, GameContext);
+        var growth = Marketing.GetBrandBasedAudienceGrowth(p, GameContext);
 
         return $"{p.company.Name} (): +{Format.Minify(growth)} users";
     }
@@ -21,7 +21,7 @@ public class RenderMarketState : UpgradedParameterView
         var speed = Markets.GetMarketGrowth(state);
 
 
-        var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
+        var flow = Marketing.GetClientFlow(GameContext, SelectedNiche);
 
         return Visuals.Positive("+" + speed) + $"% / month";
             //+

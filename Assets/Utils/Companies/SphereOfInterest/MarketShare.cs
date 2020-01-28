@@ -7,12 +7,12 @@
             long clients = 0;
 
             foreach (var p in Markets.GetProductsOnMarket(gameContext, product))
-                clients += MarketingUtils.GetClients(p);
+                clients += Marketing.GetClients(p);
 
             if (clients == 0)
                 return 0;
 
-            var share = 100 * MarketingUtils.GetClients(product) / clients;
+            var share = 100 * Marketing.GetClients(product) / clients;
 
             return share;
         }
@@ -24,7 +24,7 @@
 
             foreach (var p in Markets.GetProductsOnMarket(gameContext, nicheType))
             {
-                var cli = MarketingUtils.GetClients(p);
+                var cli = Marketing.GetClients(p);
                 share += GetControlInCompany(group, p, gameContext) * cli;
 
                 clients += cli;

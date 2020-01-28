@@ -89,7 +89,7 @@ namespace Assets.Core
 
             float unitIncome = GetUnitIncome(gameContext, c, segmentId);
 
-            long clients = MarketingUtils.GetClients(c);
+            long clients = Marketing.GetClients(c);
 
             return clients * unitIncome;
         }

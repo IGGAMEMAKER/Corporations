@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Core
 {
-    public static partial class MarketingUtils
+    public static partial class Marketing
     {
         public static long GetChurnRate(GameContext gameContext, int companyId)
         {

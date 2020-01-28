@@ -7,17 +7,17 @@ public class StartBrandingCampaign : TimedButton
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var cost = MarketingUtils.GetBrandingCampaignCost(company, GameContext);
+        var cost = Marketing.GetBrandingCampaignCost(company, GameContext);
 
         Companies.SupportCompany(MyCompany, company, cost);
-        MarketingUtils.StartBrandingCampaign(company, GameContext);
+        Marketing.StartBrandingCampaign(company, GameContext);
     }
 
     public override bool IsInteractable()
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var cost = MarketingUtils.GetBrandingCampaignCost(company, GameContext);
+        var cost = Marketing.GetBrandingCampaignCost(company, GameContext);
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 
@@ -25,7 +25,7 @@ public class StartBrandingCampaign : TimedButton
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        var clients = MarketingUtils.GetAudienceGrowth(company, GameContext);
+        var clients = Marketing.GetAudienceGrowth(company, GameContext);
         var branding = Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN;
 
         return $"Start Branding Campaign\n(+{branding} Brand and +{Format.Minify(clients)} clients)";

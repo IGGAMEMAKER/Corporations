@@ -63,9 +63,9 @@ public class MarketCompetitorPreview : View
     private void RenderCompanyInfo(GameEntity e)
     {
         var brand = (int) e.branding.BrandPower;
-        var brandChange = MarketingUtils.GetBrandChange(e, GameContext).Sum();
+        var brandChange = Marketing.GetBrandChange(e, GameContext).Sum();
 
-        var newClients = MarketingUtils.GetAudienceGrowth(e, GameContext);
+        var newClients = Marketing.GetAudienceGrowth(e, GameContext);
 
         Clients.text = "+" + Format.Minify(newClients) + $" users ({brand} brand)";
 

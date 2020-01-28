@@ -40,7 +40,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         var hasLowMarketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
 
-        var competitorIsDumpingToo = MarketingUtils.HasDumpingCompetitors(gameContext, product);
+        var competitorIsDumpingToo = Marketing.HasDumpingCompetitors(gameContext, product);
         var isOutdated = Products.IsOutOfMarket(product, gameContext);
 
         var needsToDump = isOutdated || hasLowMarketShare || competitorIsDumpingToo;

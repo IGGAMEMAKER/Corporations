@@ -25,8 +25,8 @@ public class ProductOnMarketView : View
     {
         var company = Companies.GetCompany(GameContext, companyId);
 
-        var clients = MarketingUtils.GetClients(company);
-        var newClients = MarketingUtils.GetAudienceGrowth(company, GameContext);
+        var clients = Marketing.GetClients(company);
+        var newClients = Marketing.GetAudienceGrowth(company, GameContext);
 
         Clients.text = Format.Minify(clients);
         NewClients.text = Format.Minify(newClients);

@@ -28,9 +28,9 @@ public partial class ClientDistributionSystem : OnMonthChange
     {
         for (var i = 0; i < products.Length; i++)
         {
-            var powerChange = MarketingUtils.GetBrandChange(products[i], gameContext).Sum();
+            var powerChange = Marketing.GetBrandChange(products[i], gameContext).Sum();
 
-            MarketingUtils.AddBrandPower(products[i], (float)powerChange);
+            Marketing.AddBrandPower(products[i], (float)powerChange);
         }
     }
 
@@ -40,9 +40,9 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         foreach (var p in products)
         {
-            var clients = MarketingUtils.GetAudienceGrowth(p, gameContext);
+            var clients = Marketing.GetAudienceGrowth(p, gameContext);
 
-            MarketingUtils.AddClients(p, clients);
+            Marketing.AddClients(p, clients);
 
             var segId = p.productPositioning.Positioning;
             clientContainers[segId] -= clients;

@@ -7,7 +7,7 @@ public class TestCampaignButton : TimedButton
     {
         var company = Companies.GetCompany(GameContext, CompanyId);
 
-        MarketingUtils.StartTestCampaign(company, GameContext);
+        Marketing.StartTestCampaign(company, GameContext);
     }
 
     public void SetCompanyId(int companyId)

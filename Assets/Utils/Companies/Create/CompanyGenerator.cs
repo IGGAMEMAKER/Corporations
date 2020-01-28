@@ -20,7 +20,7 @@ namespace Assets.Core
             company.AddFinancing(new Dictionary<Financing, int> { [Financing.Development] = 0, [Financing.Marketing] = 0, [Financing.Team] = 0 });
 
             // clients
-            var flow = MarketingUtils.GetBaseClientsForNewCompanies(context, niche);
+            var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
             company.AddMarketing((long)baseClients);
 

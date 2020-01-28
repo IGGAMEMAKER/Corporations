@@ -30,8 +30,8 @@ public partial class ChurnSystem : OnPeriodChange
         {
             var p = products[i];
 
-            var churnClients = MarketingUtils.GetChurnClients(contexts.game, p.company.Id);
-            MarketingUtils.AddClients(p, -churnClients);
+            var churnClients = Marketing.GetChurnClients(contexts.game, p.company.Id);
+            Marketing.AddClients(p, -churnClients);
 
             clientContainers[0] += churnClients;
 
@@ -45,7 +45,7 @@ public partial class ChurnSystem : OnPeriodChange
                 else
                     clients *= p.branding.BrandPower / totalBrands;
 
-                MarketingUtils.AddClients(d, (long)(clients));
+                Marketing.AddClients(d, (long)(clients));
             }
         }
     }

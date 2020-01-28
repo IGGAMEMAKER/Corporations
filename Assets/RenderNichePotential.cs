@@ -9,7 +9,7 @@ public class RenderNichePotential : ParameterView
         return "";
         var clients = Markets.GetAudienceSize(GameContext, SelectedNiche);
 
-        var flow = MarketingUtils.GetClientFlow(GameContext, SelectedNiche);
+        var flow = Marketing.GetClientFlow(GameContext, SelectedNiche);
 
         return $"{Format.Minify(clients)} users\n\n+{Format.Minify(flow)} this month";
 

@@ -42,7 +42,7 @@ public class CompanyViewOnMainScreen : View
 
         var id = company.company.Id;
 
-        var clients = MarketingUtils.GetClients(company);
+        var clients = Marketing.GetClients(company);
         var profit = Economy.GetProfit(GameContext, id);
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
@@ -68,8 +68,8 @@ public class CompanyViewOnMainScreen : View
         var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
         var workers = Teams.GetAmountOfWorkers(company, GameContext);
 
-        var targetingCost = MarketingUtils.GetTargetingCampaignCost(company, GameContext);
-        var brandingCost = MarketingUtils.GetBrandingCampaignCost(company, GameContext);
+        var targetingCost = Marketing.GetTargetingCampaignCost(company, GameContext);
+        var brandingCost = Marketing.GetBrandingCampaignCost(company, GameContext);
 
         // enable / disable them
         HireWorker.gameObject.SetActive(workers < max);
@@ -143,7 +143,7 @@ public class CompanyViewOnMainScreen : View
         //
         var level = Products.GetProductLevel(company);
 
-        var clients = MarketingUtils.GetClients(company);
+        var clients = Marketing.GetClients(company);
 
         var brand = (int)company.branding.BrandPower;
 

@@ -39,7 +39,7 @@ namespace Assets.Core
             {
 
                 var sum = products
-                    .Sum(MarketingUtils.GetClients);
+                    .Sum(Marketing.GetClients);
 
                 return sum;
             }

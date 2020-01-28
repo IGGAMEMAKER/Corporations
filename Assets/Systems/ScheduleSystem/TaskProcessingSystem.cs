@@ -73,7 +73,7 @@ public partial class TaskProcessingSystem : OnDateChange
         var t = task as CompanyTaskMarketingTestCampaign;
 
         var c = Companies.GetCompany(gameContext, t.CompanyId);
-        MarketingUtils.AddClients(c, 100);
+        Marketing.AddClients(c, 100);
     }
 
     void RegularCampaign(CompanyTask task)
@@ -82,9 +82,9 @@ public partial class TaskProcessingSystem : OnDateChange
 
         var c = Companies.GetCompany(gameContext, t.CompanyId);
 
-        var clients = MarketingUtils.GetAudienceGrowth(c, gameContext);
+        var clients = Marketing.GetAudienceGrowth(c, gameContext);
 
-        MarketingUtils.AddClients(c, clients);
+        Marketing.AddClients(c, clients);
     }
 
     void BrandingCampaign(CompanyTask task)
@@ -93,10 +93,10 @@ public partial class TaskProcessingSystem : OnDateChange
 
         var c = Companies.GetCompany(gameContext, t.CompanyId);
 
-        MarketingUtils.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
+        Marketing.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
 
-        var clients = MarketingUtils.GetAudienceGrowth(c, gameContext);
-        MarketingUtils.AddClients(c, clients);
+        var clients = Marketing.GetAudienceGrowth(c, gameContext);
+        Marketing.AddClients(c, clients);
     }
 
 

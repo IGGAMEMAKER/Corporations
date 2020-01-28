@@ -45,7 +45,7 @@
         {
             //var relativeGrowth = GetRelativeAnnualMarketGrowth(niche);
 
-            var flow = MarketingUtils.GetClientFlow(gameContext, niche.niche.NicheType);
+            var flow = Marketing.GetClientFlow(gameContext, niche.niche.NicheType);
 
             long clients = flow; // * relativeGrowth;
 

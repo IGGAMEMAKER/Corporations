@@ -1,6 +1,6 @@
 ﻿namespace Assets.Core
 {
-    public static partial class MarketingUtils
+    public static partial class Marketing
     {
         // test
         public static void StartTestCampaign(GameEntity product, GameContext gameContext)

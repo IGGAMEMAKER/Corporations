@@ -8,7 +8,7 @@ namespace Assets.Core
         public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext) => GetMarketingFinancingCostMultiplier(product, gameContext, GetMarketingFinancing(product));
         public static long GetMarketingFinancingCostMultiplier(GameEntity product, GameContext gameContext, int financing) {
             var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
-            var flow = MarketingUtils.GetClientFlow(gameContext, product.product.Niche);
+            var flow = Marketing.GetClientFlow(gameContext, product.product.Niche);
 
             // not released
             // needs to depend on own size

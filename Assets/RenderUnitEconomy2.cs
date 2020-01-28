@@ -21,7 +21,7 @@ public class RenderUnitEconomy2 : View
         var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
 
         var payback = ads / income;
-        var lifetime = MarketingUtils.GetLifeTime(GameContext, product.company.Id);
+        var lifetime = Marketing.GetLifeTime(GameContext, product.company.Id);
 
         var paybackDescription = "=\nMarketing cost: " + ads.ToString("0.00");
 

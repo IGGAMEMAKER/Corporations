@@ -15,7 +15,7 @@ public class PlayersOnMarketSorted : ListView
 
         var players = Markets.GetProductsOnMarket(GameContext, SelectedNiche)
             //.OrderByDescending(p => MarketingUtils.GetClients(p));
-            .OrderByDescending(p => MarketingUtils.GetAudienceGrowth(p, GameContext));
+            .OrderByDescending(p => Marketing.GetAudienceGrowth(p, GameContext));
 
         SetItems(players.ToArray());
     }
