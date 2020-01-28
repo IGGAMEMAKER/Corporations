@@ -18,6 +18,7 @@ public class StartBrandingCampaign : TimedButton
         var company = Companies.Get(GameContext, CompanyId);
 
         var cost = Marketing.GetBrandingCampaignCost(company, GameContext);
+
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 

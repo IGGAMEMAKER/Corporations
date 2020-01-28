@@ -18,6 +18,7 @@ public class StartRegularAdCampaign : TimedButton
         var company = Companies.Get(GameContext, CompanyId);
 
         var cost = Marketing.GetTargetingCampaignCost(company, GameContext);
+
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }
 
