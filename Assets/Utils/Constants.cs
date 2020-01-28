@@ -30,11 +30,15 @@
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST = 20;
     public const long INVESTMENT_GOAL_GROWTH_REQUIREMENT_PROFIT_GROWTH = 5;
 
+    // settings
     public const string MENU_SELECTED_COMPANY = "SelectedCompany";
     public const string MENU_SELECTED_INDUSTRY = "SelectedIndustry";
     public const string MENU_SELECTED_NICHE = "SelectedNiche";
     public const string MENU_SELECTED_HUMAN = "SelectedHuman";
     public const string MENU_SELECTED_INVESTOR = "SelectedInvestor";
+    //public static float GAMEPLAY_OFFSET_Y = -110f;
+    public const float GAMEPLAY_OFFSET_Y = -60f;
+
 
     public const int SALARIES_MANAGER = 2000;
     public const int SALARIES_PROGRAMMER = 2000;
@@ -45,8 +49,6 @@
     public const int SALARIES_DIRECTOR = 3500;
     public const int SALARIES_PRODUCT_PROJECT_MANAGER = 2500;
 
-    //public static float GAMEPLAY_OFFSET_Y = -110f;
-    public const float GAMEPLAY_OFFSET_Y = -60f;
 
     public const int COOLDOWN_COMPANY_GOAL = 365;
     public const int COOLDOWN_BRANDING = 90;
