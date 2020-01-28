@@ -34,6 +34,7 @@ public enum CompanyTaskType
     UpgradeFeature,
     TestCampaign,
     RegularCampaign,
+    BrandingCampaign,
 
     ReleasingApp
 }
@@ -65,6 +66,15 @@ public class CompanyTaskMarketingRegularCampaign : CompanyTask
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.RegularCampaign;
+    }
+}
+
+public class CompanyTaskBrandingCampaign : CompanyTask
+{
+    public CompanyTaskBrandingCampaign(int companyId)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.BrandingCampaign;
     }
 }
 

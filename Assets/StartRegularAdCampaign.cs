@@ -33,7 +33,7 @@ public class StartRegularAdCampaign : TimedButton
         var company = Companies.GetCompany(GameContext, CompanyId);
 
         var clients = MarketingUtils.GetAudienceGrowth(company, GameContext);
-        return $"Start regular campaign\n(+{Format.Minify(clients)} clients)";
+        return $"Start targeting campaign\n(+{Format.Minify(clients)} clients)";
     }
 
     public override CompanyTask GetCompanyTask()
