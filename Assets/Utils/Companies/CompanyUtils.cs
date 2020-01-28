@@ -1,6 +1,5 @@
 ﻿using Entitas;
 using System;
-using System.Linq;
 
 namespace Assets.Core
 {
@@ -11,6 +10,7 @@ namespace Assets.Core
         {
             return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
         }
+
         public static string GetCompanyName(GameContext context, int companyId) => GetCompanyName(Get(context, companyId));
         public static string GetCompanyName(GameEntity company) => company.company.Name;
 
@@ -32,28 +32,17 @@ namespace Assets.Core
             return t == CompanyType.Corporation || t == CompanyType.Group || t == CompanyType.Holding;
         }
 
-        public static bool IsCompanyGroupLike(GameContext context, int companyId)
-        {
-            var c = Get(context, companyId);
-
-            return IsCompanyGroupLike(c);
-        }
-
+        public static bool IsCompanyGroupLike(GameContext context, int companyId) => IsCompanyGroupLike(Get(context, companyId));
         public static bool IsCompanyGroupLike(GameEntity gameEntity)
         {
             return !IsProductCompany(gameEntity);
         }
 
+        public static bool IsProductCompany(GameContext context, int companyId) => IsProductCompany(Get(context, companyId));
         public static bool IsProductCompany(GameEntity gameEntity)
         {
             return gameEntity.company.CompanyType == CompanyType.ProductCompany;
         }
-
-        public static bool IsProductCompany(GameContext context, int companyId)
-        {
-            return IsProductCompany(Get(context, companyId));
-        }
-
 
 
         public static void SupportCompany(GameEntity main, GameEntity daughter, long money)
@@ -64,12 +53,7 @@ namespace Assets.Core
 
 
         // TODO move to separate file
-        public static bool IsExploredCompany(GameContext gameContext, int companyId)
-        {
-            var company = Get(gameContext, companyId);
-
-            return IsExploredCompany(gameContext, company);
-        }
+        public static bool IsExploredCompany(GameContext gameContext, int companyId) => IsExploredCompany(gameContext, Get(gameContext, companyId));
         public static bool IsExploredCompany(GameContext gameContext, GameEntity company)
         {
             return company.hasResearch || IsRelatedToPlayer(gameContext, company);
