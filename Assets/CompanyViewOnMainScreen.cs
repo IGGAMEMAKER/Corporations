@@ -27,6 +27,8 @@ public class CompanyViewOnMainScreen : View
     public UpgradeProductImprovements UpgradeChurn;
     public UpgradeProductImprovements UpgradeMonetisation;
 
+    public Text Expertise;
+
     bool EnableDarkTheme;
 
     GameEntity company;
@@ -36,10 +38,10 @@ public class CompanyViewOnMainScreen : View
         company = c;
         EnableDarkTheme = darkImage;
 
-        Render();
+        Render(true);
     }
 
-    void Render()
+    void Render(bool wasCompanyUpdated)
     {
         if (company == null)
             return;
@@ -47,6 +49,9 @@ public class CompanyViewOnMainScreen : View
         var id = company.company.Id;
 
         var clients = Marketing.GetClients(company);
+        var churn = Marketing.GetChurnRate(GameContext, company);
+        var churnClients = Marketing.GetChurnClients(GameContext, id);
+
         var profit = Economy.GetProfit(GameContext, id);
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
@@ -56,10 +61,16 @@ public class CompanyViewOnMainScreen : View
 
         var positionOnMarket = Markets.GetPositionOnMarket(GameContext, company) + 1;
 
+        var expertise = Products.GetFreeImprovements(company);
+
         SetEmblemColor();
 
         Clients.text = Format.Minify(clients);
+
+        Clients.GetComponent<Hint>().SetHint($"This product has {Format.Minify(clients)} clients\n" + Visuals.Negative($"We are losing {Format.Minify(churnClients)} each week.\nChurn rate is {churn}%") + $".\n\nUpgrade app to reduce this value");
         CompanyHint.SetHint(GetCompanyHint());
+
+        Expertise.text = $"Development\n(Expertise: {expertise})";
 
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
@@ -90,12 +101,12 @@ public class CompanyViewOnMainScreen : View
         var brandingCost = Marketing.GetBrandingCampaignCost(company, GameContext);
 
         // enable / disable them
-        HireWorker.gameObject.SetActive(workers < max);
-        ReleaseApp.gameObject.SetActive(Companies.IsReleaseableApp(company, GameContext));
+        UpdateIfNecessary(HireWorker, workers < max);
+        UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, GameContext));
 
-        TestCampaignButton.gameObject.SetActive(!company.isRelease);
-        StartRegularAdCampaign.gameObject.SetActive(company.isRelease);
-        StartBrandingCampaign.gameObject.SetActive(company.isRelease);
+        UpdateIfNecessary(TestCampaignButton, !company.isRelease);
+        UpdateIfNecessary(StartRegularAdCampaign, company.isRelease);
+        UpdateIfNecessary(StartBrandingCampaign, company.isRelease);
 
 
         // render
@@ -105,11 +116,17 @@ public class CompanyViewOnMainScreen : View
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
     }
 
+    void UpdateIfNecessary(MonoBehaviour mb, bool condition)
+    {
+        if (mb.gameObject.activeSelf != condition)
+            mb.gameObject.SetActive(condition);
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
 
-        Render();
+        Render(false);
     }
 
     string GetProfitDescription()

@@ -6,9 +6,10 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetChurnRate(GameContext gameContext, int companyId)
+        public static long GetChurnRate(GameContext gameContext, int companyId) => GetChurnRate(gameContext, Companies.Get(gameContext, companyId));
+        public static long GetChurnRate(GameContext gameContext, GameEntity company)
         {
-            return GetChurnBonus(gameContext, companyId).Sum();
+            return GetChurnBonus(gameContext, company.company.Id).Sum();
         }
 
         public static float GetLifeTime(GameContext gameContext, int companyId)
@@ -35,9 +36,9 @@ namespace Assets.Core
             return GetDumpingCompetitors(gameContext, product).Count() > 0;
         }
 
-        public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId)
+        public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId) => GetChurnBonus(gameContext, Companies.Get(gameContext, companyId));
+        public static Bonus<long> GetChurnBonus(GameContext gameContext, GameEntity c)
         {
-            var c = Companies.Get(gameContext, companyId);
             var state = Markets.GetMarketState(gameContext, c.product.Niche);
 
             var fromProductLevel = Products.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
@@ -60,7 +61,7 @@ namespace Assets.Core
 
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
-                
+
                 .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(1, 100)
@@ -69,7 +70,7 @@ namespace Assets.Core
 
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
-            return 2;
+            //return 2;
             switch (monetisation)
             {
                 case Monetisation.Adverts:
