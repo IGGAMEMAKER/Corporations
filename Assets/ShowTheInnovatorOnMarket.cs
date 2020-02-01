@@ -10,7 +10,7 @@ public class ShowTheInnovatorOnMarket : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var players = Markets.GetProductsOnMarket(GameContext, SelectedNiche);
+        var players = Markets.GetProductsOnMarket(Q, SelectedNiche);
 
         var productCompany = players.FirstOrDefault(p => p.isTechnologyLeader);
 

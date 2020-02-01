@@ -5,7 +5,7 @@ public class InspirationPopupButton : PopupButtonController<PopupMessageMarketIn
     public override void Execute()
     {
         NavigateToNiche(Popup.NicheType);
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
     }
 
     public override string GetButtonName() => "Explore opportunity!";

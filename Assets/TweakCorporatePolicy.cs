@@ -12,14 +12,14 @@ public class TweakCorporatePolicy : UpgradedButtonController
     public override void Execute()
     {
         if (Increment)
-            Companies.IncrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
+            Companies.IncrementCorporatePolicy(Q, MyCompany, CorporatePolicy);
         else
-            Companies.DecrementCorporatePolicy(GameContext, MyCompany, CorporatePolicy);
+            Companies.DecrementCorporatePolicy(Q, MyCompany, CorporatePolicy);
     }
 
     public override bool IsInteractable()
     {
-        bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+        bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
 
         var culture = Companies.GetOwnCorporateCulture(MyCompany);
 

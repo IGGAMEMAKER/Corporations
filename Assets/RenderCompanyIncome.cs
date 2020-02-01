@@ -9,6 +9,6 @@ public class RenderCompanyIncome : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Format.Money(Economy.GetCompanyIncome(GameContext, SelectedCompany));
+        return Format.Money(Economy.GetCompanyIncome(Q, SelectedCompany));
     }
 }

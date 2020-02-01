@@ -12,7 +12,7 @@ public class StartCapitalOrMarketShareLabel : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
+        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, Q);
 
         if (hasCompany)
             return "Our market share";

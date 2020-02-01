@@ -15,7 +15,7 @@ public class AcquisitionBuyerCandidatesListView : ListView
     {
         base.ViewRender();
 
-        var offers = Companies.GetAcquisitionOffersToCompany(GameContext, SelectedCompany.company.Id);
+        var offers = Companies.GetAcquisitionOffersToCompany(Q, SelectedCompany.company.Id);
 
         SetItems(offers.ToArray());
     }

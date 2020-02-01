@@ -6,10 +6,10 @@ public class ReleaseAppPopupButton : PopupButtonController<PopupMessageDoYouWant
     {
         var companyId = Popup.companyId;
 
-        Marketing.ReleaseApp(GameContext, companyId);
-        NotificationUtils.ClosePopup(GameContext);
+        Marketing.ReleaseApp(Q, companyId);
+        NotificationUtils.ClosePopup(Q);
 
-        NotificationUtils.AddPopup(GameContext, new PopupMessageRelease(companyId));
+        NotificationUtils.AddPopup(Q, new PopupMessageRelease(companyId));
     }
 
     public override string GetButtonName() => "YES";

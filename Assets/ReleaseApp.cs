@@ -7,7 +7,7 @@ public class ReleaseApp : ButtonController
     {
         id = CurrentScreen == ScreenMode.GroupManagementScreen ? id : SelectedCompany.company.Id;
 
-        NotificationUtils.AddPopup(GameContext, new PopupMessageDoYouWantToRelease(id));
+        NotificationUtils.AddPopup(Q, new PopupMessageDoYouWantToRelease(id));
     }
 
     // not used

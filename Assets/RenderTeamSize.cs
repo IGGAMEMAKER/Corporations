@@ -4,6 +4,6 @@ public class RenderTeamSize : ParameterView
 {
     public override string RenderValue()
     {
-        return Teams.GetAmountOfWorkers(SelectedCompany, GameContext).ToString();
+        return Teams.GetAmountOfWorkers(SelectedCompany, Q).ToString();
     }
 }

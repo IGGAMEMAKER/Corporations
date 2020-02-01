@@ -12,6 +12,6 @@ public class FireManager : ButtonController
         if (companyId < 0)
             return;
 
-        Teams.FireManager(GameContext, SelectedHuman);
+        Teams.FireManager(Q, SelectedHuman);
     }
 }

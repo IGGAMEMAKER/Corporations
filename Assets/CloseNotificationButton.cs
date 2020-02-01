@@ -6,6 +6,6 @@ public class CloseNotificationButton : ButtonController
 
     public override void Execute()
     {
-        NotificationUtils.ClearNotification(GameContext, NotificationId);
+        NotificationUtils.ClearNotification(Q, NotificationId);
     }
 }

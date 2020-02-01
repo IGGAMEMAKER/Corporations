@@ -8,11 +8,11 @@ public class BuyShares : ButtonController
     {
         var companyId = SelectedCompany.company.Id;
 
-        int amountOfShares = Companies.GetAmountOfShares(GameContext, companyId, ShareholderId);
+        int amountOfShares = Companies.GetAmountOfShares(Q, companyId, ShareholderId);
 
-        long bid = Companies.GetSharesCost(GameContext, companyId, ShareholderId);
+        long bid = Companies.GetSharesCost(Q, companyId, ShareholderId);
 
-        Companies.BuyShares(GameContext, companyId, MyGroupEntity.shareholder.Id, ShareholderId, amountOfShares, bid);
+        Companies.BuyShares(Q, companyId, MyGroupEntity.shareholder.Id, ShareholderId, amountOfShares, bid);
 
         //GoBack();
         //ReNavigate();

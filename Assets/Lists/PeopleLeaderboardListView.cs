@@ -17,7 +17,7 @@ public class PeopleLeaderboardListView : ListView
 
     public void Render()
     {
-        var people = Investments.GetInfluencialPeople(GameContext);
+        var people = Investments.GetInfluencialPeople(Q);
 
         SetItems(people);
     }

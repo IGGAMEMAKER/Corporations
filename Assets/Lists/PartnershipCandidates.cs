@@ -14,9 +14,9 @@ public class PartnershipCandidates : ListView
     // Start is called before the first frame update
     void OnEnable()
     {
-        var possiblePartners = Companies.GetPartnershipCandidates(MyCompany, GameContext)
+        var possiblePartners = Companies.GetPartnershipCandidates(MyCompany, Q)
                 //.OrderByDescending(c => CompanyUtils.GetPartnerability(MyCompany, c, GameContext).Sum());
-                .OrderByDescending(c => Companies.GetCompanyBenefitFromTargetCompany(MyCompany, c, GameContext));
+                .OrderByDescending(c => Companies.GetCompanyBenefitFromTargetCompany(MyCompany, c, Q));
 
         SetItems(possiblePartners.ToArray());
     }

@@ -81,9 +81,9 @@ public class InvestmentGoalView : View
         var goal = MyCompany.companyGoal.InvestorGoal;
 
         var goalInfo = Investments.GetFormattedInvestorGoal(goal);
-        var requirements = Investments.GetGoalRequirements(MyCompany, GameContext);
+        var requirements = Investments.GetGoalRequirements(MyCompany, Q);
 
-        Goal.text = Visuals.Colorize(goalInfo, Investments.IsGoalCompleted(MyCompany, GameContext));
+        Goal.text = Visuals.Colorize(goalInfo, Investments.IsGoalCompleted(MyCompany, Q));
 
         RenderProgress(requirements, goal);
     }

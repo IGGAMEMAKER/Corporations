@@ -6,9 +6,9 @@ public class FillCompetingCompaniesList : View
 {
     GameEntity[] GetProductsOnNiche()
     {
-        var niche = ScreenUtils.GetSelectedNiche(GameContext);
+        var niche = ScreenUtils.GetSelectedNiche(Q);
 
-        var list = Markets.GetProductsOnMarket(GameContext, niche).ToArray();
+        var list = Markets.GetProductsOnMarket(Q, niche).ToArray();
 
         Array.Sort(list, SortCompanies);
 

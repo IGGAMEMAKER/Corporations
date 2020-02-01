@@ -4,28 +4,28 @@ public abstract class Controller : BaseClass
 {
     public void ListenMenuChanges(IMenuListener menuListener)
     {
-        ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);
+        ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
     }
 
     public void UnListenMenuChanges(IMenuListener menuListener)
     {
-        ScreenUtils.GetMenu(GameContext).RemoveMenuListener(menuListener);
+        ScreenUtils.GetMenu(Q).RemoveMenuListener(menuListener);
     }
 
 
     public void ListenDateChanges(IAnyDateListener dateListener)
     {
-        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+        ScheduleUtils.ListenDateChanges(Q, dateListener);
     }
 
     public void UnListenDateChanges(IAnyDateListener dateListener)
     {
-        ScheduleUtils.UnsubscribeFromDateChanges(GameContext, dateListener);
+        ScheduleUtils.UnsubscribeFromDateChanges(Q, dateListener);
     }
 
     public GameEntity AnyChangeListener()
     {
-        return ScreenUtils.GetMenu(GameContext);
+        return ScreenUtils.GetMenu(Q);
     }
 
     public void Render()

@@ -34,7 +34,7 @@ public class TaggedProgressBar : View
 
     void Render()
     {
-        TaskComponent taskComponent = ScheduleUtils.GetTask(GameContext, TaskType);
+        TaskComponent taskComponent = ScheduleUtils.GetTask(Q, TaskType);
 
         if (taskComponent == null)
         {
@@ -47,7 +47,7 @@ public class TaggedProgressBar : View
         ProgressBar.gameObject.SetActive(true);
         ProgressBarDescription.gameObject.SetActive(true);
 
-        float progress = ScheduleUtils.GetTaskCompletionPercentage(GameContext, taskComponent);
+        float progress = ScheduleUtils.GetTaskCompletionPercentage(Q, taskComponent);
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.CompanyTask);
         ProgressBar.SetValue(progress);

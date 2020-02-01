@@ -61,7 +61,7 @@ public abstract partial class ButtonController : BaseClass
 
     public void UpdatePage()
     {
-        ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
+        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
     }
 }
 
@@ -70,12 +70,12 @@ public abstract partial class ButtonController
 {
     public void UnlockTutorialFunctionality(TutorialFunctionality tutorialFunctionality)
     {
-        TutorialUtils.Unlock(GameContext, tutorialFunctionality);
+        TutorialUtils.Unlock(Q, tutorialFunctionality);
     }
 
     public void SetSelectedCompany(int companyId)
     {
-        ScreenUtils.SetSelectedCompany(GameContext, companyId);
+        ScreenUtils.SetSelectedCompany(Q, companyId);
     }
 }
 
@@ -84,18 +84,18 @@ public abstract partial class ButtonController
 {
     public void GoBack()
     {
-        ScreenUtils.NavigateBack(GameContext);
+        ScreenUtils.NavigateBack(Q);
     }
 
     // navigate
     public void Navigate(ScreenMode screenMode, string field, object data)
     {
-        ScreenUtils.Navigate(GameContext, screenMode, field, data);
+        ScreenUtils.Navigate(Q, screenMode, field, data);
     }
 
     public void Navigate(ScreenMode screenMode)
     {
-        ScreenUtils.Navigate(GameContext, screenMode);
+        ScreenUtils.Navigate(Q, screenMode);
     }
 
     public void NavigateToNiche(NicheType niche)

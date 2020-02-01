@@ -49,17 +49,17 @@ public class CompanyViewOnMainScreen : View
         var id = company.company.Id;
 
         var clients = Marketing.GetClients(company);
-        var churn = Marketing.GetChurnRate(GameContext, company);
-        var churnClients = Marketing.GetChurnClients(GameContext, id);
+        var churn = Marketing.GetChurnRate(Q, company);
+        var churnClients = Marketing.GetChurnClients(Q, id);
 
-        var profit = Economy.GetProfit(GameContext, id);
+        var profit = Economy.GetProfit(Q, id);
 
-        bool hasControl = Companies.GetControlInCompany(MyCompany, company, GameContext) > 0;
+        bool hasControl = Companies.GetControlInCompany(MyCompany, company, Q) > 0;
 
         var nameColor = hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL;
         var profitColor = profit >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
 
-        var positionOnMarket = Markets.GetPositionOnMarket(GameContext, company) + 1;
+        var positionOnMarket = Markets.GetPositionOnMarket(Q, company) + 1;
 
         var expertise = Products.GetFreeImprovements(company);
 
@@ -99,17 +99,17 @@ public class CompanyViewOnMainScreen : View
         UpgradeMonetisation.SetCompanyId(id);
 
 
-        var max = Economy.GetNecessaryAmountOfWorkers(company, GameContext);
-        var workers = Teams.GetAmountOfWorkers(company, GameContext);
+        var max = Economy.GetNecessaryAmountOfWorkers(company, Q);
+        var workers = Teams.GetAmountOfWorkers(company, Q);
 
-        var targetingCost = Marketing.GetTargetingCampaignCost(company, GameContext);
-        var brandingCost = Marketing.GetBrandingCampaignCost(company, GameContext);
+        var targetingCost = Marketing.GetTargetingCampaignCost(company, Q);
+        var brandingCost = Marketing.GetBrandingCampaignCost(company, Q);
 
 
 
         // enable / disable them
         UpdateIfNecessary(HireWorker, workers < max);
-        UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, GameContext));
+        UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
 
         UpdateIfNecessary(TestCampaignButton, !company.isRelease);
         UpdateIfNecessary(StartRegularAdCampaign, company.isRelease);
@@ -138,7 +138,7 @@ public class CompanyViewOnMainScreen : View
 
     string GetProfitDescription()
     {
-        var profit = Economy.GetProfit(GameContext, company.company.Id);
+        var profit = Economy.GetProfit(Q, company.company.Id);
 
         return profit > 0 ?
             Visuals.Positive($"Profit: +{Format.Money(profit)}") :
@@ -160,10 +160,10 @@ public class CompanyViewOnMainScreen : View
     {
         StringBuilder hint = new StringBuilder(company.company.Name);
 
-        var position = Markets.GetPositionOnMarket(GameContext, company);
+        var position = Markets.GetPositionOnMarket(Q, company);
 
         // quality description
-        var conceptStatus = Products.GetConceptStatus(company, GameContext);
+        var conceptStatus = Products.GetConceptStatus(company, Q);
 
         var concept = "???";
 

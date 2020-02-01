@@ -25,13 +25,13 @@ public class HumanCapitalsTableView : View, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        ScreenUtils.SetSelectedHuman(GameContext, entity.human.Id);
+        ScreenUtils.SetSelectedHuman(Q, entity.human.Id);
     }
 
     void Render(int rank)
     {
         Name.text = Humans.GetFullName(entity);
-        Capitals.text = Format.Money(Investments.GetInvestorCapitalCost(GameContext, entity));
+        Capitals.text = Format.Money(Investments.GetInvestorCapitalCost(Q, entity));
 
         Rank.text = rank.ToString();
         Age.text = "54"; // Random.Range(35, 80).ToString();

@@ -22,7 +22,7 @@ public class RenderClientsDataForProduct : View
 
         //Debug.Log("amount of dots: " + xs.Count);
 
-        var products = Markets.GetProductsOnMarket(GameContext, SelectedCompany);
+        var products = Markets.GetProductsOnMarket(Q, SelectedCompany);
         GraphData[] ys = products
             .Select(p =>
                 new GraphData

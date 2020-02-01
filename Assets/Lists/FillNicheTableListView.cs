@@ -13,7 +13,7 @@ public class FillNicheTableListView : View
     void Render()
     {
         //var niches = NicheUtils.GetNiches(GameContext);
-        var niches = Markets.GetPlayableNiches(GameContext);
+        var niches = Markets.GetPlayableNiches(Q);
 
         GetComponent<NicheTableListView>().SetItems(niches);
     }

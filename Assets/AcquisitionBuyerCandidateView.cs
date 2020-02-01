@@ -12,11 +12,11 @@ public class AcquisitionBuyerCandidateView : View
     public void SetEntity(GameEntity offer)
     {
         var investorId = offer.acquisitionOffer.BuyerId;
-        var buyerCompanyId = Investments.GetCompanyIdByInvestorId(GameContext, investorId);
+        var buyerCompanyId = Investments.GetCompanyIdByInvestorId(Q, investorId);
 
         GetComponent<LinkToProjectView>().CompanyId = buyerCompanyId;
         Offer.text = Format.Money(offer.acquisitionOffer.BuyerOffer.Price);
 
-        CompanyName.text = Companies.Get(GameContext, buyerCompanyId).company.Name;
+        CompanyName.text = Companies.Get(Q, buyerCompanyId).company.Name;
     }
 }

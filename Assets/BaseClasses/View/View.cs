@@ -41,22 +41,22 @@ public abstract class View : BaseClass
 
     public void ListenMenuChanges(IMenuListener menuListener)
     {
-        ScreenUtils.GetMenu(GameContext).AddMenuListener(menuListener);
+        ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
     }
 
     public void ListenDateChanges(IAnyDateListener dateListener)
     {
-        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+        ScheduleUtils.ListenDateChanges(Q, dateListener);
     }
 
     public void LazyUpdate(IAnyDateListener dateListener)
     {
-        ScheduleUtils.ListenDateChanges(GameContext, dateListener);
+        ScheduleUtils.ListenDateChanges(Q, dateListener);
     }
 
     public void RefreshPage()
     {
-        ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
+        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
     }
 
     public virtual void ViewRender() { }

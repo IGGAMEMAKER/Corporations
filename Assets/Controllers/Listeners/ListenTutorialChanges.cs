@@ -8,12 +8,12 @@ public class ListenTutorialChanges : Controller
 {
     public override void AttachListeners()
     {
-        TutorialUtils.AddEventListener(GameContext, this);
+        TutorialUtils.AddEventListener(Q, this);
     }
 
     public override void DetachListeners()
     {
-        TutorialUtils.RemoveEventListener(GameContext, this);
+        TutorialUtils.RemoveEventListener(Q, this);
     }
 
     void ITutorialListener.OnTutorial(GameEntity entity, Dictionary<TutorialFunctionality, bool> progress)

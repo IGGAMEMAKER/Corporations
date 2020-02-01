@@ -4,7 +4,7 @@ public class ClosePopupOK : SimplePopupButtonController
 {
     public override void Execute()
     {
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
 
         UpdatePage();
     }

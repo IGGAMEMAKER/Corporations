@@ -6,7 +6,7 @@ public class MoveToDate : ButtonController
     public override void Execute()
     {
         if (date > CurrentIntDate)
-            ScheduleUtils.ResumeGame(GameContext, date);
+            ScheduleUtils.ResumeGame(Q, date);
     }
 
     public void SetEntity(int currentDate)

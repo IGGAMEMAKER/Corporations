@@ -29,7 +29,7 @@ public abstract class StaffListView : ListView
     Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
     {
         //return 1;
-        return GetWorkerOrder(p.Value) * 1000 + Humans.GetRating(GameContext, p.Key);
+        return GetWorkerOrder(p.Value) * 1000 + Humans.GetRating(Q, p.Key);
     };
 
     static int GetWorkerOrder(WorkerRole role)

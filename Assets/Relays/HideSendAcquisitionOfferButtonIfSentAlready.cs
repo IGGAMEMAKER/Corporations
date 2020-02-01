@@ -7,8 +7,8 @@ public class HideSendAcquisitionOfferButtonIfSentAlready : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        var offer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        return offer.acquisitionOffer.Turn == AcquisitionTurn.Seller || Companies.IsRelatedToPlayer(GameContext, SelectedCompany);
+        return offer.acquisitionOffer.Turn == AcquisitionTurn.Seller || Companies.IsRelatedToPlayer(Q, SelectedCompany);
     }
 }

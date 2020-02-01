@@ -9,7 +9,7 @@ public class RenderMarketingCostPerUser : ParameterView
     {
         var product = SelectedCompany;
 
-        var cost = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext) * 1000;
+        var cost = Markets.GetClientAcquisitionCost(product.product.Niche, Q) * 1000;
 
         return cost.ToString("0.0") + "$";
     }

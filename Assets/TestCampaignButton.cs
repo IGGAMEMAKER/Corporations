@@ -4,9 +4,9 @@ public class TestCampaignButton : TimedButton
 {
     public override void Execute()
     {
-        var company = Companies.Get(GameContext, CompanyId);
+        var company = Companies.Get(Q, CompanyId);
 
-        Marketing.StartTestCampaign(company, GameContext);
+        Marketing.StartTestCampaign(company, Q);
     }
 
     public override bool IsInteractable()

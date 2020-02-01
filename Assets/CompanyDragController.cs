@@ -43,7 +43,7 @@ public class CompanyDragController : View,
             int parent = GetCompanyIdByGameObject(targetItem);
             int subsidiary = GetCompanyIdByGameObject(itemBeingDragged);
 
-            Companies.AttachToGroup(GameContext, parent, subsidiary);
+            Companies.AttachToGroup(Q, parent, subsidiary);
         }
 
         itemBeingDragged = null;

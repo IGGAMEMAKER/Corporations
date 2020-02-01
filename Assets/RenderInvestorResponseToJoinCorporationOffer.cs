@@ -16,7 +16,7 @@ public class RenderInvestorResponseToJoinCorporationOffer : View
 
     void Render()
     {
-        var investor = Companies.GetInvestorById(GameContext, shareholderId);
+        var investor = Companies.GetInvestorById(Q, shareholderId);
 
         RenderResponse(investor);
     }
@@ -30,8 +30,8 @@ public class RenderInvestorResponseToJoinCorporationOffer : View
 
     void RenderResponse(GameEntity investor)
     {
-        bool willAcceptOffer = Companies.IsShareholderWillAcceptCorporationOffer(SelectedCompany.company.Id, shareholderId, GameContext);
-        bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+        bool willAcceptOffer = Companies.IsShareholderWillAcceptCorporationOffer(SelectedCompany.company.Id, shareholderId, Q);
+        bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, Q, shareholderId, investor.shareholder.InvestorType);
 
         var text = "";
 

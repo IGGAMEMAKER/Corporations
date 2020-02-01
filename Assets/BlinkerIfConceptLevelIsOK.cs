@@ -9,9 +9,9 @@ public class BlinkerIfConceptLevelIsOK : View
     {
         base.ViewRender();
 
-        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext);
+        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q);
 
-        var releaseableApps = daughtersOnMarket.Where(p => !p.isRelease && !Products.IsOutOfMarket(p, GameContext));
+        var releaseableApps = daughtersOnMarket.Where(p => !p.isRelease && !Products.IsOutOfMarket(p, Q));
 
         bool hasReleasebleApps = releaseableApps.Count() > 0;
 

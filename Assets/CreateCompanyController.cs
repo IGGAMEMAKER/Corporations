@@ -8,8 +8,8 @@ public class CreateCompanyController : View
 
     void OnEnable()
     {
-        var niche = Markets.GetNiche(GameContext, SelectedNiche);
-        var startCapital = Markets.GetStartCapital(niche, GameContext);
+        var niche = Markets.GetNiche(Q, SelectedNiche);
+        var startCapital = Markets.GetStartCapital(niche, Q);
 
         if (MyGroupEntity != null)
         {

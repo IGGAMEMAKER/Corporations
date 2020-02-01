@@ -19,7 +19,7 @@ public class BusinessButtonsController : View
 
         bool canBePartnersTheoretically = Companies.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);
 
-        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
+        bool isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, SelectedCompany); // CompanyUtils.IsDaughterOfCompany(MyGroupEntity, SelectedCompany) || SelectedCompany == MyCompany;
         bool isDaughter = Companies.IsDaughterOfCompany(MyCompany, SelectedCompany);
 
         // controlled company buttons

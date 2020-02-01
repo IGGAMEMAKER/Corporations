@@ -17,8 +17,8 @@ public class RenderOpportunityButtons : View
         var screen = CurrentScreen;
         bool isMyCompanyScreen = screen == ScreenMode.GroupManagementScreen || (SelectedCompany.company.Id == MyCompany.company.Id && screen == ScreenMode.ProjectScreen);
 
-        bool hasAtLeastOneCompany = Companies.IsHasDaughters(GameContext, MyCompany);
-        bool hasReleasedProducts = Companies.IsHasReleasedProducts(GameContext, MyCompany);
+        bool hasAtLeastOneCompany = Companies.IsHasDaughters(Q, MyCompany);
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
         LinkToHead
             .SetActive(isMyCompanyScreen && hasReleasedProducts);

@@ -47,7 +47,7 @@ public class JobOfferScreen : View
 
         var role = Humans.GetRole(SelectedHuman);
 
-        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(GameContext, SelectedHuman)}LVL)";
+        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(Q, SelectedHuman)}LVL)";
         RoleName.text = Humans.GetFormattedRole(role);
     }
 }

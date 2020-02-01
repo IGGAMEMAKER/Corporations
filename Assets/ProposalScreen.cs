@@ -12,13 +12,13 @@ public class ProposalScreen : View
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
     public RejectInvestmentProposalController RejectInvestmentProposalController;
 
-    InvestmentProposal proposal => Companies.GetInvestmentProposal(GameContext, SelectedCompany.company.Id, SelectedInvestor.shareholder.Id);
+    InvestmentProposal proposal => Companies.GetInvestmentProposal(Q, SelectedCompany.company.Id, SelectedInvestor.shareholder.Id);
 
     bool IsInvestmentRoundActive => SelectedCompany.hasAcceptsInvestments;
 
     void RenderOffer()
     {
-        long Cost = Economy.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        long Cost = Economy.GetCompanyCost(Q, SelectedCompany.company.Id);
 
         long offer = proposal.Offer;
         long futureShareSize = offer * 100 / (offer + Cost);

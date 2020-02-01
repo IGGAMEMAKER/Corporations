@@ -6,7 +6,7 @@ public class LinkToOutdatedProducts : ButtonController
 {
     public override void Execute()
     {
-        var companies = Companies.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id);
+        var companies = Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id);
 
         var hint = $"You have {companies.Length} outdated products. \nImprove them!\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);

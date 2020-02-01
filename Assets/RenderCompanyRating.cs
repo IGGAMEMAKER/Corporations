@@ -6,7 +6,7 @@ public class RenderCompanyRating : View
     {
         var company = SelectedCompany;
 
-        int amountOfStars = Economy.GetCompanyRating(GameContext, company.company.Id);
+        int amountOfStars = Economy.GetCompanyRating(Q, company.company.Id);
 
         GetComponent<SetAmountOfStars>().SetStars(amountOfStars);
     }

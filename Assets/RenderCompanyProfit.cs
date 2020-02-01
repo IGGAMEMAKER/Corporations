@@ -4,8 +4,8 @@ public class RenderCompanyProfit : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var income = Economy.GetCompanyIncome(GameContext, SelectedCompany);
-        var maintenance = Economy.GetCompanyMaintenance(GameContext, SelectedCompany);
+        var income = Economy.GetCompanyIncome(Q, SelectedCompany);
+        var maintenance = Economy.GetCompanyMaintenance(Q, SelectedCompany);
 
         var bonus = new Bonus<long>("Balance change")
             .Append("Income", income)
@@ -18,7 +18,7 @@ public class RenderCompanyProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var profit = Economy.GetProfit(GameContext, SelectedCompany);
+        var profit = Economy.GetProfit(Q, SelectedCompany);
 
         return Visuals.PositiveOrNegativeMinified(profit);
     }

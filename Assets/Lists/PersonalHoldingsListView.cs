@@ -25,7 +25,7 @@ public class PersonalHoldingsListView : ListView
     private GameEntity[] GetInvestments()
     {
         if (SelectedHuman.hasShareholder)
-            return Investments.GetInvestmentsOf(GameContext, SelectedHuman.shareholder.Id);
+            return Investments.GetInvestmentsOf(Q, SelectedHuman.shareholder.Id);
 
         return new GameEntity[0];
     }

@@ -16,6 +16,6 @@ public class HideIfTaskIsInProgress : View
     {
         // TODO
 
-        return ScheduleUtils.GetTask(GameContext, taskType) != null;
+        return ScheduleUtils.GetTask(Q, taskType) != null;
     }
 }

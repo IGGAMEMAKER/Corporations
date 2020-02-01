@@ -6,7 +6,7 @@ public class AbandonCompanyController : ButtonController
     {
         if (SelectedCompany != null)
         {
-            Companies.LeaveCEOChair(GameContext, SelectedCompany.company.Id);
+            Companies.LeaveCEOChair(Q, SelectedCompany.company.Id);
 
             //ReNavigate();
         }

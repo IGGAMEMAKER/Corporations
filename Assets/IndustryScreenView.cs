@@ -15,7 +15,7 @@ public class IndustryScreenView : View
 
     void Render()
     {
-        industryType = ScreenUtils.GetSelectedIndustry(GameContext);
+        industryType = ScreenUtils.GetSelectedIndustry(Q);
 
         IndustryName.text = EnumUtils.GetFormattedIndustryName(industryType) + " Industry";
     }

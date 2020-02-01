@@ -15,7 +15,7 @@ public class StartCampaignButton : ButtonController
         if (Input.text.Length == 0)
             return;
 
-        var company = Companies.GenerateCompanyGroup(GameContext, Input.text);
+        var company = Companies.GenerateCompanyGroup(Q, Input.text);
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
             [CorporatePolicy.BuyOrCreate] = Balance.CORPORATE_CULTURE_LEVEL_MAX,
@@ -24,20 +24,20 @@ public class StartCampaignButton : ButtonController
             [CorporatePolicy.WorkerMindset] = Balance.CORPORATE_CULTURE_LEVEL_MAX
         });
 
-        var startCapital = Markets.GetStartCapital(NicheType, GameContext);
+        var startCapital = Markets.GetStartCapital(NicheType, Q);
 
         Companies.SetResources(company, new TeamResource(startCapital));
 
-        var niche = Markets.GetNiche(GameContext, NicheType);
+        var niche = Markets.GetNiche(Q, NicheType);
         //niche.AddResearch(1);
 
-        Companies.PlayAs(company, GameContext);
-        Companies.AutoFillShareholders(GameContext, company, true);
+        Companies.PlayAs(company, Q);
+        Companies.AutoFillShareholders(Q, company, true);
 
         PrepareMarket(niche, startCapital);
 
 
-        ScreenUtils.Navigate(GameContext, ScreenMode.NicheScreen, Balance.MENU_SELECTED_NICHE, NicheType);
+        ScreenUtils.Navigate(Q, ScreenMode.NicheScreen, Balance.MENU_SELECTED_NICHE, NicheType);
 
 
         SceneManager.UnloadSceneAsync(2);
@@ -49,7 +49,7 @@ public class StartCampaignButton : ButtonController
         // spawn competitors
         for (var i = 0; i < 1; i++)
         {
-            var c = Markets.SpawnCompany(niche, GameContext, Random.Range(2, 5) * startCapital);
+            var c = Markets.SpawnCompany(niche, Q, Random.Range(2, 5) * startCapital);
 
             //MarketingUtils.AddClients(c, MarketingUtils.GetClients(c) * Random.Range(1, 1.5f));
             Marketing.AddBrandPower(c, 10);
@@ -58,8 +58,8 @@ public class StartCampaignButton : ButtonController
         // spawn investors
         for (var i = 0; i < 1; i++)
         {
-            var fund = Companies.GenerateInvestmentFund(GameContext, RandomUtils.GenerateInvestmentCompanyName(), 500000);
-            Companies.AddFocusNiche(niche.niche.NicheType, fund, GameContext);
+            var fund = Companies.GenerateInvestmentFund(Q, RandomUtils.GenerateInvestmentCompanyName(), 500000);
+            Companies.AddFocusNiche(niche.niche.NicheType, fund, Q);
         }
     }
 
@@ -71,7 +71,7 @@ public class StartCampaignButton : ButtonController
 
     public void SetIndustry(IndustryType industry, InputField Input)
     {
-        var niches = Markets.GetPlayableNichesInIndustry(industry, GameContext).Where(m => Markets.IsAppropriateStartNiche(m, GameContext)).ToArray();
+        var niches = Markets.GetPlayableNichesInIndustry(industry, Q).Where(m => Markets.IsAppropriateStartNiche(m, Q)).ToArray();
         var index = Random.Range(0, niches.Count());
         var niche = niches[index].niche.NicheType;
 

@@ -7,7 +7,7 @@ public class ToggleTimerView : View
     {
         base.ViewRender();
 
-        var isRunning = ScheduleUtils.IsTimerRunning(GameContext);
+        var isRunning = ScheduleUtils.IsTimerRunning(Q);
 
         GetComponentInChildren<Text>().text = isRunning ? "PAUSE" : "CONTINUE";
     }

@@ -55,13 +55,13 @@ public class FillInterruptList : View
     {
         return
             MyCompany.isWantsToExpand &&
-            Companies.IsHasReleasedProducts(GameContext, MyCompany) &&
-            !Cooldowns.HasCorporateCultureUpgradeCooldown(GameContext, MyCompany);
+            Companies.IsHasReleasedProducts(Q, MyCompany) &&
+            !Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
     }
 
     bool HasReleaseableProducts()
     {
-        var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(GameContext, MyCompany.company.Id);
+        var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
         var count = upgradableCompanies.Count();
 
         //bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.NicheScreen && count == 1 && SelectedNiche == upgradableCompanies.First().product.Niche;
@@ -72,27 +72,27 @@ public class FillInterruptList : View
 
     bool HasOutdatedProducts()
     {
-        return Companies.GetDaughterOutdatedCompanies(GameContext, MyCompany.company.Id).Length > 0;
+        return Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
     }
 
     bool IsCanRaiseInvestments()
     {
-        return Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(GameContext, MyCompany);
+        return Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
     }
 
     bool HasUnhappyTeams()
     {
-        return Companies.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id).Length > 0;
+        return Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
     }
 
     bool HasAcquisitionOffers()
     {
-        return Companies.GetAcquisitionOffersToPlayer(GameContext).Count() > 0;
+        return Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
     }
 
     bool CheckAcquisitionCandidates()
     {
-        return Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, GameContext).Count > 0;
+        return Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, Q).Count > 0;
     }
 
     bool CheckAnnualReport()
@@ -102,6 +102,6 @@ public class FillInterruptList : View
 
     bool CheckGoal()
     {
-        return Investments.IsGoalCompleted(MyCompany, GameContext);
+        return Investments.IsGoalCompleted(MyCompany, Q);
     }
 }

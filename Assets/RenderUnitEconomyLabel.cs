@@ -6,8 +6,8 @@ public class RenderUnitEconomyLabel : ParameterView
     {
         var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext) * 1000;
-        var income = Economy.GetUnitIncome(GameContext, product, 0) * 1000;
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q) * 1000;
+        var income = Economy.GetUnitIncome(Q, product, 0) * 1000;
 
         var change = income - ads;
 

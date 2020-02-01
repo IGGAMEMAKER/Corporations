@@ -14,9 +14,9 @@ public class CheckIPORequirements : View
 
         int companyId = SelectedCompany.company.Id;
 
-        bool hasShareholders = Companies.IsMeetsIPOShareholderRequirement(GameContext, companyId);
-        bool costsALot = Companies.IsMeetsIPOCompanyCostRequirement(GameContext, companyId);
-        bool isProfitable = Companies.IsMeetsIPOProfitRequirement(GameContext, companyId);
+        bool hasShareholders = Companies.IsMeetsIPOShareholderRequirement(Q, companyId);
+        bool costsALot = Companies.IsMeetsIPOCompanyCostRequirement(Q, companyId);
+        bool isProfitable = Companies.IsMeetsIPOProfitRequirement(Q, companyId);
 
         Hint.SetHint($"Requirements" +
             Visuals.Colorize($"\nCompany Cost more than ${Format.Minify(Balance.IPO_REQUIREMENTS_COMPANY_COST)}", costsALot)  +
@@ -24,6 +24,6 @@ public class CheckIPORequirements : View
             Visuals.Colorize($"\nProfit bigger than ${Format.Minify(Balance.IPO_REQUIREMENTS_COMPANY_PROFIT)}", isProfitable)
             );
 
-        IPOButton.interactable = Companies.IsCanGoPublic(GameContext, SelectedCompany.company.Id);
+        IPOButton.interactable = Companies.IsCanGoPublic(Q, SelectedCompany.company.Id);
     }
 }

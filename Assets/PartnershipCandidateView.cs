@@ -16,7 +16,7 @@ public class PartnershipCandidateView : View
     {
         company = gameEntity;
 
-        var partnerability = Companies.GetPartnerability(MyCompany, company, GameContext);
+        var partnerability = Companies.GetPartnerability(MyCompany, company, Q);
         var opinion = partnerability.Sum();
 
         CompanyName.text = company.company.Name;
@@ -33,6 +33,6 @@ public class PartnershipCandidateView : View
 
         TargetIndustry.text = string.Join(", ", industries);
 
-        BrandPowerGain.text = Companies.GetCompanyBenefitFromTargetCompany(MyCompany, company, GameContext).ToString();
+        BrandPowerGain.text = Companies.GetCompanyBenefitFromTargetCompany(MyCompany, company, Q).ToString();
     }
 }

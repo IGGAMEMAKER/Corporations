@@ -10,13 +10,13 @@ public class RenderPrimaryMarketsDescription : View
         base.ViewRender();
 
         var markets = Companies.GetPrimaryMarketsAmount(MyCompany);
-        var limit = Companies.GetPrimaryMarketsLimit(MyCompany, GameContext);
+        var limit = Companies.GetPrimaryMarketsLimit(MyCompany, Q);
 
         bool isOverflow = markets > limit;
 
         GetComponent<Text>().text = $"Main markets: {Visuals.Colorize(markets.ToString(), !isOverflow)} / {limit}";
 
-        var innovationPenalty = Companies.GetPrimaryMarketsInnovationPenalty(MyCompany, GameContext);
+        var innovationPenalty = Companies.GetPrimaryMarketsInnovationPenalty(MyCompany, Q);
         MarketLimitDescription.text = isOverflow ?
             $"You will receive {Visuals.Negative(innovationPenalty.ToString())}% innovation chance penalty for each product! "
             :

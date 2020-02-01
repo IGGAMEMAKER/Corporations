@@ -9,7 +9,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         var nicheType = message.nicheType;
         var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
 
-        var niche = Markets.GetNiche(GameContext, nicheType);
+        var niche = Markets.GetNiche(Q, nicheType);
 
         return GetShortTitle(Markets.GetMarketState(niche), nicheName);
     }
@@ -30,7 +30,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
     {
         var nicheType = notification.nicheType;
 
-        var niche = Markets.GetNiche(GameContext, nicheType);
+        var niche = Markets.GetNiche(Q, nicheType);
         var phase = Markets.GetMarketState(niche);
 
         var nicheName = EnumUtils.GetFormattedNicheName(nicheType);

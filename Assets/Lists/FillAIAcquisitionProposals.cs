@@ -16,7 +16,7 @@ public class FillAIAcquisitionProposals : ListView
 
     void Render()
     {
-        var proposals = Companies.GetAcquisitionOffersToPlayer(GameContext)
+        var proposals = Companies.GetAcquisitionOffersToPlayer(Q)
             .OrderBy(OrderByMarketStage)
             .ToArray();
 
@@ -25,14 +25,14 @@ public class FillAIAcquisitionProposals : ListView
 
     int OrderByMarketStage (GameEntity a)
     {
-        var c = Companies.Get(GameContext, a.acquisitionOffer.CompanyId);
+        var c = Companies.Get(Q, a.acquisitionOffer.CompanyId);
 
         if (!c.hasProduct)
             return -10;
 
         var niche = c.product.Niche;
 
-        var rating = Markets.GetMarketRating(GameContext, niche);
+        var rating = Markets.GetMarketRating(Q, niche);
 
         return rating;
     }

@@ -20,11 +20,11 @@ public abstract class TimedButton : UpgradedButtonController
 
     public bool HasActiveTimer()
     {
-        return Cooldowns.IsHasTask(GameContext, GetCompanyTask());
+        return Cooldowns.IsHasTask(Q, GetCompanyTask());
     }
     int TimeRemaining()
     {
-        var task = Cooldowns.GetTask(GameContext, GetCompanyTask());
+        var task = Cooldowns.GetTask(Q, GetCompanyTask());
 
         if (task == null)
             return 0;

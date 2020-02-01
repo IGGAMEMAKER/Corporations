@@ -23,9 +23,9 @@ public class CompanyProductResultsListView : ListView
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughterCompanies(GameContext, MyCompany.company.Id);
+        var daughters = Companies.GetDaughterCompanies(Q, MyCompany.company.Id);
         var results = daughters
-            .Select(p => Companies.GetProductCompanyResults(p, GameContext))
+            .Select(p => Companies.GetProductCompanyResults(p, Q))
             .ToArray();
 
         SetItems(results);

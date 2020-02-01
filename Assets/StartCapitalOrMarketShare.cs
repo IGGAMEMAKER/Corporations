@@ -5,13 +5,13 @@ public class StartCapitalOrMarketShare : ParameterView
 {
     public override string RenderValue()
     {
-        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, GameContext);
+        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, Q);
 
         if (hasCompany)
         {
-            var control = Companies.GetControlInMarket(MyCompany, SelectedNiche, GameContext);
-            var previousControl = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext)
-                .Select(p => Companies.GetProductCompanyResults(p, GameContext))
+            var control = Companies.GetControlInMarket(MyCompany, SelectedNiche, Q);
+            var previousControl = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q)
+                .Select(p => Companies.GetProductCompanyResults(p, Q))
                 .Select(r => r.MarketShareChange)
                 .Sum();
 
@@ -21,9 +21,9 @@ public class StartCapitalOrMarketShare : ParameterView
         }
         else
         {
-            var maintenance = Markets.GetBiggestMaintenanceOnMarket(GameContext, SelectedNiche);
+            var maintenance = Markets.GetBiggestMaintenanceOnMarket(Q, SelectedNiche);
 
-            return Visuals.Colorize(Format.Money(maintenance), Economy.IsCanMaintain(MyCompany, GameContext, maintenance));
+            return Visuals.Colorize(Format.Money(maintenance), Economy.IsCanMaintain(MyCompany, Q, maintenance));
         }
     }
 }

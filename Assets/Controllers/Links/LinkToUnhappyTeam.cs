@@ -6,7 +6,7 @@ public class LinkToUnhappyTeam : ButtonController
 {
     public override void Execute()
     {
-        var companies = Companies.GetDaughterUnhappyCompanies(GameContext, MyCompany.company.Id);
+        var companies = Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id);
 
         var hint = $"You have {companies.Length} exhausted teams.\n\n" + String.Join("\n", companies.Select(p => p.company.Name));
         GetComponent<Hint>().SetHint(hint);

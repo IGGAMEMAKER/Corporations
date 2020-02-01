@@ -19,10 +19,10 @@ public class ShowProductChanges : View
         if (product == null)
             return;
 
-        var newClients = Marketing.GetAudienceGrowth(product, GameContext);
+        var newClients = Marketing.GetAudienceGrowth(product, Q);
         ClientChanges.GetComponent<Text>().text = Visuals.Positive(Format.Minify(newClients)) + " users";
 
-        if (ScheduleUtils.IsPeriodEnd(GameContext))
+        if (ScheduleUtils.IsPeriodEnd(Q))
         {
             ClientChanges.AddComponent<AnimateResourceChange>().Renewable = true;
             ClientChanges.SetActive(true);

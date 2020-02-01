@@ -22,14 +22,14 @@ public class ShareholderPreviewView : View
         Shares = shares;
 
         TotalShares = Companies.GetTotalShares(SelectedCompany.shareholders.Shareholders);
-        ShareholderEntity = Companies.GetInvestorById(GameContext, shareholderId);
+        ShareholderEntity = Companies.GetInvestorById(Q, shareholderId);
 
         Render();
     }
 
     int GetCompanyIdByInvestorId(int shareholderId)
     {
-        return Investments.GetCompanyIdByInvestorId(GameContext, shareholderId);
+        return Investments.GetCompanyIdByInvestorId(Q, shareholderId);
     }
 
     void AddLinkIfPossible()

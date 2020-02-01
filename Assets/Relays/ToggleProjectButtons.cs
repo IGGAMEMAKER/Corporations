@@ -17,11 +17,11 @@ public class ToggleProjectButtons : View
 
         var company = SelectedCompany;
 
-        var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, company);
+        var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company);
         var isExplored = company.hasResearch || isRelatedToPlayer;
 
 
-        var hasExplorationTask = Cooldowns.IsHasTask(GameContext, new CompanyTaskExploreCompany(company.company.Id));
+        var hasExplorationTask = Cooldowns.IsHasTask(Q, new CompanyTaskExploreCompany(company.company.Id));
         var isResearchingOrDone = isExplored || hasExplorationTask;
         Research.SetActive(!isResearchingOrDone);
 

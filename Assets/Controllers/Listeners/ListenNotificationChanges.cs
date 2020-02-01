@@ -6,12 +6,12 @@ public class ListenNotificationChanges : Controller
 {
     public override void AttachListeners()
     {
-        NotificationUtils.Subscribe(GameContext, this);
+        NotificationUtils.Subscribe(Q, this);
     }
 
     public override void DetachListeners()
     {
-        NotificationUtils.UnSubscribe(GameContext, this);
+        NotificationUtils.UnSubscribe(Q, this);
     }
 
     void IAnyNotificationsListener.OnAnyNotifications(GameEntity entity, List<NotificationMessage> notifications)

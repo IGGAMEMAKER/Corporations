@@ -6,7 +6,7 @@ public class RenderDesireToSellCompany : UpgradedParameterView
     {
         var text = "You need at least 75% to buy company guaranteedly. Otherwise, buy shares one by one";
 
-        var condition = Companies.IsWillSellCompany(SelectedCompany, GameContext) ?
+        var condition = Companies.IsWillSellCompany(SelectedCompany, Q) ?
             Visuals.Positive(text) : Visuals.Negative(text);
 
         return $"{Visuals.Positive(Desire + "%")} of shareholders want to sell their shares\n" +
@@ -17,7 +17,7 @@ public class RenderDesireToSellCompany : UpgradedParameterView
     {
         get
         {
-            return Companies.GetDesireToSellCompany(SelectedCompany, GameContext);
+            return Companies.GetDesireToSellCompany(SelectedCompany, Q);
         }
     }
 

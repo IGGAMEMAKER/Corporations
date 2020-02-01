@@ -8,6 +8,6 @@ public class HideReleaseAppButton : HideOnSomeCondition
     public override bool HideIf()
     {
         var p = SelectedCompany;
-        return !Companies.IsReleaseableApp(p, GameContext);
+        return !Companies.IsReleaseableApp(p, Q);
     }
 }

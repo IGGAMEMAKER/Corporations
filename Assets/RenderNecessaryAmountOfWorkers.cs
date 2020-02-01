@@ -7,9 +7,9 @@ public class RenderNecessaryAmountOfWorkers : ParameterView
 {
     public override string RenderValue()
     {
-        var required = Economy.GetNecessaryAmountOfWorkers(SelectedCompany, GameContext);
+        var required = Economy.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
 
-        var have = Teams.GetAmountOfWorkers(SelectedCompany, GameContext);
+        var have = Teams.GetAmountOfWorkers(SelectedCompany, Q);
 
         bool isEnough = have >= required;
 

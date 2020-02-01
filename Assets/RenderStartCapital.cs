@@ -12,7 +12,7 @@ public class RenderStartCapital : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var capital = Markets.GetStartCapital(SelectedNiche, GameContext);
+        var capital = Markets.GetStartCapital(SelectedNiche, Q);
 
         return Visuals.Colorize(Format.Money(capital), Companies.IsEnoughResources(MyCompany, capital));
     }

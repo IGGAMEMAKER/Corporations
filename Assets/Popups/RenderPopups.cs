@@ -19,10 +19,10 @@ public partial class PopupView : View
 
     void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
-        var target = Companies.Get(GameContext, popup.companyId);
-        var buyer = Investments.GetInvestorById(GameContext, popup.buyerInvestorId);
+        var target = Companies.Get(Q, popup.companyId);
+        var buyer = Investments.GetInvestorById(Q, popup.buyerInvestorId);
 
-        bool isOurCompany = Companies.IsRelatedToPlayer(GameContext, target);
+        bool isOurCompany = Companies.IsRelatedToPlayer(Q, target);
 
         RenderUniversalPopup(
             $"{buyer.company.Name} wants to buy {target.company.Name}!",
@@ -33,8 +33,8 @@ public partial class PopupView : View
 
     void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
-        var target = Companies.Get(GameContext, popup.companyId);
-        var buyer = Investments.GetInvestorById(GameContext, popup.InterceptorCompanyId);
+        var target = Companies.Get(Q, popup.companyId);
+        var buyer = Investments.GetInvestorById(Q, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
             "ACQUISITION!",
@@ -47,7 +47,7 @@ public partial class PopupView : View
     void RenderMarketChangePopup(PopupMessageMarketPhaseChange popup)
     {
         var name = EnumUtils.GetFormattedNicheName(popup.NicheType);
-        var state = Markets.GetMarketState(GameContext, popup.NicheType);
+        var state = Markets.GetMarketState(Q, popup.NicheType);
         var possibilities = "";
 
         switch (state)
@@ -78,8 +78,8 @@ public partial class PopupView : View
 
     void RenderBankruptCompany(PopupMessageCompanyBankrupt popup)
     {
-        var niche = Companies.Get(GameContext, popup.companyId).product.Niche;
-        bool hasCompaniesOnMarket = Companies.HasCompanyOnMarket(MyCompany, niche, GameContext);
+        var niche = Companies.Get(Q, popup.companyId).product.Niche;
+        bool hasCompaniesOnMarket = Companies.HasCompanyOnMarket(MyCompany, niche, Q);
 
         var description = "Company " + GetCompanyName(popup.companyId) + " is bankrupt now!";
         if (hasCompaniesOnMarket)
@@ -129,7 +129,7 @@ public partial class PopupView : View
 
     void RenderInnovatorPopup(PopupMessageInnovation popup)
     {
-        bool ourInnovation = Companies.IsRelatedToPlayer(GameContext, popup.companyId);
+        bool ourInnovation = Companies.IsRelatedToPlayer(Q, popup.companyId);
 
         var innovationBenefit = $"They will get {Balance.INNOVATION_BRAND_POWER_GAIN} Brand Power and " +
             $"{Format.Minify(popup.clientGain)} clients from their competitors";
@@ -172,9 +172,9 @@ public partial class PopupView : View
     void RenderDoYouReallyWantToCreateAPrototype(PopupMessageDoYouWantToCreateApp popup)
     {
         // check if has enough resources
-        var maintenance = Markets.GetBiggestMaintenanceOnMarket(GameContext, popup.NicheType);
+        var maintenance = Markets.GetBiggestMaintenanceOnMarket(Q, popup.NicheType);
 
-        bool hasResources = Economy.IsCanMaintain(MyCompany, GameContext, maintenance);
+        bool hasResources = Economy.IsCanMaintain(MyCompany, Q, maintenance);
 
         var title = "Do you really want to create a new " + EnumUtils.GetFormattedNicheName(popup.NicheType) + "?";
         //var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
@@ -184,7 +184,7 @@ public partial class PopupView : View
 
 
         var resourceText = "";
-        if (!hasResources && Companies.GetDaughterCompaniesAmount(MyCompany, GameContext) > 0)
+        if (!hasResources && Companies.GetDaughterCompaniesAmount(MyCompany, Q) > 0)
             resourceText = Visuals.Negative("\nIt's too expensive!");
 
 
@@ -216,7 +216,7 @@ public partial class PopupView : View
 
     void RenderStrategicPartnershipMessage(PopupMessageStrategicPartnership popup)
     {
-        bool signed = Companies.IsHaveStrategicPartnershipAlready(popup.companyId, popup.companyId2, GameContext);
+        bool signed = Companies.IsHaveStrategicPartnershipAlready(popup.companyId, popup.companyId2, Q);
 
         var target = GetCompanyName(popup.companyId2);
 
@@ -241,7 +241,7 @@ public partial class PopupView : View
 
     void RenderNewCorporationRequirements(PopupMessageCorporationRequirements popup)
     {
-        var cost = Economy.GetCompanyCost(GameContext, popup.companyId);
+        var cost = Economy.GetCompanyCost(Q, popup.companyId);
         var goal = Balance.CORPORATION_REQUIREMENTS_COMPANY_COST;
 
         RenderUniversalPopup(
@@ -265,7 +265,7 @@ public partial class PopupView : View
         var positiveResponse = "They " + Visuals.Positive("ACCEPTED") + " our offer!\n\nPress OK to buy a company";
         var negativeResponse = "They " + Visuals.Negative("DECLINED") + " our offer!\n\nSend another offer to buy this company";
 
-        bool willAccept = Companies.IsCompanyWillAcceptAcquisitionOffer(GameContext, popup.companyId, popup.buyerInvestorId);
+        bool willAccept = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, popup.companyId, popup.buyerInvestorId);
 
         List<Type> buttons = new List<Type>();
         
@@ -287,5 +287,5 @@ public partial class PopupView : View
             );
     }
 
-    string GetCompanyName(int companyId) => Companies.GetCompanyName(GameContext, companyId);
+    string GetCompanyName(int companyId) => Companies.GetCompanyName(Q, companyId);
 }

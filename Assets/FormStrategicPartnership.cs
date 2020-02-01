@@ -8,7 +8,7 @@ public class FormStrategicPartnership : ToggleButtonController
         if (isPartnersAlready)
             Companies.BreakStrategicPartnership(MyCompany, SelectedCompany);
         else
-            Companies.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, GameContext, true);
+            Companies.SendStrategicPartnershipRequest(MyCompany, SelectedCompany, Q, true);
     }
 
     bool isPartnersAlready => Companies.IsHaveStrategicPartnershipAlready(MyCompany, SelectedCompany);
@@ -21,7 +21,7 @@ public class FormStrategicPartnership : ToggleButtonController
 
         var arePartners = isPartnersAlready;
 
-        var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, GameContext);
+        var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, Q);
 
         GetComponent<Button>().interactable = isCanBePartnersTheoretically && opinion >= 0;
         GetComponentInChildren<Text>().text = arePartners ? "Break strategic partnership!" : "Sign strategic partnership";

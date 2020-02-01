@@ -15,7 +15,7 @@ public class CompanyTaskListVew : ListView
 
         var companyId = SelectedCompany.company.Id;
 
-        var tasks = Cooldowns.GetTasksOfCompany(GameContext, companyId)
+        var tasks = Cooldowns.GetTasksOfCompany(Q, companyId)
             .Reverse()
             ;
 

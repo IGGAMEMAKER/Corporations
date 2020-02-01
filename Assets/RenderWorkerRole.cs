@@ -18,7 +18,7 @@ public class RenderWorkerRole : View
         var role = Humans.GetRole(human);
 
         var formattedRole = Humans.GetFormattedRole(role);
-        var rating = Humans.GetRating(GameContext, human);
+        var rating = Humans.GetRating(Q, human);
 
         text = $"{formattedRole} ({rating}LVL)";
 
@@ -31,7 +31,7 @@ public class RenderWorkerRole : View
         {
             var companyId = human.worker.companyId;
 
-            var c = Companies.Get(GameContext, companyId);
+            var c = Companies.Get(Q, companyId);
 
             text += " " + Visuals.Link($"in {c.company.Name}");
 

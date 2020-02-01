@@ -4,7 +4,7 @@ public class NavigateToNextProduct : IterateOverCompaniesButtonController
 {
     public override GameEntity[] GetEntities()
     {
-        return Companies.GetDaughterProductCompanies(GameContext, MyCompany);
+        return Companies.GetDaughterProductCompanies(Q, MyCompany);
     }
 
     public override ScreenMode GetScreenMode() => ScreenMode.DevelopmentScreen;

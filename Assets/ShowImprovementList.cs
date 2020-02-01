@@ -9,9 +9,9 @@ public class ShowImprovementList : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var growth = Marketing.GetAudienceGrowth(SelectedCompany, GameContext);
+        var growth = Marketing.GetAudienceGrowth(SelectedCompany, Q);
 
-        var churn = Marketing.GetChurnClients(GameContext, SelectedCompany.company.Id);
+        var churn = Marketing.GetChurnClients(Q, SelectedCompany.company.Id);
 
         //var text = "Audience grows by " + Format.Minify(clients) + " clients each month due to current brand power and concept level";
         var text = $"This product will {Visuals.Positive("receive")} approximately {Format.Minify(growth)} clients next month." +

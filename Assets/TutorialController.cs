@@ -41,7 +41,7 @@ public class TutorialController : View
     {
         base.ViewRender();
 
-        var show = TutorialUtils.IsOpenedFunctionality(GameContext, TutorialFunctionality);
+        var show = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality);
 
         foreach (var obj in HideableObjects)
             obj.SetActive(show);

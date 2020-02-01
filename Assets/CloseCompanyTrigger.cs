@@ -6,6 +6,6 @@ public class CloseCompanyTrigger : ButtonController
     {
         var popup = new PopupMessageCompanyClose(SelectedCompany.company.Id);
 
-        NotificationUtils.AddPopup(GameContext, popup);
+        NotificationUtils.AddPopup(Q, popup);
     }
 }

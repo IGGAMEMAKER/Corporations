@@ -14,7 +14,7 @@ public class CaptureMarketButton : ToggleButtonController
 
     int max = Products.GetMaxFinancing;
 
-    GameEntity[] productsOnMarket => Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, GameContext);
+    GameEntity[] productsOnMarket => Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q);
     bool hasAtLeastOneAggressiveCompany => productsOnMarket.Count(p => Economy.GetMarketingFinancing(p) == max) != 0;
 
     public override void ViewRender()

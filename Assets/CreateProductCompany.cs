@@ -5,8 +5,8 @@ public class CreateProductCompany : ButtonController
 {
     public override void Execute()
     {
-        NicheType nicheType = ScreenUtils.GetSelectedNiche(GameContext);
+        NicheType nicheType = ScreenUtils.GetSelectedNiche(Q);
 
-        NotificationUtils.AddPopup(GameContext, new PopupMessageDoYouWantToCreateApp(nicheType));
+        NotificationUtils.AddPopup(Q, new PopupMessageDoYouWantToCreateApp(nicheType));
     }
 }

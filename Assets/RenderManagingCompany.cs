@@ -7,7 +7,7 @@ public class RenderManagingCompany : View
     {
         base.ViewRender();
 
-        var managingCompany = Companies.GetManagingCompanyOf(SelectedCompany, GameContext);
+        var managingCompany = Companies.GetManagingCompanyOf(SelectedCompany, Q);
 
         bool isIndependent = managingCompany.company.Id == SelectedCompany.company.Id;
 

@@ -4,9 +4,9 @@ public class CloseCompanyPopupButton : PopupButtonController<PopupMessageCompany
 {
     public override void Execute()
     {
-        Companies.CloseCompany(GameContext, Popup.companyId);
+        Companies.CloseCompany(Q, Popup.companyId);
 
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
 
         Navigate(ScreenMode.GroupManagementScreen);
     }
@@ -22,9 +22,9 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
         var buyerId = Popup.buyerInvestorId;
 
         NavigateToProjectScreen(companyId);
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
 
-        Companies.ConfirmAcquisitionOffer(GameContext, companyId, buyerId);
+        Companies.ConfirmAcquisitionOffer(Q, companyId, buyerId);
     }
 
     public override string GetButtonName() => "BUY COMPANY";
@@ -35,7 +35,7 @@ public class SendAnotherAcquisitionOfferPopupButton : PopupButtonController<Popu
     public override void Execute()
     {
         var companyId = Popup.companyId;
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
 
         Navigate(ScreenMode.AcquisitionScreen, Balance.MENU_SELECTED_COMPANY, companyId);
     }

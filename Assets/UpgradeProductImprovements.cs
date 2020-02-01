@@ -6,9 +6,9 @@ public class UpgradeProductImprovements : TimedButton
 
     public override void Execute()
     {
-        var product = Companies.Get(GameContext, CompanyId);
+        var product = Companies.Get(Q, CompanyId);
 
-        Products.UpgradeFeatures(ProductImprovement, product, GameContext);
+        Products.UpgradeFeatures(ProductImprovement, product, Q);
     }
 
     public override CompanyTask GetCompanyTask()
@@ -18,9 +18,9 @@ public class UpgradeProductImprovements : TimedButton
 
     public override bool IsInteractable()
     {
-        var company = Companies.Get(GameContext, CompanyId);
+        var company = Companies.Get(Q, CompanyId);
 
-        return Products.HasFreeImprovements(company) && Cooldowns.CanAddTask(GameContext, GetCompanyTask());
+        return Products.HasFreeImprovements(company) && Cooldowns.CanAddTask(Q, GetCompanyTask());
     }
 
     public override string ShortTitle()

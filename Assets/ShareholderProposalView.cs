@@ -24,7 +24,7 @@ public class ShareholderProposalView : View
 
     public void SetEntity(InvestmentProposal invProposal)
     {
-        shareholder = Companies.GetInvestorById(GameContext, invProposal.ShareholderId);
+        shareholder = Companies.GetInvestorById(Q, invProposal.ShareholderId);
         proposal = invProposal;
 
         Render();
@@ -84,8 +84,8 @@ public class ShareholderProposalView : View
             OpinionHint.SetHint("");
         } else
         {
-            OpinionDescription.text = Investments.GetInvestorOpinionDescription(GameContext, SelectedCompany, shareholder);
-            var bonus = Investments.GetInvestorOpinionBonus(GameContext, SelectedCompany, shareholder);
+            OpinionDescription.text = Investments.GetInvestorOpinionDescription(Q, SelectedCompany, shareholder);
+            var bonus = Investments.GetInvestorOpinionBonus(Q, SelectedCompany, shareholder);
             OpinionHint.SetHint(bonus.ToString());
         }
     }

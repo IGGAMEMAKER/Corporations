@@ -16,7 +16,7 @@ public class RenderInvestorResponseToAcquisitionOffer : View
 
     void Render()
     {
-        var investor = Companies.GetInvestorById(GameContext, shareholderId);
+        var investor = Companies.GetInvestorById(Q, shareholderId);
 
         RenderResponse(investor);
     }
@@ -30,13 +30,13 @@ public class RenderInvestorResponseToAcquisitionOffer : View
 
     void RenderResponse(GameEntity investor)
     {
-        var AcquisitionOffer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        var AcquisitionOffer = Companies.GetAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
 
 
-        bool willAcceptOffer = Companies.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, GameContext);
-        bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, GameContext, shareholderId, investor.shareholder.InvestorType);
+        bool willAcceptOffer = Companies.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, Q);
+        bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, Q, shareholderId, investor.shareholder.InvestorType);
 
-        var opinion = Companies.GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOffer, investor, SelectedCompany, GameContext);
+        var opinion = Companies.GetInvestorOpinionAboutAcquisitionOffer(AcquisitionOffer, investor, SelectedCompany, Q);
         var text = "";
 
         if (willAcceptOffer)

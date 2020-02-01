@@ -55,22 +55,22 @@ public class NicheTableView : View, IPointerEnterHandler
 
         RenderTimeToMarket();
 
-        var sumOfBrandPowers = (int)Marketing.GetSumOfBrandPowers(niche, GameContext);
+        var sumOfBrandPowers = (int)Marketing.GetSumOfBrandPowers(niche, Q);
 
         // 
-        var profitLeader = Markets.GetMostProfitableCompanyOnMarket(GameContext, niche);
+        var profitLeader = Markets.GetMostProfitableCompanyOnMarket(Q, niche);
 
-        var profit              = profitLeader == null ? 0 : Economy.GetProfit(GameContext, profitLeader);
-        var income              = profitLeader == null ? 0 : Economy.GetCompanyIncome(GameContext, profitLeader);
-        var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(GameContext, profitLeader);
+        var profit              = profitLeader == null ? 0 : Economy.GetProfit(Q, profitLeader);
+        var income              = profitLeader == null ? 0 : Economy.GetCompanyIncome(Q, profitLeader);
+        var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(Q, profitLeader);
 
         // maintenance
         Maintenance.text = Visuals.Positive(Format.MinifyMoney(income));
 
-        bool canMaintain = Economy.IsCanMaintain(MyCompany, GameContext, biggestMaintenance);
+        bool canMaintain = Economy.IsCanMaintain(MyCompany, Q, biggestMaintenance);
         StartCapital.text = Visuals.Colorize(Format.MinifyMoney(biggestMaintenance), canMaintain);
         // income
-        var ROI = Markets.GetMarketROI(GameContext, niche);
+        var ROI = Markets.GetMarketROI(Q, niche);
         
         NicheSize.text = profitLeader == null ? "???" : ROI + "%";
         NicheSize.color = Visuals.GetColorPositiveOrNegative(profit);
@@ -78,10 +78,10 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void RenderMarketName(NicheType nicheType)
     {
-        var industryType = Markets.GetIndustry(nicheType, GameContext);
+        var industryType = Markets.GetIndustry(nicheType, Q);
 
 
-        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, GameContext);
+        var hasCompany = Companies.HasCompanyOnMarket(MyCompany, nicheType, Q);
         var isInterestingMarket = MyCompany.companyFocus.Niches.Contains(nicheType);
 
         var marketColorName = Colors.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
@@ -124,11 +124,11 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        ScreenUtils.SetSelectedNiche(GameContext, niche.niche.NicheType);
+        ScreenUtils.SetSelectedNiche(Q, niche.niche.NicheType);
     }
 
     void SetPanelColor()
     {
-        Panel.color = GetPanelColor(niche.niche.NicheType == ScreenUtils.GetSelectedNiche(GameContext));
+        Panel.color = GetPanelColor(niche.niche.NicheType == ScreenUtils.GetSelectedNiche(Q));
     }
 }

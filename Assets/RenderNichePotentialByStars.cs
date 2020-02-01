@@ -26,7 +26,7 @@ public class RenderNichePotentialByStars : View
     {
         base.ViewRender();
 
-        var potential = Markets.GetMarketPotential(GameContext, SelectedNiche);
+        var potential = Markets.GetMarketPotential(Q, SelectedNiche);
 
         var stars = GetAmountOfStars(potential);
 

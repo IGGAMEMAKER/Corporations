@@ -16,5 +16,5 @@ public class RenderBrandPowerDynamics : ParameterView
         return $"{brand} ({Visuals.PositiveOrNegativeMinified(change)} monthly)";
     }
 
-    Bonus<long> BrandPower => Marketing.GetBrandChange(SelectedCompany, GameContext);
+    Bonus<long> BrandPower => Marketing.GetBrandChange(SelectedCompany, Q);
 }

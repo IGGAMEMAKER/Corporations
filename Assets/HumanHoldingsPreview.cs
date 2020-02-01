@@ -21,7 +21,7 @@ public class HumanHoldingsPreview : View
     void Render()
     {
         NameLabel.text = company.company.Name;
-        SharesLabel.text = Companies.GetShareSize(GameContext, company.company.Id, SelectedHuman.shareholder.Id) + "%";
+        SharesLabel.text = Companies.GetShareSize(Q, company.company.Id, SelectedHuman.shareholder.Id) + "%";
 
         SharesAmountHint.SetHint("");
 

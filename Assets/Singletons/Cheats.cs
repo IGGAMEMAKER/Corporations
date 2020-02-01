@@ -8,7 +8,7 @@ public class Cheats : View
     {
         if (Input.GetKeyDown(KeyCode.F8))
         {
-            Economy.IncreaseCompanyBalance(GameContext, MyCompany.company.Id, 1000000000);
+            Economy.IncreaseCompanyBalance(Q, MyCompany.company.Id, 1000000000);
             RefreshPage();
         }
     }

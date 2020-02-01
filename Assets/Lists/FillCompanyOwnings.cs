@@ -44,7 +44,7 @@ public class FillCompanyOwnings : View
 
     public void SetObservableCompany()
     {
-        var screenMode = ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
+        var screenMode = ScreenUtils.GetMenu(Q).menu.ScreenMode;
 
         ObservableCompany = screenMode == ScreenMode.GroupManagementScreen ? MyGroupEntity : SelectedCompany;
     }
@@ -65,8 +65,8 @@ public class FillCompanyOwnings : View
 
     GameEntity[] GetOwnings()
     {
-        var arr = Companies.GetDaughterCompanies(GameContext, ObservableCompany.company.Id)
-            .OrderByDescending(c => Economy.GetCompanyCost(GameContext, c.company.Id))
+        var arr = Companies.GetDaughterCompanies(Q, ObservableCompany.company.Id)
+            .OrderByDescending(c => Economy.GetCompanyCost(Q, c.company.Id))
             .ToArray();
 
         //if (SortingOrder)

@@ -4,7 +4,7 @@ public class DumpPrices : ToggleButtonController
 {
     public override void Execute()
     {
-        Products.ToggleDumping(GameContext, SelectedCompany);
+        Products.ToggleDumping(Q, SelectedCompany);
     }
 
     public override void ViewRender()

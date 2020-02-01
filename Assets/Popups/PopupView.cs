@@ -27,12 +27,12 @@ public partial class PopupView : View
 
     void Render()
     {
-        var messagesCount = NotificationUtils.GetPopups(GameContext).Count;
+        var messagesCount = NotificationUtils.GetPopups(Q).Count;
 
         if (messagesCount == 0)
             return;
 
-        var popup = NotificationUtils.GetPopupMessage(GameContext) ?? null;
+        var popup = NotificationUtils.GetPopupMessage(Q) ?? null;
 
         PopupMessage = popup;
 

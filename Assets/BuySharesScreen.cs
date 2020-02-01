@@ -17,16 +17,16 @@ public class BuySharesScreen : View
     {
         base.ViewRender();
 
-        var shareholder = ScreenUtils.GetSelectedInvestor(GameContext);
+        var shareholder = ScreenUtils.GetSelectedInvestor(Q);
 
         if (shareholder == null)
             return;
 
         var investorId = shareholder.shareholder.Id;
 
-        SharesInfo.text = shareholder.shareholder.Name + " owns " + Companies.GetShareSize(GameContext, SelectedCompany.company.Id, investorId) + "% of company";
+        SharesInfo.text = shareholder.shareholder.Name + " owns " + Companies.GetShareSize(Q, SelectedCompany.company.Id, investorId) + "% of company";
 
-        var shareCost = Companies.GetSharesCost(GameContext, SelectedCompany.company.Id, investorId);
+        var shareCost = Companies.GetSharesCost(Q, SelectedCompany.company.Id, investorId);
         Valuation.text = Format.Money(shareCost);
 
         Offer.text = Format.Money(shareCost);

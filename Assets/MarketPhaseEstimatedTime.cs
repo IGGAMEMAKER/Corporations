@@ -9,7 +9,7 @@ public class MarketPhaseEstimatedTime : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var niche = Markets.GetNiche(GameContext, SelectedNiche);
+        var niche = Markets.GetNiche(Q, SelectedNiche);
 
         var timeRemaining = niche.nicheState.Duration; // * NicheUtils.GetNichePeriodDurationInMonths(niche);
 

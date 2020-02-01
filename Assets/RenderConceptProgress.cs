@@ -12,12 +12,12 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderHint()
     {
-        if (!Companies.IsExploredCompany(GameContext, CompanyId))
+        if (!Companies.IsExploredCompany(Q, CompanyId))
             return "";
 
-        var company = Companies.Get(GameContext, CompanyId);
-        var willInnovate = Products.IsWillInnovate(company, GameContext);
-        var innovationChance = Products.GetInnovationChance(company, GameContext);
+        var company = Companies.Get(Q, CompanyId);
+        var willInnovate = Products.IsWillInnovate(company, Q);
+        var innovationChance = Products.GetInnovationChance(company, Q);
 
         var description = $"Working on product upgrade ({days} days)\n\n";
 
@@ -31,14 +31,14 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderValue()
     {
-        Cooldowns.TryGetCooldown(GameContext, new CooldownImproveConcept(CompanyId), out Cooldown c);
+        Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(CompanyId), out Cooldown c);
 
         if (c == null)
             return "";
 
         days = c.EndDate - CurrentIntDate;
 
-        if (!Companies.IsExploredCompany(GameContext, CompanyId))
+        if (!Companies.IsExploredCompany(Q, CompanyId))
             return "";
 
         return $"{days}d";

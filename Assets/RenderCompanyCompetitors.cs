@@ -16,7 +16,7 @@ public class RenderCompanyCompetitors : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, GameContext);
+        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, Q);
 
         SetItems(competitors);
     }

@@ -10,9 +10,9 @@ public class RenderIndustryCost : ParameterView
     {
         var industry = SelectedIndustry;
 
-        var markets = Markets.GetNichesInIndustry(industry, GameContext);
+        var markets = Markets.GetNichesInIndustry(industry, Q);
 
-        var costs = markets.Sum(m => Markets.GetMarketSize(GameContext, m.niche.NicheType));
+        var costs = markets.Sum(m => Markets.GetMarketSize(Q, m.niche.NicheType));
 
         return $"Total industry size: {Format.Money(costs)}";
     }

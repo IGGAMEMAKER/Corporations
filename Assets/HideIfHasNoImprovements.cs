@@ -6,13 +6,13 @@ public class HideIfHasNoImprovements : HideOnSomeCondition
     {
         var p = SelectedCompany;
 
-        return !Companies.IsRelatedToPlayer(GameContext, p)
+        return !Companies.IsRelatedToPlayer(Q, p)
             || !Products.HasFreeImprovements(p)
             
             // ProductImprovement.Acquisition is not required
-            || Cooldowns.IsHasTask(GameContext, new CompanyTaskUpgradeFeature(p.company.Id, ProductFeature.Acquisition))
+            || Cooldowns.IsHasTask(Q, new CompanyTaskUpgradeFeature(p.company.Id, ProductFeature.Acquisition))
             
-            || Companies.IsReleaseableApp(p, GameContext);
+            || Companies.IsReleaseableApp(p, Q);
             ;
     }
 }

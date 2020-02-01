@@ -22,8 +22,8 @@ public class GroupSearchListView : ListView
 
     public void Render()
     {
-        var groups = Companies.GetGroupCompanies(GameContext)
-            .OrderByDescending(g => Economy.GetCompanyCost(GameContext, g.company.Id))
+        var groups = Companies.GetGroupCompanies(Q)
+            .OrderByDescending(g => Economy.GetCompanyCost(Q, g.company.Id))
             .ToArray();
 
         SetItems(groups, GrowthFilterQuarterly.Quarterly);

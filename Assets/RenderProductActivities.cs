@@ -5,7 +5,7 @@ public class RenderProductActivities : ParameterView
 {
     public override string RenderValue()
     {
-        var tasks = Cooldowns.GetTasksOfCompany(GameContext, SelectedCompany.company.Id);
+        var tasks = Cooldowns.GetTasksOfCompany(Q, SelectedCompany.company.Id);
 
         var count = tasks.Count();
 

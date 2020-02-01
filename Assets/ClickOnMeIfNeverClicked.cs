@@ -9,11 +9,11 @@ public class ClickOnMeIfNeverClicked : BlinkOrDestroyOnSomeCondition
 
     public override bool NeedsToBeRemoved()
     {
-        return TutorialUtils.IsOpenedFunctionality(GameContext, TutorialFunctionality);
+        return TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        TutorialUtils.Unlock(GameContext, TutorialFunctionality);
+        TutorialUtils.Unlock(Q, TutorialFunctionality);
     }
 }

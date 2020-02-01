@@ -8,8 +8,8 @@ public class RenderInnovationChance : UpgradedParameterView
         if (!SelectedCompany.hasProduct)
             return "";
 
-        if (Companies.IsExploredCompany(GameContext, SelectedCompany))
-            return Products.GetInnovationChanceBonus(SelectedCompany, GameContext).ToString();
+        if (Companies.IsExploredCompany(Q, SelectedCompany))
+            return Products.GetInnovationChanceBonus(SelectedCompany, Q).ToString();
 
         return "Research company to get more details";
     }
@@ -19,7 +19,7 @@ public class RenderInnovationChance : UpgradedParameterView
         if (!SelectedCompany.hasProduct)
             return "";
 
-        var chance = Products.GetInnovationChance(SelectedCompany, GameContext);
+        var chance = Products.GetInnovationChance(SelectedCompany, Q);
 
         return chance + "%";
     }

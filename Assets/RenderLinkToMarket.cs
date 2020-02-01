@@ -7,7 +7,7 @@ public class RenderLinkToMarket : View
     {
         base.ViewRender();
 
-        bool show = Markets.IsExploredMarket(GameContext, SelectedNiche) && MyCompany.isWantsToExpand;
+        bool show = Markets.IsExploredMarket(Q, SelectedNiche) && MyCompany.isWantsToExpand;
 
         GetComponent<LinkTo>().enabled = show;
         GetComponent<Text>().text = show ? Visuals.Link("Market Info") : "";

@@ -26,6 +26,6 @@ public class ManageHoldingsScreenController : View
 
     int GetSizeOfShares()
     {
-        return Companies.GetShareSize(GameContext, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
+        return Companies.GetShareSize(Q, SelectedCompany.company.Id, MyGroupEntity.shareholder.Id);
     }
 }

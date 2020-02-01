@@ -7,6 +7,6 @@ public class SendAcquisitionOffer : ButtonController
 {
     public override void Execute()
     {
-        Companies.SendAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        Companies.SendAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
     }
 }

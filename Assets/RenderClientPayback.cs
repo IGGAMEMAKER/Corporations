@@ -9,8 +9,8 @@ public class RenderClientPayback : UpgradedParameterView
     {
         var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
-        var income = Economy.GetUnitIncome(GameContext, product, 0);
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
+        var income = Economy.GetUnitIncome(Q, product, 0);
 
         var text = "=\nNew client marketing cost: " + ads;
 
@@ -23,8 +23,8 @@ public class RenderClientPayback : UpgradedParameterView
     {
         var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
-        var income = Economy.GetUnitIncome(GameContext, product, 0);
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
+        var income = Economy.GetUnitIncome(Q, product, 0);
 
         var period = ads / income;
 

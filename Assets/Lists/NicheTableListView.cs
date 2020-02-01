@@ -78,12 +78,12 @@ public class NicheTableListView : ListView
 
     bool HasCompanies(GameEntity niche)
     {
-        return Markets.GetCompetitorsAmount(niche.niche.NicheType, GameContext) > 0;
+        return Markets.GetCompetitorsAmount(niche.niche.NicheType, Q) > 0;
     }
 
     bool IsSuitableByCapitalSize (GameEntity niche)
     {
-        var capital = Markets.GetStartCapital(niche, GameContext);
+        var capital = Markets.GetStartCapital(niche, Q);
 
         if (!IncludeOnlyAffordableByStartCapital)
             return true;
@@ -108,13 +108,13 @@ public class NicheTableListView : ListView
     {
         UpdateFilters();
 
-        var niches = HasCompany ? Markets.GetPlayableNiches(GameContext)
+        var niches = HasCompany ? Markets.GetPlayableNiches(Q)
             .Where(IsSuitableByMarketState)
             .Where(IsSuitableByCapitalSize)
             .Where(IsConnectedToOurMainBusiness)
             .Where(HasCompanies)
 
-            .OrderByDescending(n => Markets.GetMarketROI(GameContext, n))
+            .OrderByDescending(n => Markets.GetMarketROI(Q, n))
 
             .ToArray()
             :

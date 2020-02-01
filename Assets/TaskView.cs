@@ -52,7 +52,7 @@ public partial class TaskView : View
             else
                 text += $"\n\n{remaining} days left";
 
-            if (!ScheduleUtils.IsTimerRunning(GameContext) && !hasProgressbar)
+            if (!ScheduleUtils.IsTimerRunning(Q) && !hasProgressbar)
                 text += ". " + Visuals.Negative("Unpause") + " to finish";
         }
 
@@ -94,13 +94,13 @@ public partial class TaskView : View
         switch (companyTask.CompanyTaskType)
         {
             case CompanyTaskType.AcquiringCompany:
-                return "Acquiring company\n" + Companies.GetCompanyName(GameContext, companyTask.CompanyId);
+                return "Acquiring company\n" + Companies.GetCompanyName(Q, companyTask.CompanyId);
 
             case CompanyTaskType.ExploreMarket:
                 return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
 
             case CompanyTaskType.ExploreCompany:
-                return "Exploring company\n" + Companies.GetCompanyName(GameContext, companyTask.CompanyId);
+                return "Exploring company\n" + Companies.GetCompanyName(Q, companyTask.CompanyId);
 
             case CompanyTaskType.UpgradeFeature:
                 return $"Adding {(companyTask as CompanyTaskUpgradeFeature).ProductImprovement} feature\n";

@@ -14,7 +14,7 @@ public class PlayerCompaniesListView : ListView
     {
         base.ViewRender();
 
-        var products = Companies.GetDaughterCompanies(GameContext, MyCompany);
+        var products = Companies.GetDaughterCompanies(Q, MyCompany);
 
         SetItems(products);
     }

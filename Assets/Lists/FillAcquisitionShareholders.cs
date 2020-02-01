@@ -21,7 +21,7 @@ public class FillAcquisitionShareholders : ListView
 
 
 
-        var investor = Companies.GetInvestorById(GameContext, shareholderId);
+        var investor = Companies.GetInvestorById(Q, shareholderId);
 
         if (investor.hasHuman)
             t.gameObject.AddComponent<LinkToHuman>().SetHumanId(investor.human.Id);

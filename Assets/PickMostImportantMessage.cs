@@ -24,7 +24,7 @@ public class PickMostImportantMessage : ListView
 
     NotificationMessage[] GetMostImportant()
     {
-        var notifications = NotificationUtils.GetNotifications(GameContext);
+        var notifications = NotificationUtils.GetNotifications(Q);
 
         if (notifications.Count > 0)
         {

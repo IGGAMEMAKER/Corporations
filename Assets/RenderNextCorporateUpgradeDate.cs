@@ -6,7 +6,7 @@ public class RenderNextCorporateUpgradeDate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        Cooldowns.TryGetCooldown(GameContext, new CooldownUpgradeCorporateCulture(MyCompany.company.Id), out var cooldown);
+        Cooldowns.TryGetCooldown(Q, new CooldownUpgradeCorporateCulture(MyCompany.company.Id), out var cooldown);
 
         if (cooldown == null)
             return "You can change corporate culture!";

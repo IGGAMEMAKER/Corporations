@@ -21,6 +21,6 @@ public class ScheduleView : View
 
         ScheduleResourceView.UpdateResourceValue("Date", dateString);
 
-        PauseStatus.gameObject.SetActive(!ScheduleUtils.IsTimerRunning(GameContext));
+        PauseStatus.gameObject.SetActive(!ScheduleUtils.IsTimerRunning(Q));
     }
 }

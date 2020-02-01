@@ -31,7 +31,7 @@ public abstract class PopupButtonController<T> : ButtonController where T : Popu
         SetButtonName(GetButtonName());
     }
 
-    internal T Popup => NotificationUtils.GetPopupMessage(GameContext) as T;
+    internal T Popup => NotificationUtils.GetPopupMessage(Q) as T;
 
     public virtual void SetButtonName(string name)
     {

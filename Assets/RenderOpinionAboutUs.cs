@@ -4,24 +4,24 @@ public class RenderOpinionAboutUs : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        if (Companies.IsRelatedToPlayer(GameContext, SelectedCompany))
+        if (Companies.IsRelatedToPlayer(Q, SelectedCompany))
             return "";
 
         if (Companies.IsFinancialStructure(SelectedCompany))
             return "";
 
-        return Companies.GetPartnerability(MyCompany, SelectedCompany, GameContext).ToString();
+        return Companies.GetPartnerability(MyCompany, SelectedCompany, Q).ToString();
     }
 
     public override string RenderValue()
     {
-        if (Companies.IsRelatedToPlayer(GameContext, SelectedCompany))
+        if (Companies.IsRelatedToPlayer(Q, SelectedCompany))
             return "---";
 
         if (Companies.IsFinancialStructure(SelectedCompany))
             return "??";
 
-        var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, GameContext);
+        var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, Q);
 
         return Visuals.PositiveOrNegativeMinified(opinion);
     }

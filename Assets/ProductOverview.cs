@@ -22,14 +22,14 @@ public class ProductOverview : View
         if (!SelectedCompany.hasProduct)
             return;
 
-        var canShowData = Companies.IsExploredCompany(GameContext, SelectedCompany);
+        var canShowData = Companies.IsExploredCompany(Q, SelectedCompany);
 
         RenderCommonInfo();
     }
 
     void RenderCommonInfo()
     {
-        var position = Markets.GetPositionOnMarket(GameContext, SelectedCompany) + 1;
+        var position = Markets.GetPositionOnMarket(Q, SelectedCompany) + 1;
         Popularity.text = $"#{position}";
 
 

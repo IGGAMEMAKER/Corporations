@@ -12,7 +12,7 @@ public class PerspectiveAdjacentNichesListView : ListView
     {
         base.ViewRender();
 
-        var perspectiveNiches = Markets.GetPerspectiveAdjacentNiches(GameContext, MyCompany);
+        var perspectiveNiches = Markets.GetPerspectiveAdjacentNiches(Q, MyCompany);
 
         SetItems(perspectiveNiches);
     }

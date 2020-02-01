@@ -27,9 +27,9 @@ public class RisksView : View
 
         var companyId = c.company.Id;
 
-        var risk = Markets.GetCompanyRisk(GameContext, companyId);
+        var risk = Markets.GetCompanyRisk(Q, companyId);
 
-        var text = $"This reduces base company cost by {risk}%\n {Markets.GetCompanyRiskDescription(GameContext, companyId)}";
+        var text = $"This reduces base company cost by {risk}%\n {Markets.GetCompanyRiskDescription(Q, companyId)}";
 
         TotalRisk.GetComponent<ColoredValueGradient>().UpdateValue(risk);
         TotalRisk.GetComponent<Hint>().SetHint(text);

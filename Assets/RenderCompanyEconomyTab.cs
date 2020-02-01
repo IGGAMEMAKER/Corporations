@@ -15,13 +15,13 @@ public class RenderCompanyEconomyTab : View
 
         int companyId = GetComponent<SetTargetCompany>().companyId;
 
-        var company = Companies.Get(GameContext, companyId);
+        var company = Companies.Get(Q, companyId);
 
-        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(GameContext, company));
-        IncomeHint.SetHint(GetIncomeDescription(GameContext, companyId));
+        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(Q, company));
+        IncomeHint.SetHint(GetIncomeDescription(Q, companyId));
 
-        Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(GameContext, company));
-        MaintenanceHint.SetHint(GetMaintenanceDescription(GameContext, companyId));
+        Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(Q, company));
+        MaintenanceHint.SetHint(GetMaintenanceDescription(Q, companyId));
     }
 
 

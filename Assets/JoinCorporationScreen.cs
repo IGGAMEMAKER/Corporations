@@ -25,17 +25,17 @@ public class JoinCorporationScreen : View
         var name = SelectedCompany.company.Name;
         Title.text = $"Integrate \"{name}\" to our corporation";
 
-        bool willAcceptOffer = Companies.IsCompanyWillAcceptCorporationOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        bool willAcceptOffer = Companies.IsCompanyWillAcceptCorporationOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var progress = Companies.GetCorporationOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var progress = Companies.GetCorporationOfferProgress(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         Progress.text = Visuals.Colorize(progress + "%", willAcceptOffer);
 
 
         // TODO DIVIDE BY ZERO
-        var ourCost = Economy.GetCompanyCost(GameContext, MyCompany);
+        var ourCost = Economy.GetCompanyCost(Q, MyCompany);
         if (ourCost == 0) ourCost = 1;
-        var targetCost = Economy.GetCompanyCost(GameContext, SelectedCompany);
+        var targetCost = Economy.GetCompanyCost(Q, SelectedCompany);
 
         var sizeComparison = targetCost * 100 / ourCost;
 

@@ -35,7 +35,7 @@ public class CompanyViewOnMap : View
         company = c;
         EnableDarkTheme = darkImage;
 
-        bool hasControl = Companies.GetControlInCompany(MyCompany, c, GameContext) > 0;
+        bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
 
         Name.text = c.company.Name; // .Substring(0, 1);
         Name.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
@@ -45,7 +45,7 @@ public class CompanyViewOnMap : View
         ShowProductChanges.SetEntity(company);
 
 
-        var isRelatedToPlayer = Companies.IsRelatedToPlayer(GameContext, c);
+        var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, c);
         ConceptProgress.SetCompanyId(c.company.Id);
         //ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
 
@@ -54,7 +54,7 @@ public class CompanyViewOnMap : View
         var clients = Marketing.GetClients(company);
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
-        var position = Markets.GetPositionOnMarket(GameContext, company);
+        var position = Markets.GetPositionOnMarket(Q, company);
         PositionOnMarket.text = $"#{position + 1}";
         var level = Products.GetProductLevel(company);
         PositionOnMarket.text = $"{level}LVL";
@@ -64,11 +64,11 @@ public class CompanyViewOnMap : View
 
         if (Profitability != null)
         {
-            var profit = Economy.GetProfit(GameContext, company.company.Id);
+            var profit = Economy.GetProfit(Q, company.company.Id);
 
-            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, GameContext);
+            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, Q);
             var shareChange = 1;
-            bool isGrowing = Companies.IsCompanyGrowing(company, GameContext);
+            bool isGrowing = Companies.IsCompanyGrowing(company, Q);
 
             //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
             Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
@@ -86,7 +86,7 @@ public class CompanyViewOnMap : View
 
     string GetProfitDescription()
     {
-        var profit = Economy.GetProfit(GameContext, company.company.Id);
+        var profit = Economy.GetProfit(Q, company.company.Id);
 
         return profit > 0 ?
             Visuals.Positive($"Profit: +{Format.Money(profit)}") :
@@ -95,7 +95,7 @@ public class CompanyViewOnMap : View
 
     Color GetMarketRelevanceColor()
     {
-        var profit = Economy.GetProfit(GameContext, company);
+        var profit = Economy.GetProfit(Q, company);
 
         if (profit > 0)
             return Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
@@ -107,7 +107,7 @@ public class CompanyViewOnMap : View
             return Visuals.GetColorFromString(Colors.COLOR_NEGATIVE);
 
         var concept = "";
-        switch (Products.GetConceptStatus(company, GameContext))
+        switch (Products.GetConceptStatus(company, Q))
         {
             case ConceptStatus.Leader: concept = Colors.COLOR_POSITIVE; break;
             case ConceptStatus.Outdated: concept = Colors.COLOR_NEGATIVE; break;
@@ -135,10 +135,10 @@ public class CompanyViewOnMap : View
     {
         StringBuilder hint = new StringBuilder(company.company.Name);
 
-        var position = Markets.GetPositionOnMarket(GameContext, company);
+        var position = Markets.GetPositionOnMarket(Q, company);
 
         // quality description
-        var conceptStatus = Products.GetConceptStatus(company, GameContext);
+        var conceptStatus = Products.GetConceptStatus(company, Q);
 
         var concept = "???";
 

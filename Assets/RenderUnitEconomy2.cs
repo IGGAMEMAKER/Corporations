@@ -16,12 +16,12 @@ public class RenderUnitEconomy2 : View
 
         var product = SelectedCompany;
 
-        var income = Economy.GetUnitIncome(GameContext, product, 0);
+        var income = Economy.GetUnitIncome(Q, product, 0);
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, GameContext);
+        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
 
         var payback = ads / income;
-        var lifetime = Marketing.GetLifeTime(GameContext, product.company.Id);
+        var lifetime = Marketing.GetLifeTime(Q, product.company.Id);
 
         var paybackDescription = "=\nMarketing cost: " + ads.ToString("0.00");
 
@@ -46,7 +46,7 @@ public class RenderUnitEconomy2 : View
 
         Lifetime.text = lifetime.ToString("0.00") + " months";
 
-        var niche = Markets.GetNiche(GameContext, product);
+        var niche = Markets.GetNiche(Q, product);
         MonetisationType.text = Products.GetFormattedMonetisationType(niche);
     }
 }

@@ -27,7 +27,7 @@ public class AcquisitionScreen : View
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
 
-        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         RenderProposalStatus(willAcceptOffer);
 
@@ -42,7 +42,7 @@ public class AcquisitionScreen : View
             return;
         }
 
-        var progress = Companies.GetOfferProgress(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var progress = Companies.GetOfferProgress(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
         var status = Visuals.Colorize(progress + "%", willAcceptOffer) + " of owners want to accept your offer";
         var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
@@ -53,7 +53,7 @@ public class AcquisitionScreen : View
         if (o.Turn == AcquisitionTurn.Seller)
         {
             ProposalStatus.text = "Waiting for response... ";
-            if (!ScheduleUtils.IsTimerRunning(GameContext))
+            if (!ScheduleUtils.IsTimerRunning(Q))
                 ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
         }
     }
@@ -70,7 +70,7 @@ public class AcquisitionScreen : View
         long price = conditions.Price;
 
 
-        var cost = Economy.GetCompanyCost(GameContext, SelectedCompany.company.Id);
+        var cost = Economy.GetCompanyCost(Q, SelectedCompany.company.Id);
         string overpriceText = "";
         if (price > cost)
         {
@@ -96,7 +96,7 @@ public class AcquisitionScreen : View
 
     void RenderShareOfferSlider(AcquisitionConditions conditions, long price)
     {
-        var ourCompanyCost = Economy.GetCompanyCost(GameContext, MyCompany);
+        var ourCompanyCost = Economy.GetCompanyCost(Q, MyCompany);
 
 
         var sharePercent = conditions.ByShares; // ;
@@ -124,9 +124,9 @@ public class AcquisitionScreen : View
         if (!HasCompany)
             return;
 
-        Companies.TweakAcquisitionConditions(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
+        Companies.TweakAcquisitionConditions(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
 
-        ScreenUtils.UpdateScreenWithoutAnyChanges(GameContext);
+        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
     }
 
     public void OnSharesOfferEdit()
@@ -158,7 +158,7 @@ public class AcquisitionScreen : View
     {
         get
         {
-            var offer = Companies.GetAcquisitionOffer(GameContext, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
             
             return offer?.acquisitionOffer ?? null;
         }

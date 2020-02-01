@@ -22,14 +22,14 @@ public class CompanyResultView : View
     {
         result1 = result;
 
-        var product = Companies.Get(GameContext, result.CompanyId);
+        var product = Companies.Get(Q, result.CompanyId);
 
         CompanyName.text = product.company.Name;
 
         DrawProductGrowth(product, result);
         DrawProductStatus();
 
-        var profit = Economy.GetProfit(GameContext, result.CompanyId);
+        var profit = Economy.GetProfit(Q, result.CompanyId);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
         LinkToNiche.SetNiche(product.product.Niche);
@@ -45,7 +45,7 @@ public class CompanyResultView : View
 
     void RenderMarketingButtons(int companyId)
     {
-        var company = Companies.Get(GameContext, companyId);
+        var company = Companies.Get(Q, companyId);
         var financing = Economy.GetMarketingFinancing(company);
 
         var isReleased = company.isRelease;
@@ -59,13 +59,13 @@ public class CompanyResultView : View
 
     void DrawProductGrowth(GameEntity product, ProductCompanyResult result)
     {        
-        var bonus = Marketing.GetBrandChange(product, GameContext);
+        var bonus = Marketing.GetBrandChange(product, Q);
         var change = bonus.Sum();
         ClientGrowth.text = $"Brand\n{(int)product.branding.BrandPower} ({Visuals.PositiveOrNegativeMinified(change)})";
         ClientGrowth.gameObject.GetComponent<Hint>().SetHint(bonus.ToString());
 
         var shareChange = (long)result.MarketShareChange;
-        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, GameContext);
+        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, Q);
         MarketShareChange.text = "Market share\n" + Visuals.Colorize(share.ToString(), shareChange >= 0) + "%";
     }
 
@@ -74,15 +74,15 @@ public class CompanyResultView : View
         var conceptStatus = result1.ConceptStatus;
         var color = GetStatusColor(conceptStatus);
 
-        Cooldowns.TryGetCooldown(GameContext, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
+        Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
 
         var days = 0;
         if (c1 != null)
             days = c1.EndDate - CurrentIntDate;
 
-        var product = Companies.Get(GameContext, result1.CompanyId);
+        var product = Companies.Get(Q, result1.CompanyId);
 
-        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, GameContext)}LVL)" : "";
+        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, Q)}LVL)" : "";
         ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";
     }
 

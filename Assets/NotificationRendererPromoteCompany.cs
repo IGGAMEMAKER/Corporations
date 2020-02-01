@@ -5,14 +5,14 @@ public class NotificationRendererBankruptcy : NotificationRenderer<NotificationM
 {
     public override string GetDescription(NotificationMessageBankruptcy message)
     {
-        var name = Companies.Get(GameContext, message.CompanyId).company.Name;
+        var name = Companies.Get(Q, message.CompanyId).company.Name;
 
         return $"Company {name} is DEAD! Everything has it's lifespan...";
     }
 
     public override string GetTitle(NotificationMessageBankruptcy message)
     {
-        var name = Companies.Get(GameContext, message.CompanyId).company.Name;
+        var name = Companies.Get(Q, message.CompanyId).company.Name;
 
         return $"Company {name} is DEAD!";
     }
@@ -32,8 +32,8 @@ public class NotificationRendererAcquisition : NotificationRenderer<Notification
 
     public override string GetTitle(NotificationMessageBuyingCompany message)
     {
-        var name = Companies.Get(GameContext, message.CompanyId).company.Name;
-        var buyer = Companies.GetInvestorName(GameContext, message.BuyerInvestorId);
+        var name = Companies.Get(Q, message.CompanyId).company.Name;
+        var buyer = Companies.GetInvestorName(Q, message.BuyerInvestorId);
 
         return $"ACQUISITION: {buyer} bought {name} for {Format.Money(message.Bid)}!";
     }
@@ -48,14 +48,14 @@ public class NotificationRendererPromoteCompany : NotificationRenderer<Notificat
 {
     public override string GetTitle(NotificationMessageCompanyTypeChange message)
     {
-        var c = Companies.Get(GameContext, message.CompanyId);
+        var c = Companies.Get(Q, message.CompanyId);
 
         return $"PROMOTION: {message.PreviousName} => {c.company.Name}";
     }
 
     public override string GetDescription(NotificationMessageCompanyTypeChange message)
     {
-        var product = Companies.Get(GameContext, message.CompanyId);
+        var product = Companies.Get(Q, message.CompanyId);
 
         return $"{product.company.Name} needs money. Will they get enough investments to complete their goals?";
     }

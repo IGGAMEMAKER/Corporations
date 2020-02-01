@@ -7,6 +7,6 @@ public class RenderRequiredAmountOfWorkers : ParameterView
 {
     public override string RenderValue()
     {
-        return Economy.GetNecessaryAmountOfWorkers(SelectedCompany, GameContext).ToString();
+        return Economy.GetNecessaryAmountOfWorkers(SelectedCompany, Q).ToString();
     }
 }

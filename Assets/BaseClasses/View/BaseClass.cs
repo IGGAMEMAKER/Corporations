@@ -5,28 +5,28 @@ using UnityEngine;
 public class BaseClass : MonoBehaviour
 {
     // data
-    public static GameContext GameContext => Contexts.sharedInstance.game;
+    public static GameContext Q => Contexts.sharedInstance.game;
 
-    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(GameContext);
-
-
-
-    public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(GameContext);
-
-    public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(GameContext);
-    public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(GameContext);
-
-    public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(GameContext);
-    public GameEntity SelectedInvestor  => ScreenUtils.GetSelectedInvestor(GameContext);
-
-    public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(GameContext).menu.ScreenMode;
+    public int CurrentIntDate => ScheduleUtils.GetCurrentDate(Q);
 
 
 
-    public GameEntity Me => GameContext.GetEntities(GameMatcher.Player)[0];
+    public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(Q);
+
+    public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(Q);
+    public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(Q);
+
+    public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(Q);
+    public GameEntity SelectedInvestor  => ScreenUtils.GetSelectedInvestor(Q);
+
+    public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(Q).menu.ScreenMode;
 
 
-    public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(GameContext);
+
+    public GameEntity Me => Q.GetEntities(GameMatcher.Player)[0];
+
+
+    public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(Q);
     public GameEntity MyCompany => MyGroupEntity ?? null;
     public bool HasCompany => MyCompany != null;
 

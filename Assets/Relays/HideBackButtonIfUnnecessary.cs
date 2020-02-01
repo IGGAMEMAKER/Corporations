@@ -11,11 +11,11 @@ public class HideBackButtonIfUnnecessary : HideOnSomeCondition
 
         //return daughters 
 
-        var h = ScreenUtils.GetNavigationHistory(GameContext);
+        var h = ScreenUtils.GetNavigationHistory(Q);
         var count = h.navigationHistory.Queries.Count;
 
         //Debug.Log("History Count: " + count);
 
-        return !ScreenUtils.IsCanNavigateBack(GameContext);
+        return !ScreenUtils.IsCanNavigateBack(Q);
     }
 }

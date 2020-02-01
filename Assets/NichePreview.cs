@@ -32,7 +32,7 @@ public class NichePreview : View
 
     long GetMarketPotential()
     {
-        return Markets.GetMarketPotential(GameContext, Niche);
+        return Markets.GetMarketPotential(Q, Niche);
     }
 
     string GetFormattedMarketPotential()
@@ -49,7 +49,7 @@ public class NichePreview : View
 
         NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
 
-        var size = Markets.GetMarketSize(GameContext, Niche);
+        var size = Markets.GetMarketSize(Q, Niche);
         var text = hidePotential ? "?" : Format.MinifyMoney(size); // GetFormattedMarketPotential();
 
 
@@ -62,7 +62,7 @@ public class NichePreview : View
         // avoiding errors when choosing our first niche 
         if (MyCompany != null)
         {
-            hasCompany = Companies.HasCompanyOnMarket(MyCompany, Niche, GameContext);
+            hasCompany = Companies.HasCompanyOnMarket(MyCompany, Niche, Q);
             isMarketOfInterest = Companies.IsInSphereOfInterest(MyCompany, Niche);
         }
 

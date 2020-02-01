@@ -23,15 +23,15 @@ public class ProductOnMarketView : View
 
     void Render()
     {
-        var company = Companies.Get(GameContext, companyId);
+        var company = Companies.Get(Q, companyId);
 
         var clients = Marketing.GetClients(company);
-        var newClients = Marketing.GetAudienceGrowth(company, GameContext);
+        var newClients = Marketing.GetAudienceGrowth(company, Q);
 
         Clients.text = Format.Minify(clients);
         NewClients.text = Format.Minify(newClients);
 
-        var isPlayerRelated = Companies.IsRelatedToPlayer(GameContext, company);
+        var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO);
 

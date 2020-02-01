@@ -14,7 +14,7 @@ public class PerspectiveNichesListView : ListView
     {
         base.ViewRender();
 
-        var perspectiveNiches = Markets.GetPlayableNiches(GameContext);
+        var perspectiveNiches = Markets.GetPlayableNiches(Q);
             //AdjacentNichesOnly ?
             //    NicheUtils.GetPerspectiveAdjacentNiches(GameContext, MyCompany)
             //    :

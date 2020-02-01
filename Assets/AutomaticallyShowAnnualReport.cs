@@ -9,6 +9,6 @@ public class AutomaticallyShowAnnualReport : ButtonController
     {
         Navigate(ScreenMode.AnnualReportScreen);
 
-        ScheduleUtils.PauseGame(GameContext);
+        ScheduleUtils.PauseGame(Q);
     }
 }

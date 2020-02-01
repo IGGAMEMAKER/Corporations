@@ -23,7 +23,7 @@ public class NotificationsListView : ListView
 
     void Render()
     {
-        var notifications = NotificationUtils.GetNotifications(GameContext);
+        var notifications = NotificationUtils.GetNotifications(Q);
 
         //var list = new List<NotificationMessage>();
 

@@ -16,6 +16,6 @@ public class RejectAcquisitionProposalController : ButtonController
 
         //CompanyUtils.BuyShares(GameContext, companyId, buyerId, MyCompany.shareholder.Id, -1, offer.acquisitionOffer.Offer);
 
-        Companies.RejectAcquisitionOffer(GameContext, companyId, buyerId);
+        Companies.RejectAcquisitionOffer(Q, companyId, buyerId);
     }
 }

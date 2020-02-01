@@ -9,7 +9,7 @@ public class EnlargeOnPeriodTick : View
     {
         base.ViewRender();
 
-        if (ScheduleUtils.IsPeriodEnd(GameContext))
+        if (ScheduleUtils.IsPeriodEnd(Q))
         {
             if (!animationWasPlayed)
                 GetComponent<EnlargeOnDemand>().StartAnimation();

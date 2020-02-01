@@ -4,6 +4,6 @@ public class NotificationsClearController : ButtonController
 {
     public override void Execute()
     {
-        NotificationUtils.ClearNotifications(GameContext);
+        NotificationUtils.ClearNotifications(Q);
     }
 }

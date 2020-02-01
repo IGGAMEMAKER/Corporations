@@ -6,7 +6,7 @@ public class ClosePopupExitGame : SimplePopupButtonController
 {
     public override void Execute()
     {
-        NotificationUtils.ClosePopup(GameContext);
+        NotificationUtils.ClosePopup(Q);
 
         // copied from
         // Exit.cs

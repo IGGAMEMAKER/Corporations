@@ -53,7 +53,7 @@ public class CompanyTableView : View, IPointerEnterHandler
 
         SetPanelColor();
 
-        Cost.text = "$" + Format.MinifyToInteger(Economy.GetCompanyCost(GameContext, entity.company.Id));
+        Cost.text = "$" + Format.MinifyToInteger(Economy.GetCompanyCost(Q, entity.company.Id));
 
 
         RenderValuationGrowth();
@@ -83,6 +83,6 @@ public class CompanyTableView : View, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        ScreenUtils.SetSelectedCompany(GameContext, entity.company.Id);
+        ScreenUtils.SetSelectedCompany(Q, entity.company.Id);
     }
 }

@@ -6,7 +6,7 @@ public class RenderMyControl : ParameterView
     public override string RenderValue()
     {
         var shareholderId = Me.shareholder.Id;
-        var control = Companies.GetShareSize(GameContext, MyCompany.company.Id, shareholderId);
+        var control = Companies.GetShareSize(Q, MyCompany.company.Id, shareholderId);
 
         Colorize(control, 0, 100);
 

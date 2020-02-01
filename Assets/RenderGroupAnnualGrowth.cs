@@ -9,8 +9,8 @@ public class RenderGroupAnnualGrowth : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var current = CompanyStatisticsUtils.GetCurrentAnnualReport(GameContext);
-        var previous = CompanyStatisticsUtils.GetPreviousAnnualReport(GameContext);
+        var current = CompanyStatisticsUtils.GetCurrentAnnualReport(Q);
+        var previous = CompanyStatisticsUtils.GetPreviousAnnualReport(Q);
 
         var investorId = MyCompany.shareholder.Id;
 

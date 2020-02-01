@@ -6,10 +6,10 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
     {
         NicheType nicheType = Popup.NicheType;
 
-        var id = Companies.CreateProductAndAttachItToGroup(GameContext, nicheType, MyCompany);
+        var id = Companies.CreateProductAndAttachItToGroup(Q, nicheType, MyCompany);
 
-        NotificationUtils.ClosePopup(GameContext);
-        NotificationUtils.AddPopup(GameContext, new PopupMessageCreateApp(id));
+        NotificationUtils.ClosePopup(Q);
+        NotificationUtils.AddPopup(Q, new PopupMessageCreateApp(id));
     }
 
     public override string GetButtonName() => "YES";
