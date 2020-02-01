@@ -13,9 +13,7 @@ public class UpgradeProductImprovements : TimedButton
 
     public override CompanyTask GetCompanyTask()
     {
-        var product = Companies.Get(GameContext, CompanyId);
-
-        return new CompanyTaskUpgradeFeature(product.company.Id, ProductImprovement);
+        return new CompanyTaskUpgradeFeature(CompanyId, ProductImprovement);
     }
 
     public override bool IsInteractable()

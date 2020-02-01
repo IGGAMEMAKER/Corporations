@@ -1,11 +1,6 @@
 ﻿using Assets.Core;
 using UnityEngine.UI;
 
-struct GoalViewInfo
-{
-    public string goal;
-}
-
 public class InvestmentGoalView : View
 {
     public Text Goal;
@@ -16,22 +11,6 @@ public class InvestmentGoalView : View
 
     public Text HaveLabel;
     public Text HaveValue;
-
-    CompanyGoalComponent goal
-    {
-        get
-        {
-            return MyCompany.companyGoal;
-        }
-    }
-
-    GoalViewInfo GetGoalViewInfo()
-    {
-        return new GoalViewInfo
-        {
-            goal = Investments.GetFormattedInvestorGoal(goal.InvestorGoal)
-        };
-    }
 
     void RenderProgress(GoalRequirements requirements, InvestorGoal investorGoal)
     {
@@ -99,11 +78,13 @@ public class InvestmentGoalView : View
     {
         base.ViewRender();
 
-        var goalinfo = GetGoalViewInfo();
+        var goal = MyCompany.companyGoal.InvestorGoal;
+
+        var goalInfo = Investments.GetFormattedInvestorGoal(goal);
         var requirements = Investments.GetGoalRequirements(MyCompany, GameContext);
 
-        Goal.text = Visuals.Colorize(goalinfo.goal, Investments.IsGoalCompleted(MyCompany, GameContext));
+        Goal.text = Visuals.Colorize(goalInfo, Investments.IsGoalCompleted(MyCompany, GameContext));
 
-        RenderProgress(requirements, goal.InvestorGoal);
+        RenderProgress(requirements, goal);
     }
 }
