@@ -18,10 +18,73 @@ namespace Assets.Core.Formatting
         {
             var name = GetFormattedNicheName(niche);
 
-            if (name.EndsWith("s"))
-                return name.Substring(0, name.Length - 1);
-            else
-                return name;
+            switch (niche)
+            {
+                case NicheType.Com_Messenger: return "Messenger";
+                case NicheType.Com_SocialNetwork: return "Social Network";
+                case NicheType.Com_Blogs: return "Blog";
+                case NicheType.Com_Forums: return "Forum";
+                case NicheType.Com_Email: return "Email service";
+                case NicheType.Com_Dating: return "Dating app";
+
+
+                case NicheType.Tech_Clouds: return "Cloud service";
+                case NicheType.Tech_OSDesktop: return "Operational System";
+                case NicheType.Tech_SearchEngine: return "Search Engine";
+                case NicheType.Tech_Browser: return "Web browser";
+                case NicheType.Tech_MobileOS: return "Mobile Operational System";
+
+                // entertainment
+                case NicheType.Ent_Casino: return "Online Casino";
+                case NicheType.Ent_Betting: return "Online Betting App";
+                case NicheType.Ent_Lottery: return "Online Lottery App";
+                case NicheType.Ent_Poker: return "Online Poker";
+
+                case NicheType.Ent_MMOs: return "MMO game";
+                case NicheType.Ent_FreeToPlay: return "F2P Game";
+                case NicheType.Ent_SinglePlayer: return "Single player game";
+
+
+                case NicheType.Ent_VideoHosting: return "Video hosting";
+                case NicheType.Ent_StreamingService: return "Streaming Service";
+                case NicheType.Ent_TVStreamingService: return "TV Streaming Service";
+
+                // e-commerce
+                case NicheType.ECom_Exchanging: return "Money Exchange";
+                case NicheType.ECom_OnlineBanking: return "Online Bank";
+                case NicheType.ECom_PaymentSystem: return "Payment System";
+
+                case NicheType.ECom_EventTickets: return "Event Booking App";
+                case NicheType.ECom_Tourism: return "Tours Booking App";
+                case NicheType.ECom_BookingHotels: return "Hotel Booking App";
+                case NicheType.ECom_BookingTransportTickets: return "Airplane/train Booking App";
+                case NicheType.ECom_BookingAppartments: return "Rent appartments";
+
+                case NicheType.ECom_OnlineTaxi: return "Online taxi";
+                case NicheType.ECom_Marketplace: return "Marketplace";
+
+                // quality of life
+                case NicheType.Qol_3DGraphicalEditor: return "3D Editing tool";
+                case NicheType.Qol_AdBlocker: return "Advert blocking tool";
+                case NicheType.Qol_Antivirus: return "Antivirus";
+                case NicheType.Qol_Archivers: return "Archiver";
+                case NicheType.Qol_DiskFormattingUtils: return "Disk formatting util";
+                case NicheType.Qol_DocumentEditors: return "Document Editor";
+                case NicheType.Qol_Encyclopedia: return "Online Encyclopedia";
+                case NicheType.Qol_GraphicalEditor: return "2D Editing tool";
+                case NicheType.Qol_MusicPlayers: return "Music Player";
+                case NicheType.Qol_OnlineEducation: return "Online school";
+                case NicheType.Qol_PdfReader: return "PDF reader";
+                case NicheType.Qol_RSSReader: return "RSS reader";
+                case NicheType.Qol_VideoEditingTool: return "Video editing tool";
+                case NicheType.Qol_VideoPlayers: return "Video player";
+
+                case NicheType.Qol_MusicSearch: return "Music search";
+                case NicheType.Qol_Maps: return "Online Map";
+
+                default:
+                    return name.EndsWith("s") ? name.Substring(0, name.Length - 1) : name;
+            }
         }
 
         public static string GetShortNicheName(NicheType niche)
@@ -40,7 +103,7 @@ namespace Assets.Core.Formatting
                 case NicheType.Tech_OSDesktop: return "OS";
                 case NicheType.Tech_SearchEngine: return "SER";
                 case NicheType.Tech_Browser: return "BRW";
-                case NicheType.Tech_MobileOS: return "MOS";
+                case NicheType.Tech_MobileOS: return "mOS";
 
                 // entertainment
                 case NicheType.Ent_Casino: return "CAS";
@@ -93,7 +156,6 @@ namespace Assets.Core.Formatting
 
                 case NicheType.Qol_MusicSearch: return "MS";
                 case NicheType.Qol_Maps: return "MAP";
-                case NicheType.Qol_OnlineGenealogy: return "GEN";
 
 
                 default: return niche.ToString();
@@ -169,7 +231,6 @@ namespace Assets.Core.Formatting
 
                 case NicheType.Qol_MusicSearch: return "Music search";
                 case NicheType.Qol_Maps: return "Maps";
-                case NicheType.Qol_OnlineGenealogy: return "Online genealogy";
 
 
                 default: return niche.ToString();

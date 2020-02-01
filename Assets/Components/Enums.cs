@@ -54,11 +54,14 @@ public enum NicheType
     ECom_Blockchain,
     ECom_TradingBot,
 
+    // transport
     ECom_OnlineTaxi,
+    
+    // transport/tourism
     ECom_BookingTransportTickets, // rzd, aero
     ECom_BookingHotels, // hotels
-    ECom_BookingAppartments, // airbnb
     ECom_Tourism,
+    ECom_BookingAppartments, // airbnb
     ECom_EventTickets, // concerts
 
     ECom_Marketplace, // amazon, ali e.t.c.
@@ -82,8 +85,7 @@ public enum NicheType
     Qol_Antivirus,
 
     Qol_OnlineEducation,
-    Qol_Maps,
-    Qol_OnlineGenealogy,
+    Qol_Maps
 }
 
 public enum IndustryType

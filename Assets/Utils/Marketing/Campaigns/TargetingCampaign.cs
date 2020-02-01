@@ -19,13 +19,7 @@
             }
         }
 
-        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext)
-        {
-            var cost = GetTargetingCampaignCost(product, gameContext);
-            var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
-
-            return IsCanStartTargetingCampaign(product, gameContext, task, cost);
-        }
+        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext) => IsCanStartTargetingCampaign(product, gameContext, new CompanyTaskMarketingRegularCampaign(product.company.Id), GetTargetingCampaignCost(product, gameContext));
         public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
         {
             //Companies.IsEnoughResources(product, cost) &&

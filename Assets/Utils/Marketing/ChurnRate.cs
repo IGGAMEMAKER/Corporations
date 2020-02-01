@@ -20,21 +20,6 @@ namespace Assets.Core
             return Mathf.Log(0.01f, oppositeChurn);
         }
 
-        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.GetNiche(gameContext, product), product);
-        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
-        {
-            var competitors = Markets.GetProductsOnMarket(niche, gameContext);
-
-            var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != product.company.Id);
-
-            return dumpingCompetitors.ToArray();
-        }
-
-        public static bool HasDumpingCompetitors(GameContext gameContext, GameEntity product)
-        {
-            return false;
-            return GetDumpingCompetitors(gameContext, product).Count() > 0;
-        }
 
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId) => GetChurnBonus(gameContext, Companies.Get(gameContext, companyId));
         public static Bonus<long> GetChurnBonus(GameContext gameContext, GameEntity c)
@@ -70,7 +55,7 @@ namespace Assets.Core
 
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
-            //return 2;
+            return 1;
             switch (monetisation)
             {
                 case Monetisation.Adverts:
@@ -85,6 +70,23 @@ namespace Assets.Core
                 default:
                     return 20;
             }
+        }
+
+
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.GetNiche(gameContext, product), product);
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
+        {
+            var competitors = Markets.GetProductsOnMarket(niche, gameContext);
+
+            var dumpingCompetitors = competitors.Where(p => p.isDumping && p.company.Id != product.company.Id);
+
+            return dumpingCompetitors.ToArray();
+        }
+
+        public static bool HasDumpingCompetitors(GameContext gameContext, GameEntity product)
+        {
+            return false;
+            return GetDumpingCompetitors(gameContext, product).Count() > 0;
         }
     }
 }

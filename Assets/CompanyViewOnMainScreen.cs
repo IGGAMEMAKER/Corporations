@@ -67,8 +67,13 @@ public class CompanyViewOnMainScreen : View
 
         Clients.text = Format.Minify(clients);
 
-        Clients.GetComponent<Hint>().SetHint($"This product has {Format.Minify(clients)} clients\n" + Visuals.Negative($"We are losing {Format.Minify(churnClients)} each week.\nChurn rate is {churn}%") + $".\n\nUpgrade app to reduce this value");
+        //Clients.GetComponent<Hint>().SetHint(
+        //    $"This product has {Format.Minify(clients)} clients\n"
+        //    + Visuals.Negative($"We are losing {Format.Minify(churnClients)} each week.\nChurn rate is {churn}%")
+        //    + $".\n\nUpgrade app to reduce this value"
+        //    );
         CompanyHint.SetHint(GetCompanyHint());
+
 
         Expertise.text = $"Development\n(Expertise: {expertise})";
 
@@ -99,6 +104,8 @@ public class CompanyViewOnMainScreen : View
 
         var targetingCost = Marketing.GetTargetingCampaignCost(company, GameContext);
         var brandingCost = Marketing.GetBrandingCampaignCost(company, GameContext);
+
+
 
         // enable / disable them
         UpdateIfNecessary(HireWorker, workers < max);
