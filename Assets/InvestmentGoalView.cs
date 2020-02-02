@@ -4,13 +4,15 @@ using UnityEngine.UI;
 public class InvestmentGoalView : View
 {
     public Text Goal;
-    //public ProgressBar ProgressBar;
+    public ProgressBar ProgressBar;
 
     public Text NeedLabel;
     public Text NeedValue;
 
     public Text HaveLabel;
     public Text HaveValue;
+
+    bool hasProgressBar => ProgressBar != null;
 
     void RenderProgress(GoalRequirements requirements, InvestorGoal investorGoal)
     {
@@ -72,6 +74,9 @@ public class InvestmentGoalView : View
                 HaveValue.text = "";
                 break;
         }
+
+        if (hasProgressBar)
+            ProgressBar.SetValue(requirements.have, requirements.need);
     }
 
     public override void ViewRender()

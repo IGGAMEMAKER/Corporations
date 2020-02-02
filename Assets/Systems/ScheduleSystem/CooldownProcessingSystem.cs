@@ -6,19 +6,14 @@ public class CooldownProcessingSystem : OnDateChange
 {
     public CooldownProcessingSystem(Contexts contexts) : base(contexts) {}
 
-    void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
-    {
-        cooldowns.RemoveAll(c => date >= c.EndDate);
-
-        company.ReplaceCooldowns(cooldowns);
-    }
-
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+        //var date = entities[0].date.Date;
+
         var container = Cooldowns.GetCooldowns(contexts.game);
 
-        var date = entities[0].date.Date;
         // old cooldown system
         foreach (var c in cooldowns)
             ProcessTasks(c.cooldowns.Cooldowns, c, date);
@@ -33,6 +28,13 @@ public class CooldownProcessingSystem : OnDateChange
 
         foreach (var c in removables)
             container.Remove(c);
+    }
+
+    void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
+    {
+        cooldowns.RemoveAll(c => date >= c.EndDate);
+
+        company.ReplaceCooldowns(cooldowns);
     }
 
     protected override bool Filter(GameEntity entity)

@@ -36,7 +36,10 @@ public enum CompanyTaskType
     RegularCampaign,
     BrandingCampaign,
 
-    ReleasingApp
+    ReleasingApp,
+
+    CorporateCulture,
+    ImproveSegment,
 }
 
 public abstract class CompanyTask

@@ -10,16 +10,20 @@ public class ProgressBar : MonoBehaviour {
 
     public Text Text;
 
-    //private void Awake()
-    //{
-        
-    //}
-
     void Start () {
         progress = 0;
     }
 
     public void SetValue(float have, float requirement)
+    {
+        required = requirement;
+
+        SetValue(have);
+
+        Text.text = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
+    }
+
+    public void SetValue(long have, long requirement)
     {
         required = requirement;
 

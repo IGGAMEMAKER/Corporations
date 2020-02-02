@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     partial class Cooldowns
     {
-        // new cooldwon system
+        // new cooldown system
         private static GameEntity GetCooldownContainer(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.CooldownContainer)[0];

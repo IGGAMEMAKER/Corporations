@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
 using Entitas;
-using UnityEngine;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
@@ -21,8 +20,6 @@ public partial class TaskProcessingSystem : OnDateChange
 
             if (date >= EndTime && !task.isCompleted)
             {
-                //Debug.Log("Finishing task " + task.CompanyTask.CompanyTaskType);
-
                 ProcessTask(task);
                 t.task.isCompleted = true;
             }

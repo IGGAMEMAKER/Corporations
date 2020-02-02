@@ -108,29 +108,10 @@ public enum CompanyType
     Corporation
 }
 
+
 public enum CooldownType
 {
-    TargetingActivity,
-    
-    // fame or loyalty
-    MarketingFocus,
-
-    // loyalty, ideas, 
-    ProductFocus,
-
-    // ads
-    BrandingCampaign,
-    TestCampaign,
-
-    CompanyGoal,
-
-    // TODO REMOVE
-    StealIdeas,
-
     ImproveSegment,
-
-    //
-    MarketResearch,
 
     CorporateCulture,
 }
@@ -205,6 +186,8 @@ public class CooldownUpgradeCorporateCulture : Cooldown
         return (comparable as CooldownUpgradeCorporateCulture).companyId == companyId;
     }
 }
+
+
 
 
 public enum InvestorType

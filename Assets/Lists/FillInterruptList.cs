@@ -30,8 +30,8 @@ public class FillInterruptList : View
 
         bool isCanCompleteGoal = CheckGoal();
 
-        CanReleaseProduct           .SetActive(HasReleaseableProducts());
-        NeedToCompleteGoal          .SetActive(!isCanCompleteGoal && false);
+        CanReleaseProduct           .SetActive(false && HasReleaseableProducts());
+        NeedToCompleteGoal          .SetActive(false && !isCanCompleteGoal);
 
         NeedToManageCompanies       .SetActive(false);
 
