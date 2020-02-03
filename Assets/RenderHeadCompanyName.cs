@@ -6,6 +6,6 @@ public class RenderHeadCompanyName : ParameterView
     {
         var cost = Economy.GetCompanyCost(Q, MyCompany);
 
-        return Visuals.Link($"Head company: {MyCompany.company.Name} ({Format.MinifyMoney(cost)})");
+        return Visuals.Link($"Head company: {MyCompany.company.Name} ({Format.Money(cost)})");
     }
 }

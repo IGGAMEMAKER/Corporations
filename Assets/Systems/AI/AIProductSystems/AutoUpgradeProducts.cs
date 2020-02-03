@@ -24,7 +24,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
                 Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
             }
 
-            UpdgradeProduct(product, gameContext);
+            //UpdgradeProduct(product, gameContext);
         }
 
         // release AI apps if can

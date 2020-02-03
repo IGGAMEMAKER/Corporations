@@ -26,6 +26,7 @@ public class CompanyViewOnMainScreen : View
     public ReleaseApp ReleaseApp;
     public UpgradeProductImprovements UpgradeChurn;
     public UpgradeProductImprovements UpgradeMonetisation;
+    public LinkToHiringScreen LinkToHiringScreen;
 
     public Text Expertise;
 
@@ -38,10 +39,10 @@ public class CompanyViewOnMainScreen : View
         company = c;
         EnableDarkTheme = darkImage;
 
-        Render(true);
+        Render();
     }
 
-    void Render(bool wasCompanyUpdated)
+    void Render()
     {
         if (company == null)
             return;
@@ -100,6 +101,7 @@ public class CompanyViewOnMainScreen : View
         StartBrandingCampaign.SetCompanyId(id);
         UpgradeChurn.SetCompanyId(id);
         UpgradeMonetisation.SetCompanyId(id);
+        LinkToHiringScreen.SetCompanyId(id);
 
 
         var max = Economy.GetNecessaryAmountOfWorkers(company, Q);
@@ -111,12 +113,14 @@ public class CompanyViewOnMainScreen : View
 
 
         // enable / disable them
-        UpdateIfNecessary(HireWorker, workers < max);
+        //UpdateIfNecessary(HireWorker, workers < max);
+        HireWorker.GetComponent<Button>().interactable = workers < max;
         UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
 
-        UpdateIfNecessary(TestCampaignButton, !company.isRelease);
-        UpdateIfNecessary(StartRegularAdCampaign, company.isRelease);
-        UpdateIfNecessary(StartBrandingCampaign, company.isRelease);
+        UpdateIfNecessary(TestCampaignButton,       !company.isRelease);
+        UpdateIfNecessary(StartRegularAdCampaign,   company.isRelease);
+        UpdateIfNecessary(StartBrandingCampaign,    company.isRelease);
+        UpdateIfNecessary(LinkToHiringScreen,       workers > 5);
 
 
         // render
@@ -136,7 +140,7 @@ public class CompanyViewOnMainScreen : View
     {
         base.ViewRender();
 
-        Render(false);
+        Render();
     }
 
     string GetProfitDescription()
