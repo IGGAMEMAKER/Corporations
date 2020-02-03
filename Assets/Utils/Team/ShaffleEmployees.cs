@@ -42,6 +42,11 @@ namespace Assets.Core
             //Debug.Log("ShaffleEmployees: " + company.company.Name + " DONE");
         }
 
+        public static bool HasFreePlaceForWorker(GameEntity company, WorkerRole workerRole)
+        {
+            return !company.team.Managers.ContainsValue(workerRole);
+        }
+
         public static List<WorkerRole> GetGroupRoles() => new List<WorkerRole>
         {
             WorkerRole.CEO,

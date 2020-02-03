@@ -23,6 +23,14 @@ public class HumanPreview : View
         if (RoleText != null)
         {
             RoleText.text = formattedRole;
+
+            if (CurrentScreen == ScreenMode.EmployeeScreen)
+            {
+                var company = SelectedCompany;
+
+                var hasWorkerOfSameType = Teams.HasFreePlaceForWorker(company, role);
+                RoleText.color = Visuals.GetColorPositiveOrNegative(hasWorkerOfSameType);
+            }
         }
 
         Overall.text = $"{rating}";

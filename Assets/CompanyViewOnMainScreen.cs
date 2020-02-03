@@ -125,6 +125,7 @@ public class CompanyViewOnMainScreen : View
 
         // render
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
+        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ? "Hiring workers will increase development speed" : Visuals.Negative("You reached max limit of workers\n") + "To increase this limit, hire TOP managers");
 
         StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
