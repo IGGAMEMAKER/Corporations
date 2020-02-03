@@ -8,34 +8,20 @@ public class CooldownProcessingSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        //GameEntity[] cooldowns = contexts.game.GetEntities(GameMatcher.Cooldowns);
-        //var date = ScheduleUtils.GetCurrentDate(gameContext);
-        ////var date = entities[0].date.Date;
+        GameEntity[] tasks = Cooldowns.GetCooldowns(gameContext);
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        //var container = Cooldowns.GetCooldowns(contexts.game);
+        for (var i = tasks.Length - 1; i >= 0; i--)
+        {
+            var t = tasks[i];
+            var task = t.timedAction;
 
-        //// old cooldown system
-        //foreach (var c in cooldowns)
-        //    //ProcessTasks(c.cooldowns.Cooldowns, c, date);
+            var EndTime = task.EndTime;
 
-        //// new cooldown system
-        //var removables = new List<string>();
-        //foreach (var c in container)
-        //{
-        //    if (date >= c.Value.EndDate)
-        //        removables.Add(c.Key);
-        //}
-
-        //foreach (var c in removables)
-        //    container.Remove(c);
+            if (date >= EndTime)
+                t.Destroy();
+        }
     }
-
-    //void ProcessTasks(List<Cooldown> cooldowns, GameEntity company, int date)
-    //{
-    //    cooldowns.RemoveAll(c => date >= c.EndDate);
-
-    //    company.ReplaceCooldowns(cooldowns);
-    //}
 
     protected override bool Filter(GameEntity entity) => entity.hasDate;
 

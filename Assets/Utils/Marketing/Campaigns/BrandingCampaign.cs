@@ -10,11 +10,10 @@
         public static void StartBrandingCampaign(GameEntity product, GameContext gameContext)
         {
             var cost = GetBrandingCampaignCost(product, gameContext);
-            var task = new CompanyTaskBrandingCampaign(product.company.Id);
 
-            if (IsCanStartBrandingCampaign(product, gameContext, task, cost))
+            if (IsCanStartBrandingCampaign(product, gameContext, new CompanyTaskBrandingCampaign(product.company.Id), cost))
             {
-                Cooldowns.AddTask(gameContext, task, 90);
+                Cooldowns.AddBrandingCooldown(gameContext, product);
                 Companies.SpendResources(product, cost);
             }
         }

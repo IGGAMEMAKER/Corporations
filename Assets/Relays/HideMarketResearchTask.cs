@@ -2,7 +2,7 @@
 
 public class HideMarketResearchTask : HideTaskView
 {
-    public override TaskComponent GetTask()
+    public override TimedActionComponent GetTask()
     {
         return Cooldowns.GetTask(Q, new CompanyTaskExploreMarket(SelectedNiche));
     }

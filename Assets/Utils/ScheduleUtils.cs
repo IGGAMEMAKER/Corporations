@@ -84,22 +84,7 @@ namespace Assets.Core
         public static int GetDateByYearAndQuarter(int year, int quarter) => GetDateByYear(year) + quarter * 90;
 
 
-        // TODO Remove
-        public static TaskComponent GenerateTaskComponent(GameContext gameContext, CompanyTask taskType, int duration)
-        {
-            int currentDate = GetCurrentDate(gameContext); // contexts.game.GetEntities(GameMatcher.Date)[0].date.Date;
-
-            return new TaskComponent
-            {
-                Duration = duration,
-                isCompleted = false,
-                CompanyTask = taskType,
-                StartTime = currentDate,
-                EndTime = currentDate + duration
-            };
-        }
-
-        public static float GetTaskCompletionPercentage(GameContext gameContext, TaskComponent taskComponent)
+        public static float GetTaskCompletionPercentage(GameContext gameContext, TimedActionComponent taskComponent)
         {
             int CurrentIntDate = GetCurrentDate(gameContext);
 
@@ -108,28 +93,23 @@ namespace Assets.Core
 
 
 
-        public static GameEntity[] GetTasks(GameContext gameContext)
-        {
-            return gameContext.GetEntities(GameMatcher.Task);
-        }
-
         public static GameEntity[] GetTasks(GameContext gameContext, CompanyTask taskType)
         {
             // TODO: add filtering tasks, which are done by other players!
 
-            GameEntity[] gameEntities = GetTasks(gameContext);
+            GameEntity[] gameEntities = Cooldowns.GetTasks(gameContext);
 
-            return Array.FindAll(gameEntities, e => e.task.CompanyTask == taskType);
+            return Array.FindAll(gameEntities, e => e.timedAction.CompanyTask == taskType);
         }
 
-        public static TaskComponent GetTask(GameContext gameContext, CompanyTask taskType)
+        public static TimedActionComponent GetTask(GameContext gameContext, CompanyTask taskType)
         {
             GameEntity[] tasks = GetTasks(gameContext, taskType);
 
             if (tasks.Length == 0)
                 return null;
 
-            return tasks[0].task;
+            return tasks[0].timedAction;
         }
     }
 }

@@ -8,9 +8,9 @@ public partial class TaskView : View
     public ProgressBar ProgressBar;
     public Image Panel;
 
-    TaskComponent TaskComponent;
+    TimedActionComponent TaskComponent;
 
-    public void SetEntity(TaskComponent task)
+    public void SetEntity(TimedActionComponent task)
     {
         TaskComponent = task;
         AddLinkToObservableObject(task.CompanyTask);

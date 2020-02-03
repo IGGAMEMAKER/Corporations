@@ -9,13 +9,10 @@
 
         public static void StartTargetingCampaign(GameEntity product, GameContext gameContext)
         {
-            var cost = GetTargetingCampaignCost(product, gameContext);
-            var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
-
-            if (IsCanStartTargetingCampaign(product, gameContext, task, cost))
+            if (IsCanStartTargetingCampaign(product, gameContext))
             {
-                Cooldowns.AddTask(gameContext, task, 30);
-                Companies.SpendResources(product, cost);
+                Cooldowns.AddRegularCampaignCooldown(gameContext, product);
+                Companies.SpendResources(product, GetTargetingCampaignCost(product, gameContext));
             }
         }
 

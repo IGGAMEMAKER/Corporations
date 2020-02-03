@@ -12,6 +12,8 @@ public class StartRegularAdCampaign : TimedButton
         Marketing.StartTargetingCampaign(company, Q);
     }
 
+    public override CompanyTask GetCompanyTask() => new CompanyTaskMarketingRegularCampaign(CompanyId);
+
     public override bool IsInteractable()
     {
         var company = Companies.Get(Q, CompanyId);
@@ -30,6 +32,5 @@ public class StartRegularAdCampaign : TimedButton
     }
 
 
-    public override CompanyTask GetCompanyTask() => new CompanyTaskMarketingRegularCampaign(CompanyId);
     public override string ShortTitle() => "Targeting Campaign";
 }

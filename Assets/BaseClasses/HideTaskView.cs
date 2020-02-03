@@ -24,5 +24,5 @@
         show = false;
     }
 
-    public abstract TaskComponent GetTask();
+    public abstract TimedActionComponent GetTask();
 }

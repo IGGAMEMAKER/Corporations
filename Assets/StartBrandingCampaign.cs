@@ -12,6 +12,8 @@ public class StartBrandingCampaign : TimedButton
         Marketing.StartBrandingCampaign(company, Q);
     }
 
+    public override CompanyTask GetCompanyTask() => new CompanyTaskBrandingCampaign(CompanyId);
+
     public override bool IsInteractable()
     {
         var company = Companies.Get(Q, CompanyId);
@@ -31,7 +33,5 @@ public class StartBrandingCampaign : TimedButton
         return $"Start Branding Campaign\n(+{branding} Brand and +{Format.Minify(clients)} clients)";
     }
 
-
-    public override CompanyTask GetCompanyTask() => new CompanyTaskBrandingCampaign(CompanyId);
     public override string ShortTitle() => "Branding Campaign";
 }

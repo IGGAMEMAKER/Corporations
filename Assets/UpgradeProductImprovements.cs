@@ -11,10 +11,7 @@ public class UpgradeProductImprovements : TimedButton
         Products.UpgradeFeatures(ProductImprovement, product, Q);
     }
 
-    public override CompanyTask GetCompanyTask()
-    {
-        return new CompanyTaskUpgradeFeature(CompanyId, ProductImprovement);
-    }
+    public override CompanyTask GetCompanyTask() => new CompanyTaskUpgradeFeature(CompanyId, ProductImprovement);
 
     public override bool IsInteractable()
     {

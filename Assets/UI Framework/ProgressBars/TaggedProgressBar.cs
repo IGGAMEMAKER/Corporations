@@ -34,7 +34,7 @@ public class TaggedProgressBar : View
 
     void Render()
     {
-        TaskComponent taskComponent = ScheduleUtils.GetTask(Q, TaskType);
+        TimedActionComponent taskComponent = ScheduleUtils.GetTask(Q, TaskType);
 
         if (taskComponent == null)
         {

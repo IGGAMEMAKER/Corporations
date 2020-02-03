@@ -8,20 +8,20 @@ public partial class TaskProcessingSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] tasks = ScheduleUtils.GetTasks(gameContext);
+        GameEntity[] tasks = Cooldowns.GetTasks(gameContext);
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
         for (var i = tasks.Length - 1; i >= 0; i--)
         {
             var t = tasks[i];
-            var task = t.task;
+            var task = t.timedAction;
 
             var EndTime = task.EndTime;
 
             if (date >= EndTime && !task.isCompleted)
             {
                 Cooldowns.ProcessTask(task, gameContext);
-                t.task.isCompleted = true;
+                t.timedAction.isCompleted = true;
             }
 
             // 

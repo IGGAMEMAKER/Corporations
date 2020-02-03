@@ -2,7 +2,7 @@
 {
     partial class Cooldowns
     {
-        public static void ProcessTask(TaskComponent taskComponent, GameContext gameContext)
+        public static void ProcessTask(TimedActionComponent taskComponent, GameContext gameContext)
         {
             var task = taskComponent.CompanyTask;
             switch (task.CompanyTaskType)

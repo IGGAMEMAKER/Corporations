@@ -2,7 +2,7 @@
 
 
 // tasks
-public class TaskComponent : IComponent
+public class TimedActionComponent : IComponent
 {
     public bool isCompleted;
     public CompanyTask CompanyTask;
@@ -11,6 +11,9 @@ public class TaskComponent : IComponent
     public int Duration;
     public int EndTime;
 }
+
+public class TaskComponent : IComponent { }
+public class CooldownComponent : IComponent { }
 
 public enum CompanyTaskType
 {
@@ -49,6 +52,24 @@ public class CompanyTaskMarketingTestCampaign : CompanyTask
     {
         CompanyId = companyId;
         CompanyTaskType = CompanyTaskType.TestCampaign;
+    }
+}
+
+public class CompanyTaskUpgradeCulture : CompanyTask
+{
+    public CompanyTaskUpgradeCulture(int companyId)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.CorporateCulture;
+    }
+}
+
+public class CompanyTaskUpgradeConcept : CompanyTask
+{
+    public CompanyTaskUpgradeConcept(int companyId)
+    {
+        CompanyId = companyId;
+        CompanyTaskType = CompanyTaskType.ImproveSegment;
     }
 }
 
@@ -114,6 +135,8 @@ public class CompanyTaskExploreCompany : CompanyTask
         CompanyId = companyId;
     }
 }
+
+
 
 // markets
 public class CompanyTaskExploreMarket : CompanyTask

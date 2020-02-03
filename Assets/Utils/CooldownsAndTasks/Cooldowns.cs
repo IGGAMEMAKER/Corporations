@@ -1,37 +1,29 @@
 ﻿using Entitas;
-using System.Collections.Generic;
 
 namespace Assets.Core
 {
     partial class Cooldowns
     {
-        //// new cooldown system
-        //private static GameEntity GetCooldownContainer(GameContext gameContext)
-        //{
-        //    return gameContext.GetEntities(GameMatcher.CooldownContainer)[0];
-        //}
+        public static GameEntity[] GetCooldowns(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.TimedAction, GameMatcher.Cooldown));
+        }
 
-        //public static Dictionary<string, Cooldown> GetCooldowns(GameContext gameContext)
-        //{
-        //    var container = GetCooldownContainer(gameContext);
+        public static bool HasCooldown(GameContext gameContext, CompanyTask task)
+        {
+            return IsHasTask(gameContext, task);
+        }
 
-        //    return container.cooldownContainer.Cooldowns;
-        //}
+        public static void AddCooldown(GameContext gameContext, CompanyTask task, int duration)
+        {
+            var t = AddTimedAction(gameContext, task, duration);
 
-
-        //public static bool HasCooldown(GameContext gameContext, Cooldown cooldown) => HasCooldown(gameContext, cooldown.GetKey());
-        //public static bool HasCooldown(GameContext gameContext, string cooldownName)
-        //{
-        //    return GetCooldowns(gameContext).ContainsKey(cooldownName);
-        //}
-
-        //public static void AddCooldown(GameContext gameContext, CompanyTask cooldown, int duration)
-        //{
-        //    AddTask(gameContext, cooldown, duration);
-        //    var cooldowns = GetCooldowns(gameContext);
-
-        //    cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
-        //}
+            if (t != null)
+            {
+                ProcessTask(t.timedAction, gameContext);
+                t.isCooldown = true;
+            }
+        }
 
         //public static bool TryGetCooldown(GameContext gameContext, Cooldown req, out Cooldown cooldown) => TryGetCooldown(gameContext, req.GetKey(), out cooldown);
         //public static bool TryGetCooldown(GameContext gameContext, string cooldownName, out Cooldown cooldown)

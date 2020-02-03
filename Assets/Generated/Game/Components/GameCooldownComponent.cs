@@ -8,18 +8,18 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    static readonly TaskComponent taskComponent = new TaskComponent();
+    static readonly CooldownComponent cooldownComponent = new CooldownComponent();
 
-    public bool isTask {
-        get { return HasComponent(GameComponentsLookup.Task); }
+    public bool isCooldown {
+        get { return HasComponent(GameComponentsLookup.Cooldown); }
         set {
-            if (value != isTask) {
-                var index = GameComponentsLookup.Task;
+            if (value != isCooldown) {
+                var index = GameComponentsLookup.Cooldown;
                 if (value) {
                     var componentPool = GetComponentPool(index);
                     var component = componentPool.Count > 0
                             ? componentPool.Pop()
-                            : taskComponent;
+                            : cooldownComponent;
 
                     AddComponent(index, component);
                 } else {
@@ -40,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherTask;
+    static Entitas.IMatcher<GameEntity> _matcherCooldown;
 
-    public static Entitas.IMatcher<GameEntity> Task {
+    public static Entitas.IMatcher<GameEntity> Cooldown {
         get {
-            if (_matcherTask == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Task);
+            if (_matcherCooldown == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Cooldown);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherTask = matcher;
+                _matcherCooldown = matcher;
             }
 
-            return _matcherTask;
+            return _matcherCooldown;
         }
     }
 }

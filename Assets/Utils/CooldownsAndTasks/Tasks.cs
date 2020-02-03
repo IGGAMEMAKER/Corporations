@@ -9,33 +9,59 @@ namespace Assets.Core
     {
         public static GameEntity[] GetTasks(GameContext gameContext)
         {
-            return gameContext.GetEntities(GameMatcher.Task);
+            return gameContext.GetEntities(GameMatcher.AllOf(GameMatcher.TimedAction, GameMatcher.Task));
+        }
+        
+        public static GameEntity[] GetTimedActions(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.TimedAction);
         }
 
-        public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
+        public static TimedActionComponent GetCompanyTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            var tasks = GetTimedActions(gameContext);
+
+            var task = Array.Find(tasks, t => t.timedAction.CompanyTask.Equals(companyTask));
+
+            return task?.timedAction;
+        }
+
+        public static TimedActionComponent GetTask(GameContext gameContext, CompanyTask companyTask)
         {
             var tasks = GetTasks(gameContext);
 
-            var task = Array.Find(tasks, t => t.task.CompanyTask.Equals(companyTask));
+            var task = Array.Find(tasks, t => t.timedAction.CompanyTask.Equals(companyTask));
 
-            return task?.task;
+            return task?.timedAction;
         }
 
         public static IEnumerable<GameEntity> GetTasksOfCompany(GameContext gameContext, int companyId)
         {
             return GetTasks(gameContext)
-                .Where(t => t.task.CompanyTask.CompanyId == companyId);
+                .Where(t => t.timedAction.CompanyTask.CompanyId == companyId);
         }
 
-        public static void AddTask(GameContext gameContext, CompanyTask companyTask, int duration)
+
+
+        internal static GameEntity AddTimedAction(GameContext gameContext, CompanyTask companyTask, int duration)
         {
             if (IsHasTask(gameContext, companyTask))
-                return;
+                return null;
 
             var e = gameContext.CreateEntity();
 
             var start = ScheduleUtils.GetCurrentDate(gameContext);
-            e.AddTask(false, companyTask, start, duration, start + duration);
+            e.AddTimedAction(false, companyTask, start, duration, start + duration);
+
+            return e;
+        }
+
+        public static void AddTask(GameContext gameContext, CompanyTask companyTask, int duration)
+        {
+            var t = AddTimedAction(gameContext, companyTask, duration);
+
+            if (t != null)
+                t.isTask = true;
         }
 
 
@@ -44,6 +70,7 @@ namespace Assets.Core
         {
             return !IsHasTask(gameContext, companyTask);
         }
+
         public static bool IsHasTask(GameContext gameContext, CompanyTask companyTask)
         {
             var task = GetTask(gameContext, companyTask);

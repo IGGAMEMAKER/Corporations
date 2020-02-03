@@ -57,6 +57,8 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
                 Products.StartDumping(gameContext, product);
         }
         else
+        {
             Products.StopDumping(gameContext, product);
+        }
     }
 }

@@ -63,6 +63,9 @@ public class CompanyViewOnMainScreen : View
 
         var expertise = Products.GetFreeImprovements(company);
 
+
+
+
         SetEmblemColor();
 
         Clients.text = Format.Minify(clients);

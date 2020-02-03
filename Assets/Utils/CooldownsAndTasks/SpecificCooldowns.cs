@@ -1,38 +1,51 @@
-﻿using Entitas;
-using System.Collections.Generic;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     partial class Cooldowns
     {
-        //
-        // specific cooldowns
-        //
-
         // concept upgrade cooldown
         public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
         {
-            int duration = Products.GetConceptUpgradeTime(gameContext, product);
-            
-            //AddCooldown(gameContext, new CooldownImproveConcept(product.company.Id), duration);
+            AddCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id), Products.GetConceptUpgradeTime(gameContext, product));
         }
 
         public static bool HasConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
         {
-            return true;
-            //return HasCooldown(gameContext, new CooldownImproveConcept(product.company.Id));
+            return HasCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id));
         }
 
+
         // culture upgrade cooldown
-        public static void AddCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity product, int duration)
+        public static void AddCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity company, int duration)
         {
-            //AddCooldown(gameContext, new CooldownUpgradeCorporateCulture(product.company.Id), duration);
+            AddCooldown(gameContext, new CompanyTaskUpgradeCulture(company.company.Id), duration);
         }
 
         public static bool HasCorporateCultureUpgradeCooldown(GameContext gameContext, GameEntity company)
         {
-            return true;
-            //return HasCooldown(gameContext, new CooldownUpgradeCorporateCulture(company.company.Id));
+            return HasCooldown(gameContext, new CompanyTaskUpgradeCulture(company.company.Id));
+        }
+
+
+        // branding campaign
+        public static void AddBrandingCooldown(GameContext gameContext, GameEntity company)
+        {
+            AddCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id), 90);
+        }
+
+        public static bool HasBrandingCampaignCooldown(GameContext gameContext, GameEntity company)
+        {
+            return HasCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id));
+        }
+
+        // regular campaign
+        public static void AddRegularCampaignCooldown(GameContext gameContext, GameEntity company)
+        {
+            AddCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id), 8);
+        }
+
+        public static bool HasRegularCampaignCooldown(GameContext gameContext, GameEntity company)
+        {
+            return HasCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id));
         }
     }
 }
