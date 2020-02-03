@@ -20,11 +20,16 @@ namespace Assets.Core
         {
             var task = new CompanyTaskUpgradeFeature(product.company.Id, improvement);
 
-            if (HasFreeImprovements(product) && Cooldowns.CanAddTask(gameContext, task))
+            if (CanUpgradeFeature(improvement, product, gameContext, task))
             {
                 product.expertise.ExpertiseLevel--;
-                Cooldowns.AddTask(gameContext, task, 8);
+                Cooldowns.AddCooldown(gameContext, task, 8);
             }
+        }
+
+        public static bool CanUpgradeFeature(ProductFeature improvement, GameEntity product, GameContext gameContext, CompanyTask task)
+        {
+            return HasFreeImprovements(product) && !Cooldowns.HasCooldown(gameContext, task);
         }
     }
 }

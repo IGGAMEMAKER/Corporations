@@ -10,7 +10,7 @@ public class HideIfHasNoImprovements : HideOnSomeCondition
             || !Products.HasFreeImprovements(p)
             
             // ProductImprovement.Acquisition is not required
-            || Cooldowns.IsHasTask(Q, new CompanyTaskUpgradeFeature(p.company.Id, ProductFeature.Acquisition))
+            || Cooldowns.HasTask(Q, new CompanyTaskUpgradeFeature(p.company.Id, ProductFeature.Acquisition))
             
             || Companies.IsReleaseableApp(p, Q);
             ;

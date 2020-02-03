@@ -20,7 +20,7 @@
         public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
         {
             //Companies.IsEnoughResources(product, cost) &&
-            return Cooldowns.CanAddTask(gameContext, task);
+            return !Cooldowns.HasTask(gameContext, task);
         }
     }
 }

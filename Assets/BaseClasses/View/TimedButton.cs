@@ -22,12 +22,12 @@ public abstract class TimedButton : UpgradedButtonController
     {
         var t = GetCompanyTask();
 
-        return Cooldowns.GetCompanyTask(Q, t) != null;
+        return Cooldowns.GetTask(Q, t) != null;
     }
 
     int TimeRemaining()
     {
-        var task = Cooldowns.GetCompanyTask(Q, GetCompanyTask());
+        var task = Cooldowns.GetTask(Q, GetCompanyTask());
 
         if (task == null)
             return 0;

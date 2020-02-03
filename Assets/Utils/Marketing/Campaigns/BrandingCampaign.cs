@@ -21,7 +21,7 @@
         public static bool IsCanStartBrandingCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
         {
             //Companies.IsEnoughResources(product, cost) &&
-            return Cooldowns.CanAddTask(gameContext, task);
+            return !Cooldowns.HasTask(gameContext, task);
         }
     }
 }

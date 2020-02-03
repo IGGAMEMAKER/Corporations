@@ -11,7 +11,7 @@ namespace Assets.Core
 
         public static bool HasCooldown(GameContext gameContext, CompanyTask task)
         {
-            return IsHasTask(gameContext, task);
+            return HasTask(gameContext, task);
         }
 
         public static void AddCooldown(GameContext gameContext, CompanyTask task, int duration)

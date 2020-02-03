@@ -17,18 +17,9 @@ namespace Assets.Core
             return gameContext.GetEntities(GameMatcher.TimedAction);
         }
 
-        public static TimedActionComponent GetCompanyTask(GameContext gameContext, CompanyTask companyTask)
-        {
-            var tasks = GetTimedActions(gameContext);
-
-            var task = Array.Find(tasks, t => t.timedAction.CompanyTask.Equals(companyTask));
-
-            return task?.timedAction;
-        }
-
         public static TimedActionComponent GetTask(GameContext gameContext, CompanyTask companyTask)
         {
-            var tasks = GetTasks(gameContext);
+            var tasks = GetTimedActions(gameContext);
 
             var task = Array.Find(tasks, t => t.timedAction.CompanyTask.Equals(companyTask));
 
@@ -45,7 +36,7 @@ namespace Assets.Core
 
         internal static GameEntity AddTimedAction(GameContext gameContext, CompanyTask companyTask, int duration)
         {
-            if (IsHasTask(gameContext, companyTask))
+            if (HasTask(gameContext, companyTask))
                 return null;
 
             var e = gameContext.CreateEntity();
@@ -65,13 +56,7 @@ namespace Assets.Core
         }
 
 
-
-        public static bool CanAddTask(GameContext gameContext, CompanyTask companyTask)
-        {
-            return !IsHasTask(gameContext, companyTask);
-        }
-
-        public static bool IsHasTask(GameContext gameContext, CompanyTask companyTask)
+        public static bool HasTask(GameContext gameContext, CompanyTask companyTask)
         {
             var task = GetTask(gameContext, companyTask);
 

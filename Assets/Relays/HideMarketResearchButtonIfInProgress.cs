@@ -6,7 +6,7 @@ public class HideMarketResearchButtonIfInProgress : HideOnSomeCondition
     {
         var niche = Markets.GetNiche(Q, SelectedNiche);
 
-        var isResearching = Cooldowns.IsHasTask(Q, new CompanyTaskExploreMarket(SelectedNiche));
+        var isResearching = Cooldowns.HasTask(Q, new CompanyTaskExploreMarket(SelectedNiche));
 
         return niche.hasResearch || isResearching;
     }

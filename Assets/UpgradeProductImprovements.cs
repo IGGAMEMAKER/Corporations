@@ -17,7 +17,7 @@ public class UpgradeProductImprovements : TimedButton
     {
         var company = Companies.Get(Q, CompanyId);
 
-        return Products.HasFreeImprovements(company) && Cooldowns.CanAddTask(Q, GetCompanyTask());
+        return !HasActiveTimer() && Products.CanUpgradeFeature(ProductImprovement, company, Q, GetCompanyTask());
     }
 
     public override string ShortTitle()
