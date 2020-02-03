@@ -71,19 +71,19 @@ public class CompanyResultView : View
 
     void DrawProductStatus()
     {
-        var conceptStatus = result1.ConceptStatus;
-        var color = GetStatusColor(conceptStatus);
+        //var conceptStatus = result1.ConceptStatus;
+        //var color = GetStatusColor(conceptStatus);
 
-        Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
+        //Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(result1.CompanyId), out Cooldown c1);
 
-        var days = 0;
-        if (c1 != null)
-            days = c1.EndDate - CurrentIntDate;
+        //var days = 0;
+        //if (c1 != null)
+        //    days = c1.EndDate - CurrentIntDate;
 
-        var product = Companies.Get(Q, result1.CompanyId);
+        //var product = Companies.Get(Q, result1.CompanyId);
 
-        var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, Q)}LVL)" : "";
-        ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";
+        //var outdatedDescription = conceptStatus == ConceptStatus.Outdated ? $" (-{Products.GetDifferenceBetweenMarketDemandAndAppConcept(product, Q)}LVL)" : "";
+        //ConceptStatusText.text = Visuals.Colorize(conceptStatus.ToString(), color) + outdatedDescription + $"\nUpgrades in {days}d";
     }
 
     public override void ViewRender()

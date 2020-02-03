@@ -109,83 +109,83 @@ public enum CompanyType
 }
 
 
-public enum CooldownType
-{
-    ImproveSegment,
+//public enum CooldownType
+//{
+//    ImproveSegment,
 
-    CorporateCulture,
-}
+//    CorporateCulture,
+//}
 
-public class Cooldown
-{
-    public CooldownType CooldownType;
-    public int EndDate;
+//public class Cooldown
+//{
+//    public CooldownType CooldownType;
+//    public int EndDate;
 
-    public bool Compare (CooldownType cooldownType)
-    {
-        return Compare(new Cooldown { CooldownType = cooldownType });
-    }
+//    public bool Compare (CooldownType cooldownType)
+//    {
+//        return Compare(new Cooldown { CooldownType = cooldownType });
+//    }
 
-    public bool Compare (Cooldown cooldown)
-    {
-        if (CooldownType != cooldown.CooldownType)
-            return false;
+//    public bool Compare (Cooldown cooldown)
+//    {
+//        if (CooldownType != cooldown.CooldownType)
+//            return false;
 
-        return IsEqual(cooldown);
-    }
+//        return IsEqual(cooldown);
+//    }
 
-    public virtual string GetKey()
-    {
-        return $"StandardCooldown-expires-{EndDate}";
-    }
+//    public virtual string GetKey()
+//    {
+//        return $"StandardCooldown-expires-{EndDate}";
+//    }
 
-    public virtual bool IsEqual(Cooldown comparable)
-    {
-        return true;
-    }
-}
+//    public virtual bool IsEqual(Cooldown comparable)
+//    {
+//        return true;
+//    }
+//}
 
-public class CooldownImproveConcept : Cooldown
-{
-    public int companyId;
+//public class CooldownImproveConcept : Cooldown
+//{
+//    public int companyId;
 
-    public CooldownImproveConcept(int companyId)
-    {
-        this.companyId = companyId;
-        CooldownType = CooldownType.ImproveSegment;
-    }
+//    public CooldownImproveConcept(int companyId)
+//    {
+//        this.companyId = companyId;
+//        CooldownType = CooldownType.ImproveSegment;
+//    }
 
-    public override string GetKey()
-    {
-        return $"Upgrade-{companyId}";
-    }
+//    public override string GetKey()
+//    {
+//        return $"Upgrade-{companyId}";
+//    }
 
-    public override bool IsEqual(Cooldown comparable)
-    {
-        return (comparable as CooldownImproveConcept).companyId == companyId;
-    }
-}
+//    public override bool IsEqual(Cooldown comparable)
+//    {
+//        return (comparable as CooldownImproveConcept).companyId == companyId;
+//    }
+//}
 
-public class CooldownUpgradeCorporateCulture : Cooldown
-{
-    public int companyId;
+//public class CooldownUpgradeCorporateCulture : Cooldown
+//{
+//    public int companyId;
 
-    public CooldownUpgradeCorporateCulture(int companyId)
-    {
-        this.companyId = companyId;
-        CooldownType = CooldownType.CorporateCulture;
-    }
+//    public CooldownUpgradeCorporateCulture(int companyId)
+//    {
+//        this.companyId = companyId;
+//        CooldownType = CooldownType.CorporateCulture;
+//    }
 
-    public override string GetKey()
-    {
-        return $"Culture-{companyId}";
-    }
+//    public override string GetKey()
+//    {
+//        return $"Culture-{companyId}";
+//    }
 
-    public override bool IsEqual(Cooldown comparable)
-    {
-        return (comparable as CooldownUpgradeCorporateCulture).companyId == companyId;
-    }
-}
+//    public override bool IsEqual(Cooldown comparable)
+//    {
+//        return (comparable as CooldownUpgradeCorporateCulture).companyId == companyId;
+//    }
+//}
 
 
 

@@ -121,10 +121,10 @@ public class CEOComponent : IComponent
     public int HumanId;
 }
 
-public class CooldownsComponent : IComponent
-{
-    public List<Cooldown> Cooldowns;
-}
+//public class CooldownsComponent : IComponent
+//{
+//    public List<Cooldown> Cooldowns;
+//}
 
 [Game, Event(EventTarget.Any), Event(EventTarget.Self)]
 public class CompanyGoalComponent : IComponent

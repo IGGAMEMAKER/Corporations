@@ -83,7 +83,7 @@ namespace Assets.Core
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
 
             e.AddMetricsHistory(new List<MetricsInfo>());
-            e.AddCooldowns(new List<Cooldown>());
+            //e.AddCooldowns(new List<Cooldown>());
 
             return e;
         }

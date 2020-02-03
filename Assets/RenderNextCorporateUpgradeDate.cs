@@ -6,13 +6,14 @@ public class RenderNextCorporateUpgradeDate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        Cooldowns.TryGetCooldown(Q, new CooldownUpgradeCorporateCulture(MyCompany.company.Id), out var cooldown);
+        return "RenderNextCorporateUpgradeValue";
+        //Cooldowns.TryGetCooldown(Q, new CooldownUpgradeCorporateCulture(MyCompany.company.Id), out var cooldown);
 
-        if (cooldown == null)
-            return "You can change corporate culture!";
+        //if (cooldown == null)
+        //    return "You can change corporate culture!";
 
-        var days = cooldown.EndDate - CurrentIntDate;
+        //var days = cooldown.EndDate - CurrentIntDate;
 
-        return $"You will be able to change corporate culture in {days} days";
+        //return $"You will be able to change corporate culture in {days} days";
     }
 }

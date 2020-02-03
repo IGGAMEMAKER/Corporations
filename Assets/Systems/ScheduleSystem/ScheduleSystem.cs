@@ -5,7 +5,7 @@
         Add(new CooldownContainerInitializerSystem(contexts));
 
         Add(new ScheduleRunnerSystem(contexts));
-        Add(new CooldownProcessingSystem(contexts));
+        //Add(new CooldownProcessingSystem(contexts));
         Add(new TaskProcessingSystem(contexts));
     }
 }

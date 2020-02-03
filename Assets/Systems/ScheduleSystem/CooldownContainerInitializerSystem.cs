@@ -13,6 +13,6 @@ public partial class CooldownContainerInitializerSystem : IInitializeSystem
     {
         var container = GameContext.CreateEntity();
 
-        container.AddCooldownContainer(new System.Collections.Generic.Dictionary<string, Cooldown>());
+        //container.AddCooldownContainer(new System.Collections.Generic.Dictionary<string, Cooldown>());
     }
 }

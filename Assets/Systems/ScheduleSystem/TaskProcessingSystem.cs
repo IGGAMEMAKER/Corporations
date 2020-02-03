@@ -20,7 +20,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
             if (date >= EndTime && !task.isCompleted)
             {
-                ProcessTask(task);
+                Cooldowns.ProcessTask(task, gameContext);
                 t.task.isCompleted = true;
             }
 
@@ -30,103 +30,10 @@ public partial class TaskProcessingSystem : OnDateChange
         }
     }
 
-    protected override bool Filter(GameEntity entity)
-    {
-        return entity.hasDate;
-    }
-
-    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-    {
-        return context.CreateCollector(GameMatcher.Date);
-    }
-}
-
-public partial class TaskProcessingSystem : OnDateChange
-{
-    private void ProcessTask(TaskComponent taskComponent)
-    {
-        var task = taskComponent.CompanyTask;
-        switch (task.CompanyTaskType)
-        {
-            case CompanyTaskType.ExploreMarket: ExploreMarket(task); break;
-            case CompanyTaskType.ExploreCompany: ExploreCompany(task); break;
-            case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
-            case CompanyTaskType.UpgradeFeature: UpgradeFeature(task); break;
-            case CompanyTaskType.ReleasingApp: ReleaseApp(task); break;
-
-            case CompanyTaskType.TestCampaign: TestCampaign(task); break;
-            case CompanyTaskType.RegularCampaign: RegularCampaign(task); break;
-            case CompanyTaskType.BrandingCampaign: BrandingCampaign(task); break;
-        }
-    }
-
-    void ReleaseApp(CompanyTask task)
-    {
-
-    }
-
-    void TestCampaign(CompanyTask task)
-    {
-        var t = task as CompanyTaskMarketingTestCampaign;
-
-        var c = Companies.Get(gameContext, t.CompanyId);
-        Marketing.AddClients(c, 100);
-    }
-
-    void RegularCampaign(CompanyTask task)
-    {
-        var t = task as CompanyTaskMarketingRegularCampaign;
-
-        var c = Companies.Get(gameContext, t.CompanyId);
-
-        var clients = Marketing.GetAudienceGrowth(c, gameContext);
-
-        Marketing.AddClients(c, clients);
-    }
-
-    void BrandingCampaign(CompanyTask task)
-    {
-        var t = task as CompanyTaskBrandingCampaign;
-
-        var c = Companies.Get(gameContext, t.CompanyId);
-
-        Marketing.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
-
-        var clients = Marketing.GetAudienceGrowth(c, gameContext);
-        Marketing.AddClients(c, clients);
-    }
 
 
 
-    void AcquireCompany(CompanyTask task)
-    {
-        //var nicheType = (task as CompanyTaskExploreMarket).NicheType;
+    protected override bool Filter(GameEntity entity) => entity.hasDate;
 
-        //var niche = NicheUtils.GetNicheEntity(gameContext, nicheType);
-        //niche.AddResearch(1);
-    }
-
-    void ExploreMarket(CompanyTask task)
-    {
-        var nicheType = (task as CompanyTaskExploreMarket).NicheType;
-
-        var niche = Markets.GetNiche(gameContext, nicheType);
-        niche.AddResearch(1);
-    }
-
-    void ExploreCompany(CompanyTask task)
-    {
-        var c = Companies.Get(gameContext, task.CompanyId);
-        c.AddResearch(1);
-    }
-
-    void UpgradeFeature(CompanyTask task)
-    {
-        var t = (task as CompanyTaskUpgradeFeature);
-
-        var product = Companies.Get(gameContext, t.CompanyId);
-
-        product.features.features[t.ProductImprovement]++;
-        product.features.Count++;
-    }
+    protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) => context.CreateCollector(GameMatcher.Date);
 }

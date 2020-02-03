@@ -31,17 +31,20 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderValue()
     {
-        Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(CompanyId), out Cooldown c);
+        return "XXX";
+        //Cooldowns.TryGetCooldown(Q, new CooldownImproveConcept(CompanyId), out Cooldown c);
 
-        if (c == null)
-            return "";
+        //if (c == null)
+        //    return "";
 
-        days = c.EndDate - CurrentIntDate;
+        //days = c.EndDate - CurrentIntDate;
 
-        if (!Companies.IsExploredCompany(Q, CompanyId))
-            return "";
+        //if (!Companies.IsExploredCompany(Q, CompanyId))
+        //    return "";
 
-        return $"{days}d";
+        //return $"{days}d";
+
+
         //return $"Improving {days}d";
         //return $"Upgrading app\n{days} days";
     }

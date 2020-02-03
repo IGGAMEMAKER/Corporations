@@ -11,6 +11,7 @@ namespace Assets.Core
         {
             return gameContext.GetEntities(GameMatcher.Task);
         }
+
         public static TaskComponent GetTask(GameContext gameContext, CompanyTask companyTask)
         {
             var tasks = GetTasks(gameContext);
