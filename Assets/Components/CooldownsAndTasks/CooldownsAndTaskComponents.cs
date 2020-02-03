@@ -1,7 +1,4 @@
 ﻿using Entitas;
-using Entitas.CodeGeneration.Attributes;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 // tasks
@@ -13,16 +10,7 @@ public class TaskComponent : IComponent
     public int StartTime;
     public int Duration;
     public int EndTime;
-
-
 }
-
-//[Game]
-//public class CooldownContainerComponent : IComponent
-//{
-//    public Dictionary<string, Cooldown> Cooldowns;
-//}
-
 
 public enum CompanyTaskType
 {

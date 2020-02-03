@@ -25,14 +25,12 @@ namespace Assets.Core
         //    return GetCooldowns(gameContext).ContainsKey(cooldownName);
         //}
 
-        //public static void AddCooldown(GameContext gameContext, Cooldown cooldown, int duration) => AddCooldown(gameContext, cooldown.GetKey(), cooldown, duration);
-        //public static void AddCooldown(GameContext gameContext, string cooldownName, Cooldown cooldown, int duration)
+        //public static void AddCooldown(GameContext gameContext, CompanyTask cooldown, int duration)
         //{
+        //    AddTask(gameContext, cooldown, duration);
         //    var cooldowns = GetCooldowns(gameContext);
 
         //    cooldown.EndDate = ScheduleUtils.GetCurrentDate(gameContext) + duration;
-
-        //    cooldowns[cooldownName] = cooldown;
         //}
 
         //public static bool TryGetCooldown(GameContext gameContext, Cooldown req, out Cooldown cooldown) => TryGetCooldown(gameContext, req.GetKey(), out cooldown);

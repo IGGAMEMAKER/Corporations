@@ -1,9 +1,7 @@
 ﻿using Assets.Core;
 
-public class RenderNextCorporateUpgradeDate : UpgradedParameterView
+public class RenderNextCorporateUpgradeDate : ParameterView
 {
-    public override string RenderHint() => "";
-
     public override string RenderValue()
     {
         return "RenderNextCorporateUpgradeValue";
