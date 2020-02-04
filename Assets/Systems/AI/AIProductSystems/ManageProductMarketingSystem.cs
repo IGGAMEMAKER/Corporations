@@ -23,6 +23,8 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         var brandingCost = Marketing.GetBrandingCampaignCost(product, gameContext);
         var targetingCost = Marketing.GetTargetingCampaignCost(product, gameContext);
 
+
+
         if (product.isRelease)
         {
             if (Companies.IsEnoughResources(product, brandingCost))
@@ -33,7 +35,10 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         }
         else
         {
-            Marketing.StartTestCampaign(product, gameContext);
+            if (Companies.IsReleaseableApp(product, gameContext))
+                Marketing.ReleaseApp(gameContext, product);
+            else
+                Marketing.StartTestCampaign(product, gameContext);
         }
     }
 }
