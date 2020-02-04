@@ -5,24 +5,6 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static GameEntity[] GetProductsNotControlledByPlayer(GameContext context)
-        {
-            return context.GetEntities(GameMatcher.AllOf(GameMatcher.Product).NoneOf(GameMatcher.ControlledByPlayer));
-        }
-
-        public static GameEntity GetPlayerControlledProductCompany(GameContext context)
-        {
-            // TODO check all use cases! 
-            // Most of them simply use MyControlledProductCompany, when we may need GetMyGroupCompany instead!
-
-            var companies =
-                context.GetEntities(GameMatcher.AllOf(GameMatcher.Product, GameMatcher.ControlledByPlayer));
-
-            if (companies.Length == 1) return companies[0];
-
-            return null;
-        }
-
         public static GameEntity GetPlayerControlledGroupCompany(GameContext context)
         {
             var companies = context
@@ -49,13 +31,16 @@ namespace Assets.Core
         public static bool IsPlayerCompany(GameContext gameContext, GameEntity company)
         {
             return company.isControlledByPlayer;
+        }
 
-            var playerCompany = GetPlayerCompany(gameContext);
+        public static bool IsPlayerFlagship(GameContext gameContext, GameEntity company)
+        {
+            var playerRelatedProducts = GetPlayerRelatedProducts(gameContext);
 
-            if (playerCompany == null)
+            if (playerRelatedProducts.Length == 0)
                 return false;
 
-            return playerCompany.company.Id == company.company.Id;
+            return playerRelatedProducts[0].company.Id == company.company.Id;
         }
     }
 }

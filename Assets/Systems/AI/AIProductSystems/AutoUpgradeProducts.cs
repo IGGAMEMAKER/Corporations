@@ -24,7 +24,12 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
                 Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
             }
 
-            //UpdgradeProduct(product, gameContext);
+            if (!Companies.IsPlayerFlagship(gameContext, product))
+            {
+                Products.UpgradeFeatures(ProductFeature.Monetisation, product, gameContext);
+
+                //UpdgradeProduct(product, gameContext);
+            }
         }
 
         // release AI apps if can
@@ -39,6 +44,10 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         foreach (var concept in releasableAIApps)
             Marketing.ReleaseApp(gameContext, concept);
     }
+
+
+
+
 
     public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
     {

@@ -17,9 +17,7 @@ public class PlayerCompaniesListView : ListView
             .OrderByDescending(c => Economy.GetProfit(Q, c))
             ;
 
-        var flagship = products.First();
-
         // all except flagship
-        SetItems(products.Where(p => p.company.Id != flagship.company.Id));
+        SetItems(products.Where(p => !Companies.IsPlayerFlagship(Q, p)));
     }
 }

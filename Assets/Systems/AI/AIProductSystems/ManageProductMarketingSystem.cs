@@ -8,56 +8,32 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in Companies.GetAIProducts(gameContext))
-            ManageProduct(e);
-    }
+            ManageMarketing(e);
 
-    void ManageProduct(GameEntity product)
-    {
-        //ManageDumpingProduct(product);
-
-        ManageMarketing(product);
+        var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
+        foreach (var e in playerProducts)
+        {
+            if (!Companies.IsPlayerFlagship(gameContext, e))
+                ManageMarketing(e);
+        }
     }
 
     void ManageMarketing(GameEntity product)
     {
-        var currentCost = Economy.GetRegularCampaignCost(product, gameContext);
-        var nextCost = Economy.GetNextMarketingLevelCost(product, gameContext);
+        var brandingCost = Marketing.GetBrandingCampaignCost(product, gameContext);
+        var targetingCost = Marketing.GetTargetingCampaignCost(product, gameContext);
 
-        // reduce maintenance
-        if (!Companies.IsEnoughResources(product, currentCost))
-            Products.SetMarketingFinancing(product, Economy.GetCheaperFinancing(product));
-
-        // go higher
-        if (Companies.IsEnoughResources(product, nextCost))
-            Products.SetMarketingFinancing(product, Economy.GetNextMarketingFinancing(product));
-    }
-
-    void ManageDumpingProduct(GameEntity product)
-    {
-        var willBeBankruptIn6Months = !Companies.IsEnoughResources(product, Economy.GetProductCompanyMaintenance(product, gameContext) * 6);
-        var hasMoneyToDumpSafely = !willBeBankruptIn6Months;
-
-        var hasLowMarketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(product, gameContext) < 10;
-
-        var competitorIsDumpingToo = Marketing.HasDumpingCompetitors(gameContext, product);
-        var isOutdated = Products.IsOutOfMarket(product, gameContext);
-
-        var needsToDump = isOutdated || hasLowMarketShare || competitorIsDumpingToo;
-
-
-        if (needsToDump && hasMoneyToDumpSafely)
+        if (product.isRelease)
         {
-            var monthlyDumpingChance = 2f;
-            var chance = UnityEngine.Random.Range(0f, 1f);
+            if (Companies.IsEnoughResources(product, brandingCost))
+                Marketing.StartBrandingCampaign(product, gameContext);
 
-            var wantsToDump = chance < monthlyDumpingChance / 30f;
-
-            if (wantsToDump)
-                Products.StartDumping(gameContext, product);
+            if (Companies.IsEnoughResources(product, targetingCost))
+                Marketing.StartTargetingCampaign(product, gameContext);
         }
         else
         {
-            Products.StopDumping(gameContext, product);
+            Marketing.StartTestCampaign(product, gameContext);
         }
     }
 }

@@ -13,11 +13,11 @@ public class FlagshipCompanyListView : ListView
     {
         base.ViewRender();
 
-        var products = Companies.GetDaughterCompanies(Q, MyCompany)
-            .OrderByDescending(c => Economy.GetProfit(Q, c))
-            ;
-        
+        var flagship = Companies.GetDaughterCompanies(Q, MyCompany)
+            .First(p => Companies.IsPlayerFlagship(Q, p));
 
-        SetItems(new GameEntity[1] { products.First() });
+
+
+        SetItems(new GameEntity[1] { flagship });
     }
 }
