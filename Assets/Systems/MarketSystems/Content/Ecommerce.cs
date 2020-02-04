@@ -15,7 +15,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.ECom_BookingTransportTickets,
             NicheType.ECom_BookingHotels,
             NicheType.ECom_Tourism,
-            NicheType.ECom_EventTickets,
 
             NicheType.ECom_Marketplace,
         };
@@ -32,19 +31,20 @@ public partial class MarketInitializerSystem : IInitializeSystem
         var marketplace =
             new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
 
-        SetMarkets(NicheType.ECom_OnlineBanking,    1992, 2030, banking);
-        SetMarkets(NicheType.ECom_PaymentSystem,    1995, 2030, payment);
-        SetMarkets(NicheType.ECom_Marketplace,      1995, 2050, marketplace);
+        SetMarkets(NicheType.ECom_OnlineBanking,            1992, 2030, banking);
+        SetMarkets(NicheType.ECom_PaymentSystem,            1995, 2030, payment);
 
-        SetMarkets(NicheType.ECom_Exchanging,       1998, 2030, payment);
+        SetMarkets(NicheType.ECom_Marketplace,              1995, 2050, marketplace);
+
+        SetMarkets(NicheType.ECom_Exchanging,               1998, 2030, payment);
 
 
 
-        SetMarkets(NicheType.ECom_BookingTransportTickets,   1998, 2030, booking);
-        SetMarkets(NicheType.ECom_BookingHotels,          1998, 2030, booking);
-        SetMarkets(NicheType.ECom_Tourism,          1998, 2030, booking);
-        SetMarkets(NicheType.ECom_BookingAppartments,2008, 2050, booking);
+        SetMarkets(NicheType.ECom_BookingTransportTickets,  1998, 2030, booking);
+        SetMarkets(NicheType.ECom_BookingHotels,            1998, 2030, booking);
+        SetMarkets(NicheType.ECom_Tourism,                  1998, 2030, booking);
+        SetMarkets(NicheType.ECom_BookingAppartments,       2008, 2050, booking);
 
-        SetMarkets(NicheType.ECom_EventTickets,     2000, 2030, booking);
+        //SetMarkets(NicheType.ECom_EventTickets,     2000, 2030, booking);
     }
 }

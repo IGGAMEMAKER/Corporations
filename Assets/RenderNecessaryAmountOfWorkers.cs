@@ -7,7 +7,7 @@ public class RenderNecessaryAmountOfWorkers : ParameterView
 {
     public override string RenderValue()
     {
-        var required = Economy.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
+        var required = Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
 
         var have = Teams.GetAmountOfWorkers(SelectedCompany, Q);
 

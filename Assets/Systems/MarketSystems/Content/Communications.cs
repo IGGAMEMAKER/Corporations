@@ -21,10 +21,10 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
         var messenger = socialNetworks.Copy().IncomeLow().WebService().Dynamic();
 
-        SetMarkets(NicheType.Com_Email, 1990, 2020, GetPopularUsefulAppProfile);
-        SetMarkets(NicheType.Com_Forums, 1990, 2020, GetPopularRarelyUsedAppProfile);
-        SetMarkets(NicheType.Com_Blogs, 1995, 2020, GetPopularRarelyUsedAppProfile);
-        SetMarkets(NicheType.Com_Dating, 2000, 2020, GetPopularUsefulAppProfile);
+        SetMarkets(NicheType.Com_Email,     1990, 2020, GetPopularUsefulAppProfile);
+        SetMarkets(NicheType.Com_Forums,    1990, 2020, GetPopularRarelyUsedAppProfile);
+        SetMarkets(NicheType.Com_Blogs,     1995, 2020, GetPopularRarelyUsedAppProfile);
+        SetMarkets(NicheType.Com_Dating,    2000, 2020, GetPopularUsefulAppProfile);
 
         SetMarkets(NicheType.Com_Messenger, 2000, 2030, messenger);
         SetMarkets(NicheType.Com_SocialNetwork, 2003, 2025, socialNetworks);

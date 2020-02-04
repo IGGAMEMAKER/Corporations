@@ -62,7 +62,6 @@ public enum NicheType
     ECom_BookingHotels, // hotels
     ECom_Tourism,
     ECom_BookingAppartments, // airbnb
-    ECom_EventTickets, // concerts
 
     ECom_Marketplace, // amazon, ali e.t.c.
 

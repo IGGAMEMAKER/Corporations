@@ -54,7 +54,6 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "Online Bank";
                 case NicheType.ECom_PaymentSystem: return "Payment System";
 
-                case NicheType.ECom_EventTickets: return "Event Booking App";
                 case NicheType.ECom_Tourism: return "Tours Booking App";
                 case NicheType.ECom_BookingHotels: return "Hotel Booking App";
                 case NicheType.ECom_BookingTransportTickets: return "Airplane/train Booking App";
@@ -125,7 +124,6 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "BNK";
                 case NicheType.ECom_PaymentSystem: return "PAY";
 
-                case NicheType.ECom_EventTickets: return "TKT";
                 case NicheType.ECom_Tourism: return "TOU";
                 case NicheType.ECom_BookingHotels: return "BUK";
                 case NicheType.ECom_BookingTransportTickets: return "TRS";
@@ -200,7 +198,6 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "Online Banking";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
 
-                case NicheType.ECom_EventTickets: return "Event tickets booking";
                 case NicheType.ECom_Tourism: return "Booking Tours";
                 case NicheType.ECom_BookingHotels: return "Booking hotels";
                 case NicheType.ECom_BookingTransportTickets: return "Online airplane/train booking";

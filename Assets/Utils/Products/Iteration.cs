@@ -26,7 +26,7 @@ namespace Assets.Core
         public static int GetTeamSizeIterationModifierMultipliedByHundred(GameContext gameContext, GameEntity company)
         {
             var have     = Teams.GetAmountOfWorkers(company, gameContext);
-            var required = Economy.GetNecessaryAmountOfWorkers(company, gameContext) + 1;
+            var required = Products.GetNecessaryAmountOfWorkers(company, gameContext) + 1;
 
             if (have == 0)
                 return 500;
