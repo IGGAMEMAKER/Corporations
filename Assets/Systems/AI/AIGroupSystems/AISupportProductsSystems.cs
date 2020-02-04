@@ -35,7 +35,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
     public long GetMoneyForExpansion(GameEntity product)
     {
         var next = Economy.GetNextMarketingLevelCost(product, gameContext);
-        var curr = Economy.GetRegularCampaignCost(product, gameContext);
+        var curr = Marketing.GetTargetingCost(product, gameContext);
 
         var diff = next - curr;
 

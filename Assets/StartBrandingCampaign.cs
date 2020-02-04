@@ -6,7 +6,7 @@ public class StartBrandingCampaign : TimedButton
     {
         var company = Companies.Get(Q, CompanyId);
 
-        var cost = Marketing.GetBrandingCampaignCost(company, Q);
+        var cost = Marketing.GetBrandingCost(company, Q);
 
         Companies.SupportCompany(MyCompany, company, cost);
         Marketing.StartBrandingCampaign(company, Q);
@@ -18,7 +18,7 @@ public class StartBrandingCampaign : TimedButton
     {
         var company = Companies.Get(Q, CompanyId);
 
-        var cost = Marketing.GetBrandingCampaignCost(company, Q);
+        var cost = Marketing.GetBrandingCost(company, Q);
 
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }

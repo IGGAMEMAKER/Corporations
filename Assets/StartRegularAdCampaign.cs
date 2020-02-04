@@ -6,7 +6,7 @@ public class StartRegularAdCampaign : TimedButton
     {
         var company = Companies.Get(Q, CompanyId);
 
-        var cost = Marketing.GetTargetingCampaignCost(company, Q);
+        var cost = Marketing.GetTargetingCost(company, Q);
 
         Companies.SupportCompany(MyCompany, company, cost);
         Marketing.StartTargetingCampaign(company, Q);
@@ -18,7 +18,7 @@ public class StartRegularAdCampaign : TimedButton
     {
         var company = Companies.Get(Q, CompanyId);
 
-        var cost = Marketing.GetTargetingCampaignCost(company, Q);
+        var cost = Marketing.GetTargetingCost(company, Q);
 
         return !HasActiveTimer() && Companies.IsEnoughResources(MyCompany, cost);
     }

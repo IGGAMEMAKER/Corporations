@@ -18,6 +18,8 @@ public class CompanyViewOnMainScreen : View
     public Text Profitability;
 
     public RenderConceptProgress ConceptProgress;
+    public Text Brand;
+    public GameObject BrandIcon;
 
     public HireWorker HireWorker;
     public TestCampaignButton TestCampaignButton;
@@ -64,7 +66,8 @@ public class CompanyViewOnMainScreen : View
 
         var expertise = Products.GetFreeImprovements(company);
 
-
+        var brand = (int)company.branding.BrandPower;
+        var brandChange = Marketing.GetBrandChange(company, Q);
 
 
         SetEmblemColor();
@@ -89,6 +92,11 @@ public class CompanyViewOnMainScreen : View
 
         PositionOnMarket.text = $"#{positionOnMarket}";
 
+        Brand.text = $"{brand} ({brandChange.Sum()})";
+        Brand.color = Visuals.GetGradientColor(0, 100, brand);
+        UpdateIfNecessary(BrandIcon, company.isRelease);
+        UpdateIfNecessary(Brand, company.isRelease);
+
         // buttons
 
         // set
@@ -104,11 +112,11 @@ public class CompanyViewOnMainScreen : View
         LinkToHiringScreen.SetCompanyId(id);
 
 
-        var max = Economy.GetNecessaryAmountOfWorkers(company, Q);
+        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
-        var targetingCost = Marketing.GetTargetingCampaignCost(company, Q);
-        var brandingCost = Marketing.GetBrandingCampaignCost(company, Q);
+        var targetingCost = Marketing.GetTargetingCost(company, Q);
+        var brandingCost = Marketing.GetBrandingCost(company, Q);
 
 
 
@@ -131,10 +139,16 @@ public class CompanyViewOnMainScreen : View
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
     }
 
+    void UpdateIfNecessary(GameObject go, bool condition)
+    {
+        if (go.activeSelf != condition)
+            go.SetActive(condition);
+    }
     void UpdateIfNecessary(MonoBehaviour mb, bool condition)
     {
-        if (mb.gameObject.activeSelf != condition)
-            mb.gameObject.SetActive(condition);
+        UpdateIfNecessary(mb.gameObject, condition);
+        //if (mb.gameObject.activeSelf != condition)
+        //    mb.gameObject.SetActive(condition);
     }
 
     public override void ViewRender()

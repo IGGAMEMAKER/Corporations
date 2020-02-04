@@ -23,7 +23,7 @@ namespace Assets.Core
             company.employee.Managers.Clear();
             #endregion
 
-            var roles = GetAvailableRoles(company);
+            var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
             for (var i = 0; i < roles.Count; i++)
             {
@@ -63,7 +63,7 @@ namespace Assets.Core
             WorkerRole.ProductManager
         };
 
-        public static List<WorkerRole> GetAvailableRoles(GameEntity company)
+        public static List<WorkerRole> GetRolesTheoreticallyPossibleForThisCompanyType(GameEntity company)
         {
             var roles = new List<WorkerRole>();
 

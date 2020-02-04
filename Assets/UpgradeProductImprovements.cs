@@ -22,10 +22,12 @@ public class UpgradeProductImprovements : TimedButton
 
     public override string ShortTitle()
     {
+        //return "Upgrading App";
         switch (ProductImprovement)
         {
             case ProductFeature.Retention: return "Upgrading App";
-            default: return "Upgrading " + ProductImprovement.ToString();
+            default: return "Upgrading App";
+            //default: return "Upgrading " + ProductImprovement.ToString();
         }
     }
 
@@ -34,7 +36,8 @@ public class UpgradeProductImprovements : TimedButton
         switch (ProductImprovement)
         {
             case ProductFeature.Retention: return "Upgrade App";
-            default: return "Upgrade " + ProductImprovement.ToString();
+            default: return "Upgrade App";
+            //default: return "Upgrade " + ProductImprovement.ToString();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using UnityEngine.UI;
+using System.Linq;
 
 public class JobOfferScreen : View
 {
@@ -27,8 +28,13 @@ public class JobOfferScreen : View
         var hasSameRoleWorkers = SelectedCompany.team.Managers.ContainsValue(role);
         if (hasSameRoleWorkers)
         {
+            var workerIndex = SelectedCompany.team.Managers.Values.ToList().FindIndex(k => k == role);
+            var humanId = SelectedCompany.team.Managers.Keys.ToList().Find(k => k == workerIndex);
+
+            var level = Humans.GetRating(Q, humanId);
             text = Visuals.Negative(
-                $"You already have the {Humans.GetFormattedRole(role)} in company {SelectedCompany.company.Name}, while you only need one per company. Are you sure?"
+                $"You already have the {Humans.GetFormattedRole(role)} ({level}LVL) in company {SelectedCompany.company.Name}" +
+                $", who will be fired if we continue"
                 );
         }
 

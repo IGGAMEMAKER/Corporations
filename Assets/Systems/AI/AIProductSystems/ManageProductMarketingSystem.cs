@@ -20,8 +20,8 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     void ManageMarketing(GameEntity product)
     {
-        var brandingCost = Marketing.GetBrandingCampaignCost(product, gameContext);
-        var targetingCost = Marketing.GetTargetingCampaignCost(product, gameContext);
+        var brandingCost = Marketing.GetBrandingCost(product, gameContext);
+        var targetingCost = Marketing.GetTargetingCost(product, gameContext);
 
 
 

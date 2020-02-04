@@ -7,27 +7,12 @@ namespace Assets.Core
         // resulting costs
         internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
-            var development = GetDevelopmentCost(e, gameContext);
+            var development = GetTeamCost(e, gameContext);
 
             return development * Balance.PERIOD / 30;
         }
 
-        public static long GetRegularCampaignCost(GameEntity e, GameContext gameContext)
-        {
-            var cost = GetMarketingFinancingCostMultiplier(e, gameContext);
-
-            var culture = Companies.GetActualCorporateCulture(e, gameContext);
-            var creation = culture[CorporatePolicy.BuyOrCreate];
-
-            // up to 40%
-            var discount = 100 - (creation - 1) * 5;
-            var result = cost * discount / 100;
-
-            return result;
-        }
-
-
-        public static long GetDevelopmentCost(GameEntity e, GameContext gameContext)
+        public static long GetTeamCost(GameEntity e, GameContext gameContext)
         {
             var workers = Teams.GetAmountOfWorkers(e, gameContext);
             var managers = e.team.Managers.Count;
@@ -40,28 +25,6 @@ namespace Assets.Core
             // up to 40%
             var discount = 100 - (mindset - 1) * 5;
             return cost * discount / 100;
-        }
-
-        public static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
-        {
-            var concept = Products.GetProductLevel(e);
-            var niche = Markets.GetNiche(gameContext, e);
-            var complexity = (int)niche.nicheBaseProfile.Profile.AppComplexity;
-
-            return (int)Mathf.Pow(1 + complexity / 20f, concept);
-        }
-        public static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
-        {
-            var niche = Markets.GetNiche(gameContext, e);
-
-            var clients = Marketing.GetClients(e);
-
-            return (int) Mathf.Pow(clients / 1000, 0.5f);
-        }
-
-        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
-        {
-            return GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
         }
     }
 }

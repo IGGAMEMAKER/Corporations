@@ -11,7 +11,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
         foreach (var e in dependantProducts)
         {
-            if (Companies.IsRelatedToPlayer(gameContext, e))
+            if (Companies.IsRelatedToPlayer(gameContext, e) && Companies.IsPlayerFlagship(gameContext, e))
                 PayPlayerDividends(e);
             else
                 PayAIDividends(e);
@@ -27,8 +27,15 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
     void PayAIDividends(GameEntity e)
     {
-        var dividends = Economy.BalanceOf(e) - Economy.GetCompanyMaintenance(gameContext, e);
+        long marketingBudget = 0;
 
-        Companies.PayDividends(gameContext, e, dividends);
+        if (e.hasProduct)
+            marketingBudget = Marketing.GetBrandingCost(e, gameContext) + Marketing.GetTargetingCost(e, gameContext);
+
+
+        var dividends = Economy.BalanceOf(e) - Economy.GetCompanyMaintenance(gameContext, e) - marketingBudget;
+        
+        if (dividends > 0)
+            Companies.PayDividends(gameContext, e, dividends);
     }
 }

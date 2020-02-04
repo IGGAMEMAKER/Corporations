@@ -5,6 +5,7 @@ namespace Assets.Core
     public static partial class Teams
     {
         // managers
+        public static void HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole));
         public static void HireManager(GameEntity company, GameEntity worker)
         {
             var role = Humans.GetRole(worker);

@@ -43,7 +43,10 @@ public class CompetitorPreview : View
 
         UpdateLinkToCompany(e);
 
-        //Position.text = 
+        if (e.hasProduct)
+            Position.text = "#" + Markets.GetPositionOnMarket(Q, e);
+        else
+            Position.text = "";
     }
 
     void RenderPanel()
