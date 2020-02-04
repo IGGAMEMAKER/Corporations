@@ -6,10 +6,9 @@ namespace Assets.Core
     {
         public static bool IsReleaseableApp(GameEntity product, GameContext gameContext)
         {
-            var isOutdated = Products.IsOutOfMarket(product, gameContext);
             var hasCriticalMassOfUsers = Marketing.GetClients(product) >= 1000;
 
-            return !product.isRelease && !isOutdated && hasCriticalMassOfUsers;
+            return hasCriticalMassOfUsers && !product.isRelease && !Products.IsOutOfMarket(product, gameContext);
         }
 
 
