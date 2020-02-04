@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class ManageProductTeamSystem : OnPeriodChange
+public partial class ManageProductTeamSystem : OnDateChange
 {
     public ManageProductTeamSystem(Contexts contexts) : base(contexts) {}
 
