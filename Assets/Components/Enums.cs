@@ -32,16 +32,19 @@ public enum NicheType
     // Databases
 
     // Entertainment
+    // gambling
     Ent_Lottery,
     Ent_Casino, // slots, totalisator
     Ent_Betting,
     Ent_Poker,
 
+    // games
     Ent_MMOs,
     Ent_FreeToPlay,
     Ent_SinglePlayer,
     //Ent_Publishing,
 
+    // streaming
     Ent_StreamingService, // Twitch
     Ent_TVStreamingService, // Netflix like
     Ent_VideoHosting, // Youtube
