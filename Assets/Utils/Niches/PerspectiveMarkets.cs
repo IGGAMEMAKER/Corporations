@@ -20,14 +20,6 @@ namespace Assets.Core
             return phase == MarketState.Innovation;
         }
 
-        public static bool IsIdleNicheReadyToStart(GameEntity niche, GameContext gameContext)
-        {
-            var phase = GetMarketState(niche);
-
-            return IsPerspectiveNiche(niche);
-            return phase == MarketState.Idle; // && niche.nicheLifecycle.OpenDate == ScheduleUtils.GetCurrentDate(gameContext);
-        }
-
         public static bool IsAdjacentToCompanyInterest(GameEntity niche, GameEntity company)
         {
             var industries = company.companyFocus.Industries;

@@ -252,8 +252,12 @@ namespace Assets.Core
                 case IndustryType.Technology: return "Technology";
                 case IndustryType.Communications: return "Social Media";
                 case IndustryType.Entertainment: return "Entertainment";
-                case IndustryType.WorkAndLife: return "Other";
+
                 case IndustryType.Ecommerce: return "E-commerce";
+                    case IndustryType.Finances: return "Finances";
+                    case IndustryType.Tourism: return "Tourism";
+
+                case IndustryType.WorkAndLife: return "Other";
 
                 default: return "Unknown Industry: " + industry.ToString();
             }

@@ -83,17 +83,18 @@ namespace Assets.Core
         public static bool IsAppropriateStartNiche(GameEntity niche, GameContext gameContext)
         {
             var profile = niche.nicheBaseProfile.Profile;
+            var phase = GetMarketState(niche);
 
-            var isPerspective = IsIdleNicheReadyToStart(niche, gameContext);
-            var isCheapToMaintain = profile.AppComplexity < AppComplexity.Hard;
+            var isOpened = ScheduleUtils.GetCurrentDate(gameContext) >= niche.nicheLifecycle.OpenDate;
+            var isPerspective = phase == MarketState.Idle || phase == MarketState.Innovation || phase == MarketState.Trending;
 
-            var isDynamic = profile.NicheSpeed < NicheSpeed.Year;
+            var isCheap = profile.AppComplexity < AppComplexity.Hard;
 
-            var isTopMarket = profile.AudienceSize == AudienceSize.Global; // GetMarketPotentialRating(niche) > 3;
+            var isBig = profile.AudienceSize == AudienceSize.Global; // GetMarketPotentialRating(niche) > 3;
 
-            //var competition = GetCompetitorsAmount(niche.niche.NicheType, gameContext);
 
-            return isPerspective && isCheapToMaintain && isDynamic && !isTopMarket;
+
+            return isPerspective && isOpened && isCheap && !isBig;
         }
     }
 }

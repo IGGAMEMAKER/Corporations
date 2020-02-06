@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SetInitialIndustry : MonoBehaviour, IPointerClickHandler
 {
@@ -12,6 +13,8 @@ public class SetInitialIndustry : MonoBehaviour, IPointerClickHandler
         this.IndustryType = industry;
         this.TypeCorporationNameContainer = TypeCorporationNameContainer;
         this.ChooseInitialNicheContainer = ChooseInitialNicheContainer;
+
+        GetComponentInChildren<Text>().text = EnumUtils.GetFormattedIndustryName(IndustryType);
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

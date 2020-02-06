@@ -12,7 +12,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             //NicheType.ECom_Blockchain,
             //NicheType.ECom_TradingBot,
         };
-        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
+        AttachNichesToIndustry(IndustryType.Finances, niches);
 
         var payment =
             new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
@@ -33,7 +33,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             NicheType.ECom_BookingTours,
             NicheType.ECom_BookingAppartments,
         };
-        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
+        AttachNichesToIndustry(IndustryType.Tourism, niches);
 
         var booking =
             new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
