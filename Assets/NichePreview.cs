@@ -45,7 +45,7 @@ public class NichePreview : View
         if (LinkToNiche != null)
             LinkToNiche.SetNiche(Niche);
 
-        NicheName.text = EnumUtils.GetFormattedNicheName(Niche);
+        NicheName.text = Enums.GetFormattedNicheName(Niche);
 
         var size = Markets.GetMarketSize(Q, Niche);
         var text = hidePotential ? "?" : Format.MinifyMoney(size); // GetFormattedMarketPotential();

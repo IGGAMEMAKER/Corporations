@@ -2,7 +2,7 @@
 
 namespace Assets.Core
 {
-    public static class EnumUtils
+    public static class Enums
     {
         public static T Next<T>(this T src) where T : struct
         {

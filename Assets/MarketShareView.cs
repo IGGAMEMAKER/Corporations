@@ -41,7 +41,7 @@ public class MarketShareView : View
         var phaseColor = Visuals.GetGradientColor(0, 5f, rating);
         MarketState.color = phaseColor;
 
-        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
+        var nicheName = Enums.GetFormattedNicheName(nicheType);
         NicheName.text = nicheName; 
 
         LinkToNiche.SetNiche(nicheType);

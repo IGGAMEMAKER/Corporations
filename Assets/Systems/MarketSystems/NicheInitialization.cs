@@ -97,7 +97,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
             {
                 isCompetitive = false,
                 marketShare = 100,
-                name = EnumUtils.GetSingleFormattedNicheName(nicheType)
+                name = Enums.GetSingleFormattedNicheName(nicheType)
             }
         };
 

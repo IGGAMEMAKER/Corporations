@@ -26,7 +26,7 @@ public class PartnershipCandidateView : View
 
         var industries = company.companyFocus.Industries
             .Select(i => Visuals.Colorize(
-                EnumUtils.GetFormattedIndustryName(i),
+                Enums.GetFormattedIndustryName(i),
                 MyCompany.companyFocus.Industries.Contains(i) ? Colors.COLOR_CONTROL : Colors.COLOR_WHITE)
                 );
 

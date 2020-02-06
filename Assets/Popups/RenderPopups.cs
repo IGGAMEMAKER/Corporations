@@ -45,7 +45,7 @@ public partial class PopupView : View
 
     void RenderMarketChangePopup(PopupMessageMarketPhaseChange popup)
     {
-        var name = EnumUtils.GetFormattedNicheName(popup.NicheType);
+        var name = Enums.GetFormattedNicheName(popup.NicheType);
         var state = Markets.GetMarketState(Q, popup.NicheType);
         var possibilities = "";
 
@@ -163,7 +163,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "INSPIRATION",
-            "On your spare time you got new revolutionary ideas! You can create first " + EnumUtils.GetFormattedNicheName(popup.NicheType).ToUpper(),
+            "On your spare time you got new revolutionary ideas! You can create first " + Enums.GetFormattedNicheName(popup.NicheType).ToUpper(),
             typeof(InspirationPopupButton)
             );
     }
@@ -175,7 +175,7 @@ public partial class PopupView : View
 
         bool hasResources = Economy.IsCanMaintain(MyCompany, Q, maintenance);
 
-        var title = "Do you really want to create a new " + EnumUtils.GetFormattedNicheName(popup.NicheType) + "?";
+        var title = "Do you really want to create a new " + Enums.GetFormattedNicheName(popup.NicheType) + "?";
         //var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
         var description = $"On release, this product will cost you about {Format.Money(maintenance)} each month";
         if (maintenance == 0)

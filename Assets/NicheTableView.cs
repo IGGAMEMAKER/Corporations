@@ -50,7 +50,7 @@ public class NicheTableView : View, IPointerEnterHandler
         DescribePhase();
         //var growth = NicheUtils.GetAbsoluteAnnualMarketGrowth(GameContext, entity);
 
-        MonetisationType.text = EnumUtils.GetFormattedMonetisationType(niche);
+        MonetisationType.text = Enums.GetFormattedMonetisationType(niche);
 
         RenderTimeToMarket();
 
@@ -95,8 +95,8 @@ public class NicheTableView : View, IPointerEnterHandler
         var industryColorName = isOurIndustry ? Colors.COLOR_MARKET_ATTITUDE_HAS_COMPANY : Colors.COLOR_MARKET_ATTITUDE_NOT_INTERESTED;
 
 
-        var coloredMarket = Visuals.Colorize(EnumUtils.GetFormattedNicheName(nicheType), marketColorName);
-        var coloredIndustry = Visuals.Colorize(EnumUtils.GetFormattedIndustryName(industryType), industryColorName);
+        var coloredMarket = Visuals.Colorize(Enums.GetFormattedNicheName(nicheType), marketColorName);
+        var coloredIndustry = Visuals.Colorize(Enums.GetFormattedIndustryName(industryType), industryColorName);
 
         NicheName.text = $"{coloredMarket}\n<i>{coloredIndustry}</i>";
     }

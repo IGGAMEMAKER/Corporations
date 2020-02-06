@@ -16,6 +16,6 @@ public class IndustryScreenView : View
     {
         industryType = ScreenUtils.GetSelectedIndustry(Q);
 
-        IndustryName.text = EnumUtils.GetFormattedIndustryName(industryType) + " Industry";
+        IndustryName.text = Enums.GetFormattedIndustryName(industryType) + " Industry";
     }
 }

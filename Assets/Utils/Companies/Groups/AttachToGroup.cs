@@ -62,7 +62,7 @@ namespace Assets.Core
 
 
 
-            string name = group.company.Name + " " + EnumUtils.GetFormattedNicheName(nicheType);
+            string name = group.company.Name + " " + Enums.GetFormattedNicheName(nicheType);
 
             //if (GetCompanyByName(gameContext, name) != null)
             //    name += " " + Markets.GetCompetitorsAmount(nicheType, gameContext);

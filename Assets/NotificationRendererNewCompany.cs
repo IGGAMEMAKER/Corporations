@@ -12,7 +12,7 @@ public class NotificationRendererNewCompany : NotificationRenderer<NotificationM
     {
         var product = Companies.Get(Q, message.CompanyId);
 
-        var nicheName = EnumUtils.GetFormattedNicheName(product.product.Niche);
+        var nicheName = Enums.GetFormattedNicheName(product.product.Niche);
 
         return $"STARTUP on niche {nicheName}. Will they change the world?";
     }

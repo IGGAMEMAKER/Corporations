@@ -14,7 +14,7 @@ public class SetInitialIndustry : MonoBehaviour, IPointerClickHandler
         this.TypeCorporationNameContainer = TypeCorporationNameContainer;
         this.ChooseInitialNicheContainer = ChooseInitialNicheContainer;
 
-        GetComponentInChildren<Text>().text = EnumUtils.GetFormattedIndustryName(IndustryType);
+        GetComponentInChildren<Text>().text = Enums.GetFormattedIndustryName(IndustryType);
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

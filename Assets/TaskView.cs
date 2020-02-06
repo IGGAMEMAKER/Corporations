@@ -96,7 +96,7 @@ public partial class TaskView : View
                 return "Acquiring company\n" + Companies.GetCompanyName(Q, companyTask.CompanyId);
 
             case CompanyTaskType.ExploreMarket:
-                return "Exploring new market\n" + EnumUtils.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
+                return "Exploring new market\n" + Enums.GetFormattedNicheName((companyTask as CompanyTaskExploreMarket).NicheType);
 
             case CompanyTaskType.ExploreCompany:
                 return "Exploring company\n" + Companies.GetCompanyName(Q, companyTask.CompanyId);

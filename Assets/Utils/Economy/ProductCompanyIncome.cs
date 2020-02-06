@@ -18,7 +18,7 @@ namespace Assets.Core
             }
             catch
             {
-                Debug.LogWarning("GetProductCompanyIncome " + EnumUtils.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
+                Debug.LogWarning("GetProductCompanyIncome " + Enums.GetFormattedNicheName(e.product.Niche) + " error " + e.company.Name);
             }
 
             return result * Balance.PERIOD / 30;

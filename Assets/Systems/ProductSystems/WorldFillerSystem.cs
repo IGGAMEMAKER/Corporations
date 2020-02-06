@@ -137,7 +137,7 @@ public partial class WorldFillerSystem : IInitializeSystem
 
         foreach (NicheType n in (NicheType[])Enum.GetValues(typeof(NicheType)))
         {
-            if (EnumUtils.GetFormattedNicheName(n) == n.ToString())
+            if (Enums.GetFormattedNicheName(n) == n.ToString())
                 list.Add(n);
 
             if (!activatedMarkets.Contains(n))

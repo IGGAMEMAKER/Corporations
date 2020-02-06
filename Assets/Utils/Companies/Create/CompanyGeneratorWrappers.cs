@@ -87,7 +87,7 @@ namespace Assets.Core
         {
             var playersOnMarket = Markets.GetCompetitorsAmount(NicheType, gameContext);
 
-            var c = GenerateProductCompany(gameContext, EnumUtils.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
+            var c = GenerateProductCompany(gameContext, Enums.GetFormattedNicheName(NicheType) + " " + playersOnMarket, NicheType);
 
             AutoFillShareholders(gameContext, c, true);
             //SetFounderAmbitionDueToMarketSize(c, gameContext);

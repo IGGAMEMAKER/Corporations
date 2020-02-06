@@ -40,7 +40,7 @@ namespace Assets.Core
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base value for " + EnumUtils.GetFormattedMonetisationType(monetisation), baseValue)
+                .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
                 .Append("Retention features", -retentionImprovement * 2)
 
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)

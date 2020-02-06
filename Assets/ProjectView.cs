@@ -13,7 +13,7 @@ public class ProjectView : View
     {
         CompanyType companyType = SelectedCompany.company.CompanyType;
 
-        CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(companyType);
+        CompanyTypeLabel.text = Enums.GetFormattedCompanyType(companyType);
     }
 
     void RenderCompanyEconomy()

@@ -6,7 +6,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
     public override string GetTitle(NotificationMessageTrendsChange message)
     {
         var nicheType = message.nicheType;
-        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
+        var nicheName = Enums.GetFormattedNicheName(nicheType);
 
         var niche = Markets.GetNiche(Q, nicheType);
 
@@ -32,7 +32,7 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         var niche = Markets.GetNiche(Q, nicheType);
         var phase = Markets.GetMarketState(niche);
 
-        var nicheName = EnumUtils.GetFormattedNicheName(nicheType);
+        var nicheName = Enums.GetFormattedNicheName(nicheType);
 
 
         var description = "";

@@ -11,7 +11,7 @@ public class RenderMarketDescription : ParameterView
 
         text.Append("\n\n\n\n");
 
-        var nicheName = EnumUtils.GetFormattedNicheName(SelectedNiche);
+        var nicheName = Enums.GetFormattedNicheName(SelectedNiche);
 
         var description = ""; // $"{nicheName} allow people to communicate each other";
         text.AppendLine(description);

@@ -70,7 +70,7 @@ public class CompanyPreviewView : View
 
     void RenderCompanyType(GameEntity entity)
     {
-        CompanyTypeLabel.text = EnumUtils.GetFormattedCompanyType(entity.company.CompanyType);
+        CompanyTypeLabel.text = Enums.GetFormattedCompanyType(entity.company.CompanyType);
     }
 
     void RenderCompanyName(GameEntity entity)

@@ -15,7 +15,7 @@
 
             var name = product.company.Name;
 
-            var futureName = EnumUtils.GetShortNicheName(product.product.Niche);
+            var futureName = Enums.GetShortNicheName(product.product.Niche);
             int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);

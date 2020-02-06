@@ -12,7 +12,7 @@ public class OurCompanyGlobalStrength : View
         foreach (var ind in industries)
         {
             var strength = Companies.GetCompanyStrengthInIndustry(MyCompany, ind, Q);
-            text += "on " + EnumUtils.GetFormattedIndustryName(ind) + " industry\n" + strength + "\n\n";
+            text += "on " + Enums.GetFormattedIndustryName(ind) + " industry\n" + strength + "\n\n";
         }
 
         GetComponent<Text>().text = text;

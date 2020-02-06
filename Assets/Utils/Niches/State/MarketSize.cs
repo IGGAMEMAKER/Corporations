@@ -19,7 +19,7 @@ namespace Assets.Core
             }
             catch
             {
-                Debug.LogWarning("Get market size of " + EnumUtils.GetFormattedNicheName(nicheType));
+                Debug.LogWarning("Get market size of " + Enums.GetFormattedNicheName(nicheType));
             }
 
             return 0;

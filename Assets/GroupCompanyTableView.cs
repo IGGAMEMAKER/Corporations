@@ -25,14 +25,14 @@ public class GroupCompanyTableView : View
         if (entity == null)
             return;
 
-        CompanyTypeName.text = EnumUtils.GetFormattedCompanyType(entity.company.CompanyType);
+        CompanyTypeName.text = Enums.GetFormattedCompanyType(entity.company.CompanyType);
 
         RenderNichesAmount();
         RenderIndustriesAmount();
     }
 
-    string FormatNiches(NicheType n) => EnumUtils.GetFormattedNicheName(n);
-    string FormatIndustries(IndustryType n) => EnumUtils.GetFormattedIndustryName(n);
+    string FormatNiches(NicheType n) => Enums.GetFormattedNicheName(n);
+    string FormatIndustries(IndustryType n) => Enums.GetFormattedIndustryName(n);
 
     int AmountOfNiches => 3;
 
