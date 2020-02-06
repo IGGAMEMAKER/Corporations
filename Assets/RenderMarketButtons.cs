@@ -17,38 +17,34 @@ public class RenderMarketButtons : View
     {
         base.ViewRender();
 
-        bool IsMarketResearched = Markets.IsExploredMarket(Q, SelectedNiche);
+        var niche = SelectedNiche;
+        bool IsMarketResearched = Markets.IsExploredMarket(Q, niche);
+
+
+        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, niche, Q);
+
+        bool hasReleasedApps        = daughtersOnMarket.Where(p => p.isRelease).Count() > 0;
+        bool hasDaughtersOnMarket   = daughtersOnMarket.Count() > 0;
 
 
         var amountOfCompanies = Companies.GetDaughterCompaniesAmount(MyCompany, Q);
-        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q);
-
-        bool hasReleasedApps    = daughtersOnMarket.Where(p => p.isRelease).Count() > 0;
-
-        bool hasDaughtersOnMarket = daughtersOnMarket.Count() > 0;
-
-
-        var hasCompanyAlready = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, Q);
-        var isUnknownMarket = !IsMarketResearched;
 
 
 
 
-
-
-        RaiseInvestments.SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
-        Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
+        RaiseInvestments.SetActive(false && IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
+        Partnerships    .SetActive(false && IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
 
         bool isTimeToExpand = CurrentIntDate > 90;
         Expand          .SetActive(IsMarketResearched && !MyCompany.isWantsToExpand && isTimeToExpand);
 
 
-        bool canStartNewCompany = !hasCompanyAlready && !isUnknownMarket;
+        bool canStartNewCompany = !hasDaughtersOnMarket && IsMarketResearched;
         CreateCompany   .SetActive(canStartNewCompany);
 
 
         var focus = MyCompany.companyFocus.Niches;
-        var hideNextMarketButton = focus.Count <= 1 || !focus.Contains(SelectedNiche);
+        var hideNextMarketButton = focus.Count <= 1 || !focus.Contains(niche);
         NextMarketButton.SetActive(!hideNextMarketButton);
     }
 }
