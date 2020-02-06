@@ -13,9 +13,9 @@ public class RenderCompanyEconomyTab : View
     {
         base.ViewRender();
 
-        int companyId = GetComponent<SetTargetCompany>().companyId;
 
-        var company = Companies.Get(Q, companyId);
+        var company = SelectedCompany; // Companies.Get(Q, companyId);
+        int companyId = company.company.Id; // GetComponent<SetTargetCompany>().companyId;
 
         Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(Q, company));
         IncomeHint.SetHint(GetIncomeDescription(Q, companyId));
