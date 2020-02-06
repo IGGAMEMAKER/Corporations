@@ -31,9 +31,11 @@ namespace Assets.Core
         // branding campaign
         public static void AddBrandingCooldown(GameContext gameContext, GameEntity company)
         {
-            var effeciency = Products.GetTeamEffeciency(gameContext, company);
+            var effeciency = Products.GetTeamSizeMultiplier(gameContext, company);
 
-            AddCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id), 90 * 100 / effeciency);
+            var duration = 90f / effeciency;
+
+            AddCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id), (int)duration);
         }
 
         public static bool HasBrandingCampaignCooldown(GameContext gameContext, GameEntity company)
@@ -44,11 +46,11 @@ namespace Assets.Core
         // regular campaign
         public static void AddRegularCampaignCooldown(GameContext gameContext, GameEntity company)
         {
-            var effeciency = Products.GetTeamEffeciency(gameContext, company);
+            var effeciency = Products.GetTeamSizeMultiplier(gameContext, company);
 
-            Debug.Log("Regular Campaign: " + company.company.Name + " " + effeciency);
+            var duration = 8f / effeciency;
 
-            AddCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id), 8 * 100 / effeciency);
+            AddCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id), (int)duration);
         }
 
         public static bool HasRegularCampaignCooldown(GameContext gameContext, GameEntity company)
