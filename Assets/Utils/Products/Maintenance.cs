@@ -4,6 +4,11 @@ namespace Assets.Core
 {
     public static partial class Products
     {
+        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
+            return GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
+        }
+
         public static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
             var concept     = Products.GetProductLevel(e);
@@ -20,11 +25,6 @@ namespace Assets.Core
             var support = (int)Mathf.Pow(clients / 1000, 0.5f);
 
             return Mathf.Clamp(support, 0, 1000);
-        }
-
-        public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
-        {
-            return GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
         }
     }
 }
