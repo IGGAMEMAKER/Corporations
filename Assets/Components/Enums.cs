@@ -29,7 +29,7 @@ public enum NicheType
     Tech_OSDesktop,
     Tech_Browser,
     Tech_MobileOS,
-    // Databases
+    // Tech_Databases,
 
     // Entertainment
     // gambling
