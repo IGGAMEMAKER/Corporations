@@ -5,11 +5,11 @@ using System;
 
 public partial class MarketInitializerSystem : IInitializeSystem
 {
-    readonly GameContext GameContext;
+    readonly GameContext gameContext;
 
     public MarketInitializerSystem(Contexts contexts)
     {
-        GameContext = contexts.game;
+        gameContext = contexts.game;
     }
 
     void IInitializeSystem.Initialize()
@@ -19,7 +19,11 @@ public partial class MarketInitializerSystem : IInitializeSystem
         InitializeFundamentalIndustry();
         InitializeCommunicationsIndustry();
         InitializeEntertainmentIndustry();
+
         InitializeEcommerceIndustry();
+            InitializeFinancesIndustry();
+            InitializeTourismIndustry();
+
         InitializeUsefulAppsIndustry();
 
         //CheckIndustriesWithZeroNiches();
@@ -40,7 +44,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     void InitializeIndustries()
     {
         foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-            GameContext.CreateEntity().AddIndustry(industry);
+            gameContext.CreateEntity().AddIndustry(industry);
     }
 
     GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost) => SetNicheCosts(GetNiche(niche), newBasePrice, newClientBatch, newTechCost, newAdCost);
@@ -52,7 +56,7 @@ public partial class MarketInitializerSystem : IInitializeSystem
     }
 
 
-    GameEntity GetNiche(NicheType nicheType) => Markets.GetNiche(GameContext, nicheType);
+    GameEntity GetNiche(NicheType nicheType) => Markets.GetNiche(gameContext, nicheType);
 
     GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)
     {

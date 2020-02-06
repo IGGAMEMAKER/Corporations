@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Core.Formatting
+namespace Assets.Core
 {
     public static class EnumUtils
     {
@@ -54,7 +54,7 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "Online Bank";
                 case NicheType.ECom_PaymentSystem: return "Payment System";
 
-                case NicheType.ECom_Tourism: return "Tours Booking App";
+                case NicheType.ECom_BookingTours: return "Tours Booking App";
                 case NicheType.ECom_BookingHotels: return "Hotel Booking App";
                 case NicheType.ECom_BookingTransportTickets: return "Airplane/train Booking App";
                 case NicheType.ECom_BookingAppartments: return "Rent appartments";
@@ -124,7 +124,7 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "BNK";
                 case NicheType.ECom_PaymentSystem: return "PAY";
 
-                case NicheType.ECom_Tourism: return "TOU";
+                case NicheType.ECom_BookingTours: return "TOU";
                 case NicheType.ECom_BookingHotels: return "BUK";
                 case NicheType.ECom_BookingTransportTickets: return "TRS";
                 case NicheType.ECom_BookingAppartments: return "APA";
@@ -157,6 +157,16 @@ namespace Assets.Core.Formatting
 
 
                 default: return niche.ToString();
+            }
+        }
+
+        public static string GetFormattedMonetisationType(GameEntity niche) => GetFormattedMonetisationType(niche.nicheBaseProfile.Profile.MonetisationType);
+        public static string GetFormattedMonetisationType(Monetisation monetisation)
+        {
+            switch (monetisation)
+            {
+                case Monetisation.IrregularPaid: return "Irregular paid";
+                default: return monetisation.ToString();
             }
         }
 
@@ -198,7 +208,7 @@ namespace Assets.Core.Formatting
                 case NicheType.ECom_OnlineBanking: return "Online Banking";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
 
-                case NicheType.ECom_Tourism: return "Booking Tours";
+                case NicheType.ECom_BookingTours: return "Booking Tours";
                 case NicheType.ECom_BookingHotels: return "Booking hotels";
                 case NicheType.ECom_BookingTransportTickets: return "Online airplane/train booking";
                 case NicheType.ECom_BookingAppartments: return "Rent appartments";

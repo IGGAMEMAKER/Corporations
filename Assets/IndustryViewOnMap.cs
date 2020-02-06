@@ -1,7 +1,4 @@
-﻿using Assets.Core.Formatting;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Core;
 using UnityEngine.UI;
 
 public class IndustryViewOnMap : View

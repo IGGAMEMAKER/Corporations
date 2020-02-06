@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Core;
-using Assets.Core.Formatting;
 using Entitas;
-using UnityEngine;
 
 public enum NicheSpeed
 {

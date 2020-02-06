@@ -11,6 +11,7 @@ public class FillInterruptList : View
     public GameObject CanBuyCompany;
     public GameObject CanRaiseInvestments;
     public GameObject CanCheckAnnualReport;
+    public GameObject CanCheckTrends;
 
     public GameObject InvestorLoyaltyWarning;
     public GameObject TeamLoyaltyWarning;
@@ -30,25 +31,27 @@ public class FillInterruptList : View
 
         bool isCanCompleteGoal = CheckGoal();
 
+        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments());
+        CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
+        CanSellCompany              .SetActive(HasAcquisitionOffers());
+        CanCheckTrends              .SetActive(true);
+
         CanReleaseProduct           .SetActive(false && HasReleaseableProducts());
-        NeedToCompleteGoal          .SetActive(false && !isCanCompleteGoal);
+        CanCheckAnnualReport        .SetActive(false && CheckAnnualReport());
+        CanBuyCompany               .SetActive(false && CheckAcquisitionCandidates());
+
+        TeamLoyaltyThreat           .SetActive(HasUnhappyTeams());
+        NeedToCompleteGoal          .SetActive(true || false && !isCanCompleteGoal);
+        OutdatedProducts            .SetActive(false && HasOutdatedProducts());
+
 
         NeedToManageCompanies       .SetActive(false);
-
-        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments());
-        CanCheckAnnualReport        .SetActive(false && CheckAnnualReport());
-
-        CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
 
         InvestorLoyaltyWarning      .SetActive(false);
         InvestorLoyaltyThreat       .SetActive(false);
         TeamLoyaltyWarning          .SetActive(false);
-        TeamLoyaltyThreat           .SetActive(HasUnhappyTeams());
 
-        OutdatedProducts            .SetActive(false && HasOutdatedProducts());
 
-        CanSellCompany              .SetActive(HasAcquisitionOffers());
-        CanBuyCompany               .SetActive(false && CheckAcquisitionCandidates());
     }
 
     bool IsCanUpgradeCorporateCulture()
@@ -64,7 +67,6 @@ public class FillInterruptList : View
         var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
         var count = upgradableCompanies.Count();
 
-        //bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.NicheScreen && count == 1 && SelectedNiche == upgradableCompanies.First().product.Niche;
         bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
 
         return count > 0 && !isAlreadyOnReleasableMarket;

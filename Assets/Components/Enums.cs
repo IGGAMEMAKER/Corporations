@@ -54,16 +54,16 @@ public enum NicheType
     ECom_Blockchain,
     ECom_TradingBot,
 
-    // transport
+    // mixed with offline
     ECom_OnlineTaxi,
+    ECom_Marketplace, // amazon, ali e.t.c.
     
     // transport/tourism
     ECom_BookingTransportTickets, // rzd, aero
     ECom_BookingHotels, // hotels
-    ECom_Tourism,
+    ECom_BookingTours,
     ECom_BookingAppartments, // airbnb
 
-    ECom_Marketplace, // amazon, ali e.t.c.
 
     // Useful apps
     Qol_PdfReader, // pdf readers
@@ -78,7 +78,7 @@ public enum NicheType
     Qol_MusicPlayers, // small-average
     Qol_VideoPlayers, // average
     Qol_VideoEditingTool, // average
-    Qol_MusicSearch, // average
+    Qol_MusicSearch, // average shazam
 
     Qol_Encyclopedia,
     Qol_Antivirus,
@@ -93,6 +93,8 @@ public enum IndustryType
     Technology,
     Entertainment,
     Ecommerce,
+        Finances,
+        Tourism,
     WorkAndLife
 }
 

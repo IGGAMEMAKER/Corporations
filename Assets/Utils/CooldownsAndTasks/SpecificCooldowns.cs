@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using UnityEngine;
+
+namespace Assets.Core
 {
     partial class Cooldowns
     {
@@ -29,7 +31,9 @@
         // branding campaign
         public static void AddBrandingCooldown(GameContext gameContext, GameEntity company)
         {
-            AddCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id), 90);
+            var effeciency = Products.GetTeamEffeciency(gameContext, company);
+
+            AddCooldown(gameContext, new CompanyTaskBrandingCampaign(company.company.Id), 90 * 100 / effeciency);
         }
 
         public static bool HasBrandingCampaignCooldown(GameContext gameContext, GameEntity company)
@@ -40,7 +44,11 @@
         // regular campaign
         public static void AddRegularCampaignCooldown(GameContext gameContext, GameEntity company)
         {
-            AddCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id), 8);
+            var effeciency = Products.GetTeamEffeciency(gameContext, company);
+
+            Debug.Log("Regular Campaign: " + company.company.Name + " " + effeciency);
+
+            AddCooldown(gameContext, new CompanyTaskMarketingRegularCampaign(company.company.Id), 8 * 100 / effeciency);
         }
 
         public static bool HasRegularCampaignCooldown(GameContext gameContext, GameEntity company)

@@ -11,7 +11,7 @@ namespace Assets.Core
 
         public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
-            return e.team.Workers[WorkerRole.Programmer];
+            return e.team.Workers[WorkerRole.Programmer] + e.team.Managers.Count;
         }
 
 

@@ -40,7 +40,7 @@ namespace Assets.Core
 
         public static string GenerateInvestmentCompanyName()
         {
-            string[] names = new string[] { "Investments", "Capitals", "Funds", "and partners" };
+            string[] names = new string[] { "Investments", "Capitals", "Funds", "Wealth Management", "and partners" };
 
             int length = UnityEngine.Random.Range(4, 8);
 

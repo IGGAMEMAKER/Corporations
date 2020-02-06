@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 using UnityEngine.UI;
 
 public class NicheScreenView : UpgradedParameterView

@@ -64,25 +64,20 @@ public class CompanyViewOnMainScreen : View
 
         var positionOnMarket = Markets.GetPositionOnMarket(Q, company) + 1;
 
-        var expertise = Products.GetFreeImprovements(company);
-
         var brand = (int)company.branding.BrandPower;
         var brandChange = Marketing.GetBrandChange(company, Q);
+
+        var effeciency = Products.GetTeamEffeciency(Q, company);
+
 
 
         SetEmblemColor();
 
         Clients.text = Format.Minify(clients);
 
-        //Clients.GetComponent<Hint>().SetHint(
-        //    $"This product has {Format.Minify(clients)} clients\n"
-        //    + Visuals.Negative($"We are losing {Format.Minify(churnClients)} each week.\nChurn rate is {churn}%")
-        //    + $".\n\nUpgrade app to reduce this value"
-        //    );
         CompanyHint.SetHint(GetCompanyHint());
 
-
-        Expertise.text = $"Development\n(Expertise: {expertise})";
+        Expertise.text = $"Development\nEffeciency: {effeciency}%";
 
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
@@ -94,6 +89,7 @@ public class CompanyViewOnMainScreen : View
 
         Brand.text = $"{brand} ({brandChange.Sum()})";
         Brand.color = Visuals.GetGradientColor(0, 100, brand);
+
         UpdateIfNecessary(BrandIcon, company.isRelease);
         UpdateIfNecessary(Brand, company.isRelease);
 
@@ -116,13 +112,10 @@ public class CompanyViewOnMainScreen : View
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
         var targetingCost = Marketing.GetTargetingCost(company, Q);
-        var brandingCost = Marketing.GetBrandingCost(company, Q);
-
+        var brandingCost  = Marketing.GetBrandingCost(company, Q);
 
 
         // enable / disable them
-        //UpdateIfNecessary(HireWorker, workers < max);
-        HireWorker.GetComponent<Button>().interactable = workers < max;
         UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
 
         UpdateIfNecessary(TestCampaignButton,       !company.isRelease);
@@ -132,23 +125,19 @@ public class CompanyViewOnMainScreen : View
 
 
         // render
+        HireWorker.GetComponent<Button>().interactable = workers < max;
         HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
-        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ? "Hiring workers will increase development speed" : Visuals.Negative("You reached max limit of workers\n") + "To increase this limit, hire TOP managers");
+        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ? "Hiring workers will increase development speed" : Visuals.Negative("You reached max limit of workers") + "\n\nTo increase this limit, hire TOP managers");
 
         StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
     }
 
+    void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
     void UpdateIfNecessary(GameObject go, bool condition)
     {
         if (go.activeSelf != condition)
             go.SetActive(condition);
-    }
-    void UpdateIfNecessary(MonoBehaviour mb, bool condition)
-    {
-        UpdateIfNecessary(mb.gameObject, condition);
-        //if (mb.gameObject.activeSelf != condition)
-        //    mb.gameObject.SetActive(condition);
     }
 
     public override void ViewRender()

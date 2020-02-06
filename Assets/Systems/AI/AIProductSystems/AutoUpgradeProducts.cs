@@ -24,21 +24,19 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
                 Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
             }
 
-            if (!Companies.IsPlayerFlagship(gameContext, product))
-            {
-                Products.UpgradeFeatures(ProductFeature.Monetisation, product, gameContext);
+            //UpdgradeProduct(product, gameContext);
+            //if (!Companies.IsPlayerFlagship(gameContext, product))
+            //{
+            Products.UpgradeFeatures(ProductFeature.Monetisation, product, gameContext);
 
-                //UpdgradeProduct(product, gameContext);
-            }
+            //}
         }
 
         // release AI apps if can
         var releasableAIApps = products
-            // increase performance
-            .Where(p => !p.isRelease)
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
             
-            .Where(p => !Companies.IsRelatedToPlayer(gameContext, p))
+            .Where(p => !Companies.IsPlayerFlagship(gameContext, p))
             ;
 
         foreach (var concept in releasableAIApps)

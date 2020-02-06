@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Core;
-using Assets.Core.Formatting;
-using UnityEngine;
+﻿using Assets.Core;
 using UnityEngine.UI;
 
 public class CompanyPreviewView : View

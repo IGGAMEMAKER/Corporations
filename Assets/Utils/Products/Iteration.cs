@@ -4,8 +4,9 @@ namespace Assets.Core
 {
     public static partial class Products
     {
+        public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.GetNiche(gameContext, company));
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
-        private static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
+        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
             return 30;
 
@@ -23,39 +24,38 @@ namespace Assets.Core
             }
         }
 
-        public static int GetTeamSizeIterationModifierMultipliedByHundred(GameContext gameContext, GameEntity company)
-        {
-            var have     = Teams.GetAmountOfWorkers(company, gameContext);
-            var required = Products.GetNecessaryAmountOfWorkers(company, gameContext) + 1;
 
-            if (have == 0)
-                return 500;
+        public static int GetTeamEffeciency(GameContext gameContext, GameEntity product)
+        {
+            return (int) (100 * GetTeamSizeMultiplier(gameContext, product));
+        }
+
+        public static float GetTeamSizeMultiplier(GameContext gameContext, GameEntity company)
+        {
+            // +1 - CEO
+            var have     = Teams.GetAmountOfWorkers(company, gameContext) + 1f;
+            var required = Products.GetNecessaryAmountOfWorkers(company, gameContext) + 1f;
 
             if (have >= required)
-                return 0;
+                have = required;
 
-            return required * 100 / have;
+            return have / required;
         }
 
         public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
         {
-            var niche = Markets.GetNiche(gameContext, company);
-            var baseIterationTime = GetBaseIterationTime(niche);
+            var baseIterationTime   = GetBaseIterationTime(gameContext, company);
+            var teamSizeModifier    = GetTeamSizeMultiplier(gameContext, company);
 
-            var innovationSpeed = 150 * Random.Range(10, 13) / 10;
+            var innovationSpeed     = 150 * Random.Range(10, 13) / 10;
+            bool willInnovate       = IsWillInnovate(company, gameContext);
 
-            var crunchModifier = company.isCrunching ? -40 : 0;
+            var innovationPenalty   = willInnovate ? innovationSpeed : 0;
 
-            var teamSizeModifier    = GetTeamSizeIterationModifierMultipliedByHundred(gameContext, company);
-            var innovationPenalty   = IsWillInnovate(company, gameContext) ? innovationSpeed : 0;
-            var companyLimitPenalty = Companies.GetCompanyLimitPenalty(company, gameContext);
-
-            var modifiers = 100 + innovationPenalty + companyLimitPenalty + crunchModifier;
+            var modifiers           = 100 + innovationPenalty;
 
 
-            var time = (int) (baseIterationTime * modifiers * teamSizeModifier / 100 / 100f);
-
-            return time;
+            return (int) (baseIterationTime * modifiers / teamSizeModifier / 100);
         }
 
         public static int GetTimeToMarketFromScratch(GameEntity niche)
@@ -64,17 +64,6 @@ namespace Assets.Core
             var iterationTime = GetBaseIterationTime(niche);
 
             return demand * iterationTime / 30;
-        }
-
-
-        public static string GetFormattedMonetisationType(GameEntity niche) => GetFormattedMonetisationType(niche.nicheBaseProfile.Profile.MonetisationType);
-        public static string GetFormattedMonetisationType(Monetisation monetisation)
-        {
-            switch (monetisation)
-            {
-                case Monetisation.IrregularPaid: return "Irregular paid";
-                default: return monetisation.ToString();
-            }
         }
     }
 }

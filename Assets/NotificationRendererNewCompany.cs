@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 using UnityEngine;
 
 public class NotificationRendererNewCompany : NotificationRenderer<NotificationMessageNewCompany>

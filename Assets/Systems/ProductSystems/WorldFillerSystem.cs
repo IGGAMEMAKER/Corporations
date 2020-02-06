@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 using Entitas;
 using System;
 using System.Collections.Generic;

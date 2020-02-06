@@ -1,6 +1,4 @@
-﻿using Assets.Core.Formatting;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     partial class Companies
     {

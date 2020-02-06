@@ -1,5 +1,4 @@
-﻿using Assets.Core.Formatting;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Assets.Core

@@ -1,7 +1,5 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public enum Risk

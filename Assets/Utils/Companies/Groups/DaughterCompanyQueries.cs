@@ -8,7 +8,7 @@ namespace Assets.Core
         {
             var hasCriticalMassOfUsers = Marketing.GetClients(product) >= 1000;
 
-            return hasCriticalMassOfUsers && !product.isRelease && !Products.IsOutOfMarket(product, gameContext);
+            return !product.isRelease && hasCriticalMassOfUsers && !Products.IsOutOfMarket(product, gameContext);
         }
 
 

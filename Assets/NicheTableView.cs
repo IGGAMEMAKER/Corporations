@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -51,7 +50,7 @@ public class NicheTableView : View, IPointerEnterHandler
         DescribePhase();
         //var growth = NicheUtils.GetAbsoluteAnnualMarketGrowth(GameContext, entity);
 
-        MonetisationType.text = Products.GetFormattedMonetisationType(niche);
+        MonetisationType.text = EnumUtils.GetFormattedMonetisationType(niche);
 
         RenderTimeToMarket();
 

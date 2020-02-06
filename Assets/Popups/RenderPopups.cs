@@ -1,6 +1,5 @@
 ﻿using Assets;
 using Assets.Core;
-using Assets.Core.Formatting;
 using System;
 using System.Collections.Generic;
 

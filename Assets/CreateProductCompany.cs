@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Formatting;
 
 public class CreateProductCompany : ButtonController
 {
