@@ -9,6 +9,9 @@ public class RenderMarketButtons : View
     public GameObject RaiseInvestments;
     public GameObject Partnerships;
     public GameObject Expand;
+    public GameObject CreateCompany;
+    public GameObject NextMarketButton;
+
 
     public override void ViewRender()
     {
@@ -25,11 +28,27 @@ public class RenderMarketButtons : View
         bool hasDaughtersOnMarket = daughtersOnMarket.Count() > 0;
 
 
+        var hasCompanyAlready = Companies.HasCompanyOnMarket(MyCompany, SelectedNiche, Q);
+        var isUnknownMarket = !IsMarketResearched;
+
+
+
+
+
 
         RaiseInvestments.SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket);
         Partnerships    .SetActive(IsMarketResearched && amountOfCompanies == 1 && hasDaughtersOnMarket && hasReleasedApps);
 
         bool isTimeToExpand = CurrentIntDate > 90;
         Expand          .SetActive(IsMarketResearched && !MyCompany.isWantsToExpand && isTimeToExpand);
+
+
+        bool canStartNewCompany = !hasCompanyAlready && !isUnknownMarket;
+        CreateCompany   .SetActive(canStartNewCompany);
+
+
+        var focus = MyCompany.companyFocus.Niches;
+        var hideNextMarketButton = focus.Count <= 1 || !focus.Contains(SelectedNiche);
+        NextMarketButton.SetActive(!hideNextMarketButton);
     }
 }
