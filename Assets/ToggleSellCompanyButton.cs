@@ -4,6 +4,6 @@
     {
         base.ViewRender();
 
-        GetComponent<IsChosenComponent>().Toggle(SelectedCompany.isOnSales);
+        //GetComponentInChildren<IsChosenComponent>().Toggle(SelectedCompany.isOnSales);
     }
 }

@@ -35,7 +35,16 @@ public abstract partial class ButtonController : BaseClass
         ButtonStart();
 
         if (IsLink)
-            GetComponentInChildren<TextMeshProUGUI>().color = Visuals.GetColorFromString(Colors.COLOR_LINK);
+        {
+            var text = GetComponentInChildren<TextMeshProUGUI>();
+
+            var linkColor = Visuals.GetColorFromString(Colors.COLOR_LINK);
+
+            if (text != null)
+                text.color = linkColor;
+            else
+                GetComponentInChildren<Text>().color = linkColor;
+        }
     }
 
     /// <summary>

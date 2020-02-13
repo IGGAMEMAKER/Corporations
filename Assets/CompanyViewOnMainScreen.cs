@@ -31,6 +31,8 @@ public class CompanyViewOnMainScreen : View
     public UpgradeProductImprovements UpgradeMonetisation;
     public LinkToHiringScreen LinkToHiringScreen;
 
+    public GameObject ManagementLabel;
+
     public Text Expertise;
 
     bool EnableDarkTheme;
@@ -94,6 +96,7 @@ public class CompanyViewOnMainScreen : View
         UpdateIfNecessary(BrandIcon, company.isRelease);
         UpdateIfNecessary(Brand, company.isRelease);
 
+
         // buttons
 
         // set
@@ -112,6 +115,8 @@ public class CompanyViewOnMainScreen : View
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
+        var canHireTopManagers = workers > 5;
+
         var targetingCost = Marketing.GetTargetingCost(company, Q);
         var brandingCost  = Marketing.GetBrandingCost(company, Q);
 
@@ -122,7 +127,8 @@ public class CompanyViewOnMainScreen : View
         UpdateIfNecessary(TestCampaignButton,       !company.isRelease);
         UpdateIfNecessary(StartRegularAdCampaign,   company.isRelease);
         UpdateIfNecessary(StartBrandingCampaign,    company.isRelease);
-        UpdateIfNecessary(LinkToHiringScreen,       workers > 5);
+        UpdateIfNecessary(LinkToHiringScreen,       canHireTopManagers);
+        UpdateIfNecessary(ManagementLabel, canHireTopManagers);
 
 
         // render
