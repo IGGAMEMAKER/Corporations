@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -126,7 +127,7 @@ public class CompanyViewOnMainScreen : View
 
         // render
         HireWorker.GetComponent<Button>().interactable = workers < max;
-        HireWorker.GetComponentInChildren<Text>().text = $"Hire Worker ({workers}/{max})";
+        HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ? "Hiring workers will increase development speed" : Visuals.Negative("You reached max limit of workers") + "\n\nTo increase this limit, hire TOP managers");
 
         StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");

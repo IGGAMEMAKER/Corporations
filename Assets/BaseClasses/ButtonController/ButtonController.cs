@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using Assets.Core.Tutorial;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,10 +18,6 @@ public abstract partial class ButtonController : BaseClass
     {
         Execute();
 
-        // TODO RENAVIGATE
-        if (Contains<ToggleRoleButtons>())
-            return;
-
         if (Contains<AutomaticallyShowAnnualReport>())
             return;
 
@@ -30,14 +27,14 @@ public abstract partial class ButtonController : BaseClass
     // start
     public virtual void Initialize()
     {
-        Button = GetComponent<Button>();
+        Button = GetComponentInChildren<Button>();
 
         Button.onClick.AddListener(ExecuteAndUpdateScreen);
 
         ButtonStart();
 
         if (IsLink)
-            GetComponentInChildren<Text>().color = Visuals.GetColorFromString(Colors.COLOR_LINK);
+            GetComponentInChildren<TextMeshProUGUI>().color = Visuals.GetColorFromString(Colors.COLOR_LINK);
     }
 
     void OnEnable()

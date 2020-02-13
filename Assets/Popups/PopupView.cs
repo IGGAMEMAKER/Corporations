@@ -70,6 +70,6 @@ public partial class PopupView : View
             AddComponent(b);
 
         if (buttons.Length == 0)
-            AddComponent(typeof(ClosePopup));
+            AddComponent(typeof(ClosePopupCancel));
     }
 }

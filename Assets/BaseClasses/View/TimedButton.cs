@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine.UI;
 
 public abstract class TimedButton : UpgradedButtonController
@@ -48,7 +49,7 @@ public abstract class TimedButton : UpgradedButtonController
             title += $"will finish in {TimeRemaining()} days";
         }
 
-        GetComponentInChildren<Text>().text = title;
+        GetComponentInChildren<TextMeshProUGUI>().text = title;
         GetComponent<Button>().interactable = IsInteractable();
     }
 

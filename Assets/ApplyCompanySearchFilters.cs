@@ -27,7 +27,6 @@ public class ApplyCompanySearchFilters : MonoBehaviour
     bool IsGroupFilter => GroupFilter.IsChosen;
 
     bool IsQuarterlyFilter => QuarterlyFilter.IsChosen;
-    bool IsYearlyFilter => YearlyFilter.IsChosen;
 
     public void ShowProductCompanies()
     {

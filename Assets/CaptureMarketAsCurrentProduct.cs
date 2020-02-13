@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class CaptureMarketAsCurrentProduct : ToggleButtonController
     {
         base.ViewRender();
 
-        GetComponentInChildren<Text>().text = isAggressive ? "STOP market TAKEOVER" : "CAPTURE MARKET!";
+        GetComponentInChildren<TextMeshProUGUI>().text = isAggressive ? "STOP market TAKEOVER" : "CAPTURE MARKET!";
         ToggleIsChosenComponent(isAggressive);
     }
 }

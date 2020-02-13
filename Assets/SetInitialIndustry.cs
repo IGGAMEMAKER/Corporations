@@ -1,9 +1,10 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SetInitialIndustry : MonoBehaviour, IPointerClickHandler
+public class SetInitialIndustry : MonoBehaviour
 {
     public IndustryType IndustryType;
     GameObject TypeCorporationNameContainer, ChooseInitialNicheContainer;
@@ -14,10 +15,10 @@ public class SetInitialIndustry : MonoBehaviour, IPointerClickHandler
         this.TypeCorporationNameContainer = TypeCorporationNameContainer;
         this.ChooseInitialNicheContainer = ChooseInitialNicheContainer;
 
-        GetComponentInChildren<Text>().text = Enums.GetFormattedIndustryName(IndustryType);
+        GetComponentInChildren<TextMeshProUGUI>().text = Enums.GetFormattedIndustryName(IndustryType);
     }
 
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    public void ChooseIndustry()
     {
         TypeCorporationNameContainer.SetActive(true);
         TypeCorporationNameContainer.GetComponent<NewCampaignController>().SetIndustry(IndustryType);

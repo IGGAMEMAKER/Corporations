@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine.UI;
 
 // TODO move to baseClass folder
@@ -15,7 +16,7 @@ public abstract class SimplePopupButtonController : ButtonController
 
     public virtual void SetButtonName(string name)
     {
-        GetComponentInChildren<Text>().text = name;
+        GetComponentInChildren<TextMeshProUGUI>().text = name;
     }
 }
 
@@ -35,6 +36,6 @@ public abstract class PopupButtonController<T> : ButtonController where T : Popu
 
     public virtual void SetButtonName(string name)
     {
-        GetComponentInChildren<Text>().text = name;
+        GetComponentInChildren<TextMeshProUGUI>().text = name;
     }
 }

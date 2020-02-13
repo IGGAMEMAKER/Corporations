@@ -9,8 +9,6 @@ public class RenderIsInSphereOfInterest : View
 
         bool isInSphereOfInterest = Companies.IsInSphereOfInterest(MyCompany, SelectedNiche);
 
-        GetComponent<IsChosenComponent>().Toggle(isInSphereOfInterest);
-
         GetComponentInChildren<Text>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
     }
 }

@@ -10,7 +10,7 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "Do you want to close this company?",
             "",
-            typeof(ClosePopup),
+            typeof(ClosePopupCancel),
             typeof(CloseCompanyPopupButton)
             );
     }
@@ -110,7 +110,7 @@ public partial class PopupView : View
             Visuals.Positive("\nYou will be able to make partnerships") +
             Visuals.Positive("\n\nYour income will increase!"),
             typeof(ReleaseAppPopupButton),
-            typeof(ClosePopup)
+            typeof(ClosePopupCancel)
             );
     }
 
@@ -191,7 +191,7 @@ public partial class PopupView : View
             title,
             description + resourceText,
             typeof(CreateAppPopupButton),
-            typeof(ClosePopup)
+            typeof(ClosePopupCancel)
             );
     }
 
@@ -246,7 +246,7 @@ public partial class PopupView : View
         RenderUniversalPopup(
             "You cannot create a corporation :(",
             $"Your company costs {Format.Money(cost)}, but needs to cost at least {Format.Money(goal)} to become a corporation",
-            typeof(ClosePopup)
+            typeof(ClosePopupCancel)
             );
     }
 
@@ -277,7 +277,7 @@ public partial class PopupView : View
             buttons.Add(typeof(SendAnotherAcquisitionOfferPopupButton));
         }
 
-        buttons.Add(typeof(ClosePopup));
+        buttons.Add(typeof(ClosePopupCancel));
 
         RenderUniversalPopup(
             "Response from company " + GetCompanyName(popup.companyId),

@@ -88,7 +88,7 @@
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
                     popup.PopupType.ToString() + " description. This Popup was not filled! ",
-                    typeof(ClosePopup)
+                    typeof(ClosePopupCancel)
                     );
                 break;
         }
