@@ -6,7 +6,7 @@ public abstract class UpgradedButtonController : ToggleButtonController
     {
         base.Initialize();
 
-        gameObject.GetComponent<Button>().interactable = IsInteractable();
+        gameObject.GetComponentInChildren<Button>().interactable = IsInteractable();
 
         ViewRender();
     }

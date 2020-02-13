@@ -50,7 +50,7 @@ public abstract class TimedButton : UpgradedButtonController
         }
 
         GetComponentInChildren<TextMeshProUGUI>().text = title;
-        GetComponent<Button>().interactable = IsInteractable();
+        GetComponentInChildren<Button>().interactable = IsInteractable();
     }
 
     // is interactable

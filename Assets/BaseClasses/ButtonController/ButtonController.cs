@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+//[RequireComponent(typeof(Button))]
 public abstract partial class ButtonController : BaseClass
 {
     Button Button;
@@ -16,6 +16,7 @@ public abstract partial class ButtonController : BaseClass
 
     void ExecuteAndUpdateScreen()
     {
+        Debug.Log("ExecuteAndUpdateScreen " + CurrentScreen);
         Execute();
 
         if (Contains<AutomaticallyShowAnnualReport>())
@@ -37,6 +38,9 @@ public abstract partial class ButtonController : BaseClass
             GetComponentInChildren<TextMeshProUGUI>().color = Visuals.GetColorFromString(Colors.COLOR_LINK);
     }
 
+    /// <summary>
+    /// CANNOT OVVERRIDE IN INHERITED CLASSES
+    /// </summary>
     void OnEnable()
     {
         Initialize();
