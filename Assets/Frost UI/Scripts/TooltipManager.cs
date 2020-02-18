@@ -33,6 +33,8 @@ namespace Michsky.UI.Frost
             tooltipRect = tooltipObject.GetComponent<RectTransform>();
             // tooltipContent.transform.localPosition = tooltipPosition;
             contentPos = new Vector3(vBorderTop, hBorderLeft, 0);
+
+            UICamera = FindObjectOfType<Camera>();
         }
 
         void Update()
