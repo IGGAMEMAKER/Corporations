@@ -4,16 +4,25 @@ public class LazyUpdate : Controller
     , IAnyDateListener
     , IMenuListener
 {
+    public bool DateChanges = true;
+    public bool MenuChanges = true;
+
     public override void AttachListeners()
     {
-        ListenDateChanges(this);
-        ListenMenuChanges(this);
+        if (DateChanges)
+            ListenDateChanges(this);
+
+        if (MenuChanges)
+            ListenMenuChanges(this);
     }
 
     public override void DetachListeners()
     {
-        UnListenDateChanges(this);
-        UnListenMenuChanges(this);
+        if (DateChanges)
+            UnListenDateChanges(this);
+
+        if (MenuChanges)
+            UnListenMenuChanges(this);
     }
 
     void IAnyDateListener.OnAnyDate(GameEntity entity, int date, int speed)
