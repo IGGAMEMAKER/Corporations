@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine.UI;
 
 public class RenderIsInSphereOfInterest : View
@@ -9,6 +10,6 @@ public class RenderIsInSphereOfInterest : View
 
         bool isInSphereOfInterest = Companies.IsInSphereOfInterest(MyCompany, SelectedNiche);
 
-        GetComponentInChildren<Text>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
+        GetComponentInChildren<TextMeshProUGUI>().text = isInSphereOfInterest ? "Remove from sphere of interest" : "Add to sphere of interest";
     }
 }
