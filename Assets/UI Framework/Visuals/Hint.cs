@@ -135,11 +135,6 @@ public class Hint : MonoBehaviour
         return result;
     }
 
-    public void SetHintObject(string text)
-    {
-        SetHint(text);
-    }
-
     public void SetHint(string text)
     {
         Text = text.Replace("\\n", "\n");

@@ -1,4 +1,6 @@
 ﻿using Assets.Core;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 // TODO extend ParameterView
@@ -19,26 +21,35 @@ public abstract class UpgradedParameterView : View
 
         PickComponents();
 
-        Text.text = RenderValue();
+        // Display value
+        var value = RenderValue();
 
-        string hint = RenderHint();
 
-        //if (hint.Length > 0)
-        //Hint.SetHint(hint);
+        if (GetComponent<Text>() != null)
+            GetComponent<Text>().text = value;
 
+        if (GetComponent<TextMeshProUGUI>() != null)
+            GetComponent<TextMeshProUGUI>().text = value;
+
+
+
+        // Hints
         if (Hint != null)
+        {
+            string hint = RenderHint();
+
             Hint.SetHint(hint);
+        }
     }
 
-    public void Colorize(string color)
+    public void Colorize(int value, int min, int max) => Colorize(Visuals.GetGradientColor(min, max, value));
+    public void Colorize(string color) => Colorize(Visuals.GetColorFromString(color));
+    public void Colorize(Color color)
     {
-        Text.color = Visuals.GetColorFromString(color);
+        Text.color = color;
     }
 
-    public void Colorize(int value, int min, int max)
-    {
-        Text.color = Visuals.GetGradientColor(min, max, value);
-    }
+
 
     public abstract string RenderValue();
     public abstract string RenderHint();
