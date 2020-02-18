@@ -1,70 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5537458477403031958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539238734401596853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: INVENTORY
-  description: Change, edit or check your lovely items.
-  mouseTooltipObject: {fileID: 0}
-  mouseTitle: {fileID: 0}
-  mouseDescription: {fileID: 0}
---- !u!114 &5537458478033148666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539238733957971665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: HOME
-  description: Go to the place where you've started.
-  mouseTooltipObject: {fileID: 0}
-  mouseTitle: {fileID: 0}
-  mouseDescription: {fileID: 0}
---- !u!114 &5537458478033148665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539238733957971665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb40dd1581525044ab3c6b56b08fde44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
-  TargetMenu: 6
---- !u!114 &5537458478724420305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539238733508392648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: PLAY
-  description: Ready for action? Go ahead, kick some boxes.
-  mouseTooltipObject: {fileID: 0}
-  mouseTitle: {fileID: 0}
-  mouseDescription: {fileID: 0}
 --- !u!1 &5537458479070001461
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +11,8 @@ GameObject:
   - component: {fileID: 5537458479070001460}
   - component: {fileID: 5537458479070001466}
   - component: {fileID: 5537458479070001467}
+  - component: {fileID: 7389468913574722807}
+  - component: {fileID: 5663640154423506698}
   m_Layer: 5
   m_Name: Menu Button List
   m_TagString: Untagged
@@ -137,6 +74,32 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
+--- !u!114 &7389468913574722807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5537458479070001461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DateChanges: 1
+  MenuChanges: 1
+--- !u!114 &5663640154423506698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5537458479070001461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002bbdc6601b04a4f8502f5dad2641c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5537458479389490529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +114,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: SETTINGS
   description: Have a potato PC, or wanna tweak the controls?
+  mouseTooltipObject: {fileID: 0}
+  mouseTitle: {fileID: 0}
+  mouseDescription: {fileID: 0}
+--- !u!114 &5537458478724420305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539238733508392648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: PLAY
+  description: Ready for action? Go ahead, kick some boxes.
+  mouseTooltipObject: {fileID: 0}
+  mouseTitle: {fileID: 0}
+  mouseDescription: {fileID: 0}
+--- !u!114 &5537458478033148665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539238733957971665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb40dd1581525044ab3c6b56b08fde44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLink: 0
+  TargetMenu: 6
+--- !u!114 &5537458478033148666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539238733957971665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: HOME
+  description: Go to the place where you've started.
+  mouseTooltipObject: {fileID: 0}
+  mouseTitle: {fileID: 0}
+  mouseDescription: {fileID: 0}
+--- !u!114 &5537458477403031958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5539238734401596853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c9af23e019a5a478a5cea33d05c627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: INVENTORY
+  description: Change, edit or check your lovely items.
   mouseTooltipObject: {fileID: 0}
   mouseTitle: {fileID: 0}
   mouseDescription: {fileID: 0}
