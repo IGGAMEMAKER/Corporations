@@ -80,7 +80,7 @@ public class CompanyViewOnMainScreen : View
 
         CompanyHint.SetHint(GetCompanyHint());
 
-        Expertise.text = $"Development\nEffeciency: {effeciency}%";
+        Expertise.text = $"Effeciency: {effeciency}%";
 
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
@@ -93,8 +93,8 @@ public class CompanyViewOnMainScreen : View
         Brand.text = $"{brand} ({brandChange.Sum()})";
         Brand.color = Visuals.GetGradientColor(0, 100, brand);
 
-        UpdateIfNecessary(BrandIcon, company.isRelease);
-        UpdateIfNecessary(Brand, company.isRelease);
+        UpdateIfNecessary(BrandIcon,    company.isRelease);
+        UpdateIfNecessary(Brand,        company.isRelease);
 
 
         // buttons
@@ -115,7 +115,7 @@ public class CompanyViewOnMainScreen : View
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
-        var canHireTopManagers = workers > 5;
+        var canHireTopManagers = false && workers > 5;
 
         var targetingCost = Marketing.GetTargetingCost(company, Q);
         var brandingCost  = Marketing.GetBrandingCost(company, Q);
@@ -127,14 +127,19 @@ public class CompanyViewOnMainScreen : View
         UpdateIfNecessary(TestCampaignButton,       !company.isRelease);
         UpdateIfNecessary(StartRegularAdCampaign,   company.isRelease);
         UpdateIfNecessary(StartBrandingCampaign,    company.isRelease);
+
         UpdateIfNecessary(LinkToHiringScreen,       canHireTopManagers);
-        UpdateIfNecessary(ManagementLabel, canHireTopManagers);
+        UpdateIfNecessary(ManagementLabel,          canHireTopManagers);
 
 
         // render
-        HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
         HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
-        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ? "Hiring workers will increase development speed" : Visuals.Negative("You reached max limit of workers") + "\n\nTo increase this limit, hire TOP managers");
+        HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
+        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ?
+            "Hiring workers will increase development speed"
+            :
+            Visuals.Negative("You reached max limit of workers") + "\n\nTo increase this limit, hire TOP managers"
+            );
 
         StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
         StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");

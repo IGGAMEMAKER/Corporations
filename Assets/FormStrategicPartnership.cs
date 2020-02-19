@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using TMPro;
 using UnityEngine.UI;
 
 public class FormStrategicPartnership : ToggleButtonController
@@ -24,7 +25,7 @@ public class FormStrategicPartnership : ToggleButtonController
         var opinion = Companies.GetPartnershipOpinionAboutUs(MyCompany, SelectedCompany, Q);
 
         GetComponentInChildren<Button>().interactable = isCanBePartnersTheoretically && opinion >= 0;
-        GetComponentInChildren<Text>().text = arePartners ? "Break strategic partnership!" : "Sign strategic partnership";
+        GetComponentInChildren<TextMeshProUGUI>().text = arePartners ? "Break strategic partnership!" : "Sign strategic partnership";
 
         var h = GetComponent<Hint>();
 
