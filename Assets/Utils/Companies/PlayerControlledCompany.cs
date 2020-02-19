@@ -42,5 +42,10 @@ namespace Assets.Core
 
             return playerRelatedProducts[0].company.Id == company.company.Id;
         }
+
+        //public static GameEntity GetFlagshipProduct(GameContext gameContext)
+        //{
+
+        //}
     }
 }

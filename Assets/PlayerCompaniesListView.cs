@@ -14,10 +14,18 @@ public class PlayerCompaniesListView : ListView
         base.ViewRender();
 
         var products = Companies.GetDaughterCompanies(Q, MyCompany)
-            .OrderByDescending(c => Economy.GetProfit(Q, c))
+            //.OrderByDescending(c => Economy.GetProfit(Q, c))
             ;
+        
 
         // all except flagship
-        SetItems(products.Where(p => !Companies.IsPlayerFlagship(Q, p)));
+        var productsExceptFlagship = products.Where(p => !Companies.IsPlayerFlagship(Q, p));
+
+
+        var result = products.ToList();
+
+        result.Insert(0, MyCompany);
+        
+        SetItems(result);
     }
 }

@@ -30,7 +30,7 @@ public class BaseClass : MonoBehaviour
     public GameEntity MyCompany => MyGroupEntity ?? null;
     public bool HasCompany => MyCompany != null;
 
-
+    //public GameEntity Flagship => Companies.
 
 
 

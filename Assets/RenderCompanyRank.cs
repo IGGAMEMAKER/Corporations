@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class RenderCompanyRank : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {
         var rank = Economy.GetCompanyCost(Q, MyCompany);
 
-        return $"Company cost: {Format.Money(rank)}";
+        return $"{Format.Money(rank)}";
     }
 }

@@ -48,6 +48,18 @@ namespace Assets.Core
                 );
         }
 
+        internal static GameEntity[] GetPlayerRelatedCompanies(GameContext gameContext)
+        {
+            var companies = gameContext.GetEntities(GameMatcher
+                .AllOf(GameMatcher.Company, GameMatcher.Alive));
+
+            return Array.FindAll(companies,
+                p => IsRelatedToPlayer(gameContext, p)
+                );
+        }
+
+
+
         // groups
         internal static GameEntity[] GetAIManagingCompanies(GameContext gameContext)
         {
