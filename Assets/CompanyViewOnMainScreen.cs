@@ -18,7 +18,6 @@ public class CompanyViewOnMainScreen : View
 
     public Text Profitability;
 
-    public RenderConceptProgress ConceptProgress;
     public Text Brand;
     public GameObject BrandIcon;
 
