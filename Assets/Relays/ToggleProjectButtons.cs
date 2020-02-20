@@ -18,7 +18,7 @@ public class ToggleProjectButtons : View
         var company = SelectedCompany;
 
         var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, company);
-        var isExplored = company.hasResearch || isRelatedToPlayer;
+        var isExplored = true; // company.hasResearch || isRelatedToPlayer;
 
 
         var hasExplorationTask = Cooldowns.HasTask(Q, new CompanyTaskExploreCompany(company.company.Id));

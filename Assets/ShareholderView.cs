@@ -9,9 +9,6 @@ public class ShareholderView : View
     public Image Icon;
     public Image Panel;
 
-    public Button BuyShares;
-    public Button SellShares;
-
     GameEntity shareholder;
     GameEntity company;
 

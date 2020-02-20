@@ -18,6 +18,7 @@ public class ScreenController : MonoBehaviour {
 
     void Render()
     {
+        return;
         RectTransform rect = transform.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(width, height);
 

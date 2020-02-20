@@ -42,11 +42,18 @@ public abstract class UpgradedParameterView : View
         }
     }
 
+    public void Colorize(bool value, string colorNameTrue, string colorNameFalse) => Colorize(Visuals.GetColorFromString(value ? colorNameTrue : colorNameFalse));
     public void Colorize(int value, int min, int max) => Colorize(Visuals.GetGradientColor(min, max, value));
     public void Colorize(string color) => Colorize(Visuals.GetColorFromString(color));
     public void Colorize(Color color)
     {
-        Text.color = color;
+        //Text.color = color;
+
+        if (GetComponent<Text>() != null)
+            GetComponent<Text>().color = color;
+
+        if (GetComponent<TextMeshProUGUI>() != null)
+            GetComponent<TextMeshProUGUI>().color = color;
     }
 
 
