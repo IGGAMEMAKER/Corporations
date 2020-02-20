@@ -86,6 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DateChanges: 1
+  MenuChanges: 1
 --- !u!114 &8464712909043183614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,11 +1818,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
-    m_FontStyle: 2
+    m_Font: {fileID: 12800000, guid: 42aae0c2d5eb2c14596e74253265c739, type: 3}
+    m_FontSize: 18
+    m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1929,7 +1931,6 @@ MonoBehaviour:
   Acquisitions: {fileID: 5749388784905251235}
   CorporateCulture: {fileID: 5008851475727262552}
   Partnerships: {fileID: 6623782493069032993}
-  LinkToHead: {fileID: 0}
 --- !u!1 &9159148386167891601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,6 +2098,11 @@ PrefabInstance:
 
         (5)'
       objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!224 &3096149252282440956 stripped
@@ -2240,6 +2246,11 @@ PrefabInstance:
 
         COMPANIES'
       objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!1 &5749388784905251235 stripped
@@ -2381,6 +2392,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: NEWS
       objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!224 &381273526598104328 stripped
@@ -2519,6 +2535,31 @@ PrefabInstance:
 
         CULTURE'
       objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_text
+      value: Corporate culture
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!1 &5008851475727262552 stripped
@@ -2654,6 +2695,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: STRATEGIC PARTNERSHIPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_text
+      value: Search Partners
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
@@ -2975,6 +3041,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728789987842904183, guid: 691404a1a9e24394685701da6e6b913b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 172.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728789987842904183, guid: 691404a1a9e24394685701da6e6b913b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 842.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728789989631018108, guid: 691404a1a9e24394685701da6e6b913b,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 42aae0c2d5eb2c14596e74253265c739,
+        type: 3}
+    - target: {fileID: 4728789989631018108, guid: 691404a1a9e24394685701da6e6b913b,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728789989359709818, guid: 691404a1a9e24394685701da6e6b913b,
+        type: 3}
+      propertyPath: m_Size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 691404a1a9e24394685701da6e6b913b, type: 3}
@@ -3376,6 +3468,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: RAISE INVESTMENTS
       objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_text
+      value: Raise money
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!224 &6438895995098134008 stripped
@@ -3515,6 +3612,31 @@ PrefabInstance:
         PERSPECTIVE
 
         MARKETS'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_text
+      value: Search markets
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071488241555427600, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
