@@ -8,7 +8,8 @@ public class HideTopPanelIfUnnecessary : HideOnSomeCondition
     {
         var screen = CurrentScreen;
 
-        var show = screen == ScreenMode.NicheScreen || screen == ScreenMode.GroupManagementScreen;
+        // screen == ScreenMode.NicheScreen ||
+        var show = screen == ScreenMode.GroupManagementScreen;
 
         return !show;
     }
