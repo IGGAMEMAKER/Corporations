@@ -38,6 +38,15 @@ namespace Michsky.UI.Frost
 
         void Start()
         {
+            Load();
+        }
+        void OnEnable()
+        {
+            Load();
+        }
+
+        void Load()
+        {
             currentButton = buttons[currentPanelIndex];
             currentButtonAnimator = currentButton.GetComponent<Animator>();
             currentButtonAnimator.Play(buttonFadeIn);
@@ -51,6 +60,7 @@ namespace Michsky.UI.Frost
         {
             if (newPanel != currentPanelIndex)
             {
+                // panels
                 currentPanel = panels[currentPanelIndex];
 
                 currentPanelIndex = newPanel;
@@ -62,6 +72,7 @@ namespace Michsky.UI.Frost
                 currentPanelAnimator.Play(panelFadeOut);
                 nextPanelAnimator.Play(panelFadeIn);
 
+                // buttons
                 currentButton = buttons[currentButtonlIndex];
 
                 currentButtonlIndex = newPanel;
