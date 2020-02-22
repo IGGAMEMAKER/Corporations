@@ -1,39 +1,18 @@
 ﻿using Assets.Core;
 using UnityEngine.UI;
 
-public enum TaskType
-{
-    UpgradeProduct,
-    StealIdeas,
-    ShareExpertise,
-    ImproveRelations,
-    CrossPromotion,
-}
-
 public class TaggedProgressBar : View
-    , IAnyDateListener
 {
     public CompanyTask TaskType;
     public Text ProgressBarDescription; // task description
 
     public ProgressBar ProgressBar;
+    public Slider Slider;
 
-    void OnEnable()
+    public override void ViewRender()
     {
-        // TODO Update/Unsub
-        ListenDateChanges(this);
+        base.ViewRender();
 
-        Render();
-    }
-
-    void HideProgressBar()
-    {
-        ProgressBar.gameObject.SetActive(false);
-        ProgressBarDescription.gameObject.SetActive(false);
-    }
-
-    void Render()
-    {
         TimedActionComponent taskComponent = ScheduleUtils.GetTask(Q, TaskType);
 
         if (taskComponent == null)
@@ -42,28 +21,35 @@ public class TaggedProgressBar : View
             return;
         }
 
-        //Debug.Log("There is the task " + taskComponent.StartTime);
+        RenderProgressBar(true);
 
-        ProgressBar.gameObject.SetActive(true);
-        ProgressBarDescription.gameObject.SetActive(true);
-
-        float progress = ScheduleUtils.GetTaskCompletionPercentage(Q, taskComponent);
 
         ProgressBarDescription.text = GetDescriptionByTask(taskComponent.CompanyTask);
+
+        // set value
+        float progress = ScheduleUtils.GetTaskCompletionPercentage(Q, taskComponent);
+
         ProgressBar.SetValue(progress);
+        if (Slider != null)
+            Slider.value = (int)progress;
+    }
+
+
+    void HideProgressBar()
+    {
+        RenderProgressBar(false);
+    }
+
+    void RenderProgressBar(bool show)
+    {
+        Slider.gameObject.SetActive(show);
+        ProgressBar.gameObject.SetActive(false);
+
+        ProgressBarDescription.gameObject.SetActive(show);
     }
 
     private string GetDescriptionByTask(CompanyTask taskType)
     {
-        switch (taskType)
-        {
-            default:
-                return $"progressbar fail {taskType.CompanyTaskType}";
-        }
-    }
-
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date, int speed)
-    {
-        Render();
+        return taskType.CompanyTaskType.ToString();
     }
 }

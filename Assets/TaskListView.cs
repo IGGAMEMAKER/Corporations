@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskListView : ListView
@@ -14,8 +15,20 @@ public class TaskListView : ListView
     {
         base.ViewRender();
 
-        var tasks = Cooldowns.GetTasks(Q);
+        var daughters = Companies.GetDaughterCompanies(Q, MyCompany);
 
-        SetItems(tasks);
+        if (daughters.Length > 0)
+        {
+            var tasks = Cooldowns.GetCooldowns(Q, daughters[0].company.Id);
+
+            Debug.Log("Tasks Count " + tasks.Count());
+
+            SetItems(tasks);
+        }
+        else
+        {
+            SetItems(new GameEntity[0]);
+        }
+
     }
 }

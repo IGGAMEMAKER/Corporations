@@ -5,6 +5,7 @@ public partial class TaskView : View
 {
     public Text Text;
     public ProgressBar ProgressBar;
+    public Slider Slider;
     public Image Panel;
 
     TimedActionComponent TaskComponent;
@@ -12,7 +13,6 @@ public partial class TaskView : View
     public void SetEntity(TimedActionComponent task)
     {
         TaskComponent = task;
-        AddLinkToObservableObject(task.CompanyTask);
 
         Render();
     }
@@ -26,19 +26,56 @@ public partial class TaskView : View
 
     void Render()
     {
-        var text = GetTaskHeader(TaskComponent.CompanyTask);
+        if (TaskComponent == null)
+            return;
 
         var remaining = TaskComponent.EndTime - CurrentIntDate;
 
         var progress = (CurrentIntDate - TaskComponent.StartTime) * 100 / (TaskComponent.Duration);
 
         bool hasProgressbar = ProgressBar != null;
+        bool hasSlider = Slider != null;
 
+
+
+        RenderValue(remaining, progress, hasProgressbar, hasSlider);
+
+        RenderText(remaining, hasProgressbar);
+
+        RenderPanel();
+    }
+
+    void RenderValue(int remaining, int progress, bool hasProgressbar, bool hasSlider)
+    {
+        // render value
         if (hasProgressbar)
         {
             ProgressBar.gameObject.SetActive(remaining > 0);
             ProgressBar.SetValue(progress);
         }
+
+        // same as Progressbar
+        if (hasSlider)
+        {
+            Slider.gameObject.SetActive(remaining > 0);
+            Slider.value = progress;
+        }
+    }
+
+    void RenderPanel()
+    {
+        if (Panel != null)
+        {
+            if (TaskComponent.StartTime > CurrentIntDate)
+                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_BASE); // not started yet
+            else
+                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_SELECTED); // started
+        }
+    }
+
+    void RenderText(int remaining, bool hasProgressbar)
+    {
+        var text = GetTaskHeader(TaskComponent.CompanyTask);
 
         if (remaining <= 0)
         {
@@ -55,36 +92,10 @@ public partial class TaskView : View
                 text += ". " + Visuals.Negative("Unpause") + " to finish";
         }
 
-        if (Panel != null)
-        {
-            if (TaskComponent.StartTime > CurrentIntDate)
-                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_BASE); // not started yet
-            else
-                Panel.color = Visuals.GetColorFromString(Colors.COLOR_PANEL_SELECTED); // started
-        }
-
-
         Text.text = text;
     }
-
-    private void AddLinkToObservableObject(CompanyTask companyTask)
-    {
-        //switch (companyTask.CompanyTaskType)
-        //{
-        //    case CompanyTaskType.ExploreMarket:
-        //        AddIfAbsent<LinkToNiche>().SetNiche((companyTask as CompanyTaskExploreMarket).NicheType);
-        //        break;
-
-        //    case CompanyTaskType.ExploreCompany:
-        //        AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskExploreCompany).CompanyId);
-        //        break;
-
-        //    case CompanyTaskType.AcquiringCompany:
-        //        AddIfAbsent<LinkToProjectView>().CompanyId = ((companyTask as CompanyTaskAcquisition).CompanyId);
-        //        break;
-        //}
-    }
 }
+
 
 public partial class TaskView : View
 {

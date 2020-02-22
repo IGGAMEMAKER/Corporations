@@ -1,4 +1,6 @@
 ﻿using Entitas;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -12,6 +14,13 @@ namespace Assets.Core
         public static bool HasCooldown(GameContext gameContext, CompanyTask task)
         {
             return HasTask(gameContext, task);
+        }
+
+        public static IEnumerable<GameEntity> GetCooldowns(GameContext gameContext, int companyId)
+        {
+            var cooldowns = GetCooldowns(gameContext);
+
+            return cooldowns.Where(c => c.timedAction.CompanyTask.CompanyId == companyId);
         }
 
         public static void AddCooldown(GameContext gameContext, CompanyTask task, int duration)
