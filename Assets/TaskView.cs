@@ -34,7 +34,7 @@ public partial class TaskView : View
         var progress = (CurrentIntDate - TaskComponent.StartTime) * 100 / (TaskComponent.Duration);
 
         bool hasProgressbar = ProgressBar != null;
-        bool hasSlider = Slider != null;
+        bool hasSlider = false && Slider != null;
 
 
 
@@ -54,6 +54,7 @@ public partial class TaskView : View
             ProgressBar.SetValue(progress);
         }
 
+        return;
         // same as Progressbar
         if (hasSlider)
         {

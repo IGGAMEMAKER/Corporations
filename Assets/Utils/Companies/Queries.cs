@@ -1,5 +1,7 @@
 ﻿using Entitas;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Core
@@ -88,6 +90,12 @@ namespace Assets.Core
                 .AllOf(GameMatcher.Company, GameMatcher.Shareholder));
 
             return Array.FindAll(investingCompanies, IsFinancialStructure);
+        }
+
+        public static IEnumerable<GameEntity> GetInvestmentFundsWhoAreInterestedInMarket(GameContext gameContext, NicheType niche)
+        {
+            return GetInvestmentFunds(gameContext)
+                .Where(f => f.companyFocus.Niches.Contains(niche));
         }
 
 

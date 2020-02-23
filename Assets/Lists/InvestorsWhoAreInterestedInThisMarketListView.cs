@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class InvestorsWithSameInterestsListView : ListView
+public class InvestorsWhoAreInterestedInThisMarketListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -14,8 +14,10 @@ public class InvestorsWithSameInterestsListView : ListView
     {
         base.ViewRender();
 
-        var funds = Markets.GetFinancialStructuresWithSameInterests(Q, MyCompany);
+        var niche = SelectedNiche;
 
-        SetItems(funds.ToArray());
+        var funds = Companies.GetInvestmentFundsWhoAreInterestedInMarket(Q, niche);
+
+        SetItems(funds);
     }
 }
