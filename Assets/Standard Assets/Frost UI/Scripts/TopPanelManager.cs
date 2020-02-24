@@ -45,7 +45,7 @@ namespace Michsky.UI.Frost
             Load();
         }
 
-        void Load()
+        public void Load()
         {
             currentButton = buttons[currentPanelIndex];
             currentButtonAnimator = currentButton.GetComponent<Animator>();
