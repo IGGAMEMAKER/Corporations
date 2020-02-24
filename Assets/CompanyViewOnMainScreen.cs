@@ -155,7 +155,11 @@ public class CompanyViewOnMainScreen : View
     {
         base.ViewRender();
 
+        var flagship = Companies.GetFlagship(Q, MyCompany);
 
+        if (flagship == null)
+            return;
+        company = flagship;
 
         Render();
     }
