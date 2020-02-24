@@ -9,7 +9,8 @@ namespace Assets.Core
         {
             var m = GetMenu(gameContext);
 
-            ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
+            UpdateScreen(gameContext, m.menu.ScreenMode, m.menu.Data);
+            //ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
         }
 
         public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
@@ -59,8 +60,6 @@ namespace Assets.Core
 
             Navigate(context, screenMode, newScreenData);
         }
-
-        //string names = String.Join(",", q.Select(e => e.ScreenMode).ToArray());
 
         public static bool IsCanNavigateBack(GameContext gameContext)
         {

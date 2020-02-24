@@ -40,10 +40,10 @@ namespace Michsky.UI.Frost
         {
             Load();
         }
-        void OnEnable()
-        {
-            Load();
-        }
+        //void OnEnable()
+        //{
+        //    Load();
+        //}
 
         public void Load()
         {

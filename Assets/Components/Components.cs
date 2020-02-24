@@ -34,7 +34,7 @@ public class MenuComponent : IComponent
 }
 
 // only entity
-[Game]
+[Game, Event(EventTarget.Self)]
 public class NavigationHistoryComponent : IComponent
 {
     public List<MenuComponent> Queries;

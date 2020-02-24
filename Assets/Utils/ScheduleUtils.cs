@@ -65,7 +65,6 @@ namespace Assets.Core
             return date % Balance.PERIOD == 0;
         }
 
-
         internal static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
         {
             GetDateContainer(gameContext).AddAnyDateListener(menuListener);

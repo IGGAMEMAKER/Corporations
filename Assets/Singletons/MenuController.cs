@@ -47,7 +47,9 @@ public enum ScreenMode
     TrendsScreen = 34,
 }
 
-public class MenuController : MonoBehaviour, IMenuListener
+public class MenuController : MonoBehaviour
+    , IMenuListener
+    , INavigationHistoryListener
 {
     Dictionary<ScreenMode, GameObject> Screens;
 
@@ -88,6 +90,7 @@ public class MenuController : MonoBehaviour, IMenuListener
     public GameObject FormStrategicPartnershipScreen;
     public GameObject TrendsScreen;
 
+    GameEntity menu;
 
     void Start()
     {
@@ -135,7 +138,9 @@ public class MenuController : MonoBehaviour, IMenuListener
 
         GameEntity e = ScreenUtils.GetMenu(Contexts.sharedInstance.game);
 
-        e.AddMenuListener(this);
+        menu = e;
+        //e.AddMenuListener(this);
+        e.AddNavigationHistoryListener(this);
     }
 
     string GetScreenTitle(ScreenMode screen)
@@ -218,5 +223,10 @@ public class MenuController : MonoBehaviour, IMenuListener
     void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         EnableScreen(screenMode);
+    }
+
+    void INavigationHistoryListener.OnNavigationHistory(GameEntity entity, List<MenuComponent> queries)
+    {
+        EnableScreen(menu.menu.ScreenMode);
     }
 }

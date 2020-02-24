@@ -16,7 +16,6 @@ public abstract partial class ButtonController : BaseClass
 
     void ExecuteAndUpdateScreen()
     {
-        Debug.Log("ExecuteAndUpdateScreen " + CurrentScreen);
         Execute();
 
         if (Contains<AutomaticallyShowAnnualReport>())

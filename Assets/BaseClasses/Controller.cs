@@ -2,6 +2,17 @@
 
 public abstract class Controller : BaseClass
 {
+    public void ListenNavigationChanges(INavigationHistoryListener navigationHistoryListener)
+    {
+        ScreenUtils.GetMenu(Q).AddNavigationHistoryListener(navigationHistoryListener);
+    }
+
+    public void UnListenNavigationChanges(INavigationHistoryListener navigationHistoryListener)
+    {
+        ScreenUtils.GetMenu(Q).RemoveNavigationHistoryListener(navigationHistoryListener);
+    }
+
+
     public void ListenMenuChanges(IMenuListener menuListener)
     {
         ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);

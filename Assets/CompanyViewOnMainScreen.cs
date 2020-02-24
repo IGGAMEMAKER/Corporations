@@ -155,6 +155,8 @@ public class CompanyViewOnMainScreen : View
     {
         base.ViewRender();
 
+
+
         Render();
     }
 

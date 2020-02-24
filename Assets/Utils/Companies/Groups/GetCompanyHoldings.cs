@@ -49,6 +49,24 @@ namespace Assets.Core
             return GetInvestments(context, investorId);
         }
 
+        public static bool IsFlagship(GameEntity[] products, GameEntity product)
+        {
+            return product.company.Id == products[0].company.Id;
+        }
+
+        public static GameEntity GetFlagship(GameContext gameContext, GameEntity group)
+        {
+            var daughters = GetDaughterProductCompanies(gameContext, group);
+
+            if (daughters.Count() == 0)
+                return null;
+
+
+            var flagship = daughters.First(p => IsFlagship(daughters, p));
+
+            return flagship;
+        }
+
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);

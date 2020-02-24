@@ -57,46 +57,47 @@ public static class GameComponentsLookup {
     public const int MenuListener = 46;
     public const int MetricsHistory = 47;
     public const int NavigationHistory = 48;
-    public const int NicheBaseProfile = 49;
-    public const int NicheClientsContainer = 50;
-    public const int Niche = 51;
-    public const int NicheCosts = 52;
-    public const int NicheLifecycle = 53;
-    public const int NicheSegments = 54;
-    public const int NicheState = 55;
-    public const int Notifications = 56;
-    public const int OnSales = 57;
-    public const int Partnerships = 58;
-    public const int Player = 59;
-    public const int Popup = 60;
-    public const int PreviousAcquisitionOffers = 61;
-    public const int Product = 62;
-    public const int ProductListener = 63;
-    public const int ProductPositioning = 64;
-    public const int PublicCompany = 65;
-    public const int Release = 66;
-    public const int ReleaseListener = 67;
-    public const int Reports = 68;
-    public const int Research = 69;
-    public const int Segment = 70;
-    public const int Shareholder = 71;
-    public const int Shareholders = 72;
-    public const int ShareholdersListener = 73;
-    public const int TargetDate = 74;
-    public const int Task = 75;
-    public const int Team = 76;
-    public const int TeamListener = 77;
-    public const int TechnologyLeader = 78;
-    public const int TechnologyLeaderListener = 79;
-    public const int Test = 80;
-    public const int TimedAction = 81;
-    public const int TimerRunning = 82;
-    public const int Tutorial = 83;
-    public const int TutorialListener = 84;
-    public const int WantsToExpand = 85;
-    public const int Worker = 86;
+    public const int NavigationHistoryListener = 49;
+    public const int NicheBaseProfile = 50;
+    public const int NicheClientsContainer = 51;
+    public const int Niche = 52;
+    public const int NicheCosts = 53;
+    public const int NicheLifecycle = 54;
+    public const int NicheSegments = 55;
+    public const int NicheState = 56;
+    public const int Notifications = 57;
+    public const int OnSales = 58;
+    public const int Partnerships = 59;
+    public const int Player = 60;
+    public const int Popup = 61;
+    public const int PreviousAcquisitionOffers = 62;
+    public const int Product = 63;
+    public const int ProductListener = 64;
+    public const int ProductPositioning = 65;
+    public const int PublicCompany = 66;
+    public const int Release = 67;
+    public const int ReleaseListener = 68;
+    public const int Reports = 69;
+    public const int Research = 70;
+    public const int Segment = 71;
+    public const int Shareholder = 72;
+    public const int Shareholders = 73;
+    public const int ShareholdersListener = 74;
+    public const int TargetDate = 75;
+    public const int Task = 76;
+    public const int Team = 77;
+    public const int TeamListener = 78;
+    public const int TechnologyLeader = 79;
+    public const int TechnologyLeaderListener = 80;
+    public const int Test = 81;
+    public const int TimedAction = 82;
+    public const int TimerRunning = 83;
+    public const int Tutorial = 84;
+    public const int TutorialListener = 85;
+    public const int WantsToExpand = 86;
+    public const int Worker = 87;
 
-    public const int TotalComponents = 87;
+    public const int TotalComponents = 88;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -148,6 +149,7 @@ public static class GameComponentsLookup {
         "MenuListener",
         "MetricsHistory",
         "NavigationHistory",
+        "NavigationHistoryListener",
         "NicheBaseProfile",
         "NicheClientsContainer",
         "Niche",
@@ -238,6 +240,7 @@ public static class GameComponentsLookup {
         typeof(MenuListenerComponent),
         typeof(MetricsHistoryComponent),
         typeof(NavigationHistoryComponent),
+        typeof(NavigationHistoryListenerComponent),
         typeof(NicheBaseProfileComponent),
         typeof(NicheClientsContainerComponent),
         typeof(NicheComponent),

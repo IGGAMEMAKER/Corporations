@@ -13,16 +13,13 @@ public class FlagshipCompanyListView : ListView
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughterCompanies(Q, MyCompany);
+        var flagship = Companies.GetFlagship(Q, MyCompany);
 
-        if (daughters.Count() == 0)
+        if (flagship == null)
         {
             SetItems(new GameEntity[0]);
             return;
         }
-
-        var flagship = Companies.GetDaughterCompanies(Q, MyCompany)
-            .First(p => Companies.IsPlayerFlagship(Q, p));
 
         SetItems(new GameEntity[1] { flagship });
     }
