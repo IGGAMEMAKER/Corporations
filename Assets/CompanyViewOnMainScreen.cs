@@ -159,6 +159,7 @@ public class CompanyViewOnMainScreen : View
 
         if (flagship == null)
             return;
+
         company = flagship;
 
         Render();

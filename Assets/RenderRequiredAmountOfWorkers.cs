@@ -7,6 +7,9 @@ public class RenderRequiredAmountOfWorkers : ParameterView
 {
     public override string RenderValue()
     {
-        return Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q).ToString();
+        if (SelectedCompany.hasProduct)
+            return Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q).ToString();
+
+        return "0";
     }
 }

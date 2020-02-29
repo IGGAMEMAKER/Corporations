@@ -6,7 +6,8 @@ public class HireWorker : ButtonController
 
     public override void Execute()
     {
-        var company = CurrentScreen == ScreenMode.GroupManagementScreen ? Companies.Get(Q, companyId) : SelectedCompany;
+        var flaghship = Companies.GetFlagship(Q, MyCompany);
+        var company = flaghship; // CurrentScreen == ScreenMode.GroupManagementScreen ? Companies.Get(Q, companyId) : SelectedCompany;
 
         Teams.HireRegularWorker(company, WorkerRole.Programmer);
     }
