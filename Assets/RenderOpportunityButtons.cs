@@ -9,12 +9,14 @@ public class RenderOpportunityButtons : View
     public GameObject CorporateCulture;
     public GameObject Partnerships;
 
-    public void OnEnable()
+    //public void OnEnable()
+    public override void ViewRender()
     {
+        base.ViewRender();
         //base.ViewRender();
 
         var screen = CurrentScreen;
-        bool isMyCompanyScreen = screen == ScreenMode.GroupManagementScreen || (SelectedCompany.company.Id == MyCompany.company.Id && screen == ScreenMode.ProjectScreen);
+        bool isMyCompanyScreen = true; // screen == ScreenMode.GroupManagementScreen || (SelectedCompany.company.Id == MyCompany.company.Id && screen == ScreenMode.ProjectScreen);
 
         bool hasAtLeastOneCompany = Companies.IsHasDaughters(Q, MyCompany);
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
