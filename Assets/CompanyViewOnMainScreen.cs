@@ -79,7 +79,7 @@ public class CompanyViewOnMainScreen : View
 
         CompanyHint.SetHint(GetCompanyHint());
 
-        Expertise.text = $"Effeciency: {effeciency}%";
+        Expertise.text = $"Team Speed: {effeciency}%";
 
         Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
