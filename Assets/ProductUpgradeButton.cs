@@ -1,10 +1,12 @@
 ﻿using Assets.Core;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class ProductUpgradeButton : UpgradedButtonController
 {
     public abstract ProductUpgrade GetProductUpgrade();
+    public TimedButton TimedButton;
 
     public abstract string GetButtonTitle();
     public override bool IsInteractable() => true;
@@ -26,5 +28,13 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
         GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle();
         GetComponentInChildren<Toggle>().isOn = state;
+
+        Debug.Log("Upgrade : " + GetProductUpgrade() + " = " + state);
+
+        if (state)
+        {
+            TimedButton.gameObject.SetActive(false);
+            TimedButton.Execute();
+        }
     }
 };
