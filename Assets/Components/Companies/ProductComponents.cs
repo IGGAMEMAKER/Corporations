@@ -29,6 +29,21 @@ public class FeaturesComponent : IComponent
     public int Count;
 }
 
+public enum ProductUpgrade
+{
+    SimpleConcept,
+    TestCampaign,
+
+    // 1+ worker
+    ExpandTeam,
+
+}
+
+public class ProductUpgradesComponent : IComponent
+{
+    public Dictionary<ProductUpgrade, bool> upgrades;
+}
+
 [Game, Event(EventTarget.Self)]
 public class MarketingComponent : IComponent
 {

@@ -34,7 +34,7 @@ public class RenderCompanyTabButtons : View
         // if was on product tab and then switched to group, open info tab
         var index = TopPanelManager.currentPanelIndex;
 
-        if (index == 5 && !isMyCompanyScreen)
+        if (index == 5 && !isFlagshipScreen)
             TopPanelManager.PanelAnim(0);
 
         var isIndependentCompany = company.isIndependentCompany;
