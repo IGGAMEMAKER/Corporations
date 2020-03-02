@@ -14,33 +14,42 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         // player
         var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
+        var playerCompany = Companies.GetPlayerControlledGroupCompany(gameContext);
 
         foreach (var e in playerProducts)
         {
             if (!Companies.IsPlayerFlagship(gameContext, e))
                 ManageMarketing(e);
             else
-                ManageFlagship(e);
+                ManageFlagship(e, playerCompany);
         }
     }
 
-    void ManageFlagship(GameEntity product)
+    void ManageFlagship(GameEntity product, GameEntity group)
     {
         var brandingCost = Marketing.GetBrandingCost(product, gameContext);
         var targetingCost = Marketing.GetTargetingCost(product, gameContext);
 
         var upgrs = product.productUpgrades.upgrades;
 
-        var brand = upgrs[ProductUpgrade.BrandCampaign];
-        var targeting = upgrs[ProductUpgrade.TargetingInSocialNetworks];
+        var brand = Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign);
+        var targeting = Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks);
 
         if (product.isRelease)
         {
-            if (Companies.IsEnoughResources(product, brandingCost) && brand)
-                Marketing.StartBrandingCampaign(product, gameContext);
+            if (Companies.IsEnoughResources(group, brandingCost) && brand)
+            {
+                Companies.SupportCompany(group, product, brandingCost);
 
-            if (Companies.IsEnoughResources(product, targetingCost) && targeting)
+                Marketing.StartBrandingCampaign(product, gameContext);
+            }
+
+            if (Companies.IsEnoughResources(group, targetingCost) && targeting)
+            {
+                Companies.SupportCompany(group, product, targetingCost);
+
                 Marketing.StartTargetingCampaign(product, gameContext);
+            }
         }
     }
 

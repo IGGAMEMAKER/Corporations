@@ -116,7 +116,7 @@ public partial class TaskView : View
             case CompanyTaskType.UpgradeFeature:
                 return $"Adding {(companyTask as CompanyTaskUpgradeFeature).ProductImprovement} feature\n";
 
-            default: return "UNKNOWN TASK!!!!" + companyTask.CompanyTaskType;
+            default: return "UNKNOWN TASK: " + companyTask.CompanyTaskType;
         }
     }
 }

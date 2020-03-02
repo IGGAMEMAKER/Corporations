@@ -26,6 +26,7 @@ public class StartRegularAdCampaign : TimedButton
         var company = Companies.Get(Q, CompanyId);
 
         var clients = Marketing.GetAudienceGrowth(company, Q);
+
         return $"Start Targeting Campaign\n(+{Format.Minify(clients)} clients)";
     }
 

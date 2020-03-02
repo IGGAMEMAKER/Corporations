@@ -2,35 +2,29 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class ProductUpgradeButton : UpgradedButtonController
+public abstract class ProductUpgradeButton : UpgradedButtonController
 {
-    public ProductUpgrade ProductUpgrade;
-    public Toggle checkbox;
+    public abstract ProductUpgrade GetProductUpgrade();
+
+    public abstract string GetButtonTitle();
+    public override bool IsInteractable() => true;
+
+    bool state => Products.IsUpgradeEnabled(flagship, GetProductUpgrade());
+    GameEntity flagship => Companies.GetFlagship(Q, Group);
 
     public override void Execute()
     {
         if (flagship != null)
         {
-            flagship.productUpgrades.upgrades[ProductUpgrade] = !checkbox.isOn;
-            //flagship.productUpgrades.upgrades[ProductUpgrade] = !flagship.productUpgrades.upgrades[ProductUpgrade];
+            flagship.productUpgrades.upgrades[GetProductUpgrade()] = !state;
         }
-    }
-
-    GameEntity flagship => Companies.GetFlagship(Q, Group);
-
-    public override bool IsInteractable()
-    {
-        return true;
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        checkbox = GetComponentInChildren<Toggle>();
-
-        GetComponentInChildren<TextMeshProUGUI>().text = "Targ campaign (30K)";
-
-        checkbox.isOn = flagship.productUpgrades.upgrades[ProductUpgrade];
+        GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle();
+        GetComponentInChildren<Toggle>().isOn = state;
     }
 };

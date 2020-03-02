@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Core;
 
 public class TargetingToggleButton : ProductUpgradeButton
 {
-    public override void ViewRender()
+    public override string GetButtonTitle()
     {
-        base.ViewRender();
+        var flagship = Companies.GetFlagship(Q, Group);
 
-        ProductUpgrade = ProductUpgrade.TargetingInSocialNetworks;
+        var cost = Marketing.GetTargetingCost(flagship, Q);
+
+        return $"Targeting campaign ({Format.Money(cost)})";
+    }
+
+    public override ProductUpgrade GetProductUpgrade()
+    {
+        return ProductUpgrade.TargetingInSocialNetworks;
     }
 }

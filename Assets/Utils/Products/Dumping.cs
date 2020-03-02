@@ -16,5 +16,14 @@
         {
             product.isDumping = false;
         }
+
+        // --------------------------------
+
+        public static bool IsUpgradeEnabled(GameEntity product, ProductUpgrade productUpgrade)
+        {
+            var u = product.productUpgrades.upgrades;
+
+            return u.ContainsKey(productUpgrade) && u[productUpgrade];
+        }
     }
 }
