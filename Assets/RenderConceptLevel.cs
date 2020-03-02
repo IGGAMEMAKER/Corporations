@@ -2,10 +2,7 @@
 
 public class RenderConceptLevel : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {

@@ -34,6 +34,10 @@ public enum ProductUpgrade
     SimpleConcept,
     TestCampaign,
 
+    TargetingInSocialNetworks,
+    EmailCampaign,
+    BrandCampaign,
+
     // 1+ worker
     ExpandTeam,
 

@@ -7,18 +7,44 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        // ai
         foreach (var e in Companies.GetAIProducts(gameContext))
             ManageMarketing(e);
 
+
+        // player
         var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
+
         foreach (var e in playerProducts)
         {
             if (!Companies.IsPlayerFlagship(gameContext, e))
                 ManageMarketing(e);
+            else
+                ManageFlagship(e);
         }
     }
 
-    void ManageMarketing(GameEntity product)
+    void ManageFlagship(GameEntity product)
+    {
+        var brandingCost = Marketing.GetBrandingCost(product, gameContext);
+        var targetingCost = Marketing.GetTargetingCost(product, gameContext);
+
+        var upgrs = product.productUpgrades.upgrades;
+
+        var brand = upgrs[ProductUpgrade.BrandCampaign];
+        var targeting = upgrs[ProductUpgrade.TargetingInSocialNetworks];
+
+        if (product.isRelease)
+        {
+            if (Companies.IsEnoughResources(product, brandingCost) && brand)
+                Marketing.StartBrandingCampaign(product, gameContext);
+
+            if (Companies.IsEnoughResources(product, targetingCost) && targeting)
+                Marketing.StartTargetingCampaign(product, gameContext);
+        }
+    }
+
+    void StartCampaigns(GameEntity product)
     {
         var brandingCost = Marketing.GetBrandingCost(product, gameContext);
         var targetingCost = Marketing.GetTargetingCost(product, gameContext);
@@ -40,5 +66,13 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             else
                 Marketing.StartTestCampaign(product, gameContext);
         }
+    }
+
+    void ManageMarketing(GameEntity product)
+    {
+        // set product upgrades here
+
+        // start campaigns
+        StartCampaigns(product);
     }
 }
