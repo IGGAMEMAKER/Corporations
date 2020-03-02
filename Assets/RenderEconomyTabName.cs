@@ -11,6 +11,6 @@ public class RenderEconomyTabName : UpgradedParameterView
     {
         var cost = Economy.GetCompanyCost(Q, SelectedCompany);
 
-        return $"ECONOMY ({Format.MinifyMoney(cost)})";
+        return $"ECONOMY ({Format.Money(cost)})";
     }
 }

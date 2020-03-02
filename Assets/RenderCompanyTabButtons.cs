@@ -21,11 +21,15 @@ public class RenderCompanyTabButtons : View
         base.ViewRender();
 
         var company = SelectedCompany;
+        var flagship = Companies.GetFlagship(Q, MyCompany);
+        var hasFlagship = flagship != null;
 
         var isMyCompanyScreen = company.company.Id == MyCompany.company.Id;
+        var isFlagshipScreen = hasFlagship && company.company.Id == flagship.company.Id;
+
         var hasProducts = Companies.GetDaughterProductCompanies(Q, MyCompany).Count() > 0;
 
-        DevTab.SetActive(isMyCompanyScreen && hasProducts);
+        DevTab.SetActive(isFlagshipScreen);
 
         // if was on product tab and then switched to group, open info tab
         var index = TopPanelManager.currentPanelIndex;
