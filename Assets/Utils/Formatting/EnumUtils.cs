@@ -205,7 +205,7 @@ namespace Assets.Core
 
                 // e-commerce
                 case NicheType.ECom_Exchanging: return "Money Exchange";
-                case NicheType.ECom_OnlineBanking: return "Online Banking";
+                case NicheType.ECom_OnlineBanking: return "Online Banks";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
 
                 case NicheType.ECom_BookingTours: return "Booking Tours";

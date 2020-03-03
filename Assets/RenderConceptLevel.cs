@@ -9,6 +9,8 @@ public class RenderConceptLevel : UpgradedParameterView
         var level = Products.GetProductLevel(SelectedCompany);
         var max = Products.GetMarketRequirements(SelectedCompany, Q);
 
-        return Visuals.Gradient(0, max, level) + " / " + max;
+        var description = Products.GetConceptStatus(SelectedCompany, Q);
+
+        return Visuals.Gradient(0, max, level) + " / " + max + " (" + description + ")";
     }
 }

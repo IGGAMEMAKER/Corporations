@@ -22,15 +22,7 @@ public class CompanyViewOnMainScreen : View
     public GameObject BrandIcon;
 
     public HireWorker HireWorker;
-    public TestCampaignButton TestCampaignButton;
-    public StartRegularAdCampaign StartRegularAdCampaign;
-    public StartBrandingCampaign StartBrandingCampaign;
-    public ReleaseApp ReleaseApp;
-    public UpgradeProductImprovements UpgradeChurn;
-    public UpgradeProductImprovements UpgradeMonetisation;
-    public LinkToHiringScreen LinkToHiringScreen;
 
-    public GameObject ManagementLabel;
 
     public Text Expertise;
 
@@ -92,6 +84,8 @@ public class CompanyViewOnMainScreen : View
         Brand.text = $"{brand} ({brandChange.Sum()})";
         Brand.color = Visuals.GetGradientColor(0, 100, brand);
 
+
+
         UpdateIfNecessary(BrandIcon,    company.isRelease);
         UpdateIfNecessary(Brand,        company.isRelease);
 
@@ -101,37 +95,14 @@ public class CompanyViewOnMainScreen : View
         // set
         LinkToProjectView.CompanyId = id;
         HireWorker.companyId = id;
-        ReleaseApp.SetCompanyId(id);
 
-        TestCampaignButton.SetCompanyId(id);
-        StartRegularAdCampaign.SetCompanyId(id);
-        StartBrandingCampaign.SetCompanyId(id);
-        UpgradeChurn.SetCompanyId(id);
-        UpgradeMonetisation.SetCompanyId(id);
-        LinkToHiringScreen.SetCompanyId(id);
-
-
-        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var workers = Teams.GetAmountOfWorkers(company, Q);
-
-        var canHireTopManagers = false && workers > 5;
-
-        var targetingCost = Marketing.GetTargetingCost(company, Q);
-        var brandingCost  = Marketing.GetBrandingCost(company, Q);
-
-
-        // enable / disable them
-        UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
-
-        UpdateIfNecessary(TestCampaignButton,       !company.isRelease);
-        UpdateIfNecessary(StartRegularAdCampaign,   company.isRelease);
-        UpdateIfNecessary(StartBrandingCampaign,    company.isRelease);
-
-        UpdateIfNecessary(LinkToHiringScreen,       canHireTopManagers);
-        UpdateIfNecessary(ManagementLabel,          canHireTopManagers);
 
 
         // render
+        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
+        var workers = Teams.GetAmountOfWorkers(company, Q);
+
+
         HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
         HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ?
@@ -139,9 +110,6 @@ public class CompanyViewOnMainScreen : View
             :
             Visuals.Negative("You reached max limit of workers") + "\n\nTo increase this limit, hire TOP managers"
             );
-
-        StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
-        StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
     }
 
     void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);

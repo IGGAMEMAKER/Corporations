@@ -23,7 +23,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         {
             Debug.Log("Toggle " + upgrade + " = " + state);
 
-            GetComponentInChildren<ToggleAnim>().AnimateToggle();
             flagship.productUpgrades.upgrades[upgrade] = !state;
         }
     }
@@ -35,11 +34,12 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle();
         GetComponentInChildren<Toggle>().isOn = state;
 
+        //GetComponentInChildren<ToggleAnim>().AnimateToggle();
         Debug.Log("Upgrade : " + upgrade + " = " + state);
 
         if (state)
         {
-            TimedButton.gameObject.SetActive(false);
+            // automatically click on campaign button
 
             var interactable = TimedButton.GetComponentInChildren<Button>().interactable;
 
