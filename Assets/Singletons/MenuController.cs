@@ -45,6 +45,7 @@ public enum ScreenMode
     JoinCorporationScreen = 32,
     FormStrategicPartnershipScreen = 33,
     TrendsScreen = 34,
+    MessageScreen = 35
 }
 
 public class MenuController : MonoBehaviour
@@ -89,6 +90,7 @@ public class MenuController : MonoBehaviour
     public GameObject JoinCorporationScreen;
     public GameObject FormStrategicPartnershipScreen;
     public GameObject TrendsScreen;
+    public GameObject MessageScreen;
 
     GameEntity menu;
 
@@ -130,6 +132,7 @@ public class MenuController : MonoBehaviour
             [ScreenMode.JoinCorporationScreen] = JoinCorporationScreen,
             [ScreenMode.FormStrategicPartnershipScreen] = FormStrategicPartnershipScreen,
             [ScreenMode.TrendsScreen] = TrendsScreen,
+            [ScreenMode.MessageScreen] = MessageScreen,
         };
 
         DisableAllScreens();

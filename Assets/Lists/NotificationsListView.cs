@@ -31,7 +31,7 @@ public class NotificationsListView : ListView
         //    list.Add(notifications[i]);
 
         //SetItems(list.ToArray());
-        SetItems(notifications.ToArray());
+        SetItems(notifications);
 
         Scroll();
     }

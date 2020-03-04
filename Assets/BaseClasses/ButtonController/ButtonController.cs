@@ -27,7 +27,7 @@ public abstract partial class ButtonController : BaseClass
     // start
     public virtual void Initialize()
     {
-        Button = GetComponentInChildren<Button>();
+        Button = GetComponentInChildren<Button>() ?? GetComponent<Button>();
 
         Button.onClick.AddListener(ExecuteAndUpdateScreen);
 
