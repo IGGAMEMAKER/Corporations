@@ -10,13 +10,11 @@ public class ToggleBetweenHeadCompanyAndFlagship : ButtonController
 
     public override void Execute()
     {
-        var companyId = MyCompany.company.Id;
-
-        var isAlreadyOnMainCompanyScreen = SelectedCompany.company.Id == companyId;
+        var isAlreadyOnMainCompanyScreen = SelectedCompany.company.Id == MyCompany.company.Id;
 
 
         var flagship = Companies.GetFlagship(Q, MyCompany);
-        if (flagship != null && isAlreadyOnMainCompanyScreen)
+        if (flagship != null) // && isAlreadyOnMainCompanyScreen
         {
             NavigateToProjectScreen(flagship.company.Id);
 
@@ -26,6 +24,6 @@ public class ToggleBetweenHeadCompanyAndFlagship : ButtonController
             return;
         }
 
-        NavigateToCompany(ScreenMode.ProjectScreen, companyId);
+        NavigateToCompany(ScreenMode.ProjectScreen, MyCompany.company.Id);
     }
 }
