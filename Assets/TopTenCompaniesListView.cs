@@ -9,7 +9,9 @@ public class TopTenCompaniesListView : ListView
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var company = entity as GameEntity;
-        t.GetComponent<MockText>().SetEntity(company.company.Name);
+
+        var cost = Economy.GetCompanyCost(Q, company);
+        t.GetComponent<MockText>().SetEntity($"{company.company.Name} ({Format.Money(cost)})");
     }
 
     public override void ViewRender()

@@ -18,12 +18,17 @@ public class ManagePersonButtons : View
     {
         base.ViewRender();
 
-        var myCompany = MyCompany.company.Id;
         var human = SelectedHuman;
 
-        bool worksInMyCompany = Humans.IsWorksInCompany(SelectedHuman, myCompany);
 
-        bool isMe = SelectedHuman.isPlayer;
+        var myCompany = MyCompany.company.Id;
+
+        var flagship = Companies.GetFlagship(Q, MyCompany);
+        var flagshipId = flagship?.company.Id ?? -1;
+
+        bool worksInMyCompany = Humans.IsWorksInCompany(human, myCompany) || Humans.IsWorksInCompany(human, flagshipId);
+
+        bool isMe = human.isPlayer;
 
         // Hire
         Hire.SetActive(!isMe && !worksInMyCompany);
