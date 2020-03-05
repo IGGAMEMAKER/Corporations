@@ -35,13 +35,17 @@ public class HumanPreview : View
     {
         if (Loyalty != null)
         {
-            Loyalty.SetValue(33);
+            if (!drawAsEmployee)
+                Loyalty.SetValue(human.humanCompanyRelationship.Morale);
+
             Loyalty.gameObject.SetActive(!drawAsEmployee);
         }
 
         if (Adaptation != null)
         {
-            Adaptation.SetValue(66);
+            if (!drawAsEmployee)
+                Adaptation.SetValue(human.humanCompanyRelationship.Adapted);
+
             Adaptation.gameObject.SetActive(!drawAsEmployee);
         }
     }

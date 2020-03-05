@@ -4,12 +4,46 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-class MoraleManagementSystem : OnMonthChange
+class MoraleManagementSystem : OnPeriodChange
 {
     public MoraleManagementSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
+        var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+
+        // pyramid
+        //
+        // salary
+        // interest (anti routine)
+        // career ladder
+        // feedback (i am doing useful stuff)
+        // influence (become company shareholder)
+
+        foreach (var c in companies)
+        {
+            foreach (var m in c.team.Managers)
+            {
+                var humanId = m.Key;
+
+                var human = Humans.GetHuman(gameContext, humanId);
+
+                var relationship = human.humanCompanyRelationship;
+
+                var newAdaptation   = Mathf.Clamp(relationship.Adapted + 4, 0, 100);
+                var newLoyalty      = Mathf.Clamp(relationship.Morale  - UnityEngine.Random.Range(0, 5), 0, 100);
+
+                // TODO: if is CEO in own project, morale loss is way lower or zero
+                bool isOwner = human.hasCEO;
+                if (isOwner)
+                    newLoyalty = 100;
+
+
+                human.ReplaceHumanCompanyRelationship(newAdaptation, newLoyalty);
+            }
+        }
+
+        // crunching
         var products = contexts.game.GetEntities(GameMatcher.Product);
 
         for (var i = 0; i < products.Length; i++)
