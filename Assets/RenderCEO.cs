@@ -2,6 +2,6 @@
 {
     void OnEnable()
     {
-        GetComponent<WorkerView>().SetEntity(SelectedCompany.cEO.HumanId, WorkerRole.CEO);
+        GetComponent<WorkerView>().SetEntity(SelectedCompany.cEO.HumanId, WorkerRole.CEO, false);
     }
 }

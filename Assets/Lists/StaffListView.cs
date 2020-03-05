@@ -8,11 +8,13 @@ public abstract class StaffListView : ListView
 {
     public abstract Dictionary<int, WorkerRole> Workers();
 
+    public abstract bool DrawAsEmployee();
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 
-        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
+        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value, DrawAsEmployee());
     }
 
     public override void ViewRender()
