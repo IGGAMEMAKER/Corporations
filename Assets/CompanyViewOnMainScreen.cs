@@ -82,7 +82,8 @@ public class CompanyViewOnMainScreen : View
 
         PositionOnMarket.text = $"#{positionOnMarket}";
 
-        Brand.text = $"{brand} ({brandChange.Sum()})";
+        var change = brandChange.Sum();
+        Brand.text = $"{brand} ({Format.Sign(change)})";
         Brand.color = Visuals.GetGradientColor(0, 100, brand);
 
 

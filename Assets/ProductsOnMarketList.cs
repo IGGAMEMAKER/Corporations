@@ -9,7 +9,7 @@ public class ProductsOnMarketList : ListView
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var c = entity as GameEntity;
-        t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id);
+        t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, (long)data);
     }
 
     public override void ViewRender()
@@ -17,9 +17,9 @@ public class ProductsOnMarketList : ListView
         base.ViewRender();
 
         var products = Markets.GetProductsOnMarket(Q, SelectedNiche)
-            .OrderByDescending(p => Marketing.GetClients(p))
+            .OrderByDescending(Marketing.GetClients)
             ;
 
-        SetItems(products);
+        SetItems(products, 1000000);
     }
 }

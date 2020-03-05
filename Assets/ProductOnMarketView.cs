@@ -11,17 +11,15 @@ public class ProductOnMarketView : View
     public Hint ClientChange;
     public LinkToProjectView LinkToProjectView;
 
+    public RectTransform BackgroundRect;
+    public RectTransform ClientsRect;
+    public RectTransform NewClientsRect;
+
     public Text Name;
 
     int companyId;
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-        //Clients.text = 
-    }
-
-    void Render()
+    void Render(long maxClients)
     {
         var company = Companies.Get(Q, companyId);
 
@@ -37,13 +35,21 @@ public class ProductOnMarketView : View
 
         LinkToProjectView.CompanyId = company.company.Id;
 
-        ClientChange.SetHint($"{company.company.Name} will get this amount of clients next week");
+        var brand = (int)company.branding.BrandPower;
+        ClientChange.SetHint($"{company.company.Name} will get this amount of clients next week, due to their brand power ({brand})");
+
+
+        // scale this view according to market share
+        var scale = clients * 100D / maxClients;
+
+        BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
+        //BackgroundRect.rect.height = 300 * clients / maxClients;
     }
 
-    public void SetEntity(int companyId)
+    public void SetEntity(int companyId, long maxClients)
     {
         this.companyId = companyId;
 
-        Render();
+        Render(maxClients);
     }
 }
