@@ -28,20 +28,21 @@ public class HumanPreview : View
         Description.text = description;
 
         // render company related data if is worker
-        if (!drawAsEmployee)
-            RenderCompanyData();
+        RenderCompanyData(drawAsEmployee);
     }
 
-    private void RenderCompanyData()
+    private void RenderCompanyData(bool drawAsEmployee)
     {
         if (Loyalty != null)
         {
             Loyalty.SetValue(33);
+            Loyalty.gameObject.SetActive(!drawAsEmployee);
         }
 
         if (Adaptation != null)
         {
             Adaptation.SetValue(66);
+            Adaptation.gameObject.SetActive(!drawAsEmployee);
         }
     }
 
