@@ -40,7 +40,7 @@ public class ProductOnMarketView : View
 
 
         // scale this view according to market share
-        var scale = clients * 100D / maxClients;
+        var scale = clients * 1D / maxClients;
 
         BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
         //BackgroundRect.rect.height = 300 * clients / maxClients;
