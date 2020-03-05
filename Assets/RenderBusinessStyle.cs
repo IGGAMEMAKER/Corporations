@@ -21,6 +21,9 @@ public class RenderBusinessStyle : UpgradedParameterView
             text += Wrap(DescribePolicy(value, policy));
         }
 
+        if (text.Length == 0)
+            text = "This company has no specific preferences in management";
+
         return text;
     }
 
