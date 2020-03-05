@@ -11,7 +11,7 @@ public class ProductsOnMarketList : ListView
         var c = entity as GameEntity;
 
         var maxClients = Markets.GetProductsOnMarket(Q, SelectedNiche)
-    .Max(Marketing.GetClients);
+            .Max(Marketing.GetClients);
 
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
