@@ -25,7 +25,7 @@ namespace Assets.Core
 
             var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
-            for (var i = 0; i < roles.Count; i++)
+            for (var i = 0; i < 2; i++)
             {
                 var index = Random.Range(0, roles.Count);
 

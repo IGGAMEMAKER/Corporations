@@ -49,6 +49,7 @@ public class HumanPreview : View
     {
         var role = Humans.GetRole(human);
         var formattedRole = Humans.GetFormattedRole(role);
+
         if (RoleText != null)
         {
             RoleText.text = formattedRole;
