@@ -40,6 +40,18 @@ class MoraleManagementSystem : OnPeriodChange
 
 
                 human.ReplaceHumanCompanyRelationship(newAdaptation, newLoyalty);
+
+                if (c.hasProduct)
+                {
+                    var niche = c.product.Niche;
+                    // increase expertise too
+
+                    var newExpertise = 1;
+                    if (human.humanSkills.Expertise.ContainsKey(niche))
+                        newExpertise = Mathf.Clamp(human.humanSkills.Expertise[niche] + 1, 0, 100);
+
+                    human.humanSkills.Expertise[niche] = newExpertise;
+                }
             }
         }
 

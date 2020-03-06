@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ExpertiseView : View
 {
@@ -9,19 +11,15 @@ public class ExpertiseView : View
 
     NicheType NicheType;
 
-    public override void ViewRender()
+    public void SetEntity(NicheType nicheType)
     {
-        base.ViewRender();
+        NicheType = nicheType;
 
         var exp = SelectedHuman.humanSkills.Expertise[NicheType];
 
         ProgressBar.SetValue(exp, 100);
 
         LinkToNiche.SetNiche(NicheType);
-    }
-
-    public void SetEntity(NicheType nicheType)
-    {
-        NicheType = nicheType;
+        LinkToNiche.gameObject.GetComponent<Text>().text = Enums.GetFormattedNicheName(NicheType);
     }
 }
