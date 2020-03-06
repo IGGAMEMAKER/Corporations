@@ -55,7 +55,11 @@ namespace Assets.Core
             if (worker == null)
                 return 0;
 
-            var expertise = worker.humanSkills.Expertise[company.product.Niche];
+            var expertise = 0;
+
+            if (company.hasProduct && worker.humanSkills.Expertise.ContainsKey(company.product.Niche))
+                expertise = worker.humanSkills.Expertise[company.product.Niche];
+
             var adaptability = worker.humanCompanyRelationship.Adapted;
 
             return 100 + adaptability + expertise / 2;

@@ -8,7 +8,7 @@ namespace Assets.Core
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
         public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
-            return 30;
+            return 7;
 
             var modifier = 3; // 3
             switch (nicheChangeSpeed)

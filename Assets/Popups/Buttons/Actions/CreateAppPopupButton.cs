@@ -10,6 +10,9 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
 
         NotificationUtils.ClosePopup(Q);
         NotificationUtils.AddPopup(Q, new PopupMessageCreateApp(id));
+
+        if (Companies.GetDaughterCompaniesAmount(MyCompany, Q) == 1)
+            NavigateToProjectScreen(id);
     }
 
     public override string GetButtonName() => "YES";

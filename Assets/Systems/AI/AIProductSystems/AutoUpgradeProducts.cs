@@ -11,11 +11,6 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
     {
         var products = Companies.GetProductCompanies(gameContext);
 
-        var playerCompany = Companies.GetPlayerCompany(gameContext);
-        var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
-
-        var playerFlagshipId = playerFlagship?.company.Id ?? -1;
-
         foreach (var product in products)
         {
             // some expertise stuff?
@@ -34,6 +29,9 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             UpdgradeProduct(product, gameContext);
         }
 
+
+        var playerFlagshipId = GetPlayerFlagshipID();
+
         // release AI apps if can
         var releasableAIApps = products
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
@@ -43,6 +41,20 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
         foreach (var concept in releasableAIApps)
             Marketing.ReleaseApp(gameContext, concept);
+    }
+
+    int GetPlayerFlagshipID()
+    {
+        var playerCompany = Companies.GetPlayerCompany(gameContext);
+
+        if (playerCompany == null)
+            return -1;
+
+        var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
+
+        var playerFlagshipId = playerFlagship?.company.Id ?? -1;
+
+        return playerFlagshipId;
     }
 
 
