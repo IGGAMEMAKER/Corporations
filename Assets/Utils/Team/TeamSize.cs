@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -34,6 +35,30 @@ namespace Assets.Core
         public static int GetMarketers(GameEntity company)
         {
             return CountSpecialists(company, WorkerRole.Marketer);
+        }
+
+        internal static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, GameContext gameContext)
+        {
+            var managers = company.team.Managers;
+
+            foreach (var m in managers)
+            {
+                if (m.Value == role)
+                    return Humans.GetHuman(gameContext, m.Key);
+            }
+
+            return null;
+        }
+
+        internal static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
+        {
+            if (worker == null)
+                return 0;
+
+            var expertise = worker.humanSkills.Expertise[company.product.Niche];
+            var adaptability = worker.humanCompanyRelationship.Adapted;
+
+            return 100 + adaptability + expertise / 2;
         }
     }
 }

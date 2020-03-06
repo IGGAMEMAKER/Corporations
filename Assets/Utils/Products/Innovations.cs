@@ -22,10 +22,14 @@
             var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
             var focusing        = culture[CorporatePolicy.Focusing];
 
-            // penalties
-            var tooManyPrimaryMarketsPenalty = Companies.GetPrimaryMarketsInnovationPenalty(managingCompany, gameContext);
-
             var maxCorpLevel = Balance.CORPORATE_CULTURE_LEVEL_MAX;
+
+            // managers
+            var productManager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
+            var productManagerRating = productManager == null ? 0 : Humans.GetRating(productManager, WorkerRole.ProductManager) * 20 / 100;
+            var productManagerBonus = Teams.GetWorkerEffeciency(productManager, product) * productManagerRating / 100;
+
+            var CEOBonus = GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel;
 
             return new Bonus<long>("Innovation chance")
                 // market
@@ -33,21 +37,15 @@
                 .Append("Market change speed", marketSpeedPenalty)
 
                 // corp culture
-                .Append("CEO bonus", GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel)
                 .Append("Corporate Culture Mindset", maxCorpLevel - mindset)
-                .Append("Corporate Culture Acquisitions", createOrBuy * 2)
+                .Append("Corporate Culture Acquisitions", createOrBuy)
+
+                .Append("CEO bonus", CEOBonus)
+                .AppendAndHideIfZero("Product manager", productManagerBonus)
 
                 // focusing / sphere of interest
-                .AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
-                .AppendAndHideIfZero("Too many primary markets", -tooManyPrimaryMarketsPenalty)
-
-                .AppendAndHideIfZero("Is part of holding", GetHoldingBonus(product, managingCompany))
+                //.AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
                 ;
-        }
-
-        public static int GetHoldingBonus(GameEntity product, GameEntity holding)
-        {
-            return 0;
         }
 
         public static int GetFocusingBonus(GameEntity product)

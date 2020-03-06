@@ -11,8 +11,14 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
     {
         var products = Companies.GetProductCompanies(gameContext);
 
+        var playerCompany = Companies.GetPlayerCompany(gameContext);
+        var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
+
+        var playerFlagshipId = playerFlagship?.company.Id ?? -1;
+
         foreach (var product in products)
         {
+            // some expertise stuff?
             var ideaPerExpertise = Balance.IDEA_PER_EXPERTISE;
 
             var expertiseLevel = product.companyResource.Resources.ideaPoints / ideaPerExpertise;
@@ -23,13 +29,16 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
                 Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
             }
+
+            // level upgrades
+            UpdgradeProduct(product, gameContext);
         }
 
         // release AI apps if can
         var releasableAIApps = products
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
             
-            .Where(p => !Companies.IsPlayerFlagship(gameContext, p))
+            .Where(p => p.company.Id != playerFlagshipId) //  !Companies.IsPlayerFlagship(gameContext, p)
             ;
 
         foreach (var concept in releasableAIApps)

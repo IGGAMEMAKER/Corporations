@@ -56,6 +56,7 @@ class MoraleManagementSystem : OnPeriodChange
             }
         }
 
+        return;
         // crunching
         var products = contexts.game.GetEntities(GameMatcher.Product);
 
