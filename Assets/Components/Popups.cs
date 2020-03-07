@@ -34,7 +34,9 @@ public enum PopupType
     AcquisitionOfferResponse,
     AcquisitionOfferSoldOut,
 
-    Innovator
+    Innovator,
+
+    DisloyalManager
 }
 
 public class PopupMessage
@@ -156,6 +158,11 @@ public class PopupMessageCorporationRequirements : PopupMessageCompanyEvent
 public class PopupMessageCultureChange : PopupMessageCompanyEvent
 {
     public PopupMessageCultureChange(int companyId) : base(companyId, PopupType.CorporateCultureChange) { }
+}
+
+public class PopupMessageWorkerLeavesYourCompany: PopupMessageCompanyEvent
+{
+    public PopupMessageWorkerLeavesYourCompany(int companyId, int humanId) : base(companyId, PopupType.DisloyalManager) { }
 }
 
 // market state changes

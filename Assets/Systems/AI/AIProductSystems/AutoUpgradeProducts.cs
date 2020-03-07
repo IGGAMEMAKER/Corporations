@@ -30,7 +30,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         }
 
 
-        var playerFlagshipId = GetPlayerFlagshipID();
+        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
         // release AI apps if can
         var releasableAIApps = products
@@ -42,21 +42,6 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         foreach (var concept in releasableAIApps)
             Marketing.ReleaseApp(gameContext, concept);
     }
-
-    int GetPlayerFlagshipID()
-    {
-        var playerCompany = Companies.GetPlayerCompany(gameContext);
-
-        if (playerCompany == null)
-            return -1;
-
-        var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
-
-        var playerFlagshipId = playerFlagship?.company.Id ?? -1;
-
-        return playerFlagshipId;
-    }
-
 
 
 
@@ -74,7 +59,8 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
     private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
     {
-        var revolutionChance = Mathf.Sqrt(Products.GetInnovationChance(product, gameContext));
+        //var revolutionChance = Mathf.Sqrt(Products.GetInnovationChance(product, gameContext));
+        var revolutionChance = Products.GetInnovationChance(product, gameContext);
 
         var revolutionOccured = Random.Range(0, 100) < revolutionChance;
         var needsToUpgrade = !Products.IsWillInnovate(product, gameContext);

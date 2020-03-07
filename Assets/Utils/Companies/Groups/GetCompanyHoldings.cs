@@ -67,6 +67,20 @@ namespace Assets.Core
             return flagship;
         }
 
+        public static int GetPlayerFlagshipID(GameContext gameContext)
+        {
+            var playerCompany = Companies.GetPlayerCompany(gameContext);
+
+            if (playerCompany == null)
+                return -1;
+
+            var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
+
+            var playerFlagshipId = playerFlagship?.company.Id ?? -1;
+
+            return playerFlagshipId;
+        }
+
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);

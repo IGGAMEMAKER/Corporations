@@ -16,19 +16,19 @@ namespace Assets.Core
                 FireManager(company, gameContext, workers[i]);
         }
 
-        public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.human.Id), worker);
+        public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
         public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.GetHuman(gameContext, humanId));
         public static void FireManager(GameEntity company, GameEntity worker)
         {
             Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
-
-            Humans.LeaveCompany(worker);
 
             var team = company.team;
 
             team.Managers.Remove(worker.human.Id);
 
             ReplaceTeam(company, team);
+
+            Humans.LeaveCompany(worker);
         }
     }
 }

@@ -20,8 +20,12 @@ class MoraleManagementSystem : OnPeriodChange
         // feedback (i am doing useful stuff)
         // influence (become company shareholder)
 
+        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
+
         foreach (var c in companies)
         {
+            var culture = Companies.GetActualCorporateCulture(c, gameContext);
+
             foreach (var m in c.team.Managers)
             {
                 var humanId = m.Key;
@@ -30,7 +34,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                 var relationship = human.humanCompanyRelationship;
 
-                var newAdaptation   = Mathf.Clamp(relationship.Adapted + 4, 0, 100);
+                var newAdaptation   = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
                 var newLoyalty      = Mathf.Clamp(relationship.Morale  - UnityEngine.Random.Range(0, 5), 0, 100);
 
                 // TODO: if is CEO in own project, morale loss is way lower or zero
@@ -53,6 +57,11 @@ class MoraleManagementSystem : OnPeriodChange
 
                     human.humanSkills.Expertise[niche] = newExpertise;
                 }
+
+                bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
+
+                if (isInPlayerFlagship && newLoyalty < 5)
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
             }
         }
 
@@ -74,4 +83,6 @@ class MoraleManagementSystem : OnPeriodChange
             products[i].team.Morale = Mathf.Clamp(products[i].team.Morale + change, 0, 100);
         }
     }
+
+
 }

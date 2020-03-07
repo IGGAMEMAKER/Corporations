@@ -55,8 +55,8 @@ public class HumanCorporateCulturePreference : ParameterView
 
     string DescribePolicy(int value, CorporatePolicy policy)
     {
-        bool isLeft = value > 8;
-        bool isRight = value < 2;
+        bool isLeft = value <= 2;
+        bool isRight = value >= 8;
 
         if (!isLeft && !isRight)
             return "";
