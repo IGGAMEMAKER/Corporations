@@ -140,6 +140,15 @@ public partial class PopupView : View
             );
     }
 
+    void RenderDisloyalManager(PopupMessageWorkerLeavesYourCompany popup)
+    {
+        RenderUniversalPopup(
+            "Manager doesn't want to work in your company anymore!",
+            "human blah blah blah will leave your company",
+            typeof(WorkerLeavesYourCompanyPopupButton)
+            );
+    }
+
     void RenderCreateCompanyPopup(PopupMessageCreateApp popup)
     {
         RenderUniversalPopup(

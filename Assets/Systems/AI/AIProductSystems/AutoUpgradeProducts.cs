@@ -81,7 +81,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         long sum = 0;
         foreach (var p in products)
         {
-            var disloyal = Marketing.GetClients(p) / 6;
+            var disloyal = Marketing.GetClients(p) / 15;
 
             Marketing.LooseClients(p, disloyal);
             Marketing.AddClients(product, disloyal);

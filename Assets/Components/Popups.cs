@@ -162,7 +162,10 @@ public class PopupMessageCultureChange : PopupMessageCompanyEvent
 
 public class PopupMessageWorkerLeavesYourCompany: PopupMessageCompanyEvent
 {
-    public PopupMessageWorkerLeavesYourCompany(int companyId, int humanId) : base(companyId, PopupType.DisloyalManager) { }
+    public int humanId;
+    public PopupMessageWorkerLeavesYourCompany(int companyId, int humanId) : base(companyId, PopupType.DisloyalManager) {
+        this.humanId = humanId;
+    }
 }
 
 // market state changes

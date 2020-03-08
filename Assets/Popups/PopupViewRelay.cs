@@ -84,6 +84,10 @@
                 RenderInnovatorPopup(popup as PopupMessageInnovation);
                 break;
 
+            case PopupType.DisloyalManager:
+                RenderDisloyalManager(popup as PopupMessageWorkerLeavesYourCompany);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),
