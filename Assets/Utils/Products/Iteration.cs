@@ -47,12 +47,25 @@ namespace Assets.Core
             var baseIterationTime   = GetBaseIterationTime(gameContext, company);
             var teamSizeModifier    = GetTeamSizeMultiplier(gameContext, company);
 
+            // innovation penalty
             var innovationSpeed     = 150 * Random.Range(10, 13) / 10;
             bool willInnovate       = IsWillInnovate(company, gameContext);
 
             var innovationPenalty   = willInnovate ? innovationSpeed : 0;
 
-            var modifiers           = 100 + innovationPenalty;
+            // project manager
+            var projectManager      = Teams.GetWorkerByRole(company, WorkerRole.ProjectManager, gameContext);
+
+            var projectManagerBonus = 0;
+            if (projectManager != null)
+            {
+                var rating = Humans.GetRating(gameContext, projectManager);
+                var eff = Teams.GetWorkerEffeciency(projectManager, company);
+
+                projectManagerBonus = 50 * rating * eff / 100 / 100;
+            }
+
+            var modifiers           = 100 + innovationPenalty - projectManagerBonus;
 
 
             return (int) (baseIterationTime * modifiers / teamSizeModifier / 100);

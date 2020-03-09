@@ -8,19 +8,17 @@ public class HideDevelopmentScreenIfOnGroupPage : View
     public override void ViewRender()
     {
         base.ViewRender();
+        // hide if we are not on player flagship page
 
-        var company = SelectedCompany;
-        var flagship = Companies.GetFlagship(Q, MyCompany);
+        var flagshipId = Companies.GetPlayerFlagshipID(Q);
 
-        var flagshipId = -1; // flagship?.company.Id ?? -1;
-        if (flagship != null)
-            flagshipId = flagship.company.Id;
+        bool isOnPlayerFlagshipScreen = CurrentScreen == ScreenMode.ProjectScreen && SelectedCompany.company.Id == flagshipId;
 
-        bool isOnFlagshipScreen = CurrentScreen == ScreenMode.ProjectScreen && company.company.Id == flagshipId;
 
-        GetComponent<Animator>().enabled = isOnFlagshipScreen;
+        // hide
+        GetComponent<Animator>().enabled = isOnPlayerFlagshipScreen;
 
-        if (!isOnFlagshipScreen)
+        if (!isOnPlayerFlagshipScreen)
         {
             var group = GetComponent<CanvasGroup>();
             group.alpha = 0;

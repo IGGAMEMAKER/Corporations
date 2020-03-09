@@ -13,7 +13,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
         foreach (var product in products)
         {
-            // some expertise stuff?
+            #region some expertise stuff?
             var ideaPerExpertise = Balance.IDEA_PER_EXPERTISE;
 
             var expertiseLevel = product.companyResource.Resources.ideaPoints / ideaPerExpertise;
@@ -24,26 +24,29 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
                 Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
             }
+            #endregion
 
             // level upgrades
             UpdgradeProduct(product, gameContext);
         }
 
+        ReleaseApps(products);
+    }
 
+    void ReleaseApps(GameEntity[] products)
+    {
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
         // release AI apps if can
         var releasableAIApps = products
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
-            
+
             .Where(p => p.company.Id != playerFlagshipId) //  !Companies.IsPlayerFlagship(gameContext, p)
             ;
 
         foreach (var concept in releasableAIApps)
             Marketing.ReleaseApp(gameContext, concept);
     }
-
-
 
 
     public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
@@ -59,19 +62,27 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
     private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
     {
-        //var revolutionChance = Mathf.Sqrt(Products.GetInnovationChance(product, gameContext));
         var revolutionChance = Products.GetInnovationChance(product, gameContext);
 
         var revolutionOccured = Random.Range(0, 100) < revolutionChance;
         var needsToUpgrade = !Products.IsWillInnovate(product, gameContext);
 
-        if (revolutionOccured || needsToUpgrade)
-            product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + 1);
+        var isOutdated = !needsToUpgrade;
+
+        var upgrade = 1;
+
+        if (revolutionOccured && !isOutdated)
+            upgrade = 2;
+
+        product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + upgrade);
     }
 
-    private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext)
+    private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext, bool revolution)
     {
-        Marketing.AddBrandPower(product, Balance.INNOVATION_BRAND_POWER_GAIN);
+        Marketing.AddBrandPower(product, revolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN);
+
+        if (!revolution)
+            return 0;
 
         // get your competitor's clients
         var products = Markets.GetProductsOnMarket(gameContext, product)
@@ -79,6 +90,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             .Where(p => p.company.Id != product.company.Id);
 
         long sum = 0;
+
         foreach (var p in products)
         {
             var disloyal = Marketing.GetClients(p) / 15;
@@ -101,8 +113,10 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
         if (newLevel > demand)
         {
+            bool revolution = newLevel - demand > 1;
+
             // innovation
-            var clientChange = GiveInnovationBenefits(product, gameContext);
+            var clientChange = GiveInnovationBenefits(product, gameContext, revolution);
             NotifyAboutInnovation(product, gameContext, clientChange);
 
             niche.ReplaceSegment(newLevel);

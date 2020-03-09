@@ -26,8 +26,8 @@
 
             // managers
             var productManager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
-            var productManagerRating = productManager == null ? 0 : Humans.GetRating(productManager, WorkerRole.ProductManager) * 20 / 100;
-            var productManagerBonus = Teams.GetWorkerEffeciency(productManager, product) * productManagerRating / 100;
+            var productManagerRating = productManager == null ? 0 : Humans.GetRating(productManager, WorkerRole.ProductManager);
+            var productManagerBonus = Teams.GetWorkerEffeciency(productManager, product) * productManagerRating * 20 / 100 / 100;
 
             var CEOBonus = GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel;
 

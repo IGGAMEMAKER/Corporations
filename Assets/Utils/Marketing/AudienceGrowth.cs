@@ -23,31 +23,30 @@ namespace Assets.Core
             return e.branding.BrandPower / (sumOfBrandPowers + 1);
         }
 
-        public static int GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
+        public static long GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
         {
             var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext);
 
             var flow = GetClientFlow(gameContext, e.product.Niche);
 
-            return (int)(brandBasedMarketShare * flow);
+            return (long)(brandBasedMarketShare * flow);
         }
 
         public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
         {
-            return GetBrandBasedAudienceGrowth(product, gameContext);
-        }
+            var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
 
-        // based on financing
-        public static float GetAudienceReachModifierBasedOnMarketingFinancing(int financing)
-        {
-            switch (financing)
+            var marketingBonus = 100;
+
+            if (marketingLead != null)
             {
-                case 0: return 1;
-                case 1: return 2;
-                case 2: return 5;
-                case 3: return 10;
-                default: return 10000;
+                var rating = Humans.GetRating(gameContext, marketingLead);
+                var effeciency = Teams.GetWorkerEffeciency(marketingLead, product);
+
+                marketingBonus += 30 * rating * effeciency / 100 / 100;
             }
+
+            return GetBrandBasedAudienceGrowth(product, gameContext) * marketingBonus / 100;
         }
     }
 }

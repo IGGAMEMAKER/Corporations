@@ -58,10 +58,19 @@ class MoraleManagementSystem : OnPeriodChange
                     human.humanSkills.Expertise[niche] = newExpertise;
                 }
 
-                bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
-
-                if (isInPlayerFlagship && newLoyalty < 5)
-                    NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
+                // leave company on low morale
+                if (newLoyalty < 5)
+                {
+                    bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
+                    if (isInPlayerFlagship)
+                    {
+                        NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
+                    }
+                    else
+                    {
+                        Teams.FireManager(c, gameContext, humanId);
+                    }
+                }
             }
         }
 
