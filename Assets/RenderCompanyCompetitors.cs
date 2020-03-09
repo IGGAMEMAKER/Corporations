@@ -29,6 +29,11 @@ public class RenderCompanyCompetitors : ListView
             var innovativeness = Products.GetInnovationChance(company, Q);
             text += $" (Innovativeness: {innovativeness}%)";
         }
+        else
+        {
+            var cost = Economy.GetCompanyCost(Q, company);
+            text += $"({Format.Money(cost)})";
+        }
 
         t.gameObject.GetComponent<MockText>().SetEntity(text);
     }
@@ -37,7 +42,7 @@ public class RenderCompanyCompetitors : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, Q);
+        var competitors = Companies.GetCompetitorsOfCompany(SelectedCompany, Q, true);
 
         SetItems(competitors);
     }

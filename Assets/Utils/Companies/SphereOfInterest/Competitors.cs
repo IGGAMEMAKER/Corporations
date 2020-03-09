@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        internal static IEnumerable<GameEntity> GetCompetitorsOfCompany(GameEntity company, GameContext gameContext)
+        internal static IEnumerable<GameEntity> GetCompetitorsOfCompany(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
             IEnumerable<GameEntity> companies;
 
@@ -21,7 +21,7 @@ namespace Assets.Core
                 companies = Markets.GetNonFinancialCompaniesWithSameInterests(gameContext, company);
             }
 
-            return companies.Where(p => p.company.Id != company.company.Id);
+            return includeSelf ? companies : companies.Where(p => p.company.Id != company.company.Id);
         }
     }
 }
