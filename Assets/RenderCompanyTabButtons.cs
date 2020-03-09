@@ -13,6 +13,7 @@ public class RenderCompanyTabButtons : View
     public GameObject InvestorsTab;
     public GameObject PartnersTab;
     public GameObject InfoTab;
+    public GameObject UpgradesTab;
 
     public TopPanelManager TopPanelManager;
 
@@ -21,15 +22,16 @@ public class RenderCompanyTabButtons : View
         base.ViewRender();
 
         var company = SelectedCompany;
-        var flagship = Companies.GetFlagship(Q, MyCompany);
-        var hasFlagship = flagship != null;
+
+        var flagshipId = Companies.GetPlayerFlagshipID(Q);
 
         var isMyCompanyScreen = company.company.Id == MyCompany.company.Id;
-        var isFlagshipScreen = hasFlagship && company.company.Id == flagship.company.Id;
+        var isFlagshipScreen = company.company.Id == flagshipId;
 
         var hasProducts = Companies.GetDaughterProductCompanies(Q, MyCompany).Count() > 0;
 
         DevTab.SetActive(isFlagshipScreen);
+        UpgradesTab.SetActive(isFlagshipScreen);
 
         // if was on product tab and then switched to group, open info tab
         var index = TopPanelManager.currentPanelIndex;
@@ -41,6 +43,5 @@ public class RenderCompanyTabButtons : View
 
         PartnersTab.SetActive(isIndependentCompany);
         InvestorsTab.SetActive(isIndependentCompany);
-
     }
 }

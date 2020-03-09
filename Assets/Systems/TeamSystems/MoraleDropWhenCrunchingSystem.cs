@@ -58,6 +58,7 @@ class MoraleManagementSystem : OnPeriodChange
                     human.humanSkills.Expertise[niche] = newExpertise;
                 }
 
+
                 // leave company on low morale
                 if (newLoyalty < 5)
                 {
