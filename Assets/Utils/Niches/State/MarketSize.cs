@@ -11,11 +11,8 @@ namespace Assets.Core
 
             try
             {
-
-                var sum = products
+                return products
                     .Sum(p => Economy.GetCompanyCost(gameContext, p.company.Id));
-
-                return sum;
             }
             catch
             {

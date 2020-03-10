@@ -34,17 +34,14 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     public long GetMoneyForExpansion(GameEntity product)
     {
-        var next = Economy.GetNextMarketingLevelCost(product, gameContext);
         var curr = Marketing.GetTargetingCost(product, gameContext);
 
-        var diff = next - curr;
-
-        return diff;
+        return curr;
     }
 
     void SupportStartup(GameEntity product, long budget)
     {
-        Debug.Log("Support Startup");
+        Debug.Log("Support Startup: " + product.company.Name);
 
         var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 

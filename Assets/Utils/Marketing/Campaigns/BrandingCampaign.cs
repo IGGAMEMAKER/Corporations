@@ -4,7 +4,16 @@
     {
         public static long GetBrandingCost(GameEntity product, GameContext gameContext)
         {
-            return Economy.GetMarketingFinancingCostMultiplier(product, gameContext, 3) * 3;
+            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
+            var flow = GetClientFlow(gameContext, product.product.Niche);
+
+            var cost = clientCost * flow * 10;
+
+            var discount = GetCorpCultureMarketingDiscount(product, gameContext);
+
+            var result = cost * discount / 100;
+
+            return (long)result;
         }
 
         public static void StartBrandingCampaign(GameEntity product, GameContext gameContext)

@@ -21,8 +21,6 @@ namespace Assets.Core
             company.AddFeatures(new Dictionary<ProductFeature, int> { [ProductFeature.Acquisition] = 0, [ProductFeature.Monetisation] = 0, [ProductFeature.Retention] = 0 }, 0);
             company.AddExpertise(Random.Range(1, 4));
 
-            company.AddFinancing(new Dictionary<Financing, int> { [Financing.Development] = 0, [Financing.Marketing] = 0, [Financing.Team] = 0 });
-
             // clients
             var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
