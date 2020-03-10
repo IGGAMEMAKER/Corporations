@@ -88,6 +88,10 @@
                 RenderDisloyalManager(popup as PopupMessageWorkerLeavesYourCompany);
                 break;
 
+            case PopupType.DefectedManager:
+                RenderDefectedManager(popup as PopupMessageWorkerWantsToWorkInYourCompany);
+                break;
+
             default:
                 RenderUniversalPopup(
                     popup.PopupType.ToString(),

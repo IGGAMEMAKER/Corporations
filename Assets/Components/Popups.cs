@@ -36,7 +36,8 @@ public enum PopupType
 
     Innovator,
 
-    DisloyalManager
+    DisloyalManager,
+    DefectedManager,
 }
 
 public class PopupMessage
@@ -164,6 +165,14 @@ public class PopupMessageWorkerLeavesYourCompany: PopupMessageCompanyEvent
 {
     public int humanId;
     public PopupMessageWorkerLeavesYourCompany(int companyId, int humanId) : base(companyId, PopupType.DisloyalManager) {
+        this.humanId = humanId;
+    }
+}
+
+public class PopupMessageWorkerWantsToWorkInYourCompany: PopupMessageCompanyEvent
+{
+    public int humanId;
+    public PopupMessageWorkerWantsToWorkInYourCompany(int companyId, int humanId) : base(companyId, PopupType.DefectedManager) {
         this.humanId = humanId;
     }
 }

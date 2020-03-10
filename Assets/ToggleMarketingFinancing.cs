@@ -13,8 +13,6 @@ public class ToggleMarketingFinancing : ToggleButtonController
     public override void Execute()
     {
         var company = Companies.Get(Q, companyId);
-
-        Products.SetFinancing(company, Financing.Marketing, 1);
     }
 
     private void Start()

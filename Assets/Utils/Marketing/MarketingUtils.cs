@@ -49,8 +49,6 @@
                 AddClients(product, flow);
 
                 product.isRelease = true;
-
-                Products.SetMarketingFinancing(product, 1);
             }
         }
     }

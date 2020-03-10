@@ -15,7 +15,7 @@ class MoraleManagementSystem : OnPeriodChange
         // pyramid
         //
         // salary
-        // interest (anti routine)
+        // interesting tasks
         // career ladder
         // feedback (i am doing useful stuff)
         // influence (become company shareholder)
@@ -34,8 +34,11 @@ class MoraleManagementSystem : OnPeriodChange
 
                 var relationship = human.humanCompanyRelationship;
 
+                var loyaltyChange   = GetLoyaltyChangeForManager(human, c, culture);
+
+                var newLoyalty      = Mathf.Clamp(relationship.Morale  + loyaltyChange, 0, 100);
                 var newAdaptation   = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
-                var newLoyalty      = Mathf.Clamp(relationship.Morale  - UnityEngine.Random.Range(0, 5), 0, 100);
+
 
                 // TODO: if is CEO in own project, morale loss is way lower or zero
                 bool isOwner = human.hasCEO;
@@ -70,6 +73,20 @@ class MoraleManagementSystem : OnPeriodChange
                     else
                     {
                         Teams.FireManager(c, gameContext, humanId);
+
+                        // competitors need to have chances to hire this worker
+
+                        bool worksInPlayerCompetitorCompany = Companies.IsInPlayerSphereOfInterest(c, gameContext);
+
+                        bool wantsToWorkInYourCompany = UnityEngine.Random.Range(0, 100) < 50;
+
+                        // // NotifyPlayer
+                        if (worksInPlayerCompetitorCompany && wantsToWorkInYourCompany)
+                            NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerWantsToWorkInYourCompany(c.company.Id, human.human.Id));
+
+                        // or this worker will start his own bussiness in same/adjacent sphere
+
+                        // or will be destroyed
                     }
                 }
             }
@@ -94,5 +111,36 @@ class MoraleManagementSystem : OnPeriodChange
         }
     }
 
+    int GetLoyaltyChangeForManager(GameEntity worker, GameEntity company, Dictionary<CorporatePolicy, int> culture)
+    {
+        var preferences = worker.corporateCulture.Culture;
 
+        var importantPolicies = new List<CorporatePolicy>
+        {
+            CorporatePolicy.WorkerMindset, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.Focusing
+        };
+
+        int change = -3;
+
+        foreach (var p in importantPolicies)
+        {
+            var diff = preferences[p] - culture[p];
+
+            var module = Math.Abs(diff);
+            bool suits = module < 3;
+
+            bool hates = module > 6;
+
+            if (suits)
+                change += 1;
+
+            if (hates)
+                change -= 2;
+        }
+
+        // salaries?
+
+        return change;
+        return UnityEngine.Random.Range(0, 5);
+    }
 }

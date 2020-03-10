@@ -140,11 +140,35 @@ public partial class PopupView : View
             );
     }
 
+    void RenderDefectedManager(PopupMessageWorkerWantsToWorkInYourCompany popup)
+    {
+        var human = Humans.GetHuman(Q, popup.humanId);
+
+        var role = Humans.GetRole(human);
+        var formattedRole = Humans.GetFormattedRole(role);
+
+        var rating = Humans.GetRating(Q, human);
+
+        RenderUniversalPopup(
+        "You can hire new manager from your competitors!",
+        $"{formattedRole} {Humans.GetFullName(human)} ({rating}LVL) will join your company.\n\n" + Visuals.Positive("\n\nDo you want to hire?"),
+        typeof(WorkerJoinsYourCompanyPopupButton),
+        typeof(ClosePopupNO)
+        );
+    }
+
     void RenderDisloyalManager(PopupMessageWorkerLeavesYourCompany popup)
     {
+        var human = Humans.GetHuman(Q, popup.humanId);
+
+        var role = Humans.GetRole(human);
+        var formattedRole = Humans.GetFormattedRole(role);
+
+        var rating = Humans.GetRating(Q, human);
+
         RenderUniversalPopup(
             "Manager doesn't want to work in your company anymore!",
-            "human blah blah blah will leave your company",
+            $"{formattedRole} {Humans.GetFullName(human)} ({rating}LVL) will leave your company.\n\n" + Visuals.Negative("Managers leave if they don't like corporate culture"),
             typeof(WorkerLeavesYourCompanyPopupButton)
             );
     }

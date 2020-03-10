@@ -18,8 +18,6 @@ public class ToggleFinancingDevelopment : View
 
     public void SetFinancing()
     {
-        Products.SetFinancing(SelectedCompany, Financing.Development, Dropdown.value);
-
         Render();
     }
 

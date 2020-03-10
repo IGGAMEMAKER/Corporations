@@ -25,11 +25,22 @@ namespace Assets.Core
 
             var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
+            var newRoles = new List<WorkerRole>();
+
             for (var i = 0; i < 2; i++)
             {
                 var index = Random.Range(0, roles.Count);
-
                 var role = roles[index];
+
+                // avoid picking same roles twice
+                while (newRoles.Contains(role))
+                {
+                    index = Random.Range(0, roles.Count);
+
+                    role = roles[index];
+                }
+
+                newRoles.Add(role);
 
                 var worker = Humans.GenerateHuman(gameContext, role);
                 var humanId = worker.human.Id;
