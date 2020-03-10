@@ -114,6 +114,8 @@ public class FollowingComponent : IComponent { }
 [Game]
 public struct ControlledByPlayerComponent : IComponent { }
 
+public class FlagshipComponent : IComponent { }
+
 public class CEOComponent : IComponent
 {
     // if you fail investor tasks you lose reputation
