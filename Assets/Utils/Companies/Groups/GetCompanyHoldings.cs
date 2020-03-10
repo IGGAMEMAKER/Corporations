@@ -51,7 +51,8 @@ namespace Assets.Core
 
         public static bool IsFlagship(GameEntity[] products, GameEntity product)
         {
-            return product.company.Id == products[0].company.Id;
+            return product.isFlagship;
+            //return product.company.Id == products[0].company.Id;
         }
 
         public static GameEntity GetFlagship(GameContext gameContext, GameEntity group)
