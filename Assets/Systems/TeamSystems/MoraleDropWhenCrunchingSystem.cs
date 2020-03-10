@@ -26,6 +26,9 @@ class MoraleManagementSystem : OnPeriodChange
         {
             var culture = Companies.GetActualCorporateCulture(c, gameContext);
 
+            List<int> defectedManagers = new List<int>();
+
+            // gain expertise and recalculate loyalty
             foreach (var m in c.team.Managers)
             {
                 var humanId = m.Key;
@@ -64,30 +67,36 @@ class MoraleManagementSystem : OnPeriodChange
 
                 // leave company on low morale
                 if (newLoyalty < 5)
+                    defectedManagers.Add(humanId);
+            }
+
+            // fire managers
+            foreach (var humanId in defectedManagers)
+            {
+                var human = Humans.GetHuman(gameContext, humanId);
+
+                bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
+                if (isInPlayerFlagship)
                 {
-                    bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
-                    if (isInPlayerFlagship)
-                    {
-                        NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
-                    }
-                    else
-                    {
-                        Teams.FireManager(c, gameContext, humanId);
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
+                }
+                else
+                {
+                    Teams.FireManager(c, gameContext, humanId);
 
-                        // competitors need to have chances to hire this worker
+                    // competitors need to have chances to hire this worker
 
-                        bool worksInPlayerCompetitorCompany = Companies.IsInPlayerSphereOfInterest(c, gameContext);
+                    bool worksInPlayerCompetitorCompany = Companies.IsInPlayerSphereOfInterest(c, gameContext);
 
-                        bool wantsToWorkInYourCompany = UnityEngine.Random.Range(0, 100) < 50;
+                    bool wantsToWorkInYourCompany = UnityEngine.Random.Range(0, 100) < 50;
 
-                        // // NotifyPlayer
-                        if (worksInPlayerCompetitorCompany && wantsToWorkInYourCompany)
-                            NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerWantsToWorkInYourCompany(c.company.Id, human.human.Id));
+                    // // NotifyPlayer
+                    if (worksInPlayerCompetitorCompany && wantsToWorkInYourCompany)
+                        NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerWantsToWorkInYourCompany(c.company.Id, human.human.Id));
 
-                        // or this worker will start his own bussiness in same/adjacent sphere
+                    // or this worker will start his own bussiness in same/adjacent sphere
 
-                        // or will be destroyed
-                    }
+                    // or will be destroyed
                 }
             }
         }
@@ -120,7 +129,7 @@ class MoraleManagementSystem : OnPeriodChange
             CorporatePolicy.WorkerMindset, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.Focusing
         };
 
-        int change = -3;
+        int change = -5;
 
         foreach (var p in importantPolicies)
         {
