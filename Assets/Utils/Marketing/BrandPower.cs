@@ -24,7 +24,6 @@ namespace Assets.Core
             var baseDecay = product.branding.BrandPower * percent / 100;
 
 
-            var isMarketingAggressively = Economy.GetMarketingFinancing(product) == Products.GetMaxFinancing;
             var isReleased    = product.isRelease;
 
             var partnershipBonuses = GetPartnershipBonuses(product, gameContext);
@@ -38,8 +37,6 @@ namespace Assets.Core
                 .AppendAndHideIfZero("MONOPOLY", isMonopolist ? 10 : 0)
                 
                 .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
-
-                .AppendAndHideIfZero("Capturing market", isMarketingAggressively ? 6 : 0)
 
                 .Append("Partnerships", (int)partnershipBonuses)
                 

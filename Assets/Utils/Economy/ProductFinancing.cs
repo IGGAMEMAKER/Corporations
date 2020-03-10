@@ -21,7 +21,6 @@ namespace Assets.Core
             // released
             if (financing == 1)
             {
-
                 return (long)(clientCost * flow);
             }
 
@@ -29,20 +28,11 @@ namespace Assets.Core
             var audience = Markets.GetAudienceSize(gameContext, product.product.Niche);
 
             return (long)(clientCost * audience);
-
-            //var marketing = MarketingUtils.GetAudienceReachModifierBasedOnMarketingFinancing(financing);
-
-            //return Mathf.Pow(marketing, 1.78f);
         }
 
         public static int GetNextMarketingFinancing(GameEntity e)
         {
             return Mathf.Clamp(GetMarketingFinancing(e) + 1, 0, Products.GetMaxFinancing);
-        }
-
-        public static int GetCheaperFinancing(GameEntity e)
-        {
-            return Mathf.Clamp(GetMarketingFinancing(e) - 1, e.isRelease ? 1 : 0, Products.GetMaxFinancing);
         }
 
         public static int GetMarketingFinancing(GameEntity e)

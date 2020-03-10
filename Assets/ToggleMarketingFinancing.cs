@@ -20,8 +20,7 @@ public class ToggleMarketingFinancing : ToggleButtonController
     private void Start()
     {
         var company = Companies.Get(Q, companyId);
-        var financing = Economy.GetMarketingFinancing(company);
 
-        ToggleIsChosenComponent(financing == 1);
+        ToggleIsChosenComponent(true);
     }
 }

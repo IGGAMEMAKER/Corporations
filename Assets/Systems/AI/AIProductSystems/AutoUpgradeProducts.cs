@@ -65,13 +65,10 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         var revolutionChance = Products.GetInnovationChance(product, gameContext);
 
         var revolutionOccured = Random.Range(0, 100) < revolutionChance;
-        var needsToUpgrade = !Products.IsWillInnovate(product, gameContext);
-
-        var isOutdated = !needsToUpgrade;
 
         var upgrade = 1;
 
-        if (revolutionOccured && !isOutdated)
+        if (revolutionOccured && Products.IsWillInnovate(product, gameContext))
             upgrade = 2;
 
         product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + upgrade);

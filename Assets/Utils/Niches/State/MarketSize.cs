@@ -41,7 +41,7 @@ namespace Assets.Core
             }
             catch
             {
-                //Debug.LogWarning("Get audience size of " + EnumUtils.GetFormattedNicheName(nicheType));
+                Debug.LogWarning("Get audience size of " + Enums.GetFormattedNicheName(nicheType));
             }
 
             return 0;

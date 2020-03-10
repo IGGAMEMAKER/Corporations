@@ -46,13 +46,12 @@ public class CompanyResultView : View
     void RenderMarketingButtons(int companyId)
     {
         var company = Companies.Get(Q, companyId);
-        var financing = Economy.GetMarketingFinancing(company);
 
         var isReleased = company.isRelease;
 
         SetNormalMarketing      .gameObject.SetActive(false);
         SetAggressiveMarketing  .gameObject.SetActive(false);
-        SetZeroMarketing        .gameObject.SetActive(false && isReleased && financing > 0);
+        SetZeroMarketing        .gameObject.SetActive(false && isReleased);
 
         ReleaseApp              .gameObject.SetActive(false);
     }

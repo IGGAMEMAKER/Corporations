@@ -80,8 +80,7 @@ public class CompanyViewOnMap : View
             //    );
         }
 
-        var financing = Economy.GetMarketingFinancing(company);
-        AggressiveMarketing.SetActive(financing == Products.GetMaxFinancing);
+        AggressiveMarketing.SetActive(true);
     }
 
     string GetProfitDescription()
