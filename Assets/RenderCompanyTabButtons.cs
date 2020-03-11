@@ -29,19 +29,20 @@ public class RenderCompanyTabButtons : View
         var isFlagshipScreen = company.company.Id == flagshipId;
 
         var hasProducts = Companies.GetDaughterProductCompanies(Q, MyCompany).Count() > 0;
+        var isIndependentCompany = company.isIndependentCompany;
 
-        DevTab.SetActive(isFlagshipScreen);
-        UpgradesTab.SetActive(isFlagshipScreen);
 
+
+        DevTab      .SetActive(isFlagshipScreen);
+        UpgradesTab .SetActive(isFlagshipScreen);
+        PartnersTab .SetActive(isIndependentCompany);
+        InvestorsTab.SetActive(isIndependentCompany);
+
+        
         // if was on product tab and then switched to group, open info tab
         var index = TopPanelManager.currentPanelIndex;
 
         if (index == 5 && !isFlagshipScreen)
             TopPanelManager.PanelAnim(0);
-
-        var isIndependentCompany = company.isIndependentCompany;
-
-        PartnersTab.SetActive(isIndependentCompany);
-        InvestorsTab.SetActive(isIndependentCompany);
     }
 }

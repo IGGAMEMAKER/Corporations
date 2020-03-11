@@ -42,6 +42,7 @@
 
 
             NotifyAboutCompanyPromotion(context, companyGroupId, name);
+            ScheduleUtils.TweakCampaignStats(context, CampaignStat.PromotedCompanies);
 
             return companyGroupId;
         }

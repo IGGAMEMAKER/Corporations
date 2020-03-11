@@ -43,6 +43,9 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
             var interactable = TimedButton.GetComponentInChildren<Button>().interactable;
 
+            TimedButton.gameObject.GetComponentInChildren<ToggleAnim>().AnimateToggle();
+
+
             if (interactable)
                 TimedButton.Execute();
         }

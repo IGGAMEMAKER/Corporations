@@ -37,6 +37,8 @@ namespace Assets.Core
             target.isIndependentCompany = false;
 
             NotifyAboutAcquisition(gameContext, buyerInvestorId, companyId, offer);
+
+            ScheduleUtils.TweakCampaignStats(gameContext, CampaignStat.Acquisitions);
         }
     }
 }

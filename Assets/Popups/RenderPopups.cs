@@ -105,10 +105,12 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "Do you really want to release this product?",
+            
             Visuals.Negative("Maintenance cost will increase") +
             Visuals.Positive("\nThis product will get a lot of new clients") +
             Visuals.Positive("\nYou will be able to make partnerships") +
             Visuals.Positive("\n\nYour income will increase!"),
+            
             typeof(ReleaseAppPopupButton),
             typeof(ClosePopupCancel)
             );
@@ -130,11 +132,18 @@ public partial class PopupView : View
     {
         bool ourInnovation = Companies.IsRelatedToPlayer(Q, popup.companyId);
 
-        var innovationBenefit = $"They will get {Balance.INNOVATION_BRAND_POWER_GAIN} Brand Power and " +
-            $"{Format.Minify(popup.clientGain)} clients from their competitors";
+        bool isRevolution = popup.clientGain > 0;
+
+        var brandGain = isRevolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN;
+        var innovationBenefit = $"They will get {brandGain} Brand Power";
+
+        if (isRevolution)
+            innovationBenefit += $" and {Format.Minify(popup.clientGain)} clients from their competitors";
+
+        var innovationDescription = isRevolution ? "a REVOLUTION" : "an innovaton";
 
         RenderUniversalPopup(
-            $"Company {GetCompanyName(popup.companyId)} is innovator!",
+            $"Company {GetCompanyName(popup.companyId)} made {innovationDescription}!",
             Visuals.Colorize(innovationBenefit, ourInnovation),
             typeof(ClosePopupOK)
             );
@@ -151,7 +160,10 @@ public partial class PopupView : View
 
         RenderUniversalPopup(
         "You can hire new manager from your competitors!",
-        $"{formattedRole} {Humans.GetFullName(human)} ({rating}LVL) will join your company.\n\n" + Visuals.Positive("\n\nDo you want to hire?"),
+        
+        $"<b>{formattedRole}</b> {Humans.GetFullName(human)} <b>({rating}LVL)</b> will join your company.\n\n" + 
+        Visuals.Positive("\n\nDo you want to hire?"),
+        
         typeof(WorkerJoinsYourCompanyPopupButton),
         typeof(ClosePopupNO)
         );

@@ -28,6 +28,15 @@ class MenuInputSystem :
 
         menu.AddNavigationHistory(new List<MenuComponent>());
 
+        // TODO move to better place
+        menu.AddCampaignStats(new Dictionary<CampaignStat, int>
+        {
+            [CampaignStat.Acquisitions] = 0,
+            [CampaignStat.Bankruptcies] = 0,
+            [CampaignStat.PromotedCompanies] = 0,
+            [CampaignStat.SpawnedFunds] = 0
+        });
+
         var dictionary = new Dictionary<string, object>
         {
             [Balance.MENU_SELECTED_COMPANY] = 1,

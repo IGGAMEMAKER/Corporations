@@ -110,5 +110,19 @@ namespace Assets.Core
 
             return tasks[0].timedAction;
         }
+
+
+        // campaign stats
+        public static CampaignStatsComponent GetCampaignStats(GameContext gameContext)
+        {
+            var menu = ScreenUtils.GetMenu(gameContext);
+
+            return menu.campaignStats;
+        }
+
+        public static void TweakCampaignStats(GameContext gameContext, CampaignStat stat)
+        {
+            GetCampaignStats(gameContext).Stats[stat]++;
+        }
     }
 }

@@ -27,5 +27,6 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
 
         Companies.CloseCompany(gameContext, company);
+        ScheduleUtils.TweakCampaignStats(gameContext, CampaignStat.Bankruptcies);
     }
 }

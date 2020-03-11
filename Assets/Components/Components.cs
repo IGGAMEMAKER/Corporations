@@ -53,6 +53,21 @@ public class EventContainerComponent : IComponent
     public Dictionary<string, bool> progress;
 }
 
+public enum CampaignStat
+{
+    Acquisitions,
+    Bankruptcies,
+
+    SpawnedFunds,
+    PromotedCompanies
+}
+
+
+public class CampaignStatsComponent : IComponent
+{
+    public Dictionary<CampaignStat, int> Stats;
+}
+
 [Game]
 public class TestComponent : IComponent
 {

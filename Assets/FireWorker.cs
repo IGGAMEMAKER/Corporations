@@ -7,6 +7,10 @@ public class FireWorker : ButtonController
 {
     public override void Execute()
     {
-        Teams.FireRegularWorker(SelectedCompany);
+        var flaghship = Companies.GetFlagship(Q, MyCompany);
+        var company = flaghship;
+
+
+        Teams.FireRegularWorker(company, WorkerRole.Programmer);
     }
 }

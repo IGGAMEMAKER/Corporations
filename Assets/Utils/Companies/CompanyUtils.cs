@@ -6,9 +6,14 @@ namespace Assets.Core
     public static partial class Companies
     {
         // Read
+        public static GameEntity[] Get(GameContext context)
+        {
+            return context.GetEntities(GameMatcher.Company);
+        }
+
         public static GameEntity Get(GameContext context, int companyId)
         {
-            return Array.Find(context.GetEntities(GameMatcher.Company), c => c.company.Id == companyId);
+            return Array.Find(Get(context), c => c.company.Id == companyId);
         }
 
         public static string GetCompanyName(GameContext context, int companyId) => GetCompanyName(Get(context, companyId));

@@ -19,87 +19,88 @@ public static class GameComponentsLookup {
     public const int AnyTargetDateListener = 8;
     public const int AnyTechnologyLeaderListener = 9;
     public const int Branding = 10;
-    public const int CEO = 11;
-    public const int Company = 12;
-    public const int CompanyFocus = 13;
-    public const int CompanyGoal = 14;
-    public const int CompanyGoalListener = 15;
-    public const int CompanyListener = 16;
-    public const int CompanyResource = 17;
-    public const int CompanyResourceListener = 18;
-    public const int ControlledByPlayer = 19;
-    public const int Cooldown = 20;
-    public const int CorporateCulture = 21;
-    public const int Crunching = 22;
-    public const int CrunchingListener = 23;
-    public const int Date = 24;
-    public const int Dead = 25;
-    public const int Dumping = 26;
-    public const int Employee = 27;
-    public const int EventContainer = 28;
-    public const int EventContainerListener = 29;
-    public const int Expertise = 30;
-    public const int Features = 31;
-    public const int Financing = 32;
-    public const int Flagship = 33;
-    public const int Follow = 34;
-    public const int Following = 35;
-    public const int HumanCompanyRelationship = 36;
-    public const int Human = 37;
-    public const int HumanSkills = 38;
-    public const int IndependentCompany = 39;
-    public const int Industry = 40;
-    public const int InvestmentProposals = 41;
-    public const int InvestmentRounds = 42;
-    public const int ManagingCompany = 43;
-    public const int Marketing = 44;
-    public const int MarketingListener = 45;
-    public const int Menu = 46;
-    public const int MenuListener = 47;
-    public const int MetricsHistory = 48;
-    public const int NavigationHistory = 49;
-    public const int NavigationHistoryListener = 50;
-    public const int NicheBaseProfile = 51;
-    public const int NicheClientsContainer = 52;
-    public const int Niche = 53;
-    public const int NicheCosts = 54;
-    public const int NicheLifecycle = 55;
-    public const int NicheSegments = 56;
-    public const int NicheState = 57;
-    public const int Notifications = 58;
-    public const int OnSales = 59;
-    public const int Partnerships = 60;
-    public const int Player = 61;
-    public const int Popup = 62;
-    public const int PreviousAcquisitionOffers = 63;
-    public const int Product = 64;
-    public const int ProductListener = 65;
-    public const int ProductPositioning = 66;
-    public const int ProductUpgrades = 67;
-    public const int PublicCompany = 68;
-    public const int Release = 69;
-    public const int ReleaseListener = 70;
-    public const int Reports = 71;
-    public const int Research = 72;
-    public const int Segment = 73;
-    public const int Shareholder = 74;
-    public const int Shareholders = 75;
-    public const int ShareholdersListener = 76;
-    public const int TargetDate = 77;
-    public const int Task = 78;
-    public const int Team = 79;
-    public const int TeamListener = 80;
-    public const int TechnologyLeader = 81;
-    public const int TechnologyLeaderListener = 82;
-    public const int Test = 83;
-    public const int TimedAction = 84;
-    public const int TimerRunning = 85;
-    public const int Tutorial = 86;
-    public const int TutorialListener = 87;
-    public const int WantsToExpand = 88;
-    public const int Worker = 89;
+    public const int CampaignStats = 11;
+    public const int CEO = 12;
+    public const int Company = 13;
+    public const int CompanyFocus = 14;
+    public const int CompanyGoal = 15;
+    public const int CompanyGoalListener = 16;
+    public const int CompanyListener = 17;
+    public const int CompanyResource = 18;
+    public const int CompanyResourceListener = 19;
+    public const int ControlledByPlayer = 20;
+    public const int Cooldown = 21;
+    public const int CorporateCulture = 22;
+    public const int Crunching = 23;
+    public const int CrunchingListener = 24;
+    public const int Date = 25;
+    public const int Dead = 26;
+    public const int Dumping = 27;
+    public const int Employee = 28;
+    public const int EventContainer = 29;
+    public const int EventContainerListener = 30;
+    public const int Expertise = 31;
+    public const int Features = 32;
+    public const int Financing = 33;
+    public const int Flagship = 34;
+    public const int Follow = 35;
+    public const int Following = 36;
+    public const int HumanCompanyRelationship = 37;
+    public const int Human = 38;
+    public const int HumanSkills = 39;
+    public const int IndependentCompany = 40;
+    public const int Industry = 41;
+    public const int InvestmentProposals = 42;
+    public const int InvestmentRounds = 43;
+    public const int ManagingCompany = 44;
+    public const int Marketing = 45;
+    public const int MarketingListener = 46;
+    public const int Menu = 47;
+    public const int MenuListener = 48;
+    public const int MetricsHistory = 49;
+    public const int NavigationHistory = 50;
+    public const int NavigationHistoryListener = 51;
+    public const int NicheBaseProfile = 52;
+    public const int NicheClientsContainer = 53;
+    public const int Niche = 54;
+    public const int NicheCosts = 55;
+    public const int NicheLifecycle = 56;
+    public const int NicheSegments = 57;
+    public const int NicheState = 58;
+    public const int Notifications = 59;
+    public const int OnSales = 60;
+    public const int Partnerships = 61;
+    public const int Player = 62;
+    public const int Popup = 63;
+    public const int PreviousAcquisitionOffers = 64;
+    public const int Product = 65;
+    public const int ProductListener = 66;
+    public const int ProductPositioning = 67;
+    public const int ProductUpgrades = 68;
+    public const int PublicCompany = 69;
+    public const int Release = 70;
+    public const int ReleaseListener = 71;
+    public const int Reports = 72;
+    public const int Research = 73;
+    public const int Segment = 74;
+    public const int Shareholder = 75;
+    public const int Shareholders = 76;
+    public const int ShareholdersListener = 77;
+    public const int TargetDate = 78;
+    public const int Task = 79;
+    public const int Team = 80;
+    public const int TeamListener = 81;
+    public const int TechnologyLeader = 82;
+    public const int TechnologyLeaderListener = 83;
+    public const int Test = 84;
+    public const int TimedAction = 85;
+    public const int TimerRunning = 86;
+    public const int Tutorial = 87;
+    public const int TutorialListener = 88;
+    public const int WantsToExpand = 89;
+    public const int Worker = 90;
 
-    public const int TotalComponents = 90;
+    public const int TotalComponents = 91;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -113,6 +114,7 @@ public static class GameComponentsLookup {
         "AnyTargetDateListener",
         "AnyTechnologyLeaderListener",
         "Branding",
+        "CampaignStats",
         "CEO",
         "Company",
         "CompanyFocus",
@@ -206,6 +208,7 @@ public static class GameComponentsLookup {
         typeof(AnyTargetDateListenerComponent),
         typeof(AnyTechnologyLeaderListenerComponent),
         typeof(BrandingComponent),
+        typeof(CampaignStatsComponent),
         typeof(CEOComponent),
         typeof(CompanyComponent),
         typeof(CompanyFocusComponent),
