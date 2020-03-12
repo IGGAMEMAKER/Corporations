@@ -13,16 +13,21 @@ public class RenderCorporateCultureView : View
     public Text Expansion;
     public GameObject ExpansionPolicy;
 
+    public Text Responsibility;
+    public GameObject ResponsibilityPolicy;
+
+
     public override void ViewRender()
     {
         base.ViewRender();
 
-        var expansion = Companies.GetPolicyValue(MyCompany, CorporatePolicy.Focusing);
+        var expansion = Companies.GetPolicyValue(MyCompany, CorporatePolicy.LeaderOrTeam);
         bool isFocused = expansion == 1;
 
 
+        SetText(Responsibility,    CorporatePolicy.LeaderOrTeam, ResponsibilityPolicy, true);
         SetText(Mindset,    CorporatePolicy.WorkerMindset, MindsetPolicy, !isFocused);
-        SetText(Focusing,   CorporatePolicy.Focusing, FocusingPolicy, true);
+        SetText(Focusing,   CorporatePolicy.Focusing, FocusingPolicy, !isFocused);
         SetText(Expansion,  CorporatePolicy.BuyOrCreate, ExpansionPolicy, !isFocused);
     }
 

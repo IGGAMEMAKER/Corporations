@@ -58,9 +58,9 @@ public class RenderBusinessStyle : UpgradedParameterView
     string DescribeMentality(bool isLeft)
     {
         if (isLeft)
-            return "Researcher mentality";
+            return "Innovative mentality";
 
-        return "Engineering mentality";
+        return "Stable mentality";
     }
 
     string DescribeSalaries(bool isLeft)
