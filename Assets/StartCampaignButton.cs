@@ -16,12 +16,17 @@ public class StartCampaignButton : ButtonController
             return;
 
         var company = Companies.GenerateCompanyGroup(Q, Input.text);
+
+        var half = Balance.CORPORATE_CULTURE_LEVEL_MAX / 2;
+
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
             [CorporatePolicy.BuyOrCreate] = Balance.CORPORATE_CULTURE_LEVEL_MAX,
             [CorporatePolicy.FocusingOrSpread] = 1,
             [CorporatePolicy.LeaderOrTeam] = 1,
-            [CorporatePolicy.InnovationOrStability] = Balance.CORPORATE_CULTURE_LEVEL_MAX
+            [CorporatePolicy.InnovationOrStability] = Balance.CORPORATE_CULTURE_LEVEL_MAX,
+            [CorporatePolicy.SalariesLowOrHigh] = half,
+            [CorporatePolicy.CompetitionOrSupport] = half
         });
 
         var startCapital = Markets.GetStartCapital(NicheType, Q);

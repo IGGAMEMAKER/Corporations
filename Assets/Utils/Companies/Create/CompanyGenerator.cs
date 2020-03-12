@@ -95,13 +95,19 @@ namespace Assets.Core
             var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
             var min = Balance.CORPORATE_CULTURE_LEVEL_MIN;
 
-            return new Dictionary<CorporatePolicy, int>()
+            var dict = new Dictionary<CorporatePolicy, int>()
             {
                 [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
                 [CorporatePolicy.InnovationOrStability]  = Random.Range(min, max),
                 [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
                 [CorporatePolicy.BuyOrCreate]    = Random.Range(min, max),
+                [CorporatePolicy.CompetitionOrSupport]    = Random.Range(min, max),
+                [CorporatePolicy.SalariesLowOrHigh]    = Random.Range(min, max)
             };
+
+            //var policy0 = CorporatePolicy.BuyOrCreate;
+
+            return dict;
         }
 
         public static Dictionary<CorporatePolicy, int> GetFundCorporateCulture()
@@ -116,6 +122,8 @@ namespace Assets.Core
                 [CorporatePolicy.InnovationOrStability]  = Random.Range(min, half),
                 [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
                 [CorporatePolicy.BuyOrCreate]    = Random.Range(min, half),
+                [CorporatePolicy.CompetitionOrSupport] = Random.Range(min, max),
+                [CorporatePolicy.SalariesLowOrHigh] = Random.Range(min, max)
             };
         }
     }
