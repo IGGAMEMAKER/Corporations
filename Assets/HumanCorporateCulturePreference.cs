@@ -66,7 +66,7 @@ public class HumanCorporateCulturePreference : ParameterView
             case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
             case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
             case CorporatePolicy.LeaderOrTeam: return DescribeLeadership(isLeft);
-            case CorporatePolicy.Salaries: return DescribeSalaries(isLeft);
+            case CorporatePolicy.SalariesLowOrHigh: return DescribeSalaries(isLeft);
             case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
             case CorporatePolicy.CompetitionOrSupport: return DescribeAttitudeToCompetition(isLeft);
 

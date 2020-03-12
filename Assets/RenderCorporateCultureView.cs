@@ -19,6 +19,9 @@ public class RenderCorporateCultureView : View
     public Text Competition;
     public GameObject CompetitionPolicy;
 
+    public Text Salaries;
+    public GameObject SalariesPolicy;
+
 
     public override void ViewRender()
     {
@@ -33,6 +36,7 @@ public class RenderCorporateCultureView : View
         SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, !isFocused);
         SetText(Expansion,          CorporatePolicy.BuyOrCreate, ExpansionPolicy, !isFocused);
         SetText(Competition,        CorporatePolicy.CompetitionOrSupport, CompetitionPolicy, !isFocused);
+        SetText(Salaries,           CorporatePolicy.SalariesLowOrHigh, SalariesPolicy, !isFocused);
     }
 
     void SetText(Text text, CorporatePolicy corporatePolicy, GameObject policyObject, bool render)

@@ -13,6 +13,7 @@ public class WorkerJoinsYourCompanyPopupButton : PopupButtonController<PopupMess
 
         NotificationUtils.ClosePopup(Q);
 
+
         Teams.HireManager(company, human);
 
         NavigateToHuman(humanId);

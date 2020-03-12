@@ -198,7 +198,7 @@ public enum CorporatePolicy
     BuyOrCreate,
     InnovationOrStability, // engineer vs researcher
     FocusingOrSpread,
-    Salaries, // low vs high
+    SalariesLowOrHigh, // low vs high
 
     CompetitionOrSupport
 }
