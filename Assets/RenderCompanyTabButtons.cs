@@ -34,7 +34,7 @@ public class RenderCompanyTabButtons : View
 
 
         DevTab      .SetActive(isFlagshipScreen);
-        UpgradesTab .SetActive(isFlagshipScreen);
+        UpgradesTab .SetActive(false && isFlagshipScreen);
         PartnersTab .SetActive(isIndependentCompany);
         InvestorsTab.SetActive(isIndependentCompany);
 
