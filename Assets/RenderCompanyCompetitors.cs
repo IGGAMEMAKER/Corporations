@@ -1,4 +1,7 @@
 ﻿using Assets.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,20 +23,35 @@ public class RenderCompanyCompetitors : ListView
         string text = company.company.Name;
 
         if (Companies.IsRelatedToPlayer(Q, company))
-        {
             text = Visuals.Colorize(text, Colors.COLOR_GOLD);
+
+        var sameMarkets = new List<NicheType>();
+
+        var m1 = SelectedCompany.companyFocus.Niches;
+        var m2 = company.companyFocus.Niches;
+
+        foreach (var m in m1)
+        {
+            if (m2.Contains(m))
+                sameMarkets.Add(m);
         }
 
         if (company.hasProduct)
         {
             var innovativeness = Products.GetInnovationChance(company, Q);
-            text += $" (Innovativeness: {innovativeness}%)";
+            var iterationSpeed = Products.GetConceptUpgradeTime(Q, company);
+
+            text += $" (Innovativeness: {innovativeness}%, Speed: {iterationSpeed} days)";
         }
         else
         {
             var cost = Economy.GetCompanyCost(Q, company);
-            text += $"({Format.Money(cost)})";
+
+            text += $" (Cost: {Format.Money(cost)})";
+            text += " Competing in following markets: " + String.Join(", ", sameMarkets.Select(Enums.GetFormattedNicheName));
         }
+
+
 
         t.gameObject.GetComponent<MockText>().SetEntity(text);
     }
