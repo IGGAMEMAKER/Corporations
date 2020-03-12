@@ -48,7 +48,7 @@ public class RenderCompanyCompetitors : ListView
             var cost = Economy.GetCompanyCost(Q, company);
 
             text += $" (Cost: {Format.Money(cost)})";
-            text += " Competing in following markets: " + String.Join(", ", sameMarkets.Select(Enums.GetFormattedNicheName));
+            text += " Common markets: " + String.Join(", ", sameMarkets.Select(Enums.GetFormattedNicheName));
         }
 
 
