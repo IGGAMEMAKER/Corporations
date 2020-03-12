@@ -15,7 +15,7 @@
             if (company.company.CompanyType == CompanyType.Holding)
                 rank = 2;
 
-            return GetPolicyValue(company, CorporatePolicy.Focusing) * rank;
+            return GetPolicyValue(company, CorporatePolicy.FocusingOrSpread) * rank;
         }
 
         public static int GetCompanyLimitPenalty(GameEntity company, GameContext gameContext)
@@ -40,7 +40,7 @@
             if (company.company.CompanyType == CompanyType.Corporation)
                 rank = 2;
 
-            return GetPolicyValue(company, CorporatePolicy.Focusing) * rank;
+            return GetPolicyValue(company, CorporatePolicy.FocusingOrSpread) * rank;
         }
 
         public static int GetPrimaryMarketsAmount(GameEntity company)

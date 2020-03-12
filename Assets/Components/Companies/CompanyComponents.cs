@@ -196,9 +196,11 @@ public enum CorporatePolicy
 {
     LeaderOrTeam, // team vs leader
     BuyOrCreate,
-    WorkerMindset, // engineer vs researcher
-    Focusing,
-    Salaries // low vs high
+    InnovationOrStability, // engineer vs researcher
+    FocusingOrSpread,
+    Salaries, // low vs high
+
+    CompetitionOrSupport
 }
 
 [Game]

@@ -98,8 +98,8 @@ namespace Assets.Core
             return new Dictionary<CorporatePolicy, int>()
             {
                 [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
-                [CorporatePolicy.WorkerMindset]  = Random.Range(min, max),
-                [CorporatePolicy.Focusing]       = Random.Range(min, max),
+                [CorporatePolicy.InnovationOrStability]  = Random.Range(min, max),
+                [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
                 [CorporatePolicy.BuyOrCreate]    = Random.Range(min, max),
             };
         }
@@ -113,8 +113,8 @@ namespace Assets.Core
             return new Dictionary<CorporatePolicy, int>()
             {
                 [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
-                [CorporatePolicy.WorkerMindset]  = Random.Range(min, half),
-                [CorporatePolicy.Focusing]       = Random.Range(min, max),
+                [CorporatePolicy.InnovationOrStability]  = Random.Range(min, half),
+                [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
                 [CorporatePolicy.BuyOrCreate]    = Random.Range(min, half),
             };
         }

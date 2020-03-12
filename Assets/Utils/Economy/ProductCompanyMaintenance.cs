@@ -20,7 +20,7 @@ namespace Assets.Core
             var cost = workers * Balance.SALARIES_PROGRAMMER + managers * Balance.SALARIES_DIRECTOR;
 
             var culture = Companies.GetActualCorporateCulture(e, gameContext);
-            var mindset = culture[CorporatePolicy.WorkerMindset];
+            var mindset = culture[CorporatePolicy.InnovationOrStability];
 
             // up to 40%
             var discount = 100 - (mindset - 1) * 5;

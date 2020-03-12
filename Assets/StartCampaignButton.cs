@@ -19,9 +19,9 @@ public class StartCampaignButton : ButtonController
         company.ReplaceCorporateCulture(new System.Collections.Generic.Dictionary<CorporatePolicy, int>
         {
             [CorporatePolicy.BuyOrCreate] = Balance.CORPORATE_CULTURE_LEVEL_MAX,
-            [CorporatePolicy.Focusing] = 1,
+            [CorporatePolicy.FocusingOrSpread] = 1,
             [CorporatePolicy.LeaderOrTeam] = 1,
-            [CorporatePolicy.WorkerMindset] = Balance.CORPORATE_CULTURE_LEVEL_MAX
+            [CorporatePolicy.InnovationOrStability] = Balance.CORPORATE_CULTURE_LEVEL_MAX
         });
 
         var startCapital = Markets.GetStartCapital(NicheType, Q);

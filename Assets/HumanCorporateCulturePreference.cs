@@ -14,7 +14,7 @@ public class HumanCorporateCulturePreference : ParameterView
 
         var isEmployed = human.worker.companyId >= 0;
 
-        Debug.Log($"Corporate culture preference: #{human.creationIndex} {human.worker.companyId}");
+        //Debug.Log($"Corporate culture preference: #{human.creationIndex} {human.worker.companyId}");
         var companyCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
 
         var text = "";
@@ -64,27 +64,37 @@ public class HumanCorporateCulturePreference : ParameterView
         switch (policy)
         {
             case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
-            case CorporatePolicy.Focusing: return DescribeFocusingPolicy(isLeft);
+            case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
             case CorporatePolicy.LeaderOrTeam: return DescribeLeadership(isLeft);
             case CorporatePolicy.Salaries: return DescribeSalaries(isLeft);
-            case CorporatePolicy.WorkerMindset: return DescribeMentality(isLeft);
+            case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
+            case CorporatePolicy.CompetitionOrSupport: return DescribeAttitudeToCompetition(isLeft);
 
             default: return policy.ToString() + ": " + value;
         }
     }
 
+    string DescribeAttitudeToCompetition(bool isLeft)
+    {
+        if (isLeft)
+            return "Prefers competitive atmosphere";
+
+        return "Prefers collaborative teams";
+    }
+
     string DescribeMentality(bool isLeft)
     {
         if (isLeft)
-            return "Loves companies with researcher mentality";
+            return "Loves innovative companies";
 
-        return "Loves companies with engineering mentality";
+        return "Loves stable companies";
     }
 
     string DescribeSalaries(bool isLeft)
     {
         return "Salaries??";
     }
+
     string DescribeLeadership(bool isLeft)
     {
         if (isLeft)
@@ -96,7 +106,7 @@ public class HumanCorporateCulturePreference : ParameterView
     string DescribeAcquisitionPolicy(bool isLeft)
     {
         if (isLeft)
-            return "Prefers growth oriented companies";
+            return "Prefers sales oriented companies";
 
         return "Prefers creating new products";
     }
@@ -104,8 +114,8 @@ public class HumanCorporateCulturePreference : ParameterView
     string DescribeFocusingPolicy(bool isLeft)
     {
         if (isLeft)
-            return "Prefers focusing in one industry";
+            return "Prefers to focus in one market";
 
-        return "Hates doing same twice";
+        return "Likes new challenges";
     }
 }

@@ -126,7 +126,7 @@ class MoraleManagementSystem : OnPeriodChange
 
         var importantPolicies = new List<CorporatePolicy>
         {
-            CorporatePolicy.WorkerMindset, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.Focusing
+            CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread
         };
 
         int change = -5;

@@ -46,10 +46,10 @@ public class RenderBusinessStyle : UpgradedParameterView
         switch (policy)
         {
             case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
-            case CorporatePolicy.Focusing: return DescribeFocusingPolicy(isLeft);
+            case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
             case CorporatePolicy.LeaderOrTeam: return DescribeLeadership(isLeft);
             case CorporatePolicy.Salaries: return DescribeSalaries(isLeft);
-            case CorporatePolicy.WorkerMindset: return DescribeMentality(isLeft);
+            case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
 
             default: return policy.ToString() + ": " + value;
         }

@@ -18,9 +18,9 @@
             // culture bonuses
             var culture = Companies.GetActualCorporateCulture(product, gameContext);
             var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
-            var mindset         = culture[CorporatePolicy.WorkerMindset];
+            var mindset         = culture[CorporatePolicy.InnovationOrStability];
             var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
-            var focusing        = culture[CorporatePolicy.Focusing];
+            var focusing        = culture[CorporatePolicy.FocusingOrSpread];
 
             var maxCorpLevel = Balance.CORPORATE_CULTURE_LEVEL_MAX;
 
@@ -50,7 +50,7 @@
 
         public static int GetFocusingBonus(GameEntity product)
         {
-            var focusing = Companies.GetPolicyValue(product, CorporatePolicy.Focusing);
+            var focusing = Companies.GetPolicyValue(product, CorporatePolicy.FocusingOrSpread);
 
             return 5 * (Balance.CORPORATE_CULTURE_LEVEL_MAX - focusing);
         }
