@@ -100,24 +100,6 @@ class MoraleManagementSystem : OnPeriodChange
                 }
             }
         }
-
-        return;
-        // crunching
-        var products = contexts.game.GetEntities(GameMatcher.Product);
-
-        for (var i = 0; i < products.Length; i++)
-        {
-            var change = products[i].isCrunching ? -4 : 2;
-
-            var workers = Teams.GetAmountOfWorkers(products[i], gameContext) + 1;
-            var required = Products.GetNecessaryAmountOfWorkers(products[i], gameContext);
-
-            if (required > workers)
-                change -= required / workers;
-
-
-            products[i].team.Morale = Mathf.Clamp(products[i].team.Morale + change, 0, 100);
-        }
     }
 
     int GetLoyaltyChangeForManager(GameEntity worker, GameEntity company, Dictionary<CorporatePolicy, int> culture)
@@ -126,10 +108,10 @@ class MoraleManagementSystem : OnPeriodChange
 
         var importantPolicies = new List<CorporatePolicy>
         {
-            CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread
+            CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread, CorporatePolicy.CompetitionOrSupport
         };
 
-        int change = -5;
+        int change = -3;
 
         foreach (var p in importantPolicies)
         {
@@ -141,7 +123,7 @@ class MoraleManagementSystem : OnPeriodChange
             bool hates = module > 6;
 
             if (suits)
-                change += 1;
+                change += 2;
 
             if (hates)
                 change -= 2;
