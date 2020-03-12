@@ -78,7 +78,7 @@ class MoraleManagementSystem : OnPeriodChange
                 bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
                 if (isInPlayerFlagship)
                 {
-                    NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, human.human.Id));
+                    NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerLeavesYourCompany(c.company.Id, humanId));
                 }
                 else
                 {
@@ -92,7 +92,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                     // // NotifyPlayer
                     if (worksInPlayerCompetitorCompany && wantsToWorkInYourCompany)
-                        NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerWantsToWorkInYourCompany(c.company.Id, human.human.Id));
+                        NotificationUtils.AddPopup(gameContext, new PopupMessageWorkerWantsToWorkInYourCompany(c.company.Id, humanId));
 
                     // or this worker will start his own bussiness in same/adjacent sphere
 
@@ -111,7 +111,7 @@ class MoraleManagementSystem : OnPeriodChange
             CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread, CorporatePolicy.CompetitionOrSupport
         };
 
-        int change = -3;
+        int change = -5;
 
         foreach (var p in importantPolicies)
         {
