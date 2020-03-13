@@ -11,6 +11,8 @@ public class ProductOnMarketView : View
     public Hint ClientChange;
     public LinkToProjectView LinkToProjectView;
 
+    public Text Brand;
+
     public RectTransform BackgroundRect;
     public RectTransform ClientsRect;
     public RectTransform NewClientsRect;
@@ -26,8 +28,12 @@ public class ProductOnMarketView : View
         var clients = Marketing.GetClients(company);
         var newClients = Marketing.GetAudienceGrowth(company, Q);
 
-        Clients.text = Format.Minify(clients);
+        var level = Products.GetProductLevel(company);
+
+        Clients.text = $"{level}LVL\n\n" + Format.Minify(clients);
         NewClients.text = Format.Minify(newClients);
+
+        Brand.text = (int)company.branding.BrandPower + "";
 
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
         Name.text = company.company.Name;
@@ -36,7 +42,7 @@ public class ProductOnMarketView : View
         LinkToProjectView.CompanyId = company.company.Id;
 
         var brand = (int)company.branding.BrandPower;
-        ClientChange.SetHint($"{company.company.Name} will get this amount of clients next week, due to their brand power ({brand})");
+        ClientChange.SetHint($"{company.company.Name} will get {Format.Minify(newClients)} clients next week, due to their brand power ({brand})");
 
 
         // scale this view according to market share

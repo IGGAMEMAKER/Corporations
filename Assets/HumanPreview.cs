@@ -9,7 +9,7 @@ public class HumanPreview : View
     public Text RoleText;
 
     public ProgressBar Loyalty;
-    public ProgressBar Adaptation;
+    public ProgressBar Expertise;
 
     public GameEntity human;
 
@@ -41,12 +41,21 @@ public class HumanPreview : View
             Loyalty.gameObject.SetActive(!drawAsEmployee);
         }
 
-        if (Adaptation != null)
+        if (Expertise != null)
         {
-            if (!drawAsEmployee)
-                Adaptation.SetValue(human.humanCompanyRelationship.Adapted);
+            var expertise = 0;
 
-            Adaptation.gameObject.SetActive(!drawAsEmployee);
+            if (!drawAsEmployee)
+            {
+                bool isProduct = SelectedCompany.hasProduct;
+
+                if (isProduct && human.humanSkills.Expertise.ContainsKey(SelectedCompany.product.Niche))
+                    expertise = human.humanSkills.Expertise[SelectedCompany.product.Niche];
+                
+                Expertise.SetValue(expertise);
+            }
+
+            Expertise.gameObject.SetActive(!drawAsEmployee && expertise > 0);
         }
     }
 

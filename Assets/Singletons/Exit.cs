@@ -56,7 +56,8 @@ public static class SessionDuration
         int seconds = (int)time - 60 * minutes;
         int milliseconds = (int)(1000 * (time - minutes * 60 - seconds));
 
-        return string.Format("{3:00}h {0:00}min {1:00}sec", minutes, seconds, milliseconds, hours);
+        return string.Format("{0:00}min {1:00}sec", minutes, seconds, milliseconds, hours);
+        //return string.Format("{3:00}h {0:00}min {1:00}sec", minutes, seconds, milliseconds, hours);
         //return string.Format("{3:00}:{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds, hours);
     }
 }
