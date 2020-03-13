@@ -35,10 +35,14 @@ public class ProductOnMarketView : View
 
         Brand.text = (int)company.branding.BrandPower + "";
 
+        // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
         Name.text = company.company.Name;
-        Name.color = Visuals.GetColorFromString(isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO);
 
+        var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
+        Name.color = Visuals.GetColorFromString(nameColor);
+
+        // link to project
         LinkToProjectView.CompanyId = company.company.Id;
 
         var brand = (int)company.branding.BrandPower;

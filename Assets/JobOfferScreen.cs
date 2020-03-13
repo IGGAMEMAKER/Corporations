@@ -14,7 +14,7 @@ public class JobOfferScreen : View
 
     void RenderOffer()
     {
-        long offer = Balance.SALARIES_CEO;
+        long offer = Balance.SALARIES_DIRECTOR;
 
         Offer.text = $"${Format.Minify(offer)} per month";
     }
@@ -25,11 +25,13 @@ public class JobOfferScreen : View
 
         var role = Humans.GetRole(SelectedHuman);
 
-        var hasSameRoleWorkers = SelectedCompany.team.Managers.ContainsValue(role);
+        var managers = SelectedCompany.team.Managers;
+
+        var hasSameRoleWorkers = managers.ContainsValue(role);
         if (hasSameRoleWorkers)
         {
-            var workerIndex = SelectedCompany.team.Managers.Values.ToList().FindIndex(k => k == role);
-            var humanId = SelectedCompany.team.Managers.Keys.ToList().Find(k => k == workerIndex);
+            var workerIndex = managers.Values.ToList().FindIndex(k => k == role);
+            var humanId = managers.Keys.ToList().Find(k => k == workerIndex);
 
             var level = Humans.GetRating(Q, humanId);
             text = Visuals.Negative(
