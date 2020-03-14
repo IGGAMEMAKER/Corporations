@@ -13,6 +13,6 @@ public class RenderNextCorporateUpgradeDate : ParameterView
 
         var days = task.EndTime - CurrentIntDate;
 
-        return $"You will be able to change corporate culture in {days} days";
+        return $"Next culture change in {days} days";
     }
 }
