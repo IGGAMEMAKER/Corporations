@@ -8,7 +8,6 @@ public class CompanyViewOnMainScreen : View
 {
     public Text Name;
     public Hint CompanyHint;
-    public Text Clients;
     public LinkToProjectView LinkToProjectView;
 
     public Text PositionOnMarket;
@@ -17,9 +16,6 @@ public class CompanyViewOnMainScreen : View
     public Image DarkImage;
 
     public Text Profitability;
-
-    public Text Brand;
-    public GameObject BrandIcon;
 
     public HireWorker HireWorker;
 
@@ -58,16 +54,11 @@ public class CompanyViewOnMainScreen : View
 
         var positionOnMarket = Markets.GetPositionOnMarket(Q, company) + 1;
 
-        var brand = (int)company.branding.BrandPower;
-        var brandChange = Marketing.GetBrandChange(company, Q);
-
         var effeciency = Products.GetTeamEffeciency(Q, company);
 
 
 
         SetEmblemColor();
-
-        Clients.text = Format.Minify(clients);
 
         CompanyHint.SetHint(GetCompanyHint());
 
@@ -82,14 +73,6 @@ public class CompanyViewOnMainScreen : View
 
         PositionOnMarket.text = $"#{positionOnMarket}";
 
-        var change = brandChange.Sum();
-        Brand.text = $"{brand} ({Format.Sign(change)})";
-        Brand.color = Visuals.GetGradientColor(0, 100, brand);
-
-
-
-        UpdateIfNecessary(BrandIcon,    company.isRelease);
-        UpdateIfNecessary(Brand,        company.isRelease);
 
 
         // buttons
