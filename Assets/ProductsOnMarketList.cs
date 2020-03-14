@@ -23,16 +23,35 @@ public class ProductsOnMarketList : ListView
     {
         base.ViewRender();
 
-        var products = Markets.GetProductsOnMarket(Q, SelectedNiche)
+        bool isMarketScreen = CurrentScreen == ScreenMode.NicheScreen;
+        bool isProductCompanyScreen = CurrentScreen == ScreenMode.ProjectScreen && SelectedCompany.hasProduct;
+
+        var niche = isProductCompanyScreen ? SelectedCompany.product.Niche : SelectedNiche;
+
+
+        var products = Markets.GetProductsOnMarket(Q, niche)
             .OrderByDescending(Marketing.GetClients)
             ;
 
-            SetItems(products);
-        //bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+        SetItems(products);
 
-        //if (hasReleasedProducts)
-        //    SetItems(products);
-        //else
-        //    SetItems(new GameEntity[1] { SelectedCompany });
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+
+        bool canViewCompetitors = hasReleasedProducts;
+
+        if (canViewCompetitors)
+            SetItems(products);
+        else
+        {
+            if (isMarketScreen)
+            {
+                SetItems(new GameEntity[0]);
+            }
+            else
+            {
+
+                SetItems(new GameEntity[1] { SelectedCompany });
+            }
+        }
     }
 }
