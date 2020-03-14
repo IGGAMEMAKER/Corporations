@@ -7,7 +7,7 @@ public class BrandChangeDescription : ParameterView
         if (!SelectedCompany.hasProduct)
             return "";
 
-        if (Companies.IsExploredCompany(Q, SelectedCompany))
+        //if (Companies.IsExploredCompany(Q, SelectedCompany))
             return Marketing.GetBrandChange(SelectedCompany, Q).ToString();
 
         return "???";

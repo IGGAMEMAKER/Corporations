@@ -60,7 +60,7 @@
     public static int REVOLUTION_BRAND_POWER_GAIN = 25;
     public static int BRAND_CAMPAIGN_BRAND_POWER_GAIN = 15;
 
-    public const int CORPORATE_CULTURE_CHANGES_DURATION = 60;
+    public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;
     public const int CORPORATE_CULTURE_LEVEL_MIN = 1;
 

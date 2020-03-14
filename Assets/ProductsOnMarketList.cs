@@ -31,6 +31,7 @@ public class ProductsOnMarketList : ListView
         //bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
         //if (hasReleasedProducts)
+        //    SetItems(products);
         //else
         //    SetItems(new GameEntity[1] { SelectedCompany });
     }
