@@ -18,10 +18,10 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         foreach (var e in playerProducts)
         {
-            if (!Companies.IsPlayerFlagship(gameContext, e))
-                ManageMarketing(e);
-            else
+            if (Companies.IsPlayerFlagship(gameContext, e))
                 ManageFlagship(e, playerCompany);
+            else
+                ManageMarketing(e);
         }
     }
 
@@ -37,17 +37,13 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         if (product.isRelease)
         {
-            if (Companies.IsEnoughResources(group, brandingCost) && brand)
+            if (Companies.IsEnoughResourcesOverall(group, brandingCost, gameContext) && brand)
             {
-                Companies.SupportCompany(group, product, brandingCost);
-
                 Marketing.StartBrandingCampaign(product, gameContext);
             }
 
-            if (Companies.IsEnoughResources(group, targetingCost) && targeting)
+            if (Companies.IsEnoughResourcesOverall(group, targetingCost, gameContext) && targeting)
             {
-                Companies.SupportCompany(group, product, targetingCost);
-
                 Marketing.StartTargetingCampaign(product, gameContext);
             }
         }

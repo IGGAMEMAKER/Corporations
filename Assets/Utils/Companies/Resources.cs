@@ -5,6 +5,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
+        public static void SpendResourcesOfManaingCompany(GameEntity company, long money, GameContext gameContext) => SpendResources(GetManagingCompanyOf(company, gameContext), new TeamResource(money));
         public static void SpendResources(GameEntity company, long money) => SpendResources(company, new TeamResource(money));
         public static void SpendResources(GameEntity company, TeamResource resource)
         {
@@ -39,6 +40,9 @@ namespace Assets.Core
             SetResources(company, startCapital);
         }
 
+
+        public static bool IsEnoughResourcesOverall(GameEntity company, long money, GameContext gameContext) => IsEnoughResources(GetManagingCompanyOf(company, gameContext), new TeamResource(money));
+        //public static bool IsEnoughResources(GameEntity company, long money, GameContext gameContext) => IsEnoughResources(GetManagingCompanyOf(company, gameContext), new TeamResource(money));
 
         public static bool IsEnoughResources(GameEntity company, long money) => IsEnoughResources(company, new TeamResource(money));
         public static bool IsEnoughResources(GameEntity company, TeamResource resource)

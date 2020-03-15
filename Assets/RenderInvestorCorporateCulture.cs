@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using UnityEngine;
 
+// #Culture
 public class RenderInvestorCorporateCulture : UpgradedParameterView
 {
     public override string RenderHint() => "";
@@ -12,9 +13,9 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
         if (SelectedInvestor == null || !SelectedInvestor.hasCorporateCulture)
             return "";
 
-        text += Wrap(CorporatePolicy.BuyOrCreate,   DescribePolicy(CorporatePolicy.BuyOrCreate,     "Loves acquisitions", "Loves creating new products"));
+        text += Wrap(CorporatePolicy.BuyOrCreate,           DescribePolicy(CorporatePolicy.BuyOrCreate,     "Loves acquisitions", "Loves creating new products"));
         text += Wrap(CorporatePolicy.FocusingOrSpread,      DescribePolicy(CorporatePolicy.FocusingOrSpread,        "Focuses on one market/product/industry",   "Doesn't focus in one market/industry"));
-        text += Wrap(CorporatePolicy.LeaderOrTeam,  DescribePolicy(CorporatePolicy.LeaderOrTeam,    "Favors manager-centric companies",     "Favors team oriented companies"));
+        text += Wrap(CorporatePolicy.LeaderOrTeam,          DescribePolicy(CorporatePolicy.LeaderOrTeam,    "Favors manager-centric companies",     "Favors team oriented companies"));
         text += Wrap(CorporatePolicy.InnovationOrStability, DescribePolicy(CorporatePolicy.InnovationOrStability,   "Favors innovative companies",               "Favors stable companies"));
 
         return text.Length == 0 ? "No specific preferences" : text;

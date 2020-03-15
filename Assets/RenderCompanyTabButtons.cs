@@ -37,14 +37,14 @@ public class RenderCompanyTabButtons : View
 
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
-        DevTab      .SetActive(isFlagshipScreen);
-        UpgradesTab .SetActive(false && isFlagshipScreen);
-        PartnersTab .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
-        InvestorsTab.SetActive(isIndependentCompany);
+        DevTab          .SetActive(isFlagshipScreen);
+        UpgradesTab     .SetActive(false && isFlagshipScreen);
+        PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
+        InvestorsTab    .SetActive(isIndependentCompany);
 
-        InfoTab.SetActive(playerCanExploreAdvancedTabs);
-        EconomyTab.SetActive(playerCanExploreAdvancedTabs);
-        CompetitorsTab.SetActive(playerCanExploreAdvancedTabs);
+        InfoTab         .SetActive(playerCanExploreAdvancedTabs);
+        EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
+        CompetitorsTab  .SetActive(playerCanExploreAdvancedTabs);
 
 
         

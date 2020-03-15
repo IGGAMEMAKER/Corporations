@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -61,6 +63,41 @@ namespace Assets.Core
             ReplaceTeam(company, team);
 
             Humans.LeaveCompany(worker);
+        }
+
+
+        // loyalty drop
+        public static int GetLoyaltyChangeForManager(GameEntity worker, GameEntity company, Dictionary<CorporatePolicy, int> culture)
+        {
+            var preferences = worker.corporateCulture.Culture;
+
+            var importantPolicies = new List<CorporatePolicy>
+            {
+                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread, CorporatePolicy.CompetitionOrSupport
+            };
+
+            int change = -5;
+
+            foreach (var p in importantPolicies)
+            {
+                var diff = preferences[p] - culture[p];
+
+                var module = Math.Abs(diff);
+                bool suits = module < 3;
+
+                bool hates = module > 6;
+
+                if (suits)
+                    change += 2;
+
+                if (hates)
+                    change -= 2;
+            }
+
+            // salaries?
+
+            return change;
+            return UnityEngine.Random.Range(0, 5);
         }
     }
 }

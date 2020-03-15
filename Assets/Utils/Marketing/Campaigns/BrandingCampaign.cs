@@ -16,7 +16,7 @@
             return (long)result;
         }
 
-        public static void StartBrandingCampaign(GameEntity product, GameContext gameContext)
+        public static void StartBrandingCampaign(GameEntity product, GameContext gameContext, bool paySelf = false)
         {
             var cost = GetBrandingCost(product, gameContext);
 

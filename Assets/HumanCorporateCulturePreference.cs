@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// #Culture
 public class HumanCorporateCulturePreference : ParameterView
 {
     public override string RenderValue()

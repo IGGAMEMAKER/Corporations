@@ -37,7 +37,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                 var relationship = human.humanCompanyRelationship;
 
-                var loyaltyChange   = GetLoyaltyChangeForManager(human, c, culture);
+                var loyaltyChange   = Teams.GetLoyaltyChangeForManager(human, c, culture);
 
                 var newLoyalty      = Mathf.Clamp(relationship.Morale  + loyaltyChange, 0, 100);
                 var newAdaptation   = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
@@ -55,7 +55,6 @@ class MoraleManagementSystem : OnPeriodChange
                 if (c.hasProduct)
                 {
                     var niche = c.product.Niche;
-                    // increase expertise too
 
                     var newExpertise = 1;
                     if (human.humanSkills.Expertise.ContainsKey(niche))
@@ -66,7 +65,7 @@ class MoraleManagementSystem : OnPeriodChange
 
 
                 // leave company on low morale
-                if (newLoyalty < 5)
+                if (newLoyalty <= 0)
                     defectedManagers.Add(humanId);
             }
 
@@ -100,38 +99,5 @@ class MoraleManagementSystem : OnPeriodChange
                 }
             }
         }
-    }
-
-    int GetLoyaltyChangeForManager(GameEntity worker, GameEntity company, Dictionary<CorporatePolicy, int> culture)
-    {
-        var preferences = worker.corporateCulture.Culture;
-
-        var importantPolicies = new List<CorporatePolicy>
-        {
-            CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread, CorporatePolicy.CompetitionOrSupport
-        };
-
-        int change = -5;
-
-        foreach (var p in importantPolicies)
-        {
-            var diff = preferences[p] - culture[p];
-
-            var module = Math.Abs(diff);
-            bool suits = module < 3;
-
-            bool hates = module > 6;
-
-            if (suits)
-                change += 2;
-
-            if (hates)
-                change -= 2;
-        }
-
-        // salaries?
-
-        return change;
-        return UnityEngine.Random.Range(0, 5);
     }
 }

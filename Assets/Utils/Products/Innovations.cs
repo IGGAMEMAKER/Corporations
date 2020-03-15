@@ -2,12 +2,15 @@
 {
     public static partial class Products
     {
+        public static int GetInnovationChance(GameEntity product, GameContext gameContext)
+        {
+            var chance = GetInnovationChanceBonus(product, gameContext);
+
+            return (int)chance.Sum();
+        }
+
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
-            var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
-
-            bool isPrimaryMarket = Companies.IsInSphereOfInterest(managingCompany, product.product.Niche);
-
             // market state
             var niche = Markets.GetNiche(gameContext, product);
             var phase = Markets.GetMarketState(niche);
@@ -20,14 +23,11 @@
             var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
             var mindset         = culture[CorporatePolicy.InnovationOrStability];
             var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
-            var focusing        = culture[CorporatePolicy.FocusingOrSpread];
 
             var maxCorpLevel = Balance.CORPORATE_CULTURE_LEVEL_MAX;
 
             // managers
-            var productManager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
-            var productManagerRating = productManager == null ? 0 : Humans.GetRating(productManager, WorkerRole.ProductManager);
-            var productManagerBonus = Teams.GetWorkerEffeciency(productManager, product) * productManagerRating * 20 / 100 / 100;
+            var productManagerBonus = GetProductManagerBonus(product, gameContext);
 
             var CEOBonus = GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel;
 
@@ -40,12 +40,35 @@
                 .Append("Corporate Culture Mindset", maxCorpLevel - mindset)
                 .Append("Corporate Culture Acquisitions", createOrBuy)
 
+                // managers
                 .Append("CEO bonus", CEOBonus)
                 .AppendAndHideIfZero("Product manager", productManagerBonus)
-
-                // focusing / sphere of interest
-                //.AppendAndHideIfZero("Primary Market", isPrimaryMarket ? GetFocusingBonus(managingCompany) : 0)
                 ;
+        }
+
+        public static int GetLeaderInnovationBonus(GameEntity product)
+        {
+            //var CEOId = 
+            int companyId = product.company.Id;
+            int CEOId = Companies.GetCEOId(product);
+
+            //var accumulated = GetAccumulatedExpertise(company);
+
+            return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
+            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+        }
+
+        public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
+        {
+            var manager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
+
+            if (manager == null)
+                return 0;
+
+            var rating = Humans.GetRating(manager, WorkerRole.ProductManager);
+            var effeciency = Teams.GetWorkerEffeciency(manager, product);
+
+            return effeciency * rating * 20 / 100 / 100;
         }
 
         public static int GetFocusingBonus(GameEntity product)
@@ -70,25 +93,6 @@
                 default:
                     return 0;
             }
-        }
-
-        public static int GetInnovationChance(GameEntity product, GameContext gameContext)
-        {
-            var chance = GetInnovationChanceBonus(product, gameContext);
-
-            return (int)chance.Sum();
-        }
-
-        public static int GetLeaderInnovationBonus(GameEntity product)
-        {
-            //var CEOId = 
-            int companyId = product.company.Id;
-            int CEOId = Companies.GetCEOId(product);
-
-            //var accumulated = GetAccumulatedExpertise(company);
-
-            return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
-            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
     }
 }
