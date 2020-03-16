@@ -47,8 +47,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
             var interactable = TimedButton.GetComponentInChildren<Button>().interactable;
 
-            if (interactable)
-                TimedButton.Execute();
+            //if (interactable)
+            //    TimedButton.Execute();
         }
     }
 };
