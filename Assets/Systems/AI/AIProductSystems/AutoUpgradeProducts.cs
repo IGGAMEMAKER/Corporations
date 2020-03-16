@@ -12,23 +12,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         var products = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in products)
-        {
-            #region some expertise stuff?
-            var ideaPerExpertise = Balance.IDEA_PER_EXPERTISE;
-
-            var expertiseLevel = product.companyResource.Resources.ideaPoints / ideaPerExpertise;
-
-            if (expertiseLevel > 0)
-            {
-                product.expertise.ExpertiseLevel += expertiseLevel;
-
-                Companies.SpendResources(product, new TeamResource(0, 0, 0, expertiseLevel * ideaPerExpertise, 0));
-            }
-            #endregion
-
-            // level upgrades
             UpdgradeProduct(product, gameContext);
-        }
 
         ReleaseApps(products);
     }
@@ -37,21 +21,21 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
     {
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
-        // release AI apps if can
-        var releasableAIApps = products
+        // release all nonflagship apps if can
+        var releasableNonPlayerFlagshipProducts = products
             .Where(p => Companies.IsReleaseableApp(p, gameContext))
 
-            .Where(p => p.company.Id != playerFlagshipId) //  !Companies.IsPlayerFlagship(gameContext, p)
+            .Where(p => p.company.Id != playerFlagshipId)
             ;
 
-        foreach (var concept in releasableAIApps)
+        foreach (var concept in releasableNonPlayerFlagshipProducts)
             Marketing.ReleaseApp(gameContext, concept);
     }
 
 
-    public static void UpdgradeProduct(GameEntity product, GameContext gameContext, bool IgnoreCooldowns = false)
+    public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
     {
-        if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product) && !IgnoreCooldowns)
+        if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product))
             return;
 
         UpgradeProductLevel(product, gameContext);
@@ -82,13 +66,13 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             return 0;
 
         // get your competitor's clients
-        var products = Markets.GetProductsOnMarket(gameContext, product)
+        var innovatorCompetitors = Markets.GetProductsOnMarket(gameContext, product)
             .Where(p => p.isRelease)
             .Where(p => p.company.Id != product.company.Id);
 
         long sum = 0;
 
-        foreach (var p in products)
+        foreach (var p in innovatorCompetitors)
         {
             var disloyal = Marketing.GetClients(p) / 15;
 
@@ -114,7 +98,10 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
             // innovation
             var clientChange = GiveInnovationBenefits(product, gameContext, revolution);
-            NotifyAboutInnovation(product, gameContext, clientChange);
+
+            // notify about innovation
+            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1)
+                NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
 
             niche.ReplaceSegment(newLevel);
 
@@ -135,12 +122,6 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
 
 
-
-    public static void NotifyAboutInnovation(GameEntity product, GameContext gameContext, long clients)
-    {
-        if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1)
-            NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clients));
-    }
 
     private static void RemoveTechLeaders(GameEntity product, GameContext gameContext)
     {
