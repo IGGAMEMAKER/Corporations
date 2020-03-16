@@ -34,9 +34,18 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     public long GetMoneyForExpansion(GameEntity product)
     {
-        var curr = Marketing.GetTargetingCost(product, gameContext);
+        // calculate startup goal
 
-        return curr;
+        // if it's vital interest
+        // give them a lot of money
+
+        // otherwise
+        // give them decent amount of money
+
+        var targ  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingInSocialNetworks);
+        var brand = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
+
+        return targ + brand;
     }
 
     void SupportStartup(GameEntity product, long budget)
@@ -49,13 +58,6 @@ public partial class AISupportProductsSystem : OnPeriodChange
         if (managingCompany.company.Id == product.company.Id)
             return;
 
-        // calculate startup goal
-
-        // if it's vital interest
-        // give them a lot of money
-
-        // otherwise
-        // give them decent amount of money
         var sum = GetMoneyForExpansion(product);
 
         if (sum < budget)

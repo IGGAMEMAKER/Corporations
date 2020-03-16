@@ -9,56 +9,76 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
     {
         // ai
         foreach (var e in Companies.GetAIProducts(gameContext))
-            ManageMarketing(e);
+            AutoManageMarketing(e);
 
 
         // player
         var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
-        var playerCompany = Companies.GetPlayerControlledGroupCompany(gameContext);
+        var playerCompany  = Companies.GetPlayerControlledGroupCompany(gameContext);
 
         foreach (var e in playerProducts)
         {
             if (Companies.IsPlayerFlagship(gameContext, e))
-                ManageFlagship(e, playerCompany);
+                StartCampaigns(e);
             else
-                ManageMarketing(e);
+                AutoManageMarketing(e);
         }
     }
 
-    void ManageFlagship(GameEntity product, GameEntity group)
+    void AutoManageMarketing(GameEntity product)
     {
-        var brandingCost = Marketing.GetBrandingCost(product, gameContext);
-        var targetingCost = Marketing.GetTargetingCost(product, gameContext);
+        // set product upgrades here
+        SetUpgrades(product);
 
-        var upgrs = product.productUpgrades.upgrades;
-
-        var brand = Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign);
-        var targeting = Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks);
-
-        if (product.isRelease)
-        {
-            if (Companies.IsEnoughResourcesOverall(group, brandingCost, gameContext) && brand)
-                Marketing.StartBrandingCampaign(product, gameContext);
-
-            if (Companies.IsEnoughResourcesOverall(group, targetingCost, gameContext) && targeting)
-                Marketing.StartTargetingCampaign(product, gameContext);
-        }
+        // start campaigns
+        StartCampaigns(product);
     }
 
     void StartCampaigns(GameEntity product)
     {
-        var brandingCost = Marketing.GetBrandingCost(product, gameContext);
-        var targetingCost = Marketing.GetTargetingCost(product, gameContext);
+        if (product.isRelease)
+        {
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign))
+                Marketing.StartBrandingCampaign(product, gameContext);
 
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
+                Marketing.StartTargetingCampaign(product, gameContext);
+        }
+    }
 
+    void SetUpgrades(GameEntity product)
+    {
+        //
+        var brandingCost  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
+        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingInSocialNetworks);
+
+        var balance = Economy.BalanceOf(product);
 
         if (product.isRelease)
         {
-            if (Companies.IsEnoughResources(product, brandingCost))
-                Marketing.StartBrandingCampaign(product, gameContext);
+            // targeting
+            if (targetingCost < balance)
+            {
+                product.productUpgrades.upgrades[ProductUpgrade.TargetingInSocialNetworks] = true;
+                balance -= targetingCost;
+            }
+            else
+            {
+                product.productUpgrades.upgrades[ProductUpgrade.TargetingInSocialNetworks] = false;
+            }
 
-            if (Companies.IsEnoughResources(product, targetingCost))
-                Marketing.StartTargetingCampaign(product, gameContext);
+            // copy pasted
+            // TODO move to separate function
+            // branding
+            if (brandingCost < balance)
+            {
+                product.productUpgrades.upgrades[ProductUpgrade.BrandCampaign] = true;
+                balance -= brandingCost;
+            }
+            else
+            {
+                product.productUpgrades.upgrades[ProductUpgrade.BrandCampaign] = false;
+            }
         }
         else
         {
@@ -67,13 +87,5 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             else
                 Marketing.StartTestCampaign(product, gameContext);
         }
-    }
-
-    void ManageMarketing(GameEntity product)
-    {
-        // set product upgrades here
-
-        // start campaigns
-        StartCampaigns(product);
     }
 }

@@ -2,9 +2,9 @@
 {
     partial class Cooldowns
     {
-        public static void ProcessTask(TimedActionComponent taskComponent, GameContext gameContext)
+        public static void ProcessTask(TimedActionComponent taskComponent, GameContext gameContext) => ProcessTask(taskComponent.CompanyTask, gameContext);
+        public static void ProcessTask(CompanyTask task, GameContext gameContext)
         {
-            var task = taskComponent.CompanyTask;
             switch (task.CompanyTaskType)
             {
                 case CompanyTaskType.ExploreMarket: ExploreMarket(task, gameContext); break;
@@ -49,6 +49,10 @@
 
             var c = Companies.Get(gameContext, t.CompanyId);
 
+            BrandingCampaign(c, gameContext);
+        }
+        internal static void BrandingCampaign(GameEntity c, GameContext gameContext)
+        {
             Marketing.AddBrandPower(c, Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN);
 
             var clients = Marketing.GetAudienceGrowth(c, gameContext);

@@ -4,9 +4,12 @@
     {
         Add(new HistoricalProductSpawnSystem(contexts));
 
-        // money
+        // income
         Add(new ProductCompaniesEarnMoneySystem(contexts));
+        // dividends
         Add(new ProductCompaniesPayDividendsSystem(contexts));
+
+        // investments
         Add(new AIIndependentCompaniesTakeInvestmentsSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 

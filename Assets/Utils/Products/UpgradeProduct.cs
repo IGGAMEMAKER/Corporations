@@ -31,5 +31,17 @@ namespace Assets.Core
         {
             return HasFreeImprovements(product) && !Cooldowns.HasCooldown(gameContext, task);
         }
+
+        ///
+        public static long GetUpgradeCost(GameEntity product, GameContext gameContext, ProductUpgrade upgrade)
+        {
+            switch (upgrade)
+            {
+                case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
+                case ProductUpgrade.TargetingInSocialNetworks: return Marketing.GetTargetingCost(product, gameContext);
+            }
+
+            return 0;
+        }
     }
 }

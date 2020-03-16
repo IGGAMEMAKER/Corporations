@@ -72,6 +72,7 @@ public class RenderCompanyEconomyTab : View
             var c = Companies.Get(context, h.companyId);
 
             string name = c.company.Name;
+
             long income = Economy.GetCompanyMaintenance(context, c);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
@@ -93,6 +94,7 @@ public class RenderCompanyEconomyTab : View
             var c = Companies.Get(context, h.companyId);
 
             string name = c.company.Name;
+
             long income = Economy.GetCompanyIncome(context, c);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
