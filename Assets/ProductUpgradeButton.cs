@@ -40,15 +40,5 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         var anim = GetComponentInChildren<ToggleAnim>(); //.AnimateToggle();
 
         anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
-
-        if (state)
-        {
-            // automatically click on campaign button
-
-            var interactable = TimedButton.GetComponentInChildren<Button>().interactable;
-
-            //if (interactable)
-            //    TimedButton.Execute();
-        }
     }
 };
