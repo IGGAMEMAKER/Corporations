@@ -13,7 +13,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
         {
             if (Companies.IsPlayerFlagship(gameContext, e))
             {
-                //PayPlayerDividends(e);
+                PayPlayerDividends(e);
             }
             else
                 PayAIDividends(e);
