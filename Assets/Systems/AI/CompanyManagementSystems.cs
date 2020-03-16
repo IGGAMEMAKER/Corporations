@@ -24,7 +24,7 @@
 
 
         // bankruptcies
-        Add(new AICloseUnworthyProductsSystem(contexts));
+        Add(new AIClosePoorProductsIfMarketIsDeadSystem(contexts));
         Add(new CheckBankruptciesSystem(contexts));
     }
 }

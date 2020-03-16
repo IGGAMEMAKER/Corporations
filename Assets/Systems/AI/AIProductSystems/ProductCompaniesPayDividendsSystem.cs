@@ -11,10 +11,10 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
         foreach (var e in dependantProducts)
         {
-            if (Companies.IsRelatedToPlayer(gameContext, e) && Companies.IsPlayerFlagship(gameContext, e))
+            if (Companies.IsPlayerFlagship(gameContext, e))
                 PayPlayerDividends(e);
-            else
-                PayAIDividends(e);
+            //else
+            //    PayAIDividends(e);
         }
     }
 
@@ -27,13 +27,14 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
     void PayAIDividends(GameEntity e)
     {
-        long marketingBudget = 0;
+        // TODO pay dividends only if all upgrades are set to max
 
-        if (e.hasProduct)
-            marketingBudget = Marketing.GetBrandingCost(e, gameContext) + Marketing.GetTargetingCost(e, gameContext);
+        long marketingBudget = Marketing.GetBrandingCost(e, gameContext) + Marketing.GetTargetingCost(e, gameContext);
 
+        var balance = Economy.BalanceOf(e);
+        var maintenance = Economy.GetCompanyMaintenance(gameContext, e);
 
-        var dividends = Economy.BalanceOf(e) - Economy.GetCompanyMaintenance(gameContext, e) - marketingBudget;
+        var dividends = balance - maintenance - marketingBudget;
         
         if (dividends > 0)
             Companies.PayDividends(gameContext, e, dividends);

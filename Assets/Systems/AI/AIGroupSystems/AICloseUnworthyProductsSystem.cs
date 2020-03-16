@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
 
-public partial class AICloseUnworthyProductsSystem : OnPeriodChange
+public partial class AIClosePoorProductsIfMarketIsDeadSystem : OnPeriodChange
 {
-    public AICloseUnworthyProductsSystem(Contexts contexts) : base(contexts) { }
+    public AIClosePoorProductsIfMarketIsDeadSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {

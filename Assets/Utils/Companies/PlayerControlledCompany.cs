@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -37,15 +38,46 @@ namespace Assets.Core
         {
             var playerRelatedProducts = GetPlayerRelatedProducts(gameContext);
 
+            return IsFlagship(playerRelatedProducts, company);
+
             if (playerRelatedProducts.Length == 0)
                 return false;
 
             return playerRelatedProducts[0].company.Id == company.company.Id;
         }
 
-        //public static GameEntity GetFlagshipProduct(GameContext gameContext)
-        //{
+        //
+        public static bool IsFlagship(GameEntity[] products, GameEntity product)
+        {
+            return product.isFlagship;
+            //return product.company.Id == products[0].company.Id;
+        }
 
-        //}
+        public static GameEntity GetFlagship(GameContext gameContext, GameEntity group)
+        {
+            var daughters = GetDaughterProductCompanies(gameContext, group);
+
+            if (daughters.Count() == 0)
+                return null;
+
+
+            var flagship = daughters.First(p => IsFlagship(daughters, p));
+
+            return flagship;
+        }
+
+        public static int GetPlayerFlagshipID(GameContext gameContext)
+        {
+            var playerCompany = Companies.GetPlayerCompany(gameContext);
+
+            if (playerCompany == null)
+                return -1;
+
+            var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
+
+            var playerFlagshipId = playerFlagship?.company.Id ?? -1;
+
+            return playerFlagshipId;
+        }
     }
 }

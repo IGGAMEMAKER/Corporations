@@ -38,14 +38,10 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         if (product.isRelease)
         {
             if (Companies.IsEnoughResourcesOverall(group, brandingCost, gameContext) && brand)
-            {
                 Marketing.StartBrandingCampaign(product, gameContext);
-            }
 
             if (Companies.IsEnoughResourcesOverall(group, targetingCost, gameContext) && targeting)
-            {
                 Marketing.StartTargetingCampaign(product, gameContext);
-            }
         }
     }
 

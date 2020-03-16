@@ -73,33 +73,6 @@ public class CompanyResourceComponent : IComponent
     public TeamResource Resources;
 }
 
-public enum TeamStatus
-{
-    Solo,
-    Pair,
-    SmallTeam,
-    Department,
-    BigTeam
-}
-
-[Game, Event(EventTarget.Self)]
-public class TeamComponent : IComponent
-{
-    public int Morale;
-
-    public int Organisation;
-
-    public Dictionary<int, WorkerRole> Managers;
-    public Dictionary<WorkerRole, int> Workers;
-
-    public TeamStatus TeamStatus;
-}
-
-public class EmployeeComponent : IComponent
-{
-    public Dictionary<int, WorkerRole> Managers;
-}
-
 [Game]
 public class InvestmentProposalsComponent : IComponent
 {
@@ -192,6 +165,9 @@ public class PreviousAcquisitionOffersComponent : IComponent
     public AcquisitionConditions SellerOffer;
 }
 
+
+
+
 public enum CorporatePolicy
 {
     LeaderOrTeam, // team vs leader
@@ -207,4 +183,31 @@ public enum CorporatePolicy
 public class CorporateCultureComponent : IComponent
 {
     public Dictionary<CorporatePolicy, int> Culture;
+}
+
+public enum TeamStatus
+{
+    Solo,
+    Pair,
+    SmallTeam,
+    Department,
+    BigTeam
+}
+
+[Game, Event(EventTarget.Self)]
+public class TeamComponent : IComponent
+{
+    public int Morale;
+
+    public int Organisation;
+
+    public Dictionary<int, WorkerRole> Managers;
+    public Dictionary<WorkerRole, int> Workers;
+
+    public TeamStatus TeamStatus;
+}
+
+public class EmployeeComponent : IComponent
+{
+    public Dictionary<int, WorkerRole> Managers;
 }
