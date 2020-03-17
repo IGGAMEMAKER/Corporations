@@ -10,6 +10,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public TimedButton TimedButton;
 
     public abstract string GetButtonTitle();
+    public abstract long GetCost();
     public override bool IsInteractable() => true;
 
     bool state => Products.IsUpgradeEnabled(flagship, upgrade);
@@ -31,7 +32,14 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     {
         base.ViewRender();
 
-        GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle();
+        var title = GetButtonTitle();
+
+        var cost = GetCost() * Balance.PERIOD / 30;
+
+        if (cost != 0)
+            title += " " + Format.Money(cost);
+
+        GetComponentInChildren<TextMeshProUGUI>().text = title;
         GetComponentInChildren<Toggle>().isOn = state;
 
         //GetComponentInChildren<ToggleAnim>().AnimateToggle();

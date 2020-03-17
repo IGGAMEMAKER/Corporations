@@ -2,13 +2,13 @@
 
 public class BrandingToggleButton : ProductUpgradeButton
 {
-    public override string GetButtonTitle()
+    public override string GetButtonTitle() => $"Branding campaign";
+
+    public override long GetCost()
     {
         var flagship = Companies.GetFlagship(Q, Group);
 
-        var cost = Marketing.GetBrandingCost(flagship, Q);
-
-        return $"Branding campaign ({Format.Money(cost)})";
+        return Products.GetUpgradeCost(flagship, Q, GetProductUpgrade());
     }
 
     public override ProductUpgrade GetProductUpgrade()

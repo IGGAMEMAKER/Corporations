@@ -2,13 +2,13 @@
 
 public class TargetingToggleButton : ProductUpgradeButton
 {
-    public override string GetButtonTitle()
+    public override string GetButtonTitle() => $"Targeting campaign";
+
+    public override long GetCost()
     {
         var flagship = Companies.GetFlagship(Q, Group);
 
-        var cost = Marketing.GetTargetingCost(flagship, Q);
-
-        return $"Targeting campaign ({Format.Money(cost)})";
+        return Products.GetUpgradeCost(flagship, Q, GetProductUpgrade());
     }
 
     public override ProductUpgrade GetProductUpgrade()

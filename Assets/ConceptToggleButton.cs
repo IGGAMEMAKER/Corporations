@@ -12,6 +12,11 @@ public class ConceptToggleButton : ProductUpgradeButton
         return $"Upgrade concept";
     }
 
+    public override long GetCost()
+    {
+        return 0;
+    }
+
     public override ProductUpgrade GetProductUpgrade()
     {
         return ProductUpgrade.SimpleConcept;
