@@ -29,15 +29,16 @@ public class ProductOnMarketView : View
         var newClients = Marketing.GetAudienceGrowth(company, Q);
 
         var level = Products.GetProductLevel(company);
+        var levelStatus = Products.GetConceptStatus(company, Q);
 
-        Clients.text = $"{level}LVL\n\n" + Format.Minify(clients);
+        Clients.text = Format.Minify(clients); //  + 
         NewClients.text = Format.Minify(newClients);
 
         Brand.text = (int)company.branding.BrandPower + "";
 
         // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
-        Name.text = company.company.Name;
+        Name.text = company.company.Name + $" ({level}LVL, {levelStatus})";
 
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
         Name.color = Visuals.GetColorFromString(nameColor);
@@ -52,7 +53,7 @@ public class ProductOnMarketView : View
         // scale this view according to market share
         var scale = clients * 1D / maxClients;
 
-        BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
+        //BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
         //BackgroundRect.rect.height = 300 * clients / maxClients;
     }
 
