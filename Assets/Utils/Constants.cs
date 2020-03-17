@@ -78,6 +78,8 @@
     public const int CULTURE_ITERATION_SPEED_PER_LEVEL = 5;
 
     public const int IDEA_PER_EXPERTISE = 1000;
+
+    public const int AMOUNT_OF_INVESTORS_ON_STARTING_NICHE = 4;
 }
 
 public class Colors

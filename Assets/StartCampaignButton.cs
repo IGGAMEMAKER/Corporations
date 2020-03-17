@@ -61,7 +61,7 @@ public class StartCampaignButton : ButtonController
         }
 
         // spawn investors
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < Balance.AMOUNT_OF_INVESTORS_ON_STARTING_NICHE; i++)
         {
             var fund = Companies.GenerateInvestmentFund(Q, RandomUtils.GenerateInvestmentCompanyName(), 500000);
             Companies.AddFocusNiche(niche.niche.NicheType, fund, Q);
