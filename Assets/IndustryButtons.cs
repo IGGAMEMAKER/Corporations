@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IndustryButtons : MonoBehaviour
+public class IndustryButtons : View
 {
     public GameObject TypeCorporationNameContainer, ChooseInitialNicheContainer;
     public SetInitialIndustry useful;
@@ -23,7 +24,11 @@ public class IndustryButtons : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.F3))
         {
+            ScreenUtils.StartNewCampaign(Q, NicheType.ECom_Exchanging, "QWE");
 
+            //var p = Companies.CreateProduct(Q, MyCompany, NicheType.ECom_Exchanging);
+
+            //ScreenUtils.Navigate(Q, ScreenMode.ProjectScreen, Balance.MENU_SELECTED_COMPANY, p.company.Id);
         }
     }
 }
