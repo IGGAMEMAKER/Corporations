@@ -18,4 +18,12 @@ public class IndustryButtons : MonoBehaviour
         socialMedia.SetIndustry(IndustryType.Communications, TypeCorporationNameContainer, ChooseInitialNicheContainer);
         technology.SetIndustry(IndustryType.Technology, TypeCorporationNameContainer, ChooseInitialNicheContainer);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.F3))
+        {
+
+        }
+    }
 }
