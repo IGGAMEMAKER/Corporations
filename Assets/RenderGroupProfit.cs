@@ -8,7 +8,13 @@ public class RenderGroupProfit : UpgradedParameterView
         var daughters = Companies.GetDaughterCompanies(Q, MyCompany.company.Id)
             .OrderByDescending(c => Economy.GetProfit(Q, c));
 
-        return "Profits\n\n" + string.Join("\n", daughters.Select(GetIncomeInfo));
+        var daughtersIncome = string.Join("\n", daughters.Select(GetIncomeInfo));
+
+        var balance = Economy.BalanceOf(MyCompany);
+
+        var profit = Economy.GetProfit(Q, MyCompany);
+
+        return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
     }
 
     public override string RenderValue()
@@ -16,10 +22,14 @@ public class RenderGroupProfit : UpgradedParameterView
         var profit = Economy.GetProfit(Q, MyCompany);
         var balance = Economy.BalanceOf(MyCompany);
 
-        var minifiedBalance = Format.Minify(balance);
+        var minifiedBalance = Format.MinifyMoney(balance);
+
+        var text = Visuals.Colorize(minifiedBalance, profit > 0);
+
+        return text;
 
         if (Companies.IsHasDaughters(Q, MyCompany))
-            return $"{minifiedBalance}  {Visuals.PositiveOrNegativeMinified(profit)}";
+            return $"{minifiedBalance}\n{Visuals.PositiveOrNegativeMinified(profit)}";
 
         return minifiedBalance;
     }
@@ -30,6 +40,7 @@ public class RenderGroupProfit : UpgradedParameterView
         var formattedMoney = Format.Money(profit);
 
         var describedProfit = Visuals.DescribeValueWithText(profit, "+" + formattedMoney, formattedMoney, "0");
+
         return $"* {c.company.Name}: {describedProfit}";
     }
 }

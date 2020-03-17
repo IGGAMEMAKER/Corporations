@@ -23,7 +23,7 @@ public class BaseClass : MonoBehaviour
 
 
 
-    public GameEntity Me => Q.GetEntities(GameMatcher.Player)[0];
+    public GameEntity Hero => Q.GetEntities(GameMatcher.Player)[0];
 
 
     public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(Q);

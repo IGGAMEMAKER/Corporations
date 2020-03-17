@@ -10,8 +10,7 @@
 
             return new Bonus<long>("Total risk")
                 .SetDimension("%")
-                .Append("Niche demand risk", marketDemand)
-                //.Append("Competition risk", competitors)
+                .Append("Market state", marketDemand)
                 .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 

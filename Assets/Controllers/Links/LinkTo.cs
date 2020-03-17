@@ -10,7 +10,7 @@ public class LinkTo : ButtonController
         switch (TargetMenu)
         {
             case ScreenMode.CharacterScreen:
-                NavigateToHuman(Me.human.Id);
+                NavigateToHuman(Hero.human.Id);
                 break;
 
             case ScreenMode.IndustryScreen:

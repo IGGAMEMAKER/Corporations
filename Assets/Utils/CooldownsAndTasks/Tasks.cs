@@ -26,6 +26,13 @@ namespace Assets.Core
             return task?.timedAction;
         }
 
+        public static bool IsCanTweakCorporateCulture(GameEntity company, GameContext gameContext)
+        {
+            var task = Cooldowns.GetTask(gameContext, new CompanyTaskUpgradeCulture(company.company.Id));
+
+            return task == null;
+        }
+
         public static IEnumerable<GameEntity> GetTasksOfCompany(GameContext gameContext, int companyId)
         {
             return GetTasks(gameContext)

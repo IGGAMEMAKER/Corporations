@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class ConceptToggleButton : ProductUpgradeButton
 {
-    public override string GetButtonTitle()
-    {
-        var flagship = Companies.GetFlagship(Q, Group);
-
-        return $"Upgrade concept";
-    }
+    public override string GetButtonTitle() => $"Upgrade concept";
 
     public override long GetCost()
     {
         return 0;
+    }
+
+    public override string GetHint()
+    {
+        return "";
     }
 
     public override ProductUpgrade GetProductUpgrade()

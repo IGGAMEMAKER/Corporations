@@ -13,6 +13,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract long GetCost();
     public override bool IsInteractable() => true;
 
+    public abstract string GetHint();
+
     bool state => Products.IsUpgradeEnabled(flagship, upgrade);
     GameEntity flagship => Companies.GetFlagship(Q, Group);
 
@@ -48,5 +50,10 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         var anim = GetComponentInChildren<ToggleAnim>(); //.AnimateToggle();
 
         anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
+
+        // hint
+        var hint = GetComponent<Hint>();
+        if (hint != null)
+            hint.SetHint(GetHint());
     }
 };

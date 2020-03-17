@@ -26,7 +26,7 @@ public class RenderPlayerName : View
     {
         get
         {
-            return SelectedHuman.human.Id == Me.human.Id;
+            return SelectedHuman.human.Id == Hero.human.Id;
         }
     }
 }

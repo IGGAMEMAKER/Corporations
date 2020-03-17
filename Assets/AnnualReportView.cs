@@ -31,7 +31,7 @@ public class AnnualReportView : View
 
     void RenderHuman(AnnualReport previousReport, AnnualReport currentReport)
     {
-        var shareholderId = Me.shareholder.Id;
+        var shareholderId = Hero.shareholder.Id;
 
         var previousList = previousReport.People;
         var currentList = currentReport.People;

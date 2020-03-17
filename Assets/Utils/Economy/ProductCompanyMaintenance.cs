@@ -22,7 +22,7 @@ namespace Assets.Core
                 if (u.Value)
                     cost = Products.GetUpgradeCost(e, gameContext, u.Key) * Balance.PERIOD / 30;
 
-                bonus.AppendAndHideIfZero(u.Value.ToString(), cost);
+                bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
             }
 
             return bonus;

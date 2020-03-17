@@ -58,7 +58,7 @@
     public static int RELEASE_BRAND_POWER_GAIN = 30;
     public static int INNOVATION_BRAND_POWER_GAIN = 10;
     public static int REVOLUTION_BRAND_POWER_GAIN = 25;
-    public static int BRAND_CAMPAIGN_BRAND_POWER_GAIN = 15;
+    public static float BRAND_CAMPAIGN_BRAND_POWER_GAIN = 1f;
 
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;

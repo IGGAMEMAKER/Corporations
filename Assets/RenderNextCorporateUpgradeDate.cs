@@ -1,7 +1,10 @@
 ﻿using Assets.Core;
+using UnityEngine;
 
 public class RenderNextCorporateUpgradeDate : ParameterView
 {
+    public GameObject NextTweakLabel;
+
     public override string RenderValue()
     {
         //return "RenderNextCorporateUpgradeValue";
@@ -9,10 +12,15 @@ public class RenderNextCorporateUpgradeDate : ParameterView
         //Cooldowns.Get(Q, new CooldownUpgradeCorporateCulture(MyCompany.company.Id), out var cooldown);
 
         if (task == null)
-            return "You can change corporate culture!";
+        {
+            NextTweakLabel.SetActive(false);
+            return "";
+        }
+
+        NextTweakLabel.SetActive(true);
 
         var days = task.EndTime - CurrentIntDate;
 
-        return $"Next culture change in {days} days";
+        return $"{days} days";
     }
 }
