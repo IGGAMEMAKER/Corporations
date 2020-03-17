@@ -91,6 +91,11 @@ public class Bonus<T>
         return this;
     }
 
+    public Bonus<T> Append(Bonus<T> bonus) {
+        bonusDescriptions.AddRange(bonus.bonusDescriptions);
+
+        return this;
+    }
 
 
     public Bonus<T> MultiplyAndHideIfOne(string bonusName, T value, string dimension = "") => Multiply(new BonusDescription<T> { Name = bonusName, Dimension = dimension, HideIfZero = true, Value = value });
