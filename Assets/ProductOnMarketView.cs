@@ -55,6 +55,10 @@ public class ProductOnMarketView : View
 
         //BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
         //BackgroundRect.rect.height = 300 * clients / maxClients;
+
+        var progress = GetComponent<DrawConceptProgress>();
+        if (progress != null)
+            progress.SetEntity(company);
     }
 
     public void SetEntity(int companyId, long maxClients)
