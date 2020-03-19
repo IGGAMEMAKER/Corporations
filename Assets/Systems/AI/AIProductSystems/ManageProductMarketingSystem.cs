@@ -44,6 +44,11 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
                 Marketing.StartTargetingCampaign(product, gameContext);
         }
+        else
+        {
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
+                Marketing.StartTestCampaign(product, gameContext);
+        }
     }
 
     void SetUpgrades(GameEntity product)
@@ -85,7 +90,10 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             if (Companies.IsReleaseableApp(product, gameContext))
                 Marketing.ReleaseApp(gameContext, product);
             else
-                Marketing.StartTestCampaign(product, gameContext);
+            {
+                product.productUpgrades.upgrades[ProductUpgrade.TestCampaign] = true;
+            }
+                //Marketing.StartTestCampaign(product, gameContext);
         }
     }
 }

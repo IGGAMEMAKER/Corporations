@@ -1,31 +1,18 @@
 ﻿using Assets.Core;
 
-public class TestCampaignButton : TimedButton
+public class TestCampaignButton : ProductUpgradeButton
 {
-    public override void Execute()
-    {
-        var company = Companies.Get(Q, CompanyId);
+    public override string GetButtonTitle() => "Test Campaign";
 
-        Marketing.StartTestCampaign(company, Q);
+    public override long GetCost() => 0;
+
+    public override string GetHint()
+    {
+        return Visuals.Positive($"Gives you +{100} clients") + " each week";
     }
 
-    public override bool IsInteractable()
+    public override ProductUpgrade GetProductUpgrade()
     {
-        return !HasActiveTimer();
-    }
-
-    public override string StandardTitle()
-    {
-        return "Test campaign (+100 clients)";
-    }
-
-    public override CompanyTask GetCompanyTask()
-    {
-        return new CompanyTaskMarketingTestCampaign(CompanyId);
-    }
-
-    public override string ShortTitle()
-    {
-        return "Test campaign";
+        return ProductUpgrade.TestCampaign;
     }
 }

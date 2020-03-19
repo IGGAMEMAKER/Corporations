@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public abstract class ProductUpgradeButton : UpgradedButtonController
 {
     public abstract ProductUpgrade GetProductUpgrade();
-    public TimedButton TimedButton;
 
     public abstract string GetButtonTitle();
     public abstract long GetCost();
@@ -34,23 +33,27 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     {
         base.ViewRender();
 
+        // checkbox text
         var title = GetButtonTitle();
 
         var cost = GetCost() * Balance.PERIOD / 30;
 
         if (cost != 0)
             title += " " + Format.Money(cost);
+        else
+            title += " " + Visuals.Positive("FREE");
 
         GetComponentInChildren<TextMeshProUGUI>().text = title;
+
+        
+        // proper animation
         GetComponentInChildren<Toggle>().isOn = state;
-
-        //GetComponentInChildren<ToggleAnim>().AnimateToggle();
-        Debug.Log("Upgrade : " + upgrade + " = " + state);
-
-        var anim = GetComponentInChildren<ToggleAnim>(); //.AnimateToggle();
+        var anim = GetComponentInChildren<ToggleAnim>();
 
         anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
 
+        
+        
         // hint
         var hint = GetComponent<Hint>();
         if (hint != null)

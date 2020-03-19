@@ -6,7 +6,18 @@ namespace Assets.Core
     {
         public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
-            return GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
+            var projectManager = Teams.GetWorkerByRole(e, WorkerRole.ProjectManager, gameContext);
+
+            var discount = 0;
+            if (projectManager != null)
+            {
+                var rating = Humans.GetRating(gameContext, projectManager);
+                discount = rating / 2;
+            }
+
+            var baseValue = GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
+
+            return baseValue * (100 - discount) / 100;
         }
 
         public static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)

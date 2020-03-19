@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class ProductUpgradeButtons : View
 {
-    public TestCampaignButton TestCampaignButton;
-
-    public StartRegularAdCampaign StartRegularAdCampaign;
-    public StartBrandingCampaign StartBrandingCampaign;
-
     public GameObject RegularCampaignCheckbox;
     public GameObject BrandingCampaignCheckbox;
+    public GameObject TestCampaignCheckbox;
 
     public ReleaseApp ReleaseApp;
 
@@ -37,9 +33,6 @@ public class ProductUpgradeButtons : View
 
         ReleaseApp.SetCompanyId(id);
 
-        TestCampaignButton.SetCompanyId(id);
-        StartRegularAdCampaign.SetCompanyId(id);
-        StartBrandingCampaign.SetCompanyId(id);
         UpgradeChurn.SetCompanyId(id);
         UpgradeMonetisation.SetCompanyId(id);
 
@@ -56,17 +49,9 @@ public class ProductUpgradeButtons : View
         // enable / disable them
         UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
 
-        UpdateIfNecessary(TestCampaignButton, !company.isRelease);
-
-        UpdateIfNecessary(StartRegularAdCampaign, false && company.isRelease);
+        UpdateIfNecessary(TestCampaignCheckbox, !company.isRelease);
         UpdateIfNecessary(RegularCampaignCheckbox, company.isRelease);
-
-        UpdateIfNecessary(StartBrandingCampaign, false && company.isRelease);
         UpdateIfNecessary(BrandingCampaignCheckbox, company.isRelease);
-
-
-        StartRegularAdCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(targetingCost)}");
-        StartBrandingCampaign.GetComponent<Hint>().SetHint($"Cost: {Format.Money(brandingCost)}");
     }
 
     void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);

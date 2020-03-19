@@ -41,6 +41,8 @@ public enum ProductUpgrade
     // 1+ worker
     ExpandTeam,
 
+    AutorecuitWorkers
+
 }
 
 public class ProductUpgradesComponent : IComponent

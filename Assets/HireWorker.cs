@@ -11,20 +11,21 @@ public class HireWorker : ButtonController
         var company = flaghship;
 
 
-        Teams.HireRegularWorker(company, WorkerRole.Programmer);
+        var need = Products.GetNecessaryAmountOfWorkers(company, Q);
+        var have = Teams.GetAmountOfWorkers(company, Q);
+
+        var missingWorkers = need - have;
+
+        if (have < need)
+            Teams.HireRegularWorker(company, WorkerRole.Programmer);
 
         // autohire
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            var need = Products.GetNecessaryAmountOfWorkers(company, Q);
-            var have = Teams.GetAmountOfWorkers(company, Q);
-
-            var missingWorkers = need - have;
-
             for (var i = 0; i < missingWorkers; i++)
-            {
                 Teams.HireRegularWorker(company, WorkerRole.Programmer);
-            }
         }
+
+        flaghship.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
     }
 }

@@ -21,6 +21,7 @@ public class InestmentProposalScreen : View
         bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
 
         StartRoundButton.interactable = !isRoundActive;
+        StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
 
         if (isRoundActive)
         {

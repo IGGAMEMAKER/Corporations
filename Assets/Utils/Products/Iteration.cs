@@ -54,18 +54,18 @@ namespace Assets.Core
             var innovationPenalty   = willInnovate ? innovationSpeed : 0;
 
             // project manager
-            var projectManager      = Teams.GetWorkerByRole(company, WorkerRole.ProjectManager, gameContext);
+            var teamLead      = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
 
-            var projectManagerBonus = 0;
-            if (projectManager != null)
+            var managerBonus = 0;
+            if (teamLead != null)
             {
-                var rating = Humans.GetRating(gameContext, projectManager);
-                var eff = Teams.GetWorkerEffeciency(projectManager, company);
+                var rating = Humans.GetRating(gameContext, teamLead);
+                var eff = Teams.GetWorkerEffeciency(teamLead, company);
 
-                projectManagerBonus = 50 * rating * eff / 100 / 100;
+                managerBonus = 50 * rating * eff / 100 / 100;
             }
 
-            var modifiers           = 100 + innovationPenalty - projectManagerBonus;
+            var modifiers           = 100 + innovationPenalty - managerBonus;
 
 
             return (int) (baseIterationTime * modifiers / teamSizeModifier / 100);

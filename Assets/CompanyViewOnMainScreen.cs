@@ -6,15 +6,6 @@ using UnityEngine.UI;
 
 public class CompanyViewOnMainScreen : View
 {
-    public Text Name;
-    public Hint CompanyHint;
-    public LinkToProjectView LinkToProjectView;
-
-    public Text PositionOnMarket;
-
-    public Image Image;
-    public Image DarkImage;
-
     public Text Profitability;
 
     public HireWorker HireWorker;
@@ -60,25 +51,27 @@ public class CompanyViewOnMainScreen : View
 
         SetEmblemColor();
 
-        CompanyHint.SetHint(GetCompanyHint());
-
         Expertise.text = $"Team Speed: {effeciency}%";
         Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
-
-        Name.text = company.company.Name;
-        Name.color = Visuals.GetColorFromString(nameColor);
 
         Profitability.text = Format.Money(profit);
         Profitability.color = Visuals.GetColorFromString(profitColor);
 
-        PositionOnMarket.text = $"#{positionOnMarket}";
+        var income = Economy.GetCompanyIncome(Q, company);
 
+        var bonus = new Bonus<long>("Balance change")
+            .Append("Income", income);
 
+        var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
+
+        foreach (var p in prodMnt.bonusDescriptions)
+            bonus.AppendAndHideIfZero(p.Name, -p.Value);
+
+        Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
 
         // buttons
 
         // set
-        LinkToProjectView.CompanyId = id;
         HireWorker.companyId = id;
 
 
@@ -91,7 +84,7 @@ public class CompanyViewOnMainScreen : View
         HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
         HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ?
-            "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT CTRL</b> to hire max amount of workers")
+            "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT SHIFT</b> to hire max amount of workers")
             :
             Visuals.Negative("You have reached max limit of workers")
             //+ "\n\nTo increase this limit, hire TOP managers"
@@ -130,13 +123,13 @@ public class CompanyViewOnMainScreen : View
     
     void SetEmblemColor()
     {
-        Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
+        //Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
 
-        var col = DarkImage.color;
-        var a = EnableDarkTheme ? 219f : 126f;
+        //var col = DarkImage.color;
+        //var a = EnableDarkTheme ? 219f : 126f;
 
-        DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
-        //DarkImage.gameObject.SetActive(DisableDarkTheme);
+        //DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
+        ////DarkImage.gameObject.SetActive(DisableDarkTheme);
     }
 
     string GetCompanyHint()
