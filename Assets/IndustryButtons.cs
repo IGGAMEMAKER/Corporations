@@ -22,7 +22,7 @@ public class IndustryButtons : View
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.F3))
         {
             ScreenUtils.StartNewCampaign(Q, NicheType.ECom_Exchanging, "QWE");
 
