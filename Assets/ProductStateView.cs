@@ -23,6 +23,8 @@ public class ProductStateView : View
         if (company == null)
             return;
 
+        return;
+
         var id = company.company.Id;
 
         var clients = Marketing.GetClients(company);
