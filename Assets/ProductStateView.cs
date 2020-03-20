@@ -18,6 +18,20 @@ public class ProductStateView : View
         Render();
     }
 
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        var flagship = Companies.GetFlagship(Q, MyCompany);
+
+        if (flagship == null)
+            return;
+
+        company = flagship;
+
+        Render();
+    }
+
     void Render()
     {
         if (company == null)
@@ -52,19 +66,5 @@ public class ProductStateView : View
     {
         if (go.activeSelf != condition)
             go.SetActive(condition);
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        var flagship = Companies.GetFlagship(Q, MyCompany);
-
-        if (flagship == null)
-            return;
-
-        company = flagship;
-
-        Render();
     }
 }

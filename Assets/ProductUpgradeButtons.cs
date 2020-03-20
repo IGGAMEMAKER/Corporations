@@ -40,8 +40,6 @@ public class ProductUpgradeButtons : View
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
-        var canHireTopManagers = false && workers > 5;
-
         var targetingCost = Marketing.GetTargetingCost(company, Q);
         var brandingCost = Marketing.GetBrandingCost(company, Q);
 

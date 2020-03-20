@@ -8,13 +8,13 @@ using UnityEngine;
 public class RenderCompanyTabButtons : View
 {
     public GameObject DevTab;
-    public GameObject TeamTab;
+    public GameObject ManagersTab;
     public GameObject EconomyTab;
     public GameObject InvestorsTab;
     public GameObject PartnersTab;
     public GameObject CompetitorsTab;
     public GameObject InfoTab;
-    public GameObject UpgradesTab;
+    public GameObject TeamTab;
 
     public TopPanelManager TopPanelManager;
 
@@ -38,13 +38,16 @@ public class RenderCompanyTabButtons : View
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
         DevTab          .SetActive(isFlagshipScreen);
-        UpgradesTab     .SetActive(false && isFlagshipScreen);
+        TeamTab         .SetActive(isFlagshipScreen && playerCanExploreAdvancedTabs);
+
+        ManagersTab     .SetActive(playerCanExploreAdvancedTabs);
+
         PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
         InvestorsTab    .SetActive(isIndependentCompany);
 
         InfoTab         .SetActive(playerCanExploreAdvancedTabs);
         EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
-        CompetitorsTab  .SetActive(playerCanExploreAdvancedTabs);
+        CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
 
 
         

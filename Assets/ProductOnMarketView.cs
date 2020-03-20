@@ -17,6 +17,11 @@ public class ProductOnMarketView : View
     public RectTransform ClientsRect;
     public RectTransform NewClientsRect;
 
+    public Text Innovations;
+    public Text Speed;
+
+    public Text ProductLevel;
+
     public Text Name;
 
     int companyId;
@@ -38,7 +43,16 @@ public class ProductOnMarketView : View
 
         // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
-        Name.text = company.company.Name + $" ({level}LVL, {levelStatus})";
+        Name.text = company.company.Name; // + $" ({levelStatus})";
+
+        if (ProductLevel != null)
+            ProductLevel.text = $"{level}LVL";
+
+        if (Innovations != null)
+            Innovations.text = Products.GetInnovationChance(company, Q) + "%";
+
+        if (Speed != null)
+            Speed.text = Products.GetTeamEffeciency(Q, company) + "%";
 
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
         Name.color = Visuals.GetColorFromString(nameColor);

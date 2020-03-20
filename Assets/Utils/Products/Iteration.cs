@@ -51,9 +51,9 @@ namespace Assets.Core
             var innovationSpeed     = 150 * Random.Range(10, 13) / 10;
             bool willInnovate       = IsWillInnovate(company, gameContext);
 
-            var innovationPenalty   = willInnovate ? innovationSpeed : 0;
+            var innovationPenalty   = willInnovate ? innovationSpeed : 100;
 
-            // project manager
+            // team lead
             var teamLead      = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
 
             var managerBonus = 0;

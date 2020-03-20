@@ -13,13 +13,6 @@ public class CompanyViewOnMainScreen : View
 
     GameEntity company;
 
-    public void SetEntity(GameEntity c, bool darkImage)
-    {
-        company = c;
-
-        Render();
-    }
-
     public override void ViewRender()
     {
         base.ViewRender();
@@ -36,17 +29,18 @@ public class CompanyViewOnMainScreen : View
 
     void Render()
     {
-        if (company == null)
-            return;
-
         var id = company.company.Id;
 
         var bonus = GetProfitDescriptionFull();
         var profit = Economy.GetProfit(Q, id);
 
-        Profitability.text = Format.Money(profit);
-        Profitability.color = Visuals.GetColorPositiveOrNegative(profit);
-        Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
+        if (Profitability != null)
+        {
+            Profitability.text = Format.Money(profit);
+            Profitability.color = Visuals.GetColorPositiveOrNegative(profit);
+            Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
+        }
+
 
 
         // team speed
@@ -72,10 +66,8 @@ public class CompanyViewOnMainScreen : View
 
     Bonus<long> GetProfitDescriptionFull()
     {
-        var income = Economy.GetCompanyIncome(Q, company);
-
         var bonus = new Bonus<long>("Balance change")
-            .Append("Income", income);
+            .Append("Income", Economy.GetCompanyIncome(Q, company));
 
         var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
 
@@ -83,15 +75,6 @@ public class CompanyViewOnMainScreen : View
             bonus.AppendAndHideIfZero(p.Name, -p.Value);
 
         return bonus;
-    }
-
-    string GetProfitDescription()
-    {
-        var profit = Economy.GetProfit(Q, company.company.Id);
-
-        return profit > 0 ?
-            Visuals.Positive($"Profit: +{Format.Money(profit)}") :
-            Visuals.Negative($"Loss: {Format.Money(-profit)}");
     }
 
     string GetCompanyHint()
@@ -135,5 +118,14 @@ public class CompanyViewOnMainScreen : View
         hint.AppendLine(GetProfitDescription());
 
         return hint.ToString();
+    }
+
+    string GetProfitDescription()
+    {
+        var profit = Economy.GetProfit(Q, company.company.Id);
+
+        return profit > 0 ?
+            Visuals.Positive($"Profit: +{Format.Money(profit)}") :
+            Visuals.Negative($"Loss: {Format.Money(-profit)}");
     }
 }
