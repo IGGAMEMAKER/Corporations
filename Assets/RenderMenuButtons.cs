@@ -18,6 +18,8 @@ public class RenderMenuButtons : View
     public GameObject Investments;
     public Image InvestmentsIcon;
 
+    public GameObject Holding;
+
     public GameObject Separator1;
     public GameObject Separator2;
 
@@ -28,6 +30,8 @@ public class RenderMenuButtons : View
         base.ViewRender();
 
         bool hasProduct = Companies.IsHasDaughters(Q, MyCompany);
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+
         bool isFirstYear = CurrentIntDate < 360;
 
         bool showStats = !isFirstYear;
@@ -40,14 +44,14 @@ public class RenderMenuButtons : View
 
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
         CultureIcon.color = Visuals.GetColorFromString(hasCultureCooldown ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Culture.SetActive(hasProduct && !hasCultureCooldown);
+        Culture.SetActive(hasProduct && hasReleasedProducts && !hasCultureCooldown);
 
         bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
         var canRaiseInvestments = !isRoundActive;
         InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
         Investments.SetActive(hasProduct && canRaiseInvestments);
 
-        Separator1.SetActive(showMessages && showStats);
+        //Separator1.SetActive(true);
         Separator2.SetActive(showMessages && showStats);
 
 

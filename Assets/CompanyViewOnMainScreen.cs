@@ -9,93 +9,15 @@ public class CompanyViewOnMainScreen : View
     public Text Profitability;
 
     public HireWorker HireWorker;
-
-
     public Text Expertise;
-
-    bool EnableDarkTheme;
 
     GameEntity company;
 
     public void SetEntity(GameEntity c, bool darkImage)
     {
         company = c;
-        EnableDarkTheme = darkImage;
 
         Render();
-    }
-
-    void Render()
-    {
-        if (company == null)
-            return;
-
-        var id = company.company.Id;
-
-        var clients = Marketing.GetClients(company);
-        var churn = Marketing.GetChurnRate(Q, company);
-        var churnClients = Marketing.GetChurnClients(Q, id);
-
-        var profit = Economy.GetProfit(Q, id);
-
-        bool hasControl = Companies.GetControlInCompany(MyCompany, company, Q) > 0;
-
-        var nameColor = hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL;
-        var profitColor = profit >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE;
-
-        var positionOnMarket = Markets.GetPositionOnMarket(Q, company) + 1;
-
-        var effeciency = Products.GetTeamEffeciency(Q, company);
-
-
-
-        SetEmblemColor();
-
-        Expertise.text = $"Team Speed: {effeciency}%";
-        Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
-
-        Profitability.text = Format.Money(profit);
-        Profitability.color = Visuals.GetColorFromString(profitColor);
-
-        var income = Economy.GetCompanyIncome(Q, company);
-
-        var bonus = new Bonus<long>("Balance change")
-            .Append("Income", income);
-
-        var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
-
-        foreach (var p in prodMnt.bonusDescriptions)
-            bonus.AppendAndHideIfZero(p.Name, -p.Value);
-
-        Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
-
-        // buttons
-
-        // set
-        HireWorker.companyId = id;
-
-
-
-        // render
-        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var workers = Teams.GetAmountOfWorkers(company, Q);
-
-
-        HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
-        HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
-        HireWorker.GetComponentInChildren<Hint>().SetHint(workers < max ?
-            "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT SHIFT</b> to hire max amount of workers")
-            :
-            Visuals.Negative("You have reached max limit of workers")
-            //+ "\n\nTo increase this limit, hire TOP managers"
-            );
-    }
-
-    void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
-    void UpdateIfNecessary(GameObject go, bool condition)
-    {
-        if (go.activeSelf != condition)
-            go.SetActive(condition);
     }
 
     public override void ViewRender()
@@ -112,6 +34,57 @@ public class CompanyViewOnMainScreen : View
         Render();
     }
 
+    void Render()
+    {
+        if (company == null)
+            return;
+
+        var id = company.company.Id;
+
+        var bonus = GetProfitDescriptionFull();
+        var profit = Economy.GetProfit(Q, id);
+
+        Profitability.text = Format.Money(profit);
+        Profitability.color = Visuals.GetColorPositiveOrNegative(profit);
+        Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
+
+
+        // team speed
+        var effeciency = Products.GetTeamEffeciency(Q, company);
+        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
+        var workers = Teams.GetAmountOfWorkers(company, Q);
+
+
+        Expertise.text = $"Team Speed: {effeciency}%";
+        Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
+
+        HireWorker.companyId = id;
+        HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
+        HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
+        HireWorker.GetComponentInChildren<Hint>().SetHint(
+            workers < max
+            ?
+            "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT SHIFT</b> to hire max amount of workers")
+            :
+            Visuals.Negative("You have reached max limit of workers") //+ "\n\nTo increase this limit, hire TOP managers"
+            );
+    }
+
+    Bonus<long> GetProfitDescriptionFull()
+    {
+        var income = Economy.GetCompanyIncome(Q, company);
+
+        var bonus = new Bonus<long>("Balance change")
+            .Append("Income", income);
+
+        var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
+
+        foreach (var p in prodMnt.bonusDescriptions)
+            bonus.AppendAndHideIfZero(p.Name, -p.Value);
+
+        return bonus;
+    }
+
     string GetProfitDescription()
     {
         var profit = Economy.GetProfit(Q, company.company.Id);
@@ -119,17 +92,6 @@ public class CompanyViewOnMainScreen : View
         return profit > 0 ?
             Visuals.Positive($"Profit: +{Format.Money(profit)}") :
             Visuals.Negative($"Loss: {Format.Money(-profit)}");
-    }
-    
-    void SetEmblemColor()
-    {
-        //Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
-
-        //var col = DarkImage.color;
-        //var a = EnableDarkTheme ? 219f : 126f;
-
-        //DarkImage.color = new Color(col.r, col.g, col.b, a / 255f);
-        ////DarkImage.gameObject.SetActive(DisableDarkTheme);
     }
 
     string GetCompanyHint()
