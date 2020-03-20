@@ -42,19 +42,18 @@ namespace Assets.Core
             return have / required;
         }
 
-        public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
+        public static float GetConceptUpgradeEffeciency(GameContext gameContext, GameEntity company)
         {
-            var baseIterationTime   = GetBaseIterationTime(gameContext, company);
-            var teamSizeModifier    = GetTeamSizeMultiplier(gameContext, company);
+            var teamSizeModifier = GetTeamSizeMultiplier(gameContext, company);
 
             // innovation penalty
-            var innovationSpeed     = 150 * Random.Range(10, 13) / 10;
-            bool willInnovate       = IsWillInnovate(company, gameContext);
+            var innovationSpeed = 150; // * Random.Range(10, 13) / 10;
+            bool willInnovate = IsWillInnovate(company, gameContext);
 
-            var innovationPenalty   = willInnovate ? innovationSpeed : 100;
+            var innovationPenalty = willInnovate ? innovationSpeed : 100;
 
             // team lead
-            var teamLead      = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
+            var teamLead = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
 
             var managerBonus = 0;
             if (teamLead != null)
@@ -65,10 +64,18 @@ namespace Assets.Core
                 managerBonus = 50 * rating * eff / 100 / 100;
             }
 
-            var modifiers           = 100 + innovationPenalty - managerBonus;
+            var modifiers = 100 + innovationPenalty - managerBonus;
 
+            return modifiers / teamSizeModifier / 100;
+        }
 
-            return (int) (baseIterationTime * modifiers / teamSizeModifier / 100);
+        public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
+        {
+            var baseIterationTime   = GetBaseIterationTime(gameContext, company);
+
+            var eff = GetConceptUpgradeEffeciency(gameContext, company);
+
+            return (int) (baseIterationTime * eff);
         }
 
         public static int GetTimeToMarketFromScratch(GameEntity niche)

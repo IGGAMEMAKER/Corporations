@@ -52,7 +52,7 @@ public class ProductOnMarketView : View
             Innovations.text = Products.GetInnovationChance(company, Q) + "%";
 
         if (Speed != null)
-            Speed.text = Products.GetTeamEffeciency(Q, company) + "%";
+            Speed.text = Products.GetConceptUpgradeEffeciency(Q, company) + "%";
 
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
         Name.color = Visuals.GetColorFromString(nameColor);
