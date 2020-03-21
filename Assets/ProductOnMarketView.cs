@@ -17,6 +17,8 @@ public class ProductOnMarketView : View
     public RectTransform ClientsRect;
     public RectTransform NewClientsRect;
 
+    public Text Growth;
+
     public Text Innovations;
     public Text Speed;
 
@@ -38,6 +40,10 @@ public class ProductOnMarketView : View
 
         Clients.text = Format.Minify(clients); //  + 
         NewClients.text = Format.Minify(newClients);
+
+        if (Growth != null)
+            Growth.text = Format.Minify(newClients);
+
 
         Brand.text = (int)company.branding.BrandPower + "";
 

@@ -16,7 +16,7 @@ public class HumanCorporateCulturePreference : ParameterView
         var isEmployed = human.worker.companyId >= 0;
 
         //Debug.Log($"Corporate culture preference: #{human.creationIndex} {human.worker.companyId}");
-        var companyCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
+        var playerCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
 
         var text = "";
 
@@ -25,13 +25,27 @@ public class HumanCorporateCulturePreference : ParameterView
             var policy = c.Key;
             var value = c.Value;
 
-            var companyPolicy = companyCulture[policy];
+            var companyPolicy = playerCulture[policy];
 
             text += Wrap(DescribePolicy(value, policy), Mathf.Abs(value - companyPolicy));
         }
 
         if (text.Length == 0)
             text = "Doesn't care, where to work";
+
+        var change = Teams.GetLoyaltyChangeForManager(human, playerCulture);
+        text += "\n\n";
+
+        bool worksInMyCompany = Humans.IsWorksInCompany(human, MyCompany.company.Id) || Humans.IsWorksInCompany(human, Flagship.company.Id);
+
+        if (isEmployed && worksInMyCompany)
+        {
+            text += Visuals.DescribeValueWithText(change,
+                $"Enjoys work in this company!\n\nWeekly loyalty change: +{change}",
+                $"Doesn't like this company!\n\nWeekly loyalty change: {change}",
+                "Is satisfied by this company"
+                );
+        }
 
         return text;
     }
