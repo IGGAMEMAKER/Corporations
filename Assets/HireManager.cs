@@ -7,12 +7,14 @@ public class HireManager : ButtonController
         var human = SelectedHuman;
         bool hasWorkAlready = human.hasWorker && human.worker.companyId != -1;
 
-        if (hasWorkAlready)
-            Teams.HuntManager(human, SelectedCompany, Q);
-        else
-            Teams.HireManager(SelectedCompany, human);
+        var company = Companies.GetFlagship(Q, MyCompany);
 
-        NavigateToProjectScreen(SelectedCompany.company.Id);
-        //Navigate(ScreenMode.TeamScreen, Balance.MENU_SELECTED_COMPANY, SelectedCompany.company.Id);
+        if (hasWorkAlready)
+            Teams.HuntManager(human, company, Q);
+        else
+            Teams.HireManager(company, human);
+
+        NavigateToMainScreen();
+        //NavigateToProjectScreen(company.company.Id);
     }
 }

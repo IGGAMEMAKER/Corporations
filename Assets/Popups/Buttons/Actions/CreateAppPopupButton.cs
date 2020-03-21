@@ -11,11 +11,14 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
         NotificationUtils.ClosePopup(Q);
         NotificationUtils.AddPopup(Q, new PopupMessageCreateApp(id));
 
+        // had no products before
         if (Companies.GetDaughterCompaniesAmount(MyCompany, Q) == 1)
         {
             var company = Companies.Get(Q, id);
             company.isFlagship = true;
-            NavigateToProjectScreen(id);
+
+            //NavigateToNiche(company.product.Niche);
+            Navigate(ScreenMode.HoldingScreen, Balance.MENU_SELECTED_NICHE, company.product.Niche);
         }
     }
 

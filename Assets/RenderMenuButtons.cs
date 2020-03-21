@@ -18,8 +18,6 @@ public class RenderMenuButtons : View
     public GameObject Investments;
     public Image InvestmentsIcon;
 
-    public GameObject Holding;
-
     public GameObject Separator1;
     public GameObject Separator2;
 
@@ -51,7 +49,7 @@ public class RenderMenuButtons : View
         InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
         Investments.SetActive(hasProduct && canRaiseInvestments);
 
-        //Separator1.SetActive(true);
+
         Separator2.SetActive(showMessages && showStats);
 
 

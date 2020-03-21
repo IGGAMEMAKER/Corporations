@@ -131,4 +131,9 @@ public abstract partial class ButtonController
     {
         NavigateToCompany(ScreenMode.ProjectScreen, companyId);
     }
+
+    public void NavigateToMainScreen()
+    {
+        Navigate(ScreenMode.HoldingScreen);
+    }
 }

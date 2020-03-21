@@ -19,39 +19,45 @@ public class ProductsOnMarketList : ListView
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
 
+    //NicheType GetNicheType()
+    //{
+
+    //}
+
     public override void ViewRender()
     {
         base.ViewRender();
 
         bool isMarketScreen = CurrentScreen == ScreenMode.NicheScreen;
-        bool isProductCompanyScreen = CurrentScreen == ScreenMode.ProjectScreen && SelectedCompany.hasProduct;
-
-        var niche = isProductCompanyScreen ? SelectedCompany.product.Niche : SelectedNiche;
+        bool isHoldingScreen = CurrentScreen == ScreenMode.HoldingScreen;
 
 
-        var products = Markets.GetProductsOnMarket(Q, niche)
-            .OrderByDescending(Marketing.GetClients)
-            ;
+        var flagship = Companies.GetFlagship(Q, MyCompany);
 
-        SetItems(products);
 
-        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+        var niche = isHoldingScreen ? flagship.product.Niche : SelectedNiche;
 
-        bool canViewCompetitors = hasReleasedProducts;
-
+        bool canViewCompetitors = Companies.IsHasReleasedProducts(Q, MyCompany);
         if (canViewCompetitors)
-            SetItems(products);
-        else
         {
-            if (isMarketScreen)
-            {
-                SetItems(new GameEntity[0]);
-            }
-            else
-            {
+            var products = Markets.GetProductsOnMarket(Q, niche)
+                .OrderByDescending(Marketing.GetClients);
 
-                SetItems(new GameEntity[1] { SelectedCompany });
-            }
+            SetItems(products);
+            return;
+        }
+
+
+        if (isHoldingScreen)
+        {
+            SetItems(new GameEntity[1] { flagship });
+            return;
+        }
+
+        // we are on initial phase 
+        if (isMarketScreen)
+        {
+            SetItems(new GameEntity[0]);
         }
     }
 }

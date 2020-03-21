@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Core;
+using System.Collections.Generic;
 
 public class EmployeeListView : StaffListView
 {
@@ -6,6 +7,10 @@ public class EmployeeListView : StaffListView
 
     public override Dictionary<int, WorkerRole> Workers()
     {
-        return SelectedCompany.employee.Managers;
+        bool isOnHoldingScreen = CurrentScreen == ScreenMode.HoldingScreen;
+
+        var company = isOnHoldingScreen ? Companies.GetFlagship(Q, MyCompany) : SelectedCompany;
+
+        return company.employee.Managers;
     }
 }

@@ -37,26 +37,34 @@ public class RenderCompanyTabButtons : View
 
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
-        DevTab          .SetActive(isFlagshipScreen);
-        TeamTab         .SetActive(isFlagshipScreen && playerCanExploreAdvancedTabs);
+        if (DevTab != null)
+            DevTab          .SetActive(true);
+        if (TeamTab != null)
+            TeamTab         .SetActive(playerCanExploreAdvancedTabs);
 
-        ManagersTab     .SetActive(playerCanExploreAdvancedTabs);
+        if (ManagersTab != null)
+            ManagersTab     .SetActive(playerCanExploreAdvancedTabs);
 
-        PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
-        InvestorsTab    .SetActive(isIndependentCompany);
+        if (PartnersTab != null)
+            PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
+        if (InvestorsTab != null)
+            InvestorsTab    .SetActive(isIndependentCompany);
 
-        InfoTab         .SetActive(playerCanExploreAdvancedTabs);
-        EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
-        CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
+        if (InfoTab != null)
+            InfoTab         .SetActive(playerCanExploreAdvancedTabs);
+        if (EconomyTab != null)
+            EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
+        if (CompetitorsTab != null)
+            CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
 
 
-        
-        // if was on product tab and then switched to group, open info tab
-        var index = TopPanelManager.currentPanelIndex;
+        // not necessary, cause moved dev panel to separate screen
+        //// if was on product tab and then switched to group, open info tab
+        //var index = TopPanelManager.currentPanelIndex;
 
-        if (index == 5 && !isFlagshipScreen)
-        {
-            TopPanelManager.PanelAnim(0);
-        }
+        //if (index == 5 && !isFlagshipScreen)
+        //{
+        //    TopPanelManager.PanelAnim(0);
+        //}
     }
 }
