@@ -31,8 +31,12 @@ public class HumanPreview : View
         RenderCompanyData(drawAsEmployee);
     }
 
+    GameEntity GetCompany() => CurrentScreen == ScreenMode.HoldingScreen ? Companies.GetFlagship(Q, MyCompany) : SelectedCompany;
+
     private void RenderCompanyData(bool drawAsEmployee)
     {
+        var company = GetCompany();
+
         if (Loyalty != null)
         {
             if (!drawAsEmployee)
@@ -47,10 +51,10 @@ public class HumanPreview : View
 
             if (!drawAsEmployee)
             {
-                bool isProduct = SelectedCompany.hasProduct;
+                bool isProduct = company.hasProduct;
 
-                if (isProduct && human.humanSkills.Expertise.ContainsKey(SelectedCompany.product.Niche))
-                    expertise = human.humanSkills.Expertise[SelectedCompany.product.Niche];
+                if (isProduct && human.humanSkills.Expertise.ContainsKey(company.product.Niche))
+                    expertise = human.humanSkills.Expertise[company.product.Niche];
                 
                 Expertise.SetValue(expertise);
             }
@@ -70,7 +74,7 @@ public class HumanPreview : View
 
             if (drawAsEmployee)
             {
-                var company = SelectedCompany;
+                var company = GetCompany();
 
                 var hasWorkerOfSameType = Teams.HasFreePlaceForWorker(company, role);
                 RoleText.color = Visuals.GetColorPositiveOrNegative(hasWorkerOfSameType);

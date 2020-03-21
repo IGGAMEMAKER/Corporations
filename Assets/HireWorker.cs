@@ -7,8 +7,7 @@ public class HireWorker : ButtonController
 
     public override void Execute()
     {
-        var flaghship = Companies.GetFlagship(Q, MyCompany);
-        var company = flaghship;
+        var company = Companies.GetFlagship(Q, MyCompany);
 
 
         var need = Products.GetNecessaryAmountOfWorkers(company, Q);
@@ -26,6 +25,6 @@ public class HireWorker : ButtonController
                 Teams.HireRegularWorker(company, WorkerRole.Programmer);
         }
 
-        flaghship.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
+        company.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
     }
 }

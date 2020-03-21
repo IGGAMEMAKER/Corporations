@@ -14,7 +14,10 @@ public class FireManager : ButtonController
 
         Teams.FireManager(Q, SelectedHuman);
 
-        NavigateToMainScreen();
+        GoBack();
+        GoBack();
+        //NavigateToMainScreen();
+
         //NavigateToProjectScreen(companyId);
     }
 }

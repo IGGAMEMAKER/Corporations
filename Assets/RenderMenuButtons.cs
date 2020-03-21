@@ -40,10 +40,13 @@ public class RenderMenuButtons : View
 
         Messages.SetActive(showMessages);
 
+        // culture
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
         CultureIcon.color = Visuals.GetColorFromString(hasCultureCooldown ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
         Culture.SetActive(hasProduct && hasReleasedProducts && !hasCultureCooldown);
 
+
+        // investments
         bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
         var canRaiseInvestments = !isRoundActive;
         InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);

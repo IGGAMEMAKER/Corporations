@@ -14,7 +14,11 @@ public class HireManager : ButtonController
         else
             Teams.HireManager(company, human);
 
-        NavigateToMainScreen();
+        GoBack();
+        GoBack();
+
+        //NavigateToMainScreen();
+
         //NavigateToProjectScreen(company.company.Id);
     }
 }

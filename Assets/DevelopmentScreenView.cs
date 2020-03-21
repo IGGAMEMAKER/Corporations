@@ -5,6 +5,8 @@ public class DevelopmentScreenView : View
 {
     public GameObject ManagersLabel;
     public GameObject ManagersList;
+    public GameObject HireManagersLabel;
+    public GameObject HireManagersList;
 
     public GameObject ProductProfitLabel;
     public GameObject ProductProfit;
@@ -13,6 +15,7 @@ public class DevelopmentScreenView : View
     public GameObject LinkToMarketLabel;
 
     public GameObject MarketRequirements;
+    public GameObject MarketRequirementsLabel;
 
     public GameObject Upgrades;
 
@@ -27,6 +30,8 @@ public class DevelopmentScreenView : View
         // after release
         ManagersLabel       .SetActive(hasReleasedProducts);
         ManagersList        .SetActive(hasReleasedProducts);
+        HireManagersLabel       .SetActive(hasReleasedProducts);
+        HireManagersList        .SetActive(hasReleasedProducts);
 
         ProductProfit       .SetActive(hasReleasedProducts);
         ProductProfitLabel  .SetActive(hasReleasedProducts);
@@ -36,6 +41,7 @@ public class DevelopmentScreenView : View
 
         // pre release
         MarketRequirements  .SetActive(beforeRelease);
+        MarketRequirementsLabel.SetActive(beforeRelease);
         Upgrades            .SetActive(beforeRelease);
     }
 }

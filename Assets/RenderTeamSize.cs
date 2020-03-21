@@ -6,20 +6,11 @@ public class RenderTeamSize : UpgradedParameterView
 
     public override string RenderValue()
     {
-        if (!SelectedCompany.hasProduct)
-            return "";
+        var company = Companies.GetFlagship(Q, MyCompany);
 
-        var max = Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
+        var max = Products.GetNecessaryAmountOfWorkers(company, Q);
+        var workers = Teams.GetAmountOfWorkers(company, Q);
 
-        var flagshipId = Companies.GetPlayerFlagshipID(Q);
-
-        bool isFlagship = SelectedCompany.company.Id == flagshipId;
-
-        var workers = Teams.GetAmountOfWorkers(SelectedCompany, Q);
-
-        if (!isFlagship)
-            return workers.ToString();
-            
         return workers + " / " + max;
     }
 }

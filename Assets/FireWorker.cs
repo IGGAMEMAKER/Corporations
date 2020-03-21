@@ -7,27 +7,22 @@ public class FireWorker : ButtonController
 {
     public override void Execute()
     {
-        var flaghship = Companies.GetFlagship(Q, MyCompany);
-        var company = flaghship;
+        var company = Flagship;
 
 
         Teams.FireRegularWorker(company, WorkerRole.Programmer);
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            //var need = Products.GetNecessaryAmountOfWorkers(company, Q);
             var have = Teams.GetAmountOfWorkers(company, Q);
 
-            //var missingWorkers = need - have;
-
-            var tenPercent = have / 10;
-
-            for (var i = 0; i < tenPercent; i++)
+            // fire ten percent of workers
+            for (var i = 0; i < have / 10; i++)
             {
                 Teams.FireRegularWorker(company, WorkerRole.Programmer);
             }
         }
 
-        flaghship.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
+        company.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
     }
 }

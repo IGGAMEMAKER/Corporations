@@ -10,19 +10,10 @@ public class ProductsOnMarketList : ListView
     {
         var c = entity as GameEntity;
 
-        //Debug.Log("Product On Market View: " + c.company.Name + " " + data);
-
-
-        var maxClients = Markets.GetProductsOnMarket(Q, SelectedNiche)
-            .Max(Marketing.GetClients);
+        var maxClients = Markets.GetProductsOnMarket(Q, SelectedNiche).Max(Marketing.GetClients);
 
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
-
-    //NicheType GetNicheType()
-    //{
-
-    //}
 
     public override void ViewRender()
     {

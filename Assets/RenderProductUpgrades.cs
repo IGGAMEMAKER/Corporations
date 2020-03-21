@@ -6,7 +6,7 @@ public class RenderProductUpgrades : ParameterView
 {
     public override string RenderValue()
     {
-        var upgrades = SelectedCompany.productUpgrades.upgrades;
+        var upgrades = Flagship.productUpgrades.upgrades;
 
         var text = "";
 

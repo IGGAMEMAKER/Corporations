@@ -6,11 +6,13 @@ public class RenderConceptLevel : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var level = Products.GetProductLevel(SelectedCompany);
-        var max = Products.GetMarketRequirements(SelectedCompany, Q);
+        var company = SelectedCompany;
 
-        var description = Products.GetConceptStatus(SelectedCompany, Q);
+        //var level = Products.GetProductLevel(company);
+        var max = Products.GetMarketRequirements(company, Q);
 
-        return Visuals.Gradient(0, max, level) + " / " + max + " (" + description + ")";
+        //var description = Products.GetConceptStatus(company, Q);
+
+        return max + "LVL";
     }
 }

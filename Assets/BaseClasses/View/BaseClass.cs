@@ -28,6 +28,7 @@ public class BaseClass : MonoBehaviour
 
     public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(Q);
     public GameEntity MyCompany => MyGroupEntity ?? null;
+    public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany);
     public GameEntity Group => MyCompany;
     public bool HasCompany => MyCompany != null;
 

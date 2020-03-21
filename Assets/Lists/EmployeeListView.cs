@@ -9,7 +9,7 @@ public class EmployeeListView : StaffListView
     {
         bool isOnHoldingScreen = CurrentScreen == ScreenMode.HoldingScreen;
 
-        var company = isOnHoldingScreen ? Companies.GetFlagship(Q, MyCompany) : SelectedCompany;
+        var company = isOnHoldingScreen ? Flagship : SelectedCompany;
 
         return company.employee.Managers;
     }
