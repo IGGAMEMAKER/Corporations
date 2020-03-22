@@ -12,13 +12,13 @@ public class RenderHumanAmbitions : ParameterView
         switch (ambition)
         {
             case Ambition.EarnMoney:
-                return "Just make money";
+                return "Wants to make money";
 
             //case Ambition.RuleProductCompany:
             //    return "Make innovative products";
 
             case Ambition.RuleCorporation:
-                return "Rule the corporation";
+                return "Wants to rule the corporation";
 
             default:
                 return ambition.ToString();

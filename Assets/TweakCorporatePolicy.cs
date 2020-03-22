@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LazyUpdate))]
-public class TweakCorporatePolicy : UpgradedButtonController
+//[RequireComponent(typeof(LazyUpdate))]
+public class TweakCorporatePolicy : ButtonController
 {
     public CorporatePolicy CorporatePolicy;
     public bool Increment = true;
@@ -17,15 +17,9 @@ public class TweakCorporatePolicy : UpgradedButtonController
             Companies.DecrementCorporatePolicy(Q, MyCompany, CorporatePolicy);
     }
 
-    public override bool IsInteractable()
+    public void SetSettings(CorporatePolicy policy, bool increment)
     {
-        bool hasCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
-
-        var culture = Companies.GetOwnCorporateCulture(MyCompany);
-
-        var value = Companies.GetPolicyValue(MyCompany, CorporatePolicy);
-        bool willExceedLimits = (Increment && value == Balance.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == Balance.CORPORATE_CULTURE_LEVEL_MIN);
-
-        return !hasCooldown && !willExceedLimits;
+        CorporatePolicy = policy;
+        Increment = increment;
     }
 }

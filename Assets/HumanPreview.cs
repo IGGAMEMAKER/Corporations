@@ -11,6 +11,8 @@ public class HumanPreview : View
     public ProgressBar Loyalty;
     public ProgressBar Expertise;
 
+    public Text LoyaltyChange;
+
     public GameEntity human;
 
     public void Render(bool drawAsEmployee)
@@ -60,6 +62,26 @@ public class HumanPreview : View
             }
 
             Expertise.gameObject.SetActive(!drawAsEmployee && expertise > 0);
+        }
+
+        if (LoyaltyChange != null)
+        {
+            // should render only in flagship screen?
+            if (!drawAsEmployee)
+            {
+                var change = Teams.GetLoyaltyChangeForManager(human, Q);
+
+                // TODO copypasted from HumanCorporateCulturePreference.cs
+                var text = Visuals.DescribeValueWithText(change,
+                $"Loves company!\n(+{change})",
+                $"Hates company!\n({change})",
+                "Is satisfied"
+                );
+
+                LoyaltyChange.text = text;
+            }
+
+            LoyaltyChange.gameObject.SetActive(!drawAsEmployee);
         }
     }
 

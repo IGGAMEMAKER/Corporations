@@ -40,6 +40,7 @@ public class HumanCorporateCulturePreference : ParameterView
 
         if (isEmployed && worksInMyCompany)
         {
+            // TODO copypasted in HumanPreview.cs
             text += Visuals.DescribeValueWithText(change,
                 $"Enjoys work in this company!\n\nWeekly loyalty change: +{change}",
                 $"Doesn't like this company!\n\nWeekly loyalty change: {change}",

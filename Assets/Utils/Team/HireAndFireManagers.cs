@@ -67,6 +67,14 @@ namespace Assets.Core
 
 
         // loyalty drop
+        public static int GetLoyaltyChangeForManager(GameEntity worker, GameContext gameContext)
+        {
+            var company = Companies.Get(gameContext, worker.worker.companyId);
+
+            var culture = Companies.GetActualCorporateCulture(company, gameContext);
+
+            return GetLoyaltyChangeForManager(worker, culture);
+        }
         public static int GetLoyaltyChangeForManager(GameEntity worker, Dictionary<CorporatePolicy, int> culture)
         {
             var preferences = worker.corporateCulture.Culture;

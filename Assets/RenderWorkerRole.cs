@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class RenderWorkerRole : View
 {
+    public Text Description;
     public override void ViewRender()
     {
         base.ViewRender();
@@ -26,6 +27,8 @@ public class RenderWorkerRole : View
         {
             text += " (Unemployed)";
             Link.enabled = false;
+
+            Description.text = "";
         }
         else
         {
@@ -37,6 +40,27 @@ public class RenderWorkerRole : View
 
             Link.enabled = true;
             Link.CompanyId = companyId;
+
+            var description = "";
+
+            switch (role)
+            {
+                case WorkerRole.CEO: description = "Increases innovation chances"; break;
+                case WorkerRole.MarketingLead: description = "Gives more clients and brand power"; break;
+                case WorkerRole.ProductManager: description = "Increases innovation chances"; break;
+                case WorkerRole.ProjectManager: description = "Reduces necessary amount of workers"; break;
+                case WorkerRole.TeamLead: description = "Increases team speed"; break;
+
+                case WorkerRole.MarketingDirector: description = ""; break;
+                case WorkerRole.TechDirector: description = ""; break;
+
+                case WorkerRole.Universal:
+                default:
+                    description = "";
+                    break;
+            }
+
+            Description.text = description;
         }
 
         GetComponent<Text>().text = text;

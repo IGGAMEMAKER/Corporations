@@ -73,6 +73,13 @@ public class ProductOnMarketView : View
         // scale this view according to market share
         var scale = clients * 1D / maxClients;
 
+        if (!Companies.IsHasReleasedProducts(Q, MyCompany))
+            scale = 1;
+
+        //Debug.Log("Scale of " + company.company.Name + ": " + scale);
+
+        RectTransformExtensions.SetRight(ClientsRect, 750 * (float)(1 - scale));
+
         //BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
         //BackgroundRect.rect.height = 300 * clients / maxClients;
 
