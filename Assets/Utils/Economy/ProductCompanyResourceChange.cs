@@ -6,13 +6,11 @@
         {
             long money = GetProfit(gameContext, company);
 
-            int performance = Teams.GetPerformance(gameContext, company);
-
             return new TeamResource(
-                Normalize(GetPP(company), performance),
-                Normalize(GetMP(company), performance),
-                Normalize(GetSP(company), performance),
-                Normalize(GetIdeas(company, gameContext), performance),
+                0,
+                0,
+                0,
+                0,
                 money
                 );
         }
@@ -52,6 +50,7 @@
 
         public static int GetIdeas(GameEntity productCompany, GameContext gameContext)
         {
+
             var innovation = Products.GetInnovationChance(productCompany, gameContext);
 
             return innovation + 100;

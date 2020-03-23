@@ -47,10 +47,9 @@ namespace Assets.Core
             var teamSizeModifier = GetTeamSizeMultiplier(gameContext, company);
 
             // innovation penalty
-            var innovationSpeed = 150; // * Random.Range(10, 13) / 10;
             bool willInnovate = IsWillInnovate(company, gameContext);
 
-            var innovationPenalty = willInnovate ? innovationSpeed : 100;
+            var innovationPenalty = willInnovate ? 150 : 100;
 
             // team lead
             var teamLead = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);

@@ -32,13 +32,20 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             Marketing.ReleaseApp(gameContext, concept);
     }
 
-
     public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
     {
-        if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product))
-            return;
+        var iteration = Products.GetConceptUpgradeTime(gameContext, product) * 100;
+        var speed = Products.GetTeamEffeciency(gameContext, product);
 
-        UpgradeProductLevel(product, gameContext);
+
+        Companies.AddResources(product, new TeamResource(0, 0, 0, speed * 123, 0));
+        //product.companyResource.Resources.AddIdeas(ideas);
+        //if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product))
+        //    return;
+
+        var ideas = product.companyResource.Resources.ideaPoints;
+        if (ideas >= iteration)
+            UpgradeProductLevel(product, gameContext);
         UpdateMarketRequirements(product, gameContext);
 
         Cooldowns.AddConceptUpgradeCooldown(gameContext, product);

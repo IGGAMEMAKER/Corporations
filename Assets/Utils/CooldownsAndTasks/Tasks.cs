@@ -17,11 +17,17 @@ namespace Assets.Core
             return gameContext.GetEntities(GameMatcher.TimedAction);
         }
 
-        public static TimedActionComponent GetTask(GameContext gameContext, CompanyTask companyTask)
+        public static GameEntity GetTaskContainer(GameContext gameContext, CompanyTask companyTask)
         {
             var tasks = GetTimedActions(gameContext);
 
             var task = Array.Find(tasks, t => t.timedAction.CompanyTask.Equals(companyTask));
+
+            return task;
+        }
+        public static TimedActionComponent GetTask(GameContext gameContext, CompanyTask companyTask)
+        {
+            var task = GetTaskContainer(gameContext, companyTask);
 
             return task?.timedAction;
         }
