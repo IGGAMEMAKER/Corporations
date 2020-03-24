@@ -46,12 +46,14 @@ namespace Assets.Core
         {
             var teamSizeModifier = GetTeamSizeMultiplier(gameContext, company);
 
-            // innovation penalty
-            bool willInnovate = IsWillInnovate(company, gameContext);
-
-            var innovationPenalty = willInnovate ? 150 : 100;
-
             // team lead
+            var managerBonus = GetTeamLeadDevelopmentTimeDiscount(gameContext, company);
+
+            return (100 - managerBonus) / teamSizeModifier / 100 / 100;
+        }
+
+        public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity company)
+        {
             var teamLead = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
 
             var managerBonus = 0;
@@ -63,9 +65,31 @@ namespace Assets.Core
                 managerBonus = 50 * rating * eff / 100 / 100;
             }
 
-            var modifiers = 100 + innovationPenalty - managerBonus;
+            return managerBonus;
+        }
 
-            return modifiers / teamSizeModifier / 100;
+        public static int GetUpgradeCost(GameEntity product, GameContext gameContext)
+        {
+            var baseCost = Products.GetBaseIterationTime(gameContext, product);
+
+            bool willInnovate = Products.IsWillInnovate(product, gameContext);
+
+            var innovationPenalty = willInnovate ? 250 : 100;
+
+            return baseCost * innovationPenalty;
+        }
+
+        public static int GetTotalDevelopmentEffeciency(GameContext gameContext, GameEntity product)
+        {
+            var teamSizeModifier = Products.GetTeamEffeciency(gameContext, product);
+
+            // team lead
+            // 0...50
+            var managerBonus = Products.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
+
+            var speed = teamSizeModifier * (100 + managerBonus) / 100;
+
+            return speed;
         }
 
         public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)

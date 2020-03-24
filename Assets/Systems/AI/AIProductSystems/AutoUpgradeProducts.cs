@@ -12,43 +12,34 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         var products = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in products)
+        {
+            GenerateIdeas(product, gameContext);
             UpdgradeProduct(product, gameContext);
+        }
 
         ReleaseApps(products);
     }
 
-    void ReleaseApps(GameEntity[] products)
+    public static void GenerateIdeas(GameEntity product, GameContext gameContext)
     {
-        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
+        var speed = Products.GetTotalDevelopmentEffeciency(gameContext, product);
 
-        // release all nonflagship apps if can
-        var releasableNonPlayerFlagshipProducts = products
-            .Where(p => Companies.IsReleaseableApp(p, gameContext))
-
-            .Where(p => p.company.Id != playerFlagshipId)
-            ;
-
-        foreach (var concept in releasableNonPlayerFlagshipProducts)
-            Marketing.ReleaseApp(gameContext, concept);
+        Companies.AddResources(product, new TeamResource(0, 0, 0, speed, 0));
     }
 
     public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
     {
-        var iteration = Products.GetConceptUpgradeTime(gameContext, product) * 100;
-        var speed = Products.GetTeamEffeciency(gameContext, product);
+        var upgradeCost = new TeamResource(0, 0, 0, Products.GetUpgradeCost(product, gameContext), 0);
 
+        if (Companies.IsEnoughResources(product, upgradeCost))
+        {
+            Companies.SpendResources(product, upgradeCost);
 
-        Companies.AddResources(product, new TeamResource(0, 0, 0, speed * 123, 0));
-        //product.companyResource.Resources.AddIdeas(ideas);
-        //if (Cooldowns.HasConceptUpgradeCooldown(gameContext, product))
-        //    return;
-
-        var ideas = product.companyResource.Resources.ideaPoints;
-        if (ideas >= iteration)
             UpgradeProductLevel(product, gameContext);
-        UpdateMarketRequirements(product, gameContext);
+            UpdateMarketRequirements(product, gameContext);
+        }
 
-        Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
+        //Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
     }
 
     private static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
@@ -129,6 +120,21 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
 
 
+
+    void ReleaseApps(GameEntity[] products)
+    {
+        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
+
+        // release all nonflagship apps if can
+        var releasableNonPlayerFlagshipProducts = products
+            .Where(p => Companies.IsReleaseableApp(p, gameContext))
+
+            .Where(p => p.company.Id != playerFlagshipId)
+            ;
+
+        foreach (var concept in releasableNonPlayerFlagshipProducts)
+            Marketing.ReleaseApp(gameContext, concept);
+    }
 
     private static void RemoveTechLeaders(GameEntity product, GameContext gameContext)
     {

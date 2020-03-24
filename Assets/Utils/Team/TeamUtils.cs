@@ -56,15 +56,6 @@ namespace Assets.Core
             return teamSizeModifier;
         }
 
-        internal static int GetPerformance(GameContext gameContext, GameEntity company)
-        {
-            var teamSizeModifier = GetTeamSizePerformanceModifier(company);
-
-            int crunchingModifier = company.isCrunching ? 40 : 0;
-
-            return teamSizeModifier + crunchingModifier;
-        }
-
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole, GameContext gameContext)
         {
             var managers = company.team.Managers;

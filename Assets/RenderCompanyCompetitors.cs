@@ -39,11 +39,11 @@ public class RenderCompanyCompetitors : ListView
         if (company.hasProduct)
         {
             var innovativeness = Products.GetInnovationChance(company, Q);
-            var iterationSpeed = Products.GetConceptUpgradeTime(Q, company);
+            var iterationSpeed = Products.GetTotalDevelopmentEffeciency(Q, company);
 
             var level = Products.GetProductLevel(company);
 
-            text += $" ({level}LVL)\n(Speed: {iterationSpeed} days, Innovativeness: {innovativeness}%)";
+            text += $" ({level}LVL)\n(Speed: {iterationSpeed}%, Innovativeness: {innovativeness}%)";
         }
         else
         {

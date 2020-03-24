@@ -6,7 +6,7 @@ public class TeamPerformanceView : View
     {
         base.ViewRender();
 
-        int performance = Teams.GetPerformance(Q, SelectedCompany);
+        int performance = 500;
 
         var crunchDescription = SelectedCompany.isCrunching ? Visuals.Positive("We force our team to crunch, so this gives additional 40%") : "";
 

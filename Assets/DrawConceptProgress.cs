@@ -16,11 +16,16 @@ public class DrawConceptProgress : View
 
     float getProgress(GameEntity company)
     {
-        var c = Cooldowns.GetTask(Q, new CompanyTaskUpgradeConcept(company.company.Id));
+        var ideas = company.companyResource.Resources.ideaPoints;
+        var upgradeCost = Products.GetUpgradeCost(company, Q);
 
-        if (c == null)
-            return 0;
+        return ideas * 100f / upgradeCost;
 
-        return (CurrentIntDate - c.StartTime) * 100f / (c.EndTime - c.StartTime);
+        //var c = Cooldowns.GetTask(Q, new CompanyTaskUpgradeConcept(company.company.Id));
+
+        //if (c == null)
+        //    return 0;
+
+        //return (CurrentIntDate - c.StartTime) * 100f / (c.EndTime - c.StartTime);
     }
 }

@@ -5,15 +5,15 @@ namespace Assets.Core
     partial class Cooldowns
     {
         // concept upgrade cooldown
-        public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
-        {
-            AddCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id), Products.GetConceptUpgradeTime(gameContext, product));
-        }
+        //public static void AddConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
+        //{
+        //    AddCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id), Products.GetConceptUpgradeTime(gameContext, product));
+        //}
 
-        public static bool HasConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
-        {
-            return HasCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id));
-        }
+        //public static bool HasConceptUpgradeCooldown(GameContext gameContext, GameEntity product)
+        //{
+        //    return HasCooldown(gameContext, new CompanyTaskUpgradeConcept(product.company.Id));
+        //}
 
 
         // culture upgrade cooldown
