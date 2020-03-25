@@ -20,12 +20,5 @@ public class DrawConceptProgress : View
         var upgradeCost = Products.GetUpgradeCost(company, Q);
 
         return ideas * 100f / upgradeCost;
-
-        //var c = Cooldowns.GetTask(Q, new CompanyTaskUpgradeConcept(company.company.Id));
-
-        //if (c == null)
-        //    return 0;
-
-        //return (CurrentIntDate - c.StartTime) * 100f / (c.EndTime - c.StartTime);
     }
 }

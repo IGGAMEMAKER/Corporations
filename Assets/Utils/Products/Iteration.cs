@@ -25,6 +25,20 @@ namespace Assets.Core
         }
 
 
+        public static int GetTotalDevelopmentEffeciency(GameContext gameContext, GameEntity product)
+        {
+            var teamSizeModifier = Products.GetTeamEffeciency(gameContext, product);
+
+            // team lead
+            // 0...50
+            var managerBonus = Products.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
+
+            var speed = teamSizeModifier * (100 + managerBonus) / 100;
+
+            return speed;
+        }
+
+
         public static int GetTeamEffeciency(GameContext gameContext, GameEntity product)
         {
             return (int) (100 * GetTeamSizeMultiplier(gameContext, product));
@@ -40,16 +54,6 @@ namespace Assets.Core
                 have = required;
 
             return have / required;
-        }
-
-        public static float GetConceptUpgradeEffeciency(GameContext gameContext, GameEntity company)
-        {
-            var teamSizeModifier = GetTeamSizeMultiplier(gameContext, company);
-
-            // team lead
-            var managerBonus = GetTeamLeadDevelopmentTimeDiscount(gameContext, company);
-
-            return (100 - managerBonus) / teamSizeModifier / 100 / 100;
         }
 
         public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity company)
@@ -77,28 +81,6 @@ namespace Assets.Core
             var innovationPenalty = willInnovate ? 250 : 100;
 
             return baseCost * innovationPenalty;
-        }
-
-        public static int GetTotalDevelopmentEffeciency(GameContext gameContext, GameEntity product)
-        {
-            var teamSizeModifier = Products.GetTeamEffeciency(gameContext, product);
-
-            // team lead
-            // 0...50
-            var managerBonus = Products.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
-
-            var speed = teamSizeModifier * (100 + managerBonus) / 100;
-
-            return speed;
-        }
-
-        public static int GetConceptUpgradeTime(GameContext gameContext, GameEntity company)
-        {
-            var baseIterationTime   = GetBaseIterationTime(gameContext, company);
-
-            var eff = GetConceptUpgradeEffeciency(gameContext, company);
-
-            return (int) (baseIterationTime * eff);
         }
 
         public static int GetTimeToMarketFromScratch(GameEntity niche)
