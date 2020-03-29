@@ -71,11 +71,11 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
     void CheckPressedButtons()
     {
         // on right click
-        //if (Input.GetMouseButtonUp(1))
-        //    ToggleTimer();
+        if (Input.GetMouseButtonUp(1))
+            ToggleTimer();
 
-        //if (Input.GetKeyUp(KeyCode.Space))
-        //    ToggleTimer();
+        if (Input.GetKeyUp(KeyCode.Space))
+            ToggleTimer();
 
         //if (Input.GetKeyUp(KeyCode.KeypadPlus) && currentSpeed < 18)
         //    UpdateSpeed(2);

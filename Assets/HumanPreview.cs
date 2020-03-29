@@ -73,8 +73,8 @@ public class HumanPreview : View
 
                 // TODO copypasted from HumanCorporateCulturePreference.cs
                 var text = Visuals.DescribeValueWithText(change,
-                $"Loves company!\n(+{change})",
-                $"Hates company!\n({change})",
+                $"Loves company! (+{change})",
+                $"Hates company! ({change})",
                 "Is satisfied"
                 );
 

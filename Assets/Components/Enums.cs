@@ -109,7 +109,10 @@ public enum CompanyType
 
     Group,
     Holding,
-    Corporation
+    Corporation,
+
+    MassMedia,
+    ResearchCompany
 }
 
 

@@ -5,7 +5,6 @@ public class RenderOpportunityButtons : View
 {
     public GameObject PerspectiveMarkets;
     public GameObject RaiseInvestmentsButton;
-    public GameObject Acquisitions;
     public GameObject CorporateCulture;
     public GameObject Partnerships;
 
@@ -30,7 +29,6 @@ public class RenderOpportunityButtons : View
         CorporateCulture
             .SetActive(isMyCompanyScreen && hasReleasedProducts);
 
-        Acquisitions.SetActive(isMyCompanyScreen && false);
         RaiseInvestmentsButton.SetActive(isMyCompanyScreen && hasAtLeastOneCompany);
     }
 }

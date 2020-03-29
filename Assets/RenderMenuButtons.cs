@@ -33,7 +33,7 @@ public class RenderMenuButtons : View
         bool isFirstYear = CurrentIntDate < 360;
 
         bool showStats = !isFirstYear;
-        bool showMessages = false;
+        bool showMessages = hasProduct;
 
         Main.SetActive(hasProduct);
         Stats.SetActive(showStats);
