@@ -20,9 +20,6 @@ public class CompanyInIndustryView : View
     {
         var company = Companies.Get(Q, companyId);
 
-        var level = Products.GetProductLevel(company);
-        var levelStatus = Products.GetConceptStatus(company, Q);
-
         Brand.text = (int)company.branding.BrandPower + "";
 
         Valuation.text = Format.Money(Economy.GetCompanyCost(Q, company));
@@ -32,9 +29,9 @@ public class CompanyInIndustryView : View
 
         // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
-        Name.text = company.company.Name; // + $" ({levelStatus})";
-
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
+
+        Name.text = company.company.Name;
         Name.color = Visuals.GetColorFromString(nameColor);
 
         // link to project
