@@ -8,22 +8,37 @@ public class ChooseProperScreenInDevScreen : View
     public GameObject NonReleasedScreen;
     public GameObject ReleasedScreen;
     public GameObject IndustrialScreen;
-    public GameObject MissionScreen;
 
     public override void ViewRender()
     {
         base.ViewRender();
 
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
-        var numberOfDaughters = Companies.GetDaughterCompaniesAmount(MyCompany, Q);
+        var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
+        var numberOfDaughters = daughters.Length;
+
+        var operatingMarkets = GetOperatingMarkets(daughters);
 
         NonReleasedScreen.SetActive(!hasReleasedProducts);
 
         ReleasedScreen.SetActive(numberOfDaughters == 1 && hasReleasedProducts);
         // TODO also check if products are in same industry
-        IndustrialScreen.SetActive(numberOfDaughters > 1 && hasReleasedProducts);
+        IndustrialScreen.SetActive(numberOfDaughters > 1 && hasReleasedProducts && operatingMarkets.Count > 1);
 
         // check company goal here
-        MissionScreen.SetActive(false);
+        // top1 screen or mission screen
+    }
+
+    List<NicheType> GetOperatingMarkets(GameEntity[] products)
+    {
+        var markets = new List<NicheType>();
+
+        foreach (var p in products)
+        {
+            if (!markets.Contains(p.product.Niche))
+                markets.Add(p.product.Niche);
+        }
+
+        return markets;
     }
 }

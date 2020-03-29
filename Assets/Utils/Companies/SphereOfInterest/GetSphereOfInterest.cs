@@ -25,6 +25,11 @@ namespace Assets.Core
             return IsInSphereOfInterest(player, nicheType);
         }
 
+        internal static bool IsInSphereOfInterest(GameEntity company, NicheType[] markets)
+        {
+            return markets.Any(n => IsInSphereOfInterest(company, n));
+        }
+
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
             if (!company.hasCompanyFocus)
