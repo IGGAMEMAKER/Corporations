@@ -1,13 +1,10 @@
 ﻿using Assets.Core;
 using System.Text;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class CompanyViewOnMainScreen : View
 {
-    public Text Profitability;
-
     public HireWorker HireWorker;
     public Text Expertise;
 
@@ -24,25 +21,6 @@ public class CompanyViewOnMainScreen : View
 
         company = flagship;
 
-        Render();
-    }
-
-    void Render()
-    {
-        var id = company.company.Id;
-
-        var bonus = GetProfitDescriptionFull();
-        var profit = Economy.GetProfit(Q, id);
-
-        if (Profitability != null)
-        {
-            Profitability.text = Format.Money(profit);
-            Profitability.color = Visuals.GetColorPositiveOrNegative(profit);
-            Profitability.GetComponent<Hint>().SetHint(bonus.ToString());
-        }
-
-
-
         // team speed
         var effeciency = Products.GetTeamEffeciency(Q, company);
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
@@ -52,7 +30,7 @@ public class CompanyViewOnMainScreen : View
         Expertise.text = $"Team Speed: {effeciency}%";
         Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
 
-        HireWorker.companyId = id;
+        HireWorker.companyId = company.company.Id;
         HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
         HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
         HireWorker.GetComponentInChildren<Hint>().SetHint(
@@ -64,19 +42,7 @@ public class CompanyViewOnMainScreen : View
             );
     }
 
-    Bonus<long> GetProfitDescriptionFull()
-    {
-        var bonus = new Bonus<long>("Balance change")
-            .Append("Income", Economy.GetCompanyIncome(Q, company));
-
-        var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
-
-        foreach (var p in prodMnt.bonusDescriptions)
-            bonus.AppendAndHideIfZero(p.Name, -p.Value);
-
-        return bonus;
-    }
-
+    // useless
     string GetCompanyHint()
     {
         StringBuilder hint = new StringBuilder(company.company.Name);

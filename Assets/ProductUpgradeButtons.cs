@@ -13,7 +13,6 @@ public class ProductUpgradeButtons : View
 
     public UpgradeProductImprovements UpgradeChurn;
     public UpgradeProductImprovements UpgradeMonetisation;
-    public LinkToHiringScreen LinkToHiringScreen;
 
     GameEntity company;
 

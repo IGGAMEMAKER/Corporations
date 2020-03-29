@@ -3,16 +3,12 @@ using UnityEngine;
 
 public class DevelopmentScreenView : View
 {
-    public GameObject ManagersLabel;
-    public GameObject ManagersList;
-    public GameObject HireManagersLabel;
-    public GameObject HireManagersList;
+    public GameObject Managers;
 
     public GameObject ProductProfitLabel;
     public GameObject ProductProfit;
 
-    public GameObject CompetitionLabel;
-    public GameObject LinkToMarketLabel;
+    public GameObject Goal;
 
     public GameObject MarketRequirements;
     public GameObject MarketRequirementsLabel;
@@ -28,16 +24,12 @@ public class DevelopmentScreenView : View
         var beforeRelease = !hasReleasedProducts;
 
         // after release
-        ManagersLabel       .SetActive(hasReleasedProducts);
-        ManagersList        .SetActive(hasReleasedProducts);
-        HireManagersLabel       .SetActive(hasReleasedProducts);
-        HireManagersList        .SetActive(hasReleasedProducts);
+        Managers       .SetActive(hasReleasedProducts);
 
         ProductProfit       .SetActive(hasReleasedProducts);
         ProductProfitLabel  .SetActive(hasReleasedProducts);
 
-        CompetitionLabel    .SetActive(hasReleasedProducts);
-        LinkToMarketLabel   .SetActive(hasReleasedProducts);
+        Goal    .SetActive(hasReleasedProducts);
 
         // pre release
         MarketRequirements  .SetActive(beforeRelease);
