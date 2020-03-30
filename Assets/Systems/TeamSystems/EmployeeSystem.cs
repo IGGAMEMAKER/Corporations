@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class EmployeeSystem : OnMonthChange
+class EmployeeSystem : OnPeriodChange
 {
     public EmployeeSystem(Contexts contexts) : base(contexts) {}
 

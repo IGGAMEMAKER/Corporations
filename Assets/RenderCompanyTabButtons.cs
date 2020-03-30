@@ -15,6 +15,7 @@ public class RenderCompanyTabButtons : View
     public GameObject CompetitorsTab;
     public GameObject InfoTab;
     public GameObject TeamTab;
+    public GameObject GroupTab;
 
     public TopPanelManager TopPanelManager;
 
@@ -37,6 +38,12 @@ public class RenderCompanyTabButtons : View
 
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
+        var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
+        var numberOfDaughters = daughters.Length;
+
+        var operatingMarkets = GetOperatingMarkets(daughters);
+
+
         if (DevTab != null)
             DevTab          .SetActive(true);
         if (TeamTab != null)
@@ -57,6 +64,9 @@ public class RenderCompanyTabButtons : View
         if (CompetitorsTab != null)
             CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
 
+        if (GroupTab != null)
+            GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
+
 
         // not necessary, cause moved dev panel to separate screen
         //// if was on product tab and then switched to group, open info tab
@@ -66,5 +76,20 @@ public class RenderCompanyTabButtons : View
         //{
         //    TopPanelManager.PanelAnim(0);
         //}
+    }
+
+
+
+    List<NicheType> GetOperatingMarkets(GameEntity[] products)
+    {
+        var markets = new List<NicheType>();
+
+        foreach (var p in products)
+        {
+            if (!markets.Contains(p.product.Niche))
+                markets.Add(p.product.Niche);
+        }
+
+        return markets;
     }
 }
