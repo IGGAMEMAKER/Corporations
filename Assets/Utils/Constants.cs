@@ -87,6 +87,7 @@ public class Colors
     const string COLOR_BACKGROUND = "#2B2E34";
     public const string COLOR_GOLD = "#FFAB04";
     public const string COLOR_WHITE = "#FFFFFF";
+    public const string COLOR_VIOLET = "#524FDE";
 
     public const string COLOR_YOU = COLOR_GOLD;
     public const string COLOR_CONTROL = COLOR_GOLD;
@@ -94,6 +95,8 @@ public class Colors
     public const string COLOR_COMPANY_WHERE_I_AM_CEO = COLOR_GOLD;
     public const string COLOR_COMPANY_WHERE_I_AM_NOT_CEO = COLOR_WHITE;
     public const string COLOR_COMPANY_SELECTED = "#131679";
+
+    public const string COLOR_PARTNERSHIP = COLOR_VIOLET;
 
     public const string COLOR_PANEL_BASE = COLOR_WHITE;
     public const string COLOR_PANEL_SELECTED = COLOR_COMPANY_SELECTED;

@@ -17,17 +17,17 @@ class CompanyReportSystem : OnPeriodChange
         var products = Companies.GetProductCompanies(gameContext);
         //var groups
 
-        //foreach (var e in products)
-        //    SaveProductCompanyMetrics(e, date);
+        foreach (var e in products)
+            SaveProductCompanyMetrics(e, date);
 
 
-        //foreach (var e in companies)
-        //{
-        //    if (Companies.IsProductCompany(e))
-        //        SaveProductCompanyMetrics(e, date);
-        //    else
-        //        SaveGroupCompanyMetrics(e, date);
-        //}
+        foreach (var e in companies)
+        {
+            if (Companies.IsProductCompany(e))
+                SaveProductCompanyMetrics(e, date);
+            else
+                SaveGroupCompanyMetrics(e, date);
+        }
     }
 
     private void SaveGroupCompanyMetrics(GameEntity e, int date)

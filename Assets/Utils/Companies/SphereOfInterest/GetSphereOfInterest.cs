@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +24,16 @@ namespace Assets.Core
                 return false;
 
             return IsInSphereOfInterest(player, nicheType);
+        }
+
+
+        public static IEnumerable<GameEntity> GetNonFundCompaniesInterestedInIndustry(GameContext gameContext, IndustryType industry)
+        {
+            var markets = Markets.GetNichesInIndustry(industry, gameContext).Select(m => m.niche.NicheType).ToArray();
+
+            return Companies.GetIndependentCompanies(gameContext)
+            .Where(Companies.IsNotFinancialStructure)
+            .Where(c => Companies.IsInSphereOfInterest(c, markets));
         }
 
         internal static bool IsInSphereOfInterest(GameEntity company, NicheType[] markets)

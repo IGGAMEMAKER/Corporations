@@ -123,6 +123,16 @@ namespace Assets.Core
             return (now - was) * 100 / was;
         }
 
+        public static MetricsInfo GetLastMetrics(GameEntity e, int duration)
+        {
+            var metrics = e.metricsHistory.Metrics;
+
+            if (metrics.Count < duration)
+                return new MetricsInfo { Valuation = 0, AudienceSize = 0, Date = 0, Income = 0, Profit = 0 };
+
+            return metrics[metrics.Count - duration];
+        }
+
         public static long GetValuationGrowth(GameEntity e, int duration)
         {
             var metrics = e.metricsHistory.Metrics;

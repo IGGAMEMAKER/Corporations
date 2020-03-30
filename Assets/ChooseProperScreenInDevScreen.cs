@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChooseProperScreenInDevScreen : View
@@ -8,6 +9,7 @@ public class ChooseProperScreenInDevScreen : View
     public GameObject NonReleasedScreen;
     public GameObject ReleasedScreen;
     public GameObject IndustrialScreen;
+    public GameObject TOP1Screen;
 
     public override void ViewRender()
     {
@@ -23,10 +25,18 @@ public class ChooseProperScreenInDevScreen : View
 
         ReleasedScreen.SetActive(numberOfDaughters == 1 && hasReleasedProducts);
         // TODO also check if products are in same industry
-        IndustrialScreen.SetActive(numberOfDaughters > 1 && hasReleasedProducts && operatingMarkets.Count > 1);
+        var dominantIndustry = MyCompany.companyFocus.Industries[0];
+        var dominantIndustryCompetitors = Companies.GetNonFundCompaniesInterestedInIndustry(Q, dominantIndustry)
+            .OrderByDescending(c => Economy.GetCompanyCost(Q, c));
+
+        bool isDomineeringOnMarket = dominantIndustryCompetitors.First().company.Id == MyCompany.company.Id;
+
+        IndustrialScreen.SetActive(numberOfDaughters > 1 && hasReleasedProducts && operatingMarkets.Count > 1 && !isDomineeringOnMarket);
 
         // check company goal here
         // top1 screen or mission screen
+
+        TOP1Screen.SetActive(isDomineeringOnMarket);
     }
 
     List<NicheType> GetOperatingMarkets(GameEntity[] products)
