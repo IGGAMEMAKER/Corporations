@@ -27,7 +27,7 @@ namespace Assets.Core
 
             var newRoles = new List<WorkerRole>();
 
-            for (var i = 0; i < 1; i++)
+            for (var i = 0; i < 2; i++)
             {
                 var index = Random.Range(0, roles.Count);
                 var role = roles[index];

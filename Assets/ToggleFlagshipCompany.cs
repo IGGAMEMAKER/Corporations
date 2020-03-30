@@ -7,8 +7,9 @@ public class ToggleFlagshipCompany : IterateOverCompaniesButtonController
 {
     public override void Execute()
     {
-        base.Execute();
+        NavigateToCompany(ScreenMode.HoldingScreen, Flagship.company.Id);
 
+        base.Execute();
         var daughters = GetEntities();
 
         foreach (var d in daughters)
@@ -24,6 +25,6 @@ public class ToggleFlagshipCompany : IterateOverCompaniesButtonController
 
     public override ScreenMode GetScreenMode()
     {
-        return ScreenMode.ProjectScreen;
+        return ScreenMode.HoldingScreen;
     }
 }
