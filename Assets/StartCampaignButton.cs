@@ -28,7 +28,8 @@ public class StartCampaignButton : ButtonController
     {
         var niches = Markets.GetPlayableNichesInIndustry(industry, Q).Where(m => Markets.IsAppropriateStartNiche(m, Q)).ToArray();
         var index = Random.Range(0, niches.Count());
-        //
+
+
         Debug.Log("Possible markets: " + string.Join(",", niches.Select(n => n.ToString())));
         Debug.Log("Setting industry: " + industry + " " + index + " " + niches.Count());
         var niche = niches[index].niche.NicheType;
