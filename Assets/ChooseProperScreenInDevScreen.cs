@@ -27,6 +27,9 @@ public class ChooseProperScreenInDevScreen : View
         // check company goal here
         // top1 screen or mission screen
 
-        TOP1Screen.SetActive(isDomineeringOnMarket);
+        bool isSuperRich = Economy.BalanceOf(MyCompany) > 3000000000;
+        TOP1Screen.SetActive(isDomineeringOnMarket && !isSuperRich);
+
+        MissionScreen.SetActive(isSuperRich);
     }
 }
