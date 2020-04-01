@@ -20,6 +20,11 @@ namespace Michsky.UI.Frost
 
         void Start()
         {
+            if (mouseTooltipObject == null)
+            {
+                mouseTooltipObject = FindObjectOfType<MichTooltip>().gameObject;
+            }
+
             mouseAnimator = mouseTooltipObject.GetComponent<Animator>();
 			mouseBlur = mouseTooltipObject.GetComponent<BlurManager>();
         }
