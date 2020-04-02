@@ -8,13 +8,13 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        internal static GameEntity[] GetIndependentCompanies(GameContext gameContext)
+        public static GameEntity[] GetIndependentCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.IndependentCompany, GameMatcher.Alive));
         }
 
-        internal static GameEntity[] GetIndependentAICompanies(GameContext gameContext)
+        public static GameEntity[] GetIndependentAICompanies(GameContext gameContext)
         {
             return GetIndependentCompanies(gameContext)
                 .Where(c => !IsRelatedToPlayer(gameContext, c))
@@ -22,13 +22,13 @@ namespace Assets.Core
         }
 
         // products
-        internal static GameEntity[] GetProductCompanies(GameContext gameContext)
+        public static GameEntity[] GetProductCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.Product, GameMatcher.Alive));
         }
 
-        internal static GameEntity[] GetDependentProducts(GameContext gameContext)
+        public static GameEntity[] GetDependentProducts(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.Product, GameMatcher.Alive)
@@ -36,21 +36,21 @@ namespace Assets.Core
                 );
         }
 
-        internal static GameEntity[] GetAIProducts(GameContext gameContext)
+        public static GameEntity[] GetAIProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),
                 p => !IsRelatedToPlayer(gameContext, p)
                 );
         }
 
-        internal static GameEntity[] GetPlayerRelatedProducts(GameContext gameContext)
+        public static GameEntity[] GetPlayerRelatedProducts(GameContext gameContext)
         {
             return Array.FindAll(GetProductCompanies(gameContext),
                 p => IsRelatedToPlayer(gameContext, p)
                 );
         }
 
-        internal static GameEntity[] GetPlayerRelatedCompanies(GameContext gameContext)
+        public static GameEntity[] GetPlayerRelatedCompanies(GameContext gameContext)
         {
             var companies = gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.Company, GameMatcher.Alive));
@@ -63,20 +63,20 @@ namespace Assets.Core
 
 
         // groups
-        internal static GameEntity[] GetAIManagingCompanies(GameContext gameContext)
+        public static GameEntity[] GetAIManagingCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.ManagingCompany, GameMatcher.Alive)
                 .NoneOf(GameMatcher.ControlledByPlayer));
         }
 
-        internal static GameEntity[] GetGroupCompanies(GameContext gameContext)
+        public static GameEntity[] GetGroupCompanies(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.ManagingCompany, GameMatcher.Alive));
         }
 
-        internal static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
+        public static GameEntity[] GetNonFinancialCompanies(GameContext gameContext)
         {
             var investableCompanies = gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.Company, GameMatcher.InvestmentProposals));
@@ -84,7 +84,7 @@ namespace Assets.Core
             return Array.FindAll(investableCompanies, IsNotFinancialStructure);
         }
 
-        internal static GameEntity[] GetInvestmentFunds(GameContext gameContext)
+        public static GameEntity[] GetInvestmentFunds(GameContext gameContext)
         {
             var investingCompanies = gameContext.GetEntities(GameMatcher
                 .AllOf(GameMatcher.Company, GameMatcher.Shareholder));

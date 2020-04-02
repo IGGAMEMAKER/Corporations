@@ -5,7 +5,7 @@ namespace Assets.Core
     partial class Economy
     {
         // resulting costs
-        internal static Bonus<long> GetProductCompanyMaintenance(GameEntity e, GameContext gameContext, bool isBonus)
+        public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, GameContext gameContext, bool isBonus)
         {
             var bonus = new Bonus<long>("Maintenance");
 
@@ -28,7 +28,7 @@ namespace Assets.Core
             return bonus;
         }
 
-        internal static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        public static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
         {
             var bonus = GetProductCompanyMaintenance(e, gameContext, true);
 

@@ -8,7 +8,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        internal static bool IsInPlayerSphereOfInterest(GameEntity company, GameContext gameContext)
+        public static bool IsInPlayerSphereOfInterest(GameEntity company, GameContext gameContext)
         {
             var player = GetPlayerCompany(gameContext);
             if (player == null)
@@ -17,7 +17,7 @@ namespace Assets.Core
             return IsInSphereOfInterest(player, company);
         }
 
-        internal static bool IsInPlayerSphereOfInterest(NicheType nicheType, GameContext gameContext)
+        public static bool IsInPlayerSphereOfInterest(NicheType nicheType, GameContext gameContext)
         {
             var player = GetPlayerCompany(gameContext);
             if (player == null)
@@ -36,12 +36,12 @@ namespace Assets.Core
             .Where(c => Companies.IsInSphereOfInterest(c, markets));
         }
 
-        internal static bool IsInSphereOfInterest(GameEntity company, NicheType[] markets)
+        public static bool IsInSphereOfInterest(GameEntity company, NicheType[] markets)
         {
             return markets.Any(n => IsInSphereOfInterest(company, n));
         }
 
-        internal static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
+        public static bool IsInSphereOfInterest(GameEntity company, NicheType niche)
         {
             if (!company.hasCompanyFocus)
                 return false;
@@ -49,7 +49,7 @@ namespace Assets.Core
             return company.companyFocus.Niches.Contains(niche);
         }
 
-        internal static bool IsInSphereOfInterest(GameEntity company, GameEntity interestingCompany)
+        public static bool IsInSphereOfInterest(GameEntity company, GameEntity interestingCompany)
         {
             if (!interestingCompany.hasProduct)
                 return false;
@@ -101,12 +101,12 @@ namespace Assets.Core
         }
 
 
-        internal static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        public static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             return GetDaughterCompaniesOnMarket(group, nicheType, gameContext).Count() > 0;
         }
 
-        internal static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
+        public static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)
         {
             return Markets.GetMarketSize(gameContext, n) * GetControlInMarket(company, n, gameContext) / 100;
         }

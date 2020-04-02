@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets.Core
 {
-    partial class Cooldowns
+    public partial class Cooldowns
     {
         public static GameEntity[] GetCooldowns(GameContext gameContext)
         {

@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        internal static int GetPositionOnMarket(GameContext gameContext, GameEntity startup)
+        public static int GetPositionOnMarket(GameContext gameContext, GameEntity startup)
         {
             var competitors = GetProductsOnMarket(gameContext, startup);
 
@@ -14,7 +14,7 @@ namespace Assets.Core
                 c => c.company.Id == startup.company.Id);
         }
 
-        internal static int GetAppQualityOnMarket(GameContext gameContext, GameEntity startup)
+        public static int GetAppQualityOnMarket(GameContext gameContext, GameEntity startup)
         {
             var competitors = GetProductsOnMarket(gameContext, startup);
 

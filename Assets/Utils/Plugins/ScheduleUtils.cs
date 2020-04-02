@@ -36,7 +36,7 @@ namespace Assets.Core
             container.isTimerRunning = false;
         }
 
-        internal static void IncreaseDate(GameContext gameContext, int increment)
+        public static void IncreaseDate(GameContext gameContext, int increment)
         {
             var container = GetDateContainer(gameContext);
 
@@ -65,12 +65,12 @@ namespace Assets.Core
             return date % Balance.PERIOD == 0;
         }
 
-        internal static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        public static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
         {
             GetDateContainer(gameContext).AddAnyDateListener(menuListener);
         }
 
-        internal static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        public static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener menuListener)
         {
             GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
         }

@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class NotificationUtils
     {
-        internal static void AddPopup(GameContext gameContext, PopupMessage popup)
+        public static void AddPopup(GameContext gameContext, PopupMessage popup)
         {
             var container = GetPopupContainer(gameContext);
             var messages = container.popup.PopupMessages;
@@ -17,7 +17,7 @@ namespace Assets.Core
             ScreenUtils.TriggerScreenUpdate(gameContext);
         }
 
-        internal static void ClosePopup(GameContext gameContext)
+        public static void ClosePopup(GameContext gameContext)
         {
             if (!IsHasActivePopups(gameContext))
                 return;

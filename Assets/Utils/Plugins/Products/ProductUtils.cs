@@ -2,7 +2,7 @@
 {
     public static partial class Products
     {
-        internal static int GetProductLevel(GameEntity c)
+        public static int GetProductLevel(GameEntity c)
         {
             return c.product.Concept;
         }

@@ -33,6 +33,50 @@ public class NicheBaseProfileComponent : IComponent
     public MarketProfile Profile;
 }
 
+
+public enum NicheSpeed
+{
+    Quarter = 3,
+    HalfYear = 6,
+    Year = 12,
+    ThreeYears = 36
+}
+
+public enum AudienceSize
+{
+    BigEnterprise = 2000, // 2K
+    SmallEnterprise = 50000, // 50K
+    SmallUtil = SmallEnterprise,
+    Million = 1000000, // 1M
+    Million100 = 100000000, // 100M // usefull util AdBlock
+    Global = 1000000000 // 1-2B
+}
+
+public enum Monetisation
+{
+    Adverts = 1,
+    Service = 10,
+    IrregularPaid = 25,
+    Paid = 50, // (max income when making ads) + small additional payments
+    Enterprise = 1000,
+}
+
+public enum Margin
+{
+    Low = 5,
+    Mid = 10,
+    High = 20
+}
+
+public enum AppComplexity
+{
+    Solo = 1,
+    Easy = 3,
+    Average = 6,
+    Hard = 10,
+    Humongous = 12
+}
+
 [Game]
 public class ProductPositioningComponent : IComponent
 {

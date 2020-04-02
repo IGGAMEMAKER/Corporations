@@ -5,8 +5,8 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        internal static GameEntity CloseCompany(GameContext context, int CompanyId) => CloseCompany(context, Get(context, CompanyId));
-        internal static GameEntity CloseCompany(GameContext context, GameEntity e)
+        public static GameEntity CloseCompany(GameContext context, int CompanyId) => CloseCompany(context, Get(context, CompanyId));
+        public static GameEntity CloseCompany(GameContext context, GameEntity e)
         {
             // pay to everyone
             PayDividends(context, e, e.companyResource.Resources.money);

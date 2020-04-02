@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        internal static void AcceptInvestmentProposal(GameContext gameContext, int companyId, int investorId)
+        public static void AcceptInvestmentProposal(GameContext gameContext, int companyId, int investorId)
         {
             var p = GetInvestmentProposal(gameContext, companyId, investorId);
 

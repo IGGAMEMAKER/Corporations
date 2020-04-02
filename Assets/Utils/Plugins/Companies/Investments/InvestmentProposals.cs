@@ -33,7 +33,7 @@ namespace Assets.Core
 
 
 
-        internal static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
+        public static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
         {
             var c = Get(gameContext, companyId);
 
@@ -56,12 +56,12 @@ namespace Assets.Core
         }
 
         // to remove
-        internal static void RejectProposal(GameContext gameContext, int companyId, int investorId)
+        public static void RejectProposal(GameContext gameContext, int companyId, int investorId)
         {
             RemoveProposal(gameContext, companyId, investorId);
         }
 
-        static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
+        public static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
         {
             var c = Get(gameContext, companyId);
 

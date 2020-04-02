@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        internal static GameEntity[] GetInstitutionalInvestors(GameContext gameContext, GameEntity e)
+        public static GameEntity[] GetInstitutionalInvestors(GameContext gameContext, GameEntity e)
         {
             var investors = gameContext.GetEntities(GameMatcher.Shareholder);
 
