@@ -8,7 +8,6 @@ public class ChooseProperScreenInDevScreen : View
 {
     public GameObject IndustrialScreen;
     public GameObject TOP1Screen;
-    public GameObject MissionScreen;
 
     public override void ViewRender()
     {
@@ -27,9 +26,6 @@ public class ChooseProperScreenInDevScreen : View
         // check company goal here
         // top1 screen or mission screen
 
-        bool isSuperRich = Economy.BalanceOf(MyCompany) > 3000000000;
-        TOP1Screen.SetActive(isDomineeringOnMarket && !isSuperRich);
-
-        MissionScreen.SetActive(isSuperRich);
+        TOP1Screen.SetActive(isDomineeringOnMarket);
     }
 }
