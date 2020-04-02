@@ -1,7 +1,5 @@
-﻿using Assets.Core.Tutorial;
-using System.Collections;
+﻿using Assets.Core;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ListenTutorialChanges : Controller
     , ITutorialListener

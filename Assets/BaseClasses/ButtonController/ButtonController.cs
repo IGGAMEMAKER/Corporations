@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core.Tutorial;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

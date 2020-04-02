@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Assets.Core.Tutorial
+namespace Assets.Core
 {
     public static class TutorialUtils
     {

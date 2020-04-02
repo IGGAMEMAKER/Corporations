@@ -1,4 +1,4 @@
-﻿using Assets.Core.Tutorial;
+﻿using Assets.Core;
 
 public class TutorialUnlocker : ButtonController
 {
