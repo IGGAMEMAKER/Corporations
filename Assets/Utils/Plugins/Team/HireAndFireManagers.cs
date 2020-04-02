@@ -104,7 +104,7 @@ namespace Assets.Core
                     change += 2;
 
                 if (hates)
-                    change -= 2;
+                    change -= 3;
             }
 
             // salaries?
