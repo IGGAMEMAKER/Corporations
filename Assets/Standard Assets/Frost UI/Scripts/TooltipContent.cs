@@ -23,6 +23,10 @@ namespace Michsky.UI.Frost
             if (mouseTooltipObject == null)
             {
                 mouseTooltipObject = FindObjectOfType<MichTooltip>().gameObject;
+
+                var components = mouseTooltipObject.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+                mouseTitle = components[0];
+                mouseDescription = components[1];
             }
 
             mouseAnimator = mouseTooltipObject.GetComponent<Animator>();
