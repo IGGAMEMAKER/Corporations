@@ -4,10 +4,6 @@ using UnityEngine.UI;
 public class InestmentProposalScreen : View
 {
     public Button StartRoundButton;
-    public Text RoundCounter;
-
-    public GameObject IPOLabel;
-    public GameObject IPOButton;
 
     public override void ViewRender()
     {
@@ -23,28 +19,7 @@ public class InestmentProposalScreen : View
         StartRoundButton.interactable = !isRoundActive;
         StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
 
-        if (isRoundActive)
-        {
-            int days = SelectedCompany.acceptsInvestments.DaysLeft;
-            RoundCounter.text = "This round will be active for " + days + " days";
-        }
-        else
-        {
-            RoundCounter.text = "";
-        }
-
-        RenderActionButtons();
-    }
-
-    void RenderMyInvestmentActions(bool show)
-    {
-        StartRoundButton.gameObject.SetActive(show);
-        IPOButton.SetActive(show);
-        IPOLabel.SetActive(show);
-    }
-
-    void RenderActionButtons()
-    {
-        RenderMyInvestmentActions(SelectedCompany.isControlledByPlayer);
+        // render action buttons
+        StartRoundButton.gameObject.SetActive(SelectedCompany.isControlledByPlayer);
     }
 }

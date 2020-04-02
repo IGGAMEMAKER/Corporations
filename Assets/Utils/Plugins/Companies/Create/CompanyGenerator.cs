@@ -90,6 +90,19 @@ namespace Assets.Core
             return e;
         }
 
+        public static Dictionary<CorporatePolicy, int> GetRandomWorkerCorporateCulture()
+        {
+            var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var min = Balance.CORPORATE_CULTURE_LEVEL_MIN;
+            var half = max / 2;
+
+
+            var culture = GetRandomCorporateCulture();
+
+            culture[CorporatePolicy.SalariesLowOrHigh] = Random.Range(half, max);
+
+            return culture;
+        }
         public static Dictionary<CorporatePolicy, int> GetRandomCorporateCulture()
         {
             var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
@@ -97,15 +110,13 @@ namespace Assets.Core
 
             var dict = new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
+                [CorporatePolicy.LeaderOrTeam]           = Random.Range(min, max),
                 [CorporatePolicy.InnovationOrStability]  = Random.Range(min, max),
                 [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
-                [CorporatePolicy.BuyOrCreate]    = Random.Range(min, max),
-                [CorporatePolicy.CompetitionOrSupport]    = Random.Range(min, max),
-                [CorporatePolicy.SalariesLowOrHigh]    = Random.Range(min, max)
+                [CorporatePolicy.BuyOrCreate]            = Random.Range(min, max),
+                [CorporatePolicy.CompetitionOrSupport]   = Random.Range(min, max),
+                [CorporatePolicy.SalariesLowOrHigh]      = Random.Range(min, max)
             };
-
-            //var policy0 = CorporatePolicy.BuyOrCreate;
 
             return dict;
         }
@@ -118,12 +129,12 @@ namespace Assets.Core
 
             return new Dictionary<CorporatePolicy, int>()
             {
-                [CorporatePolicy.LeaderOrTeam]   = Random.Range(min, max),
+                [CorporatePolicy.LeaderOrTeam]           = Random.Range(min, max),
                 [CorporatePolicy.InnovationOrStability]  = Random.Range(min, half),
                 [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
-                [CorporatePolicy.BuyOrCreate]    = Random.Range(min, half),
-                [CorporatePolicy.CompetitionOrSupport] = Random.Range(min, max),
-                [CorporatePolicy.SalariesLowOrHigh] = Random.Range(min, max)
+                [CorporatePolicy.BuyOrCreate]            = Random.Range(min, half),
+                [CorporatePolicy.CompetitionOrSupport]   = Random.Range(min, max),
+                [CorporatePolicy.SalariesLowOrHigh]      = Random.Range(min, max)
             };
         }
     }

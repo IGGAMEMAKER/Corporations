@@ -71,7 +71,8 @@ namespace Assets.Core
         {
             return new List<CorporatePolicy>
             {
-                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.CompetitionOrSupport
+                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam,
+                CorporatePolicy.CompetitionOrSupport, CorporatePolicy.SalariesLowOrHigh
             };
         }
         public static int GetLoyaltyChangeForManager(GameEntity worker, GameContext gameContext)

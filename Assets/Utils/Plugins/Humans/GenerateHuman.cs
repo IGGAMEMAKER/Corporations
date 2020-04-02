@@ -29,7 +29,7 @@ namespace Assets.Core
                 new Dictionary<NicheType, int>()
                 );
 
-            e.AddCorporateCulture(Companies.GetRandomCorporateCulture());
+            e.AddCorporateCulture(Companies.GetRandomWorkerCorporateCulture());
 
             return e;
         }

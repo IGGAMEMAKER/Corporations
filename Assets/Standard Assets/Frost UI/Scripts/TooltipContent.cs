@@ -20,6 +20,7 @@ namespace Michsky.UI.Frost
 
         void Start()
         {
+            // hack to avoid specifying references manually
             if (mouseTooltipObject == null)
             {
                 mouseTooltipObject = FindObjectOfType<MichTooltip>().gameObject;
