@@ -3,6 +3,7 @@ using UnityEditor;
 
 public class InitFrost : MonoBehaviour
 {
+    // TODO uncomment comments!
     //[InitializeOnLoad]
     public class InitOnLoad
     {
