@@ -39,6 +39,7 @@ public abstract class View : BaseClass
         return panelColor;
     }
 
+
     public void ListenMenuChanges(IMenuListener menuListener)
     {
         ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
