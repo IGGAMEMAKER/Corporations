@@ -20,10 +20,11 @@ public class HumanCorporateCulturePreference : ParameterView
 
         var text = "";
 
-        foreach (var c in culture)
+        var importantPolicies = Teams.GetImportantCorporatePolicies();
+        foreach (var c in importantPolicies)
         {
-            var policy = c.Key;
-            var value = c.Value;
+            var policy = c;
+            var value = culture[policy];
 
             var companyPolicy = playerCulture[policy];
 

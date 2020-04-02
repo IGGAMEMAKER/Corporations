@@ -67,6 +67,13 @@ namespace Assets.Core
 
 
         // loyalty drop
+        public static List<CorporatePolicy> GetImportantCorporatePolicies()
+        {
+            return new List<CorporatePolicy>
+            {
+                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.CompetitionOrSupport
+            };
+        }
         public static int GetLoyaltyChangeForManager(GameEntity worker, GameContext gameContext)
         {
             var company = Companies.Get(gameContext, worker.worker.companyId);
@@ -79,12 +86,9 @@ namespace Assets.Core
         {
             var preferences = worker.corporateCulture.Culture;
 
-            var importantPolicies = new List<CorporatePolicy>
-            {
-                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam, CorporatePolicy.BuyOrCreate, CorporatePolicy.FocusingOrSpread, CorporatePolicy.CompetitionOrSupport
-            };
+            var importantPolicies = GetImportantCorporatePolicies();
 
-            int change = -5;
+            int change = -3;
 
             foreach (var p in importantPolicies)
             {

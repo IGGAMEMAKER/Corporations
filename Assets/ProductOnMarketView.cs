@@ -42,14 +42,22 @@ public class ProductOnMarketView : View
         NewClients.text = Format.Minify(newClients);
 
         if (Growth != null)
-            Growth.text = Format.Minify(newClients);
+        {
+            Growth.text = Format.Sign(newClients, true) + " users";
+            Growth.color = Visuals.GetColorFromString(newClients > 0 ? Colors.COLOR_WHITE : Colors.COLOR_NEGATIVE); // Visuals.GetColorPositiveOrNegative(newClients);
+
+            //Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n");
+        }
 
 
         Brand.text = (int)company.branding.BrandPower + "";
 
         // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
-        Name.text = company.company.Name; // + $" ({levelStatus})";
+        var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
+
+        Name.text = company.company.Name + $" - {level}LVL";
+        Name.color = Visuals.GetColorFromString(nameColor);
 
         if (ProductLevel != null)
             ProductLevel.text = $"{level}LVL";
@@ -60,8 +68,6 @@ public class ProductOnMarketView : View
         if (Speed != null)
             Speed.text = Products.GetTotalDevelopmentEffeciency(Q, company) + "%";
 
-        var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
-        Name.color = Visuals.GetColorFromString(nameColor);
 
         // link to project
         LinkToProjectView.CompanyId = company.company.Id;

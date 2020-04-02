@@ -15,23 +15,25 @@ public class ProductsOnMarketList : ListView
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
 
+    bool isMarketScreen => CurrentScreen == ScreenMode.NicheScreen;
+    bool isHoldingScreen => CurrentScreen == ScreenMode.HoldingScreen;
+
+    bool canViewCompetitors => Companies.IsHasReleasedProducts(Q, MyCompany);
+
+    NicheType GetNiche()
+    {
+        var niche = isHoldingScreen ? Flagship.product.Niche : SelectedNiche;
+
+        return niche;
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
 
-        bool isMarketScreen = CurrentScreen == ScreenMode.NicheScreen;
-        bool isHoldingScreen = CurrentScreen == ScreenMode.HoldingScreen;
-
-
-        var flagship = Companies.GetFlagship(Q, MyCompany);
-
-
-        var niche = isHoldingScreen ? flagship.product.Niche : SelectedNiche;
-
-        bool canViewCompetitors = Companies.IsHasReleasedProducts(Q, MyCompany);
         if (canViewCompetitors)
         {
-            var products = Markets.GetProductsOnMarket(Q, niche)
+            var products = Markets.GetProductsOnMarket(Q, GetNiche())
                 .OrderByDescending(Marketing.GetClients);
 
             SetItems(products);
@@ -41,7 +43,7 @@ public class ProductsOnMarketList : ListView
 
         if (isHoldingScreen)
         {
-            SetItems(new GameEntity[1] { flagship });
+            SetItems(new GameEntity[1] { Flagship });
             return;
         }
 

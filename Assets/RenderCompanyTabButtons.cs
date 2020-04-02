@@ -16,6 +16,7 @@ public class RenderCompanyTabButtons : View
     public GameObject InfoTab;
     public GameObject TeamTab;
     public GameObject GroupTab;
+    public GameObject ExpansionTab;
 
     public TopPanelManager TopPanelManager;
 
@@ -67,6 +68,9 @@ public class RenderCompanyTabButtons : View
         if (GroupTab != null)
             GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
 
+        if (ExpansionTab != null)
+            ExpansionTab.SetActive(playerCanExploreAdvancedTabs);
+        
 
         // not necessary, cause moved dev panel to separate screen
         //// if was on product tab and then switched to group, open info tab
