@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
+        Debug.Log("GAME CONTROLLER STARTED");
+
         // get a reference to the contexts
         var contexts = Contexts.sharedInstance;
 
@@ -19,6 +21,15 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+    }
+
+
+    [RuntimeInitializeOnLoadMethod]
+    static void ClearWorld()
+    {
+        Debug.Log("CLEAR GAME ENTITIES");
+
+        Contexts.sharedInstance.game.DestroyAllEntities();
     }
 
     void Update()
