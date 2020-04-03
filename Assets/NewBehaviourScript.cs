@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    [MenuItem("Hugh/Mongous _F8")]
+    [MenuItem("Hugh/Mongous")]
     static void DoSomething()
     {
         Debug.Log("Humongous what?");
