@@ -12,6 +12,7 @@ public class AcquisitionButtonView : View
         GetComponent<Button>().interactable = willSell && enoughMoney;
 
 
+
         string text = "";
 
         if (willSell)
