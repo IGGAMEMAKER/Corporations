@@ -22,7 +22,7 @@ namespace Assets.Core
             return humans.Max(h => h.human.Id) + 1;
         }
 
-        public static string GetFullName(GameEntity human)
+        internal static string GetFullName(GameEntity human)
         {
             return $"{human.human.Name} {human.human.Surname}";
         }
@@ -55,7 +55,7 @@ namespace Assets.Core
         }
 
         // hire / fire
-        public static bool IsWorksInCompany(GameEntity human, int id)
+        internal static bool IsWorksInCompany(GameEntity human, int id)
         {
             if (!human.hasWorker)
                 return false;
@@ -73,8 +73,8 @@ namespace Assets.Core
                 worker.ReplaceHumanCompanyRelationship(0, 100);
         }
 
-        public static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
-        public static void LeaveCompany(GameEntity human)
+        internal static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
+        internal static void LeaveCompany(GameEntity human)
         {
             human.worker.companyId = -1;
         }

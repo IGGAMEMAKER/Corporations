@@ -51,7 +51,7 @@ namespace Assets.Core
             return GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
         }
 
-        public static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
+        internal static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
         {
             var e = GetNiche(gameContext, niche);
 

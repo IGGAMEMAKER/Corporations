@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        public static long GetMarketSize(GameContext gameContext, NicheType nicheType)
+        internal static long GetMarketSize(GameContext gameContext, NicheType nicheType)
         {
             var products = GetProductsOnMarket(gameContext, nicheType);
 
@@ -24,7 +24,7 @@ namespace Assets.Core
             //return products.Select(p => CompanyEconomyUtils.GetProductCompanyBaseCost(gameContext, p.company.Id)).Sum();
         }
 
-        public static long GetAudienceSize(GameContext gameContext, NicheType nicheType)
+        internal static long GetAudienceSize(GameContext gameContext, NicheType nicheType)
         {
             var products = GetProductsOnMarket(gameContext, nicheType);
 

@@ -2,6 +2,13 @@
 using TMPro;
 using UnityEngine.UI;
 
+public enum Risk
+{
+    Guaranteed,
+    Risky,
+    TooRisky
+}
+
 public class NichePreview : View
 {
     NicheType Niche;

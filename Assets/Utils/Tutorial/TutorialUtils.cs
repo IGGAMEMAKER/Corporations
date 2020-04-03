@@ -15,19 +15,19 @@ namespace Assets.Core
 
 
 
-        public static bool IsOpenedFunctionality(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
+        internal static bool IsOpenedFunctionality(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
         {
             return GetProgression(gameContext).tutorial.progress.ContainsKey(tutorialFunctionality);
         }
 
-        public static bool IsOpenedFunctionality(GameContext gameContext, string tutorialFunctionality)
+        internal static bool IsOpenedFunctionality(GameContext gameContext, string tutorialFunctionality)
         {
             return GetEventProgression(gameContext).eventContainer.progress.ContainsKey(tutorialFunctionality);
         }
 
 
 
-        public static void Unlock(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
+        internal static void Unlock(GameContext gameContext, TutorialFunctionality tutorialFunctionality)
         {
             var p = GetProgression(gameContext);
 
@@ -38,7 +38,7 @@ namespace Assets.Core
             p.ReplaceTutorial(tutorial);
         }
 
-        public static void Unlock(GameContext gameContext, string tutorialFunctionality)
+        internal static void Unlock(GameContext gameContext, string tutorialFunctionality)
         {
             var p = GetEventProgression(gameContext);
 
