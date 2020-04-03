@@ -1,28 +1,5 @@
 ﻿using Assets.Core;
 // TODO REMOVE THIS FILE
-public enum WorkerRole {
-    // base
-    Programmer,
-    // base
-    Manager,
-    // base
-    Marketer,
-
-    ProductManager,
-    ProjectManager,
-
-    TeamLead,
-    MarketingLead,
-
-    TechDirector,
-    MarketingDirector,
-
-    // base
-    CEO,
-
-
-    Universal,
-}
 
 namespace Assets.Core
 {
@@ -33,7 +10,7 @@ namespace Assets.Core
             company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.TeamStatus);
         }
 
-        internal static void ToggleCrunching(GameContext context, int companyId)
+        public static void ToggleCrunching(GameContext context, int companyId)
         {
             var c = Companies.Get(context, companyId);
 

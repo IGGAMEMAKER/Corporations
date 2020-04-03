@@ -25,6 +25,39 @@
     ClickOnGroupLink,
 }
 
+public enum ConceptStatus
+{
+    Leader,
+    Relevant,
+    Outdated
+}
+
+
+public enum WorkerRole
+{
+    // base
+    Programmer,
+    // base
+    Manager,
+    // base
+    Marketer,
+
+    ProductManager,
+    ProjectManager,
+
+    TeamLead,
+    MarketingLead,
+
+    TechDirector,
+    MarketingDirector,
+
+    // base
+    CEO,
+
+
+    Universal,
+}
+
 
 public enum Risk
 {

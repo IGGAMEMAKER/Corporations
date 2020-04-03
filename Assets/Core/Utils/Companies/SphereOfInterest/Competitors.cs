@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        internal static IEnumerable<GameEntity> GetCompetitorsOfCompany(GameEntity company, GameContext gameContext, bool includeSelf = false)
+        public static IEnumerable<GameEntity> GetCompetitorsOfCompany(GameEntity company, GameContext gameContext, bool includeSelf = false)
         {
             IEnumerable<GameEntity> companies;
 

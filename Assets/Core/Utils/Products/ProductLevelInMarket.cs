@@ -1,13 +1,4 @@
-﻿using Assets.Core;
-
-public enum ConceptStatus
-{
-    Leader,
-    Relevant,
-    Outdated
-}
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Products
     {
@@ -52,7 +43,7 @@ namespace Assets.Core
         }
 
 
-        internal static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
+        public static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
         {
             var isRelevant = IsInMarket(product, gameContext);
             var isOutdated = IsOutOfMarket(product, gameContext);

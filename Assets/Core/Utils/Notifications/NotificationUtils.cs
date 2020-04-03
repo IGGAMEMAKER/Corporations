@@ -16,14 +16,14 @@ namespace Assets.Core
             return GetNotificationsComponent(gameContext).notifications.Notifications;
         }
 
-        internal static void Subscribe(GameContext gameContext, IAnyNotificationsListener listener)
+        public static void Subscribe(GameContext gameContext, IAnyNotificationsListener listener)
         {
             var c = GetNotificationsComponent(gameContext);
 
             c.AddAnyNotificationsListener(listener);
         }
 
-        internal static void UnSubscribe(GameContext gameContext, IAnyNotificationsListener listener)
+        public static void UnSubscribe(GameContext gameContext, IAnyNotificationsListener listener)
         {
             var c = GetNotificationsComponent(gameContext);
 
@@ -40,7 +40,7 @@ namespace Assets.Core
             n.ReplaceNotifications(notys);
         }
 
-        internal static void ClearNotification(GameContext gameContext, int notificationId)
+        public static void ClearNotification(GameContext gameContext, int notificationId)
         {
             var n = GetNotificationsComponent(gameContext);
 
