@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-public class BaseClass : MonoBehaviour
+public partial class BaseClass : MonoBehaviour
 {
     // data
     public static GameContext Q => Contexts.sharedInstance.game;
@@ -10,35 +10,30 @@ public class BaseClass : MonoBehaviour
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(Q);
 
 
+    public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(Q);
 
-    public GameEntity SelectedCompany   => ScreenUtils.GetSelectedCompany(Q);
-
-    public NicheType  SelectedNiche     => ScreenUtils.GetSelectedNiche(Q);
+    public NicheType SelectedNiche => ScreenUtils.GetSelectedNiche(Q);
     public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(Q);
 
-    public GameEntity SelectedHuman     => ScreenUtils.GetSelectedHuman(Q);
-    public GameEntity SelectedInvestor  => ScreenUtils.GetSelectedInvestor(Q);
+    public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(Q);
+    public GameEntity SelectedInvestor => ScreenUtils.GetSelectedInvestor(Q);
 
-    public ScreenMode CurrentScreen     => ScreenUtils.GetMenu(Q).menu.ScreenMode;
+    public ScreenMode CurrentScreen => ScreenUtils.GetMenu(Q).menu.ScreenMode;
 
 
 
     public GameEntity Hero => Q.GetEntities(GameMatcher.Player)[0];
 
 
-    public GameEntity MyGroupEntity     => Companies.GetPlayerControlledGroupCompany(Q);
+    public GameEntity MyGroupEntity => Companies.GetPlayerControlledGroupCompany(Q);
     public GameEntity MyCompany => MyGroupEntity ?? null;
     public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany) ?? null;
     public GameEntity Group => MyCompany;
     public bool HasCompany => MyCompany != null;
+}
 
-    //public GameEntity Flagship => Companies.
-
-
-
-
-
-
+public partial class BaseClass : MonoBehaviour
+{
     // GameObjects
     public bool Contains<T>()
     {
