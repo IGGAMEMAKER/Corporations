@@ -10,7 +10,7 @@
             return company.isManagingCompany && company.isIndependentCompany && isProperCompanyType;
         }
 
-        internal static void PromoteToCorporation(GameEntity company, GameContext gameContext)
+        public static void PromoteToCorporation(GameEntity company, GameContext gameContext)
         {
             if (!IsPromotableToCorporation(company)) return;
 

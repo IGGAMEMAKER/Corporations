@@ -32,6 +32,7 @@ public partial class BaseClass : MonoBehaviour
     public bool HasCompany => MyCompany != null;
 }
 
+
 public partial class BaseClass : MonoBehaviour
 {
     // GameObjects
@@ -62,7 +63,7 @@ public partial class BaseClass : MonoBehaviour
 
 
 
-    internal void ToggleIsChosenComponent(bool isChosen)
+    public void ToggleIsChosenComponent(bool isChosen)
     {
         if (Contains<IsChosenComponent>())
             gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);

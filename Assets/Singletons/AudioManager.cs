@@ -75,7 +75,7 @@ namespace Assets
                 Debug.LogErrorFormat("Sound {0} doesn't exist in AudioManager", sound);
         }
 
-        internal void PlayToggleButtonSound()
+        public void PlayToggleButtonSound()
         {
             PlayClip(toggleButtonSound);
         }
@@ -85,37 +85,37 @@ namespace Assets
             Play(Sound.Hover);
         }
 
-        internal void PlayCoinSound()
+        public void PlayCoinSound()
         {
             PlayClip(monthlyMoneySound);
         }
 
-        internal void PlayClickSound()
+        public void PlayClickSound()
         {
             PlayClip(standardClickSound);
         }
 
-        internal void PlayPrepareAdSound()
+        public void PlayPrepareAdSound()
         {
             PlayClip(standardClickSound);
         }
 
-        internal void PlayStartAdSound()
+        public void PlayStartAdSound()
         {
             PlayClip(standardClickSound);
         }
 
-        internal void PlayNotificationSound()
+        public void PlayNotificationSound()
         {
             PlayClip(notificationSound);
         }
 
-        internal void PlayToggleScreenSound()
+        public void PlayToggleScreenSound()
         {
             PlayClip(toggleScreenSound);
         }
 
-        internal void PlayWaterSplashSound()
+        public void PlayWaterSplashSound()
         {
             PlayClip(standardClickSound);
         }

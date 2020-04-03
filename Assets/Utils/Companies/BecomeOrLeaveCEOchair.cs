@@ -7,7 +7,7 @@
             Get(context, id).isControlledByPlayer = false;
         }
 
-        internal static void BecomeCEO(GameContext gameContext, int companyID)
+        public static void BecomeCEO(GameContext gameContext, int companyID)
         {
             SetPlayerControlledCompany(gameContext, companyID);
         }
@@ -29,7 +29,7 @@
         }
 
         // it is done for player only!
-        internal static void LeaveCEOChair(GameContext gameContext, int companyId)
+        public static void LeaveCEOChair(GameContext gameContext, int companyId)
         {
             RemovePlayerControlledCompany(gameContext, companyId);
 

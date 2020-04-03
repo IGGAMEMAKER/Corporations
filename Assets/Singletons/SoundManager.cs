@@ -11,7 +11,7 @@ namespace Assets
             AudioManager.Play(sound);
         }
 
-        internal static void PlayOnHintHoverSound()
+        public static void PlayOnHintHoverSound()
         {
             Play(Sound.Hover);
         }

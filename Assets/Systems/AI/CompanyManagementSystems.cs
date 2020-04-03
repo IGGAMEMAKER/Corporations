@@ -4,6 +4,7 @@
     {
         Add(new HistoricalProductSpawnSystem(contexts));
 
+        
         // income
         Add(new ProductCompaniesEarnMoneySystem(contexts));
         // dividends

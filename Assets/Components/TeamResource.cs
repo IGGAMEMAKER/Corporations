@@ -48,7 +48,7 @@ namespace Assets.Core
             }
         }
         
-        internal void Add(TeamResource resources)
+        public void Add(TeamResource resources)
         {
             AddTeamPoints(resources);
             AddMoney(resources.money);
