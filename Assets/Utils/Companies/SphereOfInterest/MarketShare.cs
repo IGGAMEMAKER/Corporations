@@ -2,7 +2,7 @@
 {
     public static partial class Companies
     {
-        internal static long GetMarketShareOfCompanyMultipliedByHundred(GameEntity product, GameContext gameContext)
+        public static long GetMarketShareOfCompanyMultipliedByHundred(GameEntity product, GameContext gameContext)
         {
             long clients = 0;
 
@@ -17,7 +17,7 @@
             return share;
         }
 
-        internal static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        public static long GetControlInMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
             long share = 0;
             long clients = 0;
