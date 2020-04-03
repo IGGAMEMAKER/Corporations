@@ -10,6 +10,7 @@ namespace Assets.Core
         {
             IEnumerable<GameEntity> companies;
 
+
             if (company.hasProduct)
                 companies = Markets.GetProductsOnMarket(gameContext, company);
             else if (IsFinancialStructure(company))
