@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     static partial class Economy
     {
-        public static long GetProductCompanyIncome(GameEntity e, GameContext context)
+        internal static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
             var segmentId = e.productPositioning.Positioning;
             float income = GetIncomeBySegment(context, e, segmentId);
@@ -81,7 +81,7 @@ namespace Assets.Core
             return baseValue + improvements * multiplier / 100;
         }
 
-        public static float GetIncomeBySegment(GameContext gameContext, GameEntity c, int segmentId)
+        internal static float GetIncomeBySegment(GameContext gameContext, GameEntity c, int segmentId)
         {
             if (c.isDumping)
                 return 0;
@@ -102,7 +102,7 @@ namespace Assets.Core
             return price * monetisationModifier;
         }
 
-        public static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c, int segmentId)
+        internal static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c, int segmentId)
         {
             return Markets.GetSegmentProductPrice(gameContext, c.product.Niche, segmentId);
         }

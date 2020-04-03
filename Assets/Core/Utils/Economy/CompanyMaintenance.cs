@@ -5,8 +5,8 @@ namespace Assets.Core
 {
     public static partial class Economy
     {
-        public static long GetCompanyMaintenance(GameContext gameContext, int companyId) => GetCompanyMaintenance(gameContext, Companies.Get(gameContext, companyId));
-        public static long GetCompanyMaintenance(GameContext gameContext, GameEntity c)
+        internal static long GetCompanyMaintenance(GameContext gameContext, int companyId) => GetCompanyMaintenance(gameContext, Companies.Get(gameContext, companyId));
+        internal static long GetCompanyMaintenance(GameContext gameContext, GameEntity c)
         {
             if (Companies.IsProductCompany(c))
                 return GetProductCompanyMaintenance(c, gameContext);

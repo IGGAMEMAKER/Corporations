@@ -7,7 +7,7 @@
             return niche.nicheState.Phase;
         }
 
-        public static bool IsExploredMarket(GameContext gameContext, NicheType nicheType)
+        internal static bool IsExploredMarket(GameContext gameContext, NicheType nicheType)
         {
             var niche = GetNiche(gameContext, nicheType);
 

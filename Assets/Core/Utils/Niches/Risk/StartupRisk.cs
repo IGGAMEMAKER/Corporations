@@ -2,7 +2,7 @@
 {
     public static partial class Markets
     {
-        public static Bonus<long> GetCompanyRiskBonus(GameContext gameContext, int companyId)
+        static Bonus<long> GetCompanyRiskBonus(GameContext gameContext, int companyId)
         {
             int marketDemand = GetMarketDemandRisk(gameContext, companyId);
             int monetisation = GetMonetisationRisk(gameContext, companyId);
@@ -14,14 +14,14 @@
                 .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 
-        public static int GetCompetitionRisk(GameContext gameContext, int companyId)
+        internal static int GetCompetitionRisk(GameContext gameContext, int companyId)
         {
             var company = Companies.Get(gameContext, companyId);
 
             return GetCompetitorsAmount(company, gameContext) * 5;
         }
 
-        public static long GetCompanyRisk(GameContext gameContext, int companyId)
+        internal static long GetCompanyRisk(GameContext gameContext, int companyId)
         {
             return (long)GetCompanyRiskBonus(gameContext, companyId).Sum();
         }

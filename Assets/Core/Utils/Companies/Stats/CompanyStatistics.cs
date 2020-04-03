@@ -203,19 +203,19 @@ namespace Assets.Core
         }
 
 
-        public static int GetYear(int currentDate)
+        internal static int GetYear(int currentDate)
         {
             return currentDate / 360;
         }
 
-        public static int GetMonth(int currentDate)
+        internal static int GetMonth(int currentDate)
         {
             var year = GetYear(currentDate);
 
             return (currentDate - year * 360) / 30;
         }
 
-        public static int GetTotalMonth(int currentDate)
+        internal static int GetTotalMonth(int currentDate)
         {
             return currentDate / 30;
         }
