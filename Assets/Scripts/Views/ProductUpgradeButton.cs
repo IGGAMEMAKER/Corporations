@@ -45,7 +45,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
         GetComponentInChildren<TextMeshProUGUI>().text = title;
 
-        // TODO Move to separate file
+        
         // proper animation
         GetComponentInChildren<Toggle>().isOn = state;
         var anim = GetComponentInChildren<ToggleAnim>();
