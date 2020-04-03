@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-public partial class BaseClass : MonoBehaviour
+public class BaseClass : MonoBehaviour
 {
     // data
     public static GameContext Q => Contexts.sharedInstance.game;
