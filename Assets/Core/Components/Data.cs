@@ -35,6 +35,15 @@ public struct ProductCompanyResult
 }
 
 
+
+public enum ConceptStatus
+{
+    Leader,
+    Relevant,
+    Outdated
+}
+
+
 public enum Risk
 {
     Guaranteed,

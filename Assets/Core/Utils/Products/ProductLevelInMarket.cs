@@ -1,13 +1,4 @@
-﻿using Assets.Core;
-
-public enum ConceptStatus
-{
-    Leader,
-    Relevant,
-    Outdated
-}
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Products
     {
