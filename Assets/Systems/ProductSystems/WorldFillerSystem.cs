@@ -20,6 +20,34 @@ public partial class WorldFillerSystem : IInitializeSystem
         Simulate();
     }
 
+    void Simulate()
+    {
+        //if (!simulated)
+        SimulateDevelopment();
+
+        //simulated = true;
+    }
+
+    void SimulateDevelopment()
+    {
+        Debug.Log("Simulate Development");
+        var skipDays = (Balance.START_YEAR - 1991) * 360;
+
+        //Debug.Log("Skip days = " + skipDays);
+        //ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
+
+
+        //var incr = 1;
+
+        //for (var i = 0; i < skipDays; i += incr)
+        //    ScheduleUtils.IncreaseDate(GameContext, incr);
+
+
+        MockySimulation(skipDays);
+
+        Debug.Log("Simulation done");
+    }
+
     void MockySimulation(int skipDays)
     {
         var markets = Markets.GetNiches(GameContext);
@@ -27,8 +55,6 @@ public partial class WorldFillerSystem : IInitializeSystem
 
         var date = ScheduleUtils.GetCurrentDate(GameContext);
         List<NicheType> activatedMarkets = new List<NicheType>();
-
-        Debug.Log("Mocky simulation: simulate market development");
 
         // simulate market development
         foreach (var m in markets)
@@ -43,7 +69,7 @@ public partial class WorldFillerSystem : IInitializeSystem
 
             while (accumulator > 0)
             {
-                Debug.Log("while");
+                //Debug.Log("while");
                 Markets.PromoteNicheState(m);
                 accumulator -= Markets.GetNicheDuration(m);
             }
@@ -61,10 +87,9 @@ public partial class WorldFillerSystem : IInitializeSystem
             if (!isMockup)
                 activatedMarkets.Add(m.niche.NicheType);
         }
+        Debug.Log("Mocky simulation: simulated markets");
 
-        Debug.Log("Mocky simulation: simulate product development");
         // simulate products
-
         
         var products = Companies.GetProductCompanies(GameContext);
         foreach (var p in products)
@@ -101,6 +126,13 @@ public partial class WorldFillerSystem : IInitializeSystem
             //MarketingUtils.AddClients(p, (long)clients);
         }
 
+        Debug.Log("Mocky simulation: simulated product");
+
+        //PrintMarketData(markets, activatedMarkets);
+    }
+
+    void PrintMarketData(GameEntity[] markets, List<NicheType> activatedMarkets)
+    {
         Dictionary<int, int> years = new Dictionary<int, int>();
         foreach (var m in markets)
         {
@@ -125,7 +157,7 @@ public partial class WorldFillerSystem : IInitializeSystem
             else
                 post2000markets += amount;
 
-            Debug.Log($"Year {m.Key}: {m.Value} markets");
+            //Debug.Log($"Year {m.Key}: {m.Value} markets");
         }
 
         Debug.Log("Pre 2000 markets: " + pre2000markets);
@@ -149,32 +181,5 @@ public partial class WorldFillerSystem : IInitializeSystem
 
         if (notActivated.Count != 0)
             Debug.Log(notActivated.Count + " markets need to be activated: " + string.Join(",", notActivated));
-    }
-
-    void Simulate()
-    {
-        if (!simulated)
-            SimulateDevelopment();
-        simulated = true;
-    }
-
-    void SimulateDevelopment()
-    {
-        Debug.Log("Simulate Development");
-        var skipDays = (Balance.START_YEAR - 1991) * 360;
-
-        //Debug.Log("Skip days = " + skipDays);
-        //ScheduleUtils.ResumeGame(GameContext, skipDays, 50000);
-
-
-        //var incr = 1;
-
-        //for (var i = 0; i < skipDays; i += incr)
-        //    ScheduleUtils.IncreaseDate(GameContext, incr);
-
-
-        MockySimulation(skipDays);
-
-        Debug.Log("Simulation done");
     }
 }
