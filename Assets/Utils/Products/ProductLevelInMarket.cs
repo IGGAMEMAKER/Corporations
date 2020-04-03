@@ -52,7 +52,7 @@ namespace Assets.Core
         }
 
 
-        internal static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
+        public static ConceptStatus GetConceptStatus(GameEntity product, GameContext gameContext)
         {
             var isRelevant = IsInMarket(product, gameContext);
             var isOutdated = IsOutOfMarket(product, gameContext);

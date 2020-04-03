@@ -17,10 +17,6 @@ public abstract partial class ButtonController : BaseClass
     {
         Execute();
 
-        if (Contains<AutomaticallyShowAnnualReport>())
-            return;
-
-
         UpdatePage();
     }
 

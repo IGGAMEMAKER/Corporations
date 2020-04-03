@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public abstract class TimedButton : UpgradedButtonController
 {
-    internal int CompanyId;
+    public int CompanyId;
 
     public void SetCompanyId(int companyId)
     {

@@ -14,14 +14,14 @@
                 .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 
-        internal static int GetCompetitionRisk(GameContext gameContext, int companyId)
+        public static int GetCompetitionRisk(GameContext gameContext, int companyId)
         {
             var company = Companies.Get(gameContext, companyId);
 
             return GetCompetitorsAmount(company, gameContext) * 5;
         }
 
-        internal static long GetCompanyRisk(GameContext gameContext, int companyId)
+        public static long GetCompanyRisk(GameContext gameContext, int companyId)
         {
             return (long)GetCompanyRiskBonus(gameContext, companyId).Sum();
         }

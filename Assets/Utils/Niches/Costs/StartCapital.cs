@@ -14,7 +14,7 @@
             return (timeToMarket + timeToProfitability) * GetBaseProductMaintenance(gameContext, niche) + buffer;
         }
 
-        internal static long GetBaseProductMaintenance(GameContext gameContext, GameEntity niche)
+        public static long GetBaseProductMaintenance(GameContext gameContext, GameEntity niche)
         {
             return GetBiggestMaintenanceOnMarket(gameContext, niche);
         }

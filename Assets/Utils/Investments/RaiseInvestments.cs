@@ -15,7 +15,7 @@
             return description;
         }
 
-        internal static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
+        public static string GetInvestorOpinionDescription(GameContext gameContext, GameEntity company, GameEntity investor)
         {
             var description = GetInvestorOpinionBonus(gameContext, company, investor);
 

@@ -40,7 +40,7 @@ namespace Assets.Core
             n.ReplaceNotifications(notys);
         }
 
-        internal static void ClearNotification(GameContext gameContext, int notificationId)
+        public static void ClearNotification(GameContext gameContext, int notificationId)
         {
             var n = GetNotificationsComponent(gameContext);
 
