@@ -8,7 +8,7 @@ public class CompileTimeMeasurer
     [DidReloadScripts]
     static void OnScriptsReloaded()
     {
-        Debug.Log("Compilation finished");
+        Debug.Log("CompileTimeMeasurer: Compilation finished");
     }
 
     void OnUpdate()
