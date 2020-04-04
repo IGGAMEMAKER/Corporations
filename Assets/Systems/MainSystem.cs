@@ -11,12 +11,9 @@
         Add(new NotificationSystems(contexts));
 
 
-
         // Initialization
         Add(new MarketInitializerSystem(contexts));
         Add(new ProductInitializerSystem(contexts));
-
-
 
         // companies
         Add(new InvestmentCooldownSystems(contexts));
