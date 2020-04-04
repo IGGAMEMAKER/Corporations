@@ -8,6 +8,6 @@ public class NewBehaviourScript : MonoBehaviour
     [MenuItem("Hugh/Mongous")]
     static void DoSomething()
     {
-        Debug.Log("Humongous what?");
+        Debug.Log("Humongous WHAT?");
     }
 }
