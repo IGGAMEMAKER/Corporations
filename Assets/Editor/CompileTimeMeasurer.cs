@@ -1,23 +1,26 @@
 ﻿using System;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
-class CompileTimeMeasurer : AssetPostprocessor
+public class CompileTimeMeasurer
 {
-    static DateTime start;
-    void OnPreprocessAsset()
+    [DidReloadScripts]
+    static void OnScriptsReloaded()
     {
-        start = DateTime.Now;
+        Debug.Log("Compilation finished");
     }
 
-    static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+    void OnUpdate()
     {
-        var end = DateTime.Now;
+        Debug.Log("OnUpdate");
+        UnityEditor.Compilation.CompilationPipeline.compilationStarted += CompilationPipeline_compilationStarted;
+    }
 
-        var diff = end.Subtract(start);
+    private void CompilationPipeline_compilationStarted(object obj)
+    {
+        var path = (string)obj;
 
-
-        Debug.Log("Timespan: " + start + " " + end);
-        Debug.Log("Recompile took: " + diff.TotalSeconds + " seconds");
+        Debug.Log("Compiled: " + path);
     }
 }
