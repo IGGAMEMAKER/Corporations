@@ -10,4 +10,10 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Debug.Log("Humongous WHAT?");
     }
+
+    [MenuItem("Hugh/Project Settings F2")]
+    static void CallProjectSettings()
+    {
+
+    }
 }

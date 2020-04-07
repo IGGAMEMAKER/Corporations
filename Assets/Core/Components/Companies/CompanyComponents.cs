@@ -12,6 +12,7 @@ public struct CompanyComponent : IComponent
     public CompanyType CompanyType;
 }
 
+
 public struct BlockOfShares
 {
     public int amount;
