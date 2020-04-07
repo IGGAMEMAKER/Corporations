@@ -14,12 +14,14 @@ public class InestmentProposalScreen : View
 
     void Render()
     {
-        bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
+        var company = MyCompany;
+
+        bool isRoundActive = company.hasAcceptsInvestments;
 
         StartRoundButton.interactable = !isRoundActive;
         StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
 
         // render action buttons
-        StartRoundButton.gameObject.SetActive(SelectedCompany.isControlledByPlayer);
+        StartRoundButton.gameObject.SetActive(company.isControlledByPlayer);
     }
 }
