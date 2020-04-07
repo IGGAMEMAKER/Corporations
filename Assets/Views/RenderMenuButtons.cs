@@ -36,21 +36,22 @@ public class RenderMenuButtons : View
         bool showMessages = hasProduct;
 
         Main.SetActive(hasProduct);
-        Stats.SetActive(showStats);
+        Stats.SetActive(false && showStats);
 
-        Messages.SetActive(showMessages);
+        // messages
+        Messages.SetActive(false && showMessages);
 
         // culture
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
         CultureIcon.color = Visuals.GetColorFromString(hasCultureCooldown ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Culture.SetActive(hasProduct && hasReleasedProducts && !hasCultureCooldown);
+        Culture.SetActive(false && hasProduct && hasReleasedProducts && !hasCultureCooldown);
 
 
         // investments
         bool isRoundActive = MyCompany.hasAcceptsInvestments;
         var canRaiseInvestments = !isRoundActive;
         InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Investments.SetActive(hasProduct && canRaiseInvestments);
+        Investments.SetActive(false && hasProduct && canRaiseInvestments);
 
 
         Separator2.SetActive(showMessages && showStats);
