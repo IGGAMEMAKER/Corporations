@@ -32,14 +32,14 @@ public class RenderMenuButtons : View
 
         bool isFirstYear = CurrentIntDate < 360;
 
-        bool showStats = !isFirstYear;
-        bool showMessages = hasProduct;
+        bool showStats = false && !isFirstYear;
+        bool showMessages = false && hasProduct;
 
         Main.SetActive(hasProduct);
-        Stats.SetActive(false && showStats);
+        Stats.SetActive(showStats);
 
         // messages
-        Messages.SetActive(false && showMessages);
+        Messages.SetActive(showMessages);
 
         // culture
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
