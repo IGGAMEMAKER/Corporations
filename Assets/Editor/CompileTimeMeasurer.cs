@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.Compilation;
@@ -7,26 +8,25 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CompileTimeMeasurer : MonoBehaviour
 {
-    DateTime startTime;
-
     [DidReloadScripts]
     static void OnScriptsReloaded()
     {
         Debug.Log($"CompileTimeMeasurer: Compilation finished");
+
 
         //EditorApplication.ExecuteMenuItem("Edit/Play");
     }
 
     private void PrintStartCompile(object obj)
     {
-        Debug.Log("PrintStartCompile");
+        ClearLogConsole();
 
-        startTime = DateTime.Now;
+
+        Debug.Log("PrintStartCompile");
     }
 
     private void PrintEndCompile(object obj)
     {
-        Debug.Log("PrintEndCompile");
     }
 
     void OnEnable()
@@ -51,6 +51,30 @@ public class CompileTimeMeasurer : MonoBehaviour
     void OnDisable()
     {
         CompilationPipeline.compilationStarted -= PrintStartCompile;
+        CompilationPipeline.assemblyCompilationStarted -= PrintAssemblyCompiled;
+        CompilationPipeline.assemblyCompilationFinished -= PrintAssemblyCompileFinished;
         CompilationPipeline.compilationFinished -= PrintEndCompile;
+
+    }
+
+    // ---------- cleaaning console ------------
+    static MethodInfo _clearConsoleMethod;
+    static MethodInfo clearConsoleMethod
+    {
+        get
+        {
+            if (_clearConsoleMethod == null)
+            {
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetAssembly(typeof(SceneView));
+                Type logEntries = assembly.GetType("UnityEditor.LogEntries");
+                _clearConsoleMethod = logEntries.GetMethod("Clear");
+            }
+            return _clearConsoleMethod;
+        }
+    }
+
+    public static void ClearLogConsole()
+    {
+        clearConsoleMethod.Invoke(new object(), null);
     }
 }
