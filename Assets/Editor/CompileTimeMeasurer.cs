@@ -13,20 +13,7 @@ public class CompileTimeMeasurer : MonoBehaviour
     {
         Debug.Log($"CompileTimeMeasurer: Compilation finished");
 
-
         //EditorApplication.ExecuteMenuItem("Edit/Play");
-    }
-
-    private void PrintStartCompile(object obj)
-    {
-        ClearLogConsole();
-
-
-        Debug.Log("PrintStartCompile");
-    }
-
-    private void PrintEndCompile(object obj)
-    {
     }
 
     void OnEnable()
@@ -36,6 +23,26 @@ public class CompileTimeMeasurer : MonoBehaviour
         CompilationPipeline.assemblyCompilationFinished += PrintAssemblyCompileFinished;
         CompilationPipeline.compilationFinished += PrintEndCompile;
     }
+
+    void OnDisable()
+    {
+        CompilationPipeline.compilationStarted -= PrintStartCompile;
+        CompilationPipeline.assemblyCompilationStarted -= PrintAssemblyCompiled;
+        CompilationPipeline.assemblyCompilationFinished -= PrintAssemblyCompileFinished;
+        CompilationPipeline.compilationFinished -= PrintEndCompile;
+    }
+
+    private void PrintStartCompile(object obj)
+    {
+        ClearLogConsole();
+
+        Debug.Log("PrintStartCompile");
+    }
+
+    private void PrintEndCompile(object obj)
+    {
+    }
+
 
     private void PrintAssemblyCompiled(string obj)
     {
@@ -48,14 +55,6 @@ public class CompileTimeMeasurer : MonoBehaviour
         Debug.Log("Compiled " + arg1);
     }
 
-    void OnDisable()
-    {
-        CompilationPipeline.compilationStarted -= PrintStartCompile;
-        CompilationPipeline.assemblyCompilationStarted -= PrintAssemblyCompiled;
-        CompilationPipeline.assemblyCompilationFinished -= PrintAssemblyCompileFinished;
-        CompilationPipeline.compilationFinished -= PrintEndCompile;
-
-    }
 
     // ---------- cleaaning console ------------
     static MethodInfo _clearConsoleMethod;
