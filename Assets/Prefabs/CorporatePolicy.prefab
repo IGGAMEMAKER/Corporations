@@ -51,7 +51,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: 0}
+  m_AnchoredPosition: {x: 38, y: -15}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1461618502551719162
@@ -137,7 +137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10.1}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &510603930030160903
@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 5825621088701072893}
   - component: {fileID: 6354257380243681761}
   - component: {fileID: 8380805192542661836}
+  - component: {fileID: 6652609789767879041}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -214,8 +215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -213.34999, y: 0}
-  m_SizeDelta: {x: 273.3, y: 0}
+  m_AnchoredPosition: {x: -213.34999, y: -15}
+  m_SizeDelta: {x: 273.3, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6354257380243681761
 CanvasRenderer:
@@ -256,9 +257,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b>High</b>
-
-    Increases leader bonuses'
+  m_Text: <b>High</b>
+--- !u!114 &6652609789767879041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742673441507546966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &5818941966896835150
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +283,7 @@ GameObject:
   - component: {fileID: 6056243514579302285}
   - component: {fileID: 7914263591565378078}
   - component: {fileID: 879513047730666975}
+  - component: {fileID: 4197435475198628866}
   m_Layer: 5
   m_Name: Text (3)
   m_TagString: Untagged
@@ -293,8 +307,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 206.5, y: 0}
-  m_SizeDelta: {x: 286.99, y: 100}
+  m_AnchoredPosition: {x: 206.5, y: -15}
+  m_SizeDelta: {x: 287, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7914263591565378078
 CanvasRenderer:
@@ -335,9 +349,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b>Low</b>
-
-    Increases company limit by 1'
+  m_Text: <b>Low</b>
+--- !u!114 &4197435475198628866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818941966896835150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0
 --- !u!1 &6184284807273624280
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,8 +398,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -6.8499603, y: 0}
-  m_SizeDelta: {x: 39.7, y: 0}
+  m_AnchoredPosition: {x: -6.8499603, y: -15}
+  m_SizeDelta: {x: 39.7, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2773178903322224670
 CanvasRenderer:
@@ -539,7 +565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -51.699997, y: 0}
+  m_AnchoredPosition: {x: -51.699997, y: -15}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7608013164079675150
@@ -755,15 +781,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
---- !u!1 &7977777437216771508 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7956838528449801157, guid: fd6a5c7e86f18454cba2124cd62a812c,
-    type: 3}
-  m_PrefabInstance: {fileID: 61533290549143153}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3354061796795918662 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
+    type: 3}
+  m_PrefabInstance: {fileID: 61533290549143153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7977777437216771508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7956838528449801157, guid: fd6a5c7e86f18454cba2124cd62a812c,
     type: 3}
   m_PrefabInstance: {fileID: 61533290549143153}
   m_PrefabAsset: {fileID: 0}
