@@ -83,9 +83,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3866706434645092422}
-  - component: {fileID: 5064306899766309156}
   - component: {fileID: 5318380739413159141}
-  - component: {fileID: 8589857610014936251}
   - component: {fileID: 6703482760734830219}
   m_Layer: 5
   m_Name: Interrupts
@@ -114,18 +112,6 @@ RectTransform:
   m_AnchoredPosition: {x: -310.0736, y: 458}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5064306899766309156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866706434645092423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c90de5ad33254d84fbe61249eddf3078, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5318380739413159141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3866706434645092423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -149,38 +135,26 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &8589857610014936251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866706434645092423}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b32adb667d5ff614a96d17cd98c3cc25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLink: 0
 --- !u!114 &6703482760734830219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +268,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8933359353202206511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -323,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DateChanges: 1
   MenuChanges: 0
+  NavigationChanges: 1
 --- !u!114 &6558883898792993965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,10 +332,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Sell Company
+      propertyPath: TargetMenu
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -467,28 +442,28 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 24
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d4ca0759d7563424285a64e4983c1403,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Sell Company
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
---- !u!224 &5447028608108088384 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 869757373107443467}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4877889018367647080 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 869757373107443467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &5447028608108088384 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
     type: 3}
   m_PrefabInstance: {fileID: 869757373107443467}
   m_PrefabAsset: {fileID: 0}
@@ -499,10 +474,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Check Financial Report
+      propertyPath: TargetMenu
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -609,17 +584,17 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 26
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f2aa24346fdffd543a01eb537025302d,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Check Financial Report
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!1 &6885299583202805724 stripped
@@ -641,16 +616,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_Name
-      value: Can check annual report
-      objectReference: {fileID: 0}
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -756,17 +721,27 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 16
-      objectReference: {fileID: 0}
     - target: {fileID: 1074129572077611852, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 03025f88d7df40349acddb98f8657015,
         type: 3}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_Name
+      value: Can check annual report
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: TargetMenu
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46ebc5f43b655c48993db9adc26478e, type: 3}
 --- !u!224 &2142203699115568487 stripped
@@ -782,6 +757,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
+    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 542fc61a03f03e34f8732fb8516d995c,
+        type: 3}
     - target: {fileID: 4009765182260438612, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
       propertyPath: m_Name
@@ -892,11 +873,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7629467399863539152, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
-        type: 3}
-      propertyPath: Text
-      value: Improve their morale or workers will leave their workplaces!
-      objectReference: {fileID: 0}
     - target: {fileID: 5278023357859019117, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
       propertyPath: TargetMenu
@@ -907,12 +883,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+    - target: {fileID: 7629467399863539152, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 542fc61a03f03e34f8732fb8516d995c,
-        type: 3}
+      propertyPath: Text
+      value: Improve their morale or workers will leave their workplaces!
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afb8f05a66fc9241b2b8c1b92314ca4, type: 3}
 --- !u!224 &2620137492363137759 stripped
@@ -934,10 +909,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: can change corporate culture
+      propertyPath: TargetMenu
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -1044,28 +1019,28 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 28
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fe06c7b100a43194eb780c1fdbbbc132,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: can change corporate culture
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
---- !u!224 &7613335691635707028 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 3327672391308089311}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7029562555610078652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3327672391308089311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7613335691635707028 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
     type: 3}
   m_PrefabInstance: {fileID: 3327672391308089311}
   m_PrefabAsset: {fileID: 0}
@@ -1076,6 +1051,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
+    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 97b3a94c669205d4498e7b8d85dee3c9,
+        type: 3}
     - target: {fileID: 4009765182260438612, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
       propertyPath: m_Name
@@ -1191,12 +1172,6 @@ PrefabInstance:
       propertyPath: TargetMenu
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 97b3a94c669205d4498e7b8d85dee3c9,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afb8f05a66fc9241b2b8c1b92314ca4, type: 3}
 --- !u!1 &407729486474186360 stripped
@@ -1218,6 +1193,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
+    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab7e69f36fe51b14a892d6f1a9a4b81e,
+        type: 3}
     - target: {fileID: 4009765182260438612, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
       propertyPath: m_Name
@@ -1328,11 +1309,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7629467399863539152, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
-        type: 3}
-      propertyPath: Text
-      value: Improve their morale or workers will leave their workplaces!
-      objectReference: {fileID: 0}
     - target: {fileID: 5278023357859019117, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
       propertyPath: TargetMenu
@@ -1343,23 +1319,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3905141154903580732, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+    - target: {fileID: 7629467399863539152, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
         type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ab7e69f36fe51b14a892d6f1a9a4b81e,
-        type: 3}
+      propertyPath: Text
+      value: Improve their morale or workers will leave their workplaces!
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afb8f05a66fc9241b2b8c1b92314ca4, type: 3}
---- !u!1 &926460866467069879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4009765182260438612, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
-    type: 3}
-  m_PrefabInstance: {fileID: 4287144337697741283}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &359573978553560735 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4576653032315795324, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4287144337697741283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &926460866467069879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4009765182260438612, guid: 0afb8f05a66fc9241b2b8c1b92314ca4,
     type: 3}
   m_PrefabInstance: {fileID: 4287144337697741283}
   m_PrefabAsset: {fileID: 0}
@@ -1370,11 +1345,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_Name
-      value: Need to manage your companies
-      objectReference: {fileID: 0}
     - target: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1480,28 +1450,33 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 16
-      objectReference: {fileID: 0}
     - target: {fileID: 1074129572077611852, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 03025f88d7df40349acddb98f8657015,
         type: 3}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_Name
+      value: Need to manage your companies
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: TargetMenu
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46ebc5f43b655c48993db9adc26478e, type: 3}
---- !u!224 &4283177528340372989 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4335458995690578417}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3699393577589181653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4335458995690578417}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4283177528340372989 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
     type: 3}
   m_PrefabInstance: {fileID: 4335458995690578417}
   m_PrefabAsset: {fileID: 0}
@@ -1512,11 +1487,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_Name
-      value: Have Remaining Goal
-      objectReference: {fileID: 0}
     - target: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1622,28 +1592,33 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 1074129572077611852, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ab7e69f36fe51b14a892d6f1a9a4b81e,
         type: 3}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_Name
+      value: Have Remaining Goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: TargetMenu
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46ebc5f43b655c48993db9adc26478e, type: 3}
---- !u!1 &5304879268736456008 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5107910673823103084}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4735730762713105504 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5107910673823103084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5304879268736456008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
     type: 3}
   m_PrefabInstance: {fileID: 5107910673823103084}
   m_PrefabAsset: {fileID: 0}
@@ -1654,15 +1629,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Release Product
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -1769,17 +1739,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 23ecc92bc21149d41ba8a90f25c3ab3c,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Release Product
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!224 &1705410740217454966 stripped
@@ -1801,10 +1776,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Raise Investments
+      propertyPath: TargetMenu
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -1911,17 +1886,17 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 97b3a94c669205d4498e7b8d85dee3c9,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Raise Investments
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!224 &1620778441641513143 stripped
@@ -1943,11 +1918,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_Name
-      value: Will Have Unhappy Team Soon
-      objectReference: {fileID: 0}
     - target: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2053,17 +2023,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1074129572077611852, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 542fc61a03f03e34f8732fb8516d995c,
         type: 3}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_Name
+      value: Will Have Unhappy Team Soon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: TargetMenu
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46ebc5f43b655c48993db9adc26478e, type: 3}
 --- !u!1 &6340398239533279496 stripped
@@ -2085,10 +2060,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Buy Company
+      propertyPath: TargetMenu
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -2195,28 +2170,28 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c00da8d0447ea9246ac77599b1630d7d,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Buy Company
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
---- !u!224 &2635547886742455709 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-    type: 3}
-  m_PrefabInstance: {fileID: 7139644425468387030}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3221583680256971957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 7139644425468387030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2635547886742455709 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
     type: 3}
   m_PrefabInstance: {fileID: 7139644425468387030}
   m_PrefabAsset: {fileID: 0}
@@ -2227,15 +2202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Complete Goal (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: TargetMenu
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -2342,17 +2312,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 23ecc92bc21149d41ba8a90f25c3ab3c,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Complete Goal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!224 &2518840905506894110 stripped
@@ -2368,15 +2343,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Release Product2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: TargetMenu
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -2483,17 +2453,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 23ecc92bc21149d41ba8a90f25c3ab3c,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Release Product2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!224 &3384824990515029763 stripped
@@ -2515,11 +2490,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: m_Name
-      value: Will Have Unhappy Investors Soon
-      objectReference: {fileID: 0}
     - target: {fileID: 529810365043801100, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2625,17 +2595,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 1074129572077611852, guid: c46ebc5f43b655c48993db9adc26478e,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 97b3a94c669205d4498e7b8d85dee3c9,
         type: 3}
+    - target: {fileID: 1115843942290042148, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: m_Name
+      value: Will Have Unhappy Investors Soon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207392852825764381, guid: c46ebc5f43b655c48993db9adc26478e,
+        type: 3}
+      propertyPath: TargetMenu
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46ebc5f43b655c48993db9adc26478e, type: 3}
 --- !u!1 &7083252491096763308 stripped
@@ -2657,10 +2632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1424787389363757993}
     m_Modifications:
-    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
-      propertyPath: m_Name
-      value: Can Check Trends
+      propertyPath: TargetMenu
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 5153881666924895051, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
@@ -2767,17 +2742,17 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3547292762941936986, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
-        type: 3}
-      propertyPath: TargetMenu
-      value: 34
-      objectReference: {fileID: 0}
     - target: {fileID: 5635151634936368139, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1a11082cdf341814c9ece950e34cd283,
         type: 3}
+    - target: {fileID: 5737658006922693219, guid: d989d4a327e0fe24ca0aece5a8bbe6e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Can Check Trends
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d989d4a327e0fe24ca0aece5a8bbe6e4, type: 3}
 --- !u!224 &4059156274332275651 stripped

@@ -13,9 +13,9 @@ public class ShareholderProposalsListView : ListView
 
     public override void ViewRender()
     {
-        var proposals = Companies.GetInvestmentProposals(Q, SelectedCompany.company.Id);
+        var proposals = Companies.GetInvestmentProposals(Q, MyCompany.company.Id);
 
         GetComponent<ShareholderProposalsListView>()
-            .SetItems(proposals.ToArray(), SelectedCompany);
+            .SetItems(proposals.ToArray(), MyCompany);
     }
 }

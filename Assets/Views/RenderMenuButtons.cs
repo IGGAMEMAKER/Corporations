@@ -19,7 +19,6 @@ public class RenderMenuButtons : View
     public Image InvestmentsIcon;
 
     public GameObject Separator1;
-    public GameObject Separator2;
 
     public GameObject Quit;
 
@@ -52,8 +51,5 @@ public class RenderMenuButtons : View
         var canRaiseInvestments = !isRoundActive;
         InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
         Investments.SetActive(false && hasProduct && canRaiseInvestments);
-
-
-        Separator2.SetActive(showMessages && showStats);
     }
 }

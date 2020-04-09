@@ -4,7 +4,7 @@ public class StartInvestmentRoundController : ButtonController
 {
     public override void Execute()
     {
-        Companies.StartInvestmentRound(Q, SelectedCompany.company.Id);
+        Companies.StartInvestmentRound(Q, MyCompany.company.Id);
 
         //ReNavigate();
     }

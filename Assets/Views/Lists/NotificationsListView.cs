@@ -11,8 +11,8 @@ public class NotificationsListView : ListView
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
+        //t.gameObject.AddComponent<Button>();
         t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage);
-        t.gameObject.AddComponent<Button>();
     }
 
     public override void ViewRender()

@@ -41,17 +41,12 @@ public class ShareholderProposalView : View
         SetButtons(shareholder.shareholder.Id);
     }
 
-    bool CanAcceptInvestments
-    {
-        get
-        {
-            return Companies.IsSharesCanBeSold(SelectedCompany);
-        }
-    }
+    GameEntity company => MyCompany;
 
     void SetButtons(int investorId)
     {
-        bool visible = CanAcceptInvestments && SelectedCompany.isControlledByPlayer && !proposal.WasAccepted;
+        bool CanAcceptInvestments = Companies.IsSharesCanBeSold(company);
+        bool visible = CanAcceptInvestments && company.isControlledByPlayer && !proposal.WasAccepted;
 
         LinkToOffer.SetActive(visible);
         LinkToOffer.GetComponent<LinkToInvestmentOffer>().SetInvestorId(investorId);
@@ -68,10 +63,8 @@ public class ShareholderProposalView : View
     {
         var text = "";
 
-        if (SelectedCompany.hasAcceptsInvestments)
-        {
+        if (company.hasAcceptsInvestments)
             text = Format.Money(proposal.Offer);
-        }
 
         Offer.text = text;
     }
@@ -84,8 +77,9 @@ public class ShareholderProposalView : View
             OpinionHint.SetHint("");
         } else
         {
-            OpinionDescription.text = Investments.GetInvestorOpinionDescription(Q, SelectedCompany, shareholder);
-            var bonus = Investments.GetInvestorOpinionBonus(Q, SelectedCompany, shareholder);
+            OpinionDescription.text = Investments.GetInvestorOpinionDescription(Q, company, shareholder);
+            var bonus = Investments.GetInvestorOpinionBonus(Q, company, shareholder);
+
             OpinionHint.SetHint(bonus.ToString());
         }
     }
