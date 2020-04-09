@@ -56,7 +56,7 @@ public class ProductOnMarketView : View
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
 
-        Name.text = company.company.Name + $" - {level}LVL";
+        Name.text = company.company.Name; // + $" - <b>{level}LVL</b>";
         Name.color = Visuals.GetColorFromString(nameColor);
 
         if (ProductLevel != null)

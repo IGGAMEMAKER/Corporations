@@ -11,7 +11,7 @@ public class CompileTimeMeasurer : MonoBehaviour
     [DidReloadScripts]
     static void OnScriptsReloaded()
     {
-        Debug.Log($"CompileTimeMeasurer: Compilation finished");
+        Debug.Log($"CompileTimeMeasurer: Update finished");
 
         //EditorApplication.ExecuteMenuItem("Edit/Play");
     }
@@ -41,6 +41,7 @@ public class CompileTimeMeasurer : MonoBehaviour
 
     private void PrintEndCompile(object obj)
     {
+        Debug.Log($"CompileTimeMeasurer: Compile finished");
     }
 
 

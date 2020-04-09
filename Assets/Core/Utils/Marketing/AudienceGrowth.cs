@@ -46,7 +46,10 @@ namespace Assets.Core
                 marketingBonus += 30 * rating * effeciency / 100 / 100;
             }
 
-            long value = GetBrandBasedAudienceGrowth(product, gameContext) * marketingBonus / 100;
+            long value = 0;
+
+            if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
+                value += GetBrandBasedAudienceGrowth(product, gameContext) * marketingBonus / 100;
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
                 value += Balance.TEST_CAMPAIGN_CLIENT_GAIN;
