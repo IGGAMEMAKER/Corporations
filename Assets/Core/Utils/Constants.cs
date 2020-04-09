@@ -53,6 +53,7 @@
     public const int COOLDOWN_COMPANY_GOAL = 365;
     public const int COOLDOWN_BRANDING = 90;
     public const int COOLDOWN_TEST_CAMPAIGN = 15;
+    public const int TEST_CAMPAIGN_CLIENT_GAIN = 100;
 
     public static int COOLDOWN_CONCEPT = 15;
     public static int RELEASE_BRAND_POWER_GAIN = 30;
