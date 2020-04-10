@@ -9,14 +9,14 @@ using Entitas;
 using System.Linq;
 using System.Text;
 
-[Serializable]
-public partial class GameEntity { }
+//[Serializable]
+//public partial class GameEntity { }
 
-//namespace Entitas
-//{
-//    [Serializable]
-//    public partial class Entity { }
-//}
+////namespace Entitas
+////{
+////    [Serializable]
+////    public partial class Entity { }
+////}
 
 namespace Assets.Core
 {
@@ -31,34 +31,49 @@ namespace Assets.Core
 
         public static void SaveEntities(GameEntity[] entities, GameContext gameContext)
         {
-            using (FileStream fs = new FileStream("entities.dat", FileMode.OpenOrCreate))
+            var fileName = "entities.dat";
+
+            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+            serializer.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
+            serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+            using (StreamWriter sw = new StreamWriter(fileName))
+            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
             {
-                var entityData = new Dictionary<int, Dictionary<int, IComponent[]>>();
+            //}
+            ////using (FileStream fs = new FileStream("entities.dat", FileMode.OpenOrCreate))
+            //{
+                var entityData = new Dictionary<int, Dictionary<int, IComponent>>();
 
                 foreach (var e in entities)
                 {
                     var comps = e.GetComponents().ToArray();
                     var indices = e.GetComponentIndices();
 
-                    entityData[e.creationIndex] = new Dictionary<int, IComponent[]> { };
+                    entityData[e.creationIndex] = new Dictionary<int, IComponent> { };
 
                     for (var i = 0; i < indices.Count(); i++)
                     {
                         var index = indices[i];
-                        entityData[e.creationIndex][index] = comps;
+                        entityData[e.creationIndex][index] = comps[i];
                     }
                 }
 
                 if (entityData.Count > 0)
                 {
-                    var str = JsonConvert.SerializeObject(entityData, Formatting.Indented);
-                    Debug.Log(str);
+                    //var newEntityData = JsonConvert.DeserializeObject < Dictionary<int, Dictionary<int, IComponent[]>> >
+                    serializer.Serialize(writer, entityData, typeof(Dictionary<int, Dictionary<int, IComponent>>));
 
-                    fs.Write(Encoding.ASCII.GetBytes(str), 0, str.Length);
+                    //var str = serializer.Serialize( JsonConvert.SerializeObject(entityData, Formatting.Indented);
+                    //Debug.Log(str);
+
+                    //fs.Write(Encoding.ASCII.GetBytes(str), 0, str.Length);
                 }
             }
 
-            LoadEntities(gameContext);
+            //LoadEntities(gameContext);
 
             return;
             foreach (var e in entities)
@@ -92,21 +107,35 @@ namespace Assets.Core
 
                 Debug.Log(str);
 
-                //var newEntityData = JsonConvert.DeserializeObject<Dictionary<int, Dictionary<int, IComponent[]>>>(str); // (Dictionary<int, IComponent[]>) 
+                var newEntityData = JsonConvert.DeserializeObject<Dictionary<int, Dictionary<int, object>>>(str);
+                Debug.Log("Deserialized");
 
                 //Debug.Log(JsonConvert.SerializeObject(newEntityData, Formatting.Indented));
-                //Contexts.sharedInstance.game.DestroyAllEntities();
+                Contexts.sharedInstance.game.DestroyAllEntities();
 
-                //foreach (var kvp in newEntityData)
-                //{
-                //    var e = gameContext.CreateEntity();
+                Debug.Log("Cleaning entities");
+                Debug.Log(Contexts.sharedInstance.game.GetEntities().Length);
 
-                //    foreach (var c in kvp.Value)
-                //    {
-                //        //e.AddComponent(c)
+                Debug.Log("Restoring data");
 
-                //    }
-                //}
+                foreach (var kvp in newEntityData)
+                {
+                    var e = gameContext.CreateEntity();
+
+                    var entityIndex = kvp.Key;
+                    var components = kvp.Value;
+
+                    foreach (var c in components)
+                    {
+                        var componentIndex = c.Key;
+                        var component = c.Value;
+
+                        Debug.Log("Read component: " + GameComponentsLookup.componentNames[componentIndex]);
+                        Debug.Log(component);
+
+                        //e.AddComponent(componentIndex, component);
+                    }
+                }
             }
         }
 
