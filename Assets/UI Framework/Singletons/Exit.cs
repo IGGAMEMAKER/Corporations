@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Core;
+using UnityEngine;
 
 public class Exit : View
 {
@@ -17,6 +18,11 @@ public class Exit : View
         if (Input.GetKeyDown(KeyCode.F12))
         {
             MakeAScreenshot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            Companies.SaveGame(Q);
         }
     }
 
