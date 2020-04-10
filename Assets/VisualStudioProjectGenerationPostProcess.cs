@@ -3,22 +3,32 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
+// https://gamedev.stackexchange.com/questions/166401/use-a-different-target-framework-version-in-a-unity-c-project-other-than-4-6
+
+// target migrator
+// https://stackoverflow.com/questions/28436066/retargeting-all-projects-in-a-solution-to-net-4-5-2
+
 public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
 {
     private static void OnGeneratedCSProjectFiles()
     {
+        Debug.Log("-------------------------");
         Debug.Log("OnGeneratedCSProjectFiles");
-        var dir = Directory.GetCurrentDirectory();
-        var files = Directory.GetFiles(dir, "*.csproj");
-        foreach (var file in files)
-            ChangeTargetFrameworkInfProjectFiles(file);
+        Debug.Log("-------------------------");
+
+        //var dir = Directory.GetCurrentDirectory();
+        //var files = Directory.GetFiles(dir, "*.csproj");
+        //foreach (var file in files)
+        //    ChangeTargetFrameworkInfProjectFiles(file);
     }
 
     static void ChangeTargetFrameworkInfProjectFiles(string file)
     {
+        Debug.Log("Changing Target Framework for: " + file);
+
         var text = File.ReadAllText(file);
-        var find = "TargetFrameworkVersion>v4.6</TargetFrameworkVersion";
-        var replace = "TargetFrameworkVersion>v4.7</TargetFrameworkVersion";
+        var find = "TargetFrameworkVersion>*</TargetFrameworkVersion";
+        var replace = "TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion";
 
         if (text.IndexOf(find) != -1)
         {
