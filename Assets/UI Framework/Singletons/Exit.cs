@@ -22,7 +22,12 @@ public class Exit : View
 
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            Companies.SaveGame(Q);
+            State.SaveGame(Q);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            State.LoadGame(Q);
         }
     }
 

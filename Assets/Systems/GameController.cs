@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Core;
+using Entitas;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -29,7 +30,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("CLEAR GAME ENTITIES");
 
-        Contexts.sharedInstance.game.DestroyAllEntities();
+        State.ClearEntities();
     }
 
     void Update()
