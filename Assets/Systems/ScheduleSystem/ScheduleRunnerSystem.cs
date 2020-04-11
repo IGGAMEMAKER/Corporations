@@ -51,11 +51,6 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         }
     }
 
-    void UpdateSpeed(int changeSpeed)
-    {
-        DateEntity.ReplaceDate(DateEntity.date.Date, DateEntity.date.Speed + changeSpeed);
-    }
-
     void ResetTimer()
     {
         totalTime = 1 / (float) currentSpeed;

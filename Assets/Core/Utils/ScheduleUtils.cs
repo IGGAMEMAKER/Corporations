@@ -5,6 +5,22 @@ namespace Assets.Core
 {
     public static class ScheduleUtils
     {
+        public static GameEntity GetUniversalListener(GameContext gameContext)
+        {
+            var entities = gameContext.GetEntities(GameMatcher.UniversalListener);
+
+            if (entities.Length != 0)
+                return entities[0];
+
+            var e = gameContext.CreateEntity();
+
+            e.isUniversalListener = true;
+            e.AddMenu(ScreenMode.AcquirableCompaniesOnNicheScreen, new System.Collections.Generic.Dictionary<string, object>());
+            e.AddDate(0, 0);
+
+            return e;
+        }
+
         private static GameEntity GetDateContainer(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Date)[0];
@@ -65,14 +81,18 @@ namespace Assets.Core
             return date % Balance.PERIOD == 0;
         }
 
-        public static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        // was IAnyDateListener
+        public static void ListenDateChanges(GameContext gameContext, IDateListener menuListener)
         {
-            GetDateContainer(gameContext).AddAnyDateListener(menuListener);
+            GetUniversalListener(gameContext).AddDateListener(menuListener);
+            //GetDateContainer(gameContext).AddAnyDateListener(menuListener);
         }
 
-        public static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        // was IAnyDateListener
+        public static void UnsubscribeFromDateChanges(GameContext gameContext, IDateListener menuListener)
         {
-            GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
+            GetUniversalListener(gameContext).RemoveDateListener(menuListener);
+            //GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
         }
 
 

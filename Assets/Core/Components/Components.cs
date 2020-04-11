@@ -8,7 +8,10 @@ public interface IEventListener
     void RegisterListeners(IEntity entity);
 }
 
-[Game, Unique, Event(EventTarget.Any)]
+[Game]
+public class UniversalListenerComponent : IComponent { }
+
+[Game, Unique, Event(EventTarget.Any), Event(EventTarget.Self)]
 public class DateComponent : IComponent
 {
     public int Date;
