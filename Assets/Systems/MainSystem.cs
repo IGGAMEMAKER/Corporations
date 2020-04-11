@@ -12,6 +12,7 @@
 
 
         // Initialization
+        Add(new CampaignStatsSystem(contexts));
         Add(new MarketInitializerSystem(contexts));
         Add(new ProductInitializerSystem(contexts));
 

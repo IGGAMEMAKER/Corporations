@@ -1,7 +1,17 @@
-﻿public class MenuSystems : Feature
+﻿using Assets.Core;
+using Entitas;
+
+public class MenuSystems : IInitializeSystem
 {
-    public MenuSystems(Contexts contexts) : base("Menu Systems")
+    readonly GameContext context;
+
+    public MenuSystems(Contexts contexts)
     {
-        Add(new MenuInputSystem(contexts));
+        context = contexts.game;
+    }
+
+    void IInitializeSystem.Initialize()
+    {
+        var c = ScreenUtils.GetMenu(context);
     }
 }

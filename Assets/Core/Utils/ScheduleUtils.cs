@@ -115,9 +115,7 @@ namespace Assets.Core
         // campaign stats
         public static CampaignStatsComponent GetCampaignStats(GameContext gameContext)
         {
-            var menu = ScreenUtils.GetMenu(gameContext);
-
-            return menu.campaignStats;
+            return gameContext.GetEntities(GameMatcher.CampaignStats)[0].campaignStats;
         }
 
         public static void TweakCampaignStats(GameContext gameContext, CampaignStat stat)

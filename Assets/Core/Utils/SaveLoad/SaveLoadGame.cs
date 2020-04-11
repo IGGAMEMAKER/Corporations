@@ -35,15 +35,15 @@ namespace Assets.Core
             serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
             serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-            Newtonsoft.Json.Serialization.ITraceWriter traceWriter = new Newtonsoft.Json.Serialization.MemoryTraceWriter();
-            var converterSettings = new JsonSerializerSettings
-            {
-                TraceWriter = traceWriter,
-                Converters = { new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter() },
-                //TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.None,
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
+            //Newtonsoft.Json.Serialization.ITraceWriter traceWriter = new Newtonsoft.Json.Serialization.MemoryTraceWriter();
+            //var converterSettings = new JsonSerializerSettings
+            //{
+            //    TraceWriter = traceWriter,
+            //    Converters = { new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter() },
+            //    //TypeNameHandling = TypeNameHandling.All,
+            //    Formatting = Formatting.None,
+            //    MissingMemberHandling = MissingMemberHandling.Ignore
+            //};
 
 
             var entityData = new Dictionary<int, IComponent[]>();
@@ -56,26 +56,22 @@ namespace Assets.Core
                 entityData[e.creationIndex] = comps;
             }
 
-            var accurateData = new Dictionary<int, string>();
+            //foreach (var e in entityData)
+            //{
+            //    var index = e.Key;
+            //    var components = e.Value;
 
-            foreach (var e in entityData)
-            {
-                var index = e.Key;
-                var components = e.Value;
+            //    Debug.Log($"Serializing entity #{index} ...");
+            //    foreach (var c in components)
+            //    {
+            //        Debug.Log("     Serializing component " + c.GetType());
+            //        var data = JsonConvert.SerializeObject(c, converterSettings);
 
-                Debug.Log($"Serializing entity #{index} ...");
-                foreach (var c in components)
-                {
-                    Debug.Log("     Serializing component " + c.GetType());
-                    var data = JsonConvert.SerializeObject(c, converterSettings);
+            //        Debug.Log("     " + data);
+            //    }
 
-                    Debug.Log("     " + data);
-                }
-
-                Debug.Log($"DONE entity #{index}");
-
-                //accurateData[index] = data;
-            }
+            //    Debug.Log($"DONE entity #{index}");
+            //}
 
             //var str =
             //    JsonConvert.SerializeObject(
@@ -87,17 +83,17 @@ namespace Assets.Core
             //Debug.Log(traceWriter);
 
 
-            //using (StreamWriter sw = new StreamWriter(fileName))
-            //using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
-            //{
-            //    if (entityData.Count > 0)
-            //    {
-            //        Debug.Log("Serializing data " + entityData.Count);
-            //        serializer.Serialize(writer, entityData);
+            using (StreamWriter sw = new StreamWriter(fileName))
+            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+            {
+                if (entityData.Count > 0)
+                {
+                    Debug.Log("Serializing data " + entityData.Count);
+                    serializer.Serialize(writer, entityData);
 
-            //        Debug.Log("Serialized " + entityData.Count);
-            //    }
-            //}
+                    Debug.Log("Serialized " + entityData.Count);
+                }
+            }
         }
 
         public static void ClearEntities()
@@ -142,7 +138,7 @@ namespace Assets.Core
 
                 foreach (var c in components)
                 {
-                    Debug.Log("Read component: " + c);
+                    //Debug.Log("Read component: " + c);
 
                     var componentIndex = componentTypes[c.GetType()];
 

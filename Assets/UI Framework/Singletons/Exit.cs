@@ -20,12 +20,12 @@ public class Exit : View
             MakeAScreenshot();
         }
 
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.F11))
         {
             State.SaveGame(Q);
         }
 
-        if (Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F10))
         {
             State.LoadGame(Q);
         }

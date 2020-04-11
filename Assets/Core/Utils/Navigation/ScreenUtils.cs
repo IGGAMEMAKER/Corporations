@@ -9,7 +9,33 @@ namespace Assets.Core
     {
         public static GameEntity GetMenu(GameContext gameContext)
         {
-            return gameContext.GetEntities(GameMatcher.Menu)[0];
+            var entities = gameContext.GetEntities(GameMatcher.Menu);
+            
+            if (entities.Length == 0)
+                return CreateMenu(gameContext);
+            else
+                return entities[0];
+        }
+
+        public static GameEntity CreateMenu(GameContext gameContext)
+        {
+            var menu = gameContext.CreateEntity();
+            var screen = ScreenMode.NicheScreen;
+
+            menu.AddNavigationHistory(new List<MenuComponent>());
+
+            var dictionary = new Dictionary<string, object>
+            {
+                [Balance.MENU_SELECTED_COMPANY] = 1,
+                [Balance.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
+                [Balance.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
+                [Balance.MENU_SELECTED_HUMAN] = 0,
+                [Balance.MENU_SELECTED_INVESTOR] = -1,
+            };
+
+            menu.AddMenu(screen, dictionary);
+
+            return menu;
         }
 
         public static Dictionary<string, object> GetScreenData(GameContext context)
