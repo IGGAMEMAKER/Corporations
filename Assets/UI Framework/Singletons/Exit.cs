@@ -25,7 +25,7 @@ public class Exit : View
             State.SaveGame(Q);
         }
 
-        if (Input.GetKeyDown(KeyCode.F9))
+        if (Input.GetKeyDown(KeyCode.F8))
         {
             State.LoadGame(Q);
         }

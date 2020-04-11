@@ -14,7 +14,13 @@ namespace Assets.Core
     {
         public static void SaveGame(GameContext Q)
         {
-            var entities = Q.GetEntities();
+            var entities = Q.GetEntities()
+                .Where(e => !e.hasAnyCompanyGoalListener)
+                .Where(e => !e.hasAnyCompanyListener)
+                .Where(e => !e.hasAnyDateListener)
+                .Where(e => !e.hasAnyNotificationsListener)
+                .ToArray()
+                ;
 
             SaveEntities(entities, Q);
         }
@@ -29,29 +35,69 @@ namespace Assets.Core
             serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
             serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-            using (StreamWriter sw = new StreamWriter(fileName))
-            using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+            Newtonsoft.Json.Serialization.ITraceWriter traceWriter = new Newtonsoft.Json.Serialization.MemoryTraceWriter();
+            var converterSettings = new JsonSerializerSettings
             {
-                var entityData = new Dictionary<int, IComponent[]>();
+                TraceWriter = traceWriter,
+                Converters = { new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter() },
+                //TypeNameHandling = TypeNameHandling.All,
+                Formatting = Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
 
-                foreach (var e in entities)
-                {
-                    var comps = e.GetComponents().ToArray();
 
-                    entityData[e.creationIndex] = comps;
-                }
+            var entityData = new Dictionary<int, IComponent[]>();
 
-                if (entityData.Count > 0)
-                {
-                    //var newEntityData = JsonConvert.DeserializeObject < Dictionary<int, Dictionary<int, IComponent[]>> >
-                    serializer.Serialize(writer, entityData, typeof(Dictionary<int, IComponent[]>));
+            foreach (var e in entities)
+            {
+                var comps = e.GetComponents();
+                //Debug.Log("Serializing entity #" + e.creationIndex + ": " + string.Join(",", comps.Select(c => c.GetType())));
 
-                    //var str = serializer.Serialize( JsonConvert.SerializeObject(entityData, Formatting.Indented);
-                    //Debug.Log(str);
-
-                    //fs.Write(Encoding.ASCII.GetBytes(str), 0, str.Length);
-                }
+                entityData[e.creationIndex] = comps;
             }
+
+            var accurateData = new Dictionary<int, string>();
+
+            foreach (var e in entityData)
+            {
+                var index = e.Key;
+                var components = e.Value;
+
+                Debug.Log($"Serializing entity #{index} ...");
+                foreach (var c in components)
+                {
+                    Debug.Log("     Serializing component " + c.GetType());
+                    var data = JsonConvert.SerializeObject(c, converterSettings);
+
+                    Debug.Log("     " + data);
+                }
+
+                Debug.Log($"DONE entity #{index}");
+
+                //accurateData[index] = data;
+            }
+
+            //var str =
+            //    JsonConvert.SerializeObject(
+            //    entityData,
+            //    converterSettings
+            //    );
+
+            //Debug.Log("Serializing: " + str);
+            //Debug.Log(traceWriter);
+
+
+            //using (StreamWriter sw = new StreamWriter(fileName))
+            //using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))
+            //{
+            //    if (entityData.Count > 0)
+            //    {
+            //        Debug.Log("Serializing data " + entityData.Count);
+            //        serializer.Serialize(writer, entityData);
+
+            //        Debug.Log("Serialized " + entityData.Count);
+            //    }
+            //}
         }
 
         public static void ClearEntities()
@@ -65,6 +111,7 @@ namespace Assets.Core
 
             LoadEntities(gameContext);
         }
+
         public static void LoadEntities(GameContext gameContext)
         {
             var fileName = "entities.dat";
