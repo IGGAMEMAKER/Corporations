@@ -87,22 +87,23 @@ public static class GameComponentsLookup {
     public const int Shareholder = 76;
     public const int Shareholders = 77;
     public const int ShareholdersListener = 78;
-    public const int TargetDate = 79;
-    public const int Task = 80;
-    public const int Team = 81;
-    public const int TeamListener = 82;
-    public const int TechnologyLeader = 83;
-    public const int TechnologyLeaderListener = 84;
-    public const int Test = 85;
-    public const int TimedAction = 86;
-    public const int TimerRunning = 87;
-    public const int Tutorial = 88;
-    public const int TutorialListener = 89;
-    public const int UniversalListener = 90;
-    public const int WantsToExpand = 91;
-    public const int Worker = 92;
+    public const int Speed = 79;
+    public const int TargetDate = 80;
+    public const int Task = 81;
+    public const int Team = 82;
+    public const int TeamListener = 83;
+    public const int TechnologyLeader = 84;
+    public const int TechnologyLeaderListener = 85;
+    public const int Test = 86;
+    public const int TimedAction = 87;
+    public const int TimerRunning = 88;
+    public const int Tutorial = 89;
+    public const int TutorialListener = 90;
+    public const int UniversalListener = 91;
+    public const int WantsToExpand = 92;
+    public const int Worker = 93;
 
-    public const int TotalComponents = 93;
+    public const int TotalComponents = 94;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -184,6 +185,7 @@ public static class GameComponentsLookup {
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
+        "Speed",
         "TargetDate",
         "Task",
         "Team",
@@ -280,6 +282,7 @@ public static class GameComponentsLookup {
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),
+        typeof(SpeedComponent),
         typeof(TargetDateComponent),
         typeof(TaskComponent),
         typeof(TeamComponent),

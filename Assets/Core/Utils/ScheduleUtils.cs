@@ -56,7 +56,7 @@ namespace Assets.Core
         {
             var container = GetDateContainer(gameContext);
 
-            container.ReplaceDate(container.date.Date + increment, container.date.Speed);
+            container.ReplaceDate(container.date.Date + increment, 0);
         }
 
         public static void ResumeGame(GameContext gameContext, int date = -1, int currentSpeed = -1)
@@ -65,12 +65,9 @@ namespace Assets.Core
 
             container.isTimerRunning = true;
 
-            if (date >= 0)
+            if (date >= 0 && currentSpeed > 0)
             {
-                container.ReplaceTargetDate(date);
-
-                if (currentSpeed > 0)
-                    container.ReplaceDate(container.date.Date, currentSpeed);
+                container.ReplaceSpeed(currentSpeed);
             }
         }
 
@@ -84,15 +81,15 @@ namespace Assets.Core
         // was IAnyDateListener
         public static void ListenDateChanges(GameContext gameContext, IDateListener menuListener)
         {
-            GetUniversalListener(gameContext).AddDateListener(menuListener);
-            //GetDateContainer(gameContext).AddAnyDateListener(menuListener);
+            //GetUniversalListener(gameContext).AddDateListener(menuListener);
+            GetDateContainer(gameContext).AddDateListener(menuListener);
         }
 
         // was IAnyDateListener
         public static void UnsubscribeFromDateChanges(GameContext gameContext, IDateListener menuListener)
         {
-            GetUniversalListener(gameContext).RemoveDateListener(menuListener);
-            //GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
+            //GetUniversalListener(gameContext).RemoveDateListener(menuListener);
+            GetDateContainer(gameContext).RemoveDateListener(menuListener);
         }
 
 

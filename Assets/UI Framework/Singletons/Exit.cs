@@ -20,14 +20,16 @@ public class Exit : View
             MakeAScreenshot();
         }
 
-        if (Input.GetKeyDown(KeyCode.F11))
+        if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
         {
             State.SaveGame(Q);
+            Debug.Log("Game Saved");
         }
 
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.F10) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             State.LoadGame(Q);
+            Debug.Log("Game Loaded");
         }
     }
 

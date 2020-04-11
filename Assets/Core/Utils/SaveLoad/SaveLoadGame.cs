@@ -15,10 +15,10 @@ namespace Assets.Core
         public static void SaveGame(GameContext Q)
         {
             var entities = Q.GetEntities()
-                .Where(e => !e.hasAnyCompanyGoalListener)
-                .Where(e => !e.hasAnyCompanyListener)
-                .Where(e => !e.hasAnyDateListener)
-                .Where(e => !e.hasAnyNotificationsListener)
+                //.Where(e => !e.hasAnyCompanyGoalListener)
+                //.Where(e => !e.hasAnyCompanyListener)
+                //.Where(e => !e.hasAnyDateListener)
+                //.Where(e => !e.hasAnyNotificationsListener)
                 .ToArray()
                 ;
 
@@ -35,53 +35,45 @@ namespace Assets.Core
             serializer.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
             serializer.Formatting = Newtonsoft.Json.Formatting.Indented;
 
-            //Newtonsoft.Json.Serialization.ITraceWriter traceWriter = new Newtonsoft.Json.Serialization.MemoryTraceWriter();
-            //var converterSettings = new JsonSerializerSettings
-            //{
-            //    TraceWriter = traceWriter,
-            //    Converters = { new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter() },
-            //    //TypeNameHandling = TypeNameHandling.All,
-            //    Formatting = Formatting.None,
-            //    MissingMemberHandling = MissingMemberHandling.Ignore
-            //};
-
-
             var entityData = new Dictionary<int, IComponent[]>();
+
+
 
             foreach (var e in entities)
             {
-                var comps = e.GetComponents();
-                //Debug.Log("Serializing entity #" + e.creationIndex + ": " + string.Join(",", comps.Select(c => c.GetType())));
+                while (e.hasAnyDateListener)
+                    e.RemoveAnyDateListener();
+
+                while (e.hasDateListener)
+                    e.RemoveDateListener();
+
+                while (e.hasMenuListener)
+                    e.RemoveMenuListener();
+
+                while (e.hasAnyCompanyGoalListener)
+                    e.RemoveAnyCompanyGoalListener();
+
+                while (e.hasAnyCompanyListener)
+                    e.RemoveAnyCompanyListener();
+
+                while (e.hasAnyNotificationsListener)
+                    e.RemoveAnyNotificationsListener();
+
+                while (e.hasNavigationHistoryListener)
+                    e.RemoveNavigationHistoryListener();
+
+                var comps = e.GetComponents()
+                    //.Where(c => c.GetType() != typeof(IAnyDateListener))
+                    //.Where(c => c.GetType() != typeof(IDateListener))
+                    //.Where(c => c.GetType() != typeof(IMenuListener))
+                    //.Where(c => c.GetType() != typeof(IAnyCompanyGoalListener))
+                    //.Where(c => c.GetType() != typeof(IAnyCompanyListener))
+                    //.Where(c => c.GetType() != typeof(IAnyNotificationsListener))
+                    //.Where(c => c.GetType() != typeof(INavigationHistoryListener))
+                    .ToArray();
 
                 entityData[e.creationIndex] = comps;
             }
-
-            //foreach (var e in entityData)
-            //{
-            //    var index = e.Key;
-            //    var components = e.Value;
-
-            //    Debug.Log($"Serializing entity #{index} ...");
-            //    foreach (var c in components)
-            //    {
-            //        Debug.Log("     Serializing component " + c.GetType());
-            //        var data = JsonConvert.SerializeObject(c, converterSettings);
-
-            //        Debug.Log("     " + data);
-            //    }
-
-            //    Debug.Log($"DONE entity #{index}");
-            //}
-
-            //var str =
-            //    JsonConvert.SerializeObject(
-            //    entityData,
-            //    converterSettings
-            //    );
-
-            //Debug.Log("Serializing: " + str);
-            //Debug.Log(traceWriter);
-
 
             using (StreamWriter sw = new StreamWriter(fileName))
             using (Newtonsoft.Json.JsonWriter writer = new Newtonsoft.Json.JsonTextWriter(sw))

@@ -63,12 +63,16 @@ namespace Assets.Core
 
         public static IndustryType GetSelectedIndustry(GameContext gameContext)
         {
-            return (IndustryType)GetScreenData(gameContext)[Balance.MENU_SELECTED_INDUSTRY];
+            return (IndustryType)(int)GetScreenData(gameContext)[Balance.MENU_SELECTED_INDUSTRY];
         }
 
         public static NicheType GetSelectedNiche(GameContext gameContext)
         {
-            return (NicheType)GetScreenData(gameContext)[Balance.MENU_SELECTED_NICHE];
+            var niche = GetScreenData(gameContext)[Balance.MENU_SELECTED_NICHE];
+
+            Debug.Log("GetSelectedNiche: " + niche + " " + niche.GetType());
+
+            return (NicheType)(int)niche;
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)

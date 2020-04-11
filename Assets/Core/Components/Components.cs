@@ -11,10 +11,16 @@ public interface IEventListener
 [Game]
 public class UniversalListenerComponent : IComponent { }
 
-[Game, Unique, Event(EventTarget.Any), Event(EventTarget.Self)]
+[Game, Event(EventTarget.Any), Event(EventTarget.Self)]
 public class DateComponent : IComponent
 {
     public int Date;
+    public int Speed;
+}
+
+[Game]
+public class SpeedComponent : IComponent
+{
     public int Speed;
 }
 

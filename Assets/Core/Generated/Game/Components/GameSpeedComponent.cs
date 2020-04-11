@@ -8,27 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public DateComponent date { get { return (DateComponent)GetComponent(GameComponentsLookup.Date); } }
-    public bool hasDate { get { return HasComponent(GameComponentsLookup.Date); } }
+    public SpeedComponent speed { get { return (SpeedComponent)GetComponent(GameComponentsLookup.Speed); } }
+    public bool hasSpeed { get { return HasComponent(GameComponentsLookup.Speed); } }
 
-    public void AddDate(int newDate, int newSpeed) {
-        var index = GameComponentsLookup.Date;
-        var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
-        component.Date = newDate;
+    public void AddSpeed(int newSpeed) {
+        var index = GameComponentsLookup.Speed;
+        var component = (SpeedComponent)CreateComponent(index, typeof(SpeedComponent));
         component.Speed = newSpeed;
         AddComponent(index, component);
     }
 
-    public void ReplaceDate(int newDate, int newSpeed) {
-        var index = GameComponentsLookup.Date;
-        var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
-        component.Date = newDate;
+    public void ReplaceSpeed(int newSpeed) {
+        var index = GameComponentsLookup.Speed;
+        var component = (SpeedComponent)CreateComponent(index, typeof(SpeedComponent));
         component.Speed = newSpeed;
         ReplaceComponent(index, component);
     }
 
-    public void RemoveDate() {
-        RemoveComponent(GameComponentsLookup.Date);
+    public void RemoveSpeed() {
+        RemoveComponent(GameComponentsLookup.Speed);
     }
 }
 
@@ -42,17 +40,17 @@ public partial class GameEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameMatcher {
 
-    static Entitas.IMatcher<GameEntity> _matcherDate;
+    static Entitas.IMatcher<GameEntity> _matcherSpeed;
 
-    public static Entitas.IMatcher<GameEntity> Date {
+    public static Entitas.IMatcher<GameEntity> Speed {
         get {
-            if (_matcherDate == null) {
-                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Date);
+            if (_matcherSpeed == null) {
+                var matcher = (Entitas.Matcher<GameEntity>)Entitas.Matcher<GameEntity>.AllOf(GameComponentsLookup.Speed);
                 matcher.componentNames = GameComponentsLookup.componentNames;
-                _matcherDate = matcher;
+                _matcherSpeed = matcher;
             }
 
-            return _matcherDate;
+            return _matcherSpeed;
         }
     }
 }
