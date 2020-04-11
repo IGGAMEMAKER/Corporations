@@ -20,7 +20,6 @@ namespace Assets.Core
         public static GameEntity CreateMenu(GameContext gameContext)
         {
             var menu = gameContext.CreateEntity();
-            var screen = ScreenMode.NicheScreen;
 
             menu.AddNavigationHistory(new List<MenuComponent>());
 
@@ -33,7 +32,7 @@ namespace Assets.Core
                 [Balance.MENU_SELECTED_INVESTOR] = -1,
             };
 
-            menu.AddMenu(screen, dictionary);
+            menu.AddMenu(ScreenMode.NicheScreen, dictionary);
 
             return menu;
         }
