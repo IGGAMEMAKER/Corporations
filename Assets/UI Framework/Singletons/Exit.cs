@@ -30,6 +30,12 @@ public class Exit : View
         {
             State.LoadGame(Q);
             Debug.Log("Game Loaded");
+
+            ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
+            //var screen = FindObjectOfType<ScreenController>();
+
+            //screen.gameObject.SetActive(false);
+            //screen.gameObject.SetActive(true);
         }
     }
 

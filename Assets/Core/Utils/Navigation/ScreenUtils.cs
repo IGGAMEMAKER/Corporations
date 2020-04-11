@@ -70,9 +70,17 @@ namespace Assets.Core
         {
             var niche = GetScreenData(gameContext)[Balance.MENU_SELECTED_NICHE];
 
+            if (niche.GetType() == typeof(NicheType))
+                return (NicheType)niche;
+
+            //var stringedNiche = niche.ToString();
+            return (NicheType)System.Enum.ToObject(typeof(NicheType), niche);
+
             Debug.Log("GetSelectedNiche: " + niche + " " + niche.GetType());
 
-            return (NicheType)(int)niche;
+
+
+            return (NicheType)niche;
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
