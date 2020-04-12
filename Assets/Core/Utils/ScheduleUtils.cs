@@ -21,10 +21,16 @@ namespace Assets.Core
             return e;
         }
 
-        private static GameEntity GetDateContainer(GameContext gameContext)
+        public static GameEntity GetDateContainer(GameContext gameContext)
         {
-            return gameContext.GetEntities(GameMatcher.Date)[0];
+            var entities = gameContext.GetEntities(GameMatcher.Date);
+
+            if (entities.Length == 0)
+                return null;
+
+            return entities[0];
         }
+
         public static int GetCurrentDate(GameContext gameContext)
         {
             return GetDateContainer(gameContext).date.Date;

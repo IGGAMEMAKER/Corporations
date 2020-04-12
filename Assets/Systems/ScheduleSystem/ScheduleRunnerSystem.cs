@@ -2,61 +2,49 @@
 using Entitas;
 using UnityEngine;
 
-public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
+public class ScheduleRunnerSystem : IExecuteSystem
 {
     // TODO TIMER
     readonly GameContext _context;
-    bool isTimerRunning => DateEntity.isTimerRunning;
-
     float totalTime;
+
+    bool isTimerRunning => DateEntity.isTimerRunning;
     int currentSpeed => DateEntity.speed.Speed;
 
-    GameEntity DateEntity;
+    GameEntity DateContainer;
+
+    GameEntity DateEntity
+    {
+        get
+        {
+            if (DateContainer == null || !DateContainer.hasDate)
+                DateContainer = ScheduleUtils.GetDateContainer(_context);
+
+            return DateContainer;
+        }
+    }
 
     public ScheduleRunnerSystem(Contexts contexts)
     {
         _context = contexts.game;
     }
 
-    public void Initialize()
-    {
-        DateEntity = _context.CreateEntity();
-        DateEntity.AddDate(0, 3);
-        DateEntity.AddSpeed(3);
-        DateEntity.AddTargetDate(0);
-
-        ScheduleUtils.PauseGame(_context);
-
-        ResetTimer();
-    }
-
     public void Execute()
     {
+        if (DateEntity == null)
+            return;
+
         CheckPressedButtons();
 
         totalTime -= Time.deltaTime;
 
         if (totalTime < 0 && isTimerRunning)
         {
-            ResetTimer();
+            // ResetTimer();
+            totalTime = 1 / (float) currentSpeed;
 
             ScheduleUtils.IncreaseDate(_context, 1);
-
-            //if (DateEntity.date.Date == DateEntity.targetDate.Date)
-            //    ScheduleUtils.PauseGame(_context);
         }
-    }
-
-    void ResetTimer()
-    {
-        totalTime = 1 / (float) currentSpeed;
-    }
-
-
-    void ToggleTimer()
-    {
-        //DateEntity.isTimerRunning = !isTimerRunning;
-        ScheduleUtils.ToggleTimer(_context);
     }
 
     void CheckPressedButtons()
@@ -77,5 +65,10 @@ public class ScheduleRunnerSystem : IInitializeSystem, IExecuteSystem
         //if (Input.GetKeyUp(KeyCode.KeypadMinus) && currentSpeed > 2)
         //    UpdateSpeed(-1);
         //    //currentSpeed--;
+    }
+
+    void ToggleTimer()
+    {
+        ScheduleUtils.ToggleTimer(_context);
     }
 }

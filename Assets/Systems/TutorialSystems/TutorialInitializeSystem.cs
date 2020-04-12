@@ -13,11 +13,6 @@ public class TutorialInitializeSystem : IInitializeSystem
 
     void IInitializeSystem.Initialize()
     {
-        Initialize();
-    }
-
-    void Initialize()
-    {
         var e = GameContext.CreateEntity();
 
         e.AddTutorial(new System.Collections.Generic.Dictionary<TutorialFunctionality, bool>());

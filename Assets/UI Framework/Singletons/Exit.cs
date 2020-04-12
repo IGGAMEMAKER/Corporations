@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Exit : View
 {
@@ -18,24 +17,6 @@ public class Exit : View
         if (Input.GetKeyDown(KeyCode.F12))
         {
             MakeAScreenshot();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
-        {
-            State.SaveGame(Q);
-            Debug.Log("Game Saved");
-        }
-
-        if (Input.GetKeyDown(KeyCode.F10) || Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            State.LoadGame(Q);
-            Debug.Log("Game Loaded");
-
-            ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
-            //var screen = FindObjectOfType<ScreenController>();
-
-            //screen.gameObject.SetActive(false);
-            //screen.gameObject.SetActive(true);
         }
     }
 

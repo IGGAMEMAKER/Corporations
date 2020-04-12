@@ -3,12 +3,9 @@ using Entitas;
 using System.Collections.Generic;
 using System.Linq;
 
-class AnnualReportSystem : OnYearChange, IInitializeSystem
+public class AnnualReportSystem : OnYearChange
 {
-    public AnnualReportSystem(Contexts contexts) : base(contexts)
-    {
-
-    }
+    public AnnualReportSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -97,13 +94,6 @@ class AnnualReportSystem : OnYearChange, IInitializeSystem
         }
 
         return List;
-    }
-
-    void IInitializeSystem.Initialize()
-    {
-        var e = gameContext.CreateEntity();
-
-        e.AddReports(new List<AnnualReport>());
     }
 
     private void SaveGroupCompanyMetrics(GameEntity e, int date)

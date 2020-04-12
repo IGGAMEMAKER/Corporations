@@ -2,11 +2,11 @@
 using Entitas;
 using System.Collections.Generic;
 
-class CampaignStatsSystem : IInitializeSystem
+class CampaignStatsInitializerSystem : IInitializeSystem
 {
     readonly GameContext context;
 
-    public CampaignStatsSystem(Contexts contexts)
+    public CampaignStatsInitializerSystem(Contexts contexts)
     {
         context = contexts.game;
     }

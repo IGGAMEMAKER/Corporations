@@ -4,19 +4,27 @@
     {
         // Start point of all our systems
 
-        Add(new TutorialSystems(contexts));
-        Add(new TestSystems(contexts));
-        Add(new ScheduleSystems(contexts));
-        Add(new MenuSystems(contexts));
-        Add(new NotificationSystems(contexts));
+        //Add(new TestSystems(contexts));
 
+        //Add(new TutorialInitializeSystem(contexts));
+        //Add(new ScheduleInitializeSystem(contexts));
+        //Add(new MenuInitializeSystem(contexts));
+        //Add(new NotificationInitializerSystem(contexts));
+        //Add(new AnnualReportInitializerSystem(contexts));
 
         // Initialization
-        Add(new CampaignStatsSystem(contexts));
-        Add(new MarketInitializerSystem(contexts));
-        Add(new ProductInitializerSystem(contexts));
+        //Add(new CampaignStatsInitializerSystem(contexts));
+        //Add(new MarketInitializerSystem(contexts));
+        //Add(new ProductInitializerSystem(contexts));
+        
+        // Simulate world to start date
+        //Add(new WorldFillerSystem(contexts));
+
+        // ---------------------------------------------------
 
         // Execution
+        Add(new ScheduleSystems(contexts));
+        Add(new NotificationSystems(contexts));
 
         // companies
         Add(new InvestmentCooldownSystems(contexts));
@@ -29,10 +37,7 @@
 
         Add(new StatsSystems(contexts));
 
-        // Simulate world to start date
-        Add(new WorldFillerSystem(contexts));
 
         Add(new GameEventSystems(contexts));
-
     }
 }

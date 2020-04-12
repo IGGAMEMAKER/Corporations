@@ -1,11 +1,11 @@
 ﻿using Assets.Core;
 using Entitas;
 
-public class MenuSystems : IInitializeSystem
+public class MenuInitializeSystem : IInitializeSystem
 {
     readonly GameContext context;
 
-    public MenuSystems(Contexts contexts)
+    public MenuInitializeSystem(Contexts contexts)
     {
         context = contexts.game;
     }
