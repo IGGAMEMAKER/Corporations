@@ -60,31 +60,24 @@ public class RestoreGameStateAfterRecompilation : View
         e.AddEventContainer(new Dictionary<string, bool>());
 
         // date
-        var DateEntity = Q.CreateEntity();
-        DateEntity.AddDate(0, 3);
-        DateEntity.AddSpeed(3);
-        DateEntity.AddTargetDate(0);
 
-        ScheduleUtils.PauseGame(Q);
+        e.AddDate(0, 3);
+        e.AddSpeed(3);
+        e.AddTargetDate(0);
+        // game is paused already
+        //ScheduleUtils.PauseGame(Q);
 
         // menu
-        var c = ScreenUtils.GetMenu(Q);
+        ScreenUtils.CreateMenu(e);
+        //var c = ScreenUtils.GetMenu(Q);
 
         // Notifications and Popups
-        var n = Q.CreateEntity();
+        e.AddNotifications(new List<NotificationMessage>());
+        e.AddPopup(new List<PopupMessage>());
 
-        n.AddNotifications(new List<NotificationMessage>());
-        n.AddPopup(new List<PopupMessage>());
-
-        // reports
-        var r = Q.CreateEntity();
-
-        r.AddReports(new List<AnnualReport>());
-
-        // campaign stats
-        var statsContainer = Q.CreateEntity();
-
-        statsContainer.AddCampaignStats(new Dictionary<CampaignStat, int>
+        // reports & stats
+        e.AddReports(new List<AnnualReport>());
+        e.AddCampaignStats(new Dictionary<CampaignStat, int>
         {
             [CampaignStat.Acquisitions] = 0,
             [CampaignStat.Bankruptcies] = 0,
@@ -94,7 +87,7 @@ public class RestoreGameStateAfterRecompilation : View
 
         SpawnMarkets();
 
-        SpawnProducts();
+        SpawnHistoricalCompanies();
 
         SpawnCompanies();
     }
@@ -131,12 +124,9 @@ public class RestoreGameStateAfterRecompilation : View
 
             while (accumulator > 0)
             {
-                //Debug.Log("while");
                 Markets.PromoteNicheState(m);
                 accumulator -= Markets.GetNicheDuration(m);
             }
-
-
 
             // filling with companies
             var amountOfCompanies = UnityEngine.Random.Range(0, monthsOfWork / 12);
@@ -149,6 +139,7 @@ public class RestoreGameStateAfterRecompilation : View
             if (!isMockup)
                 activatedMarkets.Add(m.niche.NicheType);
         }
+
         Debug.Log("Mocky simulation: simulated markets");
 
         // simulate products
@@ -245,7 +236,7 @@ public class RestoreGameStateAfterRecompilation : View
             Debug.Log(notActivated.Count + " markets need to be activated: " + string.Join(",", notActivated));
     }
 
-    void SpawnProducts()
+    void SpawnHistoricalCompanies()
     {
         // products
         var facebook = GenerateProductCompany("facebook", NicheType.Com_SocialNetwork);
@@ -446,528 +437,8 @@ public class RestoreGameStateAfterRecompilation : View
 
     void SpawnMarkets()
     {
-        InitializeIndustries();
-
-        InitializeFundamentalIndustry();
-        InitializeCommunicationsIndustry();
-        InitializeEntertainmentIndustry();
-
-        InitializeEcommerceIndustry();
-        InitializeFinancesIndustry();
-        InitializeTourismIndustry();
-
-        InitializeUsefulAppsIndustry();
-
-        //CheckIndustriesWithZeroNiches();
+        Markets.SpawnMarkets(Q);
     }
-
-
-
-    //void CheckIndustriesWithZeroNiches()
-    //{
-    //    foreach (IndustryType industry in (IndustryType[])Enum.GetValues(typeof(IndustryType)))
-    //    {
-    //        if (NicheUtils.GetNichesInIndustry(industry, GameContext).Length == 0)
-    //            Debug.LogWarning("Industry " + industry.ToString() + " has zero niches! Fill it!");
-    //    }
-    //}
-
-    void InitializeIndustries()
-    {
-        foreach (IndustryType industry in (IndustryType[])System.Enum.GetValues(typeof(IndustryType)))
-            Q.CreateEntity().AddIndustry(industry);
-    }
-
-    GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost) => SetNicheCosts(GetNiche(niche), newBasePrice, newClientBatch, newTechCost, newAdCost);
-    GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost)
-    {
-        e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newAdCost);
-
-        return e;
-    }
-
-
-    GameEntity GetNiche(NicheType nicheType) => Markets.GetNiche(Q, nicheType);
-
-    GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry)
-    {
-        var e = GetNiche(niche);
-
-        e.ReplaceNiche(
-            e.niche.NicheType,
-            industry,
-            e.niche.MarketCompatibilities,
-            e.niche.CompetingNiches,
-            e.niche.Parent
-            );
-
-
-
-        return e;
-    }
-
-    void AttachNichesToIndustry(IndustryType industry, NicheType[] nicheTypes)
-    {
-        foreach (var n in nicheTypes)
-            AttachNicheToIndustry(n, industry);
-    }
-
-
-    GameEntity ForkNiche(NicheType parent, NicheType child)
-    {
-        var e = GetNiche(child);
-
-        e.ReplaceNiche(
-            e.niche.NicheType,
-            e.niche.IndustryType,
-            e.niche.MarketCompatibilities,
-            e.niche.CompetingNiches,
-            parent
-            );
-
-        return e;
-    }
-
-    void AddSynergicNiche(GameEntity entity, NicheType niche, int compatibility)
-    {
-        var list = entity.niche.MarketCompatibilities;
-        var n = entity.niche;
-
-        list.Add(new MarketCompatibility { Compatibility = compatibility, NicheType = niche });
-
-        entity.ReplaceNiche(n.NicheType, n.IndustryType, list, n.CompetingNiches, n.Parent);
-    }
-
-    void SetNichesAsSynergic(NicheType niche1, NicheType niche2, int compatibility)
-    {
-        var n1 = GetNiche(niche1);
-        var n2 = GetNiche(niche2);
-
-        AddSynergicNiche(n1, niche2, compatibility);
-        AddSynergicNiche(n2, niche1, compatibility);
-    }
-
-
-    // --------- industries --------------------------
-    private void InitializeFundamentalIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.Tech_SearchEngine,
-            NicheType.Tech_OSDesktop,
-            NicheType.Tech_Clouds,
-            NicheType.Tech_Browser,
-            NicheType.Tech_MobileOS,
-        };
-        AttachNichesToIndustry(IndustryType.Technology, niches);
-
-        var cloud =
-            new MarketProfile(AudienceSize.SmallEnterprise, Monetisation.Enterprise, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
-        var searchEngine =
-            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.High, AppComplexity.Humongous, NicheSpeed.ThreeYears);
-        var desktop =
-            new MarketProfile(AudienceSize.Global, Monetisation.Paid, Margin.High, AppComplexity.Humongous, NicheSpeed.ThreeYears);
-        var browser =
-            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
-
-        SetMarkets(NicheType.Tech_OSDesktop, 1980, 2040, desktop);
-        SetMarkets(NicheType.Tech_Browser, 1990, 2050, browser);
-        SetMarkets(NicheType.Tech_SearchEngine, 1995, 2040, searchEngine);
-
-        SetMarkets(NicheType.Tech_MobileOS, 2005, 2070, desktop);
-        SetMarkets(NicheType.Tech_Clouds, 2006, 2050, cloud);
-    }
-
-    private void InitializeUsefulAppsIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.Qol_PdfReader, // pdf readers
-            NicheType.Qol_DocumentEditors, // micr office
-            NicheType.Qol_GraphicalEditor, // Photoshop
-            NicheType.Qol_3DGraphicalEditor, // 3d max
-            NicheType.Qol_VideoEditingTool, // average
-
-
-            NicheType.Qol_AdBlocker, // small
-            NicheType.Qol_DiskFormattingUtils, // small
-            NicheType.Qol_RSSReader, // small
-            NicheType.Qol_Archivers, // small-average
-
-            //NicheType.Qol_MusicPlayers, // small-average
-            //NicheType.Qol_VideoPlayers, // average
-            NicheType.Qol_MusicSearch,
-            NicheType.Qol_Maps,
-
-            NicheType.Qol_Encyclopedia,
-            //NicheType.Qol_Antivirus,
-
-            NicheType.Qol_OnlineEducation,
-            //NicheType.Qol_OnlineGenealogy,
-
-
-            NicheType.ECom_OnlineTaxi,
-
-        };
-        AttachNichesToIndustry(IndustryType.WorkAndLife, niches);
-
-        var smallUtil =
-            new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);
-
-        var encyclopedia =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, AppComplexity.Easy, NicheSpeed.ThreeYears);
-
-        // paid?
-        var officeDocumentEditor =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.ThreeYears);
-
-        var education =
-            new MarketProfile(AudienceSize.Million, Monetisation.Service, Margin.High, AppComplexity.Easy, NicheSpeed.Year);
-
-        var musicSearch =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.Year);
-
-        var maps =
-            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Hard, NicheSpeed.ThreeYears);
-
-        //var genealogySite =
-        //    new MarketProfile(AudienceSize.Million, Monetisation.Adverts, Margin.Low, AppComplexity.Easy, NicheSpeed.ThreeYears);
-
-        var taxi =
-            new MarketProfile(AudienceSize.Global, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
-
-
-
-        SetMarkets(NicheType.Qol_DocumentEditors, 1980, 2040, officeDocumentEditor);
-        SetMarkets(NicheType.Qol_GraphicalEditor, 1990, 2040, officeDocumentEditor);
-
-        SetMarkets(NicheType.Qol_3DGraphicalEditor, 1990, 2050, officeDocumentEditor);
-
-
-        SetMarkets(NicheType.Qol_DiskFormattingUtils, 1999, 2030, smallUtil);
-        SetMarkets(NicheType.Qol_RSSReader, 1999, 2030, smallUtil);
-        SetMarkets(NicheType.Qol_Archivers, 1999, 2030, smallUtil);
-
-        SetMarkets(NicheType.Qol_PdfReader, 2000, 2030, officeDocumentEditor);
-        SetMarkets(NicheType.Qol_VideoEditingTool, 2000, 2050, officeDocumentEditor);
-
-
-        SetMarkets(NicheType.Qol_Encyclopedia, 2002, 2050, encyclopedia);
-        SetMarkets(NicheType.Qol_AdBlocker, 2003, 2040, smallUtil);
-        //SetMarkets(NicheType.Qol_OnlineGenealogy,       2003, 2040, genealogySite);
-
-
-        SetMarkets(NicheType.Qol_Maps, 2005, 2040, maps);
-        SetMarkets(NicheType.Qol_MusicSearch, 2009, 2040, musicSearch);
-
-        SetMarkets(NicheType.ECom_OnlineTaxi, 1998, 2030, taxi);
-
-        //SetMarkets(NicheType.Qol_MusicPlayers,          2003, 2040, smallUtil);
-        //SetMarkets(NicheType.Qol_VideoPlayers,          2003, 2040, smallUtil);
-        //SetMarkets(NicheType.Qol_Antivirus,             2003, 2040, smallUtil);
-        SetMarkets(NicheType.Qol_OnlineEducation, 2008, 2040, education);
-    }
-
-    void InitializeCommunicationsIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.Com_Messenger,        // chatting***, info
-            NicheType.Com_SocialNetwork,    // users, chatting, info
-            NicheType.Com_Blogs,            // info, users, chatting
-            NicheType.Com_Forums,           // info, chatting
-            NicheType.Com_Email,            // chatting
-
-            NicheType.Com_Dating,
-        };
-        AttachNichesToIndustry(IndustryType.Communications, niches);
-
-
-        var socialNetworks =
-            new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Mid, AppComplexity.Hard, NicheSpeed.Year);
-
-        var messenger = socialNetworks.Copy().IncomeLow().WebService().Dynamic();
-
-        SetMarkets(NicheType.Com_Email, 1990, 2020, GetPopularUsefulAppProfile);
-        SetMarkets(NicheType.Com_Forums, 1990, 2020, GetPopularRarelyUsedAppProfile);
-        SetMarkets(NicheType.Com_Blogs, 1995, 2020, GetPopularRarelyUsedAppProfile);
-        SetMarkets(NicheType.Com_Dating, 2000, 2020, GetPopularUsefulAppProfile);
-
-        SetMarkets(NicheType.Com_Messenger, 2000, 2030, messenger);
-        SetMarkets(NicheType.Com_SocialNetwork, 2003, 2025, socialNetworks);
-
-
-
-        //new ProductPositioning[] {
-        //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
-        //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
-        //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
-        //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
-        //},
-    }
-
-    private void InitializeEntertainmentIndustry()
-    {
-        var niches = new NicheType[] {
-            // gambling
-            NicheType.Ent_Betting,
-            NicheType.Ent_Casino,
-            //NicheType.Ent_Lottery,
-            NicheType.Ent_Poker,
-
-            // gaming
-            //NicheType.Ent_FreeToPlay,
-            //NicheType.Ent_MMOs,
-            //NicheType.Ent_Publishing,
-
-            // Video Streaming
-            NicheType.Ent_VideoHosting,
-            NicheType.Ent_StreamingService,
-            NicheType.Ent_TVStreamingService,
-        };
-        AttachNichesToIndustry(IndustryType.Entertainment, niches);
-
-        var videoHosting = new MarketProfile(AudienceSize.Global, Monetisation.Adverts, Margin.Low, AppComplexity.Hard, NicheSpeed.ThreeYears);
-
-        var streaming = new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
-        var tvStreaming = new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Mid, AppComplexity.Average, NicheSpeed.Year);
-
-        //SetMarkets(NicheType.Ent_Lottery, 2000, 2018, GetGamblingCompanyProfile);
-        SetMarkets(NicheType.Ent_Casino, 2001, 2020, GetGamblingCompanyProfile);
-        SetMarkets(NicheType.Ent_Betting, 2000, 2020, GetGamblingCompanyProfile);
-        SetMarkets(NicheType.Ent_Poker, 2001, 2025, GetGamblingCompanyProfile);
-
-        //SetMarkets(NicheType.Ent_FreeToPlay, 2001, 2100,
-        //    AudienceSize.Million100, Monetisation.Adverts, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
-
-        //SetMarkets(NicheType.Ent_MMOs, 2000, 2030,
-        //    AudienceSize.Million, Monetisation.Service, Margin.Mid, NicheSpeed.Year, AppComplexity.Average);
-
-
-        SetMarkets(NicheType.Ent_VideoHosting, 2004, 2030, videoHosting);
-
-        SetMarkets(NicheType.Ent_StreamingService, 2011, 2030, streaming);
-        SetMarkets(NicheType.Ent_TVStreamingService, 2013, 2030, tvStreaming);
-    }
-
-    private void InitializeFinancesIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.ECom_Exchanging,
-            NicheType.ECom_OnlineBanking,
-            NicheType.ECom_PaymentSystem,
-
-            //NicheType.ECom_Blockchain,
-            //NicheType.ECom_TradingBot,
-        };
-        AttachNichesToIndustry(IndustryType.Finances, niches);
-
-        var payment =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.HalfYear);
-
-        var banking = payment.Copy().Global().IncomeMid().Dynamic();
-
-        SetMarkets(NicheType.ECom_OnlineBanking, 1992, 2030, banking);
-        SetMarkets(NicheType.ECom_PaymentSystem, 1995, 2030, payment);
-
-        SetMarkets(NicheType.ECom_Exchanging, 1998, 2030, payment);
-    }
-
-    private void InitializeTourismIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.ECom_BookingTransportTickets,
-            NicheType.ECom_BookingHotels,
-            NicheType.ECom_BookingTours,
-            NicheType.ECom_BookingAppartments,
-        };
-        AttachNichesToIndustry(IndustryType.Tourism, niches);
-
-        var booking =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.Low, AppComplexity.Average, NicheSpeed.Year);
-
-        SetMarkets(NicheType.ECom_BookingTransportTickets, 1998, 2030, booking);
-        SetMarkets(NicheType.ECom_BookingHotels, 1998, 2030, booking);
-        SetMarkets(NicheType.ECom_BookingTours, 1998, 2030, booking);
-        SetMarkets(NicheType.ECom_BookingAppartments, 2008, 2050, booking);
-    }
-
-    private void InitializeEcommerceIndustry()
-    {
-        var niches = new NicheType[] {
-            NicheType.ECom_Marketplace,
-            NicheType.ECom_OnlineTaxi,
-        };
-        AttachNichesToIndustry(IndustryType.Ecommerce, niches);
-
-        var marketplace =
-            new MarketProfile(AudienceSize.Million100, Monetisation.Service, Margin.High, AppComplexity.Hard, NicheSpeed.Year);
-
-        var taxi =
-            new MarketProfile(AudienceSize.Global, Monetisation.Service, Margin.Low, AppComplexity.Hard, NicheSpeed.Year);
-
-        SetMarkets(NicheType.ECom_Marketplace, 1995, 2050, marketplace);
-        SetMarkets(NicheType.ECom_OnlineTaxi, 1995, 2050, taxi);
-    }
-
-
-    // Full Audience
-    long GetFullAudience(MarketProfile profile, int nicheId)
-    {
-        AudienceSize audienceSize = profile.AudienceSize;
-
-        return Randomise((long)audienceSize, nicheId);
-    }
-
-    private int GetTechCost(MarketProfile profile, int nicheId)
-    {
-        return (int)Randomise((int)profile.AppComplexity, nicheId);
-    }
-
-
-    float GetProductPrice(MarketProfile profile, float adCost, int nicheId)
-    {
-        Monetisation monetisationType = profile.MonetisationType;
-        Margin margin = profile.Margin;
-
-        var baseCost = adCost * (100 + (int)margin);
-
-        return baseCost / 100f;
-    }
-
-
-    float GetAdCost(MarketProfile profile, int nicheId)
-    {
-        Monetisation monetisationType = profile.MonetisationType;
-
-        var baseValue = (int)monetisationType;
-
-        //var repaymentTime = GetSelfPaymentTime(monetisationType);
-        //baseValue *= repaymentTime;
-
-        return Randomise(baseValue * 1000, nicheId) / 12f / 1000f;
-    }
-
-    float GetSelfPaymentTime(Monetisation monetisationType)
-    {
-        switch (monetisationType)
-        {
-            case Monetisation.Adverts: return 10;
-            case Monetisation.Service: return 8;
-            case Monetisation.Enterprise: return 5;
-            case Monetisation.Paid: return 3;
-        }
-
-        return 1;
-    }
-
-    int GetYear(int year) => ScheduleUtils.GetDateByYear(year);
-
-    GameEntity SetMarkets(NicheType nicheType,
-    int startDate,
-    int duration,
-    AudienceSize AudienceSize, Monetisation MonetisationType, Margin Margin, NicheSpeed Iteration, AppComplexity ProductComplexity
-    )
-    {
-        return SetMarkets(
-            nicheType,
-            startDate,
-            duration,
-            new MarketProfile
-            {
-                AudienceSize = AudienceSize,
-                NicheSpeed = Iteration,
-                Margin = Margin,
-                MonetisationType = MonetisationType,
-                AppComplexity = ProductComplexity
-            }
-            );
-    }
-
-    GameEntity SetMarkets(NicheType nicheType,
-        int startDate,
-        int duration,
-        MarketProfile settings
-        )
-    {
-        var nicheId = GetNicheId(nicheType);
-
-        var clients = GetFullAudience(settings, nicheId);
-        var techCost = GetTechCost(settings, nicheId);
-        var adCosts = GetAdCost(settings, nicheId);
-        var price = GetProductPrice(settings, adCosts, nicheId);
-
-
-        var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts);
-
-
-        var positionings = new Dictionary<int, ProductPositioning>
-        {
-            [0] = new ProductPositioning
-            {
-                isCompetitive = false,
-                marketShare = 100,
-                name = Enums.GetSingleFormattedNicheName(nicheType)
-            }
-        };
-
-        var clientsContainer = new Dictionary<int, long>
-        {
-            [0] = clients
-        };
-
-        n.ReplaceNicheSegments(positionings);
-        n.ReplaceNicheClientsContainer(clientsContainer);
-        n.ReplaceNicheLifecycle(GetYear(startDate), n.nicheLifecycle.Growth, GetYear(duration));
-        n.ReplaceNicheBaseProfile(settings);
-
-        return n;
-    }
-
-
-    long Randomise(long baseValue, int nicheId)
-    {
-        return Companies.GetRandomValue(baseValue, nicheId, 0);
-    }
-
-    int GetNicheId(NicheType nicheType)
-    {
-        return (int)nicheType;
-    }
-
-    // profiles
-
-    MarketProfile GetPopularRarelyUsedAppProfile => new MarketProfile
-    {
-        AudienceSize = AudienceSize.Million100,
-        MonetisationType = Monetisation.Adverts,
-        Margin = Margin.Low,
-
-        AppComplexity = AppComplexity.Average,
-
-        NicheSpeed = NicheSpeed.ThreeYears,
-    };
-
-    MarketProfile GetPopularUsefulAppProfile => new MarketProfile
-    {
-        AudienceSize = AudienceSize.Million100,
-        MonetisationType = Monetisation.Adverts,
-        Margin = Margin.Low,
-
-        AppComplexity = AppComplexity.Hard,
-
-        NicheSpeed = NicheSpeed.Year,
-    };
-
-    MarketProfile GetGamblingCompanyProfile => new MarketProfile
-    {
-        AudienceSize = AudienceSize.Million,
-        MonetisationType = Monetisation.IrregularPaid,
-        Margin = Margin.Mid,
-
-        AppComplexity = AppComplexity.Average,
-
-        NicheSpeed = NicheSpeed.Year,
-    };
-
-    MarketProfile GetSmallUtilityForOneDevProfile => new MarketProfile(AudienceSize.SmallUtil, Monetisation.Adverts, Margin.Low, AppComplexity.Solo, NicheSpeed.ThreeYears);
 
     /// --- Products -----------------------------------
 }

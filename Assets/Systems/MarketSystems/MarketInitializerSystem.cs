@@ -1,6 +1,5 @@
 ﻿using Assets.Core;
 using Entitas;
-using System;
 
 
 public partial class MarketInitializerSystem : IInitializeSystem
@@ -14,10 +13,6 @@ public partial class MarketInitializerSystem : IInitializeSystem
 
     void IInitializeSystem.Initialize()
     {
+        Markets.SpawnMarkets(gameContext);
     }
-}
-
-public partial class MarketInitializerSystem : IInitializeSystem
-{
-
 }

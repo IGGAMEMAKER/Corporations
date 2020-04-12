@@ -17,10 +17,9 @@ namespace Assets.Core
                 return entities[0];
         }
 
-        public static GameEntity CreateMenu(GameContext gameContext)
+        public static GameEntity CreateMenu(GameContext gameContext) => CreateMenu(gameContext.CreateEntity());
+        public static GameEntity CreateMenu(GameEntity menu)
         {
-            var menu = gameContext.CreateEntity();
-
             menu.AddNavigationHistory(new List<MenuComponent>());
 
             var dictionary = new Dictionary<string, object>

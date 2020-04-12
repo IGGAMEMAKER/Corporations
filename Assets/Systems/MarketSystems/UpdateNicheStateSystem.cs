@@ -9,7 +9,7 @@ public partial class UpdateNicheStateSystem : OnMonthChange, IInitializeSystem
 
     void IInitializeSystem.Initialize()
     {
-        CheckNiches();
+        //CheckNiches();
     }
 
     protected override void Execute(List<GameEntity> entities)
