@@ -31,6 +31,7 @@ public class StartCampaignButton : ButtonController
 
         Debug.Log("Possible markets: " + string.Join(",", niches.Select(n => n.ToString())));
         Debug.Log("Setting industry: " + industry + " " + index + " " + niches.Count());
+
         var niche = niches[index].niche.NicheType;
 
         SetNiche(niche, Input);
