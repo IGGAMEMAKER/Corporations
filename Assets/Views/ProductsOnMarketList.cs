@@ -10,7 +10,7 @@ public class ProductsOnMarketList : ListView
     {
         var c = entity as GameEntity;
 
-        var maxClients = Markets.GetProductsOnMarket(Q, SelectedNiche).Sum(Marketing.GetClients);
+        var maxClients = Markets.GetProductsOnMarket(Q, c.product.Niche).Sum(Marketing.GetClients);
 
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
@@ -20,12 +20,7 @@ public class ProductsOnMarketList : ListView
 
     bool canViewCompetitors => Companies.IsHasReleasedProducts(Q, MyCompany);
 
-    NicheType GetNiche()
-    {
-        var niche = isHoldingScreen ? Flagship.product.Niche : SelectedNiche;
-
-        return niche;
-    }
+    NicheType Niche => isHoldingScreen ? Flagship.product.Niche : SelectedNiche;
 
     public override void ViewRender()
     {
@@ -33,7 +28,7 @@ public class ProductsOnMarketList : ListView
 
         if (canViewCompetitors)
         {
-            var products = Markets.GetProductsOnMarket(Q, GetNiche()).OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
+            var products = Markets.GetProductsOnMarket(Q, Niche).OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
 
             SetItems(products);
             return;
