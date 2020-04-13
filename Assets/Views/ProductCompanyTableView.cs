@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ProductCompanyTableView : View
 {
     public SetAmountOfStars SetAmountOfStars;
-    [SerializeField] Text AudienceGrowth;
+    public Text AudienceGrowth;
 
     GameEntity entity;
     bool QuarterlyOrYearly;

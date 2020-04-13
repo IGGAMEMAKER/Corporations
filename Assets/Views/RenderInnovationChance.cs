@@ -8,10 +8,7 @@ public class RenderInnovationChance : UpgradedParameterView
         if (!SelectedCompany.hasProduct)
             return "";
 
-        //if (Companies.IsExploredCompany(Q, SelectedCompany))
         return Products.GetInnovationChanceBonus(SelectedCompany, Q).ToString();
-
-        return "Research company to get more details";
     }
 
     public override string RenderValue()

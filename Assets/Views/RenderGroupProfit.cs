@@ -28,10 +28,10 @@ public class RenderGroupProfit : UpgradedParameterView
 
         return text;
 
-        if (Companies.IsHasDaughters(Q, MyCompany))
-            return $"{minifiedBalance}\n{Visuals.PositiveOrNegativeMinified(profit)}";
+        //if (Companies.IsHasDaughters(Q, MyCompany))
+        //    return $"{minifiedBalance}\n{Visuals.PositiveOrNegativeMinified(profit)}";
 
-        return minifiedBalance;
+        //return minifiedBalance;
     }
 
     string GetIncomeInfo(GameEntity c)

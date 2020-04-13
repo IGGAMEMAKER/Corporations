@@ -6,7 +6,7 @@ public class FlagshipCompanyListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<ProductStateView>().SetEntity(entity as GameEntity);
+        
     }
 
     public override void ViewRender()

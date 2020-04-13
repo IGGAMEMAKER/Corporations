@@ -6,8 +6,8 @@ using UnityEngine;
 public class CompanyTableView : View, IPointerEnterHandler
 {
     public Text CompanyName;
-    [SerializeField] Text Cost;
-    [SerializeField] Text ValuationGrowth;
+    public Text Cost;
+    public Text ValuationGrowth;
 
     public Image Panel;
 

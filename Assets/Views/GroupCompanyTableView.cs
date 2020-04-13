@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class GroupCompanyTableView : View
 {
-    [SerializeField] Text CompanyTypeName;
-    [SerializeField] Text NicheFocus;
-    [SerializeField] Text IndustryFocus;
+    public Text CompanyTypeName;
+    public Text NicheFocus;
+    public Text IndustryFocus;
 
     GameEntity entity;
 
@@ -43,10 +43,10 @@ public class GroupCompanyTableView : View
         var text = "";
 
         if (industries.Count < AmountOfNiches)
-            text = System.String.Join("\n", industries.Select(FormatIndustries));
+            text = string.Join("\n", industries.Select(FormatIndustries));
         else
         {
-            text = System.String.Join("\n", industries.Select(FormatIndustries).ToArray(), 0, AmountOfNiches);
+            text = string.Join("\n", industries.Select(FormatIndustries).ToArray(), 0, AmountOfNiches);
             text += $"\nand {industries.Count - AmountOfNiches} more";
         }
 
@@ -61,11 +61,11 @@ public class GroupCompanyTableView : View
 
         if (niches.Count < AmountOfNiches)
         {
-            text = System.String.Join("\n", niches.Select(FormatNiches));
+            text = string.Join("\n", niches.Select(FormatNiches));
         }
         else
         {
-            text = System.String.Join("\n", niches.Select(FormatNiches).ToArray(), 0, AmountOfNiches);
+            text = string.Join("\n", niches.Select(FormatNiches).ToArray(), 0, AmountOfNiches);
             text += $"\nand {niches.Count - AmountOfNiches} more";
         }
 

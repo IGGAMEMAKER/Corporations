@@ -67,7 +67,7 @@ public class CompanyViewOnMap : View
             var profit = Economy.GetProfit(Q, company.company.Id);
 
             var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, Q);
-            var shareChange = 1;
+            //var shareChange = 1;
             bool isGrowing = Companies.IsCompanyGrowing(company, Q);
 
             //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");

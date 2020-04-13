@@ -1,5 +1,4 @@
 ﻿using Assets.Core;
-using Assets.Core;
 
 public class CheckTestCampaignResources : ResourceChecker
 {

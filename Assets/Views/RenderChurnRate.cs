@@ -14,7 +14,7 @@ public class RenderChurnRate : UpgradedParameterView
 
         return $"Loses {Format.Minify(churnUsers)} users weekly ({rate}% churn)";
 
-        return $"{Format.Minify(churnUsers)} users ({rate}%)";
+        //return $"{Format.Minify(churnUsers)} users ({rate}%)";
         //return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
     }
 }

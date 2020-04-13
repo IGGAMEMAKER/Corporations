@@ -54,13 +54,12 @@ public partial class TaskView : View
             ProgressBar.SetValue(progress);
         }
 
-        return;
-        // same as Progressbar
-        if (hasSlider)
-        {
-            Slider.gameObject.SetActive(remaining > 0);
-            Slider.value = progress;
-        }
+        //// same as Progressbar
+        //if (hasSlider)
+        //{
+        //    Slider.gameObject.SetActive(remaining > 0);
+        //    Slider.value = progress;
+        //}
     }
 
     void RenderPanel()

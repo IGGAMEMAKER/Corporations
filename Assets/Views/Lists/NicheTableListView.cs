@@ -71,9 +71,9 @@ public class NicheTableListView : ListView
         return (IncludeInnovativeMarkets && timeToMarket < 12)
             || (IncludeMassMarkets && timeToMarket >= 12);
 
-        return (IncludeInnovativeMarkets && state == MarketState.Innovation)
-            || (IncludeMassMarkets && (state == MarketState.Trending || state == MarketState.MassGrowth || state == MarketState.MassUsage))
-            ;
+        //return (IncludeInnovativeMarkets && state == MarketState.Innovation)
+        //    || (IncludeMassMarkets && (state == MarketState.Trending || state == MarketState.MassGrowth || state == MarketState.MassUsage))
+        //    ;
     }
 
     bool HasCompanies(GameEntity niche)

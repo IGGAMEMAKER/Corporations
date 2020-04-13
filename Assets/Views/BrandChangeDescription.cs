@@ -8,8 +8,6 @@ public class BrandChangeDescription : ParameterView
             return "";
 
         //if (Companies.IsExploredCompany(Q, SelectedCompany))
-            return Marketing.GetBrandChange(SelectedCompany, Q).ToString();
-
-        return "???";
+        return Marketing.GetBrandChange(SelectedCompany, Q).ToString();
     }
 }
