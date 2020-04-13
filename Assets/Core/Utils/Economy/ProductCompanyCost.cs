@@ -21,9 +21,9 @@
         public static long GetClientBaseCost(GameContext context, int companyId)
         {
             return 0;
-            var c = Companies.Get(context, companyId);
+            //var c = Companies.Get(context, companyId);
 
-            return Marketing.GetClients(c) * 100;
+            //return Marketing.GetClients(c) * 100;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Products
     {
@@ -10,18 +8,18 @@ namespace Assets.Core
         {
             return 7;
 
-            var modifier = 3; // 3
-            switch (nicheChangeSpeed)
-            {
-                case NicheSpeed.Quarter:   return 90 / modifier;
+            //var modifier = 3; // 3
+            //switch (nicheChangeSpeed)
+            //{
+            //    case NicheSpeed.Quarter:   return 90 / modifier;
 
-                case NicheSpeed.HalfYear:  return 180 / modifier;
-                case NicheSpeed.Year:      return 360 / modifier;
+            //    case NicheSpeed.HalfYear:  return 180 / modifier;
+            //    case NicheSpeed.Year:      return 360 / modifier;
 
-                case NicheSpeed.ThreeYears: return 360 * 3 / modifier;
+            //    case NicheSpeed.ThreeYears: return 360 * 3 / modifier;
 
-                default: return 0;
-            }
+            //    default: return 0;
+            //}
         }
 
 

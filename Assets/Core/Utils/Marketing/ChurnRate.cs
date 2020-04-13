@@ -55,20 +55,20 @@ namespace Assets.Core
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
             return 1;
-            switch (monetisation)
-            {
-                case Monetisation.Adverts:
-                    return 70;
+            //switch (monetisation)
+            //{
+            //    case Monetisation.Adverts:
+            //        return 70;
 
-                case Monetisation.Service:
-                    return 40;
+            //    case Monetisation.Service:
+            //        return 40;
 
-                case Monetisation.Enterprise:
-                case Monetisation.IrregularPaid:
-                case Monetisation.Paid:
-                default:
-                    return 20;
-            }
+            //    case Monetisation.Enterprise:
+            //    case Monetisation.IrregularPaid:
+            //    case Monetisation.Paid:
+            //    default:
+            //        return 20;
+            //}
         }
 
 
@@ -84,8 +84,8 @@ namespace Assets.Core
 
         public static bool HasDumpingCompetitors(GameContext gameContext, GameEntity product)
         {
+            //return GetDumpingCompetitors(gameContext, product).Count() > 0;
             return false;
-            return GetDumpingCompetitors(gameContext, product).Count() > 0;
         }
     }
 }

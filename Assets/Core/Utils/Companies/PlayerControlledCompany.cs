@@ -36,21 +36,13 @@ namespace Assets.Core
 
         public static bool IsPlayerFlagship(GameContext gameContext, GameEntity company)
         {
-            var playerRelatedProducts = GetPlayerRelatedProducts(gameContext);
-
-            return IsFlagship(playerRelatedProducts, company);
-
-            if (playerRelatedProducts.Length == 0)
-                return false;
-
-            return playerRelatedProducts[0].company.Id == company.company.Id;
+            return IsFlagship(company);
         }
 
         //
-        public static bool IsFlagship(GameEntity[] products, GameEntity product)
+        public static bool IsFlagship(GameEntity product)
         {
             return product.isFlagship;
-            //return product.company.Id == products[0].company.Id;
         }
 
         public static GameEntity GetFlagship(GameContext gameContext, GameEntity group)
@@ -61,7 +53,7 @@ namespace Assets.Core
                 return null;
 
 
-            var flagship = daughters.First(p => IsFlagship(daughters, p));
+            var flagship = daughters.First(p => IsFlagship(p));
 
             return flagship;
         }

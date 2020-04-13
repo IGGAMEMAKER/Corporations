@@ -110,8 +110,8 @@ namespace Assets.Core
 
             // salaries?
 
+            //return UnityEngine.Random.Range(0, 5);
             return change;
-            return UnityEngine.Random.Range(0, 5);
         }
     }
 }

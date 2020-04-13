@@ -18,13 +18,13 @@ class CompanyReportSystem : OnPeriodChange
         //var groups
 
         return;
-        foreach (var e in companies)
-        {
-            if (Companies.IsProductCompany(e))
-                SaveProductCompanyMetrics(e, date);
-            else
-                SaveGroupCompanyMetrics(e, date);
-        }
+        //foreach (var e in companies)
+        //{
+        //    if (Companies.IsProductCompany(e))
+        //        SaveProductCompanyMetrics(e, date);
+        //    else
+        //        SaveGroupCompanyMetrics(e, date);
+        //}
     }
 
     private void SaveGroupCompanyMetrics(GameEntity e, int date)

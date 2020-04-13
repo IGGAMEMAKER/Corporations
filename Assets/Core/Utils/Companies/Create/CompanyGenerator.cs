@@ -93,7 +93,6 @@ namespace Assets.Core
         public static Dictionary<CorporatePolicy, int> GetRandomWorkerCorporateCulture()
         {
             var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
-            var min = Balance.CORPORATE_CULTURE_LEVEL_MIN;
             var half = max / 2;
 
 

@@ -19,7 +19,7 @@
 
             return 1 + UnityEngine.Mathf.Clamp((int)rank, 0, 4);
 
-            return UnityEngine.Random.Range(1, 6);
+            //return UnityEngine.Random.Range(1, 6);
         }
 
         static int GetProductCompanyRating(GameContext gameContext, GameEntity product)

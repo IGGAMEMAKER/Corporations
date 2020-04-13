@@ -36,17 +36,6 @@ public partial class ChurnSystem : OnPeriodChange
             clientContainers[0] += churnClients;
 
             continue;
-            // send churn users to dumping companies
-            foreach (var d in dumpingCompanies)
-            {
-                float clients = churnClients;
-                if (totalBrands == 0)
-                    clients /= dumpingCompanies.Count();
-                else
-                    clients *= p.branding.BrandPower / totalBrands;
-
-                Marketing.AddClients(d, (long)(clients));
-            }
         }
     }
 }

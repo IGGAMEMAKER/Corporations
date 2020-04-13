@@ -75,11 +75,11 @@ namespace Assets.Core
             //var stringedNiche = niche.ToString();
             return (NicheType)System.Enum.ToObject(typeof(NicheType), niche);
 
-            Debug.Log("GetSelectedNiche: " + niche + " " + niche.GetType());
+            //Debug.Log("GetSelectedNiche: " + niche + " " + niche.GetType());
 
 
 
-            return (NicheType)niche;
+            //return (NicheType)niche;
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
