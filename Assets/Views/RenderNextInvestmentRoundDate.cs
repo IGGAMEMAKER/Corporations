@@ -8,7 +8,7 @@ public class RenderNextInvestmentRoundDate : ParameterView
 
     public override string RenderValue()
     {
-        bool isRoundActive = SelectedCompany.hasAcceptsInvestments;
+        bool isRoundActive = MyCompany.hasAcceptsInvestments;
 
         if (!isRoundActive)
         {
@@ -18,7 +18,7 @@ public class RenderNextInvestmentRoundDate : ParameterView
 
         NextTweakLabel.SetActive(true);
 
-        int days = SelectedCompany.acceptsInvestments.DaysLeft;
+        int days = MyCompany.acceptsInvestments.DaysLeft;
         return $"{days} days";
     }
 }
