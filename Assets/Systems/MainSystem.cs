@@ -14,7 +14,7 @@
 
         // Initialization
         //Add(new CampaignStatsInitializerSystem(contexts));
-        Add(new MarketInitializerSystem(contexts));
+        //Add(new MarketInitializerSystem(contexts));
         //Add(new ProductInitializerSystem(contexts));
 
         // Simulate world to start date

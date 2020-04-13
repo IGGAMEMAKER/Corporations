@@ -43,6 +43,8 @@ public class RestoreGameStateAfterRecompilation : View
         State.LoadGame(Q);
         Debug.Log("Game Loaded");
 
+        if (TopPanel == null && Panels == null)
+            return;
         // reactivate panels here
         TopPanel.SetActive(false);
         TopPanel.SetActive(true);
@@ -61,9 +63,9 @@ public class RestoreGameStateAfterRecompilation : View
 
         // date
 
-        e.AddDate(0, 3);
+        e.AddDate(0);
         e.AddSpeed(3);
-        e.AddTargetDate(0);
+        //e.AddTargetDate(0);
         // game is paused already
         //ScheduleUtils.PauseGame(Q);
 

@@ -30,7 +30,7 @@ public sealed class DateEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.dateListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnDate(e, component.Date, component.Speed);
+                listener.OnDate(e, component.Date);
             }
         }
     }

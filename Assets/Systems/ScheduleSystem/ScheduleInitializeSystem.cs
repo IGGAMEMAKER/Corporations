@@ -13,9 +13,8 @@ public class ScheduleInitializeSystem : IInitializeSystem
     void IInitializeSystem.Initialize()
     {
         var DateEntity = _context.CreateEntity();
-        DateEntity.AddDate(0, 3);
+        DateEntity.AddDate(0);
         DateEntity.AddSpeed(3);
-        DateEntity.AddTargetDate(0);
 
         ScheduleUtils.PauseGame(_context);
     }

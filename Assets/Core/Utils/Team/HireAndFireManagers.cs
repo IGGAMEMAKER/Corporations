@@ -71,10 +71,11 @@ namespace Assets.Core
         {
             return new List<CorporatePolicy>
             {
-                CorporatePolicy.InnovationOrStability, CorporatePolicy.LeaderOrTeam,
+                CorporatePolicy.BuyOrCreate, CorporatePolicy.LeaderOrTeam,
                 CorporatePolicy.CompetitionOrSupport, CorporatePolicy.SalariesLowOrHigh
             };
         }
+
         public static int GetLoyaltyChangeForManager(GameEntity worker, GameContext gameContext)
         {
             var company = Companies.Get(gameContext, worker.worker.companyId);

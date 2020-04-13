@@ -35,7 +35,7 @@ public sealed class AnyDateEventSystem : Entitas.ReactiveSystem<GameEntity> {
                 _listenerBuffer.Clear();
                 _listenerBuffer.AddRange(listenerEntity.anyDateListener.value);
                 foreach (var listener in _listenerBuffer) {
-                    listener.OnAnyDate(e, component.Date, component.Speed);
+                    listener.OnAnyDate(e, component.Date);
                 }
             }
         }

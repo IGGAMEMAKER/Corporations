@@ -5,22 +5,6 @@ namespace Assets.Core
 {
     public static class ScheduleUtils
     {
-        public static GameEntity GetUniversalListener(GameContext gameContext)
-        {
-            var entities = gameContext.GetEntities(GameMatcher.UniversalListener);
-
-            if (entities.Length != 0)
-                return entities[0];
-
-            var e = gameContext.CreateEntity();
-
-            e.isUniversalListener = true;
-            e.AddMenu(ScreenMode.AcquirableCompaniesOnNicheScreen, new System.Collections.Generic.Dictionary<string, object>());
-            e.AddDate(0, 0);
-
-            return e;
-        }
-
         public static GameEntity GetDateContainer(GameContext gameContext)
         {
             var entities = gameContext.GetEntities(GameMatcher.Date);
@@ -62,7 +46,7 @@ namespace Assets.Core
         {
             var container = GetDateContainer(gameContext);
 
-            container.ReplaceDate(container.date.Date + increment, 0);
+            container.ReplaceDate(container.date.Date + increment);
         }
 
         public static void ResumeGame(GameContext gameContext, int date = -1, int currentSpeed = -1)

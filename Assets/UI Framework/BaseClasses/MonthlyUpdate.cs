@@ -16,7 +16,7 @@ public class MonthlyUpdate : Controller
         UnListenMenuChanges(this);
     }
 
-    void IDateListener.OnDate(GameEntity entity, int date, int speed)
+    void IDateListener.OnDate(GameEntity entity, int date)
     {
         if (date % 30 == 0)
             Render();

@@ -11,19 +11,17 @@ public partial class GameEntity {
     public DateComponent date { get { return (DateComponent)GetComponent(GameComponentsLookup.Date); } }
     public bool hasDate { get { return HasComponent(GameComponentsLookup.Date); } }
 
-    public void AddDate(int newDate, int newSpeed) {
+    public void AddDate(int newDate) {
         var index = GameComponentsLookup.Date;
         var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
         component.Date = newDate;
-        component.Speed = newSpeed;
         AddComponent(index, component);
     }
 
-    public void ReplaceDate(int newDate, int newSpeed) {
+    public void ReplaceDate(int newDate) {
         var index = GameComponentsLookup.Date;
         var component = (DateComponent)CreateComponent(index, typeof(DateComponent));
         component.Date = newDate;
-        component.Speed = newSpeed;
         ReplaceComponent(index, component);
     }
 

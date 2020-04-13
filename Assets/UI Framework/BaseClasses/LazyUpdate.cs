@@ -33,7 +33,7 @@ public class LazyUpdate : Controller
             UnListenNavigationChanges(this);
     }
 
-    void IDateListener.OnDate(GameEntity entity, int date, int speed)
+    void IDateListener.OnDate(GameEntity entity, int date)
     {
         Render();
     }

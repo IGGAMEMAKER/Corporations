@@ -13,7 +13,7 @@ public class ListenDateChanges : Controller
         UnListenDateChanges(this);
     }
 
-    void IDateListener.OnDate(GameEntity entity, int date, int speed)
+    void IDateListener.OnDate(GameEntity entity, int date)
     {
         Render();
     }

@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IDateListener {
-    void OnDate(GameEntity entity, int date, int speed);
+    void OnDate(GameEntity entity, int date);
 }

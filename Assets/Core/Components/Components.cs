@@ -15,7 +15,7 @@ public class UniversalListenerComponent : IComponent { }
 public class DateComponent : IComponent
 {
     public int Date;
-    public int Speed;
+    //public int Speed;
 }
 
 [Game]

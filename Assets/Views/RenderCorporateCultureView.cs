@@ -32,8 +32,8 @@ public class RenderCorporateCultureView : View
 
 
         SetText(Responsibility,     CorporatePolicy.LeaderOrTeam, ResponsibilityPolicy, true);
-        SetText(Mindset,            CorporatePolicy.InnovationOrStability, MindsetPolicy, !isFocused);
-        SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, !isFocused);
+        SetText(Mindset,            CorporatePolicy.InnovationOrStability, MindsetPolicy, false);
+        SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, false);
         SetText(Expansion,          CorporatePolicy.BuyOrCreate, ExpansionPolicy, !isFocused);
         SetText(Competition,        CorporatePolicy.CompetitionOrSupport, CompetitionPolicy, !isFocused);
         SetText(Salaries,           CorporatePolicy.SalariesLowOrHigh, SalariesPolicy, !isFocused);
