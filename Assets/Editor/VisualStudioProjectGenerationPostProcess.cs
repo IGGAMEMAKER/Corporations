@@ -8,6 +8,7 @@ using UnityEngine;
 // target migrator
 // https://stackoverflow.com/questions/28436066/retargeting-all-projects-in-a-solution-to-net-4-5-2
 
+#if (UNITY_EDITOR)
 public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
 {
     private static void OnGeneratedCSProjectFiles()
@@ -36,5 +37,5 @@ public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
             File.WriteAllText(file, text);
         }
     }
-
 }
+#endif
