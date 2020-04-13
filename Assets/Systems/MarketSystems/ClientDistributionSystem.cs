@@ -20,8 +20,6 @@ public partial class ClientDistributionSystem : OnMonthChange
         var products = Markets.GetProductsOnMarket(gameContext, nicheType, false);
 
         ChangeBrandPowers(products);
-
-        //DistributeClients(products, niche);
     }
 
     void ChangeBrandPowers(GameEntity[] products)
@@ -32,23 +30,6 @@ public partial class ClientDistributionSystem : OnMonthChange
 
             Marketing.AddBrandPower(products[i], (float)powerChange);
         }
-    }
-
-    void DistributeClients(GameEntity[] products, GameEntity niche)
-    {
-        var clientContainers = niche.nicheClientsContainer.Clients;
-
-        foreach (var p in products)
-        {
-            var clients = Marketing.GetAudienceGrowth(p, gameContext);
-
-            Marketing.AddClients(p, clients);
-
-            var segId = p.productPositioning.Positioning;
-            clientContainers[segId] -= clients;
-        }
-
-        niche.ReplaceNicheClientsContainer(clientContainers);
     }
 }
 

@@ -10,6 +10,10 @@ public class RenderMainScreenTabButtons : View
     public GameObject GroupTab;
     public GameObject ExpansionTab;
 
+    public GameObject CorporateCulture;
+    public GameObject Investments;
+    public GameObject Messages;
+
     //public TopPanelManager TopPanelManager;
 
 
@@ -28,16 +32,15 @@ public class RenderMainScreenTabButtons : View
         var operatingMarkets = GetOperatingMarkets(daughters);
 
 
-        if (DevTab != null)
-            DevTab.SetActive(true);
-        if (TeamTab != null)
-            TeamTab.SetActive(playerCanExploreAdvancedTabs);
-        if (GroupTab != null)
-            GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
+        DevTab.SetActive(true);
+        TeamTab.SetActive(playerCanExploreAdvancedTabs);
+        GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
+        ExpansionTab.SetActive(playerCanExploreAdvancedTabs);
 
-        if (ExpansionTab != null)
-            ExpansionTab.SetActive(playerCanExploreAdvancedTabs);
 
+        CorporateCulture.SetActive(numberOfDaughters > 1 || Flagship.team.Managers.Count > 1);
+        Investments.SetActive(playerCanExploreAdvancedTabs);
+        Messages.SetActive(playerCanExploreAdvancedTabs);
     }
 
 

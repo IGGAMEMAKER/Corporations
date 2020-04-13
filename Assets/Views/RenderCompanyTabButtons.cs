@@ -39,20 +39,15 @@ public class RenderCompanyTabButtons : View
         var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
         var numberOfDaughters = daughters.Length;
 
-        if (ManagersTab != null)
-            ManagersTab     .SetActive(playerCanExploreAdvancedTabs);
 
-        if (PartnersTab != null)
-            PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
-        if (InvestorsTab != null)
-            InvestorsTab    .SetActive(isIndependentCompany);
+        ManagersTab     .SetActive(playerCanExploreAdvancedTabs);
 
-        if (InfoTab != null)
-            InfoTab         .SetActive(playerCanExploreAdvancedTabs);
-        if (EconomyTab != null)
-            EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
-        if (CompetitorsTab != null)
-            CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
+        PartnersTab     .SetActive(playerCanExploreAdvancedTabs && isIndependentCompany);
+        InvestorsTab    .SetActive(isIndependentCompany);
+
+        InfoTab         .SetActive(playerCanExploreAdvancedTabs);
+        EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
+        CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
 
         // not necessary, cause moved dev panel to separate screen
         //// if was on product tab and then switched to group, open info tab

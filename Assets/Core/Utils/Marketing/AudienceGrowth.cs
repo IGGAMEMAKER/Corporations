@@ -32,7 +32,7 @@ namespace Assets.Core
             return (long)(brandBasedMarketShare * flow);
         }
 
-        public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
+        public static int GetMarketingLeadBonus(GameEntity product, GameContext gameContext)
         {
             var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
 
@@ -46,15 +46,25 @@ namespace Assets.Core
                 marketingBonus += 30 * rating * effeciency / 100 / 100;
             }
 
-            long value = 0;
+            return marketingBonus;
+        }
+
+        public static Bonus<long> GetAudienceGrowthBonus(GameEntity product, GameContext gameContext)
+        {
+            var bonus = new Bonus<long>("Audience Growth");
 
             if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
-                value += GetBrandBasedAudienceGrowth(product, gameContext) * marketingBonus / 100;
+                bonus.AppendAndHideIfZero("Targeting Campaign", GetBrandBasedAudienceGrowth(product, gameContext));
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
-                value += Balance.TEST_CAMPAIGN_CLIENT_GAIN;
+                bonus.AppendAndHideIfZero("Test Campaign", Balance.TEST_CAMPAIGN_CLIENT_GAIN);
 
-            return value;
+            return bonus;
+        }
+
+        public static long GetAudienceGrowth(GameEntity product, GameContext gameContext)
+        {
+            return GetAudienceGrowthBonus(product, gameContext).Sum();
         }
     }
 }
