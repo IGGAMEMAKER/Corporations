@@ -7,7 +7,7 @@ public class Blinker : MonoBehaviour
     float amplification = 0.2f;
 
     float duration = 0;
-    bool animated;
+    //bool animated;
 
     void Update()
     {
@@ -21,7 +21,7 @@ public class Blinker : MonoBehaviour
 
     private void OnDisable()
     {
-        animated = false;
+        //animated = false;
     }
 
     void Render()

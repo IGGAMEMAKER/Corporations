@@ -1,7 +1,7 @@
 ﻿public abstract class HideTaskView : HideOnSomeCondition
 {
     bool show = false;
-    public TaskView TaskView;
+    //public TaskView TaskView;
 
     public override bool HideIf()
     {
@@ -11,7 +11,7 @@
         if (hasTask && !show)
         {
             show = true;
-            TaskView.SetEntity(task);
+            //TaskView.SetEntity(task);
         }
 
         show = hasTask && !task.isCompleted;
