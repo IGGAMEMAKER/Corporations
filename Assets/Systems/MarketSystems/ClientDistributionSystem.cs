@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
 
-public partial class ClientDistributionSystem : OnMonthChange
+public partial class ClientDistributionSystem : OnPeriodChange
 {
     public ClientDistributionSystem(Contexts contexts) : base(contexts) {}
 
