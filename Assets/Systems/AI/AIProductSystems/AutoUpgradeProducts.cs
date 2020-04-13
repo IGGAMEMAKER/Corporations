@@ -100,8 +100,9 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             // notify about innovation
             var player = Companies.GetPlayerCompany(gameContext);
             var daughters = Companies.GetDaughterCompaniesAmount(player, gameContext);
-            if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1)
-                NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clientChange));
+
+            //if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1)
+            //    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clientChange));
 
             niche.ReplaceSegment(newLevel);
 

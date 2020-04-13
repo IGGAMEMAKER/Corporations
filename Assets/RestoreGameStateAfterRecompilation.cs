@@ -64,7 +64,7 @@ public class RestoreGameStateAfterRecompilation : View
         // date
 
         e.AddDate(0);
-        e.AddSpeed(3);
+        e.AddSpeed(2);
         //e.AddTargetDate(0);
         // game is paused already
         //ScheduleUtils.PauseGame(Q);
