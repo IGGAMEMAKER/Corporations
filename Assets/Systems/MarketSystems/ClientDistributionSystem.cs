@@ -19,16 +19,12 @@ public partial class ClientDistributionSystem : OnMonthChange
 
         var products = Markets.GetProductsOnMarket(gameContext, nicheType, false);
 
-        ChangeBrandPowers(products);
-    }
-
-    void ChangeBrandPowers(GameEntity[] products)
-    {
-        for (var i = 0; i < products.Length; i++)
+        foreach (var p in products)
         {
-            var powerChange = Marketing.GetBrandChange(products[i], gameContext).Sum();
+            var powerChange = Marketing.GetBrandChange(p, gameContext).Sum();
 
-            Marketing.AddBrandPower(products[i], (float)powerChange);
+            Marketing.AddBrandPower(p, powerChange);
+            Marketing.AddClients(p, Marketing.GetAudienceGrowth(p, gameContext));
         }
     }
 }
