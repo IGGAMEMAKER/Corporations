@@ -109,15 +109,15 @@ public class HumanCorporateCulturePreference : ParameterView
 
     string DescribeSalaries(bool isLeft)
     {
-        return "Salaries??";
+        return "Needs high salaries";
     }
 
     string DescribeLeadership(bool isLeft)
     {
         if (isLeft)
-            return "Loves making decisions";
+            return "Loves micromanagement";
 
-        return "Loves work in team";
+        return "Loves freedom in making decisions";
     }
 
     string DescribeAcquisitionPolicy(bool isLeft)

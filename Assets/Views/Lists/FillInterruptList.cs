@@ -29,20 +29,20 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanCompleteGoal = CheckGoal();
+        bool isCanCompleteGoal = CheckGoal;
 
-        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments());
-        CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture());
-        CanSellCompany              .SetActive(HasAcquisitionOffers());
-        CanCheckTrends              .SetActive(true);
+        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments);
+        CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture);
+        CanSellCompany              .SetActive(HasAcquisitionOffers);
+        CanCheckTrends              .SetActive(false);
 
-        CanReleaseProduct           .SetActive(false && HasReleaseableProducts());
-        CanCheckAnnualReport        .SetActive(false && CheckAnnualReport());
-        CanBuyCompany               .SetActive(false && CheckAcquisitionCandidates());
+        CanReleaseProduct           .SetActive(false);
+        CanCheckAnnualReport        .SetActive(false);
+        CanBuyCompany               .SetActive(false);
 
-        TeamLoyaltyThreat           .SetActive(HasUnhappyTeams());
-        NeedToCompleteGoal          .SetActive(true || false && !isCanCompleteGoal);
-        OutdatedProducts            .SetActive(false && HasOutdatedProducts());
+        TeamLoyaltyThreat           .SetActive(false);
+        NeedToCompleteGoal          .SetActive(true);
+        OutdatedProducts            .SetActive(false);
 
 
         NeedToManageCompanies       .SetActive(false);
@@ -50,60 +50,35 @@ public class FillInterruptList : View
         InvestorLoyaltyWarning      .SetActive(false);
         InvestorLoyaltyThreat       .SetActive(false);
         TeamLoyaltyWarning          .SetActive(false);
-
-
     }
 
-    bool IsCanUpgradeCorporateCulture()
-    {
-        return
-            MyCompany.isWantsToExpand &&
-            Companies.IsHasReleasedProducts(Q, MyCompany) &&
+    bool IsCanUpgradeCorporateCulture => Companies.IsHasReleasedProducts(Q, MyCompany) &&
             !Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
-    }
 
-    bool HasReleaseableProducts()
+    bool HasReleaseableProducts
     {
-        var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
-        var count = upgradableCompanies.Count();
+        get
+        {
+            var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
+            var count = upgradableCompanies.Count();
 
-        bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
+            bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
 
-        return count > 0 && !isAlreadyOnReleasableMarket;
+            return count > 0 && !isAlreadyOnReleasableMarket;
+        }
     }
 
-    bool HasOutdatedProducts()
-    {
-        return Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
-    }
+    bool HasOutdatedProducts => Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
 
-    bool IsCanRaiseInvestments()
-    {
-        return Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
-    }
+    bool IsCanRaiseInvestments => Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
 
-    bool HasUnhappyTeams()
-    {
-        return Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
-    }
+    bool HasUnhappyTeams => Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
 
-    bool HasAcquisitionOffers()
-    {
-        return Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
-    }
+    bool HasAcquisitionOffers => Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
-    bool CheckAcquisitionCandidates()
-    {
-        return Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, Q).Count > 0;
-    }
+    bool CheckAcquisitionCandidates => Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, Q).Count > 0;
 
-    bool CheckAnnualReport()
-    {
-        return CurrentIntDate > 360;
-    }
+    bool CheckAnnualReport => CurrentIntDate > 360;
 
-    bool CheckGoal()
-    {
-        return Investments.IsGoalCompleted(MyCompany, Q);
-    }
+    bool CheckGoal => Investments.IsGoalCompleted(MyCompany, Q);
 }
