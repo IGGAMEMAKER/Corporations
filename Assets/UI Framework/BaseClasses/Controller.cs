@@ -24,12 +24,12 @@ public abstract class Controller : BaseClass
     }
 
 
-    public void ListenDateChanges(IDateListener dateListener)
+    public void ListenDateChanges(IAnyDateListener dateListener)
     {
         ScheduleUtils.ListenDateChanges(Q, dateListener);
     }
 
-    public void UnListenDateChanges(IDateListener dateListener)
+    public void UnListenDateChanges(IAnyDateListener dateListener)
     {
         ScheduleUtils.UnsubscribeFromDateChanges(Q, dateListener);
     }

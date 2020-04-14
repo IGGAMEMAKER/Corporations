@@ -45,12 +45,12 @@ public abstract class View : BaseClass
         ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
     }
 
-    public void ListenDateChanges(IDateListener dateListener)
+    public void ListenDateChanges(IAnyDateListener dateListener)
     {
         ScheduleUtils.ListenDateChanges(Q, dateListener);
     }
 
-    public void LazyUpdate(IDateListener dateListener)
+    public void LazyUpdate(IAnyDateListener dateListener)
     {
         ScheduleUtils.ListenDateChanges(Q, dateListener);
     }

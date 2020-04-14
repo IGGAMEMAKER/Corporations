@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 public class MonthlyUpdate : Controller
-    , IDateListener
+    , IAnyDateListener
     , IMenuListener
 {
     public override void AttachListeners()
@@ -16,7 +16,7 @@ public class MonthlyUpdate : Controller
         UnListenMenuChanges(this);
     }
 
-    void IDateListener.OnDate(GameEntity entity, int date)
+    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
     {
         if (date % 30 == 0)
             Render();
