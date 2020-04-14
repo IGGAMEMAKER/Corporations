@@ -26,18 +26,17 @@ public class ProductsOnMarketList : ListView
     {
         base.ViewRender();
 
+        if (isHoldingScreen)
+        {
+            SetItems(new GameEntity[1] { Flagship });
+            return;
+        }
+
         if (canViewCompetitors)
         {
             var products = Markets.GetProductsOnMarket(Q, Niche).OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
 
             SetItems(products);
-            return;
-        }
-
-
-        if (isHoldingScreen)
-        {
-            SetItems(new GameEntity[1] { Flagship });
             return;
         }
 

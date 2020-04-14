@@ -30,16 +30,16 @@ public class CompanyViewOnMainScreen : View
         Expertise.text = $"<b>Development Speed</b>\n\n{effeciency}%";
         Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
 
-        HireWorker.companyId = company.company.Id;
-        HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
-        HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
-        HireWorker.GetComponentInChildren<Hint>().SetHint(
-            workers < max
-            ?
-            "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT SHIFT</b> to hire max amount of workers")
-            :
-            Visuals.Negative("You have reached max limit of workers") //+ "\n\nTo increase this limit, hire TOP managers"
-            );
+        //HireWorker.companyId = company.company.Id;
+        //HireWorker.GetComponentInChildren<TextMeshProUGUI>().text = $"Hire Worker ({workers}/{max})";
+        //HireWorker.GetComponentInChildren<Button>().interactable = workers < max;
+        //HireWorker.GetComponentInChildren<Hint>().SetHint(
+        //    workers < max
+        //    ?
+        //    "Hiring workers will increase development speed\n\n" + Visuals.Positive("Press <b>LEFT SHIFT</b> to hire max amount of workers")
+        //    :
+        //    Visuals.Negative("You have reached max limit of workers") //+ "\n\nTo increase this limit, hire TOP managers"
+        //    );
     }
 
     // useless

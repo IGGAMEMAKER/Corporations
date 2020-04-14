@@ -33,14 +33,14 @@ public class RenderMainScreenTabButtons : View
 
 
         DevTab.SetActive(true);
-        TeamTab.SetActive(playerCanExploreAdvancedTabs);
+        TeamTab.SetActive(false && playerCanExploreAdvancedTabs);
         GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
         ExpansionTab.SetActive(playerCanExploreAdvancedTabs);
 
 
         CorporateCulture.SetActive(numberOfDaughters > 1 || Flagship.team.Managers.Count > 1);
         Investments.SetActive(playerCanExploreAdvancedTabs);
-        Messages.SetActive(playerCanExploreAdvancedTabs);
+        Messages.SetActive(false && playerCanExploreAdvancedTabs);
     }
 
 
