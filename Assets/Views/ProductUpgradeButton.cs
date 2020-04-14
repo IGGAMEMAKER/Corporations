@@ -25,7 +25,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         {
             Debug.Log("Toggle " + upgrade + " = " + state);
 
-            flagship.productUpgrades.upgrades[upgrade] = !state;
+            Products.SetUpgrade(flagship, upgrade, !state);
+            //flagship.productUpgrades.upgrades[upgrade] = !state;
         }
     }
 

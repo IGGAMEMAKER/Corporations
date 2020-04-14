@@ -27,7 +27,7 @@ public class CompanyViewOnMainScreen : View
         var workers = Teams.GetAmountOfWorkers(company, Q);
 
 
-        Expertise.text = $"Team Speed: {effeciency}%";
+        Expertise.text = $"<b>Development Speed</b>\n\n{effeciency}%";
         Expertise.color = Visuals.GetGradientColor(0, 100, effeciency);
 
         HireWorker.companyId = company.company.Id;

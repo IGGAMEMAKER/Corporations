@@ -25,5 +25,10 @@
 
             return u.ContainsKey(productUpgrade) && u[productUpgrade];
         }
+
+        public static void SetUpgrade(GameEntity product, ProductUpgrade productUpgrade, bool state)
+        {
+            product.productUpgrades.upgrades[productUpgrade] = state;
+        }
     }
 }

@@ -78,7 +78,9 @@
 
             var innovationPenalty = willInnovate ? 250 : 100;
 
-            return baseCost * innovationPenalty;
+            var isReleasedPenalty = product.isRelease ? 2 : 1;
+
+            return baseCost * innovationPenalty * isReleasedPenalty;
         }
 
         public static int GetTimeToMarketFromScratch(GameEntity niche)
@@ -86,7 +88,7 @@
             var demand = GetMarketDemand(niche);
             var iterationTime = GetBaseIterationTime(niche);
 
-            return demand * iterationTime / 30;
+            return demand * iterationTime / 2 / 30;
         }
     }
 }
