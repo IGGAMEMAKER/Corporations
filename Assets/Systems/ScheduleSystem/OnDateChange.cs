@@ -60,7 +60,7 @@ public abstract class OnRandomDateChange : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return entity.hasDate && entity.date.Date % AmountOfDays== 0 && entity.date.Date > 0;
+        return entity.hasDate && entity.date.Date % AmountOfDays == 0 && entity.date.Date > 0;
     }
 
     protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
