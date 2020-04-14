@@ -40,7 +40,7 @@ public class FillInterruptList : View
         CanCheckAnnualReport        .SetActive(false);
         CanBuyCompany               .SetActive(false);
 
-        TeamLoyaltyThreat           .SetActive(false);
+        TeamLoyaltyThreat           .SetActive(HasRebelliousManagers);
         NeedToCompleteGoal          .SetActive(true);
         OutdatedProducts            .SetActive(false);
 
@@ -49,36 +49,77 @@ public class FillInterruptList : View
 
         InvestorLoyaltyWarning      .SetActive(false);
         InvestorLoyaltyThreat       .SetActive(false);
-        TeamLoyaltyWarning          .SetActive(false);
+        TeamLoyaltyWarning          .SetActive(HasUnhappyManagers);
     }
 
-    bool IsCanUpgradeCorporateCulture => Companies.IsHasReleasedProducts(Q, MyCompany) &&
-            !Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
+    bool hasReleasedProduct => Companies.IsHasReleasedProducts(Q, MyCompany);
+
+    bool IsCanUpgradeCorporateCulture
+    {
+        get
+        {
+            return hasReleasedProduct && !Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
+        }
+    }
 
     bool HasReleaseableProducts
     {
         get
         {
-            var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
-            var count = upgradableCompanies.Count();
+            return false;
+            //var upgradableCompanies = Companies.GetDaughterReleaseableCompanies(Q, MyCompany.company.Id);
+            //var count = upgradableCompanies.Count();
 
-            bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
+            //bool isAlreadyOnReleasableMarket = CurrentScreen == ScreenMode.DevelopmentScreen && count == 1 && SelectedCompany.company.Id == upgradableCompanies.First().company.Id;
 
-            return count > 0 && !isAlreadyOnReleasableMarket;
+            //return count > 0 && !isAlreadyOnReleasableMarket;
         }
     }
 
-    bool HasOutdatedProducts => Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
+    //bool HasOutdatedProducts => Companies.GetDaughterOutdatedCompanies(Q, MyCompany.company.Id).Length > 0;
 
-    bool IsCanRaiseInvestments => Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
+    bool IsCanRaiseInvestments => hasReleasedProduct && Companies.IsReadyToStartInvestmentRound(MyCompany) && Companies.IsHasDaughters(Q, MyCompany);
 
-    bool HasUnhappyTeams => Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
+    bool HasUnhappyManagersInCompany (GameEntity company)
+    {
+        foreach (var m in company.team.Managers)
+        {
+            var human = Humans.GetHuman(Q, m.Key);
+
+            var morale = human.humanCompanyRelationship.Morale;
+            var change = Teams.GetLoyaltyChangeForManager(human, Q);
+
+            if (morale < 30 && change < 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    bool HasRebelliousManagersInCompany (GameEntity company)
+    {
+        foreach (var m in company.team.Managers)
+        {
+            var human = Humans.GetHuman(Q, m.Key);
+
+            var morale = human.humanCompanyRelationship.Morale;
+            var change = Teams.GetLoyaltyChangeForManager(human, Q);
+
+            if (change < 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    bool HasUnhappyManagers => HasUnhappyManagersInCompany(Flagship) || HasUnhappyManagersInCompany(MyCompany);//return Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
+    bool HasRebelliousManagers => HasRebelliousManagersInCompany(Flagship) || HasRebelliousManagersInCompany(MyCompany);//return Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
 
     bool HasAcquisitionOffers => Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
     bool CheckAcquisitionCandidates => Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, Q).Count > 0;
 
-    bool CheckAnnualReport => CurrentIntDate > 360;
-
     bool CheckGoal => Investments.IsGoalCompleted(MyCompany, Q);
+
+    bool CheckAnnualReport => CurrentIntDate > 360;
 }
