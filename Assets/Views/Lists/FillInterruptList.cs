@@ -41,7 +41,7 @@ public class FillInterruptList : View
         CanBuyCompany               .SetActive(false);
 
         TeamLoyaltyThreat           .SetActive(HasRebelliousManagers);
-        NeedToCompleteGoal          .SetActive(true);
+        NeedToCompleteGoal          .SetActive(false);
         OutdatedProducts            .SetActive(false);
 
 
@@ -82,6 +82,9 @@ public class FillInterruptList : View
 
     bool HasUnhappyManagersInCompany (GameEntity company)
     {
+        if (company == null || !company.hasTeam)
+            return false;
+
         foreach (var m in company.team.Managers)
         {
             var human = Humans.GetHuman(Q, m.Key);
@@ -98,6 +101,9 @@ public class FillInterruptList : View
 
     bool HasRebelliousManagersInCompany (GameEntity company)
     {
+        if (company == null || !company.hasTeam)
+            return false;
+
         foreach (var m in company.team.Managers)
         {
             var human = Humans.GetHuman(Q, m.Key);

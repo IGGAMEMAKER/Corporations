@@ -11,11 +11,11 @@ public class BrandingToggleButton : ProductUpgradeButton
         return Products.GetUpgradeCost(flagship, Q, GetProductUpgrade());
     }
 
-    public override string GetHint()
+    public override string GetBenefits()
     {
         var gain = Balance.BRAND_CAMPAIGN_BRAND_POWER_GAIN;
 
-        return Visuals.Positive($"Gives you +{gain} Brand") + " each week";
+        return Visuals.Positive($"+{gain} Brand") + " weekly";
     }
 
     public override ProductUpgrade GetProductUpgrade()

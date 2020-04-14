@@ -9,7 +9,7 @@ public class AutorecruitWorkers : ProductUpgradeButton
 
     public override long GetCost() => 0;
 
-    public override string GetHint() => "Automatically hires necessary amount of workers.\n\nNOTE, you still need to hire managers manually!";
+    public override string GetBenefits() => "";
 
     public override ProductUpgrade GetProductUpgrade()
     {

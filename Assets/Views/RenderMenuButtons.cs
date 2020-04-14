@@ -49,7 +49,7 @@ public class RenderMenuButtons : View
         // investments
         bool isRoundActive = MyCompany.hasAcceptsInvestments;
         var canRaiseInvestments = !isRoundActive;
-        InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Investments.SetActive(false && hasProduct && canRaiseInvestments);
+        //InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
+        //Investments.SetActive(false && hasProduct && canRaiseInvestments);
     }
 }

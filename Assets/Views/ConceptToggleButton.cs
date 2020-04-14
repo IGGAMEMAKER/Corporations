@@ -12,7 +12,7 @@ public class ConceptToggleButton : ProductUpgradeButton
         return 0;
     }
 
-    public override string GetHint()
+    public override string GetBenefits()
     {
         return "";
     }

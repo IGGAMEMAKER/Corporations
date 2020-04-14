@@ -12,7 +12,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract long GetCost();
     public override bool IsInteractable() => true;
 
-    public abstract string GetHint();
+    public abstract string GetBenefits();
 
     bool state => Products.IsUpgradeEnabled(flagship, upgrade);
     GameEntity flagship => Companies.GetFlagship(Q, Group);
@@ -37,14 +37,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         // checkbox text
         var title = GetButtonTitle();
 
-        var cost = GetCost() * Balance.PERIOD / 30;
-
-        if (cost != 0)
-            title += " " + Format.Money(cost);
-        else
-            title += " " + Visuals.Positive("FREE");
-
-        GetComponentInChildren<TextMeshProUGUI>().text = title;
+        GetComponentInChildren<TextMeshProUGUI>().text = title + "\n" + GetBenefits();
 
         
         // proper animation
@@ -58,6 +51,16 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         // hint
         var hint = GetComponent<Hint>();
         if (hint != null)
-            hint.SetHint(GetHint());
+        {
+            var cost = GetCost() * Balance.PERIOD / 30;
+            var text = "";
+
+            if (cost != 0)
+                text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
+            else
+                text += "This action is " + Visuals.Positive("FREE");
+
+            hint.SetHint(text);
+        }
     }
 };

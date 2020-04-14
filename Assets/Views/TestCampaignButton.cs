@@ -6,9 +6,9 @@ public class TestCampaignButton : ProductUpgradeButton
 
     public override long GetCost() => 0;
 
-    public override string GetHint()
+    public override string GetBenefits()
     {
-        return Visuals.Positive($"Gives you +{Balance.TEST_CAMPAIGN_CLIENT_GAIN} clients") + " each week";
+        return Visuals.Positive($"+{Balance.TEST_CAMPAIGN_CLIENT_GAIN}") + " clients weekly";
     }
 
     public override ProductUpgrade GetProductUpgrade()

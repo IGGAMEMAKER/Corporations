@@ -23,6 +23,10 @@ namespace Assets.Core
             return e.branding.BrandPower / (sumOfBrandPowers + 1);
         }
 
+        public static long GetTargetingCampaignGrowth(GameEntity e, GameContext gameContext)
+        {
+            return GetBrandBasedAudienceGrowth(e, gameContext);
+        }
         public static long GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
         {
             var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext);
@@ -54,7 +58,7 @@ namespace Assets.Core
             var bonus = new Bonus<long>("Audience Growth");
 
             if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
-                bonus.AppendAndHideIfZero("Targeting Campaign", GetBrandBasedAudienceGrowth(product, gameContext));
+                bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
                 bonus.AppendAndHideIfZero("Test Campaign", Balance.TEST_CAMPAIGN_CLIENT_GAIN);

@@ -11,12 +11,12 @@ public class TargetingToggleButton : ProductUpgradeButton
         return Products.GetUpgradeCost(flagship, Q, GetProductUpgrade());
     }
 
-    public override string GetHint()
+    public override string GetBenefits()
     {
         var flagship = Companies.GetFlagship(Q, Group);
-        var clients = Marketing.GetAudienceGrowth(flagship, Q);
+        var clients = Marketing.GetTargetingCampaignGrowth(flagship, Q);
 
-        return Visuals.Positive($"Gives you {clients} clients") + " each week";
+        return Visuals.Positive($"+{clients}") + " users weekly";
     }
 
     public override ProductUpgrade GetProductUpgrade()
