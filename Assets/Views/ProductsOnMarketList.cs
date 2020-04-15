@@ -12,6 +12,9 @@ public class ProductsOnMarketList : ListView
 
         var maxClients = Markets.GetProductsOnMarket(Q, c.product.Niche).Sum(Marketing.GetClients);
 
+        if (isHoldingScreen)
+            maxClients = Marketing.GetClients(Flagship);
+
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
 

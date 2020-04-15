@@ -35,6 +35,7 @@ public class ProductOnMarketView : View
         var clients = Marketing.GetClients(company);
         var newClients = Marketing.GetAudienceGrowth(company, Q);
 
+        var marketRequirements = Products.GetMarketRequirements(company, Q);
         var level = Products.GetProductLevel(company);
         var levelStatus = Products.GetConceptStatus(company, Q);
 
@@ -61,7 +62,7 @@ public class ProductOnMarketView : View
         Name.color = Visuals.GetColorFromString(nameColor);
 
         if (ProductLevel != null)
-            ProductLevel.text = $"{level}LVL";
+            ProductLevel.text = $"{level}LVL / {marketRequirements}LVL";
 
         if (Innovations != null)
             Innovations.text = Products.GetInnovationChance(company, Q) + "%";
