@@ -49,8 +49,9 @@ public class ProductOnMarketView : View
             //Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n");
         }
 
-
-        Brand.text = (int)company.branding.BrandPower + "";
+        var brandChange = Marketing.GetBrandChange(company, Q).Sum();
+        var brandChangeValue = Format.Sign(brandChange);
+        Brand.text = (int)company.branding.BrandPower + $" {Visuals.DescribeValueWithText(brandChange, brandChangeValue, brandChangeValue, "")}";
 
         // name
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);

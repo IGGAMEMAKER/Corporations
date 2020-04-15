@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class FireWorker : ButtonController
 {
+    public bool Decimate = false;
+
     public override void Execute()
     {
         var company = Flagship;
 
-
-        Teams.FireRegularWorker(company, WorkerRole.Programmer);
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Decimate)
         {
             var have = Teams.GetAmountOfWorkers(company, Q);
 
@@ -21,6 +20,9 @@ public class FireWorker : ButtonController
             {
                 Teams.FireRegularWorker(company, WorkerRole.Programmer);
             }
+        } else
+        {
+            Teams.FireRegularWorker(company, WorkerRole.Programmer);
         }
 
         company.productUpgrades.upgrades[ProductUpgrade.AutorecuitWorkers] = false;
