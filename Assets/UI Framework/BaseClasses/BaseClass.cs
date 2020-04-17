@@ -13,9 +13,13 @@ public partial class BaseClass : MonoBehaviour
     public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(Q);
 
     public NicheType SelectedNiche => ScreenUtils.GetSelectedNiche(Q);
+
+    // TODO REMOVE
     public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(Q);
 
     public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(Q);
+    
+    // TODO REMOVE
     public GameEntity SelectedInvestor => ScreenUtils.GetSelectedInvestor(Q);
 
     public ScreenMode CurrentScreen => ScreenUtils.GetMenu(Q).menu.ScreenMode;
@@ -28,7 +32,7 @@ public partial class BaseClass : MonoBehaviour
     public GameEntity MyGroupEntity => Companies.GetPlayerControlledGroupCompany(Q);
     public GameEntity MyCompany => MyGroupEntity ?? null;
     public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany) ?? null;
-    public GameEntity Group => MyCompany;
+
     public bool HasCompany => MyCompany != null;
 }
 

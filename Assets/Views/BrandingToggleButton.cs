@@ -6,9 +6,7 @@ public class BrandingToggleButton : ProductUpgradeButton
 
     public override long GetCost()
     {
-        var flagship = Companies.GetFlagship(Q, Group);
-
-        return Products.GetUpgradeCost(flagship, Q, GetProductUpgrade());
+        return Products.GetUpgradeCost(Flagship, Q, GetProductUpgrade());
     }
 
     public override string GetBenefits()

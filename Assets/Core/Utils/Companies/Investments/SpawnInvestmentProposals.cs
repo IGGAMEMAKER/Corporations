@@ -19,18 +19,15 @@ namespace Assets.Core
                 var modifier = (50 + UnityEngine.Random.Range(0, 100));
 
                 long valuation = cost * modifier / 100;
-                var ShareholderId = potentialInvestor.shareholder.Id;
 
-                long offer = valuation / 10;
                 var max = GetMaxInvestingAmountForInvestorType(potentialInvestor);
 
-                if (offer > max)
-                    offer = max;
-
+                var ShareholderId = potentialInvestor.shareholder.Id;
                 var p = new InvestmentProposal
                 {
                     Valuation = valuation,
-                    Offer = valuation / 10,
+                    Offer = Math.Min(valuation / 20, max),
+
                     ShareholderId = ShareholderId,
                     InvestorBonus = InvestorBonus.None,
                     WasAccepted = false
@@ -44,7 +41,7 @@ namespace Assets.Core
             }
         }
 
-        public static int GetMaxInvestingAmountForInvestorType(GameEntity investor)
+        public static long GetMaxInvestingAmountForInvestorType(GameEntity investor)
         {
             switch (investor.shareholder.InvestorType)
             {
@@ -53,6 +50,8 @@ namespace Assets.Core
                 case InvestorType.Angel: return 150000;
 
                 case InvestorType.VentureInvestor: return 1000000;
+
+                case InvestorType.StockExchange: return 50000000;
 
                 default: return 0;
             }

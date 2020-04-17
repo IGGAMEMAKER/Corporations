@@ -25,7 +25,7 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
         if (IsHasMoneyOverflow(company))
             return;
 
-        Companies.StartInvestmentRound(company, gameContext);
+        Companies.StartInvestmentRound(gameContext, company);
 
         if (!Companies.IsInvestmentRoundStarted(company))
             return;

@@ -26,5 +26,10 @@ namespace Assets.Core
         {
             return HasCooldown(gameContext, new CompanyTaskUpgradeCulture(company.company.Id));
         }
+
+        public static TimedActionComponent GetCorporateCultureCooldown(GameEntity company, GameContext gameContext)
+        {
+            return Cooldowns.GetTask(gameContext, new CompanyTaskUpgradeCulture(company.company.Id));
+        }
     }
 }

@@ -31,7 +31,7 @@ public class FillInterruptList : View
 
         bool isCanCompleteGoal = CheckGoal;
 
-        CanRaiseInvestments         .SetActive(IsCanRaiseInvestments);
+        CanRaiseInvestments         .SetActive(false);
         CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture);
         CanSellCompany              .SetActive(HasAcquisitionOffers);
         CanCheckTrends              .SetActive(false);
@@ -40,7 +40,7 @@ public class FillInterruptList : View
         CanCheckAnnualReport        .SetActive(false);
         CanBuyCompany               .SetActive(false);
 
-        TeamLoyaltyThreat           .SetActive(HasRebelliousManagers);
+        TeamLoyaltyThreat           .SetActive(HasUnhappyManagers);
         NeedToCompleteGoal          .SetActive(false);
         OutdatedProducts            .SetActive(false);
 
@@ -49,7 +49,7 @@ public class FillInterruptList : View
 
         InvestorLoyaltyWarning      .SetActive(false);
         InvestorLoyaltyThreat       .SetActive(false);
-        TeamLoyaltyWarning          .SetActive(HasUnhappyManagers);
+        TeamLoyaltyWarning          .SetActive(HasRebelliousManagers);
     }
 
     bool hasReleasedProduct => Companies.IsHasReleasedProducts(Q, MyCompany);

@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RenderMainScreenTabButtons : View
@@ -39,11 +40,41 @@ public class RenderMainScreenTabButtons : View
 
 
         CorporateCulture.SetActive(numberOfDaughters > 1 || Flagship.team.Managers.Count > 1);
+        CorporateCulture.GetComponentInChildren<TextMeshProUGUI>().text = GetCorporateCultureLabel();
+
         Investments.SetActive(playerCanExploreAdvancedTabs);
+        Investments.GetComponentInChildren<TextMeshProUGUI>().text = GetInvestmentRoundLabel();
+        
         Messages.SetActive(false && playerCanExploreAdvancedTabs);
     }
 
+    string GetCorporateCultureLabel()
+    {
+        var text = $"CORPORATE CULTURE";
 
+        var task = Cooldowns.GetCorporateCultureCooldown(MyCompany, Q);
+
+        if (task != null)
+        {
+            var days = task.EndTime - CurrentIntDate;
+            text += $" ({days}d)";
+        }
+
+        return text;
+    }
+
+    string GetInvestmentRoundLabel()
+    {
+        var text = "INVESTMENTS";
+
+        if (!Companies.IsReadyToStartInvestmentRound(MyCompany))
+        {
+            var days = MyCompany.acceptsInvestments.DaysLeft;
+            text += $" ({days}d)";
+        }
+
+        return text;
+    }
 
     List<NicheType> GetOperatingMarkets(GameEntity[] products)
     {

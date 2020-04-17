@@ -26,15 +26,19 @@ public class NotificationsListView : ListView
     {
         var notifications = NotificationUtils.GetNotifications(Q);
 
-        //var list = new List<NotificationMessage>();
+        notifications.Reverse();
 
-        //for (var i = notifications.Count - 1; i >= 0; i--)
-        //    list.Add(notifications[i]);
 
-        //SetItems(list.ToArray());
-        SetItems(notifications);
-
-        Scroll();
+        var oneItemFlag = GetComponent<RenderOneElementFlag>() != null;
+        if (oneItemFlag)
+        {
+            SetItems(notifications.GetRange(0, 1));
+        }
+        else
+        {
+            SetItems(notifications);
+            Scroll();
+        }
     }
 
     IEnumerator ScrollDown()

@@ -14,24 +14,17 @@ public class RenderGroupProfit : UpgradedParameterView
 
         var profit = Economy.GetProfit(Q, MyCompany);
 
-        return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
+        //return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
+        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
     }
 
     public override string RenderValue()
     {
         var profit = Economy.GetProfit(Q, MyCompany);
-        var balance = Economy.BalanceOf(MyCompany);
 
-        var minifiedBalance = Format.MinifyMoney(balance);
-
-        var text = Visuals.Colorize(minifiedBalance, profit > 0);
+        var text = "Profit\n" + Visuals.Colorize(Format.MinifyMoney(profit), profit > 0);
 
         return text;
-
-        //if (Companies.IsHasDaughters(Q, MyCompany))
-        //    return $"{minifiedBalance}\n{Visuals.PositiveOrNegativeMinified(profit)}";
-
-        //return minifiedBalance;
     }
 
     string GetIncomeInfo(GameEntity c)

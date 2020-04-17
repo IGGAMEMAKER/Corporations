@@ -22,7 +22,7 @@ public class RenderGroupProfitOnDevScreen : View
 
         var id = company.company.Id;
 
-        var bonus = GetProfitDescriptionFull();
+        var bonus = GetProfitDescriptionFull().MinifyValues();
         var profit = Economy.GetProfit(Q, id);
 
         if (Profitability != null)

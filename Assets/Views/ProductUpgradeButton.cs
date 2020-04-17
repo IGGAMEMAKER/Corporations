@@ -14,18 +14,17 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
     public abstract string GetBenefits();
 
-    bool state => Products.IsUpgradeEnabled(flagship, upgrade);
-    GameEntity flagship => Companies.GetFlagship(Q, Group);
+    bool state => Products.IsUpgradeEnabled(Flagship, upgrade);
 
     ProductUpgrade upgrade => GetProductUpgrade();
 
     public override void Execute()
     {
-        if (flagship != null)
+        if (Flagship != null)
         {
             Debug.Log("Toggle " + upgrade + " = " + state);
 
-            Products.SetUpgrade(flagship, upgrade, !state);
+            Products.SetUpgrade(Flagship, upgrade, !state);
             //flagship.productUpgrades.upgrades[upgrade] = !state;
         }
     }

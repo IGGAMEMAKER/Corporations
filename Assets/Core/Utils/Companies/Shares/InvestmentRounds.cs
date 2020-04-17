@@ -2,10 +2,32 @@
 {
     partial class Companies
     {
-        public static void StartInvestmentRound(GameContext gameContext, int companyId)
+        public static bool IsInvestmentRoundStarted(GameEntity company)
         {
-            StartInvestmentRound(Get(gameContext, companyId), gameContext);
+            return company.hasAcceptsInvestments;
         }
+
+        public static bool IsReadyToStartInvestmentRound(GameEntity company)
+        {
+            return !company.hasAcceptsInvestments;
+        }
+
+        public static void StartInvestmentRound(GameContext gameContext, int companyId) => StartInvestmentRound(gameContext, Get(gameContext, companyId));
+        public static void StartInvestmentRound(GameContext gameContext, GameEntity company)
+        {
+            if (IsReadyToStartInvestmentRound(company))
+            {
+                SpawnProposals(gameContext, company.company.Id);
+
+                NotifyAboutInvestmentRound(company, gameContext);
+
+                company.ReplaceInvestmentRounds(GetInvestmentRoundName(company));
+
+                company.AddAcceptsInvestments(Balance.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
+            }
+        }
+
+
 
         public static InvestmentRound GetInvestmentRoundName(GameEntity company)
         {
@@ -43,31 +65,6 @@
 
             if (IsInSphereOfInterest(playerCompany, company))
                 NotificationUtils.AddNotification(gameContext, new NotificationMessageInvestmentRoundStarted(company.company.Id));
-        }
-
-        public static bool IsInvestmentRoundStarted(GameEntity company)
-        {
-            return company.hasAcceptsInvestments;
-        }
-
-        public static bool IsReadyToStartInvestmentRound(GameEntity company)
-        {
-            return !company.hasAcceptsInvestments;
-        }
-
-        public static void StartInvestmentRound(GameEntity company, GameContext gameContext)
-        {
-            if (company.hasAcceptsInvestments)
-                return;
-
-            SpawnProposals(gameContext, company.company.Id);
-
-            NotifyAboutInvestmentRound(company, gameContext);
-
-            var round = GetInvestmentRoundName(company);
-
-            company.ReplaceInvestmentRounds(round);
-            company.AddAcceptsInvestments(Balance.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
         }
     }
 }
