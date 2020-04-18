@@ -24,7 +24,7 @@ public class PositioningView : View
 
         var nicheType = SelectedCompany.product.Niche;
         var positionings = Markets.GetNichePositionings(nicheType, Q);
-        var niche = Markets.GetNiche(Q, nicheType);
+        var niche = Markets.Get(Q, nicheType);
 
         var positioningData = positionings[segmentId];
 

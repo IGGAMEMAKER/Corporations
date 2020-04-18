@@ -8,7 +8,7 @@ namespace Assets.Core
         {
             var users = Marketing.GetClients(e);
 
-            var niche = GetNiche(gameContext, e.product.Niche);
+            var niche = Get(gameContext, e.product.Niche);
 
             var companies = GetProductsOnMarket(gameContext, e.company.Id);
 

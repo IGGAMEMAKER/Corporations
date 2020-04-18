@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static float GetSumOfBrandPowers(NicheType nicheType, GameContext gameContext) => GetSumOfBrandPowers(Markets.GetNiche(gameContext, nicheType), gameContext);
+        public static float GetSumOfBrandPowers(NicheType nicheType, GameContext gameContext) => GetSumOfBrandPowers(Markets.Get(gameContext, nicheType), gameContext);
         public static float GetSumOfBrandPowers(GameEntity niche, GameContext gameContext)
         {
             var products = Markets.GetProductsOnMarket(niche, gameContext);
@@ -15,7 +15,7 @@ namespace Assets.Core
         }
         public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
         {
-            var niche = Markets.GetNiche(gameContext, e);
+            var niche = Markets.Get(gameContext, e);
 
             var sumOfBrandPowers = GetSumOfBrandPowers(niche, gameContext);
 

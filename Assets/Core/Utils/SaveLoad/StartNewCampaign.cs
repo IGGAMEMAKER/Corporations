@@ -26,7 +26,7 @@ namespace Assets.Core
 
             Companies.SetResources(company, new TeamResource(startCapital));
 
-            var niche = Markets.GetNiche(gameContext, NicheType);
+            var niche = Markets.Get(gameContext, NicheType);
             //niche.AddResearch(1);
 
             Companies.PlayAs(company, gameContext);

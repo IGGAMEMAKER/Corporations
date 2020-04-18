@@ -19,7 +19,7 @@ public class MarketShareView : View
 
     internal void SetEntity(NicheType nicheType)
     {
-        var niche = Markets.GetNiche(Q, nicheType);
+        var niche = Markets.Get(Q, nicheType);
         var rating = Markets.GetMarketRating(niche);
 
         var share = Companies.GetControlInMarket(MyCompany, nicheType, Q);

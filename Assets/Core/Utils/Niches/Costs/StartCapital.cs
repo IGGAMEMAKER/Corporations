@@ -2,7 +2,7 @@
 {
     public static partial class Markets
     {
-        public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(GetNiche(gameContext, nicheType), gameContext);
+        public static long GetStartCapital(NicheType nicheType, GameContext gameContext) => GetStartCapital(Get(gameContext, nicheType), gameContext);
         public static long GetStartCapital(GameEntity niche, GameContext gameContext)
         {
             var timeToMarket = Products.GetTimeToMarketFromScratch(niche);

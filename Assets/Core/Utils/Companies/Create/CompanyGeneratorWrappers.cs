@@ -98,7 +98,7 @@ namespace Assets.Core
         // TODO remove
         public static void SetFounderAmbitionDueToMarketSize(GameEntity company, GameContext gameContext)
         {
-            var niche = Markets.GetNiche(gameContext, company.product.Niche);
+            var niche = Markets.Get(gameContext, company.product.Niche);
             var rating = Markets.GetMarketPotentialRating(niche);
 
 

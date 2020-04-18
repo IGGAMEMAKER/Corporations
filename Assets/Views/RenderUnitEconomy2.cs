@@ -46,7 +46,7 @@ public class RenderUnitEconomy2 : View
 
         Lifetime.text = lifetime.ToString("0.00") + " months";
 
-        var niche = Markets.GetNiche(Q, product);
+        var niche = Markets.Get(Q, product);
         MonetisationType.text = Enums.GetFormattedMonetisationType(niche);
     }
 }

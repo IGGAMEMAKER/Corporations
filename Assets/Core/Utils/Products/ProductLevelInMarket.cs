@@ -10,7 +10,7 @@
         public static int GetMarketRequirements(GameEntity niche) => GetMarketDemand(niche);
         public static int GetMarketRequirements(GameEntity product, GameContext gameContext)
         {
-            var niche = Markets.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.Get(gameContext, product.product.Niche);
 
             return GetMarketDemand(niche);
         }
@@ -18,7 +18,7 @@
         // always positive or equal to zero
         public static int GetDifferenceBetweenMarketDemandAndAppConcept(GameEntity product, GameContext gameContext)
         {
-            var niche = Markets.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.Get(gameContext, product.product.Niche);
 
             var demand = GetMarketDemand(niche);
             var level = GetProductLevel(product);

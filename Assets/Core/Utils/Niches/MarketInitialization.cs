@@ -42,7 +42,7 @@ namespace Assets.Core
                 gameContext.CreateEntity().AddIndustry(industry);
         }
 
-        public static GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost, GameContext gameContext) => SetNicheCosts(GetNiche(gameContext, niche), newBasePrice, newClientBatch, newTechCost, newAdCost);
+        public static GameEntity SetNicheCosts(NicheType niche, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost, GameContext gameContext) => SetNicheCosts(Get(gameContext, niche), newBasePrice, newClientBatch, newTechCost, newAdCost);
         public static GameEntity SetNicheCosts(GameEntity e, float newBasePrice, long newClientBatch, int newTechCost, float newAdCost)
         {
             e.ReplaceNicheCosts(newBasePrice, newClientBatch, newTechCost, newAdCost);
@@ -55,7 +55,7 @@ namespace Assets.Core
 
         public static GameEntity AttachNicheToIndustry(NicheType niche, IndustryType industry, GameContext gameContext)
         {
-            var e = GetNiche(gameContext, niche);
+            var e = Get(gameContext, niche);
 
             e.ReplaceNiche(
                 e.niche.NicheType,

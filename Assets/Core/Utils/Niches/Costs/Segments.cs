@@ -53,7 +53,7 @@ namespace Assets.Core
 
         public static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
         {
-            var e = GetNiche(gameContext, niche);
+            var e = Get(gameContext, niche);
 
             return e.nicheSegments.Positionings;
         }

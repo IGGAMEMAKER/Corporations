@@ -4,7 +4,7 @@ public class RenderMarketRequirement : ParameterView
 {
     public override string RenderValue()
     {
-        var niche = Markets.GetNiche(Q, SelectedNiche);
+        var niche = Markets.Get(Q, SelectedNiche);
 
         return Products.GetMarketRequirements(niche) + "LVL";
     }

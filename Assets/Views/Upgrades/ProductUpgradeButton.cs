@@ -13,6 +13,10 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public override bool IsInteractable() => true;
 
     public abstract string GetBenefits();
+    public long GetAmountOfWorkers()
+    {
+        return Products.GetUpgradeWorkerCost(Flagship, Q, upgrade);
+    }
 
     bool state => Products.IsUpgradeEnabled(Flagship, upgrade);
 
@@ -32,9 +36,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         base.ViewRender();
 
         // checkbox text
-        var title = GetButtonTitle();
-
-        GetComponentInChildren<TextMeshProUGUI>().text = title + "\n" + GetBenefits();
+        GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle() + "\n" + GetBenefits();
 
         
         // proper animation
@@ -53,9 +55,15 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
             var text = "";
 
             if (cost != 0)
+            {
                 text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
-            else
-                text += "This action is " + Visuals.Positive("FREE");
+            }
+
+            var workers = GetAmountOfWorkers();
+            if (workers > 0)
+            {
+                text += $"\nWill need {workers} additional workers";
+            }
 
             hint.SetHint(text);
         }

@@ -9,21 +9,21 @@
 
         public static bool IsExploredMarket(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNiche(gameContext, nicheType);
+            var niche = Get(gameContext, nicheType);
 
             return niche.hasResearch;
         }
 
         public static MarketState GetMarketState(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNiche(gameContext, nicheType);
+            var niche = Get(gameContext, nicheType);
 
             return GetMarketState(niche);
         }
 
         public static int GetMarketRating(GameContext gameContext, NicheType niche)
         {
-            return GetMarketRating(GetNiche(gameContext, niche));
+            return GetMarketRating(Get(gameContext, niche));
         }
 
         public static int GetMarketPotentialRating(GameEntity niche)

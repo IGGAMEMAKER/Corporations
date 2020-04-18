@@ -75,7 +75,7 @@ namespace Assets.Core
             return Economy.GetProductCompanyIncome(productCompany, context);
         }
 
-        public static long GetBiggestMaintenanceOnMarket(GameContext context, NicheType nicheType) => GetBiggestMaintenanceOnMarket(context, GetNiche(context, nicheType));
+        public static long GetBiggestMaintenanceOnMarket(GameContext context, NicheType nicheType) => GetBiggestMaintenanceOnMarket(context, Get(context, nicheType));
         public static long GetBiggestMaintenanceOnMarket(GameContext context, GameEntity niche)
         {
             var players = GetProductsOnMarket(context, niche.niche.NicheType);

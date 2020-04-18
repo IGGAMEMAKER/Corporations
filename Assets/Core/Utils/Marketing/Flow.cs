@@ -11,7 +11,7 @@ namespace Assets.Core
 
         public static long GetBaseClientsForNewCompanies(GameContext gameContext, NicheType nicheType)
         {
-            var niche = Markets.GetNiche(gameContext, nicheType);
+            var niche = Markets.Get(gameContext, nicheType);
 
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
 

@@ -8,7 +8,7 @@ namespace Assets.Core
         {
             var bonus = new Bonus<int>("Required amount of workers");
 
-            bonus.Append("Marketers"  , GetNecessaryAmountOfMarketers(e, gameContext));
+            bonus.Append("Marketers", GetNecessaryAmountOfMarketers(e, gameContext));
             bonus.Append("Programmers", GetNecessaryAmountOfProgrammers(e, gameContext));
 
             return bonus;
@@ -16,11 +16,11 @@ namespace Assets.Core
 
         public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
         {
-            var baseValue = (int)GetBaseAmountOfWorkers(e, gameContext).Sum();
+            var baseValue = GetBaseAmountOfWorkers(e, gameContext).Sum();
 
             var discount = GetProjectManagerWorkersDiscount(e, gameContext);
 
-            return baseValue * (100 - discount) / 100;
+            return (int)(baseValue * (100 - discount) / 100);
         }
 
         public static int GetProjectManagerWorkersDiscount(GameEntity e, GameContext gameContext)
@@ -40,7 +40,7 @@ namespace Assets.Core
         private static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
             var concept     = Products.GetProductLevel(e);
-            var niche       = Markets.GetNiche(gameContext, e);
+            var niche       = Markets.Get(gameContext, e);
             var complexity  = (int)niche.nicheBaseProfile.Profile.AppComplexity;
 
             return (int)Mathf.Pow(1 + complexity / 20f, concept);

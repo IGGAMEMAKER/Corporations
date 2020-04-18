@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType) => IsPerspectiveNiche(GetNiche(gameContext, nicheType));
+        public static bool IsPerspectiveNiche(GameContext gameContext, NicheType nicheType) => IsPerspectiveNiche(Get(gameContext, nicheType));
         public static bool IsPerspectiveNiche(GameEntity niche)
         {
             var phase = GetMarketState(niche);
@@ -12,7 +12,7 @@ namespace Assets.Core
             return phase == MarketState.Trending;
         }
 
-        public static bool IsInnovativeNiche(GameContext gameContext, NicheType nicheType) => IsInnovativeNiche(GetNiche(gameContext, nicheType));
+        public static bool IsInnovativeNiche(GameContext gameContext, NicheType nicheType) => IsInnovativeNiche(Get(gameContext, nicheType));
         public static bool IsInnovativeNiche(GameEntity niche)
         {
             var phase = GetMarketState(niche);

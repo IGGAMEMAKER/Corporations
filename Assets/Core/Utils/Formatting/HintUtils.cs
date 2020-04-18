@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -115,9 +116,26 @@ public class Bonus<T>
         foreach (var bonus in bonusDescriptions)
         {
             if (bonus.BonusType == BonusType.Multiplicative)
-                sum *= (long)(object)bonus.Value;
+            {
+                //sum *= (long)(object)bonus.Value;
+                sum *= System.Convert.ToInt64(bonus.Value);
+            }
             else
-                sum += (long)(object)bonus.Value;
+            {
+                try
+                {
+                    //sum += (long)(object)bonus.Value;
+                    sum += System.Convert.ToInt64(bonus.Value);
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Exception in bonus {parameter}: " + ex);
+                    Debug.LogError($"Bad parameter {bonus.Name}: " + bonus.Value);
+
+                    //Debug.Log("Parameters: " + string.Join(",", bonusDescriptions.Select(b => $"{b.Name}: {b.Value}... {b.Value.GetType()}")));
+
+                }
+            }
         }
 
         if (isCapped)

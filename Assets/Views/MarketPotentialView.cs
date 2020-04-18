@@ -43,7 +43,7 @@ public class MarketPotentialView : View
     public void Render()
     {
         NicheType nicheType = ScreenUtils.GetSelectedNiche(Q);
-        var niche = Markets.GetNiche(Q, nicheType);
+        var niche = Markets.Get(Q, nicheType);
 
         var profile = niche.nicheBaseProfile.Profile;
 

@@ -48,6 +48,7 @@ public enum ProductUpgrade
     // add newPlatformCooldown
     // --> +brand
     // --> +marketing cost
+    // --> slight reach increase
 
     // on revoke
     // --> -Brand
@@ -57,7 +58,7 @@ public enum ProductUpgrade
     PlatformMobileAndroid,
     PlatformMobileIOS,
 
-    // +reach of targeting campaigns
+    // +big reach increase of targeting campaigns
     // +cost of marketing
     MarketingDesktop,
     MarketingWeb,
@@ -87,7 +88,8 @@ public enum ProductUpgrade
     Support2,
     Support3,
 
-    // + brand
+    // + brand on revolutions
+    // + brand base
     QA,
     QA2,
     QA3,

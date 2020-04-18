@@ -4,7 +4,7 @@ public class HideMarketInfoIfMarketIsNotResearched : ToggleOnSomeCondition
 {
     public override bool Condition()
     {
-        var niche = Markets.GetNiche(Q, SelectedNiche);
+        var niche = Markets.Get(Q, SelectedNiche);
 
         // or there are no companies
 

@@ -32,7 +32,7 @@
         {
             var nicheType = (task as CompanyTaskExploreMarket).NicheType;
 
-            var niche = Markets.GetNiche(gameContext, nicheType);
+            var niche = Markets.Get(gameContext, nicheType);
             niche.AddResearch(1);
         }
 

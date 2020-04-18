@@ -8,8 +8,8 @@ namespace Assets.Core
     {
         public static GameEntity[] GetNiches(GameContext context) => context.GetEntities(GameMatcher.Niche);
 
-        public static GameEntity GetNiche(GameContext context, GameEntity product) => GetNiche(context, product.product.Niche);
-        public static GameEntity GetNiche(GameContext context, NicheType nicheType)
+        public static GameEntity Get(GameContext context, GameEntity product) => Get(context, product.product.Niche);
+        public static GameEntity Get(GameContext context, NicheType nicheType)
         {
             var e = Array.Find(GetNiches(context), n => n.niche.NicheType == nicheType);
 
@@ -62,7 +62,7 @@ namespace Assets.Core
 
 
 
-        public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType) => IsPlayableNiche(GetNiche(gameContext, nicheType));
+        public static bool IsPlayableNiche(GameContext gameContext, NicheType nicheType) => IsPlayableNiche(Get(gameContext, nicheType));
         public static bool IsPlayableNiche(GameEntity niche)
         {
             var phase = GetMarketState(niche);

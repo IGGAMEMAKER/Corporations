@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType) => GetNicheCosts(GetNiche(context, nicheType));
+        public static NicheCostsComponent GetNicheCosts(GameContext context, NicheType nicheType) => GetNicheCosts(Get(context, nicheType));
         public static NicheCostsComponent GetNicheCosts(GameEntity niche)
         {
             var costs = niche.nicheCosts;
@@ -23,7 +23,7 @@ namespace Assets.Core
         }
 
         // base marketing cost
-        public static float GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(GetNiche(gameContext, nicheType));
+        public static float GetClientAcquisitionCost(NicheType nicheType, GameContext gameContext) => GetClientAcquisitionCost(Get(gameContext, nicheType));
         public static float GetClientAcquisitionCost(GameEntity niche)
         {
             var costs = GetNicheCosts(niche);
@@ -34,7 +34,7 @@ namespace Assets.Core
         // flow
         public static long GetClientFlow(GameContext gameContext, NicheType nicheType)
         {
-            var niche = GetNiche(gameContext, nicheType);
+            var niche = Get(gameContext, nicheType);
             var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
 
 

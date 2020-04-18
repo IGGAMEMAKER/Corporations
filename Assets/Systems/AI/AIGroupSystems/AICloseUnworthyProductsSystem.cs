@@ -19,7 +19,7 @@ public partial class AIClosePoorProductsIfMarketIsDeadSystem : OnPeriodChange
 
     void CloseUnworthyProducts(GameEntity product)
     {
-        var niche = Markets.GetNiche(gameContext, product.product.Niche);
+        var niche = Markets.Get(gameContext, product.product.Niche);
 
         bool isProfitable = Economy.IsProfitable(gameContext, product.company.Id);
         bool isNicheDead = Markets.GetMarketState(niche) == MarketState.Death;

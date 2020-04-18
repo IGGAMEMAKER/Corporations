@@ -43,6 +43,16 @@ namespace Assets.Core
 
             return 0;
         }
+        public static long GetUpgradeWorkerCost(GameEntity product, GameContext gameContext, ProductUpgrade upgrade)
+        {
+            switch (upgrade)
+            {
+                case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
+                case ProductUpgrade.TargetingCampaign: return Marketing.GetTargetingCost(product, gameContext);
+            }
+
+            return 0;
+        }
 
 
         // Concept upgrade

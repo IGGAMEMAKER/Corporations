@@ -4,7 +4,7 @@
     {
         public static long GetMarketPotential(GameContext gameContext, NicheType nicheType)
         {
-            return GetMarketPotential(GetNiche(gameContext, nicheType));
+            return GetMarketPotential(Get(gameContext, nicheType));
         }
 
         public static long GetSegmentMarketShare(GameContext GameContext, NicheType nicheType, int segmentId)
@@ -16,7 +16,7 @@
 
         public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
-            var niche = GetNiche(GameContext, nicheType);
+            var niche = Get(GameContext, nicheType);
 
             var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
 
@@ -25,7 +25,7 @@
 
         public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
-            var niche = GetNiche(GameContext, nicheType);
+            var niche = Get(GameContext, nicheType);
 
             var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
 

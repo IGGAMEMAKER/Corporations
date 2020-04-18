@@ -68,7 +68,7 @@ namespace Assets.Core
 
         public static float GetMonetisationModifier(GameContext gameContext, GameEntity c)
         {
-            var niche = Markets.GetNiche(gameContext, c.product.Niche);
+            var niche = Markets.Get(gameContext, c.product.Niche);
 
             var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
 

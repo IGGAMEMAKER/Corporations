@@ -149,7 +149,7 @@ public class RestoreGameStateAfterRecompilation : View
         var products = Companies.GetProductCompanies(GameContext);
         foreach (var p in products)
         {
-            var niche = Markets.GetNiche(GameContext, p.product.Niche);
+            var niche = Markets.Get(GameContext, p.product.Niche);
             var spawnTime = niche.nicheLifecycle.OpenDate;
 
             var monthsOfWork = (date - spawnTime) / 30;

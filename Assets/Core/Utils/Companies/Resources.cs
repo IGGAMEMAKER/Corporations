@@ -28,7 +28,7 @@ namespace Assets.Core
             company.ReplaceCompanyResource(company.companyResource.Resources);
         }
 
-        public static void SetStartCapital(GameEntity product, GameContext gameContext) => SetStartCapital(product, Markets.GetNiche(gameContext, product), gameContext);
+        public static void SetStartCapital(GameEntity product, GameContext gameContext) => SetStartCapital(product, Markets.Get(gameContext, product), gameContext);
         public static void SetStartCapital(GameEntity product, GameEntity niche, GameContext gameContext)
         {
             var startCapital = Markets.GetStartCapital(niche, gameContext) * Random.Range(150, 200) / 100;

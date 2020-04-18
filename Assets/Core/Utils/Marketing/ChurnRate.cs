@@ -29,7 +29,7 @@ namespace Assets.Core
             var marketIsDying = state == MarketState.Death;
 
 
-            var niche = Markets.GetNiche(gameContext, c.product.Niche);
+            var niche = Markets.Get(gameContext, c.product.Niche);
             var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
             var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 
@@ -72,7 +72,7 @@ namespace Assets.Core
         }
 
 
-        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.GetNiche(gameContext, product), product);
+        public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity product) => GetDumpingCompetitors(gameContext, Markets.Get(gameContext, product), product);
         public static GameEntity[] GetDumpingCompetitors(GameContext gameContext, GameEntity niche, GameEntity product)
         {
             var competitors = Markets.GetProductsOnMarket(niche, gameContext);

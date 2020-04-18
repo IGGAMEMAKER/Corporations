@@ -7,7 +7,7 @@ namespace Assets.Core
     {
         public static void UpdateMarketRequirements(GameEntity product, GameContext gameContext)
         {
-            var niche = Markets.GetNiche(gameContext, product.product.Niche);
+            var niche = Markets.Get(gameContext, product.product.Niche);
 
             var demand = Products.GetMarketDemand(niche);
             var newLevel = Products.GetProductLevel(product);

@@ -12,7 +12,7 @@
         public static Bonus<long> GetInnovationChanceBonus(GameEntity product, GameContext gameContext)
         {
             // market state
-            var niche = Markets.GetNiche(gameContext, product);
+            var niche = Markets.Get(gameContext, product);
             var phase = Markets.GetMarketState(niche);
             var marketStage = Markets.GetMarketStageInnovationModifier(niche);
 
