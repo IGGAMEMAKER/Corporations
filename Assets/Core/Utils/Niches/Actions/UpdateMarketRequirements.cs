@@ -18,6 +18,7 @@ namespace Assets.Core
 
                 // innovation
                 //var clientChange = GiveInnovationBenefits(product, gameContext, revolution);
+                Marketing.AddBrandPower(product, revolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN);
 
                 // notify about innovation
                 var player = Companies.GetPlayerCompany(gameContext);
@@ -54,26 +55,26 @@ namespace Assets.Core
 
         private static long GiveInnovationBenefits(GameEntity product, GameContext gameContext, bool revolution)
         {
-            Marketing.AddBrandPower(product, revolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN);
-
-            if (!revolution)
-                return 0;
-
-            // get your competitor's clients
-            var innovatorCompetitors = Markets.GetProductsOnMarket(gameContext, product)
-                .Where(p => p.isRelease)
-                .Where(p => p.company.Id != product.company.Id);
-
             long sum = 0;
 
-            foreach (var p in innovatorCompetitors)
+            if (revolution)
             {
-                var disloyal = Marketing.GetClients(p) / 15;
+                // get your competitor's clients
+                var innovatorCompetitors = Markets.GetProductsOnMarket(gameContext, product)
+                    .Where(p => p.isRelease)
+                    .Where(p => p.company.Id != product.company.Id);
 
-                Marketing.LooseClients(p, disloyal);
-                Marketing.AddClients(product, disloyal);
 
-                sum += disloyal;
+                foreach (var p in innovatorCompetitors)
+                {
+                    var disloyal = Marketing.GetClients(p) / 15;
+
+                    Marketing.LoseClients(p, disloyal);
+                    Marketing.AddClients(product, disloyal);
+
+                    sum += disloyal;
+                }
+
             }
 
             return sum;

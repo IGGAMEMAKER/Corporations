@@ -14,7 +14,7 @@
             company.ReplaceMarketing(marketing.clients + clients);
         }
 
-        public static void LooseClients(GameEntity company, long clients)
+        public static void LoseClients(GameEntity company, long clients)
         {
             var marketing = company.marketing;
 

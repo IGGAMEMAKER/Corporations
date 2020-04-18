@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Core
@@ -50,12 +47,13 @@ namespace Assets.Core
             // spawn competitors
             for (var i = 0; i < 1; i++)
             {
-                var c = Markets.SpawnCompany(niche, gameContext, UnityEngine.Random.Range(2, 5) * startCapital);
+                var funds = UnityEngine.Random.Range(2, 5) * startCapital;
+                var c = Markets.SpawnCompany(niche, gameContext, funds);
 
                 var newLevel = UnityEngine.Random.Range(5, 15);
 
                 Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
-                Marketing.AddBrandPower(c, newLevel * 2);
+                Marketing.AddBrandPower(c, newLevel * 3);
                 Products.ForceUpgrade(c, gameContext, newLevel);
             }
 

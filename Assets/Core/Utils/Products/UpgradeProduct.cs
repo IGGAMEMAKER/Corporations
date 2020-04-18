@@ -64,7 +64,7 @@ namespace Assets.Core
         {
             product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + upgrade);
 
-
+            Markets.UpdateMarketRequirements(product, gameContext);
         }
     }
 }
