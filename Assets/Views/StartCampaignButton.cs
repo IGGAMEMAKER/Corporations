@@ -15,7 +15,7 @@ public class StartCampaignButton : ButtonController
         if (Input.text.Length == 0)
             return;
 
-        ScreenUtils.StartNewCampaign(Q, NicheType, Input.text);
+        State.StartNewCampaign(Q, NicheType, Input.text);
     }
 
     public void SetNiche(NicheType nicheType, InputField Input)

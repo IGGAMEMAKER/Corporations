@@ -43,5 +43,28 @@ namespace Assets.Core
 
             return 0;
         }
+
+
+        // Concept upgrade
+        public static void UpgradeProductLevel(GameEntity product, GameContext gameContext)
+        {
+            var revolutionChance = Products.GetInnovationChance(product, gameContext);
+
+            var revolutionOccured = Random.Range(0, 100) < revolutionChance;
+
+            var upgrade = 1;
+
+            if (revolutionOccured && Products.IsWillInnovate(product, gameContext))
+                upgrade = 2;
+
+            product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + upgrade);
+        }
+
+        public static void ForceUpgrade(GameEntity product, GameContext gameContext, int upgrade)
+        {
+            product.ReplaceProduct(product.product.Niche, Products.GetProductLevel(product) + upgrade);
+
+
+        }
     }
 }

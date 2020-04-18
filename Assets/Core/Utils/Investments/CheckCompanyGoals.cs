@@ -1,20 +1,7 @@
-﻿public struct GoalRequirements
-{
-    public long have;
-    public long need;
-}
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static bool IsGoalCompleted (GameEntity company, GameContext gameContext)
-        {
-            var r = GetGoalRequirements(company, gameContext);
-
-            return r.have >= r.need;
-        }
-
         public static GoalRequirements GetGoalRequirements(GameEntity company, GameContext gameContext)
         {
             var goal = company.companyGoal;
@@ -49,11 +36,16 @@ namespace Assets.Core
             }
         }
 
+        private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
+        {
+            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > Balance.IPO_REQUIREMENTS_COMPANY_COST;
+        }
+
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
         {
             return new GoalRequirements {
-                need = 1,
-                have = company.product.Concept
+                have = Products.GetProductLevel(company),
+                need = 1
             };
         }
 
@@ -113,8 +105,8 @@ namespace Assets.Core
         {
             return new GoalRequirements
             {
-                have = company.product.Concept,
-                need = 5
+                have = Products.GetProductLevel(company),
+                need = Products.GetMarketRequirements(company, gameContext)
             };
         }
     }

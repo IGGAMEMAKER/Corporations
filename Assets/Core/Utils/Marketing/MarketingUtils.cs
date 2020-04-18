@@ -49,6 +49,7 @@
                 AddClients(product, flow);
 
                 product.isRelease = true;
+                Investments.CompleteGoal(product, gameContext);
             }
         }
     }

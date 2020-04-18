@@ -24,7 +24,7 @@ public class IndustryButtons : View
     {
         if (Input.GetKeyUp(KeyCode.F3))
         {
-            ScreenUtils.StartNewCampaign(Q, NicheType.ECom_Exchanging, "QWE");
+            State.StartNewCampaign(Q, NicheType.ECom_Exchanging, "QWE");
 
             //var p = Companies.CreateProduct(Q, MyCompany, NicheType.ECom_Exchanging);
 
