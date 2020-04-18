@@ -18,6 +18,6 @@ public class TargetingToggleButton : ProductUpgradeButton
 
     public override ProductUpgrade GetProductUpgrade()
     {
-        return ProductUpgrade.Targeting;
+        return ProductUpgrade.TargetingCampaign;
     }
 }

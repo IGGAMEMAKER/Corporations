@@ -31,17 +31,11 @@ public class FeaturesComponent : IComponent
 
 public enum ProductUpgrade
 {
+    // one time stuff
+    // ------------------
+
     SimpleConcept,
     TestCampaign,
-
-    Targeting1,
-    Targeting2,
-    Targeting3,
-
-    //EmailCampaign,
-    BrandCampaign,
-    BrandCampaign2,
-    BrandCampaign3,
 
     // 1+ worker
     Team3,
@@ -51,23 +45,54 @@ public enum ProductUpgrade
 
     AutorecruitWorkers,
 
+    // add newPlatformCooldown
+    // --> +brand
+    // --> +marketing cost
+
+    // on revoke
+    // --> -Brand
+
     PlatformDesktop,
     PlatformWeb,
     PlatformMobileAndroid,
     PlatformMobileIOS,
 
+    // +reach of targeting campaigns
+    // +cost of marketing
+    MarketingDesktop,
+    MarketingWeb,
+    MarketingAndroid,
+    MarketingIOS,
+
+    // upgradeable stuff
+    // -----------------
+
+    TargetingCampaign,
+    TargetingCampaign2,
+    TargetingCampaign3,
+
+    // +brand
+    BrandCampaign,
+    BrandCampaign2,
+    BrandCampaign3,
+
+    // +income
+    // -brand
     Monetisation,
     Monetisation2,
     Monetisation3,
 
+    // - brand decay
     Support,
     Support2,
     Support3,
 
+    // + brand
     QA,
     QA2,
     QA3,
 
+    // -chance of fuckup: -clients -product level
     Backups,
     Backups2,
     Backups3,

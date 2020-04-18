@@ -57,7 +57,7 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Audience Growth");
 
-            if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.Targeting))
+            if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
                 bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
