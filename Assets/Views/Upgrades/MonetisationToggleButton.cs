@@ -2,7 +2,7 @@
 
 public class MonetisationToggleButton : ProductUpgradeButton
 {
-    public override string GetButtonTitle() => $"Enable Monetisation";
+    public override string GetButtonTitle() => $"Monetisation";
 
     public override long GetCost()
     {
@@ -11,7 +11,7 @@ public class MonetisationToggleButton : ProductUpgradeButton
 
     public override string GetBenefits()
     {
-        return Visuals.Positive($"You will start making money!");
+        return Visuals.Positive($"First money!");
     }
 
     public override ProductUpgrade upgrade => ProductUpgrade.Monetisation;
