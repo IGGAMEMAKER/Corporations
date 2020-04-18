@@ -11,10 +11,7 @@ public class AutorecruitWorkers : ProductUpgradeButton
 
     public override string GetBenefits() => "";
 
-    public override ProductUpgrade GetProductUpgrade()
-    {
-        return ProductUpgrade.AutorecruitWorkers;
-    }
+    public override ProductUpgrade upgrade => ProductUpgrade.AutorecruitWorkers;
 
     public override void Execute()
     {

@@ -6,7 +6,7 @@ public class TargetingToggleButton : ProductUpgradeButton
 
     public override long GetCost()
     {
-        return Products.GetUpgradeCost(Flagship, Q, GetProductUpgrade());
+        return Products.GetUpgradeCost(Flagship, Q, upgrade);
     }
 
     public override string GetBenefits()
@@ -16,8 +16,5 @@ public class TargetingToggleButton : ProductUpgradeButton
         return Visuals.Positive($"+{clients}") + " users weekly";
     }
 
-    public override ProductUpgrade GetProductUpgrade()
-    {
-        return ProductUpgrade.TargetingCampaign;
-    }
+    public override ProductUpgrade upgrade => ProductUpgrade.TargetingCampaign;
 }

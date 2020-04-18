@@ -17,8 +17,5 @@ public class ConceptToggleButton : ProductUpgradeButton
         return "";
     }
 
-    public override ProductUpgrade GetProductUpgrade()
-    {
-        return ProductUpgrade.SimpleConcept;
-    }
+    public override ProductUpgrade upgrade => ProductUpgrade.SimpleConcept;
 }

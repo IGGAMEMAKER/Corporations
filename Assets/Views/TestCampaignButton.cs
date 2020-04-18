@@ -11,8 +11,5 @@ public class TestCampaignButton : ProductUpgradeButton
         return Visuals.Positive($"+{Balance.TEST_CAMPAIGN_CLIENT_GAIN}") + " clients weekly";
     }
 
-    public override ProductUpgrade GetProductUpgrade()
-    {
-        return ProductUpgrade.TestCampaign;
-    }
+    public override ProductUpgrade upgrade => ProductUpgrade.TestCampaign;
 }

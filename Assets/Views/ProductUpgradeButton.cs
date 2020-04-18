@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public abstract class ProductUpgradeButton : UpgradedButtonController
 {
-    public abstract ProductUpgrade GetProductUpgrade();
+    public abstract ProductUpgrade upgrade { get; }
 
     public abstract string GetButtonTitle();
     public abstract long GetCost();
@@ -15,8 +15,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract string GetBenefits();
 
     bool state => Products.IsUpgradeEnabled(Flagship, upgrade);
-
-    ProductUpgrade upgrade => GetProductUpgrade();
 
     public override void Execute()
     {

@@ -6,7 +6,7 @@ public class BrandingToggleButton : ProductUpgradeButton
 
     public override long GetCost()
     {
-        return Products.GetUpgradeCost(Flagship, Q, GetProductUpgrade());
+        return Products.GetUpgradeCost(Flagship, Q, upgrade);
     }
 
     public override string GetBenefits()
@@ -16,9 +16,6 @@ public class BrandingToggleButton : ProductUpgradeButton
         return Visuals.Positive($"+{gain} Brand") + " weekly";
     }
 
-    public override ProductUpgrade GetProductUpgrade()
-    {
-        return ProductUpgrade.BrandCampaign;
-    }
+    public override ProductUpgrade upgrade => ProductUpgrade.BrandCampaign;
 }
 
