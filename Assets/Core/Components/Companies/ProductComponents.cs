@@ -34,15 +34,43 @@ public enum ProductUpgrade
     SimpleConcept,
     TestCampaign,
 
-    TargetingInSocialNetworks,
-    EmailCampaign,
+    Targeting1,
+    Targeting2,
+    Targeting3,
+
+    //EmailCampaign,
     BrandCampaign,
+    BrandCampaign2,
+    BrandCampaign3,
 
     // 1+ worker
-    ExpandTeam,
+    Team3,
+    Team7,
+    Team20,
+    Team100,
 
-    AutorecuitWorkers
+    AutorecruitWorkers,
 
+    PlatformDesktop,
+    PlatformWeb,
+    PlatformMobileAndroid,
+    PlatformMobileIOS,
+
+    Monetisation,
+    Monetisation2,
+    Monetisation3,
+
+    Support,
+    Support2,
+    Support3,
+
+    QA,
+    QA2,
+    QA3,
+
+    Backups,
+    Backups2,
+    Backups3,
 }
 
 public class ProductUpgradesComponent : IComponent

@@ -41,7 +41,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             if (Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign))
                 Marketing.StartBrandingCampaign(product, gameContext);
 
-            if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingInSocialNetworks))
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.Targeting))
                 Marketing.StartTargetingCampaign(product, gameContext);
         }
         else
@@ -55,7 +55,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
     {
         //
         var brandingCost  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
-        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingInSocialNetworks);
+        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.Targeting);
 
         var balance = Economy.BalanceOf(product);
 
@@ -64,12 +64,12 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
             // targeting
             if (targetingCost < balance)
             {
-                product.productUpgrades.upgrades[ProductUpgrade.TargetingInSocialNetworks] = true;
+                product.productUpgrades.upgrades[ProductUpgrade.Targeting] = true;
                 balance -= targetingCost;
             }
             else
             {
-                product.productUpgrades.upgrades[ProductUpgrade.TargetingInSocialNetworks] = false;
+                product.productUpgrades.upgrades[ProductUpgrade.Targeting] = false;
             }
 
             // copy pasted

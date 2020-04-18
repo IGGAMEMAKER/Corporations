@@ -38,7 +38,7 @@ namespace Assets.Core
             switch (upgrade)
             {
                 case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
-                case ProductUpgrade.TargetingInSocialNetworks: return Marketing.GetTargetingCost(product, gameContext);
+                case ProductUpgrade.Targeting: return Marketing.GetTargetingCost(product, gameContext);
             }
 
             return 0;

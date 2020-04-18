@@ -4,7 +4,26 @@ namespace Assets.Core
 {
     public static partial class Products
     {
+        public static Bonus<int> GetBaseAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
+            var bonus = new Bonus<int>("Required amount of workers");
+
+            bonus.Append("Marketers"  , GetNecessaryAmountOfMarketers(e, gameContext));
+            bonus.Append("Programmers", GetNecessaryAmountOfProgrammers(e, gameContext));
+
+            return bonus;
+        }
+
         public static int GetNecessaryAmountOfWorkers(GameEntity e, GameContext gameContext)
+        {
+            var baseValue = (int)GetBaseAmountOfWorkers(e, gameContext).Sum();
+
+            var discount = GetProjectManagerWorkersDiscount(e, gameContext);
+
+            return baseValue * (100 - discount) / 100;
+        }
+
+        public static int GetProjectManagerWorkersDiscount(GameEntity e, GameContext gameContext)
         {
             var projectManager = Teams.GetWorkerByRole(e, WorkerRole.ProjectManager, gameContext);
 
@@ -15,12 +34,10 @@ namespace Assets.Core
                 discount = rating / 2;
             }
 
-            var baseValue = GetNecessaryAmountOfProgrammers(e, gameContext) + GetNecessaryAmountOfMarketers(e, gameContext);
-
-            return baseValue * (100 - discount) / 100;
+            return discount;
         }
 
-        public static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
+        private static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
             var concept     = Products.GetProductLevel(e);
             var niche       = Markets.GetNiche(gameContext, e);
@@ -29,7 +46,7 @@ namespace Assets.Core
             return (int)Mathf.Pow(1 + complexity / 20f, concept);
         }
 
-        public static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
+        private static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
         {
             var clients = Marketing.GetClients(e);
 

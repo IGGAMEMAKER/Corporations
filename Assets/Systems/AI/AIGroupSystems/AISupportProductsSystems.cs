@@ -42,7 +42,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
         // otherwise
         // give them decent amount of money
 
-        var targ  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingInSocialNetworks);
+        var targ  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.Targeting);
         var brand = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
 
         return targ + brand;

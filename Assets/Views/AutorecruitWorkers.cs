@@ -13,7 +13,7 @@ public class AutorecruitWorkers : ProductUpgradeButton
 
     public override ProductUpgrade GetProductUpgrade()
     {
-        return ProductUpgrade.AutorecuitWorkers;
+        return ProductUpgrade.AutorecruitWorkers;
     }
 
     public override void Execute()
@@ -28,7 +28,7 @@ public class AutorecruitWorkers : ProductUpgradeButton
         var workers = Teams.GetAmountOfWorkers(flagship, Q);
         var necessary = Products.GetNecessaryAmountOfWorkers(flagship, Q);
 
-        var autohire = Products.IsUpgradeEnabled(flagship, ProductUpgrade.AutorecuitWorkers);
+        var autohire = Products.IsUpgradeEnabled(flagship, ProductUpgrade.AutorecruitWorkers);
 
         if (workers < necessary && autohire)
         {
