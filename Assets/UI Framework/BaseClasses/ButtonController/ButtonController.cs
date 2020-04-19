@@ -66,7 +66,7 @@ public abstract partial class ButtonController : BaseClass
 
     public void UpdatePage()
     {
-        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
+        ScreenUtils.UpdateScreen(Q);
     }
 }
 

@@ -27,8 +27,6 @@ public class RenderWorkerRole : View
         {
             text += " (Unemployed)";
             Link.enabled = false;
-
-            Description.text = "";
         }
         else
         {
@@ -40,29 +38,34 @@ public class RenderWorkerRole : View
 
             Link.enabled = true;
             Link.CompanyId = companyId;
-
-            var description = "";
-
-            switch (role)
-            {
-                case WorkerRole.CEO: description = "Increases innovation chances"; break;
-                case WorkerRole.MarketingLead: description = "Gives more clients and brand power"; break;
-                case WorkerRole.ProductManager: description = "Increases innovation chances"; break;
-                case WorkerRole.ProjectManager: description = "Reduces necessary amount of workers"; break;
-                case WorkerRole.TeamLead: description = "Increases team speed"; break;
-
-                case WorkerRole.MarketingDirector: description = ""; break;
-                case WorkerRole.TechDirector: description = ""; break;
-
-                case WorkerRole.Universal:
-                default:
-                    description = "";
-                    break;
-            }
-
-            Description.text = description;
         }
 
+        Description.text = GetRoleDescription(role);
+
         GetComponent<Text>().text = text;
+    }
+
+    string GetRoleDescription(WorkerRole role)
+    {
+        var description = "";
+
+        switch (role)
+        {
+            case WorkerRole.CEO: description = "Increases innovation chances"; break;
+            case WorkerRole.MarketingLead: description = "Gives more clients and brand power"; break;
+            case WorkerRole.ProductManager: description = "Increases innovation chances"; break;
+            case WorkerRole.ProjectManager: description = "Reduces necessary amount of workers"; break;
+            case WorkerRole.TeamLead: description = "Increases team speed"; break;
+
+            case WorkerRole.MarketingDirector: description = ""; break;
+            case WorkerRole.TechDirector: description = ""; break;
+
+            case WorkerRole.Universal:
+            default:
+                description = "";
+                break;
+        }
+
+        return description;
     }
 }

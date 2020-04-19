@@ -14,7 +14,7 @@ namespace Assets.Core
             messages.Add(popup);
 
             container.ReplacePopup(messages);
-            ScreenUtils.TriggerScreenUpdate(gameContext);
+            ScreenUtils.UpdateScreen(gameContext);
         }
 
         public static void ClosePopup(GameContext gameContext)
@@ -28,7 +28,7 @@ namespace Assets.Core
             messages.RemoveAt(0);
 
             container.ReplacePopup(messages);
-            ScreenUtils.TriggerScreenUpdate(gameContext);
+            ScreenUtils.UpdateScreen(gameContext);
         }
 
         public static GameEntity GetPopupContainer(GameContext gameContext)

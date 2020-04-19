@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Core;
+using System.Linq;
+using UnityEngine;
 
 public class OwningsListView : ListView
 {
@@ -8,5 +10,15 @@ public class OwningsListView : ListView
 
         t.GetComponent<CompanyPreviewView>()
             .SetEntity(e);
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        var companies = Companies.GetDaughterCompanies(Q, SelectedCompany.company.Id)
+            .OrderByDescending(c => Economy.GetCompanyCost(Q, c.company.Id));
+
+        SetItems(companies);
     }
 }

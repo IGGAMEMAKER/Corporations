@@ -126,7 +126,7 @@ public class AcquisitionScreen : View
 
         Companies.TweakAcquisitionConditions(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
 
-        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
+        ScreenUtils.UpdateScreen(Q);
     }
 
     public void OnSharesOfferEdit()

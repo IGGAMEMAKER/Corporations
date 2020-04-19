@@ -1,7 +1,5 @@
 ﻿using Entitas;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Core
 {
@@ -90,7 +88,7 @@ namespace Assets.Core
 
             data[Balance.MENU_SELECTED_HUMAN] = humanId;
 
-            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
+            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
 
@@ -105,7 +103,7 @@ namespace Assets.Core
 
             data[Balance.MENU_SELECTED_COMPANY] = companyId;
 
-            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
+            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
 
@@ -120,23 +118,22 @@ namespace Assets.Core
 
             data[Balance.MENU_SELECTED_NICHE] = nicheType;
 
-            ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
+            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
         // update menues
-        public static void TriggerScreenUpdate(GameContext gameContext)
+        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
-            var menu = GetMenu(gameContext);
-
-            ReplaceMenu(gameContext, menu.menu.ScreenMode, menu.menu.Data);
-            //menu.ReplaceMenu(menu.menu.ScreenMode, menu.menu.Data);
-        }
-
-        public static void ReplaceMenu(GameContext gameContext, ScreenMode screenMode, Dictionary<string, object> data)
-        {
-            var menu = GetMenu(gameContext);
+            var menu = GetMenu(context);
 
             menu.ReplaceMenu(screenMode, data);
+        }
+
+        public static void UpdateScreen(GameContext context)
+        {
+            var menu = GetMenu(context);
+
+            UpdateScreen(context, menu.menu.ScreenMode, menu.menu.Data);
         }
     }
 }

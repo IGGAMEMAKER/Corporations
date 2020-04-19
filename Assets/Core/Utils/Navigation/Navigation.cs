@@ -5,19 +5,6 @@ namespace Assets.Core
 {
     public static partial class ScreenUtils
     {
-        public static void UpdateScreenWithoutAnyChanges(GameContext gameContext)
-        {
-            var m = GetMenu(gameContext);
-
-            UpdateScreen(gameContext, m.menu.ScreenMode, m.menu.Data);
-            //ReplaceMenu(gameContext, m.menu.ScreenMode, m.menu.Data);
-        }
-
-        public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
-        {
-            ReplaceMenu(context, screenMode, data);
-        }
-
         public static GameEntity GetNavigationHistory(GameContext context)
         {
             return context.GetEntities(GameMatcher.NavigationHistory)[0];

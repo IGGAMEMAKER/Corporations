@@ -53,14 +53,8 @@ public abstract class View : BaseClass
         return panelColor;
     }
 
-
-    public void ListenMenuChanges(IMenuListener menuListener)
-    {
-        ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
-    }
-
     public void RefreshPage()
     {
-        ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
+        ScreenUtils.UpdateScreen(Q);
     }
 }
