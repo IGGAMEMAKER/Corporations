@@ -10,6 +10,8 @@ public class AutorecruitWorkers : ProductUpgradeButton
 
     public override ProductUpgrade upgrade => ProductUpgrade.AutorecruitWorkers;
 
+
+
     public override void Execute()
     {
         base.Execute();

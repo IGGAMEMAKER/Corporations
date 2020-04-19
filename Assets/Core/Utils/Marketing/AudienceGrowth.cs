@@ -13,6 +13,7 @@ namespace Assets.Core
 
             return sumOfBrandPowers;
         }
+
         public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
         {
             var niche = Markets.Get(gameContext, e);
@@ -23,10 +24,6 @@ namespace Assets.Core
             return e.branding.BrandPower / (sumOfBrandPowers + 1);
         }
 
-        public static long GetTargetingCampaignGrowth(GameEntity e, GameContext gameContext)
-        {
-            return GetBrandBasedAudienceGrowth(e, gameContext);
-        }
         public static long GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
         {
             var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext);
@@ -51,6 +48,12 @@ namespace Assets.Core
             }
 
             return marketingBonus;
+        }
+
+
+        public static long GetTargetingCampaignGrowth(GameEntity e, GameContext gameContext)
+        {
+            return GetBrandBasedAudienceGrowth(e, gameContext);
         }
 
         public static Bonus<long> GetAudienceGrowthBonus(GameEntity product, GameContext gameContext)
