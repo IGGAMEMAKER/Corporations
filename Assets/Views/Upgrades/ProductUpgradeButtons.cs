@@ -86,13 +86,4 @@ public class ProductUpgradeButtons : View
 
         Render(flagship);
     }
-
-
-
-    void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
-    void UpdateIfNecessary(GameObject go, bool condition)
-    {
-        if (go.activeSelf != condition)
-            go.SetActive(condition);
-    }
 }

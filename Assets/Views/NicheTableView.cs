@@ -128,6 +128,6 @@ public class NicheTableView : View, IPointerEnterHandler
 
     void SetPanelColor()
     {
-        Panel.color = GetPanelColor(niche.niche.NicheType == ScreenUtils.GetSelectedNiche(Q));
+        Panel.color = GetPanelColor(niche.niche.NicheType == SelectedNiche);
     }
 }

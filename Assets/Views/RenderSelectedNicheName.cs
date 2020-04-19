@@ -6,6 +6,6 @@ public class RenderSelectedNicheName : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return "Market of " + Enums.GetFormattedNicheName(ScreenUtils.GetSelectedNiche(Q));
+        return "Market of " + Enums.GetFormattedNicheName(SelectedNiche);
     }
 }

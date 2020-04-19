@@ -5,8 +5,13 @@ public class LazyUpdate : Controller
     , IMenuListener
     , INavigationHistoryListener
 {
+    [UnityEngine.Header("Everyday changes")]
     public bool DateChanges = true;
+
+    [UnityEngine.Header("Button clicks")]
     public bool MenuChanges = true;
+
+    [UnityEngine.Header("Navigation")]
     public bool NavigationChanges = true;
 
     public override void AttachListeners()

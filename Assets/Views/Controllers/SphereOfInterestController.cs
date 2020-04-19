@@ -4,7 +4,7 @@ public class SphereOfInterestController : ButtonController
 {
     public override void Execute()
     {
-        var niche = ScreenUtils.GetSelectedNiche(Q);
+        var niche = SelectedNiche;
         bool isInSphereOfInterest = Companies.IsInSphereOfInterest(MyCompany, niche);
 
         if (isInSphereOfInterest)

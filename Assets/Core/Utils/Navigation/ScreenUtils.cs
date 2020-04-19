@@ -41,11 +41,7 @@ namespace Assets.Core
             return GetMenu(context).menu.Data;
         }
 
-        public static ScreenMode GetScreenMode(GameContext context)
-        {
-            return GetMenu(context).menu.ScreenMode;
-        }
-
+        // get selected stuff
         public static GameEntity GetSelectedCompany(GameContext gameContext)
         {
             int companyId = (int)GetScreenData(gameContext)[Balance.MENU_SELECTED_COMPANY];
@@ -72,14 +68,7 @@ namespace Assets.Core
             if (niche.GetType() == typeof(NicheType))
                 return (NicheType)niche;
 
-            //var stringedNiche = niche.ToString();
             return (NicheType)System.Enum.ToObject(typeof(NicheType), niche);
-
-            //Debug.Log("GetSelectedNiche: " + niche + " " + niche.GetType());
-
-
-
-            //return (NicheType)niche;
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
@@ -89,7 +78,7 @@ namespace Assets.Core
             return Humans.GetHuman(gameContext, humanId);
         }
 
-
+        // set selected stuff
         public static void SetSelectedHuman(GameContext gameContext, int humanId)
         {
             var menu = GetMenu(gameContext);
@@ -134,18 +123,20 @@ namespace Assets.Core
             ReplaceMenu(gameContext, menu.menu.ScreenMode, data);
         }
 
+        // update menues
+        public static void TriggerScreenUpdate(GameContext gameContext)
+        {
+            var menu = GetMenu(gameContext);
+
+            ReplaceMenu(gameContext, menu.menu.ScreenMode, menu.menu.Data);
+            //menu.ReplaceMenu(menu.menu.ScreenMode, menu.menu.Data);
+        }
+
         public static void ReplaceMenu(GameContext gameContext, ScreenMode screenMode, Dictionary<string, object> data)
         {
             var menu = GetMenu(gameContext);
 
             menu.ReplaceMenu(screenMode, data);
-        }
-
-        public static void TriggerScreenUpdate(GameContext gameContext)
-        {
-            var menu = GetMenu(gameContext);
-
-            menu.ReplaceMenu(menu.menu.ScreenMode, menu.menu.Data);
         }
     }
 }

@@ -12,7 +12,7 @@ public class NicheProductionView : View
     {
         base.ViewRender();
 
-        var niche = ScreenUtils.GetSelectedNiche(Q);
+        var niche = SelectedNiche;
 
         var costs = Markets.GetNicheCosts(Q, niche);
 

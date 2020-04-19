@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public abstract class View : BaseClass
 {
+    public void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
+    public void UpdateIfNecessary(GameObject go, bool condition)
+    {
+        if (go.activeSelf != condition)
+            go.SetActive(condition);
+    }
+
     public void Animate(Text text)
     {
         if (text.gameObject.GetComponent<TextBlink>() == null)

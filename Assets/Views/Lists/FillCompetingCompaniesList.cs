@@ -6,7 +6,7 @@ public class FillCompetingCompaniesList : View
 {
     GameEntity[] GetProductsOnNiche()
     {
-        var niche = ScreenUtils.GetSelectedNiche(Q);
+        var niche = SelectedNiche;
 
         var list = Markets.GetProductsOnMarket(Q, niche).ToArray();
 

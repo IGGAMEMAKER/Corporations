@@ -28,12 +28,12 @@ public class ChooseProperFlaghipScreen : View
 
         var companyGoal = Flagship.companyGoal.InvestorGoal;
 
-        PrototypeScreen.SetActive(companyGoal == InvestorGoal.Prototype);
-        FirstUsersScreen.SetActive(companyGoal == InvestorGoal.FirstUsers);
-        MVPScreen.SetActive(companyGoal == InvestorGoal.BecomeMarketFit);
-        PrepareToReleaseScreen.SetActive(companyGoal == InvestorGoal.Release);
+        UpdateIfNecessary(PrototypeScreen, companyGoal == InvestorGoal.Prototype);
+        UpdateIfNecessary(FirstUsersScreen, companyGoal == InvestorGoal.FirstUsers);
+        UpdateIfNecessary(MVPScreen, companyGoal == InvestorGoal.BecomeMarketFit);
+        UpdateIfNecessary(PrepareToReleaseScreen, companyGoal == InvestorGoal.Release);
 
         // after release
-        ReleasedScreen.SetActive(companyGoal == InvestorGoal.BecomeProfitable);
+        UpdateIfNecessary(ReleasedScreen, companyGoal == InvestorGoal.BecomeProfitable);
     }
 }
