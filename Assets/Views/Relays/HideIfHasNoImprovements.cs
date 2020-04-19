@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using UnityEngine;
 
 public class HideIfHasNoImprovements : HideOnSomeCondition
 {
@@ -6,13 +7,8 @@ public class HideIfHasNoImprovements : HideOnSomeCondition
     {
         var p = SelectedCompany;
 
-        return !Companies.IsRelatedToPlayer(Q, p)
-            || !Products.HasFreeImprovements(p)
-            
-            // ProductImprovement.Acquisition is not required
-            || Cooldowns.HasTask(Q, new CompanyTaskUpgradeFeature(p.company.Id, ProductFeature.Acquisition))
-            
-            || Companies.IsReleaseableApp(p, Q);
-            ;
+        Debug.LogError("HideIfHasNoImprovements");
+
+        throw new System.Exception("HideIfHasNoImprovements");
     }
 }
