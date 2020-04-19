@@ -18,7 +18,7 @@ namespace Assets.Core
 
                 // innovation
                 //var clientChange = GiveInnovationBenefits(product, gameContext, revolution);
-                Marketing.AddBrandPower(product, revolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN);
+                Marketing.AddBrandPower(product, revolution ? C.REVOLUTION_BRAND_POWER_GAIN : C.INNOVATION_BRAND_POWER_GAIN);
 
                 // notify about innovation
                 var player = Companies.GetPlayerCompany(gameContext);

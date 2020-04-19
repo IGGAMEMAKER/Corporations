@@ -98,7 +98,7 @@ public class MapNavigation : View
         if (scroll > 0)
         {
             float mouseX = Input.mousePosition.x;
-            float mouseY = Input.mousePosition.y + Balance.GAMEPLAY_OFFSET_Y;
+            float mouseY = Input.mousePosition.y + C.GAMEPLAY_OFFSET_Y;
 
             var deltaX = (mouseX - Screen.width / 2);
             var deltaY = (mouseY - Screen.height / 2);

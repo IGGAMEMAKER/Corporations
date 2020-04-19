@@ -10,8 +10,8 @@ namespace Assets.Core
             var bonus = new Bonus<long>("Maintenance");
 
             bonus
-                .AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * Balance.PERIOD / 30)
-                .AppendAndHideIfZero("Managers", GetManagersCost(e, gameContext) * Balance.PERIOD / 30);
+                .AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
+                .AppendAndHideIfZero("Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
 
             var upgrades = e.productUpgrades.upgrades;
 
@@ -20,7 +20,7 @@ namespace Assets.Core
                 long cost = 0;
 
                 if (u.Value)
-                    cost = Products.GetUpgradeCost(e, gameContext, u.Key) * Balance.PERIOD / 30;
+                    cost = Products.GetUpgradeCost(e, gameContext, u.Key) * C.PERIOD / 30;
 
                 bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
             }
@@ -50,14 +50,14 @@ namespace Assets.Core
         {
             var workers = Teams.GetAmountOfWorkers(e, gameContext);
 
-            return workers * Balance.SALARIES_PROGRAMMER; // * GetCultureTeamDiscount(e, gameContext) / 100;
+            return workers * C.SALARIES_PROGRAMMER; // * GetCultureTeamDiscount(e, gameContext) / 100;
         }
 
         public static long GetManagersCost(GameEntity e, GameContext gameContext)
         {
             var managers = e.team.Managers.Count;
 
-            return managers * Balance.SALARIES_DIRECTOR;
+            return managers * C.SALARIES_DIRECTOR;
         }
 
         public static int GetCultureTeamDiscount(GameEntity e, GameContext gameContext)

@@ -105,22 +105,22 @@ public abstract partial class ButtonController
 
     public void NavigateToNiche(NicheType niche)
     {
-        Navigate(ScreenMode.NicheScreen, Balance.MENU_SELECTED_NICHE, niche);
+        Navigate(ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, niche);
     }
 
     public void NavigateToIndustry(IndustryType industry)
     {
-        Navigate(ScreenMode.IndustryScreen, Balance.MENU_SELECTED_INDUSTRY, industry);
+        Navigate(ScreenMode.IndustryScreen, C.MENU_SELECTED_INDUSTRY, industry);
     }
 
     public void NavigateToCompany(ScreenMode screenMode, int companyId)
     {
-        Navigate(screenMode, Balance.MENU_SELECTED_COMPANY, companyId);
+        Navigate(screenMode, C.MENU_SELECTED_COMPANY, companyId);
     }
 
     public void NavigateToHuman(int humanId)
     {
-        Navigate(ScreenMode.CharacterScreen, Balance.MENU_SELECTED_HUMAN, humanId);
+        Navigate(ScreenMode.CharacterScreen, C.MENU_SELECTED_HUMAN, humanId);
     }
 
     public void NavigateToProjectScreen(int companyId)

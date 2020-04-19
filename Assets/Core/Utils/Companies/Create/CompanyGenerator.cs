@@ -92,7 +92,7 @@ namespace Assets.Core
 
         public static Dictionary<CorporatePolicy, int> GetRandomWorkerCorporateCulture()
         {
-            var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var max = C.CORPORATE_CULTURE_LEVEL_MAX + 1;
             var half = max / 2;
 
 
@@ -104,8 +104,8 @@ namespace Assets.Core
         }
         public static Dictionary<CorporatePolicy, int> GetRandomCorporateCulture()
         {
-            var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
-            var min = Balance.CORPORATE_CULTURE_LEVEL_MIN;
+            var max = C.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var min = C.CORPORATE_CULTURE_LEVEL_MIN;
 
             var dict = new Dictionary<CorporatePolicy, int>()
             {
@@ -122,8 +122,8 @@ namespace Assets.Core
 
         public static Dictionary<CorporatePolicy, int> GetFundCorporateCulture()
         {
-            var max = Balance.CORPORATE_CULTURE_LEVEL_MAX + 1;
-            var min = Balance.CORPORATE_CULTURE_LEVEL_MIN;
+            var max = C.CORPORATE_CULTURE_LEVEL_MAX + 1;
+            var min = C.CORPORATE_CULTURE_LEVEL_MIN;
             var half = max / 2;
 
             return new Dictionary<CorporatePolicy, int>()

@@ -97,7 +97,7 @@ public class RestoreGameStateAfterRecompilation : View
     void SpawnCompanies()
     {
         Debug.Log("Simulate Development");
-        var skipDays = (Balance.START_YEAR - 1991) * 360;
+        var skipDays = (C.START_YEAR - 1991) * 360;
 
         MockySimulation(skipDays, Q);
 

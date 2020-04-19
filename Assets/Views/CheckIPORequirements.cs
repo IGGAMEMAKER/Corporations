@@ -19,9 +19,9 @@ public class CheckIPORequirements : View
         bool isProfitable = Companies.IsMeetsIPOProfitRequirement(Q, companyId);
 
         Hint.SetHint($"Requirements" +
-            Visuals.Colorize($"\nCompany Cost more than ${Format.Minify(Balance.IPO_REQUIREMENTS_COMPANY_COST)}", costsALot)  +
+            Visuals.Colorize($"\nCompany Cost more than ${Format.Minify(C.IPO_REQUIREMENTS_COMPANY_COST)}", costsALot)  +
             Visuals.Colorize($"\nMore than 3 shareholders", hasShareholders) + 
-            Visuals.Colorize($"\nProfit bigger than ${Format.Minify(Balance.IPO_REQUIREMENTS_COMPANY_PROFIT)}", isProfitable)
+            Visuals.Colorize($"\nProfit bigger than ${Format.Minify(C.IPO_REQUIREMENTS_COMPANY_PROFIT)}", isProfitable)
             );
 
         IPOButton.interactable = Companies.IsCanGoPublic(Q, SelectedCompany.company.Id);

@@ -37,7 +37,7 @@ namespace Assets.Core
             var niche = Get(gameContext, nicheType);
             var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
 
-            return (long)(baseFlowForStage * Balance.PERIOD / 30);
+            return (long)(baseFlowForStage * C.PERIOD / 30);
 
             var stateDuration = GetCurrentNicheStateDuration(gameContext, nicheType);
 
@@ -49,7 +49,7 @@ namespace Assets.Core
             var result = baseFlowForStage * multiplier;
 
             // normalise
-            return (long)(result * Balance.PERIOD / 30);
+            return (long)(result * C.PERIOD / 30);
         }
 
         public static float GetBaseStageFlow(GameContext gameContext, GameEntity niche, NicheType nicheType)

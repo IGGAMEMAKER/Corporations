@@ -53,7 +53,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         var hint = GetComponent<Hint>();
         if (hint != null)
         {
-            var cost = GetCost() * Balance.PERIOD / 30;
+            var cost = GetCost() * C.PERIOD / 30;
             var text = "";
 
             if (cost != 0)

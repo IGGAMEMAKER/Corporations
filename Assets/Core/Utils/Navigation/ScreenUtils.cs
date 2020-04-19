@@ -22,11 +22,11 @@ namespace Assets.Core
 
             var dictionary = new Dictionary<string, object>
             {
-                [Balance.MENU_SELECTED_COMPANY] = 1,
-                [Balance.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
-                [Balance.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
-                [Balance.MENU_SELECTED_HUMAN] = 0,
-                [Balance.MENU_SELECTED_INVESTOR] = -1,
+                [C.MENU_SELECTED_COMPANY] = 1,
+                [C.MENU_SELECTED_INDUSTRY] = IndustryType.Technology,
+                [C.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
+                [C.MENU_SELECTED_HUMAN] = 0,
+                [C.MENU_SELECTED_INVESTOR] = -1,
             };
 
             menu.AddMenu(ScreenMode.NicheScreen, dictionary);

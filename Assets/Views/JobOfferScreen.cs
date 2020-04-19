@@ -14,7 +14,7 @@ public class JobOfferScreen : View
 
     void RenderOffer()
     {
-        long offer = Balance.SALARIES_DIRECTOR;
+        long offer = C.SALARIES_DIRECTOR;
 
         Offer.text = $"${Format.Minify(offer)} per month";
     }

@@ -73,7 +73,7 @@ namespace Assets.Core
                 bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
-                bonus.AppendAndHideIfZero("Test Campaign", Balance.TEST_CAMPAIGN_CLIENT_GAIN);
+                bonus.AppendAndHideIfZero("Test Campaign", C.TEST_CAMPAIGN_CLIENT_GAIN);
 
             return bonus;
         }

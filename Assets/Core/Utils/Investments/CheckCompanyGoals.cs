@@ -38,7 +38,7 @@
 
         private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
         {
-            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > Balance.IPO_REQUIREMENTS_COMPANY_COST;
+            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > C.IPO_REQUIREMENTS_COMPANY_COST;
         }
 
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)

@@ -11,11 +11,11 @@ namespace Assets.Core
             if (Cooldowns.HasCorporateCultureUpgradeCooldown(gameContext, company))
                 return;
 
-            Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, Balance.CORPORATE_CULTURE_CHANGES_DURATION);
+            Cooldowns.AddCorporateCultureUpgradeCooldown(gameContext, company, C.CORPORATE_CULTURE_CHANGES_DURATION);
             var culture = GetOwnCorporateCulture(company);
 
             var prevValue = culture[policy];
-            culture[policy] = Mathf.Clamp(value, Balance.CORPORATE_CULTURE_LEVEL_MIN, Balance.CORPORATE_CULTURE_LEVEL_MAX);
+            culture[policy] = Mathf.Clamp(value, C.CORPORATE_CULTURE_LEVEL_MIN, C.CORPORATE_CULTURE_LEVEL_MAX);
 
             if (value != prevValue)
             {

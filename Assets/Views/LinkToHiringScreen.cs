@@ -8,7 +8,7 @@ public class LinkToHiringScreen : ButtonController
 
     public override void Execute()
     {
-        Navigate(ScreenMode.EmployeeScreen, Balance.MENU_SELECTED_COMPANY, CompanyId);
+        Navigate(ScreenMode.EmployeeScreen, C.MENU_SELECTED_COMPANY, CompanyId);
     }
 
     public void SetCompanyId(int companyId)

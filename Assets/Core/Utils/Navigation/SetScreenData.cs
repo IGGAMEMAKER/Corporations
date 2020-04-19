@@ -12,10 +12,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((int)data[Balance.MENU_SELECTED_HUMAN] == humanId)
+            if ((int)data[C.MENU_SELECTED_HUMAN] == humanId)
                 return;
 
-            data[Balance.MENU_SELECTED_HUMAN] = humanId;
+            data[C.MENU_SELECTED_HUMAN] = humanId;
 
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
@@ -27,10 +27,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((int)data[Balance.MENU_SELECTED_COMPANY] == companyId)
+            if ((int)data[C.MENU_SELECTED_COMPANY] == companyId)
                 return;
 
-            data[Balance.MENU_SELECTED_COMPANY] = companyId;
+            data[C.MENU_SELECTED_COMPANY] = companyId;
 
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
@@ -42,10 +42,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((NicheType)data[Balance.MENU_SELECTED_NICHE] == nicheType)
+            if ((NicheType)data[C.MENU_SELECTED_NICHE] == nicheType)
                 return;
 
-            data[Balance.MENU_SELECTED_NICHE] = nicheType;
+            data[C.MENU_SELECTED_NICHE] = nicheType;
 
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }

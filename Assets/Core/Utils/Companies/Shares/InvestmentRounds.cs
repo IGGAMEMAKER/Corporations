@@ -23,7 +23,7 @@
 
                 company.ReplaceInvestmentRounds(GetInvestmentRoundName(company));
 
-                company.AddAcceptsInvestments(Balance.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
+                company.AddAcceptsInvestments(C.INVESTMENT_ROUND_ACTIVE_FOR_DAYS);
             }
         }
 

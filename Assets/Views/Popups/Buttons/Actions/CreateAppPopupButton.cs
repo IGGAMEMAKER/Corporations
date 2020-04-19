@@ -18,7 +18,7 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
             company.isFlagship = true;
 
             //NavigateToNiche(company.product.Niche);
-            Navigate(ScreenMode.HoldingScreen, Balance.MENU_SELECTED_NICHE, company.product.Niche);
+            Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
         }
     }
 

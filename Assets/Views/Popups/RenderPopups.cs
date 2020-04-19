@@ -120,7 +120,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "You've released the product!",
-            Visuals.Positive($"You got new users and {Balance.RELEASE_BRAND_POWER_GAIN} Brand Power!") +
+            Visuals.Positive($"You got new users and {C.RELEASE_BRAND_POWER_GAIN} Brand Power!") +
             "\n\nIncrease Brand power if you want to get more clients!"
             //"\n\nBrand grows if you form partnerships, make innovations and capture markets"
             ,
@@ -134,7 +134,7 @@ public partial class PopupView : View
 
         bool isRevolution = popup.clientGain > 0;
 
-        var brandGain = isRevolution ? Balance.REVOLUTION_BRAND_POWER_GAIN : Balance.INNOVATION_BRAND_POWER_GAIN;
+        var brandGain = isRevolution ? C.REVOLUTION_BRAND_POWER_GAIN : C.INNOVATION_BRAND_POWER_GAIN;
         var innovationBenefit = $"They will get {brandGain} Brand Power";
 
         if (isRevolution)
@@ -286,7 +286,7 @@ public partial class PopupView : View
     void RenderNewCorporationRequirements(PopupMessageCorporationRequirements popup)
     {
         var cost = Economy.GetCompanyCost(Q, popup.companyId);
-        var goal = Balance.CORPORATION_REQUIREMENTS_COMPANY_COST;
+        var goal = C.CORPORATION_REQUIREMENTS_COMPANY_COST;
 
         RenderUniversalPopup(
             "You cannot create a corporation :(",
@@ -299,7 +299,7 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "You changed the corporate culture!",
-            "{improvement_description}\n\nYou will be able to do this again in " + Balance.CORPORATE_CULTURE_CHANGES_DURATION + " days",
+            "{improvement_description}\n\nYou will be able to do this again in " + C.CORPORATE_CULTURE_CHANGES_DURATION + " days",
             typeof(ClosePopupOK)
             );
     }

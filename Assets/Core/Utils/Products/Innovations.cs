@@ -24,7 +24,7 @@
             var mindset         = culture[CorporatePolicy.InnovationOrStability];
             var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
 
-            var maxCorpLevel = Balance.CORPORATE_CULTURE_LEVEL_MAX;
+            var maxCorpLevel = C.CORPORATE_CULTURE_LEVEL_MAX;
 
             // managers
             var productManagerBonus = GetProductManagerBonus(product, gameContext);
@@ -75,7 +75,7 @@
         {
             var focusing = Companies.GetPolicyValue(product, CorporatePolicy.FocusingOrSpread);
 
-            return 5 * (Balance.CORPORATE_CULTURE_LEVEL_MAX - focusing);
+            return 5 * (C.CORPORATE_CULTURE_LEVEL_MAX - focusing);
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)

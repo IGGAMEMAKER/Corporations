@@ -21,7 +21,7 @@ public partial class ManageProductTeamSystem : OnDateChange
 
     void HireRegularWorkers(GameEntity product)
     {
-        var workerCost = Balance.SALARIES_PROGRAMMER;
+        var workerCost = C.SALARIES_PROGRAMMER;
 
         var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
         var haveWorkers = Teams.GetAmountOfWorkers(product, gameContext);
@@ -33,7 +33,7 @@ public partial class ManageProductTeamSystem : OnDateChange
     void HireManagers(GameEntity company)
     {
         // also usable for groups
-        var managerCost = Balance.SALARIES_DIRECTOR;
+        var managerCost = C.SALARIES_DIRECTOR;
 
         var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
         var haveRoles = company.team.Managers.Values;

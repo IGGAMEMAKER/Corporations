@@ -47,7 +47,7 @@
         {
             var c = Companies.Get(context, companyId);
 
-            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier() * 30 / Balance.PERIOD;
+            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
         }
 
         public static long GetCompanyCostNicheMultiplier()

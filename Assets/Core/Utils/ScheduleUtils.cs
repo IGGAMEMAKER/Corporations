@@ -65,7 +65,7 @@ namespace Assets.Core
         {
             var date = GetCurrentDate(gameContext);
 
-            return date % Balance.PERIOD == 0;
+            return date % C.PERIOD == 0;
         }
 
         // was IAnyDateListener
@@ -82,8 +82,8 @@ namespace Assets.Core
 
 
         // Date
-        public static int GetDateByYear(int year) => (year - Balance.START_YEAR) * 360;
-        public static int GetYearOf(int date) => date / 360 + Balance.START_YEAR;
+        public static int GetDateByYear(int year) => (year - C.START_YEAR) * 360;
+        public static int GetYearOf(int date) => date / 360 + C.START_YEAR;
 
         public static int GetDateByYearAndQuarter(int year, int quarter) => GetDateByYear(year) + quarter * 90;
 

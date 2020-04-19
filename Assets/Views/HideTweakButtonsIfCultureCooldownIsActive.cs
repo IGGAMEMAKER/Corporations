@@ -30,7 +30,7 @@ public class HideTweakButtonsIfCultureCooldownIsActive : View
 
     private void RenderTweak(GameObject tweakButton, bool hasCooldown, int value, bool Increment)
     {
-        bool willExceedLimits = (Increment && value == Balance.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == Balance.CORPORATE_CULTURE_LEVEL_MIN);
+        bool willExceedLimits = (Increment && value == C.CORPORATE_CULTURE_LEVEL_MAX) || (!Increment && value == C.CORPORATE_CULTURE_LEVEL_MIN);
 
         tweakButton.SetActive(!hasCooldown && !willExceedLimits);
     }

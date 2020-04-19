@@ -37,6 +37,6 @@ public class LinkToUnhappyTeam : ButtonController
 
 
 
-        Navigate(targetMenu, Balance.MENU_SELECTED_COMPANY, companyId);
+        Navigate(targetMenu, C.MENU_SELECTED_COMPANY, companyId);
     }
 }

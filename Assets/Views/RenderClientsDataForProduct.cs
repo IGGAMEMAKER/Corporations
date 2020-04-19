@@ -17,7 +17,7 @@ public class RenderClientsDataForProduct : View
 
         List<int> xs = new List<int>();
 
-        for (var i = startDate; i < endDate; i+= Balance.PERIOD) // 7 - period length
+        for (var i = startDate; i < endDate; i+= C.PERIOD) // 7 - period length
             xs.Add(i);
 
         //Debug.Log("amount of dots: " + xs.Count);
@@ -63,7 +63,7 @@ public class RenderClientsDataForProduct : View
         var insertBefore = necessaryMetrics - metricsCount;
         for (var i = 0; i < insertBefore; i++)
         {
-            metrics.Add(GetMetricMockup(0, start + i * Balance.PERIOD));
+            metrics.Add(GetMetricMockup(0, start + i * C.PERIOD));
         }
 
         // add current value

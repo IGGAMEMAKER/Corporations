@@ -10,7 +10,7 @@ namespace Assets.Core
         {
             var company = Companies.GenerateCompanyGroup(gameContext, text);
 
-            var half = Balance.CORPORATE_CULTURE_LEVEL_MAX / 2;
+            var half = C.CORPORATE_CULTURE_LEVEL_MAX / 2;
 
             company.ReplaceCorporateCulture(new Dictionary<CorporatePolicy, int>
             {
@@ -35,7 +35,7 @@ namespace Assets.Core
             PrepareMarket(niche, startCapital, gameContext);
 
 
-            ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, Balance.MENU_SELECTED_NICHE, NicheType);
+            ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, NicheType);
 
 
             SceneManager.UnloadSceneAsync(2);
@@ -58,7 +58,7 @@ namespace Assets.Core
             }
 
             // spawn investors
-            for (var i = 0; i < Balance.AMOUNT_OF_INVESTORS_ON_STARTING_NICHE; i++)
+            for (var i = 0; i < C.AMOUNT_OF_INVESTORS_ON_STARTING_NICHE; i++)
             {
                 var fund = Companies.GenerateInvestmentFund(gameContext, RandomUtils.GenerateInvestmentCompanyName(), 500000);
                 Companies.AddFocusNiche(niche.niche.NicheType, fund, gameContext);
