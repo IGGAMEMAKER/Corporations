@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public abstract class View : BaseClass
 {
+    public virtual void ViewRender() { }
+
     public void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
     public void UpdateIfNecessary(GameObject go, bool condition)
     {
@@ -12,12 +14,15 @@ public abstract class View : BaseClass
             go.SetActive(condition);
     }
 
+
+    // TODO Remove/Drag used once
     public void Animate(Text text)
     {
         if (text.gameObject.GetComponent<TextBlink>() == null)
             text.gameObject.AddComponent<TextBlink>();
     }
 
+    // TODO Remove/Drag used once
     public void AnimateIfValueChanged(Text text, string value)
     {
         if (text != null && !String.Equals(text.text, value))
@@ -27,6 +32,8 @@ public abstract class View : BaseClass
             Animate(text);
         }
     }
+
+
 
     public Color GetPanelColor(bool isSelected)
     {
@@ -52,20 +59,8 @@ public abstract class View : BaseClass
         ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
     }
 
-    public void ListenDateChanges(IAnyDateListener dateListener)
-    {
-        ScheduleUtils.ListenDateChanges(Q, dateListener);
-    }
-
-    public void LazyUpdate(IAnyDateListener dateListener)
-    {
-        ScheduleUtils.ListenDateChanges(Q, dateListener);
-    }
-
     public void RefreshPage()
     {
         ScreenUtils.UpdateScreenWithoutAnyChanges(Q);
     }
-
-    public virtual void ViewRender() { }
 }

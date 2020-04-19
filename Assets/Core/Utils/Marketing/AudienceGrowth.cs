@@ -51,6 +51,15 @@ namespace Assets.Core
         }
 
 
+        public static long GetTargetingCampaignGrowth3(GameEntity e, GameContext gameContext)
+        {
+            return GetBrandBasedAudienceGrowth(e, gameContext) * 10;
+        }
+
+        public static long GetTargetingCampaignGrowth2(GameEntity e, GameContext gameContext)
+        {
+            return GetBrandBasedAudienceGrowth(e, gameContext) * 3;
+        }
         public static long GetTargetingCampaignGrowth(GameEntity e, GameContext gameContext)
         {
             return GetBrandBasedAudienceGrowth(e, gameContext);

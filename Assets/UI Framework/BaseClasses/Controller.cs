@@ -2,36 +2,36 @@
 
 public abstract class Controller : BaseClass
 {
-    public void ListenNavigationChanges(INavigationHistoryListener navigationHistoryListener)
+    public void ListenNavigationChanges(INavigationHistoryListener listener)
     {
-        ScreenUtils.GetMenu(Q).AddNavigationHistoryListener(navigationHistoryListener);
+        ScreenUtils.GetMenu(Q).AddNavigationHistoryListener(listener);
     }
 
-    public void UnListenNavigationChanges(INavigationHistoryListener navigationHistoryListener)
+    public void UnListenNavigationChanges(INavigationHistoryListener listener)
     {
-        ScreenUtils.GetMenu(Q).RemoveNavigationHistoryListener(navigationHistoryListener);
-    }
-
-
-    public void ListenMenuChanges(IMenuListener menuListener)
-    {
-        ScreenUtils.GetMenu(Q).AddMenuListener(menuListener);
-    }
-
-    public void UnListenMenuChanges(IMenuListener menuListener)
-    {
-        ScreenUtils.GetMenu(Q).RemoveMenuListener(menuListener);
+        ScreenUtils.GetMenu(Q).RemoveNavigationHistoryListener(listener);
     }
 
 
-    public void ListenDateChanges(IAnyDateListener dateListener)
+    public void ListenMenuChanges(IMenuListener listener)
     {
-        ScheduleUtils.ListenDateChanges(Q, dateListener);
+        ScreenUtils.GetMenu(Q).AddMenuListener(listener);
     }
 
-    public void UnListenDateChanges(IAnyDateListener dateListener)
+    public void UnListenMenuChanges(IMenuListener listener)
     {
-        ScheduleUtils.UnsubscribeFromDateChanges(Q, dateListener);
+        ScreenUtils.GetMenu(Q).RemoveMenuListener(listener);
+    }
+
+
+    public void ListenDateChanges(IAnyDateListener listener)
+    {
+        ScheduleUtils.ListenDateChanges(Q, listener);
+    }
+
+    public void UnListenDateChanges(IAnyDateListener listener)
+    {
+        ScheduleUtils.UnsubscribeFromDateChanges(Q, listener);
     }
 
     public GameEntity AnyChangeListener()

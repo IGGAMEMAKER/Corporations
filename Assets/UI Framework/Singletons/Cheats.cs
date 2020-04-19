@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Cheats : View
 {
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F8))
@@ -12,11 +11,11 @@ public class Cheats : View
             RefreshPage();
         }
 
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_BookingTours, MyCompany);
-            Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_BookingHotels, MyCompany);
-            Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_PaymentSystem, MyCompany);
-        }
+        //if (Input.GetKeyDown(KeyCode.F9))
+        //{
+        //    Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_BookingTours, MyCompany);
+        //    Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_BookingHotels, MyCompany);
+        //    Companies.CreateProductAndAttachItToGroup(Q, NicheType.ECom_PaymentSystem, MyCompany);
+        //}
     }
 }

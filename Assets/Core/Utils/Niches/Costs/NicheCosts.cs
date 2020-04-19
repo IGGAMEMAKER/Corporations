@@ -37,6 +37,7 @@ namespace Assets.Core
             var niche = Get(gameContext, nicheType);
             var baseFlowForStage = GetBaseStageFlow(gameContext, niche, nicheType);
 
+            return (long)(baseFlowForStage * Balance.PERIOD / 30);
 
             var stateDuration = GetCurrentNicheStateDuration(gameContext, nicheType);
 
@@ -57,6 +58,8 @@ namespace Assets.Core
 
 
             var totalStageClients = costs.Audience * GetAudiencePercentageThatProductsWillGetDuringThisMarketState(niche) / 100;
+
+            return totalStageClients / 20;
 
             var monthlyGrowthMultiplier = GetMonthlyAudienceGrowthMultiplier(niche);
             var stateMaxDuration = GetNichePeriodDurationInMonths(niche);
