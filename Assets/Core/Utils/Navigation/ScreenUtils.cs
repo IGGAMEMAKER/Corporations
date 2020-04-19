@@ -34,99 +34,10 @@ namespace Assets.Core
             return menu;
         }
 
-        public static Dictionary<string, object> GetScreenData(GameContext context)
-        {
-            return GetMenu(context).menu.Data;
-        }
-
-        // get selected stuff
-        public static GameEntity GetSelectedCompany(GameContext gameContext)
-        {
-            int companyId = (int)GetScreenData(gameContext)[Balance.MENU_SELECTED_COMPANY];
-
-            return Companies.Get(gameContext, companyId);
-        }
-
-        public static GameEntity GetSelectedInvestor(GameContext gameContext)
-        {
-            int id = (int)GetScreenData(gameContext)[Balance.MENU_SELECTED_INVESTOR];
-
-            return Investments.GetInvestorById(gameContext, id);
-        }
-
-        public static IndustryType GetSelectedIndustry(GameContext gameContext)
-        {
-            return (IndustryType)(int)GetScreenData(gameContext)[Balance.MENU_SELECTED_INDUSTRY];
-        }
-
-        public static NicheType GetSelectedNiche(GameContext gameContext)
-        {
-            var niche = GetScreenData(gameContext)[Balance.MENU_SELECTED_NICHE];
-
-            if (niche.GetType() == typeof(NicheType))
-                return (NicheType)niche;
-
-            return (NicheType)System.Enum.ToObject(typeof(NicheType), niche);
-        }
-
-        public static GameEntity GetSelectedHuman(GameContext gameContext)
-        {
-            var humanId = (int) GetScreenData(gameContext)[Balance.MENU_SELECTED_HUMAN];
-
-            return Humans.GetHuman(gameContext, humanId);
-        }
-
-        // set selected stuff
-        public static void SetSelectedHuman(GameContext gameContext, int humanId)
-        {
-            var menu = GetMenu(gameContext);
-
-            var data = menu.menu.Data;
-
-            if ((int)data[Balance.MENU_SELECTED_HUMAN] == humanId)
-                return;
-
-            data[Balance.MENU_SELECTED_HUMAN] = humanId;
-
-            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
-        }
-
-
-        public static void SetSelectedCompany(GameContext gameContext, int companyId)
-        {
-            var menu = GetMenu(gameContext);
-
-            var data = menu.menu.Data;
-
-            if ((int)data[Balance.MENU_SELECTED_COMPANY] == companyId)
-                return;
-
-            data[Balance.MENU_SELECTED_COMPANY] = companyId;
-
-            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
-        }
-
-
-        public static void SetSelectedNiche(GameContext gameContext, NicheType nicheType)
-        {
-            var menu = GetMenu(gameContext);
-
-            var data = menu.menu.Data;
-
-            if ((NicheType)data[Balance.MENU_SELECTED_NICHE] == nicheType)
-                return;
-
-            data[Balance.MENU_SELECTED_NICHE] = nicheType;
-
-            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
-        }
-
         // update menues
         public static void UpdateScreen(GameContext context, ScreenMode screenMode, Dictionary<string, object> data)
         {
-            var menu = GetMenu(context);
-
-            menu.ReplaceMenu(screenMode, data);
+            GetMenu(context).ReplaceMenu(screenMode, data);
         }
 
         public static void UpdateScreen(GameContext context)
