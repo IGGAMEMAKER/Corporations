@@ -6,8 +6,6 @@ using UnityEngine;
 public class AutorecruitWorkers : ProductUpgradeButton
 {
     public override string GetButtonTitle() => "Hire max"; //  workers\nautomatically
-
-    public override long GetCost() => 0;
     public override string GetBenefits() => "";
 
     public override ProductUpgrade upgrade => ProductUpgrade.AutorecruitWorkers;

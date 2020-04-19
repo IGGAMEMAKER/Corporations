@@ -6,16 +6,7 @@ using UnityEngine;
 public class ConceptToggleButton : ProductUpgradeButton
 {
     public override string GetButtonTitle() => $"Upgrade concept";
-
-    public override long GetCost()
-    {
-        return 0;
-    }
-
-    public override string GetBenefits()
-    {
-        return "";
-    }
+    public override string GetBenefits() => "";
 
     public override ProductUpgrade upgrade => ProductUpgrade.SimpleConcept;
 }

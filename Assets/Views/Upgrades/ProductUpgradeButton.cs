@@ -9,10 +9,12 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract ProductUpgrade upgrade { get; }
 
     public abstract string GetButtonTitle();
-    public abstract long GetCost();
+    public abstract string GetBenefits();
     public override bool IsInteractable() => true;
 
-    public abstract string GetBenefits();
+    public long GetCost() {
+        return Products.GetUpgradeCost(Flagship, Q, upgrade);
+    }
     public long GetAmountOfWorkers()
     {
         return Products.GetUpgradeWorkerCost(Flagship, Q, upgrade);
