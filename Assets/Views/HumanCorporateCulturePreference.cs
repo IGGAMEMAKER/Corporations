@@ -34,21 +34,6 @@ public class HumanCorporateCulturePreference : ParameterView
         if (text.Length == 0)
             text = "Doesn't care, where to work";
 
-        var change = Teams.GetLoyaltyChangeForManager(human, playerCulture);
-        text += "\n\n";
-
-        bool worksInMyCompany = Humans.IsWorksInCompany(human, MyCompany.company.Id) || Humans.IsWorksInCompany(human, Flagship.company.Id);
-
-        if (isEmployed && worksInMyCompany)
-        {
-            // TODO copypasted in HumanPreview.cs
-            text += Visuals.DescribeValueWithText(change,
-                $"Enjoys work in this company!\n\nWeekly loyalty change: +{change}",
-                $"Doesn't like this company!\n\nWeekly loyalty change: {change}",
-                "Is satisfied by this company"
-                );
-        }
-
         return text;
     }
 

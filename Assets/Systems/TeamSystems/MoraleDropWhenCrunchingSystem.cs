@@ -37,7 +37,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                 var relationship = human.humanCompanyRelationship;
 
-                var loyaltyChange   = Teams.GetLoyaltyChangeForManager(human, culture);
+                var loyaltyChange   = Teams.GetLoyaltyChangeForManager(human, culture, c, gameContext);
 
                 var newLoyalty      = Mathf.Clamp(relationship.Morale  + loyaltyChange, 0, 100);
                 var newAdaptation   = Mathf.Clamp(relationship.Adapted + 5, 0, 100);

@@ -35,7 +35,7 @@ public class JobOfferScreen : View
             var humanId = managers.Keys.ToList().Find(k => k == workerIndex);
 
             var level = Humans.GetRating(Q, humanId);
-            text = Visuals.Negative($"You already have the {Humans.GetFormattedRole(role)} ({level}LVL) in company {company.company.Name}.");
+            //text = Visuals.Negative($"You already have the {Humans.GetFormattedRole(role)} ({level}LVL) in company {company.company.Name}.");
         }
 
         ProposalStatus.text = text;

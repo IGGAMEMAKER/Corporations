@@ -83,15 +83,22 @@ namespace Assets.Core
 
             var culture = Companies.GetActualCorporateCulture(company, gameContext);
 
-            return GetLoyaltyChangeForManager(worker, culture);
+            return GetLoyaltyChangeForManager(worker, culture, company, gameContext);
         }
-        public static int GetLoyaltyChangeForManager(GameEntity worker, Dictionary<CorporatePolicy, int> culture)
+        public static int GetLoyaltyChangeForManager(GameEntity worker, Dictionary<CorporatePolicy, int> culture, GameEntity company, GameContext gameContext)
         {
+            return (int)GetLoyaltyChangeBonus(worker, culture, company, gameContext).Sum();
+        }
+
+        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, Dictionary<CorporatePolicy, int> culture, GameEntity company, GameContext gameContext)
+        {
+            var bonus = new Bonus<int>("Loyalty");
+
             var preferences = worker.corporateCulture.Culture;
 
             var importantPolicies = GetImportantCorporatePolicies();
 
-            int change = -3;
+            bonus.Append("Base value", -3);
 
             foreach (var p in importantPolicies)
             {
@@ -103,16 +110,53 @@ namespace Assets.Core
                 bool hates = module > 6;
 
                 if (suits)
-                    change += 2;
+                    bonus.Append(p.ToString(), 2);
 
                 if (hates)
-                    change -= 3;
+                    bonus.Append(p.ToString(), -3);
             }
 
-            // salaries?
 
-            //return UnityEngine.Random.Range(0, 5);
-            return change;
+            if (worker.hasWorker && worker.worker.companyId != -1)
+            {
+                var role = worker.worker.WorkerRole;
+
+                // same role workers
+                bool hasDuplicateWorkers = company.team.Managers.Values.Count(r => r == role) > 1;
+
+                if (hasDuplicateWorkers)
+                    bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
+
+                // incompetent leader
+                bool isIncompetentLeader = false;
+                var workerRating = Humans.GetRating(worker);
+
+                if (role != WorkerRole.CEO)
+                {
+                    var CEO = Teams.GetWorkerByRole(company, role, gameContext);
+
+                    if (CEO == null)
+                    {
+                        isIncompetentLeader = true;
+                    }
+                    else
+                    {
+                        var CEORating = Humans.GetRating(CEO);
+
+                        if (CEORating < workerRating)
+                        {
+                            isIncompetentLeader = true;
+                        }
+                    }
+                }
+
+                if (isIncompetentLeader)
+                    bonus.AppendAndHideIfZero($"Incompetent CEO (CEO rating less than {workerRating})", isIncompetentLeader ? -1 : 0);
+            }
+
+
+            return bonus;
         }
+
     }
 }
