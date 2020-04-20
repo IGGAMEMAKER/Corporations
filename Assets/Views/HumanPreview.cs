@@ -15,6 +15,18 @@ public class HumanPreview : View
 
     public GameEntity human;
 
+    /// <summary>
+    /// asdasdasd
+    /// </summary>
+    /// <param name="humanId"></param>
+    /// <param name="drawAsEmployee">if true - renders as employee. Renders as worker otherwise</param>
+    public void SetEntity(int humanId, bool drawAsEmployee)
+    {
+        human = Humans.GetHuman(Q, humanId);
+
+        Render(drawAsEmployee);
+    }
+
     public void Render(bool drawAsEmployee)
     {
         var rating = Humans.GetRating(Q, human);
@@ -24,9 +36,9 @@ public class HumanPreview : View
         var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname} \n#{entityID}"; // \n{formattedRole}
 
 
+        Overall.text = $"{rating}";
         RenderRole(drawAsEmployee);
 
-        Overall.text = $"{rating}";
         Description.text = description;
 
         // render company related data if is worker
@@ -102,17 +114,5 @@ public class HumanPreview : View
                 RoleText.color = Visuals.GetColorPositiveOrNegative(hasWorkerOfSameType);
             }
         }
-    }
-
-    /// <summary>
-    /// asdasdasd
-    /// </summary>
-    /// <param name="humanId"></param>
-    /// <param name="drawAsEmployee">if true - renders as employee. Renders as worker otherwise</param>
-    public void SetEntity(int humanId, bool drawAsEmployee)
-    {
-        human = Humans.GetHuman(Q, humanId);
-
-        Render(drawAsEmployee);
     }
 }

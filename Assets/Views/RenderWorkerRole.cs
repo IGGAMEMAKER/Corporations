@@ -23,7 +23,9 @@ public class RenderWorkerRole : View
 
         text = $"{formattedRole} ({rating}LVL)";
 
-        if (!human.hasWorker || human.worker.companyId == -1)
+        bool isUnemployed = !human.hasWorker || human.worker.companyId == -1;
+
+        if (isUnemployed)
         {
             text += " (Unemployed)";
             Link.enabled = false;
@@ -40,26 +42,26 @@ public class RenderWorkerRole : View
             Link.CompanyId = companyId;
         }
 
-        Description.text = GetRoleDescription(role);
+        Description.text = GetRoleDescription(role, isUnemployed);
 
         GetComponent<Text>().text = text;
     }
 
-    string GetRoleDescription(WorkerRole role)
+    string GetRoleDescription(WorkerRole role, bool isUnemployed)
     {
         var description = "";
 
         switch (role)
         {
-            case WorkerRole.CEO: description = "Increases innovation chances"; break;
-            case WorkerRole.MarketingLead: description = "Gives more clients and brand power"; break;
-            case WorkerRole.ProductManager: description = "Increases innovation chances"; break;
-            case WorkerRole.ProjectManager: description = "Reduces necessary amount of workers"; break;
-            case WorkerRole.TeamLead: description = "Increases team speed"; break;
+            case WorkerRole.CEO:            description = $"Increases innovation chances"; break;
+            case WorkerRole.TeamLead:       description = $"Increases team speed"; break;
+            case WorkerRole.MarketingLead:  description = $"Gives more clients and brand power"; break;
 
-            case WorkerRole.MarketingDirector: description = ""; break;
-            case WorkerRole.TechDirector: description = ""; break;
+            case WorkerRole.ProductManager: description = $"Increases innovation chances"; break;
+            case WorkerRole.ProjectManager: description = $"Reduces necessary amount of workers"; break;
 
+            case WorkerRole.MarketingDirector:
+            case WorkerRole.TechDirector:
             case WorkerRole.Universal:
             default:
                 description = "";

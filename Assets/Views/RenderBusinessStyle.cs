@@ -14,13 +14,17 @@ public class RenderBusinessStyle : UpgradedParameterView
 
         var text = "";
 
-        foreach (var c in culture)
-        {
-            var policy = c.Key;
-            var value = c.Value;
+        text += Wrap(DescribePolicy(culture, CorporatePolicy.CompetitionOrSupport)) + "\n\n";
+        text += Wrap(DescribePolicy(culture, CorporatePolicy.FocusingOrSpread));
+        text += Wrap(DescribePolicy(culture, CorporatePolicy.BuyOrCreate));
 
-            text += Wrap(DescribePolicy(value, policy));
-        }
+        //foreach (var c in culture)
+        //{
+        //    var policy = c.Key;
+        //    var value = c.Value;
+
+        //    text += Wrap(DescribePolicy(value, policy));
+        //}
 
         if (text.Length == 0)
             text = "This company has no specific preferences in management";
@@ -36,6 +40,11 @@ public class RenderBusinessStyle : UpgradedParameterView
         return "";
     }
 
+    string DescribePolicy(Dictionary<CorporatePolicy, int> culture, CorporatePolicy policy)
+    {
+        return DescribePolicy(culture[policy], policy);
+    }
+
     string DescribePolicy(int value, CorporatePolicy policy)
     {
         bool isLeft = value <= 2;
@@ -48,12 +57,21 @@ public class RenderBusinessStyle : UpgradedParameterView
         {
             case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
             case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
-            case CorporatePolicy.LeaderOrTeam: return DescribeLeadership(isLeft);
+            case CorporatePolicy.LeaderOrTeam: return "";
             case CorporatePolicy.SalariesLowOrHigh: return DescribeSalaries(isLeft);
             case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
+            case CorporatePolicy.CompetitionOrSupport: return DescribeAggressiveness(isLeft);
 
             default: return policy.ToString() + ": " + value;
         }
+    }
+
+    string DescribeAggressiveness(bool isLeft)
+    {
+        if (isLeft)
+            return "Aggressive business management";
+
+        return "They love partnerships";
     }
 
     string DescribeMentality(bool isLeft)
@@ -66,14 +84,10 @@ public class RenderBusinessStyle : UpgradedParameterView
 
     string DescribeSalaries(bool isLeft)
     {
-        return "Salaries??";
-    }
-    string DescribeLeadership(bool isLeft)
-    {
         if (isLeft)
-            return "Manager oriented company";
+            return "Pays low salaries";
 
-        return "Team oriented company";
+        return "Pays big salaries";
     }
 
     string DescribeAcquisitionPolicy(bool isLeft)

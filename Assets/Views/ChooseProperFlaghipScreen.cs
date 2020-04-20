@@ -34,6 +34,6 @@ public class ChooseProperFlaghipScreen : View
         UpdateIfNecessary(PrepareToReleaseScreen, companyGoal == InvestorGoal.Release);
 
         // after release
-        UpdateIfNecessary(ReleasedScreen, companyGoal == InvestorGoal.BecomeProfitable);
+        UpdateIfNecessary(ReleasedScreen, companyGoal >= InvestorGoal.BecomeProfitable);
     }
 }

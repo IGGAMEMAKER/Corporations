@@ -34,6 +34,21 @@ namespace Assets.Core
             return e;
         }
 
+        public static void ResetSkills(GameEntity worker, int min, int max)
+        {
+            var skills = worker.humanSkills;
+
+            var roles = new Dictionary<WorkerRole, int>
+            {
+                [WorkerRole.CEO] = GetRandomXP(),
+                [WorkerRole.Manager] = GetRandomXP(),
+                [WorkerRole.Marketer] = GetRandomXP(),
+                [WorkerRole.Programmer] = 0,
+            };
+
+            worker.ReplaceHumanSkills(roles , skills.Traits, skills.Expertise);
+        }
+
 
         // generate as secondary skill, but save genius chances
         static int GetRandomXP()
