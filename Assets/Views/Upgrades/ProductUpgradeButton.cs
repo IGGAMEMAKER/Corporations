@@ -69,8 +69,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         
         
         // hint
-        if (links.Hint != null)
-        {
+        //if (links.Hint != null)
+        //{
             var cost = GetCost() * C.PERIOD / 30;
             var text = "";
 
@@ -86,6 +86,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
             }
 
             links.Hint.SetHint(text);
-        }
+        //}
     }
 };

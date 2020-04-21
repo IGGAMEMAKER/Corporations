@@ -8,6 +8,8 @@ public class DeclareBankruptcyPopupButton : PopupButtonController<PopupMessageBa
         var playerCompany = Companies.GetPlayerCompany(Q);
         var daughters = Companies.GetDaughterCompanies(Q, playerCompany);
 
+        Navigate(ScreenMode.MarketExplorationScreen);
+
         for (var i = 0; i < daughters.Length; i++)
         {
             Companies.CloseCompany(Q, daughters[i]);
@@ -17,7 +19,8 @@ public class DeclareBankruptcyPopupButton : PopupButtonController<PopupMessageBa
         Teams.DismissTeam(playerCompany, Q);
 
         Debug.Log("Declared Bankruptcy");
+        NotificationUtils.ClosePopup(Q);
     }
 
-    public override string GetButtonName() => "Declare bankruptcy :(";
+    public override string GetButtonName() => "Declare bankruptcy";
 }
