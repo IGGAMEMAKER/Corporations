@@ -46,25 +46,26 @@ public class ProductUpgradeButtons : View
         UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         UpdateIfNecessary(TestCampaignCheckbox, !company.isRelease);
 
+        bool greedyMode = true;
 
         // goal defined stuff
         // ----------------------
-        UpdateIfNecessary(SupportCheckbox, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox2, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox3, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Monetisation, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation2, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation3, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation2, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(QA, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA2, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA3, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA2, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Team3, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team7, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team20, false && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team100, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team3, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team7, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team20, greedyMode && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team100, greedyMode && goal >= InvestorGoal.Release);
 
         // release stuff
         // -------------

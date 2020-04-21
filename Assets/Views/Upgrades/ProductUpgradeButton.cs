@@ -12,19 +12,28 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract string GetBenefits();
     public override bool IsInteractable() => true;
 
-    public long GetCost() {
-        return Products.GetUpgradeCost(Flagship, Q, upgrade);
-    }
-    public long GetAmountOfWorkers()
-    {
-        return Products.GetUpgradeWorkerCost(Flagship, Q, upgrade);
-    }
+    public long GetCost() => Products.GetUpgradeCost(Company, Q, upgrade);
+    public long GetAmountOfWorkers() => Products.GetUpgradeWorkerCost(Company, Q, upgrade);
 
-    bool state => Products.IsUpgradeEnabled(Flagship, upgrade);
+    bool state => Products.IsUpgradeEnabled(Company, upgrade);
+    GameEntity Company => Flagship;
+
+    //TextMeshProUGUI Title;
+    //Toggle Toggle;
+    //ToggleAnim ToggleAnim;
+    //Hint Hint;
+
+    //void Start()
+    //{
+    //    Title = GetComponentInChildren<TextMeshProUGUI>();
+    //    Toggle = GetComponentInChildren<Toggle>();
+    //    ToggleAnim = GetComponentInChildren<ToggleAnim>();
+    //    Hint = GetComponent<Hint>();
+    //}
 
     public override void Execute()
     {
-        if (Flagship != null)
+        if (Company != null)
         {
             Debug.Log("Toggle " + upgrade + " = " + state);
 
@@ -37,21 +46,30 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     {
         base.ViewRender();
 
+        var links = GetComponent<ProductUpgradeLinks>();
+
+        if (links == null)
+            return;
+
+        //Title = links.Title;
+        //Toggle = links.Toggle;
+        //ToggleAnim = links.ToggleAnim;
+        //Hint = links.Hint;
+
         // checkbox text
-        GetComponentInChildren<TextMeshProUGUI>().text = GetButtonTitle() + "\n" + GetBenefits();
+        links.Title.text = GetButtonTitle() + "\n" + GetBenefits();
 
         
         // proper animation
-        GetComponentInChildren<Toggle>().isOn = state;
-        var anim = GetComponentInChildren<ToggleAnim>();
+        links.Toggle.isOn = state;
+        var anim = links.ToggleAnim;
 
         anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
 
         
         
         // hint
-        var hint = GetComponent<Hint>();
-        if (hint != null)
+        if (links.Hint != null)
         {
             var cost = GetCost() * C.PERIOD / 30;
             var text = "";
@@ -67,7 +85,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
                 text += $"\nWill need {workers} additional workers";
             }
 
-            hint.SetHint(text);
+            links.Hint.SetHint(text);
         }
     }
 };
