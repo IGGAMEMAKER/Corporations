@@ -20,15 +20,7 @@ namespace Assets.Core
         public static void SendBankruptcyPopup(GameContext gameContext, GameEntity company)
         {
             if (Companies.IsInPlayerSphereOfInterest(company, gameContext))
-            {
                 AddPopup(gameContext, new PopupMessageCompanyBankrupt(company.company.Id));
-
-                if (Companies.IsPlayerCompany(gameContext, company))
-                {
-                    TutorialUtils.Unlock(gameContext, TutorialFunctionality.CanRaiseInvestments);
-                    TutorialUtils.Unlock(gameContext, TutorialFunctionality.BankruptcyWarning);
-                }
-            }
         }
 
         public static void SendNewCompetitorPopup(GameContext gameContext, GameEntity niche, GameEntity product)

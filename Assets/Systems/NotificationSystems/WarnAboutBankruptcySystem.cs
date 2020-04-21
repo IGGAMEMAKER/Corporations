@@ -14,6 +14,11 @@ public class WarnAboutBankruptcySystem : OnLastDayOfPeriod
             return;
 
         if (Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, playerCompany))
+        {
             NotificationUtils.AddPopup(gameContext, new PopupMessageBankruptcyThreat(playerCompany.company.Id));
+
+            TutorialUtils.Unlock(gameContext, TutorialFunctionality.CanRaiseInvestments);
+            TutorialUtils.Unlock(gameContext, TutorialFunctionality.BankruptcyWarning);
+        }
     }
 }

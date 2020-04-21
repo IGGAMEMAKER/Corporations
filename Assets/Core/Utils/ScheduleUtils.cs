@@ -15,6 +15,21 @@ namespace Assets.Core
             return entities[0];
         }
 
+        public static bool IsLastDayOfPeriod(GameContext gameContext)
+        {
+            var entity = GetDateContainer(gameContext);
+
+            return IsLastDayOfPeriod(entity);
+        }
+        public static bool IsLastDayOfPeriod(GameEntity entity)
+        {
+            return IsLastDayOfPeriod(entity.date.Date);
+        }
+        public static bool IsLastDayOfPeriod(int date)
+        {
+            return date % C.PERIOD == C.PERIOD - 1 && date > 0;
+        }
+
         public static int GetCurrentDate(GameContext gameContext)
         {
             return GetDateContainer(gameContext).date.Date;

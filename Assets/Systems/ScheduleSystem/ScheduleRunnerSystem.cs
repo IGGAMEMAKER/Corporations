@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScheduleRunnerSystem : IExecuteSystem
 {
     // TODO TIMER
-    readonly GameContext _context;
+    readonly GameContext gameContext;
     float totalTime;
 
     bool isTimerRunning => DateEntity.isTimerRunning;
@@ -18,7 +18,7 @@ public class ScheduleRunnerSystem : IExecuteSystem
         get
         {
             if (DateContainer == null || !DateContainer.hasDate)
-                DateContainer = ScheduleUtils.GetDateContainer(_context);
+                DateContainer = ScheduleUtils.GetDateContainer(gameContext);
 
             return DateContainer;
         }
@@ -26,7 +26,7 @@ public class ScheduleRunnerSystem : IExecuteSystem
 
     public ScheduleRunnerSystem(Contexts contexts)
     {
-        _context = contexts.game;
+        gameContext = contexts.game;
     }
 
     public void Execute()
@@ -40,12 +40,18 @@ public class ScheduleRunnerSystem : IExecuteSystem
 
         if (totalTime < 0 && isTimerRunning)
         {
-
+            var playerCompany = Companies.GetPlayerCompany(gameContext);
+            if (ScheduleUtils.IsLastDayOfPeriod(DateEntity) && Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, playerCompany))
+            {
+                NotificationUtils.AddPopup(gameContext, new PopupMessageBankruptcyThreat(playerCompany.company.Id));
+                ScheduleUtils.PauseGame(gameContext);
+                return;
+            }
 
             // ResetTimer();
             totalTime = 1 / (float) currentSpeed;
 
-            ScheduleUtils.IncreaseDate(_context, 1);
+            ScheduleUtils.IncreaseDate(gameContext, 1);
         }
     }
 
@@ -71,6 +77,6 @@ public class ScheduleRunnerSystem : IExecuteSystem
 
     void ToggleTimer()
     {
-        ScheduleUtils.ToggleTimer(_context);
+        ScheduleUtils.ToggleTimer(gameContext);
     }
 }

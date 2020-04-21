@@ -244,8 +244,9 @@ public partial class PopupView : View
     {
         RenderUniversalPopup(
             "BANKRUPTCY IS COMING!",
-            "YOU HAVE ONE DAY TO SAVE YOUR COMPANY!\n\n" + Visuals.Negative("Raise investments, close not profitable companies and stop capturing markets!"),
-            typeof(ClosePopupOK)
+            "YOU HAVE ONE DAY TO SAVE YOUR COMPANY!\n\n" + Visuals.Negative("Raise investments, fire workers, close not profitable companies!"),
+            typeof(ClosePopupOK),
+            typeof(DeclareBankruptcyPopupButton)
             );
     }
 
