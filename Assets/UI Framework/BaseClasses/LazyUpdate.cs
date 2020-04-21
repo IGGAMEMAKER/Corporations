@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 public class LazyUpdate : Controller
-    , IAnyDateListener
+    , IDateListener
     , IMenuListener
     , INavigationHistoryListener
 {
@@ -38,17 +38,17 @@ public class LazyUpdate : Controller
             UnListenNavigationChanges(this);
     }
 
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    public void OnDate(GameEntity entity, int date)
     {
         Render();
     }
 
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
+    public void OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
     {
         Render();
     }
 
-    void INavigationHistoryListener.OnNavigationHistory(GameEntity entity, List<MenuComponent> queries)
+    public void OnNavigationHistory(GameEntity entity, List<MenuComponent> queries)
     {
         Render();
     }

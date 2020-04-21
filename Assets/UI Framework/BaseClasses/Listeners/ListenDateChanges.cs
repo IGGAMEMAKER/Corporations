@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-
-public class ListenDateChanges : Controller
-    , IAnyDateListener
+﻿public class ListenDateChanges : Controller
+    , IDateListener
 {
     public override void AttachListeners()
     {
@@ -13,7 +11,7 @@ public class ListenDateChanges : Controller
         UnListenDateChanges(this);
     }
 
-    void IAnyDateListener.OnAnyDate(GameEntity entity, int date)
+    public void OnDate(GameEntity entity, int date)
     {
         Render();
     }
