@@ -49,22 +49,22 @@ public class ProductUpgradeButtons : View
 
         // goal defined stuff
         // ----------------------
-        UpdateIfNecessary(SupportCheckbox, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox2, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox3, goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox2, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(SupportCheckbox3, false && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Monetisation, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation2, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation3, goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation2, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Monetisation3, false && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(QA, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA2, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA3, goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA2, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(QA3, false && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Team3, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team7, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team20, goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team100, goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team3, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team7, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team20, false && goal >= InvestorGoal.Release);
+        UpdateIfNecessary(Team100, false && goal >= InvestorGoal.Release);
 
         // release stuff
         // -------------

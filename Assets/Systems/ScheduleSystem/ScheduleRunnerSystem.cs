@@ -40,6 +40,8 @@ public class ScheduleRunnerSystem : IExecuteSystem
 
         if (totalTime < 0 && isTimerRunning)
         {
+
+
             // ResetTimer();
             totalTime = 1 / (float) currentSpeed;
 

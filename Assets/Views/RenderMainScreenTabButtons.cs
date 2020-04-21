@@ -42,7 +42,9 @@ public class RenderMainScreenTabButtons : View
         CorporateCulture.SetActive(numberOfDaughters > 1 || Flagship.team.Managers.Count > 1);
         CorporateCulture.GetComponentInChildren<TextMeshProUGUI>().text = GetCorporateCultureLabel();
 
-        Investments.SetActive(playerCanExploreAdvancedTabs);
+
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
+        Investments.SetActive(playerCanExploreAdvancedTabs || bankruptcyLooming);
         Investments.GetComponentInChildren<TextMeshProUGUI>().text = GetInvestmentRoundLabel();
         
         Messages.SetActive(false && playerCanExploreAdvancedTabs);

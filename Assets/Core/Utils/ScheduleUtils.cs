@@ -69,15 +69,15 @@ namespace Assets.Core
         }
 
         // was IAnyDateListener
-        public static void ListenDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        public static void ListenDateChanges(GameContext gameContext, IAnyDateListener listener)
         {
-            GetDateContainer(gameContext).AddAnyDateListener(menuListener);
+            GetDateContainer(gameContext).AddAnyDateListener(listener);
         }
 
         // was IAnyDateListener
-        public static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener menuListener)
+        public static void UnsubscribeFromDateChanges(GameContext gameContext, IAnyDateListener listener)
         {
-            GetDateContainer(gameContext).RemoveAnyDateListener(menuListener);
+            GetDateContainer(gameContext).RemoveAnyDateListener(listener);
         }
 
 

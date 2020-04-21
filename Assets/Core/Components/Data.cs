@@ -24,6 +24,9 @@ public enum TutorialFunctionality
     ClickOnRaiseMoneyLink,
     ClickOnDevelopmentLink,
     ClickOnGroupLink,
+
+    BankruptcyWarning,
+    CanRaiseInvestments
 }
 
 public struct ProductCompanyResult

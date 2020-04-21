@@ -21,6 +21,16 @@
             return GetCompanyIncome(context, c) - GetCompanyMaintenance(context, c);
         }
 
+        public static bool IsWillBecomeBankruptOnNextPeriod(GameContext gameContext, GameEntity c)
+        {
+            var profit = Economy.GetProfit(gameContext, c);
+            var balance = Economy.BalanceOf(c);
+
+            var willBecomeBankruptNextPeriod = balance + profit < 0;
+
+            return willBecomeBankruptNextPeriod;
+        }
+
 
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
