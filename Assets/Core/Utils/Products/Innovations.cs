@@ -20,16 +20,12 @@
 
             // culture bonuses
             var culture = Companies.GetActualCorporateCulture(product, gameContext);
-            var responsibility  = culture[CorporatePolicy.LeaderOrTeam];
-            var mindset         = culture[CorporatePolicy.InnovationOrStability];
             var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
-
-            var maxCorpLevel = C.CORPORATE_CULTURE_LEVEL_MAX;
 
             // managers
             var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);
 
-            var CEOBonus = GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel;
+            var CEOBonus = Teams.GetCEOInnovationBonus(product, gameContext);
 
             return new Bonus<long>("Innovation chance")
                 // market
@@ -37,32 +33,13 @@
                 .Append("Market change speed", marketSpeedPenalty)
 
                 // corp culture
-                .Append("Corporate Culture Mindset", maxCorpLevel - mindset)
-                .Append("Corporate Culture Acquisitions", createOrBuy)
+                //.Append("Corporate Culture Mindset", maxCorpLevel - mindset)
+                .Append("Corporate Culture Expansion Policy", createOrBuy)
 
                 // managers
                 .Append("CEO bonus", CEOBonus)
                 .AppendAndHideIfZero("Product manager", productManagerBonus)
                 ;
-        }
-
-        public static int GetLeaderInnovationBonus(GameEntity product)
-        {
-            //var CEOId = 
-            int companyId = product.company.Id;
-            int CEOId = Companies.GetCEOId(product);
-
-            //var accumulated = GetAccumulatedExpertise(company);
-
-            return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
-            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
-        }
-
-        public static int GetFocusingBonus(GameEntity product)
-        {
-            var focusing = Companies.GetPolicyValue(product, CorporatePolicy.FocusingOrSpread);
-
-            return 5 * (C.CORPORATE_CULTURE_LEVEL_MAX - focusing);
         }
 
         public static int GetNicheSpeedInnovationPenalty(GameEntity niche)

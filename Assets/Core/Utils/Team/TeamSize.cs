@@ -37,6 +37,7 @@ namespace Assets.Core
             return CountSpecialists(company, WorkerRole.Marketer);
         }
 
+
         internal static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, GameContext gameContext)
         {
             var managers = company.team.Managers;

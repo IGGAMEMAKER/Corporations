@@ -10,12 +10,12 @@ public class RenderPrimaryMarketsInnovationChancesDescription : View
     {
         base.ViewRender();
 
-        var innovationBonus = Products.GetFocusingBonus(MyCompany);
-        var markets = string.Join("\n", MyCompany.companyFocus.Niches.Select(n => "*" + Enums.GetFormattedNicheName(n)));
-        markets = "";
+        //var innovationBonus = Products.GetFocusingBonus(MyCompany);
+        //var markets = string.Join("\n", MyCompany.companyFocus.Niches.Select(n => "*" + Enums.GetFormattedNicheName(n)));
+        //markets = "";
 
-        MarketLimitDescription.text = $"You have +{Visuals.Positive(innovationBonus.ToString())}% chance to innovate on primary markets" +
-            markets
-            ;
+        //MarketLimitDescription.text = $"You have +{Visuals.Positive(innovationBonus.ToString())}% chance to innovate on primary markets" +
+        //    markets
+        //    ;
     }
 }

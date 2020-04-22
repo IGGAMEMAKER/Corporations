@@ -61,7 +61,8 @@ public class RenderWorkerRole : View
         switch (role)
         {
             case WorkerRole.CEO:            description = $"Increases innovation chances";
-
+                if (employed)
+                    description += $" by {RenderBonus(Teams.GetCEOInnovationBonus(company, Q))}%";
                 break;
 
             case WorkerRole.TeamLead:       description = $"Increases team speed";

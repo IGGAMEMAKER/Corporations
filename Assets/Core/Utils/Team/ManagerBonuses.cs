@@ -42,6 +42,23 @@ namespace Assets.Core
             //return marketingBonus;
         }
 
+        public static int GetLeaderInnovationBonus(GameEntity product)
+        {
+            //var CEOId = 
+            int companyId = product.company.Id;
+            int CEOId = Companies.GetCEOId(product);
+
+            //var accumulated = GetAccumulatedExpertise(company);
+
+            return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
+            //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
+        }
+
+        public static int GetCEOInnovationBonus(GameEntity product, GameContext gameContext)
+        {
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.CEO, 10);
+        }
+
         public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
         {
             return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, 20);
