@@ -14,10 +14,10 @@ namespace Assets.Core
             var managerBonus = 0;
             if (teamLead != null)
             {
-                var rating = Humans.GetRating(gameContext, teamLead);
-                var eff = Teams.GetWorkerEffeciency(teamLead, company);
+                var rating = Humans.GetRating(teamLead);
+                var effeciency = Teams.GetWorkerEffeciency(teamLead, company);
 
-                managerBonus = 50 * rating * eff / 100 / 100;
+                managerBonus = 50 * rating * effeciency / 100 / 100;
             }
 
             return managerBonus;
@@ -28,10 +28,9 @@ namespace Assets.Core
             var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
 
             var marketingBonus = 100;
-
             if (marketingLead != null)
             {
-                var rating = Humans.GetRating(gameContext, marketingLead);
+                var rating = Humans.GetRating(marketingLead);
                 var effeciency = Teams.GetWorkerEffeciency(marketingLead, product);
 
                 marketingBonus += 30 * rating * effeciency / 100 / 100;
@@ -47,7 +46,7 @@ namespace Assets.Core
             if (manager == null)
                 return 0;
 
-            var rating = Humans.GetRating(manager, WorkerRole.ProductManager);
+            var rating = Humans.GetRating(manager);
             var effeciency = Teams.GetWorkerEffeciency(manager, product);
 
             return effeciency * rating * 20 / 100 / 100;
@@ -60,7 +59,7 @@ namespace Assets.Core
             var discount = 0;
             if (projectManager != null)
             {
-                var rating = Humans.GetRating(gameContext, projectManager);
+                var rating = Humans.GetRating(projectManager);
                 discount = rating / 2;
             }
 
