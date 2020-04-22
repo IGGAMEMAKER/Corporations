@@ -44,36 +44,36 @@ public class ProductUpgradeButtons : View
         // prerelease stuff
         // ---------------------
         UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
-        UpdateIfNecessary(TestCampaignCheckbox, !company.isRelease);
+        Draw(TestCampaignCheckbox, !company.isRelease);
 
         bool greedyMode = true;
 
         // goal defined stuff
         // ----------------------
-        UpdateIfNecessary(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release);
+        Draw(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release);
+        Draw(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Monetisation, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation2, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Monetisation3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(QA, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA2, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(QA3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(QA, greedyMode && goal >= InvestorGoal.Release);
+        Draw(QA2, greedyMode && goal >= InvestorGoal.Release);
+        Draw(QA3, greedyMode && goal >= InvestorGoal.Release);
 
-        UpdateIfNecessary(Team3, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team7, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team20, greedyMode && goal >= InvestorGoal.Release);
-        UpdateIfNecessary(Team100, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Team3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Team7, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Team20, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Team100, greedyMode && goal >= InvestorGoal.Release);
 
         // release stuff
         // -------------
-        UpdateIfNecessary(TargetingCampaignCheckbox,  company.isRelease && marketState >= MarketState.Innovation);
-        UpdateIfNecessary(TargetingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
-        UpdateIfNecessary(TargetingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
+        Draw(TargetingCampaignCheckbox,  company.isRelease && marketState >= MarketState.Innovation);
+        Draw(TargetingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
+        Draw(TargetingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
 
-        UpdateIfNecessary(BrandingCampaignCheckbox, company.isRelease);
+        Draw(BrandingCampaignCheckbox, company.isRelease);
     }
 
     public override void ViewRender()

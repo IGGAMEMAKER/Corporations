@@ -28,12 +28,21 @@ public class ChooseProperFlaghipScreen : View
 
         var companyGoal = Flagship.companyGoal.InvestorGoal;
 
-        UpdateIfNecessary(PrototypeScreen, companyGoal == InvestorGoal.Prototype);
-        UpdateIfNecessary(FirstUsersScreen, companyGoal == InvestorGoal.FirstUsers);
-        UpdateIfNecessary(MVPScreen, companyGoal == InvestorGoal.BecomeMarketFit);
-        UpdateIfNecessary(PrepareToReleaseScreen, companyGoal == InvestorGoal.Release);
+        var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.Optimize;
+
+        bool showPrototype  = companyGoal == InvestorGoal.Prototype && !unlockAll;
+        bool showFirstUsers = companyGoal == InvestorGoal.FirstUsers && !unlockAll;
+        bool showMVP        = companyGoal == InvestorGoal.BecomeMarketFit && !unlockAll;
+        bool showPrerelease = companyGoal == InvestorGoal.Release && !unlockAll;
+
+        bool showReleased   = companyGoal >= InvestorGoal.BecomeProfitable || unlockAll;
+
+        Draw(PrototypeScreen, showPrototype);
+        Draw(FirstUsersScreen, showFirstUsers);
+        Draw(MVPScreen, showMVP);
+        Draw(PrepareToReleaseScreen, showPrerelease);
 
         // after release
-        UpdateIfNecessary(ReleasedScreen, companyGoal >= InvestorGoal.BecomeProfitable);
+        Draw(ReleasedScreen, showReleased);
     }
 }

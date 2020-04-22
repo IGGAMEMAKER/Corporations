@@ -3,6 +3,10 @@
 // iterate
 // foreach (InvestorGoal goal in (InvestorGoal[])Enum.GetValues(typeof(InvestorGoal)))
 
+//  NEWER VERSION
+// foreach (var e in (TutorialFunctionality[]) System.Enum.GetValues(typeof(TutorialFunctionality)))
+
+
 // cast
 // https://stackoverflow.com/questions/29482/cast-int-to-enum-in-c-sharp
 // var investorGoal = (InvestorGoal) Enum.Parse(typeof(InvestorGoal), arg0.ToString());

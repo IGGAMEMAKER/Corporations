@@ -20,6 +20,18 @@ namespace Assets.Core
             return GetProgression(gameContext).tutorial.progress.ContainsKey(tutorialFunctionality);
         }
 
+        public static bool Optimize =>
+#if UNITY_DEBUG
+            return true;
+#else
+            false;
+#endif
+
+        public static bool IsGodMode(GameContext gameContext)
+        {
+            return IsOpenedFunctionality(gameContext, TutorialFunctionality.UnlockAll);
+        }
+
         public static bool IsOpenedFunctionality(GameContext gameContext, string tutorialFunctionality)
         {
             return GetEventProgression(gameContext).eventContainer.progress.ContainsKey(tutorialFunctionality);

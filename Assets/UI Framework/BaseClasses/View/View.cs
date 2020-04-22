@@ -7,8 +7,8 @@ public abstract class View : BaseClass
 {
     public virtual void ViewRender() { }
 
-    public void UpdateIfNecessary(MonoBehaviour mb, bool condition) => UpdateIfNecessary(mb.gameObject, condition);
-    public void UpdateIfNecessary(GameObject go, bool condition)
+    public void UpdateIfNecessary(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
+    public void Draw(GameObject go, bool condition)
     {
         if (go.activeSelf != condition)
             go.SetActive(condition);

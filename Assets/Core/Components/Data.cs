@@ -26,7 +26,9 @@ public enum TutorialFunctionality
     ClickOnGroupLink,
 
     BankruptcyWarning,
-    CanRaiseInvestments
+    CanRaiseInvestments,
+
+    UnlockAll
 }
 
 public struct ProductCompanyResult

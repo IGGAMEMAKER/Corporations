@@ -32,22 +32,28 @@ public class RenderMainScreenTabButtons : View
 
         var operatingMarkets = GetOperatingMarkets(daughters);
 
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
-        DevTab.SetActive(true);
-        TeamTab.SetActive(playerCanExploreAdvancedTabs);
-        GroupTab.SetActive(numberOfDaughters > 1 && operatingMarkets.Count > 1);
-        ExpansionTab.SetActive(playerCanExploreAdvancedTabs);
+        bool godMode = TutorialUtils.IsGodMode(Q);
 
+        bool showGroupTab       = godMode || numberOfDaughters > 1 && operatingMarkets.Count > 1;
+        bool showCultureTab     = godMode || numberOfDaughters > 1 || Flagship.team.Managers.Count > 1;
+        bool showInvestmentsTab = godMode || playerCanExploreAdvancedTabs || bankruptcyLooming;
+        bool showTeamTab        = godMode || playerCanExploreAdvancedTabs;
+        bool showExpansionTab   = godMode || playerCanExploreAdvancedTabs;
 
-        CorporateCulture.SetActive(numberOfDaughters > 1 || Flagship.team.Managers.Count > 1);
+        
+        Draw(DevTab, true);
+        Draw(Messages, true);
+        Draw(TeamTab, showTeamTab);
+        Draw(GroupTab, showGroupTab);
+        Draw(ExpansionTab, showExpansionTab);
+
+        Draw(CorporateCulture, showCultureTab);
         CorporateCulture.GetComponentInChildren<TextMeshProUGUI>().text = GetCorporateCultureLabel();
 
-
-        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
-        Investments.SetActive(playerCanExploreAdvancedTabs || bankruptcyLooming);
+        Draw(Investments, showInvestmentsTab);
         Investments.GetComponentInChildren<TextMeshProUGUI>().text = GetInvestmentRoundLabel();
-        
-        Messages.SetActive(false && playerCanExploreAdvancedTabs);
     }
 
     string GetCorporateCultureLabel()
