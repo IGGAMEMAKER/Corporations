@@ -14,8 +14,8 @@ public class Cheats : View
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.W))
         {
-            foreach (var e in (TutorialFunctionality[])System.Enum.GetValues(typeof(TutorialFunctionality)))
-                TutorialUtils.Unlock(Q, e);
+            //foreach (var e in (TutorialFunctionality[])System.Enum.GetValues(typeof(TutorialFunctionality)))
+            TutorialUtils.Unlock(Q, TutorialFunctionality.UnlockAll);
         }
         #endif
 
