@@ -7,63 +7,68 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity company)
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole, int range)
         {
-            var teamLead = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
-
-            var managerBonus = 0;
-            if (teamLead != null)
-            {
-                var rating = Humans.GetRating(teamLead);
-                var effeciency = Teams.GetWorkerEffeciency(teamLead, company);
-
-                managerBonus = 50 * rating * effeciency / 100 / 100;
-            }
-
-            return managerBonus;
-        }
-
-        public static int GetMarketingLeadBonus(GameEntity product, GameContext gameContext)
-        {
-            var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
-
-            var marketingBonus = 100;
-            if (marketingLead != null)
-            {
-                var rating = Humans.GetRating(marketingLead);
-                var effeciency = Teams.GetWorkerEffeciency(marketingLead, product);
-
-                marketingBonus += 30 * rating * effeciency / 100 / 100;
-            }
-
-            return marketingBonus;
-        }
-
-        public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
-        {
-            var manager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
+            var manager = Teams.GetWorkerByRole(company, workerRole, gameContext);
 
             if (manager == null)
                 return 0;
 
             var rating = Humans.GetRating(manager);
-            var effeciency = Teams.GetWorkerEffeciency(manager, product);
+            var effeciency = Teams.GetWorkerEffeciency(manager, company);
 
-            return effeciency * rating * 20 / 100 / 100;
+            return range * rating * effeciency / 100 / 100;
         }
 
-        public static int GetProjectManagerWorkersDiscount(GameEntity e, GameContext gameContext)
+        public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity product)
         {
-            var projectManager = Teams.GetWorkerByRole(e, WorkerRole.ProjectManager, gameContext);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead, 50);
+        }
 
-            var discount = 0;
-            if (projectManager != null)
-            {
-                var rating = Humans.GetRating(projectManager);
-                discount = rating / 2;
-            }
+        public static int GetMarketingLeadBonus(GameEntity product, GameContext gameContext)
+        {
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead, 30);
+            //var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
 
-            return discount;
+            //var marketingBonus = 100;
+            //if (marketingLead != null)
+            //{
+            //    var rating = Humans.GetRating(marketingLead);
+            //    var effeciency = Teams.GetWorkerEffeciency(marketingLead, product);
+
+            //    marketingBonus += 30 * rating * effeciency / 100 / 100;
+            //}
+
+            //return marketingBonus;
+        }
+
+        public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
+        {
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, 20);
+            //var manager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
+
+            //if (manager == null)
+            //    return 0;
+
+            //var rating = Humans.GetRating(manager);
+            //var effeciency = Teams.GetWorkerEffeciency(manager, product);
+
+            //return effeciency * rating * 20 / 100 / 100;
+        }
+
+        public static int GetProjectManagerWorkersDiscount(GameEntity product, GameContext gameContext)
+        {
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProjectManager, 50);
+            //var projectManager = Teams.GetWorkerByRole(product, WorkerRole.ProjectManager, gameContext);
+
+            //var discount = 0;
+            //if (projectManager != null)
+            //{
+            //    var rating = Humans.GetRating(projectManager);
+            //    discount = rating / 2;
+            //}
+
+            //return discount;
         }
     }
 }
