@@ -18,23 +18,9 @@ namespace Assets.Core
         {
             var baseValue = GetBaseAmountOfWorkers(e, gameContext).Sum();
 
-            var discount = GetProjectManagerWorkersDiscount(e, gameContext);
+            var discount = Teams.GetProjectManagerWorkersDiscount(e, gameContext);
 
             return (int)(baseValue * (100 - discount) / 100);
-        }
-
-        public static int GetProjectManagerWorkersDiscount(GameEntity e, GameContext gameContext)
-        {
-            var projectManager = Teams.GetWorkerByRole(e, WorkerRole.ProjectManager, gameContext);
-
-            var discount = 0;
-            if (projectManager != null)
-            {
-                var rating = Humans.GetRating(gameContext, projectManager);
-                discount = rating / 2;
-            }
-
-            return discount;
         }
 
         private static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)

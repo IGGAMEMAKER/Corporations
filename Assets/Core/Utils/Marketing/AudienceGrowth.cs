@@ -33,24 +33,6 @@ namespace Assets.Core
             return (long)(brandBasedMarketShare * flow);
         }
 
-        public static int GetMarketingLeadBonus(GameEntity product, GameContext gameContext)
-        {
-            var marketingLead = Teams.GetWorkerByRole(product, WorkerRole.MarketingLead, gameContext);
-
-            var marketingBonus = 100;
-
-            if (marketingLead != null)
-            {
-                var rating = Humans.GetRating(gameContext, marketingLead);
-                var effeciency = Teams.GetWorkerEffeciency(marketingLead, product);
-
-                marketingBonus += 30 * rating * effeciency / 100 / 100;
-            }
-
-            return marketingBonus;
-        }
-
-
         public static long GetTargetingCampaignGrowth3(GameEntity e, GameContext gameContext)
         {
             return GetBrandBasedAudienceGrowth(e, gameContext) * 10;

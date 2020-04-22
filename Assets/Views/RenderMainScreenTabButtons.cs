@@ -44,7 +44,7 @@ public class RenderMainScreenTabButtons : View
 
         
         Draw(DevTab, true);
-        Draw(Messages, true);
+        Draw(Messages, false);
         Draw(TeamTab, showTeamTab);
         Draw(GroupTab, showGroupTab);
         Draw(ExpansionTab, showExpansionTab);

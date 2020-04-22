@@ -7,19 +7,6 @@
         public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
             return 4;
-
-            //var modifier = 3; // 3
-            //switch (nicheChangeSpeed)
-            //{
-            //    case NicheSpeed.Quarter:   return 90 / modifier;
-
-            //    case NicheSpeed.HalfYear:  return 180 / modifier;
-            //    case NicheSpeed.Year:      return 360 / modifier;
-
-            //    case NicheSpeed.ThreeYears: return 360 * 3 / modifier;
-
-            //    default: return 0;
-            //}
         }
 
 
@@ -29,7 +16,7 @@
 
             // team lead
             // 0...50
-            var managerBonus = Products.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
+            var managerBonus = Teams.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
 
             var speed = teamSizeModifier * (100 + managerBonus) / 100;
 
@@ -52,22 +39,6 @@
                 have = required;
 
             return have / required;
-        }
-
-        public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity company)
-        {
-            var teamLead = Teams.GetWorkerByRole(company, WorkerRole.TeamLead, gameContext);
-
-            var managerBonus = 0;
-            if (teamLead != null)
-            {
-                var rating = Humans.GetRating(gameContext, teamLead);
-                var eff = Teams.GetWorkerEffeciency(teamLead, company);
-
-                managerBonus = 50 * rating * eff / 100 / 100;
-            }
-
-            return managerBonus;
         }
 
         public static int GetUpgradeCost(GameEntity product, GameContext gameContext)

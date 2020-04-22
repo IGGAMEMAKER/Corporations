@@ -73,7 +73,8 @@ namespace Assets.Core
             {
                 CorporatePolicy.BuyOrCreate,
                 //CorporatePolicy.LeaderOrTeam,
-                CorporatePolicy.CompetitionOrSupport, CorporatePolicy.SalariesLowOrHigh
+                CorporatePolicy.CompetitionOrSupport,
+                CorporatePolicy.SalariesLowOrHigh
             };
         }
 
@@ -117,46 +118,34 @@ namespace Assets.Core
             }
 
 
-            if (worker.hasWorker && worker.worker.companyId != -1)
+            var role = worker.worker.WorkerRole;
+
+            // same role workers
+            bool hasDuplicateWorkers = company.team.Managers.Values.Count(r => r == role) > 1;
+
+            if (hasDuplicateWorkers)
+                bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
+
+            //
+            // incompetent leader
+            var CEO = Teams.GetWorkerByRole(company, role, gameContext);
+
+            if (CEO == null)
             {
-                var role = worker.worker.WorkerRole;
-
-                // same role workers
-                bool hasDuplicateWorkers = company.team.Managers.Values.Count(r => r == role) > 1;
-
-                if (hasDuplicateWorkers)
-                    bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
-
-                // incompetent leader
-                bool isIncompetentLeader = false;
+                bonus.Append("No CEO", -10);
+            }
+            
+            if (CEO != null && role != WorkerRole.CEO)
+            {
+                var CEORating = Humans.GetRating(CEO);
                 var workerRating = Humans.GetRating(worker);
 
-                if (role != WorkerRole.CEO)
-                {
-                    var CEO = Teams.GetWorkerByRole(company, role, gameContext);
-
-                    if (CEO == null)
-                    {
-                        isIncompetentLeader = true;
-                    }
-                    else
-                    {
-                        var CEORating = Humans.GetRating(CEO);
-
-                        if (CEORating < workerRating)
-                        {
-                            isIncompetentLeader = true;
-                        }
-                    }
-                }
-
-                if (isIncompetentLeader)
-                    bonus.AppendAndHideIfZero($"Incompetent CEO (CEO rating less than {workerRating})", isIncompetentLeader ? -1 : 0);
+                if (CEORating < workerRating)
+                    bonus.Append($"Incompetent CEO (CEO rating less than {workerRating})", -2);
             }
 
 
             return bonus;
         }
-
     }
 }

@@ -11,7 +11,7 @@ public class RenderCharacterScreenTabs : View
     {
         base.ViewRender();
 
-        Ambitions.SetActive(SelectedHuman.hasWorker);
+        Ambitions.SetActive(false && SelectedHuman.hasWorker);
         Investments.SetActive(SelectedHuman.hasShareholder);
     }
 }

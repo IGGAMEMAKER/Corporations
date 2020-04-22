@@ -160,7 +160,8 @@ public class Bonus<T>
 
         foreach (var bonus in bonusDescriptions)
         {
-            long value = (long)(object)bonus.Value;
+            //long value = (long)(object)bonus.Value;
+            long value = System.Convert.ToInt64(bonus.Value);
 
             if (bonus.HideIfZero)
             {

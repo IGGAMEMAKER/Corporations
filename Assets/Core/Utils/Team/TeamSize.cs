@@ -50,6 +50,8 @@ namespace Assets.Core
             return null;
         }
 
+
+
         internal static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
         {
             if (worker == null)
@@ -60,9 +62,9 @@ namespace Assets.Core
             if (company.hasProduct && worker.humanSkills.Expertise.ContainsKey(company.product.Niche))
                 expertise = worker.humanSkills.Expertise[company.product.Niche];
 
-            var adaptability = worker.humanCompanyRelationship.Adapted;
+            var adaptability = worker.humanCompanyRelationship.Adapted == 100 ? 100 : 30;
 
-            return 100 + adaptability + expertise / 2;
+            return adaptability + expertise / 2;
         }
     }
 }

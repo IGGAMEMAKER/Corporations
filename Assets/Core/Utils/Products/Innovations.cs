@@ -27,7 +27,7 @@
             var maxCorpLevel = C.CORPORATE_CULTURE_LEVEL_MAX;
 
             // managers
-            var productManagerBonus = GetProductManagerBonus(product, gameContext);
+            var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);
 
             var CEOBonus = GetLeaderInnovationBonus(product) * (maxCorpLevel - responsibility) / maxCorpLevel;
 
@@ -56,19 +56,6 @@
 
             return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
-        }
-
-        public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
-        {
-            var manager = Teams.GetWorkerByRole(product, WorkerRole.ProductManager, gameContext);
-
-            if (manager == null)
-                return 0;
-
-            var rating = Humans.GetRating(manager, WorkerRole.ProductManager);
-            var effeciency = Teams.GetWorkerEffeciency(manager, product);
-
-            return effeciency * rating * 20 / 100 / 100;
         }
 
         public static int GetFocusingBonus(GameEntity product)
