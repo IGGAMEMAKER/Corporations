@@ -37,7 +37,6 @@ namespace Assets.Core
         {
             return GetBrandBasedAudienceGrowth(e, gameContext) * 10;
         }
-
         public static long GetTargetingCampaignGrowth2(GameEntity e, GameContext gameContext)
         {
             return GetBrandBasedAudienceGrowth(e, gameContext) * 3;
@@ -51,8 +50,18 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Audience Growth");
 
-            if (product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
-                bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
+            if (product.isRelease)
+            {
+                // Targeting
+                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
+                    bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
+
+                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign2))
+                    bonus.AppendAndHideIfZero("Targeting Campaign II", GetTargetingCampaignGrowth2(product, gameContext));
+
+                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign3))
+                    bonus.AppendAndHideIfZero("Targeting Campaign III", GetTargetingCampaignGrowth3(product, gameContext));
+            }
 
             if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
                 bonus.AppendAndHideIfZero("Test Campaign", C.TEST_CAMPAIGN_CLIENT_GAIN);

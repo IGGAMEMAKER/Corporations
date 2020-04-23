@@ -10,7 +10,12 @@ namespace Assets.Core
             switch (upgrade)
             {
                 case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
+                case ProductUpgrade.BrandCampaign2: return Marketing.GetBrandingCost(product, gameContext) * 2;
+                case ProductUpgrade.BrandCampaign3: return Marketing.GetBrandingCost(product, gameContext) * 10;
+
                 case ProductUpgrade.TargetingCampaign: return Marketing.GetTargetingCost(product, gameContext);
+                case ProductUpgrade.TargetingCampaign2: return Marketing.GetTargetingCost(product, gameContext) * 2;
+                case ProductUpgrade.TargetingCampaign3: return Marketing.GetTargetingCost(product, gameContext) * 10;
             }
 
             return 0;
@@ -20,11 +25,26 @@ namespace Assets.Core
         {
             switch (upgrade)
             {
-                case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
-                case ProductUpgrade.TargetingCampaign: return Marketing.GetTargetingCost(product, gameContext);
+                case ProductUpgrade.BrandCampaign: return GetBrandingWorkerCost(product, gameContext);
+                case ProductUpgrade.BrandCampaign2: return GetBrandingWorkerCost(product, gameContext) * 2;
+                case ProductUpgrade.BrandCampaign3: return GetBrandingWorkerCost(product, gameContext) * 5;
+
+                case ProductUpgrade.TargetingCampaign: return GetTargetingWorkerCost(product, gameContext);
+                case ProductUpgrade.TargetingCampaign2: return GetTargetingWorkerCost(product, gameContext) * 2;
+                case ProductUpgrade.TargetingCampaign3: return GetTargetingWorkerCost(product, gameContext) * 5;
             }
 
             return 0;
+        }
+
+        public static int GetBrandingWorkerCost(GameEntity product, GameContext gameContext)
+        {
+            return 1;
+        }
+
+        public static int GetTargetingWorkerCost(GameEntity product, GameContext gameContext)
+        {
+            return 1;
         }
 
 

@@ -59,16 +59,5 @@ namespace Assets.Core
 
             return managers * C.SALARIES_DIRECTOR;
         }
-
-        public static int GetCultureTeamDiscount(GameEntity e, GameContext gameContext)
-        {
-            var culture = Companies.GetActualCorporateCulture(e, gameContext);
-            var mindset = culture[CorporatePolicy.InnovationOrStability];
-
-            // up to 40%
-            var discount = 100 - (mindset - 1) * 5;
-
-            return discount;
-        }
     }
 }

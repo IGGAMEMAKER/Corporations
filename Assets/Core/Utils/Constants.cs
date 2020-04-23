@@ -61,6 +61,8 @@
     public static int REVOLUTION_BRAND_POWER_GAIN = 25;
     public static float BRAND_CAMPAIGN_BRAND_POWER_GAIN = 1f;
 
+    public static int BASE_MANAGER_RATING = 30;
+
     public const int CORPORATE_CULTURE_CHANGES_DURATION = 30;
     public const int CORPORATE_CULTURE_LEVEL_MAX = 10;
     public const int CORPORATE_CULTURE_LEVEL_MIN = 1;

@@ -34,16 +34,13 @@ namespace Assets.Core
             return e;
         }
 
-        public static void ResetSkills(GameEntity worker, int min, int max)
+        public static void ResetSkills(GameEntity worker, int rating)
         {
             var skills = worker.humanSkills;
 
             var roles = new Dictionary<WorkerRole, int>
             {
-                [WorkerRole.CEO] = GetRandomXP(),
-                [WorkerRole.Manager] = GetRandomXP(),
-                [WorkerRole.Marketer] = GetRandomXP(),
-                [WorkerRole.Programmer] = 0,
+                [WorkerRole.CEO] = rating,
             };
 
             worker.ReplaceHumanSkills(roles , skills.Traits, skills.Expertise);
@@ -53,9 +50,9 @@ namespace Assets.Core
         // generate as secondary skill, but save genius chances
         static int GetRandomXP()
         {
-            var geniusChance = UnityEngine.Random.Range(1, 100) < 10;
+            var geniusChance = UnityEngine.Random.Range(1, 100) < 5;
 
-            return UnityEngine.Random.Range(40, 60 + (geniusChance ? 20 : 0));
+            return UnityEngine.Random.Range(40, 60 + (geniusChance ? 10 : 0));
         }
 
         // generate as secondary skill, but save genius chances
@@ -97,10 +94,7 @@ namespace Assets.Core
         {
             return new Dictionary<WorkerRole, int>
             {
-                [WorkerRole.CEO] = GetRandomXP(),
-                [WorkerRole.Manager] = GetRandomXP(),
-                [WorkerRole.Marketer] = GetRandomXP(),
-                [WorkerRole.Programmer] = 0,
+                [WorkerRole.CEO] = GetRandomXP()
             };
         }
     }

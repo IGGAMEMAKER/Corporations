@@ -29,7 +29,7 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
     public static void UpdgradeProduct(GameEntity product, GameContext gameContext)
     {
-        var upgradeCost = new TeamResource(0, 0, 0, Products.GetUpgradeCost(product, gameContext), 0);
+        var upgradeCost = new TeamResource(0, 0, 0, Products.GetIterationTimeCost(product, gameContext), 0);
 
         if (Companies.IsEnoughResources(product, upgradeCost))
         {

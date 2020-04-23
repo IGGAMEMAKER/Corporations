@@ -41,7 +41,7 @@
             return have / required;
         }
 
-        public static int GetUpgradeCost(GameEntity product, GameContext gameContext)
+        public static int GetIterationTimeCost(GameEntity product, GameContext gameContext)
         {
             var baseCost = Products.GetBaseIterationTime(gameContext, product);
 

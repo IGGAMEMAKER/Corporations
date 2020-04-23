@@ -7,93 +7,80 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
         // ai
-        foreach (var e in Companies.GetAIProducts(gameContext))
-            AutoManageMarketing(e);
-
-
-        // player
-        var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
-        var playerCompany  = Companies.GetPlayerControlledGroupCompany(gameContext);
-
-        foreach (var e in playerProducts)
+        foreach (var e in Companies.GetProductCompanies(gameContext))
         {
-            if (Companies.IsPlayerFlagship(gameContext, e))
-                StartCampaigns(e);
-            else
-                AutoManageMarketing(e);
-        }
-    }
-
-    void AutoManageMarketing(GameEntity product)
-    {
-        // set product upgrades here
-        SetUpgrades(product);
-
-        // start campaigns
-        StartCampaigns(product);
-    }
-
-    void StartCampaigns(GameEntity product)
-    {
-        if (product.isRelease)
-        {
-            if (Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign))
-                Marketing.StartBrandingCampaign(product, gameContext);
-
-            if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
-                Marketing.StartTargetingCampaign(product, gameContext);
-        }
-        else
-        {
-            if (Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
-                Marketing.StartTestCampaign(product, gameContext);
+            if (e.company.Id != playerFlagshipId)
+                SetUpgrades(e);
         }
     }
 
     void SetUpgrades(GameEntity product)
     {
-        //
-        var brandingCost  = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
-        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
-
-        var balance = Economy.BalanceOf(product);
-
         if (product.isRelease)
         {
-            // targeting
-            if (targetingCost < balance)
-            {
-                product.productUpgrades.upgrades[ProductUpgrade.TargetingCampaign] = true;
-                balance -= targetingCost;
-            }
-            else
-            {
-                product.productUpgrades.upgrades[ProductUpgrade.TargetingCampaign] = false;
-            }
-
-            // copy pasted
-            // TODO move to separate function
-            // branding
-            if (brandingCost < balance)
-            {
-                product.productUpgrades.upgrades[ProductUpgrade.BrandCampaign] = true;
-                balance -= brandingCost;
-            }
-            else
-            {
-                product.productUpgrades.upgrades[ProductUpgrade.BrandCampaign] = false;
-            }
+            ManageReleasedProducts(product);
         }
         else
         {
-            if (Companies.IsReleaseableApp(product, gameContext))
-                Marketing.ReleaseApp(gameContext, product);
-            else
-            {
-                product.productUpgrades.upgrades[ProductUpgrade.TestCampaign] = true;
-            }
-                //Marketing.StartTestCampaign(product, gameContext);
+            ManagePrototypes(product);
+        }
+    }
+
+    void ManageReleasedProducts(GameEntity product)
+    {
+        var balance = Economy.BalanceOf(product);
+        var income = Economy.GetCompanyIncome(gameContext, product);
+
+        var managerMaintenance = Economy.GetManagersCost(product, gameContext);
+
+        var brandingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
+        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
+
+        var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept, ProductUpgrade.AutorecruitWorkers };
+        var tier1 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign, ProductUpgrade.BrandCampaign, ProductUpgrade.QA, ProductUpgrade.Support };
+        var tier2 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign2, ProductUpgrade.BrandCampaign2, ProductUpgrade.QA2, ProductUpgrade.Support2 };
+        var tier3 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign3, ProductUpgrade.BrandCampaign3, ProductUpgrade.QA3, ProductUpgrade.Support3 };
+
+
+        balance += income - managerMaintenance;
+
+
+        // targeting
+        if (targetingCost < balance)
+        {
+            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, true);
+            balance -= targetingCost;
+        }
+        else
+        {
+            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, false);
+        }
+
+        // copy pasted
+        // TODO move to separate function
+        // branding
+        if (brandingCost < balance)
+        {
+            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, true);
+            balance -= brandingCost;
+        }
+        else
+        {
+            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, false);
+        }
+    }
+
+    void ManagePrototypes(GameEntity product)
+    {
+        if (Companies.IsReleaseableApp(product, gameContext))
+        {
+            Marketing.ReleaseApp(gameContext, product);
+        }
+        else
+        {
+            Products.SetUpgrade(product, ProductUpgrade.TestCampaign, true);
         }
     }
 }

@@ -27,6 +27,9 @@ public class ProductUpgradeButtons : View
     public GameObject Team100;
 
     public GameObject BrandingCampaignCheckbox;
+    public GameObject BrandingCampaignCheckbox2;
+    public GameObject BrandingCampaignCheckbox3;
+
     public GameObject TestCampaignCheckbox;
 
     public ReleaseApp ReleaseApp;
@@ -73,7 +76,9 @@ public class ProductUpgradeButtons : View
         Draw(TargetingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
         Draw(TargetingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
 
-        Draw(BrandingCampaignCheckbox, company.isRelease);
+        Draw(BrandingCampaignCheckbox,  company.isRelease && marketState >= MarketState.Innovation);
+        Draw(BrandingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
+        Draw(BrandingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
     }
 
     public override void ViewRender()
