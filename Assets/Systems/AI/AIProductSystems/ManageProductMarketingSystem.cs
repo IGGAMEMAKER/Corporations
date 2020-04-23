@@ -46,6 +46,13 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
 
         balance += income - managerMaintenance;
 
+        foreach (var u in tier0)
+        {
+            var cost = Products.GetUpgradeCost(product, gameContext, u);
+            var workerCost = Products.GetUpgradeWorkerCost(product, gameContext, u);
+
+
+        }
 
         // targeting
         if (targetingCost < balance)
