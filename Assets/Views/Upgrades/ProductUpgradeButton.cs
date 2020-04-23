@@ -42,6 +42,11 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         }
     }
 
+    void RenderToggleState(bool state, ToggleAnim anim)
+    {
+        anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -64,28 +69,23 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         links.Toggle.isOn = state;
         var anim = links.ToggleAnim;
 
-        anim.toggleAnimator.Play(state ? anim.toggleOn : anim.toggleOff);
+        if (!TutorialUtils.IsDebugMode())
+            RenderToggleState(state, anim);
 
-        
-        
-        // hint
-        //if (links.Hint != null)
-        //{
-            var cost = GetCost() * C.PERIOD / 30;
-            var text = "";
+        var cost = GetCost() * C.PERIOD / 30;
+        var text = "";
 
-            if (cost != 0)
-            {
-                text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
-            }
+        if (cost != 0)
+        {
+            text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
+        }
 
-            var workers = GetAmountOfWorkers();
-            if (workers > 0)
-            {
-                text += $"\nWill need {workers} additional workers";
-            }
+        var workers = GetAmountOfWorkers();
+        if (workers > 0)
+        {
+            text += $"\nWill need {workers} additional workers";
+        }
 
-            links.Hint.SetHint(text);
-        //}
+        links.Hint.SetHint(text);
     }
 };

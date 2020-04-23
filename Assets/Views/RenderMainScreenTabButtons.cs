@@ -14,6 +14,7 @@ public class RenderMainScreenTabButtons : View
     public GameObject CorporateCulture;
     public GameObject Investments;
     public GameObject Messages;
+    public GameObject CompetitorsTab;
 
     //public TopPanelManager TopPanelManager;
 
@@ -41,13 +42,14 @@ public class RenderMainScreenTabButtons : View
         bool showInvestmentsTab = godMode || playerCanExploreAdvancedTabs || bankruptcyLooming;
         bool showTeamTab        = godMode || playerCanExploreAdvancedTabs;
         bool showExpansionTab   = godMode || playerCanExploreAdvancedTabs;
-
+        bool showCompetitors    = godMode || playerCanExploreAdvancedTabs;
         
         Draw(DevTab, true);
         Draw(Messages, false);
         Draw(TeamTab, showTeamTab);
         Draw(GroupTab, showGroupTab);
         Draw(ExpansionTab, showExpansionTab);
+        Draw(CompetitorsTab, showCompetitors);
 
         Draw(CorporateCulture, showCultureTab);
         CorporateCulture.GetComponentInChildren<TextMeshProUGUI>().text = GetCorporateCultureLabel();

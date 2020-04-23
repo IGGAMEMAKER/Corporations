@@ -20,9 +20,35 @@ namespace Assets.Core
             var isOutOfMarket = conceptStatus == ConceptStatus.Outdated;
             var isInnovator = conceptStatus == ConceptStatus.Leader;
 
-            var percent = 10;
-            var baseDecay = product.branding.BrandPower * percent / 100;
+            // base 10
 
+            var percent = 25;
+
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.QA3))
+            {
+                percent -= 15;
+            } else if (Products.IsUpgradeEnabled(product, ProductUpgrade.QA2))
+            {
+                percent -= 10;
+            } else if (Products.IsUpgradeEnabled(product, ProductUpgrade.QA))
+            {
+                percent -= 5;
+            }
+
+            if (Products.IsUpgradeEnabled(product, ProductUpgrade.Support3))
+            {
+                percent -= 3;
+            } else if (Products.IsUpgradeEnabled(product, ProductUpgrade.Support2))
+            {
+                percent -= 2;
+            } else if (Products.IsUpgradeEnabled(product, ProductUpgrade.Support))
+            {
+                percent -= 1;
+            }
+
+
+
+            var baseDecay = product.branding.BrandPower * percent / 100;
 
             var isReleased    = product.isRelease;
 
@@ -34,9 +60,13 @@ namespace Assets.Core
                 .AppendAndHideIfZero(percent + "% Decay", -(int)baseDecay)
                 
                 .AppendAndHideIfZero("Released", isReleased ? 1 : 0)
+                .AppendAndHideIfZero("Branding Campaign",       Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign) ? 1 : 0)
+                .AppendAndHideIfZero("Branding Campaign (II)",  Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign2) ? 1 : 0)
+                .AppendAndHideIfZero("Branding Campaign (III)", Products.IsUpgradeEnabled(product, ProductUpgrade.BrandCampaign3) ? 2 : 0)
+
                 .AppendAndHideIfZero("MONOPOLY", isMonopolist ? 10 : 0)
                 
-                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -4 : 0)
+                .AppendAndHideIfZero("Outdated app", isOutOfMarket ? -7 : 0)
 
                 .Append("Partnerships", (int)partnershipBonuses)
                 

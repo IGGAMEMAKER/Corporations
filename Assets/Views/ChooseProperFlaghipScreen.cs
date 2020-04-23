@@ -28,12 +28,12 @@ public class ChooseProperFlaghipScreen : View
 
         var companyGoal = Flagship.companyGoal.InvestorGoal;
 
-        var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.Optimize;
+        var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.IsDebugMode();
 
-        bool showPrototype  = companyGoal == InvestorGoal.Prototype && !unlockAll;
-        bool showFirstUsers = companyGoal == InvestorGoal.FirstUsers && !unlockAll;
-        bool showMVP        = companyGoal == InvestorGoal.BecomeMarketFit && !unlockAll;
-        bool showPrerelease = companyGoal == InvestorGoal.Release && !unlockAll;
+        bool showPrototype  = !unlockAll && companyGoal == InvestorGoal.Prototype;
+        bool showFirstUsers = !unlockAll && companyGoal == InvestorGoal.FirstUsers;
+        bool showMVP        = !unlockAll && companyGoal == InvestorGoal.BecomeMarketFit;
+        bool showPrerelease = !unlockAll && companyGoal == InvestorGoal.Release;
 
         bool showReleased   = companyGoal >= InvestorGoal.BecomeProfitable || unlockAll;
 

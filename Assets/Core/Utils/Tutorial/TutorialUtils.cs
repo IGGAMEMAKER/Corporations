@@ -20,12 +20,15 @@ namespace Assets.Core
             return GetProgression(gameContext).tutorial.progress.ContainsKey(tutorialFunctionality);
         }
 
-        public static bool Optimize =>
-#if UNITY_DEBUG
-            return true;
-#else
-            false;
-#endif
+        public static bool IsDebugMode()
+        {
+            #if UNITY_DEBUG
+                Debug.Log("Needs Optimisation");
+                return true;
+            #else
+                return false;
+            #endif
+        }
 
         public static bool IsGodMode(GameContext gameContext)
         {
