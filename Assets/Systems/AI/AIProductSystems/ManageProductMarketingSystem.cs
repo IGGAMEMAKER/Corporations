@@ -8,7 +8,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
     protected override void Execute(List<GameEntity> entities)
     {
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
-        // ai
+
         foreach (var e in Companies.GetProductCompanies(gameContext))
         {
             if (e.company.Id != playerFlagshipId)

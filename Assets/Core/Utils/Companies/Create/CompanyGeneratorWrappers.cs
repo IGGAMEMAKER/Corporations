@@ -14,11 +14,6 @@ namespace Assets.Core
             return context.GetEntities(GameMatcher.Company).Length;
         }
 
-        public static int GenerateInvestorId(GameContext context)
-        {
-            return Investments.GenerateInvestorId(context);
-        }
-
         private static GameEntity CreateCompany(GameContext context, string name, CompanyType companyType)
         {
             var CEO = Humans.GenerateHuman(context);
@@ -79,6 +74,8 @@ namespace Assets.Core
         public static GameEntity GenerateProductCompany(GameContext context, string name, NicheType NicheType)
         {
             var c = CreateCompany(context, name, CompanyType.ProductCompany);
+
+            Products.SetUpgrade(c, ProductUpgrade.AutorecruitWorkers, true);
 
             return CreateProduct(context, c, NicheType);
         }

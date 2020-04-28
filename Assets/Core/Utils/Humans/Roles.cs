@@ -4,6 +4,11 @@ namespace Assets.Core
 {
     public static partial class Humans
     {
+        public static bool IsEmployed(GameEntity worker)
+        {
+            return worker.hasWorker && worker.worker.companyId != -1;
+        }
+
         public static WorkerRole GetRole(GameEntity worker)
         {
             //Debug.Log("Get Role of human " + worker.human.Id + " #" + worker.creationIndex);
