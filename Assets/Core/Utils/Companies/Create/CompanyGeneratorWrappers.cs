@@ -75,8 +75,6 @@ namespace Assets.Core
         {
             var c = CreateCompany(context, name, CompanyType.ProductCompany);
 
-            Products.SetUpgrade(c, ProductUpgrade.AutorecruitWorkers, true);
-
             return CreateProduct(context, c, NicheType);
         }
 

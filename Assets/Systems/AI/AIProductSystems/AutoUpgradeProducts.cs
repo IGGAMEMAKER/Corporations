@@ -13,6 +13,8 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
 
         foreach (var product in products)
         {
+            Products.SetUpgrade(product, ProductUpgrade.AutorecruitWorkers, true);
+
             GenerateIdeas(product, gameContext);
             UpdgradeProduct(product, gameContext);
         }

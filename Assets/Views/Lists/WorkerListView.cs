@@ -7,10 +7,15 @@ public class WorkerListView : StaffListView
 
     public override Dictionary<int, WorkerRole> Workers()
     {
+        return GetCompany().team.Managers;
+    }
+
+    GameEntity GetCompany()
+    {
         bool isOnHoldingScreen = CurrentScreen == ScreenMode.HoldingScreen;
 
         var company = isOnHoldingScreen ? Flagship : SelectedCompany;
 
-        return company.team.Managers;
+        return company;
     }
 }
