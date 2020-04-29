@@ -87,7 +87,7 @@ public class RenderManageableCompany : View
 
         SpecifyCompany.SetCompany(company.company.Id);
         Upgrades.ViewRender();
-        Workers.text = Teams.GetTeamSize(company) + "";
+        Workers.text = Products.GetNecessaryAmountOfWorkers(company, Q) + "";
     }
 
     void RenderPreview()
