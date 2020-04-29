@@ -8,23 +8,53 @@ public partial class ManageProductTeamSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetAIProducts(gameContext))
-            ManageTeam(e);
+        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
-        var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
-        foreach (var e in playerProducts)
+        foreach (var e in Companies.GetProductCompanies(gameContext))
         {
-            if (!Companies.IsPlayerFlagship(gameContext, e))
+            if (e.company.Id != playerFlagshipId)
                 ManageTeam(e);
+            else
+                HireRegularWorkers(e);
+        }
+
+        //var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
+        //foreach (var e in playerProducts)
+        //{
+        //    if (!Companies.IsPlayerFlagship(gameContext, e))
+        //        ManageTeam(e);
+        //}
+    }
+
+    void ScaleTeam(GameEntity company)
+    {
+        var workers = Teams.GetTeamSize(company);
+        var necessary = Products.GetNecessaryAmountOfWorkers(company, gameContext);
+
+        company.team.Workers[WorkerRole.Programmer] = necessary;
+
+        return;
+        var need = necessary - workers;
+
+        if (workers < necessary)
+        {
+            for (var i = 0; i < need; i++)
+                Teams.HireRegularWorker(company);
+        }
+        else if (workers > necessary)
+        {
+            company.team.Workers[WorkerRole.Programmer] = necessary;
         }
     }
 
     void HireRegularWorkers(GameEntity product)
     {
+        ScaleTeam(product);
+        return;
         var workerCost = C.SALARIES_PROGRAMMER;
 
         var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
-        var haveWorkers = Teams.GetTeamSize(product, gameContext);
+        var haveWorkers = Teams.GetTeamSize(product);
 
         if (Economy.IsCanMaintain(product, gameContext, workerCost) && haveWorkers < needWorkers)
             Teams.HireRegularWorker(product);

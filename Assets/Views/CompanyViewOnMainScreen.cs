@@ -22,7 +22,7 @@ public class CompanyViewOnMainScreen : View
         // team speed
         var effeciency = Products.GetTeamEffeciency(Q, company);
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var workers = Teams.GetTeamSize(company, Q);
+        var workers = Teams.GetTeamSize(company);
 
 
         Expertise.text = $"{effeciency}%";

@@ -16,29 +16,13 @@ public class AutorecruitWorkers : ProductUpgradeButton
     {
         base.Execute();
 
-        AutoHire(Flagship);
-    }
-
-    void AutoHire(GameEntity flagship)
-    {
-        var workers = Teams.GetTeamSize(flagship, Q);
-        var necessary = Products.GetNecessaryAmountOfWorkers(flagship, Q);
-
-        var autohire = Products.IsUpgradeEnabled(flagship, ProductUpgrade.AutorecruitWorkers);
-
-        if (workers < necessary && autohire)
-        {
-            var need = necessary - workers;
-
-            for (var i = 0; i < need; i++)
-                Teams.HireRegularWorker(flagship);
-        }
+        //AutoHire(Flagship);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        AutoHire(Flagship);
+        //AutoHire(Flagship);
     }
 }
