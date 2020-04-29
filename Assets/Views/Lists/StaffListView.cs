@@ -8,13 +8,11 @@ public abstract class StaffListView : ListView
 {
     public abstract Dictionary<int, WorkerRole> Workers();
 
-    public abstract bool DrawAsEmployee();
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 
-        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value, DrawAsEmployee());
+        t.GetComponent<WorkerView>().SetEntity(e.Key, e.Value);
     }
 
     public override void ViewRender()
@@ -31,7 +29,10 @@ public abstract class StaffListView : ListView
     Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
     {
         //return 1;
-        return GetWorkerOrder(p.Value) * 1000 + Humans.GetRating(Q, p.Key);
+        var worker = Humans.GetHuman(Q, p.Key);
+        var employeeBonus = Humans.IsEmployed(worker) ? 0 : 5000;
+
+        return employeeBonus + GetWorkerOrder(p.Value) * 100 + Humans.GetRating(Q, p.Key);
     };
 
     static int GetWorkerOrder(WorkerRole role)

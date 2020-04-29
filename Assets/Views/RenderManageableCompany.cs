@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class RenderManageableCompany : View
 {
+    public Text Name;
+
     public Text Profit;
     public Text ProfitLabel;
 
@@ -18,6 +20,8 @@ public class RenderManageableCompany : View
     public GameObject ManageButton;
 
     public SpecifyCompany SpecifyCompany;
+    public ProductUpgradeButtons Upgrades;
+
     public GameObject Managers;
 
     public int MenuState = 0;
@@ -27,8 +31,6 @@ public class RenderManageableCompany : View
     public void SetEntity(GameEntity company)
     {
         this.company = company;
-
-        Debug.Log("Set Entity RenderManageableCompany");
 
         Render();
     }
@@ -43,7 +45,6 @@ public class RenderManageableCompany : View
 
             return;
         }
-        Debug.Log("ViewRender RenderManageableCompany #" + company.company.Name);
 
         Render();
     }
@@ -51,6 +52,8 @@ public class RenderManageableCompany : View
     void Render()
     {
         RenderPreview();
+        Name.text = Visuals.Link(company.company.Name);
+        Name.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
 
         switch (MenuState)
         {
@@ -76,13 +79,14 @@ public class RenderManageableCompany : View
     {
         Draw(SpecifyCompany.gameObject, true);
 
-        SpecifyCompany.SetCompany(company.company.Id);
 
         Draw(Managers, false);
 
         Draw(Workers.gameObject, true);
         Draw(WorkersLabel.gameObject, true);
 
+        SpecifyCompany.SetCompany(company.company.Id);
+        Upgrades.ViewRender();
         Workers.text = Teams.GetTeamSize(company, Q) + "";
     }
 
@@ -126,6 +130,7 @@ public class RenderManageableCompany : View
 
         Profit.text = Format.Money(profit);
         Profit.color = Visuals.GetColorPositiveOrNegative(profit);
+        //Profit.GetComponent<Hint>().SetHint();
 
         Growth.text = $"+{Format.Minify(growth)} users (#{1})";
     }
