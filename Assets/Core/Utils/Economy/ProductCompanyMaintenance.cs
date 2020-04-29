@@ -48,7 +48,7 @@ namespace Assets.Core
 
         public static long GetWorkersCost(GameEntity e, GameContext gameContext)
         {
-            var workers = Teams.GetAmountOfWorkers(e, gameContext);
+            var workers = Teams.GetTeamSize(e, gameContext);
 
             return workers * C.SALARIES_PROGRAMMER; // * GetCultureTeamDiscount(e, gameContext) / 100;
         }

@@ -7,6 +7,6 @@ public class RenderAmountOfWorkersInFlagshipCompany : ParameterView
 {
     public override string RenderValue()
     {
-        return Teams.GetAmountOfWorkers(Flagship, Q).ToString();
+        return Teams.GetTeamSize(Flagship, Q).ToString();
     }
 }

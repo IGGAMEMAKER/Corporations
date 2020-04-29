@@ -21,7 +21,7 @@ public class AutorecruitWorkers : ProductUpgradeButton
 
     void AutoHire(GameEntity flagship)
     {
-        var workers = Teams.GetAmountOfWorkers(flagship, Q);
+        var workers = Teams.GetTeamSize(flagship, Q);
         var necessary = Products.GetNecessaryAmountOfWorkers(flagship, Q);
 
         var autohire = Products.IsUpgradeEnabled(flagship, ProductUpgrade.AutorecruitWorkers);

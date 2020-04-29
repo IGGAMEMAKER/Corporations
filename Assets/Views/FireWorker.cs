@@ -13,7 +13,7 @@ public class FireWorker : ButtonController
 
         if (Decimate)
         {
-            var have = Teams.GetAmountOfWorkers(company, Q);
+            var have = Teams.GetTeamSize(company, Q);
 
             // fire ten percent of workers
             for (var i = 0; i < have / 10; i++)

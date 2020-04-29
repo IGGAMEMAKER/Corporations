@@ -9,7 +9,7 @@ public class RenderTeamSize : UpgradedParameterView
         var company = Companies.GetFlagship(Q, MyCompany);
 
         var max = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var workers = Teams.GetAmountOfWorkers(company, Q);
+        var workers = Teams.GetTeamSize(company, Q);
 
         return workers + " / " + max;
     }

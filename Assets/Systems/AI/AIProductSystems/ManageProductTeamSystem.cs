@@ -24,7 +24,7 @@ public partial class ManageProductTeamSystem : OnDateChange
         var workerCost = C.SALARIES_PROGRAMMER;
 
         var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
-        var haveWorkers = Teams.GetAmountOfWorkers(product, gameContext);
+        var haveWorkers = Teams.GetTeamSize(product, gameContext);
 
         if (Economy.IsCanMaintain(product, gameContext, workerCost) && haveWorkers < needWorkers)
             Teams.HireRegularWorker(product);

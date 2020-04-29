@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using Assets.Core;
+using UnityEngine.EventSystems;
 
 public class SelectCompanyController : ButtonController, IPointerEnterHandler
 {
@@ -6,7 +7,7 @@ public class SelectCompanyController : ButtonController, IPointerEnterHandler
 
     public override void Execute()
     {
-        SetSelectedCompany(companyId);
+        ScreenUtils.SetSelectedCompany(Q, companyId);
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

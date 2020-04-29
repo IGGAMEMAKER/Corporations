@@ -37,7 +37,7 @@ public class ProductUpgradeButtons : View
     void Render(GameEntity company)
     {
         var id = company.company.Id;
-
+        
         ReleaseApp.SetCompanyId(id);
 
         var marketState = Markets.GetMarketState(Q, company.product.Niche);
@@ -84,6 +84,13 @@ public class ProductUpgradeButtons : View
     public override void ViewRender()
     {
         base.ViewRender();
+
+        var c = GetComponent<SpecifyCompany>();
+        if (c != null)
+        {
+            Render(Companies.Get(Q, c.CompanyId));
+            return;
+        }
 
         var flagship = Companies.GetFlagship(Q, MyCompany);
 

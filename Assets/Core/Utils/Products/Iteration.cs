@@ -32,7 +32,7 @@
         public static float GetTeamSizeMultiplier(GameContext gameContext, GameEntity company)
         {
             // +1 - CEO
-            var have     = Teams.GetAmountOfWorkers(company, gameContext) + 1f;
+            var have     = Teams.GetTeamSize(company, gameContext) + 1f;
             var required = Products.GetNecessaryAmountOfWorkers(company, gameContext) + 1f;
 
             if (have >= required)

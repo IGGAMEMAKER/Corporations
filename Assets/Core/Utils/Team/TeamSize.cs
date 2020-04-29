@@ -10,7 +10,7 @@ namespace Assets.Core
             return company.team.Managers.Values.ToArray().Count(w => w == workerRole);
         }
 
-        public static int GetAmountOfWorkers(GameEntity e, GameContext gameContext)
+        public static int GetTeamSize(GameEntity e, GameContext gameContext)
         {
             return e.team.Workers[WorkerRole.Programmer] + e.team.Managers.Count;
         }

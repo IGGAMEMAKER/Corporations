@@ -9,7 +9,7 @@ public class RenderNecessaryAmountOfWorkers : ParameterView
     {
         var required = Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
 
-        var have = Teams.GetAmountOfWorkers(SelectedCompany, Q);
+        var have = Teams.GetTeamSize(SelectedCompany, Q);
 
         bool isEnough = have >= required;
 

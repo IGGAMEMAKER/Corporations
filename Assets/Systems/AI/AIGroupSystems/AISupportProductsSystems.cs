@@ -50,7 +50,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     void SupportStartup(GameEntity product, long budget)
     {
-        Debug.Log("Support Startup: " + product.company.Name);
+        //Debug.Log("Support Startup: " + product.company.Name);
 
         var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 

@@ -70,20 +70,6 @@ public abstract partial class ButtonController : BaseClass
     }
 }
 
-// others
-public abstract partial class ButtonController
-{
-    public void UnlockTutorialFunctionality(TutorialFunctionality tutorialFunctionality)
-    {
-        TutorialUtils.Unlock(Q, tutorialFunctionality);
-    }
-
-    public void SetSelectedCompany(int companyId)
-    {
-        ScreenUtils.SetSelectedCompany(Q, companyId);
-    }
-}
-
 // navigation
 public abstract partial class ButtonController
 {

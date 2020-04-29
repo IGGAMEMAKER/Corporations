@@ -11,7 +11,7 @@ public class HireWorker : ButtonController
 
 
         var need = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var have = Teams.GetAmountOfWorkers(company, Q);
+        var have = Teams.GetTeamSize(company, Q);
 
         var missingWorkers = need - have;
 

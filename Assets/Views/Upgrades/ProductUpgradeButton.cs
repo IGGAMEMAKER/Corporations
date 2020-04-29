@@ -18,19 +18,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     bool state => Products.IsUpgradeEnabled(Company, upgrade);
     GameEntity Company => Flagship;
 
-    //TextMeshProUGUI Title;
-    //Toggle Toggle;
-    //ToggleAnim ToggleAnim;
-    //Hint Hint;
-
-    //void Start()
-    //{
-    //    Title = GetComponentInChildren<TextMeshProUGUI>();
-    //    Toggle = GetComponentInChildren<Toggle>();
-    //    ToggleAnim = GetComponentInChildren<ToggleAnim>();
-    //    Hint = GetComponent<Hint>();
-    //}
-
     public override void Execute()
     {
         if (Company != null)
@@ -39,6 +26,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
             Products.SetUpgrade(Flagship, upgrade, !state);
             //flagship.productUpgrades.upgrades[upgrade] = !state;
+            UpdatePage();
         }
     }
 
@@ -56,11 +44,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         if (links == null)
             return;
 
-        //Title = links.Title;
-        //Toggle = links.Toggle;
-        //ToggleAnim = links.ToggleAnim;
-        //Hint = links.Hint;
-
         // checkbox text
         links.Title.text = GetButtonTitle() + "\n" + GetBenefits();
 
@@ -72,6 +55,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         if (!TutorialUtils.IsDebugMode())
             RenderToggleState(state, anim);
 
+        // hint
         var cost = GetCost() * C.PERIOD / 30;
         var text = "";
 
