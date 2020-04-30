@@ -54,17 +54,21 @@ public class ProductUpgradeButtons : View
 
         // goal defined stuff
         // ----------------------
-        Draw(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release);
-        Draw(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release);
-        Draw(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release);
+        bool QATeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam);
+        bool CoreTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam);
+        bool SupportTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam);
 
-        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam));
-        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam));
-        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam));
+        Draw(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
+        Draw(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
+        Draw(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
 
-        Draw(QA, greedyMode && goal >= InvestorGoal.Release);
-        Draw(QA2, greedyMode && goal >= InvestorGoal.Release);
-        Draw(QA3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release && !CoreTeamCreated);
+        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release && CoreTeamCreated && !SupportTeamCreated);
+        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release && CoreTeamCreated && !QATeamCreated);
+
+        Draw(QA, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
+        Draw(QA2, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
+        Draw(QA3, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
 
         // release stuff
         // -------------

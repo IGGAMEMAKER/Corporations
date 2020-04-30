@@ -41,7 +41,7 @@ namespace Assets.Core
 
 
             if (IsUpgradeEnabled(e, ProductUpgrade.QA3))
-                return (int)Mathf.Pow(1 + complexity / 20f, concept);
+                return (int)Mathf.Pow(1 + complexity / 40f, concept);
 
             if (IsUpgradeEnabled(e, ProductUpgrade.QA2))
                 return (int)Mathf.Pow(1 + complexity / 50f, concept);
@@ -57,7 +57,7 @@ namespace Assets.Core
             var clients = Marketing.GetClients(e);
 
             if (IsUpgradeEnabled(e, ProductUpgrade.Support3))
-                return (int)Mathf.Pow(clients / 1000, 1f);
+                return (int)Mathf.Pow(clients / 1000, 0.75f);
 
             if (IsUpgradeEnabled(e, ProductUpgrade.Support2))
                 return (int)Mathf.Pow(clients / 1000, 0.5f);

@@ -6,7 +6,7 @@ public class OneTimeToggleButton : ProductUpgradeButton
         switch (upgrade)
         {
             case ProductUpgrade.CreateManagementTeam:
-                return "Create Management Team";
+                return "Create Core Team";
 
             case ProductUpgrade.CreateSupportTeam:
                 return "Create Support Team";
@@ -21,6 +21,9 @@ public class OneTimeToggleButton : ProductUpgradeButton
 
     public override string GetBenefits()
     {
+        if (upgrade == ProductUpgrade.CreateManagementTeam)
+            return Visuals.Positive($"Can hire managers");
+
         return Visuals.Positive($"New opportunities");
     }
 

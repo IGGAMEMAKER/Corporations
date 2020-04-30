@@ -15,6 +15,8 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         {
             GenerateIdeas(product, gameContext);
             UpdgradeProduct(product, gameContext);
+
+            Products.ScaleTeam(product, gameContext);
         }
 
         ReleaseApps(products);
