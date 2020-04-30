@@ -98,6 +98,10 @@ public enum ProductUpgrade
     Backups,
     Backups2,
     Backups3,
+
+    CreateSupportTeam,
+    CreateQATeam,
+    CreateManagementTeam,
 }
 
 public class ProductUpgradesComponent : IComponent

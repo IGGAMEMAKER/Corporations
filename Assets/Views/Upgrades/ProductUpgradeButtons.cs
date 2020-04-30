@@ -17,6 +17,10 @@ public class ProductUpgradeButtons : View
     public GameObject Monetisation2;
     public GameObject Monetisation3;
 
+    public GameObject CreateSupportTeam;
+    public GameObject CreateQATeam;
+    public GameObject CreateCoreTeam;
+
     public GameObject QA;
     public GameObject QA2;
     public GameObject QA3;
@@ -28,6 +32,8 @@ public class ProductUpgradeButtons : View
     public GameObject TestCampaignCheckbox;
 
     public ReleaseApp ReleaseApp;
+
+
 
     void Render(GameEntity company)
     {
@@ -52,9 +58,9 @@ public class ProductUpgradeButtons : View
         Draw(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release);
         Draw(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release);
 
-        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release);
-        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release);
-        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release);
+        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam));
+        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam));
+        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release && Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam));
 
         Draw(QA, greedyMode && goal >= InvestorGoal.Release);
         Draw(QA2, greedyMode && goal >= InvestorGoal.Release);

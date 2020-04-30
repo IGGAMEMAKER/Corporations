@@ -107,6 +107,7 @@ namespace Assets.Core
 
             return bonus;
         }
+
         public static int GetHRBasedNewManagerRating(GameEntity company, GameContext gameContext)
         {
             var bonus = GetHRBasedNewManagerRatingBonus(company, gameContext);

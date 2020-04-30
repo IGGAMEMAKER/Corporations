@@ -18,6 +18,7 @@ public class ProductOnMarketView : View
     public RectTransform NewClientsRect;
 
     public Text Growth;
+    public Text WeeklyGrowth;
 
     public Text Innovations;
     public Text Speed;
@@ -50,6 +51,8 @@ public class ProductOnMarketView : View
             //Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n");
         }
 
+        WeeklyGrowth.text = $"Weekly growth (#1)";
+
         var brandChange = Marketing.GetBrandChange(company, Q).Sum();
         var brandChangeValue = Format.Sign(brandChange);
         Brand.text = (int)company.branding.BrandPower + $" {Visuals.DescribeValueWithText(brandChange, brandChangeValue, brandChangeValue, "")}";
@@ -58,7 +61,8 @@ public class ProductOnMarketView : View
         var isPlayerRelated = Companies.IsRelatedToPlayer(Q, company);
         var nameColor = isPlayerRelated ? Colors.COLOR_COMPANY_WHERE_I_AM_CEO : Colors.COLOR_COMPANY_WHERE_I_AM_NOT_CEO;
 
-        Name.text = $"{company.company.Name} ({Format.Minify(clients)} users)"; // + $" - <b>{level}LVL</b>";
+        //Name.text = $"{company.company.Name} ({Format.Minify(clients)} users)"; // + $" - <b>{level}LVL</b>";
+        Name.text = $"{company.company.Name}"; // + $" - <b>{level}LVL</b>";
         Name.color = Visuals.GetColorFromString(nameColor);
 
         if (ProductLevel != null)
@@ -83,6 +87,11 @@ public class ProductOnMarketView : View
         ClientChange.SetHint($"{company.company.Name} will get {Format.Minify(newClients)} clients next week, due to their brand power ({brand})");
 
 
+        RenderConceptProgress(clients, maxClients, company);
+    }
+
+    void RenderConceptProgress(long clients, long maxClients, GameEntity company)
+    {
         // scale this view according to market share
         var scale = clients * 1D / maxClients;
 
