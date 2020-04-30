@@ -42,7 +42,7 @@ public class RenderMainScreenTabButtons : View
         bool showInvestmentsTab = godMode || playerCanExploreAdvancedTabs || bankruptcyLooming;
         bool showTeamTab        = godMode || playerCanExploreAdvancedTabs;
         bool showExpansionTab   = godMode || playerCanExploreAdvancedTabs;
-        bool showCompetitors    = godMode || playerCanExploreAdvancedTabs;
+        bool showCompetitors    = false && godMode || playerCanExploreAdvancedTabs;
         
         Draw(DevTab, true);
         Draw(Messages, false);

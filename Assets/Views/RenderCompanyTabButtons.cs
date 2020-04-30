@@ -47,7 +47,7 @@ public class RenderCompanyTabButtons : View
 
         InfoTab         .SetActive(playerCanExploreAdvancedTabs);
         EconomyTab      .SetActive(playerCanExploreAdvancedTabs);
-        CompetitorsTab  .SetActive(false && playerCanExploreAdvancedTabs);
+        CompetitorsTab  .SetActive(playerCanExploreAdvancedTabs);
 
         // not necessary, cause moved dev panel to separate screen
         //// if was on product tab and then switched to group, open info tab

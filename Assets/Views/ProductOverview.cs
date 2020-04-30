@@ -6,14 +6,8 @@ using UnityEngine.UI;
 
 public class ProductOverview : View
 {
-    public Text DevelopmentSpeed;
-    public Text Expertise;
-    public SetAmountOfStars TeamSpeed;
-
     public Text Popularity;
-    public Text AppQuality;
-
-    public Text PositioningLabel;
+    public LinkToNiche LinkToNiche;
 
     public override void ViewRender()
     {
@@ -22,8 +16,6 @@ public class ProductOverview : View
         if (!SelectedCompany.hasProduct)
             return;
 
-        var canShowData = Companies.IsExploredCompany(Q, SelectedCompany);
-
         RenderCommonInfo();
     }
 
@@ -31,16 +23,5 @@ public class ProductOverview : View
     {
         var position = Markets.GetPositionOnMarket(Q, SelectedCompany) + 1;
         Popularity.text = $"#{position}";
-
-
-        //var quality = Products.GetProductLevel(SelectedCompany);
-        //var demand =  Products.GetMarketDemand(SelectedCompany, GameContext);
-        //var status =  Products.GetConceptStatus(SelectedCompany, GameContext);
-
-        //AppQuality.text = $"Concept: {quality} / {demand} ({status})";
-
-
-        //var posTextual = Markets.GetCompanyPositioning(SelectedCompany, GameContext);
-        //PositioningLabel.text = "Positioning: " + posTextual;
     }
 }

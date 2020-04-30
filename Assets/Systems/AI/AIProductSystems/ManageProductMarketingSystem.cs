@@ -38,7 +38,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         var brandingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
         var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
 
-        var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept, ProductUpgrade.AutorecruitWorkers };
+        var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept };
         var tier1 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign, ProductUpgrade.BrandCampaign, ProductUpgrade.QA, ProductUpgrade.Support };
         var tier2 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign2, ProductUpgrade.BrandCampaign2, ProductUpgrade.QA2, ProductUpgrade.Support2 };
         var tier3 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign3, ProductUpgrade.BrandCampaign3, ProductUpgrade.QA3, ProductUpgrade.Support3 };

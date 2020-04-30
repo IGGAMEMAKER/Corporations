@@ -21,11 +21,6 @@ public class ProductUpgradeButtons : View
     public GameObject QA2;
     public GameObject QA3;
 
-    public GameObject Team3;
-    public GameObject Team7;
-    public GameObject Team20;
-    public GameObject Team100;
-
     public GameObject BrandingCampaignCheckbox;
     public GameObject BrandingCampaignCheckbox2;
     public GameObject BrandingCampaignCheckbox3;
@@ -64,11 +59,6 @@ public class ProductUpgradeButtons : View
         Draw(QA, greedyMode && goal >= InvestorGoal.Release);
         Draw(QA2, greedyMode && goal >= InvestorGoal.Release);
         Draw(QA3, greedyMode && goal >= InvestorGoal.Release);
-
-        Draw(Team3, greedyMode && goal >= InvestorGoal.Release);
-        Draw(Team7, greedyMode && goal >= InvestorGoal.Release);
-        Draw(Team20, greedyMode && goal >= InvestorGoal.Release);
-        Draw(Team100, greedyMode && goal >= InvestorGoal.Release);
 
         // release stuff
         // -------------
