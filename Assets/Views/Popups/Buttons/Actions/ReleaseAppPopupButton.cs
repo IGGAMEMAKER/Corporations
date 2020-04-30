@@ -9,7 +9,7 @@ public class ReleaseAppPopupButton : PopupButtonController<PopupMessageDoYouWant
         var company = Companies.Get(Q, companyId);
 
         Marketing.ReleaseApp(Q, companyId);
-        Products.SetUpgrade(company, ProductUpgrade.AutorecruitWorkers, true);
+        Products.SetUpgrade(company, ProductUpgrade.AutorecruitWorkers, Q, true);
 
 
         NotificationUtils.ClosePopup(Q);

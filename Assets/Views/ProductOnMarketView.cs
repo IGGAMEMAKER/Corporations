@@ -62,7 +62,12 @@ public class ProductOnMarketView : View
         Name.color = Visuals.GetColorFromString(nameColor);
 
         if (ProductLevel != null)
-            ProductLevel.text = $"{level}LVL / {marketRequirements}LVL";
+        {
+            if (CurrentScreen == ScreenMode.NicheScreen)
+                ProductLevel.text = $"{level}LVL";
+            else
+                ProductLevel.text = $"{level}LVL / {marketRequirements}LVL";
+        }
 
         if (Innovations != null)
             Innovations.text = Products.GetInnovationChance(company, Q) + "%";

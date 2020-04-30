@@ -47,6 +47,8 @@ public class RenderMainScreenTabButtons : View
         Draw(DevTab, true);
         Draw(Messages, false);
         Draw(TeamTab, showTeamTab);
+        TeamTab.GetComponentInChildren<TextMeshProUGUI>().text = GetTeamTabLabel();
+
         Draw(GroupTab, showGroupTab);
         Draw(ExpansionTab, showExpansionTab);
         Draw(CompetitorsTab, showCompetitors);
@@ -56,6 +58,13 @@ public class RenderMainScreenTabButtons : View
 
         Draw(Investments, showInvestmentsTab);
         Investments.GetComponentInChildren<TextMeshProUGUI>().text = GetInvestmentRoundLabel();
+    }
+
+    string GetTeamTabLabel()
+    {
+        var text = $"TEAM (+{Flagship.employee.Managers.Count})";
+
+        return text;
     }
 
     string GetCorporateCultureLabel()

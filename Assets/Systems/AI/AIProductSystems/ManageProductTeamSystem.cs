@@ -14,8 +14,8 @@ public partial class ManageProductTeamSystem : OnDateChange
         {
             if (e.company.Id != playerFlagshipId)
                 ManageTeam(e);
-            else
-                HireRegularWorkers(e);
+            //else
+            //    HireRegularWorkers(e);
         }
 
         //var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
@@ -26,31 +26,8 @@ public partial class ManageProductTeamSystem : OnDateChange
         //}
     }
 
-    void ScaleTeam(GameEntity company)
-    {
-        var workers = Teams.GetTeamSize(company);
-        var necessary = Products.GetNecessaryAmountOfWorkers(company, gameContext);
-
-        company.team.Workers[WorkerRole.Programmer] = necessary;
-
-        return;
-        var need = necessary - workers;
-
-        if (workers < necessary)
-        {
-            for (var i = 0; i < need; i++)
-                Teams.HireRegularWorker(company);
-        }
-        else if (workers > necessary)
-        {
-            company.team.Workers[WorkerRole.Programmer] = necessary;
-        }
-    }
-
     void HireRegularWorkers(GameEntity product)
     {
-        ScaleTeam(product);
-        return;
         var workerCost = C.SALARIES_PROGRAMMER;
 
         var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
@@ -79,7 +56,7 @@ public partial class ManageProductTeamSystem : OnDateChange
 
     void ManageTeam(GameEntity product)
     {
-        HireRegularWorkers(product);
+        //HireRegularWorkers(product);
         HireManagers(product);
     }
 }

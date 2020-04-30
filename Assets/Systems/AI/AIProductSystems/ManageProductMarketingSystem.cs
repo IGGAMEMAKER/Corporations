@@ -57,12 +57,12 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         // targeting
         if (targetingCost < balance)
         {
-            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, true);
+            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, true);
             balance -= targetingCost;
         }
         else
         {
-            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, false);
+            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, false);
         }
 
         // copy pasted
@@ -70,12 +70,12 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         // branding
         if (brandingCost < balance)
         {
-            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, true);
+            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, true);
             balance -= brandingCost;
         }
         else
         {
-            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, false);
+            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, false);
         }
     }
 
@@ -87,7 +87,7 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         }
         else
         {
-            Products.SetUpgrade(product, ProductUpgrade.TestCampaign, true);
+            Products.SetUpgrade(product, ProductUpgrade.TestCampaign, gameContext, true);
         }
     }
 }

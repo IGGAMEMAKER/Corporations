@@ -23,6 +23,14 @@ namespace Assets.Core
             return (int)(baseValue * (100 - discount) / 100);
         }
 
+        public static void ScaleTeam(GameEntity company, GameContext gameContext)
+        {
+            var workers = Teams.GetTeamSize(company);
+            var necessary = Products.GetNecessaryAmountOfWorkers(company, gameContext);
+
+            company.team.Workers[WorkerRole.Programmer] = necessary;
+        }
+
         private static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
             var upgrades = e.productUpgrades.upgrades;
