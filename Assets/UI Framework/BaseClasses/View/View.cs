@@ -7,12 +7,18 @@ public abstract class View : BaseClass
 {
     public virtual void ViewRender() { }
 
-    public void UpdateIfNecessary(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
+    public void Draw(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
     public void Draw(GameObject go, bool condition)
     {
         if (go.activeSelf != condition)
             go.SetActive(condition);
     }
+
+    public void Show(MonoBehaviour mb) => Draw(mb.gameObject, true);
+    public void Show(GameObject go) => Draw(go, true);
+
+    public void Hide(MonoBehaviour mb) => Draw(mb.gameObject, false);
+    public void Hide(GameObject go) => Draw(go, false);
 
 
     // TODO Remove/Drag used once
@@ -53,7 +59,7 @@ public abstract class View : BaseClass
         return panelColor;
     }
 
-    public void RefreshPage()
+    public void Refresh()
     {
         ScreenUtils.UpdateScreen(Q);
     }

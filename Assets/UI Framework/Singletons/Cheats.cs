@@ -8,7 +8,7 @@ public class Cheats : View
         if (Input.GetKeyDown(KeyCode.F8))
         {
             Economy.IncreaseCompanyBalance(Q, MyCompany.company.Id, 1000000000);
-            RefreshPage();
+            Refresh();
         }
 
         #if UNITY_EDITOR
@@ -17,7 +17,14 @@ public class Cheats : View
             //foreach (var e in (TutorialFunctionality[])System.Enum.GetValues(typeof(TutorialFunctionality)))
             TutorialUtils.Unlock(Q, TutorialFunctionality.UnlockAll);
         }
+
+
         #endif
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            Companies.CreateProductAndAttachItToGroup(Q, NicheType.Com_Blogs, MyCompany);
+            Refresh();
+        }
 
         //if (Input.GetKeyDown(KeyCode.F9))
         //{

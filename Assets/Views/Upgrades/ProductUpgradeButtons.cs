@@ -46,7 +46,7 @@ public class ProductUpgradeButtons : View
 
         // prerelease stuff
         // ---------------------
-        UpdateIfNecessary(ReleaseApp, Companies.IsReleaseableApp(company, Q));
+        Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         Draw(TestCampaignCheckbox, !company.isRelease);
 
         bool greedyMode = true;

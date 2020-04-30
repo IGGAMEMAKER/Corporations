@@ -52,14 +52,40 @@ public class RenderManageableCompany : View
     void Render()
     {
         RenderPreview();
-        Name.text = Visuals.Link(company.company.Name);
-        Name.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
+        Draw(ManageButton, Companies.IsPlayerFlagship(Q, company));
+        RenderProductCompany();
 
         switch (MenuState)
         {
-            case 0: break;
+            case 0:
+                // preview mode
+                // hide what is unnecessary
+                Hide(Managers);
 
-            case 1: RenderUpgrades(); break;
+                Hide(Upgrades);
+                Hide(Workers);
+                Hide(WorkersLabel);
+                break;
+
+            case 1:
+                Show(Managers);
+
+                Hide(Upgrades);
+                Hide(Workers);
+                Hide(WorkersLabel);
+
+                RenderTeam();
+                break;
+
+            case 2:
+                Hide(Managers);
+
+                Show(Upgrades);
+                Show(Workers);
+                Show(WorkersLabel);
+
+                RenderUpgrades();
+                break;
 
             default:
                 MenuState = 0;
@@ -68,23 +94,8 @@ public class RenderManageableCompany : View
         }
     }
 
-    public void ToggleMenuState()
-    {
-        MenuState++;
-
-        Render();
-    }
-
     void RenderUpgrades()
     {
-        Draw(SpecifyCompany.gameObject, true);
-
-
-        Draw(Managers, false);
-
-        Draw(Workers.gameObject, true);
-        Draw(WorkersLabel.gameObject, true);
-
         SpecifyCompany.SetCompany(company.company.Id);
         Upgrades.ViewRender();
         Workers.text = Products.GetNecessaryAmountOfWorkers(company, Q) + "";
@@ -92,56 +103,32 @@ public class RenderManageableCompany : View
 
     void RenderPreview()
     {
-        Draw(SpecifyCompany.gameObject, false);
+        Name.text = Visuals.Link(company.company.Name);
+        Name.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
 
-        Draw(Managers, true);
-        Draw(Profit.gameObject, true);
-        Draw(ProfitLabel.gameObject, true);
-
-        Draw(Workers.gameObject, false);
-        Draw(WorkersLabel.gameObject, false);
-
-        switch (company.company.CompanyType)
-        {
-            case CompanyType.ProductCompany:
-                RenderProductCompany();
-                break;
-
-            case CompanyType.Corporation:
-            case CompanyType.Group:
-            case CompanyType.Holding:
-                RenderGroupCompany();
-                break;
-
-            case CompanyType.ResearchCompany:
-            case CompanyType.FinancialGroup:
-            case CompanyType.MassMedia:
-            default:
-                break;
-        }
-
-        RenderTeam();
-    }
-
-    void RenderProductCompany()
-    {
-        var growth = Marketing.GetAudienceGrowth(company, Q);
         var profit = Economy.GetProfit(Q, company);
 
         Profit.text = Format.Money(profit);
         Profit.color = Visuals.GetColorPositiveOrNegative(profit);
         //Profit.GetComponent<Hint>().SetHint();
-
-        Growth.text = $"+{Format.Minify(growth)} users (#{1})";
     }
 
-    void RenderGroupCompany()
+    void RenderProductCompany()
     {
-        Profit.text = Format.Money(Economy.GetProfit(Q, company));
+        var growth = Marketing.GetAudienceGrowth(company, Q);
+
+        Growth.text = $"+{Format.Minify(growth)} users (#{1})";
     }
 
     void RenderTeam()
     {
 
+    }
+
+    public void ToggleMenuState()
+    {
+        MenuState++;
+
+        Render();
     }
 }
