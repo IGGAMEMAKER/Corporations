@@ -23,7 +23,7 @@ public class RenderWorkerRole : View
 
         text = $"{formattedRole} ({rating}LVL)";
 
-        bool isUnemployed = !human.hasWorker || human.worker.companyId == -1;
+        bool isUnemployed = !Humans.IsEmployed(human);
 
         if (isUnemployed)
         {

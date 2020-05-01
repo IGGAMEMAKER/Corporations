@@ -7,8 +7,23 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole, int range) => GetEffectiveManagerRating(gameContext, company, Teams.GetWorkerByRole(company, workerRole, gameContext), range);
-        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager, int range)
+        public static int GetRoleBaseImpact(WorkerRole workerRole)
+        {
+            switch (workerRole)
+            {
+                case WorkerRole.TeamLead: return 50;
+                case WorkerRole.MarketingLead: return 50;
+                case WorkerRole.ProjectManager: return 50;
+                case WorkerRole.ProductManager: return 20;
+                case WorkerRole.CEO: return 10;
+
+                default: return 100;
+            }
+        }
+
+
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole) => GetEffectiveManagerRating(gameContext, company, Teams.GetWorkerByRole(company, workerRole, gameContext));
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager)
         {
             if (manager == null)
                 return 0;
@@ -16,32 +31,34 @@ namespace Assets.Core
             var rating = Humans.GetRating(manager);
             var effeciency = Teams.GetWorkerEffeciency(manager, company);
 
+            var range = GetRoleBaseImpact(manager.worker.WorkerRole);
+
             return range * rating * effeciency / 100 / 100;
         }
 
         public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity product)
         {
-            return GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead, 50);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.TeamLead);
         }
 
         public static int GetMarketingLeadBonus(GameEntity product, GameContext gameContext)
         {
-            return GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead, 50);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.MarketingLead);
         }
 
         public static int GetCEOInnovationBonus(GameEntity product, GameContext gameContext)
         {
-            return GetEffectiveManagerRating(gameContext, product, WorkerRole.CEO, 10);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.CEO);
         }
 
         public static int GetProductManagerBonus(GameEntity product, GameContext gameContext)
         {
-            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, 20);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager);
         }
 
         public static int GetProjectManagerWorkersDiscount(GameEntity product, GameContext gameContext)
         {
-            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProjectManager, 50);
+            return GetEffectiveManagerRating(gameContext, product, WorkerRole.ProjectManager);
         }
 
 
