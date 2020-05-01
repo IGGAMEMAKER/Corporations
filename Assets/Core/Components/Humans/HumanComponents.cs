@@ -36,6 +36,12 @@ public class HumanSkillsComponent : IComponent
     public Dictionary<NicheType, int> Expertise;
 }
 
+[Game]
+public class HumanUpgradedSkillsComponent : IComponent
+{
+    public int DaysSinceUpgrade;
+}
+
 public class HumanCompanyRelationshipComponent : IComponent
 {
     public int Adapted;

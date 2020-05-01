@@ -28,6 +28,9 @@ class TeamGrowthSystem : OnPeriodChange
             // gain expertise and recalculate loyalty
             foreach (var m in c.team.Managers)
             {
+                if (Random.Range(0, 100) < C.PERIOD)
+                    continue;
+
                 var humanId = m.Key;
 
                 var human = Humans.GetHuman(gameContext, humanId);
@@ -36,8 +39,10 @@ class TeamGrowthSystem : OnPeriodChange
 
                 var growth = Teams.GetManagerGrowthBonus(human, gameContext).Sum();
 
-                var growthChance = Random.Range(0, 100) < growth;
+                var willGrow = Random.Range(0, 100) < growth;
 
+                if (willGrow)
+                    human.humanSkills.Roles[WorkerRole.CEO]++;
             }
         }
     }

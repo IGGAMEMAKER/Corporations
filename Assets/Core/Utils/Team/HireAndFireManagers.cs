@@ -94,10 +94,22 @@ namespace Assets.Core
         public static Bonus<int> GetManagerGrowthBonus(GameEntity worker, GameContext gameContext)
         {
             var loyaltyChange = GetLoyaltyChangeForManager(worker, gameContext);
+            var ratingBased = 100 - Humans.GetRating(worker); // 70...0
 
             var bonus = new Bonus<int>("Growth");
 
-            bonus.Cap(0, 10);
+            bonus
+                .Append("Base", 5)
+                .Append("Loyalty change", loyaltyChange * 2)
+                .Append("Rating", ratingBased) // (int)Mathf.Sqrt(
+                ;
+            // market complexity
+            // worker current rating (noob - fast growth, senior - slow)
+            // trait: curious
+            // consultant
+            // loyalty change
+
+            bonus.Cap(0, 100);
 
             return bonus;
         }
