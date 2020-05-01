@@ -20,13 +20,15 @@ namespace Assets.Core
 
             int id = GenerateHumanId(gameContext);
 
+            var expertise = new Dictionary<NicheType, int>();
+
             e.AddHuman(id, "Dude", id + "");
             e.AddWorker(-1, WorkerRole.Universal);
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
             e.AddHumanSkills(
                 GenerateRandomSkills(),
                 GenerateRandomTraits(),
-                new Dictionary<NicheType, int>()
+                expertise
                 );
 
             e.AddCorporateCulture(Companies.GetRandomWorkerCorporateCulture());

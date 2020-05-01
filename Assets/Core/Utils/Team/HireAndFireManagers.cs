@@ -91,6 +91,17 @@ namespace Assets.Core
             return (int)GetLoyaltyChangeBonus(worker, culture, company, gameContext).Sum();
         }
 
+        public static Bonus<int> GetManagerGrowthBonus(GameEntity worker, GameContext gameContext)
+        {
+            var loyaltyChange = GetLoyaltyChangeForManager(worker, gameContext);
+
+            var bonus = new Bonus<int>("Growth");
+
+            bonus.Cap(0, 10);
+
+            return bonus;
+        }
+
         public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, Dictionary<CorporatePolicy, int> culture, GameEntity company, GameContext gameContext)
         {
             var bonus = new Bonus<int>("Loyalty");

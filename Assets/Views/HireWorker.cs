@@ -25,6 +25,6 @@ public class HireWorker : ButtonController
                 Teams.HireRegularWorker(company, WorkerRole.Programmer);
         }
 
-        company.productUpgrades.upgrades[ProductUpgrade.AutorecruitWorkers] = false;
+        Products.SetUpgrade(company, ProductUpgrade.AutorecruitWorkers, Q, false);
     }
 }

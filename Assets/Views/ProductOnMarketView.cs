@@ -34,21 +34,27 @@ public class ProductOnMarketView : View
         var company = Companies.Get(Q, companyId);
 
         var clients = Marketing.GetClients(company);
-        var newClients = Marketing.GetAudienceGrowth(company, Q);
+        var growthBonus = Marketing.GetAudienceGrowthBonus(company, Q);
+        var newClients = growthBonus.Sum();
 
         var marketRequirements = Products.GetMarketRequirements(company, Q);
         var level = Products.GetProductLevel(company);
         var levelStatus = Products.GetConceptStatus(company, Q);
 
-        Clients.text = Format.Minify(clients); //  + 
+        Clients.text = Format.Minify(clients) + " users"; //  + 
         NewClients.text = Format.Minify(newClients);
 
         if (Growth != null)
         {
-            Growth.text = Format.Sign(newClients, true) + " users";
-            Growth.color = Visuals.GetColorFromString(newClients > 0 ? Colors.COLOR_WHITE : Colors.COLOR_NEGATIVE); // Visuals.GetColorPositiveOrNegative(newClients);
+            var cli = Format.Minify(clients);
+            var clientChangeColor = Visuals.GetColorFromString(newClients > 0 ? Colors.COLOR_WHITE : Colors.COLOR_NEGATIVE);
 
-            //Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n");
+            var newCli = Format.Sign(newClients, true);
+
+            Growth.text = $"{cli} users ({Visuals.Colorize(newCli, clientChangeColor)})";
+            //Growth.color = clientChangeColor; // Visuals.GetColorPositiveOrNegative(newClients);
+
+            Growth.GetComponent<Hint>().SetHint(growthBonus.ToString());
         }
 
         WeeklyGrowth.text = $"Weekly growth (#1)";

@@ -41,12 +41,8 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
             Products.UpgradeProductLevel(product, gameContext);
             Markets.UpdateMarketRequirements(product, gameContext);
 
-            //if (product.companyGoal.InvestorGoal == InvestorGoal.Prototype)
-            //if (product.companyGoal.InvestorGoal == InvestorGoal.BecomeMarketFit)
             Investments.CompleteGoal(product, gameContext);
         }
-
-        //Cooldowns.AddConceptUpgradeCooldown(gameContext, product);
     }
 
     void ReleaseApps(GameEntity[] products)

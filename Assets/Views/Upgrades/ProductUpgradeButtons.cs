@@ -54,21 +54,23 @@ public class ProductUpgradeButtons : View
 
         // goal defined stuff
         // ----------------------
+        bool preReleaseOrLater = goal >= InvestorGoal.Release;
+
         bool QATeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam);
         bool CoreTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam);
         bool SupportTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam);
 
-        Draw(SupportCheckbox, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
-        Draw(SupportCheckbox2, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
-        Draw(SupportCheckbox3, greedyMode && goal >= InvestorGoal.Release && SupportTeamCreated);
+        Draw(SupportCheckbox, greedyMode && preReleaseOrLater && SupportTeamCreated);
+        Draw(SupportCheckbox2, greedyMode && preReleaseOrLater && SupportTeamCreated);
+        Draw(SupportCheckbox3, greedyMode && preReleaseOrLater && SupportTeamCreated);
 
-        Draw(Monetisation, greedyMode && goal >= InvestorGoal.Release && !CoreTeamCreated);
-        Draw(Monetisation2, greedyMode && goal >= InvestorGoal.Release && CoreTeamCreated && !SupportTeamCreated);
-        Draw(Monetisation3, greedyMode && goal >= InvestorGoal.Release && CoreTeamCreated && !QATeamCreated);
+        Draw(Monetisation, greedyMode && preReleaseOrLater && !CoreTeamCreated);
+        Draw(Monetisation2, greedyMode && preReleaseOrLater && CoreTeamCreated && !SupportTeamCreated);
+        Draw(Monetisation3, greedyMode && preReleaseOrLater && CoreTeamCreated && !QATeamCreated);
 
-        Draw(QA, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
-        Draw(QA2, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
-        Draw(QA3, greedyMode && goal >= InvestorGoal.Release && QATeamCreated);
+        Draw(QA, greedyMode && preReleaseOrLater && QATeamCreated);
+        Draw(QA2, greedyMode && preReleaseOrLater && QATeamCreated);
+        Draw(QA3, greedyMode && preReleaseOrLater && QATeamCreated);
 
         // release stuff
         // -------------

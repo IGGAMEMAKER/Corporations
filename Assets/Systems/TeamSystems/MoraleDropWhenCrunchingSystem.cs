@@ -12,7 +12,7 @@ class MoraleManagementSystem : OnPeriodChange
     {
         var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
 
-        // pyramid
+        // maslov pyramid
         //
         // salary
         // interesting tasks

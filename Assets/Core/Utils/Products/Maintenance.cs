@@ -39,33 +39,46 @@ namespace Assets.Core
             var complexity  = (int)niche.nicheBaseProfile.Profile.AppComplexity;
             var concept     = Products.GetProductLevel(e);
 
+            var baseValue = 1;
 
             if (IsUpgradeEnabled(e, ProductUpgrade.QA3))
-                return (int)Mathf.Pow(1 + complexity / 40f, concept);
+                baseValue = (int)Mathf.Pow(1 + complexity / 40f, concept);
+            else if (IsUpgradeEnabled(e, ProductUpgrade.QA2))
+                baseValue = (int)Mathf.Pow(1 + complexity / 50f, concept);
+            else if (IsUpgradeEnabled(e, ProductUpgrade.QA))
+                baseValue = (int)Mathf.Pow(1 + complexity / 100f, concept);
+            
+            // desktop only
+            var platformMultiplier = 1;
 
-            if (IsUpgradeEnabled(e, ProductUpgrade.QA2))
-                return (int)Mathf.Pow(1 + complexity / 50f, concept);
-
-            if (IsUpgradeEnabled(e, ProductUpgrade.QA))
-                return (int)Mathf.Pow(1 + complexity / 100f, concept);
-
-            return 1;
+            return baseValue * platformMultiplier;
         }
+
+        //public static int GetPlatformProgrammersMultiplier(GameEntity product, GameContext gameContext)
+        //{
+        //    var upgrades = product.productUpgrades.upgrades;
+
+        //    var platforms = 0;
+
+        //    if (IsUpgradeEnabled(product, ProductUpgrade.PlatformDesktop))
+        //}
 
         private static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
         {
             var clients = Marketing.GetClients(e);
 
+            var baseValue = 1;
+
             if (IsUpgradeEnabled(e, ProductUpgrade.Support3))
-                return (int)Mathf.Pow(clients / 1000, 0.75f);
+                baseValue = (int)Mathf.Pow(clients / 1000, 0.75f);
+            else if (IsUpgradeEnabled(e, ProductUpgrade.Support2))
+                baseValue = (int)Mathf.Pow(clients / 1000, 0.5f);
+            else if (IsUpgradeEnabled(e, ProductUpgrade.Support))
+                baseValue = (int)Mathf.Pow(clients / 1000, 0.2f);
 
-            if (IsUpgradeEnabled(e, ProductUpgrade.Support2))
-                return (int)Mathf.Pow(clients / 1000, 0.5f);
+            var platformMultiplier = 1;
 
-            if (IsUpgradeEnabled(e, ProductUpgrade.Support))
-                return (int)Mathf.Pow(clients / 1000, 0.2f);
-
-            return 1;
+            return baseValue * platformMultiplier;
         }
     }
 }

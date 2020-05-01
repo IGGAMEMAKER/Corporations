@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using System.Collections.Generic;
+
+namespace Assets.Core
 {
     public static partial class Products
     {
@@ -26,9 +28,21 @@
             return u.ContainsKey(productUpgrade) && u[productUpgrade];
         }
 
-        public static void SetUpgrade(GameEntity product, ProductUpgrade productUpgrade, GameContext gameContext, bool state)
+        public static void SetUpgrade(GameEntity product, ProductUpgrade upgrade, GameContext gameContext, bool state)
         {
-            product.productUpgrades.upgrades[productUpgrade] = state;
+            product.productUpgrades.upgrades[upgrade] = state;
+
+            var qa = new List<ProductUpgrade>() { ProductUpgrade.QA, ProductUpgrade.QA2, ProductUpgrade.QA3 };
+            var support = new List<ProductUpgrade>() { ProductUpgrade.Support, ProductUpgrade.Support2, ProductUpgrade.Support3 };
+
+            if (state)
+            {
+                if (qa.Contains(upgrade))
+                    qa.ForEach(u => product.productUpgrades.upgrades[u] = u == upgrade);
+
+                if (support.Contains(upgrade))
+                    support.ForEach(u => product.productUpgrades.upgrades[u] = u == upgrade);
+            }
 
             ScaleTeam(product, gameContext);
         }
