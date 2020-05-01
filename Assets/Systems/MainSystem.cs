@@ -1,6 +1,6 @@
 ﻿public class MainSystem : Feature
 {
-    public MainSystem(Contexts contexts) : base("Product Systems")
+    public MainSystem(Contexts contexts) : base("Main System")
     {
         // Start point of all our systems
 
@@ -37,8 +37,5 @@
         Add(new SpawnerSystems(contexts));
 
         Add(new StatsSystems(contexts));
-
-
-        Add(new GameEventSystems(contexts));
     }
 }

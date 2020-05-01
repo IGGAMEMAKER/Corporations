@@ -70,7 +70,7 @@ public class RenderWorkerRole : View
                     description += $" by {RenderBonus(Teams.GetTeamLeadDevelopmentTimeDiscount(Q, company))}%";
                 break;
 
-            case WorkerRole.MarketingLead:  description = $"Gives more clients";
+            case WorkerRole.MarketingLead:  description = $"Makes marketing cheaper";
                 if (employed)
                     description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, Q))}%";
                 break;

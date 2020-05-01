@@ -7,15 +7,17 @@ namespace Assets.Core
     {
         public static long GetUpgradeCost(GameEntity product, GameContext gameContext, ProductUpgrade upgrade)
         {
+            var marketingLeadBonus = 100 - Teams.GetMarketingLeadBonus(product, gameContext);
+
             switch (upgrade)
             {
-                case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext);
-                case ProductUpgrade.BrandCampaign2: return Marketing.GetBrandingCost(product, gameContext) * 2;
-                case ProductUpgrade.BrandCampaign3: return Marketing.GetBrandingCost(product, gameContext) * 10;
+                case ProductUpgrade.BrandCampaign: return Marketing.GetBrandingCost(product, gameContext) * marketingLeadBonus / 100;
+                case ProductUpgrade.BrandCampaign2: return Marketing.GetBrandingCost(product, gameContext) * 2 * marketingLeadBonus / 100;
+                case ProductUpgrade.BrandCampaign3: return Marketing.GetBrandingCost(product, gameContext) * 10 * marketingLeadBonus / 100;
 
-                case ProductUpgrade.TargetingCampaign: return Marketing.GetTargetingCost(product, gameContext);
-                case ProductUpgrade.TargetingCampaign2: return Marketing.GetTargetingCost(product, gameContext) * 2;
-                case ProductUpgrade.TargetingCampaign3: return Marketing.GetTargetingCost(product, gameContext) * 10;
+                case ProductUpgrade.TargetingCampaign: return Marketing.GetTargetingCost(product, gameContext) * marketingLeadBonus / 100;
+                case ProductUpgrade.TargetingCampaign2: return Marketing.GetTargetingCost(product, gameContext) * 2 * marketingLeadBonus / 100;
+                case ProductUpgrade.TargetingCampaign3: return Marketing.GetTargetingCost(product, gameContext) * 10 * marketingLeadBonus / 100;
             }
 
             return 0;

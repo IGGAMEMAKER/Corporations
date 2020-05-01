@@ -26,24 +26,5 @@
 
             return discount;
         }
-
-        public static void StartTargetingCampaign(GameEntity product, GameContext gameContext)
-        {
-            var task = new CompanyTaskMarketingRegularCampaign(product.company.Id);
-            Cooldowns.ProcessTask(task, gameContext);
-
-            //if (IsCanStartTargetingCampaign(product, gameContext))
-            //{
-            //    Cooldowns.AddRegularCampaignCooldown(gameContext, product);
-            //    Companies.SpendResources(product, GetTargetingCost(product, gameContext));
-            //}
-        }
-
-        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext) => IsCanStartTargetingCampaign(product, gameContext, new CompanyTaskMarketingRegularCampaign(product.company.Id), GetTargetingCost(product, gameContext));
-        public static bool IsCanStartTargetingCampaign(GameEntity product, GameContext gameContext, CompanyTask task, long cost)
-        {
-            //Companies.IsEnoughResources(product, cost) &&
-            return !Cooldowns.HasTask(gameContext, task);
-        }
     }
 }

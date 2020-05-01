@@ -35,14 +35,17 @@ class TeamGrowthSystem : OnPeriodChange
 
                 var human = Humans.GetHuman(gameContext, humanId);
 
-                var relationship = human.humanCompanyRelationship;
-
                 var growth = Teams.GetManagerGrowthBonus(human, gameContext).Sum();
 
                 var willGrow = Random.Range(0, 100) < growth;
 
                 if (willGrow)
+                {
                     human.humanSkills.Roles[WorkerRole.CEO]++;
+
+                    if (!human.hasHumanUpgradedSkills)
+                        human.AddHumanUpgradedSkills(C.PERIOD - 1);
+                }
             }
         }
     }

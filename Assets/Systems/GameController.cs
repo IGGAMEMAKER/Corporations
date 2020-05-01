@@ -15,7 +15,10 @@ public class GameController : MonoBehaviour
 
         // create the systems by creating individual features
         _systems = new Feature("Systems")
-            .Add(new MainSystem(contexts));
+            .Add(new MainSystem(contexts))
+            .Add(new GameEventSystems(contexts));
+
+        //.Add()
 
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();

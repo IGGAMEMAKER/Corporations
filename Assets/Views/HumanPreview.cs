@@ -38,6 +38,7 @@ public class HumanPreview : View
 
 
         Overall.text = $"{rating}";
+        Overall.color = Visuals.GetColorFromString(human.hasHumanUpgradedSkills ? Colors.COLOR_POSITIVE : Colors.COLOR_NEUTRAL);
         RenderRole(drawAsEmployee);
 
         Description.text = description;
