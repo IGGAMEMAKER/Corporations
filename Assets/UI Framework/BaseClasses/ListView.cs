@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class ListView : View // MonoBehaviour
 {
     public GameObject Prefab;
+
+    [Header("Specify this field to autoscroll. Two layers higher Scroll View")]
+    public ScrollRect _sRect;
+    public bool AutoScroll = false;
 
     // T is gameEntity in most cases
     // but you can use other data types if you need
@@ -16,6 +22,9 @@ public abstract class ListView : View // MonoBehaviour
     public void SetItems<T>(T[] entities, object data = null)
     {
         Render(entities, gameObject, data);
+
+        if (AutoScroll)
+            ScrollDown();
     }
 
     void Render<T>(T[] entities, GameObject Container, object data = null)
@@ -40,5 +49,17 @@ public abstract class ListView : View // MonoBehaviour
 
             SetItem(o.transform, e, data);
         }
+    }
+
+
+    IEnumerator ScrollDown()
+    {
+        yield return new WaitForSeconds(0.15f);
+        Scroll();
+    }
+
+    void Scroll()
+    {
+        _sRect.verticalNormalizedPosition = 0f;
     }
 }

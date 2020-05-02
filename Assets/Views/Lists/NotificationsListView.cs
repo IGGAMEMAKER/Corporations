@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class NotificationsListView : ListView
 {
-    public ScrollRect _sRect;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         //t.gameObject.AddComponent<Button>();
@@ -37,18 +35,18 @@ public class NotificationsListView : ListView
         else
         {
             SetItems(notifications);
-            Scroll();
+            //Scroll();
         }
     }
 
-    IEnumerator ScrollDown()
-    {
-        yield return new WaitForSeconds(0.15f);
-        Scroll();
-    }
+    //IEnumerator ScrollDown()
+    //{
+    //    yield return new WaitForSeconds(0.15f);
+    //    Scroll();
+    //}
 
-    void Scroll()
-    {
-        _sRect.verticalNormalizedPosition = 0f;
-    }
+    //void Scroll()
+    //{
+    //    _sRect.verticalNormalizedPosition = 0f;
+    //}
 }

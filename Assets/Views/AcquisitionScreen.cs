@@ -17,6 +17,8 @@ public class AcquisitionScreen : View
 
     public Slider Slider;
 
+    public Text ProgressText;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -31,7 +33,7 @@ public class AcquisitionScreen : View
 
         RenderProposalStatus(willAcceptOffer);
 
-        RenderOffer(willAcceptOffer);
+        RenderOffer();
     }
 
     void RenderProposalStatus(bool willAcceptOffer)
@@ -44,7 +46,10 @@ public class AcquisitionScreen : View
 
         var progress = Companies.GetOfferProgress(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
 
-        var status = Visuals.Colorize(progress + "%", willAcceptOffer) + " of owners want to accept your offer";
+        ProgressText.text = progress + "%";
+        ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);
+
+        var status = $"{progress}% of owners want to accept your offer";
         var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
         ProposalStatus.text = status; // + "\n" + textDescription;
 
@@ -58,7 +63,7 @@ public class AcquisitionScreen : View
         }
     }
 
-    void RenderOffer(bool willAcceptOffer)
+    void RenderOffer()
     {
         var acquisitionOffer = AcquisitionOffer;
 
@@ -79,7 +84,7 @@ public class AcquisitionScreen : View
         }
 
         Offer.text = Format.Money(price) + overpriceText;
-        SellerPrice.text = $"{Format.Money(seller.Price)} (Real valuation = {Format.Money(cost)})";
+        SellerPrice.text = $"Cash: {Format.Money(seller.Price)} (Real valuation = {Format.Money(cost)})";
 
 
 
