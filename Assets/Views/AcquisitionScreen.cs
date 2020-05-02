@@ -79,7 +79,7 @@ public class AcquisitionScreen : View
         }
 
         Offer.text = Format.Money(price) + overpriceText;
-        SellerPrice.text = Format.Money(seller.Price);
+        SellerPrice.text = $"{Format.Money(seller.Price)} (Real valuation = {Format.Money(cost)})";
 
 
 

@@ -11,6 +11,21 @@ public class JobOfferScreen : View
     public Text ProposalStatus;
 
     // tweak salary buttons
+    void OnEnable()
+    {
+        Render();
+    }
+
+    void Render()
+    {
+        RenderOffer();
+        RenderProposalStatus();
+
+        var role = Humans.GetRole(SelectedHuman);
+
+        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(Q, SelectedHuman)}LVL)";
+        RoleName.text = Humans.GetFormattedRole(role);
+    }
 
     void RenderOffer()
     {
@@ -39,21 +54,5 @@ public class JobOfferScreen : View
         }
 
         ProposalStatus.text = text;
-    }
-
-    void OnEnable()
-    {
-        Render();
-    }
-
-    void Render()
-    {
-        RenderOffer();
-        RenderProposalStatus();
-
-        var role = Humans.GetRole(SelectedHuman);
-
-        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(Q, SelectedHuman)}LVL)";
-        RoleName.text = Humans.GetFormattedRole(role);
     }
 }
