@@ -2,6 +2,7 @@
 using Assets.Core;
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -166,10 +167,20 @@ public class MenuController : View
             [ScreenMode.MessageScreen] = MessageScreen,
         };
 
+        //PrefabStage.prefabSaved += PrefabStage_prefabSaved;
+
         DisableAllScreens();
         
         EnableScreen(ScreenMode.NicheScreen);
     }
+
+    void PrefabStage_prefabSaved(GameObject obj)
+    {
+        Debug.Log("Prefab edited: " + obj.name);
+
+        ReloadPrefabs();
+    }
+
 
     public override void ViewRender()
     {
@@ -213,22 +224,28 @@ public class MenuController : View
         {
             Debug.Log("Refreshing screen/prefab");
 
-            foreach (var s in PrefabScreens)
+            ScreenUtils.UpdateScreen(Q);
+            //ReloadPrefabs();
+        }
+    }
+
+    void ReloadPrefabs()
+    {
+        foreach (var s in PrefabScreens)
+        {
+            var screen = s.Key;
+
+            // greedyMode
+            if (Screens.ContainsKey(screen))
             {
-                var screen = s.Key;
-
-                // greedyMode
-                if (Screens.ContainsKey(screen))
-                {
-                    Destroy(Screens[screen]);
-                }
-
-                var p = Instantiate(PrefabScreens[screen]);
-                Screens[screen] = p;
+                Destroy(Screens[screen]);
             }
 
-            EnableScreen(CurrentScreen);
+            var p = Instantiate(PrefabScreens[screen]);
+            Screens[screen] = p;
         }
+
+        EnableScreen(CurrentScreen);
     }
 
     void DisableAllScreens()
