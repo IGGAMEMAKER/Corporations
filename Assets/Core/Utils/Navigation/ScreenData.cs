@@ -18,16 +18,20 @@ namespace Assets.Core
         // get selected stuff
         public static GameEntity GetSelectedCompany(GameContext gameContext)
         {
-            var companyId = GetScreenParameter(gameContext, C.MENU_SELECTED_COMPANY);
+            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_COMPANY);
 
-            return Companies.Get(gameContext, (int)companyId);
+            var companyId = (int)obj;
+
+            return Companies.Get(gameContext, companyId);
         }
 
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
-            var humanId = GetScreenParameter(gameContext, C.MENU_SELECTED_HUMAN);
+            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_HUMAN);
 
-            return Humans.GetHuman(gameContext, (int)humanId);
+            var humanId = (int)obj;
+
+            return Humans.GetHuman(gameContext, humanId);
         }
 
         public static NicheType GetSelectedNiche(GameContext gameContext)
