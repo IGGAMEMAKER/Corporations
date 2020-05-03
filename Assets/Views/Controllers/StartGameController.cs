@@ -7,7 +7,7 @@ public class StartGameController : ButtonController
 
     public override void Execute()
     {
-        Canvas.SetActive(false);
+        //Canvas.SetActive(false);
 
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
     }

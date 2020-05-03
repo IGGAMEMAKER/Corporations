@@ -24,7 +24,7 @@ public abstract class ListView : View // MonoBehaviour
         Render(entities, gameObject, data);
 
         if (AutoScroll)
-            ScrollDown();
+            StartCoroutine(ScrollDown());
     }
 
     void Render<T>(T[] entities, GameObject Container, object data = null)

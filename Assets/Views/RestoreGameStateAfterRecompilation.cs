@@ -40,7 +40,7 @@ public class RestoreGameStateAfterRecompilation : View
 
     void LoadPreviousState()
     {
-        State.LoadGame(Q);
+        State.LoadGameData(Q);
         Debug.Log("Game Loaded");
 
         if (TopPanel == null && Panels == null)

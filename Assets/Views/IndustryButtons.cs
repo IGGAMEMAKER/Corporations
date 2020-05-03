@@ -19,16 +19,4 @@ public class IndustryButtons : View
         socialMedia.SetIndustry(IndustryType.Communications, TypeCorporationNameContainer, ChooseInitialNicheContainer);
         technology.SetIndustry(IndustryType.Technology, TypeCorporationNameContainer, ChooseInitialNicheContainer);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.F3))
-        {
-            State.StartNewCampaign(Q, NicheType.ECom_Exchanging, "QWE");
-
-            //var p = Companies.CreateProduct(Q, MyCompany, NicheType.ECom_Exchanging);
-
-            //ScreenUtils.Navigate(Q, ScreenMode.ProjectScreen, Balance.MENU_SELECTED_COMPANY, p.company.Id);
-        }
-    }
 }

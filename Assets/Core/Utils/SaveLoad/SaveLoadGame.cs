@@ -93,7 +93,7 @@ namespace Assets.Core
             Contexts.sharedInstance.game.DestroyAllEntities();
         }
 
-        public static void LoadGame(GameContext gameContext)
+        public static void LoadGameData(GameContext gameContext)
         {
             ClearEntities();
 

@@ -18,8 +18,6 @@ public class GameController : MonoBehaviour
             .Add(new MainSystem(contexts))
             .Add(new GameEventSystems(contexts));
 
-        //.Add()
-
         // call Initialize() on all of the IInitializeSystems
         _systems.Initialize();
 

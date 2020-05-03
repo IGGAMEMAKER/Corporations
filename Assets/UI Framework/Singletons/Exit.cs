@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Core;
+using UnityEngine;
 
 public class Exit : View
 {
@@ -23,6 +24,9 @@ public class Exit : View
     private void OnApplicationQuit()
     {
         Debug.Log("SESSION TIME: " + (int)Time.time + " seconds");
+
+        State.SaveGame(Q);
+        Debug.Log("Game saved");
 
         PrintSessionLength();
         PrintSessionLength();

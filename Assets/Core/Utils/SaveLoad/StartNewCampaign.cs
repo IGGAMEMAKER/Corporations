@@ -8,6 +8,30 @@ namespace Assets.Core
         // Start new Campaign
         public static void StartNewCampaign(GameContext gameContext, NicheType NicheType, string text)
         {
+            var startCapital = Markets.GetStartCapital(NicheType, gameContext);
+            var niche = Markets.Get(gameContext, NicheType);
+
+            PreparePlayerCompany(niche, startCapital, text, gameContext);
+            PrepareMarket(niche, startCapital, gameContext);
+
+
+            ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, NicheType);
+
+            LoadGameScene();
+        }
+
+        public static void LoadGameScene()
+        {
+            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            if (SceneManager.GetSceneByBuildIndex(2).isLoaded)
+                SceneManager.UnloadSceneAsync(2);
+
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        }
+
+        internal static void PreparePlayerCompany(GameEntity niche, long startCapital, string text, GameContext gameContext)
+        {
             var company = Companies.GenerateCompanyGroup(gameContext, text);
 
             var half = C.CORPORATE_CULTURE_LEVEL_MAX / 2;
@@ -22,24 +46,13 @@ namespace Assets.Core
                 [CorporatePolicy.CompetitionOrSupport] = half
             });
 
-            var startCapital = Markets.GetStartCapital(NicheType, gameContext);
 
             Companies.SetResources(company, new TeamResource(startCapital));
 
-            var niche = Markets.Get(gameContext, NicheType);
             //niche.AddResearch(1);
 
             Companies.PlayAs(company, gameContext);
             Companies.AutoFillShareholders(gameContext, company, true);
-
-            PrepareMarket(niche, startCapital, gameContext);
-
-
-            ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, NicheType);
-
-
-            SceneManager.UnloadSceneAsync(2);
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
         internal static void PrepareMarket(GameEntity niche, long startCapital, GameContext gameContext)

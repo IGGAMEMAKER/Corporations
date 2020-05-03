@@ -88,7 +88,8 @@ public class MenuController : View
 
     void Start()
     {
-        PrefabScreens = new Dictionary<ScreenMode, GameObject> {
+        PrefabScreens = new Dictionary<ScreenMode, GameObject>
+        {
             [ScreenMode.DevelopmentScreen] = TechnologyScreenPrefab,
             [ScreenMode.ProjectScreen] = ProjectScreenPrefab,
             [ScreenMode.InvesmentsScreen] = InvesmentsScreenPrefab,
@@ -177,10 +178,22 @@ public class MenuController : View
         EnableScreen(CurrentScreen);
     }
 
+    void ToggleScreen(ScreenMode screen, bool state)
+    {
+        try
+        {
+            if (Screens != null && Screens.ContainsKey(screen))
+                Screens[screen].SetActive(state);
+        }
+        catch
+        {
+            Debug.LogError($"Failed to toggle ({state}) screen: " + screen);
+        }
+    }
+
     void DisableScreen(ScreenMode screen)
     {
-        if (Screens.ContainsKey(screen))
-            Screens[screen].SetActive(false);
+        ToggleScreen(screen, false);
     }
 
     void EnableScreen(ScreenMode screen)
@@ -188,11 +201,11 @@ public class MenuController : View
         SetTitle(screen);
         DisableAllScreens();
 
-        if (Screens.ContainsKey(screen))
-        {
-            Screens[screen].SetActive(true);
-        }
+        ToggleScreen(screen, true);
     }
+
+    //[ExecuteInEditMode]
+    
 
     private void Update()
     {
