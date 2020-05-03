@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuController : MonoBehaviour
-    , IMenuListener
-    , INavigationHistoryListener
+public class MenuController : View
 {
+    // prefabs
     Dictionary<ScreenMode, GameObject> Screens;
+    public Dictionary<ScreenMode, GameObject> PrefabScreens;
 
     public Text ScreenTitle;
 
@@ -49,10 +49,83 @@ public class MenuController : MonoBehaviour
     public GameObject TrendsScreen;
     public GameObject MessageScreen;
 
-    GameEntity menu;
+    [Header("Prefabs here...")]
+    public GameObject TechnologyScreenPrefab;
+    public GameObject ProjectScreenPrefab;
+    public GameObject InvesmentsScreenPrefab;
+    public GameObject InvesmentProposalScreenPrefab;
+    public GameObject IndustryScreenPrefab;
+    public GameObject NicheScreenPrefab;
+    public GameObject CharacterScreenPrefab;
+    public GameObject GroupManagementScreenPrefab;
+    public GameObject TeamScreenPrefab;
+    public GameObject MarketingScreenPrefab;
+    public GameObject InvestmentOfferScreenPrefab;
+    public GameObject JobOfferScreenPrefab;
+    public GameObject CompanyGoalScreenPrefab;
+    public GameObject EmployeeScreenPrefab;
+    public GameObject ManageCompaniesScreenPrefab;
+    public GameObject BuySharesScreenPrefab;
+    public GameObject CompanyEconomyScreenPrefab;
+    public GameObject MarketExplorationScreenPrefab;
+    public GameObject CompanyExplorationScreenPrefab;
+    public GameObject LeaderboardScreenPrefab;
+    public GameObject ExplorationScreenPrefab;
+    public GameObject NicheInfoScreenPrefab;
+    public GameObject AcquisitionScreenPrefab;
+    public GameObject SalesScreenPrefab;
+    public GameObject PotentialCompaniesScreenPrefab;
+    public GameObject AnnualReportScreenPrefab;
+    public GameObject StartCampaignScreenPrefab;
+    public GameObject GroupScreenPrefab;
+    public GameObject HoldingScreenPrefab;
+    public GameObject CorporationScreenPrefab;
+    public GameObject AcquirableCompaniesOnNicheScreenPrefab;
+    public GameObject JoinCorporationScreenPrefab;
+    public GameObject FormStrategicPartnershipScreenPrefab;
+    public GameObject TrendsScreenPrefab;
+    public GameObject MessageScreenPrefab;
 
     void Start()
     {
+        PrefabScreens = new Dictionary<ScreenMode, GameObject> {
+            [ScreenMode.DevelopmentScreen] = TechnologyScreenPrefab,
+            [ScreenMode.ProjectScreen] = ProjectScreenPrefab,
+            [ScreenMode.InvesmentsScreen] = InvesmentsScreenPrefab,
+            [ScreenMode.InvesmentProposalScreen] = InvesmentProposalScreenPrefab,
+            [ScreenMode.IndustryScreen] = IndustryScreenPrefab,
+            [ScreenMode.NicheScreen] = NicheScreenPrefab,
+            [ScreenMode.CharacterScreen] = CharacterScreenPrefab,
+            [ScreenMode.GroupManagementScreen] = GroupManagementScreenPrefab,
+            [ScreenMode.TeamScreen] = TeamScreenPrefab,
+            [ScreenMode.MarketingScreen] = MarketingScreenPrefab,
+            [ScreenMode.InvestmentOfferScreen] = InvestmentOfferScreenPrefab,
+            [ScreenMode.JobOfferScreen] = JobOfferScreenPrefab,
+            [ScreenMode.CompanyGoalScreen] = CompanyGoalScreenPrefab,
+            [ScreenMode.EmployeeScreen] = EmployeeScreenPrefab,
+            [ScreenMode.ManageCompaniesScreen] = ManageCompaniesScreenPrefab,
+            [ScreenMode.BuySharesScreen] = BuySharesScreenPrefab,
+            [ScreenMode.CompanyEconomyScreen] = CompanyEconomyScreenPrefab,
+            [ScreenMode.MarketExplorationScreen] = MarketExplorationScreenPrefab,
+            [ScreenMode.CompanyExplorationScreen] = CompanyExplorationScreenPrefab,
+            [ScreenMode.LeaderboardScreen] = LeaderboardScreenPrefab,
+            [ScreenMode.ExplorationScreen] = ExplorationScreenPrefab,
+            [ScreenMode.NicheInfoScreen] = NicheInfoScreenPrefab,
+            [ScreenMode.AcquisitionScreen] = AcquisitionScreenPrefab,
+            [ScreenMode.SalesScreen] = SalesScreenPrefab,
+            [ScreenMode.PotentialCompaniesScreen] = PotentialCompaniesScreenPrefab,
+            [ScreenMode.AnnualReportScreen] = AnnualReportScreenPrefab,
+            [ScreenMode.StartCampaignScreen] = StartCampaignScreenPrefab,
+            [ScreenMode.GroupScreen] = GroupScreenPrefab,
+            [ScreenMode.HoldingScreen] = HoldingScreenPrefab,
+            [ScreenMode.CorporationScreen] = CorporationScreenPrefab,
+            [ScreenMode.AcquirableCompaniesOnNicheScreen] = AcquirableCompaniesOnNicheScreenPrefab,
+            [ScreenMode.JoinCorporationScreen] = JoinCorporationScreenPrefab,
+            [ScreenMode.FormStrategicPartnershipScreen] = FormStrategicPartnershipScreenPrefab,
+            [ScreenMode.TrendsScreen] = TrendsScreenPrefab,
+            [ScreenMode.MessageScreen] = MessageScreenPrefab,
+        };
+
         Screens = new Dictionary<ScreenMode, GameObject>
         {
             [ScreenMode.DevelopmentScreen] = TechnologyScreen,
@@ -95,13 +168,63 @@ public class MenuController : MonoBehaviour
         DisableAllScreens();
         
         EnableScreen(ScreenMode.NicheScreen);
-
-        GameEntity e = ScreenUtils.GetMenu(Contexts.sharedInstance.game);
-
-        menu = e;
-        //e.AddMenuListener(this);
-        e.AddNavigationHistoryListener(this);
     }
+
+    void DisableScreen(ScreenMode screen)
+    {
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(false);
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        EnableScreen(CurrentScreen);
+    }
+
+    void EnableScreen(ScreenMode screen)
+    {
+        SetTitle(screen);
+        DisableAllScreens();
+
+        if (Screens.ContainsKey(screen))
+        {
+            Screens[screen].SetActive(true);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Refreshing screen/prefab");
+
+            foreach (var s in PrefabScreens)
+            {
+                var screen = s.Key;
+
+                // greedyMode
+                if (Screens.ContainsKey(screen))
+                {
+                    Destroy(Screens[screen]);
+                }
+
+                var p = Instantiate(PrefabScreens[screen]);
+                Screens[screen] = p;
+            }
+
+            EnableScreen(CurrentScreen);
+        }
+    }
+
+    void DisableAllScreens()
+    {
+        foreach (ScreenMode screen in (ScreenMode[])Enum.GetValues(typeof(ScreenMode)))
+            DisableScreen(screen);
+    }
+
+
 
     string GetScreenTitle(ScreenMode screen)
     {
@@ -155,38 +278,5 @@ public class MenuController : MonoBehaviour
     void SetTitle(ScreenMode screen)
     {
         ScreenTitle.text = GetScreenTitle(screen);
-    }
-
-    void DisableScreen(ScreenMode screen)
-    {
-        if (Screens.ContainsKey(screen))
-            Screens[screen].SetActive(false);
-    }
-
-    void EnableScreen(ScreenMode screen)
-    {
-        SetTitle(screen);
-        DisableAllScreens();
-
-        if (Screens.ContainsKey(screen))
-        {
-            Screens[screen].SetActive(true);
-        }
-    }
-
-    void DisableAllScreens()
-    {
-        foreach (ScreenMode screen in (ScreenMode[])Enum.GetValues(typeof(ScreenMode)))
-            DisableScreen(screen);
-    }
-
-    void IMenuListener.OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
-    {
-        EnableScreen(screenMode);
-    }
-
-    void INavigationHistoryListener.OnNavigationHistory(GameEntity entity, List<MenuComponent> queries)
-    {
-        EnableScreen(menu.menu.ScreenMode);
     }
 }
