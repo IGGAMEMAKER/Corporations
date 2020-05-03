@@ -170,17 +170,17 @@ public class MenuController : View
         EnableScreen(ScreenMode.NicheScreen);
     }
 
-    void DisableScreen(ScreenMode screen)
-    {
-        if (Screens.ContainsKey(screen))
-            Screens[screen].SetActive(false);
-    }
-
     public override void ViewRender()
     {
         base.ViewRender();
 
         EnableScreen(CurrentScreen);
+    }
+
+    void DisableScreen(ScreenMode screen)
+    {
+        if (Screens.ContainsKey(screen))
+            Screens[screen].SetActive(false);
     }
 
     void EnableScreen(ScreenMode screen)
