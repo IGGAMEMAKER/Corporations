@@ -28,55 +28,75 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         }
     }
 
+    long CheckCosts(GameEntity product, List<ProductUpgrade> upgradeSets, long balance)
+    {
+        var newBalance = balance;
+
+        foreach (var u in upgradeSets)
+        {
+            var cost = Products.GetUpgradeCost(product, gameContext, u);
+            var workerCost = Products.GetUpgradeWorkerCost(product, gameContext, u);
+
+            var totalCost = cost + workerCost;
+
+            if (totalCost < newBalance)
+            {
+                Products.SetUpgrade(product, u, gameContext, true);
+                newBalance -= cost;
+            }
+            else
+            {
+                Products.SetUpgrade(product, u, gameContext, false);
+            }
+        }
+
+        return newBalance;
+    }
+
     void ManageReleasedProducts(GameEntity product)
     {
         var balance = Economy.BalanceOf(product);
         var income = Economy.GetCompanyIncome(gameContext, product);
 
         var managerMaintenance = Economy.GetManagersCost(product, gameContext);
-
-        var brandingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
-        var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
+        balance += income - managerMaintenance;
 
         var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept };
         var tier1 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign, ProductUpgrade.BrandCampaign, ProductUpgrade.QA, ProductUpgrade.Support };
         var tier2 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign2, ProductUpgrade.BrandCampaign2, ProductUpgrade.QA2, ProductUpgrade.Support2 };
         var tier3 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign3, ProductUpgrade.BrandCampaign3, ProductUpgrade.QA3, ProductUpgrade.Support3 };
 
+        balance = CheckCosts(product, tier0, balance);
+        balance = CheckCosts(product, tier1, balance);
+        balance = CheckCosts(product, tier2, balance);
+        balance = CheckCosts(product, tier3, balance);
 
-        balance += income - managerMaintenance;
+        //var brandingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
+        //var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
 
-        foreach (var u in tier0)
-        {
-            var cost = Products.GetUpgradeCost(product, gameContext, u);
-            var workerCost = Products.GetUpgradeWorkerCost(product, gameContext, u);
+        //// targeting
+        //if (targetingCost < balance)
+        //{
+        //    Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, true);
+        //    balance -= targetingCost;
+        //}
+        //else
+        //{
+        //    Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, false);
+        //}
 
-
-        }
-
-        // targeting
-        if (targetingCost < balance)
-        {
-            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, true);
-            balance -= targetingCost;
-        }
-        else
-        {
-            Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, false);
-        }
-
-        // copy pasted
-        // TODO move to separate function
-        // branding
-        if (brandingCost < balance)
-        {
-            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, true);
-            balance -= brandingCost;
-        }
-        else
-        {
-            Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, false);
-        }
+        //// copy pasted
+        //// TODO move to separate function
+        //// branding
+        //if (brandingCost < balance)
+        //{
+        //    Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, true);
+        //    balance -= brandingCost;
+        //}
+        //else
+        //{
+        //    Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, false);
+        //}
     }
 
     void ManagePrototypes(GameEntity product)

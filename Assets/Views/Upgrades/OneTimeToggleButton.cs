@@ -14,6 +14,18 @@ public class OneTimeToggleButton : ProductUpgradeButton
             case ProductUpgrade.CreateQATeam:
                 return "Create QA Team";
 
+            case ProductUpgrade.PlatformDesktop:
+                return "Desktop version";
+
+            case ProductUpgrade.PlatformMobileAndroid:
+                return "Android version";
+
+            case ProductUpgrade.PlatformMobileIOS:
+                return "IOS version";
+
+            case ProductUpgrade.PlatformWeb:
+                return "WEB version";
+
             default:
                 return "One Time Button? " + upgrade;
         }
@@ -23,6 +35,18 @@ public class OneTimeToggleButton : ProductUpgradeButton
     {
         if (upgrade == ProductUpgrade.CreateManagementTeam)
             return Visuals.Positive($"Can hire managers");
+
+        if (upgrade == ProductUpgrade.PlatformDesktop)
+            return Visuals.Positive($"Broader audience!");
+
+        if (upgrade == ProductUpgrade.PlatformMobileAndroid)
+            return Visuals.Positive($"Broader audience!");
+
+        if (upgrade == ProductUpgrade.PlatformMobileIOS)
+            return Visuals.Positive($"Broader audience!");
+
+        if (upgrade == ProductUpgrade.PlatformWeb)
+            return Visuals.Positive($"Broader audience!");
 
         return Visuals.Positive($"New opportunities");
     }

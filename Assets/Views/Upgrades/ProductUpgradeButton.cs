@@ -60,6 +60,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         var cost = GetCost() * C.PERIOD / 30;
         var text = "";
 
+        text += $"";
+
         if (cost != 0)
         {
             text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
@@ -72,6 +74,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         }
 
         links.Hint.SetHint(text);
-        links.CanvasGroup.alpha = state ? 0.25f : 1f;
+        links.CanvasGroup.alpha = state ? 1f : 0.25f;
     }
 };
