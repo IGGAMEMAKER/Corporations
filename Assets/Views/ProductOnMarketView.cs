@@ -51,13 +51,13 @@ public class ProductOnMarketView : View
 
             var newCli = Format.Sign(newClients, true);
 
-            Growth.text = $"{cli} users ({Visuals.Colorize(newCli, clientChangeColor)})";
+            Growth.text = $"{Visuals.Colorize(newCli, clientChangeColor)} users (#1)"; // {cli} users 
             //Growth.color = clientChangeColor; // Visuals.GetColorPositiveOrNegative(newClients);
 
-            Growth.GetComponent<Hint>().SetHint(growthBonus.ToString());
+            Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n" + growthBonus.ToString());
         }
 
-        WeeklyGrowth.text = $"Weekly growth (#1)";
+        WeeklyGrowth.text = $"Growth (#1)";
 
         var brandChange = Marketing.GetBrandChange(company, Q).Sum();
         var brandChangeValue = Format.Sign(brandChange);
