@@ -72,5 +72,6 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         }
 
         links.Hint.SetHint(text);
+        links.CanvasGroup.alpha = state ? 0.25f : 1f;
     }
 };

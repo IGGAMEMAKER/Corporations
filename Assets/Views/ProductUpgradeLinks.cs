@@ -11,4 +11,5 @@ public class ProductUpgradeLinks : MonoBehaviour
     public Toggle Toggle;
     public ToggleAnim ToggleAnim;
     public Hint Hint;
+    public CanvasGroup CanvasGroup;
 }

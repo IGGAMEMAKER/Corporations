@@ -22,7 +22,7 @@ public class RenderGroupProfit : UpgradedParameterView
     {
         var profit = Economy.GetProfit(Q, MyCompany);
 
-        var text = "Profit\n" + Visuals.Colorize(Format.MinifyMoney(profit), profit > 0);
+        var text = "Profit\n" + Visuals.Colorize(Format.Minify(profit), profit > 0);
 
         return text;
     }
