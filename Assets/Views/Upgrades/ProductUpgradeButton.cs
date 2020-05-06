@@ -58,9 +58,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
         // hint
         var cost = GetCost() * C.PERIOD / 30;
-        var text = "";
-
-        text += $"";
+        var text = $"{GetButtonTitle()}\n\n{GetBenefits()}\n\n";
 
         if (cost != 0)
         {
@@ -70,7 +68,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         var workers = GetAmountOfWorkers();
         if (workers > 0)
         {
-            text += $"\nWill need {workers} additional workers";
+            text += $"\n\nWill need {workers} additional workers";
         }
 
         links.Hint.SetHint(text);

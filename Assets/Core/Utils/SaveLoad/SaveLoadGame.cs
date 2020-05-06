@@ -98,13 +98,13 @@ namespace Assets.Core
             ClearEntities();
             LoadEntities(gameContext);
 
-            var MyCompany = Companies.GetPlayerCompany(gameContext);
-            var playerFlagship = Companies.GetFlagship(gameContext, MyCompany) ?? null;
+            //var MyCompany = Companies.GetPlayerCompany(gameContext);
+            //var playerFlagship = Companies.GetFlagship(gameContext, MyCompany) ?? null;
 
-            ScreenUtils.SetSelectedHuman(gameContext, ScreenUtils.GetPlayer(gameContext).human.Id);
-            ScreenUtils.SetSelectedCompany(gameContext, Companies.GetPlayerFlagshipID(gameContext));
+            //ScreenUtils.SetSelectedHuman(gameContext, ScreenUtils.GetPlayer(gameContext).human.Id);
+            //ScreenUtils.SetSelectedCompany(gameContext, Companies.GetPlayerFlagshipID(gameContext));
 
-            ScreenUtils.SetSelectedNiche(gameContext, NicheType.Com_Blogs);
+            //ScreenUtils.SetSelectedNiche(gameContext, NicheType.Com_Blogs);
         }
 
         public static void LoadEntities(GameContext gameContext)
