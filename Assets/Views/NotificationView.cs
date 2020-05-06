@@ -11,50 +11,52 @@ public class NotificationView : View,
     public GameObject LinkToEvent;
     public Image Panel;
 
-    public void SetMessage(NotificationMessage notificationMessage)
+    public void SetMessage(NotificationMessage message)
     {
         int notificationId = transform.GetSiblingIndex();
+
+
         
-        switch (notificationMessage.NotificationType)
+        switch (message.NotificationType)
         {
             case NotificationType.NicheTrends:
                 gameObject.AddComponent<NotificationRendererTrendsChange>()
-                    .Render(notificationMessage as NotificationMessageTrendsChange, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageTrendsChange, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.NewCompanyOnNiche:
                 gameObject.AddComponent<NotificationRendererNewCompany>()
-                    .Render(notificationMessage as NotificationMessageNewCompany, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageNewCompany, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.InnovationOnNiche:
                 gameObject.AddComponent<NotificationRendererMarketInnovation>()
-                    .Render(notificationMessage as NotificationMessageInnovation, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageInnovation, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.InvestmentRoundStarted:
                 gameObject.AddComponent<NotificationRendererInvestmentRound>()
-                    .Render(notificationMessage as NotificationMessageInvestmentRoundStarted, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageInvestmentRoundStarted, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.CompanyTypeChange:
                 gameObject.AddComponent<NotificationRendererPromoteCompany>()
-                    .Render(notificationMessage as NotificationMessageCompanyTypeChange, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageCompanyTypeChange, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.Bankruptcy:
                 gameObject.AddComponent<NotificationRendererBankruptcy>()
-                    .Render(notificationMessage as NotificationMessageBankruptcy, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageBankruptcy, Title, Description, LinkToEvent);
                 break;
 
             case NotificationType.Buying:
                 gameObject.AddComponent<NotificationRendererAcquisition>()
-                    .Render(notificationMessage as NotificationMessageBuyingCompany, Title, Description, LinkToEvent);
+                    .Render(message as NotificationMessageBuyingCompany, Title, Description, LinkToEvent);
                 break;
 
             default:
                 gameObject.AddComponent<NotificationRendererDefault>()
-                    .Render(notificationMessage, Title, Description, LinkToEvent);
+                    .Render(message, Title, Description, LinkToEvent);
                 break;
         }
     }
