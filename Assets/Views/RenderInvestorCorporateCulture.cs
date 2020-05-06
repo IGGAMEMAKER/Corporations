@@ -13,21 +13,23 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
         if (SelectedInvestor == null || !SelectedInvestor.hasCorporateCulture)
             return "";
 
-        text += Wrap(CorporatePolicy.BuyOrCreate,           DescribePolicy(CorporatePolicy.BuyOrCreate,     "Loves acquisitions", "Loves creating new products"));
-        text += Wrap(CorporatePolicy.FocusingOrSpread,      DescribePolicy(CorporatePolicy.FocusingOrSpread,        "Focuses on one market/product/industry",   "Doesn't focus in one market/industry"));
-        text += Wrap(CorporatePolicy.LeaderOrTeam,          DescribePolicy(CorporatePolicy.LeaderOrTeam,    "Favors manager-centric companies",     "Favors team oriented companies"));
-        text += Wrap(CorporatePolicy.InnovationOrStability, DescribePolicy(CorporatePolicy.InnovationOrStability,   "Favors innovative companies",               "Favors stable companies"));
+        text += Wrap(CorporatePolicy.Make,                  "", "Favors innovative companies");
+        text += Wrap(CorporatePolicy.FocusingOrSpread,      "Focuses on one market/product/industry",   "Likes to diversify risks");
+        text += Wrap(CorporatePolicy.Sell,                  "",  "Favors popular companies");
+        text += Wrap(CorporatePolicy.CompetitionOrSupport,  "Be best", "Favors stable companies");
 
         return text.Length == 0 ? "No specific preferences" : text;
     }
 
-    string Wrap(CorporatePolicy corporatePolicy, string description)
+    string Wrap(CorporatePolicy corporatePolicy, string descriptionLeft, string descriptionRight)
     {
         var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
         var playerCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
 
 
         int diff = Mathf.Abs(investorCulture[corporatePolicy] - playerCulture[corporatePolicy]);
+
+        string description = DescribePolicy(corporatePolicy, descriptionLeft, descriptionRight);
 
         if (description.Length > 0)
         {

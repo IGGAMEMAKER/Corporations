@@ -48,11 +48,11 @@ namespace Assets.Core
                 // Control rating levels for new workers
                 #region Control rating levels for new workers
                 var averageStrength = GetTeamAverageStrength(company, gameContext);
-                var hrBasedRank = GetHRBasedNewManagerRating(company, gameContext);
+                //var hrBasedRank = GetHRBasedNewManagerRating(company, gameContext);
 
 
-                var rng = Random.Range(averageStrength - 10, averageStrength + 10);
-                var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, hrBasedRank);
+                var rng = Random.Range(averageStrength - 25, averageStrength + 10);
+                var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 80);
 
                 Humans.ResetSkills(worker, rating);
                 #endregion
@@ -100,7 +100,7 @@ namespace Assets.Core
             bonus
                 .Append("Base value", C.BASE_MANAGER_RATING)
                 .Append("Mission", 0)
-                .Append("Salaries", culture[CorporatePolicy.SalariesLowOrHigh] * 2)
+                //.Append("Salaries", culture[CorporatePolicy.SalariesLowOrHigh] * 2)
                 .Append("Has Global Markets", hasGlobalMarkets ? 10 : 0)
                 .Append("Is TOP10 Company", 0)
                 .Append("Is TOP10 in teams", 0);

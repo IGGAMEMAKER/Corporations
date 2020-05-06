@@ -7,10 +7,11 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 {
     void FillUnoccupiedMarkets(GameEntity managingCompany)
     {
-        // try to improve influence
+        // try to increase influence
         foreach (var n in GetMainMarkets(managingCompany))
             TryToAcquireCompany(n, managingCompany);
 
+        // check new opportunities
         foreach (var n in GetUnoccupiedNiches(managingCompany))
             OccupyNiche(n, managingCompany);
     }
@@ -61,8 +62,8 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
     {
         var culture = Companies.GetOwnCorporateCulture(managingCompany);
 
-        var desireToBuy = 5 - Companies.GetPolicyValue(managingCompany, CorporatePolicy.BuyOrCreate);
-        var AIwantsToBuyPlayerCompany = Random.Range(0, 100) < 5 + desireToBuy;
+        var desireToBuy = 15 - Companies.GetPolicyValue(managingCompany, CorporatePolicy.CompetitionOrSupport);
+        var AIwantsToBuyPlayerCompany = Random.Range(0, 100) < 15 + desireToBuy;
 
         return products
             .Where(p =>

@@ -19,7 +19,7 @@
         public static int GetCorpCultureMarketingDiscount(GameEntity product, GameContext gameContext)
         {
             var culture = Companies.GetActualCorporateCulture(product, gameContext);
-            var creation = culture[CorporatePolicy.BuyOrCreate];
+            var creation = culture[CorporatePolicy.Make];
 
             // up to 40%
             var discount = 100 - (creation - 1) * 5;

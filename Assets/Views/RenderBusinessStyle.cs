@@ -16,7 +16,7 @@ public class RenderBusinessStyle : UpgradedParameterView
 
         text += Wrap(DescribePolicy(culture, CorporatePolicy.CompetitionOrSupport)) + "\n\n";
         text += Wrap(DescribePolicy(culture, CorporatePolicy.FocusingOrSpread));
-        text += Wrap(DescribePolicy(culture, CorporatePolicy.BuyOrCreate));
+        text += Wrap(DescribePolicy(culture, CorporatePolicy.Make));
 
         //foreach (var c in culture)
         //{
@@ -55,11 +55,9 @@ public class RenderBusinessStyle : UpgradedParameterView
 
         switch (policy)
         {
-            case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
+            case CorporatePolicy.Make: return DescribeAcquisitionPolicy(isLeft);
             case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
-            case CorporatePolicy.LeaderOrTeam: return "";
             case CorporatePolicy.SalariesLowOrHigh: return DescribeSalaries(isLeft);
-            case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
             case CorporatePolicy.CompetitionOrSupport: return DescribeAggressiveness(isLeft);
 
             default: return policy.ToString() + ": " + value;

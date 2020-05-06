@@ -15,6 +15,11 @@ namespace Assets.Core
                 return entities[0];
         }
 
+        public static GameEntity GetPlayer(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.Player)[0];
+        }
+
         public static GameEntity CreateMenu(GameContext gameContext) => CreateMenu(gameContext.CreateEntity());
         public static GameEntity CreateMenu(GameEntity menu)
         {

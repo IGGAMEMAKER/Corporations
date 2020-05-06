@@ -171,13 +171,17 @@ public class PreviousAcquisitionOffersComponent : IComponent
 
 public enum CorporatePolicy
 {
-    LeaderOrTeam, // team vs leader
-    BuyOrCreate,
-    InnovationOrStability, // engineer vs researcher
-    FocusingOrSpread,
+    // upgrade
+    //BuyOrCreate, // BuyOrCreate
+    Make,
+    Sell,
+    Delegate,
+
+    // choose
+    FocusingOrSpread, // just for funds
     SalariesLowOrHigh, // low vs high
 
-    CompetitionOrSupport
+    CompetitionOrSupport,
 }
 
 [Game]

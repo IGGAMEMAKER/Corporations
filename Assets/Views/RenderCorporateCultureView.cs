@@ -27,15 +27,8 @@ public class RenderCorporateCultureView : View
     {
         base.ViewRender();
 
-        var expansion = Companies.GetPolicyValue(MyCompany, CorporatePolicy.LeaderOrTeam);
-        bool isFocused = expansion == 1;
-
-
-        SetText(Responsibility,     CorporatePolicy.LeaderOrTeam, ResponsibilityPolicy, false);
-        SetText(Mindset,            CorporatePolicy.InnovationOrStability, MindsetPolicy, false);
-
         SetText(Focusing,           CorporatePolicy.FocusingOrSpread, FocusingPolicy, false);
-        SetText(Expansion,          CorporatePolicy.BuyOrCreate, ExpansionPolicy, true);
+        SetText(Expansion,          CorporatePolicy.Make, ExpansionPolicy, true);
         SetText(Competition,        CorporatePolicy.CompetitionOrSupport, CompetitionPolicy, true);
         SetText(Salaries,           CorporatePolicy.SalariesLowOrHigh, SalariesPolicy, true);
     }

@@ -20,7 +20,7 @@
 
             // culture bonuses
             var culture = Companies.GetActualCorporateCulture(product, gameContext);
-            var createOrBuy     = culture[CorporatePolicy.BuyOrCreate];
+            var createOrBuy     = culture[CorporatePolicy.Make];
 
             // managers
             var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);

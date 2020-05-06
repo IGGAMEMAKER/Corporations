@@ -26,7 +26,7 @@ public partial class BaseClass : MonoBehaviour
 
 
 
-    public GameEntity Hero => Q.GetEntities(GameMatcher.Player)[0];
+    public GameEntity Hero => ScreenUtils.GetPlayer(Q);
 
 
     public GameEntity MyGroupEntity => Companies.GetPlayerControlledGroupCompany(Q);
@@ -34,11 +34,8 @@ public partial class BaseClass : MonoBehaviour
     public GameEntity Flagship => Companies.GetFlagship(Q, MyCompany) ?? null;
 
     public bool HasCompany => MyCompany != null;
-}
 
-
-public partial class BaseClass : MonoBehaviour
-{
+    //
     // GameObjects
     public bool Contains<T>()
     {

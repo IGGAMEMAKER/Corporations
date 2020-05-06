@@ -99,23 +99,20 @@ namespace Assets.Core
             var culture = GetRandomCorporateCulture();
 
             culture[CorporatePolicy.SalariesLowOrHigh] = Random.Range(half, max);
+            culture[CorporatePolicy.Make] = Random.Range(half - 1, max);
 
             return culture;
         }
+
         public static Dictionary<CorporatePolicy, int> GetRandomCorporateCulture()
         {
             var max = C.CORPORATE_CULTURE_LEVEL_MAX + 1;
             var min = C.CORPORATE_CULTURE_LEVEL_MIN;
 
-            var dict = new Dictionary<CorporatePolicy, int>()
-            {
-                [CorporatePolicy.LeaderOrTeam]           = Random.Range(min, max),
-                [CorporatePolicy.InnovationOrStability]  = Random.Range(min, max),
-                [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
-                [CorporatePolicy.BuyOrCreate]            = Random.Range(min, max),
-                [CorporatePolicy.CompetitionOrSupport]   = Random.Range(min, max),
-                [CorporatePolicy.SalariesLowOrHigh]      = Random.Range(min, max)
-            };
+            var dict = new Dictionary<CorporatePolicy, int>();
+
+            foreach (var e in (CorporatePolicy[])System.Enum.GetValues(typeof(CorporatePolicy)))
+                dict[e] = Random.Range(min, max);
 
             return dict;
         }
@@ -126,15 +123,13 @@ namespace Assets.Core
             var min = C.CORPORATE_CULTURE_LEVEL_MIN;
             var half = max / 2;
 
-            return new Dictionary<CorporatePolicy, int>()
-            {
-                [CorporatePolicy.LeaderOrTeam]           = Random.Range(min, max),
-                [CorporatePolicy.InnovationOrStability]  = Random.Range(min, half),
-                [CorporatePolicy.FocusingOrSpread]       = Random.Range(min, max),
-                [CorporatePolicy.BuyOrCreate]            = Random.Range(min, half),
-                [CorporatePolicy.CompetitionOrSupport]   = Random.Range(min, max),
-                [CorporatePolicy.SalariesLowOrHigh]      = Random.Range(min, max)
-            };
+            return GetRandomCorporateCulture();
+            //new Dictionary<CorporatePolicy, int>()
+            //{
+            //    [CorporatePolicy.CompetitionOrSupport]  = Random.Range(min, max),
+            //    [CorporatePolicy.BuyOrCreate]           = Random.Range(min, max),
+            //    [CorporatePolicy.SalariesLowOrHigh]     = Random.Range(min, max),
+            //};
         }
     }
 }

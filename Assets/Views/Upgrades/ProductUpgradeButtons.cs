@@ -29,6 +29,11 @@ public class ProductUpgradeButtons : View
     public GameObject BrandingCampaignCheckbox2;
     public GameObject BrandingCampaignCheckbox3;
 
+    public GameObject WebCheckbox;
+    public GameObject DesktopCheckbox;
+    public GameObject MobileIOSCheckbox;
+    public GameObject MobileAndroidCheckbox;
+
     public GameObject TestCampaignCheckbox;
 
     public ReleaseApp ReleaseApp;
@@ -55,10 +60,16 @@ public class ProductUpgradeButtons : View
         // goal defined stuff
         // ----------------------
         bool preReleaseOrLater = goal >= InvestorGoal.Release;
+        bool showAfterRelease = company.isRelease;
 
         bool QATeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam);
         bool CoreTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam);
         bool SupportTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam);
+
+        Draw(WebCheckbox,           greedyMode && showAfterRelease);
+        Draw(MobileIOSCheckbox,     greedyMode && showAfterRelease);
+        Draw(MobileAndroidCheckbox, greedyMode && showAfterRelease);
+        Draw(DesktopCheckbox,       greedyMode && showAfterRelease);
 
         Draw(SupportCheckbox, greedyMode && preReleaseOrLater && SupportTeamCreated);
         Draw(SupportCheckbox2, greedyMode && preReleaseOrLater && SupportTeamCreated);

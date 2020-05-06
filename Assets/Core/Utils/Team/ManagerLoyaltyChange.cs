@@ -12,10 +12,8 @@ namespace Assets.Core
         {
             return new List<CorporatePolicy>
             {
-                CorporatePolicy.BuyOrCreate,
-                //CorporatePolicy.LeaderOrTeam,
+                CorporatePolicy.Make,
                 CorporatePolicy.CompetitionOrSupport,
-                CorporatePolicy.SalariesLowOrHigh
             };
         }
 

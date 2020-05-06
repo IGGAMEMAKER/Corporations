@@ -96,8 +96,15 @@ namespace Assets.Core
         public static void LoadGameData(GameContext gameContext)
         {
             ClearEntities();
-
             LoadEntities(gameContext);
+
+            var MyCompany = Companies.GetPlayerCompany(gameContext);
+            var playerFlagship = Companies.GetFlagship(gameContext, MyCompany) ?? null;
+
+            ScreenUtils.SetSelectedHuman(gameContext, ScreenUtils.GetPlayer(gameContext).human.Id);
+            ScreenUtils.SetSelectedCompany(gameContext, Companies.GetPlayerFlagshipID(gameContext));
+
+            ScreenUtils.SetSelectedNiche(gameContext, NicheType.Com_Blogs);
         }
 
         public static void LoadEntities(GameContext gameContext)

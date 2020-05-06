@@ -65,11 +65,9 @@ public class HumanCorporateCulturePreference : ParameterView
 
         switch (policy)
         {
-            case CorporatePolicy.BuyOrCreate: return DescribeAcquisitionPolicy(isLeft);
+            //case CorporatePolicy.Make: return DescribeAcquisitionPolicy(isLeft);
             case CorporatePolicy.FocusingOrSpread: return DescribeFocusingPolicy(isLeft);
-            case CorporatePolicy.LeaderOrTeam: return DescribeLeadership(isLeft);
             case CorporatePolicy.SalariesLowOrHigh: return DescribeSalaries(isLeft);
-            case CorporatePolicy.InnovationOrStability: return DescribeMentality(isLeft);
             case CorporatePolicy.CompetitionOrSupport: return DescribeAttitudeToCompetition(isLeft);
 
             default: return policy.ToString() + ": " + value;
