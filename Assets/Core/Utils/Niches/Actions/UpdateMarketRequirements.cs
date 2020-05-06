@@ -24,8 +24,13 @@ namespace Assets.Core
                 var player = Companies.GetPlayerCompany(gameContext);
                 var daughters = Companies.GetDaughterCompaniesAmount(player, gameContext);
 
+
                 //if (Companies.IsInPlayerSphereOfInterest(product, gameContext) && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1)
                 //    NotificationUtils.AddPopup(gameContext, new PopupMessageInnovation(product.company.Id, clientChange));
+
+                // && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1
+                if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
+                    NotificationUtils.AddNotification(gameContext, new NotificationMessageInnovation(product.company.Id, newLevel));
 
                 niche.ReplaceSegment(newLevel);
 

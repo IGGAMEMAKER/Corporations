@@ -11,6 +11,7 @@ namespace Assets.Core
             company.AddProductUpgrades(new Dictionary<ProductUpgrade, bool>
             {
                 [ProductUpgrade.SimpleConcept] = true,
+                [ProductUpgrade.PlatformWeb] = true,
             });
 
             // positioning

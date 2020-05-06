@@ -27,6 +27,11 @@ public class NotificationView : View,
                     .Render(notificationMessage as NotificationMessageNewCompany, Title, Description, LinkToEvent);
                 break;
 
+            case NotificationType.InnovationOnNiche:
+                gameObject.AddComponent<NotificationRendererMarketInnovation>()
+                    .Render(notificationMessage as NotificationMessageInnovation, Title, Description, LinkToEvent);
+                break;
+
             case NotificationType.InvestmentRoundStarted:
                 gameObject.AddComponent<NotificationRendererInvestmentRound>()
                     .Render(notificationMessage as NotificationMessageInvestmentRoundStarted, Title, Description, LinkToEvent);

@@ -8,6 +8,7 @@ public class RenderMainScreenTabButtons : View
 {
     public GameObject DevTab;
     public GameObject TeamTab;
+    public GameObject UpgradesTab;
     public GameObject GroupTab;
     public GameObject ExpansionTab;
 
@@ -47,7 +48,8 @@ public class RenderMainScreenTabButtons : View
         Draw(DevTab, true);
         Draw(Messages, false);
         Draw(TeamTab, showTeamTab);
-        TeamTab.GetComponentInChildren<TextMeshProUGUI>().text = GetTeamTabLabel();
+        Draw(UpgradesTab, showTeamTab);
+        //TeamTab.GetComponentInChildren<TextMeshProUGUI>().text = GetTeamTabLabel();
 
         Draw(GroupTab, showGroupTab);
         Draw(ExpansionTab, showExpansionTab);

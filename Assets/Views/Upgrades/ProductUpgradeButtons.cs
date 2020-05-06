@@ -13,9 +13,13 @@ public class ProductUpgradeButtons : View
     public GameObject SupportCheckbox2;
     public GameObject SupportCheckbox3;
 
-    public GameObject Monetisation;
-    public GameObject Monetisation2;
-    public GameObject Monetisation3;
+    //public GameObject Monetisation;
+    //public GameObject Monetisation2;
+    //public GameObject Monetisation3;
+    public GameObject PlatformLabel;
+    public GameObject MarketingLabel;
+    public GameObject DecisionsLabel;
+    public GameObject SupportLabel;
 
     public GameObject CreateSupportTeam;
     public GameObject CreateQATeam;
@@ -75,9 +79,9 @@ public class ProductUpgradeButtons : View
         Draw(SupportCheckbox2, greedyMode && preReleaseOrLater && SupportTeamCreated);
         Draw(SupportCheckbox3, greedyMode && preReleaseOrLater && SupportTeamCreated);
 
-        Draw(Monetisation, greedyMode && preReleaseOrLater && !CoreTeamCreated);
-        Draw(Monetisation2, greedyMode && preReleaseOrLater && CoreTeamCreated && !SupportTeamCreated);
-        Draw(Monetisation3, greedyMode && preReleaseOrLater && CoreTeamCreated && !QATeamCreated);
+        Draw(CreateCoreTeam, greedyMode && preReleaseOrLater && !CoreTeamCreated);
+        Draw(CreateSupportTeam, greedyMode && preReleaseOrLater && CoreTeamCreated && !SupportTeamCreated);
+        Draw(CreateQATeam, greedyMode && preReleaseOrLater && CoreTeamCreated && !QATeamCreated);
 
         Draw(QA, greedyMode && preReleaseOrLater && QATeamCreated);
         Draw(QA2, greedyMode && preReleaseOrLater && QATeamCreated);

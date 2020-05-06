@@ -44,6 +44,20 @@ public class NotificationMessageBankruptcy : NotificationMessage
     }
 }
 
+public class NotificationMessageInnovation : NotificationMessage
+{
+    public int CompanyId;
+    public int Level;
+
+    public NotificationMessageInnovation(int CompanyId, int level)
+    {
+        NotificationType = NotificationType.InnovationOnNiche;
+
+        this.CompanyId = CompanyId;
+        this.Level = level;
+    }
+}
+
 public class NotificationMessageNewCompany : NotificationMessage
 {
     public int CompanyId;
