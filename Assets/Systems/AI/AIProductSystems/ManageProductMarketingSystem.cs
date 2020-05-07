@@ -70,33 +70,6 @@ public partial class ManageMarketingFinancingSystem : OnPeriodChange
         balance = CheckCosts(product, tier1, balance);
         balance = CheckCosts(product, tier2, balance);
         balance = CheckCosts(product, tier3, balance);
-
-        //var brandingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.BrandCampaign);
-        //var targetingCost = Products.GetUpgradeCost(product, gameContext, ProductUpgrade.TargetingCampaign);
-
-        //// targeting
-        //if (targetingCost < balance)
-        //{
-        //    Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, true);
-        //    balance -= targetingCost;
-        //}
-        //else
-        //{
-        //    Products.SetUpgrade(product, ProductUpgrade.TargetingCampaign, gameContext, false);
-        //}
-
-        //// copy pasted
-        //// TODO move to separate function
-        //// branding
-        //if (brandingCost < balance)
-        //{
-        //    Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, true);
-        //    balance -= brandingCost;
-        //}
-        //else
-        //{
-        //    Products.SetUpgrade(product, ProductUpgrade.BrandCampaign, gameContext, false);
-        //}
     }
 
     void ManagePrototypes(GameEntity product)

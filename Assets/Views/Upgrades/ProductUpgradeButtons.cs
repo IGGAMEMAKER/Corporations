@@ -13,9 +13,6 @@ public class ProductUpgradeButtons : View
     public GameObject SupportCheckbox2;
     public GameObject SupportCheckbox3;
 
-    //public GameObject Monetisation;
-    //public GameObject Monetisation2;
-    //public GameObject Monetisation3;
     public GameObject PlatformLabel;
     public GameObject MarketingLabel;
     public GameObject DecisionsLabel;
@@ -42,7 +39,10 @@ public class ProductUpgradeButtons : View
 
     public ReleaseApp ReleaseApp;
 
-
+    bool CanEnable(GameEntity company, ProductUpgrade upgrade)
+    {
+        return Products.CanEnable(company, Q, upgrade);
+    }
 
     void Render(GameEntity company)
     {
@@ -63,39 +63,35 @@ public class ProductUpgradeButtons : View
 
         // goal defined stuff
         // ----------------------
-        bool preReleaseOrLater = goal >= InvestorGoal.Release;
-        bool showAfterRelease = company.isRelease;
 
-        bool QATeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateQATeam);
-        bool CoreTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateManagementTeam);
-        bool SupportTeamCreated = Products.IsUpgradeEnabled(company, ProductUpgrade.CreateSupportTeam);
 
-        Draw(WebCheckbox,           greedyMode && showAfterRelease);
-        Draw(MobileIOSCheckbox,     greedyMode && showAfterRelease);
-        Draw(MobileAndroidCheckbox, greedyMode && showAfterRelease);
-        Draw(DesktopCheckbox,       greedyMode && showAfterRelease);
 
-        Draw(SupportCheckbox, greedyMode && preReleaseOrLater && SupportTeamCreated);
-        Draw(SupportCheckbox2, greedyMode && preReleaseOrLater && SupportTeamCreated);
-        Draw(SupportCheckbox3, greedyMode && preReleaseOrLater && SupportTeamCreated);
+        Draw(SupportCheckbox,           CanEnable(company, ProductUpgrade.Support));
+        Draw(SupportCheckbox2,          CanEnable(company, ProductUpgrade.Support2));
+        Draw(SupportCheckbox3,          CanEnable(company, ProductUpgrade.Support3));
 
-        Draw(CreateCoreTeam, greedyMode && preReleaseOrLater && !CoreTeamCreated);
-        Draw(CreateSupportTeam, greedyMode && preReleaseOrLater && CoreTeamCreated && !SupportTeamCreated);
-        Draw(CreateQATeam, greedyMode && preReleaseOrLater && CoreTeamCreated && !QATeamCreated);
+        Draw(CreateCoreTeam,            CanEnable(company, ProductUpgrade.CreateManagementTeam));
+        Draw(CreateSupportTeam,         CanEnable(company, ProductUpgrade.CreateSupportTeam));
+        Draw(CreateQATeam,              CanEnable(company, ProductUpgrade.CreateQATeam));
 
-        Draw(QA, greedyMode && preReleaseOrLater && QATeamCreated);
-        Draw(QA2, greedyMode && preReleaseOrLater && QATeamCreated);
-        Draw(QA3, greedyMode && preReleaseOrLater && QATeamCreated);
+        Draw(QA,                        CanEnable(company, ProductUpgrade.QA));
+        Draw(QA2,                       CanEnable(company, ProductUpgrade.QA2));
+        Draw(QA3,                       CanEnable(company, ProductUpgrade.QA3));
 
         // release stuff
         // -------------
-        Draw(TargetingCampaignCheckbox,  company.isRelease && marketState >= MarketState.Innovation);
-        Draw(TargetingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
-        Draw(TargetingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
+        Draw(WebCheckbox,               CanEnable(company, ProductUpgrade.PlatformWeb));
+        Draw(MobileIOSCheckbox,         CanEnable(company, ProductUpgrade.PlatformMobileIOS));
+        Draw(MobileAndroidCheckbox,     CanEnable(company, ProductUpgrade.PlatformMobileAndroid));
+        Draw(DesktopCheckbox,           CanEnable(company, ProductUpgrade.PlatformDesktop));
 
-        Draw(BrandingCampaignCheckbox,  company.isRelease && marketState >= MarketState.Innovation);
-        Draw(BrandingCampaignCheckbox2, company.isRelease && marketState >= MarketState.Trending);
-        Draw(BrandingCampaignCheckbox3, company.isRelease && marketState >= MarketState.MassGrowth);
+        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign));
+        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2));
+        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3));
+
+        Draw(BrandingCampaignCheckbox,  CanEnable(company, ProductUpgrade.BrandCampaign));
+        Draw(BrandingCampaignCheckbox2, CanEnable(company, ProductUpgrade.BrandCampaign2));
+        Draw(BrandingCampaignCheckbox3, CanEnable(company, ProductUpgrade.BrandCampaign3));
     }
 
     public override void ViewRender()

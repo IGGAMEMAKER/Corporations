@@ -52,7 +52,7 @@ namespace Assets.Core
 
 
                 var rng = Random.Range(averageStrength - 25, averageStrength + 10);
-                var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 80);
+                var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 75);
 
                 Humans.ResetSkills(worker, rating);
                 #endregion

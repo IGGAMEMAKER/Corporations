@@ -62,7 +62,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
 
         if (cost != 0)
         {
-            text += "This will cost you " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
+            text += "Cost: " + Visuals.Colorize(Format.Money(cost), Economy.IsCanMaintain(MyCompany, Q, cost));
         }
 
         var workers = GetAmountOfWorkers();

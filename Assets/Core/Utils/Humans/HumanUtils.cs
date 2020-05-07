@@ -68,9 +68,9 @@ namespace Assets.Core
             worker.ReplaceWorker(companyId, workerRole);
 
             if (!worker.hasHumanCompanyRelationship)
-                worker.AddHumanCompanyRelationship(0, 100);
+                worker.AddHumanCompanyRelationship(0, 50);
             else
-                worker.ReplaceHumanCompanyRelationship(0, 100);
+                worker.ReplaceHumanCompanyRelationship(0, 50);
         }
 
         public static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));

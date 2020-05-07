@@ -35,44 +35,64 @@ namespace Assets.Core
         {
             var bonus = new Bonus<int>("Loyalty");
 
-            var preferences = worker.corporateCulture.Culture;
-
-            var importantPolicies = GetImportantCorporatePolicies();
-
-            bonus.Append("Base value", -3);
-
-            foreach (var p in importantPolicies)
-            {
-                var diff = preferences[p] - culture[p];
-
-                var module = Math.Abs(diff);
-                bool suits = module < 3;
-
-                bool hates = module > 6;
-
-                if (suits)
-                    bonus.Append(p.ToString(), 2);
-
-                if (hates)
-                    bonus.Append(p.ToString(), -3);
-            }
-
+            bonus.Append("Base value", 1);
 
             var role = worker.worker.WorkerRole;
 
+            // corporate culture
+            ApplyCorporateCultureInfluenceLoyalty(company, gameContext, ref bonus, worker);
+
             // same role workers
+            ApplyDuplicateWorkersLoyalty(company, gameContext, ref bonus, worker, role);
+
+            // incompetent leader
+            ApplyCEOLoyalty(company, gameContext, ref bonus, worker, role);
+
+            // no possibilities to grow
+
+
+            return bonus;
+        }
+
+        private static void ApplyDuplicateWorkersLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
+        {
             bool hasDuplicateWorkers = company.team.Managers.Values.Count(r => r == role) > 1;
 
             if (hasDuplicateWorkers)
                 bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
+        }
 
-            //
-            // incompetent leader
-            var CEO = Teams.GetWorkerByRole(company, role, gameContext);
+        private static void ApplyCorporateCultureInfluenceLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker)
+        {
+            var preferences = worker.corporateCulture.Culture;
+
+            var importantPolicies = GetImportantCorporatePolicies();
+
+
+            //foreach (var p in importantPolicies)
+            //{
+            //    var diff = preferences[p] - culture[p];
+
+            //    var module = Math.Abs(diff);
+            //    bool suits = module < 3;
+
+            //    bool hates = module > 6;
+
+            //    if (suits)
+            //        bonus.Append(p.ToString(), 2);
+
+            //    if (hates)
+            //        bonus.Append(p.ToString(), -3);
+            //}
+        }
+
+        private static void ApplyCEOLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
+        {
+            var CEO = Teams.GetWorkerByRole(company, WorkerRole.CEO, gameContext);
 
             if (CEO == null)
             {
-                bonus.Append("No CEO", -10);
+                bonus.Append("No CEO", -4);
             }
 
             if (CEO != null && role != WorkerRole.CEO)
@@ -81,11 +101,8 @@ namespace Assets.Core
                 var workerRating = Humans.GetRating(worker);
 
                 if (CEORating < workerRating)
-                    bonus.Append($"Incompetent CEO (CEO rating less than {workerRating})", -2);
+                    bonus.Append($"Incompetent CEO (CEO rating less than {workerRating})", -1);
             }
-
-
-            return bonus;
         }
     }
 }
