@@ -1,8 +1,6 @@
-﻿using Assets;
-using Assets.Core;
+﻿using Assets.Core;
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 

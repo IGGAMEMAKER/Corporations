@@ -12,7 +12,7 @@ public class Hint : MonoBehaviour
 
     bool isHovered;
     private int fontSize = 27;
-    private int textSize = 18;
+    private int textSize = 23; // 18
     int renderingDepth = 50;
 
 
@@ -52,8 +52,8 @@ public class Hint : MonoBehaviour
         float offsetY = 15f;
 
 
-        float contentWidth = 225f;
-        float contentHeight = 300f;
+        float contentWidth = 300f; // 225
+        float contentHeight = 400f; // 300
 
         float rightSideOfScreenOffset = 0;
         float verticalScreenOffset = 0;
@@ -117,6 +117,7 @@ public class Hint : MonoBehaviour
             currentStyle = new GUIStyle(GUI.skin.box);
             currentStyle.wordWrap = true;
             currentStyle.fontSize = textSize;
+            //currentStyle.font = Resources.Load()
             currentStyle.normal.background = BackgroundTexture;
         }
     }
