@@ -165,20 +165,10 @@ public class MenuController : View
             [ScreenMode.MessageScreen] = MessageScreen,
         };
 
-        //PrefabStage.prefabSaved += PrefabStage_prefabSaved;
-
-        DisableAllScreens();
+        //DisableAllScreens();
         
         EnableScreen(ScreenMode.NicheScreen);
     }
-
-    void PrefabStage_prefabSaved(GameObject obj)
-    {
-        Debug.Log("Prefab edited: " + obj.name);
-
-        ReloadPrefabs();
-    }
-
 
     public override void ViewRender()
     {
@@ -192,7 +182,7 @@ public class MenuController : View
         try
         {
             if (Screens != null && Screens.ContainsKey(screen))
-                Screens[screen].SetActive(state);
+                Draw(Screens[screen], state);
         }
         catch
         {
@@ -215,36 +205,6 @@ public class MenuController : View
 
     //[ExecuteInEditMode]
     
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Refreshing screen/prefab");
-
-            ScreenUtils.UpdateScreen(Q);
-            //ReloadPrefabs();
-        }
-    }
-
-    void ReloadPrefabs()
-    {
-        foreach (var s in PrefabScreens)
-        {
-            var screen = s.Key;
-
-            // greedyMode
-            if (Screens.ContainsKey(screen))
-            {
-                Destroy(Screens[screen]);
-            }
-
-            var p = Instantiate(PrefabScreens[screen]);
-            Screens[screen] = p;
-        }
-
-        EnableScreen(CurrentScreen);
-    }
 
     void DisableAllScreens()
     {

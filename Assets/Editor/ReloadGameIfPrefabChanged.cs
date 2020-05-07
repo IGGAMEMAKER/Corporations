@@ -18,12 +18,15 @@ class CustomPrefabEnvironment
     {
         Debug.Log("Prefab edited: " + obj.name);
 
-        SceneManager.UnloadScene(1);
-        //State.LoadGameScene();
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        if (Application.isPlaying)
+        {
+            SceneManager.UnloadScene(1);
+            //State.LoadGameScene();
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
 
-        //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
-        //StartCorutine
+            //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
+            //StartCorutine
+        }
     }
 
     IEnumerable RefreshScreen()

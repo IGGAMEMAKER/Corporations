@@ -7,14 +7,14 @@ public class NotificationRendererBankruptcy : NotificationRenderer<NotificationM
     {
         var name = Companies.Get(Q, message.CompanyId).company.Name;
 
-        return $"Company {name} is DEAD! Everything has it's lifespan...";
+        return $"Company {name} is BANKRUPT! Everything has it's lifespan...";
     }
 
     public override string GetTitle(NotificationMessageBankruptcy message)
     {
         var name = Companies.Get(Q, message.CompanyId).company.Name;
 
-        return $"Company {name} is DEAD!";
+        return $"Company {name} is BANKRUPT!";
     }
 
     public override void SetLink(NotificationMessageBankruptcy message, GameObject LinkToEvent)

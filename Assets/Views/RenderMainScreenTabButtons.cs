@@ -52,7 +52,7 @@ public class RenderMainScreenTabButtons : View
         //TeamTab.GetComponentInChildren<TextMeshProUGUI>().text = GetTeamTabLabel();
 
         Draw(GroupTab, showGroupTab);
-        Draw(ExpansionTab, showExpansionTab);
+        Draw(ExpansionTab, false && showExpansionTab);
         Draw(CompetitorsTab, showCompetitors);
 
         Draw(CorporateCulture, showCultureTab && false);

@@ -18,6 +18,9 @@ public class RenderMenuButtons : View
     public GameObject Investments;
     public Image InvestmentsIcon;
 
+    public GameObject ExploreMarkets;
+    public GameObject Partnerships;
+
     public GameObject Separator1;
 
     public GameObject Quit;
@@ -32,7 +35,7 @@ public class RenderMenuButtons : View
         bool isFirstYear = CurrentIntDate < 360;
 
         bool showStats = !isFirstYear;
-        bool showMessages = false && hasProduct;
+        bool showMessages = hasProduct;
 
 
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
@@ -44,21 +47,23 @@ public class RenderMenuButtons : View
 
         //var canRaiseInvestments = !isRoundActive ;
         var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
-
+        var isOnMainScreen = CurrentScreen == ScreenMode.HoldingScreen;
         //
-        Main.SetActive(hasProduct);
-        Stats.SetActive(showStats);
+        Draw(Main, hasProduct);
+        Draw(Stats, showStats && isOnMainScreen);
 
         // messages
-        Messages.SetActive(showMessages);
+        Draw(Messages, false && showMessages);
 
         // culture
         CultureIcon.color = Visuals.GetColorFromString(hasCultureCooldown ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Culture.SetActive(false && hasProduct && hasReleasedProducts && !hasCultureCooldown);
+        Draw(Culture, false && hasProduct && hasReleasedProducts && !hasCultureCooldown);
 
 
         // investments
         //InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Investments.SetActive(hasProduct && canRaiseInvestments);
+        Draw(Investments, hasProduct && canRaiseInvestments && isOnMainScreen);
+        Draw(ExploreMarkets, playerCanExploreAdvancedTabs && isOnMainScreen);
+        Draw(Partnerships, playerCanExploreAdvancedTabs && isOnMainScreen);
     }
 }
