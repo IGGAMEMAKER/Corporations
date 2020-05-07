@@ -30,7 +30,7 @@ public class NotificationsListView : ListView
         var oneItemFlag = GetComponent<RenderOneElementFlag>() != null;
         if (oneItemFlag)
         {
-            SetItems(notifications.GetRange(0, 5));
+            SetItems(notifications.GetRange(0, notifications.Count > 5 ? 5 : notifications.Count));
         }
         else
         {

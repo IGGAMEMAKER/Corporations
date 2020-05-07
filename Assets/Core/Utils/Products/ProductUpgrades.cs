@@ -81,7 +81,7 @@ namespace Assets.Core
 
         public static void SetUpgrade(GameEntity product, ProductUpgrade upgrade, GameContext gameContext, bool state)
         {
-            if (!CanEnable(product, gameContext, upgrade))
+            if (state && !CanEnable(product, gameContext, upgrade))
                 return;
 
             product.productUpgrades.upgrades[upgrade] = state;

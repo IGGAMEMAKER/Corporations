@@ -33,8 +33,6 @@ namespace Assets.Core
 
         private static int GetNecessaryAmountOfProgrammers(GameEntity e, GameContext gameContext)
         {
-            var upgrades = e.productUpgrades.upgrades;
-
             var niche       = Markets.Get(gameContext, e);
             var complexity  = (int)niche.nicheBaseProfile.Profile.AppComplexity;
             var concept     = Products.GetProductLevel(e);
@@ -53,15 +51,6 @@ namespace Assets.Core
 
             return baseValue * platformMultiplier;
         }
-
-        //public static int GetPlatformProgrammersMultiplier(GameEntity product, GameContext gameContext)
-        //{
-        //    var upgrades = product.productUpgrades.upgrades;
-
-        //    var platforms = 0;
-
-        //    if (IsUpgradeEnabled(product, ProductUpgrade.PlatformDesktop))
-        //}
 
         private static int GetNecessaryAmountOfMarketers(GameEntity e, GameContext gameContext)
         {

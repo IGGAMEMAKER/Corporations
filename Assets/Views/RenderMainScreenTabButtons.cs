@@ -55,10 +55,10 @@ public class RenderMainScreenTabButtons : View
         Draw(ExpansionTab, showExpansionTab);
         Draw(CompetitorsTab, showCompetitors);
 
-        Draw(CorporateCulture, showCultureTab);
+        Draw(CorporateCulture, showCultureTab && false);
         CorporateCulture.GetComponentInChildren<TextMeshProUGUI>().text = GetCorporateCultureLabel();
 
-        Draw(Investments, showInvestmentsTab);
+        Draw(Investments, false && showInvestmentsTab);
         Investments.GetComponentInChildren<TextMeshProUGUI>().text = GetInvestmentRoundLabel();
     }
 

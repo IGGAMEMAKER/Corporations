@@ -16,7 +16,7 @@
 
         // products
         Add(new AutoUpgradeProductsSystem(contexts));
-        Add(new ManageMarketingFinancingSystem(contexts));
+        Add(new ManageProductFinancingSystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
 
         // expansion

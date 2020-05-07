@@ -31,9 +31,21 @@ public class RenderMenuButtons : View
 
         bool isFirstYear = CurrentIntDate < 360;
 
-        bool showStats = false && !isFirstYear;
+        bool showStats = !isFirstYear;
         bool showMessages = false && hasProduct;
 
+
+        var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
+
+        bool isRoundActive = MyCompany.hasAcceptsInvestments;
+
+        var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
+
+        //var canRaiseInvestments = !isRoundActive ;
+        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
+
+        //
         Main.SetActive(hasProduct);
         Stats.SetActive(showStats);
 
@@ -41,15 +53,12 @@ public class RenderMenuButtons : View
         Messages.SetActive(showMessages);
 
         // culture
-        var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
         CultureIcon.color = Visuals.GetColorFromString(hasCultureCooldown ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
         Culture.SetActive(false && hasProduct && hasReleasedProducts && !hasCultureCooldown);
 
 
         // investments
-        bool isRoundActive = MyCompany.hasAcceptsInvestments;
-        var canRaiseInvestments = !isRoundActive;
         //InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        //Investments.SetActive(false && hasProduct && canRaiseInvestments);
+        Investments.SetActive(hasProduct && canRaiseInvestments);
     }
 }
