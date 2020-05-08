@@ -18,7 +18,8 @@ namespace Assets.Core
 
                 // innovation
                 //var clientChange = GiveInnovationBenefits(product, gameContext, revolution);
-                Marketing.AddBrandPower(product, revolution ? C.REVOLUTION_BRAND_POWER_GAIN : C.INNOVATION_BRAND_POWER_GAIN);
+                var brandGain = revolution ? C.REVOLUTION_BRAND_POWER_GAIN : C.INNOVATION_BRAND_POWER_GAIN;
+                Marketing.AddBrandPower(product, brandGain);
 
                 // notify about innovation
                 var player = Companies.GetPlayerCompany(gameContext);
@@ -30,7 +31,7 @@ namespace Assets.Core
 
                 // && Markets.GetCompetitorsAmount(product, gameContext) > 1 && daughters == 1
                 if (Companies.IsInPlayerSphereOfInterest(product, gameContext))
-                    NotificationUtils.AddNotification(gameContext, new NotificationMessageInnovation(product.company.Id, newLevel));
+                    NotificationUtils.AddNotification(gameContext, new NotificationMessageInnovation(product.company.Id, newLevel, revolution, 0, brandGain));
 
                 niche.ReplaceSegment(newLevel);
 

@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class RenderFlagshipAudienceGrowth : View
 {
+    public Text Text;
+    public Animation Animation;
+
     public override void ViewRender()
     {
         base.ViewRender();
 
-        var anim = GetComponent<Animation>();
-        
-        anim.Play();
+        Animation.Play();
 
-        var text = GetComponent<Text>();
         var growth = Marketing.GetAudienceGrowth(Flagship, Q);
 
-        text.text = Format.Sign(growth, true);
-        text.color = Visuals.GetColorPositiveOrNegative(growth > 0);
+        Text.text = Format.Sign(growth, true);
+        Text.color = Visuals.GetColorPositiveOrNegative(growth > 0);
     }
 }

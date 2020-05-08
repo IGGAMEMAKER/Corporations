@@ -48,13 +48,20 @@ public class NotificationMessageInnovation : NotificationMessage
 {
     public int CompanyId;
     public int Level;
+    public bool Revolution;
+    public long ClientGain;
+    public int BrandGain;
 
-    public NotificationMessageInnovation(int CompanyId, int level)
+    public NotificationMessageInnovation(int CompanyId, int level, bool revolution, long clientGain, int brandGain)
     {
         NotificationType = NotificationType.InnovationOnNiche;
 
         this.CompanyId = CompanyId;
         this.Level = level;
+
+        this.Revolution = revolution;
+        this.ClientGain = clientGain;
+        this.BrandGain = brandGain;
     }
 }
 

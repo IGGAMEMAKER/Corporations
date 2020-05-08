@@ -5,7 +5,11 @@ public class NotificationRendererMarketInnovation : NotificationRenderer<Notific
 {
     public override string GetTitle(NotificationMessageInnovation message)
     {
-        return $"{Companies.Get(Q, message.CompanyId).company.Name} has reached {message.Level}LVL!";
+        var product = Companies.Get(Q, message.CompanyId);
+
+        var status = message.Revolution ? "REVOLUTIONAIRE" : "innovator";
+
+        return $"{product.company.Name} is {status} ({message.Level}LVL). This comapny will get {message.BrandGain} Brand Power"; // {}LVL!
     }
 
     public override string GetDescription(NotificationMessageInnovation message)
@@ -27,7 +31,15 @@ public class NotificationRendererMarketInnovation : NotificationRenderer<Notific
         var c = Companies.Get(Q, message.CompanyId);
 
         bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
-        var colName = isCompetitor ? Colors.COLOR_POSITIVE : Colors.COLOR_PANEL_BASE;
+        bool isPlayerRelated = Companies.IsRelatedToPlayer(Q, c);
+
+        var colName = Colors.COLOR_PANEL_BASE;
+
+        if (isCompetitor)
+            colName = Colors.COLOR_NEGATIVE;
+
+        if (isPlayerRelated)
+            colName = Colors.COLOR_POSITIVE;
 
         return Visuals.GetColorFromString(colName);
     }
