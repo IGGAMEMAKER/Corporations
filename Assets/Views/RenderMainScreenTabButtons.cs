@@ -47,7 +47,7 @@ public class RenderMainScreenTabButtons : View
         
         Draw(DevTab, true);
         Draw(Messages, false);
-        Draw(TeamTab, showTeamTab);
+        Draw(TeamTab, false && showTeamTab);
         Draw(UpgradesTab, showTeamTab);
         //TeamTab.GetComponentInChildren<TextMeshProUGUI>().text = GetTeamTabLabel();
 
