@@ -10,6 +10,16 @@ public class NotificationRendererBankruptcy : NotificationRenderer<NotificationM
         return $"Company {name} is BANKRUPT! Everything has it's lifespan...";
     }
 
+    public override Color GetNewsColor(NotificationMessageBankruptcy message)
+    {
+        var c = Companies.Get(Q, message.CompanyId);
+
+        bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
+        var colName = isCompetitor ? Colors.COLOR_POSITIVE : Colors.COLOR_PANEL_BASE;
+
+        return Visuals.GetColorFromString(colName);
+    }
+
     public override string GetTitle(NotificationMessageBankruptcy message)
     {
         var name = Companies.Get(Q, message.CompanyId).company.Name;
@@ -28,6 +38,16 @@ public class NotificationRendererAcquisition : NotificationRenderer<Notification
     public override string GetDescription(NotificationMessageBuyingCompany message)
     {
         return GetTitle(message);
+    }
+
+    public override Color GetNewsColor(NotificationMessageBuyingCompany message)
+    {
+        var c = Companies.Get(Q, message.CompanyId);
+
+        bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
+        var colName = isCompetitor ? Colors.COLOR_NEGATIVE : Colors.COLOR_PANEL_BASE;
+
+        return Visuals.GetColorFromString(colName);
     }
 
     public override string GetTitle(NotificationMessageBuyingCompany message)
@@ -63,5 +83,15 @@ public class NotificationRendererPromoteCompany : NotificationRenderer<Notificat
     public override void SetLink(NotificationMessageCompanyTypeChange message, GameObject LinkToEvent)
     {
         LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
+    }
+
+    public override Color GetNewsColor(NotificationMessageCompanyTypeChange message)
+    {
+        var c = Companies.Get(Q, message.CompanyId);
+
+        bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
+        var colName = isCompetitor ? Colors.COLOR_NEGATIVE : Colors.COLOR_PANEL_BASE;
+
+        return Visuals.GetColorFromString(colName);
     }
 }

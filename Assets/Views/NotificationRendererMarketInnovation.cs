@@ -21,4 +21,14 @@ public class NotificationRendererMarketInnovation : NotificationRenderer<Notific
     {
         LinkToEvent.AddComponent<LinkToProjectView>().CompanyId = message.CompanyId;
     }
+
+    public override Color GetNewsColor(NotificationMessageInnovation message)
+    {
+        var c = Companies.Get(Q, message.CompanyId);
+
+        bool isCompetitor = Companies.IsCompetingCompany(MyCompany, c, Q);
+        var colName = isCompetitor ? Colors.COLOR_POSITIVE : Colors.COLOR_PANEL_BASE;
+
+        return Visuals.GetColorFromString(colName);
+    }
 }

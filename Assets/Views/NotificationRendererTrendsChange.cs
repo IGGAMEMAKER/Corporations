@@ -40,15 +40,11 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         switch (phase)
         {
             case MarketState.Death:
-                description = "People don't need them anymore and they will stop using the product. You'd better search new opportunities";
+                description = "People don't need them anymore and they will stop using these products. You'd better search new opportunities";
                 break;
 
             case MarketState.Decay:
                 description = $"New users don't arrive anymore and we need to keep existing ones as long as possible";
-                break;
-
-            case MarketState.Innovation:
-                description = $"Maybe it is the next big thing?";
                 break;
 
             case MarketState.MassGrowth:
@@ -57,6 +53,10 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
 
             case MarketState.Trending:
                 description = $"We need to be quick if we want to make benefit from them";
+                break;
+
+            case MarketState.Innovation:
+                description = $"Maybe it is the next big thing?";
                 break;
         }
 
@@ -94,4 +94,8 @@ public class NotificationRendererTrendsChange : NotificationRenderer<Notificatio
         return $"TRENDS change: {description}";
     }
 
+    public override Color GetNewsColor(NotificationMessageTrendsChange message)
+    {
+        return Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
+    }
 }
