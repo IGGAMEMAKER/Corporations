@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Core;
+using System.Collections.Generic;
 
 public class LazyUpdate : Controller
     , IDateListener
@@ -7,6 +8,9 @@ public class LazyUpdate : Controller
 {
     [UnityEngine.Header("Everyday changes")]
     public bool DateChanges = true;
+
+    [UnityEngine.Header("Periodical changes")]
+    public bool OnPeriodChange = false;
 
     [UnityEngine.Header("Button clicks")]
     public bool MenuChanges = true;
@@ -40,7 +44,8 @@ public class LazyUpdate : Controller
 
     public void OnDate(GameEntity entity, int date)
     {
-        Render();
+        if (!OnPeriodChange || (OnPeriodChange && ScheduleUtils.IsPeriodEnd(Q)))
+            Render();
     }
 
     public void OnMenu(GameEntity entity, ScreenMode screenMode, Dictionary<string, object> data)
