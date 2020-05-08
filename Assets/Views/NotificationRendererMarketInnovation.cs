@@ -9,7 +9,7 @@ public class NotificationRendererMarketInnovation : NotificationRenderer<Notific
 
         var status = message.Revolution ? "REVOLUTIONAIRE" : "innovator";
 
-        return $"{product.company.Name} is {status} ({message.Level}LVL). This comapny will get {message.BrandGain} Brand Power"; // {}LVL!
+        return $"{product.company.Name} is {status} ({message.Level}LVL)!\nThis company will get {message.BrandGain} Brand Power"; // {}LVL!
     }
 
     public override string GetDescription(NotificationMessageInnovation message)

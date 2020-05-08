@@ -37,7 +37,9 @@ public class ProductsOnMarketList : ListView
 
         if (canViewCompetitors)
         {
-            var products = Markets.GetProductsOnMarket(Q, Niche).OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
+            var products = Markets.GetProductsOnMarket(Q, Niche)
+                //.OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
+                .OrderByDescending(p => Marketing.GetClients(p));
 
             SetItems(products);
             return;

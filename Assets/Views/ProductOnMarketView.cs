@@ -98,18 +98,23 @@ public class ProductOnMarketView : View
 
     void RenderConceptProgress(long clients, long maxClients, GameEntity company)
     {
-        // scale this view according to market share
-        var scale = clients * 1D / maxClients;
+        // new
+        //// scale this view according to market share
+        //var scale = clients * 1D / maxClients;
 
-        if (!Companies.IsHasReleasedProducts(Q, MyCompany))
-            scale = 1;
+        //if (!Companies.IsHasReleasedProducts(Q, MyCompany))
+        //    scale = 1;
 
-        //Debug.Log("Scale of " + company.company.Name + ": " + scale);
+        ////Debug.Log("Scale of " + company.company.Name + ": " + scale);
 
-        RectTransformExtensions.SetRight(ClientsRect, 750 * (float)(1 - scale));
+        //RectTransformExtensions.SetRight(ClientsRect, 750 * (float)(1 - scale));
 
+
+        // old
         //BackgroundRect.localScale = new Vector3(1, (float)scale, 1);
         //BackgroundRect.rect.height = 300 * clients / maxClients;
+
+
 
         var progress = GetComponent<DrawConceptProgress>();
         if (progress != null)
