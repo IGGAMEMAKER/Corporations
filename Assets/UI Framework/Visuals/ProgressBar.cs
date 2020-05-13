@@ -4,14 +4,22 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour {
     float progress;
-    Slider slider;
-
+    string description = "";
     float required = 100;
+
+
+    Slider slider;
 
     public Text Text;
 
     void Start () {
         progress = 0;
+        description = "";
+    }
+
+    public void SetDescription(string description)
+    {
+        this.description = description;
     }
 
     public void SetValue(float have, float requirement)
@@ -20,7 +28,8 @@ public class ProgressBar : MonoBehaviour {
 
         SetValue(have);
 
-        Text.text = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
+        var txt = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
+        SetText(txt);
     }
 
     public void SetValue(long have, long requirement)
@@ -29,7 +38,18 @@ public class ProgressBar : MonoBehaviour {
 
         SetValue(have);
 
-        Text.text = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
+        var txt = $"{Format.Minify(have)} / {Format.Minify(requirement)}";
+        SetText(txt);
+    }
+
+    void SetText(string txt)
+    {
+        if (Text != null)
+        {
+            Text.text = description.Length > 0 ?
+                $"{description} ({txt})"
+                : txt;
+        }
     }
 
     public void SetValue (float val)
@@ -42,6 +62,7 @@ public class ProgressBar : MonoBehaviour {
 
         slider.value = progress / required;
 
-        Text.text = (int)progress + "%";
+        var txt = (int)progress + "%";
+        SetText(txt);
     }
 }

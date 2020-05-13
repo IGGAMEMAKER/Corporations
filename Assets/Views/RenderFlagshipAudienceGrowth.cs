@@ -17,7 +17,7 @@ public class RenderFlagshipAudienceGrowth : View
 
         var growth = Marketing.GetAudienceGrowth(Flagship, Q);
 
-        Text.text = Format.Sign(growth, true);
+        Text.text = Format.Sign(growth, true) + " users";
         Text.color = Visuals.GetColorPositiveOrNegative(growth > 0);
     }
 }

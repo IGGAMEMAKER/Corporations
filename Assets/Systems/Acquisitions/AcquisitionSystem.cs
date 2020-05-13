@@ -10,6 +10,7 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        return;
         var offers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
 
         // companies, who are acquisition targets

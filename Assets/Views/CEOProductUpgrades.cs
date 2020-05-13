@@ -8,7 +8,7 @@ public class CEOProductUpgrades : CompanyUpgradeList
     {
         return new ProductUpgrade[]
         {
-            ProductUpgrade.TestCampaign, ProductUpgrade.PlatformDesktop
+            ProductUpgrade.TestCampaign
         };
     }
 }
