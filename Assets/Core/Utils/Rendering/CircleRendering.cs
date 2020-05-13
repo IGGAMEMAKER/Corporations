@@ -15,5 +15,14 @@ namespace Assets.Core
 
             return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
         }
+
+        public static Vector3 GetPointPositionOnArc(int index, int length, float radius, float order, float angleMin, float angleMax)
+        {
+            // deg
+            var angleDeg = angleMin + (angleMax - angleMin) * index / length;
+            var angle = angleDeg * Mathf.Deg2Rad;
+
+            return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+        }
     }
 }

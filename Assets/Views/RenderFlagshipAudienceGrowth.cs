@@ -4,20 +4,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RenderFlagshipAudienceGrowth : View
+public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 {
     public Text Text;
     public Animation Animation;
 
-    public override void ViewRender()
+    GameEntity company;
+
+    long previousClients;
+
+    void OnDestroy()
     {
-        base.ViewRender();
+        company.RemoveMarketingListener(this);
+    }
+    void OnDisable()
+    {
+        company.RemoveMarketingListener(this);
+    }
 
-        Animation.Play();
+    public void SetEntity(GameEntity company)
+    {
+        this.company = company;
 
-        var growth = Marketing.GetAudienceGrowth(Flagship, Q);
+        previousClients = Marketing.GetClients(company);
 
-        Text.text = Format.Sign(growth, true) + " users";
-        Text.color = Visuals.GetColorPositiveOrNegative(growth > 0);
+        company.AddMarketingListener(this);
+    }
+
+    void Render(long change)
+    {
+        if (Animation != null)
+        {
+            Animation.Play();
+
+            Text.text = Format.Sign(change, true) + " users";
+            Text.color = Visuals.GetColorPositiveOrNegative(change > 0);
+
+            //Text.gameObject.SetActive()
+        }
+    }
+
+    void IMarketingListener.OnMarketing(GameEntity entity, long clients)
+    {
+        var change = clients - previousClients;
+
+        Render(change);
+
+        previousClients = clients;
     }
 }

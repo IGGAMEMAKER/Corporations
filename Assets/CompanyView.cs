@@ -6,14 +6,19 @@ using UnityEngine.UI;
 
 public class CompanyView : View, IPointerClickHandler
 {
-    bool showWorkers = false;
+    bool expand = false;
     bool canEdit = false;
 
     GameEntity company;
 
+    [Header("Flagship Only")]
+    public RenderFlagshipCompetitorListView competitorListView;
 
     public GameObject Workers;
+    public RenderCompanyWorkerListView workerListView;
     public Text CompanyName;
+
+    public RenderCompanyAnimations Animations;
 
     RenderProductStatsInCompanyView _productStats;
     RenderProductStatsInCompanyView ProductStats
@@ -48,7 +53,9 @@ public class CompanyView : View, IPointerClickHandler
     {
         if (canEdit)
         {
-            showWorkers = !showWorkers;
+            expand = !expand;
+
+            competitorListView.RenderCompetitors(!expand);
         }
 
         Render();
@@ -56,7 +63,10 @@ public class CompanyView : View, IPointerClickHandler
 
     void Render()
     {
-        Draw(Workers, showWorkers);
+        Draw(Workers, expand);
+        workerListView.SetEntity(company);
+
+        Animations.SetEntity(company);
 
         CompanyName.text = company.company.Name;
 
@@ -68,7 +78,7 @@ public class CompanyView : View, IPointerClickHandler
 
     void OnDisable()
     {
-        showWorkers = false;
+        expand = false;
         Render();
     }
 }

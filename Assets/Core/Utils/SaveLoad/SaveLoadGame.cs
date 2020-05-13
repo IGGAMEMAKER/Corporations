@@ -62,6 +62,9 @@ namespace Assets.Core
                 while (e.hasNavigationHistoryListener)
                     e.RemoveNavigationHistoryListener();
 
+                while (e.hasMarketingListener)
+                    e.RemoveMarketingListener();
+
                 var comps = e.GetComponents()
                     //.Where(c => c.GetType() != typeof(IAnyDateListener))
                     //.Where(c => c.GetType() != typeof(IDateListener))
