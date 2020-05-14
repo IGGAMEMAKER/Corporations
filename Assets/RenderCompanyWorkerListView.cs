@@ -16,10 +16,11 @@ public class RenderCompanyWorkerListView : ListView
         var index = roles.FindIndex(r => r == role);
         var count = roles.Count;
 
-        var tr = Rendering.GetPointPositionOnArc(index, count, 350f, 1, 45, -90);
+        var tr = Rendering.GetPointPositionOnArc(index, count, 420f, 1, 30, -120);
 
         t.Translate(tr);
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role);
+        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().WorkerController = this;
     }
 
     public override void ViewRender()

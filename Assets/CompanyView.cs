@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CompanyView : View, IPointerClickHandler
+public class CompanyView : View
+    //, IPointerClickHandler
 {
     bool expand = false;
     bool canEdit = false;
@@ -19,6 +21,8 @@ public class CompanyView : View, IPointerClickHandler
     public Text CompanyName;
 
     public RenderCompanyAnimations Animations;
+
+    public GameObject FirmLogo;
 
     RenderProductStatsInCompanyView _productStats;
     RenderProductStatsInCompanyView ProductStats
@@ -49,7 +53,7 @@ public class CompanyView : View, IPointerClickHandler
         this.canEdit = canEdit;
     }
 
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    public void ToggleState()
     {
         if (canEdit)
         {
@@ -60,6 +64,11 @@ public class CompanyView : View, IPointerClickHandler
 
         Render();
     }
+
+    //void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    //{
+        //ToggleState();
+    //}
 
     void Render()
     {
@@ -73,6 +82,23 @@ public class CompanyView : View, IPointerClickHandler
         if (company.hasProduct)
         {
             ProductStats.Render(company);
+
+            var scale = 1f;
+
+            bool isGlobalMode = !expand;
+            if (isGlobalMode)
+            {
+                var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
+
+                // share = 0
+                var minSize = 0.85f;
+                // share = 100
+                var maxSize = 2.5f;
+                scale = minSize + (maxSize - minSize) * marketShare / 100;
+
+
+                FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
+            }
         }
     }
 

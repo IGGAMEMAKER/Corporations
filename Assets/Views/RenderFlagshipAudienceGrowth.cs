@@ -39,8 +39,6 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
             Text.text = Format.Sign(change, true) + " users";
             Text.color = Visuals.GetColorPositiveOrNegative(change > 0);
-
-            //Text.gameObject.SetActive()
         }
     }
 

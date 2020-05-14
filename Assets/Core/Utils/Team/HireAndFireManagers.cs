@@ -64,5 +64,56 @@ namespace Assets.Core
 
             Humans.LeaveCompany(worker);
         }
+
+        // worker roles
+        static string RenderBonus(long b) => Visuals.Positive(b.ToString());
+        static string RenderBonus(float b) => Visuals.Positive(b.ToString());
+
+        public static string GetRoleDescription(WorkerRole role, GameContext gameContext, bool isUnemployed, GameEntity company = null)
+        {
+            var description = "";
+            bool employed = !isUnemployed;
+
+            switch (role)
+            {
+                case WorkerRole.CEO:
+                    description = $"Increases innovation chances";
+                    if (employed)
+                        description += $" by {RenderBonus(Teams.GetCEOInnovationBonus(company, gameContext))}%";
+                    break;
+
+                case WorkerRole.TeamLead:
+                    description = $"Increases team speed";
+                    if (employed)
+                        description += $" by {RenderBonus(Teams.GetTeamLeadDevelopmentTimeDiscount(gameContext, company))}%";
+                    break;
+
+                case WorkerRole.MarketingLead:
+                    description = $"Makes marketing cheaper";
+                    if (employed)
+                        description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, gameContext))}%";
+                    break;
+
+                case WorkerRole.ProductManager:
+                    description = $"Increases innovation chances";
+                    if (employed)
+                        description += $" by {RenderBonus(Teams.GetProductManagerBonus(company, gameContext))}%";
+                    break;
+                case WorkerRole.ProjectManager:
+                    description = $"Reduces amount of workers";
+                    if (employed)
+                        description += $" by {RenderBonus(Teams.GetProjectManagerWorkersDiscount(company, gameContext))}%";
+                    break;
+
+                case WorkerRole.MarketingDirector:
+                case WorkerRole.TechDirector:
+                case WorkerRole.Universal:
+                default:
+                    description = "";
+                    break;
+            }
+
+            return description;
+        }
     }
 }

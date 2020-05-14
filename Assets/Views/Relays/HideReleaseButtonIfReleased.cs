@@ -1,4 +1,4 @@
 ﻿public class HideReleaseButtonIfReleased : HideOnSomeCondition
 {
-    public override bool HideIf() => SelectedCompany.isRelease;
+    public override bool HideIf() => Flagship.isRelease;
 }

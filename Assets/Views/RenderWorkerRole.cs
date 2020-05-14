@@ -30,7 +30,7 @@ public class RenderWorkerRole : View
             text += " (Unemployed)";
             Link.enabled = false;
 
-            Description.text = GetRoleDescription(role, isUnemployed);
+            Description.text = Teams.GetRoleDescription(role, Q, isUnemployed);
         }
         else
         {
@@ -43,55 +43,10 @@ public class RenderWorkerRole : View
             Link.enabled = true;
             Link.CompanyId = companyId;
 
-            Description.text = GetRoleDescription(role, isUnemployed, c);
+            Description.text = Teams.GetRoleDescription(role, Q, isUnemployed, c);
         }
 
 
         GetComponent<Text>().text = text;
-    }
-
-    string RenderBonus(long b) => Visuals.Positive(b.ToString());
-    string RenderBonus(float b) => Visuals.Positive(b.ToString());
-
-    string GetRoleDescription(WorkerRole role, bool isUnemployed, GameEntity company = null)
-    {
-        var description = "";
-        bool employed = !isUnemployed;
-
-        switch (role)
-        {
-            case WorkerRole.CEO:            description = $"Increases innovation chances";
-                if (employed)
-                    description += $" by {RenderBonus(Teams.GetCEOInnovationBonus(company, Q))}%";
-                break;
-
-            case WorkerRole.TeamLead:       description = $"Increases team speed";
-                if (employed)
-                    description += $" by {RenderBonus(Teams.GetTeamLeadDevelopmentTimeDiscount(Q, company))}%";
-                break;
-
-            case WorkerRole.MarketingLead:  description = $"Makes marketing cheaper";
-                if (employed)
-                    description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, Q))}%";
-                break;
-
-            case WorkerRole.ProductManager: description = $"Increases innovation chances";
-                if (employed)
-                    description+= $" by {RenderBonus(Teams.GetProductManagerBonus(company, Q))}%";
-                break;
-            case WorkerRole.ProjectManager: description = $"Reduces amount of workers";
-                if (employed)
-                    description += $" by {RenderBonus(Teams.GetProjectManagerWorkersDiscount(company, Q))}%";
-                break;
-
-            case WorkerRole.MarketingDirector:
-            case WorkerRole.TechDirector:
-            case WorkerRole.Universal:
-            default:
-                description = "";
-                break;
-        }
-
-        return description;
     }
 }

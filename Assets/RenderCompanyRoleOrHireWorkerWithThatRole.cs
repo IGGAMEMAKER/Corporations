@@ -11,6 +11,13 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     public GameObject Worker;
     public Text RoleName;
 
+    public Hint HireWorkerHint;
+    public HireManagerByRole HireManagerByRole;
+
+    public RenderCompanyWorkerListView WorkerController;
+
+    public ShowWorkerUpgrades workerActions;
+
     public void SetEntity(GameEntity company, WorkerRole role)
     {
         this.company = company;
@@ -27,5 +34,20 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
         Draw(Worker, hasWorker);
         Draw(NoWorker, !hasWorker);
+
+        if (!hasWorker)
+        {
+            var roleDescription = Teams.GetRoleDescription(role, Q, true, null);
+
+            HireWorkerHint.SetHint(roleDescription);
+            HireManagerByRole.WorkerRole = role;
+        }
+
+        else
+        {
+            var worker = Teams.GetWorkerByRole(company, role, Q);
+
+            workerActions.SetWorker(worker);
+        }
     }
 }

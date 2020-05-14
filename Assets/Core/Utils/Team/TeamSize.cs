@@ -38,7 +38,7 @@ namespace Assets.Core
         }
 
 
-        internal static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, GameContext gameContext)
+        public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, GameContext gameContext)
         {
             var managers = company.team.Managers;
 
@@ -53,7 +53,7 @@ namespace Assets.Core
 
 
 
-        internal static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
+        public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
         {
             if (worker == null)
                 return 0;
