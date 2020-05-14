@@ -44,6 +44,8 @@ public class CompanyView : View
 
         this.canEdit = canEdit;
 
+        GetComponent<FollowableCompany>().SetCompany(company);
+
         workerListView.SetEntity(company);
         Animations.SetEntity(company);
 

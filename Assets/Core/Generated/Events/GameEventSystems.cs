@@ -9,6 +9,7 @@
 public sealed class GameEventSystems : Feature {
 
     public GameEventSystems(Contexts contexts) {
+        Add(new BrandingEventSystem(contexts)); // priority: 0
         Add(new CompanyEventSystem(contexts)); // priority: 0
         Add(new AnyCompanyEventSystem(contexts)); // priority: 0
         Add(new AnyCompanyGoalEventSystem(contexts)); // priority: 0

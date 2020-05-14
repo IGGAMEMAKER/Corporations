@@ -65,6 +65,9 @@ namespace Assets.Core
                 while (e.hasMarketingListener)
                     e.RemoveMarketingListener();
 
+                while (e.hasBrandingListener)
+                    e.RemoveBrandingListener();
+
                 var comps = e.GetComponents()
                     //.Where(c => c.GetType() != typeof(IAnyDateListener))
                     //.Where(c => c.GetType() != typeof(IDateListener))
