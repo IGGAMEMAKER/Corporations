@@ -29,6 +29,8 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
         previousClients = Marketing.GetClients(company);
 
         company.AddMarketingListener(this);
+
+        Debug.Log("Attach to marketing changes: " + company.company.Name);
     }
 
     void Render(long change)
@@ -45,6 +47,8 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
     void IMarketingListener.OnMarketing(GameEntity entity, long clients)
     {
         var change = clients - previousClients;
+
+        Debug.Log($"Marketing changes in {entity.company.Name}: +{clients}");
 
         Render(change);
 

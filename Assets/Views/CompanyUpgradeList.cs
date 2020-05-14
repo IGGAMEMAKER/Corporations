@@ -88,7 +88,7 @@ public abstract class CompanyUpgradeList : ListView
 
     void SetTransformByIndex(Transform t, float radius, int number, int count)
     {
-        var offset = Rendering.GetPointPositionOnArc(number - 1, count, radius, 1, 45, -90);
+        var offset = Rendering.GetPointPositionOnArc(number - 1, count, radius, 45, -90);
 
         t.Translate(offset);
     }

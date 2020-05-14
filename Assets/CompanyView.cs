@@ -38,19 +38,19 @@ public class CompanyView : View
         }
     }
 
-    void Start()
-    {
-        if (company == null)
-            company = Flagship;
-
-        Render();
-    }
-
     public void SetEntity(GameEntity company, bool canEdit)
     {
         this.company = company;
 
         this.canEdit = canEdit;
+
+        workerListView.SetEntity(company);
+        Animations.SetEntity(company);
+
+        expand = false;
+        Draw(Workers, expand);
+
+        Render();
     }
 
     public void ToggleState()
@@ -59,52 +59,56 @@ public class CompanyView : View
         {
             expand = !expand;
 
-            competitorListView.RenderCompetitors(!expand);
+            Draw(Workers, expand);
+            Draw(competitorListView, !expand);
         }
-
-        Render();
     }
-
-    //void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-    //{
-        //ToggleState();
-    //}
 
     void Render()
     {
-        Draw(Workers, expand);
-        workerListView.SetEntity(company);
-
-        Animations.SetEntity(company);
-
-        CompanyName.text = company.company.Name;
-
-        if (company.hasProduct)
+        if (company != null)
         {
-            ProductStats.Render(company);
+            CompanyName.text = company.company.Name;
 
-            var scale = 1f;
-
-            bool isGlobalMode = !expand;
-            if (isGlobalMode)
+            if (company.hasProduct)
             {
-                var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
-
-                // share = 0
-                var minSize = 0.85f;
-                // share = 100
-                var maxSize = 2.5f;
-                scale = minSize + (maxSize - minSize) * marketShare / 100;
-
-
-                FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
+                RenderProductCompany();
             }
         }
     }
 
-    void OnDisable()
+    public override void ViewRender()
     {
-        expand = false;
+        base.ViewRender();
+
         Render();
     }
+
+    void RenderProductCompany()
+    {
+        ProductStats.Render(company);
+
+        var scale = 1f;
+
+        bool isGlobalMode = !expand;
+        if (isGlobalMode)
+        {
+            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
+
+            // share = 0
+            var minSize = 0.85f;
+            // share = 100
+            var maxSize = 2.5f;
+
+            scale = minSize + (maxSize - minSize) * marketShare / 100;
+        }
+
+        FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    //void OnDisable()
+    //{
+    //    expand = false;
+    //    Render();
+    //}
 }

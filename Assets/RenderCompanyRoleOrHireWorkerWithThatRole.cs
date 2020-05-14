@@ -19,6 +19,18 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
     public ShowWorkerUpgrades workerActions;
 
+    CanvasGroup _CanvasGroup = null;
+    CanvasGroup CanvasGroup
+    {
+        get
+        {
+            if (_CanvasGroup == null)
+                _CanvasGroup = GetComponent<CanvasGroup>();
+
+            return _CanvasGroup;
+        }
+    }
+
     public void SetEntity(GameEntity company, WorkerRole role, RenderCompanyWorkerListView WorkerController, bool isActiveRole)
     {
         this.company = company;
@@ -31,7 +43,8 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
     public void HighlightWorkerRole(bool activeRole)
     {
-        GetComponent<CanvasGroup>().alpha = activeRole ? 1 : 0.15f;
+        CanvasGroup.alpha = activeRole ? 1 : 0.07f;
+        //CanvasGroup.interactable = activeRole;
     }
 
     public void Render()

@@ -91,7 +91,7 @@ public partial class ManageProductFinancingSystem : OnPeriodChange
         totalFunds = CheckCosts(product, tier3, totalFunds, ref str);
         str.Add("End balance: " + Format.Money(totalFunds));
 
-        bool isTestCompany = !Economy.IsProfitable(gameContext, product); // product.company.Id == 15;
+        bool isTestCompany = false; // !Economy.IsProfitable(gameContext, product); // product.company.Id == 15;
 
         if (isTestCompany)
         {

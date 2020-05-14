@@ -17,6 +17,8 @@ public class ShowWorkerUpgrades : View
     public GameObject MarketingLeadActions;
     public GameObject ProjectActions;
 
+    public ProductUpgradeButtons productUpgradeButtons;
+
     public RenderCompanyWorkerListView WorkerController;
 
     public void SetWorker(GameEntity worker, RenderCompanyWorkerListView WorkerController)
@@ -50,24 +52,38 @@ public class ShowWorkerUpgrades : View
     {
         Draw(Upgrades, showUpgrades);
 
-        var role = worker.worker.WorkerRole;
+        if (showUpgrades)
+        {
+            var role = worker.worker.WorkerRole;
 
-        var radius = 120f;
+            //var renderable = 
 
-        Draw(CEOActions, role == WorkerRole.CEO);
-        CEOActions.GetComponent<ArcRender>().Render(radius);
+            RenderRole(CEOActions,              role, WorkerRole.CEO, 0, 5);
+            RenderRole(MarketingLeadActions,    role, WorkerRole.MarketingLead, 1, 5);
+            RenderRole(TeamLeadActions,         role, WorkerRole.TeamLead, 2, 5);
+            RenderRole(ProjectActions,          role, WorkerRole.ProjectManager, 3, 5);
+            RenderRole(ProductActions,          role, WorkerRole.ProductManager, 4, 5);
+        }
+    }
 
-        Draw(TeamLeadActions, role == WorkerRole.TeamLead);
-        TeamLeadActions.GetComponent<ArcRender>().Render(radius);
+    void RenderRole(GameObject obj, WorkerRole role, WorkerRole targetRole, int index, int amount)
+    {
+        var radius = 120f + amount * 5f;
 
-        Draw(MarketingLeadActions, role == WorkerRole.MarketingLead);
-        MarketingLeadActions.GetComponent<ArcRender>().Render(radius);
 
-        Draw(ProductActions, role == WorkerRole.ProductManager);
-        ProductActions.GetComponent<ArcRender>().Render(radius);
+        var angleMin = 45;
+        var angleMax = -90;
 
-        Draw(ProjectActions, role == WorkerRole.ProjectManager);
-        ProjectActions.GetComponent<ArcRender>().Render(radius);
+        var delta = angleMax - angleMin;
+
+        var baseAngle = angleMin + delta * index / amount;
+
+
+        var newAngleMin = baseAngle + 45f;
+        var newAngleMax = baseAngle - 90f - amount * 5f;
+
+        Draw(obj, role == targetRole);
+        obj.GetComponent<ArcRender>().Render(radius, newAngleMin, newAngleMax);
     }
 
     void OnDisable()

@@ -6,10 +6,20 @@ using UnityEngine;
 public class ArcRender : MonoBehaviour
 {
     float radius;
-    public void Render(float radius = 120f)
+    float angleMin;
+    float angleMax;
+
+    public void Render(float radius = 120f, float angleMin = 45, float angleMax = -45)
     {
         this.radius = radius;
+        this.angleMax = angleMax;
+        this.angleMin = angleMin;
 
+        Render2();
+    }
+
+    void Render2()
+    {
         var index = 0;
         var count = 0;
 
@@ -18,7 +28,7 @@ public class ArcRender : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            var position = Rendering.GetPointPositionOnArc(index, count, radius, 1, 0, 360);
+            var position = Rendering.GetPointPositionOnArc(index, count, radius, angleMin, angleMax);
             //child.SetPositionAndRotation(position, Quaternion.identity);
             child.localPosition = position;
 
@@ -28,11 +38,11 @@ public class ArcRender : MonoBehaviour
 
     private void Start()
     {
-        Render();
+        Render2();
     }
 
     private void OnEnable()
     {
-        Render();
+        Render2();
     }
 }
