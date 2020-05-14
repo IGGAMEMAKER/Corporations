@@ -17,9 +17,12 @@ public class ShowWorkerUpgrades : View
     public GameObject MarketingLeadActions;
     public GameObject ProjectActions;
 
-    public void SetWorker(GameEntity worker)
+    public RenderCompanyWorkerListView WorkerController;
+
+    public void SetWorker(GameEntity worker, RenderCompanyWorkerListView WorkerController)
     {
         this.worker = worker;
+        this.WorkerController = WorkerController;
 
         Render();
     }
@@ -27,6 +30,18 @@ public class ShowWorkerUpgrades : View
     public void ToggleState()
     {
         showUpgrades = !showUpgrades;
+
+        if (!showUpgrades)
+            WorkerController.ResetRoles();
+        else
+            WorkerController.SetRole(worker.worker.WorkerRole);
+
+        Render();
+    }
+
+    public void HideActions()
+    {
+        showUpgrades = false;
 
         Render();
     }
@@ -37,20 +52,22 @@ public class ShowWorkerUpgrades : View
 
         var role = worker.worker.WorkerRole;
 
+        var radius = 120f;
+
         Draw(CEOActions, role == WorkerRole.CEO);
-        CEOActions.GetComponent<ArcRender>().Render(70f);
+        CEOActions.GetComponent<ArcRender>().Render(radius);
 
         Draw(TeamLeadActions, role == WorkerRole.TeamLead);
-        TeamLeadActions.GetComponent<ArcRender>().Render(70f);
+        TeamLeadActions.GetComponent<ArcRender>().Render(radius);
 
         Draw(MarketingLeadActions, role == WorkerRole.MarketingLead);
-        MarketingLeadActions.GetComponent<ArcRender>().Render(70f);
+        MarketingLeadActions.GetComponent<ArcRender>().Render(radius);
 
         Draw(ProductActions, role == WorkerRole.ProductManager);
-        ProductActions.GetComponent<ArcRender>().Render(70f);
+        ProductActions.GetComponent<ArcRender>().Render(radius);
 
         Draw(ProjectActions, role == WorkerRole.ProjectManager);
-        ProjectActions.GetComponent<ArcRender>().Render(70f);
+        ProjectActions.GetComponent<ArcRender>().Render(radius);
     }
 
     void OnDisable()

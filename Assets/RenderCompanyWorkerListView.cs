@@ -6,6 +6,8 @@ using UnityEngine;
 public class RenderCompanyWorkerListView : ListView
 {
     GameEntity company;
+    bool roleWasSelected = false;
+    WorkerRole SelectedWorkerRole;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -19,8 +21,9 @@ public class RenderCompanyWorkerListView : ListView
         var tr = Rendering.GetPointPositionOnArc(index, count, 420f, 1, 30, -120);
 
         t.Translate(tr);
-        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role);
-        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().WorkerController = this;
+
+        bool highlightRole = !roleWasSelected || (roleWasSelected && role == SelectedWorkerRole);
+        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, this, highlightRole);
     }
 
     public override void ViewRender()
@@ -40,5 +43,41 @@ public class RenderCompanyWorkerListView : ListView
         this.company = company;
 
         ViewRender();
+    }
+
+    void HighlightManagers()
+    {
+        foreach (Transform child in transform)
+        {
+            var c = child.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>(); //.HighlightWorkerRole()
+
+            var role = c.role;
+
+            bool thisExactRoleWasSelected = roleWasSelected && role == SelectedWorkerRole;
+
+            bool highlightRole = !roleWasSelected || thisExactRoleWasSelected;
+
+            c.HighlightWorkerRole(highlightRole);
+
+            // hide upgrades
+            if (!thisExactRoleWasSelected)
+                c.workerActions.HideActions();
+            //Draw(c.workerActions.Upgrades, thisExactRoleWasSelected);
+        }
+    }
+
+    public void SetRole(WorkerRole role)
+    {
+        this.SelectedWorkerRole = role;
+        this.roleWasSelected = true;
+
+        HighlightManagers();
+    }
+
+    public void ResetRoles()
+    {
+        roleWasSelected = false;
+
+        HighlightManagers();
     }
 }

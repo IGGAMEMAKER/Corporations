@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 {
     GameEntity company;
-    WorkerRole role;
+    public WorkerRole role;
+    bool isActiveRole = true;
 
     public GameObject NoWorker;
     public GameObject Worker;
@@ -18,16 +19,25 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
     public ShowWorkerUpgrades workerActions;
 
-    public void SetEntity(GameEntity company, WorkerRole role)
+    public void SetEntity(GameEntity company, WorkerRole role, RenderCompanyWorkerListView WorkerController, bool isActiveRole)
     {
         this.company = company;
         this.role = role;
+        this.isActiveRole = isActiveRole;
+        this.WorkerController = WorkerController;
 
         Render();
     }
 
-    void Render()
+    public void HighlightWorkerRole(bool activeRole)
     {
+        GetComponent<CanvasGroup>().alpha = activeRole ? 1 : 0.15f;
+    }
+
+    public void Render()
+    {
+        HighlightWorkerRole(isActiveRole);
+
         bool hasWorker = !Teams.HasFreePlaceForWorker(company, role);
 
         RoleName.text = role.ToString();
@@ -47,7 +57,7 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
         {
             var worker = Teams.GetWorkerByRole(company, role, Q);
 
-            workerActions.SetWorker(worker);
+            workerActions.SetWorker(worker, WorkerController);
         }
     }
 }
