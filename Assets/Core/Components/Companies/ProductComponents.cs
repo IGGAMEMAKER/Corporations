@@ -115,6 +115,7 @@ public class MarketingComponent : IComponent
     public long clients;
 }
 
+[Game, Event(EventTarget.Self)]
 public class BrandingComponent : IComponent
 {
     public float BrandPower;

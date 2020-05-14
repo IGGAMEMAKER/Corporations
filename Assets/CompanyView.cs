@@ -53,6 +53,13 @@ public class CompanyView : View
         Render();
     }
 
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        Render();
+    }
+
     public void ToggleState()
     {
         if (canEdit)
@@ -66,23 +73,17 @@ public class CompanyView : View
 
     void Render()
     {
-        if (company != null)
-        {
-            CompanyName.text = company.company.Name;
+        if (company == null)
+            return;
 
-            if (company.hasProduct)
-            {
-                RenderProductCompany();
-            }
+        CompanyName.text = company.company.Name;
+
+        if (company.hasProduct)
+        {
+            RenderProductCompany();
         }
     }
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        Render();
-    }
 
     void RenderProductCompany()
     {
