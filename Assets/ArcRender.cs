@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcRender : MonoBehaviour
+public class ArcRender : View
 {
-    float radius;
-    float angleMin;
-    float angleMax;
+    public float radius;
+    public float angleMin;
+    public float angleMax;
 
     public void Render(float radius = 120f, float angleMin = 45, float angleMax = -45)
     {
@@ -29,7 +29,7 @@ public class ArcRender : MonoBehaviour
         foreach (Transform child in transform)
         {
             var position = Rendering.GetPointPositionOnArc(index, count, radius, angleMin, angleMax);
-            //child.SetPositionAndRotation(position, Quaternion.identity);
+
             child.localPosition = position;
 
             index++;
@@ -43,6 +43,13 @@ public class ArcRender : MonoBehaviour
 
     private void OnEnable()
     {
+        Render2();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
         Render2();
     }
 }

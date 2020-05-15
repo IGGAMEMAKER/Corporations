@@ -18,6 +18,7 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     public RenderCompanyWorkerListView WorkerController;
 
     public ShowWorkerUpgrades workerActions;
+    public Text WorkerRating;
 
     CanvasGroup _CanvasGroup = null;
     CanvasGroup CanvasGroup
@@ -64,6 +65,7 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
             HireWorkerHint.SetHint(roleDescription);
             HireManagerByRole.WorkerRole = role;
+            HireManagerByRole.renderCompanyRoleOrHireWorkerWithThatRole = this;
         }
 
         else
@@ -71,6 +73,10 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
             var worker = Teams.GetWorkerByRole(company, role, Q);
 
             workerActions.SetWorker(worker, WorkerController);
+
+            var rating = Humans.GetRating(worker);
+            WorkerRating.text = rating + "";
+            WorkerRating.color = Visuals.GetGradientColor(40, 100, rating);
         }
     }
 }

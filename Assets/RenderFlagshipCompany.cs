@@ -5,7 +5,7 @@ using UnityEngine;
 public class RenderFlagshipCompany : View
 {
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         GetComponent<CompanyView>().SetEntity(Flagship, true);
     }

@@ -56,17 +56,15 @@ public class ShowWorkerUpgrades : View
         {
             var role = worker.worker.WorkerRole;
 
-            //var renderable = 
-
-            RenderRole(CEOActions,              role, WorkerRole.CEO, 0, 5);
-            RenderRole(MarketingLeadActions,    role, WorkerRole.MarketingLead, 1, 5);
-            RenderRole(TeamLeadActions,         role, WorkerRole.TeamLead, 2, 5);
-            RenderRole(ProjectActions,          role, WorkerRole.ProjectManager, 3, 5);
-            RenderRole(ProductActions,          role, WorkerRole.ProductManager, 4, 5);
+            RenderRole(CEOActions, worker, WorkerRole.CEO, 0, 5);
+            RenderRole(MarketingLeadActions, worker, WorkerRole.MarketingLead, 1, 5);
+            RenderRole(TeamLeadActions, worker, WorkerRole.TeamLead, 2, 5);
+            RenderRole(ProjectActions, worker, WorkerRole.ProjectManager, 3, 5);
+            RenderRole(ProductActions, worker, WorkerRole.ProductManager, 4, 5);
         }
     }
 
-    void RenderRole(GameObject obj, WorkerRole role, WorkerRole targetRole, int index, int amount)
+    void RenderRole(GameObject obj, GameEntity worker, WorkerRole targetRole, int index, int amount)
     {
         var radius = 120f + amount * 5f;
 
@@ -82,8 +80,11 @@ public class ShowWorkerUpgrades : View
         var newAngleMin = baseAngle + 45f;
         var newAngleMax = baseAngle - 90f - amount * 5f;
 
+        WorkerRole role = worker.worker.WorkerRole;
+
         Draw(obj, role == targetRole);
         obj.GetComponent<ArcRender>().Render(radius, newAngleMin, newAngleMax);
+        obj.GetComponentInChildren<LinkToHuman>().SetHumanId(worker.human.Id);
     }
 
     void OnDisable()
