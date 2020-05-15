@@ -7,8 +7,10 @@ public class RenderFlagshipProductLevel : ParameterView
 
     public override string RenderValue()
     {
+        var company = GetFollowableCompany();
+        
         // progress
-        Progress.fillAmount = getProgress(Flagship) / 100;
+        Progress.fillAmount = getProgress(company) / 100;
 
         // status
         var status = Products.GetConceptStatus(Flagship, Q);

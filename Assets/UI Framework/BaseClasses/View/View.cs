@@ -63,4 +63,22 @@ public abstract class View : BaseClass
     {
         ScreenUtils.UpdateScreen(Q);
     }
+
+
+    GameEntity _Company;
+
+    public GameEntity GetFollowableCompany()
+    {
+        if (_Company == null)
+        {
+            var c = GetComponentInParent<FollowableCompany>();
+
+            if (c == null)
+                return null;
+            else
+                _Company = c.Company;
+        }
+
+        return _Company;
+    }
 }

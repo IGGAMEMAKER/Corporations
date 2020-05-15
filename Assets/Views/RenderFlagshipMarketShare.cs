@@ -8,11 +8,13 @@ public class RenderFlagshipMarketShare : ParameterView
 {
     public override string RenderValue()
     {
-        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(Flagship, Q);
+        var company = GetFollowableCompany();
 
-        var position = Markets.GetPositionOnMarket(Q, Flagship);
+        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
 
-        var playersOnMarket = Markets.GetProductsOnMarket(Q, Flagship).Count();
+        var position = Markets.GetPositionOnMarket(Q, company);
+
+        var playersOnMarket = Markets.GetProductsOnMarket(Q, company).Count();
 
         Colorize(playersOnMarket - position, 0, playersOnMarket);
 
