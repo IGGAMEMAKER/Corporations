@@ -27,7 +27,7 @@ namespace Assets.Core
 
             var newRoles = new List<WorkerRole>();
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < Mathf.Min(2, roles.Count); i++)
             {
                 var index = Random.Range(0, roles.Count);
                 var role = roles[index];
@@ -151,6 +151,11 @@ namespace Assets.Core
 
                 case CompanyType.ProductCompany:
                     roles = GetProductCompanyRoles();
+
+                    var prototype = !company.isRelease;
+
+                    if (prototype)
+                        roles = new List<WorkerRole> { WorkerRole.CEO };
                     break;
 
                 case CompanyType.FinancialGroup:

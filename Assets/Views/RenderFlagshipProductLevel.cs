@@ -13,7 +13,7 @@ public class RenderFlagshipProductLevel : ParameterView
         Progress.fillAmount = getProgress(company) / 100;
 
         // status
-        var status = Products.GetConceptStatus(Flagship, Q);
+        var status = Products.GetConceptStatus(company, Q);
 
         var color = Colors.COLOR_NEUTRAL;
 
@@ -27,7 +27,7 @@ public class RenderFlagshipProductLevel : ParameterView
         Colorize(color);
 
         // value
-        return Products.GetProductLevel(Flagship) + "LV";
+        return Products.GetProductLevel(company) + "LV";
     }
 
     // copied from DrawConceptProgress.cs

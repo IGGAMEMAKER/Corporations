@@ -1,4 +1,6 @@
-﻿public class HideReleaseButtonIfReleased : HideOnSomeCondition
+﻿using Assets.Core;
+
+public class HideReleaseButtonIfReleased : HideOnSomeCondition
 {
-    public override bool HideIf() => Flagship.isRelease;
+    public override bool HideIf() => !Companies.IsReleaseableApp(Flagship, Q);
 }

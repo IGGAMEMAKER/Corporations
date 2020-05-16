@@ -610,8 +610,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3829321544446334534}
   - component: {fileID: 1628582104086847966}
-  - component: {fileID: 6291263602948344391}
-  - component: {fileID: 2992139221978642175}
   - component: {fileID: 7426157439677136384}
   - component: {fileID: 2573643320468917701}
   - component: {fileID: 455530925621769247}
@@ -664,62 +662,6 @@ MonoBehaviour:
   CompanyName: {fileID: 4776732876276918068}
   Animations: {fileID: 1862362822207989950}
   FirmLogo: {fileID: 8255814939157298008}
---- !u!114 &6291263602948344391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477312888848518705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &2992139221978642175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477312888848518705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f5db4007c1bb4e4f9243746fd3ca822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sound: 2
 --- !u!114 &7426157439677136384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,6 +1272,7 @@ GameObject:
   - component: {fileID: 8160499713102027452}
   - component: {fileID: 4948012253014286111}
   - component: {fileID: 7408944094071157938}
+  - component: {fileID: 7142134164637375428}
   m_Layer: 5
   m_Name: Firm
   m_TagString: Untagged
@@ -1475,6 +1418,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7142134164637375428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221888659906790078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5db4007c1bb4e4f9243746fd3ca822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: 2
 --- !u!1 &8255814939157298008
 GameObject:
   m_ObjectHideFlags: 0

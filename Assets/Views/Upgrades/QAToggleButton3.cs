@@ -2,7 +2,7 @@
 
 public class QAToggleButton3 : ProductUpgradeButton
 {
-    public override string GetButtonTitle() => $"Design Quality (II)";
+    public override string GetButtonTitle() => $"Design Quality (III)";
     public override string GetBenefits()
     {
         return Visuals.Positive($"-1% Brand Decay");
