@@ -54,7 +54,7 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
         bool hasWorker = !Teams.HasFreePlaceForWorker(company, role);
 
-        RoleName.text = role.ToString();
+        RoleName.text = Humans.GetFormattedRole(role);
 
         Draw(Worker, hasWorker);
         Draw(NoWorker, !hasWorker);

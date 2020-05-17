@@ -36,11 +36,15 @@ namespace Assets.Core
                 case WorkerRole.CEO: return "CEO";
                 case WorkerRole.Manager: return "Manager";
                 case WorkerRole.Marketer: return "Marketer";
+
                 case WorkerRole.MarketingDirector: return "Marketing Director";
                 case WorkerRole.ProductManager: return "Product Manager";
                 case WorkerRole.Programmer: return "Programmer";
                 case WorkerRole.ProjectManager: return "Project Manager";
                 case WorkerRole.TechDirector: return "Tech Director";
+
+                case WorkerRole.MarketingLead: return "Marketing Lead";
+                case WorkerRole.TeamLead: return "Team Lead";
 
                 case WorkerRole.Universal: return "Universal";
 
