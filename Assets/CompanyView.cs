@@ -72,10 +72,6 @@ public class CompanyView : View
 
         if (competitorListView != null)
             DrawCanvasGroup(competitorListView, showCompetitors);
-
-        //Show(competitorListView.gameObject);
-
-        //Draw(competitorListView, !expand);
     }
 
     public void ToggleState()
@@ -109,20 +105,20 @@ public class CompanyView : View
 
         var scale = 1f;
 
-        //bool isGlobalMode = !expand;
-        //if (isGlobalMode)
-        //{
-        //    var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
+        bool isGlobalMode = !expand;
+        if (isGlobalMode)
+        {
+            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
 
-        //    // share = 0
-        //    var minSize = 0.85f;
-        //    // share = 100
-        //    var maxSize = 2.5f;
+            // share = 0
+            var minSize = 0.85f;
+            // share = 100
+            var maxSize = 2.5f;
 
-        //    scale = minSize + (maxSize - minSize) * marketShare / 100;
-        //}
+            scale = minSize + (maxSize - minSize) * marketShare / 100;
+        }
 
-        //FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
+        FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     //void OnDisable()

@@ -70,7 +70,10 @@ public class ShowWorkerUpgrades : View
 
     void RenderRole(GameObject obj, GameEntity worker, WorkerRole targetRole, int index, int amount)
     {
-        var radius = 120f + amount * 5f;
+        var radius = 180f + amount * 5f;
+
+        index = 2;
+
 
 
         var angleMin = 45;

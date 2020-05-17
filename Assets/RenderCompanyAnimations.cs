@@ -12,6 +12,6 @@ public class RenderCompanyAnimations : MonoBehaviour
     {
         this.company = company;
 
-        audienceGrowth.SetEntity(company);
+        audienceGrowth.SetEntity();
     }
 }

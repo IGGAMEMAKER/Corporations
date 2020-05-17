@@ -13,22 +13,26 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
     long previousClients;
 
-    void OnDestroy()
+    void DetachListeners()
     {
         company.RemoveMarketingListener(this);
+    }
+
+    void OnDestroy()
+    {
+        DetachListeners();
     }
     void OnDisable()
     {
-        company.RemoveMarketingListener(this);
+        DetachListeners();
     }
 
-    public void SetEntity(GameEntity company)
+    public void SetEntity()
     {
-        this.company = company;
+        company = GetFollowableCompany();
+        company.AddMarketingListener(this);
 
         previousClients = Marketing.GetClients(company);
-
-        company.AddMarketingListener(this);
 
         Debug.Log("Attach to marketing changes: " + company.company.Name);
     }
@@ -48,10 +52,10 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
     {
         var change = clients - previousClients;
 
-        Debug.Log($"Marketing changes in {entity.company.Name}: +{clients}");
+        previousClients = clients;
+
+        //Debug.Log($"Marketing changes in {entity.company.Name}: +{change}");
 
         Render(change);
-
-        previousClients = clients;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class RenderCompanyWorkerListView : ListView
 {
     GameEntity company;
+
     bool roleWasSelected = false;
     WorkerRole SelectedWorkerRole;
 

@@ -18,6 +18,28 @@ public class ArcRender : View
         Render2();
     }
 
+    //private void Start()
+    //{
+    //    Render2();
+    //}
+
+    //private void OnEnable()
+    //{
+    //    Render2();
+    //}
+
+    //public override void ViewRender()
+    //{
+    //    base.ViewRender();
+
+    //    Render2();
+    //}
+
+    void OnTransformChildrenChanged()
+    {
+        Render2();
+    }
+
     void Render2()
     {
         var index = 0;
@@ -34,22 +56,5 @@ public class ArcRender : View
 
             index++;
         }
-    }
-
-    private void Start()
-    {
-        Render2();
-    }
-
-    private void OnEnable()
-    {
-        Render2();
-    }
-
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        Render2();
     }
 }
