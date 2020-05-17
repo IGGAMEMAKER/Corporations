@@ -68,7 +68,7 @@ public class CompanyView : View
     {
         DrawCanvasGroup(Workers, expand);
 
-        bool showCompetitors = !expand;
+        bool showCompetitors = !expand && Flagship.isRelease;
 
         if (competitorListView != null)
             DrawCanvasGroup(competitorListView, showCompetitors);
@@ -90,6 +90,20 @@ public class CompanyView : View
             return;
 
         CompanyName.text = company.company.Name;
+        if (company.hasProduct)
+        {
+            var levelStatus = Products.GetConceptStatus(company, Q);
+            var statusColor = Colors.COLOR_WHITE;
+
+            if (levelStatus == ConceptStatus.Leader)
+                statusColor = Colors.COLOR_BEST;
+
+            if (levelStatus == ConceptStatus.Outdated)
+                statusColor = Colors.COLOR_NEGATIVE;
+
+            CompanyName.text += Visuals.Colorize("\n\n(" + Products.GetProductLevel(company) + "LVL)", statusColor);
+        }
+
         CompanyName.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
 
         if (company.hasProduct)

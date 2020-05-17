@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RenderFlagshipCompetitorListView : ListView
@@ -16,7 +17,8 @@ public class RenderFlagshipCompetitorListView : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(Flagship, Q, false);
+        var competitors = Companies.GetCompetitorsOfCompany(Flagship, Q, false)
+            .OrderByDescending(Marketing.GetClients);
 
         SetItems(competitors);
     }
