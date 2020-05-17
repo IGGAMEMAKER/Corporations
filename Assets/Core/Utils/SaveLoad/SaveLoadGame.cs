@@ -62,6 +62,7 @@ namespace Assets.Core
                 while (e.hasNavigationHistoryListener)
                     e.RemoveNavigationHistoryListener();
 
+                // new wave of listeners
                 while (e.hasMarketingListener)
                     e.RemoveMarketingListener();
 
@@ -70,6 +71,7 @@ namespace Assets.Core
 
                 while (e.hasProductListener)
                     e.RemoveProductListener();
+                //
 
                 var comps = e.GetComponents()
                     //.Where(c => c.GetType() != typeof(IAnyDateListener))

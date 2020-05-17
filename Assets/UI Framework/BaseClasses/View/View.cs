@@ -14,6 +14,23 @@ public abstract class View : BaseClass
             go.SetActive(condition);
     }
 
+    public void DrawCanvasGroup(GameObject go, bool condition)
+    {
+        var group = go.GetComponent<CanvasGroup>();
+
+        if (group != null)
+        {
+            DrawCanvasGroup(group, condition);
+        }
+    }
+
+    public void DrawCanvasGroup(CanvasGroup group, bool condition)
+    {
+        group.alpha = condition ? 1f : 0;
+        //group.interactable = condition;
+        group.blocksRaycasts = condition;
+    }
+
     public void Show(MonoBehaviour mb) => Draw(mb.gameObject, true);
     public void Show(GameObject go) => Draw(go, true);
 
@@ -62,23 +79,5 @@ public abstract class View : BaseClass
     public void Refresh()
     {
         ScreenUtils.UpdateScreen(Q);
-    }
-
-
-    GameEntity _Company;
-
-    public GameEntity GetFollowableCompany()
-    {
-        if (_Company == null)
-        {
-            var c = GetComponentInParent<FollowableCompany>();
-
-            if (c == null)
-                return null;
-            else
-                _Company = c.Company;
-        }
-
-        return _Company;
     }
 }

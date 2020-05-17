@@ -18,16 +18,6 @@ public class RenderFlagshipCompetitorListView : ListView
 
         var competitors = Companies.GetCompetitorsOfCompany(Flagship, Q, false);
 
-        if (showCompetitors && Flagship.isRelease)
-            SetItems(competitors);
-        else
-            SetItems(new GameEntity[0]);
-    }
-
-    public void RenderCompetitors(bool showCompetitors)
-    {
-        this.showCompetitors = showCompetitors;
-
-        ViewRender();
+        SetItems(competitors);
     }
 }

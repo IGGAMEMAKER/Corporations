@@ -21,6 +21,10 @@ public class ShowWorkerUpgrades : View
 
     public RenderCompanyWorkerListView WorkerController;
 
+
+    Dictionary<WorkerRole, ArcRender> WorkersArcs;
+    Dictionary<WorkerRole, LinkTo> Links;
+
     public void SetWorker(GameEntity worker, RenderCompanyWorkerListView WorkerController)
     {
         this.worker = worker;
@@ -83,8 +87,12 @@ public class ShowWorkerUpgrades : View
         WorkerRole role = worker.worker.WorkerRole;
 
         Draw(obj, role == targetRole);
-        obj.GetComponent<ArcRender>().Render(radius, newAngleMin, newAngleMax);
-        obj.GetComponentInChildren<LinkToHuman>().SetHumanId(worker.human.Id);
+
+        if (role == targetRole)
+        {
+            obj.GetComponent<ArcRender>().Render(radius, newAngleMin, newAngleMax);
+            obj.GetComponentInChildren<LinkToHuman>().SetHumanId(worker.human.Id);
+        }
     }
 
     void OnDisable()

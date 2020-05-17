@@ -13,11 +13,6 @@ public class ProductUpgradeButtons : View
     public GameObject SupportCheckbox2;
     public GameObject SupportCheckbox3;
 
-    public GameObject PlatformLabel;
-    public GameObject MarketingLabel;
-    public GameObject DecisionsLabel;
-    public GameObject SupportLabel;
-
     public GameObject CreateSupportTeam;
     public GameObject CreateQATeam;
     public GameObject CreateCoreTeam;
@@ -61,9 +56,9 @@ public class ProductUpgradeButtons : View
         Draw(SupportCheckbox2,           CanEnable(company, ProductUpgrade.Support2));
         Draw(SupportCheckbox3,           CanEnable(company, ProductUpgrade.Support3));
 
-        Draw(CreateCoreTeam,             CanEnable(company, ProductUpgrade.CreateManagementTeam));
-        Draw(CreateSupportTeam,          CanEnable(company, ProductUpgrade.CreateSupportTeam));
-        Draw(CreateQATeam,               CanEnable(company, ProductUpgrade.CreateQATeam));
+        //Draw(CreateCoreTeam,             CanEnable(company, ProductUpgrade.CreateManagementTeam));
+        //Draw(CreateSupportTeam,          CanEnable(company, ProductUpgrade.CreateSupportTeam));
+        //Draw(CreateQATeam,               CanEnable(company, ProductUpgrade.CreateQATeam));
 
         Draw(QA,                         CanEnable(company, ProductUpgrade.QA));
         Draw(QA2,                        CanEnable(company, ProductUpgrade.QA2));

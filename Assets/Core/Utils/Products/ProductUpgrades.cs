@@ -38,14 +38,14 @@ namespace Assets.Core
                 case ProductUpgrade.Support:
                 case ProductUpgrade.Support2:
                 case ProductUpgrade.Support3:
-                    return preReleaseOrLater && SupportTeamCreated;
+                    return preReleaseOrLater; // && SupportTeamCreated
 
                 case ProductUpgrade.QA:
                 case ProductUpgrade.QA2:
                 case ProductUpgrade.QA3:
-                    return preReleaseOrLater && QATeamCreated;
+                    return preReleaseOrLater; // && QATeamCreated
 
-                    // teams
+                // teams
                 case ProductUpgrade.CreateManagementTeam:
                     return preReleaseOrLater && !CoreTeamCreated;
 

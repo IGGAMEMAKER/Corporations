@@ -14,9 +14,9 @@ public class CompanyView : View
     GameEntity company;
 
     [Header("Flagship Only")]
-    public RenderFlagshipCompetitorListView competitorListView;
+    public CanvasGroup competitorListView;
 
-    public GameObject Workers;
+    public CanvasGroup Workers;
     public RenderCompanyWorkerListView workerListView;
     public Text CompanyName;
 
@@ -44,13 +44,15 @@ public class CompanyView : View
 
         this.canEdit = canEdit;
 
+        Debug.Log($"Set entity: {company.company.Name}");
+
         GetComponent<FollowableCompany>().SetCompany(company);
 
         workerListView.SetEntity(company);
         Animations.SetEntity(company);
 
         expand = false;
-        Draw(Workers, expand);
+        RenderWorkersAndCompetitors();
 
         Render();
     }
@@ -62,14 +64,27 @@ public class CompanyView : View
         Render();
     }
 
+    void RenderWorkersAndCompetitors()
+    {
+        DrawCanvasGroup(Workers, expand);
+
+        bool showCompetitors = !expand;
+
+        if (competitorListView != null)
+            DrawCanvasGroup(competitorListView, showCompetitors);
+
+        //Show(competitorListView.gameObject);
+
+        //Draw(competitorListView, !expand);
+    }
+
     public void ToggleState()
     {
         if (canEdit)
         {
             expand = !expand;
 
-            Draw(Workers, expand);
-            Draw(competitorListView, !expand);
+            RenderWorkersAndCompetitors();
         }
     }
 

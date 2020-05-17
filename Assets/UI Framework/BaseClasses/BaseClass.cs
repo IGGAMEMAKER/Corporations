@@ -69,4 +69,22 @@ public partial class BaseClass : MonoBehaviour
         if (Contains<IsChosenComponent>())
             gameObject.GetComponent<IsChosenComponent>().Toggle(isChosen);
     }
+
+
+    GameEntity _Company;
+
+    public GameEntity GetFollowableCompany()
+    {
+        if (_Company == null)
+        {
+            var c = GetComponentInParent<FollowableCompany>();
+
+            if (c == null)
+                return null;
+            else
+                _Company = c.Company;
+        }
+
+        return _Company;
+    }
 }
