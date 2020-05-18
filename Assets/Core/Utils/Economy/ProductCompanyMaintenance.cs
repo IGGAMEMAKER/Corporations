@@ -57,6 +57,9 @@ namespace Assets.Core
         {
             var managers = e.team.Managers.Count;
 
+            if (e.hasProduct && !e.isRelease)
+                return 0;
+
             return managers * C.SALARIES_DIRECTOR;
         }
     }
