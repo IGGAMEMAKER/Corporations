@@ -52,23 +52,14 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     {
         HighlightWorkerRole(isActiveRole);
 
-        bool hasWorker = !Teams.HasFreePlaceForWorker(company, role);
-
         RoleName.text = Humans.GetFormattedRole(role);
 
+
+        bool hasWorker = !Teams.HasFreePlaceForWorker(company, role);
+
         Draw(Worker, hasWorker);
-        Draw(NoWorker, !hasWorker);
 
-        if (!hasWorker)
-        {
-            var roleDescription = Teams.GetRoleDescription(role, Q, true, null);
-
-            HireWorkerHint.SetHint(roleDescription);
-            HireManagerByRole.WorkerRole = role;
-            HireManagerByRole.renderCompanyRoleOrHireWorkerWithThatRole = this;
-        }
-
-        else
+        if (hasWorker)
         {
             var worker = Teams.GetWorkerByRole(company, role, Q);
 

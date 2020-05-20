@@ -28,6 +28,8 @@ public class ProductUpgradeButtons : View
 
     public GameObject TestCampaignCheckbox;
 
+    public GameObject[] HiringManagers;
+
     public ReleaseApp ReleaseApp;
 
     bool CanEnable(GameEntity company, ProductUpgrade upgrade)
@@ -70,6 +72,18 @@ public class ProductUpgradeButtons : View
         Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign));
         Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2));
         Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3));
+
+        foreach (var manager in HiringManagers)
+        {
+            var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
+
+            Draw(manager, CanHireManager(role, company));
+        }
+    }
+
+    bool CanHireManager(WorkerRole role, GameEntity company)
+    {
+        return company.isRelease && Teams.HasFreePlaceForWorker(company, role);
     }
 
     public override void ViewRender()

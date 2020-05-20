@@ -30,7 +30,23 @@ namespace Assets.Core
 
             var flow = GetClientFlow(gameContext, e.product.Niche);
 
-            return (long)(brandBasedMarketShare * flow);
+            bool isMassPositioning = true;
+            bool isNichePositioning = !isMassPositioning;
+
+            if (isNichePositioning)
+            {
+                var brand = (int)e.branding.BrandPower;
+
+                flow /= 10;
+
+            }
+
+            if (isMassPositioning)
+            {
+                return (int)brandBasedMarketShare * flow;
+            }
+
+            return 0;
         }
 
         public static long GetTargetingCampaignGrowth3(GameEntity e, GameContext gameContext)

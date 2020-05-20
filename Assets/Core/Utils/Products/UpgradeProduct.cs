@@ -25,30 +25,37 @@ namespace Assets.Core
         }
 
         // salaries cost for maintenance
+        public static long GetUpgradeWorkerAmount(GameEntity product, GameContext gameContext, ProductUpgrade upgrade)
+        {
+            switch (upgrade)
+            {
+                case ProductUpgrade.BrandCampaign: return GetBrandingWorkerCost(product, gameContext);
+                case ProductUpgrade.BrandCampaign2: return GetBrandingWorkerCost(product, gameContext) * 2;
+                case ProductUpgrade.BrandCampaign3: return GetBrandingWorkerCost(product, gameContext) * 5;
+
+                case ProductUpgrade.TargetingCampaign: return GetTargetingWorkerCost(product, gameContext);
+                case ProductUpgrade.TargetingCampaign2: return GetTargetingWorkerCost(product, gameContext) * 2;
+                case ProductUpgrade.TargetingCampaign3: return GetTargetingWorkerCost(product, gameContext) * 5;
+
+                case ProductUpgrade.QA: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA);
+                case ProductUpgrade.QA2: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA2);
+                case ProductUpgrade.QA3: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA3);
+
+                case ProductUpgrade.Support: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support);
+                case ProductUpgrade.Support2: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support2);
+                case ProductUpgrade.Support3: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support3);
+
+                default: return 0;
+            }
+
+        }
         public static long GetUpgradeWorkerCost(GameEntity product, GameContext gameContext, ProductUpgrade upgrade)
         {
             var workerSalary = C.SALARIES_PROGRAMMER;
 
-            switch (upgrade)
-            {
-                case ProductUpgrade.BrandCampaign: return GetBrandingWorkerCost(product, gameContext) * workerSalary;
-                case ProductUpgrade.BrandCampaign2: return GetBrandingWorkerCost(product, gameContext) * 2 * workerSalary;
-                case ProductUpgrade.BrandCampaign3: return GetBrandingWorkerCost(product, gameContext) * 5 * workerSalary;
+            var workers = GetUpgradeWorkerAmount(product, gameContext, upgrade);
 
-                case ProductUpgrade.TargetingCampaign: return GetTargetingWorkerCost(product, gameContext) * workerSalary;
-                case ProductUpgrade.TargetingCampaign2: return GetTargetingWorkerCost(product, gameContext) * 2 * workerSalary;
-                case ProductUpgrade.TargetingCampaign3: return GetTargetingWorkerCost(product, gameContext) * 5 * workerSalary;
-
-                case ProductUpgrade.QA: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA) * workerSalary;
-                case ProductUpgrade.QA2: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA2) * workerSalary;
-                case ProductUpgrade.QA3: return GetQAWorkerCost(gameContext, product, ProductUpgrade.QA3) * workerSalary;
-
-                case ProductUpgrade.Support: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support) * workerSalary;
-                case ProductUpgrade.Support2: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support2) * workerSalary;
-                case ProductUpgrade.Support3: return GetSupportWorkerCost(product, gameContext, ProductUpgrade.Support3) * workerSalary;
-            }
-
-            return 0;
+            return workers * workerSalary;
         }
 
         // programmers

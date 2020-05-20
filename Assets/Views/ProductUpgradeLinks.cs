@@ -12,4 +12,7 @@ public class ProductUpgradeLinks : MonoBehaviour
     public ToggleAnim ToggleAnim;
     public Hint Hint;
     public CanvasGroup CanvasGroup;
+
+    public Image Background;
+    public Image Icon;
 }

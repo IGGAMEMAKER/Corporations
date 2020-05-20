@@ -13,7 +13,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public override bool IsInteractable() => true;
 
     public long GetCost() => Products.GetUpgradeCost(Company, Q, upgrade);
-    public long GetAmountOfWorkers() => Products.GetUpgradeWorkerCost(Company, Q, upgrade);
+    public long GetAmountOfWorkers() => Products.GetUpgradeWorkerAmount(Company, Q, upgrade);
 
     bool state => Products.IsUpgradeEnabled(Company, upgrade);
     GameEntity Company => Flagship;
@@ -71,7 +71,7 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
             text += $"\n\nWill need {workers} additional workers";
         }
 
-        links.Hint.SetHint(text);
+        links.Hint.SetHint("");
         links.CanvasGroup.alpha = state ? 1f : 0.25f;
     }
 };
