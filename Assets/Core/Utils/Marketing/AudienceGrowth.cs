@@ -26,8 +26,6 @@ namespace Assets.Core
 
         public static long GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
         {
-            var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext);
-
             var flow = GetClientFlow(gameContext, e.product.Niche);
 
             bool isMassPositioning = true;
@@ -39,11 +37,14 @@ namespace Assets.Core
 
                 flow /= 10;
 
+                return flow;
             }
 
             if (isMassPositioning)
             {
-                return (int)brandBasedMarketShare * flow;
+                var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext) + 0.05f;
+
+                return (long)(brandBasedMarketShare * flow);
             }
 
             return 0;

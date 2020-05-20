@@ -30,7 +30,6 @@ public class RenderMenuButtons : View
         base.ViewRender();
 
         bool hasProduct = Companies.IsHasDaughters(Q, MyCompany);
-        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
         bool isFirstYear = CurrentIntDate < 360;
 
@@ -40,8 +39,7 @@ public class RenderMenuButtons : View
 
         var hasCultureCooldown = Cooldowns.HasCorporateCultureUpgradeCooldown(Q, MyCompany);
 
-        bool isRoundActive = MyCompany.hasAcceptsInvestments;
-
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 

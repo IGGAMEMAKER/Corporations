@@ -32,6 +32,8 @@ public class ProductUpgradeButtons : View
 
     public ReleaseApp ReleaseApp;
 
+    public GameObject RaiseInvestments;
+
     bool CanEnable(GameEntity company, ProductUpgrade upgrade)
     {
         return Products.CanEnable(company, Q, upgrade);
@@ -72,6 +74,15 @@ public class ProductUpgradeButtons : View
         Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign));
         Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2));
         Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3));
+
+
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+        var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
+
+        //var canRaiseInvestments = !isRoundActive ;
+        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
+        Draw(RaiseInvestments, canRaiseInvestments);
 
         foreach (var manager in HiringManagers)
         {
