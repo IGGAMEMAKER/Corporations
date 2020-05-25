@@ -55,12 +55,6 @@ public class RenderCompanyWorkerListView : ListView
             bool highlightRole = !roleWasSelected || thisExactRoleWasSelected;
 
             c.HighlightWorkerRole(highlightRole);
-
-            // hide upgrades
-            //if (!thisExactRoleWasSelected)
-            //    c.workerActions.HideActions();
-
-            //Draw(c.workerActions.Upgrades, thisExactRoleWasSelected);
         }
     }
 
