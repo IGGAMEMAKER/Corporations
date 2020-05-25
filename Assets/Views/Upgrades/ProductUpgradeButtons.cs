@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ProductUpgradeButtons : View
 {
+    public WorkerRole WorkerRole = WorkerRole.CEO;
+    GameEntity company;
+
     public GameObject TargetingCampaignCheckbox;
     public GameObject TargetingCampaignCheckbox2;
     public GameObject TargetingCampaignCheckbox3;
@@ -50,30 +53,36 @@ public class ProductUpgradeButtons : View
         Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         Draw(TestCampaignCheckbox, !company.isRelease);
 
+        bool isCEO           = WorkerRole == WorkerRole.CEO;
+        bool isMarketingLead = WorkerRole == WorkerRole.MarketingLead;
+        bool isTeamLead      = WorkerRole == WorkerRole.TeamLead;
+        bool isProductManager = WorkerRole == WorkerRole.ProductManager;
+        bool isProjectManager = WorkerRole == WorkerRole.ProjectManager;
+
         // goal defined stuff
         // ----------------------
-        Draw(SupportCheckbox,            CanEnable(company, ProductUpgrade.Support));
-        Draw(SupportCheckbox2,           CanEnable(company, ProductUpgrade.Support2));
-        Draw(SupportCheckbox3,           CanEnable(company, ProductUpgrade.Support3));
+        Draw(SupportCheckbox,            CanEnable(company, ProductUpgrade.Support) && isTeamLead);
+        Draw(SupportCheckbox2,           CanEnable(company, ProductUpgrade.Support2) && isTeamLead);
+        Draw(SupportCheckbox3,           CanEnable(company, ProductUpgrade.Support3) && isTeamLead);
 
-        Draw(QA,                         CanEnable(company, ProductUpgrade.QA));
-        Draw(QA2,                        CanEnable(company, ProductUpgrade.QA2));
-        Draw(QA3,                        CanEnable(company, ProductUpgrade.QA3));
+        Draw(QA,                         CanEnable(company, ProductUpgrade.QA) && isProductManager);
+        Draw(QA2,                        CanEnable(company, ProductUpgrade.QA2) && isProductManager);
+        Draw(QA3,                        CanEnable(company, ProductUpgrade.QA3) && isProductManager);
 
         // release stuff
         // -------------
-        Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb));
-        Draw(MobileIOSCheckbox,          CanEnable(company, ProductUpgrade.PlatformMobileIOS));
-        Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid));
-        Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop));
+        Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb) && isTeamLead);
+        Draw(MobileIOSCheckbox,          CanEnable(company, ProductUpgrade.PlatformMobileIOS) && isTeamLead);
+        Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid) && isTeamLead);
+        Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop) && isTeamLead);
 
-        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign));
-        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2));
-        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3));
+        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign) && isMarketingLead);
+        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2) && isMarketingLead);
+        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3) && isMarketingLead);
 
-        Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign));
-        Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2));
-        Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3));
+        Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign) && isMarketingLead);
+        Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2) && isMarketingLead);
+        Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3) && isMarketingLead);
 
 
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
@@ -81,13 +90,13 @@ public class ProductUpgradeButtons : View
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
         var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
-        Draw(RaiseInvestments, canRaiseInvestments);
+        Draw(RaiseInvestments, canRaiseInvestments && isCEO);
 
         foreach (var manager in HiringManagers)
         {
             var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
 
-            Draw(manager, CanHireManager(role, company));
+            Draw(manager, CanHireManager(role, company) && isCEO);
         }
     }
 
@@ -103,15 +112,17 @@ public class ProductUpgradeButtons : View
         var c = GetComponent<SpecifyCompany>();
         if (c != null)
         {
-            Render(Companies.Get(Q, c.CompanyId));
+            company = Companies.Get(Q, c.CompanyId);
+
+            Render(company);
             return;
         }
 
-        var flagship = Companies.GetFlagship(Q, MyCompany);
+        //var flagship = Companies.GetFlagship(Q, MyCompany);
 
-        if (flagship == null)
-            return;
+        //if (flagship == null)
+        //    return;
 
-        Render(flagship);
+        Render(GetFollowableCompany());
     }
 }

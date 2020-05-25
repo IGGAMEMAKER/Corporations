@@ -17,15 +17,6 @@ public class RenderCompanyWorkerListView : ListView
     {
         var role = (WorkerRole)(object)entity;
 
-        var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
-
-        var index = roles.FindIndex(r => r == role);
-        var count = roles.Count;
-
-        var tr = Rendering.GetPointPositionOnArc(index, count, 420f, 20, -120);
-
-        t.Translate(tr);
-
         bool highlightRole = !roleWasSelected || (roleWasSelected && role == SelectedWorkerRole);
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, this, highlightRole);
     }
@@ -83,6 +74,7 @@ public class RenderCompanyWorkerListView : ListView
         this.SelectedWorkerRole = role;
         this.roleWasSelected = true;
 
+        CompanyUpgrades.GetComponent<ProductUpgradeButtons>().WorkerRole = role;
         RenderCompanyUpgrades();
         HighlightManagers();
     }
