@@ -10,6 +10,9 @@ public class RenderCompanyWorkerListView : ListView
     bool roleWasSelected = false;
     WorkerRole SelectedWorkerRole;
 
+    public GameObject CompanyUpgrades;
+    public GameObject MarketingCampaigns;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var role = (WorkerRole)(object)entity;
@@ -36,6 +39,8 @@ public class RenderCompanyWorkerListView : ListView
             var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
             SetItems(roles);
+
+            RenderCompanyUpgrades();
         }
     }
 
@@ -50,7 +55,7 @@ public class RenderCompanyWorkerListView : ListView
     {
         foreach (Transform child in transform)
         {
-            var c = child.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>(); //.HighlightWorkerRole()
+            var c = child.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>();
 
             var role = c.role;
 
@@ -63,8 +68,14 @@ public class RenderCompanyWorkerListView : ListView
             // hide upgrades
             if (!thisExactRoleWasSelected)
                 c.workerActions.HideActions();
+
             //Draw(c.workerActions.Upgrades, thisExactRoleWasSelected);
         }
+    }
+
+    void RenderCompanyUpgrades()
+    {
+        Draw(CompanyUpgrades, roleWasSelected);
     }
 
     public void SetRole(WorkerRole role)
@@ -72,6 +83,7 @@ public class RenderCompanyWorkerListView : ListView
         this.SelectedWorkerRole = role;
         this.roleWasSelected = true;
 
+        RenderCompanyUpgrades();
         HighlightManagers();
     }
 
@@ -79,6 +91,7 @@ public class RenderCompanyWorkerListView : ListView
     {
         roleWasSelected = false;
 
+        RenderCompanyUpgrades();
         HighlightManagers();
     }
 }

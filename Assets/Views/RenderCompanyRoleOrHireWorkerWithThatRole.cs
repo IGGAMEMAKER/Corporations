@@ -8,14 +8,12 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     public WorkerRole role;
     bool isActiveRole = true;
 
-    public GameObject NoWorker;
     public GameObject Worker;
     public Text RoleName;
 
-    public Hint HireWorkerHint;
-    public HireManagerByRole HireManagerByRole;
-
     public RenderCompanyWorkerListView WorkerController;
+
+    public RenderManagerAdaptationProgress managerAdaptationProgress;
 
     public ShowWorkerUpgrades workerActions;
     public Text WorkerRating;
@@ -45,7 +43,6 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     public void HighlightWorkerRole(bool activeRole)
     {
         CanvasGroup.alpha = activeRole ? 1 : 0.07f;
-        //CanvasGroup.interactable = activeRole;
     }
 
     public void Render()
@@ -68,6 +65,8 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
             var rating = Humans.GetRating(worker);
             WorkerRating.text = rating + "";
             WorkerRating.color = Visuals.GetGradientColor(40, 100, rating);
+
+            managerAdaptationProgress.SetEntity(worker);
         }
     }
 }

@@ -44,7 +44,7 @@ public class CompanyView : View
 
         this.canEdit = canEdit;
 
-        Debug.Log($"Set entity: {company.company.Name}");
+        //Debug.Log($"Set entity: {company.company.Name}");
 
         GetComponent<FollowableCompany>().SetCompany(company);
 
@@ -112,13 +112,14 @@ public class CompanyView : View
 
             // share = 0
             var minSize = 0.85f;
+            
             // share = 100
             var maxSize = 2.5f;
 
             scale = minSize + (maxSize - minSize) * marketShare / 100;
         }
 
-        FirmLogo.transform.localScale = new Vector3(scale, scale, scale);
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 
     //void OnDisable()

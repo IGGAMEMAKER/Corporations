@@ -34,7 +34,7 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
         previousClients = Marketing.GetClients(company);
 
-        Debug.Log("Attach to marketing changes: " + company.company.Name);
+        //Debug.Log("Attach to marketing changes: " + company.company.Name);
     }
 
     void Render(long change)

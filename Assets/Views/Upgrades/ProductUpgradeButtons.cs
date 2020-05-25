@@ -29,7 +29,6 @@ public class ProductUpgradeButtons : View
     public GameObject TestCampaignCheckbox;
 
     public GameObject[] HiringManagers;
-    public GameObject[] LinksToManagers;
 
     public ReleaseApp ReleaseApp;
 
@@ -89,12 +88,6 @@ public class ProductUpgradeButtons : View
             var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
 
             Draw(manager, CanHireManager(role, company));
-        }
-
-
-        foreach (var link in LinksToManagers)
-        {
-            Draw(link, company.isRelease);
         }
     }
 

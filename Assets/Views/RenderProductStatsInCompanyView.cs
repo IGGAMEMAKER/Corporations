@@ -14,6 +14,9 @@ public class RenderProductStatsInCompanyView : View
     public Text ProductLevel;
     public GameObject ProductLevelLabel;
 
+    public Text Brand;
+    public GameObject BrandIcon;
+
     public Text Workers;
     public GameObject WorkersLabel;
 
@@ -27,7 +30,7 @@ public class RenderProductStatsInCompanyView : View
         bool needToShowMarketShare = company.isRelease && isPlayerFlagship;
 
         Draw(MarketShare, needToShowMarketShare);
-        Draw(MarketShareLabel, needToShowMarketShare);
+        Draw(MarketShareLabel, false);
 
         // product level
         var levelStatus = Products.GetConceptStatus(company, Q);
@@ -47,6 +50,11 @@ public class RenderProductStatsInCompanyView : View
         }
 
         ProductLevel.text = Visuals.Colorize(Products.GetProductLevel(company) + outOf + "LVL", statusColor);
+
+        // brand
+        Brand.text = (int)company.branding.BrandPower + "";
+        Draw(BrandIcon, company.isRelease);
+        Draw(Brand, company.isRelease);
 
         // workers
     }

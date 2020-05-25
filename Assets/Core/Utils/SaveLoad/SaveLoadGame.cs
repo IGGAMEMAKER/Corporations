@@ -71,6 +71,9 @@ namespace Assets.Core
 
                 while (e.hasProductListener)
                     e.RemoveProductListener();
+
+                while (e.hasTeamListener)
+                    e.RemoveTeamListener();
                 //
 
                 var comps = e.GetComponents()
@@ -108,6 +111,8 @@ namespace Assets.Core
         {
             ClearEntities();
             LoadEntities(gameContext);
+
+            ScheduleUtils.PauseGame(gameContext);
 
             //var MyCompany = Companies.GetPlayerCompany(gameContext);
             //var playerFlagship = Companies.GetFlagship(gameContext, MyCompany) ?? null;

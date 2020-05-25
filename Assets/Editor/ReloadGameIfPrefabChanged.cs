@@ -24,6 +24,8 @@ class CustomPrefabEnvironment
             //State.LoadGameScene();
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
 
+            ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
+
             //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
             //StartCorutine
         }
