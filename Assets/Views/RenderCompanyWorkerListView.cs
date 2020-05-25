@@ -57,8 +57,8 @@ public class RenderCompanyWorkerListView : ListView
             c.HighlightWorkerRole(highlightRole);
 
             // hide upgrades
-            if (!thisExactRoleWasSelected)
-                c.workerActions.HideActions();
+            //if (!thisExactRoleWasSelected)
+            //    c.workerActions.HideActions();
 
             //Draw(c.workerActions.Upgrades, thisExactRoleWasSelected);
         }
@@ -69,21 +69,32 @@ public class RenderCompanyWorkerListView : ListView
         Draw(CompanyUpgrades, roleWasSelected);
     }
 
-    public void SetRole(WorkerRole role)
+    public void ToggleRole(WorkerRole role)
     {
-        this.SelectedWorkerRole = role;
-        this.roleWasSelected = true;
+        if (role == SelectedWorkerRole)
+        {
+            // toggling role
+            roleWasSelected = !roleWasSelected;
+        }
+        else
+        {
+            // click on different role
+            roleWasSelected = true;
+            SelectedWorkerRole = role;
 
-        CompanyUpgrades.GetComponent<ProductUpgradeButtons>().WorkerRole = role;
+            var up = CompanyUpgrades.GetComponent<ProductUpgradeButtons>();
+            up.WorkerRole = role;
+            up.ViewRender();
+        }
+
         RenderCompanyUpgrades();
         HighlightManagers();
     }
 
-    public void ResetRoles()
+    private void OnDisable()
     {
         roleWasSelected = false;
 
         RenderCompanyUpgrades();
-        HighlightManagers();
     }
 }

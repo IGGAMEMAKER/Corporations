@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 {
     GameEntity company;
-    public WorkerRole role;
+
     bool isActiveRole = true;
+    public WorkerRole role;
 
     public GameObject Worker;
     public Text RoleName;

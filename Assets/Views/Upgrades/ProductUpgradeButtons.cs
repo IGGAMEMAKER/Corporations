@@ -6,7 +6,6 @@ using UnityEngine;
 public class ProductUpgradeButtons : View
 {
     public WorkerRole WorkerRole = WorkerRole.CEO;
-    GameEntity company;
 
     public GameObject TargetingCampaignCheckbox;
     public GameObject TargetingCampaignCheckbox2;
@@ -42,8 +41,9 @@ public class ProductUpgradeButtons : View
         return Products.CanEnable(company, Q, upgrade);
     }
 
-    void Render(GameEntity company)
+    void Render()
     {
+        var company = GetFollowableCompany();
         var id = company.company.Id;
         
         ReleaseApp.SetCompanyId(id);
@@ -109,20 +109,6 @@ public class ProductUpgradeButtons : View
     {
         base.ViewRender();
 
-        var c = GetComponent<SpecifyCompany>();
-        if (c != null)
-        {
-            company = Companies.Get(Q, c.CompanyId);
-
-            Render(company);
-            return;
-        }
-
-        //var flagship = Companies.GetFlagship(Q, MyCompany);
-
-        //if (flagship == null)
-        //    return;
-
-        Render(GetFollowableCompany());
+        Render();
     }
 }

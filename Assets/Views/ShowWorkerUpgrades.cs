@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ShowWorkerUpgrades : View
 {
-    bool showUpgrades = false;
-
     GameEntity worker;
 
     public RenderCompanyWorkerListView WorkerListView;
@@ -16,36 +14,12 @@ public class ShowWorkerUpgrades : View
     {
         this.worker = worker;
         this.WorkerListView = workerListView;
-
-        Render();
     }
 
     public void ToggleState()
     {
-        showUpgrades = !showUpgrades;
+        Debug.Log($"Toggle State {worker.worker.WorkerRole}");
 
-        if (!showUpgrades)
-            WorkerListView.ResetRoles();
-        else
-            WorkerListView.SetRole(worker.worker.WorkerRole);
-
-        Render();
-    }
-
-    public void HideActions()
-    {
-        showUpgrades = false;
-
-        Render();
-    }
-
-    void Render()
-    {
-        Debug.Log("Render: show worker upgrades");
-    }
-
-    void OnDisable()
-    {
-        showUpgrades = false;
+        WorkerListView.ToggleRole(worker.worker.WorkerRole);
     }
 }
