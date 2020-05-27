@@ -33,6 +33,46 @@ public class NicheBaseProfileComponent : IComponent
     public MarketProfile Profile;
 }
 
+public class ChannelInfo
+{
+    public int ID;
+    public long Audience;
+    public long Batch;
+
+    // int - companyId, long - amount of gained clients
+    public Dictionary<int, long> Companies;
+
+    // cost per user
+    public float costPerUser;
+}
+
+public enum ClientContainerType
+{
+    ProductCompany,
+
+    Forum, // per industry ... per market??
+    SocialNetwork, // general market
+    Messenger, // general & focused
+
+    // news channel
+    IndustrialMedia,
+    NicheMedia, // most focused
+    EntertainingMedia,
+}
+
+public class MarketingChannelComponent : IComponent
+{
+    public long Clients;
+    public ClientContainerType ContainerType;
+}
+
+public class CompanyMarketingActivitiesComponent : IComponent
+{
+    // int - companyID, long - Clients
+    public Dictionary<int, long> Companies;
+}
+
+
 
 public enum NicheSpeed
 {

@@ -42,14 +42,18 @@ public class RenderProductStatsInCompanyView : View
         if (levelStatus == ConceptStatus.Outdated)
             statusColor = Colors.COLOR_NEGATIVE;
 
+        var market = Markets.Get(Q, company);
+        var maxLevel = Products.GetMarketDemand(market);
+
         var outOf = "";
         if (!company.isRelease)
         {
-            var market = Markets.Get(Q, company);
-            outOf = $"/{Products.GetMarketDemand(market)}";
+            outOf = $"/{maxLevel}";
         }
 
-        ProductLevel.text = Visuals.Colorize(Products.GetProductLevel(company) + outOf + "LVL", statusColor);
+        var level = Products.GetProductLevel(company);
+        ProductLevel.text = level + outOf + "LVL";
+        ProductLevel.color = Visuals.GetGradientColor(0, maxLevel, level);
 
         // brand
         Brand.text = (int)company.branding.BrandPower + "";

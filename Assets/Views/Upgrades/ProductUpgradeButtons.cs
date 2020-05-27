@@ -53,9 +53,9 @@ public class ProductUpgradeButtons : View
         Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         Draw(TestCampaignCheckbox, !company.isRelease);
 
-        bool isCEO           = WorkerRole == WorkerRole.CEO;
-        bool isMarketingLead = WorkerRole == WorkerRole.MarketingLead;
-        bool isTeamLead      = WorkerRole == WorkerRole.TeamLead;
+        bool isCEO            = WorkerRole == WorkerRole.CEO;
+        bool isMarketingLead  = WorkerRole == WorkerRole.MarketingLead;
+        bool isTeamLead       = WorkerRole == WorkerRole.TeamLead;
         bool isProductManager = WorkerRole == WorkerRole.ProductManager;
         bool isProjectManager = WorkerRole == WorkerRole.ProjectManager;
 

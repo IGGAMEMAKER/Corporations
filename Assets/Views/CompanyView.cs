@@ -81,6 +81,7 @@ public class CompanyView : View
             expand = !expand;
 
             RenderWorkersAndCompetitors();
+            ResizeFirmLogo();
         }
     }
 
@@ -98,11 +99,8 @@ public class CompanyView : View
         }
     }
 
-
-    void RenderProductCompany()
+    void ResizeFirmLogo()
     {
-        ProductStats.Render(company);
-
         var scale = 1f;
 
         bool isGlobalMode = !expand;
@@ -112,7 +110,7 @@ public class CompanyView : View
 
             // share = 0
             var minSize = 0.85f;
-            
+
             // share = 100
             var maxSize = 2.5f;
 
@@ -120,6 +118,13 @@ public class CompanyView : View
         }
 
         transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    void RenderProductCompany()
+    {
+        ProductStats.Render(company);
+
+        ResizeFirmLogo();
     }
 
     //void OnDisable()

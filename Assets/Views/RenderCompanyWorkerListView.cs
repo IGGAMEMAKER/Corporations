@@ -60,7 +60,8 @@ public class RenderCompanyWorkerListView : ListView
 
     void RenderCompanyUpgrades()
     {
-        Draw(CompanyUpgrades, roleWasSelected);
+        Draw(CompanyUpgrades, roleWasSelected && SelectedWorkerRole != WorkerRole.MarketingLead);
+        Draw(MarketingCampaigns, roleWasSelected && SelectedWorkerRole == WorkerRole.MarketingLead);
     }
 
     public void ToggleRole(WorkerRole role)
