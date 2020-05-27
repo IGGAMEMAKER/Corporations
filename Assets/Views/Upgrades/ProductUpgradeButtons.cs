@@ -71,10 +71,10 @@ public class ProductUpgradeButtons : View
 
         // release stuff
         // -------------
-        Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb) && isTeamLead);
-        Draw(MobileIOSCheckbox,          CanEnable(company, ProductUpgrade.PlatformMobileIOS) && isTeamLead);
-        Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid) && isTeamLead);
-        Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop) && isTeamLead);
+        Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb) && isProductManager);
+        Draw(MobileIOSCheckbox,          CanEnable(company, ProductUpgrade.PlatformMobileIOS) && isProductManager);
+        Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid) && isProductManager);
+        Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop) && isProductManager);
 
         Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign) && isMarketingLead);
         Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2) && isMarketingLead);

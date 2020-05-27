@@ -16,14 +16,16 @@ namespace Assets.Core
 
         public static void SpawnMarketingChannels(GameContext gameContext)
         {
-            for (var i = 0; i < 60; i++)
+            for (var i = 0; i < 20; i++)
             {
                 var e = gameContext.CreateEntity();
 
                 long baseBatch = 25000;
 
                 var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
-                e.AddMarketingChannel(baseBatch * Random.Range(1, 1000), channelType, new ChannelInfo { ID = i, costPerUser = Random.Range(1f, 5f) });
+                long audience = baseBatch * Random.Range(1, 1000) * (long)(Mathf.Pow(1.02f, i));
+
+                e.AddMarketingChannel(audience, channelType, new ChannelInfo { ID = i, costPerUser = Random.Range(1f, 5f), Audience = audience, Batch = audience / Random.Range(100, 200), Companies = new Dictionary<int, long>() });
                 e.AddCompanyMarketingActivities(new Dictionary<int, long>());
             }
         }

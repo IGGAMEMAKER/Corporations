@@ -67,9 +67,15 @@ public class MarketingChannelComponent : IComponent
     public ChannelInfo ChannelInfo;
 }
 
+public class SourceOfClientsComponent : IComponent
+{
+    // int - marketing channel ID, long - amount of clients, that company gained through this channel
+    public Dictionary<int, long> Channels;
+}
+
 public class CompanyMarketingActivitiesComponent : IComponent
 {
-    // int - companyID, long - Clients
+    // int - companyID, long - true / false
     public Dictionary<int, long> Companies;
 }
 

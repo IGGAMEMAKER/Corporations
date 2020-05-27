@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class MarketingChannelView : View
 {
-    GameEntity channel;
+    public GameEntity channel;
 
     public Text Title;
     public Text Users;
     public Text Income;
+
+    public CanvasGroup CanvasGroup;
+    public Image ChosenImage;
 
     public override void ViewRender()
     {
@@ -17,18 +20,19 @@ public class MarketingChannelView : View
         var marketingChannel = channel.marketingChannel;
 
         var channel1 = marketingChannel.ChannelInfo;
-        channel1.Audience = marketingChannel.Clients;
-        channel1.Batch = marketingChannel.Clients / 50;
-        channel1.Companies = channel.companyMarketingActivities.Companies;
 
         Title.text = $"Forum {channel1.ID}";
-        Users.text = Format.Minify(channel1.Audience) + " users";
+        Users.text = "+" + Format.Minify(channel1.Batch) + " users";
 
         var income = 5 - channel1.costPerUser;
         var formattedIncome = income.ToString("0.00");
 
         Income.text = $"+${formattedIncome} / user";
         Income.color = Visuals.GetGradientColor(0, 5, income);
+
+        bool isChosen = channel.companyMarketingActivities.Companies.ContainsKey(Flagship.company.Id);
+        CanvasGroup.alpha = isChosen ? 1 : 0.8f;
+        Draw(ChosenImage, isChosen);
     }
 
     public void SetEntity(GameEntity channel)

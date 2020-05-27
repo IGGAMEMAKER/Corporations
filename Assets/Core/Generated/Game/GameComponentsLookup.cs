@@ -91,23 +91,24 @@ public static class GameComponentsLookup {
     public const int Shareholder = 80;
     public const int Shareholders = 81;
     public const int ShareholdersListener = 82;
-    public const int Speed = 83;
-    public const int TargetDate = 84;
-    public const int Task = 85;
-    public const int Team = 86;
-    public const int TeamListener = 87;
-    public const int TechnologyLeader = 88;
-    public const int TechnologyLeaderListener = 89;
-    public const int Test = 90;
-    public const int TimedAction = 91;
-    public const int TimerRunning = 92;
-    public const int Tutorial = 93;
-    public const int TutorialListener = 94;
-    public const int UniversalListener = 95;
-    public const int WantsToExpand = 96;
-    public const int Worker = 97;
+    public const int SourceOfClients = 83;
+    public const int Speed = 84;
+    public const int TargetDate = 85;
+    public const int Task = 86;
+    public const int Team = 87;
+    public const int TeamListener = 88;
+    public const int TechnologyLeader = 89;
+    public const int TechnologyLeaderListener = 90;
+    public const int Test = 91;
+    public const int TimedAction = 92;
+    public const int TimerRunning = 93;
+    public const int Tutorial = 94;
+    public const int TutorialListener = 95;
+    public const int UniversalListener = 96;
+    public const int WantsToExpand = 97;
+    public const int Worker = 98;
 
-    public const int TotalComponents = 98;
+    public const int TotalComponents = 99;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -193,6 +194,7 @@ public static class GameComponentsLookup {
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
+        "SourceOfClients",
         "Speed",
         "TargetDate",
         "Task",
@@ -294,6 +296,7 @@ public static class GameComponentsLookup {
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),
+        typeof(SourceOfClientsComponent),
         typeof(SpeedComponent),
         typeof(TargetDateComponent),
         typeof(TaskComponent),

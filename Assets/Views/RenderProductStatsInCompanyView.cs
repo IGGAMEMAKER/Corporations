@@ -48,7 +48,7 @@ public class RenderProductStatsInCompanyView : View
         var outOf = "";
         if (!company.isRelease)
         {
-            outOf = $"/{maxLevel}";
+            outOf = $" / {maxLevel}";
         }
 
         var level = Products.GetProductLevel(company);

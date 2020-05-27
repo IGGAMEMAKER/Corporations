@@ -15,7 +15,8 @@ public class MarketingChannelsListView : ListView
     {
         base.ViewRender();
 
-        var channels = Markets.GetMarketingChannels(Q);
+        var channels = Markets.GetMarketingChannels(Q)
+            .OrderBy(c => c.marketingChannel.ChannelInfo.Audience);
 
         SetItems(channels);
     }
