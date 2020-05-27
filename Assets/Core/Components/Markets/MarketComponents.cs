@@ -64,6 +64,7 @@ public class MarketingChannelComponent : IComponent
 {
     public long Clients;
     public ClientContainerType ContainerType;
+    public ChannelInfo ChannelInfo;
 }
 
 public class CompanyMarketingActivitiesComponent : IComponent

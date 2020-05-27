@@ -440,6 +440,7 @@ public class RestoreGameStateAfterRecompilation : View
     void SpawnMarkets()
     {
         Markets.SpawnMarkets(Q);
+        Markets.SpawnMarketingChannels(Q);
     }
 
     /// --- Products -----------------------------------

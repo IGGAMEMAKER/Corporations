@@ -6,9 +6,11 @@ namespace Assets.Core
 {
     public static class RandomEnum<T>
     {
+        // params T[]
         public static T GenerateValue(T exception)
         {
             T result = GenerateValue();
+
             Debug.Log("Generate value: " + result);
             while (result.Equals(exception))
                 result = GenerateValue();

@@ -2,11 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Core
 {
     public static partial class Markets
     {
+        public static GameEntity[] GetMarketingChannels(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.MarketingChannel);
+        }
+
+        public static void SpawnMarketingChannels(GameContext gameContext)
+        {
+            for (var i = 0; i < 60; i++)
+            {
+                var e = gameContext.CreateEntity();
+
+                long baseBatch = 25000;
+
+                var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
+                e.AddMarketingChannel(baseBatch * Random.Range(1, 1000), channelType, new ChannelInfo { ID = i, costPerUser = Random.Range(1f, 5f) });
+                e.AddCompanyMarketingActivities(new Dictionary<int, long>());
+            }
+        }
+
         public static void SpawnMarkets(GameContext gameContext)
         {
             InitializeIndustries(gameContext);
