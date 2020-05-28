@@ -63,7 +63,8 @@ namespace Assets.Core
                 var funds = UnityEngine.Random.Range(2, 5) * startCapital;
                 var c = Markets.SpawnCompany(niche, gameContext, funds);
 
-                var newLevel = UnityEngine.Random.Range(4, 8);
+                //var newLevel = UnityEngine.Random.Range(4, 8);
+                var newLevel = UnityEngine.Random.Range(1, 2);
 
                 Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
                 Marketing.AddBrandPower(c, newLevel * 3);

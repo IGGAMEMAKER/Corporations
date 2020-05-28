@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using UnityEngine;
+
+namespace Assets.Core
 {
     public static partial class Marketing
     {
@@ -16,16 +18,27 @@
             return (long)result;
         }
 
+        public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
+        {
+            return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
+        }
+
         public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;
 
-            var active = channel.companyMarketingActivities.Companies.ContainsKey(companyId);
+            var active = IsCompanyActiveInChannel(product, channel);
 
             if (active)
-                channel.companyMarketingActivities.Companies.Remove(companyId);
+            {
+                product.companyMarketingActivities.Channels.Remove(companyId);
+                channel.channelMarketingActivities.Companies.Remove(companyId);
+            }
             else
-                channel.companyMarketingActivities.Companies[companyId] = 1;
+            {
+                product.companyMarketingActivities.Channels[companyId] = 1;
+                channel.channelMarketingActivities.Companies[companyId] = 1;
+            }
         }
     }
 }

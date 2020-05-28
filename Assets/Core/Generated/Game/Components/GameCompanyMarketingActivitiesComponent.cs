@@ -14,14 +14,14 @@ public partial class GameEntity {
     public void AddCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newCompanies) {
         var index = GameComponentsLookup.CompanyMarketingActivities;
         var component = (CompanyMarketingActivitiesComponent)CreateComponent(index, typeof(CompanyMarketingActivitiesComponent));
-        component.Companies = newCompanies;
+        component.Channels = newCompanies;
         AddComponent(index, component);
     }
 
     public void ReplaceCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newCompanies) {
         var index = GameComponentsLookup.CompanyMarketingActivities;
         var component = (CompanyMarketingActivitiesComponent)CreateComponent(index, typeof(CompanyMarketingActivitiesComponent));
-        component.Companies = newCompanies;
+        component.Channels = newCompanies;
         ReplaceComponent(index, component);
     }
 

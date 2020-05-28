@@ -27,6 +27,9 @@ namespace Assets.Core
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
             company.AddMarketing((long)baseClients);
 
+            company.AddCompanyMarketingActivities(new Dictionary<int, long>());
+            company.AddSourceOfClients(new Dictionary<int, long>());
+
             // sphere of interest
             var industry = Markets.GetIndustry(niche, context);
 

@@ -26,7 +26,7 @@ namespace Assets.Core
                 long audience = baseBatch * Random.Range(1, 1000) * (long)(Mathf.Pow(1.02f, i));
 
                 e.AddMarketingChannel(audience, channelType, new ChannelInfo { ID = i, costPerUser = Random.Range(1f, 5f), Audience = audience, Batch = audience / Random.Range(100, 200), Companies = new Dictionary<int, long>() });
-                e.AddCompanyMarketingActivities(new Dictionary<int, long>());
+                e.AddChannelMarketingActivities(new Dictionary<int, long>());
             }
         }
 
@@ -161,7 +161,7 @@ namespace Assets.Core
             SetMarkets(NicheType.Tech_SearchEngine, 1995, 2040, gameContext, searchEngine);
 
             SetMarkets(NicheType.Tech_MobileOS, 2005, 2070, gameContext, desktop);
-            SetMarkets(NicheType.Tech_Clouds, 2006, 2050, gameContext, cloud);
+            SetMarkets(NicheType.Tech_Clouds, 2006, 2070, gameContext, cloud);
         }
 
         public static void InitializeUsefulAppsIndustry(GameContext gameContext)

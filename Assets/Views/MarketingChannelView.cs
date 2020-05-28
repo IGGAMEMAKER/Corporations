@@ -30,7 +30,7 @@ public class MarketingChannelView : View
         Income.text = $"+${formattedIncome} / user";
         Income.color = Visuals.GetGradientColor(0, 5, income);
 
-        bool isChosen = channel.companyMarketingActivities.Companies.ContainsKey(Flagship.company.Id);
+        bool isChosen = Marketing.IsCompanyActiveInChannel(Flagship, channel);
         CanvasGroup.alpha = isChosen ? 1 : 0.8f;
         Draw(ChosenImage, isChosen);
     }

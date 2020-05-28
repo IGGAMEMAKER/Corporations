@@ -4,6 +4,8 @@
     {
         Add(new UpdateNicheStateSystem(contexts));
 
+        Add(new ProcessMarketingActivitiesSystem(contexts));
+
         //Add(new ChurnSystem(contexts));
         Add(new ClientDistributionSystem(contexts));
     }

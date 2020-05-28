@@ -73,10 +73,16 @@ public class SourceOfClientsComponent : IComponent
     public Dictionary<int, long> Channels;
 }
 
-public class CompanyMarketingActivitiesComponent : IComponent
+public class ChannelMarketingActivitiesComponent : IComponent
 {
     // int - companyID, long - true / false
     public Dictionary<int, long> Companies;
+}
+
+public class CompanyMarketingActivitiesComponent : IComponent
+{
+    // int - companyID, long - true / false
+    public Dictionary<int, long> Channels;
 }
 
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChannelActivityController : ButtonController
 {
     public MarketingChannelView MarketingChannelView;
+
     public override void Execute()
     {
         var channel = MarketingChannelView.channel;
