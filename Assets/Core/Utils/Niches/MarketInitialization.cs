@@ -9,6 +9,12 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
+        public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
+        {
+            var channels = GetMarketingChannels(gameContext);
+
+            return channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
+        }
         public static GameEntity[] GetMarketingChannels(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.MarketingChannel);

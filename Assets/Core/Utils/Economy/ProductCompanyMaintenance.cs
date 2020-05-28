@@ -25,6 +25,17 @@ namespace Assets.Core
                 bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
             }
 
+            foreach (var c in e.companyMarketingActivities.Channels)
+            {
+                var channelId = c.Key;
+                Debug.Log("Checking company channel " + channelId);
+
+                var channel = Markets.GetMarketingChannel(gameContext, channelId);
+
+                var cost = Marketing.GetMarketingActivityCost(e, gameContext, channel);
+                bonus.AppendAndHideIfZero("Marketing in Forum" + channelId, cost);
+            }
+
             return bonus;
         }
 

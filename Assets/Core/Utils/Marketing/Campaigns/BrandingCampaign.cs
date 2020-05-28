@@ -18,6 +18,16 @@ namespace Assets.Core
             return (long)result;
         }
 
+        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, GameEntity channel)
+        {
+            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
+            var flow = channel.marketingChannel.ChannelInfo.Batch; // GetClientFlow(gameContext, product.product.Niche);
+
+            var cost = clientCost * flow;
+
+            return (long)cost;
+        }
+
         public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
         {
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
@@ -26,17 +36,18 @@ namespace Assets.Core
         public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
 
             var active = IsCompanyActiveInChannel(product, channel);
 
             if (active)
             {
-                product.companyMarketingActivities.Channels.Remove(companyId);
+                product.companyMarketingActivities.Channels.Remove(channelId);
                 channel.channelMarketingActivities.Companies.Remove(companyId);
             }
             else
             {
-                product.companyMarketingActivities.Channels[companyId] = 1;
+                product.companyMarketingActivities.Channels[channelId] = 1;
                 channel.channelMarketingActivities.Companies[companyId] = 1;
             }
         }
