@@ -16,8 +16,9 @@
 
         // products
         Add(new AutoUpgradeProductsSystem(contexts));
-        Add(new ManageProductFinancingSystem(contexts));
+        Add(new ManageProductUpgradesSystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
+        Add(new ChurnSystem(contexts));
 
         // expansion
         Add(new AIPromoteProductToGroupSystem(contexts));

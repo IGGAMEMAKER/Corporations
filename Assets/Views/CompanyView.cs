@@ -22,6 +22,8 @@ public class CompanyView : View
 
     public RenderCompanyAnimations Animations;
 
+    public GameObject RaiseInvestments;
+
     public GameObject FirmLogo;
 
     RenderProductStatsInCompanyView _productStats;
@@ -82,7 +84,20 @@ public class CompanyView : View
 
             RenderWorkersAndCompetitors();
             ResizeFirmLogo();
+
         }
+
+        RenderInvestmentsButton();
+    }
+
+    void RenderInvestmentsButton()
+    {
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+        var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
+
+        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
+        Draw(RaiseInvestments, canRaiseInvestments && expand);
     }
 
     void Render()
@@ -92,6 +107,8 @@ public class CompanyView : View
 
         CompanyName.text = company.company.Name;
         CompanyName.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
+
+        RenderInvestmentsButton();
 
         if (company.hasProduct)
         {

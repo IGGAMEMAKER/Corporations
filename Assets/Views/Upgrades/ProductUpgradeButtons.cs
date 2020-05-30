@@ -84,14 +84,6 @@ public class ProductUpgradeButtons : View
         Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2) && isMarketingLead);
         Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3) && isMarketingLead);
 
-
-        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
-        var playerCanExploreAdvancedTabs = hasReleasedProducts;
-        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
-
-        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
-        Draw(RaiseInvestments, canRaiseInvestments && isCEO);
-
         foreach (var manager in HiringManagers)
         {
             var role = manager.GetComponent<HireManagerByRole>().WorkerRole;

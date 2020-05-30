@@ -2,31 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class ManageProductFinancingSystem : OnPeriodChange
+public partial class ManageProductUpgradesSystem : OnPeriodChange
 {
-    public ManageProductFinancingSystem(Contexts contexts) : base(contexts) {}
+    public ManageProductUpgradesSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
-        foreach (var e in Companies.GetProductCompanies(gameContext))
+        foreach (var product in Companies.GetProductCompanies(gameContext))
         {
-            if (e.company.Id != playerFlagshipId)
-                SetUpgrades(e);
+            if (product.company.Id != playerFlagshipId)
+            {
+                if (product.isRelease)
+                {
+                    ManageReleasedProducts(product);
+                }
+                else
+                {
+                    ManagePrototypes(product);
+                }
+            }
         }
     }
 
-    void SetUpgrades(GameEntity product)
+    long CheckChannelCosts(GameEntity product, GameEntity channel, long balance, ref List<string> str)
     {
-        if (product.isRelease)
+        var newBalance = balance;
+
+        var cost = Marketing.GetMarketingActivityCost(product, gameContext, channel);
+        var workerCost = 0; // Products.GetUpgradeWorkerCost(product, gameContext, u);
+
+        var totalCost = cost + workerCost;
+
+        if (totalCost < newBalance)
         {
-            ManageReleasedProducts(product);
+            Marketing.EnableChannelActivity(product, gameContext, channel);
+
+            newBalance -= totalCost;
         }
+
         else
         {
-            ManagePrototypes(product);
+            Marketing.DisableChannelActivity(product, gameContext, channel);
         }
+
+        return newBalance;
     }
 
     long CheckCosts(GameEntity product, List<ProductUpgrade> upgradeSets, long balance, ref List<string> str)
@@ -75,9 +96,9 @@ public partial class ManageProductFinancingSystem : OnPeriodChange
         str.Add("Money available for upgrades: " + Format.Money(totalFunds));
 
         var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept };
-        var tier1 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign, ProductUpgrade.BrandCampaign, ProductUpgrade.QA, ProductUpgrade.Support };
-        var tier2 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign2, ProductUpgrade.BrandCampaign2, ProductUpgrade.QA2, ProductUpgrade.Support2 };
-        var tier3 = new List<ProductUpgrade>() { ProductUpgrade.TargetingCampaign3, ProductUpgrade.BrandCampaign3, ProductUpgrade.QA3, ProductUpgrade.Support3 };
+        var tier1 = new List<ProductUpgrade>() { ProductUpgrade.QA, ProductUpgrade.Support };
+        var tier2 = new List<ProductUpgrade>() { ProductUpgrade.QA2, ProductUpgrade.Support2 };
+        var tier3 = new List<ProductUpgrade>() { ProductUpgrade.QA3, ProductUpgrade.Support3 };
 
         totalFunds = CheckCosts(product, tier0, totalFunds, ref str);
         str.Add("Checking tier0: " + Format.Money(totalFunds));
@@ -97,6 +118,13 @@ public partial class ManageProductFinancingSystem : OnPeriodChange
         {
             foreach (var s in str)
                 Debug.Log(s);
+        }
+
+        var channels = Markets.GetAvailableMarketingChannels(gameContext, product);
+
+        foreach (var c in channels)
+        {
+            totalFunds = CheckChannelCosts(product, c, totalFunds, ref str);
         }
     }
 

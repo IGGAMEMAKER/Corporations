@@ -15,9 +15,43 @@ namespace Assets.Core
 
             return channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
         }
+
         public static GameEntity[] GetMarketingChannels(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.MarketingChannel);
+        }
+
+        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product)
+        {
+            var channels = GetMarketingChannels(gameContext);
+
+            //Debug.Log("channels: " + channels.Count());
+
+            var productLevel = Products.GetProductLevel(product);
+
+            var amountOfChannels = 0;
+
+            if (productLevel <= 1)
+            {
+                amountOfChannels = 1;
+            }
+            else if (productLevel <= 5)
+            {
+                amountOfChannels = 3;
+            }
+            else
+            {
+                amountOfChannels = 3 + (int)Mathf.Pow(productLevel, 0.5f);
+            }
+
+            var chosenChannels = channels
+                .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
+                .Take(amountOfChannels);
+
+            //Debug.Log($"chosen channels <{amountOfChannels}>: " + chosenChannels.Count());
+
+            return chosenChannels
+                .ToArray();
         }
 
         public static void SpawnMarketingChannels(GameContext gameContext)
@@ -31,7 +65,9 @@ namespace Assets.Core
                 var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
                 long audience = baseBatch * Random.Range(1, 1000) * (long)(Mathf.Pow(1.02f, i));
 
-                e.AddMarketingChannel(audience, channelType, new ChannelInfo { ID = i, costPerUser = Random.Range(1f, 5f), Audience = audience, Batch = audience / Random.Range(100, 200), Companies = new Dictionary<int, long>() });
+                e.AddMarketingChannel(audience, channelType, new ChannelInfo {
+                    ID = i, costPerUser = Random.Range(1f, 5f), Audience = audience, Batch = audience / Random.Range(100, 200), Companies = new Dictionary<int, long>()
+                });
                 e.AddChannelMarketingActivities(new Dictionary<int, long>());
             }
         }

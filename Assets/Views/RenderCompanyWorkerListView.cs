@@ -13,6 +13,8 @@ public class RenderCompanyWorkerListView : ListView
     public GameObject CompanyUpgrades;
     public GameObject MarketingCampaigns;
 
+    public EnlargeOnDemand EnlargeOnDemand;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var role = (WorkerRole)(object)entity;
@@ -81,6 +83,8 @@ public class RenderCompanyWorkerListView : ListView
             up.WorkerRole = role;
             up.ViewRender();
         }
+
+        EnlargeOnDemand.StartAnimation();
 
         RenderCompanyUpgrades();
         HighlightManagers();

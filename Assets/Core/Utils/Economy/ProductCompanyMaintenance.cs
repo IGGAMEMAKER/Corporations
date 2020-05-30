@@ -15,6 +15,7 @@ namespace Assets.Core
 
             var upgrades = e.productUpgrades.upgrades;
 
+            // upgrades
             foreach (var u in upgrades)
             {
                 long cost = 0;
@@ -25,10 +26,11 @@ namespace Assets.Core
                 bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
             }
 
+            // channels
             foreach (var c in e.companyMarketingActivities.Channels)
             {
                 var channelId = c.Key;
-                Debug.Log("Checking company channel " + channelId);
+                //Debug.Log("Checking company channel " + channelId);
 
                 var channel = Markets.GetMarketingChannel(gameContext, channelId);
 

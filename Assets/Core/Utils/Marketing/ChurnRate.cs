@@ -14,6 +14,8 @@ namespace Assets.Core
         public static float GetLifeTime(GameContext gameContext, int companyId)
         {
             var churn = GetChurnRate(gameContext, companyId);
+
+            return 100 / churn;
             var oppositeChurn = (100 - churn) / 100f;
 
             return Mathf.Log(0.01f, oppositeChurn);

@@ -33,6 +33,26 @@ namespace Assets.Core
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
+        public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        {
+            var companyId = product.company.Id;
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
+
+            product.companyMarketingActivities.Channels[channelId] = 1;
+            channel.channelMarketingActivities.Companies[companyId] = 1;
+        }
+
+        public static void DisableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        {
+            var companyId = product.company.Id;
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
+
+            product.companyMarketingActivities.Channels.Remove(channelId);
+            channel.channelMarketingActivities.Companies.Remove(companyId);
+        }
+
+
+
         public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;
@@ -42,13 +62,11 @@ namespace Assets.Core
 
             if (active)
             {
-                product.companyMarketingActivities.Channels.Remove(channelId);
-                channel.channelMarketingActivities.Companies.Remove(companyId);
+                DisableChannelActivity(product, gameContext, channel);
             }
             else
             {
-                product.companyMarketingActivities.Channels[channelId] = 1;
-                channel.channelMarketingActivities.Companies[companyId] = 1;
+                EnableChannelActivity(product, gameContext, channel);
             }
         }
     }
