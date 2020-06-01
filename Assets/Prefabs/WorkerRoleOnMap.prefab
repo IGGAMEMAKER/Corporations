@@ -76,12 +76,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453082193223884854}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1f4f81e0b7430d4b886c3995689a4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  period: 0.45
+  period: 0.15
   amplification: 0.2
 --- !u!114 &6624660064907435054
 MonoBehaviour:
@@ -95,10 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DateChanges: 1
-  OnPeriodChange: 1
+  DateChanges: 0
+  OnPeriodChange: 0
   MenuChanges: 0
   NavigationChanges: 0
+  ListenGameEvents: 1
 --- !u!1 &2149195380799578431
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,3 +753,4 @@ MonoBehaviour:
   OnPeriodChange: 1
   MenuChanges: 0
   NavigationChanges: 0
+  ListenGameEvents: 0

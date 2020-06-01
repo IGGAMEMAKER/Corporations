@@ -111,6 +111,7 @@ public enum GameEventType
     DisloyalTeamLead,
 }
 
+[Game, Event(EventTarget.Any)]
 public class GameEventContainerComponent : IComponent
 {
     // example

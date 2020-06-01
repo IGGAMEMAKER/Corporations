@@ -21,12 +21,8 @@ namespace Assets.Core
             return gameContext.GetEntities(GameMatcher.MarketingChannel);
         }
 
-        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product)
+        public static int GetAmountOfAvailableChannels(GameContext gameContext, GameEntity product)
         {
-            var channels = GetMarketingChannels(gameContext);
-
-            //Debug.Log("channels: " + channels.Count());
-
             var productLevel = Products.GetProductLevel(product);
 
             var amountOfChannels = 0;
@@ -43,6 +39,17 @@ namespace Assets.Core
             {
                 amountOfChannels = 3 + (int)Mathf.Pow(productLevel, 0.5f);
             }
+
+            return amountOfChannels;
+        }
+
+        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product)
+        {
+            var channels = GetMarketingChannels(gameContext);
+
+            //Debug.Log("channels: " + channels.Count());
+
+            var amountOfChannels = GetAmountOfAvailableChannels(gameContext, product);
 
             var chosenChannels = channels
                 .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)

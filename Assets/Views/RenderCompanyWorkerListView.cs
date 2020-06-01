@@ -89,6 +89,8 @@ public class RenderCompanyWorkerListView : ListView
             up.ViewRender();
         }
 
+        MarkGameEventsAsSeen(role);
+
         EnlargeOnDemand.StartAnimation();
 
         RenderCompanyUpgrades();
@@ -100,5 +102,25 @@ public class RenderCompanyWorkerListView : ListView
         roleWasSelected = false;
 
         RenderCompanyUpgrades();
+    }
+
+    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
+    {
+        var events = eventContainer.gameEventContainer.Events;
+
+        events.RemoveAll(e => removableEvents.Contains(e.eventType));
+        eventContainer.ReplaceGameEventContainer(events);
+    }
+
+    void MarkGameEventsAsSeen(WorkerRole role)
+    {
+        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
+
+        var events = NotificationUtils.GetGameEventContainerEntity(Q);
+
+        if (role == WorkerRole.MarketingLead)
+        {
+            ClearEvents(events, marketingEvents);
+        }
     }
 }

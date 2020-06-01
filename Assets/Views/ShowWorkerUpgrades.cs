@@ -28,7 +28,8 @@ public class ShowWorkerUpgrades : View
     {
         base.ViewRender();
 
-        BlinkIfNecessary();
+        if (worker != null)
+            BlinkIfNecessary();
     }
 
     void BlinkIfNecessary()
@@ -74,9 +75,9 @@ public class ShowWorkerUpgrades : View
 
     bool HasNewMarketingLeadButtons()
     {
-        bool hasNewChannels = false;
+        bool hasNewChannels = NotificationUtils.HasGameEvent(Q, GameEventType.NewMarketingChannel);
 
-        var activeChannels = Flagship.companyMarketingActivities.Channels.Count == Markets.GetAvailableMarketingChannels(Q, Flagship).Length;
+        //var activeChannels = Flagship.companyMarketingActivities.Channels.Count == Markets.GetAvailableMarketingChannels(Q, Flagship).Length;
 
         return hasNewChannels;
     }

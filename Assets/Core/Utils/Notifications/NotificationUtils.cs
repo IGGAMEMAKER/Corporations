@@ -59,5 +59,31 @@ namespace Assets.Core
 
             n.ReplaceNotifications(l);
         }
+
+        //
+
+        public static GameEntity GetGameEventContainerEntity(GameContext gameContext)
+        {
+            return GetNotificationsComponent(gameContext);
+        }
+
+        public static GameEventContainerComponent GetGameEventContainer(GameContext gameContext)
+        {
+            return GetGameEventContainerEntity(gameContext).gameEventContainer;
+        }
+
+        public static void AddGameEvent(GameContext gameContext, GameEvent gameEvent)
+        {
+            var container = GetGameEventContainerEntity(gameContext);
+            var events = container.gameEventContainer.Events;
+            
+            events.Add(gameEvent);
+            container.ReplaceGameEventContainer(events);
+        }
+
+        public static bool HasGameEvent(GameContext gameContext, GameEventType eventType)
+        {
+            return GetGameEventContainer(gameContext).Events.Find(g => g.eventType == GameEventType.NewMarketingChannel) != null;
+        }
     }
 }

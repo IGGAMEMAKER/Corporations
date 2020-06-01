@@ -19,6 +19,7 @@ public sealed class GameEventSystems : Feature {
         Add(new AnyDateEventSystem(contexts)); // priority: 0
         Add(new DateEventSystem(contexts)); // priority: 0
         Add(new EventContainerEventSystem(contexts)); // priority: 0
+        Add(new AnyGameEventContainerEventSystem(contexts)); // priority: 0
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new MenuEventSystem(contexts)); // priority: 0
         Add(new NavigationHistoryEventSystem(contexts)); // priority: 0

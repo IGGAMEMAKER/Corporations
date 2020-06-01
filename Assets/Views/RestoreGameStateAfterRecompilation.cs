@@ -69,6 +69,8 @@ public class RestoreGameStateAfterRecompilation : View
         // game is paused already
         //ScheduleUtils.PauseGame(Q);
 
+        e.AddGameEventContainer(new List<GameEvent>());
+
         // menu
         ScreenUtils.CreateMenu(e);
         //var c = ScreenUtils.GetMenu(Q);

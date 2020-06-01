@@ -11,17 +11,17 @@ public partial class GameEntity {
     public CompanyMarketingActivitiesComponent companyMarketingActivities { get { return (CompanyMarketingActivitiesComponent)GetComponent(GameComponentsLookup.CompanyMarketingActivities); } }
     public bool hasCompanyMarketingActivities { get { return HasComponent(GameComponentsLookup.CompanyMarketingActivities); } }
 
-    public void AddCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newCompanies) {
+    public void AddCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newChannels) {
         var index = GameComponentsLookup.CompanyMarketingActivities;
         var component = (CompanyMarketingActivitiesComponent)CreateComponent(index, typeof(CompanyMarketingActivitiesComponent));
-        component.Channels = newCompanies;
+        component.Channels = newChannels;
         AddComponent(index, component);
     }
 
-    public void ReplaceCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newCompanies) {
+    public void ReplaceCompanyMarketingActivities(System.Collections.Generic.Dictionary<int, long> newChannels) {
         var index = GameComponentsLookup.CompanyMarketingActivities;
         var component = (CompanyMarketingActivitiesComponent)CreateComponent(index, typeof(CompanyMarketingActivitiesComponent));
-        component.Channels = newCompanies;
+        component.Channels = newChannels;
         ReplaceComponent(index, component);
     }
 

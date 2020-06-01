@@ -5,6 +5,7 @@ public class LazyUpdate : Controller
     , IDateListener
     , IMenuListener
     , INavigationHistoryListener
+    , IAnyGameEventContainerListener
 {
     [UnityEngine.Header("Everyday changes")]
     public bool DateChanges = true;
@@ -18,6 +19,9 @@ public class LazyUpdate : Controller
     [UnityEngine.Header("Navigation")]
     public bool NavigationChanges = true;
 
+    [UnityEngine.Header("GameEvents")]
+    public bool ListenGameEvents = false;
+
     public override void AttachListeners()
     {
         if (DateChanges)
@@ -28,6 +32,9 @@ public class LazyUpdate : Controller
 
         if (!MenuChanges && NavigationChanges)
             ListenNavigationChanges(this);
+
+        if (ListenGameEvents)
+            NotificationUtils.GetGameEventContainerEntity(Q).AddAnyGameEventContainerListener(this);
     }
 
     public override void DetachListeners()
@@ -40,6 +47,9 @@ public class LazyUpdate : Controller
 
         if (!MenuChanges && NavigationChanges)
             UnListenNavigationChanges(this);
+
+        if (ListenGameEvents)
+            NotificationUtils.GetGameEventContainerEntity(Q).RemoveAnyGameEventContainerListener(this);
     }
 
     public void OnDate(GameEntity entity, int date)
@@ -54,6 +64,11 @@ public class LazyUpdate : Controller
     }
 
     public void OnNavigationHistory(GameEntity entity, List<MenuComponent> queries)
+    {
+        Render();
+    }
+
+    void IAnyGameEventContainerListener.OnAnyGameEventContainer(GameEntity entity, List<GameEvent> events)
     {
         Render();
     }

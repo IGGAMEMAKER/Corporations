@@ -37,9 +37,19 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
         {
             Companies.SpendResources(product, upgradeCost);
 
+            var previousAmountOfChannels = Markets.GetAmountOfAvailableChannels(gameContext, product);
 
             Products.UpgradeProductLevel(product, gameContext);
             Markets.UpdateMarketRequirements(product, gameContext);
+
+            var currentAmountOfChannels = Markets.GetAmountOfAvailableChannels(gameContext, product);
+
+            if (previousAmountOfChannels != currentAmountOfChannels)
+            {
+                // notify player about new channels
+                if (Companies.IsPlayerFlagship(gameContext, product))
+                    NotificationUtils.AddGameEvent(gameContext, new GameEventNewMarketingChannel());
+            }
 
             Investments.CompleteGoal(product, gameContext);
         }

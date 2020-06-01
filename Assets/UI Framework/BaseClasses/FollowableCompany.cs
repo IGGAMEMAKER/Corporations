@@ -13,7 +13,7 @@ public class FollowableCompany : MonoBehaviour
         // find listeners, who need followable company?
         var components = GetComponentsInChildren<FollowCompanyChanges>();
 
-        if (components != null)
+        if (components.Length != 0)
         {
             foreach (var c in components)
             {

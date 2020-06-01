@@ -74,6 +74,9 @@ namespace Assets.Core
 
                 while (e.hasTeamListener)
                     e.RemoveTeamListener();
+
+                while (e.hasAnyGameEventContainerListener)
+                    e.RemoveAnyGameEventContainerListener();
                 //
 
                 var comps = e.GetComponents()
