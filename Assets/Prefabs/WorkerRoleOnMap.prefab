@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6481925293625531383}
   - component: {fileID: 3553531131092371735}
   - component: {fileID: 6762598938358225635}
+  - component: {fileID: 6517579164935226187}
+  - component: {fileID: 6624660064907435054}
   m_Layer: 5
   m_Name: Worker
   m_TagString: Untagged
@@ -67,6 +69,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: 
   isActionHint: 0
+--- !u!114 &6517579164935226187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453082193223884854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f4f81e0b7430d4b886c3995689a4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 0.45
+  amplification: 0.2
+--- !u!114 &6624660064907435054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453082193223884854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DateChanges: 1
+  OnPeriodChange: 1
+  MenuChanges: 0
+  NavigationChanges: 0
 --- !u!1 &2149195380799578431
 GameObject:
   m_ObjectHideFlags: 0

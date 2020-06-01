@@ -73,6 +73,52 @@ public enum CampaignStat
     PromotedCompanies
 }
 
+public class GameEvent
+{
+    public GameEventType eventType;
+}
+
+public class WorkerSpecificGameEvent: GameEvent
+{
+    public WorkerRole WorkerRole;
+    public WorkerSpecificGameEvent(WorkerRole workerRole)
+    {
+        this.WorkerRole = workerRole;
+    }
+}
+
+public class GameEventNewMarketingChannel : GameEvent
+{
+}
+
+public class GameEventManagerNeedsNewSalary : WorkerSpecificGameEvent
+{
+    public GameEventManagerNeedsNewSalary(WorkerRole workerRole) : base(workerRole)
+    {
+
+    }
+}
+
+public enum GameEventType
+{
+    NewMarketingChannel,
+
+    ManagerNeedsBiggerSalary, // specify role?
+    ManagerUpgradedLevel,
+    ManagerGotContractFromCompetingCompany,
+
+    DisloyalCEO,
+    DisloyalTeamLead,
+}
+
+public class GameEventContainerComponent : IComponent
+{
+    // example
+
+    // newChannel => false means that player got new event, but didn't see it
+    // newChannel => true means that player got new event, AND seen it
+    public List<GameEvent> Events;
+}
 
 public class CampaignStatsComponent : IComponent
 {

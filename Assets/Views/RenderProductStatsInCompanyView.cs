@@ -27,7 +27,7 @@ public class RenderProductStatsInCompanyView : View
 
         // market share
         bool isPlayerFlagship = company.company.Id == Flagship.company.Id;
-        bool needToShowMarketShare = company.isRelease && isPlayerFlagship;
+        bool needToShowMarketShare = company.isRelease;
 
         Draw(MarketShare, needToShowMarketShare);
         Draw(MarketShareLabel, false);

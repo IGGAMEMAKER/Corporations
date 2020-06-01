@@ -37,6 +37,11 @@ public class RenderCompanyWorkerListView : ListView
         }
     }
 
+    public bool IsRoleChosen(WorkerRole workerRole)
+    {
+        return roleWasSelected && SelectedWorkerRole == workerRole;
+    }
+
     public void SetEntity(GameEntity company)
     {
         this.company = company;

@@ -43,7 +43,9 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
     public void HighlightWorkerRole(bool activeRole)
     {
-        CanvasGroup.alpha = activeRole ? 1 : 0.07f;
+        var scale = activeRole ? 1 : 0.8f;
+        CanvasGroup.transform.localScale = new Vector3(scale, scale, scale); // = activeRole ? 1 : 0.07f;
+        CanvasGroup.alpha = activeRole ? 1 : 0.65f;
     }
 
     public void Render()

@@ -2,8 +2,10 @@
 
 public class Blinker : MonoBehaviour
 {
+    [SerializeField]
     float period = 0.15f;
 
+    [SerializeField]
     float amplification = 0.2f;
 
     float duration = 0;
