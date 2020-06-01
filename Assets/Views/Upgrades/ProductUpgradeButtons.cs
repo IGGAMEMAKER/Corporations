@@ -44,6 +44,10 @@ public class ProductUpgradeButtons : View
     void Render()
     {
         var company = GetFollowableCompany();
+
+        if (company == null)
+            return;
+
         var id = company.company.Id;
         
         ReleaseApp.SetCompanyId(id);
@@ -53,11 +57,11 @@ public class ProductUpgradeButtons : View
         Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         Draw(TestCampaignCheckbox, !company.isRelease);
 
-        bool isCEO            = WorkerRole == WorkerRole.CEO;
-        bool isMarketingLead  = WorkerRole == WorkerRole.MarketingLead;
-        bool isTeamLead       = WorkerRole == WorkerRole.TeamLead;
-        bool isProductManager = WorkerRole == WorkerRole.ProductManager;
-        bool isProjectManager = WorkerRole == WorkerRole.ProjectManager;
+        bool isCEO            = HasWorker(WorkerRole.CEO, company);
+        bool isMarketingLead  = HasWorker(WorkerRole.MarketingLead, company);
+        bool isTeamLead = HasWorker(WorkerRole.TeamLead, company);
+        bool isProductManager = HasWorker(WorkerRole.ProductManager, company);
+        bool isProjectManager = HasWorker(WorkerRole.ProjectManager, company);
 
         // goal defined stuff
         // ----------------------
@@ -90,6 +94,11 @@ public class ProductUpgradeButtons : View
 
             Draw(manager, CanHireManager(role, company) && isCEO);
         }
+    }
+
+    bool HasWorker(WorkerRole workerRole, GameEntity company)
+    {
+        return !Teams.HasFreePlaceForWorker(company, workerRole);
     }
 
     bool CanHireManager(WorkerRole role, GameEntity company)
