@@ -15,9 +15,13 @@ public partial class ProcessMarketingActivitiesSystem : OnPeriodChange
             {
                 var companyId = pair.Key;
 
-                var gainedAudience = c.marketingChannel.ChannelInfo.Batch;
-
                 var company = Companies.Get(gameContext, companyId);
+
+                var batch = c.marketingChannel.ChannelInfo.Batch;
+
+                var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead);
+
+                var gainedAudience = batch * (100 + marketingEffeciency) / 100;
 
                 Marketing.AddClients(company, gainedAudience);
             }

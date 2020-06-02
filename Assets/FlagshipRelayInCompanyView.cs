@@ -7,6 +7,11 @@ public class FlagshipRelayInCompanyView : View
     public GameObject Upgrades;
     public GameObject MarketingUpgrades;
 
+    private void OnEnable()
+    {
+        ChooseMarketingUpgrades();
+    }
+
     public void ChooseMarketingUpgrades()
     {
         Draw(MarketingUpgrades, true);

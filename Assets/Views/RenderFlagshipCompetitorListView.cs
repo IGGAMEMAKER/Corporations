@@ -10,7 +10,7 @@ public class RenderFlagshipCompetitorListView : ListView
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<CompanyView>().SetEntity(entity as GameEntity, false);
+        t.GetComponent<CompanyView>().SetEntity(entity as GameEntity);
     }
 
     public override void ViewRender()

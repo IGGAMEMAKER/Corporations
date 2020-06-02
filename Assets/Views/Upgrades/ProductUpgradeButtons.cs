@@ -43,7 +43,7 @@ public class ProductUpgradeButtons : View
 
     void Render()
     {
-        var company = GetFollowableCompany();
+        var company = Flagship; // GetFollowableCompany();
 
         if (company == null)
             return;
@@ -58,7 +58,7 @@ public class ProductUpgradeButtons : View
         Draw(TestCampaignCheckbox, !company.isRelease);
 
         bool isCEO            = HasWorker(WorkerRole.CEO, company);
-        bool isMarketingLead  = HasWorker(WorkerRole.MarketingLead, company);
+        bool isMarketingLead = false; // HasWorker(WorkerRole.MarketingLead, company);
         bool isTeamLead = HasWorker(WorkerRole.TeamLead, company);
         bool isProductManager = HasWorker(WorkerRole.ProductManager, company);
         bool isProjectManager = HasWorker(WorkerRole.ProjectManager, company);

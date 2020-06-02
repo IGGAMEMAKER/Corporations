@@ -13,6 +13,8 @@ public class MarketingChannelView : View
     public CanvasGroup CanvasGroup;
     public Image ChosenImage;
 
+    public Image ExplorationImage;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -35,8 +37,18 @@ public class MarketingChannelView : View
         Income.color = Visuals.GetGradientColor(0, 5, income);
 
         bool isChosen = Marketing.IsCompanyActiveInChannel(Flagship, channel);
-        CanvasGroup.alpha = isChosen ? 1 : 0.8f;
+        CanvasGroup.alpha = isChosen ? 1 : 0.92f;
         Draw(ChosenImage, isChosen);
+
+        bool isExploredMarket = channel1.ID % 3 > 1;
+        if (!isExploredMarket)
+        {
+            ExplorationImage.fillAmount = (CurrentIntDate % 7) / 7f; // Random.Range(0, 1f);
+        }
+        else
+        {
+            ExplorationImage.fillAmount = 0; //
+        }
     }
 
     public void SetEntity(GameEntity channel)
