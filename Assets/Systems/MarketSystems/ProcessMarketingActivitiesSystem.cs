@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
 
-public partial class ProcessMarketingActivitiesSystem : OnPeriodChange
+public class ProcessMarketingActivitiesSystem : OnPeriodChange
 {
     public ProcessMarketingActivitiesSystem(Contexts contexts) : base(contexts) { }
 
@@ -28,3 +28,4 @@ public partial class ProcessMarketingActivitiesSystem : OnPeriodChange
         }
     }
 }
+

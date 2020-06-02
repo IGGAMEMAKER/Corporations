@@ -33,6 +33,19 @@ namespace Assets.Core
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
+        public static bool IsChannelExplored(GameEntity channel, GameEntity product)
+        {
+            return product.channelExploration.Explored.Contains(channel.marketingChannel.ChannelInfo.ID);
+        }
+
+        public static void ExploreChannel(GameEntity channel, GameEntity product)
+        {
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
+
+            if (!product.channelExploration.InProgress.ContainsKey(channelId))
+                product.channelExploration.InProgress[channelId] = 7;
+        }
+
         public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;

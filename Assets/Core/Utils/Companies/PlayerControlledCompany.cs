@@ -58,18 +58,20 @@ namespace Assets.Core
             return flagship;
         }
 
-        public static int GetPlayerFlagshipID(GameContext gameContext)
+        public static GameEntity GetPlayerFlagship(GameContext gameContext)
         {
             var playerCompany = Companies.GetPlayerCompany(gameContext);
 
             if (playerCompany == null)
-                return -1;
+                return null;
 
-            var playerFlagship = Companies.GetFlagship(gameContext, playerCompany);
+            return GetFlagship(gameContext, playerCompany);
+        }
+        public static int GetPlayerFlagshipID(GameContext gameContext)
+        {
+            var playerFlagship = GetPlayerFlagship(gameContext);
 
-            var playerFlagshipId = playerFlagship?.company.Id ?? -1;
-
-            return playerFlagshipId;
+            return playerFlagship?.company.Id ?? -1;
         }
     }
 }

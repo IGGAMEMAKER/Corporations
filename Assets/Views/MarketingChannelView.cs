@@ -19,35 +19,59 @@ public class MarketingChannelView : View
     {
         base.ViewRender();
 
+        if (channel == null)
+            return;
+
         var marketingChannel = channel.marketingChannel;
 
         var channel1 = marketingChannel.ChannelInfo;
 
-        Title.text = $"Forum {channel1.ID}";
+        var company = Flagship;
+
+        // basic info
+        var name = $"Forum {channel1.ID}";
+        Title.text = name;
         Users.text = "+" + Format.Minify(channel1.Batch) + " users";
 
-        var lifetime = Marketing.GetLifeTime(Q, Flagship.company.Id);
+        //Debug.Log("Rendering Market " + name);
+
+        // income
+        var lifetime = Marketing.GetLifeTime(Q, company.company.Id);
         var lifetimeFormatted = lifetime.ToString("0.00");
 
-        var baseIncome = Economy.GetBaseSegmentIncome(Q, Flagship, 0);
+        var baseIncome = Economy.GetBaseSegmentIncome(Q, company, 0);
         var income = baseIncome * lifetime - channel1.costPerUser;
         var formattedIncome = income.ToString("0.00");
 
         Income.text = $"+${formattedIncome} / user ({lifetimeFormatted})";
         Income.color = Visuals.GetGradientColor(0, 5, income);
 
-        bool isChosen = Marketing.IsCompanyActiveInChannel(Flagship, channel);
+
+        bool isChosen = Marketing.IsCompanyActiveInChannel(company, channel);
         CanvasGroup.alpha = isChosen ? 1 : 0.92f;
         Draw(ChosenImage, isChosen);
 
-        bool isExploredMarket = channel1.ID % 3 > 1;
-        if (!isExploredMarket)
+        bool isExploredMarket = Marketing.IsChannelExplored(channel, company);
+
+        //Debug.Log("Is Explored Market " + name + ": " + isExploredMarket);
+
+        if (isExploredMarket)
         {
-            ExplorationImage.fillAmount = (CurrentIntDate % 7) / 7f; // Random.Range(0, 1f);
+            ExplorationImage.fillAmount = 0;
         }
         else
         {
-            ExplorationImage.fillAmount = 0; //
+            Income.text = "???";
+            Income.color = Visuals.GetColorFromString(Colors.COLOR_WHITE);
+
+            Users.text = "+??? users";
+
+
+            var exp = company.channelExploration;
+            var duration = 10f;
+            var progress = exp.InProgress.ContainsKey(channel1.ID) ? exp.InProgress[channel1.ID] : duration;
+
+            ExplorationImage.fillAmount = (duration - progress) / duration; // Random.Range(0, 1f);
         }
     }
 

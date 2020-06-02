@@ -11,8 +11,16 @@ public class ChannelActivityController : ButtonController
     {
         var channel = MarketingChannelView.channel;
 
-        Marketing.ToggleChannelActivity(Flagship, Q, channel);
+        var company = Flagship;
 
+        if (Marketing.IsChannelExplored(channel, company))
+        {
+            Marketing.ToggleChannelActivity(company, Q, channel);
+        }
+        else
+        {
+            Marketing.ExploreChannel(channel, company);
+        }
         MarketingChannelView.ViewRender();
     }
 }

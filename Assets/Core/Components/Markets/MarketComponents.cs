@@ -79,6 +79,14 @@ public class ChannelMarketingActivitiesComponent : IComponent
     public Dictionary<int, long> Companies;
 }
 
+[Game]
+public class ChannelExplorationComponent : IComponent
+{
+    // int - channelId, int - progress in ?days / seconds
+    public Dictionary<int, int> InProgress;
+    public List<int> Explored;
+}
+
 public class CompanyMarketingActivitiesComponent : IComponent
 {
     // int - companyID, long - true / false

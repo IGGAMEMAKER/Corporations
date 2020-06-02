@@ -15,9 +15,20 @@ public class MarketingChannelsListView : ListView
     {
         base.ViewRender();
 
-        var channels = Markets.GetAvailableMarketingChannels(Q, Flagship)
-            .OrderBy(c => c.marketingChannel.ChannelInfo.Audience);
+        try
+        {
+            var channels = Markets.GetAvailableMarketingChannels(Q, Flagship)
+                .OrderBy(c => c.marketingChannel.ChannelInfo.Audience);
 
-        SetItems(channels);
+            Debug.Log("Got channels");
+
+            SetItems(channels);
+        }
+        catch
+        {
+            Debug.Log("Error: ");
+            Debug.Log("Error: " + Flagship.company.Name);
+        }
+
     }
 }
