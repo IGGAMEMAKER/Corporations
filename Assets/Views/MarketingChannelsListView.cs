@@ -8,27 +8,25 @@ public class MarketingChannelsListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<MarketingChannelView>().SetEntity((GameEntity)(object)entity);
+        var channel = (GameEntity)(object)entity;
+
+        t.GetComponent<MarketingChannelView>().SetEntity(channel, channel == null);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        try
-        {
-            var channels = Markets.GetAvailableMarketingChannels(Q, Flagship)
-                .OrderBy(c => c.marketingChannel.ChannelInfo.Audience);
+        var channels = new List<GameEntity>();
 
-            Debug.Log("Got channels");
+        // hack to add Explore Channel Button
+        channels.Add(null);
 
-            SetItems(channels);
-        }
-        catch
-        {
-            Debug.Log("Error: ");
-            Debug.Log("Error: " + Flagship.company.Name);
-        }
+        channels.AddRange(
+        Markets.GetAvailableMarketingChannels(Q, Flagship)
+            .OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience)
+            );
 
+        SetItems(channels);
     }
 }

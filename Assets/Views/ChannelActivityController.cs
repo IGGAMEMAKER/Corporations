@@ -13,6 +13,18 @@ public class ChannelActivityController : ButtonController
 
         var company = Flagship;
 
+        // explore channel button
+        if (channel == null)
+        {
+            company.channelExploration.AmountOfExploredChannels++;
+
+            GetComponentInParent<MarketingChannelsListView>().ViewRender();
+
+            // increase amount of possible channels
+            return;
+        }
+
+
         if (Marketing.IsChannelExplored(channel, company))
         {
             Marketing.ToggleChannelActivity(company, Q, channel);

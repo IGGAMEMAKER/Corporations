@@ -16,7 +16,7 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
         {
             var company = Companies.Get(Q, id);
             company.isFlagship = true;
-            company.AddChannelExploration(new System.Collections.Generic.Dictionary<int, int>(), new System.Collections.Generic.List<int>());
+            company.AddChannelExploration(new System.Collections.Generic.Dictionary<int, int>(), new System.Collections.Generic.List<int>(), 1);
 
             //NavigateToNiche(company.product.Niche);
             Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);

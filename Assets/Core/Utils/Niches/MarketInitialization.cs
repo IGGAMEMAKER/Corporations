@@ -40,6 +40,13 @@ namespace Assets.Core
                 amountOfChannels = 3 + (int)Mathf.Pow(productLevel, 0.5f);
             }
 
+            // if player flagship
+            // explore channels manually
+            if (product.hasChannelExploration)
+            {
+                amountOfChannels = product.channelExploration.AmountOfExploredChannels;
+            }
+
             return amountOfChannels;
         }
 

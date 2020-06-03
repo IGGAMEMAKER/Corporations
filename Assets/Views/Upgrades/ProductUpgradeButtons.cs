@@ -35,6 +35,7 @@ public class ProductUpgradeButtons : View
     public ReleaseApp ReleaseApp;
 
     public GameObject RaiseInvestments;
+    public GameObject Channels;
 
     bool CanEnable(GameEntity company, ProductUpgrade upgrade)
     {
@@ -58,7 +59,7 @@ public class ProductUpgradeButtons : View
         Draw(TestCampaignCheckbox, !company.isRelease);
 
         bool isCEO            = HasWorker(WorkerRole.CEO, company);
-        bool isMarketingLead = false; // HasWorker(WorkerRole.MarketingLead, company);
+        bool isMarketingLead = HasWorker(WorkerRole.MarketingLead, company);
         bool isTeamLead = HasWorker(WorkerRole.TeamLead, company);
         bool isProductManager = HasWorker(WorkerRole.ProductManager, company);
         bool isProjectManager = HasWorker(WorkerRole.ProjectManager, company);
@@ -73,6 +74,8 @@ public class ProductUpgradeButtons : View
         Draw(QA2,                        CanEnable(company, ProductUpgrade.QA2) && isProductManager);
         Draw(QA3,                        CanEnable(company, ProductUpgrade.QA3) && isProductManager);
 
+        Draw(Channels, isMarketingLead);
+
         // release stuff
         // -------------
         Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb) && isProductManager);
@@ -80,13 +83,14 @@ public class ProductUpgradeButtons : View
         Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid) && isProductManager);
         Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop) && isProductManager);
 
-        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign) && isMarketingLead);
-        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2) && isMarketingLead);
-        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3) && isMarketingLead);
+        // marketing lead
+        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign) && false);
+        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2) && false);
+        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3) && false);
 
-        Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign) && isMarketingLead);
-        Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2) && isMarketingLead);
-        Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3) && isMarketingLead);
+        Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign) && false);
+        Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2) && false);
+        Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3) && false);
 
         foreach (var manager in HiringManagers)
         {

@@ -11,19 +11,21 @@ public partial class GameEntity {
     public ChannelExplorationComponent channelExploration { get { return (ChannelExplorationComponent)GetComponent(GameComponentsLookup.ChannelExploration); } }
     public bool hasChannelExploration { get { return HasComponent(GameComponentsLookup.ChannelExploration); } }
 
-    public void AddChannelExploration(System.Collections.Generic.Dictionary<int, int> newInProgress, System.Collections.Generic.List<int> newExplored) {
+    public void AddChannelExploration(System.Collections.Generic.Dictionary<int, int> newInProgress, System.Collections.Generic.List<int> newExplored, int newAmountOfExploredChannels) {
         var index = GameComponentsLookup.ChannelExploration;
         var component = (ChannelExplorationComponent)CreateComponent(index, typeof(ChannelExplorationComponent));
         component.InProgress = newInProgress;
         component.Explored = newExplored;
+        component.AmountOfExploredChannels = newAmountOfExploredChannels;
         AddComponent(index, component);
     }
 
-    public void ReplaceChannelExploration(System.Collections.Generic.Dictionary<int, int> newInProgress, System.Collections.Generic.List<int> newExplored) {
+    public void ReplaceChannelExploration(System.Collections.Generic.Dictionary<int, int> newInProgress, System.Collections.Generic.List<int> newExplored, int newAmountOfExploredChannels) {
         var index = GameComponentsLookup.ChannelExploration;
         var component = (ChannelExplorationComponent)CreateComponent(index, typeof(ChannelExplorationComponent));
         component.InProgress = newInProgress;
         component.Explored = newExplored;
+        component.AmountOfExploredChannels = newAmountOfExploredChannels;
         ReplaceComponent(index, component);
     }
 

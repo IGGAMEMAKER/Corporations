@@ -14,13 +14,29 @@ public class MarketingChannelView : View
     public Image ChosenImage;
 
     public Image ExplorationImage;
+    public Image DomineeringIcon;
+
+    bool isExplorationMockup = false;
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        if (channel == null)
+        // some error
+        if (channel == null && !isExplorationMockup)
             return;
+
+        if (isExplorationMockup)
+        {
+            Users.text = "EXPLORE";
+            Income.text = "";
+            Title.text = "";
+
+            Draw(ChosenImage, false);
+            Draw(DomineeringIcon, false);
+
+            return;
+        }
 
         var marketingChannel = channel.marketingChannel;
 
@@ -47,9 +63,9 @@ public class MarketingChannelView : View
         Income.color = Visuals.GetGradientColor(0, 5, income);
 
 
-        bool isChosen = Marketing.IsCompanyActiveInChannel(company, channel);
-        CanvasGroup.alpha = isChosen ? 1 : 0.92f;
-        Draw(ChosenImage, isChosen);
+        bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
+        CanvasGroup.alpha = isActiveChannel ? 1 : 0.92f;
+        Draw(ChosenImage, isActiveChannel);
 
         bool isExploredMarket = Marketing.IsChannelExplored(channel, company);
 
@@ -57,7 +73,8 @@ public class MarketingChannelView : View
 
         if (isExploredMarket)
         {
-            ExplorationImage.fillAmount = 0;
+            var dayOfPeriod = CurrentIntDate % C.PERIOD;
+            RenderProgress(isActiveChannel ? C.PERIOD - dayOfPeriod : 0, C.PERIOD);
         }
         else
         {
@@ -71,13 +88,20 @@ public class MarketingChannelView : View
             var duration = 10f;
             var progress = exp.InProgress.ContainsKey(channel1.ID) ? exp.InProgress[channel1.ID] : duration;
 
-            ExplorationImage.fillAmount = (duration - progress) / duration; // Random.Range(0, 1f);
+            RenderProgress(progress, duration);
         }
     }
 
-    public void SetEntity(GameEntity channel)
+    void RenderProgress(float progress, float duration)
+    {
+        ExplorationImage.fillAmount = (duration - progress) / duration; // Random.Range(0, 1f);
+    }
+
+    public void SetEntity(GameEntity channel, bool isExplorationMockup)
     {
         this.channel = channel;
+
+        this.isExplorationMockup = isExplorationMockup;
 
         ViewRender();
     }

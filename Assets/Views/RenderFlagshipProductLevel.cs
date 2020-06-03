@@ -8,6 +8,9 @@ public class RenderFlagshipProductLevel : ParameterView
     public override string RenderValue()
     {
         var company = GetFollowableCompany();
+
+        if (company == null)
+            return "";
         
         // progress
         Progress.fillAmount = getProgress(company) / 100;

@@ -85,6 +85,9 @@ public class ChannelExplorationComponent : IComponent
     // int - channelId, int - progress in ?days / seconds
     public Dictionary<int, int> InProgress;
     public List<int> Explored;
+
+
+    public int AmountOfExploredChannels;
 }
 
 public class CompanyMarketingActivitiesComponent : IComponent
