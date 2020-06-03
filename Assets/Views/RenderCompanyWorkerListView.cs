@@ -91,7 +91,7 @@ public class RenderCompanyWorkerListView : ListView
 
         MarkGameEventsAsSeen(role);
 
-        EnlargeOnDemand.StartAnimation();
+        //EnlargeOnDemand.StartAnimation();
 
         RenderCompanyUpgrades();
         HighlightManagers();

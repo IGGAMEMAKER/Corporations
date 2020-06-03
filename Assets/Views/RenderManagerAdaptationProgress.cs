@@ -27,6 +27,5 @@ public class RenderManagerAdaptationProgress : View
         bool isAdapted = adaptation == 100;
 
         AdaptationProgress.fillAmount = adaptation / 100f;
-        AdaptationProgress.enabled = !isAdapted;
     }
 }

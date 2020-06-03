@@ -3,52 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProductUpgradeButtons : View
+public class RoleRelatedButtons : View
 {
-    public WorkerRole WorkerRole = WorkerRole.CEO;
+    internal bool HasWorker(WorkerRole workerRole, GameEntity company)
+    {
+        return !Teams.HasFreePlaceForWorker(company, workerRole);
+    }
 
-    public GameObject TargetingCampaignCheckbox;
-    public GameObject TargetingCampaignCheckbox2;
-    public GameObject TargetingCampaignCheckbox3;
+    internal bool CanHireManager(WorkerRole role, GameEntity company)
+    {
+        return company.isRelease && Teams.HasFreePlaceForWorker(company, role);
+    }
 
-    public GameObject SupportCheckbox;
-    public GameObject SupportCheckbox2;
-    public GameObject SupportCheckbox3;
-
-    public GameObject QA;
-    public GameObject QA2;
-    public GameObject QA3;
-
-    public GameObject BrandingCampaignCheckbox;
-    public GameObject BrandingCampaignCheckbox2;
-    public GameObject BrandingCampaignCheckbox3;
-
-    public GameObject WebCheckbox;
-    public GameObject DesktopCheckbox;
-    public GameObject MobileIOSCheckbox;
-    public GameObject MobileAndroidCheckbox;
-
-    public GameObject TestCampaignCheckbox;
-
-    public GameObject[] HiringManagers;
-
-    public ReleaseApp ReleaseApp;
-
-    public GameObject RaiseInvestments;
-    public GameObject Channels;
-
-    bool CanEnable(GameEntity company, ProductUpgrade upgrade)
+    internal bool CanEnable(GameEntity company, ProductUpgrade upgrade)
     {
         return Products.CanEnable(company, Q, upgrade);
     }
 
-    void Render()
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         var company = Flagship; // GetFollowableCompany();
 
         if (company == null)
             return;
 
+        Render(company);
+    }
+
+    internal virtual void Render(GameEntity company) {}
+}
+
+public class ProductUpgradeButtons : RoleRelatedButtons
+{
+    public WorkerRole WorkerRole = WorkerRole.CEO;
+    public GameObject TestCampaignCheckbox;
+
+    public ReleaseApp ReleaseApp;
+    public GameObject RaiseInvestments;
+
+    void Render()
+    {
+        var company = Flagship;
         var id = company.company.Id;
         
         ReleaseApp.SetCompanyId(id);
@@ -58,56 +55,17 @@ public class ProductUpgradeButtons : View
         Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
         Draw(TestCampaignCheckbox, !company.isRelease);
 
-        bool isCEO            = HasWorker(WorkerRole.CEO, company);
-        bool isMarketingLead = HasWorker(WorkerRole.MarketingLead, company);
-        bool isTeamLead = HasWorker(WorkerRole.TeamLead, company);
-        bool isProductManager = HasWorker(WorkerRole.ProductManager, company);
-        bool isProjectManager = HasWorker(WorkerRole.ProjectManager, company);
-
-        // goal defined stuff
-        // ----------------------
-        Draw(SupportCheckbox,            CanEnable(company, ProductUpgrade.Support) && isTeamLead);
-        Draw(SupportCheckbox2,           CanEnable(company, ProductUpgrade.Support2) && isTeamLead);
-        Draw(SupportCheckbox3,           CanEnable(company, ProductUpgrade.Support3) && isTeamLead);
-
-        Draw(QA,                         CanEnable(company, ProductUpgrade.QA) && isProductManager);
-        Draw(QA2,                        CanEnable(company, ProductUpgrade.QA2) && isProductManager);
-        Draw(QA3,                        CanEnable(company, ProductUpgrade.QA3) && isProductManager);
-
-        Draw(Channels, isMarketingLead);
-
-        // release stuff
-        // -------------
-        Draw(WebCheckbox,                CanEnable(company, ProductUpgrade.PlatformWeb) && isProductManager);
-        Draw(MobileIOSCheckbox,          CanEnable(company, ProductUpgrade.PlatformMobileIOS) && isProductManager);
-        Draw(MobileAndroidCheckbox,      CanEnable(company, ProductUpgrade.PlatformMobileAndroid) && isProductManager);
-        Draw(DesktopCheckbox,            CanEnable(company, ProductUpgrade.PlatformDesktop) && isProductManager);
-
-        // marketing lead
-        Draw(TargetingCampaignCheckbox,  CanEnable(company, ProductUpgrade.TargetingCampaign) && false);
-        Draw(TargetingCampaignCheckbox2, CanEnable(company, ProductUpgrade.TargetingCampaign2) && false);
-        Draw(TargetingCampaignCheckbox3, CanEnable(company, ProductUpgrade.TargetingCampaign3) && false);
-
-        Draw(BrandingCampaignCheckbox,   CanEnable(company, ProductUpgrade.BrandCampaign) && false);
-        Draw(BrandingCampaignCheckbox2,  CanEnable(company, ProductUpgrade.BrandCampaign2) && false);
-        Draw(BrandingCampaignCheckbox3,  CanEnable(company, ProductUpgrade.BrandCampaign3) && false);
-
-        foreach (var manager in HiringManagers)
-        {
-            var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
-
-            Draw(manager, CanHireManager(role, company) && isCEO);
-        }
+        RenderInvestmentsButton();
     }
 
-    bool HasWorker(WorkerRole workerRole, GameEntity company)
+    void RenderInvestmentsButton()
     {
-        return !Teams.HasFreePlaceForWorker(company, workerRole);
-    }
+        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
+        var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
-    bool CanHireManager(WorkerRole role, GameEntity company)
-    {
-        return company.isRelease && Teams.HasFreePlaceForWorker(company, role);
+        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
+        Draw(RaiseInvestments, canRaiseInvestments);
     }
 
     public override void ViewRender()

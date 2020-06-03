@@ -15,8 +15,6 @@ public class FlagshipCompanyView : View
 
     bool expand = false;
 
-    public GameObject RaiseInvestments;
-
     public void SetEntity()
     {
         workerListView.SetEntity(Flagship);
@@ -38,7 +36,6 @@ public class FlagshipCompanyView : View
         DrawCanvasGroup(FlagshipStuff, expand);
 
         ResizeFirmLogo();
-        RenderInvestmentsButton();
         RenderWorkersAndCompetitors();
     }
 
@@ -58,16 +55,6 @@ public class FlagshipCompanyView : View
 
 
         Render();
-    }
-
-    void RenderInvestmentsButton()
-    {
-        bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
-        var playerCanExploreAdvancedTabs = hasReleasedProducts;
-        bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
-
-        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
-        Draw(RaiseInvestments, canRaiseInvestments && expand);
     }
 
     void ResizeFirmLogo()
