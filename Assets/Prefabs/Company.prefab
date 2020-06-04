@@ -34,7 +34,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6900429480548864719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -197,12 +197,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 162.91, y: 86}
-  m_SizeDelta: {x: 0, y: 40}
+  m_SizeDelta: {x: 56, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6770086549193216218
 CanvasRenderer:
@@ -392,7 +392,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -470,7 +470,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1221,7 +1221,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7686243636438500644}
   - {fileID: 2483070654820836604}
   - {fileID: 7575393944809718010}
   - {fileID: 4994592066330319912}
@@ -1229,6 +1228,7 @@ RectTransform:
   - {fileID: 5638049025641562481}
   - {fileID: 6900429480548864719}
   - {fileID: 278138555770168003}
+  - {fileID: 7686243636438500644}
   m_Father: {fileID: 3829321544446334534}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1267,11 +1267,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 162.91501, y: 29.8}
+  m_AnchoredPosition: {x: 162.91501, y: 60.3}
   m_SizeDelta: {x: 166.7, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7094983981499753277
@@ -1484,7 +1484,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2318809643547841027}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1766,7 +1766,7 @@ PrefabInstance:
     - target: {fileID: 884958212573704623, guid: 59265b436f5b527488fd57c4eeaa85a7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 884958212573704623, guid: 59265b436f5b527488fd57c4eeaa85a7,
         type: 3}
@@ -1791,7 +1791,7 @@ PrefabInstance:
     - target: {fileID: 884958212573704623, guid: 59265b436f5b527488fd57c4eeaa85a7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 29.8
+      value: 60.3
       objectReference: {fileID: 0}
     - target: {fileID: 884958212573704623, guid: 59265b436f5b527488fd57c4eeaa85a7,
         type: 3}
@@ -1852,6 +1852,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CompanyBrandChange
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130464386455393818, guid: 8fde81f5c4b0f194b9827dfb6692dc48,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5692881563524542532, guid: 8fde81f5c4b0f194b9827dfb6692dc48,
         type: 3}
@@ -2185,7 +2190,7 @@ PrefabInstance:
     - target: {fileID: 2130360269477855936, guid: b3618f3f86dfee94484b97c7f8dc7467,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2130360269477855936, guid: b3618f3f86dfee94484b97c7f8dc7467,
         type: 3}
@@ -2257,6 +2262,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrandIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 2130360269477855939, guid: b3618f3f86dfee94484b97c7f8dc7467,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3618f3f86dfee94484b97c7f8dc7467, type: 3}
 --- !u!1 &5638049025641562482 stripped
@@ -2326,7 +2336,7 @@ PrefabInstance:
     - target: {fileID: 7943158870343212954, guid: eab0de728089fe143a4f0fcdaca826a8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -44.699997
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 7943158870343212954, guid: eab0de728089fe143a4f0fcdaca826a8,
         type: 3}

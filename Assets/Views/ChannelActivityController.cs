@@ -33,6 +33,7 @@ public class ChannelActivityController : ButtonController
         {
             Marketing.ExploreChannel(channel, company);
         }
+
         MarketingChannelView.ViewRender();
     }
 }

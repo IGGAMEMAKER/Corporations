@@ -15,6 +15,11 @@ public struct MarketCompatibility
     public int Compatibility;
 }
 
+public class SpecificProductFeature
+{
+    public string Name;
+}
+
 [Game]
 public class NicheComponent : IComponent
 {

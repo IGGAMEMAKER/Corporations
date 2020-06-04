@@ -23,9 +23,13 @@ public enum ProductFeature
     Retention,
     Monetisation
 }
+
 public class FeaturesComponent : IComponent
 {
     public Dictionary<ProductFeature, int> features;
+
+    // string => feature name, float - rating 0...100f
+    public Dictionary<string, float> Upgrades;
     public int Count;
 }
 

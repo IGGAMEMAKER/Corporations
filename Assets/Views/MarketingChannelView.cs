@@ -74,7 +74,7 @@ public class MarketingChannelView : View
         if (isExploredMarket)
         {
             var dayOfPeriod = CurrentIntDate % C.PERIOD;
-            RenderProgress(isActiveChannel ? C.PERIOD - dayOfPeriod : 0, C.PERIOD);
+            RenderProgress(isActiveChannel ? dayOfPeriod : 0, C.PERIOD);
         }
         else
         {
@@ -94,7 +94,7 @@ public class MarketingChannelView : View
 
     void RenderProgress(float progress, float duration)
     {
-        ExplorationImage.fillAmount = (duration - progress) / duration; // Random.Range(0, 1f);
+        ExplorationImage.fillAmount = 1f - (duration - progress) / duration; // Random.Range(0, 1f);
     }
 
     public void SetEntity(GameEntity channel, bool isExplorationMockup)

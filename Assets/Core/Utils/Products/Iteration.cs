@@ -1,9 +1,17 @@
-﻿namespace Assets.Core
+﻿using System;
+
+namespace Assets.Core
 {
     public static partial class Products
     {
         public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
+
+        public static void UpgradeFeature(GameEntity product, string featureName)
+        {
+            //product.features.Upgrades[]
+        }
+
         public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
         {
             return 12;

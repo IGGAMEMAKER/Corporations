@@ -57,8 +57,8 @@ public class RenderProductStatsInCompanyView : View
 
         // brand
         Brand.text = (int)company.branding.BrandPower + "";
-        Draw(BrandIcon, company.isRelease);
-        Draw(Brand, company.isRelease);
+        Draw(BrandIcon, false); // company.isRelease
+        Draw(Brand, false);
 
         // workers
     }
