@@ -27,7 +27,7 @@ public class FeatureView : View
         Benefits.text = GetFeatureBenefits();
 
         bool upgraded = Products.IsUpgradedFeature(product, featureName);
-        var rating = upgraded ? product.features.Upgrades[featureName] : 0;
+        var rating = Products.GetFeatureRating(product, featureName);
 
         Draw(Rating, upgraded);
 

@@ -48,7 +48,7 @@
 
             var product = Companies.Get(gameContext, t.CompanyId);
 
-            product.features.features[t.ProductImprovement]++;
+            //product.features.features[t.ProductImprovement]++;
             product.features.Count++;
         }
     }

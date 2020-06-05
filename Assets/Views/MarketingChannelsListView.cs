@@ -19,13 +19,18 @@ public class MarketingChannelsListView : ListView
 
         var channels = new List<GameEntity>();
 
-        // hack to add Explore Channel Button
-        channels.Add(null);
+        var availableChannels = Markets.GetAvailableMarketingChannels(Q, Flagship)
+            .OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience);
 
-        channels.AddRange(
-        Markets.GetAvailableMarketingChannels(Q, Flagship)
-            .OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience)
-            );
+        // hack to add Explore Channel Button
+        var isEploredAllMarkets = Markets.GetAmountOfAvailableChannels(Q, Flagship) >= Markets.GetMarketingChannels(Q).Count();
+
+        if (!isEploredAllMarkets)
+        {
+            channels.Add(null);
+        }
+
+        channels.AddRange(availableChannels);
 
         SetItems(channels);
     }

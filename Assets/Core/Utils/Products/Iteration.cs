@@ -23,6 +23,20 @@ namespace Assets.Core
             }
         }
 
+        public static float GetFeatureRating(GameEntity product, string featureName)
+        {
+            if (IsUpgradedFeature(product, featureName))
+                return product.features.Upgrades[featureName];
+
+            return 0;
+        }
+
+        public static float GetFeatureActualBenefit(GameEntity product, string featureName)
+        {
+            var maxBonus = 5;
+            return GetFeatureRating(product, featureName) * maxBonus;
+        }
+
         public static bool IsUpgradedFeature(GameEntity product, string featureName)
         {
             return product.features.Upgrades.ContainsKey(featureName);

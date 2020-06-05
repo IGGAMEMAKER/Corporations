@@ -37,7 +37,8 @@ namespace Assets.Core
 
             var isCompetitorDumping = HasDumpingCompetitors(gameContext, c);
 
-            var retentionImprovement = c.features.features[ProductFeature.Retention];
+            var retentionFeatureName = "Retention";
+            var retentionImprovement = (int) Products.GetFeatureActualBenefit(c, retentionFeatureName);
 
             return new Bonus<long>("Churn rate")
                 .RenderTitle()

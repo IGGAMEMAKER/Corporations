@@ -20,7 +20,6 @@ namespace Assets.Core
 
             // development
             company.AddFeatures(
-                new Dictionary<ProductFeature, int> { [ProductFeature.Acquisition] = 0, [ProductFeature.Monetisation] = 0, [ProductFeature.Retention] = 0 },
                 new Dictionary<string, float> { },
                 0);
             company.AddExpertise(Random.Range(1, 4));

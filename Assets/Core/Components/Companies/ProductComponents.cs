@@ -17,12 +17,12 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
-public enum ProductFeature
-{
-    Acquisition,
-    Retention,
-    Monetisation
-}
+//public enum ProductFeature
+//{
+//    Acquisition,
+//    Retention,
+//    Monetisation
+//}
 
 public class FeatureBonus
 {
@@ -63,7 +63,7 @@ public class NewProductFeature
 
 public class FeaturesComponent : IComponent
 {
-    public Dictionary<ProductFeature, int> features;
+    //public Dictionary<ProductFeature, int> features;
 
     // string => feature name, float - rating 0...100f
     public Dictionary<string, float> Upgrades;
