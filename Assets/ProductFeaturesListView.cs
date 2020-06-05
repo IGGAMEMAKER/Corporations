@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ProductFeaturesListView : ListView
@@ -19,6 +20,26 @@ public class ProductFeaturesListView : ListView
             new NewProductFeature { Name = "Start Page", FeatureBonus = new FeatureBonusAcquisition(5) },
         };
 
-        SetItems(features);
+        var amountOfUpgradedFeatures = Flagship.features.Upgrades.Count;
+
+        var necessaryAmountOfFeatures = GetNecessaryAmountOfItems(amountOfUpgradedFeatures);
+
+        SetItems(features.Take(necessaryAmountOfFeatures));
+    }
+
+    int GetNecessaryAmountOfItems(int openedAlready)
+    {
+        var necessaryAmountOfFeatures = 1;
+
+        if (openedAlready == 0)
+            necessaryAmountOfFeatures = 1;
+        else if (openedAlready == 1)
+            necessaryAmountOfFeatures = 2;
+        else if (openedAlready == 2)
+            necessaryAmountOfFeatures = 3;
+        else
+            necessaryAmountOfFeatures = openedAlready * 2;
+
+        return necessaryAmountOfFeatures;
     }
 }
