@@ -24,6 +24,43 @@ public enum ProductFeature
     Monetisation
 }
 
+public class FeatureBonus
+{
+    // max bonus
+    public float Max;
+
+    public FeatureBonus(float Max)
+    {
+        this.Max = Max;
+    }
+}
+
+public class FeatureBonusAcquisition : FeatureBonus
+{
+    public FeatureBonusAcquisition(float Max) : base(Max)
+    {
+    }
+}
+public class FeatureBonusRetention : FeatureBonus
+{
+    public FeatureBonusRetention(float Max) : base(Max)
+    {
+    }
+}
+public class FeatureBonusMonetisation : FeatureBonus
+{
+    public FeatureBonusMonetisation(float Max) : base(Max)
+    {
+    }
+}
+
+public class NewProductFeature
+{
+    public string Name;
+    public FeatureBonus FeatureBonus;
+}
+
+
 public class FeaturesComponent : IComponent
 {
     public Dictionary<ProductFeature, int> features;

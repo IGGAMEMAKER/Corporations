@@ -16,13 +16,20 @@ public class FeatureView : View
     {
         base.ViewRender();
 
-        if (NewProductFeature == null)
+        var product = Flagship;
+
+        if (NewProductFeature == null || product == null)
             return;
 
-        Name.text = NewProductFeature.Name;
+        var featureName = NewProductFeature.Name;
+
+        Name.text = featureName;
         Benefits.text = GetFeatureBenefits();
 
-        var rating = Random.Range(0, 10f);
+        bool upgraded = Products.IsUpgradedFeature(product, featureName);
+        var rating = upgraded ? product.features.Upgrades[featureName] : 0;
+
+        Draw(Rating, upgraded);
 
         Rating.text = rating.ToString("0.0");
         Rating.color = Visuals.GetGradientColor(0, 10f, rating);

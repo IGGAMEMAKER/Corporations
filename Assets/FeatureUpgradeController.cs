@@ -8,10 +8,11 @@ public class FeatureUpgradeController : ButtonController
     public FeatureView FeatureView;
     public override void Execute()
     {
-        string featureId = "0";
         var product = Flagship;
 
-        Products.UpgradeFeature(product, featureId);
+        var featureName = FeatureView.NewProductFeature.Name;
+
+        Products.UpgradeFeature(product, featureName, Q);
 
         FeatureView.ViewRender();
     }

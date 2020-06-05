@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -7,9 +8,24 @@ namespace Assets.Core
         public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
 
-        public static void UpgradeFeature(GameEntity product, string featureName)
+        public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
         {
-            //product.features.Upgrades[]
+            if (IsUpgradedFeature(product, featureName))
+            {
+                // 0.4f + 0.1f... 0.2f
+                var upgradeSpeed = Products.GetInnovationChance(product, gameContext) / 100f + UnityEngine.Random.Range(0.1f, 0.2f);
+
+                var value = product.features.Upgrades[featureName];
+                product.features.Upgrades[featureName] = Mathf.Clamp(value + upgradeSpeed, 0, 10f);
+            } else
+            {
+                product.features.Upgrades[featureName] = UnityEngine.Random.Range(2, 5f);
+            }
+        }
+
+        public static bool IsUpgradedFeature(GameEntity product, string featureName)
+        {
+            return product.features.Upgrades.ContainsKey(featureName);
         }
 
         public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
