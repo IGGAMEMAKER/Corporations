@@ -23,12 +23,18 @@ public class MarketingChannelsListView : ListView
             .OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience);
 
         // hack to add Explore Channel Button
-        var isEploredAllMarkets = Markets.GetAmountOfAvailableChannels(Q, Flagship) >= Markets.GetMarketingChannels(Q).Count();
+        var allMarketsCount = Markets.GetMarketingChannels(Q).Count();
+        var exploredMarketsCount = Markets.GetAmountOfAvailableChannels(Q, Flagship);
+
+        var isEploredAllMarkets = exploredMarketsCount >= allMarketsCount;
 
         if (!isEploredAllMarkets)
         {
             channels.Add(null);
         }
+        //
+
+
 
         channels.AddRange(availableChannels);
 
