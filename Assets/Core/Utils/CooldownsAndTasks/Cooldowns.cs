@@ -39,5 +39,48 @@ namespace Assets.Core
         //{
         //    return GetCooldowns(gameContext).TryGetValue(cooldownName, out cooldown);
         //}
+
+
+        // simple cooldowns
+        public static GameEntity GetSimpleCooldownContainer(GameContext gameContext)
+        {
+            return gameContext.GetEntities(GameMatcher.SimpleCooldownContainer).First();
+        }
+
+        /// <summary>
+        /// Adding simple cooldown has it's own style
+        /// ex: $"company-{product.company.Id}-upgradeFeature-{featureName}";
+        /// $"entity-{Id}-actionType-{attributes}";
+        /// </summary>
+        /// <param name="gameContext"></param>
+        /// <param name="name"></param>
+        /// <param name="duration"></param>
+        public static void AddSimpleCooldown(GameContext gameContext, string name, int duration)
+        {
+            var date = ScheduleUtils.GetCurrentDate(gameContext);
+
+            AddSimpleCooldown(gameContext, name, new SimpleCooldown { StartDate = date, EndDate = date + duration });
+        }
+
+        public static void AddSimpleCooldown(GameContext gameContext, string name, SimpleCooldown simpleCooldown)
+        {
+            var container = GetSimpleCooldownContainer(gameContext);
+
+            container.simpleCooldownContainer.Cooldowns[name] = simpleCooldown;
+        }
+
+        public static bool HasCooldown(GameContext gameContext, string name, out SimpleCooldown simpleCooldown)
+        {
+            var container = GetSimpleCooldownContainer(gameContext);
+
+            if (!container.simpleCooldownContainer.Cooldowns.ContainsKey(name))
+            {
+                simpleCooldown = null;
+                return false;
+            }
+
+            simpleCooldown = container.simpleCooldownContainer.Cooldowns[name];
+            return true;
+        }
     }
 }

@@ -12,12 +12,11 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
     public GameObject Worker;
     public Text RoleName;
 
-    public RenderCompanyWorkerListView WorkerController;
-
     public RenderManagerAdaptationProgress managerAdaptationProgress;
 
     public ShowWorkerUpgrades workerActions;
     public Text WorkerRating;
+
 
     CanvasGroup _CanvasGroup = null;
     CanvasGroup CanvasGroup
@@ -31,12 +30,12 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
         }
     }
 
-    public void SetEntity(GameEntity company, WorkerRole role, RenderCompanyWorkerListView WorkerController, bool isActiveRole)
+
+    public void SetEntity(GameEntity company, WorkerRole role, bool isActiveRole)
     {
         this.company = company;
         this.role = role;
         this.isActiveRole = isActiveRole;
-        this.WorkerController = WorkerController;
 
         Render();
     }
@@ -64,7 +63,7 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
         {
             var worker = Teams.GetWorkerByRole(company, role, Q);
 
-            workerActions.SetWorker(worker, WorkerController);
+            workerActions.SetWorker(worker);
 
             var rating = Humans.GetRating(worker);
             WorkerRating.text = rating + "";

@@ -12,6 +12,8 @@ public class FeatureView : View
 
     public NewProductFeature NewProductFeature;
 
+    public Image ProgressImage;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -33,6 +35,19 @@ public class FeatureView : View
 
         Rating.text = rating.ToString("0.0");
         Rating.color = Visuals.GetGradientColor(0, 10f, rating);
+
+        bool hasCooldown = Cooldowns.HasCooldown(Q, $"company-{product.company.Id}-upgradeFeature-{featureName}", out SimpleCooldown cooldown);
+
+        if (hasCooldown)
+        {
+            //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
+            var progress = CurrentIntDate - cooldown.StartDate;
+            ProgressImage.fillAmount = (float)progress / (cooldown.EndDate - cooldown.StartDate);
+        }
+        else
+        {
+            ProgressImage.fillAmount = 0f;
+        }
     }
 
     public string GetFeatureBenefits()
@@ -40,7 +55,7 @@ public class FeatureView : View
         var b = NewProductFeature.FeatureBonus;
 
         if (b is FeatureBonusAcquisition)
-            return $"+{b.Max}% user gain";
+            return $"+{b.Max}% user growth";
 
         if (b is FeatureBonusMonetisation)
             return $"+{b.Max}% income";

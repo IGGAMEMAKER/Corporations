@@ -9,12 +9,12 @@ public class ShowWorkerUpgrades : View
 {
     GameEntity worker;
 
-    public RenderCompanyWorkerListView WorkerListView;
+    RenderCompanyWorkerListView WorkerListView;
 
-    public void SetWorker(GameEntity worker, RenderCompanyWorkerListView workerListView)
+    public void SetWorker(GameEntity worker)
     {
         this.worker = worker;
-        this.WorkerListView = workerListView;
+        WorkerListView = FindObjectOfType<RenderCompanyWorkerListView>();
 
         BlinkIfNecessary();
     }

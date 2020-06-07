@@ -12,7 +12,14 @@ public class FeatureUpgradeController : ButtonController
 
         var featureName = FeatureView.NewProductFeature.Name;
 
-        Products.UpgradeFeature(product, featureName, Q);
+        var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+
+        if (!Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown))
+        {
+            Products.UpgradeFeature(product, featureName, Q);
+            Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
+        }
+        
 
         FeatureView.ViewRender();
     }

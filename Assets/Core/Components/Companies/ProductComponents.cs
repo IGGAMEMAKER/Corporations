@@ -17,6 +17,8 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
+
+
 //public enum ProductFeature
 //{
 //    Acquisition,

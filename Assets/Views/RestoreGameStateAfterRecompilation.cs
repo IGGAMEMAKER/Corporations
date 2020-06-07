@@ -63,6 +63,8 @@ public class RestoreGameStateAfterRecompilation : View
 
         // date
 
+        e.AddSimpleCooldownContainer(new Dictionary<string, SimpleCooldown>());
+
         e.AddDate(0);
         e.AddSpeed(2);
         //e.AddTargetDate(0);

@@ -13,6 +13,8 @@ public class RenderCompanyWorkerListView : ListView
     public GameObject CompanyUpgrades;
     public GameObject MarketingCampaigns;
 
+    FlagshipRelayInCompanyView flagshipRelay;
+
     public EnlargeOnDemand EnlargeOnDemand;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -20,7 +22,7 @@ public class RenderCompanyWorkerListView : ListView
         var role = (WorkerRole)(object)entity;
 
         bool highlightRole = !roleWasSelected || (roleWasSelected && role == SelectedWorkerRole);
-        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, this, highlightRole);
+        t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
     }
 
     public override void ViewRender()
@@ -32,8 +34,6 @@ public class RenderCompanyWorkerListView : ListView
             var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
             SetItems(roles);
-
-            RenderCompanyUpgrades();
         }
     }
 
@@ -45,6 +45,8 @@ public class RenderCompanyWorkerListView : ListView
     public void SetEntity(GameEntity company)
     {
         this.company = company;
+
+        flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         ViewRender();
     }
@@ -65,12 +67,6 @@ public class RenderCompanyWorkerListView : ListView
         }
     }
 
-    void RenderCompanyUpgrades()
-    {
-        //Draw(CompanyUpgrades, roleWasSelected && SelectedWorkerRole != WorkerRole.MarketingLead);
-        //Draw(MarketingCampaigns, roleWasSelected && SelectedWorkerRole == WorkerRole.MarketingLead);
-    }
-
     public void ToggleRole(WorkerRole role)
     {
         if (role == SelectedWorkerRole)
@@ -84,24 +80,32 @@ public class RenderCompanyWorkerListView : ListView
             roleWasSelected = true;
             SelectedWorkerRole = role;
 
+            // TODO unnecessary?
             var up = CompanyUpgrades.GetComponent<ProductUpgradeButtons>();
             up.WorkerRole = role;
             up.ViewRender();
+        }
+
+        // enabled
+        if (roleWasSelected)
+        {
+            flagshipRelay.ChooseWorkerInteractions();
+        }
+        else
+        {
+            flagshipRelay.ChooseDevTab();
         }
 
         MarkGameEventsAsSeen(role);
 
         //EnlargeOnDemand.StartAnimation();
 
-        RenderCompanyUpgrades();
         HighlightManagers();
     }
 
     private void OnDisable()
     {
         roleWasSelected = false;
-
-        RenderCompanyUpgrades();
     }
 
     void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)

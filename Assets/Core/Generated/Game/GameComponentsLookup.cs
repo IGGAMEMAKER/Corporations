@@ -95,24 +95,25 @@ public static class GameComponentsLookup {
     public const int Shareholder = 84;
     public const int Shareholders = 85;
     public const int ShareholdersListener = 86;
-    public const int SourceOfClients = 87;
-    public const int Speed = 88;
-    public const int TargetDate = 89;
-    public const int Task = 90;
-    public const int Team = 91;
-    public const int TeamListener = 92;
-    public const int TechnologyLeader = 93;
-    public const int TechnologyLeaderListener = 94;
-    public const int Test = 95;
-    public const int TimedAction = 96;
-    public const int TimerRunning = 97;
-    public const int Tutorial = 98;
-    public const int TutorialListener = 99;
-    public const int UniversalListener = 100;
-    public const int WantsToExpand = 101;
-    public const int Worker = 102;
+    public const int SimpleCooldownContainer = 87;
+    public const int SourceOfClients = 88;
+    public const int Speed = 89;
+    public const int TargetDate = 90;
+    public const int Task = 91;
+    public const int Team = 92;
+    public const int TeamListener = 93;
+    public const int TechnologyLeader = 94;
+    public const int TechnologyLeaderListener = 95;
+    public const int Test = 96;
+    public const int TimedAction = 97;
+    public const int TimerRunning = 98;
+    public const int Tutorial = 99;
+    public const int TutorialListener = 100;
+    public const int UniversalListener = 101;
+    public const int WantsToExpand = 102;
+    public const int Worker = 103;
 
-    public const int TotalComponents = 103;
+    public const int TotalComponents = 104;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -202,6 +203,7 @@ public static class GameComponentsLookup {
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
+        "SimpleCooldownContainer",
         "SourceOfClients",
         "Speed",
         "TargetDate",
@@ -308,6 +310,7 @@ public static class GameComponentsLookup {
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),
+        typeof(SimpleCooldownContainerComponent),
         typeof(SourceOfClientsComponent),
         typeof(SpeedComponent),
         typeof(TargetDateComponent),

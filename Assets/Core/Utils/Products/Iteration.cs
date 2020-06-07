@@ -7,6 +7,10 @@ namespace Assets.Core
     {
         public static int GetBaseIterationTime(GameContext gameContext, GameEntity company) => GetBaseIterationTime(Markets.Get(gameContext, company));
         public static int GetBaseIterationTime(GameEntity niche) => GetBaseIterationTime(niche.nicheBaseProfile.Profile.NicheSpeed);
+        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
+        {
+            return 12;
+        }
 
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
         {
@@ -42,10 +46,6 @@ namespace Assets.Core
             return product.features.Upgrades.ContainsKey(featureName);
         }
 
-        public static int GetBaseIterationTime(NicheSpeed nicheChangeSpeed)
-        {
-            return 12;
-        }
 
 
         public static int GetTotalDevelopmentEffeciency(GameContext gameContext, GameEntity product)

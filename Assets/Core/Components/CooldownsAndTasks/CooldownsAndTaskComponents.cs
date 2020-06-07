@@ -1,5 +1,20 @@
 ﻿using Entitas;
+using System.Collections.Generic;
 
+public class SimpleCooldown
+{
+    public int StartDate;
+    public int EndDate;
+}
+
+
+public class SimpleCooldownContainerComponent : IComponent
+{
+    // string - cooldown name
+    public Dictionary<string, SimpleCooldown> Cooldowns;
+}
+
+// how to subscribe on specific cooldown
 
 // tasks
 public class TimedActionComponent : IComponent
