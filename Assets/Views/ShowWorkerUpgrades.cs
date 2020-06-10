@@ -10,18 +10,23 @@ public class ShowWorkerUpgrades : View
     GameEntity worker;
 
     RenderCompanyWorkerListView WorkerListView;
+    FlagshipRelayInCompanyView flagshipRelay;
 
     public void SetWorker(GameEntity worker)
     {
         this.worker = worker;
+
         WorkerListView = FindObjectOfType<RenderCompanyWorkerListView>();
+        flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         BlinkIfNecessary();
     }
 
     public void ToggleState()
     {
-        WorkerListView.ToggleRole(worker.worker.WorkerRole);
+        //WorkerListView.ToggleRole(worker.worker.WorkerRole);
+        flagshipRelay.ToggleRole(worker.worker.WorkerRole);
+        WorkerListView.HighlightManagers();
     }
 
     public override void ViewRender()
@@ -65,7 +70,7 @@ public class ShowWorkerUpgrades : View
                 break;
         }
 
-        GetComponent<Blinker>().enabled = isNecessary && WorkerListView.IsRoleChosen(worker.worker.WorkerRole);
+        GetComponent<Blinker>().enabled = isNecessary && flagshipRelay.IsRoleChosen(worker.worker.WorkerRole);
     }
 
     bool HasNewCEOButtons()

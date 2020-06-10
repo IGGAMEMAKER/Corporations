@@ -7,21 +7,25 @@ public class RenderCompanyWorkerListView : ListView
 {
     GameEntity company;
 
-    bool roleWasSelected = false;
-    WorkerRole SelectedWorkerRole;
+    FlagshipRelayInCompanyView _flagshipRelay;
+    FlagshipRelayInCompanyView flagshipRelay {
+        get
+        {
+            if (_flagshipRelay == null)
+            {
+                _flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
+            }
 
-    public GameObject CompanyUpgrades;
-    public GameObject MarketingCampaigns;
-
-    FlagshipRelayInCompanyView flagshipRelay;
-
-    public EnlargeOnDemand EnlargeOnDemand;
+            return _flagshipRelay;
+        }
+    }
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var role = (WorkerRole)(object)entity;
 
-        bool highlightRole = !roleWasSelected || (roleWasSelected && role == SelectedWorkerRole);
+        bool highlightRole = flagshipRelay.IsRoleChosen(role);
+
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
     }
 
@@ -37,94 +41,27 @@ public class RenderCompanyWorkerListView : ListView
         }
     }
 
-    public bool IsRoleChosen(WorkerRole workerRole)
-    {
-        return roleWasSelected && SelectedWorkerRole == workerRole;
-    }
-
     public void SetEntity(GameEntity company)
     {
         this.company = company;
 
-        flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
         ViewRender();
     }
 
-    void HighlightManagers()
+    public void HighlightManagers()
     {
         foreach (Transform child in transform)
         {
             var c = child.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>();
 
-            var role = c.role;
+            bool IsRoleActive = flagshipRelay.IsRoleChosen(c.role);
 
-            bool thisExactRoleWasSelected = roleWasSelected && role == SelectedWorkerRole;
-
-            bool highlightRole = !roleWasSelected || thisExactRoleWasSelected;
-
-            c.HighlightWorkerRole(highlightRole);
+            c.HighlightWorkerRole(IsRoleActive);
         }
-    }
-
-    public void ToggleRole(WorkerRole role)
-    {
-        if (role == SelectedWorkerRole)
-        {
-            // toggling role
-            roleWasSelected = !roleWasSelected;
-        }
-        else
-        {
-            // click on different role
-            roleWasSelected = true;
-            SelectedWorkerRole = role;
-
-            // TODO unnecessary?
-            var up = CompanyUpgrades.GetComponent<ProductUpgradeButtons>();
-            up.WorkerRole = role;
-            up.ViewRender();
-        }
-
-        // enabled
-        if (roleWasSelected)
-        {
-            flagshipRelay.ChooseWorkerInteractions();
-        }
-        else
-        {
-            flagshipRelay.ChooseDevTab();
-        }
-
-        MarkGameEventsAsSeen(role);
-
-        //EnlargeOnDemand.StartAnimation();
-
-        HighlightManagers();
     }
 
     private void OnDisable()
     {
-        roleWasSelected = false;
-    }
-
-    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
-    {
-        var events = eventContainer.gameEventContainer.Events;
-
-        events.RemoveAll(e => removableEvents.Contains(e.eventType));
-        eventContainer.ReplaceGameEventContainer(events);
-    }
-
-    void MarkGameEventsAsSeen(WorkerRole role)
-    {
-        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
-
-        var events = NotificationUtils.GetGameEventContainerEntity(Q);
-
-        if (role == WorkerRole.MarketingLead)
-        {
-            ClearEvents(events, marketingEvents);
-        }
+        //roleWasSelected = false;
     }
 }

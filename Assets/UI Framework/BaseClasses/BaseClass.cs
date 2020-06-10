@@ -1,5 +1,7 @@
 ﻿using Assets.Core;
 using Entitas;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public partial class BaseClass : MonoBehaviour
@@ -86,5 +88,20 @@ public partial class BaseClass : MonoBehaviour
         }
 
         return _Company;
+    }
+
+    Dictionary<Type, GameObject> CachedObjects = new Dictionary<Type, GameObject>();
+
+    public T Find<T>()
+    {
+        var t = typeof(T);
+        if (!CachedObjects.ContainsKey(t))
+        {
+            CachedObjects[t] = (GameObject)FindObjectOfType(typeof(T));
+        }
+
+        // https://stackoverflow.com/questions/1003023/cast-to-generic-type-in-c-sharp
+        return (T)Convert.ChangeType(CachedObjects[t], typeof(T));
+        //return (T)CachedObjects[t];
     }
 }

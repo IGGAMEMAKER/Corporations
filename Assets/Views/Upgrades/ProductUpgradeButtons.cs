@@ -37,7 +37,6 @@ public class RoleRelatedButtons : View
 
 public class ProductUpgradeButtons : RoleRelatedButtons
 {
-    public WorkerRole WorkerRole = WorkerRole.CEO;
     public GameObject TestCampaignCheckbox;
 
     public ReleaseApp ReleaseApp;
