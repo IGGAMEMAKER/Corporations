@@ -216,3 +216,17 @@ public class EmployeeComponent : IComponent
 {
     public Dictionary<int, WorkerRole> Managers;
 }
+
+// Communication Effeciency
+
+// Understand, what he does (prof area)
+// Understand Human (Personal)
+
+// after a while you create an effecient format of doing your job
+
+[Game]
+public class PersonalRelationshipsComponent : IComponent
+{
+    // int - humanId, float - progress
+    public Dictionary<int, float> Relations;
+}

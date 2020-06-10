@@ -21,7 +21,7 @@ public class WorkerHierarchyListView : ListView
 
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
         // rotate lines to the center
-        t.GetComponent<RenderCommunicationEffeciencyLine>().SetEntity(company, role, amountOfRoles, CEOTransform);
+        t.GetComponent<RenderCommunicationEffeciencyLine>().SetEntity(company, role, CEOTransform);
     }
 
     public override void ViewRender()

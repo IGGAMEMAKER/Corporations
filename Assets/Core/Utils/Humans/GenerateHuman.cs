@@ -23,6 +23,7 @@ namespace Assets.Core
             var expertise = new Dictionary<NicheType, int>();
 
             e.AddHuman(id, "Dude", id + "");
+            e.AddPersonalRelationships(new Dictionary<int, float>());
             e.AddWorker(-1, WorkerRole.Universal);
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
             e.AddHumanSkills(

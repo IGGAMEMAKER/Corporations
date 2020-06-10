@@ -8,7 +8,8 @@ public class RenderCompanyWorkerListView : ListView
     GameEntity company;
 
     FlagshipRelayInCompanyView _flagshipRelay;
-    FlagshipRelayInCompanyView flagshipRelay {
+    FlagshipRelayInCompanyView flagshipRelay
+    {
         get
         {
             if (_flagshipRelay == null)
