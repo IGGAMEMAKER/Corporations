@@ -4,34 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteAlways]
 public class RenderCommunicationEffeciencyLine : View
 {
     public Image Line;
+    public Transform CEOTransform;
+
+    public int Value = 150;
 
     public void SetEntity(GameEntity company, WorkerRole role, int maxRoles, Transform Center)
     {
         Line.color = Visuals.GetGradientColor(0, 100, Random.Range(0, 100));
 
-        var angle = GetRoleId(role);
-        var angleRad = angle * Mathf.Deg2Rad;
-
-        //Line.transform.Rotate(0,0,angle, Space.Self);
-        Line.transform.Rotate(0, 0, angle, Space.Self);
-
-        var offset = 190f;
-        Line.transform.Translate(Mathf.Sin(angleRad) * offset, Mathf.Cos(angleRad) * offset, 0, Space.World);
+        CEOTransform = Center;
     }
 
-    int GetRoleId(WorkerRole workerRole)
+    private void Update()
     {
-        switch (workerRole)
-        {
-            case WorkerRole.MarketingLead: return -180;
-            case WorkerRole.TeamLead: return 270;
-            case WorkerRole.ProductManager: return 90;
-            case WorkerRole.ProjectManager: return 0;
+        LookAtCenter();
+    }
 
-            default: return 0;
-        }
+    void LookAtCenter()
+    {
+        Line.color = Visuals.GetGradientColor(0, 100, Random.Range(0, 100));
+        var p1 = transform.position;
+        //var p1 = Line.transform.position;
+        var p2 = CEOTransform.position;
+
+        var diff = p2 - p1;
+
+        var rotation = Mathf.Acos(diff.normalized.x);
+
+        Debug.Log($"Look at: from {p1.x} {p1.y} {p1.z} to {p2.x} {p2.y} {p2.z}");
+        Debug.Log($"Diff: {diff.x} {diff.y} {diff.z}");
+        Debug.Log($"Rotation: {rotation}");
+
+        Line.transform.rotation = Quaternion.Euler(0, 0, rotation * Mathf.Rad2Deg);
+        Line.transform.position = p1 + diff / 2;
+        //Line.transform.rotation.SetFromToRotation(Line.transform.position, CEOTransform.position);
     }
 }

@@ -9,6 +9,8 @@ public class WorkerHierarchyListView : ListView
 
     FlagshipRelayInCompanyView flagshipRelay => Find<FlagshipRelayInCompanyView>();
 
+    public Transform CEOTransform;
+
     int amountOfRoles = 0;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -19,7 +21,7 @@ public class WorkerHierarchyListView : ListView
 
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
         // rotate lines to the center
-        t.GetComponent<RenderCommunicationEffeciencyLine>().SetEntity(company, role, amountOfRoles, transform);
+        t.GetComponent<RenderCommunicationEffeciencyLine>().SetEntity(company, role, amountOfRoles, CEOTransform);
     }
 
     public override void ViewRender()
