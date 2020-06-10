@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class ArcRender : View
 {
     public float radius;
@@ -36,6 +37,11 @@ public class ArcRender : View
     //}
 
     void OnTransformChildrenChanged()
+    {
+        Render2();
+    }
+
+    private void Update()
     {
         Render2();
     }
