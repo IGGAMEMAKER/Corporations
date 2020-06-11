@@ -26,8 +26,11 @@ public class SpeedComponent : IComponent
 
 
 
-[Game]
+[Game, Event(EventTarget.Any)]
 public class TimerRunningComponent : IComponent { }
+
+[Game, Event(EventTarget.Any)]
+public class GamePausedComponent : IComponent { }
 
 [Game, Unique, Event(EventTarget.Any)]
 public class TargetDateComponent : IComponent

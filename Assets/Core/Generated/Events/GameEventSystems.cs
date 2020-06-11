@@ -20,6 +20,7 @@ public sealed class GameEventSystems : Feature {
         Add(new DateEventSystem(contexts)); // priority: 0
         Add(new EventContainerEventSystem(contexts)); // priority: 0
         Add(new AnyGameEventContainerEventSystem(contexts)); // priority: 0
+        Add(new AnyGamePausedEventSystem(contexts)); // priority: 0
         Add(new MarketingEventSystem(contexts)); // priority: 0
         Add(new MenuEventSystem(contexts)); // priority: 0
         Add(new NavigationHistoryEventSystem(contexts)); // priority: 0
@@ -32,6 +33,7 @@ public sealed class GameEventSystems : Feature {
         Add(new TeamEventSystem(contexts)); // priority: 0
         Add(new TechnologyLeaderEventSystem(contexts)); // priority: 0
         Add(new AnyTechnologyLeaderEventSystem(contexts)); // priority: 0
+        Add(new AnyTimerRunningEventSystem(contexts)); // priority: 0
         Add(new TutorialEventSystem(contexts)); // priority: 0
     }
 }

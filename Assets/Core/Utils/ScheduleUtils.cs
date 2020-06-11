@@ -55,6 +55,7 @@ namespace Assets.Core
             var container = GetDateContainer(gameContext);
 
             container.isTimerRunning = false;
+            container.isGamePaused = true;
         }
 
         public static void IncreaseDate(GameContext gameContext, int increment)
@@ -69,6 +70,7 @@ namespace Assets.Core
             var container = GetDateContainer(gameContext);
 
             container.isTimerRunning = true;
+            container.isGamePaused = false;
 
             if (date >= 0 && currentSpeed > 0)
             {

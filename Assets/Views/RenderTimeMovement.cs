@@ -14,8 +14,10 @@ public class RenderTimeMovement : View
 
         var dateDescription = Format.GetDateDescription(CurrentIntDate);
 
+        var period = 7f;
+
         var dayOfMonth = dateDescription.day + 1;
 
-        Background.fillAmount = dayOfMonth / 30f;
+        Background.fillAmount = (dayOfMonth % period) / period;
     }
 }

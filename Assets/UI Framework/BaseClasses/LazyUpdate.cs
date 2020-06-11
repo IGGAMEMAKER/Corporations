@@ -6,6 +6,8 @@ public class LazyUpdate : Controller
     , IMenuListener
     , INavigationHistoryListener
     , IAnyGameEventContainerListener
+    , IAnyTimerRunningListener
+    , IAnyGamePausedListener
 {
     [UnityEngine.Header("Everyday changes")]
     public bool DateChanges = true;
@@ -22,6 +24,9 @@ public class LazyUpdate : Controller
     [UnityEngine.Header("GameEvents")]
     public bool ListenGameEvents = false;
 
+    [UnityEngine.Header("Pause")]
+    public bool ListenPauseEvents = false;
+
     public override void AttachListeners()
     {
         if (DateChanges)
@@ -35,6 +40,12 @@ public class LazyUpdate : Controller
 
         if (ListenGameEvents)
             NotificationUtils.GetGameEventContainerEntity(Q).AddAnyGameEventContainerListener(this);
+
+        if (ListenPauseEvents)
+        {
+            ScheduleUtils.GetDateContainer(Q).AddAnyTimerRunningListener(this);
+            ScheduleUtils.GetDateContainer(Q).AddAnyGamePausedListener(this);
+        }
     }
 
     public override void DetachListeners()
@@ -50,6 +61,12 @@ public class LazyUpdate : Controller
 
         if (ListenGameEvents)
             NotificationUtils.GetGameEventContainerEntity(Q).RemoveAnyGameEventContainerListener(this);
+
+        if (ListenPauseEvents)
+        {
+            ScheduleUtils.GetDateContainer(Q).RemoveAnyTimerRunningListener(this);
+            ScheduleUtils.GetDateContainer(Q).RemoveAnyGamePausedListener(this);
+        }
     }
 
     public void OnDate(GameEntity entity, int date)
@@ -69,6 +86,16 @@ public class LazyUpdate : Controller
     }
 
     void IAnyGameEventContainerListener.OnAnyGameEventContainer(GameEntity entity, List<GameEvent> events)
+    {
+        Render();
+    }
+
+    void IAnyGamePausedListener.OnAnyGamePaused(GameEntity entity)
+    {
+        Render();
+    }
+
+    void IAnyTimerRunningListener.OnAnyTimerRunning(GameEntity entity)
     {
         Render();
     }

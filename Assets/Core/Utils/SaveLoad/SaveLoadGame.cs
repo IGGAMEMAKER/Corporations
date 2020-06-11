@@ -77,6 +77,12 @@ namespace Assets.Core
 
                 while (e.hasAnyGameEventContainerListener)
                     e.RemoveAnyGameEventContainerListener();
+
+                while (e.hasAnyGamePausedListener)
+                    e.RemoveAnyGamePausedListener();
+
+                while (e.hasAnyTimerRunningListener)
+                    e.RemoveAnyTimerRunningListener();
                 //
 
                 var comps = e.GetComponents()

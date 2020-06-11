@@ -65,10 +65,12 @@ public class FlagshipRelayInCompanyView : View
         if (roleWasSelected)
         {
             ChooseWorkerInteractions();
+            ScheduleUtils.PauseGame(Q);
         }
         else
         {
             ChooseDevTab();
+            //ScheduleUtils.ResumeGame(Q);
         }
 
         MarkGameEventsAsSeen(role);
