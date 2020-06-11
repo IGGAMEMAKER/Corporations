@@ -35,7 +35,7 @@ public class WorkerHierarchyListView : ListView
             var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
             // all roles except CEO
-            roles.Remove(WorkerRole.CEO);
+            //roles.Remove(WorkerRole.CEO);
 
             amountOfRoles = roles.Count;
 

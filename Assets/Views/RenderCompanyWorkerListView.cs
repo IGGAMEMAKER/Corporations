@@ -36,9 +36,9 @@ public class RenderCompanyWorkerListView : ListView
 
         if (company != null)
         {
-            var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
+            //var roles = Teams.GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
-            roles = new List<WorkerRole> { WorkerRole.CEO };
+            var roles = new List<WorkerRole> { WorkerRole.CEO };
             SetItems(roles);
         }
     }

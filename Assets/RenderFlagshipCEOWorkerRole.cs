@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderFlagshipCEOWorkerRole : MonoBehaviour
+public class RenderFlagshipCEOWorkerRole : View
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void ViewRender()
     {
-        
-    }
+        base.ViewRender();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(Flagship, WorkerRole.CEO, true);
     }
 }

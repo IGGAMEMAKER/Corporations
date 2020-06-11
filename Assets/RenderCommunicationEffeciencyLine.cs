@@ -39,7 +39,7 @@ public class RenderCommunicationEffeciencyLine : View
 
     private void Update()
     {
-        LookAtCenter();
+        //LookAtCenter();
     }
 
     void LookAtCenter()
