@@ -13,6 +13,8 @@ public class MarketingChannelView : View
     public CanvasGroup CanvasGroup;
     public Image ChosenImage;
 
+    public Image ChosenCheckMark;
+
     public Image ExplorationImage;
     public Image DomineeringIcon;
 
@@ -34,6 +36,7 @@ public class MarketingChannelView : View
 
             Draw(ChosenImage, false);
             Draw(DomineeringIcon, false);
+            Draw(ChosenCheckMark, false);
 
             return;
         }
@@ -59,13 +62,14 @@ public class MarketingChannelView : View
         var income = baseIncome * lifetime - channel1.costPerUser;
         var formattedIncome = income.ToString("0.00");
 
-        Income.text = $"+${formattedIncome} / user ({lifetimeFormatted})";
+        Income.text = $"+${formattedIncome} / user"; // ({lifetimeFormatted})
         Income.color = Visuals.GetGradientColor(0, 5, income);
 
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
-        CanvasGroup.alpha = isActiveChannel ? 1 : 0.92f;
+        CanvasGroup.alpha = 1; // isActiveChannel ? 1 : 0.92f;
         Draw(ChosenImage, isActiveChannel);
+        Draw(ChosenCheckMark, isActiveChannel);
 
         bool isExploredMarket = Marketing.IsChannelExplored(channel, company);
 
