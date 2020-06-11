@@ -217,6 +217,8 @@ public enum TeamType
     DevelopmentTeam,
     MarketingTeam,
     CrossfunctionalTeam,
+    BigCrossfunctionalTeam,
+    SmallCrossfunctionalTeam,
 }
 
 //public class WorkingTeamInfo

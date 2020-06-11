@@ -3,21 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateCrossfunctionalTeamButton : CompanyUpgradeButton
+public class CreateSmallCrossfunctionalTeam : CompanyUpgradeButton
 {
     public override void Execute()
     {
-        Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
+        Teams.AddTeam(Flagship, TeamType.SmallCrossfunctionalTeam);
     }
 
     public override string GetBenefits()
     {
-        return "+2 channels and +1 feature at time";
+        return "+1 channel and +1 feature at time";
     }
 
     public override string GetButtonTitle()
     {
-        return "Create crossfunctional team";
+        return "Create small universal team";
     }
 
     public override string GetHint()

@@ -46,6 +46,23 @@ namespace Assets.Core
                 product.channelExploration.InProgress[channelId] = 7;
         }
 
+        public static int GetAmountOfEnabledChannels(GameEntity product)
+        {
+            return product.companyMarketingActivities.Channels.Count;
+        }
+
+        public static int GetAmountOfChannelsThatYourTeamCanReach(GameEntity product)
+        {
+            var teams = product.team.Teams;
+
+            var marketingTeams = Teams.GetAmountOfTeams(product, TeamType.MarketingTeam);
+            var crossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.CrossfunctionalTeam);
+            var smallUniversalTeams = Teams.GetAmountOfTeams(product, TeamType.SmallCrossfunctionalTeam);
+            var bigCrossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.BigCrossfunctionalTeam);
+
+            return marketingTeams + smallUniversalTeams + crossfunctionalTeams * 2 + bigCrossfunctionalTeams * 3;
+        }
+
         public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;

@@ -1,23 +1,20 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class CreateCrossfunctionalTeamButton : CompanyUpgradeButton
+public class CreateBigCrossfunctionalTeam : CompanyUpgradeButton
 {
     public override void Execute()
     {
-        Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
+        Teams.AddTeam(Flagship, TeamType.BigCrossfunctionalTeam);
     }
 
     public override string GetBenefits()
     {
-        return "+2 channels and +1 feature at time";
+        return "+3 channels and +2 features at time";
     }
 
     public override string GetButtonTitle()
     {
-        return "Create crossfunctional team";
+        return "Create big crossfunctional team";
     }
 
     public override string GetHint()

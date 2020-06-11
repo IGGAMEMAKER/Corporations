@@ -274,6 +274,15 @@ public partial class PopupView : View
             );
     }
 
+    void RenderNotEnoughWorkersMessage(PopupMessageNeedMoreWorkers popup)
+    {
+        RenderUniversalPopup(
+            "You need more workers",
+            "Hire more teams to do this",
+            typeof(ClosePopupOK)
+            );
+    }
+
     void RenderNewCorporationSpawn(PopupMessageCorporationSpawn popup)
     {
         RenderUniversalPopup(

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,13 +15,11 @@ public class ProductFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var features = new NewProductFeature[] {
-            new NewProductFeature { Name = "Monetisation", FeatureBonus = new FeatureBonusMonetisation(15) },
-            new NewProductFeature { Name = "Retention", FeatureBonus = new FeatureBonusRetention(5) },
-            new NewProductFeature { Name = "Start Page", FeatureBonus = new FeatureBonusAcquisition(5) },
-        };
+        var product = Flagship;
 
-        var amountOfUpgradedFeatures = Flagship.features.Upgrades.Count;
+        var features = Products.GetAvailableFeaturesForProduct(product);
+
+        var amountOfUpgradedFeatures = product.features.Upgrades.Count;
 
         var necessaryAmountOfFeatures = GetNecessaryAmountOfItems(amountOfUpgradedFeatures);
 

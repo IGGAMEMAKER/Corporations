@@ -38,11 +38,20 @@ public enum PopupType
 
     DisloyalManager,
     DefectedManager,
+    NotEnoughWorkers,
 }
 
 public class PopupMessage
 {
     public PopupType PopupType;
+}
+
+public class PopupMessageNeedMoreWorkers : PopupMessage
+{
+    public PopupMessageNeedMoreWorkers()
+    {
+        PopupType = PopupType.NotEnoughWorkers;
+    }
 }
 
 public class PopupMessageCompanyClose : PopupMessage

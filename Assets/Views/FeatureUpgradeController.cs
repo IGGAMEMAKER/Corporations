@@ -14,10 +14,22 @@ public class FeatureUpgradeController : ButtonController
 
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
 
-        if (!Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown))
+        if (!Products.IsUpgradingFeature(product, Q, cooldownName))
         {
-            Products.UpgradeFeature(product, featureName, Q);
-            Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
+            var amountOfUpgradingFeatures = Products.GetAmountOfUpgradingFeatures(product, Q);
+            var concurrentFeatureUpgrades = Products.GetAmountOfFeaturesThatYourTeamCanUpgrade(product, Q);
+
+
+            if (amountOfUpgradingFeatures < concurrentFeatureUpgrades)
+            {
+                // has enough workers
+                Products.UpgradeFeature(product, featureName, Q);
+                Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
+            }
+            else
+            {
+                NotificationUtils.AddPopup(Q, new PopupMessageNeedMoreWorkers());
+            }
         }
         
 

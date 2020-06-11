@@ -46,5 +46,24 @@ namespace Assets.Core
                     company.team.Teams.Remove(teamType);
             }
         }
+
+        public static int GetAmountOfWorkersByTeamType(TeamType teamType)
+        {
+            switch (teamType)
+            {
+                case TeamType.MarketingTeam: return 3;
+                case TeamType.DevelopmentTeam: return 3;
+                case TeamType.SmallCrossfunctionalTeam: return 3;
+                case TeamType.CrossfunctionalTeam: return 10;
+                case TeamType.BigCrossfunctionalTeam: return 20;
+
+                default: return 1000;
+            }
+        }
+
+        public static int GetAmountOfTeams(GameEntity company, TeamType teamType)
+        {
+            return company.team.Teams.ContainsKey(teamType) ? company.team.Teams[teamType] : 0;
+        }
     }
 }
