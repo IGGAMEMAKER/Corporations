@@ -209,8 +209,25 @@ public class TeamComponent : IComponent
     public Dictionary<int, WorkerRole> Managers;
     public Dictionary<WorkerRole, int> Workers;
 
-    public TeamStatus TeamStatus;
+    public Dictionary<TeamType, int> Teams;
 }
+
+public enum TeamType
+{
+    DevelopmentTeam,
+    MarketingTeam,
+    CrossfunctionalTeam,
+}
+
+//public class WorkingTeamInfo
+//{
+//    public TeamType TeamType;
+//}
+
+//[Game]
+//public class WorkingTeamsComponent : IComponent
+//{
+//}
 
 public class EmployeeComponent : IComponent
 {

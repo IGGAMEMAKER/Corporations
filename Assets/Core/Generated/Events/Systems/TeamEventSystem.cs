@@ -30,7 +30,7 @@ public sealed class TeamEventSystem : Entitas.ReactiveSystem<GameEntity> {
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.teamListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnTeam(e, component.Morale, component.Organisation, component.Managers, component.Workers, component.TeamStatus);
+                listener.OnTeam(e, component.Morale, component.Organisation, component.Managers, component.Workers, component.Teams);
             }
         }
     }

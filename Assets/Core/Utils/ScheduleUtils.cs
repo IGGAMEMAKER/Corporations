@@ -47,7 +47,9 @@ namespace Assets.Core
             if (container.isTimerRunning)
                 PauseGame(gameContext);
             else
+            {
                 ResumeGame(gameContext);
+            }
         }
 
         public static void PauseGame(GameContext gameContext)

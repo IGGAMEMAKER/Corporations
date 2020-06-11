@@ -19,6 +19,22 @@ public class RenderCommunicationEffeciencyLine : View
 
         CEOTransform = Center;
         //LookAtCenter();
+
+        var c = GetComponent<TeamsAttachedToManagerView>();
+
+        c.TeamType = GetTeamTypeByManagerRole(role);
+        c.ViewRender();
+    }
+
+    TeamType GetTeamTypeByManagerRole(WorkerRole role)
+    {
+        switch (role)
+        {
+            case WorkerRole.MarketingLead: return TeamType.MarketingTeam;
+            case WorkerRole.TeamLead: return TeamType.DevelopmentTeam;
+
+            default: return TeamType.CrossfunctionalTeam;
+        }
     }
 
     private void Update()

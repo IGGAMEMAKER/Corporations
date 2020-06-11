@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,5 +17,7 @@ public class RenderGameStatus : View
 
         GetComponent<Image>().color = Visuals.GetColorPositiveOrNegative(isRunning);
         Draw(PausedText, !isRunning);
+
+        SoundManager.Play(Sound.Timer);
     }
 }

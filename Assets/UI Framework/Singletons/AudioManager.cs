@@ -18,6 +18,7 @@ namespace Assets
 
         SignContract,
         CorporatePolicyTweak,
+        Timer,
     }
 
     public class AudioManager: MonoBehaviour
@@ -35,6 +36,7 @@ namespace Assets
         public AudioClip itemSelectedSound;
         public AudioClip penOnPaperSoung;
         public AudioClip leatherClickSound;
+        public AudioClip timerSound;
 
         void Start()
         {
@@ -49,6 +51,8 @@ namespace Assets
             AddSound(itemSelectedSound, Sound.Tweak);
             AddSound(penOnPaperSoung, Sound.SignContract);
             AddSound(itemSelectedSound, Sound.CorporatePolicyTweak);
+
+            AddSound(timerSound, Sound.Timer);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

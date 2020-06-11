@@ -78,7 +78,12 @@ namespace Assets.Core
             // team
             int CeoID = CEO.human.Id;
             e.AddCEO(0, CeoID);
-            e.AddTeam(100, 50, new Dictionary<int, WorkerRole>(), new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 }, TeamStatus.Solo);
+            e.AddTeam(
+                100, 50,
+                new Dictionary<int, WorkerRole>(),
+                new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
+                new Dictionary<TeamType, int>()
+                );
             e.AddEmployee(new Dictionary<int, WorkerRole>());
 
             Teams.AttachToTeam(e, CEO, WorkerRole.CEO);

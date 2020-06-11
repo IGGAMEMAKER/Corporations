@@ -7,7 +7,7 @@ namespace Assets.Core
     {
         private static void ReplaceTeam(GameEntity company, TeamComponent t)
         {
-            company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.TeamStatus);
+            company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams);
         }
 
         public static void ToggleCrunching(GameContext context, int companyId)
@@ -17,31 +17,34 @@ namespace Assets.Core
             c.isCrunching = !c.isCrunching;
         }
 
-        public static int GetTeamSizePerformanceModifier(GameEntity company)
-        {
-            var teamSizeModifier = 100;
-
-            switch (company.team.TeamStatus)
-            {
-                case TeamStatus.Solo: teamSizeModifier = 50; break;
-                case TeamStatus.Pair: teamSizeModifier = 85; break;
-                case TeamStatus.SmallTeam: teamSizeModifier = 100; break;
-                case TeamStatus.BigTeam: teamSizeModifier = 95; break;
-                case TeamStatus.Department: teamSizeModifier = 80; break;
-            }
-
-            return teamSizeModifier;
-        }
-
         public static void SetRole(GameEntity company, int humanId, WorkerRole workerRole, GameContext gameContext)
         {
             var managers = company.team.Managers;
 
             managers[humanId] = workerRole;
 
-            company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.TeamStatus);
+            company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.Teams);
 
             Humans.SetRole(gameContext, humanId, workerRole);
+        }
+
+        public static void AddTeam(GameEntity company, TeamType teamType)
+        {
+            if (company.team.Teams.ContainsKey(teamType))
+                company.team.Teams[teamType]++;
+            else
+                company.team.Teams[teamType] = 1;
+        }
+
+        public static void RemoveTeam(GameEntity company, TeamType teamType)
+        {
+            if (company.team.Teams.ContainsKey(teamType))
+            {
+                company.team.Teams[teamType]--;
+
+                if (company.team.Teams[teamType] == 0)
+                    company.team.Teams.Remove(teamType);
+            }
         }
     }
 }
