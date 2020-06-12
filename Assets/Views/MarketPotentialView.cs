@@ -77,7 +77,7 @@ public class MarketPotentialView : View
         var baseMaintenance = Markets.GetBaseProductMaintenance(Q, niche);
         //Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
         Maintenance.text = $"{nicheCosts.AcquisitionCost.ToString("0.0")} / user"; // Format.MinifyMoney(baseMaintenance) + " / month";
-        IncomePerUser.text = $"+{nicheCosts.BaseIncome.ToString("0.0")} / user"; // Format.MinifyMoney(baseMaintenance) + " / month";
+        IncomePerUser.text = $"{nicheCosts.BaseIncome.ToString("0.0")} / user"; // Format.MinifyMoney(baseMaintenance) + " / month";
 
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         //TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";
