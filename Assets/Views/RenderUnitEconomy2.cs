@@ -16,7 +16,7 @@ public class RenderUnitEconomy2 : View
 
         var product = SelectedCompany;
 
-        var income = Economy.GetUnitIncome(Q, product, 0);
+        var income = Economy.GetIncomePerUser(Q, product, 0);
 
         var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
 

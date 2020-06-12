@@ -12,7 +12,7 @@ public class CreateCrossfunctionalTeamButton : CompanyUpgradeButton
 
     public override string GetBenefits()
     {
-        return "+2 channels and +1 feature at time";
+        return $"+{Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.CrossfunctionalTeam)} channel and +{Teams.GetAmountOfPossibleFeaturesByTeamType(TeamType.CrossfunctionalTeam)} feature at time";
     }
 
     public override string GetButtonTitle()

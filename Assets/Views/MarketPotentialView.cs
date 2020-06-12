@@ -17,6 +17,7 @@ public class MarketPotentialView : View
 
     public Text Demand;
     public Text Maintenance;
+    public Text IncomePerUser;
     public Text TeamMaintenance;
 
     public Text ChangeSpeed;
@@ -47,6 +48,10 @@ public class MarketPotentialView : View
 
         var profile = niche.nicheBaseProfile.Profile;
 
+        var nicheCosts = Markets.GetNicheCosts(Q, nicheType);
+        
+        var adcost = Markets.GetSegmentProductPrice(Q, nicheType, 0);
+
         var rating = Markets.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
@@ -70,7 +75,9 @@ public class MarketPotentialView : View
         Demand.text = Format.MinifyToInteger(demand) + " monthly";
 
         var baseMaintenance = Markets.GetBaseProductMaintenance(Q, niche);
-        Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
+        //Maintenance.text = Format.MinifyMoney(baseMaintenance) + " / month";
+        Maintenance.text = $"{nicheCosts.AcquisitionCost.ToString("0.0")} / user"; // Format.MinifyMoney(baseMaintenance) + " / month";
+        IncomePerUser.text = $"+{nicheCosts.BaseIncome.ToString("0.0")} / user"; // Format.MinifyMoney(baseMaintenance) + " / month";
 
         //var teamMaintenance = NicheUtils.GetTeamMaintenanceCost(niche);
         //TeamMaintenance.text = Format.MoneyToInteger(teamMaintenance) + " / month";

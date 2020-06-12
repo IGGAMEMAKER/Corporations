@@ -9,7 +9,7 @@ public class RenderIncomePerUser : ParameterView
     {
         var product = SelectedCompany;
 
-        var cost = Economy.GetUnitIncome(Q, product, 0) * 1000;
+        var cost = Economy.GetIncomePerUser(Q, product, 0) * 1000;
 
         return cost.ToString("0.0") + "$";
     }

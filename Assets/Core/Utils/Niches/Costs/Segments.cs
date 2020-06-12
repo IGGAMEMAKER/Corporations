@@ -6,11 +6,13 @@ namespace Assets.Core
     {
         public static float GetSegmentProductPrice(GameContext gameContext, NicheType nicheType, int segmentId)
         {
-            var priceModifier = GetPositioningPriceModifier(gameContext, nicheType, segmentId);
+            //var priceModifier = GetPositioningPriceModifier(gameContext, nicheType, segmentId);
 
-            var baseIncome = GetBaseProductPrice(nicheType, gameContext);
+            //var baseIncome = GetBaseProductPrice(nicheType, gameContext);
 
-            return baseIncome * priceModifier;
+            //return baseIncome * priceModifier;
+
+            return GetBaseProductPrice(nicheType, gameContext);
         }
 
 

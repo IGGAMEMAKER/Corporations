@@ -9,7 +9,7 @@ public class CreateBigCrossfunctionalTeam : CompanyUpgradeButton
 
     public override string GetBenefits()
     {
-        return "+3 channels and +2 features at time";
+        return $"+{Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.BigCrossfunctionalTeam)} channel and +{Teams.GetAmountOfPossibleFeaturesByTeamType(TeamType.BigCrossfunctionalTeam)} feature at time";
     }
 
     public override string GetButtonTitle()

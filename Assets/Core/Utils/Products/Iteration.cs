@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -35,11 +36,28 @@ namespace Assets.Core
             return 0;
         }
 
+        // in percents 0...15%
+        public static float GetFeatureMaxBenefit(GameEntity product, NewProductFeature feature)
+        {
+            return GetFeatureActualBenefit(10, feature);
+        }
+
+        // feature benefits
+        public static float GetFeatureActualBenefit(float rating, NewProductFeature feature)
+        {
+            return rating * feature.FeatureBonus.Max / 10f;
+        }
+        public static float GetFeatureActualBenefit(GameEntity product, NewProductFeature feature)
+        {
+            return GetFeatureActualBenefit(GetFeatureRating(product, feature.Name), feature);
+        }
         public static float GetFeatureActualBenefit(GameEntity product, string featureName)
         {
-            var maxBonus = 5;
-            return GetFeatureRating(product, featureName) * maxBonus;
+            var feature = GetAvailableFeaturesForProduct(product).First(f => f.Name == featureName);
+
+            return GetFeatureActualBenefit(product, feature);
         }
+
 
         public static bool IsUpgradedFeature(GameEntity product, string featureName)
         {

@@ -12,7 +12,8 @@ public class CreateDevelopmentTeamButton : CompanyUpgradeButton
 
     public override string GetBenefits()
     {
-        return "+1 feature at time";
+        return $"+{Teams.GetAmountOfPossibleFeaturesByTeamType(TeamType.DevelopmentTeam)} feature at time";
+        //return "+1 feature at time";
     }
 
     public override string GetButtonTitle()

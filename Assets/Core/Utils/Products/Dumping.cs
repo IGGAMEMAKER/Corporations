@@ -27,7 +27,8 @@ namespace Assets.Core
             {
             new NewProductFeature { Name = "Monetisation", FeatureBonus = new FeatureBonusMonetisation(15) },
             new NewProductFeature { Name = "Retention", FeatureBonus = new FeatureBonusRetention(5) },
-            new NewProductFeature { Name = "Start Page", FeatureBonus = new FeatureBonusAcquisition(5) },
+            new NewProductFeature { Name = "Main Page", FeatureBonus = new FeatureBonusAcquisition(5) },
+            new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
             };
         }
 
@@ -40,12 +41,12 @@ namespace Assets.Core
         {
             var teams = product.team.Teams;
 
-            var marketingTeams = Teams.GetAmountOfTeams(product, TeamType.DevelopmentTeam);
-            var crossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.CrossfunctionalTeam);
-            var smallUniversalTeams = Teams.GetAmountOfTeams(product, TeamType.SmallCrossfunctionalTeam);
-            var bigCrossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.BigCrossfunctionalTeam);
+            var marketingTeams = Teams.GetAmountOfTeams(product, TeamType.MarketingTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.MarketingTeam);
+            var crossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.CrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.CrossfunctionalTeam);
+            var smallUniversalTeams = Teams.GetAmountOfTeams(product, TeamType.SmallCrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.SmallCrossfunctionalTeam);
+            var bigCrossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.BigCrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.BigCrossfunctionalTeam);
 
-            return marketingTeams + smallUniversalTeams + crossfunctionalTeams * 2 + bigCrossfunctionalTeams * 3;
+            return marketingTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
         }
 
         public static int GetAmountOfUpgradingFeatures(GameEntity product, GameContext gameContext)

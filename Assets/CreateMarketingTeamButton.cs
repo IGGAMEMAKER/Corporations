@@ -12,7 +12,8 @@ public class CreateMarketingTeamButton : CompanyUpgradeButton
 
     public override string GetBenefits()
     {
-        return "+1 marketing channel at time";
+        return $"+{Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.MarketingTeam)} channels at time";
+        //return "+1 marketing channel at time";
     }
 
     public override string GetButtonTitle()

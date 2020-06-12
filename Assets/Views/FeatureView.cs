@@ -12,6 +12,7 @@ public class FeatureView : View
 
     public NewProductFeature NewProductFeature;
 
+    public ProgressBar ProgressBar;
     public Image ProgressImage;
 
     public override void ViewRender()
@@ -25,43 +26,59 @@ public class FeatureView : View
 
         var featureName = NewProductFeature.Name;
 
-        Name.text = featureName;
-        Benefits.text = GetFeatureBenefits();
-
         bool upgraded = Products.IsUpgradedFeature(product, featureName);
         var rating = Products.GetFeatureRating(product, featureName);
+
+        Name.text = featureName;
+        Benefits.text = GetFeatureBenefits(upgraded, product);
+
 
         Draw(Rating, upgraded);
 
         Rating.text = rating.ToString("0.0");
         Rating.color = Visuals.GetGradientColor(0, 10f, rating);
 
-        bool hasCooldown = Cooldowns.HasCooldown(Q, $"company-{product.company.Id}-upgradeFeature-{featureName}", out SimpleCooldown cooldown);
+        var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+        bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
         if (hasCooldown)
         {
             //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
             var progress = CurrentIntDate - cooldown.StartDate;
-            ProgressImage.fillAmount = (float)progress / (cooldown.EndDate - cooldown.StartDate);
+            ProgressImage.fillAmount = 1f; // (float)progress / (cooldown.EndDate - cooldown.StartDate);
+
+            Draw(ProgressBar, true);
+            ProgressBar.SetDescription("Upgrading feature");
+            ProgressBar.SetValue(CurrentIntDate - cooldown.StartDate, cooldown.EndDate - cooldown.StartDate);
+
+            Draw(Rating, false);
         }
         else
         {
+            Draw(Rating, true);
             ProgressImage.fillAmount = 0f;
+            Draw(ProgressBar, false);
         }
     }
 
-    public string GetFeatureBenefits()
+    public string GetFeatureBenefits(bool isUpgraded, GameEntity product)
     {
         var b = NewProductFeature.FeatureBonus;
 
+        var benefit = isUpgraded ?
+            Products.GetFeatureActualBenefit(product, NewProductFeature)
+            :
+            Products.GetFeatureMaxBenefit(product, NewProductFeature);
+
+        var benefitFormatted = benefit.ToString("0.0");
         if (b is FeatureBonusAcquisition)
-            return $"+{b.Max}% user growth";
+            return $"+{benefitFormatted}% user growth";
 
         if (b is FeatureBonusMonetisation)
-            return $"+{b.Max}% income";
+            return $"+{benefitFormatted}% income";
 
         if (b is FeatureBonusRetention)
-            return $"-{b.Max}% client loss";
+            return $"-{benefitFormatted}% client loss";
 
         return b.GetType().ToString();
     }

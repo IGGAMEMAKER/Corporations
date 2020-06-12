@@ -65,5 +65,31 @@ namespace Assets.Core
         {
             return company.team.Teams.ContainsKey(teamType) ? company.team.Teams[teamType] : 0;
         }
+
+        public static int GetAmountOfPossibleChannelsByTeamType(TeamType teamType)
+        {
+            switch (teamType)
+            {
+                case TeamType.BigCrossfunctionalTeam: return 3;
+                case TeamType.CrossfunctionalTeam: return 2;
+                case TeamType.SmallCrossfunctionalTeam: return 1;
+                case TeamType.MarketingTeam: return 1;
+
+                default: return 0;
+            }
+        }
+
+        public static int GetAmountOfPossibleFeaturesByTeamType(TeamType teamType)
+        {
+            switch (teamType)
+            {
+                case TeamType.BigCrossfunctionalTeam: return 3;
+                case TeamType.CrossfunctionalTeam: return 2;
+                case TeamType.SmallCrossfunctionalTeam: return 1;
+                case TeamType.DevelopmentTeam: return 1;
+
+                default: return 0;
+            }
+        }
     }
 }
