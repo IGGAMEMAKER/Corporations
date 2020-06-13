@@ -43,19 +43,19 @@ namespace Assets.Core
         }
 
         // feature benefits
-        public static float GetFeatureActualBenefit(float rating, NewProductFeature feature)
-        {
-            return rating * feature.FeatureBonus.Max / 10f;
-        }
-        public static float GetFeatureActualBenefit(GameEntity product, NewProductFeature feature)
-        {
-            return GetFeatureActualBenefit(GetFeatureRating(product, feature.Name), feature);
-        }
         public static float GetFeatureActualBenefit(GameEntity product, string featureName)
         {
             var feature = GetAvailableFeaturesForProduct(product).First(f => f.Name == featureName);
 
             return GetFeatureActualBenefit(product, feature);
+        }
+        public static float GetFeatureActualBenefit(GameEntity product, NewProductFeature feature)
+        {
+            return GetFeatureActualBenefit(GetFeatureRating(product, feature.Name), feature);
+        }
+        public static float GetFeatureActualBenefit(float rating, NewProductFeature feature)
+        {
+            return rating * feature.FeatureBonus.Max / 10f;
         }
 
 

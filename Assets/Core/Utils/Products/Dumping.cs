@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -31,6 +32,51 @@ namespace Assets.Core
             new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
             };
         }
+
+        // set of features
+        public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
+        {
+            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetisation).ToArray();
+        }
+
+        public static NewProductFeature[] GetChurnFeatures(GameEntity product)
+        {
+            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusRetention).ToArray();
+        }
+
+        public static NewProductFeature[] GetAcquisitionFeatures(GameEntity product)
+        {
+            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
+        }
+
+        // set ot feature benefits
+        public static float GetMonetisationFeaturesBenefit(GameEntity product)
+        {
+            return GetSummaryFeatureBenefit(product, GetMonetisationFeatures(product));
+        }
+
+        public static float GetAcquisitionFeaturesBenefit(GameEntity product)
+        {
+            return GetSummaryFeatureBenefit(product, GetAcquisitionFeatures(product));
+        }
+
+        public static float GetChurnFeaturesBenefit(GameEntity product)
+        {
+            return GetSummaryFeatureBenefit(product, GetChurnFeatures(product));
+        }
+
+        // summary feature benefit
+        static float GetSummaryFeatureBenefit(GameEntity product, NewProductFeature[] features)
+        {
+            var improvements = 0f;
+            foreach (var f in features)
+                improvements += Products.GetFeatureActualBenefit(product, f);
+
+            return improvements;
+        }
+
+
+
 
         public static bool IsUpgradingFeature(GameEntity product, GameContext Q, string cooldownName)
         {

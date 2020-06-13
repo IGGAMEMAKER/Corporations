@@ -41,14 +41,7 @@ namespace Assets.Core
         {
             float price = GetBaseSegmentIncome(gameContext, c, segmentId);
 
-            var improvements = GetMonetisationModifierFromImprovements(gameContext, c);
-
-
-            //float monetisationModifier = GetBaseIncomeByMonetisationType(gameContext, c);
-
-            var niche = Markets.Get(gameContext, c);
-            if (niche.niche.NicheType == NicheType.ECom_Exchanging)
-                Debug.Log($"Income per user is: {price.ToString("0.0")} + monetisation improvements: {improvements.ToString("0.0")}%");
+            var improvements = Products.GetMonetisationFeaturesBenefit(c);
 
             return price * (100f + improvements) / 100f;
         }
@@ -88,17 +81,6 @@ namespace Assets.Core
             var baseValue = GetBaseIncomeByMonetisationType(pricingType);
             
             return baseValue;
-        }
-
-        public static float GetMonetisationModifierFromImprovements(GameContext gameContext, GameEntity c)
-        {
-            var monetisationFeatures = Products.GetAvailableFeaturesForProduct(c).Where(f => f.FeatureBonus is FeatureBonusMonetisation);
-
-            var improvements = 0f;
-            foreach (var f in monetisationFeatures)
-                improvements += Products.GetFeatureActualBenefit(c, f);
-
-            return improvements;
         }
     }
 }

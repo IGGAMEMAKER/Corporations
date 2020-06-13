@@ -50,7 +50,8 @@ public class MarketingChannelView : View
         // basic info
         var name = $"Forum {channel1.ID}";
         Title.text = name;
-        Users.text = "+" + Format.Minify(channel1.Batch) + " users";
+        //Users.text = "+" + Format.Minify(channel1.Batch) + " users";
+        Users.text = Format.Minify(channel1.Audience) + " users";
 
         //Debug.Log("Rendering Market " + name);
 
@@ -58,12 +59,14 @@ public class MarketingChannelView : View
         var lifetime = Marketing.GetLifeTime(Q, company.company.Id);
         var lifetimeFormatted = lifetime.ToString("0.00");
 
-        var baseIncome = Economy.GetBaseSegmentIncome(Q, company, 0);
-        var income = baseIncome * lifetime - channel1.costPerUser;
+        var incomePerUser = Economy.GetIncomePerUser(Q, company, 0);
+        var cost = Marketing.GetMarketingActivityCostPerUser(company, Q, channel);
+        var income = incomePerUser * lifetime * (100 - 1) / cost;
+
         var formattedIncome = income.ToString("0.00");
 
-        Income.text = $"+${formattedIncome} / user"; // ({lifetimeFormatted})
-        Income.color = Visuals.GetGradientColor(0, 5, income);
+        Income.text = $"ROI: {formattedIncome}%"; // ({lifetimeFormatted})
+        Income.color = Visuals.GetGradientColor(100, 500, income);
 
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);

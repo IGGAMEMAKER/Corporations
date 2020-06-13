@@ -27,14 +27,7 @@ public class ChannelActivityController : ButtonController
 
         if (Marketing.IsChannelExplored(channel, company))
         {
-            var activeChannels = Marketing.GetAmountOfEnabledChannels(company);
-            var maxChannels = Marketing.GetAmountOfChannelsThatYourTeamCanReach(company);
-
-            bool hasEnoughWorkers = maxChannels > activeChannels;
-
-            if (hasEnoughWorkers)
-                Marketing.ToggleChannelActivity(company, Q, channel);
-            else
+            if (!Marketing.ToggleChannelActivity(company, Q, channel))
                 NotificationUtils.AddPopup(Q, new PopupMessageNeedMoreWorkers());
         }
         else

@@ -70,7 +70,25 @@ namespace Assets.Core
 
         public static void SpawnMarketingChannels(GameContext gameContext)
         {
-            for (var i = 0; i < 20; i++)
+            // markets:
+
+            // small <1K Batch (little budget for marketing)
+            // avg < 100K Batch
+            // big < 1M Batch
+            // enormous 1M+ (~5M) (big budget for marketing)
+
+            // SPEED
+
+            // active channel (can take it fast big reach: 7% / w)
+            // avg (avg reach 2%
+            // non-active (<1% / month)
+
+            // Additional bonus (channel theme matches with our product)
+
+            // cheap
+            // avg
+            // expensive
+            for (var i = 0; i < 50; i++)
             {
                 var e = gameContext.CreateEntity();
 
@@ -80,11 +98,18 @@ namespace Assets.Core
                 long audience = baseBatch * Random.Range(1, 1000) * (long)(Mathf.Pow(1.02f, i));
 
                 e.AddMarketingChannel(audience, channelType, new ChannelInfo {
-                    ID = i, costPerUser = Random.Range(1f, 5f), Audience = audience, Batch = audience / Random.Range(100, 200), Companies = new Dictionary<int, long>()
+                    ID = i,
+                    costPerUser = Random.Range(1f, 5f),
+                    Audience = audience,
+                    Batch = audience / Random.Range(100, 200),
+
+                    Companies = new Dictionary<int, long>()
                 });
                 e.AddChannelMarketingActivities(new Dictionary<int, long>());
             }
         }
+
+
 
         public static void SpawnMarkets(GameContext gameContext)
         {

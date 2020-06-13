@@ -4,6 +4,7 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
+        // TODO remove
         public static long GetBrandingCost(GameEntity product, GameContext gameContext)
         {
             var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
@@ -18,10 +19,15 @@ namespace Assets.Core
             return (long)result;
         }
 
+        public static float GetMarketingActivityCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
+        {
+            return channel.marketingChannel.ChannelInfo.costPerUser;
+        }
         public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, GameEntity channel)
         {
-            var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
-            var flow = channel.marketingChannel.ChannelInfo.Batch; // GetClientFlow(gameContext, product.product.Niche);
+            //var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
+            var clientCost = GetMarketingActivityCostPerUser(product, gameContext, channel);
+            var flow = channel.marketingChannel.ChannelInfo.Batch;
 
             var cost = clientCost * flow;
 
@@ -51,16 +57,21 @@ namespace Assets.Core
             return product.companyMarketingActivities.Channels.Count;
         }
 
+        static int GetTeamsChannelReach(GameEntity product, TeamType teamType)
+        {
+            return Teams.GetAmountOfTeams(product, teamType) * Teams.GetAmountOfPossibleChannelsByTeamType(teamType);
+        }
+
         public static int GetAmountOfChannelsThatYourTeamCanReach(GameEntity product)
         {
             var teams = product.team.Teams;
 
-            var marketingTeams = Teams.GetAmountOfTeams(product, TeamType.MarketingTeam);
-            var crossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.CrossfunctionalTeam);
-            var smallUniversalTeams = Teams.GetAmountOfTeams(product, TeamType.SmallCrossfunctionalTeam);
-            var bigCrossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.BigCrossfunctionalTeam);
+            var marketingTeams = GetTeamsChannelReach(product, TeamType.MarketingTeam);
+            var crossfunctionalTeams = GetTeamsChannelReach(product, TeamType.CrossfunctionalTeam);
+            var smallUniversalTeams = GetTeamsChannelReach(product, TeamType.SmallCrossfunctionalTeam);
+            var bigCrossfunctionalTeams = GetTeamsChannelReach(product, TeamType.BigCrossfunctionalTeam);
 
-            return marketingTeams + smallUniversalTeams + crossfunctionalTeams * 2 + bigCrossfunctionalTeams * 3;
+            return marketingTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
         }
 
         public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
@@ -83,10 +94,15 @@ namespace Assets.Core
 
 
 
-        public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static bool ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;
             var channelId = channel.marketingChannel.ChannelInfo.ID;
+
+            var activeChannels = Marketing.GetAmountOfEnabledChannels(product);
+            var maxChannels = Marketing.GetAmountOfChannelsThatYourTeamCanReach(product);
+
+            bool hasEnoughWorkers = maxChannels > activeChannels;
 
             var active = IsCompanyActiveInChannel(product, channel);
 
@@ -96,8 +112,13 @@ namespace Assets.Core
             }
             else
             {
-                EnableChannelActivity(product, gameContext, channel);
+                if (hasEnoughWorkers)
+                    EnableChannelActivity(product, gameContext, channel);
+                else
+                    return false;
             }
+
+            return true;
         }
     }
 }

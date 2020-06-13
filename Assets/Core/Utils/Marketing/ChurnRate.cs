@@ -37,14 +37,13 @@ namespace Assets.Core
 
             var isCompetitorDumping = HasDumpingCompetitors(gameContext, c);
 
-            var retentionFeatureName = "Retention";
-            var retentionImprovement = (int) Products.GetFeatureActualBenefit(c, retentionFeatureName);
+            var retentionImprovement = (int)Products.GetChurnFeaturesBenefit(c);
 
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
-                .Append("Retention features", -retentionImprovement * 2)
+                .Append("Retention features", -retentionImprovement)
 
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)

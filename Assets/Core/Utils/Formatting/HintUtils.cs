@@ -24,6 +24,7 @@ public struct BonusDescription<T>
 }
 
 public class Bonus<T>
+    //where T : float, long, int
 {
     public List<BonusDescription<T>> bonusDescriptions;
     public string parameter;
@@ -56,6 +57,11 @@ public class Bonus<T>
         minifyValues = true;
 
         return this;
+    }
+
+    public void Sort()
+    {
+        bonusDescriptions = bonusDescriptions.OrderByDescending(b => Mathf.Abs(System.Convert.ToInt64(b.Value))).ToList();
     }
 
     public Bonus<T> Cap(long min, long max)
