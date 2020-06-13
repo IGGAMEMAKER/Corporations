@@ -8,8 +8,10 @@ namespace Assets.Core
     {
         public static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
-            var segmentId = e.productPositioning.Positioning;
-            float income = GetIncomeBySegment(context, e);
+            if (e.isDumping)
+                return 0;
+
+            float income = GetIncomePerUser(context, e) * Marketing.GetClients(e);
 
             long result = 0;
 
@@ -25,30 +27,27 @@ namespace Assets.Core
             return result * C.PERIOD / 30;
         }
 
-        public static float GetIncomeBySegment(GameContext gameContext, GameEntity c)
-        {
-            if (c.isDumping)
-                return 0;
-
-            float unitIncome = GetIncomePerUser(gameContext, c);
-
-            long clients = Marketing.GetClients(c);
-
-            return clients * unitIncome;
-        }
-
         public static float GetIncomePerUser(GameContext gameContext, GameEntity c)
         {
-            float price = GetBaseSegmentIncome(gameContext, c);
+            //float price = Markets.GetBaseProductPrice(c, gameContext);
+            float price = GetBaseIncomeByMonetisationType(gameContext, c);
 
             var improvements = Products.GetMonetisationFeaturesBenefit(c);
 
             return price * (100f + improvements) / 100f;
         }
 
-        public static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c)
+
+        // not used
+        public static float GetBaseIncomeByMonetisationType(GameContext gameContext, GameEntity c)
         {
-            return Markets.GetBaseProductPrice(c.product.Niche, gameContext);
+            var niche = Markets.Get(gameContext, c.product.Niche);
+
+            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
+
+            var baseValue = GetBaseIncomeByMonetisationType(pricingType);
+            
+            return baseValue;
         }
 
         public static float GetBaseIncomeByMonetisationType(Monetisation monetisation)
@@ -70,17 +69,6 @@ namespace Assets.Core
                 default:
                     return 0.15f;
             }
-        }
-
-        public static float GetBaseIncomeByMonetisationType(GameContext gameContext, GameEntity c)
-        {
-            var niche = Markets.Get(gameContext, c.product.Niche);
-
-            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
-
-            var baseValue = GetBaseIncomeByMonetisationType(pricingType);
-            
-            return baseValue;
         }
     }
 }
