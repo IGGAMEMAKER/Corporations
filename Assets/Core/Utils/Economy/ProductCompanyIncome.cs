@@ -9,7 +9,7 @@ namespace Assets.Core
         public static long GetProductCompanyIncome(GameEntity e, GameContext context)
         {
             var segmentId = e.productPositioning.Positioning;
-            float income = GetIncomeBySegment(context, e, segmentId);
+            float income = GetIncomeBySegment(context, e);
 
             long result = 0;
 
@@ -25,30 +25,30 @@ namespace Assets.Core
             return result * C.PERIOD / 30;
         }
 
-        public static float GetIncomeBySegment(GameContext gameContext, GameEntity c, int segmentId)
+        public static float GetIncomeBySegment(GameContext gameContext, GameEntity c)
         {
             if (c.isDumping)
                 return 0;
 
-            float unitIncome = GetIncomePerUser(gameContext, c, segmentId);
+            float unitIncome = GetIncomePerUser(gameContext, c);
 
             long clients = Marketing.GetClients(c);
 
             return clients * unitIncome;
         }
 
-        public static float GetIncomePerUser(GameContext gameContext, GameEntity c, int segmentId)
+        public static float GetIncomePerUser(GameContext gameContext, GameEntity c)
         {
-            float price = GetBaseSegmentIncome(gameContext, c, segmentId);
+            float price = GetBaseSegmentIncome(gameContext, c);
 
             var improvements = Products.GetMonetisationFeaturesBenefit(c);
 
             return price * (100f + improvements) / 100f;
         }
 
-        public static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c, int segmentId)
+        public static float GetBaseSegmentIncome(GameContext gameContext, GameEntity c)
         {
-            return Markets.GetSegmentProductPrice(gameContext, c.product.Niche, segmentId);
+            return Markets.GetBaseProductPrice(c.product.Niche, gameContext);
         }
 
         public static float GetBaseIncomeByMonetisationType(Monetisation monetisation)

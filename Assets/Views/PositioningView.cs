@@ -31,7 +31,7 @@ public class PositioningView : View
 
         PositioningName.text = positioningData.name;
 
-        var price = Markets.GetSegmentProductPrice(Q, nicheType, segmentId);
+        var price = Markets.GetBaseProductPrice(nicheType, Q);
         IncomePerUser.text = $"+{price.ToString("0.0")}";
 
         var estimatedUsers = Markets.GetMarketSegmentAudiencePotential(Q, nicheType, segmentId);

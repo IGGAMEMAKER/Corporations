@@ -49,8 +49,6 @@ public class MarketPotentialView : View
         var profile = niche.nicheBaseProfile.Profile;
 
         var nicheCosts = Markets.GetNicheCosts(Q, nicheType);
-        
-        var adcost = Markets.GetSegmentProductPrice(Q, nicheType, 0);
 
         var rating = Markets.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);

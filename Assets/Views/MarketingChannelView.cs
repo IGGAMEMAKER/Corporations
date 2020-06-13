@@ -59,7 +59,7 @@ public class MarketingChannelView : View
         var lifetime = Marketing.GetLifeTime(Q, company.company.Id);
         var lifetimeFormatted = lifetime.ToString("0.00");
 
-        var incomePerUser = Economy.GetIncomePerUser(Q, company, 0);
+        var incomePerUser = Economy.GetIncomePerUser(Q, company);
         var cost = Marketing.GetMarketingActivityCostPerUser(company, Q, channel);
         var income = incomePerUser * lifetime * (100 - 1) / cost;
 
