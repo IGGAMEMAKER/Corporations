@@ -83,16 +83,21 @@ namespace Assets.Core
             return Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown);
         }
 
+        static int GetTeamFeatureAmount(GameEntity product, TeamType teamType)
+        {
+            return Teams.GetAmountOfTeams(product, teamType) * Teams.GetAmountOfPossibleFeaturesByTeamType(teamType);
+        }
+
         public static int GetAmountOfFeaturesThatYourTeamCanUpgrade(GameEntity product, GameContext gameContext)
         {
             var teams = product.team.Teams;
 
-            var marketingTeams = Teams.GetAmountOfTeams(product, TeamType.MarketingTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.MarketingTeam);
-            var crossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.CrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.CrossfunctionalTeam);
-            var smallUniversalTeams = Teams.GetAmountOfTeams(product, TeamType.SmallCrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.SmallCrossfunctionalTeam);
-            var bigCrossfunctionalTeams = Teams.GetAmountOfTeams(product, TeamType.BigCrossfunctionalTeam) * Teams.GetAmountOfPossibleChannelsByTeamType(TeamType.BigCrossfunctionalTeam);
+            var devTeams = GetTeamFeatureAmount(product, TeamType.DevelopmentTeam);
+            var crossfunctionalTeams = GetTeamFeatureAmount(product, TeamType.CrossfunctionalTeam);
+            var smallUniversalTeams = GetTeamFeatureAmount(product, TeamType.SmallCrossfunctionalTeam);
+            var bigCrossfunctionalTeams = GetTeamFeatureAmount(product, TeamType.BigCrossfunctionalTeam);
 
-            return marketingTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
+            return devTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
         }
 
         public static int GetAmountOfUpgradingFeatures(GameEntity product, GameContext gameContext)

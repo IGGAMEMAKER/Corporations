@@ -20,6 +20,9 @@ public class MarketingChannelView : View
 
     bool isExplorationMockup = false;
 
+    float maxROI = 100;
+    float minROI = 0;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -50,23 +53,15 @@ public class MarketingChannelView : View
         // basic info
         var name = $"Forum {channel1.ID}";
         Title.text = name;
+        var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
+        Users.text = "+" + Format.Minify(gainedAudience) + " users";
         //Users.text = "+" + Format.Minify(channel1.Batch) + " users";
-        Users.text = Format.Minify(channel1.Audience) + " users";
+        //Users.text = Format.Minify(channel1.Audience) + " users";
 
-        //Debug.Log("Rendering Market " + name);
+        var ROI = Marketing.GetChannelROI(company, Q, channel);
 
-        // income
-        var lifetime = Marketing.GetLifeTime(Q, company.company.Id);
-        var lifetimeFormatted = lifetime.ToString("0.00");
-
-        var incomePerUser = Economy.GetIncomePerUser(Q, company);
-        var cost = Marketing.GetMarketingActivityCostPerUser(company, Q, channel);
-        var income = incomePerUser * lifetime * (100 - 1) / cost;
-
-        var formattedIncome = income.ToString("0.00");
-
-        Income.text = $"ROI: {formattedIncome}%"; // ({lifetimeFormatted})
-        Income.color = Visuals.GetGradientColor(100, 500, income);
+        Income.text = $"ROI: {ROI.ToString("0.00")}%"; // ({lifetimeFormatted})
+        Income.color = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
@@ -104,9 +99,11 @@ public class MarketingChannelView : View
         ExplorationImage.fillAmount = 1f - (duration - progress) / duration; // Random.Range(0, 1f);
     }
 
-    public void SetEntity(GameEntity channel, bool isExplorationMockup)
+    public void SetEntity(GameEntity channel, float maxROI, float minROI, bool isExplorationMockup)
     {
         this.channel = channel;
+        this.maxROI = maxROI;
+        this.minROI = minROI;
 
         this.isExplorationMockup = isExplorationMockup;
 

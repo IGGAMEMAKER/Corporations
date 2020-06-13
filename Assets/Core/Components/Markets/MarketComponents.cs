@@ -48,7 +48,8 @@ public class ChannelInfo
     public Dictionary<int, long> Companies;
 
     // cost per user
-    public float costPerUser;
+    public float costPerAd;
+    public float relativeCost;
 }
 
 public enum ClientContainerType

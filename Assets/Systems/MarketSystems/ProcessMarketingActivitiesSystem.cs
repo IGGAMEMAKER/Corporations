@@ -11,17 +11,11 @@ public class ProcessMarketingActivitiesSystem : OnPeriodChange
 
         foreach (var c in channels)
         {
-            foreach (var pair in c.channelMarketingActivities.Companies)
+            foreach (var companyId in c.channelMarketingActivities.Companies.Keys)
             {
-                var companyId = pair.Key;
-
                 var company = Companies.Get(gameContext, companyId);
 
-                var batch = c.marketingChannel.ChannelInfo.Batch;
-
-                var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead);
-
-                var gainedAudience = batch * (100 + marketingEffeciency) / 100;
+                var gainedAudience = Marketing.GetChannelClientGain(company, gameContext, c);
 
                 Marketing.AddClients(company, gainedAudience);
             }

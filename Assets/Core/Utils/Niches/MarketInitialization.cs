@@ -80,7 +80,7 @@ namespace Assets.Core
             // SPEED
 
             // active channel (can take it fast big reach: 7% / w)
-            // avg (avg reach 2%
+            // avg (avg reach 2%)
             // non-active (<1% / month)
 
             // Additional bonus (channel theme matches with our product)
@@ -88,25 +88,47 @@ namespace Assets.Core
             // cheap
             // avg
             // expensive
-            for (var i = 0; i < 50; i++)
+
+            var i = 0;
+            SpawnChannelSet(500, 10, gameContext, ref i);
+            SpawnChannelSet(1500, 20, gameContext, ref i);
+            SpawnChannelSet(5000, 10, gameContext, ref i);
+            SpawnChannelSet(25000, 10, gameContext, ref i);
+            SpawnChannelSet(100000, 5, gameContext, ref i);
+            SpawnChannelSet(500000, 2, gameContext, ref i);
+            SpawnChannelSet(1000000, 1, gameContext, ref i);
+        }
+
+        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, ref int i)
+        {
+            for (var j = 0; j < amountOfChannels; j++)
+                SpawnChannel(audience1, gameContext, ref i);
+        }
+
+        static void SpawnChannel(long audience1, GameContext gameContext, ref int i)
+        {
+            long baseBatch = audience1;
+
+            var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
+            long audience = baseBatch * 100; // * Random.Range(0.85f, 1.1f);
+
+            var e = gameContext.CreateEntity();
+
+            var relativeCost = Random.Range(1f, 5f);
+
+            e.AddMarketingChannel(audience, channelType, new ChannelInfo
             {
-                var e = gameContext.CreateEntity();
+                ID = i++,
 
-                long baseBatch = 25000;
+                Audience = audience,
+                Batch = baseBatch,
+                costPerAd = Mathf.Pow(baseBatch, 1f) * relativeCost,
+                relativeCost = relativeCost,
 
-                var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
-                long audience = baseBatch * Random.Range(1, 1000) * (long)(Mathf.Pow(1.02f, i));
+                Companies = new Dictionary<int, long>()
+            });
 
-                e.AddMarketingChannel(audience, channelType, new ChannelInfo {
-                    ID = i,
-                    costPerUser = Random.Range(1f, 5f),
-                    Audience = audience,
-                    Batch = audience / Random.Range(100, 200),
-
-                    Companies = new Dictionary<int, long>()
-                });
-                e.AddChannelMarketingActivities(new Dictionary<int, long>());
-            }
+            e.AddChannelMarketingActivities(new Dictionary<int, long>());
         }
 
 

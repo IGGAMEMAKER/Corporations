@@ -73,7 +73,7 @@ namespace Assets.Core
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
                 case TeamType.SmallCrossfunctionalTeam: return 1;
-                case TeamType.MarketingTeam: return 1;
+                case TeamType.MarketingTeam: return 2;
 
                 default: return 0;
             }
@@ -86,7 +86,7 @@ namespace Assets.Core
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
                 case TeamType.SmallCrossfunctionalTeam: return 1;
-                case TeamType.DevelopmentTeam: return 1;
+                case TeamType.DevelopmentTeam: return 2;
 
                 default: return 0;
             }

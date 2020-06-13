@@ -19,19 +19,9 @@ namespace Assets.Core
             return (long)result;
         }
 
-        public static float GetMarketingActivityCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
-        {
-            return channel.marketingChannel.ChannelInfo.costPerUser;
-        }
         public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, GameEntity channel)
         {
-            //var clientCost = Markets.GetClientAcquisitionCost(product.product.Niche, gameContext);
-            var clientCost = GetMarketingActivityCostPerUser(product, gameContext, channel);
-            var flow = channel.marketingChannel.ChannelInfo.Batch;
-
-            var cost = clientCost * flow;
-
-            return (long)cost;
+            return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
         public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
@@ -42,6 +32,33 @@ namespace Assets.Core
         public static bool IsChannelExplored(GameEntity channel, GameEntity product)
         {
             return product.channelExploration.Explored.Contains(channel.marketingChannel.ChannelInfo.ID);
+        }
+
+        public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)
+        {
+            var batch = channel.marketingChannel.ChannelInfo.Batch;
+
+            var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead);
+            var acquisitionEffeciency = Products.GetAcquisitionFeaturesBenefit(company);
+
+            var gainedAudience = batch * (100 + marketingEffeciency + (int)acquisitionEffeciency) / 100;
+
+            return gainedAudience;
+        }
+
+        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel)
+        {
+            var lifetime = Marketing.GetLifeTime(gameContext, company.company.Id);
+            //var lifetimeFormatted = lifetime.ToString("0.00");
+
+            var incomePerUser = Economy.GetIncomePerUser(gameContext, company);
+            var cost = Marketing.GetMarketingActivityCost(company, gameContext, channel);
+
+            var userGain = GetChannelClientGain(company, gameContext, channel);
+
+            var ROI = incomePerUser * userGain * lifetime * (100 - 1) / cost;
+
+            return ROI;
         }
 
         public static void ExploreChannel(GameEntity channel, GameEntity product)
