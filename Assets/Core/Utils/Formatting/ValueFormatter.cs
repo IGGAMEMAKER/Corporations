@@ -110,7 +110,7 @@ namespace Assets.Core
             {
                 day = day,
                 month = month,
-                monthLiteral = GetMonthLiteral(month),
+                monthLiteral = GetMonthLiteral(month).Substring(0, 3),
                 year = year
             };
         }

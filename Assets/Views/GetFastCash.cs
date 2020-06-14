@@ -10,7 +10,7 @@ public class GetFastCash : CompanyUpgradeButton
         Companies.AddResources(MyCompany, sum);
     }
 
-    int fraction = 1;
+    int fraction = 3;
 
     long sum => Economy.GetCompanyCost(Q, MyCompany) * fraction / 100;
 

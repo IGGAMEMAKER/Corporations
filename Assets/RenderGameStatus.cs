@@ -18,6 +18,7 @@ public class RenderGameStatus : View
         GetComponent<Image>().color = Visuals.GetColorPositiveOrNegative(isRunning);
         Draw(PausedText, !isRunning);
 
-        SoundManager.Play(Sound.Timer);
+        if (isRunning)
+            SoundManager.Play(Sound.Timer);
     }
 }

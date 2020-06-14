@@ -8,6 +8,8 @@ public abstract class ListView : View // MonoBehaviour
 {
     public GameObject Prefab;
 
+    public int index = 0;
+
     [Header("Specify this field to autoscroll. Two layers higher Scroll View")]
     public ScrollRect _sRect;
     public bool AutoScroll = false;
@@ -38,6 +40,7 @@ public abstract class ListView : View // MonoBehaviour
         if (entities == null)
             return;
 
+        index = 0;
         foreach (var e in entities)
         {
             if (Prefab == null)
@@ -48,6 +51,7 @@ public abstract class ListView : View // MonoBehaviour
             var o = Instantiate(Prefab, transform, false);
 
             SetItem(o.transform, e, data);
+            index++;
         }
     }
 

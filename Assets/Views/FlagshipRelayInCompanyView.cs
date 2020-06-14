@@ -19,7 +19,7 @@ public class FlagshipRelayInCompanyView : View
 
     private void OnEnable()
     {
-        ChooseDevTab();
+        ChooseWorkerInteractions();
     }
 
     public void ChooseWorkerInteractions()

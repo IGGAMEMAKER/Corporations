@@ -32,6 +32,10 @@
         }
 
 
+        public static bool IsCanMaintainForAWhile(GameEntity company, GameContext gameContext, long money, int periods)
+        {
+            return BalanceOf(company) + (GetProfit(gameContext, company) - money) * periods >= 0;
+        }
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
             return GetProfit(gameContext, company) >= money;

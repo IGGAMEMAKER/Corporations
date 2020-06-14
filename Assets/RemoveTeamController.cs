@@ -8,6 +8,11 @@ public class RemoveTeamController : ButtonController
     public TeamType TeamType;
     public override void Execute()
     {
-        Teams.RemoveTeam(Flagship, TeamType);
+        var company = Flagship;
+
+        var amountOfTeams = company.team.Teams.ContainsKey(TeamType) ? company.team.Teams[TeamType] : 0;
+
+        if (amountOfTeams > 0)
+            Teams.RemoveTeam(Flagship, TeamType);
     }
 }

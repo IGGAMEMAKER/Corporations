@@ -54,6 +54,20 @@ namespace Assets.Core
         {
             var channels = GetMarketingChannels(gameContext);
 
+            return channels;
+
+            var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
+
+            var availableChannels = channels
+                .Where(c =>
+                Marketing.IsChannelExplored(c, product)
+                ||
+                Economy.IsCanMaintainForAWhile(managingCompany, gameContext, (long)c.marketingChannel.ChannelInfo.costPerAd, 6)
+                )
+                .ToArray();
+
+            return availableChannels;
+
             //Debug.Log("channels: " + channels.Count());
 
             var amountOfChannels = GetAmountOfAvailableChannels(gameContext, product);
@@ -90,22 +104,22 @@ namespace Assets.Core
             // expensive
 
             var i = 0;
-            SpawnChannelSet(500, 10, gameContext, ref i);
-            SpawnChannelSet(1500, 20, gameContext, ref i);
-            SpawnChannelSet(5000, 10, gameContext, ref i);
-            SpawnChannelSet(25000, 10, gameContext, ref i);
-            SpawnChannelSet(100000, 5, gameContext, ref i);
-            SpawnChannelSet(500000, 2, gameContext, ref i);
-            SpawnChannelSet(1000000, 1, gameContext, ref i);
+            SpawnChannelSet(500, 7, gameContext, 1, ref i);
+            SpawnChannelSet(1500, 12, gameContext, 2, ref i);
+            SpawnChannelSet(5000, 8, gameContext, 2, ref i);
+            SpawnChannelSet(25000, 5, gameContext, 3, ref i);
+            SpawnChannelSet(100000, 3, gameContext, 4, ref i);
+            SpawnChannelSet(500000, 2, gameContext, 4, ref i);
+            SpawnChannelSet(1000000, 1, gameContext, 5, ref i);
         }
 
-        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, ref int i)
+        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, int costInWorkers, ref int i)
         {
             for (var j = 0; j < amountOfChannels; j++)
-                SpawnChannel(audience1, gameContext, ref i);
+                SpawnChannel(audience1, gameContext, costInWorkers, ref i);
         }
 
-        static void SpawnChannel(long audience1, GameContext gameContext, ref int i)
+        static void SpawnChannel(long audience1, GameContext gameContext, int costInWorkers, ref int i)
         {
             long baseBatch = audience1;
 
@@ -122,8 +136,9 @@ namespace Assets.Core
 
                 Audience = audience,
                 Batch = baseBatch,
-                costPerAd = Mathf.Pow(baseBatch, 1f) * relativeCost,
+                costPerAd = Mathf.Pow(baseBatch, 1.2f) * relativeCost,
                 relativeCost = relativeCost,
+                costInWorkers = costInWorkers,
 
                 Companies = new Dictionary<int, long>()
             });

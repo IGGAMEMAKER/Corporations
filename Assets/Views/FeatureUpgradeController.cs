@@ -17,7 +17,7 @@ public class FeatureUpgradeController : ButtonController
         if (!Products.IsUpgradingFeature(product, Q, cooldownName))
         {
             var amountOfUpgradingFeatures = Products.GetAmountOfUpgradingFeatures(product, Q);
-            var concurrentFeatureUpgrades = Products.GetAmountOfFeaturesThatYourTeamCanUpgrade(product, Q);
+            var concurrentFeatureUpgrades = Products.GetAmountOfFeaturesThatYourTeamCanUpgrade(product);
 
 
             if (amountOfUpgradingFeatures < concurrentFeatureUpgrades)

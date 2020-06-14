@@ -18,6 +18,8 @@ public class MarketingChannelView : View
     public Image ExplorationImage;
     public Image DomineeringIcon;
 
+    public Text MarketingComplexity;
+
     bool isExplorationMockup = false;
 
     float maxROI = 100;
@@ -60,9 +62,13 @@ public class MarketingChannelView : View
 
         var ROI = Marketing.GetChannelROI(company, Q, channel);
 
-        Income.text = $"ROI: {ROI.ToString("0.00")}%"; // ({lifetimeFormatted})
+        var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
+        //Income.text = $"ROI: {ROI.ToString("0.00")}%"; // ({lifetimeFormatted})
+        Income.text = $"Cost: {Format.MinifyMoney(adCost)}"; // ({lifetimeFormatted})
         Income.color = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
+        //Income.color = Visuals.GetColorPositiveOrNegative(Economy.IsCanMaintain(company, Q, adCost));
 
+        MarketingComplexity.text = channel1.costInWorkers.ToString();
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
         CanvasGroup.alpha = 1; // isActiveChannel ? 1 : 0.92f;

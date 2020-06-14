@@ -52,7 +52,12 @@ namespace Assets.Core
             //var lifetimeFormatted = lifetime.ToString("0.00");
 
             var incomePerUser = Economy.GetIncomePerUser(gameContext, company);
+            
+            // this formula doesn't include team maintenance cost
             var cost = Marketing.GetMarketingActivityCost(company, gameContext, channel);
+
+            // so i need to add it
+            cost += (long) channel.marketingChannel.ChannelInfo.costInWorkers * C.SALARIES_PROGRAMMER * 3;
 
             var userGain = GetChannelClientGain(company, gameContext, channel);
 

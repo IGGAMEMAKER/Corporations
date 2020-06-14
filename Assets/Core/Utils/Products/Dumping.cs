@@ -88,7 +88,7 @@ namespace Assets.Core
             return Teams.GetAmountOfTeams(product, teamType) * Teams.GetAmountOfPossibleFeaturesByTeamType(teamType);
         }
 
-        public static int GetAmountOfFeaturesThatYourTeamCanUpgrade(GameEntity product, GameContext gameContext)
+        public static int GetAmountOfFeaturesThatYourTeamCanUpgrade(GameEntity product)
         {
             var teams = product.team.Teams;
 

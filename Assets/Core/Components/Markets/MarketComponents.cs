@@ -50,6 +50,8 @@ public class ChannelInfo
     // cost per user
     public float costPerAd;
     public float relativeCost;
+
+    public float costInWorkers;
 }
 
 public enum ClientContainerType
