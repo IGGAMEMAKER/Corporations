@@ -5,31 +5,21 @@ using UnityEngine;
 public class AddTaskForTheTeamController : ButtonController
 {
     int TeamId;
-    int SlotId;
 
-    FlagshipRelayInCompanyView _flagshipRelay;
-    FlagshipRelayInCompanyView flagshipRelay
-    {
-        get
-        {
-            if (_flagshipRelay == null)
-            {
-                _flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
-            }
-
-            return _flagshipRelay;
-        }
-    }
-
-    public void SetEntity(int TeamId, int SlotId)
+    public void SetEntity(int TeamId)
     {
         this.TeamId = TeamId;
-        this.SlotId = SlotId;
     }
 
     public override void Execute()
     {
-        flagshipRelay.ChooseDevTab();
-        flagshipRelay.FillSlot(TeamId, SlotId);
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        int SlotId = Flagship.team.Teams[TeamId].Tasks.Count;
+
+        Debug.Log($"Add task #{SlotId}");
+
+        relay.ChooseDevTab();
+        relay.FillSlot(TeamId, SlotId);
     }
 }

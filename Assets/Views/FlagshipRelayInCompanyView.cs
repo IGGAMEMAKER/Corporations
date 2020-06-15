@@ -17,7 +17,7 @@ public class FlagshipRelayInCompanyView : View
 
     // buttons
     public int ChosenTeamId = -1;
-    public int ChosenSlotId = -1;
+    public int ChosenSlotId = 0;
 
     public void FillSlot(int teamId, int slotId)
     {
@@ -28,6 +28,11 @@ public class FlagshipRelayInCompanyView : View
     private void OnEnable()
     {
         ChooseWorkerInteractions();
+    }
+
+    public void RemoveTask()
+    {
+        Teams.RemoveTeamTask(Flagship, Q, ChosenTeamId, ChosenSlotId);
     }
 
     public void ChooseWorkerInteractions()

@@ -1,4 +1,6 @@
 ﻿using Assets.Core;
+using System.Linq;
+using UnityEngine;
 // TODO REMOVE THIS FILE
 
 namespace Assets.Core
@@ -83,9 +85,45 @@ namespace Assets.Core
             }
         }
 
-        public static void AddTeamTask(GameEntity product, int teamId, TeamTask task)
+        public static void AddTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId, TeamTask task)
         {
-            product.team.Teams[teamId].Tasks.Add(task);
+            if (taskId >= product.team.Teams[teamId].Tasks.Count)
+                product.team.Teams[teamId].Tasks.Add(task);
+            else
+            {
+                DisableTask(product, gameContext, teamId, taskId);
+                product.team.Teams[teamId].Tasks[taskId] = task;
+            }
+        }
+
+        static void DisableTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
+        {
+            var task = product.team.Teams[teamId].Tasks[taskId];
+
+            if (task is TeamTaskChannelActivity)
+            {
+                var activity = task as TeamTaskChannelActivity;
+
+                var channel = Markets.GetMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
+                Marketing.DisableChannelActivity(product, gameContext, channel);
+            }
+
+            if (task is TeamTaskFeatureUpgrade)
+            {
+                var activity = task as TeamTaskFeatureUpgrade;
+
+                //var channel = Markets.GetMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
+                //Products.DisableChannelActivity(product, gameContext, channel);
+            }
+        }
+
+        public static void RemoveTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
+        {
+            Debug.Log($"Remove Task: {taskId} from team {teamId}");
+
+            DisableTask(product, gameContext, teamId, taskId);
+
+            product.team.Teams[teamId].Tasks.RemoveAt(taskId);
         }
     }
 }

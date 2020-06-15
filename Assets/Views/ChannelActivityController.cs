@@ -13,31 +13,16 @@ public class ChannelActivityController : ButtonController
 
         var company = Flagship;
 
-        // explore channel button
-        if (channel == null)
-        {
-            company.channelExploration.AmountOfExploredChannels++;
 
-            GetComponentInParent<MarketingChannelsListView>().ViewRender();
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-            // increase amount of possible channels
-            return;
-        }
+        var teamId = relay.ChosenTeamId;
+        var taskId = relay.ChosenSlotId;
+
+        Marketing.ToggleChannelActivity(company, Q, channel, teamId, taskId);
+        relay.ChooseWorkerInteractions();
 
 
-        if (Marketing.IsChannelExplored(channel, company))
-        {
-            var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
-            var teamId = relay.ChosenTeamId == -1 ? company.team.Teams.Count : relay.ChosenTeamId;
-
-            Marketing.ToggleChannelActivity(company, Q, channel, teamId);
-            relay.ChooseWorkerInteractions();
-        }
-        else
-        {
-            Marketing.ExploreChannel(channel, company);
-        }
 
         MarketingChannelView.ViewRender();
     }

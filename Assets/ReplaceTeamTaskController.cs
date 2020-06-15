@@ -4,32 +4,15 @@ using UnityEngine;
 
 public class ReplaceTeamTaskController : ButtonController
 {
-    int TeamId;
-    int SlotId;
-
-    FlagshipRelayInCompanyView _flagshipRelay;
-    FlagshipRelayInCompanyView flagshipRelay
-    {
-        get
-        {
-            if (_flagshipRelay == null)
-            {
-                _flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
-            }
-
-            return _flagshipRelay;
-        }
-    }
-
-    public void SetEntity(int TeamId, int SlotId)
-    {
-        this.TeamId = TeamId;
-        this.SlotId = SlotId;
-    }
-
     public override void Execute()
     {
-        flagshipRelay.ChooseDevTab();
-        flagshipRelay.FillSlot(TeamId, SlotId);
+        var view = GetComponent<TeamTaskView>();
+
+        Debug.Log($"Replace task {view.SlotId} from team {view.TeamId}");
+
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        relay.FillSlot(view.TeamId, view.SlotId);
+        relay.ChooseDevTab();
     }
 }
