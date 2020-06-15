@@ -16,7 +16,7 @@ public class TeamTaskListView : ListView
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<TeamTaskView>().SetEntity(TeamId, 1);
+        t.GetComponent<TeamTaskView>().SetEntity(TeamId, index);
     }
 
     public override void ViewRender()

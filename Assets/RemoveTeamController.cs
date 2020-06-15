@@ -9,6 +9,6 @@ public class RemoveTeamController : ButtonController
 
     public override void Execute()
     {
-        Teams.RemoveTeam(Flagship, TeamId);
+        Teams.RemoveTeam(Flagship, Q, TeamId);
     }
 }

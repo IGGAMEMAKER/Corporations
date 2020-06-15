@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using Entitas;
+using System;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -38,7 +39,16 @@ public class GameController : MonoBehaviour
     {
         // call Execute() on all the IExecuteSystems and 
         // ReactiveSystems that were triggered last frame
-        _systems.Execute();
+
+        try
+        {
+            _systems.Execute();
+
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
 
         // call cleanup() on all the ICleanupSystems
         _systems.Cleanup();

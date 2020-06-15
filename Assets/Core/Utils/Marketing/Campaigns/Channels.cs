@@ -42,8 +42,8 @@ namespace Assets.Core
             // this formula doesn't include team maintenance cost
             var cost = Marketing.GetMarketingActivityCost(company, gameContext, channel);
 
-            // so i need to add it
-            cost += (long) channel.marketingChannel.ChannelInfo.costInWorkers * C.SALARIES_PROGRAMMER * 3;
+            //// so i need to add it
+            //cost += (long) channel.marketingChannel.ChannelInfo.costInWorkers * C.SALARIES_PROGRAMMER * 3;
 
             var userGain = GetChannelClientGain(company, gameContext, channel);
 

@@ -35,8 +35,16 @@ namespace Assets.Core
             company.team.Teams.Add(new TeamInfo { Name = $"{teamType} {company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
         }
 
-        public static void RemoveTeam(GameEntity company, int teamId)
+        public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
         {
+            var tasks = company.team.Teams[teamId].Tasks;
+            var count = tasks.Count;
+
+            for (var i = count - 1; i > 0; i--)
+            {
+                Teams.RemoveTeamTask(company, gameContext, teamId, i);
+            }
+
             company.team.Teams.RemoveAt(teamId);
         }
 

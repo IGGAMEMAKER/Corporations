@@ -25,7 +25,12 @@ public class TeamTaskView : View
     {
         base.ViewRender();
 
-        var task = Flagship.team.Teams[TeamId].Tasks[SlotId];
+        var tasks = Flagship.team.Teams[TeamId].Tasks;
+
+        if (SlotId >= tasks.Count)
+            return;
+
+        var task = tasks[SlotId];
 
         bool isFeature = task is TeamTaskFeatureUpgrade;
         bool isChannel = task is TeamTaskChannelActivity;

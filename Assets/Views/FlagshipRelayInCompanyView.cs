@@ -13,7 +13,7 @@ public class FlagshipRelayInCompanyView : View
     bool roleWasSelected = false;
     WorkerRole SelectedWorkerRole;
 
-
+    public GameObject RemoveTaskButton;
 
     // buttons
     public int ChosenTeamId = -1;
@@ -33,6 +33,7 @@ public class FlagshipRelayInCompanyView : View
     public void RemoveTask()
     {
         Teams.RemoveTeamTask(Flagship, Q, ChosenTeamId, ChosenSlotId);
+        Refresh();
     }
 
     public void ChooseWorkerInteractions()
@@ -45,6 +46,10 @@ public class FlagshipRelayInCompanyView : View
     {
         Draw(WorkerInteractions, false);
         Draw(DevelopmentTab, true);
+
+
+        var hasTask = ChosenTeamId >= 0 && Flagship.team.Teams[ChosenTeamId].Tasks.Count > ChosenSlotId;
+        Draw(RemoveTaskButton, hasTask);
     }
 
 
