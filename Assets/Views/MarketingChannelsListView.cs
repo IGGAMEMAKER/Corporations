@@ -27,28 +27,21 @@ public class MarketingChannelsListView : ListView
 
         var clients = Marketing.GetClients(company);
 
-        var freeChannels = Marketing.GetAmountOfChannelsThatYourTeamCanReach(company) - Marketing.GetAmountOfEnabledChannels(company);
-        if (freeChannels < 0)
-            freeChannels = 0;
-
-        var exploredChannels = availableChannels.Where(c => Marketing.IsChannelExplored(c, company));
         var newChannels = availableChannels
-            .Where(c => !Marketing.IsChannelExplored(c, company) && c.marketingChannel.ChannelInfo.Batch < clients / 4)
-            .Take(freeChannels);
+            .Where(c => !Marketing.IsCompanyActiveInChannel(company, c))
+            .Where(c => c.marketingChannel.ChannelInfo.Batch < clients / 4);
 
         var chosenChannels = new List<GameEntity>();
 
-        if (exploredChannels.Count() > 0)
-            chosenChannels.AddRange(exploredChannels);
+        //if (exploredChannels.Count() > 0)
+        //    chosenChannels.AddRange(exploredChannels);
 
         if (newChannels.Count() == 0)
         {
             // ensure, that we have at least one channel
             newChannels = availableChannels
                 .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-                .Where(c => !Marketing.IsChannelExplored(c, company))
                 .Take(1);
-
         }
         chosenChannels.AddRange(newChannels);
 
