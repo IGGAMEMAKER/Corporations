@@ -15,10 +15,10 @@ namespace Assets.Core
 
             foreach (var team in e.team.Teams)
             {
-                var workerCost = C.SALARIES_PROGRAMMER;
-                var teamCost = Teams.GetAmountOfWorkersByTeamType(team.Key) * workerCost * C.PERIOD / 30;
+                //var workerCost = C.SALARIES_PROGRAMMER;
+                //var teamCost = Teams.GetAmountOfWorkersByTeamType(team.Key) * workerCost * C.PERIOD / 30;
 
-                bonus.AppendAndHideIfZero($"{team.Key} X{team.Value}", teamCost * team.Value);
+                //bonus.AppendAndHideIfZero($"{team.Key} X{team.Value}", teamCost * team.Value);
             }
 
             var upgrades = e.productUpgrades.upgrades;

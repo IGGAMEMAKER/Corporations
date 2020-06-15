@@ -30,21 +30,12 @@ namespace Assets.Core
 
         public static void AddTeam(GameEntity company, TeamType teamType)
         {
-            if (company.team.Teams.ContainsKey(teamType))
-                company.team.Teams[teamType]++;
-            else
-                company.team.Teams[teamType] = 1;
+            company.team.Teams.Add(new TeamInfo { Name = $"{teamType} {company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
         }
 
-        public static void RemoveTeam(GameEntity company, TeamType teamType)
+        public static void RemoveTeam(GameEntity company, int teamId)
         {
-            if (company.team.Teams.ContainsKey(teamType))
-            {
-                company.team.Teams[teamType]--;
-
-                if (company.team.Teams[teamType] == 0)
-                    company.team.Teams.Remove(teamType);
-            }
+            company.team.Teams.RemoveAt(teamId);
         }
 
         public static int GetAmountOfWorkersByTeamType(TeamType teamType)
@@ -63,7 +54,7 @@ namespace Assets.Core
 
         public static int GetAmountOfTeams(GameEntity company, TeamType teamType)
         {
-            return company.team.Teams.ContainsKey(teamType) ? company.team.Teams[teamType] : 0;
+            return company.team.Teams.FindAll(t => t.TeamType == teamType).Count;
         }
 
         public static int GetAmountOfPossibleChannelsByTeamType(TeamType teamType)
@@ -90,6 +81,11 @@ namespace Assets.Core
 
                 default: return 0;
             }
+        }
+
+        public static void AddTeamTask(GameEntity product, int teamId, TeamTask task)
+        {
+            product.team.Teams[teamId].Tasks.Add(task);
         }
     }
 }

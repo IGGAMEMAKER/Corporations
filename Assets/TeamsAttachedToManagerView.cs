@@ -17,16 +17,5 @@ public class TeamsAttachedToManagerView : View
 
         var company = Flagship;
 
-        var amountOfTeams = company.team.Teams.ContainsKey(teamType) ? company.team.Teams[teamType] : 0;
-
-        AmountOfTeams.text = "";
-
-        if (amountOfTeams > 0)
-        {
-            AmountOfTeams.text = $"<b>{amountOfTeams}</b>\n{teamType}";
-        }
-
-        Draw(RemoveTeam, amountOfTeams > 0);
-        RemoveTeam.TeamType = teamType;
     }
 }

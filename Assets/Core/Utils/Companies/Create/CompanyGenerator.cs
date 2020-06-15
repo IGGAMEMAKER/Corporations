@@ -82,7 +82,7 @@ namespace Assets.Core
                 100, 50,
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
-                new Dictionary<TeamType, int>()
+                new List<TeamInfo>()
                 );
             e.AddEmployee(new Dictionary<int, WorkerRole>());
 

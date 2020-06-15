@@ -11,7 +11,7 @@ public partial class GameEntity {
     public TeamComponent team { get { return (TeamComponent)GetComponent(GameComponentsLookup.Team); } }
     public bool hasTeam { get { return HasComponent(GameComponentsLookup.Team); } }
 
-    public void AddTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.Dictionary<TeamType, int> newTeams) {
+    public void AddTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
@@ -22,7 +22,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.Dictionary<TeamType, int> newTeams) {
+    public void ReplaceTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;

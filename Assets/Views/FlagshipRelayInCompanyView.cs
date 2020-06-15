@@ -16,8 +16,8 @@ public class FlagshipRelayInCompanyView : View
 
 
     // buttons
-    int ChosenTeamId = -1;
-    int ChosenSlotId = -1;
+    public int ChosenTeamId = -1;
+    public int ChosenSlotId = -1;
 
     public void FillSlot(int teamId, int slotId)
     {

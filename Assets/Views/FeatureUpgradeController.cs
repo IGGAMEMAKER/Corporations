@@ -16,22 +16,15 @@ public class FeatureUpgradeController : ButtonController
 
         if (!Products.IsUpgradingFeature(product, Q, cooldownName))
         {
-            var amountOfUpgradingFeatures = Products.GetAmountOfUpgradingFeatures(product, Q);
-            var concurrentFeatureUpgrades = Products.GetAmountOfFeaturesThatYourTeamCanUpgrade(product);
+            Products.UpgradeFeature(product, featureName, Q);
+            Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
 
+            var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-            if (amountOfUpgradingFeatures < concurrentFeatureUpgrades)
-            {
-                // has enough workers
-                Products.UpgradeFeature(product, featureName, Q);
-                Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
-            }
-            else
-            {
-                NotificationUtils.AddPopup(Q, new PopupMessageNeedMoreWorkers());
-            }
+            var teamId = relay.ChosenTeamId == -1 ? product.team.Teams.Count : relay.ChosenTeamId;
+            Teams.AddTeamTask(product, teamId, new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature.FeatureBonus));
+            relay.ChooseWorkerInteractions();
         }
-        
 
         FeatureView.ViewRender();
     }

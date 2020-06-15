@@ -209,7 +209,37 @@ public class TeamComponent : IComponent
     public Dictionary<int, WorkerRole> Managers;
     public Dictionary<WorkerRole, int> Workers;
 
-    public Dictionary<TeamType, int> Teams;
+    public List<TeamInfo> Teams;
+}
+
+public class TeamTask {}
+
+public class TeamTaskChannelActivity : TeamTask
+{
+    public int ChannelId;
+
+    public TeamTaskChannelActivity(int channelId)
+    {
+        this.ChannelId = channelId;
+    }
+}
+
+public class TeamTaskFeatureUpgrade : TeamTask
+{
+    public FeatureBonus FeatureBonus;
+
+    public TeamTaskFeatureUpgrade(FeatureBonus featureBonus)
+    {
+        this.FeatureBonus = featureBonus;
+    }
+}
+
+public class TeamInfo
+{
+    public TeamType TeamType;
+    public string Name;
+
+    public List<TeamTask> Tasks;
 }
 
 public enum TeamType
