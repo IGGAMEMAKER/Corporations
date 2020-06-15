@@ -116,15 +116,13 @@ namespace Assets.Core
 
 
 
-        public static bool ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel, int teamId)
         {
             var companyId = product.company.Id;
             var channelId = channel.marketingChannel.ChannelInfo.ID;
 
             var activeChannels = Marketing.GetAmountOfEnabledChannels(product);
             var maxChannels = Marketing.GetAmountOfChannelsThatYourTeamCanReach(product);
-
-            bool hasEnoughWorkers = maxChannels > activeChannels;
 
             var active = IsCompanyActiveInChannel(product, channel);
 
@@ -134,13 +132,9 @@ namespace Assets.Core
             }
             else
             {
-                if (hasEnoughWorkers)
-                    EnableChannelActivity(product, gameContext, channel);
-                else
-                    return false;
+                EnableChannelActivity(product, gameContext, channel);
+                Teams.AddTeamTask(product, teamId, new TeamTaskChannelActivity(channelId));
             }
-
-            return true;
         }
     }
 }

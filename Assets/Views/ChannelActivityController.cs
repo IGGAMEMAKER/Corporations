@@ -27,8 +27,12 @@ public class ChannelActivityController : ButtonController
 
         if (Marketing.IsChannelExplored(channel, company))
         {
-            if (!Marketing.ToggleChannelActivity(company, Q, channel))
-                NotificationUtils.AddPopup(Q, new PopupMessageNeedMoreWorkers());
+            var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+            var teamId = relay.ChosenTeamId == -1 ? company.team.Teams.Count : relay.ChosenTeamId;
+
+            Marketing.ToggleChannelActivity(company, Q, channel, teamId);
+            relay.ChooseWorkerInteractions();
         }
         else
         {
