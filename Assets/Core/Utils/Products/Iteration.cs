@@ -26,6 +26,9 @@ namespace Assets.Core
             {
                 product.features.Upgrades[featureName] = UnityEngine.Random.Range(2, 5f);
             }
+
+            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+            Cooldowns.AddSimpleCooldown(gameContext, cooldownName, Products.GetBaseIterationTime(gameContext, product));
         }
 
         public static float GetFeatureRating(GameEntity product, string featureName)

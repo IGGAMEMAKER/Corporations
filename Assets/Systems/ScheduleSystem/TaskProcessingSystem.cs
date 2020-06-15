@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Core;
 using Entitas;
+using System.Linq;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
@@ -31,6 +32,27 @@ public partial class TaskProcessingSystem : OnDateChange
             // 
             if (date > EndTime)
                 t.Destroy();
+        }
+
+        var products = Companies.GetProductCompanies(gameContext);
+
+        foreach (var p in products)
+        {
+            foreach (var t in p.team.Teams)
+            {
+                foreach (var task in t.Tasks)
+                {
+                    if (task is TeamTaskFeatureUpgrade)
+                    {
+                        var upgrade = (task as TeamTaskFeatureUpgrade);
+
+                        if (!Products.IsUpgradingFeature(p, gameContext, upgrade.NewProductFeature.Name))
+                        {
+                            Products.UpgradeFeature(p, upgrade.NewProductFeature.Name, gameContext);
+                        }
+                    }
+                }
+            }
         }
     }
 

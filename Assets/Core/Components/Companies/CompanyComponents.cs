@@ -226,11 +226,11 @@ public class TeamTaskChannelActivity : TeamTask
 
 public class TeamTaskFeatureUpgrade : TeamTask
 {
-    public FeatureBonus FeatureBonus;
+    public NewProductFeature NewProductFeature;
 
-    public TeamTaskFeatureUpgrade(FeatureBonus featureBonus)
+    public TeamTaskFeatureUpgrade(NewProductFeature NewProductFeature)
     {
-        this.FeatureBonus = featureBonus;
+        this.NewProductFeature = NewProductFeature;
     }
 }
 

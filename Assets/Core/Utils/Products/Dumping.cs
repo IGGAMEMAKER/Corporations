@@ -78,8 +78,10 @@ namespace Assets.Core
 
 
 
-        public static bool IsUpgradingFeature(GameEntity product, GameContext Q, string cooldownName)
+        public static bool IsUpgradingFeature(GameEntity product, GameContext Q, string featureName)
         {
+            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+
             return Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown simpleCooldown);
         }
 
@@ -107,9 +109,7 @@ namespace Assets.Core
             int upgrading = 0;
             foreach (var f in features)
             {
-                var cooldownName = $"company-{product.company.Id}-upgradeFeature-{f.Name}";
-
-                if (IsUpgradingFeature(product, gameContext, cooldownName))
+                if (IsUpgradingFeature(product, gameContext, f.Name))
                     upgrading++;
             }
 

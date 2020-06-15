@@ -12,12 +12,10 @@ public class FeatureUpgradeController : ButtonController
 
         var featureName = FeatureView.NewProductFeature.Name;
 
-        var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
 
-        if (!Products.IsUpgradingFeature(product, Q, cooldownName))
+        if (!Products.IsUpgradingFeature(product, Q, featureName))
         {
             Products.UpgradeFeature(product, featureName, Q);
-            Cooldowns.AddSimpleCooldown(Q, cooldownName, Products.GetBaseIterationTime(Q, product));
 
             var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
@@ -26,7 +24,7 @@ public class FeatureUpgradeController : ButtonController
 
             Debug.Log($"FeatureUpgradeController team={teamId} taskId={taskId}");
 
-            Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature.FeatureBonus));
+            Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature));
             relay.ChooseWorkerInteractions();
         }
 
