@@ -12,7 +12,7 @@ public class MarketingChannelsListView : ListView
     {
         var channel = (GameEntity)(object)entity;
 
-        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI, channel == null);
+        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI);
     }
 
     public override void ViewRender()
@@ -27,14 +27,11 @@ public class MarketingChannelsListView : ListView
 
         var clients = Marketing.GetClients(company);
 
+
+
         var newChannels = availableChannels
-            .Where(c => !Marketing.IsCompanyActiveInChannel(company, c))
+            //.Where(c => !Marketing.IsCompanyActiveInChannel(company, c))
             .Where(c => c.marketingChannel.ChannelInfo.Batch < clients / 4);
-
-        var chosenChannels = new List<GameEntity>();
-
-        //if (exploredChannels.Count() > 0)
-        //    chosenChannels.AddRange(exploredChannels);
 
         if (newChannels.Count() == 0)
         {
@@ -43,41 +40,14 @@ public class MarketingChannelsListView : ListView
                 .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
                 .Take(1);
         }
-        chosenChannels.AddRange(newChannels);
 
-        channels.AddRange(chosenChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
+
+
+        channels.AddRange(newChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
 
         maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
         minROI = channels.Min(c => Marketing.GetChannelROI(company, Q, c));
 
-        //// hack to add Explore Channel Button
-        //var allMarketsCount = Markets.GetMarketingChannels(Q).Count();
-        //var exploredMarketsCount = Markets.GetAmountOfAvailableChannels(Q, company);
-
-        //var isEploredAllMarkets = exploredMarketsCount >= allMarketsCount;
-
-        //if (!isEploredAllMarkets)
-        //{
-        //    channels.Insert(0, null);
-        //}
-
         SetItems(channels);
-    }
-
-    // copied from ProductFeaturesListView
-    int GetNecessaryAmountOfItems(int openedAlready)
-    {
-        var necessaryAmountOfFeatures = 1;
-
-        if (openedAlready == 0)
-            necessaryAmountOfFeatures = 1;
-        else if (openedAlready == 1)
-            necessaryAmountOfFeatures = 2;
-        else if (openedAlready == 2)
-            necessaryAmountOfFeatures = 3;
-        else
-            necessaryAmountOfFeatures = openedAlready * 2;
-
-        return necessaryAmountOfFeatures;
     }
 }

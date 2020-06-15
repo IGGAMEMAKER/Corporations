@@ -128,7 +128,7 @@ namespace Assets.Core
 
             var e = gameContext.CreateEntity();
 
-            var relativeCost = Random.Range(1f, 5f);
+            var relativeCost = Random.Range(0.5f, 3f);
 
             e.AddMarketingChannel(audience, channelType, new ChannelInfo
             {
@@ -136,7 +136,7 @@ namespace Assets.Core
 
                 Audience = audience,
                 Batch = baseBatch,
-                costPerAd = Mathf.Pow(baseBatch, 1.2f) * relativeCost,
+                costPerAd = Mathf.Pow(baseBatch, 1.12f) * relativeCost,
                 relativeCost = relativeCost,
                 costInWorkers = costInWorkers,
 

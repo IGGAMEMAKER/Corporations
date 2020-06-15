@@ -20,8 +20,6 @@ public class MarketingChannelView : View
 
     public Text MarketingComplexity;
 
-    bool isExplorationMockup = false;
-
     float maxROI = 100;
     float minROI = 0;
 
@@ -30,21 +28,8 @@ public class MarketingChannelView : View
         base.ViewRender();
 
         // some error
-        if (channel == null && !isExplorationMockup)
+        if (channel == null)
             return;
-
-        if (isExplorationMockup)
-        {
-            Users.text = "EXPLORE";
-            Income.text = "";
-            Title.text = "";
-
-            Draw(ChosenImage, false);
-            Draw(DomineeringIcon, false);
-            Draw(ChosenCheckMark, false);
-
-            return;
-        }
 
         var marketingChannel = channel.marketingChannel;
 
@@ -55,18 +40,19 @@ public class MarketingChannelView : View
         // basic info
         var name = $"Forum {channel1.ID}";
         Title.text = name;
+
         var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
-        //Users.text = "+" + Format.Minify(channel1.Batch) + " users";
-        //Users.text = Format.Minify(channel1.Audience) + " users";
 
         var ROI = Marketing.GetChannelROI(company, Q, channel);
 
+        var repaysSelf = Marketing.GetChannelRepaymentSpeed(company, Q, channel);
+
+
+
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
-        //Income.text = $"ROI: {ROI.ToString("0.00")}%"; // ({lifetimeFormatted})
-        Income.text = $"Cost: {Format.MinifyMoney(adCost)}"; // ({lifetimeFormatted})
+        Income.text = $"Cost: {Format.MinifyMoney(adCost)} {repaysSelf.ToString("0.0")}m";
         Income.color = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
-        //Income.color = Visuals.GetColorPositiveOrNegative(Economy.IsCanMaintain(company, Q, adCost));
 
         MarketingComplexity.text = channel1.costInWorkers.ToString();
 
@@ -75,29 +61,20 @@ public class MarketingChannelView : View
         Draw(ChosenImage, isActiveChannel);
         Draw(ChosenCheckMark, isActiveChannel);
 
-        bool isExploredMarket = Marketing.IsChannelExplored(channel, company);
+        var dayOfPeriod = CurrentIntDate % C.PERIOD;
+        RenderProgress(isActiveChannel ? dayOfPeriod : 0, C.PERIOD);
 
-        //Debug.Log("Is Explored Market " + name + ": " + isExploredMarket);
+            //Income.text = "???";
+            //Income.color = Visuals.GetColorFromString(Colors.COLOR_WHITE);
 
-        if (isExploredMarket)
-        {
-            var dayOfPeriod = CurrentIntDate % C.PERIOD;
-            RenderProgress(isActiveChannel ? dayOfPeriod : 0, C.PERIOD);
-        }
-        else
-        {
-            Income.text = "???";
-            Income.color = Visuals.GetColorFromString(Colors.COLOR_WHITE);
-
-            Users.text = "+??? users";
+            //Users.text = "+??? users";
 
 
-            var exp = company.channelExploration;
-            var duration = 10f;
-            var progress = exp.InProgress.ContainsKey(channel1.ID) ? exp.InProgress[channel1.ID] : duration;
+            //var exp = company.channelExploration;
+            //var duration = 10f;
+            //var progress = exp.InProgress.ContainsKey(channel1.ID) ? exp.InProgress[channel1.ID] : duration;
 
-            RenderProgress(progress, duration);
-        }
+            //RenderProgress(progress, duration);
     }
 
     void RenderProgress(float progress, float duration)
@@ -105,13 +82,11 @@ public class MarketingChannelView : View
         ExplorationImage.fillAmount = 1f - (duration - progress) / duration; // Random.Range(0, 1f);
     }
 
-    public void SetEntity(GameEntity channel, float maxROI, float minROI, bool isExplorationMockup)
+    public void SetEntity(GameEntity channel, float maxROI, float minROI)
     {
         this.channel = channel;
         this.maxROI = maxROI;
         this.minROI = minROI;
-
-        this.isExplorationMockup = isExplorationMockup;
 
         ViewRender();
     }

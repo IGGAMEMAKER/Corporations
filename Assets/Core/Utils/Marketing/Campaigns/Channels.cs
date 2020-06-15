@@ -32,6 +32,35 @@ namespace Assets.Core
             return gainedAudience;
         }
 
+        // in months
+        public static float GetChannelRepaymentSpeed(GameEntity company, GameContext gameContext, GameEntity channel)
+        {
+            var adCost = (float)GetMarketingActivityCost(company, gameContext, channel);
+            var churn = GetChurnRate(gameContext, company);
+
+            var gainedUsers = GetChannelClientGain(company, gameContext, channel);
+
+            var q = (100 - churn) / 100f;
+            var b1 = gainedUsers * Economy.GetIncomePerUser(gameContext, company);
+
+            var Sum = b1 / (1 - q);
+
+            if (Sum > adCost)
+            {
+                // channel is repaying 4 itself
+                var Sn = adCost;
+                var constr = 1 - (Sn * (1 - q) / b1);
+
+                var n = Mathf.Log(constr, q);
+
+                return n * C.PERIOD / 30;
+            }
+
+            // channel will never repay
+
+            return 10000;
+        }
+
         public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel)
         {
             var lifetime = Marketing.GetLifeTime(gameContext, company.company.Id);
