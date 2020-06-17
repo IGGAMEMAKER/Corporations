@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TeamView : View
+public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 {
     public Text TeamName;
     public TeamType TeamType;
@@ -34,5 +35,15 @@ public class TeamView : View
 
         TeamTaskListView.ChosenSlots = chosenSlots;
         TeamTaskListView.SetEntity(teamId);
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        Draw(RemoveTeam, true);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        Draw(RemoveTeam, false);
     }
 }

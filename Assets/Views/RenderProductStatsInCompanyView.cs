@@ -17,10 +17,6 @@ public class RenderProductStatsInCompanyView : View
     public Text Brand;
     public GameObject BrandIcon;
 
-    public Text Workers;
-    public GameObject WorkersLabel;
-
-
     public void Render(GameEntity company)
     {
         Clients.text = Format.Minify(Marketing.GetClients(company));

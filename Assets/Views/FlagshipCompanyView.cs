@@ -41,12 +41,12 @@ public class FlagshipCompanyView : View
 
     void RenderWorkersAndCompetitors()
     {
-        DrawCanvasGroup(Workers, expand);
+        //DrawCanvasGroup(Workers, expand);
 
         bool showCompetitors = !expand && Flagship.isRelease;
 
         if (competitorListView != null)
-            DrawCanvasGroup(competitorListView, showCompetitors);
+            Draw(competitorListView.gameObject, showCompetitors);
     }
 
     public void ToggleState()

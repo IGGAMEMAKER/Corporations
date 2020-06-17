@@ -14,6 +14,8 @@ public class TeamTaskView : View
     public Sprite FeatureSprite;
     public Sprite ChannelSprite;
 
+    public Text RepresentativeNumber;
+
     public void SetEntity(int TeamId, int SlotId)
     {
         this.TeamId = TeamId;
@@ -26,7 +28,9 @@ public class TeamTaskView : View
     {
         base.ViewRender();
 
-        var tasks = Flagship.team.Teams[TeamId].Tasks;
+        var company = Flagship;
+
+        var tasks = company.team.Teams[TeamId].Tasks;
 
         if (SlotId >= tasks.Count)
             return;
@@ -38,5 +42,27 @@ public class TeamTaskView : View
 
         // set image
         Icon.sprite = isFeature ? FeatureSprite : ChannelSprite;
+
+        if (isFeature)
+        {
+            var featureName = (task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
+            var rating = Products.GetFeatureRating(company, featureName);
+
+            RepresentativeNumber.text = rating.ToString("0.0");
+            RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
+
+            GetComponent<Hint>().SetHint("Upgrading feature " + featureName);
+        }
+
+        if (isChannel)
+        {
+            var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
+            var gain = Marketing.GetChannelClientGain(company, Q, channel);
+
+            RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
+            RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);
+
+            GetComponent<Hint>().SetHint($"Getting {Format.Minify(gain)} users from channel Forum {channel.marketingChannel.ChannelInfo.ID}");
+        }
     }
 }
