@@ -17,8 +17,6 @@ public class AddTaskForTheTeamController : ButtonController
 
         int SlotId = Flagship.team.Teams[TeamId].Tasks.Count;
 
-        Debug.Log($"Add task #{SlotId}");
-
         relay.FillSlot(TeamId, SlotId);
         relay.ChooseDevTab();
 

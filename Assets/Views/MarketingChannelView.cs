@@ -51,10 +51,14 @@ public class MarketingChannelView : View
 
 
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
-        Income.text = $"Cost: {Format.MinifyMoney(adCost)} {repaysSelf.ToString("0.0")}m";
-        Income.color = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
+        var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 
-        MarketingComplexity.text = channel1.costInWorkers.ToString();
+        Income.text = $"Cost: {Format.MinifyMoney(adCost)}";
+        Income.color = repaymentColor;
+
+        MarketingComplexity.text = $"{repaysSelf.ToString("0.0")}m";
+        MarketingComplexity.color = repaymentColor;
+        //MarketingComplexity.text = channel1.costInWorkers.ToString();
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
         CanvasGroup.alpha = 1; // isActiveChannel ? 1 : 0.92f;
@@ -63,18 +67,6 @@ public class MarketingChannelView : View
 
         var dayOfPeriod = CurrentIntDate % C.PERIOD;
         RenderProgress(isActiveChannel ? dayOfPeriod : 0, C.PERIOD);
-
-            //Income.text = "???";
-            //Income.color = Visuals.GetColorFromString(Colors.COLOR_WHITE);
-
-            //Users.text = "+??? users";
-
-
-            //var exp = company.channelExploration;
-            //var duration = 10f;
-            //var progress = exp.InProgress.ContainsKey(channel1.ID) ? exp.InProgress[channel1.ID] : duration;
-
-            //RenderProgress(progress, duration);
     }
 
     void RenderProgress(float progress, float duration)

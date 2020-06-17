@@ -17,7 +17,7 @@ public class CreateSmallCrossfunctionalTeam : CompanyUpgradeButton
 
     public override string GetButtonTitle()
     {
-        return "Create small universal team";
+        return "Create small team";
     }
 
     public override string GetHint()

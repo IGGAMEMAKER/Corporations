@@ -14,6 +14,7 @@ public class FlagshipRelayInCompanyView : View
     WorkerRole SelectedWorkerRole;
 
     public GameObject RemoveTaskButton;
+    public ChosenTeamTaskView ChosenTaskLabel;
 
     // buttons
     public int ChosenTeamId = -1;
@@ -47,8 +48,13 @@ public class FlagshipRelayInCompanyView : View
         Draw(WorkerInteractions, false);
         Draw(DevelopmentTab, true);
 
+        var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
+        var hasTask = ChosenTeamId >= 0 && tasks.Count > ChosenSlotId;
 
-        var hasTask = ChosenTeamId >= 0 && Flagship.team.Teams[ChosenTeamId].Tasks.Count > ChosenSlotId;
+        if (hasTask)
+            ChosenTaskLabel.SetTask(tasks[ChosenSlotId]);
+
+        Draw(ChosenTaskLabel, hasTask);
         Draw(RemoveTaskButton, hasTask);
     }
 

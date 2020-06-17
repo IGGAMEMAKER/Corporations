@@ -8,7 +8,10 @@
 
     public abstract string GetHint();
 
-    GameEntity Company => GetFollowableCompany();
+    // TODO code was: GameEntity Company => GetFollowableCompany();
+    // to get Flagship company
+
+    GameEntity Company => Flagship;
 
     public override void ViewRender()
     {

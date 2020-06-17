@@ -29,7 +29,7 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
     public void SetEntity()
     {
-        company = GetFollowableCompany();
+        company = GetFollowableCompany() ?? Flagship;
         company.AddMarketingListener(this);
 
         previousClients = Marketing.GetClients(company);

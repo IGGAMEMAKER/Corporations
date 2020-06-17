@@ -15,6 +15,7 @@ public class TeamTaskView : View
     public Sprite ChannelSprite;
 
     public Text RepresentativeNumber;
+    public Hint TaskHint;
 
     public void SetEntity(int TeamId, int SlotId)
     {
@@ -56,7 +57,7 @@ public class TeamTaskView : View
             RepresentativeNumber.text = rating.ToString("0.0");
             RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
 
-            GetComponent<Hint>().SetHint("Upgrading feature " + featureName);
+            TaskHint.SetHint("Upgrading feature " + featureName);
         }
 
         if (isChannel)
@@ -67,7 +68,7 @@ public class TeamTaskView : View
             RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
             RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);
 
-            GetComponent<Hint>().SetHint($"Getting {Format.Minify(gain)} users from channel Forum {channel.marketingChannel.ChannelInfo.ID}");
+            TaskHint.SetHint($"Getting {Format.Minify(gain)} users from channel Forum {channel.marketingChannel.ChannelInfo.ID}");
         }
     }
 }

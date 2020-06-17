@@ -6,8 +6,8 @@ public class FlagshipCompanyView : View
     [Header("Flagship Only")]
     public CanvasGroup competitorListView;
 
-    public CanvasGroup Workers;
-    public RenderCompanyWorkerListView workerListView;
+    //public CanvasGroup Workers;
+    //public RenderCompanyWorkerListView workerListView;
 
     public GameObject FirmLogo;
 
@@ -17,7 +17,7 @@ public class FlagshipCompanyView : View
 
     public void SetEntity()
     {
-        workerListView.SetEntity(Flagship);
+        //workerListView.SetEntity(Flagship);
 
         expand = false;
 

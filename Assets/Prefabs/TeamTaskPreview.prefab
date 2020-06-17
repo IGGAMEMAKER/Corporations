@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 2197760586758428734}
   - component: {fileID: 8698185138043546315}
   - component: {fileID: 9002662924255913141}
-  - component: {fileID: 5133630104923605345}
   m_Layer: 5
   m_Name: TeamTaskPreview
   m_TagString: Untagged
@@ -167,6 +166,7 @@ MonoBehaviour:
   FeatureSprite: {fileID: 21300000, guid: a81b811d419055c43a7ddc04ce938fab, type: 3}
   ChannelSprite: {fileID: 21300000, guid: 3e462a7548f102643bd0203599ff8cfd, type: 3}
   RepresentativeNumber: {fileID: 7993807228194820526}
+  TaskHint: {fileID: 3119563921697827101}
 --- !u!114 &9002662924255913141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,20 +185,6 @@ MonoBehaviour:
   NavigationChanges: 0
   ListenGameEvents: 0
   ListenPauseEvents: 0
---- !u!114 &5133630104923605345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3554497881279634445}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: 
-  isActionHint: 0
 --- !u!1 &8592285664747923968
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +197,7 @@ GameObject:
   - component: {fileID: 4631043246497291369}
   - component: {fileID: 7993807228194820526}
   - component: {fileID: 691683855112781502}
+  - component: {fileID: 3119563921697827101}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -234,8 +221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52, y: 42.2}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: 52, y: 40.6}
+  m_SizeDelta: {x: 65, y: 32.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4631043246497291369
 CanvasRenderer:
@@ -292,3 +279,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &3119563921697827101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592285664747923968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: 
+  isActionHint: 0

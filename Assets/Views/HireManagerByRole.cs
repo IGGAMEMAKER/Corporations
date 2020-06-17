@@ -10,7 +10,7 @@ public class HireManagerByRole : CompanyUpgradeButton
 
     public override void Execute()
     {
-        var company = GetFollowableCompany();
+        var company = Flagship;
 
         Teams.HireManager(company, Q, WorkerRole);
 
