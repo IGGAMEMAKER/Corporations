@@ -24,6 +24,11 @@ public class TeamTaskView : View
         ViewRender();
     }
 
+    public TeamTask Task => Flagship.team.Teams[TeamId].Tasks[SlotId];
+
+    public bool IsFeatureUpgradeTask => Task is TeamTaskFeatureUpgrade;
+    public bool IsChannelTask => Task is TeamTaskChannelActivity;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -37,8 +42,8 @@ public class TeamTaskView : View
 
         var task = tasks[SlotId];
 
-        bool isFeature = task is TeamTaskFeatureUpgrade;
-        bool isChannel = task is TeamTaskChannelActivity;
+        bool isFeature = IsFeatureUpgradeTask; // task is TeamTaskFeatureUpgrade;
+        bool isChannel = IsChannelTask; // task is TeamTaskChannelActivity;
 
         // set image
         Icon.sprite = isFeature ? FeatureSprite : ChannelSprite;

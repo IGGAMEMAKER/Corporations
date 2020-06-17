@@ -27,11 +27,12 @@ public class MarketingChannelsListView : ListView
 
         var clients = Marketing.GetClients(company);
 
-
+        var companyCost = Economy.GetCompanyCost(Q, company);
 
         var newChannels = availableChannels
             //.Where(c => !Marketing.IsCompanyActiveInChannel(company, c))
-            .Where(c => c.marketingChannel.ChannelInfo.Batch < clients / 4);
+            //.Where(c => c.marketingChannel.ChannelInfo.Batch < clients / 4);
+            .Where(c => Marketing.GetMarketingActivityCost(company, Q, c) <  companyCost * 1 / 100);
 
         if (newChannels.Count() == 0)
         {

@@ -19,7 +19,10 @@ public class AddTaskForTheTeamController : ButtonController
 
         Debug.Log($"Add task #{SlotId}");
 
-        relay.ChooseDevTab();
         relay.FillSlot(TeamId, SlotId);
+        relay.ChooseDevTab();
+
+        CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
+        CompanyTaskTypeRelay.ShowRelayButtons();
     }
 }

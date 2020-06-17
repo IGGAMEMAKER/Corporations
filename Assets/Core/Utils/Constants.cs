@@ -19,6 +19,7 @@
     public const int RISKS_DEMAND_MAX = 45;
 
     public const int RISKS_NICHE_COMPETITIVENESS_MAX = 33;
+    public const int TASKS_PER_TEAM = 4;
 
     public const int INVESTMENT_ROUND_ACTIVE_FOR_DAYS = 60;
 

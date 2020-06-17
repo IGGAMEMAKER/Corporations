@@ -14,5 +14,21 @@ public class ReplaceTeamTaskController : ButtonController
 
         relay.FillSlot(view.TeamId, view.SlotId);
         relay.ChooseDevTab();
+
+        CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
+        //CompanyTaskTypeRelay.ShowRelayButtons();
+
+        if (view.IsChannelTask)
+        {
+            CompanyTaskTypeRelay.ChooseMarketingTasks();
+        }
+        else if (view.IsFeatureUpgradeTask)
+        {
+            CompanyTaskTypeRelay.ChooseFeatureTasks();
+        }
+        else
+        {
+            CompanyTaskTypeRelay.ShowRelayButtons();
+        }
     }
 }

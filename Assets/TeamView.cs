@@ -23,7 +23,7 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         RemoveTeam.GetComponent<RemoveTeamController>().TeamId = teamId;
         TeamName.text = info.Name;
 
-        var max = 5;
+        var max = C.TASKS_PER_TEAM;
 
         var company = Flagship;
 
