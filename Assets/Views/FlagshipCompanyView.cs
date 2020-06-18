@@ -13,13 +13,13 @@ public class FlagshipCompanyView : View
 
     public CanvasGroup FlagshipStuff;
 
-    bool expand = false;
+    bool expand = true;
 
     public void SetEntity()
     {
         //workerListView.SetEntity(Flagship);
 
-        expand = false;
+        expand = true;
 
         Render();
     }

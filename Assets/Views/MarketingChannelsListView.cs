@@ -22,7 +22,7 @@ public class MarketingChannelsListView : ListView
     Func<GameEntity, bool> IsValidChannel(long companyCost, GameEntity company) => (GameEntity c) =>
     {
         var activeInChannel = Marketing.IsCompanyActiveInChannel(company, c);
-        bool CanAfford = Marketing.GetMarketingActivityCost(company, Q, c) < companyCost * 1 / 100;
+        bool CanAfford = Marketing.GetMarketingActivityCost(company, Q, c) < companyCost * 4 / 100;
 
         if (activeInChannel)
             return ShowActiveChannelsToo;

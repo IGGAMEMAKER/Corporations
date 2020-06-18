@@ -37,8 +37,6 @@ public class RoleRelatedButtons : View
 
 public class ProductUpgradeButtons : RoleRelatedButtons
 {
-    public GameObject TestCampaignCheckbox;
-
     public ReleaseApp ReleaseApp;
     public GameObject RaiseInvestments;
 
@@ -52,7 +50,6 @@ public class ProductUpgradeButtons : RoleRelatedButtons
         // prerelease stuff
         // ---------------------
         Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
-        Draw(TestCampaignCheckbox, false); // !company.isRelease
 
         RenderInvestmentsButton();
     }
@@ -61,6 +58,7 @@ public class ProductUpgradeButtons : RoleRelatedButtons
     {
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
+
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
         var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
