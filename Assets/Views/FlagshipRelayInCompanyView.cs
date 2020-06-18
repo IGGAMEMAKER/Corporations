@@ -8,6 +8,7 @@ public class FlagshipRelayInCompanyView : View
     // tabs
     public GameObject DevelopmentTab;
     public GameObject WorkerInteractions;
+    public GameObject InvestmentTabs;
 
     // selected worker
     bool roleWasSelected = false;
@@ -39,14 +40,19 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseWorkerInteractions()
     {
-        Draw(WorkerInteractions, true);
-        Draw(DevelopmentTab, false);
+        Show(WorkerInteractions);
+
+        Hide(DevelopmentTab);
+        Hide(InvestmentTabs);
     }
 
     public void ChooseDevTab()
     {
-        Draw(WorkerInteractions, false);
-        Draw(DevelopmentTab, true);
+        Show(DevelopmentTab);
+
+        Hide(WorkerInteractions);
+        Hide(InvestmentTabs);
+
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
         var hasTask = ChosenTeamId >= 0 && tasks.Count > ChosenSlotId;
@@ -58,7 +64,16 @@ public class FlagshipRelayInCompanyView : View
         Draw(RemoveTaskButton, hasTask);
     }
 
+    public void ChooseInvestmentTab()
+    {
+        Show(InvestmentTabs);
 
+        Hide(WorkerInteractions);
+        Hide(DevelopmentTab);
+
+        Hide(ChosenTaskLabel);
+        Hide(RemoveTaskButton);
+    }
 
 
     public bool IsRoleChosen(WorkerRole workerRole)
