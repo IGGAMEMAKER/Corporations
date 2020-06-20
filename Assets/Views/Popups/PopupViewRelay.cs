@@ -60,6 +60,10 @@
                 RenderStrategicPartnershipMessage(popup as PopupMessageStrategicPartnership);
                 break;
 
+            case PopupType.SimpleInfo:
+                RenderSimplePopupInfo(popup as PopupMessageInfo);
+                break;
+
             case PopupType.NotEnoughWorkers:
                 RenderNotEnoughWorkersMessage(popup as PopupMessageNeedMoreWorkers);
                 break;

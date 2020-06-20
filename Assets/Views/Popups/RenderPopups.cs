@@ -274,6 +274,11 @@ public partial class PopupView : View
             );
     }
 
+    void RenderSimplePopupInfo(PopupMessageInfo popup)
+    {
+        RenderUniversalPopup(popup.Title, popup.Description, typeof(ClosePopupOK));
+    }
+
     void RenderNotEnoughWorkersMessage(PopupMessageNeedMoreWorkers popup)
     {
         RenderUniversalPopup(
