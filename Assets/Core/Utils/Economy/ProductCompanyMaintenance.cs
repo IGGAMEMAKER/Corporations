@@ -13,13 +13,15 @@ namespace Assets.Core
                 .AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
                 .AppendAndHideIfZero("Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
 
-            foreach (var team in e.team.Teams)
-            {
-                //var workerCost = C.SALARIES_PROGRAMMER;
-                //var teamCost = Teams.GetAmountOfWorkersByTeamType(team.Key) * workerCost * C.PERIOD / 30;
+            var workerCost = C.SALARIES_PROGRAMMER;
+            var workers = 8;
+            var teamCost = workers * workerCost * C.PERIOD / 30;
+            //foreach (var team in e.team.Teams)
+            //{
 
-                //bonus.AppendAndHideIfZero($"{team.Key} X{team.Value}", teamCost * team.Value);
-            }
+            //    //bonus.AppendAndHideIfZero($"{team.Key} X{team.Value}", teamCost * team.Value);
+            //}
+            bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count);
 
             var upgrades = e.productUpgrades.upgrades;
 

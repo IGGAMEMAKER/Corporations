@@ -25,8 +25,11 @@ public class AddTeamTaskListView : ListView
     {
         base.ViewRender();
 
-        FreeSlots = Mathf.Max(C.TASKS_PER_TEAM - TasksCount, 0);
+        if (Flagship.team.Teams.Count > TeamId)
+        {
+            FreeSlots = Mathf.Max(C.TASKS_PER_TEAM - TasksCount, 0);
 
-        SetItems(new int[FreeSlots]);
+            SetItems(new int[FreeSlots]);
+        }
     }
 }

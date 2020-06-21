@@ -59,6 +59,8 @@ public class FeatureView : View
             ProgressImage.fillAmount = 0f;
             Draw(ProgressBar, false);
         }
+
+        ProgressImage.fillAmount = 0f;
     }
 
     public string GetFeatureBenefits(bool isUpgraded, GameEntity product)

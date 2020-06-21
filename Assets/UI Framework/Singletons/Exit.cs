@@ -25,7 +25,9 @@ public class Exit : View
     {
         Debug.Log("SESSION TIME: " + (int)Time.time + " seconds");
 
-        State.SaveGame(Q);
+        #if UNITY_EDITOR
+            State.SaveGame(Q);
+        #endif
         Debug.Log("Game saved");
 
         PrintSessionLength();

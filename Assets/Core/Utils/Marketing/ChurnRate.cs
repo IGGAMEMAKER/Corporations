@@ -48,15 +48,17 @@ namespace Assets.Core
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
 
-                .Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
+                //.Append($"Concept difference to market ({fromProductLevel})", fromProductLevel * fromProductLevel)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(1, 100)
                 ;
         }
 
+
+
         public static int GetChurnRateBasedOnMonetisationType(Monetisation monetisation)
         {
-            return 1;
+            return 5;
             //switch (monetisation)
             //{
             //    case Monetisation.Adverts:

@@ -46,6 +46,9 @@ public class RenderMenuButtons : View
         //var canRaiseInvestments = !isRoundActive ;
         var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
         var isOnMainScreen = CurrentScreen == ScreenMode.HoldingScreen;
+
+        bool showAdditionalIcons = false;
+
         //
         Draw(Main, hasProduct);
         Draw(Stats, showStats && isOnMainScreen);
@@ -60,8 +63,8 @@ public class RenderMenuButtons : View
 
         // investments
         //InvestmentsIcon.color = Visuals.GetColorFromString(canRaiseInvestments ? Colors.COLOR_NEUTRAL : Colors.COLOR_POSITIVE);
-        Draw(Investments, hasProduct && canRaiseInvestments && isOnMainScreen);
-        Draw(ExploreMarkets, playerCanExploreAdvancedTabs && isOnMainScreen);
-        Draw(Partnerships, playerCanExploreAdvancedTabs && isOnMainScreen);
+        Draw(Investments, showAdditionalIcons && hasProduct && canRaiseInvestments && isOnMainScreen);
+        Draw(ExploreMarkets, showAdditionalIcons && playerCanExploreAdvancedTabs && isOnMainScreen);
+        Draw(Partnerships, showAdditionalIcons && playerCanExploreAdvancedTabs && isOnMainScreen);
     }
 }

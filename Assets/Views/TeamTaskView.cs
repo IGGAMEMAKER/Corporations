@@ -17,6 +17,9 @@ public class TeamTaskView : View
     public Text RepresentativeNumber;
     public Hint TaskHint;
 
+    public Image ProgressImage;
+    public Image ProgressIcon;
+
     public void SetEntity(int TeamId, int SlotId)
     {
         this.TeamId = TeamId;
@@ -49,6 +52,8 @@ public class TeamTaskView : View
         // set image
         Icon.sprite = isFeature ? FeatureSprite : ChannelSprite;
 
+        var product = Flagship;
+
         if (isFeature)
         {
             var featureName = (task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
@@ -58,6 +63,19 @@ public class TeamTaskView : View
             RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
 
             TaskHint.SetHint("Upgrading feature " + featureName);
+
+            // feature upgrade progress
+            var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+            bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
+
+            var progress = CurrentIntDate - cooldown.StartDate;
+            Show(ProgressImage);
+            var percent = (float)progress / (cooldown.EndDate - cooldown.StartDate);
+
+            Debug.Log("Upgrade progress: " + percent);
+
+            ProgressIcon.fillAmount = percent;
+            ProgressImage.sprite = Icon.sprite;
         }
 
         if (isChannel)
@@ -69,6 +87,8 @@ public class TeamTaskView : View
             RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);
 
             TaskHint.SetHint($"Getting {Format.Minify(gain)} users from channel Forum {channel.marketingChannel.ChannelInfo.ID}");
+
+            Hide(ProgressImage);
         }
     }
 }

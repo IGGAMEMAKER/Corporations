@@ -6,6 +6,7 @@ public class CompanyTaskTypeRelay : View
 {
     public GameObject MarketingTasks;
     public GameObject FeatureTasks;
+    public GameObject SupportTasks;
     public GameObject ChooseTaskTypeLabel;
 
     public GameObject RelayButtons;
@@ -14,6 +15,7 @@ public class CompanyTaskTypeRelay : View
     {
         Show(MarketingTasks);
         Hide(FeatureTasks);
+        Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
         HideRelayButtons();
@@ -23,6 +25,17 @@ public class CompanyTaskTypeRelay : View
     {
         Show(FeatureTasks);
         Hide(MarketingTasks);
+        Hide(SupportTasks);
+
+        Hide(ChooseTaskTypeLabel);
+        HideRelayButtons();
+    }
+
+    public void ChooseSupportTasks()
+    {
+        Show(SupportTasks);
+        Hide(MarketingTasks);
+        Hide(FeatureTasks);
 
         Hide(ChooseTaskTypeLabel);
         HideRelayButtons();

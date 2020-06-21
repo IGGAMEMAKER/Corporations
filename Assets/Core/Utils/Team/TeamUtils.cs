@@ -32,7 +32,7 @@ namespace Assets.Core
 
         public static void AddTeam(GameEntity company, TeamType teamType)
         {
-            company.team.Teams.Add(new TeamInfo { Name = $"{teamType} {company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
+            company.team.Teams.Add(new TeamInfo { Name = $"Team #{company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
@@ -40,12 +40,13 @@ namespace Assets.Core
             var tasks = company.team.Teams[teamId].Tasks;
             var count = tasks.Count;
 
-            for (var i = count - 1; i > 0; i--)
+            while (tasks.Count > 0)
             {
-                Teams.RemoveTeamTask(company, gameContext, teamId, i);
+                Teams.RemoveTeamTask(company, gameContext, teamId, 0);
             }
 
             company.team.Teams.RemoveAt(teamId);
+            Debug.Log("Team removed!");
         }
 
         public static int GetAmountOfWorkersByTeamType(TeamType teamType)

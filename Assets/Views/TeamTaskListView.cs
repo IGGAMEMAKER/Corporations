@@ -23,6 +23,7 @@ public class TeamTaskListView : ListView
     {
         base.ViewRender();
 
-        SetItems(new int[ChosenSlots]);
+        if (Flagship.team.Teams.Count > TeamId)
+            SetItems(new int[ChosenSlots]);
     }
 }
