@@ -26,6 +26,32 @@ public class ProductComponent : IComponent
 //    Monetisation
 //}
 
+public class SupportBonus
+{
+    // max bonus
+    public long Max;
+
+    public SupportBonus(long Max)
+    {
+        this.Max = Max;
+    }
+}
+
+public class SupportBonusHighload : SupportBonus
+{
+    public SupportBonusHighload(long Max) : base(Max)
+    {
+    }
+}
+
+public class SupportBonusMarketingSupport : SupportBonus
+{
+    public SupportBonusMarketingSupport(long Max) : base(Max)
+    {
+    }
+}
+
+
 public class FeatureBonus
 {
     // max bonus
@@ -62,6 +88,17 @@ public class NewProductFeature
     public FeatureBonus FeatureBonus;
 }
 
+public class SupportFeature
+{
+    public string Name;
+    public SupportBonus SupportBonus;
+}
+
+public class SupportUpgradesComponent : IComponent
+{
+    // string - upgrade name, int - amount of upgrades
+    public Dictionary<string, int> Upgrades;
+}
 
 public class FeaturesComponent : IComponent
 {

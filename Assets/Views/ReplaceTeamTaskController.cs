@@ -8,15 +8,12 @@ public class ReplaceTeamTaskController : ButtonController
     {
         var view = GetComponent<TeamTaskView>();
 
-        //Debug.Log($"Replace task {view.SlotId} from team {view.TeamId}");
-
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         relay.FillSlot(view.TeamId, view.SlotId);
         relay.ChooseDevTab();
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
-        //CompanyTaskTypeRelay.ShowRelayButtons();
 
         if (view.IsChannelTask)
         {

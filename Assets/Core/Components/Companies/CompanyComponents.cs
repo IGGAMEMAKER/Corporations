@@ -234,6 +234,16 @@ public class TeamTaskFeatureUpgrade : TeamTask
     }
 }
 
+public class TeamTaskSupportFeature : TeamTask
+{
+    public SupportFeature SupportFeature;
+
+    public TeamTaskSupportFeature(SupportFeature supportFeature)
+    {
+        this.SupportFeature = supportFeature;
+    }
+}
+
 public class TeamInfo
 {
     public TeamType TeamType;
@@ -249,6 +259,8 @@ public enum TeamType
     CrossfunctionalTeam,
     BigCrossfunctionalTeam,
     SmallCrossfunctionalTeam,
+
+    MergeAndAcquisitionTeam
 }
 
 //public class WorkingTeamInfo

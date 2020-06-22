@@ -22,6 +22,7 @@ namespace Assets.Core
             company.AddFeatures(
                 new Dictionary<string, float> { },
                 0);
+            company.AddSupportUpgrades(new Dictionary<string, int>());
             company.AddExpertise(Random.Range(1, 4));
 
             // clients

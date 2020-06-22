@@ -102,22 +102,23 @@ public static class GameComponentsLookup {
     public const int SimpleCooldownContainer = 91;
     public const int SourceOfClients = 92;
     public const int Speed = 93;
-    public const int TargetDate = 94;
-    public const int Task = 95;
-    public const int Team = 96;
-    public const int TeamListener = 97;
-    public const int TechnologyLeader = 98;
-    public const int TechnologyLeaderListener = 99;
-    public const int Test = 100;
-    public const int TimedAction = 101;
-    public const int TimerRunning = 102;
-    public const int Tutorial = 103;
-    public const int TutorialListener = 104;
-    public const int UniversalListener = 105;
-    public const int WantsToExpand = 106;
-    public const int Worker = 107;
+    public const int SupportUpgrades = 94;
+    public const int TargetDate = 95;
+    public const int Task = 96;
+    public const int Team = 97;
+    public const int TeamListener = 98;
+    public const int TechnologyLeader = 99;
+    public const int TechnologyLeaderListener = 100;
+    public const int Test = 101;
+    public const int TimedAction = 102;
+    public const int TimerRunning = 103;
+    public const int Tutorial = 104;
+    public const int TutorialListener = 105;
+    public const int UniversalListener = 106;
+    public const int WantsToExpand = 107;
+    public const int Worker = 108;
 
-    public const int TotalComponents = 108;
+    public const int TotalComponents = 109;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -214,6 +215,7 @@ public static class GameComponentsLookup {
         "SimpleCooldownContainer",
         "SourceOfClients",
         "Speed",
+        "SupportUpgrades",
         "TargetDate",
         "Task",
         "Team",
@@ -325,6 +327,7 @@ public static class GameComponentsLookup {
         typeof(SimpleCooldownContainerComponent),
         typeof(SourceOfClientsComponent),
         typeof(SpeedComponent),
+        typeof(SupportUpgradesComponent),
         typeof(TargetDateComponent),
         typeof(TaskComponent),
         typeof(TeamComponent),

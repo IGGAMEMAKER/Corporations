@@ -52,5 +52,6 @@ public class CompanyTaskTypeRelay : View
 
         Hide(MarketingTasks);
         Hide(FeatureTasks);
+        Hide(SupportTasks);
     }
 }

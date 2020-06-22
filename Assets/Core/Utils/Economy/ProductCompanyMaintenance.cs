@@ -15,13 +15,9 @@ namespace Assets.Core
 
             var workerCost = C.SALARIES_PROGRAMMER;
             var workers = 8;
-            var teamCost = workers * workerCost * C.PERIOD / 30;
-            //foreach (var team in e.team.Teams)
-            //{
+            var teamCost = workers * workerCost;
 
-            //    //bonus.AppendAndHideIfZero($"{team.Key} X{team.Value}", teamCost * team.Value);
-            //}
-            bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count);
+            bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count * C.PERIOD / 30);
 
             var upgrades = e.productUpgrades.upgrades;
 
@@ -61,14 +57,6 @@ namespace Assets.Core
 
 
         // team cost
-        public static long GetTeamCost(GameEntity e, GameContext gameContext)
-        {
-            var managers = GetManagersCost(e, gameContext);
-            var workers = GetWorkersCost(e, gameContext);
-
-            return managers + workers;
-        }
-
         public static long GetWorkersCost(GameEntity e, GameContext gameContext)
         {
             var workers = Teams.GetTeamSize(e);
