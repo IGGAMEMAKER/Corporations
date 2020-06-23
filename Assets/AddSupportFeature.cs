@@ -12,6 +12,12 @@ public class AddSupportFeature : ButtonController
 
         var product = Flagship;
 
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        var teamId = relay.ChosenTeamId;
+        var taskId = relay.ChosenSlotId;
+
+        // 
         if (!product.supportUpgrades.Upgrades.ContainsKey(name))
         {
             product.supportUpgrades.Upgrades[name] = 0;
@@ -19,10 +25,6 @@ public class AddSupportFeature : ButtonController
 
         product.supportUpgrades.Upgrades[name]++;
 
-        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-
-        var teamId = relay.ChosenTeamId;
-        var taskId = relay.ChosenSlotId;
 
         Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskSupportFeature(supportFeature));
         relay.ChooseWorkerInteractions();

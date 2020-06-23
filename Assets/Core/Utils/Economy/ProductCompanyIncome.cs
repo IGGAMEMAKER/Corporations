@@ -32,9 +32,9 @@ namespace Assets.Core
             //float price = Markets.GetBaseProductPrice(c, gameContext);
             float price = GetBaseIncomeByMonetisationType(gameContext, c);
 
-            var improvements = Products.GetMonetisationFeaturesBenefit(c);
+            var improvements = 100f + Products.GetMonetisationFeaturesBenefit(c);
 
-            return price * (100f + improvements) / 100f;
+            return price * improvements / 100f;
         }
 
 

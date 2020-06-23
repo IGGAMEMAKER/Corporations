@@ -23,6 +23,10 @@ public class ReplaceTeamTaskController : ButtonController
         {
             CompanyTaskTypeRelay.ChooseFeatureTasks();
         }
+        else if (view.IsSupportTask)
+        {
+            CompanyTaskTypeRelay.ChooseSupportTasks();
+        }
         else
         {
             CompanyTaskTypeRelay.ShowRelayButtons();

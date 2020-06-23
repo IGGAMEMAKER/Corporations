@@ -18,7 +18,7 @@ public class CompanyTaskTypeRelay : View
         Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
-        HideRelayButtons();
+        //HideRelayButtons();
     }
 
     public void ChooseFeatureTasks()
@@ -28,7 +28,7 @@ public class CompanyTaskTypeRelay : View
         Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
-        HideRelayButtons();
+        //HideRelayButtons();
     }
 
     public void ChooseSupportTasks()
@@ -38,7 +38,7 @@ public class CompanyTaskTypeRelay : View
         Hide(FeatureTasks);
 
         Hide(ChooseTaskTypeLabel);
-        HideRelayButtons();
+        //HideRelayButtons();
     }
 
     public void HideRelayButtons()

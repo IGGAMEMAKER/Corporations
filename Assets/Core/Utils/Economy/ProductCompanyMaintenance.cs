@@ -44,7 +44,39 @@ namespace Assets.Core
                 bonus.AppendAndHideIfZero("Marketing in Forum" + channelId, cost);
             }
 
+            var supportFeatures = Products.GetAvailableSupportFeaturesForProduct(e);
+            var activeUpgrades = e.supportUpgrades.Upgrades;
+
+            foreach (var u in supportFeatures)
+            {
+                var name = u.Name; // u.Key;
+                var amount = activeUpgrades.ContainsKey(name) ? activeUpgrades[name] : 0;
+
+                var upgradeCost = GetSupportUpgradeCost(e, u.SupportBonus);
+
+                bonus.AppendAndHideIfZero(name, upgradeCost * amount);
+            }
+
             return bonus;
+        }
+
+        public static long GetSupportUpgradeCost(GameEntity product, SupportBonus bonus)
+        {
+            if (bonus is SupportBonusHighload)
+            {
+                var serverCost = 1000;
+                // 10.000 => 10$
+                return bonus.Max / serverCost;
+            }
+
+            if (bonus is SupportBonusMarketingSupport)
+            {
+                var costPerMillenium = 1000;
+
+                return bonus.Max / costPerMillenium;
+            }
+
+            return 0;
         }
 
         public static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)

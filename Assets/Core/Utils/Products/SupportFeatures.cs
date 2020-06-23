@@ -7,16 +7,22 @@ namespace Assets.Core
     {
         public static SupportFeature[] GetAvailableSupportFeaturesForProduct(GameEntity product)
         {
+            var usersPerServer = 50000;
+
+            var million = 1000000;
+            var billion = 1000000000;
+
             return new SupportFeature[]
             {
-                new SupportFeature { Name = "1 server", SupportBonus = new SupportBonusHighload(1000) },
-                new SupportFeature { Name = "5 servers", SupportBonus = new SupportBonusHighload(6000) },
-                new SupportFeature { Name = "Data center", SupportBonus = new SupportBonusHighload(1000000) },
+                new SupportFeature { Name = "1 server", SupportBonus = new SupportBonusHighload(usersPerServer) },
+                new SupportFeature { Name = "5 servers", SupportBonus = new SupportBonusHighload(usersPerServer * 5) },
+                new SupportFeature { Name = "Bug cluster", SupportBonus = new SupportBonusHighload(usersPerServer * 20) },
+                new SupportFeature { Name = "Data center", SupportBonus = new SupportBonusHighload(usersPerServer * 100) },
 
                 new SupportFeature { Name = "Small tech support", SupportBonus = new SupportBonusMarketingSupport(5000) },
                 new SupportFeature { Name = "Average tech support", SupportBonus = new SupportBonusMarketingSupport(50000) },
-                new SupportFeature { Name = "Big tech support", SupportBonus = new SupportBonusMarketingSupport(500000) },
-                new SupportFeature { Name = "Enormous tech support", SupportBonus = new SupportBonusMarketingSupport(100000000) },
+                new SupportFeature { Name = "Big tech support", SupportBonus = new SupportBonusMarketingSupport(million) },
+                new SupportFeature { Name = "Enormous tech support", SupportBonus = new SupportBonusMarketingSupport(billion) },
             };
         }
 

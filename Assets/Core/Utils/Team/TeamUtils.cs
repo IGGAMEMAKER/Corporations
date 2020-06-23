@@ -124,6 +124,24 @@ namespace Assets.Core
                 //var channel = Markets.GetMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
                 //Products.DisableChannelActivity(product, gameContext, channel);
             }
+
+            if (task is TeamTaskSupportFeature)
+            {
+                var activity = task as TeamTaskSupportFeature;
+
+                var up = product.supportUpgrades.Upgrades;
+
+                var name = activity.SupportFeature.Name;
+                if (up.ContainsKey(name))
+                {
+                    up[name]--;
+                }
+
+                if (up[name] <= 0)
+                {
+                    up.Remove(name);
+                }
+            }
         }
 
         public static void RemoveTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId)

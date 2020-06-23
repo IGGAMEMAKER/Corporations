@@ -8,14 +8,35 @@ public class RenderGroupProfit : UpgradedParameterView
         var daughters = Companies.GetDaughterCompanies(Q, MyCompany.company.Id)
             .OrderByDescending(c => Economy.GetProfit(Q, c));
 
-        var daughtersIncome = string.Join("\n", daughters.Select(GetIncomeInfo));
+        var daughtersIncome = "Based on" + string.Join("\n", daughters.Select(GetIncomeInfo));
 
         var balance = Economy.BalanceOf(MyCompany);
 
         var profit = Economy.GetProfit(Q, MyCompany);
 
+        if (daughters.Count() == 1)
+        {
+            var product = daughters.First();
+
+            var income = Economy.GetProductCompanyIncome(product, Q);
+            var maintenance = Economy.GetProductCompanyMaintenance(product, Q, true);
+
+            var bonus = new Bonus<long>("Profit");
+            bonus.Append("Income", income);
+
+            foreach (var m in maintenance.bonusDescriptions)
+            {
+                if (m.HideIfZero)
+                    bonus.AppendAndHideIfZero(m.Name, -m.Value);
+                else
+                    bonus.Append(m.Name, -m.Value);
+            }
+
+            daughtersIncome = "\n" + bonus.ToString();
+        }
+
         //return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
-        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
+        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\n" + daughtersIncome;
     }
 
     public override string RenderValue()
