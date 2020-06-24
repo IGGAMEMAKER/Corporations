@@ -67,21 +67,31 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Audience Growth");
 
-            if (product.isRelease)
+            var channels = Markets.GetMarketingChannels(gameContext);
+
+            //if (product.isRelease)
+            //{
+            //    // Targeting
+            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
+            //        bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
+
+            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign2))
+            //        bonus.AppendAndHideIfZero("Targeting Campaign II", GetTargetingCampaignGrowth2(product, gameContext));
+
+            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign3))
+            //        bonus.AppendAndHideIfZero("Targeting Campaign III", GetTargetingCampaignGrowth3(product, gameContext));
+            //}
+
+            //if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
+            //    bonus.AppendAndHideIfZero("Test Campaign", C.TEST_CAMPAIGN_CLIENT_GAIN);
+
+            foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
             {
-                // Targeting
-                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
-                    bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
+                var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
 
-                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign2))
-                    bonus.AppendAndHideIfZero("Targeting Campaign II", GetTargetingCampaignGrowth2(product, gameContext));
-
-                if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign3))
-                    bonus.AppendAndHideIfZero("Targeting Campaign III", GetTargetingCampaignGrowth3(product, gameContext));
+                var gain = GetChannelClientGain(product, gameContext, channel);
+                bonus.AppendAndHideIfZero("Forum " + channelId, gain);
             }
-
-            if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
-                bonus.AppendAndHideIfZero("Test Campaign", C.TEST_CAMPAIGN_CLIENT_GAIN);
 
             return bonus;
         }

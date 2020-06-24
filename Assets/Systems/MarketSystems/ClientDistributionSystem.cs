@@ -24,7 +24,7 @@ public partial class ClientDistributionSystem : OnPeriodChange
             var powerChange = Marketing.GetBrandChange(p, gameContext).Sum();
 
             Marketing.AddBrandPower(p, powerChange);
-            Marketing.AddClients(p, Marketing.GetAudienceGrowth(p, gameContext));
+            //Marketing.AddClients(p, Marketing.GetAudienceGrowth(p, gameContext));
 
             //if (p.companyGoal.InvestorGoal == InvestorGoal.FirstUsers)
             Investments.CompleteGoal(p, gameContext);

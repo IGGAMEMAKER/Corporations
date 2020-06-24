@@ -32,11 +32,14 @@ public class RenderGroupProfit : UpgradedParameterView
                     bonus.Append(m.Name, -m.Value);
             }
 
+            bonus.MinifyValues();
+            bonus.Sort();
+
             daughtersIncome = "\n" + bonus.ToString();
         }
 
         //return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
-        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\n" + daughtersIncome;
+        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + daughtersIncome;
     }
 
     public override string RenderValue()

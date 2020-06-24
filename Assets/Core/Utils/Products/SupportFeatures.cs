@@ -27,17 +27,11 @@ namespace Assets.Core
         }
 
         // set of features
-        public static SupportFeature[] GetHighloadFeatures(GameEntity product)
-        {
-            return GetAvailableSupportFeaturesForProduct(product).Where(f => f.SupportBonus is SupportBonusHighload).ToArray();
-        }
+        public static SupportFeature[] GetHighloadFeatures(GameEntity product) => GetAvailableSupportFeaturesForProduct(product).Where(f => f.SupportBonus is SupportBonusHighload).ToArray();
 
-        public static SupportFeature[] GetMarketingSupportFeatures(GameEntity product)
-        {
-            return GetAvailableSupportFeaturesForProduct(product).Where(f => f.SupportBonus is SupportBonusMarketingSupport).ToArray();
-        }
+        public static SupportFeature[] GetMarketingSupportFeatures(GameEntity product) => GetAvailableSupportFeaturesForProduct(product).Where(f => f.SupportBonus is SupportBonusMarketingSupport).ToArray();
 
-        // set ot feature benefits
+        // benefits
         public static float GetMarketingSupportBenefit(GameEntity product)
         {
             return GetSummarySupportFeatureBenefit(product, GetMarketingSupportFeatures(product));
@@ -54,26 +48,11 @@ namespace Assets.Core
             var improvements = 0L;
             foreach (var f in features)
             {
-                improvements += product.supportUpgrades.Upgrades[f.Name] * f.SupportBonus.Max;
+                if (product.supportUpgrades.Upgrades.ContainsKey(f.Name))
+                    improvements += product.supportUpgrades.Upgrades[f.Name] * f.SupportBonus.Max;
             }
 
             return improvements;
         }
-
-
-        //public static float GetSupportFeatureActualBenefit(GameEntity product, string featureName)
-        //{
-        //    var feature = GetAvailableSupportFeaturesForProduct(product).First(f => f.Name == featureName);
-
-        //    return GetSupportFeatureActualBenefit(product, feature);
-        //}
-        //public static float GetSupportFeatureActualBenefit(GameEntity product, SupportFeature feature)
-        //{
-        //    return GetSupportFeatureActualBenefit(GetFeatureRating(product, feature.Name), feature);
-        //}
-        //public static float GetSupportFeatureActualBenefit(float rating, SupportFeature feature)
-        //{
-        //    return rating * feature.SupportBonus.Max / 10f;
-        //}
     }
 }

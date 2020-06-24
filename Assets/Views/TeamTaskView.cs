@@ -64,7 +64,10 @@ public class TeamTaskView : View
             RepresentativeNumber.text = rating.ToString("0.0");
             RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
 
-            TaskHint.SetHint("Upgrading feature " + featureName + $"\n\nFeature quality: <b>{rating.ToString("0.0")} / 10</b>");
+            TaskHint.SetHint("Upgrading feature " + featureName + 
+                $"\n\nFeature quality: \n" +
+                $"<size=50><b>{rating.ToString("0.0")} / 10</b></size>"
+                );
 
             // feature upgrade progress
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
@@ -101,15 +104,48 @@ public class TeamTaskView : View
 
             var bonus = supportFeature.SupportFeature.SupportBonus;
 
-            if (bonus is SupportBonusHighload)
-                Icon.sprite = ServerSprite;
-            else if (bonus is SupportBonusMarketingSupport)
-                Icon.sprite = MarketingSupportSprite;
-            else
-                Icon.sprite = SupportSprite;
+            var value = supportFeature.SupportFeature.SupportBonus.Max;
 
-            RepresentativeNumber.text = Format.Minify(supportFeature.SupportFeature.SupportBonus.Max);
-            RepresentativeNumber.color = Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
+            var clients = Marketing.GetClients(company);
+            if (bonus is SupportBonusHighload)
+            {
+                var totalCapacity = Products.GetHighloadFeaturesBenefit(company);
+
+                bool enoughServers = clients < totalCapacity;
+
+                var hint = "";
+
+                if (!enoughServers)
+                    hint += Visuals.Negative("\nNOT ENOUGH SERVERS!\nPeople are leaving your product!");
+
+                TaskHint.SetHint($"Servers for {Format.Minify(value)} users. " + hint);
+
+                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(enoughServers);
+                Icon.sprite = ServerSprite;
+            }
+            else if (bonus is SupportBonusMarketingSupport)
+            {
+                var totalSupportStrength = Products.GetMarketingSupportBenefit(company);
+
+                bool enoughSupport = clients < totalSupportStrength;
+
+                var hint = "";
+                if (!enoughSupport)
+                    hint += "\nNOT ENOUGH CLIENT SUPPORT!";
+
+                TaskHint.SetHint($"Client support for {Format.Minify(value)} clients" + hint);
+
+                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(enoughSupport);
+                Icon.sprite = MarketingSupportSprite;
+            }
+            else
+            {
+                TaskHint.SetHint("WTF? ");
+                RepresentativeNumber.color = Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
+                Icon.sprite = SupportSprite;
+            }
+
+            RepresentativeNumber.text = Format.Minify(value);
 
             Hide(ProgressImage);
         }

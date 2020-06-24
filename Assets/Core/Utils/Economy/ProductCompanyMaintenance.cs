@@ -65,6 +65,7 @@ namespace Assets.Core
             if (bonus is SupportBonusHighload)
             {
                 var serverCost = 1000;
+                
                 // 10.000 => 10$
                 return bonus.Max / serverCost;
             }
