@@ -116,7 +116,7 @@ public class TeamTaskView : View
                 var hint = "";
 
                 if (!enoughServers)
-                    hint += Visuals.Negative("\nNOT ENOUGH SERVERS!\nPeople are leaving your product!");
+                    hint += Visuals.Negative("\n\nNOT ENOUGH SERVERS!\nPeople are leaving your product!");
 
                 TaskHint.SetHint($"Servers for {Format.Minify(value)} users. " + hint);
 
