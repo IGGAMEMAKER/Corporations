@@ -11,6 +11,8 @@
 
     public static int DEVELOPMENT_PRODUCTION_UNIVERSALS = 2;
 
+    public const int FAST_CASH_COMPANY_SHARE = 2;
+
 
     public const int RISKS_MONETISATION_ADS_REPAYABLE = 35;
     public const int RISKS_MONETISATION_IS_PROFITABLE = 15;

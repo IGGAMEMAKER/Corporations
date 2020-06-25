@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SupportFeaturesListView : ListView
 {
+    public bool MarketingSupport = true;
+    public bool Servers = false;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<SupportView>().SetEntity(entity as SupportFeature);
@@ -14,8 +17,10 @@ public class SupportFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var features = Products.GetAvailableSupportFeaturesForProduct(Flagship);
+        if (MarketingSupport)
+            SetItems(Products.GetMarketingSupportFeatures(Flagship));
 
-        SetItems(features);
+        if (Servers)
+            SetItems(Products.GetHighloadFeatures(Flagship));
     }
 }

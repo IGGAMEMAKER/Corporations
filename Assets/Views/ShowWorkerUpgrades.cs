@@ -24,9 +24,10 @@ public class ShowWorkerUpgrades : View
 
     public void ToggleState()
     {
-        //WorkerListView.ToggleRole(worker.worker.WorkerRole);
-        flagshipRelay.ToggleRole(worker.worker.WorkerRole);
-        WorkerListView.HighlightManagers();
+        ////WorkerListView.ToggleRole(worker.worker.WorkerRole);
+
+        //flagshipRelay.ToggleRole(worker.worker.WorkerRole);
+        //WorkerListView.HighlightManagers();
     }
 
     public override void ViewRender()

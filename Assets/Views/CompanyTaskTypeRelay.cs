@@ -7,6 +7,8 @@ public class CompanyTaskTypeRelay : View
     public GameObject MarketingTasks;
     public GameObject FeatureTasks;
     public GameObject SupportTasks;
+    public GameObject ServerTasks;
+
     public GameObject ChooseTaskTypeLabel;
 
     public GameObject RelayButtons;
@@ -14,31 +16,44 @@ public class CompanyTaskTypeRelay : View
     public void ChooseMarketingTasks()
     {
         Show(MarketingTasks);
+
         Hide(FeatureTasks);
         Hide(SupportTasks);
+        Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
-        //HideRelayButtons();
     }
 
     public void ChooseFeatureTasks()
     {
         Show(FeatureTasks);
+
         Hide(MarketingTasks);
+        Hide(SupportTasks);
+        Hide(ServerTasks);
+
+        Hide(ChooseTaskTypeLabel);
+    }
+
+    public void ChooseServersideTasks()
+    {
+        Show(ServerTasks);
+
+        Hide(MarketingTasks);
+        Hide(FeatureTasks);
         Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
-        //HideRelayButtons();
     }
-
     public void ChooseSupportTasks()
     {
         Show(SupportTasks);
+
         Hide(MarketingTasks);
         Hide(FeatureTasks);
+        Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
-        //HideRelayButtons();
     }
 
     public void HideRelayButtons()
@@ -53,5 +68,6 @@ public class CompanyTaskTypeRelay : View
         Hide(MarketingTasks);
         Hide(FeatureTasks);
         Hide(SupportTasks);
+        Hide(ServerTasks);
     }
 }

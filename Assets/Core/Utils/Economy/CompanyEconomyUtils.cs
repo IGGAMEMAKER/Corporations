@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     public static partial class Economy
     {
@@ -13,7 +15,18 @@
             return GetGroupIncome(context, e);
         }
 
+        // TODO move to raise investments
+        public static bool IsHasCashOverflow(GameContext gameContext, GameEntity company)
+        {
+            var valuation = GetCompanyCost(gameContext, company);
 
+            var balance = Economy.BalanceOf(company);
+            var maxCashLimit = valuation * 7 / 100;
+
+            bool hasCashOverflow = balance > maxCashLimit;
+
+            return hasCashOverflow;
+        }
 
         public static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.Get(context, companyId));
         public static long GetProfit(GameContext context, GameEntity c)
@@ -54,6 +67,63 @@
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
             return !IsProfitable(gameContext, product.company.Id);
+        }
+
+
+        // TODO move to raise investments
+        public static long GetFastCashAmount(GameContext gameContext, GameEntity company)
+        {
+            int fraction = C.FAST_CASH_COMPANY_SHARE;
+
+            return GetCompanyCost(gameContext, company) * fraction / 100;
+        }
+        
+        // TODO move to raise investments
+        public static void RaiseFastCash(GameContext gameContext, GameEntity company)
+        {
+            var valuation = GetCompanyCost(gameContext, company);
+            var offer = GetFastCashAmount(gameContext, company);
+
+            var fund = Investments.GetRandomInvestmentFund(gameContext);
+
+            bool hasShareholders = company.shareholders.Shareholders.Count > 1;
+            if (!hasShareholders)
+            {
+                Companies.AddInvestmentProposal(gameContext, company.company.Id,
+                    new InvestmentProposal
+                    {
+                        InvestorBonus = InvestorBonus.None,
+                        Offer = offer,
+                        ShareholderId = fund,
+                        Valuation = valuation,
+                        WasAccepted = false
+                    });
+                Companies.AcceptInvestmentProposal(gameContext, company.company.Id, fund);
+            }
+            else
+            {
+                for (var i = 0; i < company.shareholders.Shareholders.Count; i++)
+                {
+                    var investorId = company.shareholders.Shareholders.Keys.ToArray()[i];
+                    var inv = Companies.GetInvestorById(gameContext, investorId);
+
+                    bool isCeo = inv.shareholder.InvestorType == InvestorType.Founder;
+
+                    if (!isCeo)
+                    {
+                        Companies.AddInvestmentProposal(gameContext, company.company.Id,
+                            new InvestmentProposal
+                            {
+                                InvestorBonus = InvestorBonus.None,
+                                Offer = offer,
+                                ShareholderId = investorId,
+                                Valuation = valuation,
+                                WasAccepted = false
+                            });
+                        Companies.AcceptInvestmentProposal(gameContext, company.company.Id, investorId);
+                    }
+                }
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ public class FlagshipRelayInCompanyView : View
     public GameObject DevelopmentTab;
     public GameObject WorkerInteractions;
     public GameObject InvestmentTabs;
+    public GameObject ManagersTabs;
 
     // selected worker
     bool roleWasSelected = false;
@@ -44,6 +45,7 @@ public class FlagshipRelayInCompanyView : View
 
         Hide(DevelopmentTab);
         Hide(InvestmentTabs);
+        Hide(ManagersTabs);
     }
 
     public void ChooseDevTab()
@@ -52,6 +54,7 @@ public class FlagshipRelayInCompanyView : View
 
         Hide(WorkerInteractions);
         Hide(InvestmentTabs);
+        Hide(ManagersTabs);
 
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
@@ -70,6 +73,19 @@ public class FlagshipRelayInCompanyView : View
 
         Hide(WorkerInteractions);
         Hide(DevelopmentTab);
+        Hide(ManagersTabs);
+
+        Hide(ChosenTaskLabel);
+        Hide(RemoveTaskButton);
+    }
+
+    public void ChooseManagersTabs()
+    {
+        Show(ManagersTabs);
+
+        Hide(WorkerInteractions);
+        Hide(DevelopmentTab);
+        Hide(InvestmentTabs);
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);

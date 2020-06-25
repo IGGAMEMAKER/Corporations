@@ -12,6 +12,7 @@ public struct CompanyComponent : IComponent
     public CompanyType CompanyType;
 }
 
+public class AutomaticInvestmentsComponent : IComponent { }
 
 public struct BlockOfShares
 {

@@ -53,7 +53,7 @@ public class MarketingChannelView : View
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 
-        Income.text = $"{Format.MinifyMoney(adCost)} / week";
+        Income.text = $"-{Format.MinifyMoney(adCost)} / week";
         Income.color = repaymentColor;
 
         MarketingComplexity.text = $"{repaysSelf.ToString("0.0")}m";

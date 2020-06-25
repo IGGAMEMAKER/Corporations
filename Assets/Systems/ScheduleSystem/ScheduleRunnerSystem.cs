@@ -42,8 +42,17 @@ public class ScheduleRunnerSystem : IExecuteSystem
         if (totalTime < 0 && isTimerRunning)
         {
             var playerCompany = Companies.GetPlayerCompany(gameContext);
-            if (ScheduleUtils.IsLastDayOfPeriod(DateEntity) && Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, playerCompany))
+
+            while (ScheduleUtils.IsLastDayOfPeriod(DateEntity) && Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, playerCompany))
             {
+                if (playerCompany.isAutomaticInvestments && !Economy.IsHasCashOverflow(gameContext, playerCompany))
+                {
+                    Economy.RaiseFastCash(gameContext, playerCompany);
+                    continue;
+                }
+
+                TutorialUtils.Unlock(gameContext, TutorialFunctionality.CanRaiseInvestments);
+                TutorialUtils.Unlock(gameContext, TutorialFunctionality.BankruptcyWarning);
                 NotificationUtils.AddPopup(gameContext, new PopupMessageBankruptcyThreat(playerCompany.company.Id));
                 ScheduleUtils.PauseGame(gameContext);
                 return;

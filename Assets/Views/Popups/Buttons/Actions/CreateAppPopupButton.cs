@@ -25,3 +25,4 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
 
     public override string GetButtonName() => "YES";
 }
+
