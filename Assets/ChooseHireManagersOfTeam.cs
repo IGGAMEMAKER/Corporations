@@ -19,8 +19,5 @@ public class ChooseHireManagersOfTeam : ButtonController
 
         relay.FillSlot(TeamId, SlotId);
         relay.ChooseManagersTabs();
-
-        //CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
-        //CompanyTaskTypeRelay.ShowRelayButtons();
     }
 }
