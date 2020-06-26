@@ -22,12 +22,15 @@ public class MarketingChannelsListView : ListView
     Func<GameEntity, bool> IsValidChannel(long companyCost, GameEntity company) => (GameEntity c) =>
     {
         var activeInChannel = Marketing.IsCompanyActiveInChannel(company, c);
-        bool CanAfford = Marketing.GetMarketingActivityCost(company, Q, c) < companyCost * 4 / 100;
 
         if (activeInChannel)
             return ShowActiveChannelsToo;
 
-        return CanAfford;
+        var bigLoan = companyCost * 4 / 100;
+        var activityCost = Marketing.GetMarketingActivityCost(company, Q, c);
+
+        // can afford
+        return activityCost < bigLoan;
     };
 
     public void ToggleActiveChannels()
@@ -52,13 +55,11 @@ public class MarketingChannelsListView : ListView
         var companyCost = Economy.GetCompanyCost(Q, company);
 
         var newChannels = availableChannels
-            //.Where(c => !Marketing.IsCompanyActiveInChannel(company, c))
-            //.Where(c => c.marketingChannel.ChannelInfo.Batch < clients / 4);
-            .Where(IsValidChannel(companyCost, company))
-            ;
+            .Where(IsValidChannel(companyCost, company));
 
         if (newChannels.Count() == 0)
         {
+
             // ensure, that we have at least one channel
             newChannels = availableChannels
                 .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
