@@ -31,32 +31,3 @@ public class CreateSmallCrossfunctionalTeam : CompanyUpgradeButton
         return true;
     }
 }
-
-//public class AddTeamButton : CompanyUpgradeButton
-//{
-//    public TeamType TeamType;
-//    public override void Execute()
-//    {
-//        Teams.AddTeam(Flagship, TeamType);
-//    }
-
-//    public override string GetBenefits()
-//    {
-//        throw new System.NotImplementedException();
-//    }
-
-//    public override string GetButtonTitle()
-//    {
-//        throw new System.NotImplementedException();
-//    }
-
-//    public override string GetHint()
-//    {
-//        throw new System.NotImplementedException();
-//    }
-
-//    public override bool GetState()
-//    {
-//        throw new System.NotImplementedException();
-//    }
-//}

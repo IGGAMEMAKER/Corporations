@@ -13,6 +13,11 @@ public class CompanyTaskTypeRelay : View
 
     public GameObject RelayButtons;
 
+    public GameObject ChooseMarketingTasksButton;
+    public GameObject ChooseDevelopmentTasksButton;
+    public GameObject ChooseSupportTasksButton;
+    public GameObject ChooseServerTasksButton;
+
     public void ChooseMarketingTasks()
     {
         Show(MarketingTasks);
@@ -64,6 +69,19 @@ public class CompanyTaskTypeRelay : View
     public void ShowRelayButtons()
     {
         Show(RelayButtons);
+
+
+        // not all buttons can be shown because of specialisation
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+        var teamType = relay.ChosenTeam.TeamType;
+
+        var isUniversalTeam = teamType == TeamType.CoreTeam || teamType == TeamType.SmallCrossfunctionalTeam || teamType == TeamType.BigCrossfunctionalTeam || teamType == TeamType.CrossfunctionalTeam;
+
+        Draw(ChooseMarketingTasksButton,    isUniversalTeam || teamType == TeamType.MarketingTeam);
+        Draw(ChooseDevelopmentTasksButton,  isUniversalTeam || teamType == TeamType.DevelopmentTeam);
+        Draw(ChooseServerTasksButton,       isUniversalTeam || teamType == TeamType.DevOpsTeam);
+        Draw(ChooseSupportTasksButton,      isUniversalTeam || teamType == TeamType.SupportTeam);
+        //
 
         Hide(MarketingTasks);
         Hide(FeatureTasks);

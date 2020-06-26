@@ -15,6 +15,18 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
     public AddTeamTaskListView AddTeamTaskListView;
     public TeamTaskListView TeamTaskListView;
 
+    public Image TeamTypeImage;
+
+    [Header("Team images")]
+    public Sprite CoreTeam;
+    public Sprite SmallTeam;
+    public Sprite UniversalTeam;
+    public Sprite BigTeam;
+    public Sprite MarketingTeam;
+    public Sprite DevelopmentTeam;
+    public Sprite SupportTeam;
+    public Sprite DevopsTeam;
+
     public void SetEntity(TeamInfo info, int teamId)
     {
         TeamInfo = info;
@@ -35,6 +47,25 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
         TeamTaskListView.ChosenSlots = chosenSlots;
         TeamTaskListView.SetEntity(teamId);
+
+        TeamTypeImage.sprite = GetTeamTypeSprite();
+    }
+
+    Sprite GetTeamTypeSprite()
+    {
+        switch (TeamType)
+        {
+            case TeamType.BigCrossfunctionalTeam: return BigTeam;
+            case TeamType.CoreTeam: return CoreTeam;
+            case TeamType.CrossfunctionalTeam: return UniversalTeam;
+            case TeamType.DevelopmentTeam: return DevelopmentTeam;
+            case TeamType.DevOpsTeam: return DevopsTeam;
+            case TeamType.MarketingTeam: return MarketingTeam;
+            case TeamType.SmallCrossfunctionalTeam: return SmallTeam;
+            case TeamType.SupportTeam: return SupportTeam;
+
+            default: return CoreTeam;
+        }
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

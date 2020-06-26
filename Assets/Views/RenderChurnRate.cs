@@ -10,8 +10,8 @@ public class RenderChurnRate : UpgradedParameterView
         churnBonus.SetDimension("%");
         var churnUsers = Marketing.GetChurnClients(Q, company.company.Id);
 
-        bonus.Append("Growth", Marketing.GetAudienceGrowth(company, Q));
-        bonus.Append("Loss", -churnUsers);
+        bonus.Append("Audience Growth", Marketing.GetAudienceGrowth(company, Q));
+        bonus.Append("Audience Loss (Churn)", -churnUsers);
         bonus.MinifyValues();
 
         return Visuals.Positive(bonus.ToString()) + "\n" + churnBonus.ToString(true);

@@ -257,11 +257,15 @@ public enum TeamType
 {
     DevelopmentTeam,
     MarketingTeam,
+
     CrossfunctionalTeam,
     BigCrossfunctionalTeam,
     SmallCrossfunctionalTeam,
 
-    MergeAndAcquisitionTeam
+    CoreTeam, // managers
+    MergeAndAcquisitionTeam,
+    SupportTeam,
+    DevOpsTeam
 }
 
 //public class WorkingTeamInfo

@@ -10,6 +10,7 @@ public class FlagshipRelayInCompanyView : View
     public GameObject WorkerInteractions;
     public GameObject InvestmentTabs;
     public GameObject ManagersTabs;
+    public GameObject NewTeamTabs;
 
     // selected worker
     bool roleWasSelected = false;
@@ -21,6 +22,8 @@ public class FlagshipRelayInCompanyView : View
     // buttons
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
+
+    public TeamInfo ChosenTeam => ChosenTeamId >= Flagship.team.Teams.Count ? null : Flagship.team.Teams[ChosenTeamId];
 
     public void FillSlot(int teamId, int slotId)
     {
@@ -39,6 +42,16 @@ public class FlagshipRelayInCompanyView : View
         Refresh();
     }
 
+    public void ChooseNewTeamTab()
+    {
+        Show(NewTeamTabs);
+
+        Hide(DevelopmentTab);
+        Hide(InvestmentTabs);
+        Hide(ManagersTabs);
+        Hide(WorkerInteractions);
+    }
+
     public void ChooseWorkerInteractions()
     {
         Show(WorkerInteractions);
@@ -46,6 +59,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(DevelopmentTab);
         Hide(InvestmentTabs);
         Hide(ManagersTabs);
+        Hide(NewTeamTabs);
     }
 
     public void ChooseDevTab()
@@ -55,6 +69,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(WorkerInteractions);
         Hide(InvestmentTabs);
         Hide(ManagersTabs);
+        Hide(NewTeamTabs);
 
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
@@ -74,6 +89,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(WorkerInteractions);
         Hide(DevelopmentTab);
         Hide(ManagersTabs);
+        Hide(NewTeamTabs);
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);
@@ -86,6 +102,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(WorkerInteractions);
         Hide(DevelopmentTab);
         Hide(InvestmentTabs);
+        Hide(NewTeamTabs);
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);

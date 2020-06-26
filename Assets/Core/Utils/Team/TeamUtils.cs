@@ -30,9 +30,31 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
+        public static string GetFormattedTeamType(TeamType teamType)
+        {
+            switch (teamType)
+            {
+                case TeamType.BigCrossfunctionalTeam:   return "Big team";
+                case TeamType.CrossfunctionalTeam:      return "Universal team";
+                case TeamType.SmallCrossfunctionalTeam: return "Small team";
+
+                case TeamType.CoreTeam:                 return "Core team";
+                case TeamType.DevelopmentTeam:          return "Development team";
+                case TeamType.MarketingTeam:            return "Marketing team";
+                case TeamType.MergeAndAcquisitionTeam:  return "M&A team";
+                case TeamType.SupportTeam:              return "Support team";
+
+                case TeamType.DevOpsTeam:               return "Serverside team";
+
+                default: return teamType.ToString();
+            }
+        }
+
         public static void AddTeam(GameEntity company, TeamType teamType)
         {
-            company.team.Teams.Add(new TeamInfo { Name = $"Team #{company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
+            var prefix = GetFormattedTeamType(teamType);
+
+            company.team.Teams.Add(new TeamInfo { Name = $"{prefix} #{company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
