@@ -25,7 +25,14 @@ public class ReplaceTeamTaskController : ButtonController
         }
         else if (view.IsSupportTask)
         {
-            CompanyTaskTypeRelay.ChooseSupportTasks();
+            if (view.IsServerTask)
+            {
+                CompanyTaskTypeRelay.ChooseServersideTasks();
+            }
+            else
+            {
+                CompanyTaskTypeRelay.ChooseSupportTasks();
+            }
         }
         else
         {

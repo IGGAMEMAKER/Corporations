@@ -17,8 +17,8 @@ public class RenderMyControl : ParameterView
         {
             if (previousControl != -1)
             {
-                SoundManager.PlayFastCashSound();
-                gameObject.AddComponent<TextBlink>();
+                //SoundManager.PlayFastCashSound();
+                //gameObject.AddComponent<TextBlink>();
             }
         }
 

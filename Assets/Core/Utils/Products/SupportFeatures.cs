@@ -42,6 +42,22 @@ namespace Assets.Core
             return GetSummarySupportFeatureBenefit(product, GetHighloadFeatures(product));
         }
 
+        public static bool IsNeedsMoreMarketingSupport(GameEntity product)
+        {
+            var capacity = GetMarketingSupportBenefit(product);
+            var load = Marketing.GetClients(product); // add DDoS multiplier ??
+
+            return load >= capacity;
+        }
+
+        public static bool IsNeedsMoreServers(GameEntity product)
+        {
+            var capacity = GetHighloadFeaturesBenefit(product);
+            var load = Marketing.GetClients(product); // add DDoS multiplier
+
+            return load >= capacity;
+        }
+
         // summary feature benefit
         static float GetSummarySupportFeatureBenefit(GameEntity product, SupportFeature[] features)
         {

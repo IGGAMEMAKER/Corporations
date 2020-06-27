@@ -43,7 +43,9 @@ namespace Assets.Core
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
-                .Append("Retention features", -retentionImprovement)
+                .Append("Features", -retentionImprovement)
+                .AppendAndHideIfZero("Servers overload", Products.IsNeedsMoreServers(c) ? 25 : 0)
+                .AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? 10 : 0)
 
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)

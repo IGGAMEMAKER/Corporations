@@ -18,45 +18,70 @@ public class CompanyTaskTypeRelay : View
     public GameObject ChooseSupportTasksButton;
     public GameObject ChooseServerTasksButton;
 
+    List<GameObject> ChoosingButtons => new List<GameObject> { ChooseMarketingTasksButton, ChooseDevelopmentTasksButton, ChooseSupportTasksButton, ChooseServerTasksButton };
+    List<GameObject> TaskContainers => new List<GameObject> { MarketingTasks, FeatureTasks, SupportTasks, ServerTasks };
+
+    void ShowOnly(GameObject obj, List<GameObject> objects)
+    {
+        foreach (var o in objects)
+        {
+            Draw(o, o.GetInstanceID() == obj.GetInstanceID());
+        }
+    }
+
+    void SetMode(GameObject tasks, GameObject buttons)
+    {
+        ShowOnly(tasks, TaskContainers);
+        ShowOnly(buttons, ChoosingButtons);
+    }
+
     public void ChooseMarketingTasks()
     {
-        Show(MarketingTasks);
+        SetMode(MarketingTasks, ChooseMarketingTasksButton);
 
-        Hide(FeatureTasks);
-        Hide(SupportTasks);
-        Hide(ServerTasks);
+        //ShowOnly(MarketingTasks, TaskContainers);
+        //ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
+        
+        //Show(MarketingTasks);
+
+        //Hide(FeatureTasks);
+        //Hide(SupportTasks);
+        //Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
     }
 
     public void ChooseFeatureTasks()
     {
-        Show(FeatureTasks);
+        SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
+        //Show(FeatureTasks);
 
-        Hide(MarketingTasks);
-        Hide(SupportTasks);
-        Hide(ServerTasks);
+        //Hide(MarketingTasks);
+        //Hide(SupportTasks);
+        //Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
     }
 
     public void ChooseServersideTasks()
     {
-        Show(ServerTasks);
+        SetMode(ServerTasks, ChooseServerTasksButton);
+        //Show(ServerTasks);
 
-        Hide(MarketingTasks);
-        Hide(FeatureTasks);
-        Hide(SupportTasks);
+        //Hide(MarketingTasks);
+        //Hide(FeatureTasks);
+        //Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
     }
     public void ChooseSupportTasks()
     {
-        Show(SupportTasks);
+        SetMode(SupportTasks, ChooseSupportTasksButton);
+        //Show(SupportTasks);
 
-        Hide(MarketingTasks);
-        Hide(FeatureTasks);
-        Hide(ServerTasks);
+        //Hide(MarketingTasks);
+        //Hide(FeatureTasks);
+        //Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
     }
@@ -66,12 +91,8 @@ public class CompanyTaskTypeRelay : View
         Hide(RelayButtons);
     }
 
-    public void ShowRelayButtons()
+    public void AdjustTaskTypeButtonsToTeamType()
     {
-        Show(RelayButtons);
-
-
-        // not all buttons can be shown because of specialisation
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
         var teamType = relay.ChosenTeam.TeamType;
 
@@ -81,6 +102,15 @@ public class CompanyTaskTypeRelay : View
         Draw(ChooseDevelopmentTasksButton,  isUniversalTeam || teamType == TeamType.DevelopmentTeam);
         Draw(ChooseServerTasksButton,       isUniversalTeam || teamType == TeamType.DevOpsTeam);
         Draw(ChooseSupportTasksButton,      isUniversalTeam || teamType == TeamType.SupportTeam);
+    }
+
+    public void ShowRelayButtons()
+    {
+        Show(RelayButtons);
+
+
+        // not all buttons can be shown because of specialisation
+        AdjustTaskTypeButtonsToTeamType();
         //
 
         Hide(MarketingTasks);

@@ -37,6 +37,7 @@ public class TeamTaskView : View
     public bool IsFeatureUpgradeTask => Task is TeamTaskFeatureUpgrade;
     public bool IsChannelTask => Task is TeamTaskChannelActivity;
     public bool IsSupportTask => Task is TeamTaskSupportFeature;
+    public bool IsServerTask => IsSupportTask && (Task as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload;
 
     public override void ViewRender()
     {
@@ -106,36 +107,31 @@ public class TeamTaskView : View
 
             var value = supportFeature.SupportFeature.SupportBonus.Max;
 
-            var clients = Marketing.GetClients(company);
             if (bonus is SupportBonusHighload)
             {
-                var totalCapacity = Products.GetHighloadFeaturesBenefit(company);
-
-                bool enoughServers = clients < totalCapacity;
+                bool needsMoreServers = Products.IsNeedsMoreServers(company);
 
                 var hint = "";
 
-                if (!enoughServers)
+                if (needsMoreServers)
                     hint += Visuals.Negative("\n\nNOT ENOUGH SERVERS!\nPeople are leaving your product!");
 
                 TaskHint.SetHint($"Servers for {Format.Minify(value)} users. " + hint);
 
-                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(enoughServers);
+                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(!needsMoreServers);
                 Icon.sprite = ServerSprite;
             }
             else if (bonus is SupportBonusMarketingSupport)
             {
-                var totalSupportStrength = Products.GetMarketingSupportBenefit(company);
-
-                bool enoughSupport = clients < totalSupportStrength;
+                bool needsMoreSupport = Products.IsNeedsMoreMarketingSupport(company);
 
                 var hint = "";
-                if (!enoughSupport)
+                if (needsMoreSupport)
                     hint += "\nNOT ENOUGH CLIENT SUPPORT!";
 
                 TaskHint.SetHint($"Client support for {Format.Minify(value)} clients" + hint);
 
-                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(enoughSupport);
+                RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(!needsMoreSupport);
                 Icon.sprite = MarketingSupportSprite;
             }
             else
