@@ -44,9 +44,12 @@ namespace Assets.Core
                 .SetDimension("%")
                 .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
                 .Append("Features", -retentionImprovement)
-                .AppendAndHideIfZero("Servers overload", Products.IsNeedsMoreServers(c) ? 25 : 0)
-                .AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? 10 : 0)
+                
+                // technical stuff
+                .AppendAndHideIfZero("Servers overload", Products.IsNeedsMoreServers(c) ? 30 : 0)
+                .AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? 15 : 0)
 
+                // competition
                 .AppendAndHideIfZero("DUMPING", c.isDumping ? -100 : 0)
                 .AppendAndHideIfZero("Competitor is DUMPING", isCompetitorDumping ? 15 : 0)
 
