@@ -25,6 +25,8 @@ public class RenderProductStatsInCompanyView : View
         bool isPlayerFlagship = company.company.Id == Flagship.company.Id;
         bool needToShowMarketShare = company.isRelease;
 
+        MarketShare.GetComponent<Text>().text = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q).ToString("0.0") + "%";
+
         Draw(MarketShare, true);
         Draw(MarketShareLabel, false);
 
