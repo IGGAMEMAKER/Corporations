@@ -7,7 +7,6 @@
         
         // income
         Add(new ProductCompaniesEarnMoneySystem(contexts));
-        // dividends
         Add(new ProductCompaniesPayDividendsSystem(contexts));
 
         // investments
@@ -19,6 +18,8 @@
         Add(new ManageProductUpgradesSystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
         Add(new ChurnSystem(contexts));
+
+        // GLOBAL INTERACTIONS
 
         // expansion
         Add(new AIPromoteProductToGroupSystem(contexts));

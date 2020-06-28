@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class FlagshipInterruptsView : View
 
     //
     public Image HasDisloyalManagersImage;
+
+    int previousCounter = 0;
+    int problemCounter = 0;
 
     public override void ViewRender()
     {
@@ -29,11 +33,30 @@ public class FlagshipInterruptsView : View
         // 
         bool workerDisloyal = false;
 
-        Draw(NeedsManagersImage, needsMoreManagers);
-        Draw(NeedsServersImage, needsMoreServers);
-        Draw(NeedsSupportImage, needsMoreSupport);
-        Draw(DDOSImage, underAttack);
+        problemCounter = 0;
 
-        Draw(HasDisloyalManagersImage, workerDisloyal);
+        SpecialDraw(NeedsManagersImage, needsMoreManagers);
+        SpecialDraw(NeedsServersImage, needsMoreServers);
+        SpecialDraw(NeedsSupportImage, needsMoreSupport);
+        SpecialDraw(DDOSImage, underAttack);
+
+        SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
+
+        if (problemCounter > previousCounter)
+        {
+            // play interrupt sound
+            SoundManager.Play(Sound.Notification);
+            //gameObject.AddComponent<EnlargeOnAppearance>().
+        }
+
+        previousCounter = problemCounter;
+    }
+
+    void SpecialDraw(Image obj, bool draw)
+    {
+        Draw(obj, draw);
+
+        if (draw)
+            problemCounter++;
     }
 }
