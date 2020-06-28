@@ -19,20 +19,6 @@ public class MarketingChannelsListView : ListView
         t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI);
     }
 
-    Func<GameEntity, bool> IsValidChannel(long companyCost, GameEntity company) => (GameEntity c) =>
-    {
-        var activeInChannel = Marketing.IsCompanyActiveInChannel(company, c);
-
-        if (activeInChannel)
-            return ShowActiveChannelsToo;
-
-        var bigLoan = companyCost * 4 / 100;
-        var activityCost = Marketing.GetMarketingActivityCost(company, Q, c);
-
-        // can afford
-        return activityCost < bigLoan;
-    };
-
     public void ToggleActiveChannels()
     {
         ShowActiveChannelsToo = !ShowActiveChannelsToo;
@@ -48,32 +34,15 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
-        var availableChannels = Markets.GetAvailableMarketingChannels(Q, company);
+        var allChannels = Markets.GetMarketingChannels(Q);
+        var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo);
 
-        var clients = Marketing.GetClients(company);
-
-        var companyCost = Economy.GetCompanyCost(Q, company);
-
-        var newChannels = availableChannels
-            .Where(IsValidChannel(companyCost, company));
-
-        if (newChannels.Count() == 0)
-        {
-
-            // ensure, that we have at least one channel
-            newChannels = availableChannels
-                .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-                .Take(1);
-        }
-
-
-
-        channels.AddRange(newChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
+        channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
 
 
         //maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
-        maxROI = availableChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
-        minROI = availableChannels.Min(c => Marketing.GetChannelROI(company, Q, c));
+        maxROI = allChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
+        minROI = allChannels.Min(c => Marketing.GetChannelROI(company, Q, c));
 
         SetItems(channels);
     }

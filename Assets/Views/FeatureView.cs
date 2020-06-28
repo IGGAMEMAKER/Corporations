@@ -41,7 +41,7 @@ public class FeatureView : View
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
         bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
-        if (hasCooldown)
+        if (Products.IsUpgradingFeature(product, Q, featureName))
         {
             //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
             var progress = CurrentIntDate - cooldown.StartDate;

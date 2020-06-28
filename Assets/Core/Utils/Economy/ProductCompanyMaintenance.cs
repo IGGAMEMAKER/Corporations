@@ -10,8 +10,8 @@ namespace Assets.Core
             var bonus = new Bonus<long>("Maintenance");
 
             bonus
-                .AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
-                .AppendAndHideIfZero("Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
+                //.AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
+                .AppendAndHideIfZero("TOP Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
 
             var workerCost = C.SALARIES_PROGRAMMER;
             var workers = 8;
@@ -38,9 +38,7 @@ namespace Assets.Core
                 var channelId = c.Key;
                 //Debug.Log("Checking company channel " + channelId);
 
-                var channel = Markets.GetMarketingChannel(gameContext, channelId);
-
-                var cost = Marketing.GetMarketingActivityCost(e, gameContext, channel);
+                var cost = Marketing.GetMarketingActivityCost(e, gameContext, channelId);
                 bonus.AppendAndHideIfZero("Marketing in Forum" + channelId, cost);
             }
 
@@ -58,6 +56,22 @@ namespace Assets.Core
             }
 
             return bonus;
+        }
+
+        public static long GetTeamTaskCost(GameEntity product, GameContext gameContext, TeamTask teamTask)
+        {
+            if (teamTask is TeamTaskFeatureUpgrade)
+                return 0;
+
+            if (teamTask is TeamTaskChannelActivity)
+                return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
+
+            if (teamTask is TeamTaskSupportFeature)
+            {
+                return GetSupportUpgradeCost(product, (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus);
+            }
+
+            return 0;
         }
 
         public static long GetSupportUpgradeCost(GameEntity product, SupportBonus bonus)

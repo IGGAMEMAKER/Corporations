@@ -4,6 +4,7 @@
     {
         Add(new HistoricalProductSpawnSystem(contexts));
 
+        // MONEY
         
         // income
         Add(new ProductCompaniesEarnMoneySystem(contexts));
@@ -13,9 +14,11 @@
         Add(new AIIndependentCompaniesTakeInvestmentsSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
+        // DEVELOPMENT
+
         // products
         Add(new AutoUpgradeProductsSystem(contexts));
-        Add(new ManageProductUpgradesSystem(contexts));
+        Add(new ProductDevelopmentSystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
         Add(new ChurnSystem(contexts));
 

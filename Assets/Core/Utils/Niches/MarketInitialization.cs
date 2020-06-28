@@ -50,36 +50,68 @@ namespace Assets.Core
             return amountOfChannels;
         }
 
-        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product)
+        public static Func<GameEntity, bool> IsReachableChannel(long companyCost, GameEntity company, GameContext gameContext, bool ShowActiveChannelsToo) => (GameEntity c) =>
+        {
+            var activeInChannel = Marketing.IsCompanyActiveInChannel(company, c);
+
+            if (activeInChannel)
+                return ShowActiveChannelsToo;
+
+            var bigLoan = companyCost * 4 / 100;
+            var activityCost = Marketing.GetMarketingActivityCost(company, gameContext, c);
+
+            // can afford
+            return activityCost < bigLoan;
+        };
+
+        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product, bool includeActive)
         {
             var channels = GetMarketingChannels(gameContext);
+            var availableChannels = channels;
+
+            var clients = Marketing.GetClients(product);
+
+            var companyCost = Economy.GetCompanyCost(gameContext, product);
+
+            var newChannels = availableChannels
+                .Where(IsReachableChannel(companyCost, product, gameContext, includeActive));
+
+            if (newChannels.Count() == 0)
+            {
+                // ensure, that we have at least one channel
+                newChannels = availableChannels
+                    .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
+                    .Take(1);
+            }
+
+            return newChannels.ToArray();
 
             return channels;
 
-            var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
+            //var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
 
-            var availableChannels = channels
-                .Where(c =>
-                Marketing.IsChannelExplored(c, product)
-                ||
-                Economy.IsCanMaintainForAWhile(managingCompany, gameContext, (long)c.marketingChannel.ChannelInfo.costPerAd, 6)
-                )
-                .ToArray();
+            //var availableChannels = channels
+            //    .Where(c =>
+            //    Marketing.IsChannelExplored(c, product)
+            //    ||
+            //    Economy.IsCanMaintainForAWhile(managingCompany, gameContext, (long)c.marketingChannel.ChannelInfo.costPerAd, 6)
+            //    )
+            //    .ToArray();
 
-            return availableChannels;
+            //return availableChannels;
 
-            //Debug.Log("channels: " + channels.Count());
+            ////Debug.Log("channels: " + channels.Count());
 
-            var amountOfChannels = GetAmountOfAvailableChannels(gameContext, product);
+            //var amountOfChannels = GetAmountOfAvailableChannels(gameContext, product);
 
-            var chosenChannels = channels
-                .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-                .Take(amountOfChannels);
+            //var chosenChannels = channels
+            //    .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
+            //    .Take(amountOfChannels);
 
-            //Debug.Log($"chosen channels <{amountOfChannels}>: " + chosenChannels.Count());
+            ////Debug.Log($"chosen channels <{amountOfChannels}>: " + chosenChannels.Count());
 
-            return chosenChannels
-                .ToArray();
+            //return chosenChannels
+            //    .ToArray();
         }
 
         public static void SpawnMarketingChannels(GameContext gameContext)

@@ -1,10 +1,11 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public partial class ManageProductUpgradesSystem : OnPeriodChange
+public partial class ProductDevelopmentSystem : OnPeriodChange
 {
-    public ManageProductUpgradesSystem(Contexts contexts) : base(contexts) {}
+    public ProductDevelopmentSystem(Contexts contexts) : base(contexts) { }
 
     protected override void Execute(List<GameEntity> entities)
     {
@@ -13,16 +14,131 @@ public partial class ManageProductUpgradesSystem : OnPeriodChange
         foreach (var product in Companies.GetProductCompanies(gameContext))
         {
             if (product.company.Id != playerFlagshipId)
+                ManageProduct(product);
+        }
+    }
+
+    void ManageProduct(GameEntity product)
+    {
+        List<string> str = new List<string>();
+
+        if (Companies.IsReleaseableApp(product, gameContext))
+        {
+            Marketing.ReleaseApp(gameContext, product);
+        }
+
+        var balance = Economy.BalanceOf(product);
+        str.Add($"------------------ {product.company.Name} (#{product.creationIndex}) -------------------");
+        str.Add($"Balance: " + Format.Money(balance));
+
+        var income = Economy.GetCompanyIncome(gameContext, product);
+        str.Add("Income: " + Format.Money(income));
+
+        var managerMaintenance = Economy.GetManagersCost(product, gameContext);
+        var totalFunds = balance + income - managerMaintenance;
+        str.Add("Money available for upgrades: " + Format.Money(totalFunds));
+
+        // features (free)
+        // servers and support
+        // marketing channels (growth)
+
+        ManageFeatures(product);
+        ManageSupport(product);
+        ManageChannels(product, ref str, ref totalFunds);
+    }
+
+    bool IsUniversal(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
+
+    bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
+    {
+        if (teamTask is TeamTaskFeatureUpgrade)
+            return IsUniversal(teamType) || teamType == TeamType.DevelopmentTeam;
+
+        if (teamTask is TeamTaskChannelActivity)
+            return IsUniversal(teamType) || teamType == TeamType.MarketingTeam;
+
+        if (teamTask is TeamTaskSupportFeature)
+        {
+            if ((teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload)
+                return IsUniversal(teamType) || teamType == TeamType.DevOpsTeam;
+
+            return IsUniversal(teamType) || teamType == TeamType.SupportTeam;
+        }
+
+        return false;
+    }
+
+    bool CanMaintain(GameEntity product, long cost)
+    {
+        return Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
+    }
+
+    void TryAddTask(GameEntity product, TeamTask teamTask)
+    {
+        int teamId = 0;
+
+        // TODO
+        // CHECK TASK SELF COST!!!
+
+        if (!CanMaintain(product, Economy.GetTeamTaskCost(product, gameContext, teamTask)))
+            return;
+
+        foreach (var t in product.team.Teams)
+        {
+            if (SupportsTeamTask(t.TeamType, teamTask) && t.Tasks.Count < C.TASKS_PER_TEAM)
             {
-                if (product.isRelease)
-                {
-                    ManageReleasedProducts(product);
-                }
-                else
-                {
-                    ManagePrototypes(product);
-                }
+                Teams.AddTeamTask(product, gameContext, teamId, teamTask);
+
+                return;
             }
+
+            teamId++;
+        }
+
+
+        // need to hire new team
+        // if has money
+
+        var teamCost = 8 * C.SALARIES_PROGRAMMER;
+        if (CanMaintain(product, teamCost))
+        {
+            Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+            Teams.AddTeamTask(product, gameContext, product.team.Teams.Count - 1, teamTask);
+        }
+    }
+
+    void ManageFeatures(GameEntity product)
+    {
+        var remainingFeatures = Products.GetAvailableFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name));
+
+        if (remainingFeatures.Count() == 0)
+            return;
+
+        var feature = new TeamTaskFeatureUpgrade(remainingFeatures.First());
+
+        TryAddTask(product, feature);
+    }
+
+    void ManageSupport(GameEntity product)
+    {
+        if (Products.IsNeedsMoreServers(product))
+        {
+            var diff = Products.GetClientLoad(product) - Products.GetServerCapacity(product);
+
+            var supportFeatures = Products.GetHighloadFeatures(product);
+            var feature = supportFeatures[2];
+
+            TryAddTask(product, new TeamTaskSupportFeature(feature));
+        }
+
+        if (Products.IsNeedsMoreMarketingSupport(product))
+        {
+            var diff = Products.GetClientLoad(product) - Products.GetSupportCapacity(product);
+
+            var supportFeatures = Products.GetMarketingSupportFeatures(product);
+            var feature = supportFeatures[2];
+
+            TryAddTask(product, new TeamTaskSupportFeature(feature));
         }
     }
 
@@ -50,93 +166,22 @@ public partial class ManageProductUpgradesSystem : OnPeriodChange
         return newBalance;
     }
 
-    long CheckCosts(GameEntity product, List<ProductUpgrade> upgradeSets, long balance, ref List<string> str)
+    void ManageChannels(GameEntity product, ref List<string> str, ref long totalFunds)
     {
-        var newBalance = balance;
+        var channels = Markets.GetAvailableMarketingChannels(gameContext, product, true);
 
-        foreach (var u in upgradeSets)
-        {
-            var cost = Products.GetUpgradeCost(product, gameContext, u);
-            var workerCost = Products.GetUpgradeWorkerCost(product, gameContext, u);
-
-            var totalCost = cost + workerCost;
-
-            if (totalCost < newBalance)
-            {
-                Products.SetUpgrade(product, u, gameContext, true);
-
-                if (totalCost > 0)
-                    str.Add($"enabled {u} for Cash ({Format.Money(cost)}) and Workers ({Format.Money(workerCost)}) ... Total: {Format.Money(totalCost)}");
-
-                newBalance -= totalCost;
-            }
-            else
-            {
-                str.Add("disabled " + u);
-                Products.SetUpgrade(product, u, gameContext, false);
-            }
-        }
-
-        return newBalance;
-    }
-
-    void ManageReleasedProducts(GameEntity product)
-    {
-        List<string> str = new List<string>(); ;
-
-        var balance = Economy.BalanceOf(product);
-        str.Add($"------------------ {product.company.Name} (#{product.creationIndex}) -------------------");
-        str.Add($"Balance: " + Format.Money(balance));
-
-        var income = Economy.GetCompanyIncome(gameContext, product);
-        str.Add("Income: " + Format.Money(income));
-
-        var managerMaintenance = Economy.GetManagersCost(product, gameContext);
-        var totalFunds = balance + income - managerMaintenance;
-        str.Add("Money available for upgrades: " + Format.Money(totalFunds));
-
-        var tier0 = new List<ProductUpgrade>() { ProductUpgrade.TestCampaign, ProductUpgrade.SimpleConcept };
-        var tier1 = new List<ProductUpgrade>() { ProductUpgrade.QA, ProductUpgrade.Support };
-        var tier2 = new List<ProductUpgrade>() { ProductUpgrade.QA2, ProductUpgrade.Support2 };
-        var tier3 = new List<ProductUpgrade>() { ProductUpgrade.QA3, ProductUpgrade.Support3 };
-
-        totalFunds = CheckCosts(product, tier0, totalFunds, ref str);
-        str.Add("Checking tier0: " + Format.Money(totalFunds));
-
-        totalFunds = CheckCosts(product, tier1, totalFunds, ref str);
-        str.Add("Checking tier1: " + Format.Money(totalFunds));
-
-        totalFunds = CheckCosts(product, tier2, totalFunds, ref str);
-        str.Add("Checking tier2: " + Format.Money(totalFunds));
-
-        totalFunds = CheckCosts(product, tier3, totalFunds, ref str);
-        str.Add("End balance: " + Format.Money(totalFunds));
-
-        bool isTestCompany = false; // !Economy.IsProfitable(gameContext, product); // product.company.Id == 15;
-
-        if (isTestCompany)
-        {
-            foreach (var s in str)
-                Debug.Log(s);
-        }
-
-        var channels = Markets.GetAvailableMarketingChannels(gameContext, product);
+        channels
+            .Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
+            .OrderByDescending(c => Marketing.GetChannelROI(product, gameContext, c));
 
         foreach (var c in channels)
         {
-            totalFunds = CheckChannelCosts(product, c, totalFunds, ref str);
+            var cost = Marketing.GetMarketingActivityCost(product, gameContext, c);
+
+            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID));
+            //totalFunds = CheckChannelCosts(product, c, totalFunds, ref str);
+            //if (Marketing.IsCompanyActiveInChannel())
         }
     }
 
-    void ManagePrototypes(GameEntity product)
-    {
-        if (Companies.IsReleaseableApp(product, gameContext))
-        {
-            Marketing.ReleaseApp(gameContext, product);
-        }
-        else
-        {
-            Products.SetUpgrade(product, ProductUpgrade.TestCampaign, gameContext, true);
-        }
-    }
 }

@@ -32,34 +32,50 @@ namespace Assets.Core
         public static SupportFeature[] GetMarketingSupportFeatures(GameEntity product) => GetAvailableSupportFeaturesForProduct(product).Where(f => f.SupportBonus is SupportBonusMarketingSupport).ToArray();
 
         // benefits
-        public static float GetMarketingSupportBenefit(GameEntity product)
+        public static long GetMarketingSupportBenefit(GameEntity product)
         {
             return GetSummarySupportFeatureBenefit(product, GetMarketingSupportFeatures(product));
         }
 
-        public static float GetHighloadFeaturesBenefit(GameEntity product)
+        public static long GetHighloadFeaturesBenefit(GameEntity product)
         {
             return GetSummarySupportFeatureBenefit(product, GetHighloadFeatures(product));
         }
 
+
+        public static long GetClientLoad(GameEntity product)
+        {
+            return Marketing.GetClients(product); // add DDoS multiplier ??
+        }
+
+        public static long GetServerCapacity(GameEntity product)
+        {
+            return GetHighloadFeaturesBenefit(product);
+        }
+
+        public static long GetSupportCapacity(GameEntity product)
+        {
+            return GetMarketingSupportBenefit(product);
+        }
+
         public static bool IsNeedsMoreMarketingSupport(GameEntity product)
         {
-            var capacity = GetMarketingSupportBenefit(product);
-            var load = Marketing.GetClients(product); // add DDoS multiplier ??
+            var capacity = GetSupportCapacity(product);
+            var load = GetClientLoad(product);
 
             return load >= capacity;
         }
 
         public static bool IsNeedsMoreServers(GameEntity product)
         {
-            var capacity = GetHighloadFeaturesBenefit(product);
-            var load = Marketing.GetClients(product); // add DDoS multiplier
+            var capacity = GetServerCapacity(product);
+            var load = GetClientLoad(product); // add DDoS multiplier
 
             return load >= capacity;
         }
 
         // summary feature benefit
-        static float GetSummarySupportFeatureBenefit(GameEntity product, SupportFeature[] features)
+        static long GetSummarySupportFeatureBenefit(GameEntity product, SupportFeature[] features)
         {
             var improvements = 0L;
             foreach (var f in features)

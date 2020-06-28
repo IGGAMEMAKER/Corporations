@@ -6,19 +6,15 @@ public class FlagshipCompanyView : View
     [Header("Flagship Only")]
     public CanvasGroup competitorListView;
 
-    //public CanvasGroup Workers;
-    //public RenderCompanyWorkerListView workerListView;
-
     public GameObject FirmLogo;
 
     public CanvasGroup FlagshipStuff;
+    public GameObject CompetitionPreview;
 
     bool expand = true;
 
     public void SetEntity()
     {
-        //workerListView.SetEntity(Flagship);
-
         expand = true;
 
         Render();
@@ -36,29 +32,31 @@ public class FlagshipCompanyView : View
         DrawCanvasGroup(FlagshipStuff, expand);
 
         ResizeFirmLogo();
-        RenderWorkersAndCompetitors();
+        RenderCompetitors();
     }
 
-    void RenderWorkersAndCompetitors()
+    void RenderCompetitors()
     {
-        //DrawCanvasGroup(Workers, expand);
-
         bool showCompetitors = !expand && Flagship.isRelease;
 
-        if (competitorListView != null)
-            Draw(competitorListView.gameObject, showCompetitors);
+        Draw(CompetitionPreview, showCompetitors);
+        //if (competitorListView != null)
+        //{
+        //    DrawCanvasGroup(competitorListView, showCompetitors);
+        //    Draw(competitorListView.gameObject, showCompetitors);
+        //}
     }
 
     public void ToggleState()
     {
         expand = !expand;
 
-
         Render();
     }
 
     void ResizeFirmLogo()
     {
+        return;
         var scale = 1f;
 
         var company = Flagship;

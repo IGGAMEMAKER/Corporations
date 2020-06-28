@@ -4,6 +4,12 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
+        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId)
+        {
+            var channel = Markets.GetMarketingChannel(gameContext, ChannelId);
+
+            return GetMarketingActivityCost(product, gameContext, channel);
+        }
         public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;

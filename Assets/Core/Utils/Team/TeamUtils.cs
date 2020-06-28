@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 using System.Linq;
 using UnityEngine;
 // TODO REMOVE THIS FILE
@@ -116,14 +117,27 @@ namespace Assets.Core
             }
         }
 
+        public static void AddTeamTask(GameEntity product, GameContext gameContext, int teamId, TeamTask task)
+        {
+            var taskId = product.team.Teams[teamId].Tasks.Count;
+
+            AddTeamTask(product, gameContext, teamId, taskId, task);
+        }
         public static void AddTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId, TeamTask task)
         {
             if (taskId >= product.team.Teams[teamId].Tasks.Count)
                 product.team.Teams[teamId].Tasks.Add(task);
             else
             {
-                DisableTask(product, gameContext, teamId, taskId);
-                product.team.Teams[teamId].Tasks[taskId] = task;
+                try
+                {
+                    DisableTask(product, gameContext, teamId, taskId);
+                    product.team.Teams[teamId].Tasks[taskId] = task;
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log($"Error on taskId: {taskId} / {product.team.Teams[teamId].Tasks.Count}" + taskId);
+                }
             }
         }
 
