@@ -63,7 +63,7 @@ namespace Assets.Core
             e.isAlive = true;
             e.isIndependentCompany = true;
             e.AddPartnerships(new List<int>());
-
+            e.AddCompanyStrategies(RandomEnum<CompanySettingGrowthType>.GenerateValue(), RandomEnum<CompanySettingAttitudeToWorkers>.GenerateValue(), RandomEnum<CompanySettingControlDesire>.GenerateValue());
 
             e.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
 
