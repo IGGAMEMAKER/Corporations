@@ -34,12 +34,12 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
-        var allChannels = Markets.GetMarketingChannels(Q);
         var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo);
 
         channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
 
 
+        var allChannels = Markets.GetMarketingChannels(Q);
         //maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
         maxROI = allChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
         minROI = allChannels.Min(c => Marketing.GetChannelROI(company, Q, c));

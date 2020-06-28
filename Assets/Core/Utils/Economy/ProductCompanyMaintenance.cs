@@ -4,6 +4,14 @@ namespace Assets.Core
 {
     partial class Economy
     {
+        public static long GetSingleTeamCost()
+        {
+            var workerCost = C.SALARIES_PROGRAMMER;
+            var workers = 8;
+            var teamCost = workers * workerCost;
+
+            return teamCost;
+        }
         // resulting costs
         public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, GameContext gameContext, bool isBonus)
         {
@@ -13,24 +21,22 @@ namespace Assets.Core
                 //.AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
                 .AppendAndHideIfZero("TOP Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
 
-            var workerCost = C.SALARIES_PROGRAMMER;
-            var workers = 8;
-            var teamCost = workers * workerCost;
+            var teamCost = GetSingleTeamCost();
 
             bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count * C.PERIOD / 30);
 
-            var upgrades = e.productUpgrades.upgrades;
+            //var upgrades = e.productUpgrades.upgrades;
 
             // upgrades
-            foreach (var u in upgrades)
-            {
-                long cost = 0;
+            //foreach (var u in upgrades)
+            //{
+            //    long cost = 0;
 
-                if (u.Value)
-                    cost = Products.GetUpgradeCost(e, gameContext, u.Key) * C.PERIOD / 30;
+            //    if (u.Value)
+            //        cost = Products.GetUpgradeCost(e, gameContext, u.Key) * C.PERIOD / 30;
 
-                bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
-            }
+            //    bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
+            //}
 
             // channels
             foreach (var c in e.companyMarketingActivities.Channels)
