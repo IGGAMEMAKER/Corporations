@@ -22,7 +22,7 @@ public class FeatureUpgradeController : ButtonController
             var teamId = relay.ChosenTeamId;
             var taskId = relay.ChosenSlotId;
 
-            Debug.Log($"FeatureUpgradeController team={teamId} taskId={taskId}");
+            //Debug.Log($"FeatureUpgradeController team={teamId} taskId={taskId}");
 
             Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature));
             relay.ChooseWorkerInteractions();

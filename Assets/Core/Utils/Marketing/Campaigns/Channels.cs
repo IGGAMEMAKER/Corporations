@@ -39,6 +39,7 @@ namespace Assets.Core
         }
 
         // in months
+        public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel) => GetChannelRepaymentSpeed(company, gameContext, channel) < 10000;
         public static float GetChannelRepaymentSpeed(GameEntity company, GameContext gameContext, GameEntity channel)
         {
             var adCost = (float)GetMarketingActivityCost(company, gameContext, channel);

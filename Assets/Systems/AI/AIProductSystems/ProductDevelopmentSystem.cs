@@ -103,12 +103,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
             //.Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
+            .Where(c => Marketing.IsChannelProfitable(product, gameContext, c))
             .OrderBy(c => Marketing.GetChannelRepaymentSpeed(product, gameContext, c));
 
         foreach (var c in channels)
         {
-            var cost = Marketing.GetMarketingActivityCost(product, gameContext, c);
-
             TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
         }
     }
@@ -139,6 +138,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     bool CanMaintain(GameEntity product, long cost, ref List<string> str)
     {
+        if (cost == 0)
+            return true;
+
         var result = Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
             //Economy.IsCanMaintain(product, gameContext, cost);
 

@@ -10,8 +10,8 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
     {
         foreach (var e in Companies.GetIndependentAICompanies(gameContext))
         {
-            while (!Economy.IsHasCashOverflow(gameContext, e))
-                Economy.RaiseFastCash(gameContext, e);
+            //while (!Economy.IsHasCashOverflow(gameContext, e))
+            Economy.RaiseFastCash(gameContext, e);
         }
         //foreach (var e in Companies.GetIndependentAICompanies(gameContext))
         //    TakeInvestments(e);
