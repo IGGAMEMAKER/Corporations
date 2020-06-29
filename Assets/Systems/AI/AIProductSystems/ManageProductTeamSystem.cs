@@ -26,16 +26,16 @@ public partial class ManageProductTeamSystem : OnDateChange
         //}
     }
 
-    void HireRegularWorkers(GameEntity product)
-    {
-        var workerCost = C.SALARIES_PROGRAMMER;
+    //void HireRegularWorkers(GameEntity product)
+    //{
+    //    var workerCost = C.SALARIES_PROGRAMMER;
 
-        var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
-        var haveWorkers = Teams.GetTeamSize(product);
+    //    var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
+    //    var haveWorkers = Teams.GetTeamSize(product);
 
-        if (Economy.IsCanMaintain(product, gameContext, workerCost) && haveWorkers < needWorkers)
-            Teams.HireRegularWorker(product);
-    }
+    //    if (Economy.IsCanMaintain(product, gameContext, workerCost) && haveWorkers < needWorkers)
+    //        Teams.HireRegularWorker(product);
+    //}
 
     void HireManagers(GameEntity company)
     {
@@ -56,7 +56,6 @@ public partial class ManageProductTeamSystem : OnDateChange
 
     void ManageTeam(GameEntity product)
     {
-        //HireRegularWorkers(product);
         HireManagers(product);
     }
 }

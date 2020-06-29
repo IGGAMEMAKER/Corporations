@@ -11,7 +11,7 @@ namespace Assets.Core
         {
             T result = GenerateValue();
 
-            Debug.Log("Generate value: " + result);
+            //Debug.Log("Generate value: " + result);
             while (result.Equals(exception))
                 result = GenerateValue();
 

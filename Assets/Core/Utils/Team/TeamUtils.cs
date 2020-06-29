@@ -144,8 +144,9 @@ namespace Assets.Core
         static void DisableTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
         {
             var task = product.team.Teams[teamId].Tasks[taskId];
+            Debug.Log($"Disabling task from {product.company.Name} slotId={taskId} ");
 
-            if (task is TeamTaskChannelActivity)
+            if (task.IsMarketingTask())
             {
                 var activity = task as TeamTaskChannelActivity;
 
@@ -153,7 +154,7 @@ namespace Assets.Core
                 Marketing.DisableChannelActivity(product, gameContext, channel);
             }
 
-            if (task is TeamTaskFeatureUpgrade)
+            if (task.IsFeatureUpgrade())
             {
                 var activity = task as TeamTaskFeatureUpgrade;
 

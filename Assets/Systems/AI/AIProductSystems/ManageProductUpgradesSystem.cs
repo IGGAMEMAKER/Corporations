@@ -28,27 +28,29 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
 
         var balance = Economy.BalanceOf(product);
-        str.Add($"------------------ {product.company.Name} (#{product.creationIndex}) -------------------");
-        str.Add($"Balance: " + Format.Money(balance));
+
 
         var income = Economy.GetCompanyIncome(gameContext, product);
         var maintenance = Economy.GetCompanyMaintenance(gameContext, product);
-        str.Add("Income: " + Format.Money(income));
-        str.Add("Total Expenses: " + Format.Money(maintenance));
+
 
         var managerMaintenance = Economy.GetManagersCost(product, gameContext);
         var totalFunds = balance + income - managerMaintenance;
-        str.Add("Money available for upgrades: " + Format.Money(totalFunds));
+
+        str.Add($"------------------ {product.company.Name} (#{product.creationIndex}) -------------------");
+        str.Add($"Balance: " + Format.Money(balance) + " (Income: " + Visuals.Positive("+" + Format.Money(income)) + " Expenses: " + Visuals.Negative("-" + Format.Money(maintenance)) + ")");
+        //str.Add("Money available: " + Visuals.PositiveOrNegativeMinified(totalFunds));
 
         // features (free)
         // servers and support
         // marketing channels (growth)
 
-        ManageFeatures(product, ref str, ref totalFunds);
-        ManageSupport(product, ref str, ref totalFunds);
+        //ManageFeatures(product, ref str, ref totalFunds);
+        //ManageSupport(product, ref str, ref totalFunds);
         ManageChannels(product, ref str, ref totalFunds);
 
-        if (IsInPlayerSphereOfInterest(product))
+        bool isTestCompany = product.company.Name == "Money Exchange 0"; // IsInPlayerSphereOfInterest(product)
+        if (isTestCompany)
         {
             foreach (var s in str)
                 Debug.Log(s);
@@ -59,19 +61,20 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
     {
-        if (teamTask is TeamTaskFeatureUpgrade)
-            return IsUniversal(teamType) || teamType == TeamType.DevelopmentTeam;
+        if (IsUniversal(teamType))
+            return true;
 
-        if (teamTask is TeamTaskChannelActivity)
-            return IsUniversal(teamType) || teamType == TeamType.MarketingTeam;
+        if (teamTask.IsFeatureUpgrade())
+            return teamType == TeamType.DevelopmentTeam;
 
-        if (teamTask is TeamTaskSupportFeature)
-        {
-            if ((teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload)
-                return IsUniversal(teamType) || teamType == TeamType.DevOpsTeam;
+        if (teamTask.IsMarketingTask())
+            return teamType == TeamType.MarketingTeam;
 
-            return IsUniversal(teamType) || teamType == TeamType.SupportTeam;
-        }
+        if (teamTask.IsSupportTask())
+            return teamType == TeamType.SupportTeam;
+
+        if (teamTask.IsHighloadTask())
+            return teamType == TeamType.DevOpsTeam;
 
         return false;
     }
@@ -80,9 +83,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     bool CanMaintain(GameEntity product, long cost, ref List<string> str, ref long totalFunds)
     {
-        var result = Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
+        var result = Economy.IsCanMaintain(product, gameContext, cost); // Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
 
-        str.Add(product.company.Name + " Can Maintain " + Format.MinifyMoney(cost) + $" ? {result}");
+        //str.Add(product.company.Name + " Can Maintain " + Format.MinifyMoney(cost) + $" ? {result}");
 
         return result;
     }
@@ -92,10 +95,15 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         // TODO
         // CHECK TASK SELF COST!!!
 
-        str.Add($"Trying to add task {teamTask.ToString()} to {product.company.Name}");
+        str.Add($"-- Trying to add task {teamTask.GetTaskName()} to {product.company.Name} --");
 
-        if (!CanMaintain(product, Economy.GetTeamTaskCost(product, gameContext, teamTask), ref str, ref totalFunds))
+        var taskCost = Economy.GetTeamTaskCost(product, gameContext, teamTask);
+        if (!CanMaintain(product, taskCost, ref str, ref totalFunds))
+        {
+            str.Add("-- " + Visuals.Negative("This task is too expensive!") + $" Need {Format.MinifyMoney(taskCost)}  --");
+
             return;
+        }
 
         int teamId = 0;
         foreach (var t in product.team.Teams)
@@ -103,6 +111,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             if (SupportsTeamTask(t.TeamType, teamTask) && t.Tasks.Count < C.TASKS_PER_TEAM)
             {
                 Teams.AddTeamTask(product, gameContext, teamId, teamTask);
+                str.Add($"-- Added task to <b>existing</b> team[{teamId}]: " + teamTask.ToString() + " --");
 
                 return;
             }
@@ -110,15 +119,27 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             teamId++;
         }
 
+        str.Add($"<b>No team found for this task</b>. {product.team.Teams.Count} available");
+
 
         // need to hire new team
         // if has money
 
         var teamCost = Economy.GetSingleTeamCost();
-        if (CanMaintain(product, teamCost, ref str, ref totalFunds))
+
+        if (CanMaintain(product, teamCost + taskCost, ref str, ref totalFunds))
         {
             Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+            str.Add($"Added team to <b>{product.company.Name}</b>");
+
             Teams.AddTeamTask(product, gameContext, product.team.Teams.Count - 1, teamTask);
+            str.Add("Added team task after adding team to " + product.company.Name);
+
+            str.Add("-- " + Visuals.Positive("Task added successfully") + " --");
+        }
+        else
+        {
+            str.Add("-- " + Visuals.Negative("Not enough money to add task AND team!") + $" Need {Format.MinifyMoney(teamCost + taskCost)}  --");
         }
     }
 
@@ -157,6 +178,24 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
+
+    void ManageChannels(GameEntity product, ref List<string> str, ref long totalFunds)
+    {
+        var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false);
+
+        channels
+            .Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
+            .OrderByDescending(c => Marketing.GetChannelROI(product, gameContext, c));
+
+        foreach (var c in channels)
+        {
+            var cost = Marketing.GetMarketingActivityCost(product, gameContext, c);
+
+            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str, ref totalFunds);
+            //totalFunds = CheckChannelCosts(product, c, totalFunds, ref str);
+        }
+    }
+
     long CheckChannelCosts(GameEntity product, GameEntity channel, long balance, ref List<string> str)
     {
         var newBalance = balance;
@@ -180,22 +219,4 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         return newBalance;
     }
-
-    void ManageChannels(GameEntity product, ref List<string> str, ref long totalFunds)
-    {
-        var channels = Markets.GetAvailableMarketingChannels(gameContext, product, true);
-
-        channels
-            .Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
-            .OrderByDescending(c => Marketing.GetChannelROI(product, gameContext, c));
-
-        foreach (var c in channels)
-        {
-            var cost = Marketing.GetMarketingActivityCost(product, gameContext, c);
-
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str, ref totalFunds);
-            //totalFunds = CheckChannelCosts(product, c, totalFunds, ref str);
-        }
-    }
-
 }

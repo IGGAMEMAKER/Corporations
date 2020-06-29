@@ -25,19 +25,7 @@ namespace Assets.Core
 
             bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count * C.PERIOD / 30);
 
-            //var upgrades = e.productUpgrades.upgrades;
-
-            // upgrades
-            //foreach (var u in upgrades)
-            //{
-            //    long cost = 0;
-
-            //    if (u.Value)
-            //        cost = Products.GetUpgradeCost(e, gameContext, u.Key) * C.PERIOD / 30;
-
-            //    bonus.AppendAndHideIfZero(u.Key.ToString(), cost);
-            //}
-
+            #region team tasks
             // channels
             foreach (var c in e.companyMarketingActivities.Channels)
             {
@@ -51,6 +39,7 @@ namespace Assets.Core
             var supportFeatures = Products.GetAvailableSupportFeaturesForProduct(e);
             var activeUpgrades = e.supportUpgrades.Upgrades;
 
+            // support and servers
             foreach (var u in supportFeatures)
             {
                 var name = u.Name; // u.Key;
@@ -60,6 +49,7 @@ namespace Assets.Core
 
                 bonus.AppendAndHideIfZero(name, upgradeCost * amount);
             }
+            #endregion
 
             return bonus;
         }
