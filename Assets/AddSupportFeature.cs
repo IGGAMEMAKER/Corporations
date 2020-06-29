@@ -18,12 +18,12 @@ public class AddSupportFeature : ButtonController
         var taskId = relay.ChosenSlotId;
 
         // 
-        if (!product.supportUpgrades.Upgrades.ContainsKey(name))
-        {
-            product.supportUpgrades.Upgrades[name] = 0;
-        }
+        //if (!product.supportUpgrades.Upgrades.ContainsKey(name))
+        //{
+        //    product.supportUpgrades.Upgrades[name] = 0;
+        //}
 
-        product.supportUpgrades.Upgrades[name]++;
+        //product.supportUpgrades.Upgrades[name]++;
 
 
         Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskSupportFeature(supportFeature));

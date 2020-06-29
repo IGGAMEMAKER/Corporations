@@ -30,7 +30,6 @@ namespace Assets.Core
             foreach (var c in e.companyMarketingActivities.Channels)
             {
                 var channelId = c.Key;
-                //Debug.Log("Checking company channel " + channelId);
 
                 var cost = Marketing.GetMarketingActivityCost(e, gameContext, channelId);
                 bonus.AppendAndHideIfZero("Marketing in Forum" + channelId, cost);
@@ -56,13 +55,13 @@ namespace Assets.Core
 
         public static long GetTeamTaskCost(GameEntity product, GameContext gameContext, TeamTask teamTask)
         {
-            if (teamTask is TeamTaskFeatureUpgrade)
+            if (teamTask.IsFeatureUpgrade())
                 return 0;
 
-            if (teamTask is TeamTaskChannelActivity)
+            if (teamTask.IsMarketingTask())
                 return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
 
-            if (teamTask is TeamTaskSupportFeature)
+            if (teamTask.IsSupportTask() || teamTask.IsHighloadTask())
             {
                 return GetSupportUpgradeCost(product, (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus);
             }

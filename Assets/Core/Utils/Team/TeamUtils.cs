@@ -136,8 +136,33 @@ namespace Assets.Core
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log($"Error on taskId: {taskId} / {product.team.Teams[teamId].Tasks.Count}" + taskId);
+                    Debug.LogError($"Error on taskId: {taskId} / {product.team.Teams[teamId].Tasks.Count}" + taskId);
                 }
+            }
+
+            if (task.IsFeatureUpgrade())
+            {
+                Products.UpgradeFeature(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext);
+            }
+
+            if (task.IsMarketingTask())
+            {
+                var channel = Markets.GetMarketingChannel(gameContext, (task as TeamTaskChannelActivity).ChannelId);
+
+                if (!Marketing.IsCompanyActiveInChannel(product, channel))
+                    Marketing.EnableChannelActivity(product, gameContext, channel);
+            }
+
+            if (task.IsHighloadTask() || task.IsSupportTask())
+            {
+                var name = (task as TeamTaskSupportFeature).SupportFeature.Name;
+
+                if (!product.supportUpgrades.Upgrades.ContainsKey(name))
+                {
+                    product.supportUpgrades.Upgrades[name] = 0;
+                }
+
+                product.supportUpgrades.Upgrades[name]++;
             }
         }
 

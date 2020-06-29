@@ -109,9 +109,9 @@ namespace Assets.Core
         {
             var teams = product.team.Teams;
 
-            var marketingTeams       = GetTeamsChannelReach(product, TeamType.MarketingTeam);
-            var crossfunctionalTeams = GetTeamsChannelReach(product, TeamType.CrossfunctionalTeam);
-            var smallUniversalTeams  = GetTeamsChannelReach(product, TeamType.SmallCrossfunctionalTeam);
+            var marketingTeams          = GetTeamsChannelReach(product, TeamType.MarketingTeam);
+            var crossfunctionalTeams    = GetTeamsChannelReach(product, TeamType.CrossfunctionalTeam);
+            var smallUniversalTeams     = GetTeamsChannelReach(product, TeamType.SmallCrossfunctionalTeam);
             var bigCrossfunctionalTeams = GetTeamsChannelReach(product, TeamType.BigCrossfunctionalTeam);
 
             return marketingTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
@@ -147,7 +147,7 @@ namespace Assets.Core
             }
             else
             {
-                EnableChannelActivity(product, gameContext, channel);
+                //EnableChannelActivity(product, gameContext, channel);
 
                 var channelId = channel.marketingChannel.ChannelInfo.ID;
                 Teams.AddTeamTask(product, gameContext, teamId, taskId, new TeamTaskChannelActivity(channelId));

@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class AIIndependentCompaniesTakeInvestmentsSystem : OnQuarterChange
+public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
 {
     public AIIndependentCompaniesTakeInvestmentsSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {
         foreach (var e in Companies.GetIndependentAICompanies(gameContext))
-            TakeInvestments(e);
+        {
+            while (!Economy.IsHasCashOverflow(gameContext, e))
+                Economy.RaiseFastCash(gameContext, e);
+        }
+        //foreach (var e in Companies.GetIndependentAICompanies(gameContext))
+        //    TakeInvestments(e);
     }
 
     bool IsHasMoneyOverflow(GameEntity company)
