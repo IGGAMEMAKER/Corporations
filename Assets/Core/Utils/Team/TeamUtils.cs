@@ -140,12 +140,12 @@ namespace Assets.Core
                 }
             }
 
-            if (task.IsFeatureUpgrade())
+            if (task.IsFeatureUpgrade)
             {
                 Products.UpgradeFeature(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext);
             }
 
-            if (task.IsMarketingTask())
+            if (task.IsMarketingTask)
             {
                 var channel = Markets.GetMarketingChannel(gameContext, (task as TeamTaskChannelActivity).ChannelId);
 
@@ -153,7 +153,7 @@ namespace Assets.Core
                     Marketing.EnableChannelActivity(product, gameContext, channel);
             }
 
-            if (task.IsHighloadTask() || task.IsSupportTask())
+            if (task.IsHighloadTask|| task.IsSupportTask)
             {
                 var name = (task as TeamTaskSupportFeature).SupportFeature.Name;
 
@@ -171,7 +171,7 @@ namespace Assets.Core
             var task = product.team.Teams[teamId].Tasks[taskId];
             Debug.Log($"Disabling task from {product.company.Name} slotId={taskId} ");
 
-            if (task.IsMarketingTask())
+            if (task.IsMarketingTask)
             {
                 var activity = task as TeamTaskChannelActivity;
 
@@ -179,15 +179,16 @@ namespace Assets.Core
                 Marketing.DisableChannelActivity(product, gameContext, channel);
             }
 
-            if (task.IsFeatureUpgrade())
+            if (task.IsFeatureUpgrade)
             {
                 var activity = task as TeamTaskFeatureUpgrade;
 
+                
                 //var channel = Markets.GetMarketingChannels(gameContext).First(c => c.marketingChannel.ChannelInfo.ID == activity.ChannelId);
                 //Products.DisableChannelActivity(product, gameContext, channel);
             }
 
-            if (task is TeamTaskSupportFeature)
+            if (task.IsHighloadTask || task.IsSupportTask)
             {
                 var activity = task as TeamTaskSupportFeature;
 
@@ -206,13 +207,17 @@ namespace Assets.Core
             }
         }
 
+        //public static void RemoveTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
         public static void RemoveTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
         {
             Debug.Log($"Remove Task: {taskId} from team {teamId}");
 
-            DisableTask(product, gameContext, teamId, taskId);
+            if (product.team.Teams[teamId].Tasks.Count() > taskId)
+            {
+                DisableTask(product, gameContext, teamId, taskId);
 
-            product.team.Teams[teamId].Tasks.RemoveAt(taskId);
+                product.team.Teams[teamId].Tasks.RemoveAt(taskId);
+            }
         }
     }
 }

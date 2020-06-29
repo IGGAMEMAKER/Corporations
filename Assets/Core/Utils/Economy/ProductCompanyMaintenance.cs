@@ -55,13 +55,13 @@ namespace Assets.Core
 
         public static long GetTeamTaskCost(GameEntity product, GameContext gameContext, TeamTask teamTask)
         {
-            if (teamTask.IsFeatureUpgrade())
+            if (teamTask.IsFeatureUpgrade)
                 return 0;
 
-            if (teamTask.IsMarketingTask())
+            if (teamTask.IsMarketingTask)
                 return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
 
-            if (teamTask.IsSupportTask() || teamTask.IsHighloadTask())
+            if (teamTask.IsSupportTask || teamTask.IsHighloadTask)
             {
                 return GetSupportUpgradeCost(product, (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus);
             }

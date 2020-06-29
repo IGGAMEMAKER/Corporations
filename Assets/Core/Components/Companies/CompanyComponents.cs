@@ -214,20 +214,20 @@ public class TeamComponent : IComponent
 }
 
 public class TeamTask {
-    public bool IsFeatureUpgrade() { return this is TeamTaskFeatureUpgrade; }
-    public bool IsMarketingTask() { return this is TeamTaskChannelActivity; }
-    public bool IsSupportTask() { return this is TeamTaskSupportFeature && !((this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload); }
-    public bool IsHighloadTask() { return this is TeamTaskSupportFeature && (this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload; }
+    public bool IsFeatureUpgrade => this is TeamTaskFeatureUpgrade;
+    public bool IsMarketingTask => this is TeamTaskChannelActivity;
+    public bool IsSupportTask => this is TeamTaskSupportFeature && !((this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload);
+    public bool IsHighloadTask => this is TeamTaskSupportFeature && (this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload;
 
     public string GetTaskName()
     {
-        if (IsFeatureUpgrade())
+        if (IsFeatureUpgrade)
             return "Task: " + (this as TeamTaskFeatureUpgrade).NewProductFeature.Name;
 
-        if (IsMarketingTask())
+        if (IsMarketingTask)
             return "Task: Forum" + (this as TeamTaskChannelActivity).ChannelId;
 
-        if (IsSupportTask())
+        if (IsSupportTask)
             return "Task: " + (this as TeamTaskSupportFeature).SupportFeature.Name;
 
         return this.ToString();

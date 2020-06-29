@@ -17,6 +17,8 @@ public class RenderProductStatsInCompanyView : View
     public Text Brand;
     public GameObject BrandIcon;
 
+    public Text Teams;
+
     public void Render(GameEntity company)
     {
         Clients.text = Format.Minify(Marketing.GetClients(company));
@@ -59,5 +61,17 @@ public class RenderProductStatsInCompanyView : View
         Draw(Brand, false);
 
         // workers
+
+        var str = "";
+        foreach (var t in company.team.Teams)
+        {
+            str += "* " + t.Name + "\n";
+            for (var taskId = 0; taskId < t.Tasks.Count; taskId++)
+            {
+                var task = t.Tasks[taskId];
+                str += "  " + task.GetTaskName() + "\n";
+            }
+        }
+        Teams.text = str;
     }
 }

@@ -16,6 +16,7 @@ namespace Assets.Core
         }
 
         // TODO move to raise investments
+        public static bool IsCanTakeFastCash(GameContext gameContext, GameEntity company) => !IsHasCashOverflow(gameContext, company);
         public static bool IsHasCashOverflow(GameContext gameContext, GameEntity company)
         {
             var valuation = GetCompanyCost(gameContext, company);

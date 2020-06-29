@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Core
@@ -14,8 +15,8 @@ namespace Assets.Core
             PreparePlayerCompany(niche, startCapital, text, gameContext);
             PrepareMarket(niche, startCapital, gameContext);
 
-
             ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, NicheType);
+            //ScreenUtils.Navigate(gameContext, ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, NicheType);
 
             LoadGameScene();
         }
@@ -53,6 +54,20 @@ namespace Assets.Core
 
             Companies.PlayAs(company, gameContext);
             Companies.AutoFillShareholders(gameContext, company, true);
+
+
+            ///
+            return;
+            int productId = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType.ECom_Exchanging, company);
+            var Flagship = Companies.Get(gameContext, productId);
+
+            Debug.Log("AUTOSTARTING TEST CAMPAIGN: " + Flagship?.company.Name);
+
+            Marketing.AddClients(Flagship, 500);
+            Products.UpgradeProductLevel(Flagship, gameContext);
+
+            Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
+            Marketing.ReleaseApp(gameContext, Flagship);
         }
 
         internal static void PrepareMarket(GameEntity niche, long startCapital, GameContext gameContext)

@@ -8,13 +8,12 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var e in Companies.GetIndependentAICompanies(gameContext))
-        {
-            //while (!Economy.IsHasCashOverflow(gameContext, e))
-            Economy.RaiseFastCash(gameContext, e);
-        }
         //foreach (var e in Companies.GetIndependentAICompanies(gameContext))
-        //    TakeInvestments(e);
+        //{
+        //    //while (!Economy.IsHasCashOverflow(gameContext, e))
+        //}
+        foreach (var e in Companies.GetIndependentAICompanies(gameContext))
+            TakeInvestments(e);
     }
 
     bool IsHasMoneyOverflow(GameEntity company)
