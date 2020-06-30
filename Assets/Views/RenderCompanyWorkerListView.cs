@@ -7,25 +7,13 @@ public class RenderCompanyWorkerListView : ListView
 {
     GameEntity company;
 
-    FlagshipRelayInCompanyView _flagshipRelay;
-    FlagshipRelayInCompanyView flagshipRelay
-    {
-        get
-        {
-            if (_flagshipRelay == null)
-            {
-                _flagshipRelay = FindObjectOfType<FlagshipRelayInCompanyView>();
-            }
-
-            return _flagshipRelay;
-        }
-    }
+    //FlagshipRelayInCompanyView flagshipRelay => FindObjectOfType<>
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var role = (WorkerRole)(object)entity;
 
-        bool highlightRole = flagshipRelay.IsRoleChosen(role);
+        bool highlightRole = true; // flagshipRelay.IsRoleChosen(role);
 
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
     }
@@ -56,7 +44,7 @@ public class RenderCompanyWorkerListView : ListView
         {
             var c = child.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>();
 
-            bool IsRoleActive = flagshipRelay.IsRoleChosen(c.role);
+            bool IsRoleActive = true; // flagshipRelay.IsRoleChosen(c.role);
 
             c.HighlightWorkerRole(IsRoleActive);
         }

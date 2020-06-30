@@ -12,10 +12,6 @@ public class FlagshipRelayInCompanyView : View
     public GameObject ManagersTabs;
     public GameObject NewTeamTabs;
 
-    // selected worker
-    bool roleWasSelected = false;
-    WorkerRole SelectedWorkerRole;
-
     public GameObject RemoveTaskButton;
     public ChosenTeamTaskView ChosenTaskLabel;
 
@@ -106,68 +102,5 @@ public class FlagshipRelayInCompanyView : View
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);
-    }
-
-
-    public bool IsRoleChosen(WorkerRole workerRole)
-    {
-        return roleWasSelected && SelectedWorkerRole == workerRole;
-    }
-
-    public void ToggleRole(WorkerRole role)
-    {
-        if (role == SelectedWorkerRole)
-        {
-            // toggling role
-            roleWasSelected = !roleWasSelected;
-        }
-        else
-        {
-            // click on different role
-            roleWasSelected = true;
-            SelectedWorkerRole = role;
-
-            // TODO unnecessary?
-            //var up = CompanyUpgrades.GetComponent<ProductUpgradeButtons>();
-            //up.WorkerRole = role;
-            //up.ViewRender();
-        }
-
-        // enabled
-        if (roleWasSelected)
-        {
-            ChooseWorkerInteractions();
-            ScheduleUtils.PauseGame(Q);
-        }
-        else
-        {
-            ChooseDevTab();
-            //ScheduleUtils.ResumeGame(Q);
-        }
-
-        MarkGameEventsAsSeen(role);
-
-        //EnlargeOnDemand.StartAnimation();
-    }
-
-
-    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
-    {
-        var events = eventContainer.gameEventContainer.Events;
-
-        events.RemoveAll(e => removableEvents.Contains(e.eventType));
-        eventContainer.ReplaceGameEventContainer(events);
-    }
-
-    void MarkGameEventsAsSeen(WorkerRole role)
-    {
-        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
-
-        var events = NotificationUtils.GetGameEventContainerEntity(Q);
-
-        if (role == WorkerRole.MarketingLead)
-        {
-            ClearEvents(events, marketingEvents);
-        }
     }
 }

@@ -71,7 +71,7 @@ public class ShowWorkerUpgrades : View
                 break;
         }
 
-        GetComponent<Blinker>().enabled = isNecessary && flagshipRelay.IsRoleChosen(worker.worker.WorkerRole);
+        GetComponent<Blinker>().enabled = isNecessary && true; // flagshipRelay.IsRoleChosen(worker.worker.WorkerRole);
     }
 
     bool HasNewCEOButtons()

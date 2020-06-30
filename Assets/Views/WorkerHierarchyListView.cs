@@ -7,7 +7,7 @@ public class WorkerHierarchyListView : ListView
 {
     GameEntity company;
 
-    FlagshipRelayInCompanyView flagshipRelay => Find<FlagshipRelayInCompanyView>();
+    ManagerTabRelay managerTabRelay => FindObjectOfType<ManagerTabRelay>();
 
     public Transform CEOTransform;
 
@@ -17,7 +17,7 @@ public class WorkerHierarchyListView : ListView
     {
         var role = (WorkerRole)(object)entity;
 
-        bool highlightRole = true; // flagshipRelay.IsRoleChosen(role);
+        bool highlightRole = managerTabRelay.IsRoleChosen(role);
 
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
         //// rotate lines to the center
