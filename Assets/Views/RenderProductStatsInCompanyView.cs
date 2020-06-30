@@ -27,10 +27,14 @@ public class RenderProductStatsInCompanyView : View
         bool isPlayerFlagship = company.company.Id == Flagship.company.Id;
         bool needToShowMarketShare = company.isRelease;
 
-        MarketShare.GetComponent<Text>().text = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q).ToString("0.0") + "%";
+        var share = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
+        MarketShare.GetComponent<Text>().text = share.ToString("0") + "%";
+        MarketShare.GetComponent<Text>().color = Visuals.GetGradientColor(0, 100, share);
 
         Draw(MarketShare, true);
         Draw(MarketShareLabel, false);
+
+        ResizeFirmLogo(company);
 
         // product level
         var levelStatus = Products.GetConceptStatus(company, Q);
@@ -73,5 +77,24 @@ public class RenderProductStatsInCompanyView : View
             }
         }
         Teams.text = str;
+    }
+
+    void ResizeFirmLogo(GameEntity company)
+    {
+        var scale = 1f;
+
+        //var company = Flagship;
+
+        var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q);
+
+        // share = 0
+        var minSize = 0.85f;
+
+        // share = 100
+        var maxSize = 2.5f;
+
+        scale = minSize + (maxSize - minSize) * marketShare / 100;
+
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 }
