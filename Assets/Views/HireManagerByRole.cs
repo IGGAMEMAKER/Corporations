@@ -12,7 +12,8 @@ public class HireManagerByRole : CompanyUpgradeButton
     {
         var company = Flagship;
 
-        Teams.HireManager(company, Q, WorkerRole);
+        //Teams.HireManager(company, Q, WorkerRole);
+        FindObjectOfType<ManagerTabRelay>().HireWorker(WorkerRole);
 
         //renderCompanyRoleOrHireWorkerWithThatRole.Render();
     }

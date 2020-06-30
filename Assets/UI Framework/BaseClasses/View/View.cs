@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,14 @@ public abstract class View : BaseClass
     {
         if (go.activeSelf != condition)
             go.SetActive(condition);
+    }
+
+    public void ShowOnly(GameObject obj, List<GameObject> objects)
+    {
+        foreach (var o in objects)
+        {
+            Draw(o, o.GetInstanceID() == obj.GetInstanceID());
+        }
     }
 
     public void DrawCanvasGroup(GameObject go, bool condition)
