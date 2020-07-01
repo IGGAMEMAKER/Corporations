@@ -20,8 +20,6 @@ public class WorkerHierarchyListView : ListView
         bool highlightRole = managerTabRelay.IsRoleChosen(role);
 
         t.GetComponent<RenderCompanyRoleOrHireWorkerWithThatRole>().SetEntity(company, role, highlightRole);
-        //// rotate lines to the center
-        //t.GetComponent<RenderCommunicationEffeciencyLine>().SetEntity(company, role, CEOTransform);
     }
 
     public override void ViewRender()

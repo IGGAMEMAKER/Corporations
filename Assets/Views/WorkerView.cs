@@ -7,7 +7,6 @@
         var link = GetComponent<LinkToHuman>();
 
         link.SetHumanId(humanId);
-        //link.enabled = true;
 
         HumanPreview.SetEntity(humanId);
     }

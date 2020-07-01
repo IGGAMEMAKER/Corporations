@@ -10,9 +10,10 @@ public class CandidatesForRoleListView : ListView
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        var id = (int)(object)entity;
+        var humanId = (int)(object)entity;
 
-        t.GetComponent<WorkerView>().SetEntity(id, WorkerRole);
+        t.GetComponent<WorkerView>().SetEntity(humanId, WorkerRole);
+        t.GetComponent<EmployeePreview>().SetEntity(humanId);
     }
 
     public override void ViewRender()
@@ -23,7 +24,7 @@ public class CandidatesForRoleListView : ListView
 
         var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
 
-        Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
+        //Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
 
         var managers = new List<GameEntity>();
         var managerIds = new List<int>();

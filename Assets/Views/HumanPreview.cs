@@ -47,7 +47,7 @@ public class HumanPreview : View
         RenderCompanyData(drawAsEmployee);
     }
 
-    GameEntity GetCompany() => CurrentScreen == ScreenMode.HoldingScreen ? Companies.GetFlagship(Q, MyCompany) : SelectedCompany;
+    GameEntity GetCompany() => Flagship; // CurrentScreen == ScreenMode.HoldingScreen ? Flagship : (SelectedCompany ?? Flagship);
 
     private void RenderCompanyData(bool drawAsEmployee)
     {

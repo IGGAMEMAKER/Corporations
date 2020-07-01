@@ -18,6 +18,7 @@ public class ManagerTabRelay : View
     // selected worker
     bool roleWasSelected = false;
     WorkerRole SelectedWorkerRole;
+    int SelectedWorker;
 
     public bool IsRoleChosen(WorkerRole workerRole)
     {
@@ -36,11 +37,6 @@ public class ManagerTabRelay : View
             // click on different role
             roleWasSelected = true;
             SelectedWorkerRole = role;
-
-            // TODO unnecessary?
-            //var up = CompanyUpgrades.GetComponent<ProductUpgradeButtons>();
-            //up.WorkerRole = role;
-            //up.ViewRender();
         }
 
         // enabled
@@ -48,8 +44,8 @@ public class ManagerTabRelay : View
         {
             FindObjectOfType<WorkerHierarchyListView>().ViewRender();
             OpenWorkerTab();
-            ScheduleUtils.PauseGame(Q);
 
+            ScheduleUtils.PauseGame(Q);
         }
         else
         {
@@ -57,27 +53,6 @@ public class ManagerTabRelay : View
         }
 
         MarkGameEventsAsSeen(role);
-    }
-
-
-    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
-    {
-        var events = eventContainer.gameEventContainer.Events;
-
-        events.RemoveAll(e => removableEvents.Contains(e.eventType));
-        eventContainer.ReplaceGameEventContainer(events);
-    }
-
-    void MarkGameEventsAsSeen(WorkerRole role)
-    {
-        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
-
-        var events = NotificationUtils.GetGameEventContainerEntity(Q);
-
-        if (role == WorkerRole.MarketingLead)
-        {
-            ClearEvents(events, marketingEvents);
-        }
     }
 
     public void HireWorker(WorkerRole workerRole)
@@ -88,6 +63,11 @@ public class ManagerTabRelay : View
         var candidates = FindObjectOfType<CandidatesForRoleListView>();
         candidates.WorkerRole = workerRole;
         candidates.ViewRender();
+    }
+
+    public void OpenHireWorkerTab()
+    {
+        HireWorker(SelectedWorkerRole);
     }
 
     // Open managerS tab
@@ -108,5 +88,31 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         OpenManagerTab();
+    }
+
+
+
+
+
+
+
+    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
+    {
+        var events = eventContainer.gameEventContainer.Events;
+
+        events.RemoveAll(e => removableEvents.Contains(e.eventType));
+        eventContainer.ReplaceGameEventContainer(events);
+    }
+
+    void MarkGameEventsAsSeen(WorkerRole role)
+    {
+        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
+
+        var events = NotificationUtils.GetGameEventContainerEntity(Q);
+
+        if (role == WorkerRole.MarketingLead)
+        {
+            ClearEvents(events, marketingEvents);
+        }
     }
 }
