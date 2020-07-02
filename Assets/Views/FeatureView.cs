@@ -31,12 +31,13 @@ public class FeatureView : View
 
         Name.text = featureName;
         Benefits.text = GetFeatureBenefits(upgraded, product);
-
+        Hide(Benefits);
 
         Draw(Rating, upgraded);
 
-        Rating.text = rating.ToString("0.0");
-        Rating.color = Visuals.GetGradientColor(0, 10f, rating);
+        Rating.text = GetFeatureBenefits(upgraded, product);
+        //Rating.text = rating.ToString("0.0");
+        Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_WHITE);
 
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
         bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
@@ -51,7 +52,7 @@ public class FeatureView : View
             ProgressBar.SetDescription("Upgrading feature");
             ProgressBar.SetValue(CurrentIntDate - cooldown.StartDate, cooldown.EndDate - cooldown.StartDate);
 
-            Draw(Rating, false);
+            //Draw(Rating, false);
         }
         else
         {
@@ -63,14 +64,16 @@ public class FeatureView : View
         ProgressImage.fillAmount = 0f;
     }
 
+    float GetFeatureBenefit(bool isUpgraded, GameEntity product) => isUpgraded ?
+            Products.GetFeatureActualBenefit(product, NewProductFeature)
+            :
+            Products.GetFeatureMaxBenefit(product, NewProductFeature);
+
     public string GetFeatureBenefits(bool isUpgraded, GameEntity product)
     {
         var b = NewProductFeature.FeatureBonus;
 
-        var benefit = isUpgraded ?
-            Products.GetFeatureActualBenefit(product, NewProductFeature)
-            :
-            Products.GetFeatureMaxBenefit(product, NewProductFeature);
+        var benefit = GetFeatureBenefit(isUpgraded, product);
 
         var benefitFormatted = benefit.ToString("0.0");
         if (b is FeatureBonusAcquisition)
