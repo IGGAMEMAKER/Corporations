@@ -82,6 +82,9 @@ namespace Assets.Core
         // TODO move to raise investments
         public static void RaiseFastCash(GameContext gameContext, GameEntity company)
         {
+            if (IsHasCashOverflow(gameContext, company))
+                return;
+
             var valuation = GetCompanyCost(gameContext, company);
             var offer = GetFastCashAmount(gameContext, company);
 

@@ -8,6 +8,8 @@ public class ProductUpgradeButtons : RoleRelatedButtons
     public ReleaseApp ReleaseApp;
     public GameObject RaiseInvestments;
 
+    public GameObject CompetitorToProductToggler;
+
     void Render()
     {
         var company = Flagship;
@@ -25,12 +27,11 @@ public class ProductUpgradeButtons : RoleRelatedButtons
     void RenderInvestmentsButton()
     {
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
-        var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
-        var canRaiseInvestments = playerCanExploreAdvancedTabs || bankruptcyLooming;
-        Draw(RaiseInvestments, canRaiseInvestments);
+        Draw(RaiseInvestments, hasReleasedProducts || bankruptcyLooming);
+        Draw(CompetitorToProductToggler, hasReleasedProducts);
     }
 
     public override void ViewRender()

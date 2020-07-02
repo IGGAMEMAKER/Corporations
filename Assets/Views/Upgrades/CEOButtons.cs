@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Core;
+using UnityEngine;
 
 public class CEOButtons : RoleRelatedButtons
 {
@@ -14,7 +15,9 @@ public class CEOButtons : RoleRelatedButtons
         {
             var role = manager.GetComponent<HireManagerByRole>().WorkerRole;
 
-            Draw(manager, CanHireManager(role, company) && isCEO);
+            bool thereAreManagersWithSuchRole = Humans.GetCandidatesForRole(Flagship, Q, role).Count > 0;
+
+            Draw(manager, thereAreManagersWithSuchRole && CanHireManager(role, company) && isCEO);
         }
     }
 }

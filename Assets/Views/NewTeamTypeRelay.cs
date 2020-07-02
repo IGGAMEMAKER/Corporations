@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewTeamTypeRelay : MonoBehaviour
+public class NewTeamTypeRelay : View
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject UniversalTeam;
 
-    // Update is called once per frame
-    void Update()
+    public GameObject DevelopmentTeam;
+    public GameObject MarketingTeam;
+    public GameObject SupportTeam;
+    public GameObject ServersTeam;
+
+    public void SetTeamTypes()
     {
-        
+        bool canExploreSpecialisedTeams = Flagship.team.Teams.Count > 2;
+
+        Draw(UniversalTeam, true);
+
+        Draw(DevelopmentTeam, canExploreSpecialisedTeams);
+        Draw(MarketingTeam, canExploreSpecialisedTeams);
+        Draw(SupportTeam, canExploreSpecialisedTeams);
+        Draw(ServersTeam, canExploreSpecialisedTeams);
     }
 }

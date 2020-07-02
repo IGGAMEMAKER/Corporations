@@ -17,6 +17,8 @@ public class RenderProductStatsInCompanyView : View
     public Text Brand;
     public GameObject BrandIcon;
 
+    public Text Growth;
+
     public Text Teams;
 
     public void Render(GameEntity company)
@@ -77,6 +79,11 @@ public class RenderProductStatsInCompanyView : View
             }
         }
         Teams.text = str;
+
+        var growth = Marketing.GetAudienceGrowth(company, Q);
+
+        Growth.text = Format.SignOf(growth) + Format.Minify(growth) + " weekly";
+        Growth.color = Visuals.GetColorPositiveOrNegative(growth);
     }
 
     void ResizeFirmLogo(GameEntity company)

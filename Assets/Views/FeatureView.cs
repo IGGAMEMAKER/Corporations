@@ -74,13 +74,16 @@ public class FeatureView : View
 
         var benefitFormatted = benefit.ToString("0.0");
         if (b is FeatureBonusAcquisition)
-            return $"+{benefitFormatted}% user growth";
+            return $"+{benefitFormatted}%";
+            //return $"+{benefitFormatted}% user growth";
 
         if (b is FeatureBonusMonetisation)
-            return $"+{benefitFormatted}% income";
+            return $"+{benefitFormatted}%";
+            //return $"+{benefitFormatted}% income";
 
         if (b is FeatureBonusRetention)
-            return $"-{benefitFormatted}% client loss";
+            return $"-{benefitFormatted}%";
+            //return $"-{benefitFormatted}% client loss";
 
         return b.GetType().ToString();
     }

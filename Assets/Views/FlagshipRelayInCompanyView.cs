@@ -15,6 +15,8 @@ public class FlagshipRelayInCompanyView : View
     public GameObject RemoveTaskButton;
     public ChosenTeamTaskView ChosenTaskLabel;
 
+    public NewTeamTypeRelay NewTeamTypeRelay;
+
     // buttons
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
@@ -41,6 +43,7 @@ public class FlagshipRelayInCompanyView : View
     public void ChooseNewTeamTab()
     {
         Show(NewTeamTabs);
+        NewTeamTypeRelay.SetTeamTypes();
 
         Hide(DevelopmentTab);
         Hide(InvestmentTabs);

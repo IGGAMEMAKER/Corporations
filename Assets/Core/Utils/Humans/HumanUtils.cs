@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Core
@@ -77,6 +78,25 @@ namespace Assets.Core
         public static void LeaveCompany(GameEntity human)
         {
             human.worker.companyId = -1;
+        }
+
+        public static List<int> GetCandidatesForRole(GameEntity company, GameContext gameContext, WorkerRole WorkerRole)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, false);
+
+            //Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
+
+            var managerIds = new List<int>();
+
+            managerIds.AddRange(company.employee.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key));
+
+            foreach (var c in competitors)
+            {
+                var workers = c.team.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key);
+                managerIds.AddRange(workers);
+            }
+
+            return managerIds;
         }
     }
 }

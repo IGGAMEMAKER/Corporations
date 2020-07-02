@@ -15,7 +15,8 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
     void DetachListeners()
     {
-        company.RemoveMarketingListener(this);
+        if (company != null)
+            company.RemoveMarketingListener(this);
     }
 
     void OnDestroy()

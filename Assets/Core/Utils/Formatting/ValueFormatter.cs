@@ -34,6 +34,11 @@ namespace Assets.Core
             return value > 0 ? $"+{value}" : value.ToString();
         }
 
+        public static string SignOf(long value)
+        {
+            return (value > 0 ? "+" : "");
+        }
+
         public static string Money<T>(T value)
         {
             return $"${Minify(value)}";

@@ -52,6 +52,7 @@ public class HumanPreview : View
     private void RenderCompanyData(bool drawAsEmployee)
     {
         var company = GetCompany();
+        drawAsEmployee = true;
 
         if (Loyalty != null)
         {

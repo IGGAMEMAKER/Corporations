@@ -1,10 +1,9 @@
-﻿using Assets.Core;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ProductFeaturesListView : ListView
+public abstract class ProductFeaturesListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -15,9 +14,9 @@ public class ProductFeaturesListView : ListView
     {
         base.ViewRender();
 
-        var product = Flagship;
+        var product = company;
 
-        var features = Products.GetAvailableFeaturesForProduct(product);
+        var features = GetFeatures(); // Products.GetAvailableFeaturesForProduct(product);
 
         var amountOfUpgradedFeatures = product.features.Upgrades.Count;
 
@@ -25,6 +24,9 @@ public class ProductFeaturesListView : ListView
 
         SetItems(features.Take(necessaryAmountOfFeatures));
     }
+
+    public abstract NewProductFeature[] GetFeatures();
+    public GameEntity company => Flagship;
 
     int GetNecessaryAmountOfItems(int openedAlready)
     {

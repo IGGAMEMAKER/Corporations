@@ -31,26 +31,13 @@ public class CompanyTaskTypeRelay : View
     {
         SetMode(MarketingTasks, ChooseMarketingTasksButton);
 
-        //ShowOnly(MarketingTasks, TaskContainers);
-        //ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
-        
-        //Show(MarketingTasks);
-
-        //Hide(FeatureTasks);
-        //Hide(SupportTasks);
-        //Hide(ServerTasks);
-
         Hide(ChooseTaskTypeLabel);
     }
 
     public void ChooseFeatureTasks()
     {
         SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
-        //Show(FeatureTasks);
-
-        //Hide(MarketingTasks);
-        //Hide(SupportTasks);
-        //Hide(ServerTasks);
+        HideRelayButtons();
 
         Hide(ChooseTaskTypeLabel);
     }
@@ -58,22 +45,12 @@ public class CompanyTaskTypeRelay : View
     public void ChooseServersideTasks()
     {
         SetMode(ServerTasks, ChooseServerTasksButton);
-        //Show(ServerTasks);
-
-        //Hide(MarketingTasks);
-        //Hide(FeatureTasks);
-        //Hide(SupportTasks);
 
         Hide(ChooseTaskTypeLabel);
     }
     public void ChooseSupportTasks()
     {
         SetMode(SupportTasks, ChooseSupportTasksButton);
-        //Show(SupportTasks);
-
-        //Hide(MarketingTasks);
-        //Hide(FeatureTasks);
-        //Hide(ServerTasks);
 
         Hide(ChooseTaskTypeLabel);
     }

@@ -15,8 +15,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             if (product.company.Id != playerFlagshipId)
             {
-                Economy.RaiseFastCash(gameContext, product);
-
                 ManageProduct(product);
             }
         }
@@ -42,6 +40,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void ManageProduct(GameEntity product)
     {
         List<string> str = new List<string>();
+
+        Economy.RaiseFastCash(gameContext, product);
 
         if (Companies.IsReleaseableApp(product, gameContext))
         {
