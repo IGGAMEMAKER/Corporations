@@ -80,7 +80,9 @@ public class RenderProductStatsInCompanyView : View
         }
         Teams.text = str;
 
-        var growth = Marketing.GetAudienceGrowth(company, Q);
+        var loss = Marketing.GetChurnClients(Q, company.company.Id);
+        var growth = Marketing.GetAudienceGrowth(company, Q) - loss;
+        
 
         Growth.text = Format.SignOf(growth) + Format.Minify(growth) + " weekly";
         Growth.color = Visuals.GetColorPositiveOrNegative(growth);

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AddTaskForTheTeamController : ButtonController
+﻿public class AddTaskForTheTeamController : ButtonController
 {
     int TeamId;
 
@@ -22,5 +18,24 @@ public class AddTaskForTheTeamController : ButtonController
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
         CompanyTaskTypeRelay.ShowRelayButtons();
+
+        switch (Flagship.team.Teams[TeamId].TeamType)
+        {
+            case TeamType.DevelopmentTeam:
+                CompanyTaskTypeRelay.ChooseFeatureTasks();
+                break;
+
+            case TeamType.MarketingTeam:
+                CompanyTaskTypeRelay.ChooseMarketingTasks();
+                break;
+
+            case TeamType.SupportTeam:
+                CompanyTaskTypeRelay.ChooseSupportTasks();
+                break;
+
+            case TeamType.DevOpsTeam:
+                CompanyTaskTypeRelay.ChooseServersideTasks();
+                break;
+        }
     }
 }

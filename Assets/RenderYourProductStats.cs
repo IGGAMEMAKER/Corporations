@@ -15,10 +15,9 @@ public class RenderYourProductStats : View
         base.ViewRender();
 
         var product = Flagship;
+
         ChurnLabel.text = $"<b>Client loss (churn)</b>\n{Visuals.Positive("-" + Products.GetChurnFeaturesBenefit(product).ToString("0.0"))}%";
-
         GrowthLabel.text = $"<b>Audience growth</b>\n{Visuals.Positive("+" + Products.GetAcquisitionFeaturesBenefit(product).ToString("0.0"))}%";
-
         PaymentLabel.text = $"<b>Payments</b>\n{Visuals.Positive("+" + Products.GetMonetisationFeaturesBenefit(product).ToString("0.0"))}%";
     }
 }

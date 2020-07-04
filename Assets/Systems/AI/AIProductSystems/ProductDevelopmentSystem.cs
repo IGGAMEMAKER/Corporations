@@ -41,7 +41,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         List<string> str = new List<string>();
 
-        Economy.RaiseFastCash(gameContext, product);
+        //Economy.RaiseFastCash(gameContext, product);
 
         if (Companies.IsReleaseableApp(product, gameContext))
         {

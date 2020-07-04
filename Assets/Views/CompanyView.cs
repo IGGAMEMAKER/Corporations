@@ -51,7 +51,7 @@ public class CompanyView : View
             return;
 
         CompanyName.text = company.company.Name;
-        CompanyName.GetComponent<LinkToProjectView>().CompanyId = company.company.Id;
+        GetComponentInChildren<LinkToProjectView>().CompanyId = company.company.Id;
 
         if (company.hasProduct)
             RenderProductCompany();
