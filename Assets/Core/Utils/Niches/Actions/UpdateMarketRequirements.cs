@@ -76,7 +76,7 @@ namespace Assets.Core
                     var disloyal = Marketing.GetClients(p) / 15;
 
                     Marketing.LoseClients(p, disloyal);
-                    Marketing.AddClients(product, disloyal);
+                    //Marketing.AddClients(product, disloyal);
 
                     sum += disloyal;
                 }

@@ -58,16 +58,16 @@ namespace Assets.Core
 
             ///
             return;
-            int productId = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType.ECom_Exchanging, company);
-            var Flagship = Companies.Get(gameContext, productId);
+            //int productId = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType.ECom_Exchanging, company);
+            //var Flagship = Companies.Get(gameContext, productId);
 
-            Debug.Log("AUTOSTARTING TEST CAMPAIGN: " + Flagship?.company.Name);
+            //Debug.Log("AUTOSTARTING TEST CAMPAIGN: " + Flagship?.company.Name);
 
-            Marketing.AddClients(Flagship, 500);
-            Products.UpgradeProductLevel(Flagship, gameContext);
+            //Marketing.AddClients(Flagship, 500);
+            //Products.UpgradeProductLevel(Flagship, gameContext);
 
-            Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
-            Marketing.ReleaseApp(gameContext, Flagship);
+            //Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
+            //Marketing.ReleaseApp(gameContext, Flagship);
         }
 
         internal static void PrepareMarket(GameEntity niche, long startCapital, GameContext gameContext)
@@ -81,7 +81,7 @@ namespace Assets.Core
                 //var newLevel = UnityEngine.Random.Range(4, 8);
                 var newLevel = UnityEngine.Random.Range(1, 2);
 
-                Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
+                //Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
                 Marketing.AddBrandPower(c, newLevel * 3);
                 Products.ForceUpgrade(c, gameContext, newLevel);
             }

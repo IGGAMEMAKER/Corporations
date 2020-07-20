@@ -28,7 +28,7 @@ namespace Assets.Core
             // clients
             var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
-            company.AddMarketing((long)baseClients);
+            company.AddMarketing((long)baseClients, new Dictionary<int, long>());
 
             company.AddCompanyMarketingActivities(new Dictionary<int, long>());
             company.AddSourceOfClients(new Dictionary<int, long>());
@@ -72,6 +72,10 @@ namespace Assets.Core
             e.AddInvestmentProposals(new List<InvestmentProposal>());
             e.AddInvestmentRounds(InvestmentRound.Preseed);
             e.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
+
+
+            var audiences = Marketing.GetAudienceInfos();
+            e.AddProductTargetAudience(Random.Range(0, audiences.Count));
 
 
             e.AddBranding(0);

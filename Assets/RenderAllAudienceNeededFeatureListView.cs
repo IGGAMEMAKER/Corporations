@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderAudiencesListView : ListView
+public class RenderAllAudienceNeededFeatureListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<SegmentPreview>().SetEntity(entity as AudienceInfo, index);
+        t.GetComponent<RenderAudienceNeededFeatureListView>().SetAudience(entity as AudienceInfo);
     }
 
     public override void ViewRender()
@@ -17,10 +17,5 @@ public class RenderAudiencesListView : ListView
         var audiences = Marketing.GetAudienceInfos();
 
         SetItems(audiences);
-    }
-
-    private void OnEnable()
-    {
-        ViewRender();
     }
 }

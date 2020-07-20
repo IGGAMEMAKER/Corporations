@@ -14,16 +14,16 @@ namespace Assets.Core
 
             var powers = companies.Sum(c => c.branding.BrandPower + 1) - e.branding.BrandPower;
 
-            foreach (var c in companies)
-            {
-                if (c == e)
-                    continue;
+            //foreach (var c in companies)
+            //{
+            //    if (c == e)
+            //        continue;
 
-                var part = (long)((1 + c.branding.BrandPower) * users / powers);
-                Marketing.AddClients(c, part);
-            }
+            //    var part = (long)((1 + c.branding.BrandPower) * users / powers);
+            //    Marketing.AddClients(c, part);
+            //}
 
-            Marketing.AddClients(e, -users);
+            //Marketing.AddClients(e, -users);
         }
     }
 }

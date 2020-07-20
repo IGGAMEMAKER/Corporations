@@ -193,6 +193,13 @@ public class ProductUpgradesComponent : IComponent
 public class MarketingComponent : IComponent
 {
     public long clients;
+    // int - segmentId
+    public Dictionary<int, long> ClientList;
+}
+
+public class ProductTargetAudienceComponent : IComponent
+{
+    public int SegmentId;
 }
 
 [Game, Event(EventTarget.Self)]
@@ -223,3 +230,12 @@ public class CrunchingComponent : IComponent { }
 
 public class DumpingComponent : IComponent { }
 
+public class AudienceInfo
+{
+    public string Name;
+    public int Loyalty;
+    public string Needs;
+    public string Icon;
+
+    public long Amount;
+}

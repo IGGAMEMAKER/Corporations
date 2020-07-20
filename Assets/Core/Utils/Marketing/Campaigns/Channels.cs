@@ -28,12 +28,14 @@ namespace Assets.Core
 
         public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)
         {
-            var batch = channel.marketingChannel.ChannelInfo.Batch;
+            var fraction = (double)Companies.GetHashedRandom2(company.company.Id, channel.marketingChannel.ChannelInfo.ID + company.productTargetAudience.SegmentId);
+            var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
             var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead);
             var acquisitionEffeciency = Products.GetAcquisitionFeaturesBenefit(company);
 
             var gainedAudience = batch * (100 + marketingEffeciency + (int)acquisitionEffeciency) / 100;
+
 
             return gainedAudience;
         }

@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IMarketingListener {
-    void OnMarketing(GameEntity entity, long clients);
+    void OnMarketing(GameEntity entity, long clients, System.Collections.Generic.Dictionary<int, long> clientList);
 }

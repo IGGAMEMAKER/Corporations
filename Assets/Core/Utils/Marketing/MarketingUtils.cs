@@ -1,17 +1,32 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     public static partial class Marketing
     {
         public static long GetClients(GameEntity company)
         {
+            return company.marketing.ClientList.Values.Sum();
             return company.marketing.clients;
         }
 
-        public static void AddClients(GameEntity company, long clients)
+        public static long GetClients(GameEntity company, int segmentId)
+        {
+            return company.marketing.ClientList.ContainsKey(segmentId) ? company.marketing.ClientList[segmentId] : 0;
+            return company.marketing.clients;
+        }
+
+        public static void AddClients(GameEntity company, long clients, int segmentId)
         {
             var marketing = company.marketing;
 
-            company.ReplaceMarketing(marketing.clients + clients);
+            if (!marketing.ClientList.ContainsKey(segmentId))
+                marketing.ClientList[segmentId] = 0;
+
+            marketing.ClientList[segmentId] += clients;
+
+            company.ReplaceMarketing(marketing.clients + clients, marketing.ClientList);
+            //company.ReplaceMarketing(marketing.clients + clients);
         }
 
         public static void LoseClients(GameEntity company, long clients)
@@ -22,7 +37,7 @@
             if (newClients < 0)
                 newClients = 0;
 
-            company.ReplaceMarketing(newClients);
+            //company.ReplaceMarketing(newClients);
         }
 
         public static long GetChurnClients(GameContext gameContext, int companyId)
@@ -46,7 +61,7 @@
                 AddBrandPower(product, C.RELEASE_BRAND_POWER_GAIN);
                 var flow = GetClientFlow(gameContext, product.product.Niche);
 
-                AddClients(product, flow);
+                AddClients(product, flow, product.productTargetAudience.SegmentId);
 
                 product.isRelease = true;
                 Investments.CompleteGoal(product, gameContext);

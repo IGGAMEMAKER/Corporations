@@ -17,7 +17,7 @@ public class ProcessMarketingActivitiesSystem : OnPeriodChange
 
                 var gainedAudience = Marketing.GetChannelClientGain(company, gameContext, c);
 
-                Marketing.AddClients(company, gainedAudience);
+                Marketing.AddClients(company, gainedAudience, company.productTargetAudience.SegmentId);
             }
         }
     }
