@@ -59,9 +59,12 @@ public class Bonus<T>
         return this;
     }
 
-    public void Sort()
+    public void Sort(bool orderByDescending = true)
     {
-        bonusDescriptions = bonusDescriptions.OrderByDescending(b => Mathf.Abs(System.Convert.ToInt64(b.Value))).ToList();
+        if (orderByDescending)
+            bonusDescriptions = bonusDescriptions.OrderByDescending(b => Mathf.Abs(System.Convert.ToInt64(b.Value))).ToList();
+        else
+            bonusDescriptions = bonusDescriptions.OrderBy(b => Mathf.Abs(System.Convert.ToInt64(b.Value))).ToList();
     }
 
     public Bonus<T> Only(string substring)

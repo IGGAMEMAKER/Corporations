@@ -36,9 +36,9 @@ public class CompanyViewInSegmentTab : View
         CompanyHint.SetHint(
             $"{RenderName(company)}" +
             $"\n\n" +
-            $"Weekly Audience Growth: {Visuals.Colorize(Format.Minify(change), Visuals.GetColorPositiveOrNegative(change))}" +
+            $"Weekly Audience Growth:\n{Visuals.Colorize(Format.Minify(change), Visuals.GetColorPositiveOrNegative(change))}" +
             $"\n" +
-            $"Marketing Budget: {Format.MinifyMoney(marketingBudget)}"
+            $"Marketing Budget:\n{Format.MinifyMoney(marketingBudget)}"
             );
 
         LinkToProjectView.CompanyId = company.company.Id;

@@ -53,7 +53,7 @@ public class ProductOnMarketView : View
 
             Growth.text = $"{Visuals.Colorize(newCli, clientChangeColor)} users (#1)"; // {cli} users 
             //Growth.color = clientChangeColor; // Visuals.GetColorPositiveOrNegative(newClients);
-
+            growthBonus.Sort();
             Growth.GetComponent<Hint>().SetHint("Weekly growth\n\n" + growthBonus.ToString());
         }
 

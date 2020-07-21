@@ -15,7 +15,7 @@ public class SegmentPreview : View
 
     public void SetEntity(AudienceInfo info, int segmentId)
     {
-        Title.text = $"{info.Name} <b>{Visuals.PositiveOrNegativeMinified(info.Loyalty)}</b>";
+        Title.text = $"{info.Name}"; // <b>{Visuals.PositiveOrNegativeMinified(info.Loyalty)}</b>
 
         var have = Marketing.GetClients(Flagship, segmentId);
 
