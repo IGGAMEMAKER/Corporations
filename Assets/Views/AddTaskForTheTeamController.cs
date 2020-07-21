@@ -1,4 +1,6 @@
-﻿public class AddTaskForTheTeamController : ButtonController
+﻿using Assets.Core;
+
+public class AddTaskForTheTeamController : ButtonController
 {
     int TeamId;
 
@@ -37,5 +39,7 @@
                 CompanyTaskTypeRelay.ChooseServersideTasks();
                 break;
         }
+
+        ScheduleUtils.PauseGame(Q);
     }
 }

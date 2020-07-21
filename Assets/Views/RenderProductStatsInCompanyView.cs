@@ -80,12 +80,11 @@ public class RenderProductStatsInCompanyView : View
         }
         Teams.text = str;
 
-        var loss = Marketing.GetChurnClients(Q, company.company.Id);
-        var growth = Marketing.GetAudienceGrowth(company, Q) - loss;
+        var change = Marketing.GetAudienceChange(company, Q);
         
 
-        Growth.text = Format.SignOf(growth) + Format.Minify(growth) + " weekly";
-        Growth.color = Visuals.GetColorPositiveOrNegative(growth);
+        Growth.text = Format.SignOf(change) + Format.Minify(change) + " weekly";
+        Growth.color = Visuals.GetColorPositiveOrNegative(change);
     }
 
     void ResizeFirmLogo(GameEntity company)

@@ -15,6 +15,14 @@ public abstract class View : BaseClass
             go.SetActive(condition);
     }
 
+    public string RenderName(GameEntity company)
+    {
+        if (Companies.IsRelatedToPlayer(Q, company))
+            return Visuals.Colorize(company.company.Name, Colors.COLOR_GOLD);
+        else
+            return Visuals.Colorize(company.company.Name, Colors.COLOR_WHITE);
+    }
+
     public void ShowOnly(GameObject obj, List<GameObject> objects)
     {
         foreach (var o in objects)

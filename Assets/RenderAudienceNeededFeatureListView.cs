@@ -8,7 +8,7 @@ public class RenderAudienceNeededFeatureListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        
+        t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature);
     }
 
     internal void SetAudience(AudienceInfo info)

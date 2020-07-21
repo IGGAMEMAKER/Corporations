@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,5 +36,7 @@ public class ReplaceTeamTaskController : ButtonController
         {
             CompanyTaskTypeRelay.ShowRelayButtons();
         }
+
+        ScheduleUtils.PauseGame(Q);
     }
 }

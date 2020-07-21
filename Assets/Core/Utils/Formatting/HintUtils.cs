@@ -64,6 +64,13 @@ public class Bonus<T>
         bonusDescriptions = bonusDescriptions.OrderByDescending(b => Mathf.Abs(System.Convert.ToInt64(b.Value))).ToList();
     }
 
+    public Bonus<T> Only(string substring)
+    {
+        bonusDescriptions = bonusDescriptions.Where(b => b.Name.Contains(substring)).ToList();
+
+        return this;
+    }
+
     public Bonus<T> Cap(long min, long max)
     {
         capMin = min;
