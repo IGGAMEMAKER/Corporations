@@ -30,8 +30,8 @@ public class ProductUpgradeButtons : RoleRelatedButtons
 
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
 
-        Draw(RaiseInvestments, hasReleasedProducts || bankruptcyLooming);
-        Draw(CompetitorToProductToggler, hasReleasedProducts);
+        Draw(RaiseInvestments, false && (hasReleasedProducts || bankruptcyLooming));
+        Draw(CompetitorToProductToggler, false && hasReleasedProducts);
     }
 
     public override void ViewRender()

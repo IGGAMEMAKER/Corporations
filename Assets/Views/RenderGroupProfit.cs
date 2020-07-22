@@ -38,15 +38,15 @@ public class RenderGroupProfit : UpgradedParameterView
             daughtersIncome = "\n" + bonus.ToString();
         }
 
-        //return "Cash: " + Format.Money(balance) + "\n\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + "\n\nBased on" + daughtersIncome;
-        return "Profit: " + Visuals.PositiveOrNegativeMinified(profit) + daughtersIncome;
+        return "Cash: " + Format.Money(balance) + "\nProfit: " + Visuals.PositiveOrNegativeMinified(profit) + daughtersIncome;
     }
 
     public override string RenderValue()
     {
         var profit = Economy.GetProfit(Q, MyCompany);
+        var balance = Economy.BalanceOf(MyCompany);
 
-        var text = "Profit\n" + Visuals.Colorize(Format.Minify(profit), profit > 0);
+        var text = Format.Money(balance) + "\n" + Visuals.Colorize(Format.Minify(profit), profit > 0);
 
         return text;
     }

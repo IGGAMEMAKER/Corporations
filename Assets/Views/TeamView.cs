@@ -27,6 +27,8 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
     public Sprite SupportTeam;
     public Sprite DevopsTeam;
 
+    public ProgressBar ProgressBar;
+
     public void SetEntity(TeamInfo info, int teamId)
     {
         TeamInfo = info;
@@ -49,6 +51,14 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         TeamTaskListView.SetEntity(teamId);
 
         TeamTypeImage.sprite = GetTeamTypeSprite();
+
+        int maxWorkers = 8;
+        int workers = Random.Range(0, maxWorkers);
+        bool hasFullTeam = workers >= maxWorkers;
+
+        ProgressBar.SetDescription("Hiring workers");
+        ProgressBar.SetValue(workers, maxWorkers);
+        Draw(ProgressBar, !hasFullTeam);
     }
 
     Sprite GetTeamTypeSprite()

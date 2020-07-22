@@ -2,6 +2,7 @@
 using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class FlagshipInterruptsView : View
 
     //
     public Image HasDisloyalManagersImage;
+    public Image AcquisitionOffer;
 
     int previousCounter = 0;
     int problemCounter = 0;
@@ -32,6 +34,7 @@ public class FlagshipInterruptsView : View
 
         // 
         bool workerDisloyal = false;
+        bool hasAcquisitionOffers = Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
         problemCounter = 0;
 
@@ -41,6 +44,8 @@ public class FlagshipInterruptsView : View
         SpecialDraw(DDOSImage, underAttack);
 
         SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
+
+        SpecialDraw(AcquisitionOffer, hasAcquisitionOffers);
 
         if (problemCounter > previousCounter)
         {
