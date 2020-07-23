@@ -31,6 +31,8 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
+        public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
+
         public static string GetFormattedTeamType(TeamType teamType)
         {
             switch (teamType)
@@ -55,7 +57,12 @@ namespace Assets.Core
         {
             var prefix = GetFormattedTeamType(teamType);
 
-            company.team.Teams.Add(new TeamInfo { Name = $"{prefix} #{company.team.Teams.Count}", TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>() });
+            company.team.Teams.Add(new TeamInfo {
+                Name = $"{prefix} #{company.team.Teams.Count}",
+                TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>(),
+                HiringProgress = 0, Managers = new System.Collections.Generic.List<int>(),
+                Workers = 0
+            });
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)

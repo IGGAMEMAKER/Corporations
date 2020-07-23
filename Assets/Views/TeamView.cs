@@ -53,11 +53,14 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         TeamTypeImage.sprite = GetTeamTypeSprite();
 
         int maxWorkers = 8;
-        int workers = Random.Range(0, maxWorkers);
+        int workers = info.Workers; // Random.Range(0, maxWorkers);
         bool hasFullTeam = workers >= maxWorkers;
 
+        var hiringProgress = info.HiringProgress;
+
         ProgressBar.SetDescription("Hiring workers");
-        ProgressBar.SetValue(workers, maxWorkers);
+        ProgressBar.SetValue(hiringProgress, 100);
+        ProgressBar.SetCustomText($"{workers} / {maxWorkers}");
         Draw(ProgressBar, !hasFullTeam);
     }
 

@@ -270,6 +270,10 @@ public class TeamInfo
     public string Name;
 
     public List<TeamTask> Tasks;
+
+    public List<int> Managers;
+    public int Workers;
+    public int HiringProgress;
 }
 
 public enum TeamType

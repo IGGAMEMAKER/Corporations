@@ -52,6 +52,16 @@ public class ProgressBar : MonoBehaviour {
         }
     }
 
+    public void SetCustomText(string txt)
+    {
+        if (Text != null)
+        {
+            Text.text = description.Length > 0 ?
+                $"{description} ({txt})"
+                : txt;
+        }
+    }
+
     public void SetValue (float val)
     {
         // val from 0 to 100f

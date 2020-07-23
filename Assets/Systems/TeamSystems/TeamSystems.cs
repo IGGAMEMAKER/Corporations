@@ -4,6 +4,8 @@
     {
         Add(new MoraleManagementSystem(contexts));
         Add(new TeamGrowthSystem(contexts));
+        Add(new WorkerHiringSystem(contexts));
+
         Add(new RelationshipSystem(contexts));
         Add(new TeamGrowthAnimationSystem(contexts));
         Add(new TeamManagementSystem(contexts));
