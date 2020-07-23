@@ -15,7 +15,7 @@ public class RenderAudienceNeededFeatureListView : ListView
     {
         var company = Flagship;
 
-        var features = Products.GetChurnFeatures(company);
+        var features = Products.GetAvailableFeaturesForProduct(company);
         SetItems(features);
     }
 }

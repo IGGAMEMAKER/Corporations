@@ -15,6 +15,13 @@ public class FeatureView : View
     public ProgressBar ProgressBar;
     public Image ProgressImage;
 
+    public Image FeatureTypeIcon;
+
+    public Sprite RetentionImage;
+    public Sprite AcquisitionImage;
+    public Sprite MonetisationImage;
+    public Sprite UnknownImage;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -30,14 +37,11 @@ public class FeatureView : View
         var rating = Products.GetFeatureRating(product, featureName);
 
         Name.text = featureName;
-        Benefits.text = GetFeatureBenefits(upgraded, product);
-        Hide(Benefits);
 
         Draw(Rating, upgraded);
 
         Rating.text = GetFeatureBenefits(upgraded, product);
-        //Rating.text = rating.ToString("0.0");
-        Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_WHITE);
+        Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
         bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
@@ -58,10 +62,12 @@ public class FeatureView : View
         {
             Draw(Rating, true);
             ProgressImage.fillAmount = 0f;
+
             Draw(ProgressBar, false);
         }
 
         ProgressImage.fillAmount = 0f;
+        RenderFeatureTypeIcon();
     }
 
     float GetFeatureBenefit(bool isUpgraded, GameEntity product) => isUpgraded ?
@@ -73,19 +79,19 @@ public class FeatureView : View
     {
         var b = NewProductFeature.FeatureBonus;
 
-        var benefit = GetFeatureBenefit(isUpgraded, product);
+        var benefit = Mathf.Abs(GetFeatureBenefit(isUpgraded, product));
 
         var benefitFormatted = benefit.ToString("0.0");
-        if (b is FeatureBonusAcquisition)
-            return $"+{benefitFormatted}%";
+        if (b.isAcquisitionFeature)
+            return $"+{benefitFormatted}";
             //return $"+{benefitFormatted}% user growth";
 
-        if (b is FeatureBonusMonetisation)
-            return $"+{benefitFormatted}%";
+        if (b.isMonetisationFeature)
+            return $"+{benefitFormatted}";
             //return $"+{benefitFormatted}% income";
 
-        if (b is FeatureBonusRetention)
-            return $"-{benefitFormatted}%";
+        if (b.isRetentionFeature)
+            return $"+{benefitFormatted}";
             //return $"-{benefitFormatted}% client loss";
 
         return b.GetType().ToString();
@@ -96,5 +102,17 @@ public class FeatureView : View
         NewProductFeature = newProductFeature;
 
         ViewRender();
+    }
+
+    void RenderFeatureTypeIcon()
+    {
+        if (NewProductFeature.FeatureBonus.isAcquisitionFeature)
+            FeatureTypeIcon.sprite = AcquisitionImage;
+        else if (NewProductFeature.FeatureBonus.isMonetisationFeature)
+            FeatureTypeIcon.sprite = MonetisationImage;
+        else if (NewProductFeature.FeatureBonus.isRetentionFeature)
+            FeatureTypeIcon.sprite = RetentionImage;
+        else
+            FeatureTypeIcon.sprite = UnknownImage;
     }
 }

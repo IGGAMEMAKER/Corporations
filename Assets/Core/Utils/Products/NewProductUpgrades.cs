@@ -7,17 +7,38 @@ namespace Assets.Core
     {
         public static NewProductFeature[] GetAvailableFeaturesForProduct(GameEntity product)
         {
-            return new NewProductFeature[]
+            switch (product.product.Niche)
             {
-                new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },
+                case NicheType.Com_SocialNetwork:
+                    return new NewProductFeature[]
+                    {
+                        new NewProductFeature { Name = "Profile", FeatureBonus = new FeatureBonusRetention(10) },
+                        new NewProductFeature { Name = "Friends", FeatureBonus = new FeatureBonusRetention(7) },
+                        new NewProductFeature { Name = "Messaging", FeatureBonus = new FeatureBonusRetention(7) },
+                        new NewProductFeature { Name = "News Feed", FeatureBonus = new FeatureBonusRetention(7) },
+                        new NewProductFeature { Name = "Likes", FeatureBonus = new FeatureBonusRetention(7) },
 
-                new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
-                new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-                new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+                        new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
+                        new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
 
-                new NewProductFeature { Name = "Pricing", FeatureBonus = new FeatureBonusMonetisation(25) },
-                new NewProductFeature { Name = "Cross promotions", FeatureBonus = new FeatureBonusMonetisation(15) },
-            };
+                        new NewProductFeature { Name = "Ads", FeatureBonus = new FeatureBonusMonetisation(25) },
+                        new NewProductFeature { Name = "Ad panel", FeatureBonus = new FeatureBonusMonetisation(10) },
+                    };
+                    break;
+                default:
+                    return new NewProductFeature[]
+                    {
+                        new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },
+
+                        new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
+                        new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
+                        new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+
+                        new NewProductFeature { Name = "Pricing", FeatureBonus = new FeatureBonusMonetisation(25) },
+                        new NewProductFeature { Name = "Cross promotions", FeatureBonus = new FeatureBonusMonetisation(15) },
+                    };
+                    break;
+            }
         }
 
         // set of features

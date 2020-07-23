@@ -61,6 +61,10 @@ public class FeatureBonus
     {
         this.Max = Max;
     }
+
+    public bool isAcquisitionFeature => this is FeatureBonusAcquisition;
+    public bool isMonetisationFeature => this is FeatureBonusMonetisation;
+    public bool isRetentionFeature => this is FeatureBonusRetention;
 }
 
 public class FeatureBonusAcquisition : FeatureBonus
