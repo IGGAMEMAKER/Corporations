@@ -7,10 +7,10 @@ namespace Assets.Core
     {
         public static SupportFeature[] GetAvailableSupportFeaturesForProduct(GameEntity product)
         {
-            var usersPerServer = 50000;
+            var usersPerServer = 50_000;
 
-            var million = 1000000;
-            var billion = 1000000000;
+            var million = 1_000_000;
+            var billion = 1_000_000_000;
 
             return new SupportFeature[]
             {
@@ -63,7 +63,7 @@ namespace Assets.Core
             var capacity = GetSupportCapacity(product);
             var load = GetClientLoad(product);
 
-            return load >= capacity;
+            return load >= capacity + C.MINIMUM_SUPPORTED_CLIENTS;
         }
 
         public static bool IsNeedsMoreServers(GameEntity product)
@@ -71,7 +71,7 @@ namespace Assets.Core
             var capacity = GetServerCapacity(product);
             var load = GetClientLoad(product); // add DDoS multiplier
 
-            return load >= capacity;
+            return load >= capacity + C.MINIMUM_SUPPORTED_CLIENTS;
         }
 
         // summary feature benefit

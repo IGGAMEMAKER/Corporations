@@ -13,6 +13,7 @@
 
     public const int FAST_CASH_COMPANY_SHARE = 2;
 
+    public const int MINIMUM_SUPPORTED_CLIENTS = 5000;
 
     public const int RISKS_MONETISATION_ADS_REPAYABLE = 35;
     public const int RISKS_MONETISATION_IS_PROFITABLE = 15;

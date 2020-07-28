@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,55 @@ public abstract class ListView : View // MonoBehaviour
     [Header("Specify this field to autoscroll. Two layers higher Scroll View")]
     public ScrollRect _sRect;
     public bool AutoScroll = false;
+
+
+    // highlight selected elements
+    public bool HighlightChosenVariant = false;
+    public int ChosenIndex = -1;
+
+    bool noElementsWereSelected => ChosenIndex == -1;
+    //
+
+    List<GameObject> Items;
+
+    public virtual void OnItemSelected(int ind)
+    {
+
+    }
+
+    public void Deselect()
+    {
+        ChosenIndex = -1;
+    }
+
+    void OnDisable()
+    {
+        Deselect();
+    }
+
+    internal void ChooseElement(int elementIndex)
+    {
+        // deselect
+        if (ChosenIndex == elementIndex)
+            ChosenIndex = -1;
+        else
+            ChosenIndex = elementIndex;
+
+        OnItemSelected(ChosenIndex);
+
+        int i = 0;
+        foreach (var item in Items)
+        {
+            bool highlight = noElementsWereSelected || (i == ChosenIndex);
+
+            if (highlight)
+                item.GetComponent<CanvasGroup>().alpha = 1;
+            else
+                item.GetComponent<CanvasGroup>().alpha = 0.4f;
+
+            i++;
+        }
+    }
 
     // T is gameEntity in most cases
     // but you can use other data types if you need
@@ -40,6 +90,8 @@ public abstract class ListView : View // MonoBehaviour
         if (entities == null)
             return;
 
+        Items = new List<GameObject>();
+
         index = 0;
         foreach (var e in entities)
         {
@@ -51,6 +103,15 @@ public abstract class ListView : View // MonoBehaviour
             var o = Instantiate(Prefab, transform, false);
 
             SetItem(o.transform, e, data);
+
+            if (HighlightChosenVariant)
+            {
+                o.AddComponent<CanvasGroup>();
+                o.AddComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
+            }
+
+            Items.Add(o);
+
             index++;
         }
     }
