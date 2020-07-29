@@ -29,6 +29,8 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
     public ProgressBar ProgressBar;
 
+    public ChooseHireManagersOfTeam ChooseHireManagersOfTeam;
+
     public void SetEntity(TeamInfo info, int teamId)
     {
         TeamInfo = info;
@@ -36,6 +38,8 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
         RemoveTeam.GetComponent<RemoveTeamController>().TeamId = teamId;
         TeamName.text = info.Name;
+
+        ChooseHireManagersOfTeam.SetEntity(teamId);
 
         var max = C.TASKS_PER_TEAM;
 
@@ -83,7 +87,7 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Draw(RemoveTeam, true);
+        Draw(RemoveTeam, false);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)

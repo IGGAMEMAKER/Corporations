@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public abstract class UpgradedButtonController : ToggleButtonController
+public abstract class UpgradedButtonController : ButtonView
 {
     public override void Initialize()
     {

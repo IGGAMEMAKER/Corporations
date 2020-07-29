@@ -1,6 +1,6 @@
 ﻿using Assets.Core;
 
-public class ToggleCrunchController : ToggleButtonController
+public class ToggleCrunchController : ButtonView
 {
     public override void Execute()
     {

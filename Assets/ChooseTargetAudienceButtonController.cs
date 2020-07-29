@@ -9,5 +9,7 @@ public class ChooseTargetAudienceButtonController : ButtonController
         var company = Flagship;
 
         company.ReplaceProductTargetAudience(GetComponent<SegmentPreview>().SegmentId);
+
+        //FindObjectOfType<ProductCompaniesFocusListView>().ViewRender();
     }
 }

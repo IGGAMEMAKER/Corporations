@@ -9,6 +9,12 @@ public class RemoveTeamController : ButtonController
 
     public override void Execute()
     {
-        Teams.RemoveTeam(Flagship, Q, TeamId);
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        var teamId = relay.ChosenTeamId;
+
+        Teams.RemoveTeam(Flagship, Q, teamId);
+
+        relay.ChooseMainScreen();
     }
 }

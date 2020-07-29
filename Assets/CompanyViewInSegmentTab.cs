@@ -13,6 +13,9 @@ public class CompanyViewInSegmentTab : View
     public Hint CompanyHint;
     public Image Border;
 
+    public Text CompanyName;
+    public Text CompanyStatsDescription;
+
     public LinkToProjectView LinkToProjectView;
 
     public void SetEntity(GameEntity company)
@@ -40,6 +43,13 @@ public class CompanyViewInSegmentTab : View
             $"\n" +
             $"Marketing Budget:\n{Format.MinifyMoney(marketingBudget)}"
             );
+
+        CompanyName.text = company.company.Name;
+        CompanyStatsDescription.text = $"{Format.SignOf(change) + Format.MinifyToInteger(change)} users weekly";
+        CompanyStatsDescription.color = Visuals.GetColorPositiveOrNegative(change);
+
+        var clients = Marketing.GetClients(company);
+        CompanyValue.text = Format.MinifyToInteger(clients);
 
         LinkToProjectView.CompanyId = company.company.Id;
     }

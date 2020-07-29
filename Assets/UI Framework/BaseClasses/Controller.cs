@@ -44,7 +44,7 @@ public abstract class Controller : BaseClass
         foreach (var view in GetComponents<View>())
             view.ViewRender();
 
-        foreach (var view in GetComponents<ToggleButtonController>())
+        foreach (var view in GetComponents<ButtonView>())
             view.ViewRender();
     }
 

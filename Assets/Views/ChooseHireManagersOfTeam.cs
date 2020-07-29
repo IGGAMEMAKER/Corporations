@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Inspect team
 public class ChooseHireManagersOfTeam : ButtonController
 {
     int TeamId;

@@ -1,6 +1,6 @@
 ﻿using Assets.Core;
 
-public class DumpPrices : ToggleButtonController
+public class DumpPrices : ButtonView
 {
     public override void Execute()
     {

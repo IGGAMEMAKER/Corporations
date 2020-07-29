@@ -11,4 +11,9 @@ public class RenderFlagshipAudienceGrowth2 : ParameterDynamicView
 
         return Marketing.GetAudienceGrowth(Flagship, Q);
     }
+
+    public override string RenderHint()
+    {
+        return "WUT?";
+    }
 }

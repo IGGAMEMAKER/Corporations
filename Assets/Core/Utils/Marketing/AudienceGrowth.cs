@@ -103,8 +103,22 @@ namespace Assets.Core
             return GetAudienceGrowthBonus(product, gameContext).Sum();
         }
 
+        public static Bonus<long> GetAudienceChange(GameEntity product, GameContext gameContext, bool isBonus)
+        {
+            var bonus = new Bonus<long>("Audience change");
+
+            var churnUsers = Marketing.GetChurnClients(gameContext, product.company.Id);
+
+            bonus.Append("Audience Growth", Marketing.GetAudienceGrowth(product, gameContext));
+            bonus.Append("Audience Loss (Churn)", -churnUsers);
+            bonus.MinifyValues();
+
+            return bonus;
+        }
+
         public static long GetAudienceChange(GameEntity product, GameContext gameContext)
         {
+            return GetAudienceChange(product, gameContext, true).Sum();
             var loss = Marketing.GetChurnClients(gameContext, product.company.Id);
 
             return Marketing.GetAudienceGrowth(product, gameContext) - loss;
@@ -114,13 +128,27 @@ namespace Assets.Core
         public static List<AudienceInfo> GetAudienceInfos()
         {
             var million = 1000000;
-            return new List<AudienceInfo>
+            var list = new List<AudienceInfo>
             {
+                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Test Audience",             Needs = "Needs messaging, profiles, friends", Icon = "Teenager", Amount = 100 },
+
                 new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Teenagers",                 Needs = "Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending", Icon = "Teenager", Amount = 400 * million },
                 new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Adults (20-30 years)",      Needs = "Needs messaging, profiles, friends, voice chats", Icon = "Adult", Amount = 700 * million },
                 new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Middle aged people (30+)",  Needs = "Needs messaging, profiles, friends, voice chats", Icon = "Middle", Amount = 2000 * million },
                 new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Old people",                Needs = "Needs messaging, friends, voice chats, video chats", Icon = "Old", Amount = 100 * million },
             };
+
+            return WrapIndices(list);
+        }
+
+        static List<AudienceInfo> WrapIndices(List<AudienceInfo> audienceInfos)
+        {
+            for (var i = 0; i < audienceInfos.Count; i++)
+            {
+                audienceInfos[i].ID = i;
+            }
+
+            return audienceInfos;
         }
     }
 }

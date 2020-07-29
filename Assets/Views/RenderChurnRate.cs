@@ -4,17 +4,12 @@ public class RenderChurnRate : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var bonus = new Bonus<long>("Audience change");
+        var bonus = Marketing.GetAudienceChange(company, Q, true);
 
-        var churnBonus = Marketing.GetChurnBonus(Q, company.company.Id);
-        churnBonus.SetDimension("%");
-        var churnUsers = Marketing.GetChurnClients(Q, company.company.Id);
+        //var churnBonus = Marketing.GetChurnBonus(gameContext, product.company.Id);
+        //churnBonus.SetDimension("%");
 
-        bonus.Append("Audience Growth", Marketing.GetAudienceGrowth(company, Q));
-        bonus.Append("Audience Loss (Churn)", -churnUsers);
-        bonus.MinifyValues();
-
-        return Visuals.Positive(bonus.ToString()) + "\n" + churnBonus.ToString(true);
+        return Visuals.Positive(bonus.ToString()); // + "\n" + churnBonus.ToString(true);
     }
 
     GameEntity company => Flagship;

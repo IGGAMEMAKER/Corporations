@@ -242,4 +242,6 @@ public class AudienceInfo
     public string Icon;
 
     public long Amount;
+
+    public int ID;
 }

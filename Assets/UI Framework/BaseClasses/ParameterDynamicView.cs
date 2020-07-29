@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class ParameterDynamicView : ParameterView
+public abstract class ParameterDynamicView : UpgradedParameterView
 {
     public Image DynamicsImage;
 

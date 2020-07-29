@@ -13,7 +13,7 @@ public class ShareholdersOnMainScreenListView : ListView
     public GameObject BuyBackFromSpecificInvestor;
     public GameObject BuyBack;
 
-    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, BuyBack, GetExtraCash, ChangeGoals };
+    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, ChangeGoals };
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, ShowOffers };
 
 
@@ -35,11 +35,6 @@ public class ShareholdersOnMainScreenListView : ListView
         ShowOnly(gameObject, InvestorButtons);
     }
 
-    //private void OnDisable()
-    //{
-        
-    //}
-
     public override void OnItemSelected(int chosenIndex)
     {
         base.OnItemSelected(chosenIndex);
@@ -52,5 +47,10 @@ public class ShareholdersOnMainScreenListView : ListView
 
         foreach (var b in InvestorButtons)
             Draw(b, isSpecificInvestorSelected);
+
+        if (isSpecificInvestorSelected)
+        {
+            BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
+        }
     }
 }

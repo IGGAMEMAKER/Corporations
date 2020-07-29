@@ -69,11 +69,13 @@ namespace Assets.Core
             return shares * 100 / total;
         }
 
-        public static long GetSharesCost(GameContext context, int companyId, int investorId)
+        public static long GetSharesCost(GameContext context, int companyId, int investorId, int shares = -1)
         {
             var c = Get(context, companyId);
 
-            int shares = GetAmountOfShares(context, companyId, investorId);
+            if (shares == -1)
+                shares = GetAmountOfShares(context, companyId, investorId);
+
             int total = GetTotalShares(c.shareholders.Shareholders);
 
             return Economy.GetCompanyCost(context, c.company.Id) * shares / total;

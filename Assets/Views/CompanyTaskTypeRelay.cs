@@ -30,6 +30,7 @@ public class CompanyTaskTypeRelay : View
     public void ChooseMarketingTasks()
     {
         SetMode(MarketingTasks, ChooseMarketingTasksButton);
+        HideRelayButtons();
 
         Hide(ChooseTaskTypeLabel);
     }

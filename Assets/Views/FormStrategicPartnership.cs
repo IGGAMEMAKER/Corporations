@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class FormStrategicPartnership : ToggleButtonController
+public class FormStrategicPartnership : ButtonView
 {
     public override void Execute()
     {

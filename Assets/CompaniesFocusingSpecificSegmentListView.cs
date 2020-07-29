@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class CompaniesFocusingSpecificSegmentListView : ListView
 {
-    int segmentId;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<CompanyViewInSegmentTab>().SetEntity(entity as GameEntity);

@@ -10,6 +10,7 @@ namespace Assets.Core
             switch (product.product.Niche)
             {
                 case NicheType.Com_SocialNetwork:
+                default:
                     return new NewProductFeature[]
                     {
                         new NewProductFeature { Name = "Profile", FeatureBonus = new FeatureBonusRetention(10) },
@@ -25,7 +26,6 @@ namespace Assets.Core
                         new NewProductFeature { Name = "Ad panel", FeatureBonus = new FeatureBonusMonetisation(10) },
                     };
                     break;
-                default:
                     return new NewProductFeature[]
                     {
                         new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },

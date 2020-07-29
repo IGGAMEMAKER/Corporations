@@ -61,6 +61,11 @@ public class FlagshipRelayInCompanyView : View
         Hide(NewTeamTabs);
     }
 
+    public void ChooseMainScreen()
+    {
+        ChooseWorkerInteractions();
+    }
+
     public void ChooseDevTab()
     {
         Show(DevelopmentTab);

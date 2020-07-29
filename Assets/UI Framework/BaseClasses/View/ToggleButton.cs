@@ -1,4 +1,4 @@
-﻿public abstract class ToggleButtonController : ButtonController
+﻿public abstract class ButtonView : ButtonController
 {
     public override void Initialize()
     {

@@ -1,7 +1,7 @@
 ﻿using Assets.Core;
 using UnityEngine;
 
-public class ToggleMarketingFinancing : ToggleButtonController
+public class ToggleMarketingFinancing : ButtonView
 {
     int companyId;
     
