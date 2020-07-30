@@ -119,9 +119,6 @@ namespace Assets.Core
         public static long GetAudienceChange(GameEntity product, GameContext gameContext)
         {
             return GetAudienceChange(product, gameContext, true).Sum();
-            var loss = Marketing.GetChurnClients(gameContext, product.company.Id);
-
-            return Marketing.GetAudienceGrowth(product, gameContext) - loss;
         }
 
 

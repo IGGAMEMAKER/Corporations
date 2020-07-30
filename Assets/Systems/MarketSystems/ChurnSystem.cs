@@ -30,10 +30,15 @@ public partial class ChurnSystem : OnPeriodChange
         {
             var p = products[i];
 
-            var churnClients = Marketing.GetChurnClients(contexts.game, p.company.Id);
-            //Marketing.AddClients(p, -churnClients);
+            var audiences = Marketing.GetAudienceInfos();
 
-            clientContainers[0] += churnClients;
+            foreach (var a in audiences)
+            {
+                var churnClients = Marketing.GetChurnClients(contexts.game, p.company.Id, a.ID);
+                Marketing.AddClients(p, -churnClients, a.ID);
+            }
+
+            //clientContainers[0] += churnClients;
 
             continue;
         }

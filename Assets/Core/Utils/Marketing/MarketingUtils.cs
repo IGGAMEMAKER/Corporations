@@ -40,11 +40,11 @@ namespace Assets.Core
             //company.ReplaceMarketing(newClients);
         }
 
-        public static long GetChurnClients(GameContext gameContext, int companyId)
+        public static long GetChurnClients(GameContext gameContext, int companyId, int segmentId)
         {
             var c = Companies.Get(gameContext, companyId);
 
-            var churn = GetChurnRate(gameContext, companyId);
+            var churn = GetChurnRate(gameContext, companyId, segmentId);
 
             var clients = GetClients(c);
 
