@@ -16,11 +16,26 @@ public class CandidatesForRoleListView : ListView
         t.GetComponent<EmployeePreview>().SetEntity(humanId);
     }
 
+    GameEntity company => Flagship;
+
+    WorkerRole[] GetRolesForTeam(TeamType teamType)
+    {
+        switch (teamType)
+        {
+            case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.ProductManager, WorkerRole.TeamLead, WorkerRole.ProjectManager };
+        }
+    }
+
+    public bool roleSuitsTeam (WorkerRole workerRole)
+    {
+        var team = company.team.Teams[0];
+
+
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
-
-        var company = Flagship;
 
         var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
 
