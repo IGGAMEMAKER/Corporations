@@ -16,25 +16,25 @@ public class RenderChurnRate : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var rate = Marketing.GetChurnRate(Q, company.company.Id).ToString();
-        var churnUsers = Marketing.GetChurnClients(Q, company.company.Id);
+        //var rate = Marketing.GetChurnRate(Q, company.company.Id).ToString();
+        //var churnUsers = Marketing.GetChurnClients(Q, company.company.Id);
 
-        var growth = Marketing.GetAudienceGrowth(company, Q);
+        //var growth = Marketing.GetAudienceGrowth(company, Q);
 
-        var change = growth - churnUsers;
+        //var change = growth - churnUsers;
 
-        Colorize(Visuals.GetColorPositiveOrNegative(change));
+        //Colorize(Visuals.GetColorPositiveOrNegative(change));
 
-        var sign = "";
+        //var sign = "";
 
-        if (change > 0)
-            sign = "+";
+        //if (change > 0)
+        //    sign = "+";
 
 
+        return "RenderChurnRate";
+        //return sign + Format.Minify(change);
 
-        return sign + Format.Minify(change);
-
-        //return $"{Format.Minify(churnUsers)} users ({rate}%)";
-        //return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
+        ////return $"{Format.Minify(churnUsers)} users ({rate}%)";
+        ////return MarketingUtils.GetChurnBonus(GameContext, SelectedCompany.company.Id).Sum();
     }
 }

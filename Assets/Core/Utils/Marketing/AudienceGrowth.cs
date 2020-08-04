@@ -71,28 +71,12 @@ namespace Assets.Core
 
             var channels = Markets.GetMarketingChannels(gameContext);
 
-            //if (product.isRelease)
-            //{
-            //    // Targeting
-            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign))
-            //        bonus.AppendAndHideIfZero("Targeting Campaign", GetTargetingCampaignGrowth(product, gameContext));
-
-            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign2))
-            //        bonus.AppendAndHideIfZero("Targeting Campaign II", GetTargetingCampaignGrowth2(product, gameContext));
-
-            //    if (Products.IsUpgradeEnabled(product, ProductUpgrade.TargetingCampaign3))
-            //        bonus.AppendAndHideIfZero("Targeting Campaign III", GetTargetingCampaignGrowth3(product, gameContext));
-            //}
-
-            //if (!product.isRelease && Products.IsUpgradeEnabled(product, ProductUpgrade.TestCampaign))
-            //    bonus.AppendAndHideIfZero("Test Campaign", C.TEST_CAMPAIGN_CLIENT_GAIN);
-
             foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
             {
                 var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
 
                 var gain = GetChannelClientGain(product, gameContext, channel);
-                bonus.AppendAndHideIfZero("Forum " + channelId, gain);
+                bonus.AppendAndHideIfZero("Channel " + channelId, gain);
             }
 
             return bonus;
@@ -107,7 +91,13 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Audience change");
 
-            var churnUsers = Marketing.GetChurnClients(gameContext, product.company.Id);
+            long churnUsers = 0;
+
+            var segments = Marketing.GetAudienceInfos();
+            for (var i = 0; i < segments.Count; i++)
+            {
+               churnUsers += Marketing.GetChurnClients(gameContext, product.company.Id, i);
+            }
 
             bonus.Append("Audience Growth", Marketing.GetAudienceGrowth(product, gameContext));
             bonus.Append("Audience Loss (Churn)", -churnUsers);

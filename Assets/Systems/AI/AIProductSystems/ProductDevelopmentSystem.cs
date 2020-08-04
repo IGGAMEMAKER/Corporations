@@ -230,10 +230,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product, ref List<string> str)
     {
+        var targetAudience = product.productTargetAudience.SegmentId;
+
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
             //.Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
-            .Where(c => Marketing.IsChannelProfitable(product, gameContext, c))
-            .OrderBy(c => Marketing.GetChannelRepaymentSpeed(product, gameContext, c));
+            .Where(c => Marketing.IsChannelProfitable(product, gameContext, c, targetAudience))
+            .OrderBy(c => Marketing.GetChannelRepaymentSpeed(product, gameContext, c, targetAudience));
 
         foreach (var c in channels)
         {

@@ -22,10 +22,10 @@ namespace Assets.Core
             return Mathf.Log(0.01f, oppositeChurn);
         }
 
-        public static int GetSegmentLoyalty(GameContext gameContext, GameEntity c, int segmentId)
-        {
+        //public static int GetSegmentLoyalty(GameContext gameContext, GameEntity c, int segmentId)
+        //{
 
-        }
+        //}
 
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId, int segmentId) => GetChurnBonus(gameContext, Companies.Get(gameContext, companyId), segmentId);
         public static Bonus<long> GetChurnBonus(GameContext gameContext, GameEntity c, int segmentId)

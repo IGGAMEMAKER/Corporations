@@ -38,7 +38,7 @@ public class MarketingChannelView : View
         var company = Flagship;
 
         // basic info
-        var name = $"Forum {channel1.ID}";
+        var name = $"Channel {channel1.ID}";
         Title.text = name;
 
         var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
@@ -46,7 +46,8 @@ public class MarketingChannelView : View
 
         var ROI = Marketing.GetChannelROI(company, Q, channel);
 
-        var repaysSelf = Marketing.GetChannelRepaymentSpeed(company, Q, channel);
+        var targetId = company.productTargetAudience.SegmentId;
+        var repaysSelf = Marketing.GetChannelRepaymentSpeed(company, Q, channel, targetId);
 
 
 

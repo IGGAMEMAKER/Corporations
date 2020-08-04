@@ -29,11 +29,17 @@ public class CandidatesForRoleListView : ListView
         var managers = new List<GameEntity>();
         var managerIds = new List<int>();
 
-        managerIds.AddRange(company.employee.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key));
+        managerIds.AddRange(
+            company.employee.Managers
+            //.Where(p => p.Value == WorkerRole)
+            .Select(p => p.Key)
+            );
 
         foreach (var c in competitors)
         {
-            var workers = c.team.Managers.Where(p => p.Value == WorkerRole).Select(p => p.Key);
+            var workers = c.team.Managers
+                //.Where(p => p.Value == WorkerRole)
+                .Select(p => p.Key);
             managerIds.AddRange(workers);
         }
 

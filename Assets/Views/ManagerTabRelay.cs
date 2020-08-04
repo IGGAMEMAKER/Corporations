@@ -74,7 +74,8 @@ public class ManagerTabRelay : View
     public void OpenManagerTab()
     {
         ShowOnly(Managers, Tabs);
-        Show(HireManagersRelayButtons);
+        Show(EmployeesTab);
+        //Show(HireManagersRelayButtons);
         Show(BackToMainTab);
     }
 
