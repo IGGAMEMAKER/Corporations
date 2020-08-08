@@ -242,6 +242,7 @@ public class AudienceInfo
     public string Icon;
 
     public long Amount;
+    public List<FeatureBonus> Bonuses;
 
     public int ID;
 }

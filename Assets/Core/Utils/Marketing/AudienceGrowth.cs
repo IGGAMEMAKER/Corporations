@@ -112,20 +112,66 @@ namespace Assets.Core
         }
 
 
+
         public static List<AudienceInfo> GetAudienceInfos()
         {
             var million = 1000000;
+
+            var testAudience = new AudienceInfo
+            {
+                Name = "Test Audience",
+                Needs = "Needs messaging, profiles, friends",
+                Icon = "Teenager",
+                Amount = 100,
+                Bonuses = new List<FeatureBonus>
+                {
+                    new FeatureBonusMonetisation(-100),
+                    new FeatureBonusRetention(5),
+                    new FeatureBonusAcquisition(5)
+                }
+            };
+
             var list = new List<AudienceInfo>
             {
-                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Test Audience",             Needs = "Needs messaging, profiles, friends", Icon = "Teenager", Amount = 100 },
-
-                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Teenagers",                 Needs = "Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending", Icon = "Teenager", Amount = 400 * million },
-                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Adults (20-30 years)",      Needs = "Needs messaging, profiles, friends, voice chats", Icon = "Adult", Amount = 700 * million },
-                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Middle aged people (30+)",  Needs = "Needs messaging, profiles, friends, voice chats", Icon = "Middle", Amount = 2000 * million },
-                new AudienceInfo { Loyalty = Random.Range(-15, 20), Name = "Old people",                Needs = "Needs messaging, friends, voice chats, video chats", Icon = "Old", Amount = 100 * million },
+                testAudience,
+                new AudienceInfo {
+                    Name = "Teenagers",
+                    Needs = "Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending",
+                    Icon = "Teenager",
+                    Amount = 400 * million,
+                },
+                new AudienceInfo {
+                    Name = "Adults (20-30 years)",
+                    Needs = "Needs messaging, profiles, friends, voice chats",
+                    Icon = "Adult",
+                    Amount = 700 * million,
+                },
+                new AudienceInfo {
+                    Name = "Middle aged people (30+)",
+                    Needs = "Needs messaging, profiles, friends, voice chats",
+                    Icon = "Middle",
+                    Amount = 2000 * million,
+                },
+                new AudienceInfo {
+                    Name = "Old people",
+                    Needs = "Needs messaging, friends, voice chats, video chats",
+                    Icon = "Old",
+                    Amount = 100 * million,
+                },
             };
 
             return WrapIndices(list);
+        }
+
+        static List<FeatureBonus> GetRandomFeatureBonuses(int segmentId)
+        {
+            return new List<FeatureBonus>
+            {
+                new FeatureBonusMonetisation(Companies.GetRandomValueInRange(-15, 15f, segmentId, 1)),
+                new FeatureBonusAcquisition(Companies.GetRandomValueInRange(-5, 25f, segmentId, 2)),
+                new FeatureBonusRetention(Companies.GetRandomValueInRange(-10, 5f, segmentId, 3))
+                //new FeatureBonusRetention(Random.Range(-10, 5f))
+            };
         }
 
         static List<AudienceInfo> WrapIndices(List<AudienceInfo> audienceInfos)
@@ -133,6 +179,7 @@ namespace Assets.Core
             for (var i = 0; i < audienceInfos.Count; i++)
             {
                 audienceInfos[i].ID = i;
+                audienceInfos[i].Bonuses = GetRandomFeatureBonuses(i);
             }
 
             return audienceInfos;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class MarketingChannelsListView : ListView
 {
-    float maxROI = 0;
+    float maxROI = 100000;
     float minROI = 0;
 
     bool ShowActiveChannelsToo = false;
@@ -40,9 +40,9 @@ public class MarketingChannelsListView : ListView
 
 
         var allChannels = Markets.GetMarketingChannels(Q);
-        //maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
-        maxROI = allChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
-        minROI = allChannels.Min(c => Marketing.GetChannelROI(company, Q, c));
+        ////maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
+        //maxROI = allChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
+        //minROI = allChannels.Min(c => Marketing.GetChannelROI(company, Q, c));
 
         SetItems(channels);
     }

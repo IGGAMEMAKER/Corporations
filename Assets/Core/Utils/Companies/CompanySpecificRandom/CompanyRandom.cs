@@ -34,6 +34,7 @@ namespace Assets.Core
             return ((C * K) % 1);
         }
 
+        // returns values from 0 to 1?
         public static float GetHashedRandom2(int companyId, int mixer)
         {
             var C = 0.58f;
@@ -68,6 +69,11 @@ namespace Assets.Core
         public static long GetRandomValue (long baseValue, int id1, int id2, float min = 0.4f, float max = 1.35f)
         {
             return (long)(baseValue * (min + (max - min) * GetHashedRandom2(id1, id2)));
+        }
+
+        public static float GetRandomValueInRange (float min, float max, int id1, int id2)
+        {
+            return min + (max - min) * GetHashedRandom2(id1, id2);
         }
     }
 }

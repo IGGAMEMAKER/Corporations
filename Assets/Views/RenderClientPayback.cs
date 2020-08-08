@@ -7,27 +7,28 @@ public class RenderClientPayback : UpgradedParameterView
 {
     public override string RenderHint()
     {
-        var product = SelectedCompany;
+        //var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
-        var income = Economy.GetIncomePerUser(Q, product);
+        //var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
+        //var income = Economy.GetIncomePerUser(Q, product);
 
-        var text = "=\nNew client marketing cost: " + ads;
+        //var text = "=\nNew client marketing cost: " + ads;
 
-        text += "\n/\nIncome per user: " + income;
+        //text += "\n/\nIncome per user: " + income;
 
-        return text;
+        return "RenderClientPayback"; // text;
     }
 
     public override string RenderValue()
     {
-        var product = SelectedCompany;
+        //var product = SelectedCompany;
 
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
-        var income = Economy.GetIncomePerUser(Q, product);
+        //var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
+        //var income = Economy.GetIncomePerUser(Q, product);
 
-        var period = ads / income;
+        //var period = ads / income;
 
-        return period.ToString("0.00") + " months";
+        return "RenderClientPayback";
+        //return period.ToString("0.00") + " months";
     }
 }

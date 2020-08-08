@@ -44,7 +44,7 @@ public class MarketingChannelView : View
         var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
 
-        var ROI = Marketing.GetChannelROI(company, Q, channel);
+        var ROI = Marketing.GetChannelROI(company, Q, channel, company.productTargetAudience.SegmentId);
 
         var targetId = company.productTargetAudience.SegmentId;
         var repaysSelf = Marketing.GetChannelRepaymentSpeed(company, Q, channel, targetId);
@@ -53,12 +53,16 @@ public class MarketingChannelView : View
 
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
+        repaymentColor = Visuals.GetColorPositiveOrNegative(Economy.IsCanMaintain(company, Q, adCost));
 
         Income.text = $"-{Format.MinifyMoney(adCost)} / week";
         Income.color = repaymentColor;
 
-        MarketingComplexity.text = $"{repaysSelf.ToString("0.0")}m";
-        MarketingComplexity.color = repaymentColor;
+        var clientCost = adCost / gainedAudience;
+        MarketingComplexity.text = $"{clientCost.ToString("0.0")}$";
+        //MarketingComplexity.text = $"{repaysSelf.ToString("0.0")}m";
+        //MarketingComplexity.color = repaymentColor;
+
         //MarketingComplexity.text = channel1.costInWorkers.ToString();
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);

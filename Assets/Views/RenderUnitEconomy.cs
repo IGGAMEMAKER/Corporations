@@ -7,15 +7,6 @@ public class RenderUnitEconomy : ParameterView
 {
     public override string RenderValue()
     {
-        var product = SelectedCompany;
-
-        var ads = Markets.GetClientAcquisitionCost(product.product.Niche, Q);
-        var income = Economy.GetIncomePerUser(Q, product);
-
-        var change = (income - ads) * 1000;
-
-        Colorize(change >= 0 ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
-
-        return change.ToString("0.0") + "$";
+        return "RenderUnitEconomy";
     }
 }

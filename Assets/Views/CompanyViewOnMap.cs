@@ -10,6 +10,8 @@ public class CompanyViewOnMap : View
     public Text Concept;
     public LinkToProjectView LinkToProjectView;
 
+    public Text CompanyGrowth;
+
     public Image Image;
     public Image DarkImage;
     public Image RelevancyImage;
@@ -21,8 +23,6 @@ public class CompanyViewOnMap : View
     public RenderConceptProgress ConceptProgress;
 
     public Text PositionOnMarket;
-
-    public GameObject AggressiveMarketing;
 
     public ShowProductChanges ShowProductChanges;
 
@@ -44,6 +44,9 @@ public class CompanyViewOnMap : View
         LinkToProjectView.CompanyId = c.company.Id;
         ShowProductChanges.SetEntity(company);
 
+        var change = Marketing.GetAudienceChange(c, Q);
+        CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
+        CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
 
         var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, c);
         ConceptProgress.SetCompanyId(c.company.Id);
@@ -55,8 +58,9 @@ public class CompanyViewOnMap : View
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         var position = Markets.GetPositionOnMarket(Q, company);
-        PositionOnMarket.text = $"#{position + 1}";
         var level = Products.GetProductLevel(company);
+
+        PositionOnMarket.text = $"#{position + 1}";
         PositionOnMarket.text = $"{level}LVL";
 
 
@@ -79,8 +83,6 @@ public class CompanyViewOnMap : View
             //    Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
             //    );
         }
-
-        AggressiveMarketing.SetActive(true);
     }
 
     string GetProfitDescription()
@@ -156,8 +158,8 @@ public class CompanyViewOnMap : View
         var brand = (int)company.branding.BrandPower;
 
         hint.AppendLine($"\n\n");
-        hint.AppendLine($"Clients: {Format.Minify(clients)} (#{position + 1})");
-        hint.AppendLine($"Brand: {brand}");
+        hint.AppendLine($"Users: {Format.Minify(clients)} (#{position + 1})");
+        //hint.AppendLine($"Brand: {brand}");
         hint.AppendLine($"\nConcept: {level}LVL ({concept})");
 
         hint.AppendLine();

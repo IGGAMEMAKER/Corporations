@@ -11,6 +11,7 @@ public class FlagshipRelayInCompanyView : View
     public GameObject InvestmentTabs;
     public GameObject ManagersTabs;
     public GameObject NewTeamTabs;
+    public GameObject AudiencePickingTab;
 
     public GameObject RemoveTaskButton;
     public ChosenTeamTaskView ChosenTaskLabel;
@@ -40,6 +41,17 @@ public class FlagshipRelayInCompanyView : View
         Refresh();
     }
 
+    public void ChooseAudiencePickingPanel()
+    {
+        Show(AudiencePickingTab);
+
+        Hide(NewTeamTabs);
+        Hide(DevelopmentTab);
+        Hide(InvestmentTabs);
+        Hide(ManagersTabs);
+        Hide(WorkerInteractions);
+    }
+
     public void ChooseNewTeamTab()
     {
         Show(NewTeamTabs);
@@ -49,6 +61,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(InvestmentTabs);
         Hide(ManagersTabs);
         Hide(WorkerInteractions);
+        Hide(AudiencePickingTab);
     }
 
     public void ChooseWorkerInteractions()
@@ -59,6 +72,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(InvestmentTabs);
         Hide(ManagersTabs);
         Hide(NewTeamTabs);
+        Hide(AudiencePickingTab);
     }
 
     public void ChooseMainScreen()
@@ -74,6 +88,7 @@ public class FlagshipRelayInCompanyView : View
         Hide(InvestmentTabs);
         Hide(ManagersTabs);
         Hide(NewTeamTabs);
+        Hide(AudiencePickingTab);
 
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
@@ -94,6 +109,8 @@ public class FlagshipRelayInCompanyView : View
         Hide(DevelopmentTab);
         Hide(ManagersTabs);
         Hide(NewTeamTabs);
+        Hide(AudiencePickingTab);
+
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);
@@ -103,6 +120,7 @@ public class FlagshipRelayInCompanyView : View
     {
         Show(ManagersTabs);
 
+        Hide(AudiencePickingTab);
         Hide(WorkerInteractions);
         Hide(DevelopmentTab);
         Hide(InvestmentTabs);

@@ -43,14 +43,19 @@ namespace Assets.Core
             var retentionImprovement = (int)Products.GetChurnFeaturesBenefit(c);
             var monetisationImprovements = (int)Products.GetMonetisationFeatures(c).Length * 5;
 
+            var audienceInfo = Marketing.GetAudienceInfos()[segmentId];
+
+            var audienceBonus = audienceInfo.Bonuses.Where(b => b.isRetentionFeature).Sum(b => b.Max);
+
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
                 .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
-                
+                .AppendAndHideIfZero("Base for this audience", (long)audienceBonus)
+
                 .Append("Features", -retentionImprovement)
                 .Append("Monetisation", monetisationImprovements)
-                
+
                 // technical stuff
                 .AppendAndHideIfZero("Servers overload", Products.IsNeedsMoreServers(c) ? 30 : 0)
                 .AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? 15 : 0)

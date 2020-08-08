@@ -50,7 +50,7 @@ namespace Assets.Core
             var gainedUsers = GetChannelClientGain(company, gameContext, channel);
 
             var q = (100 - churn) / 100f;
-            var b1 = gainedUsers * Economy.GetIncomePerUser(gameContext, company);
+            var b1 = gainedUsers * Economy.GetIncomePerUser(gameContext, company, segmentId);
 
             var Sum = b1 / (1 - q);
 
@@ -70,12 +70,12 @@ namespace Assets.Core
             return 10000;
         }
 
-        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel)
+        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
         {
             var lifetime = Marketing.GetLifeTime(gameContext, company.company.Id);
             //var lifetimeFormatted = lifetime.ToString("0.00");
 
-            var incomePerUser = Economy.GetIncomePerUser(gameContext, company);
+            var incomePerUser = Economy.GetIncomePerUser(gameContext, company, segmentId);
             
             // this formula doesn't include team maintenance cost
             var cost = Marketing.GetMarketingActivityCost(company, gameContext, channel);
