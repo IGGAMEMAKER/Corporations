@@ -15,6 +15,11 @@ namespace Assets.Core
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
+        public static float GetChannelCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
+        {
+            return GetMarketingActivityCost(product, gameContext, channel) / GetChannelClientGain(product, gameContext, channel);
+        }
+
         public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
         {
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);

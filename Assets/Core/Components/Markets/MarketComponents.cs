@@ -47,6 +47,8 @@ public class ChannelInfo
     // int - companyId, long - amount of gained clients
     public Dictionary<int, long> Companies;
 
+    public int SegmentId;
+
     // cost per user
     public float costPerAd;
     public float relativeCost;

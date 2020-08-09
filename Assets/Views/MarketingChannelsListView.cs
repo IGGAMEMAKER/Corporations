@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class MarketingChannelsListView : ListView
 {
-    float maxROI = 100000;
+    float maxROI = 0;
     float minROI = 0;
 
     bool ShowActiveChannelsToo = false;
@@ -34,15 +34,22 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
-        var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo);
+        var segmentId = company.productTargetAudience.SegmentId;
 
-        channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
+        var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo)
+            .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId));
+
+        //channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
+        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c)));
 
 
         var allChannels = Markets.GetMarketingChannels(Q);
         ////maxROI = channels.Max(c => Marketing.GetChannelROI(company, Q, c));
         //maxROI = allChannels.Max(c => Marketing.GetChannelROI(company, Q, c));
         //minROI = allChannels.Min(c => Marketing.GetChannelROI(company, Q, c));
+
+        maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, Q, c));
+        minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, Q, c));
 
         SetItems(channels);
     }

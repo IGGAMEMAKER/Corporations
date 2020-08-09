@@ -10,6 +10,7 @@ public class SegmentPreview : View
     public Text Description;
     public RawImage Icon;
     public Image BorderIcon;
+    public Image PanelImage;
 
     public int SegmentId;
 
@@ -20,7 +21,7 @@ public class SegmentPreview : View
         var have = Marketing.GetClients(Flagship, segmentId);
 
         var max = Marketing.GetAudienceInfos()[segmentId].Amount;
-        Description.text = $"{Format.Minify(have)} users"; // info.Needs;
+        Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users"; // info.Needs;
 
         SegmentId = segmentId;
 
@@ -29,13 +30,17 @@ public class SegmentPreview : View
         bool isChoicePreview = BorderIcon != null;
 
         var company = Flagship;
-        if (isChoicePreview)
-        {
-            bool isTargetAudience = company.productTargetAudience.SegmentId == segmentId;
-            BorderIcon.color = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+        bool isTargetAudience = company.productTargetAudience.SegmentId == segmentId;
 
-            Description.text = $"{Format.Minify(max)} users (0.05$ each)";
-            Title.text = $"{info.Name}";
-        }
+        var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+        if (isTargetAudience)
+            PanelImage.color = audienceColor;
+        //if (isChoicePreview)
+        //{
+        //    BorderIcon.color = audienceColor;
+
+        //    //Description.text = $"{Format.Minify(max)} users (0.05$ each)";
+        //    //Title.text = $"{info.Name}";
+        //}
     }
 }
