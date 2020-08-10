@@ -12,11 +12,14 @@ public class MarketingChannelsListView : ListView
 
     bool ShowActiveChannelsToo = false;
 
+    public RenderAudiencesListView RenderAudiencesListView;
+    int segmentId;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         var channel = (GameEntity)(object)entity;
 
-        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI);
+        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI, RenderAudiencesListView);
     }
 
     public void ToggleActiveChannels()
@@ -34,13 +37,13 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
-        var segmentId = company.productTargetAudience.SegmentId;
+        //var segmentId = company.productTargetAudience.SegmentId;
 
         var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo)
             .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId));
 
         //channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
-        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c)));
+        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c, segmentId)));
 
 
         var allChannels = Markets.GetMarketingChannels(Q);
@@ -52,5 +55,17 @@ public class MarketingChannelsListView : ListView
         minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, Q, c));
 
         SetItems(channels);
+    }
+
+    private void OnEnable()
+    {
+        segmentId = Flagship.productTargetAudience.SegmentId;
+    }
+
+    public void SetSegmentId(int id)
+    {
+        segmentId = id;
+
+        ViewRender();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
     float maxROI = 100;
     float minROI = 0;
+
+    RenderAudiencesListView RenderAudiencesListView;
 
     public override void ViewRender()
     {
@@ -58,7 +61,6 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         SegmentTypeImage.texture = Resources.Load($"Audiences/{audiences[segmentID].Icon}") as Texture2D;
 
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
-        //var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
         //repaymentColor = Visuals.GetColorPositiveOrNegative(Economy.IsCanMaintain(company, Q, adCost));
 
@@ -90,11 +92,12 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         ExplorationImage.fillAmount = 1f - (duration - progress) / duration; // Random.Range(0, 1f);
     }
 
-    public void SetEntity(GameEntity channel, float minROI, float maxROI)
+    public void SetEntity(GameEntity channel, float minROI, float maxROI, RenderAudiencesListView RenderAudiencesListView)
     {
         this.channel = channel;
         this.maxROI = maxROI;
         this.minROI = minROI;
+        this.RenderAudiencesListView = RenderAudiencesListView;
 
         ViewRender();
     }
@@ -111,10 +114,16 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         ToggleTexts(false);
+
+        var audiences = Marketing.GetAudienceInfos();
+
+        var changes = audiences.Select(a => Marketing.GetChannelClientGain(Flagship, Q, channel, a.ID));
+        RenderAudiencesListView.ShowValueChanges(changes.ToList());
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         ToggleTexts(true);
+        RenderAudiencesListView.HideChanges();
     }
 }

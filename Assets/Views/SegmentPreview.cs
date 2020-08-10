@@ -12,6 +12,9 @@ public class SegmentPreview : View
     public Image BorderIcon;
     public Image PanelImage;
 
+    public Image DarkPanel;
+    public Text Value;
+
     public int SegmentId;
 
     public void SetEntity(AudienceInfo info, int segmentId)
@@ -35,6 +38,7 @@ public class SegmentPreview : View
         var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
         if (isTargetAudience)
             PanelImage.color = audienceColor;
+
         //if (isChoicePreview)
         //{
         //    BorderIcon.color = audienceColor;
@@ -42,5 +46,24 @@ public class SegmentPreview : View
         //    //Description.text = $"{Format.Minify(max)} users (0.05$ each)";
         //    //Title.text = $"{info.Name}";
         //}
+
+        HideChanges();
+    }
+
+    public void AnimateChanges(long change)
+    {
+        Show(DarkPanel);
+        Show(Value);
+
+        Value.text = Format.SignOf(change) + Format.Minify(change);
+    }
+
+    public void HideChanges()
+    {
+        if (DarkPanel != null)
+            Hide(DarkPanel);
+
+        if (Value != null)
+            Hide(Value);
     }
 }

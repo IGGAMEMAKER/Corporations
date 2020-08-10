@@ -9,6 +9,8 @@ public class RenderAudiencesListView : ListView
     public ChooseTargetAudienceButtonController ChooseTargetAudienceButtonController;
     public ProductCompaniesFocusListView ProductCompaniesFocusListView;
 
+    public MarketingChannelsListView MarketingChannelsListView;
+
     public bool DisableAutomaticAudienceChange = true;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -43,6 +45,11 @@ public class RenderAudiencesListView : ListView
 
         if (ProductCompaniesFocusListView != null)
             ProductCompaniesFocusListView.SetSegment(ind);
+
+        if (MarketingChannelsListView != null)
+        {
+            MarketingChannelsListView.SetSegmentId(ind);
+        }
     }
 
     private void OnEnable()
@@ -53,5 +60,21 @@ public class RenderAudiencesListView : ListView
 
         ChosenIndex = TA;
         OnItemSelected(TA);
+    }
+
+    public void ShowValueChanges(List<long> changes)
+    {
+        for (var i = 0; i < Items.Count; i++)
+        {
+            Items[i].GetComponent<SegmentPreview>().AnimateChanges(changes[i]);
+        }
+    }
+
+    public void HideChanges()
+    {
+        for (var i = 0; i < Items.Count; i++)
+        {
+            Items[i].GetComponent<SegmentPreview>().HideChanges();
+        }
     }
 }

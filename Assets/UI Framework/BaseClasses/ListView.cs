@@ -23,7 +23,8 @@ public abstract class ListView : View // MonoBehaviour
     bool noElementsWereSelected => ChosenIndex == -1;
     //
 
-    List<GameObject> Items;
+    [HideInInspector]
+    public List<GameObject> Items;
 
     public virtual void OnItemSelected(int ind)
     {
