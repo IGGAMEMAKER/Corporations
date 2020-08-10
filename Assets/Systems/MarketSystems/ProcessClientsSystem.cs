@@ -52,7 +52,6 @@ public class ProcessClientsSystem : OnPeriodChange
                     Marketing.AddClients(product, clients, segmentId);
                 }
             }
-
         }
     }
 }
