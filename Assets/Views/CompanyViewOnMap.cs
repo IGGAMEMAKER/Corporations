@@ -48,6 +48,14 @@ public class CompanyViewOnMap : View
         CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
         CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
 
+        var growthBonus = Marketing.GetAudienceGrowthBonus(c, Q);
+        var churnBonus = Marketing.GetChurnBonus(Q, c, c.productTargetAudience.SegmentId);
+
+        var hint = $"<b>Audience loss (Churn)</b>" +
+            $"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
+            $"\n<b>Growth</b>\n{growthBonus.MinifyValues().ToString()}";
+        CompanyGrowth.GetComponent<Hint>().SetHint(hint);
+
         var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, c);
         ConceptProgress.SetCompanyId(c.company.Id);
         //ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
@@ -75,8 +83,10 @@ public class CompanyViewOnMap : View
             bool isGrowing = Companies.IsCompanyGrowing(company, Q);
 
             //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
+
             Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
             Profitability.text = Visuals.Positive(marketShare + "%");
+            
             //Profitability.GetComponent<Hint>().SetHint(
             //    profit > 0 ?
             //    Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
@@ -157,10 +167,13 @@ public class CompanyViewOnMap : View
 
         var brand = (int)company.branding.BrandPower;
 
+        var changeBonus = Marketing.GetAudienceChange(company, Q, true);
+
         hint.AppendLine($"\n\n");
-        hint.AppendLine($"Users: {Format.Minify(clients)} (#{position + 1})");
+        hint.AppendLine($"<b>Users</b>: {Format.Minify(clients)} (<b>#{position + 1}</b>)");
+        hint.AppendLine($"<b>Audience change</b>\n{changeBonus.ToString()}\n");
         //hint.AppendLine($"Brand: {brand}");
-        hint.AppendLine($"\nConcept: {level}LVL ({concept})");
+        //hint.AppendLine($"\nConcept: {level}LVL ({concept})");
 
         hint.AppendLine();
         hint.AppendLine();
@@ -177,7 +190,7 @@ public class CompanyViewOnMap : View
 
 
         if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nWe control this company", Colors.COLOR_CONTROL));
+            hint.AppendLine(Visuals.Colorize("\nYou control this company", Colors.COLOR_CONTROL));
 
         return hint.ToString();
     }
