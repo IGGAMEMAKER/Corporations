@@ -102,7 +102,7 @@ public class ChannelExplorationComponent : IComponent
 
 public class CompanyMarketingActivitiesComponent : IComponent
 {
-    // int - companyID, long - true / false
+    // int - companyID?? it's channelID if i am not mistaken, long - true / false
     public Dictionary<int, long> Channels;
 }
 

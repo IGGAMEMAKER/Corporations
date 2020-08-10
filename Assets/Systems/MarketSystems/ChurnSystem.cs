@@ -14,7 +14,7 @@ public partial class ChurnSystem : OnPeriodChange
         {
             var products = Markets.GetProductsOnMarket(gameContext, n.niche.NicheType, false);
 
-            ChurnUsers(products, n);
+            //ChurnUsers(products, n);
         }
     }
 

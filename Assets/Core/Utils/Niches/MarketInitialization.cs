@@ -85,33 +85,6 @@ namespace Assets.Core
             }
 
             return newChannels.ToArray();
-
-            return channels;
-
-            //var managingCompany = Companies.GetManagingCompanyOf(product, gameContext);
-
-            //var availableChannels = channels
-            //    .Where(c =>
-            //    Marketing.IsChannelExplored(c, product)
-            //    ||
-            //    Economy.IsCanMaintainForAWhile(managingCompany, gameContext, (long)c.marketingChannel.ChannelInfo.costPerAd, 6)
-            //    )
-            //    .ToArray();
-
-            //return availableChannels;
-
-            ////Debug.Log("channels: " + channels.Count());
-
-            //var amountOfChannels = GetAmountOfAvailableChannels(gameContext, product);
-
-            //var chosenChannels = channels
-            //    .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-            //    .Take(amountOfChannels);
-
-            ////Debug.Log($"chosen channels <{amountOfChannels}>: " + chosenChannels.Count());
-
-            //return chosenChannels
-            //    .ToArray();
         }
 
         public static void SpawnMarketingChannels(GameContext gameContext)
@@ -136,39 +109,37 @@ namespace Assets.Core
             // expensive
 
             var i = 0;
-            SpawnChannelSet(500, 7, gameContext, 1, ref i);
-            SpawnChannelSet(1500, 12, gameContext, 2, ref i);
-            SpawnChannelSet(5000, 8, gameContext, 2, ref i);
-            SpawnChannelSet(25000, 5, gameContext, 3, ref i);
-            SpawnChannelSet(100000, 3, gameContext, 4, ref i);
-            SpawnChannelSet(500000, 2, gameContext, 4, ref i);
-            SpawnChannelSet(1000000, 1, gameContext, 5, ref i);
+            SpawnChannelSet(500, 7, gameContext, 1, true, ref i);
+            SpawnChannelSet(1500, 12, gameContext, 2, true, ref i);
+
+            SpawnChannelSet(5000, 8, gameContext, 2, false, ref i);
+            SpawnChannelSet(25000, 5, gameContext, 3, false, ref i);
+            SpawnChannelSet(100000, 3, gameContext, 4, false, ref i);
+            SpawnChannelSet(500000, 2, gameContext, 4, false, ref i);
+            SpawnChannelSet(1000000, 1, gameContext, 5, false, ref i);
         }
 
-        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, int costInWorkers, ref int i)
+        static void SpawnChannelSet(long audience1, int amountOfChannels, GameContext gameContext, int costInWorkers, bool isFree, ref int i)
         {
             for (var j = 0; j < amountOfChannels; j++)
-                SpawnChannel(audience1, gameContext, costInWorkers, ref i);
+                SpawnChannel(audience1, gameContext, costInWorkers, isFree, ref i);
         }
 
-        static void SpawnChannel(long audience1, GameContext gameContext, int costInWorkers, ref int i)
+        static void SpawnChannel(long batch, GameContext gameContext, int costInWorkers, bool isFree, ref int i)
         {
-            long baseBatch = audience1;
-
             var channelType = RandomEnum<ClientContainerType>.GenerateValue(ClientContainerType.ProductCompany);
-            long audience = baseBatch * 100; // * Random.Range(0.85f, 1.1f);
-
-            var e = gameContext.CreateEntity();
+            long audience = batch * 100; // * Random.Range(0.85f, 1.1f);
 
             var relativeCost = Random.Range(0.5f, 3f);
 
+            var e = gameContext.CreateEntity();
             e.AddMarketingChannel(audience, channelType, new ChannelInfo
             {
                 ID = i++,
 
                 Audience = audience,
-                Batch = baseBatch,
-                costPerAd = Mathf.Pow(baseBatch, 1.12f) * relativeCost,
+                Batch = batch,
+                costPerAd = isFree ? 0 : Mathf.Pow(batch, 1.12f) * relativeCost,
                 relativeCost = relativeCost,
                 costInWorkers = costInWorkers,
 

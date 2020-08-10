@@ -32,12 +32,17 @@ public class RenderAudiencesListView : ListView
     {
         base.OnItemSelected(ind);
 
-        AudienceDetailsView.SetAudience(ind);
-        ChooseTargetAudienceButtonController.SetSegment(ind);
-        ProductCompaniesFocusListView.SetSegment(ind);
+        if (AudienceDetailsView != null)
+            AudienceDetailsView.SetAudience(ind);
 
-        Draw(ChooseTargetAudienceButtonController, ind != Flagship.productTargetAudience.SegmentId);
+        if (ChooseTargetAudienceButtonController != null)
+        {
+            ChooseTargetAudienceButtonController.SetSegment(ind);
+            Draw(ChooseTargetAudienceButtonController, ind != Flagship.productTargetAudience.SegmentId);
+        }
 
+        if (ProductCompaniesFocusListView != null)
+            ProductCompaniesFocusListView.SetSegment(ind);
     }
 
     private void OnEnable()

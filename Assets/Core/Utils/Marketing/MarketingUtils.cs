@@ -25,7 +25,12 @@ namespace Assets.Core
 
             marketing.ClientList[segmentId] += clients;
 
-            company.ReplaceMarketing(marketing.clients + clients, marketing.ClientList);
+            if (marketing.ClientList[segmentId] < 0)
+            {
+                marketing.ClientList[segmentId] = 0;
+            }
+
+            company.ReplaceMarketing(marketing.ClientList.Values.Sum(), marketing.ClientList);
             //company.ReplaceMarketing(marketing.clients + clients);
         }
 
