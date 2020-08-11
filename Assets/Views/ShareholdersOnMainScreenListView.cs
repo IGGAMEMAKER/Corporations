@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ShareholdersOnMainScreenListView : ListView
@@ -12,9 +14,10 @@ public class ShareholdersOnMainScreenListView : ListView
     public GameObject ShowOffers;
     public GameObject BuyBackFromSpecificInvestor;
     public GameObject BuyBack;
+    public GameObject CurrentInvestments;
 
     List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, ChangeGoals };
-    List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, ShowOffers };
+    List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, ShowOffers, CurrentInvestments };
 
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -50,7 +53,23 @@ public class ShareholdersOnMainScreenListView : ListView
 
         if (isSpecificInvestorSelected)
         {
-            BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
+            var shareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
+            BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
+
+            // active investments
+            var investments = MyCompany.shareholders.Shareholders[shareholderId].Investments;
+            var activeInvestments = investments.Where(i => i.RemainingPeriods > 0);
+            bool hasInvestments = activeInvestments.Count() > 0;
+
+            var investmentInfo = string.Join(
+                "\n",
+                activeInvestments
+                .Select(i => $"Will give {Format.MinifyMoney(i.Portion)} for {i.RemainingPeriods} weeks")
+                .ToArray()
+                );
+
+            //Draw(CurrentInvestments, hasInvestments);
+            CurrentInvestments.GetComponentInChildren<TextMeshProUGUI>().text = !hasInvestments ? "Is not paying investments" : investmentInfo;
         }
     }
 }

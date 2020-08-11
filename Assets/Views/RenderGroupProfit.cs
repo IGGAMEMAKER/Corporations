@@ -22,7 +22,7 @@ public class RenderGroupProfit : UpgradedParameterView
             var maintenance = Economy.GetProductCompanyMaintenance(product, Q, true);
 
             var bonus = new Bonus<long>("Profit");
-            bonus.Append("Income", income);
+            bonus.Append("Product", income);
 
             foreach (var m in maintenance.bonusDescriptions)
             {
@@ -30,6 +30,17 @@ public class RenderGroupProfit : UpgradedParameterView
                     bonus.AppendAndHideIfZero(m.Name, -m.Value);
                 else
                     bonus.Append(m.Name, -m.Value);
+            }
+
+
+            if (MyCompany.shareholders.Shareholders.Count > 1)
+            {
+
+            var investments = MyCompany.shareholders.Shareholders.Values
+                .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
+                .Sum();
+
+            bonus.AppendAndHideIfZero("Investments", investments);
             }
 
             bonus.MinifyValues();

@@ -162,12 +162,35 @@ public enum InvestorBonus
     Branding,
 }
 
+public class Investment
+{
+    public long Valuation;
+    public long Offer;
+    public int OfferDuration; // int in months
+    public long Portion;
+    public InvestorBonus InvestorBonus;
+    public InvestorGoal InvestorGoal;
+
+    public int RemainingPeriods; // int in periods
+
+    public Investment(long Offer, int Duration, long Valuation, InvestorBonus investorBonus, InvestorGoal investorGoal)
+    {
+        this.Offer = Offer;
+        this.OfferDuration = Duration;
+
+        RemainingPeriods = Duration * 4;
+        this.Portion = Offer / RemainingPeriods;
+
+        InvestorBonus = investorBonus;
+        InvestorGoal = investorGoal;
+    }
+}
+
 public class InvestmentProposal
 {
     public int ShareholderId;
-    public long Valuation;
-    public long Offer;
-    public InvestorBonus InvestorBonus;
+
+    public Investment Investment;
 
     public bool WasAccepted;
 }

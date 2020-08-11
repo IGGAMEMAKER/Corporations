@@ -67,6 +67,9 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var clientCost = ROI; // adCost / gainedAudience;
 
         Income.text = $"for {Format.MinifyMoney(adCost)} (${clientCost.ToString("0.00")} each)";
+        if (adCost == 0)
+            Income.text = "FREE AD!";
+
         Income.color = repaymentColor;
 
         MarketingComplexity.text = $"{clientCost.ToString("0.0")}$";

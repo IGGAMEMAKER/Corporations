@@ -17,7 +17,9 @@ namespace Assets.Core
                 amount = shares,
                 
                 InvestorType = GetInvestorById(context, investorId).shareholder.InvestorType,
-                shareholderLoyalty = 100
+                shareholderLoyalty = 100,
+
+                Investments = new List<Investment>()
             };
 
             AddShareholder(context, companyId, investorId, b);

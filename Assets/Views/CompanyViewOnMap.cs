@@ -32,7 +32,7 @@ public class CompanyViewOnMap : View
 
     public void SetEntity(GameEntity c, bool darkImage)
     {
-        company = c;
+        this.company = c;
         EnableDarkTheme = darkImage;
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
@@ -42,19 +42,18 @@ public class CompanyViewOnMap : View
         SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
-        ShowProductChanges.SetEntity(company);
+        ShowProductChanges.SetEntity(this.company);
 
         var change = Marketing.GetAudienceChange(c, Q);
-        CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
-        CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
-
         var growthBonus = Marketing.GetAudienceGrowthBonus(c, Q);
         var churnBonus = Marketing.GetChurnBonus(Q, c, c.productTargetAudience.SegmentId);
 
-        var hint = $"<b>Audience loss (Churn)</b>" +
-            $"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
-            $"\n<b>Growth</b>\n{growthBonus.MinifyValues().ToString()}";
-        CompanyGrowth.GetComponent<Hint>().SetHint(hint);
+        var changeBonus = Marketing.GetAudienceChange(this.company, Q, true);
+
+
+        CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
+        CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
+        CompanyGrowth.GetComponent<Hint>().SetHint($"<b>Audience change</b>\n{changeBonus.ToString()}\n");
 
         var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, c);
         ConceptProgress.SetCompanyId(c.company.Id);
@@ -62,11 +61,11 @@ public class CompanyViewOnMap : View
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var clients = Marketing.GetClients(company);
+        var clients = Marketing.GetClients(this.company);
         Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
-        var position = Markets.GetPositionOnMarket(Q, company);
-        var level = Products.GetProductLevel(company);
+        var position = Markets.GetPositionOnMarket(Q, this.company);
+        var level = Products.GetProductLevel(this.company);
 
         PositionOnMarket.text = $"#{position + 1}";
         PositionOnMarket.text = $"{level}LVL";
@@ -76,22 +75,16 @@ public class CompanyViewOnMap : View
 
         if (Profitability != null)
         {
-            var profit = Economy.GetProfit(Q, company.company.Id);
+            var profit = Economy.GetProfit(Q, this.company.company.Id);
 
             var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, Q);
             //var shareChange = 1;
-            bool isGrowing = Companies.IsCompanyGrowing(company, Q);
+            bool isGrowing = Companies.IsCompanyGrowing(this.company, Q);
 
             //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
 
             Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
             Profitability.text = Visuals.Positive(marketShare + "%");
-            
-            //Profitability.GetComponent<Hint>().SetHint(
-            //    profit > 0 ?
-            //    Visuals.Positive($"This company is profitable!\nProfit: +{Format.Money(profit)}") :
-            //    Visuals.Negative($"This company loses {Format.Money(-profit)} each month!")
-            //    );
         }
     }
 
@@ -161,19 +154,20 @@ public class CompanyViewOnMap : View
         }
 
         //
-        var level = Products.GetProductLevel(company);
-
         var clients = Marketing.GetClients(company);
 
-        var brand = (int)company.branding.BrandPower;
+        var change = Marketing.GetAudienceChange(company, Q);
+        var growthBonus = Marketing.GetAudienceGrowthBonus(company, Q);
+        var churnBonus = Marketing.GetChurnBonus(Q, company, company.productTargetAudience.SegmentId);
 
-        var changeBonus = Marketing.GetAudienceChange(company, Q, true);
+
+        var hintText = $"<b>Audience loss (Churn)</b>" +
+    $"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
+    $"\n<b>Growth</b>\n{growthBonus.MinifyValues().ToString()}";
 
         hint.AppendLine($"\n\n");
         hint.AppendLine($"<b>Users</b>: {Format.Minify(clients)} (<b>#{position + 1}</b>)");
-        hint.AppendLine($"<b>Audience change</b>\n{changeBonus.ToString()}\n");
-        //hint.AppendLine($"Brand: {brand}");
-        //hint.AppendLine($"\nConcept: {level}LVL ({concept})");
+        hint.AppendLine(hintText);
 
         hint.AppendLine();
         hint.AppendLine();
@@ -183,11 +177,6 @@ public class CompanyViewOnMap : View
 
         //var posTextual = Markets.GetCompanyPositioning(company, GameContext);
         //hint.AppendLine($"\nPositioning: {posTextual}");
-
-        ////var expertise = CompanyUtils.GetCompanyExpertise(company);
-        //var expertise = company.expertise.ExpertiseLevel + " LVL";
-        //hint.AppendLine($"\nExpertise: {expertise}");
-
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nYou control this company", Colors.COLOR_CONTROL));

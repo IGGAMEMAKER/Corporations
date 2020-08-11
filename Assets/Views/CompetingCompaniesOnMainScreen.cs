@@ -18,10 +18,12 @@ public class CompetingCompaniesOnMainScreen : ListView
 
         var clients = Marketing.GetClients(e);
         var marketShare = (clients - minClients - 0f) / (maxClients - minClients);
+        if (maxClients == minClients && maxClients == 0)
+            marketShare = 0;
         var position = 600 * marketShare;
 
         t.transform.localPosition = new Vector3(position, 0, 0);
-        t.transform.localScale = new Vector3(1, 1, 1 + marketShare);
+        //t.transform.localScale = new Vector3(1, 1, 1 + marketShare);
     }
 
     public override void ViewRender()

@@ -38,7 +38,9 @@ namespace Assets.Core
                     {
                         amount = 100,
                         InvestorType = InvestorType.Strategic,
-                        shareholderLoyalty = 100
+                        shareholderLoyalty = 100,
+
+                        Investments = new List<Investment>()
                     }
                 }
             };

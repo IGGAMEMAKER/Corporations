@@ -68,7 +68,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             FixEconomy(product, ref str);
         }
 
-        bool isTestCompany = product.company.Name == "Money Exchange 0"; // IsInPlayerSphereOfInterest(product)
+        bool isTestCompany = false; // product.company.Name == "Money Exchange 0"; // IsInPlayerSphereOfInterest(product)
         if (isTestCompany)
         {
             foreach (var s in str)

@@ -63,8 +63,9 @@ public class ShareholderProposalView : View
     {
         var text = "";
 
+        var portion = proposal.Investment.Portion;
         if (company.hasAcceptsInvestments)
-            text = Format.Money(proposal.Offer);
+            text = $"<b>+{Format.Money(portion)}</b> / week";
 
         Offer.text = text;
     }
@@ -80,7 +81,10 @@ public class ShareholderProposalView : View
             OpinionDescription.text = Investments.GetInvestorOpinionDescription(Q, company, shareholder);
             var bonus = Investments.GetInvestorOpinionBonus(Q, company, shareholder);
 
-            OpinionHint.SetHint(bonus.ToString());
+            var opinion = bonus.Sum();
+            //OpinionHint.SetHint($"Opinion\n{Visuals.Colorize(opinion + "", opinion >= 0)}");
+            OpinionHint.SetHint($"Opinion about us");
+            OpinionDescription.text = Format.Sign(opinion);
         }
     }
 }

@@ -91,17 +91,17 @@ namespace Assets.Core
             var fund = Investments.GetRandomInvestmentFund(gameContext);
 
             bool hasShareholders = company.shareholders.Shareholders.Count > 1;
+
+            var proposal = new InvestmentProposal
+            {
+                Investment = new Investment (offer, 1, valuation, InvestorBonus.None, InvestorGoal.BecomeMarketFit),
+                ShareholderId = fund,
+                WasAccepted = false
+            };
+
             if (!hasShareholders)
             {
-                Companies.AddInvestmentProposal(gameContext, company.company.Id,
-                    new InvestmentProposal
-                    {
-                        InvestorBonus = InvestorBonus.None,
-                        Offer = offer,
-                        ShareholderId = fund,
-                        Valuation = valuation,
-                        WasAccepted = false
-                    });
+                Companies.AddInvestmentProposal(gameContext, company.company.Id, proposal);
                 Companies.AcceptInvestmentProposal(gameContext, company.company.Id, fund);
             }
             else
@@ -113,17 +113,11 @@ namespace Assets.Core
 
                     bool isCeo = inv.shareholder.InvestorType == InvestorType.Founder;
 
+                    proposal.ShareholderId = investorId;
+
                     if (!isCeo)
                     {
-                        Companies.AddInvestmentProposal(gameContext, company.company.Id,
-                            new InvestmentProposal
-                            {
-                                InvestorBonus = InvestorBonus.None,
-                                Offer = offer,
-                                ShareholderId = investorId,
-                                Valuation = valuation,
-                                WasAccepted = false
-                            });
+                        Companies.AddInvestmentProposal(gameContext, company.company.Id, proposal);
                         Companies.AcceptInvestmentProposal(gameContext, company.company.Id, investorId);
                     }
                 }

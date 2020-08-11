@@ -107,8 +107,13 @@ public abstract class ListView : View // MonoBehaviour
 
             if (HighlightChosenVariant)
             {
-                o.AddComponent<CanvasGroup>();
-                o.AddComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
+                if (o.GetComponent<CanvasGroup>() == null)
+                    o.AddComponent<CanvasGroup>();
+
+                if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
+                    o.AddComponent<NotifyListIfElementWasChosen>();
+
+                o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
             }
 
             Items.Add(o);

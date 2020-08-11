@@ -1,6 +1,51 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+
+public class AIProcessInvestmentsSystem : OnPeriodChange
+{
+    public AIProcessInvestmentsSystem(Contexts contexts) : base(contexts) { }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        foreach (var c in Companies.GetNonFinancialCompanies(gameContext))
+        {
+            try
+            {
+                foreach (var s in c.shareholders.Shareholders)
+                {
+                    var investorId = s.Key;
+                    var block = s.Value;
+
+
+                    foreach (var offer in block.Investments)
+                    {
+                        try
+                        {
+                            if (offer.RemainingPeriods > 0)
+                            {
+                                Companies.AddMoneyToInvestor(gameContext, c.shareholder.Id, offer.Portion);
+                                offer.RemainingPeriods--;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.Log("Found investments for " + c.company.Name + " but something fucked up");
+                            Debug.LogError(ex);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("Got error while checking investments of " + c.company.Name);
+                Debug.LogError(ex);
+            }
+        }
+    }
+}
 
 public class AIIndependentCompaniesTakeInvestmentsSystem : OnPeriodChange
 {

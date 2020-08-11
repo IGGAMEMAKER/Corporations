@@ -12,6 +12,7 @@
 
         // investments
         Add(new AIIndependentCompaniesTakeInvestmentsSystem(contexts));
+        Add(new AIProcessInvestmentsSystem(contexts));
         Add(new AISupportProductsSystem(contexts));
 
         // DEVELOPMENT

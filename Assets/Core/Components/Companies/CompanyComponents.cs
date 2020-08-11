@@ -21,6 +21,8 @@ public struct BlockOfShares
     public InvestorType InvestorType;
 
     public int shareholderLoyalty;
+
+    public List<Investment> Investments;
 }
 
 public class AliveComponent : IComponent { }

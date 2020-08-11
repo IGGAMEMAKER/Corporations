@@ -7,6 +7,8 @@ public class ProposalScreen : View
     public Text Valuation;
     public Text InvestorName;
 
+    public Text Portion;
+
     public Text ProposalStatus;
 
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
@@ -20,10 +22,12 @@ public class ProposalScreen : View
     {
         long Cost = Economy.GetCompanyCost(Q, MyCompany.company.Id);
 
-        long offer = proposal.Offer;
+        long offer = proposal.Investment.Offer;
+        var portion = proposal.Investment.Portion;
         long futureShareSize = offer * 100 / (offer + Cost);
 
-        Offer.text = $"${Format.Minify(offer)} for {futureShareSize}% of our company";
+        Offer.text = $"{Format.MinifyMoney(offer)} for {futureShareSize}% of our company";
+        Portion.text = $"{Format.MinifyMoney(portion)} / week (during {proposal.Investment.RemainingPeriods} weeks)";
     }
 
     void RenderProposalStatus()
@@ -40,7 +44,7 @@ public class ProposalScreen : View
     {
         if (IsInvestmentRoundActive)
         {
-            Valuation.text = "$" + Format.Minify(proposal.Valuation);
+            Valuation.text = "$" + Format.Minify(proposal.Investment.Valuation);
         }
     }
 

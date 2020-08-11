@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InvestInControllableCompany : ButtonController
@@ -15,15 +16,18 @@ public class InvestInControllableCompany : ButtonController
 
         int shareholderId = MyGroupEntity.shareholder.Id;
 
-        Companies.AddInvestmentProposal(Q, companyId, new InvestmentProposal {
-            ShareholderId = shareholderId,
-            Valuation = 0,
-            Offer = Offer,
-            WasAccepted = false,
-            InvestorBonus = InvestorBonus.None
-        });
+        Debug.LogError("Check InvestInControllableCompany");
 
-        Companies.AcceptInvestmentProposal(Q, companyId, shareholderId);
+        //Companies.AddInvestmentProposal(Q, companyId, new InvestmentProposal {
+
+        //    ShareholderId = shareholderId,
+        //    WasAccepted = false,
+        //    Valuation = 0,
+        //    Offer = Offer,
+        //    InvestorBonus = InvestorBonus.None
+        //});
+
+        //Companies.AcceptInvestmentProposal(Q, companyId, shareholderId);
     }
 
     public void ResetValue(float value)
