@@ -164,7 +164,6 @@ public enum InvestorBonus
 
 public class Investment
 {
-    public long Valuation;
     public long Offer;
     public int OfferDuration; // int in months
     public long Portion;
@@ -173,13 +172,13 @@ public class Investment
 
     public int RemainingPeriods; // int in periods
 
-    public Investment(long Offer, int Duration, long Valuation, InvestorBonus investorBonus, InvestorGoal investorGoal)
+    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestorGoal investorGoal)
     {
         this.Offer = Offer;
         this.OfferDuration = Duration;
 
         RemainingPeriods = Duration * 4;
-        this.Portion = Offer / RemainingPeriods;
+        Portion = Offer / RemainingPeriods;
 
         InvestorBonus = investorBonus;
         InvestorGoal = investorGoal;
@@ -193,4 +192,6 @@ public class InvestmentProposal
     public Investment Investment;
 
     public bool WasAccepted;
+
+    //public InvestmentProposal()
 }

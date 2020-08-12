@@ -44,7 +44,8 @@ public class ProposalScreen : View
     {
         if (IsInvestmentRoundActive)
         {
-            Valuation.text = "$" + Format.Minify(proposal.Investment.Valuation);
+            //Valuation.text = "$" + Format.Minify(proposal.Investment.Valuation);
+            Valuation.text = Format.MinifyMoney(Economy.GetCompanyCost(Q, MyCompany));
         }
     }
 

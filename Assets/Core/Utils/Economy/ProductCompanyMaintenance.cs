@@ -32,7 +32,7 @@ namespace Assets.Core
                 var channelId = c.Key;
 
                 var cost = Marketing.GetMarketingActivityCost(e, gameContext, channelId);
-                bonus.AppendAndHideIfZero("Marketing in Forum" + channelId, cost);
+                bonus.AppendAndHideIfZero("Marketing in Channel" + channelId, cost);
             }
 
             var supportFeatures = Products.GetAvailableSupportFeaturesForProduct(e);

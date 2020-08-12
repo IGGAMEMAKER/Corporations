@@ -34,7 +34,8 @@ public class RenderCompanyTabButtons : View
         // player has Released products
         var hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
-        var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        //var playerCanExploreAdvancedTabs = hasReleasedProducts;
+        var playerCanExploreAdvancedTabs = true;
 
         var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
         var numberOfDaughters = daughters.Length;

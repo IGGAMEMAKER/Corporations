@@ -43,6 +43,12 @@
             return GetCompanyCost(context, company.company.Id);
         }
 
+
+        public static long GetCompanyIncomeBasedCost(long potentialIncome)
+        {
+            return potentialIncome * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
+        }
+
         public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
         {
             var c = Companies.Get(context, companyId);

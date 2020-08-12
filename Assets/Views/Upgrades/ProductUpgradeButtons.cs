@@ -19,7 +19,7 @@ public class ProductUpgradeButtons : RoleRelatedButtons
 
         // prerelease stuff
         // ---------------------
-        Draw(ReleaseApp, Companies.IsReleaseableApp(company, Q));
+        Draw(ReleaseApp, false && Companies.IsReleaseableApp(company, Q));
 
         RenderInvestmentsButton();
     }

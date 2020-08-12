@@ -10,11 +10,12 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var c in Companies.GetNonFinancialCompanies(gameContext))
+        foreach (var company in Companies.GetNonFinancialCompanies(gameContext))
         {
+            if (!company.isIndependentCompany) continue;
             try
             {
-                foreach (var s in c.shareholders.Shareholders)
+                foreach (var s in company.shareholders.Shareholders)
                 {
                     var investorId = s.Key;
                     var block = s.Value;
@@ -26,13 +27,13 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
                         {
                             if (offer.RemainingPeriods > 0)
                             {
-                                Companies.AddMoneyToInvestor(gameContext, c.shareholder.Id, offer.Portion);
+                                Companies.AddResources(company, offer.Portion);
                                 offer.RemainingPeriods--;
                             }
                         }
                         catch (Exception ex)
                         {
-                            Debug.Log("Found investments for " + c.company.Name + " but something fucked up");
+                            Debug.Log("Found investments for " + company.company.Name + " but something fucked up");
                             Debug.LogError(ex);
                         }
                     }
@@ -40,7 +41,7 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
             }
             catch (Exception ex)
             {
-                Debug.Log("Got error while checking investments of " + c.company.Name);
+                Debug.Log("Got error while checking investments of " + company.company.Name);
                 Debug.LogError(ex);
             }
         }

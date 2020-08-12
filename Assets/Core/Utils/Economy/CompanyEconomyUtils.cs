@@ -94,7 +94,8 @@ namespace Assets.Core
 
             var proposal = new InvestmentProposal
             {
-                Investment = new Investment (offer, 1, valuation, InvestorBonus.None, InvestorGoal.BecomeMarketFit),
+                Investment = new Investment(offer, 1, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
+
                 ShareholderId = fund,
                 WasAccepted = false
             };

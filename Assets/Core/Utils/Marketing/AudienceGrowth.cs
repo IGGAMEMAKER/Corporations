@@ -122,7 +122,7 @@ namespace Assets.Core
                 Name = "Test Audience",
                 Needs = "Needs messaging, profiles, friends",
                 Icon = "Teenager",
-                Amount = 100,
+                Size = 100,
                 Bonuses = new List<FeatureBonus>
                 {
                     new FeatureBonusMonetisation(-100),
@@ -138,25 +138,25 @@ namespace Assets.Core
                     Name = "Teenagers",
                     Needs = "Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending",
                     Icon = "Teenager",
-                    Amount = 400 * million,
+                    Size = 400 * million,
                 },
                 new AudienceInfo {
                     Name = "Adults (20-30 years)",
                     Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Adult",
-                    Amount = 700 * million,
+                    Size = 700 * million,
                 },
                 new AudienceInfo {
                     Name = "Middle aged people (30+)",
                     Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Middle",
-                    Amount = 2000 * million,
+                    Size = 2000 * million,
                 },
                 new AudienceInfo {
                     Name = "Old people",
                     Needs = "Needs messaging, friends, voice chats, video chats",
                     Icon = "Old",
-                    Amount = 100 * million,
+                    Size = 100 * million,
                 },
             };
 

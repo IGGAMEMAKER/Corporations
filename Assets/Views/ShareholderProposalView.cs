@@ -65,7 +65,7 @@ public class ShareholderProposalView : View
 
         var portion = proposal.Investment.Portion;
         if (company.hasAcceptsInvestments)
-            text = $"<b>+{Format.Money(portion)}</b> / week";
+            text = $"<b>+{Format.Money(portion)}</b>";
 
         Offer.text = text;
     }

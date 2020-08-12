@@ -23,7 +23,7 @@ public class SegmentPreview : View
 
         var have = Marketing.GetClients(Flagship, segmentId);
 
-        var max = Marketing.GetAudienceInfos()[segmentId].Amount;
+        var max = Marketing.GetAudienceInfos()[segmentId].Size;
         Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users"; // info.Needs;
 
         SegmentId = segmentId;

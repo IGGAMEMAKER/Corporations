@@ -20,7 +20,7 @@ public class AudienceDetailsView : ParameterView
 
         var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(Q, company.product.Niche);
 
-        var maxIncome = (long)(info.Amount * incomePerUser);
+        var maxIncome = (long)(info.Size * incomePerUser);
 
         var audienceIsPrimary = company.productTargetAudience.SegmentId == segmentId;
         var audienceColor = audienceIsPrimary ? Colors.COLOR_GOLD : Colors.COLOR_WHITE;
@@ -31,7 +31,7 @@ public class AudienceDetailsView : ParameterView
             $"{primaryAudience}" +
             $"</b>";
         text += $"\n\n<b>Potential Income (Audience)</b>" +
-            $"\n{Format.MinifyMoney(maxIncome)} ({Format.Minify(info.Amount)} users)";
+            $"\n{Format.MinifyMoney(maxIncome)} ({Format.Minify(info.Size)} users)";
         //text += $"<b>Audience specs</b>";
 
         foreach (var b in info.Bonuses)

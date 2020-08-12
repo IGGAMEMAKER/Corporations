@@ -241,7 +241,7 @@ public class AudienceInfo
     public string Needs;
     public string Icon;
 
-    public long Amount;
+    public long Size;
     public List<FeatureBonus> Bonuses;
 
     public int ID;

@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     partial class Economy
     {
@@ -12,10 +14,34 @@
         public static long GetProductCompanyBaseCost(GameContext context, int companyId) => GetProductCompanyBaseCost(context, Companies.Get(context, companyId));
         public static long GetProductCompanyBaseCost(GameContext context, GameEntity company)
         {
-            long audienceCost = GetClientBaseCost(context, company.company.Id);
-            long profitCost = GetCompanyIncomeBasedCost(context, company.company.Id);
+            if (company.isRelease)
+            {
+                long audienceCost = GetClientBaseCost(context, company.company.Id);
+                long profitCost = GetCompanyIncomeBasedCost(context, company.company.Id);
 
-            return audienceCost + profitCost;
+                return audienceCost + profitCost;
+            }
+            else
+            {
+                // judge by potential
+                var segmentId = company.productTargetAudience.SegmentId;
+                var info = Marketing.GetAudienceInfos();
+                var segment = info[segmentId];
+
+                var max = segment.Size;
+                var income = GetBaseIncomeByMonetisationType(context, company.product.Niche);
+
+                var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
+
+                var potentialBaseIncome = income * (100f + incomeMultiplier) / 100f;
+
+                var possiblePortion = 5;
+
+                long baseCost = 1000000;
+
+                return (long)((double)baseCost * (100f + incomeMultiplier) / 100f);
+                return GetCompanyIncomeBasedCost((long)(potentialBaseIncome * (double)max) * possiblePortion / 1000);
+            }
         }
 
         public static long GetClientBaseCost(GameContext context, int companyId)

@@ -16,7 +16,7 @@ namespace Assets.Core
 
             foreach (var potentialInvestor in potentialInvestors)
             {
-                var modifier = (50 + UnityEngine.Random.Range(0, 100));
+                var modifier = 50 + UnityEngine.Random.Range(0, 100);
 
                 long valuation = cost * modifier / 100;
 
@@ -31,7 +31,7 @@ namespace Assets.Core
 
                 var p = new InvestmentProposal
                 {
-                    Investment = new Investment(offer, Duration, valuation, InvestorBonus.None, InvestorGoal.BecomeMarketFit),
+                    Investment = new Investment(offer, Duration, InvestorBonus.None, InvestorGoal.BecomeMarketFit),
 
                     ShareholderId = ShareholderId,
                     WasAccepted = false
