@@ -54,15 +54,17 @@ public class AudiencesOnMainScreenListView : ListView
 
             Draw(AmountOfUsers, clients > 0);
             Draw(UserGrowth, clients > 0);
-            AmountOfUsers.Title.text = $"<b>We have</b>\n{Format.Minify(clients)} {audience.Name}";
-            UserGrowth.Title.text = $"<b>Growing by</b>\n+{Format.Minify(growing)} weekly";
+            AmountOfUsers.Title.text = $"{Format.Minify(clients)} users";
+            //AmountOfUsers.Title.text = $"<b>We have</b>\n{Format.Minify(clients)} {audience.Name}";
+            UserGrowth.Title.text = $"<b>Audience growing by</b>\n" + Visuals.Colorize($"+{Format.Minify(growing)} weekly", growing >= 0);
+            //UserGrowth.Title.color = Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
             var incomePerUser = 0.42f;
             var worth = (long)((double)audience.Size * incomePerUser);
             Potential.Title.text = $"<b>Potential: {Format.Minify(audience.Size)} users</b>\nworth {Format.MinifyMoney(worth)}";
 
             FavouriteFeatures.Title.text = $"<b>Favourite features</b>\nChats, emojis, videocalls, audiocalls";
-            HatedFeatures.Title.text = $"<b>Favourite features</b>\nMonetisation";
+            HatedFeatures.Title.text = $"<b>Hated features</b>\nMonetisation";
         }
     }
 

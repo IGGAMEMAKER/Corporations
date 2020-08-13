@@ -37,7 +37,7 @@ public class AudiencePreview : View
                 var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
 
                 links.Background.color = Visuals.GetColorPositiveOrNegative(true);
-                links.Title.text += $"Income: {Format.MinifyMoney(income)}";
+                links.Title.text += $"Income: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
             }
 
             else
@@ -45,7 +45,7 @@ public class AudiencePreview : View
                 var loss = Marketing.GetChurnClients(Q, Flagship.company.Id, segmentId);
 
                 links.Background.color = Visuals.GetColorPositiveOrNegative(false);
-                links.Title.text += $"Loss: {Format.MinifyToInteger(loss)} users";
+                links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
             }
         }
     }
