@@ -18,10 +18,8 @@ namespace Assets.Core
                 foreach (var clientsList in e.marketing.ClientList)
                 {
                     var segmentId = clientsList.Key;
-                    var clients = clientsList.Value;
 
-                    float income = GetIncomePerUser(context, e, segmentId) * clients;
-                    result += Convert.ToInt64(income);
+                    result += GetIncomePerSegment(context, e, segmentId);
                 }
             }
             catch
@@ -41,6 +39,12 @@ namespace Assets.Core
 
             return improvements;
         }
+
+        public static long GetIncomePerSegment(GameContext gameContext, GameEntity company, int segmentId)
+        {
+            return Convert.ToInt64(company.marketing.ClientList[segmentId] * GetIncomePerUser(gameContext, company, segmentId));
+        }
+
         public static float GetIncomePerUser(GameContext gameContext, GameEntity c, int segmentId)
         {
             //float price = Markets.GetBaseProductPrice(c, gameContext);

@@ -11,7 +11,7 @@ public class AddTaskForTheTeamController : ButtonController
     {
         this.TeamId = TeamId;
 
-        NotEnoughWorkersForSlot.gameObject.SetActive(!HasEnoughWorkersForSlot());
+        //NotEnoughWorkersForSlot.gameObject.SetActive(!HasEnoughWorkersForSlot());
     }
 
     bool HasEnoughWorkersForSlot()
@@ -30,8 +30,8 @@ public class AddTaskForTheTeamController : ButtonController
 
     public override void Execute()
     {
-        if (!HasEnoughWorkersForSlot())
-            return;
+        //if (!HasEnoughWorkersForSlot())
+        //    return;
 
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 

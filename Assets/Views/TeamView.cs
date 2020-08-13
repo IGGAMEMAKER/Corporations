@@ -65,6 +65,7 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         ProgressBar.SetDescription("Hiring workers");
         ProgressBar.SetValue(hiringProgress, 100);
         ProgressBar.SetCustomText($"{workers} / {maxWorkers}");
+
         Draw(ProgressBar, !hasFullTeam);
     }
 

@@ -65,6 +65,22 @@ namespace Assets.Core
             return GetBrandBasedAudienceGrowth(e, gameContext);
         }
 
+        public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
+        {
+            var channels = Markets.GetMarketingChannels(gameContext);
+            long result = 0;
+
+            foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
+            {
+                var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
+
+                var gain = GetChannelClientGain(product, gameContext, channel, segmentId);
+                result += gain;
+            }
+
+            return result;
+        }
+
         public static Bonus<long> GetAudienceGrowthBonus(GameEntity product, GameContext gameContext)
         {
             var bonus = new Bonus<long>("Audience Growth");
