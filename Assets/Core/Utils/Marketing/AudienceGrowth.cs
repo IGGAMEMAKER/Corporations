@@ -157,19 +157,19 @@ namespace Assets.Core
                     Size = 400 * million,
                 },
                 new AudienceInfo {
-                    Name = "Adults (20-30 years)",
+                    Name = "Adults (20+ years)",
                     Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Adult",
                     Size = 700 * million,
                 },
                 new AudienceInfo {
-                    Name = "Middle aged people (30+)",
+                    Name = "Middle aged people (35+)",
                     Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Middle",
                     Size = 2000 * million,
                 },
                 new AudienceInfo {
-                    Name = "Old people",
+                    Name = "Old people (50+)",
                     Needs = "Needs messaging, friends, voice chats, video chats",
                     Icon = "Old",
                     Size = 100 * million,

@@ -27,7 +27,9 @@ public class AudiencesOnMainScreenListView : ListView
     {
         base.ViewRender();
 
-        SetItems(Marketing.GetAudienceInfos());
+        var audiences = Marketing.GetAudienceInfos();
+
+        SetItems(audiences);
     }
 
     public override void OnItemSelected(int ind)
@@ -56,11 +58,16 @@ public class AudiencesOnMainScreenListView : ListView
             UserGrowth.Title.text = $"<b>Growing by</b>\n+{Format.Minify(growing)} weekly";
 
             var incomePerUser = 0.42f;
-            var worth = audience.Size * incomePerUser;
+            var worth = (long)((double)audience.Size * incomePerUser);
             Potential.Title.text = $"<b>Potential: {Format.Minify(audience.Size)} users</b>\nworth {Format.MinifyMoney(worth)}";
 
             FavouriteFeatures.Title.text = $"<b>Favourite features</b>\nChats, emojis, videocalls, audiocalls";
             HatedFeatures.Title.text = $"<b>Favourite features</b>\nMonetisation";
         }
+    }
+
+    private void OnEnable()
+    {
+        Hide(ButtonList);
     }
 }

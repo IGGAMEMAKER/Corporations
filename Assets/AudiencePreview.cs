@@ -14,7 +14,9 @@ public class AudiencePreview : View
         var segmentId = audience.ID;
 
         var links = GetComponent<ProductUpgradeLinks>();
-        links.Title.text = $"<b>{audience.Name}</b>\n";
+        bool isMainAudience = Flagship.productTargetAudience.SegmentId == segmentId;
+
+        links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
 
         var loyalty = Random.Range(-5, 15);
 
