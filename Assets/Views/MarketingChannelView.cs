@@ -53,16 +53,12 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
 
-        var ROI = Marketing.GetChannelROI(company, Q, channel, segmentID);
-        ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
+        var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
 
-        var repaysSelf = Marketing.GetChannelRepaymentSpeed(company, Q, channel, segmentID);
-
-        SegmentTypeImage.texture = Resources.Load($"Audiences/{audiences[segmentID].Icon}") as Texture2D;
+        SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
 
         var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
-        //repaymentColor = Visuals.GetColorPositiveOrNegative(Economy.IsCanMaintain(company, Q, adCost));
 
         var clientCost = ROI; // adCost / gainedAudience;
 
@@ -78,7 +74,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         //MarketingComplexity.text = channel1.costInWorkers.ToString();
 
         Hide(MarketingComplexity);
-        Hide(Income);
+        Show(Income);
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
         CanvasGroup.alpha = 1;

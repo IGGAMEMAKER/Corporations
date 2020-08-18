@@ -28,7 +28,7 @@ public class SegmentPreview : View
 
         SegmentId = segmentId;
 
-        Icon.texture = Resources.Load($"Audiences/{info.Icon}") as Texture2D;
+        Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
 
         bool isChoicePreview = BorderIcon != null;
 

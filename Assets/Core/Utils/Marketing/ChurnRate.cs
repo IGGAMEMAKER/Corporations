@@ -22,43 +22,54 @@ namespace Assets.Core
             return Mathf.Log(0.01f, oppositeChurn);
         }
 
-        //public static int GetSegmentLoyalty(GameContext gameContext, GameEntity c, int segmentId)
-        //{
+        public static float GetSegmentLoyalty(GameContext gameContext, GameEntity c, int segmentId)
+        {
+            var features = Products.GetAvailableFeaturesForProduct(c);
+            var infos = GetAudienceInfos();
 
-        //}
+            var segment = infos[segmentId];
+
+            var bonus = new Bonus<long>("Loyalty");
+
+            float loyalty = 0f;
+
+            foreach (var f in features)
+            {
+                if (Products.IsUpgradedFeature(c, f.Name))
+                {
+                    bonus.Append($"Feature {f.Name}", (int)Products.GetFeatureRating(c, f.Name) * f.AttitudeToFeature[segmentId]);
+                }
+            }
+
+            bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(c) ? -70 : 0);
+            bonus.AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? -7 : 0);
+
+            bonus.Cap(-100, 50);
+
+            return loyalty;
+        }
 
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId, int segmentId) => GetChurnBonus(gameContext, Companies.Get(gameContext, companyId), segmentId);
         public static Bonus<long> GetChurnBonus(GameContext gameContext, GameEntity c, int segmentId)
         {
             var state = Markets.GetMarketState(gameContext, c.product.Niche);
 
-            var fromProductLevel = Products.GetDifferenceBetweenMarketDemandAndAppConcept(c, gameContext);
             var marketIsDying = state == MarketState.Death;
 
 
-            var niche = Markets.Get(gameContext, c.product.Niche);
-            var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
-            var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
+            //var niche = Markets.Get(gameContext, c.product.Niche);
+            //var monetisation = niche.nicheBaseProfile.Profile.MonetisationType;
+            //var baseValue = GetChurnRateBasedOnMonetisationType(monetisation);
 
-            var retentionImprovement = (int)Products.GetChurnFeaturesBenefit(c);
-            var monetisationImprovements = (int)Products.GetMonetisationFeatures(c).Length * 5;
-
-            var audienceInfo = Marketing.GetAudienceInfos()[segmentId];
-
-            var audienceBonus = audienceInfo.Bonuses.Where(b => b.isRetentionFeature).Sum(b => b.Max);
+            var loyalty = GetSegmentLoyalty(gameContext, c, segmentId);
 
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
-                .Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
-                .AppendAndHideIfZero("Base for this audience", (long)audienceBonus)
+                //.Append("Base value for " + Enums.GetFormattedMonetisationType(monetisation), baseValue)
 
-                .Append("Features", -retentionImprovement)
-                .Append("Monetisation", monetisationImprovements)
-
-                // technical stuff
-                .AppendAndHideIfZero("Servers overload", Products.IsNeedsMoreServers(c) ? 30 : 0)
-                .AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? 15 : 0)
+                // loyalty
+                .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
 
                 // competition
 

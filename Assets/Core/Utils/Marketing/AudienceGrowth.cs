@@ -133,10 +133,13 @@ namespace Assets.Core
         {
             var million = 1000000;
 
+            var baseFeatures = Products.GetAvailableFeaturesForProduct(null);
+
             var testAudience = new AudienceInfo
             {
                 Name = "Test Audience",
-                Needs = "Needs messaging, profiles, friends",
+                //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes", "Ads", "Ad panel"
+                Needs = new List<int> { 5, 4, 3, 3, 2, 2, 2, 1, 1, },
                 Icon = "Teenager",
                 Size = 100,
                 Bonuses = new List<FeatureBonus>
@@ -152,25 +155,28 @@ namespace Assets.Core
                 testAudience,
                 new AudienceInfo {
                     Name = "Teenagers",
-                    Needs = "Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending",
+                    //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes"
+                    //Needs = new List<int> { 5, 4, 3, 3, 2, 2, 2, 1, 1 },
                     Icon = "Teenager",
                     Size = 400 * million,
                 },
                 new AudienceInfo {
                     Name = "Adults (20+ years)",
-                    Needs = "Needs messaging, profiles, friends, voice chats",
+                    //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes"
+                    //Needs = new List<int> { 5, 2, 4, 3, 3, 1, 2, 1, 0, },
+                    //Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Adult",
                     Size = 700 * million,
                 },
                 new AudienceInfo {
                     Name = "Middle aged people (35+)",
-                    Needs = "Needs messaging, profiles, friends, voice chats",
+                    //Needs = "Needs messaging, profiles, friends, voice chats",
                     Icon = "Middle",
                     Size = 2000 * million,
                 },
                 new AudienceInfo {
                     Name = "Old people (50+)",
-                    Needs = "Needs messaging, friends, voice chats, video chats",
+                    //Needs = "Needs messaging, friends, voice chats, video chats",
                     Icon = "Old",
                     Size = 100 * million,
                 },

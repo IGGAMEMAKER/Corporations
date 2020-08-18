@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class AudiencePreview : View
 {
     public Text Loyalty;
+    public RawImage AudienceImage;
+    public Image TargetAudience;
+
     public void SetEntity(AudienceInfo audience)
     {
         base.ViewRender();
@@ -17,8 +20,9 @@ public class AudiencePreview : View
         bool isMainAudience = Flagship.productTargetAudience.SegmentId == segmentId;
 
         links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+        Draw(TargetAudience, isMainAudience);
 
-        var loyalty = Random.Range(-5, 15);
+        var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
 
         bool isNewAudience = !Flagship.marketing.ClientList.ContainsKey(segmentId) || Flagship.marketing.ClientList[segmentId] == 0;
         bool isLoyalAudience = loyalty >= 0;
@@ -48,5 +52,7 @@ public class AudiencePreview : View
                 links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
             }
         }
+
+        AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
     }
 }

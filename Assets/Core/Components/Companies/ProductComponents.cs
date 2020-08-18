@@ -90,6 +90,19 @@ public class NewProductFeature
 {
     public string Name;
     public FeatureBonus FeatureBonus;
+    public List<int> AttitudeToFeature;
+
+    public NewProductFeature(string name, List<int> attitudes, float monetisationBenefit = 0)
+    {
+        Name = name;
+
+        if (monetisationBenefit > 0)
+            FeatureBonus = new FeatureBonusMonetisation(monetisationBenefit);
+        else
+            FeatureBonus = new FeatureBonusRetention(5);
+
+        AttitudeToFeature = attitudes;
+    }
 }
 
 public class SupportFeature
@@ -238,7 +251,7 @@ public class AudienceInfo
 {
     public string Name;
     public int Loyalty;
-    public string Needs;
+    public List<int> Needs; // +1, -1, +2, +1, -5, -10, 0, 0
     public string Icon;
 
     public long Size;

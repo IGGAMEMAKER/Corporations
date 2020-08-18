@@ -7,38 +7,68 @@ namespace Assets.Core
     {
         public static NewProductFeature[] GetAvailableFeaturesForProduct(GameEntity product)
         {
-            switch (product.product.Niche)
+            //Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending
+            // Test Audience, Teenagers, Adults, Middle, Old
+
+            var utp = 6;
+            var top = 3;
+            var ok = 1;
+
+            var hate = -15;
+            var bad = -3;
+
+            var socialNetworkFeatures = new NewProductFeature[]
             {
-                case NicheType.Com_SocialNetwork:
-                default:
-                    return new NewProductFeature[]
-                    {
-                        new NewProductFeature { Name = "Profile", FeatureBonus = new FeatureBonusRetention(10) },
-                        new NewProductFeature { Name = "Friends", FeatureBonus = new FeatureBonusRetention(7) },
-                        new NewProductFeature { Name = "Messaging", FeatureBonus = new FeatureBonusRetention(7) },
-                        new NewProductFeature { Name = "News Feed", FeatureBonus = new FeatureBonusRetention(7) },
-                        new NewProductFeature { Name = "Likes", FeatureBonus = new FeatureBonusRetention(7) },
+                new NewProductFeature("Messaging",      new List<int> { utp, utp, utp, utp, utp }),
+                new NewProductFeature("News Feed",      new List<int> { ok, top, top, ok, ok }),
+                new NewProductFeature("Friends",        new List<int> { ok, ok, top, top, top }),
+                new NewProductFeature("Profile",        new List<int> { top, top, top, top, ok }),
+                new NewProductFeature("Voice chat",     new List<int> { ok, ok, ok, top, top }),
+                new NewProductFeature("Video chat",     new List<int> { 0, 0, 0, 0, top }),
+                new NewProductFeature("Sending files",  new List<int> { 1, top, top, ok, 0 }),
+                new NewProductFeature("Emojis",         new List<int> { 1, top, ok, ok, 0 }),
+                new NewProductFeature("Likes",          new List<int> { 1, top, top, 0, 0 }),
 
-                        new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-                        new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+                //new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
+                //new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
 
-                        new NewProductFeature { Name = "Ads", FeatureBonus = new FeatureBonusMonetisation(25) },
-                        new NewProductFeature { Name = "Ad panel", FeatureBonus = new FeatureBonusMonetisation(10) },
-                    };
-                    break;
-                    return new NewProductFeature[]
-                    {
-                        new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },
+                new NewProductFeature("Ads", new List<int> { hate, hate, hate, hate, hate }, 25),
+                new NewProductFeature("Admin panel for advertisers", new List<int> { 0, 0, 0, 0, 0 }, 15),
+            };
 
-                        new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
-                        new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
-                        new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+            return socialNetworkFeatures;
+            //switch (product.product.Niche)
+            //{
+            //    case NicheType.Com_SocialNetwork:
+            //    default:
+            //        return new NewProductFeature[]
+            //        {
+            //            new NewProductFeature { Name = "Profile", FeatureBonus = new FeatureBonusRetention(10) },
+            //            new NewProductFeature { Name = "Friends", FeatureBonus = new FeatureBonusRetention(7) },
+            //            new NewProductFeature { Name = "Messaging", FeatureBonus = new FeatureBonusRetention(7) },
+            //            new NewProductFeature { Name = "News Feed", FeatureBonus = new FeatureBonusRetention(7) },
+            //            new NewProductFeature { Name = "Likes", FeatureBonus = new FeatureBonusRetention(7) },
 
-                        new NewProductFeature { Name = "Pricing", FeatureBonus = new FeatureBonusMonetisation(25) },
-                        new NewProductFeature { Name = "Cross promotions", FeatureBonus = new FeatureBonusMonetisation(15) },
-                    };
-                    break;
-            }
+            //            new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
+            //            new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+
+            //            new NewProductFeature { Name = "Ads", FeatureBonus = new FeatureBonusMonetisation(25) },
+            //            new NewProductFeature { Name = "Ad panel", FeatureBonus = new FeatureBonusMonetisation(10) },
+            //        };
+            //        break;
+            //        return new NewProductFeature[]
+            //        {
+            //            new NewProductFeature { Name = "Core app", FeatureBonus = new FeatureBonusRetention(10) },
+
+            //            new NewProductFeature { Name = "Landing Page", FeatureBonus = new FeatureBonusAcquisition(15) },
+            //            new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
+            //            new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
+
+            //            new NewProductFeature { Name = "Pricing", FeatureBonus = new FeatureBonusMonetisation(25) },
+            //            new NewProductFeature { Name = "Cross promotions", FeatureBonus = new FeatureBonusMonetisation(15) },
+            //        };
+            //        break;
+            //}
         }
 
         // set of features

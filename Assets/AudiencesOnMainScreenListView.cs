@@ -9,12 +9,15 @@ public class AudiencesOnMainScreenListView : ListView
     [Header("Buttons")]
     public GameObject SetAsTargetAudience;
 
+    public GameObject TeamPanel;
+
     public ProductUpgradeLinks MainAudienceInfo;
     public ProductUpgradeLinks AmountOfUsers;
     public ProductUpgradeLinks UserGrowth;
     public ProductUpgradeLinks Potential;
     public ProductUpgradeLinks FavouriteFeatures;
     public ProductUpgradeLinks HatedFeatures;
+    public ProductUpgradeLinks MainInfo;
 
     public GameObject ButtonList;
 
@@ -37,39 +40,50 @@ public class AudiencesOnMainScreenListView : ListView
         base.OnItemSelected(ind);
 
         if (ind == -1)
+        {
             Hide(ButtonList);
+            Show(TeamPanel);
+        }
         else
         {
             Show(ButtonList);
+            Hide(TeamPanel);
+
+            // todo remove
+            Hide(FavouriteFeatures);
+            Hide(HatedFeatures);
+            Hide(UserGrowth);
+
+            bool isTargetAudience = Flagship.productTargetAudience.SegmentId == ind;
+            bool hasClients = Flagship.marketing.ClientList.ContainsKey(ind);
+            var clients = hasClients ? Flagship.marketing.ClientList[ind] : 0;
+
+            Draw(SetAsTargetAudience, !isTargetAudience);
+            Draw(MainAudienceInfo, isTargetAudience);
+            Draw(AmountOfUsers, clients > 0);
+
 
             var audience = Marketing.GetAudienceInfos()[ind];
 
-            bool hasClients = Flagship.marketing.ClientList.ContainsKey(ind);
-            var clients = hasClients ? Flagship.marketing.ClientList[ind] : 0;
             var growing = Marketing.GetAudienceGrowthBySegment(Flagship, Q, ind);
+            AmountOfUsers.Title.text = $"{Format.Minify(clients)} {audience.Name}\n" + Visuals.Colorize($"+{Format.Minify(growing)} weekly", growing >= 0);
 
-            Draw(SetAsTargetAudience, Flagship.productTargetAudience.SegmentId != ind);
-            Draw(MainAudienceInfo, Flagship.productTargetAudience.SegmentId == ind);
             MainAudienceInfo.Title.text = Visuals.Colorize("<b>Our main audience</b>", Colors.COLOR_GOLD);
-
-            Draw(AmountOfUsers, clients > 0);
-            Draw(UserGrowth, clients > 0);
-            AmountOfUsers.Title.text = $"{Format.Minify(clients)} users";
-            //AmountOfUsers.Title.text = $"<b>We have</b>\n{Format.Minify(clients)} {audience.Name}";
-            UserGrowth.Title.text = $"<b>Audience growing by</b>\n" + Visuals.Colorize($"+{Format.Minify(growing)} weekly", growing >= 0);
-            //UserGrowth.Title.color = Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
             var incomePerUser = 0.42f;
             var worth = (long)((double)audience.Size * incomePerUser);
             Potential.Title.text = $"<b>Potential: {Format.Minify(audience.Size)} users</b>\nworth {Format.MinifyMoney(worth)}";
 
-            FavouriteFeatures.Title.text = $"<b>Favourite features</b>\nChats, emojis, videocalls, audiocalls";
-            HatedFeatures.Title.text = $"<b>Hated features</b>\nMonetisation";
+
+            var income = Economy.GetIncomePerSegment(Q, Flagship, ind);
+
+            MainInfo.Title.text = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
         }
     }
 
     private void OnEnable()
     {
         Hide(ButtonList);
+        Show(TeamPanel);
     }
 }
