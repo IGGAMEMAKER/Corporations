@@ -64,7 +64,7 @@ namespace Assets.Core
         }
 
         // in months
-        public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId) => GetChannelRepaymentSpeed(company, gameContext, channel, segmentId) < 10000;
+        public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId) => true; // GetChannelRepaymentSpeed(company, gameContext, channel, segmentId) < 10000;
         public static float GetChannelRepaymentSpeed(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
         {
             var adCost = (float)GetMarketingActivityCost(company, gameContext, channel);
@@ -91,26 +91,6 @@ namespace Assets.Core
             // channel will never repay
 
             return 10000;
-        }
-
-        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
-        {
-            var lifetime = Marketing.GetLifeTime(gameContext, company.company.Id);
-            //var lifetimeFormatted = lifetime.ToString("0.00");
-
-            var incomePerUser = Economy.GetIncomePerUser(gameContext, company, segmentId);
-            
-            // this formula doesn't include team maintenance cost
-            var cost = Marketing.GetMarketingActivityCost(company, gameContext, channel);
-
-            //// so i need to add it
-            //cost += (long) channel.marketingChannel.ChannelInfo.costInWorkers * C.SALARIES_PROGRAMMER * 3;
-
-            var userGain = GetChannelClientGain(company, gameContext, channel);
-
-            var ROI = incomePerUser * userGain * lifetime * (100 - 1) / cost;
-
-            return ROI;
         }
 
         public static void ExploreChannel(GameEntity channel, GameEntity product)

@@ -7,8 +7,6 @@ public class RenderClientLifetime : ParameterView
 {
     public override string RenderValue()
     {
-        var lifetime = Marketing.GetLifeTime(Q, SelectedCompany.company.Id);
-
-        return lifetime.ToString("0.00") + " months";
+        return "RenderClientLifetime";
     }
 }
