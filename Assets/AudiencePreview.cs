@@ -10,6 +10,8 @@ public class AudiencePreview : View
     public RawImage AudienceImage;
     public Image TargetAudience;
 
+    public Hint AudienceHint;
+
     public void SetEntity(AudienceInfo audience)
     {
         base.ViewRender();
@@ -23,6 +25,7 @@ public class AudiencePreview : View
         Draw(TargetAudience, isMainAudience);
 
         var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
+        var loyaltyBonus = Marketing.GetSegmentLoyalty(Q, Flagship, segmentId, true);
 
         bool isNewAudience = !Flagship.marketing.ClientList.ContainsKey(segmentId) || Flagship.marketing.ClientList[segmentId] == 0;
         bool isLoyalAudience = loyalty >= 0;
@@ -36,6 +39,8 @@ public class AudiencePreview : View
         else
         {
             Loyalty.text = Format.Sign(loyalty);
+            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.ToString());
+
             if (isLoyalAudience)
             {
                 var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
@@ -54,5 +59,24 @@ public class AudiencePreview : View
         }
 
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
+
+        var incomePerUser = Economy.GetIncomePerUser(Q, Flagship, segmentId);
+        var worth = (long)((double)audience.Size * incomePerUser);
+
+
+        //var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
+
+        //MainInfo.Title.text = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
+
+        var potentialPhrase = $"{Format.Minify(audience.Size)} users";
+        var incomePerUserPhrase = $"${incomePerUser.ToString("0.0")}";
+        var growthBonus = "???";
+
+        var text = $"<size=35>{audience.Name}</size>" +
+            $"\n\nPotential: <b>{Visuals.Positive(potentialPhrase)}</b>" + //  (worth {Format.MinifyMoney(worth)})
+            $"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
+            $"\nGrowth speed: <b>{Visuals.Positive(growthBonus)}</b>";
+
+        AudienceHint.SetHint(text);
     }
 }

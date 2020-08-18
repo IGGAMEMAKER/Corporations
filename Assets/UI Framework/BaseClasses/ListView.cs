@@ -28,6 +28,14 @@ public abstract class ListView : View // MonoBehaviour
 
     public virtual void OnItemSelected(int ind)
     {
+        //if (ind == -1)
+        //{
+        //    OnDeselect();
+        //}
+    }
+
+    public virtual void OnDeselect()
+    {
 
     }
 
@@ -45,11 +53,16 @@ public abstract class ListView : View // MonoBehaviour
     {
         // deselect
         if (ChosenIndex == elementIndex)
+        {
             ChosenIndex = -1;
+            OnDeselect();
+        }
         else
+        {
             ChosenIndex = elementIndex;
+            OnItemSelected(ChosenIndex);
+        }
 
-        OnItemSelected(ChosenIndex);
 
         int i = 0;
         foreach (var item in Items)

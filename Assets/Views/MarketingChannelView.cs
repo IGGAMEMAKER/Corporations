@@ -64,7 +64,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
         Income.text = $"for {Format.MinifyMoney(adCost)} (${clientCost.ToString("0.00")} each)";
         if (adCost == 0)
-            Income.text = "FREE AD!";
+            Income.text = "FREE";
 
         Income.color = repaymentColor;
 
@@ -104,7 +104,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
     void ToggleTexts(bool showFace)
     {
         Draw(MarketingComplexity, false);
-        Draw(Income, !showFace);
+        Draw(Income, true);
 
         //Draw(SegmentTypeImage, !showFace);
         //Draw(Users, !showFace);

@@ -19,18 +19,16 @@ public class SegmentPreview : View
 
     public void SetEntity(AudienceInfo info, int segmentId)
     {
-        Title.text = $"{info.Name}"; // <b>{Visuals.PositiveOrNegativeMinified(info.Loyalty)}</b>
+        Title.text = $"{info.Name}";
 
         var have = Marketing.GetClients(Flagship, segmentId);
 
         var max = Marketing.GetAudienceInfos()[segmentId].Size;
-        Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users"; // info.Needs;
+        Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users";
 
         SegmentId = segmentId;
 
         Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
-
-        bool isChoicePreview = BorderIcon != null;
 
         var company = Flagship;
         bool isTargetAudience = company.productTargetAudience.SegmentId == segmentId;
@@ -38,14 +36,6 @@ public class SegmentPreview : View
         var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
         if (isTargetAudience)
             PanelImage.color = audienceColor;
-
-        //if (isChoicePreview)
-        //{
-        //    BorderIcon.color = audienceColor;
-
-        //    //Description.text = $"{Format.Minify(max)} users (0.05$ each)";
-        //    //Title.text = $"{info.Name}";
-        //}
 
         HideChanges();
     }

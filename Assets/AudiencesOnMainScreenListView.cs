@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +33,28 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
-        SetItems(audiences);
+        var clients = Flagship.marketing.ClientList;
+
+        bool hasNoUsers = Marketing.GetClients(Flagship) == 0;
+
+        if (hasNoUsers)
+        {
+            // show test audience only
+            SetItems(audiences.Take(1));
+        }
+        else
+        {
+            bool hasEnoughTestUsers = clients[0] > 1000;
+
+            if (!hasEnoughTestUsers)
+            {
+                SetItems(audiences.Take(1));
+            }
+            else
+            {
+                SetItems(audiences);
+            }
+        }
     }
 
     public override void OnItemSelected(int ind)

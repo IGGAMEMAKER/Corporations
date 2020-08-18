@@ -54,6 +54,18 @@ public abstract class View : BaseClass
     public void Hide(MonoBehaviour mb) => Draw(mb.gameObject, false);
     public void Hide(GameObject go) => Draw(go, false);
 
+    public void HideAll(List<GameObject> objects)
+    {
+        foreach (var b in objects)
+            Hide(b);
+    }
+
+    public void ShowAll(List<GameObject> objects)
+    {
+        foreach (var b in objects)
+            Show(b);
+    }
+
 
     // TODO Remove/Drag used once
     public void Animate(Text text)

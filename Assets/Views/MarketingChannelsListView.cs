@@ -37,13 +37,10 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
-        //var segmentId = company.productTargetAudience.SegmentId;
-
         var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo)
             .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId))
             ;
 
-        //channels.AddRange(availableChannels.OrderByDescending(c => c.marketingChannel.ChannelInfo.Audience));
         channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c, segmentId)));
 
 

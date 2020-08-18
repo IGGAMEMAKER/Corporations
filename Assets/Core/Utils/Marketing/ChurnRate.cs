@@ -25,26 +25,28 @@ namespace Assets.Core
             {
                 if (Products.IsUpgradedFeature(c, f.Name))
                 {
-                    var rating = (int)Products.GetFeatureRating(c, f.Name);
+                    var rating = Products.GetFeatureRating(c, f.Name);
                     var attitude = f.AttitudeToFeature[segmentId];
 
-                    var loyaltyGain = 0;
+                    var loyaltyGain = 0f;
 
                     if (attitude >= 0)
                     {
-                        loyaltyGain = rating * attitude;
+                        loyaltyGain = rating * attitude / 10;
                     }
                     else
                     {
-                        loyaltyGain = attitude + (10 - rating) * attitude;
+                        loyaltyGain = attitude + (10 - rating) * attitude / 10;
                     }
 
-                    bonus.Append($"Feature {f.Name}", loyaltyGain);
+                    bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
                 }
             }
 
             bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(c) ? -70 : 0);
             bonus.AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? -7 : 0);
+
+
 
             bonus.Cap(-100, 50);
 
