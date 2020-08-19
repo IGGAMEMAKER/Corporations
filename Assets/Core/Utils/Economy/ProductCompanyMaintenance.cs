@@ -12,6 +12,7 @@ namespace Assets.Core
 
             return teamCost;
         }
+
         // resulting costs
         public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, GameContext gameContext, bool isBonus)
         {

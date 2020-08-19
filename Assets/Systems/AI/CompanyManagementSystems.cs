@@ -20,6 +20,7 @@
         // products
         //Add(new AutoUpgradeProductsSystem(contexts));
         Add(new ProductDevelopmentSystem(contexts));
+        Add(new FixProductCompanyEconomySystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
         //Add(new ChurnSystem(contexts));
 
