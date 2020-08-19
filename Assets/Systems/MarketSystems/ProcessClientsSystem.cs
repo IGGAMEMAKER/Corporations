@@ -12,22 +12,6 @@ public class ProcessClientsSystem : OnPeriodChange
 
         var audienceInfos = Marketing.GetAudienceInfos();
 
-        //foreach (var c in channels)
-        //{
-        //    foreach (var companyId in c.channelMarketingActivities.Companies.Keys)
-        //    {
-        //        var company = Companies.Get(gameContext, companyId);
-
-        //        foreach (var info in audienceInfos)
-        //        {
-        //            var gainedAudience = Marketing.GetChannelClientGain(company, gameContext, c);
-
-        //            Marketing.AddClients(company, gainedAudience, company.productTargetAudience.SegmentId);
-        //        }
-
-        //    }
-        //}
-
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)
