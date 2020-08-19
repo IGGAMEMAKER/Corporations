@@ -9,39 +9,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
+        var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship);
 
-        foreach (var product in Companies.GetProductCompanies(gameContext))
-        {
-            if (product.company.Id != playerFlagshipId)
-            {
-                ManageProduct(product);
-            }
-        }
-    }
-
-    void PrintFinancialStatusOfCompany(GameEntity product, ref List<string> str)
-    {
-        var balance = Economy.BalanceOf(product);
-
-        var income = Economy.GetCompanyIncome(gameContext, product);
-        var maintenance = Economy.GetCompanyMaintenance(gameContext, product);
-
-        var managerMaintenance = Economy.GetManagersCost(product, gameContext);
-
-        var profit = Economy.GetProfit(gameContext, product);
-
-        str.Add(
-            $"Balance: " + Format.Money(balance) + ", Profit: " + Visuals.PositiveOrNegativeMinified(profit) + 
-            " (Income: " + Visuals.Positive("+" + Format.Money(income)) + " Expenses: " + Visuals.Negative("-" + Format.Money(maintenance)) + ")"
-            );
+        foreach (var product in nonFlagshipProducts)
+            ManageProduct(product);
     }
 
     void ManageProduct(GameEntity product)
     {
         List<string> str = new List<string>();
-
-        //Economy.RaiseFastCash(gameContext, product);
+        bool isTestCompany = false; // product.company.Name == "Money Exchange 0"; // IsInPlayerSphereOfInterest(product)
 
         if (Companies.IsReleaseableApp(product, gameContext))
         {
@@ -49,26 +26,20 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
 
         str.Add($"------------------ {product.company.Name} (#{product.creationIndex}) -------------------");
-        PrintFinancialStatusOfCompany(product, ref str);
-        //str.Add("Money available: " + Visuals.PositiveOrNegativeMinified(totalFunds));
-
-        // features (free)
-        // servers and support
-        // marketing channels (growth)
+        PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
 
         ManageFeatures(product, ref str);
         ManageSupport(product, ref str);
         ManageChannels(product, ref str);
 
-        PrintFinancialStatusOfCompany(product, ref str);
+        PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
         str.Add(Economy.GetProductCompanyMaintenance(product, gameContext, true).MinifyValues().Minify().ToString(true));
 
         if (willBeBankrupt(product))
         {
-            FixEconomy(product, ref str);
+            FixEconomy(product, ref str, isTestCompany);
         }
 
-        bool isTestCompany = false; // product.company.Name == "Money Exchange 0"; // IsInPlayerSphereOfInterest(product)
         if (isTestCompany)
         {
             foreach (var s in str)
@@ -113,7 +84,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         str.Add($"Paid tasks: <{tasks.Count}> \n" + GetPaidCompanyTasksDescription(product));
     }
 
-    void FixEconomy(GameEntity product, ref List<string> str)
+    void FixEconomy(GameEntity product, ref List<string> str, bool isTestCompany)
     {
         str.Add(Visuals.Negative("Economic situation is <b>TERRIBLE</b> in " + product.company.Name));
 
@@ -130,7 +101,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
 
         str.Add(Visuals.Negative("Took cash, but this didn't help much"));
-        PrintFinancialStatusOfCompany(product, ref str);
+        PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
 
         var paidTasks = GetPaidCompanyTeamTasks(product);
 
@@ -243,6 +214,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
+
     bool IsUniversal(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
 
     bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
@@ -285,18 +257,23 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         str.Add($"-- Trying to add task {teamTask.GetTaskName()} to {product.company.Name} --");
 
         var taskCost = Economy.GetTeamTaskCost(product, gameContext, teamTask);
-        if (!CanMaintain(product, taskCost, ref str))
+        var tooExpensive = !CanMaintain(product, taskCost, ref str);
+
+        if (tooExpensive)
         {
             str.Add("-- " + Visuals.Negative("This task is too expensive!") + $" Need {Format.MinifyMoney(taskCost)}  --");
 
             return;
         }
 
+        // searching team for this task
         int teamId = 0;
         foreach (var t in product.team.Teams)
         {
             var hasFreeSlot = t.Tasks.Count < C.TASKS_PER_TEAM;
-            if (SupportsTeamTask(t.TeamType, teamTask) && hasFreeSlot)
+            var teamCanDoThisTask = SupportsTeamTask(t.TeamType, teamTask);
+
+            if (teamCanDoThisTask && hasFreeSlot)
             {
                 Teams.AddTeamTask(product, gameContext, teamId, teamTask);
                 str.Add($"-- Added task to <b>existing</b> team[{teamId}]: " + teamTask.ToString() + " --");
@@ -321,8 +298,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             str.Add($"Added team to <b>{product.company.Name}</b>");
 
             Teams.AddTeamTask(product, gameContext, product.team.Teams.Count - 1, teamTask);
-            str.Add("Added team task after adding team to " + product.company.Name);
 
+            str.Add("Added team task after adding team to " + product.company.Name);
             str.Add("-- " + Visuals.Positive("Task added successfully") + " --");
         }
         else
@@ -354,4 +331,26 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         return newBalance;
     }
+
+
+    void PrintFinancialStatusOfCompany(GameEntity product, ref List<string> str, bool isTestCompany)
+    {
+        if (isTestCompany)
+        {
+            var balance = Economy.BalanceOf(product);
+
+            var income = Economy.GetCompanyIncome(gameContext, product);
+            var maintenance = Economy.GetCompanyMaintenance(gameContext, product);
+
+            var managerMaintenance = Economy.GetManagersCost(product, gameContext);
+
+            var profit = Economy.GetProfit(gameContext, product);
+
+            str.Add(
+                $"Balance: " + Format.Money(balance) + ", Profit: " + Visuals.PositiveOrNegativeMinified(profit) +
+                " (Income: " + Visuals.Positive("+" + Format.Money(income)) + " Expenses: " + Visuals.Negative("-" + Format.Money(maintenance)) + ")"
+                );
+        }
+    }
+
 }

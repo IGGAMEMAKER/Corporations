@@ -11,13 +11,13 @@ public partial class AutoUpgradeProductsSystem : OnDateChange
     {
         var products = Companies.GetProductCompanies(gameContext);
 
-        foreach (var product in products)
-        {
-            GenerateIdeas(product, gameContext);
-            UpdgradeProduct(product, gameContext);
+        //foreach (var product in products)
+        //{
+        //    GenerateIdeas(product, gameContext);
+        //    UpdgradeProduct(product, gameContext);
 
-            Products.ScaleTeam(product, gameContext);
-        }
+        //    Products.ScaleTeam(product, gameContext);
+        //}
 
         ReleaseApps(products);
     }

@@ -14,28 +14,8 @@ public partial class ManageProductTeamSystem : OnDateChange
         {
             if (e.company.Id != playerFlagshipId)
                 ManageTeam(e);
-            //else
-            //    HireRegularWorkers(e);
         }
-
-        //var playerProducts = Companies.GetPlayerRelatedProducts(gameContext);
-        //foreach (var e in playerProducts)
-        //{
-        //    if (!Companies.IsPlayerFlagship(gameContext, e))
-        //        ManageTeam(e);
-        //}
     }
-
-    //void HireRegularWorkers(GameEntity product)
-    //{
-    //    var workerCost = C.SALARIES_PROGRAMMER;
-
-    //    var needWorkers = Products.GetNecessaryAmountOfWorkers(product, gameContext);
-    //    var haveWorkers = Teams.GetTeamSize(product);
-
-    //    if (Economy.IsCanMaintain(product, gameContext, workerCost) && haveWorkers < needWorkers)
-    //        Teams.HireRegularWorker(product);
-    //}
 
     void HireManagers(GameEntity company)
     {

@@ -91,6 +91,7 @@ public class FollowingComponent : IComponent { }
 [Game]
 public struct ControlledByPlayerComponent : IComponent { }
 
+// PLAYER ONLY
 public class FlagshipComponent : IComponent { }
 
 public class CEOComponent : IComponent

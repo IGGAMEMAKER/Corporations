@@ -18,10 +18,10 @@
         // DEVELOPMENT
 
         // products
-        Add(new AutoUpgradeProductsSystem(contexts));
+        //Add(new AutoUpgradeProductsSystem(contexts));
         Add(new ProductDevelopmentSystem(contexts));
         Add(new ManageProductTeamSystem(contexts));
-        Add(new ChurnSystem(contexts));
+        //Add(new ChurnSystem(contexts));
 
         // GLOBAL INTERACTIONS
 
