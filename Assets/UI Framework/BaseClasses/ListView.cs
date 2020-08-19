@@ -21,22 +21,22 @@ public abstract class ListView : View // MonoBehaviour
     public int ChosenIndex = -1;
 
     bool noElementsWereSelected => ChosenIndex == -1;
+    public bool ForceUpdate = false;
     //
+
+    bool wasCleanedUp = false;
 
     [HideInInspector]
     public List<GameObject> Items;
 
     public virtual void OnItemSelected(int ind)
     {
-        //if (ind == -1)
-        //{
-        //    OnDeselect();
-        //}
+
     }
 
     public virtual void OnDeselect()
     {
-
+        OnItemSelected(-1);
     }
 
     public void Deselect()
@@ -93,48 +93,80 @@ public abstract class ListView : View // MonoBehaviour
             StartCoroutine(ScrollDown());
     }
 
-    void Render<T>(T[] entities, GameObject Container, object data = null)
+    void Clean()
     {
+        //if (wasCleanedUp)
+        //    return;
+
         // remove all objects in this list
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
+        Items = new List<GameObject>();
+        //wasCleanedUp = true;
+    }
 
-        //for (int i = 0; i < entities.Length; i++)
+    void Render<T>(T[] entities, GameObject Container, object data = null)
+    {
+        Clean();
+
         if (entities == null)
             return;
 
-        Items = new List<GameObject>();
+        if (Prefab == null)
+        {
+            Debug.LogError("No prefab given! " + gameObject.name);
+            Debug.Log("No prefab given! " + gameObject.name);
+
+            return;
+        }
 
         index = 0;
         foreach (var e in entities)
         {
-            if (Prefab == null)
-            {
-                Debug.Log("No prefab given! " + gameObject.name);
-                return;
-            }
-            var o = Instantiate(Prefab, transform, false);
+            GameObject o = GetObjectForItem();
 
             SetItem(o.transform, e, data);
 
-            if (HighlightChosenVariant)
-            {
-                if (o.GetComponent<CanvasGroup>() == null)
-                    o.AddComponent<CanvasGroup>();
+            Show(o);
 
-                if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
-                    o.AddComponent<NotifyListIfElementWasChosen>();
-
-                o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
-            }
-
-            Items.Add(o);
+            HighLightChosenElement(o);
 
             index++;
         }
+
+        for (var i = index; i < Items.Count; i++)
+        {
+            // there are more elements than needed
+            Hide(Items[i]);
+        }
     }
 
+
+    GameObject GetObjectForItem()
+    {
+        if (index >= Items.Count)
+        {
+            var o = Instantiate(Prefab, transform, false);
+            Items.Add(o);
+        }
+
+        return Items[index];
+    }
+
+    void HighLightChosenElement(GameObject o)
+    {
+        if (HighlightChosenVariant)
+        {
+            if (o.GetComponent<CanvasGroup>() == null)
+                o.AddComponent<CanvasGroup>();
+
+            if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
+                o.AddComponent<NotifyListIfElementWasChosen>();
+
+            o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
+        }
+    }
 
     IEnumerator ScrollDown()
     {
