@@ -152,7 +152,7 @@ namespace Assets.Core
 
             var list = new List<AudienceInfo>
             {
-                testAudience,
+                //testAudience,
                 new AudienceInfo {
                     Name = "Teenagers",
                     //"Messaging", "News Feed", "Friends list", "Voice chat", "Profile", "Video chat", "Sending files", "Emojis", "Likes"

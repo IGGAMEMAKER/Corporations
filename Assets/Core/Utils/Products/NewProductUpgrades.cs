@@ -36,6 +36,12 @@ namespace Assets.Core
                 new NewProductFeature("Admin panel for advertisers", new List<int> { 0, 0, 0, 0, 0 }, 15),
             };
 
+            foreach (var f in socialNetworkFeatures)
+            {
+                // remove test audience
+                f.AttitudeToFeature.RemoveAt(0);
+            }
+
             return socialNetworkFeatures;
             //switch (product.product.Niche)
             //{

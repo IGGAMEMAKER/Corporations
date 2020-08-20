@@ -44,7 +44,7 @@
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
         {
             return new GoalRequirements {
-                have = Products.GetProductLevel(company),
+                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, 0),
                 need = 1
             };
         }
@@ -53,7 +53,7 @@
         {
             return new GoalRequirements {
                 have = Marketing.GetClients(company),
-                need = company.companyGoal.MeasurableGoal
+                need = 50000, // company.companyGoal.MeasurableGoal
             };
         }
 
