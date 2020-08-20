@@ -36,18 +36,18 @@ public abstract class ListView : View // MonoBehaviour
 
     public virtual void OnDeselect()
     {
-        OnItemSelected(-1);
-    }
-
-    public void Deselect()
-    {
         ChosenIndex = -1;
     }
 
-    void OnDisable()
-    {
-        Deselect();
-    }
+    //public void Deselect()
+    //{
+    //    ChosenIndex = -1;
+    //}
+
+    //void OnDisable()
+    //{
+    //    Deselect();
+    //}
 
     internal void ChooseElement(int elementIndex)
     {
@@ -72,7 +72,7 @@ public abstract class ListView : View // MonoBehaviour
             if (highlight)
                 item.GetComponent<CanvasGroup>().alpha = 1;
             else
-                item.GetComponent<CanvasGroup>().alpha = 0.4f;
+                item.GetComponent<CanvasGroup>().alpha = 0.25f;
 
             i++;
         }

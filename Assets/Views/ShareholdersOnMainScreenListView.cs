@@ -21,8 +21,6 @@ public class ShareholdersOnMainScreenListView : ListView
     List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, ChangeGoals, MainInfo.gameObject };
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, /*ShowOffers,*/ CurrentInvestments, MainInfo.gameObject };
 
-    public GameObject CompanyActions;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<InvestorPreview>().SetEntity((int)(object)entity, MyCompany);
@@ -35,16 +33,16 @@ public class ShareholdersOnMainScreenListView : ListView
         SetItems(MyCompany.shareholders.Shareholders.Keys.ToArray());
     }
 
-    private void OnEnable()
-    {
-        ShowOnly(gameObject, PlayerButtons);
-        ShowOnly(gameObject, InvestorButtons);
-    }
-
     public override void OnDeselect()
     {
         base.OnDeselect();
 
+        HideButtons();
+        FindObjectOfType<MainPanelRelay>().ShowAudiencesAndInvestors();
+    }
+
+    public void HideButtons()
+    {
         HideAll(PlayerButtons);
         HideAll(InvestorButtons);
     }
@@ -53,15 +51,34 @@ public class ShareholdersOnMainScreenListView : ListView
     {
         base.OnItemSelected(chosenIndex);
 
+        FindObjectOfType<MainPanelRelay>().ExpandInvestors();
+
+
         bool isPlayerSelected = chosenIndex == 0;
 
-        foreach (var b in PlayerButtons)
-            Draw(b, isPlayerSelected);
+        if (isPlayerSelected)
+        {
+            HideAll(InvestorButtons);
+            ShowAll(PlayerButtons);
+        }
+        else
+        {
+            HideAll(PlayerButtons);
+            ShowAll(InvestorButtons);
+        }
 
-        ShowAll(InvestorButtons);
 
         var shareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
-        BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
+
+        RenderShareholderData(shareholderId, isPlayerSelected);
+    }
+
+    void RenderShareholderData(int shareholderId, bool isPlayerSelected)
+    {
+        var shares = Companies.GetShareSize(Q, MyCompany.company.Id, shareholderId);
+        var goal = "Goal: ???";
+
+        string name = isPlayerSelected ? "YOU" : Companies.GetInvestorName(Q, shareholderId); // investor.shareholder.Name;
 
         // active investments
         var investments = MyCompany.shareholders.Shareholders[shareholderId].Investments;
@@ -75,15 +92,11 @@ public class ShareholdersOnMainScreenListView : ListView
             .ToArray()
             );
 
-        CurrentInvestments.GetComponentInChildren<TextMeshProUGUI>().text = !hasInvestments ? "Is not paying investments" : investmentInfo;
-
-
-        var shares = Companies.GetShareSize(Q, MyCompany.company.Id, shareholderId);
-        var goal = "Get most users";
-
-        string name = isPlayerSelected ? "YOU" : Companies.GetInvestorName(Q, shareholderId); // investor.shareholder.Name;
-
 
         MainInfo.Title.text = $"<b>{name}</b>\n{shares}% shares\n{goal}";
+
+        BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
+
+        CurrentInvestments.GetComponentInChildren<TextMeshProUGUI>().text = !hasInvestments ? "Is not paying investments" : investmentInfo;
     }
 }

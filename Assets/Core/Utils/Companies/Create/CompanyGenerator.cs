@@ -28,7 +28,13 @@ namespace Assets.Core
             // clients
             var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
-            company.AddMarketing((long)baseClients, new Dictionary<int, long>());
+
+            var clientList = new Dictionary<int, long>
+            {
+                [0] = 50
+            };
+
+            company.AddMarketing((long)baseClients, clientList);
 
             company.AddCompanyMarketingActivities(new Dictionary<int, long>());
             company.AddSourceOfClients(new Dictionary<int, long>());
