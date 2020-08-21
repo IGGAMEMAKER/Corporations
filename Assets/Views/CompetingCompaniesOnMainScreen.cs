@@ -17,7 +17,7 @@ public class CompetingCompaniesOnMainScreen : ListView
         var e = entity as GameEntity;
 
         t.GetComponentInChildren<LinkToProjectView>().CompanyId = e.company.Id;
-        t.GetComponentInChildren<CompanyViewOnMap>().SetEntity(e, false);
+        t.GetComponentInChildren<CompanyViewOnMap>().SetEntity(e, false, SortByIncome);
 
         var value = SortByIncome ? Economy.GetCompanyIncome(Q, e) : Marketing.GetClients(e);
         value = (long)Mathf.Clamp(value, minValue, maxValue);
@@ -62,5 +62,18 @@ public class CompetingCompaniesOnMainScreen : ListView
 
 
         SetItems(companies);
+    }
+
+    public void SetSortByIncome()
+    {
+        SortByIncome = true;
+
+        ViewRender();
+    }
+
+    public void SetSortByUsers()
+    {
+        SortByIncome = false;
+        ViewRender();
     }
 }

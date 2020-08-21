@@ -96,7 +96,7 @@ public class MarketMapRenderer : View
 
         UpdateCompanyPosition(c, index, amount, marketPosition, company.product.Niche);
 
-        c.GetComponent<CompanyViewOnMap>().SetEntity(company, true);
+        c.GetComponent<CompanyViewOnMap>().SetEntity(company, true, false);
     }
 
     GameObject GetIndustryObject(IndustryType industry)

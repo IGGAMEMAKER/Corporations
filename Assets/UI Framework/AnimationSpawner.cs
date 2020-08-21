@@ -11,9 +11,12 @@ public class AnimationSpawner : MonoBehaviour
 
     public void Spawn(string text)
     {
-        //Texts.Add(text);
+        Spawn(text, transform);
+    }
 
-        var anim = Instantiate(AnimationPrefab, transform, false);
+    public void Spawn(string text, Transform t)
+    {
+        var anim = Instantiate(AnimationPrefab, t ?? transform, false);
         anim.Play(text);
     }
 }

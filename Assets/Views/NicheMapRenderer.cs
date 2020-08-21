@@ -93,7 +93,7 @@ public class NicheMapRenderer : View
 
         UpdateCompanyPosition(c, index, amount, marketPosition, company);
 
-        c.GetComponent<CompanyViewOnMap>().SetEntity(company, true);
+        c.GetComponent<CompanyViewOnMap>().SetEntity(company, true, false);
     }
 
     GameObject GetMarketObject(NicheType niche)

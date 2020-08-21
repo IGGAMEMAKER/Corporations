@@ -17,7 +17,7 @@ public class RenderMyControl : ParameterView
         {
             if (previousControl != -1)
             {
-                Animate(Visuals.Positive("Raised Investments"));
+                Animate(Visuals.Positive("Raised Investments"), null);
                 //SoundManager.PlayFastCashSound();
                 //gameObject.AddComponent<TextBlink>();
             }

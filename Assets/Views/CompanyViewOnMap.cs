@@ -22,13 +22,15 @@ public class CompanyViewOnMap : View
 
     public ShowProductChanges ShowProductChanges;
 
+    public Transform AnimationPosition;
+
     bool EnableDarkTheme;
 
     GameEntity company;
 
-    public void SetEntity(GameEntity c, bool darkImage)
+    public void SetEntity(GameEntity c, bool darkImage, bool ShowIncome)
     {
-        this.company = c;
+        company = c;
         EnableDarkTheme = darkImage;
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
@@ -38,42 +40,39 @@ public class CompanyViewOnMap : View
         SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
-        ShowProductChanges.SetEntity(this.company);
+        ShowProductChanges.SetEntity(company);
 
         var change = Marketing.GetAudienceChange(c, Q);
-        var growthBonus = Marketing.GetAudienceGrowthBonus(c, Q);
-        var churnBonus = Marketing.GetChurnBonus(Q, c, c.productTargetAudience.SegmentId);
 
-        var changeBonus = Marketing.GetAudienceChange(this.company, Q, true);
+        var changeBonus = Marketing.GetAudienceChange(company, Q, true);
 
 
         CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
         CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
-        CompanyGrowth.GetComponent<Hint>().SetHint($"<b>Audience change</b>\n{changeBonus.ToString()}\n");
+        CompanyGrowth.GetComponent<Hint>().SetHint($"Audience change: <b>{Format.Minify(change)}</b>");
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var clients = Marketing.GetClients(this.company);
-        Concept.text = Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
+        var clients = Marketing.GetClients(company);
+        Concept.text = ShowIncome ? Format.MinifyMoney(Economy.GetCompanyIncome(Q, company)) : Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
-        var position = Markets.GetPositionOnMarket(Q, this.company);
-        var level = Products.GetProductLevel(this.company);
-
+        var position = Markets.GetPositionOnMarket(Q, company);
         PositionOnMarket.text = $"#{position + 1}";
-        PositionOnMarket.text = $"{level}LVL";
 
+        var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, Q);
+        var lastMetrics = CompanyStatisticsUtils.GetLastMetrics(company, 1);
+
+        var lastShare = Random.Range(2f, 30f);
+        var shareChange = marketShare - lastShare;
+
+        Animate(Visuals.Colorize(Format.SignOf((long)shareChange) + shareChange.ToString("0.0%"), shareChange >= 0), AnimationPosition);
 
         if (Profitability != null)
         {
-            var profit = Economy.GetProfit(Q, this.company.company.Id);
 
-            var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(c, Q);
             //var shareChange = 1;
-            bool isGrowing = Companies.IsCompanyGrowing(this.company, Q);
-
             //Profitability.text = Visuals.DescribeValueWithText(shareChange, marketShare + "%", marketShare + "%", "");
 
-            Profitability.text = Visuals.Colorize(marketShare + "%", isGrowing);
             Profitability.text = Visuals.Positive(marketShare + "%");
         }
     }
@@ -135,26 +134,16 @@ public class CompanyViewOnMap : View
         var clients = Marketing.GetClients(company);
 
         var change = Marketing.GetAudienceChange(company, Q);
-        var growthBonus = Marketing.GetAudienceGrowthBonus(company, Q);
-        var churnBonus = Marketing.GetChurnBonus(Q, company, company.productTargetAudience.SegmentId);
 
-
-        var hintText = $"<b>Audience change (Churn)</b>" +
-    //$"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
-    $"\n<b>Growth</b>\n{growthBonus.MinifyValues().ToString()}";
+        //CompanyGrowth.text = Format.SignOf(change) + Format.Minify(change);
+        //CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
+        //CompanyGrowth.GetComponent<Hint>().SetHint($"Audience change: <b>{Format.Minify(change)}</b>");
 
         hint.AppendLine($"\n\n");
         hint.AppendLine($"<b>Users</b>: {Format.Minify(clients)} (<b>#{position + 1}</b>)");
-        hint.AppendLine(hintText);
+        hint.AppendLine($"Audience change: <b>{Format.Minify(change)}</b>");
 
-        hint.AppendLine();
-        hint.AppendLine();
-
-        var profitDescription = GetProfitDescription();
-        hint.AppendLine(profitDescription);
-
-        //var posTextual = Markets.GetCompanyPositioning(company, GameContext);
-        //hint.AppendLine($"\nPositioning: {posTextual}");
+        hint.AppendLine(GetProfitDescription());
 
         if (hasControl)
             hint.AppendLine(Visuals.Colorize("\nYou control this company", Colors.COLOR_CONTROL));
