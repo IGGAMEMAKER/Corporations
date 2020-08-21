@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class AudiencesOnMainScreenListView : ListView
 {
-    [Header("Buttons")]
-    public GameObject SetAsTargetAudience;
-
     public ProductUpgradeLinks MainAudienceInfo;
     public ProductUpgradeLinks AmountOfUsers;
     public ProductUpgradeLinks Potential;
@@ -28,27 +25,14 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
-        var clients = Flagship.marketing.ClientList;
-
-        bool hasNoUsers = Marketing.GetClients(Flagship) == 0;
-
-        if (hasNoUsers)
+        if (Flagship.isRelease)
         {
-            // show test audience only
-            SetItems(audiences.Take(1));
+            SetItems(audiences);
         }
         else
         {
-            bool hasEnoughTestUsers = clients[0] > 1000;
-
-            if (!hasEnoughTestUsers)
-            {
-                SetItems(audiences.Take(1));
-            }
-            else
-            {
-                SetItems(audiences);
-            }
+            // take primary audience only
+            SetItems(audiences.Where(a => a.ID == Flagship.productTargetAudience.SegmentId));
         }
     }
 
@@ -73,15 +57,16 @@ public class AudiencesOnMainScreenListView : ListView
 
         Show(ButtonList);
 
-        bool isTargetAudience   = Flagship.productTargetAudience.SegmentId == ind;
-        bool hasClients         = Flagship.marketing.ClientList.ContainsKey(ind);
-        var clients             = hasClients ? Flagship.marketing.ClientList[ind] : 0;
+        var segmentId = Items[ind].GetComponent<AudiencePreview>().Audience.ID;
 
-        Draw(SetAsTargetAudience, !isTargetAudience);
+        bool isTargetAudience   = Flagship.productTargetAudience.SegmentId == segmentId;
+        bool hasClients         = Flagship.marketing.ClientList.ContainsKey(segmentId);
+        var clients             = hasClients ? Flagship.marketing.ClientList[segmentId] : 0;
+
         Draw(MainAudienceInfo, isTargetAudience);
         Draw(AmountOfUsers, clients > 0);
 
-        RenderAudienceData(ind, clients);
+        RenderAudienceData(segmentId, clients);
     }
 
     void RenderAudienceData(int ind, long clients)

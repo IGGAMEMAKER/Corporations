@@ -1,8 +1,10 @@
-﻿namespace Assets.Core
+﻿using System.Collections.Generic;
+
+namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static GoalRequirements GetGoalRequirements(GameEntity company, GameContext gameContext)
+        public static List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
         {
             var goal = company.companyGoal;
 
@@ -10,30 +12,35 @@
             {
                 // product company goals
                 case InvestorGoal.Prototype:
-                    return GoalPrototype(company, gameContext);
+                    return Wrap(GoalPrototype(company, gameContext));
 
                 case InvestorGoal.FirstUsers:
-                    return GoalFirstUsers(company, gameContext);
+                    return Wrap(GoalFirstUsers(company, gameContext));
 
                 case InvestorGoal.Release:
-                    return GoalRelease(company, gameContext);
+                    return Wrap(GoalRelease(company, gameContext));
 
                 case InvestorGoal.BecomeMarketFit:
-                    return GoalMarketFit(company, gameContext);
+                    return Wrap(GoalMarketFit(company, gameContext));
 
                 // company group goals
                 case InvestorGoal.BecomeProfitable:
-                    return GoalProfitable(company, gameContext);
+                    return Wrap(GoalProfitable(company, gameContext));
 
                 case InvestorGoal.GrowCompanyCost:
-                    return GoalCompanyCost(company, gameContext);
+                    return Wrap(GoalCompanyCost(company, gameContext));
                 
                 //case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
                 case InvestorGoal.IPO:
-                    return GoalIPO(company, gameContext);
+                    return Wrap(GoalIPO(company, gameContext));
 
-                default: return new GoalRequirements { need = 12000000, have = 0 };
+                default: return Wrap(new GoalRequirements { need = 888888, have = 191919 });
             }
+        }
+
+        static List<GoalRequirements> Wrap(GoalRequirements requirements)
+        {
+            return new List<GoalRequirements> { requirements };
         }
 
         private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
@@ -43,8 +50,9 @@
 
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
         {
+            var targetAudience = company.productTargetAudience.SegmentId;
             return new GoalRequirements {
-                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, 0),
+                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),
                 need = 1
             };
         }
@@ -103,11 +111,17 @@
 
         private static GoalRequirements GoalMarketFit(GameEntity company, GameContext gameContext)
         {
+            var targetAudience = company.productTargetAudience.SegmentId;
             return new GoalRequirements
             {
-                have = Products.GetProductLevel(company),
-                need = Products.GetMarketRequirements(company, gameContext)
+                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),
+                need = 5,
             };
+            //return new GoalRequirements
+            //{
+            //    have = Products.GetProductLevel(company),
+            //    need = Products.GetMarketRequirements(company, gameContext)
+            //};
         }
     }
 }

@@ -12,7 +12,14 @@ namespace Assets.Core
         {
             var r = GetGoalRequirements(company, gameContext);
 
-            return r.have >= r.need;
+            foreach (var req in r)
+            {
+                if (req.have < req.need)
+                    return false;
+            }
+
+            return true;
+            //return r.have >= r.need;
         }
 
         public static InvestorGoal GetNextGoal(InvestorGoal current)

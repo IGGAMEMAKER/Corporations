@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,10 @@ using UnityEngine;
 
 public class CompetingCompaniesOnMainScreen : ListView
 {
-    long maxClients = 1;
-    long minClients = 0;
+    long maxValue = 1;
+    long minValue = 0;
+
+    public bool SortByIncome = false;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -16,25 +19,47 @@ public class CompetingCompaniesOnMainScreen : ListView
         t.GetComponentInChildren<LinkToProjectView>().CompanyId = e.company.Id;
         t.GetComponentInChildren<CompanyViewOnMap>().SetEntity(e, false);
 
-        var clients = Marketing.GetClients(e);
-        var marketShare = (clients - minClients - 0f) / (maxClients - minClients);
-        if (maxClients == minClients && maxClients == 0)
-            marketShare = 0;
-        var position = 600 * marketShare;
+        var value = SortByIncome ? Economy.GetCompanyIncome(Q, e) : Marketing.GetClients(e);
+        value = (long)Mathf.Clamp(value, minValue, maxValue);
 
-        t.transform.localPosition = new Vector3(position, 0, 0);
-        //t.transform.localScale = new Vector3(1, 1, 1 + marketShare);
+        var marketShare = (value - minValue - 0f) / (maxValue - minValue);
+        if (maxValue == 0 && minValue == 0)
+        {
+            marketShare = 0;
+        }
+
+
+        t.transform.localPosition = new Vector3(600 * marketShare, 0, 0);
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true)
-            .OrderBy(Marketing.GetClients);
+        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true);
 
-        maxClients = companies.Max(Marketing.GetClients);
-        minClients = companies.Min(Marketing.GetClients);
+        var interval = 40;
+
+        if (SortByIncome)
+        {
+            companies = companies.OrderBy(c => Economy.GetCompanyIncome(Q, c));
+            //maxValue = companies.Max(c => Economy.GetCompanyIncome(Q, c));
+            //minValue = companies.Min(c => Economy.GetCompanyIncome(Q, c));
+            var income = Economy.GetCompanyIncome(Q, Flagship);
+            maxValue = income * (100 + interval) / 100;
+            minValue = income * (100 - interval) / 100;
+        }
+        else
+        {
+            companies = companies.OrderBy(Marketing.GetClients);
+            var clients = Marketing.GetClients(Flagship);
+
+            maxValue = clients * (100 + interval) / 100;
+            minValue = clients * (100 - interval) / 100;
+            //maxValue = companies.Max(Marketing.GetClients);
+            //minValue = companies.Min(Marketing.GetClients);
+        }
+
 
         SetItems(companies);
     }

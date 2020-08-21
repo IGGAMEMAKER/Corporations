@@ -12,11 +12,14 @@ public class AudiencePreview : View
 
     public Hint AudienceHint;
 
+    public AudienceInfo Audience;
+
     public void SetEntity(AudienceInfo audience)
     {
         base.ViewRender();
 
         var segmentId = audience.ID;
+        Audience = audience;
 
         var links = GetComponent<ProductUpgradeLinks>();
         bool isMainAudience = Flagship.productTargetAudience.SegmentId == segmentId;

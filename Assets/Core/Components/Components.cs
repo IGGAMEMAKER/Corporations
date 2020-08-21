@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Assets.Core;
+using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
@@ -174,6 +175,9 @@ public class Investment
 
     public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestorGoal investorGoal)
     {
+        try
+        {
+
         this.Offer = Offer;
         this.OfferDuration = Duration;
 
@@ -182,6 +186,11 @@ public class Investment
 
         InvestorBonus = investorBonus;
         InvestorGoal = investorGoal;
+        }
+        catch
+        {
+            Debug.Log($"Fail at new Investment: {Format.MinifyMoney(Offer)} for {Duration} months...or weeks?");
+        }
     }
 }
 

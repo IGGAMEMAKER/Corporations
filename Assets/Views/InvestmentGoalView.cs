@@ -90,6 +90,6 @@ public class InvestmentGoalView : View
 
         Goal.text = Visuals.Colorize(goalInfo, Investments.IsGoalCompleted(MyCompany, Q));
 
-        RenderProgress(requirements, goal);
+        RenderProgress(requirements[0], goal);
     }
 }

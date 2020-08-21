@@ -88,7 +88,7 @@ namespace Assets.Core
             var valuation = GetCompanyCost(gameContext, company);
             var offer = GetFastCashAmount(gameContext, company);
 
-            var fund = Investments.GetRandomInvestmentFund(gameContext);
+            var fundId = Investments.GetRandomInvestmentFund(gameContext);
 
             bool hasShareholders = company.shareholders.Shareholders.Count > 1;
 
@@ -96,14 +96,14 @@ namespace Assets.Core
             {
                 Investment = new Investment(offer, 1, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
 
-                ShareholderId = fund,
+                ShareholderId = fundId,
                 WasAccepted = false
             };
 
             if (!hasShareholders)
             {
                 Companies.AddInvestmentProposal(gameContext, company.company.Id, proposal);
-                Companies.AcceptInvestmentProposal(gameContext, company.company.Id, fund);
+                Companies.AcceptInvestmentProposal(gameContext, company.company.Id, fundId);
             }
             else
             {

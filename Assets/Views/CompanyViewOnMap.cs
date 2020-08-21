@@ -18,10 +18,6 @@ public class CompanyViewOnMap : View
 
     public Text Profitability;
 
-    public RenderDumpingHint Dumping;
-
-    public RenderConceptProgress ConceptProgress;
-
     public Text PositionOnMarket;
 
     public ShowProductChanges ShowProductChanges;
@@ -55,10 +51,6 @@ public class CompanyViewOnMap : View
         CompanyGrowth.color = Visuals.GetColorPositiveOrNegative(change);
         CompanyGrowth.GetComponent<Hint>().SetHint($"<b>Audience change</b>\n{changeBonus.ToString()}\n");
 
-        var isRelatedToPlayer = Companies.IsRelatedToPlayer(Q, c);
-        ConceptProgress.SetCompanyId(c.company.Id);
-        //ConceptProgress.gameObject.SetActive(isRelatedToPlayer);
-
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
         var clients = Marketing.GetClients(this.company);
@@ -70,8 +62,6 @@ public class CompanyViewOnMap : View
         PositionOnMarket.text = $"#{position + 1}";
         PositionOnMarket.text = $"{level}LVL";
 
-
-        Dumping.SetCompanyId(c.company.Id);
 
         if (Profitability != null)
         {
@@ -141,18 +131,6 @@ public class CompanyViewOnMap : View
 
         var position = Markets.GetPositionOnMarket(Q, company);
 
-        // quality description
-        var conceptStatus = Products.GetConceptStatus(company, Q);
-
-        var concept = "???";
-
-        switch (conceptStatus)
-        {
-            case ConceptStatus.Leader:      concept = "Sets Trends!"; break;
-            case ConceptStatus.Outdated:    concept = "Outdated"; break;
-            case ConceptStatus.Relevant:    concept = "Relevant"; break;
-        }
-
         //
         var clients = Marketing.GetClients(company);
 
@@ -161,8 +139,8 @@ public class CompanyViewOnMap : View
         var churnBonus = Marketing.GetChurnBonus(Q, company, company.productTargetAudience.SegmentId);
 
 
-        var hintText = $"<b>Audience loss (Churn)</b>" +
-    $"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
+        var hintText = $"<b>Audience change (Churn)</b>" +
+    //$"\n{churnBonus.Minify().SetDimension("%").ToString(true)}" +
     $"\n<b>Growth</b>\n{growthBonus.MinifyValues().ToString()}";
 
         hint.AppendLine($"\n\n");
