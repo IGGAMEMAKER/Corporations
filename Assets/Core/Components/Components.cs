@@ -178,14 +178,22 @@ public class Investment
         try
         {
 
-        this.Offer = Offer;
-        this.OfferDuration = Duration;
+            this.Offer = Offer;
+            this.OfferDuration = Duration;
 
-        RemainingPeriods = Duration * 4;
-        Portion = Offer / RemainingPeriods;
+            RemainingPeriods = Duration * 4;
+            if (RemainingPeriods > 0)
+            {
+                Portion = Offer / RemainingPeriods;
 
-        InvestorBonus = investorBonus;
-        InvestorGoal = investorGoal;
+            }
+            else
+            {
+                Portion = Offer;
+            }
+
+            InvestorBonus = investorBonus;
+            InvestorGoal = investorGoal;
         }
         catch
         {
