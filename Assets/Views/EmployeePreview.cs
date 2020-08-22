@@ -10,13 +10,6 @@ public class EmployeePreview : View
     public Text Text;
     public GameObject LoyaltyTab;
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-
-    }
-
     public void SetEntity(int humanId)
     {
         var human = Humans.GetHuman(Q, humanId);

@@ -13,15 +13,74 @@ namespace Assets.Core
             return 12;
         }
 
-        public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext)
+        public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
+        {
+            var productManagers = team.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
+
+            if (productManagers.Count() > 0)
+            {
+                return productManagers.First();
+            }
+
+            return null;
+        }
+
+        public static float GetFeatureUpgradeRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+            var speed = 0.2f;
+
+            bool isDevTeam = team.TeamType == TeamType.DevelopmentTeam;
+
+            var productManager = GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
+
+            if (productManager != null)
+            {
+
+                // 0.4f ... 1f
+                var gain = Humans.GetRating(productManager) / 100f;
+                speed += isDevTeam ? gain * 2 : gain;
+            }
+
+            if (isDevTeam)
+            {
+                speed += 0.3f;
+            }
+
+            return speed;
+        }
+
+        public static float GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+            var productManager = GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
+
+            var cap = 5f;
+
+            if (productManager != null)
+            {
+                // ... 5f
+                var addedCap = 5 * Humans.GetRating(productManager) / 100f;
+
+                return cap + addedCap;
+            }
+
+            return cap;
+        }
+
+        public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
         {
             if (IsUpgradedFeature(product, featureName))
             {
-                // 0.4f + 0.1f... 0.2f
-                var upgradeSpeed = Products.GetInnovationChance(product, gameContext) / 100f + UnityEngine.Random.Range(0.1f, 0.2f);
+                var gain = GetFeatureUpgradeRatingGain(product, team, gameContext);
 
                 var value = product.features.Upgrades[featureName];
-                product.features.Upgrades[featureName] = Mathf.Clamp(value + upgradeSpeed, 0, 10f);
+
+                var cap = GetFeatureRatingCap(product, team, gameContext);
+
+                // if new manager is worse than previous, this will not make feature worse!
+                if (value > cap)
+                    cap = value;
+
+                product.features.Upgrades[featureName] = Mathf.Clamp(value + gain, 0, cap);
             } else
             {
                 product.features.Upgrades[featureName] = UnityEngine.Random.Range(2, 5f);
@@ -69,20 +128,6 @@ namespace Assets.Core
 
 
 
-        public static int GetTotalDevelopmentEffeciency(GameContext gameContext, GameEntity product)
-        {
-            var teamSizeModifier = Products.GetTeamEffeciency(gameContext, product);
-
-            // team lead
-            // 0...50
-            var managerBonus = Teams.GetTeamLeadDevelopmentTimeDiscount(gameContext, product);
-
-            var speed = teamSizeModifier * (100 + managerBonus) / 100;
-
-            return speed;
-        }
-
-
         public static int GetTeamEffeciency(GameContext gameContext, GameEntity product)
         {
             return (int) (100 * GetTeamSizeMultiplier(gameContext, product));
@@ -98,19 +143,6 @@ namespace Assets.Core
                 have = required;
 
             return have / required;
-        }
-
-        public static int GetIterationTimeCost(GameEntity product, GameContext gameContext)
-        {
-            var baseCost = Products.GetBaseIterationTime(gameContext, product);
-
-            bool willInnovate = Products.IsWillInnovate(product, gameContext);
-
-            var innovationPenalty = willInnovate ? 250 : 100;
-
-            var isReleasedPenalty = product.isRelease ? 2 : 1;
-
-            return baseCost * innovationPenalty * isReleasedPenalty;
         }
 
         public static int GetTimeToMarketFromScratch(GameEntity niche)

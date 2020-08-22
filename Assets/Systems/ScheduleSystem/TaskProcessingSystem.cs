@@ -38,9 +38,9 @@ public partial class TaskProcessingSystem : OnDateChange
 
         foreach (var p in products)
         {
-            foreach (var t in p.team.Teams)
+            foreach (var team in p.team.Teams)
             {
-                foreach (var task in t.Tasks)
+                foreach (var task in team.Tasks)
                 {
                     if (task is TeamTaskFeatureUpgrade)
                     {
@@ -48,7 +48,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
                         if (!Products.IsUpgradingFeature(p, gameContext, upgrade.NewProductFeature.Name))
                         {
-                            Products.UpgradeFeature(p, upgrade.NewProductFeature.Name, gameContext);
+                            Products.UpgradeFeature(p, upgrade.NewProductFeature.Name, gameContext, team);
                         }
                     }
                 }

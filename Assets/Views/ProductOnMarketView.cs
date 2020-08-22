@@ -82,10 +82,6 @@ public class ProductOnMarketView : View
         if (Innovations != null)
             Innovations.text = Products.GetInnovationChance(company, Q) + "%";
 
-        if (Speed != null)
-            Speed.text = Products.GetTotalDevelopmentEffeciency(Q, company) + "%";
-
-
         // link to project
         LinkToProjectView.CompanyId = company.company.Id;
 

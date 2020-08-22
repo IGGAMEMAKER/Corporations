@@ -20,6 +20,19 @@ namespace Assets.Core
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
+        public static void SetSelectedTeam(GameContext gameContext, int teamId)
+        {
+            var menu = GetMenu(gameContext);
+
+            var data = menu.menu.Data;
+
+            if ((int)data[C.MENU_SELECTED_TEAM] == teamId)
+                return;
+
+            data[C.MENU_SELECTED_TEAM] = teamId;
+
+            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+        }
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {

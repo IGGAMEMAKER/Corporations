@@ -1,5 +1,4 @@
-﻿using Assets.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class WorkerListView : StaffListView
 {

@@ -65,7 +65,7 @@ public class CompanyViewOnMap : View
         var lastShare = Random.Range(2f, 30f);
         var shareChange = marketShare - lastShare;
 
-        Animate(Visuals.Colorize(Format.SignOf((long)shareChange) + shareChange.ToString("0.0%"), shareChange >= 0), AnimationPosition);
+        //Animate(Visuals.Colorize(Format.SignOf((long)shareChange) + shareChange.ToString("0.0%"), shareChange >= 0), AnimationPosition);
 
         if (Profitability != null)
         {
@@ -140,7 +140,7 @@ public class CompanyViewOnMap : View
         //CompanyGrowth.GetComponent<Hint>().SetHint($"Audience change: <b>{Format.Minify(change)}</b>");
 
         hint.AppendLine($"\n\n");
-        hint.AppendLine($"<b>Users</b>: {Format.Minify(clients)} (<b>#{position + 1}</b>)");
+        hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> (#{position + 1})");
         hint.AppendLine($"Audience change: <b>{Format.Minify(change)}</b>");
 
         hint.AppendLine(GetProfitDescription());

@@ -25,6 +25,15 @@ namespace Assets.Core
             return Companies.Get(gameContext, companyId);
         }
 
+        public static int GetSelectedTeam(GameContext gameContext)
+        {
+            var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_TEAM);
+
+            var companyId = (int)obj;
+
+            return companyId;
+        }
+
         public static GameEntity GetSelectedHuman(GameContext gameContext)
         {
             var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_HUMAN);

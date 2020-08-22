@@ -20,6 +20,7 @@ public partial class BaseClass : MonoBehaviour
     public IndustryType SelectedIndustry => ScreenUtils.GetSelectedIndustry(Q);
 
     public GameEntity SelectedHuman => ScreenUtils.GetSelectedHuman(Q);
+    public int SelectedTeam => ScreenUtils.GetSelectedTeam(Q);
     
     // TODO REMOVE
     public GameEntity SelectedInvestor => ScreenUtils.GetSelectedInvestor(Q);

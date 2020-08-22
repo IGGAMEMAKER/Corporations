@@ -10,9 +10,9 @@ public class HireManager : ButtonController
         var company = Companies.GetFlagship(Q, MyCompany);
 
         if (hasWorkAlready)
-            Teams.HuntManager(human, company, Q);
+            Teams.HuntManager(human, company, Q, SelectedTeam);
         else
-            Teams.HireManager(company, human);
+            Teams.HireManager(company, human, SelectedTeam);
 
         GoBack();
         GoBack();

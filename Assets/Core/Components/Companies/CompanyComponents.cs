@@ -194,15 +194,6 @@ public class CorporateCultureComponent : IComponent
     public Dictionary<CorporatePolicy, int> Culture;
 }
 
-public enum TeamStatus
-{
-    Solo,
-    Pair,
-    SmallTeam,
-    Department,
-    BigTeam
-}
-
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
 {
@@ -214,6 +205,33 @@ public class TeamComponent : IComponent
     public Dictionary<WorkerRole, int> Workers;
 
     public List<TeamInfo> Teams;
+}
+
+public class TeamInfo
+{
+    public TeamType TeamType;
+    public string Name;
+
+    public List<TeamTask> Tasks;
+
+    public List<int> Managers;
+    public int Workers;
+    public int HiringProgress;
+}
+
+public enum TeamType
+{
+    DevelopmentTeam,
+    MarketingTeam,
+
+    CrossfunctionalTeam,
+    BigCrossfunctionalTeam,
+    SmallCrossfunctionalTeam,
+
+    CoreTeam, // managers
+    MergeAndAcquisitionTeam,
+    SupportTeam,
+    DevOpsTeam
 }
 
 public class TeamTask {
@@ -265,33 +283,6 @@ public class TeamTaskSupportFeature : TeamTask
     {
         this.SupportFeature = supportFeature;
     }
-}
-
-public class TeamInfo
-{
-    public TeamType TeamType;
-    public string Name;
-
-    public List<TeamTask> Tasks;
-
-    public List<int> Managers;
-    public int Workers;
-    public int HiringProgress;
-}
-
-public enum TeamType
-{
-    DevelopmentTeam,
-    MarketingTeam,
-
-    CrossfunctionalTeam,
-    BigCrossfunctionalTeam,
-    SmallCrossfunctionalTeam,
-
-    CoreTeam, // managers
-    MergeAndAcquisitionTeam,
-    SupportTeam,
-    DevOpsTeam
 }
 
 //public class WorkingTeamInfo

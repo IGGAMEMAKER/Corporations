@@ -28,6 +28,8 @@ public class FlagshipRelayInCompanyView : View
     {
         ChosenSlotId = slotId;
         ChosenTeamId = teamId;
+
+        ScreenUtils.SetSelectedTeam(Q, teamId);
     }
 
     private void OnEnable()

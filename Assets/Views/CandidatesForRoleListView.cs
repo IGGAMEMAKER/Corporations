@@ -23,17 +23,21 @@ public class CandidatesForRoleListView : ListView
     {
         switch (teamType)
         {
+            case TeamType.SupportTeam:
+            case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.MarketingLead };
+
+            case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager, WorkerRole.ProjectManager };
+            case TeamType.DevOpsTeam: return new WorkerRole[] { WorkerRole.TeamLead };
+
             default:
-            case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.ProductManager, WorkerRole.TeamLead, WorkerRole.ProjectManager };
+                return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
         }
     }
 
-    public Func<KeyValuePair<int, WorkerRole>, bool> roleSuitsTeam(GameEntity company) => pair => IsRoleSuitsTeam(pair.Value, company);
-    public bool IsRoleSuitsTeam (WorkerRole workerRole, GameEntity company)
+    public Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
+    public bool IsRoleSuitsTeam (WorkerRole workerRole, GameEntity company, TeamInfo team)
     {
-        var team = company.team.Teams[0];
-
-        return true;
+        return GetRolesForTeam(team.TeamType).Contains(workerRole);
     }
 
     public override void ViewRender()
@@ -41,6 +45,9 @@ public class CandidatesForRoleListView : ListView
         base.ViewRender();
 
         var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
+
+        var teamId = FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
+        var team = company.team.Teams[teamId];
 
         //Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
 
@@ -50,14 +57,14 @@ public class CandidatesForRoleListView : ListView
         managerIds.AddRange(
             company.employee.Managers
             //.Where(p => p.Value == WorkerRole)
-            .Where(roleSuitsTeam(company))
+            .Where(RoleSuitsTeam(company, team))
             .Select(p => p.Key)
             );
 
         foreach (var c in competitors)
         {
             var workers = c.team.Managers
-                .Where(roleSuitsTeam(company))
+                .Where(RoleSuitsTeam(company, team))
                 //.Where(p => p.Value == WorkerRole)
                 .Select(p => p.Key);
             managerIds.AddRange(workers);

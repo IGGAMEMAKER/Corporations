@@ -161,28 +161,6 @@ public class RestoreGameStateAfterRecompilation : View
 
             if (monthsOfWork < 0)
                 monthsOfWork = 0;
-
-            // set concepts
-            var iterationTime = Products.GetBaseIterationTime(niche);
-
-            var concept = monthsOfWork * 30 / iterationTime;
-            var randConcept = 1 + UnityEngine.Random.Range(0, concept);
-
-            //for (var i = 0; i < randConcept; i++)
-            //    Products.UpdgradeProduct(p, GameContext, true);
-
-            // set brands
-            // commented, because UpgradeProduct already adds brand powers
-            //var brand = Mathf.Clamp(UnityEngine.Random.Range(0, monthsOfWork / 2), 0, 35);
-            //MarketingUtils.AddBrandPower(p, brand);
-
-            // set clients
-            //var flow = (float) MarketingUtils.GetClientFlow(GameContext, p.product.Niche);
-            ////var clients = monthsOfWork * flow * UnityEngine.Random.Range(0.5f, 1.5f);
-            //var growth = 1.03f;
-            //var clients = MarketingUtils.GetClients(p) * Mathf.Pow(growth, monthsOfWork);
-
-            //MarketingUtils.AddClients(p, (long)clients);
         }
 
         Debug.Log("Mocky simulation: simulated product");

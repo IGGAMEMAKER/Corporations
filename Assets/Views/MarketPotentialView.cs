@@ -53,13 +53,7 @@ public class MarketPotentialView : View
         var rating = Markets.GetMarketRating(niche);
         SetAmountOfStars.SetStars(rating);
 
-        var speed = profile.NicheSpeed;
-        //var iteration = (int)speed;
-        //ChangeSpeed.text = $"{iteration} months";
-
-        var iteration = Products.GetBaseIterationTime(niche);
-        //var iteration = speed.ToString();
-        ChangeSpeed.text = iteration + " days";
+        ChangeSpeed.text = "xxx days";
 
         PotentialMarketSize.text = Format.Money(Markets.GetMarketPotential(niche));
         PotentialAudienceSize.text = Format.MinifyToInteger(Markets.GetMarketAudiencePotential(niche)) + " users";

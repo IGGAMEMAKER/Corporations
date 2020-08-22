@@ -132,7 +132,9 @@ namespace Assets.Core
         }
         public static void AddTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId, TeamTask task)
         {
-            if (taskId >= product.team.Teams[teamId].Tasks.Count)
+            var team = product.team.Teams[teamId];
+
+            if (taskId >= team.Tasks.Count)
                 product.team.Teams[teamId].Tasks.Add(task);
             else
             {
@@ -149,7 +151,7 @@ namespace Assets.Core
 
             if (task.IsFeatureUpgrade)
             {
-                Products.UpgradeFeature(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext);
+                Products.UpgradeFeature(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext, team);
             }
 
             if (task.IsMarketingTask)

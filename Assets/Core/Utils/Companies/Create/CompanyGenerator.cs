@@ -95,10 +95,13 @@ namespace Assets.Core
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
                 new List<TeamInfo>()
+                {
+                    
+                }
                 );
             company.AddEmployee(new Dictionary<int, WorkerRole>());
-
-            Teams.AttachToTeam(company, CEO, WorkerRole.CEO);
+            Teams.AddTeam(company, TeamType.CrossfunctionalTeam);
+            Teams.AttachToTeam(company, CEO, WorkerRole.CEO, 0);
 
             // culture
             var culture = GetRandomCorporateCulture();

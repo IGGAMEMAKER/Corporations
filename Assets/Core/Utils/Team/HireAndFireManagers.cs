@@ -8,33 +8,33 @@ namespace Assets.Core
     public static partial class Teams
     {
         // managers
-        public static void HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole));
-        public static void HireManager(GameEntity company, GameEntity worker)
+        public static void HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole, int teamId) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole), teamId);
+        public static void HireManager(GameEntity company, GameEntity worker, int teamId)
         {
             var role = Humans.GetRole(worker);
 
-            AttachToTeam(company, worker, role);
+            AttachToTeam(company, worker, role, teamId);
 
             company.employee.Managers.Remove(worker.human.Id);
         }
 
-        public static void HuntManager(GameEntity worker, GameEntity newCompany, GameContext gameContext)
+        public static void HuntManager(GameEntity worker, GameEntity newCompany, GameContext gameContext, int teamId)
         {
-            FireManager(gameContext, worker);
+            FireManager(gameContext, worker, teamId);
 
-            AttachToTeam(newCompany, worker, Humans.GetRole(worker));
+            AttachToTeam(newCompany, worker, Humans.GetRole(worker), teamId);
         }
 
-        public static void AttachToTeam(GameEntity company, GameEntity worker, WorkerRole role)
+        public static void AttachToTeam(GameEntity company, GameEntity worker, WorkerRole role, int teamId)
         {
             // add humanId to team
-            var team = company.team;
+            var team = company.team.Teams[teamId];
 
             var humanId = worker.human.Id;
 
-            team.Managers[humanId] = role;
+            team.Managers.Add(humanId);
 
-            ReplaceTeam(company, team);
+            ReplaceTeam(company, company.team);
 
             // add companyId to human
             Humans.AttachToCompany(worker, company.company.Id, role);
@@ -43,16 +43,18 @@ namespace Assets.Core
         public static void DismissTeam(GameEntity company, GameContext gameContext)
         {
             Debug.Log("DismissTeam of " + company.company.Name);
+            Debug.Log("DISMISS TEAM WORKS BAD!" + company.company.Name);
+            Debug.LogWarning("DISMISS TEAM WORKS BAD!" + company.company.Name);
 
             var workers = company.team.Managers.Keys.ToArray();
 
-            for (var i = workers.Length - 1; i > 0; i--)
-                FireManager(company, gameContext, workers[i]);
+            //for (var i = workers.Length - 1; i > 0; i--)
+            //    FireManager(company, gameContext, workers[i], teamId);
         }
 
-        public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
-        public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.GetHuman(gameContext, humanId));
-        public static void FireManager(GameEntity company, GameEntity worker)
+        public static void FireManager(GameContext gameContext, GameEntity worker, int teamId) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker, teamId);
+        public static void FireManager(GameEntity company, GameContext gameContext, int humanId, int teamId) => FireManager(company, Humans.GetHuman(gameContext, humanId), teamId);
+        public static void FireManager(GameEntity company, GameEntity worker, int teamId)
         {
             //Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
 

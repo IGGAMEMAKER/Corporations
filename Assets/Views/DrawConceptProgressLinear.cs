@@ -21,9 +21,6 @@ public class DrawConceptProgressLinear : View
 
     float getProgress(GameEntity company)
     {
-        var ideas = company.companyResource.Resources.ideaPoints;
-        var upgradeCost = Products.GetIterationTimeCost(company, Q);
-
-        return ideas * 100f / upgradeCost;
+        return 0;
     }
 }
