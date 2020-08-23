@@ -20,7 +20,7 @@ namespace Assets.Core
 
         public static void HuntManager(GameEntity worker, GameEntity newCompany, GameContext gameContext, int teamId)
         {
-            FireManager(gameContext, worker, teamId);
+            FireManager(gameContext, worker);
 
             AttachToTeam(newCompany, worker, Humans.GetRole(worker), teamId);
         }
@@ -52,17 +52,19 @@ namespace Assets.Core
             //    FireManager(company, gameContext, workers[i], teamId);
         }
 
-        public static void FireManager(GameContext gameContext, GameEntity worker, int teamId) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker, teamId);
-        public static void FireManager(GameEntity company, GameContext gameContext, int humanId, int teamId) => FireManager(company, Humans.GetHuman(gameContext, humanId), teamId);
-        public static void FireManager(GameEntity company, GameEntity worker, int teamId)
+        public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
+        public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.GetHuman(gameContext, humanId));
+        public static void FireManager(GameEntity company, GameEntity worker)
         {
             //Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
 
-            var team = company.team;
+            //var team = company.team;
+            foreach (var team in company.team.Teams)
+            {
+                team.Managers.Remove(worker.human.Id);
+            }
 
-            team.Managers.Remove(worker.human.Id);
-
-            ReplaceTeam(company, team);
+            //ReplaceTeam(company, team);
 
             Humans.LeaveCompany(worker);
         }

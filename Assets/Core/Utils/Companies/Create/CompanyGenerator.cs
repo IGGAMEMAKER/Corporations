@@ -74,7 +74,6 @@ namespace Assets.Core
             company.isAlive = true;
             company.isIndependentCompany = true;
             company.AddPartnerships(new List<int>());
-            company.AddCompanyStrategies(RandomEnum<CompanySettingGrowthType>.GenerateValue(), RandomEnum<CompanySettingAttitudeToWorkers>.GenerateValue(), RandomEnum<CompanySettingControlDesire>.GenerateValue());
 
             company.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
 
@@ -87,25 +86,23 @@ namespace Assets.Core
 
             company.AddBranding(0);
 
-            // team
+            // teams
             int CeoID = CEO.human.Id;
             company.AddCEO(0, CeoID);
             company.AddTeam(
                 100, 50,
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
-                new List<TeamInfo>()
-                {
-                    
-                }
+                new List<TeamInfo>() {}
                 );
             company.AddEmployee(new Dictionary<int, WorkerRole>());
-            Teams.AddTeam(company, TeamType.CrossfunctionalTeam);
+            Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
             Teams.AttachToTeam(company, CEO, WorkerRole.CEO, 0);
 
-            // culture
+            // uniqueness
             var culture = GetRandomCorporateCulture();
             company.AddCorporateCulture(culture);
+            company.AddCompanyStrategies(RandomEnum<CompanySettingGrowthType>.GenerateValue(), RandomEnum<CompanySettingAttitudeToWorkers>.GenerateValue(), RandomEnum<CompanySettingControlDesire>.GenerateValue());
 
 
             company.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());

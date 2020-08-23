@@ -27,11 +27,11 @@ public partial class ManageProductTeamSystem : OnDateChange
 
         var needRoles = roles.Where(r => !haveRoles.Contains(r));
 
-        foreach (var r in needRoles)
-        {
-            if (Economy.IsCanMaintain(company, gameContext, managerCost))
-                Teams.HireManager(company, gameContext, r);
-        }
+        //foreach (var r in needRoles)
+        //{
+        //    if (Economy.IsCanMaintain(company, gameContext, managerCost))
+        //        Teams.HireManager(company, gameContext, r);
+        //}
     }
 
     void ManageTeam(GameEntity product)

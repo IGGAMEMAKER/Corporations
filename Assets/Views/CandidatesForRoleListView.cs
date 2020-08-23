@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CandidatesForRoleListView : ListView
 {
     public WorkerRole WorkerRole;
+    public Text DebugTable;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {

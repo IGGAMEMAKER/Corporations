@@ -32,6 +32,7 @@ namespace Assets.Core
                 [C.MENU_SELECTED_NICHE] = NicheType.Tech_SearchEngine,
                 [C.MENU_SELECTED_HUMAN] = 0,
                 [C.MENU_SELECTED_INVESTOR] = -1,
+                [C.MENU_SELECTED_TEAM] = 0,
             };
 
             menu.AddMenu(ScreenMode.NicheScreen, dictionary);
