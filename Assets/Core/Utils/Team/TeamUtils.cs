@@ -60,8 +60,11 @@ namespace Assets.Core
             company.team.Teams.Add(new TeamInfo {
                 Name = $"{prefix} #{company.team.Teams.Count}",
                 TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>(),
-                HiringProgress = 0, Managers = new System.Collections.Generic.List<int>(),
-                Workers = 0
+
+                Managers = new System.Collections.Generic.List<int>(),
+                ManagerTasks = new System.Collections.Generic.List<ManagerTask>(),
+
+                HiringProgress = 0, Workers = 0,
             });
         }
 

@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using System;
 using System.Collections.Generic;
 
 namespace Assets.Core
@@ -29,7 +30,7 @@ namespace Assets.Core
         {
             var obj = GetScreenParameter(gameContext, C.MENU_SELECTED_TEAM);
 
-            var companyId = (int)obj;
+            var companyId = Convert.ToInt32(obj);
 
             return companyId;
         }

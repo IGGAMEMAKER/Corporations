@@ -1,5 +1,7 @@
 ﻿using Entitas;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -26,7 +28,10 @@ namespace Assets.Core
 
             var data = menu.menu.Data;
 
-            if ((int)data[C.MENU_SELECTED_TEAM] == teamId)
+            Debug.Log("Set selected team");
+            Debug.Log(data[C.MENU_SELECTED_TEAM]);
+
+            if (Convert.ToInt32(data[C.MENU_SELECTED_TEAM]) == teamId)
                 return;
 
             data[C.MENU_SELECTED_TEAM] = teamId;

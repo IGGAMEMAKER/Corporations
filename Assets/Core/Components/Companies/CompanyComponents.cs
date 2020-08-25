@@ -206,6 +206,14 @@ public class TeamComponent : IComponent
 
     public List<TeamInfo> Teams;
 }
+public enum ManagerTask
+{
+    None,
+    Investments,
+    Documentation,
+    ProxyTasks,
+    Recruiting
+}
 
 public class TeamInfo
 {
@@ -217,6 +225,8 @@ public class TeamInfo
     public List<int> Managers;
     public int Workers;
     public int HiringProgress;
+
+    public List<ManagerTask> ManagerTasks;
 }
 
 public enum TeamType
