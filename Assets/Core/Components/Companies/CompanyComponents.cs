@@ -211,6 +211,7 @@ public enum ManagerTask
     None,
     Investments,
     Documentation,
+    Organisation,
     ProxyTasks,
     Recruiting
 }

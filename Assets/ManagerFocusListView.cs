@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ public class ManagerFocusListView : ListView
     {
         base.ViewRender();
 
-        List<ManagerTask> tasks = new List<ManagerTask> { ManagerTask.Documentation, ManagerTask.Investments, ManagerTask.None };
+        //List<ManagerTask> tasks = new List<ManagerTask> { ManagerTask.Documentation, ManagerTask.Investments, ManagerTask.None };
+        List<ManagerTask> tasks = Flagship.team.Teams[SelectedTeam].ManagerTasks;
 
         SetItems(tasks);
         Hide(FocusList);
@@ -24,8 +26,6 @@ public class ManagerFocusListView : ListView
     {
         base.OnItemSelected(ind);
 
-        Debug.Log("On manager focus selected");
-
         Show(FocusList);
     }
 
@@ -34,5 +34,37 @@ public class ManagerFocusListView : ListView
         base.OnDeselect();
 
         Hide(FocusList);
+    }
+
+    void SetManagerTask(ManagerTask task)
+    {
+        Teams.SetManagerTask(Flagship, SelectedTeam, ChosenIndex, task);
+        OnDeselect();
+        ViewRender();
+    }
+
+    public void ChooseRecruitment()
+    {
+        SetManagerTask(ManagerTask.Recruiting);
+    }
+
+    public void ChooseDocumentation()
+    {
+        SetManagerTask(ManagerTask.Documentation);
+    }
+
+    public void ChooseOrganisation()
+    {
+        SetManagerTask(ManagerTask.Organisation);
+    }
+
+    public void ChooseInvestments()
+    {
+        SetManagerTask(ManagerTask.Investments);
+    }
+
+    public void ChooseInternalConflicts()
+    {
+        SetManagerTask(ManagerTask.ProxyTasks);
     }
 }

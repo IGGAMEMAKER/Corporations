@@ -13,12 +13,13 @@ public class ManagerTaskSlotView : View
     public Texture2D SearchInvestments;
     public Texture2D Recruiting;
     public Texture2D ProxyTasks;
+    public Texture2D Organisation;
 
     public void SetEntity(int index)
     {
         SlotId = index;
 
-        ManagerTask task = RandomEnum<ManagerTask>.GenerateValue();
+        ManagerTask task = Flagship.team.Teams[SelectedTeam].ManagerTasks[index]; // RandomEnum<ManagerTask>.GenerateValue();
 
         switch (task)
         {
@@ -41,6 +42,13 @@ public class ManagerTaskSlotView : View
                 TaskImage.texture = Recruiting;
                 Blinker.enabled = false;
                 break;
+
+            case ManagerTask.Organisation:
+                TaskImage.texture = Organisation;
+                Blinker.enabled = false;
+                break;
+
+
 
             case ManagerTask.ProxyTasks:
                 TaskImage.texture = ProxyTasks;

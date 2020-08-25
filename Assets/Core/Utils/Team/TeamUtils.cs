@@ -62,10 +62,24 @@ namespace Assets.Core
                 TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>(),
 
                 Managers = new System.Collections.Generic.List<int>(),
-                ManagerTasks = new System.Collections.Generic.List<ManagerTask>(),
+                ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 
                 HiringProgress = 0, Workers = 0,
             });
+        }
+
+        public static void SetManagerTask(GameEntity company, int teamId, int taskId, ManagerTask managerTask)
+        {
+            var tasks = company.team.Teams[teamId].ManagerTasks;
+            if (tasks.Count < taskId)
+            {
+                tasks.Add(managerTask);
+            }
+            else
+            {
+                tasks[taskId] = managerTask;
+            }
+            //company.team.Teams[teamId].ManagerTasks[taskId] = managerTask;
         }
 
         public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)

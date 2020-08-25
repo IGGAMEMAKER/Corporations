@@ -77,6 +77,9 @@ public class ManagerTabRelay : View
         Show(EmployeesTab);
         //Show(HireManagersRelayButtons);
         Show(BackToMainTab);
+
+        //
+        Hide(BackToMainTab);
     }
 
     public void OpenWorkerTab()
