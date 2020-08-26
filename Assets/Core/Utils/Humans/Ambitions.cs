@@ -26,7 +26,7 @@ namespace Assets.Core
             return GetFounderAmbition(human.humanSkills.Traits, rating);
         }
 
-        public static Ambition GetFounderAmbition(List<TraitType> traits, int rating)
+        public static Ambition GetFounderAmbition(List<Trait> traits, int rating)
         {
             // 5 traits
             // * 1 on hiring
@@ -44,7 +44,7 @@ namespace Assets.Core
 
             // ambitious + wants smth new = create company
             // 
-            if (traits.Contains(TraitType.Ambitious))
+            if (traits.Contains(Trait.Ambitious))
             {
                 // overly ambitious dude :)
 
@@ -58,7 +58,7 @@ namespace Assets.Core
                 return Ambition.RuleCorporation;
             }
 
-            if (traits.Contains(TraitType.Careerist))
+            if (traits.Contains(Trait.Careerist))
             {
                 if (rating < 60)
                     return Ambition.GrowSkills;
@@ -72,7 +72,7 @@ namespace Assets.Core
                 return Ambition.RuleCorporation;
             }
 
-            if (traits.Contains(TraitType.Executor))
+            if (traits.Contains(Trait.Executor))
             {
                 if (rating < 75)
                     return Ambition.GrowSkills;
@@ -86,7 +86,7 @@ namespace Assets.Core
             {
                 return Ambition.EarnMoney;
             }
-            else if (traits.Contains(TraitType.Ambitious))
+            else if (traits.Contains(Trait.Ambitious))
             {
                 return Ambition.RuleCorporation;
             }

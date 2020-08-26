@@ -43,14 +43,14 @@ public class EmployeePreview : View
         ViewRender();
     }
 
-    public string ConvertTraitToString(TraitType traitType)
+    public string ConvertTraitToString(Trait traitType)
     {
         switch (traitType)
         {
-            case TraitType.Executor: return "Executor";
-            case TraitType.Useful: return "Wants to make useful things";
-            case TraitType.NewChallenges: return "Likes new challenges";
-            case TraitType.WantsToCreate: return "Wants to create";
+            case Trait.Executor: return "Executor";
+            case Trait.Useful: return "Wants to make useful things";
+            case Trait.NewChallenges: return "Likes new challenges";
+            case Trait.WantsToCreate: return "Wants to create";
 
             default: return traitType.ToString();
         }

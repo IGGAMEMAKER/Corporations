@@ -9,7 +9,7 @@ public class HumanComponent : IComponent
     public string Surname;
 }
 
-public enum TraitType
+public enum Trait
 {
     Leader,
     Teacher,
@@ -41,7 +41,7 @@ public class HumanSkillsComponent : IComponent
 {
     // int - XP, convert it to lvl
     public Dictionary<WorkerRole, int> Roles;
-    public List<TraitType> Traits;
+    public List<Trait> Traits;
 
     public Dictionary<NicheType, int> Expertise;
 }

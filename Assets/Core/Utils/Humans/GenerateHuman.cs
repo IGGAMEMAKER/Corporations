@@ -73,21 +73,21 @@ namespace Assets.Core
             SetSkill(worker, role, level);
         }
 
-        static void SetPrimaryTrait(GameEntity worker, TraitType traitType)
+        static void SetPrimaryTrait(GameEntity worker, Trait traitType)
         {
             int level = UnityEngine.Random.Range(70, 90);
 
             SetTrait(worker, traitType, level);
         }
 
-        public static List<TraitType> GenerateRandomTraits()
+        public static List<Trait> GenerateRandomTraits()
         {
-            return new List<TraitType>
+            return new List<Trait>
             {
-                RandomEnum<TraitType>.GenerateValue(),
-                RandomEnum<TraitType>.GenerateValue(),
-                RandomEnum<TraitType>.GenerateValue(),
-                RandomEnum<TraitType>.GenerateValue(),
+                RandomEnum<Trait>.GenerateValue(),
+                RandomEnum<Trait>.GenerateValue(),
+                RandomEnum<Trait>.GenerateValue(),
+                RandomEnum<Trait>.GenerateValue(),
             };
         }
 

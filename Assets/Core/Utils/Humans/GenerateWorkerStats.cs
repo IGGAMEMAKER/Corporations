@@ -11,42 +11,42 @@ namespace Assets.Core
                 case WorkerRole.CEO:
                     SetPrimarySkill(worker, WorkerRole.CEO);
 
-                    SetPrimaryTrait(worker, TraitType.Ambitious);
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Ambitious);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     //SetPrimaryTrait(worker, TraitType.Will);
                     break;
 
                 case WorkerRole.Manager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
 
-                    SetPrimaryTrait(worker, TraitType.Leader);
-                    SetPrimaryTrait(worker, TraitType.Ambitious);
+                    SetPrimaryTrait(worker, Trait.Leader);
+                    SetPrimaryTrait(worker, Trait.Ambitious);
                     break;
 
                 case WorkerRole.Marketer:
                     SetPrimarySkill(worker, WorkerRole.Marketer);
 
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     break;
 
                 case WorkerRole.Programmer:
                     SetPrimarySkill(worker, WorkerRole.Programmer);
 
-                    SetPrimaryTrait(worker, TraitType.Curious);
+                    SetPrimaryTrait(worker, Trait.Curious);
                     break;
 
                 case WorkerRole.ProductManager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
                     SetPrimarySkill(worker, WorkerRole.CEO);
 
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     break;
 
                 case WorkerRole.ProjectManager:
                     SetPrimarySkill(worker, WorkerRole.Manager);
                     SetPrimarySkill(worker, WorkerRole.CEO);
 
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     break;
 
                 case WorkerRole.MarketingDirector:
@@ -54,7 +54,7 @@ namespace Assets.Core
                     SetPrimarySkill(worker, WorkerRole.Marketer);
                     SetPrimarySkill(worker, WorkerRole.Manager);
 
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     break;
 
                 case WorkerRole.TeamLead:
@@ -62,7 +62,7 @@ namespace Assets.Core
                     SetPrimarySkill(worker, WorkerRole.Programmer);
                     SetPrimarySkill(worker, WorkerRole.Manager);
 
-                    SetPrimaryTrait(worker, TraitType.Visionaire);
+                    SetPrimaryTrait(worker, Trait.Visionaire);
                     break;
             }
         }

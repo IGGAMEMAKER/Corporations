@@ -45,7 +45,7 @@ namespace Assets.Core
             return worker;
         }
 
-        public static GameEntity SetTrait(GameEntity worker, TraitType traitType, int level)
+        public static GameEntity SetTrait(GameEntity worker, Trait traitType, int level)
         {
             var traits = worker.humanSkills.Traits;
             traits.Add(traitType);
