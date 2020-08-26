@@ -39,7 +39,7 @@ public class InvestorPreview : View
         }
         else
         {
-            bool isLoyal = Random.Range(-15, 15) > 0;
+            bool isLoyal = true; // Random.Range(-15, 15) > 0;
             productUpgradeLinks.Background.color = Visuals.GetColorPositiveOrNegative(isLoyal);
         }
     }

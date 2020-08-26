@@ -22,7 +22,7 @@ public class RenderCompanyProfit : UpgradedParameterView
             bonus.AppendAndHideIfZero("Maintenance", -Economy.GetCompanyMaintenance(Q, company));
 
         bonus.MinifyValues();
-        bonus.Sort();
+        bonus.SortByModule();
 
         return bonus.ToString();
     }

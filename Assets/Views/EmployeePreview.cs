@@ -16,20 +16,20 @@ public class EmployeePreview : View
 
         bool employed = Humans.IsEmployed(human);
 
-        string[] Ambitions = new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
+        string[] Traits = human.humanSkills.Traits.Select(t => t.ToString()).ToArray(); // new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
 
-        if (employed)
-        {
-            Text.text = Visuals.Colorize("Works in competing company", Colors.COLOR_GOLD);
-        }
-        else
-        {
-            Text.text = Visuals.Positive("UNEMPLOYED");
-        }
+        //if (employed)
+        //{
+        //    Text.text = Visuals.Colorize("Works in competing company", Colors.COLOR_GOLD);
+        //}
+        //else
+        //{
+        //    Text.text = Visuals.Positive("UNEMPLOYED");
+        //}
 
-        Text.text += "\n\n";
+        //Text.text += "\n\n";
 
-        Text.text += string.Join("\n", Ambitions.Take(Random.Range(0, Ambitions.Length - 1)));
+        Text.text = string.Join("\n", Traits); // .Take(Random.Range(0, Traits.Length - 1))
 
         Hide(LoyaltyTab);
 

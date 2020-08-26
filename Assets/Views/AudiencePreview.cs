@@ -78,7 +78,8 @@ public class AudiencePreview : View
         var text = $"<size=35>{audience.Name}</size>" +
             $"\n\nPotential: <b>{Visuals.Positive(potentialPhrase)}</b>" + //  (worth {Format.MinifyMoney(worth)})
             $"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
-            $"\nGrowth speed: <b>{Visuals.Positive(growthBonus)}</b>";
+            $"\nGrowth speed: <b>{Visuals.Positive(growthBonus)}</b>" +
+            $"\n\nLoyalty: <b>{Visuals.Colorize(Format.Sign(loyalty), isLoyalAudience)}</b>";
 
         AudienceHint.SetHint(text);
     }

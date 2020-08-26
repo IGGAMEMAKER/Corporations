@@ -44,7 +44,7 @@ public class RenderGroupProfit : UpgradedParameterView
             }
 
             bonus.MinifyValues();
-            bonus.Sort();
+            bonus.SortByModule();
 
             daughtersIncome = "\n" + bonus.ToString();
         }
