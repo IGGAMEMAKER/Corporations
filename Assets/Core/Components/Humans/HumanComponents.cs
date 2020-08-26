@@ -22,7 +22,7 @@ public enum TraitType
 
     Ambitious,
     Careerist,
-    AverageSpecialist, // loves subject more than career
+    Executor, // loves subject more than career
 
     Visionaire,
     Independence,

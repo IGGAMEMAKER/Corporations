@@ -72,7 +72,7 @@ namespace Assets.Core
                 return Ambition.RuleCorporation;
             }
 
-            if (traits.Contains(TraitType.AverageSpecialist))
+            if (traits.Contains(TraitType.Executor))
             {
                 if (rating < 75)
                     return Ambition.GrowSkills;

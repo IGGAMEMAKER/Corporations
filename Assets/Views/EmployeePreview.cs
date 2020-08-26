@@ -18,7 +18,7 @@ public class EmployeePreview : View
 
         var rating = Humans.GetRating(human);
 
-        string[] Traits = human.humanSkills.Traits.Select(t => Visuals.Positive(t.ToString())).ToArray(); // new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
+        string[] Traits = human.humanSkills.Traits.Select(t => Visuals.Positive(ConvertTraitToString(t))).ToArray(); // new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
 
         //if (employed)
         //{
@@ -47,7 +47,7 @@ public class EmployeePreview : View
     {
         switch (traitType)
         {
-            case TraitType.AverageSpecialist: return "Maker";
+            case TraitType.Executor: return "Executor";
             case TraitType.Useful: return "Wants to make useful things";
             case TraitType.NewChallenges: return "Likes new challenges";
             case TraitType.WantsToCreate: return "Wants to create";
