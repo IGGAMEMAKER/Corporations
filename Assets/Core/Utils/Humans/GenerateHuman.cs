@@ -80,16 +80,14 @@ namespace Assets.Core
             SetTrait(worker, traitType, level);
         }
 
-        public static Dictionary<TraitType, int> GenerateRandomTraits()
+        public static List<TraitType> GenerateRandomTraits()
         {
-            return new Dictionary<TraitType, int>
+            return new List<TraitType>
             {
-                [TraitType.Ambitions] = GetRandomTrait(),
-                [TraitType.Charisma] = GetRandomTrait(),
-                [TraitType.Discipline] = GetRandomTrait(),
-                [TraitType.Education] = GetRandomTrait(),
-                [TraitType.Vision] = GetRandomTrait(),
-                [TraitType.Will] = GetRandomTrait(),
+                RandomEnum<TraitType>.GenerateValue(),
+                RandomEnum<TraitType>.GenerateValue(),
+                RandomEnum<TraitType>.GenerateValue(),
+                RandomEnum<TraitType>.GenerateValue(),
             };
         }
 

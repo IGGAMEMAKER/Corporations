@@ -7,18 +7,28 @@ public class HumanComponent : IComponent
     public int Id;
     public string Name;
     public string Surname;
-
-    // skillset, character and perks later
 }
 
 public enum TraitType
 {
-    Charisma,
-    Will,
-    Discipline,
-    Ambitions,
-    Education,
-    Vision
+    Leader,
+    Teacher,
+    Curious, // grow stats
+    NewChallenges, // new teams, new projects, new companies, new management systems. Always support changes
+    Stable,
+
+    Shy,
+    Greedy,
+
+    Ambitious,
+    Careerist,
+    AverageSpecialist, // loves subject more than career
+
+    Visionaire,
+    Independence,
+
+    WantsToCreate,
+    ChangeWorld,
 }
 
 public class WorkerComponent : IComponent {
@@ -31,7 +41,7 @@ public class HumanSkillsComponent : IComponent
 {
     // int - XP, convert it to lvl
     public Dictionary<WorkerRole, int> Roles;
-    public Dictionary<TraitType, int> Traits;
+    public List<TraitType> Traits;
 
     public Dictionary<NicheType, int> Expertise;
 }

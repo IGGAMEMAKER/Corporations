@@ -53,7 +53,7 @@
                 return false;
 
 
-            var ambitions = Humans.GetFounderAmbition(gameContext, product.cEO.HumanId);
+            var ambitions = Humans.GetAmbition(gameContext, product.cEO.HumanId);
             return ambitions == Ambition.RuleCorporation;
         }
 

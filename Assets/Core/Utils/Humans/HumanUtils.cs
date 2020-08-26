@@ -48,7 +48,7 @@ namespace Assets.Core
         public static GameEntity SetTrait(GameEntity worker, TraitType traitType, int level)
         {
             var traits = worker.humanSkills.Traits;
-            traits[traitType] = level;
+            traits.Add(traitType);
 
             worker.ReplaceHumanSkills(worker.humanSkills.Roles, traits, worker.humanSkills.Expertise);
 

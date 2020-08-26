@@ -45,16 +45,16 @@ public class RenderSkills : View
         var traits = skills.Traits;
         var roles = skills.Roles;
 
-        Trait(Will, traits[TraitType.Will]);
-        Trait(Charisma, traits[TraitType.Charisma]);
-        Trait(Ambitions, traits[TraitType.Ambitions]);
-        Trait(Intelligence, traits[TraitType.Education]);
-        Trait(Discipline, traits[TraitType.Discipline]);
+        //Trait(Will, traits[TraitType.Will]);
+        //Trait(Charisma, traits[TraitType.Leader]);
+        //Trait(Ambitions, traits[TraitType.Ambitions]);
+        //Trait(Intelligence, traits[TraitType.Education]);
+        //Trait(Discipline, traits[TraitType.Discipline]);
 
-        Roles(Vision, traits[TraitType.Vision]);
-        Roles(Business, roles[WorkerRole.CEO]);
-        Roles(Management, roles[WorkerRole.Manager]);
-        Roles(Marketing, roles[WorkerRole.Marketer]);
-        Roles(Programming, roles[WorkerRole.Programmer]);
+        //Roles(Vision, traits[TraitType.Vision]);
+        //Roles(Business, roles[WorkerRole.CEO]);
+        //Roles(Management, roles[WorkerRole.Manager]);
+        //Roles(Marketing, roles[WorkerRole.Marketer]);
+        //Roles(Programming, roles[WorkerRole.Programmer]);
     }
 }

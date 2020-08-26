@@ -1,34 +1,99 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 
 namespace Assets.Core
 {
     public enum Ambition
     {
+        No,
+        GrowSkills,
+        GrowRole,
         EarnMoney,
-        //RuleProductCompany,
+        RuleProductCompany,
 
-        RuleCorporation
+        RuleCorporation,
+
     }
     public static partial class Humans
     {
         // ambitions
-        public static Ambition GetFounderAmbition(GameContext gameContext, int humanId)
+        public static Ambition GetAmbition(GameContext gameContext, int humanId)
         {
             var human = GetHuman(gameContext, humanId);
+            var rating = GetRating(human);
 
-            return GetFounderAmbition(human.humanSkills.Traits[TraitType.Ambitions]);
+            return GetFounderAmbition(human.humanSkills.Traits, rating);
         }
 
-        public static Ambition GetFounderAmbition(int ambitions)
+        public static Ambition GetFounderAmbition(List<TraitType> traits, int rating)
         {
-            //if (ambitions < 75)
-            //    return Ambition.RuleProductCompany;
+            // 5 traits
+            // * 1 on hiring
+            // * 1 after test period (opens)
+            // * 1 after year of work (opens)
+            // * 1 after 3 years (?adds / opens)
+            // * 1 after decade (adds)
 
-            if (ambitions < 85)
+            // if you do it: because you don't want to have a boss; because you don't want to be dependent from other's opinion; because you want to be independent
+            // you end up with the complete opposite stuff :)
+            // you are dependent from Clients, Investors, Government, Competition
+
+            // if you want to change the world, make smth good, you don't necessarily need to create ur own company
+            // you can make an impact in other companies too!
+
+            // ambitious + wants smth new = create company
+            // 
+            if (traits.Contains(TraitType.Ambitious))
+            {
+                // overly ambitious dude :)
+
+                if (rating < 60)
+                    return Ambition.GrowRole;
+
+                // make 
+                if (rating < 75)
+                    return Ambition.RuleProductCompany;
+
+                return Ambition.RuleCorporation;
+            }
+
+            if (traits.Contains(TraitType.Careerist))
+            {
+                if (rating < 60)
+                    return Ambition.GrowSkills;
+
+                if (rating < 75)
+                    return Ambition.GrowRole;
+
+                if (rating < 85)
+                    return Ambition.RuleProductCompany;
+
+                return Ambition.RuleCorporation;
+            }
+
+            if (traits.Contains(TraitType.AverageSpecialist))
+            {
+                if (rating < 75)
+                    return Ambition.GrowSkills;
+
+                return Ambition.GrowRole;
+            }
+
+
+
+            if (rating < 75)
+            {
                 return Ambition.EarnMoney;
-
-            return Ambition.RuleCorporation;
+            }
+            else if (traits.Contains(TraitType.Ambitious))
+            {
+                return Ambition.RuleCorporation;
+            }
+            else
+            {
+                return Ambition.RuleProductCompany;
+            }
         }
     }
 }

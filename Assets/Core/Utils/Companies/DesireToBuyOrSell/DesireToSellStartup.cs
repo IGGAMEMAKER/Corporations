@@ -35,16 +35,14 @@ namespace Assets.Core
         {
             var CEOId = company.cEO.HumanId;
 
-            return Humans.GetFounderAmbition(gameContext, CEOId);
+            return Humans.GetAmbition(gameContext, CEOId);
         }
 
         public static long GetFounderExitDesire(GameEntity startup, int shareholderId, GameContext gameContext)
         {
             var founder = Investments.GetInvestorById(gameContext, shareholderId);
 
-            var ambitions = founder.humanSkills.Traits[TraitType.Ambitions];
-
-            var ambition = Humans.GetFounderAmbition(ambitions);
+            var ambition = Humans.GetFounderAmbition(founder.humanSkills.Traits, Humans.GetRating(founder));
 
             if (ambition == Ambition.EarnMoney)
                 return C.COMPANY_DESIRE_TO_SELL_YES;

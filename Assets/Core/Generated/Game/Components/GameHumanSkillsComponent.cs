@@ -11,7 +11,7 @@ public partial class GameEntity {
     public HumanSkillsComponent humanSkills { get { return (HumanSkillsComponent)GetComponent(GameComponentsLookup.HumanSkills); } }
     public bool hasHumanSkills { get { return HasComponent(GameComponentsLookup.HumanSkills); } }
 
-    public void AddHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.Dictionary<TraitType, int> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
+    public void AddHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.List<TraitType> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
         var index = GameComponentsLookup.HumanSkills;
         var component = (HumanSkillsComponent)CreateComponent(index, typeof(HumanSkillsComponent));
         component.Roles = newRoles;
@@ -20,7 +20,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.Dictionary<TraitType, int> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
+    public void ReplaceHumanSkills(System.Collections.Generic.Dictionary<WorkerRole, int> newRoles, System.Collections.Generic.List<TraitType> newTraits, System.Collections.Generic.Dictionary<NicheType, int> newExpertise) {
         var index = GameComponentsLookup.HumanSkills;
         var component = (HumanSkillsComponent)CreateComponent(index, typeof(HumanSkillsComponent));
         component.Roles = newRoles;
