@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 {
+    int teamId;
+    int freeSlots;
+
     public Text TeamName;
     public TeamType TeamType;
     public GameObject RemoveTeam;
@@ -33,6 +36,15 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
     public void SetEntity(TeamInfo info, int teamId)
     {
+        this.teamId = teamId;
+
+        var max = C.TASKS_PER_TEAM;
+
+        var company = Flagship;
+
+        var chosenSlots = company.team.Teams[teamId].Tasks.Count;
+        freeSlots = max - chosenSlots;
+
         TeamInfo = info;
         TeamType = info.TeamType;
 
@@ -41,18 +53,22 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
         ChooseHireManagersOfTeam.SetEntity(teamId);
 
-        var max = C.TASKS_PER_TEAM;
 
-        var company = Flagship;
-
-        var chosenSlots = company.team.Teams[teamId].Tasks.Count;
-        var freeSlots = max - chosenSlots;
 
         AddTeamTaskListView.FreeSlots = freeSlots;
         AddTeamTaskListView.SetEntity(teamId);
 
         TeamTaskListView.ChosenSlots = chosenSlots;
         TeamTaskListView.SetEntity(teamId);
+
+        if (freeSlots > 0)
+        {
+            RenderTasks();
+        }
+        else
+        {
+            HideTasks();
+        }
 
         TeamTypeImage.sprite = GetTeamTypeSprite();
 
@@ -86,13 +102,30 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    void RenderTasks()
+    {
+        Show(AddTeamTaskListView);
+        Show(TeamTaskListView);
+    }
+
+    void HideTasks()
+    {
+        Hide(AddTeamTaskListView);
+        Hide(TeamTaskListView);
+    }
+
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         Draw(RemoveTeam, false);
+
+        RenderTasks();
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         Draw(RemoveTeam, false);
+
+        if (freeSlots == 0)
+            HideTasks();
     }
 }
