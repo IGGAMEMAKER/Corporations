@@ -11,22 +11,16 @@ public class RenderPlayerName : View
         var Text = GetComponent<Text>();
         var text = Humans.GetFullName(SelectedHuman);
 
-        if (isMe)
+        if (IsMe)
             text += " (YOU)";
 
-        Text.text = text;
+        Text.text = $"{text} #{SelectedHuman.creationIndex}";
 
-        if (isMe)
+        if (IsMe)
             Text.color = Visuals.GetColorFromString(Colors.COLOR_COMPANY_WHERE_I_AM_CEO);
         else
             Text.color = Color.white;
     }
 
-    bool isMe
-    {
-        get
-        {
-            return SelectedHuman.human.Id == Hero.human.Id;
-        }
-    }
+    bool IsMe => SelectedHuman.human.Id == Hero.human.Id;
 }

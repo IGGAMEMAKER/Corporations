@@ -34,7 +34,7 @@ public class HumanPreview : View
 
         var entityID = human.creationIndex;
 
-        var description = $"{human.human.Name.Substring(0, 1)}. {human.human.Surname} \n#{entityID}"; // \n{formattedRole}
+        var description = $"{human.human.Name} {human.human.Surname}"; // \n{formattedRole} // human.human.Name.Substring(0, 1)
 
 
         Overall.text = $"{rating}";

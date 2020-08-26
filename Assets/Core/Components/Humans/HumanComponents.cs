@@ -28,7 +28,7 @@ public enum TraitType
     Independence,
 
     WantsToCreate,
-    ChangeWorld,
+    Useful,
 }
 
 public class WorkerComponent : IComponent {

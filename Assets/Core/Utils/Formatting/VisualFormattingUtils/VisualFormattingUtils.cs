@@ -5,12 +5,7 @@ namespace Assets.Core
 {
     public static partial class Visuals
     {
-        public static string Link(string text)
-        {
-            return $"<i><b><color=magenta>{text}</color></b></i>";
-        }
-
-        private static String HexConverter(Color c)
+        private static string ConvertToHex(Color c)
         {
             return "#" + ToHex(c.r) + ToHex(c.g) + ToHex(c.b);
         }
@@ -19,13 +14,15 @@ namespace Assets.Core
             return ((int)(col * 255)).ToString("X2"); // ("X2");
         }
 
-        public static string Colorize(string text, Color color)     => Colorize(text, HexConverter(color));
+        public static string Colorize(string text, Color color)     => Colorize(text, ConvertToHex(color));
         public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
+        public static string Colorize(int value, int min = 0, int max = 100) => Colorize(value + "", GetGradientColor(min, max, value));
         public static string Colorize(string text, string colorHTML)
         {
             return $"<color={colorHTML}>{text}</color>";
         }
 
+        public static string Link(string text) => $"<i><b><color=magenta>{text}</color></b></i>";
         public static string Positive(string text)  => Colorize(text, Colors.COLOR_POSITIVE);
         public static string Neutral(string text)   => Colorize(text, Colors.COLOR_NEUTRAL);
         public static string Negative(string text)  => Colorize(text, Colors.COLOR_NEGATIVE);
