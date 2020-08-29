@@ -29,7 +29,8 @@ public class TeamPreview : View
 
         var hiringProgress = info.HiringProgress;
 
-        HiringProgress.fillAmount = workers / maxWorkers;
+        HiringProgress.fillAmount = hiringProgress / 100f; // workers / maxWorkers;
+        //HiringProgressText.text = hiringProgress + "%";
         HiringProgressText.text = (workers * 100 / maxWorkers) + "%";
 
         Draw(HiringProgress, !hasFullTeam);

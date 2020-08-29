@@ -14,8 +14,24 @@ public class AddSupportFeature : ButtonController
 
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-        var teamId = relay.ChosenTeamId;
-        var taskId = relay.ChosenSlotId;
+        //var teamId = relay.ChosenTeamId;
+        //var taskId = relay.ChosenSlotId;
+
+        var task = new TeamTaskSupportFeature(supportFeature);
+        var teamId = Teams.GetTeamIdForTask(Flagship, task);
+
+        var taskId = 0;
+
+        if (teamId == -1)
+        {
+            teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+            taskId = 0;
+        }
+        else
+        {
+            taskId = Flagship.team.Teams[teamId].Tasks.Count;
+        }
+
 
         // 
         //if (!product.supportUpgrades.Upgrades.ContainsKey(name))
@@ -26,7 +42,7 @@ public class AddSupportFeature : ButtonController
         //product.supportUpgrades.Upgrades[name]++;
 
 
-        Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskSupportFeature(supportFeature));
+        Teams.AddTeamTask(product, Q, teamId, taskId, task);
         relay.ChooseWorkerInteractions();
     }
 }

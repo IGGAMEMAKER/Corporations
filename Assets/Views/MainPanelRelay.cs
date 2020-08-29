@@ -17,13 +17,6 @@ public class MainPanelRelay : View
     public GameObject TeamPanel;
     public TeamsPanelListView TeamsPanelListView;
 
-    public void ExpandAudiences()
-    {
-        ResetTabs();
-
-        HideInvestmentTab();
-    }
-
     void HideAudienceTab()
     {
         AudiencesOnMainScreenListView.HideButtons();
@@ -43,6 +36,14 @@ public class MainPanelRelay : View
         TeamsPanelListView.HideButtons();
         Hide(TeamPanel);
         Hide(TeamLabel);
+    }
+
+    public void ExpandAudiences()
+    {
+        ResetTabs();
+
+        HideInvestmentTab();
+        HideTeamTab();
     }
 
     public void ExpandInvestors()
