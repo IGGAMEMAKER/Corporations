@@ -29,6 +29,8 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
     RenderAudiencesListView RenderAudiencesListView;
 
+    bool isFreeChannel = false;
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -36,6 +38,8 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         // some error
         if (channel == null)
             return;
+
+        ToggleTexts(false);
 
         var marketingChannel = channel.marketingChannel;
 
@@ -50,31 +54,35 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var name = $"Channel {channel1.ID}";
         Title.text = name;
 
+        var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
+        var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
+        var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
+
+        isFreeChannel = adCost == 0;
+        if (isFreeChannel)
+            ToggleTexts(true);
+
         var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
+        Users.color = repaymentColor;
 
-        var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
 
         SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
 
-        var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
-        var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 
         var clientCost = ROI; // adCost / gainedAudience;
 
-        Income.text = $"for {Format.MinifyMoney(adCost)} (${clientCost.ToString("0.00")} each)";
+        Income.text = $"for {Format.MinifyMoney(adCost)}"; //  (${clientCost.ToString("0.00")} each)
         if (adCost == 0)
             Income.text = "FREE";
+        //else
+        //    Income.color = repaymentColor;
 
-        Income.color = repaymentColor;
 
-        MarketingComplexity.text = $"{clientCost.ToString("0.0")}$";
+        MarketingComplexity.text = $"{clientCost.ToString("0")}$";
         MarketingComplexity.color = repaymentColor;
 
         //MarketingComplexity.text = channel1.costInWorkers.ToString();
-
-        Hide(MarketingComplexity);
-        Show(Income);
 
         bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
         CanvasGroup.alpha = 1;
@@ -101,10 +109,10 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         ViewRender();
     }
 
-    void ToggleTexts(bool showFace)
+    void ToggleTexts(bool showCost)
     {
         Draw(MarketingComplexity, false);
-        Draw(Income, true);
+        Draw(Income, showCost);
 
         //Draw(SegmentTypeImage, !showFace);
         //Draw(Users, !showFace);
@@ -112,7 +120,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        ToggleTexts(false);
+        ToggleTexts(true);
 
         var audiences = Marketing.GetAudienceInfos();
 
@@ -122,7 +130,9 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        ToggleTexts(true);
+        if (!isFreeChannel)
+            ToggleTexts(false);
+
         RenderAudiencesListView.HideChanges();
     }
 }

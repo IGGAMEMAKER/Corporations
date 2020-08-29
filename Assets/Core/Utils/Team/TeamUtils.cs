@@ -53,7 +53,7 @@ namespace Assets.Core
             }
         }
 
-        public static void AddTeam(GameEntity company, TeamType teamType)
+        public static int AddTeam(GameEntity company, TeamType teamType)
         {
             var prefix = GetFormattedTeamType(teamType);
 
@@ -66,6 +66,8 @@ namespace Assets.Core
 
                 HiringProgress = 0, Workers = 0,
             });
+
+            return company.team.Teams.Count - 1;
         }
 
         public static void SetManagerTask(GameEntity company, int teamId, int taskId, ManagerTask managerTask)
@@ -139,6 +141,46 @@ namespace Assets.Core
 
                 default: return 0;
             }
+        }
+
+        static bool IsUniversal(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
+
+        public static bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
+        {
+            if (IsUniversal(teamType))
+                return true;
+
+            if (teamTask.IsFeatureUpgrade)
+                return teamType == TeamType.DevelopmentTeam;
+
+            if (teamTask.IsMarketingTask)
+                return teamType == TeamType.MarketingTeam;
+
+            if (teamTask.IsSupportTask)
+                return teamType == TeamType.SupportTeam;
+
+            if (teamTask.IsHighloadTask)
+                return teamType == TeamType.DevOpsTeam;
+
+            return false;
+        }
+
+        public static int GetTeamIdForTask(GameEntity product, TeamTask teamTask)
+        {
+            // searching team for this task
+            int teamId = 0;
+            foreach (var t in product.team.Teams)
+            {
+                var hasFreeSlot = t.Tasks.Count < C.TASKS_PER_TEAM;
+                var teamCanDoThisTask = SupportsTeamTask(t.TeamType, teamTask);
+
+                if (teamCanDoThisTask && hasFreeSlot)
+                    return teamId;
+
+                teamId++;
+            }
+
+            return -1;
         }
 
         public static void AddTeamTask(GameEntity product, GameContext gameContext, int teamId, TeamTask task)

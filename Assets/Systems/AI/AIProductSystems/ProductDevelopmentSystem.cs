@@ -81,28 +81,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
-
-    bool IsUniversal(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
-
-    bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
-    {
-        if (IsUniversal(teamType))
-            return true;
-
-        if (teamTask.IsFeatureUpgrade)
-            return teamType == TeamType.DevelopmentTeam;
-
-        if (teamTask.IsMarketingTask)
-            return teamType == TeamType.MarketingTeam;
-
-        if (teamTask.IsSupportTask)
-            return teamType == TeamType.SupportTeam;
-
-        if (teamTask.IsHighloadTask)
-            return teamType == TeamType.DevOpsTeam;
-
-        return false;
-    }
+    
 
     bool IsInPlayerSphereOfInterest(GameEntity product) => Companies.IsInPlayerSphereOfInterest(product, gameContext);
 
@@ -134,24 +113,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
 
         // searching team for this task
-        int teamId = 0;
-        foreach (var t in product.team.Teams)
-        {
-            var hasFreeSlot = t.Tasks.Count < C.TASKS_PER_TEAM;
-            var teamCanDoThisTask = SupportsTeamTask(t.TeamType, teamTask);
+        int teamId = Teams.GetTeamIdForTask(product, teamTask);
 
-            if (teamCanDoThisTask && hasFreeSlot)
-            {
-                Teams.AddTeamTask(product, gameContext, teamId, teamTask);
-                str.Add($"-- Added task to <b>existing</b> team[{teamId}]: " + teamTask.ToString() + " --");
-
-                return;
-            }
-
-            teamId++;
-        }
-
-        str.Add($"<b>No team found for this task</b>. {product.team.Teams.Count} available");
+        if (teamId == -1)
+            str.Add($"<b>No team found for this task</b>. {product.team.Teams.Count} available");
+        else
+            str.Add($"-- Added task to <b>existing</b> team[{teamId}]: " + teamTask.ToString() + " --");
 
 
         // need to hire new team

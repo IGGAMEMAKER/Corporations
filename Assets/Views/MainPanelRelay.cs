@@ -13,22 +13,52 @@ public class MainPanelRelay : View
     public GameObject AudiencePanel;
     public AudiencesOnMainScreenListView AudiencesOnMainScreenListView;
 
+    public Text TeamLabel;
+    public GameObject TeamPanel;
+    public TeamsPanelListView TeamsPanelListView;
+
     public void ExpandAudiences()
     {
         ResetTabs();
 
+        HideInvestmentTab();
+    }
+
+    void HideAudienceTab()
+    {
+        AudiencesOnMainScreenListView.HideButtons();
+        Hide(AudiencePanel);
+        Hide(AudienceLabel);
+    }
+
+    void HideInvestmentTab()
+    {
         ShareholdersOnMainScreenListView.HideButtons();
         Hide(InvestorsPanel);
         Hide(InvestmentsLabel);
+    }
+
+    void HideTeamTab()
+    {
+        TeamsPanelListView.HideButtons();
+        Hide(TeamPanel);
+        Hide(TeamLabel);
     }
 
     public void ExpandInvestors()
     {
         ResetTabs();
 
-        AudiencesOnMainScreenListView.HideButtons();
-        Hide(AudiencePanel);
-        Hide(AudienceLabel);
+        HideAudienceTab();
+        HideTeamTab();
+    }
+
+    public void ExpandTeams()
+    {
+        ResetTabs();
+
+        HideAudienceTab();
+        HideInvestmentTab();
     }
 
     public void ResetTabs()
@@ -38,11 +68,18 @@ public class MainPanelRelay : View
 
         Show(InvestorsPanel);
         Show(InvestmentsLabel);
+
+        Show(TeamPanel);
+        Show(TeamLabel);
     }
 
     public void ShowAudiencesAndInvestors()
     {
         ResetTabs();
+
+        AudiencesOnMainScreenListView.HideButtons();
+        ShareholdersOnMainScreenListView.HideButtons();
+        TeamsPanelListView.HideButtons();
     }
 
     private void OnEnable()
@@ -51,5 +88,6 @@ public class MainPanelRelay : View
 
         AudiencesOnMainScreenListView.HideButtons();
         ShareholdersOnMainScreenListView.HideButtons();
+        TeamsPanelListView.HideButtons();
     }
 }

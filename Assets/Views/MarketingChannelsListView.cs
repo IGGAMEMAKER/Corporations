@@ -41,7 +41,7 @@ public class MarketingChannelsListView : ListView
             .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId))
             ;
 
-        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c, segmentId)));
+        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c))); // segmentId
 
 
         var allChannels = Markets.GetMarketingChannels(Q);

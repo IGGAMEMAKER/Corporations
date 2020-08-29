@@ -21,10 +21,15 @@ public class CompanyTaskTypeRelay : View
     List<GameObject> ChoosingButtons => new List<GameObject> { ChooseMarketingTasksButton, ChooseDevelopmentTasksButton, ChooseSupportTasksButton, ChooseServerTasksButton };
     List<GameObject> TaskContainers => new List<GameObject> { MarketingTasks, FeatureTasks, SupportTasks, ServerTasks };
 
+    void OnEnable()
+    {
+        ChooseFeatureTasks();        
+    }
+
     void SetMode(GameObject tasks, GameObject buttons)
     {
         ShowOnly(tasks, TaskContainers);
-        ShowOnly(buttons, ChoosingButtons);
+        //ShowOnly(buttons, ChoosingButtons);
     }
 
     public void ChooseMarketingTasks()
@@ -58,7 +63,7 @@ public class CompanyTaskTypeRelay : View
 
     public void HideRelayButtons()
     {
-        Hide(RelayButtons);
+        //Hide(RelayButtons);
     }
 
     public void AdjustTaskTypeButtonsToTeamType()

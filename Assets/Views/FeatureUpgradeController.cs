@@ -19,12 +19,26 @@ public class FeatureUpgradeController : ButtonController
 
             var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-            var teamId = relay.ChosenTeamId;
-            var taskId = relay.ChosenSlotId;
+            //var teamId = relay.ChosenTeamId;
+            //var taskId = relay.ChosenSlotId;
 
-            //Debug.Log($"FeatureUpgradeController team={teamId} taskId={taskId}");
+            var task = new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature);
+            var teamId = Teams.GetTeamIdForTask(Flagship, task);
 
-            Teams.AddTeamTask(product, Q, teamId, taskId, new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature));
+            var taskId = 0;
+
+            if (teamId == -1)
+            {
+                teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+                taskId = 0;
+            }
+            else
+            {
+                taskId = Flagship.team.Teams[teamId].Tasks.Count;
+            }
+
+
+            Teams.AddTeamTask(product, Q, teamId, taskId, task);
             relay.ChooseWorkerInteractions();
         }
 
