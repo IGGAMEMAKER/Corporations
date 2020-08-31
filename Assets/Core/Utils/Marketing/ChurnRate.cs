@@ -28,16 +28,7 @@ namespace Assets.Core
                     var rating = Products.GetFeatureRating(c, f.Name);
                     var attitude = f.AttitudeToFeature[segmentId];
 
-                    var loyaltyGain = 0f;
-
-                    if (attitude >= 0)
-                    {
-                        loyaltyGain = rating * attitude / 10;
-                    }
-                    else
-                    {
-                        loyaltyGain = attitude + (10 - rating) * attitude / 10;
-                    }
+                    var loyaltyGain = GetLoyaltyChangeFromFeature(c, f, segmentId, false);
 
                     bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
                 }
@@ -51,6 +42,42 @@ namespace Assets.Core
             bonus.Cap(-100, 50);
 
             return bonus;
+        }
+
+        // if maxChange = true
+        // this will return max loyalty for regular features
+        // and worst loyalty hit for monetisation features
+
+        // otherwise - upgraded values?
+        public static float GetLoyaltyChangeFromFeature(GameEntity c, NewProductFeature f, int segmentId, bool maxChange = false)
+        {
+            var rating = Products.GetFeatureRating(c, f.Name);
+            var attitude = f.AttitudeToFeature[segmentId];
+
+            if (maxChange)
+            {
+                if (attitude <= 0)
+                {
+                    rating = 0;
+                }
+                else
+                {
+                    rating = 10;
+                }
+            }
+
+            var loyaltyGain = 0f;
+
+            if (attitude >= 0)
+            {
+                loyaltyGain = rating * attitude / 10;
+            }
+            else
+            {
+                loyaltyGain = attitude + (10 - rating) * attitude / 10;
+            }
+
+            return loyaltyGain;
         }
 
         public static Bonus<long> GetChurnBonus(GameContext gameContext, int companyId, int segmentId) => GetChurnBonus(gameContext, Companies.Get(gameContext, companyId), segmentId);

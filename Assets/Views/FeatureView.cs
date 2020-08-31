@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FeatureView : View
+public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 {
     public Text Name;
     public Text Benefits;
@@ -40,7 +41,7 @@ public class FeatureView : View
 
         Draw(Rating, upgraded);
 
-        Rating.text = GetFeatureBenefits(upgraded, product);
+        Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
         Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
         var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
@@ -83,15 +84,15 @@ public class FeatureView : View
 
         var benefitFormatted = benefit.ToString("0.0");
         if (b.isAcquisitionFeature)
-            return $"+{benefitFormatted}";
+            return $"{benefitFormatted}";
             //return $"+{benefitFormatted}% user growth";
 
         if (b.isMonetisationFeature)
-            return $"+{benefitFormatted}";
+            return $"{benefitFormatted}";
             //return $"+{benefitFormatted}% income";
 
         if (b.isRetentionFeature)
-            return $"+{benefitFormatted}";
+            return $"{benefitFormatted}";
             //return $"-{benefitFormatted}% client loss";
 
         return b.GetType().ToString();
@@ -114,5 +115,21 @@ public class FeatureView : View
             FeatureTypeIcon.sprite = RetentionImage;
         else
             FeatureTypeIcon.sprite = UnknownImage;
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        var view = FindObjectOfType<AudiencesOnMainScreenListView>();
+        
+        if (view != null)
+            view.ShowAudienceLoyaltyChangeOnFeatureUpgrade(NewProductFeature);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        var view = FindObjectOfType<AudiencesOnMainScreenListView>();
+
+        if (view != null)
+            view.HideLoyaltyChanges();
     }
 }

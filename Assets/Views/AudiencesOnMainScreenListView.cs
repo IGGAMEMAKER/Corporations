@@ -112,4 +112,20 @@ public class AudiencesOnMainScreenListView : ListView
             LoyaltyInfo.Title.text += Visuals.Negative($"{worstThing.Name}: {worstThing.Value}");
         }
     }
+
+    public void ShowAudienceLoyaltyChangeOnFeatureUpgrade(NewProductFeature f)
+    {
+        foreach (var preview in Items)
+        {
+            preview.GetComponent<AudiencePreview>().ShowChanges(f);
+        }
+    }
+
+    public void HideLoyaltyChanges()
+    {
+        foreach (var preview in Items)
+        {
+            preview.GetComponent<AudiencePreview>().HideLoyaltyChanges();
+        }
+    }
 }

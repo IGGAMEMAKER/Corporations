@@ -14,11 +14,16 @@ public class AudiencePreview : View
 
     public AudienceInfo Audience;
 
+    public Text LoyaltyChange;
+    public GameObject LoyaltyChangeBackground;
+
+    int segmentId;
+
     public void SetEntity(AudienceInfo audience)
     {
         base.ViewRender();
 
-        var segmentId = audience.ID;
+        segmentId = audience.ID;
         Audience = audience;
 
         var links = GetComponent<ProductUpgradeLinks>();
@@ -42,7 +47,7 @@ public class AudiencePreview : View
         else
         {
             Loyalty.text = Format.Sign(loyalty);
-            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.ToString());
+            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).ToString());
 
             if (isLoyalAudience)
             {
@@ -82,5 +87,21 @@ public class AudiencePreview : View
             $"\n\nLoyalty: <b>{Visuals.Colorize(Format.Sign(loyalty), isLoyalAudience)}</b>";
 
         AudienceHint.SetHint(text);
+        HideLoyaltyChanges();
+    }
+
+    public void ShowChanges(NewProductFeature f)
+    {
+        int change = (int)Marketing.GetLoyaltyChangeFromFeature(Flagship, f, segmentId, true);
+
+        LoyaltyChange.text = Format.Sign(change);
+        LoyaltyChange.color = Visuals.GetColorPositiveOrNegative(change >= 0);
+
+        Draw(LoyaltyChangeBackground, change != 0);
+    }
+
+    public void HideLoyaltyChanges()
+    {
+        Hide(LoyaltyChangeBackground);
     }
 }

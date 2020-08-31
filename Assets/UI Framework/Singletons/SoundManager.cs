@@ -11,6 +11,11 @@ namespace Assets
             AudioManager.Play(sound);
         }
 
+        public static void Play(AudioSource audioSource)
+        {
+            audioSource.Play();
+        }
+
         public static void PlayFastCashSound()
         {
             Play(Sound.MoneyIncome);

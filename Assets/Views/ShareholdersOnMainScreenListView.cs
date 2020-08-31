@@ -18,7 +18,7 @@ public class ShareholdersOnMainScreenListView : ListView
 
     public ProductUpgradeLinks MainInfo;
 
-    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, ChangeGoals, MainInfo.gameObject };
+    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, MainInfo.gameObject };
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, /*ShowOffers,*/ CurrentInvestments, MainInfo.gameObject };
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -60,6 +60,12 @@ public class ShareholdersOnMainScreenListView : ListView
         {
             HideAll(InvestorButtons);
             ShowAll(PlayerButtons);
+
+            // there is noone to ask money for (there is only a player)
+            if (MyCompany.shareholders.Shareholders.Keys.Count == 1)
+            {
+                Hide(GetExtraCash);
+            }
         }
         else
         {

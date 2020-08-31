@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class FeatureUpgradeController : ButtonController
                 taskId = Flagship.team.Teams[teamId].Tasks.Count;
             }
 
+            SoundManager.Play(Sound.ProgrammingTask);
 
             Teams.AddTeamTask(product, Q, teamId, taskId, task);
             relay.ChooseWorkerInteractions();

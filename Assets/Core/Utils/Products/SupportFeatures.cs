@@ -48,6 +48,11 @@ namespace Assets.Core
             return Marketing.GetClients(product); // add DDoS multiplier ??
         }
 
+        public static long GetServerLoad(GameEntity product)
+        {
+            return GetClientLoad(product);
+        }
+
         public static long GetServerCapacity(GameEntity product)
         {
             return GetHighloadFeaturesBenefit(product);
