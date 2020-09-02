@@ -26,22 +26,24 @@ public class FeatureUpgradeController : ButtonController
             var task = new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature);
             var teamId = Teams.GetTeamIdForTask(Flagship, task);
 
-            var taskId = 0;
+            //var taskId = 0;
 
-            if (teamId == -1)
-            {
-                teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
-                taskId = 0;
-            }
-            else
-            {
-                taskId = Flagship.team.Teams[teamId].Tasks.Count;
-            }
+            //if (teamId == -1)
+            //{
+            //    teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+            //    taskId = 0;
+            //}
+            //else
+            //{
+            //    taskId = Flagship.team.Teams[teamId].Tasks.Count;
+            //}
 
-            SoundManager.Play(Sound.ProgrammingTask);
+            //SoundManager.Play(Sound.ProgrammingTask);
 
-            Teams.AddTeamTask(product, Q, teamId, taskId, task);
-            relay.ChooseWorkerInteractions();
+            //Teams.AddTeamTask(product, Q, teamId, taskId, task);
+
+            relay.AddPendingTask(task);
+            //relay.ChooseWorkerInteractions();
         }
 
         FeatureView.ViewRender();

@@ -1,17 +1,17 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
+public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 {
-    int teamId;
+    public int teamId;
     int freeSlots;
 
     public Text TeamName;
     public TeamType TeamType;
-    public GameObject RemoveTeam;
 
     public TeamInfo TeamInfo;
 
@@ -34,7 +34,12 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
 
     public ChooseHireManagersOfTeam ChooseHireManagersOfTeam;
 
-    public void SetEntity(TeamInfo info, int teamId)
+    public Text Text1;
+    public Text Text2;
+    public Text Text3;
+    public Text Text4;
+
+    public void SetEntity(TeamInfo info, int teamId, bool isTaskAssignMode)
     {
         this.teamId = teamId;
 
@@ -48,13 +53,43 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         TeamInfo = info;
         TeamType = info.TeamType;
 
-        RemoveTeam.GetComponent<RemoveTeamController>().TeamId = teamId;
         TeamName.text = info.Name;
 
         ChooseHireManagersOfTeam.SetEntity(teamId);
+        TeamTypeImage.sprite = GetTeamTypeSprite();
 
+        if (isTaskAssignMode)
+        {
+            RenderTaskAssignTeamView();
+        }
+        else
+        {
+            RenderDefaultTeamView(chosenSlots, info);
+        }
+    }
 
+    void RenderTaskAssignTeamView()
+    {
+        var iterationSpeed = Random.Range(5, 20);
+        var expertise = Random.Range(0, 100);
+        var maxLevel = Random.Range(4, 10);
+        
 
+        Text1.text = $"{iterationSpeed} days"; // from organisation
+        Text1.color = Visuals.GetGradientColor(5, 20, iterationSpeed);
+
+        Text2.text = $"{maxLevel} lvl";
+        Text2.color = Visuals.GetGradientColor(0, 10, maxLevel);
+
+        Text3.text = $"{expertise}%";
+        Text3.color = Visuals.GetGradientColor(0, 100, expertise);
+
+        Text4.text = $"{(freeSlots == 0 ? "NO" : freeSlots.ToString())}";
+        Text4.color = Visuals.GetColorPositiveOrNegative(freeSlots > 0);
+    }
+
+    void RenderDefaultTeamView(int chosenSlots, TeamInfo info)
+    {
         AddTeamTaskListView.FreeSlots = freeSlots;
         AddTeamTaskListView.SetEntity(teamId);
 
@@ -69,8 +104,6 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         {
             HideTasks();
         }
-
-        TeamTypeImage.sprite = GetTeamTypeSprite();
 
         int maxWorkers = 8;
         int workers = info.Workers; // Random.Range(0, maxWorkers);
@@ -114,18 +147,14 @@ public class TeamView : View, IPointerEnterHandler, IPointerExitHandler
         Hide(TeamTaskListView);
     }
 
-    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-    {
-        Draw(RemoveTeam, false);
+    //void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    //{
+    //    RenderTasks();
+    //}
 
-        RenderTasks();
-    }
-
-    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-    {
-        Draw(RemoveTeam, false);
-
-        if (freeSlots == 0)
-            HideTasks();
-    }
+    //void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    //{
+    //    if (freeSlots == 0)
+    //        HideTasks();
+    //}
 }

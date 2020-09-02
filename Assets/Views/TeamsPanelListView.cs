@@ -23,7 +23,8 @@ public class TeamsPanelListView : ListView
     {
         base.OnItemSelected(ind);
 
-        FindObjectOfType<MainPanelRelay>().ExpandTeams();
+        //FindObjectOfType<MainPanelRelay>().ExpandTeams();
+        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
     }
 
     public override void OnDeselect()

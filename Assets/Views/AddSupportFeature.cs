@@ -18,31 +18,22 @@ public class AddSupportFeature : ButtonController
         //var taskId = relay.ChosenSlotId;
 
         var task = new TeamTaskSupportFeature(supportFeature);
-        var teamId = Teams.GetTeamIdForTask(Flagship, task);
+        //var teamId = Teams.GetTeamIdForTask(Flagship, task);
 
-        var taskId = 0;
+        //var taskId = 0;
 
-        if (teamId == -1)
-        {
-            teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
-            taskId = 0;
-        }
-        else
-        {
-            taskId = Flagship.team.Teams[teamId].Tasks.Count;
-        }
-
-
-        // 
-        //if (!product.supportUpgrades.Upgrades.ContainsKey(name))
+        //if (teamId == -1)
         //{
-        //    product.supportUpgrades.Upgrades[name] = 0;
+        //    teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+        //    taskId = 0;
+        //}
+        //else
+        //{
+        //    taskId = Flagship.team.Teams[teamId].Tasks.Count;
         //}
 
-        //product.supportUpgrades.Upgrades[name]++;
-
-
-        Teams.AddTeamTask(product, Q, teamId, taskId, task);
-        relay.ChooseWorkerInteractions();
+        relay.AddPendingTask(task);
+        //Teams.AddTeamTask(product, Q, teamId, taskId, task);
+        //relay.ChooseWorkerInteractions();
     }
 }

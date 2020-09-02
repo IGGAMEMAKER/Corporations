@@ -22,25 +22,25 @@ public class ChannelActivityController : ButtonController
         var channelId = channel.marketingChannel.ChannelInfo.ID;
 
         var task = new TeamTaskChannelActivity(channelId);
-        var teamId = Teams.GetTeamIdForTask(Flagship, task);
+        //var teamId = Teams.GetTeamIdForTask(Flagship, task);
 
-        var taskId = 0;
+        //var taskId = 0;
 
-        if (teamId == -1)
-        {
-            teamId = Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
-            taskId = 0;
-        }
-        else
-        {
-            taskId = Flagship.team.Teams[teamId].Tasks.Count;
-        }
+        //if (teamId == -1)
+        //{
+        //    teamId = Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
+        //    taskId = 0;
+        //}
+        //else
+        //{
+        //    taskId = Flagship.team.Teams[teamId].Tasks.Count;
+        //}
 
-        Marketing.ToggleChannelActivity(company, Q, channel, teamId, taskId);
+        //Marketing.ToggleChannelActivity(company, Q, channel, teamId, taskId);
 
+        relay.AddPendingTask(task);
 
-
-        relay.ChooseWorkerInteractions();
+        //relay.ChooseWorkerInteractions();
         MarketingChannelView.ViewRender();
     }
 }

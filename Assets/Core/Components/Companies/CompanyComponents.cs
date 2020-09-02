@@ -228,6 +228,8 @@ public class TeamInfo
     public int HiringProgress;
 
     public List<ManagerTask> ManagerTasks;
+
+    //public int ID;
 }
 
 public enum TeamType

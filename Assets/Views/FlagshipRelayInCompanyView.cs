@@ -12,17 +12,21 @@ public class FlagshipRelayInCompanyView : View
     public GameObject ManagersTabs;
     public GameObject NewTeamTabs;
     public GameObject AudiencePickingTab;
+    public GameObject AssignTaskPanel;
 
     public GameObject RemoveTaskButton;
     public ChosenTeamTaskView ChosenTaskLabel;
 
     public NewTeamTypeRelay NewTeamTypeRelay;
 
+    public TeamTask TeamTask;
+
     // buttons
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
 
     public TeamInfo ChosenTeam => ChosenTeamId >= Flagship.team.Teams.Count ? null : Flagship.team.Teams[ChosenTeamId];
+    List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
 
     public void FillSlot(int teamId, int slotId)
     {
@@ -43,38 +47,27 @@ public class FlagshipRelayInCompanyView : View
         Refresh();
     }
 
+    public void AddPendingTask(TeamTask teamTask)
+    {
+        TeamTask = teamTask;
+
+        ShowOnly(AssignTaskPanel, Tabs);
+    }
+
     public void ChooseAudiencePickingPanel()
     {
-        Show(AudiencePickingTab);
-
-        Hide(NewTeamTabs);
-        Hide(DevelopmentTab);
-        Hide(InvestmentTabs);
-        Hide(ManagersTabs);
-        Hide(WorkerInteractions);
+        ShowOnly(AudiencePickingTab, Tabs);
     }
 
     public void ChooseNewTeamTab()
     {
-        Show(NewTeamTabs);
+        ShowOnly(NewTeamTabs, Tabs);
         NewTeamTypeRelay.SetTeamTypes();
-
-        Hide(DevelopmentTab);
-        Hide(InvestmentTabs);
-        Hide(ManagersTabs);
-        Hide(WorkerInteractions);
-        Hide(AudiencePickingTab);
     }
 
     public void ChooseWorkerInteractions()
     {
-        Show(WorkerInteractions);
-
-        Hide(DevelopmentTab);
-        Hide(InvestmentTabs);
-        Hide(ManagersTabs);
-        Hide(NewTeamTabs);
-        Hide(AudiencePickingTab);
+        ShowOnly(WorkerInteractions, Tabs);
     }
 
     public void ChooseMainScreen()
@@ -84,14 +77,7 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseDevTab()
     {
-        Show(DevelopmentTab);
-
-        Hide(WorkerInteractions);
-        Hide(InvestmentTabs);
-        Hide(ManagersTabs);
-        Hide(NewTeamTabs);
-        Hide(AudiencePickingTab);
-
+        ShowOnly(DevelopmentTab, Tabs);
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
         var hasTask = ChosenTeamId >= 0 && tasks.Count > ChosenSlotId;
@@ -105,28 +91,16 @@ public class FlagshipRelayInCompanyView : View
 
     public void ChooseInvestmentTab()
     {
-        Show(InvestmentTabs);
-
-        Hide(WorkerInteractions);
-        Hide(DevelopmentTab);
-        Hide(ManagersTabs);
-        Hide(NewTeamTabs);
-        Hide(AudiencePickingTab);
-
+        ShowOnly(InvestmentTabs, Tabs);
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);
     }
 
-    public void ChooseManagersTabs()
+    public void ChooseManagersTabs(int teamId)
     {
-        Show(ManagersTabs);
-
-        Hide(AudiencePickingTab);
-        Hide(WorkerInteractions);
-        Hide(DevelopmentTab);
-        Hide(InvestmentTabs);
-        Hide(NewTeamTabs);
+        FillSlot(teamId, 0);
+        ShowOnly(ManagersTabs, Tabs);
 
         Hide(ChosenTaskLabel);
         Hide(RemoveTaskButton);

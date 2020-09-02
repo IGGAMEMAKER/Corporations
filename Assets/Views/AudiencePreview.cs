@@ -97,7 +97,7 @@ public class AudiencePreview : View
         LoyaltyChange.text = Format.Sign(change);
         LoyaltyChange.color = Visuals.GetColorPositiveOrNegative(change >= 0);
 
-        Draw(LoyaltyChangeBackground, change != 0);
+        Show(LoyaltyChangeBackground);
     }
 
     public void HideLoyaltyChanges()
