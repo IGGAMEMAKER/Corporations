@@ -43,7 +43,7 @@
 
             return opinion;
         }
-
+        
         public static bool IsInvestorSuitable(GameEntity shareholder, GameEntity company)
         {
             bool isSuitableByNiche = IsInInvestorsSphereOfInfluence(shareholder, company);
@@ -55,12 +55,36 @@
             // prevent group investments
             // because of recursive investment bug
             bool isFinancialStructure = !shareholder.isManagingCompany;
+            //bool willInvestInItself = 
 
             return
                 isFinancialStructure
                 && isSuitableByNiche
                 && (isParentOfDependentCompany || company.isIndependentCompany);
         }
+
+        //static bool InvestorIsNotRelatedToPlayer(InvestmentProposal proposal)
+        //{
+        //    return true;
+        //    var investor = Investments.GetInvestorById(gameContext, proposal.ShareholderId);
+
+        //    var isRelatedToPlayer = investor.hasCompany && Companies.IsRelatedToPlayer(gameContext, investor);
+
+        //    return !isRelatedToPlayer;
+        //}
+
+        //static bool IsTargetInvestsInInvestorItself(InvestmentProposal proposal, GameEntity targetCompany, GameContext gameContext)
+        //{
+        //    var investor = Companies.GetInvestorById(gameContext, proposal.ShareholderId);
+
+        //    if (!investor.hasCompany || !targetCompany.hasShareholder)
+        //        return false;
+
+        //    return Companies.IsInvestsInCompany(investor, targetCompany.shareholder.Id);
+        //}
+
+            //        .Where(InvestorIsNotRelatedToPlayer)
+            //.Where(p => !IsTargetInvestsInInvestorItself(p, company))
 
         public static bool IsInInvestorsSphereOfInfluence(GameEntity shareholder, GameEntity company)
         {

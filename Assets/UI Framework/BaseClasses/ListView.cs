@@ -42,10 +42,10 @@ public abstract class ListView : View // MonoBehaviour
     void OnDisable()
     {
         OnDeselect();
-        Clean();
+        //Clean();
     }
 
-    void OnEnable()
+    void Start()
     {
         Clean();
     }
@@ -95,20 +95,20 @@ public abstract class ListView : View // MonoBehaviour
 
     void Clean()
     {
-        //if (wasCleanedUp)
-        //    return;
+        if (wasCleanedUp)
+            return;
 
         // remove all objects in this list
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
         Items = new List<GameObject>();
-        //wasCleanedUp = true;
+        wasCleanedUp = true;
     }
 
     void Render<T>(T[] entities, GameObject Container, object data = null)
     {
-        //Clean();
+        Clean();
 
         #region check for nulls
         if (entities == null)

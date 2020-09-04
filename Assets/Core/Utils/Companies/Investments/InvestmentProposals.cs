@@ -6,9 +6,10 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static List<InvestmentProposal> GetInvestmentProposals(GameContext context, int companyId)
+        public static List<InvestmentProposal> GetInvestmentProposals(GameContext context, int companyId) => GetInvestmentProposals(Get(context, companyId));
+        public static List<InvestmentProposal> GetInvestmentProposals(GameEntity company)
         {
-            return Get(context, companyId).investmentProposals.Proposals;
+            return company.investmentProposals.Proposals;
         }
 
         public static InvestmentProposal GetInvestmentProposal(GameContext context, int companyId, int investorId)

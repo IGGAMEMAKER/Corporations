@@ -222,6 +222,7 @@ public partial class PopupView : View
 
         var title = "Do you really want to create a new " + Enums.GetFormattedNicheName(popup.NicheType) + "?";
         //var description = $"We need at least {Format.Money(startCapital)} to create a product, which meets market requirements";
+
         var description = $"On release, this product will cost you about {Format.Money(maintenance)} each month";
         if (maintenance == 0)
             description = "We don't know, how much it will cost on release. Create app to find out! Be the innovator!";
@@ -234,7 +235,7 @@ public partial class PopupView : View
 
         RenderUniversalPopup(
             title,
-            description + resourceText,
+            "", /*description + resourceText,*/
             typeof(CreateAppPopupButton),
             typeof(ClosePopupCancel)
             );

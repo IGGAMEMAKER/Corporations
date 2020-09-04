@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using Assets.Core;
 
-public class RenderPopup : MonoBehaviour
+public class RenderPopup : View, IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        NotificationUtils.ClosePopup(Q);
     }
 }
