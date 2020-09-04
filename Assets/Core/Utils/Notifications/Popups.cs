@@ -17,6 +17,11 @@ namespace Assets.Core
             ScreenUtils.UpdateScreen(gameContext);
         }
 
+        public static void AddSimplePopup(GameContext gameContext, string title, string description = "")
+        {
+            AddPopup(gameContext, new PopupMessageInfo(title, description));
+        }
+
         public static void ClosePopup(GameContext gameContext)
         {
             if (!IsHasActivePopups(gameContext))

@@ -37,6 +37,14 @@ public class TeamsListView : ListView
 
         var teamId = Items[ind].GetComponent<TeamView>().teamId;
 
+        bool overloaded = Flagship.team.Teams[teamId].Tasks.Count >= 4;
+
+        if (overloaded)
+        {
+            NotificationUtils.AddSimplePopup(Q, "This team is overloaded", "Choose another team");
+            return;
+        }
+
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         var task = relay.TeamTask;
