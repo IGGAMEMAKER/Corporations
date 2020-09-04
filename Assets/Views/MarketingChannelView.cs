@@ -125,7 +125,8 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var audiences = Marketing.GetAudienceInfos();
 
         var changes = audiences.Select(a => Marketing.GetChannelClientGain(Flagship, Q, channel, a.ID));
-        RenderAudiencesListView.ShowValueChanges(changes.ToList());
+        if (RenderAudiencesListView != null)
+            RenderAudiencesListView.ShowValueChanges(changes.ToList());
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
@@ -133,6 +134,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         if (!isFreeChannel)
             ToggleTexts(false);
 
-        RenderAudiencesListView.HideChanges();
+        if (RenderAudiencesListView != null)
+            RenderAudiencesListView.HideChanges();
     }
 }

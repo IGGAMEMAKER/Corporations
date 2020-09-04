@@ -39,14 +39,15 @@ public abstract class ListView : View // MonoBehaviour
         ChosenIndex = -1;
     }
 
-    //public void Deselect()
-    //{
-    //    ChosenIndex = -1;
-    //}
-
     void OnDisable()
     {
         OnDeselect();
+        Clean();
+    }
+
+    void OnEnable()
+    {
+        Clean();
     }
 
     internal void ChooseElement(int elementIndex)
@@ -107,8 +108,9 @@ public abstract class ListView : View // MonoBehaviour
 
     void Render<T>(T[] entities, GameObject Container, object data = null)
     {
-        Clean();
+        //Clean();
 
+        #region check for nulls
         if (entities == null)
             return;
 
@@ -119,6 +121,7 @@ public abstract class ListView : View // MonoBehaviour
 
             return;
         }
+        #endregion
 
         index = 0;
         foreach (var e in entities)
