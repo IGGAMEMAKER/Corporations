@@ -40,7 +40,7 @@ public class FlagshipInterruptsView : View
 
         SpecialDraw(NeedsManagersImage, false);
         SpecialDraw(NeedsServersImage, true);
-        SpecialDraw(NeedsSupportImage, true);
+        SpecialDraw(NeedsSupportImage, false);
         SpecialDraw(DDOSImage, underAttack);
 
         NeedsSupportImage.color = Visuals.GetColorFromString(needsMoreSupport ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);

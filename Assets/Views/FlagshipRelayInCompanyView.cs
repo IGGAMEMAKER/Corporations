@@ -69,6 +69,8 @@ public class FlagshipRelayInCompanyView : View
 
         ShowOnly(AssignTaskPanel, Tabs);
         FindObjectOfType<HideNewTeamButtonIfOldOnesAreNotFinished>().SetEntity(TeamTask);
+
+        ScheduleUtils.PauseGame(Q);
     }
 
     public void ChooseAudiencePickingPanel()

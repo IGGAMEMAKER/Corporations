@@ -15,6 +15,13 @@ public class TeamPreview : View
 
     public Image NeedToInteract;
 
+    public RawImage TeamIcon;
+
+    public Sprite UniversalIcon;
+    public Sprite DevelopmentIcon;
+    public Sprite MarketingIcon;
+    public Sprite ServersideIcon;
+
     public void SetEntity(TeamInfo info, int teamId)
     {
         this.teamId = teamId;
@@ -50,11 +57,31 @@ public class TeamPreview : View
 
         if (hasFullTeam)
         {
-            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus || canHireMoreManagers);
+            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus);
         }
         else
         {
             Hide(NeedToInteract);
+        }
+
+
+        switch (TeamInfo.TeamType)
+        {
+            case TeamType.DevelopmentTeam:
+                TeamIcon.texture = DevelopmentIcon.texture;
+                break;
+
+            case TeamType.MarketingTeam:
+                TeamIcon.texture = MarketingIcon.texture;
+                break;
+
+            case TeamType.DevOpsTeam:
+                TeamIcon.texture = ServersideIcon.texture;
+                break;
+
+            default:
+                TeamIcon.texture = UniversalIcon.texture;
+                break;
         }
     }
 }
