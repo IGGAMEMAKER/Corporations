@@ -23,19 +23,38 @@ public class CompanyTaskTypeRelay : View
 
     void OnEnable()
     {
-        ChooseFeatureTasks();        
+        bool isFirstTime = true;
+
+        if (isFirstTime)
+            ChooseFeatureTasks();
+        else
+            ChooseMarketingTasks();
     }
 
     void SetMode(GameObject tasks, GameObject buttons)
     {
         ShowOnly(tasks, TaskContainers);
-        //ShowOnly(buttons, ChoosingButtons);
+
+        //var index = TaskContainers.FindIndex(c => c == tasks) + 1;
+
+        //if (index == TaskContainers.Count) index = 0;
+        //ShowOnly(ChoosingButtons[index], ChoosingButtons);
+    }
+
+    void ShowMarketingButton()
+    {
+        ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
+    }
+
+    void ShowDevButton()
+    {
+        ShowOnly(ChooseDevelopmentTasksButton, ChoosingButtons);
     }
 
     public void ChooseMarketingTasks()
     {
         SetMode(MarketingTasks, ChooseMarketingTasksButton);
-        HideRelayButtons();
+        ShowDevButton();
 
         Hide(ChooseTaskTypeLabel);
     }
@@ -43,7 +62,7 @@ public class CompanyTaskTypeRelay : View
     public void ChooseFeatureTasks()
     {
         SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
-        HideRelayButtons();
+        ShowMarketingButton();
 
         Hide(ChooseTaskTypeLabel);
     }
@@ -51,19 +70,16 @@ public class CompanyTaskTypeRelay : View
     public void ChooseServersideTasks()
     {
         SetMode(ServerTasks, ChooseServerTasksButton);
+        ShowMarketingButton();
 
         Hide(ChooseTaskTypeLabel);
     }
     public void ChooseSupportTasks()
     {
         SetMode(SupportTasks, ChooseSupportTasksButton);
+        ShowMarketingButton();
 
         Hide(ChooseTaskTypeLabel);
-    }
-
-    public void HideRelayButtons()
-    {
-        //Hide(RelayButtons);
     }
 
     public void AdjustTaskTypeButtonsToTeamType()

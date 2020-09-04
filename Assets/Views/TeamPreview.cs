@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class TeamPreview : View
     public Image HiringProgress;
     public Image HiringProgressBackground;
     public Text HiringProgressText;
+
+    public Image NeedToInteract;
 
     public void SetEntity(TeamInfo info, int teamId)
     {
@@ -36,5 +39,22 @@ public class TeamPreview : View
         Draw(HiringProgress, !hasFullTeam);
         Draw(HiringProgressText, !hasFullTeam);
         Draw(HiringProgressBackground, !hasFullTeam);
+
+        bool canHireMoreManagers = info.Managers.Count < 2;
+        bool hasNoManager = info.Managers.Count == 0;
+
+        bool hasNoManagerFocus = info.ManagerTasks.Contains(ManagerTask.None);
+
+        bool isFirstTeam = company.team.Teams.Count == 1;
+        GetComponent<Blinker>().enabled = isFirstTeam && hasNoManager && hasNoManagerFocus;
+
+        if (hasFullTeam)
+        {
+            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus || canHireMoreManagers);
+        }
+        else
+        {
+            Hide(NeedToInteract);
+        }
     }
 }

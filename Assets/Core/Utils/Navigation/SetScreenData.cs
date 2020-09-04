@@ -7,50 +7,70 @@ namespace Assets.Core
 {
     public static partial class ScreenUtils
     {
-        // set selected stuff
-        public static void SetSelectedHuman(GameContext gameContext, int humanId)
+        public static void SetInteger(GameContext gameContext, int value, string parameterName)
         {
             var menu = GetMenu(gameContext);
 
             var data = menu.menu.Data;
 
-            if ((int)data[C.MENU_SELECTED_HUMAN] == humanId)
+            if (Convert.ToInt32(data[parameterName]) == value)
                 return;
 
-            data[C.MENU_SELECTED_HUMAN] = humanId;
+            data[parameterName] = value;
 
             UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+        }
+
+        // set selected stuff
+        public static void SetSelectedHuman(GameContext gameContext, int humanId)
+        {
+            SetInteger(gameContext, humanId, C.MENU_SELECTED_HUMAN);
+            //var menu = GetMenu(gameContext);
+
+            //var data = menu.menu.Data;
+
+            //if ((int)data[C.MENU_SELECTED_HUMAN] == humanId)
+            //    return;
+
+            //data[C.MENU_SELECTED_HUMAN] = humanId;
+
+            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+        }
+
+
+        public static void SetMainPanelId(GameContext gameContext, int panelId)
+        {
+            SetInteger(gameContext, panelId, C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID);
         }
 
         public static void SetSelectedTeam(GameContext gameContext, int teamId)
         {
-            var menu = GetMenu(gameContext);
+            SetInteger(gameContext, teamId, C.MENU_SELECTED_TEAM);
+            //var menu = GetMenu(gameContext);
 
-            var data = menu.menu.Data;
+            //var data = menu.menu.Data;
 
-            Debug.Log("Set selected team");
-            Debug.Log(data[C.MENU_SELECTED_TEAM]);
+            //if (Convert.ToInt32(data[C.MENU_SELECTED_TEAM]) == teamId)
+            //    return;
 
-            if (Convert.ToInt32(data[C.MENU_SELECTED_TEAM]) == teamId)
-                return;
+            //data[C.MENU_SELECTED_TEAM] = teamId;
 
-            data[C.MENU_SELECTED_TEAM] = teamId;
-
-            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
-            var menu = GetMenu(gameContext);
+            SetInteger(gameContext, companyId, C.MENU_SELECTED_COMPANY);
+            //var menu = GetMenu(gameContext);
 
-            var data = menu.menu.Data;
+            //var data = menu.menu.Data;
 
-            if ((int)data[C.MENU_SELECTED_COMPANY] == companyId)
-                return;
+            //if ((int)data[C.MENU_SELECTED_COMPANY] == companyId)
+            //    return;
 
-            data[C.MENU_SELECTED_COMPANY] = companyId;
+            //data[C.MENU_SELECTED_COMPANY] = companyId;
 
-            UpdateScreen(gameContext, menu.menu.ScreenMode, data);
+            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
 

@@ -33,6 +33,7 @@ namespace Assets.Core
                 [C.MENU_SELECTED_HUMAN] = 0,
                 [C.MENU_SELECTED_INVESTOR] = -1,
                 [C.MENU_SELECTED_TEAM] = 0,
+                [C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID] = 0
             };
 
             menu.AddMenu(ScreenMode.NicheScreen, dictionary);

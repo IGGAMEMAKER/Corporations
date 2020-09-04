@@ -57,6 +57,12 @@ public class LinkTo : ButtonController
                 }
                 break;
 
+            case ScreenMode.HoldingScreen:
+                ScreenUtils.SetMainPanelId(Q, 0);
+                Navigate(TargetMenu);
+
+                break;
+
             default:
                 if (TargetMenu == ScreenMode.ProjectScreen)
                     Debug.Log("NAVIGATE TO PROJECT SCREEN");

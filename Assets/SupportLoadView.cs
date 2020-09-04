@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServerLoadView : UpgradedParameterView
+public class SupportLoadView : UpgradedParameterView
 {
     public override string RenderHint()
     {
@@ -12,16 +12,16 @@ public class ServerLoadView : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var load = Format.Minify(Products.GetServerLoad(Flagship));
-        var capacity = Format.Minify(Products.GetServerCapacity(Flagship));
+        var load = Format.Minify(Products.GetSupportLoad(Flagship));
+        var capacity = Format.Minify(Products.GetSupportCapacity(Flagship));
 
-        bool overloaded = Products.IsNeedsMoreServers(Flagship);
+        bool overloaded = Products.IsNeedsMoreMarketingSupport(Flagship);
 
         var str = $"Load: <b>{load} / {capacity}</b>";
 
         if (overloaded)
         {
-            str += Visuals.Negative(" Servers are overloaded!");
+            str += Visuals.Negative(" Support is overloaded!");
         }
 
         return str;

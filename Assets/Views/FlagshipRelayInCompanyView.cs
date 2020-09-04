@@ -38,7 +38,23 @@ public class FlagshipRelayInCompanyView : View
 
     private void OnEnable()
     {
-        ChooseWorkerInteractions();
+        var panelId = ScreenUtils.GetScreenParameter(Q, C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID);
+
+        switch (panelId)
+        {
+            case 0:
+                ChooseMainScreen();
+                break;
+
+            case 1:
+                ChooseManagersTabs(SelectedTeam);
+                break;
+
+            default:
+                ChooseMainScreen();
+                break;
+        }
+
     }
 
     public void RemoveTask()
@@ -52,6 +68,7 @@ public class FlagshipRelayInCompanyView : View
         TeamTask = teamTask;
 
         ShowOnly(AssignTaskPanel, Tabs);
+        FindObjectOfType<HideNewTeamButtonIfOldOnesAreNotFinished>().SetEntity(TeamTask);
     }
 
     public void ChooseAudiencePickingPanel()

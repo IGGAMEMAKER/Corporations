@@ -35,7 +35,7 @@ namespace Assets.Core
             }
 
             bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(c) ? -70 : 0);
-            bonus.AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? -7 : 0);
+            //bonus.AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? -7 : 0);
 
 
 

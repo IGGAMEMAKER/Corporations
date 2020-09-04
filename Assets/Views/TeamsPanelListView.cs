@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Core;
+using UnityEngine;
 
 public class TeamsPanelListView : ListView
 {
@@ -25,6 +26,7 @@ public class TeamsPanelListView : ListView
 
         //FindObjectOfType<MainPanelRelay>().ExpandTeams();
         FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
+        ScheduleUtils.PauseGame(Q);
     }
 
     public override void OnDeselect()
@@ -32,7 +34,10 @@ public class TeamsPanelListView : ListView
         base.OnDeselect();
 
         HideButtons();
-        FindObjectOfType<MainPanelRelay>().ShowAudiencesAndInvestors();
+
+        var a = FindObjectOfType<MainPanelRelay>();
+        if (a != null)
+            a.ShowAudiencesAndInvestors();
     }
 
     public void HideButtons()

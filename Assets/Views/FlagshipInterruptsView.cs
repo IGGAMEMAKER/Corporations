@@ -38,10 +38,16 @@ public class FlagshipInterruptsView : View
 
         problemCounter = 0;
 
-        SpecialDraw(NeedsManagersImage, needsMoreManagers);
-        SpecialDraw(NeedsServersImage, needsMoreServers);
-        SpecialDraw(NeedsSupportImage, needsMoreSupport);
+        SpecialDraw(NeedsManagersImage, false);
+        SpecialDraw(NeedsServersImage, true);
+        SpecialDraw(NeedsSupportImage, true);
         SpecialDraw(DDOSImage, underAttack);
+
+        NeedsSupportImage.color = Visuals.GetColorFromString(needsMoreSupport ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);
+        NeedsSupportImage.GetComponent<Blinker>().enabled = needsMoreSupport;
+
+        NeedsServersImage.color = Visuals.GetColorFromString(needsMoreServers ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);
+        NeedsServersImage.GetComponent<Blinker>().enabled = needsMoreServers;
 
         SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
 

@@ -44,17 +44,16 @@ public abstract class ListView : View // MonoBehaviour
     //    ChosenIndex = -1;
     //}
 
-    //void OnDisable()
-    //{
-    //    Deselect();
-    //}
+    void OnDisable()
+    {
+        OnDeselect();
+    }
 
     internal void ChooseElement(int elementIndex)
     {
-        // deselect
         if (ChosenIndex == elementIndex)
         {
-            ChosenIndex = -1;
+            // deselect
             OnDeselect();
         }
         else

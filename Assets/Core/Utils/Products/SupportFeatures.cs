@@ -53,6 +53,11 @@ namespace Assets.Core
             return GetClientLoad(product);
         }
 
+        public static long GetSupportLoad(GameEntity product)
+        {
+            return GetClientLoad(product);
+        }
+
         public static long GetServerCapacity(GameEntity product)
         {
             return GetHighloadFeaturesBenefit(product);
@@ -68,6 +73,7 @@ namespace Assets.Core
             var capacity = GetSupportCapacity(product);
             var load = GetClientLoad(product);
 
+            return false;
             return load >= capacity + C.MINIMUM_SUPPORTED_CLIENTS;
         }
 

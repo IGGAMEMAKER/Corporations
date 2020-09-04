@@ -20,7 +20,10 @@ namespace Assets
         CorporatePolicyTweak,
         Timer,
 
-        ProgrammingTask
+        ProgrammingTask,
+        ServerTask,
+        SupportTask,
+        MarketingTask
     }
 
     public class AudioManager: MonoBehaviour
@@ -40,6 +43,9 @@ namespace Assets
         public AudioClip leatherClickSound;
         public AudioClip timerSound;
         public AudioClip programmerTaskSound;
+        public AudioClip marketingTaskSound;
+        public AudioClip serverTaskSound;
+        public AudioClip supportTaskSound;
 
         void Start()
         {
@@ -58,6 +64,9 @@ namespace Assets
             AddSound(timerSound, Sound.Timer);
 
             AddSound(programmerTaskSound, Sound.ProgrammingTask);
+            AddSound(marketingTaskSound, Sound.MarketingTask);
+            AddSound(serverTaskSound, Sound.ServerTask);
+            AddSound(supportTaskSound, Sound.SupportTask);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

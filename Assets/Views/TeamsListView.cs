@@ -21,7 +21,12 @@ public class TeamsListView : ListView
         base.ViewRender();
 
         var company = Flagship;
-        var teams = company.team.Teams;
+
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        var task = relay.TeamTask;
+
+        var teams = company.team.Teams.Where(t => Teams.SupportsTeamTask(t.TeamType, task));
 
         SetItems(teams.OrderByDescending(t => 4 - t.Tasks.Count));
     }
@@ -42,6 +47,21 @@ public class TeamsListView : ListView
         if (task.IsFeatureUpgrade)
         {
             SoundManager.Play(Sound.ProgrammingTask);
+        }
+
+        if (task.IsHighloadTask)
+        {
+            SoundManager.Play(Sound.ServerTask);
+        }
+
+        if (task.IsMarketingTask)
+        {
+            SoundManager.Play(Sound.MarketingTask);
+        }
+
+        if (task.IsSupportTask)
+        {
+            SoundManager.Play(Sound.SupportTask);
         }
     }
 }

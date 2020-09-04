@@ -37,6 +37,7 @@
     // settings
     public const string MENU_SELECTED_COMPANY = "SelectedCompany";
     public const string MENU_SELECTED_TEAM = "SelectedTeam";
+    public const string MENU_SELECTED_MAIN_SCREEN_PANEL_ID = "PANEL_ID";
     public const string MENU_SELECTED_INDUSTRY = "SelectedIndustry";
     public const string MENU_SELECTED_NICHE = "SelectedNiche";
     public const string MENU_SELECTED_HUMAN = "SelectedHuman";

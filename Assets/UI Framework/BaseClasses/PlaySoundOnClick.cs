@@ -8,8 +8,6 @@ public class PlaySoundOnClick : View
     public Sound Sound;
     Button Button;
 
-    public AudioClip AudioClip;
-
     void Start()
     {
         Button = GetComponent<Button>();
@@ -19,13 +17,6 @@ public class PlaySoundOnClick : View
 
     void PlaySound()
     {
-        //if (AudioClip != null)
-        //{
-            
-        //    SoundManager.Play(AudioSource);
-        //    return;
-        //}
-
         if (Sound == Sound.None)
         {
             Debug.LogWarning("no sound specified at " + CurrentScreen.ToString() + " " + gameObject.name);

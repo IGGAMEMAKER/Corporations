@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class HideNewTeamButtonIfOldOnesAreNotFinished : View
 {
+    // universals
     public GameObject NewTeamButton;
-    public override void ViewRender()
-    {
-        base.ViewRender();
+    public GameObject DevTeamButton;
+    public GameObject MarketingTeamButton;
+    public GameObject SupportTeamButton;
+    public GameObject ServersideTeamButton;
 
-        Draw(NewTeamButton, !Flagship.team.Teams.Exists(t => t.Workers < 8));
+    public void SetEntity(TeamTask t)
+    {
+        bool canHireSpecialisedTeams = Flagship.team.Teams.Count > 2;
+        
+        Draw(NewTeamButton, true);
+
+        Draw(DevTeamButton, canHireSpecialisedTeams && t.IsFeatureUpgrade);
+        Draw(MarketingTeamButton, canHireSpecialisedTeams && t.IsMarketingTask);
+        Draw(SupportTeamButton, canHireSpecialisedTeams && t.IsSupportTask);
+        Draw(ServersideTeamButton, canHireSpecialisedTeams && t.IsHighloadTask);
     }
 }
