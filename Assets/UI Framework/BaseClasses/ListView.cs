@@ -29,25 +29,28 @@ public abstract class ListView : View // MonoBehaviour
     [HideInInspector]
     public List<GameObject> Items;
 
-    public virtual void OnItemSelected(int ind)
-    {
-
-    }
-
-    public virtual void OnDeselect()
-    {
-        ChosenIndex = -1;
-    }
-
     void OnDisable()
     {
-        OnDeselect();
-        //Clean();
+        ChosenIndex = -1;
+        //this.OnDeselect();
+        ////Clean();
     }
+
+    //private void OnEnable()
+    //{
+    //    OnDeselect();
+    //}
 
     void Start()
     {
         Clean();
+    }
+
+    public virtual void OnItemSelected(int ind) { }
+
+    public virtual void OnDeselect()
+    {
+        ChosenIndex = -1;
     }
 
     internal void ChooseElement(int elementIndex)

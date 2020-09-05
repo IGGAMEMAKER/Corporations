@@ -41,7 +41,7 @@ public class ShareholdersOnMainScreenListView : ListView
 
         var a = FindObjectOfType<MainPanelRelay>();
         if (a != null)
-            a.ShowAudiencesAndInvestors();
+            a.ShowDefaultMode();
     }
 
     public void HideButtons()

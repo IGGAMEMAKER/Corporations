@@ -42,9 +42,10 @@ public class AudiencesOnMainScreenListView : ListView
         base.OnDeselect();
 
         HideButtons();
+
         var a = FindObjectOfType<MainPanelRelay>();
         if (a != null)
-            a.ShowAudiencesAndInvestors();
+            a.ShowDefaultMode();
     }
 
     public void HideButtons()

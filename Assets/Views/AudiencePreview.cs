@@ -29,7 +29,8 @@ public class AudiencePreview : View
         var links = GetComponent<ProductUpgradeLinks>();
         bool isMainAudience = Flagship.productTargetAudience.SegmentId == segmentId;
 
-        links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+        if (links != null)
+            links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
         Draw(TargetAudience, isMainAudience);
 
         var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
@@ -40,8 +41,11 @@ public class AudiencePreview : View
 
         if (isNewAudience)
         {
-            links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
-            links.Title.text += $"Potential: {Format.MinifyToInteger(audience.Size)} users";
+            if (links != null)
+            {
+                links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+                links.Title.text += $"Potential: {Format.MinifyToInteger(audience.Size)} users";
+            }
         }
 
         else
@@ -53,16 +57,22 @@ public class AudiencePreview : View
             {
                 var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
 
-                links.Background.color = Visuals.GetColorPositiveOrNegative(true);
-                links.Title.text += $"Income: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
+                if (links != null)
+                {
+                    links.Background.color = Visuals.GetColorPositiveOrNegative(true);
+                    links.Title.text += $"Income: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
+                }
             }
 
             else
             {
                 var loss = Marketing.GetChurnClients(Q, Flagship.company.Id, segmentId);
 
-                links.Background.color = Visuals.GetColorPositiveOrNegative(false);
-                links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
+                if (links != null)
+                {
+                    links.Background.color = Visuals.GetColorPositiveOrNegative(false);
+                    links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
+                }
             }
         }
 

@@ -10,6 +10,8 @@ public class ArcRender : View
     public float angleMin;
     public float angleMax;
 
+    public int AmountOfItems;
+
     public void Render(float radius = 120f, float angleMin = 45, float angleMax = -45)
     {
         this.radius = radius;
