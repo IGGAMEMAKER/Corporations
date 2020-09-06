@@ -10,9 +10,7 @@ public class RenderMarketState : UpgradedParameterView
 
     string GetGrowthDescription (GameEntity p)
     {
-        var growth = Marketing.GetBrandBasedAudienceGrowth(p, Q);
-
-        return $"{p.company.Name} (): +{Format.Minify(growth)} users";
+        return "XXX???";
     }
 
     public override string RenderValue()

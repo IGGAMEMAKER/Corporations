@@ -6,7 +6,6 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static float GetSumOfBrandPowers(NicheType nicheType, GameContext gameContext) => GetSumOfBrandPowers(Markets.Get(gameContext, nicheType), gameContext);
         public static float GetSumOfBrandPowers(GameEntity niche, GameContext gameContext)
         {
             var products = Markets.GetProductsOnMarket(niche, gameContext);
@@ -14,55 +13,6 @@ namespace Assets.Core
             var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
 
             return sumOfBrandPowers;
-        }
-
-        public static float GetBrandBasedMarketShare(GameEntity e, GameContext gameContext)
-        {
-            var niche = Markets.Get(gameContext, e);
-
-            var sumOfBrandPowers = GetSumOfBrandPowers(niche, gameContext);
-
-            // +1 : avoid division by zero
-            return e.branding.BrandPower / (sumOfBrandPowers + 1);
-        }
-
-        public static long GetBrandBasedAudienceGrowth(GameEntity e, GameContext gameContext)
-        {
-            var flow = GetClientFlow(gameContext, e.product.Niche);
-
-            bool isMassPositioning = true;
-            bool isNichePositioning = !isMassPositioning;
-
-            if (isNichePositioning)
-            {
-                var brand = (int)e.branding.BrandPower;
-
-                flow /= 10;
-
-                return flow;
-            }
-
-            if (isMassPositioning)
-            {
-                var brandBasedMarketShare = GetBrandBasedMarketShare(e, gameContext) + 0.05f;
-
-                return (long)(brandBasedMarketShare * flow);
-            }
-
-            return 0;
-        }
-
-        public static long GetTargetingCampaignGrowth3(GameEntity e, GameContext gameContext)
-        {
-            return GetBrandBasedAudienceGrowth(e, gameContext) * 10;
-        }
-        public static long GetTargetingCampaignGrowth2(GameEntity e, GameContext gameContext)
-        {
-            return GetBrandBasedAudienceGrowth(e, gameContext) * 3;
-        }
-        public static long GetTargetingCampaignGrowth(GameEntity e, GameContext gameContext)
-        {
-            return GetBrandBasedAudienceGrowth(e, gameContext);
         }
 
         public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
@@ -115,8 +65,8 @@ namespace Assets.Core
                churnUsers += Marketing.GetChurnClients(gameContext, product.company.Id, i);
             }
 
-            bonus.Append("Audience Growth", Marketing.GetAudienceGrowth(product, gameContext));
-            bonus.Append("Audience Loss (Churn)", -churnUsers);
+            bonus.Append("Growth", Marketing.GetAudienceGrowth(product, gameContext));
+            bonus.Append("Loss (Churn)", -churnUsers);
             bonus.MinifyValues();
 
             return bonus;

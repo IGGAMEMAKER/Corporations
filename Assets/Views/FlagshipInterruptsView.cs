@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class FlagshipInterruptsView : View
 {
     public Image NeedsServersImage;
+    public Text ServerLoad;
+
     public Image NeedsSupportImage;
     public Image NeedsManagersImage;
     public Image DDOSImage;
@@ -48,6 +50,13 @@ public class FlagshipInterruptsView : View
 
         NeedsServersImage.color = Visuals.GetColorFromString(needsMoreServers ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);
         NeedsServersImage.GetComponent<Blinker>().enabled = needsMoreServers;
+
+        var load = Products.GetServerLoad(Flagship) * 100;
+        var cap = Products.GetServerCapacity(Flagship);
+
+        var perc = cap != 0 ? load / cap : 100;
+        ServerLoad.text = perc + "%";
+        ServerLoad.color = Visuals.GetGradientColor(0, 100, perc, true);
 
         SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
 

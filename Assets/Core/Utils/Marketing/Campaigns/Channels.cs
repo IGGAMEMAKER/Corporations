@@ -65,12 +65,19 @@ namespace Assets.Core
 
         // in months
         public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId) => true; // GetChannelRepaymentSpeed(company, gameContext, channel, segmentId) < 10000;
-        public static float GetChannelRepaymentSpeed(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
+        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
         {
             var adCost = (float)GetMarketingActivityCost(company, gameContext, channel);
+
             var churn = GetChurnRate(gameContext, company, segmentId);
 
             var gainedUsers = GetChannelClientGain(company, gameContext, channel);
+
+            if (adCost == 0)
+            {
+                return 1000000f;
+            }
+            return gainedUsers / adCost;
 
             var q = (100 - churn) / 100f;
             var b1 = gainedUsers * Economy.GetIncomePerUser(gameContext, company, segmentId);

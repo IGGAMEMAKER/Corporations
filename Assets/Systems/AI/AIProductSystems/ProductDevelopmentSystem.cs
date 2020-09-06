@@ -20,9 +20,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         List<string> str = new List<string>();
 
         if (Companies.IsReleaseableApp(product, gameContext))
-        {
             Marketing.ReleaseApp(gameContext, product);
-        }
 
         ManageFeatures(product, ref str);
         ManageSupport(product, ref str);
@@ -38,9 +36,26 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         if (remainingFeatures.Count() == 0)
             return;
 
-        var feature = new TeamTaskFeatureUpgrade(remainingFeatures.First());
 
-        TryAddTask(product, feature, ref str);
+        var feature = remainingFeatures.First();
+        var teamTask = new TeamTaskFeatureUpgrade(feature);
+
+        if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
+        {
+            var segments = Marketing.GetAudienceInfos();
+
+            foreach (var s in segments)
+            {
+                var loyalty = Marketing.GetSegmentLoyalty(gameContext, product, s.ID);
+                var attitude = feature.AttitudeToFeature[s.ID];
+
+                // will make audience sad
+                if (loyalty + attitude < 0)
+                    return;
+            }
+        }
+
+        TryAddTask(product, teamTask, ref str);
     }
 
     void ManageSupport(GameEntity product, ref List<string> str)
@@ -55,15 +70,15 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
         }
 
-        if (Products.IsNeedsMoreMarketingSupport(product))
-        {
-            var diff = Products.GetClientLoad(product) - Products.GetSupportCapacity(product);
+        //if (Products.IsNeedsMoreMarketingSupport(product))
+        //{
+        //    var diff = Products.GetClientLoad(product) - Products.GetSupportCapacity(product);
 
-            var supportFeatures = Products.GetMarketingSupportFeatures(product);
-            var feature = supportFeatures[2];
+        //    var supportFeatures = Products.GetMarketingSupportFeatures(product);
+        //    var feature = supportFeatures[2];
 
-            TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
-        }
+        //    TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
+        //}
     }
 
     void ManageChannels(GameEntity product, ref List<string> str)
@@ -71,9 +86,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var targetAudience = product.productTargetAudience.SegmentId;
 
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
-            //.Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
-            .Where(c => Marketing.IsChannelProfitable(product, gameContext, c, targetAudience))
-            .OrderBy(c => Marketing.GetChannelRepaymentSpeed(product, gameContext, c, targetAudience));
+            //.Where(c => Marketing.IsChannelProfitable(product, gameContext, c, targetAudience))
+            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c));
 
         foreach (var c in channels)
         {
