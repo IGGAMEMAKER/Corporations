@@ -23,6 +23,14 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
     {
         Debug.Log("Bankrupt: " + company.company.Name);
 
+        if (company.hasProduct)
+        {
+            var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext, true);
+            var income = Economy.GetProductCompanyIncome(company, gameContext);
+            var 
+            Debug.Log($"Economy: <color=green>Income</color> - {Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
+        }
+
         if (Companies.IsPlayerCompany(gameContext, company))
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
 

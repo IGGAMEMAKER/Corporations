@@ -19,6 +19,6 @@ public class NotifyListIfElementWasChosen : MonoBehaviour, IPointerClickHandler
     {
         ListView.ChooseElement(ElementIndex);
 
-        Debug.Log("Chosen element: " + ElementIndex);
+        //Debug.Log("Chosen element: " + ElementIndex);
     }
 }

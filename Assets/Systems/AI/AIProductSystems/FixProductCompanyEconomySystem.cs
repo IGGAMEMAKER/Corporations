@@ -10,8 +10,8 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
     protected override void Execute(List<GameEntity> entities)
     {
         List<string> str = new List<string>();
-        var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship)
-            .Where(willBeBankrupt);
+
+        var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship).Where(willBeBankrupt);
 
         foreach (var product in nonFlagshipProducts)
         {

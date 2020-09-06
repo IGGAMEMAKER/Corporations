@@ -23,8 +23,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             Marketing.ReleaseApp(gameContext, product);
 
         ManageFeatures(product, ref str);
-        ManageSupport(product, ref str);
         ManageChannels(product, ref str);
+        ManageSupport(product, ref str);
 
         Investments.CompleteGoal(product, gameContext);
     }
@@ -86,11 +86,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var targetAudience = product.productTargetAudience.SegmentId;
 
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
-            //.Where(c => Marketing.IsChannelProfitable(product, gameContext, c, targetAudience))
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c));
 
-        foreach (var c in channels)
-        {
+        //if (channels.Count() > 0)
+            foreach (var c in channels)
+            {
+            //TryAddTask(product, new TeamTaskChannelActivity(channels.First().marketingChannel.ChannelInfo.ID), ref str);
             TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
         }
     }
@@ -111,73 +112,31 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void TryAddTask(GameEntity product, TeamTask teamTask, ref List<string> str)
     {
-        // TODO
-        // CHECK TASK SELF COST!!!
-
-        str.Add($"-- Trying to add task {teamTask.GetTaskName()} to {product.company.Name} --");
-
         var taskCost = Economy.GetTeamTaskCost(product, gameContext, teamTask);
-        var tooExpensive = !CanMaintain(product, taskCost, ref str);
 
-        if (tooExpensive)
-        {
-            str.Add("-- " + Visuals.Negative("This task is too expensive!") + $" Need {Format.MinifyMoney(taskCost)}  --");
-
+        if (!CanMaintain(product, taskCost, ref str))
             return;
-        }
 
         // searching team for this task
         int teamId = Teams.GetTeamIdForTask(product, teamTask);
 
         if (teamId == -1)
-            str.Add($"<b>No team found for this task</b>. {product.team.Teams.Count} available");
-        else
-            str.Add($"-- Added task to <b>existing</b> team[{teamId}]: " + teamTask.ToString() + " --");
-
-
-        // need to hire new team
-        // if has money
-
-        var teamCost = Economy.GetSingleTeamCost();
-
-        if (CanMaintain(product, teamCost + taskCost, ref str))
         {
-            Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
-            str.Add($"Added team to <b>{product.company.Name}</b>");
+            // need to hire new team
+            var teamCost = Economy.GetSingleTeamCost();
 
-            Teams.AddTeamTask(product, gameContext, product.team.Teams.Count - 1, teamTask);
+            if (CanMaintain(product, teamCost + taskCost, ref str))
+            {
+                Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
 
-            str.Add("Added team task after adding team to " + product.company.Name);
-            str.Add("-- " + Visuals.Positive("Task added successfully") + " --");
-        }
-        else
-        {
-            str.Add("-- " + Visuals.Negative("Not enough money to add task AND team!") + $" Need {Format.MinifyMoney(teamCost + taskCost)}  --");
-        }
-    }
-
-    long CheckChannelCosts(GameEntity product, GameEntity channel, long balance, ref List<string> str)
-    {
-        var newBalance = balance;
-
-        var cost = Marketing.GetMarketingActivityCost(product, gameContext, channel);
-        var workerCost = 0; // Products.GetUpgradeWorkerCost(product, gameContext, u);
-
-        var totalCost = cost + workerCost;
-
-        if (totalCost < newBalance)
-        {
-            Marketing.EnableChannelActivity(product, gameContext, channel);
-
-            newBalance -= totalCost;
+                teamId = product.team.Teams.Count - 1;
+            }
         }
 
-        else
+        if (teamId >= 0)
         {
-            Marketing.DisableChannelActivity(product, gameContext, channel);
+            Teams.AddTeamTask(product, gameContext, teamId, teamTask);
         }
-
-        return newBalance;
     }
 
     void Print(string txt, ref List<string> str)
