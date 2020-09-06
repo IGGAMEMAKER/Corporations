@@ -15,11 +15,11 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
         foreach (var product in nonFlagshipProducts)
         {
-            bool isTestCompany = false;
-
             // Fix situation
             FixEconomy(product, ref str, false);
             // ---------------
+
+            bool isTestCompany = false;
 
             if (isTestCompany)
             {
