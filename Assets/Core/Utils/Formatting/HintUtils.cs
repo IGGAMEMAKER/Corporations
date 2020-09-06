@@ -39,6 +39,8 @@ public class Bonus<T>
     bool renderSubTitle = true;
     bool minifyValues = false;
 
+    bool hideZeroes = false;
+
     public Bonus(string bonusName) {
         bonusDescriptions = new List<BonusDescription<T>>();
 
@@ -48,6 +50,13 @@ public class Bonus<T>
     public Bonus<T> Minify()
     {
         renderSubTitle = false;
+
+        return this;
+    }
+
+    public Bonus<T> HideZeroes()
+    {
+        hideZeroes = true;
 
         return this;
     }
@@ -181,7 +190,7 @@ public class Bonus<T>
             //long value = (long)(object)bonus.Value;
             long value = System.Convert.ToInt64(bonus.Value);
 
-            if (bonus.HideIfZero)
+            if (bonus.HideIfZero || hideZeroes)
             {
                 if (bonus.BonusType == BonusType.Additive && value == 0)
                     continue;

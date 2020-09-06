@@ -97,7 +97,7 @@ public class AudiencesOnMainScreenListView : ListView
         MainAudienceInfo.Title.text  = "<b>Our main audience</b>";
         MainAudienceInfo.Title.color = Visuals.GetColorFromString(Colors.COLOR_GOLD);
 
-        Potential.Title.text         = $"<b>Potential: {potentialPhrase} users</b>\nworth {marketWorth}";
+        //Potential.Title.text         = $"<b>Potential: {potentialPhrase} users</b>\nworth {marketWorth}";
 
         LoyaltyInfo.Title.text       = $"<b>Loyalty</b>\n";
         LoyaltyInfo.Hint.SetHint(loyalty.SortByModule(true).ToString());

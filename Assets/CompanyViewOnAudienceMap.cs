@@ -17,6 +17,8 @@ public class CompanyViewOnAudienceMap : View
     public Text Loyalty;
     public Hint LoyaltyHint;
 
+    public Text Growth;
+
     GameEntity company;
 
     public void SetEntity(GameEntity c, int segmentId)
@@ -35,9 +37,13 @@ public class CompanyViewOnAudienceMap : View
 
         var loyalty = Marketing.GetSegmentLoyalty(Q, company, segmentId, true);
         Loyalty.text = loyalty.Sum().ToString("0");
-        LoyaltyHint.SetHint(loyalty.SortByModule().ToString());
+        LoyaltyHint.SetHint(loyalty.SortByModule().HideZeroes().ToString());
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
+
+        var growth = Marketing.GetAudienceChange(company, Q, true);
+        Growth.text = Visuals.PositiveOrNegativeMinified(growth.Sum());
+
 
         var position = Markets.GetPositionOnMarket(Q, company);
 
@@ -63,9 +69,10 @@ public class CompanyViewOnAudienceMap : View
 
     string GetCompanyHint(bool hasControl)
     {
-        StringBuilder hint = new StringBuilder(company.company.Name);
-
         var position = Markets.GetPositionOnMarket(Q, company);
+
+        // #{position + 1}
+        StringBuilder hint = new StringBuilder($"<size=35>{company.company.Name}</size>");
 
         var clients = Marketing.GetClients(company);
 
@@ -73,15 +80,18 @@ public class CompanyViewOnAudienceMap : View
 
         var changeFormatted = $"<b>{Format.SignOf(change) + Format.Minify(change)}</b> weekly";
 
-        hint.Append($" <b>#{position + 1}</b>");
-        hint.AppendLine($"\n\n");
-        hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}");
-        //hint.AppendLine($"Audience change: ");
+        var budgetFormatted = Format.MinifyMoney(Economy.GetProductCompanyMaintenance(company, Q));
 
-        hint.AppendLine(GetProfitDescription());
+        hint.AppendLine($"\n");
+        hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}");
+        hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
+        hint.AppendLine($"Managers: <b>30LVL</b>");
+        hint.AppendLine($"\nBudget: <b>{Visuals.Positive(budgetFormatted)}</b>");
+
+        //hint.AppendLine(GetProfitDescription());
 
         if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nYou control this company", Colors.COLOR_CONTROL));
+            hint.AppendLine(Visuals.Colorize("\nYour company", Colors.COLOR_CONTROL));
 
         return hint.ToString();
     }

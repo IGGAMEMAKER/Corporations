@@ -91,10 +91,12 @@ public class AudiencePreview : View
         var growthBonus = "???";
 
         var text = $"<size=35>{audience.Name}</size>" +
-            $"\n\nPotential: <b>{Visuals.Positive(potentialPhrase)}</b>" + //  (worth {Format.MinifyMoney(worth)})
+            $"\n\nPotential: <b>{Visuals.Positive(Format.MinifyMoney(worth))}</b>" + //  (worth {Format.MinifyMoney(worth)})
+            //$"\nWorth: <b>{}</b>" +
             $"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
-            $"\nGrowth speed: <b>{Visuals.Positive(growthBonus)}</b>" +
-            $"\n\nLoyalty: <b>{Visuals.Colorize(Format.Sign(loyalty), isLoyalAudience)}</b>";
+            $"\nPotential audience: <b>{Visuals.Positive(potentialPhrase)}</b>"
+            //$"\n\nLoyalty: <b>{Visuals.Colorize(Format.Sign(loyalty), isLoyalAudience)}</b>"
+            ;
 
         AudienceHint.SetHint(text);
         HideLoyaltyChanges();
