@@ -58,6 +58,8 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         int triesMax = paidTasks.Count;
         int tries = 0;
 
+        
+
         while (willBeBankrupt(product) && tries < triesMax)
         {
             tries++;
@@ -163,9 +165,10 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         {
             for (var i = 0; i < team.Tasks.Count; i++)
                 teamTasks.Add(new TeamTaskDetailed { TeamTask = team.Tasks[i], slotId = i, teamId = teamId });
+
+            teamId++;
         }
 
-        teamId++;
 
         return teamTasks;
     }
