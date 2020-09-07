@@ -48,10 +48,26 @@ namespace Assets.Core
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead);
-            var acquisitionEffeciency = Products.GetAcquisitionFeaturesBenefit(company);
+            int teamId = -1;
+            int counter = 0;
 
-            var gainedAudience = batch * (100 + marketingEffeciency + (int)acquisitionEffeciency) / 100;
+            TeamInfo teamInfo;
+            foreach (var t in company.team.Teams)
+            {
+                if (t.Tasks.Contains(new TeamTaskChannelActivity(channel.marketingChannel.ChannelInfo.ID))) {
+                    teamId = counter;
+                    teamInfo = t;
+
+                    break;
+                }
+
+                counter++;
+            }
+
+            var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
+
+            var gainedAudience = batch * (100 + marketingEffeciency + teamSpecialtyBonus) / 100;
+
 
 
             return gainedAudience;

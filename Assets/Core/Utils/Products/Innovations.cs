@@ -25,8 +25,6 @@
             // managers
             var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);
 
-            var CEOBonus = Teams.GetCEOInnovationBonus(product, gameContext);
-
             return new Bonus<long>("Innovation chance")
                 // market
                 .Append("Market stage " + Markets.GetMarketStateDescription(phase), marketStage)
@@ -37,7 +35,6 @@
                 .Append("Corporate Culture Expansion Policy", createOrBuy)
 
                 // managers
-                .Append("CEO bonus", CEOBonus)
                 .AppendAndHideIfZero("Product manager", productManagerBonus)
                 ;
         }

@@ -5,53 +5,19 @@ namespace Assets.Core
 {
     public static partial class Teams
     {
-        public static int CountSpecialists(GameEntity company, WorkerRole workerRole)
-        {
-            return company.team.Managers.Values.ToArray().Count(w => w == workerRole);
-        }
-
         public static int GetTeamSize(GameEntity e)
         {
             return e.team.Workers[WorkerRole.Programmer] + e.team.Managers.Count;
         }
 
-
-
-        internal static int GetUniversals(GameEntity company)
+        public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
-            return CountSpecialists(company, WorkerRole.Universal);
+            var managers = teamInfo.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId));
+
+            var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
+
+            return workersWithRole.Count() > 0 ? workersWithRole.First() : null;
         }
-
-        public static int GetProgrammers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Programmer);
-        }
-
-        public static int GetManagers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Manager);
-        }
-
-        public static int GetMarketers(GameEntity company)
-        {
-            return CountSpecialists(company, WorkerRole.Marketer);
-        }
-
-
-        public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, GameContext gameContext)
-        {
-            var managers = company.team.Managers;
-
-            foreach (var m in managers)
-            {
-                if (m.Value == role)
-                    return Humans.GetHuman(gameContext, m.Key);
-            }
-
-            return null;
-        }
-
-
 
         public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
         {
