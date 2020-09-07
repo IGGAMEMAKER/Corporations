@@ -88,7 +88,7 @@ namespace Assets.Core
 
         private static void ApplyCEOLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-                bonus.Append("No CEO", -4);
+            bonus.Append("No CEO", -4);
             return;
             //var CEO = Teams.GetWorkerByRole(company, WorkerRole.CEO, gameContext);
 

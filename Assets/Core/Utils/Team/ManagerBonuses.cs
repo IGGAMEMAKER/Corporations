@@ -27,6 +27,5 @@
             return (int)(15 * Companies.GetHashedRandom2(companyId, CEOId));
             //return 35 + (int)(30 * GetHashedRandom2(companyId, CEOId) + accumulated);
         }
-
     }
 }
