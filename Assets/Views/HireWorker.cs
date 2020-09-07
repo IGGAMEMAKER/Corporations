@@ -7,24 +7,6 @@ public class HireWorker : ButtonController
 
     public override void Execute()
     {
-        var company = Companies.GetFlagship(Q, MyCompany);
 
-
-        var need = Products.GetNecessaryAmountOfWorkers(company, Q);
-        var have = Teams.GetTeamSize(company);
-
-        var missingWorkers = need - have;
-
-        if (have < need)
-            Teams.HireRegularWorker(company, WorkerRole.Programmer);
-
-        // autohire
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            for (var i = 0; i < missingWorkers; i++)
-                Teams.HireRegularWorker(company, WorkerRole.Programmer);
-        }
-
-        Products.SetUpgrade(company, ProductUpgrade.AutorecruitWorkers, Q, false);
     }
 }

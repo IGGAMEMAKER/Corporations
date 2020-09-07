@@ -14,7 +14,7 @@ public class RoleRelatedButtons : View
 
     internal bool CanEnable(GameEntity company, ProductUpgrade upgrade)
     {
-        return Products.CanEnable(company, Q, upgrade);
+        return false; // Products.CanEnable(company, Q, upgrade);
     }
 
     public override void ViewRender()

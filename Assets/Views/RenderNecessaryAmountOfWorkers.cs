@@ -7,14 +7,6 @@ public class RenderNecessaryAmountOfWorkers : ParameterView
 {
     public override string RenderValue()
     {
-        var required = Products.GetNecessaryAmountOfWorkers(SelectedCompany, Q);
-
-        var have = Teams.GetTeamSize(SelectedCompany);
-
-        bool isEnough = have >= required;
-
-        Colorize(isEnough ? Colors.COLOR_NEUTRAL : Colors.COLOR_NEGATIVE);
-
-        return $"{have} / {required}";
+        return "RenderNecessaryAmountOfWorkers";
     }
 }

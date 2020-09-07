@@ -128,23 +128,6 @@ namespace Assets.Core
 
 
 
-        public static int GetTeamEffeciency(GameContext gameContext, GameEntity product)
-        {
-            return (int) (100 * GetTeamSizeMultiplier(gameContext, product));
-        }
-
-        public static float GetTeamSizeMultiplier(GameContext gameContext, GameEntity company)
-        {
-            // +1 - CEO
-            var have     = Teams.GetTeamSize(company) + 1f;
-            var required = Products.GetNecessaryAmountOfWorkers(company, gameContext) + 1f;
-
-            if (have >= required)
-                have = required;
-
-            return have / required;
-        }
-
         public static int GetTimeToMarketFromScratch(GameEntity niche)
         {
             var demand = GetMarketDemand(niche);

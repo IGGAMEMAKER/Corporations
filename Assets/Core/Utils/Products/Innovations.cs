@@ -23,7 +23,7 @@
             var createOrBuy     = culture[CorporatePolicy.Make];
 
             // managers
-            var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);
+            //var productManagerBonus = Teams.GetProductManagerBonus(product, gameContext);
 
             return new Bonus<long>("Innovation chance")
                 // market
@@ -35,7 +35,6 @@
                 .Append("Corporate Culture Expansion Policy", createOrBuy)
 
                 // managers
-                .AppendAndHideIfZero("Product manager", productManagerBonus)
                 ;
         }
 

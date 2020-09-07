@@ -88,21 +88,23 @@ namespace Assets.Core
 
         private static void ApplyCEOLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-            var CEO = Teams.GetWorkerByRole(company, WorkerRole.CEO, gameContext);
-
-            if (CEO == null)
-            {
                 bonus.Append("No CEO", -4);
-            }
+            return;
+            //var CEO = Teams.GetWorkerByRole(company, WorkerRole.CEO, gameContext);
 
-            if (CEO != null && role != WorkerRole.CEO)
-            {
-                var CEORating = Humans.GetRating(CEO);
-                var workerRating = Humans.GetRating(worker);
+            //if (CEO == null)
+            //{
+            //    bonus.Append("No CEO", -4);
+            //}
 
-                if (CEORating < workerRating)
-                    bonus.Append($"Incompetent CEO (CEO rating less than {workerRating})", -1);
-            }
+            //if (CEO != null && role != WorkerRole.CEO)
+            //{
+            //    var CEORating = Humans.GetRating(CEO);
+            //    var workerRating = Humans.GetRating(worker);
+
+            //    if (CEORating < workerRating)
+            //        bonus.Append($"Incompetent CEO (CEO rating less than {workerRating})", -1);
+            //}
         }
     }
 }

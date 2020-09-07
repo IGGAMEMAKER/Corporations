@@ -13,10 +13,6 @@ public class RenderCommunicationEffeciencyLine : View
 
     public void SetEntity(GameEntity company, WorkerRole role, Transform Center)
     {
-        var relationship = Teams.GetRelationshipsWith(Q, Flagship, role);
-        Line.color = Visuals.GetGradientColor(0, 100, relationship);
-        Effeciency.text = $"<b>{relationship}%</b>";
-
         CEOTransform = Center;
         //LookAtCenter();
 

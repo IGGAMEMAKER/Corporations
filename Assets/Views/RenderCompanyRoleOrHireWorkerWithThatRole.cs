@@ -61,15 +61,17 @@ public class RenderCompanyRoleOrHireWorkerWithThatRole : View
 
         if (hasWorker)
         {
-            var worker = Teams.GetWorkerByRole(company, role, Q);
+            // TODO removed worker function
+            Debug.LogError("RenderCompanyRoleOrHireWorkerWithThatRole Teams.GetWorkerByRole(company, role, Q)");
+            //var worker = Teams.GetWorkerByRole(company, role, Q);
 
-            workerActions.SetWorker(worker);
+            //workerActions.SetWorker(worker);
 
-            var rating = Humans.GetRating(worker);
-            WorkerRating.text = rating + "";
-            WorkerRating.color = Visuals.GetGradientColor(40, 100, rating);
+            //var rating = Humans.GetRating(worker);
+            //WorkerRating.text = rating + "";
+            //WorkerRating.color = Visuals.GetGradientColor(40, 100, rating);
 
-            managerAdaptationProgress.SetEntity(worker);
+            //managerAdaptationProgress.SetEntity(worker);
         }
     }
 }

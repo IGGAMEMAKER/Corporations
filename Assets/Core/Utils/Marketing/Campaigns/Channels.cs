@@ -51,7 +51,7 @@ namespace Assets.Core
             int teamId = -1;
             int counter = 0;
 
-            TeamInfo teamInfo;
+            TeamInfo teamInfo = null;
             foreach (var t in company.team.Teams)
             {
                 if (t.Tasks.Contains(new TeamTaskChannelActivity(channel.marketingChannel.ChannelInfo.ID))) {
@@ -65,8 +65,9 @@ namespace Assets.Core
             }
 
             var marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
+            var teamSpecialtyBonus = teamInfo.TeamType == TeamType.MarketingTeam ? 30 : 15;
 
-            var gainedAudience = batch * (100 + marketingEffeciency + teamSpecialtyBonus) / 100;
+            var gainedAudience = batch * (100 + marketingEffeciency * teamSpecialtyBonus / 100) / 100;
 
 
 

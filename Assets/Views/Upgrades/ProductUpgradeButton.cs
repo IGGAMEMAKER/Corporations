@@ -12,8 +12,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
     public abstract string GetBenefits();
     public override bool IsInteractable() => true;
 
-    public long GetCost() => Products.GetUpgradeCost(Company, Q, upgrade);
-    public long GetAmountOfWorkers() => Products.GetUpgradeWorkerAmount(Company, Q, upgrade);
+    public long GetCost() => 0; // Products.GetUpgradeCost(Company, Q, upgrade);
+    public long GetAmountOfWorkers() => 0; // Products.GetUpgradeWorkerAmount(Company, Q, upgrade);
 
     bool state => Products.IsUpgradeEnabled(Company, upgrade);
     GameEntity Company => Flagship;
@@ -24,8 +24,8 @@ public abstract class ProductUpgradeButton : UpgradedButtonController
         {
             Debug.Log("Toggle " + upgrade + " = " + state);
 
-            Products.SetUpgrade(Flagship, upgrade, Q, !state);
-            //flagship.productUpgrades.upgrades[upgrade] = !state;
+            //Products.SetUpgrade(Flagship, upgrade, Q, !state);
+            ////flagship.productUpgrades.upgrades[upgrade] = !state;
 
             UpdatePage();
         }

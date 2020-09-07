@@ -10,21 +10,5 @@ public class FireWorker : ButtonController
     public override void Execute()
     {
         var company = Flagship;
-
-        if (Decimate)
-        {
-            var have = Teams.GetTeamSize(company);
-
-            // fire ten percent of workers
-            for (var i = 0; i < have / 10; i++)
-            {
-                Teams.FireRegularWorker(company, WorkerRole.Programmer);
-            }
-        } else
-        {
-            Teams.FireRegularWorker(company, WorkerRole.Programmer);
-        }
-
-        Products.SetUpgrade(company, ProductUpgrade.AutorecruitWorkers, Q, false);
     }
 }
