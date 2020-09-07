@@ -145,10 +145,15 @@ namespace Assets.Core
 
         static bool IsUniversal(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
 
-        public static bool SupportsTeamTask(TeamType teamType, TeamTask teamTask)
+        public static bool IsTaskSuitsTeam(TeamType teamType, TeamTask teamTask)
         {
             if (IsUniversal(teamType))
+            {
+                if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max > 1_000_000)
+                    return false;
+
                 return true;
+            }
 
             if (teamTask.IsFeatureUpgrade)
                 return teamType == TeamType.DevelopmentTeam;
@@ -172,7 +177,7 @@ namespace Assets.Core
             foreach (var t in product.team.Teams)
             {
                 var hasFreeSlot = t.Tasks.Count < C.TASKS_PER_TEAM;
-                var teamCanDoThisTask = SupportsTeamTask(t.TeamType, teamTask);
+                var teamCanDoThisTask = IsTaskSuitsTeam(t.TeamType, teamTask);
 
                 if (teamCanDoThisTask && hasFreeSlot)
                     return teamId;

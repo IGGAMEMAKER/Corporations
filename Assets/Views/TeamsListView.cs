@@ -26,7 +26,7 @@ public class TeamsListView : ListView
 
         var task = relay.TeamTask;
 
-        var teams = company.team.Teams.Where(t => Teams.SupportsTeamTask(t.TeamType, task));
+        var teams = company.team.Teams.Where(t => Teams.IsTaskSuitsTeam(t.TeamType, task));
 
         SetItems(teams.OrderByDescending(t => 4 - t.Tasks.Count));
     }

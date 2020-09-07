@@ -11,8 +11,8 @@
             var rating = Humans.GetRating(manager);
             var effeciency = GetWorkerEffeciency(manager, company);
 
-            // 0...100
-            return rating * effeciency / 100;
+            // 0...50
+            return rating * (50 + effeciency / 2) / 100;
         }
 
         // TODO Remove

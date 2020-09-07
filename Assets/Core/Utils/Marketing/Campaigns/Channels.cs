@@ -51,10 +51,12 @@ namespace Assets.Core
             int teamId = -1;
             int counter = 0;
 
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
+
             TeamInfo teamInfo = null;
             foreach (var t in company.team.Teams)
             {
-                if (t.Tasks.Contains(new TeamTaskChannelActivity(channel.marketingChannel.ChannelInfo.ID))) {
+                if (t.Tasks.Find(tt => tt.IsMarketingTask && (tt as TeamTaskChannelActivity).ChannelId == channelId) != null) {
                     teamId = counter;
                     teamInfo = t;
 
@@ -72,11 +74,7 @@ namespace Assets.Core
                 marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
             }
 
-            var gainedAudience = batch * (100 + marketingEffeciency) / 100;
-
-
-
-            return gainedAudience;
+            return batch * (50 + marketingEffeciency) / 100;
         }
 
         public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)

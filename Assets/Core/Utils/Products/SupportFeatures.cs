@@ -7,7 +7,7 @@ namespace Assets.Core
     {
         public static SupportFeature[] GetAvailableSupportFeaturesForProduct(GameEntity product)
         {
-            var usersPerServer = 50_000;
+            var usersPerServer = 100_000;
 
             var million = 1_000_000;
             var billion = 1_000_000_000;

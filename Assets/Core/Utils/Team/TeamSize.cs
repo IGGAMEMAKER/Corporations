@@ -31,7 +31,7 @@ namespace Assets.Core
 
             var adaptability = worker.humanCompanyRelationship.Adapted == 100 ? 100 : 30;
 
-            return adaptability + expertise / 2;
+            return (70 * adaptability + 30 * expertise) / 100;
         }
     }
 }
