@@ -34,11 +34,6 @@ public class CompanyTaskTypeRelay : View
     void SetMode(GameObject tasks, GameObject buttons)
     {
         ShowOnly(tasks, TaskContainers);
-
-        //var index = TaskContainers.FindIndex(c => c == tasks) + 1;
-
-        //if (index == TaskContainers.Count) index = 0;
-        //ShowOnly(ChoosingButtons[index], ChoosingButtons);
     }
 
     void ShowMarketingButton()

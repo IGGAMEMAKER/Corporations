@@ -21,27 +21,6 @@ public class CandidatesForRoleListView : ListView
 
     GameEntity company => Flagship;
 
-    WorkerRole[] GetRolesForTeam(TeamType teamType)
-    {
-        switch (teamType)
-        {
-            case TeamType.SupportTeam:
-            case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.MarketingLead };
-
-            case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager, WorkerRole.ProjectManager };
-            case TeamType.DevOpsTeam: return new WorkerRole[] { WorkerRole.TeamLead };
-
-            default:
-                return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
-        }
-    }
-
-    public Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
-    public bool IsRoleSuitsTeam (WorkerRole workerRole, GameEntity company, TeamInfo team)
-    {
-        return GetRolesForTeam(team.TeamType).Contains(workerRole);
-    }
-
     public override void ViewRender()
     {
         base.ViewRender();
@@ -59,14 +38,14 @@ public class CandidatesForRoleListView : ListView
         managerIds.AddRange(
             company.employee.Managers
             //.Where(p => p.Value == WorkerRole)
-            .Where(RoleSuitsTeam(company, team))
+            .Where(Teams.RoleSuitsTeam(company, team))
             .Select(p => p.Key)
             );
 
         foreach (var c in competitors)
         {
             var workers = c.team.Managers
-                .Where(RoleSuitsTeam(company, team))
+                .Where(Teams.RoleSuitsTeam(company, team))
                 //.Where(p => p.Value == WorkerRole)
                 .Select(p => p.Key);
             managerIds.AddRange(workers);

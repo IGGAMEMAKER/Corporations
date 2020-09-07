@@ -28,14 +28,15 @@ public class CompanyViewOnAudienceMap : View
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
 
         var shortName = c.company.Name.Substring(0, 1) + c.company.Name.FirstOrDefault(char.IsDigit);
+        var loyalty = Marketing.GetSegmentLoyalty(Q, company, segmentId, true);
+
+        SetEmblemColor();
 
         Name.text = shortName;
         Name.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
-        SetEmblemColor();
 
         LinkToProjectView.CompanyId = c.company.Id;
 
-        var loyalty = Marketing.GetSegmentLoyalty(Q, company, segmentId, true);
         Loyalty.text = loyalty.Sum().ToString("0");
         LoyaltyHint.SetHint(loyalty.SortByModule().HideZeroes().ToString());
 
@@ -85,7 +86,7 @@ public class CompanyViewOnAudienceMap : View
         hint.AppendLine($"\n");
         hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}");
         hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
-        hint.AppendLine($"Managers: <b>30LVL</b>");
+        hint.AppendLine($"Managers: <b>{Teams.GetTeamAverageStrength(company, Q)}LVL</b>");
         hint.AppendLine($"\nBudget: <b>{Visuals.Positive(budgetFormatted)}</b>");
 
         //hint.AppendLine(GetProfitDescription());

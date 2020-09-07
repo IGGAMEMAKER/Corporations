@@ -74,7 +74,6 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
         var expertise = Random.Range(0, 100);
         var maxLevel = Random.Range(4, 10);
         
-
         Text1.text = $"{iterationSpeed} days"; // from organisation
         Text1.color = Visuals.GetGradientColor(5, 20, iterationSpeed);
 
@@ -96,14 +95,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
         TeamTaskListView.ChosenSlots = chosenSlots;
         TeamTaskListView.SetEntity(teamId);
 
-        if (freeSlots > 0)
-        {
-            RenderTasks();
-        }
-        else
-        {
-            HideTasks();
-        }
+        RenderTasks();
 
         int maxWorkers = 8;
         int workers = info.Workers; // Random.Range(0, maxWorkers);
@@ -137,7 +129,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
     void RenderTasks()
     {
-        Show(AddTeamTaskListView);
+        Hide(AddTeamTaskListView);
         Show(TeamTaskListView);
     }
 

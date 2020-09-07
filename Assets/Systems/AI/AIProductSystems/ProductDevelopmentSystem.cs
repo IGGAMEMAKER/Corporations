@@ -22,8 +22,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         if (Companies.IsReleaseableApp(product, gameContext))
             Marketing.ReleaseApp(gameContext, product);
 
-        ManageFeatures(product, ref str);
         ManageChannels(product, ref str);
+        ManageFeatures(product, ref str);
         ManageSupport(product, ref str);
 
         Investments.CompleteGoal(product, gameContext);

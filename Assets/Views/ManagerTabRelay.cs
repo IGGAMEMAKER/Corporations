@@ -13,6 +13,8 @@ public class ManagerTabRelay : View
     public GameObject BackToManagerTab;
     public GameObject BackToMainTab;
 
+    public TeamView TeamView;
+
     public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, HireManagersRelayButtons, ManagerInteractions, Managers, BackToMainTab, BackToManagerTab };
 
     // selected worker
@@ -92,6 +94,7 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         OpenManagerTab();
+        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam, false);
     }
 
 

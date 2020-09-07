@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -25,51 +26,52 @@ namespace Assets.Core
 
             var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
-            var newRoles = new List<WorkerRole>();
+            int managerTasks = company.team.Teams.Select(t => t.ManagerTasks).Select(t => t.Contains(ManagerTask.Recruiting) ? 1 : 0).Sum();
 
-            foreach (var role in roles) {
-                newRoles.Add(role);
-
-                var worker = Humans.GenerateHuman(gameContext, role);
-                var humanId = worker.human.Id;
-
-                // Control rating levels for new workers
-                #region Control rating levels for new workers
-                var averageStrength = GetTeamAverageStrength(company, gameContext);
-                //var hrBasedRank = GetHRBasedNewManagerRating(company, gameContext);
-
-
-                var rng = Random.Range(averageStrength - 25, averageStrength + 10);
-                var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 75);
-
-                Humans.ResetSkills(worker, rating);
-                #endregion
-
-                //Debug.Log($"human #{i} - {role}. Human Id = {humanId}");
-
-                company.employee.Managers[humanId] = role;
+            foreach (var role in roles)
+            {
+                AddEmployee(company, gameContext, managerTasks, role);
             }
+        }
 
-            //Debug.Log("ShaffleEmployees: " + company.company.Name + " DONE");
+        public static void AddEmployee(GameEntity company, GameContext gameContext, int managerTasks, WorkerRole role)
+        {
+            var worker = Humans.GenerateHuman(gameContext, role);
+
+            // Control rating levels for new workers
+            #region Control rating levels for new workers
+            var averageStrength = GetTeamAverageStrength(company, gameContext);
+
+            var recruitingEffort = managerTasks * 5f / company.team.Teams.Count;
+
+            var rng = UnityEngine.Random.Range(averageStrength - 5, averageStrength + 1 + recruitingEffort);
+            var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 75);
+            //GetHRBasedNewManagerRatingBonus
+
+            Humans.ResetSkills(worker, (int)rating);
+            #endregion
+
+            company.employee.Managers[worker.human.Id] = role;
         }
 
         public static int GetTeamAverageStrength(GameEntity company, GameContext gameContext)
         {
-            var managers = company.team.Managers;
-
-            if (managers.Count == 0)
-                return 0;
-
             int rating = 0;
+            var counter = 0;
 
-            foreach (var m in managers)
+            foreach (var t in company.team.Teams)
             {
-                rating += Humans.GetRating(gameContext, m.Key);
+                foreach (var m in t.Managers)
+                {
+                    rating += Humans.GetRating(gameContext, m);
+                    counter++;
+                }
             }
 
-            var avg = rating / managers.Count;
+            if (counter == 0)
+                return 0;
 
-            return avg;
+            return rating / counter;
         }
 
         public static Bonus<int> GetHRBasedNewManagerRatingBonus(GameEntity company, GameContext gameContext)
@@ -151,6 +153,27 @@ namespace Assets.Core
             }
 
             return roles;
+        }
+
+        public static WorkerRole[] GetRolesForTeam(TeamType teamType)
+        {
+            switch (teamType)
+            {
+                case TeamType.SupportTeam:
+                case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.MarketingLead };
+
+                case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager, WorkerRole.ProjectManager };
+                case TeamType.DevOpsTeam: return new WorkerRole[] { WorkerRole.TeamLead };
+
+                default:
+                    return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
+            }
+        }
+
+        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
+        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team)
+        {
+            return GetRolesForTeam(team.TeamType).Contains(workerRole);
         }
     }
 }

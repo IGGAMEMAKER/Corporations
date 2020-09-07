@@ -110,7 +110,7 @@ namespace Assets.Core
 
             var i = 0;
             //SpawnChannelSet(500, 7, gameContext, 1, true, ref i);
-            SpawnChannelSet(1500, 7, gameContext, 2, true, ref i);
+            SpawnChannelSet(1500, 4, gameContext, 2, true, ref i);
 
             SpawnChannelSet(5000, 8, gameContext, 2, false, ref i);
             SpawnChannelSet(25000, 5, gameContext, 3, false, ref i);

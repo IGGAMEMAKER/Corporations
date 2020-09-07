@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-namespace Assets.Core
+﻿namespace Assets.Core
 {
     public static partial class Teams
     {
@@ -22,18 +17,26 @@ namespace Assets.Core
         }
 
 
-        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole) => GetEffectiveManagerRating(gameContext, company, Teams.GetWorkerByRole(company, workerRole, gameContext));
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole) => GetEffectiveManagerRating(gameContext, company, GetWorkerByRole(company, workerRole, gameContext));
+        public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager, TeamInfo teamInfo)
+        {
+            if (manager == null)
+                return 0;
+
+            var rating = Humans.GetRating(manager);
+            var effeciency = GetWorkerEffeciency(manager, company);
+
+            return rating * effeciency / 100 / 100;
+        }
         public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager)
         {
             if (manager == null)
                 return 0;
 
             var rating = Humans.GetRating(manager);
-            var effeciency = Teams.GetWorkerEffeciency(manager, company);
+            var effeciency = GetWorkerEffeciency(manager, company);
 
-            var range = GetRoleBaseImpact(manager.worker.WorkerRole);
-
-            return range * rating * effeciency / 100 / 100;
+            return rating * effeciency / 100 / 100;
         }
 
         public static int GetTeamLeadDevelopmentTimeDiscount(GameContext gameContext, GameEntity product)

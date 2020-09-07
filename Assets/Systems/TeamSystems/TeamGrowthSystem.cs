@@ -34,7 +34,7 @@ class WorkerHiringSystem : OnDateChange
     }
 }
 
-class TeamGrowthSystem : OnPeriodChange
+class TeamGrowthSystem : OnMonthChange
 {
     public TeamGrowthSystem(Contexts contexts) : base(contexts) {}
 
@@ -50,32 +50,29 @@ class TeamGrowthSystem : OnPeriodChange
         // feedback (i am doing useful stuff)
         // influence (become company shareholder)
 
-        var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
-
         foreach (var c in companies)
         {
             var culture = Companies.GetActualCorporateCulture(c, gameContext);
 
             // gain expertise and recalculate loyalty
-            foreach (var m in c.team.Managers)
+            foreach (var t in c.team.Teams)
             {
-                if (Random.Range(0, 100) < C.PERIOD)
-                    continue;
-
-                var humanId = m.Key;
-
-                var human = Humans.GetHuman(gameContext, humanId);
-
-                var growth = Teams.GetManagerGrowthBonus(human, gameContext).Sum();
-
-                var willGrow = Random.Range(0, 100) < growth;
-
-                if (willGrow)
+                foreach (var m in t.Managers)
                 {
-                    human.humanSkills.Roles[WorkerRole.CEO]++;
+                    var human = Humans.GetHuman(gameContext, m);
 
-                    if (!human.hasHumanUpgradedSkills)
-                        human.AddHumanUpgradedSkills(C.PERIOD - 1);
+                    // bigger the value... MORE chances to upgrade
+                    var growth = Teams.GetManagerGrowthBonus(human, t, false, gameContext).Sum();
+
+                    var willGrow = Random.Range(0, 100) < growth;
+
+                    if (willGrow)
+                    {
+                        human.humanSkills.Roles[WorkerRole.CEO]++;
+
+                        if (!human.hasHumanUpgradedSkills)
+                            human.AddHumanUpgradedSkills(C.PERIOD - 1);
+                    }
                 }
             }
         }
