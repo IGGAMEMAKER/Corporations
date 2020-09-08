@@ -98,7 +98,7 @@ namespace Assets.Core
                     }
                 }
 
-                var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.5f));
+                var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.9f));
 
                 foreach (var s in segments)
                 {
