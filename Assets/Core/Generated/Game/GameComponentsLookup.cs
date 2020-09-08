@@ -99,29 +99,30 @@ public static class GameComponentsLookup {
     public const int Reports = 88;
     public const int Research = 89;
     public const int Segment = 90;
-    public const int Shareholder = 91;
-    public const int Shareholders = 92;
-    public const int ShareholdersListener = 93;
-    public const int SimpleCooldownContainer = 94;
-    public const int SourceOfClients = 95;
-    public const int Speed = 96;
-    public const int SupportUpgrades = 97;
-    public const int TargetDate = 98;
-    public const int Task = 99;
-    public const int Team = 100;
-    public const int TeamListener = 101;
-    public const int TechnologyLeader = 102;
-    public const int TechnologyLeaderListener = 103;
-    public const int Test = 104;
-    public const int TimedAction = 105;
-    public const int TimerRunning = 106;
-    public const int Tutorial = 107;
-    public const int TutorialListener = 108;
-    public const int UniversalListener = 109;
-    public const int WantsToExpand = 110;
-    public const int Worker = 111;
+    public const int ServerAttack = 91;
+    public const int Shareholder = 92;
+    public const int Shareholders = 93;
+    public const int ShareholdersListener = 94;
+    public const int SimpleCooldownContainer = 95;
+    public const int SourceOfClients = 96;
+    public const int Speed = 97;
+    public const int SupportUpgrades = 98;
+    public const int TargetDate = 99;
+    public const int Task = 100;
+    public const int Team = 101;
+    public const int TeamListener = 102;
+    public const int TechnologyLeader = 103;
+    public const int TechnologyLeaderListener = 104;
+    public const int Test = 105;
+    public const int TimedAction = 106;
+    public const int TimerRunning = 107;
+    public const int Tutorial = 108;
+    public const int TutorialListener = 109;
+    public const int UniversalListener = 110;
+    public const int WantsToExpand = 111;
+    public const int Worker = 112;
 
-    public const int TotalComponents = 112;
+    public const int TotalComponents = 113;
 
     public static readonly string[] componentNames = {
         "AcceptsInvestments",
@@ -215,6 +216,7 @@ public static class GameComponentsLookup {
         "Reports",
         "Research",
         "Segment",
+        "ServerAttack",
         "Shareholder",
         "Shareholders",
         "ShareholdersListener",
@@ -330,6 +332,7 @@ public static class GameComponentsLookup {
         typeof(ReportsComponent),
         typeof(ResearchComponent),
         typeof(SegmentComponent),
+        typeof(ServerAttackComponent),
         typeof(ShareholderComponent),
         typeof(ShareholdersComponent),
         typeof(ShareholdersListenerComponent),

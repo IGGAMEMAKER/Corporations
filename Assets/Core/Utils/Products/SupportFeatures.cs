@@ -45,7 +45,14 @@ namespace Assets.Core
 
         public static long GetClientLoad(GameEntity product)
         {
-            return Marketing.GetClients(product); // add DDoS multiplier ??
+            long attack = 0;
+
+            if (product.hasServerAttack)
+            {
+                attack = product.serverAttack.Load;
+            }
+
+            return Marketing.GetClients(product) + attack; // add DDoS multiplier ??
         }
 
         public static long GetServerLoad(GameEntity product)

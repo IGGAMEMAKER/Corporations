@@ -17,7 +17,12 @@ public class ProductComponent : IComponent
     public int Concept;
 }
 
-
+public class ServerAttackComponent : IComponent
+{
+    public long Load;
+    public int Resistance;
+    public int CurrentResistance;
+}
 
 //public enum ProductFeature
 //{
