@@ -80,6 +80,8 @@ namespace Assets.Core
                 marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
 
                 marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
+
+                marketingEffeciency += teamInfo.TeamType == TeamType.MarketingTeam ? 25 : 0;
             }
 
             return 50 + marketingEffeciency;

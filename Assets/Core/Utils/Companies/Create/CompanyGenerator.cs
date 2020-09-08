@@ -25,6 +25,10 @@ namespace Assets.Core
             product.AddSupportUpgrades(new Dictionary<string, int>());
             product.AddExpertise(Random.Range(1, 4));
 
+
+            var serverFeature = Products.GetHighloadFeatures(product)[0];
+            Teams.AddTeamTask(product, context, 0, new TeamTaskSupportFeature(serverFeature));
+
             // clients
             var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
             var baseClients = Random.Range(0.15f, 0.35f) * flow;

@@ -21,6 +21,7 @@ public class FlagshipInterruptsView : View
     public Image HasDisloyalManagersImage;
     public Image AcquisitionOffer;
 
+    public Image AudienceMapLink;
     public Text MarketShare;
 
     int previousCounter = 0;
@@ -47,8 +48,7 @@ public class FlagshipInterruptsView : View
 
         var product = Flagship;
 
-        // && Random.Range(0, 3) < 1
-        if (CurrentIntDate % 91 == 0 && Random.Range(0, 2) < 1 && !product.hasServerAttack)
+        if (CurrentIntDate > 0 && CurrentIntDate % 91 == 0 && Random.Range(0, 2) < 1 && !product.hasServerAttack)
         {
             // ddos stops when you have normal load
             // or resistance (progressbar) < 0
@@ -81,6 +81,7 @@ public class FlagshipInterruptsView : View
 
         problemCounter = 0;
 
+        SpecialDraw(AudienceMapLink, product.isRelease);
         SpecialDraw(NeedsManagersImage, false);
         SpecialDraw(NeedsServersImage, true);
         SpecialDraw(NeedsSupportImage, false);

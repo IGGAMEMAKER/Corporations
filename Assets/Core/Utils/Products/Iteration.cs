@@ -29,21 +29,15 @@ namespace Assets.Core
         {
             var speed = 0.2f;
 
+            // 0.4f ... 1f
+            var gain = Teams.GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, team) / 100f;
+            speed += gain;
+
             bool isDevTeam = team.TeamType == TeamType.DevelopmentTeam;
-
-            var productManager = GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
-
-            if (productManager != null)
-            {
-
-                // 0.4f ... 1f
-                var gain = Humans.GetRating(productManager) / 100f;
-                speed += isDevTeam ? gain * 2 : gain;
-            }
-
             if (isDevTeam)
             {
                 speed += 0.3f;
+                speed += gain;
             }
 
             return speed;
@@ -53,7 +47,10 @@ namespace Assets.Core
         {
             var productManager = GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
 
-            var cap = 5f;
+            var cap = 4f;
+
+            if (team.TeamType == TeamType.DevelopmentTeam)
+                cap += 2f;
 
             if (productManager != null)
             {
@@ -63,7 +60,7 @@ namespace Assets.Core
                 return cap + addedCap;
             }
 
-            return cap;
+            return Mathf.Clamp(cap, 0, 10);
         }
 
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)

@@ -70,20 +70,18 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
     void RenderTaskAssignTeamView(TeamTask task, TeamInfo info)
     {
-        var iterationSpeed = Products.GetBaseIterationTime(Q, Flagship); // Random.Range(5, 20);
-        var expertise = Random.Range(0, 100);
-        var maxLevel = Products.GetFeatureRatingCap(Flagship, info, Q); // Random.Range(4, 10);
-        var gain = Products.GetFeatureRatingGain(Flagship, info, Q);
-
         if (task.IsFeatureUpgrade)
         {
+            var iterationSpeed = Products.GetBaseIterationTime(Q, Flagship); // Random.Range(5, 20);
+            var maxLevel = Products.GetFeatureRatingCap(Flagship, info, Q); // Random.Range(4, 10);
+            var gain = Products.GetFeatureRatingGain(Flagship, info, Q);
+
             Text1.text = Visuals.Positive(gain.ToString("+0.0")); // from organisation
 
             Text2.text = $"{maxLevel.ToString("0.0")} lvl";
             Text2.color = Visuals.GetGradientColor(0, 10, maxLevel);
 
-            Text3.text = $"???";
-            Text3.color = Visuals.GetGradientColor(0, 100, expertise);
+            Text3.text = $"";
         }
 
         if (task.IsMarketingTask)
@@ -106,11 +104,11 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
         if (task.IsHighloadTask)
         {
-            Text1.text = $"1%";
+            Text1.text = $"";
             //Text1.color = Visuals.GetGradientColor(5, 20, iterationSpeed);
             Text1.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
 
-            Text2.text = $"Instant";
+            Text2.text = $"";
             Text2.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
 
             Text3.text = $"";

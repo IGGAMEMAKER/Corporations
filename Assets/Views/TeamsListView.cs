@@ -53,7 +53,7 @@ public class TeamsListView : ListView
     {
         if (task.IsFeatureUpgrade)
         {
-            RenderLabels("Upgrade speed", "Max feature level", "Expertise", "Free task slots");
+            RenderLabels("Upgrade speed", "Max feature level", "", "Free task slots");
         }
 
         if (task.IsHighloadTask)
@@ -63,7 +63,8 @@ public class TeamsListView : ListView
 
         if (task.IsMarketingTask)
         {
-            RenderLabels("Effeciency", "Final gain", "", "Free task slots");
+            RenderLabels("", "", "", "Free task slots");
+            //RenderLabels("Effeciency", "Final gain", "", "Free task slots");
         }
     }
 
@@ -107,5 +108,7 @@ public class TeamsListView : ListView
         {
             SoundManager.Play(Sound.SupportTask);
         }
+
+        Refresh();
     }
 }
