@@ -94,7 +94,7 @@ public class ManagerTabRelay : View
     private void OnEnable()
     {
         OpenManagerTab();
-        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam, false);
+        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam, null);
     }
 
 

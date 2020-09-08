@@ -70,20 +70,46 @@ namespace Assets.Core
             //Marketing.ReleaseApp(gameContext, Flagship);
         }
 
+
+
         internal static void PrepareMarket(GameEntity niche, long startCapital, GameContext gameContext)
         {
+            var segments = Marketing.GetAudienceInfos();
+
             // spawn competitors
-            for (var i = 0; i < 1; i++)
+            for (var i = 0; i < 5; i++)
             {
-                var funds = UnityEngine.Random.Range(2, 5) * startCapital;
+                var funds = Random.Range(20, 50) * startCapital;
                 var c = Markets.SpawnCompany(niche, gameContext, funds);
 
+                var features = Products.GetAvailableFeaturesForProduct(c);
+                var teams = Random.Range(3, 9);
+
+                for (var j = 0; j < teams; j++)
+                {
+                    Teams.AddTeam(c, TeamType.CrossfunctionalTeam);
+                }
+
+                foreach (var f in features)
+                {
+                    if (f.FeatureBonus.isRetentionFeature)
+                    {
+                        Products.ForceUpgradeFeature(c, f.Name, Random.Range(4f, 9f));
+                    }
+                }
+
+                var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.5f));
+
+                foreach (var s in segments)
+                {
+                    Marketing.AddClients(c, System.Convert.ToInt64(clients * Random.Range(0.1f, 0.5f)), s.ID);
+                }
+
                 //var newLevel = UnityEngine.Random.Range(4, 8);
-                var newLevel = UnityEngine.Random.Range(1, 2);
 
                 //Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
-                Marketing.AddBrandPower(c, newLevel * 3);
-                Products.ForceUpgrade(c, gameContext, newLevel);
+                //Marketing.AddBrandPower(c, newLevel * 3);
+                //Products.ForceUpgrade(c, gameContext, newLevel);
             }
 
             // spawn investors

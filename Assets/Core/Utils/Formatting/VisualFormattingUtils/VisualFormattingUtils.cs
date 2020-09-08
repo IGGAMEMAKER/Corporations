@@ -23,9 +23,14 @@ namespace Assets.Core
         }
 
         public static string Link(string text) => $"<i><b><color=magenta>{text}</color></b></i>";
+
         public static string Positive(string text)  => Colorize(text, Colors.COLOR_POSITIVE);
         public static string Neutral(string text)   => Colorize(text, Colors.COLOR_NEUTRAL);
         public static string Negative(string text)  => Colorize(text, Colors.COLOR_NEGATIVE);
+
+        public static Color Positive() => GetColorFromString(Colors.COLOR_POSITIVE);
+        public static Color Neutral() => GetColorFromString(Colors.COLOR_NEUTRAL);
+        public static Color Negative() => GetColorFromString(Colors.COLOR_NEGATIVE);
 
         // TODO used twice in same place
         public static Color GetColorPositiveOrNegative(long value) => GetColorPositiveOrNegative(value > 0);

@@ -14,7 +14,7 @@ namespace Assets.Core
             var top = 3;
             var ok = 1;
 
-            var hate = -15;
+            var hate = -9;
             var bad = -3;
 
             var socialNetworkFeatures = new NewProductFeature[]
@@ -41,6 +41,14 @@ namespace Assets.Core
                 // remove test audience
                 f.AttitudeToFeature.RemoveAt(0);
             }
+
+            //var featureList = new List<NewProductFeature>();
+            //switch (product.product.Niche)
+            //{
+            //    case NicheType.ECom_Exchanging:
+            //        featureList.Add(new NewProductFeature(""))
+            //        break;
+            //}
 
             return socialNetworkFeatures;
             //switch (product.product.Niche)

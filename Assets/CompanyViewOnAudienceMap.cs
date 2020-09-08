@@ -19,6 +19,8 @@ public class CompanyViewOnAudienceMap : View
 
     public Text Growth;
 
+    public SetAmountOfStars SetAmountOfStars;
+
     GameEntity company;
 
     public void SetEntity(GameEntity c, int segmentId)
@@ -68,14 +70,58 @@ public class CompanyViewOnAudienceMap : View
         Image.color = Companies.GetCompanyUniqueColor(company.company.Id);
     }
 
+    public static int GetBudgetEstimation(GameEntity product, GameContext gameContext)
+    {
+        var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
+
+        var position = competitors.OrderByDescending(c => Economy.GetProductCompanyMaintenance(c, Q)).ToList().FindIndex(s => s.company.Id == product.company.Id);
+
+        return Mathf.Clamp(5 - position, 1, 5);
+    }
+
+    public static int GetTeamEstimation(GameEntity product, GameContext gameContext)
+    {
+        var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
+
+        var position = competitors.OrderByDescending(c => c.team.Teams.Count).ToList().FindIndex(s => s.company.Id == product.company.Id);
+
+        return Mathf.Clamp(5 - position, 1, 5);
+    }
+
+    public static int GetManagerEstimation(GameEntity product, GameContext gameContext)
+    {
+        //var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
+
+        var avgStrength = Teams.GetTeamAverageStrength(product, gameContext);
+
+        if (avgStrength < 50)
+            return 1;
+
+        if (avgStrength < 60)
+            return 2;
+
+        if (avgStrength < 70)
+            return 3;
+
+        if (avgStrength < 80)
+            return 4;
+
+        return 5;
+
+        //return competitors.OrderByDescending(c => c.team.Teams.Count).ToList().FindIndex(s => s.company.Id == product.company.Id);
+
+        return Random.Range(1, 5);
+    }
+
     string GetCompanyHint(bool hasControl)
     {
         var position = Markets.GetPositionOnMarket(Q, company);
 
         // #{position + 1}
-        StringBuilder hint = new StringBuilder($"<size=35>{company.company.Name}</size>");
-
         var clients = Marketing.GetClients(company);
+        //var mainInfo =  + $" (<b>{Format.Minify(clients)}</b> users)";
+        StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
+
 
         var change = Marketing.GetAudienceChange(company, Q);
 
@@ -83,17 +129,47 @@ public class CompanyViewOnAudienceMap : View
 
         var budgetFormatted = Format.MinifyMoney(Economy.GetProductCompanyMaintenance(company, Q));
 
-        hint.AppendLine($"\n");
-        hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}");
-        hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
-        hint.AppendLine($"Managers: <b>{Teams.GetTeamAverageStrength(company, Q)}LVL</b>");
-        hint.AppendLine($"\nBudget: <b>{Visuals.Positive(budgetFormatted)}</b>");
+        var budgetStars = GetBudgetEstimation(company, Q);
+        var teamStars = GetTeamEstimation(company, Q);
+        var managerStars = GetManagerEstimation(company, Q);
+
+        hint.AppendLine($"\n\nUsers: <b>{Format.Minify(clients)}</b>");
+        hint.AppendLine($"{Visuals.Colorize(changeFormatted, change >=0)}\n");
+        //hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}\n");
+        //hint.AppendLine(RenderStars("Product", techStars));
+
+        //hint.AppendLine();
+        hint.AppendLine(RenderStars("Budget", budgetStars));
+
+        //hint.AppendLine();
+        hint.AppendLine(RenderStars("Managers", managerStars));
+        hint.AppendLine(RenderStars("Teams", teamStars));
+
+        var productStrength = (budgetStars + managerStars + teamStars) / 3;
+        SetAmountOfStars.SetStars(productStrength);
+
+        //hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
+        //hint.AppendLine($"Managers: <b>{Teams.GetTeamAverageStrength(company, Q)}LVL</b>");
+
+        //hint.AppendLine($"\nBudget: <b>{Visuals.Positive(budgetFormatted)}</b>");
 
         //hint.AppendLine(GetProfitDescription());
 
-        if (hasControl)
-            hint.AppendLine(Visuals.Colorize("\nYour company", Colors.COLOR_CONTROL));
+        //if (hasControl)
+        //    hint.AppendLine(Visuals.Colorize("\nYour company", Colors.COLOR_CONTROL));
 
         return hint.ToString();
+    }
+
+    string RenderStars(string title, int stars)
+    {
+        string str = $"<b>{title}</b>\n<size=40>";
+
+        for (var i = 0; i < 5; i++)
+        {
+            str += Visuals.Colorize("<b>*</b>", i < stars ? Colors.COLOR_GOLD : Colors.COLOR_NEUTRAL);
+        }
+
+        return str + "</size>";
     }
 }

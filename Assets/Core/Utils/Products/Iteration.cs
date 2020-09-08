@@ -25,7 +25,7 @@ namespace Assets.Core
             return null;
         }
 
-        public static float GetFeatureUpgradeRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
+        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
         {
             var speed = 0.2f;
 
@@ -70,7 +70,7 @@ namespace Assets.Core
         {
             if (IsUpgradedFeature(product, featureName))
             {
-                var gain = GetFeatureUpgradeRatingGain(product, team, gameContext);
+                var gain = GetFeatureRatingGain(product, team, gameContext);
 
                 var value = product.features.Upgrades[featureName];
 
@@ -88,6 +88,11 @@ namespace Assets.Core
 
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
             Cooldowns.AddSimpleCooldown(gameContext, cooldownName, Products.GetBaseIterationTime(gameContext, product));
+        }
+
+        public static void ForceUpgradeFeature(GameEntity product, string featureName, float value)
+        {
+            product.features.Upgrades[featureName] = value;
         }
 
         public static float GetFeatureRating(GameEntity product, string featureName)

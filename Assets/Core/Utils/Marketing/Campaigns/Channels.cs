@@ -66,15 +66,23 @@ namespace Assets.Core
                 counter++;
             }
 
+            var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company, teamInfo);
+
+            return batch * marketingEffeciency / 100;
+        }
+
+        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
+        {
             var marketingEffeciency = 0;
 
-            if (teamInfo != null) {
+            if (teamInfo != null)
+            {
                 marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
 
                 marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
             }
 
-            return batch * (50 + marketingEffeciency) / 100;
+            return 50 + marketingEffeciency;
         }
 
         public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)

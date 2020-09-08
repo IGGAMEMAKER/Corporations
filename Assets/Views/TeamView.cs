@@ -39,7 +39,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
     public Text Text3;
     public Text Text4;
 
-    public void SetEntity(TeamInfo info, int teamId, bool isTaskAssignMode)
+    public void SetEntity(TeamInfo info, int teamId, TeamTask task = null)
     {
         this.teamId = teamId;
 
@@ -58,9 +58,9 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
         ChooseHireManagersOfTeam.SetEntity(teamId);
         TeamTypeImage.sprite = GetTeamTypeSprite();
 
-        if (isTaskAssignMode)
+        if (task != null)
         {
-            RenderTaskAssignTeamView();
+            RenderTaskAssignTeamView(task, info);
         }
         else
         {
@@ -68,20 +68,54 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
         }
     }
 
-    void RenderTaskAssignTeamView()
+    void RenderTaskAssignTeamView(TeamTask task, TeamInfo info)
     {
-        var iterationSpeed = Random.Range(5, 20);
+        var iterationSpeed = Products.GetBaseIterationTime(Q, Flagship); // Random.Range(5, 20);
         var expertise = Random.Range(0, 100);
-        var maxLevel = Random.Range(4, 10);
-        
-        Text1.text = $"{iterationSpeed} days"; // from organisation
-        Text1.color = Visuals.GetGradientColor(5, 20, iterationSpeed);
+        var maxLevel = Products.GetFeatureRatingCap(Flagship, info, Q); // Random.Range(4, 10);
+        var gain = Products.GetFeatureRatingGain(Flagship, info, Q);
 
-        Text2.text = $"{maxLevel} lvl";
-        Text2.color = Visuals.GetGradientColor(0, 10, maxLevel);
+        if (task.IsFeatureUpgrade)
+        {
+            Text1.text = Visuals.Positive(gain.ToString("+0.0")); // from organisation
 
-        Text3.text = $"{expertise}%";
-        Text3.color = Visuals.GetGradientColor(0, 100, expertise);
+            Text2.text = $"{maxLevel.ToString("0.0")} lvl";
+            Text2.color = Visuals.GetGradientColor(0, 10, maxLevel);
+
+            Text3.text = $"???";
+            Text3.color = Visuals.GetGradientColor(0, 100, expertise);
+        }
+
+        if (task.IsMarketingTask)
+        {
+            var marketingEffeciency = Marketing.GetMarketingTeamEffeciency(Q, Flagship, info);
+            var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
+
+            var baseGain = Marketing.GetChannelClientGain(Flagship, Q, channel);
+            var finalGain = baseGain * marketingEffeciency / 100;
+
+            Text1.text = $"{marketingEffeciency}%";
+            Text1.color = Visuals.GetGradientColor(50, 150, marketingEffeciency);
+
+            Text2.text = $"+{Format.Minify(finalGain)} users"; // from organisation
+            Text2.color = Visuals.Positive(); // Visuals.GetGradientColor(50, 150, marketingEffeciency);
+
+            Text3.text = $"";
+            Text3.color = Visuals.Neutral();
+        }
+
+        if (task.IsHighloadTask)
+        {
+            Text1.text = $"1%";
+            //Text1.color = Visuals.GetGradientColor(5, 20, iterationSpeed);
+            Text1.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+
+            Text2.text = $"Instant";
+            Text2.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+
+            Text3.text = $"";
+            Text3.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+        }
 
         Text4.text = $"{(freeSlots == 0 ? "NO" : freeSlots.ToString())}";
         Text4.color = Visuals.GetColorPositiveOrNegative(freeSlots > 0);

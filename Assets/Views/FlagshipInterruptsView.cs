@@ -19,6 +19,8 @@ public class FlagshipInterruptsView : View
     public Image HasDisloyalManagersImage;
     public Image AcquisitionOffer;
 
+    public Text MarketShare;
+
     int previousCounter = 0;
     int problemCounter = 0;
 
@@ -50,6 +52,8 @@ public class FlagshipInterruptsView : View
 
         NeedsServersImage.color = Visuals.GetColorFromString(needsMoreServers ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);
         NeedsServersImage.GetComponent<Blinker>().enabled = needsMoreServers;
+
+        MarketShare.text = (Companies.GetMarketShareOfCompanyMultipliedByHundred(Flagship, Q) * 1f).ToString("0.0") + "%";
 
         var load = Products.GetServerLoad(Flagship) * 100;
         var cap = Products.GetServerCapacity(Flagship);
