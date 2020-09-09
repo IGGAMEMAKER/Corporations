@@ -21,6 +21,7 @@ namespace Assets.Core
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
+        public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel) => GetAudienceInfos().Select(i => GetChannelClientGain(company, gameContext, channel, i.ID)).Sum();
         public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
         {
             var fraction = (double)Companies.GetHashedRandom2(company.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
@@ -37,35 +38,36 @@ namespace Assets.Core
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            int teamId = -1;
-            int counter = 0;
-
-            var channelId = channel.marketingChannel.ChannelInfo.ID;
-
+            int teamId = GetTeamIdOfMarketingTask(company, channel);
             TeamInfo teamInfo = null;
-            foreach (var t in company.team.Teams)
-            {
-                if (t.Tasks.Find(tt => tt.IsMarketingTask && (tt as TeamTaskChannelActivity).ChannelId == channelId) != null) {
-                    teamId = counter;
-                    teamInfo = t;
 
-                    break;
-                }
-
-                counter++;
-            }
+            if (teamId >= 0)
+                teamInfo = company.team.Teams[teamId];
 
             var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company, teamInfo);
 
             return batch * marketingEffeciency / 100;
         }
 
-        public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)
+        public static int GetTeamIdOfMarketingTask(GameEntity company, GameEntity channel)
         {
-            var infos = GetAudienceInfos();
+            int counter = 0;
 
-            return infos.Select(i => GetChannelClientGain(company, gameContext, channel, i.ID)).Sum();
+            var channelId = channel.marketingChannel.ChannelInfo.ID;
+
+            foreach (var t in company.team.Teams)
+            {
+                if (t.Tasks.Find(tt => tt.IsMarketingTask && (tt as TeamTaskChannelActivity).ChannelId == channelId) != null)
+                {
+                    return counter;
+                }
+
+                counter++;
+            }
+
+            return -1;
         }
+
 
         public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
         {
@@ -84,43 +86,6 @@ namespace Assets.Core
         }
 
         // in months
-        public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId) => true; // GetChannelRepaymentSpeed(company, gameContext, channel, segmentId) < 10000;
-        public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
-        {
-            var adCost = (float)GetMarketingActivityCost(company, channel);
-
-            var churn = GetChurnRate(gameContext, company, segmentId);
-
-            var gainedUsers = GetChannelClientGain(company, gameContext, channel);
-
-            if (adCost == 0)
-            {
-                return 1000000f;
-            }
-
-            return gainedUsers / adCost;
-
-            var q = (100 - churn) / 100f;
-            var b1 = gainedUsers * Economy.GetIncomePerUser(gameContext, company, segmentId);
-
-            var Sum = b1 / (1 - q);
-
-            if (Sum > adCost)
-            {
-                // channel is repaying 4 itself
-                var Sn = adCost;
-                var constr = 1 - (Sn * (1 - q) / b1);
-
-                var n = Mathf.Log(constr, q);
-
-                return n * C.PERIOD / 30;
-            }
-
-            // channel will never repay
-
-            return 10000;
-        }
-
         public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)
         {
             var companyId = product.company.Id;

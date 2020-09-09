@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -10,11 +11,13 @@ namespace Assets.Core
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
-        public static GameEntity[] GetInvestmentsOf(GameContext gameContext, int shareholderId)
+        public static GameEntity[] GetOwnings(GameContext context, int shareholderId) => GetOwnings(context, Companies.GetInvestorById(context, shareholderId));
+        public static GameEntity[] GetOwnings(GameContext context, GameEntity c) // c can be human, investor or company
         {
-            var shareholder = GetInvestorById(gameContext, shareholderId);
+            if (!c.hasOwnings)
+                return new GameEntity[0];
 
-            return Array.FindAll(gameContext.GetEntities(GameMatcher.Shareholders), e => IsInvestsInCompany(shareholder, e));
+            return c.ownings.Holdings.Select(companyId => Companies.Get(context, companyId)).ToArray();
         }
 
         public static GameEntity GenerateAngel(GameContext gameContext)

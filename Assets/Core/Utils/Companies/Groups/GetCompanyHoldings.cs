@@ -41,10 +41,7 @@ namespace Assets.Core
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, Get(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {
-            if (!c.hasOwnings)
-                return new GameEntity[0];
-
-            return c.ownings.Holdings.Select(companyId => Get(context, companyId)).ToArray();
+            return Investments.GetOwnings(context, c);
         }
 
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
@@ -81,36 +78,13 @@ namespace Assets.Core
             return parent;
         }
 
-        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)
+
+
+        public static List<CompanyHolding> GetHoldings(GameContext context, int shareholderId, bool recursively)
         {
-            List<CompanyHolding> companyHoldings = new List<CompanyHolding>();
+            List<CompanyHolding> holdings = new List<CompanyHolding>();
 
-            var c = Get(context, companyId);
-
-            var investments = GetDaughterCompanies(context, companyId);
-
-            foreach (var investment in investments)
-            {
-                var holding = new CompanyHolding
-                {
-                    companyId = investment.company.Id,
-                    control = GetShareSize(context, investment.company.Id, c.shareholder.Id),
-                    holdings = recursively ? GetCompanyHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
-                };
-
-                companyHoldings.Add(holding);
-            }
-
-            return companyHoldings;
-        }
-
-        public static List<CompanyHolding> GetPersonalHoldings(GameContext context, int shareholderId, bool recursively)
-        {
-            List<CompanyHolding> companyHoldings = new List<CompanyHolding>();
-
-            var investments = Investments.GetInvestmentsOf(context, shareholderId);
-
-            foreach (var investment in investments)
+            foreach (var investment in Investments.GetOwnings(context, shareholderId))
             {
                 var holding = new CompanyHolding
                 {
@@ -119,18 +93,25 @@ namespace Assets.Core
                     holdings = recursively ? GetCompanyHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
                 };
 
-                companyHoldings.Add(holding);
+                holdings.Add(holding);
             }
 
-            return companyHoldings;
+            return holdings;
         }
+
+        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)
+        {
+            return GetHoldings(context, Get(context, companyId).shareholder.Id, recursively);
+        }
+
+        public static List<CompanyHolding> GetPersonalHoldings(GameContext context, int shareholderId, bool recursively)
+        {
+            return GetHoldings(context, shareholderId, recursively);
+        }
+
+
 
         // changes
-        public static bool IsCompanyGrowing(GameEntity product, GameContext gameContext)
-        {
-            return GetProductCompanyResults(product, gameContext).MarketShareChange > 0;
-        }
-
         public static ProductCompanyResult GetProductCompanyResults(GameEntity product, GameContext gameContext)
         {
             var competitors = Markets.GetProductsOnMarket(gameContext, product);

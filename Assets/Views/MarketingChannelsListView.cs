@@ -54,7 +54,6 @@ public class MarketingChannelsListView : ListView
         }
 
         var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo)
-            .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId))
             .Where(c => didMarketingCampaigns || Marketing.GetChannelCostPerUser(company, Q, c) == 0)
             .TakeWhile(c => counter-- > 0)
             ;
