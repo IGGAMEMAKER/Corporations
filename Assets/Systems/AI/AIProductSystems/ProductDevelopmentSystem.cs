@@ -12,21 +12,19 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var nonFlagshipProducts = Companies.GetProductCompanies(gameContext).Where(p => !p.isFlagship);
 
         foreach (var product in nonFlagshipProducts)
-            ManageProduct(product);
-    }
+        {
+            List<string> str = new List<string>();
 
-    void ManageProduct(GameEntity product)
-    {
-        List<string> str = new List<string>();
+            if (Companies.IsReleaseableApp(product, gameContext))
+                Marketing.ReleaseApp(gameContext, product);
 
-        if (Companies.IsReleaseableApp(product, gameContext))
-            Marketing.ReleaseApp(gameContext, product);
+            ManageSupport(product, ref str);
 
-        ManageChannels(product, ref str);
-        ManageFeatures(product, ref str);
-        ManageSupport(product, ref str);
+            ManageChannels(product, ref str);
+            ManageFeatures(product, ref str);
 
-        Investments.CompleteGoal(product, gameContext);
+            Investments.CompleteGoal(product, gameContext);
+        }
     }
 
     void ManageFeatures(GameEntity product, ref List<string> str)
@@ -36,10 +34,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         if (remainingFeatures.Count() == 0)
             return;
 
-
         var feature = remainingFeatures.First();
-        var teamTask = new TeamTaskFeatureUpgrade(feature);
-
         if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
         {
             var segments = Marketing.GetAudienceInfos();
@@ -55,30 +50,23 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
         }
 
-        TryAddTask(product, teamTask, ref str);
+        TryAddTask(product, new TeamTaskFeatureUpgrade(feature), ref str);
     }
 
     void ManageSupport(GameEntity product, ref List<string> str)
     {
-        if (Products.IsNeedsMoreServers(product))
+        while (Products.IsNeedsMoreServers(product))
+            AddServer(product, ref str);
+
+        var load = Products.GetServerLoad(product);
+        var capacity = Products.GetServerCapacity(product);
+
+        var growth = Marketing.GetAudienceChange(product, gameContext);
+
+        if (load + growth >= capacity)
         {
-            var diff = Products.GetClientLoad(product) - Products.GetServerCapacity(product);
-
-            var supportFeatures = Products.GetHighloadFeatures(product);
-            var feature = supportFeatures[2];
-
-            TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
+            AddServer(product, ref str);
         }
-
-        //if (Products.IsNeedsMoreMarketingSupport(product))
-        //{
-        //    var diff = Products.GetClientLoad(product) - Products.GetSupportCapacity(product);
-
-        //    var supportFeatures = Products.GetMarketingSupportFeatures(product);
-        //    var feature = supportFeatures[2];
-
-        //    TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
-        //}
     }
 
     void ManageChannels(GameEntity product, ref List<string> str)
@@ -88,23 +76,35 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         foreach (var c in channels)
         {
-            //TryAddTask(product, new TeamTaskChannelActivity(channels.First().marketingChannel.ChannelInfo.ID), ref str);
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
+            var load = Products.GetServerLoad(product);
+            var capacity = Products.GetServerCapacity(product);
+
+            var growth = Marketing.GetAudienceChange(product, gameContext);
+
+            var gain = Marketing.GetChannelClientGain(product, gameContext, c);
+            bool willExceedLimits = load + growth + gain >= capacity;
+
+            if (!willExceedLimits)
+                TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
         }
     }
 
-    
+    void AddServer(GameEntity product, ref List<string> str)
+    {
+        var supportFeatures = Products.GetHighloadFeatures(product);
+        var feature = supportFeatures[3];
 
-    bool IsInPlayerSphereOfInterest(GameEntity product) => Companies.IsInPlayerSphereOfInterest(product, gameContext);
+        TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
+    }
+
+    // -----------------------------------------------------------------------------------
 
     bool CanMaintain(GameEntity product, long cost, ref List<string> str)
     {
         if (cost == 0)
             return true;
 
-        var result = Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
-
-        return result;
+        return Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
     }
 
     void TryAddTask(GameEntity product, TeamTask teamTask, ref List<string> str)
@@ -124,7 +124,14 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             if (CanMaintain(product, teamCost + taskCost, ref str))
             {
-                Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+                if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max >= 1_000_000)
+                {
+                    Teams.AddTeam(product, TeamType.DevOpsTeam);
+                }
+                else
+                {
+                    Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
+                }
 
                 teamId = product.team.Teams.Count - 1;
             }
