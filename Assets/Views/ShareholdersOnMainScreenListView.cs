@@ -21,6 +21,9 @@ public class ShareholdersOnMainScreenListView : ListView
     List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, MainInfo.gameObject };
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, /*ShowOffers,*/ CurrentInvestments, MainInfo.gameObject };
 
+    bool isPlayerSelected = false;
+    int shareholderId = 0;
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<InvestorPreview>().SetEntity((int)(object)entity, MyCompany);
@@ -57,7 +60,7 @@ public class ShareholdersOnMainScreenListView : ListView
         FindObjectOfType<MainPanelRelay>().ExpandInvestors();
 
 
-        bool isPlayerSelected = chosenIndex == 0;
+        isPlayerSelected = chosenIndex == 0;
 
         if (isPlayerSelected)
         {
@@ -77,12 +80,12 @@ public class ShareholdersOnMainScreenListView : ListView
         }
 
 
-        var shareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
+        shareholderId = MyCompany.shareholders.Shareholders.Keys.ToArray()[chosenIndex];
 
-        RenderShareholderData(shareholderId, isPlayerSelected);
+        RenderShareholderData();
     }
 
-    void RenderShareholderData(int shareholderId, bool isPlayerSelected)
+    public void RenderShareholderData()
     {
         var shares = Companies.GetShareSize(Q, MyCompany.company.Id, shareholderId);
         var goal = "Goal: ???";
@@ -102,7 +105,7 @@ public class ShareholdersOnMainScreenListView : ListView
             );
 
 
-        MainInfo.Title.text = $"<b>{name}</b>\n{shares}% shares\n{goal}";
+        MainInfo.Title.text = $"<b>{name}</b>\n{Visuals.Colorize(shares)}% shares\n{goal}";
 
         BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GetFastCash : CompanyUpgradeButton
 {
     public Text AmountOfLoans;
+    public ShareholdersOnMainScreenListView ShareholdersOnMainScreenListView;
 
     public override void Execute()
     {
@@ -17,6 +18,8 @@ public class GetFastCash : CompanyUpgradeButton
 
         SoundManager.Play(Sound.MoneyIncome);
         Economy.RaiseFastCash(Q, MyCompany);
+
+        ShareholdersOnMainScreenListView.RenderShareholderData();
     }
 
     void RenderAmountOfLoans()
@@ -37,7 +40,7 @@ public class GetFastCash : CompanyUpgradeButton
 
     public override string GetBenefits()
     {
-        return $"Get {Format.Money(sum)}";
+        return ""; // $"Get {Format.Money(sum)}";
         //return $"Get {Format.Money(sum)} for {fraction}% of company";
     }
 
@@ -46,7 +49,7 @@ public class GetFastCash : CompanyUpgradeButton
         RenderAmountOfLoans();
         //AmountOfLoans.text = "2";
 
-        return "Raise Investments";
+        return "Demand extra cash";
     }
 
     public override string GetHint()

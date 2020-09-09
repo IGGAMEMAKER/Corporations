@@ -242,3 +242,8 @@ public class PopupComponent : IComponent
 {
     public List<PopupMessage> PopupMessages;
 }
+
+public class SeenPopupsComponent : IComponent
+{
+    public List<PopupType> PopupTypes;
+}

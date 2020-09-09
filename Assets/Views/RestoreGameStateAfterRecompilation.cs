@@ -80,6 +80,7 @@ public class RestoreGameStateAfterRecompilation : View
         // Notifications and Popups
         e.AddNotifications(new List<NotificationMessage>());
         e.AddPopup(new List<PopupMessage>());
+        e.AddSeenPopups(new List<PopupType>());
 
         // reports & stats
         e.AddReports(new List<AnnualReport>());

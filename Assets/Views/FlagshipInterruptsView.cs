@@ -50,14 +50,14 @@ public class FlagshipInterruptsView : View
 
         if (CurrentIntDate > 0 && CurrentIntDate % 91 == 0 && Random.Range(0, 2) < 1 && !product.hasServerAttack)
         {
-            // ddos stops when you have normal load
-            // or resistance (progressbar) < 0
+            //// ddos stops when you have normal load
+            //// or resistance (progressbar) < 0
 
-            //var load = Products.GetServerLoad(Flagship);
-            var resistance = Random.Range(10, 25);
-            var strength = Random.Range(2, 20);
+            ////var load = Products.GetServerLoad(Flagship);
+            //var resistance = Random.Range(10, 25);
+            //var strength = Random.Range(2, 20);
 
-            product.AddServerAttack(cap * strength, resistance, resistance); // load x2... x20 (in pupils), resistance how easy is it to kill attack (clicks per second 1...5),
+            //product.AddServerAttack(cap * strength, resistance, resistance); // load x2... x20 (in pupils), resistance how easy is it to kill attack (clicks per second 1...5),
         }
 
 

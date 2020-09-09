@@ -10,7 +10,6 @@
                 case CompanyTaskType.ExploreMarket: ExploreMarket(task, gameContext); break;
                 case CompanyTaskType.ExploreCompany: ExploreCompany(task, gameContext); break;
                 case CompanyTaskType.AcquiringCompany: AcquireCompany(task); break;
-                case CompanyTaskType.UpgradeFeature: UpgradeFeature(task, gameContext); break;
                 case CompanyTaskType.ReleasingApp: ReleaseApp(task); break;
             }
         }
@@ -40,16 +39,6 @@
         {
             var c = Companies.Get(gameContext, task.CompanyId);
             c.AddResearch(1);
-        }
-
-        internal static void UpgradeFeature(CompanyTask task, GameContext gameContext)
-        {
-            var t = (task as CompanyTaskUpgradeFeature);
-
-            var product = Companies.Get(gameContext, t.CompanyId);
-
-            //product.features.features[t.ProductImprovement]++;
-            product.features.Count++;
         }
     }
 }

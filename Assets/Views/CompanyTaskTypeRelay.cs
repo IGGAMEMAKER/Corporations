@@ -40,17 +40,20 @@ public class CompanyTaskTypeRelay : View
 
     void ShowMarketingButton()
     {
-        ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
+        //ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
+        HideAll(ChoosingButtons);
     }
 
     void ShowDevButton()
     {
-        ShowOnly(ChooseDevelopmentTasksButton, ChoosingButtons);
+        //ShowOnly(ChooseDevelopmentTasksButton, ChoosingButtons);
+        HideAll(ChoosingButtons);
     }
 
     public void ChooseMarketingTasks()
     {
         SetMode(MarketingTasks, ChooseMarketingTasksButton);
+        Show(FeatureTasks);
         ShowDevButton();
 
         Hide(ChooseTaskTypeLabel);
@@ -58,8 +61,11 @@ public class CompanyTaskTypeRelay : View
 
     public void ChooseFeatureTasks()
     {
-        SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
+        //SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
+        SetMode(MarketingTasks, ChooseMarketingTasksButton);
+        Show(FeatureTasks);
         ShowMarketingButton();
+
 
         Hide(ChooseTaskTypeLabel);
     }

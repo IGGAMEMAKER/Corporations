@@ -37,8 +37,26 @@ public class MarketingChannelsListView : ListView
 
         var company = Flagship;
 
+        bool didMarketingCampaigns = Marketing.GetClients(company) > 50;
+        bool didFeatures = company.features.Upgrades.Count > 0;
+
+        int counter = 0;
+
+        if (didFeatures)
+        {
+            counter = 1;
+
+            if (didMarketingCampaigns)
+                counter = 4;
+
+            if (company.isRelease)
+                counter = 8;
+        }
+
         var availableChannels = Markets.GetAvailableMarketingChannels(Q, company, ShowActiveChannelsToo)
             .Where(c => Marketing.IsChannelProfitable(company, Q, c, segmentId))
+            .Where(c => didMarketingCampaigns || Marketing.GetChannelCostPerUser(company, Q, c) == 0)
+            .TakeWhile(c => counter-- > 0)
             ;
 
         channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c))); // segmentId

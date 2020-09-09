@@ -13,6 +13,9 @@ namespace Assets.Core
 
             messages.Add(popup);
 
+            if (!container.seenPopups.PopupTypes.Contains(popup.PopupType))
+                container.seenPopups.PopupTypes.Add(popup.PopupType);
+
             container.ReplacePopup(messages);
             ScreenUtils.UpdateScreen(gameContext);
         }

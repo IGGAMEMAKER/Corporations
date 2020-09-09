@@ -16,25 +16,28 @@ public class ReplaceTeamTaskController : ButtonController
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
 
-        if (view.IsChannelTask)
+        if (CompanyTaskTypeRelay != null)
         {
-            CompanyTaskTypeRelay.ChooseMarketingTasks();
-        }
-        else if (view.IsFeatureUpgradeTask)
-        {
-            CompanyTaskTypeRelay.ChooseFeatureTasks();
-        }
-        else if (view.IsServerTask)
-        {
-            CompanyTaskTypeRelay.ChooseServersideTasks();
-        }
-        else if (view.IsSupportTask)
-        {
-            CompanyTaskTypeRelay.ChooseSupportTasks();
-        }
-        else
-        {
-            CompanyTaskTypeRelay.ShowRelayButtons();
+            if (view.IsChannelTask)
+            {
+                CompanyTaskTypeRelay.ChooseMarketingTasks();
+            }
+            else if (view.IsFeatureUpgradeTask)
+            {
+                CompanyTaskTypeRelay.ChooseFeatureTasks();
+            }
+            else if (view.IsServerTask)
+            {
+                CompanyTaskTypeRelay.ChooseServersideTasks();
+            }
+            else if (view.IsSupportTask)
+            {
+                CompanyTaskTypeRelay.ChooseSupportTasks();
+            }
+            else
+            {
+                CompanyTaskTypeRelay.ShowRelayButtons();
+            }
         }
 
         ScheduleUtils.PauseGame(Q);

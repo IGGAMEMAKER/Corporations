@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,13 @@ public class MainPanelRelay : View
 
     void OnEnable()
     {
+        ShowDefaultMode();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
         ShowDefaultMode();
     }
 
@@ -81,11 +89,28 @@ public class MainPanelRelay : View
 
     public void ResetTabs()
     {
-        Show(AudiencePanel);
-        Show(AudienceLabel);
+        bool hadFirstMarketingCampaign = Marketing.GetClients(Flagship) > 50;
+        bool hadBankruptcyWarning = true; // NotificationUtils.GetPopupContainer(Q).seenPopups.PopupTypes.Contains(PopupType.BankruptcyThreat);
 
-        Show(InvestorsPanel);
-        Show(InvestmentsLabel);
+        if (hadFirstMarketingCampaign)
+        {
+            Show(AudiencePanel);
+            Show(AudienceLabel);
+        }
+        else
+        {
+            HideAudienceTab();
+        }
+
+        if (hadBankruptcyWarning)
+        {
+            Show(InvestorsPanel);
+            Show(InvestmentsLabel);
+        }
+        else
+        {
+            HideInvestmentTab();
+        }
 
         Show(TeamPanel);
         Show(TeamLabel);
