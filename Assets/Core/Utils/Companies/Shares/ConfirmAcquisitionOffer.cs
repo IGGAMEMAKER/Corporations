@@ -17,7 +17,7 @@ namespace Assets.Core
         public static void BuyCompany(GameContext gameContext, int companyId, int buyerInvestorId, long offer)
         {
             // can afford acquisition
-            var inv = Investments.GetInvestorById(gameContext, buyerInvestorId);
+            var inv = Investments.GetInvestor(gameContext, buyerInvestorId);
             if (!IsEnoughResources(inv, offer))
                 return;
 

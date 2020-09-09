@@ -40,7 +40,7 @@ namespace Assets.Core
 
         public static long GetFounderExitDesire(GameEntity startup, int shareholderId, GameContext gameContext)
         {
-            var founder = Investments.GetInvestorById(gameContext, shareholderId);
+            var founder = Investments.GetInvestor(gameContext, shareholderId);
 
             var ambition = Humans.GetFounderAmbition(founder.humanSkills.Traits, Humans.GetRating(founder));
 

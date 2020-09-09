@@ -28,33 +28,36 @@ namespace Assets.Core
 
             BecomeInvestor(gameContext, human, 1000000);
 
-            TurnToAngel(gameContext, investorId);
+            //TurnToAngel(gameContext, investorId);
+            var investor = GetInvestor(gameContext, investorId);
+
+            investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
 
             return human;
         }
 
-        public static void TurnToAngel(GameContext gameContext, int investorId)
-        {
-            var investor = GetInvestorById(gameContext, investorId);
+        //public static void TurnToAngel(GameContext gameContext, int investorId)
+        //{
+        //    var investor = GetInvestorById(gameContext, investorId);
 
-            investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
-        }
+        //    investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
+        //}
 
         public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
         {
-            var investor = GetInvestorById(context, investorId);
+            var investor = GetInvestor(context, investorId);
 
             Companies.AddResources(investor, sum);
         }
 
-        public static GameEntity GetInvestorById(GameContext context, int investorId)
+        public static GameEntity GetInvestor(GameContext context, int investorId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);
         }
 
         public static GameEntity GetCompanyByInvestorId(GameContext context, int investorId)
         {
-            return GetInvestorById(context, investorId);
+            return GetInvestor(context, investorId);
         }
 
         public static int GetCompanyIdByInvestorId(GameContext context, int investorId)

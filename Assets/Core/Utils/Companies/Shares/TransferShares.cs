@@ -51,7 +51,7 @@ namespace Assets.Core
         public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
             var shareholders = company.shareholders.Shareholders;
-            var inv = Investments.GetInvestorById(gameContext, investorId);
+            var inv = Investments.GetInvestor(gameContext, investorId);
             var shareholder = inv.shareholder;
 
             if (IsInvestsInCompany(company, investorId))
@@ -98,7 +98,7 @@ namespace Assets.Core
         public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
             var shareholders = company.shareholders.Shareholders;
-            var shareholder = Investments.GetInvestorById(gameContext, investorId).shareholder;
+            var shareholder = Investments.GetInvestor(gameContext, investorId).shareholder;
 
             var prev = shareholders[investorId];
 

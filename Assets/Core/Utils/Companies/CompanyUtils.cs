@@ -26,7 +26,7 @@ namespace Assets.Core
 
         public static GameEntity GetInvestorById(GameContext context, int investorId)
         {
-            return Investments.GetInvestorById(context, investorId);
+            return Investments.GetInvestor(context, investorId);
         }
 
 

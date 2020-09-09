@@ -19,7 +19,7 @@ public partial class PopupView : View
     void RenderInterestToCompany(PopupMessageInterestToCompany popup)
     {
         var target = Companies.Get(Q, popup.companyId);
-        var buyer = Investments.GetInvestorById(Q, popup.buyerInvestorId);
+        var buyer = Investments.GetInvestor(Q, popup.buyerInvestorId);
 
         bool isOurCompany = Companies.IsRelatedToPlayer(Q, target);
 
@@ -33,7 +33,7 @@ public partial class PopupView : View
     void RenderTargetAcquisition(PopupMessageAcquisitionOfCompanyInOurSphereOfInfluence popup)
     {
         var target = Companies.Get(Q, popup.companyId);
-        var buyer = Investments.GetInvestorById(Q, popup.InterceptorCompanyId);
+        var buyer = Investments.GetInvestor(Q, popup.InterceptorCompanyId);
 
         RenderUniversalPopup(
             "ACQUISITION!",

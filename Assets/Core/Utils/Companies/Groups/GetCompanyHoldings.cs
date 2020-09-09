@@ -64,7 +64,7 @@ namespace Assets.Core
                 var id = shareholder.Key;
                 var block = shareholder.Value.amount;
 
-                var investor = Investments.GetInvestorById(context, id);
+                var investor = Investments.GetInvestor(context, id);
                 if (investor.hasCompany)
                 {
                     // is managing company

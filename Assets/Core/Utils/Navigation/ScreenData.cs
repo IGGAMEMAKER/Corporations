@@ -74,7 +74,7 @@ namespace Assets.Core
         {
             var id = GetScreenParameter(gameContext, C.MENU_SELECTED_INVESTOR);
 
-            return Investments.GetInvestorById(gameContext, (int)id);
+            return Investments.GetInvestor(gameContext, (int)id);
         }
     }
 }

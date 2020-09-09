@@ -7,7 +7,7 @@ public class InvestorPreview : View
 {
     public int ShareholderId;
 
-    public GameEntity Investor => Investments.GetInvestorById(Q, ShareholderId);
+    public GameEntity Investor => Investments.GetInvestor(Q, ShareholderId);
 
     public void SetEntity(int shareholderId, GameEntity company)
     {
