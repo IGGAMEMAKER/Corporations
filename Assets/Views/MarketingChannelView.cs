@@ -54,7 +54,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var name = $"Channel {channel1.ID}";
         Title.text = name;
 
-        var adCost = Marketing.GetMarketingActivityCost(company, Q, channel);
+        var adCost = Marketing.GetMarketingActivityCost(company, channel);
         var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 

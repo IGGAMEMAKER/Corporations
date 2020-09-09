@@ -41,7 +41,7 @@ namespace Assets.Core
 
             foreach (var shareholderId in array)
             {
-                RemoveShareholder(target, shareholderId);
+                RemoveShareholder(target, gameContext, shareholderId);
             }
             AddShareholder(gameContext, companyId, buyerInvestorId, 100);
             target.isIndependentCompany = false;

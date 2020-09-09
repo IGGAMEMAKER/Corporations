@@ -58,7 +58,7 @@ namespace Assets.Core
                 return ShowActiveChannelsToo;
 
             var bigLoan = companyCost * 4 / 100;
-            var activityCost = Marketing.GetMarketingActivityCost(company, gameContext, c);
+            var activityCost = Marketing.GetMarketingActivityCost(company, c);
 
             // can afford
             return activityCost < bigLoan;

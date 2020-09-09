@@ -21,15 +21,16 @@ namespace Assets.Core
 
             if (daughter.hasProduct)
             {
-                AddFocusNiche(daughter.product.Niche, parent, context);
                 var industry = Markets.GetIndustry(daughter.product.Niche, context);
 
+                AddFocusNiche(daughter.product.Niche, parent, context);
                 AddFocusIndustry(industry, parent);
             }
 
 
             //Debug.Log("Attach " + daughter.company.Name + " to " + parent.company.Name);
 
+            AddOwning(parent, subsidiaryId);
             var shareholders = new Dictionary<int, BlockOfShares>
             {
                 {
@@ -53,21 +54,15 @@ namespace Assets.Core
             daughter.isIndependentCompany = false;
         }
 
+        public static void AddOwning(GameEntity company, int owningCompanyId)
+        {
+            if (!company.ownings.Holdings.Contains(owningCompanyId))
+                company.ownings.Holdings.Add(owningCompanyId);
+        }
+
         public static int CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
         {
-            //var startCapital = NicheUtils.GetStartCapital(nicheType, gameContext) / 2;
-
-            //if (!IsEnoughResources(group, startCapital))
-            //    return;
-
-            //SpendResources(group, startCapital);
-
-
-
             string name = group.company.Name + " " + Enums.GetFormattedNicheName(nicheType);
-
-            //if (GetCompanyByName(gameContext, name) != null)
-            //    name += " " + Markets.GetCompetitorsAmount(nicheType, gameContext);
 
             var c = GenerateProductCompany(gameContext, name, nicheType);
 

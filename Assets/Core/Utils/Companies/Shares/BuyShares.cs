@@ -87,7 +87,7 @@ namespace Assets.Core
             company.shareholders.Shareholders[sellerInvestorId] = b;
 
             if (b.amount <= 0)
-                RemoveShareholder(company, sellerInvestorId);
+                RemoveShareholder(company, context, sellerInvestorId);
 
             SpendResources(company, cost);
             AddMoneyToInvestor(context, sellerInvestorId, bid);

@@ -149,6 +149,11 @@ public class ResearchComponent : IComponent
     public int Level;
 }
 
+public class OwningsComponent : IComponent
+{
+    public List<int> Holdings;
+}
+
 public class ShareholderComponent : IComponent
 {
     public int Id;

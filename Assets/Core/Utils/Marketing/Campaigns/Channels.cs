@@ -5,31 +5,20 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId)
-        {
-            var channel = Markets.GetMarketingChannel(gameContext, ChannelId);
-
-            return GetMarketingActivityCost(product, gameContext, channel);
-        }
-        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, GameEntity channel)
+        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetMarketingActivityCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
+        public static long GetMarketingActivityCost(GameEntity product, GameEntity channel)
         {
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
         public static float GetChannelCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
         {
-            return GetMarketingActivityCost(product, gameContext, channel) / GetChannelClientGain(product, gameContext, channel);
+            return GetMarketingActivityCost(product, channel) / GetChannelClientGain(product, gameContext, channel);
         }
 
         public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
         {
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
-        }
-
-        public static bool IsChannelExplored(GameEntity channel, GameEntity product)
-        {
-            return true;
-            return product.channelExploration.Explored.Contains(channel.marketingChannel.ChannelInfo.ID);
         }
 
         public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
@@ -71,6 +60,13 @@ namespace Assets.Core
             return batch * marketingEffeciency / 100;
         }
 
+        public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)
+        {
+            var infos = GetAudienceInfos();
+
+            return infos.Select(i => GetChannelClientGain(company, gameContext, channel, i.ID)).Sum();
+        }
+
         public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
         {
             var marketingEffeciency = 0;
@@ -87,18 +83,11 @@ namespace Assets.Core
             return 50 + marketingEffeciency;
         }
 
-        public static long GetChannelClientGain(GameEntity company, GameContext gameContext, GameEntity channel)
-        {
-            var infos = GetAudienceInfos();
-
-            return infos.Select(i => GetChannelClientGain(company, gameContext, channel, i.ID)).Sum();
-        }
-
         // in months
         public static bool IsChannelProfitable(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId) => true; // GetChannelRepaymentSpeed(company, gameContext, channel, segmentId) < 10000;
         public static float GetChannelROI(GameEntity company, GameContext gameContext, GameEntity channel, int segmentId)
         {
-            var adCost = (float)GetMarketingActivityCost(company, gameContext, channel);
+            var adCost = (float)GetMarketingActivityCost(company, channel);
 
             var churn = GetChurnRate(gameContext, company, segmentId);
 
@@ -108,6 +97,7 @@ namespace Assets.Core
             {
                 return 1000000f;
             }
+
             return gainedUsers / adCost;
 
             var q = (100 - churn) / 100f;
@@ -129,36 +119,6 @@ namespace Assets.Core
             // channel will never repay
 
             return 10000;
-        }
-
-        public static void ExploreChannel(GameEntity channel, GameEntity product)
-        {
-            var channelId = channel.marketingChannel.ChannelInfo.ID;
-
-            if (!product.channelExploration.InProgress.ContainsKey(channelId))
-                product.channelExploration.InProgress[channelId] = 7;
-        }
-
-        public static int GetAmountOfEnabledChannels(GameEntity product)
-        {
-            return product.companyMarketingActivities.Channels.Count;
-        }
-
-        static int GetTeamsChannelReach(GameEntity product, TeamType teamType)
-        {
-            return Teams.GetAmountOfTeams(product, teamType) * Teams.GetAmountOfPossibleChannelsByTeamType(teamType);
-        }
-
-        public static int GetAmountOfChannelsThatYourTeamCanReach(GameEntity product)
-        {
-            var teams = product.team.Teams;
-
-            var marketingTeams          = GetTeamsChannelReach(product, TeamType.MarketingTeam);
-            var crossfunctionalTeams    = GetTeamsChannelReach(product, TeamType.CrossfunctionalTeam);
-            var smallUniversalTeams     = GetTeamsChannelReach(product, TeamType.SmallCrossfunctionalTeam);
-            var bigCrossfunctionalTeams = GetTeamsChannelReach(product, TeamType.BigCrossfunctionalTeam);
-
-            return marketingTeams + smallUniversalTeams + crossfunctionalTeams + bigCrossfunctionalTeams;
         }
 
         public static void EnableChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel)

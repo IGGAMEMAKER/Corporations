@@ -35,10 +35,11 @@
                 investorType = InvestorType.Founder;
 
                 if (!e.hasCompanyResource)
-                    e.AddCompanyResource(new Core.TeamResource(money));
+                    e.AddCompanyResource(new TeamResource(money));
             }
 
             e.AddShareholder(investorId, name, investorType);
+            e.AddOwnings(new System.Collections.Generic.List<int>());
 
             if (!e.hasCorporateCulture)
                 e.AddCorporateCulture(Companies.GetFundCorporateCulture());

@@ -55,8 +55,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageSupport(GameEntity product, ref List<string> str)
     {
-        int tries = 3;
-        while (Products.IsNeedsMoreServers(product) && tries > 0)
+        int tries = 2;
+        if (Products.IsNeedsMoreServers(product) && tries > 0)
         {
             tries--;
             AddServer(product, ref str);
@@ -76,7 +76,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void ManageChannels(GameEntity product, ref List<string> str)
     {
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
-            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c));
+            .Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
+            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
+            ;
 
         foreach (var c in channels)
         {

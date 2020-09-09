@@ -41,12 +41,10 @@ namespace Assets.Core
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, Get(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {
-            if (!c.hasShareholder)
+            if (!c.hasOwnings)
                 return new GameEntity[0];
 
-            int investorId = c.shareholder.Id;
-
-            return GetInvestments(context, investorId);
+            return c.ownings.Holdings.Select(companyId => Get(context, companyId)).ToArray();
         }
 
         public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
@@ -81,14 +79,6 @@ namespace Assets.Core
             }
 
             return parent;
-        }
-
-        private static GameEntity[] GetInvestments(GameContext context, int investorId)
-        {
-            return Array.FindAll(
-                context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Shareholders)),
-                c => IsInvestsInCompany(c, investorId)
-                );
         }
 
         public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)

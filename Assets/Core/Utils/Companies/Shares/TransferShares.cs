@@ -51,7 +51,8 @@ namespace Assets.Core
         public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
             var shareholders = company.shareholders.Shareholders;
-            var shareholder = Investments.GetInvestorById(gameContext, investorId).shareholder;
+            var inv = Investments.GetInvestorById(gameContext, investorId);
+            var shareholder = inv.shareholder;
 
             if (IsInvestsInCompany(company, investorId))
             {
@@ -75,17 +76,24 @@ namespace Assets.Core
                 };
             }
 
+            AddOwning(inv, company.company.Id);
             ReplaceShareholders(company, shareholders);
         }
 
-        public static void RemoveShareholder(GameEntity company, int shareholderId)
+        public static void RemoveShareholder(GameEntity company, GameContext gameContext, int shareholderId)
         {
             var shareholders = company.shareholders.Shareholders;
 
             shareholders.Remove(shareholderId);
 
             ReplaceShareholders(company, shareholders);
+
+            // remove owning from shareholder
+            var shareholder = GetInvestorById(gameContext, shareholderId);
+            shareholder.ownings.Holdings.Remove(company.company.Id);
         }
+
+
 
         public static void DecreaseShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
@@ -97,7 +105,7 @@ namespace Assets.Core
             if (amountOfShares >= prev.amount)
             {
                 // needs to be deleted
-                RemoveShareholder(company, investorId);
+                RemoveShareholder(company, gameContext, investorId);
                 return;
             }
 

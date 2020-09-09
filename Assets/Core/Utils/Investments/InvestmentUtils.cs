@@ -53,15 +53,10 @@ namespace Assets.Core
         {
             return GetInvestorById(context, investorId);
         }
+
         public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
         {
             return GetCompanyByInvestorId(context, investorId).company.Id;
-        }
-
-        public static string GetInvestorGoalDescription(BlockOfShares shares)
-        {
-            return shares.InvestorType.ToString();
-            //return GetFormattedInvestorGoal(shares.InvestorType);
         }
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
