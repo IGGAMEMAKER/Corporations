@@ -9,6 +9,6 @@ public class HideReleaseAppButton : HideOnSomeCondition
     {
         //var p = SelectedCompany;
         var p = Flagship;
-        return !Companies.IsReleaseableApp(p, Q);
+        return !Companies.IsReleaseableApp(p);
     }
 }

@@ -4,10 +4,8 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static bool IsReleaseableApp(GameEntity product, GameContext gameContext)
+        public static bool IsReleaseableApp(GameEntity product)
         {
-            //var hasCriticalMassOfUsers = Marketing.GetClients(product) >= 500;
-
             return !product.isRelease && product.companyGoal.InvestorGoal == InvestorGoal.Release;
         }
 
@@ -29,7 +27,7 @@ namespace Assets.Core
         public static GameEntity[] GetDaughterReleaseableCompanies(GameContext gameContext, int companyId)
         {
             return GetDaughterProductCompanies(gameContext, companyId)
-            .Where(p => IsReleaseableApp(p, gameContext))
+            .Where(p => IsReleaseableApp(p))
             .ToArray();
         }
 

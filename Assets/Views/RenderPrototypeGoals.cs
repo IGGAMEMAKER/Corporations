@@ -35,7 +35,7 @@ public class RenderPrototypeGoals : ParameterView
         if (goal >= InvestorGoal.BecomeMarketFit)
             t += $"\n\n<i>* Reach market requirements</i>\n\tyou have: {level}LV / {marketrequirements}LV) {levelgoal}";
 
-        if (Companies.IsReleaseableApp(company, Q))
+        if (Companies.IsReleaseableApp(company))
         {
             t += "\n\n" + Visuals.Positive("You can release your product!!!");
         }

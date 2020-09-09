@@ -15,7 +15,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             List<string> str = new List<string>();
 
-            if (Companies.IsReleaseableApp(product, gameContext))
+            if (Companies.IsReleaseableApp(product))
                 Marketing.ReleaseApp(gameContext, product);
 
             ManageSupport(product, ref str);
@@ -76,23 +76,26 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void ManageChannels(GameEntity product, ref List<string> str)
     {
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
-            .Where(c => !Marketing.IsCompanyActiveInChannel(product, c))
-            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
+            .Where(c1 => !Marketing.IsCompanyActiveInChannel(product, c1))
+            .FirstOrDefault()
+            //.OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
             ;
 
-        foreach (var c in channels)
-        {
-            var load = Products.GetServerLoad(product);
-            var capacity = Products.GetServerCapacity(product);
+        var c = channels;
+        
+        //foreach (var c in channels)
+        //{
+        var load = Products.GetServerLoad(product);
+        var capacity = Products.GetServerCapacity(product);
 
-            var growth = Marketing.GetAudienceChange(product, gameContext);
+        var growth = Marketing.GetAudienceChange(product, gameContext);
 
-            var gain = Marketing.GetChannelClientGain(product, gameContext, c);
-            bool willExceedLimits = load + growth + gain >= capacity;
+        var gain = Marketing.GetChannelClientGain(product, gameContext, c);
+        bool willExceedLimits = load + growth + gain >= capacity;
 
-            if (!willExceedLimits)
-                TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
-        }
+        if (!willExceedLimits)
+            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
+        //}
     }
 
     void AddServer(GameEntity product, ref List<string> str)
