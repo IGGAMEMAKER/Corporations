@@ -55,7 +55,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageSupport(GameEntity product, ref List<string> str)
     {
-        int tries = 4;
+        int tries = 3;
         while (Products.IsNeedsMoreServers(product) && tries > 0)
         {
             tries--;
