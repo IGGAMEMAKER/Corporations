@@ -10,6 +10,7 @@ namespace Assets.Core
         public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
         {
             int totalShares = 0;
+
             foreach (var e in shareholders)
                 totalShares += e.Value.amount;
 
@@ -45,15 +46,9 @@ namespace Assets.Core
             return IsInvestsInCompany(c, investorId) ? shareholders[investorId].amount : 0;
         }
 
-        public static bool IsInvestsInCompany(GameContext gameContext, int companyId, int investorId)
-        {
-            return IsInvestsInCompany(Get(gameContext, companyId), investorId);
-        }
-
         public static bool IsInvestsInCompany(GameEntity company, int investorId)
         {
             return Investments.IsInvestsInCompany(investorId, company);
-            //return company.shareholders.Shareholders.ContainsKey(investorId);
         }
 
         public static int GetShareSize(GameContext context, int companyId, int investorId)
@@ -81,28 +76,10 @@ namespace Assets.Core
             return Economy.GetCompanyCost(context, c.company.Id) * shares / total;
         }
 
+        public static string GetInvestorName(GameContext context, int investorId) => GetInvestorName(GetInvestorById(context, investorId));
         public static string GetInvestorName(GameEntity investor)
         {
             return investor.shareholder.Name;
-        }
-
-        public static string GetInvestorName(GameContext context, int investorId)
-        {
-            return GetInvestorName(GetInvestorById(context, investorId));
-        }
-
-        public static int GetBiggestShareholder(GameContext gameContext, int companyId)
-        {
-            var c = Get(gameContext, companyId);
-
-            var list = c.shareholders.Shareholders.OrderBy(key => key.Value);
-
-            return list.First().Key;
-        }
-
-        public static string GetBiggestShareholderName(GameContext gameContext, int companyId)
-        {
-            return GetInvestorName(gameContext, GetBiggestShareholder(gameContext, companyId));
         }
 
         public static string GetShareholderStatus(int sharesPercent)

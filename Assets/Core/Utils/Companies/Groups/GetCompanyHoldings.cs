@@ -35,7 +35,7 @@ namespace Assets.Core
 
         public static int GetDaughterCompaniesAmount(GameEntity company, GameContext gameContext)
         {
-            return GetDaughterCompanies(gameContext, company).Count();
+            return company.hasOwnings ? company.ownings.Holdings.Count() : 0;
         }
 
         public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, Get(context, companyId));
@@ -65,6 +65,7 @@ namespace Assets.Core
                 var block = shareholder.Value.amount;
 
                 var investor = Investments.GetInvestor(context, id);
+
                 if (investor.hasCompany)
                 {
                     // is managing company
@@ -80,6 +81,7 @@ namespace Assets.Core
 
 
 
+        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity investorEntity, bool recursively) => GetHoldings(context, investorEntity.shareholder.Id, recursively);
         public static List<CompanyHolding> GetHoldings(GameContext context, int shareholderId, bool recursively)
         {
             List<CompanyHolding> holdings = new List<CompanyHolding>();
@@ -90,7 +92,7 @@ namespace Assets.Core
                 {
                     companyId = investment.company.Id,
                     control = GetShareSize(context, investment.company.Id, shareholderId),
-                    holdings = recursively ? GetCompanyHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
+                    holdings = recursively ? GetHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
                 };
 
                 holdings.Add(holding);
@@ -103,13 +105,6 @@ namespace Assets.Core
         {
             return GetHoldings(context, Get(context, companyId).shareholder.Id, recursively);
         }
-
-        public static List<CompanyHolding> GetPersonalHoldings(GameContext context, int shareholderId, bool recursively)
-        {
-            return GetHoldings(context, shareholderId, recursively);
-        }
-
-
 
         // changes
         public static ProductCompanyResult GetProductCompanyResults(GameEntity product, GameContext gameContext)
@@ -155,8 +150,6 @@ namespace Assets.Core
                 CompanyId = product.company.Id
             };
         }
-
-
     }
 
     public class CompanyHolding

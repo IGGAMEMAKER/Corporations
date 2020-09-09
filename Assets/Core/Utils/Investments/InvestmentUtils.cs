@@ -65,9 +65,10 @@ namespace Assets.Core
             return GetCompanyByInvestorId(context, investorId).company.Id;
         }
 
+
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
-            var holdings = Companies.GetPersonalHoldings(gameContext, human.shareholder.Id, false);
+            var holdings = Companies.GetHoldings(gameContext, human, false);
 
             return Economy.GetHoldingCost(gameContext, holdings);
         }
