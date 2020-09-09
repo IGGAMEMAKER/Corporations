@@ -2,26 +2,17 @@
 
 public class RenderPersonalCapital : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
-
-    GameEntity human
-    {
-        get
-        {
-            return SelectedHuman;
-        }
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {
         var text = "";
 
+        var human = SelectedHuman;
+
         if (human.hasCompanyResource)
         {
-            text += "Holdings cost: " + Format.Money(Investments.GetInvestorCapitalCost(Q, SelectedHuman));
+            text += "Holdings cost: " + Format.Money(Investments.GetInvestorCapitalCost(Q, human));
 
             //if (SelectedHuman == Me)
             //    text += "\nCash: " + Format.Money(human.companyResource.Resources.money);

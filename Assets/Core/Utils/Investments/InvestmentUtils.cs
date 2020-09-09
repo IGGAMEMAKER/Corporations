@@ -20,36 +20,6 @@ namespace Assets.Core
             return c.ownings.Holdings.Select(companyId => Companies.Get(context, companyId)).ToArray();
         }
 
-        public static GameEntity GenerateAngel(GameContext gameContext)
-        {
-            var human = Humans.GenerateHuman(gameContext);
-
-            var investorId = GenerateInvestorId(gameContext);
-
-            BecomeInvestor(gameContext, human, 1000000);
-
-            //TurnToAngel(gameContext, investorId);
-            var investor = GetInvestor(gameContext, investorId);
-
-            investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
-
-            return human;
-        }
-
-        //public static void TurnToAngel(GameContext gameContext, int investorId)
-        //{
-        //    var investor = GetInvestorById(gameContext, investorId);
-
-        //    investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
-        //}
-
-        public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
-        {
-            var investor = GetInvestor(context, investorId);
-
-            Companies.AddResources(investor, sum);
-        }
-
         public static GameEntity GetInvestor(GameContext context, int investorId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);
@@ -60,11 +30,32 @@ namespace Assets.Core
             return GetInvestor(context, investorId);
         }
 
-        public static int GetCompanyIdByInvestorId(GameContext context, int investorId)
+        public static GameEntity GenerateAngel(GameContext gameContext)
         {
-            return GetCompanyByInvestorId(context, investorId).company.Id;
+            var human = Humans.GenerateHuman(gameContext);
+
+            var investorId = GenerateInvestorId(gameContext);
+
+            BecomeInvestor(gameContext, human, 1000000);
+
+            TurnToAngel(gameContext, investorId);
+
+            return human;
         }
 
+        public static void TurnToAngel(GameContext gameContext, int investorId)
+        {
+            var investor = GetInvestor(gameContext, investorId);
+
+            investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
+        }
+
+        public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
+        {
+            var investor = GetInvestor(context, investorId);
+
+            Companies.AddResources(investor, sum);
+        }
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
