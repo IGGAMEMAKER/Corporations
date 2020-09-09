@@ -104,7 +104,8 @@ public class FlagshipInterruptsView : View
 
         SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
 
-        SpecialDraw(AcquisitionOffer, hasAcquisitionOffers);
+        // hasAcquisitionOffers
+        SpecialDraw(AcquisitionOffer, false);
 
         if (problemCounter > previousCounter)
         {
