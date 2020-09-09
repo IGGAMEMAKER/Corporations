@@ -83,14 +83,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product, ref List<string> str)
     {
-        var targetAudience = product.productTargetAudience.SegmentId;
-
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c));
 
-        //if (channels.Count() > 0)
-            foreach (var c in channels)
-            {
+        foreach (var c in channels)
+        {
             //TryAddTask(product, new TeamTaskChannelActivity(channels.First().marketingChannel.ChannelInfo.ID), ref str);
             TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
         }

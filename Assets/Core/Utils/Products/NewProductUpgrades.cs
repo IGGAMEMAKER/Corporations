@@ -14,7 +14,7 @@ namespace Assets.Core
             var top = 3;
             var ok = 1;
 
-            var hate = -7;
+            var hate = -10;
             var bad = -3;
 
             var socialNetworkFeatures = new NewProductFeature[]
