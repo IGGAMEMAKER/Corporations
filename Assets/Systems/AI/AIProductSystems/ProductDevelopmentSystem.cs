@@ -55,8 +55,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageSupport(GameEntity product, ref List<string> str)
     {
-        while (Products.IsNeedsMoreServers(product))
+        int tries = 4;
+        while (Products.IsNeedsMoreServers(product) && tries > 0)
+        {
+            tries--;
             AddServer(product, ref str);
+        }
 
         var load = Products.GetServerLoad(product);
         var capacity = Products.GetServerCapacity(product);
@@ -124,7 +128,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             if (CanMaintain(product, teamCost + taskCost, ref str))
             {
-                if (teamTask.IsHighloadTask && (teamTask as TeamTaskSupportFeature).SupportFeature.SupportBonus.Max >= 1_000_000)
+                if (teamTask.IsHighloadTask)
                 {
                     Teams.AddTeam(product, TeamType.DevOpsTeam);
                 }

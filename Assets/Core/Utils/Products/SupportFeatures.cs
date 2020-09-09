@@ -89,7 +89,7 @@ namespace Assets.Core
             var capacity = GetServerCapacity(product);
             var load = GetClientLoad(product); // add DDoS multiplier
 
-            return load >= capacity + C.MINIMUM_SUPPORTED_CLIENTS;
+            return load >= capacity;
         }
 
         // summary feature benefit
