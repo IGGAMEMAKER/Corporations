@@ -44,6 +44,8 @@ public class TaskPanelView : View
             var rating = Products.GetFeatureRating(Flagship, f.NewProductFeature.Name);
             var ratingColor = Visuals.GetGradientColor(0, 10f, rating);
 
+
+
             foreach (var s in segments)
             {
                 var segmentId = s.ID;
@@ -63,13 +65,20 @@ public class TaskPanelView : View
                 //else
                 //    featureDescription += "\n\nNo effects";
 
-                if (f.NewProductFeature.FeatureBonus.isMonetisationFeature)
-                {
-                    var monetisationBenefit = Products.GetFeatureActualBenefit(Flagship, f.NewProductFeature); // f.NewProductFeature.FeatureBonus.Max;
-                    var monetisationBenefitMax = f.NewProductFeature.FeatureBonus.Max;
+            }
 
-                    featureDescription += $"\n\n{Visuals.Positive($"Increases income by +{monetisationBenefit.ToString("0.0")}% (max: +{monetisationBenefitMax}%)")}";
-                }
+            if (f.NewProductFeature.FeatureBonus.isRetentionFeature)
+            {
+
+            }
+            if (f.NewProductFeature.FeatureBonus.isMonetisationFeature)
+            {
+                var monetisationBenefit = Products.GetFeatureActualBenefit(Flagship, f.NewProductFeature); // f.NewProductFeature.FeatureBonus.Max;
+                var monetisationBenefitMax = f.NewProductFeature.FeatureBonus.Max;
+
+                featureDescription += Visuals.Positive("\n\nYou will lose less loyalty after upgrading this feature");
+
+                featureDescription += $"\n\n{Visuals.Positive($"Increases income by +{monetisationBenefit.ToString("0.0")}% (max: +{monetisationBenefitMax}%)")}";
             }
 
 
@@ -83,12 +92,12 @@ public class TaskPanelView : View
             TaskBenefit.text = $"<size=40>Quality: {ratingFormatted} / 10lvl</size>" +
                 //$"This feature will be upgraded to level {ratingCap}" + 
                 $"\n\n<size=30>Gives you {sumLoyaltyFormatted} loyalty total</size>" +
-                $"\n\nOn quality=10 you will get:" +
-                $"\n\n<size=30>{sumLoyaltyMaxFormatted} loyalty total</size>" +
+                //$"\n\nOn quality=10 you will get:" +
+                //$"\n\n<size=30>{sumLoyaltyMaxFormatted} loyalty total</size>" +
                 $"\n{featureDescription}"
                 ;
 
-            TaskModifiers.text = $"This feature will be upgraded to level {ratingCap}";
+            TaskModifiers.text = $"Will be upgraded to level {ratingCap} due to assigned team";
         }
 
         if (teamTask.IsMarketingTask)
