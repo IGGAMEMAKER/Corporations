@@ -12,6 +12,7 @@ public class TeamTaskView : View
     public Image Icon;
 
     public Sprite FeatureSprite;
+    public Sprite MonetisationSprite;
     public Sprite ChannelSprite;
 
     public Sprite SupportSprite;
@@ -58,6 +59,11 @@ public class TeamTaskView : View
         {
             // set image
             Icon.sprite = FeatureSprite;
+
+            if ((Task as TeamTaskFeatureUpgrade).NewProductFeature.FeatureBonus.isMonetisationFeature)
+            {
+                Icon.sprite = MonetisationSprite;
+            }
 
             var featureName = (task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
             var rating = Products.GetFeatureRating(company, featureName);

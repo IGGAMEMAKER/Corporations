@@ -17,11 +17,11 @@ public class ServerLoadView : UpgradedParameterView
 
         bool overloaded = Products.IsNeedsMoreServers(Flagship);
 
-        var str = $"Load: <b>{load} / {capacity}</b>";
+        var str = $"Load: <b>{(overloaded ? Visuals.Negative(load) : load)} / {capacity}</b>";
 
         if (overloaded)
         {
-            str += Visuals.Negative(" Servers are overloaded!");
+            str += Visuals.Negative(" ADD MORE SERVERS!");
         }
 
         return str;

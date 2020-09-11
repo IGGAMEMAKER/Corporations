@@ -23,7 +23,7 @@ public class SupportView : View
 
         var featureName = SupportFeature.Name;
 
-        Name.text = featureName + " for";
+        Name.text = featureName;
         Benefits.text = "Users";
 
 

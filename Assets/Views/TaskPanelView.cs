@@ -36,8 +36,13 @@ public class TaskPanelView : View
             var segments = Marketing.GetAudienceInfos();
 
             float sumLoyalty = 0;
+            float sumLoyaltyMax = 0;
+            float sumLoyaltyABS = 0;
 
             var featureDescription = "";
+
+            var rating = Products.GetFeatureRating(Flagship, f.NewProductFeature.Name);
+            var ratingColor = Visuals.GetGradientColor(0, 10f, rating);
 
             foreach (var s in segments)
             {
@@ -47,23 +52,43 @@ public class TaskPanelView : View
                 var benefit = Marketing.GetLoyaltyChangeFromFeature(Flagship, f.NewProductFeature, segmentId, false);
 
                 sumLoyalty += benefit;
+                sumLoyaltyMax += maxBenefit;
+                sumLoyaltyABS += Mathf.Abs(benefit);
 
-                var maxBenefitFormatted = Visuals.Colorize(maxBenefit.ToString("0.0"), maxBenefit >= 0);
-                var benefitFormatted = Visuals.Colorize(benefit.ToString("0.0"), benefit >= 0);
+                var maxBenefitFormatted = Visuals.Colorize(maxBenefit.ToString("+0;-#"), maxBenefit >= 0);
+                var benefitFormatted = Visuals.Colorize(benefit.ToString("+0.0;-#"), ratingColor);
 
-                featureDescription += $"\n{maxBenefitFormatted} loyalty for {s.Name} (currently: {benefitFormatted})";
+                //if (benefit != 0)
+                //    featureDescription += $"\n\n{maxBenefitFormatted} loyalty for {s.Name}\n\t<i>currently</i>: {benefitFormatted}";
+                //else
+                //    featureDescription += "\n\nNo effects";
+
+                if (f.NewProductFeature.FeatureBonus.isMonetisationFeature)
+                {
+                    var monetisationBenefit = Products.GetFeatureActualBenefit(Flagship, f.NewProductFeature); // f.NewProductFeature.FeatureBonus.Max;
+                    var monetisationBenefitMax = f.NewProductFeature.FeatureBonus.Max;
+
+                    featureDescription += $"\n\n{Visuals.Positive($"Increases income by +{monetisationBenefit.ToString("0.0")}% (max: +{monetisationBenefitMax}%)")}";
+                }
             }
 
-            var rating = Products.GetFeatureRating(Flagship, f.NewProductFeature.Name);
 
-            TaskBenefit.text = $"<size=40>Quality: {rating.ToString("0.0")} / 10lvl</size>" +
-                $"\n<size=30>Gives you {Visuals.Colorize(sumLoyalty.ToString("0.0"), sumLoyalty >= 0)} loyalty total</size>" +
-                $"\nOn level 10 it will give you" +
+            var sumLoyaltyFormatted = Visuals.Colorize(sumLoyalty.ToString("+0.0;-#"), sumLoyalty >= 0);
+            var sumLoyaltyMaxFormatted = Visuals.Colorize(sumLoyaltyMax.ToString("+0.0;-#"), sumLoyaltyMax >= 0);
+
+            var ratingFormatted = Visuals.Colorize(rating.ToString("0.0"), ratingColor);
+
+            var ratingCap = Products.GetFeatureRatingCap(Flagship, team, Q);
+
+            TaskBenefit.text = $"<size=40>Quality: {ratingFormatted} / 10lvl</size>" +
+                //$"This feature will be upgraded to level {ratingCap}" + 
+                $"\n\n<size=30>Gives you {sumLoyaltyFormatted} loyalty total</size>" +
+                $"\n\nOn quality=10 you will get:" +
+                $"\n\n<size=30>{sumLoyaltyMaxFormatted} loyalty total</size>" +
                 $"\n{featureDescription}"
                 ;
 
-            var ratingCap = Products.GetFeatureRatingCap(Flagship, team, Q);
-            TaskModifiers.text = $"This feature will be upgraded till level {ratingCap}";
+            TaskModifiers.text = $"This feature will be upgraded to level {ratingCap}";
         }
 
         if (teamTask.IsMarketingTask)
