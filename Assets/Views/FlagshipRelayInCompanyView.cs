@@ -14,8 +14,7 @@ public class FlagshipRelayInCompanyView : View
     public GameObject AudiencePickingTab;
     public GameObject AssignTaskPanel;
 
-    public GameObject RemoveTaskButton;
-    public ChosenTeamTaskView ChosenTaskLabel;
+    public TaskPanelView TaskPanel;
 
     public NewTeamTypeRelay NewTeamTypeRelay;
 
@@ -94,26 +93,24 @@ public class FlagshipRelayInCompanyView : View
         ChooseWorkerInteractions();
     }
 
-    public void ChooseDevTab()
+    public void ChooseTaskTab()
     {
         ShowOnly(DevelopmentTab, Tabs);
 
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
-        var hasTask = ChosenTeamId >= 0 && tasks.Count > ChosenSlotId;
+        var task = ChosenTeamId >= 0 ? tasks[ChosenSlotId] : null;
 
-        if (hasTask)
-            ChosenTaskLabel.SetTask(tasks[ChosenSlotId]);
-
-        Draw(ChosenTaskLabel, hasTask);
-        Draw(RemoveTaskButton, hasTask);
+        if (task != null)
+            TaskPanel.SetEntity(ChosenTeamId, task);
     }
 
     public void ChooseInvestmentTab()
     {
         ShowOnly(InvestmentTabs, Tabs);
 
-        Hide(ChosenTaskLabel);
-        Hide(RemoveTaskButton);
+        //Hide(TaskPanel);
+        //Hide(ChosenTaskLabel);
+        //Hide(RemoveTaskButton);
     }
 
     public void ChooseManagersTabs(int teamId)
@@ -121,7 +118,8 @@ public class FlagshipRelayInCompanyView : View
         FillSlot(teamId, 0);
         ShowOnly(ManagersTabs, Tabs);
 
-        Hide(ChosenTaskLabel);
-        Hide(RemoveTaskButton);
+        Hide(TaskPanel);
+        //Hide(ChosenTaskLabel);
+        //Hide(RemoveTaskButton);
     }
 }

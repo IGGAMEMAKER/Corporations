@@ -63,6 +63,14 @@ namespace Assets.Core
             return Mathf.Clamp(cap, 0, 10);
         }
 
+        public static void RemoveFeature(GameEntity product, string featureName, GameContext gameContext)
+        {
+            if (product.features.Upgrades.ContainsKey(featureName))
+                product.features.Upgrades.Remove(featureName);
+
+            //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
+        }
+
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
         {
             if (IsUpgradedFeature(product, featureName))

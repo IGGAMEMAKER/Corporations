@@ -12,7 +12,7 @@ public class ReplaceTeamTaskController : ButtonController
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
         relay.FillSlot(view.TeamId, view.SlotId);
-        relay.ChooseDevTab();
+        relay.ChooseTaskTab();
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
 

@@ -23,7 +23,7 @@ public class AddTaskForTheTeamController : ButtonController
         int SlotId = team.Tasks.Count;
 
         relay.FillSlot(TeamId, SlotId);
-        relay.ChooseDevTab();
+        relay.ChooseTaskTab();
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
         CompanyTaskTypeRelay.ShowRelayButtons();
