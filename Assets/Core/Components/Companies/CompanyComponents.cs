@@ -266,6 +266,22 @@ public class TeamTask {
 
         return this.ToString();
     }
+
+    public override bool Equals(object obj)
+    {
+        var t2 = obj as TeamTask;
+
+        if (IsFeatureUpgrade && t2.IsFeatureUpgrade)
+            return (this as TeamTaskFeatureUpgrade).NewProductFeature.Name == (t2 as TeamTaskFeatureUpgrade).NewProductFeature.Name;
+
+        if (IsMarketingTask && t2.IsMarketingTask)
+            return (this as TeamTaskChannelActivity).ChannelId == (t2 as TeamTaskChannelActivity).ChannelId;
+
+        if (IsSupportTask && t2.IsSupportTask)
+            return (this as TeamTaskSupportFeature).SupportFeature.Name == (t2 as TeamTaskSupportFeature).SupportFeature.Name;
+
+        return false; // base.Equals(obj);
+    }
 }
 
 public class TeamTaskChannelActivity : TeamTask

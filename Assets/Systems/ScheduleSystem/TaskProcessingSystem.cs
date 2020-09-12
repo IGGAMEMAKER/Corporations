@@ -2,6 +2,7 @@
 using Assets.Core;
 using Entitas;
 using System.Linq;
+using UnityEngine;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
@@ -38,20 +39,51 @@ public partial class TaskProcessingSystem : OnDateChange
 
         foreach (var p in products)
         {
+            List<SlotInfo> removableTasks = new List<SlotInfo>();
+
+            int teamId = 0;
             foreach (var team in p.team.Teams)
             {
+                int slotId = 0;
                 foreach (var task in team.Tasks)
                 {
                     if (task is TeamTaskFeatureUpgrade)
                     {
                         var upgrade = (task as TeamTaskFeatureUpgrade);
 
-                        if (!Products.IsUpgradingFeature(p, gameContext, upgrade.NewProductFeature.Name))
+                        var featureName = upgrade.NewProductFeature.Name;
+
+                        if (!Products.IsUpgradingFeature(p, gameContext, featureName))
                         {
-                            Products.UpgradeFeature(p, upgrade.NewProductFeature.Name, gameContext, team);
+                            Products.UpgradeFeature(p, featureName, gameContext, team);
+
+                            // -----------------------
+
+                            var cap = Products.GetFeatureRatingCap(p, team, gameContext);
+
+                            if (p.features.Upgrades[featureName] >= cap)
+                            {
+                                removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
+                            }
                         }
                     }
+
+                    if (task is TeamTaskChannelActivity)
+                    {
+                        // channel tookout
+                    }
+
+                    slotId++;
                 }
+
+                teamId++;
+            }
+
+            // remove expired tasks
+            removableTasks.Reverse();
+            foreach (var s in removableTasks)
+            {
+                Teams.RemoveTeamTask(p, gameContext, s.TeamId, s.SlotId);
             }
         }
     }

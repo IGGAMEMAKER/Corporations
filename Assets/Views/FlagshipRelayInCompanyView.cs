@@ -66,10 +66,27 @@ public class FlagshipRelayInCompanyView : View
     {
         TeamTask = teamTask;
 
-        ShowOnly(AssignTaskPanel, Tabs);
-        FindObjectOfType<HideNewTeamButtonIfOldOnesAreNotFinished>().SetEntity(TeamTask);
+        bool hasOneTeam = Flagship.team.Teams.Count == 1;
+        bool hasSlotForTask = Flagship.team.Teams[0].Tasks.Count < 4;
 
-        ScheduleUtils.PauseGame(Q);
+        if (hasOneTeam)
+        {
+            if (hasSlotForTask)
+            {
+                Teams.AddTeamTask(Flagship, Q, 0, teamTask);
+            }
+            else
+            {
+                NotificationUtils.AddSimplePopup(Q, "Need more teams", "But you cannot hire them now. Remove less important tasks to make this one");
+            }
+        }
+        else
+        {
+            ShowOnly(AssignTaskPanel, Tabs);
+            FindObjectOfType<HideNewTeamButtonIfOldOnesAreNotFinished>().SetEntity(TeamTask);
+
+            ScheduleUtils.PauseGame(Q);
+        }
     }
 
     public void ChooseAudiencePickingPanel()

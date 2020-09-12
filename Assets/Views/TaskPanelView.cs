@@ -76,7 +76,7 @@ public class TaskPanelView : View
                 var monetisationBenefit = Products.GetFeatureActualBenefit(Flagship, f.NewProductFeature); // f.NewProductFeature.FeatureBonus.Max;
                 var monetisationBenefitMax = f.NewProductFeature.FeatureBonus.Max;
 
-                featureDescription += Visuals.Positive("\n\nYou will lose less loyalty after upgrading this feature");
+                featureDescription += Visuals.Positive("\n\nLoyalty will increase after upgrading this feature");
 
                 featureDescription += $"\n\n{Visuals.Positive($"Increases income by +{monetisationBenefit.ToString("0.0")}% (max: +{monetisationBenefitMax}%)")}";
             }
@@ -105,7 +105,7 @@ public class TaskPanelView : View
             TaskBenefit.text = $"marketing task";
         }
 
-        TaskExecutor.text = $"<b>{team.Name}</b>";
+        TaskExecutor.text = $"<b>{Visuals.Link(team.Name)}</b>";
     }
 
     public override void ViewRender()
@@ -132,5 +132,13 @@ public class TaskPanelView : View
         
         relay.RemoveTask();
         relay.ChooseMainScreen();
+    }
+
+    public void ShowAssignedTeam()
+    {
+        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
+
+        if (teamId >= 0)
+            relay.ChooseManagersTabs(teamId);
     }
 }

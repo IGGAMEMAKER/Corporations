@@ -6,6 +6,9 @@ using UnityEngine;
 public class ManagerFocusListView : ListView
 {
     public GameObject FocusList;
+    public GameObject Organisation;
+
+
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<ManagerTaskSlotView>().SetEntity(index);
@@ -27,6 +30,7 @@ public class ManagerFocusListView : ListView
         base.OnItemSelected(ind);
 
         Show(FocusList);
+        Hide(Organisation);
     }
 
     public override void OnDeselect()
@@ -34,11 +38,13 @@ public class ManagerFocusListView : ListView
         base.OnDeselect();
 
         Hide(FocusList);
+        Show(Organisation);
     }
 
     void SetManagerTask(ManagerTask task)
     {
         Teams.SetManagerTask(Flagship, SelectedTeam, ChosenIndex, task);
+
         OnDeselect();
         ViewRender();
     }

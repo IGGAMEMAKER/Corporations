@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,16 +45,14 @@ public class TeamTaskView : View
     {
         base.ViewRender();
 
-        var company = Flagship;
-
-        var tasks = company.team.Teams[TeamId].Tasks;
-
-        if (SlotId >= tasks.Count)
-            return;
-
-        var task = tasks[SlotId];
-
         var product = Flagship;
+
+            var tasks = product.team.Teams[TeamId].Tasks;
+
+            if (SlotId >= tasks.Count)
+                return;
+
+            var task = tasks[SlotId];
 
         if (IsFeatureUpgradeTask)
         {
@@ -66,26 +65,28 @@ public class TeamTaskView : View
             }
 
             var featureName = (task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
-            var rating = Products.GetFeatureRating(company, featureName);
+            var rating = Products.GetFeatureRating(product, featureName);
 
             RepresentativeNumber.text = rating.ToString("0.0");
             RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
 
             TaskHint.SetHint("Upgrading feature " + featureName + 
-                $"\n\nFeature quality: \n" +
-                $"<size=50><b>{rating.ToString("0.0")} / 10</b></size>"
+                $"\n\nFeature quality:" +
+                $"\n<size=50><b>{rating.ToString("0.0")} / 10</b></size>"
                 );
 
             // feature upgrade progress
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
             bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
-            Show(ProgressImage);
+
             var progress = CurrentIntDate - cooldown.StartDate;
             var percent = (float)progress / (cooldown.EndDate - cooldown.StartDate);
 
             ProgressIcon.fillAmount = percent;
             ProgressImage.sprite = Icon.sprite;
+
+            Show(ProgressImage);
         }
 
 
@@ -94,7 +95,7 @@ public class TeamTaskView : View
             Icon.sprite = ChannelSprite;
 
             var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
-            var gain = Marketing.GetChannelClientGain(company, Q, channel);
+            var gain = Marketing.GetChannelClientGain(product, Q, channel);
 
             RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
             RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);
@@ -115,7 +116,7 @@ public class TeamTaskView : View
 
             if (bonus is SupportBonusHighload)
             {
-                bool needsMoreServers = Products.IsNeedsMoreServers(company);
+                bool needsMoreServers = Products.IsNeedsMoreServers(product);
 
                 var hint = "";
 
@@ -129,7 +130,7 @@ public class TeamTaskView : View
             }
             else if (bonus is SupportBonusMarketingSupport)
             {
-                bool needsMoreSupport = Products.IsNeedsMoreMarketingSupport(company);
+                bool needsMoreSupport = Products.IsNeedsMoreMarketingSupport(product);
 
                 var hint = "";
                 if (needsMoreSupport)

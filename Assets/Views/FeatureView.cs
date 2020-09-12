@@ -36,38 +36,45 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
         Name.text = featureName;
 
 
-        //bool upgraded = Products.IsUpgradedFeature(product, featureName);
-        //var rating = Products.GetFeatureRating(product, featureName);
+        bool upgraded = Products.IsUpgradedFeature(product, featureName);
+        var rating = Products.GetFeatureRating(product, featureName);
 
-        //Draw(Rating, upgraded);
+        Draw(Rating, upgraded && rating > 0);
 
-        //Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
-        //Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
+        Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
+        Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
-        //var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-        //bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
+        if (NewProductFeature.FeatureBonus.isMonetisationFeature)
+            Benefits.text = "Income: " + Visuals.Positive(NewProductFeature.FeatureBonus.Max + "%");
 
-        //if (Products.IsUpgradingFeature(product, Q, featureName))
-        //{
-        //    //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
-        //    var progress = CurrentIntDate - cooldown.StartDate;
-        //    ProgressImage.fillAmount = 1f; // (float)progress / (cooldown.EndDate - cooldown.StartDate);
+        if (NewProductFeature.FeatureBonus.isRetentionFeature)
+            Benefits.text = Visuals.Positive("Increases loyalty");
 
-        //    Draw(ProgressBar, true);
-        //    ProgressBar.SetDescription("Upgrading feature");
-        //    ProgressBar.SetValue(CurrentIntDate - cooldown.StartDate, cooldown.EndDate - cooldown.StartDate);
+        var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
+        bool hasCooldown = Cooldowns.HasCooldown(Q, cooldownName, out SimpleCooldown cooldown);
 
-        //    //Draw(Rating, false);
-        //}
-        //else
-        //{
-        //    Draw(Rating, true);
-        //    ProgressImage.fillAmount = 0f;
+        if (Products.IsUpgradingFeature(product, Q, featureName))
+        {
+            //var progress = (CurrentIntDate % C.PERIOD) / (float)C.PERIOD;
+            var progress = CurrentIntDate - cooldown.StartDate;
+            ProgressImage.fillAmount = 1f; // (float)progress / (cooldown.EndDate - cooldown.StartDate);
 
-        //    Draw(ProgressBar, false);
-        //}
+            ProgressBar.SetDescription("Upgrading feature");
+            ProgressBar.SetValue(CurrentIntDate - cooldown.StartDate, cooldown.EndDate - cooldown.StartDate);
 
-        //ProgressImage.fillAmount = 0f;
+            Show(ProgressBar);
+            //Draw(Rating, false);
+        }
+        else
+        {
+            //Show(Rating);
+            ProgressImage.fillAmount = 0f;
+
+            Hide(ProgressBar);
+        }
+
+        ProgressImage.fillAmount = 0f;
+
         RenderFeatureTypeIcon();
     }
 

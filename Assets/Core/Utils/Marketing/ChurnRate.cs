@@ -115,7 +115,7 @@ namespace Assets.Core
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
-                .AppendAndHideIfZero("Outcompeted (loyalty difference > 5)", isOutcompeted ? 5 : 0)
+                //.AppendAndHideIfZero("Outcompeted (loyalty difference > 5)", isOutcompeted ? 5 : 0)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(0, 100);
         }

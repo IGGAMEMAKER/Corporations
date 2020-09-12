@@ -73,13 +73,12 @@ namespace Assets.Core
 
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
         {
+            var gain = GetFeatureRatingGain(product, team, gameContext);
+            var cap  = GetFeatureRatingCap(product, team, gameContext);
+
             if (IsUpgradedFeature(product, featureName))
             {
-                var gain = GetFeatureRatingGain(product, team, gameContext);
-
                 var value = product.features.Upgrades[featureName];
-
-                var cap = GetFeatureRatingCap(product, team, gameContext);
 
                 // if new manager is worse than previous, this will not make feature worse!
                 if (value > cap)
@@ -88,7 +87,7 @@ namespace Assets.Core
                 product.features.Upgrades[featureName] = Mathf.Clamp(value + gain, 0, cap);
             } else
             {
-                product.features.Upgrades[featureName] = UnityEngine.Random.Range(2, 5f);
+                product.features.Upgrades[featureName] = UnityEngine.Random.Range(1, 3f);
             }
 
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";

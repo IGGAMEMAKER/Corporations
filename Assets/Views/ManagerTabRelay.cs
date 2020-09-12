@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ManagerTabRelay : View
@@ -14,6 +15,10 @@ public class ManagerTabRelay : View
     public GameObject BackToMainTab;
 
     public TeamView TeamView;
+
+    // ----------------------------
+
+    public GameObject Organisation;
 
     public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, HireManagersRelayButtons, ManagerInteractions, Managers, BackToMainTab, BackToManagerTab };
 
