@@ -63,8 +63,10 @@ namespace Assets.Core
         {
             var prefix = GetFormattedTeamType(teamType);
 
+            bool isCoreTeam = company.team.Teams.Count == 0;
+
             company.team.Teams.Add(new TeamInfo {
-                Name = $"{prefix} #{company.team.Teams.Count}",
+                Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
                 TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>(),
 
                 Managers = new System.Collections.Generic.List<int>(),

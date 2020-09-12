@@ -14,6 +14,8 @@ public class ManagerTaskSlotView : View
     public Texture2D Recruiting;
     public Texture2D ProxyTasks;
     public Texture2D Organisation;
+    public Texture2D ProductPolishing;
+    public Texture2D ViralGrowth;
 
     public void SetEntity(int index)
     {
@@ -45,6 +47,16 @@ public class ManagerTaskSlotView : View
 
             case ManagerTask.Organisation:
                 TaskImage.texture = Organisation;
+                Blinker.enabled = false;
+                break;
+
+            case ManagerTask.Polishing:
+                TaskImage.texture = ProductPolishing;
+                Blinker.enabled = false;
+                break;
+
+            case ManagerTask.ViralSpread:
+                TaskImage.texture = ViralGrowth;
                 Blinker.enabled = false;
                 break;
 

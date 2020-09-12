@@ -213,7 +213,10 @@ public enum ManagerTask
     Documentation,
     Organisation,
     ProxyTasks,
-    Recruiting
+    Recruiting,
+
+    Polishing,
+    ViralSpread
 }
 
 public class TeamInfo

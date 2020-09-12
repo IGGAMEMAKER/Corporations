@@ -73,4 +73,14 @@ public class ManagerFocusListView : ListView
     {
         SetManagerTask(ManagerTask.ProxyTasks);
     }
+
+    public void ChoosePolishing()
+    {
+        SetManagerTask(ManagerTask.Polishing);
+    }
+
+    public void ChooseViralSpread()
+    {
+        SetManagerTask(ManagerTask.ViralSpread);
+    }
 }
