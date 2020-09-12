@@ -17,13 +17,18 @@ public class OrganisationView : View
     {
         base.ViewRender();
 
-        var growth = Random.Range(-5, 3);
-        var value = Flagship.team.Organisation;
+        var team = Flagship.team.Teams[SelectedTeam];
 
-        var organisationChange = Format.Sign(growth) + " weekly";
+        var growth = Teams.GetOrganisationChanges(team, SelectedTeam, Flagship, Q);
+
+        var value = Flagship.team.Teams[SelectedTeam].Organisation;
+
+        var organisationChange = Format.Sign(growth.Sum()) + " weekly";
 
         OrganisationValue.text = value + "";
-        OrganisationGrowth.text = Visuals.DescribeValueWithText(growth, organisationChange, organisationChange, "---");
+
+        OrganisationGrowth.text = Visuals.DescribeValueWithText(growth.Sum(), organisationChange, organisationChange, "---");
+        OrganisationGrowth.GetComponent<Hint>().SetHint("Changes by: " + growth.ToString());
 
         loadingBar.GetComponent<Image>().fillAmount = value / 100f;
         //textPercent.GetComponent<TextMeshProUGUI>().text = ((int)value).ToString("F0");

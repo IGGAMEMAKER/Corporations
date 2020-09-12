@@ -231,6 +231,7 @@ public class TeamInfo
     public int HiringProgress;
 
     public List<ManagerTask> ManagerTasks;
+    public float Organisation;
 
     //public int ID;
 }

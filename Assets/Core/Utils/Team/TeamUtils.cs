@@ -37,6 +37,62 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
+        static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo, int teamId)
+        {
+            WorkerRole managerTitle;
+
+            bool isCoreTeam = teamId == 0;
+
+            if (isCoreTeam)
+            {
+                managerTitle = WorkerRole.CEO;
+            }
+            else
+            {
+                switch (teamInfo.TeamType)
+                {
+                    case TeamType.BigCrossfunctionalTeam:
+                    case TeamType.CrossfunctionalTeam:
+                    case TeamType.SmallCrossfunctionalTeam:
+                        managerTitle = WorkerRole.ProjectManager;
+                        break;
+
+                    case TeamType.DevOpsTeam:
+                    case TeamType.DevelopmentTeam:
+                        managerTitle = WorkerRole.TeamLead;
+                        break;
+
+                    case TeamType.MarketingTeam:
+                    case TeamType.SupportTeam:
+                        managerTitle = WorkerRole.MarketingLead;
+                        break;
+
+                    default:
+                        managerTitle = WorkerRole.ProductManager;
+                        break;
+                }
+            }
+
+            return managerTitle;
+        }
+
+        public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, int teamId, GameEntity product, GameContext gameContext)
+        {
+            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo, teamId);
+
+            var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
+
+            var managerFocus = teamInfo.ManagerTasks.Count(t => t == ManagerTask.Organisation);
+
+            // count team size: small teams organise faster, big ones: slower
+
+            return new Bonus<int>("Organisation change")
+                .AppendAndHideIfZero("No " + managerTitle.ToString(), -30)
+                .AppendAndHideIfZero(managerTitle.ToString() + " efforts", rating)
+                .AppendAndHideIfZero("Manager focus", rating > 0 ? managerFocus * 10 : 0)
+                ;
+        }
+
         public static bool IsUniversalTeam(TeamType teamType) => new TeamType[] { TeamType.BigCrossfunctionalTeam, TeamType.CoreTeam, TeamType.CrossfunctionalTeam, TeamType.SmallCrossfunctionalTeam }.Contains(teamType);
 
         public static string GetFormattedTeamType(TeamType teamType)
@@ -73,6 +129,7 @@ namespace Assets.Core
                 ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 
                 HiringProgress = 0, Workers = 0,
+                Organisation = 0
             });
 
             return company.team.Teams.Count - 1;
