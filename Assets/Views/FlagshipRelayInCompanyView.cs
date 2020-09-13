@@ -1,4 +1,5 @@
-﻿using Assets.Core;
+﻿using Assets;
+using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,10 +75,13 @@ public class FlagshipRelayInCompanyView : View
             if (hasSlotForTask)
             {
                 Teams.AddTeamTask(Flagship, Q, 0, teamTask);
+                SoundManager.Play(Sound.Action);
+
+                FindObjectOfType<MainPanelRelay>().ViewRender();
             }
             else
             {
-                NotificationUtils.AddSimplePopup(Q, "You need more teams", "You will be able to hire new teams when your Core team will be fully organised.\nRemove less important tasks to make this one");
+                NotificationUtils.AddSimplePopup(Q, "You need more teams", "You will be able to hire new teams when your Core team will be fully organised.\n\nRemove less important tasks to make this task");
             }
         }
         else

@@ -53,17 +53,18 @@ public class TeamsListView : ListView
     {
         if (task.IsFeatureUpgrade)
         {
-            RenderLabels("Upgrade speed", "Max feature level", "", "Free task slots");
+            RenderLabels("Feature gain", "Max feature level", "", "Free task slots");
         }
 
         if (task.IsHighloadTask)
         {
-            RenderLabels("Break chance", "Install time", "", "Free task slots");
+            RenderLabels("", "", "", "Free task slots");
+            //RenderLabels("Break chance", "Install time", "", "Free task slots");
         }
 
         if (task.IsMarketingTask)
         {
-            RenderLabels("", "", "", "Free task slots");
+            RenderLabels("Marketing Effeciency", "Final gain", "", "Free task slots");
             //RenderLabels("Effeciency", "Final gain", "", "Free task slots");
         }
     }

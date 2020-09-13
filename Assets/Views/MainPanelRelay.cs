@@ -90,17 +90,20 @@ public class MainPanelRelay : View
     public void ResetTabs()
     {
         bool hadFirstMarketingCampaign = Marketing.GetClients(Flagship) > 50;
-        bool hadBankruptcyWarning = true; // NotificationUtils.GetPopupContainer(Q).seenPopups.PopupTypes.Contains(PopupType.BankruptcyThreat);
+        bool hadBankruptcyWarning = CurrentIntDate > 60 || Economy.IsWillBecomeBankruptOnNextPeriod(Q, Flagship); // NotificationUtils.GetPopupContainer(Q).seenPopups.PopupTypes.Contains(PopupType.BankruptcyThreat);
 
-        if (hadFirstMarketingCampaign)
-        {
-            Show(AudiencePanel);
-            Show(AudienceLabel);
-        }
-        else
-        {
-            HideAudienceTab();
-        }
+        //if (hadFirstMarketingCampaign)
+        //{
+        //    Show(AudiencePanel);
+        //    Show(AudienceLabel);
+        //}
+        //else
+        //{
+        //    HideAudienceTab();
+        //}
+
+        Show(AudiencePanel);
+        Show(AudienceLabel);
 
         if (hadBankruptcyWarning)
         {
@@ -112,7 +115,19 @@ public class MainPanelRelay : View
             HideInvestmentTab();
         }
 
-        Show(TeamPanel);
-        Show(TeamLabel);
+        // 1, cause servers are added automatically
+        bool anyTaskWasAdded = Flagship.team.Teams[0].Tasks.Count > 2;
+        bool hasMoreThanOneTeam = Flagship.team.Teams.Count > 1;
+
+        if (anyTaskWasAdded || hasMoreThanOneTeam)
+        {
+            Show(TeamPanel);
+            Show(TeamLabel);
+        }
+        else
+        {
+            Hide(TeamPanel);
+            Hide(TeamLabel);
+        }
     }
 }

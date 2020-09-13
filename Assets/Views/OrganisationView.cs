@@ -15,6 +15,7 @@ public class OrganisationView : View
     public Transform textPercent;
 
     public GameObject ExpandTeam;
+    public GameObject FireTeam;
 
     // ----------------------
 
@@ -50,6 +51,7 @@ public class OrganisationView : View
 
         Draw(ExpandTeam, CanExpand);
 
+        Draw(FireTeam, team.ID != 0);
         // -------------------------
 
 

@@ -15,6 +15,7 @@ public class ManagerTabRelay : View
     public GameObject BackToMainTab;
 
     public TeamView TeamView;
+    public GameObject FireTeam;
 
     // ----------------------------
 
