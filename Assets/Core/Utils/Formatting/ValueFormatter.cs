@@ -12,6 +12,10 @@ namespace Assets.Core
     }
     public static class Format
     {
+        public static string ShowChange(float value)
+        {
+            return value.ToString("+0.0;-#");
+        }
         private static string ShowMeaningfulValue(long value, long divisor, string litera)
         {
             int shortened = Convert.ToInt32(value * 10 / divisor);

@@ -19,6 +19,25 @@ namespace Assets.Core
             return workersWithRole.Count() > 0 ? workersWithRole.First() : null;
         }
 
+        public static bool HasRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
+        {
+            var managers = teamInfo.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId));
+
+            var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
+
+            return workersWithRole.Count() > 0;
+        }
+
+        public static bool IsNeedsToHireRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
+        {
+            var roles = GetRolesForTeam(teamInfo.TeamType);
+
+            if (!roles.Contains(role))
+                return false;
+
+            return !HasRole(company, role, teamInfo, gameContext);
+        }
+
         public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
         {
             if (worker == null)

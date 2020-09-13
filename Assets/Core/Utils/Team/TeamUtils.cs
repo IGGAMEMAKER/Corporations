@@ -84,12 +84,14 @@ namespace Assets.Core
 
             var managerFocus = teamInfo.ManagerTasks.Count(t => t == ManagerTask.Organisation);
 
+            bool NoCeo = rating < 1;
+
             // count team size: small teams organise faster, big ones: slower
 
             return new Bonus<int>("Organisation change")
-                .AppendAndHideIfZero("No " + managerTitle.ToString(), -30)
+                .AppendAndHideIfZero("No " + managerTitle.ToString(), NoCeo ? -30 : 0)
                 .AppendAndHideIfZero(managerTitle.ToString() + " efforts", rating)
-                .AppendAndHideIfZero("Manager focus", rating > 0 ? managerFocus * 10 : 0)
+                .AppendAndHideIfZero("Manager focus on Organisation", NoCeo ? 0 : managerFocus * 10)
                 ;
         }
 

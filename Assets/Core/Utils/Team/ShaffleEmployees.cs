@@ -162,18 +162,35 @@ namespace Assets.Core
                 case TeamType.SupportTeam:
                 case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.MarketingLead };
 
-                case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager, WorkerRole.ProjectManager };
+                case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager };
                 case TeamType.DevOpsTeam: return new WorkerRole[] { WorkerRole.TeamLead };
 
                 default:
-                    return new WorkerRole[] { WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
+                    return new WorkerRole[] { WorkerRole.CEO, WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };
             }
         }
 
-        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
-        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team)
+        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team, int teamID) => pair => IsRoleSuitsTeam(pair.Value, company, team, teamID);
+        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team, int teamID)
         {
-            return GetRolesForTeam(team.TeamType).Contains(workerRole);
+            var roles = GetRolesForTeam(team.TeamType).ToList();
+
+
+            if (teamID == 0)
+            {
+                // core team
+                roles.Remove(WorkerRole.ProjectManager);
+            }
+            else
+            {
+                // regular universal team
+                if (IsUniversalTeam(team.TeamType))
+                {
+                    roles.Remove(WorkerRole.CEO);
+                }
+            }
+
+            return roles.Contains(workerRole);
         }
     }
 }

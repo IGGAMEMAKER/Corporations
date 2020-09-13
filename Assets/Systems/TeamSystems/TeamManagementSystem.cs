@@ -3,7 +3,7 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class TeamManagementSystem : OnMonthChange
+class TeamManagementSystem : OnPeriodChange
 {
     public TeamManagementSystem(Contexts contexts) : base(contexts) {}
 
