@@ -170,16 +170,16 @@ namespace Assets.Core
             }
         }
 
-        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team, int teamID) => pair => IsRoleSuitsTeam(pair.Value, company, team, teamID);
-        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team, int teamID)
+        public static Func<KeyValuePair<int, WorkerRole>, bool> RoleSuitsTeam(GameEntity company, TeamInfo team) => pair => IsRoleSuitsTeam(pair.Value, company, team);
+        public static bool IsRoleSuitsTeam(WorkerRole workerRole, GameEntity company, TeamInfo team)
         {
             var roles = GetRolesForTeam(team.TeamType).ToList();
 
-
-            if (teamID == 0)
+            if (team.ID == 0)
             {
                 // core team
                 roles.Remove(WorkerRole.ProjectManager);
+                roles.Remove(WorkerRole.CEO);
             }
             else
             {

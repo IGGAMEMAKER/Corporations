@@ -38,14 +38,14 @@ public class CandidatesForRoleListView : ListView
         managerIds.AddRange(
             company.employee.Managers
             //.Where(p => p.Value == WorkerRole)
-            .Where(Teams.RoleSuitsTeam(company, team, teamId))
+            .Where(Teams.RoleSuitsTeam(company, team))
             .Select(p => p.Key)
             );
 
         foreach (var c in competitors)
         {
             var workers = c.team.Managers
-                .Where(Teams.RoleSuitsTeam(company, team, teamId))
+                .Where(Teams.RoleSuitsTeam(company, team))
                 //.Where(p => p.Value == WorkerRole)
                 .Select(p => p.Key);
             managerIds.AddRange(workers);

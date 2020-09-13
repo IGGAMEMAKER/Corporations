@@ -16,6 +16,8 @@ public class TaskPanelView : View
     public GameObject RemoveTaskButton;
     public ChosenTeamTaskView ChosenTaskLabel;
 
+    public GameObject RemoveFeatureButton;
+
     public void SetEntity(int teamId, TeamTask teamTask)
     {
         this.teamId = teamId;
@@ -99,11 +101,16 @@ public class TaskPanelView : View
                 ;
 
             TaskModifiers.text = $"Will be upgraded to level {ratingCap} due to assigned team";
+
+            Show(RemoveFeatureButton);
         }
 
         if (teamTask.IsMarketingTask)
         {
             TaskBenefit.text = $"marketing task";
+            TaskModifiers.text = "";
+
+            Hide(RemoveFeatureButton);
         }
 
         TaskExecutor.text = $"<b>{Visuals.Link(team.Name)}</b>";
