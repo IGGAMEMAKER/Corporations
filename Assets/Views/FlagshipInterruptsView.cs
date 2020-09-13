@@ -79,11 +79,14 @@ public class FlagshipInterruptsView : View
         bool workerDisloyal = false;
         bool hasAcquisitionOffers = Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
+        bool didFirstTasks = product.features.Upgrades.Count > 0 && Marketing.GetClients(product) > 1000;
+        bool CanManagerServers = didFirstTasks || needsMoreServers;
+
         problemCounter = 0;
 
         SpecialDraw(AudienceMapLink, product.isRelease);
         SpecialDraw(NeedsManagersImage, false);
-        SpecialDraw(NeedsServersImage, true);
+        SpecialDraw(NeedsServersImage, CanManagerServers);
         SpecialDraw(NeedsSupportImage, false);
         SpecialDraw(DDOSImage, underAttack);
 

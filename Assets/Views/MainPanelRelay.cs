@@ -126,8 +126,9 @@ public class MainPanelRelay : View
         }
         else
         {
-            Hide(TeamPanel);
-            Hide(TeamLabel);
+            HideTeamTab();
+            //Hide(TeamPanel);
+            //Hide(TeamLabel);
         }
     }
 }
