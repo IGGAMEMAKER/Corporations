@@ -8,8 +8,8 @@ namespace Assets.Core
         {
             var company = Get(gameContext, companyId);
 
-            if (IsInPlayerSphereOfInterest(company, gameContext))
-                NotificationUtils.AddPopup(gameContext, new PopupMessageInterestToCompany(companyId, buyerInvestorId));
+            //if (IsInPlayerSphereOfInterest(company, gameContext))
+            //    NotificationUtils.AddPopup(gameContext, new PopupMessageInterestToCompany(companyId, buyerInvestorId));
         }
 
         public static void NotifyAboutAcquisition(GameContext gameContext, int buyerShareholderId, int targetCompanyId, long bid)
