@@ -37,11 +37,11 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
-        static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo, int teamId)
+        static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo)
         {
             WorkerRole managerTitle;
 
-            bool isCoreTeam = teamId == 0;
+            bool isCoreTeam = teamInfo.ID == 0;
 
             if (isCoreTeam)
             {
@@ -76,9 +76,18 @@ namespace Assets.Core
             return managerTitle;
         }
 
-        public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, int teamId, GameEntity product, GameContext gameContext)
+        public static bool HasMainManagerInTeam(TeamInfo teamInfo, GameContext gameContext, GameEntity product)
         {
-            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo, teamId);
+            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo);
+
+            var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
+
+            return rating > 0;
+        }
+
+        public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)
+        {
+            WorkerRole managerTitle = GetMainManagerForTheTeam(teamInfo);
 
             var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
 
@@ -131,7 +140,8 @@ namespace Assets.Core
                 ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 
                 HiringProgress = 0, Workers = 0,
-                Organisation = 0
+                Organisation = 0,
+                ID = company.team.Teams.Count
             });
 
             return company.team.Teams.Count - 1;
@@ -162,6 +172,13 @@ namespace Assets.Core
             }
 
             company.team.Teams.RemoveAt(teamId);
+
+            int id = 0;
+            foreach (var t in company.team.Teams)
+            {
+                t.ID = id++;
+            }
+
             Debug.Log("Team removed!");
         }
 

@@ -29,7 +29,7 @@ public class OrganisationView : View
 
         var team = product.team.Teams[SelectedTeam];
 
-        var growth = Teams.GetOrganisationChanges(team, SelectedTeam, product, Q);
+        var growth = Teams.GetOrganisationChanges(team, product, Q);
 
         var organisation = product.team.Teams[SelectedTeam].Organisation;
 
@@ -60,10 +60,17 @@ public class OrganisationView : View
         var devSpeed = Products.GetBaseIterationTime(Q, product);
 
         var stats = new StringBuilder()
-            .Append("Feature rating gain: ").AppendLine(Visuals.Positive(Format.ShowChange(ratingGain)))
-            .Append("Marketing effeciency: ").AppendLine(Visuals.Positive(marketingEffeciency.ToString("0") + "%"))
-            .Append("Max feature level: ").AppendLine(Visuals.Positive(featureCap.ToString("0lvl")))
-            .Append("Development speed: ").AppendLine(Visuals.Positive(devSpeed.ToString("0days")))
+            .Append("Max feature level: ")
+            .AppendLine(Visuals.Positive(featureCap.ToString("0.0lvl (")) + Visuals.Positive(Format.ShowChange(ratingGain) + "lvl)"))
+
+            //.Append("Feature rating gain: ")
+            //.AppendLine(Visuals.Positive(Format.ShowChange(ratingGain) + "lvl"))
+            
+            .Append("Marketing effeciency: ")
+            .AppendLine(Visuals.Positive(marketingEffeciency.ToString("0") + "%"))
+            
+            //.Append("Development speed: ")
+            //.AppendLine(Visuals.Positive(devSpeed.ToString("0days")))
             ;
 
         TeamStats.text = stats.ToString();

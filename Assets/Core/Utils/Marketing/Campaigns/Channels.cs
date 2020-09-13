@@ -80,6 +80,13 @@ namespace Assets.Core
                 marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
 
                 marketingEffeciency += teamInfo.TeamType == TeamType.MarketingTeam ? 25 : 0;
+
+                bool hasMainManager = Teams.HasMainManagerInTeam(teamInfo, gameContext, company);
+                if (hasMainManager)
+                {
+                    var focus = teamInfo.ManagerTasks.Count(t => t == ManagerTask.ViralSpread);
+                    marketingEffeciency += focus * 10;
+                }
             }
 
             return 50 + marketingEffeciency;

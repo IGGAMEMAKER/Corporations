@@ -8,6 +8,8 @@ public class ManagerFocusListView : ListView
     public GameObject FocusList;
     public GameObject Organisation;
 
+    public OrganisationView OrganisationView;
+
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -39,6 +41,8 @@ public class ManagerFocusListView : ListView
 
         Hide(FocusList);
         Show(Organisation);
+
+        OrganisationView.ViewRender();
     }
 
     void SetManagerTask(ManagerTask task)

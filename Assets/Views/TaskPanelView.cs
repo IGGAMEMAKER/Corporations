@@ -82,6 +82,7 @@ public class TaskPanelView : View
             }
 
 
+
             var sumLoyaltyFormatted = Visuals.Colorize(sumLoyalty.ToString("+0.0;-#"), sumLoyalty >= 0);
             var sumLoyaltyMaxFormatted = Visuals.Colorize(sumLoyaltyMax.ToString("+0.0;-#"), sumLoyaltyMax >= 0);
 

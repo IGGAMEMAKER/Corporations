@@ -60,6 +60,13 @@ namespace Assets.Core
                 return cap + addedCap;
             }
 
+            bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);
+            if (hasMainManager)
+            {
+                var focus = team.ManagerTasks.Count(t => t == ManagerTask.Polishing);
+                cap += focus * 0.4f;
+            }
+
             return Mathf.Clamp(cap, 0, 10);
         }
 

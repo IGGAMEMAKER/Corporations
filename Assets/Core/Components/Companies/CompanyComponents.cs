@@ -233,7 +233,7 @@ public class TeamInfo
     public List<ManagerTask> ManagerTasks;
     public float Organisation;
 
-    //public int ID;
+    public int ID;
 }
 
 public enum TeamType

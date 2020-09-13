@@ -19,7 +19,7 @@ class TeamManagementSystem : OnPeriodChange
             {
                 var team = p.team.Teams[teamId];
 
-                var change = Teams.GetOrganisationChanges(team, teamId, p, gameContext).Sum() / 10f;
+                var change = Teams.GetOrganisationChanges(team, p, gameContext).Sum() / 10f;
 
                 team.Organisation = Mathf.Clamp(team.Organisation + change, 0, 100);
 
