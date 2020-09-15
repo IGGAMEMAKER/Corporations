@@ -15,9 +15,9 @@ namespace Assets.Core
             return new SupportFeature[]
             {
                 new SupportFeature { Name = "1 server", SupportBonus = new SupportBonusHighload(usersPerServer) },
-                new SupportFeature { Name = "5 servers", SupportBonus = new SupportBonusHighload(usersPerServer * 5) },
-                new SupportFeature { Name = "Bug cluster", SupportBonus = new SupportBonusHighload(usersPerServer * 20) },
-                new SupportFeature { Name = "Data center", SupportBonus = new SupportBonusHighload(usersPerServer * 100) },
+                new SupportFeature { Name = "Cluster", SupportBonus = new SupportBonusHighload(usersPerServer * 5) },
+                new SupportFeature { Name = "Big cluster", SupportBonus = new SupportBonusHighload(usersPerServer * 20) },
+                new SupportFeature { Name = "Data center", SupportBonus = new SupportBonusHighload(usersPerServer * 1000) },
 
                 new SupportFeature { Name = "Small tech support", SupportBonus = new SupportBonusMarketingSupport(5000) },
                 new SupportFeature { Name = "Average tech support", SupportBonus = new SupportBonusMarketingSupport(50000) },

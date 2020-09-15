@@ -38,18 +38,19 @@ namespace Assets.Core
         {
             var worker = Humans.GenerateHuman(gameContext, role);
 
+
+
             // Control rating levels for new workers
-            #region Control rating levels for new workers
-            var averageStrength = GetTeamAverageStrength(company, gameContext);
+            //var averageStrength = GetTeamAverageStrength(company, gameContext);
+            var hrRating = GetHRBasedNewManagerRating(company, gameContext);
 
-            var recruitingEffort = managerTasks * 5f / company.team.Teams.Count;
+            var recruitingEffort = managerTasks * 10f / company.team.Teams.Count;
 
-            var rng = UnityEngine.Random.Range(averageStrength - 5, averageStrength + 1 + recruitingEffort);
-            var rating = Mathf.Clamp(rng, C.BASE_MANAGER_RATING, 75);
-            //GetHRBasedNewManagerRatingBonus
+            var rng = UnityEngine.Random.Range(hrRating - 10, hrRating + 1 + recruitingEffort);
+
+            var rating = Mathf.Clamp(rng, C.NEW_MANAGER_RATING_MIN, C.NEW_MANAGER_RATING_MAX);
 
             Humans.ResetSkills(worker, (int)rating);
-            #endregion
 
             company.employee.Managers[worker.human.Id] = role;
         }
@@ -87,13 +88,26 @@ namespace Assets.Core
                 .Select(p => Markets.Get(gameContext, p))
                 .Count(m => m.nicheBaseProfile.Profile.AudienceSize == AudienceSize.Global) > 0;
 
+
+            int positionOnMarket = 0;
+
+            if (company.hasProduct)
+            {
+                var clampedPosition = Mathf.Clamp(Markets.GetPositionOnMarket(gameContext, company), 0, 5);
+
+                positionOnMarket = (5 - clampedPosition) * 2;
+            }
+
             bonus
-                .Append("Base value", C.BASE_MANAGER_RATING)
+                .Append("Base value", C.NEW_MANAGER_RATING_MIN)
                 .Append("Mission", 0)
-                //.Append("Salaries", culture[CorporatePolicy.SalariesLowOrHigh] * 2)
+
+                .AppendAndHideIfZero("Position on market", positionOnMarket)
+
                 .Append("Has Global Markets", hasGlobalMarkets ? 10 : 0)
-                .Append("Is TOP10 Company", 0)
-                .Append("Is TOP10 in teams", 0);
+                //.Append("Is TOP10 Company", 0)
+                //.Append("Is TOP10 in teams", 0)
+                ;
 
             return bonus;
         }

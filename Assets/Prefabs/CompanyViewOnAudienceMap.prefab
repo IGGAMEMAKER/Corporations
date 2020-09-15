@@ -100,13 +100,14 @@ GameObject:
   - component: {fileID: 600040822613125848}
   - component: {fileID: 8765286913413590551}
   - component: {fileID: 5372684662206906335}
+  - component: {fileID: 3285081554374657412}
   m_Layer: 5
   m_Name: Growth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &600040822613125848
 RectTransform:
   m_ObjectHideFlags: 0
@@ -166,6 +167,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: +123.3K
+--- !u!114 &3285081554374657412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2388389433037231097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053423e6b9d702245a7c61d5fba2dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: User growth
+  isActionHint: 0
 --- !u!1 &4324086362397689057
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +972,7 @@ MonoBehaviour:
   CompanyHint: {fileID: 5955898350846819806}
   LinkToProjectView: {fileID: 251444598871190783}
   Image: {fileID: 4464223251039096346}
+  LoyaltyImage: {fileID: 7087383718898978254}
   Loyalty: {fileID: 8441081643425366424}
   LoyaltyHint: {fileID: 8905081841058143976}
   Growth: {fileID: 5372684662206906335}

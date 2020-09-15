@@ -81,7 +81,7 @@ public class FlagshipRelayInCompanyView : View
             }
             else
             {
-                NotificationUtils.AddSimplePopup(Q, "You need more teams", "You will be able to hire new teams when your Core team will be fully organised.\n\nRemove less important tasks to make this task");
+                NotificationUtils.AddSimplePopup(Q, "You need more teams", "Wait until <b>Core team</b> will be fully organised.\n\nOR\n\nRemove less important tasks");
             }
         }
         else

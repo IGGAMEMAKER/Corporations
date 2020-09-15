@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CompanyViewOnAudienceMap : View
+public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExitHandler
 {
     public Text Name;
     public Hint CompanyHint;
@@ -14,6 +15,7 @@ public class CompanyViewOnAudienceMap : View
 
     public Image Image;
 
+    public GameObject LoyaltyImage;
     public Text Loyalty;
     public Hint LoyaltyHint;
 
@@ -47,6 +49,8 @@ public class CompanyViewOnAudienceMap : View
         var growth = Marketing.GetAudienceChange(company, Q, true);
         Growth.text = Visuals.PositiveOrNegativeMinified(growth.Sum());
 
+        Hide(SetAmountOfStars);
+        Hide(LoyaltyImage);
 
         var position = Markets.GetPositionOnMarket(Q, company);
 
@@ -171,5 +175,17 @@ public class CompanyViewOnAudienceMap : View
         }
 
         return str + "</size>";
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Show(SetAmountOfStars);
+        Show(LoyaltyImage);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Hide(SetAmountOfStars);
+        Hide(LoyaltyImage);
     }
 }
