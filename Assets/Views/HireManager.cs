@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HireManager : ButtonController
 {
+    public JobOfferScreen jobOfferScreen;
+
     public override void Execute()
     {
         var human = SelectedHuman;
@@ -16,20 +18,12 @@ public class HireManager : ButtonController
         else
             Teams.HireManager(company, human, SelectedTeam);
 
+        Teams.SetJobOffer(company, SelectedTeam, human.human.Id, jobOfferScreen.JobOffer);
+
         ScreenUtils.SetMainPanelId(Q, 1);
         NavigateToMainScreen();
-        //ReturnToHiringManagers();
 
         //GoBack();
         //GoBack();
-    }
-
-    IEnumerator ReturnToHiringManagers()
-    {
-        Debug.Log("Hire manager");
-        yield return new WaitForSeconds(0.45f);
-
-        Debug.Log("Hire manager after delay");
-        FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(SelectedTeam);
     }
 }

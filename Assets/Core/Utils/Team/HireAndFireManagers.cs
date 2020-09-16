@@ -45,6 +45,28 @@ namespace Assets.Core
             company.team.Teams[teamId].Offers[humanId] = offer;
         }
 
+        public static long GetSalaryPerRating(GameEntity human, long rating)
+        {
+            float modifier = 0;
+
+            bool isShy = human.humanSkills.Traits.Contains(Trait.Shy);
+            bool isGreedy = human.humanSkills.Traits.Contains(Trait.Greedy);
+
+            if (isShy)
+            {
+                modifier -= 0.25f;
+            }
+
+            if (isGreedy)
+            {
+                modifier += 0.35f;
+            }
+
+            var baseSalary = (long)(Mathf.Pow(500, 1f + modifier + rating / 100f));
+
+            return baseSalary / 4;
+        }
+
         public static void DismissTeam(GameEntity company, GameContext gameContext)
         {
             Debug.Log("DismissTeam of " + company.company.Name);
@@ -61,15 +83,11 @@ namespace Assets.Core
         public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.GetHuman(gameContext, humanId));
         public static void FireManager(GameEntity company, GameEntity worker)
         {
-            //Debug.Log("Fire worker from " + company.company.Name + " " + worker.worker.WorkerRole); // + " " + worker.human.Name
-
-            //var team = company.team;
             foreach (var team in company.team.Teams)
             {
                 team.Managers.Remove(worker.human.Id);
+                team.Offers.Remove(worker.human.Id);
             }
-
-            //ReplaceTeam(company, team);
 
             Humans.LeaveCompany(worker);
         }

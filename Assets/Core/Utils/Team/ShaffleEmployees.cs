@@ -11,7 +11,7 @@ namespace Assets.Core
         {
             //Debug.Log("ShaffleEmployees: " + company.company.Name + " " + company.company.Id);
 
-            #region remove previous employees
+            // remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
             {
                 var h = Humans.GetHuman(gameContext, humanId);
@@ -19,10 +19,7 @@ namespace Assets.Core
                 h.Destroy();
             }
 
-            //Debug.Log("ShaffleEmployees: will remove " + company.employee.Managers.Keys.Count + " employees");
-
             company.employee.Managers.Clear();
-            #endregion
 
             var roles = GetRolesTheoreticallyPossibleForThisCompanyType(company);
 
@@ -34,13 +31,8 @@ namespace Assets.Core
             }
         }
 
-        public static void AddEmployee(GameEntity company, GameContext gameContext, int managerTasks, WorkerRole role)
+        public static float GetNewWorkerRandomRating(GameEntity company, GameContext gameContext, int managerTasks, WorkerRole role)
         {
-            var worker = Humans.GenerateHuman(gameContext, role);
-
-
-
-            // Control rating levels for new workers
             //var averageStrength = GetTeamAverageStrength(company, gameContext);
             var hrRating = GetHRBasedNewManagerRating(company, gameContext);
 
@@ -50,6 +42,15 @@ namespace Assets.Core
 
             var rating = Mathf.Clamp(rng, C.NEW_MANAGER_RATING_MIN, C.NEW_MANAGER_RATING_MAX);
 
+            return rating;
+        }
+
+        public static void AddEmployee(GameEntity company, GameContext gameContext, int managerTasks, WorkerRole role)
+        {
+            // Control rating levels for new workers
+            var worker = Humans.GenerateHuman(gameContext, role);
+
+            var rating = GetNewWorkerRandomRating(company, gameContext, managerTasks, role);
             Humans.ResetSkills(worker, (int)rating);
 
             company.employee.Managers[worker.human.Id] = role;

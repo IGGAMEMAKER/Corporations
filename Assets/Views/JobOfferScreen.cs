@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine;
 
 public class JobOfferScreen : View
 {
@@ -10,28 +11,29 @@ public class JobOfferScreen : View
 
     public Text ProposalStatus;
 
+    public JobOffer JobOffer;
+
     // tweak salary buttons
     void OnEnable()
     {
-        Render();
+        Render(SelectedHuman);
     }
 
-    void Render()
+    void Render(GameEntity human)
     {
-        RenderOffer();
-        RenderProposalStatus();
+        var role = Humans.GetRole(human);
+        var rating = Humans.GetRating(Q, human);
 
-        var role = Humans.GetRole(SelectedHuman);
+        var baseSalary = Teams.GetSalaryPerRating(human, rating);
 
-        WorkerName.text = $"Hire {Humans.GetFullName(SelectedHuman)}, ({Humans.GetRating(Q, SelectedHuman)}LVL)";
+        JobOffer = new JobOffer(baseSalary / 4);
+
+
+        Offer.text = $"${Format.Minify(JobOffer.Salary)} / week";
+        WorkerName.text = $"Hire {Humans.GetFullName(human)}, ({rating}LVL)";
         RoleName.text = Humans.GetFormattedRole(role);
-    }
 
-    void RenderOffer()
-    {
-        long offer = C.SALARIES_DIRECTOR;
-
-        Offer.text = $"${Format.Minify(offer)} per month";
+        RenderProposalStatus();
     }
 
     void RenderProposalStatus()
@@ -54,5 +56,21 @@ public class JobOfferScreen : View
         }
 
         ProposalStatus.text = text;
+    }
+
+    public void IncreaseSalary()
+    {
+        Debug.Log("Increase Salary");
+        JobOffer.Salary = JobOffer.Salary * 11 / 10;
+
+        Render(SelectedHuman);
+    }
+
+    public void DecreaseSalary()
+    {
+        Debug.Log("Decrease Salary");
+        JobOffer.Salary = JobOffer.Salary * 9 / 10;
+
+        Render(SelectedHuman);
     }
 }

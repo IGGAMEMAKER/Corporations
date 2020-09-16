@@ -101,6 +101,7 @@ namespace Assets.Core
                 );
             company.AddEmployee(new Dictionary<int, WorkerRole>());
             Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
+
             Teams.AttachToTeam(company, CEO, WorkerRole.CEO, 0);
             Teams.SetJobOffer(company, 0, CEO.human.Id, new JobOffer(0));
 
