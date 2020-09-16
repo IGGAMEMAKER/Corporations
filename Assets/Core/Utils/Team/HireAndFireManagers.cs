@@ -40,6 +40,11 @@ namespace Assets.Core
             Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
+        public static void SetJobOffer(GameEntity company, int teamId, int humanId, JobOffer offer)
+        {
+            company.team.Teams[teamId].Offers[humanId] = offer;
+        }
+
         public static void DismissTeam(GameEntity company, GameContext gameContext)
         {
             Debug.Log("DismissTeam of " + company.company.Name);

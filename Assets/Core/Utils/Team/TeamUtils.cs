@@ -136,6 +136,7 @@ namespace Assets.Core
                 Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
                 TeamType = teamType, Tasks = new System.Collections.Generic.List<TeamTask>(),
 
+                Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
                 Managers = new System.Collections.Generic.List<int>(),
                 ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 

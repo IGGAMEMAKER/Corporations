@@ -194,6 +194,20 @@ public class CorporateCultureComponent : IComponent
     public Dictionary<CorporatePolicy, int> Culture;
 }
 
+public class JobOffer
+{
+    public long Salary;
+
+    public JobOffer()
+    {
+
+    }
+    public JobOffer(long salary)
+    {
+        this.Salary = salary;
+    }
+}
+
 [Game, Event(EventTarget.Self)]
 public class TeamComponent : IComponent
 {
@@ -226,6 +240,7 @@ public class TeamInfo
 
     public List<TeamTask> Tasks;
 
+    public Dictionary<int, JobOffer> Offers;
     public List<int> Managers;
     public int Workers;
     public int HiringProgress;
