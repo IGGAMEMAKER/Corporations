@@ -24,7 +24,7 @@ public class JobOfferScreen : View
 
         var baseSalary = Teams.GetSalaryPerRating(rating);
 
-        JobOffer = new JobOffer(baseSalary);
+        JobOffer = new JobOffer(baseSalary / 4);
 
         Render(SelectedHuman);
     }
@@ -34,7 +34,7 @@ public class JobOfferScreen : View
         var role = Humans.GetRole(human);
         var rating = Humans.GetRating(Q, human);
 
-        Offer.text = $"${Format.Minify(JobOffer.Salary)} / month";
+        Offer.text = $"${Format.Minify(JobOffer.Salary)} / week";
         WorkerName.text = $"Hire {Humans.GetFullName(human)}, ({rating}LVL)";
         RoleName.text = Humans.GetFormattedRole(role);
 
@@ -43,7 +43,7 @@ public class JobOfferScreen : View
 
     void RenderProposalStatus(GameEntity human, int rating)
     {
-        var offer = JobOffer.Salary;
+        var offer = JobOffer.Salary * 4;
         var wantedOffer = Teams.GetSalaryPerRating(human, rating);
 
         var text = Visuals.Neutral("Is waiting for your response");
