@@ -51,8 +51,6 @@ public class CandidatesForRoleListView : ListView
             managerIds.AddRange(workers);
         }
 
-        bool isCoreTeam = teamId == 0;
-
         SetItems(managerIds); // .Select(id => Humans.GetHuman(Q, id))
     }
 }

@@ -38,34 +38,34 @@ public abstract class StaffListView : ListView
     static int GetWorkerOrder(WorkerRole role)
     {
         if (role == WorkerRole.CEO)
-            return 15;
+            return 150;
 
         if (role == WorkerRole.Universal)
-            return 11;
+            return 110;
 
         if (role == WorkerRole.TechDirector)
-            return 9;
+            return 90;
 
         if (role == WorkerRole.MarketingDirector)
-            return 8;
+            return 80;
 
         if (role == WorkerRole.TeamLead)
-            return 7;
+            return 70;
 
         if (role == WorkerRole.MarketingLead)
-            return 6;
+            return 60;
 
         if (role == WorkerRole.ProjectManager)
-            return 5;
+            return 50;
 
         if (role == WorkerRole.ProductManager)
-            return 4;
+            return 40;
 
         if (role == WorkerRole.Marketer)
-            return 3;
+            return 30;
 
         if (role == WorkerRole.Programmer)
-            return 2;
+            return 20;
 
         return 0;
     }

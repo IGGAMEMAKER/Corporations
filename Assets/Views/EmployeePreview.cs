@@ -1,6 +1,4 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +8,18 @@ public class EmployeePreview : View
     public Text Text;
     public GameObject LoyaltyTab;
 
+    public Text WorkerRoleName;
+
     public void SetEntity(int humanId)
     {
         var human = Humans.GetHuman(Q, humanId);
 
-        bool employed = Humans.IsEmployed(human);
-
         var rating = Humans.GetRating(human);
+        var role = Humans.GetRole(human);
 
         string[] Traits = human.humanSkills.Traits.Select(t => Visuals.Positive(ConvertTraitToString(t))).ToArray(); // new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
 
+        bool employed = Humans.IsEmployed(human);
         //if (employed)
         //{
         //    Text.text = Visuals.Colorize("Works in competing company", Colors.COLOR_GOLD);
@@ -30,6 +30,12 @@ public class EmployeePreview : View
         //}
 
         //Text.text += "\n\n";
+
+        var team = Flagship.team.Teams[SelectedTeam];
+        bool willCompeteWithWorker = team.Managers.Select(h => Humans.GetRole(Humans.GetHuman(Q, h))).Count(h => h == role) > 0;
+
+        if (WorkerRoleName != null)
+            WorkerRoleName.color = Visuals.GetColorPositiveOrNegative(willCompeteWithWorker);
 
         var min = (int)(rating + Companies.GetRandomValueInRange(0, 15, humanId, Flagship.company.Id));
         var max = (int)Mathf.Min(rating + Companies.GetRandomValueInRange(20, 55, humanId, Flagship.company.Id + 1), 100);
