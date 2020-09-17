@@ -142,14 +142,16 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
         //hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}\n");
         //hint.AppendLine(RenderStars("Product", techStars));
 
-        //hint.AppendLine();
-        hint.AppendLine(RenderStars("Budget", budgetStars));
-
-        //hint.AppendLine();
-        hint.AppendLine(RenderStars("Managers", managerStars));
-        hint.AppendLine(RenderStars("Teams", teamStars));
-
         var productStrength = (budgetStars + managerStars + teamStars) / 3;
+
+        //hint.AppendLine();
+        hint.AppendLine(RenderStars("Company strength", productStrength));
+        //hint.AppendLine(RenderStars("Budget", budgetStars));
+
+        //hint.AppendLine();
+        //hint.AppendLine(RenderStars("Managers", managerStars));
+        //hint.AppendLine(RenderStars("Teams", teamStars));
+
         SetAmountOfStars.SetStars(productStrength);
 
         //hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
