@@ -45,7 +45,7 @@ namespace Assets.Core
             company.team.Teams[teamId].Offers[humanId] = offer;
         }
 
-        public static long GetSalaryPerRating(GameEntity human, long rating)
+        public static float GetPersonalSalaryModifier(GameEntity human)
         {
             float modifier = 0;
 
@@ -62,9 +62,20 @@ namespace Assets.Core
                 modifier += 0.35f;
             }
 
+            return modifier;
+        }
+
+        public static long GetSalaryPerRating(long rating, float modifier = 0)
+        {
             var baseSalary = (long)(Mathf.Pow(500, 1f + modifier + rating / 100f));
 
             return baseSalary / 4;
+        }
+        public static long GetSalaryPerRating(GameEntity human, long rating)
+        {
+            float modifier = GetPersonalSalaryModifier(human);
+
+            return GetSalaryPerRating(rating, modifier);
         }
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)

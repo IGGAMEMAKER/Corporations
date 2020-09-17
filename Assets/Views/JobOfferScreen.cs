@@ -12,10 +12,20 @@ public class JobOfferScreen : View
     public Text ProposalStatus;
 
     public JobOffer JobOffer;
+    public GameObject HireManager;
 
     // tweak salary buttons
     void OnEnable()
     {
+        var human = SelectedHuman;
+
+        var role = Humans.GetRole(human);
+        var rating = Humans.GetRating(Q, human);
+
+        var baseSalary = Teams.GetSalaryPerRating(rating);
+
+        JobOffer = new JobOffer(baseSalary);
+
         Render(SelectedHuman);
     }
 
@@ -24,21 +34,31 @@ public class JobOfferScreen : View
         var role = Humans.GetRole(human);
         var rating = Humans.GetRating(Q, human);
 
-        var baseSalary = Teams.GetSalaryPerRating(human, rating);
-
-        JobOffer = new JobOffer(baseSalary / 4);
-
-
-        Offer.text = $"${Format.Minify(JobOffer.Salary)} / week";
+        Offer.text = $"${Format.Minify(JobOffer.Salary)} / month";
         WorkerName.text = $"Hire {Humans.GetFullName(human)}, ({rating}LVL)";
         RoleName.text = Humans.GetFormattedRole(role);
 
-        RenderProposalStatus();
+        RenderProposalStatus(human, rating);
     }
 
-    void RenderProposalStatus()
+    void RenderProposalStatus(GameEntity human, int rating)
     {
+        var offer = JobOffer.Salary;
+        var wantedOffer = Teams.GetSalaryPerRating(human, rating);
+
         var text = Visuals.Neutral("Is waiting for your response");
+
+        if (offer < wantedOffer)
+        {
+            text = Visuals.Negative("Wants bigger salary!");
+            Hide(HireManager);
+        }
+
+        if (offer >= wantedOffer)
+        {
+            text = Visuals.Positive("Will accept job offer");
+            Show(HireManager);
+        }
 
         var role = Humans.GetRole(SelectedHuman);
 
@@ -60,7 +80,6 @@ public class JobOfferScreen : View
 
     public void IncreaseSalary()
     {
-        Debug.Log("Increase Salary");
         JobOffer.Salary = JobOffer.Salary * 11 / 10;
 
         Render(SelectedHuman);
@@ -68,7 +87,6 @@ public class JobOfferScreen : View
 
     public void DecreaseSalary()
     {
-        Debug.Log("Decrease Salary");
         JobOffer.Salary = JobOffer.Salary * 9 / 10;
 
         Render(SelectedHuman);
