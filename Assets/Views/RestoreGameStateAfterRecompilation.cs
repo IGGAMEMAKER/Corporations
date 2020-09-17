@@ -45,6 +45,7 @@ public class RestoreGameStateAfterRecompilation : View
 
         if (TopPanel == null && Panels == null)
             return;
+        
         // reactivate panels here
         TopPanel.SetActive(false);
         TopPanel.SetActive(true);
@@ -68,6 +69,7 @@ public class RestoreGameStateAfterRecompilation : View
         e.AddDate(0);
         e.AddSpeed(2);
         //e.AddTargetDate(0);
+
         // game is paused already
         //ScheduleUtils.PauseGame(Q);
 
@@ -102,6 +104,7 @@ public class RestoreGameStateAfterRecompilation : View
     void SpawnCompanies()
     {
         Debug.Log("Simulate Development");
+
         var skipDays = (C.START_YEAR - 1991) * 360;
 
         MockySimulation(skipDays, Q);

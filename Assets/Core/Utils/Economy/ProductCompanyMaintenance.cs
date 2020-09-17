@@ -19,14 +19,11 @@ namespace Assets.Core
             var bonus = new Bonus<long>("Maintenance");
 
             bonus
-                //.AppendAndHideIfZero("Workers", GetWorkersCost(e, gameContext) * C.PERIOD / 30)
-                .AppendAndHideIfZero("TOP Managers", GetManagersCost(e, gameContext) * C.PERIOD / 30);
+                .Append("Managers", GetManagersCost(e, gameContext))
+                .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", GetSingleTeamCost() * e.team.Teams.Count * C.PERIOD / 30);
+                ;
 
-            var teamCost = GetSingleTeamCost();
-
-            bonus.AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", teamCost * e.team.Teams.Count * C.PERIOD / 30);
-
-            #region team tasks
+            /// team tasks
             // channels
             foreach (var c in e.companyMarketingActivities.Channels)
             {
@@ -49,7 +46,7 @@ namespace Assets.Core
 
                 bonus.AppendAndHideIfZero(name, upgradeCost * amount);
             }
-            #endregion
+            
 
             return bonus;
         }
@@ -107,14 +104,39 @@ namespace Assets.Core
             return workers * C.SALARIES_PROGRAMMER; // * GetCultureTeamDiscount(e, gameContext) / 100;
         }
 
+        public static Bonus<long> GetSalaries(GameEntity e, GameContext gameContext)
+        {
+            Bonus<long> salaries = new Bonus<long>("Manager salaries");
+
+            foreach (var t in e.team.Teams)
+            {
+                foreach (var kvp in t.Offers)
+                {
+                    var salary = kvp.Value.Salary;
+
+                    //salaries.Append("")
+                    //salaries += salary;
+                }
+            }
+
+            return salaries;
+        }
+
         public static long GetManagersCost(GameEntity e, GameContext gameContext)
         {
-            var managers = e.team.Managers.Count;
+            long salaries = 0;
 
-            if (e.hasProduct && !e.isRelease)
-                return 0;
+            foreach (var t in e.team.Teams)
+            {
+                foreach (var kvp in t.Offers)
+                {
+                    var salary = kvp.Value.Salary;
 
-            return managers * C.SALARIES_DIRECTOR;
+                    salaries += salary;
+                }
+            }
+
+            return salaries;
         }
     }
 }

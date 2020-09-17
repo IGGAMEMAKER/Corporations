@@ -3,6 +3,7 @@ using Assets.Core;
 using Entitas;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public partial class TaskProcessingSystem : OnDateChange
 {
@@ -11,31 +12,46 @@ public partial class TaskProcessingSystem : OnDateChange
     protected override void Execute(List<GameEntity> entities)
     {
         GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
+        Debug.Log($"Loaded {tasks.Count()} Tasks");
+
         var date = ScheduleUtils.GetCurrentDate(gameContext);
+
+        Debug.Log("Loaded date: " + date);
 
         for (var i = tasks.Length - 1; i >= 0; i--)
         {
-            var t = tasks[i];
-            var task = t.timedAction;
-
-            var EndTime = task.EndTime;
-
-            if (t.isTask)
+            try
             {
-                if (date >= EndTime && !task.isCompleted)
+                var t = tasks[i];
+                var task = t.timedAction;
+
+                var EndTime = task.EndTime;
+
+                if (t.isTask)
                 {
-                    Cooldowns.ProcessTask(task, gameContext);
-                    t.timedAction.isCompleted = true;
+                    if (date >= EndTime && !task.isCompleted)
+                    {
+                        Cooldowns.ProcessTask(task, gameContext);
+                        t.timedAction.isCompleted = true;
+                    }
                 }
+
+
+                // 
+                if (date > EndTime)
+                    t.Destroy();
             }
-
-
-            // 
-            if (date > EndTime)
-                t.Destroy();
+            catch (Exception ex)
+            {
+                Debug.Log("Error in task processing system");
+                Debug.Log(ex);
+            }
         }
 
+        //return;
         var products = Companies.GetProductCompanies(gameContext);
+
+        Debug.Log("Products " + products.Count());
 
         foreach (var p in products)
         {

@@ -1,8 +1,6 @@
 ﻿using Assets.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class AIProcessInvestmentsSystem : OnPeriodChange
 {
@@ -10,39 +8,21 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        foreach (var company in Companies.GetNonFinancialCompanies(gameContext))
+        foreach (var company in Companies.GetNonFinancialCompanies(gameContext).Where(c => c.isIndependentCompany))
         {
-            if (!company.isIndependentCompany) continue;
-            try
+            foreach (var s in company.shareholders.Shareholders)
             {
-                foreach (var s in company.shareholders.Shareholders)
+                var block = s.Value;
+
+
+                foreach (var offer in block.Investments)
                 {
-                    var investorId = s.Key;
-                    var block = s.Value;
-
-
-                    foreach (var offer in block.Investments)
+                    if (offer.RemainingPeriods > 0)
                     {
-                        try
-                        {
-                            if (offer.RemainingPeriods > 0)
-                            {
-                                Companies.AddResources(company, offer.Portion);
-                                offer.RemainingPeriods--;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.Log("Found investments for " + company.company.Name + " but something fucked up");
-                            Debug.LogError(ex);
-                        }
+                        Companies.AddResources(company, offer.Portion);
+                        offer.RemainingPeriods--;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.Log("Got error while checking investments of " + company.company.Name);
-                Debug.LogError(ex);
             }
         }
     }
