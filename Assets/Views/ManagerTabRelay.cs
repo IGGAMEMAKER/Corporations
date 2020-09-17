@@ -7,19 +7,13 @@ using UnityEngine;
 public class ManagerTabRelay : View
 {
     public GameObject EmployeesTab;
-    public GameObject HireManagersRelayButtons;
     public GameObject Managers;
-    public GameObject ManagerInteractions;
-
-    public GameObject BackToManagerTab;
-    public GameObject BackToMainTab;
 
     public TeamView TeamView;
-    public GameObject FireTeam;
 
     // ----------------------------
 
-    public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, HireManagersRelayButtons, ManagerInteractions, Managers, BackToMainTab, BackToManagerTab };
+    public List<GameObject> Tabs => new List<GameObject> { EmployeesTab, Managers };
 
     // selected worker
     bool roleWasSelected = false;
@@ -58,13 +52,12 @@ public class ManagerTabRelay : View
             OpenManagerTab();
         }
 
-        MarkGameEventsAsSeen(role);
+        //MarkGameEventsAsSeen(role);
     }
 
     public void HireWorker(WorkerRole workerRole)
     {
         ShowOnly(EmployeesTab, Tabs);
-        Show(BackToManagerTab);
 
         var candidates = FindObjectOfType<CandidatesForRoleListView>();
         candidates.WorkerRole = workerRole;
@@ -81,18 +74,12 @@ public class ManagerTabRelay : View
     {
         ShowOnly(Managers, Tabs);
         Show(EmployeesTab);
-        //Show(HireManagersRelayButtons);
-        Show(BackToMainTab);
-
-        //
-        Hide(BackToMainTab);
     }
 
     public void OpenWorkerTab()
     {
-        ShowOnly(ManagerInteractions, Tabs);
+        //ShowOnly(ManagerInteractions, Tabs);
         Show(Managers);
-        Show(BackToMainTab);
     }
 
     private void OnEnable()
@@ -107,23 +94,23 @@ public class ManagerTabRelay : View
 
 
 
-    void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
-    {
-        var events = eventContainer.gameEventContainer.Events;
+    //void ClearEvents(GameEntity eventContainer, List<GameEventType> removableEvents)
+    //{
+    //    var events = eventContainer.gameEventContainer.Events;
 
-        events.RemoveAll(e => removableEvents.Contains(e.eventType));
-        eventContainer.ReplaceGameEventContainer(events);
-    }
+    //    events.RemoveAll(e => removableEvents.Contains(e.eventType));
+    //    eventContainer.ReplaceGameEventContainer(events);
+    //}
 
-    void MarkGameEventsAsSeen(WorkerRole role)
-    {
-        var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
+    //void MarkGameEventsAsSeen(WorkerRole role)
+    //{
+    //    var marketingEvents = new List<GameEventType> { GameEventType.NewMarketingChannel };
 
-        var events = NotificationUtils.GetGameEventContainerEntity(Q);
+    //    var events = NotificationUtils.GetGameEventContainerEntity(Q);
 
-        if (role == WorkerRole.MarketingLead)
-        {
-            ClearEvents(events, marketingEvents);
-        }
-    }
+    //    if (role == WorkerRole.MarketingLead)
+    //    {
+    //        ClearEvents(events, marketingEvents);
+    //    }
+    //}
 }

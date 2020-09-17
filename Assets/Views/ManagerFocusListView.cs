@@ -9,6 +9,7 @@ public class ManagerFocusListView : ListView
     public GameObject Organisation;
 
     public OrganisationView OrganisationView;
+    public TeamView TeamView;
 
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -50,6 +51,8 @@ public class ManagerFocusListView : ListView
         Teams.SetManagerTask(Flagship, SelectedTeam, ChosenIndex, task);
 
         OnDeselect();
+        TeamView.SetEntity(Flagship.team.Teams[SelectedTeam], SelectedTeam);
+
         ViewRender();
     }
 

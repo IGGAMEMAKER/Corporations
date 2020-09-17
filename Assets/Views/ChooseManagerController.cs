@@ -10,6 +10,6 @@ public class ChooseManagerController : ButtonController
         var role = c.role;
 
         c.HighlightWorkerRole(true);
-        FindObjectOfType<ManagerTabRelay>().ToggleRole(role);
+        //FindObjectOfType<ManagerTabRelay>().ToggleRole(role);
     }
 }

@@ -17,6 +17,8 @@ public class OrganisationView : View
     public GameObject ExpandTeam;
     public GameObject FireTeam;
 
+    public Text ManagerAdvice;
+
     // ----------------------
 
     public Text TeamStats;
@@ -45,6 +47,13 @@ public class OrganisationView : View
         loadingBar.GetComponent<Image>().fillAmount = organisation / 100f;
         //textPercent.GetComponent<TextMeshProUGUI>().text = ((int)value).ToString("F0");
 
+        bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
+        var mainManagerRole = Teams.GetMainManagerForTheTeam(team);
+
+        ManagerAdvice.text = Visuals.Negative($"These bonuses don't apply, cause you don't have {Humans.GetFormattedRole(mainManagerRole)}");
+        Draw(ManagerAdvice, !hasLeadManager);
+
+        // --------------------------------------
         var teamCount = product.team.Teams.Count;
 
         bool CanExpand = teamCount == 1 && organisation >= 100;

@@ -35,7 +35,7 @@ public class EmployeePreview : View
         bool willCompeteWithWorker = team.Managers.Select(h => Humans.GetRole(Humans.GetHuman(Q, h))).Count(h => h == role) > 0;
 
         if (WorkerRoleName != null)
-            WorkerRoleName.color = Visuals.GetColorPositiveOrNegative(willCompeteWithWorker);
+            WorkerRoleName.color = Visuals.GetColorPositiveOrNegative(!willCompeteWithWorker);
 
         var min = (int)(rating + Companies.GetRandomValueInRange(0, 15, humanId, Flagship.company.Id));
         var max = (int)Mathf.Min(rating + Companies.GetRandomValueInRange(20, 55, humanId, Flagship.company.Id + 1), 100);

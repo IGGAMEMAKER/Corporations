@@ -170,15 +170,4 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
         Hide(AddTeamTaskListView);
         Hide(TeamTaskListView);
     }
-
-    //void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-    //{
-    //    RenderTasks();
-    //}
-
-    //void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-    //{
-    //    if (freeSlots == 0)
-    //        HideTasks();
-    //}
 }

@@ -30,15 +30,18 @@ public class CandidatesForRoleListView : ListView
         var teamId = FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
         var team = company.team.Teams[teamId];
 
-        //Debug.Log("Competitors: " + string.Join(", ", competitors.Select(c => c.company.Name)));
-
         var managers = new List<GameEntity>();
         var managerIds = new List<int>();
 
+        bool hasLeader = Teams.HasMainManagerInTeam(team, Q, Flagship);
+        var leaderRole = Teams.GetMainManagerForTheTeam(team);
+
         managerIds.AddRange(
             company.employee.Managers
-            //.Where(p => p.Value == WorkerRole)
             .Where(Teams.RoleSuitsTeam(company, team))
+            
+            // 
+            .Where(m => hasLeader || m.Value == leaderRole)
             .Select(p => p.Key)
             );
 
@@ -46,11 +49,12 @@ public class CandidatesForRoleListView : ListView
         {
             var workers = c.team.Managers
                 .Where(Teams.RoleSuitsTeam(company, team))
-                //.Where(p => p.Value == WorkerRole)
+
+                .Where(m => hasLeader || m.Value == leaderRole)
                 .Select(p => p.Key);
             managerIds.AddRange(workers);
         }
 
-        SetItems(managerIds); // .Select(id => Humans.GetHuman(Q, id))
+        SetItems(managerIds);
     }
 }

@@ -27,11 +27,4 @@ public class TeamListView : StaffListView
     {
         return Flagship;
     }
-
-    public override void OnItemSelected(int ind)
-    {
-        base.OnItemSelected(ind);
-
-
-    }
 }

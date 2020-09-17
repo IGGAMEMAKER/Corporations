@@ -37,7 +37,7 @@ namespace Assets.Core
             Humans.SetRole(gameContext, humanId, workerRole);
         }
 
-        static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo)
+        public static WorkerRole GetMainManagerForTheTeam(TeamInfo teamInfo)
         {
             WorkerRole managerTitle;
 
