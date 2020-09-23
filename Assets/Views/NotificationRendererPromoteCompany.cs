@@ -77,7 +77,7 @@ public class NotificationRendererPromoteCompany : NotificationRenderer<Notificat
     {
         var product = Companies.Get(Q, message.CompanyId);
 
-        return $"{product.company.Name} needs money. Will they get enough investments to complete their goals?";
+        return $"{product.company.Name} promoted to GROUP of companies. They want to buy companies and make more innovative products!";
     }
 
     public override void SetLink(NotificationMessageCompanyTypeChange message, GameObject LinkToEvent)

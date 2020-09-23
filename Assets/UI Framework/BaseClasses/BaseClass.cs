@@ -157,4 +157,9 @@ public partial class BaseClass : MonoBehaviour
         foreach (var b in objects)
             Show(b);
     }
+
+    public void HideNotificationMenu()
+    {
+        Hide(FindObjectOfType<NotificationContainerView>());
+    }
 }
