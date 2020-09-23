@@ -28,6 +28,7 @@ public abstract class ListView : View // MonoBehaviour
 
     [HideInInspector]
     public List<GameObject> Items;
+    public GameObject Item;
 
     void OnDisable()
     {
@@ -63,6 +64,8 @@ public abstract class ListView : View // MonoBehaviour
         else
         {
             ChosenIndex = elementIndex;
+
+            Item = Items[elementIndex];
             OnItemSelected(ChosenIndex);
         }
 

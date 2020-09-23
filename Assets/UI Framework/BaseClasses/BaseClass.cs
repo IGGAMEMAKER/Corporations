@@ -105,4 +105,56 @@ public partial class BaseClass : MonoBehaviour
         return (T)Convert.ChangeType(CachedObjects[t], typeof(T));
         //return (T)CachedObjects[t];
     }
+
+    // -----------------------------
+
+    public void Draw(MonoBehaviour mb, bool condition) => Draw(mb.gameObject, condition);
+    public void Draw(GameObject go, bool condition)
+    {
+        if (go.activeSelf != condition)
+            go.SetActive(condition);
+    }
+
+    public void ShowOnly(GameObject obj, List<GameObject> objects)
+    {
+        foreach (var o in objects)
+        {
+            Draw(o, o.GetInstanceID() == obj.GetInstanceID());
+        }
+    }
+
+    public void DrawCanvasGroup(GameObject go, bool condition)
+    {
+        var group = go.GetComponent<CanvasGroup>();
+
+        if (group != null)
+        {
+            DrawCanvasGroup(group, condition);
+        }
+    }
+
+    public void DrawCanvasGroup(CanvasGroup group, bool condition)
+    {
+        group.alpha = condition ? 1f : 0;
+        //group.interactable = condition;
+        group.blocksRaycasts = condition;
+    }
+
+    public void Show(MonoBehaviour mb) => Draw(mb.gameObject, true);
+    public void Show(GameObject go) => Draw(go, true);
+
+    public void Hide(MonoBehaviour mb) => Draw(mb.gameObject, false);
+    public void Hide(GameObject go) => Draw(go, false);
+
+    public void HideAll(List<GameObject> objects)
+    {
+        foreach (var b in objects)
+            Hide(b);
+    }
+
+    public void ShowAll(List<GameObject> objects)
+    {
+        foreach (var b in objects)
+            Show(b);
+    }
 }

@@ -10,6 +10,7 @@ public class NotificationView : View,
     public Text Description;
     public GameObject LinkToEvent;
     public Image Panel;
+    public CloseNotificationButton CloseNotificationButton;
 
     public void SetMessage(NotificationMessage message)
     {
@@ -59,6 +60,8 @@ public class NotificationView : View,
                     .Render(message, Title, Description, LinkToEvent, Panel);
                 break;
         }
+
+        CloseNotificationButton.NotificationId = notificationId;
     }
 
     void SetPanelColor(Color color)

@@ -23,7 +23,10 @@ namespace Assets
         ProgrammingTask,
         ServerTask,
         SupportTask,
-        MarketingTask
+        MarketingTask,
+
+        ReapingPaper,
+        FillPaper,
     }
 
     public class AudioManager: MonoBehaviour
@@ -46,6 +49,8 @@ namespace Assets
         public AudioClip marketingTaskSound;
         public AudioClip serverTaskSound;
         public AudioClip supportTaskSound;
+        public AudioClip paperSound;
+        public AudioClip reapingPpaperSound;
 
         void Start()
         {
@@ -67,6 +72,9 @@ namespace Assets
             AddSound(marketingTaskSound, Sound.MarketingTask);
             AddSound(serverTaskSound, Sound.ServerTask);
             AddSound(supportTaskSound, Sound.SupportTask);
+
+            AddSound(paperSound, Sound.FillPaper);
+            AddSound(reapingPpaperSound, Sound.ReapingPaper);
         }
 
         void AddSound(AudioClip audioClip, Sound sound = Sound.None)

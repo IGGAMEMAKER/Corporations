@@ -24,6 +24,16 @@ public class FlagshipInterruptsView : View
     public Image AudienceMapLink;
     public Text MarketShare;
 
+    // messages
+    public Image GoodMessages;
+    public Text GoodMessagesAmount;
+
+    public Image ExpiringMessages;
+    public Text ExpiringMessagesAmount;
+
+    public Image BadMessages;
+    public Text BadMessagesAmount;
+
     int previousCounter = 0;
     int problemCounter = 0;
 
@@ -107,24 +117,29 @@ public class FlagshipInterruptsView : View
 
         SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
 
+        var messagesCount = NotificationUtils.GetNotifications(Q).Count;
+        ExpiringMessagesAmount.text = messagesCount + "";
+        SpecialDraw(GoodMessages, false);
+        SpecialDraw(ExpiringMessages, messagesCount > 0);
+        SpecialDraw(BadMessages, false);
+
         // hasAcquisitionOffers
         SpecialDraw(AcquisitionOffer, false);
 
+        // play interrupt sound
         if (problemCounter > previousCounter)
         {
-            // play interrupt sound
             SoundManager.Play(Sound.Notification);
-            //gameObject.AddComponent<EnlargeOnAppearance>().
         }
 
         previousCounter = problemCounter;
     }
 
-    void SpecialDraw(Image obj, bool draw)
+    void SpecialDraw(Image obj, bool draw, bool contributeToProblemCounter = true)
     {
         Draw(obj, draw);
 
-        if (draw)
+        if (draw && contributeToProblemCounter)
             problemCounter++;
     }
 }

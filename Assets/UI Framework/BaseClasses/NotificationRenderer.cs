@@ -4,16 +4,20 @@ using UnityEngine.UI;
 public abstract class NotificationRenderer<T> : View where T : NotificationMessage
 {
     //public abstract void Render(T message, Text Title, Text Description, GameObject LinkToEvent);
-    
+
     // T derives from NotificationMessage
-    //public void Render(T message, Text Title, Text Description, GameObject LinkToEvent)
     public void Render(T message, Text Title, Text Description, GameObject LinkToEvent, Image Panel)
     {
-        Description.text = GetDescription(message);
-        Title.text = GetTitle(message); // "NEWS: " + 
+        Title.text = GetTitle(message);
 
-        RemoveLinks();
-        SetLink(message, LinkToEvent);
+        if (Description != null)
+            Description.text = GetDescription(message);
+
+        if (LinkToEvent != null)
+        {
+            RemoveLinks();
+            SetLink(message, LinkToEvent);
+        }
 
         Panel.color = GetNewsColor(message);
     }
