@@ -32,8 +32,8 @@ public class ManagePersonButtons : View
         Fire.SetActive(!isPlayer && worksInMyCompany);
 
         Draw(KeyWorker,     isEmployed && worksInMyCompany && !isPlayer);
-        Draw(Vacation,      isEmployed && worksInMyCompany && !isPlayer);
-        Draw(Educate,       isEmployed && worksInMyCompany && !isPlayer);
-        Draw(DelaySalaries, isEmployed && worksInMyCompany && !isPlayer);
+        Draw(Vacation,      isEmployed && worksInMyCompany && !isPlayer && false);
+        Draw(Educate,       isEmployed && worksInMyCompany && !isPlayer && false);
+        Draw(DelaySalaries, isEmployed && worksInMyCompany && !isPlayer && false);
     }
 }

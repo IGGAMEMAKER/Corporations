@@ -6,10 +6,12 @@ using UnityEngine;
 public class BuyBackFromShareholder : ButtonView
 {
     public int ShareholderId;
+    public ShareholdersOnMainScreenListView ShareholdersOnMainScreenListView;
 
     public override void Execute()
     {
         Companies.BuyBackPercent(Q, MyCompany, MyCompany.company.Id, ShareholderId, 1);
+        ShareholdersOnMainScreenListView.RenderShareholderData();
     }
 
     public override void ViewRender()

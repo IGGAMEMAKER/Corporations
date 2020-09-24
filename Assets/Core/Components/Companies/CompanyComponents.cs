@@ -249,6 +249,7 @@ public class TeamInfo
     public float Organisation;
 
     public int ID;
+    public bool TooManyLeaders = false;
 }
 
 public enum TeamType

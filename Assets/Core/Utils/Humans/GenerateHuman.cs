@@ -87,7 +87,6 @@ namespace Assets.Core
                 RandomEnum<Trait>.GenerateValue(),
                 RandomEnum<Trait>.GenerateValue(),
                 RandomEnum<Trait>.GenerateValue(),
-                RandomEnum<Trait>.GenerateValue(),
             };
         }
 

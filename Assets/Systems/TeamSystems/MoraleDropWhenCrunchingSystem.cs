@@ -2,6 +2,7 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 class MoraleManagementSystem : OnPeriodChange
@@ -29,51 +30,55 @@ class MoraleManagementSystem : OnPeriodChange
             List<int> defectedManagers = new List<int>();
 
             // gain expertise and recalculate loyalty
-            foreach (var m in c.team.Managers)
+            foreach (var team in c.team.Teams)
             {
-                var humanId = m.Key;
+                var managers = team.Managers.Select(m => Humans.GetHuman(gameContext, m));
+                bool tooManyLeaders = managers.Count(m => m.humanSkills.Traits.Contains(Trait.Leader)) >= 2;
 
-                var human = Humans.GetHuman(gameContext, humanId);
+                team.TooManyLeaders = tooManyLeaders;
 
-                var relationship = human.humanCompanyRelationship;
-
-                var loyaltyChange   = Teams.GetLoyaltyChangeForManager(human, culture, c, gameContext);
-
-                var newLoyalty      = Mathf.Clamp(relationship.Morale  + loyaltyChange, 0, 100);
-                var newAdaptation   = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
-
-
-                // TODO: if is CEO in own project, morale loss is way lower or zero
-                bool isOwner = human.hasCEO;
-                if (isOwner)
-                    newLoyalty = 100;
-
-
-                human.ReplaceHumanCompanyRelationship(newAdaptation, newLoyalty);
-
-                // gain expertise
-                if (c.hasProduct)
+                foreach (var humanId in team.Managers)
                 {
-                    var niche = c.product.Niche;
+                    var human = managers.First(m => m.human.Id == humanId);
 
-                    var newExpertise = 1;
-                    if (human.humanSkills.Expertise.ContainsKey(niche))
-                        newExpertise = Mathf.Clamp(human.humanSkills.Expertise[niche] + 1, 0, 100);
+                    var relationship = human.humanCompanyRelationship;
 
-                    human.humanSkills.Expertise[niche] = newExpertise;
+                    var loyaltyChange = Teams.GetLoyaltyChangeForManager(human, team, culture, c, gameContext);
+
+                    var newLoyalty = Mathf.Clamp(relationship.Morale + loyaltyChange, 0, 100);
+                    var newAdaptation = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
+
+
+                    // TODO: if is CEO in own project, morale loss is zero or very low
+                    bool isOwner = human.hasCEO;
+                    if (isOwner)
+                        newLoyalty = 100;
+
+
+                    human.ReplaceHumanCompanyRelationship(newAdaptation, newLoyalty);
+
+                    // gain expertise
+                    if (c.hasProduct)
+                    {
+                        var niche = c.product.Niche;
+
+                        var newExpertise = 1;
+                        if (human.humanSkills.Expertise.ContainsKey(niche))
+                            newExpertise = Mathf.Clamp(human.humanSkills.Expertise[niche] + 1, 0, 100);
+
+                        human.humanSkills.Expertise[niche] = newExpertise;
+                    }
+
+
+                    // leave company on low morale
+                    if (newLoyalty <= 0)
+                        defectedManagers.Add(humanId);
                 }
-
-
-                // leave company on low morale
-                if (newLoyalty <= 0)
-                    defectedManagers.Add(humanId);
             }
 
             // fire managers
             foreach (var humanId in defectedManagers)
             {
-                var human = Humans.GetHuman(gameContext, humanId);
-
                 bool isInPlayerFlagship = c.company.Id == playerFlagshipId;
                 if (isInPlayerFlagship)
                 {

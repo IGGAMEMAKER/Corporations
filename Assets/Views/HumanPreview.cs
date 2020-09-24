@@ -6,6 +6,7 @@ public class HumanPreview : View
 {
     public Text Overall;
     public Text Description;
+    public Image WorkerImage;
     public Text RoleText;
 
     public ProgressBar Loyalty;
@@ -52,12 +53,15 @@ public class HumanPreview : View
     private void RenderCompanyData(bool drawAsEmployee)
     {
         var company = GetCompany();
-        drawAsEmployee = true;
+        //drawAsEmployee = true;
 
         if (Loyalty != null)
         {
             if (!drawAsEmployee)
+            {
                 Loyalty.SetValue(human.humanCompanyRelationship.Morale);
+                WorkerImage.color = Visuals.GetGradientColor(0, 100, human.humanCompanyRelationship.Morale, Visuals.Negative(), Visuals.Neutral());
+            }
 
             Loyalty.gameObject.SetActive(!drawAsEmployee);
         }
@@ -84,7 +88,7 @@ public class HumanPreview : View
             // should render only in flagship screen?
             if (!drawAsEmployee)
             {
-                var change = Teams.GetLoyaltyChangeForManager(human, Q);
+                var change = Teams.GetLoyaltyChangeForManager(human, Teams.GetTeamOf(human, company), Q);
 
                 // TODO copypasted from HumanCorporateCulturePreference.cs
                 var text = Visuals.DescribeValueWithText(change,

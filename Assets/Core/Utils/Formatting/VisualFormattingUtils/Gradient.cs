@@ -24,6 +24,10 @@ namespace Assets.Core
 
         public static Color GetGradientColor(float min, float max, float val, bool reversed = false)
         {
+            return GetGradientColor(min, max, val, new Color(1f, 0, 0, 1f), new Color(0, 1f, 0, 1f), reversed);
+        }
+        public static Color GetGradientColor(float min, float max, float val, Color minColor, Color maxColor, bool reversed = false)
+        {
             float percent = (val - min) / (max - min);
 
             if (percent < 0)
@@ -35,11 +39,12 @@ namespace Assets.Core
             if (reversed)
                 percent = 1 - percent;
 
-            float r = 1f - percent;
-            float g = percent;
+            //float r = 1f - percent;
+            //float g = percent;
 
-            return new Color(r, g, 0, 1);
+            //return new Color(r, g, b, 1);
+
+            return (maxColor * percent) + (minColor * (1f - percent));
         }
-
     }
 }

@@ -20,6 +20,7 @@ public class EmployeePreview : View
         string[] Traits = human.humanSkills.Traits.Select(t => Visuals.Positive(ConvertTraitToString(t))).ToArray(); // new string[] { "Leader", "Teacher", "Ambitious", "Process-oriented", "Career-oriented", "Team-oriented" };
 
         bool employed = Humans.IsEmployed(human);
+        
         //if (employed)
         //{
         //    Text.text = Visuals.Colorize("Works in competing company", Colors.COLOR_GOLD);
@@ -42,7 +43,7 @@ public class EmployeePreview : View
 
         Text.text = $"Potential\n{Visuals.Colorize(min, 30, max)} - {Visuals.Colorize(max, 30, max)}\n\n";
 
-        Text.text += string.Join("\n", Traits.Take(1)); // .Take(Random.Range(0, Traits.Length - 1))
+        //Text.text += string.Join("\n", Traits.Take(1)); // .Take(Random.Range(0, Traits.Length - 1))
 
         Hide(LoyaltyTab);
 

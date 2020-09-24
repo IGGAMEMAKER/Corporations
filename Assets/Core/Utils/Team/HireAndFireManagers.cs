@@ -54,12 +54,12 @@ namespace Assets.Core
 
             if (isShy)
             {
-                modifier -= 0.25f;
+                modifier -= 0.1f;
             }
 
             if (isGreedy)
             {
-                modifier += 0.35f;
+                modifier += 0.3f;
             }
 
             return modifier;
@@ -115,24 +115,24 @@ namespace Assets.Core
             switch (role)
             {
                 case WorkerRole.CEO:
-                    description = $"Increases innovation chances";
+                    description = $"Manages entire company";
                     break;
 
                 case WorkerRole.TeamLead:
-                    description = $"Increases team speed";
+                    description = $"??Increases team speed";
                     break;
 
                 case WorkerRole.MarketingLead:
-                    description = $"Makes marketing cheaper";
+                    description = $"Makes marketing more effecient";
                     //if (employed)
                     //    description += $" by {RenderBonus(Teams.GetMarketingLeadBonus(company, gameContext))}%";
                     break;
 
                 case WorkerRole.ProductManager:
-                    description = $"Increases innovation chances";
+                    description = $"Makes better features";
                     break;
                 case WorkerRole.ProjectManager:
-                    description = $"Reduces amount of workers";
+                    description = $"??Reduces amount of workers";
                     break;
 
                 case WorkerRole.MarketingDirector:

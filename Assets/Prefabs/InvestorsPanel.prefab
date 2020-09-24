@@ -1343,7 +1343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 175, y: -510}
+  m_AnchoredPosition: {x: 175, y: -395}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5001143315961190392
@@ -7210,6 +7210,7 @@ MonoBehaviour:
   ChosenIndex: -1
   ForceUpdate: 0
   Items: []
+  Item: {fileID: 0}
   SearchNewInvestors: {fileID: 4110931167567684210}
   ChangeGoals: {fileID: 6157888848008096172}
   GetExtraCash: {fileID: 2141771868552211699}
@@ -7217,6 +7218,7 @@ MonoBehaviour:
   BuyBackFromSpecificInvestor: {fileID: 5862184628048596752}
   BuyBack: {fileID: 7632324947501412220}
   CurrentInvestments: {fileID: 5785599739830414370}
+  BuyBackFromShareholder: {fileID: 1421297603816585319}
   MainInfo: {fileID: 4449288197539979887}
 --- !u!114 &6989860086581290865
 MonoBehaviour:
@@ -7802,6 +7804,7 @@ GameObject:
   - component: {fileID: 1803966402584188709}
   - component: {fileID: 4374816366063980397}
   - component: {fileID: 6845827018608674661}
+  - component: {fileID: 1421297603816585319}
   m_Layer: 5
   m_Name: Investor Preview (5)
   m_TagString: Untagged
@@ -8057,7 +8060,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5862184628048596752}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f5db4007c1bb4e4f9243746fd3ca822, type: 3}
   m_Name: 
@@ -8077,6 +8080,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 0.15
   amplification: 0.2
+--- !u!114 &1421297603816585319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862184628048596752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e85f28bf16dd7439f4c8ba54d78add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLink: 0
+  ShareholderId: 0
+  ShareholdersOnMainScreenListView: {fileID: 6680686739757894990}
 --- !u!1 &5881090938962089451
 GameObject:
   m_ObjectHideFlags: 0
@@ -12370,12 +12388,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a921abc61d7a50448bbd77ed8e8a1c8, type: 3}
---- !u!224 &420234399436552955 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1096490072732185725, guid: 5a921abc61d7a50448bbd77ed8e8a1c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 784606123773726342}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4449288197539979887 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3989194306410015977, guid: 5a921abc61d7a50448bbd77ed8e8a1c8,
@@ -12388,6 +12400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a3400c93ac98049b3c34b79a794e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &420234399436552955 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1096490072732185725, guid: 5a921abc61d7a50448bbd77ed8e8a1c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 784606123773726342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2075994859671540911
 PrefabInstance:
   m_ObjectHideFlags: 0

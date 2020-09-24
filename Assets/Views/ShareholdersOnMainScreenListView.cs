@@ -16,6 +16,8 @@ public class ShareholdersOnMainScreenListView : ListView
     public GameObject BuyBack;
     public GameObject CurrentInvestments;
 
+    public BuyBackFromShareholder BuyBackFromShareholder;
+
     public ProductUpgradeLinks MainInfo;
 
     List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, MainInfo.gameObject };
@@ -77,6 +79,8 @@ public class ShareholdersOnMainScreenListView : ListView
         {
             HideAll(PlayerButtons);
             ShowAll(InvestorButtons);
+
+            BuyBackFromShareholder.ViewRender();
         }
 
 

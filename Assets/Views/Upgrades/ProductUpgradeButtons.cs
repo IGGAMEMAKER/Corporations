@@ -6,7 +6,6 @@ using UnityEngine;
 public class ProductUpgradeButtons : RoleRelatedButtons
 {
     public ReleaseApp ReleaseApp;
-    public GameObject RaiseInvestments;
 
     void Render()
     {
@@ -18,8 +17,6 @@ public class ProductUpgradeButtons : RoleRelatedButtons
         // prerelease stuff
         // ---------------------
         Draw(ReleaseApp, Companies.IsReleaseableApp(company));
-
-        RenderInvestmentsButton();
     }
 
     void RenderInvestmentsButton()
@@ -27,8 +24,6 @@ public class ProductUpgradeButtons : RoleRelatedButtons
         bool hasReleasedProducts = Companies.IsHasReleasedProducts(Q, MyCompany);
 
         bool bankruptcyLooming = TutorialUtils.IsOpenedFunctionality(Q, TutorialFunctionality.BankruptcyWarning);
-
-        Draw(RaiseInvestments, false && (hasReleasedProducts || bankruptcyLooming));
     }
 
     public override void ViewRender()

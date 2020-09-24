@@ -9,7 +9,7 @@ namespace Assets.Core
     {
         public static Bonus<int> GetManagerGrowthBonus(GameEntity worker, TeamInfo teamInfo, bool hasTeacherInTeam, GameContext gameContext)
         {
-            var loyaltyChange = GetLoyaltyChangeForManager(worker, gameContext);
+            var loyaltyChange = GetLoyaltyChangeForManager(worker, teamInfo, gameContext);
             var rating = Humans.GetRating(worker);
 
             bool isCurious = worker.humanSkills.Traits.Contains(Trait.Curious);

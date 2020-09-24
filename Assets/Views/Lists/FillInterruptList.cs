@@ -82,40 +82,42 @@ public class FillInterruptList : View
 
     bool HasUnhappyManagersInCompany (GameEntity company)
     {
-        if (company == null || !company.hasTeam)
-            return false;
-
-        foreach (var m in company.team.Managers)
-        {
-            var human = Humans.GetHuman(Q, m.Key);
-
-            var morale = human.humanCompanyRelationship.Morale;
-            var change = Teams.GetLoyaltyChangeForManager(human, Q);
-
-            if (morale < 30 && change < 0)
-                return true;
-        }
-
         return false;
+        //if (company == null || !company.hasTeam)
+        //    return false;
+
+        //foreach (var m in company.team.Managers)
+        //{
+        //    var human = Humans.GetHuman(Q, m.Key);
+
+        //    var morale = human.humanCompanyRelationship.Morale;
+        //    var change = Teams.GetLoyaltyChangeForManager(human, Q);
+
+        //    if (morale < 30 && change < 0)
+        //        return true;
+        //}
+
+        //return false;
     }
 
     bool HasRebelliousManagersInCompany (GameEntity company)
     {
-        if (company == null || !company.hasTeam)
-            return false;
-
-        foreach (var m in company.team.Managers)
-        {
-            var human = Humans.GetHuman(Q, m.Key);
-
-            var morale = human.humanCompanyRelationship.Morale;
-            var change = Teams.GetLoyaltyChangeForManager(human, Q);
-
-            if (change < 0)
-                return true;
-        }
-
         return false;
+        //if (company == null || !company.hasTeam)
+        //    return false;
+
+        //foreach (var m in company.team.Managers)
+        //{
+        //    var human = Humans.GetHuman(Q, m.Key);
+
+        //    var morale = human.humanCompanyRelationship.Morale;
+        //    var change = Teams.GetLoyaltyChangeForManager(human, Q);
+
+        //    if (change < 0)
+        //        return true;
+        //}
+
+        //return false;
     }
 
     bool HasUnhappyManagers => HasUnhappyManagersInCompany(Flagship) || HasUnhappyManagersInCompany(MyCompany);//return Companies.GetDaughterUnhappyCompanies(Q, MyCompany.company.Id).Length > 0;
