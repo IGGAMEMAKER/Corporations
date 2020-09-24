@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,9 +56,11 @@ public class TeamPreview : View
         bool isFirstTeam = company.team.Teams.Count == 1;
         GetComponent<Blinker>().enabled = isFirstTeam && hasNoManager && hasNoManagerFocus;
 
+        bool hasDisloyalManagers = info.Managers.Select(m => Humans.GetHuman(Q, m)).Count(h => h.humanCompanyRelationship.Morale < 40) > 0;
+
         if (hasFullTeam)
         {
-            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus);
+            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
         }
         else
         {
