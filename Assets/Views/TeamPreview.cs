@@ -56,7 +56,9 @@ public class TeamPreview : View
         bool isFirstTeam = company.team.Teams.Count == 1;
         GetComponent<Blinker>().enabled = isFirstTeam && hasNoManager && hasNoManagerFocus;
 
-        bool hasDisloyalManagers = info.Managers.Select(m => Humans.GetHuman(Q, m)).Count(h => h.humanCompanyRelationship.Morale < 40) > 0;
+        bool hasDisloyalManagers = info.Managers
+            .Select(m => Humans.GetHuman(Q, m))
+            .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, info, Q) < 0) > 0;
 
         if (hasFullTeam)
         {
