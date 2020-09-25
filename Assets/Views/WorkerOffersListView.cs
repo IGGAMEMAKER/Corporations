@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,10 +16,12 @@ public class WorkerOffersListView : ListView
     public override void ViewRender()
     {
         base.ViewRender();
+        var human = SelectedHuman;
 
-        Draw(OffersTitle, SelectedHuman.workerOffers.Offers.Count > 0);
+        bool hasCompetingOffers = Humans.HasCompetingOffers(human);
+        Draw(OffersTitle, hasCompetingOffers);
 
-        SetItems(SelectedHuman.workerOffers.Offers);
+        SetItems(hasCompetingOffers ? SelectedHuman.workerOffers.Offers : null);
         //SetItems(SelectedHuman.workerOffers.Offers.Where(o => o.CompanyId != Flagship.company.Id));
     }
 }

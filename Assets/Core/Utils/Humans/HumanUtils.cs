@@ -34,6 +34,11 @@ namespace Assets.Core
             return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
         }
 
+        public static bool HasCompetingOffers(GameEntity human)
+        {
+            return human.workerOffers.Offers.Count > 0;
+        }
+
         // actions
         public static GameEntity SetSkill(GameEntity worker, WorkerRole workerRole, int level)
         {

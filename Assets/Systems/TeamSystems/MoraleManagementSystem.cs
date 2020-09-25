@@ -78,7 +78,7 @@ class MoraleManagementSystem : OnPeriodChange
                         var offers = human.workerOffers.Offers;
 
                         // has competing offers
-                        if (offers.Count(o => !o.Accepted) > 0)
+                        if (Humans.HasCompetingOffers(human))
                         {
                             var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer, currentOffer));
 
