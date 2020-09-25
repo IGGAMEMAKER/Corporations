@@ -43,22 +43,44 @@ namespace Assets.Core
             Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
-        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId)
+        public static void AddOrReplaceOffer(GameEntity company, GameEntity human, ExpiringJobOffer o)
         {
-            int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id);
-
-            var o = new ExpiringJobOffer { CompanyId = company.company.Id, DecisionDate = -1, HumanId = human.human.Id };
-
+            int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id && o1.HumanId == human.human.Id);
             if (index == -1)
             {
                 human.workerOffers.Offers.Add(o);
-                index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id);
             }
+            else
+            {
+                human.workerOffers.Offers[index] = o;
+            }
+        }
 
-            o = human.workerOffers.Offers[index];
+        public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)
+        {
+            var offer = new ExpiringJobOffer
+            {
+                JobOffer = jobOffer,
+                CompanyId = company.company.Id,
+                DecisionDate = ScheduleUtils.GetCurrentDate(gameContext) + 30,
+                HumanId = worker.human.Id
+            };
 
-            o.Accepted = true;
-            o.JobOffer = offer;
+            AddOrReplaceOffer(company, worker, offer);
+        }
+
+        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId)
+        {
+            var o = new ExpiringJobOffer {
+                Accepted = true,
+
+                JobOffer = offer,
+                CompanyId = company.company.Id,
+                HumanId = human.human.Id,
+                DecisionDate = -1
+            };
+
+            AddOrReplaceOffer(company, human, o);
 
             company.team.Teams[teamId].Offers[human.human.Id] = offer;
         }

@@ -16,9 +16,10 @@ public class JobOfferView : View
         var human = SelectedHuman;
 
         CompanyTitle.text = Companies.Get(Q, entity.CompanyId).company.Name;
-        Offer.text = entity.JobOffer.Salary + " / week";
+        Offer.text = Format.MinifyMoney(entity.JobOffer.Salary) + " / week";
 
         var opinion = (long)Teams.GetOpinionAboutOffer(human, entity);
-        Opinion.text = Visuals.Colorize(opinion);
+        Opinion.text = Format.Sign(opinion);
+        Opinion.color = Visuals.GetColorPositiveOrNegative(opinion);
     }
 }

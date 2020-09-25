@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WorkerOffersListView : ListView
@@ -16,6 +17,8 @@ public class WorkerOffersListView : ListView
         base.ViewRender();
 
         Draw(OffersTitle, SelectedHuman.workerOffers.Offers.Count > 0);
+
         SetItems(SelectedHuman.workerOffers.Offers);
+        //SetItems(SelectedHuman.workerOffers.Offers.Where(o => o.CompanyId != Flagship.company.Id));
     }
 }

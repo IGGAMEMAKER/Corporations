@@ -26,19 +26,6 @@ namespace Assets.Core
             return company.team.Teams.Find(t => t.Managers.Contains(human.human.Id));
         }
 
-        public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)
-        {
-            var date = ScheduleUtils.GetCurrentDate(gameContext) + 30;
-
-            var offer = new ExpiringJobOffer { JobOffer = jobOffer, CompanyId = company.company.Id, DecisionDate = date, HumanId = worker.human.Id };
-
-            var offerId = worker.workerOffers.Offers.FindIndex(o => o.CompanyId == company.company.Id);
-            if (offerId == -1)
-                worker.workerOffers.Offers.Add(offer);
-            else
-                worker.workerOffers.Offers[offerId] = offer;
-        }
-
         public static float GetOpinionAboutOffer(GameEntity worker, ExpiringJobOffer newOffer, JobOffer currentOffer = null)
         {
             bool willNeedToLeaveCompany = worker.worker.companyId != newOffer.CompanyId;
