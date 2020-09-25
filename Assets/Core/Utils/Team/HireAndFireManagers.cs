@@ -47,7 +47,15 @@ namespace Assets.Core
         {
             int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id);
 
-            var o = human.workerOffers.Offers[index];
+            var o = new ExpiringJobOffer { CompanyId = company.company.Id, DecisionDate = -1, HumanId = human.human.Id };
+
+            if (index == -1)
+            {
+                human.workerOffers.Offers.Add(o);
+                index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id);
+            }
+
+            o = human.workerOffers.Offers[index];
 
             o.Accepted = true;
             o.JobOffer = offer;

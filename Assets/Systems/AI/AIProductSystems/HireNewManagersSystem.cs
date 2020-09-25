@@ -45,7 +45,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
                 if (Economy.IsCanMaintain(company, gameContext, salary.Salary * 3))
                 {
                     Teams.SendJobOffer(worker, jobOffer, company, gameContext);
-                    //NotificationUtils.AddNotification(gameContext, new NotificationMessage( );
+                    NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(humanId, company.company.Id));
                 }
             }
         }

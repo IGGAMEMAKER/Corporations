@@ -24,12 +24,28 @@ public enum NotificationType
     BoughtShares,
 
     CompanyTypeChange,
-    CompanyFocusChange
+    CompanyFocusChange,
+
+    RecruitingManager
 }
 
 public class NotificationMessage
 {
     public NotificationType NotificationType;
+}
+
+public class NotificationMessageManagerRecruiting : NotificationMessage
+{
+    public int HumanId;
+    public int CompanyId;
+
+    public NotificationMessageManagerRecruiting(int humanId, int companyId)
+    {
+        NotificationType = NotificationType.RecruitingManager;
+
+        this.HumanId = humanId;
+        this.CompanyId = companyId;
+    }
 }
 
 public class NotificationMessageBankruptcy : NotificationMessage

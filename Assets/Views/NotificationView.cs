@@ -55,6 +55,11 @@ public class NotificationView : View,
                     .Render(message as NotificationMessageBuyingCompany, Title, Description, LinkToEvent, Panel);
                 break;
 
+            case NotificationType.RecruitingManager:
+                gameObject.AddComponent<NotificationRendererRecruitingManager>()
+                    .Render(message as NotificationMessageManagerRecruiting, Title, Description, LinkToEvent, Panel);
+                break;
+
             default:
                 gameObject.AddComponent<NotificationRendererDefault>()
                     .Render(message, Title, Description, LinkToEvent, Panel);

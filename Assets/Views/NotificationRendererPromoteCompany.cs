@@ -33,6 +33,38 @@ public class NotificationRendererBankruptcy : NotificationRenderer<NotificationM
     }
 }
 
+
+public class NotificationRendererRecruitingManager : NotificationRenderer<NotificationMessageManagerRecruiting>
+{
+    public override string GetDescription(NotificationMessageManagerRecruiting message)
+    {
+        var company = Companies.Get(Q, message.CompanyId);
+        var human = Humans.GetHuman(Q, message.HumanId);
+
+        var role = Humans.GetRole(human);
+        var rating = Humans.GetRating(human);
+
+        return $"{Humans.GetFormattedRole(role)} {human.human.Name} ({rating}LVL) got the job offer from {company.company.Name}";
+    }
+
+    public override Color GetNewsColor(NotificationMessageManagerRecruiting message)
+    {
+        return Visuals.Negative();
+    }
+
+    public override string GetTitle(NotificationMessageManagerRecruiting message)
+    {
+        var company = Companies.Get(Q, message.CompanyId);
+        return $"{company.company.Name} wants to recruit you worker";
+    }
+
+    public override void SetLink(NotificationMessageManagerRecruiting message, GameObject LinkToEvent)
+    {
+        LinkToEvent.AddComponent<LinkToHuman>().SetHumanId(message.HumanId);
+    }
+}
+
+
 public class NotificationRendererAcquisition : NotificationRenderer<NotificationMessageBuyingCompany>
 {
     public override string GetDescription(NotificationMessageBuyingCompany message)
