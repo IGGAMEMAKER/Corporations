@@ -43,9 +43,11 @@ namespace Assets.Core
             Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
+
         public static void AddOrReplaceOffer(GameEntity company, GameEntity human, ExpiringJobOffer o)
         {
             int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id && o1.HumanId == human.human.Id);
+
             if (index == -1)
             {
                 human.workerOffers.Offers.Add(o);
@@ -54,6 +56,8 @@ namespace Assets.Core
             {
                 human.workerOffers.Offers[index] = o;
             }
+
+            Debug.Log($"Offer to {Humans.GetFullName(human)} ({human.workerOffers.Offers.Count}): {company.company.Name}");
         }
 
         public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)

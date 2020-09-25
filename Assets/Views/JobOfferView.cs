@@ -15,7 +15,7 @@ public class JobOfferView : View
     {
         var human = SelectedHuman;
 
-        CompanyTitle.text = Companies.Get(Q, entity.CompanyId).company.Name;
+        CompanyTitle.text = RenderName(Companies.Get(Q, entity.CompanyId));
         Offer.text = Format.MinifyMoney(entity.JobOffer.Salary) + " / week";
 
         var opinion = (long)Teams.GetOpinionAboutOffer(human, entity);

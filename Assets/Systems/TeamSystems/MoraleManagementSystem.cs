@@ -76,27 +76,32 @@ class MoraleManagementSystem : OnPeriodChange
                         var currentOffer = team.Offers[humanId];
 
                         var offers = human.workerOffers.Offers;
-                        var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer, currentOffer));
 
-                        var maxDesire = desires.Max();
-
-                        bool hasOneBestOffer = desires.Count(o => o >= maxDesire) == 1;
-
-                        if (hasOneBestOffer)
+                        // has competing offers
+                        if (offers.Count(o => !o.Accepted) > 0)
                         {
-                            // can choose best one
-                            var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e, currentOffer) >= maxDesire);
+                            var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer, currentOffer));
 
-                            recruitedManagers.Add(bestOffer);
-                            bestOffer.Accepted = true;
+                            var maxDesire = desires.Max();
 
-                            human.workerOffers.Offers.Clear();
-                            human.workerOffers.Offers.Add(bestOffer);
-                        }
-                        else
-                        {
-                            // otherwise, companies need to resend their offers
-                            // or they will be expired
+                            bool hasOneBestOffer = desires.Count(o => o >= maxDesire) == 1;
+
+                            if (hasOneBestOffer)
+                            {
+                                // can choose best one
+                                var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e, currentOffer) >= maxDesire);
+
+                                recruitedManagers.Add(bestOffer);
+                                bestOffer.Accepted = true;
+
+                                human.workerOffers.Offers.Clear();
+                                human.workerOffers.Offers.Add(bestOffer);
+                            }
+                            else
+                            {
+                                // otherwise, companies need to resend their offers
+                                // or they will be expired
+                            }
                         }
 
                         // clean expired offers
@@ -143,6 +148,10 @@ class MoraleManagementSystem : OnPeriodChange
             {
                 var company = Companies.Get(gameContext, offer.CompanyId);
                 var human = Humans.GetHuman(gameContext, offer.HumanId);
+
+                var previousCompany = Companies.Get(gameContext, human.worker.companyId);
+
+                Debug.Log($"Recruiting manager {Humans.GetFullName(human)} from {previousCompany.company.Name} to {company.company.Name}");
 
                 Teams.HuntManager(human, company, gameContext, 0);
                 Teams.SetJobOffer(human, company, offer.JobOffer, 0);

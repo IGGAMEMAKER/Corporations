@@ -41,7 +41,8 @@ public abstract class View : BaseClass
         if (AnimationSpawner == null)
             AnimationSpawner = FindObjectOfType<AnimationSpawner>();
 
-        AnimationSpawner.Spawn(text, t);
+        if (AnimationSpawner != null)
+            AnimationSpawner.Spawn(text, t);
     }
 
     public Color GetPanelColor(bool isSelected)

@@ -26,7 +26,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
             // try to recruit player workers
             var aggressiveness = 10 - company.corporateCulture.Culture[CorporatePolicy.CompetitionOrSupport];
 
-            var wantsToRecruit = Random.Range(0, 1000) < 10 * aggressiveness;
+            var wantsToRecruit = true; // Random.Range(0, 1000) < 10 * aggressiveness;
 
             int teamId = Random.Range(0, playerFlagship.team.Teams.Count);
             int managerId = Random.Range(0, playerFlagship.team.Teams[teamId].Managers.Count);
@@ -45,6 +45,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
                 if (Economy.IsCanMaintain(company, gameContext, salary.Salary * 3))
                 {
                     Teams.SendJobOffer(worker, jobOffer, company, gameContext);
+
                     NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(humanId, company.company.Id));
                 }
             }

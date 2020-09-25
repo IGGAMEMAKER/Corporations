@@ -349,7 +349,7 @@ namespace Assets.Core
         static void DisableTask(GameEntity product, GameContext gameContext, int teamId, int taskId) => DisableTask(product, gameContext, product.team.Teams[teamId].Tasks[taskId]);
         static void DisableTask(GameEntity product, GameContext gameContext, TeamTask task)
         {
-            Debug.Log($"Disabling task {task.ToString()} from {product.company.Name}");
+            //Debug.Log($"Disabling task {task.ToString()} from {product.company.Name}");
 
             if (task.IsMarketingTask)
             {
@@ -399,7 +399,7 @@ namespace Assets.Core
 
         public static void RemoveTeamTask(GameEntity product, GameContext gameContext, int teamId, int taskId)
         {
-            Debug.Log($"Remove Task: {taskId} from team {teamId}");
+            //Debug.Log($"Remove Task: {taskId} from team {teamId}");
 
             if (product.team.Teams[teamId].Tasks.Count() > taskId)
             {
