@@ -28,6 +28,14 @@ namespace Assets.Core
             return $"{human.human.Name} {human.human.Surname}";
         }
 
+        public static ExpiringJobOffer GetCurrentOffer(GameEntity human)
+        {
+            return human.workerOffers.Offers.First(o => o.Accepted);
+        }
+        public static long GetSalary(GameEntity human)
+        {
+            return GetCurrentOffer(human).JobOffer.Salary;
+        }
 
         public static GameEntity GetHuman(GameContext gameContext, int humanId)
         {
@@ -84,6 +92,7 @@ namespace Assets.Core
         public static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
         public static void LeaveCompany(GameEntity human)
         {
+            human.workerOffers.Offers.RemoveAll(o => o.CompanyId == human.worker.companyId);
             human.worker.companyId = -1;
         }
 

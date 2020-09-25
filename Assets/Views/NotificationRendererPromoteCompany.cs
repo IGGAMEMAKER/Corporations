@@ -44,6 +44,11 @@ public class NotificationRendererRecruitingManager : NotificationRenderer<Notifi
         var role = Humans.GetRole(human);
         var rating = Humans.GetRating(human);
 
+        if (message.Successful)
+        {
+            return $"{Humans.GetFormattedRole(role)} {human.human.Name} ({rating}LVL) joined your competitor: {company.company.Name}";
+        }
+
         return $"{Humans.GetFormattedRole(role)} {human.human.Name} ({rating}LVL) got the job offer from {company.company.Name}";
     }
 
@@ -55,7 +60,14 @@ public class NotificationRendererRecruitingManager : NotificationRenderer<Notifi
     public override string GetTitle(NotificationMessageManagerRecruiting message)
     {
         var company = Companies.Get(Q, message.CompanyId);
-        return $"{company.company.Name} wants to recruit you worker";
+        var human = Humans.GetHuman(Q, message.HumanId);
+
+        if (message.Successful)
+        {
+            //return $"{Humans.GetFullName(human)} ";
+            return $"Manager left your company";
+        }
+        return $"{company.company.Name} wants to recruit your worker";
     }
 
     public override void SetLink(NotificationMessageManagerRecruiting message, GameObject LinkToEvent)

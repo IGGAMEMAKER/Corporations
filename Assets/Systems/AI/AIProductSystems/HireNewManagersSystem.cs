@@ -39,14 +39,14 @@ public partial class HireNewManagersSystem : OnPeriodChange
                 var humanId = playerFlagship.team.Teams[teamId].Managers[managerId];
                 var worker = Humans.GetHuman(gameContext, humanId);
 
-                var salary = playerFlagship.team.Teams[teamId].Offers[humanId];
-                var jobOffer = new JobOffer(salary.Salary * 3);
+                var salary = Humans.GetSalary(worker) * 3;
+                var jobOffer = new JobOffer(salary);
 
-                if (Economy.IsCanMaintain(company, gameContext, salary.Salary * 3))
+                if (Economy.IsCanMaintain(company, gameContext, salary))
                 {
                     Teams.SendJobOffer(worker, jobOffer, company, gameContext);
 
-                    NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(humanId, company.company.Id));
+                    NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(humanId, company.company.Id, false));
                 }
             }
         }

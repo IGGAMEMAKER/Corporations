@@ -14,8 +14,7 @@ public class SalaryView : ParameterView
 
         if (Humans.IsEmployed(human))
         {
-            var team = Teams.GetTeamOf(human, Q);
-            salary = team.Offers[human.human.Id].Salary;
+            salary = Humans.GetSalary(human);
         }
 
         var character = string.Join("\n", human.humanSkills.Traits.Select(t => t.ToString()));

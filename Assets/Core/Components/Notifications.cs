@@ -38,13 +38,15 @@ public class NotificationMessageManagerRecruiting : NotificationMessage
 {
     public int HumanId;
     public int CompanyId;
+    public bool Successful;
 
-    public NotificationMessageManagerRecruiting(int humanId, int companyId)
+    public NotificationMessageManagerRecruiting(int humanId, int companyId, bool successful)
     {
         NotificationType = NotificationType.RecruitingManager;
 
         this.HumanId = humanId;
         this.CompanyId = companyId;
+        Successful = successful;
     }
 }
 

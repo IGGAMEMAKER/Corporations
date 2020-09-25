@@ -131,7 +131,7 @@ namespace Assets.Core
             if (isFounder)
                 return;
 
-            var salary = (double)team.Offers[worker.human.Id].Salary;
+            var salary = Humans.GetSalary(worker);
 
             var expectedSalary = (double)Teams.GetSalaryPerRating(worker);
 

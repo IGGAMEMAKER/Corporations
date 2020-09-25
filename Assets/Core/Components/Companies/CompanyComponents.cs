@@ -240,7 +240,7 @@ public class TeamInfo
 
     public List<TeamTask> Tasks;
 
-    public Dictionary<int, JobOffer> Offers;
+    //public Dictionary<int, JobOffer> Offers;
     public List<int> Managers;
     public Dictionary<int, WorkerRole> Roles;
 

@@ -110,12 +110,12 @@ namespace Assets.Core
 
             foreach (var t in e.team.Teams)
             {
-                foreach (var kvp in t.Offers)
+                foreach (var humanId in t.Managers)
                 {
-                    var salary = kvp.Value.Salary;
+                    var human = Humans.GetHuman(gameContext, humanId);
+                    var salary = Humans.GetSalary(human);
 
-                    //salaries.Append("")
-                    //salaries += salary;
+                    salaries.Append(Humans.GetFullName(human), salary);
                 }
             }
 
@@ -124,19 +124,7 @@ namespace Assets.Core
 
         public static long GetManagersCost(GameEntity e, GameContext gameContext)
         {
-            long salaries = 0;
-
-            foreach (var t in e.team.Teams)
-            {
-                foreach (var kvp in t.Offers)
-                {
-                    var salary = kvp.Value.Salary;
-
-                    salaries += salary;
-                }
-            }
-
-            return salaries;
+            return GetSalaries(e, gameContext).Sum();
         }
     }
 }

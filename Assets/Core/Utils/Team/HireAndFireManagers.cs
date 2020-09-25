@@ -85,8 +85,6 @@ namespace Assets.Core
             };
 
             AddOrReplaceOffer(company, human, o);
-
-            company.team.Teams[teamId].Offers[human.human.Id] = offer;
         }
 
         public static float GetPersonalSalaryModifier(GameEntity human)
@@ -143,9 +141,6 @@ namespace Assets.Core
             {
                 team.Managers.Remove(worker.human.Id);
                 team.Roles.Remove(worker.human.Id);
-                team.Offers.Remove(worker.human.Id);
-
-                worker.workerOffers.Offers.RemoveAll(o => o.CompanyId == company.company.Id);
             }
 
             Humans.LeaveCompany(worker);
