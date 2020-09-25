@@ -52,6 +52,21 @@ public class HumanUpgradedSkillsComponent : IComponent
     public int DaysSinceUpgrade;
 }
 
+public struct ExpiringJobOffer
+{
+    public JobOffer JobOffer;
+    public int DecisionDate;
+    public int CompanyId;
+    public int HumanId;
+
+    public bool Accepted;
+}
+
+public class WorkerOffersComponent : IComponent
+{
+    public List<ExpiringJobOffer> Offers;
+}
+
 public class HumanCompanyRelationshipComponent : IComponent
 {
     public int Adapted;

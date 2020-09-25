@@ -26,6 +26,61 @@ namespace Assets.Core
             return company.team.Teams.Find(t => t.Managers.Contains(human.human.Id));
         }
 
+        public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)
+        {
+            var date = ScheduleUtils.GetCurrentDate(gameContext) + 30;
+
+            var offer = new ExpiringJobOffer { JobOffer = jobOffer, CompanyId = company.company.Id, DecisionDate = date, HumanId = worker.human.Id };
+
+            var offerId = worker.workerOffers.Offers.FindIndex(o => o.CompanyId == company.company.Id);
+            if (offerId == -1)
+                worker.workerOffers.Offers.Add(offer);
+            else
+                worker.workerOffers.Offers[offerId] = offer;
+        }
+
+        public static float GetOpinionAboutOffer(GameEntity worker, ExpiringJobOffer newOffer, JobOffer currentOffer = null)
+        {
+            bool willNeedToLeaveCompany = worker.worker.companyId != newOffer.CompanyId;
+
+            // scenarios
+            // 1 - unemployed
+            // 2 - employed, same company
+            // 3 - employed, recruiting
+            // 4 - !founder
+            
+            if (currentOffer == null)
+            {
+                // if unemployed
+                var salary1 = GetSalaryPerRating(worker, Humans.GetRating(worker));
+                currentOffer = new JobOffer { Salary = salary1 };
+
+                willNeedToLeaveCompany = false;
+            }
+
+            int desireToSign = 0;
+
+            if (willNeedToLeaveCompany)
+            {
+                // it's not easy to recruit worker from other company
+                desireToSign -= 5;
+
+                // but if your worker loves new challenges...
+                if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
+                    desireToSign += 10;
+            }
+
+            long newSalary = newOffer.JobOffer.Salary;
+
+            long salary = currentOffer.Salary;
+            salary = (long)Mathf.Max(salary, 1);
+
+            var salaryRatio = (newSalary - salary) * 1f / salary;
+            salaryRatio = Mathf.Clamp(salaryRatio, -5, 5);
+
+            return desireToSign + salaryRatio;
+        }
+
         public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, GameContext gameContext)
         {
             var company = Companies.Get(gameContext, worker.worker.companyId);
@@ -52,7 +107,8 @@ namespace Assets.Core
 
             var role = worker.worker.WorkerRole;
 
-            var rating = Humans.GetRating(worker);
+            // TODO: if is CEO in own project, morale loss is zero or very low
+            bonus.AppendAndHideIfZero("IS FOUNDER", worker.hasCEO ? 5 : 0);
 
             // corporate culture
             ApplyCorporateCultureInfluenceLoyalty(company, gameContext, ref bonus, worker);
@@ -67,7 +123,7 @@ namespace Assets.Core
             ApplyCEOLoyalty(company, team, gameContext, ref bonus, worker, role);
 
             // no possibilities to grow
-            bonus.AppendAndHideIfZero("Reached limits", rating >= 50 ? -3 : 0);
+            bonus.AppendAndHideIfZero("Reached limits", Humans.GetRating(worker) >= 50 ? -3 : 0);
 
             bonus.AppendAndHideIfZero("Too many leaders", worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
 

@@ -28,6 +28,7 @@ class MoraleManagementSystem : OnPeriodChange
             var culture = Companies.GetActualCorporateCulture(c, gameContext);
 
             List<int> defectedManagers = new List<int>();
+            var recruitedManagers = new List<ExpiringJobOffer>();
 
             // gain expertise and recalculate loyalty
             foreach (var team in c.team.Teams)
@@ -48,13 +49,6 @@ class MoraleManagementSystem : OnPeriodChange
                     var newLoyalty = Mathf.Clamp(relationship.Morale + loyaltyChange, 0, 100);
                     var newAdaptation = Mathf.Clamp(relationship.Adapted + 5, 0, 100);
 
-
-                    // TODO: if is CEO in own project, morale loss is zero or very low
-                    bool isOwner = human.hasCEO;
-                    if (isOwner)
-                        newLoyalty = 100;
-
-
                     human.ReplaceHumanCompanyRelationship(newAdaptation, newLoyalty);
 
                     // gain expertise
@@ -73,6 +67,37 @@ class MoraleManagementSystem : OnPeriodChange
                     // leave company on low morale
                     if (newLoyalty <= 0)
                         defectedManagers.Add(humanId);
+                    else
+                    {
+                        // if has offers
+                        // choose best one
+                        var currentOffer = team.Offers[humanId];
+
+                        var offers = human.workerOffers.Offers;
+                        var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer, currentOffer));
+
+                        var maxDesire = desires.Max();
+
+                        bool hasOneBestOffer = desires.Count(o => o >= maxDesire) == 1;
+
+                        if (hasOneBestOffer)
+                        {
+                            // can choose best one
+                            var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e, currentOffer) >= maxDesire);
+                            recruitedManagers.Add(bestOffer);
+
+                            human.workerOffers.Offers.Clear();
+
+                            continue;
+                        }
+                        else
+                        {
+                            // otherwise, companies need to resend their offers
+
+                        }
+
+                        // clean outdated offers
+                    }
                 }
             }
 
@@ -102,6 +127,14 @@ class MoraleManagementSystem : OnPeriodChange
 
                     // or will be destroyed
                 }
+            }
+
+            foreach (var offer in recruitedManagers)
+            {
+                var company = Companies.Get(gameContext, offer.CompanyId);
+
+                Teams.HuntManager(Humans.GetHuman(gameContext, offer.HumanId), company, gameContext, 0);
+                Teams.SetJobOffer(company, 0, offer.HumanId, offer.JobOffer);
             }
         }
     }

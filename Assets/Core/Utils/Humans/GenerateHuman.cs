@@ -25,6 +25,7 @@ namespace Assets.Core
             e.AddHuman(id, "Dude", id + "");
             e.AddPersonalRelationships(new Dictionary<int, float>());
             e.AddWorker(-1, WorkerRole.Universal);
+            e.AddWorkerOffers(new List<ExpiringJobOffer>());
             e.AddCompanyFocus(new List<NicheType>(), new List<IndustryType>());
             e.AddHumanSkills(
                 GenerateRandomSkills(),
