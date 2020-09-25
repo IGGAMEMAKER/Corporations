@@ -9,19 +9,20 @@ public class HireManager : ButtonController
     public override void Execute()
     {
         var human = SelectedHuman;
-        bool hasWorkAlready = human.hasWorker && human.worker.companyId != -1;
+        var company = Flagship;
+
+        bool hasWorkAlready = Humans.IsEmployed(human);
         bool worksInPlayerFlagship = human.worker.companyId == Flagship.company.Id;
 
         int teamId = worksInPlayerFlagship ? Teams.GetTeamOf(human, Q).ID : -1;
-
-        var company = Flagship;
 
         if (hasWorkAlready)
         {
             if (worksInPlayerFlagship)
             {
                 // salary upgrade
-                Teams.SetJobOffer(company, teamId, human.human.Id, jobOfferScreen.JobOffer);
+                
+                Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, teamId);
             }
             else
             {
@@ -29,9 +30,11 @@ public class HireManager : ButtonController
             }
         }
         else
+        {
             Teams.HireManager(company, human, SelectedTeam);
+        }
 
-        Teams.SetJobOffer(company, SelectedTeam, human.human.Id, jobOfferScreen.JobOffer);
+        Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, SelectedTeam);
 
         ScreenUtils.SetMainPanelId(Q, 1);
         NavigateToMainScreen();

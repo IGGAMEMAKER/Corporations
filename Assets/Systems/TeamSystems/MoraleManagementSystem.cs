@@ -21,6 +21,8 @@ class MoraleManagementSystem : OnPeriodChange
         // feedback (i am doing useful stuff)
         // influence (become company shareholder)
 
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
         foreach (var c in companies)
@@ -84,19 +86,27 @@ class MoraleManagementSystem : OnPeriodChange
                         {
                             // can choose best one
                             var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e, currentOffer) >= maxDesire);
+
                             recruitedManagers.Add(bestOffer);
+                            bestOffer.Accepted = true;
 
                             human.workerOffers.Offers.Clear();
-
-                            continue;
+                            human.workerOffers.Offers.Add(bestOffer);
                         }
                         else
                         {
                             // otherwise, companies need to resend their offers
-
+                            // or they will be expired
                         }
 
-                        // clean outdated offers
+                        // clean expired offers
+                        for (var i = offers.Count - 1; i > 0; i--)
+                        {
+                            if (offers[i].DecisionDate < date && offers[i].Accepted == false)
+                            {
+                                offers.RemoveAt(i);
+                            }
+                        }
                     }
                 }
             }
@@ -132,9 +142,10 @@ class MoraleManagementSystem : OnPeriodChange
             foreach (var offer in recruitedManagers)
             {
                 var company = Companies.Get(gameContext, offer.CompanyId);
+                var human = Humans.GetHuman(gameContext, offer.HumanId);
 
-                Teams.HuntManager(Humans.GetHuman(gameContext, offer.HumanId), company, gameContext, 0);
-                Teams.SetJobOffer(company, 0, offer.HumanId, offer.JobOffer);
+                Teams.HuntManager(human, company, gameContext, 0);
+                Teams.SetJobOffer(human, company, offer.JobOffer, 0);
             }
         }
     }

@@ -8,24 +8,26 @@ namespace Assets.Core
     public static partial class Teams
     {
         // managers
-        public static void HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole, int teamId) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole), teamId);
-        public static void HireManager(GameEntity company, GameEntity worker, int teamId)
+        public static GameEntity HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole, int teamId) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole), teamId);
+        public static GameEntity HireManager(GameEntity company, GameEntity worker, int teamId)
         {
             var role = Humans.GetRole(worker);
 
-            AttachToTeam(company, worker, role, teamId);
+            AttachToCompany(company, worker, role, teamId);
 
             company.employee.Managers.Remove(worker.human.Id);
+
+            return worker;
         }
 
         public static void HuntManager(GameEntity worker, GameEntity newCompany, GameContext gameContext, int teamId)
         {
             FireManager(gameContext, worker);
 
-            AttachToTeam(newCompany, worker, Humans.GetRole(worker), teamId);
+            AttachToCompany(newCompany, worker, Humans.GetRole(worker), teamId);
         }
 
-        public static void AttachToTeam(GameEntity company, GameEntity worker, WorkerRole role, int teamId)
+        public static void AttachToCompany(GameEntity company, GameEntity worker, WorkerRole role, int teamId)
         {
             // add humanId to team
             var team = company.team.Teams[teamId];
@@ -33,6 +35,7 @@ namespace Assets.Core
             var humanId = worker.human.Id;
 
             team.Managers.Add(humanId);
+            team.Roles[humanId] = role;
 
             ReplaceTeam(company, company.team);
 
@@ -40,9 +43,16 @@ namespace Assets.Core
             Humans.AttachToCompany(worker, company.company.Id, role);
         }
 
-        public static void SetJobOffer(GameEntity company, int teamId, int humanId, JobOffer offer)
+        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId)
         {
-            company.team.Teams[teamId].Offers[humanId] = offer;
+            int index = human.workerOffers.Offers.FindIndex(o1 => o1.CompanyId == company.company.Id);
+
+            var o = human.workerOffers.Offers[index];
+
+            o.Accepted = true;
+            o.JobOffer = offer;
+
+            company.team.Teams[teamId].Offers[human.human.Id] = offer;
         }
 
         public static float GetPersonalSalaryModifier(GameEntity human)
@@ -65,17 +75,18 @@ namespace Assets.Core
             return modifier;
         }
 
-        public static long GetSalaryPerRating(long rating, float modifier = 0)
-        {
-            var baseSalary = (long)(Mathf.Pow(500, 1f + modifier + rating / 100f));
-
-            return baseSalary / 4;
-        }
+        public static long GetSalaryPerRating(GameEntity human) => GetSalaryPerRating(human, Humans.GetRating(human));
         public static long GetSalaryPerRating(GameEntity human, long rating)
         {
             float modifier = GetPersonalSalaryModifier(human);
 
             return GetSalaryPerRating(rating, modifier);
+        }
+        public static long GetSalaryPerRating(long rating, float modifier = 0)
+        {
+            var baseSalary = (long)(Mathf.Pow(500, 1f + modifier + rating / 100f));
+
+            return baseSalary / 4;
         }
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)
@@ -97,7 +108,10 @@ namespace Assets.Core
             foreach (var team in company.team.Teams)
             {
                 team.Managers.Remove(worker.human.Id);
+                team.Roles.Remove(worker.human.Id);
                 team.Offers.Remove(worker.human.Id);
+
+                worker.workerOffers.Offers.RemoveAll(o => o.CompanyId == company.company.Id);
             }
 
             Humans.LeaveCompany(worker);

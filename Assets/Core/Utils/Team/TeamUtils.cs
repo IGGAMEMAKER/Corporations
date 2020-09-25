@@ -138,11 +138,14 @@ namespace Assets.Core
 
                 Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
                 Managers = new System.Collections.Generic.List<int>(),
+                Roles = new System.Collections.Generic.Dictionary<int, WorkerRole>(),
                 ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 
                 HiringProgress = 0, Workers = 0,
                 Organisation = 0,
-                ID = company.team.Teams.Count
+                ID = company.team.Teams.Count,
+
+                TooManyLeaders = false
             });
 
             return company.team.Teams.Count - 1;

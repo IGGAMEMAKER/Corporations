@@ -14,6 +14,8 @@ public class JobOfferScreen : View
     public JobOffer JobOffer;
     public GameObject HireManager;
 
+    public WorkerOffersListView WorkerOffersListView;
+
     // tweak salary buttons
     void OnEnable()
     {
@@ -24,7 +26,7 @@ public class JobOfferScreen : View
 
         var baseSalary = Teams.GetSalaryPerRating(rating);
 
-        JobOffer = new JobOffer(baseSalary / 4);
+        JobOffer = new JobOffer(baseSalary);
 
         Render(SelectedHuman);
     }
@@ -39,11 +41,13 @@ public class JobOfferScreen : View
         RoleName.text = Humans.GetFormattedRole(role);
 
         RenderProposalStatus(human, rating);
+
+        WorkerOffersListView.ViewRender();
     }
 
     void RenderProposalStatus(GameEntity human, int rating)
     {
-        var offer = JobOffer.Salary * 4;
+        var offer = JobOffer.Salary;
         var wantedOffer = Teams.GetSalaryPerRating(human, rating);
 
         var text = Visuals.Neutral("Is waiting for your response");

@@ -28,6 +28,7 @@ public abstract class ListView : View // MonoBehaviour
 
     [HideInInspector]
     public List<GameObject> Items;
+    [HideInInspector]
     public GameObject Item;
 
     void OnDisable()

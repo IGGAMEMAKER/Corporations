@@ -87,7 +87,7 @@ namespace Assets.Core
             company.AddInvestmentRounds(InvestmentRound.Preseed);
             company.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
-
+            company.AddWorkerOffers(new List<ExpiringJobOffer>());
             company.AddBranding(0);
 
             // teams
@@ -102,8 +102,8 @@ namespace Assets.Core
             company.AddEmployee(new Dictionary<int, WorkerRole>());
             Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
 
-            Teams.AttachToTeam(company, CEO, WorkerRole.CEO, 0);
-            Teams.SetJobOffer(company, 0, CEO.human.Id, new JobOffer(0));
+            Teams.AttachToCompany(company, CEO, WorkerRole.CEO, 0);
+            Teams.SetJobOffer(CEO, company, new JobOffer(0), 0);
 
             // uniqueness
             var culture = GetRandomCorporateCulture();

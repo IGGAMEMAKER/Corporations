@@ -242,6 +242,8 @@ public class TeamInfo
 
     public Dictionary<int, JobOffer> Offers;
     public List<int> Managers;
+    public Dictionary<int, WorkerRole> Roles;
+
     public int Workers;
     public int HiringProgress;
 

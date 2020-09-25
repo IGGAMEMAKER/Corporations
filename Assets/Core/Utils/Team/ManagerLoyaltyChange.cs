@@ -51,11 +51,18 @@ namespace Assets.Core
             
             if (currentOffer == null)
             {
-                // if unemployed
-                var salary1 = GetSalaryPerRating(worker, Humans.GetRating(worker));
-                currentOffer = new JobOffer { Salary = salary1 };
+                if (Humans.IsEmployed(worker))
+                {
+                    currentOffer = worker.workerOffers.Offers.First(o => o.Accepted).JobOffer;
+                }
+                else
+                {
+                    // if unemployed
+                    var salary1 = GetSalaryPerRating(worker);
+                    currentOffer = new JobOffer { Salary = salary1 };
 
-                willNeedToLeaveCompany = false;
+                    willNeedToLeaveCompany = false;
+                }
             }
 
             int desireToSign = 0;
@@ -139,7 +146,7 @@ namespace Assets.Core
 
             var salary = (double)team.Offers[worker.human.Id].Salary;
 
-            var expectedSalary = (double)Teams.GetSalaryPerRating(worker, Humans.GetRating(worker));
+            var expectedSalary = (double)Teams.GetSalaryPerRating(worker);
 
             bool isGreedy = worker.humanSkills.Traits.Contains(Trait.Greedy);
             bool isShy = worker.humanSkills.Traits.Contains(Trait.Shy);

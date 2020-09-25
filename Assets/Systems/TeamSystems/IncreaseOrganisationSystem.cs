@@ -3,9 +3,9 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
-class TeamManagementSystem : OnPeriodChange
+class IncreaseOrganisationSystem : OnPeriodChange
 {
-    public TeamManagementSystem(Contexts contexts) : base(contexts) {}
+    public IncreaseOrganisationSystem(Contexts contexts) : base(contexts) {}
 
     protected override void Execute(List<GameEntity> entities)
     {

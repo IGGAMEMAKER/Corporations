@@ -8,7 +8,7 @@
 
         Add(new RelationshipSystem(contexts));
         Add(new TeamGrowthAnimationSystem(contexts));
-        Add(new TeamManagementSystem(contexts));
+        Add(new IncreaseOrganisationSystem(contexts));
         Add(new EmployeeSystem(contexts));
     }
 }

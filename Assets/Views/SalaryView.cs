@@ -10,7 +10,7 @@ public class SalaryView : ParameterView
     {
         var human = SelectedHuman;
 
-        var salary = Teams.GetSalaryPerRating(human, Humans.GetRating(human));
+        var salary = Teams.GetSalaryPerRating(human);
 
         if (Humans.IsEmployed(human))
         {

@@ -1,0 +1,24 @@
+﻿using Assets.Core;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class JobOfferView : View
+{
+    public Text CompanyTitle;
+    public Text Offer;
+    public Text Opinion;
+
+    internal void SetEntity(ExpiringJobOffer entity)
+    {
+        var human = SelectedHuman;
+
+        CompanyTitle.text = Companies.Get(Q, entity.CompanyId).company.Name;
+        Offer.text = entity.JobOffer.Salary + " / week";
+
+        var opinion = (long)Teams.GetOpinionAboutOffer(human, entity);
+        Opinion.text = Visuals.Colorize(opinion);
+    }
+}
