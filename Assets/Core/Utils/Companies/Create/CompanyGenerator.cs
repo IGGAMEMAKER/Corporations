@@ -92,6 +92,10 @@ namespace Assets.Core
 
             // teams
             int CeoID = CEO.human.Id;
+
+            CEO.humanSkills.Traits.RemoveAll(t => t == Trait.Greedy);
+            CEO.humanSkills.Traits.Add(Trait.Shy);
+
             company.AddCEO(0, CeoID);
             company.AddTeam(
                 100, 50,
