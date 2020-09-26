@@ -18,6 +18,7 @@ public partial class PopupView : View
 
         if (messagesCount == 0)
             return;
+
         AmountOfMessages.text = "Messages: " + messagesCount;
 
         var popup = NotificationUtils.GetPopupMessage(Q);
