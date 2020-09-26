@@ -49,7 +49,11 @@ public class NotificationRendererRecruitingManager : NotificationRenderer<Notifi
             return $"{Humans.GetFormattedRole(role)} {human.human.Name} ({rating}LVL) joined your competitor: {company.company.Name}";
         }
 
-        return $"{Humans.GetFormattedRole(role)} {human.human.Name} ({rating}LVL) got the job offer from {company.company.Name}";
+        var offer = human.workerOffers.Offers.Find(o => o.CompanyId == message.CompanyId);
+        var dateFormatted = ScheduleUtils.GetFormattedDate(offer.DecisionDate);
+
+        return $"\n<size=30>We need to send a counter offer until {dateFormatted}</size>" +
+            $"\n\nor {Humans.GetFormattedRole(role)} {Humans.GetFullName(human)} ({rating}LVL) will join {company.company.Name}";
     }
 
     public override Color GetNewsColor(NotificationMessageManagerRecruiting message)

@@ -10,7 +10,7 @@ public class PickMostImportantMessage : ListView
         var notification = entity as NotificationMessage;
 
         t.GetComponent<NotificationView>()
-            .SetMessage(notification);
+            .SetMessage(notification, index);
     }
 
     public override void ViewRender()

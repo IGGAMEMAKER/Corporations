@@ -12,9 +12,9 @@ public class NotificationView : View,
     public Image Panel;
     public CloseNotificationButton CloseNotificationButton;
 
-    public void SetMessage(NotificationMessage message)
+    public void SetMessage(NotificationMessage message, int notificationId)
     {
-        int notificationId = transform.GetSiblingIndex();
+        //int notificationId = transform.GetSiblingIndex();
 
 
         

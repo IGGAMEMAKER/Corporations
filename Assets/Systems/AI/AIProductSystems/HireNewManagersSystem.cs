@@ -26,7 +26,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
             // try to recruit player workers
             var aggressiveness = 10 - company.corporateCulture.Culture[CorporatePolicy.CompetitionOrSupport];
 
-            var wantsToRecruit = true; // Random.Range(0, 1000) < 10 * aggressiveness;
+            var wantsToRecruit = Random.Range(0, 1000) < 10 * aggressiveness;
 
             int teamId = Random.Range(0, playerFlagship.team.Teams.Count);
             int managerId = Random.Range(0, playerFlagship.team.Teams[teamId].Managers.Count);
@@ -39,7 +39,10 @@ public partial class HireNewManagersSystem : OnPeriodChange
                 var humanId = playerFlagship.team.Teams[teamId].Managers[managerId];
                 var worker = Humans.GetHuman(gameContext, humanId);
 
-                var salary = Humans.GetSalary(worker) * 3;
+                var rating = Humans.GetRating(worker);
+                var neediness = Mathf.Clamp(Mathf.Pow(rating, 0.3f), 1f, 3f);
+
+                var salary = (long)(Humans.GetSalary(worker) * neediness);
                 var jobOffer = new JobOffer(salary);
 
                 if (Economy.IsCanMaintain(company, gameContext, salary))

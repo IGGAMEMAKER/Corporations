@@ -19,7 +19,7 @@ public class FeedbackView : View
             notifications.Reverse();
 
             Show(NotificationView);
-            NotificationView.SetMessage(notifications.First());
+            NotificationView.SetMessage(notifications.First(), 0);
         }
         else
         {

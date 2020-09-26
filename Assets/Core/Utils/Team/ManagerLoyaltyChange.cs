@@ -26,53 +26,67 @@ namespace Assets.Core
             return company.team.Teams.Find(t => t.Managers.Contains(human.human.Id));
         }
 
-        public static float GetOpinionAboutOffer(GameEntity worker, ExpiringJobOffer newOffer, JobOffer currentOffer = null)
+        public static Bonus<float> GetOpinionAboutOffer(GameEntity worker, ExpiringJobOffer newOffer)
         {
             bool willNeedToLeaveCompany = worker.worker.companyId != newOffer.CompanyId;
+
+            var bonus = new Bonus<float>("Opinion about offer");
 
             // scenarios
             // 1 - unemployed
             // 2 - employed, same company
             // 3 - employed, recruiting
             // 4 - !founder
-            
-            if (currentOffer == null)
+
+            if (!Humans.IsEmployed(worker))
             {
-                if (Humans.IsEmployed(worker))
+                bonus.Append("Salary", newOffer.JobOffer.Salary > GetSalaryPerRating(worker) ? 1 : -1);
+            }
+            else
+            {
+                int loyaltyBonus = (worker.humanCompanyRelationship.Morale - 50) / 10;
+                int desireToLeaveCompany = 0;
+
+                if (willNeedToLeaveCompany)
                 {
-                    currentOffer = worker.workerOffers.Offers.First(o => o.Accepted).JobOffer;
+                    // it's not easy to recruit worker from other company
+                    desireToLeaveCompany -= 5;
+
+                    // but if your worker loves new challenges...
+                    if (worker.humanSkills.Traits.Contains(Trait.Loyal))
+                        desireToLeaveCompany -= 5;
+
+                    // but if your worker loves new challenges...
+                    if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
+                        desireToLeaveCompany += 10;
+
+                    if (desireToLeaveCompany > 0)
+                        bonus.AppendAndHideIfZero("Wants to leave company", desireToLeaveCompany);
+                    else
+                        bonus.AppendAndHideIfZero("Wants to stay in company", desireToLeaveCompany);
+
+                    bonus.Append("Loyalty to company", -loyaltyBonus);
                 }
                 else
                 {
-                    // if unemployed
-                    var salary1 = GetSalaryPerRating(worker);
-                    currentOffer = new JobOffer { Salary = salary1 };
-
-                    willNeedToLeaveCompany = false;
+                    // prolongation of contract
+                    bonus.Append("Loyalty to company", loyaltyBonus);
                 }
+
+                long newSalary = newOffer.JobOffer.Salary;
+
+                long salary = Humans.GetCurrentOffer(worker).JobOffer.Salary;
+                salary = (long)Mathf.Max(salary, 1);
+
+                var salaryRatio = (newSalary - salary) * 1f / salary;
+                salaryRatio = Mathf.Clamp(salaryRatio, -5, 5);
+
+                bonus.Append("Salary", salaryRatio);
             }
+            
 
-            int desireToSign = 0;
 
-            if (willNeedToLeaveCompany)
-            {
-                // it's not easy to recruit worker from other company
-                desireToSign -= 5;
-
-                // but if your worker loves new challenges...
-                if (worker.humanSkills.Traits.Contains(Trait.NewChallenges))
-                    desireToSign += 10;
-            }
-
-            long newSalary = newOffer.JobOffer.Salary;
-
-            long salary = currentOffer.Salary;
-            salary = (long)Mathf.Max(salary, 1);
-
-            var salaryRatio = (newSalary - salary) * 1f / salary;
-            salaryRatio = Mathf.Clamp(salaryRatio, -5, 5);
-
-            return desireToSign + salaryRatio;
+            return bonus;
         }
 
         public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, GameContext gameContext)

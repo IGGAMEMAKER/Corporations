@@ -5,6 +5,12 @@ namespace Assets.Core
 {
     public static class ScheduleUtils
     {
+        public static string GetFormattedDate(int date)
+        {
+            var dateDescription = Format.GetDateDescription(date);
+
+            return (dateDescription.day + 1) + " " + dateDescription.monthLiteral;
+        }
         public static GameEntity GetDateContainer(GameContext gameContext)
         {
             var entities = gameContext.GetEntities(GameMatcher.Date);

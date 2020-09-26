@@ -15,7 +15,7 @@ public enum Trait
     Teacher,
     Curious, // grow stats
     NewChallenges, // new teams, new projects, new companies, new management systems. Always support changes
-    Stable,
+    Loyal,
 
     Shy,
     Greedy,

@@ -21,7 +21,7 @@ public class WorkerOffersListView : ListView
         bool hasCompetingOffers = Humans.HasCompetingOffers(human);
         Draw(OffersTitle, hasCompetingOffers);
 
-        SetItems(hasCompetingOffers ? SelectedHuman.workerOffers.Offers : null);
+        SetItems(hasCompetingOffers ? SelectedHuman.workerOffers.Offers : new List<ExpiringJobOffer>());
         //SetItems(SelectedHuman.workerOffers.Offers.Where(o => o.CompanyId != Flagship.company.Id));
     }
 }

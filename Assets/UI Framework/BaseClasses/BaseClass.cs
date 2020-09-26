@@ -10,6 +10,7 @@ public partial class BaseClass : MonoBehaviour
     public static GameContext Q => Contexts.sharedInstance.game;
 
     public int CurrentIntDate => ScheduleUtils.GetCurrentDate(Q);
+    public string ShortDate => ScheduleUtils.GetFormattedDate(CurrentIntDate);
 
 
     public GameEntity SelectedCompany => ScreenUtils.GetSelectedCompany(Q);

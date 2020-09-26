@@ -67,7 +67,7 @@ public class TraitView : View
                 Image.sprite = Shy;
                 break;
 
-            case Trait.Stable:
+            case Trait.Loyal:
                 Image.sprite = Stable;
                 break;
 

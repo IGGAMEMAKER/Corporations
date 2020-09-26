@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,9 @@ public class WorkerView : View
 
     public GameObject TeamLead;
     public GameObject CompanyLead;
+
+    public GameObject IsRecruitmentTarget;
+
 
     public void SetEntity(int humanId, WorkerRole workerRole)
     {
@@ -43,5 +47,16 @@ public class WorkerView : View
 
         if (loyaltyGrowth < 0)
             LoyaltyChange.sprite = Decay;
+
+        bool hasOffers = Humans.HasCompetingOffers(human);
+
+        var yourOffer = Teams.GetOpinionAboutOffer(human, Humans.GetCurrentOffer(human)).Sum();
+        var bestOffer = human.workerOffers.Offers.Max(o => Teams.GetOpinionAboutOffer(human, o).Sum());
+
+        bool yourOfferIsBestOffer = hasOffers && bestOffer == yourOffer;
+
+
+        Draw(IsRecruitmentTarget, hasOffers);
+        GetComponent<Blinker>().enabled = hasOffers && !yourOfferIsBestOffer;
     }
 }

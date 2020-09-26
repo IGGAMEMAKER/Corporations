@@ -80,7 +80,7 @@ class MoraleManagementSystem : OnPeriodChange
                         // has competing offers
                         if (Humans.HasCompetingOffers(human))
                         {
-                            var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer, currentOffer));
+                            var desires = offers.Select(offer => Teams.GetOpinionAboutOffer(human, offer).Sum());
 
                             var maxDesire = desires.Max();
 
@@ -89,27 +89,26 @@ class MoraleManagementSystem : OnPeriodChange
                             if (hasOneBestOffer)
                             {
                                 // can choose best one
-                                var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e, currentOffer) >= maxDesire);
+                                var bestOffer = offers.Find(e => Teams.GetOpinionAboutOffer(human, e).Sum() >= maxDesire);
 
-                                recruitedManagers.Add(bestOffer);
-                                bestOffer.Accepted = true;
+                                // if best offer was made by another company
+                                if (bestOffer.CompanyId != c.company.Id)
+                                {
+                                    // and company did nothing during one month
+                                    if (bestOffer.DecisionDate < date)
+                                    {
+                                        recruitedManagers.Add(bestOffer);
+                                        bestOffer.Accepted = true;
 
-                                human.workerOffers.Offers.Clear();
-                                human.workerOffers.Offers.Add(bestOffer);
+                                        human.workerOffers.Offers.Clear();
+                                        human.workerOffers.Offers.Add(bestOffer);
+                                    }
+                                }
                             }
                             else
                             {
                                 // otherwise, companies need to resend their offers
                                 // or they will be expired
-                            }
-                        }
-
-                        // clean expired offers
-                        for (var i = offers.Count - 1; i > 0; i--)
-                        {
-                            if (offers[i].DecisionDate < date && offers[i].Accepted == false)
-                            {
-                                offers.RemoveAt(i);
                             }
                         }
                     }
@@ -159,6 +158,17 @@ class MoraleManagementSystem : OnPeriodChange
                 if (Companies.IsPlayerFlagship(gameContext, previousCompany))
                 {
                     NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(offer.HumanId, company.company.Id, true));
+                }
+            }
+
+            // clean expired offers
+            foreach (var t in c.team.Teams)
+            {
+                foreach (var humanId in t.Managers)
+                {
+                    var human = Humans.GetHuman(gameContext, humanId);
+
+                    human.workerOffers.Offers.RemoveAll(o => o.DecisionDate < date && !o.Accepted);
                 }
             }
         }

@@ -10,8 +10,7 @@ public class NotificationsListView2 : ListView
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage);
-        //t.GetComponent<HideNoti>
+        t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage, index);
     }
 
     public override void OnItemSelected(int ind)

@@ -30,8 +30,27 @@ namespace Assets.Core
 
         public static ExpiringJobOffer GetCurrentOffer(GameEntity human)
         {
-            return human.workerOffers.Offers.First(o => o.Accepted);
+            var offers = human.workerOffers.Offers;
+
+            // there are accepted offers
+            if (offers.Count(o => o.Accepted) > 0)
+                return offers.First(o => o.Accepted);
+
+            // there is pending offer from company
+            if (offers.Count(o => o.CompanyId == human.worker.companyId) > 0)
+                return offers.First(o => o.CompanyId == human.worker.companyId);
+
+            // unemployed
+            return new ExpiringJobOffer
+            {
+                Accepted = false,
+                CompanyId = -1,
+                DecisionDate = -1,
+                HumanId = human.human.Id,
+                JobOffer = new JobOffer(Teams.GetSalaryPerRating(human))
+            };
         }
+
         public static long GetSalary(GameEntity human)
         {
             return GetCurrentOffer(human).JobOffer.Salary;
@@ -44,7 +63,7 @@ namespace Assets.Core
 
         public static bool HasCompetingOffers(GameEntity human)
         {
-            return human.workerOffers.Offers.Count > 0;
+            return human.workerOffers.Offers.Count > 1;
         }
 
         // actions
