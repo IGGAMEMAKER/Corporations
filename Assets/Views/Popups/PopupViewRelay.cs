@@ -1,4 +1,5 @@
-﻿public partial class PopupView : View
+﻿
+public partial class PopupView : View
 {
     void RenderPopup(PopupMessage popup)
     {

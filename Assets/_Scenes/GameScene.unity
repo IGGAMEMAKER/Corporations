@@ -6677,24 +6677,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2370926982318215828}
   m_CullTransparentMesh: 0
---- !u!114 &2131632945416124244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780954728778447775}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09225f39244a7cd4498b2c7d45b45bc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DateChanges: 1
-  OnPeriodChange: 0
-  MenuChanges: 1
-  NavigationChanges: 1
-  ListenGameEvents: 0
-  ListenPauseEvents: 0
 --- !u!114 &2138132883061398305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10816,18 +10798,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3779294394986516043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819985420514971890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f55e98988bbb1419ad950d4aea1814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3880761265109986513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20910,6 +20880,11 @@ PrefabInstance:
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8432395264812907700, guid: 692b26b77660a2741b07f5990f81e39f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8677602394474342028, guid: 692b26b77660a2741b07f5990f81e39f,
         type: 3}
       propertyPath: m_Layer
@@ -20929,6 +20904,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4780954728778447774}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4780954728778447777 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6059026195079605869, guid: 692b26b77660a2741b07f5990f81e39f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4780954728778447774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780954728778447775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250128b71c1ce2f44b2c8b42509b8886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5109357871049698437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22628,7 +22615,6 @@ GameObject:
   - component: {fileID: 4553246695507686549}
   - component: {fileID: 7997532653398374870}
   - component: {fileID: 8781012382821707038}
-  - component: {fileID: 3779294394986516043}
   m_Layer: 9
   m_Name: PopupToggler
   m_TagString: Untagged
@@ -44152,9 +44138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196ea12310cfbf84cb881391f651bbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HideableItems:
-  - {fileID: 4780954728778447775}
-  Auto: 0
+  PopupView: {fileID: 4780954728778447777}
 --- !u!224 &8001867619119673466
 RectTransform:
   m_ObjectHideFlags: 0

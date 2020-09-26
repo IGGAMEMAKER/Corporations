@@ -3,15 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopupToggler : HideOnSomeCondition
+public class PopupToggler : View
 {
-    public override bool HideIf()
+    public PopupView PopupView;
+
+    public override void ViewRender()
     {
+        base.ViewRender();
+
         var hasPopups = NotificationUtils.IsHasActivePopups(Q);
 
         if (hasPopups)
+        {
             ScheduleUtils.PauseGame(Q);
 
-        return !hasPopups;
+            Show(PopupView);
+            PopupView.ViewRender();
+        }
+        else
+        {
+            Hide(PopupView);
+        }
+
     }
 }

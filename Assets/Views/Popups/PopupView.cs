@@ -10,66 +10,35 @@ public partial class PopupView : View
     public PopupButtonsContainer popupButtonsContainer;
     public Text AmountOfMessages;
 
-    PopupMessage PopupMessage;
-
     List<Type> ButtonComponents = new List<Type>();
 
-    private void OnEnable()
-    {
-        Render();
-    }
-
-
     public override void ViewRender()
-    {
-        Render();
-    }
-
-    void Render()
     {
         var messagesCount = NotificationUtils.GetPopups(Q).Count;
 
         if (messagesCount == 0)
             return;
+        AmountOfMessages.text = "Messages: " + messagesCount;
 
-        var popup = NotificationUtils.GetPopupMessage(Q) ?? null;
-
-        PopupMessage = popup;
+        var popup = NotificationUtils.GetPopupMessage(Q);
 
         ButtonComponents.Clear();
-
-        AmountOfMessages.text = "Messages: " + messagesCount;
 
         RenderPopup(popup);
 
         popupButtonsContainer.SetComponents(ButtonComponents);
     }
 
-    void SetTitle(string text)
-    {
-        Title.text = text;
-    }
-
-    void SetDescription(string text)
-    {
-        Description.text = text;
-    }
-
-    void AddComponent(Type type)
-    {
-        ButtonComponents.Add(type);
-    }
-
-
     void RenderUniversalPopup(string title, string description, params Type[] buttons)
     {
-        SetTitle(title);
-        SetDescription(description);
+        Title.text = title;
+        Description.text = description;
 
         foreach (var b in buttons)
-            AddComponent(b);
+            ButtonComponents.Add(b);
 
+        // default button to close popup
         if (buttons.Length == 0)
-            AddComponent(typeof(ClosePopupCancel));
+            ButtonComponents.Add(typeof(ClosePopupCancel));
     }
 }

@@ -6,13 +6,14 @@ public class PopupButtonsContainer : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        AttachComponent(t, entity as System.Type);
+        //AttachComponent(t, entity as System.Type);
+        t.gameObject.AddComponent(entity as System.Type);
     }
 
-    void AttachComponent<T>(Transform t, T type) where T : System.Type
-    {
-        t.gameObject.AddComponent(type);
-    }
+    //void AttachComponent<T>(Transform t, T type) where T : System.Type
+    //{
+    //    t.gameObject.AddComponent(type);
+    //}
 
     public void SetComponents(List<System.Type> components)
     {

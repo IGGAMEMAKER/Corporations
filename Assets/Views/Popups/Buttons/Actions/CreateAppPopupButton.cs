@@ -4,6 +4,9 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
 {
     public override void Execute()
     {
+        if (Popup == null)
+            return;
+
         NicheType nicheType = Popup.NicheType;
 
         var id = Companies.CreateProductAndAttachItToGroup(Q, nicheType, MyCompany);
