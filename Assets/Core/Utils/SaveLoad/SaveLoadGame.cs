@@ -2,7 +2,6 @@
 using System.IO;
 using UnityEngine;
 
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using Entitas;
 using System.Linq;

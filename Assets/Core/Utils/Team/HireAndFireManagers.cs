@@ -57,7 +57,7 @@ namespace Assets.Core
                 human.workerOffers.Offers[index] = o;
             }
 
-            Debug.Log($"Offer to {Humans.GetFullName(human)} ({human.workerOffers.Offers.Count}): {company.company.Name}");
+            //Debug.Log($"Offer to {Humans.GetFullName(human)} ({human.workerOffers.Offers.Count}): {company.company.Name}");
         }
 
         public static void SendJobOffer(GameEntity worker, JobOffer jobOffer, GameEntity company, GameContext gameContext)

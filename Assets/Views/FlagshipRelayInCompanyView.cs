@@ -68,7 +68,7 @@ public class FlagshipRelayInCompanyView : View
         TeamTask = teamTask;
 
         bool hasOneTeam = Flagship.team.Teams.Count == 1;
-        bool hasSlotForTask = Flagship.team.Teams[0].Tasks.Count < 4;
+        bool hasSlotForTask = true; // Flagship.team.Teams[0].Tasks.Count < 4;
 
         if (hasOneTeam)
         {

@@ -11,12 +11,13 @@ public partial class TaskProcessingSystem : OnDateChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
-        //Debug.Log($"Loaded {tasks.Count()} Tasks");
-
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        //Debug.Log("Loaded date: " + date);
+        Debug.Log("Loaded date: " + date);
+
+        GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
+
+        Debug.Log($"Loaded {tasks.Count()} Tasks");
 
         for (var i = tasks.Length - 1; i >= 0; i--)
         {

@@ -26,6 +26,8 @@ public class TeamTaskView : View
     public Image ProgressImage;
     public Image ProgressIcon;
 
+    public TeamTask teamTask;
+
     public void SetEntity(int TeamId, int SlotId)
     {
         this.TeamId = TeamId;
@@ -34,7 +36,14 @@ public class TeamTaskView : View
         ViewRender();
     }
 
-    public TeamTask Task => Flagship.team.Teams[TeamId].Tasks[SlotId];
+    public void SetEntity(TeamTask teamTask)
+    {
+        this.teamTask = teamTask;
+
+        ViewRender();
+    }
+
+    public TeamTask Task => teamTask; // Flagship.team.Teams[TeamId].Tasks[SlotId];
 
     public bool IsFeatureUpgradeTask => Task is TeamTaskFeatureUpgrade;
     public bool IsChannelTask => Task is TeamTaskChannelActivity;
@@ -47,12 +56,12 @@ public class TeamTaskView : View
 
         var product = Flagship;
 
-            var tasks = product.team.Teams[TeamId].Tasks;
+        //var tasks = product.team.Teams[TeamId].Tasks;
 
-            if (SlotId >= tasks.Count)
-                return;
+        //if (SlotId >= tasks.Count)
+        //    return;
 
-            var task = tasks[SlotId];
+        //var task = teamTask; // tasks[SlotId]; 
 
         if (IsFeatureUpgradeTask)
         {
@@ -64,13 +73,13 @@ public class TeamTaskView : View
                 Icon.sprite = MonetisationSprite;
             }
 
-            var featureName = (task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
+            var featureName = (Task as TeamTaskFeatureUpgrade).NewProductFeature.Name;
             var rating = Products.GetFeatureRating(product, featureName);
 
             RepresentativeNumber.text = rating.ToString("0.0");
             RepresentativeNumber.color = Visuals.GetGradientColor(0, 10, rating);
 
-            TaskHint.SetHint("Upgrading feature " + featureName + 
+            TaskHint.SetHint("Upgrading feature " + featureName +
                 $"\n\nFeature quality:" +
                 $"\n<size=50><b>{rating.ToString("0.0")} / 10</b></size>"
                 );
@@ -94,7 +103,7 @@ public class TeamTaskView : View
         {
             Icon.sprite = ChannelSprite;
 
-            var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
+            var channel = Markets.GetMarketingChannel(Q, (Task as TeamTaskChannelActivity).ChannelId);
             var gain = Marketing.GetChannelClientGain(product, Q, channel);
 
             RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
@@ -108,7 +117,7 @@ public class TeamTaskView : View
 
         if (IsSupportTask)
         {
-            var supportFeature = task as TeamTaskSupportFeature;
+            var supportFeature = Task as TeamTaskSupportFeature;
 
             var bonus = supportFeature.SupportFeature.SupportBonus;
 

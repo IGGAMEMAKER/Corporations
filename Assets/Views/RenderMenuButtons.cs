@@ -50,7 +50,7 @@ public class RenderMenuButtons : View
         bool showAdditionalIcons = false;
 
         //
-        Draw(Main, hasProduct);
+        Draw(Main, true);
         Draw(Stats, showStats && isOnMainScreen);
 
         // messages

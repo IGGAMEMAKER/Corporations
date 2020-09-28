@@ -19,5 +19,23 @@ namespace Assets.Core
         {
             product.isDumping = false;
         }
+
+        public static List<TeamTask> GetTeamTasks(GameContext gameContext, GameEntity product)
+        {
+            var teamTasks = new List<TeamTask>();
+
+            var teamId = 0;
+
+            foreach (var team in product.team.Teams)
+            {
+                for (var i = 0; i < team.Tasks.Count; i++)
+                    teamTasks.Add(team.Tasks[i]);
+
+                teamId++;
+            }
+
+
+            return teamTasks;
+        }
     }
 }

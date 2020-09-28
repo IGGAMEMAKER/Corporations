@@ -131,7 +131,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                     bool worksInPlayerCompetitorCompany = Companies.IsInPlayerSphereOfInterest(c, gameContext);
 
-                    bool wantsToWorkInYourCompany = UnityEngine.Random.Range(0, 100) < 50;
+                    bool wantsToWorkInYourCompany = false; // UnityEngine.Random.Range(0, 100) < 50;
 
                     // // NotifyPlayer
                     if (worksInPlayerCompetitorCompany && wantsToWorkInYourCompany)
