@@ -113,14 +113,13 @@ public class TaskPanelView : View
             Hide(RemoveFeatureButton);
         }
 
-        TaskExecutor.text = $"<b>{Visuals.Link(team.Name)}</b>";
-    }
+        if (teamTask.IsHighloadTask)
+        {
+            TaskBenefit.text = $"Server";
+            TaskModifiers.text = "";
+        }
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-
+        //TaskExecutor.text = $"<b>{Visuals.Link(team.Name)}</b>";
     }
 
     public void RemoveFeature()
