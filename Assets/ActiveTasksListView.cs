@@ -8,7 +8,7 @@ public class ActiveTasksListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<TeamTaskView>().SetEntity((TeamTask)(object)entity, reversedIndex);
+        t.GetComponent<TeamTaskView>().SetEntity((TeamTask)(object)entity, Products.GetTeamTasks(Q, Flagship).Count - 1 - index);
     }
 
     public override void ViewRender()
@@ -19,7 +19,7 @@ public class ActiveTasksListView : ListView
 
         var t2 = Products.GetTeamTasks(Q, Flagship);
 
-        for (var i = t2.Count - 1; i > 0; i--)
+        for (var i = t2.Count - 1; i >= 0; i--)
         {
             tasks.Add(t2[i]);
         }
