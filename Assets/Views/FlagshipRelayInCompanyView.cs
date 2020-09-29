@@ -67,8 +67,10 @@ public class FlagshipRelayInCompanyView : View
     {
         TeamTask = teamTask;
 
-        bool hasOneTeam = Flagship.team.Teams.Count == 1;
+        bool hasOneTeam = true; // Flagship.team.Teams.Count == 1;
         bool hasSlotForTask = true; // Flagship.team.Teams[0].Tasks.Count < 4;
+
+        ScheduleUtils.PauseGame(Q);
 
         if (hasOneTeam)
         {
@@ -122,7 +124,7 @@ public class FlagshipRelayInCompanyView : View
         var task = ChosenTeamId >= 0 ? tasks[ChosenSlotId] : null;
 
 
-        Debug.Log("Choose task tab: team=" + ChosenTeamId + " slot=" + ChosenSlotId);
+        //Debug.Log("Choose task tab: team=" + ChosenTeamId + " slot=" + ChosenSlotId);
 
         if (task != null)
             TaskPanel.SetEntity(ChosenTeamId, task);
