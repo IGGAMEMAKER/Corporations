@@ -121,6 +121,9 @@ public class FlagshipRelayInCompanyView : View
         var tasks = Flagship.team.Teams[ChosenTeamId].Tasks;
         var task = ChosenTeamId >= 0 ? tasks[ChosenSlotId] : null;
 
+
+        Debug.Log("Choose task tab: team=" + ChosenTeamId + " slot=" + ChosenSlotId);
+
         if (task != null)
             TaskPanel.SetEntity(ChosenTeamId, task);
     }

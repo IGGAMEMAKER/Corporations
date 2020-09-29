@@ -36,9 +36,11 @@ public class TeamTaskView : View
         ViewRender();
     }
 
-    public void SetEntity(TeamTask teamTask)
+    public void SetEntity(TeamTask teamTask, int taskId)
     {
         this.teamTask = teamTask;
+        SlotId = taskId;
+        TeamId = 0;
 
         ViewRender();
     }
@@ -55,13 +57,6 @@ public class TeamTaskView : View
         base.ViewRender();
 
         var product = Flagship;
-
-        //var tasks = product.team.Teams[TeamId].Tasks;
-
-        //if (SlotId >= tasks.Count)
-        //    return;
-
-        //var task = teamTask; // tasks[SlotId]; 
 
         if (IsFeatureUpgradeTask)
         {

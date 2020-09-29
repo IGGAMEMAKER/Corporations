@@ -10,6 +10,7 @@ public abstract class ListView : View // MonoBehaviour
     public GameObject Prefab;
 
     public int index = 0;
+    public int reversedIndex => Items.Count - 1 - index;
 
     [Header("Specify this field to autoscroll. Two layers higher Scroll View")]
     public ScrollRect _sRect;

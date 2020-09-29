@@ -56,7 +56,7 @@ public class AudiencesOnMainScreenListView : ListView
     public override void OnItemSelected(int ind)
     {
         base.OnItemSelected(ind);
-
+        return;
         FindObjectOfType<MainPanelRelay>().ExpandAudiences();
 
         Show(ButtonList);

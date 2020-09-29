@@ -16,7 +16,7 @@ namespace Assets.Core
 
         public static string Colorize(string text, Color color)     => Colorize(text, ConvertToHex(color));
         public static string Colorize(string text, bool isPositive) => Colorize(text, isPositive ? Colors.COLOR_POSITIVE : Colors.COLOR_NEGATIVE);
-        public static string Colorize(int value, int min = 0, int max = 100) => Colorize(value + "", GetGradientColor(min, max, value));
+        public static string Colorize(int value, int min = 0, int max = 100, bool reversed = false) => Colorize(value + "", GetGradientColor(min, max, value, reversed));
         public static string Colorize(string text, string colorHTML)
         {
             return $"<color={colorHTML}>{text}</color>";

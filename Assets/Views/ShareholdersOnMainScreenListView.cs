@@ -23,6 +23,8 @@ public class ShareholdersOnMainScreenListView : ListView
     List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, MainInfo.gameObject };
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, /*ShowOffers,*/ CurrentInvestments, MainInfo.gameObject };
 
+    public GameObject InvestmentsContextMenu;
+
     bool isPlayerSelected = false;
     int shareholderId = 0;
 
@@ -53,6 +55,8 @@ public class ShareholdersOnMainScreenListView : ListView
     {
         HideAll(PlayerButtons);
         HideAll(InvestorButtons);
+
+        Hide(InvestmentsContextMenu);
     }
 
     public override void OnItemSelected(int chosenIndex)
@@ -61,6 +65,7 @@ public class ShareholdersOnMainScreenListView : ListView
 
         FindObjectOfType<MainPanelRelay>().ExpandInvestors();
 
+        Show(InvestmentsContextMenu);
 
         isPlayerSelected = chosenIndex == 0;
 

@@ -56,7 +56,7 @@ public class CompanyTaskTypeRelay : View
         Show(FeatureTasks);
         ShowDevButton();
 
-        Hide(ChooseTaskTypeLabel);
+        RenderTaskLabel();
     }
 
     public void ChooseFeatureTasks()
@@ -66,8 +66,7 @@ public class CompanyTaskTypeRelay : View
         Show(FeatureTasks);
         ShowMarketingButton();
 
-
-        Hide(ChooseTaskTypeLabel);
+        RenderTaskLabel();
     }
 
     public void ChooseServersideTasks()
@@ -75,14 +74,20 @@ public class CompanyTaskTypeRelay : View
         SetMode(ServerTasks, ChooseServerTasksButton);
         ShowMarketingButton();
 
-        Hide(ChooseTaskTypeLabel);
+        RenderTaskLabel();
     }
     public void ChooseSupportTasks()
     {
         SetMode(SupportTasks, ChooseSupportTasksButton);
         ShowMarketingButton();
 
-        Hide(ChooseTaskTypeLabel);
+        RenderTaskLabel();
+    }
+
+    void RenderTaskLabel()
+    {
+        //Hide(ChooseTaskTypeLabel);
+        Show(ChooseTaskTypeLabel);
     }
 
     public void AdjustTaskTypeButtonsToTeamType()

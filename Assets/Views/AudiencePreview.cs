@@ -31,13 +31,18 @@ public class AudiencePreview : View
 
         if (links != null)
             links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
+
         Draw(TargetAudience, isMainAudience);
 
         var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
         var loyaltyBonus = Marketing.GetSegmentLoyalty(Q, Flagship, segmentId, true);
 
-        bool isNewAudience = !Flagship.marketing.ClientList.ContainsKey(segmentId) || Flagship.marketing.ClientList[segmentId] == 0;
+        long clients = Flagship.marketing.ClientList.ContainsKey(segmentId) ? Flagship.marketing.ClientList[segmentId] : 0;
+
+        bool isNewAudience = clients == 0;
         bool isLoyalAudience = loyalty >= 0;
+
+        var text = $"<size=35>{audience.Name}</size>";
 
         if (isNewAudience)
         {
@@ -46,6 +51,9 @@ public class AudiencePreview : View
                 links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
                 links.Title.text += $"Potential: {Format.MinifyToInteger(audience.Size)} users";
             }
+
+            text += $"\n\nIncome: <b>{Visuals.Positive("???")}</b>" +
+                $"\nPotential: <b>{Visuals.Positive("???")}</b>";
         }
 
         else
@@ -53,10 +61,9 @@ public class AudiencePreview : View
             Loyalty.text = Format.Sign(loyalty);
             Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).ToString());
 
+            var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
             if (isLoyalAudience)
             {
-                var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
-
                 if (links != null)
                 {
                     links.Background.color = Visuals.GetColorPositiveOrNegative(true);
@@ -74,28 +81,18 @@ public class AudiencePreview : View
                     links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
                 }
             }
+
+            text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
+                $"\nUsers: <b>{Visuals.Colorize(Format.MinifyMoney(clients), clients >= 0)}</b>";
         }
 
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
 
-        var incomePerUser = Economy.GetIncomePerUser(Q, Flagship, segmentId);
-        var worth = (long)((double)audience.Size * incomePerUser);
-
-
-        //var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
-
-        //MainInfo.Title.text = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
-
         var potentialPhrase = $"{Format.Minify(audience.Size)} users";
-        var incomePerUserPhrase = $"${incomePerUser.ToString("0.0")}";
-        var growthBonus = "???";
+        //var incomePerUserPhrase = $"${income.ToString("0.0")}";
 
-        var text = $"<size=35>{audience.Name}</size>" +
-            $"\n\nPotential: <b>{Visuals.Positive(Format.MinifyMoney(worth))}</b>" + //  (worth {Format.MinifyMoney(worth)})
-            //$"\nWorth: <b>{}</b>" +
-            $"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
-            $"\nPotential audience: <b>{Visuals.Positive(potentialPhrase)}</b>"
-            //$"\n\nLoyalty: <b>{Visuals.Colorize(Format.Sign(loyalty), isLoyalAudience)}</b>"
+        //$"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
+        //$"\nPotential audience: <b>{Visuals.Positive(potentialPhrase)}</b>"
             ;
 
         AudienceHint.SetHint(text);
