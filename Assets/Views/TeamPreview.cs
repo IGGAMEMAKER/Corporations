@@ -49,12 +49,16 @@ public class TeamPreview : View
         Draw(HiringProgressBackground, !hasFullTeam);
 
         bool canHireMoreManagers = info.Managers.Count < 2;
-        bool hasNoManager = info.Managers.Count == 0;
 
         bool hasNoManagerFocus = info.ManagerTasks.Contains(ManagerTask.None);
 
         bool isFirstTeam = company.team.Teams.Count == 1;
-        GetComponent<Blinker>().enabled = isFirstTeam && hasNoManager && hasNoManagerFocus;
+
+        bool hasLeadManager = Teams.HasMainManagerInTeam(info, Q, company);
+        //bool hasNoManager = info.Managers.Count == 0;
+        bool hasNoManager = !hasLeadManager;
+
+        GetComponent<Blinker>().enabled = (isFirstTeam && hasNoManagerFocus) || hasNoManager;
 
         bool hasDisloyalManagers = info.Managers
             .Select(m => Humans.GetHuman(Q, m))

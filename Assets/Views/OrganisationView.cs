@@ -17,13 +17,6 @@ public class OrganisationView : View
     public GameObject ExpandTeam;
     public GameObject FireTeam;
 
-    public Text ManagerAdvice;
-
-    // ----------------------
-
-    public Text TeamStats;
-    public Text Advices;
-
     public override void ViewRender()
     {
         base.ViewRender();
@@ -47,13 +40,6 @@ public class OrganisationView : View
         loadingBar.GetComponent<Image>().fillAmount = organisation / 100f;
         //textPercent.GetComponent<TextMeshProUGUI>().text = ((int)value).ToString("F0");
 
-        bool hasLeadManager = Teams.HasMainManagerInTeam(team, Q, product);
-        var mainManagerRole = Teams.GetMainManagerForTheTeam(team);
-
-        ManagerAdvice.text = Visuals.Negative($"These bonuses don't apply, cause you don't have {Humans.GetFormattedRole(mainManagerRole)}");
-        Draw(ManagerAdvice, !hasLeadManager);
-
-        // --------------------------------------
         var teamCount = product.team.Teams.Count;
 
         bool CanExpand = teamCount == 1 && organisation >= 100;
@@ -61,42 +47,5 @@ public class OrganisationView : View
         Draw(ExpandTeam, CanExpand);
 
         Draw(FireTeam, team.ID != 0);
-        // -------------------------
-
-
-
-        var ratingGain = Products.GetFeatureRatingGain(product, team, Q);
-        var marketingEffeciency = Marketing.GetMarketingTeamEffeciency(Q, product, team);
-        var featureCap = Products.GetFeatureRatingCap(product, team, Q);
-        var devSpeed = Products.GetBaseIterationTime(Q, product);
-
-        var stats = new StringBuilder()
-            .Append("Max feature level: ")
-            .AppendLine(Visuals.Positive(featureCap.ToString("0.0lvl (")) + Visuals.Positive(Format.ShowChange(ratingGain) + "lvl)"))
-
-            //.Append("Feature rating gain: ")
-            //.AppendLine(Visuals.Positive(Format.ShowChange(ratingGain) + "lvl"))
-            
-            .Append("Marketing efficiency: ")
-            .AppendLine(Visuals.Positive(marketingEffeciency.ToString("0") + "%"))
-            
-            //.Append("Development speed: ")
-            //.AppendLine(Visuals.Positive(devSpeed.ToString("0days")))
-            ;
-
-        TeamStats.text = stats.ToString();
-
-        var advices = new StringBuilder();
-
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.ProductManager, team, Q))
-            advices.AppendLine("* Hire product manager to boost rating gain and max feature level");
-
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.MarketingLead, team, Q))
-            advices.AppendLine("* Hire marketing lead to boost your marketing efficiency");
-
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.TeamLead, team, Q))
-            advices.AppendLine("* Hire team lead to boost iteration speed");
-
-        Advices.text = advices.ToString();
     }
 }
