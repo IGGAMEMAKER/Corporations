@@ -23,14 +23,14 @@ namespace Assets.Core
         }
 
 
-        public static string GetCompanyPositioning(GameEntity company, GameContext gameContext)
+        public static string GetCompanyPositioningName(GameEntity company, GameContext gameContext)
         {
             var positioning = company.productPositioning.Positioning;
 
             return GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
         }
 
-        public static Dictionary<int, ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
+        public static List<ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)
         {
             var e = Get(gameContext, niche);
 

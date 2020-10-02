@@ -164,13 +164,15 @@ public struct ProductPositioning
     public bool isCompetitive;
 
     public float priceModifier;
+
+    public List<int> Loyalties;
 }
 
 [Game]
 public class NicheSegmentsComponent : IComponent
 {
     // int - positioning id
-    public Dictionary<int, ProductPositioning> Positionings;
+    public List<ProductPositioning> Positionings;
 }
 
 [Game]

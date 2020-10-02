@@ -1,14 +1,8 @@
 ﻿using Assets.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class RenderCompanyPositioning : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {
@@ -17,6 +11,6 @@ public class RenderCompanyPositioning : UpgradedParameterView
         if (!c.hasProduct)
             return "-----";
 
-        return Markets.GetCompanyPositioning(c, Q);
+        return Markets.GetCompanyPositioningName(c, Q);
     }
 }

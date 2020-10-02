@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExitHandler
+public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerExitHandler*/
 {
     public Text Name;
     public Hint CompanyHint;
@@ -49,8 +49,8 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
         var growth = Marketing.GetAudienceChange(company, Q, true);
         Growth.text = Visuals.PositiveOrNegativeMinified(growth.Sum());
 
-        Hide(SetAmountOfStars);
-        Hide(LoyaltyImage);
+        //Hide(SetAmountOfStars);
+        //Hide(LoyaltyImage);
 
         var position = Markets.GetPositionOnMarket(Q, company);
 
@@ -58,15 +58,6 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
         var scale = Mathf.Clamp(max / (1 + position), 0.8f, max);
 
         transform.localScale = new Vector3(scale, scale, 1);
-    }
-
-    string GetProfitDescription()
-    {
-        var profit = Economy.GetProfit(Q, company.company.Id);
-
-        return profit > 0 ?
-            Visuals.Positive($"Profit: +{Format.Money(profit)}") :
-            Visuals.Negative($"Loss: {Format.Money(-profit)}");
     }
 
     void SetEmblemColor()
@@ -123,9 +114,6 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
 
         // #{position + 1}
         var clients = Marketing.GetClients(company);
-        //var mainInfo =  + $" (<b>{Format.Minify(clients)}</b> users)";
-        StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
-
 
         var change = Marketing.GetAudienceChange(company, Q);
 
@@ -133,16 +121,19 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
 
         var budgetFormatted = Format.MinifyMoney(Economy.GetProductCompanyMaintenance(company, Q));
 
-        var budgetStars = GetBudgetEstimation(company, Q);
-        var teamStars = GetTeamEstimation(company, Q);
+        var teamStars    = GetTeamEstimation(company, Q);
+        var budgetStars  = GetBudgetEstimation(company, Q);
         var managerStars = GetManagerEstimation(company, Q);
+
+        var productStrength = (budgetStars + managerStars + teamStars) / 3;
+        SetAmountOfStars.SetStars(productStrength);
+
+        StringBuilder hint = new StringBuilder($"<size=35>{Visuals.Colorize(company.company.Name, hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL)}</size>");
 
         hint.AppendLine($"\n\nUsers: <b>{Format.Minify(clients)}</b>");
         hint.AppendLine($"{Visuals.Colorize(changeFormatted, change >=0)}\n");
         //hint.AppendLine($"Users: <b>{Format.Minify(clients)}</b> {Visuals.Colorize(changeFormatted, change >=0)}\n");
         //hint.AppendLine(RenderStars("Product", techStars));
-
-        var productStrength = (budgetStars + managerStars + teamStars) / 3;
 
         //hint.AppendLine();
         hint.AppendLine(RenderStars("Company strength", productStrength));
@@ -152,7 +143,6 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
         //hint.AppendLine(RenderStars("Managers", managerStars));
         //hint.AppendLine(RenderStars("Teams", teamStars));
 
-        SetAmountOfStars.SetStars(productStrength);
 
         //hint.AppendLine($"\n<b>{company.team.Teams.Count}</b> teams");
         //hint.AppendLine($"Managers: <b>{Teams.GetTeamAverageStrength(company, Q)}LVL</b>");
@@ -179,15 +169,15 @@ public class CompanyViewOnAudienceMap : View, IPointerEnterHandler, IPointerExit
         return str + "</size>";
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Show(SetAmountOfStars);
-        Show(LoyaltyImage);
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    Show(SetAmountOfStars);
+    //    Show(LoyaltyImage);
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Hide(SetAmountOfStars);
-        Hide(LoyaltyImage);
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    Hide(SetAmountOfStars);
+    //    Hide(LoyaltyImage);
+    //}
 }

@@ -94,7 +94,7 @@ public class FlagshipInterruptsView : View
 
         problemCounter = 0;
 
-        SpecialDraw(AudienceMapLink, product.isRelease);
+        SpecialDraw(AudienceMapLink, true || product.isRelease);
         SpecialDraw(NeedsManagersImage, false);
         SpecialDraw(NeedsServersImage, CanManagerServers);
         SpecialDraw(NeedsSupportImage, false);

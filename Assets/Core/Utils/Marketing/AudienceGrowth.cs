@@ -77,7 +77,10 @@ namespace Assets.Core
             return GetAudienceChange(product, gameContext, true).Sum();
         }
 
-
+        public static List<ProductPositioning> GetProductPositionings(GameEntity product, GameContext gameContext)
+        {
+            return Markets.GetNichePositionings(product.product.Niche, gameContext);
+        }
 
         public static List<AudienceInfo> GetAudienceInfos()
         {

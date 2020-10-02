@@ -33,18 +33,19 @@ public class RenderMarketDescription : ParameterView
 
     string GetPositionings()
     {
-        var p = Markets.GetNichePositionings(SelectedNiche, Q);
+        return "{RenderMarketDescription.GetPositionings()}";
+        //var p = Markets.GetNichePositionings(SelectedNiche, Q);
 
-        var arr = p
-            .Select(k =>
-                $"{k.Value.name}, worth " +
-                //$"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
-                $"{Format.MinifyToInteger(Markets.GetMarketSegmentAudiencePotential(Q, SelectedNiche, k.Key))} users,"
-                //$" {NicheUtils.GetSegmentProductPrice(GameContext, SelectedNiche, k.Key).ToString("0.0")} each"
-                )
-            .ToArray();
+        //var arr = p
+        //    .Select(k =>
+        //        $"{k.name}, worth " +
+        //        //$"{Format.MoneyToInteger(NicheUtils.GetMarketSegmentPotential(GameContext, SelectedNiche, k.Key))}"
+        //        $"{Format.MinifyToInteger(Markets.GetMarketSegmentAudiencePotential(Q, SelectedNiche, k.Key))} users,"
+        //        //$" {NicheUtils.GetSegmentProductPrice(GameContext, SelectedNiche, k.Key).ToString("0.0")} each"
+        //        )
+        //    .ToArray();
 
-        return String.Join(",\n", arr);
+        //return String.Join(",\n", arr);
     }
 
     

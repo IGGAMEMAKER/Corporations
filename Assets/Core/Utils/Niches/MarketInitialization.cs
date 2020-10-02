@@ -403,7 +403,7 @@ namespace Assets.Core
 
             //new ProductPositioning[] {
             //    //new ProductPositioning { name = "Basic social network", marketShare = 100 }, // fb
-            //    //new ProductPositioning { name = "Corporative social network", marketShare = 3, priceModifier = 10 }, // linkedIn
+            //    //new ProductPositioning { name = "Corporate social network", marketShare = 3, priceModifier = 10 }, // linkedIn
             //    //new ProductPositioning { name = "Text focused social network", marketShare = 15, priceModifier = 1.75f }, // twitter
             //    //new ProductPositioning { name = "Image focused social network", marketShare = 85 }, // insta
             //},

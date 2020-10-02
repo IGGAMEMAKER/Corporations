@@ -31,6 +31,8 @@ public class AddTeamButton : ButtonController
     void OnValidate()
     {
         //Debug.Log("AddTeamButton");
+        if (Title == null)
+            return;
         Title.text = $"<b>Create {Teams.GetFormattedTeamType(TeamType)}";
 
         switch (TeamType)

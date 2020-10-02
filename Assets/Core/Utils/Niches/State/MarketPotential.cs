@@ -14,15 +14,6 @@
             return positioningData.marketShare;
         }
 
-        public static long GetMarketSegmentPotential(GameContext GameContext, NicheType nicheType, int segmentId)
-        {
-            var niche = Get(GameContext, nicheType);
-
-            var segmentShare = GetSegmentMarketShare(GameContext, nicheType, segmentId);
-
-            return GetMarketPotential(niche) * segmentShare / 100;
-        }
-
         public static long GetMarketSegmentAudiencePotential(GameContext GameContext, NicheType nicheType, int segmentId)
         {
             var niche = Get(GameContext, nicheType);

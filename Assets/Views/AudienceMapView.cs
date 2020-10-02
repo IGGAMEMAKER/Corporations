@@ -14,8 +14,8 @@ public class AudienceMapView : View
     {
         var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true);
 
-        var max = 1.35f;
-        var scale = Mathf.Clamp(max / (count - index), 0.8f, max);
+        var max = 2.75f;
+        var scale = Mathf.Clamp(max / (count - index), 1f, max);
 
         transform.localScale = new Vector3(scale, scale, 1);
 

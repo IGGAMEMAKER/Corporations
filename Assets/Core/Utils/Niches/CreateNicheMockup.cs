@@ -41,6 +41,7 @@ namespace Assets.Core
             e.AddNicheState(MarketState.Idle, 0);
             UpdateNicheDuration(e);
 
+            var audiences = Marketing.GetAudienceInfos();
 
             e.AddNicheClientsContainer(new Dictionary<int, long>());
             e.AddNicheSegments(new Dictionary<int, ProductPositioning>());

@@ -9,8 +9,12 @@ public abstract class ListView : View // MonoBehaviour
 {
     public GameObject Prefab;
 
+    [HideInInspector]
     public int index = 0;
-    //public int reversedIndex => Items.Count - index;
+    [HideInInspector]
+    public int count = 0;
+    [HideInInspector]
+    public int reversedIndex => count - index;
 
     [Header("Specify this field to autoscroll. Two layers higher Scroll View")]
     public ScrollRect _sRect;
@@ -19,6 +23,7 @@ public abstract class ListView : View // MonoBehaviour
 
     // highlight selected elements
     public bool HighlightChosenVariant = false;
+    [HideInInspector]
     public int ChosenIndex = -1;
 
     bool noElementsWereSelected => ChosenIndex == -1;
@@ -71,18 +76,20 @@ public abstract class ListView : View // MonoBehaviour
             OnItemSelected(ChosenIndex);
         }
 
-
-        int i = 0;
-        foreach (var item in Items)
+        if (HighlightChosenVariant)
         {
-            bool highlight = noElementsWereSelected || (i == ChosenIndex);
+            int i = 0;
+            foreach (var item in Items)
+            {
+                bool highlight = noElementsWereSelected || (i == ChosenIndex);
 
-            if (highlight)
-                item.GetComponent<CanvasGroup>().alpha = 1;
-            else
-                item.GetComponent<CanvasGroup>().alpha = 0.25f;
+                if (highlight)
+                    item.GetComponent<CanvasGroup>().alpha = 1;
+                else
+                    item.GetComponent<CanvasGroup>().alpha = 0.25f;
 
-            i++;
+                i++;
+            }
         }
     }
 
@@ -132,6 +139,8 @@ public abstract class ListView : View // MonoBehaviour
         #endregion
 
         index = 0;
+        count = entities.Count();
+
         foreach (var e in entities)
         {
             GameObject o = GetObjectForItem();
@@ -170,12 +179,12 @@ public abstract class ListView : View // MonoBehaviour
         {
             if (o.GetComponent<CanvasGroup>() == null)
                 o.AddComponent<CanvasGroup>();
+        }
 
             if (o.GetComponent<NotifyListIfElementWasChosen>() == null)
                 o.AddComponent<NotifyListIfElementWasChosen>();
 
             o.GetComponent<NotifyListIfElementWasChosen>().SetEntity(index, this);
-        }
     }
 
     IEnumerator ScrollDown()

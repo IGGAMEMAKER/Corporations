@@ -14,14 +14,12 @@ public partial class GameEntity {
     public void AddNicheSegments(System.Collections.Generic.Dictionary<int, ProductPositioning> newPositionings) {
         var index = GameComponentsLookup.NicheSegments;
         var component = (NicheSegmentsComponent)CreateComponent(index, typeof(NicheSegmentsComponent));
-        component.Positionings = newPositionings;
         AddComponent(index, component);
     }
 
     public void ReplaceNicheSegments(System.Collections.Generic.Dictionary<int, ProductPositioning> newPositionings) {
         var index = GameComponentsLookup.NicheSegments;
         var component = (NicheSegmentsComponent)CreateComponent(index, typeof(NicheSegmentsComponent));
-        component.Positionings = newPositionings;
         ReplaceComponent(index, component);
     }
 

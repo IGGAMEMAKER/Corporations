@@ -9,16 +9,31 @@ public class CompaniesFocusingSpecificSegmentListView : ListView
     int segmentId;
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
-        t.GetComponent<CompanyViewInSegmentTab>().SetEntity(entity as GameEntity, segmentId);
+        var company = entity as GameEntity;
+        var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q) / 100f;
+
+        var min = 1f;
+        var max = 2.75f;
+
+        var scale = min + (max - min) * marketShare;
+
+        t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(company, segmentId);
+        t.GetComponent<RectTransform>().localScale = new Vector3(scale, scale, 1);
     }
 
     public void SetSegment(int segmentId)
     {
-        var company = Flagship;
-
         this.segmentId = segmentId;
 
-        var companies = Companies.GetCompetitorsOfCompany(company, Q, true).Where(c => c.productTargetAudience.SegmentId == segmentId);
+        ViewRender();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true).Where(c => c.productTargetAudience.SegmentId == segmentId);
+
         SetItems(companies);
     }
 }
