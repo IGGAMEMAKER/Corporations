@@ -17,6 +17,11 @@ namespace Assets.Core
             var features = Products.GetAvailableFeaturesForProduct(c);
             var infos = GetAudienceInfos();
 
+            var positioningId = c.productPositioning.Positioning;
+            var positionings = Marketing.GetProductPositionings(c, gameContext)[positioningId];
+            
+            var positioningBonus = positionings.Loyalties[segmentId];
+
             var segment = infos[segmentId];
 
             var bonus = new Bonus<long>("Loyalty");
@@ -33,6 +38,8 @@ namespace Assets.Core
                     bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
                 }
             }
+
+            bonus.AppendAndHideIfZero("From positioning", positioningBonus);
 
             //var competitors = Companies.GetCompetitorsOfCompany(c, gameContext, false);
             //bool isOutcompeted = false;

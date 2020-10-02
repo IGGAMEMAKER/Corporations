@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Core
 {
@@ -43,8 +44,18 @@ namespace Assets.Core
 
             var audiences = Marketing.GetAudienceInfos();
 
+            var positionings = audiences.Select(a => new ProductPositioning
+            {
+                name = "",
+                marketShare = 100,
+                priceModifier = 1f,
+                Loyalties = audiences.Select(ad => UnityEngine.Random.Range(-10, 10)).ToList(),
+                isCompetitive = false,
+            })
+            .ToList();
+
             e.AddNicheClientsContainer(new Dictionary<int, long>());
-            e.AddNicheSegments(new Dictionary<int, ProductPositioning>());
+            e.AddNicheSegments(positionings);
             e.AddSegment(0);
 
             return e;

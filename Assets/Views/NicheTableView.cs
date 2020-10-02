@@ -54,8 +54,6 @@ public class NicheTableView : View, IPointerEnterHandler
 
         RenderTimeToMarket();
 
-        var sumOfBrandPowers = (int)Marketing.GetSumOfBrandPowers(niche, Q);
-
         // 
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(Q, niche);
 

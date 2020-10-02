@@ -17,7 +17,7 @@ public class AudiencePreview : View
     public Text LoyaltyChange;
     public GameObject LoyaltyChangeBackground;
 
-    int segmentId;
+    public int segmentId;
 
     public void SetEntity(AudienceInfo audience)
     {
@@ -83,7 +83,7 @@ public class AudiencePreview : View
             }
 
             text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
-                $"\nUsers: <b>{Visuals.Colorize(Format.MinifyMoney(clients), clients >= 0)}</b>";
+                $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";
         }
 
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
@@ -93,7 +93,6 @@ public class AudiencePreview : View
 
         //$"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
         //$"\nPotential audience: <b>{Visuals.Positive(potentialPhrase)}</b>"
-            ;
 
         AudienceHint.SetHint(text);
         HideLoyaltyChanges();
@@ -103,6 +102,11 @@ public class AudiencePreview : View
     {
         int change = (int)Marketing.GetLoyaltyChangeFromFeature(Flagship, f, segmentId, true);
 
+        ShowChanges(change);
+    }
+
+    public void ShowChanges(int change)
+    {
         LoyaltyChange.text = Format.Sign(change);
         LoyaltyChange.color = Visuals.GetColorPositiveOrNegative(change >= 0);
 

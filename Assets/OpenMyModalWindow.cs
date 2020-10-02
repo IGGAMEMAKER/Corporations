@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class OpenMyModalWindow : ButtonController
         else
         {
             Show(m);
+            ScheduleUtils.PauseGame(Q);
         }
     }
 

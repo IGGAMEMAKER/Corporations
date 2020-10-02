@@ -6,15 +6,6 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static float GetSumOfBrandPowers(GameEntity niche, GameContext gameContext)
-        {
-            var products = Markets.GetProductsOnMarket(niche, gameContext);
-
-            var sumOfBrandPowers = products.Sum(p => p.branding.BrandPower);
-
-            return sumOfBrandPowers;
-        }
-
         public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
         {
             var channels = Markets.GetMarketingChannels(gameContext);
@@ -42,6 +33,7 @@ namespace Assets.Core
                 var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
 
                 var gain = GetChannelClientGain(product, gameContext, channel);
+
                 bonus.AppendAndHideIfZero("Channel " + channelId, gain);
             }
 

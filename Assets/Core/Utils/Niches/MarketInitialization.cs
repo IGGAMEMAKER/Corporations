@@ -603,16 +603,9 @@ namespace Assets.Core
 
             var n = SetNicheCosts(nicheType, price, clients, techCost, adCosts, gameContext);
 
+            var audiences = Marketing.GetAudienceInfos();
 
-            var positionings = new Dictionary<int, ProductPositioning>
-            {
-                [0] = new ProductPositioning
-                {
-                    isCompetitive = false,
-                    marketShare = 100,
-                    name = Enums.GetSingleFormattedNicheName(nicheType)
-                }
-            };
+            var positionings = GetStandardPositionings(nicheType);
 
             var clientsContainer = new Dictionary<int, long>
             {
@@ -625,6 +618,56 @@ namespace Assets.Core
             n.ReplaceNicheBaseProfile(settings);
 
             return n;
+        }
+
+        public static List<ProductPositioning> GetStandardPositionings(NicheType nicheType)
+        {
+            var audiences = Marketing.GetAudienceInfos();
+
+            var nicheName = Enums.GetFormattedNicheName(nicheType);
+
+            var list = new List<ProductPositioning>();
+
+            foreach (var a in audiences)
+            {
+                var index = a.ID;
+
+                var loyalties = audiences.Select(a1 => Random.Range(-5, 10)).ToList();
+
+                loyalties[index] = 10;
+
+                list.Add(new ProductPositioning
+                {
+                    name = nicheName + " for " + a.Name,
+                    isCompetitive = false,
+                    Loyalties = loyalties,
+
+                    marketShare = 100,
+                    priceModifier = 1f
+                });
+            }
+
+            list.Add(new ProductPositioning
+            {
+                name = "Global " + nicheName,
+                Loyalties = audiences.Select(a => 3).ToList(),
+
+                isCompetitive = false,
+                marketShare = 100,
+                priceModifier = 1f,
+            });
+
+            //list.Add(new ProductPositioning
+            //{
+            //    name = "Corporate " + nicheName,
+            //    Loyalties = audiences.Select(a => Random.Range(-5, 10)).ToList(),
+
+            //    isCompetitive = false,
+            //    marketShare = 100,
+            //    priceModifier = 1f,
+            //});
+
+            return list;
         }
 
 

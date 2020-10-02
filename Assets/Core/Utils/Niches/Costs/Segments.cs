@@ -14,6 +14,13 @@ namespace Assets.Core
 
         // positionings
 
+        public static void AddProductPositioning(GameContext gameContext, NicheType nicheType, ProductPositioning positioning)
+        {
+            var market = Get(gameContext, nicheType);
+
+            market.nicheSegments.Positionings.Add(positioning);
+        }
+
         public static ProductPositioning GetProductPositioningInfo(GameContext GameContext, NicheType nicheType, int segmentId)
         {
             //Debug.Log("GetProductPositioningInfo " + EnumUtils.GetFormattedNicheName(nicheType) + " segment " + segmentId);

@@ -26,15 +26,16 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
-        if (Flagship.isRelease)
-        {
             SetItems(audiences);
-        }
-        else
-        {
-            // take primary audience only
-            SetItems(audiences.Where(a => a.ID == Flagship.productTargetAudience.SegmentId));
-        }
+        //if (Flagship.isRelease)
+        //{
+        //    SetItems(audiences);
+        //}
+        //else
+        //{
+        //    // take primary audience only
+        //    SetItems(audiences.Where(a => a.ID == Flagship.productTargetAudience.SegmentId));
+        //}
     }
 
     public override void OnDeselect()
@@ -113,6 +114,16 @@ public class AudiencesOnMainScreenListView : ListView
             var worstThing = loyalty.bonusDescriptions.Find(b => b.Value == worstValue);
 
             LoyaltyInfo.Title.text += Visuals.Negative($"{worstThing.Name}: {worstThing.Value}");
+        }
+    }
+
+    public void ShowLoyaltyChanges(List<int> changes)
+    {
+        foreach (var preview in Items)
+        {
+            var audPreview = preview.GetComponent<AudiencePreview>();
+
+            audPreview.ShowChanges(changes[audPreview.segmentId]);
         }
     }
 

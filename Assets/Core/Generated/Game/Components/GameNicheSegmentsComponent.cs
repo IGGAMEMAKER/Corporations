@@ -11,15 +11,17 @@ public partial class GameEntity {
     public NicheSegmentsComponent nicheSegments { get { return (NicheSegmentsComponent)GetComponent(GameComponentsLookup.NicheSegments); } }
     public bool hasNicheSegments { get { return HasComponent(GameComponentsLookup.NicheSegments); } }
 
-    public void AddNicheSegments(System.Collections.Generic.Dictionary<int, ProductPositioning> newPositionings) {
+    public void AddNicheSegments(System.Collections.Generic.List<ProductPositioning> newPositionings) {
         var index = GameComponentsLookup.NicheSegments;
         var component = (NicheSegmentsComponent)CreateComponent(index, typeof(NicheSegmentsComponent));
+        component.Positionings = newPositionings;
         AddComponent(index, component);
     }
 
-    public void ReplaceNicheSegments(System.Collections.Generic.Dictionary<int, ProductPositioning> newPositionings) {
+    public void ReplaceNicheSegments(System.Collections.Generic.List<ProductPositioning> newPositionings) {
         var index = GameComponentsLookup.NicheSegments;
         var component = (NicheSegmentsComponent)CreateComponent(index, typeof(NicheSegmentsComponent));
+        component.Positionings = newPositionings;
         ReplaceComponent(index, component);
     }
 
