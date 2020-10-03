@@ -30,7 +30,24 @@ public class RenderAllAudienceNeededFeatureListView : ListView
 
         var features = Products.GetAvailableFeaturesForProduct(company)
             .Where(f => !Products.IsUpgradingFeature(company, Q, f.Name))
+            // can upgrade more
             .Where(f => Products.GetFeatureRating(company, f.Name) + 0.1f < maxFeatureRating)
+            .Where(f =>
+            {
+                bool willMakeAnyoneDisloyal = false;
+                var segments = Marketing.GetAudienceInfos();
+
+                foreach (var a in segments)
+                {
+                    var loyalty = Marketing.GetSegmentLoyalty(Q, company, a.ID);
+                    var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
+
+                    if (change < 0 && loyalty + change < 0)
+                        willMakeAnyoneDisloyal = true;
+                }
+                
+                return !willMakeAnyoneDisloyal;
+            })
             .ToArray()
             .TakeWhile(f => counter-- > 0)
             ;
