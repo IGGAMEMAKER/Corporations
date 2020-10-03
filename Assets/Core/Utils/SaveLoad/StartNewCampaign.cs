@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,7 +55,6 @@ namespace Assets.Core
 
             Companies.PlayAs(company, gameContext);
             Companies.AutoFillShareholders(gameContext, company, true);
-
 
             ///
             return;

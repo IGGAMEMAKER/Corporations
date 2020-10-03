@@ -1,4 +1,6 @@
 ﻿using Assets.Core;
+using System.Linq;
+using UnityEngine;
 
 public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantToCreateApp>
 {
@@ -21,9 +23,18 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
             company.isFlagship = true;
             company.AddChannelExploration(new System.Collections.Generic.Dictionary<int, int>(), new System.Collections.Generic.List<int>(), 1);
 
+            var infos = Marketing.GetAudienceInfos();
+
+            var positionings = Markets.GetNichePositionings(nicheType, Q);
+            var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
+
+            var rand = Random.Range(0, infos.Count / 2);
+            company.productPositioning.Positioning = positioningWorths.ToArray()[rand].ID;
+            
             //NavigateToNiche(company.product.Niche);
             Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
         }
+
     }
 
     public override string GetButtonName() => "YES";

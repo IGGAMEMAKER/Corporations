@@ -26,13 +26,17 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
-        if (Flagship.isRelease)
+        bool showAudiences = true;
+        //bool showAudiences = Flagship.isRelease;
+
+        if (showAudiences)
         {
             SetItems(audiences);
         }
         else
         {
             // take primary audience only
+            // positioningId will be always less than amount of audiences
             var positioning = Flagship.productPositioning.Positioning;
 
             SetItems(audiences.Where(a => a.ID == positioning));

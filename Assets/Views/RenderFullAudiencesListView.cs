@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class RenderFullAudiencesListView : ListView
     int segmentId = 0;
     public Text AudienceDescription;
     public Text PositionongDescription;
+    public Text CompaniesInterestedInUsers;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -21,9 +23,13 @@ public class RenderFullAudiencesListView : ListView
         var infos = Marketing.GetAudienceInfos();
         //.OrderBy(a => a.Size);
 
+        // TODO DUPLICATED FROM AudiencesOnMainScreenListView.ViewRender()
         var audiences = Marketing.GetAudienceInfos();
 
-        if (Flagship.isRelease)
+        bool showAudiences = true;
+        //bool showAudiences = Flagship.isRelease;
+
+        if (showAudiences)
         {
             SetItems(audiences);
         }
@@ -35,17 +41,23 @@ public class RenderFullAudiencesListView : ListView
             SetItems(audiences.Where(a => a.ID == positioning));
         }
 
-        SetItems(infos);
+        //SetItems(infos);
 
-        AudienceDescription.text = Marketing.GetAudienceInfos()[segmentId].Name;
+        var segmentName = Marketing.GetAudienceInfos()[segmentId].Name;
+
+        AudienceDescription.text = segmentName;
         PositionongDescription.text = $"We are making {Markets.GetCompanyPositioningName(Flagship, Q)}";
+
+        if (CompaniesInterestedInUsers != null)
+            CompaniesInterestedInUsers.text = $"which are interested in {segmentName}";
 
         FindObjectOfType<CompaniesFocusingSpecificSegmentListView>().SetSegment(segmentId);
     }
 
     private void OnEnable()
     {
-        segmentId = Flagship.productTargetAudience.SegmentId;
+        //segmentId = Flagship.productTargetAudience.SegmentId;
+        segmentId = Mathf.Clamp(Flagship.productPositioning.Positioning, 0, Marketing.GetAudienceInfos().Count); // Marketing.GetAudienceInfos().Where(a => a.ID == ).First().ID;
 
         ViewRender();
     }
@@ -54,7 +66,7 @@ public class RenderFullAudiencesListView : ListView
     {
         base.OnItemSelected(ind);
 
-        segmentId = ind;
+        segmentId = Item.GetComponent<AudiencePreview>().segmentId;
 
         ViewRender();
     }

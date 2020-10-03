@@ -43,5 +43,29 @@ namespace Assets.Core
 
             return e.nicheSegments.Positionings;
         }
+
+        public static long GetPositioningValue(ProductPositioning p)
+        {
+            var infos = Marketing.GetAudienceInfos();
+            var worth = 0L;
+
+            int segmentId = 0;
+            foreach (var l in p.Loyalties)
+            {
+                if (l > 0)
+                {
+                    var segment = infos[segmentId];
+                    var incomePerUser = 1.5f; // Economy.GetIncomePerUser(gameContext, playerFlagship, segmentId)
+
+                    var segmentWorth = (long)(segment.Size * incomePerUser);
+
+                    worth += segmentWorth * (100 + l * 10) / 100;
+                }
+
+                segmentId++;
+            }
+
+            return worth;
+        }
     }
 }

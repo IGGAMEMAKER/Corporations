@@ -46,7 +46,32 @@ namespace Assets.Core
 
             var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company, teamInfo);
 
-            return batch * marketingEffeciency / 100;
+            var loyaltyBonus = 0;
+
+            var loyalty = (int)GetSegmentLoyalty(gameContext, company, segmentId);
+
+            var positioningLoyalty = Markets.GetNichePositionings(company.product.Niche, gameContext)[company.productPositioning.Positioning].Loyalties[segmentId];
+
+            if (loyalty < 0)
+                return 0;
+
+            // cannot get other segments if our product is not targeted for them
+            if (positioningLoyalty < 0)
+                return 0;
+
+
+            if (loyalty >= 0)
+            {
+                loyaltyBonus = loyalty * 10;
+
+                if (loyalty > 10)
+                    loyaltyBonus = 10 * 10 + (loyalty - 10) * 5;
+
+                if (loyalty > 20)
+                    loyaltyBonus = 10 * 10 + 10 * 5 + (loyalty - 20) * 1;
+            }
+
+            return batch * (marketingEffeciency + loyaltyBonus) / 100;
         }
 
         public static int GetTeamIdOfMarketingTask(GameEntity company, GameEntity channel)

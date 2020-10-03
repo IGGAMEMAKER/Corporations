@@ -46,6 +46,7 @@ namespace Assets.Core
 
             var positionings = audiences.Select(a => new ProductPositioning
             {
+                ID = 0,
                 name = "",
                 marketShare = 100,
                 priceModifier = 1f,

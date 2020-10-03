@@ -159,6 +159,8 @@ public class ProductPositioningComponent : IComponent
 
 public struct ProductPositioning
 {
+    public int ID;
+
     public string name;
     public int marketShare;
     public bool isCompetitive;

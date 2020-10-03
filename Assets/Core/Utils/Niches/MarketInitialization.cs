@@ -76,14 +76,6 @@ namespace Assets.Core
             var newChannels = availableChannels
                 .Where(IsReachableChannel(companyCost, product, gameContext, includeActive));
 
-            //if (newChannels.Count() == 0)
-            //{
-            //    // ensure, that we have at least one channel
-            //    newChannels = availableChannels
-            //        .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-            //        .Take(1);
-            //}
-
             return newChannels.ToArray();
         }
 
@@ -628,16 +620,18 @@ namespace Assets.Core
 
             var list = new List<ProductPositioning>();
 
+            // focus each audience specifically
             foreach (var a in audiences)
             {
                 var index = a.ID;
 
-                var loyalties = audiences.Select(a1 => Random.Range(-5, 10)).ToList();
+                var loyalties = audiences.Select(a1 => -20).ToList();
 
                 loyalties[index] = 10;
 
                 list.Add(new ProductPositioning
                 {
+                    ID = list.Count,
                     name = nicheName + " for " + a.Name,
                     isCompetitive = false,
                     Loyalties = loyalties,
@@ -647,8 +641,27 @@ namespace Assets.Core
                 });
             }
 
+            // focus multiple audiences
+            var randomPositionings = Random.Range(1, 5);
+
+            for (var i = 0; i < randomPositionings; i++)
+            {
+                list.Add(new ProductPositioning
+                {
+                    ID = list.Count,
+                    name = "Random " + nicheName + " " + i,
+                    Loyalties = audiences.Select(a1 => Random.Range(-5, 10)).ToList(),
+
+                    isCompetitive = false,
+                    marketShare = 100,
+                    priceModifier = 1f,
+                });
+            }
+
+            // take ALL
             list.Add(new ProductPositioning
             {
+                ID = list.Count,
                 name = "Global " + nicheName,
                 Loyalties = audiences.Select(a => 3).ToList(),
 
@@ -656,16 +669,6 @@ namespace Assets.Core
                 marketShare = 100,
                 priceModifier = 1f,
             });
-
-            //list.Add(new ProductPositioning
-            //{
-            //    name = "Corporate " + nicheName,
-            //    Loyalties = audiences.Select(a => Random.Range(-5, 10)).ToList(),
-
-            //    isCompetitive = false,
-            //    marketShare = 100,
-            //    priceModifier = 1f,
-            //});
 
             return list;
         }
