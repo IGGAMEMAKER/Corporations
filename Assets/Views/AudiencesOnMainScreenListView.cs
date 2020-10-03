@@ -26,16 +26,17 @@ public class AudiencesOnMainScreenListView : ListView
 
         var audiences = Marketing.GetAudienceInfos();
 
+        if (Flagship.isRelease)
+        {
             SetItems(audiences);
-        //if (Flagship.isRelease)
-        //{
-        //    SetItems(audiences);
-        //}
-        //else
-        //{
-        //    // take primary audience only
-        //    SetItems(audiences.Where(a => a.ID == Flagship.productTargetAudience.SegmentId));
-        //}
+        }
+        else
+        {
+            // take primary audience only
+            var positioning = Flagship.productPositioning.Positioning;
+
+            SetItems(audiences.Where(a => a.ID == positioning));
+        }
     }
 
     public override void OnDeselect()

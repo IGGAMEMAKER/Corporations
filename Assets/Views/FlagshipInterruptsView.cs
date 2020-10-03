@@ -94,9 +94,11 @@ public class FlagshipInterruptsView : View
 
         problemCounter = 0;
 
-        SpecialDraw(AudienceMapLink, true || product.isRelease);
+        SpecialDraw(AudienceMapLink, true, false);
+        AudienceMapLink.GetComponent<Blinker>().enabled = Companies.IsReleaseableApp(product);
+
         SpecialDraw(NeedsManagersImage, false);
-        SpecialDraw(NeedsServersImage, CanManagerServers);
+        SpecialDraw(NeedsServersImage, CanManagerServers, needsMoreServers);
         SpecialDraw(NeedsSupportImage, false);
         SpecialDraw(DDOSImage, underAttack);
 

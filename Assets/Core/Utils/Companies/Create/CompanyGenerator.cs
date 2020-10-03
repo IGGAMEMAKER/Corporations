@@ -15,8 +15,12 @@ namespace Assets.Core
             });
 
             // positioning
-            int positionings = Markets.GetNichePositionings(niche, context).Count;
-            product.AddProductPositioning(Random.Range(0, positionings));
+            //int positionings = Markets.GetNichePositionings(niche, context).Count;
+
+            var audiences = Marketing.GetAudienceInfos();
+            var coreId = Random.Range(0, audiences.Count);
+
+            product.AddProductPositioning(coreId);
 
             // development
             product.AddFeatures(
@@ -34,8 +38,7 @@ namespace Assets.Core
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
 
 
-            var audiences = Marketing.GetAudienceInfos();
-            var coreId = Random.Range(0, audiences.Count);
+
             product.AddProductTargetAudience(coreId);
 
             var clientList = new Dictionary<int, long>

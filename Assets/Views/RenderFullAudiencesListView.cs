@@ -19,7 +19,21 @@ public class RenderFullAudiencesListView : ListView
         base.ViewRender();
 
         var infos = Marketing.GetAudienceInfos();
-            //.OrderBy(a => a.Size);
+        //.OrderBy(a => a.Size);
+
+        var audiences = Marketing.GetAudienceInfos();
+
+        if (Flagship.isRelease)
+        {
+            SetItems(audiences);
+        }
+        else
+        {
+            // take primary audience only
+            var positioning = Flagship.productPositioning.Positioning;
+
+            SetItems(audiences.Where(a => a.ID == positioning));
+        }
 
         SetItems(infos);
 

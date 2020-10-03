@@ -76,13 +76,13 @@ namespace Assets.Core
             var newChannels = availableChannels
                 .Where(IsReachableChannel(companyCost, product, gameContext, includeActive));
 
-            if (newChannels.Count() == 0)
-            {
-                // ensure, that we have at least one channel
-                newChannels = availableChannels
-                    .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
-                    .Take(1);
-            }
+            //if (newChannels.Count() == 0)
+            //{
+            //    // ensure, that we have at least one channel
+            //    newChannels = availableChannels
+            //        .OrderBy(c => c.marketingChannel.ChannelInfo.Audience)
+            //        .Take(1);
+            //}
 
             return newChannels.ToArray();
         }

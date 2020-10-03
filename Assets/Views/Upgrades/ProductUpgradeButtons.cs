@@ -6,6 +6,7 @@ using UnityEngine;
 public class ProductUpgradeButtons : RoleRelatedButtons
 {
     public ReleaseApp ReleaseApp;
+    public GameObject ChangePositioning;
 
     void Render()
     {
@@ -17,6 +18,7 @@ public class ProductUpgradeButtons : RoleRelatedButtons
         // prerelease stuff
         // ---------------------
         Draw(ReleaseApp, Companies.IsReleaseableApp(company));
+        Draw(ChangePositioning, company.isRelease);
     }
 
     void RenderInvestmentsButton()

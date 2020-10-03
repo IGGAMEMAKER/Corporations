@@ -77,7 +77,21 @@ public class FlagshipRelayInCompanyView : View
             if (hasSlotForTask)
             {
                 Teams.AddTeamTask(Flagship, Q, 0, teamTask);
-                SoundManager.Play(Sound.Action);
+
+                if (teamTask.IsFeatureUpgrade)
+                {
+                    SoundManager.Play(Sound.ProgrammingTask);
+                }
+
+                if (teamTask.IsMarketingTask)
+                {
+                    SoundManager.Play(Sound.MarketingTask);
+                }
+
+                if (teamTask.IsHighloadTask)
+                {
+                    SoundManager.Play(Sound.ServerTask);
+                }
 
                 FindObjectOfType<MainPanelRelay>().ViewRender();
             }
