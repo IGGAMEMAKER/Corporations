@@ -48,7 +48,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         var company = Flagship;
 
         var audiences = Marketing.GetAudienceInfos();
-        var segmentID = company.productTargetAudience.SegmentId;
+        var segmentID = Marketing.GetCoreAudienceId(company, Q);
 
         // basic info
         var name = $"Channel {channel1.ID}";

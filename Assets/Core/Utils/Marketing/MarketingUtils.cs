@@ -66,7 +66,7 @@ namespace Assets.Core
                 AddBrandPower(product, C.RELEASE_BRAND_POWER_GAIN);
                 var flow = GetClientFlow(gameContext, product.product.Niche);
 
-                AddClients(product, flow, product.productTargetAudience.SegmentId);
+                AddClients(product, flow, product.productPositioning.Positioning);
 
                 product.isRelease = true;
                 Investments.CompleteGoal(product, gameContext);

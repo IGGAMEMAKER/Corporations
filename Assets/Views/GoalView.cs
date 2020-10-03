@@ -20,14 +20,8 @@ public class GoalView : View
         var clients = Marketing.GetClients(Flagship);
         var goal = Flagship.companyGoal.InvestorGoal;
 
-        var targetAudience = Flagship.productTargetAudience.SegmentId;
-        var loyalty = Marketing.GetSegmentLoyalty(Q, Flagship, targetAudience);
-
         var requirements = Investments.GetGoalRequirements(Flagship, Q);
         var req = requirements[0];
-
-        var audienceInfos = Marketing.GetAudienceInfos()[targetAudience];
-
 
         switch (goal)
         {

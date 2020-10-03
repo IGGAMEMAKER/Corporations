@@ -74,6 +74,27 @@ namespace Assets.Core
             return Markets.GetNichePositionings(product.product.Niche, gameContext);
         }
 
+        public static ProductPositioning GetProductPositioning(GameEntity product, GameContext gameContext)
+        {
+            return GetProductPositionings(product, gameContext)[product.productPositioning.Positioning];
+        }
+
+        public static bool IsTargetAudience(GameEntity product, GameContext gameContext, int segmentId)
+        {
+            return GetProductPositioning(product, gameContext).Loyalties[segmentId] > 0;
+        }
+
+        public static int GetCoreAudienceId(GameEntity product, GameContext gameContext)
+        {
+            if (product.isRelease)
+            {
+                // audience with most income?
+                return 0;
+            }
+
+            return product.productPositioning.Positioning;
+        }
+
         public static List<AudienceInfo> GetAudienceInfos()
         {
             var million = 1000000;

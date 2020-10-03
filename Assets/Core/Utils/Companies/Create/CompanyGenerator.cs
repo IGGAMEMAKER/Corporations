@@ -38,9 +38,6 @@ namespace Assets.Core
             var baseClients = Random.Range(0.15f, 0.35f) * flow;
 
 
-
-            product.AddProductTargetAudience(coreId);
-
             var clientList = new Dictionary<int, long>
             {
                 [coreId] = 50

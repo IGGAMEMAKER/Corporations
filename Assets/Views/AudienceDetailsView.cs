@@ -22,7 +22,7 @@ public class AudienceDetailsView : ParameterView
 
         var maxIncome = (long)(info.Size * incomePerUser);
 
-        var audienceIsPrimary = company.productTargetAudience.SegmentId == segmentId;
+        var audienceIsPrimary = Marketing.IsTargetAudience(company, Q, segmentId);
         var audienceColor = audienceIsPrimary ? Colors.COLOR_GOLD : Colors.COLOR_WHITE;
 
         var primaryAudience = audienceIsPrimary ? " (Our target audience)" : "";
@@ -68,7 +68,7 @@ public class AudienceDetailsView : ParameterView
 
         text += "\n\n";
 
-        var companies = Companies.GetCompetitorsOfCompany(company, Q, false).Where(c => c.productTargetAudience.SegmentId == segmentId);
+        var companies = Companies.GetCompetitorsOfCompany(company, Q, false).Where(c => Marketing.IsTargetAudience(c, Q, segmentId));
         var expenses = companies.Select(c => Economy.GetProductCompanyMaintenance(c, Q));
 
         var maxBudget = expenses.Count() > 0 ? expenses.Max() : 0;

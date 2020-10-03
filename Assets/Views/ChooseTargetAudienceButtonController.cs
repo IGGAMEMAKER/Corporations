@@ -8,10 +8,6 @@ public class ChooseTargetAudienceButtonController : ButtonController
     public override void Execute()
     {
         var company = Flagship;
-
-        company.ReplaceProductTargetAudience(segmentId);
-
-        //FindObjectOfType<ProductCompaniesFocusListView>().ViewRender();
     }
 
     public void SetSegment(int segmentId)

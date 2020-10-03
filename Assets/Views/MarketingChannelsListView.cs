@@ -71,7 +71,7 @@ public class MarketingChannelsListView : ListView
 
     private void OnEnable()
     {
-        segmentId = Flagship.productTargetAudience.SegmentId;
+        segmentId = Marketing.GetCoreAudienceId(Flagship, Q);
     }
 
     public void SetSegmentId(int id)

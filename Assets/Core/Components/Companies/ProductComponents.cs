@@ -219,10 +219,10 @@ public class MarketingComponent : IComponent
     public Dictionary<int, long> ClientList;
 }
 
-public class ProductTargetAudienceComponent : IComponent
-{
-    public int SegmentId;
-}
+//public class ProductTargetAudienceComponent : IComponent
+//{
+//    public int SegmentId;
+//}
 
 [Game, Event(EventTarget.Self)]
 public class BrandingComponent : IComponent

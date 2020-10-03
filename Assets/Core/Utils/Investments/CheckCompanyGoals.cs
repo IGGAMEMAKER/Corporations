@@ -50,7 +50,7 @@ namespace Assets.Core
 
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
         {
-            var targetAudience = company.productTargetAudience.SegmentId;
+            var targetAudience = company.productPositioning.Positioning; //.SegmentId;
             return new GoalRequirements {
                 have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),
                 need = 1
@@ -111,7 +111,8 @@ namespace Assets.Core
 
         private static GoalRequirements GoalMarketFit(GameEntity company, GameContext gameContext)
         {
-            var targetAudience = company.productTargetAudience.SegmentId;
+            var targetAudience = company.productPositioning.Positioning; //.SegmentId;
+
             return new GoalRequirements
             {
                 have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),

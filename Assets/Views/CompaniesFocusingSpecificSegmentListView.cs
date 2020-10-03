@@ -32,7 +32,8 @@ public class CompaniesFocusingSpecificSegmentListView : ListView
     {
         base.ViewRender();
 
-        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true).Where(c => c.productTargetAudience.SegmentId == segmentId);
+        var companies = Companies.GetCompetitorsOfCompany(Flagship, Q, true)
+            .Where(c => Marketing.IsTargetAudience(c, Q, segmentId));
 
         SetItems(companies);
     }

@@ -59,26 +59,6 @@ public class AudiencesOnMainScreenListView : ListView
         Hide(ButtonList);
     }
 
-    public override void OnItemSelected(int ind)
-    {
-        base.OnItemSelected(ind);
-        return;
-        FindObjectOfType<MainPanelRelay>().ExpandAudiences();
-
-        Show(ButtonList);
-
-        var segmentId = Items[ind].GetComponent<AudiencePreview>().Audience.ID;
-
-        bool isTargetAudience   = Flagship.productTargetAudience.SegmentId == segmentId;
-        bool hasClients         = Flagship.marketing.ClientList.ContainsKey(segmentId);
-        var clients             = hasClients ? Flagship.marketing.ClientList[segmentId] : 0;
-
-        Draw(MainAudienceInfo, isTargetAudience);
-        Draw(AmountOfUsers, clients > 0);
-
-        RenderAudienceData(segmentId, clients);
-    }
-
     void RenderAudienceData(int segmentId, long clients)
     {
         var audience = Marketing.GetAudienceInfos()[segmentId];

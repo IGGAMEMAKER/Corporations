@@ -24,7 +24,8 @@ namespace Assets.Core
             else
             {
                 // judge by potential
-                var segmentId = company.productTargetAudience.SegmentId;
+                var segmentId = company.productPositioning.Positioning;
+
                 var info = Marketing.GetAudienceInfos();
                 var segment = info[segmentId];
 

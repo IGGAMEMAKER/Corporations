@@ -27,7 +27,7 @@ public class AudiencePreview : View
         Audience = audience;
 
         var links = GetComponent<ProductUpgradeLinks>();
-        bool isMainAudience = Flagship.productTargetAudience.SegmentId == segmentId;
+        bool isMainAudience = Marketing.IsTargetAudience(Flagship, Q, segmentId);
 
         if (links != null)
             links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
