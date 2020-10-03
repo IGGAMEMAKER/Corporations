@@ -79,6 +79,35 @@ namespace Assets.Core
             return newChannels.ToArray();
         }
 
+        public static GameEntity[] GetMarketingChannelsList(GameEntity company, GameContext gameContext)
+        {
+            bool didMarketingCampaigns = Marketing.GetClients(company) > 50;
+            bool didFeatures = company.features.Upgrades.Count > 0;
+
+            int counter = 0;
+
+            if (didFeatures)
+            {
+                counter = 1;
+
+                if (didMarketingCampaigns)
+                    counter = 4;
+
+                if (company.isRelease)
+                    counter = 8;
+            }
+
+            var ShowActiveChannelsToo = false;
+
+            var availableChannels = Markets.GetAvailableMarketingChannels(gameContext, company, ShowActiveChannelsToo)
+                .Where(c => didMarketingCampaigns || Marketing.GetChannelCostPerUser(company, gameContext, c) == 0)
+                .TakeWhile(c => counter-- > 0)
+                .ToArray()
+                ;
+
+            return availableChannels;
+        }
+
         public static void SpawnMarketingChannels(GameContext gameContext)
         {
             // markets:

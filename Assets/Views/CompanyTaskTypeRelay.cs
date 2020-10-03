@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CompanyTaskTypeRelay : View
 {
@@ -9,6 +10,9 @@ public class CompanyTaskTypeRelay : View
     public GameObject FeatureTasks;
     public GameObject SupportTasks;
     public GameObject ServerTasks;
+
+    public GameObject FeatureCounter;
+    public GameObject MarketingCounter;
 
     public GameObject ChooseTaskTypeLabel;
 
@@ -30,12 +34,33 @@ public class CompanyTaskTypeRelay : View
             ChooseFeatureTasks();
         else
             ChooseMarketingTasks();
+
+        RenderAmountOfTasks();
+    }
+
+    public override void ViewRender()
+    {
+        base.ViewRender();
+
+        RenderAmountOfTasks();
     }
 
     void SetMode(GameObject tasks, GameObject buttons)
     {
         ScheduleUtils.PauseGame(Q);
         ShowOnly(tasks, TaskContainers);
+    }
+
+    void RenderAmountOfTasks()
+    {
+        var features = Products.GetProductFeaturesList(Flagship, Q).Length;
+        var channels = Markets.GetMarketingChannelsList(Flagship, Q).Length;
+
+        Draw(FeatureCounter, features > 0);
+        Draw(MarketingCounter, channels > 0);
+
+        FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
+        MarketingCounter.GetComponentInChildren<Text>().text = channels.ToString();
     }
 
     void ShowMarketingButton()

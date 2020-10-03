@@ -43,6 +43,13 @@ namespace Assets.Core
             return speed;
         }
 
+        public static float GetFeatureRatingCap(GameEntity product, GameContext gameContext)
+        {
+            var teams = product.team.Teams;
+
+            return teams.Max(t => GetFeatureRatingCap(product, t, gameContext));
+        }
+
         public static float GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
         {
             var productManager = GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);

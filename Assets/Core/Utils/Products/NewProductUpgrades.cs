@@ -85,6 +85,56 @@ namespace Assets.Core
             //}
         }
 
+        public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
+        {
+            var maxFeatureRating = Products.GetFeatureRatingCap(company, gameContext);
+            var ratingGain = Products.GetFeatureRatingGain(company, company.team.Teams[0], gameContext);
+
+            var counter = 1;
+
+            var universalTeams = company.team.Teams.Count(t => Teams.IsUniversalTeam(t.TeamType));
+            var devTeams = company.team.Teams.Count(t => t.TeamType == TeamType.DevelopmentTeam);
+
+            // can upgrade this amount of features
+            var maxCounter = 3 + universalTeams + devTeams * 2;
+
+            var allFeatures = Products.GetAvailableFeaturesForProduct(company);
+
+            var upgradingAlready = allFeatures.Count(f => Products.IsUpgradingFeature(company, gameContext, f.Name));
+
+            counter = maxCounter - upgradingAlready;
+
+            var features = allFeatures
+                // is not upgrading already
+                .Where(f => !Products.IsUpgradingFeature(company, gameContext, f.Name))
+
+                // can upgrade more
+                .Where(f => Products.GetFeatureRating(company, f.Name) + ratingGain <= maxFeatureRating)
+
+                // will not make anyone disloyal
+                .Where(f =>
+                {
+                    bool willMakeAnyoneDisloyal = false;
+                    var segments = Marketing.GetAudienceInfos();
+
+                    foreach (var a in segments)
+                    {
+                        var loyalty = Marketing.GetSegmentLoyalty(gameContext, company, a.ID);
+                        var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
+
+                        if (change < 0 && loyalty + change < 0)
+                            willMakeAnyoneDisloyal = true;
+                    }
+
+                    return !willMakeAnyoneDisloyal;
+                })
+                .TakeWhile(f => counter-- > 0)
+                .ToArray()
+                ;
+
+            return features;
+        }
+
         // set of features
         public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
         {
