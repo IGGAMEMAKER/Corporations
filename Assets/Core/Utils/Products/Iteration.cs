@@ -104,8 +104,10 @@ namespace Assets.Core
                 product.features.Upgrades[featureName] = UnityEngine.Random.Range(1, 3f);
             }
 
+            var iteration = GetBaseIterationTime(gameContext, product);
+
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
-            Cooldowns.AddSimpleCooldown(gameContext, cooldownName, Products.GetBaseIterationTime(gameContext, product));
+            Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);
         }
 
         public static void ForceUpgradeFeature(GameEntity product, string featureName, float value)
