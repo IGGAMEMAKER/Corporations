@@ -107,6 +107,7 @@ namespace Assets.Core
             Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
 
             Teams.AttachToCompany(company, CEO, WorkerRole.CEO, 0);
+
             Teams.SetJobOffer(CEO, company, new JobOffer(0), 0);
 
             // uniqueness

@@ -520,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1429283143803929431, guid: e90852189c4296a419165dce5eb48daa, type: 3}
   index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
   HighlightChosenVariant: 0
@@ -958,6 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1429283143803929431, guid: e90852189c4296a419165dce5eb48daa, type: 3}
   index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
   HighlightChosenVariant: 0
@@ -1002,8 +1004,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 307.0003, y: 435}
-  m_SizeDelta: {x: 723.1, y: 45.6}
+  m_AnchoredPosition: {x: 217.6, y: 435}
+  m_SizeDelta: {x: 902, y: 45.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1760375288440769708
 CanvasRenderer:
@@ -1038,7 +1040,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 32
-    m_Alignment: 2
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1449,6 +1451,8 @@ MonoBehaviour:
   FeatureTasks: {fileID: 5297233866182985805}
   SupportTasks: {fileID: 5954849323164995570}
   ServerTasks: {fileID: 5238900302683097753}
+  FeatureCounter: {fileID: 0}
+  MarketingCounter: {fileID: 0}
   ChooseTaskTypeLabel: {fileID: 2410788855365163326}
   RelayButtons: {fileID: 75624315920997669}
   ChooseMarketingTasksButton: {fileID: 2704113408230675721}
@@ -2157,6 +2161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7840290793118360805, guid: beb103037309245499a4284d322e8cf3, type: 3}
   index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
   HighlightChosenVariant: 0
@@ -2731,12 +2736,12 @@ PrefabInstance:
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 518
+      value: -425
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 382
+      value: 304
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -2746,7 +2751,7 @@ PrefabInstance:
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -2806,7 +2811,7 @@ PrefabInstance:
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -2826,7 +2831,7 @@ PrefabInstance:
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_fontSize
-      value: 16.95
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -8032,6 +8037,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Back
       objectReference: {fileID: 0}
+    - target: {fileID: 7956838528449801157, guid: fd6a5c7e86f18454cba2124cd62a812c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6a5c7e86f18454cba2124cd62a812c, type: 3}
 --- !u!224 &8382578025500620895 stripped
@@ -8480,12 +8490,12 @@ PrefabInstance:
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 859
+      value: -108
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 435
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -8495,7 +8505,7 @@ PrefabInstance:
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -8575,7 +8585,7 @@ PrefabInstance:
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
@@ -8595,7 +8605,7 @@ PrefabInstance:
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
       propertyPath: m_text
-      value: Remove task
+      value: Stop task
       objectReference: {fileID: 0}
     - target: {fileID: 6073773876235413402, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
