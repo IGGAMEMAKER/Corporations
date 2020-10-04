@@ -13,6 +13,9 @@ public class AudiencesOnMainScreenListView : ListView
     public ProductUpgradeLinks MainInfo;
     public ProductUpgradeLinks LoyaltyInfo;
 
+    public Text Iteration;
+    public Text FeatureCap;
+
     public GameObject ButtonList;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
@@ -100,6 +103,12 @@ public class AudiencesOnMainScreenListView : ListView
 
             LoyaltyInfo.Title.text += Visuals.Negative($"{worstThing.Name}: {worstThing.Value}");
         }
+
+        if (Iteration != null)
+            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
+
+        if (FeatureCap != null)
+            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship, Q).ToString("0.0"));
     }
 
     public void ShowLoyaltyChanges(List<int> changes)

@@ -72,8 +72,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
     {
         if (task.IsFeatureUpgrade)
         {
-            var iterationSpeed = Products.GetBaseIterationTime(Q, Flagship); // Random.Range(5, 20);
-            var maxLevel = Products.GetFeatureRatingCap(Flagship, info, Q); // Random.Range(4, 10);
+            var maxLevel = Products.GetFeatureRatingCap(Flagship, Q); // Random.Range(4, 10);
             var gain = Products.GetFeatureRatingGain(Flagship, info, Q);
 
             Text1.text = Visuals.Positive(gain.ToString("+0.0")); // from organisation

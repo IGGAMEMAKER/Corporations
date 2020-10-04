@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -38,6 +39,11 @@ namespace Assets.Core
             return !HasRole(company, role, teamInfo, gameContext);
         }
 
+        public static int GetTeamAverageEffeciency(GameEntity company)
+        {
+            var average = (int)company.team.Teams.Select(t => GetTeamEffeciency(company, t)).Average();
+            return Mathf.Clamp(average, 1, 150);
+        }
         public static int GetTeamEffeciency(GameEntity company, TeamInfo teamInfo)
         {
             var maxWorkers = 8;

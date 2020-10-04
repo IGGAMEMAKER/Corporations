@@ -13,6 +13,20 @@ namespace Assets.Core
             return 12;
         }
 
+        public static int GetIterationTime(GameContext gameContext, GameEntity company)
+        {
+            var baseValue = GetBaseIterationTime(gameContext, company);
+
+            //var teamEffeciency = Teams.GetTeamAverageEffeciency(company);
+            var teamEffeciency = (int)company.team.Teams
+                // development only
+                .Where(t => Teams.IsUniversalTeam(t.TeamType) && t.TeamType == TeamType.DevelopmentTeam)
+                .Select(t => Teams.GetTeamEffeciency(company, t))
+                .Average();
+
+            return baseValue * 100 / teamEffeciency;
+        }
+
         public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
         {
             var productManagers = team.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
@@ -49,6 +63,11 @@ namespace Assets.Core
 
             return teams.Max(t => GetFeatureRatingCap(product, t, gameContext));
         }
+
+        //public static float GetFeatureRatingCap(GameEntity product, GameContext gameContext)
+        //{
+        //    return product.team.Teams.Select(t => GetFeatureRatingCap(product, t, gameContext)).Average();
+        //}
 
         public static float GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
         {
@@ -88,7 +107,7 @@ namespace Assets.Core
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
         {
             var gain = GetFeatureRatingGain(product, team, gameContext);
-            var cap  = GetFeatureRatingCap(product, team, gameContext);
+            var cap  = GetFeatureRatingCap(product, gameContext);
 
             if (IsUpgradedFeature(product, featureName))
             {
@@ -104,7 +123,7 @@ namespace Assets.Core
                 product.features.Upgrades[featureName] = UnityEngine.Random.Range(1, 3f);
             }
 
-            var iteration = GetBaseIterationTime(gameContext, product);
+            var iteration = GetIterationTime(gameContext, product);
 
             var cooldownName = $"company-{product.company.Id}-upgradeFeature-{featureName}";
             Cooldowns.AddSimpleCooldown(gameContext, cooldownName, iteration);

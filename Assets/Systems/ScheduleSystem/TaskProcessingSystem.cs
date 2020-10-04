@@ -76,7 +76,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
                             // -----------------------
 
-                            var cap = Products.GetFeatureRatingCap(p, team, gameContext);
+                            var cap = Products.GetFeatureRatingCap(p, gameContext);
 
                             if (p.features.Upgrades[featureName] >= cap)
                             {

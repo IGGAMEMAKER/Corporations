@@ -63,7 +63,7 @@ namespace Assets.Core
 
         static int GetSeedValue2()
         {
-            return DateTime.Now.Hour;
+            return DateTime.Now.Minute;
         }
 
         public static long GetRandomValue (long baseValue, int id1, int id2, float min = 0.4f, float max = 1.35f)
