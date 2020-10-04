@@ -131,7 +131,8 @@ namespace Assets.Core
             ApplyCEOLoyalty(company, team, gameContext, ref bonus, worker, role);
 
             // no possibilities to grow
-            bonus.AppendAndHideIfZero("Reached limits", Humans.GetRating(worker) >= 50 ? -3 : 0);
+            if (role != WorkerRole.CEO)
+                bonus.AppendAndHideIfZero("Reached limits", Humans.GetRating(worker) >= 70 ? -3 : 0);
 
             bonus.AppendAndHideIfZero("Too many leaders", worker.humanSkills.Traits.Contains(Trait.Leader) && team.TooManyLeaders ? -2 : 0);
 

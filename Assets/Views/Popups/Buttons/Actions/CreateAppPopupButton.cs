@@ -33,6 +33,11 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
             
             //NavigateToNiche(company.product.Niche);
             Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
+
+            var CEO = Humans.GetHuman(Q, Companies.GetCEOId(company));
+
+            var salary = Teams.GetSalaryPerRating(CEO);
+            Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0);
         }
 
     }
