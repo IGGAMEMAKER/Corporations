@@ -18,6 +18,8 @@ public class MainPanelRelay : View
     public GameObject TeamPanel;
     public TeamsPanelListView TeamsPanelListView;
 
+    public GameObject AddTeamButton;
+
     void OnEnable()
     {
         ShowDefaultMode();
@@ -37,6 +39,7 @@ public class MainPanelRelay : View
         AudiencesOnMainScreenListView.HideButtons();
         ShareholdersOnMainScreenListView.HideButtons();
         TeamsPanelListView.HideButtons();
+
     }
 
     public void ExpandAudiences()
@@ -53,6 +56,7 @@ public class MainPanelRelay : View
 
         HideAudienceTab();
         HideTeamTab();
+
     }
 
     public void ExpandTeams()
@@ -83,6 +87,7 @@ public class MainPanelRelay : View
     {
         TeamsPanelListView.HideButtons();
 
+        Hide(AddTeamButton);
         Hide(TeamPanel);
         Hide(TeamLabel);
     }
@@ -119,8 +124,10 @@ public class MainPanelRelay : View
         bool anyTaskWasAdded = Flagship.team.Teams[0].Tasks.Count > 2;
         bool hasMoreThanOneTeam = Flagship.team.Teams.Count > 1;
 
+
         if (anyTaskWasAdded || hasMoreThanOneTeam)
         {
+            Show(AddTeamButton);
             Show(TeamPanel);
             Show(TeamLabel);
         }
