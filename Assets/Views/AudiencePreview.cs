@@ -29,9 +29,6 @@ public class AudiencePreview : View
         var links = GetComponent<ProductUpgradeLinks>();
         bool isMainAudience = Marketing.IsTargetAudience(Flagship, Q, segmentId);
 
-        if (links != null)
-            links.Title.text = Visuals.Colorize($"<b>{audience.Name}</b>\n", isMainAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
-
         Draw(TargetAudience, isMainAudience);
 
         var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
@@ -44,43 +41,31 @@ public class AudiencePreview : View
 
         var text = $"<size=35>{audience.Name}</size>";
 
+        if (links != null)
+        {
+            if (isNewAudience)
+                links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
+            else
+                links.Background.color = Visuals.GetColorPositiveOrNegative(isLoyalAudience);
+        }
+
+
         if (isNewAudience)
         {
-            if (links != null)
-            {
-                links.Background.color = Visuals.GetColorFromString(Colors.COLOR_NEUTRAL);
-                links.Title.text += $"Potential: {Format.MinifyToInteger(audience.Size)} users";
-            }
-
             text += $"\n\nIncome: <b>{Visuals.Positive("???")}</b>" +
                 $"\nPotential: <b>{Visuals.Positive("???")}</b>";
+
+            Hide(Loyalty);
         }
 
         else
         {
+            Show(Loyalty);
+
             Loyalty.text = Format.Sign(loyalty);
-            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).ToString());
+            Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
 
             var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
-            if (isLoyalAudience)
-            {
-                if (links != null)
-                {
-                    links.Background.color = Visuals.GetColorPositiveOrNegative(true);
-                    links.Title.text += $"Income: {Visuals.Positive("+" + Format.MinifyMoney(income))}";
-                }
-            }
-
-            else
-            {
-                var loss = Marketing.GetChurnClients(Q, Flagship.company.Id, segmentId);
-
-                if (links != null)
-                {
-                    links.Background.color = Visuals.GetColorPositiveOrNegative(false);
-                    links.Title.text += $"Loss: {Visuals.Negative(Format.MinifyToInteger(loss))} users";
-                }
-            }
 
             text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
                 $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";
@@ -89,10 +74,6 @@ public class AudiencePreview : View
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
 
         var potentialPhrase = $"{Format.Minify(audience.Size)} users";
-        //var incomePerUserPhrase = $"${income.ToString("0.0")}";
-
-        //$"\n\nIncome per user: <b>{Visuals.Positive(incomePerUserPhrase)}</b>" +
-        //$"\nPotential audience: <b>{Visuals.Positive(potentialPhrase)}</b>"
 
         AudienceHint.SetHint(text);
         HideLoyaltyChanges();

@@ -23,21 +23,26 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
             company.isFlagship = true;
             company.AddChannelExploration(new System.Collections.Generic.Dictionary<int, int>(), new System.Collections.Generic.List<int>(), 1);
 
+            // give bad positioning initially
             var infos = Marketing.GetAudienceInfos();
+
+            Marketing.AddClients(company, -50, company.productPositioning.Positioning);
 
             var positionings = Markets.GetNichePositionings(nicheType, Q);
             var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
 
             var rand = Random.Range(0, infos.Count / 2);
             company.productPositioning.Positioning = positioningWorths.ToArray()[rand].ID;
-            
-            //NavigateToNiche(company.product.Niche);
-            Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
 
+            Marketing.AddClients(company, 50, company.productPositioning.Positioning);
+            
+            // give good salary to CEO, so he will not leave company
             var CEO = Humans.GetHuman(Q, Companies.GetCEOId(company));
 
             var salary = Teams.GetSalaryPerRating(CEO);
             Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0);
+
+            Navigate(ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, company.product.Niche);
         }
 
     }
