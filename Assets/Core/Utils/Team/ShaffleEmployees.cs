@@ -193,8 +193,9 @@ namespace Assets.Core
             if (team.ID == 0)
             {
                 // core team
+                // CEO only
                 roles.Remove(WorkerRole.ProjectManager);
-                roles.Remove(WorkerRole.CEO);
+                //roles.Remove(WorkerRole.CEO);
             }
             else
             {
