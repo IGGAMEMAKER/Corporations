@@ -29,6 +29,8 @@ public class RenderBusinessStyle : UpgradedParameterView
         if (text.Length == 0)
             text = "This company has no specific preferences in management";
 
+        text += "\n#" + SelectedCompany.creationIndex;
+
         return text;
     }
 

@@ -43,9 +43,16 @@ public class RenderFullAudiencesListView : ListView
 
         //SetItems(infos);
 
-        var segmentName = Marketing.GetAudienceInfos()[segmentId].Name;
+        var audience = Marketing.GetAudienceInfos()[segmentId];
+        var segmentName = audience.Name;
 
-        AudienceDescription.text = segmentName;
+        var potentialPhrase = $"{Format.Minify(audience.Size)} users";
+        var incomePerUser = (double)Economy.GetBaseIncomePerUser(Q, Flagship.product.Niche, segmentId); // 1L * (segmentId + 1);
+        var worth = (long)(incomePerUser * audience.Size);
+
+        var worthPhrase = Format.MinifyMoney(worth);
+
+        AudienceDescription.text = segmentName + $"\n\n<size=30>Potential\n{Visuals.Positive(potentialPhrase)}\n\nIncome\n{Visuals.Positive(worthPhrase)}</size>";
         PositionongDescription.text = $"We are making {Markets.GetCompanyPositioningName(Flagship, Q)}";
 
         if (CompaniesInterestedInUsers != null)

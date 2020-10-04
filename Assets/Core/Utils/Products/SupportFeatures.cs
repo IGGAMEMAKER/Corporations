@@ -86,6 +86,10 @@ namespace Assets.Core
 
         public static bool IsNeedsMoreServers(GameEntity product)
         {
+            // hack to avoid AI client loss
+            if (!product.isFlagship)
+                return false;
+
             var capacity = GetServerCapacity(product);
             var load = GetClientLoad(product); // add DDoS multiplier
 

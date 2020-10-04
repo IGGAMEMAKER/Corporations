@@ -73,8 +73,6 @@ public class AudiencePreview : View
 
         AudienceImage.texture = Resources.Load<Texture2D>($"Audiences/{audience.Icon}");
 
-        var potentialPhrase = $"{Format.Minify(audience.Size)} users";
-
         AudienceHint.SetHint(text);
         HideLoyaltyChanges();
     }

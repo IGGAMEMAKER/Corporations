@@ -98,11 +98,16 @@ namespace Assets.Core
                     }
                 }
 
-                var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.9f));
+                var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.9f)) * (i + 1);
 
+                var positioning = c.productPositioning.Positioning;
                 foreach (var s in segments)
                 {
-                    Marketing.AddClients(c, System.Convert.ToInt64(clients * Random.Range(0.1f, 0.5f)), s.ID);
+                    if (s.ID == positioning)
+                    {
+                        var audience = System.Convert.ToInt64(clients * Random.Range(0.1f, 0.5f));
+                        Marketing.AddClients(c, audience, s.ID);
+                    }
                 }
 
                 //var newLevel = UnityEngine.Random.Range(4, 8);

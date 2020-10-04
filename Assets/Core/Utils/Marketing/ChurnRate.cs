@@ -107,22 +107,11 @@ namespace Assets.Core
 
             var loyalty = GetSegmentLoyalty(gameContext, c, segmentId);
 
-            var competitors = Companies.GetCompetitorsOfCompany(c, gameContext, false);
-            bool isOutcompeted = false;
-
-            if (competitors.Count() > 0)
-            {
-                var maxLoyalty = competitors.Select(competitor => GetSegmentLoyalty(gameContext, competitor, segmentId)).Max();
-
-                isOutcompeted = maxLoyalty > loyalty + 5;
-            }
-
             return new Bonus<long>("Churn rate")
                 .RenderTitle()
                 .SetDimension("%")
 
                 .AppendAndHideIfZero("Disloyal clients", loyalty < 0 ? 5 : 0)
-                //.AppendAndHideIfZero("Outcompeted (loyalty difference > 5)", isOutcompeted ? 5 : 0)
                 .AppendAndHideIfZero("Market is DYING", marketIsDying ? 5 : 0)
                 .Cap(0, 100);
         }

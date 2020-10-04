@@ -18,10 +18,12 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             if (Companies.IsReleaseableApp(product))
                 Marketing.ReleaseApp(gameContext, product);
 
-            ManageSupport(product, ref str);
+            //ManageSupport(product, ref str);
 
-            ManageChannels(product, ref str);
             ManageFeatures(product, ref str);
+            ManageChannels(product, ref str);
+
+            //ManageSupport(product, ref str);
 
             Investments.CompleteGoal(product, gameContext);
         }
@@ -77,25 +79,15 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
             .Where(c1 => !Marketing.IsCompanyActiveInChannel(product, c1))
-            .FirstOrDefault()
-            //.OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
+            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
             ;
 
-        var c = channels;
+        if (channels.Count() > 0)
+        {
+            var c = channels.First();
         
-        //foreach (var c in channels)
-        //{
-        var load = Products.GetServerLoad(product);
-        var capacity = Products.GetServerCapacity(product);
-
-        var growth = Marketing.GetAudienceChange(product, gameContext);
-
-        var gain = Marketing.GetChannelClientGain(product, gameContext, c);
-        bool willExceedLimits = load + growth + gain >= capacity;
-
-        if (!willExceedLimits)
             TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
-        //}
+        }
     }
 
     void AddServer(GameEntity product, ref List<string> str)

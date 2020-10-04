@@ -48,6 +48,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         var growth = Marketing.GetAudienceChange(company, Q, true);
         Growth.text = Visuals.PositiveOrNegativeMinified(growth.Sum());
+        Growth.GetComponent<Hint>().SetHint("Users will change by " + Visuals.Colorize(growth.Sum()) + " because " + growth.ToString());
 
         //Hide(SetAmountOfStars);
         //Hide(LoyaltyImage);

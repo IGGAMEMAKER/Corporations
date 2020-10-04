@@ -671,14 +671,14 @@ namespace Assets.Core
             }
 
             // focus multiple audiences
-            var randomPositionings = Random.Range(1, 5);
+            var randomPositionings = Random.Range(3, 6);
 
             for (var i = 0; i < randomPositionings; i++)
             {
                 list.Add(new ProductPositioning
                 {
                     ID = list.Count,
-                    name = "Random " + nicheName + " " + i,
+                    name = "RANDOM " + nicheName + " " + i,
                     Loyalties = audiences.Select(a1 => Random.Range(-5, 10)).ToList(),
 
                     isCompetitive = false,

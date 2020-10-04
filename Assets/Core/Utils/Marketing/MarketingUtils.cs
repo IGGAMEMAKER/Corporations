@@ -45,15 +45,12 @@ namespace Assets.Core
             //company.ReplaceMarketing(newClients);
         }
 
-        public static long GetChurnClients(GameContext gameContext, int companyId, int segmentId)
+        public static long GetChurnClients(GameContext gameContext, int companyId, int segmentId) => GetChurnClients(gameContext, Companies.Get(gameContext, companyId), segmentId);
+        public static long GetChurnClients(GameContext gameContext, GameEntity c, int segmentId)
         {
-            var c = Companies.Get(gameContext, companyId);
+            var churn = GetChurnRate(gameContext, c.company.Id, segmentId);
 
-            var churn = GetChurnRate(gameContext, companyId, segmentId);
-
-            var clients = GetClients(c);
-
-            //var period = Constants.PERIOD;
+            var clients = GetClients(c, segmentId);
 
             return clients * churn / 100;
         }
