@@ -25,35 +25,10 @@ public class CandidatesForRoleListView : ListView
     {
         base.ViewRender();
 
-        var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
+        //var teamId = FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
+        var team = company.team.Teams[SelectedTeam];
 
-        var teamId = FindObjectOfType<FlagshipRelayInCompanyView>().ChosenTeamId;
-        var team = company.team.Teams[teamId];
-
-        var managers = new List<GameEntity>();
-        var managerIds = new List<int>();
-
-        bool hasLeader = Teams.HasMainManagerInTeam(team, Q, Flagship);
-        var leaderRole = Teams.GetMainManagerForTheTeam(team);
-
-        managerIds.AddRange(
-            company.employee.Managers
-            .Where(Teams.RoleSuitsTeam(company, team))
-            
-            // 
-            .Where(m => hasLeader || m.Value == leaderRole)
-            .Select(p => p.Key)
-            );
-
-        foreach (var c in competitors)
-        {
-            var workers = c.team.Managers
-                .Where(Teams.RoleSuitsTeam(company, team))
-
-                .Where(m => hasLeader || m.Value == leaderRole)
-                .Select(p => p.Key);
-            managerIds.AddRange(workers);
-        }
+        var managerIds = Teams.GetCandidatesForTeam(company, team, Q);
 
         SetItems(managerIds);
     }

@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 // TODO REMOVE THIS FILE
@@ -83,6 +84,38 @@ namespace Assets.Core
             var rating = GetEffectiveManagerRating(gameContext, product, managerTitle, teamInfo);
 
             return rating > 0;
+        }
+
+        public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);
+
+            var managers = new List<GameEntity>();
+            var managerIds = new List<int>();
+
+            bool hasLeader = Teams.HasMainManagerInTeam(team, Q, company);
+            var leaderRole = Teams.GetMainManagerForTheTeam(team);
+
+            managerIds.AddRange(
+                company.employee.Managers
+                .Where(Teams.RoleSuitsTeam(company, team))
+
+                // 
+                .Where(m => hasLeader || m.Value == leaderRole)
+                .Select(p => p.Key)
+                );
+
+            foreach (var c in competitors)
+            {
+                var workers = c.team.Managers
+                    .Where(Teams.RoleSuitsTeam(company, team))
+
+                    .Where(m => hasLeader || m.Value == leaderRole)
+                    .Select(p => p.Key);
+                managerIds.AddRange(workers);
+            }
+
+            return managerIds;
         }
 
         public static Bonus<int> GetOrganisationChanges(TeamInfo teamInfo, GameEntity product, GameContext gameContext)

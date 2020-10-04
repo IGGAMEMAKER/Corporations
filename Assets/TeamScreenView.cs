@@ -50,21 +50,28 @@ public class TeamScreenView : View
         // hiring advice ---------------------------------
         var advices = new StringBuilder();
 
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.ProductManager, team, Q))
-            advices.AppendLine("* Hire product manager to boost rating gain and max feature level");
-
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.MarketingLead, team, Q))
-            advices.AppendLine("* Hire marketing lead to boost your marketing efficiency");
-
-        if (Teams.IsNeedsToHireRole(product, WorkerRole.TeamLead, team, Q))
-            advices.AppendLine("* Hire team lead to boost iteration speed");
-
-
         if (!hasLeadManager)
+        {
+            advices.AppendLine(Visuals.Negative($"Hire {formattedManager} to manage this team properly!"));
+        }
+        else
+        {
+            if (Teams.IsNeedsToHireRole(product, WorkerRole.ProductManager, team, Q))
+                advices.AppendLine("* Hire product manager to boost rating gain and max feature level");
+
+            if (Teams.IsNeedsToHireRole(product, WorkerRole.MarketingLead, team, Q))
+                advices.AppendLine("* Hire marketing lead to boost your marketing efficiency");
+
+            if (Teams.IsNeedsToHireRole(product, WorkerRole.TeamLead, team, Q))
+                advices.AppendLine("* Hire team lead to boost iteration speed");
+        }
+
+        bool hasManagersForThisTeam = Teams.GetCandidatesForTeam(Flagship, team, Q).Count > 0;
+        if (!hasManagersForThisTeam)
         {
             advices.Clear();
 
-            advices.AppendLine(Visuals.Negative($"Hire {formattedManager} to manage this team properly!"));
+            advices.AppendLine("You will get new workers next month");
         }
 
         //Advices.GetComponent<Blinker>().enabled = !hasLeadManager;
