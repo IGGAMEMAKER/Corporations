@@ -26,7 +26,7 @@ public class HireTeamView : View
             Hide(Padlock);
             Hide(HiringProgress);
 
-            Title.text = $"<b>Create {Teams.GetFormattedTeamType(teamType)}";
+            Title.text = $"<b>{Teams.GetFormattedTeamType(teamType)}";
 
             GetComponent<Button>().enabled = true;
         }

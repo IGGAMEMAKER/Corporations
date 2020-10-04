@@ -74,7 +74,7 @@ public class TeamScreenView : View
         {
             advices.Clear();
 
-            advices.AppendLine("<b>You will get new employees next month</b>\nUpdate page if list didn't change");
+            advices.AppendLine("<b>You will get new employees next month</b>\nUpdate page if nothing changed");
         }
 
         //Advices.GetComponent<Blinker>().enabled = !hasLeadManager;
