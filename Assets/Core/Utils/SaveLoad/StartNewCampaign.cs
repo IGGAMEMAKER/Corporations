@@ -109,12 +109,6 @@ namespace Assets.Core
                         Marketing.AddClients(c, audience, s.ID);
                     }
                 }
-
-                //var newLevel = UnityEngine.Random.Range(4, 8);
-
-                //Marketing.AddClients(c, Marketing.GetClientFlow(gameContext, c.product.Niche) * newLevel);
-                //Marketing.AddBrandPower(c, newLevel * 3);
-                //Products.ForceUpgrade(c, gameContext, newLevel);
             }
 
             // spawn investors

@@ -13,11 +13,11 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        Debug.Log("Loaded date: " + date);
+        //Debug.Log("Loaded date: " + date);
 
         GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
 
-        Debug.Log($"Loaded {tasks.Count()} Tasks");
+        //Debug.Log($"Loaded {tasks.Count()} Tasks");
 
         for (var i = tasks.Length - 1; i >= 0; i--)
         {

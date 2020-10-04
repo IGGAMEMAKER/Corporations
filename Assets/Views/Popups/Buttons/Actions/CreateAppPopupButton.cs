@@ -31,8 +31,8 @@ public class CreateAppPopupButton : PopupButtonController<PopupMessageDoYouWantT
             var positionings = Markets.GetNichePositionings(nicheType, Q);
             var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
 
-            var rand = Random.Range(0, infos.Count / 2);
-            company.productPositioning.Positioning = positioningWorths.ToArray()[rand].ID;
+            var rand = Random.Range(0, 2);
+            company.productPositioning.Positioning = rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
 
             Marketing.AddClients(company, 50, company.productPositioning.Positioning);
             

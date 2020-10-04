@@ -99,8 +99,6 @@ namespace Assets.Core
         {
             var million = 1000000;
 
-            var baseFeatures = Products.GetAvailableFeaturesForProduct(null);
-
             var testAudience = new AudienceInfo
             {
                 Name = "Test Audience",

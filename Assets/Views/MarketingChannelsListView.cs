@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MarketingChannelsListView : ListView
 {
@@ -11,6 +12,8 @@ public class MarketingChannelsListView : ListView
     float minROI = 0;
 
     bool ShowActiveChannelsToo = false;
+
+    public Text MarketingEfficiency;
 
     public RenderAudiencesListView RenderAudiencesListView;
     int segmentId;
@@ -48,6 +51,9 @@ public class MarketingChannelsListView : ListView
         minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, Q, c));
 
         SetItems(channels);
+
+        if (MarketingEfficiency != null)
+            MarketingEfficiency.text = Visuals.Positive(Marketing.GetMarketingTeamEffeciency(Q, Flagship) + "%");
     }
 
     private void OnEnable()

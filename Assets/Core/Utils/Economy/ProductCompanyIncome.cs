@@ -15,17 +15,27 @@ namespace Assets.Core
 
         public static float GetMonetisationBonuses(GameContext gameContext, GameEntity c, int segmentId)
         {
-            var audienceInfo = Marketing.GetAudienceInfos()[segmentId];
+            try
+            {
+                var audienceInfo = Marketing.GetAudienceInfos()[segmentId];
 
-            var audienceBonus = audienceInfo.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
-            var improvements = 100f + Products.GetMonetisationFeaturesBenefit(c) + audienceBonus;
+                var audienceBonus = audienceInfo.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
+                var improvements = 100f + Products.GetMonetisationFeaturesBenefit(c) + audienceBonus;
 
-            return Mathf.Clamp(improvements, 0, 500);
+                return Mathf.Clamp(improvements, 0, 500);
+            }
+            catch
+            {
+                Debug.Log("Tried to take monetisation from segment " + segmentId + " in company " + c.company.Name);
+            }
+
+            return 0;
         }
 
         public static long GetIncomePerSegment(GameContext gameContext, GameEntity company, int segmentId)
         {
-            return Convert.ToInt64(company.marketing.ClientList[segmentId] * GetIncomePerUser(gameContext, company, segmentId));
+            var clients = Marketing.GetClients(company, segmentId);
+            return Convert.ToInt64(clients * GetIncomePerUser(gameContext, company, segmentId));
         }
 
         public static float GetBaseIncomePerUser(GameContext gameContext, NicheType nicheType, int segmentId)

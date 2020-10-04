@@ -38,13 +38,7 @@ namespace Assets.Core
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            int teamId = GetTeamIdOfMarketingTask(company, channel);
-            TeamInfo teamInfo = null;
-
-            if (teamId >= 0)
-                teamInfo = company.team.Teams[teamId];
-
-            var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company, teamInfo);
+            var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company);
 
             var loyaltyBonus = 0;
 
@@ -94,6 +88,19 @@ namespace Assets.Core
         }
 
 
+        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company)
+        {
+            var viableTeams = company.team.Teams
+                // marketing teams only
+                .Where(t => Teams.IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam)
+                .Select(t => Teams.GetTeamEffeciency(company, t) * GetMarketingTeamEffeciency(gameContext, company, t) / 100)
+                ;
+
+
+            var teamEffeciency = viableTeams.Count() > 0 ? (int)viableTeams.Average() : 30;
+
+            return teamEffeciency;
+        }
         public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
         {
             var marketingEffeciency = 0;

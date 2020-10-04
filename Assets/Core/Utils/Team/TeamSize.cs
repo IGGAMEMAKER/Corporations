@@ -51,7 +51,7 @@ namespace Assets.Core
             var organisationBonus = (int)teamInfo.Organisation;
 
             // 0... 130
-            return teamInfo.Workers * (100 + 30 * organisationBonus / 100) / maxWorkers;
+            return teamInfo.Workers * (100 + 30 * organisationBonus / 100) / maxWorkers + 1;
         }
 
         public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -24,24 +25,31 @@ namespace Assets.Core
             else
             {
                 // judge by potential
-                var segmentId = company.productPositioning.Positioning;
+                var segmentId = Marketing.GetCoreAudienceId(company, context);
+                try
+                {
+                    var info = Marketing.GetAudienceInfos();
+                    var segment = info[segmentId];
 
-                var info = Marketing.GetAudienceInfos();
-                var segment = info[segmentId];
+                    var max = segment.Size;
+                    var income = GetBaseIncomeByMonetisationType(context, company.product.Niche);
 
-                var max = segment.Size;
-                var income = GetBaseIncomeByMonetisationType(context, company.product.Niche);
+                    var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
 
-                var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
+                    var potentialBaseIncome = income * (100f + incomeMultiplier) / 100f;
 
-                var potentialBaseIncome = income * (100f + incomeMultiplier) / 100f;
+                    var possiblePortion = 5;
 
-                var possiblePortion = 5;
+                    long baseCost = 1000000;
 
-                long baseCost = 1000000;
-
-                return (long)((double)baseCost * (100f + incomeMultiplier) / 100f);
-                return GetCompanyIncomeBasedCost((long)(potentialBaseIncome * (double)max) * possiblePortion / 1000);
+                    return (long)((double)baseCost * (100f + incomeMultiplier) / 100f);
+                    return GetCompanyIncomeBasedCost((long)(potentialBaseIncome * (double)max) * possiblePortion / 1000);
+                }
+                catch
+                {
+                    Debug.LogError("Calculating potential of " + company.company.Name + " by segment " + segmentId);
+                    return 0;
+                }
             }
         }
 

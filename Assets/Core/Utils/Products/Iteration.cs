@@ -17,14 +17,18 @@ namespace Assets.Core
         {
             var baseValue = GetBaseIterationTime(gameContext, company);
 
-            //var teamEffeciency = Teams.GetTeamAverageEffeciency(company);
-            var teamEffeciency = (int)company.team.Teams
-                // development only
-                .Where(t => Teams.IsUniversalTeam(t.TeamType) && t.TeamType == TeamType.DevelopmentTeam)
-                .Select(t => Teams.GetTeamEffeciency(company, t))
-                .Average();
+            return baseValue;
 
-            return baseValue * 100 / teamEffeciency;
+            ////var teamEffeciency = Teams.GetTeamAverageEffeciency(company);
+            //var viableTeams = company.team.Teams
+            //    // development only
+            //    .Where(t => Teams.IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.DevelopmentTeam)
+            //    .Select(t => Teams.GetTeamEffeciency(company, t));
+
+
+            //var teamEffeciency = viableTeams.Count() > 0 ? (int)viableTeams.Average() : 1;
+
+            //return baseValue * 100 / teamEffeciency;
         }
 
         public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)

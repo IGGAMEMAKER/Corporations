@@ -44,6 +44,12 @@ public class AudiencesOnMainScreenListView : ListView
 
             SetItems(audiences.Where(a => a.ID == positioning));
         }
+
+        if (Iteration != null)
+            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
+
+        if (FeatureCap != null)
+            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship, Q).ToString("0.0"));
     }
 
     public override void OnDeselect()
@@ -103,12 +109,6 @@ public class AudiencesOnMainScreenListView : ListView
 
             LoyaltyInfo.Title.text += Visuals.Negative($"{worstThing.Name}: {worstThing.Value}");
         }
-
-        if (Iteration != null)
-            Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
-
-        if (FeatureCap != null)
-            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship, Q).ToString("0.0"));
     }
 
     public void ShowLoyaltyChanges(List<int> changes)
