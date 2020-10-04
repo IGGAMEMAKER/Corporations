@@ -27,6 +27,7 @@ public class TaskPanelView : View
 
         Draw(ChosenTaskLabel, true);
         Draw(RemoveTaskButton, true);
+        Draw(RemoveFeatureButton, teamTask.IsFeatureUpgrade);
 
         var team = Flagship.team.Teams[teamId];
 
@@ -101,16 +102,12 @@ public class TaskPanelView : View
                 ;
 
             TaskModifiers.text = $"Will be upgraded to level {ratingCap} due to assigned team";
-
-            Show(RemoveFeatureButton);
         }
 
         if (teamTask.IsMarketingTask)
         {
             TaskBenefit.text = $"marketing task";
             TaskModifiers.text = "";
-
-            Hide(RemoveFeatureButton);
         }
 
         if (teamTask.IsHighloadTask)
