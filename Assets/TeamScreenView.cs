@@ -14,6 +14,8 @@ public class TeamScreenView : View
     public Text TeamStats;
     public Text Advices;
 
+    public GameObject FireTeam;
+
 
     public override void ViewRender()
     {
@@ -28,6 +30,7 @@ public class TeamScreenView : View
         var formattedManager = Humans.GetFormattedRole(mainManagerRole);
 
         Draw(LeftPanel, hasLeadManager);
+        Draw(FireTeam, SelectedTeam > 0);
 
         // --------------------------------------
 
@@ -71,7 +74,7 @@ public class TeamScreenView : View
         {
             advices.Clear();
 
-            advices.AppendLine("You will get new workers next month");
+            advices.AppendLine("<b>You will get new employees next month</b>\nUpdate page if list didn't change");
         }
 
         //Advices.GetComponent<Blinker>().enabled = !hasLeadManager;
