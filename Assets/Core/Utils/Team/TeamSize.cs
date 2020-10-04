@@ -38,6 +38,16 @@ namespace Assets.Core
             return !HasRole(company, role, teamInfo, gameContext);
         }
 
+        public static int GetTeamEffeciency(GameEntity company, TeamInfo teamInfo)
+        {
+            var maxWorkers = 8;
+
+            var organisationBonus = (int)teamInfo.Organisation;
+
+            // 0... 130
+            return teamInfo.Workers * (100 + 30 * organisationBonus / 100) / maxWorkers;
+        }
+
         public static int GetWorkerEffeciency(GameEntity worker, GameEntity company)
         {
             if (worker == null)

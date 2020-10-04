@@ -46,32 +46,25 @@ namespace Assets.Core
 
             if (isCoreTeam)
             {
-                managerTitle = WorkerRole.CEO;
+                return WorkerRole.CEO;
             }
-            else
+
+            switch (teamInfo.TeamType)
             {
-                switch (teamInfo.TeamType)
-                {
-                    case TeamType.BigCrossfunctionalTeam:
-                    case TeamType.CrossfunctionalTeam:
-                    case TeamType.SmallCrossfunctionalTeam:
-                        managerTitle = WorkerRole.ProjectManager;
-                        break;
+                case TeamType.DevOpsTeam:
+                case TeamType.DevelopmentTeam:
+                    managerTitle = WorkerRole.TeamLead;
+                    break;
 
-                    case TeamType.DevOpsTeam:
-                    case TeamType.DevelopmentTeam:
-                        managerTitle = WorkerRole.TeamLead;
-                        break;
+                case TeamType.SupportTeam:
+                case TeamType.MarketingTeam:
+                    managerTitle = WorkerRole.MarketingLead;
+                    break;
 
-                    case TeamType.MarketingTeam:
-                    case TeamType.SupportTeam:
-                        managerTitle = WorkerRole.MarketingLead;
-                        break;
-
-                    default:
-                        managerTitle = WorkerRole.ProductManager;
-                        break;
-                }
+                default:
+                    managerTitle = WorkerRole.ProjectManager;
+                    //managerTitle = WorkerRole.ProductManager;
+                    break;
             }
 
             return managerTitle;

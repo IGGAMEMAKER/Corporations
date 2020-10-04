@@ -679,7 +679,7 @@ namespace Assets.Core
                 {
                     ID = list.Count,
                     name = "RANDOM " + nicheName + " " + i,
-                    Loyalties = audiences.Select(a1 => Random.Range(-5, 10)).ToList(),
+                    Loyalties = audiences.Select(a1 => Random.Range(-10, 4)).ToList(),
 
                     isCompetitive = false,
                     marketShare = 100,

@@ -22,10 +22,7 @@ class IncreaseOrganisationSystem : OnPeriodChange
                 var change = Teams.GetOrganisationChanges(team, p, gameContext).Sum() / 10f;
 
                 team.Organisation = Mathf.Clamp(team.Organisation + change, 0, 100);
-
-                teamId++;
             }
-            //Teams.ReduceOrganisationPoints(p, -2);
         }
     }
 }
