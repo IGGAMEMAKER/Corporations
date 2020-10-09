@@ -127,9 +127,9 @@ public class MainPanelRelay : View
 
         if (anyTaskWasAdded || hasMoreThanOneTeam)
         {
-            Show(AddTeamButton);
-            Show(TeamPanel);
-            Show(TeamLabel);
+            //Show(AddTeamButton);
+            //Show(TeamPanel);
+            //Show(TeamLabel);
         }
         else
         {

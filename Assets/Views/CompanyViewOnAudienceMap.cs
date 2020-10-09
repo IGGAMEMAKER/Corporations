@@ -13,6 +13,8 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     public Hint CompanyHint;
     public LinkToProjectView LinkToProjectView;
 
+    public Image BorderImage;
+
     public Image Image;
 
     public GameObject LoyaltyImage;
@@ -37,7 +39,11 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         SetEmblemColor();
 
         Name.text = shortName;
-        Name.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
+        if (hasControl)
+        {
+            BorderImage.color = Visuals.GetColorFromString(Colors.COLOR_CONTROL);
+        }
+        BorderImage.color = Visuals.GetColorFromString(hasControl ? Colors.COLOR_CONTROL : Colors.COLOR_NEUTRAL);
 
         LinkToProjectView.CompanyId = c.company.Id;
 
