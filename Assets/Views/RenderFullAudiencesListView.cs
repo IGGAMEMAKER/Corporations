@@ -26,8 +26,8 @@ public class RenderFullAudiencesListView : ListView
         // TODO DUPLICATED FROM AudiencesOnMainScreenListView.ViewRender()
         var audiences = Marketing.GetAudienceInfos();
 
-        bool showAudiences = true;
-        //bool showAudiences = Flagship.isRelease;
+        //bool showAudiences = true;
+        bool showAudiences = Flagship.isRelease;
 
         if (showAudiences)
         {

@@ -21,19 +21,19 @@ public class ReplaceTeamTaskController : ButtonController
         {
             if (view.IsChannelTask)
             {
-                CompanyTaskTypeRelay.ChooseMarketingTasks();
+                //CompanyTaskTypeRelay.ChooseMarketingTasks();
             }
             else if (view.IsFeatureUpgradeTask)
             {
-                CompanyTaskTypeRelay.ChooseFeatureTasks();
+                //CompanyTaskTypeRelay.ChooseFeatureTasks();
             }
             else if (view.IsServerTask)
             {
-                CompanyTaskTypeRelay.ChooseServersideTasks();
+                //CompanyTaskTypeRelay.ChooseServersideTasks();
             }
             else if (view.IsSupportTask)
             {
-                CompanyTaskTypeRelay.ChooseSupportTasks();
+                //CompanyTaskTypeRelay.ChooseSupportTasks();
             }
             else
             {

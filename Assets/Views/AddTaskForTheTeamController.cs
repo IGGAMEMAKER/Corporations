@@ -31,19 +31,19 @@ public class AddTaskForTheTeamController : ButtonController
         switch (team.TeamType)
         {
             case TeamType.DevelopmentTeam:
-                CompanyTaskTypeRelay.ChooseFeatureTasks();
+                //CompanyTaskTypeRelay.ChooseFeatureTasks();
                 break;
 
             case TeamType.MarketingTeam:
-                CompanyTaskTypeRelay.ChooseMarketingTasks();
+                //CompanyTaskTypeRelay.ChooseMarketingTasks();
                 break;
 
             case TeamType.SupportTeam:
-                CompanyTaskTypeRelay.ChooseSupportTasks();
+                //CompanyTaskTypeRelay.ChooseSupportTasks();
                 break;
 
             case TeamType.DevOpsTeam:
-                CompanyTaskTypeRelay.ChooseServersideTasks();
+                //CompanyTaskTypeRelay.ChooseServersideTasks();
                 break;
         }
 

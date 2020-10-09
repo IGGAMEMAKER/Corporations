@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class CompanyTaskTypeRelay : View
 {
-    public GameObject MarketingTasks;
-    public GameObject FeatureTasks;
-    public GameObject SupportTasks;
-    public GameObject ServerTasks;
-
     public GameObject FeatureCounter;
     public GameObject MarketingCounter;
 
@@ -24,16 +19,11 @@ public class CompanyTaskTypeRelay : View
     public GameObject ChooseServerTasksButton;
 
     List<GameObject> ChoosingButtons => new List<GameObject> { ChooseMarketingTasksButton, ChooseDevelopmentTasksButton, ChooseSupportTasksButton, ChooseServerTasksButton };
-    List<GameObject> TaskContainers => new List<GameObject> { MarketingTasks, FeatureTasks, SupportTasks, ServerTasks };
+    //List<GameObject> TaskContainers => new List<GameObject> { MarketingTasks, FeatureTasks, SupportTasks, ServerTasks };
 
     void OnEnable()
     {
         bool isFirstTime = true;
-
-        if (isFirstTime)
-            ChooseFeatureTasks();
-        else
-            ChooseMarketingTasks();
 
         RenderAmountOfTasks();
     }
@@ -48,7 +38,6 @@ public class CompanyTaskTypeRelay : View
     void SetMode(GameObject tasks, GameObject buttons)
     {
         ScheduleUtils.PauseGame(Q);
-        ShowOnly(tasks, TaskContainers);
     }
 
     void RenderAmountOfTasks()
@@ -75,46 +64,6 @@ public class CompanyTaskTypeRelay : View
         HideAll(ChoosingButtons);
     }
 
-    public void ChooseMarketingTasks()
-    {
-        SetMode(MarketingTasks, ChooseMarketingTasksButton);
-        Show(FeatureTasks);
-        ShowDevButton();
-
-        RenderTaskLabel();
-    }
-
-    public void ChooseFeatureTasks()
-    {
-        //SetMode(FeatureTasks, ChooseDevelopmentTasksButton);
-        SetMode(MarketingTasks, ChooseMarketingTasksButton);
-        Show(FeatureTasks);
-        ShowMarketingButton();
-
-        RenderTaskLabel();
-    }
-
-    public void ChooseServersideTasks()
-    {
-        SetMode(ServerTasks, ChooseServerTasksButton);
-        ShowMarketingButton();
-
-        RenderTaskLabel();
-    }
-    public void ChooseSupportTasks()
-    {
-        SetMode(SupportTasks, ChooseSupportTasksButton);
-        ShowMarketingButton();
-
-        RenderTaskLabel();
-    }
-
-    void RenderTaskLabel()
-    {
-        //Hide(ChooseTaskTypeLabel);
-        Show(ChooseTaskTypeLabel);
-    }
-
     public void AdjustTaskTypeButtonsToTeamType()
     {
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
@@ -131,15 +80,5 @@ public class CompanyTaskTypeRelay : View
     public void ShowRelayButtons()
     {
         Show(RelayButtons);
-
-
-        // not all buttons can be shown because of specialisation
-        AdjustTaskTypeButtonsToTeamType();
-        //
-
-        Hide(MarketingTasks);
-        Hide(FeatureTasks);
-        Hide(SupportTasks);
-        Hide(ServerTasks);
     }
 }

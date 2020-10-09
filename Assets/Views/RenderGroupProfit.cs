@@ -10,7 +10,8 @@ public class RenderGroupProfit : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Format.Money(Balance) + "\n" + Visuals.Colorize(Format.Minify(Profit), Profit > 0);
+        // Format.Money(Balance) + 
+        return "Profit\n" + Visuals.Colorize(Format.Minify(Profit), Profit > 0);
     }
 
     public override string RenderHint()
