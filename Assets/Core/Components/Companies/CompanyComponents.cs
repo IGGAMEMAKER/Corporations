@@ -233,10 +233,18 @@ public enum ManagerTask
     ViralSpread
 }
 
-public class TeamEfficiencyComponent : IComponent
+public class TeamEfficiency
 {
     public int DevelopmentEfficiency;
     public int MarketingEfficiency;
+
+    public float FeatureCap;
+    public float FeatureGain;
+}
+
+public class TeamEfficiencyComponent : IComponent
+{
+    public TeamEfficiency Efficiency;
 }
 
 public class TeamInfo

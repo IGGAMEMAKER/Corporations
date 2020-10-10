@@ -11,19 +11,17 @@ public partial class GameEntity {
     public TeamEfficiencyComponent teamEfficiency { get { return (TeamEfficiencyComponent)GetComponent(GameComponentsLookup.TeamEfficiency); } }
     public bool hasTeamEfficiency { get { return HasComponent(GameComponentsLookup.TeamEfficiency); } }
 
-    public void AddTeamEfficiency(int newDevelopmentEfficiency, int newMarketingEfficiency) {
+    public void AddTeamEfficiency(TeamEfficiency newEfficiency) {
         var index = GameComponentsLookup.TeamEfficiency;
         var component = (TeamEfficiencyComponent)CreateComponent(index, typeof(TeamEfficiencyComponent));
-        component.DevelopmentEfficiency = newDevelopmentEfficiency;
-        component.MarketingEfficiency = newMarketingEfficiency;
+        component.Efficiency = newEfficiency;
         AddComponent(index, component);
     }
 
-    public void ReplaceTeamEfficiency(int newDevelopmentEfficiency, int newMarketingEfficiency) {
+    public void ReplaceTeamEfficiency(TeamEfficiency newEfficiency) {
         var index = GameComponentsLookup.TeamEfficiency;
         var component = (TeamEfficiencyComponent)CreateComponent(index, typeof(TeamEfficiencyComponent));
-        component.DevelopmentEfficiency = newDevelopmentEfficiency;
-        component.MarketingEfficiency = newMarketingEfficiency;
+        component.Efficiency = newEfficiency;
         ReplaceComponent(index, component);
     }
 

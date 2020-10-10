@@ -2,6 +2,9 @@
 {
     public CompanyManagementSystems(Contexts contexts) : base("Company Management Systems")
     {
+        // count days before next investment round
+        Add(new InvestmentCooldownSystems(contexts));
+
         Add(new HistoricalProductSpawnSystem(contexts));
 
         // MONEY
@@ -36,5 +39,8 @@
         // bankruptcies
         Add(new AIClosePoorProductsIfMarketIsDeadSystem(contexts));
         Add(new CheckBankruptciesSystem(contexts));
+
+        // Teams (automatic actions)
+        Add(new TeamSystems(contexts));
     }
 }

@@ -28,9 +28,7 @@
         Add(new NotificationSystems(contexts));
 
         // companies
-        Add(new InvestmentCooldownSystems(contexts));
         Add(new CompanyManagementSystems(contexts));
-        Add(new TeamSystems(contexts));
 
         // markets
         Add(new MarketSystems(contexts));

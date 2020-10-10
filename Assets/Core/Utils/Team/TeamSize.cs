@@ -39,9 +39,63 @@ namespace Assets.Core
             return !HasRole(company, role, teamInfo, gameContext);
         }
 
-        public static void UpdateTeamEfficiency(GameEntity company)
+        public static void UpdateTeamEfficiency(GameEntity company, GameContext gameContext)
         {
+            var featureCap = company.team.Teams.Max(t => GetFeatureRatingCap(company, t, gameContext));
 
+            company.ReplaceTeamEfficiency(new TeamEfficiency
+            {
+                DevelopmentEfficiency = 100,
+                MarketingEfficiency = 100,
+
+                FeatureCap = featureCap, // Products.GetFeatureRatingCap(company, gameContext),
+                FeatureGain = GetFeatureRatingGain(company, company.team.Teams[0], gameContext),
+            });
+        }
+
+        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+            var speed = 0.2f;
+
+            // 0.4f ... 1f
+            var gain = Teams.GetEffectiveManagerRating(gameContext, product, WorkerRole.ProductManager, team) / 100f;
+            speed += gain;
+
+            bool isDevTeam = team.TeamType == TeamType.DevelopmentTeam;
+            if (isDevTeam)
+            {
+                speed += 0.3f;
+                speed += gain;
+            }
+
+            return speed;
+        }
+
+        public static float GetFeatureRatingCap(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+            var productManager = Products.GetWorkerInRole(team, WorkerRole.ProductManager, gameContext);
+
+            var cap = 4f;
+
+            if (team.TeamType == TeamType.DevelopmentTeam)
+                cap += 2f;
+
+            if (productManager != null)
+            {
+                // ... 5f
+                var addedCap = 5 * Humans.GetRating(productManager) / 100f;
+
+                return cap + addedCap;
+            }
+
+            bool hasMainManager = Teams.HasMainManagerInTeam(team, gameContext, product);
+            if (hasMainManager)
+            {
+                var focus = team.ManagerTasks.Count(t => t == ManagerTask.Polishing);
+                cap += focus * 0.4f;
+            }
+
+            return Mathf.Clamp(cap, 0, 10);
         }
 
         public static int GetTeamAverageEffeciency(GameEntity company)
