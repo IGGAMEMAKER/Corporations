@@ -23,7 +23,7 @@ public class ProcessClientsSystem : OnPeriodChange
                 var segmentId = info.ID;
 
                 // churn users
-                var churn = Marketing.GetChurnClients(gameContext, product.company.Id, segmentId);
+                var churn = Marketing.GetChurnClients(gameContext, product, segmentId);
                 Marketing.AddClients(product, -churn, segmentId);
 
                 // add users

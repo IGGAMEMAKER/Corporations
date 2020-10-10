@@ -3,6 +3,10 @@
     public TeamSystems(Contexts contexts) : base("Team Systems")
     {
         Add(new MoraleManagementSystem(contexts));
+
+        Add(new UpdatePlayerTeamEfficiencySystem(contexts));
+        Add(new UpdateTeamEfficiencySystem(contexts));
+
         Add(new TeamGrowthSystem(contexts));
         Add(new WorkerHiringSystem(contexts));
 

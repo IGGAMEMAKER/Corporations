@@ -46,11 +46,11 @@ namespace Assets.Core
         }
 
         public static long GetChurnClients(GameContext gameContext, int companyId, int segmentId) => GetChurnClients(gameContext, Companies.Get(gameContext, companyId), segmentId);
-        public static long GetChurnClients(GameContext gameContext, GameEntity c, int segmentId)
+        public static long GetChurnClients(GameContext gameContext, GameEntity product, int segmentId)
         {
-            var churn = GetChurnRate(gameContext, c.company.Id, segmentId);
+            var churn = GetChurnRate(gameContext, product.company.Id, segmentId);
 
-            var clients = GetClients(c, segmentId);
+            var clients = GetClients(product, segmentId);
 
             return clients * churn / 100;
         }

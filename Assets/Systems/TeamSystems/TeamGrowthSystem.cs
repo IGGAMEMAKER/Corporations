@@ -3,6 +3,36 @@ using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
+class UpdateTeamEfficiencySystem : OnMonthChange
+{
+    public UpdateTeamEfficiencySystem(Contexts contexts) : base(contexts) { }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+
+        foreach (var c in companies)
+        {
+            if (c.hasProduct)
+            {
+                Teams.UpdateTeamEfficiency(c, gameContext);
+            }
+        }
+    }
+}
+
+class UpdatePlayerTeamEfficiencySystem : OnDateChange
+{
+    public UpdatePlayerTeamEfficiencySystem(Contexts contexts) : base(contexts) { }
+
+    protected override void Execute(List<GameEntity> entities)
+    {
+        var playerFlagship = Companies.GetPlayerFlagship(gameContext);
+
+        Teams.UpdateTeamEfficiency(playerFlagship, gameContext);
+    }
+}
+
 class TeamGrowthSystem : OnMonthChange
 {
     public TeamGrowthSystem(Contexts contexts) : base(contexts) {}

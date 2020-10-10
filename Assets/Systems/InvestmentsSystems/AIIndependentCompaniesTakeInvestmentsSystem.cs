@@ -36,7 +36,7 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnMonthChange
     {
         foreach (var e in Companies.GetIndependentAICompanies(gameContext))
         {
-            if (!Economy.IsHasCashOverflow(gameContext, e))
+            if (Economy.IsCanTakeFastCash(gameContext, e))
                 TakeInvestments(e);
         }
     }
