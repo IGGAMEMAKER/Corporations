@@ -18,12 +18,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             if (Companies.IsReleaseableApp(product))
                 Marketing.ReleaseApp(gameContext, product);
 
-            //ManageSupport(product, ref str);
-
             ManageFeatures(product, ref str);
             ManageChannels(product, ref str);
-
-            //ManageSupport(product, ref str);
 
             Investments.CompleteGoal(product, gameContext);
         }

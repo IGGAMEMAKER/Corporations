@@ -38,8 +38,6 @@ namespace Assets.Core
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company);
-
             var loyaltyBonus = 0;
 
             var loyalty = (int)GetSegmentLoyalty(gameContext, company, segmentId);
@@ -65,28 +63,10 @@ namespace Assets.Core
                     loyaltyBonus = 10 * 10 + 10 * 5 + (loyalty - 20) * 1;
             }
 
+            var marketingEffeciency = GetMarketingTeamEffeciency(gameContext, company);
+
             return batch * (marketingEffeciency + loyaltyBonus) / 100;
         }
-
-        public static int GetTeamIdOfMarketingTask(GameEntity company, GameEntity channel)
-        {
-            int counter = 0;
-
-            var channelId = channel.marketingChannel.ChannelInfo.ID;
-
-            foreach (var t in company.team.Teams)
-            {
-                if (t.Tasks.Find(tt => tt.IsMarketingTask && (tt as TeamTaskChannelActivity).ChannelId == channelId) != null)
-                {
-                    return counter;
-                }
-
-                counter++;
-            }
-
-            return -1;
-        }
-
 
         public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company)
         {

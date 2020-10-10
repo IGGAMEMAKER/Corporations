@@ -41,21 +41,7 @@ namespace Assets.Core
 
             bonus.AppendAndHideIfZero("From positioning", positioningBonus);
 
-            //var competitors = Companies.GetCompetitorsOfCompany(c, gameContext, false);
-            //bool isOutcompeted = false;
-
-            //if (competitors.Count() > 0)
-            //{
-            //    var maxLoyalty = competitors.Select(competitor => GetSegmentLoyalty(gameContext, competitor, segmentId)).Max();
-
-            //    isOutcompeted = maxLoyalty > loyalty + 5;
-            //}
-
             bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(c) ? -70 : 0);
-            //bonus.AppendAndHideIfZero("Is outcompeted (loyalty way worse than competitors)", isOutcompeted ? -25 : 0);
-            //bonus.AppendAndHideIfZero("Not enough support", Products.IsNeedsMoreMarketingSupport(c) ? -7 : 0);
-
-
 
             bonus.Cap(-100, 50);
 
