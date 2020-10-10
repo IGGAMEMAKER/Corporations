@@ -39,6 +39,11 @@ namespace Assets.Core
             return !HasRole(company, role, teamInfo, gameContext);
         }
 
+        public static void UpdateTeamEfficiency(GameEntity company)
+        {
+
+        }
+
         public static int GetTeamAverageEffeciency(GameEntity company)
         {
             var average = (int)company.team.Teams.Select(t => GetTeamEffeciency(company, t)).Average();

@@ -92,26 +92,26 @@ public static class GameComponentsLookup {
     public const int Product = 81;
     public const int ProductListener = 82;
     public const int ProductPositioning = 83;
-    public const int ProductTargetAudience = 84;
-    public const int ProductUpgrades = 85;
-    public const int PublicCompany = 86;
-    public const int Release = 87;
-    public const int ReleaseListener = 88;
-    public const int Reports = 89;
-    public const int Research = 90;
-    public const int SeenPopups = 91;
-    public const int Segment = 92;
-    public const int ServerAttack = 93;
-    public const int Shareholder = 94;
-    public const int Shareholders = 95;
-    public const int ShareholdersListener = 96;
-    public const int SimpleCooldownContainer = 97;
-    public const int SourceOfClients = 98;
-    public const int Speed = 99;
-    public const int SupportUpgrades = 100;
-    public const int TargetDate = 101;
-    public const int Task = 102;
-    public const int Team = 103;
+    public const int ProductUpgrades = 84;
+    public const int PublicCompany = 85;
+    public const int Release = 86;
+    public const int ReleaseListener = 87;
+    public const int Reports = 88;
+    public const int Research = 89;
+    public const int SeenPopups = 90;
+    public const int Segment = 91;
+    public const int ServerAttack = 92;
+    public const int Shareholder = 93;
+    public const int Shareholders = 94;
+    public const int ShareholdersListener = 95;
+    public const int SimpleCooldownContainer = 96;
+    public const int SourceOfClients = 97;
+    public const int Speed = 98;
+    public const int SupportUpgrades = 99;
+    public const int TargetDate = 100;
+    public const int Task = 101;
+    public const int Team = 102;
+    public const int TeamEfficiency = 103;
     public const int TeamListener = 104;
     public const int TechnologyLeader = 105;
     public const int TechnologyLeaderListener = 106;
@@ -212,7 +212,6 @@ public static class GameComponentsLookup {
         "Product",
         "ProductListener",
         "ProductPositioning",
-        "ProductTargetAudience",
         "ProductUpgrades",
         "PublicCompany",
         "Release",
@@ -232,6 +231,7 @@ public static class GameComponentsLookup {
         "TargetDate",
         "Task",
         "Team",
+        "TeamEfficiency",
         "TeamListener",
         "TechnologyLeader",
         "TechnologyLeaderListener",
@@ -350,6 +350,7 @@ public static class GameComponentsLookup {
         typeof(TargetDateComponent),
         typeof(TaskComponent),
         typeof(TeamComponent),
+        typeof(TeamEfficiencyComponent),
         typeof(TeamListenerComponent),
         typeof(TechnologyLeaderComponent),
         typeof(TechnologyLeaderListenerComponent),

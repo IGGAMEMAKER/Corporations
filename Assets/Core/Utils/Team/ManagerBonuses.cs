@@ -5,6 +5,7 @@
         public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, WorkerRole workerRole, TeamInfo teamInfo) => GetEffectiveManagerRating(gameContext, company, GetWorkerByRole(company, workerRole, teamInfo, gameContext));
         public static int GetEffectiveManagerRating(GameContext gameContext, GameEntity company, GameEntity manager)
         {
+            return 100;
             if (manager == null)
                 return 0;
 

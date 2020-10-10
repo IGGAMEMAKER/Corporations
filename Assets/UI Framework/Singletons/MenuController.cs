@@ -167,7 +167,7 @@ public class MenuController : View
 
         //DisableAllScreens();
         
-        EnableScreen(ScreenMode.NicheScreen);
+        EnableScreen(ScreenMode.HoldingScreen);
     }
 
     public override void ViewRender()

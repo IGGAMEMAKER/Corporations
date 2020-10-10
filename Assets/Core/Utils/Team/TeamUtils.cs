@@ -161,13 +161,13 @@ namespace Assets.Core
             company.team.Teams.Add(new TeamInfo {
                 Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
                 TeamType = teamType,
-                Tasks = new System.Collections.Generic.List<TeamTask>(),
+                Tasks = new List<TeamTask>(),
 
                 //Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
-                Managers = new System.Collections.Generic.List<int>(),
-                Roles = new System.Collections.Generic.Dictionary<int, WorkerRole>(),
+                Managers = new List<int>(),
+                Roles = new Dictionary<int, WorkerRole>(),
 
-                ManagerTasks = new System.Collections.Generic.List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
+                ManagerTasks = new List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
 
                 HiringProgress = 0, Workers = 0,
                 Organisation = 0,

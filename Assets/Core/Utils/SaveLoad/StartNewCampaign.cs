@@ -13,11 +13,11 @@ namespace Assets.Core
             var startCapital = Markets.GetStartCapital(NicheType, gameContext);
             var niche = Markets.Get(gameContext, NicheType);
 
-            PreparePlayerCompany(niche, startCapital, text, gameContext);
+            var group = PreparePlayerCompany(niche, startCapital, text, gameContext);
             PrepareMarket(niche, startCapital, gameContext);
 
-            ScreenUtils.Navigate(gameContext, ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, NicheType);
-            //ScreenUtils.Navigate(gameContext, ScreenMode.HoldingScreen, C.MENU_SELECTED_NICHE, NicheType);
+            var flagship = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType, group);
+            Companies.TurnProductToPlayerFlagship(flagship, gameContext, NicheType);
 
             LoadGameScene();
         }
@@ -32,7 +32,7 @@ namespace Assets.Core
             SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         }
 
-        internal static void PreparePlayerCompany(GameEntity niche, long startCapital, string text, GameContext gameContext)
+        internal static GameEntity PreparePlayerCompany(GameEntity niche, long startCapital, string text, GameContext gameContext)
         {
             var company = Companies.GenerateCompanyGroup(gameContext, text);
 
@@ -51,23 +51,10 @@ namespace Assets.Core
 
             Companies.SetResources(company, new TeamResource(startCapital));
 
-            //niche.AddResearch(1);
-
             Companies.PlayAs(company, gameContext);
             Companies.AutoFillShareholders(gameContext, company, true);
 
-            ///
-            return;
-            //int productId = Companies.CreateProductAndAttachItToGroup(gameContext, NicheType.ECom_Exchanging, company);
-            //var Flagship = Companies.Get(gameContext, productId);
-
-            //Debug.Log("AUTOSTARTING TEST CAMPAIGN: " + Flagship?.company.Name);
-
-            //Marketing.AddClients(Flagship, 500);
-            //Products.UpgradeProductLevel(Flagship, gameContext);
-
-            //Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
-            //Marketing.ReleaseApp(gameContext, Flagship);
+            return company;
         }
 
 

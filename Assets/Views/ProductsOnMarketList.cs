@@ -29,26 +29,10 @@ public class ProductsOnMarketList : ListView
     {
         base.ViewRender();
 
-        //if (isHoldingScreen)
-        //{
-        //    SetItems(new GameEntity[1] { Flagship });
-        //    return;
-        //}
+        var products = Markets.GetProductsOnMarket(Q, Niche)
+            //.OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
+            .OrderByDescending(p => Marketing.GetClients(p));
 
-        if (canViewCompetitors || true)
-        {
-            var products = Markets.GetProductsOnMarket(Q, Niche)
-                //.OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
-                .OrderByDescending(p => Marketing.GetClients(p));
-
-            SetItems(products);
-            return;
-        }
-
-        // we are on initial phase 
-        if (isMarketScreen)
-        {
-            SetItems(new GameEntity[0]);
-        }
+        SetItems(products);
     }
 }

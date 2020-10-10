@@ -25,16 +25,6 @@ namespace Assets.Core
         public static void SetSelectedHuman(GameContext gameContext, int humanId)
         {
             SetInteger(gameContext, humanId, C.MENU_SELECTED_HUMAN);
-            //var menu = GetMenu(gameContext);
-
-            //var data = menu.menu.Data;
-
-            //if ((int)data[C.MENU_SELECTED_HUMAN] == humanId)
-            //    return;
-
-            //data[C.MENU_SELECTED_HUMAN] = humanId;
-
-            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
 
@@ -46,31 +36,11 @@ namespace Assets.Core
         public static void SetSelectedTeam(GameContext gameContext, int teamId)
         {
             SetInteger(gameContext, teamId, C.MENU_SELECTED_TEAM);
-            //var menu = GetMenu(gameContext);
-
-            //var data = menu.menu.Data;
-
-            //if (Convert.ToInt32(data[C.MENU_SELECTED_TEAM]) == teamId)
-            //    return;
-
-            //data[C.MENU_SELECTED_TEAM] = teamId;
-
-            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
         public static void SetSelectedCompany(GameContext gameContext, int companyId)
         {
             SetInteger(gameContext, companyId, C.MENU_SELECTED_COMPANY);
-            //var menu = GetMenu(gameContext);
-
-            //var data = menu.menu.Data;
-
-            //if ((int)data[C.MENU_SELECTED_COMPANY] == companyId)
-            //    return;
-
-            //data[C.MENU_SELECTED_COMPANY] = companyId;
-
-            //UpdateScreen(gameContext, menu.menu.ScreenMode, data);
         }
 
 

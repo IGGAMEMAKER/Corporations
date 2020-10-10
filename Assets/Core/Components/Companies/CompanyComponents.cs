@@ -233,6 +233,12 @@ public enum ManagerTask
     ViralSpread
 }
 
+public class TeamEfficiencyComponent : IComponent
+{
+    public int DevelopmentEfficiency;
+    public int MarketingEfficiency;
+}
+
 public class TeamInfo
 {
     public TeamType TeamType;

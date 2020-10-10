@@ -89,6 +89,12 @@ public abstract partial class ButtonController
         ScreenUtils.Navigate(Q, screenMode);
     }
 
+    public void NavigateToMainScreen()
+    {
+        ScreenUtils.SetMainPanelId(Q, 0);
+        Navigate(ScreenMode.HoldingScreen);
+    }
+
     public void NavigateToNiche(NicheType niche)
     {
         Navigate(ScreenMode.NicheScreen, C.MENU_SELECTED_NICHE, niche);
@@ -114,8 +120,8 @@ public abstract partial class ButtonController
         NavigateToCompany(ScreenMode.ProjectScreen, companyId);
     }
 
-    public void NavigateToMainScreen()
-    {
-        Navigate(ScreenMode.HoldingScreen);
-    }
+    //public void NavigateToMainScreen()
+    //{
+    //    Navigate(ScreenMode.HoldingScreen);
+    //}
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Core;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Core
@@ -60,7 +61,7 @@ namespace Assets.Core
                 company.ownings.Holdings.Add(owningCompanyId);
         }
 
-        public static int CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
+        public static GameEntity CreateProductAndAttachItToGroup(GameContext gameContext, NicheType nicheType, GameEntity group)
         {
             string name = group.company.Name + " " + Enums.GetFormattedNicheName(nicheType);
 
@@ -68,7 +69,32 @@ namespace Assets.Core
 
             AttachToGroup(gameContext, group.company.Id, c.company.Id);
 
-            return c.company.Id;
+            return c;
+        }
+
+        public static void TurnProductToPlayerFlagship(GameEntity company, GameContext Q, NicheType nicheType)
+        {
+            company.isFlagship = true;
+            company.AddChannelExploration(new Dictionary<int, int>(), new List<int>(), 1);
+
+            // give bad positioning initially
+            var infos = Marketing.GetAudienceInfos();
+
+            Marketing.AddClients(company, -50, company.productPositioning.Positioning);
+
+            var positionings = Markets.GetNichePositionings(nicheType, Q);
+            var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
+
+            var rand = Random.Range(0, 2);
+            company.productPositioning.Positioning = rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
+
+            Marketing.AddClients(company, 50, company.productPositioning.Positioning);
+
+            // give good salary to CEO, so he will not leave company
+            var CEO = Humans.GetHuman(Q, Companies.GetCEOId(company));
+
+            var salary = Teams.GetSalaryPerRating(CEO);
+            Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0);
         }
 
     }

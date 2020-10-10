@@ -36,7 +36,7 @@ namespace Assets.Core
                 [C.MENU_SELECTED_MAIN_SCREEN_PANEL_ID] = 0
             };
 
-            menu.AddMenu(ScreenMode.NicheScreen, dictionary);
+            menu.AddMenu(ScreenMode.HoldingScreen, dictionary);
 
             return menu;
         }
