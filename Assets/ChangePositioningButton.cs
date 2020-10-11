@@ -20,7 +20,7 @@ public class ChangePositioningButton : ButtonView, IPointerEnterHandler, IPointe
     {
         base.ViewRender();
 
-        var positioningTitle = "<b>" + Marketing.GetProductPositionings(Flagship, Q)[positioningId].name + "</b>";
+        var positioningTitle = "<b>" + Marketing.GetNichePositionings(Flagship)[positioningId].name + "</b>";
         if (positioningId == Flagship.productPositioning.Positioning)
         {
             positioningTitle += "\n" + Visuals.Colorize("Our positioning", Colors.COLOR_GOLD);
@@ -39,7 +39,7 @@ public class ChangePositioningButton : ButtonView, IPointerEnterHandler, IPointe
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         // audiences loyalty change
-        var positioning = Marketing.GetProductPositionings(Flagship, Q);
+        var positioning = Marketing.GetNichePositionings(Flagship);
 
         var currentBuff = positioning[positioningId].Loyalties;
 

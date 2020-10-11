@@ -59,7 +59,7 @@ public class ProductCompanyCompetingPreview : View,
         IsNewCompanyLabel.gameObject.SetActive(false);
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, Dictionary<int, long> clients1)
+    void IMarketingListener.OnMarketing(GameEntity entity, Dictionary<int, long> clients1)
     {
         RenderClients(entity);
     }

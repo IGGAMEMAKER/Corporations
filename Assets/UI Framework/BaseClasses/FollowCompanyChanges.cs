@@ -74,7 +74,7 @@ public class FollowCompanyChanges : Controller
         Render();
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, Dictionary<int, long> clients1)
+    void IMarketingListener.OnMarketing(GameEntity entity, Dictionary<int, long> clients1)
     {
         Render();
     }

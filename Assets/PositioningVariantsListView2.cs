@@ -14,7 +14,7 @@ public class PositioningVariantsListView2 : ListView
     {
         base.ViewRender();
 
-        var positionings = Marketing.GetProductPositionings(Flagship, Q);
+        var positionings = Marketing.GetNichePositionings(Flagship);
 
         SetItems(positionings);
     }

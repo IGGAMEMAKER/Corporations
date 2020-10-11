@@ -38,8 +38,8 @@ namespace Assets.Core
             Teams.AddTeamTask(product, context, 0, new TeamTaskSupportFeature(serverFeature));
 
             // clients
-            var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
-            var baseClients = Random.Range(0.15f, 0.35f) * flow;
+            //var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
+            //var baseClients = Random.Range(0.15f, 0.35f) * flow;
 
 
             var clientList = new Dictionary<int, long>
@@ -47,7 +47,7 @@ namespace Assets.Core
                 [coreId] = 50
             };
 
-            product.AddMarketing((long)baseClients, clientList);
+            product.AddMarketing(clientList);
 
             product.AddCompanyMarketingActivities(new Dictionary<int, long>());
             product.AddSourceOfClients(new Dictionary<int, long>());

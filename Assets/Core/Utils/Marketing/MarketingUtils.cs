@@ -28,20 +28,7 @@ namespace Assets.Core
                 marketing.ClientList[segmentId] = 0;
             }
 
-            company.ReplaceMarketing(marketing.ClientList.Values.Sum(), marketing.ClientList);
-        }
-
-        public static void LoseClients(GameEntity company, long clients)
-        {
-            // TODO THIS FUNCTION DOES NOTHING
-
-            var marketing = company.marketing;
-
-            var newClients = marketing.clients - clients;
-            if (newClients < 0)
-                newClients = 0;
-
-            //company.ReplaceMarketing(newClients);
+            company.ReplaceMarketing(marketing.ClientList);
         }
 
         public static long GetChurnClients(GameEntity product, int segmentId)

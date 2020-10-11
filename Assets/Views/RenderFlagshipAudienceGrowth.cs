@@ -49,8 +49,9 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
         }
     }
 
-    void IMarketingListener.OnMarketing(GameEntity entity, long clients, Dictionary<int, long> clients1)
+    void IMarketingListener.OnMarketing(GameEntity entity, Dictionary<int, long> clients1)
     {
+        var clients = Marketing.GetClients(entity);
         var change = clients - previousClients;
 
         previousClients = clients;

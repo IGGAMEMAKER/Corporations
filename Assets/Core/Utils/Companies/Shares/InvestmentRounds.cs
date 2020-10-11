@@ -12,7 +12,6 @@
             return !company.hasAcceptsInvestments;
         }
 
-        public static void StartInvestmentRound(GameContext gameContext, int companyId) => StartInvestmentRound(gameContext, Get(gameContext, companyId));
         public static void StartInvestmentRound(GameContext gameContext, GameEntity company)
         {
             if (IsReadyToStartInvestmentRound(company))
