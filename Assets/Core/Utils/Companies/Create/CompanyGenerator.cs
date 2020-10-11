@@ -8,6 +8,10 @@ namespace Assets.Core
         public static GameEntity CreateProduct(GameContext context, GameEntity product, NicheType niche)
         {
             product.AddProduct(niche, 0);
+
+            product.AddNicheState(Markets.GetMarketState(context, niche), 100);
+            product.AddNicheSegments(Markets.GetNichePositionings(niche, context));
+
             product.AddProductUpgrades(new Dictionary<ProductUpgrade, bool>
             {
                 [ProductUpgrade.SimpleConcept] = true,

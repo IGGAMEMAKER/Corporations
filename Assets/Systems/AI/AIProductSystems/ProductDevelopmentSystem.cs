@@ -39,7 +39,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             foreach (var s in segments)
             {
-                var loyalty = Marketing.GetSegmentLoyalty(gameContext, product, s.ID);
+                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
                 var attitude = feature.AttitudeToFeature[s.ID];
 
                 // will make audience sad

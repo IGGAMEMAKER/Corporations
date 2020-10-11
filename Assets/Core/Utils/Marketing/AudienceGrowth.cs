@@ -15,7 +15,7 @@ namespace Assets.Core
             {
                 var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
 
-                var gain = GetChannelClientGain(product, gameContext, channel, segmentId);
+                var gain = GetChannelClientGain(product, channel, segmentId);
                 result += gain;
             }
 
@@ -32,7 +32,7 @@ namespace Assets.Core
             {
                 var channel = channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
 
-                var gain = GetChannelClientGain(product, gameContext, channel);
+                var gain = GetChannelClientGain(product, channel);
 
                 bonus.AppendAndHideIfZero("Channel " + channelId, gain);
             }
@@ -54,7 +54,7 @@ namespace Assets.Core
             var segments = Marketing.GetAudienceInfos();
             for (var i = 0; i < segments.Count; i++)
             {
-               churnUsers += Marketing.GetChurnClients(gameContext, product.company.Id, i);
+               churnUsers += Marketing.GetChurnClients(product, i);
             }
 
             bonus.Append("Growth", Marketing.GetAudienceGrowth(product, gameContext));
@@ -69,19 +69,9 @@ namespace Assets.Core
             return GetAudienceChange(product, gameContext, true).Sum();
         }
 
-        public static List<ProductPositioning> GetProductPositionings(GameEntity product, GameContext gameContext)
+        public static bool IsTargetAudience(GameEntity product, int segmentId)
         {
-            return Markets.GetNichePositionings(product.product.Niche, gameContext);
-        }
-
-        public static ProductPositioning GetProductPositioning(GameEntity product, GameContext gameContext)
-        {
-            return GetProductPositionings(product, gameContext)[product.productPositioning.Positioning];
-        }
-
-        public static bool IsTargetAudience(GameEntity product, GameContext gameContext, int segmentId)
-        {
-            return GetProductPositioning(product, gameContext).Loyalties[segmentId] > 0;
+            return GetPositioning(product).Loyalties[segmentId] > 0;
         }
 
         public static int GetCoreAudienceId(GameEntity product, GameContext gameContext)

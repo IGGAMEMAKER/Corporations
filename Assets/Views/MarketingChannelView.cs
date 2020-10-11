@@ -62,7 +62,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         if (isFreeChannel)
             ToggleTexts(true);
 
-        var gainedAudience = Marketing.GetChannelClientGain(company, Q, channel);
+        var gainedAudience = Marketing.GetChannelClientGain(company, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
         Users.color = repaymentColor;
 
@@ -124,7 +124,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
         var audiences = Marketing.GetAudienceInfos();
 
-        var changes = audiences.Select(a => Marketing.GetChannelClientGain(Flagship, Q, channel, a.ID));
+        var changes = audiences.Select(a => Marketing.GetChannelClientGain(Flagship, channel, a.ID));
         if (RenderAudiencesListView != null)
             RenderAudiencesListView.ShowValueChanges(changes.ToList());
     }

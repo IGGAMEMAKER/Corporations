@@ -6,7 +6,8 @@ public class ReleaseAppPopupButton : PopupButtonController<PopupMessageDoYouWant
     {
         var companyId = Popup.companyId;
 
-        Marketing.ReleaseApp(Q, companyId);
+        var company = Companies.Get(Q, companyId);
+        Marketing.ReleaseApp(Q, company);
 
 
         NotificationUtils.ClosePopup(Q);

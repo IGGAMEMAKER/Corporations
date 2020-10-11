@@ -52,7 +52,7 @@ namespace Assets.Core
         {
             var targetAudience = company.productPositioning.Positioning; //.SegmentId;
             return new GoalRequirements {
-                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),
+                have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
                 need = 1
             };
         }
@@ -115,7 +115,7 @@ namespace Assets.Core
 
             return new GoalRequirements
             {
-                have = (long)Marketing.GetSegmentLoyalty(gameContext, company, targetAudience),
+                have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
                 need = 5,
             };
             //return new GoalRequirements

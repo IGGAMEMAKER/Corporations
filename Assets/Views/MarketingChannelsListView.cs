@@ -43,7 +43,7 @@ public class MarketingChannelsListView : ListView
 
         var availableChannels = Markets.GetMarketingChannelsList(company, Q);
 
-        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, Q, c))); // segmentId
+        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, c))); // segmentId
 
         var allChannels = Markets.GetMarketingChannels(Q);
 

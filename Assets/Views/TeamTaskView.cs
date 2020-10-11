@@ -99,7 +99,7 @@ public class TeamTaskView : View
             Icon.sprite = ChannelSprite;
 
             var channel = Markets.GetMarketingChannel(Q, (Task as TeamTaskChannelActivity).ChannelId);
-            var gain = Marketing.GetChannelClientGain(product, Q, channel);
+            var gain = Marketing.GetChannelClientGain(product, channel);
 
             RepresentativeNumber.text = "+" + Format.Minify(gain); // .ToString("0.0")
             RepresentativeNumber.color = Visuals.GetColorPositiveOrNegative(true);

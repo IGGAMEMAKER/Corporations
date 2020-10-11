@@ -86,7 +86,7 @@ public class AudiencesOnMainScreenListView : ListView
 
         var growthPhrase = $"+{Format.Minify(growing)} weekly";
 
-        var loyalty = Marketing.GetSegmentLoyalty(Q, Flagship, segmentId, true);
+        var loyalty = Marketing.GetSegmentLoyalty(Flagship, segmentId, true);
 
         MainInfo.Title.text          = $"<b>{audience.Name}</b>\nIncome: {Visuals.Positive(Format.MinifyMoney(income))}";
         AmountOfUsers.Title.text     = $"{Format.Minify(clients)} {audience.Name}\n" + Visuals.Colorize(growthPhrase, growing >= 0);

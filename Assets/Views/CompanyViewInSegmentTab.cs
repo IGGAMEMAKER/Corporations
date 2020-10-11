@@ -20,7 +20,7 @@ public class CompanyViewInSegmentTab : View
 
     public void SetEntity(GameEntity company, int segmentId)
     {
-        var loyalty = (int)Marketing.GetSegmentLoyalty(Q, company, segmentId); // Random.Range(-5, 10);
+        var loyalty = (int)Marketing.GetSegmentLoyalty(company, segmentId); // Random.Range(-5, 10);
         AudienceLoyalty.text = loyalty.ToString();
         AudienceLoyalty.color = Visuals.GetColorPositiveOrNegative(loyalty);
 

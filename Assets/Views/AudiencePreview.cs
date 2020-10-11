@@ -27,12 +27,12 @@ public class AudiencePreview : View
         Audience = audience;
 
         var links = GetComponent<ProductUpgradeLinks>();
-        bool isMainAudience = Marketing.IsTargetAudience(Flagship, Q, segmentId);
+        bool isMainAudience = Marketing.IsTargetAudience(Flagship, segmentId);
 
         Draw(TargetAudience, isMainAudience);
 
-        var loyalty = (int) Marketing.GetSegmentLoyalty(Q, Flagship, segmentId); // Random.Range(-5, 15);
-        var loyaltyBonus = Marketing.GetSegmentLoyalty(Q, Flagship, segmentId, true);
+        var loyalty = (int) Marketing.GetSegmentLoyalty(Flagship, segmentId); // Random.Range(-5, 15);
+        var loyaltyBonus = Marketing.GetSegmentLoyalty(Flagship, segmentId, true);
 
         long clients = Flagship.marketing.ClientList.ContainsKey(segmentId) ? Flagship.marketing.ClientList[segmentId] : 0;
 

@@ -119,7 +119,7 @@ namespace Assets.Core
 
                     foreach (var a in segments)
                     {
-                        var loyalty = Marketing.GetSegmentLoyalty(gameContext, company, a.ID);
+                        var loyalty = Marketing.GetSegmentLoyalty(company, a.ID);
                         var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
 
                         if (change < 0 && loyalty + change < 0)

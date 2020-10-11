@@ -31,7 +31,7 @@ public class SegmentPreview : View
         Icon.texture = Resources.Load<Texture2D>($"Audiences/{info.Icon}");
 
         var company = Flagship;
-        bool isTargetAudience = Marketing.IsTargetAudience(company, Q, segmentId);
+        bool isTargetAudience = Marketing.IsTargetAudience(company, segmentId);
 
         var audienceColor = Visuals.GetColorFromString(isTargetAudience ? Colors.COLOR_GOLD : Colors.COLOR_WHITE);
         if (isTargetAudience)

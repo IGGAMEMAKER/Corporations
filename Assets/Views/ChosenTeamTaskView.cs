@@ -22,7 +22,7 @@ public class ChosenTeamTaskView : ParameterView
             var f = task as TeamTaskChannelActivity;
 
             var channel = Markets.GetMarketingChannel(Q, f.ChannelId);
-            var gain = Marketing.GetChannelClientGain(Flagship, Q, channel);
+            var gain = Marketing.GetChannelClientGain(Flagship, channel);
 
             return $"Marketing in Forum {channel.marketingChannel.ChannelInfo.ID} (+{Format.Minify(gain)} users / week)";
         }
