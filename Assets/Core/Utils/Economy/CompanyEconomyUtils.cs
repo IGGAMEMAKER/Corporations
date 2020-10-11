@@ -80,48 +80,33 @@ namespace Assets.Core
         }
         
         // TODO move to raise investments
-        public static void RaiseFastCash(GameContext gameContext, GameEntity company)
+        public static void RaiseFastCash(GameContext gameContext, GameEntity company, bool CeoNeedsToCommitToo = false)
         {
             if (IsHasCashOverflow(gameContext, company))
                 return;
 
-            var valuation = GetCompanyCost(gameContext, company);
             var offer = GetFastCashAmount(gameContext, company);
-
-            var fundId = Investments.GetRandomInvestmentFund(gameContext);
-
-            bool hasShareholders = company.shareholders.Shareholders.Count > 1;
-
             var proposal = new InvestmentProposal
             {
                 Investment = new Investment(offer, 0, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
 
-                ShareholderId = fundId,
                 WasAccepted = false
             };
 
-            if (!hasShareholders)
+            for (var i = 0; i < company.shareholders.Shareholders.Count; i++)
             {
-                Companies.AddInvestmentProposal(gameContext, company, proposal);
-                Companies.AcceptInvestmentProposal(gameContext, company, fundId);
-            }
-            else
-            {
-                for (var i = 0; i < company.shareholders.Shareholders.Count; i++)
-                {
-                    var investorId = company.shareholders.Shareholders.Keys.ToArray()[i];
-                    var inv = Companies.GetInvestorById(gameContext, investorId);
+                var investorId = company.shareholders.Shareholders.Keys.ToArray()[i];
+                var inv = Companies.GetInvestorById(gameContext, investorId);
 
-                    bool isCeo = inv.shareholder.InvestorType == InvestorType.Founder;
+                bool isCeo = inv.shareholder.InvestorType == InvestorType.Founder;
 
-                    proposal.ShareholderId = investorId;
+                if (isCeo && !CeoNeedsToCommitToo)
+                    continue;
 
-                    if (!isCeo)
-                    {
-                        Companies.AddInvestmentProposal(gameContext, company, proposal);
-                        Companies.AcceptInvestmentProposal(gameContext, company, investorId);
-                    }
-                }
+                proposal.ShareholderId = investorId;
+
+                Companies.AddInvestmentProposal(company, proposal);
+                Companies.AcceptInvestmentProposal(gameContext, company, investorId);
             }
         }
     }

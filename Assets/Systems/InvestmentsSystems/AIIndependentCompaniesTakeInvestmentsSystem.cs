@@ -54,9 +54,6 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnMonthChange
             var investorShareholderId = s.ShareholderId;
 
             Companies.AcceptInvestmentProposal(gameContext, company, investorShareholderId);
-
-            //var shareholderName = Companies.GetInvestorName(gameContext, investorShareholderId);
-            //Format.Print($"Took investments from {shareholderName}. Offer: {Format.Money(s.Offer)}", company);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Assets.Core
 
 
 
-        public static void AddInvestmentProposal(GameContext gameContext, GameEntity company, InvestmentProposal proposal)
+        public static void AddInvestmentProposal(GameEntity company, InvestmentProposal proposal)
         {
             int companyId = company.company.Id;
 
@@ -54,12 +54,12 @@ namespace Assets.Core
         }
 
         // to remove
-        public static void RejectProposal(GameContext gameContext, GameEntity company, int investorId)
+        public static void RejectProposal(GameEntity company, int investorId)
         {
-            RemoveProposal(gameContext, company, investorId);
+            RemoveProposal(company, investorId);
         }
 
-        public static void RemoveProposal(GameContext gameContext, GameEntity company, int investorId)
+        public static void RemoveProposal(GameEntity company, int investorId)
         {
             var proposals = GetInvestmentProposals(company);
 

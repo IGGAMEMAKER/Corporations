@@ -26,6 +26,9 @@
         Add(new HireNewManagersSystem(contexts));
         //Add(new ChurnSystem(contexts));
 
+        // Teams (automatic actions)
+        Add(new TeamSystems(contexts));
+
         // GLOBAL INTERACTIONS
 
         // expansion
@@ -40,7 +43,5 @@
         Add(new AIClosePoorProductsIfMarketIsDeadSystem(contexts));
         Add(new CheckBankruptciesSystem(contexts));
 
-        // Teams (automatic actions)
-        Add(new TeamSystems(contexts));
     }
 }

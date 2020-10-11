@@ -4,23 +4,22 @@
     {
         public static void AcceptInvestmentProposal(GameContext gameContext, GameEntity company, int investorId)
         {
-            int companyId = company.company.Id;
-
             var p = GetInvestmentProposal(company, investorId);
 
             // calculating new shares size
             long cost = Economy.GetCompanyCost(gameContext, company);
 
-            var allShares = (long)GetTotalShares(gameContext, companyId);
+            var allShares = (long)GetTotalShares(company);
             long shares = allShares * p.Investment.Offer / cost;
 
             // update shareholders list
-            AddShareholder(gameContext, company, investorId, (int)shares);
+            var investor = GetInvestorById(gameContext, investorId);
+            AddShareholder(company, investor, (int)shares);
 
 
             var portion = p.Investment.Portion;
-            Economy.IncreaseCompanyBalance(gameContext, companyId, portion);
-            Economy.DecreaseInvestmentFunds(gameContext, investorId, portion);
+            Economy.IncreaseCompanyBalance(company, portion);
+            Economy.DecreaseInvestmentFunds(investor, portion);
 
             MarkProposalAsAccepted(company, investorId);
         }

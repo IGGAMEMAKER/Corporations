@@ -116,7 +116,7 @@ namespace Assets.Core
 
             Investments.BecomeInvestor(gameContext, shareholder, 100000);
 
-            AddShareholder(gameContext, c, shareholder.shareholder.Id, 500);
+            AddShareholder(c, shareholder, 500);
 
             if (founderOnly)
                 return;

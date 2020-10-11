@@ -12,6 +12,7 @@ namespace Assets.Core
         }
         public static GameEntity[] Get(GameContext context)
         {
+            return GetAll(context);
             return context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Alive));
         }
 

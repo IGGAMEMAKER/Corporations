@@ -6,7 +6,7 @@ public class RejectInvestmentProposalController : ButtonController
 
     public override void Execute()
     {
-        Companies.RejectProposal(Q, SelectedCompany.company.Id, InvestorId);
+        Companies.RejectProposal(SelectedCompany, InvestorId);
         //ReNavigate();
     }
 }

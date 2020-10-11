@@ -45,6 +45,8 @@ public class AudiencesOnMainScreenListView : ListView
             SetItems(audiences.Where(a => a.ID == positioning));
         }
 
+        Teams.UpdateTeamEfficiency(Flagship, Q);
+
         if (Iteration != null)
             Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
 

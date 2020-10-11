@@ -7,15 +7,14 @@ public class ShareholderProposalsListView : ListView
     {
         var proposal = entity as InvestmentProposal;
 
-        t.GetComponent<ShareholderProposalView>()
-            .SetEntity(proposal);
+        t.GetComponent<ShareholderProposalView>().SetEntity(proposal);
     }
 
     public override void ViewRender()
     {
-        var proposals = Companies.GetInvestmentProposals(Q, MyCompany.company.Id);
+        var proposals = Companies.GetInvestmentProposals(MyCompany);
 
-        GetComponent<ShareholderProposalsListView>()
-            .SetItems(proposals.ToArray(), MyCompany);
+        // TODO is MYCOMPANY really necessary?
+        GetComponent<ShareholderProposalsListView>().SetItems(proposals, MyCompany);
     }
 }

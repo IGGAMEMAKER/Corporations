@@ -23,8 +23,10 @@ namespace Assets.Core
 
             var corporationCost = Economy.GetCompanyCost(gameContext, corporation);
             var targetCost = Economy.GetCompanyCost(gameContext, target);
-            
-            var corporationShares = Companies.GetTotalShares(gameContext, companyId);
+
+            // TODO
+            //             var corporationShares = Companies.GetTotalShares(gameContext, companyId);
+            var corporationShares = Companies.GetTotalShares(target);
             var emitedShares = corporationShares * targetCost / corporationCost;
 
             // give shares in corporation to shareholders of integratable company
@@ -43,7 +45,8 @@ namespace Assets.Core
             {
                 RemoveShareholder(target, gameContext, shareholderId);
             }
-            AddShareholder(gameContext, target, buyerInvestorId, 100);
+            //AddShareholder(gameContext, target, buyerInvestorId, 100);
+            AddShareholder(target, corporation, 100);
             target.isIndependentCompany = false;
 
             NotifyAboutCorporateAcquisition(gameContext, buyerInvestorId, companyId);

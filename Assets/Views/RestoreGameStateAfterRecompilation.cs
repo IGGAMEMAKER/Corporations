@@ -372,8 +372,9 @@ public class RestoreGameStateAfterRecompilation : View
     void AddShareholder(int companyId, int investorId, int shares)
     {
         //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
+        var company = Companies.Get(Q, companyId);
 
-        Companies.AddShareholder(Q, companyId, investorId, shares);
+        Companies.AddShareholder(Q, company, investorId, shares);
     }
 
     int PromoteToGroup(int companyId)

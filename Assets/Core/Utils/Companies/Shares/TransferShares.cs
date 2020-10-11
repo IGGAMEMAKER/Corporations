@@ -10,21 +10,26 @@ namespace Assets.Core
             company.ReplaceShareholders(shareholders);
         }
 
+        // Add shareholder
+
         public static void AddShareholder(GameContext context, GameEntity company, int investorId, int shares)
+        {
+            AddShareholder(company, GetInvestorById(context, investorId), shares);
+        }
+        public static void AddShareholder(GameEntity company, GameEntity investor, int shares)
         {
             var b = new BlockOfShares
             {
                 amount = shares,
                 
-                InvestorType = GetInvestorById(context, investorId).shareholder.InvestorType,
+                InvestorType = investor.shareholder.InvestorType,
                 shareholderLoyalty = 100,
 
                 Investments = new List<Investment>()
             };
 
-            AddShareholder(company, investorId, b);
+            AddShareholder(company, investor.shareholder.Id, b);
         }
-
         public static void AddShareholder(GameEntity c, int investorId, BlockOfShares block)
         {
             var shareholders = c.shareholders.Shareholders;
@@ -45,6 +50,7 @@ namespace Assets.Core
 
             ReplaceShareholders(c, shareholders);
         }
+        //
 
 
         public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)

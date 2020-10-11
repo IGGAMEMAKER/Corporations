@@ -40,7 +40,7 @@ namespace Assets.Core
                 if (company.hasShareholder && company.shareholder.Id == ShareholderId)
                     continue;
 
-                AddInvestmentProposal(context, company, p);
+                AddInvestmentProposal(company, p);
             }
         }
 

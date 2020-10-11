@@ -16,6 +16,9 @@ class RelationshipSystem : OnPeriodChange
         foreach (var h in relationshipContainers)
         {
             var company = Companies.Get(gameContext, h.worker.companyId);
+            if (company == null)
+                continue;
+
             var team = company.team.Managers.Keys;
 
             foreach (var humanId in team)
