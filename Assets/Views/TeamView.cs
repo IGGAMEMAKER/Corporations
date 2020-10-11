@@ -85,7 +85,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
 
         if (task.IsMarketingTask)
         {
-            var marketingEffeciency = Marketing.GetMarketingTeamEffeciency(Q, Flagship);
+            var marketingEffeciency = Teams.GetMarketingEfficiency(Flagship);
             var channel = Markets.GetMarketingChannel(Q, (task as TeamTaskChannelActivity).ChannelId);
 
             var baseGain = Marketing.GetChannelClientGain(Flagship, channel);

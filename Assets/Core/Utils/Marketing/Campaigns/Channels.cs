@@ -22,6 +22,25 @@ namespace Assets.Core
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
+        public static long GetChannelGainLoyaltyBonus(GameEntity company, GameEntity channel, int segmentId)
+        {
+            var loyalty = (int)GetSegmentLoyalty(company, segmentId);
+
+            int loyaltyBonus = 0;
+            if (loyalty >= 0)
+            {
+                loyaltyBonus = loyalty * 10;
+
+                if (loyalty > 10)
+                    loyaltyBonus = 10 * 10 + (loyalty - 10) * 5;
+
+                if (loyalty > 20)
+                    loyaltyBonus = 10 * 10 + 10 * 5 + (loyalty - 20) * 1;
+            }
+
+            return loyaltyBonus;
+        }
+
         public static long GetChannelClientGain(GameEntity company, GameEntity channel) => GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
         public static long GetChannelClientGain(GameEntity company, GameEntity channel, int segmentId)
         {
@@ -39,71 +58,22 @@ namespace Assets.Core
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            var loyalty = (int)GetSegmentLoyalty(company, segmentId);
-
             var positioning = GetPositioning(company);
             var positioningLoyalty = positioning.Loyalties[segmentId];
-
-            // cannot get clients if existing ones are outraged
-            if (loyalty < 0)
-                return 0;
 
             // cannot get other segments if our product is not targeted for them
             if (positioningLoyalty < 0)
                 return 0;
 
-            int loyaltyBonus = 0;
-            if (loyalty >= 0)
-            {
-                loyaltyBonus = loyalty * 10;
+            var loyaltyBonus = GetChannelGainLoyaltyBonus(company, channel, segmentId);
+            
+            // cannot get clients if existing ones are outraged
+            if (loyaltyBonus <= 0)
+                return 0;
 
-                if (loyalty > 10)
-                    loyaltyBonus = 10 * 10 + (loyalty - 10) * 5;
-
-                if (loyalty > 20)
-                    loyaltyBonus = 10 * 10 + 10 * 5 + (loyalty - 20) * 1;
-            }
-
-            var marketingEffeciency = company.teamEfficiency.Efficiency.MarketingEfficiency; // GetMarketingTeamEffeciency(gameContext, company);
+            var marketingEffeciency = Teams.GetMarketingEfficiency(company);
 
             return batch * (marketingEffeciency + loyaltyBonus) / 100;
-        }
-
-        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company)
-        {
-            var viableTeams = company.team.Teams
-                // marketing teams only
-                .Where(t => Teams.IsUniversalTeam(t.TeamType) || t.TeamType == TeamType.MarketingTeam)
-                //.Select(t => 100)
-                .Select(t => Teams.GetTeamEffeciency(company, t) * GetMarketingTeamEffeciency(gameContext, company, t) / 100)
-                ;
-
-
-            var teamEffeciency = viableTeams.Count() > 0 ? (int)viableTeams.Average() : 30;
-
-            return teamEffeciency;
-        }
-        public static int GetMarketingTeamEffeciency(GameContext gameContext, GameEntity company, TeamInfo teamInfo)
-        {
-            var marketingEffeciency = 0;
-
-            if (teamInfo != null)
-            {
-                marketingEffeciency = Teams.GetEffectiveManagerRating(gameContext, company, WorkerRole.MarketingLead, teamInfo);
-
-                marketingEffeciency *= teamInfo.TeamType == TeamType.MarketingTeam ? 2 : 1;
-
-                marketingEffeciency += teamInfo.TeamType == TeamType.MarketingTeam ? 25 : 0;
-
-                bool hasMainManager = Teams.HasMainManagerInTeam(teamInfo, gameContext, company);
-                if (hasMainManager)
-                {
-                    var focus = teamInfo.ManagerTasks.Count(t => t == ManagerTask.ViralSpread);
-                    marketingEffeciency += focus * 10;
-                }
-            }
-
-            return 50 + marketingEffeciency;
         }
 
         // in months

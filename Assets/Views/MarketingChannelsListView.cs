@@ -53,7 +53,7 @@ public class MarketingChannelsListView : ListView
         SetItems(channels);
 
         if (MarketingEfficiency != null)
-            MarketingEfficiency.text = Visuals.Positive(Marketing.GetMarketingTeamEffeciency(Q, Flagship) + "%");
+            MarketingEfficiency.text = Visuals.Positive(Teams.GetMarketingEfficiency(Flagship) + "%");
     }
 
     private void OnEnable()

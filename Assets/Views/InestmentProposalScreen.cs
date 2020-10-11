@@ -22,6 +22,6 @@ public class InestmentProposalScreen : View
         StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
 
         // render action buttons
-        StartRoundButton.gameObject.SetActive(company.isControlledByPlayer);
+        Draw(StartRoundButton, company.isControlledByPlayer);
     }
 }
