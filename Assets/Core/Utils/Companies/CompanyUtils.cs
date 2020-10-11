@@ -6,9 +6,13 @@ namespace Assets.Core
     public static partial class Companies
     {
         // Read
-        public static GameEntity[] Get(GameContext context)
+        public static GameEntity[] GetAll(GameContext context)
         {
             return context.GetEntities(GameMatcher.Company);
+        }
+        public static GameEntity[] Get(GameContext context)
+        {
+            return context.GetEntities(GameMatcher.AllOf(GameMatcher.Company, GameMatcher.Alive));
         }
 
         public static GameEntity Get(GameContext context, int companyId)

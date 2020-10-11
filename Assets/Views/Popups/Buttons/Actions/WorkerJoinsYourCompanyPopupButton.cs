@@ -9,7 +9,7 @@ public class WorkerJoinsYourCompanyPopupButton : PopupButtonController<PopupMess
 
 
         var company = Companies.Get(Q, companyId);
-        var human = Humans.GetHuman(Q, humanId);
+        var human = Humans.Get(Q, humanId);
 
         NotificationUtils.ClosePopup(Q);
 

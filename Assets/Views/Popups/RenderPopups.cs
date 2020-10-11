@@ -155,7 +155,7 @@ public partial class PopupView : View
 
     void RenderDefectedManager(PopupMessageWorkerWantsToWorkInYourCompany popup)
     {
-        var human = Humans.GetHuman(Q, popup.humanId);
+        var human = Humans.Get(Q, popup.humanId);
 
         var role = Humans.GetRole(human);
         var formattedRole = Humans.GetFormattedRole(role);
@@ -175,7 +175,7 @@ public partial class PopupView : View
 
     void RenderDisloyalManager(PopupMessageWorkerLeavesYourCompany popup)
     {
-        var human = Humans.GetHuman(Q, popup.humanId);
+        var human = Humans.Get(Q, popup.humanId);
 
         var role = Humans.GetRole(human);
         var formattedRole = Humans.GetFormattedRole(role);

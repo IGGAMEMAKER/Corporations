@@ -23,7 +23,7 @@ public class HumanPreview : View
     /// <param name="drawAsEmployee">if true - renders as employee. Renders as worker otherwise</param>
     public void SetEntity(int humanId)
     {
-        human = Humans.GetHuman(Q, humanId);
+        human = Humans.Get(Q, humanId);
         bool drawAsEmployee = !Humans.IsEmployed(human);
 
         Render(drawAsEmployee);

@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using Entitas;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 class UpdateTeamEfficiencySystem : OnMonthChange
@@ -39,7 +40,9 @@ class TeamGrowthSystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+        var companies = Companies.Get(gameContext); // contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+        var humans = Humans.Get(gameContext);
+
 
         // maslov pyramid
         //
@@ -51,17 +54,19 @@ class TeamGrowthSystem : OnMonthChange
 
         foreach (var c in companies)
         {
-            var culture = Companies.GetActualCorporateCulture(c, gameContext);
+            //var culture = Companies.GetActualCorporateCulture(c, gameContext);
 
             // gain expertise and recalculate loyalty
             foreach (var t in c.team.Teams)
             {
-                foreach (var m in t.Managers)
+                var managers = t.Managers.Select(m => humans.First(h => h.human.Id == m));
+
+                foreach (var human in managers)
                 {
-                    var human = Humans.GetHuman(gameContext, m);
+                    bool hasTeacherInTeam = managers.Any(m1 => m1.humanSkills.Traits.Contains(Trait.Teacher) && m1.human.Id != human.human.Id);
 
                     // bigger the value... MORE chances to upgrade
-                    var growth = Teams.GetManagerGrowthBonus(human, t, false, gameContext).Sum();
+                    var growth = Teams.GetManagerGrowthBonus(human, t, hasTeacherInTeam, gameContext).Sum();
 
                     var willGrow = Random.Range(0, 100) < growth;
 

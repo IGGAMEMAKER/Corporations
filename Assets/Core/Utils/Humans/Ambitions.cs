@@ -20,7 +20,7 @@ namespace Assets.Core
         // ambitions
         public static Ambition GetAmbition(GameContext gameContext, int humanId)
         {
-            var human = GetHuman(gameContext, humanId);
+            var human = Get(gameContext, humanId);
             var rating = GetRating(human);
 
             return GetFounderAmbition(human.humanSkills.Traits, rating);

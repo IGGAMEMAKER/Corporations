@@ -134,7 +134,7 @@ namespace Assets.Core
         }
 
         public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
-        public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.GetHuman(gameContext, humanId));
+        public static void FireManager(GameEntity company, GameContext gameContext, int humanId) => FireManager(company, Humans.Get(gameContext, humanId));
         public static void FireManager(GameEntity company, GameEntity worker)
         {
             foreach (var team in company.team.Teams)

@@ -37,7 +37,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
             if (wantsToRecruit)
             {
                 var humanId = playerFlagship.team.Teams[teamId].Managers[managerId];
-                var worker = Humans.GetHuman(gameContext, humanId);
+                var worker = Humans.Get(gameContext, humanId);
 
                 var rating = Humans.GetRating(worker);
                 var neediness = Mathf.Clamp(Mathf.Pow(rating, 0.3f), 1f, 3f);

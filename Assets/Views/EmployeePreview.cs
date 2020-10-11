@@ -12,7 +12,7 @@ public class EmployeePreview : View
 
     public void SetEntity(int humanId)
     {
-        var human = Humans.GetHuman(Q, humanId);
+        var human = Humans.Get(Q, humanId);
 
         var rating = Humans.GetRating(human);
         var role = Humans.GetRole(human);
@@ -33,7 +33,7 @@ public class EmployeePreview : View
         //Text.text += "\n\n";
 
         var team = Flagship.team.Teams[SelectedTeam];
-        bool willCompeteWithWorker = team.Managers.Select(h => Humans.GetRole(Humans.GetHuman(Q, h))).Count(h => h == role) > 0;
+        bool willCompeteWithWorker = team.Managers.Select(h => Humans.GetRole(Humans.Get(Q, h))).Count(h => h == role) > 0;
 
         if (WorkerRoleName != null)
             WorkerRoleName.color = Visuals.GetColorPositiveOrNegative(!willCompeteWithWorker);

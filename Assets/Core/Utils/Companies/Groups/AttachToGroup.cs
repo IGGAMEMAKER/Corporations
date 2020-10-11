@@ -91,7 +91,7 @@ namespace Assets.Core
             Marketing.AddClients(company, 50, company.productPositioning.Positioning);
 
             // give good salary to CEO, so he will not leave company
-            var CEO = Humans.GetHuman(Q, Companies.GetCEOId(company));
+            var CEO = Humans.Get(Q, Companies.GetCEOId(company));
 
             var salary = Teams.GetSalaryPerRating(CEO);
             Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0);

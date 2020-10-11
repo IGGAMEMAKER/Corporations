@@ -18,7 +18,7 @@ public class TeamListView : StaffListView
         var dict = new Dictionary<int, WorkerRole>();
 
         foreach (var kvp in managers)
-            dict[kvp] = Humans.GetHuman(Q, kvp).worker.WorkerRole;
+            dict[kvp] = Humans.Get(Q, kvp).worker.WorkerRole;
 
         return dict;
     }

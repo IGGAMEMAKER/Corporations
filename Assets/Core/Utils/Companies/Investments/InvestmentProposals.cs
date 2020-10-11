@@ -6,27 +6,24 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static List<InvestmentProposal> GetInvestmentProposals(GameContext context, int companyId) => GetInvestmentProposals(Get(context, companyId));
         public static List<InvestmentProposal> GetInvestmentProposals(GameEntity company)
         {
             return company.investmentProposals.Proposals;
         }
 
-        public static InvestmentProposal GetInvestmentProposal(GameContext context, int companyId, int investorId)
+        public static InvestmentProposal GetInvestmentProposal(GameEntity company, int investorId)
         {
-            return GetInvestmentProposals(context, companyId).Find(p => p.ShareholderId == investorId);
+            return GetInvestmentProposals(company).Find(p => p.ShareholderId == investorId);
         }
 
-        public static int GetInvestmentProposalIndex(GameContext context, int companyId, int investorId)
+        public static int GetInvestmentProposalIndex(GameEntity company, int investorId)
         {
-            return GetInvestmentProposals(context, companyId).FindIndex(p => p.ShareholderId == investorId);
+            return GetInvestmentProposals(company).FindIndex(p => p.ShareholderId == investorId);
         }
 
-        public static GameEntity[] GetPotentialInvestors(GameContext gameContext, int companyId)
+        public static GameEntity[] GetPotentialInvestors(GameContext gameContext, GameEntity c)
         {
             var investors = gameContext.GetEntities(GameMatcher.Shareholder);
-
-            var c = Get(gameContext, companyId);
 
             return Array.FindAll(investors, s => Investments.IsInvestorSuitable(s, c));
         }
@@ -34,14 +31,14 @@ namespace Assets.Core
 
 
 
-        public static void AddInvestmentProposal(GameContext gameContext, int companyId, InvestmentProposal proposal)
+        public static void AddInvestmentProposal(GameContext gameContext, GameEntity company, InvestmentProposal proposal)
         {
-            var c = Get(gameContext, companyId);
+            int companyId = company.company.Id;
 
-            var proposals = c.investmentProposals.Proposals;
+            var proposals = company.investmentProposals.Proposals;
 
             // TODO REFACTOR
-            var curr = GetInvestmentProposal(gameContext, companyId, proposal.ShareholderId);
+            var curr = GetInvestmentProposal(company, proposal.ShareholderId);
 
             if (curr == null)
             {
@@ -49,28 +46,26 @@ namespace Assets.Core
             }
             else
             {
-                var index = GetInvestmentProposalIndex(gameContext, companyId, proposal.ShareholderId);
+                var index = GetInvestmentProposalIndex(company, proposal.ShareholderId);
                 proposals[index] = proposal;
             }
 
-            c.ReplaceInvestmentProposals(proposals);
+            company.ReplaceInvestmentProposals(proposals);
         }
 
         // to remove
-        public static void RejectProposal(GameContext gameContext, int companyId, int investorId)
+        public static void RejectProposal(GameContext gameContext, GameEntity company, int investorId)
         {
-            RemoveProposal(gameContext, companyId, investorId);
+            RemoveProposal(gameContext, company, investorId);
         }
 
-        public static void RemoveProposal(GameContext gameContext, int companyId, int investorId)
+        public static void RemoveProposal(GameContext gameContext, GameEntity company, int investorId)
         {
-            var c = Get(gameContext, companyId);
-
-            var proposals = GetInvestmentProposals(gameContext, companyId);
+            var proposals = GetInvestmentProposals(company);
 
             proposals.RemoveAll(p => p.ShareholderId == investorId);
 
-            c.ReplaceInvestmentProposals(proposals);
+            company.ReplaceInvestmentProposals(proposals);
         }
     }
 }

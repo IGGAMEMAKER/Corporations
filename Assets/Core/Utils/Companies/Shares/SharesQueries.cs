@@ -7,6 +7,7 @@ namespace Assets.Core
     partial class Companies
     {
         public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(Get(context, companyId).shareholders.Shareholders);
+        public static int GetTotalShares(GameEntity company) => GetTotalShares(company.shareholders.Shareholders);
         public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
         {
             int totalShares = 0;

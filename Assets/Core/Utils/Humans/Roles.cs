@@ -22,7 +22,7 @@ namespace Assets.Core
             throw new System.Exception(err);
         }
 
-        public static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(GetHuman(gameContext, humanId), workerRole);
+        public static void SetRole(GameContext gameContext, int humanId, WorkerRole workerRole) => SetRole(Get(gameContext, humanId), workerRole);
         public static void SetRole(GameEntity human, WorkerRole workerRole)
         {
             if (human.hasWorker)

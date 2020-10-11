@@ -13,7 +13,7 @@ namespace Assets.Core
 
         public static GameEntity GetWorkerByRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
-            var managers = teamInfo.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId));
+            var managers = teamInfo.Managers.Select(humanId => Humans.Get(gameContext, humanId));
 
             var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
 
@@ -22,7 +22,7 @@ namespace Assets.Core
 
         public static bool HasRole(GameEntity company, WorkerRole role, TeamInfo teamInfo, GameContext gameContext)
         {
-            var managers = teamInfo.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId));
+            var managers = teamInfo.Managers.Select(humanId => Humans.Get(gameContext, humanId));
 
             var workersWithRole = managers.Where(h => h.worker.WorkerRole == role);
 

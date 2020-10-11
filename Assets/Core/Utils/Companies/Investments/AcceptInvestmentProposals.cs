@@ -2,46 +2,45 @@
 {
     partial class Companies
     {
-        public static void AcceptInvestmentProposal(GameContext gameContext, int companyId, int investorId)
+        public static void AcceptInvestmentProposal(GameContext gameContext, GameEntity company, int investorId)
         {
-            var p = GetInvestmentProposal(gameContext, companyId, investorId);
+            int companyId = company.company.Id;
 
-            //if (p == null)
-            //    return;
+            var p = GetInvestmentProposal(company, investorId);
 
-            long cost = Economy.GetCompanyCost(gameContext, companyId);
+            // calculating new shares size
+            long cost = Economy.GetCompanyCost(gameContext, company);
 
             var allShares = (long)GetTotalShares(gameContext, companyId);
             long shares = allShares * p.Investment.Offer / cost;
 
+            // update shareholders list
+            AddShareholder(gameContext, company, investorId, (int)shares);
+
+
             var portion = p.Investment.Portion;
-
-            AddShareholder(gameContext, companyId, investorId, (int)shares);
-
             Economy.IncreaseCompanyBalance(gameContext, companyId, portion);
             Economy.DecreaseInvestmentFunds(gameContext, investorId, portion);
 
-            MarkProposalAsAccepted(gameContext, companyId, investorId);
+            MarkProposalAsAccepted(company, investorId);
         }
 
-        static void MarkProposalAsAccepted(GameContext gameContext, int companyId, int investorId)
+        static void MarkProposalAsAccepted(GameEntity company, int investorId)
         {
-            var c = Get(gameContext, companyId);
-
-            var proposals = GetInvestmentProposals(gameContext, companyId);
+            var proposals = GetInvestmentProposals(company);
 
             var index = proposals.FindIndex(p => p.ShareholderId == investorId);
 
             proposals[index].WasAccepted = true;
 
-            var investments = c.shareholders.Shareholders[investorId].Investments;
+            var investments = company.shareholders.Shareholders[investorId].Investments;
 
             if (investments == null)
                 investments = new System.Collections.Generic.List<Investment>();
 
             investments.Add(proposals[index].Investment);
 
-            c.ReplaceInvestmentProposals(proposals);
+            company.ReplaceInvestmentProposals(proposals);
         }
     }
 }

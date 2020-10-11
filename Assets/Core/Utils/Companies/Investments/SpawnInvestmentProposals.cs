@@ -6,13 +6,12 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void SpawnProposals(GameContext context, int companyId)
+        public static void SpawnProposals(GameContext context, GameEntity company)
         {
+            int companyId = company.company.Id;
             long cost = Economy.GetCompanyCost(context, companyId);
-            var c = Get(context, companyId);
 
-            var potentialInvestors = GetPotentialInvestors(context, companyId);
-            var investorsCount = potentialInvestors.Length;
+            var potentialInvestors = GetPotentialInvestors(context, company);
 
             foreach (var potentialInvestor in potentialInvestors)
             {
@@ -38,10 +37,10 @@ namespace Assets.Core
                 };
 
                 // you cannot invest in yourself!
-                if (c.hasShareholder && c.shareholder.Id == ShareholderId)
+                if (company.hasShareholder && company.shareholder.Id == ShareholderId)
                     continue;
 
-                AddInvestmentProposal(context, companyId, p);
+                AddInvestmentProposal(context, company, p);
             }
         }
 

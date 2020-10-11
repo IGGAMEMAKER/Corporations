@@ -11,7 +11,8 @@ class MoraleManagementSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+        //var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+        var companies = Companies.Get(gameContext);
 
         // maslov pyramid
         //
@@ -25,6 +26,8 @@ class MoraleManagementSystem : OnPeriodChange
 
         var playerFlagshipId = Companies.GetPlayerFlagshipID(gameContext);
 
+        var humans = Humans.Get(gameContext);
+
         foreach (var c in companies)
         {
             var culture = Companies.GetActualCorporateCulture(c, gameContext);
@@ -35,7 +38,7 @@ class MoraleManagementSystem : OnPeriodChange
             // gain expertise and recalculate loyalty
             foreach (var team in c.team.Teams)
             {
-                var managers = team.Managers.Select(m => Humans.GetHuman(gameContext, m));
+                var managers = team.Managers.Select(m => humans.First(h => h.human.Id == m)); //  Humans.Get(humans, m)
                 bool tooManyLeaders = managers.Count(m => m.humanSkills.Traits.Contains(Trait.Leader)) >= 2;
 
                 team.TooManyLeaders = tooManyLeaders;
@@ -145,10 +148,10 @@ class MoraleManagementSystem : OnPeriodChange
 
             foreach (var offer in recruitedManagers)
             {
-                var company = Companies.Get(gameContext, offer.CompanyId);
-                var human = Humans.GetHuman(gameContext, offer.HumanId);
+                var human = humans.First(h => h.human.Id == offer.HumanId);
 
-                var previousCompany = Companies.Get(gameContext, human.worker.companyId);
+                var company = companies.First(c1 => c1.company.Id == offer.CompanyId);
+                var previousCompany = c; // companies.First(c1 => c1.company.Id == human.worker.companyId);
 
                 Debug.Log($"Recruiting manager {Humans.GetFullName(human)} from {previousCompany.company.Name} to {company.company.Name}");
 
@@ -166,7 +169,7 @@ class MoraleManagementSystem : OnPeriodChange
             {
                 foreach (var humanId in t.Managers)
                 {
-                    var human = Humans.GetHuman(gameContext, humanId);
+                    var human = humans.First(h => h.human.Id == humanId); // Humans.Get(humans, humanId);
 
                     human.workerOffers.Offers.RemoveAll(o => o.DecisionDate < date && !o.Accepted);
                 }

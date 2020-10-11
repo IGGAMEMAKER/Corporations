@@ -102,8 +102,8 @@ namespace Assets.Core
 
             if (!hasShareholders)
             {
-                Companies.AddInvestmentProposal(gameContext, company.company.Id, proposal);
-                Companies.AcceptInvestmentProposal(gameContext, company.company.Id, fundId);
+                Companies.AddInvestmentProposal(gameContext, company, proposal);
+                Companies.AcceptInvestmentProposal(gameContext, company, fundId);
             }
             else
             {
@@ -118,8 +118,8 @@ namespace Assets.Core
 
                     if (!isCeo)
                     {
-                        Companies.AddInvestmentProposal(gameContext, company.company.Id, proposal);
-                        Companies.AcceptInvestmentProposal(gameContext, company.company.Id, investorId);
+                        Companies.AddInvestmentProposal(gameContext, company, proposal);
+                        Companies.AcceptInvestmentProposal(gameContext, company, investorId);
                     }
                 }
             }

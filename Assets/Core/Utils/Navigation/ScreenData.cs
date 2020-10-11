@@ -50,7 +50,7 @@ namespace Assets.Core
 
             var humanId = (int)obj;
 
-            return Humans.GetHuman(gameContext, humanId);
+            return Humans.Get(gameContext, humanId);
         }
 
         public static NicheType GetSelectedNiche(GameContext gameContext)

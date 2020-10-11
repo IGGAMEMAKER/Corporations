@@ -43,7 +43,7 @@ namespace Assets.Core
             {
                 RemoveShareholder(target, gameContext, shareholderId);
             }
-            AddShareholder(gameContext, companyId, buyerInvestorId, 100);
+            AddShareholder(gameContext, target, buyerInvestorId, 100);
             target.isIndependentCompany = false;
 
             NotifyAboutCorporateAcquisition(gameContext, buyerInvestorId, companyId);

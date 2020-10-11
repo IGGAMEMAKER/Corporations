@@ -17,9 +17,9 @@
         {
             if (IsReadyToStartInvestmentRound(company))
             {
-                SpawnProposals(gameContext, company.company.Id);
+                SpawnProposals(gameContext, company);
 
-                NotifyAboutInvestmentRound(company, gameContext);
+                //NotifyAboutInvestmentRound(company, gameContext);
 
                 company.ReplaceInvestmentRounds(GetInvestmentRoundName(company));
 

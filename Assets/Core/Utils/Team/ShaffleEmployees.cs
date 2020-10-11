@@ -14,7 +14,7 @@ namespace Assets.Core
             // remove previous employees
             foreach (var humanId in company.employee.Managers.Keys)
             {
-                var h = Humans.GetHuman(gameContext, humanId);
+                var h = Humans.Get(gameContext, humanId);
 
                 h.Destroy();
             }

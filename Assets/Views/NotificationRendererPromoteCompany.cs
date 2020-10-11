@@ -39,7 +39,7 @@ public class NotificationRendererRecruitingManager : NotificationRenderer<Notifi
     public override string GetDescription(NotificationMessageManagerRecruiting message)
     {
         var company = Companies.Get(Q, message.CompanyId);
-        var human = Humans.GetHuman(Q, message.HumanId);
+        var human = Humans.Get(Q, message.HumanId);
 
         var role = Humans.GetRole(human);
         var rating = Humans.GetRating(human);
@@ -64,7 +64,7 @@ public class NotificationRendererRecruitingManager : NotificationRenderer<Notifi
     public override string GetTitle(NotificationMessageManagerRecruiting message)
     {
         var company = Companies.Get(Q, message.CompanyId);
-        var human = Humans.GetHuman(Q, message.HumanId);
+        var human = Humans.Get(Q, message.HumanId);
 
         if (message.Successful)
         {

@@ -10,7 +10,7 @@ namespace Assets.Core
             company.ReplaceShareholders(shareholders);
         }
 
-        public static void AddShareholder(GameContext context, int companyId, int investorId, int shares)
+        public static void AddShareholder(GameContext context, GameEntity company, int investorId, int shares)
         {
             var b = new BlockOfShares
             {
@@ -22,12 +22,11 @@ namespace Assets.Core
                 Investments = new List<Investment>()
             };
 
-            AddShareholder(context, companyId, investorId, b);
+            AddShareholder(company, investorId, b);
         }
-        public static void AddShareholder(GameContext context, int companyId, int investorId, BlockOfShares block)
-        {
-            var c = Get(context, companyId);
 
+        public static void AddShareholder(GameEntity c, int investorId, BlockOfShares block)
+        {
             var shareholders = c.shareholders.Shareholders;
 
             BlockOfShares b;

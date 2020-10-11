@@ -22,7 +22,7 @@ public class WorkerView : View
     {
         var link = GetComponent<LinkToHuman>();
 
-        var human = Humans.GetHuman(Q, humanId);
+        var human = Humans.Get(Q, humanId);
 
         link.SetHumanId(humanId);
         HumanPreview.SetEntity(humanId);

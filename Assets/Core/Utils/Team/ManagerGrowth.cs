@@ -9,7 +9,6 @@ namespace Assets.Core
     {
         public static Bonus<int> GetManagerGrowthBonus(GameEntity worker, TeamInfo teamInfo, bool hasTeacherInTeam, GameContext gameContext)
         {
-            var loyaltyChange = GetLoyaltyChangeForManager(worker, teamInfo, gameContext);
             var rating = Humans.GetRating(worker);
 
             bool isCurious = worker.humanSkills.Traits.Contains(Trait.Curious);
@@ -17,9 +16,8 @@ namespace Assets.Core
             var bonus = new Bonus<int>("Growth");
             
             bonus
-                .Append("Base", 25)
-                //.Append("Loyalty change", loyaltyChange * 2)
-                .Append("Rating", (int)Mathf.Pow(100 - rating, 0.5f))
+                //.Append("Base", 25)
+                .Append("Rating", (int)Mathf.Pow(100 - rating, 0.95f))
                 .AppendAndHideIfZero("Curious", isCurious ? 15 : 0)
                 .AppendAndHideIfZero("Works with Teacher", hasTeacherInTeam ? 7 : 0)
                 ;

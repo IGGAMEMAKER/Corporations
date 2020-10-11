@@ -171,7 +171,7 @@ namespace Assets.Core
 
         private static void ApplyDuplicateWorkersLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)
         {
-            var roles = team.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId).worker.WorkerRole);
+            var roles = team.Managers.Select(humanId => Humans.Get(gameContext, humanId).worker.WorkerRole);
             bool hasDuplicateWorkers = roles.Count(r => r == role) > 1;
 
             if (hasDuplicateWorkers)

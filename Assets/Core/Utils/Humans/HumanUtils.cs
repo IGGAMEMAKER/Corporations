@@ -8,14 +8,19 @@ namespace Assets.Core
     public static partial class Humans
     {
         // queries
-        public static GameEntity[] GetHumans(GameContext gameContext)
+        public static GameEntity[] Get(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.Human);
         }
 
+        public static GameEntity Get(GameContext gameContext, int humanId)
+        {
+            return Array.Find(Get(gameContext), h => h.human.Id == humanId);
+        }
+
         public static int GenerateHumanId(GameContext gameContext)
         {
-            var humans = GetHumans(gameContext);
+            var humans = Get(gameContext);
 
             if (humans.Length == 0)
                 return 0;
@@ -56,10 +61,7 @@ namespace Assets.Core
             return GetCurrentOffer(human).JobOffer.Salary;
         }
 
-        public static GameEntity GetHuman(GameContext gameContext, int humanId)
-        {
-            return Array.Find(GetHumans(gameContext), h => h.human.Id == humanId);
-        }
+
 
         public static bool HasCompetingOffers(GameEntity human)
         {
@@ -108,7 +110,7 @@ namespace Assets.Core
                 worker.ReplaceHumanCompanyRelationship(0, 50);
         }
 
-        public static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(GetHuman(gameContext, humanId));
+        public static void LeaveCompany(GameContext gameContext, int humanId) => LeaveCompany(Get(gameContext, humanId));
         public static void LeaveCompany(GameEntity human)
         {
             human.workerOffers.Offers.RemoveAll(o => o.CompanyId == human.worker.companyId);

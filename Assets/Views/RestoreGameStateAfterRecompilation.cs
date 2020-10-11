@@ -413,7 +413,7 @@ public class RestoreGameStateAfterRecompilation : View
     private void AutoFillProposals()
     {
         foreach (var c in Companies.GetNonFinancialCompanies(Q))
-            Companies.SpawnProposals(Q, c.company.Id);
+            Companies.SpawnProposals(Q, c);
     }
 
     void AutoFillNonFilledShareholders()

@@ -33,7 +33,7 @@ namespace Assets.Core
 
         public static GameEntity GetWorkerInRole(TeamInfo team, WorkerRole workerRole, GameContext gameContext)
         {
-            var productManagers = team.Managers.Select(humanId => Humans.GetHuman(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
+            var productManagers = team.Managers.Select(humanId => Humans.Get(gameContext, humanId)).Where(worker => worker.worker.WorkerRole == workerRole);
 
             if (productManagers.Count() > 0)
             {

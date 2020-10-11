@@ -14,7 +14,7 @@ public class ProposalScreen : View
     public AcceptInvestmentProposalController AcceptInvestmentProposalController;
     public RejectInvestmentProposalController RejectInvestmentProposalController;
 
-    InvestmentProposal proposal => Companies.GetInvestmentProposal(Q, MyCompany.company.Id, SelectedInvestor.shareholder.Id);
+    InvestmentProposal proposal => Companies.GetInvestmentProposal(MyCompany.company.Id, SelectedInvestor.shareholder.Id);
 
     bool IsInvestmentRoundActive => MyCompany.hasAcceptsInvestments;
 

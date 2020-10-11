@@ -29,7 +29,7 @@ public abstract class StaffListView : ListView
     Func<KeyValuePair<int, WorkerRole>, int> OrderWorkers = p =>
     {
         //return 1;
-        var worker = Humans.GetHuman(Q, p.Key);
+        var worker = Humans.Get(Q, p.Key);
         var employeeBonus = Humans.IsEmployed(worker) ? 0 : 5000;
 
         return employeeBonus + GetWorkerOrder(p.Value) * 100 + Humans.GetRating(Q, p.Key);

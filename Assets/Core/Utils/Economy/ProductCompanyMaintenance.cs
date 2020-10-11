@@ -112,7 +112,7 @@ namespace Assets.Core
             {
                 foreach (var humanId in t.Managers)
                 {
-                    var human = Humans.GetHuman(gameContext, humanId);
+                    var human = Humans.Get(gameContext, humanId);
                     var salary = Humans.GetSalary(human);
 
                     salaries.Append(Humans.GetFullName(human), salary);

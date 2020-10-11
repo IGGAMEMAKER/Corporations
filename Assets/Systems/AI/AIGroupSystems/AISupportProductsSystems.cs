@@ -75,7 +75,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
             WasAccepted = false
         };
 
-        Companies.AddInvestmentProposal(gameContext, product.company.Id, proposal);
-        Companies.AcceptInvestmentProposal(gameContext, product.company.Id, managingCompany.shareholder.Id);
+        Companies.AddInvestmentProposal(gameContext, product, proposal);
+        Companies.AcceptInvestmentProposal(gameContext, product, managingCompany.shareholder.Id);
     }
 }
