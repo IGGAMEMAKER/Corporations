@@ -22,7 +22,7 @@ namespace Assets.Core
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
 
-        public static long GetChannelGainLoyaltyBonus(GameEntity company, GameEntity channel, int segmentId)
+        public static long GetGrowthLoyaltyBonus(GameEntity company, int segmentId)
         {
             var loyalty = (int)GetSegmentLoyalty(company, segmentId);
 
@@ -41,37 +41,46 @@ namespace Assets.Core
             return loyaltyBonus;
         }
 
+        public static bool IsAimingForSpecificAudience(GameEntity company, int segmentId)
+        {
+            var positioning = GetPositioning(company);
+            var positioningLoyalty = positioning.Loyalties[segmentId];
+
+            return positioningLoyalty >= 0;
+        }
+
+        public static bool IsAudienceDisloyal(GameEntity company, int segmentId)
+        {
+            var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);
+
+            // cannot get clients if existing ones are outraged
+            return loyaltyBonus < 0;
+        }
+
+        // fraction will be recalculated
+        // take into account
+        // * Base channel width (f.e. 100K users per week)
+
+        // * proportions (teens: 90%, olds: 10%)
+        // * random anomalies (there are more people of specific segment (especially in small channels)) teens: 80%, olds: 20%)
+        // * Base user activity (desire to click on ads: 5% => we can get 5K users)
+        // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
+        // * positioning bonuses
         public static long GetChannelClientGain(GameEntity company, GameEntity channel) => GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
         public static long GetChannelClientGain(GameEntity company, GameEntity channel, int segmentId)
         {
             var fraction = (double)Companies.GetHashedRandom2(company.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
 
-            // fraction will be recalculated
-            // take into account
-            // * Base channel width (f.e. 100K users per week)
-
-            // * proportions (teens: 90%, olds: 10%)
-            // * random anomalies (there are more people of specific segment (especially in small channels)) teens: 80%, olds: 20%)
-            // * Base user activity (desire to click on ads: 5% => we can get 5K users)
-            // * segment bonuses (audience may be small, but it is way more active (desire to click X2) and you can get more)
-            // * positioning bonuses
-
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
 
-            var positioning = GetPositioning(company);
-            var positioningLoyalty = positioning.Loyalties[segmentId];
-
             // cannot get other segments if our product is not targeted for them
-            if (positioningLoyalty < 0)
-                return 0;
-
-            var loyaltyBonus = GetChannelGainLoyaltyBonus(company, channel, segmentId);
-            
+            // OR
             // cannot get clients if existing ones are outraged
-            if (loyaltyBonus <= 0)
+            if (!IsAimingForSpecificAudience(company, segmentId) || IsAudienceDisloyal(company, segmentId))
                 return 0;
 
             var marketingEffeciency = Teams.GetMarketingEfficiency(company);
+            var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);
 
             return batch * (marketingEffeciency + loyaltyBonus) / 100;
         }

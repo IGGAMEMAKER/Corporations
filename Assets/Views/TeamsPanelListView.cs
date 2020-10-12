@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class TeamsPanelListView : ListView
 {
-    public GameObject TeamButtons;
-
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
         t.GetComponent<TeamPreview>().SetEntity((TeamInfo)(object)entity, index);
@@ -24,24 +22,8 @@ public class TeamsPanelListView : ListView
     {
         base.OnItemSelected(ind);
 
-        //FindObjectOfType<MainPanelRelay>().ExpandTeams();
         FindObjectOfType<FlagshipRelayInCompanyView>().ChooseManagersTabs(ind);
+
         ScheduleUtils.PauseGame(Q);
-    }
-
-    public override void OnDeselect()
-    {
-        base.OnDeselect();
-
-        HideButtons();
-
-        var a = FindObjectOfType<MainPanelRelay>();
-        if (a != null)
-            a.ShowDefaultMode();
-    }
-
-    public void HideButtons()
-    {
-        Hide(TeamButtons);
     }
 }

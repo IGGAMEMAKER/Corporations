@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,79 +7,106 @@ using UnityEngine.UI;
 
 public class CompanyTaskTypeRelay : View
 {
+    [Header("Counters")]
     public GameObject FeatureCounter;
     public GameObject MarketingCounter;
 
-    public GameObject ChooseTaskTypeLabel;
+    [Header("Buttons")]
+    public GameObject MarketingButton;
+    public GameObject DevelopmentButton;
 
-    public GameObject RelayButtons;
+    public GameObject InvestmentButton;
+    public GameObject ServersButton;
+    public GameObject TeamsButton;
 
-    public GameObject ChooseMarketingTasksButton;
-    public GameObject ChooseDevelopmentTasksButton;
-    public GameObject ChooseSupportTasksButton;
-    public GameObject ChooseServerTasksButton;
-
-    List<GameObject> ChoosingButtons => new List<GameObject> { ChooseMarketingTasksButton, ChooseDevelopmentTasksButton, ChooseSupportTasksButton, ChooseServerTasksButton };
-    //List<GameObject> TaskContainers => new List<GameObject> { MarketingTasks, FeatureTasks, SupportTasks, ServerTasks };
+    public GameObject MissionButton;
+    public GameObject OffersButton;
+    public GameObject CompetitorsButton;
 
     void OnEnable()
     {
         bool isFirstTime = true;
 
-        RenderAmountOfTasks();
+        ViewRender();
     }
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        RenderAmountOfTasks();
+        RenderFeatureButton();
+        RenderMarketingButton();
+        RenderServerButton();
+        RenderTeamButton();
+
+        RenderInvestmentButton();
+        RenderOffersButton();
+        RenderMissionsButton();
+        RenderCompetitorsButton();
     }
 
-    void SetMode(GameObject tasks, GameObject buttons)
+    private void RenderOffersButton()
     {
-        ScheduleUtils.PauseGame(Q);
+        Draw(OffersButton, false);
     }
 
-    void RenderAmountOfTasks()
+    private void RenderCompetitorsButton()
+    {
+        Draw(CompetitorsButton, true);
+    }
+
+    private void RenderMissionsButton()
+    {
+        Draw(MissionButton, false);
+    }
+
+    void RenderFeatureButton()
     {
         var features = Products.GetProductFeaturesList(Flagship, Q).Length;
-        var channels = Markets.GetMarketingChannelsList(Flagship, Q).Length;
 
         Draw(FeatureCounter, features > 0);
-        Draw(MarketingCounter, channels > 0);
 
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
+    }
+
+    void RenderMarketingButton()
+    {
+        var channels = Markets.GetMarketingChannelsList(Flagship, Q).Length;
+
+        Draw(MarketingCounter, channels > 0);
+
         MarketingCounter.GetComponentInChildren<Text>().text = channels.ToString();
     }
 
-    void ShowMarketingButton()
+    void RenderInvestmentButton()
     {
-        //ShowOnly(ChooseMarketingTasksButton, ChoosingButtons);
-        HideAll(ChoosingButtons);
+        bool willBeBankruptSoon = Economy.IsWillBecomeBankruptOnNextPeriod(Q, Flagship);
+        bool skippedSomeTime = CurrentIntDate > 60;
+        //bool hadBankruptcyWarning =  || ; // NotificationUtils.GetPopupContainer(Q).seenPopups.PopupTypes.Contains(PopupType.BankruptcyThreat);
+
+        Draw(InvestmentButton, willBeBankruptSoon || skippedSomeTime);
     }
 
-    void ShowDevButton()
+    void RenderServerButton()
     {
-        //ShowOnly(ChooseDevelopmentTasksButton, ChoosingButtons);
-        HideAll(ChoosingButtons);
+        bool hadFirstMarketingCampaign = Marketing.GetClients(Flagship) > 50;
+        bool serverOverload = Products.IsNeedsMoreServers(Flagship);
+
+        Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);
     }
 
-    public void AdjustTaskTypeButtonsToTeamType()
+    void RenderTeamButton()
     {
-        var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
-        var teamType = relay.ChosenTeam.TeamType;
+        Draw(TeamsButton, true);
+        //// 1, cause servers are added automatically
+        //bool anyTaskWasAdded = Flagship.team.Teams[0].Tasks.Count > 2;
+        //bool hasMoreThanOneTeam = Flagship.team.Teams.Count > 1;
 
-        var isUniversalTeam = teamType == TeamType.CoreTeam || teamType == TeamType.SmallCrossfunctionalTeam || teamType == TeamType.BigCrossfunctionalTeam || teamType == TeamType.CrossfunctionalTeam;
-
-        Draw(ChooseMarketingTasksButton,    isUniversalTeam || teamType == TeamType.MarketingTeam);
-        Draw(ChooseDevelopmentTasksButton,  isUniversalTeam || teamType == TeamType.DevelopmentTeam);
-        Draw(ChooseServerTasksButton,       isUniversalTeam || teamType == TeamType.DevOpsTeam);
-        Draw(ChooseSupportTasksButton,      isUniversalTeam || teamType == TeamType.SupportTeam);
-    }
-
-    public void ShowRelayButtons()
-    {
-        Show(RelayButtons);
+        //if (anyTaskWasAdded || hasMoreThanOneTeam)
+        //{
+        //    //Show(AddTeamButton);
+        //    //Show(TeamPanel);
+        //    //Show(TeamLabel);
+        //}
     }
 }

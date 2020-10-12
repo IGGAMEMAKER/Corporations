@@ -26,26 +26,6 @@ public class AddTaskForTheTeamController : ButtonController
         relay.ChooseTaskTab();
 
         CompanyTaskTypeRelay CompanyTaskTypeRelay = FindObjectOfType<CompanyTaskTypeRelay>();
-        CompanyTaskTypeRelay.ShowRelayButtons();
-
-        switch (team.TeamType)
-        {
-            case TeamType.DevelopmentTeam:
-                //CompanyTaskTypeRelay.ChooseFeatureTasks();
-                break;
-
-            case TeamType.MarketingTeam:
-                //CompanyTaskTypeRelay.ChooseMarketingTasks();
-                break;
-
-            case TeamType.SupportTeam:
-                //CompanyTaskTypeRelay.ChooseSupportTasks();
-                break;
-
-            case TeamType.DevOpsTeam:
-                //CompanyTaskTypeRelay.ChooseServersideTasks();
-                break;
-        }
 
         ScheduleUtils.PauseGame(Q);
     }

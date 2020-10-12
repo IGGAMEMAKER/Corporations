@@ -27,7 +27,6 @@ public abstract class ListView : View // MonoBehaviour
     public int ChosenIndex = -1;
 
     bool noElementsWereSelected => ChosenIndex == -1;
-    public bool ForceUpdate = false;
     //
 
     bool wasCleanedUp = false;

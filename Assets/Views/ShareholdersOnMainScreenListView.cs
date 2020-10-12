@@ -63,8 +63,6 @@ public class ShareholdersOnMainScreenListView : ListView
     {
         base.OnItemSelected(chosenIndex);
 
-        FindObjectOfType<MainPanelRelay>().ExpandInvestors();
-
         Show(InvestmentsContextMenu);
 
         isPlayerSelected = chosenIndex == 0;
