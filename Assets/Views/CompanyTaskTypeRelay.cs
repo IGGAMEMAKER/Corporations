@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class CompanyTaskTypeRelay : View
     [Header("Counters")]
     public GameObject FeatureCounter;
     public GameObject MarketingCounter;
+    public GameObject TeamCounter;
 
     [Header("Buttons")]
     public GameObject MarketingButton;
@@ -92,12 +94,17 @@ public class CompanyTaskTypeRelay : View
         bool hadFirstMarketingCampaign = Marketing.GetClients(Flagship) > 50;
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
-        Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);
+        //Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);
     }
 
     void RenderTeamButton()
     {
-        Draw(TeamsButton, true);
+        int teamInterrupts = Flagship.team.Teams.Count(t => Teams.IsTeamNeedsAttention(Flagship, t, Q));
+
+        Draw(TeamsButton, Flagship.team.Teams.Count > 0);
+        Draw(TeamCounter, teamInterrupts > 0);
+        TeamCounter.GetComponentInChildren<Text>().text = teamInterrupts.ToString();
+
         //// 1, cause servers are added automatically
         //bool anyTaskWasAdded = Flagship.team.Teams[0].Tasks.Count > 2;
         //bool hasMoreThanOneTeam = Flagship.team.Teams.Count > 1;

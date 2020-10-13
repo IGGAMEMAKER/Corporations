@@ -18,9 +18,9 @@ public class RenderLoyaltyChange : ParameterView
 
         var company = Companies.Get(Q, human.worker.companyId);
 
-        var culture = Companies.GetActualCorporateCulture(company, Q);
+        var culture = Companies.GetActualCorporateCulture(company);
 
-        var changeBonus = Teams.GetLoyaltyChangeBonus(human, company.team.Teams.Find(t => t.Managers.Contains(human.human.Id)), culture, company, Q);
+        var changeBonus = Teams.GetLoyaltyChangeBonus(human, company.team.Teams.Find(t => t.Managers.Contains(human.human.Id)), culture, company);
         var change = changeBonus.Sum();
 
         text += "\n\n";

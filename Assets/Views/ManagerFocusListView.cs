@@ -78,7 +78,7 @@ public class ManagerFocusListView : ListView
 
     public void ChooseInternalConflicts()
     {
-        SetManagerTask(ManagerTask.ProxyTasks);
+        SetManagerTask(ManagerTask.ImproveAtmosphere);
     }
 
     public void ChoosePolishing()

@@ -80,7 +80,7 @@ namespace Assets.Core
         {
             var bonus = new Bonus<int>("New manager rating");
 
-            var culture = Companies.GetActualCorporateCulture(company, gameContext);
+            var culture = Companies.GetActualCorporateCulture(company);
             var managingCompany = Companies.GetManagingCompanyOf(company, gameContext);
 
             var productsOfManagingCompany = Companies.GetDaughterProductCompanies(gameContext, managingCompany);

@@ -24,7 +24,7 @@ public class RenderInvestorCorporateCulture : UpgradedParameterView
     string Wrap(CorporatePolicy corporatePolicy, string descriptionLeft, string descriptionRight)
     {
         var investorCulture = Companies.GetOwnCorporateCulture(SelectedInvestor);
-        var playerCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
+        var playerCulture = Companies.GetActualCorporateCulture(MyCompany);
 
 
         int diff = Mathf.Abs(investorCulture[corporatePolicy] - playerCulture[corporatePolicy]);

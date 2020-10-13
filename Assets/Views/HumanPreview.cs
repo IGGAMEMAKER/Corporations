@@ -88,7 +88,7 @@ public class HumanPreview : View
             // should render only in flagship screen?
             if (!drawAsEmployee)
             {
-                var change = Teams.GetLoyaltyChangeForManager(human, Teams.GetTeamOf(human, company), Q);
+                var change = Teams.GetLoyaltyChangeForManager(human, Teams.GetTeamOf(human, company), company);
 
                 // TODO copypasted from HumanCorporateCulturePreference.cs
                 var text = Visuals.DescribeValueWithText(change,

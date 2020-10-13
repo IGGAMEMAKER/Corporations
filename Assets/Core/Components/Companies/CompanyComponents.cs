@@ -226,7 +226,7 @@ public enum ManagerTask
     Investments,
     Documentation,
     Organisation,
-    ProxyTasks,
+    ImproveAtmosphere,
     Recruiting,
 
     Polishing,

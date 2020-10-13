@@ -89,27 +89,27 @@ namespace Assets.Core
             return bonus;
         }
 
-        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, GameContext gameContext)
+        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, GameEntity company)
         {
-            var company = Companies.Get(gameContext, worker.worker.companyId);
+            //var company = Companies.Get(gameContext, worker.worker.companyId);
 
-            var culture = Companies.GetActualCorporateCulture(company, gameContext);
+            var culture = Companies.GetActualCorporateCulture(company);
 
-            return GetLoyaltyChangeForManager(worker, team, culture, company, gameContext);
+            return GetLoyaltyChangeForManager(worker, team, culture, company);
         }
 
-        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company, GameContext gameContext)
+        public static int GetLoyaltyChangeForManager(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
-            return (int)GetLoyaltyChangeBonus(worker, team, culture, company, gameContext).Sum();
+            return (int)GetLoyaltyChangeBonus(worker, team, culture, company).Sum();
         }
 
-        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company, GameContext gameContext)
+        public static Bonus<int> GetLoyaltyChangeBonus(GameEntity worker, TeamInfo team, Dictionary<CorporatePolicy, int> culture, GameEntity company)
         {
             var bonus = new Bonus<int>("Loyalty");
 
             bonus.Append("Base value", 1);
 
-            var loyaltyBuff = team.ManagerTasks.Count(t => t == ManagerTask.ProxyTasks);
+            var loyaltyBuff = team.ManagerTasks.Count(t => t == ManagerTask.ImproveAtmosphere);
 
             bonus.AppendAndHideIfZero("Manager focus on atmosphere", loyaltyBuff);
 
@@ -118,17 +118,14 @@ namespace Assets.Core
             // TODO: if is CEO in own project, morale loss is zero or very low
             bonus.AppendAndHideIfZero("IS FOUNDER", worker.hasCEO ? 5 : 0);
 
-            // corporate culture
-            ApplyCorporateCultureInfluenceLoyalty(company, gameContext, ref bonus, worker);
-
             // same role workers
-            ApplyDuplicateWorkersLoyalty(company, team, gameContext, ref bonus, worker, role);
+            //ApplyDuplicateWorkersLoyalty(company, team, gameContext, ref bonus, worker, role);
 
             // salary
-            ApplyLowSalaryLoyalty(company, team, gameContext, ref bonus, worker);
+            ApplyLowSalaryLoyalty(company, ref bonus, worker);
 
             // incompetent leader
-            ApplyCEOLoyalty(company, team, gameContext, ref bonus, worker, role);
+            //ApplyCEOLoyalty(company, team, gameContext, ref bonus, worker, role);
 
             // no possibilities to grow
             if (role != WorkerRole.CEO)
@@ -139,7 +136,7 @@ namespace Assets.Core
             return bonus;
         }
 
-        private static void ApplyLowSalaryLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker)
+        private static void ApplyLowSalaryLoyalty(GameEntity company, ref Bonus<int> bonus, GameEntity worker)
         {
             bool isFounder = worker.hasShareholder && company.shareholders.Shareholders.ContainsKey(worker.shareholder.Id);
 
@@ -176,30 +173,6 @@ namespace Assets.Core
 
             if (hasDuplicateWorkers)
                 bonus.AppendAndHideIfZero("Too many " + Humans.GetFormattedRole(role) + "'s", -10);
-        }
-
-        private static void ApplyCorporateCultureInfluenceLoyalty(GameEntity company, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker)
-        {
-            var preferences = worker.corporateCulture.Culture;
-
-            var importantPolicies = GetImportantCorporatePolicies();
-
-
-            //foreach (var p in importantPolicies)
-            //{
-            //    var diff = preferences[p] - culture[p];
-
-            //    var module = Math.Abs(diff);
-            //    bool suits = module < 3;
-
-            //    bool hates = module > 6;
-
-            //    if (suits)
-            //        bonus.Append(p.ToString(), 2);
-
-            //    if (hates)
-            //        bonus.Append(p.ToString(), -3);
-            //}
         }
 
         private static void ApplyCEOLoyalty(GameEntity company, TeamInfo team, GameContext gameContext, ref Bonus<int> bonus, GameEntity worker, WorkerRole role)

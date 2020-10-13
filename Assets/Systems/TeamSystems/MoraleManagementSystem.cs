@@ -30,7 +30,7 @@ class MoraleManagementSystem : OnPeriodChange
 
         foreach (var c in companies)
         {
-            var culture = Companies.GetActualCorporateCulture(c, gameContext);
+            var culture = Companies.GetActualCorporateCulture(c);
 
             List<int> defectedManagers = new List<int>();
             var recruitedManagers = new List<ExpiringJobOffer>();
@@ -49,7 +49,7 @@ class MoraleManagementSystem : OnPeriodChange
 
                     var relationship = human.humanCompanyRelationship;
 
-                    var loyaltyChange = Teams.GetLoyaltyChangeForManager(human, team, culture, c, gameContext);
+                    var loyaltyChange = Teams.GetLoyaltyChangeForManager(human, team, culture, c);
 
                     var newLoyalty = Mathf.Clamp(relationship.Morale + loyaltyChange, 0, 100);
                     var newAdaptation = Mathf.Clamp(relationship.Adapted + 5, 0, 100);

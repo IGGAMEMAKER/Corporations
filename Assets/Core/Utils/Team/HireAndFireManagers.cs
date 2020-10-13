@@ -96,7 +96,7 @@ namespace Assets.Core
 
             if (isShy)
             {
-                modifier -= 0.1f;
+                modifier -= 0.3f;
             }
 
             if (isGreedy)
@@ -116,21 +116,15 @@ namespace Assets.Core
         }
         public static long GetSalaryPerRating(long rating, float modifier = 0)
         {
-            var baseSalary = (long)(Mathf.Pow(500, 1f + modifier + rating / 100f));
+            var baseSalary = Mathf.Pow(500, 1f + rating / 100f);
 
-            return baseSalary / 4;
+            return (long)(baseSalary * (1f + modifier) / 4);
         }
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)
         {
-            Debug.Log("DismissTeam of " + company.company.Name);
             Debug.Log("DISMISS TEAM WORKS BAD!" + company.company.Name);
             Debug.LogWarning("DISMISS TEAM WORKS BAD!" + company.company.Name);
-
-            var workers = company.team.Managers.Keys.ToArray();
-
-            //for (var i = workers.Length - 1; i > 0; i--)
-            //    FireManager(company, gameContext, workers[i], teamId);
         }
 
         public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);
@@ -216,5 +210,34 @@ namespace Assets.Core
 
         //    return GetRelationshipsWith(gameContext, company, worker.human.Id);
         //}
+
+        public static bool IsFullTeam(TeamInfo team)
+        {
+            int maxWorkers = 8;
+            int workers = team.Workers; // Random.Range(0, maxWorkers);
+            bool hasFullTeam = workers >= maxWorkers;
+
+            return hasFullTeam;
+        }
+
+
+
+        public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+
+            bool canHireMoreManagers = team.Managers.Count < 2;
+            bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
+
+
+            bool hasLeadManager = Teams.HasMainManagerInTeam(team, gameContext, product);
+            bool hasNoManager = !hasLeadManager;
+
+
+            bool hasDisloyalManagers = team.Managers
+                .Select(m => Humans.Get(gameContext, m))
+                .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
+
+            return IsFullTeam(team) && (hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
+        }
     }
 }

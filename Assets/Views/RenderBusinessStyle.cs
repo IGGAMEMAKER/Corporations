@@ -10,7 +10,7 @@ public class RenderBusinessStyle : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var culture = Companies.GetActualCorporateCulture(SelectedCompany, Q);
+        var culture = Companies.GetActualCorporateCulture(SelectedCompany);
 
         var text = "";
 

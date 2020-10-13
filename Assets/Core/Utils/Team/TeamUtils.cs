@@ -78,6 +78,11 @@ namespace Assets.Core
             return rating > 0;
         }
 
+        public static bool NeedsMainManagerInTeam(TeamInfo team, GameContext gameContext, GameEntity product)
+        {
+            return !HasMainManagerInTeam(team, gameContext, product);
+        }
+
         public static List<int> GetCandidatesForTeam(GameEntity company, TeamInfo team, GameContext Q)
         {
             var competitors = Companies.GetCompetitorsOfCompany(company, Q, false);

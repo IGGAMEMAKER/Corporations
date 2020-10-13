@@ -19,7 +19,7 @@
             var marketSpeedPenalty = GetNicheSpeedInnovationPenalty(niche);
 
             // culture bonuses
-            var culture = Companies.GetActualCorporateCulture(product, gameContext);
+            var culture = Companies.GetActualCorporateCulture(product);
             var createOrBuy     = culture[CorporatePolicy.Make];
 
             // managers

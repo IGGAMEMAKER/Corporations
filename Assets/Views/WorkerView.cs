@@ -37,7 +37,8 @@ public class WorkerView : View
         Draw(TeamLead, isMainManager);
         Draw(CompanyLead, isCompanyLead);
 
-        var loyaltyGrowth = Teams.GetLoyaltyChangeForManager(human, team, Q);
+        var company = Companies.Get(Q, human.worker.companyId);
+        var loyaltyGrowth = Teams.GetLoyaltyChangeForManager(human, team, company);
 
         if (loyaltyGrowth > 0)
             LoyaltyChange.sprite = Growth;

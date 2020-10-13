@@ -59,11 +59,12 @@ namespace Assets.Core
             return parent ?? company;
         }
 
-        public static Dictionary<CorporatePolicy, int> GetActualCorporateCulture(GameEntity company, GameContext gameContext)
+        public static Dictionary<CorporatePolicy, int> GetActualCorporateCulture(GameEntity company)
         {
-            var managingCompany = GetManagingCompanyOf(company, gameContext);
+            return GetOwnCorporateCulture(company);
+            //var managingCompany = GetManagingCompanyOf(company, gameContext);
 
-            return managingCompany.corporateCulture.Culture;
+            //return managingCompany.corporateCulture.Culture;
         }
     }
 }

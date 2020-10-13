@@ -16,7 +16,7 @@ public class HumanCorporateCulturePreference : ParameterView
         var isEmployed = human.worker.companyId >= 0;
 
         //Debug.Log($"Corporate culture preference: #{human.creationIndex} {human.worker.companyId}");
-        var playerCulture = Companies.GetActualCorporateCulture(MyCompany, Q);
+        var playerCulture = Companies.GetActualCorporateCulture(MyCompany);
 
         var text = "";
 

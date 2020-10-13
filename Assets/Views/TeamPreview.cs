@@ -23,57 +23,39 @@ public class TeamPreview : View
     public Sprite MarketingIcon;
     public Sprite ServersideIcon;
 
-    public void SetEntity(TeamInfo info, int teamId)
+    public void SetEntity(TeamInfo team, int teamId)
     {
         this.teamId = teamId;
 
         var company = Flagship;
 
-        TeamInfo = info;
-        var TeamType = info.TeamType;
+        TeamInfo = team;
 
-        //TeamTypeImage.sprite = GetTeamTypeSprite();
-
+        // show hiring progress
         int maxWorkers = 8;
-        int workers = info.Workers; // Random.Range(0, maxWorkers);
-        bool hasFullTeam = workers >= maxWorkers;
+        int workers = team.Workers;
+        bool hasFullTeam = Teams.IsFullTeam(team);
 
-        var hiringProgress = info.HiringProgress;
+        var hiringProgress = team.HiringProgress;
 
-        HiringProgress.fillAmount = hiringProgress / 100f; // workers / maxWorkers;
-        //HiringProgressText.text = hiringProgress + "%";
+        HiringProgress.fillAmount = hiringProgress / 100f;
         HiringProgressText.text = (workers * 100 / maxWorkers) + "%";
 
         Draw(HiringProgress, !hasFullTeam);
         Draw(HiringProgressText, !hasFullTeam);
         Draw(HiringProgressBackground, !hasFullTeam);
 
-        bool canHireMoreManagers = info.Managers.Count < 2;
 
-        bool hasNoManagerFocus = info.ManagerTasks.Contains(ManagerTask.None);
+        // need to interact with team
+        Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
 
+        // blink if it's first team
         bool isFirstTeam = company.team.Teams.Count == 1;
-
-        bool hasLeadManager = Teams.HasMainManagerInTeam(info, Q, company);
-        //bool hasNoManager = info.Managers.Count == 0;
-        bool hasNoManager = !hasLeadManager;
-
+        bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
+        bool hasNoManager = Teams.NeedsMainManagerInTeam(team, Q, company);
         GetComponent<Blinker>().enabled = (isFirstTeam && hasNoManagerFocus) || hasNoManager;
 
-        bool hasDisloyalManagers = info.Managers
-            .Select(m => Humans.Get(Q, m))
-            .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, info, Q) < 0) > 0;
-
-        if (hasFullTeam)
-        {
-            Draw(NeedToInteract, hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
-        }
-        else
-        {
-            Hide(NeedToInteract);
-        }
-
-
+        // choose team icon
         switch (TeamInfo.TeamType)
         {
             case TeamType.DevelopmentTeam:

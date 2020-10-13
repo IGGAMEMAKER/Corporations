@@ -57,6 +57,14 @@ namespace Assets.Core
             return loyaltyBonus < 0;
         }
 
+        public static bool IsAttractsSpecificAudience(GameEntity company, int segmentId)
+        {
+            // cannot get other segments if our product is not targeted for them
+            // OR
+            // cannot get clients if existing ones are outraged
+            return IsAimingForSpecificAudience(company, segmentId) && !IsAudienceDisloyal(company, segmentId);
+        }
+
         // fraction will be recalculated
         // take into account
         // * Base channel width (f.e. 100K users per week)
@@ -69,15 +77,12 @@ namespace Assets.Core
         public static long GetChannelClientGain(GameEntity company, GameEntity channel) => GetAudienceInfos().Select(i => GetChannelClientGain(company, channel, i.ID)).Sum();
         public static long GetChannelClientGain(GameEntity company, GameEntity channel, int segmentId)
         {
+            if (!IsAttractsSpecificAudience(company, segmentId))
+                return 0;
+
             var fraction = (double)Companies.GetHashedRandom2(company.company.Id, channel.marketingChannel.ChannelInfo.ID + segmentId);
 
             var batch = (long)(channel.marketingChannel.ChannelInfo.Batch * fraction);
-
-            // cannot get other segments if our product is not targeted for them
-            // OR
-            // cannot get clients if existing ones are outraged
-            if (!IsAimingForSpecificAudience(company, segmentId) || IsAudienceDisloyal(company, segmentId))
-                return 0;
 
             var marketingEffeciency = Teams.GetMarketingEfficiency(company);
             var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);

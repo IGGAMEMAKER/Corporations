@@ -53,10 +53,10 @@ public class FlagshipInterruptsView : View
     {
         base.ViewRender();
 
-        var load = Products.GetServerLoad(Flagship) * 100;
-        var cap = Products.GetServerCapacity(Flagship);
-
         var product = Flagship;
+
+        var load = Products.GetServerLoad(product) * 100;
+        var cap = Products.GetServerCapacity(product);
 
         if (CurrentIntDate > 0 && CurrentIntDate % 91 == 0 && Random.Range(0, 2) < 1 && !product.hasServerAttack)
         {
@@ -86,11 +86,10 @@ public class FlagshipInterruptsView : View
             DDOSProgress.SetValue(max - res, max);
         }
         // 
-        bool workerDisloyal = false;
         bool hasAcquisitionOffers = Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
         bool didFirstTasks = product.features.Upgrades.Count > 0 && Marketing.GetClients(product) > 1000;
-        bool CanManagerServers = didFirstTasks || needsMoreServers;
+        bool CanManageServers = didFirstTasks || needsMoreServers;
 
         problemCounter = 0;
 
@@ -98,7 +97,7 @@ public class FlagshipInterruptsView : View
         AudienceMapLink.GetComponent<Blinker>().enabled = Companies.IsReleaseableApp(product);
 
         SpecialDraw(NeedsManagersImage, false);
-        SpecialDraw(NeedsServersImage, CanManagerServers, needsMoreServers);
+        SpecialDraw(NeedsServersImage, CanManageServers, needsMoreServers);
         SpecialDraw(NeedsSupportImage, false);
         SpecialDraw(DDOSImage, underAttack);
 
@@ -108,7 +107,7 @@ public class FlagshipInterruptsView : View
         NeedsServersImage.color = Visuals.GetColorFromString(needsMoreServers ? Colors.COLOR_NEGATIVE : Colors.COLOR_NEUTRAL);
         NeedsServersImage.GetComponent<Blinker>().enabled = needsMoreServers;
 
-        MarketShare.text = (Companies.GetMarketShareOfCompanyMultipliedByHundred(Flagship, Q) * 1f).ToString("0.0") + "%";
+        MarketShare.text = (Companies.GetMarketShareOfCompanyMultipliedByHundred(product, Q) * 1f).ToString("0.0") + "%";
 
 
 
@@ -117,12 +116,13 @@ public class FlagshipInterruptsView : View
         ServerLoad.text = perc + "%";
         ServerLoad.color = Visuals.GetGradientColor(0, 100, perc, true);
 
-        SpecialDraw(HasDisloyalManagersImage, workerDisloyal);
+        SpecialDraw(HasDisloyalManagersImage, false);
 
         var messagesCount = NotificationUtils.GetNotifications(Q).Count;
         ExpiringMessagesAmount.text = messagesCount + "";
         SpecialDraw(GoodMessages, false);
-        SpecialDraw(ExpiringMessages, messagesCount > 0);
+        // THIS
+        SpecialDraw(ExpiringMessages, false, false); // messagesCount > 0
         SpecialDraw(BadMessages, false);
 
         // hasAcquisitionOffers

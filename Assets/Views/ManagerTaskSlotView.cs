@@ -62,7 +62,7 @@ public class ManagerTaskSlotView : View
 
 
 
-            case ManagerTask.ProxyTasks:
+            case ManagerTask.ImproveAtmosphere:
                 TaskImage.texture = ProxyTasks;
                 Blinker.enabled = false;
                 break;
