@@ -79,7 +79,7 @@ public class CompanyViewOnMap : View
 
     string GetProfitDescription()
     {
-        var profit = Economy.GetProfit(Q, company.company.Id);
+        var profit = Economy.GetProfit(Q, company);
 
         return profit > 0 ?
             Visuals.Positive($"Profit: +{Format.Money(profit)}") :

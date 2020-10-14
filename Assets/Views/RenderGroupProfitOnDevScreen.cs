@@ -20,10 +20,8 @@ public class RenderGroupProfitOnDevScreen : View
 
         company = flagship;
 
-        var id = company.company.Id;
-
         var bonus = GetProfitDescriptionFull().MinifyValues();
-        var profit = Economy.GetProfit(Q, id);
+        var profit = Economy.GetProfit(Q, company);
 
         if (Profitability != null)
         {

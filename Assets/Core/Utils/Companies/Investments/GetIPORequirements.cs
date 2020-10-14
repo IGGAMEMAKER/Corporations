@@ -13,7 +13,8 @@ namespace Assets.Core
 
         public static bool IsMeetsIPOProfitRequirement(GameContext gameContext, int companyId)
         {
-            return Economy.GetProfit(gameContext, companyId) > C.IPO_REQUIREMENTS_COMPANY_PROFIT;
+            var company = Get(gameContext, companyId);
+            return Economy.GetProfit(gameContext, company) > C.IPO_REQUIREMENTS_COMPANY_PROFIT;
         }
 
         public static bool IsMeetsIPOShareholderRequirement(GameContext gameContext, int companyId)

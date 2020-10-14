@@ -77,32 +77,6 @@ namespace Assets.Core
             return parent;
         }
 
-
-
-        // entity can be company, investor or human?
-        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity entity, bool recursively)
-        {
-            List<CompanyHolding> holdings = new List<CompanyHolding>();
-
-            var ownings = Investments.GetOwnings(context, entity);
-
-            foreach (var owning in ownings)
-            {
-                var holding = new CompanyHolding
-                {
-                    companyId = owning.company.Id,
-
-                    control = GetShareSize(context, owning, entity.shareholder.Id),
-
-                    holdings = recursively ? GetHoldings(context, owning, recursively) : new List<CompanyHolding>()
-                };
-
-                holdings.Add(holding);
-            }
-
-            return holdings;
-        }
-
         // changes
         public static ProductCompanyResult GetProductCompanyResults(GameEntity product, GameContext gameContext)
         {

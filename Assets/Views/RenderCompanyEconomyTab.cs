@@ -13,15 +13,13 @@ public class RenderCompanyEconomyTab : View
     {
         base.ViewRender();
 
-
-        var company = SelectedCompany; // Companies.Get(Q, companyId);
-        int companyId = company.company.Id; // GetComponent<SetTargetCompany>().companyId;
+        var company = SelectedCompany;
 
         Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(Q, company));
         IncomeHint.SetHint(GetIncomeDescription(Q, company));
 
         Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(Q, company));
-        MaintenanceHint.SetHint(GetMaintenanceDescription(Q, companyId));
+        MaintenanceHint.SetHint(GetMaintenanceDescription(Q, company));
     }
 
 
@@ -34,14 +32,12 @@ public class RenderCompanyEconomyTab : View
     }
 
 
-    internal string GetMaintenanceDescription(GameContext context, int companyId)
+    internal string GetMaintenanceDescription(GameContext context, GameEntity company)
     {
-        var c = Companies.Get(context, companyId);
+        if (Companies.IsProductCompany(company))
+            return GetProductCompanyMaintenanceDescription(company, context);
 
-        if (Companies.IsProductCompany(c))
-            return GetProductCompanyMaintenanceDescription(c, context);
-
-        return GetGroupMaintenanceDescription(context, c);
+        return GetGroupMaintenanceDescription(context, company);
     }
 
 
@@ -63,7 +59,7 @@ public class RenderCompanyEconomyTab : View
     {
         string description = "Group maintenance:\n";
 
-        var holdings = Companies.GetHoldings(context, company, false);
+        var holdings = Investments.GetHoldings(context, company, false);
 
         foreach (var h in holdings)
         {
@@ -85,7 +81,7 @@ public class RenderCompanyEconomyTab : View
     {
         string description = "Group income:\n";
 
-        var holdings = Companies.GetHoldings(context, company, false);
+        var holdings = Investments.GetHoldings(context, company, false);
 
         foreach (var h in holdings)
         {

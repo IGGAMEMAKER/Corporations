@@ -16,7 +16,7 @@ namespace Assets.Core
 
         private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
         {
-            var holdings = Companies.GetHoldings(gameContext, company, true);
+            var holdings = Investments.GetHoldings(gameContext, company, true);
 
             return holdings
                 .Sum(h => h.control * GetCompanyMaintenance(gameContext, h.companyId) / 100);

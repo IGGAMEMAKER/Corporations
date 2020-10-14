@@ -16,38 +16,43 @@ namespace Assets.Core
 
         // TODO move to raise investments
         public static bool IsCanTakeFastCash(GameContext gameContext, GameEntity company) => !IsHasCashOverflow(gameContext, company);
+
         public static bool IsHasCashOverflow(GameContext gameContext, GameEntity company)
         {
             var valuation = CostOf(company, gameContext);
 
             var balance = Economy.BalanceOf(company);
-            var maxCashLimit = valuation * 7 / 100;
+            var maxCash = valuation * 7 / 100;
 
-            bool hasCashOverflow = balance > maxCashLimit;
-
-            return hasCashOverflow;
+            return balance > maxCash;
         }
 
-        public static long GetProfit(GameContext context, int companyId) => GetProfit(context, Companies.Get(context, companyId));
         public static long GetProfit(GameContext context, GameEntity c)
         {
             return GetCompanyIncome(context, c) - GetCompanyMaintenance(context, c);
         }
 
+        private static long GetGroupIncome(GameContext context, GameEntity e)
+        {
+            return Investments.GetHoldings(context, e, true)
+                .Sum(h => h.control * GetCompanyIncome(context, Companies.Get(context, h.companyId)) / 100);
+        }
+
         public static bool IsWillBecomeBankruptOnNextPeriod(GameContext gameContext, GameEntity c)
         {
-            var profit = Economy.GetProfit(gameContext, c);
-            var balance = Economy.BalanceOf(c);
+            var profit = GetProfit(gameContext, c);
+            var balance = BalanceOf(c);
 
-            var willBecomeBankruptNextPeriod = balance + profit < 0;
-
-            return willBecomeBankruptNextPeriod;
+            return balance + profit < 0;
         }
 
 
         public static bool IsCanMaintainForAWhile(GameEntity company, GameContext gameContext, long money, int periods)
         {
-            return BalanceOf(company) + (GetProfit(gameContext, company) - money) * periods >= 0;
+            var balance = BalanceOf(company);
+            var profit = GetProfit(gameContext, company);
+
+            return balance + (profit - money) * periods >= 0;
         }
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
@@ -55,7 +60,6 @@ namespace Assets.Core
         }
 
 
-        public static bool IsProfitable(GameContext gameContext, int companyId) => IsProfitable(gameContext, Companies.Get(gameContext, companyId));
         public static bool IsProfitable(GameContext gameContext, GameEntity company)
         {
             return GetProfit(gameContext, company) > 0;

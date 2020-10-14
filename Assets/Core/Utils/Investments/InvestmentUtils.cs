@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Core
@@ -9,6 +10,30 @@ namespace Assets.Core
         public static int GenerateInvestorId(GameContext context)
         {
             return context.GetEntities(GameMatcher.Shareholder).Length;
+        }
+
+        // entity can be company, investor or human?
+        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity entity, bool recursively)
+        {
+            List<CompanyHolding> holdings = new List<CompanyHolding>();
+
+            var ownings = GetOwnings(context, entity);
+
+            foreach (var company in ownings)
+            {
+                var holding = new CompanyHolding
+                {
+                    companyId = company.company.Id,
+
+                    control = Companies.GetShareSize(context, company, entity.shareholder.Id),
+
+                    holdings = recursively ? GetHoldings(context, company, recursively) : new List<CompanyHolding>()
+                };
+
+                holdings.Add(holding);
+            }
+
+            return holdings;
         }
 
         public static GameEntity[] GetOwnings(GameContext context, GameEntity c) // c can be human, investor or company
@@ -58,9 +83,9 @@ namespace Assets.Core
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
-            var holdings = Companies.GetHoldings(gameContext, human, false);
+            var holdings = Investments.GetHoldings(gameContext, human, false);
 
-            return Economy.GetHoldingCost(gameContext, holdings);
+            return Economy.GetHoldingsCost(gameContext, holdings);
         }
     }
 }

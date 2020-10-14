@@ -22,25 +22,26 @@ public class CompanyResultView : View
     {
         result1 = result;
 
-        var product = Companies.Get(Q, result.CompanyId);
+        var CompanyId = result.CompanyId;
+        var product = Companies.Get(Q, CompanyId);
 
         CompanyName.text = product.company.Name;
 
         DrawProductGrowth(product, result);
         DrawProductStatus();
 
-        var profit = Economy.GetProfit(Q, result.CompanyId);
+        var profit = Economy.GetProfit(Q, product);
         Profit.text = "Profit\n" + Visuals.Colorize(Format.Money(profit), profit > 0);
 
         LinkToNiche.SetNiche(product.product.Niche);
 
-        SetAggressiveMarketing.SetCompanyId(result.CompanyId);
-        SetNormalMarketing.SetCompanyId(result.CompanyId);
-        SetZeroMarketing.SetCompanyId(result.CompanyId);
+        SetAggressiveMarketing.SetCompanyId(CompanyId);
+        SetNormalMarketing.SetCompanyId(CompanyId);
+        SetZeroMarketing.SetCompanyId(CompanyId);
 
-        ReleaseApp.SetCompanyId(result.CompanyId);
+        ReleaseApp.SetCompanyId(CompanyId);
 
-        RenderMarketingButtons(result.CompanyId);
+        RenderMarketingButtons(CompanyId);
     }
 
     void RenderMarketingButtons(int companyId)

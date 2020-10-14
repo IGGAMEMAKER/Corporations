@@ -77,7 +77,7 @@ namespace Assets.Core
         {
             return new GoalRequirements
             {
-                have = Economy.GetProfit(gameContext, company.company.Id),
+                have = Economy.GetProfit(gameContext, company),
                 need = company.companyGoal.MeasurableGoal
             };
         }
@@ -104,7 +104,7 @@ namespace Assets.Core
         {
             return new GoalRequirements
             {
-                have = Economy.GetProfit(gameContext, company.company.Id),
+                have = Economy.GetProfit(gameContext, company),
                 need = 0
             };
         }

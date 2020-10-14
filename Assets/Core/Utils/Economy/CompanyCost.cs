@@ -5,18 +5,20 @@ namespace Assets.Core
 {
     public static partial class Economy
     {
+        public static long NonCapitalCostOf(GameEntity c, GameContext context)
+        {
+            // +1 to avoid division by zero
+            if (Companies.IsProductCompany(c))
+                return GetProductCost(c) + 1;
+
+            return GetGroupCost(c, context) + 1;
+        }
         public static long CostOf(GameEntity c, GameContext context)
         {
-            long cost;
-            if (Companies.IsProductCompany(c))
-                cost = GetProductCost(c);
-            else
-                cost = GetGroupCost(c, context);
-
             long capital = BalanceOf(c);
+            long cost = NonCapitalCostOf(c, context);
 
-            // +1 to avoid division by zero
-            return cost + capital + 1;
+            return cost + capital;
         }
 
         public static long GetCompanySellingPrice(GameContext context, int companyId)
@@ -43,21 +45,18 @@ namespace Assets.Core
         // Group cost
         public static long GetGroupCost(GameEntity e, GameContext context)
         {
-            var holdings = Companies.GetHoldings(context, e, true);
-
-            return GetHoldingCost(context, holdings);
+            return GetHoldingsCost(context, e);
         }
 
-        public static long GetHoldingCost(GameContext context, List<CompanyHolding> holdings)
+        public static long GetHoldingsCost(GameContext context, GameEntity entity)
+        {
+            var holdings = Investments.GetHoldings(context, entity, true);
+
+            return GetHoldingsCost(context, holdings);
+        }
+        public static long GetHoldingsCost(GameContext context, List<CompanyHolding> holdings)
         {
             return holdings.Sum(h => h.control * CostOf(Companies.Get(context, h.companyId), context) / 100);
         }
-
-        private static long GetGroupIncome(GameContext context, GameEntity e)
-        {
-            return Companies.GetHoldings(context, e, true)
-                .Sum(h => h.control * GetCompanyIncome(context, Companies.Get(context, h.companyId)) / 100);
-        }
-        //
     }
 }
