@@ -24,7 +24,7 @@ public class InvestorPreview : View
         var isPlayer = investor.isPlayer;
 
 
-        var shares = Companies.GetShareSize(Q, company.company.Id, shareholderId);
+        var shares = Companies.GetShareSize(Q, company, shareholderId);
         var goal = "Get most users";
 
         string name = isPlayer ? "YOU" : investor.shareholder.Name;

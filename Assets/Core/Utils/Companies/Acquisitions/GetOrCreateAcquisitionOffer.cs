@@ -6,11 +6,10 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static GameEntity CreateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static GameEntity CreateAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
         {
             var offer = gameContext.CreateEntity();
 
-            var company = Get(gameContext, companyId);
             var cost = Economy.CostOf(company, gameContext);
 
             var buyerOffer = new AcquisitionConditions
@@ -29,22 +28,22 @@ namespace Assets.Core
                 KeepLeaderAsCEO = true
             };
 
-            offer.AddAcquisitionOffer(companyId, buyerInvestorId, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
+            offer.AddAcquisitionOffer(company.company.Id, buyerInvestorId, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
 
             var playerIsInvestor = GetInvestorById(gameContext, buyerInvestorId).isControlledByPlayer;
             if (playerIsInvestor)
-                Debug.Log("Create acquisition offer: " + GetCompanyName(gameContext, companyId));
+                Debug.Log("Create acquisition offer: " + Name(company));
 
             return offer;
         }
 
-        public static GameEntity GetAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static GameEntity GetAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
         {
             var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer)
-                .FirstOrDefault(e => e.acquisitionOffer.CompanyId == companyId && e.acquisitionOffer.BuyerId == buyerInvestorId);
+                .FirstOrDefault(e => e.acquisitionOffer.CompanyId == company.company.Id && e.acquisitionOffer.BuyerId == buyerInvestorId);
 
             if (offer == null)
-                offer = CreateAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+                offer = CreateAcquisitionOffer(gameContext, company, buyerInvestorId);
 
             return offer;
         }

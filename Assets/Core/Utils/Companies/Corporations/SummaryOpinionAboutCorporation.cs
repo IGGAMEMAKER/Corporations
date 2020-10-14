@@ -4,22 +4,21 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static bool IsCompanyWillAcceptCorporationOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static bool IsCompanyWillAcceptCorporationOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
         {
-            return GetCorporationOfferProgress(gameContext, companyId, buyerInvestorId) > 75 - GetShareSize(gameContext, companyId, buyerInvestorId);
+            return GetCorporationOfferProgress(gameContext, company, buyerInvestorId) > 75 - GetShareSize(gameContext, company, buyerInvestorId);
         }
 
-        public static bool IsShareholderWillAcceptCorporationOffer(int companyId, int shareholderId, GameContext gameContext)
+        public static bool IsShareholderWillAcceptCorporationOffer(GameEntity company, int shareholderId, GameContext gameContext)
         {
             // costs
-            var target = Get(gameContext, companyId);
-            var targetCost = Economy.CostOf(target, gameContext);
+            var targetCost = Economy.CostOf(company, gameContext);
 
             var corporation = Investments.GetCompanyByInvestorId(gameContext, shareholderId);
             var corporationCost = Economy.CostOf(corporation, gameContext);
 
             // desire to sell
-            var baseDesireToSellCompany = GetBaseDesireToSellShares(gameContext, companyId, shareholderId);
+            var baseDesireToSellCompany = GetBaseDesireToSellShares(gameContext, company.company.Id, shareholderId);
             var wantsToSellShares = true || baseDesireToSellCompany == 1;
 
             var isSmallComparedToCorporation = targetCost * 100 < 15 * corporationCost;
@@ -56,11 +55,9 @@ namespace Assets.Core
         //}
 
         // sum opinions of all investors
-        public static long GetCorporationOfferProgress(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static long GetCorporationOfferProgress(GameContext gameContext, GameEntity company, int buyerInvestorId)
         {
             //return GetSummaryInvestorOpinion(gameContext, companyId, buyerInvestorId, IsShareholderWillAcceptCorporationOffer(companyId, invId, gameContext));
-            var company = Get(gameContext, companyId);
-
             var shareholders = GetShareholders(company);
 
             long blocks = 0;
@@ -71,7 +68,7 @@ namespace Assets.Core
                 var invId = s.Key;
                 var block = s.Value;
 
-                bool willAcceptOffer = IsShareholderWillAcceptCorporationOffer(companyId, invId, gameContext);
+                bool willAcceptOffer = IsShareholderWillAcceptCorporationOffer(company, invId, gameContext);
 
                 if (willAcceptOffer)
                     desireToSell += block.amount;

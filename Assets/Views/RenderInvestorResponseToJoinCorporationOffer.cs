@@ -30,7 +30,7 @@ public class RenderInvestorResponseToJoinCorporationOffer : View
 
     void RenderResponse(GameEntity investor)
     {
-        bool willAcceptOffer = Companies.IsShareholderWillAcceptCorporationOffer(SelectedCompany.company.Id, shareholderId, Q);
+        bool willAcceptOffer = Companies.IsShareholderWillAcceptCorporationOffer(SelectedCompany, shareholderId, Q);
         bool wantsToSellShares = Companies.IsWantsToSellShares(SelectedCompany, Q, shareholderId, investor.shareholder.InvestorType);
 
         var text = "";

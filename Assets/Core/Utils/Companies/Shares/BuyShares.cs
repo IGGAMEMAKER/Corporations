@@ -5,19 +5,19 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long offer, bool comparedToShareSize)
+        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long offer, bool comparedToShareSize)
         {
-            var shareSize = GetShareSize(context, companyId, sellerInvestorId);
-            BuyShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
+            var shareSize = GetShareSize(context, company, sellerInvestorId);
+            BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
         }
 
-        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
+        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
         {
-            long bid = GetSharesCost(context, companyId, sellerInvestorId);
-            BuyShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
+            long bid = GetSharesCost(context, company, sellerInvestorId);
+            BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
         }
 
-        public static void BuyShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
+        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
             // protecting from buying your own shares
             if (buyerInvestorId == sellerInvestorId)
@@ -25,29 +25,28 @@ namespace Assets.Core
 
             // buy all
             if (amountOfShares == -1)
-                amountOfShares = GetAmountOfShares(context, companyId, sellerInvestorId);
+                amountOfShares = GetAmountOfShares(context, company, sellerInvestorId);
 
-            var c = Get(context, companyId);
-            if (c.hasShareholder && buyerInvestorId == c.shareholder.Id)
+            if (company.hasShareholder && buyerInvestorId == company.shareholder.Id)
             {
-                BuyBack(context, c, companyId, sellerInvestorId, amountOfShares);
+                BuyBack(context, company, sellerInvestorId, amountOfShares);
                 return;
             }
 
-            Debug.Log($"Buy {amountOfShares} shares of {companyId} for ${bid}");
+            Debug.Log($"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
             Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
             Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
 
-            TransferShares(context, companyId, buyerInvestorId, sellerInvestorId, amountOfShares);
+            TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares);
 
             Debug.Log("Transferred");
             GetMoneyFromInvestor(context, buyerInvestorId, bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
-        public static int GetPortionSize(GameContext gameContext, GameEntity company, int companyId, int sellerInvestorId, int percent)
+        public static int GetPortionSize(GameContext gameContext, GameEntity company, int sellerInvestorId, int percent)
         {
-            var shares = GetAmountOfShares(gameContext, companyId, sellerInvestorId);
+            var shares = GetAmountOfShares(gameContext, company, sellerInvestorId);
 
             var totalShares = GetTotalShares(company.shareholders.Shareholders);
 
@@ -59,20 +58,20 @@ namespace Assets.Core
             return portion;
         }
 
-        public static void BuyBackPercent(GameContext context, GameEntity company, int companyId, int sellerInvestorId, int percent)
+        public static void BuyBackPercent(GameContext context, GameEntity company, int sellerInvestorId, int percent)
         {
-            var portion = GetPortionSize(context, company, companyId, sellerInvestorId, percent);
+            var portion = GetPortionSize(context, company, sellerInvestorId, percent);
 
             Debug.Log($"Buy back percent: {portion}");
 
-            BuyBack(context, company, companyId, sellerInvestorId, portion);
+            BuyBack(context, company, sellerInvestorId, portion);
         }
 
-        public static void BuyBack(GameContext context, GameEntity company, int companyId, int sellerInvestorId, int amountOfShares)
+        public static void BuyBack(GameContext context, GameEntity company, int sellerInvestorId, int amountOfShares)
         {
-            var bid = GetSharesCost(context, companyId, sellerInvestorId, amountOfShares);
+            var bid = GetSharesCost(context, company, sellerInvestorId, amountOfShares);
 
-            Debug.Log($"Buy Back! {amountOfShares} shares of {companyId} for ${bid}");
+            Debug.Log($"Buy Back! {amountOfShares} shares of {company.company.Name} for ${bid}");
             var cost = bid;
 
             if (!IsEnoughResources(company, cost))

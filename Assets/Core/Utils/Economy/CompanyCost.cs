@@ -9,7 +9,7 @@ namespace Assets.Core
         {
             long cost;
             if (Companies.IsProductCompany(c))
-                cost = GetProductCost(context, c);
+                cost = GetProductCost(c);
             else
                 cost = GetGroupCost(c, context);
 
@@ -29,23 +29,9 @@ namespace Assets.Core
         }
 
 
-        public static long GetCompanyBaseCost(GameEntity company, GameContext context)
-        {
-            if (Companies.IsProductCompany(company))
-                return GetProductCompanyBaseCost(context, company);
-
-            return CostOf(company, context);
-        }
-
-
         public static long GetCompanyIncomeBasedCost(long potentialIncome)
         {
             return potentialIncome * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
-        }
-
-        public static long GetCompanyIncomeBasedCost(GameEntity company, GameContext context)
-        {
-            return GetCompanyIncome(context, company) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
         }
 
         public static long GetCompanyCostNicheMultiplier()

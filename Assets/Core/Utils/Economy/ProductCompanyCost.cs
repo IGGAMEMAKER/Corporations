@@ -5,19 +5,19 @@ namespace Assets.Core
 {
     partial class Economy
     {
-        private static long GetProductCost(GameContext context, GameEntity company)
+        private static long GetProductCost(GameEntity company)
         {
-            var risks = Markets.GetCompanyRisk(context, company);
+            //var risks = Markets.GetCompanyRisk(context, company);
 
-            return GetProductCompanyBaseCost(context, company) * (100 - risks) / 100;
+            return GetProductCompanyBaseCost(company); // * (100 - risks) / 100;
         }
 
-        public static long GetProductCompanyBaseCost(GameContext context, GameEntity company)
+        public static long GetProductCompanyBaseCost(GameEntity company)
         {
             if (company.isRelease)
             {
                 long audienceCost = GetClientBaseCost(company);
-                long profitCost = GetCompanyIncomeBasedCost(company, context);
+                long profitCost = GetProductCompanyIncome(company) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
 
                 return audienceCost + profitCost;
             }
@@ -27,21 +27,21 @@ namespace Assets.Core
                 var segmentId = Marketing.GetCoreAudienceId(company);
                 try
                 {
-                    var info = Marketing.GetAudienceInfos();
-                    var segment = info[segmentId];
+                    var segment = Marketing.GetAudienceInfos()[segmentId];
 
-                    var max = segment.Size;
                     var income = GetBaseIncomeByMonetisationType(company);
 
                     var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
 
-                    var potentialBaseIncome = income * (100f + incomeMultiplier) / 100f;
 
-                    var possiblePortion = 5;
 
-                    long baseCost = 1000000;
+                    long baseCost = 1_000_000;
 
                     return (long)((double)baseCost * (100f + incomeMultiplier) / 100f);
+
+                    var max = segment.Size;
+                    var possiblePortion = 5;
+                    var potentialBaseIncome = income * (100f + incomeMultiplier) / 100f;
                     return GetCompanyIncomeBasedCost((long)(potentialBaseIncome * (double)max) * possiblePortion / 1000);
                 }
                 catch

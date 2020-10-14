@@ -331,7 +331,9 @@ public partial class PopupView : View
         var positiveResponse = "They " + Visuals.Positive("ACCEPTED") + " our offer!\n\nPress OK to buy a company";
         var negativeResponse = "They " + Visuals.Negative("DECLINED") + " our offer!\n\nSend another offer to buy this company";
 
-        bool willAccept = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, popup.companyId, popup.buyerInvestorId);
+        var company = Companies.Get(Q, popup.companyId);
+
+        bool willAccept = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, company, popup.buyerInvestorId);
 
         List<Type> buttons = new List<Type>();
         

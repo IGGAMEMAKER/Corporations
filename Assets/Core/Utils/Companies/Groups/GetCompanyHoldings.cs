@@ -84,13 +84,13 @@ namespace Assets.Core
         {
             List<CompanyHolding> holdings = new List<CompanyHolding>();
 
-            foreach (var investment in Investments.GetOwnings(context, shareholderId))
+            foreach (var owning in Investments.GetOwnings(context, shareholderId))
             {
                 var holding = new CompanyHolding
                 {
-                    companyId = investment.company.Id,
-                    control = GetShareSize(context, investment.company.Id, shareholderId),
-                    holdings = recursively ? GetHoldings(context, investment.company.Id, recursively) : new List<CompanyHolding>()
+                    companyId = owning.company.Id,
+                    control = GetShareSize(context, owning, shareholderId),
+                    holdings = recursively ? GetHoldings(context, owning, recursively) : new List<CompanyHolding>()
                 };
 
                 holdings.Add(holding);
@@ -98,10 +98,11 @@ namespace Assets.Core
 
             return holdings;
         }
-
-        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively)
+        //GetCompanyIncomeBasedCost
+        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively) => GetCompanyHoldings(context, Get(context, companyId), recursively);
+        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, GameEntity company, bool recursively)
         {
-            return GetHoldings(context, Get(context, companyId).shareholder.Id, recursively);
+            return GetHoldings(context, company.shareholder.Id, recursively);
         }
 
         // changes

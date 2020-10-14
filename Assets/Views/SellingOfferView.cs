@@ -48,7 +48,7 @@ public class SellingOfferView : View
 
         Valuation.text = Format.Money(Economy.CostOf(c, Q));
 
-        var offer = Companies.GetAcquisitionOffer(Q, companyId, buyerId);
+        var offer = Companies.GetAcquisitionOffer(Q, c, buyerId);
         //Offer.text = Format.Money(offer.acquisitionOffer.Offer);
 
         AcceptOffer.SetData(companyId, buyerId);

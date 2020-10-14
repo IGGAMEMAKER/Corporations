@@ -7,7 +7,8 @@ namespace Assets.Core
     {
         public static void ConfirmCorporateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
         {
-            var offer = GetAcquisitionOffer(gameContext, companyId, buyerInvestorId);
+            var company = Get(gameContext, companyId);
+            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
 
             JoinCorporation(gameContext, companyId, buyerInvestorId);
         }
@@ -32,7 +33,7 @@ namespace Assets.Core
             // give shares in corporation to shareholders of integratable company
             foreach (var shareholderId in array)
             {
-                var percentOfSharesInPreviousCompany = GetShareSize(gameContext, companyId, shareholderId);
+                var percentOfSharesInPreviousCompany = GetShareSize(gameContext, target, shareholderId);
 
                 var newShare = emitedShares * percentOfSharesInPreviousCompany / 100;
 

@@ -6,13 +6,13 @@ public class BuyShares : ButtonController
 
     public override void Execute()
     {
-        var companyId = SelectedCompany.company.Id;
+        var company = SelectedCompany;
 
-        int amountOfShares = Companies.GetAmountOfShares(Q, companyId, ShareholderId);
+        int amountOfShares = Companies.GetAmountOfShares(Q, company, ShareholderId);
 
-        long bid = Companies.GetSharesCost(Q, companyId, ShareholderId);
+        long bid = Companies.GetSharesCost(Q, company, ShareholderId);
 
-        Companies.BuyShares(Q, companyId, MyGroupEntity.shareholder.Id, ShareholderId, amountOfShares, bid);
+        Companies.BuyShares(Q, company, MyGroupEntity.shareholder.Id, ShareholderId, amountOfShares, bid);
 
         //GoBack();
         //ReNavigate();

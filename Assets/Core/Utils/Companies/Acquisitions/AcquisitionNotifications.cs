@@ -4,10 +4,8 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static void NotifyAboutInterest(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static void NotifyAboutInterest(GameContext gameContext, GameEntity company, int buyerInvestorId)
         {
-            var company = Get(gameContext, companyId);
-
             //if (IsInPlayerSphereOfInterest(company, gameContext))
             //    NotificationUtils.AddPopup(gameContext, new PopupMessageInterestToCompany(companyId, buyerInvestorId));
         }

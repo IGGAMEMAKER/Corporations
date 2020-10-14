@@ -82,7 +82,10 @@ namespace Assets.Core
                 return 0;
             }
 
-            return product.productPositioning.Positioning;
+            var infos = Marketing.GetAudienceInfos();
+            var maxAudience = infos.Count;
+
+            return Mathf.Clamp(product.productPositioning.Positioning, 0, maxAudience);
         }
 
         public static List<AudienceInfo> GetAudienceInfos()

@@ -29,7 +29,7 @@ public class AcquisitionScreen : View
         Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
 
-        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
 
         RenderProposalStatus(willAcceptOffer);
 
@@ -44,7 +44,7 @@ public class AcquisitionScreen : View
             return;
         }
 
-        var progress = Companies.GetOfferProgress(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        var progress = Companies.GetOfferProgress(Q, SelectedCompany, MyCompany.shareholder.Id);
 
         ProgressText.text = progress + "%";
         ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);
@@ -129,7 +129,7 @@ public class AcquisitionScreen : View
         if (!HasCompany)
             return;
 
-        Companies.TweakAcquisitionConditions(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id, Conditions);
+        Companies.TweakAcquisitionConditions(Q, SelectedCompany, MyCompany.shareholder.Id, Conditions);
 
         ScreenUtils.UpdateScreen(Q);
     }
@@ -163,7 +163,7 @@ public class AcquisitionScreen : View
     {
         get
         {
-            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
             
             return offer?.acquisitionOffer ?? null;
         }

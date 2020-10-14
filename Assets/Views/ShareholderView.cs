@@ -46,7 +46,7 @@ public class ShareholderView : View
         
         Type.text = Investments.GetFormattedInvestorType(shareholder.shareholder.InvestorType);
 
-        Share.text = Companies.GetShareSize(Q, company.company.Id, investorId) + "%";
+        Share.text = Companies.GetShareSize(Q, company, investorId) + "%";
 
         //BuyShares.gameObject.SetActive(investorId != MyGroupEntity?.shareholder?.Id);
 

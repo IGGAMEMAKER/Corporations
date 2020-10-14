@@ -133,12 +133,10 @@ namespace Assets.Core
             ReplaceShareholders(company, shareholders);
         }
 
-        public static void TransferShares(GameContext context, int companyId, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
+        public static void TransferShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
         {
-            var c = Get(context, companyId);
-
-            AddShares(context, c, buyerInvestorId, amountOfShares);
-            DecreaseShares(context, c, sellerInvestorId, amountOfShares);
+            AddShares(context, company, buyerInvestorId, amountOfShares);
+            DecreaseShares(context, company, sellerInvestorId, amountOfShares);
         }
 
 

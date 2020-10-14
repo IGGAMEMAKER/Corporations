@@ -27,7 +27,7 @@ public class VotingShareholderView : View
     {
         var investor = Companies.GetInvestorById(Q, shareholderId);
 
-        var percentage = Companies.GetShareSize(Q, SelectedCompany.company.Id, shareholderId);
+        var percentage = Companies.GetShareSize(Q, SelectedCompany, shareholderId);
         Name.text = $"{investor.shareholder.Name}";
         Share.text = percentage + "%";
         Status.text = Investments.GetFormattedInvestorType(investor.shareholder.InvestorType);

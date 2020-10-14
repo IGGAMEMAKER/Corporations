@@ -30,7 +30,7 @@ public class RenderInvestorResponseToAcquisitionOffer : View
 
     void RenderResponse(GameEntity investor)
     {
-        var AcquisitionOffer = Companies.GetAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id).acquisitionOffer;
+        var AcquisitionOffer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id).acquisitionOffer;
 
 
         bool willAcceptOffer = Companies.IsShareholderWillAcceptAcquisitionOffer(AcquisitionOffer, shareholderId, Q);

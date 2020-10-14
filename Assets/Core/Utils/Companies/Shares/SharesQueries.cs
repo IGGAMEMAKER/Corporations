@@ -38,10 +38,8 @@ namespace Assets.Core
             return shareholders;
         }
 
-        public static int GetAmountOfShares(GameContext context, int companyId, int investorId)
+        public static int GetAmountOfShares(GameContext context, GameEntity c, int investorId)
         {
-            var c = Get(context, companyId);
-
             var shareholders = c.shareholders.Shareholders;
 
             return IsInvestsInCompany(c, investorId) ? shareholders[investorId].amount : 0;
@@ -52,11 +50,10 @@ namespace Assets.Core
             return Investments.IsInvestsInCompany(investorId, company);
         }
 
-        public static int GetShareSize(GameContext context, int companyId, int investorId)
+        //public static int GetShareSize(GameContext context, int companyId, int investorId) 
+        public static int GetShareSize(GameContext context, GameEntity c, int investorId)
         {
-            var c = Get(context, companyId);
-
-            int shares = GetAmountOfShares(context, companyId, investorId);
+            int shares = GetAmountOfShares(context, c, investorId);
             int total = GetTotalShares(c.shareholders.Shareholders);
 
             if (total == 0)
@@ -65,12 +62,10 @@ namespace Assets.Core
             return shares * 100 / total;
         }
 
-        public static long GetSharesCost(GameContext context, int companyId, int investorId, int shares = -1)
+        public static long GetSharesCost(GameContext context, GameEntity c, int investorId, int shares = -1)
         {
-            var c = Get(context, companyId);
-
             if (shares == -1)
-                shares = GetAmountOfShares(context, companyId, investorId);
+                shares = GetAmountOfShares(context, c, investorId);
 
             int total = GetTotalShares(c.shareholders.Shareholders);
 

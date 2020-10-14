@@ -23,10 +23,11 @@ public class BuySharesScreen : View
             return;
 
         var investorId = shareholder.shareholder.Id;
+        var company = SelectedCompany;
 
-        SharesInfo.text = shareholder.shareholder.Name + " owns " + Companies.GetShareSize(Q, SelectedCompany.company.Id, investorId) + "% of company";
+        SharesInfo.text = shareholder.shareholder.Name + " owns " + Companies.GetShareSize(Q, company, investorId) + "% of company";
 
-        var shareCost = Companies.GetSharesCost(Q, SelectedCompany.company.Id, investorId);
+        var shareCost = Companies.GetSharesCost(Q, company, investorId);
         Valuation.text = Format.Money(shareCost);
 
         Offer.text = Format.Money(shareCost);

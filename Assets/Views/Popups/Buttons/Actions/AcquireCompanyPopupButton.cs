@@ -7,10 +7,12 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
         var companyId = Popup.companyId;
         var buyerId = Popup.buyerInvestorId;
 
+        var company = Companies.Get(Q, companyId);
+
         NavigateToProjectScreen(companyId);
         NotificationUtils.ClosePopup(Q);
 
-        Companies.ConfirmAcquisitionOffer(Q, companyId, buyerId);
+        Companies.ConfirmAcquisitionOffer(Q, company, buyerId);
     }
 
     public override string GetButtonName() => "BUY COMPANY";

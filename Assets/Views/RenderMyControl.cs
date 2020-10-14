@@ -10,7 +10,7 @@ public class RenderMyControl : ParameterView
     public override string RenderValue()
     {
         var shareholderId = Hero.shareholder.Id;
-        var control = Companies.GetShareSize(Q, MyCompany.company.Id, shareholderId);
+        var control = Companies.GetShareSize(Q, MyCompany, shareholderId);
 
         // control changed
         if (previousControl != control)

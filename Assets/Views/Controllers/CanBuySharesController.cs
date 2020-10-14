@@ -32,24 +32,24 @@ public class CanBuySharesController : View
 
     public void Render(int investorId)
     {
-        int companyId = SelectedCompany.company.Id;
+        var company = SelectedCompany;
 
         Button = GetComponent<Button>();
         Hint = GetComponent<Hint>();
 
-        var cost = Companies.GetSharesCost(Q, companyId, investorId);
+        var cost = Companies.GetSharesCost(Q, company, investorId);
 
         // TODO we don't always buy companies as Company Group. We can do it as human or investment fund too!
         var have = MyGroupEntity.companyResource.Resources.money;
 
-        bool wantsToSell = WillSell(investorId, companyId);
+        bool wantsToSell = WillSell(investorId, company.company.Id);
         bool canAfford = have >= cost;
 
         Button.interactable = canAfford && cost > 0 && wantsToSell;
 
 
 
-        int percentage = Companies.GetShareSize(Q, companyId, investorId);
+        int percentage = Companies.GetShareSize(Q, company, investorId);
 
         var text = $"Buying {percentage}% of shares will cost us ({MyGroupEntity.company.Name}) {Format.Money(cost)}";
 

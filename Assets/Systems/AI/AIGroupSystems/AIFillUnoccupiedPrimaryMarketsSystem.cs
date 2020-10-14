@@ -99,7 +99,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 
         Debug.Log("AI.SendAcquisitionOffer: " + buyer.company.Name + " wants " + target.company.Name);
 
-        Companies.SendAcquisitionOffer(gameContext, target.company.Id, buyer.shareholder.Id, cost);
+        Companies.SendAcquisitionOffer(gameContext, target, buyer.shareholder.Id, cost);
     }
 
 

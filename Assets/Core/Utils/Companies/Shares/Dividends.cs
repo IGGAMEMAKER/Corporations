@@ -21,7 +21,7 @@ namespace Assets.Core
             foreach (var s in company.shareholders.Shareholders)
             {
                 var investorId = s.Key;
-                var sharePercentage = GetShareSize(gameContext, company.company.Id, investorId);
+                var sharePercentage = GetShareSize(gameContext, company, investorId);
 
                 var sum = dividends * sharePercentage / 100;
 
