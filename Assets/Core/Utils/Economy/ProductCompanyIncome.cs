@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     static partial class Economy
     {
-        public static long GetProductCompanyIncome(GameEntity e)
+        public static long GetIncomeFromProduct(GameEntity e)
         {
             long result = e.marketing.ClientList.Select(l => GetIncomePerSegment(e, l.Key)).Sum();
 

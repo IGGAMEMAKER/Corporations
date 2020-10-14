@@ -32,35 +32,9 @@ public class RenderGroupProfit : UpgradedParameterView
     {
         var bonus = new Bonus<long>("Profit");
 
-
         if (MyCompany.ownings.Holdings.Count() == 1)
         {
-            var product = Flagship;
-
-            var income = Economy.GetProductCompanyIncome(product);
-            var maintenance = Economy.GetProductCompanyMaintenance(product, Q, true);
-
-            // income
-            bonus.Append("Product", income);
-
-            // expenses
-            foreach (var m in maintenance.bonusDescriptions)
-            {
-                if (m.HideIfZero)
-                    bonus.AppendAndHideIfZero(m.Name, -m.Value);
-                else
-                    bonus.Append(m.Name, -m.Value);
-            }
-
-            // investments
-            if (MyCompany.shareholders.Shareholders.Count > 1)
-            {
-                var investments = MyCompany.shareholders.Shareholders.Values
-                    .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
-                    .Sum();
-
-                bonus.AppendAndHideIfZero("Investments", investments);
-            }
+            bonus = Economy.GetProfit(Q, Flagship, true);
 
             bonus.MinifyValues();
             bonus.SortByModule();

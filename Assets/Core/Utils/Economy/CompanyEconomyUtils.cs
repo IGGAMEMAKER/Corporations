@@ -9,27 +9,9 @@ namespace Assets.Core
         public static long GetCompanyIncome(GameContext context, GameEntity e)
         {
             if (Companies.IsProductCompany(e))
-                return GetProductCompanyIncome(e);
+                return GetIncomeFromProduct(e);
 
             return GetGroupIncome(context, e);
-        }
-
-        // TODO move to raise investments
-        public static bool IsCanTakeFastCash(GameContext gameContext, GameEntity company) => !IsHasCashOverflow(gameContext, company);
-
-        public static bool IsHasCashOverflow(GameContext gameContext, GameEntity company)
-        {
-            var valuation = CostOf(company, gameContext);
-
-            var balance = Economy.BalanceOf(company);
-            var maxCash = valuation * 7 / 100;
-
-            return balance > maxCash;
-        }
-
-        public static long GetProfit(GameContext context, GameEntity c)
-        {
-            return GetCompanyIncome(context, c) - GetCompanyMaintenance(context, c);
         }
 
         private static long GetGroupIncome(GameContext context, GameEntity e)
@@ -37,6 +19,83 @@ namespace Assets.Core
             return Investments.GetHoldings(context, e, true)
                 .Sum(h => h.control * GetCompanyIncome(context, Companies.Get(context, h.companyId)) / 100);
         }
+
+        public static long GetCompanyMaintenance(GameContext gameContext, int companyId) => GetCompanyMaintenance(gameContext, Companies.Get(gameContext, companyId));
+        public static long GetCompanyMaintenance(GameContext gameContext, GameEntity c)
+        {
+            if (Companies.IsProductCompany(c))
+                return GetProductCompanyMaintenance(c, gameContext);
+            else
+                return GetGroupMaintenance(gameContext, c);
+        }
+
+        private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
+        {
+            var holdings = Investments.GetHoldings(gameContext, company, true);
+
+            return holdings
+                .Sum(h => h.control * GetCompanyMaintenance(gameContext, h.companyId) / 100);
+        }
+
+        public static Bonus<long> GetProfit(GameContext context, GameEntity c, bool isBonus)
+        {
+            var bonus = new Bonus<long>("Profit");
+
+            if (c.hasProduct)
+            {
+                // income
+                bonus.Append("Product", GetIncomeFromProduct(c));
+
+                // expenses
+                var maintenance = GetProductCompanyMaintenance(c, context, true);
+                foreach (var m in maintenance.bonusDescriptions)
+                {
+                    if (m.HideIfZero)
+                        bonus.AppendAndHideIfZero(m.Name, -m.Value);
+                    else
+                        bonus.Append(m.Name, -m.Value);
+                }
+
+                // investments
+                var parent = Companies.GetManagingCompanyOf(c, context);
+
+                if (parent.shareholders.Shareholders.Count > 1)
+                {
+                    var investments = parent.shareholders.Shareholders.Values
+                        .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
+                        .Sum();
+
+                    bonus.AppendAndHideIfZero("Investments", investments);
+                }
+
+                return bonus;
+            }
+
+            // group
+            bonus.Append("Group Income", GetGroupIncome(context, c));
+            bonus.Append("Maintenance", -GetGroupMaintenance(context, c));
+
+            return bonus;
+        }
+        public static long GetProfit(GameContext context, GameEntity c)
+        {
+            // PRODUCTS
+
+            // ** income **
+            // * base income
+            // * investments
+
+            // ** expenses **
+            // * teams
+            // * managers
+            // * marketing
+            // * servers
+
+            return GetProfit(context, c, true).Sum();
+        }
+
+
+
 
         public static bool IsWillBecomeBankruptOnNextPeriod(GameContext gameContext, GameEntity c)
         {
@@ -71,46 +130,6 @@ namespace Assets.Core
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
             return !IsProfitable(gameContext, product);
-        }
-
-
-        // TODO move to raise investments
-        public static long GetFastCashAmount(GameContext gameContext, GameEntity company)
-        {
-            int fraction = C.FAST_CASH_COMPANY_SHARE;
-
-            return CostOf(company, gameContext) * fraction / 100;
-        }
-        
-        // TODO move to raise investments
-        public static void RaiseFastCash(GameContext gameContext, GameEntity company, bool CeoNeedsToCommitToo = false)
-        {
-            if (IsHasCashOverflow(gameContext, company))
-                return;
-
-            var offer = GetFastCashAmount(gameContext, company);
-            var proposal = new InvestmentProposal
-            {
-                Investment = new Investment(offer, 0, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
-
-                WasAccepted = false
-            };
-
-            for (var i = 0; i < company.shareholders.Shareholders.Count; i++)
-            {
-                var investorId = company.shareholders.Shareholders.Keys.ToArray()[i];
-                var inv = Companies.GetInvestorById(gameContext, investorId);
-
-                bool isCeo = inv.shareholder.InvestorType == InvestorType.Founder;
-
-                if (isCeo && !CeoNeedsToCommitToo)
-                    continue;
-
-                proposal.ShareholderId = investorId;
-
-                Companies.AddInvestmentProposal(company, proposal);
-                Companies.AcceptInvestmentProposal(gameContext, company, investorId);
-            }
         }
     }
 }

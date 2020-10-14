@@ -44,6 +44,7 @@ namespace Assets.Core
             return c.ownings.Holdings.Select(companyId => Companies.Get(context, companyId)).ToArray();
         }
 
+
         public static GameEntity GetInvestor(GameContext context, int investorId)
         {
             return Array.Find(context.GetEntities(GameMatcher.Shareholder), s => s.shareholder.Id == investorId);

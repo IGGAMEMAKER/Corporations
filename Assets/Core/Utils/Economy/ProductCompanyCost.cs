@@ -17,7 +17,7 @@ namespace Assets.Core
             if (company.isRelease)
             {
                 long audienceCost = GetClientBaseCost(company);
-                long profitCost = GetProductCompanyIncome(company) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
+                long profitCost = GetIncomeFromProduct(company) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
 
                 return audienceCost + profitCost;
             }
