@@ -11,12 +11,12 @@ namespace Assets.Core
             if (Companies.IsProductCompany(c))
                 return GetProductCompanyMaintenance(c, gameContext);
             else
-                return GetGroupMaintenance(gameContext, c.company.Id);
+                return GetGroupMaintenance(gameContext, c);
         }
 
-        private static long GetGroupMaintenance(GameContext gameContext, int companyId)
+        private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
         {
-            var holdings = Companies.GetCompanyHoldings(gameContext, companyId, true);
+            var holdings = Companies.GetHoldings(gameContext, company, true);
 
             return holdings
                 .Sum(h => h.control * GetCompanyMaintenance(gameContext, h.companyId) / 100);

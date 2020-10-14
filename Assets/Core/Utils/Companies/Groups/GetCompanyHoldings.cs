@@ -79,17 +79,21 @@ namespace Assets.Core
 
 
 
-        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity investorEntity, bool recursively) => GetHoldings(context, investorEntity.shareholder.Id, recursively);
-        public static List<CompanyHolding> GetHoldings(GameContext context, int shareholderId, bool recursively)
+        // entity can be company, investor or human?
+        public static List<CompanyHolding> GetHoldings(GameContext context, GameEntity entity, bool recursively)
         {
             List<CompanyHolding> holdings = new List<CompanyHolding>();
 
-            foreach (var owning in Investments.GetOwnings(context, shareholderId))
+            var ownings = Investments.GetOwnings(context, entity);
+
+            foreach (var owning in ownings)
             {
                 var holding = new CompanyHolding
                 {
                     companyId = owning.company.Id,
-                    control = GetShareSize(context, owning, shareholderId),
+
+                    control = GetShareSize(context, owning, entity.shareholder.Id),
+
                     holdings = recursively ? GetHoldings(context, owning, recursively) : new List<CompanyHolding>()
                 };
 
@@ -97,12 +101,6 @@ namespace Assets.Core
             }
 
             return holdings;
-        }
-        //GetCompanyIncomeBasedCost
-        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, int companyId, bool recursively) => GetCompanyHoldings(context, Get(context, companyId), recursively);
-        public static List<CompanyHolding> GetCompanyHoldings(GameContext context, GameEntity company, bool recursively)
-        {
-            return GetHoldings(context, company.shareholder.Id, recursively);
         }
 
         // changes
@@ -149,16 +147,5 @@ namespace Assets.Core
                 CompanyId = product.company.Id
             };
         }
-    }
-
-    public class CompanyHolding
-    {
-        // shares percent
-        public int control;
-
-        // controlled company id
-        public int companyId;
-
-        public List<CompanyHolding> holdings;
     }
 }

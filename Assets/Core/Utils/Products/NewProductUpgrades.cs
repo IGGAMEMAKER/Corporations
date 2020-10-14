@@ -14,7 +14,7 @@ namespace Assets.Core
             var top = 3;
             var ok = 1;
 
-            var hate = -10;
+            var hate = -5;
             var bad = -3;
 
             var socialNetworkFeatures = new NewProductFeature[]
@@ -23,8 +23,10 @@ namespace Assets.Core
                 new NewProductFeature("News Feed",      new List<int> { ok, top, top, ok, ok }),
                 new NewProductFeature("Friends",        new List<int> { ok, ok, top, top, top }),
                 new NewProductFeature("Profile",        new List<int> { top, top, top, top, ok }),
-                new NewProductFeature("Voice chat",     new List<int> { ok, ok, ok, top, top }),
-                new NewProductFeature("Video chat",     new List<int> { ok, ok, ok, ok, top }),
+
+                new NewProductFeature("Voice chat",     new List<int> { top, top, top, top, top }),
+                new NewProductFeature("Video chat",     new List<int> { top, top, top, top, top }),
+
                 new NewProductFeature("Sending files",  new List<int> { ok, top, top, ok, 0 }),
                 new NewProductFeature("Emojis",         new List<int> { ok, top, ok, ok, 0 }),
                 new NewProductFeature("Likes",          new List<int> { ok, top, top, 0, 0 }),

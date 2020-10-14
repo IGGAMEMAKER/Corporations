@@ -56,8 +56,7 @@ namespace Assets.Core
         public static void AddShares(GameContext gameContext, GameEntity company, int investorId, int amountOfShares)
         {
             var shareholders = company.shareholders.Shareholders;
-            var inv = Investments.GetInvestor(gameContext, investorId);
-            var shareholder = inv.shareholder;
+            var investor = Investments.GetInvestor(gameContext, investorId);
 
             if (IsInvestsInCompany(company, investorId))
             {
@@ -76,12 +75,12 @@ namespace Assets.Core
                 shareholders[investorId] = new BlockOfShares
                 {
                     amount = amountOfShares,
-                    InvestorType = shareholder.InvestorType,
+                    InvestorType = investor.shareholder.InvestorType,
                     shareholderLoyalty = 100,
                 };
             }
 
-            AddOwning(inv, company.company.Id);
+            AddOwning(investor, company.company.Id);
             ReplaceShareholders(company, shareholders);
         }
 

@@ -18,21 +18,19 @@ public class RenderCompanyEconomyTab : View
         int companyId = company.company.Id; // GetComponent<SetTargetCompany>().companyId;
 
         Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(Q, company));
-        IncomeHint.SetHint(GetIncomeDescription(Q, companyId));
+        IncomeHint.SetHint(GetIncomeDescription(Q, company));
 
         Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(Q, company));
         MaintenanceHint.SetHint(GetMaintenanceDescription(Q, companyId));
     }
 
 
-    internal string GetIncomeDescription(GameContext context, int companyId)
+    internal string GetIncomeDescription(GameContext context, GameEntity c)
     {
-        var c = Companies.Get(context, companyId);
-
         if (Companies.IsProductCompany(c))
             return GetProductCompanyIncomeDescription(c, context);
 
-        return GetGroupIncomeDescription(context, companyId);
+        return GetGroupIncomeDescription(context, c);
     }
 
 
@@ -43,7 +41,7 @@ public class RenderCompanyEconomyTab : View
         if (Companies.IsProductCompany(c))
             return GetProductCompanyMaintenanceDescription(c, context);
 
-        return GetGroupMaintenanceDescription(context, companyId);
+        return GetGroupMaintenanceDescription(context, c);
     }
 
 
@@ -61,11 +59,11 @@ public class RenderCompanyEconomyTab : View
         return $"Maintenance of {company.company.Name} equals {Format.Money(maintenance)}";
     }
 
-    private  string GetGroupMaintenanceDescription(GameContext context, int companyId)
+    private string GetGroupMaintenanceDescription(GameContext context, GameEntity company)
     {
         string description = "Group maintenance:\n";
 
-        var holdings = Companies.GetCompanyHoldings(context, companyId, false);
+        var holdings = Companies.GetHoldings(context, company, false);
 
         foreach (var h in holdings)
         {
@@ -83,11 +81,11 @@ public class RenderCompanyEconomyTab : View
     }
 
 
-    private string GetGroupIncomeDescription(GameContext context, int companyId)
+    private string GetGroupIncomeDescription(GameContext context, GameEntity company)
     {
         string description = "Group income:\n";
 
-        var holdings = Companies.GetCompanyHoldings(context, companyId, false);
+        var holdings = Companies.GetHoldings(context, company, false);
 
         foreach (var h in holdings)
         {

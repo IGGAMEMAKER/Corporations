@@ -11,7 +11,6 @@ namespace Assets.Core
             return context.GetEntities(GameMatcher.Shareholder).Length;
         }
 
-        public static GameEntity[] GetOwnings(GameContext context, int shareholderId) => GetOwnings(context, Companies.GetInvestorById(context, shareholderId));
         public static GameEntity[] GetOwnings(GameContext context, GameEntity c) // c can be human, investor or company
         {
             if (!c.hasOwnings)

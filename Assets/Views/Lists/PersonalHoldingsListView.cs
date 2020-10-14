@@ -24,10 +24,11 @@ public class PersonalHoldingsListView : ListView
 
     private GameEntity[] GetInvestments()
     {
+        return Investments.GetOwnings(Q, SelectedHuman);
         var human = SelectedHuman;
 
         if (human.hasShareholder)
-            return Investments.GetOwnings(Q, human.shareholder.Id);
+            return Investments.GetOwnings(Q, human);
 
         return new GameEntity[0];
     }

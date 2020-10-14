@@ -4,6 +4,17 @@ using Entitas.CodeGeneration.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CompanyHolding
+{
+    // shares percent
+    public int control;
+
+    // controlled company id
+    public int companyId;
+
+    public List<CompanyHolding> holdings;
+}
+
 [Game, Event(EventTarget.Self), Event(EventTarget.Any)]
 public struct CompanyComponent : IComponent
 {

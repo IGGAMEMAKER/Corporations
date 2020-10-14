@@ -58,7 +58,7 @@ public class CompanyCostView : View
             ShowProductCompanyLabels(false);
             ShowGroupLabels(true);
 
-            HoldingCost.text = RenderCosts(Economy.GetHoldingCost(Q, c));
+            HoldingCost.text = RenderCosts(Economy.GetGroupCost(c, Q));
         }
     }
 
