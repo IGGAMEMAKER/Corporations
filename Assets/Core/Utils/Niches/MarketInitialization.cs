@@ -71,7 +71,7 @@ namespace Assets.Core
 
             var clients = Marketing.GetClients(product);
 
-            var companyCost = Economy.GetCompanyCost(gameContext, product);
+            var companyCost = Economy.CostOf(product, gameContext);
 
             var newChannels = availableChannels
                 .Where(IsReachableChannel(companyCost, product, gameContext, includeActive));

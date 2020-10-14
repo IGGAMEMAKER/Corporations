@@ -8,8 +8,7 @@ namespace Assets.Core
     {
         public static void SpawnProposals(GameContext context, GameEntity company)
         {
-            int companyId = company.company.Id;
-            long cost = Economy.GetCompanyCost(context, companyId);
+            long cost = Economy.CostOf(company, context);
 
             var potentialInvestors = GetPotentialInvestors(context, company);
 

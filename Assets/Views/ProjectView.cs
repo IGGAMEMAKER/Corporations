@@ -18,7 +18,7 @@ public class ProjectView : View
 
     void RenderCompanyEconomy()
     {
-        var cost = Economy.GetCompanyCost(Q, SelectedCompany.company.Id);
+        var cost = Economy.CostOf(SelectedCompany, Q);
 
         CompanyValuation.text = Format.Money(cost);
     }

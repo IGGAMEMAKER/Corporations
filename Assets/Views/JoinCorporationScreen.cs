@@ -33,9 +33,9 @@ public class JoinCorporationScreen : View
 
 
         // TODO DIVIDE BY ZERO
-        var ourCost = Economy.GetCompanyCost(Q, MyCompany);
+        var ourCost = Economy.CostOf(MyCompany, Q);
         if (ourCost == 0) ourCost = 1;
-        var targetCost = Economy.GetCompanyCost(Q, SelectedCompany);
+        var targetCost = Economy.CostOf(SelectedCompany, Q);
 
         var sizeComparison = targetCost * 100 / ourCost;
 

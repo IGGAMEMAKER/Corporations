@@ -9,7 +9,7 @@ public class RenderCompanyRank : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var rank = Economy.GetCompanyCost(Q, MyCompany);
+        var rank = Economy.CostOf(MyCompany, Q);
 
         return $"{Format.Money(rank)}";
     }

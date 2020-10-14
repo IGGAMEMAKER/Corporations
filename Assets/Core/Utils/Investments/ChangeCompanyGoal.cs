@@ -65,7 +65,7 @@ namespace Assets.Core
                 case InvestorGoal.IPO: measurableGoal = 1; break;
 
                 case InvestorGoal.GrowCompanyCost:
-                    measurableGoal = Economy.GetCompanyCost(gameContext, company.company.Id) * (100 + C.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
+                    measurableGoal = Economy.CostOf(company, gameContext) * (100 + C.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
                     break;
             }
 

@@ -74,7 +74,7 @@ namespace Assets.Core
             return GetPositioning(product).Loyalties[segmentId] > 0;
         }
 
-        public static int GetCoreAudienceId(GameEntity product, GameContext gameContext)
+        public static int GetCoreAudienceId(GameEntity product)
         {
             if (product.isRelease)
             {

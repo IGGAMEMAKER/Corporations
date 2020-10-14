@@ -39,7 +39,7 @@ public class ParlayHistoryListView : ListView
             var seller = acquisitionOffer.SellerOffer;
             long price = conditions.Price;
 
-            var cost = Economy.GetCompanyCost(Q, SelectedCompany.company.Id);
+            var cost = Economy.CostOf(SelectedCompany, Q);
 
 
             var sellerPrice = $"They want {Format.Money(seller.Price)} (Real valuation = {Format.Money(cost)})";

@@ -21,8 +21,8 @@ namespace Assets.Core
             int[] array = new int[shareholders.Keys.Count];
 
 
-            var corporationCost = Economy.GetCompanyCost(gameContext, corporation);
-            var targetCost = Economy.GetCompanyCost(gameContext, target);
+            var corporationCost = Economy.CostOf(corporation, gameContext);
+            var targetCost = Economy.CostOf(target, gameContext);
 
             // TODO
             //             var corporationShares = Companies.GetTotalShares(gameContext, companyId);

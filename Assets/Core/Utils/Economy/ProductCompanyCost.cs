@@ -5,27 +5,26 @@ namespace Assets.Core
 {
     partial class Economy
     {
-        private static long GetProductCompanyCost(GameContext context, int companyId)
+        private static long GetProductCost(GameContext context, GameEntity company)
         {
-            var risks = Markets.GetCompanyRisk(context, companyId);
+            var risks = Markets.GetCompanyRisk(context, company);
 
-            return GetProductCompanyBaseCost(context, companyId) * (100 - risks) / 100;
+            return GetProductCompanyBaseCost(context, company) * (100 - risks) / 100;
         }
 
-        public static long GetProductCompanyBaseCost(GameContext context, int companyId) => GetProductCompanyBaseCost(context, Companies.Get(context, companyId));
         public static long GetProductCompanyBaseCost(GameContext context, GameEntity company)
         {
             if (company.isRelease)
             {
                 long audienceCost = GetClientBaseCost(company);
-                long profitCost = GetCompanyIncomeBasedCost(context, company);
+                long profitCost = GetCompanyIncomeBasedCost(company, context);
 
                 return audienceCost + profitCost;
             }
             else
             {
                 // judge by potential
-                var segmentId = Marketing.GetCoreAudienceId(company, context);
+                var segmentId = Marketing.GetCoreAudienceId(company);
                 try
                 {
                     var info = Marketing.GetAudienceInfos();

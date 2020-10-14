@@ -35,7 +35,7 @@ class CompanyReportSystem : OnPeriodChange
             AudienceSize = 0,
             Income = Economy.GetCompanyIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
-            Valuation = Economy.GetCompanyCost(gameContext, e)
+            Valuation = Economy.CostOf(e, gameContext)
         });
     }
 
@@ -47,7 +47,7 @@ class CompanyReportSystem : OnPeriodChange
             AudienceSize = Marketing.GetClients(e),
             Income = Economy.GetCompanyIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
-            Valuation = Economy.GetCompanyCost(gameContext, e)
+            Valuation = Economy.CostOf(e, gameContext)
         });
     }
 }

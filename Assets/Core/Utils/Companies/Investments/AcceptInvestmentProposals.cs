@@ -7,7 +7,7 @@
             var p = GetInvestmentProposal(company, investorId);
 
             // calculating new shares size
-            long cost = Economy.GetCompanyCost(gameContext, company);
+            long cost = Economy.CostOf(company, gameContext);
 
             var allShares = (long)GetTotalShares(company);
             long shares = allShares * p.Investment.Offer / cost;

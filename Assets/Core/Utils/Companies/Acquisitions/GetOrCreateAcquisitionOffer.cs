@@ -10,7 +10,8 @@ namespace Assets.Core
         {
             var offer = gameContext.CreateEntity();
 
-            var cost = Economy.GetCompanyCost(gameContext, companyId);
+            var company = Get(gameContext, companyId);
+            var cost = Economy.CostOf(company, gameContext);
 
             var buyerOffer = new AcquisitionConditions
             {

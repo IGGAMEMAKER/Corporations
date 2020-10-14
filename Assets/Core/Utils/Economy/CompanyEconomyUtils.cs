@@ -6,7 +6,6 @@ namespace Assets.Core
     {
         public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
-        public static long GetCompanyIncome(GameContext context, int companyId) => GetCompanyIncome(context, Companies.Get(context, companyId));
         public static long GetCompanyIncome(GameContext context, GameEntity e)
         {
             if (Companies.IsProductCompany(e))
@@ -19,7 +18,7 @@ namespace Assets.Core
         public static bool IsCanTakeFastCash(GameContext gameContext, GameEntity company) => !IsHasCashOverflow(gameContext, company);
         public static bool IsHasCashOverflow(GameContext gameContext, GameEntity company)
         {
-            var valuation = GetCompanyCost(gameContext, company);
+            var valuation = CostOf(company, gameContext);
 
             var balance = Economy.BalanceOf(company);
             var maxCashLimit = valuation * 7 / 100;
@@ -67,7 +66,7 @@ namespace Assets.Core
 
         public static bool IsCompanyNeedsMoreMoneyOnMarket(GameContext gameContext, GameEntity product)
         {
-            return !IsProfitable(gameContext, product.company.Id);
+            return !IsProfitable(gameContext, product);
         }
 
 
@@ -76,7 +75,7 @@ namespace Assets.Core
         {
             int fraction = C.FAST_CASH_COMPANY_SHARE;
 
-            return GetCompanyCost(gameContext, company) * fraction / 100;
+            return CostOf(company, gameContext) * fraction / 100;
         }
         
         // TODO move to raise investments

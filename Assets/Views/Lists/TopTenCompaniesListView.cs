@@ -10,7 +10,7 @@ public class TopTenCompaniesListView : ListView
     {
         var company = entity as GameEntity;
 
-        var cost = Economy.GetCompanyCost(Q, company);
+        var cost = Economy.CostOf(company, Q);
         t.GetComponent<MockText>().SetEntity($"{company.company.Name} ({Format.Money(cost)})");
     }
 
@@ -20,7 +20,7 @@ public class TopTenCompaniesListView : ListView
 
         var independentCompanies = Companies.GetIndependentCompanies(Q)
             .Where(Companies.IsNotFinancialStructure)
-            .OrderByDescending(c => Economy.GetCompanyCost(Q, c))
+            .OrderByDescending(c => Economy.CostOf(c, Q))
             .ToArray();
 
         var companies = new List<GameEntity>();

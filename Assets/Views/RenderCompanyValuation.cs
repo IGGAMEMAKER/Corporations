@@ -9,6 +9,6 @@ public class RenderCompanyValuation : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Format.Money(Economy.GetCompanyCost(Q, SelectedCompany.company.Id));
+        return Format.Money(Economy.CostOf(SelectedCompany, Q));
     }
 }

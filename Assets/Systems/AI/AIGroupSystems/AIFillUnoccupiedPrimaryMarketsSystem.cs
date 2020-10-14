@@ -92,7 +92,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 
     void SendAcquisitionOffer(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        var cost = Economy.GetCompanyCost(gameContext, target.company.Id) * Random.Range(1, 10) / 2;
+        var cost = Economy.CostOf(target, gameContext) * Random.Range(1, 10) / 2;
 
         if (!Companies.IsEnoughResources(buyer, cost))
             return;

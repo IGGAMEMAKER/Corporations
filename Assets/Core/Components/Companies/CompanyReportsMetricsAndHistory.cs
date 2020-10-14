@@ -12,7 +12,7 @@ public struct MetricsInfo
     public long AudienceSize;
 }
 
-public struct ReportData
+public class ReportData
 {
     public long Cost;
     public int ShareholderId;

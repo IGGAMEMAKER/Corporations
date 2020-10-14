@@ -11,14 +11,18 @@ namespace Assets.Core
 
         public static bool IsShareholderWillAcceptCorporationOffer(int companyId, int shareholderId, GameContext gameContext)
         {
-            var cost = Economy.GetCompanyCost(gameContext, companyId);
+            // costs
+            var target = Get(gameContext, companyId);
+            var targetCost = Economy.CostOf(target, gameContext);
 
+            var corporation = Investments.GetCompanyByInvestorId(gameContext, shareholderId);
+            var corporationCost = Economy.CostOf(corporation, gameContext);
+
+            // desire to sell
             var baseDesireToSellCompany = GetBaseDesireToSellShares(gameContext, companyId, shareholderId);
             var wantsToSellShares = true || baseDesireToSellCompany == 1;
 
-
-            var corporationCost = Economy.GetCompanyCost(gameContext, companyId);
-            var isSmallComparedToCorporation = cost * 100 < 15 * corporationCost;
+            var isSmallComparedToCorporation = targetCost * 100 < 15 * corporationCost;
 
             return wantsToSellShares && isSmallComparedToCorporation;
         }

@@ -17,7 +17,7 @@ public class ChooseProperScreenInDevScreen : View
         // TODO also check if products are in same industry
         var dominantIndustry = MyCompany.companyFocus.Industries[0];
         var dominantIndustryCompetitors = Companies.GetNonFundCompaniesInterestedInIndustry(Q, dominantIndustry)
-            .OrderByDescending(c => Economy.GetCompanyCost(Q, c));
+            .OrderByDescending(c => Economy.CostOf(c, Q));
 
         bool isDomineeringOnMarket = dominantIndustryCompetitors.First().company.Id == MyCompany.company.Id;
 

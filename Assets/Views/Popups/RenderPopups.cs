@@ -306,7 +306,8 @@ public partial class PopupView : View
 
     void RenderNewCorporationRequirements(PopupMessageCorporationRequirements popup)
     {
-        var cost = Economy.GetCompanyCost(Q, popup.companyId);
+        var company = Companies.Get(Q, popup.companyId);
+        var cost = Economy.CostOf(company, Q);
         var goal = C.CORPORATION_REQUIREMENTS_COMPANY_COST;
 
         RenderUniversalPopup(

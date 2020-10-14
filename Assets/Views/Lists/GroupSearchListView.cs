@@ -23,7 +23,7 @@ public class GroupSearchListView : ListView
     public void Render()
     {
         var groups = Companies.GetGroupCompanies(Q)
-            .OrderByDescending(g => Economy.GetCompanyCost(Q, g.company.Id))
+            .OrderByDescending(g => Economy.CostOf(g, Q))
             .ToArray();
 
         SetItems(groups, GrowthFilterQuarterly.Quarterly);

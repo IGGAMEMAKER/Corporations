@@ -26,7 +26,7 @@ public class CompanyInIndustryView : View
 
         Brand.text = (int)company.branding.BrandPower + "";
 
-        Valuation.text = Format.Money(Economy.GetCompanyCost(Q, company));
+        Valuation.text = Format.Money(Economy.CostOf(company, Q));
 
         var lastMonthMetrics = CompanyStatisticsUtils.GetLastMetrics(company, 4);
         var currentMetrics = CompanyStatisticsUtils.GetLastMetrics(company, 1);

@@ -74,7 +74,7 @@ namespace Assets.Core
 
             int total = GetTotalShares(c.shareholders.Shareholders);
 
-            return Economy.GetCompanyCost(context, c.company.Id) * shares / total;
+            return Economy.CostOf(c, context) * shares / total;
         }
 
         public static string GetInvestorName(GameContext context, int investorId) => GetInvestorName(GetInvestorById(context, investorId));

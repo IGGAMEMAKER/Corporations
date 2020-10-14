@@ -4,7 +4,7 @@ public class PromoteToCorporation : ButtonController
 {
     public override void Execute()
     {
-        var cost = Economy.GetCompanyCost(Q, MyCompany);
+        var cost = Economy.CostOf(MyCompany, Q);
         var goal = C.CORPORATION_REQUIREMENTS_COMPANY_COST;
 
         if (cost < goal)

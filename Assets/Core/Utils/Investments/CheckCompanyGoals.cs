@@ -45,7 +45,7 @@ namespace Assets.Core
 
         private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
         {
-            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.GetCompanyCost(gameContext, company.company.Id) > C.IPO_REQUIREMENTS_COMPANY_COST;
+            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.CostOf(company, gameContext) > C.IPO_REQUIREMENTS_COMPANY_COST;
         }
 
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
@@ -86,7 +86,7 @@ namespace Assets.Core
         {
             return new GoalRequirements
             {
-                have = Economy.GetCompanyCost(gameContext, company.company.Id),
+                have = Economy.CostOf(company, gameContext),
                 need = company.companyGoal.MeasurableGoal
             };
         }

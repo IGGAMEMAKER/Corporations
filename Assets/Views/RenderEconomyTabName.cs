@@ -9,7 +9,7 @@ public class RenderEconomyTabName : UpgradedParameterView
 
     public override string RenderValue()
     {
-        var cost = Economy.GetCompanyCost(Q, SelectedCompany);
+        var cost = Economy.CostOf(SelectedCompany, Q);
 
         return $"ECONOMY ({Format.Money(cost)})";
     }

@@ -10,7 +10,7 @@ public class CompaniesInIndustryListView : ListView
     {
         var company = entity as GameEntity;
 
-        var cost = Economy.GetCompanyCost(Q, company);
+        var cost = Economy.CostOf(company, Q);
         //t.GetComponent<MockText>().SetEntity($"{company.company.Name} ({Format.Money(cost)})");
         t.GetComponent<CompanyInIndustryView>().SetEntity(company.company.Id);
     }
@@ -23,7 +23,7 @@ public class CompaniesInIndustryListView : ListView
 
         // get independent companies, that are interested in this industry
         var companies = Companies.GetNonFundCompaniesInterestedInIndustry(Q, industry)
-            .OrderByDescending(c => Economy.GetCompanyCost(Q, c));
+            .OrderByDescending(c => Economy.CostOf(c, Q));
 
         SetItems(companies);
     }

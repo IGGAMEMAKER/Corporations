@@ -48,7 +48,7 @@ namespace Assets.Core
         {
             var releasedProducts = GetProductsOnMarket(niche, gameContext).Where(p => p.isRelease);
 
-            return releasedProducts.All(p => Economy.IsProfitable(gameContext, p.company.Id));
+            return releasedProducts.All(p => Economy.IsProfitable(gameContext, p));
         }
 
         public static bool IsMarketCanAffordMoreCompanies(GameEntity niche, GameContext gameContext) => IsAllReleasedCompaniesAreProfitable(niche, gameContext);

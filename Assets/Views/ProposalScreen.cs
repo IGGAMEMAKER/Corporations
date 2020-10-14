@@ -20,7 +20,7 @@ public class ProposalScreen : View
 
     void RenderOffer()
     {
-        long Cost = Economy.GetCompanyCost(Q, MyCompany.company.Id);
+        long Cost = Economy.CostOf(MyCompany, Q);
 
         long offer = proposal.Investment.Offer;
         var portion = proposal.Investment.Portion;
@@ -45,7 +45,7 @@ public class ProposalScreen : View
         if (IsInvestmentRoundActive)
         {
             //Valuation.text = "$" + Format.Minify(proposal.Investment.Valuation);
-            Valuation.text = Format.MinifyMoney(Economy.GetCompanyCost(Q, MyCompany));
+            Valuation.text = Format.MinifyMoney(Economy.CostOf(MyCompany, Q));
         }
     }
 

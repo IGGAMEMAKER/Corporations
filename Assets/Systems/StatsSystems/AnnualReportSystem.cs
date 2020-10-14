@@ -28,51 +28,36 @@ public class AnnualReportSystem : OnYearChange
         reportContainer.ReplaceReports(reports);
     }
 
+    List<ReportData> WrapIndices(List<ReportData> datas)
+    {
+        for (var i = 0; i < datas.Count; i++)
+        {
+            datas[i].position = i;
+        }
+
+        return datas.ToList();
+    }
+
     List<ReportData> GetProductList()
     {
         var products = Companies.GetProductCompanies(gameContext)
-            .OrderByDescending(p => Economy.GetCompanyCost(gameContext, p.company.Id))
-            .ToArray();
+            .OrderByDescending(p => Economy.CostOf(p, gameContext));
 
-        var List = new List<ReportData>();
 
-        for (var i = 0; i < products.Length; i++)
-        {
-            var p = products[i];
-            var id = p.company.Id;
+        var List = products.Select(p => new ReportData { Cost = Economy.CostOf(p, gameContext), ShareholderId = p.company.Id }).ToList();
 
-            List.Add(new ReportData
-            {
-                Cost = Economy.GetCompanyCost(gameContext, id),
-                ShareholderId = id,
-                position = i
-            });
-        }
-
-        return List;
+        return WrapIndices(List);
     }
 
     List<ReportData> GetGroupList()
     {
         var groups = Companies.GetGroupCompanies(gameContext)
-            .OrderByDescending(g => Economy.GetCompanyCost(gameContext, g.company.Id))
+            .OrderByDescending(g => Economy.CostOf(g, gameContext))
             .ToArray();
 
-        var List = new List<ReportData>();
+        var List = groups.Select(g => new ReportData { Cost = Economy.CostOf(g, gameContext), ShareholderId = g.shareholder.Id }).ToList();
         
-        for (var i = 0; i < groups.Length; i++)
-        {
-            var g = groups[i];
-
-            List.Add(new ReportData
-            {
-                Cost = Economy.GetCompanyCost(gameContext, g.company.Id),
-                ShareholderId = g.shareholder.Id,
-                position = i
-            });
-        }
-
-        return List;
+        return WrapIndices(List);
     }
 
     List<ReportData> GetPeopleList()
@@ -104,7 +89,7 @@ public class AnnualReportSystem : OnYearChange
             Date = date,
             Income = Economy.GetCompanyIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
-            Valuation = Economy.GetCompanyCost(gameContext, e)
+            Valuation = Economy.CostOf(e, gameContext)
         });
     }
 }

@@ -6,7 +6,9 @@ namespace Assets.Core
     {
         public static bool IsMeetsIPOCompanyCostRequirement(GameContext gameContext, int companyId)
         {
-            return Economy.GetCompanyCost(gameContext, companyId) > C.IPO_REQUIREMENTS_COMPANY_COST;
+            var company = Get(gameContext, companyId);
+
+            return Economy.CostOf(company, gameContext) > C.IPO_REQUIREMENTS_COMPANY_COST;
         }
 
         public static bool IsMeetsIPOProfitRequirement(GameContext gameContext, int companyId)

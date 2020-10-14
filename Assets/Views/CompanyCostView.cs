@@ -41,7 +41,7 @@ public class CompanyCostView : View
 
     void RenderBaseCosts(GameEntity c)
     {
-        BaseCost.text = RenderCosts(Economy.GetCompanyBaseCost(Q, c));
+        BaseCost.text = RenderCosts(Economy.GetCompanyBaseCost(c, Q));
         CapitalSize.text = RenderCosts(Economy.BalanceOf(c));
 
         if (Companies.IsProductCompany(c))
@@ -50,7 +50,7 @@ public class CompanyCostView : View
             ShowGroupLabels(false);
 
             AudienceCost.text = RenderCosts(Economy.GetClientBaseCost(c));
-            IncomeBasedCost.text = RenderCosts(Economy.GetCompanyIncomeBasedCost(Q, c));
+            IncomeBasedCost.text = RenderCosts(Economy.GetCompanyIncomeBasedCost(c, Q));
             IncomeBasedCostLabel.text = $"Income X{Economy.GetCompanyCostNicheMultiplier()}";
         }
         else
@@ -68,7 +68,7 @@ public class CompanyCostView : View
 
         var c = SelectedCompany;
 
-        CompanyCost.text = RenderCosts(Economy.GetCompanyCost(Q, c));
+        CompanyCost.text = RenderCosts(Economy.CostOf(c, Q));
 
         RenderBaseCosts(c);
     }

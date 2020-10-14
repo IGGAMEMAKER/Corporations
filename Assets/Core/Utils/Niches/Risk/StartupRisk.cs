@@ -2,11 +2,11 @@
 {
     public static partial class Markets
     {
-        static Bonus<long> GetCompanyRiskBonus(GameContext gameContext, int companyId)
+        static Bonus<long> GetCompanyRiskBonus(GameContext gameContext, GameEntity company)
         {
-            int marketDemand = GetMarketDemandRisk(gameContext, companyId);
-            int monetisation = GetMonetisationRisk(gameContext, companyId);
-            int competitors = GetCompetitionRisk(gameContext, companyId);
+            int marketDemand = GetMarketDemandRisk(gameContext, company);
+            int monetisation = GetMonetisationRisk(gameContext, company);
+            int competitors = GetCompetitionRisk(gameContext, company);
 
             return new Bonus<long>("Total risk")
                 .SetDimension("%")
@@ -14,38 +14,34 @@
                 .AppendAndHideIfZero("Is not profitable", monetisation);
         }
 
-        public static int GetCompetitionRisk(GameContext gameContext, int companyId)
+        public static int GetCompetitionRisk(GameContext gameContext, GameEntity company)
         {
-            var company = Companies.Get(gameContext, companyId);
-
             return GetCompetitorsAmount(company, gameContext) * 5;
         }
 
-        public static long GetCompanyRisk(GameContext gameContext, int companyId)
+        public static long GetCompanyRisk(GameContext gameContext, GameEntity company)
         {
-            return (long)GetCompanyRiskBonus(gameContext, companyId).Sum();
+            return (long)GetCompanyRiskBonus(gameContext, company).Sum();
         }
 
-        public static string GetCompanyRiskDescription(GameContext gameContext, int companyId)
+        public static string GetCompanyRiskDescription(GameContext gameContext, GameEntity company)
         {
-            return GetCompanyRiskBonus(gameContext, companyId).ToString(true);
+            return GetCompanyRiskBonus(gameContext, company).ToString(true);
         }
 
-        public static int GetMonetisationRisk(GameContext gameContext, int companyId)
+        public static int GetMonetisationRisk(GameContext gameContext, GameEntity company)
         {
             int num = C.RISKS_MONETISATION_MAX;
 
-            if (Economy.IsProfitable(gameContext, companyId))
+            if (Economy.IsProfitable(gameContext, company))
                 num -= C.RISKS_MONETISATION_IS_PROFITABLE;
 
             return num;
         }
 
 
-        public static int GetMarketDemandRisk(GameContext gameContext, int companyId)
+        public static int GetMarketDemandRisk(GameContext gameContext, GameEntity c)
         {
-            var c = Companies.Get(gameContext, companyId);
-
             return GetMarketDemandRisk(gameContext, c.product.Niche);
         }
 

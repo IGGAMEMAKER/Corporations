@@ -24,7 +24,7 @@ public class GetFastCash : CompanyUpgradeButton
 
     void RenderAmountOfLoans()
     {
-        var valuation = Economy.GetCompanyCost(Q, MyCompany);
+        var valuation = Economy.CostOf(MyCompany, Q);
         var offer = sum;
 
         var balance = Economy.BalanceOf(MyCompany);

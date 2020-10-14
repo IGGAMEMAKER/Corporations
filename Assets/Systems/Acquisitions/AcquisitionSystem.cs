@@ -108,7 +108,9 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     AcquisitionConditions GetNewCounterOffer(GameEntity offer, int targetId, int shareholderId, long maxOfferedPrice)
     {
-        var cost = Economy.GetCompanyCost(gameContext, targetId);
+        var target = Companies.Get(gameContext, targetId);
+
+        var cost = Economy.CostOf(target, gameContext);
 
         var modifier = Companies.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
         var maxPrice = (long) (cost * modifier); // the max amount, that we want to pay theoretically
@@ -136,8 +138,8 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
     {
         var o = offer.acquisitionOffer;
 
-
-        var cost = Economy.GetCompanyCost(gameContext, targetId);
+        var target = Companies.Get(gameContext, targetId);
+        var cost = Economy.CostOf(target, gameContext);
 
         var Kmin = Companies.GetRandomAcquisitionPriceModifier(targetId, shareholderId);
         var Kbuyer = o.BuyerOffer.Price * 1f / cost;

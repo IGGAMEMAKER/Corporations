@@ -40,7 +40,7 @@ public class RenderAudiencesListView : ListView
         if (ChooseTargetAudienceButtonController != null)
         {
             ChooseTargetAudienceButtonController.SetSegment(ind);
-            Draw(ChooseTargetAudienceButtonController, ind != Marketing.GetCoreAudienceId(Flagship, Q));
+            Draw(ChooseTargetAudienceButtonController, ind != Marketing.GetCoreAudienceId(Flagship));
         }
 
         if (ProductCompaniesFocusListView != null)
@@ -56,7 +56,7 @@ public class RenderAudiencesListView : ListView
     {
         ViewRender();
 
-        var TA = Marketing.GetCoreAudienceId(Flagship, Q);
+        var TA = Marketing.GetCoreAudienceId(Flagship);
 
         ChosenIndex = TA;
         OnItemSelected(TA);

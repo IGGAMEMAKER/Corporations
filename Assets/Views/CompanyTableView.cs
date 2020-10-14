@@ -53,7 +53,7 @@ public class CompanyTableView : View, IPointerEnterHandler
 
         SetPanelColor();
 
-        Cost.text = "$" + Format.MinifyToInteger(Economy.GetCompanyCost(Q, entity.company.Id));
+        Cost.text = "$" + Format.MinifyToInteger(Economy.CostOf(entity, Q));
 
 
         RenderValuationGrowth();

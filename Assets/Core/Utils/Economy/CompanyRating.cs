@@ -14,7 +14,7 @@
 
         static int GetGroupCompanyRating(GameContext gameContext, GameEntity company)
         {
-            var cost = GetCompanyCost(gameContext, company.company.Id);
+            var cost = CostOf(company, gameContext);
             var rank = System.Math.Log10(cost) / 1.5d;
 
             return 1 + UnityEngine.Mathf.Clamp((int)rank, 0, 4);

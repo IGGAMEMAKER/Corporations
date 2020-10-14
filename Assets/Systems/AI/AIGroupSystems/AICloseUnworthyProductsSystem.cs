@@ -21,7 +21,7 @@ public partial class AIClosePoorProductsIfMarketIsDeadSystem : OnPeriodChange
     {
         var niche = Markets.Get(gameContext, product.product.Niche);
 
-        bool isProfitable = Economy.IsProfitable(gameContext, product.company.Id);
+        bool isProfitable = Economy.IsProfitable(gameContext, product);
         bool isNicheDead = Markets.GetMarketState(niche) == MarketState.Death;
 
         if (isNicheDead && !isProfitable)
