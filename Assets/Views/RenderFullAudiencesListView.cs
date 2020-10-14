@@ -46,7 +46,7 @@ public class RenderFullAudiencesListView : ListView
         var segmentName = audience.Name;
 
         var potentialPhrase = $"{Format.Minify(audience.Size)} users";
-        var incomePerUser = (double)Economy.GetBaseIncomePerUser(Q, Flagship.product.Niche, segmentId); // 1L * (segmentId + 1);
+        var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(Flagship); // 1L * (segmentId + 1);
         var worth = (long)(incomePerUser * audience.Size);
 
         var worthPhrase = Format.MinifyMoney(worth);

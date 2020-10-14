@@ -34,7 +34,6 @@
         }
 
 
-        public static long GetCompanyBaseCost(GameContext context, int companyId) => GetCompanyBaseCost(context, Companies.Get(context, companyId));
         public static long GetCompanyBaseCost(GameContext context, GameEntity company)
         {
             if (Companies.IsProductCompany(company))
@@ -49,11 +48,9 @@
             return potentialIncome * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
         }
 
-        public static long GetCompanyIncomeBasedCost(GameContext context, int companyId)
+        public static long GetCompanyIncomeBasedCost(GameContext context, GameEntity company)
         {
-            var c = Companies.Get(context, companyId);
-
-            return GetCompanyIncome(context, c) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
+            return GetCompanyIncome(context, company) * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;
         }
 
         public static long GetCompanyCostNicheMultiplier()

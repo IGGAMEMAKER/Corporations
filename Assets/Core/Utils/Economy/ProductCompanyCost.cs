@@ -17,8 +17,8 @@ namespace Assets.Core
         {
             if (company.isRelease)
             {
-                long audienceCost = GetClientBaseCost(context, company.company.Id);
-                long profitCost = GetCompanyIncomeBasedCost(context, company.company.Id);
+                long audienceCost = GetClientBaseCost(company);
+                long profitCost = GetCompanyIncomeBasedCost(context, company);
 
                 return audienceCost + profitCost;
             }
@@ -32,7 +32,7 @@ namespace Assets.Core
                     var segment = info[segmentId];
 
                     var max = segment.Size;
-                    var income = GetBaseIncomeByMonetisationType(context, company.product.Niche);
+                    var income = GetBaseIncomeByMonetisationType(company);
 
                     var incomeMultiplier = income * segment.Bonuses.Where(b => b.isMonetisationFeature).Select(b => b.Max).Sum();
 
@@ -53,11 +53,9 @@ namespace Assets.Core
             }
         }
 
-        public static long GetClientBaseCost(GameContext context, int companyId)
+        public static long GetClientBaseCost(GameEntity c)
         {
             return 0;
-            //var c = Companies.Get(context, companyId);
-
             //return Marketing.GetClients(c) * 100;
         }
     }

@@ -10,7 +10,7 @@ namespace Assets.Core
         public static long GetCompanyIncome(GameContext context, GameEntity e)
         {
             if (Companies.IsProductCompany(e))
-                return GetProductCompanyIncome(e, context);
+                return GetProductCompanyIncome(e);
 
             return GetGroupIncome(context, e);
         }

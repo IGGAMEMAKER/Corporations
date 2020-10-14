@@ -18,7 +18,7 @@ public class AudienceDetailsView : ParameterView
 
         var info = audienceInfos[segmentId];
 
-        var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(Q, company.product.Niche);
+        var incomePerUser = (double)Economy.GetBaseIncomeByMonetisationType(company);
 
         var maxIncome = (long)(info.Size * incomePerUser);
 

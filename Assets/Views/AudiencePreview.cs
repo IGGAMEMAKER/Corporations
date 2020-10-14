@@ -65,7 +65,7 @@ public class AudiencePreview : View
             Loyalty.text = Format.Sign(loyalty);
             Loyalty.GetComponent<Hint>().SetHint(loyaltyBonus.SortByModule(true).RenderTitle().ToString());
 
-            var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
+            var income = Economy.GetIncomePerSegment(Flagship, segmentId);
 
             text += $"\n\nIncome: <b>{Visuals.Colorize(Format.MinifyMoney(income), income >= 0)}</b>" +
                 $"\nUsers: <b>{Visuals.Colorize(Format.Minify(clients), clients >= 0)}</b>";

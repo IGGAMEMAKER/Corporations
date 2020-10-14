@@ -37,7 +37,7 @@ public class RenderGroupProfit : UpgradedParameterView
         {
             var product = Flagship;
 
-            var income = Economy.GetProductCompanyIncome(product, Q);
+            var income = Economy.GetProductCompanyIncome(product);
             var maintenance = Economy.GetProductCompanyMaintenance(product, Q, true);
 
             // income

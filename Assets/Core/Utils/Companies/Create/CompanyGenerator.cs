@@ -9,8 +9,10 @@ namespace Assets.Core
         {
             product.AddProduct(niche, 0);
 
+            // market state
             product.AddNicheState(Markets.GetMarketState(context, niche), 100);
             product.AddNicheSegments(Markets.GetNichePositionings(niche, context));
+            product.AddNicheBaseProfile(Markets.Get(context, product).nicheBaseProfile.Profile);
 
             product.AddProductUpgrades(new Dictionary<ProductUpgrade, bool>
             {

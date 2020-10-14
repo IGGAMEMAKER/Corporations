@@ -6,75 +6,70 @@ namespace Assets.Core
 {
     static partial class Economy
     {
-        public static long GetProductCompanyIncome(GameEntity e, GameContext context)
+        public static long GetProductCompanyIncome(GameEntity e)
         {
-            long result = e.marketing.ClientList.Select(l => GetIncomePerSegment(context, e, l.Key)).Sum();
+            long result = e.marketing.ClientList.Select(l => GetIncomePerSegment(e, l.Key)).Sum();
 
             return result * C.PERIOD / 30;
         }
 
-        public static float GetMonetisationBonuses(GameContext gameContext, GameEntity c, int segmentId)
+        public static float GetMonetisationEfficiency(GameEntity c, int segmentId)
         {
             try
             {
-                var audienceInfo = Marketing.GetAudienceInfos()[segmentId];
+                var audience = Marketing.GetAudienceInfos()[segmentId];
 
-                var audienceBonus = audienceInfo.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
-                var improvements = 100f + Products.GetMonetisationFeaturesBenefit(c) + audienceBonus;
+                var audienceBonus = audience.Bonuses.Where(b => b.isMonetisationFeature).Sum(b => b.Max);
+                var improvements = Products.GetMonetisationFeaturesBenefit(c) * (100 + audienceBonus) / 100f;
 
                 return Mathf.Clamp(improvements, 0, 500);
             }
             catch
             {
-                Debug.Log("Tried to take monetisation from segment " + segmentId + " in company " + c.company.Name);
+                Debug.LogError("Tried to take monetisation from segment " + segmentId + " in company " + c.company.Name);
             }
 
             return 0;
         }
 
-        public static long GetIncomePerSegment(GameContext gameContext, GameEntity company, int segmentId)
+        public static long GetIncomePerSegment(GameEntity company, int segmentId)
         {
             var clients = Marketing.GetClients(company, segmentId);
-            return Convert.ToInt64(clients * GetIncomePerUser(gameContext, company, segmentId));
+            var incomePerUser = GetIncomePerUser(company, segmentId);
+
+            return Convert.ToInt64(clients * incomePerUser);
         }
 
-        public static float GetBaseIncomePerUser(GameContext gameContext, NicheType nicheType, int segmentId)
-        {
-            float price = GetBaseIncomeByMonetisationType(gameContext, nicheType);
+        //public static float GetBaseIncomePerUser(NicheType nicheType, int segmentId)
+        //{
+        //    float price = GetBaseIncomeByMonetisationType(,);
 
-            // apply segment bonuses
-            // apply positioning bonuses??
-            var bonuses = 100; // GetMonetisationBonuses(gameContext, c, segmentId);
+        //    // apply segment bonuses
+        //    // apply positioning bonuses??
+        //    var bonuses = 100; // GetMonetisationBonuses(gameContext, c, segmentId);
+
+        //    var income = price * bonuses / 100f;
+
+        //    return income;
+        //}
+
+        public static float GetIncomePerUser(GameEntity c, int segmentId)
+        {
+            float price = GetBaseIncomeByMonetisationType(c);
+
+            var bonuses = GetMonetisationEfficiency(c, segmentId);
+            // get positioning bonuses
+            // get segment bonuses
 
             var income = price * bonuses / 100f;
 
             return income;
         }
 
-        public static float GetIncomePerUser(GameContext gameContext, GameEntity c, int segmentId)
-        {
-            float price = GetBaseIncomeByMonetisationType(gameContext, c);
 
-            var bonuses = GetMonetisationBonuses(gameContext, c, segmentId);
-
-            var income = price * bonuses / 100f;
-
-            return income;
-        }
-
-
-        // not used
-        public static float GetBaseIncomeByMonetisationType(GameContext gameContext, GameEntity c) => GetBaseIncomeByMonetisationType(Markets.Get(gameContext, c.product.Niche));
-        public static float GetBaseIncomeByMonetisationType(GameContext gameContext, NicheType c) => GetBaseIncomeByMonetisationType(Markets.Get(gameContext, c));
-        public static float GetBaseIncomeByMonetisationType(GameEntity niche)
-        {
-            var pricingType = niche.nicheBaseProfile.Profile.MonetisationType;
-
-            var baseValue = GetBaseIncomeByMonetisationType(pricingType);
-            
-            return baseValue;
-        }
-
+        // where c = product or c = niche
+        // both have nicheBaseProfile component
+        public static float GetBaseIncomeByMonetisationType(GameEntity c) => GetBaseIncomeByMonetisationType(c.nicheBaseProfile.Profile.MonetisationType);
         public static float GetBaseIncomeByMonetisationType(Monetisation monetisation)
         {
             switch (monetisation)

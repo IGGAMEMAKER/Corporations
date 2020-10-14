@@ -79,7 +79,7 @@ public class AudiencesOnMainScreenListView : ListView
         var incomePerUser = 0.42f;
         var worth = (long)((double)audience.Size * incomePerUser);
 
-        var income = Economy.GetIncomePerSegment(Q, Flagship, segmentId);
+        var income = Economy.GetIncomePerSegment(Flagship, segmentId);
 
         var potentialPhrase = Format.Minify(audience.Size);
         var marketWorth = Format.MinifyMoney(worth);

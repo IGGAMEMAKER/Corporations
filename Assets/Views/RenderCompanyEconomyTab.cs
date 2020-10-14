@@ -49,7 +49,7 @@ public class RenderCompanyEconomyTab : View
 
     private string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
     {
-        var income = Economy.GetProductCompanyIncome(gameEntity, gameContext);
+        var income = Economy.GetProductCompanyIncome(gameEntity);
 
         return $"Income of this company equals {Format.Money(income)}";
     }

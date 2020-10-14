@@ -13,13 +13,13 @@ public class ShowBiggestIncomeOnMarketView : UpgradedParameterView
         var players = Markets.GetProductsOnMarket(Q, SelectedNiche);
 
         var productCompany = players
-            .OrderByDescending(p => Economy.GetProductCompanyIncome(p, Q))
+            .OrderByDescending(p => Economy.GetProductCompanyIncome(p))
             .FirstOrDefault();
 
         if (productCompany == null)
             return "Market is FREE";
 
-        var income = Economy.GetProductCompanyIncome(productCompany, Q);
+        var income = Economy.GetProductCompanyIncome(productCompany);
 
         return $"{Format.Money(income)}"; //\n{productCompany.company.Name}";
     }

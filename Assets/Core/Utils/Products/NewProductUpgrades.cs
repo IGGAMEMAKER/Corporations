@@ -32,8 +32,8 @@ namespace Assets.Core
                 //new NewProductFeature { Name = "Login form", FeatureBonus = new FeatureBonusAcquisition(10) },
                 //new NewProductFeature { Name = "Sharing", FeatureBonus = new FeatureBonusAcquisition(8) },
 
-                new NewProductFeature("Ads", new List<int> { hate, hate, hate, hate, hate }, 25),
-                new NewProductFeature("Admin panel for advertisers", new List<int> { 0, 0, 0, 0, 0 }, 15),
+                new NewProductFeature("Ads", new List<int> { hate, hate, hate, hate, hate }, 100),
+                new NewProductFeature("Admin panel for advertisers", new List<int> { 0, 0, 0, 0, 0 }, 25),
             };
 
             foreach (var f in socialNetworkFeatures)
