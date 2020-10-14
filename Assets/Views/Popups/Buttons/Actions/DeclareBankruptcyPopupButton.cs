@@ -6,7 +6,7 @@ public class DeclareBankruptcyPopupButton : PopupButtonController<PopupMessageBa
     public override void Execute()
     {
         var playerCompany = Companies.GetPlayerCompany(Q);
-        var daughters = Companies.GetDaughterCompanies(Q, playerCompany);
+        var daughters = Companies.GetDaughters(Q, playerCompany);
 
         Navigate(ScreenMode.MarketExplorationScreen);
 

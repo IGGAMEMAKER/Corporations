@@ -13,7 +13,7 @@ public partial class AIClosePoorProductsIfMarketIsDeadSystem : OnPeriodChange
 
     void CloseCompaniesIfNecessary(GameEntity group)
     {
-        foreach (var holding in Companies.GetDaughterProductCompanies(gameContext, group))
+        foreach (var holding in Companies.GetDaughterProducts(gameContext, group))
             CloseUnworthyProducts(holding);
     }
 

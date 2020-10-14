@@ -11,7 +11,7 @@ public partial class AISupportProductsSystem : OnPeriodChange
     {
         foreach (var m in Companies.GetAIManagingCompanies(gameContext))
         {
-            var products = Companies.GetDaughterProductCompanies(gameContext, m);
+            var products = Companies.GetDaughterProducts(gameContext, m);
 
             var importances = products
                 .Select(p => Companies.GetMarketImportanceForCompany(gameContext, m, p.product.Niche))

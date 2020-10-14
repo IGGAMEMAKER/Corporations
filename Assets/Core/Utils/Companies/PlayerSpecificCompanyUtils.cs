@@ -14,7 +14,7 @@ namespace Assets.Core
             if (playerCompany == null)
                 return false;
 
-            return company.isControlledByPlayer || IsDaughterOfCompany(playerCompany, company);
+            return company.isControlledByPlayer || IsDaughterOf(playerCompany, company);
         }
     }
 }

@@ -29,7 +29,7 @@ public class RenderMainScreenTabButtons : View
 
         var playerCanExploreAdvancedTabs = hasReleasedProducts;
 
-        var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
+        var daughters = Companies.GetDaughterProducts(Q, MyCompany);
         var numberOfDaughters = daughters.Length;
 
         var operatingMarkets = GetOperatingMarkets(daughters);

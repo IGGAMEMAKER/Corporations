@@ -83,7 +83,7 @@ namespace Assets.Core
             var culture = Companies.GetActualCorporateCulture(company);
             var managingCompany = Companies.GetManagingCompanyOf(company, gameContext);
 
-            var productsOfManagingCompany = Companies.GetDaughterProductCompanies(gameContext, managingCompany);
+            var productsOfManagingCompany = Companies.GetDaughterProducts(gameContext, managingCompany);
 
             bool hasGlobalMarkets = productsOfManagingCompany
                 .Select(p => Markets.Get(gameContext, p))

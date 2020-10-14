@@ -9,7 +9,7 @@ public class RenderCompanyLimit : View
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughterCompaniesAmount(MyCompany, Q);
+        var daughters = Companies.GetDaughtersAmount(MyCompany, Q);
         var limit = Companies.GetCompanyLimit(MyCompany);
 
         bool isOverflow = daughters > limit;

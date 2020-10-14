@@ -47,7 +47,7 @@ namespace Assets.Core
 
         public static GameEntity GetFlagship(GameContext gameContext, GameEntity group)
         {
-            var daughters = GetDaughterProductCompanies(gameContext, group);
+            var daughters = GetDaughterProducts(gameContext, group);
 
             if (daughters.Count() == 0)
                 return null;

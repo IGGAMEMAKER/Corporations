@@ -42,7 +42,7 @@ public class MarketCompetitorPreview : View
 
     void RenderPanel()
     {
-        var daughter = Companies.IsDaughterOfCompany(MyCompany, entity);
+        var daughter = Companies.IsDaughterOf(MyCompany, entity);
 
         Panel.color = GetPanelColor(daughter);
     }

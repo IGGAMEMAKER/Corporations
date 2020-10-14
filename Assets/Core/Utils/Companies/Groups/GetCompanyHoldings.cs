@@ -7,42 +7,42 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static GameEntity[] GetDaughterProductCompanies(GameContext context, GameEntity company)
+        public static GameEntity[] GetDaughterProducts(GameContext context, GameEntity company)
         {
-            return GetDaughterCompanies(context, company)
+            return GetDaughters(context, company)
                 .Where(p => p.hasProduct)
                 .ToArray();
         }
 
         public static bool IsHasReleasedProducts(GameContext gameContext, GameEntity company)
         {
-            return GetDaughterProductCompanies(gameContext, company)
+            return GetDaughterProducts(gameContext, company)
                 .Count(p => p.isRelease) > 0;
         }
 
-        public static GameEntity[] GetDaughterCompaniesOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
+        public static GameEntity[] GetDaughtersOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
-            return GetDaughterProductCompanies(gameContext, group)
+            return GetDaughterProducts(gameContext, group)
                 .Where(p => p.product.Niche == nicheType)
                 .ToArray();
         }
 
         public static bool IsHasDaughters(GameContext gameContext, GameEntity company)
         {
-            return GetDaughterCompaniesAmount(company, gameContext) > 0;
+            return GetDaughtersAmount(company, gameContext) > 0;
         }
 
-        public static int GetDaughterCompaniesAmount(GameEntity company, GameContext gameContext)
+        public static int GetDaughtersAmount(GameEntity company, GameContext gameContext)
         {
             return company.hasOwnings ? company.ownings.Holdings.Count() : 0;
         }
 
-        public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
+        public static GameEntity[] GetDaughters(GameContext context, GameEntity c)
         {
             return Investments.GetOwnings(context, c);
         }
 
-        public static bool IsDaughterOfCompany(GameEntity parent, GameEntity daughter)
+        public static bool IsDaughterOf(GameEntity parent, GameEntity daughter)
         {
             return IsInvestsInCompany(daughter, parent.shareholder.Id);
         }

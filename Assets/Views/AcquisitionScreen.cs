@@ -38,7 +38,7 @@ public class AcquisitionScreen : View
 
     void RenderProposalStatus(bool willAcceptOffer)
     {
-        if (Companies.IsDaughterOfCompany(MyCompany, SelectedCompany))
+        if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
         {
             ProposalStatus.text = "It is OUR COMPANY ALREADY!";
             return;

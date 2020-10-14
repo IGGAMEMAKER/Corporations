@@ -20,7 +20,7 @@ public class ToggleFlagshipCompany : IterateOverCompaniesButtonController
 
     public override GameEntity[] GetEntities()
     {
-        return Companies.GetDaughterProductCompanies(Q, MyCompany);
+        return Companies.GetDaughterProducts(Q, MyCompany);
     }
 
     public override ScreenMode GetScreenMode()

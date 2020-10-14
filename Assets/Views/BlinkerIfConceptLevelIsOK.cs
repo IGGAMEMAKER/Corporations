@@ -9,7 +9,7 @@ public class BlinkerIfConceptLevelIsOK : View
     {
         base.ViewRender();
 
-        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q);
+        var daughtersOnMarket = Companies.GetDaughtersOnMarket(MyCompany, SelectedNiche, Q);
 
         var releaseableApps = daughtersOnMarket.Where(p => !p.isRelease && !Products.IsOutOfMarket(p, Q));
 

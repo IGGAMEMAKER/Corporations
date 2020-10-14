@@ -46,7 +46,7 @@ public class CompanyPreviewView : View
 
     void RenderDependencyStatus(GameEntity e)
     {
-        var isDaughter = Companies.IsDaughterOfCompany(MyGroupEntity, entity);
+        var isDaughter = Companies.IsDaughterOf(MyGroupEntity, entity);
 
         CEOLabel.gameObject.SetActive(entity.isControlledByPlayer || isDaughter);
 

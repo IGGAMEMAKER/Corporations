@@ -28,7 +28,7 @@ public class RenderCompanyTabButtons : View
         var isMyCompanyScreen = company.company.Id == MyCompany.company.Id;
         var isFlagshipScreen = company.company.Id == flagshipId;
 
-        var hasProducts = Companies.GetDaughterProductCompanies(Q, MyCompany).Count() > 0;
+        var hasProducts = Companies.GetDaughterProducts(Q, MyCompany).Count() > 0;
         var isIndependentCompany = company.isIndependentCompany;
 
         // player has Released products
@@ -37,7 +37,7 @@ public class RenderCompanyTabButtons : View
         //var playerCanExploreAdvancedTabs = hasReleasedProducts;
         var playerCanExploreAdvancedTabs = true;
 
-        var daughters = Companies.GetDaughterProductCompanies(Q, MyCompany);
+        var daughters = Companies.GetDaughterProducts(Q, MyCompany);
         var numberOfDaughters = daughters.Length;
 
 

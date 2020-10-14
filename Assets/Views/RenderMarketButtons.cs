@@ -21,13 +21,13 @@ public class RenderMarketButtons : View
         bool IsMarketResearched = Markets.IsExploredMarket(Q, niche);
 
 
-        var daughtersOnMarket = Companies.GetDaughterCompaniesOnMarket(MyCompany, niche, Q);
+        var daughtersOnMarket = Companies.GetDaughtersOnMarket(MyCompany, niche, Q);
 
         bool hasReleasedApps        = daughtersOnMarket.Where(p => p.isRelease).Count() > 0;
         bool hasDaughtersOnMarket   = daughtersOnMarket.Count() > 0;
 
 
-        var amountOfCompanies = Companies.GetDaughterCompaniesAmount(MyCompany, Q);
+        var amountOfCompanies = Companies.GetDaughtersAmount(MyCompany, Q);
 
 
 

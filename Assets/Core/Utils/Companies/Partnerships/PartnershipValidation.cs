@@ -13,7 +13,7 @@ namespace Assets.Core
 
             // parents w childs
             // || IsDaughterOfCompany(acceptor, requester)
-            if (IsDaughterOfCompany(requester, acceptor))
+            if (IsDaughterOf(requester, acceptor))
                 return false;
 
             if (!requester.isIndependentCompany || !acceptor.isIndependentCompany)

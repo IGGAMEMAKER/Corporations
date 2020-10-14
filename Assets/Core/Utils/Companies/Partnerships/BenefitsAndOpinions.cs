@@ -38,7 +38,7 @@ namespace Assets.Core
         {
             if (company.isManagingCompany)
             {
-                var daughtersInIndustry = GetDaughterProductCompanies(gameContext, company)
+                var daughtersInIndustry = GetDaughterProducts(gameContext, company)
                     .Where(p => Markets.GetIndustry(p.product.Niche, gameContext) == industry);
 
                 return daughtersInIndustry

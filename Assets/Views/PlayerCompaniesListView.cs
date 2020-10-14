@@ -13,7 +13,7 @@ public class PlayerCompaniesListView : ListView
     {
         base.ViewRender();
 
-        var products = Companies.GetDaughterCompanies(Q, MyCompany)
+        var products = Companies.GetDaughters(Q, MyCompany)
             //.OrderByDescending(c => Economy.GetProfit(Q, c))
             ;
         

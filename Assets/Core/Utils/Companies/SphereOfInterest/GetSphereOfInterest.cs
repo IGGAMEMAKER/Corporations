@@ -103,7 +103,7 @@ namespace Assets.Core
 
         public static bool HasCompanyOnMarket(GameEntity group, NicheType nicheType, GameContext gameContext)
         {
-            return GetDaughterCompaniesOnMarket(group, nicheType, gameContext).Count() > 0;
+            return GetDaughtersOnMarket(group, nicheType, gameContext).Count() > 0;
         }
 
         public static long GetMarketImportanceForCompany(GameContext gameContext, GameEntity company, NicheType n)

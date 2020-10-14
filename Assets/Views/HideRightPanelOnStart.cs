@@ -8,7 +8,7 @@ public class HideRightPanelOnStart : HideOnSomeCondition
 {
     public override bool HideIf()
     {
-        bool hasReleasedProducts = Companies.GetDaughterCompanies(Q, MyCompany)
+        bool hasReleasedProducts = Companies.GetDaughters(Q, MyCompany)
             .Where(c => c.isRelease)
             .Count() > 0;
 

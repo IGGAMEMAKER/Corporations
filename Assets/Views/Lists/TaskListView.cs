@@ -15,7 +15,7 @@ public class TaskListView : ListView
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughterCompanies(Q, MyCompany);
+        var daughters = Companies.GetDaughters(Q, MyCompany);
 
         if (daughters.Length > 0)
         {

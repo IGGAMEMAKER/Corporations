@@ -16,7 +16,7 @@ public class ManageableCompaniesListView : ListView
     {
         base.ViewRender();
 
-        var companies = Companies.GetDaughterCompanies(Q, MyCompany);
+        var companies = Companies.GetDaughters(Q, MyCompany);
 
         SetItems(companies);
     }

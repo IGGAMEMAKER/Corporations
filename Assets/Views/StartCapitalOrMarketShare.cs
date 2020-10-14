@@ -10,7 +10,7 @@ public class StartCapitalOrMarketShare : ParameterView
         if (hasCompany)
         {
             var control = Companies.GetControlInMarket(MyCompany, SelectedNiche, Q);
-            var previousControl = Companies.GetDaughterCompaniesOnMarket(MyCompany, SelectedNiche, Q)
+            var previousControl = Companies.GetDaughtersOnMarket(MyCompany, SelectedNiche, Q)
                 .Select(p => Companies.GetProductCompanyResults(p, Q))
                 .Select(r => r.MarketShareChange)
                 .Sum();
