@@ -16,7 +16,7 @@ public class RenderGroupProfit : UpgradedParameterView
 
     public override string RenderHint()
     {
-        var daughters = Companies.GetDaughterCompanies(Q, MyCompany.company.Id)
+        var daughters = Companies.GetDaughterCompanies(Q, MyCompany)
             .OrderByDescending(c => Economy.GetProfit(Q, c));
 
         var daughtersIncome = "Based on" + string.Join("\n", daughters.Select(GetIncomeInfo));

@@ -19,7 +19,7 @@ public class PlayerCompaniesListView : ListView
         
 
         // all except flagship
-        var productsExceptFlagship = products.Where(p => !Companies.IsPlayerFlagship(Q, p));
+        var productsExceptFlagship = products.Where(p => !Companies.IsPlayerFlagship(p));
 
 
         var result = products.ToList();

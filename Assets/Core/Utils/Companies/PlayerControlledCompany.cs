@@ -29,12 +29,12 @@ namespace Assets.Core
             return companies[0];
         }
 
-        public static bool IsPlayerCompany(GameContext gameContext, GameEntity company)
+        public static bool IsPlayerCompany(GameEntity company)
         {
             return company.isControlledByPlayer;
         }
 
-        public static bool IsPlayerFlagship(GameContext gameContext, GameEntity company)
+        public static bool IsPlayerFlagship(GameEntity company)
         {
             return IsFlagship(company);
         }

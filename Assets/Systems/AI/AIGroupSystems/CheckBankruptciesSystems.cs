@@ -31,7 +31,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
             Debug.Log($"Economy: <color=green>Income</color> +{Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
         }
 
-        if (Companies.IsPlayerCompany(gameContext, company))
+        if (Companies.IsPlayerCompany(company))
         {
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
         }

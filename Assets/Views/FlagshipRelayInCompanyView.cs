@@ -25,7 +25,7 @@ public class FlagshipRelayInCompanyView : View
     public int ChosenTeamId = -1;
     public int ChosenSlotId = 0;
 
-    public TeamInfo ChosenTeam => ChosenTeamId >= Flagship.team.Teams.Count ? null : Flagship.team.Teams[ChosenTeamId];
+    //public TeamInfo ChosenTeam => ChosenTeamId >= Flagship.team.Teams.Count ? null : Flagship.team.Teams[ChosenTeamId];
     List<GameObject> Tabs => new List<GameObject> { DevelopmentTab, WorkerInteractions, InvestmentTabs, ManagersTabs, NewTeamTabs, AudiencePickingTab, AssignTaskPanel };
 
     public void FillSlot(int teamId, int slotId)
@@ -67,46 +67,26 @@ public class FlagshipRelayInCompanyView : View
     {
         TeamTask = teamTask;
 
-        bool hasOneTeam = true; // Flagship.team.Teams.Count == 1;
-        bool hasSlotForTask = true; // Flagship.team.Teams[0].Tasks.Count < 4;
-
         ScheduleUtils.PauseGame(Q);
 
-        if (hasOneTeam)
+        Teams.AddTeamTask(Flagship, Q, 0, teamTask);
+
+        if (teamTask.IsFeatureUpgrade)
         {
-            if (hasSlotForTask)
-            {
-                Teams.AddTeamTask(Flagship, Q, 0, teamTask);
-
-                if (teamTask.IsFeatureUpgrade)
-                {
-                    SoundManager.Play(Sound.ProgrammingTask);
-                }
-
-                if (teamTask.IsMarketingTask)
-                {
-                    SoundManager.Play(Sound.MarketingTask);
-                }
-
-                if (teamTask.IsHighloadTask)
-                {
-                    SoundManager.Play(Sound.ServerTask);
-                }
-
-                FindObjectOfType<MainPanelRelay>().ViewRender();
-            }
-            else
-            {
-                NotificationUtils.AddSimplePopup(Q, "You need more teams", "Wait until <b>Core team</b> will be fully organised.\n\nOR\n\nRemove less important tasks");
-            }
+            SoundManager.Play(Sound.ProgrammingTask);
         }
-        else
+
+        if (teamTask.IsMarketingTask)
         {
-            ShowOnly(AssignTaskPanel, Tabs);
-            FindObjectOfType<HideNewTeamButtonIfOldOnesAreNotFinished>().SetEntity(TeamTask);
-
-            ScheduleUtils.PauseGame(Q);
+            SoundManager.Play(Sound.MarketingTask);
         }
+
+        if (teamTask.IsHighloadTask)
+        {
+            SoundManager.Play(Sound.ServerTask);
+        }
+
+        FindObjectOfType<MainPanelRelay>().ViewRender();
     }
 
     public void ChooseAudiencePickingPanel()
@@ -147,10 +127,6 @@ public class FlagshipRelayInCompanyView : View
     public void ChooseInvestmentTab()
     {
         ShowOnly(InvestmentTabs, Tabs);
-
-        //Hide(TaskPanel);
-        //Hide(ChosenTaskLabel);
-        //Hide(RemoveTaskButton);
     }
 
     public void ChooseManagersTabs(int teamId)
@@ -159,7 +135,5 @@ public class FlagshipRelayInCompanyView : View
         ShowOnly(ManagersTabs, Tabs);
 
         Hide(TaskPanel);
-        //Hide(ChosenTaskLabel);
-        //Hide(RemoveTaskButton);
     }
 }

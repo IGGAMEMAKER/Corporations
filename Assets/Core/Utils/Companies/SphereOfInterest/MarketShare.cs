@@ -36,17 +36,17 @@
             return share / clients;
         }
 
-        public static int GetControlInCompany(GameEntity controlling, GameEntity holding, GameContext gameContext)
+        public static int GetControlInCompany(GameEntity group, GameEntity target, GameContext gameContext)
         {
             int shares = 0;
 
-            foreach (var daughter in GetDaughterCompanies(gameContext, controlling.company.Id))
+            foreach (var daughter in GetDaughterCompanies(gameContext, group))
             {
-                if (daughter.company.Id == holding.company.Id)
-                    shares += GetShareSize(gameContext, holding.company.Id, controlling.shareholder.Id);
+                if (daughter.company.Id == target.company.Id)
+                    shares += GetShareSize(gameContext, target.company.Id, group.shareholder.Id);
 
                 if (!daughter.hasProduct)
-                    shares += GetControlInCompany(daughter, holding, gameContext);
+                    shares += GetControlInCompany(daughter, target, gameContext);
             }
 
             return shares;

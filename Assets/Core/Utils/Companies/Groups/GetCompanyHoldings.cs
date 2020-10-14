@@ -38,7 +38,6 @@ namespace Assets.Core
             return company.hasOwnings ? company.ownings.Holdings.Count() : 0;
         }
 
-        public static GameEntity[] GetDaughterCompanies(GameContext context, int companyId) => GetDaughterCompanies(context, Get(context, companyId));
         public static GameEntity[] GetDaughterCompanies(GameContext context, GameEntity c)
         {
             return Investments.GetOwnings(context, c);

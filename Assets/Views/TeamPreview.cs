@@ -49,10 +49,11 @@ public class TeamPreview : View
         // need to interact with team
         Draw(NeedToInteract, Teams.IsTeamNeedsAttention(company, team, Q));
 
-        // blink if it's first team
+        // blink if never interacted with teams
         bool isFirstTeam = company.team.Teams.Count == 1;
         bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
         bool hasNoManager = Teams.NeedsMainManagerInTeam(team, Q, company);
+
         GetComponent<Blinker>().enabled = (isFirstTeam && hasNoManagerFocus) || hasNoManager;
 
         // choose team icon

@@ -15,7 +15,7 @@ public class CompanyProductResultsListView : ListView
     {
         base.ViewRender();
 
-        var daughters = Companies.GetDaughterCompanies(Q, MyCompany.company.Id);
+        var daughters = Companies.GetDaughterCompanies(Q, MyCompany);
         var results = daughters
             .Select(p => Companies.GetProductCompanyResults(p, Q))
             .ToArray();

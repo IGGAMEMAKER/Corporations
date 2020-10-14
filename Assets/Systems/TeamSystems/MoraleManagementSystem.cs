@@ -158,7 +158,7 @@ class MoraleManagementSystem : OnPeriodChange
                 Teams.HuntManager(human, company, gameContext, 0);
                 Teams.SetJobOffer(human, company, offer.JobOffer, 0);
 
-                if (Companies.IsPlayerFlagship(gameContext, previousCompany))
+                if (Companies.IsPlayerFlagship(previousCompany))
                 {
                     NotificationUtils.AddNotification(gameContext, new NotificationMessageManagerRecruiting(offer.HumanId, company.company.Id, true));
                 }

@@ -27,8 +27,6 @@ public class CompanyTaskTypeRelay : View
 
     void OnEnable()
     {
-        bool isFirstTime = true;
-
         ViewRender();
     }
 

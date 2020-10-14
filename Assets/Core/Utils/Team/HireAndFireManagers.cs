@@ -224,13 +224,10 @@ namespace Assets.Core
 
         public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
         {
-
-            bool canHireMoreManagers = team.Managers.Count < 2;
             bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
 
 
-            bool hasLeadManager = Teams.HasMainManagerInTeam(team, gameContext, product);
-            bool hasNoManager = !hasLeadManager;
+            bool hasNoManager = !HasMainManagerInTeam(team, gameContext, product);
 
 
             bool hasDisloyalManagers = team.Managers

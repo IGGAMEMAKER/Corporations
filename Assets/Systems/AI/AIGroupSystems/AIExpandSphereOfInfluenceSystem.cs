@@ -21,7 +21,7 @@ public partial class AIGroupExpansionSystem
         foreach (var n in group.companyFocus.Niches)
         {
             //Debug.Log("Checking niche " + n.ToString());
-            foreach (var holding in Companies.GetDaughterCompanies(gameContext, group.company.Id))
+            foreach (var holding in Companies.GetDaughterCompanies(gameContext, group))
             {
                 //Debug.Log("Checking holding " + holding.company.Name);
 
@@ -44,7 +44,8 @@ public partial class AIGroupExpansionSystem
     {
         var profit = Economy.GetProfit(gameContext, group);
 
-        var averageProfit = profit / (Companies.GetDaughterCompanies(gameContext, group.company.Id).Count() + 1);
+        var amountOfDaughters = Companies.GetDaughterCompaniesAmount(group, gameContext) + 1;
+        var averageProfit = profit / amountOfDaughters;
 
 
         return Markets.GetPlayableNichesInIndustry(industry, gameContext)

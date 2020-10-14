@@ -52,7 +52,7 @@ public class RenderManageableCompany : View
     void Render()
     {
         RenderPreview();
-        Draw(ManageButton, Companies.IsPlayerFlagship(Q, company));
+        Draw(ManageButton, Companies.IsPlayerFlagship(company));
         RenderProductCompany();
 
         switch (MenuState)

@@ -11,7 +11,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
 
         foreach (var e in dependantProducts)
         {
-            if (Companies.IsPlayerFlagship(gameContext, e))
+            if (Companies.IsPlayerFlagship(e))
                 PayPlayerDividends(e);
             else
                 PayAIDividends(e);
