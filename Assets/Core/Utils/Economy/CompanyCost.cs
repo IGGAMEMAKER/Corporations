@@ -21,7 +21,6 @@ namespace Assets.Core
             return GetGroupCost(c, context) + 1;
         }
 
-        // Group cost
         public static long GetGroupCost(GameEntity e, GameContext context)
         {
             return GetHoldingsCost(context, e);
@@ -33,6 +32,7 @@ namespace Assets.Core
             return holdings.Sum(h => h.control * CostOf(h.company, context)) / 100;
         }
 
+        // TODO 1 time
         public static long GetCompanySellingPrice(GameContext context, GameEntity target)
         {
             var desireToSell = Companies.GetDesireToSellCompany(target, context);
@@ -41,6 +41,7 @@ namespace Assets.Core
         }
 
 
+        // TODO 1 time
         public static long GetCompanyIncomeBasedCost(long potentialIncome)
         {
             return potentialIncome * GetCompanyCostNicheMultiplier() * 30 / C.PERIOD;

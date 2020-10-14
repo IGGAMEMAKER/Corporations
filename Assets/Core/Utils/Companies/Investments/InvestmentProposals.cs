@@ -33,8 +33,6 @@ namespace Assets.Core
 
         public static void AddInvestmentProposal(GameEntity company, InvestmentProposal proposal)
         {
-            int companyId = company.company.Id;
-
             var proposals = company.investmentProposals.Proposals;
 
             // TODO REFACTOR

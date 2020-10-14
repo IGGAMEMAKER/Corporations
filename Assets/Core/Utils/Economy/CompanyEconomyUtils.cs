@@ -14,24 +14,24 @@ namespace Assets.Core
             return GetGroupIncome(context, e);
         }
 
-        private static long GetGroupIncome(GameContext gameContext, GameEntity e)
+        private static long GetGroupIncome(GameContext context, GameEntity e)
         {
-            return Investments.GetHoldings(gameContext, e, true)
-                .Sum(h => h.control * GetIncome(gameContext, h.company) / 100);
+            return Investments.GetHoldings(context, e, true)
+                .Sum(h => h.control * GetIncome(context, h.company) / 100);
         }
 
-        private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
+        private static long GetGroupMaintenance(GameContext context, GameEntity company)
         {
-            return Investments.GetHoldings(gameContext, company, true)
-                .Sum(h => h.control * GetMaintenance(gameContext, h.company) / 100);
+            return Investments.GetHoldings(context, company, true)
+                .Sum(h => h.control * GetMaintenance(context, h.company) / 100);
         }
 
-        public static long GetMaintenance(GameContext gameContext, GameEntity c)
+        public static long GetMaintenance(GameContext context, GameEntity c)
         {
             if (c.hasProduct)
-                return GetProductMaintenance(c, gameContext);
+                return GetProductMaintenance(c, context);
             else
-                return GetGroupMaintenance(gameContext, c);
+                return GetGroupMaintenance(context, c);
         }
 
         public static long GetProfit(GameContext context, GameEntity c)
@@ -55,7 +55,7 @@ namespace Assets.Core
                 // * servers
 
                 // income
-                bonus.Append("Product", GetProductIncome(c));
+                bonus.Append("Product income", GetProductIncome(c));
 
                 // expenses
                 var maintenance = GetProductCompanyMaintenance(c, context, true);
@@ -66,30 +66,65 @@ namespace Assets.Core
                     else
                         bonus.Append(m.Name, -m.Value);
                 }
-
-                // investments
-                var parent = Companies.GetManagingCompanyOf(c, context);
-
-                if (parent.shareholders.Shareholders.Count > 1)
-                {
-                    var investments = parent.shareholders.Shareholders.Values
-                        .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
-                        .Sum();
-
-                    bonus.AppendAndHideIfZero("Investments", investments);
-                }
-
-                return bonus;
             }
 
+            // investments
+            ApplyInvestmentsToProfitBonus(c, context, bonus);
+
             // group
-            bonus.Append("Group Income", GetGroupIncome(context, c));
-            bonus.Append("Maintenance", -GetGroupMaintenance(context, c));
+            if (Companies.IsGroup(c))
+            {
+                var holdings = Investments.GetHoldings(context, c, true);
+
+                bool isOnlyHolding = holdings.Count == 1;
+
+                foreach (var h in holdings)
+                {
+                    var b = GetProfit(context, h.company, true);
+
+                    if (isOnlyHolding)
+                    {
+                        // render full description
+                        foreach (var d in b.bonusDescriptions)
+                        {
+                            if (d.HideIfZero)
+                            {
+                                bonus.AppendAndHideIfZero(d.Name, d.Value);
+                            }
+                            else
+                            {
+                                bonus.Append(d.Name, d.Value);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // general info is enough
+                        bonus.Append(h.company.company.Name, b.Sum());
+                    }
+                }
+
+                //bonus.Append("Group Income", GetGroupIncome(context, c));
+                //bonus.Append("Maintenance", -GetGroupMaintenance(context, c));
+            }
 
             return bonus;
         }
 
+        public static void ApplyInvestmentsToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)
+        {
+            //var investmentTaker = c.isFlagship ? Companies.GetManagingCompanyOf(c, context) : c;
+            var investmentTaker = c;
 
+            if (investmentTaker.shareholders.Shareholders.Count > 1)
+            {
+                var investments = investmentTaker.shareholders.Shareholders.Values
+                    .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
+                    .Sum();
+
+                bonus.AppendAndHideIfZero("Investments", investments);
+            }
+        }
 
 
 

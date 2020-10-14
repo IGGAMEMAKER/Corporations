@@ -32,13 +32,13 @@ public class RenderGroupProfit : UpgradedParameterView
     {
         var bonus = new Bonus<long>("Profit");
 
-        if (MyCompany.ownings.Holdings.Count() == 1)
-        {
-            bonus = Economy.GetProfit(Q, Flagship, true);
+        //if (MyCompany.ownings.Holdings.Count() == 1)
+        //{
+        //}
+        bonus = Economy.GetProfit(Q, MyCompany, true);
 
-            bonus.MinifyValues();
-            bonus.SortByModule();
-        }
+        bonus.MinifyValues();
+        bonus.SortByModule();
 
         return bonus;
     }
