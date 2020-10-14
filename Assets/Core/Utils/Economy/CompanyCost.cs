@@ -5,14 +5,6 @@ namespace Assets.Core
 {
     public static partial class Economy
     {
-        public static long NonCapitalCostOf(GameEntity c, GameContext context)
-        {
-            // +1 to avoid division by zero
-            if (Companies.IsProductCompany(c))
-                return GetProductCost(c) + 1;
-
-            return GetGroupCost(c, context) + 1;
-        }
         public static long CostOf(GameEntity c, GameContext context)
         {
             long capital = BalanceOf(c);
@@ -20,11 +12,29 @@ namespace Assets.Core
 
             return cost + capital;
         }
-
-        public static long GetCompanySellingPrice(GameContext context, int companyId)
+        public static long NonCapitalCostOf(GameEntity c, GameContext context)
         {
-            var target = Companies.Get(context, companyId);
+            // +1 to avoid division by zero
+            if (Companies.IsProduct(c))
+                return GetProductCost(c) + 1;
 
+            return GetGroupCost(c, context) + 1;
+        }
+
+        // Group cost
+        public static long GetGroupCost(GameEntity e, GameContext context)
+        {
+            return GetHoldingsCost(context, e);
+        }
+
+        public static long GetHoldingsCost(GameContext context, GameEntity entity) => GetHoldingsCost(context, Investments.GetHoldings(context, entity, true));
+        public static long GetHoldingsCost(GameContext context, List<CompanyHolding> holdings)
+        {
+            return holdings.Sum(h => h.control * CostOf(h.company, context)) / 100;
+        }
+
+        public static long GetCompanySellingPrice(GameContext context, GameEntity target)
+        {
             var desireToSell = Companies.GetDesireToSellCompany(target, context);
 
             return CostOf(target, context) * desireToSell;
@@ -39,24 +49,6 @@ namespace Assets.Core
         public static long GetCompanyCostNicheMultiplier()
         {
             return 15;
-        }
-
-
-        // Group cost
-        public static long GetGroupCost(GameEntity e, GameContext context)
-        {
-            return GetHoldingsCost(context, e);
-        }
-
-        public static long GetHoldingsCost(GameContext context, GameEntity entity)
-        {
-            var holdings = Investments.GetHoldings(context, entity, true);
-
-            return GetHoldingsCost(context, holdings);
-        }
-        public static long GetHoldingsCost(GameContext context, List<CompanyHolding> holdings)
-        {
-            return holdings.Sum(h => h.control * CostOf(Companies.Get(context, h.companyId), context) / 100);
         }
     }
 }

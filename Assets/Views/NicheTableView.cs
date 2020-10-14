@@ -58,8 +58,8 @@ public class NicheTableView : View, IPointerEnterHandler
         var profitLeader = Markets.GetMostProfitableCompanyOnMarket(Q, niche);
 
         var profit              = profitLeader == null ? 0 : Economy.GetProfit(Q, profitLeader);
-        var income              = profitLeader == null ? 0 : Economy.GetCompanyIncome(Q, profitLeader);
-        var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetCompanyMaintenance(Q, profitLeader);
+        var income              = profitLeader == null ? 0 : Economy.GetIncome(Q, profitLeader);
+        var biggestMaintenance  = profitLeader == null ? 0 : Economy.GetMaintenance(Q, profitLeader);
 
         // maintenance
         Maintenance.text = Visuals.Positive(Format.MinifyMoney(income));

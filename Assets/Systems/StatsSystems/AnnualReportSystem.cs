@@ -87,7 +87,7 @@ public class AnnualReportSystem : OnYearChange
         {
             AudienceSize = 0,
             Date = date,
-            Income = Economy.GetCompanyIncome(gameContext, e),
+            Income = Economy.GetIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.CostOf(e, gameContext)
         });

@@ -54,7 +54,7 @@ public class CompanyViewOnMap : View
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
         var clients = Marketing.GetClients(company);
-        Concept.text = ShowIncome ? Format.MinifyMoney(Economy.GetCompanyIncome(Q, company)) : Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
+        Concept.text = ShowIncome ? Format.MinifyMoney(Economy.GetIncome(Q, company)) : Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         var position = Markets.GetPositionOnMarket(Q, company);
         PositionOnMarket.text = $"#{position + 1}";

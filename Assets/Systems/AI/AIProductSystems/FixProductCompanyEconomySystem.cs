@@ -96,8 +96,8 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         {
             var balance = Economy.BalanceOf(product);
 
-            var income = Economy.GetCompanyIncome(gameContext, product);
-            var maintenance = Economy.GetCompanyMaintenance(gameContext, product);
+            var income = Economy.GetIncome(gameContext, product);
+            var maintenance = Economy.GetMaintenance(gameContext, product);
 
             var managerMaintenance = Economy.GetManagersCost(product, gameContext);
 

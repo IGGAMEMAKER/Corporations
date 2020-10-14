@@ -87,7 +87,7 @@ namespace Assets.Core
             return 0;
         }
 
-        public static long GetProductCompanyMaintenance(GameEntity e, GameContext gameContext)
+        public static long GetProductMaintenance(GameEntity e, GameContext gameContext)
         {
             var bonus = GetProductCompanyMaintenance(e, gameContext, true);
 

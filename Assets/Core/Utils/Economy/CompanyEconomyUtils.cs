@@ -6,9 +6,9 @@ namespace Assets.Core
     {
         public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
 
-        public static long GetCompanyIncome(GameContext context, GameEntity e)
+        public static long GetIncome(GameContext context, GameEntity e)
         {
-            if (Companies.IsProductCompany(e))
+            if (Companies.IsProduct(e))
                 return GetIncomeFromProduct(e);
 
             return GetGroupIncome(context, e);
@@ -17,32 +17,43 @@ namespace Assets.Core
         private static long GetGroupIncome(GameContext context, GameEntity e)
         {
             return Investments.GetHoldings(context, e, true)
-                .Sum(h => h.control * GetCompanyIncome(context, Companies.Get(context, h.companyId)) / 100);
-        }
-
-        public static long GetCompanyMaintenance(GameContext gameContext, int companyId) => GetCompanyMaintenance(gameContext, Companies.Get(gameContext, companyId));
-        public static long GetCompanyMaintenance(GameContext gameContext, GameEntity c)
-        {
-            if (Companies.IsProductCompany(c))
-                return GetProductCompanyMaintenance(c, gameContext);
-            else
-                return GetGroupMaintenance(gameContext, c);
+                .Sum(h => h.control * GetIncome(context, h.company) / 100);
         }
 
         private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
         {
-            var holdings = Investments.GetHoldings(gameContext, company, true);
-
-            return holdings
-                .Sum(h => h.control * GetCompanyMaintenance(gameContext, h.companyId) / 100);
+            return Investments.GetHoldings(gameContext, company, true)
+                .Sum(h => h.control * GetMaintenance(gameContext, h.company) / 100);
         }
 
+        public static long GetMaintenance(GameContext gameContext, GameEntity c)
+        {
+            if (Companies.IsProduct(c))
+                return GetProductMaintenance(c, gameContext);
+            else
+                return GetGroupMaintenance(gameContext, c);
+        }
+
+        public static long GetProfit(GameContext context, GameEntity c)
+        {
+            return GetProfit(context, c, true).Sum();
+        }
         public static Bonus<long> GetProfit(GameContext context, GameEntity c, bool isBonus)
         {
             var bonus = new Bonus<long>("Profit");
 
             if (c.hasProduct)
             {
+                // ** income **
+                // * base income
+                // * investments
+
+                // ** expenses **
+                // * teams
+                // * managers
+                // * marketing
+                // * servers
+
                 // income
                 bonus.Append("Product", GetIncomeFromProduct(c));
 
@@ -77,22 +88,7 @@ namespace Assets.Core
 
             return bonus;
         }
-        public static long GetProfit(GameContext context, GameEntity c)
-        {
-            // PRODUCTS
 
-            // ** income **
-            // * base income
-            // * investments
-
-            // ** expenses **
-            // * teams
-            // * managers
-            // * marketing
-            // * servers
-
-            return GetProfit(context, c, true).Sum();
-        }
 
 
 

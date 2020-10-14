@@ -42,14 +42,12 @@ namespace Assets.Core
             return t == CompanyType.Corporation || t == CompanyType.Group || t == CompanyType.Holding;
         }
 
-        public static bool IsCompanyGroupLike(GameContext context, int companyId) => IsCompanyGroupLike(Get(context, companyId));
         public static bool IsCompanyGroupLike(GameEntity gameEntity)
         {
-            return !IsProductCompany(gameEntity);
+            return !IsProduct(gameEntity);
         }
 
-        public static bool IsProductCompany(GameContext context, int companyId) => IsProductCompany(Get(context, companyId));
-        public static bool IsProductCompany(GameEntity gameEntity)
+        public static bool IsProduct(GameEntity gameEntity)
         {
             return gameEntity.company.CompanyType == CompanyType.ProductCompany;
         }

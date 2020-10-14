@@ -44,7 +44,7 @@ public class CompanyCostView : View
         BaseCost.text = "???!!!"; // RenderCosts(Economy.GetCompanyBaseCost(c, Q));
         CapitalSize.text = RenderCosts(Economy.BalanceOf(c));
 
-        if (Companies.IsProductCompany(c))
+        if (Companies.IsProduct(c))
         {
             ShowProductCompanyLabels(true);
             ShowGroupLabels(false);

@@ -14,7 +14,7 @@ public class BusinessButtonsController : View
 
     private void OnEnable()
     {
-        bool isProductCompany = Companies.IsProductCompany(SelectedCompany);
+        bool isProductCompany = Companies.IsProduct(SelectedCompany);
         bool isCorporation = MyCompany.company.CompanyType == CompanyType.Corporation;
 
         bool canBePartnersTheoretically = Companies.IsCanBePartnersTheoretically(MyCompany, SelectedCompany);

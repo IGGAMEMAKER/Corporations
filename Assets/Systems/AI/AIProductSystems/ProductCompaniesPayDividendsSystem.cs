@@ -30,7 +30,7 @@ public partial class ProductCompaniesPayDividendsSystem : OnPeriodChange
         // TODO pay dividends only if all upgrades are set to max and still they have necessary amount of money
 
         var balance = Economy.BalanceOf(e);
-        var maintenance = Economy.GetProductCompanyMaintenance(e, gameContext);
+        var maintenance = Economy.GetProductMaintenance(e, gameContext);
 
         var dividends = balance - maintenance;
         

@@ -69,7 +69,7 @@ public class AudienceDetailsView : ParameterView
         text += "\n\n";
 
         var companies = Companies.GetCompetitorsOfCompany(company, Q, false).Where(c => Marketing.IsTargetAudience(c, segmentId));
-        var expenses = companies.Select(c => Economy.GetProductCompanyMaintenance(c, Q));
+        var expenses = companies.Select(c => Economy.GetProductMaintenance(c, Q));
 
         var maxBudget = expenses.Count() > 0 ? expenses.Max() : 0;
 

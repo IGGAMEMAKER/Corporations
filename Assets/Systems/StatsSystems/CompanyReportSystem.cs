@@ -33,7 +33,7 @@ class CompanyReportSystem : OnPeriodChange
         {
             Date = date,
             AudienceSize = 0,
-            Income = Economy.GetCompanyIncome(gameContext, e),
+            Income = Economy.GetIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.CostOf(e, gameContext)
         });
@@ -45,7 +45,7 @@ class CompanyReportSystem : OnPeriodChange
         {
             Date = date,
             AudienceSize = Marketing.GetClients(e),
-            Income = Economy.GetCompanyIncome(gameContext, e),
+            Income = Economy.GetIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.CostOf(e, gameContext)
         });

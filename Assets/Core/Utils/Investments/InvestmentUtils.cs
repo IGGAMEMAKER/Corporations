@@ -23,7 +23,8 @@ namespace Assets.Core
             {
                 var holding = new CompanyHolding
                 {
-                    companyId = company.company.Id,
+                    //companyId = company.company.Id,
+                    company = company,
 
                     control = Companies.GetShareSize(context, company, entity.shareholder.Id),
 
@@ -81,6 +82,7 @@ namespace Assets.Core
 
             Companies.AddResources(investor, sum);
         }
+
 
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {

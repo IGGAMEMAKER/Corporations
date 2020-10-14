@@ -19,7 +19,7 @@ public class CompetingCompaniesOnMainScreen : ListView
         t.GetComponentInChildren<LinkToProjectView>().CompanyId = e.company.Id;
         t.GetComponentInChildren<CompanyViewOnMap>().SetEntity(e, false, SortByIncome);
 
-        var value = SortByIncome ? Economy.GetCompanyIncome(Q, e) : Marketing.GetClients(e);
+        var value = SortByIncome ? Economy.GetIncome(Q, e) : Marketing.GetClients(e);
         value = (long)Mathf.Clamp(value, minValue, maxValue);
 
         var marketShare = (value - minValue - 0f) / (maxValue - minValue);
@@ -42,10 +42,10 @@ public class CompetingCompaniesOnMainScreen : ListView
 
         if (SortByIncome)
         {
-            companies = companies.OrderBy(c => Economy.GetCompanyIncome(Q, c));
+            companies = companies.OrderBy(c => Economy.GetIncome(Q, c));
             //maxValue = companies.Max(c => Economy.GetCompanyIncome(Q, c));
             //minValue = companies.Min(c => Economy.GetCompanyIncome(Q, c));
-            var income = Economy.GetCompanyIncome(Q, Flagship);
+            var income = Economy.GetIncome(Q, Flagship);
             maxValue = income * (100 + interval) / 100;
             minValue = income * (100 - interval) / 100;
         }

@@ -76,7 +76,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
     {
         var competitors = Companies.GetCompetitorsOfCompany(product, gameContext, true);
 
-        var position = competitors.OrderByDescending(c => Economy.GetProductCompanyMaintenance(c, Q)).ToList().FindIndex(s => s.company.Id == product.company.Id);
+        var position = competitors.OrderByDescending(c => Economy.GetProductMaintenance(c, Q)).ToList().FindIndex(s => s.company.Id == product.company.Id);
 
         return Mathf.Clamp(5 - position, 1, 5);
     }
@@ -126,7 +126,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         var changeFormatted = $"<b>{Format.SignOf(change) + Format.Minify(change)}</b> weekly";
 
-        var budgetFormatted = Format.MinifyMoney(Economy.GetProductCompanyMaintenance(company, Q));
+        var budgetFormatted = Format.MinifyMoney(Economy.GetProductMaintenance(company, Q));
 
         var teamStars    = GetTeamEstimation(company, Q);
         var budgetStars  = GetBudgetEstimation(company, Q);

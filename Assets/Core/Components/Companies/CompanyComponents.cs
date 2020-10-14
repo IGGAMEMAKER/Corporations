@@ -10,7 +10,8 @@ public class CompanyHolding
     public int control;
 
     // controlled company id
-    public int companyId;
+    //public int companyId;
+    public GameEntity company;
 
     public List<CompanyHolding> holdings;
 }

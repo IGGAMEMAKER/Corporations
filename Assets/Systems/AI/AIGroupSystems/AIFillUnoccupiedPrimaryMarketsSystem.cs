@@ -78,7 +78,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
 
     long GetCompanyAcquisitionPriority(GameEntity buyer, GameEntity target, GameContext gameContext)
     {
-        var price = Economy.GetCompanySellingPrice(gameContext, target.company.Id);
+        var price = Economy.GetCompanySellingPrice(gameContext, target);
         var desireToBuy = Companies.GetDesireToBuy(buyer, target, gameContext);
 
         var modifiers = Random.Range(10, 14);

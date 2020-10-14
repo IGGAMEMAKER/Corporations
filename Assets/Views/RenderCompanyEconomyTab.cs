@@ -15,17 +15,17 @@ public class RenderCompanyEconomyTab : View
 
         var company = SelectedCompany;
 
-        Income.text = "$" + Format.Minify(Economy.GetCompanyIncome(Q, company));
+        Income.text = "$" + Format.Minify(Economy.GetIncome(Q, company));
         IncomeHint.SetHint(GetIncomeDescription(Q, company));
 
-        Maintenance.text = "$" + Format.Minify(Economy.GetCompanyMaintenance(Q, company));
+        Maintenance.text = "$" + Format.Minify(Economy.GetMaintenance(Q, company));
         MaintenanceHint.SetHint(GetMaintenanceDescription(Q, company));
     }
 
 
     internal string GetIncomeDescription(GameContext context, GameEntity c)
     {
-        if (Companies.IsProductCompany(c))
+        if (Companies.IsProduct(c))
             return GetProductCompanyIncomeDescription(c, context);
 
         return GetGroupIncomeDescription(context, c);
@@ -34,7 +34,7 @@ public class RenderCompanyEconomyTab : View
 
     internal string GetMaintenanceDescription(GameContext context, GameEntity company)
     {
-        if (Companies.IsProductCompany(company))
+        if (Companies.IsProduct(company))
             return GetProductCompanyMaintenanceDescription(company, context);
 
         return GetGroupMaintenanceDescription(context, company);
@@ -50,7 +50,7 @@ public class RenderCompanyEconomyTab : View
 
     internal string GetProductCompanyMaintenanceDescription(GameEntity company, GameContext gameContext)
     {
-        var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext);
+        var maintenance = Economy.GetProductMaintenance(company, gameContext);
 
         return $"Maintenance of {company.company.Name} equals {Format.Money(maintenance)}";
     }
@@ -63,11 +63,11 @@ public class RenderCompanyEconomyTab : View
 
         foreach (var h in holdings)
         {
-            var c = Companies.Get(context, h.companyId);
+            var c = h.company;
 
             string name = c.company.Name;
 
-            long income = Economy.GetCompanyMaintenance(context, c);
+            long income = Economy.GetMaintenance(context, c);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
             description += $"\n  {name}: -${tiedIncome} ({h.control}%)";
@@ -85,11 +85,11 @@ public class RenderCompanyEconomyTab : View
 
         foreach (var h in holdings)
         {
-            var c = Companies.Get(context, h.companyId);
+            var c = h.company;
 
             string name = c.company.Name;
 
-            long income = Economy.GetCompanyIncome(context, c);
+            long income = Economy.GetIncome(context, c);
             string tiedIncome = Format.Minify(h.control * income / 100);
 
             description += $"\n  {name}: +${tiedIncome} ({h.control}%)";
