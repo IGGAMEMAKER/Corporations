@@ -10,14 +10,14 @@ namespace Assets.Core
         {
             if (e.hasProduct)
                 return GetProductIncome(e);
-
+            
             return GetGroupIncome(context, e);
         }
 
-        private static long GetGroupIncome(GameContext context, GameEntity e)
+        private static long GetGroupIncome(GameContext gameContext, GameEntity e)
         {
-            return Investments.GetHoldings(context, e, true)
-                .Sum(h => h.control * GetIncome(context, h.company) / 100);
+            return Investments.GetHoldings(gameContext, e, true)
+                .Sum(h => h.control * GetIncome(gameContext, h.company) / 100);
         }
 
         private static long GetGroupMaintenance(GameContext gameContext, GameEntity company)
