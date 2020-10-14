@@ -12,9 +12,6 @@ public class RenderConceptProgress : UpgradedParameterView
 
     public override string RenderHint()
     {
-        if (!Companies.IsExploredCompany(Q, CompanyId))
-            return "";
-
         var company = Companies.Get(Q, CompanyId);
         var willInnovate = Products.IsWillInnovate(company, Q);
         var innovationChance = Products.GetInnovationChance(company, Q);

@@ -23,18 +23,18 @@ public class RenderCompanyEconomyTab : View
     }
 
 
-    internal string GetIncomeDescription(GameContext context, GameEntity c)
+    internal string GetIncomeDescription(GameContext context, GameEntity company)
     {
-        if (Companies.IsProduct(c))
-            return GetProductCompanyIncomeDescription(c, context);
+        if (company.hasProduct)
+            return GetProductCompanyIncomeDescription(company, context);
 
-        return GetGroupIncomeDescription(context, c);
+        return GetGroupIncomeDescription(context, company);
     }
 
 
     internal string GetMaintenanceDescription(GameContext context, GameEntity company)
     {
-        if (Companies.IsProduct(company))
+        if (company.hasProduct)
             return GetProductCompanyMaintenanceDescription(company, context);
 
         return GetGroupMaintenanceDescription(context, company);
@@ -43,7 +43,7 @@ public class RenderCompanyEconomyTab : View
 
     private string GetProductCompanyIncomeDescription(GameEntity gameEntity, GameContext gameContext)
     {
-        var income = Economy.GetIncomeFromProduct(gameEntity);
+        var income = Economy.GetProductIncome(gameEntity);
 
         return $"Income of this company equals {Format.Money(income)}";
     }

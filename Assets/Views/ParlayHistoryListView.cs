@@ -28,7 +28,7 @@ public class ParlayHistoryListView : ListView
         base.ViewRender();
 
         var offers = Companies.GetAcquisitionOffersToCompany(Q, SelectedCompany.company.Id)
-            .Select(o => $"{Companies.GetCompanyName(Q, o.acquisitionOffer.CompanyId)}: {Format.Money(o.acquisitionOffer.BuyerOffer)}")
+            .Select(o => $"{Companies.GetName(Q, o.acquisitionOffer.CompanyId)}: {Format.Money(o.acquisitionOffer.BuyerOffer)}")
             .ToList();
 
         var acquisitionOffer = AcquisitionOffer;

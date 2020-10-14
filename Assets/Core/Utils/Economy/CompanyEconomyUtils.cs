@@ -8,8 +8,8 @@ namespace Assets.Core
 
         public static long GetIncome(GameContext context, GameEntity e)
         {
-            if (Companies.IsProduct(e))
-                return GetIncomeFromProduct(e);
+            if (e.hasProduct)
+                return GetProductIncome(e);
 
             return GetGroupIncome(context, e);
         }
@@ -28,7 +28,7 @@ namespace Assets.Core
 
         public static long GetMaintenance(GameContext gameContext, GameEntity c)
         {
-            if (Companies.IsProduct(c))
+            if (c.hasProduct)
                 return GetProductMaintenance(c, gameContext);
             else
                 return GetGroupMaintenance(gameContext, c);
@@ -55,7 +55,7 @@ namespace Assets.Core
                 // * servers
 
                 // income
-                bonus.Append("Product", GetIncomeFromProduct(c));
+                bonus.Append("Product", GetProductIncome(c));
 
                 // expenses
                 var maintenance = GetProductCompanyMaintenance(c, context, true);

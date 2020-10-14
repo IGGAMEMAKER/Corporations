@@ -355,5 +355,5 @@ public partial class PopupView : View
             );
     }
 
-    string GetCompanyName(int companyId) => Companies.GetCompanyName(Q, companyId);
+    string GetCompanyName(int companyId) => Companies.GetName(Q, companyId);
 }

@@ -15,7 +15,7 @@ namespace Assets.Core
         public static long NonCapitalCostOf(GameEntity c, GameContext context)
         {
             // +1 to avoid division by zero
-            if (Companies.IsProduct(c))
+            if (c.hasProduct)
                 return GetProductCost(c) + 1;
 
             return GetGroupCost(c, context) + 1;

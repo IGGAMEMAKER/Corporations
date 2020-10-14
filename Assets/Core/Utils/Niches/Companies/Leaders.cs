@@ -52,13 +52,13 @@ namespace Assets.Core
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderByDescending(p => Economy.GetIncomeFromProduct(p))
+                .OrderByDescending(p => Economy.GetProductIncome(p))
                 .FirstOrDefault();
 
             if (productCompany == null)
                 return 0;
 
-            return Economy.GetIncomeFromProduct(productCompany);
+            return Economy.GetProductIncome(productCompany);
         }
 
         public static long GetLowestIncomeOnMarket(GameContext context, GameEntity niche)
@@ -66,13 +66,13 @@ namespace Assets.Core
             var players = GetProductsOnMarket(context, niche.niche.NicheType);
 
             var productCompany = players
-                .OrderBy(p => Economy.GetIncomeFromProduct(p))
+                .OrderBy(p => Economy.GetProductIncome(p))
                 .FirstOrDefault();
 
             if (productCompany == null)
                 return 0;
 
-            return Economy.GetIncomeFromProduct(productCompany);
+            return Economy.GetProductIncome(productCompany);
         }
 
         public static long GetBiggestMaintenanceOnMarket(GameContext context, NicheType nicheType) => GetBiggestMaintenanceOnMarket(context, Get(context, nicheType));

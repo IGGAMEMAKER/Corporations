@@ -32,7 +32,7 @@ namespace Assets.Core
 
             var playerIsInvestor = GetInvestorById(gameContext, buyerInvestorId).isControlledByPlayer;
             if (playerIsInvestor)
-                Debug.Log("Create acquisition offer: " + Name(company));
+                Debug.Log("Create acquisition offer: " + GetName(company));
 
             return offer;
         }

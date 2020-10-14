@@ -15,7 +15,7 @@ namespace Assets.Core
 
 
             // we cannot attach company to product company
-            if (!IsCompanyGroupLike(parent))
+            if (parent.hasProduct)
                 return;
 
             var daughter = Get(context, subsidiaryId);

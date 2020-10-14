@@ -21,8 +21,8 @@ namespace Assets.Core
             return Array.Find(Get(context), c => c.company.Id == companyId);
         }
 
-        public static string GetCompanyName(GameContext context, int companyId) => Name(Get(context, companyId));
-        public static string Name(GameEntity company) => company.company.Name;
+        public static string GetName(GameContext context, int companyId) => GetName(Get(context, companyId));
+        public static string GetName(GameEntity company) => company.company.Name;
 
         public static GameEntity GetCompanyByName(GameContext context, string name)
         {
@@ -35,36 +35,23 @@ namespace Assets.Core
         }
 
 
-        public static bool IsManagingCompany(GameEntity e)
+        public static bool IsGroup(GameEntity e)
         {
             var t = e.company.CompanyType;
 
             return t == CompanyType.Corporation || t == CompanyType.Group || t == CompanyType.Holding;
         }
 
-        public static bool IsCompanyGroupLike(GameEntity gameEntity)
-        {
-            return !IsProduct(gameEntity);
-        }
-
-        public static bool IsProduct(GameEntity gameEntity)
-        {
-            return gameEntity.company.CompanyType == CompanyType.ProductCompany;
-        }
+        //public static bool IsProduct(GameEntity gameEntity)
+        //{
+        //    return gameEntity.company.CompanyType == CompanyType.ProductCompany;
+        //}
 
 
         public static void SupportCompany(GameEntity main, GameEntity daughter, long money)
         {
             SpendResources(main, money);
             daughter.companyResource.Resources.AddMoney(money);
-        }
-
-
-        // TODO move to separate file
-        public static bool IsExploredCompany(GameContext gameContext, int companyId) => IsExploredCompany(gameContext, Get(gameContext, companyId));
-        public static bool IsExploredCompany(GameContext gameContext, GameEntity company)
-        {
-            return company.hasResearch || IsRelatedToPlayer(gameContext, company);
         }
 
 

@@ -7,9 +7,6 @@ public class RenderInnovationChanceDescription : ParameterView
         if (!SelectedCompany.hasProduct)
             return "";
 
-        if (Companies.IsExploredCompany(Q, SelectedCompany))
-            return Products.GetInnovationChanceBonus(SelectedCompany, Q).ToString();
-
         return "???";
     }
 }

@@ -26,7 +26,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
         if (company.hasProduct)
         {
             var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext, true);
-            var income = Economy.GetIncomeFromProduct(company);
+            var income = Economy.GetProductIncome(company);
 
             Debug.Log($"Economy: <color=green>Income</color> +{Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
         }
