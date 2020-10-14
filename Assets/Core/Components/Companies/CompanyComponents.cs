@@ -295,7 +295,7 @@ public class TeamTask {
             return "Task: " + (this as TeamTaskFeatureUpgrade).NewProductFeature.Name;
 
         if (IsMarketingTask)
-            return "Task: Forum" + (this as TeamTaskChannelActivity).ChannelId;
+            return "Task: Channel" + (this as TeamTaskChannelActivity).ChannelId;
 
         if (IsSupportTask)
             return "Task: " + (this as TeamTaskSupportFeature).SupportFeature.Name;
@@ -303,21 +303,31 @@ public class TeamTask {
         return this.ToString();
     }
 
-    public override bool Equals(object obj)
-    {
-        var t2 = obj as TeamTask;
+    //public override bool Equals(object obj)
+    //{
+    //    var t2 = obj as TeamTask;
 
-        if (IsFeatureUpgrade && t2.IsFeatureUpgrade)
-            return (this as TeamTaskFeatureUpgrade).NewProductFeature.Name == (t2 as TeamTaskFeatureUpgrade).NewProductFeature.Name;
+    //    if (IsFeatureUpgrade && t2.IsFeatureUpgrade)
+    //        return (this as TeamTaskFeatureUpgrade).NewProductFeature.Name == (t2 as TeamTaskFeatureUpgrade).NewProductFeature.Name;
 
-        if (IsMarketingTask && t2.IsMarketingTask)
-            return (this as TeamTaskChannelActivity).ChannelId == (t2 as TeamTaskChannelActivity).ChannelId;
+    //    if (IsMarketingTask && t2.IsMarketingTask)
+    //        return (this as TeamTaskChannelActivity).ChannelId == (t2 as TeamTaskChannelActivity).ChannelId;
 
-        if (IsSupportTask && t2.IsSupportTask)
-            return (this as TeamTaskSupportFeature).SupportFeature.Name == (t2 as TeamTaskSupportFeature).SupportFeature.Name;
+    //    if (IsSupportTask && t2.IsSupportTask)
+    //        return (this as TeamTaskSupportFeature).SupportFeature.Name == (t2 as TeamTaskSupportFeature).SupportFeature.Name;
 
-        return false; // base.Equals(obj);
-    }
+    //    return false; // base.Equals(obj);
+    //}
+
+    //public override int GetHashCode()
+    //{
+    //    var hashCode = -262840398;
+    //    hashCode = hashCode * -1521134295 + IsFeatureUpgrade.GetHashCode();
+    //    hashCode = hashCode * -1521134295 + IsMarketingTask.GetHashCode();
+    //    hashCode = hashCode * -1521134295 + IsSupportTask.GetHashCode();
+    //    hashCode = hashCode * -1521134295 + IsHighloadTask.GetHashCode();
+    //    return hashCode;
+    //}
 }
 
 public class TeamTaskChannelActivity : TeamTask

@@ -7,7 +7,6 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static GameEntity[] GetDaughterProductCompanies(GameContext context, int companyId) => GetDaughterProductCompanies(context, Get(context, companyId));
         public static GameEntity[] GetDaughterProductCompanies(GameContext context, GameEntity company)
         {
             return GetDaughterCompanies(context, company)
