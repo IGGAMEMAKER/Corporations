@@ -36,24 +36,38 @@ public class MarketingChannelsListView : ListView
     {
         base.ViewRender();
 
-        var channels = new List<GameEntity>();
-
         var company = Flagship;
+        
+        // modal
+        RenderMarketingEfficiencyInModal(company);
 
+        CalculateROI(company);
+        
 
-        var availableChannels = Markets.GetMarketingChannelsList(company, Q);
+        // list
+        var channels = Markets.GetMarketingChannels(company, Q).OrderByDescending(c => Marketing.GetChannelCost(company, c)); // segmentId
 
-        channels.AddRange(availableChannels.OrderByDescending(c => Marketing.GetChannelClientGain(company, c))); // segmentId
+        SetItems(channels);
+    }
 
-        var allChannels = Markets.GetMarketingChannels(Q);
+    void CalculateROI(GameEntity company)
+    {
+        // calculate ROI
+        var allChannels = Markets.GetAllMarketingChannels(Q);
 
         maxROI = allChannels.Max(c => Marketing.GetChannelCostPerUser(company, Q, c));
         minROI = allChannels.Min(c => Marketing.GetChannelCostPerUser(company, Q, c));
+    }
 
-        SetItems(channels);
-
+    void RenderMarketingEfficiencyInModal(GameEntity company)
+    {
         if (MarketingEfficiency != null)
-            MarketingEfficiency.text = Visuals.Positive(Teams.GetMarketingEfficiency(Flagship) + "%");
+        {
+            var efficiency = Teams.GetMarketingEfficiency(company);
+
+            MarketingEfficiency.text = efficiency + "%";
+            MarketingEfficiency.color = Visuals.GetGradientColor(0, 100, efficiency);
+        }
     }
 
     private void OnEnable()

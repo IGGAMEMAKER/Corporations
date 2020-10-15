@@ -13,37 +13,24 @@ public class FeatureUpgradeController : ButtonController
 
         var featureName = FeatureView.NewProductFeature.Name;
 
-
         if (!Products.IsUpgradingFeature(product, Q, featureName))
         {
-            //Products.UpgradeFeature(product, featureName, Q);
-
             var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-            //var teamId = relay.ChosenTeamId;
-            //var taskId = relay.ChosenSlotId;
-
             var task = new TeamTaskFeatureUpgrade(FeatureView.NewProductFeature);
-            var teamId = Teams.GetTeamIdForTask(Flagship, task);
-
-            //var taskId = 0;
-
-            //if (teamId == -1)
-            //{
-            //    teamId = Teams.AddTeam(product, TeamType.CrossfunctionalTeam);
-            //    taskId = 0;
-            //}
-            //else
-            //{
-            //    taskId = Flagship.team.Teams[teamId].Tasks.Count;
-            //}
-
-            //SoundManager.Play(Sound.ProgrammingTask);
-
-            //Teams.AddTeamTask(product, Q, teamId, taskId, task);
 
             relay.AddPendingTask(task);
-            //relay.ChooseWorkerInteractions();
+
+            var featureList = FindObjectOfType<RenderAllAudienceNeededFeatureListView>();
+
+            // view render to recalculate features count
+            featureList.ViewRender();
+
+            if (featureList.count == 0)
+            {
+                CloseModal("Features");
+                // CloseMyModalWindowIfListIsBlank
+            }
         }
 
         FeatureView.ViewRender();

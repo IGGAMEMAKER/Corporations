@@ -6,18 +6,18 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetMarketingActivityCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
-        public static long GetMarketingActivityCost(GameEntity product, GameEntity channel)
+        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetChannelCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
+        public static long GetChannelCost(GameEntity product, GameEntity channel)
         {
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;
         }
 
         public static float GetChannelCostPerUser(GameEntity product, GameContext gameContext, GameEntity channel)
         {
-            return GetMarketingActivityCost(product, channel) / GetChannelClientGain(product, channel);
+            return GetChannelCost(product, channel) * 1f / GetChannelClientGain(product, channel);
         }
 
-        public static bool IsCompanyActiveInChannel(GameEntity product, GameEntity channel)
+        public static bool IsActiveInChannel(GameEntity product, GameEntity channel)
         {
             return channel.channelMarketingActivities.Companies.ContainsKey(product.company.Id);
         }
@@ -113,7 +113,7 @@ namespace Assets.Core
 
         public static void ToggleChannelActivity(GameEntity product, GameContext gameContext, GameEntity channel, int teamId, int taskId)
         {
-            var active = IsCompanyActiveInChannel(product, channel);
+            var active = IsActiveInChannel(product, channel);
 
             if (active)
             {

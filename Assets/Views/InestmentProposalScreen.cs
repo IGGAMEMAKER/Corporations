@@ -3,25 +3,15 @@ using UnityEngine.UI;
 
 public class InestmentProposalScreen : View
 {
-    public Button StartRoundButton;
+    public GameObject StartRoundButton;
 
     public override void ViewRender()
     {
         base.ViewRender();
 
-        Render();
-    }
+        bool isRoundActive = MyCompany.hasAcceptsInvestments;
 
-    void Render()
-    {
-        var company = MyCompany;
-
-        bool isRoundActive = company.hasAcceptsInvestments;
-
-        StartRoundButton.interactable = !isRoundActive;
+        StartRoundButton.GetComponentInChildren<Button>().interactable = !isRoundActive;
         StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
-
-        // render action buttons
-        Draw(StartRoundButton, company.isControlledByPlayer);
     }
 }

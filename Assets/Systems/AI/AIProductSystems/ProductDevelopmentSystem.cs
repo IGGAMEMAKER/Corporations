@@ -73,8 +73,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product, ref List<string> str)
     {
-        var channels = Markets.GetAvailableMarketingChannels(gameContext, product, false)
-            .Where(c1 => !Marketing.IsCompanyActiveInChannel(product, c1))
+        var channels = Markets.GetNewMarketingChannels(gameContext, product, false)
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
             ;
 
@@ -112,7 +111,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             return;
 
         // searching team for this task
-        int teamId = Teams.GetTeamIdForTask(product, teamTask);
+        int teamId = 0; // Teams.GetTeamIdForTask(product, teamTask);
 
         if (teamId == -1)
         {

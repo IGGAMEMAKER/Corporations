@@ -139,6 +139,9 @@ namespace Assets.Core
 
         public static bool IsCanMaintainForAWhile(GameEntity company, GameContext gameContext, long money, int periods)
         {
+            if (money == 0)
+                return true;
+
             var balance = BalanceOf(company);
             var profit = GetProfit(gameContext, company);
 
@@ -146,6 +149,9 @@ namespace Assets.Core
         }
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
+            if (money == 0)
+                return true;
+
             return GetProfit(gameContext, company) >= money;
         }
 

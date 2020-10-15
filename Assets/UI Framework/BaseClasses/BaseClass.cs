@@ -2,7 +2,9 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class BaseClass : MonoBehaviour
 {
@@ -41,6 +43,63 @@ public partial class BaseClass : MonoBehaviour
 
     //
     // GameObjects
+
+
+    public static List<T> FindObjectsOfTypeAll<T>()
+    {
+        List<T> results = new List<T>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var s = SceneManager.GetSceneAt(i);
+            if (s.isLoaded)
+            {
+                var allGameObjects = s.GetRootGameObjects();
+                for (int j = 0; j < allGameObjects.Length; j++)
+                {
+                    var go = allGameObjects[j];
+                    results.AddRange(go.GetComponentsInChildren<T>(true));
+                }
+            }
+        }
+        return results;
+    }
+
+    private MyModalWindow GetModal(string ModalTag)
+    {
+        var m = FindObjectsOfTypeAll<MyModalWindow>().FirstOrDefault(w => w.ModalTag == ModalTag);
+
+        if (m == null)
+        {
+            Debug.LogError("Modal " + ModalTag + " not found!");
+
+            return null;
+        }
+
+        return m;
+    }
+
+    public void OpenModal(string ModalTag)
+    {
+        var m = GetModal(ModalTag);
+
+        if (m != null)
+        {
+            Show(m);
+            ScheduleUtils.PauseGame(Q);
+        }
+    }
+
+    public void CloseModal(string ModalTag)
+    {
+        var m = GetModal(ModalTag);
+
+        if (m != null)
+        {
+            Hide(m);
+            ScheduleUtils.PauseGame(Q);
+        }
+    }
+
     public bool Contains<T>()
     {
         return gameObject.GetComponent<T>() != null;

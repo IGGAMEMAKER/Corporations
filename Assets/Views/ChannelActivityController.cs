@@ -16,31 +16,22 @@ public class ChannelActivityController : ButtonController
 
         var relay = FindObjectOfType<FlagshipRelayInCompanyView>();
 
-        //var teamId = relay.ChosenTeamId;
-        //var taskId = relay.ChosenSlotId;
-
         var channelId = channel.marketingChannel.ChannelInfo.ID;
 
         var task = new TeamTaskChannelActivity(channelId);
-        //var teamId = Teams.GetTeamIdForTask(Flagship, task);
-
-        //var taskId = 0;
-
-        //if (teamId == -1)
-        //{
-        //    teamId = Teams.AddTeam(Flagship, TeamType.CrossfunctionalTeam);
-        //    taskId = 0;
-        //}
-        //else
-        //{
-        //    taskId = Flagship.team.Teams[teamId].Tasks.Count;
-        //}
-
-        //Marketing.ToggleChannelActivity(company, Q, channel, teamId, taskId);
 
         relay.AddPendingTask(task);
 
-        //relay.ChooseWorkerInteractions();
+        var channelList = FindObjectOfType<MarketingChannelsListView>();
+
+        // view render to recalculate features count
+        channelList.ViewRender();
+
+        if (channelList.count == 0)
+        {
+            CloseModal("Marketing");
+        }
+
         MarketingChannelView.ViewRender();
     }
 }

@@ -85,8 +85,6 @@ public class FlagshipRelayInCompanyView : View
         {
             SoundManager.Play(Sound.ServerTask);
         }
-
-        FindObjectOfType<MainPanelRelay>().ViewRender();
     }
 
     public void ChooseAudiencePickingPanel()

@@ -91,7 +91,7 @@ public class TaskPanelView : View
 
             var ratingFormatted = Visuals.Colorize(rating.ToString("0.0"), ratingColor);
 
-            var ratingCap = Products.GetFeatureRatingCap(Flagship, Q);
+            var ratingCap = Products.GetFeatureRatingCap(Flagship);
 
             TaskBenefit.text = $"<size=40>Quality: {ratingFormatted} / 10lvl</size>" +
                 //$"This feature will be upgraded to level {ratingCap}" + 

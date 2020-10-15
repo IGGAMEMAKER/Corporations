@@ -89,8 +89,8 @@ namespace Assets.Core
 
         public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
         {
-            var maxFeatureRating = Products.GetFeatureRatingCap(company, gameContext);
-            var ratingGain = Products.GetFeatureRatingGain(company, company.team.Teams[0], gameContext);
+            var maxFeatureRating = Products.GetFeatureRatingCap(company);
+            var ratingGain = Products.GetFeatureRatingGain(company, company.team.Teams[0]);
 
             var counter = 1;
 
@@ -124,7 +124,10 @@ namespace Assets.Core
                         var loyalty = Marketing.GetSegmentLoyalty(company, a.ID);
                         var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
 
-                        if (change < 0 && loyalty + change < 0)
+                        bool willDissapointAudience = change < 0 && loyalty + change < 0;
+                        bool weDontWantToDissapointThem = Marketing.IsAimingForSpecificAudience(company, a.ID);
+
+                        if (willDissapointAudience && weDontWantToDissapointThem)
                             willMakeAnyoneDisloyal = true;
                     }
 

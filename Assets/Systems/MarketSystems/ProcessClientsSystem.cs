@@ -10,7 +10,7 @@ public class ProcessClientsSystem : OnPeriodChange
     {
         var audiences = Marketing.GetAudienceInfos();
 
-        var channels = Markets.GetMarketingChannels(gameContext);
+        var channels = Markets.GetAllMarketingChannels(gameContext);
         var companies = Companies.GetProductCompanies(gameContext);
 
         foreach (var product in companies)

@@ -12,8 +12,12 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
     public Text Users;
     public Text Income;
 
+    public Text CostPerUser;
+
     public CanvasGroup CanvasGroup;
     public Image ChosenImage;
+
+    public Image BackgroundImage; // 060F30
 
     public RawImage SegmentTypeImage;
 
@@ -47,14 +51,12 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
         var company = Flagship;
 
-        var audiences = Marketing.GetAudienceInfos();
-        var segmentID = Marketing.GetCoreAudienceId(company);
 
         // basic info
         var name = $"Channel {channel1.ID}";
         Title.text = name;
 
-        var adCost = Marketing.GetMarketingActivityCost(company, channel);
+        var adCost = Marketing.GetChannelCost(company, channel);
         var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
         var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
 
@@ -62,29 +64,41 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         if (isFreeChannel)
             ToggleTexts(true);
 
+        // audience gain
         var gainedAudience = Marketing.GetChannelClientGain(company, channel);
         Users.text = "+" + Format.Minify(gainedAudience) + " users";
-        Users.color = repaymentColor;
+        //Users.color = repaymentColor;
 
+        // audience icon
+        var audiences = Marketing.GetAudienceInfos();
+        var segmentID = Marketing.GetCoreAudienceId(company);
 
+        var positioning = company.productPositioning.Positioning;
         SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
+        if (positioning > audiences.Count)
+        {
+            SegmentTypeImage.texture = Resources.Load<Texture2D>($"paidClients");
+        }
 
+        var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);
+        //BackgroundImage.color = canMaintain ? Visuals.Positive() : Visuals.Negative();
 
         var clientCost = ROI; // adCost / gainedAudience;
 
-        Income.text = $"for {Format.MinifyMoney(adCost)}"; //  (${clientCost.ToString("0.00")} each)
-        if (adCost == 0)
+        Income.text = $"{Format.MinifyMoney(adCost)}"; //  (${clientCost.ToString("0.00")} each)
+        if (isFreeChannel)
             Income.text = "FREE";
         //else
         //    Income.color = repaymentColor;
 
+        Income.color = Visuals.GetColorPositiveOrNegative(canMaintain);
+        CostPerUser.text = $"{clientCost.ToString("0.0")}$";
+        CostPerUser.color = repaymentColor;
 
         MarketingComplexity.text = $"{clientCost.ToString("0")}$";
         MarketingComplexity.color = repaymentColor;
 
-        //MarketingComplexity.text = channel1.costInWorkers.ToString();
-
-        bool isActiveChannel = Marketing.IsCompanyActiveInChannel(company, channel);
+        bool isActiveChannel = Marketing.IsActiveInChannel(company, channel);
         CanvasGroup.alpha = 1;
 
         Draw(ChosenImage, isActiveChannel);
@@ -112,7 +126,7 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
     void ToggleTexts(bool showCost)
     {
         Draw(MarketingComplexity, false);
-        Draw(Income, showCost);
+        Draw(Income, true); // showCost
 
         //Draw(SegmentTypeImage, !showFace);
         //Draw(Users, !showFace);

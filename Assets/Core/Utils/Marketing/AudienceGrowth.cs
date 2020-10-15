@@ -8,7 +8,7 @@ namespace Assets.Core
     {
         public static long GetAudienceGrowthBySegment(GameEntity product, GameContext gameContext, int segmentId)
         {
-            var channels = Markets.GetMarketingChannels(gameContext);
+            var channels = Markets.GetAllMarketingChannels(gameContext);
             long result = 0;
 
             foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
@@ -26,7 +26,7 @@ namespace Assets.Core
         {
             var bonus = new Bonus<long>("Audience Growth");
 
-            var channels = Markets.GetMarketingChannels(gameContext);
+            var channels = Markets.GetAllMarketingChannels(gameContext);
 
             foreach (var channelId in product.companyMarketingActivities.Channels.Keys)
             {

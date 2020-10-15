@@ -43,12 +43,12 @@ namespace Assets.Core
             return null;
         }
 
-        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team, GameContext gameContext)
+        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team)
         {
             return product.teamEfficiency.Efficiency.FeatureGain;
         }
 
-        public static float GetFeatureRatingCap(GameEntity product, GameContext gameContext)
+        public static float GetFeatureRatingCap(GameEntity product)
         {
             return product.teamEfficiency.Efficiency.FeatureCap;
         }
@@ -63,8 +63,8 @@ namespace Assets.Core
 
         public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
         {
-            var gain = GetFeatureRatingGain(product, team, gameContext);
-            var cap  = GetFeatureRatingCap(product, gameContext);
+            var gain = GetFeatureRatingGain(product, team);
+            var cap  = GetFeatureRatingCap(product);
 
             if (IsUpgradedFeature(product, featureName))
             {

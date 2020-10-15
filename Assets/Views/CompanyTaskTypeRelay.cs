@@ -71,7 +71,7 @@ public class CompanyTaskTypeRelay : View
 
     void RenderMarketingButton()
     {
-        var channels = Markets.GetMarketingChannelsList(Flagship, Q).Length;
+        var channels = Markets.GetMarketingChannels(Flagship, Q).Length;
 
         Draw(MarketingCounter, channels > 0);
 

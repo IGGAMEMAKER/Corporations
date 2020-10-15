@@ -51,7 +51,7 @@ public class AudiencesOnMainScreenListView : ListView
             Iteration.text = Visuals.Positive(Products.GetIterationTime(Q, Flagship) + " days");
 
         if (FeatureCap != null)
-            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship, Q).ToString("0.0"));
+            FeatureCap.text = Visuals.Positive(Products.GetFeatureRatingCap(Flagship).ToString("0.0"));
     }
 
     public override void OnDeselect()
@@ -59,10 +59,6 @@ public class AudiencesOnMainScreenListView : ListView
         base.OnDeselect();
 
         HideButtons();
-
-        var a = FindObjectOfType<MainPanelRelay>();
-        if (a != null)
-            a.ShowDefaultMode();
     }
 
     public void HideButtons()

@@ -9,104 +9,90 @@ namespace Assets.Core
 {
     public static partial class Markets
     {
-        public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
-        {
-            var channels = GetMarketingChannels(gameContext);
-
-            return channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
-        }
-
-        public static GameEntity[] GetMarketingChannels(GameContext gameContext)
+        public static GameEntity[] GetAllMarketingChannels(GameContext gameContext)
         {
             return gameContext.GetEntities(GameMatcher.MarketingChannel);
         }
 
-        public static int GetAmountOfAvailableChannels(GameContext gameContext, GameEntity product)
+        public static GameEntity[] GetNewMarketingChannels(GameContext gameContext, GameEntity product, bool includeActiveChannels)
         {
-            var productLevel = Products.GetProductLevel(product);
-
-            var amountOfChannels = 0;
-
-            if (productLevel <= 1)
-            {
-                amountOfChannels = 1;
-            }
-            else if (productLevel <= 5)
-            {
-                amountOfChannels = 3;
-            }
-            else
-            {
-                amountOfChannels = 3 + (int)Mathf.Pow(productLevel, 0.5f);
-            }
-
-            // if player flagship
-            // explore channels manually
-            if (product.hasChannelExploration)
-            {
-                amountOfChannels = product.channelExploration.AmountOfExploredChannels;
-            }
-
-            return amountOfChannels;
+            return GetAllMarketingChannels(gameContext)
+                .Where(IsReachableChannel(product, gameContext, includeActiveChannels))
+                .ToArray();
         }
 
-        public static Func<GameEntity, bool> IsReachableChannel(long companyCost, GameEntity company, GameContext gameContext, bool ShowActiveChannelsToo) => (GameEntity c) =>
+        public static GameEntity[] GetMarketingChannels(GameEntity company, GameContext gameContext)
         {
-            var activeInChannel = Marketing.IsCompanyActiveInChannel(company, c);
+            var counter = GetAmountOfAvailableChannels(company, gameContext);
+
+            var availableChannels = GetNewMarketingChannels(gameContext, company, false)
+                //.TakeWhile(c => counter-- > 0)
+                .ToArray()
+                ;
+
+            return availableChannels;
+        }
+
+        public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
+        {
+            var channels = GetAllMarketingChannels(gameContext);
+
+            return channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
+        }
+
+        public static Func<GameEntity, bool> IsReachableChannel(GameEntity company, GameContext gameContext, bool includeActive) => (GameEntity c) =>
+        {
+            var activeInChannel = Marketing.IsActiveInChannel(company, c);
 
             if (activeInChannel)
-                return ShowActiveChannelsToo;
+                return includeActive;
 
-            var bigLoan = companyCost * 4 / 100;
-            var activityCost = Marketing.GetMarketingActivityCost(company, c);
+            var adCost = Marketing.GetChannelCost(company, c);
 
-            // can afford
-            return activityCost < bigLoan;
+            //if (Companies.IsPlayerFlagship(company))
+            //{
+            //    var group = Companies.GetPlayerCompany(gameContext);
+
+            //    return Economy.IsCanMaintainForAWhile(group, gameContext, activityCost, 4);
+            //}
+
+            //return Economy.IsCanMaintainForAWhile(company, gameContext, activityCost, 1);
+
+            // show is in player's income range
+            if (Companies.IsPlayerFlagship(company))
+            {
+                var player = Companies.GetPlayerCompany(gameContext);
+                var income = Economy.GetIncome(gameContext, player);
+
+                return income >= adCost;
+            }
+
+            // show if can afford
+            return Economy.IsCanMaintainForAWhile(company, gameContext, adCost, 1);
         };
 
-        public static GameEntity[] GetAvailableMarketingChannels(GameContext gameContext, GameEntity product, bool includeActive)
+        public static int GetAmountOfAvailableChannels(GameEntity company, GameContext gameContext)
         {
-            var channels = GetMarketingChannels(gameContext);
-            var availableChannels = channels;
-
-            var clients = Marketing.GetClients(product);
-
-            var companyCost = Economy.CostOf(product, gameContext);
-
-            var newChannels = availableChannels
-                .Where(IsReachableChannel(companyCost, product, gameContext, includeActive));
-
-            return newChannels.ToArray();
-        }
-
-        public static GameEntity[] GetMarketingChannelsList(GameEntity company, GameContext gameContext)
-        {
-            bool didMarketingCampaigns = Marketing.GetClients(company) > 50;
             bool didFeatures = company.features.Upgrades.Count > 0;
 
             int counter = 0;
 
             if (didFeatures)
             {
-                counter = 1;
-
-                if (didMarketingCampaigns)
-                    counter = 4;
+                counter = 4;
 
                 if (company.isRelease)
                     counter = 8;
             }
 
-            var ShowActiveChannelsToo = false;
-
-            var availableChannels = Markets.GetAvailableMarketingChannels(gameContext, company, ShowActiveChannelsToo)
-                .Where(c => didMarketingCampaigns || Marketing.GetChannelCostPerUser(company, gameContext, c) == 0)
-                .TakeWhile(c => counter-- > 0)
-                .ToArray()
-                ;
-
-            return availableChannels;
+            return counter;
         }
+
+
+
+
+
+        // --------------------------- Spawn channels ---------------------------------
 
         public static void SpawnMarketingChannels(GameContext gameContext)
         {
@@ -649,14 +635,19 @@ namespace Assets.Core
 
             var list = new List<ProductPositioning>();
 
+            var adore = 10;
+            var hate = -20;
+
+            var like = 7;
+
             // focus each audience specifically
             foreach (var a in audiences)
             {
                 var index = a.ID;
 
-                var loyalties = audiences.Select(a1 => -20).ToList();
+                var loyalties = audiences.Select(a1 => hate).ToList();
 
-                loyalties[index] = 10;
+                loyalties[index] = adore;
 
                 list.Add(new ProductPositioning
                 {
@@ -673,6 +664,7 @@ namespace Assets.Core
             // focus multiple audiences
             var randomPositionings = Random.Range(3, 6);
 
+            //var goodness = Random.Range(hate, adore);
             for (var i = 0; i < randomPositionings; i++)
             {
                 list.Add(new ProductPositioning
@@ -691,12 +683,23 @@ namespace Assets.Core
             list.Add(new ProductPositioning
             {
                 ID = list.Count,
-                name = "Global " + nicheName,
+                name = nicheName + " for everyone",
                 Loyalties = audiences.Select(a => 3).ToList(),
 
                 isCompetitive = false,
                 marketShare = 100,
                 priceModifier = 1f,
+            });
+
+            // remove positionings for noone
+            list.RemoveAll(p => p.Loyalties.Sum() < 0);
+
+            list.RemoveAll(p =>
+            {
+                // better than strictly focused positioning
+                return p.Loyalties.Count(l => l >= adore) >= 2;
+
+                // better than global positioning?
             });
 
             return list;

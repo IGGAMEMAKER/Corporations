@@ -34,9 +34,9 @@ public class TeamScreenView : View
 
         // --------------------------------------
 
-        var ratingGain = Products.GetFeatureRatingGain(product, team, Q);
+        var ratingGain = Products.GetFeatureRatingGain(product, team);
         var marketingEffeciency = Teams.GetMarketingEfficiency(product);
-        var featureCap = Products.GetFeatureRatingCap(product, Q);
+        var featureCap = Products.GetFeatureRatingCap(product);
         var devSpeed = Products.GetBaseIterationTime(Q, product);
 
         var stats = new StringBuilder()
