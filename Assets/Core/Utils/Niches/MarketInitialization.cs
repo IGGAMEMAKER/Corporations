@@ -14,23 +14,18 @@ namespace Assets.Core
             return gameContext.GetEntities(GameMatcher.MarketingChannel);
         }
 
-        public static GameEntity[] GetNewMarketingChannels(GameContext gameContext, GameEntity product, bool includeActiveChannels)
+        public static GameEntity[] GetTheoreticallyPossibleMarketingChannels(GameEntity product, GameContext gameContext)
         {
             return GetAllMarketingChannels(gameContext)
-                .Where(IsReachableChannel(product, gameContext, includeActiveChannels))
+                .Where(channel => !Marketing.IsActiveInChannel(product, channel))
                 .ToArray();
         }
 
-        public static GameEntity[] GetMarketingChannels(GameEntity company, GameContext gameContext)
+        public static GameEntity[] GetAffordableMarketingChannels(GameEntity product, GameContext gameContext)
         {
-            var counter = GetAmountOfAvailableChannels(company, gameContext);
-
-            var availableChannels = GetNewMarketingChannels(gameContext, company, false)
-                //.TakeWhile(c => counter-- > 0)
-                .ToArray()
-                ;
-
-            return availableChannels;
+            return GetTheoreticallyPossibleMarketingChannels(product, gameContext)
+                .Where(IsCanAffordChannel(product, gameContext))
+                .ToArray();
         }
 
         public static GameEntity GetMarketingChannel(GameContext gameContext, int channelId)
@@ -40,32 +35,27 @@ namespace Assets.Core
             return channels.First(c => c.marketingChannel.ChannelInfo.ID == channelId);
         }
 
-        public static Func<GameEntity, bool> IsReachableChannel(GameEntity company, GameContext gameContext, bool includeActive) => (GameEntity c) =>
+        public static Func<GameEntity, bool> IsCanAffordChannel(GameEntity company, GameContext gameContext) => (GameEntity c) =>
         {
-            var activeInChannel = Marketing.IsActiveInChannel(company, c);
-
-            if (activeInChannel)
-                return includeActive;
-
             var adCost = Marketing.GetChannelCost(company, c);
 
-            //if (Companies.IsPlayerFlagship(company))
-            //{
-            //    var group = Companies.GetPlayerCompany(gameContext);
-
-            //    return Economy.IsCanMaintainForAWhile(group, gameContext, activityCost, 4);
-            //}
-
-            //return Economy.IsCanMaintainForAWhile(company, gameContext, activityCost, 1);
-
-            // show is in player's income range
             if (Companies.IsPlayerFlagship(company))
             {
-                var player = Companies.GetPlayerCompany(gameContext);
-                var income = Economy.GetIncome(gameContext, player);
+                var group = Companies.GetPlayerCompany(gameContext);
 
-                return income >= adCost;
+                return Economy.IsCanMaintainForAWhile(group, gameContext, adCost, 4);
             }
+
+            return Economy.IsCanMaintainForAWhile(company, gameContext, adCost, 1);
+
+            //// show is in player's income range
+            //if (Companies.IsPlayerFlagship(company))
+            //{
+            //    var player = Companies.GetPlayerCompany(gameContext);
+            //    var income = Economy.GetIncome(gameContext, player);
+
+            //    return income >= adCost;
+            //}
 
             // show if can afford
             return Economy.IsCanMaintainForAWhile(company, gameContext, adCost, 1);

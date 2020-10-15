@@ -73,7 +73,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void ManageChannels(GameEntity product, ref List<string> str)
     {
-        var channels = Markets.GetNewMarketingChannels(gameContext, product, false)
+        var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
             ;
 

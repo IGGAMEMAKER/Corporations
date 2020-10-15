@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Core
@@ -87,11 +88,8 @@ namespace Assets.Core
             //}
         }
 
-        public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
+        public static int GetAmountOfPossibleFeatures(GameEntity company, GameContext gameContext)
         {
-            var maxFeatureRating = Products.GetFeatureRatingCap(company);
-            var ratingGain = Products.GetFeatureRatingGain(company, company.team.Teams[0]);
-
             var counter = 1;
 
             var universalTeams = company.team.Teams.Count(t => Teams.IsUniversalTeam(t.TeamType));
@@ -106,33 +104,51 @@ namespace Assets.Core
 
             counter = maxCounter - upgradingAlready;
 
-            var features = allFeatures
-                // is not upgrading already
-                .Where(f => !Products.IsUpgradingFeature(company, gameContext, f.Name))
+            return counter;
+        }
 
-                // can upgrade more
-                .Where(f => Products.GetFeatureRating(company, f.Name) + ratingGain <= maxFeatureRating)
+        public static Func<NewProductFeature, bool> IsCanUpgradeFeature(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
+        {
+            var ratingCap = GetFeatureRatingCap(company);
+            var ratingGain = GetFeatureRatingGain(company, company.team.Teams[0]);
+
+            // is not upgrading already
+
+            // can upgrade more
+
+            return !IsUpgradingFeature(company, gameContext, f.Name) && GetFeatureRating(company, f.Name) + ratingGain <= ratingCap;
+        };
+
+        public static Func<NewProductFeature, bool> IsFeatureWillKeepThingsStable(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
+        {
+            bool willMakeAnyoneDisloyal = false;
+            var segments = Marketing.GetAudienceInfos();
+
+            foreach (var a in segments)
+            {
+                var loyalty = Marketing.GetSegmentLoyalty(company, a.ID);
+                var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
+
+                bool willDissapointAudience = change < 0 && loyalty + change < 0;
+                bool weDontWantToDissapointThem = Marketing.IsAimingForSpecificAudience(company, a.ID);
+
+                if (willDissapointAudience && weDontWantToDissapointThem)
+                    willMakeAnyoneDisloyal = true;
+            }
+
+            return !willMakeAnyoneDisloyal;
+        };
+
+        public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
+        {
+            var allFeatures = GetAvailableFeaturesForProduct(company);
+            var counter = GetAmountOfPossibleFeatures(company, gameContext);
+
+            var features = allFeatures
+                .Where(IsCanUpgradeFeature(company, gameContext))
 
                 // will not make anyone disloyal
-                .Where(f =>
-                {
-                    bool willMakeAnyoneDisloyal = false;
-                    var segments = Marketing.GetAudienceInfos();
-
-                    foreach (var a in segments)
-                    {
-                        var loyalty = Marketing.GetSegmentLoyalty(company, a.ID);
-                        var change = Marketing.GetLoyaltyChangeFromFeature(company, f, a.ID, true);
-
-                        bool willDissapointAudience = change < 0 && loyalty + change < 0;
-                        bool weDontWantToDissapointThem = Marketing.IsAimingForSpecificAudience(company, a.ID);
-
-                        if (willDissapointAudience && weDontWantToDissapointThem)
-                            willMakeAnyoneDisloyal = true;
-                    }
-
-                    return !willMakeAnyoneDisloyal;
-                })
+                .Where(IsFeatureWillKeepThingsStable(company, gameContext))
                 .TakeWhile(f => counter-- > 0)
                 .ToArray()
                 ;
@@ -141,6 +157,24 @@ namespace Assets.Core
         }
 
         // set of features
+        public static NewProductFeature[] GetUpgradeableMonetisationFeatures(GameEntity product, GameContext gameContext)
+        {
+            return GetMonetisationFeatures(product)
+                .Where(IsCanUpgradeFeature(product, gameContext))
+                .Where(IsFeatureWillKeepThingsStable(product, gameContext))
+                .ToArray();
+        }
+        public static NewProductFeature[] GetUpgradeableRetentionFeatures(GameEntity product, GameContext gameContext)
+        {
+            var counter = GetAmountOfPossibleFeatures(product, gameContext);
+
+            return GetChurnFeatures(product)
+                .Where(IsCanUpgradeFeature(product, gameContext))
+                .Where(IsFeatureWillKeepThingsStable(product, gameContext))
+                .TakeWhile(f => counter-- > 0)
+                .ToArray();
+        }
+
         public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
         {
             return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetisation).ToArray();

@@ -11,12 +11,15 @@ public class MarketingChannelsListView : ListView
     float maxROI = 0;
     float minROI = 0;
 
-    bool ShowActiveChannelsToo = false;
+    bool ShowAffordableOnly = true;
 
     public Text MarketingEfficiency;
 
     public RenderAudiencesListView RenderAudiencesListView;
     int segmentId;
+
+    public GameObject PossibleChannels;
+    public GameObject AllChannels;
 
     public override void SetItem<T>(Transform t, T entity, object data = null)
     {
@@ -27,7 +30,7 @@ public class MarketingChannelsListView : ListView
 
     public void ToggleActiveChannels()
     {
-        ShowActiveChannelsToo = !ShowActiveChannelsToo;
+        ShowAffordableOnly = !ShowAffordableOnly;
 
         ViewRender();
     }
@@ -43,11 +46,16 @@ public class MarketingChannelsListView : ListView
 
         CalculateROI(company);
         
+        if (PossibleChannels != null)
+            Draw(PossibleChannels, !ShowAffordableOnly);
 
+        if (AllChannels != null)
+            Draw(AllChannels, ShowAffordableOnly);
+        
         // list
-        var channels = Markets.GetMarketingChannels(company, Q).OrderByDescending(c => Marketing.GetChannelCost(company, c)); // segmentId
+        var channels = ShowAffordableOnly ? Markets.GetAffordableMarketingChannels(company, Q) : Markets.GetTheoreticallyPossibleMarketingChannels(company, Q); // segmentId
 
-        SetItems(channels);
+        SetItems(channels.OrderByDescending(c => Marketing.GetChannelCost(company, c)));
     }
 
     void CalculateROI(GameEntity company)
@@ -73,6 +81,10 @@ public class MarketingChannelsListView : ListView
     private void OnEnable()
     {
         segmentId = Marketing.GetCoreAudienceId(Flagship);
+
+        ShowAffordableOnly = true;
+
+        ViewRender();
     }
 
     public void SetSegmentId(int id)
