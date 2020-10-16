@@ -32,7 +32,7 @@ namespace Assets.Core
 
             RemoveAcquisitionOffer(gameContext, company, buyerInvestorId);
 
-            company.isIndependentCompany = false;
+            SetIndependence(company, false);
 
             NotifyAboutAcquisition(gameContext, buyerInvestorId, company.company.Id, offer);
 

@@ -33,6 +33,13 @@ public class ShareholdersOnMainScreenListView : ListView
         t.GetComponent<InvestorPreview>().SetEntity((int)(object)entity, MyCompany);
     }
 
+    private void OnEnable()
+    {
+        ViewRender();
+
+        HideButtons();
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -98,7 +105,6 @@ public class ShareholdersOnMainScreenListView : ListView
         // active investments
         var investments = MyCompany.shareholders.Shareholders[shareholderId].Investments;
         var activeInvestments = investments.Where(i => i.RemainingPeriods > 0);
-        bool hasInvestments = activeInvestments.Count() > 0;
 
         var investmentInfo = string.Join(
             "\n",
@@ -112,6 +118,7 @@ public class ShareholdersOnMainScreenListView : ListView
 
         BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
 
+        bool hasInvestments = activeInvestments.Count() > 0;
         CurrentInvestments.GetComponentInChildren<TextMeshProUGUI>().text = !hasInvestments ? "Is not paying investments" : investmentInfo;
     }
 }

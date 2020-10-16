@@ -90,5 +90,22 @@ namespace Assets.Core
 
             return Economy.GetHoldingsCost(gameContext, holdings);
         }
+
+        // --------------------------------------------------------------
+
+        public static void SetVotingStyle(GameEntity company, VotingStyle votingStyle)
+        {
+            company.investmentStrategy.VotingStyle = votingStyle;
+        }
+
+        public static void SetGrowthStyle(GameEntity company, CompanyGrowthStyle growthStyle)
+        {
+            company.investmentStrategy.GrowthStyle = growthStyle;
+        }
+
+        public static void SetGlobalMoneyStrategy(GameEntity company, InvestorInterest interest)
+        {
+            company.investmentStrategy.InvestorInterest = interest;
+        }
     }
 }

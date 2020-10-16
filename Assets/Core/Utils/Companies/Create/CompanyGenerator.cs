@@ -82,7 +82,8 @@ namespace Assets.Core
 
             company.AddCompany(id, name, companyType);
             company.isAlive = true;
-            company.isIndependentCompany = true;
+
+            SetIndependence(company, true);
             company.AddPartnerships(new List<int>());
 
             company.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
@@ -93,24 +94,29 @@ namespace Assets.Core
             company.AddInvestmentRounds(InvestmentRound.Preseed);
             company.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
 
-            company.AddWorkerOffers(new List<ExpiringJobOffer>());
+            // Branding?
             company.AddBranding(0);
 
             // teams
-            int CeoID = CEO.human.Id;
-
-            CEO.humanSkills.Traits.RemoveAll(t => t == Trait.Greedy);
-            CEO.humanSkills.Traits.Add(Trait.Shy);
-
-            company.AddCEO(0, CeoID);
+            company.AddWorkerOffers(new List<ExpiringJobOffer>());
             company.AddTeam(
                 100, 50,
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
                 new List<TeamInfo>() {}
                 );
-            company.AddEmployee(new Dictionary<int, WorkerRole>());
+
+            // add team for CEO
             Teams.AddTeam(company, TeamType.SmallCrossfunctionalTeam);
+
+            // CEO
+            int CeoID = CEO.human.Id;
+
+            CEO.humanSkills.Traits.RemoveAll(t => t == Trait.Greedy);
+            CEO.humanSkills.Traits.Add(Trait.Shy);
+
+            company.AddCEO(0, CeoID);
+            company.AddEmployee(new Dictionary<int, WorkerRole>());
 
             company.AddTeamEfficiency(new TeamEfficiency());
 

@@ -4648,6 +4648,7 @@ GameObject:
   - component: {fileID: 7963829309868077628}
   - component: {fileID: 8635180366987930512}
   - component: {fileID: 5998402891906639968}
+  - component: {fileID: 941797655472356957}
   m_Layer: 5
   m_Name: Investor Preview
   m_TagString: Untagged
@@ -4930,13 +4931,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4110931167567684210}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb40dd1581525044ab3c6b56b08fde44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsLink: 0
   TargetMenu: 8
+--- !u!114 &941797655472356957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4110931167567684210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1f4bffd919ca246a4a14d3bb5092d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLink: 0
 --- !u!1 &4111064309730683640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,9 +5016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Search new investors
-
-'
+  m_text: Start investment round A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 55aaa3d18fd8e124d97d1f0fbad4b22d, type: 2}
   m_sharedMaterial: {fileID: 21149218929671954, guid: 55aaa3d18fd8e124d97d1f0fbad4b22d,
@@ -5033,7 +5045,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32
+  m_fontSize: 31.15
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5074,10 +5086,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4079251187794625932}
-    characterCount: 21
+    characterCount: 24
     spriteCount: 0
     spaceCount: 3
-    wordCount: 3
+    wordCount: 4
     linkCount: 0
     lineCount: 2
     pageCount: 1
@@ -7204,11 +7216,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 3374961930757619519, guid: d9e7a99fda38ee94aa3e2aed8b2b9d7c, type: 3}
   index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
   HighlightChosenVariant: 1
   ChosenIndex: -1
-  ForceUpdate: 0
   Items: []
   Item: {fileID: 0}
   SearchNewInvestors: {fileID: 4110931167567684210}

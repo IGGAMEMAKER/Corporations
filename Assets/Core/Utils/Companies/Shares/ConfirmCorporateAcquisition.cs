@@ -26,7 +26,7 @@ namespace Assets.Core
             var targetCost = Economy.CostOf(target, gameContext);
 
             // TODO
-            //             var corporationShares = Companies.GetTotalShares(gameContext, companyId);
+            // var corporationShares = Companies.GetTotalShares(gameContext, companyId);
             var corporationShares = Companies.GetTotalShares(target);
             var emitedShares = corporationShares * targetCost / corporationCost;
 
@@ -48,7 +48,7 @@ namespace Assets.Core
             }
             //AddShareholder(gameContext, target, buyerInvestorId, 100);
             AddShareholder(target, corporation, 100);
-            target.isIndependentCompany = false;
+            SetIndependence(target, false);
 
             NotifyAboutCorporateAcquisition(gameContext, buyerInvestorId, companyId);
         }

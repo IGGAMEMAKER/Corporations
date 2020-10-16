@@ -95,6 +95,40 @@ public class InvestmentProposalsComponent : IComponent
     public List<InvestmentProposal> Proposals;
 }
 
+public enum CompanyGrowthStyle
+{
+    None,
+
+    StepByStep,
+    Aggressive
+}
+
+public enum InvestorInterest
+{
+    None,
+
+    SellOut,
+    BuyBack,
+    IPO,
+    Dividends
+}
+
+public enum VotingStyle
+{
+    Percent50,
+    Percent75,
+    Percent90,
+    Percent100
+}
+
+[Game]
+public class InvestmentStrategyComponent : IComponent
+{
+    public CompanyGrowthStyle GrowthStyle;
+    public VotingStyle VotingStyle;
+    public InvestorInterest InvestorInterest;
+}
+
 [Game]
 public class FollowingComponent : IComponent { }
 

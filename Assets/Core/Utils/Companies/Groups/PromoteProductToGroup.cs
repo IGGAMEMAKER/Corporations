@@ -2,6 +2,24 @@
 {
     partial class Companies
     {
+        public static void SetIndependence(GameEntity company, bool independence)
+        {
+            if (independence)
+            {
+                company.isIndependentCompany = true;
+
+                if (!company.hasInvestmentStrategy)
+                    company.AddInvestmentStrategy(CompanyGrowthStyle.Aggressive, VotingStyle.Percent75, RandomEnum<InvestorInterest>.GenerateValue(InvestorInterest.None));
+            }
+            else
+            {
+                company.isIndependentCompany = false;
+
+                if (company.hasInvestmentStrategy)
+                    company.RemoveInvestmentStrategy();
+            }
+        }
+
         public static int PromoteProductCompanyToGroup(GameContext context, int companyId)
         {
             var product = Get(context, companyId);
@@ -9,33 +27,35 @@
             if (!product.isIndependentCompany)
                 return -1;
 
-            product.isIndependentCompany = false;
+            SetIndependence(product, false);
 
 
 
             var name = product.company.Name;
 
             var futureName = Enums.GetShortNicheName(product.product.Niche);
-            int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
+            var group = GenerateCompanyGroup(context, futureName + " Group", companyId);
+            int companyGroupId = group.company.Id;
+            //int companyGroupId = GenerateCompanyGroup(context, futureName + " Group", companyId).company.Id;
 
             AttachToGroup(context, companyGroupId, companyId);
 
 
-            var groupCo = Get(context, companyGroupId);
+            //var groupCo = Get(context, companyGroupId);
 
             var niche = product.product.Niche;
             var industry = Markets.GetIndustry(niche, context);
-            AddFocusIndustry(industry, groupCo);
+            AddFocusIndustry(industry, group);
 
-            AddFocusNiche(niche, groupCo, context);
-            groupCo.isManagingCompany = true;
+            AddFocusNiche(niche, group, context);
+            group.isManagingCompany = true;
 
             // manage partnerships of product company
             foreach (var p in GetPartnershipCopy(product))
             {
                 var acceptor = Get(context, p);
 
-                AcceptStrategicPartnership(groupCo, acceptor);
+                AcceptStrategicPartnership(group, acceptor);
             }
             RemoveAllPartnerships(product, context);
 

@@ -52,7 +52,7 @@ namespace Assets.Core
             else
                 daughter.AddShareholders(shareholders);
 
-            daughter.isIndependentCompany = false;
+            SetIndependence(daughter, false);
         }
 
         public static void AddOwning(GameEntity company, int owningCompanyId)
