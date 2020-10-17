@@ -103,7 +103,7 @@ namespace Assets.Core
             company.investmentStrategy.GrowthStyle = growthStyle;
         }
 
-        public static void SetGlobalMoneyStrategy(GameEntity company, InvestorInterest interest)
+        public static void SetExitStrategy(GameEntity company, InvestorInterest interest)
         {
             company.investmentStrategy.InvestorInterest = interest;
         }

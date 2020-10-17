@@ -115,6 +115,7 @@ public enum InvestorInterest
 
 public enum VotingStyle
 {
+    None,
     Percent50,
     Percent75,
     Percent90,

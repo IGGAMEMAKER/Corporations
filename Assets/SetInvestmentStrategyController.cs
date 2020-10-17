@@ -6,6 +6,6 @@ public class SetInvestmentStrategyController : ButtonController
 
     public override void Execute()
     {
-        Investments.SetGlobalMoneyStrategy(MyCompany, InvestorInterest);
+        Investments.SetExitStrategy(MyCompany, InvestorInterest);
     }
 }

@@ -21,13 +21,15 @@ public class InestmentProposalScreen : View
         StartRoundButton.GetComponentInChildren<Button>().interactable = !isRoundActive;
         StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
 
-        bool noGrowth = MyCompany.investmentStrategy.GrowthStyle == CompanyGrowthStyle.None;
-        bool noExit = MyCompany.investmentStrategy.InvestorInterest == InvestorInterest.None;
+        bool noGrowth   = MyCompany.investmentStrategy.GrowthStyle == CompanyGrowthStyle.None;
+        bool noExit     = MyCompany.investmentStrategy.InvestorInterest == InvestorInterest.None;
+        bool noVoting   = MyCompany.investmentStrategy.VotingStyle == VotingStyle.None;
 
-        bool needsToSetStrategies = noGrowth || noExit;
+        bool needsToSetStrategies = noGrowth || noExit || noVoting;
+
         Draw(GrowthStrategyTab, isRoundActive && noGrowth);
-
-        Draw(ExitStrategyTab, isRoundActive && noExit && !noGrowth);
+        Draw(VotingStrategyTab, isRoundActive && !noGrowth && noVoting);
+        Draw(ExitStrategyTab,   isRoundActive && !noGrowth && !noVoting && noExit);
 
         Draw(InvestorPanel, (isRoundActive && !needsToSetStrategies) || !isRoundActive);
     }

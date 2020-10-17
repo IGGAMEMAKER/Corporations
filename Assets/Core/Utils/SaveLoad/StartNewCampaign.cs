@@ -52,9 +52,10 @@ namespace Assets.Core
             Companies.SetResources(company, new TeamResource(startCapital));
 
             Companies.PlayAs(company, gameContext);
-            Investments.SetGlobalMoneyStrategy(company, InvestorInterest.None);
+
             Investments.SetGrowthStyle(company, CompanyGrowthStyle.None);
-            Investments.SetVotingStyle(company, VotingStyle.Percent50);
+            Investments.SetVotingStyle(company, VotingStyle.None);
+            Investments.SetExitStrategy(company, InvestorInterest.None);
 
             Companies.AutoFillShareholders(gameContext, company, true);
 
