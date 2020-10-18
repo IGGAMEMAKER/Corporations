@@ -100,29 +100,41 @@ public partial class BaseClass : MonoBehaviour
         }
     }
 
-    public bool Contains<T>()
+    public bool Contains<T>(GameObject obj = null)
     {
-        return gameObject.GetComponent<T>() != null;
+        if (obj == null)
+            obj = gameObject;
+
+        return obj.GetComponent<T>() != null;
     }
 
-    public T AddIfAbsent<T>() where T : Component
+    public T AddIfAbsent<T>(GameObject obj = null) where T : Component
     {
+        if (obj == null)
+            obj = gameObject;
+
         if (!Contains<T>())
-            return gameObject.AddComponent<T>();
+            return obj.AddComponent<T>();
 
-        return gameObject.GetComponent<T>();
+        return obj.GetComponent<T>();
     }
 
-    public void RemoveIfExists<T>() where T : Component
+    public void RemoveIfExists<T>(GameObject obj = null) where T : Component
     {
+        if (obj == null)
+            obj = gameObject;
+
         if (Contains<T>())
-            Destroy(gameObject.GetComponent<T>());
+            Destroy(obj.GetComponent<T>());
     }
 
-    public void AddOrRemove<T>() where T : Component
+    public void AddOrRemove<T>(GameObject obj = null) where T : Component
     {
+        if (obj == null)
+            obj = gameObject;
+
         if (Contains<T>())
-            Destroy(gameObject.GetComponent<T>());
+            Destroy(obj.GetComponent<T>());
     }
 
 
@@ -175,6 +187,7 @@ public partial class BaseClass : MonoBehaviour
             go.SetActive(condition);
     }
 
+    public void ShowOnly(GameObject obj, GameObject[] objects) => ShowOnly(obj, objects.ToList());
     public void ShowOnly(GameObject obj, List<GameObject> objects)
     {
         foreach (var o in objects)
