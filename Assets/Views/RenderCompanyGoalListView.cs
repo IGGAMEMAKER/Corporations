@@ -53,6 +53,6 @@ public class CompanyGoalButtonView : CompanyUpgradeButton
 
     public override void Execute()
     {
-        FindObjectOfType<InestmentProposalScreen>().ChooseSum();
+        FindObjectOfType<InestmentProposalScreen>().SetGoal(InvestorGoal);
     }
 }

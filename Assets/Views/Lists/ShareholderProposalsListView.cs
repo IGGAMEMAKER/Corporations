@@ -15,6 +15,6 @@ public class ShareholderProposalsListView : ListView
         var proposals = Companies.GetInvestmentProposals(MyCompany);
 
         // TODO is MYCOMPANY really necessary?
-        GetComponent<ShareholderProposalsListView>().SetItems(proposals, MyCompany);
+        GetComponent<ShareholderProposalsListView>().SetItems(proposals);
     }
 }

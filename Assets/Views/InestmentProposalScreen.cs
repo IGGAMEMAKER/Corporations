@@ -6,6 +6,9 @@ public class InestmentProposalScreen : View
 {
     public GameObject StartRoundButton;
 
+    public GameObject CurrentInvestorsPanel;
+    public GameObject MyCompanyControl;
+
     public GameObject GrowthStrategyTab;
     public GameObject VotingStrategyTab;
     public GameObject ExitStrategyTab;
@@ -23,7 +26,7 @@ public class InestmentProposalScreen : View
 
     public Text CompanyShare;
 
-    long Sum;
+    long Sum = -1;
     InvestorGoal InvestorGoal;
 
     bool goalWasChosen = false;
@@ -58,7 +61,17 @@ public class InestmentProposalScreen : View
 
         if (isRoundActive && !needsToSetStrategies)
         {
+            Hide(StartRoundButton);
+            Show(MyCompanyControl);
+            Hide(InvestorPanel);
+
             RenderOffer();
+        }
+        else
+        {
+            Show(MyCompanyControl);
+            Show(InvestorPanel);
+
         }
     }
 
@@ -69,24 +82,24 @@ public class InestmentProposalScreen : View
 
     void ResetOffer()
     {
-        Sum = 0;
+        Sum = -1;
         goalWasChosen = false;
         urgency = -1;
     }
 
     void RenderOffer()
     {
-        if (!goalWasChosen)
+        if (urgency < 0)
+        {
+            ChooseUrgency();
+        }
+        else if (!goalWasChosen)
         {
             ChooseGoal();
         }
-        else if (Sum == 0)
+        else if (Sum < 0)
         {
             ChooseSum();
-        }
-        else if (urgency < 0)
-        {
-            ChooseUrgency();
         }
         else
         {
@@ -105,13 +118,24 @@ public class InestmentProposalScreen : View
 
     public void ChooseSum()
     {
-        Debug.Log("Choose sum");
-
-        ShowOnly(SumPanel, OfferPanels);
+        //ShowOnly(SumPanel, OfferPanels);
+        Show(SumPanel);
         goalWasChosen = true;
     }
 
-    public void ChangeSum(float slider)
+    public void ChooseUrgency()
+    {
+        ShowOnly(UrgencyPanel, OfferPanels);
+    }
+
+    public void ChoosePossibleInvestments()
+    {
+        ShowOnly(PossibleInvestorsPanel, OfferPanels);
+    }
+
+    // ----------------------
+
+    public void ChangeSum(System.Single slider)
     {
         var cost = Economy.CostOf(MyCompany, Q);
         var percent = (int)(slider);
@@ -119,17 +143,25 @@ public class InestmentProposalScreen : View
         Sum = cost * percent / 100;
 
         CompanyShare.text = $"for {percent}% of company";
+
+        Show(PossibleInvestorsPanel);
     }
 
-    public void ChooseUrgency()
+    public void SetUrgency(int days)
     {
-        Debug.Log("Choose urgency");
+        urgency = days;
 
-        ShowOnly(UrgencyPanel, OfferPanels);
+        Sum = -1;
+
+        ViewRender();
     }
 
-    public void ChoosePossibleInvestments()
+    public void SetGoal(InvestorGoal investorGoal)
     {
-        ShowOnly(PossibleInvestorsPanel, OfferPanels);
+        InvestorGoal = investorGoal;
+        goalWasChosen = true;
+        Sum = -1;
+
+        ViewRender();
     }
 }
