@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TraitListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<TraitView>().SetEntity((Trait)(object)entity);
     }

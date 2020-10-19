@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class NotificationsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         //t.gameObject.AddComponent<Button>();
         t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage, index);

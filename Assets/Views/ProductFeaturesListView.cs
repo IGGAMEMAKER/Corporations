@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class ProductFeaturesListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature);
     }

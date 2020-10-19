@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TopManagersList : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<TopManagersPreview>().SetEntity(entity as GameEntity);
     }

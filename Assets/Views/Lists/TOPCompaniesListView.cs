@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TOPCompaniesListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var company = entity as GameEntity;
 

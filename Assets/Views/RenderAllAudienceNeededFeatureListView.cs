@@ -8,7 +8,7 @@ public class RenderAllAudienceNeededFeatureListView : ListView
     public GameObject MonetisationButton;
     public GameObject RetentionButton;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature);
     }

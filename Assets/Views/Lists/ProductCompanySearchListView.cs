@@ -7,11 +7,11 @@ public class ProductCompanySearchListView : ListView
 {
     public GrowthFilterQuarterly GrowthFilterQuarterly;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var e = entity as GameEntity;
 
-        t.GetComponent<CompanyTableView>().SetEntity(e, data);
+        t.GetComponent<CompanyTableView>().SetEntity(e, GrowthFilterQuarterly.Quarterly);
     }
 
     private void OnEnable()
@@ -23,6 +23,6 @@ public class ProductCompanySearchListView : ListView
     {
         var products = Companies.GetProductCompanies(Q);
 
-        SetItems(products, GrowthFilterQuarterly.Quarterly);
+        SetItems(products);
     }
 }

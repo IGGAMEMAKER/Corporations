@@ -10,7 +10,7 @@ public class RenderFullAudiencesListView : ListView
     public Text PositionongDescription;
     public Text CompaniesInterestedInUsers;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity);
     }

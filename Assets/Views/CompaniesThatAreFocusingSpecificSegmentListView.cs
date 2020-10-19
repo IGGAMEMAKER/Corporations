@@ -3,7 +3,7 @@
 public class CompaniesThatAreFocusingSpecificSegmentListView : ListView
 {
     int segmentId;
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         //t.GetComponent<CompanyViewOnMap>().SetEntity(entity as GameEntity, false, false);
         t.GetComponent<CompanyViewOnAudienceMap>().SetEntity(entity as GameEntity, segmentId);

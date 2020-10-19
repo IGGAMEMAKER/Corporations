@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ManagerListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         KeyValuePair<int, WorkerRole> pair = (KeyValuePair<int, WorkerRole>)(object)entity;
 

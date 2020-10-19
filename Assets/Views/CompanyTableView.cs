@@ -14,10 +14,10 @@ public class CompanyTableView : View, IPointerEnterHandler
     GameEntity entity;
     bool QuarterlyOrYearly;
 
-    public void SetEntity(GameEntity company, object data)
+    public void SetEntity(GameEntity company, bool isQuarterlyOrYearly)
     {
         entity = company;
-        QuarterlyOrYearly = (bool)data;
+        QuarterlyOrYearly = isQuarterlyOrYearly;
 
         Render();
     }

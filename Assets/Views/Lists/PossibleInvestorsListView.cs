@@ -2,7 +2,7 @@
 
 public class PossibleInvestorsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var investor = entity as GameEntity;
 

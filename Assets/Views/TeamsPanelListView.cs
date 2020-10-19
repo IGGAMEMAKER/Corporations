@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TeamsPanelListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<TeamPreview>().SetEntity((TeamInfo)(object)entity, index);
     }

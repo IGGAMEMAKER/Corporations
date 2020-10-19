@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GroupStatsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<CompanyGrowthPreview>().SetEntity(entity as GameEntity);
     }

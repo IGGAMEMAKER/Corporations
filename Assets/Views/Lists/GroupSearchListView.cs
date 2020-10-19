@@ -8,11 +8,11 @@ public class GroupSearchListView : ListView
 {
     public GrowthFilterQuarterly GrowthFilterQuarterly;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var e = entity as GameEntity;
 
-        t.GetComponent<CompanyTableView>().SetEntity(e, data);
+        t.GetComponent<CompanyTableView>().SetEntity(e, GrowthFilterQuarterly.Quarterly);
     }
 
     private void OnEnable()
@@ -25,7 +25,7 @@ public class GroupSearchListView : ListView
         var groups = Companies.GetGroupCompanies(Q)
             .OrderByDescending(g => Economy.CostOf(g, Q))
             .ToArray();
-
-        SetItems(groups, GrowthFilterQuarterly.Quarterly);
+        
+        SetItems(groups);
     }
 }

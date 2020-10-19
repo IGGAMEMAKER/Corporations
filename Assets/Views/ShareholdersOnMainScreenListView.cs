@@ -28,7 +28,7 @@ public class ShareholdersOnMainScreenListView : ListView
     bool isPlayerSelected = false;
     int shareholderId = 0;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<InvestorPreview>().SetEntity((int)(object)entity, MyCompany);
     }

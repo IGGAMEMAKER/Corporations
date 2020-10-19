@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PeopleLeaderboardListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var e = entity as GameEntity;
 

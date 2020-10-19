@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class CompanyUpgradeList : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var u = (ProductUpgrade)(object)entity;
 
@@ -25,6 +25,6 @@ public abstract class CompanyUpgradeList : ListView
 
         var upgrades = GetUpgrades();
 
-        SetItems(upgrades, upgrades.Length);
+        SetItems(upgrades);
     }
 }

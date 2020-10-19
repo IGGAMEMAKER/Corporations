@@ -8,7 +8,7 @@ public class NotificationsListView2 : ListView
 {
     public Text MessagesCount;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<NotificationView>().SetMessage(entity as NotificationMessage, index);
     }

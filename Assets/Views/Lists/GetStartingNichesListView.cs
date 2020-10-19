@@ -7,7 +7,7 @@ public class GetStartingNichesListView : ListView
 {
     public GameObject TypeCorporationNameContainer, ChooseInitialNicheContainer;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var niche = entity as GameEntity;
         var preview = t.GetComponent<NichePreview>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PositioningVariantsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<PositioningView>().SetEntity((int)(object)entity);
     }

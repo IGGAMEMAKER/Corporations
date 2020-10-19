@@ -7,7 +7,7 @@ using UnityEngine;
 public class CompaniesFocusingSpecificSegmentListView : ListView
 {
     int segmentId;
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var company = entity as GameEntity;
         var marketShare = Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q) / 100f;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SphereOfInfluenceListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         NicheType nicheType = (NicheType)(object)entity;
 

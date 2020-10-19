@@ -8,7 +8,7 @@ public abstract class StaffListView : ListView
 {
     public abstract Dictionary<int, WorkerRole> Workers();
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var e = (KeyValuePair<int, WorkerRole>)(object)entity;
 

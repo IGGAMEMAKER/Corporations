@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayersOnNicheSorted : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<CompanyViewOnMap>().SetEntity(entity as GameEntity, false, false);
     }

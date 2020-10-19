@@ -11,7 +11,7 @@ public class CandidatesForRoleListView : ListView
     public WorkerRole WorkerRole;
     public Text DebugTable;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var humanId = (int)(object)entity;
 

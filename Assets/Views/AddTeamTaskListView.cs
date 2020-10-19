@@ -16,7 +16,7 @@ public class AddTeamTaskListView : ListView
         ViewRender();
     }
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<AddTaskForTheTeamController>().SetEntity(TeamId);
     }

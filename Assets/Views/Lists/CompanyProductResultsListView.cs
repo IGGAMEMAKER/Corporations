@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CompanyProductResultsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<CompanyResultView>().SetEntity((ProductCompanyResult)(object)entity);
     }

@@ -12,7 +12,7 @@ public class ManagerFocusListView : ListView
     public TeamView TeamView;
 
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<ManagerTaskSlotView>().SetEntity(index);
     }

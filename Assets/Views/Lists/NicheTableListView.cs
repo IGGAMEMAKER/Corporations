@@ -32,7 +32,7 @@ public class NicheTableListView : ListView
     public Toggle NonAdjacentMarkets;
     public Toggle AllMarkets;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<NicheTableView>().SetEntity(entity as GameEntity);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PopupButtonsContainer : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         //AttachComponent(t, entity as System.Type);
         t.gameObject.AddComponent(entity as System.Type);

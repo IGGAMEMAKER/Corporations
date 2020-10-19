@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShareholdersListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var e = (KeyValuePair<int, BlockOfShares>) (object) entity;
 

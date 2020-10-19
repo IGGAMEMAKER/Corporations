@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class FillAIAcquisitionProposals : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var offer = (entity as GameEntity).acquisitionOffer;
 

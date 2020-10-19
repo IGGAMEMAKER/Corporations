@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InvestorsWithSameInterestsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var fund = entity as GameEntity;
         t.GetComponent<MockText>().SetEntity(fund.company.Name);

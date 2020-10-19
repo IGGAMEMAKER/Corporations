@@ -95,13 +95,13 @@ public abstract class ListView : View // MonoBehaviour
     // T is gameEntity in most cases
     // but you can use other data types if you need
 
-    public abstract void SetItem<T>(Transform t, T entity, object data = null);
+    public abstract void SetItem<T>(Transform t, T entity);
     //public virtual void DebugEntity<T>(T entity) { }
 
-    public void SetItems<T>(IEnumerable<T> entities, object data = null) => SetItems(entities.ToArray(), data);
-    public void SetItems<T>(T[] entities, object data = null)
+    public void SetItems<T>(IEnumerable<T> entities) => SetItems(entities.ToArray());
+    public void SetItems<T>(T[] entities)
     {
-        Render(entities, gameObject, data);
+        Render(entities, gameObject);
 
         if (AutoScroll)
             StartCoroutine(ScrollDown());
@@ -120,7 +120,7 @@ public abstract class ListView : View // MonoBehaviour
         wasCleanedUp = true;
     }
 
-    void Render<T>(T[] entities, GameObject Container, object data = null)
+    void Render<T>(T[] entities, GameObject Container)
     {
         Clean();
 
@@ -144,7 +144,7 @@ public abstract class ListView : View // MonoBehaviour
         {
             GameObject o = GetObjectForItem();
 
-            SetItem(o.transform, e, data);
+            SetItem(o.transform, e);
 
             Show(o);
 

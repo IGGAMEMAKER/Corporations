@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShareholderProposalsListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var proposal = entity as InvestmentProposal;
 
@@ -14,7 +14,6 @@ public class ShareholderProposalsListView : ListView
     {
         var proposals = Companies.GetInvestmentProposals(MyCompany);
 
-        // TODO is MYCOMPANY really necessary?
         GetComponent<ShareholderProposalsListView>().SetItems(proposals);
     }
 }

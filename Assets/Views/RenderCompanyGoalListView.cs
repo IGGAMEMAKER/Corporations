@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RenderCompanyGoalListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         AddIfAbsent<CompanyGoalButtonView>(t.gameObject).SetEntity((InvestorGoal)(object)entity);
         //t.gameObject.AddComponent<CompanyGoalButtonView>().SetEntity((InvestorGoal)(object)entity);

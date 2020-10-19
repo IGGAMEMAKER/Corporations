@@ -9,7 +9,7 @@ public class SupportFeaturesListView : ListView
     public bool MarketingSupport = true;
     public bool Servers = false;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<SupportView>().SetEntity(entity as SupportFeature);
     }

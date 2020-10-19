@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ActiveTasksListView : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<TeamTaskView>().SetEntity((TeamTask)(object)entity, Products.GetTeamTasks(Q, Flagship).Count - 1 - index);
     }

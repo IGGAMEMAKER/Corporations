@@ -18,7 +18,7 @@ public class AudiencesOnMainScreenListView : ListView
 
     public GameObject ButtonList;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<AudiencePreview>().SetEntity((AudienceInfo)(object)entity);
     }

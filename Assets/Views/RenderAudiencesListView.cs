@@ -13,7 +13,7 @@ public class RenderAudiencesListView : ListView
 
     public bool DisableAutomaticAudienceChange = true;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         t.GetComponent<SegmentPreview>().SetEntity(entity as AudienceInfo, index);
 

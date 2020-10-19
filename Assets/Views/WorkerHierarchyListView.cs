@@ -13,7 +13,7 @@ public class WorkerHierarchyListView : ListView
 
     int amountOfRoles = 0;
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var role = (WorkerRole)(object)entity;
 

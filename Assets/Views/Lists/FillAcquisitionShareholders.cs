@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FillAcquisitionShareholders : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         int shareholderId = (int)(object)entity;
         t.GetComponent<VotingShareholderView>().SetEntity(shareholderId);

@@ -9,7 +9,7 @@ public class RenderCompanyWorkerListView : ListView
 
     //FlagshipRelayInCompanyView flagshipRelay => FindObjectOfType<>
 
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var role = (WorkerRole)(object)entity;
 

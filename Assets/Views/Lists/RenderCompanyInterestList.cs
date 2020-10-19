@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RenderCompanyInterestList : ListView
 {
-    public override void SetItem<T>(Transform t, T entity, object data = null)
+    public override void SetItem<T>(Transform t, T entity)
     {
         var niche = Markets.Get(Q, (NicheType)(object)entity);
 
