@@ -6,5 +6,7 @@ public class AcceptProposalsButton : ButtonController
     {
         // + accept investments
         Companies.AcceptAllInvestmentProposals(MyCompany, Q);
+
+        MyCompany.RemoveAcceptsInvestments();
     }
 }

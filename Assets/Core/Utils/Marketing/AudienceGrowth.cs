@@ -85,7 +85,7 @@ namespace Assets.Core
             var infos = Marketing.GetAudienceInfos();
             var maxAudience = infos.Count;
 
-            return Mathf.Clamp(product.productPositioning.Positioning, 0, maxAudience);
+            return Mathf.Clamp(product.productPositioning.Positioning, 0, maxAudience - 1);
         }
 
         public static List<AudienceInfo> GetAudienceInfos()

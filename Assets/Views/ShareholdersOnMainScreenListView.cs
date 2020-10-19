@@ -20,7 +20,7 @@ public class ShareholdersOnMainScreenListView : ListView
 
     public ProductUpgradeLinks MainInfo;
 
-    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, GetExtraCash, MainInfo.gameObject };
+    List<GameObject> PlayerButtons => new List<GameObject> { SearchNewInvestors, MainInfo.gameObject }; // GetExtraCash, 
     List<GameObject> InvestorButtons => new List<GameObject> { BuyBackFromSpecificInvestor, /*ShowOffers,*/ CurrentInvestments, MainInfo.gameObject };
 
     public GameObject InvestmentsContextMenu;
@@ -75,11 +75,11 @@ public class ShareholdersOnMainScreenListView : ListView
             HideAll(InvestorButtons);
             ShowAll(PlayerButtons);
 
-            // there is noone to ask money for (there is only a player)
-            if (MyCompany.shareholders.Shareholders.Keys.Count == 1)
-            {
-                Hide(GetExtraCash);
-            }
+            Hide(GetExtraCash);
+            //// there is noone to ask money for (there is only a player)
+            //if (MyCompany.shareholders.Shareholders.Keys.Count == 1)
+            //{
+            //}
         }
         else
         {

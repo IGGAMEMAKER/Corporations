@@ -45,10 +45,10 @@ public class ShareholderProposalView : View
 
     void SetButtons(int investorId)
     {
-        bool CanAcceptInvestments = Companies.IsSharesCanBeSold(company);
-        bool visible = CanAcceptInvestments && company.isControlledByPlayer && !proposal.WasAccepted;
+        //bool CanAcceptInvestments = Companies.IsSharesCanBeSold(company);
+        //bool visible = CanAcceptInvestments && company.isControlledByPlayer && !proposal.WasAccepted;
 
-        LinkToOffer.SetActive(visible);
+        //LinkToOffer.SetActive(visible);
         LinkToOffer.GetComponent<LinkToInvestmentOffer>().SetInvestorId(investorId);
     }
 

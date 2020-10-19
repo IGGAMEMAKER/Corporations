@@ -23,6 +23,8 @@ public class InestmentProposalScreen : View
     public GameObject PossibleInvestorsPanel;
     public GameObject PossibleInvestorsLabel;
 
+    public GameObject CompanyCost;
+
 
     public Text CompanyShare;
     public Text TotalOffer;
@@ -36,7 +38,7 @@ public class InestmentProposalScreen : View
     bool goalWasChosen = false;
     int urgency = -1;
 
-    bool isRoundActive => MyCompany.hasAcceptsInvestments;
+    bool isRoundActive => Companies.IsInvestmentRoundStarted(MyCompany); // MyCompany.hasAcceptsInvestments;
 
     bool noGrowth => MyCompany.investmentStrategy.GrowthStyle == CompanyGrowthStyle.None;
     bool noExit => MyCompany.investmentStrategy.InvestorInterest == InvestorInterest.None;
@@ -79,6 +81,8 @@ public class InestmentProposalScreen : View
 
 
         Draw(InvestorPanel, !isRoundActive);
+        Draw(CompanyCost, isRoundActive);
+
         //Draw(InvestorPanel, isRoundActive && settingsAreOk);
         Draw(Offer,         isRoundActive && settingsAreOk);
 

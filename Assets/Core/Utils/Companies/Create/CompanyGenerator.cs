@@ -40,19 +40,11 @@ namespace Assets.Core
             Teams.AddTeamTask(product, context, 0, new TeamTaskSupportFeature(serverFeature));
 
             // clients
-            //var flow = Marketing.GetBaseClientsForNewCompanies(context, niche);
-            //var baseClients = Random.Range(0.15f, 0.35f) * flow;
-
-
-            var clientList = new Dictionary<int, long>
-            {
-                [coreId] = 50
-            };
-
-            product.AddMarketing(clientList);
-
-            product.AddCompanyMarketingActivities(new Dictionary<int, long>());
+            product.AddMarketing(new Dictionary<int, long>());
             product.AddSourceOfClients(new Dictionary<int, long>());
+            product.AddCompanyMarketingActivities(new Dictionary<int, long>());
+
+            Marketing.AddClients(product, 50, coreId);
 
             // sphere of interest
             var industry = Markets.GetIndustry(niche, context);
