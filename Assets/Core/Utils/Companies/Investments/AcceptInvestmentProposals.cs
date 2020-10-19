@@ -41,5 +41,15 @@
 
             company.ReplaceInvestmentProposals(proposals);
         }
+
+        public static void AcceptAllInvestmentProposals(GameEntity company, GameContext gameContext)
+        {
+            foreach (var s in Companies.GetInvestmentProposals(company))
+            {
+                var investorShareholderId = s.ShareholderId;
+
+                Companies.AcceptInvestmentProposal(gameContext, company, investorShareholderId);
+            }
+        }
     }
 }

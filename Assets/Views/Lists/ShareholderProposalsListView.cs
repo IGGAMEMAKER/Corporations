@@ -14,6 +14,7 @@ public class ShareholderProposalsListView : ListView
     {
         var proposals = Companies.GetInvestmentProposals(MyCompany);
 
-        GetComponent<ShareholderProposalsListView>().SetItems(proposals);
+        //GetComponent<ShareholderProposalsListView>().SetItems(proposals);
+        SetItems(proposals);
     }
 }

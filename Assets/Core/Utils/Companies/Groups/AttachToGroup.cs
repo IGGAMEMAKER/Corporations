@@ -85,8 +85,9 @@ namespace Assets.Core
             var positionings = Markets.GetNichePositionings(nicheType, Q);
             var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
 
+            // TODO POSITIONING
             var rand = Random.Range(0, 2);
-            company.productPositioning.Positioning = rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
+            company.productPositioning.Positioning = 0; // rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
 
             Marketing.AddClients(company, 50, company.productPositioning.Positioning);
 

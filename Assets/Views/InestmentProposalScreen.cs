@@ -21,59 +21,29 @@ public class InestmentProposalScreen : View
     public GameObject SumPanel;
     public GameObject UrgencyPanel;
     public GameObject PossibleInvestorsPanel;
+    public GameObject PossibleInvestorsLabel;
 
-    public GameObject[] OfferPanels => new GameObject[] { GoalPanel, SumPanel, UrgencyPanel, PossibleInvestorsPanel };
 
     public Text CompanyShare;
+    public Text TotalOffer;
+
+    public GameObject[] OfferPanels => new GameObject[] { GoalPanel, SumPanel, UrgencyPanel, PossibleInvestorsPanel };
+    public GameObject[] StrategyPanels => new GameObject[] { GrowthStrategyTab, VotingStrategyTab, ExitStrategyTab };
+    public GameObject[] PossibleInvestorsTabs => new GameObject[] { PossibleInvestorsPanel, PossibleInvestorsLabel, TotalOffer.gameObject };
 
     long Sum = -1;
     InvestorGoal InvestorGoal;
-
     bool goalWasChosen = false;
-
     int urgency = -1;
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
+    bool isRoundActive => MyCompany.hasAcceptsInvestments;
 
-        Debug.Log("InvestmentProposalScreen");
+    bool noGrowth => MyCompany.investmentStrategy.GrowthStyle == CompanyGrowthStyle.None;
+    bool noExit => MyCompany.investmentStrategy.InvestorInterest == InvestorInterest.None;
+    bool noVoting => MyCompany.investmentStrategy.VotingStyle == VotingStyle.None;
+    bool needsToSetStrategies => noGrowth || noExit || noVoting;
 
-        bool isRoundActive = MyCompany.hasAcceptsInvestments;
-
-        StartRoundButton.GetComponentInChildren<Button>().interactable = !isRoundActive;
-        StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
-
-        bool noGrowth   = MyCompany.investmentStrategy.GrowthStyle == CompanyGrowthStyle.None;
-        bool noExit     = MyCompany.investmentStrategy.InvestorInterest == InvestorInterest.None;
-        bool noVoting   = MyCompany.investmentStrategy.VotingStyle == VotingStyle.None;
-
-        bool needsToSetStrategies = noGrowth || noExit || noVoting;
-
-        Draw(GrowthStrategyTab, isRoundActive && noGrowth);
-        Draw(VotingStrategyTab, isRoundActive && !noGrowth && noVoting);
-        Draw(ExitStrategyTab,   isRoundActive && !noGrowth && !noVoting && noExit);
-
-        Draw(InvestorPanel, (isRoundActive && !needsToSetStrategies) || !isRoundActive);
-
-        Draw(Offer, isRoundActive && !needsToSetStrategies);
-
-
-        if (isRoundActive && !needsToSetStrategies)
-        {
-            Hide(StartRoundButton);
-            Show(MyCompanyControl);
-            Hide(InvestorPanel);
-
-            RenderOffer();
-        }
-        else
-        {
-            Show(MyCompanyControl);
-            Show(InvestorPanel);
-
-        }
-    }
+    bool settingsAreOk => !needsToSetStrategies;
 
     private void OnEnable()
     {
@@ -85,32 +55,59 @@ public class InestmentProposalScreen : View
         Sum = -1;
         goalWasChosen = false;
         urgency = -1;
+
+        ViewRender();
     }
 
-    void RenderOffer()
+    public override void ViewRender()
     {
-        if (urgency < 0)
+        base.ViewRender();
+
+        Debug.Log("InvestmentProposalScreen");
+
+
+        //StartRoundButton.GetComponentInChildren<Button>().interactable = !isRoundActive;
+        //StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
+
+
+        Draw(GrowthStrategyTab, isRoundActive && noGrowth);
+        Draw(VotingStrategyTab, isRoundActive && !noGrowth && noVoting);
+        Draw(ExitStrategyTab,   isRoundActive && !noGrowth && !noVoting && noExit);
+
+        HideAll(PossibleInvestorsTabs);
+        Hide(StartRoundButton);
+
+
+        Draw(InvestorPanel, !isRoundActive);
+        //Draw(InvestorPanel, isRoundActive && settingsAreOk);
+        Draw(Offer,         isRoundActive && settingsAreOk);
+
+        if (isRoundActive && settingsAreOk)
         {
-            ChooseUrgency();
-        }
-        else if (!goalWasChosen)
-        {
-            ChooseGoal();
-        }
-        else if (Sum < 0)
-        {
-            ChooseSum();
-        }
-        else
-        {
-            ChoosePossibleInvestments();
+            HideAll(OfferPanels);
+
+            // RenderOffer
+            if (urgency < 0)
+            {
+                ChooseUrgency();
+            }
+            else if (!goalWasChosen)
+            {
+                ChooseGoal();
+            }
+            else if (Sum < 0)
+            {
+                ChooseSum();
+            }
+            else
+            {
+                ChoosePossibleInvestments();
+            }
         }
     }
 
     public void ChooseGoal()
     {
-        Debug.Log("Choose goal");
-
         ShowOnly(GoalPanel, OfferPanels);
 
         FindObjectOfType<RenderCompanyGoalListView>().ViewRender();
@@ -118,19 +115,22 @@ public class InestmentProposalScreen : View
 
     public void ChooseSum()
     {
-        //ShowOnly(SumPanel, OfferPanels);
         Show(SumPanel);
+
         goalWasChosen = true;
     }
 
     public void ChooseUrgency()
     {
+        //Show(UrgencyPanel);
         ShowOnly(UrgencyPanel, OfferPanels);
     }
 
     public void ChoosePossibleInvestments()
     {
-        ShowOnly(PossibleInvestorsPanel, OfferPanels);
+        Show(PossibleInvestorsLabel);
+        //ShowOnly(PossibleInvestorsPanel, OfferPanels);
+
     }
 
     // ----------------------
@@ -142,25 +142,43 @@ public class InestmentProposalScreen : View
 
         Sum = cost * percent / 100;
 
-        CompanyShare.text = $"for {percent}% of company";
+        var proposals = Companies.GetInvestmentProposals(MyCompany);
+        var investorsCount = Mathf.Clamp(proposals.Count, 1, 100);
 
-        Show(PossibleInvestorsPanel);
+        long weeklyGain = 0;
+
+        foreach (var p in proposals)
+        {
+            p.Investment.Offer = Sum / investorsCount;
+            p.Investment.Portion = p.Investment.Offer / p.Investment.OfferDuration;
+
+            weeklyGain += p.Investment.Portion;
+        }
+
+
+        // draw
+        ShowAll(PossibleInvestorsTabs);
+        Show(StartRoundButton);
+
+        CompanyShare.text = $"for {percent}% of company";
+        PossibleInvestorsPanel.GetComponentInChildren<ShareholderProposalsListView>().ViewRender();
+        TotalOffer.text = $"You will get {Visuals.Positive("+" + Format.Money(weeklyGain))} / week ({Format.MinifyMoney(Sum)} total)";
     }
 
     public void SetUrgency(int days)
     {
+        ResetOffer();
         urgency = days;
-
-        Sum = -1;
 
         ViewRender();
     }
 
     public void SetGoal(InvestorGoal investorGoal)
     {
+        //ResetOffer();
         InvestorGoal = investorGoal;
         goalWasChosen = true;
-        Sum = -1;
+        //Sum = -1;
 
         ViewRender();
     }
