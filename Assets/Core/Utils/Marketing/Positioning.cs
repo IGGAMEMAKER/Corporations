@@ -15,5 +15,20 @@ namespace Assets.Core
         {
             return product.nicheSegments.Positionings;
         }
+
+        public static void ChangePositioning(GameEntity product, int positioningId)
+        {
+            product.productPositioning.Positioning = positioningId;
+        }
+
+        public static bool IsFocusingMoreThanOneAudience(GameEntity product)
+        {
+            var audiences = Marketing.GetAudienceInfos();
+
+            var positioning = product.productPositioning.Positioning;
+            bool isFocusingMoreThanOneAudience = positioning > audiences.Count;
+
+            return isFocusingMoreThanOneAudience;
+        }
     }
 }

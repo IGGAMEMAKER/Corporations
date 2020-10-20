@@ -35,9 +35,7 @@ public class RenderFullAudiencesListView : ListView
         else
         {
             // take primary audience only
-            var positioning = Flagship.productPositioning.Positioning;
-
-            SetItems(audiences.Where(a => a.ID == positioning));
+            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(Flagship)));
         }
 
         //SetItems(infos);
@@ -63,7 +61,7 @@ public class RenderFullAudiencesListView : ListView
     private void OnEnable()
     {
         //segmentId = Flagship.productTargetAudience.SegmentId;
-        segmentId = Mathf.Clamp(Flagship.productPositioning.Positioning, 0, Marketing.GetAudienceInfos().Count); // Marketing.GetAudienceInfos().Where(a => a.ID == ).First().ID;
+        segmentId = Marketing.GetCoreAudienceId(Flagship); // Mathf.Clamp(Flagship.productPositioning.Positioning, 0, Marketing.GetAudienceInfos().Count); // Marketing.GetAudienceInfos().Where(a => a.ID == ).First().ID;
 
         ViewRender();
     }

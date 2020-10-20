@@ -593,6 +593,7 @@ namespace Assets.Core
             var nicheId = GetNicheId(nicheType);
 
             var clients = GetFullAudience(settings, nicheId);
+
             var techCost = GetTechCost(settings, nicheId);
             var adCosts = GetAdCost(settings, nicheId);
             var price = GetProductPrice(settings, adCosts, nicheId);
@@ -682,7 +683,7 @@ namespace Assets.Core
             });
 
             // remove positionings for noone
-            list.RemoveAll(p => p.Loyalties.Sum() < 0);
+            list.RemoveAll(p => p.Loyalties.All(l => l < 0));
 
             list.RemoveAll(p =>
             {
@@ -691,6 +692,8 @@ namespace Assets.Core
 
                 // better than global positioning?
             });
+
+            Debug.Log($"Created {list.Count} positionings");
 
             return list;
         }

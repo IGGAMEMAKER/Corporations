@@ -40,9 +40,7 @@ public class AudiencesOnMainScreenListView : ListView
         {
             // take primary audience only
             // positioningId will be always less than amount of audiences
-            var positioning = Flagship.productPositioning.Positioning;
-
-            SetItems(audiences.Where(a => a.ID == positioning));
+            SetItems(audiences.Where(a => a.ID == Marketing.GetCoreAudienceId(Flagship)));
         }
 
         Teams.UpdateTeamEfficiency(Flagship, Q);

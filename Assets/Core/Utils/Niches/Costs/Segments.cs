@@ -32,9 +32,7 @@ namespace Assets.Core
 
         public static string GetCompanyPositioningName(GameEntity company, GameContext gameContext)
         {
-            var positioning = company.productPositioning.Positioning;
-
-            return GetNichePositionings(company.product.Niche, gameContext)[positioning].name;
+            return Marketing.GetPositioning(company).name;
         }
 
         public static List<ProductPositioning> GetNichePositionings(NicheType niche, GameContext gameContext)

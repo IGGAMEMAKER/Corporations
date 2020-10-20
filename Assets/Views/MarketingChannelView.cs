@@ -70,14 +70,16 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         //Users.color = repaymentColor;
 
         // audience icon
-        var audiences = Marketing.GetAudienceInfos();
-        var segmentID = Marketing.GetCoreAudienceId(company);
-
-        var positioning = company.productPositioning.Positioning;
-        SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
-        if (positioning > audiences.Count)
+        if (Marketing.IsFocusingMoreThanOneAudience(company))
         {
             SegmentTypeImage.texture = Resources.Load<Texture2D>($"paidClients");
+        }
+        else
+        {
+            var segmentID = Marketing.GetCoreAudienceId(company);
+            var audiences = Marketing.GetAudienceInfos();
+
+            SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
         }
 
         var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);

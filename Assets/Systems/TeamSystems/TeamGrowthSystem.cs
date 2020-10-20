@@ -10,14 +10,11 @@ class UpdateTeamEfficiencySystem : OnMonthChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var companies = contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
+        var companies = Companies.GetProductCompanies(gameContext); // contexts.game.GetEntities(GameMatcher.AllOf(GameMatcher.Alive, GameMatcher.Company));
 
         foreach (var c in companies)
         {
-            if (c.hasProduct)
-            {
-                Teams.UpdateTeamEfficiency(c, gameContext);
-            }
+            Teams.UpdateTeamEfficiency(c, gameContext);
         }
     }
 }
@@ -30,7 +27,8 @@ class UpdatePlayerTeamEfficiencySystem : OnDateChange
     {
         var playerFlagship = Companies.GetPlayerFlagship(gameContext);
 
-        Teams.UpdateTeamEfficiency(playerFlagship, gameContext);
+        if (playerFlagship != null)
+            Teams.UpdateTeamEfficiency(playerFlagship, gameContext);
     }
 }
 

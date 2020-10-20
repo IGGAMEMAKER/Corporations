@@ -11,7 +11,7 @@ class ProductCompaniesEarnMoneySystem : OnPeriodChange
 
         foreach (var e in products)
         {
-            var resources = Economy.GetProductCompanyResourceChange(e, contexts.game);
+            var resources = Economy.GetProductCompanyResourceChange(e, gameContext); //  contexts.game
 
             Companies.AddResources(e, resources);
         }

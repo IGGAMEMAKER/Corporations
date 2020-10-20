@@ -9,19 +9,19 @@ public class RestoreGameStateAfterRecompilation : View
     public GameObject Panels;
     public GameObject TopPanel;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
-        {
-            State.SaveGame(Q);
-            Debug.Log("Game Saved");
-        }
+    //void Update()
+    //{
+    //    //if (Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Tab))
+    //    //{
+    //    //    State.SaveGame(Q);
+    //    //    Debug.Log("Game Saved");
+    //    //}
 
-        if (Input.GetKeyDown(KeyCode.F10) || Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            LoadPreviousState();
-        }
-    }
+    //    //if (Input.GetKeyDown(KeyCode.F10) || Input.GetKeyDown(KeyCode.LeftControl))
+    //    //{
+    //    //    LoadPreviousState();
+    //    //}
+    //}
 
     void Start()
     {

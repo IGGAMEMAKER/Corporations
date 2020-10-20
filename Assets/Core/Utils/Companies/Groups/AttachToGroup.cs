@@ -80,16 +80,19 @@ namespace Assets.Core
             // give bad positioning initially
             var infos = Marketing.GetAudienceInfos();
 
-            Marketing.AddClients(company, -50, company.productPositioning.Positioning);
+            Marketing.AddClients(company, -50, Marketing.GetCoreAudienceId(company));
 
             var positionings = Markets.GetNichePositionings(nicheType, Q);
             var positioningWorths = positionings.OrderBy(Markets.GetPositioningValue);
 
             // TODO POSITIONING
             var rand = Random.Range(0, 2);
-            company.productPositioning.Positioning = 0; // rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
+            var newPositioning = rand < 1 ? 0 : 3; //  positioningWorths.ToArray()[rand].ID;
+            // 0 - teens, 3 - old people
 
-            Marketing.AddClients(company, 50, company.productPositioning.Positioning);
+            Marketing.ChangePositioning(company, newPositioning);
+
+            Marketing.AddClients(company, 50, Marketing.GetCoreAudienceId(company));
 
             // give good salary to CEO, so he will not leave company
             var CEO = Humans.Get(Q, Companies.GetCEOId(company));

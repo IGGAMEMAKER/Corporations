@@ -92,10 +92,10 @@ namespace Assets.Core
 
                 var clients = 50_000d * Mathf.Pow(10, Random.Range(0.87f, 2.9f)) * (i + 1);
 
-                var positioning = c.productPositioning.Positioning;
+                //var positioning = c.productPositioning.Positioning;
                 foreach (var s in segments)
                 {
-                    if (s.ID == positioning)
+                    if (s.ID == Marketing.GetCoreAudienceId(c))
                     {
                         var audience = System.Convert.ToInt64(clients * Random.Range(0.1f, 0.5f));
                         Marketing.AddClients(c, audience, s.ID);
