@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,15 @@ public class RenderCompanyGoalListView : ListView
     {
         base.ViewRender();
 
-        var goals = new List<InvestorGoalType> { InvestorGoalType.Prototype, InvestorGoalType.FirstUsers, InvestorGoalType.BecomeMarketFit };
+        var goals = new List<InvestorGoalType>(); // { InvestorGoalType.Prototype, InvestorGoalType.FirstUsers, InvestorGoalType.BecomeMarketFit };
+
+        foreach (var e in (InvestorGoalType[])System.Enum.GetValues(typeof(InvestorGoalType)))
+        {
+            if (Investments.IsPickableGoal(Flagship, Q, e))
+            {
+                goals.Add(e);
+            }
+        }
 
         SetItems(goals);
     }

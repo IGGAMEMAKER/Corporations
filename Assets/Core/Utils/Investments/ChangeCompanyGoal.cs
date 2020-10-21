@@ -44,44 +44,52 @@ namespace Assets.Core
             bool isProduct = company.hasProduct;
             bool isGroup = !isProduct;
 
+            var income = Economy.GetIncome(gameContext, company);
+
             bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(company);
+
+            var minLoyalty = 5;
+            var marketFit = 10; // 10 cause it allows monetisation for ads
 
             switch (goal)
             {
                 case InvestorGoalType.Prototype:
-                    var minLoyalty = 5;
-
                     return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty;
 
                 case InvestorGoalType.BecomeMarketFit:
-                    var marketFit = 10; // 10 cause it allows monetisation for ads
-
                     return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
 
                 case InvestorGoalType.FirstUsers:
-
                     return focusedProduct && users < 2000;
 
                 case InvestorGoalType.Release:
-
                     return isProduct && !company.isRelease;
 
                 case InvestorGoalType.BecomeProfitable:
-
                     return !Economy.IsProfitable(gameContext, company);
 
                 case InvestorGoalType.Operationing:
-
                     return isProduct;
 
                 case InvestorGoalType.IPO:
-
                     return isGroup && cost > 300_000_000;
+
+                case InvestorGoalType.GrowUserBase:
+                    return isProduct && users > 5_000;
+
+                case InvestorGoalType.GrowIncome:
+                    return isProduct && income > 100_000 && Economy.IsProfitable(gameContext, company);
+
+                //case InvestorGoalType.GainMoreSegments:
+                //    return isProduct && 
+
+                case InvestorGoalType.GrowCompanyCost:
+                    return (isProduct && company.isRelease || isGroup) && Economy.IsProfitable(gameContext, company);
 
                 case InvestorGoalType.None:
                     return false;
-                default:
 
+                default:
                     return isGroup;
 
             }
