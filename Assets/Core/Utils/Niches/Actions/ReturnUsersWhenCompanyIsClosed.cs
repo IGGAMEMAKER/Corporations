@@ -6,7 +6,7 @@ namespace Assets.Core
     {
         internal static void ReturnUsersWhenCompanyIsClosed(GameEntity e, GameContext gameContext)
         {
-            var users = Marketing.GetClients(e);
+            var users = Marketing.GetUsers(e);
 
             var niche = Get(gameContext, e.product.Niche);
 

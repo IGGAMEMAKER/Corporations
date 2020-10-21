@@ -23,7 +23,7 @@ public class RenderProductStatsInCompanyView : View
 
     public void Render(GameEntity company)
     {
-        Clients.text = Format.Minify(Marketing.GetClients(company));
+        Clients.text = Format.Minify(Marketing.GetUsers(company));
 
         // market share
         bool isPlayerFlagship = company.company.Id == Flagship.company.Id;

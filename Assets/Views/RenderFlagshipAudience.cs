@@ -4,7 +4,7 @@ public class RenderFlagshipAudience : ParameterDynamicView
 {
     public override long GetParameter()
     {
-        return Marketing.GetClients(Flagship);
+        return Marketing.GetUsers(Flagship);
     }
 
     public override string RenderHint()

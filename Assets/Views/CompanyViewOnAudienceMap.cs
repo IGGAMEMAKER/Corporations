@@ -120,7 +120,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
         var position = Markets.GetPositionOnMarket(Q, company);
 
         // #{position + 1}
-        var clients = Marketing.GetClients(company);
+        var clients = Marketing.GetUsers(company);
 
         var change = Marketing.GetAudienceChange(company, Q);
 

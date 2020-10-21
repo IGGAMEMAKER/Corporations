@@ -17,7 +17,7 @@ public class GoalView : View
     {
         base.ViewRender();
 
-        var clients = Marketing.GetClients(Flagship);
+        var clients = Marketing.GetUsers(Flagship);
         var goal = Flagship.companyGoal.InvestorGoal;
 
         var requirements = Investments.GetGoalRequirements(Flagship, Q);

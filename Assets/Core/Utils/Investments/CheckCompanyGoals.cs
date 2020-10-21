@@ -60,7 +60,7 @@ namespace Assets.Core
         public static GoalRequirements GoalFirstUsers(GameEntity company, GameContext gameContext)
         {
             return new GoalRequirements {
-                have = Marketing.GetClients(company),
+                have = Marketing.GetUsers(company),
                 need = 50000, // company.companyGoal.MeasurableGoal
             };
         }

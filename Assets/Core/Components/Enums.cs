@@ -247,7 +247,20 @@ public enum InvestorGoalType
     IPO,
     
     // products only
-    Operationing
+    Operationing,
+
+    // missions
+
+    GrowUserBase,
+    GainMoreSegments,
+
+    GrowIncome,
+
+    OutcompeteCompanyByIncome,
+    OutcompeteCompanyByUsers,
+    OutcompeteCompanyByMarketShare,
+
+    AcquireCompany
 }
 
 public class InvestmentGoalMakePrototype : InvestmentGoal

@@ -36,6 +36,57 @@ namespace Assets.Core
             }
         }
 
+        public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
+        {
+            var users = Marketing.GetUsers(company);
+            var cost = Economy.CostOf(company, gameContext);
+
+            bool isProduct = company.hasProduct;
+            bool isGroup = !isProduct;
+
+            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(company);
+
+            switch (goal)
+            {
+                case InvestorGoalType.Prototype:
+                    var minLoyalty = 5;
+
+                    return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty;
+
+                case InvestorGoalType.BecomeMarketFit:
+                    var marketFit = 10; // 10 cause it allows monetisation for ads
+
+                    return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+
+                case InvestorGoalType.FirstUsers:
+
+                    return focusedProduct && users < 2000;
+
+                case InvestorGoalType.Release:
+
+                    return isProduct && !company.isRelease;
+
+                case InvestorGoalType.BecomeProfitable:
+
+                    return !Economy.IsProfitable(gameContext, company);
+
+                case InvestorGoalType.Operationing:
+
+                    return isProduct;
+
+                case InvestorGoalType.IPO:
+
+                    return isGroup && cost > 300_000_000;
+
+                case InvestorGoalType.None:
+                    return false;
+                default:
+
+                    return isGroup;
+
+            }
+        }
+
         public static void CompleteGoal(GameEntity company, GameContext gameContext, bool forceComplete = false)
         {
             if (forceComplete || IsGoalCompleted(company, gameContext))

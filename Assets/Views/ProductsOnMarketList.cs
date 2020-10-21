@@ -10,10 +10,10 @@ public class ProductsOnMarketList : ListView
     {
         var c = entity as GameEntity;
 
-        var maxClients = Markets.GetProductsOnMarket(Q, c.product.Niche).Sum(Marketing.GetClients);
+        var maxClients = Markets.GetProductsOnMarket(Q, c.product.Niche).Sum(Marketing.GetUsers);
 
         if (isHoldingScreen)
-            maxClients = Marketing.GetClients(Flagship);
+            maxClients = Marketing.GetUsers(Flagship);
 
         t.GetComponent<ProductOnMarketView>().SetEntity(c.company.Id, maxClients);
     }
@@ -31,7 +31,7 @@ public class ProductsOnMarketList : ListView
 
         var products = Markets.GetProductsOnMarket(Q, Niche)
             //.OrderByDescending(p => Marketing.GetAudienceGrowth(p, Q));
-            .OrderByDescending(p => Marketing.GetClients(p));
+            .OrderByDescending(p => Marketing.GetUsers(p));
 
         SetItems(products);
     }

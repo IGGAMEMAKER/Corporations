@@ -53,7 +53,7 @@ public class CompanyViewOnMap : View
 
         CompanyHint.SetHint(GetCompanyHint(hasControl));
 
-        var clients = Marketing.GetClients(company);
+        var clients = Marketing.GetUsers(company);
         Concept.text = ShowIncome ? Format.MinifyMoney(Economy.GetIncome(Q, company)) : Format.Minify(clients); // Products.GetProductLevel(c) + "LVL";
 
         var position = Markets.GetPositionOnMarket(Q, company);
@@ -131,7 +131,7 @@ public class CompanyViewOnMap : View
         var position = Markets.GetPositionOnMarket(Q, company);
 
         //
-        var clients = Marketing.GetClients(company);
+        var clients = Marketing.GetUsers(company);
 
         var change = Marketing.GetAudienceChange(company, Q);
 

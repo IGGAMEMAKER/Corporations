@@ -33,7 +33,7 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
         company = GetFollowableCompany() ?? Flagship;
         company.AddMarketingListener(this);
 
-        previousClients = Marketing.GetClients(company);
+        previousClients = Marketing.GetUsers(company);
 
         //Debug.Log("Attach to marketing changes: " + company.company.Name);
     }
@@ -51,7 +51,7 @@ public class RenderFlagshipAudienceGrowth : BaseClass, IMarketingListener
 
     void IMarketingListener.OnMarketing(GameEntity entity, Dictionary<int, long> clients1)
     {
-        var clients = Marketing.GetClients(entity);
+        var clients = Marketing.GetUsers(entity);
         var change = clients - previousClients;
 
         previousClients = clients;

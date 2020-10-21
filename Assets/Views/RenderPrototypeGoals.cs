@@ -13,7 +13,7 @@ public class RenderPrototypeGoals : ParameterView
             return "";
 
         var criticalMass = 500;
-        var users = Marketing.GetClients(company);
+        var users = Marketing.GetUsers(company);
 
         var usergoal = users >= criticalMass ? Visuals.Positive("COMPLETED") : Visuals.Negative("In progress");
 

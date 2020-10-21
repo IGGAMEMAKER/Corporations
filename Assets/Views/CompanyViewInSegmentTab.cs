@@ -48,7 +48,7 @@ public class CompanyViewInSegmentTab : View
         CompanyStatsDescription.text = $"{Format.SignOf(change) + Format.MinifyToInteger(change)} users weekly";
         CompanyStatsDescription.color = Visuals.GetColorPositiveOrNegative(change);
 
-        var clients = Marketing.GetClients(company);
+        var clients = Marketing.GetUsers(company);
         CompanyValue.text = Format.MinifyToInteger(clients);
 
         LinkToProjectView.CompanyId = company.company.Id;

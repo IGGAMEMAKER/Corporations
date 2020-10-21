@@ -52,7 +52,7 @@ namespace Assets.Core
                 attack = product.serverAttack.Load;
             }
 
-            return Marketing.GetClients(product) + attack; // add DDoS multiplier ??
+            return Marketing.GetUsers(product) + attack; // add DDoS multiplier ??
         }
 
         public static long GetServerLoad(GameEntity product)

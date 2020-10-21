@@ -97,7 +97,6 @@ public class ShareholdersOnMainScreenListView : ListView
     {
         var shares = Companies.GetExactShareSize(Q, MyCompany, shareholderId);
         var sharesCount = Companies.GetAmountOfShares(Q, MyCompany, shareholderId);
-        var goal = "Goal: ???";
 
         string name = isPlayerSelected ? "YOU" : Companies.GetInvestorName(Q, shareholderId); // investor.shareholder.Name;
 

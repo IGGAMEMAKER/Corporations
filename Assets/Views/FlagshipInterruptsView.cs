@@ -88,7 +88,7 @@ public class FlagshipInterruptsView : View
         // 
         bool hasAcquisitionOffers = Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
-        bool didFirstTasks = product.features.Upgrades.Count > 0 && Marketing.GetClients(product) > 1000;
+        bool didFirstTasks = product.features.Upgrades.Count > 0 && Marketing.GetUsers(product) > 1000;
         bool CanManageServers = didFirstTasks || needsMoreServers;
 
         problemCounter = 0;

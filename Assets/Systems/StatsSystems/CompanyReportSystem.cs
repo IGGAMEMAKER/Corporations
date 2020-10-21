@@ -44,7 +44,7 @@ class CompanyReportSystem : OnPeriodChange
         CompanyStatisticsUtils.AddMetrics(gameContext, e, new MetricsInfo
         {
             Date = date,
-            AudienceSize = Marketing.GetClients(e),
+            AudienceSize = Marketing.GetUsers(e),
             Income = Economy.GetIncome(gameContext, e),
             Profit = Economy.GetProfit(gameContext, e),
             Valuation = Economy.CostOf(e, gameContext)

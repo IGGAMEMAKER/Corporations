@@ -21,14 +21,18 @@ namespace Assets.Core
             product.productPositioning.Positioning = positioningId;
         }
 
-        public static bool IsFocusingMoreThanOneAudience(GameEntity product)
+        public static bool IsFocusingOneAudience(GameEntity product)
         {
             var audiences = Marketing.GetAudienceInfos();
 
             var positioning = product.productPositioning.Positioning;
-            bool isFocusingMoreThanOneAudience = positioning > audiences.Count;
+            bool isFocusingOneAudience = positioning < audiences.Count;
 
-            return isFocusingMoreThanOneAudience;
+            return isFocusingOneAudience;
+        }
+        public static bool IsFocusingMoreThanOneAudience(GameEntity product)
+        {
+            return !IsFocusingOneAudience(product);
         }
     }
 }

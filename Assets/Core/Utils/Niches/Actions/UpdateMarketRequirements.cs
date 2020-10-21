@@ -73,7 +73,7 @@ namespace Assets.Core
 
                 foreach (var p in innovatorCompetitors)
                 {
-                    var disloyal = Marketing.GetClients(p) / 15;
+                    var disloyal = Marketing.GetUsers(p) / 15;
 
                     //Marketing.LoseClients(p, disloyal);
                     //Marketing.AddClients(product, disloyal);

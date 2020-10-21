@@ -89,7 +89,7 @@ public class CompanyTaskTypeRelay : View
 
     void RenderServerButton()
     {
-        bool hadFirstMarketingCampaign = Marketing.GetClients(Flagship) > 50;
+        bool hadFirstMarketingCampaign = Marketing.GetUsers(Flagship) > 50;
         bool serverOverload = Products.IsNeedsMoreServers(Flagship);
 
         //Draw(ServersButton, hadFirstMarketingCampaign || serverOverload);

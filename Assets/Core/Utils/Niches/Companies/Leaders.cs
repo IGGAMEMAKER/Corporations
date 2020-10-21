@@ -10,7 +10,7 @@ namespace Assets.Core
             var competitors = GetProductsOnMarket(gameContext, startup);
 
             return Array.FindIndex(
-                competitors.OrderByDescending(Marketing.GetClients).ToArray(),
+                competitors.OrderByDescending(Marketing.GetUsers).ToArray(),
                 c => c.company.Id == startup.company.Id);
         }
 

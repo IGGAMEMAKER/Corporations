@@ -4,7 +4,7 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetClients(GameEntity company)
+        public static long GetUsers(GameEntity company)
         {
             return company.marketing.ClientList.Values.Sum();
         }
