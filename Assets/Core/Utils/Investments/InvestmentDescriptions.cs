@@ -2,26 +2,26 @@
 {
     public static partial class Investments
     {
-        public static string GetFormattedInvestorGoal(InvestorGoal investorGoal)
+        public static string GetFormattedInvestorGoal(InvestorGoalType investorGoal)
         {
             switch (investorGoal)
             {
-                case InvestorGoal.Prototype:
+                case InvestorGoalType.Prototype:
                     return "Create a prototype";
 
-                case InvestorGoal.FirstUsers:
+                case InvestorGoalType.FirstUsers:
                     return "Get first users";
 
-                case InvestorGoal.BecomeMarketFit:
+                case InvestorGoalType.BecomeMarketFit:
                     return "Become market fit";
 
-                case InvestorGoal.BecomeProfitable:
+                case InvestorGoalType.BecomeProfitable:
                     return "Become profitable";
 
-                case InvestorGoal.GrowCompanyCost:
+                case InvestorGoalType.GrowCompanyCost:
                     return "Grow company cost by " + C.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST + "%";
 
-                case InvestorGoal.IPO:
+                case InvestorGoalType.IPO:
                     return "IPO";
                 default:
                     return investorGoal.ToString();

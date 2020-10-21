@@ -26,13 +26,13 @@ public class RenderPrototypeGoals : ParameterView
 
         var t = $"<b>Goals</b> ({goal})";
 
-        if (goal == InvestorGoal.Prototype)
+        if (goal == InvestorGoalType.Prototype)
             t += $"\n\n<i>* Upgrade product to 1LVL</i>";
 
-        if (goal >= InvestorGoal.FirstUsers)
+        if (goal >= InvestorGoalType.FirstUsers)
             t += $"\n\n<i>* Gain Critical mass of users</i>\n\tyou have: {users} / {criticalMass} users {usergoal}";
 
-        if (goal >= InvestorGoal.BecomeMarketFit)
+        if (goal >= InvestorGoalType.BecomeMarketFit)
             t += $"\n\n<i>* Reach market requirements</i>\n\tyou have: {level}LV / {marketrequirements}LV) {levelgoal}";
 
         if (Companies.IsReleaseableApp(company))

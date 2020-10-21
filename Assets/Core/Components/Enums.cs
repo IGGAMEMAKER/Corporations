@@ -226,8 +226,10 @@ public enum InvestorType
     FFF
 }
 
-public enum InvestorGoal
+public enum InvestorGoalType
 {
+    None,
+
     Prototype,
     FirstUsers,
 
@@ -246,6 +248,14 @@ public enum InvestorGoal
     
     // products only
     Operationing
+}
+
+public class InvestmentGoalMakePrototype : InvestmentGoal
+{
+    public InvestmentGoalMakePrototype() : base(InvestorGoalType.Prototype)
+    {
+
+    }
 }
 
 public enum InvestmentRound

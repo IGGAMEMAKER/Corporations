@@ -68,14 +68,7 @@ public class EventContainerComponent : IComponent
     public Dictionary<string, bool> progress;
 }
 
-public enum CampaignStat
-{
-    Acquisitions,
-    Bankruptcies,
 
-    SpawnedFunds,
-    PromotedCompanies
-}
 
 public class GameEvent
 {
@@ -123,6 +116,15 @@ public class GameEventContainerComponent : IComponent
     // newChannel => false means that player got new event, but didn't see it
     // newChannel => true means that player got new event, AND seen it
     public List<GameEvent> Events;
+}
+
+public enum CampaignStat
+{
+    Acquisitions,
+    Bankruptcies,
+
+    SpawnedFunds,
+    PromotedCompanies
 }
 
 public class CampaignStatsComponent : IComponent
@@ -174,23 +176,22 @@ public class Investment
     public int OfferDuration; // int in months
     public long Portion;
     public InvestorBonus InvestorBonus;
-    public InvestorGoal InvestorGoal;
+    public InvestorGoalType InvestorGoal;
 
     public int RemainingPeriods; // int in periods
 
-    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestorGoal investorGoal)
+    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestorGoalType investorGoal)
     {
         try
         {
-
             this.Offer = Offer;
             this.OfferDuration = Duration;
 
             RemainingPeriods = Duration * 4;
+
             if (RemainingPeriods > 0)
             {
                 Portion = Offer / RemainingPeriods;
-
             }
             else
             {
@@ -202,8 +203,24 @@ public class Investment
         }
         catch
         {
-            Debug.Log($"Fail at new Investment: {Format.MinifyMoney(Offer)} for {Duration} months...or weeks?");
+            Debug.LogError($"Fail at new Investment: {Format.MinifyMoney(Offer)} for {Duration} months...or weeks?");
         }
+    }
+}
+
+
+public class InvestmentGoal
+{
+    public InvestorGoalType InvestorGoalType;
+
+    public InvestmentGoal()
+    {
+        InvestorGoalType = InvestorGoalType.None;
+    }
+
+    public InvestmentGoal(InvestorGoalType goalType)
+    {
+        InvestorGoalType = goalType;
     }
 }
 
@@ -215,5 +232,6 @@ public class InvestmentProposal
 
     public bool WasAccepted;
 
-    //public InvestmentProposal()
+    //public InvestmentGoal InvestmentGoal;
+    public int AdditionalShares;
 }

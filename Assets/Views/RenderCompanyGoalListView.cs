@@ -6,7 +6,7 @@ public class RenderCompanyGoalListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        AddIfAbsent<CompanyGoalButtonView>(t.gameObject).SetEntity((InvestorGoal)(object)entity);
+        AddIfAbsent<CompanyGoalButtonView>(t.gameObject).SetEntity((InvestorGoalType)(object)entity);
         //t.gameObject.AddComponent<CompanyGoalButtonView>().SetEntity((InvestorGoal)(object)entity);
     }
 
@@ -14,7 +14,7 @@ public class RenderCompanyGoalListView : ListView
     {
         base.ViewRender();
 
-        var goals = new List<InvestorGoal> { InvestorGoal.Prototype, InvestorGoal.FirstUsers, InvestorGoal.BecomeMarketFit };
+        var goals = new List<InvestorGoalType> { InvestorGoalType.Prototype, InvestorGoalType.FirstUsers, InvestorGoalType.BecomeMarketFit };
 
         SetItems(goals);
     }
@@ -22,9 +22,9 @@ public class RenderCompanyGoalListView : ListView
 
 public class CompanyGoalButtonView : CompanyUpgradeButton
 {
-    InvestorGoal InvestorGoal;
+    InvestorGoalType InvestorGoal;
 
-    public void SetEntity(InvestorGoal goal)
+    public void SetEntity(InvestorGoalType goal)
     {
         InvestorGoal = goal;
 

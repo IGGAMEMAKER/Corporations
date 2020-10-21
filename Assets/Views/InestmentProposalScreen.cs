@@ -34,7 +34,7 @@ public class InestmentProposalScreen : View
     public GameObject[] PossibleInvestorsTabs => new GameObject[] { PossibleInvestorsPanel, PossibleInvestorsLabel, TotalOffer.gameObject };
 
     long Sum = -1;
-    InvestorGoal InvestorGoal;
+    InvestorGoalType InvestorGoal;
     bool goalWasChosen = false;
     int urgency = -1;
 
@@ -177,7 +177,7 @@ public class InestmentProposalScreen : View
         ViewRender();
     }
 
-    public void SetGoal(InvestorGoal investorGoal)
+    public void SetGoal(InvestorGoalType investorGoal)
     {
         //ResetOffer();
         InvestorGoal = investorGoal;

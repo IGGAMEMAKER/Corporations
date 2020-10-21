@@ -11,7 +11,7 @@ public partial class GameEntity {
     public CompanyGoalComponent companyGoal { get { return (CompanyGoalComponent)GetComponent(GameComponentsLookup.CompanyGoal); } }
     public bool hasCompanyGoal { get { return HasComponent(GameComponentsLookup.CompanyGoal); } }
 
-    public void AddCompanyGoal(InvestorGoal newInvestorGoal, long newMeasurableGoal) {
+    public void AddCompanyGoal(InvestorGoalType newInvestorGoal, long newMeasurableGoal) {
         var index = GameComponentsLookup.CompanyGoal;
         var component = (CompanyGoalComponent)CreateComponent(index, typeof(CompanyGoalComponent));
         component.InvestorGoal = newInvestorGoal;
@@ -19,7 +19,7 @@ public partial class GameEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceCompanyGoal(InvestorGoal newInvestorGoal, long newMeasurableGoal) {
+    public void ReplaceCompanyGoal(InvestorGoalType newInvestorGoal, long newMeasurableGoal) {
         var index = GameComponentsLookup.CompanyGoal;
         var component = (CompanyGoalComponent)CreateComponent(index, typeof(CompanyGoalComponent));
         component.InvestorGoal = newInvestorGoal;

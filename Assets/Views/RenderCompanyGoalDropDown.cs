@@ -13,7 +13,7 @@ public class RenderCompanyGoalDropDown : View
     {
         var options = new List<Dropdown.OptionData>();
 
-        foreach (InvestorGoal goal in (InvestorGoal[])Enum.GetValues(typeof(InvestorGoal)))
+        foreach (InvestorGoalType goal in (InvestorGoalType[])Enum.GetValues(typeof(InvestorGoalType)))
             options.Add(new Dropdown.OptionData(Investments.GetFormattedInvestorGoal(goal)));
 
         Dropdown.ClearOptions();
@@ -32,7 +32,7 @@ public class RenderCompanyGoalDropDown : View
 
     private void SetCompanyGoal(int arg0)
     {
-        var investorGoal = (InvestorGoal) arg0;
+        var investorGoal = (InvestorGoalType) arg0;
 
         Debug.Log("SetCompanyGoal");
         //InvestmentUtils.SetCompanyGoal(GameContext, MyProductEntity, investorGoal);

@@ -100,24 +100,24 @@
             return company.shareholders.Shareholders.ContainsKey(shareholderId);
         }
 
-        public static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoal goal)
+        public static bool IsInvestorSuitableByGoal(InvestorType shareholderType, InvestorGoalType goal)
         {
             switch (goal)
             {
-                case InvestorGoal.BecomeMarketFit:
+                case InvestorGoalType.BecomeMarketFit:
                     return shareholderType == InvestorType.Angel;
 
-                case InvestorGoal.BecomeProfitable:
+                case InvestorGoalType.BecomeProfitable:
                     return shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoal.GrowCompanyCost:
+                case InvestorGoalType.GrowCompanyCost:
                     return shareholderType == InvestorType.VentureInvestor || shareholderType == InvestorType.Strategic;
 
-                case InvestorGoal.IPO:
+                case InvestorGoalType.IPO:
                     return shareholderType == InvestorType.Strategic || shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoal.Prototype:
-                case InvestorGoal.FirstUsers:
+                case InvestorGoalType.Prototype:
+                case InvestorGoalType.FirstUsers:
                 default:
                     return shareholderType == InvestorType.FFF;
             }

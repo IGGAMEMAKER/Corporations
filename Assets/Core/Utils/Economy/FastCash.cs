@@ -34,7 +34,7 @@ namespace Assets.Core
             var offer = GetFastCashAmount(gameContext, company);
             var proposal = new InvestmentProposal
             {
-                Investment = new Investment(offer, 0, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
+                Investment = new Investment(offer, 0, InvestorBonus.None, InvestorGoalType.GrowCompanyCost),
 
                 WasAccepted = false
             };

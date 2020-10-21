@@ -156,7 +156,7 @@ public class CEOComponent : IComponent
 [Game, Event(EventTarget.Any), Event(EventTarget.Self)]
 public class CompanyGoalComponent : IComponent
 {
-    public InvestorGoal InvestorGoal;
+    public InvestorGoalType InvestorGoal;
 
     public long MeasurableGoal;
 }

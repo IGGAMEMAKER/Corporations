@@ -29,7 +29,7 @@ namespace Assets.Core
 
                 var p = new InvestmentProposal
                 {
-                    Investment = new Investment(offer, Duration, InvestorBonus.None, InvestorGoal.BecomeMarketFit),
+                    Investment = new Investment(offer, Duration, InvestorBonus.None, InvestorGoalType.BecomeMarketFit),
 
                     ShareholderId = ShareholderId,
                     WasAccepted = false

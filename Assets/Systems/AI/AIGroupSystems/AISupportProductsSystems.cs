@@ -69,10 +69,11 @@ public partial class AISupportProductsSystem : OnPeriodChange
     {
         var proposal = new InvestmentProposal
         {
-            Investment = new Investment(sum, 1, InvestorBonus.None, InvestorGoal.GrowCompanyCost),
+            Investment = new Investment(sum, 1, InvestorBonus.None, InvestorGoalType.GrowCompanyCost),
 
             ShareholderId = managingCompany.shareholder.Id,
-            WasAccepted = false
+            WasAccepted = false,
+            InvestmentGoal = new InvestmentGoal()
         };
 
         Companies.AddInvestmentProposal(product, proposal);

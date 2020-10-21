@@ -32,25 +32,25 @@
         {
             switch (company.companyGoal.InvestorGoal)
             {
-                case InvestorGoal.Prototype:
+                case InvestorGoalType.Prototype:
                     return InvestmentRound.Preseed;
 
-                case InvestorGoal.FirstUsers:
+                case InvestorGoalType.FirstUsers:
                     return InvestmentRound.Seed;
 
-                case InvestorGoal.BecomeMarketFit:
+                case InvestorGoalType.BecomeMarketFit:
                     return InvestmentRound.A;
 
-                case InvestorGoal.Release:
+                case InvestorGoalType.Release:
                     return InvestmentRound.B;
 
-                case InvestorGoal.BecomeProfitable:
+                case InvestorGoalType.BecomeProfitable:
                     return InvestmentRound.C;
 
-                case InvestorGoal.GrowCompanyCost:
+                case InvestorGoalType.GrowCompanyCost:
                     return InvestmentRound.C;
 
-                case InvestorGoal.IPO:
+                case InvestorGoalType.IPO:
                     return InvestmentRound.D;
 
                 default:

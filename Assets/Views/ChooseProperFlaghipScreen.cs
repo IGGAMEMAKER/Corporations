@@ -30,12 +30,12 @@ public class ChooseProperFlaghipScreen : View
 
         var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.IsDebugMode();
 
-        bool showPrototype  = !unlockAll && companyGoal == InvestorGoal.Prototype;
-        bool showFirstUsers = !unlockAll && companyGoal == InvestorGoal.FirstUsers;
-        bool showMVP        = !unlockAll && companyGoal == InvestorGoal.BecomeMarketFit;
-        bool showPrerelease = !unlockAll && companyGoal == InvestorGoal.Release;
+        bool showPrototype  = !unlockAll && companyGoal == InvestorGoalType.Prototype;
+        bool showFirstUsers = !unlockAll && companyGoal == InvestorGoalType.FirstUsers;
+        bool showMVP        = !unlockAll && companyGoal == InvestorGoalType.BecomeMarketFit;
+        bool showPrerelease = !unlockAll && companyGoal == InvestorGoalType.Release;
 
-        bool showReleased   = companyGoal >= InvestorGoal.BecomeProfitable || unlockAll;
+        bool showReleased   = companyGoal >= InvestorGoalType.BecomeProfitable || unlockAll;
 
         Draw(PrototypeScreen, showPrototype);
         Draw(FirstUsersScreen, showFirstUsers);

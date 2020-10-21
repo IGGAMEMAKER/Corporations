@@ -22,15 +22,15 @@ namespace Assets.Core
             //return r.have >= r.need;
         }
 
-        public static InvestorGoal GetNextGoal(InvestorGoal current)
+        public static InvestorGoalType GetNextGoal(InvestorGoalType current)
         {
             switch (current)
             {
-                case InvestorGoal.Prototype: return InvestorGoal.FirstUsers;
-                case InvestorGoal.FirstUsers: return InvestorGoal.BecomeMarketFit;
-                case InvestorGoal.BecomeMarketFit: return InvestorGoal.Release;
-                case InvestorGoal.Release: return InvestorGoal.BecomeProfitable;
-                case InvestorGoal.BecomeProfitable: return InvestorGoal.Operationing;
+                case InvestorGoalType.Prototype: return InvestorGoalType.FirstUsers;
+                case InvestorGoalType.FirstUsers: return InvestorGoalType.BecomeMarketFit;
+                case InvestorGoalType.BecomeMarketFit: return InvestorGoalType.Release;
+                case InvestorGoalType.Release: return InvestorGoalType.BecomeProfitable;
+                case InvestorGoalType.BecomeProfitable: return InvestorGoalType.Operationing;
 
                 default: return current;
             }
@@ -43,28 +43,28 @@ namespace Assets.Core
                 var nextGoal = GetNextGoal(company.companyGoal.InvestorGoal);
 
                 if (IsCanTakeIPOGoal(company, gameContext, nextGoal))
-                    nextGoal = InvestorGoal.IPO;
+                    nextGoal = InvestorGoalType.IPO;
 
                 SetCompanyGoal(gameContext, company, nextGoal);
             }
         }
 
-        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoal investorGoal)
+        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestorGoalType investorGoal)
         {
             long measurableGoal = 5000;
 
             switch (investorGoal)
             {
-                case InvestorGoal.Prototype: measurableGoal = 1; break;
-                case InvestorGoal.FirstUsers: measurableGoal = 500; break;
+                case InvestorGoalType.Prototype: measurableGoal = 1; break;
+                case InvestorGoalType.FirstUsers: measurableGoal = 500; break;
 
-                case InvestorGoal.BecomeMarketFit: measurableGoal = -1; break;
-                case InvestorGoal.Release: measurableGoal = 1; break;
+                case InvestorGoalType.BecomeMarketFit: measurableGoal = -1; break;
+                case InvestorGoalType.Release: measurableGoal = 1; break;
 
-                case InvestorGoal.BecomeProfitable: measurableGoal = 0; break;
-                case InvestorGoal.IPO: measurableGoal = 1; break;
+                case InvestorGoalType.BecomeProfitable: measurableGoal = 0; break;
+                case InvestorGoalType.IPO: measurableGoal = 1; break;
 
-                case InvestorGoal.GrowCompanyCost:
+                case InvestorGoalType.GrowCompanyCost:
                     measurableGoal = Economy.CostOf(company, gameContext) * (100 + C.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
                     break;
             }

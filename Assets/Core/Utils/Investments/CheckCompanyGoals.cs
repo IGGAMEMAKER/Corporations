@@ -11,27 +11,27 @@ namespace Assets.Core
             switch (goal.InvestorGoal)
             {
                 // product company goals
-                case InvestorGoal.Prototype:
+                case InvestorGoalType.Prototype:
                     return Wrap(GoalPrototype(company, gameContext));
 
-                case InvestorGoal.FirstUsers:
+                case InvestorGoalType.FirstUsers:
                     return Wrap(GoalFirstUsers(company, gameContext));
 
-                case InvestorGoal.Release:
+                case InvestorGoalType.Release:
                     return Wrap(GoalRelease(company, gameContext));
 
-                case InvestorGoal.BecomeMarketFit:
+                case InvestorGoalType.BecomeMarketFit:
                     return Wrap(GoalMarketFit(company, gameContext));
 
                 // company group goals
-                case InvestorGoal.BecomeProfitable:
+                case InvestorGoalType.BecomeProfitable:
                     return Wrap(GoalProfitable(company, gameContext));
 
-                case InvestorGoal.GrowCompanyCost:
+                case InvestorGoalType.GrowCompanyCost:
                     return Wrap(GoalCompanyCost(company, gameContext));
                 
                 //case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
-                case InvestorGoal.IPO:
+                case InvestorGoalType.IPO:
                     return Wrap(GoalIPO(company, gameContext));
 
                 default: return Wrap(new GoalRequirements { need = 888888, have = 191919 });
@@ -43,9 +43,9 @@ namespace Assets.Core
             return new List<GoalRequirements> { requirements };
         }
 
-        private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoal nextGoal)
+        private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoalType nextGoal)
         {
-            return !company.hasProduct && nextGoal == InvestorGoal.GrowCompanyCost && Economy.CostOf(company, gameContext) > C.IPO_REQUIREMENTS_COMPANY_COST;
+            return !company.hasProduct && nextGoal == InvestorGoalType.GrowCompanyCost && Economy.CostOf(company, gameContext) > C.IPO_REQUIREMENTS_COMPANY_COST;
         }
 
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)

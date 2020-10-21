@@ -53,7 +53,7 @@ namespace Assets.Core
             AddFocusIndustry(industry, product);
 
 
-            Investments.SetCompanyGoal(context, product, InvestorGoal.Prototype);
+            Investments.SetCompanyGoal(context, product, InvestorGoalType.Prototype);
 
             return product;
         }
@@ -84,7 +84,7 @@ namespace Assets.Core
             company.AddShareholders(founders);
             company.AddInvestmentProposals(new List<InvestmentProposal>());
             company.AddInvestmentRounds(InvestmentRound.Preseed);
-            company.AddCompanyGoal(InvestorGoal.GrowCompanyCost, 1000000);
+            company.AddCompanyGoal(InvestorGoalType.GrowCompanyCost, 1000000);
 
             // Branding?
             company.AddBranding(0);
