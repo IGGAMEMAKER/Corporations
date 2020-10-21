@@ -52,7 +52,7 @@ public class InestmentProposalScreen : View
         ResetOffer();
     }
 
-    void ResetOffer()
+    public void ResetOffer()
     {
         Sum = -1;
         goalWasChosen = false;
@@ -148,15 +148,24 @@ public class InestmentProposalScreen : View
 
         var proposals = Companies.GetInvestmentProposals(MyCompany);
         var investorsCount = Mathf.Clamp(proposals.Count, 1, 100);
+        var offer = Sum / investorsCount;
+
 
         long weeklyGain = 0;
 
+        var shares = Companies.GetTotalShares(MyCompany);
+        var futureShares = shares * 100 / (100 - percent);
+
+        var shareGain = (futureShares - shares) / investorsCount;
         foreach (var p in proposals)
         {
-            p.Investment.Offer = Sum / investorsCount;
+            p.Investment.Offer = offer;
             p.Investment.Portion = p.Investment.Offer / p.Investment.OfferDuration;
 
             weeklyGain += p.Investment.Portion;
+
+            //Companies.SetAdditionalShares(MyCompany, p.ShareholderId, shareGain);
+            p.AdditionalShares = shareGain;
         }
 
 
@@ -164,7 +173,7 @@ public class InestmentProposalScreen : View
         ShowAll(PossibleInvestorsTabs);
         Show(StartRoundButton);
 
-        CompanyShare.text = $"for {percent}% of company";
+        CompanyShare.text = ""; // $"for {percent}% of company";
         PossibleInvestorsPanel.GetComponentInChildren<ShareholderProposalsListView>().ViewRender();
         TotalOffer.text = $"You will get {Visuals.Positive("+" + Format.Money(weeklyGain))} / week ({Format.MinifyMoney(Sum)} total)";
     }

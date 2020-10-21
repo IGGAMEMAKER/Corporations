@@ -6,10 +6,10 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        //public static int GetTotalShares(GameContext context, int companyId) => GetTotalShares(Get(context, companyId).shareholders.Shareholders);
-        public static int GetTotalShares(GameEntity company) => GetTotalShares(company.shareholders.Shareholders);
-        public static int GetTotalShares(Dictionary<int, BlockOfShares> shareholders)
+        public static int GetTotalShares(GameEntity company)
         {
+            var shareholders = company.shareholders.Shareholders;
+
             int totalShares = 0;
 
             foreach (var e in shareholders)
@@ -54,12 +54,22 @@ namespace Assets.Core
         public static int GetShareSize(GameContext context, GameEntity c, int investorId)
         {
             int shares = GetAmountOfShares(context, c, investorId);
-            int total = GetTotalShares(c.shareholders.Shareholders);
+            int total = GetTotalShares(c);
 
             if (total == 0)
                 return 0;
 
             return shares * 100 / total;
+        }
+        public static float GetExactShareSize(GameContext context, GameEntity c, int investorId)
+        {
+            int shares = GetAmountOfShares(context, c, investorId);
+            int total = GetTotalShares(c);
+
+            if (total == 0)
+                return 0;
+
+            return shares * 100f / total;
         }
 
         public static long GetSharesCost(GameContext context, GameEntity c, int investorId, int shares = -1)
@@ -67,7 +77,7 @@ namespace Assets.Core
             if (shares == -1)
                 shares = GetAmountOfShares(context, c, investorId);
 
-            int total = GetTotalShares(c.shareholders.Shareholders);
+            int total = GetTotalShares(c);
 
             return Economy.CostOf(c, context) * shares / total;
         }

@@ -36,8 +36,8 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnMonthChange
     {
         foreach (var e in Companies.GetIndependentAICompanies(gameContext))
         {
-            if (Economy.IsCanTakeFastCash(gameContext, e))
-                TakeInvestments(e);
+            //if (Economy.IsCanTakeFastCash(gameContext, e))
+            TakeInvestments(e);
         }
     }
 
@@ -53,7 +53,9 @@ public class AIIndependentCompaniesTakeInvestmentsSystem : OnMonthChange
         {
             var investorShareholderId = s.ShareholderId;
 
-            Companies.AcceptInvestmentProposal(gameContext, company, investorShareholderId);
+            var investor = Companies.GetInvestorById(gameContext, investorShareholderId);
+
+            Companies.AcceptInvestmentProposal(gameContext, company, investor);
         }
     }
 }

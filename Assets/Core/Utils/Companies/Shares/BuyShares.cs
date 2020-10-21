@@ -48,7 +48,7 @@ namespace Assets.Core
         {
             var shares = GetAmountOfShares(gameContext, company, sellerInvestorId);
 
-            var totalShares = GetTotalShares(company.shareholders.Shareholders);
+            var totalShares = GetTotalShares(company);
 
             var portion = totalShares * percent / 100;
 

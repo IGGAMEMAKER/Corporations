@@ -176,11 +176,11 @@ public class Investment
     public int OfferDuration; // int in months
     public long Portion;
     public InvestorBonus InvestorBonus;
-    public InvestorGoalType InvestorGoal;
+    public InvestmentGoal InvestmentGoal;
 
     public int RemainingPeriods; // int in periods
 
-    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestorGoalType investorGoal)
+    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestmentGoal investmentGoal)
     {
         try
         {
@@ -199,7 +199,7 @@ public class Investment
             }
 
             InvestorBonus = investorBonus;
-            InvestorGoal = investorGoal;
+            InvestmentGoal = investmentGoal;
         }
         catch
         {
@@ -223,6 +223,15 @@ public class InvestmentGoal
         InvestorGoalType = goalType;
     }
 }
+
+//public class InvestmentGoalGrowCompany : InvestmentGoal
+//{
+
+//    public InvestmentGoalGrowCompany(long cost)
+//    {
+//        InvestorGoalType = InvestorGoalType.GrowCompanyCost;
+//    }
+//}
 
 public class InvestmentProposal
 {

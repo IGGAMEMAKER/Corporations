@@ -7,11 +7,10 @@ public class AutomaticInvestmentPickButton : PopupButtonController<PopupMessageB
     {
         MyCompany.isAutomaticInvestments = true;
 
-        while (Economy.IsWillBecomeBankruptOnNextPeriod(Q, MyCompany) && !Economy.IsHasCashOverflow(Q, MyCompany))
-        {
-            SoundManager.PlayFastCashSound();
-            Economy.RaiseFastCash(Q, MyCompany);
-        }
+        //while (Economy.IsWillBecomeBankruptOnNextPeriod(Q, MyCompany) && !Economy.IsHasCashOverflow(Q, MyCompany))
+        //{
+        //    SoundManager.PlayFastCashSound();
+        //}
 
         NotificationUtils.ClosePopup(Q);
     }

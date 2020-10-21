@@ -6,7 +6,9 @@ public class AcceptInvestmentProposalController : ButtonController
 
     public override void Execute()
     {
-        Companies.AcceptInvestmentProposal(Q, MyCompany, InvestorId);
+        var investor = Companies.GetInvestorById(Q, InvestorId);
+
+        Companies.AcceptInvestmentProposal(Q, MyCompany, investor);
         Navigate(ScreenMode.InvesmentProposalScreen);
         //ReNavigate();
     }

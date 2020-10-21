@@ -2,18 +2,28 @@
 {
     partial class Companies
     {
-        public static void AcceptInvestmentProposal(GameContext gameContext, GameEntity company, int investorId)
+        public static long GetNewSharesSize(GameContext gameContext, GameEntity company, long offer)
         {
-            var p = GetInvestmentProposal(company, investorId);
-
             // calculating new shares size
             long cost = Economy.CostOf(company, gameContext);
 
             var allShares = (long)GetTotalShares(company);
-            long shares = allShares * p.Investment.Offer / cost;
+
+            long shares = allShares * offer / cost;
+
+            return shares;
+        }
+
+        public static void AcceptInvestmentProposal(GameContext gameContext, GameEntity company, GameEntity investor)
+        {
+            var investorId = investor.shareholder.Id;
+            var p = GetInvestmentProposal(company, investorId);
+
+
+            long shares = p.AdditionalShares; // allShares * p.Investment.Offer / cost;
 
             // update shareholders list
-            var investor = GetInvestorById(gameContext, investorId);
+            //var investor = GetInvestorById(gameContext, investorId);
             AddShareholder(company, investor, (int)shares);
 
 
@@ -44,11 +54,11 @@
 
         public static void AcceptAllInvestmentProposals(GameEntity company, GameContext gameContext)
         {
-            foreach (var s in Companies.GetInvestmentProposals(company))
+            foreach (var s in GetInvestmentProposals(company))
             {
                 var investorShareholderId = s.ShareholderId;
 
-                Companies.AcceptInvestmentProposal(gameContext, company, investorShareholderId);
+                AcceptInvestmentProposal(gameContext, company, GetInvestorById(gameContext, investorShareholderId));
             }
         }
     }

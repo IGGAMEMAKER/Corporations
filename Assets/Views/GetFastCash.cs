@@ -17,26 +17,26 @@ public class GetFastCash : CompanyUpgradeButton
         }
 
         SoundManager.Play(Sound.MoneyIncome);
-        Economy.RaiseFastCash(Q, MyCompany);
+        //Economy.RaiseFastCash(Q, MyCompany);
 
         ShareholdersOnMainScreenListView.RenderShareholderData();
     }
 
-    void RenderAmountOfLoans()
-    {
-        var valuation = Economy.CostOf(MyCompany, Q);
-        var offer = sum;
+    //void RenderAmountOfLoans()
+    //{
+    //    var valuation = Economy.CostOf(MyCompany, Q);
+    //    var offer = sum;
 
-        var balance = Economy.BalanceOf(MyCompany);
-        var maxCashLimit = valuation * 7 / 100;
+    //    var balance = Economy.BalanceOf(MyCompany);
+    //    var maxCashLimit = valuation * 7 / 100;
 
-        var amountOfLoans = (maxCashLimit - balance) / offer;
-        AmountOfLoans.text = amountOfLoans.ToString();
-    }
+    //    var amountOfLoans = (maxCashLimit - balance) / offer;
+    //    AmountOfLoans.text = amountOfLoans.ToString();
+    //}
 
-    int fraction = C.FAST_CASH_COMPANY_SHARE;
+    //int fraction = C.FAST_CASH_COMPANY_SHARE;
 
-    long sum => Economy.GetFastCashAmount(Q, MyCompany);
+    //long sum => Economy.GetFastCashAmount(Q, MyCompany);
 
     public override string GetBenefits()
     {
@@ -46,7 +46,7 @@ public class GetFastCash : CompanyUpgradeButton
 
     public override string GetButtonTitle()
     {
-        RenderAmountOfLoans();
+        //RenderAmountOfLoans();
         //AmountOfLoans.text = "2";
 
         return "Demand extra cash";

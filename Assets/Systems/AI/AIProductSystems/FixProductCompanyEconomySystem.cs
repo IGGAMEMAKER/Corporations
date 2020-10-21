@@ -114,8 +114,8 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
     void RaiseFastCash(GameEntity product)
     {
-        if (Economy.IsCanTakeFastCash(gameContext, product))
-            Economy.RaiseFastCash(gameContext, product);
+        //if (Economy.IsCanTakeFastCash(gameContext, product))
+        //    Economy.RaiseFastCash(gameContext, product);
     }
 
     bool willBeBankrupt(GameEntity product) => Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, product);

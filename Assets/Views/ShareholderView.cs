@@ -16,7 +16,7 @@ public class ShareholderView : View
     {
         company = SelectedCompany;
 
-        int totalShares = Companies.GetTotalShares(company.shareholders.Shareholders);
+        int totalShares = Companies.GetTotalShares(company);
         shareholder = Companies.GetInvestorById(Q, shareholderId);
 
         Render(shareholder.shareholder.Name, shares, totalShares, shareholderId);

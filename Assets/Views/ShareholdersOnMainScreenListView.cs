@@ -10,7 +10,6 @@ public class ShareholdersOnMainScreenListView : ListView
     [Header("Buttons")]
     public GameObject SearchNewInvestors;
     public GameObject ChangeGoals;
-    public GameObject GetExtraCash;
     public GameObject ShowOffers;
     public GameObject BuyBackFromSpecificInvestor;
     public GameObject BuyBack;
@@ -75,7 +74,6 @@ public class ShareholdersOnMainScreenListView : ListView
             HideAll(InvestorButtons);
             ShowAll(PlayerButtons);
 
-            Hide(GetExtraCash);
             //// there is noone to ask money for (there is only a player)
             //if (MyCompany.shareholders.Shareholders.Keys.Count == 1)
             //{
@@ -97,7 +95,8 @@ public class ShareholdersOnMainScreenListView : ListView
 
     public void RenderShareholderData()
     {
-        var shares = Companies.GetShareSize(Q, MyCompany, shareholderId);
+        var shares = Companies.GetExactShareSize(Q, MyCompany, shareholderId);
+        var sharesCount = Companies.GetAmountOfShares(Q, MyCompany, shareholderId);
         var goal = "Goal: ???";
 
         string name = isPlayerSelected ? "YOU" : Companies.GetInvestorName(Q, shareholderId); // investor.shareholder.Name;
@@ -114,7 +113,7 @@ public class ShareholdersOnMainScreenListView : ListView
             );
 
 
-        MainInfo.Title.text = $"<b>{name}</b>\n{Visuals.Colorize(shares)}% shares\n{goal}";
+        MainInfo.Title.text = $"<b>{name}</b>\n{Visuals.Colorize(sharesCount)} shares ({shares.ToString("0.0")}%)"; // \n{goal}
 
         BuyBackFromSpecificInvestor.GetComponent<BuyBackFromShareholder>().ShareholderId = shareholderId;
 

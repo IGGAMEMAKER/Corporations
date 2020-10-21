@@ -53,14 +53,17 @@ public class ScheduleRunnerSystem : IExecuteSystem
             {
                 if (playerCompany.isAutomaticInvestments && !Economy.IsHasCashOverflow(gameContext, playerCompany))
                 {
-                    Economy.RaiseFastCash(gameContext, playerCompany);
+                    //Economy.RaiseFastCash(gameContext, playerCompany);
                     continue;
                 }
 
                 TutorialUtils.Unlock(gameContext, TutorialFunctionality.CanRaiseInvestments);
                 TutorialUtils.Unlock(gameContext, TutorialFunctionality.BankruptcyWarning);
+
                 NotificationUtils.AddPopup(gameContext, new PopupMessageBankruptcyThreat(playerCompany.company.Id));
+
                 ScheduleUtils.PauseGame(gameContext);
+
                 return;
             }
 

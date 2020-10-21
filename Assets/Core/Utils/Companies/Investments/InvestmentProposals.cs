@@ -30,7 +30,12 @@ namespace Assets.Core
 
 
 
+        public static void SetAdditionalShares(GameEntity company, int investorId, int shares)
+        {
+            var index = GetInvestmentProposalIndex(company, investorId);
 
+            company.investmentProposals.Proposals[index].AdditionalShares = shares;
+        }
         public static void AddInvestmentProposal(GameEntity company, InvestmentProposal proposal)
         {
             var proposals = company.investmentProposals.Proposals;

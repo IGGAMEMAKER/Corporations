@@ -18,6 +18,7 @@ public class ShareholderProposalView : View
 
     public Text OpinionDescription;
 
+    public Text NewShares;
 
     GameEntity shareholder;
     InvestmentProposal proposal;
@@ -39,6 +40,8 @@ public class ShareholderProposalView : View
         RenderOffer();
 
         SetButtons(shareholder.shareholder.Id);
+
+        NewShares.text = "+" + proposal.AdditionalShares + " shares";
     }
 
     GameEntity company => MyCompany;
