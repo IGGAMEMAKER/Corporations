@@ -95,6 +95,11 @@ public class InvestmentProposalsComponent : IComponent
     public List<InvestmentProposal> Proposals;
 }
 
+public class CompletedGoalsComponent: IComponent
+{
+    public List<InvestorGoalType> Goals;
+}
+
 public enum CompanyGrowthStyle
 {
     None,

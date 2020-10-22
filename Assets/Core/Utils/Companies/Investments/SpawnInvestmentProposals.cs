@@ -9,6 +9,7 @@ namespace Assets.Core
         public static void SpawnProposals(GameContext context, GameEntity company)
         {
             long cost = Economy.CostOf(company, context);
+            var date = ScheduleUtils.GetCurrentDate(context);
 
             var potentialInvestors = GetPotentialInvestors(context, company);
 
@@ -29,7 +30,7 @@ namespace Assets.Core
 
                 var p = new InvestmentProposal
                 {
-                    Investment = new Investment(offer, Duration, InvestorBonus.None, new InvestmentGoal()),
+                    Investment = new Investment(offer, Duration, InvestorBonus.None, new InvestmentGoal(), date),
                     AdditionalShares = (int)GetNewSharesSize(context, company, offer),
 
                     ShareholderId = ShareholderId,

@@ -173,19 +173,22 @@ public enum InvestorBonus
 public class Investment
 {
     public long Offer;
-    public int OfferDuration; // int in months
+    public int Duration; // int in months
     public long Portion;
     public InvestorBonus InvestorBonus;
     public InvestmentGoal InvestmentGoal;
 
     public int RemainingPeriods; // int in periods
+    public int StartDate; // you will not get money before that date
 
-    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestmentGoal investmentGoal)
+    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestmentGoal investmentGoal, int StartDate)
     {
         try
         {
             this.Offer = Offer;
-            this.OfferDuration = Duration;
+            this.Duration = Duration;
+
+            this.StartDate = StartDate;
 
             RemainingPeriods = Duration * 4;
 

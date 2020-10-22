@@ -52,8 +52,19 @@ namespace Assets.Core
                 }
             }
 
+            bonus.AppendAndHideIfZero("Is Released", product.isRelease ? -5 : 0);
+
             // positioning
-            bonus.AppendAndHideIfZero("From positioning", positioningBonus);
+            //bonus.AppendAndHideIfZero("From positioning", positioningBonus);
+
+            bool isFocusing = positioningBonus >= 0;
+            if (isFocusing)
+                bonus.MultiplyAndHideIfOne("Product positioning", positioningBonus / 5);
+            else
+                bonus.AppendAndHideIfZero("From positioning", positioningBonus);
+
+
+
 
             bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
 

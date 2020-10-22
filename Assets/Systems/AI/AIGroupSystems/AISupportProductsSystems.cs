@@ -67,9 +67,11 @@ public partial class AISupportProductsSystem : OnPeriodChange
 
     void SendMoney(GameEntity product, GameEntity managingCompany, long sum)
     {
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+
         var proposal = new InvestmentProposal
         {
-            Investment = new Investment(sum, 1, InvestorBonus.None, new InvestmentGoal()),
+            Investment = new Investment(sum, 1, InvestorBonus.None, new InvestmentGoal(), date),
             AdditionalShares = 0,
 
             ShareholderId = managingCompany.shareholder.Id,

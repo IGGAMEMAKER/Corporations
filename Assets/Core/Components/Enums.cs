@@ -260,7 +260,9 @@ public enum InvestorGoalType
     OutcompeteCompanyByUsers,
     OutcompeteCompanyByMarketShare,
 
-    AcquireCompany
+    AcquireCompany,
+
+    DiversifyIncome
 }
 
 public class InvestmentGoalMakePrototype : InvestmentGoal

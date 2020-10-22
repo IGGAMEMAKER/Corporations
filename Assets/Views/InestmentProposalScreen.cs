@@ -160,7 +160,7 @@ public class InestmentProposalScreen : View
         foreach (var p in proposals)
         {
             p.Investment.Offer = offer;
-            p.Investment.Portion = p.Investment.Offer / p.Investment.OfferDuration;
+            p.Investment.Portion = p.Investment.Offer / p.Investment.Duration;
 
             weeklyGain += p.Investment.Portion;
 

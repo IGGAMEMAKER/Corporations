@@ -1,4 +1,6 @@
-﻿public struct GoalRequirements
+﻿using System.Collections.Generic;
+
+public struct GoalRequirements
 {
     public long have;
     public long need;
@@ -36,6 +38,11 @@ namespace Assets.Core
             }
         }
 
+        public static bool IsCompleted(GameEntity company, InvestorGoalType goal)
+        {
+            return company.completedGoals.Goals.Contains(goal);
+        }
+
         public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
         {
             var users = Marketing.GetUsers(company);
@@ -51,40 +58,57 @@ namespace Assets.Core
             var minLoyalty = 5;
             var marketFit = 10; // 10 cause it allows monetisation for ads
 
+            List<InvestorGoalType> RedoableGoals = new List<InvestorGoalType> { InvestorGoalType.GrowIncome, InvestorGoalType.GrowUserBase, InvestorGoalType.GainMoreSegments, InvestorGoalType.OutcompeteCompanyByUsers, InvestorGoalType.OutcompeteCompanyByMarketShare, InvestorGoalType.OutcompeteCompanyByIncome, InvestorGoalType.AcquireCompany, InvestorGoalType.GrowCompanyCost };
+
+            // this goal was done already
+            if (company.completedGoals.Goals.Contains(goal) && !RedoableGoals.Contains(goal))
+                return false;
+
+            if (company.completedGoals.Goals.Count == 0)
+                return goal == InvestorGoalType.Prototype;
+
+            bool isPrototype = !company.isRelease;
+
+            bool profitable = Economy.IsProfitable(gameContext, company);
+
+            
+
             switch (goal)
             {
-                case InvestorGoalType.Prototype:
-                    return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty;
+                // PRODUCTS
+
+                //case InvestorGoalType.Prototype:
+                //    return focusedProduct && isPrototype && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty;
 
                 case InvestorGoalType.BecomeMarketFit:
-                    return focusedProduct && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+                    return focusedProduct && isPrototype && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
 
                 case InvestorGoalType.FirstUsers:
-                    return focusedProduct && users < 2000;
+                    return focusedProduct && isPrototype && users < 2000;
 
                 case InvestorGoalType.Release:
-                    return isProduct && !company.isRelease;
+                    return isProduct && isPrototype;
 
-                case InvestorGoalType.BecomeProfitable:
-                    return !Economy.IsProfitable(gameContext, company);
+                case InvestorGoalType.GrowUserBase:
+                    return isProduct && users > 50_000;
 
-                case InvestorGoalType.Operationing:
-                    return isProduct;
+                case InvestorGoalType.GrowIncome:
+                    return isProduct && profitable && income > 100_000;
 
+                case InvestorGoalType.GainMoreSegments:
+                    return isProduct && users > 1_000_000 && company.marketing.ClientList.Count < Marketing.GetAudienceInfos().Count;
+
+
+                // GROUPS
                 case InvestorGoalType.IPO:
                     return isGroup && cost > 300_000_000;
 
-                case InvestorGoalType.GrowUserBase:
-                    return isProduct && users > 5_000;
-
-                case InvestorGoalType.GrowIncome:
-                    return isProduct && income > 100_000 && Economy.IsProfitable(gameContext, company);
-
-                //case InvestorGoalType.GainMoreSegments:
-                //    return isProduct && 
-
+                // BOTH
                 case InvestorGoalType.GrowCompanyCost:
-                    return (isProduct && company.isRelease || isGroup) && Economy.IsProfitable(gameContext, company);
+                    return (isProduct && company.isRelease || isGroup) && profitable;
+
+                case InvestorGoalType.BecomeProfitable:
+                    return !profitable;
 
                 case InvestorGoalType.None:
                     return false;
@@ -99,6 +123,10 @@ namespace Assets.Core
         {
             if (forceComplete || IsGoalCompleted(company, gameContext))
             {
+                var goal = company.companyGoal.InvestorGoal;
+
+                company.completedGoals.Goals.Add(goal);
+
                 var nextGoal = GetNextGoal(company.companyGoal.InvestorGoal);
 
                 if (IsCanTakeIPOGoal(company, gameContext, nextGoal))

@@ -34,7 +34,7 @@ namespace Assets.Core
                 case InvestorGoalType.IPO:
                     return Wrap(GoalIPO(company, gameContext));
 
-                default: return Wrap(new GoalRequirements { need = 888888, have = 191919 });
+                default: return Wrap(new GoalRequirements { need = 888888, have = 545454 });
             }
         }
 
@@ -53,7 +53,7 @@ namespace Assets.Core
             var targetAudience = Marketing.GetCoreAudienceId(company); // company.productPositioning.Positioning; //.SegmentId;
             return new GoalRequirements {
                 have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
-                need = 1
+                need = 6
             };
         }
 

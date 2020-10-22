@@ -8,6 +8,8 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
 
     protected override void Execute(List<GameEntity> entities)
     {
+        var date = ScheduleUtils.GetCurrentDate(gameContext);
+
         foreach (var company in Companies.GetNonFinancialCompanies(gameContext).Where(c => c.isIndependentCompany))
         {
             foreach (var s in company.shareholders.Shareholders)
@@ -17,9 +19,10 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
 
                 foreach (var offer in block.Investments)
                 {
-                    if (offer.RemainingPeriods > 0)
+                    if (offer.RemainingPeriods > 0 && offer.StartDate >= date)
                     {
                         Companies.AddResources(company, offer.Portion);
+
                         offer.RemainingPeriods--;
                     }
                 }
