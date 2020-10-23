@@ -29,8 +29,6 @@ public class FillInterruptList : View
         if (!HasCompany)
             return;
 
-        bool isCanCompleteGoal = CheckGoal;
-
         CanRaiseInvestments         .SetActive(false);
         CanUpgradeCorporateCulture  .SetActive(IsCanUpgradeCorporateCulture);
         CanSellCompany              .SetActive(HasAcquisitionOffers);
@@ -126,8 +124,6 @@ public class FillInterruptList : View
     bool HasAcquisitionOffers => Companies.GetAcquisitionOffersToPlayer(Q).Count() > 0;
 
     bool CheckAcquisitionCandidates => Markets.GetProductsAvailableForSaleInSphereOfInfluence(MyCompany, Q).Count > 0;
-
-    bool CheckGoal => Investments.IsGoalCompleted(MyCompany, Q);
 
     bool CheckAnnualReport => CurrentIntDate > 360;
 }

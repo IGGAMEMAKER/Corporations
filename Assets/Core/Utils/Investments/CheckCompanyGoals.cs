@@ -4,11 +4,11 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+        public static List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
-            var goal = company.companyGoal;
+            //var goal = company.companyGoal;
 
-            switch (goal.InvestorGoal)
+            switch (goal.InvestorGoalType)
             {
                 // product company goals
                 case InvestorGoalType.Prototype:
@@ -16,6 +16,9 @@ namespace Assets.Core
 
                 case InvestorGoalType.FirstUsers:
                     return Wrap(GoalFirstUsers(company, gameContext));
+
+                case InvestorGoalType.GrowUserBase:
+                    return Wrap(GoalGrowUserBase(company, gameContext, goal));
 
                 case InvestorGoalType.Release:
                     return Wrap(GoalRelease(company, gameContext));
@@ -28,7 +31,7 @@ namespace Assets.Core
                     return Wrap(GoalProfitable(company, gameContext));
 
                 case InvestorGoalType.GrowCompanyCost:
-                    return Wrap(GoalCompanyCost(company, gameContext));
+                    return Wrap(GoalCompanyCost(company, gameContext, goal));
                 
                 //case InvestorGoal.GrowProfit: return GoalGrowProfit(company, gameContext);
                 case InvestorGoalType.IPO:
@@ -38,22 +41,30 @@ namespace Assets.Core
             }
         }
 
+        static List<GoalRequirements> Wrap(List<GoalRequirements> requirements) => requirements;
         static List<GoalRequirements> Wrap(GoalRequirements requirements)
         {
             return new List<GoalRequirements> { requirements };
         }
 
-        private static bool IsCanTakeIPOGoal(GameEntity company, GameContext gameContext, InvestorGoalType nextGoal)
-        {
-            return !company.hasProduct && nextGoal == InvestorGoalType.GrowCompanyCost && Economy.CostOf(company, gameContext) > C.IPO_REQUIREMENTS_COMPANY_COST;
-        }
-
         public static GoalRequirements GoalPrototype(GameEntity company, GameContext gameContext)
         {
-            var targetAudience = Marketing.GetCoreAudienceId(company); // company.productPositioning.Positioning; //.SegmentId;
+            var targetAudience = Marketing.GetCoreAudienceId(company);
+
             return new GoalRequirements {
                 have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
-                need = 6
+                need = 5
+            };
+        }
+
+        private static GoalRequirements GoalMarketFit(GameEntity company, GameContext gameContext)
+        {
+            var targetAudience = Marketing.GetCoreAudienceId(company); // company.productPositioning.Positioning; //.SegmentId;
+
+            return new GoalRequirements
+            {
+                have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
+                need = 10,
             };
         }
 
@@ -61,7 +72,7 @@ namespace Assets.Core
         {
             return new GoalRequirements {
                 have = Marketing.GetUsers(company),
-                need = 50000, // company.companyGoal.MeasurableGoal
+                need = 50000,
             };
         }
 
@@ -73,21 +84,36 @@ namespace Assets.Core
             };
         }
 
-        public static GoalRequirements GoalGrowProfit(GameEntity company, GameContext gameContext)
+        public static GoalRequirements GoalGrowProfit(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
+            var g = goal as InvestmentGoalGrowProfit;
+
             return new GoalRequirements
             {
                 have = Economy.GetProfit(gameContext, company),
-                need = company.companyGoal.MeasurableGoal
+                need = g.Profit
             };
         }
 
-        private static GoalRequirements GoalCompanyCost(GameEntity company, GameContext gameContext)
+        private static GoalRequirements GoalCompanyCost(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
+            var g = goal as InvestmentGoalGrowCost;
+
             return new GoalRequirements
             {
                 have = Economy.CostOf(company, gameContext),
-                need = company.companyGoal.MeasurableGoal
+                need = g.Cost
+            };
+        }
+
+        public static GoalRequirements GoalGrowUserBase(GameEntity company, GameContext gameContext, InvestmentGoal goal)
+        {
+            var g = goal as InvestmentGoalGrowAudience;
+
+            return new GoalRequirements
+            {
+                have = Marketing.GetUsers(company),
+                need = g.TargetUsersAmount
             };
         }
 
@@ -107,22 +133,6 @@ namespace Assets.Core
                 have = Economy.GetProfit(gameContext, company),
                 need = 0
             };
-        }
-
-        private static GoalRequirements GoalMarketFit(GameEntity company, GameContext gameContext)
-        {
-            var targetAudience = Marketing.GetCoreAudienceId(company); // company.productPositioning.Positioning; //.SegmentId;
-
-            return new GoalRequirements
-            {
-                have = (long)Marketing.GetSegmentLoyalty(company, targetAudience),
-                need = 5,
-            };
-            //return new GoalRequirements
-            //{
-            //    have = Products.GetProductLevel(company),
-            //    need = Products.GetMarketRequirements(company, gameContext)
-            //};
         }
     }
 }

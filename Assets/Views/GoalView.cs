@@ -18,12 +18,17 @@ public class GoalView : View
         base.ViewRender();
 
         var clients = Marketing.GetUsers(Flagship);
-        var goal = Flagship.companyGoal.InvestorGoal;
+        var goals = Flagship.companyGoal.Goals;
 
-        var requirements = Investments.GetGoalRequirements(Flagship, Q);
+        if (goals.Count == 0)
+            return;
+
+        var goal = goals[0];
+
+        var requirements = Investments.GetGoalRequirements(Flagship, Q, goal);
         var req = requirements[0];
 
-        switch (goal)
+        switch (goal.InvestorGoalType)
         {
             case InvestorGoalType.Prototype:
                 SetPanel("Make test audience loyal", req, "Loyalty");

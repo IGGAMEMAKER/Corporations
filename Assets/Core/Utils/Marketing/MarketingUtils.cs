@@ -45,13 +45,14 @@ namespace Assets.Core
             if (!product.isRelease)
             {
                 AddBrandPower(product, C.RELEASE_BRAND_POWER_GAIN);
+
                 var flow = GetClientFlow(gameContext, product.product.Niche);
                 var coreId = Marketing.GetCoreAudienceId(product);
 
                 AddClients(product, flow, coreId);
 
                 product.isRelease = true;
-                Investments.CompleteGoal(product, gameContext);
+                Investments.CompleteGoal(product, gameContext, new InvestmentGoalRelease());
             }
         }
     }

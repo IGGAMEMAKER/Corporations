@@ -21,7 +21,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             ManageFeatures(product, ref str);
             ManageChannels(product, ref str);
 
-            Investments.CompleteGoal(product, gameContext);
+            Investments.CompleteGoals(product, gameContext);
         }
     }
 

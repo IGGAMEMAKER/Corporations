@@ -265,14 +265,6 @@ public enum InvestorGoalType
     DiversifyIncome
 }
 
-public class InvestmentGoalMakePrototype : InvestmentGoal
-{
-    public InvestmentGoalMakePrototype() : base(InvestorGoalType.Prototype)
-    {
-
-    }
-}
-
 public enum InvestmentRound
 {
     Preseed,

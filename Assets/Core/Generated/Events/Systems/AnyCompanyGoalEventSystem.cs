@@ -35,7 +35,7 @@ public sealed class AnyCompanyGoalEventSystem : Entitas.ReactiveSystem<GameEntit
                 _listenerBuffer.Clear();
                 _listenerBuffer.AddRange(listenerEntity.anyCompanyGoalListener.value);
                 foreach (var listener in _listenerBuffer) {
-                    listener.OnAnyCompanyGoal(e, component.InvestorGoal, component.MeasurableGoal);
+                    listener.OnAnyCompanyGoal(e, component.InvestorGoal, component.MeasurableGoal, component.Goals);
                 }
             }
         }

@@ -164,6 +164,8 @@ public class CompanyGoalComponent : IComponent
     public InvestorGoalType InvestorGoal;
 
     public long MeasurableGoal;
+
+    public List<InvestmentGoal> Goals;
 }
 
 // only independent companies have that

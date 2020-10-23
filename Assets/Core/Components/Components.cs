@@ -175,6 +175,7 @@ public class Investment
     public long Offer;
     public int Duration; // int in months
     public long Portion;
+
     public InvestorBonus InvestorBonus;
     public InvestmentGoal InvestmentGoal;
 
@@ -183,31 +184,24 @@ public class Investment
 
     public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestmentGoal investmentGoal, int StartDate)
     {
-        try
+        this.Offer = Offer;
+        this.Duration = Duration;
+
+        this.StartDate = StartDate;
+
+        RemainingPeriods = Duration * 4;
+
+        if (RemainingPeriods > 0)
         {
-            this.Offer = Offer;
-            this.Duration = Duration;
-
-            this.StartDate = StartDate;
-
-            RemainingPeriods = Duration * 4;
-
-            if (RemainingPeriods > 0)
-            {
-                Portion = Offer / RemainingPeriods;
-            }
-            else
-            {
-                Portion = Offer;
-            }
-
-            InvestorBonus = investorBonus;
-            InvestmentGoal = investmentGoal;
+            Portion = Offer / RemainingPeriods;
         }
-        catch
+        else
         {
-            Debug.LogError($"Fail at new Investment: {Format.MinifyMoney(Offer)} for {Duration} months...or weeks?");
+            Portion = Offer;
         }
+
+        InvestorBonus = investorBonus;
+        InvestmentGoal = investmentGoal;
     }
 }
 
@@ -227,14 +221,71 @@ public class InvestmentGoal
     }
 }
 
-//public class InvestmentGoalGrowCompany : InvestmentGoal
-//{
+public class InvestmentGoalMakePrototype : InvestmentGoal
+{
+    public InvestmentGoalMakePrototype() : base(InvestorGoalType.Prototype)
+    {
 
-//    public InvestmentGoalGrowCompany(long cost)
-//    {
-//        InvestorGoalType = InvestorGoalType.GrowCompanyCost;
-//    }
-//}
+    }
+}
+
+public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
+{
+    public InvestmentGoalMakeProductMarketFit() : base(InvestorGoalType.BecomeMarketFit)
+    {
+
+    }
+}
+
+public class InvestmentGoalRelease : InvestmentGoal
+{
+    public InvestmentGoalRelease() : base(InvestorGoalType.Release)
+    {
+
+    }
+}
+
+public class InvestmentGoalFirstUsers : InvestmentGoal
+{
+    public long TargetUsersAmount;
+
+    public InvestmentGoalFirstUsers(long users) : base(InvestorGoalType.FirstUsers)
+    {
+        TargetUsersAmount = users;
+    }
+}
+
+public class InvestmentGoalGrowAudience : InvestmentGoal
+{
+    public long TargetUsersAmount;
+
+    public InvestmentGoalGrowAudience(long users) : base(InvestorGoalType.GrowUserBase)
+    {
+        TargetUsersAmount = users;
+    }
+}
+
+public class InvestmentGoalGrowProfit : InvestmentGoal
+{
+    public long Profit;
+
+    public InvestmentGoalGrowProfit(long profit) : base(InvestorGoalType.GrowIncome)
+    {
+        Profit = profit;
+    }
+}
+
+public class InvestmentGoalGrowCost : InvestmentGoal
+{
+    public long Cost;
+
+    public InvestmentGoalGrowCost(long cost) : base(InvestorGoalType.GrowCompanyCost)
+    {
+        Cost = cost;
+    }
+}
+
+
 
 public class InvestmentProposal
 {
