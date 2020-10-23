@@ -1,4 +1,5 @@
 ﻿using Assets.Core;
+using System.Linq;
 using UnityEngine.UI;
 
 public class ProjectView : View
@@ -31,6 +32,6 @@ public class ProjectView : View
 
         RenderCompanyEconomy();
 
-        CompanyGoal.text = Investments.GetFormattedInvestorGoal(SelectedCompany.companyGoal.InvestorGoal);
+        CompanyGoal.text = Investments.GetFormattedCompanyGoals(SelectedCompany);
     }
 }

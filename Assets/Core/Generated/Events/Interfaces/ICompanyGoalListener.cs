@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface ICompanyGoalListener {
-    void OnCompanyGoal(GameEntity entity, InvestorGoalType investorGoal, long measurableGoal, System.Collections.Generic.List<InvestmentGoal> goals);
+    void OnCompanyGoal(GameEntity entity, System.Collections.Generic.List<InvestmentGoal> goals);
 }

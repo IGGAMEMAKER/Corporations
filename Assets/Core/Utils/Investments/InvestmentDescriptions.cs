@@ -1,7 +1,13 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     public static partial class Investments
     {
+        public static string GetFormattedCompanyGoals(GameEntity company)
+        {
+            return string.Join("\n", company.companyGoal.Goals.Select(g => Investments.GetFormattedInvestorGoal(g.InvestorGoalType)));
+        }
         public static string GetFormattedInvestorGoal(InvestorGoalType investorGoal)
         {
             switch (investorGoal)

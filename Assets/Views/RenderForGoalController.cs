@@ -36,18 +36,19 @@ public class RenderForGoalController : View
     {
         get
         {
-            if (Disable)
-                return false;
-
-            var goal = ObservableCompany.companyGoal.InvestorGoal;
-
-            if (goal == TargetGoal)
-                return true;
-
-            if (IsGoalWasCompletedEarlier(goal) && KeepAliveIfGoalCompleted)
-                return true;
-
             return false;
+            //if (Disable)
+            //    return false;
+
+            //var goal = ObservableCompany.companyGoal.InvestorGoal;
+
+            //if (goal == TargetGoal)
+            //    return true;
+
+            //if (IsGoalWasCompletedEarlier(goal) && KeepAliveIfGoalCompleted)
+            //    return true;
+
+            //return false;
         }
     }
 

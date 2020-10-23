@@ -6,7 +6,7 @@ namespace Assets.Core
     {
         public static bool IsReleaseableApp(GameEntity product)
         {
-            return !product.isRelease && product.companyGoal.InvestorGoal == InvestorGoalType.Release;
+            return !product.isRelease && product.companyGoal.Goals.Any(g => g.InvestorGoalType == InvestorGoalType.Release);
         }
 
 

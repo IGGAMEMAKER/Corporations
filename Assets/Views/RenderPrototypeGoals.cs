@@ -22,24 +22,25 @@ public class RenderPrototypeGoals : ParameterView
 
         var levelgoal = level >= marketrequirements ? Visuals.Positive("COMPLETED") : Visuals.Negative("In progress");
 
-        var goal = Flagship.companyGoal.InvestorGoal;
+        //var goal = Flagship.companyGoal.InvestorGoal;
 
-        var t = $"<b>Goals</b> ({goal})";
+        //var t = $"<b>Goals</b> ({goal})";
 
-        if (goal == InvestorGoalType.Prototype)
-            t += $"\n\n<i>* Upgrade product to 1LVL</i>";
+        //if (goal == InvestorGoalType.Prototype)
+        //    t += $"\n\n<i>* Upgrade product to 1LVL</i>";
 
-        if (goal >= InvestorGoalType.FirstUsers)
-            t += $"\n\n<i>* Gain Critical mass of users</i>\n\tyou have: {users} / {criticalMass} users {usergoal}";
+        //if (goal >= InvestorGoalType.FirstUsers)
+        //    t += $"\n\n<i>* Gain Critical mass of users</i>\n\tyou have: {users} / {criticalMass} users {usergoal}";
 
-        if (goal >= InvestorGoalType.BecomeMarketFit)
-            t += $"\n\n<i>* Reach market requirements</i>\n\tyou have: {level}LV / {marketrequirements}LV) {levelgoal}";
+        //if (goal >= InvestorGoalType.BecomeMarketFit)
+        //    t += $"\n\n<i>* Reach market requirements</i>\n\tyou have: {level}LV / {marketrequirements}LV) {levelgoal}";
 
-        if (Companies.IsReleaseableApp(company))
-        {
-            t += "\n\n" + Visuals.Positive("You can release your product!!!");
-        }
+        //if (Companies.IsReleaseableApp(company))
+        //{
+        //    t += "\n\n" + Visuals.Positive("You can release your product!!!");
+        //}
 
-        return t;
+        //return t;
+        return "RenderPrototypeGoals.cs";
     }
 }

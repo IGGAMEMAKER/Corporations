@@ -26,23 +26,23 @@ public class ChooseProperFlaghipScreen : View
     {
         base.ViewRender();
 
-        var companyGoal = Flagship.companyGoal.InvestorGoal;
+        //var companyGoal = Flagship.companyGoal.InvestorGoal;
 
-        var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.IsDebugMode();
+        //var unlockAll = TutorialUtils.IsGodMode(Q) || TutorialUtils.IsDebugMode();
 
-        bool showPrototype  = !unlockAll && companyGoal == InvestorGoalType.Prototype;
-        bool showFirstUsers = !unlockAll && companyGoal == InvestorGoalType.FirstUsers;
-        bool showMVP        = !unlockAll && companyGoal == InvestorGoalType.BecomeMarketFit;
-        bool showPrerelease = !unlockAll && companyGoal == InvestorGoalType.Release;
+        //bool showPrototype  = !unlockAll && companyGoal == InvestorGoalType.Prototype;
+        //bool showFirstUsers = !unlockAll && companyGoal == InvestorGoalType.FirstUsers;
+        //bool showMVP        = !unlockAll && companyGoal == InvestorGoalType.BecomeMarketFit;
+        //bool showPrerelease = !unlockAll && companyGoal == InvestorGoalType.Release;
 
-        bool showReleased   = companyGoal >= InvestorGoalType.BecomeProfitable || unlockAll;
+        //bool showReleased   = companyGoal >= InvestorGoalType.BecomeProfitable || unlockAll;
 
-        Draw(PrototypeScreen, showPrototype);
-        Draw(FirstUsersScreen, showFirstUsers);
-        Draw(MVPScreen, showMVP);
-        Draw(PrepareToReleaseScreen, showPrerelease);
+        //Draw(PrototypeScreen, showPrototype);
+        //Draw(FirstUsersScreen, showFirstUsers);
+        //Draw(MVPScreen, showMVP);
+        //Draw(PrepareToReleaseScreen, showPrerelease);
 
-        // after release
-        Draw(ReleasedScreen, showReleased);
+        //// after release
+        //Draw(ReleasedScreen, showReleased);
     }
 }

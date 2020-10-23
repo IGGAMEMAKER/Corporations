@@ -1,4 +1,6 @@
-﻿namespace Assets.Core
+﻿using System.Linq;
+
+namespace Assets.Core
 {
     partial class Companies
     {
@@ -26,36 +28,35 @@
             }
         }
 
-
+        private static bool HasGoal(GameEntity company, InvestorGoalType goalType)
+        {
+            return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType);
+        }
 
         public static InvestmentRound GetInvestmentRoundName(GameEntity company)
         {
-            switch (company.companyGoal.InvestorGoal)
-            {
-                case InvestorGoalType.Prototype:
-                    return InvestmentRound.Preseed;
+            if (HasGoal(company, InvestorGoalType.Prototype))
+                return InvestmentRound.Preseed;
 
-                case InvestorGoalType.FirstUsers:
-                    return InvestmentRound.Seed;
+            if (HasGoal(company, InvestorGoalType.FirstUsers))
+                return InvestmentRound.Seed;
 
-                case InvestorGoalType.BecomeMarketFit:
-                    return InvestmentRound.A;
+            if (HasGoal(company, InvestorGoalType.BecomeMarketFit))
+                return InvestmentRound.A;
 
-                case InvestorGoalType.Release:
-                    return InvestmentRound.B;
+            if (HasGoal(company, InvestorGoalType.Release))
+                return InvestmentRound.B;
 
-                case InvestorGoalType.BecomeProfitable:
-                    return InvestmentRound.C;
+            if (HasGoal(company, InvestorGoalType.BecomeProfitable))
+                return InvestmentRound.C;
 
-                case InvestorGoalType.GrowCompanyCost:
-                    return InvestmentRound.C;
+            if (HasGoal(company, InvestorGoalType.GrowCompanyCost))
+                return InvestmentRound.C;
 
-                case InvestorGoalType.IPO:
-                    return InvestmentRound.D;
+            if (HasGoal(company, InvestorGoalType.IPO))
+                return InvestmentRound.D;
 
-                default:
-                    return InvestmentRound.E;
-            }
+            return InvestmentRound.E;
         }
 
         public static void NotifyAboutInvestmentRound(GameEntity company, GameContext gameContext)

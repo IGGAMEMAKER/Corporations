@@ -67,7 +67,8 @@ namespace Assets.Core
 
         public static long OnGoalCompletion(GameEntity startup, InvestorType investorType)
         {
-            bool goalCompleted = !Investments.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
+            var goal = startup.companyGoal.Goals.LastOrDefault();
+            bool goalCompleted = false; // !Investments.IsInvestorSuitableByGoal(investorType, startup.companyGoal.InvestorGoal);
 
             return goalCompleted ? C.COMPANY_DESIRE_TO_SELL_YES : C.COMPANY_DESIRE_TO_SELL_NO;
         }

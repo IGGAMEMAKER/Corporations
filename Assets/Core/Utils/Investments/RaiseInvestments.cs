@@ -33,7 +33,7 @@
         {
             long opinion = 0;
 
-            bool isSuitableByGoal = IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal);
+            bool isSuitableByGoal = true; // IsInvestorSuitableByGoal(investor.shareholder.InvestorType, company.companyGoal.InvestorGoal);
 
             var goalComparison = isSuitableByGoal ? 25 : -1000;
             opinion += goalComparison;
