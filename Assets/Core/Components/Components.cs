@@ -285,6 +285,36 @@ public class InvestmentGoalGrowCost : InvestmentGoal
     }
 }
 
+public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
+{
+    public int CompanyId;
+
+    public InvestmentGoalOutcompeteByIncome(int id) : base(InvestorGoalType.OutcompeteCompanyByIncome)
+    {
+        CompanyId = id;
+    }
+}
+
+public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
+{
+    public int CompanyId;
+
+    public InvestmentGoalOutcompeteByUsers(int id) : base(InvestorGoalType.OutcompeteCompanyByUsers)
+    {
+        CompanyId = id;
+    }
+}
+
+//public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
+//{
+//    public int CompanyId;
+
+//    public InvestmentGoalOutcompeteByUsers(int id) : base(InvestorGoalType.OutcompeteCompanyByMarketShare)
+//    {
+//        CompanyId = id;
+//    }
+//}
+
 
 
 public class InvestmentProposal

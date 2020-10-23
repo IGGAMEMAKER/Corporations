@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public struct GoalRequirements
 {
@@ -42,6 +43,44 @@ namespace Assets.Core
             return company.completedGoals.Goals.Contains(goal);
         }
 
+        public static int GetStrongerCompetitorId(GameEntity company, GameContext gameContext)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, true).OrderByDescending(c => Economy.CostOf(c, gameContext)).ToList();
+            var index = competitors.FindIndex(c => c.company.Id == company.company.Id);
+
+            var nearestCompetitor = Companies.GetCompetitorsOfCompany(company, gameContext, true);
+
+            if (index == 0)
+                return -1;
+
+            return competitors[index - 1].company.Id;
+        }
+
+        public static InvestmentGoal GetInvestmentGoal(GameEntity company, GameContext gameContext, InvestorGoalType goalType)
+        {
+            var strongerOpponentId = GetStrongerCompetitorId(company, gameContext);
+
+            switch (goalType)
+            {
+                case InvestorGoalType.Prototype:        return new InvestmentGoalMakePrototype();
+                case InvestorGoalType.Release:          return new InvestmentGoalRelease();
+                case InvestorGoalType.BecomeMarketFit:  return new InvestmentGoalMakeProductMarketFit();
+                case InvestorGoalType.FirstUsers:       return new InvestmentGoalFirstUsers(2_000);
+
+                case InvestorGoalType.GrowIncome:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
+                case InvestorGoalType.GrowUserBase:     return new InvestmentGoalGrowAudience(Marketing.GetUsers(company) * 2);
+                case InvestorGoalType.GrowCompanyCost:  return new InvestmentGoalGrowCost(Economy.CostOf(company, gameContext) * 2);
+
+                case InvestorGoalType.OutcompeteCompanyByIncome: return new InvestmentGoalOutcompeteByIncome(strongerOpponentId);
+                case InvestorGoalType.OutcompeteCompanyByUsers: return new InvestmentGoalOutcompeteByUsers(strongerOpponentId);
+                //case InvestorGoalType.OutcompeteCompanyByUsers: return new InvestmentGoalOutcompeteByUsers(strongerOpponentId);
+
+                case InvestorGoalType.Operationing:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
+
+                default: return new InvestmentGoal();
+            }
+        }
+
         public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
         {
             var users = Marketing.GetUsers(company);
@@ -57,7 +96,8 @@ namespace Assets.Core
             var minLoyalty = 5;
             var marketFit = 10; // 10 cause it allows monetisation for ads
 
-            List<InvestorGoalType> RedoableGoals = new List<InvestorGoalType> {
+            List<InvestorGoalType> RedoableGoals = new List<InvestorGoalType>
+            {
                 InvestorGoalType.GrowIncome, InvestorGoalType.GrowUserBase, InvestorGoalType.GainMoreSegments,
                 InvestorGoalType.OutcompeteCompanyByUsers, InvestorGoalType.OutcompeteCompanyByMarketShare, InvestorGoalType.OutcompeteCompanyByIncome,
                 InvestorGoalType.AcquireCompany, InvestorGoalType.GrowCompanyCost
@@ -80,7 +120,12 @@ namespace Assets.Core
 
             bool profitable = Economy.IsProfitable(gameContext, company);
 
-            
+            var strongerCompetitorId = GetStrongerCompetitorId(company, gameContext);
+            bool hasStrongerOpposition = strongerCompetitorId >= 0;
+
+            bool solidCompany = (releasedProduct || isGroup) && profitable && income > 1_000_000;
+
+            bool hasWeakerCompanies = !hasStrongerOpposition; // is dominant on market
 
             switch (goal)
             {
@@ -114,7 +159,23 @@ namespace Assets.Core
 
                 // BOTH
                 case InvestorGoalType.GrowCompanyCost:
-                    return (releasedProduct || isGroup) && profitable;
+                    return solidCompany;
+
+                case InvestorGoalType.OutcompeteCompanyByIncome:
+                    return solidCompany && hasStrongerOpposition;
+
+                case InvestorGoalType.OutcompeteCompanyByMarketShare:
+                    return solidCompany && hasStrongerOpposition;
+
+                case InvestorGoalType.AcquireCompany:
+                    return solidCompany && hasWeakerCompanies;
+
+                //case InvestorGoalType.DiversifyIncome:
+                //    if (releasedProduct && profitable && income > 500_000 && Products.GetMonetisationFeatures(company).Length )
+                //    {
+
+                //    }
+                //    return (releasedProduct || isGroup) && profitable && income > 
 
                 case InvestorGoalType.BecomeProfitable:
                     return !profitable;
@@ -151,7 +212,7 @@ namespace Assets.Core
             }
         }
 
-        internal static void AddCompanyGoal(GameEntity company, InvestmentGoal goal)
+        public static void AddCompanyGoal(GameEntity company, InvestmentGoal goal)
         {
             company.companyGoal.Goals.Add(goal);
         }

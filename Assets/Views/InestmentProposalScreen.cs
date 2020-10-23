@@ -35,6 +35,7 @@ public class InestmentProposalScreen : View
 
     long Sum = -1;
     InvestorGoalType InvestorGoal;
+    public InvestmentGoal Goal;
     bool goalWasChosen = false;
     int urgency = -1;
 
@@ -64,13 +65,6 @@ public class InestmentProposalScreen : View
     public override void ViewRender()
     {
         base.ViewRender();
-
-        Debug.Log("InvestmentProposalScreen");
-
-
-        //StartRoundButton.GetComponentInChildren<Button>().interactable = !isRoundActive;
-        //StartRoundButton.GetComponent<Blinker>().enabled = !isRoundActive;
-
 
         Draw(GrowthStrategyTab, isRoundActive && noGrowth);
         Draw(VotingStrategyTab, isRoundActive && !noGrowth && noVoting);
@@ -134,7 +128,6 @@ public class InestmentProposalScreen : View
     {
         Show(PossibleInvestorsLabel);
         //ShowOnly(PossibleInvestorsPanel, OfferPanels);
-
     }
 
     // ----------------------
@@ -192,6 +185,9 @@ public class InestmentProposalScreen : View
         InvestorGoal = investorGoal;
         goalWasChosen = true;
         //Sum = -1;
+
+        Goal = Investments.GetInvestmentGoal(MyCompany, Q, investorGoal); // new InvestmentGoal(investorGoal);
+
 
         ViewRender();
     }

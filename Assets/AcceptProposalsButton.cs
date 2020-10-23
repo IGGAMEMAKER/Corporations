@@ -8,5 +8,9 @@ public class AcceptProposalsButton : ButtonController
         Companies.AcceptAllInvestmentProposals(MyCompany, Q);
 
         MyCompany.RemoveAcceptsInvestments();
+
+        var goal = FindObjectOfType<InestmentProposalScreen>().Goal;
+
+        Investments.AddCompanyGoal(Flagship, goal);
     }
 }

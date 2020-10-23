@@ -32,17 +32,20 @@ public class RenderCompanyGoalListView : ListView
 public class CompanyGoalButtonView : CompanyUpgradeButton
 {
     InvestorGoalType InvestorGoal;
+    InvestmentGoal Goal;
 
     public void SetEntity(InvestorGoalType goal)
     {
         InvestorGoal = goal;
+
+        Goal = Investments.GetInvestmentGoal(Flagship, Q, goal);
 
         ViewRender();
     }
 
     public override string GetButtonTitle()
     {
-        return InvestorGoal.ToString();
+        return Investments.GetFormattedInvestorGoal(InvestorGoal);
     }
 
     public override string GetBenefits()

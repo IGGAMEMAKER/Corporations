@@ -12,6 +12,7 @@ public class CompanyTaskTypeRelay : View
     public GameObject FeatureCounter;
     public GameObject MarketingCounter;
     public GameObject TeamCounter;
+    public GameObject GoalCounter;
 
     [Header("Buttons")]
     public GameObject MarketingButton;
@@ -57,7 +58,12 @@ public class CompanyTaskTypeRelay : View
 
     private void RenderMissionsButton()
     {
-        Draw(MissionButton, false);
+        bool hasGoals = Flagship.companyGoal.Goals.Count > 0;
+        bool completedGoals = Flagship.completedGoals.Goals.Count > 0;
+        Draw(MissionButton, hasGoals || completedGoals);
+
+        Draw(GoalCounter, hasGoals);
+
     }
 
     void RenderFeatureButton()
