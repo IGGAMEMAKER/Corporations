@@ -53,7 +53,7 @@ namespace Assets.Core
             AddFocusIndustry(industry, product);
 
 
-            Investments.SetCompanyGoal(context, product, new InvestmentGoalMakePrototype());
+            Investments.AddCompanyGoal(product, new InvestmentGoalMakePrototype());
 
             return product;
         }

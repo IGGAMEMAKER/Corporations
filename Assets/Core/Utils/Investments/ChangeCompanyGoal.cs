@@ -10,7 +10,7 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static bool IsGoalCompleted(GameEntity company, GameContext gameContext, InvestmentGoal goal)
+        public static bool CanCompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
             var r = GetGoalRequirements(company, gameContext, goal);
 
@@ -129,7 +129,7 @@ namespace Assets.Core
 
         public static void CompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal, bool forceComplete = false)
         {
-            if (forceComplete || IsGoalCompleted(company, gameContext, goal))
+            if (forceComplete || CanCompleteGoal(company, gameContext, goal))
             {
                 company.completedGoals.Goals.Add(goal.InvestorGoalType);
             }
@@ -137,36 +137,23 @@ namespace Assets.Core
 
         public static void CompleteGoals(GameEntity company, GameContext gameContext)
         {
-            foreach (var g in company.companyGoal.Goals)
+            var goals = company.companyGoal.Goals;
+
+            for (var i = goals.Count - 1; i > 0; i--)
             {
-                if (IsGoalCompleted(company, gameContext, g))
+                var g = goals[i];
+
+                if (CanCompleteGoal(company, gameContext, g))
                 {
                     company.completedGoals.Goals.Add(g.InvestorGoalType);
+                    goals.RemoveAt(i);
                 }
             }
         }
 
-        internal static void SetCompanyGoal(GameContext gameContext, GameEntity company, InvestmentGoal goal)
+        internal static void AddCompanyGoal(GameEntity company, InvestmentGoal goal)
         {
-            //long measurableGoal = 5000;
-
-            //switch (goal.InvestorGoalType)
-            //{
-            //    case InvestorGoalType.Prototype: measurableGoal = 1; break;
-            //    case InvestorGoalType.FirstUsers: measurableGoal = 500; break;
-
-            //    case InvestorGoalType.BecomeMarketFit: measurableGoal = -1; break;
-            //    case InvestorGoalType.Release: measurableGoal = 1; break;
-
-            //    case InvestorGoalType.BecomeProfitable: measurableGoal = 0; break;
-            //    case InvestorGoalType.IPO: measurableGoal = 1; break;
-
-            //    case InvestorGoalType.GrowCompanyCost:
-            //        measurableGoal = Economy.CostOf(company, gameContext) * (100 + C.INVESTMENT_GOAL_GROWTH_REQUIREMENT_COMPANY_COST) / 100;
-            //        break;
-            //}
             company.companyGoal.Goals.Add(goal);
-            //company.ReplaceCompanyGoal(goal.InvestorGoalType, measurableGoal, company.companyGoal.Goals);
         }
     }
 }
