@@ -6,19 +6,19 @@ namespace Assets.Core
     {
         public static string GetFormattedCompanyGoals(GameEntity company)
         {
-            return string.Join("\n", company.companyGoal.Goals.Select(g => Investments.GetFormattedInvestorGoal(g.InvestorGoalType)));
+            return string.Join("\n", company.companyGoal.Goals.Select(g => GetFormattedInvestorGoal(g.InvestorGoalType)));
         }
         public static string GetFormattedInvestorGoal(InvestorGoalType investorGoal)
         {
             switch (investorGoal)
             {
-                case InvestorGoalType.Prototype:
+                case InvestorGoalType.ProductPrototype:
                     return "Create a prototype";
 
-                case InvestorGoalType.FirstUsers:
+                case InvestorGoalType.ProductFirstUsers:
                     return "Get first users";
 
-                case InvestorGoalType.BecomeMarketFit:
+                case InvestorGoalType.ProductBecomeMarketFit:
                     return "Become market fit";
 
                 case InvestorGoalType.BecomeProfitable:

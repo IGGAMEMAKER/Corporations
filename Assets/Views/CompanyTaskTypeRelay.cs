@@ -62,8 +62,8 @@ public class CompanyTaskTypeRelay : View
         bool completedGoals = Flagship.completedGoals.Goals.Count > 0;
         Draw(MissionButton, hasGoals || completedGoals);
 
+        bool canCompleteGoals = Investments.IsCanCompleteAnyGoal(Flagship, Q);
         Draw(GoalCounter, hasGoals);
-
     }
 
     void RenderFeatureButton()

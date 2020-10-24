@@ -11,19 +11,19 @@ namespace Assets.Core
             switch (goal.InvestorGoalType)
             {
                 // product company goals
-                case InvestorGoalType.Prototype:
+                case InvestorGoalType.ProductPrototype:
                     return Wrap(GoalPrototype(company, gameContext));
 
-                case InvestorGoalType.FirstUsers:
+                case InvestorGoalType.ProductFirstUsers:
                     return Wrap(GoalFirstUsers(company, gameContext));
 
                 case InvestorGoalType.GrowUserBase:
                     return Wrap(GoalGrowUserBase(company, gameContext, goal));
 
-                case InvestorGoalType.Release:
+                case InvestorGoalType.ProductRelease:
                     return Wrap(GoalRelease(company, gameContext));
 
-                case InvestorGoalType.BecomeMarketFit:
+                case InvestorGoalType.ProductBecomeMarketFit:
                     return Wrap(GoalMarketFit(company, gameContext));
 
                 // company group goals

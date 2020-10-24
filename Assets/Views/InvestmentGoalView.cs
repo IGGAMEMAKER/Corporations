@@ -18,7 +18,7 @@ public class InvestmentGoalView : View
     {
         switch (investorGoal)
         {
-            case InvestorGoalType.Prototype:
+            case InvestorGoalType.ProductPrototype:
                 NeedLabel.text = "Improved Core Users";
                 NeedValue.text = Format.Minify(requirements.need);
 
@@ -26,7 +26,7 @@ public class InvestmentGoalView : View
                 HaveValue.text = Format.Minify(requirements.have);
                 break;
 
-            case InvestorGoalType.Release:
+            case InvestorGoalType.ProductRelease:
                 NeedLabel.text = "Release your app";
                 NeedValue.text = Format.Minify(requirements.need);
 
@@ -34,7 +34,7 @@ public class InvestmentGoalView : View
                 HaveValue.text = ""; // ValueFormatter.Shorten(requirements.have);
                 break;
 
-            case InvestorGoalType.FirstUsers:
+            case InvestorGoalType.ProductFirstUsers:
                 NeedLabel.text = "Required amount of users";
                 NeedValue.text = Format.Minify(requirements.need);
 
@@ -42,7 +42,7 @@ public class InvestmentGoalView : View
                 HaveValue.text = Format.Minify(requirements.have);
                 break;
 
-            case InvestorGoalType.BecomeMarketFit:
+            case InvestorGoalType.ProductBecomeMarketFit:
                 NeedLabel.text = "Required product level";
                 NeedValue.text = Format.Minify(requirements.need);
 

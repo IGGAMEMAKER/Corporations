@@ -30,19 +30,19 @@ public class GoalView : View
 
         switch (goal.InvestorGoalType)
         {
-            case InvestorGoalType.Prototype:
+            case InvestorGoalType.ProductPrototype:
                 SetPanel("Make test audience loyal", req, "Loyalty");
                 break;
 
-            case InvestorGoalType.BecomeMarketFit:
+            case InvestorGoalType.ProductBecomeMarketFit:
                 SetPanel("Make audience extremely loyal", req, "Loyalty");
                 break;
 
-            case InvestorGoalType.FirstUsers:
+            case InvestorGoalType.ProductFirstUsers:
                 SetPanel($"Accumulate {Format.Minify(req.need)} users", req, "Users");
                 break;
 
-            case InvestorGoalType.Release:
+            case InvestorGoalType.ProductRelease:
                 SetPanel("Release your product!", req, "Is not released");
                 break;
 

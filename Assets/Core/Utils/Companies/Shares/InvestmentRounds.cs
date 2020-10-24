@@ -35,16 +35,16 @@ namespace Assets.Core
 
         public static InvestmentRound GetInvestmentRoundName(GameEntity company)
         {
-            if (HasGoal(company, InvestorGoalType.Prototype))
+            if (HasGoal(company, InvestorGoalType.ProductPrototype))
                 return InvestmentRound.Preseed;
 
-            if (HasGoal(company, InvestorGoalType.FirstUsers))
+            if (HasGoal(company, InvestorGoalType.ProductFirstUsers))
                 return InvestmentRound.Seed;
 
-            if (HasGoal(company, InvestorGoalType.BecomeMarketFit))
+            if (HasGoal(company, InvestorGoalType.ProductBecomeMarketFit))
                 return InvestmentRound.A;
 
-            if (HasGoal(company, InvestorGoalType.Release))
+            if (HasGoal(company, InvestorGoalType.ProductRelease))
                 return InvestmentRound.B;
 
             if (HasGoal(company, InvestorGoalType.BecomeProfitable))

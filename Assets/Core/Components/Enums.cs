@@ -230,11 +230,11 @@ public enum InvestorGoalType
 {
     None,
 
-    Prototype,
-    FirstUsers,
+    ProductPrototype,
+    ProductFirstUsers,
 
-    BecomeMarketFit,
-    Release,
+    ProductBecomeMarketFit,
+    ProductRelease,
     BecomeProfitable,
         //BecomeBestByTech, // 
         //GrowClientBase, // 

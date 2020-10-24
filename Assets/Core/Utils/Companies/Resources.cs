@@ -5,7 +5,6 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static void SpendResourcesOfManaingCompany(GameEntity company, long money, GameContext gameContext) => SpendResources(GetManagingCompanyOf(company, gameContext), new TeamResource(money));
         public static void SpendResources(GameEntity company, long money) => SpendResources(company, new TeamResource(money));
         public static void SpendResources(GameEntity company, TeamResource resource)
         {

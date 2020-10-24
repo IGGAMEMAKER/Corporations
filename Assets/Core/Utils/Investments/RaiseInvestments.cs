@@ -104,7 +104,7 @@
         {
             switch (goal)
             {
-                case InvestorGoalType.BecomeMarketFit:
+                case InvestorGoalType.ProductBecomeMarketFit:
                     return shareholderType == InvestorType.Angel;
 
                 case InvestorGoalType.BecomeProfitable:
@@ -116,8 +116,8 @@
                 case InvestorGoalType.IPO:
                     return shareholderType == InvestorType.Strategic || shareholderType == InvestorType.VentureInvestor;
 
-                case InvestorGoalType.Prototype:
-                case InvestorGoalType.FirstUsers:
+                case InvestorGoalType.ProductPrototype:
+                case InvestorGoalType.ProductFirstUsers:
                 default:
                     return shareholderType == InvestorType.FFF;
             }
