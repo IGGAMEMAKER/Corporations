@@ -59,6 +59,28 @@ public abstract class InvestmentGoal
 
 }
 
+public class InvestmentGoalUnknown : InvestmentGoal
+{
+    public InvestmentGoalUnknown(InvestorGoalType investorGoalType) : base(investorGoalType)
+    {
+
+    }
+
+    public override string GetFormattedName() => "Unknown: " + InvestorGoalType.ToString();
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        var Loyalty = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company));
+        return Wrap(new GoalRequirements
+        {
+            have = 0,
+            need = 5,
+
+            description = "Unknown requirements?"
+        });
+    }
+}
+
 public class InvestmentGoalMakePrototype : InvestmentGoal
 {
     public InvestmentGoalMakePrototype() : base(InvestorGoalType.ProductPrototype) { }
@@ -67,10 +89,9 @@ public class InvestmentGoalMakePrototype : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        var Loyalty = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company));
         return Wrap(new GoalRequirements
         {
-            have = Loyalty,
+            have = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)),
             need = 5,
 
             description = "Loyalty > 5"
@@ -87,13 +108,11 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
         return "Make product market fit";
     }
 
-    long Loyalty(GameEntity company) => (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company));
-
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
         return Wrap(new GoalRequirements
         {
-            have = Loyalty(company),
+            have = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)),
             need = 10,
 
             description = "Loyalty > 10"

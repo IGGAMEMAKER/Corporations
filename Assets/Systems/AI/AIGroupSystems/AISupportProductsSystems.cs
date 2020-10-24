@@ -69,9 +69,11 @@ public partial class AISupportProductsSystem : OnPeriodChange
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
+        var goal = new InvestmentGoalUnknown(InvestorGoalType.GrowCompanyCost);
+
         var proposal = new InvestmentProposal
         {
-            Investment = new Investment(sum, 1, InvestorBonus.None, new InvestmentGoal(), date),
+            Investment = new Investment(sum, 1, goal, date),
             AdditionalShares = 0,
 
             ShareholderId = managingCompany.shareholder.Id,

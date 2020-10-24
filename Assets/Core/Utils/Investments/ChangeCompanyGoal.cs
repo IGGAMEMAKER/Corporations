@@ -91,7 +91,7 @@ namespace Assets.Core
 
                 case InvestorGoalType.Operationing:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
 
-                default: return new InvestmentGoal();
+                default: return new InvestmentGoalUnknown(goalType);
             }
         }
 

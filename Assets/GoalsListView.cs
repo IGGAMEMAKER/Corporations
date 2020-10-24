@@ -10,7 +10,7 @@ public class GoalsListView : ListView
         var goal = (InvestmentGoal)(object)entity;
 
         var title = goal.GetFormattedName(); // Investments.GetFormattedInvestorGoal(goal.InvestorGoalType);
-        var description = goal.GetFormattedRequirements();
+        var description = goal.GetFormattedRequirements(Flagship, Q);
 
         t.GetComponent<MockText>().SetEntity($"<b>{title}</b>\n{description}");
     }

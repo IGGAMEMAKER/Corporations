@@ -176,13 +176,12 @@ public class Investment
     public int Duration; // int in months
     public long Portion;
 
-    public InvestorBonus InvestorBonus;
     public InvestmentGoal InvestmentGoal;
 
     public int RemainingPeriods; // int in periods
     public int StartDate; // you will not get money before that date
 
-    public Investment(long Offer, int Duration, InvestorBonus investorBonus, InvestmentGoal investmentGoal, int StartDate)
+    public Investment(long Offer, int Duration, InvestmentGoal investmentGoal, int StartDate)
     {
         this.Offer = Offer;
         this.Duration = Duration;
@@ -200,7 +199,6 @@ public class Investment
             Portion = Offer;
         }
 
-        InvestorBonus = investorBonus;
         InvestmentGoal = investmentGoal;
     }
 }
