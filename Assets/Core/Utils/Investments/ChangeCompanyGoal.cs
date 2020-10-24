@@ -100,6 +100,8 @@ namespace Assets.Core
             if (forceComplete || CanCompleteGoal(company, gameContext, goal))
             {
                 company.completedGoals.Goals.Add(goal.InvestorGoalType);
+
+                company.companyGoal.Goals.Remove(goal);
             }
         }
 
