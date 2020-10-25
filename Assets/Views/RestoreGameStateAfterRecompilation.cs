@@ -243,9 +243,9 @@ public class RestoreGameStateAfterRecompilation : View
 
 
         // investors
-        int investorId1 = GenerateInvestmentFund("Morgan Stanley", 1000000);
-        int investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
-        int investorId3 = GenerateInvestmentFund("Morgan J.P.", 3000000);
+        var investorId1 = GenerateInvestmentFund("Morgan Stanley", 1000000);
+        var investorId2 = GenerateInvestmentFund("Goldman Sachs", 2000000);
+        var investorId3 = GenerateInvestmentFund("Morgan J.P.", 3000000);
 
         int alphabet = GenerateHoldingCompany("Alphabet");
         AttachToHolding(alphabet, google);
@@ -349,9 +349,9 @@ public class RestoreGameStateAfterRecompilation : View
         return product;
     }
 
-    int GenerateInvestmentFund(string name, long money)
+    GameEntity GenerateInvestmentFund(string name, long money)
     {
-        return Companies.GenerateInvestmentFund(Q, name, money).shareholder.Id;
+        return Companies.GenerateInvestmentFund(Q, name, money);
     }
 
     int GenerateHoldingCompany(string name)
@@ -372,12 +372,12 @@ public class RestoreGameStateAfterRecompilation : View
     }
 
 
-    void AddShareholder(int companyId, int investorId, int shares)
+    void AddShareholder(int companyId, GameEntity investorId, int shares)
     {
         //Debug.Log($"Add Shareholder {investorId} with {shares} shares to {companyId}");
         var company = Companies.Get(Q, companyId);
 
-        Companies.AddShareholder(Q, company, investorId, shares);
+        Companies.AddShareholder(company, investorId, shares);
     }
 
     int PromoteToGroup(int companyId)
@@ -402,16 +402,6 @@ public class RestoreGameStateAfterRecompilation : View
     {
         for (var i = 0; i < amountOfInvestors; i++)
             Investments.GenerateAngel(Q);
-    }
-
-    int GetRandomInvestmentFund()
-    {
-        return Investments.GetRandomInvestmentFund(Q);
-    }
-
-    int GetRandomInvestorId()
-    {
-        return GetRandomInvestmentFund();
     }
 
     private void AutoFillProposals()

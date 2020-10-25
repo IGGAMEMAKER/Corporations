@@ -12,7 +12,7 @@ namespace Assets.Core
 
         // Add shareholder
 
-        public static void AddShareholder(GameContext context, GameEntity company, int investorId, int shares) => AddShareholder(company, GetInvestorById(context, investorId), shares);
+        //public static void AddShareholder(GameContext context, GameEntity company, int investorId, int shares) => AddShareholder(company, GetInvestorById(context, investorId), shares);
         public static void AddShareholder(GameEntity company, GameEntity investor, int shares)
         {
             var b = new BlockOfShares

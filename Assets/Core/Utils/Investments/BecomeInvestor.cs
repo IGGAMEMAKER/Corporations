@@ -36,8 +36,10 @@
 
                 if (!e.hasCompanyResource)
                 {
-                    e.AddCompanyResource(new TeamResource(money));
                     e.AddCompanyResourceHistory(new System.Collections.Generic.List<ResourceTransaction>());
+                    e.AddCompanyResource(new TeamResource());
+
+                    Companies.SetResources(e, money, "Become investor");
                 }
             }
 

@@ -128,13 +128,13 @@
             return 1;
         }
 
-        public static int GetRandomInvestmentFund(GameContext context)
+        public static GameEntity GetRandomInvestmentFund(GameContext context)
         {
             var funds = Companies.GetInvestmentFunds(context);
 
             var index = UnityEngine.Random.Range(0, funds.Length);
 
-            return funds[index].shareholder.Id;
+            return funds[index];
         }
     }
 }

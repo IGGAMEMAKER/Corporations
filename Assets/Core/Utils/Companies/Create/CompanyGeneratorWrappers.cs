@@ -123,9 +123,9 @@ namespace Assets.Core
 
             for (var i = 0; i < UnityEngine.Random.Range(1, 5); i++)
             {
-                int investorId = Investments.GetRandomInvestmentFund(gameContext);
+                var investor = Investments.GetRandomInvestmentFund(gameContext);
 
-                AddShareholder(gameContext, c, investorId, 100);
+                AddShareholder(c, investor, 100);
             }
         }
 

@@ -40,6 +40,7 @@ namespace Assets.Core
             TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares);
 
             Debug.Log("Transferred");
+
             GetMoneyFromInvestor(context, buyerInvestorId, bid);
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
