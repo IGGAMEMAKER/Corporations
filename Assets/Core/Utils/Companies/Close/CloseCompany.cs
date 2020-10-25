@@ -7,8 +7,12 @@ namespace Assets.Core
     {
         public static GameEntity CloseCompany(GameContext context, GameEntity e)
         {
+            var balance = Economy.BalanceOf(e);
+
+            e.companyResourceHistory.Actions.Add(new ResourceTransaction { Tag = "Close company", TeamResource = new TeamResource(balance) });
+            
             // pay to everyone
-            PayDividends(context, e, Economy.BalanceOf(e));
+            PayDividends(context, e, balance);
 
             // fire everyone
 

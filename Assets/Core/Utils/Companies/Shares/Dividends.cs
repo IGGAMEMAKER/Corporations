@@ -5,15 +5,6 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void PayDividends(GameContext gameContext, GameEntity company)
-        {
-            int dividendSize = 33;
-            var balance = Economy.BalanceOf(company);
-
-            var dividends = balance * dividendSize / 100;
-
-            PayDividends(gameContext, company, dividends);
-        }
         public static void PayDividends(GameContext gameContext, GameEntity company, long dividends)
         {
             foreach (var s in company.shareholders.Shareholders)
