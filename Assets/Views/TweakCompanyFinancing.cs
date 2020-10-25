@@ -22,7 +22,7 @@ public class TweakCompanyFinancing : View
 
         var c = Companies.Get(Q, MyGroupEntity.company.Id);
 
-        var total = c.companyResource.Resources.money;
+        var total = Economy.BalanceOf(c);
 
         var investments = total * percent / 100;
 

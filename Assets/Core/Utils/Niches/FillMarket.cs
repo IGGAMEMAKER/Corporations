@@ -80,7 +80,8 @@ namespace Assets.Core
         public static GameEntity SpawnCompany(GameEntity niche, GameContext gameContext, long leaderFunds)
         {
             var product = Companies.AutoGenerateProductCompany(niche.niche.NicheType, gameContext);
-            Companies.SetStartCapital(product, leaderFunds);
+
+            Companies.SetResources(product, leaderFunds, "start capital for spawned company");
 
             return product;
         }

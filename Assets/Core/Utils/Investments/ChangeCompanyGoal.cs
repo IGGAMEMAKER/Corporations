@@ -75,12 +75,16 @@ namespace Assets.Core
         {
             var strongerOpponent = GetStrongerCompetitor(company, gameContext);
 
+            var income = Economy.GetIncome(gameContext, company);
+
             switch (goalType)
             {
                 case InvestorGoalType.ProductPrototype:        return new InvestmentGoalMakePrototype();
                 case InvestorGoalType.ProductFirstUsers:       return new InvestmentGoalFirstUsers(2_000);
                 case InvestorGoalType.ProductBecomeMarketFit:  return new InvestmentGoalMakeProductMarketFit();
                 case InvestorGoalType.ProductRelease:          return new InvestmentGoalRelease();
+
+                case InvestorGoalType.BecomeProfitable:         return new InvestmentGoalBecomeProfitable(income);
 
                 case InvestorGoalType.GrowIncome:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
                 case InvestorGoalType.GrowUserBase:     return new InvestmentGoalGrowAudience(Marketing.GetUsers(company) * 2);

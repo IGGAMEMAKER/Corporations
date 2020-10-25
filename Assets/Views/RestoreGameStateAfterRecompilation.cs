@@ -341,7 +341,10 @@ public class RestoreGameStateAfterRecompilation : View
     {
         var product = Companies.GenerateProductCompany(Q, name, nicheType);
 
-        Companies.SetStartCapital(product, Q);
+        var niche = Markets.Get(Q, product);
+        var startCapital = Markets.GetStartCapital(niche, Q) * Random.Range(150, 200) / 100;
+
+        Companies.SetResources(product, startCapital, "start capital in game restore");
 
         return product;
     }

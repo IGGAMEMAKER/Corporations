@@ -13,8 +13,8 @@ public class RenderCompanyGoalDropDown : View
     {
         var options = new List<Dropdown.OptionData>();
 
-        foreach (InvestorGoalType goal in (InvestorGoalType[])Enum.GetValues(typeof(InvestorGoalType)))
-            options.Add(new Dropdown.OptionData(Investments.GetFormattedInvestorGoal(goal)));
+        //foreach (InvestorGoalType goal in (InvestorGoalType[])Enum.GetValues(typeof(InvestorGoalType)))
+            //options.Add(new Dropdown.OptionData(Investments.GetFormattedInvestorGoal(goal)));
 
         Dropdown.ClearOptions();
         Dropdown.AddOptions(options);

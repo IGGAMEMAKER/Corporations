@@ -28,8 +28,8 @@
 
 
             var portion = p.Investment.Portion;
-            Economy.IncreaseCompanyBalance(company, portion);
-            Economy.DecreaseInvestmentFunds(investor, portion);
+            AddResources(company, portion, "accept investments");
+            SpendResources(investor, portion, "spend on investments");
 
             MarkProposalAsAccepted(company, investorId);
         }

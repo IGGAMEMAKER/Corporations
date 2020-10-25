@@ -42,19 +42,6 @@ namespace Assets.Core
             return t == CompanyType.Corporation || t == CompanyType.Group || t == CompanyType.Holding;
         }
 
-        //public static bool IsProduct(GameEntity gameEntity)
-        //{
-        //    return gameEntity.company.CompanyType == CompanyType.ProductCompany;
-        //}
-
-
-        public static void SupportCompany(GameEntity main, GameEntity daughter, long money)
-        {
-            SpendResources(main, money);
-            daughter.companyResource.Resources.AddMoney(money);
-        }
-
-
         // Update
         public static void Rename(GameContext context, int companyId, string name)
         {

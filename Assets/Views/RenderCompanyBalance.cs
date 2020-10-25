@@ -9,6 +9,6 @@ public class RenderCompanyBalance : UpgradedParameterView
 
     public override string RenderValue()
     {
-        return Format.Minify(SelectedCompany.companyResource.Resources.money);
+        return Format.Minify(Economy.BalanceOf(SelectedCompany));
     }
 }

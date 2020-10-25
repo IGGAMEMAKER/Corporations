@@ -9,9 +9,7 @@ public class PayDividendsController : ButtonController
 
     public override void Execute()
     {
-        companyId = SelectedCompany.company.Id;
-
-        Companies.PayDividends(Q, companyId);
+        Companies.PayDividends(Q, SelectedCompany);
     }
 
     public void SetDividendCompany(int CompanyId)

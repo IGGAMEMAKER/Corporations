@@ -89,6 +89,22 @@ public class CompanyResourceComponent : IComponent
     public TeamResource Resources;
 }
 
+public class ResourceTransaction
+{
+    public string Tag;
+    public TeamResource TeamResource;
+
+    public string Print()
+    {
+        return Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource.money);
+    }
+}
+
+public class CompanyResourceHistoryComponent : IComponent
+{
+    public List<ResourceTransaction> Actions;
+}
+
 [Game]
 public class InvestmentProposalsComponent : IComponent
 {

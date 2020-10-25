@@ -45,12 +45,12 @@ public class CompanyGoalButtonView : CompanyUpgradeButton
 
     public override string GetButtonTitle()
     {
-        return Investments.GetFormattedInvestorGoal(InvestorGoal);
+        return Goal.GetFormattedName();
     }
 
     public override string GetBenefits()
     {
-        return "???";
+        return Goal.GetFormattedRequirements(Flagship, Q);
     }
 
     public override bool GetState()

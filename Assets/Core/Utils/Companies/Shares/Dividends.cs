@@ -5,7 +5,6 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void PayDividends(GameContext gameContext, int companyId) => PayDividends(gameContext, Get(gameContext, companyId));
         public static void PayDividends(GameContext gameContext, GameEntity company)
         {
             int dividendSize = 33;
@@ -15,7 +14,6 @@ namespace Assets.Core
 
             PayDividends(gameContext, company, dividends);
         }
-
         public static void PayDividends(GameContext gameContext, GameEntity company, long dividends)
         {
             foreach (var s in company.shareholders.Shareholders)
@@ -28,9 +26,7 @@ namespace Assets.Core
                 AddMoneyToInvestor(gameContext, investorId, sum);
             }
 
-            SpendResources(company, dividends);
+            SpendResources(company, dividends, "dividends");
         }
-
-        //public static long BalanceOf(GameEntity company) => company.companyResource.Resources.money;
     }
 }

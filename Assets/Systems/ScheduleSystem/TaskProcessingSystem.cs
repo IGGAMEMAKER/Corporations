@@ -13,11 +13,7 @@ public partial class TaskProcessingSystem : OnDateChange
     {
         var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-        //Debug.Log("Loaded date: " + date);
-
         GameEntity[] tasks = Cooldowns.GetTimedActions(gameContext);
-
-        //Debug.Log($"Loaded {tasks.Count()} Tasks");
 
         for (var i = tasks.Length - 1; i >= 0; i--)
         {
@@ -52,7 +48,7 @@ public partial class TaskProcessingSystem : OnDateChange
         //return;
         var products = Companies.GetProductCompanies(gameContext);
 
-        Debug.Log("Products " + products.Count());
+        //Debug.Log("Products " + products.Count());
 
         foreach (var p in products)
         {

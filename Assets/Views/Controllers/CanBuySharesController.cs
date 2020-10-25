@@ -40,7 +40,7 @@ public class CanBuySharesController : View
         var cost = Companies.GetSharesCost(Q, company, investorId);
 
         // TODO we don't always buy companies as Company Group. We can do it as human or investment fund too!
-        var have = MyGroupEntity.companyResource.Resources.money;
+        var have = Economy.BalanceOf(MyGroupEntity);
 
         bool wantsToSell = WillSell(investorId, company.company.Id);
         bool canAfford = have >= cost;

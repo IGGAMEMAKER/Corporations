@@ -49,7 +49,7 @@ namespace Assets.Core
             });
 
 
-            Companies.SetResources(company, new TeamResource(startCapital));
+            Companies.SetResources(company, startCapital, "start capital");
 
             Companies.PlayAs(company, gameContext);
 

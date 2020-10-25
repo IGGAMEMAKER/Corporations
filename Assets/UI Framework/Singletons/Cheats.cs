@@ -8,7 +8,7 @@ public class Cheats : View
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.F8))
         {
-            Economy.IncreaseCompanyBalance(MyCompany, 1000000000);
+            Companies.AddResources(MyCompany, 1000000000, "CHEATS");
             Refresh();
         }
 

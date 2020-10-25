@@ -5,11 +5,10 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static GameEntity CloseCompany(GameContext context, int CompanyId) => CloseCompany(context, Get(context, CompanyId));
         public static GameEntity CloseCompany(GameContext context, GameEntity e)
         {
             // pay to everyone
-            PayDividends(context, e, e.companyResource.Resources.money);
+            PayDividends(context, e, Economy.BalanceOf(e));
 
             // fire everyone
 

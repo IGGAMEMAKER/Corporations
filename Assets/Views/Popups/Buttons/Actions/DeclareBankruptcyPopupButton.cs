@@ -15,7 +15,8 @@ public class DeclareBankruptcyPopupButton : PopupButtonController<PopupMessageBa
             Companies.CloseCompany(Q, daughters[i]);
         }
 
-        playerCompany.companyResource.Resources.Spend(playerCompany.companyResource.Resources);
+        Companies.SetResources(playerCompany, 0, "Bankruptcy");
+        //playerCompany.companyResource.Resources.Spend(playerCompany.companyResource.Resources);
         Teams.DismissTeam(playerCompany, Q);
 
         Debug.Log("Declared Bankruptcy");

@@ -21,7 +21,7 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
                 {
                     if (offer.RemainingPeriods > 0 && offer.StartDate >= date)
                     {
-                        Companies.AddResources(company, offer.Portion);
+                        Companies.AddResources(company, offer.Portion, "process investments");
 
                         offer.RemainingPeriods--;
                     }

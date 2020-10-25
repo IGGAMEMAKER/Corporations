@@ -88,7 +88,7 @@ namespace Assets.Core
             if (b.amount <= 0)
                 RemoveShareholder(company, context, sellerInvestorId);
 
-            SpendResources(company, cost);
+            SpendResources(company, cost, "Buy back");
             AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
     }

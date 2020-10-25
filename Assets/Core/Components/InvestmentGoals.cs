@@ -70,7 +70,6 @@ public class InvestmentGoalUnknown : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        var Loyalty = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company));
         return Wrap(new GoalRequirements
         {
             have = 0,
@@ -103,10 +102,7 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
 {
     public InvestmentGoalMakeProductMarketFit() : base(InvestorGoalType.ProductBecomeMarketFit) { }
 
-    public override string GetFormattedName()
-    {
-        return "Make product market fit";
-    }
+    public override string GetFormattedName() => "Make product market fit";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -187,6 +183,40 @@ public class InvestmentGoalGrowAudience : InvestmentGoal
     }
 }
 
+public class InvestmentGoalBecomeProfitable : InvestmentGoal
+{
+    public long Income;
+    public InvestmentGoalBecomeProfitable(long income) : base(InvestorGoalType.BecomeProfitable)
+    {
+        Income = income;
+    }
+    public override string GetFormattedName()
+    {
+        return "Become profitable";
+    }
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Economy.GetIncome(gameContext, company),
+                need = Income,
+
+                description = "Income > " + Format.MinifyMoney(Income)
+            },
+
+            new GoalRequirements
+            {
+                have = Economy.IsProfitable(gameContext, company) ? 1 : 0,
+                need = 1,
+
+                description = "Profitable"
+            }
+        };
+    }
+}
 public class InvestmentGoalGrowProfit : InvestmentGoal
 {
     public long Profit;
@@ -196,10 +226,7 @@ public class InvestmentGoalGrowProfit : InvestmentGoal
         Profit = profit;
     }
 
-    public override string GetFormattedName()
-    {
-        return "Grow profit";
-    }
+    public override string GetFormattedName() => "Grow profit";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -212,12 +239,6 @@ public class InvestmentGoalGrowProfit : InvestmentGoal
 
                 description = "Income > " + Format.MinifyMoney(Profit)
             },
-
-            //new GoalRequirements
-            //{
-            //    have = Economy.GetIncome(gameContext, company),
-            //    need = 
-            //}
         };
     }
 }
@@ -231,10 +252,7 @@ public class InvestmentGoalGrowCost : InvestmentGoal
         Cost = cost;
     }
 
-    public override string GetFormattedName()
-    {
-        return "Grow company cost";
-    }
+    public override string GetFormattedName() => "Grow company cost";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -262,10 +280,7 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
         CompetitorName = name;
     }
 
-    public override string GetFormattedName()
-    {
-        return "Outcompete " + CompetitorName + " by income";
-    }
+    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by income";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
@@ -294,10 +309,7 @@ public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
         CompetitorName = name;
     }
 
-    public override string GetFormattedName()
-    {
-        return "Outcompete " + CompetitorName + " by users";
-    }
+    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by users";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {

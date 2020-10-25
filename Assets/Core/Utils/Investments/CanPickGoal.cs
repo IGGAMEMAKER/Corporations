@@ -7,37 +7,33 @@ namespace Assets.Core
     {
         public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
         {
-            var users = Marketing.GetUsers(company);
-            var cost = Economy.CostOf(company, gameContext);
-
             bool isProduct = company.hasProduct;
-            bool isGroup = !isProduct;
-
-            var income = Economy.GetIncome(gameContext, company);
-
-            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(company);
-
-            var minLoyalty = 5;
-            var marketFit = 10; // 10 cause it allows monetisation for ads
-
-            List<InvestorGoalType> RedoableGoals = new List<InvestorGoalType>
-            {
-                InvestorGoalType.GrowIncome, InvestorGoalType.GrowUserBase, InvestorGoalType.GainMoreSegments,
-                InvestorGoalType.OutcompeteCompanyByUsers, InvestorGoalType.OutcompeteCompanyByMarketShare, InvestorGoalType.OutcompeteCompanyByIncome,
-                InvestorGoalType.AcquireCompany, InvestorGoalType.GrowCompanyCost
-            };
-
             List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
             {
-                InvestorGoalType.ProductRelease, InvestorGoalType.ProductBecomeMarketFit, InvestorGoalType.ProductFirstUsers, InvestorGoalType.ProductPrototype
+                InvestorGoalType.ProductRelease,
+                InvestorGoalType.ProductBecomeMarketFit,
+                InvestorGoalType.ProductFirstUsers,
+                InvestorGoalType.ProductPrototype
             };
 
             // this goal was done already && cannot be done twice
             if (company.completedGoals.Goals.Contains(goal) && OneTimeGoals.Contains(goal))
                 return false;
 
-            if (company.completedGoals.Goals.Count == 0)
+            if (company.completedGoals.Goals.Count == 0 && isProduct)
                 return goal == InvestorGoalType.ProductPrototype;
+
+
+            var users = Marketing.GetUsers(company);
+            var cost = Economy.CostOf(company, gameContext);
+            var income = Economy.GetIncome(gameContext, company);
+
+            bool isGroup = !isProduct;
+
+            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(company);
+
+            var marketFit = 10; // 10 cause it allows monetisation for ads
+
 
             bool isPrototype = isProduct && !company.isRelease && focusedProduct;
             bool releasedProduct = isProduct && company.isRelease;
@@ -50,22 +46,24 @@ namespace Assets.Core
             bool solidCompany = (releasedProduct || isGroup) && profitable && income > 1_000_000;
 
             bool hasWeakerCompanies = !hasStrongerOpposition; // is dominant on market
+            
+
 
             switch (goal)
             {
                 // PRODUCTS
 
-                //case InvestorGoalType.Prototype:
-                //    return focusedProduct && isPrototype && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty;
+                case InvestorGoalType.ProductPrototype:
+                    return isPrototype; // && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty
 
                 case InvestorGoalType.ProductBecomeMarketFit:
-                    return isPrototype && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+                    return isPrototype && Done(company, InvestorGoalType.ProductPrototype) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
 
                 case InvestorGoalType.ProductFirstUsers:
-                    return isPrototype && users < 2000;
+                    return isPrototype && Done(company, InvestorGoalType.ProductBecomeMarketFit) && users < 2000;
 
                 case InvestorGoalType.ProductRelease:
-                    return isPrototype;
+                    return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers);
 
                 case InvestorGoalType.GrowUserBase:
                     return releasedProduct && users > 50_000;
@@ -102,7 +100,7 @@ namespace Assets.Core
                 //    return (releasedProduct || isGroup) && profitable && income > 
 
                 case InvestorGoalType.BecomeProfitable:
-                    return !profitable;
+                    return solidCompany && !profitable;
 
                 case InvestorGoalType.None:
                     return false;

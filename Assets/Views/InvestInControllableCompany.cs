@@ -12,7 +12,7 @@ public class InvestInControllableCompany : ButtonController
 
         var c = MyGroupEntity;
 
-        long Offer = c.companyResource.Resources.money * Percent / 100;
+        long Offer = Economy.BalanceOf(c) * Percent / 100;
 
         int shareholderId = MyGroupEntity.shareholder.Id;
 

@@ -43,19 +43,14 @@ public class ScheduleRunnerSystem : IExecuteSystem
         {
             var playerCompany = Companies.GetPlayerCompany(gameContext);
 
-            var profit = Economy.GetProfit(gameContext, playerCompany, true);
-            var balance = Economy.BalanceOf(playerCompany);
-
-            Debug.Log("BANKRUPTCY THREAT profit: " + profit.ToString());
-            Debug.Log("BANKRUPTCY THREAT Balance: " + Format.Money(balance));
-
             while (ScheduleUtils.IsLastDayOfPeriod(DateEntity) && Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, playerCompany))
             {
-                if (playerCompany.isAutomaticInvestments && !Economy.IsHasCashOverflow(gameContext, playerCompany))
-                {
-                    //Economy.RaiseFastCash(gameContext, playerCompany);
-                    continue;
-                }
+                var profit = Economy.GetProfit(gameContext, playerCompany, true);
+                var profit2 = Economy.GetProfit(gameContext, playerCompany);
+
+                var balance = Economy.BalanceOf(playerCompany);
+
+                Debug.Log($"BANKRUPTCY THREAT for {playerCompany.company.Name}. Cash: {Format.Money(balance)}, Profit: {Format.Money(profit2)}\n\n{profit.ToString()}");
 
                 TutorialUtils.Unlock(gameContext, TutorialFunctionality.CanRaiseInvestments);
                 TutorialUtils.Unlock(gameContext, TutorialFunctionality.BankruptcyWarning);

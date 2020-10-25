@@ -78,7 +78,9 @@ namespace Assets.Core
             SetIndependence(company, true);
             company.AddPartnerships(new List<int>());
 
-            company.AddCompanyResource(new TeamResource(100, 100, 100, 100, 10000));
+            company.AddCompanyResourceHistory(new List<ResourceTransaction>());
+            company.AddCompanyResource(new TeamResource());
+            Companies.SetResources(company, new TeamResource(100, 100, 100, 100, 10000), "Initial capital");
 
             // investments
             company.AddShareholders(founders);

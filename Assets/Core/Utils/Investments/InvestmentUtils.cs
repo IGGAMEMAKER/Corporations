@@ -80,7 +80,7 @@ namespace Assets.Core
         {
             var investor = GetInvestor(context, investorId);
 
-            Companies.AddResources(investor, sum);
+            Companies.AddResources(investor, sum, "AddMoneyToInvestor");
         }
 
 

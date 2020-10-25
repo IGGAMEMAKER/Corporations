@@ -22,17 +22,22 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
     void CloseBankruptCompanies(GameEntity company)
     {
         Debug.Log("Bankrupt: " + company.company.Name);
+        var profit = Economy.GetProfit(gameContext, company, true);
 
-        if (company.hasProduct)
-        {
-            var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext, true);
-            var income = Economy.GetProductIncome(company);
+        Debug.Log(profit.ToString()); // $"Economy: <color=green>Income</color> +{Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
 
-            Debug.Log($"Economy: <color=green>Income</color> +{Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
-        }
+        //if (company.hasProduct)
+        //{
+        //    var maintenance = Economy.GetProductCompanyMaintenance(company, gameContext, true);
+        //    var income = Economy.GetProductIncome(company);
+
+        //}
 
         if (Companies.IsPlayerCompany(company))
         {
+            Debug.Log("Player bankrupt");
+            Debug.Log(string.Join("\n", company.companyResourceHistory.Actions.Select(r => r.Print())));
+
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
         }
 

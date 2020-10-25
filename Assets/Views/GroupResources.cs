@@ -2,13 +2,10 @@
 
 public class GroupResources : UpgradedParameterView
 {
-    public override string RenderHint()
-    {
-        return "";
-    }
+    public override string RenderHint() => "";
 
     public override string RenderValue()
     {
-        return Format.Minify(MyGroupEntity.companyResource.Resources.money);
+        return Format.Minify(Economy.BalanceOf(MyGroupEntity));
     }
 }
