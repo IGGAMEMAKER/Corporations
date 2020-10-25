@@ -23,7 +23,8 @@ namespace Assets.Core
 
                 var sum = dividends * sharePercentage / 100;
 
-                AddMoneyToInvestor(gameContext, investorId, sum);
+                var investor = GetInvestorById(gameContext, investorId);
+                AddResources(investor, sum, "Pay dividends");
             }
 
             SpendResources(company, dividends, "dividends");

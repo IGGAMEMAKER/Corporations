@@ -18,12 +18,10 @@
                 if (e.company.CompanyType == CompanyType.FinancialGroup)
                 {
                     investorType = InvestorType.VentureInvestor;
-
                 }
                 else
                 {
                     investorType = InvestorType.Strategic;
-
                 }
             }
             else if (e.hasHuman)
@@ -33,14 +31,12 @@
 
                 name = e.human.Name + " " + e.human.Surname;
                 investorType = InvestorType.Founder;
+            }
 
-                if (!e.hasCompanyResource)
-                {
-                    e.AddCompanyResourceHistory(new System.Collections.Generic.List<ResourceTransaction>());
-                    e.AddCompanyResource(new TeamResource());
-
-                    Companies.SetResources(e, money, "Become investor");
-                }
+            if (!e.hasCompanyResource)
+            {
+                e.AddCompanyResourceHistory(new System.Collections.Generic.List<ResourceTransaction>());
+                e.AddCompanyResource(new TeamResource());
             }
 
             e.AddShareholder(investorId, name, investorType);
@@ -49,7 +45,7 @@
             if (!e.hasCorporateCulture)
                 e.AddCorporateCulture(Companies.GetFundCorporateCulture());
 
-            AddMoneyToInvestor(context, investorId, money);
+            Companies.SetResources(e, money, "Become investor");
 
             return investorId;
         }

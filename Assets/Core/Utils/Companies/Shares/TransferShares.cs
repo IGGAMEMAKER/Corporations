@@ -134,18 +134,5 @@ namespace Assets.Core
             AddShares(context, company, buyerInvestorId, amountOfShares);
             DecreaseShares(context, company, sellerInvestorId, amountOfShares);
         }
-
-
-
-
-        public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
-        {
-            Investments.AddMoneyToInvestor(context, investorId, sum);
-        }
-
-        public static void GetMoneyFromInvestor(GameContext gameContext, int investorId, long sum)
-        {
-            AddMoneyToInvestor(gameContext, investorId, -sum);
-        }
     }
 }

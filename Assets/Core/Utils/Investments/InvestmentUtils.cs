@@ -76,14 +76,6 @@ namespace Assets.Core
             investor.ReplaceShareholder(investor.shareholder.Id, investor.shareholder.Name, InvestorType.Angel);
         }
 
-        public static void AddMoneyToInvestor(GameContext context, int investorId, long sum)
-        {
-            var investor = GetInvestor(context, investorId);
-
-            Companies.AddResources(investor, sum, "AddMoneyToInvestor");
-        }
-
-
         public static long GetInvestorCapitalCost(GameContext gameContext, GameEntity human)
         {
             var holdings = Investments.GetHoldings(gameContext, human, false);

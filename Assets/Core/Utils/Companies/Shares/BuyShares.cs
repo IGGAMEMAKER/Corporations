@@ -11,14 +11,11 @@ namespace Assets.Core
             BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, offer * shareSize / 100);
         }
 
-        public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares)
-        {
-            long bid = GetSharesCost(context, company, sellerInvestorId);
-            BuyShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares, bid);
-        }
-
         public static void BuyShares(GameContext context, GameEntity company, int buyerInvestorId, int sellerInvestorId, int amountOfShares, long bid)
         {
+            var seller = GetInvestorById(context, sellerInvestorId);
+            var buyer = GetInvestorById(context, buyerInvestorId);
+
             // protecting from buying your own shares
             if (buyerInvestorId == sellerInvestorId)
                 return;
@@ -29,7 +26,7 @@ namespace Assets.Core
 
             if (company.hasShareholder && buyerInvestorId == company.shareholder.Id)
             {
-                BuyBack(context, company, sellerInvestorId, amountOfShares);
+                BuyBack(context, company, seller, amountOfShares);
                 return;
             }
 
@@ -41,13 +38,16 @@ namespace Assets.Core
 
             Debug.Log("Transferred");
 
-            GetMoneyFromInvestor(context, buyerInvestorId, bid);
-            AddMoneyToInvestor(context, sellerInvestorId, bid);
+            SpendResources(buyer, bid, "Buy Shares of " + company.company.Name);
+            //Investments.AddMoneyToInvestor(context, buyerInvestorId, -bid);
+
+            AddResources(seller, bid, "Buy Shares of " + company.company.Name);
+            //Investments.AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
-        public static int GetPortionSize(GameContext gameContext, GameEntity company, int sellerInvestorId, int percent)
+        public static int GetPortionSize(GameContext gameContext, GameEntity company, GameEntity seller, int percent)
         {
-            var shares = GetAmountOfShares(gameContext, company, sellerInvestorId);
+            var shares = GetAmountOfShares(gameContext, company, seller.shareholder.Id);
 
             var totalShares = GetTotalShares(company);
 
@@ -59,7 +59,7 @@ namespace Assets.Core
             return portion;
         }
 
-        public static void BuyBackPercent(GameContext context, GameEntity company, int sellerInvestorId, int percent)
+        public static void BuyBackPercent(GameContext context, GameEntity company, GameEntity sellerInvestorId, int percent)
         {
             var portion = GetPortionSize(context, company, sellerInvestorId, percent);
 
@@ -68,8 +68,9 @@ namespace Assets.Core
             BuyBack(context, company, sellerInvestorId, portion);
         }
 
-        public static void BuyBack(GameContext context, GameEntity company, int sellerInvestorId, int amountOfShares)
+        public static void BuyBack(GameContext context, GameEntity company, GameEntity investor, int amountOfShares)
         {
+            var sellerInvestorId = investor.shareholder.Id;
             var bid = GetSharesCost(context, company, sellerInvestorId, amountOfShares);
 
             Debug.Log($"Buy Back! {amountOfShares} shares of {company.company.Name} for ${bid}");
@@ -78,7 +79,7 @@ namespace Assets.Core
             if (!IsEnoughResources(company, cost))
                 return;
 
-            Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
+            Debug.Log($"Seller: {GetInvestorName(investor)}");
 
             var b = company.shareholders.Shareholders[sellerInvestorId]; //.amount -= amountOfShares;
 
@@ -89,8 +90,8 @@ namespace Assets.Core
             if (b.amount <= 0)
                 RemoveShareholder(company, context, sellerInvestorId);
 
-            SpendResources(company, cost, "Buy back");
-            AddMoneyToInvestor(context, sellerInvestorId, bid);
+            Companies.SpendResources(company, cost, "Buy back");
+            Companies.AddResources(investor, bid, "Buy back");
         }
     }
 }
