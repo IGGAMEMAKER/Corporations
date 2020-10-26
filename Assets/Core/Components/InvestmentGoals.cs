@@ -20,6 +20,8 @@ public abstract class InvestmentGoal
     }
 
     public abstract string GetFormattedName();
+    public abstract List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext);
+
     public string GetFormattedRequirements(GameEntity company, GameContext gameContext)
     {
         return string.Join("\n", GetGoalRequirements(company, gameContext)
@@ -45,24 +47,6 @@ public abstract class InvestmentGoal
     {
         return req.have >= req.need;
     }
-
-    public bool Did(GameEntity company, InvestorGoalType investorGoalType)
-    {
-        return company.completedGoals.Goals.Contains(investorGoalType);
-    }
-
-    public abstract List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext);
-
-    //public static List<GoalRequirements> Wrap(List<GoalRequirements> requirements) => requirements;
-    public static List<GoalRequirements> Wrap(long need, long have) => Wrap(new GoalRequirements { have = have, need = need });
-    public static List<GoalRequirements> Wrap(GoalRequirements requirements)
-    {
-        return new List<GoalRequirements> { requirements };
-    }
-
-    // --------------- auxillary functions ------------------
-
-
 }
 
 public class InvestmentGoalUnknown : InvestmentGoal
@@ -76,83 +60,122 @@ public class InvestmentGoalUnknown : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        return Wrap(new GoalRequirements
+        return new List<GoalRequirements>
         {
-            have = 0,
-            need = 5,
+            new GoalRequirements
+            {
+                have = 0,
+                need = 5,
 
-            description = "Unknown requirements?"
-        });
+                description = "Unknown requirements?"
+            }
+        };
     }
 }
 
 public class InvestmentGoalMakePrototype : InvestmentGoal
 {
-    public InvestmentGoalMakePrototype() : base(InvestorGoalType.ProductPrototype) { }
+    public InvestmentGoalMakePrototype() : base(InvestorGoalType.ProductPrototype)
+    {
+
+    }
 
     public override string GetFormattedName() => "Create a prototype";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        return Wrap(new GoalRequirements
-        {
-            have = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)),
-            need = 5,
+        GameEntity product;
 
-            description = "Loyalty > 5"
-        });
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
+                need = 5,
+
+                description = "Loyalty > 5"
+            }
+        };
     }
 }
 
 public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
 {
-    public InvestmentGoalMakeProductMarketFit() : base(InvestorGoalType.ProductBecomeMarketFit) { }
+    public InvestmentGoalMakeProductMarketFit() : base(InvestorGoalType.ProductBecomeMarketFit)
+    {
+
+    }
 
     public override string GetFormattedName() => "Make product market fit";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        return Wrap(new GoalRequirements
-        {
-            have = (long)Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)),
-            need = 10,
+        GameEntity product;
 
-            description = "Loyalty > 10"
-        });
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = (long)Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(company)),
+                need = 10,
+
+                description = "Loyalty > 10"
+            }
+        };
     }
 }
 
 public class InvestmentGoalRelease : InvestmentGoal
 {
-    public InvestmentGoalRelease() : base(InvestorGoalType.ProductRelease) { }
+    public InvestmentGoalRelease() : base(InvestorGoalType.ProductRelease)
+    {
+
+    }
 
     public override string GetFormattedName() => "Release product";
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
+        GameEntity product;
+
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
-                have = company.isRelease ? 1 : 0,
-                need = 1,
-
-                description = "PRESS THE BUTTON!"
-            },
-            new GoalRequirements
-            {
-                have = Products.GetServerCapacity(company),
+                have = Products.GetServerCapacity(product),
                 need = 1_500_000,
 
                 description = "Servers capacity > 1.5M"
             },
             new GoalRequirements
             {
-                have = company.team.Teams.Count,
-                need = 3,
+                have = product.team.Teams.Count,
+                need = 2,
 
                 description = "Has at least 3 teams"
-            }
+            },
+            new GoalRequirements
+            {
+                have = product.isRelease ? 1 : 0,
+                need = 1,
+
+                description = "PRESS THE BUTTON!"
+            },
         };
     }
 }
@@ -170,13 +193,23 @@ public class InvestmentGoalFirstUsers : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        return Wrap(new GoalRequirements
-        {
-            have = Marketing.GetUsers(company),
-            need = TargetUsersAmount,
+        GameEntity product;
 
-            description = "Users > " + TargetUsersAmount
-        });
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Marketing.GetUsers(product),
+                need = TargetUsersAmount,
+
+                description = "Users > " + TargetUsersAmount
+            }
+        };
     }
 }
 
@@ -193,11 +226,18 @@ public class InvestmentGoalGrowAudience : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
+        GameEntity product;
+
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
-                have = Marketing.GetUsers(company),
+                have = Marketing.GetUsers(product),
                 need = TargetUsersAmount,
 
                 description = "Users > " + TargetUsersAmount
