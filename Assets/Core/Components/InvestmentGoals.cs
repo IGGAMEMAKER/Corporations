@@ -30,29 +30,25 @@ public abstract class InvestmentGoal
     public GameEntity GetProduct(GameEntity company, GameContext gameContext)
     {
         return Investments.GetGoalPickingCompany(company, gameContext, InvestorGoalType);
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
-
-        return product;
     }
 
     public abstract string GetFormattedName();
     public abstract List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext);
 
-    public string GetFormattedRequirements(GameEntity company, GameContext gameContext)
+    public string GetFormattedRequirements(GameEntity company1, GameContext gameContext)
     {
+        var company = Investments.GetGoalPickingCompany(company1, gameContext, InvestorGoalType);
+
         return string.Join("\n", GetGoalRequirements(company, gameContext)
             .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, company, gameContext))));
     }
 
     //public abstract bool Redoable();
     //public abstract bool IsPickable(GameEntity company, GameContext gameContext);
-    public bool IsCompleted(GameEntity company, GameContext gameContext)
+    public bool IsCompleted(GameEntity company1, GameContext gameContext)
     {
+        var company = Investments.GetGoalPickingCompany(company1, gameContext, InvestorGoalType);
+
         var r = GetGoalRequirements(company, gameContext);
 
         foreach (var req in r)

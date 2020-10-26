@@ -35,7 +35,22 @@ namespace Assets.Core
             }
         }
 
-        public static void AddCompanyGoal(GameEntity company, InvestmentGoal goal)
+        public static void AddCompanyGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
+        {
+            var company1 = GetGoalPickingCompany(company, gameContext, goal.InvestorGoalType);
+
+            if (company1.company.Id != company.company.Id)
+            {
+                AddCompanyGoal2(company1, goal);
+                AddCompanyGoal2(company, goal);
+            }
+            else
+            {
+                AddCompanyGoal2(company, goal);
+            }
+        }
+
+        private static void AddCompanyGoal2(GameEntity company, InvestmentGoal goal)
         {
             // remove possible duplicates
             company.companyGoal.Goals.RemoveAll(g => g.InvestorGoalType == goal.InvestorGoalType);

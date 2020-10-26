@@ -3,13 +3,11 @@
 public class CompanyGoalButtonView : CompanyUpgradeButton
 {
     InvestorGoalType InvestorGoal;
-    InvestmentGoal Goal;
+    InvestmentGoal Goal => Investments.GetInvestmentGoal(MyCompany, Q, InvestorGoal);
 
     public void SetEntity(InvestorGoalType goal)
     {
         InvestorGoal = goal;
-
-        Goal = Investments.GetInvestmentGoal(MyCompany, Q, goal);
 
         ViewRender();
     }

@@ -42,7 +42,7 @@ namespace Assets.Core
             };
 
             // this goal was done already && cannot be done twice
-            if (company.completedGoals.Goals.Contains(goal) && OneTimeGoals.Contains(goal))
+            if (Investments.Done(company, goal, gameContext) && OneTimeGoals.Contains(goal))
                 return false;
 
             if (company.completedGoals.Goals.Count == 0 && isProduct)

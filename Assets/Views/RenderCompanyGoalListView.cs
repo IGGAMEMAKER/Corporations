@@ -7,7 +7,7 @@ public class RenderCompanyGoalListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        GetComponent<CompanyGoalButtonView>().SetEntity((InvestorGoalType)(object)entity);
+        t.GetComponent<CompanyGoalButtonView>().SetEntity((InvestorGoalType)(object)entity);
     }
 
     public override void ViewRender()

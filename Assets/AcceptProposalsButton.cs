@@ -13,6 +13,6 @@ public class AcceptProposalsButton : ButtonController
         MyCompany.RemoveAcceptsInvestments();
 
         // set goal
-        Investments.AddCompanyGoal(Flagship, proposalScreen.Goal);
+        Investments.AddCompanyGoal(MyCompany, proposalScreen.Goal);
     }
 }

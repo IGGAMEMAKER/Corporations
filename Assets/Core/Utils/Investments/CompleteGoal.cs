@@ -8,33 +8,12 @@ namespace Assets.Core
         public static bool CanCompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
             return goal.IsCompleted(company, gameContext);
-            //var r = GetGoalRequirements(company, gameContext, goal);
-
-            //foreach (var req in r)
-            //{
-            //    if (req.have < req.need)
-            //        return false;
-            //}
-
-            //return true;
         }
 
-        public static InvestorGoalType GetNextGoal(InvestorGoalType current)
+        public static bool Done(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
         {
-            switch (current)
-            {
-                case InvestorGoalType.ProductPrototype: return InvestorGoalType.ProductFirstUsers;
-                case InvestorGoalType.ProductFirstUsers: return InvestorGoalType.ProductBecomeMarketFit;
-                case InvestorGoalType.ProductBecomeMarketFit: return InvestorGoalType.ProductRelease;
-                case InvestorGoalType.ProductRelease: return InvestorGoalType.BecomeProfitable;
-                case InvestorGoalType.BecomeProfitable: return InvestorGoalType.Operationing;
+            var company = GetGoalPickingCompany(company1, gameContext, goal);
 
-                default: return current;
-            }
-        }
-
-        public static bool Done(GameEntity company, InvestorGoalType goal, GameContext gameContext)
-        {
             // goal was done or outreached
             bool done = company.completedGoals.Goals.Contains(goal);
 
