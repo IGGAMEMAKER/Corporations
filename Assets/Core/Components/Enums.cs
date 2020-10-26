@@ -258,7 +258,7 @@ public enum InvestorGoalType
 
     OutcompeteCompanyByIncome,
     OutcompeteCompanyByUsers,
-    OutcompeteCompanyByMarketShare,
+    OutcompeteCompanyByCost,
 
     AcquireCompany,
 

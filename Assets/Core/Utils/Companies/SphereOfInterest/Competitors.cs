@@ -49,5 +49,18 @@ namespace Assets.Core
 
             return competitors[index - 1];
         }
+
+        public static GameEntity GetWeakerCompetitor(GameEntity company, GameContext gameContext)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, true).OrderByDescending(c => Economy.CostOf(c, gameContext)).ToList();
+            var index = competitors.FindIndex(c => c.company.Id == company.company.Id);
+
+            var nearestCompetitor = Companies.GetCompetitorsOfCompany(company, gameContext, true);
+
+            if (index + 1 >= competitors.Count)
+                return null;
+
+            return competitors.Last();
+        }
     }
 }

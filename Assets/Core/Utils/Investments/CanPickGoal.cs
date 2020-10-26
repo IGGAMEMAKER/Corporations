@@ -64,11 +64,11 @@ namespace Assets.Core
             bool profitable = Economy.IsProfitable(gameContext, company);
 
             var strongerCompetitorId = Companies.GetStrongerCompetitorId(company, gameContext);
-            bool hasStrongerOpposition = strongerCompetitorId >= 0;
+            bool hasStrongerCompanies = strongerCompetitorId >= 0;
 
             bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
 
-            bool hasWeakerCompanies = !hasStrongerOpposition; // is dominant on market
+            bool hasWeakerCompanies = !hasStrongerCompanies; // is dominant on market
 
             switch (goal)
             {
@@ -111,12 +111,16 @@ namespace Assets.Core
                     return solidCompany;
 
                 case InvestorGoalType.OutcompeteCompanyByIncome:
-                    return solidCompany && hasStrongerOpposition;
+                    return solidCompany && hasStrongerCompanies;
 
-                case InvestorGoalType.OutcompeteCompanyByMarketShare:
-                    return solidCompany && hasStrongerOpposition;
+                case InvestorGoalType.OutcompeteCompanyByUsers:
+                    return solidCompany && hasStrongerCompanies;
+
+                case InvestorGoalType.OutcompeteCompanyByCost:
+                    return solidCompany && hasStrongerCompanies;
 
                 case InvestorGoalType.AcquireCompany:
+                    //Debug.Log("Check ACQUIRE COMPANY: solid=" + solidCompany + " has targets=" + hasWeakerCompanies);
                     return solidCompany && hasWeakerCompanies;
 
                 //case InvestorGoalType.DiversifyIncome:

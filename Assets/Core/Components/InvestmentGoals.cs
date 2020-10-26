@@ -383,6 +383,7 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
     }
 }
 
+
 public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
 {
     public int CompanyId;
@@ -413,3 +414,64 @@ public class InvestmentGoalOutcompeteByUsers : InvestmentGoal
     }
 }
 
+public class InvestmentGoalOutcompeteByCost : InvestmentGoal
+{
+    public int CompanyId;
+    public string CompetitorName;
+
+    public InvestmentGoalOutcompeteByCost(int id, string name) : base(InvestorGoalType.OutcompeteCompanyByCost)
+    {
+        CompanyId = id;
+        CompetitorName = name;
+    }
+
+    public override string GetFormattedName() => "Outcompete " + CompetitorName + " by cost";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        var cost = Economy.CostOf(Companies.Get(gameContext, CompanyId), gameContext);
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Economy.CostOf(company, gameContext),
+                need = cost,
+
+                description = "Your cost > cost of " + CompetitorName + $"({Format.Minify(cost)})"
+            }
+        };
+    }
+}
+
+public class InvestmentGoalAcquireCompany : InvestmentGoal
+{
+    public int CompanyId;
+    public string CompetitorName;
+
+    public InvestmentGoalAcquireCompany(int id, string name) : base(InvestorGoalType.AcquireCompany)
+    {
+        CompanyId = id;
+        CompetitorName = name;
+    }
+
+    public override string GetFormattedName() => "Acquire " + CompetitorName + "!";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        var target = Companies.Get(gameContext, CompanyId);
+
+        var group = company.hasProduct ? Companies.GetManagingCompanyOf(company, gameContext) : company;
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = (Companies.IsDaughterOf(group, target) ? 1 : 0) + (target.isAlive ? 0 : 1),
+                need = 1,
+
+                description = "Buy " + CompetitorName
+            }
+        };
+    }
+}
