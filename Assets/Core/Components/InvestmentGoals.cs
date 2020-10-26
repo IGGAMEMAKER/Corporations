@@ -178,7 +178,7 @@ public class InvestmentGoalRelease : InvestmentGoal
                 have = product.isRelease ? 1 : 0,
                 need = 1,
 
-                description = "PRESS THE BUTTON!"
+                description = "PRESS RELEASE BUTTON!"
             },
         };
     }
@@ -207,6 +207,34 @@ public class InvestmentGoalFirstUsers : InvestmentGoal
                 need = TargetUsersAmount,
 
                 description = "Users > " + Format.Minify(TargetUsersAmount)
+            }
+        };
+    }
+}
+
+public class InvestmentGoalMoreSegments: InvestmentGoal
+{
+    public long Segments;
+
+    public InvestmentGoalMoreSegments(long segments) : base(InvestorGoalType.GainMoreSegments)
+    {
+        Segments = segments;
+    }
+
+    public override string GetFormattedName() => "Get different audiences";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        GameEntity product = GetProduct(company, gameContext);
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Marketing.GetAmountOfTargetAudiences(product),
+                need = Segments,
+
+                description = "Target audiences > " + Format.Minify(Segments)
             }
         };
     }
@@ -261,7 +289,7 @@ public class InvestmentGoalBecomeProfitable : InvestmentGoal
                 have = Economy.GetIncome(gameContext, company),
                 need = Income,
 
-                description = "Income > " + Format.MinifyMoney(Income)
+                description = "Income > " + Format.Money(Income)
             },
 
             new GoalRequirements
@@ -294,7 +322,7 @@ public class InvestmentGoalGrowProfit : InvestmentGoal
                 have = Economy.GetIncome(gameContext, company),
                 need = Profit,
 
-                description = "Income > " + Format.MinifyMoney(Profit)
+                description = "Income > " + Format.Money(Profit)
             },
         };
     }
@@ -320,7 +348,7 @@ public class InvestmentGoalGrowCost : InvestmentGoal
                 have = Economy.CostOf(company, gameContext),
                 need = Cost,
 
-                description = "Cost > " + Format.MinifyMoney(Cost)
+                description = "Cost > " + Format.Money(Cost)
             }
         };
     }
@@ -349,7 +377,7 @@ public class InvestmentGoalOutcompeteByIncome : InvestmentGoal
                 have = Economy.GetIncome(gameContext, company),
                 need = income,
 
-                description = "Your income > income of " + CompetitorName + $"({Format.MinifyMoney(income)})"
+                description = "Your income > income of " + CompetitorName + $"({Format.Money(income)})"
             }
         };
     }

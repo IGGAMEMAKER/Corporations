@@ -49,6 +49,11 @@ namespace Assets.Core
             return positioningLoyalty >= 0;
         }
 
+        public static int GetAmountOfTargetAudiences(GameEntity company)
+        {
+            return GetPositioning(company).Loyalties.Count(l => l > 0);
+        }
+
         public static bool IsAudienceDisloyal(GameEntity company, int segmentId)
         {
             var loyaltyBonus = GetGrowthLoyaltyBonus(company, segmentId);

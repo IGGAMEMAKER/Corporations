@@ -34,7 +34,7 @@ public class AudiencePreview : View
         var loyalty = (int) Marketing.GetSegmentLoyalty(Flagship, segmentId); // Random.Range(-5, 15);
         var loyaltyBonus = Marketing.GetSegmentLoyalty(Flagship, segmentId, true);
 
-        long clients = Flagship.marketing.ClientList.ContainsKey(segmentId) ? Flagship.marketing.ClientList[segmentId] : 0;
+        long clients = Marketing.GetUsers(Flagship, segmentId);
 
         bool isNewAudience = clients == 0;
         bool isLoyalAudience = loyalty >= 0;

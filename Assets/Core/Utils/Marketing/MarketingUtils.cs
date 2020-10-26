@@ -9,7 +9,7 @@ namespace Assets.Core
             return company.marketing.ClientList.Values.Sum();
         }
 
-        public static long GetClients(GameEntity company, int segmentId)
+        public static long GetUsers(GameEntity company, int segmentId)
         {
             return company.marketing.ClientList.ContainsKey(segmentId) ? company.marketing.ClientList[segmentId] : 0;
         }
@@ -35,7 +35,7 @@ namespace Assets.Core
         {
             var churn = GetChurnRate(product, segmentId);
 
-            var clients = GetClients(product, segmentId);
+            var clients = GetUsers(product, segmentId);
 
             return clients * churn / 100;
         }

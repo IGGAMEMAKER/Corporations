@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -33,17 +34,14 @@ namespace Assets.Core
             GameEntity company = GetGoalPickingCompany(company1, gameContext, goal);
 
             bool isProduct = company.hasProduct;
-            List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
-            {
-                InvestorGoalType.ProductRelease,
-                InvestorGoalType.ProductBecomeMarketFit,
-                InvestorGoalType.ProductFirstUsers,
-                InvestorGoalType.ProductPrototype
-            };
+
 
             // this goal was done already && cannot be done twice
-            if (Investments.Done(company, goal, gameContext) && OneTimeGoals.Contains(goal))
+            if (Investments.Done(company, goal, gameContext))
+            {
+                Debug.Log("goal " + goal + " for " + company.company.Name + " was done or outgrown");
                 return false;
+            }
 
             if (company.completedGoals.Goals.Count == 0 && isProduct)
                 return goal == InvestorGoalType.ProductPrototype;
@@ -68,7 +66,7 @@ namespace Assets.Core
             var strongerCompetitorId = Companies.GetStrongerCompetitorId(company, gameContext);
             bool hasStrongerOpposition = strongerCompetitorId >= 0;
 
-            bool solidCompany = (releasedProduct || isGroup) && profitable && income > 1_000_000;
+            bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
 
             bool hasWeakerCompanies = !hasStrongerOpposition; // is dominant on market
 
@@ -89,13 +87,19 @@ namespace Assets.Core
                     return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers, gameContext);
 
                 case InvestorGoalType.GrowUserBase:
-                    return releasedProduct && users > 50_000;
+                    return releasedProduct;
 
                 case InvestorGoalType.GrowIncome:
-                    return releasedProduct && profitable && income > 100_000;
+                    Debug.Log($"Check grow income for {company.company.Name}: {Format.Money(income)}");
+                    return releasedProduct && income > 50_000;
 
                 case InvestorGoalType.GainMoreSegments:
-                    return releasedProduct && users > 1_000_000 && company.marketing.ClientList.Count < Marketing.GetAudienceInfos().Count;
+                    var amountOfAudiences = Marketing.GetAudienceInfos().Count;
+                    var ourAudiences = Marketing.GetAmountOfTargetAudiences(company);
+
+                    Debug.Log($"Check gain more segments for {company.company.Name}: {Format.Minify(users)} users, {ourAudiences} / {amountOfAudiences}");
+
+                    return releasedProduct && users > 500_000 && ourAudiences < amountOfAudiences;
 
 
                 // GROUPS

@@ -9,9 +9,17 @@ namespace Assets.Core
         {
             var company = Investments.GetGoalPickingCompany(company1, gameContext, goalType);
 
-            var strongerOpponent = Companies.GetStrongerCompetitor(company, gameContext);
 
             var income = Economy.GetIncome(gameContext, company);
+
+            var unknown = new InvestmentGoalUnknown(goalType);
+
+            var strongerOpponent = Companies.GetStrongerCompetitor(company, gameContext);
+            if (goalType == InvestorGoalType.OutcompeteCompanyByIncome || goalType == InvestorGoalType.OutcompeteCompanyByMarketShare || goalType == InvestorGoalType.OutcompeteCompanyByUsers)
+            {
+                if (strongerOpponent == null)
+                    return unknown;
+            }
 
             switch (goalType)
             {
@@ -25,13 +33,14 @@ namespace Assets.Core
                 case InvestorGoalType.GrowIncome:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
                 case InvestorGoalType.GrowUserBase:     return new InvestmentGoalGrowAudience(Marketing.GetUsers(company) * 2);
                 case InvestorGoalType.GrowCompanyCost:  return new InvestmentGoalGrowCost(Economy.CostOf(company, gameContext) * 2);
+                case InvestorGoalType.GainMoreSegments: return new InvestmentGoalMoreSegments(Marketing.GetAmountOfTargetAudiences(company) + 1);
 
                 case InvestorGoalType.OutcompeteCompanyByIncome: return new InvestmentGoalOutcompeteByIncome(strongerOpponent.company.Id, strongerOpponent.company.Name);
                 case InvestorGoalType.OutcompeteCompanyByUsers: return new InvestmentGoalOutcompeteByUsers(strongerOpponent.company.Id, strongerOpponent.company.Name);
 
                 case InvestorGoalType.Operationing:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
 
-                default: return new InvestmentGoalUnknown(goalType);
+                default: return unknown;
             }
         }
 

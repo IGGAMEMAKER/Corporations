@@ -21,7 +21,7 @@ public class SegmentPreview : View
     {
         Title.text = $"{info.Name}";
 
-        var have = Marketing.GetClients(Flagship, segmentId);
+        var have = Marketing.GetUsers(Flagship, segmentId);
 
         var max = Marketing.GetAudienceInfos()[segmentId].Size;
         Description.text = $"{Format.Minify(have)} / {Format.Minify(max)} users";

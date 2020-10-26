@@ -14,6 +14,14 @@ namespace Assets.Core
         {
             var company = GetGoalPickingCompany(company1, gameContext, goal);
 
+            List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
+            {
+                InvestorGoalType.ProductRelease,
+                InvestorGoalType.ProductBecomeMarketFit,
+                InvestorGoalType.ProductFirstUsers,
+                InvestorGoalType.ProductPrototype
+            };
+
             // goal was done or outreached
             bool done = company.completedGoals.Goals.Contains(goal);
 
@@ -23,7 +31,7 @@ namespace Assets.Core
             var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal);
             bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
 
-            if (outgrown)
+            if (outgrown && OneTimeGoals.Contains(goal))
             {
                 Investments.CompleteGoal(company, gameContext, goal1, true);
                 return true;

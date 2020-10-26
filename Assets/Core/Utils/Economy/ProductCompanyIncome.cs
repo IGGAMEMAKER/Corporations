@@ -34,7 +34,7 @@ namespace Assets.Core
 
         public static long GetIncomePerSegment(GameEntity company, int segmentId)
         {
-            var clients = Marketing.GetClients(company, segmentId);
+            var clients = Marketing.GetUsers(company, segmentId);
             var incomePerUser = GetIncomePerUser(company, segmentId);
 
             return Convert.ToInt64(clients * incomePerUser);
