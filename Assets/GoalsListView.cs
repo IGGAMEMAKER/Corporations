@@ -12,7 +12,7 @@ public class GoalsListView : ListView
         var title = goal.GetFormattedName(); // Investments.GetFormattedInvestorGoal(goal.InvestorGoalType);
         var description = goal.GetFormattedRequirements(Flagship, Q);
 
-        bool completed = goal.IsCompleted(Flagship, Q);
+        bool completed = Investments.CanCompleteGoal(Flagship, Q, goal);
 
         //t.GetComponent<MockText>().SetEntity($"<b>{title}</b>\n{description}");
         t.GetComponent<GoalView2>().SetEntity(goal, index);

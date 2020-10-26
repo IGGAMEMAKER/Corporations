@@ -111,15 +111,22 @@ namespace Assets.Core
             return bonus;
         }
 
+        public static bool WillPayInvestmentRightNow(Investment investment, int date)
+        {
+            return investment.RemainingPeriods > 0 && investment.StartDate <= date;
+        }
+
         public static void ApplyInvestmentsToProfitBonus(GameEntity c, GameContext context, Bonus<long> bonus)
         {
             //var investmentTaker = c.isFlagship ? Companies.GetManagingCompanyOf(c, context) : c;
             var investmentTaker = c;
 
+            var date = ScheduleUtils.GetCurrentDate(context);
+
             if (investmentTaker.shareholders.Shareholders.Count > 1)
             {
                 var investments = investmentTaker.shareholders.Shareholders.Values
-                    .Select(v => v.Investments.Where(z => z.RemainingPeriods > 0).Select(z => z.Portion).Sum())
+                    .Select(v => v.Investments.Where(z => WillPayInvestmentRightNow(z, date)).Select(z => z.Portion).Sum())
                     .Sum();
 
                 bonus.AppendAndHideIfZero("Investments", investments);

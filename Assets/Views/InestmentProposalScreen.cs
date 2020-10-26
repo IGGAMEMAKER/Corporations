@@ -37,7 +37,7 @@ public class InestmentProposalScreen : View
     InvestorGoalType InvestorGoal;
     public InvestmentGoal Goal;
     bool goalWasChosen = false;
-    int urgency = -1;
+    public int urgency = -1;
 
     bool isRoundActive => Companies.IsInvestmentRoundStarted(MyCompany); // MyCompany.hasAcceptsInvestments;
 
@@ -171,6 +171,16 @@ public class InestmentProposalScreen : View
         TotalOffer.text = $"You will get {Visuals.Positive("+" + Format.Money(weeklyGain))} / week ({Format.MinifyMoney(Sum)} total)";
     }
 
+    public void UpdateStartDates()
+    {
+        var proposals = Companies.GetInvestmentProposals(MyCompany);
+
+        foreach (var p in proposals)
+        {
+            p.Investment.StartDate = CurrentIntDate + urgency;
+        }
+    }
+
     public void SetUrgency(int days)
     {
         ResetOffer();
@@ -187,7 +197,6 @@ public class InestmentProposalScreen : View
         //Sum = -1;
 
         Goal = Investments.GetInvestmentGoal(MyCompany, Q, investorGoal); // new InvestmentGoal(investorGoal);
-
 
         ViewRender();
     }

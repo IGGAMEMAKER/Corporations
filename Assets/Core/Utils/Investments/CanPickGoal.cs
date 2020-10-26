@@ -57,13 +57,13 @@ namespace Assets.Core
                     return isPrototype; // && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty
 
                 case InvestorGoalType.ProductBecomeMarketFit:
-                    return isPrototype && Done(company, InvestorGoalType.ProductPrototype) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+                    return isPrototype && Done(company, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
 
                 case InvestorGoalType.ProductFirstUsers:
-                    return isPrototype && Done(company, InvestorGoalType.ProductBecomeMarketFit) && users < 2000;
+                    return isPrototype && Done(company, InvestorGoalType.ProductBecomeMarketFit, gameContext); // && users < 100_000
 
                 case InvestorGoalType.ProductRelease:
-                    return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers);
+                    return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers, gameContext);
 
                 case InvestorGoalType.GrowUserBase:
                     return releasedProduct && users > 50_000;

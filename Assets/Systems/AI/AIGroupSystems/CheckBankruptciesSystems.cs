@@ -36,7 +36,14 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
         if (Companies.IsPlayerCompany(company))
         {
             Debug.Log("Player bankrupt");
+            Debug.Log("My company stats");
             Debug.Log(string.Join("\n", company.companyResourceHistory.Actions.Select(r => r.Print())));
+
+            foreach (var d in Companies.GetDaughters(gameContext, company))
+            {
+                Debug.Log($"Daughter {d.company.Name} stats");
+                Debug.Log(string.Join("\n", d.companyResourceHistory.Actions.Select(r => r.Print())));
+            }
 
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
         }

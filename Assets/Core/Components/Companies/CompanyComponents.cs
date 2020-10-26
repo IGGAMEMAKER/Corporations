@@ -93,10 +93,11 @@ public class ResourceTransaction
 {
     public string Tag;
     public TeamResource TeamResource;
+    public int Date;
 
     public string Print()
     {
-        return Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource.money);
+        return ScheduleUtils.GetFormattedDate(Date) + " " + Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource.money);
     }
 }
 

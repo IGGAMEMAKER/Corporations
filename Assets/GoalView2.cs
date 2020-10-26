@@ -27,7 +27,7 @@ public class GoalView2 : View
     {
         base.ViewRender();
 
-        bool completed = InvestmentGoal.IsCompleted(Flagship, Q);
+        bool completed = Investments.CanCompleteGoal(Flagship, Q, InvestmentGoal);
 
         Draw(CompleteButton, completed);
         Draw(Requirements, !completed);

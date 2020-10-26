@@ -22,7 +22,8 @@ public abstract class InvestmentGoal
     public abstract string GetFormattedName();
     public string GetFormattedRequirements(GameEntity company, GameContext gameContext)
     {
-        return string.Join("\n", GetGoalRequirements(company, gameContext).Select(g => g.description));
+        return string.Join("\n", GetGoalRequirements(company, gameContext)
+            .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, company, gameContext))));
     }
 
     //public abstract bool Redoable();
@@ -33,11 +34,16 @@ public abstract class InvestmentGoal
 
         foreach (var req in r)
         {
-            if (req.have < req.need)
+            if (!IsRequirementMet(req, company, gameContext))
                 return false;
         }
 
         return true;
+    }
+
+    public bool IsRequirementMet(GoalRequirements req, GameEntity company, GameContext gameContext)
+    {
+        return req.have >= req.need;
     }
 
     public bool Did(GameEntity company, InvestorGoalType investorGoalType)
@@ -124,13 +130,30 @@ public class InvestmentGoalRelease : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        return Wrap(new GoalRequirements
+        return new List<GoalRequirements>
         {
-            have = company.isRelease ? 1 : 0,
-            need = 1,
+            new GoalRequirements
+            {
+                have = company.isRelease ? 1 : 0,
+                need = 1,
 
-            description = "PRESS THE BUTTON!"
-        });
+                description = "PRESS THE BUTTON!"
+            },
+            new GoalRequirements
+            {
+                have = Products.GetServerCapacity(company),
+                need = 1_500_000,
+
+                description = "Servers capacity > 1.5M"
+            },
+            new GoalRequirements
+            {
+                have = company.team.Teams.Count,
+                need = 3,
+
+                description = "Has at least 3 teams"
+            }
+        };
     }
 }
 

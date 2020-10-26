@@ -19,7 +19,7 @@ public class AIProcessInvestmentsSystem : OnPeriodChange
 
                 foreach (var offer in block.Investments)
                 {
-                    if (offer.RemainingPeriods > 0 && offer.StartDate >= date)
+                    if (Economy.WillPayInvestmentRightNow(offer, date)) //  offer.RemainingPeriods > 0 && offer.StartDate >= date
                     {
                         Companies.AddResources(company, offer.Portion, "process investments");
 

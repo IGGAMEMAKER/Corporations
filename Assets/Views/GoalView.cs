@@ -25,37 +25,37 @@ public class GoalView : View
 
         var goal = goals[0];
 
-        var requirements = Investments.GetGoalRequirements(Flagship, Q, goal);
-        var req = requirements[0];
+        //var requirements = Investments.GetGoalRequirements(Flagship, Q, goal);
+        //var req = requirements[0];
 
-        switch (goal.InvestorGoalType)
-        {
-            case InvestorGoalType.ProductPrototype:
-                SetPanel("Make test audience loyal", req, "Loyalty");
-                break;
+        //switch (goal.InvestorGoalType)
+        //{
+        //    case InvestorGoalType.ProductPrototype:
+        //        SetPanel("Make test audience loyal", req, "Loyalty");
+        //        break;
 
-            case InvestorGoalType.ProductBecomeMarketFit:
-                SetPanel("Make audience extremely loyal", req, "Loyalty");
-                break;
+        //    case InvestorGoalType.ProductBecomeMarketFit:
+        //        SetPanel("Make audience extremely loyal", req, "Loyalty");
+        //        break;
 
-            case InvestorGoalType.ProductFirstUsers:
-                SetPanel($"Accumulate {Format.Minify(req.need)} users", req, "Users");
-                break;
+        //    case InvestorGoalType.ProductFirstUsers:
+        //        SetPanel($"Accumulate {Format.Minify(req.need)} users", req, "Users");
+        //        break;
 
-            case InvestorGoalType.ProductRelease:
-                SetPanel("Release your product!", req, "Is not released");
-                break;
+        //    case InvestorGoalType.ProductRelease:
+        //        SetPanel("Release your product!", req, "Is not released");
+        //        break;
 
-            case InvestorGoalType.BecomeProfitable:
-            case InvestorGoalType.Operationing:
-                //SetPanel("Increase your income", req, $"Income from product");
-                ShowCompetitionPanel();
-                break;
+        //    case InvestorGoalType.BecomeProfitable:
+        //    case InvestorGoalType.Operationing:
+        //        //SetPanel("Increase your income", req, $"Income from product");
+        //        ShowCompetitionPanel();
+        //        break;
 
-            default:
-                SetPanel("Default goal", req, goal.ToString());
-                break;
-        }
+        //    default:
+        //        SetPanel("Default goal", req, goal.ToString());
+        //        break;
+        //}
     }
 
     void ShowGoalPanel()

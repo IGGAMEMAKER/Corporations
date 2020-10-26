@@ -10,7 +10,7 @@ namespace Assets.Core
             company.companyResource.Resources.Spend(resource);
 
             company.ReplaceCompanyResource(company.companyResource.Resources);
-            company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource * -1, Tag = purpose });
+            RegisterTransaction(company, resource * -1, purpose);
         }
 
         public static void AddResources(GameEntity company, long money, string purpose) => AddResources(company, new TeamResource(money), purpose);
@@ -19,14 +19,22 @@ namespace Assets.Core
             company.companyResource.Resources.Add(resource);
 
             company.ReplaceCompanyResource(company.companyResource.Resources);
-            company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose });
+            RegisterTransaction(company, resource, purpose);
         }
 
         public static void SetResources(GameEntity company, long money, string purpose) => SetResources(company, new TeamResource(money), purpose);
         public static void SetResources(GameEntity company, TeamResource resource, string purpose)
         {
             company.ReplaceCompanyResource(resource);
-            company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose });
+            RegisterTransaction(company, resource, purpose);
+        }
+
+        internal static void RegisterTransaction(GameEntity company, TeamResource resource, string purpose)
+        {
+            var c = Contexts.sharedInstance.game;
+            var date = ScheduleUtils.GetCurrentDate(c);
+
+            company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose, Date = date });
         }
 
         // ---------------------------------------

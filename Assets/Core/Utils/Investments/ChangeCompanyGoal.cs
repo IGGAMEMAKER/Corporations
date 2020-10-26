@@ -15,15 +15,16 @@ namespace Assets.Core
     {
         public static bool CanCompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
-            var r = GetGoalRequirements(company, gameContext, goal);
+            return goal.IsCompleted(company, gameContext);
+            //var r = GetGoalRequirements(company, gameContext, goal);
 
-            foreach (var req in r)
-            {
-                if (req.have < req.need)
-                    return false;
-            }
+            //foreach (var req in r)
+            //{
+            //    if (req.have < req.need)
+            //        return false;
+            //}
 
-            return true;
+            //return true;
         }
 
         public static InvestorGoalType GetNextGoal(InvestorGoalType current)
@@ -40,9 +41,24 @@ namespace Assets.Core
             }
         }
 
-        public static bool Done(GameEntity company, InvestorGoalType goal)
+        public static bool Done(GameEntity company, InvestorGoalType goal, GameContext gameContext)
         {
-            return company.completedGoals.Goals.Contains(goal);
+            // goal was done or outreached
+            bool done = company.completedGoals.Goals.Contains(goal);
+
+            if (done)
+                return true;
+
+            var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal);
+            bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
+
+            if (outgrown)
+            {
+                Investments.CompleteGoal(company, gameContext, goal1, true);
+                return true;
+            }
+
+            return false;
         }
 
         public static int GetStrongerCompetitorId(GameEntity company, GameContext gameContext)

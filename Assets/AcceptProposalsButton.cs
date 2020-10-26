@@ -4,13 +4,15 @@ public class AcceptProposalsButton : ButtonController
 {
     public override void Execute()
     {
-        // + accept investments
-        Companies.AcceptAllInvestmentProposals(MyCompany, Q);
+        var proposalScreen = FindObjectOfType<InestmentProposalScreen>();
 
+        // sets urgency
+        proposalScreen.UpdateStartDates();
+
+        Companies.AcceptAllInvestmentProposals(MyCompany, Q);
         MyCompany.RemoveAcceptsInvestments();
 
-        var goal = FindObjectOfType<InestmentProposalScreen>().Goal;
-
-        Investments.AddCompanyGoal(Flagship, goal);
+        // set goal
+        Investments.AddCompanyGoal(Flagship, proposalScreen.Goal);
     }
 }
