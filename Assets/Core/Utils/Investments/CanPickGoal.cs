@@ -5,8 +5,33 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
+        public static GameEntity GetGoalPickingCompany(GameEntity company1, GameContext gameContext, InvestorGoalType goalType)
         {
+            GameEntity company = null;
+
+            if (company1.hasProduct)
+            {
+                company = company1;
+            }
+            else
+            {
+                var daughterProducts = Companies.GetDaughterProducts(gameContext, company1);
+                if (daughterProducts.Count() == 1)
+                {
+                    company = daughterProducts.First();
+                }
+                else
+                {
+                    company = company1;
+                }
+            }
+
+            return company;
+        }
+        public static bool IsPickableGoal(GameEntity company1, GameContext gameContext, InvestorGoalType goal)
+        {
+            GameEntity company = GetGoalPickingCompany(company1, gameContext, goal);
+
             bool isProduct = company.hasProduct;
             List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
             {
@@ -40,14 +65,12 @@ namespace Assets.Core
 
             bool profitable = Economy.IsProfitable(gameContext, company);
 
-            var strongerCompetitorId = GetStrongerCompetitorId(company, gameContext);
+            var strongerCompetitorId = Companies.GetStrongerCompetitorId(company, gameContext);
             bool hasStrongerOpposition = strongerCompetitorId >= 0;
 
             bool solidCompany = (releasedProduct || isGroup) && profitable && income > 1_000_000;
 
             bool hasWeakerCompanies = !hasStrongerOpposition; // is dominant on market
-            
-
 
             switch (goal)
             {

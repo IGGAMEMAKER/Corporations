@@ -9,12 +9,11 @@ public class GoalsListView : ListView
     {
         var goal = (InvestmentGoal)(object)entity;
 
-        var title = goal.GetFormattedName(); // Investments.GetFormattedInvestorGoal(goal.InvestorGoalType);
-        var description = goal.GetFormattedRequirements(Flagship, Q);
+        var title = goal.GetFormattedName();
+        var description = goal.GetFormattedRequirements(MyCompany, Q);
 
-        bool completed = Investments.CanCompleteGoal(Flagship, Q, goal);
+        bool completed = Investments.CanCompleteGoal(MyCompany, Q, goal);
 
-        //t.GetComponent<MockText>().SetEntity($"<b>{title}</b>\n{description}");
         t.GetComponent<GoalView2>().SetEntity(goal, index);
     }
 
@@ -22,7 +21,7 @@ public class GoalsListView : ListView
     {
         base.ViewRender();
 
-        var goals = Flagship.companyGoal.Goals;
+        var goals = MyCompany.companyGoal.Goals;
 
         SetItems(goals);
     }

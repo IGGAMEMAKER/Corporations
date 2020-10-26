@@ -27,20 +27,22 @@ public class GoalView2 : View
     {
         base.ViewRender();
 
-        bool completed = Investments.CanCompleteGoal(Flagship, Q, InvestmentGoal);
+        bool completed = Investments.CanCompleteGoal(MyCompany, Q, InvestmentGoal);
 
         Draw(CompleteButton, completed);
         Draw(Requirements, !completed);
 
         Title.text = InvestmentGoal.GetFormattedName();
-        Requirements.text = InvestmentGoal.GetFormattedRequirements(Flagship, Q);
+        Requirements.text = InvestmentGoal.GetFormattedRequirements(MyCompany, Q);
         Number.text = $"#{index + 1}";
     }
 
     public void CompleteGoal()
     {
-        Investments.CompleteGoal(Flagship, Q, InvestmentGoal);
+        Investments.CompleteGoal(MyCompany, Q, InvestmentGoal);
         SoundManager.Play(Sound.Action);
+
         FindObjectOfType<GoalsListView>().ViewRender();
+        Refresh();
     }
 }

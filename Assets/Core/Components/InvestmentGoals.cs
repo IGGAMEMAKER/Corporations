@@ -5,6 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public struct GoalRequirements
+{
+    public long have;
+    public long need;
+
+    public string description;
+}
+
 public abstract class InvestmentGoal
 {
     public InvestorGoalType InvestorGoalType;
@@ -17,6 +25,19 @@ public abstract class InvestmentGoal
     public InvestmentGoal(InvestorGoalType goalType)
     {
         InvestorGoalType = goalType;
+    }
+
+    public GameEntity GetProduct(GameEntity company, GameContext gameContext)
+    {
+        return Investments.GetGoalPickingCompany(company, gameContext, InvestorGoalType);
+        GameEntity product;
+
+        if (company.hasProduct)
+            product = company;
+        else
+            product = Companies.GetDaughterProducts(gameContext, company).First();
+
+        return product;
     }
 
     public abstract string GetFormattedName();
@@ -84,12 +105,7 @@ public class InvestmentGoalMakePrototype : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
+        GameEntity product = GetProduct(company, gameContext);
 
         return new List<GoalRequirements>
         {
@@ -115,12 +131,7 @@ public class InvestmentGoalMakeProductMarketFit : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
+        GameEntity product = GetProduct(company, gameContext);
 
         return new List<GoalRequirements>
         {
@@ -146,12 +157,7 @@ public class InvestmentGoalRelease : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
+        GameEntity product = GetProduct(company, gameContext);
 
         return new List<GoalRequirements>
         {
@@ -193,12 +199,7 @@ public class InvestmentGoalFirstUsers : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
+        GameEntity product = GetProduct(company, gameContext);
 
         return new List<GoalRequirements>
         {
@@ -226,12 +227,7 @@ public class InvestmentGoalGrowAudience : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
-        GameEntity product;
-
-        if (company.hasProduct)
-            product = company;
-        else
-            product = Companies.GetDaughterProducts(gameContext, company).First();
+        GameEntity product = GetProduct(company, gameContext);
 
         return new List<GoalRequirements>
         {

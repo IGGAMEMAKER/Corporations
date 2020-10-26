@@ -23,5 +23,31 @@ namespace Assets.Core
 
             return includeSelf ? companies : companies.Where(p => p.company.Id != company.company.Id);
         }
+
+        public static int GetStrongerCompetitorId(GameEntity company, GameContext gameContext)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, true).OrderByDescending(c => Economy.CostOf(c, gameContext)).ToList();
+            var index = competitors.FindIndex(c => c.company.Id == company.company.Id);
+
+            var nearestCompetitor = Companies.GetCompetitorsOfCompany(company, gameContext, true);
+
+            if (index == 0)
+                return -1;
+
+            return competitors[index - 1].company.Id;
+        }
+
+        public static GameEntity GetStrongerCompetitor(GameEntity company, GameContext gameContext)
+        {
+            var competitors = Companies.GetCompetitorsOfCompany(company, gameContext, true).OrderByDescending(c => Economy.CostOf(c, gameContext)).ToList();
+            var index = competitors.FindIndex(c => c.company.Id == company.company.Id);
+
+            var nearestCompetitor = Companies.GetCompetitorsOfCompany(company, gameContext, true);
+
+            if (index == 0)
+                return null;
+
+            return competitors[index - 1];
+        }
     }
 }
