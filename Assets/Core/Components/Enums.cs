@@ -262,7 +262,9 @@ public enum InvestorGoalType
 
     AcquireCompany,
 
-    DiversifyIncome
+    DiversifyIncome,
+
+    StartMonetising
 }
 
 public enum InvestmentRound

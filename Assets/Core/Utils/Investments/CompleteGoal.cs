@@ -19,7 +19,8 @@ namespace Assets.Core
                 InvestorGoalType.ProductRelease,
                 InvestorGoalType.ProductBecomeMarketFit,
                 InvestorGoalType.ProductFirstUsers,
-                InvestorGoalType.ProductPrototype
+                InvestorGoalType.ProductPrototype,
+                InvestorGoalType.StartMonetising
             };
 
             // goal was done or outreached

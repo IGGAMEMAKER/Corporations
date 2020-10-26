@@ -327,6 +327,28 @@ public class InvestmentGoalGrowProfit : InvestmentGoal
         };
     }
 }
+public class InvestmentGoalStartMonetisation : InvestmentGoal
+{
+    public InvestmentGoalStartMonetisation() : base(InvestorGoalType.StartMonetising)
+    {
+    }
+
+    public override string GetFormattedName() => "Start monetisation";
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Economy.GetIncome(gameContext, company),
+                need = 1,
+
+                description = "Income from product > 0"
+            },
+        };
+    }
+}
 
 public class InvestmentGoalGrowCost : InvestmentGoal
 {

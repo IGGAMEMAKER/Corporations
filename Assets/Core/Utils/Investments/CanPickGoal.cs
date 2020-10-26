@@ -86,8 +86,11 @@ namespace Assets.Core
                 case InvestorGoalType.ProductRelease:
                     return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers, gameContext);
 
+                case InvestorGoalType.StartMonetising:
+                    return releasedProduct && Done(company, InvestorGoalType.ProductRelease, gameContext);
+
                 case InvestorGoalType.GrowUserBase:
-                    return releasedProduct;
+                    return releasedProduct && Done(company, InvestorGoalType.StartMonetising, gameContext);
 
                 case InvestorGoalType.GrowIncome:
                     Debug.Log($"Check grow income for {company.company.Name}: {Format.Money(income)}");
