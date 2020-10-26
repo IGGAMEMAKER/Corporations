@@ -52,7 +52,7 @@ namespace Assets.Core
             AddFocusNiche(niche, product, context);
             AddFocusIndustry(industry, product);
 
-            Investments.AddCompanyGoal(product, new InvestmentGoalMakePrototype());
+            Investments.AddCompanyGoal(product, context, new InvestmentGoalMakePrototype());
 
             return product;
         }

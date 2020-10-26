@@ -154,22 +154,24 @@ public class InvestmentGoalRelease : InvestmentGoal
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
         GameEntity product = GetProduct(company, gameContext);
+        int teams = 2;
+        long load = 1_500_000;
 
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
                 have = Products.GetServerCapacity(product),
-                need = 1_500_000,
+                need = load,
 
-                description = "Servers capacity > 1.5M"
+                description = $"Servers capacity > {Format.Minify(load)}"
             },
             new GoalRequirements
             {
                 have = product.team.Teams.Count,
                 need = 2,
 
-                description = "Has at least 3 teams"
+                description = $"Has at least {teams} teams"
             },
             new GoalRequirements
             {
@@ -204,7 +206,7 @@ public class InvestmentGoalFirstUsers : InvestmentGoal
                 have = Marketing.GetUsers(product),
                 need = TargetUsersAmount,
 
-                description = "Users > " + TargetUsersAmount
+                description = "Users > " + Format.Minify(TargetUsersAmount)
             }
         };
     }
@@ -232,7 +234,7 @@ public class InvestmentGoalGrowAudience : InvestmentGoal
                 have = Marketing.GetUsers(product),
                 need = TargetUsersAmount,
 
-                description = "Users > " + TargetUsersAmount
+                description = "Users > " + Format.Minify(TargetUsersAmount)
             }
         };
     }
