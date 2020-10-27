@@ -70,8 +70,8 @@ public class CompanyTaskTypeRelay : View
 
 
         //Draw(GoalCounter, hasGoals);
-        GoalCounter.GetComponentInChildren<Image>().enabled = hasNewGoals;
         GoalCounter.GetComponent<Image>().enabled = hasNewGoals;
+        GoalCounter.GetComponentInChildren<Image>().enabled = hasNewGoals;
 
         GoalCounter.GetComponentInChildren<Text>().text = goalsCount.ToString();
     }
