@@ -14,16 +14,18 @@ public class RenderCompanyGoalListView : ListView
     {
         base.ViewRender();
 
-        var goals = new List<InvestorGoalType>();
+        //var goals = new List<InvestorGoalType>();
+        var goals = MyCompany.companyGoal.Goals;
 
-        foreach (var e in (InvestorGoalType[])System.Enum.GetValues(typeof(InvestorGoalType)))
-        {
-            if (Investments.IsPickableGoal(MyCompany, Q, e))
-            {
-                Debug.Log("Pickable goal: " + e);
-                goals.Add(e);
-            }
-        }
+
+        //foreach (var e in (InvestorGoalType[])System.Enum.GetValues(typeof(InvestorGoalType)))
+        //{
+        //    if (Investments.IsPickableGoal(MyCompany, Q, e))
+        //    {
+        //        Debug.Log("Pickable goal: " + e);
+        //        goals.Add(e);
+        //    }
+        //}
 
         SetItems(goals);
     }

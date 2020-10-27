@@ -29,6 +29,28 @@ namespace Assets.Core
 
             return company;
         }
+
+        public static bool HasGoalAlready(GameEntity company, GameContext gameContext, InvestorGoalType goalType)
+        {
+            return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType);
+        }
+
+        public static List<InvestmentGoal> GetNewGoals(GameEntity company, GameContext Q)
+        {
+            var goals = new List<InvestmentGoal>();
+
+            foreach (var e in (InvestorGoalType[])System.Enum.GetValues(typeof(InvestorGoalType)))
+            {
+                if (Investments.IsPickableGoal(company, Q, e) && !Investments.HasGoalAlready(company, Q, e))
+                {
+                    //Debug.Log("New goal: " + e);
+                    goals.Add(GetInvestmentGoal(company, Q, e));
+                }
+            }
+
+            return goals;
+        }
+
         public static bool IsPickableGoal(GameEntity company1, GameContext gameContext, InvestorGoalType goal)
         {
             GameEntity company = GetGoalPickingCompany(company1, gameContext, goal);
