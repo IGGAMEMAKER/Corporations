@@ -3,22 +3,26 @@
 public class CompanyGoalButtonView : CompanyUpgradeButton
 {
     InvestorGoalType InvestorGoal;
-    InvestmentGoal Goal => Investments.GetInvestmentGoal(MyCompany, Q, InvestorGoal);
+    InvestmentGoal Goal; // => Investments.GetInvestmentGoal(MyCompany, Q, InvestorGoal);
 
-    public void SetEntity(InvestorGoalType goal)
+    public void SetEntity(InvestmentGoal goal)
     {
-        InvestorGoal = goal;
+        Goal = goal;
 
         ViewRender();
     }
 
     public override string GetButtonTitle()
     {
+        if (Goal == null)
+            return "";
         return Goal.GetFormattedName();
     }
 
     public override string GetBenefits()
     {
+        if (Goal == null)
+            return "";
         return Goal.GetFormattedRequirements(MyCompany, Q);
     }
 
@@ -34,6 +38,6 @@ public class CompanyGoalButtonView : CompanyUpgradeButton
 
     public override void Execute()
     {
-        FindObjectOfType<InestmentProposalScreen>().SetGoal(InvestorGoal);
+        FindObjectOfType<InestmentProposalScreen>().SetGoal(Goal);
     }
 }

@@ -23,13 +23,16 @@
             long shares = p.AdditionalShares; // allShares * p.Investment.Offer / cost;
 
             // update shareholders list
-            //var investor = GetInvestorById(gameContext, investorId);
             AddShareholder(company, investor, (int)shares);
 
+            var date = ScheduleUtils.GetCurrentDate(gameContext);
 
-            var portion = p.Investment.Portion;
-            AddResources(company, portion, "accept investments");
-            SpendResources(investor, portion, "spend on investments");
+            if (Economy.WillPayInvestmentRightNow(p.Investment, date))
+            {
+                var portion = p.Investment.Portion;
+                AddResources(company, portion, "accept investments");
+                SpendResources(investor, portion, "spend on investments");
+            }
 
             MarkProposalAsAccepted(company, investorId);
         }
