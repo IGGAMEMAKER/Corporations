@@ -54,6 +54,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
 
             var goal = product.companyGoal.Goals.FirstOrDefault();
+            Companies.Log(product, "Achieving goal: " + goal.GetFormattedName());
+
             switch (goal.InvestorGoalType)
             {
                 case InvestorGoalType.ProductPrototype:
@@ -109,13 +111,22 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                     actions.Add(ProductActions.ExpandTeam);
 
                     break;
+
+                default:
+                    Companies.Log(product, "No specific actions for current goal");
+
+                    actions.Add(ProductActions.GrabUsers);
+                    actions.Add(ProductActions.Features);
+
+                    break;
             }
 
             foreach (var action in actions)
             {
                 ManageProduct(action, product);
-                Investments.CompleteGoal(product, gameContext, goal);
             }
+
+            Investments.CompleteGoal(product, gameContext, goal);
 
             Investments.CompleteGoals(product, gameContext);
         }
