@@ -32,8 +32,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             List<ProductActions> actions = new List<ProductActions>();
 
-            Companies.Log(product, "Product development system");
-
             // add goal if there are no goals
             if (product.companyGoal.Goals.Count == 0)
             {
@@ -106,7 +104,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 case InvestorGoalType.BecomeProfitable:
                     actions.Add(ProductActions.GrabUsers);
-                    actions.Add(ProductActions.ShowProfit);
+                    //actions.Add(ProductActions.ShowProfit);
                     actions.Add(ProductActions.Features);
                     actions.Add(ProductActions.ExpandTeam);
 
@@ -126,15 +124,13 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 ManageProduct(action, product);
             }
 
-            Investments.CompleteGoal(product, gameContext, goal);
-
             Investments.CompleteGoals(product, gameContext);
         }
     }
 
     private void ManageProduct(ProductActions action, GameEntity product)
     {
-        Companies.Log(product, "Manage: " + action);
+        Companies.Log(product, action.ToString());
         switch (action)
         {
             case ProductActions.Features:
@@ -160,6 +156,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case ProductActions.ExpandTeam:
                 ExpandTeam(product);
+                break;
+
+            default:
+                Companies.Log(product, Visuals.Negative("UNKNOWN ACTION in ProductDevelopmentSystem: " + action));
+
                 break;
         }
     }
@@ -258,6 +259,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
         var requirements = goal.GetGoalRequirements(product, gameContext);
+
+        Companies.Log(product, goal.GetFormattedRequirements(product, gameContext));
 
         if (Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);

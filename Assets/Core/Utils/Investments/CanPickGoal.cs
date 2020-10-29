@@ -59,7 +59,7 @@ namespace Assets.Core
 
 
             // this goal was done already && cannot be done twice
-            if (Investments.Done(company, goal, gameContext))
+            if (Investments.IsGoalDone(company, goal, gameContext))
             {
                 //Debug.Log("goal " + goal + " for " + company.company.Name + " was done or outgrown");
                 return false;
@@ -100,19 +100,19 @@ namespace Assets.Core
                     return isPrototype;
 
                 case InvestorGoalType.ProductBecomeMarketFit:
-                    return isPrototype && Done(company, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
 
                 case InvestorGoalType.ProductFirstUsers:
-                    return isPrototype && Done(company, InvestorGoalType.ProductBecomeMarketFit, gameContext); // && users < 100_000
+                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductBecomeMarketFit, gameContext); // && users < 100_000
 
                 case InvestorGoalType.ProductRelease:
-                    return isPrototype && Done(company, InvestorGoalType.ProductFirstUsers, gameContext);
+                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductFirstUsers, gameContext);
 
                 case InvestorGoalType.StartMonetising:
-                    return releasedProduct && Done(company, InvestorGoalType.ProductRelease, gameContext);
+                    return releasedProduct && IsGoalDone(company, InvestorGoalType.ProductRelease, gameContext);
 
                 case InvestorGoalType.GrowUserBase:
-                    return releasedProduct && Done(company, InvestorGoalType.StartMonetising, gameContext);
+                    return releasedProduct && IsGoalDone(company, InvestorGoalType.StartMonetising, gameContext);
 
                 case InvestorGoalType.GrowIncome:
                     return releasedProduct && income > 50_000;

@@ -44,7 +44,13 @@ namespace Assets.Core
 
         public static bool IsDaughterOf(GameEntity parent, GameEntity daughter)
         {
-            return IsInvestsInCompany(daughter, parent.shareholder.Id);
+            if (!parent.hasShareholder)
+            {
+                Companies.Log(daughter, $"FALSELY CALLED IS_DAUGHTER_OF on companies: possible parent={parent.company.Name}, possible daughter={daughter.company.Name}");
+                return false;
+            }
+
+            return Investments.IsInvestsInCompany(parent, daughter); // IsInvestsInCompany(daughter, parent.shareholder.Id);
         }
 
         public static GameEntity GetParentCompany(GameContext context, GameEntity company)

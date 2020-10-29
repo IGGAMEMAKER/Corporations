@@ -485,11 +485,14 @@ public class InvestmentGoalAcquireCompany : InvestmentGoal
 
         var group = company.hasProduct ? Companies.GetManagingCompanyOf(company, gameContext) : company;
 
+        bool companyWasBought = Companies.IsDaughterOf(group, target);
+        bool companyBecomeBankrupt = !target.isAlive;
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
-                have = (Companies.IsDaughterOf(group, target) ? 1 : 0) + (target.isAlive ? 0 : 1),
+                have = (companyWasBought ? 1 : 0) + (companyBecomeBankrupt ? 1 : 0),
                 need = 1,
 
                 description = "Buy " + CompetitorName

@@ -10,7 +10,7 @@ namespace Assets.Core
             return goal.IsCompleted(company, gameContext);
         }
 
-        public static bool Done(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
+        public static bool IsGoalDone(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
         {
             var company = GetGoalPickingCompany(company1, gameContext, goal);
 
