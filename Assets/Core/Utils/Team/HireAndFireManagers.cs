@@ -125,8 +125,9 @@ namespace Assets.Core
 
         public static void DismissTeam(GameEntity company, GameContext gameContext)
         {
-            Debug.Log("DISMISS TEAM WORKS BAD!" + company.company.Name);
-            Debug.LogWarning("DISMISS TEAM WORKS BAD!" + company.company.Name);
+            Companies.Log(company, "Dismiss team");
+            //Debug.Log("DISMISS TEAM WORKS BAD!" + company.company.Name);
+            //Debug.LogWarning("DISMISS TEAM WORKS BAD!" + company.company.Name);
         }
 
         public static void FireManager(GameContext gameContext, GameEntity worker) => FireManager(Companies.Get(gameContext, worker.worker.companyId), worker);

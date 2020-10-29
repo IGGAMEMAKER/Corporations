@@ -63,12 +63,13 @@ namespace Assets.Core
             if (IsObservableCompany(entity))
             {
                 entity.logging.Logs.Add(text);
+                Debug.Log(entity.company.Name + ": " + text);
             }
 
-            if (IsPlayerCompany(entity))
-            {
-                Debug.Log(text);
-            }
+            //if (IsPlayerCompany(entity))
+            //{
+            //    Debug.Log(entity.company.Name + ": " + text);
+            //}
         }
 
         public static void PrintFinancialTransactions(GameEntity company)
@@ -83,7 +84,8 @@ namespace Assets.Core
 
             var names = new List<string>() { "Google" };
 
-            return company.hasCompanyFocus && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange) || names.Contains(company.company.Name));
+            return company.hasCompany && company.hasCompanyFocus
+                && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange) || names.Contains(company.company.Name));
         }
     }
 }

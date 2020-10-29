@@ -61,7 +61,7 @@ namespace Assets.Core
             // this goal was done already && cannot be done twice
             if (Investments.Done(company, goal, gameContext))
             {
-                Debug.Log("goal " + goal + " for " + company.company.Name + " was done or outgrown");
+                //Debug.Log("goal " + goal + " for " + company.company.Name + " was done or outgrown");
                 return false;
             }
 

@@ -32,6 +32,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             List<ProductActions> actions = new List<ProductActions>();
 
+            Companies.Log(product, "Product development system");
+
             // add goal if there are no goals
             if (product.companyGoal.Goals.Count == 0)
             {
@@ -112,6 +114,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             foreach (var action in actions)
             {
                 ManageProduct(action, product);
+                Investments.CompleteGoal(product, gameContext, goal);
             }
 
             Investments.CompleteGoals(product, gameContext);
@@ -120,6 +123,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     private void ManageProduct(ProductActions action, GameEntity product)
     {
+        Companies.Log(product, "Manage: " + action);
         switch (action)
         {
             case ProductActions.Features:
@@ -131,7 +135,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 break;
 
             case ProductActions.Monetise:
-                Monetise(product);
+                //Monetise(product);
+                ManageFeatures(product);
                 break;
 
             case ProductActions.GrabUsers:

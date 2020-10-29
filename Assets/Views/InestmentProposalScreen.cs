@@ -50,14 +50,11 @@ public class InestmentProposalScreen : View
 
     private void OnEnable()
     {
-        Debug.Log("OnEnable resetOffer");
         ResetOffer();
     }
 
     public void ResetOffer()
     {
-        Debug.Log("Reset Offer");
-
         Sum = -1;
         goalWasChosen = false;
         urgency = -1;
@@ -178,8 +175,6 @@ public class InestmentProposalScreen : View
     {
         var proposals = Companies.GetInvestmentProposals(MyCompany);
 
-        Debug.Log("UpdateStartDates: " + urgency);
-
         foreach (var p in proposals)
         {
             p.Investment.StartDate = CurrentIntDate + urgency;
@@ -188,8 +183,6 @@ public class InestmentProposalScreen : View
 
     public void SetUrgency(int days)
     {
-        Debug.Log("Set urgency: " + days);
-        //ResetOffer();
         urgency = days;
 
         ViewRender();

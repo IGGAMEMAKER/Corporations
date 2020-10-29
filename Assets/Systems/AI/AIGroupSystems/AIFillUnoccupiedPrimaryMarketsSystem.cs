@@ -23,7 +23,7 @@ public partial class AIGroupExpansionSystem : OnQuarterChange
         var candidates = GetAcquisitionCandidates(products, managingCompany);
 
         var count = candidates.Count();
-        Debug.Log("Check niche " + n + ". Candidates: " + count);
+        //Debug.Log("Check niche " + n + ". Candidates: " + count);
 
         foreach (var c in candidates)
             SendAcquisitionOffer(managingCompany, c, gameContext);
