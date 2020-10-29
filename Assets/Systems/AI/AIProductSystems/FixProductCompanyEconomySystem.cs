@@ -87,7 +87,7 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         // remove teams without tasks
 
         PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
-        str.Add(Economy.GetProductCompanyMaintenance(product, gameContext, true).MinifyValues().Minify().ToString(true));
+        str.Add(Economy.GetProductCompanyMaintenance(product, true).MinifyValues().Minify().ToString(true));
     }
 
     void PrintFinancialStatusOfCompany(GameEntity product, ref List<string> str, bool isTestCompany)
@@ -99,7 +99,7 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
             var income = Economy.GetIncome(gameContext, product);
             var maintenance = Economy.GetMaintenance(gameContext, product);
 
-            var managerMaintenance = Economy.GetManagersCost(product, gameContext);
+            var managerMaintenance = Economy.GetManagersCost(product);
 
             var profit = Economy.GetProfit(gameContext, product);
 
@@ -110,7 +110,7 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         }
     }
 
-    List<TeamTaskDetailed> GetPaidCompanyTeamTasks(GameEntity product) => GetCompanyTeamTasks(product).Where(t => Economy.GetTeamTaskCost(product, gameContext, t.TeamTask) > 0).ToList();
+    List<TeamTaskDetailed> GetPaidCompanyTeamTasks(GameEntity product) => GetCompanyTeamTasks(product).Where(t => Economy.GetTeamTaskCost(product, t.TeamTask) > 0).ToList();
 
     void RaiseFastCash(GameEntity product)
     {
@@ -123,12 +123,12 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
     void RemoveExpensiveTask(GameEntity product, ref List<string> str)
     {
         var tasks = GetPaidCompanyTeamTasks(product)
-            .OrderByDescending(t => Economy.GetTeamTaskCost(product, gameContext, t.TeamTask))
+            .OrderByDescending(t => Economy.GetTeamTaskCost(product, t.TeamTask))
             .ToList();
 
         var expensiveTask = tasks.First();
 
-        var cost = Economy.GetTeamTaskCost(product, gameContext, expensiveTask.TeamTask);
+        var cost = Economy.GetTeamTaskCost(product, expensiveTask.TeamTask);
         str.Add("Found expensive task: " + expensiveTask.TeamTask.GetTaskName() + $"teamId = {expensiveTask.teamId} taskId = {expensiveTask.slotId}");
 
         Teams.RemoveTeamTask(product, gameContext, expensiveTask.teamId, expensiveTask.slotId);

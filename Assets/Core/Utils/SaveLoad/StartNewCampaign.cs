@@ -74,7 +74,7 @@ namespace Assets.Core
                 var funds = Random.Range(20, 50) * startCapital;
                 var c = Markets.SpawnCompany(niche, gameContext, funds);
 
-                var features = Products.GetAvailableFeaturesForProduct(c);
+                var features = Products.GetAllFeaturesForProduct(c);
                 var teams = Random.Range(3, 9);
 
                 for (var j = 0; j < teams; j++)

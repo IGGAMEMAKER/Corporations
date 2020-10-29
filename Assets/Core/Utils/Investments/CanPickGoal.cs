@@ -97,7 +97,7 @@ namespace Assets.Core
                 // PRODUCTS
 
                 case InvestorGoalType.ProductPrototype:
-                    return isPrototype; // && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < minLoyalty
+                    return isPrototype;
 
                 case InvestorGoalType.ProductBecomeMarketFit:
                     return isPrototype && Done(company, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
@@ -115,14 +115,11 @@ namespace Assets.Core
                     return releasedProduct && Done(company, InvestorGoalType.StartMonetising, gameContext);
 
                 case InvestorGoalType.GrowIncome:
-                    Debug.Log($"Check grow income for {company.company.Name}: {Format.Money(income)}");
                     return releasedProduct && income > 50_000;
 
                 case InvestorGoalType.GainMoreSegments:
                     var amountOfAudiences = Marketing.GetAudienceInfos().Count;
                     var ourAudiences = Marketing.GetAmountOfTargetAudiences(company);
-
-                    Debug.Log($"Check gain more segments for {company.company.Name}: {Format.Minify(users)} users, {ourAudiences} / {amountOfAudiences}");
 
                     return releasedProduct && users > 500_000 && ourAudiences < amountOfAudiences;
 

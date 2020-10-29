@@ -98,7 +98,7 @@ namespace Assets.Core
             var CEO = Humans.Get(Q, Companies.GetCEOId(company));
 
             var salary = Teams.GetSalaryPerRating(CEO);
-            Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0);
+            Teams.SetJobOffer(CEO, company, new JobOffer(salary), 0, Q);
         }
 
     }

@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface ITeamListener {
-    void OnTeam(GameEntity entity, int morale, int organisation, System.Collections.Generic.Dictionary<int, WorkerRole> managers, System.Collections.Generic.Dictionary<WorkerRole, int> workers, System.Collections.Generic.List<TeamInfo> teams);
+    void OnTeam(GameEntity entity, int morale, int organisation, System.Collections.Generic.Dictionary<int, WorkerRole> managers, System.Collections.Generic.Dictionary<WorkerRole, int> workers, System.Collections.Generic.List<TeamInfo> teams, long salaries);
 }

@@ -11,7 +11,7 @@ public partial class GameEntity {
     public TeamComponent team { get { return (TeamComponent)GetComponent(GameComponentsLookup.Team); } }
     public bool hasTeam { get { return HasComponent(GameComponentsLookup.Team); } }
 
-    public void AddTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams) {
+    public void AddTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams, long newSalaries) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
@@ -19,10 +19,11 @@ public partial class GameEntity {
         component.Managers = newManagers;
         component.Workers = newWorkers;
         component.Teams = newTeams;
+        component.Salaries = newSalaries;
         AddComponent(index, component);
     }
 
-    public void ReplaceTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams) {
+    public void ReplaceTeam(int newMorale, int newOrganisation, System.Collections.Generic.Dictionary<int, WorkerRole> newManagers, System.Collections.Generic.Dictionary<WorkerRole, int> newWorkers, System.Collections.Generic.List<TeamInfo> newTeams, long newSalaries) {
         var index = GameComponentsLookup.Team;
         var component = (TeamComponent)CreateComponent(index, typeof(TeamComponent));
         component.Morale = newMorale;
@@ -30,6 +31,7 @@ public partial class GameEntity {
         component.Managers = newManagers;
         component.Workers = newWorkers;
         component.Teams = newTeams;
+        component.Salaries = newSalaries;
         ReplaceComponent(index, component);
     }
 

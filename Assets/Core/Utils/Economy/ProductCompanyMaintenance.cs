@@ -14,50 +14,29 @@ namespace Assets.Core
         }
 
         // resulting costs
-        public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, GameContext gameContext, bool isBonus)
+        public static Bonus<long> GetProductCompanyMaintenance(GameEntity e, bool isBonus)
         {
-            var bonus = new Bonus<long>("Maintenance");
-
-            bonus
-                .Append("Managers", GetManagersCost(e, gameContext))
+            var bonus = new Bonus<long>("Maintenance")
+                .Append("Managers", GetManagersCost(e))
                 .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", GetSingleTeamCost() * e.team.Teams.Count * C.PERIOD / 30);
-                ;
 
             /// team tasks
-            // channels
-            foreach (var c in e.companyMarketingActivities.Channels)
+            foreach (var t in e.team.Teams[0].Tasks)
             {
-                var channelId = c.Key;
-
-                var cost = Marketing.GetMarketingActivityCost(e, gameContext, channelId);
-                bonus.AppendAndHideIfZero("Marketing in Channel" + channelId, cost);
+                bonus.AppendAndHideIfZero(t.GetPrettyName(), GetTeamTaskCost(e, t));
             }
-
-            var supportFeatures = Products.GetAvailableSupportFeaturesForProduct(e);
-            var activeUpgrades = e.supportUpgrades.Upgrades;
-
-            // support and servers
-            foreach (var u in supportFeatures)
-            {
-                var name = u.Name; // u.Key;
-                var amount = activeUpgrades.ContainsKey(name) ? activeUpgrades[name] : 0;
-
-                var upgradeCost = GetSupportUpgradeCost(e, u.SupportBonus);
-
-                bonus.AppendAndHideIfZero(name, upgradeCost * amount);
-            }
-            
 
             return bonus;
         }
 
-        public static long GetTeamTaskCost(GameEntity product, GameContext gameContext, TeamTask teamTask)
+        public static long GetTeamTaskCost(GameEntity product, TeamTask teamTask)
         {
             if (teamTask.IsFeatureUpgrade)
                 return 0;
 
             if (teamTask.IsMarketingTask)
-                return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
+                return (teamTask as TeamTaskChannelActivity).ChannelCost;
+                //return Marketing.GetMarketingActivityCost(product, gameContext, (teamTask as TeamTaskChannelActivity).ChannelId);
 
             if (teamTask.IsSupportTask || teamTask.IsHighloadTask)
             {
@@ -89,7 +68,7 @@ namespace Assets.Core
 
         public static long GetProductMaintenance(GameEntity e, GameContext gameContext)
         {
-            var bonus = GetProductCompanyMaintenance(e, gameContext, true);
+            var bonus = GetProductCompanyMaintenance(e, true);
 
             return bonus.Sum();
         }
@@ -97,12 +76,6 @@ namespace Assets.Core
 
 
         // team cost
-        public static long GetWorkersCost(GameEntity e, GameContext gameContext)
-        {
-            var workers = Teams.GetTeamSize(e);
-
-            return workers * C.SALARIES_PROGRAMMER; // * GetCultureTeamDiscount(e, gameContext) / 100;
-        }
 
         public static Bonus<long> GetSalaries(GameEntity e, GameContext gameContext)
         {
@@ -122,9 +95,15 @@ namespace Assets.Core
             return salaries;
         }
 
-        public static long GetManagersCost(GameEntity e, GameContext gameContext)
+        public static void UpdateSalaries(GameEntity company, GameContext gameContext)
         {
-            return GetSalaries(e, gameContext).Sum();
+            company.team.Salaries = GetSalaries(company, gameContext).Sum();
+        }
+
+        public static long GetManagersCost(GameEntity e)
+        {
+            return e.team.Salaries;
+            //return GetSalaries(e, gameContext).Sum();
         }
     }
 }

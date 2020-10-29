@@ -106,6 +106,11 @@ public class CompanyResourceHistoryComponent : IComponent
     public List<ResourceTransaction> Actions;
 }
 
+public class LoggingComponent : IComponent
+{
+    public List<string> Logs;
+}
+
 [Game]
 public class InvestmentProposalsComponent : IComponent
 {
@@ -286,6 +291,8 @@ public class TeamComponent : IComponent
     public Dictionary<WorkerRole, int> Workers;
 
     public List<TeamInfo> Teams;
+
+    public long Salaries;
 }
 public enum ManagerTask
 {
@@ -347,7 +354,7 @@ public enum TeamType
     CoreTeam, // managers
     MergeAndAcquisitionTeam,
     SupportTeam,
-    DevOpsTeam
+    ServersideTeam
 }
 
 public class TeamTask {
@@ -366,6 +373,20 @@ public class TeamTask {
 
         if (IsSupportTask)
             return "Task: " + (this as TeamTaskSupportFeature).SupportFeature.Name;
+
+        return this.ToString();
+    }
+
+    public string GetPrettyName()
+    {
+        if (IsFeatureUpgrade)
+            return "Feature: " + (this as TeamTaskFeatureUpgrade).NewProductFeature.Name;
+
+        if (IsMarketingTask)
+            return "Marketing in Channel" + (this as TeamTaskChannelActivity).ChannelId;
+
+        if (IsSupportTask)
+            return (this as TeamTaskSupportFeature).SupportFeature.Name;
 
         return this.ToString();
     }
@@ -400,10 +421,12 @@ public class TeamTask {
 public class TeamTaskChannelActivity : TeamTask
 {
     public int ChannelId;
+    public long ChannelCost;
 
-    public TeamTaskChannelActivity(int channelId)
+    public TeamTaskChannelActivity(int channelId, long cost)
     {
         this.ChannelId = channelId;
+        this.ChannelCost = cost;
     }
 }
 

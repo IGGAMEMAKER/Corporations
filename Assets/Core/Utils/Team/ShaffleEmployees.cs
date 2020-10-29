@@ -178,7 +178,7 @@ namespace Assets.Core
                 case TeamType.MarketingTeam: return new WorkerRole[] { WorkerRole.MarketingLead };
 
                 case TeamType.DevelopmentTeam: return new WorkerRole[] { WorkerRole.TeamLead, WorkerRole.ProductManager };
-                case TeamType.DevOpsTeam: return new WorkerRole[] { WorkerRole.TeamLead };
+                case TeamType.ServersideTeam: return new WorkerRole[] { WorkerRole.TeamLead };
 
                 default:
                     return new WorkerRole[] { WorkerRole.CEO, WorkerRole.ProjectManager, WorkerRole.TeamLead, WorkerRole.MarketingLead, WorkerRole.ProductManager };

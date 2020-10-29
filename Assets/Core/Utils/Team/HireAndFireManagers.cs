@@ -8,12 +8,12 @@ namespace Assets.Core
     public static partial class Teams
     {
         // managers
-        public static GameEntity HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole, int teamId) => HireManager(company, Humans.GenerateHuman(gameContext, workerRole), teamId);
-        public static GameEntity HireManager(GameEntity company, GameEntity worker, int teamId)
+        public static GameEntity HireManager(GameEntity company, GameContext gameContext, WorkerRole workerRole, int teamId) => HireManager(company, gameContext, Humans.GenerateHuman(gameContext, workerRole), teamId);
+        public static GameEntity HireManager(GameEntity company, GameContext gameContext, GameEntity worker, int teamId)
         {
             var role = Humans.GetRole(worker);
 
-            AttachToCompany(company, worker, role, teamId);
+            AttachToCompany(company, gameContext, worker, role, teamId);
 
             company.employee.Managers.Remove(worker.human.Id);
 
@@ -24,10 +24,10 @@ namespace Assets.Core
         {
             FireManager(gameContext, worker);
 
-            AttachToCompany(newCompany, worker, Humans.GetRole(worker), teamId);
+            AttachToCompany(newCompany, gameContext, worker, Humans.GetRole(worker), teamId);
         }
 
-        public static void AttachToCompany(GameEntity company, GameEntity worker, WorkerRole role, int teamId)
+        public static void AttachToCompany(GameEntity company, GameContext gameContext, GameEntity worker, WorkerRole role, int teamId)
         {
             // add humanId to team
             var team = company.team.Teams[teamId];
@@ -37,7 +37,7 @@ namespace Assets.Core
             team.Managers.Add(humanId);
             team.Roles[humanId] = role;
 
-            ReplaceTeam(company, company.team);
+            ReplaceTeam(company, gameContext, company.team);
 
             // add companyId to human
             Humans.AttachToCompany(worker, company.company.Id, role);
@@ -73,7 +73,7 @@ namespace Assets.Core
             AddOrReplaceOffer(company, worker, offer);
         }
 
-        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId)
+        public static void SetJobOffer(GameEntity human, GameEntity company, JobOffer offer, int teamId, GameContext gameContext)
         {
             var o = new ExpiringJobOffer {
                 Accepted = true,
@@ -85,6 +85,8 @@ namespace Assets.Core
             };
 
             AddOrReplaceOffer(company, human, o);
+
+            Economy.UpdateSalaries(company, gameContext);
         }
 
         public static float GetPersonalSalaryModifier(GameEntity human)
@@ -210,31 +212,5 @@ namespace Assets.Core
 
         //    return GetRelationshipsWith(gameContext, company, worker.human.Id);
         //}
-
-        public static bool IsFullTeam(TeamInfo team)
-        {
-            int maxWorkers = 8;
-            int workers = team.Workers; // Random.Range(0, maxWorkers);
-            bool hasFullTeam = workers >= maxWorkers;
-
-            return hasFullTeam;
-        }
-
-
-
-        public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
-        {
-            bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
-
-
-            bool hasNoManager = !HasMainManagerInTeam(team, gameContext, product);
-
-
-            bool hasDisloyalManagers = team.Managers
-                .Select(m => Humans.Get(gameContext, m))
-                .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
-
-            return IsFullTeam(team) && (hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
-        }
     }
 }

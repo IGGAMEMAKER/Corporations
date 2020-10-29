@@ -22,7 +22,7 @@ public class HireManager : ButtonController
             {
                 // salary upgrade
                 
-                Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, teamId);
+                Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, teamId, Q);
             }
             else
             {
@@ -31,10 +31,10 @@ public class HireManager : ButtonController
         }
         else
         {
-            Teams.HireManager(company, human, SelectedTeam);
+            Teams.HireManager(company, Q, human, SelectedTeam);
         }
 
-        Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, SelectedTeam);
+        Teams.SetJobOffer(human, company, jobOfferScreen.JobOffer, SelectedTeam, Q);
 
         ScreenUtils.SetMainPanelId(Q, 1);
         NavigateToMainScreen();

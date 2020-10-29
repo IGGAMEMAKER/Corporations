@@ -97,7 +97,8 @@ namespace Assets.Core
                 100, 50,
                 new Dictionary<int, WorkerRole>(),
                 new Dictionary<WorkerRole, int> { [WorkerRole.Programmer] = 0 },
-                new List<TeamInfo>() {}
+                new List<TeamInfo>() {},
+                0
                 );
 
             // add team for CEO
@@ -114,9 +115,9 @@ namespace Assets.Core
 
             company.AddTeamEfficiency(new TeamEfficiency());
 
-            Teams.AttachToCompany(company, CEO, WorkerRole.CEO, 0);
+            Teams.AttachToCompany(company, context, CEO, WorkerRole.CEO, 0);
 
-            Teams.SetJobOffer(CEO, company, new JobOffer(0), 0);
+            Teams.SetJobOffer(CEO, company, new JobOffer(0), 0, context);
 
             // uniqueness
             var culture = GetRandomCorporateCulture();

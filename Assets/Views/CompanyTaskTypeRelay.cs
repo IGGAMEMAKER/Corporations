@@ -118,16 +118,5 @@ public class CompanyTaskTypeRelay : View
         Draw(TeamsButton, Flagship.team.Teams.Count > 0);
         Draw(TeamCounter, teamInterrupts > 0);
         TeamCounter.GetComponentInChildren<Text>().text = teamInterrupts.ToString();
-
-        //// 1, cause servers are added automatically
-        //bool anyTaskWasAdded = Flagship.team.Teams[0].Tasks.Count > 2;
-        //bool hasMoreThanOneTeam = Flagship.team.Teams.Count > 1;
-
-        //if (anyTaskWasAdded || hasMoreThanOneTeam)
-        //{
-        //    //Show(AddTeamButton);
-        //    //Show(TeamPanel);
-        //    //Show(TeamLabel);
-        //}
     }
 }

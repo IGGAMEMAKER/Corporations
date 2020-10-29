@@ -13,7 +13,7 @@ public class RenderCompanyProfit : UpgradedParameterView
 
         if (company.hasProduct)
         {
-            var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
+            var prodMnt = Economy.GetProductCompanyMaintenance(company, true);
 
             foreach (var p in prodMnt.bonusDescriptions)
                 bonus.AppendAndHideIfZero(p.Name, -p.Value);

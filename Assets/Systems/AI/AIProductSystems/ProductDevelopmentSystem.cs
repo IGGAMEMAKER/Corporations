@@ -1,7 +1,24 @@
 ﻿using Assets.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+public enum ProductActions
+{
+    Features,
+    GrabUsers,
+    ExpandTeam, // hire more people, add more teams
+    HandleTeam,
+
+    ReleaseApp,
+
+    Monetise,
+
+    GrabSegments,
+
+    ShowProfit
+}
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
 {
@@ -13,21 +30,214 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         foreach (var product in nonFlagshipProducts)
         {
-            List<string> str = new List<string>();
+            List<ProductActions> actions = new List<ProductActions>();
 
-            if (Companies.IsReleaseableApp(product))
-                Marketing.ReleaseApp(gameContext, product);
+            // add goal if there are no goals
+            if (product.companyGoal.Goals.Count == 0)
+            {
+                var pickableGoals = Investments.GetNewGoals(product, gameContext);
 
-            ManageFeatures(product, ref str);
-            ManageChannels(product, ref str);
+                var max = pickableGoals.Count;
+
+                if (max == 0)
+                {
+                    Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
+                    continue;
+                }
+
+                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
+            }
+
+            var goal = product.companyGoal.Goals.FirstOrDefault();
+            switch (goal.InvestorGoalType)
+            {
+                case InvestorGoalType.ProductPrototype:
+                    actions.Add(ProductActions.Features);
+
+                    break;
+
+                case InvestorGoalType.ProductFirstUsers:
+                    actions.Add(ProductActions.GrabUsers);
+                    actions.Add(ProductActions.Features);
+
+                    break;
+
+                case InvestorGoalType.ProductBecomeMarketFit:
+                    actions.Add(ProductActions.Features);
+
+                    break;
+
+                case InvestorGoalType.ProductRelease:
+                    actions.Add(ProductActions.ReleaseApp);
+
+                    break;
+
+                case InvestorGoalType.StartMonetising:
+                    actions.Add(ProductActions.Monetise);
+
+                    break;
+
+                case InvestorGoalType.GainMoreSegments:
+                    actions.Add(ProductActions.GrabSegments);
+                    actions.Add(ProductActions.Features);
+                    actions.Add(ProductActions.GrabUsers);
+
+                    break;
+
+                case InvestorGoalType.GrowUserBase:
+                    actions.Add(ProductActions.GrabUsers);
+                    actions.Add(ProductActions.Features);
+
+                    break;
+
+                case InvestorGoalType.GrowIncome:
+                    actions.Add(ProductActions.Features);
+                    actions.Add(ProductActions.GrabUsers);
+
+                    break;
+
+                case InvestorGoalType.BecomeProfitable:
+                    actions.Add(ProductActions.GrabUsers);
+                    actions.Add(ProductActions.ShowProfit);
+                    actions.Add(ProductActions.Features);
+
+                    break;
+            }
+
+            foreach (var action in actions)
+            {
+                ManageProduct(action, product);
+            }
 
             Investments.CompleteGoals(product, gameContext);
         }
     }
 
-    void ManageFeatures(GameEntity product, ref List<string> str)
+    private void ManageProduct(ProductActions action, GameEntity product)
     {
-        var remainingFeatures = Products.GetAvailableFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name));
+        switch (action)
+        {
+            case ProductActions.Features:
+                ManageFeatures(product);
+                break;
+
+            case ProductActions.ReleaseApp:
+                ReleaseApp(product);
+                break;
+
+            case ProductActions.Monetise:
+                Monetise(product);
+                break;
+
+            case ProductActions.GrabUsers:
+                ManageChannels(product);
+                break;
+
+            case ProductActions.GrabSegments:
+                GrabSegments(product);
+                break;
+
+            case ProductActions.ExpandTeam:
+                ExpandTeam(product);
+                break;
+        }
+    }
+
+    void TryAddTeam(GameEntity product, TeamType teamType)
+    {
+        var teamCost = Economy.GetSingleTeamCost();
+
+        if (CanMaintain(product, teamCost) && !product.team.Teams.Any(t => t.TeamType == teamType))
+        {
+            var id = Teams.AddTeam(product, teamType);
+
+            if (teamType == TeamType.DevelopmentTeam)
+                SetTasks(product, ManagerTask.Polishing, id);
+
+            if (teamType == TeamType.MarketingTeam)
+                SetTasks(product, ManagerTask.ViralSpread, id);
+
+            if (teamType == TeamType.ServersideTeam)
+                SetTasks(product, ManagerTask.Organisation, id);
+        }
+    }
+
+    void SetTasks(GameEntity product, ManagerTask managerTask, int teamId)
+    {
+        Teams.SetManagerTask(product, teamId, 0, managerTask);
+        Teams.SetManagerTask(product, teamId, 1, managerTask);
+        Teams.SetManagerTask(product, teamId, 2, managerTask);
+    }
+
+    void ExpandTeam(GameEntity product)
+    {
+        if (product.team.Teams.Count < 4)
+        {
+            TryAddTeam(product, TeamType.DevelopmentTeam);
+            TryAddTeam(product, TeamType.MarketingTeam);
+            TryAddTeam(product, TeamType.ServersideTeam);
+        }
+    }
+
+    void GrabSegments(GameEntity product)
+    {
+        var positioning = Marketing.GetPositioning(product);
+        var ourAudiences = Marketing.GetAmountOfTargetAudiences(positioning);
+
+        var positionings = Marketing.GetNichePositionings(product);
+
+        var audiences = Marketing.GetAudienceInfos();
+        var maxAudiences = audiences.Count;
+
+        var widerAudiencesCount = ourAudiences + 1;
+        while (widerAudiencesCount < maxAudiences)
+        {
+            var broaderPositionings = positionings.Where(p => Marketing.GetAmountOfTargetAudiences(p) == widerAudiencesCount);
+
+            if (broaderPositionings.Count() == 0)
+            {
+                widerAudiencesCount++;
+                continue;
+            }
+
+            var newIndex = UnityEngine.Random.Range(0, broaderPositionings.Count());
+            var newPositioning = broaderPositionings.ToArray()[newIndex];
+
+            // if positioning change will not dissapoint our current users...
+            // change it to new one!
+            foreach (var a in audiences)
+            {
+                var loyalty = Marketing.GetSegmentLoyalty(product, newPositioning, a.ID);
+
+                if (loyalty < 0)
+                    return;
+            }
+
+            Marketing.ChangePositioning(product, newPositioning.ID);
+
+            return;
+        }
+    }
+
+    void ReleaseApp(GameEntity product)
+    {
+        var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
+        var requirements = goal.GetGoalRequirements(product, gameContext);
+
+        ExpandTeam(product);
+
+        if (Companies.IsReleaseableApp(product))
+            Marketing.ReleaseApp(gameContext, product);
+    }
+
+    void Monetise(GameEntity product)
+    {
+        ManageFeatures(product);
+    }
+
+    void ManageFeatures(GameEntity product)
+    {
+        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name));
 
         if (remainingFeatures.Count() == 0)
             return;
@@ -48,16 +258,16 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
         }
 
-        TryAddTask(product, new TeamTaskFeatureUpgrade(feature), ref str);
+        TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
     }
 
-    void ManageSupport(GameEntity product, ref List<string> str)
+    void ManageSupport(GameEntity product)
     {
         int tries = 2;
         if (Products.IsNeedsMoreServers(product) && tries > 0)
         {
             tries--;
-            AddServer(product, ref str);
+            AddServer(product);
         }
 
         var load = Products.GetServerLoad(product);
@@ -67,11 +277,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         if (load + growth >= capacity)
         {
-            AddServer(product, ref str);
+            AddServer(product);
         }
     }
 
-    void ManageChannels(GameEntity product, ref List<string> str)
+    void ManageChannels(GameEntity product)
     {
         var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
@@ -81,21 +291,21 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             var c = channels.First();
         
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID), ref str);
+            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, Marketing.GetChannelCost(product, c)));
         }
     }
 
-    void AddServer(GameEntity product, ref List<string> str)
+    void AddServer(GameEntity product)
     {
         var supportFeatures = Products.GetHighloadFeatures(product);
         var feature = supportFeatures[3];
 
-        TryAddTask(product, new TeamTaskSupportFeature(feature), ref str);
+        TryAddTask(product, new TeamTaskSupportFeature(feature));
     }
 
     // -----------------------------------------------------------------------------------
 
-    bool CanMaintain(GameEntity product, long cost, ref List<string> str)
+    bool CanMaintain(GameEntity product, long cost)
     {
         if (cost == 0)
             return true;
@@ -103,11 +313,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         return Economy.IsCanMaintainForAWhile(product, gameContext, cost, 1);
     }
 
-    void TryAddTask(GameEntity product, TeamTask teamTask, ref List<string> str)
+    void TryAddTask(GameEntity product, TeamTask teamTask)
     {
-        var taskCost = Economy.GetTeamTaskCost(product, gameContext, teamTask);
+        var taskCost = Economy.GetTeamTaskCost(product, teamTask);
 
-        if (!CanMaintain(product, taskCost, ref str))
+        if (!CanMaintain(product, taskCost))
             return;
 
         // searching team for this task
@@ -118,11 +328,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             // need to hire new team
             var teamCost = Economy.GetSingleTeamCost();
 
-            if (CanMaintain(product, teamCost + taskCost, ref str))
+            if (CanMaintain(product, teamCost + taskCost))
             {
                 if (teamTask.IsHighloadTask)
                 {
-                    Teams.AddTeam(product, TeamType.DevOpsTeam);
+                    Teams.AddTeam(product, TeamType.ServersideTeam);
                 }
                 else
                 {
@@ -137,10 +347,5 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         {
             Teams.AddTeamTask(product, gameContext, teamId, teamTask);
         }
-    }
-
-    void Print(string txt, ref List<string> str)
-    {
-        str.Add(txt);
     }
 }

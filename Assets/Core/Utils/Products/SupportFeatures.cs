@@ -67,6 +67,9 @@ namespace Assets.Core
 
         public static long GetServerCapacity(GameEntity product)
         {
+            if (!product.isFlagship)
+                return 1_000_000_000;
+
             return GetHighloadFeaturesBenefit(product);
         }
 

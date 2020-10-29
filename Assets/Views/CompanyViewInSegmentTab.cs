@@ -33,7 +33,7 @@ public class CompanyViewInSegmentTab : View
         bool playerControlled = Companies.IsRelatedToPlayer(Q, company);
         Border.color = Visuals.GetColorFromString(playerControlled ? Colors.COLOR_CONTROL : Colors.COLOR_CONTROL_NO);
 
-        var income = Economy.GetProductCompanyMaintenance(company, Q, true);
+        var income = Economy.GetProductCompanyMaintenance(company, true);
         var marketingBudget = income.Only("Marketing in").Sum();
 
         CompanyHint.SetHint(

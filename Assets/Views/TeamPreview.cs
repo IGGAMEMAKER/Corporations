@@ -67,7 +67,7 @@ public class TeamPreview : View
                 TeamIcon.texture = MarketingIcon.texture;
                 break;
 
-            case TeamType.DevOpsTeam:
+            case TeamType.ServersideTeam:
                 TeamIcon.texture = ServersideIcon.texture;
                 break;
 

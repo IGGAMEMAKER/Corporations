@@ -7,10 +7,10 @@ namespace Assets.Core
     {
         public static long GetChurnRate(GameEntity company, int segmentId)
         {
-            return GetChurnBonus(company, segmentId).Sum();
+            return GetChurnRate(company, segmentId, true).Sum();
         }
 
-        public static Bonus<long> GetChurnBonus(GameEntity c, int segmentId)
+        public static Bonus<long> GetChurnRate(GameEntity c, int segmentId, bool isBonus)
         {
             var state = c.nicheState.Phase; // Markets.GetMarketState(gameContext, c.product.Niche);
 
@@ -28,17 +28,32 @@ namespace Assets.Core
         }
 
         public static float GetSegmentLoyalty(GameEntity product, int segmentId) => GetSegmentLoyalty(product, segmentId, true).Sum();
-        public static Bonus<long> GetSegmentLoyalty(GameEntity product, int segmentId, bool isBonus)
+        public static float GetSegmentLoyalty(GameEntity product, ProductPositioning positioning, int segmentId) => GetSegmentLoyalty(product, segmentId, positioning, true).Sum();
+
+        public static Bonus<long> GetSegmentLoyalty(GameEntity product, int segmentId, bool isBonus) => GetSegmentLoyalty(product, segmentId, GetPositioning(product), isBonus);
+        public static Bonus<long> GetSegmentLoyalty(GameEntity product, int segmentId, ProductPositioning positioning, bool isBonus)
         {
-            var features = Products.GetAvailableFeaturesForProduct(product);
-
-            var positioning = GetPositioning(product);
-            
-            var positioningBonus = positioning.Loyalties[segmentId];
-
             var bonus = new Bonus<long>("Loyalty");
 
             // features
+            ApplyLoyaltyFromFeatures(bonus, product, segmentId);
+
+            // positioning
+            ApplyLoyaltyPositioningBonuses(bonus, product, positioning, segmentId);
+
+
+            bonus.AppendAndHideIfZero("Is Released", product.isRelease ? -5 : 0);
+
+            bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
+
+            bonus.Cap(-100, 50);
+
+            return bonus;
+        }
+
+        public static void ApplyLoyaltyFromFeatures(Bonus<long> bonus, GameEntity product, int segmentId)
+        {
+            var features = Products.GetAllFeaturesForProduct(product);
             foreach (var f in features)
             {
                 if (Products.IsUpgradedFeature(product, f.Name))
@@ -51,10 +66,11 @@ namespace Assets.Core
                     bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
                 }
             }
+        }
 
-            bonus.AppendAndHideIfZero("Is Released", product.isRelease ? -5 : 0);
-
-            // positioning
+        public static void ApplyLoyaltyPositioningBonuses(Bonus<long> bonus, GameEntity product, ProductPositioning positioning, int segmentId)
+        {
+            var positioningBonus = positioning.Loyalties[segmentId];
             //bonus.AppendAndHideIfZero("From positioning", positioningBonus);
 
             bool isFocusing = positioningBonus >= 0;
@@ -62,15 +78,6 @@ namespace Assets.Core
                 bonus.MultiplyAndHideIfOne("Product positioning", positioningBonus / 5);
             else
                 bonus.AppendAndHideIfZero("From positioning", positioningBonus);
-
-
-
-
-            bonus.AppendAndHideIfZero("Server overload", Products.IsNeedsMoreServers(product) ? -70 : 0);
-
-            bonus.Cap(-100, 50);
-
-            return bonus;
         }
 
         // if maxChange = true

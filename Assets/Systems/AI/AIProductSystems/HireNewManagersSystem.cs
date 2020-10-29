@@ -71,7 +71,7 @@ public partial class HireNewManagersSystem : OnPeriodChange
                 {
                     var human = Teams.HireManager(company, gameContext, necessaryRoles.First(), t.ID);
 
-                    Teams.SetJobOffer(human, company, new JobOffer(salary), t.ID);
+                    Teams.SetJobOffer(human, company, new JobOffer(salary), t.ID, gameContext);
                 }
                 else
                 {

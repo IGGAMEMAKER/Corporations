@@ -156,7 +156,7 @@ class MoraleManagementSystem : OnPeriodChange
                 Debug.Log($"Recruiting manager {Humans.GetFullName(human)} from {previousCompany.company.Name} to {company.company.Name}");
 
                 Teams.HuntManager(human, company, gameContext, 0);
-                Teams.SetJobOffer(human, company, offer.JobOffer, 0);
+                Teams.SetJobOffer(human, company, offer.JobOffer, 0, gameContext);
 
                 if (Companies.IsPlayerFlagship(previousCompany))
                 {

@@ -44,7 +44,7 @@ public class AddTeamButton : ButtonController
                 hint.SetHint("This team supports our clients");
                 break;
 
-            case TeamType.DevOpsTeam:
+            case TeamType.ServersideTeam:
                 source = Servers;
                 hint.SetHint("This team maintains big servers");
                 break;

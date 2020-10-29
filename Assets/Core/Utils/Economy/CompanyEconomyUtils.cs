@@ -34,10 +34,7 @@ namespace Assets.Core
                 return GetGroupMaintenance(context, c);
         }
 
-        public static long GetProfit(GameContext context, GameEntity c)
-        {
-            return GetProfit(context, c, true).Sum();
-        }
+        public static long GetProfit(GameContext context, GameEntity c) => GetProfit(context, c, true).Sum();
         public static Bonus<long> GetProfit(GameContext context, GameEntity c, bool isBonus)
         {
             var bonus = new Bonus<long>("Profit");
@@ -58,7 +55,7 @@ namespace Assets.Core
                 bonus.Append("Product income", GetProductIncome(c));
 
                 // expenses
-                var maintenance = GetProductCompanyMaintenance(c, context, true);
+                var maintenance = GetProductCompanyMaintenance(c, true);
                 foreach (var m in maintenance.bonusDescriptions)
                 {
                     if (m.HideIfZero)
@@ -103,9 +100,6 @@ namespace Assets.Core
                         bonus.Append(h.company.company.Name, b.Sum());
                     }
                 }
-
-                //bonus.Append("Group Income", GetGroupIncome(context, c));
-                //bonus.Append("Maintenance", -GetGroupMaintenance(context, c));
             }
 
             return bonus;
@@ -154,6 +148,7 @@ namespace Assets.Core
 
             return balance + (profit - money) * periods >= 0;
         }
+
         public static bool IsCanMaintain(GameEntity company, GameContext gameContext, long money)
         {
             if (money == 0)

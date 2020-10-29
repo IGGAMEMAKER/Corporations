@@ -108,7 +108,7 @@ namespace Assets.Core
         // feature benefits
         public static float GetFeatureActualBenefit(GameEntity product, string featureName)
         {
-            var feature = GetAvailableFeaturesForProduct(product).First(f => f.Name == featureName);
+            var feature = GetAllFeaturesForProduct(product).First(f => f.Name == featureName);
 
             return GetFeatureActualBenefit(product, feature);
         }

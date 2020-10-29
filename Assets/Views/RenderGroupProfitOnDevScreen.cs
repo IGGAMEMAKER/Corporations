@@ -36,7 +36,7 @@ public class RenderGroupProfitOnDevScreen : View
         var bonus = new Bonus<long>("Balance change")
             .Append("Income", Economy.GetIncome(Q, company));
 
-        var prodMnt = Economy.GetProductCompanyMaintenance(company, Q, true);
+        var prodMnt = Economy.GetProductCompanyMaintenance(company, true);
 
         foreach (var p in prodMnt.bonusDescriptions)
             bonus.AppendAndHideIfZero(p.Name, -p.Value);

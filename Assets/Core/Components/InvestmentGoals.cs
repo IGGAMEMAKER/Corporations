@@ -154,7 +154,7 @@ public class InvestmentGoalRelease : InvestmentGoal
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
         GameEntity product = GetProduct(company, gameContext);
-        int teams = 2;
+        int teams = 3;
         long load = 1_500_000;
 
         return new List<GoalRequirements>
@@ -169,7 +169,7 @@ public class InvestmentGoalRelease : InvestmentGoal
             new GoalRequirements
             {
                 have = product.team.Teams.Count,
-                need = 2,
+                need = teams,
 
                 description = $"Has at least {teams} teams"
             },

@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Products
     {
-        public static NewProductFeature[] GetAvailableFeaturesForProduct(GameEntity product)
+        public static NewProductFeature[] GetAllFeaturesForProduct(GameEntity product)
         {
             //Needs messaging, profiles, friends, voice chats, video chats, emojis, file sending
             // Test Audience, Teenagers, Adults, Middle, Old
@@ -98,7 +98,7 @@ namespace Assets.Core
             // can upgrade this amount of features
             var maxCounter = 3 + universalTeams + devTeams * 2;
 
-            var allFeatures = Products.GetAvailableFeaturesForProduct(company);
+            var allFeatures = Products.GetAllFeaturesForProduct(company);
 
             var upgradingAlready = allFeatures.Count(f => Products.IsUpgradingFeature(company, gameContext, f.Name));
 
@@ -141,7 +141,7 @@ namespace Assets.Core
 
         public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
         {
-            var allFeatures = GetAvailableFeaturesForProduct(company);
+            var allFeatures = GetAllFeaturesForProduct(company);
             var counter = GetAmountOfPossibleFeatures(company, gameContext);
 
             var features = allFeatures
@@ -177,17 +177,17 @@ namespace Assets.Core
 
         public static NewProductFeature[] GetMonetisationFeatures(GameEntity product)
         {
-            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetisation).ToArray();
+            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusMonetisation).ToArray();
         }
 
         public static NewProductFeature[] GetChurnFeatures(GameEntity product)
         {
-            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusRetention).ToArray();
+            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusRetention).ToArray();
         }
 
         public static NewProductFeature[] GetAcquisitionFeatures(GameEntity product)
         {
-            return GetAvailableFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
+            return GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus is FeatureBonusAcquisition).ToArray();
         }
 
         // set ot feature benefits
@@ -245,7 +245,7 @@ namespace Assets.Core
 
         public static int GetAmountOfUpgradingFeatures(GameEntity product, GameContext gameContext)
         {
-            var features = GetAvailableFeaturesForProduct(product);
+            var features = GetAllFeaturesForProduct(product);
 
             int upgrading = 0;
             foreach (var f in features)

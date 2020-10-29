@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Marketing
     {
-        public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetChannelCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
+        //public static long GetMarketingActivityCost(GameEntity product, GameContext gameContext, int ChannelId) => GetChannelCost(product, Markets.GetMarketingChannel(gameContext, ChannelId));
         public static long GetChannelCost(GameEntity product, GameEntity channel)
         {
             return (long)channel.marketingChannel.ChannelInfo.costPerAd;
@@ -49,9 +49,10 @@ namespace Assets.Core
             return positioningLoyalty >= 0;
         }
 
-        public static int GetAmountOfTargetAudiences(GameEntity company)
+        public static int GetAmountOfTargetAudiences(GameEntity company) => GetAmountOfTargetAudiences(GetPositioning(company));
+        public static int GetAmountOfTargetAudiences(ProductPositioning positioning)
         {
-            return GetPositioning(company).Loyalties.Count(l => l > 0);
+            return positioning.Loyalties.Count(l => l > 0);
         }
 
         public static bool IsAudienceDisloyal(GameEntity company, int segmentId)
@@ -129,7 +130,9 @@ namespace Assets.Core
                 //EnableChannelActivity(product, gameContext, channel);
 
                 var channelId = channel.marketingChannel.ChannelInfo.ID;
-                Teams.AddTeamTask(product, gameContext, teamId, taskId, new TeamTaskChannelActivity(channelId));
+                var channelCost = Marketing.GetChannelCost(product, channel);
+
+                Teams.AddTeamTask(product, gameContext, teamId, taskId, new TeamTaskChannelActivity(channelId, channelCost));
             }
         }
     }

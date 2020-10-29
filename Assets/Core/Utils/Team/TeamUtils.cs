@@ -14,9 +14,10 @@ namespace Assets.Core
 
     public static partial class Teams
     {
-        private static void ReplaceTeam(GameEntity company, TeamComponent t)
+        private static void ReplaceTeam(GameEntity company, GameContext gameContext, TeamComponent t)
         {
-            company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams);
+            company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams, t.Salaries);
+            Economy.UpdateSalaries(company, gameContext);
         }
 
         public static void ToggleCrunching(GameContext context, int companyId)
@@ -32,7 +33,7 @@ namespace Assets.Core
 
             managers[humanId] = workerRole;
 
-            company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.Teams);
+            company.ReplaceTeam(company.team.Morale, company.team.Organisation, managers, company.team.Workers, company.team.Teams, company.team.Salaries);
 
             Humans.SetRole(gameContext, humanId, workerRole);
         }
@@ -50,7 +51,7 @@ namespace Assets.Core
 
             switch (teamInfo.TeamType)
             {
-                case TeamType.DevOpsTeam:
+                case TeamType.ServersideTeam:
                 case TeamType.DevelopmentTeam:
                     managerTitle = WorkerRole.TeamLead;
                     break;
@@ -150,7 +151,7 @@ namespace Assets.Core
                 case TeamType.MergeAndAcquisitionTeam:  return "M&A team";
                 case TeamType.SupportTeam:              return "Support team";
 
-                case TeamType.DevOpsTeam:               return "Serverside team";
+                case TeamType.ServersideTeam:               return "Serverside team";
 
                 default: return teamType.ToString();
             }
@@ -285,7 +286,7 @@ namespace Assets.Core
                 return teamType == TeamType.SupportTeam;
 
             if (teamTask.IsHighloadTask)
-                return teamType == TeamType.DevOpsTeam;
+                return teamType == TeamType.ServersideTeam;
 
             return false;
         }
@@ -439,6 +440,33 @@ namespace Assets.Core
 
                 product.team.Teams[teamId].Tasks.RemoveAt(taskId);
             }
+        }
+
+        // ------------------
+
+        public static bool IsFullTeam(TeamInfo team)
+        {
+            int maxWorkers = 8;
+            int workers = team.Workers; // Random.Range(0, maxWorkers);
+            bool hasFullTeam = workers >= maxWorkers;
+
+            return hasFullTeam;
+        }
+
+
+        public static bool IsTeamNeedsAttention(GameEntity product, TeamInfo team, GameContext gameContext)
+        {
+            bool hasNoManagerFocus = team.ManagerTasks.Contains(ManagerTask.None);
+
+
+            bool hasNoManager = !HasMainManagerInTeam(team, gameContext, product);
+
+
+            bool hasDisloyalManagers = team.Managers
+                .Select(m => Humans.Get(gameContext, m))
+                .Count(h => h.humanCompanyRelationship.Morale < 40 && Teams.GetLoyaltyChangeForManager(h, team, product) < 0) > 0;
+
+            return IsFullTeam(team) && (hasNoManager || hasNoManagerFocus || hasDisloyalManagers);
         }
     }
 }

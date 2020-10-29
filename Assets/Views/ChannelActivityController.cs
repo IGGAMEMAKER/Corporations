@@ -18,7 +18,7 @@ public class ChannelActivityController : ButtonController
 
         var channelId = channel.marketingChannel.ChannelInfo.ID;
 
-        var task = new TeamTaskChannelActivity(channelId);
+        var task = new TeamTaskChannelActivity(channelId, Marketing.GetChannelCost(company, channel));
 
         relay.AddPendingTask(task);
 

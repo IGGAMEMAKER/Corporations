@@ -149,7 +149,7 @@ public class TeamView : View/*, IPointerEnterHandler, IPointerExitHandler*/
             case TeamType.CoreTeam: return CoreTeam;
             case TeamType.CrossfunctionalTeam: return UniversalTeam;
             case TeamType.DevelopmentTeam: return DevelopmentTeam;
-            case TeamType.DevOpsTeam: return DevopsTeam;
+            case TeamType.ServersideTeam: return DevopsTeam;
             case TeamType.MarketingTeam: return MarketingTeam;
             case TeamType.SmallCrossfunctionalTeam: return SmallTeam;
             case TeamType.SupportTeam: return SupportTeam;

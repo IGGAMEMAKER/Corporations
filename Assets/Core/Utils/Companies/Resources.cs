@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -31,10 +32,18 @@ namespace Assets.Core
 
         internal static void RegisterTransaction(GameEntity company, TeamResource resource, string purpose)
         {
-            var c = Contexts.sharedInstance.game;
-            var date = ScheduleUtils.GetCurrentDate(c);
+            var names = new List<string>() { "Google" };
 
-            company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose, Date = date });
+            // in player sphere of interest
+            // or special company
+
+            if (company.companyFocus.Niches.Contains(NicheType.ECom_Exchanging) || names.Contains(company.company.Name))
+            {
+                var c = Contexts.sharedInstance.game;
+                var date = ScheduleUtils.GetCurrentDate(c);
+
+                company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose, Date = date });
+            }
         }
 
         // ---------------------------------------
