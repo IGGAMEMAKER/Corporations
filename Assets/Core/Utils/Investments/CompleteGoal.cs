@@ -68,15 +68,11 @@ namespace Assets.Core
         {
             var goals = company.companyGoal.Goals;
 
-            for (var i = goals.Count - 1; i > 0; i--)
+            for (var i = goals.Count - 1; i >= 0; i--)
             {
                 var g = goals[i];
 
-                if (CanCompleteGoal(company, gameContext, g))
-                {
-                    company.completedGoals.Goals.Add(g.InvestorGoalType);
-                    goals.RemoveAt(i);
-                }
+                CompleteGoal(company, gameContext, g);
             }
         }
     }

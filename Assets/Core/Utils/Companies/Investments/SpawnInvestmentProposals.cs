@@ -28,7 +28,9 @@ namespace Assets.Core
                 // or increase company valuation instead!
                 var offer = Math.Min(valuation / 20, max);
 
-                var goal = new InvestmentGoalUnknown(InvestorGoalType.GrowCompanyCost);
+                //var goal = new InvestmentGoalUnknown(InvestorGoalType.GrowCompanyCost);
+                var goal = company.companyGoal.Goals[0];
+
 
                 var p = new InvestmentProposal
                 {

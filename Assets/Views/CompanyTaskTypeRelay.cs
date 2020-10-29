@@ -65,7 +65,7 @@ public class CompanyTaskTypeRelay : View
         bool canCompleteGoals = Investments.IsCanCompleteAnyGoal(MyCompany, Q);
         bool hasNewGoals = Investments.GetNewGoals(MyCompany, Q).Count > 0;
 
-        Draw(MissionButton, hasGoals || completedGoals);
+        Draw(MissionButton, true); // hasGoals || completedGoals
         MissionButton.GetComponent<Blinker>().enabled = canCompleteGoals;
 
 

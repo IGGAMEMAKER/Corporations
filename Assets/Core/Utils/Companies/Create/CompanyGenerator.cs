@@ -85,7 +85,7 @@ namespace Assets.Core
             company.AddShareholders(founders);
             company.AddInvestmentProposals(new List<InvestmentProposal>());
             company.AddInvestmentRounds(InvestmentRound.Preseed);
-            company.AddCompanyGoal(new List<InvestmentGoal> { new InvestmentGoalGrowCost(1000000) });
+            company.AddCompanyGoal(new List<InvestmentGoal> { }); // new InvestmentGoalGrowCost(1000000)
             company.AddCompletedGoals(new List<InvestorGoalType>());
 
             // Branding?

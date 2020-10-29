@@ -11,7 +11,7 @@ namespace Assets.Core
 
         public static bool IsReadyToStartInvestmentRound(GameEntity company)
         {
-            return !company.hasAcceptsInvestments;
+            return !company.hasAcceptsInvestments && company.companyGoal.Goals.Count > 0;
         }
 
         public static void StartInvestmentRound(GameContext gameContext, GameEntity company)

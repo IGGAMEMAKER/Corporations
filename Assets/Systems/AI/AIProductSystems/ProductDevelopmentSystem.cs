@@ -33,26 +33,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             List<ProductActions> actions = new List<ProductActions>();
 
             // add goal if there are no goals
-            if (product.companyGoal.Goals.Count == 0)
-            {
-                var pickableGoals = Investments.GetNewGoals(product, gameContext);
-
-                var max = pickableGoals.Count;
-
-                if (max == 0)
-                {
-                    Companies.Log(product, "CANNOT GET A GOAL");
-
-                    Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
-
-                    continue;
-                }
-
-                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
-            }
+            PickNewGoalIfThereAreNoGoals(product);
 
             var goal = product.companyGoal.Goals.FirstOrDefault();
-            Companies.Log(product, "Achieving goal: " + goal.GetFormattedName());
+            Companies.Log(product, $"Achieving goal: {goal.GetFormattedName()}");
 
             switch (goal.InvestorGoalType)
             {
@@ -125,12 +109,32 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
 
             Investments.CompleteGoals(product, gameContext);
+            PickNewGoalIfThereAreNoGoals(product);
+        }
+    }
+
+    void PickNewGoalIfThereAreNoGoals(GameEntity product)
+    {
+        if (product.companyGoal.Goals.Count == 0)
+        {
+            var pickableGoals = Investments.GetNewGoals(product, gameContext);
+
+            var max = pickableGoals.Count;
+
+            if (max == 0)
+            {
+                Companies.Log(product, "CANNOT GET A GOAL");
+
+                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
+            }
+
+            Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
         }
     }
 
     private void ManageProduct(ProductActions action, GameEntity product)
     {
-        Companies.Log(product, action.ToString());
+        //Companies.Log(product, "Actions." + action.ToString());
         switch (action)
         {
             case ProductActions.Features:
@@ -218,7 +222,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         Companies.Log(product, $"Current positioning is {positioning.name} {string.Join(",", positioning.Loyalties)}");
         Companies.Log(product, $"Currently have {ourAudiences}, but need at least {widerAudiencesCount}");
 
-        while (widerAudiencesCount < maxAudiences)
+        while (widerAudiencesCount <= maxAudiences)
         {
             var broaderPositionings = positionings.Where(p => Marketing.GetAmountOfTargetAudiences(p) == widerAudiencesCount);
 
@@ -245,7 +249,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 // will dissapoint loyal users
                 if (loyalty > 0 && futureLoyalty < 0)
+                {
+                    Companies.Log(product, $"will dissapoint {a.Name}, whose loyalty is {loyalty} and after changing positioning will be {futureLoyalty}");
+
                     return;
+                }
             }
 
             Companies.Log(product, $"POSITIONING SHIFTED TO: {newPositioning.name}!");
@@ -258,9 +266,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     void ReleaseApp(GameEntity product)
     {
         var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
-        var requirements = goal.GetGoalRequirements(product, gameContext);
-
-        Companies.Log(product, goal.GetFormattedRequirements(product, gameContext));
 
         if (Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);
