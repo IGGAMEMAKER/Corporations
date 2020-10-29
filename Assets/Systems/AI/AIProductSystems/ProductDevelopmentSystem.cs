@@ -41,7 +41,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 if (max == 0)
                 {
+                    Companies.Log(product, "CANNOT GET A GOAL");
+
                     Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
+
                     continue;
                 }
 
@@ -68,6 +71,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                     break;
 
                 case InvestorGoalType.ProductRelease:
+                    actions.Add(ProductActions.ExpandTeam);
                     actions.Add(ProductActions.ReleaseApp);
 
                     break;
@@ -100,6 +104,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                     actions.Add(ProductActions.GrabUsers);
                     actions.Add(ProductActions.ShowProfit);
                     actions.Add(ProductActions.Features);
+                    actions.Add(ProductActions.ExpandTeam);
 
                     break;
             }
@@ -181,6 +186,8 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void GrabSegments(GameEntity product)
     {
+        Companies.Log(product, "Need to grab more users");
+
         var positioning = Marketing.GetPositioning(product);
         var ourAudiences = Marketing.GetAmountOfTargetAudiences(positioning);
 
@@ -190,12 +197,18 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         var maxAudiences = audiences.Count;
 
         var widerAudiencesCount = ourAudiences + 1;
+
+        Companies.Log(product, $"Current positioning is {positioning.name} {string.Join(",", positioning.Loyalties)}");
+        Companies.Log(product, $"Currently have {ourAudiences}, but need at least {widerAudiencesCount}");
+
         while (widerAudiencesCount < maxAudiences)
         {
             var broaderPositionings = positionings.Where(p => Marketing.GetAmountOfTargetAudiences(p) == widerAudiencesCount);
 
             if (broaderPositionings.Count() == 0)
             {
+                Companies.Log(product, $"No positionings for {widerAudiencesCount} audiences");
+
                 widerAudiencesCount++;
                 continue;
             }
@@ -203,16 +216,22 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             var newIndex = UnityEngine.Random.Range(0, broaderPositionings.Count());
             var newPositioning = broaderPositionings.ToArray()[newIndex];
 
+            Companies.Log(product, $"positioning FOUND: {newPositioning.name}");
+
             // if positioning change will not dissapoint our current users...
             // change it to new one!
             foreach (var a in audiences)
             {
-                var loyalty = Marketing.GetSegmentLoyalty(product, newPositioning, a.ID);
+                var loyalty = Marketing.GetSegmentLoyalty(product, positioning, a.ID);
+                var futureLoyalty = Marketing.GetSegmentLoyalty(product, newPositioning, a.ID);
 
-                if (loyalty < 0)
+
+                // will dissapoint loyal users
+                if (loyalty > 0 && futureLoyalty < 0)
                     return;
             }
 
+            Companies.Log(product, $"POSITIONING SHIFTED TO: {newPositioning.name}!");
             Marketing.ChangePositioning(product, newPositioning.ID);
 
             return;
@@ -223,8 +242,6 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
         var requirements = goal.GetGoalRequirements(product, gameContext);
-
-        ExpandTeam(product);
 
         if (Companies.IsReleaseableApp(product))
             Marketing.ReleaseApp(gameContext, product);

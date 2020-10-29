@@ -66,9 +66,13 @@ namespace Assets.Core
             {
                 AddCompanyGoal2(company1, goal);
                 AddCompanyGoal2(company, goal);
+
+                Companies.Log(company, "ADD GOAL " + goal.GetFormattedName() + " as company");
+                Companies.Log(company1, "ADD GOAL " + goal.GetFormattedName() + " as company1");
             }
             else
             {
+                Companies.Log(company, "ADD GOAL " + goal.GetFormattedName() + " as company");
                 AddCompanyGoal2(company, goal);
             }
         }
@@ -79,6 +83,7 @@ namespace Assets.Core
             company.companyGoal.Goals.RemoveAll(g => g.InvestorGoalType == goal.InvestorGoalType);
 
             company.companyGoal.Goals.Add(goal);
+
         }
     }
 }

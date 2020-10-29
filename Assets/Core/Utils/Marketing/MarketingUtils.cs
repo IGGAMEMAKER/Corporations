@@ -53,6 +53,8 @@ namespace Assets.Core
 
                 product.isRelease = true;
                 Investments.CompleteGoal(product, gameContext, new InvestmentGoalRelease());
+
+                Companies.Log(product, "RELEASE");
             }
         }
     }

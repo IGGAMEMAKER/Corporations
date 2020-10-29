@@ -20,7 +20,7 @@ namespace Assets.Core
                 .Append("Managers", GetManagersCost(e))
                 .AppendAndHideIfZero($"Teams X{e.team.Teams.Count}", GetSingleTeamCost() * e.team.Teams.Count * C.PERIOD / 30);
 
-            /// team tasks
+            // team tasks
             foreach (var t in e.team.Teams[0].Tasks)
             {
                 bonus.AppendAndHideIfZero(t.GetPrettyName(), GetTeamTaskCost(e, t));

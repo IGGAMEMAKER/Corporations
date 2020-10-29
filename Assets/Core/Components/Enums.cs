@@ -57,7 +57,7 @@ public enum NicheType
     /// Finances
     ECom_PaymentSystem,
     ECom_OnlineBanking,
-    ECom_Exchanging,
+    ECom_MoneyExchange,
     ECom_Blockchain,
     ECom_TradingBot,
 

@@ -7,6 +7,6 @@ public class StartTestCampaign : ButtonController
 {
     public override void Execute()
     {
-        State.StartNewCampaign(Q, NicheType.ECom_Exchanging, "IG Games");
+        State.StartNewCampaign(Q, NicheType.ECom_MoneyExchange, "IG Games");
     }
 }

@@ -22,8 +22,9 @@
 
         // products
         Add(new ProductDevelopmentSystem(contexts));
-        Add(new FixProductCompanyEconomySystem(contexts));
-        Add(new HireNewManagersSystem(contexts));
+        //Add(new FixProductCompanyEconomySystem(contexts));
+        //Add(new HireNewManagersSystem(contexts));
+
         //Add(new ChurnSystem(contexts));
 
         // Teams (automatic actions)

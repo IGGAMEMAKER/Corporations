@@ -1,5 +1,8 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Core
 {
@@ -48,6 +51,39 @@ namespace Assets.Core
             var c = Get(context, companyId);
 
             c.ReplaceCompany(c.company.Id, name, c.company.CompanyType);
+        }
+
+        // Logging
+
+        public static void Log(GameEntity entity, string text)
+        {
+            if (!entity.hasLogging)
+                entity.AddLogging(new List<string>());
+
+            if (IsObservableCompany(entity))
+            {
+                entity.logging.Logs.Add(text);
+            }
+
+            if (IsPlayerCompany(entity))
+            {
+                Debug.Log(text);
+            }
+        }
+
+        public static void PrintFinancialTransactions(GameEntity company)
+        {
+            Log(company, string.Join("\n", company.companyResourceHistory.Actions.Select(r => r.Print())));
+        }
+
+        public static bool IsObservableCompany(GameEntity company)
+        {
+            // in player sphere of interest
+            // or special company
+
+            var names = new List<string>() { "Google" };
+
+            return company.hasCompanyFocus && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange) || names.Contains(company.company.Name));
         }
     }
 }

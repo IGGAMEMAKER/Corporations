@@ -453,7 +453,7 @@ namespace Assets.Core
         public static void InitializeFinancesIndustry(GameContext gameContext)
         {
             var niches = new NicheType[] {
-                NicheType.ECom_Exchanging,
+                NicheType.ECom_MoneyExchange,
                 NicheType.ECom_OnlineBanking,
                 NicheType.ECom_PaymentSystem,
 
@@ -470,7 +470,7 @@ namespace Assets.Core
             SetMarkets(NicheType.ECom_OnlineBanking, 1992, 2030, gameContext, banking);
             SetMarkets(NicheType.ECom_PaymentSystem, 1995, 2030, gameContext, payment);
 
-            SetMarkets(NicheType.ECom_Exchanging, 1998, 2030, gameContext, payment);
+            SetMarkets(NicheType.ECom_MoneyExchange, 1998, 2030, gameContext, payment);
         }
 
         public static void InitializeTourismIndustry(GameContext gameContext)

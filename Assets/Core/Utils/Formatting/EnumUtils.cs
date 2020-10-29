@@ -50,7 +50,7 @@ namespace Assets.Core
                 case NicheType.Ent_TVStreamingService: return "TV Streaming Service";
 
                 // e-commerce
-                case NicheType.ECom_Exchanging: return "Money Exchange";
+                case NicheType.ECom_MoneyExchange: return "Money Exchange";
                 case NicheType.ECom_OnlineBanking: return "Online Bank";
                 case NicheType.ECom_PaymentSystem: return "Payment System";
 
@@ -120,7 +120,7 @@ namespace Assets.Core
                 case NicheType.Ent_TVStreamingService: return "TV";
 
                 // e-commerce
-                case NicheType.ECom_Exchanging: return "EX$";
+                case NicheType.ECom_MoneyExchange: return "EX$";
                 case NicheType.ECom_OnlineBanking: return "BNK";
                 case NicheType.ECom_PaymentSystem: return "PAY";
 
@@ -204,7 +204,7 @@ namespace Assets.Core
                 case NicheType.Ent_TVStreamingService: return "TV Streaming Services";
 
                 // e-commerce
-                case NicheType.ECom_Exchanging: return "Money Exchange";
+                case NicheType.ECom_MoneyExchange: return "Money Exchange";
                 case NicheType.ECom_OnlineBanking: return "Online Banks";
                 case NicheType.ECom_PaymentSystem: return "Payment Systems";
 

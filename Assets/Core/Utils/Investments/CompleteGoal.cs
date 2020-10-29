@@ -43,11 +43,19 @@ namespace Assets.Core
 
         public static void CompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal, bool forceComplete = false)
         {
+            Companies.Log(company, "Try complete goal: " + goal.GetFormattedName());
+
             if (forceComplete || CanCompleteGoal(company, gameContext, goal))
             {
+                Companies.Log(company, "SUCCESS");
+
                 company.completedGoals.Goals.Add(goal.InvestorGoalType);
 
                 company.companyGoal.Goals.Remove(goal);
+            }
+            else
+            {
+                Companies.Log(company, "Not all requirements were met (\n\n" + goal.GetFormattedRequirements(company, gameContext));
             }
         }
 

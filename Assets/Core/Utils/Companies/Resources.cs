@@ -32,12 +32,7 @@ namespace Assets.Core
 
         internal static void RegisterTransaction(GameEntity company, TeamResource resource, string purpose)
         {
-            var names = new List<string>() { "Google" };
-
-            // in player sphere of interest
-            // or special company
-
-            if (company.companyFocus.Niches.Contains(NicheType.ECom_Exchanging) || names.Contains(company.company.Name))
+            if (Companies.IsObservableCompany(company))
             {
                 var c = Contexts.sharedInstance.game;
                 var date = ScheduleUtils.GetCurrentDate(c);
