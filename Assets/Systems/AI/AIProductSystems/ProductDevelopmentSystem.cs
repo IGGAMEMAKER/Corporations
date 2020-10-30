@@ -136,8 +136,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
             }
-
-            Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
+            else
+            {
+                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
+            }
         }
     }
 
