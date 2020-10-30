@@ -34,8 +34,9 @@ namespace Assets.Core
         {
             return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType);
         }
-
-        public static bool IsGoalDone(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
+        // IsGoalDoneOrOutgrown
+        public static bool Completed(GameEntity company1, InvestorGoalType goal, GameContext gameContext) => IsGoalDoneOrOutgrown(company1, goal, gameContext);
+        public static bool IsGoalDoneOrOutgrown(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
         {
             var company = GetGoalPickingCompany(company1, gameContext, goal);
 
@@ -50,7 +51,7 @@ namespace Assets.Core
             // goal was done or outreached
             bool done = company.completedGoals.Goals.Contains(goal);
 
-            if (done)
+            if (done && OneTimeGoals.Contains(goal))
                 return true;
 
             var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal);
@@ -65,28 +66,111 @@ namespace Assets.Core
             return false;
         }
 
-        public static List<InvestmentGoal> GetNewGoals(GameEntity company, GameContext Q)
-        {
-            var goals = new List<InvestmentGoal>();
+        public static List<InvestmentGoal> WrapGoalToList(InvestmentGoal goal) => new List<InvestmentGoal> { goal };
 
+        public static List<InvestmentGoal> GetProductCompanyGoals(GameEntity product, GameContext Q)
+        {
+            var goals = new List<InvestorGoalType>();
+
+            // productOnly goals
             var productGoals = new List<InvestorGoalType>
             {
-                InvestorGoalType.ProductBecomeMarketFit,
-                InvestorGoalType.ProductFirstUsers,
                 InvestorGoalType.ProductPrototype,
-                InvestorGoalType.ProductRegainLoyalty,
+                InvestorGoalType.ProductFirstUsers,
+                InvestorGoalType.ProductBecomeMarketFit,
                 InvestorGoalType.ProductRelease,
-                InvestorGoalType.ProductStartMonetising,
 
-                InvestorGoalType.OutcompeteCompanyByUsers,
+                InvestorGoalType.ProductStartMonetising,
                 InvestorGoalType.GrowUserBase,
+                InvestorGoalType.OutcompeteCompanyByUsers,
+                InvestorGoalType.GainMoreSegments,
+
+                InvestorGoalType.ProductRegainLoyalty,
             };
+
+            bool focusedProduct = Marketing.IsFocusingOneAudience(product);
+            var marketFit = 10; // 10 cause it allows monetisation for ads
+
+
+            bool isPrototype = !product.isRelease && focusedProduct;
+            bool releasedProduct = product.isRelease;
+
+            long users = Marketing.GetUsers(product);
+
+            if (isPrototype)
+            {
+                var coreLoyalty = Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(product));
+
+                // has no goals at start
+                if (product.completedGoals.Goals.Count == 0 || coreLoyalty < 5)
+                    return WrapGoalToList(new InvestmentGoalMakePrototype());
+
+                if (Completed(product, InvestorGoalType.ProductPrototype, Q))
+                    goals.Add(InvestorGoalType.ProductFirstUsers);
+
+                if (Completed(product, InvestorGoalType.ProductFirstUsers, Q) && coreLoyalty < marketFit)
+                    goals.Add(InvestorGoalType.ProductBecomeMarketFit);
+
+                if (Completed(product, InvestorGoalType.ProductBecomeMarketFit, Q))
+                    goals.Add(InvestorGoalType.ProductRelease);
+            }
+
+            if (releasedProduct)
+            {
+                
+                if (Completed(product, InvestorGoalType.ProductRelease, Q))
+                    goals.Add(InvestorGoalType.ProductStartMonetising);
+
+                if (Completed(product, InvestorGoalType.ProductStartMonetising, Q))
+                    goals.Add(InvestorGoalType.GrowUserBase);
+
+                var amountOfAudiences = Marketing.GetAudienceInfos().Count;
+                var ourAudiences = Marketing.GetAmountOfTargetAudiences(product);
+
+                if (users > 500_000 && ourAudiences < amountOfAudiences)
+                    goals.Add(InvestorGoalType.GainMoreSegments);
+
+                //var strongerCompetitorId = Companies.GetStrongerCompetitorId(realCompany, Q);
+                //bool hasStrongerCompanies = strongerCompetitorId >= 0;
+
+                //bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
+
+                //goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);                
+            }
+
+            if (Marketing.IsHasDisloyalAudiences(product))
+                return WrapGoalToList(new InvestmentGoalRegainLoyalty());
+
+            return goals.Select(g => GetInvestmentGoal(product, Q, g)).ToList();
+        }
+
+        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q)
+        {
+            var goals = new List<InvestorGoalType>();
 
             var groupGoals = new List<InvestorGoalType>
             {
-                InvestorGoalType.IPO,
                 InvestorGoalType.AcquireCompany,
+                InvestorGoalType.IPO,
             };
+
+            var income = Economy.GetIncome(Q, company);
+
+            bool solidCompany = income > 500_000;
+
+            var weakerCompany = Companies.GetWeakerCompetitor(company, Q);
+            bool hasWeakerCompanies = weakerCompany != null;
+
+            if (solidCompany && hasWeakerCompanies)
+                goals.Add(InvestorGoalType.AcquireCompany);
+
+
+            return goals.Select(g => GetInvestmentGoal(company, Q, g)).ToList();
+        }
+
+        public static List<InvestmentGoal> GetBothGroupAndProductGoals(GameEntity company, GameContext Q)
+        {
+            var goals = new List<InvestorGoalType>();
 
             var both = new List<InvestorGoalType>
             {
@@ -98,6 +182,42 @@ namespace Assets.Core
 
                 InvestorGoalType.BecomeProfitable
             };
+
+            bool releasedProduct = company.hasProduct && company.isRelease;
+
+            bool isGroup = !company.hasProduct;
+
+            bool profitable = Economy.IsProfitable(Q, company);
+
+
+
+            var income = Economy.GetIncome(Q, company);
+
+            bool solidCompany = (releasedProduct || isGroup) && income > 500_000;
+
+            var strongerCompetitor = Companies.GetStrongerCompetitor(company, Q);
+            bool hasStrongerCompanies = strongerCompetitor != null;
+
+
+            if (solidCompany)
+                goals.Add(InvestorGoalType.GrowCompanyCost);
+
+            if (solidCompany && hasStrongerCompanies)
+            {
+                goals.Add(InvestorGoalType.OutcompeteCompanyByIncome);
+                goals.Add(InvestorGoalType.OutcompeteCompanyByCost);
+                //goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);
+            }
+
+            if (solidCompany && !profitable)
+                goals.Add(InvestorGoalType.BecomeProfitable);
+
+            return goals.Select(g => GetInvestmentGoal(company, Q, g)).ToList();
+        }
+
+        public static List<InvestmentGoal> GetNewGoals(GameEntity company, GameContext Q)
+        {
+            var goals = new List<InvestmentGoal>();
 
             // executor
             GameEntity realCompany = GetGoalPickingCompany(company, Q, goalType);
@@ -131,7 +251,7 @@ namespace Assets.Core
                     continue;
 
                 // this goal was done already && cannot be done twice
-                if (Investments.IsGoalDone(realCompany, goalType, Q))
+                if (Investments.Completed(realCompany, goalType, Q))
                 {
                     continue;
                 }
@@ -213,23 +333,23 @@ namespace Assets.Core
                     return isPrototype;
 
                 case InvestorGoalType.ProductBecomeMarketFit:
-                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductPrototype, Q) 
+                    return isPrototype && Completed(realCompany, InvestorGoalType.ProductPrototype, Q) 
                         && Marketing.GetSegmentLoyalty(realCompany, Marketing.GetCoreAudienceId(realCompany)) < marketFit;
 
                 case InvestorGoalType.ProductFirstUsers:
-                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductBecomeMarketFit, Q); // && users < 100_000
+                    return isPrototype && Completed(realCompany, InvestorGoalType.ProductBecomeMarketFit, Q); // && users < 100_000
 
                 case InvestorGoalType.ProductRelease:
-                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductFirstUsers, Q);
+                    return isPrototype && Completed(realCompany, InvestorGoalType.ProductFirstUsers, Q);
 
                 case InvestorGoalType.ProductStartMonetising:
-                    return releasedProduct && IsGoalDone(realCompany, InvestorGoalType.ProductRelease, Q);
+                    return releasedProduct && Completed(realCompany, InvestorGoalType.ProductRelease, Q);
 
                 case InvestorGoalType.ProductRegainLoyalty:
                     return isProduct && Marketing.IsHasDisloyalAudiences(realCompany);
 
                 case InvestorGoalType.GrowUserBase:
-                    return releasedProduct && IsGoalDone(realCompany, InvestorGoalType.ProductStartMonetising, Q);
+                    return releasedProduct && Completed(realCompany, InvestorGoalType.ProductStartMonetising, Q);
 
                 case InvestorGoalType.GrowIncome:
                     return releasedProduct && income > 50_000;
