@@ -93,12 +93,12 @@ public class CompanyResourceComponent : IComponent
 public class ResourceTransaction
 {
     public string Tag;
-    public TeamResource TeamResource;
+    public long TeamResource;
     public int Date;
 
     public string Print()
     {
-        return ScheduleUtils.GetFormattedDate(Date) + " " + Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource.money);
+        return ScheduleUtils.GetFormattedDate(Date) + " " + Tag + ": " + Visuals.PositiveOrNegativeMinified(TeamResource);
     }
 }
 

@@ -16,6 +16,7 @@ public struct GoalRequirements
 public abstract class InvestmentGoal
 {
     public InvestorGoalType InvestorGoalType;
+    public int ExecutorId;
 
     public InvestmentGoal()
     {
@@ -355,7 +356,7 @@ public class InvestmentGoalRegainLoyalty : InvestmentGoal
 
 public class InvestmentGoalStartMonetisation : InvestmentGoal
 {
-    public InvestmentGoalStartMonetisation() : base(InvestorGoalType.StartMonetising)
+    public InvestmentGoalStartMonetisation() : base(InvestorGoalType.ProductStartMonetising)
     {
     }
 

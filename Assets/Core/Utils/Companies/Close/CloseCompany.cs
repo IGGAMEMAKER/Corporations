@@ -9,7 +9,7 @@ namespace Assets.Core
         {
             var balance = Economy.BalanceOf(e);
 
-            e.companyResourceHistory.Actions.Add(new ResourceTransaction { Tag = "Close company", TeamResource = new TeamResource(balance) });
+            e.companyResourceHistory.Actions.Add(new ResourceTransaction { Tag = "Close company", TeamResource = -balance });
             
             // pay to everyone
             PayDividends(context, e, balance);

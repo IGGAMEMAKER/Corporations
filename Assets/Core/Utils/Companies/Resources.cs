@@ -37,7 +37,7 @@ namespace Assets.Core
                 var c = Contexts.sharedInstance.game;
                 var date = ScheduleUtils.GetCurrentDate(c);
 
-                company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource, Tag = purpose, Date = date });
+                company.companyResourceHistory.Actions.Add(new ResourceTransaction { TeamResource = resource.money, Tag = purpose, Date = date });
             }
         }
 

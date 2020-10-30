@@ -41,6 +41,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
 
         Companies.CloseCompany(gameContext, company, true);
         Companies.Log(company, $"Company {company.company.Name} CLOSED");
+
         ScheduleUtils.TweakCampaignStats(gameContext, CampaignStat.Bankruptcies);
     }
 }

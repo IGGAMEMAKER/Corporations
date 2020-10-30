@@ -37,7 +37,7 @@ namespace Assets.Core
                 case InvestorGoalType.ProductFirstUsers:       return new InvestmentGoalFirstUsers(2_000);
                 case InvestorGoalType.ProductBecomeMarketFit:  return new InvestmentGoalMakeProductMarketFit();
                 case InvestorGoalType.ProductRelease:          return new InvestmentGoalRelease();
-                case InvestorGoalType.StartMonetising:         return new InvestmentGoalStartMonetisation();
+                case InvestorGoalType.ProductStartMonetising:         return new InvestmentGoalStartMonetisation();
                 case InvestorGoalType.ProductRegainLoyalty:    return new InvestmentGoalRegainLoyalty();
 
                 case InvestorGoalType.BecomeProfitable:         return new InvestmentGoalBecomeProfitable(income);

@@ -628,6 +628,7 @@ namespace Assets.Core
 
             var adore = 10;
             var hate = -20;
+            var mass = 3;
 
             var like = 7;
 
@@ -653,16 +654,35 @@ namespace Assets.Core
             }
 
             // focus multiple audiences
-            var randomPositionings = Random.Range(3, 6);
+            var randomPositionings = Random.Range(6, 10);
 
             //var goodness = Random.Range(hate, adore);
             for (var i = 0; i < randomPositionings; i++)
             {
+                int points = audiences.Count * mass;
+
+                List<int> loyalties = new List<int> { };
+
+                foreach (var s in audiences)
+                {
+                    var value = Random.Range(-1, like);
+
+                    var l = Mathf.Clamp(value, hate, Mathf.Min(points, like));
+
+                    if (l >= 0)
+                        points -= l;
+                    else
+                        l = hate;
+
+                    loyalties.Add(l);
+                }
+
                 list.Add(new ProductPositioning
                 {
                     ID = list.Count,
                     name = "RANDOM " + nicheName + " " + i,
-                    Loyalties = audiences.Select(a1 => Random.Range(-10, 4)).ToList(),
+                    Loyalties = loyalties.ToList(),
+                    //Loyalties = audiences.Select(a1 => Random.Range(-10, 4)).ToList(),
 
                     isCompetitive = false,
                     marketShare = 100,
@@ -670,28 +690,30 @@ namespace Assets.Core
                 });
             }
 
+            var maxPositioning = list.Count;
+
+            // remove positionings for noone
+            list.RemoveAll(p => p.Loyalties.All(l => l < 0));
+
+            // better than global positioning?
+            list.RemoveAll(p => p.Loyalties.All(l => l >= mass));
+
+            // better than strictly focused positioning
+            list.RemoveAll(p => p.Loyalties.Count(l => l >= adore) >= 2);
+
+
             // take ALL
             list.Add(new ProductPositioning
             {
-                ID = list.Count,
+                ID = maxPositioning,
                 name = nicheName + " for everyone",
-                Loyalties = audiences.Select(a => 3).ToList(),
+                Loyalties = audiences.Select(a => mass).ToList(),
 
                 isCompetitive = false,
                 marketShare = 100,
                 priceModifier = 1f,
             });
 
-            // remove positionings for noone
-            list.RemoveAll(p => p.Loyalties.All(l => l < 0));
-
-            list.RemoveAll(p =>
-            {
-                // better than strictly focused positioning
-                return p.Loyalties.Count(l => l >= adore) >= 2;
-
-                // better than global positioning?
-            });
 
             Debug.Log($"Created {list.Count} positionings");
 

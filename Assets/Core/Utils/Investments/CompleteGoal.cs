@@ -10,36 +10,6 @@ namespace Assets.Core
             return goal.IsCompleted(company, gameContext);
         }
 
-        public static bool IsGoalDone(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
-        {
-            var company = GetGoalPickingCompany(company1, gameContext, goal);
-
-            List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
-            {
-                InvestorGoalType.ProductRelease,
-                InvestorGoalType.ProductBecomeMarketFit,
-                InvestorGoalType.ProductFirstUsers,
-                InvestorGoalType.ProductPrototype,
-            };
-
-            // goal was done or outreached
-            bool done = company.completedGoals.Goals.Contains(goal);
-
-            if (done)
-                return true;
-
-            var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal);
-            bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
-
-            if (outgrown && OneTimeGoals.Contains(goal))
-            {
-                Investments.CompleteGoal(company, gameContext, goal1, true);
-                return true;
-            }
-
-            return false;
-        }
-
         public static void CompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal, bool forceComplete = false)
         {
             Companies.Log(company, "Try complete goal: " + goal.GetFormattedName());

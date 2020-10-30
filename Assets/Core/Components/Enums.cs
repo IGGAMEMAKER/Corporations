@@ -236,13 +236,8 @@ public enum InvestorGoalType
     ProductBecomeMarketFit,
     ProductRelease,
     BecomeProfitable,
-        //BecomeBestByTech, // 
-        //GrowClientBase, // 
 
-        //ProceedToNextRound, // 
-
-    GrowCompanyCost, // +20%
-    //GrowProfit, // +10%
+    GrowCompanyCost,
 
     IPO,
     
@@ -264,7 +259,7 @@ public enum InvestorGoalType
 
     DiversifyIncome,
 
-    StartMonetising,
+    ProductStartMonetising,
     ProductRegainLoyalty
 }
 

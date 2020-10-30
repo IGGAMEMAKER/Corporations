@@ -64,7 +64,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                     break;
 
-                case InvestorGoalType.StartMonetising:
+                case InvestorGoalType.ProductStartMonetising:
                     actions.Add(ProductActions.Monetise);
                     actions.Add(ProductActions.Features);
 
