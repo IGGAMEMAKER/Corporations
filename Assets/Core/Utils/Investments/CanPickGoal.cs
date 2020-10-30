@@ -51,41 +51,41 @@ namespace Assets.Core
             return goals;
         }
 
-        public static bool IsPickableGoal(GameEntity company1, GameContext gameContext, InvestorGoalType goal)
+        public static bool IsPickableGoal(GameEntity company, GameContext gameContext, InvestorGoalType goal)
         {
-            GameEntity company = GetGoalPickingCompany(company1, gameContext, goal);
+            GameEntity realCompany = GetGoalPickingCompany(company, gameContext, goal);
 
-            bool isProduct = company.hasProduct;
+            bool isProduct = realCompany.hasProduct;
 
 
             // this goal was done already && cannot be done twice
-            if (Investments.IsGoalDone(company, goal, gameContext))
+            if (Investments.IsGoalDone(realCompany, goal, gameContext))
             {
                 //Debug.Log("goal " + goal + " for " + company.company.Name + " was done or outgrown");
                 return false;
             }
 
-            if (company.completedGoals.Goals.Count == 0 && isProduct)
+            if (realCompany.completedGoals.Goals.Count == 0 && isProduct)
                 return goal == InvestorGoalType.ProductPrototype;
 
 
-            var users = Marketing.GetUsers(company);
-            var cost = Economy.CostOf(company, gameContext);
-            var income = Economy.GetIncome(gameContext, company);
+            var users = Marketing.GetUsers(realCompany);
+            var cost = Economy.CostOf(realCompany, gameContext);
+            var income = Economy.GetIncome(gameContext, realCompany);
 
             bool isGroup = !isProduct;
 
-            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(company);
+            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(realCompany);
 
             var marketFit = 10; // 10 cause it allows monetisation for ads
 
 
-            bool isPrototype = isProduct && !company.isRelease && focusedProduct;
-            bool releasedProduct = isProduct && company.isRelease;
+            bool isPrototype = isProduct && !realCompany.isRelease && focusedProduct;
+            bool releasedProduct = isProduct && realCompany.isRelease;
 
-            bool profitable = Economy.IsProfitable(gameContext, company);
+            bool profitable = Economy.IsProfitable(gameContext, realCompany);
 
-            var strongerCompetitorId = Companies.GetStrongerCompetitorId(company, gameContext);
+            var strongerCompetitorId = Companies.GetStrongerCompetitorId(realCompany, gameContext);
             bool hasStrongerCompanies = strongerCompetitorId >= 0;
 
             bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
@@ -100,33 +100,36 @@ namespace Assets.Core
                     return isPrototype;
 
                 case InvestorGoalType.ProductBecomeMarketFit:
-                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(company, Marketing.GetCoreAudienceId(company)) < marketFit;
+                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductPrototype, gameContext) && Marketing.GetSegmentLoyalty(realCompany, Marketing.GetCoreAudienceId(realCompany)) < marketFit;
 
                 case InvestorGoalType.ProductFirstUsers:
-                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductBecomeMarketFit, gameContext); // && users < 100_000
+                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductBecomeMarketFit, gameContext); // && users < 100_000
 
                 case InvestorGoalType.ProductRelease:
-                    return isPrototype && IsGoalDone(company, InvestorGoalType.ProductFirstUsers, gameContext);
+                    return isPrototype && IsGoalDone(realCompany, InvestorGoalType.ProductFirstUsers, gameContext);
 
                 case InvestorGoalType.StartMonetising:
-                    return releasedProduct && IsGoalDone(company, InvestorGoalType.ProductRelease, gameContext);
+                    return releasedProduct && IsGoalDone(realCompany, InvestorGoalType.ProductRelease, gameContext);
+
+                case InvestorGoalType.ProductRegainLoyalty:
+                    return isProduct && Marketing.IsHasDisloyalAudiences(realCompany);
 
                 case InvestorGoalType.GrowUserBase:
-                    return releasedProduct && IsGoalDone(company, InvestorGoalType.StartMonetising, gameContext);
+                    return releasedProduct && IsGoalDone(realCompany, InvestorGoalType.StartMonetising, gameContext);
 
                 case InvestorGoalType.GrowIncome:
                     return releasedProduct && income > 50_000;
 
                 case InvestorGoalType.GainMoreSegments:
                     var amountOfAudiences = Marketing.GetAudienceInfos().Count;
-                    var ourAudiences = Marketing.GetAmountOfTargetAudiences(company);
+                    var ourAudiences = Marketing.GetAmountOfTargetAudiences(realCompany);
 
                     return releasedProduct && users > 500_000 && ourAudiences < amountOfAudiences;
 
 
                 // GROUPS
                 case InvestorGoalType.IPO:
-                    return isGroup && !company.isPublicCompany && cost > C.IPO_REQUIREMENTS_COMPANY_COST;
+                    return isGroup && !realCompany.isPublicCompany && cost > C.IPO_REQUIREMENTS_COMPANY_COST;
 
                 // BOTH
                 case InvestorGoalType.GrowCompanyCost:
@@ -144,13 +147,6 @@ namespace Assets.Core
                 case InvestorGoalType.AcquireCompany:
                     //Debug.Log("Check ACQUIRE COMPANY: solid=" + solidCompany + " has targets=" + hasWeakerCompanies);
                     return solidCompany && hasWeakerCompanies;
-
-                //case InvestorGoalType.DiversifyIncome:
-                //    if (releasedProduct && profitable && income > 500_000 && Products.GetMonetisationFeatures(company).Length )
-                //    {
-
-                //    }
-                //    return (releasedProduct || isGroup) && profitable && income > 
 
                 case InvestorGoalType.BecomeProfitable:
                     return solidCompany && !profitable;

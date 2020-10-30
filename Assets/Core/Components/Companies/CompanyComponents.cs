@@ -38,6 +38,7 @@ public struct BlockOfShares
 }
 
 public class AliveComponent : IComponent { }
+public class BankruptComponent : IComponent { }
 public class OnSalesComponent : IComponent { }
 
 public class WantsToExpand : IComponent { }
@@ -390,6 +391,18 @@ public class TeamTask {
 
         return this.ToString();
     }
+
+    //public long GetCost()
+    //{
+    //    if (IsFeatureUpgrade)
+    //        return 0;
+
+    //    if (IsMarketingTask)
+    //        return (this as TeamTaskChannelActivity).ChannelCost;
+
+    //    if (IsSupportTask)
+    //        return Teams.gettea (this as TeamTaskSupportFeature).SupportFeature.Name;
+    //}
 
     //public override bool Equals(object obj)
     //{

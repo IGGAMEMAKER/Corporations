@@ -26,12 +26,12 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
         Companies.Log(company, $"Company {company.company.Name} BANKRUPT");
         Companies.Log(company, "Profit: " + profit.ToString()); // $"Economy: <color=green>Income</color> +{Format.MinifyMoney(income)}\n<color=red>Maintenance</color> - {maintenance.MinifyValues().ToString(true)}");
 
-        Companies.PrintFinancialTransactions(company);
+        Companies.LogFinancialTransactions(company);
 
         foreach (var d in Companies.GetDaughters(gameContext, company))
         {
             Companies.Log(company, $"* Daughter {d.company.Name} stats");
-            Companies.PrintFinancialTransactions(d);
+            Companies.LogFinancialTransactions(d);
         }
 
         if (Companies.IsPlayerCompany(company))
@@ -39,7 +39,7 @@ public partial class CheckBankruptciesSystem : OnPeriodChange
             NotificationUtils.AddPopup(gameContext, new PopupMessageGameOver(company.company.Id));
         }
 
-        Companies.CloseCompany(gameContext, company);
+        Companies.CloseCompany(gameContext, company, true);
         Companies.Log(company, $"Company {company.company.Name} CLOSED");
         ScheduleUtils.TweakCampaignStats(gameContext, CampaignStat.Bankruptcies);
     }

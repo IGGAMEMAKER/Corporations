@@ -69,6 +69,7 @@ namespace Assets.Core
             return GetAudienceChange(product, gameContext, true).Sum();
         }
 
+        public static bool IsImportantAudience(GameEntity product, int segmentId) => IsTargetAudience(product, segmentId);
         public static bool IsTargetAudience(GameEntity product, int segmentId)
         {
             return GetPositioning(product).Loyalties[segmentId] > 0;

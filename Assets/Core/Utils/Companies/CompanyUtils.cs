@@ -55,6 +55,8 @@ namespace Assets.Core
 
         // Logging
 
+        public static void LogSuccess(GameEntity entity, string text) => Log(entity, Visuals.Positive(text));
+        public static void LogFail(GameEntity entity, string text) => Log(entity, Visuals.Negative(text));
         public static void Log(GameEntity entity, string text)
         {
             if (!entity.hasLogging)
@@ -63,7 +65,7 @@ namespace Assets.Core
             if (IsObservableCompany(entity))
             {
                 entity.logging.Logs.Add(text);
-                Debug.Log(entity.company.Name + ": " + text);
+                //Debug.Log(entity.company.Name + ": " + text);
             }
 
             //if (IsPlayerCompany(entity))
@@ -72,7 +74,14 @@ namespace Assets.Core
             //}
         }
 
-        public static void PrintFinancialTransactions(GameEntity company)
+        public static void LogFinancialStatus(GameEntity company, GameContext gameContext)
+        {
+            var balance = Economy.BalanceOf(company);
+            var profit = Economy.GetProfit(gameContext, company);
+
+            Log(company, $"Financial report: balance={Format.Money(balance)}, profit={Format.Money(profit)}");
+        }
+        public static void LogFinancialTransactions(GameEntity company)
         {
             Log(company, string.Join("\n", company.companyResourceHistory.Actions.Select(r => r.Print())));
         }
@@ -85,7 +94,7 @@ namespace Assets.Core
             var names = new List<string>() { "Google" };
 
             return company.hasCompany && company.hasCompanyFocus
-                && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange) || names.Contains(company.company.Name));
+                && (company.companyFocus.Niches.Contains(NicheType.ECom_MoneyExchange)); // || names.Contains(company.company.Name)
         }
     }
 }

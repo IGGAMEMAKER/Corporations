@@ -12,7 +12,7 @@ public class DeclareBankruptcyPopupButton : PopupButtonController<PopupMessageBa
 
         for (var i = 0; i < daughters.Length; i++)
         {
-            Companies.CloseCompany(Q, daughters[i]);
+            Companies.CloseCompany(Q, daughters[i], true);
         }
 
         Companies.SetResources(playerCompany, 0, "Bankruptcy");

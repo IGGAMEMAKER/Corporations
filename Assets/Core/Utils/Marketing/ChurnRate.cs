@@ -58,9 +58,6 @@ namespace Assets.Core
             {
                 if (Products.IsUpgradedFeature(product, f.Name))
                 {
-                    var rating = Products.GetFeatureRating(product, f.Name);
-                    var attitude = f.AttitudeToFeature[segmentId];
-
                     var loyaltyGain = GetLoyaltyChangeFromFeature(product, f, segmentId, false);
 
                     bonus.Append($"Feature {f.Name}", (int)loyaltyGain);
@@ -106,11 +103,14 @@ namespace Assets.Core
 
             if (attitude >= 0)
             {
+                // is a feature
                 loyaltyGain = rating * attitude / 10;
             }
             else
             {
-                loyaltyGain = attitude + (10 - rating) * attitude / 10;
+                // is monetising
+                loyaltyGain = attitude;
+                //loyaltyGain = attitude + (10 - rating) * attitude / 10;
             }
 
             return loyaltyGain;

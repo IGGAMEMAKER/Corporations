@@ -5,7 +5,7 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static GameEntity CloseCompany(GameContext context, GameEntity e)
+        public static GameEntity CloseCompany(GameContext context, GameEntity e, bool bankrupt = false)
         {
             var balance = Economy.BalanceOf(e);
 
@@ -33,6 +33,9 @@ namespace Assets.Core
 
 
             e.isAlive = false;
+
+            if (bankrupt)
+                e.isBankrupt = true;
 
             return e;
         }

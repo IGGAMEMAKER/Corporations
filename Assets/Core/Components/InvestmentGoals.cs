@@ -327,6 +327,32 @@ public class InvestmentGoalGrowProfit : InvestmentGoal
         };
     }
 }
+
+public class InvestmentGoalRegainLoyalty : InvestmentGoal
+{
+    public InvestmentGoalRegainLoyalty() : base(InvestorGoalType.ProductRegainLoyalty)
+    {
+
+    }
+
+    public override string GetFormattedName()
+    {
+        return "Restore loyalty";
+    }
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = Marketing.GetAudienceInfos().Any(a => Marketing.IsAudienceDisloyal(company, a.ID) && Marketing.IsTargetAudience(company, a.ID)) ? 0 : 1,
+                need = 1
+            }
+        };
+    }
+}
+
 public class InvestmentGoalStartMonetisation : InvestmentGoal
 {
     public InvestmentGoalStartMonetisation() : base(InvestorGoalType.StartMonetising)

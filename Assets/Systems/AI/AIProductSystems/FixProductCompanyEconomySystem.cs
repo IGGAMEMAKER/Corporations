@@ -15,24 +15,71 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
         foreach (var product in nonFlagshipProducts)
         {
-            // Fix situation
-            FixEconomy(product);
+            PrintFinancialStatusOfCompany(product);
+
+            // raise investments
+            // reduce expenses
+
+            Companies.Log(product, Visuals.Negative($"Economic situation is <b>TERRIBLE</b> in {product.company.Name} (#{product.creationIndex})"));
+
+            // take investments
+            RaiseFastCash(product);
+
+            //FixEconomy(product);
+            RemoveExpensiveTasks(product);
+
+            // report
+            if (Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, product))
+            {
+                Companies.LogFail(product, "BANKRUPTCY IS UNEVITABLE");
+                Companies.LogFinancialStatus(product, gameContext);
+            }
+            else
+            {
+                Companies.LogSuccess(product, "COMPANY SAVED");
+                Companies.LogFinancialStatus(product, gameContext);
+            }
         }
     }
 
+    void RemoveExpensiveTasks(GameEntity product)
+    {
+        var profit = Economy.GetProfit(gameContext, product);
+        var balance = Economy.BalanceOf(product);
+
+        // we need this amount of money
+        var deficit = balance + profit;
+        var initialDeficit = deficit;
+
+        // -----------------------------------------
+
+        var tasks = product.team.Teams[0].Tasks;
+        var sortedTaks = tasks
+            .Select(t => new { t, cost = Economy.GetTeamTaskCost(product, t) })
+            .Where(t => t.cost > 0)
+            .OrderByDescending(a => a.cost);
+
+        foreach (var taskData in sortedTaks)
+        {
+            var cost = taskData.cost;
+
+            deficit += cost;
+
+            Teams.RemoveTeamTask(product, gameContext, taskData.t);
+            Companies.Log(product, $"Removed team task: {taskData.t.GetPrettyName()}, which cost was {Format.Money(taskData.cost)}");
+
+            if (deficit >= 0)
+            {
+                Companies.LogSuccess(product, $"LAST TASK REMOVAL SAVED COMPANY");
+                return;
+            }
+        }
+
+        Companies.Log(product, $"After removing tasks: deficit was {Format.Money(initialDeficit)} to {Format.Money(deficit)}");
+    }
 
     void FixEconomy(GameEntity product)
     {
-        PrintFinancialStatusOfCompany(product);
-
-        Companies.Log(product, Visuals.Negative($"Economic situation is <b>TERRIBLE</b> in {product.company.Name} (#{product.creationIndex})"));
-
-        // take investments
-        RaiseFastCash(product);
-        RaiseFastCash(product);
-        RaiseFastCash(product);
-
-
         if (!willBeBankrupt(product))
         {
             Companies.Log(product, Visuals.Positive("CASH SAVED US!"));
@@ -78,6 +125,7 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         // remove teams without tasks
 
         PrintFinancialStatusOfCompany(product);
+
         Companies.Log(product, Economy.GetProductCompanyMaintenance(product, true).MinifyValues().Minify().ToString(true));
     }
 
@@ -87,8 +135,6 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
         var income = Economy.GetIncome(gameContext, product);
         var maintenance = Economy.GetMaintenance(gameContext, product);
-
-        var managerMaintenance = Economy.GetManagersCost(product);
 
         var profit = Economy.GetProfit(gameContext, product);
 

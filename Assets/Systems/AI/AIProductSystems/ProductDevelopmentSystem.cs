@@ -18,6 +18,7 @@ public enum ProductActions
     GrabSegments,
 
     ShowProfit,
+    RestoreLoyalty
 }
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
@@ -68,6 +69,11 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                     actions.Add(ProductActions.Features);
 
                     actions.Add(ProductActions.GrabUsers);
+                    break;
+
+                case InvestorGoalType.ProductRegainLoyalty:
+                    actions.Add(ProductActions.Features);
+                    actions.Add(ProductActions.RestoreLoyalty);
                     break;
 
                 case InvestorGoalType.GainMoreSegments:
@@ -162,6 +168,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             case ProductActions.ExpandTeam:
                 ExpandTeam(product);
+                break;
+
+            case ProductActions.RestoreLoyalty:
+                DeMonetise(product);
                 break;
 
             default:
@@ -259,6 +269,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
 
             Companies.Log(product, $"POSITIONING SHIFTED TO: {newPositioning.name}!");
+            Debug.Log($"POSITIONING of {product.company.Name} SHIFTED TO: {newPositioning.name}! {newPositioning.ID}");
             Marketing.ChangePositioning(product, newPositioning.ID);
 
             return;
@@ -277,27 +288,43 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
 
-        if (remainingFeatures.Count() == 0)
-            return;
-
-        //var feature = remainingFeatures.First();
         var segments = Marketing.GetAudienceInfos();
 
         foreach (var feature in remainingFeatures)
         {
+            bool willUpsetPeople = false;
+
             foreach (var s in segments)
             {
                 var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
                 var attitude = feature.AttitudeToFeature[s.ID];
 
                 // will make audience sad
-                if (loyalty + attitude < 0)
+                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
+                {
+                    Companies.Log(product, $"Wanted to add {feature.Name}, but this will dissapoint {s.Name}");
+                    willUpsetPeople = true;
+
                     break;
+                }
             }
 
-            TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
+            if (!willUpsetPeople)
+            {
+                TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
+                Companies.LogSuccess(product, $"Added {feature.Name} for profit");
+            }
         }
+    }
 
+    void DeMonetise(GameEntity product)
+    {
+        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus.isMonetisationFeature);
+
+        foreach (var f in remainingFeatures)
+        {
+            Products.RemoveFeature(product, f.Name, gameContext);
+        }
     }
 
     void ManageFeatures(GameEntity product)
@@ -308,20 +335,20 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             return;
 
         var feature = remainingFeatures.First();
-        //if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
-        //{
-        //    var segments = Marketing.GetAudienceInfos();
+        if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
+        {
+            var segments = Marketing.GetAudienceInfos();
 
-        //    foreach (var s in segments)
-        //    {
-        //        var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-        //        var attitude = feature.AttitudeToFeature[s.ID];
+            foreach (var s in segments)
+            {
+                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
+                var attitude = feature.AttitudeToFeature[s.ID];
 
-        //        // will make audience sad
-        //        if (loyalty + attitude < 0)
-        //            return;
-        //    }
-        //}
+                // will make audience sad
+                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
+                    return;
+            }
+        }
 
         TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
     }
@@ -350,6 +377,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
             .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
+            .ThenByDescending(c => Marketing.GetChannelCost(product, c));
             ;
 
         if (channels.Count() > 0)
@@ -357,6 +385,10 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             var c = channels.First();
         
             TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, Marketing.GetChannelCost(product, c)));
+        }
+        else
+        {
+            // maybe try to remove some?
         }
     }
 

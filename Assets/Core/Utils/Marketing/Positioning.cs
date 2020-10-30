@@ -8,7 +8,20 @@ namespace Assets.Core
     {
         public static ProductPositioning GetPositioning(GameEntity product)
         {
-            return GetNichePositionings(product)[product.productPositioning.Positioning];
+            var positionings = GetNichePositionings(product);
+
+            var pos = product.productPositioning.Positioning;
+
+            try
+            {
+                return positionings.First(p => p.ID == pos);
+            }
+            catch
+            {
+                Debug.LogError($"Get positioning bug in {product.company.Name}: index={pos}");
+
+                return positionings[0];
+            }
         }
 
         public static List<ProductPositioning> GetNichePositionings(GameEntity product)
@@ -30,6 +43,7 @@ namespace Assets.Core
 
             return isFocusingOneAudience;
         }
+
         public static bool IsFocusingMoreThanOneAudience(GameEntity product)
         {
             return !IsFocusingOneAudience(product);

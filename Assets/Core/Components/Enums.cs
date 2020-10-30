@@ -264,7 +264,8 @@ public enum InvestorGoalType
 
     DiversifyIncome,
 
-    StartMonetising
+    StartMonetising,
+    ProductRegainLoyalty
 }
 
 public enum InvestmentRound
