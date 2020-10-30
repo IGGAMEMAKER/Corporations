@@ -5,11 +5,8 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
-        public static InvestmentGoal GetInvestmentGoal(GameEntity company1, GameContext gameContext, InvestorGoalType goalType)
+        public static InvestmentGoal GetInvestmentGoal(GameEntity company, GameContext gameContext, InvestorGoalType goalType)
         {
-            var company = Investments.GetGoalPickingCompany(company1, gameContext, goalType);
-
-
             var income = Economy.GetIncome(gameContext, company);
 
             var unknown = new InvestmentGoalUnknown(goalType);
@@ -61,20 +58,21 @@ namespace Assets.Core
 
         public static void AddCompanyGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal)
         {
-            var company1 = GetGoalPickingCompany(company, gameContext, goal.InvestorGoalType);
+            var executor = goal.GetExecutor(company, gameContext);
+            var controller = goal.GetController(company, gameContext);
 
-            if (company1.company.Id != company.company.Id)
+            if (goal.NeedsReport)
             {
-                AddCompanyGoal2(company1, goal);
-                AddCompanyGoal2(company, goal);
+                AddCompanyGoal2(executor, goal);
+                AddCompanyGoal2(controller, goal);
 
-                Companies.Log(company, "ADD GOAL " + goal.GetFormattedName() + " as company");
-                Companies.Log(company1, "ADD GOAL " + goal.GetFormattedName() + " as company1");
+                Companies.Log(executor, "ADD GOAL " + goal.GetFormattedName() + " as executor");
+                Companies.Log(controller, "ADD GOAL " + goal.GetFormattedName() + " as controller");
             }
             else
             {
-                Companies.Log(company, "ADD GOAL " + goal.GetFormattedName() + " as company");
-                AddCompanyGoal2(company, goal);
+                Companies.Log(executor, "ADD GOAL " + goal.GetFormattedName() + " as company");
+                AddCompanyGoal2(executor, goal);
             }
         }
 

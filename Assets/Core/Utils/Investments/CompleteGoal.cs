@@ -18,14 +18,27 @@ namespace Assets.Core
             {
                 Companies.Log(company, "SUCCESS");
 
-                company.completedGoals.Goals.Add(goal.InvestorGoalType);
+                var executor = goal.GetExecutor(company, gameContext);
+                var controller = goal.GetController(company, gameContext);
 
-                company.companyGoal.Goals.Remove(goal);
+                CompleteGoal2(executor, goal);
+
+                if (goal.NeedsReport)
+                {
+                    CompleteGoal2(controller, goal);
+                }
             }
             else
             {
                 Companies.Log(company, "Not all requirements were met (\n\n" + goal.GetFormattedRequirements(company, gameContext));
             }
+        }
+
+        public static void CompleteGoal2(GameEntity company, InvestmentGoal goal)
+        {
+            company.completedGoals.Goals.Add(goal.InvestorGoalType);
+
+            company.companyGoal.Goals.Remove(goal);
         }
 
         public static bool IsCanCompleteAnyGoal(GameEntity company, GameContext gameContext)

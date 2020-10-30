@@ -16,7 +16,7 @@ namespace Assets.Core
             // product only
             if (isProduct)
             {
-                goals.AddRange(GetProductCompanyGoals(company, Q));
+                goals.AddRange(GetProductGoals(company, Q, company));
             }
 
             // group only
@@ -24,13 +24,13 @@ namespace Assets.Core
             {
                 // daughters need to be dependant on parent company
                 foreach (var d in Companies.GetDaughterProducts(Q, company))
-                    goals.AddRange(GetProductCompanyGoals(d, Q));
+                    goals.AddRange(GetProductGoals(d, Q, company));
 
-                goals.AddRange(GetGroupOnlyGoals(company, Q));
+                goals.AddRange(GetGroupOnlyGoals(company, Q, company));
             }
 
             // both
-            goals.AddRange(GetBothGroupAndProductGoals(company, Q));
+            goals.AddRange(GetCommonGoals(company, Q, company));
 
             return goals;
         }
@@ -41,9 +41,9 @@ namespace Assets.Core
         }
         // IsGoalDoneOrOutgrown
         public static bool Completed(GameEntity company1, InvestorGoalType goal, GameContext gameContext) => IsGoalDoneOrOutgrown(company1, goal, gameContext);
-        public static bool IsGoalDoneOrOutgrown(GameEntity company1, InvestorGoalType goal, GameContext gameContext)
+        public static bool IsGoalDoneOrOutgrown(GameEntity company, InvestorGoalType goal, GameContext gameContext)
         {
-            var company = GetGoalPickingCompany(company1, gameContext, goal);
+            //var company = GetGoalPickingCompany(company1, gameContext, goal);
 
             List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
             {
@@ -71,7 +71,7 @@ namespace Assets.Core
             return false;
         }
 
-        public static List<InvestmentGoal> GetProductCompanyGoals(GameEntity product, GameContext Q)
+        public static List<InvestmentGoal> GetProductGoals(GameEntity product, GameContext Q, GameEntity controller)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -138,10 +138,10 @@ namespace Assets.Core
             if (Marketing.IsHasDisloyalAudiences(product))
                 return GoalToList(new InvestmentGoalRegainLoyalty());
 
-            return WrapGoals(goals, product, Q);
+            return WrapGoals(goals, product, Q, controller);
         }
 
-        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q)
+        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q, GameEntity controller)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -163,10 +163,10 @@ namespace Assets.Core
             if (solidCompany && hasWeakerCompanies)
                 goals.Add(InvestorGoalType.AcquireCompany);
 
-            return WrapGoals(goals, company, Q);
+            return WrapGoals(goals, company, Q, controller);
         }
 
-        public static List<InvestmentGoal> GetBothGroupAndProductGoals(GameEntity company, GameContext Q)
+        public static List<InvestmentGoal> GetCommonGoals(GameEntity company, GameContext Q, GameEntity controller)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -207,43 +207,43 @@ namespace Assets.Core
             if (solidCompany && !profitable)
                 goals.Add(InvestorGoalType.BecomeProfitable);
 
-            return WrapGoals(goals, company, Q);
+            return WrapGoals(goals, company, Q, controller);
         }
 
 
         public static List<InvestmentGoal> GoalToList(InvestmentGoal goal) => new List<InvestmentGoal> { goal };
-        public static List<InvestmentGoal> WrapGoals(List<InvestorGoalType> goals, GameEntity company, GameContext Q)
+        public static List<InvestmentGoal> WrapGoals(List<InvestorGoalType> goals, GameEntity company, GameContext Q, GameEntity controller)
         {
             return goals
                 .Where(g => !HasGoalAlready(company, Q, g))
-                .Select(g => GetInvestmentGoal(company, Q, g))
+                .Select(g => GetInvestmentGoal(company, Q, g).SetExecutorAndController(company.company.Id, controller.company.Id))
                 .ToList();
         }
 
 
-        public static GameEntity GetGoalPickingCompany(GameEntity company1, GameContext gameContext, InvestorGoalType goalType)
-        {
-            GameEntity company = null;
+        //public static GameEntity GetGoalPickingCompany(GameEntity company1, GameContext gameContext, InvestorGoalType goalType)
+        //{
+        //    GameEntity company = null;
 
-            if (company1.hasProduct)
-            {
-                company = company1;
-            }
-            else
-            {
-                var daughterProducts = Companies.GetDaughterProducts(gameContext, company1);
-                if (daughterProducts.Count() == 1)
-                {
-                    company = daughterProducts.First();
-                }
-                else
-                {
-                    company = company1;
-                }
-            }
+        //    if (company1.hasProduct)
+        //    {
+        //        company = company1;
+        //    }
+        //    else
+        //    {
+        //        var daughterProducts = Companies.GetDaughterProducts(gameContext, company1);
+        //        if (daughterProducts.Count() == 1)
+        //        {
+        //            company = daughterProducts.First();
+        //        }
+        //        else
+        //        {
+        //            company = company1;
+        //        }
+        //    }
 
-            return company;
-        }
+        //    return company;
+        //}
 
 
         public static bool IsPickableGoal(

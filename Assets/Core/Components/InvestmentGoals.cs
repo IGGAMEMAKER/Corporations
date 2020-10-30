@@ -16,7 +16,17 @@ public struct GoalRequirements
 public abstract class InvestmentGoal
 {
     public InvestorGoalType InvestorGoalType;
+
     public int ExecutorId;
+    public int ControllerId;
+
+    public InvestmentGoal SetExecutorAndController(int executor, int controller)
+    {
+        ExecutorId = executor;
+        ControllerId = controller;
+
+        return this;
+    }
 
     public InvestmentGoal()
     {
@@ -28,17 +38,30 @@ public abstract class InvestmentGoal
         InvestorGoalType = goalType;
     }
 
+    public bool NeedsReport => ExecutorId != ControllerId;
+
+    public GameEntity GetExecutor(GameEntity company, GameContext gameContext)
+    {
+        return ExecutorId == company.company.Id ? company : Companies.Get(gameContext, ExecutorId);
+    }
+
+    public GameEntity GetController(GameEntity company, GameContext gameContext)
+    {
+        return ControllerId == company.company.Id ? company : Companies.Get(gameContext, ControllerId);
+    }
+
     public GameEntity GetProduct(GameEntity company, GameContext gameContext)
     {
-        return Investments.GetGoalPickingCompany(company, gameContext, InvestorGoalType);
+        return GetExecutor(company, gameContext);
     }
+
 
     public abstract string GetFormattedName();
     public abstract List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext);
 
     public string GetFormattedRequirements(GameEntity company1, GameContext gameContext)
     {
-        var company = Investments.GetGoalPickingCompany(company1, gameContext, InvestorGoalType);
+        var company = GetExecutor(company1, gameContext);
 
         return string.Join("\n", GetGoalRequirements(company, gameContext)
             .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, company, gameContext))));
@@ -48,7 +71,7 @@ public abstract class InvestmentGoal
     //public abstract bool IsPickable(GameEntity company, GameContext gameContext);
     public bool IsCompleted(GameEntity company1, GameContext gameContext)
     {
-        var company = Investments.GetGoalPickingCompany(company1, gameContext, InvestorGoalType);
+        var company = GetExecutor(company1, gameContext);
 
         var r = GetGoalRequirements(company, gameContext);
 
