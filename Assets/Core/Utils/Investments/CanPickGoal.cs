@@ -6,6 +6,31 @@ namespace Assets.Core
 {
     public static partial class Investments
     {
+        public static List<InvestmentGoal> GetNewGoals(GameEntity company, GameContext Q)
+        {
+            var goals = new List<InvestmentGoal>();
+
+            bool isProduct = company.hasProduct;
+            bool isGroup = !isProduct;
+
+            if (isProduct)
+                goals.AddRange(GetProductCompanyGoals(company, Q));
+
+            if (isGroup)
+            {
+                var daughterProducts = Companies.GetDaughterProducts(Q, company);
+
+                foreach (var d in daughterProducts)
+                    goals.AddRange(GetProductCompanyGoals(d, Q));
+
+                goals.AddRange(GetGroupOnlyGoals(company, Q));
+            }
+
+            goals.AddRange(GetBothGroupAndProductGoals(company, Q));
+
+            return goals;
+        }
+
         public static GameEntity GetGoalPickingCompany(GameEntity company1, GameContext gameContext, InvestorGoalType goalType)
         {
             GameEntity company = null;
@@ -97,6 +122,9 @@ namespace Assets.Core
 
             long users = Marketing.GetUsers(product);
 
+            var amountOfAudiences = Marketing.GetAudienceInfos().Count;
+            var ourAudiences = Marketing.GetAmountOfTargetAudiences(product);
+
             if (isPrototype)
             {
                 var coreLoyalty = Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(product));
@@ -117,31 +145,28 @@ namespace Assets.Core
 
             if (releasedProduct)
             {
-                
                 if (Completed(product, InvestorGoalType.ProductRelease, Q))
                     goals.Add(InvestorGoalType.ProductStartMonetising);
 
                 if (Completed(product, InvestorGoalType.ProductStartMonetising, Q))
                     goals.Add(InvestorGoalType.GrowUserBase);
 
-                var amountOfAudiences = Marketing.GetAudienceInfos().Count;
-                var ourAudiences = Marketing.GetAmountOfTargetAudiences(product);
-
                 if (users > 500_000 && ourAudiences < amountOfAudiences)
                     goals.Add(InvestorGoalType.GainMoreSegments);
-
-                //var strongerCompetitorId = Companies.GetStrongerCompetitorId(realCompany, Q);
-                //bool hasStrongerCompanies = strongerCompetitorId >= 0;
-
-                //bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
-
-                //goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);                
             }
 
             if (Marketing.IsHasDisloyalAudiences(product))
                 return WrapGoalToList(new InvestmentGoalRegainLoyalty());
 
-            return goals.Select(g => GetInvestmentGoal(product, Q, g)).ToList();
+            return WrapGoalList(goals, product, Q);
+        }
+
+        public static List<InvestmentGoal> WrapGoalList(List<InvestorGoalType> goals, GameEntity company, GameContext Q)
+        {
+            return goals
+                .Where(g => !HasGoalAlready(company, Q, g))
+                .Select(g => GetInvestmentGoal(company, Q, g))
+                .ToList();
         }
 
         public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q)
@@ -164,8 +189,7 @@ namespace Assets.Core
             if (solidCompany && hasWeakerCompanies)
                 goals.Add(InvestorGoalType.AcquireCompany);
 
-
-            return goals.Select(g => GetInvestmentGoal(company, Q, g)).ToList();
+            return WrapGoalList(goals, company, Q);
         }
 
         public static List<InvestmentGoal> GetBothGroupAndProductGoals(GameEntity company, GameContext Q)
@@ -212,69 +236,7 @@ namespace Assets.Core
             if (solidCompany && !profitable)
                 goals.Add(InvestorGoalType.BecomeProfitable);
 
-            return goals.Select(g => GetInvestmentGoal(company, Q, g)).ToList();
-        }
-
-        public static List<InvestmentGoal> GetNewGoals(GameEntity company, GameContext Q)
-        {
-            var goals = new List<InvestmentGoal>();
-
-            // executor
-            GameEntity realCompany = GetGoalPickingCompany(company, Q, goalType);
-
-            var users = Marketing.GetUsers(realCompany);
-            var cost = Economy.CostOf(realCompany, Q);
-            var income = Economy.GetIncome(Q, realCompany);
-
-            bool isGroup = !isProduct;
-
-            bool focusedProduct = isProduct && Marketing.IsFocusingOneAudience(realCompany);
-
-            var marketFit = 10; // 10 cause it allows monetisation for ads
-
-
-            bool isPrototype = isProduct && !realCompany.isRelease && focusedProduct;
-            bool releasedProduct = isProduct && realCompany.isRelease;
-
-            bool profitable = Economy.IsProfitable(Q, realCompany);
-
-            var strongerCompetitorId = Companies.GetStrongerCompetitorId(realCompany, Q);
-            bool hasStrongerCompanies = strongerCompetitorId >= 0;
-
-            bool solidCompany = (releasedProduct || isGroup) && profitable && income > 500_000;
-
-            bool hasWeakerCompanies = !hasStrongerCompanies; // is dominant on market
-
-            foreach (var goalType in (InvestorGoalType[])System.Enum.GetValues(typeof(InvestorGoalType)))
-            {
-                if (Investments.HasGoalAlready(company, Q, goalType))
-                    continue;
-
-                // this goal was done already && cannot be done twice
-                if (Investments.Completed(realCompany, goalType, Q))
-                {
-                    continue;
-                }
-
-                bool isProduct = realCompany.hasProduct;
-                if (realCompany.completedGoals.Goals.Count == 0 && isProduct)
-                {
-                    // ensure, that making prototype is first goal
-                    goals.Add(GetInvestmentGoal(realCompany, Q, goalType));
-
-                    return goals;
-                }
-
-                if (IsPickableGoal(company, Q, goalType, 
-                    isPrototype, realCompany, releasedProduct, isProduct, income, users, solidCompany,
-                    hasStrongerCompanies, hasWeakerCompanies, isGroup, profitable, cost, marketFit))
-                {
-                    //Debug.Log("New goal: " + e);
-                    goals.Add(GetInvestmentGoal(company, Q, goalType));
-                }
-            }
-
-            return goals;
+            return WrapGoalList(goals, company, Q);
         }
 
         public static bool IsPickableGoal(
