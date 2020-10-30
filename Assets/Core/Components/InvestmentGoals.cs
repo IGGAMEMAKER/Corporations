@@ -234,7 +234,7 @@ public class InvestmentGoalMoreSegments: InvestmentGoal
                 have = Marketing.GetAmountOfTargetAudiences(product),
                 need = Segments,
 
-                description = "Target audiences > " + Format.Minify(Segments)
+                description = "Target audiences >= " + Format.Minify(Segments)
             }
         };
     }

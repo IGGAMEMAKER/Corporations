@@ -16,25 +16,16 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         foreach (var product in nonFlagshipProducts)
         {
             // Fix situation
-            FixEconomy(product, ref str, false);
-            // ---------------
-
-            bool isTestCompany = false;
-
-            if (isTestCompany)
-            {
-                foreach (var s in str)
-                    Debug.Log(s);
-            }
+            FixEconomy(product);
         }
     }
 
 
-    void FixEconomy(GameEntity product, ref List<string> str, bool isTestCompany)
+    void FixEconomy(GameEntity product)
     {
-        PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
+        PrintFinancialStatusOfCompany(product);
 
-        str.Add(Visuals.Negative($"Economic situation is <b>TERRIBLE</b> in {product.company.Name} (#{product.creationIndex})"));
+        Companies.Log(product, Visuals.Negative($"Economic situation is <b>TERRIBLE</b> in {product.company.Name} (#{product.creationIndex})"));
 
         // take investments
         RaiseFastCash(product);
@@ -44,16 +35,16 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
         if (!willBeBankrupt(product))
         {
-            str.Add(Visuals.Positive("CASH SAVED US!"));
+            Companies.Log(product, Visuals.Positive("CASH SAVED US!"));
             return;
         }
 
-        str.Add(Visuals.Negative("Took cash, but this didn't help much"));
+        Companies.Log(product, Visuals.Negative("Took cash, but this didn't help much"));
         //PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
 
         var paidTasks = GetPaidCompanyTeamTasks(product);
 
-        RenderPaidTasks(product, ref str);
+        RenderPaidTasks(product);
 
         int triesMax = paidTasks.Count;
         int tries = 0;
@@ -65,49 +56,46 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
             tries++;
             if (GetPaidCompanyTeamTasks(product).Count > 0)
             {
-                RemoveExpensiveTask(product, ref str);
+                RemoveExpensiveTask(product);
             }
             else
             {
-                str.Add("No more tasks left");
+                Companies.Log(product, "No more tasks left");
                 break;
             }
         }
 
-        RenderPaidTasks(product, ref str);
+        RenderPaidTasks(product);
 
         if (!willBeBankrupt(product))
         {
-            str.Add(Visuals.Positive("Removing expensive tasks helped!"));
+            Companies.Log(product, Visuals.Positive("Removing expensive tasks helped!"));
             return;
         }
 
-        str.Add("<b>BANKRUPTCY IS HERE...</b>");
+        Companies.Log(product, "<b>BANKRUPTCY IS HERE...</b>");
 
         // remove teams without tasks
 
-        PrintFinancialStatusOfCompany(product, ref str, isTestCompany);
-        str.Add(Economy.GetProductCompanyMaintenance(product, true).MinifyValues().Minify().ToString(true));
+        PrintFinancialStatusOfCompany(product);
+        Companies.Log(product, Economy.GetProductCompanyMaintenance(product, true).MinifyValues().Minify().ToString(true));
     }
 
-    void PrintFinancialStatusOfCompany(GameEntity product, ref List<string> str, bool isTestCompany)
+    void PrintFinancialStatusOfCompany(GameEntity product)
     {
-        if (isTestCompany)
-        {
-            var balance = Economy.BalanceOf(product);
+        var balance = Economy.BalanceOf(product);
 
-            var income = Economy.GetIncome(gameContext, product);
-            var maintenance = Economy.GetMaintenance(gameContext, product);
+        var income = Economy.GetIncome(gameContext, product);
+        var maintenance = Economy.GetMaintenance(gameContext, product);
 
-            var managerMaintenance = Economy.GetManagersCost(product);
+        var managerMaintenance = Economy.GetManagersCost(product);
 
-            var profit = Economy.GetProfit(gameContext, product);
+        var profit = Economy.GetProfit(gameContext, product);
 
-            str.Add(
-                $"Balance: " + Format.Money(balance) + ", Profit: " + Visuals.PositiveOrNegativeMinified(profit) +
-                " (Income: " + Visuals.Positive("+" + Format.Money(income)) + " Expenses: " + Visuals.Negative("-" + Format.Money(maintenance)) + ")"
-                );
-        }
+        Companies.Log(product,
+            $"Balance: " + Format.Money(balance) + ", Profit: " + Visuals.PositiveOrNegativeMinified(profit) +
+            " (Income: " + Visuals.Positive("+" + Format.Money(income)) + " Expenses: " + Visuals.Negative("-" + Format.Money(maintenance)) + ")"
+            );
     }
 
     List<TeamTaskDetailed> GetPaidCompanyTeamTasks(GameEntity product) => GetCompanyTeamTasks(product).Where(t => Economy.GetTeamTaskCost(product, t.TeamTask) > 0).ToList();
@@ -120,7 +108,7 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
 
     bool willBeBankrupt(GameEntity product) => Economy.IsWillBecomeBankruptOnNextPeriod(gameContext, product);
 
-    void RemoveExpensiveTask(GameEntity product, ref List<string> str)
+    void RemoveExpensiveTask(GameEntity product)
     {
         var tasks = GetPaidCompanyTeamTasks(product)
             .OrderByDescending(t => Economy.GetTeamTaskCost(product, t.TeamTask))
@@ -129,10 +117,10 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         var expensiveTask = tasks.First();
 
         var cost = Economy.GetTeamTaskCost(product, expensiveTask.TeamTask);
-        str.Add("Found expensive task: " + expensiveTask.TeamTask.GetTaskName() + $"teamId = {expensiveTask.teamId} taskId = {expensiveTask.slotId}");
+        Companies.Log(product, "Found expensive task: " + expensiveTask.TeamTask.GetTaskName() + $"teamId = {expensiveTask.teamId} taskId = {expensiveTask.slotId}");
 
         Teams.RemoveTeamTask(product, gameContext, expensiveTask.teamId, expensiveTask.slotId);
-        Debug.Log("Removed expensive task " + expensiveTask.TeamTask.GetTaskName());
+        Companies.Log(product, "Removed task " + expensiveTask.TeamTask.GetTaskName());
     }
 
     string GetPaidCompanyTasksDescription(GameEntity product)
@@ -143,10 +131,11 @@ public partial class FixProductCompanyEconomySystem : OnPeriodChange
         return $"Paid tasks: <{paidTasks.Count}> \n" + compactTasks;
     }
 
-    void RenderPaidTasks(GameEntity product, ref List<string> str)
+    void RenderPaidTasks(GameEntity product)
     {
         var tasks = GetPaidCompanyTeamTasks(product);
-        str.Add($"Paid tasks: <{tasks.Count}> \n" + GetPaidCompanyTasksDescription(product));
+
+        Companies.Log(product, $"Paid tasks: <{tasks.Count}> \n" + GetPaidCompanyTasksDescription(product));
     }
 
     struct TeamTaskDetailed

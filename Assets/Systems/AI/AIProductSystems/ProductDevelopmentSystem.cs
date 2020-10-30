@@ -17,7 +17,7 @@ public enum ProductActions
 
     GrabSegments,
 
-    ShowProfit
+    ShowProfit,
 }
 
 public partial class ProductDevelopmentSystem : OnPeriodChange
@@ -36,7 +36,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             PickNewGoalIfThereAreNoGoals(product);
 
             var goal = product.companyGoal.Goals.FirstOrDefault();
-            Companies.Log(product, $"Achieving goal: {goal.GetFormattedName()}");
+            Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
             switch (goal.InvestorGoalType)
             {
@@ -54,6 +54,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 case InvestorGoalType.ProductBecomeMarketFit:
                     actions.Add(ProductActions.Features);
 
+                    actions.Add(ProductActions.GrabUsers);
                     break;
 
                 case InvestorGoalType.ProductRelease:
@@ -64,7 +65,9 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
                 case InvestorGoalType.StartMonetising:
                     actions.Add(ProductActions.Monetise);
+                    actions.Add(ProductActions.Features);
 
+                    actions.Add(ProductActions.GrabUsers);
                     break;
 
                 case InvestorGoalType.GainMoreSegments:
@@ -95,7 +98,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                     break;
 
                 default:
-                    Companies.Log(product, "No specific actions for current goal");
+                    Companies.Log(product, "DEFAULT goal");
 
                     actions.Add(ProductActions.GrabUsers);
                     actions.Add(ProductActions.Features);
@@ -123,7 +126,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             if (max == 0)
             {
-                Companies.Log(product, "CANNOT GET A GOAL");
+                Companies.Log(product, Visuals.Negative("CANNOT GET A GOAL"));
 
                 Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
             }
@@ -146,8 +149,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 break;
 
             case ProductActions.Monetise:
-                //Monetise(product);
-                ManageFeatures(product);
+                Monetise(product);
                 break;
 
             case ProductActions.GrabUsers:
@@ -273,7 +275,29 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
     void Monetise(GameEntity product)
     {
-        ManageFeatures(product);
+        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
+
+        if (remainingFeatures.Count() == 0)
+            return;
+
+        //var feature = remainingFeatures.First();
+        var segments = Marketing.GetAudienceInfos();
+
+        foreach (var feature in remainingFeatures)
+        {
+            foreach (var s in segments)
+            {
+                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
+                var attitude = feature.AttitudeToFeature[s.ID];
+
+                // will make audience sad
+                if (loyalty + attitude < 0)
+                    break;
+            }
+
+            TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
+        }
+
     }
 
     void ManageFeatures(GameEntity product)
@@ -284,20 +308,20 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             return;
 
         var feature = remainingFeatures.First();
-        if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
-        {
-            var segments = Marketing.GetAudienceInfos();
+        //if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
+        //{
+        //    var segments = Marketing.GetAudienceInfos();
 
-            foreach (var s in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-                var attitude = feature.AttitudeToFeature[s.ID];
+        //    foreach (var s in segments)
+        //    {
+        //        var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
+        //        var attitude = feature.AttitudeToFeature[s.ID];
 
-                // will make audience sad
-                if (loyalty + attitude < 0)
-                    return;
-            }
-        }
+        //        // will make audience sad
+        //        if (loyalty + attitude < 0)
+        //            return;
+        //    }
+        //}
 
         TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
     }
