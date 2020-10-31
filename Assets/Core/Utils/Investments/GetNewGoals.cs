@@ -149,7 +149,7 @@ namespace Assets.Core
                 if (Completed(product, InvestorGoalType.ProductPrototype))
                     AddOnce(goals, product, InvestorGoalType.ProductFirstUsers);
 
-                if (Completed(product, InvestorGoalType.ProductFirstUsers) && coreLoyalty < marketFit)
+                if (Completed(product, InvestorGoalType.ProductFirstUsers))
                     AddOnce(goals, product, InvestorGoalType.ProductBecomeMarketFit);
 
                 if (Completed(product, InvestorGoalType.ProductBecomeMarketFit))
