@@ -74,6 +74,8 @@ namespace Assets.Core
             company.AddCompany(id, name, companyType);
             company.isAlive = true;
 
+            
+
             SetIndependence(company, true);
             company.AddPartnerships(new List<int>());
 

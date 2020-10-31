@@ -31,116 +31,103 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
         foreach (var product in nonFlagshipProducts)
         {
-            List<ProductActions> actions = new List<ProductActions>();
-
             // add goal if there are no goals
             PickNewGoalIfThereAreNoGoals(product);
 
-            var goal = product.companyGoal.Goals.FirstOrDefault();
-            Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
-
-            switch (goal.InvestorGoalType)
+            foreach (var goal in product.companyGoal.Goals)
             {
-                case InvestorGoalType.ProductPrototype:
-                    actions.Add(ProductActions.Features);
-
-                    break;
-
-                case InvestorGoalType.ProductFirstUsers:
-                    actions.Add(ProductActions.GrabUsers);
-                    actions.Add(ProductActions.Features);
-
-                    break;
-
-                case InvestorGoalType.ProductBecomeMarketFit:
-                    actions.Add(ProductActions.Features);
-
-                    actions.Add(ProductActions.GrabUsers);
-                    break;
-
-                case InvestorGoalType.ProductRelease:
-                    actions.Add(ProductActions.ExpandTeam);
-                    actions.Add(ProductActions.ReleaseApp);
-
-                    break;
-
-                case InvestorGoalType.ProductStartMonetising:
-                    actions.Add(ProductActions.Monetise);
-                    actions.Add(ProductActions.Features);
-
-                    actions.Add(ProductActions.GrabUsers);
-                    break;
-
-                case InvestorGoalType.ProductRegainLoyalty:
-                    actions.Add(ProductActions.Features);
-                    actions.Add(ProductActions.RestoreLoyalty);
-                    break;
-
-                case InvestorGoalType.GainMoreSegments:
-                    actions.Add(ProductActions.GrabSegments);
-                    actions.Add(ProductActions.Features);
-                    actions.Add(ProductActions.GrabUsers);
-
-                    break;
-
-                case InvestorGoalType.GrowUserBase:
-                    actions.Add(ProductActions.GrabUsers);
-                    actions.Add(ProductActions.Features);
-
-                    break;
-
-                case InvestorGoalType.GrowIncome:
-                    actions.Add(ProductActions.Features);
-                    actions.Add(ProductActions.GrabUsers);
-
-                    break;
-
-                case InvestorGoalType.BecomeProfitable:
-                    actions.Add(ProductActions.GrabUsers);
-                    //actions.Add(ProductActions.ShowProfit);
-                    actions.Add(ProductActions.Features);
-                    actions.Add(ProductActions.ExpandTeam);
-
-                    break;
-
-                default:
-                    Companies.Log(product, "DEFAULT goal");
-
-                    actions.Add(ProductActions.GrabUsers);
-                    actions.Add(ProductActions.Features);
-
-                    break;
+                WorkOnGoal(product, goal);
             }
 
-            foreach (var action in actions)
-            {
-                ManageProduct(action, product);
-            }
-
-            Investments.CompleteGoals(product, gameContext);
             PickNewGoalIfThereAreNoGoals(product);
         }
     }
 
-    void PickNewGoalIfThereAreNoGoals(GameEntity product)
+    void WorkOnGoal(GameEntity product, InvestmentGoal goal)
     {
-        if (product.companyGoal.Goals.Count == 0)
+        List<ProductActions> actions = new List<ProductActions>();
+
+        Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
+
+        switch (goal.InvestorGoalType)
         {
-            var pickableGoals = Investments.GetNewGoals(product, gameContext);
+            case InvestorGoalType.ProductPrototype:
+                actions.Add(ProductActions.Features);
 
-            var max = pickableGoals.Count;
+                break;
 
-            if (max == 0)
-            {
-                Companies.Log(product, Visuals.Negative("CANNOT GET A GOAL"));
+            case InvestorGoalType.ProductFirstUsers:
+                actions.Add(ProductActions.GrabUsers);
+                actions.Add(ProductActions.Features);
 
-                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
-            }
-            else
-            {
-                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
-            }
+                break;
+
+            case InvestorGoalType.ProductBecomeMarketFit:
+                actions.Add(ProductActions.Features);
+
+                actions.Add(ProductActions.GrabUsers);
+                break;
+
+            case InvestorGoalType.ProductRelease:
+                actions.Add(ProductActions.ExpandTeam);
+                actions.Add(ProductActions.ReleaseApp);
+
+                break;
+
+            case InvestorGoalType.ProductStartMonetising:
+                actions.Add(ProductActions.Monetise);
+                actions.Add(ProductActions.Features);
+
+                actions.Add(ProductActions.GrabUsers);
+                break;
+
+            case InvestorGoalType.ProductRegainLoyalty:
+                actions.Add(ProductActions.Features);
+                actions.Add(ProductActions.RestoreLoyalty);
+                break;
+
+            case InvestorGoalType.GainMoreSegments:
+                actions.Add(ProductActions.GrabSegments);
+                actions.Add(ProductActions.Features);
+                actions.Add(ProductActions.GrabUsers);
+
+                break;
+
+            case InvestorGoalType.GrowUserBase:
+                actions.Add(ProductActions.GrabUsers);
+                actions.Add(ProductActions.Features);
+
+                break;
+
+            case InvestorGoalType.GrowIncome:
+                actions.Add(ProductActions.Features);
+                actions.Add(ProductActions.GrabUsers);
+
+                break;
+
+            case InvestorGoalType.BecomeProfitable:
+                actions.Add(ProductActions.GrabUsers);
+                //actions.Add(ProductActions.ShowProfit);
+                actions.Add(ProductActions.Features);
+                actions.Add(ProductActions.ExpandTeam);
+
+                break;
+
+            default:
+                Companies.Log(product, "DEFAULT goal");
+
+                actions.Add(ProductActions.GrabUsers);
+                actions.Add(ProductActions.Features);
+
+                break;
         }
+
+        foreach (var action in actions)
+        {
+            ManageProduct(action, product);
+        }
+
+        Investments.CompleteGoal(product, gameContext, goal);
     }
 
     private void ManageProduct(ProductActions action, GameEntity product)
@@ -183,224 +170,29 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
         }
     }
 
-    void TryAddTeam(GameEntity product, TeamType teamType)
+    void PickNewGoalIfThereAreNoGoals(GameEntity product)
     {
-        var teamCost = Economy.GetSingleTeamCost();
-
-        if (CanMaintain(product, teamCost) && !product.team.Teams.Any(t => t.TeamType == teamType))
+        if (product.companyGoal.Goals.Count == 0)
         {
-            var id = Teams.AddTeam(product, teamType);
+            var pickableGoals = Investments.GetNewGoals(product, gameContext);
 
-            if (teamType == TeamType.DevelopmentTeam)
-                SetTasks(product, ManagerTask.Polishing, id);
+            var max = pickableGoals.Count;
 
-            if (teamType == TeamType.MarketingTeam)
-                SetTasks(product, ManagerTask.ViralSpread, id);
-
-            if (teamType == TeamType.ServersideTeam)
-                SetTasks(product, ManagerTask.Organisation, id);
-        }
-    }
-
-    void SetTasks(GameEntity product, ManagerTask managerTask, int teamId)
-    {
-        Teams.SetManagerTask(product, teamId, 0, managerTask);
-        Teams.SetManagerTask(product, teamId, 1, managerTask);
-        Teams.SetManagerTask(product, teamId, 2, managerTask);
-    }
-
-    void ExpandTeam(GameEntity product)
-    {
-        if (product.team.Teams.Count < 4)
-        {
-            TryAddTeam(product, TeamType.DevelopmentTeam);
-            TryAddTeam(product, TeamType.MarketingTeam);
-            TryAddTeam(product, TeamType.ServersideTeam);
-        }
-    }
-
-    void GrabSegments(GameEntity product)
-    {
-        Companies.Log(product, "Need to grab more users");
-
-        var positioning = Marketing.GetPositioning(product);
-        var ourAudiences = Marketing.GetAmountOfTargetAudiences(positioning);
-
-        var positionings = Marketing.GetNichePositionings(product);
-
-        var audiences = Marketing.GetAudienceInfos();
-        var maxAudiences = audiences.Count;
-
-        var widerAudiencesCount = ourAudiences + 1;
-
-        Companies.Log(product, $"Current positioning is {positioning.name} {string.Join(",", positioning.Loyalties)}");
-        Companies.Log(product, $"Currently have {ourAudiences}, but need at least {widerAudiencesCount}");
-
-        while (widerAudiencesCount <= maxAudiences)
-        {
-            var broaderPositionings = positionings.Where(p => Marketing.GetAmountOfTargetAudiences(p) == widerAudiencesCount);
-
-            if (broaderPositionings.Count() == 0)
+            if (max == 0)
             {
-                Companies.Log(product, $"No positionings for {widerAudiencesCount} audiences");
+                Companies.Log(product, Visuals.Negative("CANNOT GET A GOAL"));
 
-                widerAudiencesCount++;
-                continue;
+                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
             }
-
-            var newIndex = UnityEngine.Random.Range(0, broaderPositionings.Count());
-            var newPositioning = broaderPositionings.ToArray()[newIndex];
-
-            Companies.Log(product, $"positioning FOUND: {newPositioning.name}");
-
-            // if positioning change will not dissapoint our current users...
-            // change it to new one!
-            foreach (var a in audiences)
+            else
             {
-                var loyalty = Marketing.GetSegmentLoyalty(product, positioning, a.ID);
-                var futureLoyalty = Marketing.GetSegmentLoyalty(product, newPositioning, a.ID);
+                Companies.Log(product, $"Choosing between {max} goals: {string.Join(", ", pickableGoals.Select(g => g.GetFormattedName()))}");
 
-
-                // will dissapoint loyal users
-                if (loyalty > 0 && futureLoyalty < 0)
-                {
-                    Companies.Log(product, $"will dissapoint {a.Name}, whose loyalty is {loyalty} and after changing positioning will be {futureLoyalty}");
-
-                    return;
-                }
-            }
-
-            Companies.Log(product, $"POSITIONING SHIFTED TO: {newPositioning.name}!");
-            Debug.Log($"POSITIONING of {product.company.Name} SHIFTED TO: {newPositioning.name}! {newPositioning.ID}");
-            Marketing.ChangePositioning(product, newPositioning.ID);
-
-            return;
-        }
-    }
-
-    void ReleaseApp(GameEntity product)
-    {
-        var goal = product.companyGoal.Goals.First(g => g.InvestorGoalType == InvestorGoalType.ProductRelease);
-
-        if (Companies.IsReleaseableApp(product))
-            Marketing.ReleaseApp(gameContext, product);
-    }
-
-    void Monetise(GameEntity product)
-    {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name) && f.FeatureBonus.isMonetisationFeature);
-
-        var segments = Marketing.GetAudienceInfos();
-
-        foreach (var feature in remainingFeatures)
-        {
-            bool willUpsetPeople = false;
-
-            foreach (var s in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-                var attitude = feature.AttitudeToFeature[s.ID];
-
-                // will make audience sad
-                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
-                {
-                    Companies.Log(product, $"Wanted to add {feature.Name}, but this will dissapoint {s.Name}");
-                    willUpsetPeople = true;
-
-                    break;
-                }
-            }
-
-            if (!willUpsetPeople)
-            {
-                TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
-                Companies.LogSuccess(product, $"Added {feature.Name} for profit");
+                Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
             }
         }
     }
 
-    void DeMonetise(GameEntity product)
-    {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => f.FeatureBonus.isMonetisationFeature);
-
-        foreach (var f in remainingFeatures)
-        {
-            Products.RemoveFeature(product, f.Name, gameContext);
-        }
-    }
-
-    void ManageFeatures(GameEntity product)
-    {
-        var remainingFeatures = Products.GetAllFeaturesForProduct(product).Where(f => !Products.IsUpgradingFeature(product, gameContext, f.Name));
-
-        if (remainingFeatures.Count() == 0)
-            return;
-
-        var feature = remainingFeatures.First();
-        if (feature.FeatureBonus.isMonetisationFeature) //  && feature.Name.Contains("Ads")
-        {
-            var segments = Marketing.GetAudienceInfos();
-
-            foreach (var s in segments)
-            {
-                var loyalty = Marketing.GetSegmentLoyalty(product, s.ID);
-                var attitude = feature.AttitudeToFeature[s.ID];
-
-                // will make audience sad
-                if (loyalty + attitude < 0 && Marketing.IsImportantAudience(product, s.ID))
-                    return;
-            }
-        }
-
-        TryAddTask(product, new TeamTaskFeatureUpgrade(feature));
-    }
-
-    void ManageSupport(GameEntity product)
-    {
-        int tries = 2;
-        if (Products.IsNeedsMoreServers(product) && tries > 0)
-        {
-            tries--;
-            AddServer(product);
-        }
-
-        var load = Products.GetServerLoad(product);
-        var capacity = Products.GetServerCapacity(product);
-
-        var growth = Marketing.GetAudienceChange(product, gameContext);
-
-        if (load + growth >= capacity)
-        {
-            AddServer(product);
-        }
-    }
-
-    void ManageChannels(GameEntity product)
-    {
-        var channels = Markets.GetAffordableMarketingChannels(product, gameContext)
-            .OrderBy(c => Marketing.GetChannelCostPerUser(product, gameContext, c))
-            .ThenByDescending(c => Marketing.GetChannelCost(product, c));
-            ;
-
-        if (channels.Count() > 0)
-        {
-            var c = channels.First();
-        
-            TryAddTask(product, new TeamTaskChannelActivity(c.marketingChannel.ChannelInfo.ID, Marketing.GetChannelCost(product, c)));
-        }
-        else
-        {
-            // maybe try to remove some?
-        }
-    }
-
-    void AddServer(GameEntity product)
-    {
-        var supportFeatures = Products.GetHighloadFeatures(product);
-        var feature = supportFeatures[3];
-
-        TryAddTask(product, new TeamTaskSupportFeature(feature));
-    }
 
     // -----------------------------------------------------------------------------------
 

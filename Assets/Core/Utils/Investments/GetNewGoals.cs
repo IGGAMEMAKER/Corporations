@@ -59,7 +59,7 @@ namespace Assets.Core
             if (done && OneTimeGoals.Contains(goal))
                 return true;
 
-            var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal);
+            var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal).SetExecutorAndController(company, company);
             bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
 
             if (outgrown && OneTimeGoals.Contains(goal))

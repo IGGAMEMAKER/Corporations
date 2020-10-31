@@ -28,6 +28,11 @@ public abstract class InvestmentGoal
         return this;
     }
 
+    public InvestmentGoal SetExecutorAndController(GameEntity executor, GameEntity controller)
+    {
+        return SetExecutorAndController(executor.company.Id, controller.company.Id);
+    }
+
     public InvestmentGoal()
     {
         InvestorGoalType = InvestorGoalType.None;
@@ -63,7 +68,7 @@ public abstract class InvestmentGoal
     {
         var company = GetExecutor(company1, gameContext);
 
-        return string.Join("\n", GetGoalRequirements(company, gameContext)
+        return "as " + company.company.Name + "\n" + string.Join("\n", GetGoalRequirements(company, gameContext)
             .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, company, gameContext))));
     }
 
