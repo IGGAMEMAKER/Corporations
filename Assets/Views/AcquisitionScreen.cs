@@ -19,6 +19,18 @@ public class AcquisitionScreen : View
 
     public Text ProgressText;
 
+    AcquisitionConditions Conditions => AcquisitionOffer.BuyerOffer;
+
+    AcquisitionOfferComponent AcquisitionOffer
+    {
+        get
+        {
+            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
+
+            return offer?.acquisitionOffer ?? null;
+        }
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -41,6 +53,7 @@ public class AcquisitionScreen : View
         if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
         {
             ProposalStatus.text = "It is OUR COMPANY ALREADY!";
+            
             return;
         }
 
@@ -155,17 +168,5 @@ public class AcquisitionScreen : View
         Conditions.Price = offer;
 
         UpdateData();
-    }
-
-    AcquisitionConditions Conditions => AcquisitionOffer.BuyerOffer;
-
-    AcquisitionOfferComponent AcquisitionOffer
-    {
-        get
-        {
-            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
-            
-            return offer?.acquisitionOffer ?? null;
-        }
     }
 }
