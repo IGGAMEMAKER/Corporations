@@ -57,8 +57,8 @@ namespace Assets.Core
                churnUsers += Marketing.GetChurnClients(product, i);
             }
 
-            bonus.Append("Growth", Marketing.GetAudienceGrowth(product, gameContext));
-            bonus.Append("Loss (Churn)", -churnUsers);
+            bonus.Append("Marketing", Marketing.GetAudienceGrowth(product, gameContext));
+            bonus.Append("Negative loyalty", -churnUsers);
             bonus.MinifyValues();
 
             return bonus;

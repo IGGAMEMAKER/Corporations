@@ -1686,8 +1686,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 9127557746770894086, guid: ad5a593dbb945904992f88ec1965174b, type: 3}
+  index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
+  HighlightChosenVariant: 0
+  ChosenIndex: -1
+  Items: []
+  Item: {fileID: 0}
 --- !u!114 &2631728952579303506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,8 +1707,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!1 &3951140304556316913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,8 +2030,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!1 &4061942048621736426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,6 +2970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f4f81e0b7430d4b886c3995689a4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  period: 0.15
+  amplification: 0.2
 --- !u!114 &4166328382438094911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3028,8 +3042,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!114 &9171386139361224521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3162,7 +3179,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6100083299009494815}
   m_HandleRect: {fileID: 8177862593383968317}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3644,8 +3661,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!1 &7237911621137577199
 GameObject:
   m_ObjectHideFlags: 0
@@ -4164,7 +4184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000051739316, y: 0.00007421145}
+  m_AnchoredPosition: {x: 0.000017225742, y: -0.000019848347}
   m_SizeDelta: {x: -8.5, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &466338806042009489
@@ -4204,8 +4224,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 3502082933240249541, guid: b5e8501caa87bbe4aba8add09460c063, type: 3}
+  index: 0
+  count: 0
   _sRect: {fileID: 0}
   AutoScroll: 0
+  HighlightChosenVariant: 0
+  ChosenIndex: -1
+  Items: []
+  Item: {fileID: 0}
 --- !u!114 &1330629381392214038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4219,8 +4245,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!1 &8112148075140612004
 GameObject:
   m_ObjectHideFlags: 0
@@ -4581,8 +4610,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!114 &8722462742180758189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4596,8 +4628,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6745464862521997126, guid: 8cbe1312cac17ac418bce1b5c8f50878, type: 3}
+  index: 0
+  count: 0
   _sRect: {fileID: 5628611117686891226}
   AutoScroll: 1
+  HighlightChosenVariant: 0
+  ChosenIndex: -1
+  Items: []
+  Item: {fileID: 0}
 --- !u!114 &8777593057731055475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4839,8 +4877,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DateChanges: 1
+  OnPeriodChange: 0
   MenuChanges: 1
   NavigationChanges: 1
+  ListenGameEvents: 0
+  ListenPauseEvents: 0
 --- !u!114 &8818098158408140431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5313,7 +5354,7 @@ PrefabInstance:
     - target: {fileID: 224774018333781276, guid: 66592eaebcf6f0a4cacfb2f349993368,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 70
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224774018333781276, guid: 66592eaebcf6f0a4cacfb2f349993368,
         type: 3}
@@ -6143,7 +6184,7 @@ PrefabInstance:
     - target: {fileID: 224774018333781276, guid: 66592eaebcf6f0a4cacfb2f349993368,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 70
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224774018333781276, guid: 66592eaebcf6f0a4cacfb2f349993368,
         type: 3}
@@ -6866,16 +6907,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -310
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 168.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3339024796937637687, guid: fd6a5c7e86f18454cba2124cd62a812c,
         type: 3}
