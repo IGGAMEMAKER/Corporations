@@ -25,8 +25,6 @@ public class NewGoalView : View
     {
         base.ViewRender();
 
-        //bool completed = Investments.CanCompleteGoal(MyCompany, Q, InvestmentGoal);
-
         Draw(PickButton, true);
         Draw(Requirements, true);
 

@@ -52,9 +52,8 @@ namespace Assets.Core
                 AddClients(product, flow, coreId);
 
                 product.isRelease = true;
-                Investments.CompleteGoal(product, gameContext, new InvestmentGoalRelease());
 
-                Companies.Log(product, "RELEASE");
+                Companies.LogSuccess(product, "RELEASE");
             }
         }
     }

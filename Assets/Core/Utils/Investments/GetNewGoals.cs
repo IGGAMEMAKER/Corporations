@@ -16,23 +16,40 @@ namespace Assets.Core
             // product only
             if (isProduct)
             {
-                goals.AddRange(GetProductGoals(company, Q, company));
+                goals.AddRange(GetWrappedProductGoals(company, Q));
             }
 
             // group only
             if (isGroup)
             {
                 // daughters need to be dependant on parent company
-                foreach (var d in Companies.GetDaughterProducts(Q, company))
-                    goals.AddRange(GetProductGoals(d, Q, company));
+                foreach (var daughter in Companies.GetDaughterProducts(Q, company))
+                {
+                    goals.AddRange(GetWrappedProductGoals(daughter, Q, company));
+                }
 
-                goals.AddRange(GetGroupOnlyGoals(company, Q, company));
+                goals.AddRange(GetWrappedGroupGoals(company, Q));
             }
 
             // both
-            goals.AddRange(GetCommonGoals(company, Q, company));
+            goals.AddRange(GetWrappedCommonGoals(company, Q));
 
             return goals;
+        }
+
+        private static List<InvestmentGoal> GetWrappedProductGoals(GameEntity company, GameContext Q, GameEntity controller = null)
+        {
+            return Wrap(GetProductGoals(company, Q), company, Q, controller);
+        }
+
+        private static List<InvestmentGoal> GetWrappedGroupGoals(GameEntity company, GameContext Q)
+        {
+            return Wrap(GetGroupOnlyGoals(company, Q), company, Q);
+        }
+
+        private static List<InvestmentGoal> GetWrappedCommonGoals(GameEntity company, GameContext Q)
+        {
+            return Wrap(GetCommonGoals(company, Q), company, Q);
         }
 
         public static bool HasGoalAlready(GameEntity company, GameContext gameContext, InvestorGoalType goalType)
@@ -40,38 +57,50 @@ namespace Assets.Core
             return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType);
         }
         // IsGoalDoneOrOutgrown
-        public static bool Completed(GameEntity company1, InvestorGoalType goal, GameContext gameContext) => IsGoalDoneOrOutgrown(company1, goal, gameContext);
-        public static bool IsGoalDoneOrOutgrown(GameEntity company, InvestorGoalType goal, GameContext gameContext)
+        public static bool GoalCanBeRepeated(InvestorGoalType goal)
         {
-            //var company = GetGoalPickingCompany(company1, gameContext, goal);
-
             List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
             {
-                InvestorGoalType.ProductRelease,
-                InvestorGoalType.ProductBecomeMarketFit,
-                InvestorGoalType.ProductFirstUsers,
                 InvestorGoalType.ProductPrototype,
+                InvestorGoalType.ProductFirstUsers,
+                InvestorGoalType.ProductBecomeMarketFit,
+                InvestorGoalType.ProductRelease,
+
+                InvestorGoalType.ProductStartMonetising,
             };
 
+            return !OneTimeGoals.Contains(goal);
+        }
+
+        public static bool Completed(GameEntity company1, InvestorGoalType goal) => IsGoalCompleted(company1, goal);
+        public static bool IsGoalCompleted(GameEntity company, InvestorGoalType goal)
+        {
             // goal was done or outreached
             bool done = company.completedGoals.Goals.Contains(goal);
 
-            if (done && OneTimeGoals.Contains(goal))
-                return true;
+            return done;
+            //if (done && OneTimeGoals.Contains(goal))
+            //    return true;
 
-            var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal).SetExecutorAndController(company, company);
-            bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
+            //var goal1 = Investments.GetInvestmentGoal(company, gameContext, goal).SetExecutorAndController(company, company);
+            //bool outgrown = Investments.CanCompleteGoal(company, gameContext, goal1);
 
-            if (outgrown && OneTimeGoals.Contains(goal))
-            {
-                Investments.CompleteGoal(company, gameContext, goal1, true);
-                return true;
-            }
+            //if (outgrown && OneTimeGoals.Contains(goal))
+            //{
+            //    Investments.CompleteGoal(company, gameContext, goal1, true);
+            //    return true;
+            //}
 
-            return false;
+            //return false;
         }
 
-        public static List<InvestmentGoal> GetProductGoals(GameEntity product, GameContext Q, GameEntity controller)
+        public static void AddOnce(List<InvestorGoalType> goals, GameEntity product, InvestorGoalType goal)
+        {
+            if (!Completed(product, goal))
+                goals.Add(goal);
+        }
+
+        public static List<InvestorGoalType> GetProductGoals(GameEntity product, GameContext Q)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -107,28 +136,32 @@ namespace Assets.Core
 
             if (isPrototype)
             {
+                bool madePrototype = Completed(product, InvestorGoalType.ProductPrototype);
+                bool isMarketFit = Completed(product, InvestorGoalType.ProductBecomeMarketFit);
+                bool gotFirstUsers = Completed(product, InvestorGoalType.ProductFirstUsers);
+
                 var coreLoyalty = Marketing.GetSegmentLoyalty(product, Marketing.GetCoreAudienceId(product));
 
                 // has no goals at start
-                if (product.completedGoals.Goals.Count == 0 || coreLoyalty < 5)
-                    return GoalToList(new InvestmentGoalMakePrototype());
+                if (!Completed(product, InvestorGoalType.ProductPrototype))
+                    return OnlyGoal(InvestorGoalType.ProductPrototype);
 
-                if (Completed(product, InvestorGoalType.ProductPrototype, Q))
-                    goals.Add(InvestorGoalType.ProductFirstUsers);
+                if (Completed(product, InvestorGoalType.ProductPrototype))
+                    AddOnce(goals, product, InvestorGoalType.ProductFirstUsers);
 
-                if (Completed(product, InvestorGoalType.ProductFirstUsers, Q) && coreLoyalty < marketFit)
-                    goals.Add(InvestorGoalType.ProductBecomeMarketFit);
+                if (Completed(product, InvestorGoalType.ProductFirstUsers) && coreLoyalty < marketFit)
+                    AddOnce(goals, product, InvestorGoalType.ProductBecomeMarketFit);
 
-                if (Completed(product, InvestorGoalType.ProductBecomeMarketFit, Q))
-                    goals.Add(InvestorGoalType.ProductRelease);
+                if (Completed(product, InvestorGoalType.ProductBecomeMarketFit))
+                    AddOnce(goals, product, InvestorGoalType.ProductRelease);
             }
 
             if (releasedProduct)
             {
-                if (Completed(product, InvestorGoalType.ProductRelease, Q))
-                    goals.Add(InvestorGoalType.ProductStartMonetising);
+                if (Completed(product, InvestorGoalType.ProductRelease))
+                    AddOnce(goals, product, InvestorGoalType.ProductStartMonetising);
 
-                if (Completed(product, InvestorGoalType.ProductStartMonetising, Q))
+                if (Completed(product, InvestorGoalType.ProductStartMonetising))
                     goals.Add(InvestorGoalType.GrowUserBase);
 
                 if (users > 500_000 && ourAudiences < amountOfAudiences)
@@ -136,12 +169,12 @@ namespace Assets.Core
             }
 
             if (Marketing.IsHasDisloyalAudiences(product))
-                return GoalToList(new InvestmentGoalRegainLoyalty());
+                return OnlyGoal(InvestorGoalType.ProductRegainLoyalty);
 
-            return WrapGoals(goals, product, Q, controller);
+            return goals;
         }
 
-        public static List<InvestmentGoal> GetGroupOnlyGoals(GameEntity company, GameContext Q, GameEntity controller)
+        public static List<InvestorGoalType> GetGroupOnlyGoals(GameEntity company, GameContext Q)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -163,10 +196,10 @@ namespace Assets.Core
             if (solidCompany && hasWeakerCompanies)
                 goals.Add(InvestorGoalType.AcquireCompany);
 
-            return WrapGoals(goals, company, Q, controller);
+            return goals;
         }
 
-        public static List<InvestmentGoal> GetCommonGoals(GameEntity company, GameContext Q, GameEntity controller)
+        public static List<InvestorGoalType> GetCommonGoals(GameEntity company, GameContext Q)
         {
             var goals = new List<InvestorGoalType>();
 
@@ -207,16 +240,17 @@ namespace Assets.Core
             if (solidCompany && !profitable)
                 goals.Add(InvestorGoalType.BecomeProfitable);
 
-            return WrapGoals(goals, company, Q, controller);
+            return goals;
         }
 
 
-        public static List<InvestmentGoal> GoalToList(InvestmentGoal goal) => new List<InvestmentGoal> { goal };
-        public static List<InvestmentGoal> WrapGoals(List<InvestorGoalType> goals, GameEntity company, GameContext Q, GameEntity controller)
+        public static List<InvestorGoalType> OnlyGoal(InvestorGoalType goal) => new List<InvestorGoalType> { goal };
+        public static List<InvestmentGoal> Wrap(List<InvestorGoalType> goals, GameEntity executor, GameContext Q, GameEntity controller = null)
         {
             return goals
-                .Where(g => !HasGoalAlready(company, Q, g))
-                .Select(g => GetInvestmentGoal(company, Q, g).SetExecutorAndController(company.company.Id, controller.company.Id))
+                .Where(g => !HasGoalAlready(executor, Q, g))
+                
+                .Select(g => GetInvestmentGoal(executor, Q, g).SetExecutorAndController(executor, controller ?? executor))
                 .ToList();
         }
     }

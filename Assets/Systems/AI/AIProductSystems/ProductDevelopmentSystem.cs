@@ -39,6 +39,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
                 WorkOnGoal(product, goal);
             }
 
+            Investments.CompleteGoals(product, gameContext);
             PickNewGoalIfThereAreNoGoals(product);
         }
     }
@@ -127,7 +128,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             ManageProduct(action, product);
         }
 
-        Investments.CompleteGoal(product, gameContext, goal);
+        //Investments.CompleteGoal(product, gameContext, goal);
     }
 
     private void ManageProduct(ProductActions action, GameEntity product)
@@ -182,7 +183,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             {
                 Companies.Log(product, Visuals.Negative("CANNOT GET A GOAL"));
 
-                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name);
+                Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
             }
             else
             {
