@@ -9,12 +9,13 @@ public class PopupButtonsContainer : ListView
         //AttachComponent(t, entity as System.Type);
         var TT = entity as System.Type;
 
-        while (t.gameObject.GetComponents(TT).Length > 0)
-        {
-            Destroy(t.gameObject.GetComponent(TT));
-        }
+        //while (t.gameObject.GetComponents(TT).Length > 0)
+        //{
+        //    Destroy(t.gameObject.GetComponent(TT));
+        //}
 
-        t.gameObject.AddComponent(TT);
+        if (t.gameObject.GetComponent(TT) == null)
+            t.gameObject.AddComponent(TT);
     }
 
     //void AttachComponent<T>(Transform t, T type) where T : System.Type
