@@ -21,7 +21,7 @@ public partial class AIPromoteProductToGroupSystem : OnMonthChange
 
         var canGrow = isDomineering && isProfitable;
 
-        if (canGrow && wantsToGrow)
-            Companies.PromoteProductCompanyToGroup(gameContext, product.company.Id);
+        //if (canGrow && wantsToGrow)
+        //    Companies.PromoteProductCompanyToGroup(gameContext, product.company.Id);
     }
 }

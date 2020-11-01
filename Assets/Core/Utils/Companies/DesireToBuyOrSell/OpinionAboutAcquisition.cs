@@ -73,8 +73,8 @@ namespace Assets.Core
             //if (wantsToStayInCompany)
             //    bonus.Append("Wants to stay in company", conditions.KeepLeaderAsCEO ? 0 : -100);
 
-            if (wantsToRuleIndependently)
-                bonus.Append("Ambitious founder", -1000);
+            //if (wantsToRuleIndependently)
+            //    bonus.Append("Ambitious founder", -1000);
 
 
 

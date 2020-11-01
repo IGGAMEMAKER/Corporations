@@ -11,6 +11,7 @@ public class BuyBackFromShareholder : ButtonView
 
         Companies.BuyBackPercent(Q, MyCompany, shareholder, 1);
         ShareholdersOnMainScreenListView.RenderShareholderData();
+        ShareholdersOnMainScreenListView.ViewRender();
     }
 
     public override void ViewRender()

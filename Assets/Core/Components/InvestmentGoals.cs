@@ -534,11 +534,12 @@ public class InvestmentGoalBuyBack : InvestmentGoal
 
     public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
     {
+        bool hasSoloShareholder = company.shareholders.Shareholders.Count == 1;
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
-                have = company.shareholders.Shareholders.Count,
+                have = hasSoloShareholder ? 1 : 0,
                 need = 1,
 
                 description = "Buy all shares from your investors"
@@ -565,14 +566,17 @@ public class InvestmentGoalDominateMarket : InvestmentGoal
     {
         var companies = Markets.GetProductsOnMarket(gameContext, TargetMarket);
 
+        var have = companies.Count(c => Companies.IsDaughterOf(company, c) && c.isAlive);
+        var need = companies.Count(c => c.isAlive);
+
         return new List<GoalRequirements>
         {
             new GoalRequirements
             {
-                have = companies.Count(c => Companies.IsDaughterOf(company, c)),
-                need = companies.Count(),
+                have = have,
+                need = need,
 
-                description = "Own ALL companies in " + Enums.GetFormattedNicheName(TargetMarket)
+                description = "Own ALL companies in " + Enums.GetFormattedNicheName(TargetMarket) + $" ({have}/{need})"
             }
         };
     }

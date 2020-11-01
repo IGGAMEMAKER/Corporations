@@ -11,7 +11,9 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
             var companyId = Popup.companyId;
             var buyerId = Popup.buyerInvestorId;
 
-            var company = Companies.Get(Q, companyId);
+            Debug.Log("CompanyId=" + companyId + " BuyerId=" + buyerId);
+
+            var company  = Companies.Get(Q, companyId);
             var investor = Companies.GetInvestorById(Q, buyerId);
 
             Debug.Log("AcquireCompanyPopupButton : will buy " + company.company.Name + " as " + Companies.GetInvestorName(investor));
