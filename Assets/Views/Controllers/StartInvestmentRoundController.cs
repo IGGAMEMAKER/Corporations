@@ -8,7 +8,7 @@ public class StartInvestmentRoundController : ButtonController
             Companies.StartInvestmentRound(Q, MyCompany);
         else
         {
-            NotificationUtils.AddSimplePopup(Q, "Add goals to get investments");
+            NotificationUtils.AddSimplePopup(Q, "Add missions to get investments");
             NavigateToMainScreen();
         }
     }
