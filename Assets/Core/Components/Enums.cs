@@ -260,7 +260,12 @@ public enum InvestorGoalType
     DiversifyIncome,
 
     ProductStartMonetising,
-    ProductRegainLoyalty
+    ProductRegainLoyalty,
+
+    DominateSegment,
+    DominateMarket,
+
+    BuyBack
 }
 
 public enum InvestmentRound

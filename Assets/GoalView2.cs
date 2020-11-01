@@ -39,8 +39,23 @@ public class GoalView2 : View
 
     public void CompleteGoal()
     {
-        Investments.CompleteGoal(MyCompany, Q, InvestmentGoal);
-        SoundManager.Play(Sound.Action);
+        bool willComplete = Investments.CompleteGoal(MyCompany, Q, InvestmentGoal);
+
+        if (InvestmentGoal.InvestorGoalType == InvestorGoalType.BuyBack)
+        {
+            if (willComplete)
+            {
+                NotificationUtils.AddSimplePopup(Q, Visuals.Positive("CONGRATULATIONS! YOU WON THE GAME!"), Visuals.Positive("Hope you've enjoyed it:)"));
+                SoundManager.Play(Sound.StandardClick);
+            }
+        }
+        else
+        {
+            if (willComplete)
+            {
+                SoundManager.Play(Sound.Action);
+            }
+        }
 
         FindObjectOfType<GoalsListView>().ViewRender();
         Refresh();

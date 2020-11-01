@@ -521,6 +521,63 @@ public class InvestmentGoalOutcompeteByCost : InvestmentGoal
     }
 }
 
+public class InvestmentGoalBuyBack : InvestmentGoal
+{
+    public InvestmentGoalBuyBack() : base(InvestorGoalType.BuyBack)
+    {
+    }
+
+    public override string GetFormattedName()
+    {
+        return "Buy back all shares";
+    }
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = company.shareholders.Shareholders.Count,
+                need = 1,
+
+                description = "Buy all shares from your investors"
+            }
+        };
+    }
+}
+
+public class InvestmentGoalDominateMarket : InvestmentGoal
+{
+    public NicheType TargetMarket;
+
+    public InvestmentGoalDominateMarket(NicheType market) : base(InvestorGoalType.DominateMarket)
+    {
+        TargetMarket = market;
+    }
+
+    public override string GetFormattedName()
+    {
+        return "DOMINATE MARKET OF " + Enums.GetFormattedNicheName(TargetMarket).ToUpper();
+    }
+
+    public override List<GoalRequirements> GetGoalRequirements(GameEntity company, GameContext gameContext)
+    {
+        var companies = Markets.GetProductsOnMarket(gameContext, TargetMarket);
+
+        return new List<GoalRequirements>
+        {
+            new GoalRequirements
+            {
+                have = companies.Count(c => Companies.IsDaughterOf(company, c)),
+                need = companies.Count(),
+
+                description = "Own ALL companies in " + Enums.GetFormattedNicheName(TargetMarket)
+            }
+        };
+    }
+}
+
 public class InvestmentGoalAcquireCompany : InvestmentGoal
 {
     public int CompanyId;

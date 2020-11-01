@@ -94,9 +94,9 @@ namespace Assets.Core
             //return false;
         }
 
-        public static void AddOnce(List<InvestorGoalType> goals, GameEntity product, InvestorGoalType goal)
+        public static void AddOnce(List<InvestorGoalType> goals, GameEntity company, InvestorGoalType goal)
         {
-            if (!Completed(product, goal))
+            if (!Completed(company, goal))
                 goals.Add(goal);
         }
 
@@ -181,6 +181,9 @@ namespace Assets.Core
             var groupGoals = new List<InvestorGoalType>
             {
                 InvestorGoalType.AcquireCompany,
+                InvestorGoalType.DominateSegment, // 50%+ users
+                InvestorGoalType.DominateMarket, // OWN ALL COMPANIES
+                InvestorGoalType.BuyBack,
                 InvestorGoalType.IPO,
             };
 
@@ -195,6 +198,25 @@ namespace Assets.Core
 
             if (solidCompany && hasWeakerCompanies)
                 goals.Add(InvestorGoalType.AcquireCompany);
+
+            var daughters = Companies.GetDaughterProducts(Q, company);
+
+            //if (solidCompany && company.companyFocus.Niches.Count == 1)
+            //{
+            //    var first = daughters.First();
+
+            //    var positioning = Marketing.GetPositioning(first);
+                
+            //    if (Companies.GetMarketShareOfCompanyMultipliedByHundred(company, Q) < 2)
+            //    goals.Add(InvestorGoalType.DominateSegment);
+
+            //}
+
+            if (solidCompany && daughters.Count() > 2)
+                AddOnce(goals, company, InvestorGoalType.DominateMarket);
+
+            if (Completed(company, InvestorGoalType.DominateMarket))
+                goals.Add(InvestorGoalType.BuyBack);
 
             return goals;
         }

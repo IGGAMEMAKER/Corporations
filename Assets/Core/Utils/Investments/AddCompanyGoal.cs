@@ -28,6 +28,8 @@ namespace Assets.Core
                     return unknown;
             }
 
+            NicheType MainMarket = company.companyFocus.Niches[0];
+
             switch (goalType)
             {
                 case InvestorGoalType.ProductPrototype:        return new InvestmentGoalMakePrototype();
@@ -49,6 +51,8 @@ namespace Assets.Core
                 case InvestorGoalType.OutcompeteCompanyByCost:      return new InvestmentGoalOutcompeteByCost(strongerOpponent.company.Id, strongerOpponent.company.Name);
 
                 case InvestorGoalType.AcquireCompany:               return new InvestmentGoalAcquireCompany(weakerOpponent.company.Id, weakerOpponent.company.Name);
+                case InvestorGoalType.DominateMarket:               return new InvestmentGoalDominateMarket(MainMarket);
+                case InvestorGoalType.BuyBack:                      return new InvestmentGoalBuyBack();
 
                 case InvestorGoalType.Operationing:       return new InvestmentGoalGrowProfit(Economy.GetIncome(gameContext, company) * 3 / 2);
 

@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,8 @@ public class DaughtersListView : ListView, IPointerEnterHandler, IPointerExitHan
 {
     public GameObject FlagshipTasks;
     public RectTransform DaughtersScrollView;
+
+    public GameObject Label;
 
     public override void SetItem<T>(Transform t, T entity)
     {
@@ -18,7 +21,12 @@ public class DaughtersListView : ListView, IPointerEnterHandler, IPointerExitHan
     {
         base.ViewRender();
 
-        SetItems(Companies.GetDaughters(Q, MyCompany));
+        var daughters = Companies.GetDaughters(Q, MyCompany);
+
+        bool drawCompanies = daughters.Count() > 1;
+
+        Draw(Label, drawCompanies);
+        SetItems(daughters.Take(drawCompanies ? daughters.Count() : 0));
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
