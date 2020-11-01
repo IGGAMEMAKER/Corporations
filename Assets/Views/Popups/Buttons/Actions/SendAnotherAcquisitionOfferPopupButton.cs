@@ -7,6 +7,9 @@ public class SendAnotherAcquisitionOfferPopupButton : PopupButtonController<Popu
         var companyId = Popup.companyId;
         NotificationUtils.ClosePopup(Q);
 
+        var offer = Companies.GetAcquisitionOffer(Q, Companies.Get(Q, companyId), MyCompany);
+        offer.acquisitionOffer.Turn = AcquisitionTurn.Buyer;
+
         Navigate(ScreenMode.AcquisitionScreen, C.MENU_SELECTED_COMPANY, companyId);
     }
 
