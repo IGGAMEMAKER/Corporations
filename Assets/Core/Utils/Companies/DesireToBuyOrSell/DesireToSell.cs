@@ -62,6 +62,7 @@
         {
             var desire = GetBaseDesireToSellShares(gameContext, company, investorId, investorType);
 
+            return true;
             return desire > 0;
         }
 
