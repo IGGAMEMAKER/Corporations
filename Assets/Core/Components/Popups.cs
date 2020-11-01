@@ -149,7 +149,8 @@ public class PopupMessageInterestToCompany : PopupMessageCompanyEvent
 public class PopupMessageAcquisitionOfferResponse : PopupMessageCompanyEvent
 {
     public int buyerInvestorId;
-    public PopupMessageAcquisitionOfferResponse(int companyId, int buyerInvestorId) : base(companyId, PopupType.AcquisitionOfferResponse) {
+    public PopupMessageAcquisitionOfferResponse(int companyId, int buyerInvestorId) : base(companyId, PopupType.AcquisitionOfferResponse)
+    {
         this.buyerInvestorId = buyerInvestorId;
     }
 }

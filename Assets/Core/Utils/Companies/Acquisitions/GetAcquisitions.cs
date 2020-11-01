@@ -29,10 +29,10 @@ namespace Assets.Core
                 ;
         }
 
-        public static IEnumerable<GameEntity> GetAcquisitionOffersToCompany(GameContext gameContext, int companyId)
+        public static IEnumerable<GameEntity> GetAcquisitionOffersToCompany(GameContext gameContext, GameEntity company)
         {
             return GetAcquisitionOffers(gameContext)
-                .Where(o => o.acquisitionOffer.CompanyId == companyId);
+                .Where(o => o.acquisitionOffer.CompanyId == company.company.Id);
         }
     }
 }

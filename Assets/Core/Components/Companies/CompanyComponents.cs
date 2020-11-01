@@ -217,13 +217,18 @@ public class AcquisitionConditions
     // to be accepted, byCash + ByShares * BuyerCompanyCost must be greater than SellerPrice
 
     public bool KeepLeaderAsCEO;
+
+    public bool IsBetterThan(AcquisitionConditions offer)
+    {
+        return this.Price >= offer.Price;
+    }
 }
 
 public enum AcquisitionTurn
 {
     Buyer,
     Seller,
-    Neutral
+    None
 }
 
 public class AcquisitionOfferComponent : IComponent

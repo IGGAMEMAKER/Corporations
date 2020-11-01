@@ -5,15 +5,9 @@ namespace Assets.Core
     public static partial class Companies
     {
         // reject offer
-        public static void RejectAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static void RemoveAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId) => RemoveAcquisitionOffer(GetAcquisitionOffer(gameContext, company, buyerInvestorId));
+        public static void RemoveAcquisitionOffer(GameEntity offer)
         {
-            RemoveAcquisitionOffer(gameContext, company, buyerInvestorId);
-        }
-
-        public static void RemoveAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
-        {
-            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
-
             offer.Destroy();
         }
 

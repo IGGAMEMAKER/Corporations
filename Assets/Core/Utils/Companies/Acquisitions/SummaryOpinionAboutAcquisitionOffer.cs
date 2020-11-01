@@ -20,7 +20,7 @@
 
 
             bool isBestOffer = true; // when competing with other companies
-            var offers = GetAcquisitionOffersToCompany(gameContext, ackOffer.CompanyId);
+            var offers = GetAcquisitionOffersToCompany(gameContext, company);
 
             var baseDesireToSellCompany = GetBaseDesireToSellShares(gameContext, company, shareholderId, investor.shareholder.InvestorType);
             var wantsToSellShares = true || baseDesireToSellCompany == 1;

@@ -31,64 +31,48 @@ public class AcquisitionScreen : View
         }
     }
 
-    public override void ViewRender()
-    {
-        base.ViewRender();
-
-        if (!HasCompany)
-            return;
-
-        Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
-
-
-        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
-
-        RenderProposalStatus(willAcceptOffer);
-
-        RenderOffer();
-    }
-
-    void RenderProposalStatus(bool willAcceptOffer)
+    private void OnEnable()
     {
         if (Companies.IsDaughterOf(MyCompany, SelectedCompany))
         {
             ProposalStatus.text = "It is OUR COMPANY ALREADY!";
-            
+
+            ScreenUtils.Navigate(Q, ScreenMode.HoldingScreen);
             return;
-        }
-
-        var progress = Companies.GetOfferProgress(Q, SelectedCompany, MyCompany.shareholder.Id);
-
-        ProgressText.text = progress + "%";
-        ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);
-
-        var status = $"{progress}% of owners want to accept your offer";
-        var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
-        ProposalStatus.text = status; // + "\n" + textDescription;
-
-        var o = AcquisitionOffer;
-
-        if (o.Turn == AcquisitionTurn.Seller)
-        {
-            ProposalStatus.text = "Waiting for response... ";
-            if (!ScheduleUtils.IsTimerRunning(Q))
-                ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
         }
     }
 
-    void RenderOffer()
+    public override void ViewRender()
     {
-        var acquisitionOffer = AcquisitionOffer;
+        base.ViewRender();
 
-        if (acquisitionOffer == null)
-            return;
+        var sellerOffer = AcquisitionOffer.SellerOffer;
 
-        var conditions = acquisitionOffer.BuyerOffer;
-        var seller = acquisitionOffer.SellerOffer;
-        long price = conditions.Price;
+        Title.text = $"Acquisition of company {SelectedCompany.company.Name}";
 
 
+
+        var willAcceptOffer = Companies.IsCompanyWillAcceptAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
+
+        var progress = Companies.GetOfferProgress(Q, SelectedCompany, MyCompany.shareholder.Id);
+
+
+        RenderOffer(AcquisitionOffer);
+        RenderProposalStatus(willAcceptOffer, progress, sellerOffer);
+    }
+
+    void RenderOffer(AcquisitionOfferComponent offer)
+    {
+        RenderCashOffer(offer.BuyerOffer, offer.Turn);
+
+        RenderShareOffer(offer.BuyerOffer);
+    }
+
+    void RenderCashOffer(AcquisitionConditions BuyerOffer, AcquisitionTurn turn)
+    {
         var cost = Economy.CostOf(SelectedCompany, Q);
+        long price = BuyerOffer.Price;
+
         string overpriceText = "";
         if (price > cost)
         {
@@ -97,54 +81,64 @@ public class AcquisitionScreen : View
         }
 
         Offer.text = Format.Money(price) + overpriceText;
-        SellerPrice.text = $"Cash: {Format.Money(seller.Price)} (Real valuation = {Format.Money(cost)})";
-
-
-
-
-
-        var showInputField = acquisitionOffer.Turn == AcquisitionTurn.Buyer;
-        CashOfferInput.gameObject.SetActive(showInputField);
         CashOfferInput.text = price.ToString();
+
+
+        Draw(CashOfferInput, turn == AcquisitionTurn.Buyer);
+    }
+
+
+    void RenderProposalStatus(bool willAcceptOffer, long progress, AcquisitionConditions SellerOffer)
+    {
+        var cost = Economy.CostOf(SelectedCompany, Q);
+
+        SellerPrice.text = $"Cash: {Format.Money(SellerOffer.Price)} (Real valuation = {Format.Money(cost)})";
+
+        var o = AcquisitionOffer;
+
+        if (o.Turn == AcquisitionTurn.Seller)
+        {
+            ProposalStatus.text = "Waiting for response... ";
+
+            if (!ScheduleUtils.IsTimerRunning(Q))
+                ProposalStatus.text += Visuals.Negative("Unpause") + " to get their response";
+        }
+        else
+        {
+            var status = $"{progress}% of owners want to accept your offer";
+            var textDescription = willAcceptOffer ? Visuals.Positive("They will accept offer!") : Visuals.Negative("They will not accept offer!");
+
+            ProposalStatus.text = status; // + "\n" + textDescription;
+        }
+
+        ProgressText.text = progress + "%";
+        ProgressText.color = Visuals.GetColorPositiveOrNegative(willAcceptOffer);
+    }
+
+
+    #region shares
+    void RenderShareOffer(AcquisitionConditions conditions)
+    {
+        long price = conditions.Price;
 
         SharesOfferInput.text = conditions.ByShares.ToString();
 
-        RenderShareOfferSlider(conditions, price);
-    }
-
-    void RenderShareOfferSlider(AcquisitionConditions conditions, long price)
-    {
         var ourCompanyCost = Economy.CostOf(MyCompany, Q);
 
 
-        var sharePercent = conditions.ByShares; // ;
         var maxAllowedShareCost = 25 * ourCompanyCost / 100;
 
-        var shareCost = Mathf.Clamp(sharePercent * price / 100, 0, maxAllowedShareCost);
-        sharePercent = (int)(shareCost * 100 / price);
+        var shareCost = Mathf.Clamp(conditions.ByShares * price / 100, 0, maxAllowedShareCost);
 
 
 
         Slider.minValue = 0;
-        Slider.maxValue = 100;
-
-
         Slider.maxValue = Mathf.Clamp(maxAllowedShareCost * 100 / price, 0, 100);
 
         var sharePartOfCompany = shareCost * 100 / ourCompanyCost;
 
         var cash = price - shareCost;
         SharePercentage.text = $"You will pay {Format.Money(cash)} with cash and give {sharePartOfCompany}% of your company shares (worth ${Format.Money(shareCost)})";
-    }
-
-    void UpdateData()
-    {
-        if (!HasCompany)
-            return;
-
-        Companies.TweakAcquisitionConditions(Q, SelectedCompany, MyCompany.shareholder.Id, Conditions);
-
-        ScreenUtils.UpdateScreen(Q);
     }
 
     public void OnSharesOfferEdit()
@@ -157,6 +151,7 @@ public class AcquisitionScreen : View
 
         UpdateData();
     }
+    #endregion
 
     public void OnCashOfferEdit()
     {
@@ -168,5 +163,15 @@ public class AcquisitionScreen : View
         Conditions.Price = offer;
 
         UpdateData();
+    }
+
+    void UpdateData()
+    {
+        if (!HasCompany)
+            return;
+
+        Companies.TweakAcquisitionConditions(Q, SelectedCompany, MyCompany.shareholder.Id, Conditions);
+
+        ScreenUtils.UpdateScreen(Q);
     }
 }
