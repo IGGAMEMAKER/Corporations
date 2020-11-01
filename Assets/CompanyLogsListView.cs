@@ -16,6 +16,6 @@ public class CompanyLogsListView : ListView
 
         var allLogs = SelectedCompany.logging.Logs;
 
-        SetItems(allLogs.Select((l, i) => new { l, i }).TakeWhile(a => a.i > allLogs.Count - 10));
+        SetItems(allLogs.Select((l, i) => new { l, i }).Where(a => a.i > allLogs.Count - 10).Select(a => a.l));
     }
 }

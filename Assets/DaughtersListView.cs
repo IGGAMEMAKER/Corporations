@@ -33,14 +33,14 @@ public class DaughtersListView : ListView, IPointerEnterHandler, IPointerExitHan
 
     public void ExpandList()
     {
-        Hide(FlagshipTasks);
-        DaughtersScrollView.sizeDelta = new Vector2(687, 765);
+        //Hide(FlagshipTasks);
+        //DaughtersScrollView.sizeDelta = new Vector2(687, 765);
     }
 
     public void ShrinkList()
     {
-        Show(FlagshipTasks);
-        DaughtersScrollView.sizeDelta = new Vector2(687, 300);
+        //Show(FlagshipTasks);
+        //DaughtersScrollView.sizeDelta = new Vector2(687, 300);
     }
 
     private void OnEnable()

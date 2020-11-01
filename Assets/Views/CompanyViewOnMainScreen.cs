@@ -26,9 +26,17 @@ public class CompanyViewOnMainScreen : View
     public override void ViewRender()
     {
         Name.text = company.company.Name;
-        Users.text = Format.Minify(Marketing.GetUsers(company));
 
-        Users.color = Visuals.GetColorPositiveOrNegative(Marketing.GetAudienceChange(company, Q) >= 0); 
+        if (company.hasProduct)
+        {
+            Users.text = Format.Minify(Marketing.GetUsers(company));
+            Users.color = Visuals.GetColorPositiveOrNegative(Marketing.GetAudienceChange(company, Q) >= 0);
+        }
+        else
+        {
+            Users.text = Format.Money(Economy.CostOf(company, Q));
+            //Users.color
+        }
 
         Hide(CircularProgressbar);
 
@@ -36,7 +44,6 @@ public class CompanyViewOnMainScreen : View
 
         EmblemText.text = Companies.GetShortName(company);
         EmblemBackground.color = Companies.GetCompanyUniqueColor(company.company.Id);
-        //Image???
     }
 
 }

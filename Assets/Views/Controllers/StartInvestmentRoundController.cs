@@ -4,6 +4,12 @@ public class StartInvestmentRoundController : ButtonController
 {
     public override void Execute()
     {
-        Companies.StartInvestmentRound(Q, MyCompany);
+        if (MyCompany.companyGoal.Goals.Count > 0)
+            Companies.StartInvestmentRound(Q, MyCompany);
+        else
+        {
+            NotificationUtils.AddSimplePopup(Q, "Add goals to get investments");
+            NavigateToMainScreen();
+        }
     }
 }

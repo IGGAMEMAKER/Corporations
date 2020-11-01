@@ -68,13 +68,13 @@ namespace Assets.Core
         public static void ApplyLoyaltyPositioningBonuses(Bonus<long> bonus, GameEntity product, ProductPositioning positioning, int segmentId)
         {
             var positioningBonus = positioning.Loyalties[segmentId];
-            //bonus.AppendAndHideIfZero("From positioning", positioningBonus);
+            bonus.AppendAndHideIfZero("From positioning", positioningBonus);
 
-            bool isFocusing = positioningBonus >= 0;
-            if (isFocusing)
-                bonus.MultiplyAndHideIfOne("Product positioning", positioningBonus / 5);
-            else
-                bonus.AppendAndHideIfZero("From positioning", positioningBonus);
+            //bool isFocusing = positioningBonus >= 0;
+            //if (isFocusing)
+            //    bonus.MultiplyAndHideIfOne("Product positioning", positioningBonus / 5);
+            //else
+            //    bonus.AppendAndHideIfZero("From positioning", positioningBonus);
         }
 
         // if maxChange = true
