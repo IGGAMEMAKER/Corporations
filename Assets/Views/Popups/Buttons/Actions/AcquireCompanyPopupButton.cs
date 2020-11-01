@@ -12,14 +12,14 @@ public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcqui
             var buyerId = Popup.buyerInvestorId;
 
             var company = Companies.Get(Q, companyId);
-            var buyer = Companies.GetInvestorById(Q, buyerId);
+            var investor = Companies.GetInvestorById(Q, buyerId);
 
-            Debug.Log("AcquireCompanyPopupButton : will buy " + company.company.Name + " as " + Companies.GetInvestorName(buyer));
+            Debug.Log("AcquireCompanyPopupButton : will buy " + company.company.Name + " as " + Companies.GetInvestorName(investor));
 
             NavigateToProjectScreen(companyId);
             NotificationUtils.ClosePopup(Q);
 
-            Companies.ConfirmAcquisitionOffer(Q, company, buyer);
+            Companies.ConfirmAcquisitionOffer(Q, company, investor);
         }
         catch (Exception ex)
         {

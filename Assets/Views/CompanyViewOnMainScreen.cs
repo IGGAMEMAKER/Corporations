@@ -1,14 +1,42 @@
 ﻿using Assets.Core;
 using System.Text;
+using TMPro;
 using UnityEngine.UI;
 
 public class CompanyViewOnMainScreen : View
 {
-    public Text Expertise;
-
     GameEntity company;
+
+    public Text Name;
+    public Text Users;
+
+    public Image EmblemBackground;
+    public Text EmblemText;
+
+    public Image CircularProgressbar;
+    public LinkToProjectView Link;
+
+    public void SetEntity(GameEntity company)
+    {
+        this.company = company;
+
+        ViewRender();
+    }
 
     public override void ViewRender()
     {
+        Name.text = company.company.Name;
+        Users.text = Format.Minify(Marketing.GetUsers(company));
+
+        Users.color = Visuals.GetColorPositiveOrNegative(Marketing.GetAudienceChange(company, Q) >= 0); 
+
+        Hide(CircularProgressbar);
+
+        Link.CompanyId = company.company.Id;
+
+        EmblemText.text = Companies.GetShortName(company);
+        EmblemBackground.color = Companies.GetCompanyUniqueColor(company.company.Id);
+        //Image???
     }
+
 }

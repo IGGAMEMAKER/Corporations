@@ -30,19 +30,16 @@ namespace Assets.Core
                 return;
             }
 
-            Debug.Log($"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
-            Debug.Log($"Buyer: {GetInvestorName(context, buyerInvestorId)}");
-            Debug.Log($"Seller: {GetInvestorName(context, sellerInvestorId)}");
+            Companies.Log(company, $"Buy {amountOfShares} shares of {company.company.Name} for ${bid}");
+            Companies.Log(company, $"Buyer: {GetInvestorName(context, buyerInvestorId)}");
+            Companies.Log(company, $"Seller: {GetInvestorName(context, sellerInvestorId)}");
 
             TransferShares(context, company, buyerInvestorId, sellerInvestorId, amountOfShares);
 
-            Debug.Log("Transferred");
+            Companies.Log(company, "Transferred");
 
             SpendResources(buyer, bid, "Buy Shares of " + company.company.Name);
-            //Investments.AddMoneyToInvestor(context, buyerInvestorId, -bid);
-
             AddResources(seller, bid, "Buy Shares of " + company.company.Name);
-            //Investments.AddMoneyToInvestor(context, sellerInvestorId, bid);
         }
 
         public static int GetPortionSize(GameContext gameContext, GameEntity company, GameEntity seller, int percent)

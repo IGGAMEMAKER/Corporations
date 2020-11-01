@@ -33,7 +33,7 @@ public class CompanyViewOnAudienceMap : View/*, IPointerEnterHandler, IPointerEx
 
         bool hasControl = Companies.GetControlInCompany(MyCompany, c, Q) > 0;
 
-        var shortName = c.company.Name.Substring(0, 1) + c.company.Name.FirstOrDefault(char.IsDigit);
+        var shortName = Companies.GetShortName(c);
         var loyalty = Marketing.GetSegmentLoyalty(company, segmentId, true);
 
         SetEmblemColor();

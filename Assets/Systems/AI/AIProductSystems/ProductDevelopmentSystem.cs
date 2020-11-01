@@ -48,7 +48,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
     {
         List<ProductActions> actions = new List<ProductActions>();
 
-        Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
+        //Companies.Log(product, $"Working on goal: {goal.GetFormattedName()}");
 
         switch (goal.InvestorGoalType)
         {
@@ -187,7 +187,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
             }
             else
             {
-                Companies.Log(product, $"Choosing between {max} goals: {string.Join(", ", pickableGoals.Select(g => g.GetFormattedName()))}");
+                //Companies.Log(product, $"Choosing between {max} goals: {string.Join(", ", pickableGoals.Select(g => g.GetFormattedName()))}");
 
                 Investments.AddCompanyGoal(product, gameContext, pickableGoals[UnityEngine.Random.Range(0, max)]);
             }

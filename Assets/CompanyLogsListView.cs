@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CompanyLogsListView : ListView
@@ -13,6 +14,8 @@ public class CompanyLogsListView : ListView
     {
         base.ViewRender();
 
-        SetItems(SelectedCompany.logging.Logs);
+        var allLogs = SelectedCompany.logging.Logs;
+
+        SetItems(allLogs.Select((l, i) => new { l, i }).TakeWhile(a => a.i > allLogs.Count - 10));
     }
 }

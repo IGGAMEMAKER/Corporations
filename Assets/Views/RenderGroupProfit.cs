@@ -19,13 +19,14 @@ public class RenderGroupProfit : UpgradedParameterView
         var daughters = Companies.GetDaughters(Q, MyCompany)
             .OrderByDescending(c => Economy.GetProfit(Q, c));
 
-        var daughtersIncome = "Based on" + string.Join("\n", daughters.Select(GetIncomeInfo));
+        var daughtersIncome = "Based on\n\n" + string.Join("\n", daughters.Select(GetIncomeInfo));
 
 
         if (daughters.Count() == 1)
             daughtersIncome = "\n" + GetProfit().ToString();
 
-        return "Cash: " + Format.Money(Balance) + "\nProfit: " + Visuals.PositiveOrNegativeMinified(Profit) + daughtersIncome;
+        return daughtersIncome;
+        //return "<b>Cash:</b> " + Format.Money(Balance) + "\n<b>Profit:</b> " + Visuals.PositiveOrNegativeMinified(Profit) + daughtersIncome;
     }
 
     Bonus<long> GetProfit()

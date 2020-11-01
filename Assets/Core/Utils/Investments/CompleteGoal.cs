@@ -12,11 +12,11 @@ namespace Assets.Core
 
         public static void CompleteGoal(GameEntity company, GameContext gameContext, InvestmentGoal goal, bool forceComplete = false)
         {
-            Companies.Log(company, "Try complete goal: " + goal.GetFormattedName());
+            //Companies.Log(company, "Try complete goal: " + goal.GetFormattedName());
 
             if (forceComplete || CanCompleteGoal(company, gameContext, goal))
             {
-                Companies.Log(company, "SUCCESS");
+                Companies.LogSuccess(company, $"Completed goal: {goal.GetFormattedName()}");
 
                 var executor = goal.GetExecutor(company, gameContext);
                 var controller = goal.GetController(company, gameContext);
@@ -28,10 +28,10 @@ namespace Assets.Core
                     CompleteGoal2(controller, goal);
                 }
             }
-            else
-            {
-                Companies.Log(company, "Not all requirements were met (\n\n" + goal.GetFormattedRequirements(company, gameContext));
-            }
+            //else
+            //{
+            //    Companies.Log(company, "Not all requirements were met (\n\n" + goal.GetFormattedRequirements(company, gameContext));
+            //}
         }
 
         public static void CompleteGoal2(GameEntity company, InvestmentGoal goal)

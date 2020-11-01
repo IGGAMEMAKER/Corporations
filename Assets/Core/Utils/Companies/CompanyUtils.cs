@@ -26,6 +26,8 @@ namespace Assets.Core
 
         public static string GetName(GameContext context, int companyId) => GetName(Get(context, companyId));
         public static string GetName(GameEntity company) => company.company.Name;
+        public static string GetShortName(GameEntity company) => company.company.Name.Substring(0, 1) + company.company.Name.FirstOrDefault(char.IsDigit);
+
 
         public static GameEntity GetCompanyByName(GameContext context, string name)
         {
