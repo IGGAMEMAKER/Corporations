@@ -45,6 +45,7 @@ public class GoalView2 : View
         {
             if (willComplete)
             {
+                CloseModal("Missions");
                 NotificationUtils.AddSimplePopup(Q, Visuals.Positive("CONGRATULATIONS! YOU WON THE GAME!"), Visuals.Positive("Hope you've enjoyed it:)"));
                 SoundManager.Play(Sound.StandardClick);
             }

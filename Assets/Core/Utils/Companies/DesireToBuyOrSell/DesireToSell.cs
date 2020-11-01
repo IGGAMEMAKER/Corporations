@@ -46,14 +46,15 @@
 
             var bonusContainer = new Bonus<long>("Desire to sell");
 
-            bonusContainer.Append("Base", -1);
+            bonusContainer.Append("Base", 5);
+            //bonusContainer.Append("Base", -1);
 
-            bonusContainer.AppendAndHideIfZero("Is young company", IsYoungCompany(company) ? -10 : 0);
+            //bonusContainer.AppendAndHideIfZero("Is young company", IsYoungCompany(company) ? -10 : 0);
 
-            if (isProduct)
-                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext));
-            else
-                bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, shareholderId, gameContext));
+            //if (isProduct)
+            //    bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellStartupByInvestorType(company, investorType, shareholderId, gameContext));
+            //else
+            //    bonusContainer.AppendAndHideIfZero("By investor type", GetDesireToSellGroupByInvestorType(company, investorType, shareholderId, gameContext));
 
             return (long)bonusContainer.Sum();
         }
