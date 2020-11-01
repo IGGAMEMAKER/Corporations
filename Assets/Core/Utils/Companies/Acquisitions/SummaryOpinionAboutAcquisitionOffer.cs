@@ -2,9 +2,9 @@
 {
     public static partial class Companies
     {
-        public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static bool IsCompanyWillAcceptAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            return GetOfferProgress(gameContext, company, buyerInvestorId) > 75 - GetShareSize(gameContext, company, buyerInvestorId);
+            return GetOfferProgress(gameContext, company, buyer) > 75 - GetShareSize(gameContext, company, buyer.shareholder.Id);
         }
 
         public static bool IsShareholderWillAcceptAcquisitionOffer(AcquisitionOfferComponent ackOffer, int shareholderId, GameContext gameContext)
@@ -29,9 +29,9 @@
         }
 
         // sum opinions of all investors
-        public static long GetOfferProgress(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static long GetOfferProgress(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            var ackOffer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            var ackOffer = GetAcquisitionOffer(gameContext, company, buyer);
 
             var shareholders = company.shareholders.Shareholders;
 

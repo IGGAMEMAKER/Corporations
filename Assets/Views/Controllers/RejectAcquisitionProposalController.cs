@@ -16,6 +16,6 @@ public class RejectAcquisitionProposalController : ButtonController
 
         //CompanyUtils.BuyShares(GameContext, companyId, buyerId, MyCompany.shareholder.Id, -1, offer.acquisitionOffer.Offer);
 
-        Companies.RemoveAcquisitionOffer(Q, Companies.Get(Q, companyId), buyerId);
+        Companies.RemoveAcquisitionOffer(Q, Companies.Get(Q, companyId), Companies.GetInvestorById(Q, buyerId));
     }
 }

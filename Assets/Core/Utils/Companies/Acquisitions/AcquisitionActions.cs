@@ -5,7 +5,7 @@ namespace Assets.Core
     public static partial class Companies
     {
         // reject offer
-        public static void RemoveAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId) => RemoveAcquisitionOffer(GetAcquisitionOffer(gameContext, company, buyerInvestorId));
+        public static void RemoveAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer) => RemoveAcquisitionOffer(GetAcquisitionOffer(gameContext, company, buyer));
         public static void RemoveAcquisitionOffer(GameEntity offer)
         {
             offer.Destroy();
@@ -13,38 +13,38 @@ namespace Assets.Core
 
 
         // send offer
-        public static void SendAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId, long bid)
+        public static void SendAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer, long bid)
         {
-            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            var offer = GetAcquisitionOffer(gameContext, company, buyer);
 
             Debug.Log("SendAcquisitionOffer");
             offer.acquisitionOffer.BuyerOffer.Price = bid;
             offer.acquisitionOffer.BuyerOffer.ByCash = bid;
 
-            SendAcquisitionOffer(gameContext, company, buyerInvestorId);
+            SendAcquisitionOffer(gameContext, company, buyer);
 
-            NotifyAboutInterest(gameContext, company, buyerInvestorId);
+            NotifyAboutInterest(gameContext, company, buyer);
         }
 
-        public static void SendAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static void SendAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            var offer = GetAcquisitionOffer(gameContext, company, buyer);
 
             var o = offer.acquisitionOffer;
 
-            offer.ReplaceAcquisitionOffer(company.company.Id, buyerInvestorId, AcquisitionTurn.Seller, o.BuyerOffer, o.SellerOffer);
+            offer.ReplaceAcquisitionOffer(company.company.Id, buyer.shareholder.Id, AcquisitionTurn.Seller, o.BuyerOffer, o.SellerOffer);
         }
 
 
 
 
-        public static void TweakAcquisitionConditions(GameContext gameContext, GameEntity company, int buyerInvestorId, AcquisitionConditions newConditions)
+        public static void TweakAcquisitionConditions(GameContext gameContext, GameEntity company, GameEntity buyer, AcquisitionConditions newConditions)
         {
-            var off = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            var off = GetAcquisitionOffer(gameContext, company, buyer);
 
             off.ReplaceAcquisitionOffer(
                 company.company.Id,
-                buyerInvestorId,
+                buyer.shareholder.Id,
                 off.acquisitionOffer.Turn,
                 newConditions,
                 off.acquisitionOffer.SellerOffer

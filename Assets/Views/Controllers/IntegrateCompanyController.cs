@@ -4,6 +4,6 @@ public class IntegrateCompanyController : ButtonController
 {
     public override void Execute()
     {
-        Companies.ConfirmCorporateAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany.shareholder.Id);
+        Companies.ConfirmCorporateAcquisitionOffer(Q, SelectedCompany.company.Id, MyCompany);
     }
 }

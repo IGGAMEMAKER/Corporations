@@ -1,40 +1,50 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Core
 {
     partial class Companies
     {
-        public static void ConfirmAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static void ConfirmAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
-            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            try
+            {
 
-            BuyCompany(gameContext, company, buyerInvestorId, offer.acquisitionOffer.SellerOffer.Price);
+            var offer = GetAcquisitionOffer(gameContext, company, buyer);
+
+            BuyCompany(gameContext, company, buyer, offer.acquisitionOffer.SellerOffer.Price);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error in ConfirOffer");
+            }
         }
 
         
 
-        public static void BuyCompany(GameContext gameContext, GameEntity company, int buyerInvestorId, long offer)
+        public static void BuyCompany(GameContext gameContext, GameEntity company, GameEntity investor, long offer) //  int buyerInvestorId
         {
             // can afford acquisition
-            var inv = Investments.GetInvestor(gameContext, buyerInvestorId);
-            if (!IsEnoughResources(inv, offer))
+            if (!IsEnoughResources(investor, offer))
                 return;
 
             var shareholders = GetShareholders(company);
             int[] array = new int[shareholders.Keys.Count];
             shareholders.Keys.CopyTo(array, 0);
 
-            foreach (var shareholderId in array)
-                BuyShares(gameContext, company, buyerInvestorId, shareholderId, shareholders[shareholderId].amount, offer, true);
+
+
+            foreach (var sellerInvestorId in array)
+                BuyShares(gameContext, company, investor.shareholder.Id, sellerInvestorId, shareholders[sellerInvestorId].amount, offer, true);
 
             RemoveAllPartnerships(company, gameContext);
 
-            RemoveAcquisitionOffer(gameContext, company, buyerInvestorId);
+            RemoveAcquisitionOffer(gameContext, company, investor);
 
             SetIndependence(company, false);
 
-            NotifyAboutAcquisition(gameContext, buyerInvestorId, company.company.Id, offer);
+            NotifyAboutAcquisition(gameContext, investor, company, offer);
 
             ScheduleUtils.TweakCampaignStats(gameContext, CampaignStat.Acquisitions);
         }

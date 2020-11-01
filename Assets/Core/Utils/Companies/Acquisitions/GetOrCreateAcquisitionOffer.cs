@@ -6,7 +6,7 @@ namespace Assets.Core
 {
     public static partial class Companies
     {
-        public static GameEntity CreateAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static GameEntity CreateAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
             var offer = gameContext.CreateEntity();
 
@@ -28,22 +28,21 @@ namespace Assets.Core
                 KeepLeaderAsCEO = true
             };
 
-            offer.AddAcquisitionOffer(company.company.Id, buyerInvestorId, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
+            offer.AddAcquisitionOffer(company.company.Id, buyer.shareholder.Id, AcquisitionTurn.Buyer, buyerOffer, sellerOffer);
 
-            var playerIsInvestor = GetInvestorById(gameContext, buyerInvestorId).isControlledByPlayer;
-            if (playerIsInvestor)
+            if (buyer.isControlledByPlayer)
                 Debug.Log("Create acquisition offer: " + GetName(company));
 
             return offer;
         }
 
-        public static GameEntity GetAcquisitionOffer(GameContext gameContext, GameEntity company, int buyerInvestorId)
+        public static GameEntity GetAcquisitionOffer(GameContext gameContext, GameEntity company, GameEntity buyer)
         {
             var offer = gameContext.GetEntities(GameMatcher.AcquisitionOffer)
-                .FirstOrDefault(e => e.acquisitionOffer.CompanyId == company.company.Id && e.acquisitionOffer.BuyerId == buyerInvestorId);
+                .FirstOrDefault(e => e.acquisitionOffer.CompanyId == company.company.Id && e.acquisitionOffer.BuyerId == buyer.shareholder.Id);
 
             if (offer == null)
-                offer = CreateAcquisitionOffer(gameContext, company, buyerInvestorId);
+                offer = CreateAcquisitionOffer(gameContext, company, buyer);
 
             return offer;
         }

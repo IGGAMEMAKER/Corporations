@@ -10,12 +10,12 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     protected override void Execute(List<GameEntity> entities)
     {
-        var offers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
+        var acquisitionOffers = gameContext.GetEntities(GameMatcher.AcquisitionOffer);
 
         // companies, who are acquisition targets
         var targets = new List<GameEntity>();
 
-        foreach (var o in offers)
+        foreach (var o in acquisitionOffers)
         {
             if (!targets.Any(c => c.company.Id == o.acquisitionOffer.CompanyId))
             {
@@ -26,26 +26,30 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         foreach (var t in targets)
         {
             //var offrs = Companies.GetAcquisitionOffersToCompany(gameContext, t)
-            var offrs = offers
+            var offers = acquisitionOffers
                 .Where(o => o.acquisitionOffer.CompanyId == t.company.Id && o.acquisitionOffer.Turn == AcquisitionTurn.Seller)
                 .ToArray();
 
-            if (offrs.Count() > 0)
-                AnalyzeOffers(t, offrs);
+            if (offers.Count() > 0)
+            {
+                if (Companies.IsRelatedToPlayer(gameContext, t))
+                {
+                    var investorNames = offers.Select(o => Companies.GetInvestorName(gameContext, o.acquisitionOffer.BuyerId));
+
+                    Companies.LogSuccess(t, "got acquisition offer from " + string.Join(",", investorNames));
+
+                    continue;
+                }
+
+                AnalyzeOffers(t, offers);
+            }
         }
     }
 
     void AnalyzeOffers(GameEntity company, GameEntity[] offers)
     {
-        if (Companies.IsRelatedToPlayer(gameContext, company))
-        {
-            var investorNames = offers.Select(o => Companies.GetInvestorName(gameContext, o.acquisitionOffer.BuyerId));
-
-            Companies.LogSuccess(company, "got acquisition offer from " + string.Join(",", investorNames));
-
-            return;
-        }
-
+        Companies.LogSuccess(company, $"Got {offers.Count()} acquisition offers");
+        
         // if one offer
         // lower the price
         // if competing offers: choose best, who offers more than minimum needed
@@ -58,6 +62,8 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void TradeWithOneBuyer(GameEntity offer, GameEntity target)
     {
+        Companies.Log(target, "Trade with one buyer");
+
         var o = offer.acquisitionOffer;
         var shareholderId = o.BuyerId;
 
@@ -68,6 +74,57 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         else
         {
             SendNewSellerOffer(offer, target, shareholderId);
+        }
+    }
+
+    void TradeMultipleBuyers(GameEntity[] offers, GameEntity target)
+    {
+        var investors = offers.Select(o => Companies.GetInvestorName(gameContext, o.acquisitionOffer.BuyerId));
+
+        Companies.Log(target, "Trade with MULTIPLE buyers: " + string.Join(",", investors));
+
+        // send new demands
+        var newSellerOffer = GetBestAcquisitionOffer(offers, target);
+
+        // send counteroffers or leave
+        for (var i = offers.Count() - 1; i >= 0; i--)
+        {
+            var o = offers[i];
+            var offer = o.acquisitionOffer;
+
+            // increase prices to meet expectations
+            var newBuyerOffer = GetNewBuyerOffer(o, target, offer.BuyerId, newSellerOffer.Price);
+
+            if (newBuyerOffer.IsBetterThan(newSellerOffer))
+            {
+                offer.Turn = AcquisitionTurn.Buyer;
+                offer.BuyerOffer = newBuyerOffer;
+                offer.SellerOffer = newSellerOffer;
+
+                //o.ReplaceAcquisitionOffer(
+                //    offer.CompanyId, offer.BuyerId,
+                //    AcquisitionTurn.Buyer,
+                //    counterOffer,
+                //    newSellerOffer);
+            }
+            else
+            {
+                // will not pretend on company anymore
+
+                Companies.RemoveAcquisitionOffer(o);
+                continue;
+            }
+        }
+
+        var remainingOffers = Companies.GetAcquisitionOffersToCompany(gameContext, target);
+
+        if (remainingOffers.Count() == 1)
+        {
+            var o = remainingOffers.First();
+            Companies.Log(target, o.shareholder.Name + " WON IN COMPETITION FOR COMPANY " + target.company.Name);
+
+            TradeWithOneBuyer(o, target);
+            //AcceptOffer(target, remainingOffers.First().acquisitionOffer.BuyerId);
         }
     }
 
@@ -89,51 +146,6 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
         };
 
         return newSellerOffer;
-    }
-
-    void TradeMultipleBuyers(GameEntity[] offers, GameEntity target)
-    {
-        var newSellerOffer = GetBestAcquisitionOffer(offers, target);
-
-        for (var i = offers.Count() - 1; i >= 0; i--)
-        {
-            var o = offers[i];
-            var offer = o.acquisitionOffer;
-
-            // increase prices to meet expectations
-            var newBuyerOffer = GetNewBuyerOffer(o, target, offer.BuyerId, newSellerOffer.Price);
-
-            if (newBuyerOffer.IsBetterThan(newSellerOffer)) // counterOffer.Price < newSellerOffer.Price
-            {
-                offer.Turn = AcquisitionTurn.Buyer;
-                offer.BuyerOffer = newBuyerOffer;
-                offer.SellerOffer = newSellerOffer;
-
-                //o.ReplaceAcquisitionOffer(
-                //    offer.CompanyId, offer.BuyerId,
-                //    AcquisitionTurn.Buyer,
-                //    counterOffer,
-                //    newSellerOffer);
-            }
-            else
-            {
-                // potential buyer will not pretend on company anymore
-
-                Companies.RemoveAcquisitionOffer(o);
-                continue;
-            }
-        }
-
-        var remainingOffers = Companies.GetAcquisitionOffersToCompany(gameContext, target);
-
-        if (remainingOffers.Count() == 1)
-        {
-            var o = remainingOffers.First();
-            Companies.Log(target, o.shareholder.Name + " WON IN COMPETITION FOR COMPANY " + target.company.Name);
-
-            TradeWithOneBuyer(o, target);
-            //AcceptOffer(target, remainingOffers.First().acquisitionOffer.BuyerId);
-        }
     }
 
     AcquisitionConditions GetNewBuyerOffer(GameEntity offer, GameEntity target, int shareholderId, long maxOfferedPrice)
@@ -203,15 +215,17 @@ public class ProcessAcquisitionOffersSystem : OnWeekChange
 
     void AcceptOffer(GameEntity target, int shareholderId)
     {
-        var investor = Investments.GetInvestor(gameContext, shareholderId);
+        var buyer = Investments.GetInvestor(gameContext, shareholderId);
 
-        if (investor.isControlledByPlayer)
+        Companies.LogSuccess(target, "WILL ACCEPT OFFER FROM " + Companies.GetInvestorName(buyer));
+
+        if (buyer.isControlledByPlayer)
         {
             NotificationUtils.AddPopup(gameContext, new PopupMessageAcquisitionOfferResponse(target.company.Id, shareholderId));
         }
         else
         {
-            Companies.ConfirmAcquisitionOffer(gameContext, target, shareholderId);
+            Companies.ConfirmAcquisitionOffer(gameContext, target, buyer);
         }
     }
 }

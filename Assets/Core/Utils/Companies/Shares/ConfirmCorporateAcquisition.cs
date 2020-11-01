@@ -5,18 +5,17 @@ namespace Assets.Core
 {
     partial class Companies
     {
-        public static void ConfirmCorporateAcquisitionOffer(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static void ConfirmCorporateAcquisitionOffer(GameContext gameContext, int companyId, GameEntity corporation)
         {
             var company = Get(gameContext, companyId);
-            var offer = GetAcquisitionOffer(gameContext, company, buyerInvestorId);
+            var offer = GetAcquisitionOffer(gameContext, company, corporation);
 
-            JoinCorporation(gameContext, companyId, buyerInvestorId);
+            JoinCorporation(gameContext, companyId, corporation);
         }
 
-        public static void JoinCorporation(GameContext gameContext, int companyId, int buyerInvestorId)
+        public static void JoinCorporation(GameContext gameContext, int companyId, GameEntity corporation)
         {
             var target = Get(gameContext, companyId);
-            var corporation = Investments.GetCompanyByInvestorId(gameContext, buyerInvestorId);
 
             var shareholders = GetShareholders(target);
             int[] array = new int[shareholders.Keys.Count];
@@ -50,7 +49,7 @@ namespace Assets.Core
             AddShareholder(target, corporation, 100);
             SetIndependence(target, false);
 
-            NotifyAboutCorporateAcquisition(gameContext, buyerInvestorId, companyId);
+            NotifyAboutCorporateAcquisition(gameContext, corporation, companyId);
         }
     }
 }

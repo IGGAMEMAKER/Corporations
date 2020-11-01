@@ -14,12 +14,14 @@ public class AcceptAcquisitionProposalController : ButtonController
     public override void Execute()
     {
         var company = Companies.Get(Q, companyId);
-        var offer = Companies.GetAcquisitionOffer(Q, company, buyerId);
+        var buyer = Companies.GetInvestorById(Q, buyerId);
+
+        var offer = Companies.GetAcquisitionOffer(Q, company, buyer);
         offer.acquisitionOffer.SellerOffer = offer.acquisitionOffer.BuyerOffer;
 
         Debug.Log("AcceptAcquisitionProposalController");
         //CompanyUtils.BuyShares(GameContext, companyId, buyerId, MyCompany.shareholder.Id, -1, offer.acquisitionOffer.Offer);
 
-        Companies.ConfirmAcquisitionOffer(Q, company, buyerId);
+        Companies.ConfirmAcquisitionOffer(Q, company, buyer);
     }
 }

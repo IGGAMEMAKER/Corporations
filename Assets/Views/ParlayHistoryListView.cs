@@ -17,7 +17,7 @@ public class ParlayHistoryListView : ListView
     {
         get
         {
-            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany.shareholder.Id);
+            var offer = Companies.GetAcquisitionOffer(Q, SelectedCompany, MyCompany);
 
             return offer?.acquisitionOffer ?? null;
         }

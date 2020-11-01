@@ -1,18 +1,31 @@
 ﻿using Assets.Core;
+using System;
+using UnityEngine;
 
 public class AcquireCompanyPopupButton : PopupButtonController<PopupMessageAcquisitionOfferResponse>
 {
     public override void Execute()
     {
-        var companyId = Popup.companyId;
-        var buyerId = Popup.buyerInvestorId;
+        try
+        {
+            var companyId = Popup.companyId;
+            var buyerId = Popup.buyerInvestorId;
 
-        var company = Companies.Get(Q, companyId);
+            var company = Companies.Get(Q, companyId);
+            var buyer = Companies.GetInvestorById(Q, buyerId);
 
-        NavigateToProjectScreen(companyId);
-        NotificationUtils.ClosePopup(Q);
+            Debug.Log("AcquireCompanyPopupButton : will buy " + company.company.Name + " as " + Companies.GetInvestorName(buyer));
 
-        Companies.ConfirmAcquisitionOffer(Q, company, buyerId);
+            NavigateToProjectScreen(companyId);
+            NotificationUtils.ClosePopup(Q);
+
+            Companies.ConfirmAcquisitionOffer(Q, company, buyer);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Acquire Popup button fail");
+            Debug.LogError(ex);
+        }
     }
 
     public override string GetButtonName() => "BUY COMPANY";
