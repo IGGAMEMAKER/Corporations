@@ -181,7 +181,7 @@ public partial class ProductDevelopmentSystem : OnPeriodChange
 
             if (max == 0)
             {
-                Companies.Log(product, Visuals.Negative("CANNOT GET A GOAL"));
+                Companies.LogFail(product, "CANNOT GET A GOAL");
 
                 Debug.LogError("CANNOT GET A GOAL FOR: " + product.company.Name + "\n\nCompleted goals\n\n" + string.Join(", ", product.completedGoals.Goals));
             }

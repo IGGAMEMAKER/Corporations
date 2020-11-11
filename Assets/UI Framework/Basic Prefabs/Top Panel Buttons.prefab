@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverSound: {fileID: 8300000, guid: d090d49b04402d04b8909fc0611d6654, type: 3}
-  clickSound: {fileID: 8300000, guid: 9c2c979a602e79b4ea3e1eab2c5240c5, type: 3}
+  clickSound: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
   notificationSound: {fileID: 8300000, guid: c3d50c84be8816c4ebf4b190fda57470, type: 3}
   enableHoverSound: 1
   enableClickSound: 1
@@ -809,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37b7599ff19e074ba1e6f711e86fd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amplification: 0.2
   DisableSound: 0
 --- !u!1 &3255702753611597961
 GameObject:
@@ -943,6 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37b7599ff19e074ba1e6f711e86fd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amplification: 0.2
   DisableSound: 0
 --- !u!114 &8806357726882788991
 MonoBehaviour:
@@ -972,7 +974,7 @@ GameObject:
   - component: {fileID: 4270867578074355982}
   - component: {fileID: 6351873439262312447}
   m_Layer: 5
-  m_Name: Menu Button List
+  m_Name: Top Panel Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1497,6 +1499,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite
@@ -1749,6 +1756,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite
@@ -1989,6 +2001,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite
@@ -2229,6 +2246,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite
@@ -2419,6 +2441,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite
@@ -2676,7 +2703,7 @@ PrefabInstance:
         type: 3}
       propertyPath: clickSound
       value: 
-      objectReference: {fileID: 8300000, guid: 9c2c979a602e79b4ea3e1eab2c5240c5, type: 3}
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114665836860657822, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2861,6 +2888,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114015748222619232, guid: 012aee8c9f3311f498be501612017770,
+        type: 3}
+      propertyPath: clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d38fa195f417874999b1b8ac81fb32d, type: 3}
     - target: {fileID: 114359785234982146, guid: 012aee8c9f3311f498be501612017770,
         type: 3}
       propertyPath: m_Sprite

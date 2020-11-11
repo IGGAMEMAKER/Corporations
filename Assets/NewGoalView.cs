@@ -36,7 +36,7 @@ public class NewGoalView : View
     public void PickGoal()
     {
         Investments.AddCompanyGoal(MyCompany, Q, InvestmentGoal);
-        SoundManager.Play(Sound.Action);
+        SoundManager.Play(Sound.GoalPicked);
 
         FindObjectOfType<PickGoalsListView>().ViewRender();
         FindObjectOfType<MissionRelay>().RenderButtons();

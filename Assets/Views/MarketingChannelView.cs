@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHandler
+public class MarketingChannelView : View
 {
     public GameEntity channel;
 
     public Text Title;
     public Text Users;
-    public Text Income;
+    public Text Cost;
 
     public Text CostPerUser;
 
-    public CanvasGroup CanvasGroup;
     public Image ChosenImage;
 
     public Image BackgroundImage; // 060F30
@@ -23,17 +22,17 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
     public Image ChosenCheckMark;
 
-    public Image ExplorationImage;
-    public Image DomineeringIcon;
+    float maxCost = 100;
+    float minCost = 0;
 
-    public Text MarketingComplexity;
+    public void SetEntity(GameEntity channel, float minROI, float maxROI)
+    {
+        this.channel = channel;
+        this.maxCost = maxROI;
+        this.minCost = minROI;
 
-    float maxROI = 100;
-    float minROI = 0;
-
-    RenderAudiencesListView RenderAudiencesListView;
-
-    bool isFreeChannel = false;
+        ViewRender();
+    }
 
     public override void ViewRender()
     {
@@ -43,32 +42,47 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
         if (channel == null)
             return;
 
-        ToggleTexts(false);
-
-        var marketingChannel = channel.marketingChannel;
-
-        var channel1 = marketingChannel.ChannelInfo;
-
         var company = Flagship;
 
-
         // basic info
-        var name = $"Channel {channel1.ID}";
-        Title.text = name;
+        Title.text = $"Channel {channel.marketingChannel.ChannelInfo.ID}";
 
+        RenderAudienceGain(company);
+
+        RenderSegmentImage(company);
+
+        RenderCost(company);
+
+        RenderActivitySigns(company, channel);
+    }
+
+    void RenderCost(GameEntity company)
+    {
         var adCost = Marketing.GetChannelCost(company, channel);
-        var ROI = Marketing.GetChannelCostPerUser(company, Q, channel);
-        var repaymentColor = Visuals.GetGradientColor(minROI, maxROI, ROI, true);
+        var clientCost = Marketing.GetChannelCostPerUser(company, Q, channel);
+        var repaymentColor = Visuals.GetGradientColor(minCost, maxCost, clientCost, true);
 
-        isFreeChannel = adCost == 0;
-        if (isFreeChannel)
-            ToggleTexts(true);
+        var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);
 
+        var isFreeChannel = adCost == 0;
+
+        Cost.text = isFreeChannel ? "FREE" : $"{Format.MinifyMoney(adCost)} weekly"; //  (${clientCost.ToString("0.00")} each)
+        Cost.color = Visuals.GetColorPositiveOrNegative(canMaintain);
+
+        CostPerUser.text = $"{clientCost.ToString("0.0")}$";
+        CostPerUser.color = repaymentColor;
+    }
+
+    void RenderAudienceGain(GameEntity company)
+    {
         // audience gain
-        var gainedAudience = Marketing.GetChannelClientGain(company, channel);
-        Users.text = "+" + Format.Minify(gainedAudience) + " users";
-        //Users.color = repaymentColor;
+        var gain = Marketing.GetChannelClientGain(company, channel);
 
+        Users.text = "+" + Format.Minify(gain) + " users";
+    }
+
+    void RenderSegmentImage(GameEntity company)
+    {
         // audience icon
         if (Marketing.IsFocusingMoreThanOneAudience(company))
         {
@@ -81,76 +95,13 @@ public class MarketingChannelView : View, IPointerEnterHandler, IPointerExitHand
 
             SegmentTypeImage.texture = Resources.Load<Texture2D>($"Audiences/{audiences[segmentID].Icon}");
         }
+    }
 
-        var canMaintain = Economy.IsCanMaintainForAWhile(MyCompany, Q, adCost, 1);
-        //BackgroundImage.color = canMaintain ? Visuals.Positive() : Visuals.Negative();
-
-        var clientCost = ROI; // adCost / gainedAudience;
-
-        Income.text = $"{Format.MinifyMoney(adCost)}"; //  (${clientCost.ToString("0.00")} each)
-        if (isFreeChannel)
-            Income.text = "FREE";
-        //else
-        //    Income.color = repaymentColor;
-
-        Income.color = Visuals.GetColorPositiveOrNegative(canMaintain);
-        CostPerUser.text = $"{clientCost.ToString("0.0")}$";
-        CostPerUser.color = repaymentColor;
-
-        MarketingComplexity.text = $"{clientCost.ToString("0")}$";
-        MarketingComplexity.color = repaymentColor;
-
+    void RenderActivitySigns(GameEntity company, GameEntity channel)
+    {
         bool isActiveChannel = Marketing.IsActiveInChannel(company, channel);
-        CanvasGroup.alpha = 1;
 
         Draw(ChosenImage, isActiveChannel);
         Draw(ChosenCheckMark, isActiveChannel);
-
-        var dayOfPeriod = CurrentIntDate % C.PERIOD;
-        RenderProgress(isActiveChannel ? dayOfPeriod : 0, C.PERIOD);
-    }
-
-    void RenderProgress(float progress, float duration)
-    {
-        ExplorationImage.fillAmount = 1f - (duration - progress) / duration; // Random.Range(0, 1f);
-    }
-
-    public void SetEntity(GameEntity channel, float minROI, float maxROI, RenderAudiencesListView RenderAudiencesListView)
-    {
-        this.channel = channel;
-        this.maxROI = maxROI;
-        this.minROI = minROI;
-        this.RenderAudiencesListView = RenderAudiencesListView;
-
-        ViewRender();
-    }
-
-    void ToggleTexts(bool showCost)
-    {
-        Draw(MarketingComplexity, false);
-        Draw(Income, true); // showCost
-
-        //Draw(SegmentTypeImage, !showFace);
-        //Draw(Users, !showFace);
-    }
-
-    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-    {
-        ToggleTexts(true);
-
-        var audiences = Marketing.GetAudienceInfos();
-
-        var changes = audiences.Select(a => Marketing.GetChannelClientGain(Flagship, channel, a.ID));
-        if (RenderAudiencesListView != null)
-            RenderAudiencesListView.ShowValueChanges(changes.ToList());
-    }
-
-    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
-    {
-        if (!isFreeChannel)
-            ToggleTexts(false);
-
-        if (RenderAudiencesListView != null)
-            RenderAudiencesListView.HideChanges();
     }
 }

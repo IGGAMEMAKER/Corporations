@@ -105,11 +105,11 @@ public class EnlargeOnHover : MonoBehaviour
 
     void SetClickCursor()
     {
-        Cursor.SetCursor(clickCursor, hotSpot, cursorMode);
+        //Cursor.SetCursor(clickCursor, hotSpot, cursorMode);
     }
 
     void SetNormalCursor()
     {
-        Cursor.SetCursor(normalCursor, hotSpot, cursorMode);
+        //Cursor.SetCursor(normalCursor, hotSpot, cursorMode);
     }
 }

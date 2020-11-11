@@ -56,29 +56,32 @@ namespace Assets.Core
         {
             return company.companyGoal.Goals.Any(g => g.InvestorGoalType == goalType);
         }
+
         // IsGoalDoneOrOutgrown
-        public static bool GoalCanBeRepeated(InvestorGoalType goal)
-        {
-            List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
-            {
-                InvestorGoalType.ProductPrototype,
-                InvestorGoalType.ProductFirstUsers,
-                InvestorGoalType.ProductBecomeMarketFit,
-                InvestorGoalType.ProductRelease,
+        //public static bool GoalCanBeRepeated(InvestorGoalType goal)
+        //{
+        //    List<InvestorGoalType> OneTimeGoals = new List<InvestorGoalType>
+        //    {
+        //        InvestorGoalType.ProductPrototype,
+        //        InvestorGoalType.ProductFirstUsers,
+        //        InvestorGoalType.ProductBecomeMarketFit,
+        //        InvestorGoalType.ProductRelease,
 
-                InvestorGoalType.ProductStartMonetising,
-            };
+        //        InvestorGoalType.ProductStartMonetising,
+        //    };
 
-            return !OneTimeGoals.Contains(goal);
-        }
+        //    return !OneTimeGoals.Contains(goal);
+        //}
 
         public static bool Completed(GameEntity company1, InvestorGoalType goal) => IsGoalCompleted(company1, goal);
         public static bool IsGoalCompleted(GameEntity company, InvestorGoalType goal)
         {
             // goal was done or outreached
-            bool done = company.completedGoals.Goals.Contains(goal);
+            return company.completedGoals.Goals.Contains(goal);
+        }
 
-            return done;
+        public static bool GoalWasOutgrown(GameEntity company, GameContext gameContext, InvestorGoalType goalType)
+        {
             //if (done && OneTimeGoals.Contains(goal))
             //    return true;
 
@@ -92,6 +95,9 @@ namespace Assets.Core
             //}
 
             //return false;
+
+            // check if goal was already done?
+            return CanCompleteGoal(company, gameContext, GetInvestmentGoal(company, gameContext, goalType));
         }
 
         public static void AddOnce(List<InvestorGoalType> goals, GameEntity company, InvestorGoalType goal)
@@ -164,7 +170,7 @@ namespace Assets.Core
                 if (Completed(product, InvestorGoalType.ProductStartMonetising))
                     goals.Add(InvestorGoalType.GrowUserBase);
 
-                if (users > 500_000 && ourAudiences < amountOfAudiences)
+                if (Completed(product, InvestorGoalType.GrowUserBase) && users > 500_000 && ourAudiences < amountOfAudiences)
                     goals.Add(InvestorGoalType.GainMoreSegments);
             }
 
@@ -225,17 +231,6 @@ namespace Assets.Core
         {
             var goals = new List<InvestorGoalType>();
 
-            var both = new List<InvestorGoalType>
-            {
-                InvestorGoalType.OutcompeteCompanyByCost,
-                InvestorGoalType.OutcompeteCompanyByIncome,
-
-                InvestorGoalType.GrowCompanyCost,
-                InvestorGoalType.GrowIncome,
-
-                InvestorGoalType.BecomeProfitable
-            };
-
             #region data
             bool releasedProduct = company.hasProduct && company.isRelease;
 
@@ -245,22 +240,26 @@ namespace Assets.Core
             bool profitable = Economy.IsProfitable(Q, company);
 
             bool solidCompany = (releasedProduct || isGroup) && income > 500_000;
-
-            bool hasStrongerCompanies = Companies.GetStrongerCompetitor(company, Q) != null;
             #endregion
 
             if (solidCompany)
-                goals.Add(InvestorGoalType.GrowCompanyCost);
-
-            if (solidCompany && hasStrongerCompanies)
             {
-                goals.Add(InvestorGoalType.OutcompeteCompanyByIncome);
-                goals.Add(InvestorGoalType.OutcompeteCompanyByCost);
-                //goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);
-            }
+                goals.Add(InvestorGoalType.GrowCompanyCost);
+                goals.Add(InvestorGoalType.GrowIncome);
 
-            if (solidCompany && !profitable)
-                goals.Add(InvestorGoalType.BecomeProfitable);
+                if (!profitable)
+                {
+                    goals.Add(InvestorGoalType.BecomeProfitable);
+                }
+
+                bool hasStrongerCompanies = Companies.GetStrongerCompetitor(company, Q) != null;
+                if (hasStrongerCompanies)
+                {
+                    goals.Add(InvestorGoalType.OutcompeteCompanyByIncome);
+                    goals.Add(InvestorGoalType.OutcompeteCompanyByCost);
+                    //goals.Add(InvestorGoalType.OutcompeteCompanyByUsers);
+                }
+            }
 
             return goals;
         }

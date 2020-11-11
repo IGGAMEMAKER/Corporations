@@ -25,7 +25,7 @@ public class MarketingChannelsListView : ListView
     {
         var channel = (GameEntity)(object)entity;
 
-        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI, RenderAudiencesListView);
+        t.GetComponent<MarketingChannelView>().SetEntity(channel, minROI, maxROI);
     }
 
     public void ToggleActiveChannels()

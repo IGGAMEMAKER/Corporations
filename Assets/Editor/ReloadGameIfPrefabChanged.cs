@@ -15,21 +15,21 @@ class CustomPrefabEnvironment
         PrefabStage.prefabSaved += PrefabStage_prefabSaved;
     }
 
-    async static void PrefabStage_prefabSaved(GameObject obj)
+    static void PrefabStage_prefabSaved(GameObject obj)
     {
         Debug.Log("Prefab edited: " + obj.name);
 
         if (Application.isPlaying)
         {
             //SceneManager.UnloadScene(1);
-            await Task.Run(() => SceneManager.UnloadSceneAsync(1));
+            //Task.Run(() => SceneManager.UnloadSceneAsync(1));
+            SceneManager.UnloadScene(1);
             //State.LoadGameScene();
-            await Task.Run(() => SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive));
+            SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
 
             ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
 
             //ScreenUtils.UpdateScreen(Contexts.sharedInstance.game);
-            //StartCorutine
         }
     }
 
