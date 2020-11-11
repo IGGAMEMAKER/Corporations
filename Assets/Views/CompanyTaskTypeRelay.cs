@@ -62,11 +62,13 @@ public class CompanyTaskTypeRelay : View
     private void RenderMissionsButton()
     {
         var goalsCount = MyCompany.companyGoal.Goals.Count;
+        var newGoalsCount = Investments.GetNewGoals(MyCompany, Q).Count;
 
-        bool hasGoals = goalsCount > 0;
         bool completedGoals = MyCompany.completedGoals.Goals.Count > 0;
         bool canCompleteGoals = Investments.IsCanCompleteAnyGoal(MyCompany, Q);
-        bool hasNewGoals = Investments.GetNewGoals(MyCompany, Q).Count > 0;
+
+        bool hasGoals = goalsCount > 0;
+        bool hasNewGoals = newGoalsCount > 0;
 
         Draw(MissionButton, true); // hasGoals || completedGoals
         MissionButton.GetComponent<Blinker>().enabled = canCompleteGoals;
@@ -76,7 +78,7 @@ public class CompanyTaskTypeRelay : View
         GoalCounter.GetComponent<Image>().enabled = hasNewGoals;
         GoalCounter.GetComponentInChildren<Image>().enabled = hasNewGoals;
 
-        GoalCounter.GetComponentInChildren<Text>().text = goalsCount.ToString();
+        GoalCounter.GetComponentInChildren<Text>().text = hasGoals ? goalsCount.ToString() : newGoalsCount.ToString();
     }
 
     void RenderFeatureButton()

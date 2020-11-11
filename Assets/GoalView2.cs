@@ -12,6 +12,8 @@ public class GoalView2 : View
     public Text Number;
     public GameObject CompleteButton;
 
+    public Image ProgressImage;
+
     InvestmentGoal InvestmentGoal;
     int index;
 
@@ -27,14 +29,23 @@ public class GoalView2 : View
     {
         base.ViewRender();
 
-        bool completed = Investments.CanCompleteGoal(MyCompany, Q, InvestmentGoal);
+        var company = MyCompany;
+
+        bool completed = Investments.CanCompleteGoal(company, Q, InvestmentGoal);
 
         Draw(CompleteButton, completed);
         Draw(Requirements, !completed);
+        Draw(ProgressImage, !completed);
 
         Title.text = InvestmentGoal.GetFormattedName();
-        Requirements.text = InvestmentGoal.GetFormattedRequirements(MyCompany, Q);
+        Requirements.text = InvestmentGoal.GetFormattedRequirements(company, Q);
         Number.text = $"#{index + 1}";
+
+        var requirements = InvestmentGoal.GetGoalRequirements(company, Q);
+
+        var progress = InvestmentGoal.GetGoalProgress(company, Q) / 100f;
+
+        ProgressImage.fillAmount = progress;
     }
 
     public void CompleteGoal()

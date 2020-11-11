@@ -66,10 +66,10 @@ public abstract class InvestmentGoal
 
     public string GetFormattedRequirements(GameEntity company1, GameContext gameContext)
     {
-        var company = GetExecutor(company1, gameContext);
+        var executor = GetExecutor(company1, gameContext);
 
-        return "as " + company.company.Name + "\n" + string.Join("\n", GetGoalRequirements(company, gameContext)
-            .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, company, gameContext))));
+        return "as " + executor.company.Name + "\n" + string.Join("\n", GetGoalRequirements(executor, gameContext)
+            .Select(g => Visuals.Colorize(g.description, IsRequirementMet(g, executor, gameContext))));
     }
 
     //public abstract bool Redoable();
@@ -92,6 +92,20 @@ public abstract class InvestmentGoal
     public bool IsRequirementMet(GoalRequirements req, GameEntity company, GameContext gameContext)
     {
         return req.have >= req.need;
+    }
+
+    public int GetGoalProgress(GameEntity company, GameContext gameContext)
+    {
+        var progress = 0;
+
+        var reqs = GetGoalRequirements(company, gameContext);
+
+        //foreach (var r in reqs)
+        //{
+        //    progress += r.have * 100 / r.need;
+        //}
+
+        return 100;
     }
 }
 
