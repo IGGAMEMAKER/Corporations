@@ -1,31 +1,37 @@
 ﻿using Assets.Core;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RenderAllAudienceNeededFeatureListView : ListView
 {
-    bool RetentionFeatures = true;
+    public bool RetentionFeatures = true;
+    public bool MonetizationFeatures = true;
 
-    public GameObject MonetisationButton;
-    public GameObject RetentionButton;
+    public AudiencesOnMainScreenListView AudiencesOnMainScreenListView;
+    
+    private void OnEnable()
+    {
+        ViewRender();
+    }
 
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature);
+        t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature, AudiencesOnMainScreenListView);
     }
 
-    public void ShowRetentionFeatures()
-    {
-        RetentionFeatures = true;
+    //public void ShowRetentionFeatures()
+    //{
+    //    RetentionFeatures = true;
 
-        ViewRender();
-    }
+    //    ViewRender();
+    //}
 
-    public void ShowMonetisationFeatures()
-    {
-        RetentionFeatures = false;
+    //public void ShowMonetisationFeatures()
+    //{
+    //    RetentionFeatures = false;
 
-        ViewRender();
-    }
+    //    ViewRender();
+    //}
 
     public override void ViewRender()
     {
@@ -36,21 +42,19 @@ public class RenderAllAudienceNeededFeatureListView : ListView
         var retentionFeatures = Products.GetUpgradeableRetentionFeatures(company, Q);
         var monetisationFeatures = Products.GetUpgradeableMonetisationFeatures(company, Q);
 
-        var features = RetentionFeatures ? retentionFeatures : monetisationFeatures;
+        List<NewProductFeature> features = new List<NewProductFeature>();
 
-        if (MonetisationButton != null)
-            Draw(MonetisationButton, company.isRelease && monetisationFeatures.Length > 0);
-
-        if (RetentionButton != null)
+        if (RetentionFeatures)
         {
-            Draw(RetentionButton, retentionFeatures.Length > 0);
+            features.AddRange(retentionFeatures);
         }
 
-        SetItems(features);
-    }
+        if (MonetizationFeatures)
+        {
+            features.AddRange(monetisationFeatures);
+        }
+        //RetentionFeatures ? retentionFeatures : monetisationFeatures;
 
-    private void OnEnable()
-    {
-        ShowRetentionFeatures();
+        SetItems(features);
     }
 }

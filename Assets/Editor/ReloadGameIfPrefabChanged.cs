@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using Assets.Core;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
@@ -14,15 +15,16 @@ class CustomPrefabEnvironment
         PrefabStage.prefabSaved += PrefabStage_prefabSaved;
     }
 
-    static void PrefabStage_prefabSaved(GameObject obj)
+    async static void PrefabStage_prefabSaved(GameObject obj)
     {
         Debug.Log("Prefab edited: " + obj.name);
 
         if (Application.isPlaying)
         {
-            SceneManager.UnloadScene(1);
+            //SceneManager.UnloadScene(1);
+            await Task.Run(() => SceneManager.UnloadSceneAsync(1));
             //State.LoadGameScene();
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            await Task.Run(() => SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive));
 
             ScheduleUtils.PauseGame(Contexts.sharedInstance.game);
 

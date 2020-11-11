@@ -39,6 +39,8 @@ public class NewGoalView : View
         SoundManager.Play(Sound.Action);
 
         FindObjectOfType<PickGoalsListView>().ViewRender();
+        FindObjectOfType<MissionRelay>().RenderButtons();
+        //FindObjectOfType<MissionRelay>().ShowActiveMissions();
         Refresh();
     }
 }

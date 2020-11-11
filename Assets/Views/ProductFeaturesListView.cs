@@ -7,7 +7,7 @@ public abstract class ProductFeaturesListView : ListView
 {
     public override void SetItem<T>(Transform t, T entity)
     {
-        t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature);
+        t.GetComponent<FeatureView>().SetFeature(entity as NewProductFeature, null);
     }
 
     public override void ViewRender()

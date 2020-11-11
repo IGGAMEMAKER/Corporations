@@ -12,18 +12,27 @@ public class MissionRelay : View
     public GameObject GoalsListView;
     public GameObject PickGoalsListView;
 
-    void RenderButtons()
-    {
-        var myGoals = MyCompany.companyGoal.Goals.Count;
-        var newGoals = Investments.GetNewGoals(MyCompany, Q).Count;
+    int myGoalsCounter => MyCompany.companyGoal.Goals.Count;
+    int newGoalsCounter => Investments.GetNewGoals(MyCompany, Q).Count;
 
-        ActiveMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"ACTIVE ({myGoals})";
-        NewMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"NEW ({newGoals})";
+    public void RenderButtons()
+    {
+        var myGoals = myGoalsCounter;
+        var newGoals = newGoalsCounter;
+
+        ActiveMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"ACTIVE ({myGoalsCounter})";
+        NewMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"NEW ({newGoalsCounter})";
+
+        Draw(ActiveMissions, myGoals > 0);
+        Draw(NewMissions, newGoals > 0);
     }
 
     private void OnEnable()
     {
-        ShowActiveMissions();
+        if (myGoalsCounter != 0)
+            ShowActiveMissions();
+        else
+            ShowNewMissions();
     }
 
     public void ShowActiveMissions()

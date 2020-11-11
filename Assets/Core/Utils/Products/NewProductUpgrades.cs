@@ -119,7 +119,7 @@ namespace Assets.Core
             return !IsUpgradingFeature(company, gameContext, f.Name) && GetFeatureRating(company, f.Name) + ratingGain <= ratingCap;
         };
 
-        public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
+        public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
         {
             bool willMakeAnyoneDisloyal = false;
             var segments = Marketing.GetAudienceInfos();
@@ -148,7 +148,7 @@ namespace Assets.Core
                 .Where(IsCanUpgradeFeature(company, gameContext))
 
                 // will not make anyone disloyal
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(company, gameContext))
+                .Where(IsFeatureWillNotDissapointAnyoneSignificant(company))
                 .TakeWhile(f => counter-- > 0)
                 .ToArray()
                 ;
@@ -161,7 +161,7 @@ namespace Assets.Core
         {
             return GetMonetisationFeatures(product)
                 .Where(IsCanUpgradeFeature(product, gameContext))
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product, gameContext))
+                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
                 .ToArray();
         }
         public static NewProductFeature[] GetUpgradeableRetentionFeatures(GameEntity product, GameContext gameContext)
@@ -170,7 +170,7 @@ namespace Assets.Core
 
             return GetChurnFeatures(product)
                 .Where(IsCanUpgradeFeature(product, gameContext))
-                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product, gameContext))
+                .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
                 .TakeWhile(f => counter-- > 0)
                 .ToArray();
         }

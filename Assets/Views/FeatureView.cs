@@ -23,6 +23,20 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
     public Sprite MonetisationImage;
     public Sprite UnknownImage;
 
+    public AudiencesOnMainScreenListView _AudiencesOnMainScreenListView;
+    AudiencesOnMainScreenListView AudiencesOnMainScreenListView
+    {
+        get
+        {
+            if (_AudiencesOnMainScreenListView == null)
+            {
+                _AudiencesOnMainScreenListView = FindObjectOfType<AudiencesOnMainScreenListView>();
+            }
+
+            return _AudiencesOnMainScreenListView;
+        }
+    }
+
     public override void ViewRender()
     {
         base.ViewRender();
@@ -37,11 +51,13 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 
 
         bool upgraded = Products.IsUpgradedFeature(product, featureName);
-        var rating = Products.GetFeatureRating(product, featureName);
+        var rating = (int)Products.GetFeatureRating(product, featureName);
 
-        Draw(Rating, upgraded && rating > 0);
+        Draw(Rating, true);
+        //Draw(Rating, upgraded && rating > 0);
 
-        Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
+        Rating.text = rating.ToString("0LV");
+        //Rating.text = upgraded ? rating.ToString("0.0") + " / 10" : "0";// GetFeatureBenefits(upgraded, product);
         Rating.color = upgraded ? Visuals.GetGradientColor(0, 10f, rating) : Visuals.GetColorFromString(Colors.COLOR_POSITIVE);
 
         if (NewProductFeature.FeatureBonus.isMonetisationFeature)
@@ -105,9 +121,10 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
         return b.GetType().ToString();
     }
 
-    public void SetFeature(NewProductFeature newProductFeature)
+    public void SetFeature(NewProductFeature newProductFeature, AudiencesOnMainScreenListView audiencesOnMainScreenListView)
     {
         NewProductFeature = newProductFeature;
+        _AudiencesOnMainScreenListView = audiencesOnMainScreenListView;
 
         ViewRender();
     }
@@ -116,27 +133,26 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
     {
         if (NewProductFeature.FeatureBonus.isAcquisitionFeature)
             FeatureTypeIcon.sprite = AcquisitionImage;
+
         else if (NewProductFeature.FeatureBonus.isMonetisationFeature)
             FeatureTypeIcon.sprite = MonetisationImage;
+
         else if (NewProductFeature.FeatureBonus.isRetentionFeature)
             FeatureTypeIcon.sprite = RetentionImage;
+
         else
             FeatureTypeIcon.sprite = UnknownImage;
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        var view = FindObjectOfType<AudiencesOnMainScreenListView>();
-        
-        if (view != null)
-            view.ShowAudienceLoyaltyChangeOnFeatureUpgrade(NewProductFeature);
+        if (AudiencesOnMainScreenListView != null)
+            AudiencesOnMainScreenListView.ShowAudienceLoyaltyChangeOnFeatureUpgrade(NewProductFeature);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        var view = FindObjectOfType<AudiencesOnMainScreenListView>();
-
-        if (view != null)
-            view.HideLoyaltyChanges();
+        if (AudiencesOnMainScreenListView != null)
+            AudiencesOnMainScreenListView.HideLoyaltyChanges();
     }
 }

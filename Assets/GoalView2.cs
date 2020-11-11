@@ -46,7 +46,7 @@ public class GoalView2 : View
             if (willComplete)
             {
                 CloseModal("Missions");
-                NotificationUtils.AddSimplePopup(Q, Visuals.Positive("CONGRATULATIONS! YOU WON THE GAME!"), Visuals.Positive("Hope you've enjoyed it:)"));
+                NotificationUtils.AddSimplePopup(Q, Visuals.Positive("CONGRATULATIONS! YOU WON!"), Visuals.Positive("Hope you've enjoyed the game:)"));
                 SoundManager.Play(Sound.StandardClick);
             }
         }
@@ -55,6 +55,8 @@ public class GoalView2 : View
             if (willComplete)
             {
                 SoundManager.Play(Sound.Action);
+                FindObjectOfType<MissionRelay>().ShowActiveMissions();
+                FindObjectOfType<MissionRelay>().RenderButtons();
             }
         }
 

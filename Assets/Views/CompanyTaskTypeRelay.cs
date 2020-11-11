@@ -10,6 +10,7 @@ public class CompanyTaskTypeRelay : View
 {
     [Header("Counters")]
     public GameObject FeatureCounter;
+    public GameObject MonetizationFeatureCounter;
     public GameObject MarketingCounter;
     public GameObject TeamCounter;
     public GameObject GoalCounter;
@@ -17,6 +18,7 @@ public class CompanyTaskTypeRelay : View
     [Header("Buttons")]
     public GameObject MarketingButton;
     public GameObject DevelopmentButton;
+    public GameObject MonetizationButton;
 
     public GameObject InvestmentButton;
     public GameObject ServersButton;
@@ -36,6 +38,7 @@ public class CompanyTaskTypeRelay : View
         base.ViewRender();
 
         RenderFeatureButton();
+        RenderMonetizationButton();
         RenderMarketingButton();
         RenderServerButton();
         RenderTeamButton();
@@ -83,6 +86,16 @@ public class CompanyTaskTypeRelay : View
         Draw(FeatureCounter, features > 0);
 
         FeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
+    }
+
+    void RenderMonetizationButton()
+    {
+        var features = Products.GetUpgradeableMonetisationFeatures(Flagship, Q).Length;
+
+        Draw(MonetizationFeatureCounter, features > 0);
+        Draw(MonetizationButton, Flagship.isRelease);
+
+        MonetizationFeatureCounter.GetComponentInChildren<Text>().text = features.ToString();
     }
 
     void RenderMarketingButton()

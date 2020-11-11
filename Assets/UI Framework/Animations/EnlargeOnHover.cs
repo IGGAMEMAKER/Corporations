@@ -7,12 +7,42 @@ public class EnlargeOnHover : MonoBehaviour
     , IPointerExitHandler
 {
     readonly float animationDuration = 0.15f;
-    readonly float amplification = 0.2f;
+    public float amplification = 0.2f;
 
     float duration = 0;
     bool hovered;
 
     [SerializeField] bool DisableSound = false;
+
+    Texture2D _cursorTexture;
+    Texture2D clickCursor
+    {
+        get
+        {
+            if (_cursorTexture == null)
+            {
+                _cursorTexture = Resources.Load<Texture2D>("cursor"); // clickCursor
+            }
+
+            return _cursorTexture;
+        }
+    }
+    Texture2D _normalCursorTexture;
+    Texture2D normalCursor
+    {
+        get
+        {
+            return clickCursor;
+            if (_normalCursorTexture == null)
+            {
+                _normalCursorTexture = Resources.Load<Texture2D>("normalCursor");
+            }
+
+            return _normalCursorTexture;
+        }
+    }
+    CursorMode cursorMode = CursorMode.Auto;
+    Vector2 hotSpot = Vector2.zero;
 
     void Update()
     {
@@ -30,13 +60,14 @@ public class EnlargeOnHover : MonoBehaviour
         duration = 0;
 
         hovered = false;
+        SetNormalCursor();
 
         SetScale();
     }
 
     void SetScale()
     {
-        float scale = (1 + amplification * duration / animationDuration);
+        float scale = 1 + amplification * duration / animationDuration;
 
         transform.localScale = new Vector3(scale, scale, 1);
     }
@@ -63,10 +94,22 @@ public class EnlargeOnHover : MonoBehaviour
             SoundManager.PlayOnHintHoverSound();
 
         hovered = true;
+        SetClickCursor();
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         hovered = false;
+        SetNormalCursor();
+    }
+
+    void SetClickCursor()
+    {
+        Cursor.SetCursor(clickCursor, hotSpot, cursorMode);
+    }
+
+    void SetNormalCursor()
+    {
+        Cursor.SetCursor(normalCursor, hotSpot, cursorMode);
     }
 }

@@ -9,10 +9,10 @@ public class ContinueGame : ButtonController
 
     public override void Execute()
     {
-        foreach (var b in Buttons)
-        {
-            b.SetActive(false);
-        }
+        //foreach (var b in Buttons)
+        //{
+        //    b.SetActive(false);
+        //}
 
         State.LoadGameData(Q);
         State.LoadGameScene();

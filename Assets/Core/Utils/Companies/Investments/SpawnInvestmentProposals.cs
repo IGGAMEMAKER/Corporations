@@ -22,7 +22,7 @@ namespace Assets.Core
                 var max = GetMaxInvestingAmountForInvestorType(potentialInvestor);
 
                 var ShareholderId = potentialInvestor.shareholder.Id;
-                var Duration = UnityEngine.Random.Range(5, 10);
+                var Duration = 10; // UnityEngine.Random.Range(5, 10);
 
                 // TODO increase offer on early stages
                 // or increase company valuation instead!
