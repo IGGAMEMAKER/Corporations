@@ -15,13 +15,18 @@ public class MissionRelay : View
     int myGoalsCounter => MyCompany.companyGoal.Goals.Count;
     int newGoalsCounter => Investments.GetNewGoals(MyCompany, Q).Count;
 
-    public void RenderButtons()
+    public void RenderButtons(bool focusOnActive)
     {
         var myGoals = myGoalsCounter;
         var newGoals = newGoalsCounter;
 
-        ActiveMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"ACTIVE ({myGoalsCounter})";
-        NewMissions.GetComponentInChildren<TextMeshProUGUI>().text = $"NEW ({newGoalsCounter})";
+        var missionsText = ActiveMissions.GetComponentInChildren<TextMeshProUGUI>();
+        missionsText.text = $"ACTIVE ({myGoalsCounter})";
+        missionsText.color = Visuals.GetColorFromString(focusOnActive ? Colors.COLOR_GOLD : Colors.COLOR_NEUTRAL);
+
+        var newMissionsText = NewMissions.GetComponentInChildren<TextMeshProUGUI>();
+        newMissionsText.text = $"NEW ({newGoalsCounter})";
+        newMissionsText.color = Visuals.GetColorFromString(!focusOnActive ? Colors.COLOR_GOLD : Colors.COLOR_NEUTRAL);
 
         Draw(ActiveMissions, myGoals > 0);
         Draw(NewMissions, newGoals > 0);
@@ -40,7 +45,7 @@ public class MissionRelay : View
         Show(GoalsListView);
         Hide(PickGoalsListView);
 
-        RenderButtons();
+        RenderButtons(true);
     }
 
     public void ShowNewMissions()
@@ -48,6 +53,6 @@ public class MissionRelay : View
         Hide(GoalsListView);
         Show(PickGoalsListView);
 
-        RenderButtons();
+        RenderButtons(false);
     }
 }

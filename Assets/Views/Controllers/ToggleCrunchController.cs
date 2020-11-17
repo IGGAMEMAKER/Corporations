@@ -4,7 +4,7 @@ public class ToggleCrunchController : ButtonView
 {
     public override void Execute()
     {
-        Teams.ToggleCrunching(Q, SelectedCompany.company.Id);
+        Teams.ToggleCrunching(SelectedCompany);
 
         //ReNavigate();
     }

@@ -365,6 +365,8 @@ public enum TeamType
 
 public class TeamTask
 {
+    public bool IsPending;
+
     public bool IsFeatureUpgrade => this is TeamTaskFeatureUpgrade;
     public bool IsMarketingTask => this is TeamTaskChannelActivity;
     public bool IsSupportTask => this is TeamTaskSupportFeature && !((this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload);

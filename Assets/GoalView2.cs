@@ -71,7 +71,6 @@ public class GoalView2 : View
                 SoundManager.Play(Sound.GoalCompleted);
 
                 FindObjectOfType<MissionRelay>().ShowActiveMissions();
-                FindObjectOfType<MissionRelay>().RenderButtons();
             }
         }
 
