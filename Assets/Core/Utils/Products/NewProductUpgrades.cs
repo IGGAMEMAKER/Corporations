@@ -110,13 +110,19 @@ namespace Assets.Core
         public static Func<NewProductFeature, bool> IsCanUpgradeFeature(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
         {
             var ratingCap = GetFeatureRatingCap(company);
-            var ratingGain = GetFeatureRatingGain(company, company.team.Teams[0]);
+            var ratingGain = GetFeatureRatingGain(company);
+
+            var rating = GetFeatureRating(company, f.Name);
 
             // is not upgrading already
 
             // can upgrade more
 
-            return !IsUpgradingFeature(company, gameContext, f.Name) && GetFeatureRating(company, f.Name) + ratingGain <= ratingCap;
+            bool upgrading = IsUpgradingFeature(company, gameContext, f.Name);
+
+            bool isNotMaxedOut = rating + ratingGain <= ratingCap;
+
+            return !upgrading && isNotMaxedOut;
         };
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
@@ -141,10 +147,9 @@ namespace Assets.Core
 
         public static NewProductFeature[] GetProductFeaturesList(GameEntity company, GameContext gameContext)
         {
-            var allFeatures = GetAllFeaturesForProduct(company);
             var counter = GetAmountOfPossibleFeatures(company, gameContext);
 
-            var features = allFeatures
+            var features = GetAllFeaturesForProduct(company)
                 .Where(IsCanUpgradeFeature(company, gameContext))
 
                 // will not make anyone disloyal

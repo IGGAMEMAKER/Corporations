@@ -65,9 +65,17 @@ namespace Assets.Core
                 }
             }
 
+            ProcessTeamTaskIfNotPending(product, gameContext, task, team);
+        }
+
+        public static void ProcessTeamTaskIfNotPending(GameEntity product, GameContext gameContext, TeamTask task, TeamInfo team)
+        {
+            if (task.IsPending)
+                return;
+
             if (task.IsFeatureUpgrade)
             {
-                Products.UpgradeFeature(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext, team);
+                Products.UpgradeFeatureAndAddCooldown(product, (task as TeamTaskFeatureUpgrade).NewProductFeature.Name, gameContext);
             }
 
             if (task.IsMarketingTask)

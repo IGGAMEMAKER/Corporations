@@ -43,7 +43,7 @@ namespace Assets.Core
             return null;
         }
 
-        public static float GetFeatureRatingGain(GameEntity product, TeamInfo team)
+        public static float GetFeatureRatingGain(GameEntity product)
         {
             return product.teamEfficiency.Efficiency.FeatureGain;
         }
@@ -61,9 +61,9 @@ namespace Assets.Core
             //Flagship.features.Upgrades[f.NewProductFeature.Name] = 0;
         }
 
-        public static void UpgradeFeature(GameEntity product, string featureName, GameContext gameContext, TeamInfo team)
+        public static void UpgradeFeatureAndAddCooldown(GameEntity product, string featureName, GameContext gameContext)
         {
-            var gain = GetFeatureRatingGain(product, team);
+            var gain = GetFeatureRatingGain(product);
             var cap  = GetFeatureRatingCap(product);
 
             if (IsUpgradedFeature(product, featureName))

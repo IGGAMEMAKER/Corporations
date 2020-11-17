@@ -60,30 +60,39 @@ public partial class TaskProcessingSystem : OnDateChange
                 int slotId = 0;
                 foreach (var task in team.Tasks)
                 {
-                    if (task is TeamTaskFeatureUpgrade)
+                    if (task.IsPending)
                     {
-                        var upgrade = (task as TeamTaskFeatureUpgrade);
-
-                        var featureName = upgrade.NewProductFeature.Name;
-
-                        if (!Products.IsUpgradingFeature(p, gameContext, featureName))
+                        if (Teams.HasFreeSlotForTeamTask(p, task))
                         {
-                            Products.UpgradeFeature(p, featureName, gameContext, team);
-
-                            // -----------------------
-
-                            var cap = Products.GetFeatureRatingCap(p);
-
-                            if (p.features.Upgrades[featureName] >= cap)
-                            {
-                                removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
-                            }
+                            task.IsPending = false;
                         }
                     }
 
-                    if (task is TeamTaskChannelActivity)
+                    if (!task.IsPending)
                     {
-                        // channel tookout
+                        if (task is TeamTaskFeatureUpgrade)
+                        {
+                            var upgrade = task as TeamTaskFeatureUpgrade;
+
+                            var featureName = upgrade.NewProductFeature.Name;
+
+                            if (!Products.IsUpgradingFeature(p, gameContext, featureName))
+                            {
+                                Products.UpgradeFeatureAndAddCooldown(p, featureName, gameContext);
+
+                                // -----------------------
+
+                                if (p.features.Upgrades[featureName] >= Products.GetFeatureRatingCap(p))
+                                {
+                                    removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
+                                }
+                            }
+                        }
+
+                        if (task is TeamTaskChannelActivity)
+                        {
+                            // channel tookout
+                        }
                     }
 
                     slotId++;

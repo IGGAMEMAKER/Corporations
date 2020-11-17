@@ -14,9 +14,10 @@ namespace Assets.Core
 
     public static partial class Teams
     {
-        public static int GetAmountOfPossibleChannelsByTeamType(TeamInfo team)
+        public static int GetAmountOfPossibleChannelsByTeamType(TeamInfo team) => GetAmountOfPossibleChannelsByTeamType(team.TeamType);
+        public static int GetAmountOfPossibleChannelsByTeamType(TeamType teamType)
         {
-            switch (team.TeamType)
+            switch (teamType)
             {
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
@@ -27,9 +28,10 @@ namespace Assets.Core
             }
         }
 
-        public static int GetAmountOfPossibleFeaturesByTeamType(TeamInfo team)
+        public static int GetAmountOfPossibleFeaturesByTeamType(TeamInfo team) => GetAmountOfPossibleFeaturesByTeamType(team.TeamType);
+        public static int GetAmountOfPossibleFeaturesByTeamType(TeamType teamType)
         {
-            switch (team.TeamType)
+            switch (teamType)
             {
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
@@ -53,6 +55,11 @@ namespace Assets.Core
         public static int GetFreeSlotsForTaskType(GameEntity product, TeamTask task)
         {
             return GetMaxSlotsForTaskType(product, task) - GetActiveSlots(product, task);
+        }
+
+        public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
+        {
+            return GetFreeSlotsForTaskType(product, task) > 0;
         }
 
         public static SlotInfo GetSlotOfTeamTask(GameEntity product, TeamTask task)
