@@ -27,6 +27,13 @@ public class ChosenTeamTaskView : ParameterView
             return $"Marketing in Forum {channel.marketingChannel.ChannelInfo.ID} (+{Format.Minify(gain)} users / week)";
         }
 
+        if (task.IsHighloadTask)
+        {
+            var f = task as TeamTaskSupportFeature;
+            
+            return $"{task.GetPrettyName()} can maintain {Format.Minify(f.SupportFeature.SupportBonus.Max)} users";
+        }
+
         return "???";
     }
 

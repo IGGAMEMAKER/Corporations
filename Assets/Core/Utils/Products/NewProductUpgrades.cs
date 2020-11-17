@@ -107,7 +107,13 @@ namespace Assets.Core
             return counter;
         }
 
-        public static Func<NewProductFeature, bool> IsCanUpgradeFeature(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
+        public static bool HasPendingFeatureUpgrade(GameEntity product, string featureName)
+        {
+            return product.team.Teams[0].Tasks
+                .Any(t => t.IsFeatureUpgrade && (t as TeamTaskFeatureUpgrade).NewProductFeature.Name == featureName && t.IsPending);
+        }
+
+        public static Func<NewProductFeature, bool> IsCanBeShownAsUpgradeableFeature(GameEntity company, GameContext gameContext) => (NewProductFeature f) =>
         {
             var ratingCap = GetFeatureRatingCap(company);
             var ratingGain = GetFeatureRatingGain(company);
@@ -120,9 +126,11 @@ namespace Assets.Core
 
             bool upgrading = IsUpgradingFeature(company, gameContext, f.Name);
 
+            bool isPendingAlready = HasPendingFeatureUpgrade(company, f.Name);
+
             bool isNotMaxedOut = rating + ratingGain <= ratingCap;
 
-            return !upgrading && isNotMaxedOut;
+            return (!upgrading || isPendingAlready) && isNotMaxedOut;
         };
 
         public static Func<NewProductFeature, bool> IsFeatureWillNotDissapointAnyoneSignificant(GameEntity company) => (NewProductFeature f) =>
@@ -150,7 +158,7 @@ namespace Assets.Core
             var counter = GetAmountOfPossibleFeatures(company, gameContext);
 
             var features = GetAllFeaturesForProduct(company)
-                .Where(IsCanUpgradeFeature(company, gameContext))
+                .Where(IsCanBeShownAsUpgradeableFeature(company, gameContext))
 
                 // will not make anyone disloyal
                 .Where(IsFeatureWillNotDissapointAnyoneSignificant(company))
@@ -162,10 +170,13 @@ namespace Assets.Core
         }
 
         // set of features
+
+
+
         public static NewProductFeature[] GetUpgradeableMonetisationFeatures(GameEntity product, GameContext gameContext)
         {
             return GetMonetisationFeatures(product)
-                .Where(IsCanUpgradeFeature(product, gameContext))
+                .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
                 .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
                 .ToArray();
         }
@@ -174,7 +185,7 @@ namespace Assets.Core
             var counter = GetAmountOfPossibleFeatures(product, gameContext);
 
             return GetChurnFeatures(product)
-                .Where(IsCanUpgradeFeature(product, gameContext))
+                .Where(IsCanBeShownAsUpgradeableFeature(product, gameContext))
                 .Where(IsFeatureWillNotDissapointAnyoneSignificant(product))
                 .TakeWhile(f => counter-- > 0)
                 .ToArray();

@@ -1,6 +1,7 @@
 ﻿using Assets.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,6 +23,8 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
     public Sprite AcquisitionImage;
     public Sprite MonetisationImage;
     public Sprite UnknownImage;
+
+    public GameObject PendingTaskIcon;
 
     public AudiencesOnMainScreenListView _AudiencesOnMainScreenListView;
     AudiencesOnMainScreenListView AudiencesOnMainScreenListView
@@ -52,6 +55,8 @@ public class FeatureView : View, IPointerEnterHandler, IPointerExitHandler
 
         bool upgraded = Products.IsUpgradedFeature(product, featureName);
         var rating = (int)Products.GetFeatureRating(product, featureName);
+
+        Draw(PendingTaskIcon, Products.HasPendingFeatureUpgrade(product, featureName));
 
         Draw(Rating, true);
         //Draw(Rating, upgraded && rating > 0);

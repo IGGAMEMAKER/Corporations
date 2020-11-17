@@ -58,6 +58,7 @@ public partial class TaskProcessingSystem : OnDateChange
             foreach (var team in p.team.Teams)
             {
                 int slotId = 0;
+
                 foreach (var task in team.Tasks)
                 {
                     if (task.IsPending)
@@ -82,7 +83,7 @@ public partial class TaskProcessingSystem : OnDateChange
 
                                 // -----------------------
 
-                                if (p.features.Upgrades[featureName] >= Products.GetFeatureRatingCap(p))
+                                if (Products.GetFeatureRating(p, featureName) >= Products.GetFeatureRatingCap(p))
                                 {
                                     removableTasks.Add(new SlotInfo { SlotId = slotId, TeamId = teamId });
                                 }

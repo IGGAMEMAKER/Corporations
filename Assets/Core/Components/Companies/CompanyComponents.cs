@@ -411,6 +411,9 @@ public class TeamTask
         if (IsMarketingTask)
             return "Task: Channel" + (this as TeamTaskChannelActivity).ChannelId;
 
+        if (IsHighloadTask)
+            return "Task: Servers " + (this as TeamTaskSupportFeature).SupportFeature.Name;
+
         if (IsSupportTask)
             return "Task: " + (this as TeamTaskSupportFeature).SupportFeature.Name;
 
@@ -424,6 +427,9 @@ public class TeamTask
 
         if (IsMarketingTask)
             return "Marketing in Channel" + (this as TeamTaskChannelActivity).ChannelId;
+
+        if (IsHighloadTask)
+            return (this as TeamTaskSupportFeature).SupportFeature.Name;
 
         if (IsSupportTask)
             return (this as TeamTaskSupportFeature).SupportFeature.Name;

@@ -59,6 +59,7 @@ namespace Assets.Core
 
         public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
         {
+            return true;
             return GetFreeSlotsForTaskType(product, task) > 0;
         }
 

@@ -39,7 +39,7 @@ namespace Assets.Core
 
             var slots = GetFreeSlotsForTaskType(product, task);
 
-            if (slots <= 0)
+            if (!HasFreeSlotForTeamTask(product, task))
                 task.IsPending = true;
 
             AddTeamTask(product, gameContext, teamId, taskId, task);
