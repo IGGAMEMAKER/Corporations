@@ -47,10 +47,16 @@ namespace Assets.Core
             return product.team.Teams.Sum(t => (IsTaskSuitsTeam(t.TeamType, task) ? 1 : 0) * t.ID);
         }
 
+        public static int GetPendingFeaturesAmount(GameEntity product, TeamTask task)
+        {
+            return product.team.Teams[0].Tasks.Count(t => t.IsFeatureUpgrade && t.IsPending);
+        }
         public static int GetActiveSlots(GameEntity product, TeamTask task)
         {
             return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t));
         }
+
+
 
         public static int GetFreeSlotsForTaskType(GameEntity product, TeamTask task)
         {
@@ -59,7 +65,6 @@ namespace Assets.Core
 
         public static bool HasFreeSlotForTeamTask(GameEntity product, TeamTask task)
         {
-            return true;
             return GetFreeSlotsForTaskType(product, task) > 0;
         }
 

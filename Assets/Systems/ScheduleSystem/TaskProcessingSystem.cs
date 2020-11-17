@@ -69,6 +69,8 @@ public partial class TaskProcessingSystem : OnDateChange
                         }
                     }
 
+                    // ProcessTeamTaskIfNotPending
+
                     if (!task.IsPending)
                     {
                         if (task is TeamTaskFeatureUpgrade)
