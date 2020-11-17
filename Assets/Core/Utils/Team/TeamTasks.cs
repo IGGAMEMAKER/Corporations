@@ -91,23 +91,6 @@ namespace Assets.Core
             }
         }
 
-        public static SlotInfo GetSlotOfTeamTask(GameEntity product, TeamTask task)
-        {
-            for (var teamId = 0; teamId < product.team.Teams.Count; teamId++)
-            {
-                var t = product.team.Teams[teamId];
-                for (var slotId = 0; slotId < t.Tasks.Count; slotId++)
-                {
-                    if (t.Tasks[slotId] == task)
-                    {
-                        return new SlotInfo { SlotId = slotId, TeamId = teamId };
-                    }
-                }
-            }
-
-            return null;
-        }
-
         static void DisableTask(GameEntity product, GameContext gameContext, int teamId, int taskId) => DisableTask(product, gameContext, product.team.Teams[teamId].Tasks[taskId]);
         static void DisableTask(GameEntity product, GameContext gameContext, TeamTask task)
         {

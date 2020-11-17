@@ -372,6 +372,37 @@ public class TeamTask
     public bool IsSupportTask => this is TeamTaskSupportFeature && !((this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload);
     public bool IsHighloadTask => this is TeamTaskSupportFeature && (this as TeamTaskSupportFeature).SupportFeature.SupportBonus is SupportBonusHighload;
 
+    public bool AreSameTasks(TeamTask t)
+    {
+        if (!AreSameTypeTasks(t))
+            return false;
+
+        if (IsFeatureUpgrade && (this as TeamTaskFeatureUpgrade).NewProductFeature.Name == (t as TeamTaskFeatureUpgrade).NewProductFeature.Name)
+            return true;
+
+        if (IsMarketingTask && (this as TeamTaskChannelActivity).ChannelId == (t as TeamTaskChannelActivity).ChannelId)
+            return true;
+
+        if (IsHighloadTask && (this as TeamTaskSupportFeature).SupportFeature.Name == (t as TeamTaskSupportFeature).SupportFeature.Name)
+            return true;
+
+        return false;
+    }
+
+    public bool AreSameTypeTasks(TeamTask t)
+    {
+        if (IsFeatureUpgrade && t.IsFeatureUpgrade)
+            return true;
+
+        if (IsMarketingTask && t.IsMarketingTask)
+            return true;
+
+        if (IsHighloadTask && t.IsHighloadTask)
+            return true;
+
+        return false;
+    }
+
     public string GetTaskName()
     {
         if (IsFeatureUpgrade)

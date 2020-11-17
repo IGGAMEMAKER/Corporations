@@ -6,19 +6,65 @@ using UnityEngine;
 
 namespace Assets.Core
 {
-    public class SlotInfo
-    {
-        public int TeamId;
-        public int SlotId;
-    }
-
     public static partial class Teams
     {
+        public static int AddTeam(GameEntity company, TeamType teamType)
+        {
+            var prefix = GetFormattedTeamType(teamType);
+
+            bool isCoreTeam = company.team.Teams.Count == 0;
+
+            company.team.Teams.Add(new TeamInfo
+            {
+                Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
+                TeamType = teamType,
+                Tasks = new List<TeamTask>(),
+
+                //Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
+                Managers = new List<int>(),
+                Roles = new Dictionary<int, WorkerRole>(),
+
+                ManagerTasks = new List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
+
+                HiringProgress = 0,
+                Workers = 0,
+                Organisation = 0,
+                ID = company.team.Teams.Count,
+
+                TooManyLeaders = false
+            });
+
+            return company.team.Teams.Count - 1;
+        }
+
+        public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
+        {
+            var tasks = company.team.Teams[teamId].Tasks;
+            var count = tasks.Count;
+
+            while (tasks.Count > 0)
+            {
+                Teams.RemoveTeamTask(company, gameContext, teamId, 0);
+            }
+
+            company.team.Teams.RemoveAt(teamId);
+
+            int id = 0;
+            foreach (var t in company.team.Teams)
+            {
+                t.ID = id++;
+            }
+
+            Debug.Log("Team removed!");
+        }
+
         private static void ReplaceTeam(GameEntity company, GameContext gameContext, TeamComponent t)
         {
             company.ReplaceTeam(t.Morale, t.Organisation, t.Managers, t.Workers, t.Teams, t.Salaries);
             Economy.UpdateSalaries(company, gameContext);
         }
+
+        // other ----------
 
         public static void ToggleCrunching(GameEntity c)
         {
@@ -66,68 +112,6 @@ namespace Assets.Core
             }
         }
 
-        public static int AddTeam(GameEntity company, TeamType teamType)
-        {
-            var prefix = GetFormattedTeamType(teamType);
-
-            bool isCoreTeam = company.team.Teams.Count == 0;
-
-            company.team.Teams.Add(new TeamInfo {
-                Name = isCoreTeam ? "Core team" : $"{prefix} #{company.team.Teams.Count}",
-                TeamType = teamType,
-                Tasks = new List<TeamTask>(),
-
-                //Offers = new System.Collections.Generic.Dictionary<int, JobOffer> { },
-                Managers = new List<int>(),
-                Roles = new Dictionary<int, WorkerRole>(),
-
-                ManagerTasks = new List<ManagerTask> { ManagerTask.None, ManagerTask.None, ManagerTask.None },
-
-                HiringProgress = 0, Workers = 0,
-                Organisation = 0,
-                ID = company.team.Teams.Count,
-
-                TooManyLeaders = false
-            });
-
-            return company.team.Teams.Count - 1;
-        }
-
-        public static void RemoveTeam(GameEntity company, GameContext gameContext, int teamId)
-        {
-            var tasks = company.team.Teams[teamId].Tasks;
-            var count = tasks.Count;
-
-            while (tasks.Count > 0)
-            {
-                Teams.RemoveTeamTask(company, gameContext, teamId, 0);
-            }
-
-            company.team.Teams.RemoveAt(teamId);
-
-            int id = 0;
-            foreach (var t in company.team.Teams)
-            {
-                t.ID = id++;
-            }
-
-            Debug.Log("Team removed!");
-        }
-
-        public static void SetManagerTask(GameEntity company, int teamId, int taskId, ManagerTask managerTask)
-        {
-            var tasks = company.team.Teams[teamId].ManagerTasks;
-            if (tasks.Count < taskId)
-            {
-                tasks.Add(managerTask);
-            }
-            else
-            {
-                tasks[taskId] = managerTask;
-            }
-            //company.team.Teams[teamId].ManagerTasks[taskId] = managerTask;
-        }
-
         public static int GetAmountOfWorkersByTeamType(TeamType teamType)
         {
             switch (teamType)
@@ -144,7 +128,7 @@ namespace Assets.Core
 
         public static int GetAmountOfTeams(GameEntity company, TeamType teamType)
         {
-            return company.team.Teams.FindAll(t => t.TeamType == teamType).Count;
+            return company.team.Teams.Count(t => t.TeamType == teamType);
         }
 
         

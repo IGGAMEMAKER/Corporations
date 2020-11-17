@@ -96,5 +96,21 @@ namespace Assets.Core
 
             return managerIds;
         }
+
+        public static void SetManagerTask(GameEntity company, int teamId, int taskId, ManagerTask managerTask)
+        {
+            var tasks = company.team.Teams[teamId].ManagerTasks;
+
+            if (tasks.Count < taskId)
+            {
+                tasks.Add(managerTask);
+            }
+            else
+            {
+                tasks[taskId] = managerTask;
+            }
+
+            //company.team.Teams[teamId].ManagerTasks[taskId] = managerTask;
+        }
     }
 }

@@ -6,11 +6,17 @@ using UnityEngine;
 
 namespace Assets.Core
 {
+    public class SlotInfo
+    {
+        public int TeamId;
+        public int SlotId;
+    }
+
     public static partial class Teams
     {
-        public static int GetAmountOfPossibleChannelsByTeamType(TeamType teamType)
+        public static int GetAmountOfPossibleChannelsByTeamType(TeamInfo team)
         {
-            switch (teamType)
+            switch (team.TeamType)
             {
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
@@ -21,9 +27,9 @@ namespace Assets.Core
             }
         }
 
-        public static int GetAmountOfPossibleFeaturesByTeamType(TeamType teamType)
+        public static int GetAmountOfPossibleFeaturesByTeamType(TeamInfo team)
         {
-            switch (teamType)
+            switch (team.TeamType)
             {
                 case TeamType.BigCrossfunctionalTeam: return 3;
                 case TeamType.CrossfunctionalTeam: return 2;
@@ -36,17 +42,35 @@ namespace Assets.Core
 
         public static int GetMaxSlotsForTaskType(GameEntity product, TeamTask task)
         {
-            return product.team.Teams.Count(t => IsTaskSuitsTeam(t.TeamType, task));
+            return product.team.Teams.Sum(t => (IsTaskSuitsTeam(t.TeamType, task) ? 1 : 0) * t.ID);
         }
 
-        public static int GetAmountOfSameTypeTasksThatAreActive(GameEntity product, TeamTask task)
+        public static int GetActiveSlots(GameEntity product, TeamTask task)
         {
-            return product.team.Teams[0].Tasks.Count(t => t.);
+            return product.team.Teams[0].Tasks.Count(t => task.AreSameTypeTasks(t));
         }
 
         public static int GetFreeSlotsForTaskType(GameEntity product, TeamTask task)
         {
+            return GetMaxSlotsForTaskType(product, task) - GetActiveSlots(product, task);
+        }
 
+        public static SlotInfo GetSlotOfTeamTask(GameEntity product, TeamTask task)
+        {
+            for (var teamId = 0; teamId < product.team.Teams.Count; teamId++)
+            {
+                var t = product.team.Teams[teamId];
+
+                for (var slotId = 0; slotId < t.Tasks.Count; slotId++)
+                {
+                    if (t.Tasks[slotId] == task)
+                    {
+                        return new SlotInfo { SlotId = slotId, TeamId = teamId };
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
